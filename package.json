@@ -1,7 +1,7 @@
 {
   "name": "@enact/malachite",
   "version": "3.2.5",
-  "description": "Touchscreen support library for Enact, containing a variety of UI components.",
+  "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
     "clean": "enact clean",
