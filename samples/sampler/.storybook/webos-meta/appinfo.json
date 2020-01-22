@@ -1,6 +1,6 @@
 {
-	"id": "com.webos.app.enactsampler",
-	"version": "1.0.0-alpha.2",
+	"id": "com.webos.app.enactmalachitesampler",
+	"version": "1.0.0-alpha.1",
 	"vendor": "LGE-SVL",
 	"type": "web",
 	"main": "index.html",

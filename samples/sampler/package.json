@@ -1,6 +1,6 @@
 {
   "name": "malachite-sampler",
-  "version": "3.2.5",
+  "version": "1.0.0-alpha.1",
   "description": "Component and QA samples for Malachite",
   "private": true,
   "main": "index.js",
