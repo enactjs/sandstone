@@ -41,12 +41,12 @@ const PanelsBase = kind({
 		!noPanels ? <Panels {...rest} onApplicationClose={reloadPage}>
 			{!noPanel ? <Panel className={css.panel}>
 				{!noHeader ? [<Header type="compact" title={title} key="header" />,
-				<Column key="body">
-					{description ? (
-						<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
-					) : null}
-					<Cell className={css.storyCell}>{children}</Cell>
-				</Column>] : children
+					<Column key="body">
+						{description ? (
+							<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
+						) : null}
+						<Cell className={css.storyCell}>{children}</Cell>
+					</Column>] : children
 				}
 			</Panel> : children}
 		</Panels> : <div {...rest}>{children}</div>
@@ -182,7 +182,7 @@ const StorybookDecorator = (story, config) => {
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
 			style={{
-				'--sandstone-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
+				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
 			noHeader={config.noHeader}
