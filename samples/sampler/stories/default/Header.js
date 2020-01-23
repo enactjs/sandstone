@@ -33,7 +33,7 @@ const prop = {
 	type: ['compact', 'dense', 'standard']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Header',
 		context => {

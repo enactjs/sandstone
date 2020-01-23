@@ -25,7 +25,7 @@ const parseIntOrNullify = (v) => {
 
 RangePicker.displayName = 'RangePicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'RangePicker',
 		() => (

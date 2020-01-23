@@ -9,7 +9,7 @@ import BodyText, {BodyTextBase} from '../../../../BodyText';
 BodyText.displayName = 'BodyText';
 const Config = mergeComponentMetadata('BodyText', UiBodyTextBase, UiBodyText, BodyTextBase, BodyText);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'BodyText',
 		() => (

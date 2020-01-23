@@ -19,7 +19,7 @@ const prop = {
 	icons: ['', ...iconNames]
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Button',
 		() => (

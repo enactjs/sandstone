@@ -15,7 +15,7 @@ import {listIcons} from './icons';
 FormCheckboxItem.displayName = 'FormCheckboxItem';
 const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, FormCheckboxItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'FormCheckboxItem',
 		() => {

@@ -18,7 +18,7 @@ import logo from '../../images/icon-enact-logo.svg';
 Icon.displayName = 'Icon';
 const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Icon',
 		() => {

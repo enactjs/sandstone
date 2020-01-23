@@ -18,7 +18,7 @@ const prop = {
 	type: ['text', 'number', 'password']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Input',
 		() => (

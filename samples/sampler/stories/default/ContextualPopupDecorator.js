@@ -27,7 +27,7 @@ const renderPopup = () => (
 	<div>{text('popup string', {groupId: 'Popup'}, 'Hello Contextual Popup')}</div>
 );
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ContextualPopupDecorator',
 		() => (

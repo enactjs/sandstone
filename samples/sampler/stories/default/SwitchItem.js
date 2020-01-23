@@ -15,7 +15,7 @@ import {listIcons} from './icons';
 SwitchItem.displayName = 'SwitchItem';
 const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, SwitchItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'SwitchItem',
 		() => {

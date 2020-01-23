@@ -12,7 +12,7 @@ import Button from '../../../../Button';
 const Config = mergeComponentMetadata('Dialog', Popup, Dialog);
 Dialog.displayName = 'Dialog';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Dialog',
 		() => (

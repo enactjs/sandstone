@@ -62,7 +62,7 @@ const Config = mergeComponentMetadata('MediaOverlay', MediaOverlay, MediaOverlay
 Config.groupId = 'MediaOverlay';
 MediaOverlay.displayName = 'MediaOverlay';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'MediaOverlay',
 		() => {

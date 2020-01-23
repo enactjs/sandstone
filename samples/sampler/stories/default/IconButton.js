@@ -23,7 +23,7 @@ const prop = {
 IconButton.displayName = 'IconButton';
 const Config = mergeComponentMetadata('IconButton', Button, ButtonBase, UIButton, UIButtonBase, IconButtonBase, IconButton);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'IconButton',
 		() => {

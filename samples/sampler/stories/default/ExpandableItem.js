@@ -13,7 +13,7 @@ ExpandableItem.displayName = 'ExpandableItem';
 Icon.displayName = 'Icon';
 Item.displayName = 'Item';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ExpandableItem',
 		() => (

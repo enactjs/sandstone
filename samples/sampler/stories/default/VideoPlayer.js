@@ -82,7 +82,7 @@ const MediaControlsConfig = mergeComponentMetadata('MediaControls', MediaControl
 VideoPlayer.displayName = 'VideoPlayer';
 MediaControls.displayName = 'MediaControls';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'VideoPlayer',
 		() => {

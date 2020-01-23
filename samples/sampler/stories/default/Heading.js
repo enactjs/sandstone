@@ -17,7 +17,7 @@ const prop = {
 	spacing: ['', 'auto', 'large', 'medium', 'small', 'none']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Heading',
 		() => (<React.Fragment>

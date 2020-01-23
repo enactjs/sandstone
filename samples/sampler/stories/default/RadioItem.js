@@ -15,7 +15,7 @@ import {listIcons} from './icons';
 RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, RadioItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'RadioItem',
 		() => {

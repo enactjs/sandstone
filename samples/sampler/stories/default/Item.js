@@ -9,7 +9,7 @@ import Item, {ItemBase} from '../../../../Item';
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Item',
 		() => (

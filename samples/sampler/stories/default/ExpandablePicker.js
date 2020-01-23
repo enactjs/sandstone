@@ -11,7 +11,7 @@ ExpandablePicker.displayName = 'ExpandablePicker';
 
 const emoticons = ['💥 boom', '😩🖐 facepalm', '🍩 doughnut', '👻 ghost', '💍 ring', '🎮 videogame', '🍌🍌 bananas'];
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ExpandablePicker',
 		() => (

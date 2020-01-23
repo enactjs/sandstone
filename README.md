@@ -7,7 +7,7 @@
 ```
 import kind from '@enact/core/kind';
 import Button from '@enact/sandstone/Button';
-import SandstoneDecorator from '@enact/sandstone/SandstoneDecorator';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import React from 'react';
 
 const MyApp = kind({
@@ -15,7 +15,7 @@ const MyApp = kind({
 	render: () => (<Button>Hello, Enact!</Button>)
 });
 
-const MySandstoneApp = SandstoneDecorator(MyApp);
+const MySandstoneApp = ThemeDecorator(MyApp);
 
 export default MySandstoneApp;
 ```

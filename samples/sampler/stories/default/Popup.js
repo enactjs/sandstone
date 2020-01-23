@@ -9,7 +9,7 @@ import BodyText from '../../../../BodyText';
 
 const Config = mergeComponentMetadata('Popup', Popup);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Popup',
 		() => (

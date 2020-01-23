@@ -17,7 +17,7 @@ const prop = {
 	width: [null, 'small', 'medium', 'large']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'EditableIntegerPicker',
 		() => (

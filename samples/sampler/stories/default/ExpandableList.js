@@ -9,7 +9,7 @@ import ExpandableList, {ExpandableListBase} from '../../../../ExpandableList';
 const Config = mergeComponentMetadata('ExpandableList', ExpandableList, ExpandableListBase);
 ExpandableList.displayName = 'ExpandableList';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ExpandableList',
 		() => (

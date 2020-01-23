@@ -1,17 +1,17 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import SandstoneDecorator from '../';
+import ThemeDecorator from '../';
 import Spotlight from '@enact/spotlight';
 
-import css from '../SandstoneDecorator.module.less';
+import css from '../ThemeDecorator.module.less';
 
-describe('SandstoneDecorator', () => {
+describe('ThemeDecorator', () => {
 
 	const AppRoot = (props) => <div data-app {...props} />;
 
 	test('should add base sandstone classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
-		const App = SandstoneDecorator(config, AppRoot);
+		const App = ThemeDecorator(config, AppRoot);
 		const subject = mount(
 			<App />
 		);
@@ -28,7 +28,7 @@ describe('SandstoneDecorator', () => {
 
 	test('should add author classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
-		const App = SandstoneDecorator(config, AppRoot);
+		const App = ThemeDecorator(config, AppRoot);
 		const subject = mount(
 			<App className="author-class" />
 		);
@@ -47,7 +47,7 @@ describe('SandstoneDecorator', () => {
 		'should not add .sandstone class to wrapped component when float is enabled',
 		() => {
 			const config = {ri: false, i18n: false, spotlight: false, float: true, overlay: false};
-			const App = SandstoneDecorator(config, AppRoot);
+			const App = ThemeDecorator(config, AppRoot);
 			const subject = mount(
 				<App />
 			);
@@ -67,7 +67,7 @@ describe('SandstoneDecorator', () => {
 		'should not add .bg class to wrapped component when overlay is enabled',
 		() => {
 			const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: true};
-			const App = SandstoneDecorator(config, AppRoot);
+			const App = ThemeDecorator(config, AppRoot);
 			const subject = mount(
 				<App />
 			);

@@ -11,7 +11,7 @@ import Spinner, {SpinnerBase} from '../../../../Spinner';
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Spinner',
 		() => (

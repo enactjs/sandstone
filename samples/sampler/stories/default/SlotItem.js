@@ -14,7 +14,7 @@ const prop = {
 
 SlotItem.displayName = 'SlotItem';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'SlotItem',
 		() => (

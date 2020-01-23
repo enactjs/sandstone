@@ -11,7 +11,7 @@ removeProps(Config, 'year defaultOpen day maxDays maxMonths month onChangeDate o
 
 DatePicker.displayName = 'DatePicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'DatePicker',
 		() => (

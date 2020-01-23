@@ -15,7 +15,7 @@ import Icon from '../../../../Icon';
 CheckboxItem.displayName = 'CheckboxItem';
 const Config = mergeComponentMetadata('CheckboxItem', UiItem, ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, CheckboxItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'CheckboxItem',
 		() => {

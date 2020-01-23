@@ -12,7 +12,7 @@ const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderToolti
 Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Slider',
 		() => {

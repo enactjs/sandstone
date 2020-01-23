@@ -15,7 +15,7 @@ const src = {
 const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator);
 Image.displayName = 'Image';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Image',
 		() => (

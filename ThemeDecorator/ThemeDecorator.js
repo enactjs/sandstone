@@ -1,8 +1,8 @@
 /**
- * Exports the {@link sandstone/SandstoneDecorator.SandstoneDecorator} HOC
+ * Exports the {@link sandstone/ThemeDecorator.ThemeDecorator} HOC
  *
- * @module sandstone/SandstoneDecorator
- * @exports SandstoneDecorator
+ * @module sandstone/ThemeDecorator
+ * @exports ThemeDecorator
  */
 
 import {addAll} from '@enact/core/keymap';
@@ -19,16 +19,16 @@ import Skinnable from '../Skinnable';
 import I18nFontDecorator from './I18nFontDecorator';
 import AccessibilityDecorator from './AccessibilityDecorator';
 import screenTypes from './screenTypes.json';
-import css from './SandstoneDecorator.module.less';
+import css from './ThemeDecorator.module.less';
 import {configure} from '@enact/ui/Touchable';
 
 /**
- * Default config for `SandstoneDecorator`.
+ * Default config for `ThemeDecorator`.
  *
- * @memberof sandstone/SandstoneDecorator.SandstoneDecorator
+ * @memberof sandstone/ThemeDecorator.ThemeDecorator
  * @hocconfig
  */
-const defaultConfig = /** @lends sandstone/SandstoneDecorator.SandstoneDecorator.defaultConfig */ {
+const defaultConfig = /** @lends sandstone/ThemeDecorator.ThemeDecorator.defaultConfig */ {
 	/**
 	 * Applies AccessibilityDecorator.
 	 *
@@ -36,7 +36,7 @@ const defaultConfig = /** @lends sandstone/SandstoneDecorator.SandstoneDecorator
 	 *
 	 * @type {Boolean}
 	 * @default true
-	 * @see {@link sandstone/SandstoneDecorator.AccessibilityDecorator}
+	 * @see {@link sandstone/ThemeDecorator.AccessibilityDecorator}
 	 * @public
 	 */
 	accessible: true,
@@ -145,17 +145,17 @@ const defaultConfig = /** @lends sandstone/SandstoneDecorator.SandstoneDecorator
  * Note: This HoC passes `className` to the wrapped component. It must be passed to the main DOM
  * node.
  *
- * @class SandstoneDecorator
- * @memberof sandstone/SandstoneDecorator
+ * @class ThemeDecorator
+ * @memberof sandstone/ThemeDecorator
  * @mixes ui/FloatingLayer.FloatingLayerDecorator
  * @mixes ui/resolution.ResolutionDecorator
  * @mixes spotlight/SpotlightRootDecorator.SpotlightRootDecorator
  * @mixes sandstone/Skinnable.Skinnable
- * @mixes sandstone/SandstoneDecorator.AccessibilityDecorator
+ * @mixes sandstone/ThemeDecorator.AccessibilityDecorator
  * @hoc
  * @public
  */
-const SandstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
+const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {accessible, ri, i18n, spotlight, float, noAutoFocus, overlay,
 		skin, disableFullscreen} = config;
 
@@ -226,7 +226,7 @@ const SandstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	});
 
 	const Decorator = class extends React.Component {
-		static displayName = 'SandstoneDecorator';
+		static displayName = 'ThemeDecorator';
 
 		render () {
 			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
@@ -243,5 +243,5 @@ const SandstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return Decorator;
 });
 
-export default SandstoneDecorator;
-export {SandstoneDecorator};
+export default ThemeDecorator;
+export {ThemeDecorator};

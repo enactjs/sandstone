@@ -1,4 +1,4 @@
-// Malachite Environment
+// Sandstone Environment
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
@@ -9,10 +9,10 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
 import BodyText from '../../../../BodyText';
-import SandstoneDecorator from '../../../../SandstoneDecorator';
+import ThemeDecorator from '../../../../ThemeDecorator';
 import {Panels, Panel, Header} from '../../../../Panels';
 
-import css from './MalachiteEnvironment.module.less';
+import css from './ThemeEnvironment.module.less';
 
 const globalGroup = 'Global Knobs';
 
@@ -22,7 +22,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'MalachiteEnvironmentPanels',
+	name: 'ThemeEnvrionmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
@@ -34,19 +34,19 @@ const PanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'malachiteEnvironmentPanels'
+		className: 'themeEnvrionmentPanels'
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
 		!noPanels ? <Panels {...rest} onApplicationClose={reloadPage}>
 			{!noPanel ? <Panel className={css.panel}>
 				{!noHeader ? [<Header type="compact" title={title} key="header" />,
-					<Column key="body">
-						{description ? (
-							<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
-						) : null}
-						<Cell className={css.storyCell}>{children}</Cell>
-					</Column>] : children
+				<Column key="body">
+					{description ? (
+						<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
+					) : null}
+					<Cell className={css.storyCell}>{children}</Cell>
+				</Column>] : children
 				}
 			</Panel> : children}
 		</Panels> : <div {...rest}>{children}</div>
@@ -54,47 +54,47 @@ const PanelsBase = kind({
 });
 
 const FullscreenBase = kind({
-	name: 'MalachiteEnvironment',
+	name: 'ThemeEnvrionment',
 
 	render: (props) => (
 		<div {...props} />
 	)
 });
 
-const Malachite = SandstoneDecorator({overlay: false}, PanelsBase);
-const MalachiteFullscreen = SandstoneDecorator({overlay: false}, FullscreenBase);
+const Sandtone = ThemeDecorator({overlay: false}, PanelsBase);
+const SandstoneFullscreen = ThemeDecorator({overlay: false}, FullscreenBase);
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
-	'local':                                                             '',
-	'en-US - US English':                                                'en-US',
-	'ko-KR - Korean':                                                    'ko-KR',
-	'es-ES - Spanish, with alternate weekends':                          'es-ES',
-	'am-ET - Amharic, 5 meridiems':                                      'am-ET',
-	'th-TH - Thai, with tall characters':                                'th-TH',
-	'ar-SA - Arabic, RTL and standard font':                             'ar-SA',
-	'ur-PK - Urdu, RTL and custom Urdu font':                            'ur-PK',
-	'zh-Hans-HK - Simplified Chinese, custom Hans font':                 'zh-Hans-HK',
-	'zh-Hant-HK - Traditional Chinese, custom Hant font':                'zh-Hant-HK',
-	'vi-VN - Vietnamese, Special non-latin font handling':               'vi-VN',
-	'ta-IN - Tamil, custom Indian font':                                 'ta-IN',
-	'ja-JP - Japanese, custom Japanese font':                            'ja-JP',
-	'en-JP - English, custom Japanese font':                             'en-JP',
+	'local': '',
+	'en-US - US English': 'en-US',
+	'ko-KR - Korean': 'ko-KR',
+	'es-ES - Spanish, with alternate weekends': 'es-ES',
+	'am-ET - Amharic, 5 meridiems': 'am-ET',
+	'th-TH - Thai, with tall characters': 'th-TH',
+	'ar-SA - Arabic, RTL and standard font': 'ar-SA',
+	'ur-PK - Urdu, RTL and custom Urdu font': 'ur-PK',
+	'zh-Hans-HK - Simplified Chinese, custom Hans font': 'zh-Hans-HK',
+	'zh-Hant-HK - Traditional Chinese, custom Hant font': 'zh-Hant-HK',
+	'vi-VN - Vietnamese, Special non-latin font handling': 'vi-VN',
+	'ta-IN - Tamil, custom Indian font': 'ta-IN',
+	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
+	'en-JP - English, custom Japanese font': 'en-JP',
 	'si-LK - Sinhala, external font family with different line metrics': 'si-LK'
 };
 
 // This mapping/remapping is necessary to support objects being used as select-knob values, since
 // they cannot be safely URL encoded during the knob saving/linking process.
 const backgroundLabels = {
-	'Default (Based on Skin)':  '',
-	'Strawberries (Red)':       'backgroundColorful1',
-	'Tunnel (Green)':           'backgroundColorful2',
-	'Mountains (Blue)':         'backgroundColorful3',
-	'Misty River':              'backgroundColorful4',
-	'Turbulant Tides':          'backgroundColorful5',
-	'Space Station':            'backgroundColorful6',
-	'Warm Pup':                 'backgroundColorful7',
-	'Random':                   'backgroundColorful8'
+	'Default (Based on Skin)': '',
+	'Strawberries (Red)': 'backgroundColorful1',
+	'Tunnel (Green)': 'backgroundColorful2',
+	'Mountains (Blue)': 'backgroundColorful3',
+	'Misty River': 'backgroundColorful4',
+	'Turbulant Tides': 'backgroundColorful5',
+	'Space Station': 'backgroundColorful6',
+	'Warm Pup': 'backgroundColorful7',
+	'Random': 'backgroundColorful8'
 };
 
 // Values of `backgroundLabels` must be kept in sync with keys of `backgroundLabelMap`.
@@ -174,7 +174,7 @@ const StorybookDecorator = (story, config) => {
 	}
 
 	return (
-		<Malachite
+		<Sandstone
 			className={classnames(classes)}
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
@@ -182,17 +182,17 @@ const StorybookDecorator = (story, config) => {
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
 			style={{
-				'--malachite-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
+				'--sandstone-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
 			noHeader={config.noHeader}
 			noPanel={config.noPanel}
 			noPanels={config.noPanels}
-			{...config.malachiteProps}
+			{...config.sandstoneProps}
 			{...config.panelsProps}
 		>
 			{sample}
-		</Malachite>
+		</Sandstone>
 	);
 };
 
@@ -200,7 +200,7 @@ const FullscreenStorybookDecorator = (story, config) => {
 	const sample = story();
 	const args = getArgs();
 	return (
-		<MalachiteFullscreen
+		<SandstoneFullscreen
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
 			locale={select('locale', locales, 'en-US')}
@@ -210,9 +210,9 @@ const FullscreenStorybookDecorator = (story, config) => {
 			skin={select('skin', skins, getKnobFromArgs(args, 'skin'))}
 		>
 			{sample}
-		</MalachiteFullscreen>
+		</SandstoneFullscreen>
 	);
 };
 
 export default StorybookDecorator;
-export {StorybookDecorator as Malachite, FullscreenStorybookDecorator as MalachiteFullscreen};
+export {StorybookDecorator as Sandstone, FullscreenStorybookDecorator as SandstoneFullscreen};

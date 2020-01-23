@@ -16,7 +16,7 @@ const prop = {
 ToggleButton.displayName = 'ToggleButton';
 const Config = mergeComponentMetadata('ToggleButton', UIButtonBase, UiButton, ButtonBase, Button, ToggleButton);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ToggleButton',
 		() => (

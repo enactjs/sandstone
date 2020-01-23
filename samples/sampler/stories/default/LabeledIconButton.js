@@ -14,7 +14,7 @@ import iconNames from './icons';
 LabeledIconButton.displayName = 'LabeledIconButton';
 const Config = mergeComponentMetadata('LabeledIconButton', UiLabeledIconBase, UiLabeledIcon, Button, ButtonBase, UIButton, UIButtonBase, IconButtonBase, LabeledIconButton);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledIconButton',
 		() => (

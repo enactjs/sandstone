@@ -6,7 +6,7 @@ import Marquee from '../../../../Marquee';
 
 Marquee.displayName = 'Marquee';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Marquee',
 		() => {

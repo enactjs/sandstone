@@ -505,7 +505,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/SandstoneDecorator` to apply both Latin and non-Latin rules to the root element so all children inherit the correct default font rules.
+- `sandstone/ThemeDecorator` to apply both Latin and non-Latin rules to the root element so all children inherit the correct default font rules.
 - `sandstone/Marquee`, `sandstone/MediaOverlay` to display locale-based font
 - `sandstone/DayPicker` separator character used between selected days in the label in fa-IR locale
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` scrolling by voice commands in RTL locales
@@ -706,7 +706,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ContextualPopupDecorator` instance method `positionContextualPopup()`
-- `sandstone/SandstoneDecorator` config property `disableFullscreen` to prevent the decorator from filling the entire screen
+- `sandstone/ThemeDecorator` config property `disableFullscreen` to prevent the decorator from filling the entire screen
 - `sandstone/Scroller` prop `onUpdate`
 
 ### Fixed
@@ -740,7 +740,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Dialog` properties `preserveCase` and `showDivider`, replaced by `casing` and `noDivider` respectively
 - `sandstone/Divider` property `preserveCase`, replaced by `casing`
 - `sandstone/ExpandableInput` property `onInputChange`, replaced by `onChange`
-- `sandstone/SandstoneDecorator.TextSizeDecorator`, replaced by `sandstone/SandstoneDecorator.AccessibilityDecorator`
+- `sandstone/ThemeDecorator.TextSizeDecorator`, replaced by `sandstone/ThemeDecorator.AccessibilityDecorator`
 - `sandstone/Panels.Header` property `preserveCase`, replaced by `casing`
 - `sandstone/Panels.Panel` property `noAutoFocus`, replaced by `autoFocus`
 - `sandstone/TooltipDecorator` property `tooltipPreserveCase`, replaced by `tooltipCasing`
@@ -900,7 +900,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ExpandableItem` and related expandable components to expand smoothly when used in a scroller
 - `sandstone/GridListImageItem` to show proper `placeholder` and `selectionOverlay`
-- `sandstone/SandstoneDecorator` to optimize localized font loading performance
+- `sandstone/ThemeDecorator` to optimize localized font loading performance
 - `sandstone/Scroller` and `sandstone/VirtualList` navigation via 5-way from paging controls
 - `sandstone/VideoPlayer` to render bottom controls at idle after mounting
 - `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` to give initial focus
@@ -1051,7 +1051,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/SandstoneDecorator` root node to fill the entire space available, which simplifies positioning and sizing for child elements (previously always measured 0 in height)
+- `sandstone/ThemeDecorator` root node to fill the entire space available, which simplifies positioning and sizing for child elements (previously always measured 0 in height)
 - `sandstone/VirtualList` to prevent infinite function call when a size of contents is slightly longer than a client size without a scrollbar
 - `sandstone/VirtualList` to sync scroll position when clientSize changed
 
@@ -1598,7 +1598,7 @@ No significant changes.
 - `sandstone/Slider` and `sandstone/IncrementSlider` prop `noFill` to support a style without the fill
 - `sandstone/Marquee` property `rtl` to set directionality to right-to-left
 - `sandstone/VirtualList.GridListImageItem` property `selectionOverlay` to add custom component for selection overlay
-- `sandstone/SandstoneDecorator` property `skin` to let an app choose its skin: "sandstone" and "sandstone-light" are now available
+- `sandstone/ThemeDecorator` property `skin` to let an app choose its skin: "sandstone" and "sandstone-light" are now available
 - `sandstone/FormCheckboxItem`
 - `sandstone/FormCheckbox`, a standalone checkbox, to support `sandstone/FormCheckboxItem`
 - `sandstone/Input` props `invalid` and `invalidMessage` to display a tooltip when input value is invalid
@@ -1610,7 +1610,7 @@ No significant changes.
 
 - `sandstone/Picker` arrow icon for `joined` picker: small when not spotted, hidden when it reaches the end of the picker
 - `sandstone/Checkbox` and `sandstone/CheckboxItem` to reflect the latest design
-- `sandstone/SandstoneDecorator/fontGenerator` was refactored to use the browser's FontFace API to dynamically load locale fonts
+- `sandstone/ThemeDecorator/fontGenerator` was refactored to use the browser's FontFace API to dynamically load locale fonts
 - `sandstone/VideoPlayer` space allotment on both sides of the playback controls to support 4 buttons; consequently the "more" controls area has shrunk by the same amount
 - `sandstone/VideoPlayer` to not disable media button (play/pause)
 - `sandstone/Scroller` and other scrolling components so that paging controls are not spottable by default with 5-way
@@ -1634,7 +1634,7 @@ No significant changes.
 
 ### Added
 
-- `sandstone/Panels.Panel` prop and `sandstone/SandstoneDecorator` config option: `noAutoFocus` to support prevention of setting automatic focus after render
+- `sandstone/Panels.Panel` prop and `sandstone/ThemeDecorator` config option: `noAutoFocus` to support prevention of setting automatic focus after render
 - `sandstone/VideoPlayer` props: `backwardIcon`, `forwardIcon`, `jumpBackwardIcon`, `jumpForwardIcon`, `pauseIcon`, and `playIcon` to support icon customization of the player
 - `sandstone/VideoPlayer` props `jumpButtonsDisabled` and `rateButtonsDisabled` for disabling the pairs of buttons when it's inappropriate for the playing media
 - `sandstone/VideoPlayer` property `playbackRateHash` to support custom playback rates
@@ -1680,7 +1680,7 @@ No significant changes.
 ### Added
 
 - `sandstone/Button` property `icon` to support a built-in icon next to the text content. The Icon supports everything that `sandstone/Icon` supports, as well as a custom icon.
-- `sandstone/SandstoneDecorator` property `textSize` to resize several components to requested CMR sizes. Simply add `textSize="large"` to your `App` and the new sizes will automatically take effect.
+- `sandstone/ThemeDecorator` property `textSize` to resize several components to requested CMR sizes. Simply add `textSize="large"` to your `App` and the new sizes will automatically take effect.
 
 ### Changed
 
@@ -1863,7 +1863,7 @@ No changes.
 - `sandstone/Slider` and `sandstone/IncrementSlider` to be more performant. No changes were made to
 	the public API.
 - `sandstone/GridListImageItem` so that a placeholder image displays while loading the image, and the caption and subcaption support marqueeing
-- `sandstone/SandstoneDecorator` to add `FloatingLayerDecorator`
+- `sandstone/ThemeDecorator` to add `FloatingLayerDecorator`
 - `sandstone/IncrementSlider` in vertical mode looks and works as expected.
 
 ### Removed

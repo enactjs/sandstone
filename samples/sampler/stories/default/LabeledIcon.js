@@ -13,7 +13,7 @@ import iconNames from './icons';
 LabeledIcon.displayName = 'LabeledIcon';
 const Config = mergeComponentMetadata('LabeledIcon', UiLabeledIconBase, UiLabeledIcon, UiIcon, IconBase, Icon, LabeledIcon);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledIcon',
 		() => (

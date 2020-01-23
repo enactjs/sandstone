@@ -9,7 +9,7 @@ import TimePicker from '../../../../TimePicker';
 const Config = mergeComponentMetadata('TimePicker', TimePicker);
 TimePicker.displayName = 'TimePicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'TimePicker',
 		() => (

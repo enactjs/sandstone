@@ -75,7 +75,7 @@ storiesOf('About', module)
 					style={{margin: `0 ${riSafe(12)} 0.8em`}}
 					centered={boolean('text centered', BodyText)}
 				>
-					Welcome to the Malachite sampler! Explore Malachite components.
+					Welcome to the Sandstone sampler! Explore Sandstone components.
 				</BodyText>
 				<Button onClick={action('onClick')} selected={boolean('button selected', Button)}>
 					Click me

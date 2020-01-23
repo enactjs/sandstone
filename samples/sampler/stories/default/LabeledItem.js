@@ -6,7 +6,7 @@ import LabeledItem from '../../../../LabeledItem';
 
 LabeledItem.displayName = 'LabeledItem';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledItem',
 		() => (

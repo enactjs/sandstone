@@ -1,10 +1,10 @@
 {
-	"id": "com.webos.app.enactmalachiteqasampler",
+	"id": "com.webos.app.enactsandstoneqasampler",
 	"version": "1.0.0-alpha.1",
 	"vendor": "LGE-SVL",
 	"type": "web",
 	"main": "index.html",
-	"title": "Enact Malachite QA Sampler",
+	"title": "Enact Sandstone QA Sampler",
 	"icon": "icon.png",
 	"miniicon": "icon-mini.png",
 	"largeIcon": "icon-large.png",

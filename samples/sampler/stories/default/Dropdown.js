@@ -11,7 +11,7 @@ import Button, {ButtonBase} from '../../../../Button';
 Dropdown.displayName = 'Dropdown';
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Dropdown',
 		() => {

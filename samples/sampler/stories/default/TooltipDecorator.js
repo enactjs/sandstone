@@ -33,7 +33,7 @@ const prop = {
 	}
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'TooltipDecorator',
 		() => (

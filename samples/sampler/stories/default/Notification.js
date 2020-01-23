@@ -12,7 +12,7 @@ const Config = mergeComponentMetadata('Notification', Notification, Popup);
 
 Notification.displayName = 'Notification';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Notification',
 		() => (

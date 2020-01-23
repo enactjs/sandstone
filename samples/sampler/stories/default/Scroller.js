@@ -17,7 +17,7 @@ const
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Scroller',
 		() => (

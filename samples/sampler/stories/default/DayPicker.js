@@ -7,7 +7,7 @@ import DayPicker from '../../../../DayPicker';
 
 DayPicker.displayName = 'DayPicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'DayPicker',
 		() => (

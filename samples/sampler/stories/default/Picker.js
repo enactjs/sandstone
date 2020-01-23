@@ -23,7 +23,7 @@ const airports = [
 // const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);
 Picker.displayName = 'Picker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Picker',
 		() => (

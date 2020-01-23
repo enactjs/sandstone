@@ -16,7 +16,7 @@ Config.defaultProps = {
 	disabled: false
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'DaySelector',
 		() => (

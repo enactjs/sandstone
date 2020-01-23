@@ -11,7 +11,7 @@ const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', Pr
 ProgressBar.displayName = 'ProgressBar';
 ProgressBarTooltip.displayName = 'ProgressBarTooltip';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ProgressBar',
 		() => {

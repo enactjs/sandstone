@@ -15,7 +15,7 @@ import {listIcons} from './icons';
 SelectableItem.displayName = 'SelectableItem';
 const Config = mergeComponentMetadata('SelectableItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, SelectableItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'SelectableItem',
 		() => {

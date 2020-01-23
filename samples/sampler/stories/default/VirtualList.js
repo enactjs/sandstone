@@ -54,7 +54,7 @@ updateDataSize(defaultDataSize);
 
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'VirtualList',
 		() => {

@@ -13,7 +13,7 @@ const IncrementSliderTooltipConfig = mergeComponentMetadata('IncrementSliderTool
 
 IncrementSlider.displayName = 'IncrementSlider';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'IncrementSlider',
 		() => {

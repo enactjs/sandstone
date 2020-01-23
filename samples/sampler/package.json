@@ -1,7 +1,7 @@
 {
-  "name": "malachite-sampler",
+  "name": "sandstone-sampler",
   "version": "1.0.0-alpha.1",
-  "description": "Component and QA samples for Malachite",
+  "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
   "scripts": {
