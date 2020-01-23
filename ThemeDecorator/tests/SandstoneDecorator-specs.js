@@ -9,7 +9,7 @@ describe('ThemeDecorator', () => {
 
 	const AppRoot = (props) => <div data-app {...props} />;
 
-	test('should add base sandstone classes to wrapped component', () => {
+	test('should add base classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
 		const App = ThemeDecorator(config, AppRoot);
 		const subject = mount(
@@ -21,7 +21,7 @@ describe('ThemeDecorator', () => {
 		const appRoot = subject.find('[data-app]');
 
 		const expected = true;
-		const actual = appRoot.hasClass('sandstone') && appRoot.hasClass(css.bg);
+		const actual = appRoot.hasClass('neutral') && appRoot.hasClass(css.bg);
 
 		expect(actual).toBe(expected);
 	});
@@ -44,7 +44,7 @@ describe('ThemeDecorator', () => {
 	});
 
 	test(
-		'should not add .sandstone class to wrapped component when float is enabled',
+		'should not add skin classname to wrapped component when float is enabled',
 		() => {
 			const config = {ri: false, i18n: false, spotlight: false, float: true, overlay: false};
 			const App = ThemeDecorator(config, AppRoot);
@@ -57,7 +57,7 @@ describe('ThemeDecorator', () => {
 			const appRoot = subject.find('[data-app]');
 
 			const expected = false;
-			const actual = appRoot.hasClass('sandstone');
+			const actual = appRoot.hasClass('neutral');
 
 			expect(actual).toBe(expected);
 		}
