@@ -6,41 +6,41 @@
 
 // Interally theme our implementation using published classes from ToggleItem and ToggleIcon
 .toggleIcon {
-	border-radius: (@moon-toggleswitch-height / 2);
-	width: @moon-toggleswitch-width;
-	height: @moon-toggleswitch-height;
-	line-height: @moon-toggleswitch-height;
-	font-family: @moon-icon-font-family;
+	border-radius: (@sand-toggleswitch-height / 2);
+	width: @sand-toggleswitch-width;
+	height: @sand-toggleswitch-height;
+	line-height: @sand-toggleswitch-height;
+	font-family: @sand-icon-font-family;
 	position: relative;
 	display: inline-block;
 	text-align: left;
 	cursor: default;
 
 	.moon-custom-text({
-		width: @moon-toggleswitch-width-large;
-		height: @moon-toggleswitch-height-large;
-		border-radius: (@moon-toggleswitch-height-large / 2);
+		width: @sand-toggleswitch-width-large;
+		height: @sand-toggleswitch-height-large;
+		border-radius: (@sand-toggleswitch-height-large / 2);
 	});
 
 
-	.moon-taparea(@moon-toggleswitch-height);
+	.moon-taparea(@sand-toggleswitch-height);
 
 	.icon {
 		visibility: visible;
 		left: 0;
-		width: @moon-toggleswitch-height;
+		width: @sand-toggleswitch-height;
 		height: inherit;
-		font-size: (@moon-toggleswitch-height * 2);
+		font-size: (@sand-toggleswitch-height * 2);
 		line-height: inherit;
 		margin: 0;
 	}
 
 	&.selected {
 		.icon {
-			left: (@moon-toggleswitch-width - @moon-toggleswitch-height);
+			left: (@sand-toggleswitch-width - @sand-toggleswitch-height);
 
 			.moon-custom-text({
-				left: (@moon-toggleswitch-width-large - @moon-toggleswitch-height-large);
+				left: (@sand-toggleswitch-width-large - @sand-toggleswitch-height-large);
 			});
 		}
 	}
@@ -57,40 +57,40 @@
 
 	// Skin colors
 	.applySkins({
-		background-color: @moon-checkbox-toggle-switch-bg-color;
-		box-shadow: 0 0 0 @moon-checkbox-toggle-switch-border-width @moon-checkbox-toggle-switch-border-color;
+		background-color: @sand-checkbox-toggle-switch-bg-color;
+		box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-border-color;
 
 		.icon {
 			background-color: transparent;
-			color: @moon-checkbox-toggle-switch-color;
+			color: @sand-checkbox-toggle-switch-color;
 		}
 
 		&.selected {
-			background-color: @moon-checkbox-toggle-switch-selected-bg-color;
-			box-shadow: 0 0 0 @moon-checkbox-toggle-switch-selected-border-width @moon-checkbox-toggle-switch-selected-border-color;
+			background-color: @sand-checkbox-toggle-switch-selected-bg-color;
+			box-shadow: 0 0 0 @sand-checkbox-toggle-switch-selected-border-width @sand-checkbox-toggle-switch-selected-border-color;
 
 			.icon {
-				color: @moon-checkbox-toggle-switch-selected-color;
+				color: @sand-checkbox-toggle-switch-selected-color;
 
 				// :global(.spottable):focus & {
-				// 	color: @moon-checkbox-toggle-switch-selected-color;
+				// 	color: @sand-checkbox-toggle-switch-selected-color;
 				// }
 			}
 		}
 
 		.disabled({
-			background-color: @moon-checkbox-toggle-switch-bg-color;
-			opacity: @moon-disabled-opacity;
+			background-color: @sand-checkbox-toggle-switch-bg-color;
+			opacity: @sand-disabled-opacity;
 
 			.icon {
-				color: @moon-checkbox-toggle-switch-color;
+				color: @sand-checkbox-toggle-switch-color;
 			}
 
 			&.selected {
-				background-color: @moon-checkbox-toggle-switch-spotlight-selected-bg-color;
+				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
 
 				.icon {
-					color: @moon-checkbox-toggle-switch-spotlight-selected-color;
+					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
 				}
 			}
 		});
@@ -112,14 +112,14 @@
 		// Skin colors
 		.applySkins({
 			.icon {
-				color: @moon-checkbox-toggle-switch-color;
+				color: @sand-checkbox-toggle-switch-color;
 			}
 
 			&.selected {
-				background-color: @moon-checkbox-toggle-switch-spotlight-selected-bg-color;
+				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
 
 				.icon {
-					color: @moon-checkbox-toggle-switch-spotlight-selected-color;
+					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
 				}
 			}
 		});
@@ -128,7 +128,7 @@
 	.disabled({
 		.toggleIcon {
 			.applySkins({
-				opacity: @moon-disabled-opacity;
+				opacity: @sand-disabled-opacity;
 			});
 		}
 	});

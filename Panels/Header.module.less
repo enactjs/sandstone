@@ -6,14 +6,14 @@
 
 .header {
 	.border-box();
-	border-bottom-width: @moon-header-border-bottom-width;
+	border-bottom-width: @sand-header-border-bottom-width;
 	border-bottom-style: solid;
 	position: relative;
 	max-width: 100%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	margin: 0 @moon-spotlight-outset;
+	margin: 0 @sand-spotlight-outset;
 
 	// Remove the built-in h1 and h2 margins
 	.decorator,
@@ -43,7 +43,7 @@
 
 	.headerComponents {
 		.remove-margin-on-edge-children();
-		.margin-start-end(@moon-header-components-gutter, 0);
+		.margin-start-end(@sand-header-components-gutter, 0);
 		margin-bottom: 18px;
 
 		white-space: nowrap;
@@ -65,16 +65,16 @@
 	// Standard and Dense Header
 	&.dense,
 	&.standard {
-		height: @moon-header-standard-height;
+		height: @sand-header-standard-height;
 
 		.title {
 			// The height is determined by the line-height below, but we want to maintain that as a
 			// relative unit (`em`) rather than dictate specific pixels to automatically accomodate
 			// font size changes.
-			line-height: @moon-header-standard-title-line-height;
+			line-height: @sand-header-standard-title-line-height;
 			margin-left: -3px; // Negative 3px here to allow the title text to horizontally align with the rest of the header text
 
-			.moon-locale-non-latin({line-height: @moon-non-latin-header-standard-title-line-height;});
+			.moon-locale-non-latin({line-height: @sand-non-latin-header-standard-title-line-height;});
 		}
 
 		.decorator,
@@ -98,11 +98,11 @@
 
 	// Dense Header
 	&.dense {
-		height: @moon-header-dense-height;
+		height: @sand-header-dense-height;
 
 		.title {
-			font-size: @moon-header-dense-title-font-size;
-			font-weight: @moon-header-dense-title-font-weight;
+			font-size: @sand-header-dense-title-font-size;
+			font-weight: @sand-header-dense-title-font-weight;
 		}
 
 		.titlesCell {
@@ -111,13 +111,13 @@
 
 		.titleBelow,
 		.subTitleBelow {
-			font-size: @moon-header-dense-title-below-font-size;
+			font-size: @sand-header-dense-title-below-font-size;
 		}
 	}
 
 	// Compact Header
 	&.compact {
-		height: @moon-header-compact-height;
+		height: @sand-header-compact-height;
 
 		.compactTitle {
 			margin-bottom: 3px;
@@ -126,10 +126,10 @@
 		.input,
 		.inputHighlight,
 		.title {
-			font-size: @moon-header-compact-font-size;
+			font-size: @sand-header-compact-font-size;
 			display: inline;
 
-			.moon-locale-non-latin({line-height:  @moon-non-latin-header-compact-title-line-height;});
+			.moon-locale-non-latin({line-height:  @sand-non-latin-header-compact-title-line-height;});
 		}
 
 		.titleBelow {
@@ -144,8 +144,8 @@
 
 	// Skin colors
 	.applySkins({
-		color: @moon-header-text-color;
-		border-bottom-color: @moon-header-bottom-border-color;
+		color: @sand-header-text-color;
+		border-bottom-color: @sand-header-bottom-border-color;
 
 		&.hideLine {
 			border-bottom-color: transparent;
@@ -161,7 +161,7 @@
 					box-shadow: none;
 
 					.input {
-						color: @moon-header-input-focus-text-color;
+						color: @sand-header-input-focus-text-color;
 					}
 
 					.inputHighlight {
@@ -170,31 +170,31 @@
 				});
 
 				.input {
-					color: @moon-header-text-color;
+					color: @sand-header-text-color;
 
 					.input-placeholder({
-						color: @moon-header-text-color;
+						color: @sand-header-text-color;
 					});
 				}
 
 				.inputHighlight {
-					background-color: @moon-header-input-focus-background-color;
+					background-color: @sand-header-input-focus-background-color;
 				}
 			}
 
 			.titleBelow,
 			.subTitleBelow {
-				color: @moon-header-title-below-text-color;
+				color: @sand-header-title-below-text-color;
 			}
 		}
 
 		&.fullBleed {
-			border-color: @moon-header-full-bleed-border-color;
-			color: @moon-header-full-bleed-text-color;
+			border-color: @sand-header-full-bleed-border-color;
+			color: @sand-header-full-bleed-text-color;
 
 			.titleBelow,
 			.subTitleBelow {
-				color: @moon-header-title-below-full-bleed-text-color;
+				color: @sand-header-title-below-full-bleed-text-color;
 			}
 		}
 	});
@@ -218,25 +218,25 @@
 
 	.header.compact {
 		.headerComponents {
-			border-right-width: @moon-header-controls-border-width;
+			border-right-width: @sand-header-controls-border-width;
 			border-right-style: solid;
-			.padding-start-end(initial, @moon-header-components-separation);
+			.padding-start-end(initial, @sand-header-components-separation);
 
 			:global(.enact-locale-right-to-left) & {
 				border-right-width: 0;
 				border-right-style: none;
-				border-left-width: @moon-header-controls-border-width;
+				border-left-width: @sand-header-controls-border-width;
 				border-left-style: solid;
 			}
 		}
 
 		.applySkins({
 			.headerComponents {
-				border-right-color: @moon-header-controls-border-color;
+				border-right-color: @sand-header-controls-border-color;
 
 				:global(.enact-locale-right-to-left) & {
 					border-right-color: transparent;
-					border-left-color: @moon-header-controls-border-color;
+					border-left-color: @sand-header-controls-border-color;
 				}
 			}
 		});

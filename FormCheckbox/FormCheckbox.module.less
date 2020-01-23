@@ -6,15 +6,15 @@
 
 // Interally theme our implementation using published classes from ToggleItem and ToggleIcon
 .toggleIcon {
-	width: @moon-formcheckbox-size;
-	height: @moon-formcheckbox-size;
-	border-radius: @moon-formcheckbox-border-radius;
+	width: @sand-formcheckbox-size;
+	height: @sand-formcheckbox-size;
+	border-radius: @sand-formcheckbox-border-radius;
 
 	.icon {
-		width: @moon-formcheckbox-size;
-		height: @moon-formcheckbox-size;
-		line-height: @moon-formcheckbox-size;
-		font-size: @moon-formcheckbox-check-icon-size;
+		width: @sand-formcheckbox-size;
+		height: @sand-formcheckbox-size;
+		line-height: @sand-formcheckbox-size;
+		font-size: @sand-formcheckbox-check-icon-size;
 		margin: 0;
 		visibility: hidden;
 	}
@@ -27,20 +27,20 @@
 
 	.moon-custom-text({
 		.icon {
-			width: @moon-formcheckbox-size;
-			height: @moon-formcheckbox-size;
-			line-height: @moon-formcheckbox-size;
-			font-size: @moon-formcheckbox-check-icon-size;
+			width: @sand-formcheckbox-size;
+			height: @sand-formcheckbox-size;
+			line-height: @sand-formcheckbox-size;
+			font-size: @sand-formcheckbox-check-icon-size;
 		}
 	});
 
 	// Skin colors
 	.applySkins({
-		box-shadow: inset 0 0 0 @moon-formcheckbox-border-size @moon-formcheckbox-border-color;
-		background-color: @moon-formcheckbox-bg-color;
+		box-shadow: inset 0 0 0 @sand-formcheckbox-border-size @sand-formcheckbox-border-color;
+		background-color: @sand-formcheckbox-bg-color;
 
 		.icon {
-			color: @moon-formcheckbox-text-color;
+			color: @sand-formcheckbox-text-color;
 		}
 	});
 }
@@ -50,15 +50,15 @@
 		// Skin colors
 		.applySkins({
 			box-shadow: none;
-			background-color: @moon-formcheckbox-focus-bg-color;
+			background-color: @sand-formcheckbox-focus-bg-color;
 
 			.icon {
-				color: @moon-formcheckbox-focus-text-color;
+				color: @sand-formcheckbox-focus-text-color;
 			}
 
 			.disabled({
 				.icon {
-					opacity: @moon-disabled-opacity;
+					opacity: @sand-disabled-opacity;
 				}
 			});
 		});
@@ -70,11 +70,11 @@
 		.toggleIcon {
 			.applySkins({
 				&:not([disabled]) {
-					box-shadow: inset 0 0 0 @moon-formcheckbox-border-size @moon-formcheckbox-border-color;
-					background-color: @moon-formcheckbox-bg-color;
+					box-shadow: inset 0 0 0 @sand-formcheckbox-border-size @sand-formcheckbox-border-color;
+					background-color: @sand-formcheckbox-bg-color;
 
 					.icon {
-						color: @moon-formcheckbox-text-color;
+						color: @sand-formcheckbox-text-color;
 					}
 				}
 			});

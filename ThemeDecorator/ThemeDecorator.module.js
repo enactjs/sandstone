@@ -14,11 +14,11 @@
 @import "../styles/variables.less";
 
 .applySkins({
-	color: @moon-text-color;
+	color: @sand-text-color;
 
 	::selection {
-		color: @moon-spotlight-text-color;
-		background-color: lighten(@moon-spotlight-bg-color, 18%);
+		color: @sand-spotlight-text-color;
+		background-color: lighten(@sand-spotlight-bg-color, 18%);
 	}
 
 	// Spotlight
@@ -29,31 +29,31 @@
 	// argument to the focus mixin. This allows that set of rules to prevail over this generic set.
 	//// Inherited Spottable rules (for components that aren't directly skinned)
 	.focus({
-		background-color: @moon-spotlight-bg-color;
-		color: @moon-spotlight-text-color;
+		background-color: @sand-spotlight-bg-color;
+		color: @sand-spotlight-text-color;
 	}, parent);
 	//// Primary spottable rules (for any component with a skin applied to itself)
 	.focus({
-		background-color: @moon-spotlight-bg-color;
-		color: @moon-spotlight-text-color;
+		background-color: @sand-spotlight-bg-color;
+		color: @sand-spotlight-text-color;
 	});
 
 	// Spotlight Muted Components
 	.muted({
 		.focus({
 			background-color: transparent;
-			color: @moon-text-color;
+			color: @sand-text-color;
 		}, parent);
 	}, parent);
 
 	// Disabled Components
 	.disabled({
-		.vendor-opacity(@moon-disabled-opacity);
+		.vendor-opacity(@sand-disabled-opacity);
 
 		// Focused and disabled, must restore their natural opacity, then assign the faded text/content color
 		.focus({
 			.vendor-opacity(1);
-			color: @moon-spotlight-disabled-text-color;
+			color: @sand-spotlight-disabled-text-color;
 		});
 
 		cursor: default;
@@ -66,14 +66,14 @@
 });
 
 .root {
-	.moon-text-base(@moon-header-title-below-font-size, self);
+	.moon-text-base(@sand-header-title-below-font-size, self);
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: normal;
 
 	&.bg,
 	& > .bg {
-		padding: @moon-app-keepout;
+		padding: @sand-app-keepout;
 	}
 
 	&:global(.enact-locale-right-to-left) {
@@ -91,7 +91,7 @@
 	.applySkins({
 		&.bg,
 		> .bg {
-			background-color: @moon-bg-color;
+			background-color: @sand-bg-color;
 		}
 	});
 }

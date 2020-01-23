@@ -30,29 +30,29 @@
 }
 
 .spinner {
-	line-height: @moon-body-line-height;
+	line-height: @sand-body-line-height;
 	vertical-align: middle;
 
 	.bg {
 		position: relative;
 		border-radius: 999px;
-		width: @moon-spinner-size;
-		height: @moon-spinner-size;
-		padding: @moon-spinner-line-margin;
+		width: @sand-spinner-size;
+		height: @sand-spinner-size;
+		padding: @sand-spinner-line-margin;
 		margin-left: auto;
 		margin-right: auto;
 	}
 
 	.decorator {
-		width: @moon-spinner-size;
-		height: @moon-spinner-size;
+		width: @sand-spinner-size;
+		height: @sand-spinner-size;
 		position: relative;
 		background-size: cover;
 		border-radius: 999px;
 		overflow: hidden;
 		margin: 0 auto;
-		-webkit-mask-image: radial-gradient(transparent (@moon-spinner-size / 2 - @moon-spinner-line-width - 1px), black (@moon-spinner-size / 2 - @moon-spinner-line-width)); // These colors control masking, not visible colors
-		animation: none @moon-spinner-time linear infinite;
+		-webkit-mask-image: radial-gradient(transparent (@sand-spinner-size / 2 - @sand-spinner-line-width - 1px), black (@sand-spinner-size / 2 - @sand-spinner-line-width)); // These colors control masking, not visible colors
+		animation: none @sand-spinner-time linear infinite;
 		animation-name: spin;
 		animation-play-state: paused;
 
@@ -74,7 +74,7 @@
 		.fan4,
 		.cap {
 			position: absolute;
-			animation: none @moon-spinner-time linear infinite;
+			animation: none @sand-spinner-time linear infinite;
 			animation-name: rotate1;
 			animation-play-state: paused;
 			animation-fill-mode: both;
@@ -94,34 +94,34 @@
 			right: 0;
 			bottom: 50%;
 			left: 0;
-			clip-path: circle((@moon-spinner-line-width / 2) at 50% (@moon-spinner-line-width / 2));
+			clip-path: circle((@sand-spinner-line-width / 2) at 50% (@sand-spinner-line-width / 2));
 			transform-origin: bottom;
 		}
 	}
 
 	.client {
 		.moon-body-text();
-		font-weight: @moon-spinner-font-weight;
-		margin-top: @moon-spotlight-outset;
+		font-weight: @sand-spinner-font-weight;
+		margin-top: @sand-spotlight-outset;
 		max-width: 348px;
 	}
 
 	&.small {
 		.bg,
 		.decorator {
-			width: @moon-spinner-small-size;
-			height: @moon-spinner-small-size;
+			width: @sand-spinner-small-size;
+			height: @sand-spinner-small-size;
 		}
 
 		.bg {
-			padding: @moon-spinner-small-line-margin;
+			padding: @sand-spinner-small-line-margin;
 		}
 
 		.decorator {
-			-webkit-mask-image: radial-gradient(transparent (@moon-spinner-small-size / 2 - @moon-spinner-small-line-width - 1px), black (@moon-spinner-small-size / 2 - @moon-spinner-small-line-width));
+			-webkit-mask-image: radial-gradient(transparent (@sand-spinner-small-size / 2 - @sand-spinner-small-line-width - 1px), black (@sand-spinner-small-size / 2 - @sand-spinner-small-line-width));
 
 			.cap {
-				clip-path: circle((@moon-spinner-small-line-width / 2) at 50% (@moon-spinner-small-line-width / 2));
+				clip-path: circle((@sand-spinner-small-line-width / 2) at 50% (@sand-spinner-small-line-width / 2));
 			}
 		}
 
@@ -129,18 +129,18 @@
 		.moon-custom-text({
 			.bg,
 			.decorator {
-				width: @moon-spinner-small-size-large;
-				height: @moon-spinner-small-size-large;
+				width: @sand-spinner-small-size-large;
+				height: @sand-spinner-small-size-large;
 			}
 
 			.decorator {
-				-webkit-mask-image: radial-gradient(transparent (@moon-spinner-small-size-large / 2 - @moon-spinner-small-line-width - 1px), black (@moon-spinner-small-size-large / 2 - @moon-spinner-small-line-width));
+				-webkit-mask-image: radial-gradient(transparent (@sand-spinner-small-size-large / 2 - @sand-spinner-small-line-width - 1px), black (@sand-spinner-small-size-large / 2 - @sand-spinner-small-line-width));
 			}
 		});
 	}
 
 	&.content {
-		padding: ((@moon-button-height - @moon-spinner-size) / 2);
+		padding: ((@sand-button-height - @sand-spinner-size) / 2);
 	}
 
 	&.running .decorator {
@@ -158,27 +158,27 @@
 
 	// Skin colors
 	.applySkins({
-		color: @moon-spinner-text-color;
+		color: @sand-spinner-text-color;
 
 		.bg {
-			background-color: @moon-spinner-bg-color;
+			background-color: @sand-spinner-bg-color;
 		}
 
 		.decorator {
 			// Ideal way, but won't be supported until Chrome 69
-			// background: conic-gradient(@moon-spinner-empty-color 75%, @moon-spinner-color 87.5%);
+			// background: conic-gradient(@sand-spinner-empty-color 75%, @sand-spinner-color 87.5%);
 			background:
-				radial-gradient(circle at 0% 0%, @moon-spinner-color 20%, @moon-spinner-empty-color 40%), // Visible gradient
-				radial-gradient(circle at 35% 8%, @moon-spinner-color 15%, transparent 15%); // Filler between the closest fan and center of gradient
+				radial-gradient(circle at 0% 0%, @sand-spinner-color 20%, @sand-spinner-empty-color 40%), // Visible gradient
+				radial-gradient(circle at 35% 8%, @sand-spinner-color 15%, transparent 15%); // Filler between the closest fan and center of gradient
 
 			.fan1,
 			.fan2,
 			.fan3,
 			.fan4 {
-				background-color: @moon-spinner-color;
+				background-color: @sand-spinner-color;
 			}
 			.cap {
-				background-color: @moon-spinner-head-color;
+				background-color: @sand-spinner-head-color;
 			}
 		}
 
@@ -189,7 +189,7 @@
 		}
 
 		.client {
-			text-shadow: 0 1px 1px @moon-spinner-text-shadow-color;
+			text-shadow: 0 1px 1px @sand-spinner-text-shadow-color;
 		}
 	});
 }
@@ -200,7 +200,7 @@
 		.blockClickOn {
 			// Visible scrim
 			.scrim {
-				background-color: @moon-scrim-color;
+				background-color: @sand-scrim-color;
 			}
 		}
 	});
