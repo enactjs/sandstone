@@ -3,14 +3,14 @@ import {loadStories} from '@enact/storybook-utils';
 import {configureActions} from '@enact/storybook-utils/addons/actions';
 import {withKnobs} from '@enact/storybook-utils/addons/knobs';
 
-import Malachite from '../src/MalachiteEnvironment';
+import Environment from '../src/ThemeEnvironment';
 
 function config (stories, mod) {
 	configureActions();
 	addDecorator(withKnobs());
 
-	// Set malachite environment defaults
-	addDecorator(Malachite);
+	// Set environment defaults
+	addDecorator(Environment);
 
 	configure(loadStories(stories), mod);
 }
