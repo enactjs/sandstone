@@ -1,17 +1,17 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import MoonstoneDecorator from '../';
+import SandstoneDecorator from '../';
 import Spotlight from '@enact/spotlight';
 
-import css from '../MoonstoneDecorator.module.less';
+import css from '../SandstoneDecorator.module.less';
 
-describe('MoonstoneDecorator', () => {
+describe('SandstoneDecorator', () => {
 
 	const AppRoot = (props) => <div data-app {...props} />;
 
 	test('should add base moonstone classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
-		const App = MoonstoneDecorator(config, AppRoot);
+		const App = SandstoneDecorator(config, AppRoot);
 		const subject = mount(
 			<App />
 		);
@@ -21,14 +21,14 @@ describe('MoonstoneDecorator', () => {
 		const appRoot = subject.find('[data-app]');
 
 		const expected = true;
-		const actual = appRoot.hasClass('moonstone') && appRoot.hasClass(css.bg);
+		const actual = appRoot.hasClass('sandstone') && appRoot.hasClass(css.bg);
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should add author classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
-		const App = MoonstoneDecorator(config, AppRoot);
+		const App = SandstoneDecorator(config, AppRoot);
 		const subject = mount(
 			<App className="author-class" />
 		);
@@ -44,10 +44,10 @@ describe('MoonstoneDecorator', () => {
 	});
 
 	test(
-		'should not add .moonstone class to wrapped component when float is enabled',
+		'should not add .sandstone class to wrapped component when float is enabled',
 		() => {
 			const config = {ri: false, i18n: false, spotlight: false, float: true, overlay: false};
-			const App = MoonstoneDecorator(config, AppRoot);
+			const App = SandstoneDecorator(config, AppRoot);
 			const subject = mount(
 				<App />
 			);
@@ -57,7 +57,7 @@ describe('MoonstoneDecorator', () => {
 			const appRoot = subject.find('[data-app]');
 
 			const expected = false;
-			const actual = appRoot.hasClass('moonstone');
+			const actual = appRoot.hasClass('sandstone');
 
 			expect(actual).toBe(expected);
 		}
@@ -67,7 +67,7 @@ describe('MoonstoneDecorator', () => {
 		'should not add .bg class to wrapped component when overlay is enabled',
 		() => {
 			const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: true};
-			const App = MoonstoneDecorator(config, AppRoot);
+			const App = SandstoneDecorator(config, AppRoot);
 			const subject = mount(
 				<App />
 			);
