@@ -2,3 +2,5 @@ node_modules/*
 build/*
 dist/*
 webpack.config.js
+coverage/*
+**/node_modules/*
