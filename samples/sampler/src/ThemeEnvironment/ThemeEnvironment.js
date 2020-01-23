@@ -111,8 +111,7 @@ const backgroundLabelMap = {
 };
 
 const skins = {
-	'Dark': 'dark',
-	'Light': 'light'
+	'Neutral': 'neutral'
 };
 
 const getArgs = (str) => {
@@ -145,7 +144,7 @@ const StorybookDecorator = (story, config) => {
 			locale: 'en-US',
 			'large text': false,
 			'high contrast': false,
-			skin: 'dark'
+			skin: 'neutral'
 		},
 		groupId: globalGroup
 	};
