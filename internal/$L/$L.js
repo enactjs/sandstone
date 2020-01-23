@@ -44,7 +44,7 @@ function createResBundle (options) {
 
 	// Swap out app cache for sandstone's
 	const appCache = ilib.data;
-	ilib.data = global.sandstoneILibCache || cache;
+	ilib.data = global.themeILibCache || cache;
 
 	// eslint-disable-next-line no-new
 	new ResBundle({
