@@ -1,4 +1,4 @@
-// Sandstone Environment
+// Theme Environment
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
@@ -61,8 +61,8 @@ const FullscreenBase = kind({
 	)
 });
 
-const Sandtone = ThemeDecorator({overlay: false}, PanelsBase);
-const SandstoneFullscreen = ThemeDecorator({overlay: false}, FullscreenBase);
+const Theme = ThemeDecorator({overlay: false}, PanelsBase);
+const ThemeFullscreen = ThemeDecorator({overlay: false}, FullscreenBase);
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
@@ -174,7 +174,7 @@ const StorybookDecorator = (story, config) => {
 	}
 
 	return (
-		<Sandstone
+		<Theme
 			className={classnames(classes)}
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
@@ -192,7 +192,7 @@ const StorybookDecorator = (story, config) => {
 			{...config.panelsProps}
 		>
 			{sample}
-		</Sandstone>
+		</Theme>
 	);
 };
 
@@ -200,7 +200,7 @@ const FullscreenStorybookDecorator = (story, config) => {
 	const sample = story();
 	const args = getArgs();
 	return (
-		<SandstoneFullscreen
+		<ThemeFullscreen
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
 			locale={select('locale', locales, 'en-US')}
@@ -210,9 +210,9 @@ const FullscreenStorybookDecorator = (story, config) => {
 			skin={select('skin', skins, getKnobFromArgs(args, 'skin'))}
 		>
 			{sample}
-		</SandstoneFullscreen>
+		</ThemeFullscreen>
 	);
 };
 
 export default StorybookDecorator;
-export {StorybookDecorator as Sandstone, FullscreenStorybookDecorator as SandstoneFullscreen};
+export {StorybookDecorator as Theme, FullscreenStorybookDecorator as ThemeFullscreen};
