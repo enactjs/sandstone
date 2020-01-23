@@ -33,11 +33,11 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 /**
- * The base version of [VirtualListBase]{@link moonstone/VirtualList.VirtualListBase} and
- * [VirtualListBaseNative]{@link moonstone/VirtualList.VirtualListBaseNative}.
+ * The base version of [VirtualListBase]{@link sandstone/VirtualList.VirtualListBase} and
+ * [VirtualListBaseNative]{@link sandstone/VirtualList.VirtualListBaseNative}.
  *
  * @class VirtualListCore
- * @memberof moonstone/VirtualList
+ * @memberof sandstone/VirtualList
  * @ui
  * @private
  */
@@ -47,7 +47,7 @@ const VirtualListBaseFactory = (type) => {
 	return class VirtualListCore extends Component {
 		/* No displayName here. We set displayName to returned components of this factory function. */
 
-		static propTypes = /** @lends moonstone/VirtualList.VirtualListBase.prototype */ {
+		static propTypes = /** @lends sandstone/VirtualList.VirtualListBase.prototype */ {
 			/**
 			 * The `render` function called for each item in the list.
 			 *
@@ -827,11 +827,11 @@ const VirtualListBaseFactory = (type) => {
 };
 
 /**
- * A Moonstone-styled base component for [VirtualList]{@link moonstone/VirtualList.VirtualList} and
- * [VirtualGridList]{@link moonstone/VirtualList.VirtualGridList}.
+ * A Sandstone-styled base component for [VirtualList]{@link sandstone/VirtualList.VirtualList} and
+ * [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
  *
  * @class VirtualListBase
- * @memberof moonstone/VirtualList
+ * @memberof sandstone/VirtualList
  * @extends ui/VirtualList.VirtualListBase
  * @ui
  * @public
@@ -840,11 +840,11 @@ const VirtualListBase = VirtualListBaseFactory(JS);
 VirtualListBase.displayName = 'VirtualListBase';
 
 /**
- * A Moonstone-styled base component for [VirtualListNative]{@link moonstone/VirtualList.VirtualListNative} and
- * [VirtualGridListNative]{@link moonstone/VirtualList.VirtualGridListNative}.
+ * A Sandstone-styled base component for [VirtualListNative]{@link sandstone/VirtualList.VirtualListNative} and
+ * [VirtualGridListNative]{@link sandstone/VirtualList.VirtualGridListNative}.
  *
  * @class VirtualListBaseNative
- * @memberof moonstone/VirtualList
+ * @memberof sandstone/VirtualList
  * @extends ui/VirtualList.VirtualListBaseNative
  * @ui
  * @private
@@ -857,7 +857,7 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
  * not move focus to the scrollbar controls.
  *
  * @name focusableScrollbar
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -866,12 +866,12 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
 /**
  * Unique identifier for the component.
  *
- * When defined and when the `VirtualList` is within a [Panel]{@link moonstone/Panels.Panel},
+ * When defined and when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
  * the `VirtualList` will store its scroll position and restore that position when returning to
  * the `Panel`.
  *
  * @name id
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
  * @public
  */
@@ -880,7 +880,7 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
  * Sets the hint string read when focusing the next button in the vertical scroll bar.
  *
  * @name scrollDownAriaLabel
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
  * @default $L('scroll down')
  * @public
@@ -890,7 +890,7 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
  * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
  *
  * @name scrollLeftAriaLabel
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
  * @default $L('scroll left')
  * @public
@@ -900,7 +900,7 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
  * Sets the hint string read when focusing the next button in the horizontal scroll bar.
  *
  * @name scrollRightAriaLabel
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
  * @default $L('scroll right')
  * @public
@@ -910,7 +910,7 @@ VirtualListBaseNative.displayName = 'VirtualListBaseNative';
  * Sets the hint string read when focusing the previous button in the vertical scroll bar.
  *
  * @name scrollUpAriaLabel
- * @memberof moonstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
  * @default $L('scroll up')
  * @public
@@ -971,7 +971,7 @@ const ScrollableVirtualList = ({role, ...rest}) => { // eslint-disable-line reac
 	);
 };
 
-ScrollableVirtualList.propTypes = /** @lends moonstone/VirtualList.VirtualListBase.prototype */ {
+ScrollableVirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualListBase.prototype */ {
 	cbScrollTo: PropTypes.func,
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 	focusableScrollbar: PropTypes.bool,
@@ -1008,7 +1008,7 @@ const ScrollableVirtualListNative = ({role, ...rest}) => {
 	);
 };
 
-ScrollableVirtualListNative.propTypes = /** @lends moonstone/VirtualList.VirtualListBaseNative.prototype */ {
+ScrollableVirtualListNative.propTypes = /** @lends sandstone/VirtualList.VirtualListBaseNative.prototype */ {
 	cbScrollTo: PropTypes.func,
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 	focusableScrollbar: PropTypes.bool,

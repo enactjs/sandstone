@@ -32,7 +32,7 @@
 }
 
 .button {
-	.moon-large-button-text();
+	.sand-large-button-text();
 	height: @sand-button-height;
 	line-height: (@sand-button-height - (2 * @sand-button-border-width));
 	border-radius: @sand-button-border-radius;
@@ -42,9 +42,9 @@
 	margin: 0 @sand-button-h-margin;
 	text-align: center;
 	vertical-align: middle;
-	.moon-taparea(@sand-button-height);
+	.sand-taparea(@sand-button-height);
 
-	.moon-custom-text({
+	.sand-custom-text({
 		font-size: @sand-button-font-size-large;
 		height: @sand-button-height-large;
 		min-width: @sand-button-height-large;
@@ -131,7 +131,7 @@
 	}
 
 	//**
-	//* The marquee container of the client area. Added by {@link moonstone/MarqueeDecorator}.
+	//* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
 	//* @public
 	//*/
 	.marquee {
@@ -151,7 +151,7 @@
 	}
 
 	&.small {
-		.moon-small-button-text();
+		.sand-small-button-text();
 		height: @sand-button-small-height;
 		min-width: @sand-button-small-height;
 		max-width: @sand-button-small-max-width;
@@ -161,7 +161,7 @@
 		padding-right: @sand-button-small-h-padding;
 		margin-left: @sand-button-small-h-margin;
 		margin-right: @sand-button-small-h-margin;
-		.moon-taparea(@sand-button-small-height);
+		.sand-taparea(@sand-button-small-height);
 
 		// Standard Button Scenario
 		&.minWidth {
@@ -219,7 +219,7 @@
 			}
 		}
 
-		.moon-custom-text({
+		.sand-custom-text({
 			font-size: @sand-button-small-font-size-large;
 			height: @sand-button-small-height-large;
 			min-width: @sand-button-small-height-large;

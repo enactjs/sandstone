@@ -1,10 +1,10 @@
 /**
- * Provides a Moonstone-themed pill-shaped toggle switch component.
+ * Provides a Sandstone-themed pill-shaped toggle switch component.
  *
  * @example
  * <Switch />
  *
- * @module moonstone/Switch
+ * @module sandstone/Switch
  * @exports Switch
  * @exports SwitchBase
  */
@@ -21,15 +21,15 @@ import componentCss from './Switch.module.less';
  * Renders the base level DOM structure of the component.
  *
  * @class Switch
- * @memberof moonstone/Switch
- * @extends moonstone/ToggleIcon.ToggleIcon
+ * @memberof sandstone/Switch
+ * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
  * @public
  */
 const SwitchBase = kind({
 	name: 'Switch',
 
-	propTypes: /** @lends moonstone/Switch.Switch.prototype */ {
+	propTypes: /** @lends sandstone/Switch.Switch.prototype */ {
 		children: PropTypes.string,
 		css: PropTypes.object,
 

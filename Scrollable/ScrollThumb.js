@@ -5,18 +5,18 @@ import React, {Component} from 'react';
 const nop = () => {};
 
 /**
- * A Moonstone-styled scroll thumb with moonstone behavior
+ * A Sandstone-styled scroll thumb with sandstone behavior
  *
  * @class ScrollThumb
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @extends ui/Scrollable/ScrollThumb
  * @ui
  * @private
  */
 class ScrollThumb extends Component {
-	static propTypes = /** @lends moonstone/Scrollable.ScrollThumb.prototype */ {
+	static propTypes = /** @lends sandstone/Scrollable.ScrollThumb.prototype */ {
 		/**
-		 * Called when [ScrollThumb]{@link moonstone/Scrollable.ScrollThumb} is updated.
+		 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
 		 *
 		 * @type {Function}
 		 * @private

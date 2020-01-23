@@ -1,0 +1,90 @@
+// colors-highcontast.less (light skin - high contrast)
+//
+
+@import (multiple) './colors-light.less';
+
+@high-contrast-dark-gray: #6f6f6f;
+@high-contrast-gray: #7a7a7a;
+@high-contrast-light-gray: #ccc;
+@high-contrast-black: #000;
+@high-contrast-white: #fff;
+
+@high-contrast-text-color: @high-contrast-white;
+
+@sand-accent: @high-contrast-black;
+
+// Button
+// ---------------------------------------
+@sand-button-bg-color: @high-contrast-dark-gray;
+@sand-button-disabled-spotlight-bg-color: @high-contrast-gray;
+
+// Checkbox
+// ---------------------------------------
+@sand-checkbox-check-color: @high-contrast-text-color;
+@sand-checkbox-bg-color: @high-contrast-gray;
+@sand-checkbox-spotlight-bg-color: @sand-checkbox-bg-color;
+@sand-checkbox-spotlight-color: @sand-checkbox-check-color;
+
+// DaySelector
+// ---------------------------------------
+@sand-day-selector-border-color: @high-contrast-light-gray;
+@sand-day-selector-selected-bg-color: @high-contrast-dark-gray;
+
+// EditableIntegerPicker
+// ---------------------------------------
+@sand-editable-integer-picker-shadow: inset 0 0 0 6px;
+
+// FormCheckbox
+// ---------------------------------------
+@sand-formcheckbox-text-color: @high-contrast-text-color;
+
+// Header
+// ---------------------------------------
+@sand-header-border-color: #404040;
+@sand-header-bottom-border-color: @sand-header-border-color;
+
+// Input
+// ---------------------------------------
+@sand-input-border-active-border-color: @sand-accent;
+@sand-input-border-active-shadow: 0px 0px 0px 6px @sand-input-border-active-border-color;
+
+// Picker
+// ---------------------------------------
+@sand-picker-joined-fingernail-border-color: fade(@sand-white, 40%);
+
+// Progress Bar
+// ---------------------------------------
+@sand-progress-bar-fill-bg-color: @high-contrast-black;
+@sand-progress-bar-highlighted-fill-bg-color: @high-contrast-black;
+
+// Scroller
+// ---------------------------------------
+@sand-scroller-scrollthumb-bg-color: @high-contrast-black;
+
+// Slider
+// ---------------------------------------
+@sand-slider-knob-active-bg-color: @high-contrast-white;
+
+// Switch
+// ---------------------------------------
+@sand-checkbox-toggle-switch-selected-color: @high-contrast-white;
+@sand-checkbox-toggle-switch-selected-bg-color: #4d4d4d;
+
+@sand-checkbox-toggle-switch-spotlight-selected-bg-color: @sand-checkbox-toggle-switch-selected-bg-color;
+@sand-checkbox-toggle-switch-spotlight-selected-color: @sand-checkbox-toggle-switch-selected-color;
+
+// Toggle Colors
+// ---------------------------------------
+@sand-toggle-button-switch-on-bg-color: transparent;
+@sand-toggle-button-switch-dot-on-color: @high-contrast-text-color;
+@sand-toggle-button-switch-dot-disabled-border-color: @sand-toggle-button-switch-disabled-border-color;
+@sand-toggle-button-switch-on-spotlight-bg-color: transparent;
+@sand-toggle-button-switch-on-spotlight-border-color: @high-contrast-white;
+@sand-toggle-button-switch-dot-on-spotlight-color: @sand-toggle-button-switch-on-spotlight-border-color;
+@sand-toggle-button-switch-off-spotlight-bg-color: transparent;
+@sand-toggle-button-switch-off-spotlight-border-color: @sand-toggle-button-switch-on-spotlight-border-color;
+
+
+// VideoPlayer
+// ---------------------------------------
+@sand-video-player-high-contrast-scrim-gradient-color: linear-gradient(fade(@high-contrast-light-gray, 0%) 0%, fade(@high-contrast-light-gray, 60%) 100%);

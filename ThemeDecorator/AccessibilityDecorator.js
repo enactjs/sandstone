@@ -8,7 +8,7 @@ import React from 'react';
  * A higher-order component that classifies an application with a target set of font sizing rules.
  *
  * @class AccessibilityDecorator
- * @memberof moonstone/MoonstoneDecorator
+ * @memberof sandstone/SandstoneDecorator
  * @hoc
  * @public
  */
@@ -18,7 +18,7 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		static displayName = 'AccessibilityDecorator'
 
-		static propTypes =  /** @lends moonstone/MoonstoneDecorator.AccessibilityDecorator.prototype */ {
+		static propTypes =  /** @lends sandstone/SandstoneDecorator.AccessibilityDecorator.prototype */ {
 			/**
 			 * Enables additional features to help users visually differentiate components.
 			 *

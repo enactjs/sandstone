@@ -9,7 +9,7 @@ import DaySelectorCheckbox from './DaySelectorCheckbox';
 import css from './DaySelectorItem.module.less';
 
 /**
- * An extension of [Item]{@link moonstone/Item.Item} that can be toggled between two states via its
+ * An extension of [Item]{@link sandstone/Item.Item} that can be toggled between two states via its
  * `selected` prop.
  *
  * By default, `DaySelectorItem` maintains the state of its `selected` property. Supply the
@@ -18,14 +18,14 @@ import css from './DaySelectorItem.module.less';
  * `onToggle` events.
  *
  * @class DaySelectorItem
- * @memberof moonstone/DaySelector
+ * @memberof sandstone/DaySelector
  * @ui
  * @private
  */
 const DaySelectorItem = kind({
 	name: 'DaySelectorItem',
 
-	propTypes: /** @lends moonstone/DaySelector.DaySelectorItem.prototype */ {
+	propTypes: /** @lends sandstone/DaySelector.DaySelectorItem.prototype */ {
 		/**
 		 * The string to be displayed as the main content of the checkbox item.
 		 *

@@ -1,14 +1,14 @@
 /*
- * This module loads Moonstone's locale specific fonts.
+ * This module loads Sandstone's locale specific fonts.
  *
  * _This is not intended to be directly included by external developers._ The purpose of this is to
- * override the existing "Moonstone" font family with a new typeface, conditionally when the system
+ * override the existing "Sandstone" font family with a new typeface, conditionally when the system
  * locale matches the corrosponding locale for the font (defined in this component's code).
  *
  */
 let {addLocalizedFont, generateFontRules, generateFontOverrideRules} = require('@enact/ui/internal/localized-fonts');
 
-const fontName = 'Moonstone';
+const fontName = 'Sandstone';
 
 // Locale Configuration Block
 //

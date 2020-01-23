@@ -10,10 +10,10 @@ import Skinnable from '../Skinnable';
 import componentCss from './Scrollbar.module.less';
 
 /**
- * A Moonstone-styled scroller base component.
+ * A Sandstone-styled scroller base component.
  *
  * @class ScrollbarBase
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @extends ui/ScrollbarBase
  * @ui
  * @private
@@ -21,9 +21,9 @@ import componentCss from './Scrollbar.module.less';
 class ScrollbarBase extends Component {
 	static displayName = 'ScrollbarBase'
 
-	static propTypes = /** @lends moonstone/Scrollable.Scrollbar.prototype */ {
+	static propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */ {
 		/**
-		 * Called when [ScrollThumb]{@link moonstone/Scrollable.ScrollThumb} is updated.
+		 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
 		 *
 		 * @type {Function}
 		 * @private
@@ -145,10 +145,10 @@ class ScrollbarBase extends Component {
 }
 
 /**
- * A Moonstone-styled scroll bar. It is used in [Scrollable]{@link moonstone/Scrollable.Scrollable}.
+ * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/Scrollable.Scrollable}.
  *
  * @class Scrollbar
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @ui
  * @private
  */

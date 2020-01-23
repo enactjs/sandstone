@@ -7,7 +7,7 @@
 @import "~@enact/ui/styles/mixins.less";
 @import "./variables.less";
 
-.moon-taparea(@element-size) when (@sand-button-small-tap-area-height > @element-size) {
+.sand-taparea(@element-size) when (@sand-button-small-tap-area-height > @element-size) {
 	// Take the size of the minimum tappable area, and subtract the element's current size.
 	@_tap-offset: -((@sand-button-small-tap-area-height - @element-size) / 2);
 
@@ -22,97 +22,97 @@
 	}
 }
 
-.moon-taparea(@element-size) when (@sand-button-small-tap-area-height <= @element-size) {
+.sand-taparea(@element-size) when (@sand-button-small-tap-area-height <= @element-size) {
 	// Remove the tappable area if the tap area is smaller than the element's current size.
 	&::before {
 		content: none;
 	}
 }
 
-.moon-item-icon-tap-area-adjust() {
+.sand-item-icon-tap-area-adjust() {
 	&.small > .small-icon-tap-area {
 		left: -@sand-spotlight-outset;
 		right: -@sand-spotlight-outset;
 	}
 }
 
-.moon-word-break() {
+.sand-word-break() {
 	overflow-wrap: break-word;
 	word-break: keep-all;
 }
 
 // NOTE: Until we are able to automatically remove these JSDoc-style comments, they should remain LESS-commented
 // /**
-//  * Add a margin to your component which includes the standard moonstone spotlight margin on the
+//  * Add a margin to your component which includes the standard sandstone spotlight margin on the
 //  * sides and uses the two arguments for margin on the top and bottom respectively.
 //  *
 //  * @param  {Measurement} @t Top margin
 //  * @param  {Measurement} @b Bottom margin
 //  */
-.moon-spotlight-margin(@t, @b) {
+.sand-spotlight-margin(@t, @b) {
 	margin: @t @sand-spotlight-outset @b;
 }
 
 // /**
-//  * Add a margin to your component which includes the standard moonstone spotlight margin on the
+//  * Add a margin to your component which includes the standard sandstone spotlight margin on the
 //  * sides and uses the argument for margin on the top and bottom.
 //  *
 //  * @param  {Measurement} @tb Top and bottom margin
 //  */
-.moon-spotlight-margin(@tb) {
+.sand-spotlight-margin(@tb) {
 	margin: @tb @sand-spotlight-outset;
 }
 
 // /**
-//  * Add a margin to your component which includes the standard moonstone spotlight margin only on
+//  * Add a margin to your component which includes the standard sandstone spotlight margin only on
 //  * the sides.
 //  */
-.moon-spotlight-margin() {
+.sand-spotlight-margin() {
 	margin-left: @sand-spotlight-outset;
 	margin-right: @sand-spotlight-outset;
 }
 
 // /**
-//  * Add a padding to your component which includes the standard moonstone spotlight padding on the
+//  * Add a padding to your component which includes the standard sandstone spotlight padding on the
 //  * sides and uses the two arguments for padding on the top and bottom respectively.
 //  *
 //  * @param  {Measurement} @t Top padding
 //  * @param  {Measurement} @b Bottom padding
 //  */
-.moon-spotlight-padding(@t, @b) {
+.sand-spotlight-padding(@t, @b) {
 	padding: @t @sand-spotlight-outset @b;
 }
 
 // /**
-//  * Add a padding to your component which includes the standard moonstone spotlight padding on the
+//  * Add a padding to your component which includes the standard sandstone spotlight padding on the
 //  * sides and uses the argument for padding on the top and bottom.
 //  *
 //  * @param  {Measurement} @tb Top and bottom padding
 //  */
-.moon-spotlight-padding(@tb) {
+.sand-spotlight-padding(@tb) {
 	padding: @tb @sand-spotlight-outset;
 }
 
 // /**
-//  * Add a padding to your component which includes the standard moonstone spotlight padding only on
+//  * Add a padding to your component which includes the standard sandstone spotlight padding only on
 //  * the sides.
 //  */
-.moon-spotlight-padding() {
+.sand-spotlight-padding() {
 	padding-left: @sand-spotlight-outset;
 	padding-right: @sand-spotlight-outset;
 }
 
 //
-// Mixin classes for creating the moonstone text classes
+// Mixin classes for creating the sandstone text classes
 //
 
 // Text base provides family, weight, and size
 // Accepts 0, 1 or 2 arguments
 // The first argument allows overriding the font size, defaulting to
 // the default body font size, the 2nd argument is used privately by
-// MoonstoneDecorator to override the target of the rules.
-.moon-text-base(@font-size: @sand-body-font-size; @target: normal) {
-	.moon-font({
+// SandstoneDecorator to override the target of the rules.
+.sand-text-base(@font-size: @sand-body-font-size; @target: normal) {
+	.sand-font({
 		font-weight: @sand-non-latin-font-weight;
 		font-size: @sand-non-latin-base-font-size;
 		line-height: @sand-non-latin-body-line-height;
@@ -123,21 +123,21 @@
 }
 
 //
-// Moonstone Font Applicator
+// Sandstone Font Applicator
 //
 // When only rules are provided. Default populate the @target argument.
-.moon-font(@nlrules; @target: normal) when (isruleset(@nlrules)) {
-	.moon-font(@sand-font-family, @sand-non-latin-font-family, @nlrules, @target);
+.sand-font(@nlrules; @target: normal) when (isruleset(@nlrules)) {
+	.sand-font(@sand-font-family, @sand-non-latin-font-family, @nlrules, @target);
 }
 // When 0, 1, or 2 strings (font family names) are provided. Default populate the @target argument so the signature stays the same.
-.moon-font(@family: @sand-font-family; @nlfamily: @sand-non-latin-font-family; @target: normal) when (isstring(@family)) and (isstring(@nlfamily)) and (isstring(@target)) {
-	.moon-font(@family, @nlfamily, {}, @target);
+.sand-font(@family: @sand-font-family; @nlfamily: @sand-non-latin-font-family; @target: normal) when (isstring(@family)) and (isstring(@nlfamily)) and (isstring(@target)) {
+	.sand-font(@family, @nlfamily, {}, @target);
 }
 // When exactly 3 or 4 args are provided. Types are assumed because they went through the trouble to provide all 3 required args.
-.moon-font(@family; @nlfamily; @nlrules; @target: normal) {
+.sand-font(@family; @nlfamily; @nlrules; @target: normal) {
 	font-family: @family;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-family: @nlfamily;
 		@nlrules();
 	}, @target);
@@ -151,21 +151,21 @@
 //    0 args -> default size for latin is applied to both latin and non-latin
 //    1 arg  -> that size is applied to both latin and non-latin
 //    2 args -> first is applied to latin, second to non-latin
-.moon-font-size(@font-size: @sand-body-font-size; @nlfont-size: @font-size) {
+.sand-font-size(@font-size: @sand-body-font-size; @nlfont-size: @font-size) {
 	font-size: @font-size;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-size: @nlfont-size;
 	});
 }
 
 // Generic Non-Latin Font Rule generator
-.moon-locale-non-latin(@nlrules; @target) when (isruleset(@nlrules)) and (@target = self) {
+.sand-locale-non-latin(@nlrules; @target) when (isruleset(@nlrules)) and (@target = self) {
 	&:global(.enact-locale-non-latin) {
 		@nlrules();
 	}
 }
-.moon-locale-non-latin(@nlrules; @target: normal) when (isruleset(@nlrules)) {
+.sand-locale-non-latin(@nlrules; @target: normal) when (isruleset(@nlrules)) {
 	:global(.enact-locale-non-latin) & {
 		@nlrules();
 	}
@@ -175,14 +175,14 @@
 // Custom Text Size Mixins
 //
 // 1 arg: Shorthand for just setting the font size in custom-text mode
-.moon-custom-text-size(@latin-size) {
-	.moon-custom-text({
+.sand-custom-text-size(@latin-size) {
+	.sand-custom-text({
 		font-size: @latin-size;
 	});
 }
 // 2 args: Shorthand for just setting the font size of both latin and non-latin in custom-text mode
-.moon-custom-text-size(@latin-size; @non-latin-size) {
-	.moon-custom-text(
+.sand-custom-text-size(@latin-size; @non-latin-size) {
+	.sand-custom-text(
 	{
 		font-size: @latin-size;
 	};
@@ -192,13 +192,13 @@
 }
 
 // 1 arg: Generic rule applicator, accepts an entire rule-set to add for large text mode
-.moon-custom-text(@lrules) when (isruleset(@lrules)) {
+.sand-custom-text(@lrules) when (isruleset(@lrules)) {
 	&:global(.largeText) {
 		@lrules();
 	}
 }
 // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
-.moon-custom-text(@lrules; @nlrules) when (isruleset(@lrules)) and (isruleset(@nlrules)) {
+.sand-custom-text(@lrules; @nlrules) when (isruleset(@lrules)) and (isruleset(@nlrules)) {
 	&:global(.largeText) {
 		@lrules();
 	}
@@ -211,20 +211,20 @@
 // Text definitions
 //
 
-.moon-superscript() {
+.sand-superscript() {
 	font-size: @sand-superscript-text-size;
 	vertical-align: top;
 	margin: 0 0 0 3px;
 	padding: 0;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-family: @sand-non-latin-font-family-light;
 		font-weight: @sand-non-latin-font-weight-light;
 		font-size: @sand-non-latin-superscript-text-size;
 	});
 }
 
-.moon-pre-text() {
+.sand-pre-text() {
 	font-size: @sand-pre-text-size;
 	vertical-align: top;
 	height:  @sand-large-text-size;
@@ -232,27 +232,27 @@
 	margin: 12px 3px 9px 0;
 	padding: 0px;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-family: @sand-non-latin-font-family-light;
 		font-weight: @sand-non-latin-font-weight-light;
 		font-size: @sand-non-latin-pre-text-size;
 	});
 }
 
-.moon-large-text() {
+.sand-large-text() {
 	font-size: @sand-large-text-size;
 	vertical-align: top;
 	height: @sand-large-text-size;
 	margin: 0;
 	padding: 0;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-size: @sand-non-latin-large-text-size;
 	});
 }
 
-.moon-header-text() {
-	.moon-font(@sand-header-font-family, @sand-non-latin-font-family, {
+.sand-header-text() {
+	.sand-font(@sand-header-font-family, @sand-non-latin-font-family, {
 		font-size: @sand-non-latin-header-font-size;
 		line-height: @sand-non-latin-header-line-height;
 	});
@@ -263,48 +263,48 @@
 	.font-kerning;
 }
 
-.moon-header-title-below-text() {
-	.moon-text-base(@sand-header-title-below-font-size);
+.sand-header-title-below-text() {
+	.sand-text-base(@sand-header-title-below-font-size);
 	font-weight: @sand-header-title-below-font-weight;
 	font-size: @sand-header-title-below-font-size;
 	font-style: @sand-header-title-below-font-style;
 	letter-spacing: @sand-header-title-below-letter-spacing;
 	line-height: @sand-header-standard-title-below-line-height;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-size: @sand-non-latin-header-title-below-font-size;
 		line-height: @sand-non-latin-header-standard-title-below-line-height;
 	});
 }
 
-.moon-header-sub-title-below-text() {
-	.moon-font(@sand-header-sub-title-below-font-family);
+.sand-header-sub-title-below-text() {
+	.sand-font(@sand-header-sub-title-below-font-family);
 	font-weight: @sand-header-sub-title-below-font-weight;
 	font-size: @sand-header-sub-title-below-font-size;
 	line-height: @sand-header-standard-sub-title-below-line-height;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		line-height: @sand-non-latin-header-standard-sub-title-below-line-height;
 	});
 }
 
-.moon-dialog-title() {
-	.moon-header-text();
+.sand-dialog-title() {
+	.sand-header-text();
 }
 
-.moon-dialog-title-below() {
-	.moon-font(@sand-dialog-title-below-font-family, @sand-non-latin-font-family);
+.sand-dialog-title-below() {
+	.sand-font(@sand-dialog-title-below-font-family, @sand-non-latin-font-family);
 	font-weight: @sand-dialog-title-below-font-weight;
 	font-size: @sand-popup-sub-header-font-size;
 }
 
-.moon-dialog-content() {
-	.moon-body-text();
+.sand-dialog-content() {
+	.sand-body-text();
 	.locale-japanese-line-break();
 }
 
-.moon-notification-content() {
-	.moon-font(@sand-notification-font-family, @sand-non-latin-font-family-light, {
+.sand-notification-content() {
+	.sand-font(@sand-notification-font-family, @sand-non-latin-font-family-light, {
 		line-height: @sand-non-latin-body-line-height;
 	});
 	font-weight: @sand-notification-font-weight;
@@ -312,12 +312,12 @@
 	font-size: @sand-notification-font-size;
 	line-height: @sand-body-line-height;
 	text-align: initial;
-	.moon-word-break();
+	.sand-word-break();
 	.locale-japanese-line-break();
 }
 
-.moon-body-text() {
-	.moon-font(@sand-body-font-family, @sand-non-latin-font-family-light, {
+.sand-body-text() {
+	.sand-font(@sand-body-font-family, @sand-non-latin-font-family-light, {
 		font-weight: @sand-non-latin-body-font-weight;
 		font-size: @sand-non-latin-body-font-size;
 		line-height: @sand-non-latin-body-line-height;
@@ -332,29 +332,29 @@
 	a:active {color: inherit; text-decoration:none;}
 }
 
-.moon-body-text-spacing() {
+.sand-body-text-spacing() {
 	margin: 0 @sand-spotlight-outset @sand-grid-row-height @sand-spotlight-outset;
 }
 
-.moon-body-large-text() {
+.sand-body-large-text() {
 	font-size: @sand-body-font-size + 3;
 	line-height: @sand-body-line-height + 9;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		font-size: @sand-non-latin-body-font-size + 3;
 		line-height: @sand-non-latin-body-line-height + 9;
 	});
 }
 
-.moon-bold-text() {
-	.moon-font(@sand-font-family-bold, @sand-non-latin-font-family-bold, {
+.sand-bold-text() {
+	.sand-font(@sand-font-family-bold, @sand-non-latin-font-family-bold, {
 		font-weight: @sand-non-latin-font-weight-bold;
 	});
 	font-weight: bold;
 }
 
-.moon-large-button-text() {
-	.moon-font(@sand-button-font-family, @sand-non-latin-button-font-family, {
+.sand-large-button-text() {
+	.sand-font(@sand-button-font-family, @sand-non-latin-button-font-family, {
 		font-size: @sand-non-latin-button-large-font-size;
 		font-style: @sand-non-latin-button-font-style;
 		font-weight: @sand-non-latin-button-large-font-weight;
@@ -365,8 +365,8 @@
 	.font-kerning;
 }
 
-.moon-small-button-text() {
-	.moon-font(@sand-button-small-font-family, @sand-non-latin-button-font-family, {
+.sand-small-button-text() {
+	.sand-font(@sand-button-small-font-family, @sand-non-latin-button-font-family, {
 		font-size: @sand-non-latin-button-small-font-size;
 		font-style: @sand-non-latin-button-small-font-style;
 		font-weight: @sand-non-latin-button-small-font-weight;

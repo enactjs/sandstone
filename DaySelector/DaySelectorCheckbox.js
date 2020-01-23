@@ -9,19 +9,19 @@ import css from './DaySelectorCheckbox.module.less';
 
 /**
  * A component that represents the selected state of a day within a
- * {@link moonstone/DaySelector.DaySelector}. It has built-in spotlight support and is intended for
- * use in a specialized [Item]{@link moonstone/Item} that does not visually respond to focus, so
+ * {@link sandstone/DaySelector.DaySelector}. It has built-in spotlight support and is intended for
+ * use in a specialized [Item]{@link sandstone/Item} that does not visually respond to focus, so
  * this can show focus instead.
  *
  * @class DaySelectorCheckbox
- * @memberof moonstone/DaySelector
+ * @memberof sandstone/DaySelector
  * @ui
  * @private
  */
 const DaySelectorCheckboxBase = kind({
 	name: 'DaySelectorCheckbox',
 
-	propTypes: /** @lends moonstone/DaySelector.DaySelectorCheckbox.prototype */ {
+	propTypes: /** @lends sandstone/DaySelector.DaySelectorCheckbox.prototype */ {
 		/**
 		 * Sets whether this control is disabled, and non-interactive
 		 *

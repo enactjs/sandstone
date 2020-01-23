@@ -1,10 +1,10 @@
 /**
- * Moonstone styled button components and behaviors.
+ * Sandstone styled button components and behaviors.
  *
  * @example
  * <Button>Hello Enact!</Button>
  *
- * @module moonstone/Button
+ * @module sandstone/Button
  * @exports Button
  * @exports ButtonBase
  * @exports ButtonDecorator
@@ -31,10 +31,10 @@ const Icon = Skinnable(IconBase);
  * A button component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Button]{@link moonstone/Button.Button}.
+ * is within [Button]{@link sandstone/Button.Button}.
  *
  * @class ButtonBase
- * @memberof moonstone/Button
+ * @memberof sandstone/Button
  * @extends ui/Button.ButtonBase
  * @ui
  * @public
@@ -42,7 +42,7 @@ const Icon = Skinnable(IconBase);
 const ButtonBase = kind({
 	name: 'Button',
 
-	propTypes: /** @lends moonstone/Button.ButtonBase.prototype */ {
+	propTypes: /** @lends sandstone/Button.ButtonBase.prototype */ {
 		/**
 		 * The background opacity of this button.
 		 *
@@ -147,7 +147,7 @@ const ButtonBase = kind({
  * the button to shrink to fit its contents.
  *
  * @name minWidth
- * @memberof moonstone/Button.ButtonBase.prototype
+ * @memberof sandstone/Button.ButtonBase.prototype
  * @type {Boolean}
  * @default true
  * @public
@@ -155,14 +155,14 @@ const ButtonBase = kind({
 
 
 /**
- * Applies Moonstone specific behaviors to [Button]{@link moonstone/Button.ButtonBase} components.
+ * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
  *
  * @hoc
- * @memberof moonstone/Button
- * @mixes moonstone/Marquee.MarqueeDecorator
+ * @memberof sandstone/Button
+ * @mixes sandstone/Marquee.MarqueeDecorator
  * @mixes ui/Button.ButtonDecorator
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const ButtonDecorator = compose(
@@ -174,7 +174,7 @@ const ButtonDecorator = compose(
 );
 
 /**
- * A button component, ready to use in Moonstone applications.
+ * A button component, ready to use in Sandstone applications.
  *
  * Usage:
  * ```
@@ -187,9 +187,9 @@ const ButtonDecorator = compose(
  * ```
  *
  * @class Button
- * @memberof moonstone/Button
- * @extends moonstone/Button.ButtonBase
- * @mixes moonstone/Button.ButtonDecorator
+ * @memberof sandstone/Button
+ * @extends sandstone/Button.ButtonBase
+ * @mixes sandstone/Button.ButtonDecorator
  * @ui
  * @public
  */

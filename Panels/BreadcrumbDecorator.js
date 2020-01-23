@@ -20,9 +20,9 @@ import css from './Panels.module.less';
 // TODO: Figure out how to document private sub-module members
 
 /**
- * Default config for {@link moonstone/Panels.BreadcrumbDecorator}
+ * Default config for {@link sandstone/Panels.BreadcrumbDecorator}
  * @hocconfig
- * @memberof moonstone/Panels.BreadcrumbDecorator
+ * @memberof sandstone/Panels.BreadcrumbDecorator
  */
 const defaultConfig = {
 	/**
@@ -30,7 +30,7 @@ const defaultConfig = {
 	 *
 	 * @type {String}
 	 * @default null
-	 * @memberof moonstone/Panels.BreadcrumbDecorator.defaultConfig
+	 * @memberof sandstone/Panels.BreadcrumbDecorator.defaultConfig
 	 */
 	className: null,
 
@@ -40,7 +40,7 @@ const defaultConfig = {
 	 *
 	 * @type {Number|Function}
 	 * @default 0
-	 * @memberof moonstone/Panels.BreadcrumbDecorator.defaultConfig
+	 * @memberof sandstone/Panels.BreadcrumbDecorator.defaultConfig
 	 */
 	max: 0,
 
@@ -49,7 +49,7 @@ const defaultConfig = {
 	 *
 	 * @type {Object}
 	 * @default null
-	 * @memberof moonstone/Panels.BreadcrumbDecorator.defaultConfig
+	 * @memberof sandstone/Panels.BreadcrumbDecorator.defaultConfig
 	 */
 	panelArranger: null
 };
@@ -62,7 +62,7 @@ const defaultConfig = {
  * @type {Function}
  * @hoc
  * @private
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  */
 const BreadcrumbDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {max, panelArranger, className: cfgClassName} = config;
@@ -71,7 +71,7 @@ const BreadcrumbDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const Decorator = kind({
 		name: 'BreadcrumbDecorator',
 
-		propTypes: /** @lends moonstone/Panels.BreadcrumbDecorator.prototype */ {
+		propTypes: /** @lends sandstone/Panels.BreadcrumbDecorator.prototype */ {
 			/**
 			 * Array of breadcrumbs or a function that generates an array of breadcrumbs
 			 *

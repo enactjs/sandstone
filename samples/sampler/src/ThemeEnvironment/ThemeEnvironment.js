@@ -9,7 +9,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
 import BodyText from '../../../../BodyText';
-import MoonstoneDecorator from '../../../../MoonstoneDecorator';
+import SandstoneDecorator from '../../../../SandstoneDecorator';
 import {Panels, Panel, Header} from '../../../../Panels';
 
 import css from './MalachiteEnvironment.module.less';
@@ -61,8 +61,8 @@ const FullscreenBase = kind({
 	)
 });
 
-const Malachite = MoonstoneDecorator({overlay: false}, PanelsBase);
-const MalachiteFullscreen = MoonstoneDecorator({overlay: false}, FullscreenBase);
+const Malachite = SandstoneDecorator({overlay: false}, PanelsBase);
+const MalachiteFullscreen = SandstoneDecorator({overlay: false}, FullscreenBase);
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {

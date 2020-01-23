@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled item components and behaviors. Useful for content in lists.
+ * Provides Sandstone styled item components and behaviors. Useful for content in lists.
  *
  * @example
  * <Item>Hello Enact!</Item>
  *
- * @module moonstone/Item
+ * @module sandstone/Item
  * @exports Item
  * @exports ItemBase
  * @exports ItemDecorator
@@ -24,10 +24,10 @@ import Skinnable from '../Skinnable';
 import componentCss from './Item.module.less';
 
 /**
- * A Moonstone styled item without any behavior.
+ * A Sandstone styled item without any behavior.
  *
  * @class ItemBase
- * @memberof moonstone/Item
+ * @memberof sandstone/Item
  * @extends ui/Item.ItemBase
  * @ui
  * @public
@@ -35,7 +35,7 @@ import componentCss from './Item.module.less';
 const ItemBase = kind({
 	name: 'Item',
 
-	propTypes: /** @lends moonstone/Item.ItemBase.prototype */ {
+	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -67,14 +67,14 @@ const ItemBase = kind({
 });
 
 /**
- * Moonstone specific item behaviors to apply to [Item]{@link moonstone/Item.ItemBase}.
+ * Sandstone specific item behaviors to apply to [Item]{@link sandstone/Item.ItemBase}.
  *
  * @class ItemDecorator
  * @hoc
- * @memberof moonstone/Item
+ * @memberof sandstone/Item
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Marquee.MarqueeDecorator
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -87,7 +87,7 @@ const ItemDecorator = compose(
 );
 
 /**
- * A Moonstone styled item with built-in support for marqueed text, and Spotlight focus.
+ * A Sandstone styled item with built-in support for marqueed text, and Spotlight focus.
  *
  * Usage:
  * ```
@@ -95,9 +95,9 @@ const ItemDecorator = compose(
  * ```
  *
  * @class Item
- * @memberof moonstone/Item
- * @extends moonstone/Item.ItemBase
- * @mixes moonstone/Item.ItemDecorator
+ * @memberof sandstone/Item
+ * @extends sandstone/Item.ItemBase
+ * @mixes sandstone/Item.ItemDecorator
  * @ui
  * @public
  */

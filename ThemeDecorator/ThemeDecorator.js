@@ -1,8 +1,8 @@
 /**
- * Exports the {@link moonstone/MoonstoneDecorator.MoonstoneDecorator} HOC
+ * Exports the {@link sandstone/SandstoneDecorator.SandstoneDecorator} HOC
  *
- * @module moonstone/MoonstoneDecorator
- * @exports MoonstoneDecorator
+ * @module sandstone/SandstoneDecorator
+ * @exports SandstoneDecorator
  */
 
 import {addAll} from '@enact/core/keymap';
@@ -19,16 +19,16 @@ import Skinnable from '../Skinnable';
 import I18nFontDecorator from './I18nFontDecorator';
 import AccessibilityDecorator from './AccessibilityDecorator';
 import screenTypes from './screenTypes.json';
-import css from './MoonstoneDecorator.module.less';
+import css from './SandstoneDecorator.module.less';
 import {configure} from '@enact/ui/Touchable';
 
 /**
- * Default config for `MoonstoneDecorator`.
+ * Default config for `SandstoneDecorator`.
  *
- * @memberof moonstone/MoonstoneDecorator.MoonstoneDecorator
+ * @memberof sandstone/SandstoneDecorator.SandstoneDecorator
  * @hocconfig
  */
-const defaultConfig = /** @lends moonstone/MoonstoneDecorator.MoonstoneDecorator.defaultConfig */ {
+const defaultConfig = /** @lends sandstone/SandstoneDecorator.SandstoneDecorator.defaultConfig */ {
 	/**
 	 * Applies AccessibilityDecorator.
 	 *
@@ -36,7 +36,7 @@ const defaultConfig = /** @lends moonstone/MoonstoneDecorator.MoonstoneDecorator
 	 *
 	 * @type {Boolean}
 	 * @default true
-	 * @see {@link moonstone/MoonstoneDecorator.AccessibilityDecorator}
+	 * @see {@link sandstone/SandstoneDecorator.AccessibilityDecorator}
 	 * @public
 	 */
 	accessible: true,
@@ -111,7 +111,7 @@ const defaultConfig = /** @lends moonstone/MoonstoneDecorator.MoonstoneDecorator
 	 *
 	 * @type {Boolean}
 	 * @default true
-	 * @see {@link moonstone/Skinnable}
+	 * @see {@link sandstone/Skinnable}
 	 * @public
 	 */
 	skin: true,
@@ -130,32 +130,32 @@ const defaultConfig = /** @lends moonstone/MoonstoneDecorator.MoonstoneDecorator
 };
 
 /**
- * A higher-order component that applies Moonstone theming to an application.
+ * A higher-order component that applies Sandstone theming to an application.
  *
  * It also applies [floating layer]{@link ui/FloatingLayer.FloatingLayerDecorator}, [resolution
  * independence]{@link ui/resolution.ResolutionDecorator}, [skin
- * support]{@link moonstone/Skinnable}, [spotlight]{@link spotlight.SpotlightRootDecorator}, and
+ * support]{@link sandstone/Skinnable}, [spotlight]{@link spotlight.SpotlightRootDecorator}, and
  * [internationalization support]{@link i18n/I18nDecorator.I18nDecorator}. It is meant to be applied
  * to the root element of an app.
  *
- * [Skins]{@link moonstone/Skinnable} provide a way to change the coloration of your app. The
- * currently supported skins for Moonstone are "moonstone" (the default, dark skin) and
- * "moonstone-light". Use the `skin` property to assign a skin. Ex: `<DecoratedApp skin="light" />`
+ * [Skins]{@link sandstone/Skinnable} provide a way to change the coloration of your app. The
+ * currently supported skins for Sandstone are "sandstone" (the default, dark skin) and
+ * "sandstone-light". Use the `skin` property to assign a skin. Ex: `<DecoratedApp skin="light" />`
  *
  * Note: This HoC passes `className` to the wrapped component. It must be passed to the main DOM
  * node.
  *
- * @class MoonstoneDecorator
- * @memberof moonstone/MoonstoneDecorator
+ * @class SandstoneDecorator
+ * @memberof sandstone/SandstoneDecorator
  * @mixes ui/FloatingLayer.FloatingLayerDecorator
  * @mixes ui/resolution.ResolutionDecorator
  * @mixes spotlight/SpotlightRootDecorator.SpotlightRootDecorator
- * @mixes moonstone/Skinnable.Skinnable
- * @mixes moonstone/MoonstoneDecorator.AccessibilityDecorator
+ * @mixes sandstone/Skinnable.Skinnable
+ * @mixes sandstone/SandstoneDecorator.AccessibilityDecorator
  * @hoc
  * @public
  */
-const MoonstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
+const SandstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {accessible, ri, i18n, spotlight, float, noAutoFocus, overlay,
 		skin, disableFullscreen} = config;
 
@@ -226,7 +226,7 @@ const MoonstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	});
 
 	const Decorator = class extends React.Component {
-		static displayName = 'MoonstoneDecorator';
+		static displayName = 'SandstoneDecorator';
 
 		render () {
 			const className = classNames(css.root, this.props.className, 'enact-unselectable', {
@@ -243,5 +243,5 @@ const MoonstoneDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return Decorator;
 });
 
-export default MoonstoneDecorator;
-export {MoonstoneDecorator};
+export default SandstoneDecorator;
+export {SandstoneDecorator};

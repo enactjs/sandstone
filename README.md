@@ -1,4 +1,4 @@
-# @enact/moonstone [![npm (scoped)](https://img.shields.io/npm/v/@enact/moonstone.svg?style=flat-square)](https://www.npmjs.com/package/@enact/moonstone)
+# @enact/sandstone [![npm (scoped)](https://img.shields.io/npm/v/@enact/sandstone.svg?style=flat-square)](https://www.npmjs.com/package/@enact/sandstone)
 
 > The set of components for an Enact-based application targeting smart TVs.
 
@@ -6,8 +6,8 @@
 
 ```
 import kind from '@enact/core/kind';
-import Button from '@enact/moonstone/Button';
-import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
+import Button from '@enact/sandstone/Button';
+import SandstoneDecorator from '@enact/sandstone/SandstoneDecorator';
 import React from 'react';
 
 const MyApp = kind({
@@ -15,18 +15,18 @@ const MyApp = kind({
 	render: () => (<Button>Hello, Enact!</Button>)
 });
 
-const MyMoonstoneApp = MoonstoneDecorator(MyApp);
+const MySandstoneApp = SandstoneDecorator(MyApp);
 
-export default MyMoonstoneApp;
+export default MySandstoneApp;
 ```
 
-> Note: The moonstone decorator must be applied to the base component. This decorator also applies
+> Note: The sandstone decorator must be applied to the base component. This decorator also applies
 `@enact/i18n/I18nDecorator`, `@enact/spotlight` and `@enact/ui/resolution` decorators.
 
 ## Install
 
 ```
-npm install --save @enact/moonstone
+npm install --save @enact/sandstone
 ```
 
 ## Test

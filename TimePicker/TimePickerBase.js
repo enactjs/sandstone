@@ -21,11 +21,11 @@ const hours12 = [
 ];
 
 /**
- * {@link moonstone/TimePicker/TimePickerBase.HourPicker} is a utility component to prevent the
+ * {@link sandstone/TimePicker/TimePickerBase.HourPicker} is a utility component to prevent the
  * animation of the picker when the display text doesn't change for 12-hour locales.
  *
  * @class HourPicker
- * @memberof moonstone/TimePicker/TimePickerBase
+ * @memberof sandstone/TimePicker/TimePickerBase
  * @ui
  * @private
  */
@@ -70,19 +70,19 @@ class HourPicker extends React.Component {
 }
 
 /**
-* {@link moonstone/TimePicker.TimePickerBase} is the stateless functional time picker
+* {@link sandstone/TimePicker.TimePickerBase} is the stateless functional time picker
 * component. Should not be used directly but may be composed within another component as it is
-* within {@link moonstone/TimePicker.TimePicker}.
+* within {@link sandstone/TimePicker.TimePicker}.
 *
 * @class TimePickerBase
-* @memberof moonstone/TimePicker
+* @memberof sandstone/TimePicker
 * @ui
 * @public
 */
 const TimePickerBase = kind({
 	name: 'TimePickerBase',
 
-	propTypes: /** @lends moonstone/TimePicker.TimePickerBase.prototype */ {
+	propTypes: /** @lends sandstone/TimePicker.TimePickerBase.prototype */ {
 		/**
 		 * The `hour` component of the time.
 		 *
@@ -125,7 +125,7 @@ const TimePickerBase = kind({
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/TimePicker.TimePickerBase.prototype
+		 * @memberof sandstone/TimePicker.TimePickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,

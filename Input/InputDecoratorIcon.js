@@ -8,17 +8,17 @@ import Icon from '../Icon';
 import css from './Input.module.less';
 
 /**
- * The stateless functional base component for {@link moonstone/Input.InputDecoratorIcon}.
+ * The stateless functional base component for {@link sandstone/Input.InputDecoratorIcon}.
  *
  * @class InputDecoratorIconBase
- * @memberof moonstone/Input
+ * @memberof sandstone/Input
  * @ui
  * @private
  */
 const InputDecoratorIconBase = kind({
 	name: 'InputDecoratorIcon',
 
-	propTypes: /** @lends moonstone/Input.InputDecoratorIconBase.prototype */ {
+	propTypes: /** @lends sandstone/Input.InputDecoratorIconBase.prototype */ {
 		/**
 		 * The position of the icon. Either `before` or `after`.
 		 *
@@ -30,7 +30,7 @@ const InputDecoratorIconBase = kind({
 		/**
 		 * The icon to be displayed.
 		 *
-		 * @see {@link moonstone/Icon.Icon#children}
+		 * @see {@link sandstone/Icon.Icon#children}
 		 * @type {String|Object}
 		 */
 		children: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
@@ -57,10 +57,10 @@ const InputDecoratorIconBase = kind({
 });
 
 /**
- * An icon displayed either before or after the input field of an {@link moonstone/Input.Input}.
+ * An icon displayed either before or after the input field of an {@link sandstone/Input.Input}.
  *
  * @class InputDecoratorIcon
- * @memberof moonstone/Input
+ * @memberof sandstone/Input
  * @ui
  * @private
  */

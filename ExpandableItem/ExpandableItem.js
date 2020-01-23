@@ -1,5 +1,5 @@
 /**
- * Moonstone styled expandable item.
+ * Sandstone styled expandable item.
  *
  * @example
  * <ExpandableItem
@@ -8,7 +8,7 @@
  *   This is an Expandable Item
  * </ExpandableItem>
  *
- * @module moonstone/ExpandableItem
+ * @module sandstone/ExpandableItem
  * @exports Expandable
  * @exports ExpandableItem
  * @exports ExpandableItemBase
@@ -56,18 +56,18 @@ function wouldDirectionLeaveContainer (dir, srcNode) {
 }
 
 /**
- * A stateless component that renders a {@link moonstone/LabeledItem.LabeledItem} that can be
+ * A stateless component that renders a {@link sandstone/LabeledItem.LabeledItem} that can be
  * expanded to show additional contents.
  *
  * @class ExpandableItemBase
- * @memberof moonstone/ExpandableItem
+ * @memberof sandstone/ExpandableItem
  * @ui
  * @public
  */
 const ExpandableItemBase = kind({
 	name: 'ExpandableItem',
 
-	propTypes: /** @lends moonstone/ExpandableItem.ExpandableItemBase.prototype */ {
+	propTypes: /** @lends sandstone/ExpandableItem.ExpandableItemBase.prototype */ {
 		/**
 		 * The primary text of the item.
 		 *
@@ -100,7 +100,7 @@ const ExpandableItemBase = kind({
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/ExpandableItem.ExpandableItemBase.prototype
+		 * @memberof sandstone/ExpandableItem.ExpandableItemBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,
@@ -109,7 +109,7 @@ const ExpandableItemBase = kind({
 		 * The voice control group.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/ExpandableItem.ExpandableItemBase.prototype
+		 * @memberof sandstone/ExpandableItem.ExpandableItemBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-group-label': PropTypes.string,
@@ -118,7 +118,7 @@ const ExpandableItemBase = kind({
 		 * The voice control intent.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/ExpandableItem.ExpandableItemBase.prototype
+		 * @memberof sandstone/ExpandableItem.ExpandableItemBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-intent': PropTypes.string,
@@ -127,7 +127,7 @@ const ExpandableItemBase = kind({
 		 * The voice control label.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/ExpandableItem.ExpandableItemBase.prototype
+		 * @memberof sandstone/ExpandableItem.ExpandableItemBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-label': PropTypes.string,
@@ -434,7 +434,7 @@ const ExpandableItemBase = kind({
 });
 
 /**
- * A component that renders a {@link moonstone/LabeledItem.LabeledItem} that can be expanded to
+ * A component that renders a {@link sandstone/LabeledItem.LabeledItem} that can be expanded to
  * show additional contents.
  *
  * `ExpandableItem` maintains its open/closed state by default. The initial state can be supplied
@@ -442,10 +442,10 @@ const ExpandableItemBase = kind({
  * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
  *
  * @class ExpandableItem
- * @memberof moonstone/ExpandableItem
- * @extends moonstone/ExpandableItem.ExpandableItemBase
+ * @memberof sandstone/ExpandableItem
+ * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
- * @mixes moonstone/ExpandableItem.Expandable
+ * @mixes sandstone/ExpandableItem.Expandable
  * @public
  */
 const ExpandableItem = Expandable(

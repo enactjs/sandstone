@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled icon components and behaviors.
+ * Provides Sandstone styled icon components and behaviors.
  *
  * @example
  * <Icon>flag</Icon>
  *
- * @module moonstone/Icon
+ * @module sandstone/Icon
  * @exports Icon
  * @exports IconBase
  * @exports IconDecorator
@@ -24,10 +24,10 @@ import iconList from './IconList.js';
 import componentCss from './Icon.module.less';
 
 /**
- * Renders a moonstone-styled icon without any behavior.
+ * Renders a sandstone-styled icon without any behavior.
  *
  * @class IconBase
- * @memberof moonstone/Icon
+ * @memberof sandstone/Icon
  * @extends ui/Icon.Icon
  * @ui
  * @public
@@ -35,7 +35,7 @@ import componentCss from './Icon.module.less';
 const IconBase = kind({
 	name: 'Icon',
 
-	propTypes: /** @lends moonstone/Icon.IconBase.prototype */ {
+	propTypes: /** @lends sandstone/Icon.IconBase.prototype */ {
 		/**
 		 * The size of the icon.
 		 *
@@ -60,7 +60,7 @@ const IconBase = kind({
 // Let's find a way to import this list directly, and bonus feature, render our icons in the docs
 // next to their names.
 /**
- * An object whose keys can be used as the child of an [Icon]{@link moonstone/Icon.Icon} component.
+ * An object whose keys can be used as the child of an [Icon]{@link sandstone/Icon.Icon} component.
  *
  * List of Icons:
  * ```
@@ -190,18 +190,18 @@ const IconBase = kind({
  * ```
  *
  * @name iconList
- * @memberof moonstone/Icon
+ * @memberof sandstone/Icon
  * @constant
  * @type {Object}
  * @public
  */
 
 /**
- * Moonstone-specific behaviors to apply to [IconBase]{@link moonstone/Icon.IconBase}.
+ * Sandstone-specific behaviors to apply to [IconBase]{@link sandstone/Icon.IconBase}.
  *
  * @hoc
- * @memberof moonstone/Icon
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/Icon
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const IconDecorator = compose(
@@ -210,12 +210,12 @@ const IconDecorator = compose(
 );
 
 /**
- * A Moonstone-styled icon.
+ * A Sandstone-styled icon.
  *
  * @class Icon
- * @memberof moonstone/Icon
- * @extends moonstone/Icon.IconBase
- * @mixes moonstone/Icon.IconDecorator
+ * @memberof sandstone/Icon
+ * @extends sandstone/Icon.IconBase
+ * @mixes sandstone/Icon.IconDecorator
  * @ui
  * @public
  */

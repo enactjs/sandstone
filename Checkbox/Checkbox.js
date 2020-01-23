@@ -1,10 +1,10 @@
 /**
- * Moonstone styled checkbox components.
+ * Sandstone styled checkbox components.
  *
  * @example
  * <Checkbox onToggle={console.log} />
  *
- * @module moonstone/Checkbox
+ * @module sandstone/Checkbox
  * @exports Checkbox
  * @exports CheckboxBase
  */
@@ -19,10 +19,10 @@ import Icon from '@enact/ui/Icon';
 import css from './Checkbox.module.less';
 
 /**
- * A checkbox component, ready to use in Moonstone applications.
+ * A checkbox component, ready to use in Sandstone applications.
  *
  * `Checkbox` may be used independently to represent a toggleable state but is more commonly used as
- * part of [CheckboxItem]{@link moonstone/CheckboxItem}.
+ * part of [CheckboxItem]{@link sandstone/CheckboxItem}.
  *
  * Usage:
  * ```
@@ -30,19 +30,19 @@ import css from './Checkbox.module.less';
  * ```
  *
  * @class Checkbox
- * @memberof moonstone/Checkbox
- * @extends moonstone/ToggleIcon.ToggleIcon
+ * @memberof sandstone/Checkbox
+ * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
  * @public
  */
 const CheckboxBase = kind({
 	name: 'Checkbox',
 
-	propTypes: /** @lends moonstone/Checkbox.Checkbox.prototype */ {
+	propTypes: /** @lends sandstone/Checkbox.Checkbox.prototype */ {
 		/**
 		 * The icon displayed when `selected`.
 		 *
-		 * @see {@link moonstone/Icon.Icon.children}
+		 * @see {@link sandstone/Icon.Icon.children}
 		 * @type {String|Object}
 		 * @default	'check'
 		 * @public

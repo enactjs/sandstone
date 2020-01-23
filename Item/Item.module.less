@@ -4,22 +4,22 @@
 @import "../styles/variables.less";
 
 .item {
-	.moon-text-base(@sand-item-font-size);
-	.moon-spotlight-padding(@sand-item-vertical-padding);
+	.sand-text-base(@sand-item-font-size);
+	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	line-height: @sand-item-line-height;
 	position: relative;
 	color: inherit;
 
-	.moon-locale-non-latin({
+	.sand-locale-non-latin({
 		line-height: @sand-item-line-height;
 	});
 
-	.moon-custom-text({
+	.sand-custom-text({
 		font-size: @sand-item-font-size-large;
 		line-height: @sand-item-line-height-large;
 
-		.moon-locale-non-latin({
+		.sand-locale-non-latin({
 			line-height: @sand-item-line-height-large;
 		});
 	});

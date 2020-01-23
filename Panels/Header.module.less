@@ -28,7 +28,7 @@
 	.decorator .input,
 	.decorator .inputHighlight,
 	.title {
-		.moon-header-text();
+		.sand-header-text();
 		text-indent: 0.05em;  // Fix for characters like `j` being left-truncated because of being too close to the edge
 
 		.spacing {
@@ -54,11 +54,11 @@
 	&.compact {
 		.titleBelow,
 		.subTitleBelow {
-			.moon-header-title-below-text();
+			.sand-header-title-below-text();
 		}
 
 		.subTitleBelow {
-			.moon-header-sub-title-below-text();
+			.sand-header-sub-title-below-text();
 		}
 	}
 
@@ -74,7 +74,7 @@
 			line-height: @sand-header-standard-title-line-height;
 			margin-left: -3px; // Negative 3px here to allow the title text to horizontally align with the rest of the header text
 
-			.moon-locale-non-latin({line-height: @sand-non-latin-header-standard-title-line-height;});
+			.sand-locale-non-latin({line-height: @sand-non-latin-header-standard-title-line-height;});
 		}
 
 		.decorator,
@@ -129,7 +129,7 @@
 			font-size: @sand-header-compact-font-size;
 			display: inline;
 
-			.moon-locale-non-latin({line-height:  @sand-non-latin-header-compact-title-line-height;});
+			.sand-locale-non-latin({line-height:  @sand-non-latin-header-compact-title-line-height;});
 		}
 
 		.titleBelow {
@@ -200,20 +200,20 @@
 	});
 }
 
-:global(.moon-panels-hasControls) {
+:global(.sand-panels-hasControls) {
 	.header.compact,
 	.header.dense .title,
 	.header.dense .headerInput,
 	.header.standard .title,
 	.header.standard .headerInput {
-		.padding-start-end(0, var(--moon-panels-controls-width));
+		.padding-start-end(0, var(--sand-panels-controls-width));
 	}
 
 	.header.centered.dense .title,
 	.header.centered.dense .headerInput,
 	.header.centered.standard .title,
 	.header.centered.standard .headerInput {
-		.padding-start-end(var(--moon-panels-controls-width), var(--moon-panels-controls-width));
+		.padding-start-end(var(--sand-panels-controls-width), var(--sand-panels-controls-width));
 	}
 
 	.header.compact {

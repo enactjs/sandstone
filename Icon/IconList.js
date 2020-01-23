@@ -1,4 +1,4 @@
-// Full List (Hash) of Moonstone Supported Icons
+// Full List (Hash) of Sandstone Supported Icons
 //
 
 export default {

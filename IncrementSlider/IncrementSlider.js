@@ -12,7 +12,7 @@
  *   step={5}
  * />
  *
- * @module moonstone/IncrementSlider
+ * @module sandstone/IncrementSlider
  * @exports IncrementSlider
  * @exports IncrementSliderBase
  * @exports IncrementSliderDecorator
@@ -54,12 +54,12 @@ const forwardWithType = (type, props) => forward(type, {type}, props);
 
 /**
  * A stateless Slider with IconButtons to increment and decrement the value. In most circumstances,
- * you will want to use the stateful version: {@link moonstone/IncrementSlider.IncrementSlider}.
+ * you will want to use the stateful version: {@link sandstone/IncrementSlider.IncrementSlider}.
  *
  * @class IncrementSliderBase
- * @memberof moonstone/IncrementSlider
- * @extends moonstone/Slider.SliderBase
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/IncrementSlider
+ * @extends sandstone/Slider.SliderBase
+ * @mixes sandstone/Skinnable.Skinnable
  * @mixes spotlight/Spottable.Spottable
  * @ui
  * @public
@@ -67,7 +67,7 @@ const forwardWithType = (type, props) => forward(type, {type}, props);
 const IncrementSliderBase = kind({
 	name: 'IncrementSlider',
 
-	propTypes: /** @lends moonstone/IncrementSlider.IncrementSliderBase.prototype */ {
+	propTypes: /** @lends sandstone/IncrementSlider.IncrementSliderBase.prototype */ {
 		/**
 		 * Sets the knob to selected state and allows it to move via 5-way controls.
 		 *
@@ -81,7 +81,7 @@ const IncrementSliderBase = kind({
 		 * buttons.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/IncrementSlider.IncrementSliderBase.prototype
+		 * @memberof sandstone/IncrementSlider.IncrementSliderBase.prototype
 		 * @public
 		 */
 		'aria-hidden': PropTypes.bool,
@@ -92,7 +92,7 @@ const IncrementSliderBase = kind({
 		 * the slider directly through the props.
 		 *
 		 * @type {String|Number}
-		 * @memberof moonstone/IncrementSlider.IncrementSliderBase.prototype
+		 * @memberof sandstone/IncrementSlider.IncrementSliderBase.prototype
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -119,7 +119,7 @@ const IncrementSliderBase = kind({
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/IncrementSlider.IncrementSliderBase.prototype
+		 * @memberof sandstone/IncrementSlider.IncrementSliderBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,
@@ -128,7 +128,7 @@ const IncrementSliderBase = kind({
 		 * The `data-webos-voice-group-label` for the IconButton of IncrementSlider.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/IncrementSlider.IncrementSliderBase.prototype
+		 * @memberof sandstone/IncrementSlider.IncrementSliderBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-group-label': PropTypes.string,
@@ -143,9 +143,9 @@ const IncrementSliderBase = kind({
 		decrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link moonstone/Icon.Icon} are
+		 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * [vertical]{@link moonstone/IncrementSlider.IncrementSlider#vertical} is changed.
+		 * [vertical]{@link sandstone/IncrementSlider.IncrementSlider#vertical} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -185,9 +185,9 @@ const IncrementSliderBase = kind({
 		incrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link moonstone/Icon.Icon} are
+		 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * [vertical]{@link moonstone/IncrementSlider.IncrementSlider#vertical} is changed.
+		 * [vertical]{@link sandstone/IncrementSlider.IncrementSlider#vertical} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -209,7 +209,7 @@ const IncrementSliderBase = kind({
 		 * The maximum value of the increment slider.
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/IncrementSlider.IncrementSliderBase.step}.
+		 * [step]{@link sandstone/IncrementSlider.IncrementSliderBase.step}.
 		 *
 		 * @type {Number}
 		 * @default 100
@@ -221,7 +221,7 @@ const IncrementSliderBase = kind({
 		 * The minimum value of the increment slider.
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/IncrementSlider.IncrementSliderBase.step}.
+		 * [step]{@link sandstone/IncrementSlider.IncrementSliderBase.step}.
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -373,7 +373,7 @@ const IncrementSliderBase = kind({
 		 * Enables the built-in tooltip
 		 *
 		 * To customize the tooltip, pass either a custom Tooltip component or an instance of
-		 * [IncrementSliderTooltip]{@link moonstone/IncrementSlider.IncrementSliderTooltip} with
+		 * [IncrementSliderTooltip]{@link sandstone/IncrementSlider.IncrementSliderTooltip} with
 		 * additional props configured.
 		 *
 		 * ```
@@ -588,7 +588,7 @@ const IncrementSliderDecorator = compose(
 );
 
 /**
- * An IncrementSlider with Moonstone styling and SliderDecorator applied with IconButtons to
+ * An IncrementSlider with Sandstone styling and SliderDecorator applied with IconButtons to
  * increment and decrement the value.
  *
  * By default, `IncrementSlider` maintains the state of its `value` property. Supply the
@@ -597,23 +597,23 @@ const IncrementSliderDecorator = compose(
  * `onChange` events.
  *
  * @class IncrementSlider
- * @memberof moonstone/IncrementSlider
- * @extends moonstone/IncrementSlider.IncrementSliderBase
+ * @memberof sandstone/IncrementSlider
+ * @extends sandstone/IncrementSlider.IncrementSliderBase
  * @ui
  * @public
  */
 const IncrementSlider = IncrementSliderDecorator(IncrementSliderBase);
 
 /**
- * A [Tooltip]{@link moonstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link moonstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link moonstone/ProgressBar.ProgressBar}, or
- * [Slider]{@link moonstone/Slider.Slider}.
+ * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
+ * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [Slider]{@link sandstone/Slider.Slider}.
  *
- * See {@link moonstone/ProgressBar.ProgressBarTooltip}
+ * See {@link sandstone/ProgressBar.ProgressBarTooltip}
  *
  * @class IncrementSliderTooltip
- * @memberof moonstone/IncrementSlider
+ * @memberof sandstone/IncrementSlider
  * @ui
  * @public
  */

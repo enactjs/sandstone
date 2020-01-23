@@ -130,7 +130,7 @@ storiesOf('Malachite', module)
 						spotlightDisabled={boolean('spotlightDisabled', Config)}
 						thumbnailSrc={poster}
 						thumbnailUnavailable={boolean('thumbnailUnavailable', Config)}
-						title={text('title', Config, 'Moonstone VideoPlayer Sample Video')}
+						title={text('title', Config, 'Sandstone VideoPlayer Sample Video')}
 						titleHideDelay={number('titleHideDelay', Config, 4000)}
 						{...prop.eventActions}
 					>

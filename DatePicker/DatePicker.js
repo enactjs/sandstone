@@ -7,7 +7,7 @@
  * 	 title="Select Date"
  * />
  *
- * @module moonstone/DatePicker
+ * @module sandstone/DatePicker
  * @exports DatePicker
  * @exports DatePickerBase
  */
@@ -98,11 +98,11 @@ const dateTimeConfig = {
 };
 
 /**
- * An expand date selection component, ready to use in Moonstone applications.
+ * An expand date selection component, ready to use in Sandstone applications.
  *
  * `DatePicker` may be used to select the year, month, and day. It uses a standard `Date` object for
  * its `value` which can be shared as the `value` for a
- * [TimePicker]{@link moonstone/TimePicker.TimePicker} to select both a date and time.
+ * [TimePicker]{@link sandstone/TimePicker.TimePicker} to select both a date and time.
  *
  * By default, `DatePicker` maintains the state of its `value` property. Supply the
  * `defaultValue` property to control its initial value. If you wish to directly control updates
@@ -124,8 +124,8 @@ const dateTimeConfig = {
  * ```
  *
  * @class DatePicker
- * @memberof moonstone/DatePicker
- * @extends moonstone/DatePicker.DatePickerBase
+ * @memberof sandstone/DatePicker
+ * @extends sandstone/DatePicker.DatePickerBase
  * @mixes ui/Toggleable.Toggleable
  * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
@@ -152,7 +152,7 @@ const DatePicker = Pure(
  *
  * @name defaultOpen
  * @type {Boolean}
- * @memberof moonstone/DatePicker.DatePicker.prototype
+ * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */
 
@@ -161,7 +161,7 @@ const DatePicker = Pure(
  *
  * @name defaultValue
  * @type {Date}
- * @memberof moonstone/DatePicker.DatePicker.prototype
+ * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */
 
@@ -171,7 +171,7 @@ const DatePicker = Pure(
  * @name open
  * @type {Boolean}
  * @default false
- * @memberof moonstone/DatePicker.DatePicker.prototype
+ * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */
 
@@ -180,7 +180,7 @@ const DatePicker = Pure(
  *
  * @name value
  * @type {Date}
- * @memberof moonstone/DatePicker.DatePicker.prototype
+ * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */
 

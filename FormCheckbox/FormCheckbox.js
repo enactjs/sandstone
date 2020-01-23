@@ -1,13 +1,13 @@
 /**
- * Moonstone styled checkmark icon inside a circle, primarily used inside the
- * [FormCheckboxItem]{@link moonstone/FormCheckboxItem.FormCheckboxItem}. This also has built-in
- * `Spotlight` support since `FormCheckboxItem` is a specialized [Item]{@link moonstone/Item} that
+ * Sandstone styled checkmark icon inside a circle, primarily used inside the
+ * [FormCheckboxItem]{@link sandstone/FormCheckboxItem.FormCheckboxItem}. This also has built-in
+ * `Spotlight` support since `FormCheckboxItem` is a specialized [Item]{@link sandstone/Item} that
  * does not visually respond to focus; this child component shows focus instead.
  *
  * @example
  * <FormCheckbox />
  *
- * @module moonstone/FormCheckbox
+ * @module sandstone/FormCheckbox
  * @exports FormCheckbox
  * @exports FormCheckboxBase
  */
@@ -24,15 +24,15 @@ import componentCss from './FormCheckbox.module.less';
  * A component that represents a Boolean state, and looks like a check mark in a circle.
  *
  * @class FormCheckbox
- * @memberof moonstone/FormCheckbox
- * @extends moonstone/ToggleIcon.ToggleIcon
+ * @memberof sandstone/FormCheckbox
+ * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
  * @public
  */
 const FormCheckboxBase = kind({
 	name: 'FormCheckbox',
 
-	propTypes: /** @lends moonstone/FormCheckbox.FormCheckbox.prototype */ {
+	propTypes: /** @lends sandstone/FormCheckbox.FormCheckbox.prototype */ {
 		/**
 		 * The icon to be shown when selected.
 		 *

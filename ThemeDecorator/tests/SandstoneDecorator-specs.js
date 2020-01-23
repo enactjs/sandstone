@@ -9,7 +9,7 @@ describe('SandstoneDecorator', () => {
 
 	const AppRoot = (props) => <div data-app {...props} />;
 
-	test('should add base moonstone classes to wrapped component', () => {
+	test('should add base sandstone classes to wrapped component', () => {
 		const config = {ri: false, i18n: false, spotlight: false, float: false, overlay: false};
 		const App = SandstoneDecorator(config, AppRoot);
 		const subject = mount(

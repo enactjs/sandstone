@@ -1,10 +1,10 @@
 /**
- * Moonstone styled input components.
+ * Sandstone styled input components.
  *
  * @example
  * <Input placeholder="Enter text here" />
  *
- * @module moonstone/Input
+ * @module sandstone/Input
  * @exports Input
  * @exports InputBase
  */
@@ -28,21 +28,21 @@ import InputSpotlightDecorator from './InputSpotlightDecorator';
 import {calcAriaLabel, extractInputProps} from './util';
 
 /**
- * A Moonstone styled input component.
+ * A Sandstone styled input component.
  *
  * It supports start and end icons. Note that this base component is not stateless as many other
  * base components are. However, it does not support Spotlight. Apps will want to use
- * {@link moonstone/Input.Input}.
+ * {@link sandstone/Input.Input}.
  *
  * @class InputBase
- * @memberof moonstone/Input
+ * @memberof sandstone/Input
  * @ui
  * @public
  */
 const InputBase = kind({
 	name: 'Input',
 
-	propTypes: /** @lends moonstone/Input.InputBase.prototype */ {
+	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -84,7 +84,7 @@ const InputBase = kind({
 		/**
 		 * The icon to be placed at the end of the input.
 		 *
-		 * @see {@link moonstone/Icon.Icon}
+		 * @see {@link sandstone/Icon.Icon}
 		 * @type {String}
 		 * @public
 		 */
@@ -93,15 +93,15 @@ const InputBase = kind({
 		/**
 		 * The icon to be placed at the beginning of the input.
 		 *
-		 * @see {@link moonstone/Icon.Icon}
+		 * @see {@link sandstone/Icon.Icon}
 		 * @type {String}
 		 * @public
 		 */
 		iconBefore: PropTypes.string,
 
 		/**
-		 * Indicates [value]{@link moonstone/Input.InputBase.value} is invalid and shows
-		 * [invalidMessage]{@link moonstone/Input.InputBase.invalidMessage}, if set.
+		 * Indicates [value]{@link sandstone/Input.InputBase.value} is invalid and shows
+		 * [invalidMessage]{@link sandstone/Input.InputBase.invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -111,7 +111,7 @@ const InputBase = kind({
 
 		/**
 		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link moonstone/Input.InputBase.invalid}.
+		 * [invalid]{@link sandstone/Input.InputBase.invalid}.
 		 *
 		 * If this value is *falsy*, the tooltip will not be shown.
 		 *
@@ -167,7 +167,7 @@ const InputBase = kind({
 		onKeyDown: PropTypes.func,
 
 		/**
-		 * Text to display when [value]{@link moonstone/Input.InputBase.value} is not set.
+		 * Text to display when [value]{@link sandstone/Input.InputBase.value} is not set.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -290,18 +290,18 @@ const InputBase = kind({
 });
 
 /**
- * A Spottable, Moonstone styled input component with embedded icon support.
+ * A Spottable, Sandstone styled input component with embedded icon support.
  *
  * By default, `Input` maintains the state of its `value` property. Supply the `defaultValue`
  * property to control its initial value. If you wish to directly control updates to the component,
  * supply a value to `value` at creation time and update it in response to `onChange` events.
  *
  * @class Input
- * @memberof moonstone/Input
- * @extends moonstone/Input.InputBase
+ * @memberof sandstone/Input
+ * @extends sandstone/Input.InputBase
  * @mixes ui/Changeable.Changeable
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -325,7 +325,7 @@ const Input = Pure(
  * be selected to become interactive. In pointer mode, the input will be editable when clicked.
  *
  * @name autoFocus
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -335,7 +335,7 @@ const Input = Pure(
  * Applies a disabled style and prevents interacting with the component.
  *
  * @name disabled
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -345,7 +345,7 @@ const Input = Pure(
  * Sets the initial value.
  *
  * @name defaultValue
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {String}
  * @public
  */
@@ -354,7 +354,7 @@ const Input = Pure(
  * Blurs the input when the "enter" key is pressed.
  *
  * @name dismissOnEnter
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -364,7 +364,7 @@ const Input = Pure(
  * Called when the internal input is focused.
  *
  * @name onActivate
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -374,7 +374,7 @@ const Input = Pure(
  * Called when the internal input loses focus.
  *
  * @name onDeactivate
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -384,7 +384,7 @@ const Input = Pure(
  * Called when the component is removed when it had focus.
  *
  * @name onSpotlightDisappear
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -394,7 +394,7 @@ const Input = Pure(
  * Disables spotlight navigation into the component.
  *
  * @name spotlightDisabled
- * @memberof moonstone/Input.Input.prototype
+ * @memberof sandstone/Input.Input.prototype
  * @type {Boolean}
  * @default false
  * @public

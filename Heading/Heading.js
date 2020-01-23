@@ -1,5 +1,5 @@
 /**
- * Moonstone styled labeled Heading components and behaviors
+ * Sandstone styled labeled Heading components and behaviors
  *
  * @example
  * <Heading
@@ -9,7 +9,7 @@
  *   A Content Section Heading
  * </Heading>
  *
- * @module moonstone/Heading
+ * @module sandstone/Heading
  * @exports Heading
  * @exports HeadingBase
  * @exports HeadingDecorator
@@ -32,17 +32,17 @@ import componentCss from './Heading.module.less';
  * A labeled Heading component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Heading]{@link moonstone/Heading.Heading}.
+ * is within [Heading]{@link sandstone/Heading.Heading}.
  *
  * @class HeadingBase
- * @memberof moonstone/Heading
+ * @memberof sandstone/Heading
  * @ui
  * @public
  */
 const HeadingBase = kind({
 	name: 'Heading',
 
-	propTypes: /** @lends moonstone/Heading.HeadingBase.prototype */ {
+	propTypes: /** @lends sandstone/Heading.HeadingBase.prototype */ {
 		css: PropTypes.object,
 
 		/**
@@ -90,12 +90,12 @@ const HeadingBase = kind({
 });
 
 /**
- * Applies Moonstone specific behaviors to [HeadingBase]{@link moonstone/Heading.HeadingBase}.
+ * Applies Sandstone specific behaviors to [HeadingBase]{@link sandstone/Heading.HeadingBase}.
  *
  * @hoc
- * @memberof moonstone/Heading
- * @mixes moonstone/Marquee.MarqueeDecorator
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/Heading
+ * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const HeadingDecorator = compose(
@@ -111,7 +111,7 @@ const HeadingDecorator = compose(
 );
 
 /**
- * A labeled Heading component, ready to use in Moonstone applications.
+ * A labeled Heading component, ready to use in Sandstone applications.
  *
  * `Heading` may be used as a header to group related components.
  *
@@ -127,9 +127,9 @@ const HeadingDecorator = compose(
  * ```
  *
  * @class Heading
- * @memberof moonstone/Heading
- * @extends moonstone/Heading.HeadingBase
- * @mixes moonstone/Heading.HeadingDecorator
+ * @memberof sandstone/Heading
+ * @extends sandstone/Heading.HeadingBase
+ * @mixes sandstone/Heading.HeadingDecorator
  * @ui
  * @public
  */
@@ -145,8 +145,8 @@ const Heading = HeadingDecorator(HeadingBase);
  * @name marqueeOn
  * @type {String}
  * @default 'render'
- * @memberof moonstone/Heading.Heading.prototype
- * @see {@link moonstone/Marquee.Marquee}
+ * @memberof sandstone/Heading.Heading.prototype
+ * @see {@link sandstone/Marquee.Marquee}
  * @public
  */
 

@@ -6,7 +6,7 @@
 
 .videoPlayer {
 	// Set by counting the IconButtons inside the side components.
-	--moon-video-player-max-side-components: 0;
+	--sand-video-player-max-side-components: 0;
 
 	overflow: hidden;
 
@@ -94,7 +94,7 @@
 						position: absolute;
 						bottom: -5px;
 						width: 100%;
-						.moon-text-base(@sand-video-player-title-size);
+						.sand-text-base(@sand-video-player-title-size);
 						line-height: @sand-header-line-height;
 						transition: @badges-present-transition;
 						.font-kerning;
@@ -103,7 +103,7 @@
 							transform: translateY(~"calc(var(--infoComponentsOffset) * -1)") translateZ(0);
 						}
 
-						.moon-locale-non-latin({
+						.sand-locale-non-latin({
 							// The font-size .times is the same as .title in non-latin locales so no
 							// vertical adjustment is required to align their baselines
 							bottom: 0px;
@@ -141,7 +141,7 @@
 				}
 
 				.times {
-					.moon-text-base(@sand-video-player-indicator-text-size);
+					.sand-text-base(@sand-video-player-indicator-text-size);
 					align-self: flex-end;
 					white-space: nowrap;
 
@@ -234,7 +234,7 @@
 
 				// Status Indicator
 				.status-indicator {
-					.moon-slider-popup-center {
+					.sand-slider-popup-center {
 						font-family: @sand-font-family;
 						font-size: @sand-video-player-indicator-text-size;
 						line-height: 36px;
@@ -260,7 +260,7 @@
 					flex: 0 1;
 					// Take the size of buttons, add margins for each button, multiply that by the amount of buttons, then remove the margins for the first and last button
 					// Due to a LESS parsing issue, this 'calc' must be applied to a full-property, not a short-hand property
-					flex-basis: ~"calc((" @sand-icon-button-size + (@sand-spotlight-outset * 2) ~" * var(--moon-video-player-max-side-components)) - " (@sand-spotlight-outset * 2) ~")";
+					flex-basis: ~"calc((" @sand-icon-button-size + (@sand-spotlight-outset * 2) ~" * var(--sand-video-player-max-side-components)) - " (@sand-spotlight-outset * 2) ~")";
 					white-space: nowrap;
 					padding: @expanding-button-clearance 0;
 				}
@@ -362,7 +362,7 @@
 						}
 					}
 					.times {
-						.moon-text-base(@sand-video-player-indicator-text-size);
+						.sand-text-base(@sand-video-player-indicator-text-size);
 						align-self: flex-end;
 						white-space: nowrap;
 						color: @sand-video-player-subdued-text-color;
@@ -405,11 +405,11 @@
 
 					// Status Indicator
 					.status-indicator {
-						.moon-slider-popup-center {
+						.sand-slider-popup-center {
 							color: @sand-video-player-indicator-text-color;
 							text-shadow: @sand-video-player-title-text-shadow;
 
-							.moon-icon {
+							.sand-icon {
 								color: inherit;
 							}
 						}

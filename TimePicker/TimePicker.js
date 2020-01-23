@@ -1,10 +1,10 @@
 /**
- * Provides a Moonstone-themed time selection component.
+ * Provides a Sandstone-themed time selection component.
  *
  * @example
  * <TimePicker title="Open me" value={new Date()}></TimePicker>
  *
- * @module moonstone/TimePicker
+ * @module sandstone/TimePicker
  * @exports TimePicker
  * @exports TimePickerBase
  */
@@ -199,7 +199,7 @@ const dateTimeConfig = {
 /**
  * A component that allows displaying or selecting time.
  *
- * Set the [value]{@link moonstone/TimePicker.TimePicker#value} property to a standard JavaScript
+ * Set the [value]{@link sandstone/TimePicker.TimePicker#value} property to a standard JavaScript
  * [Date] {@link /docs/developer-guide/glossary/#date} object to initialize the picker.
  *
  * By default, `TimePicker` maintains the state of its `value` property. Supply the
@@ -212,7 +212,7 @@ const dateTimeConfig = {
  * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
  *
  * @class TimePicker
- * @memberof moonstone/TimePicker
+ * @memberof sandstone/TimePicker
  * @mixes ui/Toggleable.Toggleable
  * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
@@ -224,7 +224,7 @@ const dateTimeConfig = {
  * Default value
  *
  * @name defaultValue
- * @memberof moonstone/TimePicker.TimePicker.prototype
+ * @memberof sandstone/TimePicker.TimePicker.prototype
  * @type {Number}
  * @public
  */
@@ -242,7 +242,7 @@ const TimePicker = Pure(
  * The primary text of the item.
  *
  * @name title
- * @memberof moonstone/TimePicker.TimePicker
+ * @memberof sandstone/TimePicker.TimePicker
  * @instance
  * @type {String}
  * @required
@@ -253,7 +253,7 @@ const TimePicker = Pure(
  * Omits the labels below the pickers.
  *
  * @name noLabels
- * @memberof moonstone/TimePicker.TimePicker
+ * @memberof sandstone/TimePicker.TimePicker
  * @instance
  * @type {Boolean}
  * @public
@@ -263,7 +263,7 @@ const TimePicker = Pure(
  * Called when a condition occurs which should cause the expandable to close.
  *
  * @name onClose
- * @memberof moonstone/TimePicker.TimePicker
+ * @memberof sandstone/TimePicker.TimePicker
  * @instance
  * @type {Function}
  * @public
@@ -273,7 +273,7 @@ const TimePicker = Pure(
  * The selected date.
  *
  * @name value
- * @memberof moonstone/TimePicker.TimePicker
+ * @memberof sandstone/TimePicker.TimePicker
  * @instance
  * @type {Date}
  * @public

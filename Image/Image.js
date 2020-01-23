@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled Image component that supports multiple resolution sources.
+ * Provides Sandstone styled Image component that supports multiple resolution sources.
  *
  * @example
  * <Image src="https://dummyimage.com/64/e048e0/0011ff" style={{height: 64, width: 64}} />
  *
- * @module moonstone/Image
+ * @module sandstone/Image
  * @exports Image
  * @exports ImageBase
  * @exports ImageDecorator
@@ -24,10 +24,10 @@ import Skinnable from '../Skinnable';
 import componentCss from './Image.module.less';
 
 /**
- * A Moonstone-styled image component without any behavior
+ * A Sandstone-styled image component without any behavior
  *
  * @class ImageBase
- * @memberof moonstone/Image
+ * @memberof sandstone/Image
  * @extends ui/Image.Image
  * @ui
  * @public
@@ -35,7 +35,7 @@ import componentCss from './Image.module.less';
 const ImageBase = kind({
 	name: 'Image',
 
-	propTypes: /** @lends moonstone/Image.ImageBase.prototype */ {
+	propTypes: /** @lends sandstone/Image.ImageBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -118,11 +118,11 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
 });
 
 /**
- * Moonstone-specific behaviors to apply to [Image]{@link moonstone/Image.ImageBase}.
+ * Sandstone-specific behaviors to apply to [Image]{@link sandstone/Image.ImageBase}.
  *
  * @hoc
- * @memberof moonstone/Image
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/Image
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const ImageDecorator = compose(
@@ -132,7 +132,7 @@ const ImageDecorator = compose(
 );
 
 /**
- * A Moonstone-styled image component
+ * A Sandstone-styled image component
  *
  * ```
  * <Image
@@ -145,9 +145,9 @@ const ImageDecorator = compose(
  * ```
  *
  * @class Image
- * @memberof moonstone/Image
- * @extends moonstone/Image.ImageBase
- * @mixes moonstone/Image.ImageDecorator
+ * @memberof sandstone/Image
+ * @extends sandstone/Image.ImageBase
+ * @mixes sandstone/Image.ImageDecorator
  * @ui
  * @public
  */

@@ -96,20 +96,20 @@ const getSide = (orientation, side, position) => {
 };
 
 /**
- * A [Tooltip]{@link moonstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link moonstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link moonstone/ProgressBar.ProgressBar}, or
- * [Slider]{@link moonstone/Slider.Slider}.
+ * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
+ * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [Slider]{@link sandstone/Slider.Slider}.
  *
  * @class ProgressBarTooltip
- * @memberof moonstone/ProgressBar
+ * @memberof sandstone/ProgressBar
  * @ui
  * @public
  */
 const ProgressBarTooltipBase = kind({
 	name: 'ProgressBarTooltip',
 
-	propTypes: /** @lends moonstone/ProgressBar.ProgressBarTooltip.prototype */{
+	propTypes: /** @lends sandstone/ProgressBar.ProgressBarTooltip.prototype */{
 		/**
 		 * Sets the orientation of the tooltip based on the orientation of the bar.
 		 *

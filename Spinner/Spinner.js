@@ -1,12 +1,12 @@
 /**
- * Provides Moonstone-themed indeterminate progress indicator (spinner) components and behaviors.
+ * Provides Sandstone-themed indeterminate progress indicator (spinner) components and behaviors.
  *
  * Used for indicating to the user that something is busy and interaction is temporarily suspended.
  *
  * @example
  * <Spinner>Loading message...</Spinner>
  *
- * @module moonstone/Spinner
+ * @module sandstone/Spinner
  * @exports Spinner
  * @exports SpinnerBase
  * @exports SpinnerDecorator
@@ -31,7 +31,7 @@ import componentCss from './Spinner.module.less';
  * A component that shows spinning balls, with optional text as children.
  *
  * @class SpinnerCore
- * @memberof moonstone/Spinner
+ * @memberof sandstone/Spinner
  * @ui
  * @private
  */
@@ -81,7 +81,7 @@ const SpinnerCore = kind({
  * The base component, defining all of the properties.
  *
  * @class SpinnerBase
- * @memberof moonstone/Spinner
+ * @memberof sandstone/Spinner
  * @extends ui/Spinner.SpinnerBase
  * @ui
  * @public
@@ -89,7 +89,7 @@ const SpinnerCore = kind({
 const SpinnerBase = kind({
 	name: 'Spinner',
 
-	propTypes: /** @lends moonstone/Spinner.SpinnerBase.prototype */ {
+	propTypes: /** @lends sandstone/Spinner.SpinnerBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -108,7 +108,7 @@ const SpinnerBase = kind({
 		 * Customize the size of this component.
 		 *
 		 * Recommended usage is "medium" (default) for standalone and popup scenarios, while "small"
-		 * is best suited for use inside other elements, like {@link moonstone/SlotItem.SlotItem}.
+		 * is best suited for use inside other elements, like {@link sandstone/SlotItem.SlotItem}.
 		 *
 		 * @type {('medium'|'small')}
 		 * @default 'medium'
@@ -165,7 +165,7 @@ const SpinnerBase = kind({
  * `'container'`. Blocking spotlight within the container is up to app implementation.
  *
  * @hoc
- * @memberof moonstone/Spinner
+ * @memberof sandstone/Spinner
  * @ui
  * @private
  */
@@ -173,7 +173,7 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 	return class extends React.Component {
 		static displayName = 'SpinnerSpotlightDecorator';
 
-		static propTypes = /** @lends moonstone/Spinner.Spinner.prototype */ {
+		static propTypes = /** @lends sandstone/Spinner.Spinner.prototype */ {
 			/**
 			 * Determines how far the click-blocking should extend.
 			 *
@@ -220,11 +220,11 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 });
 
 /**
- * Moonstone-specific Spinner behaviors to apply to [Spinner]{@link moonstone/Spinner.Spinner}.
+ * Sandstone-specific Spinner behaviors to apply to [Spinner]{@link sandstone/Spinner.Spinner}.
  *
  * @hoc
- * @memberof moonstone/Spinner
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/Spinner
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const SpinnerDecorator = compose(
@@ -234,12 +234,12 @@ const SpinnerDecorator = compose(
 );
 
 /**
- * A Moonstone-styled Spinner.
+ * A Sandstone-styled Spinner.
  *
  * @class Spinner
- * @memberof moonstone/Spinner
- * @extends moonstone/Spinner.SpinnerBase
- * @mixes moonstone/Spinner.SpinnerDecorator
+ * @memberof sandstone/Spinner
+ * @extends sandstone/Spinner.SpinnerBase
+ * @mixes sandstone/Spinner.SpinnerDecorator
  * @ui
  * @public
  */

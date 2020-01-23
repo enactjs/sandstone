@@ -7,19 +7,19 @@ import PropTypes from 'prop-types';
 import css from './VideoPlayer.module.less';
 
 /**
- * Overlay {@link moonstone/VideoPlayer}. This covers the Video piece of the
- * {@link moonstone/VideoPlayer} to prevent unnecessary VideoPlayer repaints due to mouse-moves.
- * It also acts as a container for overlaid elements, like the {@link moonstone/Spinner}.
+ * Overlay {@link sandstone/VideoPlayer}. This covers the Video piece of the
+ * {@link sandstone/VideoPlayer} to prevent unnecessary VideoPlayer repaints due to mouse-moves.
+ * It also acts as a container for overlaid elements, like the {@link sandstone/Spinner}.
  *
  * @class Overlay
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
 const OverlayBase = kind({
 	name: 'Overlay',
 
-	propTypes: /** @lends moonstone/VideoPlayer.Overlay.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.Overlay.prototype */ {
 		bottomControlsVisible: PropTypes.bool,
 		children: PropTypes.node
 	},

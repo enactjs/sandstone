@@ -1,10 +1,10 @@
 /**
- * Provides a Moonstone-themed Item component and interactive toggleable radio icon.
+ * Provides a Sandstone-themed Item component and interactive toggleable radio icon.
  *
  * @example
  * <RadioItem>Item</RadioItem>
  *
- * @module moonstone/RadioItem
+ * @module sandstone/RadioItem
  * @exports RadioItem
  * @exports RadioItemBase
  */
@@ -22,8 +22,8 @@ import componentCss from './RadioItem.module.less';
  * Renders an `Item` with a radio-dot icon.
  *
  * @class RadioItem
- * @memberof moonstone/RadioItem
- * @extends moonstone/ToggleItem.ToggleItem
+ * @memberof sandstone/RadioItem
+ * @extends sandstone/ToggleItem.ToggleItem
  * @omit iconComponent
  * @ui
  * @public
@@ -31,7 +31,7 @@ import componentCss from './RadioItem.module.less';
 const RadioItemBase = kind({
 	name: 'RadioItem',
 
-	propTypes: /** @lends moonstone/RadioItem.RadioItem.prototype */ {
+	propTypes: /** @lends sandstone/RadioItem.RadioItem.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.

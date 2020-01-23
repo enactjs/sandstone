@@ -5,7 +5,7 @@
  * @param   {Object}    props    Props object
  *
  * @returns {Object}             voice control related props
- * @memberof moonstone/internal/util
+ * @memberof sandstone/internal/util
  * @private
  */
 const extractVoiceProps = function (props) {

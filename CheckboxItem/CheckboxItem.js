@@ -1,12 +1,12 @@
 /**
- * Moonstone styled item components with a toggleable checkbox.
+ * Sandstone styled item components with a toggleable checkbox.
  *
  * @example
  * <CheckboxItem onToggle={console.log}>
  * 	Item with a Checkbox
  * </CheckboxItem>
  *
- * @module moonstone/CheckboxItem
+ * @module sandstone/CheckboxItem
  * @exports CheckboxItem
  * @exports CheckboxItemBase
  */
@@ -21,7 +21,7 @@ import ToggleItem from '../ToggleItem';
 import componentCss from './CheckboxItem.module.less';
 
 /**
- * An item with a checkbox component, ready to use in Moonstone applications.
+ * An item with a checkbox component, ready to use in Sandstone applications.
  *
  * `CheckboxItem` may be used to allow the user to select a single option or used as part of a
  * [Group]{@link ui/Group} when multiple [selections]{@link ui/Group.Group.select} are possible.
@@ -37,8 +37,8 @@ import componentCss from './CheckboxItem.module.less';
  * ```
  *
  * @class CheckboxItem
- * @memberof moonstone/CheckboxItem
- * @extends moonstone/ToggleItem.ToggleItem
+ * @memberof sandstone/CheckboxItem
+ * @extends sandstone/ToggleItem.ToggleItem
  * @omit iconComponent
  * @ui
  * @public
@@ -46,7 +46,7 @@ import componentCss from './CheckboxItem.module.less';
 const CheckboxItemBase = kind({
 	name: 'CheckboxItem',
 
-	propTypes: /** @lends moonstone/CheckboxItem.CheckboxItem.prototype */ {
+	propTypes: /** @lends sandstone/CheckboxItem.CheckboxItem.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.

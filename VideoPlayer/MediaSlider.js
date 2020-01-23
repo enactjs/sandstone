@@ -10,18 +10,18 @@ import MediaSliderDecorator from './MediaSliderDecorator';
 import css from './VideoPlayer.module.less';
 
 /**
- * The base component to render a customized [Slider]{@link moonstone/Slider.Slider} for use in
- * [VideoPlayer]{@link moonstone/VideoPlayer.VideoPlayer}.
+ * The base component to render a customized [Slider]{@link sandstone/Slider.Slider} for use in
+ * [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
  *
  * @class MediaSliderBase
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
 const MediaSliderBase = kind({
 	name: 'MediaSlider',
 
-	propTypes: /** @lends moonstone/VideoPlayer.MediaSliderBase.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.MediaSliderBase.prototype */ {
 
 		/**
 		 * When `true`, the knob will expand. Note that Slider is a controlled
@@ -103,10 +103,10 @@ const MediaSliderBase = kind({
 
 /**
  * A customized slider suitable for use within
- * [VideoPlayer]{@link moonstone/VideoPlayer.VideoPlayer}.
+ * [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
  *
  * @class MediaSlider
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */

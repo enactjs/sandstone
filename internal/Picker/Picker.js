@@ -68,10 +68,10 @@ const forwardBlur = forward('onBlur'),
 	forwardWheel = forward('onWheel');
 
 /**
- * The base component for {@link moonstone/internal/Picker.Picker}.
+ * The base component for {@link sandstone/internal/Picker.Picker}.
  *
  * @class Picker
- * @memberof moonstone/internal/Picker
+ * @memberof sandstone/internal/Picker
  * @ui
  * @private
  */
@@ -79,7 +79,7 @@ const forwardBlur = forward('onBlur'),
 const PickerBase = class extends React.Component {
 	static displayName = 'Picker'
 
-	static propTypes = /** @lends moonstone/internal/Picker.Picker.prototype */ {
+	static propTypes = /** @lends sandstone/internal/Picker.Picker.prototype */ {
 		/**
 		 * Index for internal ViewManager
 		 *
@@ -93,7 +93,7 @@ const PickerBase = class extends React.Component {
 		 * The maximum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/internal/Picker.PickerBase.step}.
+		 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -105,7 +105,7 @@ const PickerBase = class extends React.Component {
 		 * The minimum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/internal/Picker.PickerBase.step}.
+		 * [step]{@link sandstone/internal/Picker.PickerBase.step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -131,7 +131,7 @@ const PickerBase = class extends React.Component {
 		 * when the picker is `joined`.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/internal/Picker.PickerBase.prototype
+		 * @memberof sandstone/internal/Picker.PickerBase.prototype
 		 * @public
 		 */
 		'aria-label': PropTypes.string,
@@ -143,7 +143,7 @@ const PickerBase = class extends React.Component {
 		 * text.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/internal/Picker.PickerBase.prototype
+		 * @memberof sandstone/internal/Picker.PickerBase.prototype
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.string,
@@ -168,7 +168,7 @@ const PickerBase = class extends React.Component {
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/internal/Picker.PickerBase.prototype
+		 * @memberof sandstone/internal/Picker.PickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,
@@ -177,7 +177,7 @@ const PickerBase = class extends React.Component {
 		 * The `data-webos-voice-group-label` for the IconButton of Picker.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/internal/Picker.PickerBase.prototype
+		 * @memberof sandstone/internal/Picker.PickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-group-label': PropTypes.string,
@@ -192,9 +192,9 @@ const PickerBase = class extends React.Component {
 		decrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link moonstone/Icon.Icon} are
+		 * Assign a custom icon for the decrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * the [orientation]{@link moonstone/Icon.Icon#orientation} is changed.
+		 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -228,9 +228,9 @@ const PickerBase = class extends React.Component {
 		incrementAriaLabel: PropTypes.string,
 
 		/**
-		 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link moonstone/Icon.Icon} are
+		 * Assign a custom icon for the incrementer. All strings supported by [Icon]{@link sandstone/Icon.Icon} are
 		 * supported. Without a custom icon, the default is used, and is automatically changed when
-		 * the [orientation]{@link moonstone/Icon.Icon#orientation} is changed.
+		 * the [orientation]{@link sandstone/Icon.Icon#orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public

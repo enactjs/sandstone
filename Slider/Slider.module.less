@@ -24,7 +24,7 @@
 	}
 
 	.knob {
-		--moon-tooltip-offset: @sand-slider-tooltip-offset;
+		--sand-tooltip-offset: @sand-slider-tooltip-offset;
 
 		position: absolute;
 		will-change: left, bottom;
@@ -47,7 +47,7 @@
 		touch-action: auto;
 	});
 
-	.moon-custom-text({
+	.sand-custom-text({
 		.knob::before {
 			height: @sand-slider-knob-height-large;
 			width: @sand-slider-knob-width-large;
@@ -74,7 +74,7 @@
 			left: ~"calc(var(--ui-slider-proportion-end-knob) * 100%)";
 		}
 
-		.moon-custom-text({
+		.sand-custom-text({
 			@h-gap-large: (@sand-slider-knob-width-large / 2);
 			padding: ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2) @h-gap-large;
 		});
@@ -98,7 +98,7 @@
 			top: auto;
 		}
 
-		.moon-custom-text({
+		.sand-custom-text({
 			@v-gap-large: (@sand-slider-knob-width / 2);
 			padding: @v-gap-large ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2);
 		});

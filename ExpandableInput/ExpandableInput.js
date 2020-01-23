@@ -1,5 +1,5 @@
 /**
- * Moonstone styled expandable input.
+ * Sandstone styled expandable input.
  *
  * @example
  * <ExpandableInput
@@ -7,7 +7,7 @@
  *   title="Expandable Input"
  * />
  *
- * @module moonstone/ExpandableInput
+ * @module sandstone/ExpandableInput
  * @exports ExpandableInput
  * @exports ExpandableInputBase
  */
@@ -43,18 +43,18 @@ const handleUpDown = handle(
 );
 
 /**
- * A stateless component that expands to render a {@link moonstone/Input.Input}.
+ * A stateless component that expands to render a {@link sandstone/Input.Input}.
  *
  * @class ExpandableInputBase
- * @memberof moonstone/ExpandableInput
- * @extends moonstone/ExpandableItem.ExpandableItemBase
+ * @memberof sandstone/ExpandableInput
+ * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
 class ExpandableInputBase extends React.Component {
 	static displayName = 'ExpandableInput'
 
-	static propTypes = /** @lends moonstone/ExpandableInput.ExpandableInputBase.prototype */ {
+	static propTypes = /** @lends sandstone/ExpandableInput.ExpandableInputBase.prototype */ {
 		/**
 		 * The primary text of the item.
 		 *
@@ -75,7 +75,7 @@ class ExpandableInputBase extends React.Component {
 		/**
 		 * The icon to be placed at the end of the input.
 		 *
-		 * @see {@link moonstone/Icon.Icon}
+		 * @see {@link sandstone/Icon.Icon}
 		 * @type {String}
 		 * @public
 		 */
@@ -84,7 +84,7 @@ class ExpandableInputBase extends React.Component {
 		/**
 		 * The icon to be placed at the beginning of the input.
 		 *
-		 * @see {@link moonstone/Icon.Icon}
+		 * @see {@link sandstone/Icon.Icon}
 		 * @type {String}
 		 * @public
 		 */
@@ -155,7 +155,7 @@ class ExpandableInputBase extends React.Component {
 		 * The placeholder text to display.
 		 *
 		 * @type {String}
-		 * @see {@link moonstone/Input.Input#placeholder}
+		 * @see {@link sandstone/Input.Input#placeholder}
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -173,7 +173,7 @@ class ExpandableInputBase extends React.Component {
 		 * The type of input. Accepted values correspond to the standard HTML5 input types.
 		 *
 		 * @type {String}
-		 * @see {@link moonstone/Input.Input#type}
+		 * @see {@link sandstone/Input.Input#type}
 		 * @public
 		 */
 		type: PropTypes.string,
@@ -182,7 +182,7 @@ class ExpandableInputBase extends React.Component {
 		 * The value of the input.
 		 *
 		 * @type {String|Number}
-		 * @see {@link moonstone/Input.Input#value}
+		 * @see {@link sandstone/Input.Input#value}
 		 * @public
 		 */
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -325,7 +325,7 @@ class ExpandableInputBase extends React.Component {
 }
 
 /**
- * A stateful component that expands to render a {@link moonstone/Input.Input}.
+ * A stateful component that expands to render a {@link sandstone/Input.Input}.
  *
  * By default, `ExpandableInput` maintains the state of its `value` property. Supply the
  * `defaultValue` property to control its initial value. If you wish to directly control updates
@@ -338,9 +338,9 @@ class ExpandableInputBase extends React.Component {
  * `onClose`/`onOpen` events.
  *
  * @class ExpandableInput
- * @memberof moonstone/ExpandableInput
- * @extends moonstone/ExpandableInput.ExpandableInputBase
- * @mixes moonstone/ExpandableItem.Expandable
+ * @memberof sandstone/ExpandableInput
+ * @extends sandstone/ExpandableInput.ExpandableInputBase
+ * @mixes sandstone/ExpandableItem.Expandable
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public

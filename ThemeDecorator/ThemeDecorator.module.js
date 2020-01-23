@@ -1,14 +1,14 @@
-// Moonstone Base App styles
+// Sandstone Base App styles
 //
 
 // Core Rules
 @import "~@enact/ui/styles/core.less";
 @import "~@enact/ui/styles/mixins.less";
 
-// Moonstone Internal Rules
+// Sandstone Internal Rules
 @import "../styles/internal/fonts.less";
 
-// Moonstone Rules
+// Sandstone Rules
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
@@ -66,7 +66,7 @@
 });
 
 .root {
-	.moon-text-base(@sand-header-title-below-font-size, self);
+	.sand-text-base(@sand-header-title-below-font-size, self);
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: normal;

@@ -98,7 +98,7 @@ No significant changes.
 
 ### Added
 
-- `moonstone/Header` sample
+- `sandstone/Header` sample
 
 ## [3.0.0-alpha.2] - 2019-05-20
 
@@ -142,7 +142,7 @@ No significant changes.
 
 ### Changed
 
-- `moonstone/ExpandableInput` and `moonstone/Input` knob to select input type
+- `sandstone/ExpandableInput` and `sandstone/Input` knob to select input type
 
 ## [2.2.9] - 2019-01-11
 
@@ -206,7 +206,7 @@ No significant changes.
 
 ### Fixed
 
-- `ui/VirtualList` sampler to use `ui/Item` instead of `moonstone/Item`
+- `ui/VirtualList` sampler to use `ui/Item` instead of `sandstone/Item`
 
 ## [2.0.2] - 2018-08-13
 
@@ -260,7 +260,7 @@ No significant changes.
 
 ### Fixed
 
-- `moonstone/VirtualList`, `moonstone/VirtualGridList`, `ui/VirtualList`, and `ui/VirtualGridList` samples to show items properly when `dataSize` is greater than 1000
+- `sandstone/VirtualList`, `sandstone/VirtualGridList`, `ui/VirtualList`, and `ui/VirtualGridList` samples to show items properly when `dataSize` is greater than 1000
 
 ## [2.0.0-beta.3] - 2018-05-14
 
@@ -340,7 +340,7 @@ No significant changes.
 
 ### Added
 
-- `moonstone/VideoPlayer` knobs for missing props: `disabled`, `feedbackHideDelay`, `miniFeedbackHideDelay`, and `tooltipHideDelay`
+- `sandstone/VideoPlayer` knobs for missing props: `disabled`, `feedbackHideDelay`, `miniFeedbackHideDelay`, and `tooltipHideDelay`
 
 ## [1.12.2] - 2017-11-15
 
@@ -432,7 +432,7 @@ No significant changes.
 
 ### Fixed
 
-- `moonstone/VideoPlayer` sample to update poster images
+- `sandstone/VideoPlayer` sample to update poster images
 
 ## [1.2.2] - 2017-05-31
 
@@ -454,13 +454,13 @@ No significant changes.
 
 ## [1.1.0] - 2017-04-21
 
-Updated with new properties for Moonstone controls.
+Updated with new properties for Sandstone controls.
 
 ## [1.0.0] - 2017-03-31
 
 ### Added
 
-- `moonstone/CheckboxItem` knob to change the checkbox position (left vs right aligned)
+- `sandstone/CheckboxItem` knob to change the checkbox position (left vs right aligned)
 
 ### Changed
 
@@ -481,13 +481,13 @@ No significant changes.
 ## [1.0.0-beta.1] - 2016-12-30
 
 ### Added
-- `moonstone/TooltipDecorator`, `moonstone/VideoPlayer` and `moonstone/VirtualFlexList` samples
+- `sandstone/TooltipDecorator`, `sandstone/VideoPlayer` and `sandstone/VirtualFlexList` samples
 
 ### Changed
 
-- `moonstone/Item.ItemOverlay` to be in a stand-alone sample
+- `sandstone/Item.ItemOverlay` to be in a stand-alone sample
 - samples to be up-to-date with API changes
-- `moonstone/ContextualPopup` to `moonstone/ContextualPopupDecorator`
+- `sandstone/ContextualPopup` to `sandstone/ContextualPopupDecorator`
 
 ## [1.0.0-alpha.5] - 2016-12-16
 
@@ -497,15 +497,15 @@ No changes.
 
 ### Added
 
-- Samples for `ui/Group`, `moonstone/ItemOverlay`, `moonstone/Popup`, `moonstone/ContextualPopupDecorator`, `moonstone/Notification`, `moonstone/ExpandableInput` and `moonstone/Dialog` components
+- Samples for `ui/Group`, `sandstone/ItemOverlay`, `sandstone/Popup`, `sandstone/ContextualPopupDecorator`, `sandstone/Notification`, `sandstone/ExpandableInput` and `sandstone/Dialog` components
 
 ## [1.0.0-alpha.3] - 2016-11-8
 
 ### Added
 
-- Samples for `moonstone/BodyText`, `moonstone/DatePicker`, `moonstone/DayPicker`,
-	`moonstone/ExpandableItem`, `moonstone/Image`, `moonstone/Scroller`, `moonstone/TimePicker`,
-	`moonstone/VirtualList`, and `moonstone/VirtualList.VirtualGridList`
+- Samples for `sandstone/BodyText`, `sandstone/DatePicker`, `sandstone/DayPicker`,
+	`sandstone/ExpandableItem`, `sandstone/Image`, `sandstone/Scroller`, `sandstone/TimePicker`,
+	`sandstone/VirtualList`, and `sandstone/VirtualList.VirtualGridList`
 - Background selection tool
 - `window.ReactPerf` to the Sampler - available when switching to the "iframe" context in the dev tools
 
@@ -517,12 +517,12 @@ No changes.
 
 ### Added
 
-- New samples for components: `moonstone/Marquee`, `moonstone/Spinner`, `moonstone/ExpandableCheckboxItemGroup`
+- New samples for components: `sandstone/Marquee`, `sandstone/Spinner`, `sandstone/ExpandableCheckboxItemGroup`
 - Ability to adjust locale in Sampler
 - Marquee support to many components
-- Image support to `moonstone/Icon` and `moonstone/IconButton`
+- Image support to `sandstone/Icon` and `sandstone/IconButton`
 - QA Sampler with test-specific samples (not to be used as examples of good coding style!)
-- `dismissOnEnter` prop for `moonstone/Input`
+- `dismissOnEnter` prop for `sandstone/Input`
 
 ### Changed
 

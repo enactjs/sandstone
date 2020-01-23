@@ -6,7 +6,7 @@
 .tooltip {
 	--tooltip-progress-proportion: 0;
 	--tooltip-progress-percent: ~"calc(var(--tooltip-progress-proportion) * 100%)";
-	--tooltip-calculated-offset: ~"var(--moon-tooltip-offset, 0px)";
+	--tooltip-calculated-offset: ~"var(--sand-tooltip-offset, 0px)";
 
 	@offset-large: 0;
 
@@ -40,7 +40,7 @@
 				transform: translateX(-100%) translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
 			});
 
-			.moon-custom-text({
+			.sand-custom-text({
 				bottom: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
 			});
 		}
@@ -56,7 +56,7 @@
 				transform: translateX(-100%) translateY(~"calc(100% + var(--tooltip-calculated-offset))");
 			});
 
-			.moon-custom-text({
+			.sand-custom-text({
 				top: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
 			});
 		}
@@ -70,7 +70,7 @@
 			right: 0;
 			transform: translate(~"calc(var(--tooltip-calculated-offset) * -1)", 50%);
 
-			.moon-custom-text({
+			.sand-custom-text({
 				transform: translate(~"calc(var(--tooltip-calculated-offset) * -1 - " @offset-large ~")", 50%);
 			});
 		});
@@ -80,7 +80,7 @@
 			right: auto;
 			transform: translate(var(--tooltip-calculated-offset), 50%);
 
-			.moon-custom-text({
+			.sand-custom-text({
 				transform: translate(~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")", 50%);
 			});
 		});

@@ -1,7 +1,7 @@
 /**
- * Exports the {@link moonstone/internal/DateTimeDecorator.DateTimeDecorator} higher-order component
+ * Exports the {@link sandstone/internal/DateTimeDecorator.DateTimeDecorator} higher-order component
  *
- * @module moonstone/internal/DateTimeDecorator
+ * @module sandstone/internal/DateTimeDecorator
  * @private
  */
 
@@ -28,11 +28,11 @@ const toTime = (date) => {
 };
 
 /**
- * {@link moonstone/internal/DateTimeDecorator.DateTimeDecorator} provides common behavior for
- * {@link moonstone/DatePicker.DatePicker} and {@link moonstone/TimePicker.TimePicker}.
+ * {@link sandstone/internal/DateTimeDecorator.DateTimeDecorator} provides common behavior for
+ * {@link sandstone/DatePicker.DatePicker} and {@link sandstone/TimePicker.TimePicker}.
  *
  * @class DateTimeDecorator
- * @memberof moonstone/internal/DateTimeDecorator
+ * @memberof sandstone/internal/DateTimeDecorator
  * @mixes ui/Toggleable.Toggleable
  * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
@@ -53,7 +53,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 	const Decorator = class extends React.Component {
 		static displayName = 'DateTimeDecorator'
 
-		static propTypes = /** @lends moonstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
 			/**
 			 * The current locale as a
 			 * {@link https://tools.ietf.org/html/rfc5646|BCP 47 language tag}.

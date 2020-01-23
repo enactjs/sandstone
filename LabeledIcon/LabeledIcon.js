@@ -1,15 +1,15 @@
 /**
- * An [Icon]{@link moonstone/Icon.Icon} ecorated with a label.
+ * An [Icon]{@link sandstone/Icon.Icon} ecorated with a label.
  *
  * You may specify an image or a font-based icon by setting the `icon` to either the path
- * to the image or a string from an [iconList]{@link moonstone/Icon.IconBase.iconList}.
+ * to the image or a string from an [iconList]{@link sandstone/Icon.IconBase.iconList}.
  *
  * @example
  * <LabeledIcon icon="star" labelPosition="after">
  *   Favorite
  * </LabeledIcon>
  *
- * @module moonstone/LabeledIcon
+ * @module sandstone/LabeledIcon
  * @exports LabeledIcon
  * @exports LabeledIconBase
  * @exports LabeledIconDecorator
@@ -33,14 +33,14 @@ const Icon = Skinnable(IconBase);
  * A basic LabeledIcon component structure without any behaviors applied to it.
  *
  * @class LabeledIconBase
- * @memberof moonstone/LabeledIcon
+ * @memberof sandstone/LabeledIcon
  * @ui
  * @public
  */
 const LabeledIconBase = kind({
 	name: 'LabeledIcon',
 
-	propTypes: /** @lends moonstone/LabeledIcon.LabeledIconBase.prototype */ {
+	propTypes: /** @lends sandstone/LabeledIcon.LabeledIconBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -73,11 +73,11 @@ const LabeledIconBase = kind({
 });
 
 /**
- * Adds Moonstone specific behaviors to [LabeledIconBase]{@link moonstone/LabeledIcon.LabeledIconBase}.
+ * Adds Sandstone specific behaviors to [LabeledIconBase]{@link sandstone/LabeledIcon.LabeledIconBase}.
  *
  * @hoc
- * @memberof moonstone/LabeledIcon
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/LabeledIcon
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const LabeledIconDecorator = compose(
@@ -86,7 +86,7 @@ const LabeledIconDecorator = compose(
 );
 
 /**
- * A Moonstone-styled icon component with a label.
+ * A Sandstone-styled icon component with a label.
  *
  * Usage:
  * ```
@@ -96,9 +96,9 @@ const LabeledIconDecorator = compose(
  * ```
  *
  * @class LabeledIcon
- * @memberof moonstone/LabeledIcon
- * @extends moonstone/LabeledIcon.LabeledIconBase
- * @mixes moonstone/LabeledIcon.LabeledIconDecorator
+ * @memberof sandstone/LabeledIcon
+ * @extends sandstone/LabeledIcon.LabeledIconBase
+ * @mixes sandstone/LabeledIcon.LabeledIconDecorator
  * @ui
  * @public
  */

@@ -1,5 +1,5 @@
 /**
- * Moonstone styled editable integer picker.
+ * Sandstone styled editable integer picker.
  *
  * @example
  * <EditableIntegerPicker
@@ -8,7 +8,7 @@
  *   min={1}
  * />
  *
- * @module moonstone/EditableIntegerPicker
+ * @module sandstone/EditableIntegerPicker
  * @exports EditableIntegerPicker
  * @exports EditableIntegerPickerBase
  */
@@ -39,22 +39,22 @@ const digits = (num) => {
  * A picker component that lets the user select a number in between `min` and `max` numbers.
  *
  * This component is not spottable. Developers are encouraged to use
- * {@link moonstone/EditableIntegerPicker.EditableIntegerPicker}.
+ * {@link sandstone/EditableIntegerPicker.EditableIntegerPicker}.
  *
  * @class EditableIntegerPickerBase
- * @memberof moonstone/EditableIntegerPicker
+ * @memberof sandstone/EditableIntegerPicker
  * @ui
  * @public
  */
 const EditableIntegerPickerBase = kind({
 	name: 'EditableIntegerPicker',
 
-	propTypes: /** @lends moonstone/EditableIntegerPicker.EditableIntegerPickerBase.prototype */ {
+	propTypes: /** @lends sandstone/EditableIntegerPicker.EditableIntegerPickerBase.prototype */ {
 		/**
 		 * The maximum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/EditableIntegerPicker.EditableIntegerPickerBase.step}.
+		 * [step]{@link sandstone/EditableIntegerPicker.EditableIntegerPickerBase.step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -66,7 +66,7 @@ const EditableIntegerPickerBase = kind({
 		 * The minimum value selectable by the picker (inclusive).
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/EditableIntegerPicker.EditableIntegerPickerBase.step}.
+		 * [step]{@link sandstone/EditableIntegerPicker.EditableIntegerPickerBase.step}.
 		 *
 		 * @type {Number}
 		 * @required
@@ -80,7 +80,7 @@ const EditableIntegerPickerBase = kind({
 		 * By default, `aria-valuetext` is set to the current selected child value.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/EditableIntegerPicker.EditableIntegerPickerBase.prototype
+		 * @memberof sandstone/EditableIntegerPicker.EditableIntegerPickerBase.prototype
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.string,
@@ -88,7 +88,7 @@ const EditableIntegerPickerBase = kind({
 		/**
 		 * The icon for the decrementer.
 		 *
-		 * All strings supported by [Icon]{@link moonstone/Icon.Icon} are supported. Without a
+		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
 		 * custom icon, the default is used.
 		 *
 		 * @type {String}
@@ -116,7 +116,7 @@ const EditableIntegerPickerBase = kind({
 		/**
 		 * The icon for the incrementer.
 		 *
-		 * All strings supported by [Icon]{@link moonstone/Icon.Icon} are supported. Without a
+		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
 		 * custom icon, the default is used.
 		 *
 		 * @type {String}
@@ -144,7 +144,7 @@ const EditableIntegerPickerBase = kind({
 		 * Called when the pickerItem is clicked and `editMode` is `false`.
 		 *
 		 * In response, the `editMode` should be switched to `true` to enable editing. This is
-		 * automatically handled by {@link moonstone/EditableIntegerPicker.EditableIntegerPicker}.
+		 * automatically handled by {@link sandstone/EditableIntegerPicker.EditableIntegerPicker}.
 		 *
 		 * @type {Function}
 		 * @public
@@ -164,8 +164,8 @@ const EditableIntegerPickerBase = kind({
 		 * Pads the display value with zeros.
 		 *
 		 * The number of zeros used is the number of digits of the value of
-		 * [min]{@link moonstone/EditableIntegerPicker.EditableIntegerPickerBase.min} or
-		 * [max]{@link moonstone/EditableIntegerPicker.EditableIntegerPickerBase.max}, whichever is
+		 * [min]{@link sandstone/EditableIntegerPicker.EditableIntegerPickerBase.min} or
+		 * [max]{@link sandstone/EditableIntegerPicker.EditableIntegerPickerBase.max}, whichever is
 		 * greater.
 		 *
 		 * @type {Boolean}
@@ -329,8 +329,8 @@ const EditableIntegerPickerBase = kind({
  * events.
  *
  * @class EditableIntegerPicker
- * @memberof moonstone/EditableIntegerPicker
- * @extends moonstone/EditableIntegerPicker.EditableIntegerPickerBase
+ * @memberof sandstone/EditableIntegerPicker
+ * @extends sandstone/EditableIntegerPicker.EditableIntegerPickerBase
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public
