@@ -10,6 +10,7 @@
  * @exports ButtonDecorator
  */
 
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
@@ -76,6 +77,15 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * True if button is an icon only button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		iconOnly: PropTypes.bool,
+
+		/**
 		 * Specifies on which side (`'before'` or `'after'`) of the text the icon appears.
 		 *
 		 * @type {('before'|'after')}
@@ -105,15 +115,18 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, children, iconPosition, styler}) => styler.append(
-			{iconOnly: (React.Children.count(children) === 0 || children === '')},
+		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler}) => styler.append(
+			{iconOnly},
 			backgroundOpacity,
-			`icon${cap(iconPosition)}`
-		)
+			`icon${cap(iconPosition)}`,
+			size
+		),
+		minWidth: ({iconOnly}) => !iconOnly
 	},
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
+		delete rest.iconOnly;
 		delete rest.iconPosition;
 
 		return UiButtonBase.inline({
@@ -123,6 +136,30 @@ const ButtonBase = kind({
 			iconComponent: Icon
 		});
 	}
+});
+
+
+/**
+ * A higher-order component that determines if it is an
+ * `IconButton`, a button that only displays an icon.
+ *
+ * @class IconButtonDecorator
+ * @memberof sandstone/Button
+ * @hoc
+ * @private
+ */
+const IconButtonDecorator = hoc((config, Wrapped) => {
+	return kind({
+		name: 'IconButtonDecorator',
+		computed: {
+			iconOnly: ({children}) => (React.Children.count(children) === 0 || children === '')
+		},
+		render: (props) => {
+			return (
+				<Wrapped {...props} />
+			);
+		}
+	});
 });
 
 /**
@@ -138,6 +175,7 @@ const ButtonBase = kind({
  */
 const ButtonDecorator = compose(
 	Pure,
+	IconButtonDecorator,
 	MarqueeDecorator({className: componentCss.marquee}),
 	UiButtonDecorator,
 	Spottable,

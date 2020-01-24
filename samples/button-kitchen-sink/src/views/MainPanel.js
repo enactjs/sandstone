@@ -26,6 +26,7 @@ const MainPanel = kind({
 				<Button size="large" pressed>Large Pressed Button</Button>
 				<Button size="large" disabled>Large Disabled Button</Button>
 				<Button size="large">Super long long long string Large Button</Button>
+				<Button size="large" icon="home">Button with Icon</Button>
 				<Heading showLine>Icon Button</Heading>
 				<Button icon="play" />
 				<Button pressed icon="play" />

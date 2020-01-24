@@ -46,9 +46,14 @@
 		-webkit-margin-end: @sand-button-icon-margin-end;
 	}
 
-	.iconOnly {
-		.icon {
-			margin: 0;
+	&.iconOnly {
+		&.iconAfter,
+		&.iconBefore,
+		&.large,
+		&.small {
+			.icon {
+				margin: 0;
+			}
 		}
 	}
 
