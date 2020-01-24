@@ -3,8 +3,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon from '@enact/malachite/Icon';
-import SlotItem from '@enact/malachite/SlotItem';
+import Icon from '@enact/sandstone/Icon';
+import SlotItem from '@enact/sandstone/SlotItem';
 
 const Config = mergeComponentMetadata('SlotItem', SlotItem);
 
@@ -14,7 +14,7 @@ const prop = {
 
 SlotItem.displayName = 'SlotItem';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'SlotItem',
 		() => (

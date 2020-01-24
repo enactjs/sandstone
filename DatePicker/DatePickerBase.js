@@ -14,18 +14,18 @@ import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponen
  * A date selection component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [DatePicker]{@link moonstone/DatePicker.DatePicker}.
+ * is within [DatePicker]{@link sandstone/DatePicker.DatePicker}.
  *
  * @class DatePickerBase
- * @memberof moonstone/DatePicker
- * @extends moonstone/ExpandableItem.ExpandableItemBase
+ * @memberof sandstone/DatePicker
+ * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
 const DatePickerBase = kind({
 	name: 'DatePickerBase',
 
-	propTypes:  /** @lends moonstone/DatePicker.DatePickerBase.prototype */ {
+	propTypes:  /** @lends sandstone/DatePicker.DatePickerBase.prototype */ {
 		/**
 		 * The `day` component of the Date.
 		 *
@@ -99,7 +99,7 @@ const DatePickerBase = kind({
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/DatePicker.DatePickerBase.prototype
+		 * @memberof sandstone/DatePicker.DatePickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,

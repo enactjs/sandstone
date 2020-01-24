@@ -6,49 +6,49 @@
 
 
 .daySelector {
-	border-radius: @moon-day-selector-border-radius;
+	border-radius: @sand-day-selector-border-radius;
 	display: inline-flex;
 	white-space: nowrap;
 
 	.daySelectorItem {
-		padding: @moon-day-selector-padding;
+		padding: @sand-day-selector-padding;
 		border-left: inherit;
 
 		> :first-child {
-			-webkit-margin-start: @moon-day-selector-horizontal-margin;
+			-webkit-margin-start: @sand-day-selector-horizontal-margin;
 		}
 
 		> :last-child {
-			margin: @moon-day-selector-vertical-margin 0;
-			-webkit-margin-end: @moon-day-selector-horizontal-margin;
+			margin: @sand-day-selector-vertical-margin 0;
+			-webkit-margin-end: @sand-day-selector-horizontal-margin;
 		}
 	}
 
 	> :first-child {
 		border-left: initial;
-		border-radius: @moon-day-selector-border-radius 0 0 @moon-day-selector-border-radius;
+		border-radius: @sand-day-selector-border-radius 0 0 @sand-day-selector-border-radius;
 	}
 
 	> :last-child {
-		border-radius: 0 @moon-day-selector-border-radius @moon-day-selector-border-radius 0;
-		padding-right: @moon-day-selector-item-padding;
+		border-radius: 0 @sand-day-selector-border-radius @sand-day-selector-border-radius 0;
+		padding-right: @sand-day-selector-item-padding;
 	}
 
 	:global(.enact-locale-right-to-left) & {
 		> :first-child {
 			border-left: inherit;
-			border-radius: 0 @moon-day-selector-border-radius @moon-day-selector-border-radius 0;
+			border-radius: 0 @sand-day-selector-border-radius @sand-day-selector-border-radius 0;
 		}
 
 		> :last-child {
 			border-left: initial;
-			border-radius: @moon-day-selector-border-radius 0 0 @moon-day-selector-border-radius;
-			padding-left: @moon-day-selector-item-padding;
-			padding-right: @moon-day-selector-padding;
+			border-radius: @sand-day-selector-border-radius 0 0 @sand-day-selector-border-radius;
+			padding-left: @sand-day-selector-item-padding;
+			padding-right: @sand-day-selector-padding;
 		}
 	}
 
 	.applySkins({
-		border: @moon-day-selector-border-width solid @moon-day-selector-border-color;
+		border: @sand-day-selector-border-width solid @sand-day-selector-border-color;
 	});
 }

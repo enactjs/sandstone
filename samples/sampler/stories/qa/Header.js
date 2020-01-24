@@ -3,9 +3,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import Input from '@enact/malachite/Input';
-import {Header, HeaderBase} from '@enact/malachite/Panels';
+import Button from '@enact/sandstone/Button';
+import Input from '@enact/sandstone/Input';
+import {Header, HeaderBase} from '@enact/sandstone/Panels';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -19,9 +19,9 @@ const inputData = {
 	shortRtlTitle: 'غينيا واستمر',
 	shortRtlTitleBelow: 'غينيا واستمر',
 
-	longTitle: 'Core, The building blocks of an Enact application. Malachite, our touch-centric UI library.',
+	longTitle: 'Core, The building blocks of an Enact application. Sandstone, our touch-centric UI library.',
 	longTitleBelow: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
-	longSubTitleBelow: 'With over 50 components to choose from, Malachite provides a solid base for creating applications designed for touchscreens. The Enact team welcomes contributions from anyone motivated to help out.',
+	longSubTitleBelow: 'With over 50 components to choose from, Sandstone provides a solid base for creating applications designed for touchscreens. The Enact team welcomes contributions from anyone motivated to help out.',
 	longRtlTitle: 'هذا النص طويل ولكن ليس طويلاً. بالتأكيد ليست قصيرة جدا ، على الرغم من.'
 };
 

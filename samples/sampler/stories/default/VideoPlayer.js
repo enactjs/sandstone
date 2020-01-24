@@ -4,9 +4,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import IconButton from '@enact/malachite/IconButton';
-import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/malachite/VideoPlayer';
+import Button from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
+import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 
 import icons from './icons';
 
@@ -82,7 +82,7 @@ const MediaControlsConfig = mergeComponentMetadata('MediaControls', MediaControl
 VideoPlayer.displayName = 'VideoPlayer';
 MediaControls.displayName = 'MediaControls';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'VideoPlayer',
 		() => {
@@ -130,7 +130,7 @@ storiesOf('Malachite', module)
 						spotlightDisabled={boolean('spotlightDisabled', Config)}
 						thumbnailSrc={poster}
 						thumbnailUnavailable={boolean('thumbnailUnavailable', Config)}
-						title={text('title', Config, 'Moonstone VideoPlayer Sample Video')}
+						title={text('title', Config, 'Sandstone VideoPlayer Sample Video')}
 						titleHideDelay={number('titleHideDelay', Config, 4000)}
 						{...prop.eventActions}
 					>

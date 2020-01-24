@@ -1,5 +1,5 @@
 /**
- * Moonstone styled Dropdown components
+ * Sandstone styled Dropdown components
  *
  * @example
  * <Dropdown
@@ -10,7 +10,7 @@
  *   {['Option 1', 'Option 2', 'Option 3', 'Option 4']}
  * </Dropdown>
  *
- * @module moonstone/Dropdown
+ * @module sandstone/Dropdown
  * @exports Dropdown
  * @exports DropdownBase
  * @exports DropdownBaseDecorator
@@ -71,9 +71,9 @@ const ContextualButton = ContextualPopupDecorator({noArrow: true}, DropdownButto
  * A stateless Dropdown component.
  *
  * @class DropdownBase
- * @memberof moonstone/Dropdown
- * @extends moonstone/Button.Button
- * @extends moonstone/ContextualPopupDecorator.ContextualPopupDecorator
+ * @memberof sandstone/Dropdown
+ * @extends sandstone/Button.Button
+ * @extends sandstone/ContextualPopupDecorator.ContextualPopupDecorator
  * @omit popupComponent
  * @ui
  * @public
@@ -81,7 +81,7 @@ const ContextualButton = ContextualPopupDecorator({noArrow: true}, DropdownButto
 const DropdownBase = kind({
 	name: 'Dropdown',
 
-	propTypes: /** @lends moonstone/Dropdown.DropdownBase.prototype */ {
+	propTypes: /** @lends sandstone/Dropdown.DropdownBase.prototype */ {
 		/**
 		 * The selection items to be displayed in the `Dropdown` when `open`.
 		 *
@@ -279,11 +279,11 @@ const DropdownBase = kind({
 });
 
 /**
- * Applies Moonstone specific behaviors and functionality to
- * [DropdownBase]{@link moonstone/Dropdown.DropdownBase}.
+ * Applies Sandstone specific behaviors and functionality to
+ * [DropdownBase]{@link sandstone/Dropdown.DropdownBase}.
  *
  * @hoc
- * @memberof moonstone/Dropdown
+ * @memberof sandstone/Dropdown
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
  * @omit selected
@@ -316,7 +316,7 @@ const DropdownDecorator = compose(
  * Displays the items.
  *
  * @name open
- * @memberof moonstone/Dropdown.DropdownDecorator.prototype
+ * @memberof sandstone/Dropdown.DropdownDecorator.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -326,7 +326,7 @@ const DropdownDecorator = compose(
  * Index of the selected item.
  *
  * @name selected
- * @memberof moonstone/Dropdown.DropdownDecorator.prototype
+ * @memberof sandstone/Dropdown.DropdownDecorator.prototype
  * @type {Number}
  * @public
  */
@@ -335,13 +335,13 @@ const DropdownDecorator = compose(
  * The initial selected index when `selected` is not defined.
  *
  * @name defaultSelected
- * @memberof moonstone/Dropdown.DropdownDecorator.prototype
+ * @memberof sandstone/Dropdown.DropdownDecorator.prototype
  * @type {Number}
  * @public
  */
 
 /**
- * A Moonstone Dropdown component.
+ * A Sandstone Dropdown component.
  *
  * By default, `Dropdown` maintains the state of its `selected` property. Supply the
  * `defaultSelected` property to control its initial value. If you wish to directly control updates
@@ -349,8 +349,8 @@ const DropdownDecorator = compose(
  * `onSelected` events.
  *
  * @class Dropdown
- * @memberof moonstone/Dropdown
- * @extends moonstone/Dropdown.DropdownBase
+ * @memberof sandstone/Dropdown
+ * @extends sandstone/Dropdown.DropdownBase
  * @ui
  * @public
  */

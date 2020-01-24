@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import ContextualPopupDecorator from '@enact/malachite/ContextualPopupDecorator';
-import IconButton from '@enact/malachite/IconButton';
-import IncrementSlider, {IncrementSliderBase} from '@enact/malachite/IncrementSlider';
+import Button from '@enact/sandstone/Button';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import IconButton from '@enact/sandstone/IconButton';
+import IncrementSlider, {IncrementSliderBase} from '@enact/sandstone/IncrementSlider';
 
 import IncrementSliderDelayValue from './components/IncrementSliderDelayValue';
 

@@ -3,7 +3,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Picker from '@enact/malachite/Picker';
+import Picker from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from './icons';
 
@@ -23,7 +23,7 @@ const airports = [
 // const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);
 Picker.displayName = 'Picker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Picker',
 		() => (

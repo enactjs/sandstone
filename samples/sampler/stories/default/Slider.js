@@ -4,7 +4,7 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Slider, {SliderTooltip} from '@enact/malachite/Slider';
+import Slider, {SliderTooltip} from '@enact/sandstone/Slider';
 
 const SliderConfig = mergeComponentMetadata('Slider', Slider);
 const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderTooltip);
@@ -12,7 +12,7 @@ const SliderTooltipConfig = mergeComponentMetadata('SliderTooltip', SliderToolti
 Slider.displayName = 'Slider';
 SliderTooltip.displayName = 'SliderTooltip';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Slider',
 		() => {

@@ -3,7 +3,7 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ProgressBar, {ProgressBarTooltip} from '@enact/malachite/ProgressBar';
+import ProgressBar, {ProgressBarTooltip} from '@enact/sandstone/ProgressBar';
 
 const ProgressBarConfig = mergeComponentMetadata('ProgressBar', ProgressBar);
 const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', ProgressBarTooltip);
@@ -11,7 +11,7 @@ const ProgressBarTooltipConfig = mergeComponentMetadata('ProgressBarTooltip', Pr
 ProgressBar.displayName = 'ProgressBar';
 ProgressBarTooltip.displayName = 'ProgressBarTooltip';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ProgressBar',
 		() => {

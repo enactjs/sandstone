@@ -1,5 +1,5 @@
 /**
- * Provides a Moonstone-themed item component that accepts multiple positions for children.
+ * Provides a Sandstone-themed item component that accepts multiple positions for children.
  *
  * Using the usual `children` prop, as well as two additional props: `slotBefore`, and `slotAfter`.
  * It is customizable by a theme or application.
@@ -14,7 +14,7 @@
  * 	<Icon slot="slotAfter">trash</Icon>
  * </SlotItem>
  *
- * @module moonstone/SlotItem
+ * @module sandstone/SlotItem
  * @exports SlotItem
  * @exports SlotItemBase
  * @exports SlotItemDecorator
@@ -37,20 +37,20 @@ import Skinnable from '../Skinnable';
 import componentCss from './SlotItem.module.less';
 
 /**
- * A moonstone-styled SlotItem without any behavior.
+ * A sandstone-styled SlotItem without any behavior.
  *
  * @class SlotItemBase
- * @memberof moonstone/SlotItem
+ * @memberof sandstone/SlotItem
  * @extends ui/SlotItem.SlotItemBase
  * @omit component
- * @mixes moonstone/Item.ItemBase
+ * @mixes sandstone/Item.ItemBase
  * @ui
  * @public
  */
 const SlotItemBase = kind({
 	name: 'SlotItem',
 
-	propTypes: /** @lends moonstone/SlotItem.SlotItemBase.prototype */ {
+	propTypes: /** @lends sandstone/SlotItem.SlotItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -82,15 +82,15 @@ const SlotItemBase = kind({
 });
 
 /**
- * Moonstone-specific item with overlay behaviors to apply to SlotItem.
+ * Sandstone-specific item with overlay behaviors to apply to SlotItem.
  *
  * @class SlotItemDecorator
- * @memberof moonstone/SlotItem
+ * @memberof sandstone/SlotItem
  * @mixes ui/SlotItem.SlotItemDecorator
  * @mixes ui/Toggleable.Toggleable
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Marquee.MarqueeDecorator
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Skinnable.Skinnable
  * @hoc
  * @public
  */
@@ -107,7 +107,7 @@ const SlotItemDecorator = compose(
 );
 
 /**
- * A Moonstone-styled item with built-in support for overlays.
+ * A Sandstone-styled item with built-in support for overlays.
  *
  * ```
  *	<SlotItem autoHide="both">
@@ -121,9 +121,9 @@ const SlotItemDecorator = compose(
  * ```
  *
  * @class SlotItem
- * @memberof moonstone/SlotItem
- * @extends moonstone/SlotItem.SlotItemBase
- * @mixes moonstone/SlotItem.SlotItemDecorator
+ * @memberof sandstone/SlotItem
+ * @extends sandstone/SlotItem.SlotItemBase
+ * @mixes sandstone/SlotItem.SlotItemDecorator
  * @ui
  * @public
  */

@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone-themed progress bar component.
+ * Provides Sandstone-themed progress bar component.
  *
  * @example
  * <ProgressBar progress={0.5} backgroundProgress={0.75} />
  *
- * @module moonstone/ProgressBar
+ * @module sandstone/ProgressBar
  * @exports ProgressBar
  * @exports ProgressBarBase
  * @exports ProgressBarDecorator
@@ -26,17 +26,17 @@ import {ProgressBarTooltip} from './ProgressBarTooltip';
 import componentCss from './ProgressBar.module.less';
 
 /**
- * Renders a moonstone-styled progress bar.
+ * Renders a sandstone-styled progress bar.
  *
  * @class ProgressBarBase
- * @memberof moonstone/ProgressBar
+ * @memberof sandstone/ProgressBar
  * @ui
  * @public
  */
 const ProgressBarBase = kind({
 	name: 'ProgressBar',
 
-	propTypes: /** @lends moonstone/ProgressBar.ProgressBarBase.prototype */ {
+	propTypes: /** @lends sandstone/ProgressBar.ProgressBarBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -82,7 +82,7 @@ const ProgressBarBase = kind({
 		 * Enables the built-in tooltip.
 		 *
 		 * To customize the tooltip, pass either a custom tooltip component or an instance of
-		 * [ProgressBarTooltip]{@link moonstone/ProgressBar.ProgressBarTooltip} with additional
+		 * [ProgressBarTooltip]{@link sandstone/ProgressBar.ProgressBarTooltip} with additional
 		 * props configured.
 		 *
 		 * The provided component will receive the following props from `ProgressBar`:
@@ -157,11 +157,11 @@ const ProgressBarBase = kind({
 });
 
 /**
- * Moonstone-specific behaviors to apply to [ProgressBar]{@link moonstone/ProgressBar.ProgressBarBase}.
+ * Sandstone-specific behaviors to apply to [ProgressBar]{@link sandstone/ProgressBar.ProgressBarBase}.
  *
  * @hoc
- * @memberof moonstone/ProgressBar
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/ProgressBar
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const ProgressBarDecorator = compose(
@@ -171,12 +171,12 @@ const ProgressBarDecorator = compose(
 );
 
 /**
- * The ready-to-use Moonstone-styled ProgressBar.
+ * The ready-to-use Sandstone-styled ProgressBar.
  *
  * @class ProgressBar
- * @memberof moonstone/ProgressBar
- * @extends moonstone/ProgressBar.ProgressBarBase
- * @mixes moonstone/ProgressBar.ProgressBarDecorator
+ * @memberof sandstone/ProgressBar
+ * @extends sandstone/ProgressBar.ProgressBarBase
+ * @mixes sandstone/ProgressBar.ProgressBarDecorator
  * @ui
  * @public
  */

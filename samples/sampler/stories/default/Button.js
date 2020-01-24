@@ -5,7 +5,7 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button, {ButtonBase} from '@enact/malachite/Button';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
 
 import iconNames from './icons';
 
@@ -19,7 +19,7 @@ const prop = {
 	icons: ['', ...iconNames]
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Button',
 		() => (

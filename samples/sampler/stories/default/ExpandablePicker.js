@@ -4,14 +4,14 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandablePicker, {ExpandablePickerBase} from '@enact/malachite/ExpandablePicker';
+import ExpandablePicker, {ExpandablePickerBase} from '@enact/sandstone/ExpandablePicker';
 
 const Config = mergeComponentMetadata('ExpandablePicker', ExpandablePicker, ExpandablePickerBase);
 ExpandablePicker.displayName = 'ExpandablePicker';
 
 const emoticons = ['💥 boom', '😩🖐 facepalm', '🍩 doughnut', '👻 ghost', '💍 ring', '🎮 videogame', '🍌🍌 bananas'];
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ExpandablePicker',
 		() => (

@@ -1,10 +1,10 @@
 /**
- * A Moonstone-themed [Item]{@link moonstone/Item} used as the basis for other stylized toggle item
+ * A Sandstone-themed [Item]{@link sandstone/Item} used as the basis for other stylized toggle item
  * components.
  *
  * Note: This is not intended to be used directly, but should be extended by a component that will
  * customize this component's appearance by supplying an
- * [iconComponent prop]{@link moonstone/ToggleItem.ToggleItemBase#iconComponent}.
+ * [iconComponent prop]{@link sandstone/ToggleItem.ToggleItemBase#iconComponent}.
  *
  * @example
  * <ToggleItem
@@ -13,7 +13,7 @@
  * 	Toggle me
  * </ToggleItem>
  *
- * @module moonstone/ToggleItem
+ * @module sandstone/ToggleItem
  * @exports ToggleItem
  * @exports ToggleItemBase
  * @exports ToggleItemDecorator
@@ -36,17 +36,17 @@ import {SlotItemBase} from '../SlotItem';
 import componentCss from './ToggleItem.module.less';
 
 /**
- * A Moonstone-styled toggle [Item]{@link moonstone/Item} without any behavior.
+ * A Sandstone-styled toggle [Item]{@link sandstone/Item} without any behavior.
  *
  * @class ToggleItemBase
- * @memberof moonstone/ToggleItem
+ * @memberof sandstone/ToggleItem
  * @ui
  * @public
  */
 const ToggleItemBase = kind({
 	name: 'ToggleItem',
 
-	propTypes: /** @lends moonstone/ToggleItem.ToggleItemBase.prototype */ {
+	propTypes: /** @lends sandstone/ToggleItem.ToggleItemBase.prototype */ {
 		/**
 		 * The content to be displayed as the main content of the toggle item.
 		 *
@@ -60,7 +60,7 @@ const ToggleItemBase = kind({
 		 * The icon component to render in this item.
 		 *
 		 * This component receives the `selected` prop and value, and must therefore respond to it in some
-		 * way. It is recommended to use [ToggleIcon]{@link moonstone/ToggleIcon} for this.
+		 * way. It is recommended to use [ToggleIcon]{@link sandstone/ToggleIcon} for this.
 		 *
 		 * @type {Component|Element}
 		 * @required
@@ -84,7 +84,7 @@ const ToggleItemBase = kind({
 		/**
 		 * Overrides the icon of the `iconComponent` component.
 		 *
-		 * This accepts any string that the [Icon]{@link moonstone/Icon.Icon} component supports,
+		 * This accepts any string that the [Icon]{@link sandstone/Icon.Icon} component supports,
 		 * provided the recommendations of `iconComponent` are followed.
 		 *
 		 * @type {String}
@@ -111,9 +111,9 @@ const ToggleItemBase = kind({
 });
 
 /**
- * Default config for {@link moonstone/ToggleItem.ToggleItemDecorator}.
+ * Default config for {@link sandstone/ToggleItem.ToggleItemDecorator}.
  *
- * @memberof moonstone/ToggleItem.ToggleItemDecorator
+ * @memberof sandstone/ToggleItem.ToggleItemDecorator
  * @hocconfig
  */
 const defaultConfig = {
@@ -123,7 +123,7 @@ const defaultConfig = {
 	 *
 	 * @type {String[]}
 	 * @default ['inline']
-	 * @memberof moonstone/ToggleItem.ToggleItemDecorator.defaultConfig
+	 * @memberof sandstone/ToggleItem.ToggleItemDecorator.defaultConfig
 	 */
 	invalidateProps: ['inline']
 };
@@ -132,11 +132,11 @@ const defaultConfig = {
  * Adds interactive functionality to `ToggleItemBase`.
  *
  * @class ToggleItemDecorator
- * @memberof moonstone/ToggleItem
+ * @memberof sandstone/ToggleItem
  * @mixes ui/ToggleItem.ToggleItemDecorator
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Marquee.MarqueeDecorator
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Skinnable.Skinnable
  * @hoc
  * @public
  */
@@ -151,15 +151,15 @@ const ToggleItemDecorator = hoc(defaultConfig, ({invalidateProps}, Wrapped) => {
 });
 
 /**
- * A Moonstone-styled item with built-in support for toggling, marqueed text, and `Spotlight` focus.
+ * A Sandstone-styled item with built-in support for toggling, marqueed text, and `Spotlight` focus.
  *
  * This is not intended to be used directly, but should be extended by a component that will
  * customize this component's appearance by supplying an `iconComponent` prop.
  *
  * @class ToggleItem
- * @memberof moonstone/ToggleItem
- * @extends moonstone/ToggleItem.ToggleItemBase
- * @mixes moonstone/ToggleItem.ToggleItemDecorator
+ * @memberof sandstone/ToggleItem
+ * @extends sandstone/ToggleItem.ToggleItemBase
+ * @mixes sandstone/ToggleItem.ToggleItemDecorator
  * @ui
  * @public
  */
@@ -169,10 +169,10 @@ const ToggleItem = ToggleItemDecorator(ToggleItemBase);
  * The Icon to render in this item.
  *
  * This component receives the `selected` prop and value, and must therefore respond to it in some
- * way. It is recommended to use [ToggleIcon]{@link moonstone/ToggleIcon} for this.
+ * way. It is recommended to use [ToggleIcon]{@link sandstone/ToggleIcon} for this.
  *
  * @name iconComponent
- * @memberof moonstone/ToggleItem.ToggleItem.prototype
+ * @memberof sandstone/ToggleItem.ToggleItem.prototype
  * @type {Component|Element}
  * @default null
  * @required

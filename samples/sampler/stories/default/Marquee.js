@@ -2,11 +2,11 @@ import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Marquee from '@enact/malachite/Marquee';
+import Marquee from '@enact/sandstone/Marquee';
 
 Marquee.displayName = 'Marquee';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Marquee',
 		() => {

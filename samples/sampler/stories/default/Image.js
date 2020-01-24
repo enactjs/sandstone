@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Image, {ImageBase, ImageDecorator} from '@enact/malachite/Image';
+import Image, {ImageBase, ImageDecorator} from '@enact/sandstone/Image';
 
 const src = {
 	'hd':  'http://via.placeholder.com/200x200',
@@ -15,7 +15,7 @@ const src = {
 const Config = mergeComponentMetadata('Image', Image, ImageBase, ImageDecorator);
 Image.displayName = 'Image';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Image',
 		() => (

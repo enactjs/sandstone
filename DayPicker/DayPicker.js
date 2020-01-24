@@ -1,5 +1,5 @@
 /**
- * Moonstone styled expandable day picker components.
+ * Sandstone styled expandable day picker components.
  *
  * @example
  * <DayPicker
@@ -8,7 +8,7 @@
  *   title="Select a Day"
  * />
  *
- * @module moonstone/DayPicker
+ * @module sandstone/DayPicker
  * @exports DayPicker
  * @exports DayPickerBase
  */
@@ -32,11 +32,11 @@ import Skinnable from '../Skinnable';
  * A day of the week selection component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [DayPicker]{@link moonstone/DayPicker.DayPicker}.
+ * is within [DayPicker]{@link sandstone/DayPicker.DayPicker}.
  *
  * @class DayPickerBase
- * @memberof moonstone/DayPicker
- * @extends moonstone/ExpandableList.ExpandableListBase
+ * @memberof sandstone/DayPicker
+ * @extends sandstone/ExpandableList.ExpandableListBase
  * @omit children
  * @ui
  * @public
@@ -44,7 +44,7 @@ import Skinnable from '../Skinnable';
 const DayPickerBase = kind({
 	name: 'DayPicker',
 
-	propTypes: /** @lends moonstone/DayPicker.DayPicker.prototype */ {
+	propTypes: /** @lends sandstone/DayPicker.DayPicker.prototype */ {
 		/**
 		 * The primary text label for the component.
 		 *
@@ -129,13 +129,13 @@ const DayPickerDecorator = compose(
 );
 
 /**
- * An expandable day of the week selection component, ready to use in Moonstone applications.
+ * An expandable day of the week selection component, ready to use in Sandstone applications.
  *
  * `DayPicker` may be used to select one or more days of the week. Upon selection, it will display
  * the short names of each day selected or customizable strings when selecting [every
- * day]{@link moonstone/DayPicker.DayPicker.everyDayText}), [every
- * weekday]{@link moonstone/DayPicker.DayPicker.everyWeekdayText}, and [every weekend
- * day]{@link moonstone/DayPicker.DayPicker.everyWeekendText}.
+ * day]{@link sandstone/DayPicker.DayPicker.everyDayText}), [every
+ * weekday]{@link sandstone/DayPicker.DayPicker.everyWeekdayText}, and [every weekend
+ * day]{@link sandstone/DayPicker.DayPicker.everyWeekendText}.
  *
  * By default, `DayPicker` maintains the state of its `selected` property. Supply the
  * `defaultSelected` property to control its initial value. If you wish to directly control updates
@@ -158,9 +158,9 @@ const DayPickerDecorator = compose(
  * ```
  *
  * @class DayPicker
- * @memberof moonstone/DayPicker
- * @extends moonstone/DayPicker.DayPickerBase
- * @mixes moonstone/ExpandableItem.Expandable
+ * @memberof sandstone/DayPicker
+ * @extends sandstone/DayPicker.DayPickerBase
+ * @mixes sandstone/ExpandableItem.Expandable
  * @mixes ui/Changeable.Changeable
  * @omit onChange
  * @omit value
@@ -178,7 +178,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  *
  * @name aria-label
  * @type {String}
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -187,7 +187,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  *
  * @name defaultOpen
  * @type {Boolean}
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -196,7 +196,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  *
  * @name defaultSelected
  * @type {Number|Number[]}
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -206,7 +206,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  * @name disabled
  * @type {Boolean}
  * @default false
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -216,7 +216,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  * @name everyDayText
  * @type {String}
  * @default 'Every Day'
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -226,7 +226,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  * @name everyWeekdayText
  * @type {String}
  * @default 'Every Weekday'
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 
@@ -236,7 +236,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  * @name everyWeekendText
  * @type {String}
  * @default 'Every Weekend'
- * @memberof moonstone/DayPicker.DayPicker.prototype
+ * @memberof sandstone/DayPicker.DayPicker.prototype
  * @public
  */
 

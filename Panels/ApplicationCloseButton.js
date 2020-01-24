@@ -6,26 +6,26 @@ import $L from '../internal/$L';
 import IconButton from '../IconButton';
 
 /**
- * An {@link moonstone/ApplicationCloseButton.ApplicationCloseButton} with `closex` icon. It is used in
- * {@link moonstone/Panels.Panels} positioned at the top right corner.
+ * An {@link sandstone/ApplicationCloseButton.ApplicationCloseButton} with `closex` icon. It is used in
+ * {@link sandstone/Panels.Panels} positioned at the top right corner.
  * `onApplicationClose` callback function should be specified to close your app. The recommended
  * action to take with the event is `window.close()`, but you may also want to also do operations
  * like save user work or close database connections.
  *
  * @class ApplicationCloseButton
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @private
  */
 const ApplicationCloseButton = kind({
 	name: 'ApplicationCloseButton',
 
-	propTypes: /** @lends moonstone/Panels.ApplicationCloseButton.prototype */ {
+	propTypes: /** @lends sandstone/Panels.ApplicationCloseButton.prototype */ {
 		/**
 		* Sets the hint string read when focusing the application close button.
 		*
 		* @type {String}
 		* @default 'Exit app'
-		* @memberof moonstone/Panels.ApplicationCloseButton.prototype
+		* @memberof sandstone/Panels.ApplicationCloseButton.prototype
 		* @public
 		*/
 		'aria-label': PropTypes.string,

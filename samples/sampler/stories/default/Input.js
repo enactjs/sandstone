@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Input, {InputBase} from '@enact/malachite/Input';
+import Input, {InputBase} from '@enact/sandstone/Input';
 
 import icons from './icons';
 
@@ -18,7 +18,7 @@ const prop = {
 	type: ['text', 'number', 'password']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Input',
 		() => (

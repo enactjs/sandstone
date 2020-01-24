@@ -4,7 +4,7 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import RangePicker, {RangePickerBase} from '@enact/malachite/RangePicker';
+import RangePicker, {RangePickerBase} from '@enact/sandstone/RangePicker';
 
 import {decrementIcons, incrementIcons} from './icons';
 
@@ -25,7 +25,7 @@ const parseIntOrNullify = (v) => {
 
 RangePicker.displayName = 'RangePicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'RangePicker',
 		() => (

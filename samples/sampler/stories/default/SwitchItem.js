@@ -5,17 +5,17 @@ import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/Toggle
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon from '@enact/malachite/Icon';
-import Item, {ItemBase} from '@enact/malachite/Item';
-import SwitchItem from '@enact/malachite/SwitchItem';
-import ToggleItem from '@enact/malachite/ToggleItem';
+import Icon from '@enact/sandstone/Icon';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import SwitchItem from '@enact/sandstone/SwitchItem';
+import ToggleItem from '@enact/sandstone/ToggleItem';
 
 import {listIcons} from './icons';
 
 SwitchItem.displayName = 'SwitchItem';
 const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, SwitchItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'SwitchItem',
 		() => {

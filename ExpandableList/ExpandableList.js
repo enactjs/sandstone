@@ -1,5 +1,5 @@
 /**
- * Moonstone styled expandable list.
+ * Sandstone styled expandable list.
  *
  * @example
  * <ExpandableList
@@ -10,7 +10,7 @@
  *   {['Item 1', 'Item 2']}
  * </ExpandableList>
  *
- * @module moonstone/ExpandableList
+ * @module sandstone/ExpandableList
  * @exports ExpandableList
  * @exports ExpandableItemBase
  */
@@ -63,19 +63,19 @@ const PureGroup = Pure(
 );
 
 /**
- * A stateless component that renders a {@link moonstone/LabeledItem.LabeledItem} that can be
+ * A stateless component that renders a {@link sandstone/LabeledItem.LabeledItem} that can be
  * expanded to show a selectable list of items.
  *
  * @class ExpandableListBase
- * @memberof moonstone/ExpandableList
- * @extends moonstone/ExpandableItem.ExpandableItemBase
+ * @memberof sandstone/ExpandableList
+ * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
 const ExpandableListBase = kind({
 	name: 'ExpandableList',
 
-	propTypes: /** @lends moonstone/ExpandableList.ExpandableListBase.prototype */ {
+	propTypes: /** @lends sandstone/ExpandableList.ExpandableListBase.prototype */ {
 		/**
 		 * The items to be displayed in the list. This supports two data types. If an array of
 		 * strings is provided, the strings will be used in the generated components as the readable
@@ -376,7 +376,7 @@ const ExpandableListBase = kind({
 });
 
 /**
- * A component that renders a {@link moonstone/LabeledItem.LabeledItem} that can be expanded to
+ * A component that renders a {@link sandstone/LabeledItem.LabeledItem} that can be expanded to
  * show a selectable list of items.
  *
  * By default, `ExpandableList` maintains the state of its `selected` property. Supply the
@@ -389,9 +389,9 @@ const ExpandableListBase = kind({
  * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
  *
  * @class ExpandableList
- * @memberof moonstone/ExpandableList
- * @extends moonstone/ExpandableList.ExpandableListBase
- * @mixes moonstone/ExpandableItem.Expandable
+ * @memberof sandstone/ExpandableList
+ * @extends sandstone/ExpandableList.ExpandableListBase
+ * @mixes sandstone/ExpandableItem.Expandable
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public

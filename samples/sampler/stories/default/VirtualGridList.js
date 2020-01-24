@@ -7,8 +7,8 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 
-import {GridListImageItem} from '@enact/malachite/GridListImageItem';
-import {VirtualGridList, VirtualListBase} from '@enact/malachite/VirtualList';
+import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {VirtualGridList, VirtualListBase} from '@enact/sandstone/VirtualList';
 
 const
 	wrapOption = {
@@ -65,7 +65,7 @@ updateDataSize(defaultDataSize);
 
 const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'VirtualList.VirtualGridList',
 		() => (

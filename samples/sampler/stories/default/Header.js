@@ -3,10 +3,10 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {Header, HeaderBase} from '@enact/malachite/Panels';
-import Button from '@enact/malachite/Button';
-import IconButton from '@enact/malachite/IconButton';
-import Input from '@enact/malachite/Input';
+import {Header, HeaderBase} from '@enact/sandstone/Panels';
+import Button from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
+import Input from '@enact/sandstone/Input';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -33,7 +33,7 @@ const prop = {
 	type: ['compact', 'dense', 'standard']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Header',
 		context => {

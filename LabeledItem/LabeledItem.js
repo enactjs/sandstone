@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled item with a label below.
+ * Provides Sandstone styled item with a label below.
  *
  * @example
  * <LabeledItem label="Label">Hello LabeledItem</LabeledItem>
  *
- * @module moonstone/LabeledItem
+ * @module sandstone/LabeledItem
  * @exports LabeledItem
  * @exports LabeledItemBase
  */
@@ -37,18 +37,18 @@ import componentCss from './LabeledItem.module.less';
  * marquee-able text label.
  *
  * @class LabeledItemBase
- * @memberof moonstone/LabeledItem
- * @extends moonstone/Item.ItemBase
+ * @memberof sandstone/LabeledItem
+ * @extends sandstone/Item.ItemBase
  * @mixes spotlight/Spottable.Spottable
  * @mixes ui/Touchable.Touchable
- * @mixes moonstone/Marquee.MarqueeController
+ * @mixes sandstone/Marquee.MarqueeController
  * @ui
  * @public
  */
 const LabeledItemBase = kind({
 	name: 'LabeledItem',
 
-	propTypes: /** @lends moonstone/LabeledItem.LabeledItemBase.prototype */ {
+	propTypes: /** @lends sandstone/LabeledItem.LabeledItemBase.prototype */ {
 		/**
 		 * The node to be displayed as the main content of the item.
 		 *
@@ -125,12 +125,12 @@ const LabeledItemBase = kind({
 });
 
 /**
- * A Moonstone styled labeled item with built-in support for marqueed text and Spotlight focus.
+ * A Sandstone styled labeled item with built-in support for marqueed text and Spotlight focus.
  *
  * @class LabeledItem
- * @memberof moonstone/LabeledItem
- * @extends moonstone/LabeledItem.LabeledItemBase
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/LabeledItem
+ * @extends sandstone/LabeledItem.LabeledItemBase
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */

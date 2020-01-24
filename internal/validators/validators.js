@@ -1,7 +1,7 @@
 /**
  * Exports various utilities for performing dev-time validations
  *
- * @module moonstone/internal/validators
+ * @module sandstone/internal/validators
  * @private
  */
 
@@ -14,7 +14,7 @@
  * @param	{Node}		[target=`document`]	Event listener target
  *
  * @returns {undefined}
- * @memberof moonstone/internal/validators
+ * @memberof sandstone/internal/validators
  * @private
  */
 export const warn = (msg) => {
@@ -38,7 +38,7 @@ export const warn = (msg) => {
  * @param {String} [maxName='max'] The name of the max property
  *
  * @returns {undefined}
- * @memberof moonstone/internal/validators
+ * @memberof sandstone/internal/validators
  * @private
  */
 export const validateRange = (value, min, max, component, valueName = 'value', minName = 'min', maxName = 'max') => {
@@ -86,7 +86,7 @@ export const validateRangeOnce = (thing, {component, valueName = 'value', minNam
  * @param {String} [stepName='step'] The name of the step property
  *
  * @returns {Boolean} `true` if warned
- * @memberof moonstone/internal/validators
+ * @memberof sandstone/internal/validators
  * @private
  */
 export const validateStepped = (value, min, step, component, valueName = 'value', stepName = 'step') => {

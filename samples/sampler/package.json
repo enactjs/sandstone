@@ -1,7 +1,7 @@
 {
-  "name": "malachite-sampler",
+  "name": "sandstone-sampler",
   "version": "1.0.0-alpha.1",
-  "description": "Component and QA samples for Malachite",
+  "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "dependencies": {
     "@enact/core": "^3.2.5",
     "@enact/i18n": "^3.2.5",
-    "@enact/malachite": "../../",
+    "@enact/sandstone": "../../",
     "@enact/spotlight": "^3.2.5",
     "@enact/ui": "^3.2.5",
     "classnames": "^2.2.6",

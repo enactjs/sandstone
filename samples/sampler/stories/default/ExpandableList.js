@@ -4,12 +4,12 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableList, {ExpandableListBase} from '@enact/malachite/ExpandableList';
+import ExpandableList, {ExpandableListBase} from '@enact/sandstone/ExpandableList';
 
 const Config = mergeComponentMetadata('ExpandableList', ExpandableList, ExpandableListBase);
 ExpandableList.displayName = 'ExpandableList';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ExpandableList',
 		() => (

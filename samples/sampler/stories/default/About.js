@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import ri from '@enact/ui/resolution';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '@enact/malachite/BodyText';
-import Button from '@enact/malachite/Button';
-import Icon from '@enact/malachite/Icon';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import Icon from '@enact/sandstone/Icon';
 
 import css from './About.module.less';
 
@@ -75,7 +75,7 @@ storiesOf('About', module)
 					style={{margin: `0 ${riSafe(12)} 0.8em`}}
 					centered={boolean('text centered', BodyText)}
 				>
-					Welcome to the Malachite sampler! Explore Malachite components.
+					Welcome to the Sandstone sampler! Explore Sandstone components.
 				</BodyText>
 				<Button onClick={action('onClick')} selected={boolean('button selected', Button)}>
 					Click me

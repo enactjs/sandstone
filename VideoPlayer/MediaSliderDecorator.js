@@ -57,16 +57,16 @@ const handleKeyUp = handle(
 	forward('onKeyUp'),
 	call('isTracking'),
 	forKey('enter'),
-	// prevent moonstone/Slider from activating the knob
+	// prevent sandstone/Slider from activating the knob
 	preventDefault,
 	adaptEvent(call('getEventPayload'), forward('onChange'))
 );
 
 /**
- * MediaSlider for {@link moonstone/VideoPlayer}.
+ * MediaSlider for {@link sandstone/VideoPlayer}.
  *
  * @class MediaSliderDecorator
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @hoc
  * @private
  */

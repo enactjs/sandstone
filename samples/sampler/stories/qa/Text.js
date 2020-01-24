@@ -2,25 +2,25 @@ import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '@enact/malachite/BodyText';
-import Button from '@enact/malachite/Button';
-import CheckboxItem from '@enact/malachite/CheckboxItem';
-import Heading from '@enact/malachite/Heading';
-import ExpandableInput from '@enact/malachite/ExpandableInput';
-import ExpandableList from '@enact/malachite/ExpandableList';
-import ExpandablePicker from '@enact/malachite/ExpandablePicker';
-import FormCheckboxItem from '@enact/malachite/FormCheckboxItem';
-import GridListImageItem from '@enact/malachite/GridListImageItem';
-import {Header} from '@enact/malachite/Panels';
-import Input from '@enact/malachite/Input';
-import Item from '@enact/malachite/Item';
-import LabeledItem from '@enact/malachite/LabeledItem';
-import Marquee from '@enact/malachite/Marquee';
-import RadioItem from '@enact/malachite/RadioItem';
-import Scroller from '@enact/malachite/Scroller';
-import SelectableItem from '@enact/malachite/SelectableItem';
-import SlotItem from '@enact/malachite/SlotItem';
-import SwitchItem from '@enact/malachite/SwitchItem';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableInput from '@enact/sandstone/ExpandableInput';
+import ExpandableList from '@enact/sandstone/ExpandableList';
+import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
+import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
+import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import {Header} from '@enact/sandstone/Panels';
+import Input from '@enact/sandstone/Input';
+import Item from '@enact/sandstone/Item';
+import LabeledItem from '@enact/sandstone/LabeledItem';
+import Marquee from '@enact/sandstone/Marquee';
+import RadioItem from '@enact/sandstone/RadioItem';
+import Scroller from '@enact/sandstone/Scroller';
+import SelectableItem from '@enact/sandstone/SelectableItem';
+import SlotItem from '@enact/sandstone/SlotItem';
+import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
 	english: 'We name themes after gemstones',

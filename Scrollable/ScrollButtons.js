@@ -34,17 +34,17 @@ const
 	};
 
 /**
- * A Moonstone-styled scroll buttons. It is used in [Scrollbar]{@link moonstone/Scrollable.Scrollbar}.
+ * A Sandstone-styled scroll buttons. It is used in [Scrollbar]{@link sandstone/Scrollable.Scrollbar}.
  *
  * @class ScrollButtons
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @ui
  * @private
  */
 class ScrollButtons extends Component {
 	static displayName = 'ScrollButtons'
 
-	static propTypes = /** @lends moonstone/Scrollable.ScrollButtons.prototype */ {
+	static propTypes = /** @lends sandstone/Scrollable.ScrollButtons.prototype */ {
 		/**
 		 * The render function for thumb.
 		 *

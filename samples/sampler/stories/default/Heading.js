@@ -4,8 +4,8 @@ import UiHeading from '@enact/ui/Heading';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '@enact/malachite/BodyText';
-import Heading, {HeadingBase} from '@enact/malachite/Heading';
+import BodyText from '@enact/sandstone/BodyText';
+import Heading, {HeadingBase} from '@enact/sandstone/Heading';
 
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
@@ -17,7 +17,7 @@ const prop = {
 	spacing: ['', 'auto', 'large', 'medium', 'small', 'none']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Heading',
 		() => (<React.Fragment>

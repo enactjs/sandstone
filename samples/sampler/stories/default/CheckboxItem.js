@@ -7,15 +7,15 @@ import {listIcons} from './icons';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import CheckboxItem from '@enact/malachite/CheckboxItem';
-import ToggleItem from '@enact/malachite/ToggleItem';
-import Item, {ItemBase} from '@enact/malachite/Item';
-import Icon from '@enact/malachite/Icon';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import ToggleItem from '@enact/sandstone/ToggleItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 
 CheckboxItem.displayName = 'CheckboxItem';
 const Config = mergeComponentMetadata('CheckboxItem', UiItem, ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, CheckboxItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'CheckboxItem',
 		() => {

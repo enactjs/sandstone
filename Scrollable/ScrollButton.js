@@ -9,19 +9,19 @@ import IconButton from '../IconButton';
 import css from './Scrollbar.module.less';
 
 /**
- * An [IconButton]{@link moonstone/IconButton.IconButton} used within
- * a [Scrollbar]{@link moonstone/Scrollable.Scrollbar}.
+ * An [IconButton]{@link sandstone/IconButton.IconButton} used within
+ * a [Scrollbar]{@link sandstone/Scrollable.Scrollbar}.
  *
  * @class ScrollButton
- * @memberof moonstone/Scrollable
- * @extends moonstone/IconButton.IconButton
+ * @memberof sandstone/Scrollable
+ * @extends sandstone/IconButton.IconButton
  * @ui
  * @private
  */
 const ScrollButtonBase = kind({
 	name: 'ScrollButton',
 
-	propTypes: /** @lends moonstone/Scrollable.ScrollButton.prototype */ {
+	propTypes: /** @lends sandstone/Scrollable.ScrollButton.prototype */ {
 		/**
 		 * Name of icon.
 		 *
@@ -44,7 +44,7 @@ const ScrollButtonBase = kind({
 		* Sets the hint string read when focusing the scroll bar button.
 		*
 		* @type {String}
-		* @memberof moonstone/Scrollable.ScrollButton.prototype
+		* @memberof sandstone/Scrollable.ScrollButton.prototype
 		* @public
 		*/
 		'aria-label': PropTypes.string,

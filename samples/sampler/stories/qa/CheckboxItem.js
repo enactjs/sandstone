@@ -6,9 +6,9 @@ import Group from '@enact/ui/Group';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import CheckboxItem from '@enact/malachite/CheckboxItem';
-import Item, {ItemBase} from '@enact/malachite/Item';
-import ToggleItem from '@enact/malachite/ToggleItem';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import ToggleItem from '@enact/sandstone/ToggleItem';
 
 const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, CheckboxItem);
 

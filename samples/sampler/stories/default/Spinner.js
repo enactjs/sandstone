@@ -6,12 +6,12 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Spinner, {SpinnerBase} from '@enact/malachite/Spinner';
+import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Spinner',
 		() => (

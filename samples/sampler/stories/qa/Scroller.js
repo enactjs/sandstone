@@ -12,12 +12,12 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import ExpandableList from '@enact/malachite/ExpandableList';
-import Heading from '@enact/malachite/Heading';
-import Item from '@enact/malachite/Item';
-import {ScrollableBase} from '@enact/malachite/Scrollable';
-import Scroller from '@enact/malachite/Scroller';
+import Button from '@enact/sandstone/Button';
+import ExpandableList from '@enact/sandstone/ExpandableList';
+import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import {ScrollableBase} from '@enact/sandstone/Scrollable';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
 

@@ -3,11 +3,11 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import DayPicker from '@enact/malachite/DayPicker';
+import DayPicker from '@enact/sandstone/DayPicker';
 
 DayPicker.displayName = 'DayPicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'DayPicker',
 		() => (

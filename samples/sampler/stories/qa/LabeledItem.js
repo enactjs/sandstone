@@ -2,9 +2,9 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Heading from '@enact/malachite/Heading';
-import LabeledItem from '@enact/malachite/LabeledItem';
-import Scroller from '@enact/malachite/Scroller';
+import Heading from '@enact/sandstone/Heading';
+import LabeledItem from '@enact/sandstone/LabeledItem';
+import Scroller from '@enact/sandstone/Scroller';
 
 LabeledItem.displayName = 'LabeledItem';
 

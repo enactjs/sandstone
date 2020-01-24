@@ -7,8 +7,8 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 
-import Item from '@enact/malachite/Item';
-import VirtualList, {VirtualListBase} from '@enact/malachite/VirtualList';
+import Item from '@enact/sandstone/Item';
+import VirtualList, {VirtualListBase} from '@enact/sandstone/VirtualList';
 
 const
 	wrapOption = {
@@ -54,7 +54,7 @@ updateDataSize(defaultDataSize);
 
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'VirtualList',
 		() => {

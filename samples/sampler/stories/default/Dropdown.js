@@ -5,13 +5,13 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Dropdown, {DropdownBase} from '@enact/malachite/Dropdown';
-import Button, {ButtonBase} from '@enact/malachite/Button';
+import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
 
 Dropdown.displayName = 'Dropdown';
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Dropdown',
 		() => {

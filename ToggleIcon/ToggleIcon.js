@@ -1,29 +1,29 @@
 /**
- * Provides Moonstone-themed Icon component with interactive toggleable capabilities.
+ * Provides Sandstone-themed Icon component with interactive toggleable capabilities.
  *
  * `ToggleIcon` does not implement a visual change when a user interacts with the control and must
  * be customized by the consumer using [css className
  * overrides]{@link ui/ToggleIcon.ToggleIconBase.css}.
  *
- * Often, an [Icon value]{@link moonstone/Icon.Icon} is passed as `children` to represent the
+ * Often, an [Icon value]{@link sandstone/Icon.Icon} is passed as `children` to represent the
  * selected state but is not required. Omitting `children` allows the consumer to implement more
  * advanced approaches such as styling the `::before` and `::after` pseudo-elements to save a DOM
  * node.
  *
- * The following Moonstone components use `ToggleIcon`, and make good examples of various usages.
+ * The following Sandstone components use `ToggleIcon`, and make good examples of various usages.
  *
- * * [Checkbox]{@link moonstone/Checkbox.Checkbox},
- * * [FormCheckbox]{@link moonstone/FormCheckbox.FormCheckbox},
- * * [Switch]{@link moonstone/Switch.Switch},
- * * [RadioItem]{@link moonstone/RadioItem.RadioItem}, and
- * * [SelectableItem]{@link moonstone/SelectableItem.SelectableItem}.
+ * * [Checkbox]{@link sandstone/Checkbox.Checkbox},
+ * * [FormCheckbox]{@link sandstone/FormCheckbox.FormCheckbox},
+ * * [Switch]{@link sandstone/Switch.Switch},
+ * * [RadioItem]{@link sandstone/RadioItem.RadioItem}, and
+ * * [SelectableItem]{@link sandstone/SelectableItem.SelectableItem}.
  *
  * @example
  * <ToggleIcon onToggle={(props)=> console.log(props.selected)}>
  *   check
  * </ToggleIcon>
  *
- * @module moonstone/ToggleIcon
+ * @module sandstone/ToggleIcon
  * @exports ToggleIcon
  * @exports ToggleIconBase
  * @exports ToggleIconDecorator
@@ -42,7 +42,7 @@ import Skinnable from '../Skinnable';
  * A component that indicates a boolean state.
  *
  * @class ToggleIconBase
- * @memberof moonstone/ToggleIcon
+ * @memberof sandstone/ToggleIcon
  * @extends ui/ToggleIcon.ToggleIcon
  * @ui
  * @public
@@ -58,11 +58,11 @@ const ToggleIconBase = kind({
 });
 
 /**
- * Moonstone-specific behaviors to apply to `ToggleIconBase`.
+ * Sandstone-specific behaviors to apply to `ToggleIconBase`.
  *
  * @hoc
- * @memberof moonstone/ToggleIcon
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/ToggleIcon
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const ToggleIconDecorator = compose(
@@ -71,13 +71,13 @@ const ToggleIconDecorator = compose(
 );
 
 /**
- * A customizable Moonstone starting point [Icon]{@link moonstone/Icon.Icon} that responds to the
+ * A customizable Sandstone starting point [Icon]{@link sandstone/Icon.Icon} that responds to the
  * `selected` prop.
  *
  * @class ToggleIcon
- * @memberof moonstone/ToggleIcon
- * @extends moonstone/ToggleIcon.ToggleIconBase
- * @mixes moonstone/ToggleIcon.ToggleIconDecorator
+ * @memberof sandstone/ToggleIcon
+ * @extends sandstone/ToggleIcon.ToggleIconBase
+ * @mixes sandstone/ToggleIcon.ToggleIconDecorator
  * @ui
  * @public
  */

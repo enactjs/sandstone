@@ -5,11 +5,11 @@
 
 // Interally theme our implementation using published classes from ToggleItem and ToggleIcon
 .toggleIcon {
-	@size: @moon-checkbox-size;
+	@size: @sand-checkbox-size;
 
 	width: @size;
 	height: @size;
-	border-radius: @moon-checkbox-border-radius;
+	border-radius: @sand-checkbox-border-radius;
 
 	.icon {
 		visibility: hidden;
@@ -20,8 +20,8 @@
 		font-size: (@size * 2);
 	}
 
-	.moon-custom-text({
-		@size: @moon-checkbox-size-large;
+	.sand-custom-text({
+		@size: @sand-checkbox-size-large;
 
 		width: @size;
 		height: @size;
@@ -43,8 +43,8 @@
 
 	// Skin colors
 	.applySkins({
-		color: @moon-checkbox-text-color;
-		background-color: @moon-checkbox-bg-color;
+		color: @sand-checkbox-text-color;
+		background-color: @sand-checkbox-bg-color;
 	});
 }
 
@@ -52,11 +52,11 @@
 	.toggleIcon {
 		// Skin colors
 		.applySkins({
-			color: @moon-checkbox-focus-text-color;
-			background-color: @moon-checkbox-focus-bg-color;
+			color: @sand-checkbox-focus-text-color;
+			background-color: @sand-checkbox-focus-bg-color;
 
 			.disabled({
-				opacity: @moon-disabled-opacity;
+				opacity: @sand-disabled-opacity;
 			});
 		});
 	}
@@ -68,8 +68,8 @@
 			// Skin colors
 			.applySkins({
 				&:not([disabled]) {
-					color: @moon-checkbox-text-color;
-					background-color: @moon-checkbox-bg-color;
+					color: @sand-checkbox-text-color;
+					background-color: @sand-checkbox-bg-color;
 				}
 			});
 		}

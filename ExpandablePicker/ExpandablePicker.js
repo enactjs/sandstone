@@ -1,5 +1,5 @@
 /**
- * Moonstone styled expandable picker.
+ * Sandstone styled expandable picker.
  *
  * @example
  * <ExpandablePicker
@@ -10,7 +10,7 @@
  *   {['Option 1', 'Option 2', 'Option 3']}
  * </ExpandablePicker>
  *
- * @module moonstone/ExpandablePicker
+ * @module sandstone/ExpandablePicker
  * @exports ExpandablePicker
  * @exports ExpandablePickerBase
  */
@@ -36,15 +36,15 @@ import css from './ExpandablePicker.module.less';
  * only a single item at a time. It supports increment/decrement buttons for selection.
  *
  * @class ExpandablePickerBase
- * @memberof moonstone/ExpandablePicker
- * @extends moonstone/ExpandableItem.ExpandableItemBase
+ * @memberof sandstone/ExpandablePicker
+ * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
 const ExpandablePickerBase = kind({
 	name: 'ExpandablePicker',
 
-	propTypes: /** @lends moonstone/ExpandablePicker.ExpandablePickerBase.prototype */ {
+	propTypes: /** @lends sandstone/ExpandablePicker.ExpandablePickerBase.prototype */ {
 		/**
 		 * Picker value list.
 		 *
@@ -66,7 +66,7 @@ const ExpandablePickerBase = kind({
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
-		 * @memberof moonstone/ExpandablePicker.ExpandablePickerBase.prototype
+		 * @memberof sandstone/ExpandablePicker.ExpandablePickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,
@@ -75,7 +75,7 @@ const ExpandablePickerBase = kind({
 		 * The `data-webos-voice-group-label` for ExpandableItem and Picker.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/ExpandablePicker.ExpandablePickerBase.prototype
+		 * @memberof sandstone/ExpandablePicker.ExpandablePickerBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-group-label': PropTypes.string,
@@ -92,9 +92,9 @@ const ExpandablePickerBase = kind({
 		/**
 		 * A custom icon for the decrementer.
 		 *
-		 * All strings supported by [Icon]{@link moonstone/Icon.Icon} are supported. Without a
+		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link moonstone/Picker.Picker#orientation} is changed.
+		 * [orientation]{@link sandstone/Picker.Picker#orientation} is changed.
 		 *
 		 * @type {string}
 		 * @public
@@ -121,9 +121,9 @@ const ExpandablePickerBase = kind({
 		/**
 		 * A custom icon for the incrementer.
 		 *
-		 * All strings supported by [Icon]{@link moonstone/Icon.Icon} are supported. Without a
+		 * All strings supported by [Icon]{@link sandstone/Icon.Icon} are supported. Without a
 		 * custom icon, the default is used, and is automatically changed when the
-		 * [orientation]{@link moonstone/Picker.Picker#orientation} is changed.
+		 * [orientation]{@link sandstone/Picker.Picker#orientation} is changed.
 		 *
 		 * @type {String}
 		 * @public
@@ -419,10 +419,10 @@ const ExpandablePickerBase = kind({
  * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
  *
  * @class ExpandablePicker
- * @memberof moonstone/ExpandablePicker
- * @extends moonstone/ExpandablePicker.ExpandablePickerBase
+ * @memberof sandstone/ExpandablePicker
+ * @extends sandstone/ExpandablePicker.ExpandablePickerBase
  * @ui
- * @mixes moonstone/ExpandableItem.Expandable
+ * @mixes sandstone/ExpandableItem.Expandable
  * @mixes ui/Changeable.Changeable
  * @public
  */

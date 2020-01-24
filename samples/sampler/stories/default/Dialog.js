@@ -4,15 +4,15 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Dialog from '@enact/malachite/Dialog';
-import Popup from '@enact/malachite/Popup';
-import BodyText from '@enact/malachite/BodyText';
-import Button from '@enact/malachite/Button';
+import Dialog from '@enact/sandstone/Dialog';
+import Popup from '@enact/sandstone/Popup';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
 
 const Config = mergeComponentMetadata('Dialog', Popup, Dialog);
 Dialog.displayName = 'Dialog';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Dialog',
 		() => (

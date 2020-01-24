@@ -4,12 +4,12 @@ import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText, {BodyTextBase} from '@enact/malachite/BodyText';
+import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
 const Config = mergeComponentMetadata('BodyText', UiBodyTextBase, UiBodyText, BodyTextBase, BodyText);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'BodyText',
 		() => (

@@ -31,7 +31,7 @@ const getLabelUnavailableSpace = function (tooltipWidth) {
  * Takes the output of `adjustDirection`, and `calcOverflow`.
  *
  * @method
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @param   {String}  arrowAnchor       Initial anchor position
  * @param   {String}  tooltipDirection  Direction of tooltip; value from `adjustDirection`
  * @param   {Object}  overflow          Tooltip's calculated overflow from `calcOverflow`
@@ -68,7 +68,7 @@ const adjustAnchor = function (arrowAnchor, tooltipDirection, overflow, rtl) {
  * Takes the output from `calcOverflow`.
  *
  * @method
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @param   {String}  tooltipDirection  Direction of tooltip
  * @param   {Object}  overflow          Tooltip's calculated overflow from `calcOverflow`
  * @param   {Boolean} rtl               RTL mode
@@ -99,7 +99,7 @@ const adjustDirection = function (tooltipDirection, overflow, rtl) {
  * Return the amount of overflow in a particular direction if there is overflow (false otherwise).
  *
  * @method
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @param   {Object} tooltipNode        The `getBoundingClientRect` values for tooltip node
  * @param   {Object} clientNode         The `getBoundingClientRect` values for client node
  * @param   {String} tooltipDirection   Direction of tooltip
@@ -155,7 +155,7 @@ const calcOverflow = function (tooltipNode, clientNode, tooltipDirection, edgeKe
  * Takes the output of `adjustAnchor`, `adjustDirection`, and `calcOverflow`.
  *
  * @method
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @param   {Object} tooltipNode        The `getBoundingClientRect` values for tooltip node
  * @param   {Object} clientNode         The `getBoundingClientRect` values for client node
  * @param   {String} arrowAnchor        Anchor position from `adjustAnchor`
@@ -200,7 +200,7 @@ const getPosition = function (clientNode, tooltipDirection) {
  * Takes the output of `calcOverflow`.
  *
  * @method
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @param   {Object}  tooltipNode       The `getBoundingClientRect` values for tooltip node
  * @param   {String}  tooltipDirection  Direction of tooltip
  * @param   {Object}  tooltipPosition   Calculated tooltip position from `getPosition`

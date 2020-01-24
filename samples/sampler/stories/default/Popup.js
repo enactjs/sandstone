@@ -4,12 +4,12 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Popup from '@enact/malachite/Popup';
-import BodyText from '@enact/malachite/BodyText';
+import Popup from '@enact/sandstone/Popup';
+import BodyText from '@enact/sandstone/BodyText';
 
 const Config = mergeComponentMetadata('Popup', Popup);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Popup',
 		() => (

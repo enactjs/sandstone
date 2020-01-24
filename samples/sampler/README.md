@@ -1,6 +1,6 @@
-# Malachite Sampler
+# Sandstone Sampler
 
-> A sampler showing off Malachite components
+> A sampler showing off Sandstone components
 
 It uses [React Storybook](https://getstorybook.io/). Component properties can be adjusted using the
 `Knobs` tab. Click the `?` in the upper right to see more information on each sample.

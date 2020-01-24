@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
- * Knob for the MediaSlider in {@link moonstone/VideoPlayer}.
+ * Knob for the MediaSlider in {@link sandstone/VideoPlayer}.
  *
  * @class MediaKnob
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */

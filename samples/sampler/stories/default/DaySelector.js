@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import DaySelector, {DaySelectorBase} from '@enact/malachite/DaySelector';
+import DaySelector, {DaySelectorBase} from '@enact/sandstone/DaySelector';
 
 DaySelector.displayName = 'DaySelector';
 const Config = mergeComponentMetadata('DaySelector', DaySelectorBase, DaySelector);
@@ -16,7 +16,7 @@ Config.defaultProps = {
 	disabled: false
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'DaySelector',
 		() => (

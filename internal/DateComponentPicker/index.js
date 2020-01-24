@@ -1,9 +1,9 @@
 /**
- * Exports the {@link moonstone/internal/DateComponentPicker.DateComponentPicker} and
- * {@link moonstone/internal/DateComponentPicker.DateComponentPickerBase}
+ * Exports the {@link sandstone/internal/DateComponentPicker.DateComponentPicker} and
+ * {@link sandstone/internal/DateComponentPicker.DateComponentPickerBase}
  * components.
  *
- * @module moonstone/internal/DateComponentPicker
+ * @module sandstone/internal/DateComponentPicker
  * @private
  */
 

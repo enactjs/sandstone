@@ -1,10 +1,10 @@
 /**
- * Provides a Moonstone-themed toggle button component and behaviors.
+ * Provides a Sandstone-themed toggle button component and behaviors.
  *
  * @example
  * <ToggleButton>Toggle me</ToggleButton>
  *
- * @module moonstone/ToggleButton
+ * @module sandstone/ToggleButton
  * @exports ToggleButton
  * @exports ToggleButtonBase
  */
@@ -21,19 +21,19 @@ import Skinnable from '../Skinnable';
 import css from './ToggleButton.module.less';
 
 /**
- * A stateless [Button]{@link moonstone/Button.Button} that can be toggled by changing its
+ * A stateless [Button]{@link sandstone/Button.Button} that can be toggled by changing its
  * `selected` property.
  *
  * @class ToggleButtonBase
- * @memberof moonstone/ToggleButton
- * @extends moonstone/Button.Button
+ * @memberof sandstone/ToggleButton
+ * @extends sandstone/Button.Button
  * @ui
  * @public
  */
 const ToggleButtonBase = kind({
 	name: 'ToggleButton',
 
-	propTypes: /** @lends moonstone/ToggleButton.ToggleButtonBase.prototype */ {
+	propTypes: /** @lends sandstone/ToggleButton.ToggleButtonBase.prototype */ {
 		/**
 		 * The background-color opacity of this button.
 		 *
@@ -180,8 +180,8 @@ const ToggleButtonBase = kind({
  * and update it in response to `onToggle` events.
  *
  * @class ToggleButton
- * @memberof moonstone/ToggleButton
- * @extends moonstone/ToggleButton.ToggleButtonBase
+ * @memberof sandstone/ToggleButton
+ * @extends sandstone/ToggleButton.ToggleButtonBase
  * @ui
  * @mixes ui/Toggleable.Toggleable
  * @public

@@ -19,26 +19,26 @@ const SpottableDiv = Spottable('div');
  * @type {Number}
  * @default 96;
  * @private
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  */
 export const breadcrumbWidth = 96;
 
 /**
  * Vertical, transparent bar used to navigate to a prior Panel.
  *
- * [`ActivityPanels`]{@link moonstone/Panels.ActivityPanels} has one breadcrumb, and
- * [`AlwaysViewingPanels`]{@link moonstone/Panels.AlwaysViewingPanels} can have multiple stacked
+ * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels} has one breadcrumb, and
+ * [`AlwaysViewingPanels`]{@link sandstone/Panels.AlwaysViewingPanels} can have multiple stacked
  * horizontally.
  *
  * @class Breadcrumb
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @public
  */
 const BreadcrumbBase = kind({
 	name: 'Breadcrumb',
 
-	propTypes: /** @lends moonstone/Panels.Breadcrumb.prototype */ {
+	propTypes: /** @lends sandstone/Panels.Breadcrumb.prototype */ {
 		/**
 		 * Index of the associated panel.
 		 *

@@ -4,9 +4,9 @@ import UiIcon from '@enact/ui/Icon';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon, {IconBase} from '@enact/malachite/Icon';
-import Heading from '@enact/malachite/Heading';
-import Scroller from '@enact/malachite/Scroller';
+import Icon, {IconBase} from '@enact/sandstone/Icon';
+import Heading from '@enact/sandstone/Heading';
+import Scroller from '@enact/sandstone/Scroller';
 
 import iconNames from './icons';
 
@@ -18,7 +18,7 @@ import logo from '../../images/icon-enact-logo.svg';
 Icon.displayName = 'Icon';
 const Config = mergeComponentMetadata('Icon', UiIcon, IconBase, Icon);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Icon',
 		() => {

@@ -6,18 +6,18 @@ import PropTypes from 'prop-types';
 import css from './Tooltip.module.less';
 
 /**
- * {@link moonstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
- * Moonston styling applied.
+ * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
+ * Sandston styling applied.
  *
  * @class TooltipLabel
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @ui
  * @private
  */
 const TooltipLabel = kind({
 	name: 'TooltipLabel',
 
-	propTypes: /** @lends moonstone/TooltipDecorator.TooltipLabel.prototype */ {
+	propTypes: /** @lends sandstone/TooltipDecorator.TooltipLabel.prototype */ {
 		/**
 		 * The node to be displayed as the main content of the tooltip.
 		 *

@@ -5,15 +5,15 @@ import UiIcon from '@enact/ui/Icon';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledIcon from '@enact/malachite/LabeledIcon';
-import Icon, {IconBase} from '@enact/malachite/Icon';
+import LabeledIcon from '@enact/sandstone/LabeledIcon';
+import Icon, {IconBase} from '@enact/sandstone/Icon';
 
 import iconNames from './icons';
 
 LabeledIcon.displayName = 'LabeledIcon';
 const Config = mergeComponentMetadata('LabeledIcon', UiLabeledIconBase, UiLabeledIcon, UiIcon, IconBase, Icon, LabeledIcon);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledIcon',
 		() => (

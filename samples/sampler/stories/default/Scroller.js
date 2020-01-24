@@ -6,8 +6,8 @@ import ri from '@enact/ui/resolution';
 import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
 
-import {ScrollableBase} from '@enact/malachite/Scrollable';
-import Scroller from '@enact/malachite/Scroller';
+import {ScrollableBase} from '@enact/sandstone/Scrollable';
+import Scroller from '@enact/sandstone/Scroller';
 
 const
 	prop = {
@@ -17,7 +17,7 @@ const
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'Scroller',
 		() => (

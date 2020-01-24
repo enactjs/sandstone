@@ -5,17 +5,17 @@ import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/Toggle
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import FormCheckboxItem from '@enact/malachite/FormCheckboxItem';
-import ToggleItem from '@enact/malachite/ToggleItem';
-import Item, {ItemBase} from '@enact/malachite/Item';
-import Icon from '@enact/malachite/Icon';
+import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
+import ToggleItem from '@enact/sandstone/ToggleItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 
 import {listIcons} from './icons';
 
 FormCheckboxItem.displayName = 'FormCheckboxItem';
 const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, FormCheckboxItem);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'FormCheckboxItem',
 		() => {

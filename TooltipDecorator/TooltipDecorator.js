@@ -1,9 +1,9 @@
 /* global MutationObserver ResizeObserver */
 
 /**
- * Moonstone styled tooltip components.
+ * Sandstone styled tooltip components.
  *
- * @module moonstone/TooltipDecorator
+ * @module sandstone/TooltipDecorator
  * @exports Tooltip
  * @exports TooltipBase
  * @exports TooltipDecorator
@@ -24,9 +24,9 @@ import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
 /**
- * Default config for [TooltipDecorator]{@link moonstone/TooltipDecorator.TooltipDecorator}
+ * Default config for [TooltipDecorator]{@link sandstone/TooltipDecorator.TooltipDecorator}
  *
- * @memberof moonstone/TooltipDecorator.TooltipDecorator
+ * @memberof sandstone/TooltipDecorator.TooltipDecorator
  * @hocconfig
  */
 const defaultConfig = {
@@ -35,12 +35,12 @@ const defaultConfig = {
 	 * flipping to an alternate orientation or adjusting its offset to remain on screen.
 	 * The default of 24 is derived from a standard 12px screen-keepout size plus the standard
 	 * Spotlight-outset (12px) margin/padding value which keeps elements and text aligned inside a
-	 * [Panel]{@link moonstone/Panels.Panel}. Note: This value will be scaled according to the
+	 * [Panel]{@link sandstone/Panels.Panel}. Note: This value will be scaled according to the
 	 * resolution.
 	 *
 	 * @type {Number}
 	 * @default 24
-	 * @memberof moonstone/TooltipDecorator.TooltipDecorator.defaultConfig
+	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
 	screenEdgeKeepout: (12 + 12),
 
@@ -53,13 +53,13 @@ const defaultConfig = {
 	 *
 	 * @type {String}
 	 * @default 'children'
-	 * @memberof moonstone/TooltipDecorator.TooltipDecorator.defaultConfig
+	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
 	tooltipDestinationProp: 'children'
 };
 
 /**
- * A higher-order component which positions [Tooltip]{@link moonstone/TooltipDecorator.Tooltip} in
+ * A higher-order component which positions [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} in
  * relation to the wrapped component.
  *
  * The tooltip is automatically displayed when the decoratorated component is focused after a set
@@ -70,7 +70,7 @@ const defaultConfig = {
  * Note that the direction of tooltip will be flipped horizontally in RTL locales.
  *
  * @class TooltipDecorator
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @hoc
  * @public
  */
@@ -81,7 +81,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const Decorator = class extends React.Component {
 		static displayName = 'TooltipDecorator'
 
-		static propTypes = /** @lends moonstone/TooltipDecorator.TooltipDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/TooltipDecorator.TooltipDecorator.prototype */ {
 			/**
 			 * Disables the component but does not affect tooltip operation.
 			 *

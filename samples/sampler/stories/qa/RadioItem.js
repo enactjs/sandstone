@@ -5,9 +5,9 @@ import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/Toggle
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Item, {ItemBase} from '@enact/malachite/Item';
-import RadioItem from '@enact/malachite/RadioItem';
-import ToggleItem from '@enact/malachite/ToggleItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import RadioItem from '@enact/sandstone/RadioItem';
+import ToggleItem from '@enact/sandstone/ToggleItem';
 
 RadioItem.displayName = 'RaditoItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, RadioItem);

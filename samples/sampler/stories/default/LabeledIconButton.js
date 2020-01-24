@@ -5,16 +5,16 @@ import {LabeledIconBase as UiLabeledIconBase, LabeledIcon as UiLabeledIcon} from
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledIconButton from '@enact/malachite/LabeledIconButton';
-import {IconButtonBase} from '@enact/malachite/IconButton';
-import Button, {ButtonBase} from '@enact/malachite/Button';
+import LabeledIconButton from '@enact/sandstone/LabeledIconButton';
+import {IconButtonBase} from '@enact/sandstone/IconButton';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
 
 import iconNames from './icons';
 
 LabeledIconButton.displayName = 'LabeledIconButton';
 const Config = mergeComponentMetadata('LabeledIconButton', UiLabeledIconBase, UiLabeledIcon, Button, ButtonBase, UIButton, UIButtonBase, IconButtonBase, LabeledIconButton);
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledIconButton',
 		() => (

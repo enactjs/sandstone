@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import EditableIntegerPicker, {EditableIntegerPickerBase} from '@enact/malachite/EditableIntegerPicker';
+import EditableIntegerPicker, {EditableIntegerPickerBase} from '@enact/sandstone/EditableIntegerPicker';
 
 import {decrementIcons, incrementIcons} from './icons';
 
@@ -17,7 +17,7 @@ const prop = {
 	width: [null, 'small', 'medium', 'large']
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'EditableIntegerPicker',
 		() => (

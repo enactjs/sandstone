@@ -1,5 +1,5 @@
 /**
- * Provides Moonstone-themed scroller components and behaviors.
+ * Provides Sandstone-themed scroller components and behaviors.
  * @example
  * <Scroller>
  * 	<div style={{height: "150px"}}>
@@ -11,7 +11,7 @@
  * 	</div>
  * </Scroller>
  *
- * @module moonstone/Scroller
+ * @module sandstone/Scroller
  * @exports Scroller
  * @exports ScrollerBase
  */
@@ -29,13 +29,13 @@ import ScrollableNative from '../Scrollable/ScrollableNative';
 const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
 
 /**
- * A Moonstone-styled base component for [Scroller]{@link moonstone/Scroller.Scroller}.
+ * A Sandstone-styled base component for [Scroller]{@link sandstone/Scroller.Scroller}.
  * In most circumstances, you will want to use the
  * [SpotlightContainerDecorator]{@link spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator}
- * and the Scrollable version, [Scroller]{@link moonstone/Scroller.Scroller}.
+ * and the Scrollable version, [Scroller]{@link sandstone/Scroller.Scroller}.
  *
  * @class ScrollerBase
- * @memberof moonstone/Scroller
+ * @memberof sandstone/Scroller
  * @extends ui/Scroller.ScrollerBase
  * @ui
  * @public
@@ -43,7 +43,7 @@ const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
 class ScrollerBase extends Component {
 	static displayName = 'ScrollerBase'
 
-	static propTypes = /** @lends moonstone/Scroller.ScrollerBase.prototype */ {
+	static propTypes = /** @lends sandstone/Scroller.ScrollerBase.prototype */ {
 		/**
 		 * Passes the instance of [Scroller]{@link ui/Scroller.Scroller}.
 		 *
@@ -54,7 +54,7 @@ class ScrollerBase extends Component {
 		initUiChildRef: PropTypes.func,
 
 		/**
-		 * Called when [Scroller]{@link moonstone/Scroller.Scroller} updates.
+		 * Called when [Scroller]{@link sandstone/Scroller.Scroller} updates.
 		 *
 		 * @type {function}
 		 * @private
@@ -70,7 +70,7 @@ class ScrollerBase extends Component {
 		rtl: PropTypes.bool,
 
 		/**
-		 * Called when [Scroller]{@link moonstone/Scroller.Scroller} should be scrolled
+		 * Called when [Scroller]{@link sandstone/Scroller.Scroller} should be scrolled
 		 * and the focus should be moved to a scrollbar button.
 		 *
 		 * @type {function}
@@ -375,7 +375,7 @@ class ScrollerBase extends Component {
  * not move focus to the scrollbar controls.
  *
  * @name focusableScrollbar
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -384,12 +384,12 @@ class ScrollerBase extends Component {
 /**
  * Unique identifier for the component.
  *
- * When defined and when the `Scroller` is within a [Panel]{@link moonstone/Panels.Panel}, the
+ * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
  * `Scroller` will store its scroll position and restore that position when returning to the
  * `Panel`.
  *
  * @name id
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
  * @public
  */
@@ -398,7 +398,7 @@ class ScrollerBase extends Component {
  * Sets the hint string read when focusing the next button in the vertical scroll bar.
  *
  * @name scrollDownAriaLabel
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
  * @default $L('scroll down')
  * @public
@@ -408,7 +408,7 @@ class ScrollerBase extends Component {
  * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
  *
  * @name scrollLeftAriaLabel
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
  * @default $L('scroll left')
  * @public
@@ -418,7 +418,7 @@ class ScrollerBase extends Component {
  * Sets the hint string read when focusing the next button in the horizontal scroll bar.
  *
  * @name scrollRightAriaLabel
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
  * @default $L('scroll right')
  * @public
@@ -428,14 +428,14 @@ class ScrollerBase extends Component {
  * Sets the hint string read when focusing the previous button in the vertical scroll bar.
  *
  * @name scrollUpAriaLabel
- * @memberof moonstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
  * @default $L('scroll up')
  * @public
  */
 
 /**
- * A Moonstone-styled Scroller, Scrollable applied.
+ * A Sandstone-styled Scroller, Scrollable applied.
  *
  * Usage:
  * ```
@@ -443,8 +443,8 @@ class ScrollerBase extends Component {
  * ```
  *
  * @class Scroller
- * @memberof moonstone/Scroller
- * @extends moonstone/Scroller.ScrollerBase
+ * @memberof sandstone/Scroller
+ * @extends sandstone/Scroller.ScrollerBase
  * @ui
  * @public
  */
@@ -457,7 +457,7 @@ const Scroller = (props) => (
 	/>
 );
 
-Scroller.propTypes = /** @lends moonstone/Scroller.Scroller.prototype */ {
+Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical'])
 };
 
@@ -466,7 +466,7 @@ Scroller.defaultProps = {
 };
 
 /**
- * A Moonstone-styled native Scroller, Scrollable applied.
+ * A Sandstone-styled native Scroller, Scrollable applied.
  *
  * For smooth native scrolling, web engine with below Chromium 61, should be launched
  * with the flag '--enable-blink-features=CSSOMSmoothScroll' to support it.
@@ -478,8 +478,8 @@ Scroller.defaultProps = {
  * ```
  *
  * @class ScrollerNative
- * @memberof moonstone/Scroller
- * @extends moonstone/Scroller.ScrollerBase
+ * @memberof sandstone/Scroller
+ * @extends sandstone/Scroller.ScrollerBase
  * @ui
  * @private
  */
@@ -492,7 +492,7 @@ const ScrollerNative = (props) => (
 	/>
 );
 
-ScrollerNative.propTypes = /** @lends moonstone/Scroller.ScrollerNative.prototype */ {
+ScrollerNative.propTypes = /** @lends sandstone/Scroller.ScrollerNative.prototype */ {
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical'])
 };
 

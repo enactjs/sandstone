@@ -2,10 +2,10 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import Icon from '@enact/malachite/Icon';
-import Image from '@enact/malachite/Image';
-import Item from '@enact/malachite/Item';
+import Button from '@enact/sandstone/Button';
+import Icon from '@enact/sandstone/Icon';
+import Image from '@enact/sandstone/Image';
+import Item from '@enact/sandstone/Item';
 
 import icons from '../default/icons';
 

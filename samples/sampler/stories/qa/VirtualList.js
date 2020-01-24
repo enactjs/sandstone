@@ -7,11 +7,11 @@ import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-import Item from '@enact/malachite/Item';
-import {ActivityPanels, Panel, Header} from '@enact/malachite/Panels';
-import Scroller from '@enact/malachite/Scroller';
-import SwitchItem from '@enact/malachite/SwitchItem';
-import VirtualList, {VirtualListBase} from '@enact/malachite/VirtualList';
+import Item from '@enact/sandstone/Item';
+import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
+import SwitchItem from '@enact/sandstone/SwitchItem';
+import VirtualList, {VirtualListBase} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 

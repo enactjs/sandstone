@@ -1,0 +1,72 @@
+// Sandstone Base App styles
+//
+
+// Core Rules
+@import "~@enact/ui/styles/core.less";
+@import "~@enact/ui/styles/mixins.less";
+
+// Sandstone Internal Rules
+@import "../styles/internal/fonts.less";
+
+// Sandstone Rules
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.applySkins({
+	color: @sand-text-color;
+
+	::selection {
+		color: @sand-spotlight-text-color;
+		background-color: lighten(@sand-spotlight-bg-color, 18%);
+	}
+
+	// Disabled Components
+	.disabled({
+		.vendor-opacity(@sand-disabled-opacity);
+
+		// Focused and disabled, must restore their natural opacity, then assign the faded text/content color
+		.focus({
+			.vendor-opacity(1);
+			color: @sand-spotlight-disabled-text-color;
+		});
+
+		cursor: default;
+
+		// Disabled children of disabled components
+		.disabled({
+			.vendor-opacity(1);
+		}, parent);
+	});
+});
+
+.root {
+	.sand-text-base(@sand-header-title-below-font-size, self);
+	font-weight: normal;
+	font-style: normal;
+	letter-spacing: normal;
+
+	&.bg,
+	& > .bg {
+		padding: @sand-app-keepout;
+	}
+
+	&:global(.enact-locale-right-to-left) {
+		direction: rtl;
+	}
+
+	:focus {
+		// Prevent Chrome's default focus treatment
+		outline: none;
+		// Prevent Android Chrome from highlighting tapped elements
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	// Skin colors
+	.applySkins({
+		&.bg,
+		> .bg {
+			background-color: @sand-bg-color;
+		}
+	});
+}

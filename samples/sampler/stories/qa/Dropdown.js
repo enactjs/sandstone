@@ -5,9 +5,9 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button, {ButtonBase} from '@enact/malachite/Button';
-import Dropdown, {DropdownBase} from '@enact/malachite/Dropdown';
-import Heading from '@enact/malachite/Heading';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
+import Heading from '@enact/sandstone/Heading';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);

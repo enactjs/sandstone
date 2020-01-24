@@ -6,7 +6,7 @@
  *   <source src="http://media.w3.org/2010/05/sintel/trailer.mp4" />
  * </MediaOverlay>
  *
- * @module moonstone/MediaOverlay
+ * @module sandstone/MediaOverlay
  * @exports MediaOverlay
  * @exports MediaOverlayBase
  * @exports MediaOverlayDecorator
@@ -33,14 +33,14 @@ import componentCss from './MediaOverlay.module.less';
  * A media component with image and text overlay support.
  *
  * @class MediaOverlayBase
- * @memberof moonstone/MediaOverlay
+ * @memberof sandstone/MediaOverlay
  * @ui
  * @public
  */
 const MediaOverlayBase = kind({
 	name: 'MediaOverlay',
 
-	propTypes: /** @lends moonstone/MediaOverlay.MediaOverlayBase.prototype */ {
+	propTypes: /** @lends sandstone/MediaOverlay.MediaOverlayBase.prototype */ {
 		/**
 		 * Any children `<source>` tag elements will be sent directly to the media element as
 		 * sources.
@@ -163,13 +163,13 @@ const MediaOverlayBase = kind({
 });
 
 /**
- * A higher-order component that adds Moonstone specific behaviors to `MediaOverlay`.
+ * A higher-order component that adds Sandstone specific behaviors to `MediaOverlay`.
  *
  * @hoc
- * @memberof moonstone/MediaOverlay
+ * @memberof sandstone/MediaOverlay
  * @mixes spotlight/Spottable.Spottable
  * @mixes ui/Slottable.Slottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const MediaOverlayDecorator = compose(
@@ -180,7 +180,7 @@ const MediaOverlayDecorator = compose(
 );
 
 /**
- * A Moonstone-styled `Media` component.
+ * A Sandstone-styled `Media` component.
  *
  * Usage:
  * ```
@@ -190,9 +190,9 @@ const MediaOverlayDecorator = compose(
  * ```
  *
  * @class MediaOverlay
- * @memberof moonstone/MediaOverlay
- * @extends moonstone/MediaOverlay.MediaOverlayBase
- * @mixes moonstone/MediaOverlay.MediaOverlayDecorator
+ * @memberof sandstone/MediaOverlay
+ * @extends sandstone/MediaOverlay.MediaOverlayBase
+ * @mixes sandstone/MediaOverlay.MediaOverlayDecorator
  * @ui
  * @public
  */

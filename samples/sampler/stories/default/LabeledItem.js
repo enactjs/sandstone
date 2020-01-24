@@ -2,11 +2,11 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledItem from '@enact/malachite/LabeledItem';
+import LabeledItem from '@enact/sandstone/LabeledItem';
 
 LabeledItem.displayName = 'LabeledItem';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'LabeledItem',
 		() => (

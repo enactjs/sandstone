@@ -3,7 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/malachite/MediaOverlay';
+import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/sandstone/MediaOverlay';
 
 const prop = {
 	videoTitles: [
@@ -62,7 +62,7 @@ const Config = mergeComponentMetadata('MediaOverlay', MediaOverlay, MediaOverlay
 Config.groupId = 'MediaOverlay';
 MediaOverlay.displayName = 'MediaOverlay';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'MediaOverlay',
 		() => {

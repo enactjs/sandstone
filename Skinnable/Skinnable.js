@@ -1,7 +1,7 @@
 /**
- * Exports the {@link moonstone/Skinnable.Skinnable} higher-order component (HOC).
+ * Exports the {@link sandstone/Skinnable.Skinnable} higher-order component (HOC).
  *
- * @module moonstone/Skinnable
+ * @module sandstone/Skinnable
  * @exports Skinnable
  * @public
  */
@@ -11,8 +11,7 @@ import SkinnableBase from '@enact/ui/Skinnable';
 
 const defaultConfig = {
 	skins: {
-		dark: 'moonstone',
-		light: 'moonstone-light'
+		neutral: 'neutral'
 	},
 	defaultVariants: ['highContrast'],
 	allowedVariants: ['highContrast', 'largeText', 'grayscale']
@@ -21,7 +20,7 @@ const defaultConfig = {
 /**
  * This higher-order component is based on [ui/Skinnable]{@link ui/Skinnable.Skinnable}.
  *
- * `Skinnable` comes pre-configured for Moonstone's supported skins: "dark" (default) and "light".
+ * `Skinnable` comes pre-configured for Sandstone's supported skins: "dark" (default) and "light".
  * It is used to apply the relevant skinning classes to each component and has been used to
  * pre-select specific skins for some components.
  *
@@ -29,7 +28,7 @@ const defaultConfig = {
  * node.
  *
  * @class Skinnable
- * @memberof moonstone/Skinnable
+ * @memberof sandstone/Skinnable
  * @extends ui/Skinnable.Skinnable
  * @hoc
  * @public
@@ -39,7 +38,7 @@ const Skinnable = hoc(defaultConfig, SkinnableBase);
 /**
  * Select a skin by name by specifying this property.
  *
- * Available Moonstone skins are `"dark"` (default) and `"light"`. This may be changed at runtime.
+ * Available Sandstone skins are `"dark"` (default) and `"light"`. This may be changed at runtime.
  * All components already use their defaults, but a skin may be changed via this prop or by using
  * `Skinnable` directly and a config object.
  *
@@ -51,7 +50,7 @@ const Skinnable = hoc(defaultConfig, SkinnableBase);
  * @name skin
  * @type {String}
  * @default 'dark'
- * @memberof moonstone/Skinnable.Skinnable
+ * @memberof sandstone/Skinnable.Skinnable
  * @instance
  * @public
  */

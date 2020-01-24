@@ -4,12 +4,12 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import TimePicker from '@enact/malachite/TimePicker';
+import TimePicker from '@enact/sandstone/TimePicker';
 
 const Config = mergeComponentMetadata('TimePicker', TimePicker);
 TimePicker.displayName = 'TimePicker';
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'TimePicker',
 		() => (

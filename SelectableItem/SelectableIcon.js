@@ -1,8 +1,8 @@
 // Not actually an exported module
 /*
- * Provides Moonstone-themed circle component and interactive toggleable capabilities.
+ * Provides Sandstone-themed circle component and interactive toggleable capabilities.
  *
- * @module moonstone/SelectableIcon
+ * @module sandstone/SelectableIcon
  * @exports SelectableIcon
  * @exports SelectableIconBase
  */
@@ -19,8 +19,8 @@ import componentCss from './SelectableIcon.module.less';
  * Renders a circle shaped component which supports a Boolean state.
  *
  * @class SelectableIconBase
- * @memberof moonstone/SelectableIcon
- * @extends moonstone/ToggleIcon.ToggleIcon
+ * @memberof sandstone/SelectableIcon
+ * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
  * @private
  */

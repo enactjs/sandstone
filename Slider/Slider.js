@@ -1,5 +1,5 @@
 /**
- * Provides Moonstone-themed slider components and behaviors.
+ * Provides Sandstone-themed slider components and behaviors.
  *
  * @example
  * <Slider
@@ -10,7 +10,7 @@
  *   tooltip
  * />
  *
- * @module moonstone/Slider
+ * @module sandstone/Slider
  * @exports Slider
  * @exports SliderBase
  * @exports SliderDecorator
@@ -49,14 +49,14 @@ import componentCss from './Slider.module.less';
  * @class SliderBase
  * @extends ui/Slider.SliderBase
  * @omit progressBarComponent
- * @memberof moonstone/Slider
+ * @memberof sandstone/Slider
  * @ui
  * @public
  */
 const SliderBase = kind({
 	name: 'Slider',
 
-	propTypes: /** @lends moonstone/Slider.SliderBase.prototype */ {
+	propTypes: /** @lends sandstone/Slider.SliderBase.prototype */ {
 		/**
 		 * Activates the component when focused so that it may be manipulated via the directional
 		 * input keys.
@@ -111,7 +111,7 @@ const SliderBase = kind({
 		 * The maximum value of the slider.
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/Slider.SliderBase.step}.
+		 * [step]{@link sandstone/Slider.SliderBase.step}.
 		 *
 		 * @type {Number}
 		 * @default 100
@@ -123,7 +123,7 @@ const SliderBase = kind({
 		 * The minimum value of the slider.
 		 *
 		 * The range between `min` and `max` should be evenly divisible by
-		 * [step]{@link moonstone/Slider.SliderBase.step}.
+		 * [step]{@link sandstone/Slider.SliderBase.step}.
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -180,7 +180,7 @@ const SliderBase = kind({
 		 * Enables the built-in tooltip
 		 *
 		 * To customize the tooltip, pass either a custom tooltip component or an instance of
-		 * [SliderTooltip]{@link moonstone/Slider.SliderTooltip} with additional props configured.
+		 * [SliderTooltip]{@link sandstone/Slider.SliderTooltip} with additional props configured.
 		 *
 		 * ```
 		 * <Slider
@@ -303,13 +303,13 @@ const SliderBase = kind({
 });
 
 /**
- * Moonstone-specific slider behaviors to apply to [SliderBase]{@link moonstone/Slider.SliderBase}.
+ * Sandstone-specific slider behaviors to apply to [SliderBase]{@link sandstone/Slider.SliderBase}.
  *
  * @hoc
- * @memberof moonstone/Slider
+ * @memberof sandstone/Slider
  * @mixes ui/Changeable.Changeable
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @mixes ui/Slottable.Slottable
  * @mixes ui/Slider.SliderDecorator
  * @public
@@ -324,8 +324,8 @@ const SliderDecorator = compose(
 );
 
 /**
- * Slider input with Moonstone styling, [`Spottable`]{@link spotlight/Spottable.Spottable},
- * [Touchable]{@link ui/Touchable} and [`SliderDecorator`]{@link moonstone/Slider.SliderDecorator}
+ * Slider input with Sandstone styling, [`Spottable`]{@link spotlight/Spottable.Spottable},
+ * [Touchable]{@link ui/Touchable} and [`SliderDecorator`]{@link sandstone/Slider.SliderDecorator}
  * applied.
  *
  * By default, `Slider` maintains the state of its `value` property. Supply the `defaultValue`
@@ -334,8 +334,8 @@ const SliderDecorator = compose(
  * events.
  *
  * @class Slider
- * @memberof moonstone/Slider
- * @mixes moonstone/Slider.SliderDecorator
+ * @memberof sandstone/Slider
+ * @mixes sandstone/Slider.SliderDecorator
  * @ui
  * @public
  */
@@ -347,7 +347,7 @@ const SliderDecorator = compose(
  * the parent controls the value of the slider directly through the props.
  *
  * @name aria-valuetext
- * @memberof moonstone/Slider.Slider.prototype
+ * @memberof sandstone/Slider.Slider.prototype
  * @type {String|Number}
  * @public
  */
@@ -355,14 +355,14 @@ const SliderDecorator = compose(
 const Slider = SliderDecorator(SliderBase);
 
 /**
- * A [Tooltip]{@link moonstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link moonstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link moonstone/ProgressBar.ProgressBar}, or
- * [Slider]{@link moonstone/Slider.Slider}.
+ * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
+ * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [Slider]{@link sandstone/Slider.Slider}.
  *
- * @see {@link moonstone/ProgressBar.ProgressBarTooltip}
+ * @see {@link sandstone/ProgressBar.ProgressBarTooltip}
  * @class SliderTooltip
- * @memberof moonstone/Slider
+ * @memberof sandstone/Slider
  * @ui
  * @public
  */

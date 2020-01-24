@@ -5,9 +5,9 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {ContextualPopupDecorator} from '@enact/malachite/ContextualPopupDecorator';
-import BodyText from '@enact/malachite/BodyText';
-import Button from '@enact/malachite/Button';
+import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 ContextualButton.displayName = 'ContextualButton';
@@ -27,7 +27,7 @@ const renderPopup = () => (
 	<div>{text('popup string', {groupId: 'Popup'}, 'Hello Contextual Popup')}</div>
 );
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'ContextualPopupDecorator',
 		() => (

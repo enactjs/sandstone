@@ -5,38 +5,38 @@
 @import "../styles/skin.less";
 
 .iconButton {
-	.moon-taparea(@moon-icon-button-size);
+	.sand-taparea(@sand-icon-button-size);
 
-	width: @moon-icon-button-size;
-	height: @moon-icon-button-size;
+	width: @sand-icon-button-size;
+	height: @sand-icon-button-size;
 	padding: 0;
-	background-size: @moon-icon-sprite-size @moon-icon-sprite-size * 2;
-	line-height: @moon-icon-size;
-	border-radius: @moon-icon-button-border-radius;
+	background-size: @sand-icon-sprite-size @sand-icon-sprite-size * 2;
+	line-height: @sand-icon-size;
+	border-radius: @sand-icon-button-border-radius;
 
 	.bg {
-		border-radius: @moon-icon-button-border-radius;
+		border-radius: @sand-icon-button-border-radius;
 	}
 
 	&.small {
 		padding: 0;
-		width: @moon-icon-button-small-size;
-		height: @moon-icon-button-small-size;
-		background-size: @moon-icon-sprite-small-size @moon-icon-sprite-small-size * 2;
-		line-height: @moon-icon-small-size;
+		width: @sand-icon-button-small-size;
+		height: @sand-icon-button-small-size;
+		background-size: @sand-icon-sprite-small-size @sand-icon-sprite-small-size * 2;
+		line-height: @sand-icon-small-size;
 
-		.moon-taparea(@moon-icon-button-small-size);
+		.sand-taparea(@sand-icon-button-small-size);
 	}
 
-	.moon-custom-text({
-		height: @moon-icon-button-size-large;
-		width: @moon-icon-button-size-large;
-		line-height: @moon-icon-size-large;
+	.sand-custom-text({
+		height: @sand-icon-button-size-large;
+		width: @sand-icon-button-size-large;
+		line-height: @sand-icon-size-large;
 
 		&.small {
-			height: @moon-icon-button-small-size-large;
-			width: @moon-icon-button-small-size-large;
-			line-height: @moon-icon-small-size-large;
+			height: @sand-icon-button-small-size-large;
+			width: @sand-icon-button-small-size-large;
+			line-height: @sand-icon-small-size-large;
 		}
 	});
 
@@ -47,7 +47,7 @@
 		line-height: 42px;
 
 		.client::before {
-			height: @moon-icon-button-colordot-height;
+			height: @sand-icon-button-colordot-height;
 		}
 
 		&.small {
@@ -55,7 +55,7 @@
 
 
 			.client::before {
-				height: @moon-icon-button-small-colordot-height;
+				height: @sand-icon-button-small-colordot-height;
 			}
 		}
 	}

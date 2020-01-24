@@ -3,8 +3,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '@enact/malachite/Button';
-import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/malachite/TooltipDecorator';
+import Button from '@enact/sandstone/Button';
+import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
@@ -33,7 +33,7 @@ const prop = {
 	}
 };
 
-storiesOf('Malachite', module)
+storiesOf('Sandstone', module)
 	.add(
 		'TooltipDecorator',
 		() => (

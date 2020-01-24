@@ -29,28 +29,28 @@ const handleKeyDown = handle(
 
 
 /**
- * Default config for [InputSpotlightDecorator]{@link moonstone/Input.InputSpotlightDecorator}
+ * Default config for [InputSpotlightDecorator]{@link sandstone/Input.InputSpotlightDecorator}
  *
- * @memberof moonstone/Input/InputSpotlightDecorator.InputSpotlightDecorator
+ * @memberof sandstone/Input/InputSpotlightDecorator.InputSpotlightDecorator
  * @hocconfig
  */
 const defaultConfig = {
 	/**
-	 * Suppress the pointer lock behavior of moonstone input
+	 * Suppress the pointer lock behavior of sandstone input
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @memberof moonstone/Input/InputSpotlightDecorator.InputSpotlightDecorator.defaultConfig
+	 * @memberof sandstone/Input/InputSpotlightDecorator.InputSpotlightDecorator.defaultConfig
 	*/
 	noLockPointer: false
 };
 
 /**
  * A higher-order component that manages the
- * spotlight behavior for an {@link moonstone/Input.Input}
+ * spotlight behavior for an {@link sandstone/Input.Input}
  *
  * @class InputSpotlightDecorator
- * @memberof moonstone/Input/InputSpotlightDecorator
+ * @memberof sandstone/Input/InputSpotlightDecorator
  * @hoc
  * @private
  */
@@ -65,7 +65,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return class extends React.Component {
 		static displayName = 'InputSpotlightDecorator';
 
-		static propTypes = /** @lends moonstone/Input/InputSpotlightDecorator.InputSpotlightDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/Input/InputSpotlightDecorator.InputSpotlightDecorator.prototype */ {
 			/**
 			 * Focuses the <input> when the decorator is focused via 5-way.
 			 *

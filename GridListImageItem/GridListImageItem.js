@@ -1,5 +1,5 @@
 /**
- * Provides Moonstone styled grid list image item components and behaviors.
+ * Provides Sandstone styled grid list image item components and behaviors.
  *
  * @example
  * <GridListImageItem
@@ -8,7 +8,7 @@
  *   subCaption="sub-image0"
  * />
  *
- * @module moonstone/GridListImageItem
+ * @module sandstone/GridListImageItem
  * @exports GridListImageItem
  * @exports GridListImageItemBase
  * @exports GridListImageItemDecorator
@@ -39,18 +39,18 @@ const
 	);
 
 /**
- * A Moonstone styled base component for [GridListImageItem]{@link moonstone/GridListImageItem.GridListImageItem}.
+ * A Sandstone styled base component for [GridListImageItem]{@link sandstone/GridListImageItem.GridListImageItem}.
  *
  * @class GridListImageItemBase
  * @extends ui/GridListImageItem.GridListImageItem
- * @memberof moonstone/GridListImageItem
+ * @memberof sandstone/GridListImageItem
  * @ui
  * @public
  */
 const GridListImageItemBase = kind({
 	name: 'GridListImageItem',
 
-	propTypes: /** @lends moonstone/GridListImageItem.GridListImageItemBase.prototype */ {
+	propTypes: /** @lends sandstone/GridListImageItem.GridListImageItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -73,7 +73,7 @@ const GridListImageItemBase = kind({
 		 *
 		 * @type {String}
 		 * @default 'Select'
-		 * @memberof moonstone/GridListImageItem.GridListImageItemBase.prototype
+		 * @memberof sandstone/GridListImageItem.GridListImageItemBase.prototype
 		 * @public
 		 */
 		'data-webos-voice-intent': PropTypes.string,
@@ -152,14 +152,14 @@ const GridListImageItemBase = kind({
 });
 
 /**
- * Moonstone-specific GridListImageItem behaviors to apply to
- * [GridListImageItem]{@link moonstone/GridListImageItem.GridListImageItem}.
+ * Sandstone-specific GridListImageItem behaviors to apply to
+ * [GridListImageItem]{@link sandstone/GridListImageItem.GridListImageItem}.
  *
  * @hoc
- * @memberof moonstone/GridListImageItem
- * @mixes moonstone/Marquee.MarqueeController
+ * @memberof sandstone/GridListImageItem
+ * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const GridListImageItemDecorator = compose(
@@ -169,7 +169,7 @@ const GridListImageItemDecorator = compose(
 );
 
 /**
- * A moonstone-styled grid list image item, Marquee and Spottable applied.
+ * A sandstone-styled grid list image item, Marquee and Spottable applied.
  *
  * Usage:
  * ```
@@ -181,10 +181,10 @@ const GridListImageItemDecorator = compose(
  * ```
  *
  * @class GridListImageItem
- * @memberof moonstone/GridListImageItem
- * @extends moonstone/GridListImageItem.GridListImageItemBase
- * @mixes moonstone/GridListImageItem.GridListImageItemDecorator
- * @see {@link moonstone/GridListImageItem.GridListImageItemBase}
+ * @memberof sandstone/GridListImageItem
+ * @extends sandstone/GridListImageItem.GridListImageItemBase
+ * @mixes sandstone/GridListImageItem.GridListImageItemDecorator
+ * @see {@link sandstone/GridListImageItem.GridListImageItemBase}
  * @ui
  * @public
  */

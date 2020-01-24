@@ -1,7 +1,7 @@
 /**
- * Provides Moonstone-themed scrollable components and behaviors.
+ * Provides Sandstone-themed scrollable components and behaviors.
  *
- * @module moonstone/Scrollable
+ * @module sandstone/Scrollable
  * @exports Scrollable
  * @private
  */
@@ -49,11 +49,11 @@ const
 
 /**
  * The name of a custom attribute which indicates the index of an item in
- * [VirtualList]{@link moonstone/VirtualList.VirtualList} or
- * [VirtualGridList]{@link moonstone/VirtualList.VirtualGridList}.
+ * [VirtualList]{@link sandstone/VirtualList.VirtualList} or
+ * [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
  *
  * @constant dataIndexAttribute
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @type {String}
  * @private
  */
@@ -130,10 +130,10 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 /**
- * A Moonstone-styled component that provides horizontal and vertical scrollbars.
+ * A Sandstone-styled component that provides horizontal and vertical scrollbars.
  *
  * @class ScrollableBase
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @extends ui/Scrollable.ScrollableBase
  * @ui
  * @public
@@ -143,7 +143,7 @@ class ScrollableBase extends Component {
 
 	static contextType = SharedState
 
-	static propTypes = /** @lends moonstone/Scrollable.Scrollable.prototype */ {
+	static propTypes = /** @lends sandstone/Scrollable.Scrollable.prototype */ {
 		/**
 		 * Render function.
 		 *
@@ -181,7 +181,7 @@ class ScrollableBase extends Component {
 
 		/**
 		 * Direction of the list or the scroller.
-		 * `'both'` could be only used for[Scroller]{@link moonstone/Scroller.Scroller}.
+		 * `'both'` could be only used for[Scroller]{@link sandstone/Scroller.Scroller}.
 		 *
 		 * Valid values are:
 		 * * `'both'`,
@@ -1059,12 +1059,12 @@ class ScrollableBase extends Component {
 }
 
 /**
- * A Moonstone-styled component that provides horizontal and vertical scrollbars.
+ * A Sandstone-styled component that provides horizontal and vertical scrollbars.
  *
  * @class Scrollable
- * @memberof moonstone/Scrollable
+ * @memberof sandstone/Scrollable
  * @mixes spotlight/SpotlightContainerDecorator
- * @extends moonstone/Scrollable.ScrollableBase
+ * @extends sandstone/Scrollable.ScrollableBase
  * @ui
  * @public
  */

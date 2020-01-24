@@ -5,9 +5,9 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button, {ButtonBase} from '@enact/malachite/Button';
-import IconButton from '@enact/malachite/IconButton';
-import Heading from '@enact/malachite/Heading';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
+import Heading from '@enact/sandstone/Heading';
 
 import iconNames from '../default/icons';
 

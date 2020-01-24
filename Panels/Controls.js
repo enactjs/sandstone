@@ -12,14 +12,14 @@ import css from './Panels.module.less';
  * Group of controls shared across Panel instances
  *
  * @class ControlsBase
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @private
  */
 const ControlsBase = kind({
 	name: 'Controls',
 
-	propTypes: /** @lends moonstone/Panels.ControlsBase.prototype */ {
+	propTypes: /** @lends sandstone/Panels.ControlsBase.prototype */ {
 		/**
 		 * Additional controls displayed before the close button.
 		 *
@@ -110,7 +110,7 @@ const ControlsBase = kind({
  *
  * @class Controls
  * @mixes spotlight/SpotlightContainerDecorator
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @private
  */

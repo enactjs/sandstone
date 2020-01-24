@@ -15,18 +15,18 @@ import {secondsToTime} from './util';
 import css from './FeedbackTooltip.module.less';
 
 /**
- * FeedbackTooltip {@link moonstone/VideoPlayer}. This displays the media's playback rate and
+ * FeedbackTooltip {@link sandstone/VideoPlayer}. This displays the media's playback rate and
  * time information.
  *
  * @class FeedbackTooltip
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
 const FeedbackTooltipBase = kind({
 	name: 'FeedbackTooltip',
 
-	propTypes: /** @lends moonstone/VideoPlayer.FeedbackTooltip.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.FeedbackTooltip.prototype */ {
 		/**
 		 * Invoke action to display or hide tooltip.
 		 *
@@ -89,7 +89,7 @@ const FeedbackTooltipBase = kind({
 		 * Each state understands where its related icon should be positioned, and whether it should
 		 * respond to changes to the `visible` property.
 		 *
-		 * This string feeds directly into {@link moonstone/FeedbackIcon.FeedbackIcon}.
+		 * This string feeds directly into {@link sandstone/FeedbackIcon.FeedbackIcon}.
 		 *
 		 * @type {String}
 		 * @public
@@ -128,7 +128,7 @@ const FeedbackTooltipBase = kind({
 
 		/**
 		 * Set a thumbnail image source to show on VideoPlayer's Slider knob. This is a standard
-		 * {@link moonstone/Image} component so it supports all of the same options for the `src`
+		 * {@link sandstone/Image} component so it supports all of the same options for the `src`
 		 * property. If no `thumbnailSrc` is set, no tooltip will display.
 		 *
 		 * @type {String|Object}
@@ -137,7 +137,7 @@ const FeedbackTooltipBase = kind({
 		thumbnailSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * Required by the interface for moonstone/Slider.tooltip but not used here
+		 * Required by the interface for sandstone/Slider.tooltip but not used here
 		 *
 		 * @type {Boolean}
 		 * @default true

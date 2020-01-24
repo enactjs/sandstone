@@ -13,14 +13,14 @@ import css from './Panel.module.less';
 let panelId = 0;
 
 /**
- * A Panel is the standard view container used inside a [Panels]{@link moonstone/Panels.Panels} view
+ * A Panel is the standard view container used inside a [Panels]{@link sandstone/Panels.Panels} view
  * manager instance.
  *
- * [Panels]{@link moonstone/Panels.Panels} will typically contain several instances of these and
+ * [Panels]{@link sandstone/Panels.Panels} will typically contain several instances of these and
  * transition between them.
  *
  * @class Panel
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @public
  */
@@ -28,15 +28,15 @@ const PanelBase = kind({
 
 	name: 'Panel',
 
-	propTypes: /** @lends moonstone/Panels.Panel.prototype */ {
+	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
  		 * The "aria-label" for the Panel.
 		 *
-		 * By default, the panel will be labeled by its [Header]{@link moonstone/Panels.Header}.
+		 * By default, the panel will be labeled by its [Header]{@link sandstone/Panels.Header}.
 		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
 		 * the panel.
 		 *
-		 * @memberof moonstone/Panels.Panel.prototype
+		 * @memberof sandstone/Panels.Panel.prototype
 		 * @type {String}
 		 * @public
 		 */
@@ -51,7 +51,7 @@ const PanelBase = kind({
 		 * * Custom Selector - A custom CSS selector may also be provided which will be used to find
 		 *   the target within the Panel
 		 *
-		 * When used within [Panels]{@link moonstone/Panels.Panels}, this prop may be set by
+		 * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by
 		 * `Panels` to "default-element" when navigating "forward" to a higher index. This behavior
 		 * may be overridden by setting `autoFocus` on the `Panel` instance as a child of `Panels`
 		 * or by wrapping `Panel` with a custom component and overriding the value passed by
@@ -83,7 +83,7 @@ const PanelBase = kind({
 		 * Header for the panel.
 		 *
 		 * This is usually passed by the [Slottable]{@link ui/Slottable.Slottable} API by using a
-		 * [Header]{@link moonstone/Panels.Header} component as a child of the Panel.
+		 * [Header]{@link sandstone/Panels.Header} component as a child of the Panel.
 		 *
 		 * @type {Header}
 		 * @public
@@ -93,9 +93,9 @@ const PanelBase = kind({
 		/**
 		 * Hides the body components.
 		 *
-		 * When a Panel is used within [`Panels`]{@link moonstone/Panels.Panels},
-		 * [`ActivityPanels`]{@link moonstone/Panels.ActivityPanels}, or
-		 * [`AlwaysViewingPanels`]{@link moonstone/Panels.AlwaysViewingPanels},
+		 * When a Panel is used within [`Panels`]{@link sandstone/Panels.Panels},
+		 * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels}, or
+		 * [`AlwaysViewingPanels`]{@link sandstone/Panels.AlwaysViewingPanels},
 		 * this property will be set automatically to `true` on render and `false` after animating
 		 * into view.
 		 *
@@ -191,7 +191,7 @@ const PanelBase = kind({
  * @name noSharedState
  * @type {Boolean}
  * @default {false}
- * @memberof moonstone/Panels.Panel.prototype
+ * @memberof sandstone/Panels.Panel.prototype
  */
 
 const Panel = SharedStateDecorator(
