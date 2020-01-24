@@ -32,15 +32,15 @@
 
 	// Text
 	.label {
-		.moon-font(@moon-expandable-value-font-family, @moon-non-latin-font-family-light, {
-			font-weight: @moon-non-latin-body-font-weight;
-			font-size: @moon-non-latin-body-font-size;
-			line-height: @moon-non-latin-body-line-height;
+		.sand-font(@sand-expandable-value-font-family, @sand-non-latin-font-family-light, {
+			font-weight: @sand-non-latin-body-font-weight;
+			font-size: @sand-non-latin-body-font-size;
+			line-height: @sand-non-latin-body-line-height;
 		});
-		font-size: @moon-expandable-value-font-size;
-		font-weight: @moon-expandable-value-font-weight;
-		font-style: @moon-expandable-value-font-style;
-		line-height: @moon-body-line-height;
+		font-size: @sand-expandable-value-font-size;
+		font-weight: @sand-expandable-value-font-weight;
+		font-style: @sand-expandable-value-font-style;
+		line-height: @sand-body-line-height;
 		text-transform: none;
 		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
 		margin-top: -@text-vertical-offset;
@@ -60,10 +60,10 @@
 	}
 
 	// Large-text mode
-	.moon-custom-text({
+	.sand-custom-text({
 		.label {
-			font-size: @moon-expandable-value-font-size-large;
-			line-height: @moon-body-line-height-large;
+			font-size: @sand-expandable-value-font-size-large;
+			line-height: @sand-body-line-height-large;
 			padding-bottom: (@text-vertical-offset - 6px);
 		}
 	});
@@ -71,7 +71,7 @@
 	// Skin colors
 	.applySkins({
 		.label {
-			color: @moon-labeled-item-label-color;
+			color: @sand-labeled-item-label-color;
 		}
 
 		.focus({

@@ -1,7 +1,7 @@
 /**
  * Panels provides a way to manage different screens of an app.
  *
- * @module moonstone/Panels
+ * @module sandstone/Panels
  * @exports ActivityPanels
  * @exports AlwaysViewingPanels
  * @exports Breadcrumb
@@ -41,20 +41,20 @@ export {
 	 * @hoc
 	 * @name Routable
 	 * @extends ui/Routable.Routable
-	 * @memberof moonstone/Panels
+	 * @memberof sandstone/Panels
 	 * @public
 	 */
 	Routable,
 
 	/**
-	 * Used with {@link moonstone/Panels.Routable} to define the `path` segment and the
+	 * Used with {@link sandstone/Panels.Routable} to define the `path` segment and the
 	 * `component` to render.
 	 *
 	 * @see {@link ui/Routable.Route}
 	 * @ui
 	 * @name Route
 	 * @extends ui/Routable.Route
-	 * @memberof moonstone/Panels
+	 * @memberof sandstone/Panels
 	 * @public
 	 */
 	Route

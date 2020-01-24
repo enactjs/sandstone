@@ -48,7 +48,7 @@ const forwardToggleMore = forward('onToggleMore');
  * A set of components for controlling media playback and rendering additional components.
  *
  * @class MediaControlsBase
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
@@ -56,10 +56,10 @@ const MediaControlsBase = kind({
 	name: 'MediaControls',
 
 	// intentionally assigning these props to MediaControls instead of Base (which is private)
-	propTypes: /** @lends moonstone/VideoPlayer.MediaControls.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.MediaControls.prototype */ {
 		/**
-		 * Reverse-playback [icon]{@link moonstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link moonstone/Icon.Icon} component type.
+		 * Reverse-playback [icon]{@link sandstone/Icon.Icon} name. Accepts any
+		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'backward'
@@ -68,8 +68,8 @@ const MediaControlsBase = kind({
 		backwardIcon: PropTypes.string,
 
 		/**
-		 * Forward [icon]{@link moonstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link moonstone/Icon.Icon} component type.
+		 * Forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
+		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'forward'
@@ -78,8 +78,8 @@ const MediaControlsBase = kind({
 		forwardIcon: PropTypes.string,
 
 		/**
-		 * Jump backward [icon]{@link moonstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link moonstone/Icon.Icon} component type.
+		 * Jump backward [icon]{@link sandstone/Icon.Icon} name. Accepts any
+		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpbackward'
@@ -96,8 +96,8 @@ const MediaControlsBase = kind({
 		jumpButtonsDisabled: PropTypes.bool,
 
 		/**
-		 * Jump forward [icon]{@link moonstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link moonstone/Icon.Icon} component type.
+		 * Jump forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
+		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
 		 * @type {String}
 		 * @default 'jumpforward'
@@ -141,7 +141,7 @@ const MediaControlsBase = kind({
 		 * colored buttons on a standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
 		 *
 		 * @type {String}
-		 * @see {@link moonstone/IconButton.IconButtonBase.color}
+		 * @see {@link sandstone/IconButton.IconButtonBase.color}
 		 * @default 'blue'
 		 * @public
 		 */
@@ -255,9 +255,9 @@ const MediaControlsBase = kind({
 
 		/**
 		 * A string which is sent to the `pause` icon of the player controls. This can be
-		 * anything that is accepted by [Icon]{@link moonstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [playIcon]{@link moonstone/VideoPlayer.MediaControls.playIcon} when the
-		 * [paused]{@link moonstone/VideoPlayer.MediaControls.paused} boolean is `false`.
+		 * anything that is accepted by [Icon]{@link sandstone/Icon.Icon}. This will be temporarily replaced by
+		 * the [playIcon]{@link sandstone/VideoPlayer.MediaControls.playIcon} when the
+		 * [paused]{@link sandstone/VideoPlayer.MediaControls.paused} boolean is `false`.
 		 *
 		 * @type {String}
 		 * @default 'pause'
@@ -267,9 +267,9 @@ const MediaControlsBase = kind({
 
 		/**
 		 * A string which is sent to the `play` icon of the player controls. This can be
-		 * anything that is accepted by {@link moonstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [pauseIcon]{@link moonstone/VideoPlayer.MediaControls.pauseIcon} when the
-		 * [paused]{@link moonstone/VideoPlayer.MediaControls.paused} boolean is `true`.
+		 * anything that is accepted by {@link sandstone/Icon.Icon}. This will be temporarily replaced by
+		 * the [pauseIcon]{@link sandstone/VideoPlayer.MediaControls.pauseIcon} when the
+		 * [paused]{@link sandstone/VideoPlayer.MediaControls.paused} boolean is `true`.
 		 *
 		 * @type {String}
 		 * @default 'play'
@@ -457,12 +457,12 @@ const MediaControlsBase = kind({
 });
 
 /**
- * Media control behaviors to apply to [MediaControlsBase]{@link moonstone/VideoPlayer.MediaControlsBase}.
+ * Media control behaviors to apply to [MediaControlsBase]{@link sandstone/VideoPlayer.MediaControlsBase}.
  * Provides built-in support for showing more components and key handling for basic playback
  * controls.
  *
  * @class MediaControlsDecorator
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @mixes ui/Slottable.Slottable
  * @hoc
  * @private
@@ -471,7 +471,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 	class MediaControlsDecoratorHOC extends React.Component {
 		static displayName = 'MediaControlsDecorator'
 
-		static propTypes = /** @lends moonstone/VideoPlayer.MediaControlsDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/VideoPlayer.MediaControlsDecorator.prototype */ {
 			/**
 			 * The number of milliseconds that the player will pause before firing the
 			 * first jump event on a right or left pulse.
@@ -518,7 +518,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * colored buttons on a standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`
 			 *
 			 * @type {String}
-			 * @see {@link moonstone/IconButton.IconButtonBase.color}
+			 * @see {@link sandstone/IconButton.IconButtonBase.color}
 			 * @default 'blue'
 			 * @public
 			 */
@@ -844,7 +844,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			const max = Math.max(leftCount, rightCount);
 
-			this.mediaControlsNode.style.setProperty('--moon-video-player-max-side-components', max);
+			this.mediaControlsNode.style.setProperty('--sand-video-player-max-side-components', max);
 		}
 
 		getMediaControls = (node) => {
@@ -925,7 +925,7 @@ const handleCancel = (ev, {onClose}) => {
  * user taps the "more" button.
  *
  * @class MediaControls
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @mixes ui/Cancelable.Cancelable
  * @ui
  * @public

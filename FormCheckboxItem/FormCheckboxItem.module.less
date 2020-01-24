@@ -8,12 +8,12 @@
 	/* Available for customization */
 
 	// FormCheckboxItem should not increase in size when in `largeText` mode
-	.moon-custom-text({
-		font-size: @moon-item-font-size;
-		line-height: @moon-item-line-height;
+	.sand-custom-text({
+		font-size: @sand-item-font-size;
+		line-height: @sand-item-line-height;
 
-		.moon-locale-non-latin({
-			line-height: @moon-item-line-height;
+		.sand-locale-non-latin({
+			line-height: @sand-item-line-height;
 		});
 	});
 }
@@ -34,20 +34,20 @@
 			opacity: 1;
 
 			> * {
-			    opacity: @moon-disabled-opacity;
+			    opacity: @sand-disabled-opacity;
 			}
 			.slot {
 			    opacity: 1;
 
 				> * {
-				    opacity: @moon-disabled-opacity;
+				    opacity: @sand-disabled-opacity;
 				}
 			}
 		});
 
 		.focus({
-			color: @moon-formcheckboxitem-focus-text-color;
-			background-color: @moon-formcheckboxitem-focus-bg-color;
+			color: @sand-formcheckboxitem-focus-text-color;
+			background-color: @sand-formcheckboxitem-focus-bg-color;
 
 			.disabled({
 				.slot {

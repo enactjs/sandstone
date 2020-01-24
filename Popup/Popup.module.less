@@ -6,25 +6,25 @@
 
 .popup {
 	// Local variables to make this easier to read
-	@popup-padding-top: (@moon-popup-padding-top - @moon-popup-body-margin-top);
-	@popup-padding-right: (@moon-popup-padding-right - @moon-popup-body-margin-right);
-	@popup-padding-bottom: (@moon-popup-padding-bottom - @moon-popup-body-margin-bottom);
-	@popup-padding-left: (@moon-popup-padding-left - @moon-popup-body-margin-left);
+	@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
+	@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
+	@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
+	@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
 
-	.moon-text-base();
+	.sand-text-base();
 	padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
 	.padding-start-end(@popup-padding-left, @popup-padding-right);
 	box-sizing: border-box;
 	pointer-events: auto;
 
 	.body {
-		margin: @moon-popup-body-margin-top @moon-popup-body-margin-right @moon-popup-body-margin-bottom @moon-popup-body-margin-left;
-		.margin-start-end(@moon-popup-body-margin-left, @moon-popup-body-margin-right);
+		margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
+		.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
 		.locale-japanese-line-break();
 	}
 
 	.closeContainer {
-		.margin-start-end(@moon-popup-closecontainer-separation, 0);
+		.margin-start-end(@sand-popup-closecontainer-separation, 0);
 	}
 
 	.closeButton {
@@ -33,16 +33,16 @@
 
 	&.reserveClose {
 		.body {
-			.margin-start-end(@moon-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
+			.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
 		}
 	}
 
 	// Skin colors
 	.applySkins({
-		background-color: fade(@moon-popup-bg-color, @moon-popup-bg-opacity);
+		background-color: fade(@sand-popup-bg-color, @sand-popup-bg-opacity);
 
 		.closeButton {
-			color: @moon-popup-close-text-color;
+			color: @sand-popup-close-text-color;
 		}
 	});
 }

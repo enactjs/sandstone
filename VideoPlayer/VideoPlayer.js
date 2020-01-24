@@ -1,7 +1,7 @@
 /**
- * Provides Moonstone-themed video player components.
+ * Provides Sandstone-themed video player components.
  *
- * @module moonstone/VideoPlayer
+ * @module sandstone/VideoPlayer
  * @exports Video
  * @exports VideoPlayer
  * @exports VideoPlayerBase
@@ -108,11 +108,11 @@ const AnnounceState = {
 };
 
 /**
- * Every callback sent by [VideoPlayer]{@link moonstone/VideoPlayer} receives a status package,
+ * Every callback sent by [VideoPlayer]{@link sandstone/VideoPlayer} receives a status package,
  * which includes an object with the following key/value pairs as the first argument:
  *
  * @typedef {Object} videoStatus
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @property {String} type - Type of event that triggered this callback
  * @property {Number} currentTime - Playback index of the media in seconds
  * @property {Number} duration - Media's entire duration in seconds
@@ -136,7 +136,7 @@ const AnnounceState = {
  * (e.g.: `'1/2'`, not `'0.5'`).
  *
  * @typedef {Object} playbackRateHash
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @property {String[]} fastForward - An array of playback rates when media fast forwards
  * @property {String[]} rewind - An array of playback rates when media rewinds
  * @property {String[]} slowForward - An array of playback rates when media slow-forwards
@@ -146,17 +146,17 @@ const AnnounceState = {
  */
 
 /**
- * A player for video {@link moonstone/VideoPlayer.VideoPlayerBase}.
+ * A player for video {@link sandstone/VideoPlayer.VideoPlayerBase}.
  *
  * @class VideoPlayerBase
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @public
  */
 const VideoPlayerBase = class extends React.Component {
 	static displayName = 'VideoPlayerBase'
 
-	static propTypes = /** @lends moonstone/VideoPlayer.VideoPlayerBase.prototype */ {
+	static propTypes = /** @lends sandstone/VideoPlayer.VideoPlayerBase.prototype */ {
 		/**
 		 * passed by AnnounceDecorator for accessibility
 		 *
@@ -260,7 +260,7 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `visible` - `true` when the media controls should be displayed
 		 *
 		 * @type {Component|Element}
-		 * @default `moonstone/VideoPlayer.MediaControls`
+		 * @default `sandstone/VideoPlayer.MediaControls`
 		 * @public
 		 */
 		mediaControlsComponent: EnactPropTypes.componentOverride,
@@ -365,7 +365,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Called when the user clicks the JumpBackward button.
 		 *
-		 * Is passed a {@link moonstone/VideoPlayer.videoStatus} as the first argument.
+		 * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
 		 *
 		 * @type {Function}
 		 * @public
@@ -375,7 +375,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Called when the user clicks the JumpForward button.
 		 *
-		 * Is passed a {@link moonstone/VideoPlayer.videoStatus} as the first argument.
+		 * Is passed a {@link sandstone/VideoPlayer.videoStatus} as the first argument.
 		 *
 		 * @type {Function}
 		 * @public
@@ -450,7 +450,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Mapping of playback rate names to playback rate values that may be set.
 		 *
-		 * @type {moonstone/VideoPlayer.playbackRateHash}
+		 * @type {sandstone/VideoPlayer.playbackRateHash}
 		 * @default {
 		 *	fastForward: ['2', '4', '8', '16'],
 		 *	rewind: ['-2', '-4', '-8', '-16'],
@@ -507,7 +507,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * The video source.
 		 *
-		 * Any children `<source>` tag elements of [VideoPlayer]{@link moonstone/VideoPlayer} will
+		 * Any children `<source>` tag elements of [VideoPlayer]{@link sandstone/VideoPlayer} will
 		 * be sent directly to the `videoComponent` as video sources.
 		 *
 		 * @type {Node}
@@ -547,7 +547,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Thumbnail image source to show on the slider knob.
 		 *
-		 * This is a standard {@link moonstone/Image} component so it supports all of the same
+		 * This is a standard {@link sandstone/Image} component so it supports all of the same
 		 * options for the `src` property. If no `thumbnailComponent` and no `thumbnailSrc` is set,
 		 * no tooltip will display.
 		 *
@@ -610,7 +610,7 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `pause()` - pause video
 		 * * `load()` - load video
 		 *
-		 * The [`source`]{@link moonstone/VideoPlayer.Video.source} property is passed to
+		 * The [`source`]{@link sandstone/VideoPlayer.Video.source} property is passed to
 		 * the video component as a child node.
 		 *
 		 * @type {Component|Element}
@@ -895,7 +895,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Shows media controls.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	showControls = () => {
@@ -931,7 +931,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Hides media controls.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	hideControls = () => {
@@ -954,7 +954,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Toggles the media controls.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	toggleControls = () => {
@@ -1194,7 +1194,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * `paused`, `playbackRate`, `proportionLoaded`, and `proportionPlayed`.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @returns {Object}
 	 * @public
 	 */
@@ -1228,7 +1228,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Programmatically plays the current media.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	play = () => {
@@ -1250,7 +1250,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Programmatically plays the current media.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	pause = () => {
@@ -1272,7 +1272,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Set the media playback time index
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @param {Number} timeIndex - Time index to seek
 	 * @public
 	 */
@@ -1286,10 +1286,10 @@ const VideoPlayerBase = class extends React.Component {
 
 	/**
 	 * Step a given amount of time away from the current playback position.
-	 * Like [seek]{@link moonstone/VideoPlayer.VideoPlayer#seek} but relative.
+	 * Like [seek]{@link sandstone/VideoPlayer.VideoPlayer#seek} but relative.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @param {Number} distance - Time value to jump
 	 * @public
 	 */
@@ -1307,10 +1307,10 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link moonstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	fastForward = () => {
@@ -1364,10 +1364,10 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	/**
-	 * Changes the playback speed via [selectPlaybackRate()]{@link moonstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
+	 * Changes the playback speed via [selectPlaybackRate()]{@link sandstone/VideoPlayer.VideoPlayer#selectPlaybackRate}.
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	rewind = () => {
@@ -1447,7 +1447,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * Returns a proxy to the underlying `<video>` node currently used by the VideoPlayer
 	 *
 	 * @function
-	 * @memberof moonstone/VideoPlayer.VideoPlayerBase.prototype
+	 * @memberof sandstone/VideoPlayer.VideoPlayerBase.prototype
 	 * @public
 	 */
 	getVideoNode = () => {
@@ -1459,7 +1459,7 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	/**
-	 * Sets the playback rate type (from the keys of [playbackRateHash]{@link moonstone/VideoPlayer.VideoPlayer#playbackRateHash}).
+	 * Sets the playback rate type (from the keys of [playbackRateHash]{@link sandstone/VideoPlayer.VideoPlayer#playbackRateHash}).
 	 *
 	 * @param {String} cmd - Key of the playback rate type.
 	 * @private
@@ -1469,7 +1469,7 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	/**
-	 * Changes [playbackRate]{@link moonstone/VideoPlayer.VideoPlayer#playbackRate} to a valid value
+	 * Changes [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate} to a valid value
 	 * when initiating fast forward or rewind.
 	 *
 	 * @param {Number} idx - The index of the desired playback rate.
@@ -1495,7 +1495,7 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	/**
-	 * Sets [playbackRate]{@link moonstone/VideoPlayer.VideoPlayer#playbackRate}.
+	 * Sets [playbackRate]{@link sandstone/VideoPlayer.VideoPlayer#playbackRate}.
 	 *
 	 * @param {String} rate - The desired playback rate.
 	 * @private
@@ -1965,7 +1965,7 @@ const VideoPlayerBase = class extends React.Component {
 };
 
 /**
- * A standard HTML5 video player for Moonstone. It behaves, responds to, and operates like a
+ * A standard HTML5 video player for Sandstone. It behaves, responds to, and operates like a
  * `<video>` tag in its support for `<source>`.  It also accepts custom tags such as
  * `<infoComponents>` for displaying additional information in the title area and `<MediaControls>`
  * for handling media playback controls and adding more controls.
@@ -2007,7 +2007,7 @@ const VideoPlayerBase = class extends React.Component {
  * ```
  *
  * @class VideoPlayer
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @mixes ui/Slottable.Slottable
  * @ui
  * @public

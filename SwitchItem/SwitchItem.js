@@ -1,12 +1,12 @@
 /**
- * Provides Moonstone-themed item component and interactive toggleable switch.
+ * Provides Sandstone-themed item component and interactive toggleable switch.
  *
  * @example
  * <SwitchItem>
  * 	Item
  * </SwitchItem>
  *
- * @module moonstone/SwitchItem
+ * @module sandstone/SwitchItem
  * @exports SwitchItem
  * @exports SwitchItemBase
  */
@@ -23,11 +23,11 @@ import ToggleItem from '../ToggleItem';
 import componentCss from './SwitchItem.module.less';
 
 /**
- * Renders an item with a [Switch]{@link moonstone/Switch}.
+ * Renders an item with a [Switch]{@link sandstone/Switch}.
  *
  * @class SwitchItem
- * @memberof moonstone/SwitchItem
- * @extends moonstone/ToggleItem.ToggleItem
+ * @memberof sandstone/SwitchItem
+ * @extends sandstone/ToggleItem.ToggleItem
  * @omit iconComponent
  * @ui
  * @public
@@ -35,7 +35,7 @@ import componentCss from './SwitchItem.module.less';
 const SwitchItemBase = kind({
 	name: 'SwitchItem',
 
-	propTypes: /** @lends moonstone/SwitchItem.SwitchItem.prototype */ {
+	propTypes: /** @lends sandstone/SwitchItem.SwitchItem.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -53,7 +53,7 @@ const SwitchItemBase = kind({
 		 * Customize the component used as the switch.
 		 *
 		 * @type {Element|Component}
-		 * @default {@link moonstone/Switch.Switch}
+		 * @default {@link sandstone/Switch.Switch}
 		 * @private
 		 */
 		iconComponent: EnactPropTypes.componentOverride

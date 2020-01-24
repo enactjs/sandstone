@@ -11,18 +11,18 @@ import DateComponentPickerChrome from './DateComponentPickerChrome';
 const Picker = Spottable(PickerCore);
 
 /**
- * {@link moonstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one
- * part of the date or time using a {@link moonstone/Picker.Picker}.
+ * {@link sandstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one
+ * part of the date or time using a {@link sandstone/Picker.Picker}.
  *
  * @class DateComponentPickerBase
- * @memberof moonstone/internal/DateComponentPicker
+ * @memberof sandstone/internal/DateComponentPicker
  * @ui
  * @private
  */
 const DateComponentPickerBase = kind({
 	name: 'DateComponentPicker',
 
-	propTypes: /** @lends moonstone/internal/DateComponentPicker.DateComponentPickerBase.prototype */ {
+	propTypes: /** @lends sandstone/internal/DateComponentPicker.DateComponentPickerBase.prototype */ {
 		/**
 		 * Display values representing the `value` to select
 		 *
@@ -54,7 +54,7 @@ const DateComponentPickerBase = kind({
 		 * to the current selected child and accessibilityHint text.
 		 *
 		 * @type {String}
-		 * @memberof moonstone/internal/DateComponentPicker.DateComponentPickerBase.prototype
+		 * @memberof sandstone/internal/DateComponentPicker.DateComponentPickerBase.prototype
 		 * @public
 		 */
 		'aria-valuetext': PropTypes.string,
@@ -128,12 +128,12 @@ const DateComponentPickerBase = kind({
 });
 
 /**
- * {@link moonstone/internal/DateComponentPickerBase.DateComponentPicker} allows the selection of one part of
+ * {@link sandstone/internal/DateComponentPickerBase.DateComponentPicker} allows the selection of one part of
  * the date (date, month, or year). It is a stateful component but allows updates by providing a new
  * `value` via props.
  *
  * @class DateComponentPicker
- * @memberof moonstone/internal/DateComponentPicker
+ * @memberof sandstone/internal/DateComponentPicker
  * @mixes ui/Changeable.Changeable
  * @ui
  * @private

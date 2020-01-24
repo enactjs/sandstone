@@ -1,16 +1,16 @@
 /**
- * An [Icon]{@link moonstone/Icon.Icon} that acts like a [Button]{@link moonstone/Button.Button}
+ * An [Icon]{@link sandstone/Icon.Icon} that acts like a [Button]{@link sandstone/Button.Button}
  * decorated with a label.
  *
  * You may specify an image or a font-based icon by setting the `icon` to either the path
- * to the image or a string from an [iconList]{@link moonstone/Icon.IconBase.iconList}.
+ * to the image or a string from an [iconList]{@link sandstone/Icon.IconBase.iconList}.
  *
  * @example
  * <LabeledIconButton icon="star" labelPosition="after">
  *   Favorite
  * </LabeledIconButton>
  *
- * @module moonstone/LabeledIconButton
+ * @module sandstone/LabeledIconButton
  * @exports LabeledIconButton
  * @exports LabeledIconButtonBase
  * @exports LabeledIconButtonDecorator
@@ -40,7 +40,7 @@ const IconButton = compose(
  * An icon button component with a label.
  *
  * @class LabeledIconButtonBase
- * @memberof moonstone/LabeledIconButton
+ * @memberof sandstone/LabeledIconButton
  * @extends ui/LabeledIcon.LabeledIcon
  * @ui
  * @public
@@ -48,7 +48,7 @@ const IconButton = compose(
 const LabeledIconButtonBase = kind({
 	name: 'LabeledIconButton',
 
-	propTypes: /** @lends moonstone/LabeledIconButton.LabeledIconButtonBase.prototype */ {
+	propTypes: /** @lends sandstone/LabeledIconButton.LabeledIconButtonBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -120,7 +120,7 @@ const LabeledIconButtonBase = kind({
 		 *
 		 * Setting `selected` may be useful when the component represents a toggleable option. The
 		 * visual effect may be customized using the
-		 * [css]{@link moonstone/LabeledIconButton.LabeledIconButtonBase.css} prop.
+		 * [css]{@link sandstone/LabeledIconButton.LabeledIconButtonBase.css} prop.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -155,11 +155,11 @@ const LabeledIconButtonBase = kind({
 });
 
 /**
- * Adds Moonstone specific behaviors to [LabeledIconButtonBase]{@link moonstone/LabeledIconButton.LabeledIconButtonBase}.
+ * Adds Sandstone specific behaviors to [LabeledIconButtonBase]{@link sandstone/LabeledIconButton.LabeledIconButtonBase}.
  *
  * @hoc
- * @memberof moonstone/LabeledIconButton
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/LabeledIconButton
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const LabeledIconButtonDecorator = compose(
@@ -168,7 +168,7 @@ const LabeledIconButtonDecorator = compose(
 );
 
 /**
- * A Moonstone-styled icon button component with a label.
+ * A Sandstone-styled icon button component with a label.
  *
  * Usage:
  * ```
@@ -178,9 +178,9 @@ const LabeledIconButtonDecorator = compose(
  * ```
  *
  * @class LabeledIconButton
- * @memberof moonstone/LabeledIconButton
- * @extends moonstone/LabeledIconButton.LabeledIconButtonBase
- * @mixes moonstone/LabeledIconButton.LabeledIconButtonDecorator
+ * @memberof sandstone/LabeledIconButton
+ * @extends sandstone/LabeledIconButton.LabeledIconButtonBase
+ * @mixes sandstone/LabeledIconButton.LabeledIconButtonDecorator
  * @ui
  * @public
  */

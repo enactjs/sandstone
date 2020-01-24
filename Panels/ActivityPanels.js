@@ -29,7 +29,7 @@ const ActivityPanelsDecorator = compose(
  * property explicitly if necessary.
  *
  * @class ActivityPanels
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @public
  */

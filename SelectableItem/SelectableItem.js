@@ -1,10 +1,10 @@
 /**
- * Provides a Moonstone-themed [Item]{@link moonstone/Item} with an icon that toggles on and off.
+ * Provides a Sandstone-themed [Item]{@link sandstone/Item} with an icon that toggles on and off.
  *
  * @example
  * <SelectableItem>Click Me</SelectableItem>
  *
- * @module moonstone/SelectableItem
+ * @module sandstone/SelectableItem
  * @exports SelectableItem
  * @exports SelectableItemBase
  * @exports SelectableItemDecorator
@@ -21,11 +21,11 @@ import SelectableIcon from './SelectableIcon';
 import componentCss from './SelectableItem.module.less';
 
 /**
- * Renders an [Item]{@link moonstone/Item} with a circle icon, by default.
+ * Renders an [Item]{@link sandstone/Item} with a circle icon, by default.
  *
  * @class SelectableItemBase
- * @memberof moonstone/SelectableItem
- * @extends moonstone/ToggleItem.ToggleItemBase
+ * @memberof sandstone/SelectableItem
+ * @extends sandstone/ToggleItem.ToggleItemBase
  * @omit iconComponent
  * @ui
  * @public
@@ -33,7 +33,7 @@ import componentCss from './SelectableItem.module.less';
 const SelectableItemBase = kind({
 	name: 'SelectableItem',
 
-	propTypes: /** @lends moonstone/SelectableItem.SelectableItemBase.prototype */ {
+	propTypes: /** @lends sandstone/SelectableItem.SelectableItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -68,20 +68,20 @@ const SelectableItemBase = kind({
  * Adds interactive toggle functionality to `SelectableItemBase`.
  *
  * @class SelectableItemDecorator
- * @memberof moonstone/SelectableItem
- * @mixes moonstone/ToggleItem.ToggleItemDecorator
+ * @memberof sandstone/SelectableItem
+ * @mixes sandstone/ToggleItem.ToggleItemDecorator
  * @hoc
  * @public
  */
 const SelectableItemDecorator = ToggleItemDecorator({invalidateProps: ['inline', 'selected']});
 
 /**
- * A Moonstone-styled item with a toggle icon, marqueed text, and `Spotlight` focus.
+ * A Sandstone-styled item with a toggle icon, marqueed text, and `Spotlight` focus.
  *
  * @class SelectableItem
- * @memberof moonstone/SelectableItem
- * @extends moonstone/SelectableItem.SelectableItemBase
- * @mixes moonstone/SelectableItem.SelectableItemDecorator
+ * @memberof sandstone/SelectableItem
+ * @extends sandstone/SelectableItem.SelectableItemBase
+ * @mixes sandstone/SelectableItem.SelectableItemDecorator
  * @ui
  * @public
  */

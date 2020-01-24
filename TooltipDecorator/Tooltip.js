@@ -8,17 +8,17 @@ import TooltipLabel from './TooltipLabel';
 import css from './Tooltip.module.less';
 
 /**
- * A stateless tooltip component with Moonstone styling applied.
+ * A stateless tooltip component with Sandstone styling applied.
  *
  * @class TooltipBase
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @ui
  * @public
  */
 const TooltipBase = kind({
 	name: 'Tooltip',
 
-	propTypes: /** @lends moonstone/TooltipDecorator.TooltipBase.prototype */ {
+	propTypes: /** @lends sandstone/TooltipDecorator.TooltipBase.prototype */ {
 		/**
 		 * The node to be displayed as the main content of the tooltip.
 		 *
@@ -158,10 +158,10 @@ const TooltipBase = kind({
 });
 
 /**
- * A tooltip component with Moonstone styling applied.
+ * A tooltip component with Sandstone styling applied.
  *
  * @class Tooltip
- * @memberof moonstone/TooltipDecorator
+ * @memberof sandstone/TooltipDecorator
  * @ui
  * @public
  */

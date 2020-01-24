@@ -1,7 +1,7 @@
 /**
- * Moonstone styled modal dialog components.
+ * Sandstone styled modal dialog components.
  *
- * @module moonstone/Dialog
+ * @module sandstone/Dialog
  * @exports Dialog
  * @exports DialogBase
  */
@@ -25,17 +25,17 @@ const MarqueeH2 = MarqueeDecorator('h2');
  * A modal dialog component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [Dialog]{@link moonstone/Dialog.Dialog}.
+ * is within [Dialog]{@link sandstone/Dialog.Dialog}.
  *
  * @class DialogBase
- * @memberof moonstone/Dialog
+ * @memberof sandstone/Dialog
  * @ui
  * @public
  */
 const DialogBase = kind({
 	name: 'Dialog',
 
-	propTypes: /** @lends moonstone/Dialog.DialogBase.prototype */ {
+	propTypes: /** @lends sandstone/Dialog.DialogBase.prototype */ {
 		/**
 		 * Buttons to be included within the header of the component.
 		 *
@@ -214,11 +214,11 @@ const DialogBase = kind({
 });
 
 /**
- * A modal dialog component, ready to use in Moonstone applications.
+ * A modal dialog component, ready to use in Sandstone applications.
  *
  * `Dialog` may be used to interrupt a workflow to receive feedback from the user. The dialong
  * consists of a title, a subtitle, a message, and an area for additional
- * [buttons]{@link moonstone/Dialog.Dialog.buttons}.
+ * [buttons]{@link sandstone/Dialog.Dialog.buttons}.
  *
  * Usage:
  * ```
@@ -228,7 +228,7 @@ const DialogBase = kind({
  *   title="An Important Dialog"
  *   titleBelow="Some important context to share about the purpose"
  * >
- *   <BodyText>You can include other Moonstone components here. </BodyText>
+ *   <BodyText>You can include other Sandstone components here. </BodyText>
  *   <buttons>
  *     <Button>Button 1</Button>
  *     <Button>Button 2</Button>
@@ -237,8 +237,8 @@ const DialogBase = kind({
  * ```
  *
  * @class Dialog
- * @memberof moonstone/Dialog
- * @extends moonstone/Dialog.DialogBase
+ * @memberof sandstone/Dialog
+ * @extends sandstone/Dialog.DialogBase
  * @mixes ui/Slottable.Slottable
  * @ui
  * @public

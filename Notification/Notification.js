@@ -1,7 +1,7 @@
 /**
- * Moonstone-styled Notification components.
+ * Sandstone-styled Notification components.
  *
- * @module moonstone/Notification
+ * @module sandstone/Notification
  * @exports Notification
  * @exports NotificationBase
  */
@@ -31,20 +31,20 @@ const fixTransform = (node) => {
 };
 
 /**
- * A Moonstone styled notification component.
+ * A Sandstone styled notification component.
  *
  * It provides a notification modal which can be opened and closed, overlaying an app. Apps will
- * want to use {@link moonstone/Notification.Notification}.
+ * want to use {@link sandstone/Notification.Notification}.
  *
  * @class NotificationBase
- * @memberof moonstone/Notification
+ * @memberof sandstone/Notification
  * @ui
  * @public
  */
 const NotificationBase = kind({
 	name: 'Notification',
 
-	propTypes: /** @lends moonstone/Notification.NotificationBase.prototype */ {
+	propTypes: /** @lends sandstone/Notification.NotificationBase.prototype */ {
 		/**
 		 * Buttons for the Notification.
 		 *
@@ -163,10 +163,10 @@ const NotificationBase = kind({
 
 
 /**
- * A Moonstone styled modal component with a message, and an area for additional controls.
+ * A Sandstone styled modal component with a message, and an area for additional controls.
  *
  * @class Notification
- * @memberof moonstone/Notification
+ * @memberof sandstone/Notification
  * @mixes ui/Slottable.Slottable
  * @ui
  * @public

@@ -111,10 +111,10 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 /**
- * A Moonstone-styled native component that provides horizontal and vertical scrollbars.
+ * A Sandstone-styled native component that provides horizontal and vertical scrollbars.
  *
  * @class ScrollableBaseNative
- * @memberof moonstone/ScrollableNative
+ * @memberof sandstone/ScrollableNative
  * @extends ui/Scrollable.ScrollableBaseNative
  * @ui
  * @private
@@ -124,7 +124,7 @@ class ScrollableBaseNative extends Component {
 
 	static contextType = SharedState
 
-	static propTypes = /** @lends moonstone/ScrollableNative.ScrollableNative.prototype */ {
+	static propTypes = /** @lends sandstone/ScrollableNative.ScrollableNative.prototype */ {
 		/**
 		 * Render function.
 		 *
@@ -162,7 +162,7 @@ class ScrollableBaseNative extends Component {
 
 		/**
 		 * Direction of the list or the scroller.
-		 * `'both'` could be only used for[Scroller]{@link moonstone/Scroller.Scroller}.
+		 * `'both'` could be only used for[Scroller]{@link sandstone/Scroller.Scroller}.
 		 *
 		 * Valid values are:
 		 * * `'both'`,
@@ -1122,12 +1122,12 @@ class ScrollableBaseNative extends Component {
 }
 
 /**
- * A Moonstone-styled component that provides horizontal and vertical scrollbars.
+ * A Sandstone-styled component that provides horizontal and vertical scrollbars.
  *
  * @class ScrollableNative
- * @memberof moonstone/ScrollableNative
+ * @memberof sandstone/ScrollableNative
  * @mixes spotlight/SpotlightContainerDecorator
- * @extends moonstone/Scrollable.ScrollableBaseNative
+ * @extends sandstone/Scrollable.ScrollableBaseNative
  * @ui
  * @private
  */

@@ -1,5 +1,5 @@
 /**
- * Moonstone styled inline day selector components.
+ * Sandstone styled inline day selector components.
  *
  * @example
  * <DaySelector
@@ -7,7 +7,7 @@
  *   onSelect={console.log}
  * />
  *
- * @module moonstone/DaySelector
+ * @module sandstone/DaySelector
  * @exports	DaySelector
  * @exports DaySelectorBase
  * @exports DaySelectorDecorator
@@ -30,20 +30,20 @@ import DaySelectorItem from './DaySelectorItem';
 import componentCss from './DaySelector.module.less';
 
 /**
- * A Moonstone styled inline day of the week selection component.
+ * A Sandstone styled inline day of the week selection component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [DaySelector]{@link moonstone/DaySelector.DaySelector}.
+ * is within [DaySelector]{@link sandstone/DaySelector.DaySelector}.
  *
  * @class DaySelectorBase
- * @memberof moonstone/DaySelector
+ * @memberof sandstone/DaySelector
  * @ui
  * @public
  */
 const DaySelectorBase = kind({
 	name: 'DaySelectorBase',
 
-	propTypes: /** @lends moonstone/DaySelector.DaySelectorBase.prototype */ {
+	propTypes: /** @lends sandstone/DaySelector.DaySelectorBase.prototype */ {
 		/**
 		 * Disables DaySelector and the control becomes non-interactive.
 		 *
@@ -109,7 +109,7 @@ const DaySelectorDecorator = compose(
 );
 
 /**
- * An inline day of the week selection component, ready to use in Moonstone applications.
+ * An inline day of the week selection component, ready to use in Sandstone applications.
  *
  * `DaySelector` may be used to select one or more days of the week from a horizontal list of
  * abbreviated day names.
@@ -128,9 +128,9 @@ const DaySelectorDecorator = compose(
  * />
  * ```
  * @class DaySelector
- * @extends moonstone/DaySelector.DaySelectorBase
- * @mixes moonstone/DaySelector.DaySelectorDecorator
- * @memberof moonstone/DaySelector
+ * @extends sandstone/DaySelector.DaySelectorBase
+ * @mixes sandstone/DaySelector.DaySelectorDecorator
+ * @memberof sandstone/DaySelector
  * @ui
  * @public
  */

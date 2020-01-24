@@ -1,10 +1,10 @@
 /**
- * Moonstone styled text block components and behaviors.
+ * Sandstone styled text block components and behaviors.
  *
  * @example
  * <BodyText centered>Hello Enact!</BodyText>
  *
- * @module moonstone/BodyText
+ * @module sandstone/BodyText
  * @exports BodyText
  * @exports BodyTextBase
  * @exports BodyTextDecorator
@@ -29,10 +29,10 @@ const MarqueeBodyText = MarqueeDecorator(UiBodyText);
  * A simple text block component.
  *
  * This component is most often not used directly but may be composed within another component as it
- * is within [BodyText]{@link moonstone/BodyText.BodyText}.
+ * is within [BodyText]{@link sandstone/BodyText.BodyText}.
  *
  * @class BodyTextBase
- * @memberof moonstone/BodyText
+ * @memberof sandstone/BodyText
  * @extends ui/BodyText.BodyText
  * @ui
  * @public
@@ -40,7 +40,7 @@ const MarqueeBodyText = MarqueeDecorator(UiBodyText);
 const BodyTextBase = kind({
 	name: 'BodyText',
 
-	propTypes: /** @lends moonstone/BodyText.BodyTextBase.prototype */ {
+	propTypes: /** @lends sandstone/BodyText.BodyTextBase.prototype */ {
 		/**
 		 * Centers the contents.
 		 *
@@ -67,7 +67,7 @@ const BodyTextBase = kind({
 
 		/**
 		 * Toggles multi-line (`false`) vs single-line (`true`) behavior. `noWrap` mode
-		 * automatically enables {@link moonstone/Marquee} so long text isn't permanently occluded.
+		 * automatically enables {@link sandstone/Marquee} so long text isn't permanently occluded.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -126,11 +126,11 @@ const BodyTextBase = kind({
 });
 
 /**
- * Applies Moonstone specific behaviors to [BodyText]{@link moonstone/BodyText.BodyTextBase}.
+ * Applies Sandstone specific behaviors to [BodyText]{@link sandstone/BodyText.BodyTextBase}.
  *
  * @hoc
- * @memberof moonstone/BodyText
- * @mixes moonstone/Skinnable.Skinnable
+ * @memberof sandstone/BodyText
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const BodyTextDecorator = compose(
@@ -139,10 +139,10 @@ const BodyTextDecorator = compose(
 );
 
 /**
- * A simple text block component, ready to use in Moonstone applications.
+ * A simple text block component, ready to use in Sandstone applications.
  *
  * `BodyText` may be used to display a block of text and is sized and spaced appropriately for a
- * Moonstone application.
+ * Sandstone application.
  *
  * Usage:
  * ```
@@ -152,9 +152,9 @@ const BodyTextDecorator = compose(
  * ```
  *
  * @class BodyText
- * @memberof moonstone/BodyText
- * @extends moonstone/BodyText.BodyTextBase
- * @mixes moonstone/BodyText.BodyTextDecorator
+ * @memberof sandstone/BodyText
+ * @extends sandstone/BodyText.BodyTextBase
+ * @mixes sandstone/BodyText.BodyTextDecorator
  * @ui
  * @public
  */

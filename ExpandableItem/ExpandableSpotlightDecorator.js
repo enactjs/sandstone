@@ -13,7 +13,7 @@ const shouldRenderChildren = ({disabled, open}, {hideChildren}) => hideChildren 
 /**
  * Default config for {@link mooonstone/ExpandableItem.ExpandableSpotlightDecorator}
  *
- * @memberof moonstone/ExpandableItem.ExpandableSpotlightDecorator
+ * @memberof sandstone/ExpandableItem.ExpandableSpotlightDecorator
  * @hocconfig
  * @private
  */
@@ -27,7 +27,7 @@ const defaultConfig = {
 	 *
 	 * @type {Function}
 	 * @default null
-	 * @memberof moonstone/ExpandableItem.ExpandableSpotlightDecorator.defaultConfig
+	 * @memberof sandstone/ExpandableItem.ExpandableSpotlightDecorator.defaultConfig
 	 * @private
 	 */
 	getChildFocusTarget: null,
@@ -38,7 +38,7 @@ const defaultConfig = {
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @memberof moonstone/ExpandableItem.ExpandableSpotlightDecorator.defaultConfig
+	 * @memberof sandstone/ExpandableItem.ExpandableSpotlightDecorator.defaultConfig
 	 * @private
 	 */
 	noPointerMode: false
@@ -49,7 +49,7 @@ const defaultConfig = {
  * component is contained.
  *
  * @class ExpandableSpotlightDecorator
- * @memberof moonstone/ExpandableItem
+ * @memberof sandstone/ExpandableItem
  * @private
  */
 const ExpandableSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
@@ -58,7 +58,7 @@ const ExpandableSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return class extends React.Component {
 		static displayName = 'ExpandableSpotlightDecorator'
 
-		static propTypes =  /** @lends moonstone/ExpandableItem.ExpandableSpotlightDecorator.prototype */ {
+		static propTypes =  /** @lends sandstone/ExpandableItem.ExpandableSpotlightDecorator.prototype */ {
 			/**
 			 * Disables ExpandableSpotlightDecorator and the control becomes non-interactive.
 			 *
@@ -124,6 +124,7 @@ const ExpandableSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		componentWillUnmount () {
+			this.renderJob.stop();
 			this.resume();
 		}
 

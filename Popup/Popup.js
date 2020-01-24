@@ -4,7 +4,7 @@
  * @example
  * <Popup open>Hello!</Popup>
  *
- * @module moonstone/Popup
+ * @module sandstone/Popup
  * @exports Popup
  * @exports PopupBase
  */
@@ -46,14 +46,14 @@ const forwardShow = forward('onShow');
  * The base popup component.
  *
  * @class PopupBase
- * @memberof moonstone/Popup
+ * @memberof sandstone/Popup
  * @ui
  * @public
  */
 const PopupBase = kind({
 	name: 'PopupBase',
 
-	propTypes: /** @lends moonstone/Popup.PopupBase.prototype */ {
+	propTypes: /** @lends sandstone/Popup.PopupBase.prototype */ {
 		/**
 		 * The contents to be displayed in the body of the popup.
 		 *
@@ -169,7 +169,7 @@ const PopupBase = kind({
 		 *
 		 * It can be either `'none'`, `'self-first'`, or `'self-only'`.
 		 *
-		 * Note: The ready-to-use [Popup]{@link moonstone/Popup.Popup} component only supports
+		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
 		 * @type {String}
@@ -273,14 +273,14 @@ const OpenState = {
  * [FloatingLayer]{@link ui/FloatingLayer.FloatingLayer}.
  *
  * @class Popup
- * @memberof moonstone/Popup
- * @extends moonstone/Popup.PopupBase
+ * @memberof sandstone/Popup
+ * @extends sandstone/Popup.PopupBase
  * @ui
  * @public
  */
 class Popup extends React.Component {
 
-	static propTypes = /** @lends moonstone/Popup.Popup.prototype */ {
+	static propTypes = /** @lends sandstone/Popup.Popup.prototype */ {
 		/**
 		 * Hint string read when focusing the popup close button.
 		 *
@@ -343,7 +343,7 @@ class Popup extends React.Component {
 		 * Called after show transition has completed, and immediately with no transition.
 		 *
 		 * Note: The function does not run if Popup is initially opened and
-		 * [noAnimation]{@link moonstone/Popup.PopupBase#noAnimation} is `true`.
+		 * [noAnimation]{@link sandstone/Popup.PopupBase#noAnimation} is `true`.
 		 *
 		 * @type {Function}
 		 * @public

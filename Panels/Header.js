@@ -49,14 +49,14 @@ const CompactTitle = MarqueeDecorator({invalidateProps: ['title', 'titleBelow']}
  * A header component for a Panel with a `title`, `titleBelow`, and `subTitleBelow`
  *
  * @class Header
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @public
  */
 const HeaderBase = kind({
 	name: 'Header',
 
-	propTypes: /** @lends moonstone/Panels.Header.prototype */ {
+	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
 		 * Centers the `title`, `titleBelow`, and `subTitleBelow`.
 		 *
@@ -89,7 +89,7 @@ const HeaderBase = kind({
 		fullBleed: PropTypes.bool,
 
 		/**
-		 * [`Input`]{@link moonstone/Input} element that will replace the `title`.
+		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
 		 *
 		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
 		 * to as if it were JSX.

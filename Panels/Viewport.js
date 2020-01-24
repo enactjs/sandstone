@@ -16,7 +16,7 @@ import css from './Panels.module.less';
  * The container for a set of Panels
  *
  * @class Viewport
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @private
  */
 const ViewportBase = class extends React.Component {
@@ -24,7 +24,7 @@ const ViewportBase = class extends React.Component {
 
 	static contextType = SharedState
 
-	static propTypes = /** @lends moonstone/Panels.Viewport.prototype */ {
+	static propTypes = /** @lends sandstone/Panels.Viewport.prototype */ {
 
 		/**
 		 * A function that generates a globally-unique identifier for a panel index

@@ -8,17 +8,17 @@ import {secondsToPeriod, secondsToTime} from './util';
 import css from './VideoPlayer.module.less';
 
 /**
- * Times {@link moonstone/VideoPlayer}.
+ * Times {@link sandstone/VideoPlayer}.
  *
  * @class Times
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
 const TimesBase = kind({
 	name: 'Times',
 
-	propTypes: /** @lends moonstone/VideoPlayer.Times.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.Times.prototype */ {
 		/**
 		 * An instance of a Duration Formatter from i18n. {@link i18n/ilib/lib/DurationFmt.DurationFmt}
 		 *

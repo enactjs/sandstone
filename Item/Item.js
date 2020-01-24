@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled item components and behaviors. Useful for content in lists.
+ * Provides Sandstone styled item components and behaviors. Useful for content in lists.
  *
  * @example
  * <Item>Hello Enact!</Item>
  *
- * @module moonstone/Item
+ * @module sandstone/Item
  * @exports Item
  * @exports ItemBase
  * @exports ItemDecorator
@@ -72,7 +72,7 @@ const ItemContent = kind({
 			<Cell {...rest}>
 				<Layout orientation={orientation}>
 					{contentElement}
-					<Cell component={Marquee} className={css.label} shrink>
+					<Cell component={Marquee} className={css.label}>
 						{label}
 					</Cell>
 				</Layout>
@@ -87,10 +87,10 @@ const ItemContent = kind({
 
 
 /**
- * A Moonstone styled item without any behavior.
+ * A Sandstone styled item without any behavior.
  *
  * @class ItemBase
- * @memberof moonstone/Item
+ * @memberof sandstone/Item
  * @extends ui/Item.ItemBase
  * @ui
  * @public
@@ -98,7 +98,7 @@ const ItemContent = kind({
 const ItemBase = kind({
 	name: 'Item',
 
-	propTypes: /** @lends moonstone/Item.ItemBase.prototype */ {
+	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -145,7 +145,7 @@ const ItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'bg']
+		publicClassNames: ['item', 'slotAfter', 'slotBefore']
 	},
 
 	computed: {
@@ -161,6 +161,7 @@ const ItemBase = kind({
 				{...rest}
 				css={css}
 			>
+				<div className={css.bg} />
 				{slotBefore ? (
 					<Cell className={css.slotBefore} shrink>
 						{slotBefore}
@@ -182,16 +183,16 @@ const ItemBase = kind({
 });
 
 /**
- * Moonstone specific item behaviors to apply to [Item]{@link moonstone/Item.ItemBase}.
+ * Sandstone specific item behaviors to apply to [Item]{@link sandstone/Item.ItemBase}.
  *
  * @class ItemDecorator
  * @hoc
- * @memberof moonstone/Item
+ * @memberof sandstone/Item
  * @mixes ui/ForwardRef.ForwardRef
  * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Marquee.MarqueeController
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Marquee.MarqueeController
+ * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -206,7 +207,7 @@ const ItemBase = kind({
 );
 
 /**
- * A Moonstone styled item with built-in support for marqueed text, and Spotlight focus.
+ * A Sandstone styled item with built-in support for marqueed text, and Spotlight focus.
  *
  * Usage:
  * ```
@@ -214,9 +215,9 @@ const ItemBase = kind({
  * ```
  *
  * @class Item
- * @memberof moonstone/Item
- * @extends moonstone/Item.ItemBase
- * @mixes moonstone/Item.ItemDecorator
+ * @memberof sandstone/Item
+ * @extends sandstone/Item.ItemBase
+ * @mixes sandstone/Item.ItemDecorator
  * @ui
  * @public
  */

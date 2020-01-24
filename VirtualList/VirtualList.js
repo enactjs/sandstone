@@ -1,7 +1,7 @@
 /**
- * Provides Moonstone-themed virtual list components and behaviors.
+ * Provides Sandstone-themed virtual list components and behaviors.
  *
- * @module moonstone/VirtualList
+ * @module sandstone/VirtualList
  * @exports VirtualGridList
  * @exports VirtualGridListNative
  * @exports VirtualList
@@ -18,18 +18,18 @@ import React from 'react';
 import {ScrollableVirtualList, ScrollableVirtualListNative, VirtualListBase, VirtualListBaseNative} from './VirtualListBase';
 
 /**
- * A Moonstone-styled scrollable and spottable virtual list component.
+ * A Sandstone-styled scrollable and spottable virtual list component.
  *
  * @class VirtualList
- * @memberof moonstone/VirtualList
- * @extends moonstone/VirtualList.VirtualListBase
+ * @memberof sandstone/VirtualList
+ * @extends sandstone/VirtualList.VirtualListBase
  * @ui
  * @public
  */
 const VirtualList = kind({
 	name: 'VirtualList',
 
-	propTypes: /** @lends moonstone/VirtualList.VirtualList.prototype */ {
+	propTypes: /** @lends sandstone/VirtualList.VirtualList.prototype */ {
 		/**
 		 * Size of an item for the VirtualList; valid value is a number generally.
 		 * For different item size, value is an object that has `minSize`
@@ -64,18 +64,18 @@ const VirtualList = kind({
 });
 
 /**
- * A Moonstone-styled scrollable and spottable virtual grid list component.
+ * A Sandstone-styled scrollable and spottable virtual grid list component.
  *
  * @class VirtualGridList
- * @memberof moonstone/VirtualList
- * @extends moonstone/VirtualList.VirtualListBase
+ * @memberof sandstone/VirtualList
+ * @extends sandstone/VirtualList.VirtualListBase
  * @ui
  * @public
  */
 const VirtualGridList = kind({
 	name: 'VirtualGridList',
 
-	propTypes: /** @lends moonstone/VirtualList.VirtualGridList.prototype */ {
+	propTypes: /** @lends sandstone/VirtualList.VirtualGridList.prototype */ {
 		/**
 		 * Size of an item for the VirtualGridList; valid value is an object that has `minWidth`
 		 * and `minHeight` as properties.
@@ -103,21 +103,21 @@ const VirtualGridList = kind({
 });
 
 /**
- * A Moonstone-styled scrollable and spottable virtual native list component.
+ * A Sandstone-styled scrollable and spottable virtual native list component.
  * For smooth native scrolling, web engine with below Chromium 61, should be launched
  * with the flag '--enable-blink-features=CSSOMSmoothScroll' to support it.
  * The one with Chromium 61 or above, is launched to support it by default.
  *
  * @class VirtualListNative
- * @memberof moonstone/VirtualList
- * @extends moonstone/VirtualList.VirtualListBaseNative
+ * @memberof sandstone/VirtualList
+ * @extends sandstone/VirtualList.VirtualListBaseNative
  * @ui
  * @private
  */
 const VirtualListNative = kind({
 	name: 'VirtualListNative',
 
-	propTypes: /** @lends moonstone/VirtualList.VirtualListNative.prototype */ {
+	propTypes: /** @lends sandstone/VirtualList.VirtualListNative.prototype */ {
 		/**
 		 * Size of an item for the VirtualList; valid value is a number.
 		 * For different item size, value is an object that has `minSize`
@@ -152,21 +152,21 @@ const VirtualListNative = kind({
 });
 
 /**
- * A Moonstone-styled scrollable and spottable virtual grid native list component.
+ * A Sandstone-styled scrollable and spottable virtual grid native list component.
  * For smooth native scrolling, web engine with below Chromium 61, should be launched
  * with the flag '--enable-blink-features=CSSOMSmoothScroll' to support it.
  * The one with Chromium 61 or above, is launched to support it by default.
  *
  * @class VirtualGridListNative
- * @memberof moonstone/VirtualList
- * @extends moonstone/VirtualList.VirtualListBaseNative
+ * @memberof sandstone/VirtualList
+ * @extends sandstone/VirtualList.VirtualListBaseNative
  * @ui
  * @private
  */
 const VirtualGridListNative = kind({
 	name: 'VirtualGridListNative',
 
-	propTypes: /** @lends moonstone/VirtualList.VirtualGridListNative.prototype */ {
+	propTypes: /** @lends sandstone/VirtualList.VirtualGridListNative.prototype */ {
 		/**
 		 * Size of an item for the VirtualGridList; valid value is an object that has `minWidth`
 		 * and `minHeight` as properties.

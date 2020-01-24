@@ -25,9 +25,9 @@ const handleCancel = function (ev, props) {
 };
 
 /**
- * Default config for {@link moonstone/ExpandableItem.Expandable}.
+ * Default config for {@link sandstone/ExpandableItem.Expandable}.
  *
- * @memberof moonstone/ExpandableItem.Expandable
+ * @memberof sandstone/ExpandableItem.Expandable
  * @hocconfig
  */
 const defaultConfig = {
@@ -40,7 +40,7 @@ const defaultConfig = {
 	 *
 	 * @type {Function}
 	 * @default null
-	 * @memberof moonstone/ExpandableItem.Expandable.defaultConfig
+	 * @memberof sandstone/ExpandableItem.Expandable.defaultConfig
 	 * @private
 	 */
 	getChildFocusTarget: null,
@@ -51,7 +51,7 @@ const defaultConfig = {
 	 *
 	 * @type {Boolean}
 	 * @default false
-	 * @memberof moonstone/ExpandableItem.Expandable.defaultConfig
+	 * @memberof sandstone/ExpandableItem.Expandable.defaultConfig
 	 * @public
 	 */
 	noPointerMode: false
@@ -63,7 +63,7 @@ const defaultConfig = {
  * cancel.
  *
  * @class Expandable
- * @memberof moonstone/ExpandableItem
+ * @memberof sandstone/ExpandableItem
  * @mixes ui/Toggleable.Toggleable
  * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Cancelable.Cancelable

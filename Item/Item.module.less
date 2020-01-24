@@ -5,15 +5,13 @@
 @import "../styles/skin.less";
 
 .item {
+	.sand-text-base(@sand-item-font-size);
+	.sand-spotlight-padding(@sand-item-vertical-padding);
 
-	// Item's display is override Layout so forcing it back here'
+	line-height: @sand-item-line-height;
 	display: flex;
 	position: relative;
-	line-height: @moon-item-line-height;
-	position: relative;
 	color: inherit;
-	padding-left: 48px;
-
 
 	.itemContent {
 		&.hasLabel {
@@ -32,10 +30,10 @@
 	}
 
 	.bg {
+		position: absolute;
+		.position(0);
 		background-color: inherit;
-		// border-width: @moon-item-border-width;
-		border-style: solid;
-		// border-radius: @moon-item-border-radius;
+		border-radius: 12px;
 
 		transform: translateZ(0);
 		will-change: transform;
@@ -53,19 +51,17 @@
 		display: flex;
 		justify-content: center;
 	}
-	.moon-text-base(@moon-item-font-size);
-	.moon-spotlight-padding(@moon-item-vertical-padding);
 
-	.moon-locale-non-latin({
-		line-height: @moon-item-line-height;
+	.sand-locale-non-latin({
+		line-height: @sand-item-line-height;
 	});
 
-	.moon-custom-text({
-		font-size: @moon-item-font-size-large;
-		line-height: @moon-item-line-height-large;
+	.sand-custom-text({
+		font-size: @sand-item-font-size-large;
+		line-height: @sand-item-line-height-large;
 
-		.moon-locale-non-latin({
-			line-height: @moon-item-line-height-large;
+		.sand-locale-non-latin({
+			line-height: @sand-item-line-height-large;
 		});
 	});
 
@@ -77,19 +73,19 @@
 
 	// Text
 	.label {
-		.moon-font(@moon-expandable-value-font-family, @moon-non-latin-font-family-light, {
-			font-weight: @moon-non-latin-body-font-weight;
-			font-size: @moon-non-latin-body-font-size;
-			line-height: @moon-non-latin-body-line-height;
+		.sand-font(@sand-expandable-value-font-family, @sand-non-latin-font-family-light, {
+			font-weight: @sand-non-latin-body-font-weight;
+			font-size: @sand-non-latin-body-font-size;
+			line-height: @sand-non-latin-body-line-height;
 		});
-		font-size: @moon-expandable-value-font-size;
-		font-weight: @moon-expandable-value-font-weight;
-		font-style: @moon-expandable-value-font-style;
-		line-height: @moon-body-line-height;
+		font-size: @sand-expandable-value-font-size;
+		font-weight: @sand-expandable-value-font-weight;
+		font-style: @sand-expandable-value-font-style;
+		line-height: @sand-body-line-height;
 		text-transform: none;
 		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
-		//margin-top: -@text-vertical-offset;
-		//padding-bottom: @text-vertical-offset;
+		// margin-top: -@text-vertical-offset;
+		// padding-bottom: @text-vertical-offset;
 		// Force the label to fill the next line in the flexbox container
 		width: 100%;
 
@@ -107,19 +103,14 @@
 	// Skin colors
 	.applySkins({
 		.label {
-			color: @moon-labeled-item-label-color;
+			color: @sand-labeled-item-label-color;
 		}
 
 		.focus({
-			background-color: transparent;
-			// color: transparent;
-			color: @moon-item-text-color;
 			.bg {
-				background-color: @moon-item-focus-bg-color;
-				box-shadow: 0px 40px 24px @moon-item-box-shadow-color;
-				border-radius: 12px;
+				background-color: @sand-item-focus-bg-color;
 				opacity: 1;
-				color: @moon-item-focus-text-color;
+				// color: @sand-item-focus-text-color;
 			}
 			.text,
 			.label {

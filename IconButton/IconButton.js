@@ -1,12 +1,12 @@
 /**
- * An [Icon]{@link moonstone/Icon.Icon} that acts like a [Button]{@link moonstone/Button.Button}.
+ * An [Icon]{@link sandstone/Icon.Icon} that acts like a [Button]{@link sandstone/Button.Button}.
  * You may specify an image or a font-based icon by setting the `children` to either the path
- * to the image or a string from an [iconList]{@link moonstone/Icon.IconBase.iconList}.
+ * to the image or a string from an [iconList]{@link sandstone/Icon.IconBase.iconList}.
  *
  * @example
  * <IconButton size="small">plus</IconButton>
  *
- * @module moonstone/IconButton
+ * @module sandstone/IconButton
  * @exports IconButton
  * @exports IconButtonBase
  * @exports IconButtonDecorator
@@ -28,11 +28,11 @@ import TooltipDecorator from '../TooltipDecorator';
 import componentCss from './IconButton.module.less';
 
 /**
- * A moonstone-styled icon button without any behavior.
+ * A sandstone-styled icon button without any behavior.
  *
  * @class IconButtonBase
- * @memberof moonstone/IconButton
- * @extends moonstone/Button.ButtonBase
+ * @memberof sandstone/IconButton
+ * @extends sandstone/Button.ButtonBase
  * @extends ui/IconButton.IconButtonBase
  * @omit buttonComponent
  * @omit iconComponent
@@ -42,7 +42,7 @@ import componentCss from './IconButton.module.less';
 const IconButtonBase = kind({
 	name: 'IconButton',
 
-	propTypes: /** @lends moonstone/IconButton.IconButtonBase.prototype */ {
+	propTypes: /** @lends sandstone/IconButton.IconButtonBase.prototype */ {
 		/**
 		 * The background-color opacity of this icon button.
 		 *
@@ -111,15 +111,15 @@ const IconButtonBase = kind({
 });
 
 /**
- * Moonstone-specific button behaviors to apply to
- * [IconButton]{@link moonstone/IconButton.IconButtonBase}.
+ * Sandstone-specific button behaviors to apply to
+ * [IconButton]{@link sandstone/IconButton.IconButtonBase}.
  *
  * @hoc
- * @memberof moonstone/IconButton
- * @mixes moonstone/TooltipDecorator.TooltipDecorator
+ * @memberof sandstone/IconButton
+ * @mixes sandstone/TooltipDecorator.TooltipDecorator
  * @mixes ui/IconButton.IconButtonDecorator
  * @mixes spotlight/Spottable.Spottable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const IconButtonDecorator = compose(
@@ -141,9 +141,9 @@ const IconButtonDecorator = compose(
  * ```
  *
  * @class IconButton
- * @memberof moonstone/IconButton
- * @extends moonstone/IconButton.IconButtonBase
- * @mixes moonstone/IconButton.IconButtonDecorator
+ * @memberof sandstone/IconButton
+ * @extends sandstone/IconButton.IconButtonBase
+ * @mixes sandstone/IconButton.IconButtonDecorator
  * @ui
  * @public
  */

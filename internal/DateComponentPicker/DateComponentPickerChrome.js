@@ -5,21 +5,21 @@ import PropTypes from 'prop-types';
 import css from './DateComponentPicker.module.less';
 
 /**
- * {@link moonstone/internal/DataComponentPicker.DateComponentPickerChrome} provides the surrounding
- * markup and styling for a {@link moonstone/internal/DateComponentPicker.DateComponentPicker} or
- * {@link moonstone/internal/DateComponentPicker.DateComponentRangePicker}.
+ * {@link sandstone/internal/DataComponentPicker.DateComponentPickerChrome} provides the surrounding
+ * markup and styling for a {@link sandstone/internal/DateComponentPicker.DateComponentPicker} or
+ * {@link sandstone/internal/DateComponentPicker.DateComponentRangePicker}.
  *
  * @class DateComponentPickerChrome
- * @memberof moonstone/internal/DateComponentPicker
+ * @memberof sandstone/internal/DateComponentPicker
  * @ui
  * @private
  */
 const DateComponentPickerChromeBase = kind({
 	name: 'DateComponentPickerChrome',
 
-	propTypes:  /** @lends moonstone/internal/DateComponentPicker.DateComponentPickerChrome.prototype */ {
+	propTypes:  /** @lends sandstone/internal/DateComponentPicker.DateComponentPickerChrome.prototype */ {
 		/**
-		 * The {@link moonstone/Picker.Picker} component
+		 * The {@link sandstone/Picker.Picker} component
 		 *
 		 * @type {Element}
 		 */

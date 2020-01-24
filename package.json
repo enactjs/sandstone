@@ -1,6 +1,6 @@
 {
-  "name": "@enact/moonstone",
-  "version": "3.2.5",
+  "name": "@enact/sandstone",
+  "version": "1.0.0-alpha.1",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {

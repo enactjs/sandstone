@@ -70,13 +70,13 @@ function getLocaleState (dayNameLength, locale) {
 }
 
 /**
- * Applies Moonstone specific behaviors to
- * [DaySelector]{@link moonstone/DaySelector.DaySelectorBase}.
+ * Applies Sandstone specific behaviors to
+ * [DaySelector]{@link sandstone/DaySelector.DaySelectorBase}.
  *
  * @hoc
- * @memberof moonstone/DaySelector
+ * @memberof sandstone/DaySelector
  * @mixes ui/Changeable.Changeable
- * @mixes moonstone/Skinnable.Skinnable
+ * @mixes sandstone/Skinnable.Skinnable
  * @omit onChange
  * @omit value
  * @omit defaultValue
@@ -87,11 +87,11 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 
 		static displayName = 'DaySelectorDecorator'
 
-		static propTypes = /** @lends moonstone/DaySelector.DaySelectorDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/DaySelector.DaySelectorDecorator.prototype */ {
 			/**
 			 * The "aria-label" for the selector.
 			 *
-			 * @memberof moonstone/DaySelector.DaySelectorDecorator.prototype
+			 * @memberof sandstone/DaySelector.DaySelectorDecorator.prototype
 			 * @type {String}
 			 * @private
 			 */

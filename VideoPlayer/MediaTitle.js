@@ -9,17 +9,17 @@ import Marquee from '../Marquee';
 import css from './VideoPlayer.module.less';
 
 /**
- * MediaTitle {@link moonstone/VideoPlayer}.
+ * MediaTitle {@link sandstone/VideoPlayer}.
  *
  * @class MediaTitle
- * @memberof moonstone/VideoPlayer
+ * @memberof sandstone/VideoPlayer
  * @ui
  * @private
  */
 const MediaTitleBase = kind({
 	name: 'MediaTitle',
 
-	propTypes: /** @lends moonstone/VideoPlayer.MediaTitle.prototype */ {
+	propTypes: /** @lends sandstone/VideoPlayer.MediaTitle.prototype */ {
 		/**
 		 * DOM id for the component. Also define ids for the title and node wrapping the `children`
 		 * in the forms `${id}_title` and `${id}_info`, respectively.

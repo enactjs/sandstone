@@ -33,7 +33,7 @@
 		"@enact/core": "^3.0.0",
 		"@enact/i18n": "^3.0.0",
 		"@enact/moonstone": "^3.0.0",
-		"@enact/malachite": "^3.0.0",
+		"@enact/sandstone": "^3.0.0",
 		"@enact/spotlight": "^3.0.0",
 		"@enact/ui": "^3.0.0",
 		"ilib": "^14.2.0",

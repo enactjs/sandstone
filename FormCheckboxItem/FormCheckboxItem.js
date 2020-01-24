@@ -1,10 +1,10 @@
 /**
- * Provides Moonstone styled form item component and interactive toggleable checkbox.
+ * Provides Sandstone styled form item component and interactive toggleable checkbox.
  *
  * @example
  * <FormCheckboxItem>A Checkbox for a form</FormCheckboxItem>
  *
- * @module moonstone/FormCheckboxItem
+ * @module sandstone/FormCheckboxItem
  * @exports FormCheckboxItem
  * @exports FormCheckboxItemBase
  */
@@ -22,8 +22,8 @@ import componentCss from './FormCheckboxItem.module.less';
  * Renders a form item with a checkbox component. Useful to show a selected state on an item inside a form.
  *
  * @class FormCheckboxItem
- * @memberof moonstone/FormCheckboxItem
- * @extends moonstone/ToggleItem.ToggleItem
+ * @memberof sandstone/FormCheckboxItem
+ * @extends sandstone/ToggleItem.ToggleItem
  * @omit iconComponent
  * @ui
  * @public
@@ -31,7 +31,7 @@ import componentCss from './FormCheckboxItem.module.less';
 const FormCheckboxItemBase = kind({
 	name: 'FormCheckboxItem',
 
-	propTypes: /** @lends moonstone/FormCheckboxItem.FormCheckboxItem.prototype */ {
+	propTypes: /** @lends sandstone/FormCheckboxItem.FormCheckboxItem.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.

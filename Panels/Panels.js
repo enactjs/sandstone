@@ -21,14 +21,14 @@ const getControlsId = (id) => id && `${id}-controls`;
  * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
- * @memberof moonstone/Panels
+ * @memberof sandstone/Panels
  * @ui
  * @public
  */
 const PanelsBase = kind({
 	name: 'Panels',
 
-	propTypes: /** @lends moonstone/Panels.Panels.prototype */ {
+	propTypes: /** @lends sandstone/Panels.Panels.prototype */ {
 		/**
 		 * Function that generates unique identifiers for Panel instances.
 		 *
@@ -60,7 +60,7 @@ const PanelsBase = kind({
 		childProps: PropTypes.object,
 
 		/**
-		 * [`Panels`]{@link moonstone/Panels.Panel} to be rendered
+		 * [`Panels`]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
@@ -120,7 +120,7 @@ const PanelsBase = kind({
 		 *
 		 * When defined, `Panels` will manage the presentation state of `Panel` instances in order
 		 * to restore it when returning to the `Panel`. See
-		 * [noSharedState]{@link moonstone/Panels.Panels.noSharedState} for more details on shared
+		 * [noSharedState]{@link sandstone/Panels.Panels.noSharedState} for more details on shared
 		 * state.
 		 *
 		 * @type {String}
@@ -160,7 +160,7 @@ const PanelsBase = kind({
 		 *
 		 * When `false`, each `Panel` will track the state of some framework components in order to
 		 * restore that state when the Panel is recreated. For example, the scroll position of a
-		 * `moonstone/Scroller` within a `Panel` will be saved and restored when returning to that
+		 * `sandstone/Scroller` within a `Panel` will be saved and restored when returning to that
 		 * `Panel`.
 		 *
 		 * This only applied when navigating "back" (to a lower index) to `Panel`. When navigating
@@ -205,7 +205,7 @@ const PanelsBase = kind({
 
 	computed: {
 		className: ({controls, noCloseButton, styler}) => styler.append({
-			'moon-panels-hasControls': (!noCloseButton || !!controls) // If there is a close button or controls were specified
+			'sand-panels-hasControls': (!noCloseButton || !!controls) // If there is a close button or controls were specified
 		}),
 		childProps: ({childProps, controls, id, noCloseButton}) => {
 			if ((noCloseButton && !controls) || !id) {
@@ -226,7 +226,7 @@ const PanelsBase = kind({
 		},
 		style: ({controlsMeasurements, style = {}}) => (controlsMeasurements ? {
 			...style,
-			'--moon-panels-controls-width': controlsMeasurements.width + 'px'
+			'--sand-panels-controls-width': controlsMeasurements.width + 'px'
 		} : style),
 		viewportId: ({id}) => id && `${id}-viewport`
 	},

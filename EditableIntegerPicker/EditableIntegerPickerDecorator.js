@@ -14,11 +14,11 @@ addAll({
 });
 
 /**
- *{@link moonstone/EditableIntegerPicker.EditableIntegerPickerDecorator} is a higher-order component
- * which handles various functionalities of {@link moonstone/EditableIntegerPicker.EditableIntegerPicker}.
+ *{@link sandstone/EditableIntegerPicker.EditableIntegerPickerDecorator} is a higher-order component
+ * which handles various functionalities of {@link sandstone/EditableIntegerPicker.EditableIntegerPicker}.
  *
  * @class EditableIntegerPickerDecorator
- * @memberof moonstone/EditableIntegerPicker
+ * @memberof sandstone/EditableIntegerPicker
  * @hoc
  * @private
  */
@@ -33,7 +33,7 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 
 		static displayName = 'EditableIntegerPickerDecorator'
 
-		static propTypes =  /** @lends moonstone/EditableIntegerPicker.EditableIntegerPickerDecorator.prototype */ {
+		static propTypes =  /** @lends sandstone/EditableIntegerPicker.EditableIntegerPickerDecorator.prototype */ {
 			/**
 		 	* The maximum value selectable by the picker (inclusive).
 		 	*
