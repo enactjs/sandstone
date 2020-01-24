@@ -5,6 +5,7 @@
 @import "../styles/skin.less";
 
 .button {
+	// default is size="large"
 	.sand-large-button-text();
 	height: @sand-button-height;
 	line-height: (@sand-button-height - (2 * @sand-button-border-width));
@@ -30,7 +31,6 @@
 		border-style: solid;
 		border-radius: @sand-button-border-radius;
 
-		transform: translateZ(0);
 		will-change: transform;
 		transition: transform 0.2s ease-out;
 	}
@@ -46,13 +46,24 @@
 		-webkit-margin-end: @sand-button-icon-margin-end;
 	}
 
+	// IconButton rules
 	&.iconOnly {
 		&.iconAfter,
 		&.iconBefore,
 		&.large,
 		&.small {
 			.icon {
-				margin: 0;
+				margin: 0; // reset margins for `IconButton`
+			}
+		}
+
+		&.large {
+			padding: @sand-button-icon-large-margin; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
+
+		&.round {
+			.bg {
+				border-radius: @sand-button-round-border-radius;
 			}
 		}
 	}

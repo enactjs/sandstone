@@ -101,12 +101,23 @@ const ButtonBase = kind({
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.string
+		size: PropTypes.string,
+
+		/**
+		 * The button type.
+		 *
+		 * Grid buttons are intended to be grouped with other related buttons.
+		 *
+		 * @type {('grid'|'round')}
+		 * @default 'grid'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['grid', 'round'])
 	},
 
 	defaultProps: {
 		iconPosition: 'before',
-		size: 'small'
+		size: 'large'
 	},
 
 	styles: {
@@ -115,11 +126,12 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler, type}) => styler.append(
 			{iconOnly},
 			backgroundOpacity,
 			`icon${cap(iconPosition)}`,
-			size
+			size,
+			type
 		),
 		minWidth: ({iconOnly}) => !iconOnly
 	},

@@ -13,29 +13,67 @@ const MainPanel = kind({
 		<Panel {...props}>
 			<Header title="Button Kitchen Sink" />
 			<Scroller>
-				<Heading showLine spacing="large">Small Buttons</Heading>
-				<Button>Button</Button>
-				<Button selected>Selected Button</Button>
-				<Button pressed>Pressed Button</Button>
-				<Button disabled>Disabled Button</Button>
-				<Button>Super long long long string Button</Button>
-				<Button icon="home">Button with Icon</Button>
+				<Heading showLine>Small Buttons</Heading>
+				<Button size="small">Button</Button>
+				<Button size="small" selected>Selected Button</Button>
+				<Button size="small" disabled>Disabled Button</Button>
+				<Button size="small">Super long long long string Button</Button>
+				<Button size="small" icon="home">Button with Icon</Button>
+
+				<Heading showLine>"Round" Small Buttons - no effect</Heading>
+				<Button size="small" type="round">Button</Button>
+				<Button size="small" type="round" selected>Selected Button</Button>
+				<Button size="small" type="round" disabled>Disabled Button</Button>
+				<Button size="small" type="round">Super long long long string Button</Button>
+				<Button size="small" type="round" icon="home">Button with Icon</Button>
+
 				<Heading showLine>Large Buttons</Heading>
 				<Button size="large">Large Button</Button>
 				<Button size="large" selected>Large Selected Button</Button>
-				<Button size="large" pressed>Large Pressed Button</Button>
-				<Button size="large" disabled>Large Disabled Button</Button>
 				<Button size="large">Super long long long string Large Button</Button>
 				<Button size="large" icon="home">Button with Icon</Button>
-				<Heading showLine>Icon Button</Heading>
-				<Button icon="play" />
-				<Button pressed icon="play" />
-				<Button selected icon="play" />
-				<Button disabled icon="play" />
+
+				<Heading showLine>"Round" Large Buttons - no effect</Heading>
+				<Button size="large" type="round">Large Button</Button>
+				<Button size="large" type="round" selected>Large Selected Button</Button>
+				<Button size="large" type="round">Super long long long string Large Button</Button>
+				<Button size="large" type="round" icon="home">Button with Icon</Button>
+
+				<Heading showLine>"Grid" Icon Button</Heading>
+				<Button size="small" icon="play" />
+				<Button size="small" icon="play" selected />
+				<Button size="small" icon="play" disabled />
 				<Button size="large" icon="play" />
-				<Button size="large" pressed icon="play" />
-				<Button size="large" selected icon="play" />
-				<Button size="large" disabled icon="play" />
+				<Button size="large" icon="play" selected />
+				<Button size="large" icon="play" disabled />
+
+				<Heading showLine>"Round" Icon Button</Heading>
+				<Button size="small" type="round" icon="play" />
+				<Button size="small" type="round" icon="play" selected />
+				<Button size="small" type="round" icon="play" disabled />
+				<Button size="large" type="round" icon="play" />
+				<Button size="large" type="round" icon="play" selected />
+				<Button size="large" type="round" icon="play" disabled />
+
+				<Heading showLine>Transparent Buttons</Heading>
+				<Button backgroundOpacity="transparent" size="small">Button</Button>
+				<Button backgroundOpacity="transparent" size="small" selected>Selected Button</Button>
+				<Button backgroundOpacity="transparent" size="small" disabled>Disabled Button</Button>
+				<Button backgroundOpacity="transparent" size="small">Super long long long string Button</Button>
+				<Button backgroundOpacity="transparent" size="small" icon="home">Button with Icon</Button>
+
+				<Button backgroundOpacity="transparent" size="large">Large Button</Button>
+				<Button backgroundOpacity="transparent" size="large" selected>Large Selected Button</Button>
+				<Button backgroundOpacity="transparent" size="large">Super long long long string Large Button</Button>
+				<Button backgroundOpacity="transparent" size="large" icon="home">Button with Icon</Button>
+
+				<Button backgroundOpacity="transparent" size="small" icon="play" />
+
+				<Button backgroundOpacity="transparent" size="large" icon="play" />
+
+				<Button backgroundOpacity="transparent" size="small" type="round" icon="play" />
+
+				<Button backgroundOpacity="transparent" size="large" type="round" icon="play" />
 			</Scroller>
 		</Panel>
 	)
