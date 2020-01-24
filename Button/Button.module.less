@@ -4,33 +4,6 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Local scope for some math variables
-& {
-	@sand-button-pressed-scaled-up: (1 + @sand-button-pressed-scale);
-	@sand-button-pressed-scaled-down: (1 / @sand-button-pressed-scaled-up);
-
-	@-webkit-keyframes expand {
-		// Old Blink/Webkit doesn't support "@keyframes" so we must use both prefixed and non-prefixed in this section
-		60% {
-			-webkit-transform: translateZ(0) scale(@sand-button-pressed-scaled-up);
-			transform: translateZ(0) scale(@sand-button-pressed-scaled-up);
-		}
-	}
-	@-webkit-keyframes contract {
-		60% {
-			-webkit-transform: translateZ(0) scale(@sand-button-pressed-scaled-down);
-			transform: translateZ(0) scale(@sand-button-pressed-scaled-down);
-		}
-	}
-
-	@keyframes expand {
-		60% { transform: translateZ(0) scale(@sand-button-pressed-scaled-up); }
-	}
-	@keyframes contract {
-		60% { transform: translateZ(0) scale(@sand-button-pressed-scaled-down); }
-	}
-}
-
 .button {
 	.sand-large-button-text();
 	height: @sand-button-height;
@@ -60,9 +33,6 @@
 		transform: translateZ(0);
 		will-change: transform;
 		transition: transform 0.2s ease-out;
-		animation-duration: 0.2s;
-		animation-iteration-count: 1;
-		animation-timing-function: ease-out;
 	}
 
 	.client {
@@ -76,6 +46,12 @@
 		-webkit-margin-end: @sand-button-icon-margin-end;
 	}
 
+	.iconOnly {
+		.icon {
+			margin: 0;
+		}
+	}
+
 	&.iconAfter {
 		.client {
 			flex-direction: row-reverse;
@@ -84,50 +60,6 @@
 		.icon {
 			-webkit-margin-start: @sand-button-icon-position-after-margin-start;
 			-webkit-margin-end: @sand-button-icon-position-after-margin-end;
-		}
-	}
-
-	// Color prop set, and minWidth prop set, update icon's margin to allow more room for the colordot
-	&.red,
-	&.green,
-	&.yellow,
-	&.blue {
-		// IconButton-like Button scenario
-		.client::before {
-			// Colored under-bar
-			content: "";
-			position: absolute;
-			bottom: 18px;
-			left: 50%;
-			width: @sand-button-colordot-width;
-			height: @sand-button-colordot-height;
-			border-radius: @sand-button-colordot-height;
-			transform: translate(-50%, 50%);
-		}
-
-		// Standard Button Scenario
-		&.minWidth {
-			// Update icon's margin to allow more room for the colordot
-			.icon {
-				-webkit-margin-start: 0;
-			}
-
-			.client {
-				-webkit-margin-start: @sand-button-colordot-width;
-				-webkit-padding-start: @sand-button-icon-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
-
-				&::before {
-					// Colored side-bar
-					bottom: 50%;
-					left: -@sand-button-colordot-width;
-					transform: translateY(50%);
-
-					:global(.enact-locale-right-to-left) & {
-						left: initial;
-						right: -@sand-button-colordot-width;
-					}
-				}
-			}
 		}
 	}
 
@@ -198,24 +130,6 @@
 		margin-inline-start: (@sand-button-to-button-large-h-margin - @sand-button-h-margin);
 	}
 
-	// Button-non-disabled rules
-	&:not([disabled]) {
-		.focus({
-			z-index: 1;
-
-			.bg {
-				transform: translateZ(0) scale(1 + @sand-button-pressed-scale);
-				box-shadow: 0px 40px 24px #0000004D;
-			}
-			&.pressed,
-			&:active {
-				.bg {
-					// animation-name: expand;
-				}
-			}
-		});
-	}
-
 	// Skin colors
 	.applySkins({
 		&,
@@ -228,14 +142,6 @@
 			border-color: transparent;
 		}
 
-		&.translucent .bg {
-			background-color: @sand-button-translucent-bg-color;
-		}
-
-		&.lightTranslucent .bg {
-			background-color: @sand-button-lightTranslucent-bg-color;
-		}
-
 		&.transparent {
 			color: @sand-text-color;
 
@@ -243,20 +149,6 @@
 				background-color: @sand-button-transparent-bg-color;
 			}
 		}
-
-		&.red .client::before {
-			background-color: @sand-remote-button-red-color;
-		}
-		&.green .client::before {
-			background-color: @sand-remote-button-green-color;
-		}
-		&.yellow .client::before {
-			background-color: @sand-remote-button-yellow-color;
-		}
-		&.blue .client::before {
-			background-color: @sand-remote-button-blue-color;
-		}
-
 
 		.focus({
 			// The complexity below overrides the default high-contrast rules and applies
@@ -273,57 +165,17 @@
 				background-color: @sand-button-focus-bg-color;
 			}
 		});
+
+		// Button-non-disabled rules
+		&:not([disabled]) {
+			.focus({
+				z-index: 1;
+
+				.bg {
+					transform: @sand-button-focused-bg-scale;
+					box-shadow: @sand-button-focused-bg-box-shadow;
+				}
+			});
+		}
 	});
 }
-
-// .muted({
-// 	.button {
-// 		// Button-non-disabled rules
-// 		&:not([disabled]) {
-// 			.focus({
-// 				&.pressed {
-// 					.bg {
-// 						animation-name: none;
-// 					}
-// 				}
-// 			});
-// 		}
-
-// 		// Skin colors
-// 		.applySkins({
-// 			.focus({
-// 				background-color: transparent;
-// 				color: @moon-button-text-color;
-
-// 				.bg {
-// 					background-color: @moon-button-bg-color;
-// 				}
-
-// 				&.translucent .bg {
-// 					background-color: @moon-button-translucent-bg-color;
-// 				}
-
-// 				&.lightTranslucent .bg {
-// 					background-color: @moon-button-lightTranslucent-bg-color;
-// 				}
-
-// 				&.transparent {
-// 					color: @moon-text-color;
-
-// 					.bg {
-// 						background-color: transparent;
-// 					}
-// 				}
-// 			});
-
-// 			&.selected {
-// 				// 'Selected+Focus' state, seen in grouped buttons
-// 				.focus({
-// 					.bg {
-// 						border-color: @moon-spotlight-border-color;
-// 					}
-// 				});
-// 			}
-// 		});
-// 	}
-// });
