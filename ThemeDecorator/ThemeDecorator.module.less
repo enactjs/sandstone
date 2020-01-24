@@ -21,31 +21,6 @@
 		background-color: lighten(@sand-spotlight-bg-color, 18%);
 	}
 
-	// Spotlight
-	// This rule-set applies a generic spottable set of colors to anything with the spottable class
-	// that is a child of a skin. It's a blanket rule for components that don't technically need to
-	// be skinnable themselves, but still need to be focusable and inherit rules from their parent.
-	// The rule below this, should look identical, with the exception of the absence of the `parent`
-	// argument to the focus mixin. This allows that set of rules to prevail over this generic set.
-	//// Inherited Spottable rules (for components that aren't directly skinned)
-	.focus({
-		background-color: @sand-spotlight-bg-color;
-		color: @sand-spotlight-text-color;
-	}, parent);
-	//// Primary spottable rules (for any component with a skin applied to itself)
-	.focus({
-		background-color: @sand-spotlight-bg-color;
-		color: @sand-spotlight-text-color;
-	});
-
-	// Spotlight Muted Components
-	.muted({
-		.focus({
-			background-color: transparent;
-			color: @sand-text-color;
-		}, parent);
-	}, parent);
-
 	// Disabled Components
 	.disabled({
 		.vendor-opacity(@sand-disabled-opacity);
