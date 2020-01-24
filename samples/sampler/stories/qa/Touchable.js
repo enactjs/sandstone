@@ -103,7 +103,7 @@ storiesOf('Touchable', module)
 		)
 	)
 	.add(
-		'that pauses the hold when moving beyond tolerance (16px)',
+		'that pauses the hold when moving beyond tolerance (32px)',
 		() => {
 			const moveTolerance = number('holdConfig moveTolerance', Button, 32, {range: true, min: 16, max: 320, step: 16});
 			const cancelOnMove = boolean('holdConfig cancelOnMove', Button, true) || false;

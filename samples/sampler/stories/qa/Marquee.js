@@ -143,7 +143,7 @@ class MarqueeWithContentChanged extends React.Component {
 				<Button onClick={this.handleClick}>
 					{'Click Me'}
 				</Button>
-				<Marquee style={{width: '400px'}} marqueeOn={'render'} >{texts[this.state.count]}</Marquee>
+				<Marquee style={{width: '800px'}} marqueeOn={'render'} >{texts[this.state.count]}</Marquee>
 			</div>
 		);
 	}

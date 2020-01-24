@@ -2,7 +2,7 @@
  * Provides Sandstone-themed scroller components and behaviors.
  * @example
  * <Scroller>
- * 	<div style={{height: "150px"}}>
+ * 	<div style={{height: '300px'}}>
  * 		<p>San Francisco</p>
  * 		<p>Seoul</p>
  * 		<p>Bangalore</p>

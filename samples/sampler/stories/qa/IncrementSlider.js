@@ -33,7 +33,7 @@ class IncrementSliderView extends React.Component {
 	render () {
 		return (
 			<div style={{display: 'flex', marginTop: ri.unit(360, 'rem')}}>
-				<div style={{width: '300px'}}>
+				<div style={{width: '600px'}}>
 					<Button>button</Button>
 					<Button>button</Button>
 				</div>
