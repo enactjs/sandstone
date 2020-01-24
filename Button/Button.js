@@ -16,6 +16,7 @@ import Spottable from '@enact/spotlight/Spottable';
 import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '@enact/ui/Button';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
+import React from 'react';
 import compose from 'ramda/src/compose';
 
 import {IconBase} from '../Icon';
@@ -46,26 +47,12 @@ const ButtonBase = kind({
 		/**
 		 * The background opacity of this button.
 		 *
-		 * Valid values are:
-		 * * `'translucent'`,
-		 * * `'lightTranslucent'`, and
-		 * * `'transparent'`.
+		 * Valid value is: `'transparent'`.
 		 *
-		 * @type {('translucent'|'lightTranslucent'|'transparent')}
+		 * @type {(transparent')}
 		 * @public
 		 */
-		backgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
-
-		/**
-		 * The color of the underline beneath button's content.
-		 *
-		 * Accepts one of the following color names, which correspond with the colored buttons on a
-		 * standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
-		 *
-		 * @type {('red'|'green'|'yellow'|'blue')}
-		 * @public
-		 */
-		color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
+		backgroundOpacity: PropTypes.oneOf(['transparent']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -118,17 +105,15 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconPosition, styler}) => styler.append(
-			{hasColor: color},
+		className: ({backgroundOpacity, children, iconPosition, styler}) => styler.append(
+			{iconOnly: (React.Children.count(children) === 0 || children === '')},
 			backgroundOpacity,
-			color,
 			`icon${cap(iconPosition)}`
 		)
 	},
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
-		delete rest.color;
 		delete rest.iconPosition;
 
 		return UiButtonBase.inline({
@@ -139,20 +124,6 @@ const ButtonBase = kind({
 		});
 	}
 });
-
-/**
- * Enforces a minimum width on the Button.
- *
- * *NOTE*: This property's default is `true` and must be explicitly set to `false` to allow
- * the button to shrink to fit its contents.
- *
- * @name minWidth
- * @memberof sandstone/Button.ButtonBase.prototype
- * @type {Boolean}
- * @default true
- * @public
- */
-
 
 /**
  * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
@@ -179,8 +150,9 @@ const ButtonDecorator = compose(
  * Usage:
  * ```
  * <Button
- * 	backgroundOpacity="translucent"
- * 	color="blue"
+ * 	backgroundOpacity="transparent"
+ * 	size="small"
+ *  icon="home"
  * >
  * 	Press me!
  * </Button>

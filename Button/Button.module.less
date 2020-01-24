@@ -59,6 +59,7 @@
 
 		transform: translateZ(0);
 		will-change: transform;
+		transition: transform 0.2s ease-out;
 		animation-duration: 0.2s;
 		animation-iteration-count: 1;
 		animation-timing-function: ease-out;
@@ -180,45 +181,6 @@
 			}
 		}
 
-		&.red,
-		&.green,
-		&.yellow,
-		&.blue {
-			// IconButton-like Button scenario
-			.client::before {
-				bottom: 12px;
-				width: @sand-button-small-colordot-width;
-				height: @sand-button-small-colordot-height;
-			}
-
-			// Standard Button Scenario
-			&.minWidth {
-				.client {
-					-webkit-margin-start: @sand-button-small-colordot-width;
-
-					&::before {
-						bottom: 50%;
-						left: -@sand-button-small-colordot-width;
-
-						:global(.enact-locale-right-to-left) & {
-							right: -@sand-button-small-colordot-width;
-						}
-					}
-				}
-
-				.icon {
-					-webkit-margin-start: 0;
-				}
-
-				&.iconAfter {
-					.icon {
-						// Override the above rule
-						-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
-					}
-				}
-			}
-		}
-
 		.sand-custom-text({
 			font-size: @sand-button-small-font-size-large;
 			height: @sand-button-small-height-large;
@@ -239,10 +201,16 @@
 	// Button-non-disabled rules
 	&:not([disabled]) {
 		.focus({
+			z-index: 1;
+
+			.bg {
+				transform: translateZ(0) scale(1 + @moon-button-pressed-scale);
+				box-shadow: 0px 40px 24px #0000004D;
+			}
 			&.pressed,
 			&:active {
 				.bg {
-					animation-name: expand;
+					// animation-name: expand;
 				}
 			}
 		});
@@ -304,104 +272,58 @@
 			.bg {
 				background-color: @sand-button-focus-bg-color;
 			}
-
-			.disabled({
-				color: @sand-button-disabled-focus-text-color;
-
-				.client {
-					.vendor-opacity(@sand-disabled-opacity);
-				}
-
-				.bg {
-					background-color: @sand-button-disabled-focus-bg-color;
-				}
-
-				.icon {
-					color: @sand-button-disabled-focus-icon-color;
-				}
-			});
 		});
-
-		// 'Selected' state
-		&.selected {
-			color: @sand-button-selected-text-color;
-
-			.bg {
-				background-color: @sand-button-selected-bg-color;
-				border-color: @sand-button-selected-border-color;
-			}
-
-			&.transparent {
-				color: @sand-button-text-color;
-			}
-
-			// 'Selected+Focus' state, seen in grouped buttons
-			.focus({
-				color: @sand-button-selected-focus-text-color;
-
-				.bg {
-					background-color: @sand-button-selected-focus-bg-color;
-					border-color: @sand-button-selected-focus-border-color;
-				}
-
-				.disabled({
-					.bg {
-						border-color: @sand-button-selected-disabled-focus-border-color;
-					}
-				});
-			});
-		}
 	});
 }
 
-.muted({
-	.button {
-		// Button-non-disabled rules
-		&:not([disabled]) {
-			.focus({
-				&.pressed {
-					.bg {
-						animation-name: none;
-					}
-				}
-			});
-		}
+// .muted({
+// 	.button {
+// 		// Button-non-disabled rules
+// 		&:not([disabled]) {
+// 			.focus({
+// 				&.pressed {
+// 					.bg {
+// 						animation-name: none;
+// 					}
+// 				}
+// 			});
+// 		}
 
-		// Skin colors
-		.applySkins({
-			.focus({
-				background-color: transparent;
-				color: @sand-button-text-color;
+// 		// Skin colors
+// 		.applySkins({
+// 			.focus({
+// 				background-color: transparent;
+// 				color: @moon-button-text-color;
 
-				.bg {
-					background-color: @sand-button-bg-color;
-				}
+// 				.bg {
+// 					background-color: @moon-button-bg-color;
+// 				}
 
-				&.translucent .bg {
-					background-color: @sand-button-translucent-bg-color;
-				}
+// 				&.translucent .bg {
+// 					background-color: @moon-button-translucent-bg-color;
+// 				}
 
-				&.lightTranslucent .bg {
-					background-color: @sand-button-lightTranslucent-bg-color;
-				}
+// 				&.lightTranslucent .bg {
+// 					background-color: @moon-button-lightTranslucent-bg-color;
+// 				}
 
-				&.transparent {
-					color: @sand-text-color;
+// 				&.transparent {
+// 					color: @moon-text-color;
 
-					.bg {
-						background-color: transparent;
-					}
-				}
-			});
+// 					.bg {
+// 						background-color: transparent;
+// 					}
+// 				}
+// 			});
 
-			&.selected {
-				// 'Selected+Focus' state, seen in grouped buttons
-				.focus({
-					.bg {
-						border-color: @sand-spotlight-border-color;
-					}
-				});
-			}
-		});
-	}
-});
+// 			&.selected {
+// 				// 'Selected+Focus' state, seen in grouped buttons
+// 				.focus({
+// 					.bg {
+// 						border-color: @moon-spotlight-border-color;
+// 					}
+// 				});
+// 			}
+// 		});
+// 	}
+// });
