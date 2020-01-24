@@ -130,11 +130,6 @@
 		});
 	}
 
-	// Large Button followed by another large Button has a custom wider margin between them
-	&:not(.small) + &:not(.small) {
-		margin-inline-start: (@sand-button-to-button-large-h-margin - @sand-button-h-margin);
-	}
-
 	// Skin colors
 	.applySkins({
 		&,
@@ -179,6 +174,10 @@
 				.bg {
 					transform: @sand-button-focused-bg-scale;
 					box-shadow: @sand-button-focused-bg-box-shadow;
+				}
+
+				&.small .bg {
+					transform: @sand-button-small-focused-bg-scale;
 				}
 			});
 		}
