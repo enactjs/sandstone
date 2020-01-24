@@ -2,10 +2,10 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableList from '../../../../ExpandableList';
-import Item from '../../../../Item';
-import Scroller from '../../../../Scroller';
-import SelectableItem from '../../../../SelectableItem';
+import ExpandableList from '@enact/sandstone/ExpandableList';
+import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
+import SelectableItem from '@enact/sandstone/SelectableItem';
 
 const data = [
 	'a',

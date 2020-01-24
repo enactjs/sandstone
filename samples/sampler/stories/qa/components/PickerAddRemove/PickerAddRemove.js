@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Button from '../../../../../../Button';
-import Input from '../../../../../../Input';
-import Picker from '../../../../../../Picker';
+import Button from '@enact/sandstone/../../Button';
+import Input from '@enact/sandstone/../../Input';
+import Picker from '@enact/sandstone/../../Picker';
 
 class PickerAddRemove extends React.Component {
 	static displayName = 'PickerAddRemove'

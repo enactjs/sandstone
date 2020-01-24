@@ -6,12 +6,12 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '../../../../BodyText';
-import Button from '../../../../Button';
-import TooltipDecorator from '../../../../TooltipDecorator';
-import Input from '../../../../Input';
-import IconButton from '../../../../IconButton';
-import Scroller from '../../../../Scroller';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
+import Input from '@enact/sandstone/Input';
+import IconButton from '@enact/sandstone/IconButton';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);

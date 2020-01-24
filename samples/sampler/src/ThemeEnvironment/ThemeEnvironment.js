@@ -8,9 +8,9 @@ import {Column, Cell} from '@enact/ui/Layout';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import BodyText from '../../../../BodyText';
-import ThemeDecorator from '../../../../ThemeDecorator';
-import {Panels, Panel, Header} from '../../../../Panels';
+import BodyText from '@enact/sandstone/BodyText';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 
 import css from './ThemeEnvironment.module.less';
 

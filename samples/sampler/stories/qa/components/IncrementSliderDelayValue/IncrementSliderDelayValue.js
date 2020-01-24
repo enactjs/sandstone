@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {IncrementSlider} from '../../../../../../IncrementSlider';
+import {IncrementSlider} from '@enact/sandstone/../../IncrementSlider';
 
 class IncrementSliderDelayValue extends React.Component {
 	static displayName = 'IncrementSliderDelayValue'

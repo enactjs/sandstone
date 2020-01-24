@@ -7,8 +7,8 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 
-import {GridListImageItem} from '../../../../GridListImageItem';
-import {VirtualGridList, VirtualListBase} from '../../../../VirtualList';
+import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {VirtualGridList, VirtualListBase} from '@enact/sandstone/VirtualList';
 
 const
 	wrapOption = {

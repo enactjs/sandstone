@@ -5,9 +5,9 @@ import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import Notification from '../../../../Notification';
-import Popup from '../../../../Popup';
+import Button from '@enact/sandstone/Button';
+import Notification from '@enact/sandstone/Notification';
+import Popup from '@enact/sandstone/Popup';
 
 Popup.displayName = 'Popup';
 

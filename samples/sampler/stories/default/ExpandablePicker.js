@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandablePicker, {ExpandablePickerBase} from '../../../../ExpandablePicker';
+import ExpandablePicker, {ExpandablePickerBase} from '@enact/sandstone/ExpandablePicker';
 
 const Config = mergeComponentMetadata('ExpandablePicker', ExpandablePicker, ExpandablePickerBase);
 ExpandablePicker.displayName = 'ExpandablePicker';

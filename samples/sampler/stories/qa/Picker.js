@@ -5,7 +5,7 @@ import PickerRTL from './components/PickerRTL';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Picker from '../../../../Picker';
+import Picker from '@enact/sandstone/Picker';
 
 import iconNames from '../default/icons';
 

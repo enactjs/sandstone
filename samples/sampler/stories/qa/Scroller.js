@@ -12,12 +12,12 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import ExpandableList from '../../../../ExpandableList';
-import Heading from '../../../../Heading';
-import Item from '../../../../Item';
-import {ScrollableBase} from '../../../../Scrollable';
-import Scroller from '../../../../Scroller';
+import Button from '@enact/sandstone/Button';
+import ExpandableList from '@enact/sandstone/ExpandableList';
+import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import {ScrollableBase} from '@enact/sandstone/Scrollable';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
 

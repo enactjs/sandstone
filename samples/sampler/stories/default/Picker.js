@@ -3,7 +3,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Picker from '../../../../Picker';
+import Picker from '@enact/sandstone/Picker';
 
 import {decrementIcons, incrementIcons} from './icons';
 

@@ -7,9 +7,9 @@ import {storiesOf} from '@storybook/react';
 import Scroller from '@enact/ui/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 
-import Button, {ButtonBase} from '../../../../Button';
-import {IconButtonBase} from '../../../../IconButton';
-import LabeledIconButton from '../../../../LabeledIconButton';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
+import {IconButtonBase} from '@enact/sandstone/IconButton';
+import LabeledIconButton from '@enact/sandstone/LabeledIconButton';
 
 import iconNames from '../default/icons';
 

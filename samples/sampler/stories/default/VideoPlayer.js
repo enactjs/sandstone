@@ -4,9 +4,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import IconButton from '../../../../IconButton';
-import VideoPlayer, {MediaControls, VideoPlayerBase} from '../../../../VideoPlayer';
+import Button from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
+import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 
 import icons from './icons';
 

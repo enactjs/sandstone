@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Input, {InputBase} from '../../../../Input';
+import Input, {InputBase} from '@enact/sandstone/Input';
 
 import icons from './icons';
 
