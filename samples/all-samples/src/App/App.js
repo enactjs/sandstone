@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {routes} from  '../index';
 
-import Scroller from '../../../../Scroller';
-import ThemeDecorator from '../../../../ThemeDecorator';
+import Scroller from '@enact/sandstone/Scroller';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import SampleItem from '../components/SampleItem';
 

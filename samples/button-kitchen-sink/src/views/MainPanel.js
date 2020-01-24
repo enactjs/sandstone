@@ -1,10 +1,10 @@
 import kind from '@enact/core/kind';
 import React from 'react';
 
-import Button from '../../../../Button';
-import Heading from '../../../../Heading';
-import {Panel, Header} from '../../../../Panels';
-import Scroller from '../../../../Scroller';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import {Panel, Header} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 
 const MainPanel = kind({
 	name: 'MainPanel',

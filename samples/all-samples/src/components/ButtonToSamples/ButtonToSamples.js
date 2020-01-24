@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
 
-import IconButton from '../../../../../IconButton';
+import IconButton from '@enact/sandstone/IconButton';
 
 import css from './ButtonToSamples.module.less';
 

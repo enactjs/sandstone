@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Item from '../../../../../Item';
+import Item from '@enact/sandstone/Item';
 
 class SampleItem extends React.Component {
 	static propTypes = {
