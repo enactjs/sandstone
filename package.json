@@ -4,7 +4,7 @@
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "npm link && enact link && cd samples && cd sampler && npm i && enact link",
+    "bootstrap": "npm link && enact link && cd samples && cd sampler && npm run bootstrap",
     "clean": "enact clean",
     "lint": "enact lint --strict",
     "sampler": "npm run --prefix samples/sampler serve",
