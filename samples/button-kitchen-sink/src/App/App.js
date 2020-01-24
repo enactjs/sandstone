@@ -1,7 +1,8 @@
 import kind from '@enact/core/kind';
-import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
-import Panels from '@enact/moonstone/Panels';
 import React from 'react';
+
+import Panels from '../../../../Panels';
+import ThemeDecorator from '../../../../ThemeDecorator';
 
 import MainPanel from '../views/MainPanel';
 
@@ -24,4 +25,4 @@ const App = kind({
 	)
 });
 
-export default MoonstoneDecorator(App);
+export default ThemeDecorator(App);

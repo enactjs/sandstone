@@ -1,9 +1,10 @@
-import Button from '../../../../Button';
-import Heading from '@enact/moonstone/Heading';
-import Scroller from '@enact/moonstone/Scroller';
 import kind from '@enact/core/kind';
-import {Panel, Header} from '@enact/moonstone/Panels';
 import React from 'react';
+
+import Button from '../../../../Button';
+import Heading from '../../../../Heading';
+import {Panel, Header} from '../../../../Panels';
+import Scroller from '../../../../Scroller';
 
 const MainPanel = kind({
 	name: 'MainPanel',

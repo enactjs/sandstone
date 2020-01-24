@@ -1,10 +1,11 @@
 import kind from '@enact/core/kind';
-import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
 import {HashRouter as Router, Route} from 'react-router-dom';
 import React from 'react';
 import {render} from 'react-dom';
 
-import ButtonKitchenSink from '../../button-kitchen-sink/src/App';
+import ThemeDecorator from '../../../ThemeDecorator';
+
+import ButtonKitchenSink from '../../button-kitchen-sink/src/App/App';
 
 import App from './App';
 import ButtonToSamples from './components/ButtonToSamples';
@@ -24,7 +25,7 @@ console.error = (...args) => {
 };
 /* eslint-enable no-console */
 
-const SampleRoutes = MoonstoneDecorator(kind({
+const SampleRoutes = ThemeDecorator(kind({
 	name:  'SampleRoutes',
 
 	render: () => {

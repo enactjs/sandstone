@@ -1,10 +1,12 @@
 import kind from '@enact/core/kind';
-import MoonstoneDecorator from '@enact/moonstone/MoonstoneDecorator';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {routes} from  '../index';
+
+import Scroller from '../../../../Scroller';
+import ThemeDecorator from '../../../../ThemeDecorator';
+
 import SampleItem from '../components/SampleItem';
-import Scroller from '@enact/moonstone/Scroller';
 
 import css from './App.module.less';
 
@@ -47,4 +49,4 @@ const App = kind({
 	}
 });
 
-export default MoonstoneDecorator(App);
+export default ThemeDecorator(App);

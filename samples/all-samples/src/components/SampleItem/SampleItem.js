@@ -1,6 +1,7 @@
-import Item from '@enact/moonstone/Item';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import Item from '../../../../../Item';
 
 class SampleItem extends React.Component {
 	static propTypes = {

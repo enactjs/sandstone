@@ -1,6 +1,7 @@
-import IconButton from '@enact/moonstone/IconButton';
 import {Link} from 'react-router-dom';
 import React from 'react';
+
+import IconButton from '../../../../../IconButton';
 
 import css from './ButtonToSamples.module.less';
 
