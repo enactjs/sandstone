@@ -159,7 +159,7 @@ class ScrollerBase extends Component {
 	 * @private
 	 */
 	calculateScrollTop = (item) => {
-		const threshold = ri.scale(24);
+		const threshold = ri.scale(48);
 		const roundToStart = (sb, st) => {
 			// round to start
 			if (st < threshold) return 0;

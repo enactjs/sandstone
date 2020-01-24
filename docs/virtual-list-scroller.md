@@ -19,13 +19,13 @@ This document describes VirtualList, VirtualGridList, and Scroller.
         <VirtualList
             dataSize={this.items.length}
             itemRenderer={this.renderItem}
-            itemSize={ri.scale(72)}
+            itemSize={ri.scale(144)}
         />
 
         <VirtualGridList
             dataSize={this.items.length}
             itemRenderer={this.renderItem}
-            itemSize={{minWidth: ri.scale(90), minHeight: ri.scale(135)}}
+            itemSize={{minWidth: ri.scale(180), minHeight: ri.scale(270)}}
         />
         ```
 
@@ -35,8 +35,8 @@ This document describes VirtualList, VirtualGridList, and Scroller.
     <VirtualList
         dataSize={this.items.length} //<-- numeric property
         itemRenderer={this.renderItem}
-        itemSize={ri.scale(72)} //<-- numeric property
-        spacing={ri.scale(10)} //<-- numeric property
+        itemSize={ri.scale(144)} //<-- numeric property
+        spacing={ri.scale(20)} //<-- numeric property
     />
     ```
 
@@ -134,8 +134,8 @@ This document describes VirtualList, VirtualGridList, and Scroller.
 
     ```css
     .scroller {
-        height: 550px;
-        width: 480px;
+        height: 1100px;
+        width: 960px;
     }
     ```
     ```js

@@ -42,7 +42,7 @@ const defaultConfig = {
 	 * @default 24
 	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
-	screenEdgeKeepout: (12 + 12),
+	screenEdgeKeepout: (24 + 24),
 
 	/**
 	 * The name of the property which will receive the tooltip node.
