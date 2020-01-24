@@ -124,6 +124,7 @@ const ExpandableSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		componentWillUnmount () {
+			this.renderJob.stop();
 			this.resume();
 		}
 
