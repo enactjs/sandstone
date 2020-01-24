@@ -2,7 +2,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledItem from '../../../../LabeledItem';
+import LabeledItem from '@enact/malachite/LabeledItem';
 
 LabeledItem.displayName = 'LabeledItem';
 

@@ -4,9 +4,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import IconButton from '../../../../IconButton';
-import VideoPlayer, {MediaControls, VideoPlayerBase} from '../../../../VideoPlayer';
+import Button from '@enact/malachite/Button';
+import IconButton from '@enact/malachite/IconButton';
+import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/malachite/VideoPlayer';
 
 import icons from './icons';
 

@@ -4,7 +4,7 @@ import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Item, {ItemBase} from '../../../../Item';
+import Item, {ItemBase} from '@enact/malachite/Item';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';

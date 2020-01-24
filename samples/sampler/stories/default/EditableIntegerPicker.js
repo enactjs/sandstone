@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import EditableIntegerPicker, {EditableIntegerPickerBase} from '../../../../EditableIntegerPicker';
+import EditableIntegerPicker, {EditableIntegerPickerBase} from '@enact/malachite/EditableIntegerPicker';
 
 import {decrementIcons, incrementIcons} from './icons';
 

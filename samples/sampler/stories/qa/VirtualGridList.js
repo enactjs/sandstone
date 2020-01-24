@@ -6,11 +6,11 @@ import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList/VirtualListBase';
 import React from 'react';
 
-import Button from '../../../../Button';
-import ContexturePopupDecorator from '../../../../ContextualPopupDecorator';
-import GridListImageItem from '../../../../GridListImageItem';
-import Item from '../../../../Item';
-import {VirtualGridList, VirtualListBase} from '../../../../VirtualList';
+import Button from '@enact/malachite/Button';
+import ContexturePopupDecorator from '@enact/malachite/ContextualPopupDecorator';
+import GridListImageItem from '@enact/malachite/GridListImageItem';
+import Item from '@enact/malachite/Item';
+import {VirtualGridList, VirtualListBase} from '@enact/malachite/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 

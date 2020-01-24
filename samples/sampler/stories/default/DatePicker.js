@@ -4,7 +4,7 @@ import {mergeComponentMetadata, removeProps} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import DatePicker, {DatePickerBase} from '../../../../DatePicker';
+import DatePicker, {DatePickerBase} from '@enact/malachite/DatePicker';
 
 const Config = mergeComponentMetadata('DatePicker', DatePickerBase, DatePicker);
 removeProps(Config, 'year defaultOpen day maxDays maxMonths month onChangeDate onChangeMonth onChangeYear order');

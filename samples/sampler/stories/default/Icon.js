@@ -4,9 +4,9 @@ import UiIcon from '@enact/ui/Icon';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon, {IconBase} from '../../../../Icon';
-import Heading from '../../../../Heading';
-import Scroller from '../../../../Scroller';
+import Icon, {IconBase} from '@enact/malachite/Icon';
+import Heading from '@enact/malachite/Heading';
+import Scroller from '@enact/malachite/Scroller';
 
 import iconNames from './icons';
 

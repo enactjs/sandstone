@@ -5,8 +5,8 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Dropdown, {DropdownBase} from '../../../../Dropdown';
-import Button, {ButtonBase} from '../../../../Button';
+import Dropdown, {DropdownBase} from '@enact/malachite/Dropdown';
+import Button, {ButtonBase} from '@enact/malachite/Button';
 
 Dropdown.displayName = 'Dropdown';
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);

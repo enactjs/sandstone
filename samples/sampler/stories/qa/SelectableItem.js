@@ -4,7 +4,7 @@ import Group from '@enact/ui/Group';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import SelectableItem from '../../../../SelectableItem';
+import SelectableItem from '@enact/malachite/SelectableItem';
 
 SelectableItem.displayName = 'SelectableItem';
 

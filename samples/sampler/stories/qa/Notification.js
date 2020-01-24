@@ -4,9 +4,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import Notification from '../../../../Notification';
-import Popup from '../../../../Popup';
+import Button from '@enact/malachite/Button';
+import Notification from '@enact/malachite/Notification';
+import Popup from '@enact/malachite/Popup';
 
 const Config = mergeComponentMetadata('Notification', Notification, Popup);
 

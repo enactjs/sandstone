@@ -7,8 +7,8 @@ import {storiesOf} from '@storybook/react';
 import Scroller from '@enact/ui/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 
-import Icon, {IconBase} from '../../../../Icon';
-import LabeledIcon from '../../../../LabeledIcon';
+import Icon, {IconBase} from '@enact/malachite/Icon';
+import LabeledIcon from '@enact/malachite/LabeledIcon';
 
 import iconNames from '../default/icons';
 

@@ -8,9 +8,9 @@ import {Column, Cell} from '@enact/ui/Layout';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import BodyText from '../../../../BodyText';
-import MoonstoneDecorator from '../../../../MoonstoneDecorator';
-import {Panels, Panel, Header} from '../../../../Panels';
+import BodyText from '@enact/malachite/BodyText';
+import MoonstoneDecorator from '@enact/malachite/MoonstoneDecorator';
+import {Panels, Panel, Header} from '@enact/malachite/Panels';
 
 import css from './MalachiteEnvironment.module.less';
 

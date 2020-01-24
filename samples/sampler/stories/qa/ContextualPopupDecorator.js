@@ -5,11 +5,11 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import CheckboxItem from '../../../../CheckboxItem';
-import {ContextualPopupDecorator} from '../../../../ContextualPopupDecorator';
-import Heading from '../../../../Heading';
-import {IconButton} from '../../../../IconButton';
+import Button from '@enact/malachite/Button';
+import CheckboxItem from '@enact/malachite/CheckboxItem';
+import {ContextualPopupDecorator} from '@enact/malachite/ContextualPopupDecorator';
+import Heading from '@enact/malachite/Heading';
+import {IconButton} from '@enact/malachite/IconButton';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);

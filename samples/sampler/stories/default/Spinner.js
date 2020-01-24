@@ -6,7 +6,7 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Spinner, {SpinnerBase} from '../../../../Spinner';
+import Spinner, {SpinnerBase} from '@enact/malachite/Spinner';
 
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);

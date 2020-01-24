@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableInput, {ExpandableInputBase} from '../../../../ExpandableInput';
+import ExpandableInput, {ExpandableInputBase} from '@enact/malachite/ExpandableInput';
 
 import icons from './icons';
 

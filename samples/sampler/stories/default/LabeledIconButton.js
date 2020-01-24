@@ -5,9 +5,9 @@ import {LabeledIconBase as UiLabeledIconBase, LabeledIcon as UiLabeledIcon} from
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledIconButton from '../../../../LabeledIconButton';
-import {IconButtonBase} from '../../../../IconButton';
-import Button, {ButtonBase} from '../../../../Button';
+import LabeledIconButton from '@enact/malachite/LabeledIconButton';
+import {IconButtonBase} from '@enact/malachite/IconButton';
+import Button, {ButtonBase} from '@enact/malachite/Button';
 
 import iconNames from './icons';
 

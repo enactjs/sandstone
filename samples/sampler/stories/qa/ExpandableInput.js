@@ -3,7 +3,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableInput from '../../../../ExpandableInput';
+import ExpandableInput from '@enact/malachite/ExpandableInput';
 
 import icons from '../default/icons';
 

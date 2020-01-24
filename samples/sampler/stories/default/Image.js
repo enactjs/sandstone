@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Image, {ImageBase, ImageDecorator} from '../../../../Image';
+import Image, {ImageBase, ImageDecorator} from '@enact/malachite/Image';
 
 const src = {
 	'hd':  'http://via.placeholder.com/200x200',

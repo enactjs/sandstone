@@ -3,8 +3,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon from '../../../../Icon';
-import SlotItem from '../../../../SlotItem';
+import Icon from '@enact/malachite/Icon';
+import SlotItem from '@enact/malachite/SlotItem';
 
 const Config = mergeComponentMetadata('SlotItem', SlotItem);
 

@@ -3,9 +3,9 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Heading from '../../../../Heading';
-import Item from '../../../../Item';
-import Scroller from '../../../../Scroller';
+import Heading from '@enact/malachite/Heading';
+import Item from '@enact/malachite/Item';
+import Scroller from '@enact/malachite/Scroller';
 
 Heading.displayName = 'Heading';
 

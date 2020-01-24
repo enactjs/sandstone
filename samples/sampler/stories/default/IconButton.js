@@ -5,8 +5,8 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import IconButton, {IconButtonBase} from '../../../../IconButton';
-import Button, {ButtonBase} from '../../../../Button';
+import IconButton, {IconButtonBase} from '@enact/malachite/IconButton';
+import Button, {ButtonBase} from '@enact/malachite/Button';
 
 import icons from './icons';
 

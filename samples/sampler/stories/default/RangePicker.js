@@ -4,7 +4,7 @@ import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import RangePicker, {RangePickerBase} from '../../../../RangePicker';
+import RangePicker, {RangePickerBase} from '@enact/malachite/RangePicker';
 
 import {decrementIcons, incrementIcons} from './icons';
 

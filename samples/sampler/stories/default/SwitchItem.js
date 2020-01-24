@@ -5,10 +5,10 @@ import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/Toggle
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Icon from '../../../../Icon';
-import Item, {ItemBase} from '../../../../Item';
-import SwitchItem from '../../../../SwitchItem';
-import ToggleItem from '../../../../ToggleItem';
+import Icon from '@enact/malachite/Icon';
+import Item, {ItemBase} from '@enact/malachite/Item';
+import SwitchItem from '@enact/malachite/SwitchItem';
+import ToggleItem from '@enact/malachite/ToggleItem';
 
 import {listIcons} from './icons';
 

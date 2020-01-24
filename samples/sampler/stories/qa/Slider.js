@@ -4,9 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {storiesOf} from '@storybook/react';
 
-import Item from '../../../../Item';
-import Slider from '../../../../Slider';
-import VirtualList from '../../../../VirtualList';
+import Item from '@enact/malachite/Item';
+import Slider from '@enact/malachite/Slider';
+import VirtualList from '@enact/malachite/VirtualList';
 
 Slider.displayName = 'Slider';
 

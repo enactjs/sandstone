@@ -2,7 +2,7 @@ import {button} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react';
 import React from 'react';
 
-import VideoPlayer, {Video} from '../../../../VideoPlayer';
+import VideoPlayer, {Video} from '@enact/malachite/VideoPlayer';
 
 const videoTabLabel = 'VideoPlayer';
 

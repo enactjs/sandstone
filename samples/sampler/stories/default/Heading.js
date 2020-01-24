@@ -4,8 +4,8 @@ import UiHeading from '@enact/ui/Heading';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '../../../../BodyText';
-import Heading, {HeadingBase} from '../../../../Heading';
+import BodyText from '@enact/malachite/BodyText';
+import Heading, {HeadingBase} from '@enact/malachite/Heading';
 
 Heading.displayName = 'Heading';
 const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading);
