@@ -38,7 +38,7 @@ class ScrollerResizableItem extends React.Component {
 		toggleMore: PropTypes.func
 	}
 	render () {
-		const height = ri.unit(this.props.more ? 6000 : 1600, 'rem');
+		const height = ri.unit(this.props.more ? 3000 : 800, 'rem');
 		const text = this.props.more ? 'less' : 'more';
 		const style = {
 			border: 'solid yellow',
