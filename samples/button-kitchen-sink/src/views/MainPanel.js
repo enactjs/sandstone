@@ -19,6 +19,7 @@ const MainPanel = kind({
 				<Button size="small" disabled>Disabled Button</Button>
 				<Button size="small">Super long long long string Button</Button>
 				<Button size="small" icon="home">Button with Icon</Button>
+				<Button size="small" type="round" icon="home" iconPosition="after">Button with Icon after</Button>
 
 				<Heading showLine>{'"Round" Small Buttons - no effect'}</Heading>
 				<Button size="small" type="round">Button</Button>
@@ -26,18 +27,21 @@ const MainPanel = kind({
 				<Button size="small" type="round" disabled>Disabled Button</Button>
 				<Button size="small" type="round">Super long long long string Button</Button>
 				<Button size="small" type="round" icon="home">Button with Icon</Button>
+				<Button size="small" type="round" icon="home" iconPosition="after">Button with Icon after</Button>
 
 				<Heading showLine>Large Buttons</Heading>
 				<Button size="large">Large Button</Button>
 				<Button size="large" selected>Large Selected Button</Button>
 				<Button size="large">Super long long long string Large Button</Button>
 				<Button size="large" icon="home">Button with Icon</Button>
+				<Button size="large" type="round" icon="home" iconPosition="after">Button with Icon after</Button>
 
 				<Heading showLine>{'"Round" Large Buttons - no effect'}</Heading>
 				<Button size="large" type="round">Large Button</Button>
 				<Button size="large" type="round" selected>Large Selected Button</Button>
 				<Button size="large" type="round">Super long long long string Large Button</Button>
 				<Button size="large" type="round" icon="home">Button with Icon</Button>
+				<Button size="large" type="round" icon="home" iconPosition="after">Button with Icon after</Button>
 
 				<Heading showLine>{'"Grid" Icon Button'}</Heading>
 				<Button size="small" icon="play" />

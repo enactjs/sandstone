@@ -140,6 +140,8 @@ const ButtonBase = kind({
 		delete rest.backgroundOpacity;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
+		delete rest.size;
+		delete rest.type;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
