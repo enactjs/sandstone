@@ -7,12 +7,11 @@ import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import IconButton from '@enact/sandstone/IconButton';
 import IncrementSlider, {IncrementSliderBase} from '@enact/sandstone/IncrementSlider';
 
 import IncrementSliderDelayValue from './components/IncrementSliderDelayValue';
 
-const ContextualPopupButton = ContextualPopupDecorator(IconButton);
+const ContextualPopupButton = ContextualPopupDecorator(Button);
 const IncrementSliderConfig = mergeComponentMetadata('IncrementSlider', IncrementSliderBase, IncrementSlider);
 
 class IncrementSliderView extends React.Component {
@@ -80,9 +79,8 @@ class IncrementSliderWithContextualPopup extends React.Component {
 					open={this.state.open}
 					popupComponent={this.renderPopup}
 					size="small"
-				>
-					{'drawer'}
-				</ContextualPopupButton>
+					icon="drawer"
+				/>
 			</div>
 		);
 	}

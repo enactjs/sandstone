@@ -10,7 +10,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import Input from '@enact/sandstone/Input';
-import IconButton from '@enact/sandstone/IconButton';
 import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator);
@@ -133,7 +132,8 @@ class ChangeableTooltip extends React.Component {
 					<Input id="top" size="small" type="number" onChange={this.handleChangeTop} value={top} />
 					<Button onClick={this.changeTooltipText}>Change Text</Button>
 				</div>
-				<IconButton
+				<Button
+					icon="drawer"
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
 					tooltipText={this.state.text}
 					onClick={this.changeTooltipText}
@@ -142,9 +142,7 @@ class ChangeableTooltip extends React.Component {
 						left: parseInt(left || 0),
 						top: parseInt(top || 0)
 					}}
-				>
-					drawer
-				</IconButton>
+				/>
 			</div>
 		);
 	}
@@ -155,21 +153,19 @@ const IconButtonItem = kind({
 	render: ({...rest}) => {
 		return (
 			<div style={{height: 100, border: 'solid 3px yellow'}}>
-				<IconButton
+				<Button
+					icon="plus"
 					size="small"
 					tooltipText="tooltip"
 					{...rest}
-				>
-					plus
-				</IconButton>
-				<IconButton
+				/>
+				<Button
+					icon="plus"
 					style={{marginLeft: '450px'}}
 					size="small"
 					tooltipText="tooltip"
 					{...rest}
-				>
-					plus
-				</IconButton>
+				/>
 			</div>
 		);
 	}
@@ -208,30 +204,27 @@ class TooltipFollow extends React.Component {
 			<Layout orientation="vertical">
 				<Cell shrink>
 					<BodyText>Click icon buttons to resize or move</BodyText>
-					<IconButton
+					<Button
+						icon="minus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handleWidthMinusClick}
 						style={{width: `${this.state.widthMinus}px`}}
-					>
-						minus
-					</IconButton>
-					<IconButton
+					/>
+					<Button
+						icon="plus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handleWidthPlusClick}
 						style={{width: `${this.state.widthPlus}px`}}
-					>
-						plus
-					</IconButton>
-					<IconButton
+					/>
+					<Button
+						icon="plus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handlePositionClick}
 						style={{left: `${this.state.left}px`}}
-					>
-						plus
-					</IconButton>
+					/>
 				</Cell>
 				<Cell component={Scroller}>
 					<IconButtonItem tooltipPosition="above" />

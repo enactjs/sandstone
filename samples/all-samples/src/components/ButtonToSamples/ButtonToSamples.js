@@ -1,18 +1,17 @@
 import {Link} from 'react-router-dom';
 import React from 'react';
 
-import IconButton from '@enact/sandstone/IconButton';
+import Button from '@enact/sandstone/Button';
 
 import css from './ButtonToSamples.module.less';
 
 const ButtonToSamples = () => (
 	<div className={css.buttonContainer}>
 		<Link to="/" className={css.backLink}>
-			<IconButton
+			<Button
 				aria-label="Back To Samples"
-			>
-				arrowhookleft
-			</IconButton>
+				icon="arrowhookleft"
+			/>
 		</Link>
 	</div>
 );

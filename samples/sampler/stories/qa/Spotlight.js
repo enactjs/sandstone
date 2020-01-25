@@ -20,7 +20,6 @@ import ExpandableList from '@enact/sandstone/ExpandableList';
 import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Icon from '@enact/sandstone/Icon';
-import IconButton from '@enact/sandstone/IconButton';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
@@ -268,9 +267,7 @@ class FocusedAndDisabled extends React.Component {
 
 	tests = [
 		<Button icon="star">Button</Button>,
-		<IconButton>star</IconButton>,
-		<Button icon={docs}>Button</Button>,
-		<IconButton>{docs}</IconButton>
+		<Button icon={docs}>Button</Button>
 	]
 
 	handleClear = () => this.setState({index: -1})
@@ -294,9 +291,7 @@ class FocusedAndDisabled extends React.Component {
 				{this.tests.map((comp, index) => (
 					<div key={`row-${index}`}>
 						{/* eslint-disable-next-line react/jsx-no-bind */}
-						<IconButton onTap={() => this.select(index)}>
-							arrowlargeright
-						</IconButton>
+						<Button icon="arrowlargeright" onTap={() => this.select(index)} />
 						{React.cloneElement(comp, {
 							disabled: this.state.index === index,
 							spotlightId: `component-${index}`
@@ -522,15 +517,14 @@ storiesOf('Spotlight', module)
 										</ToggleButton>
 									</div>
 									<div>
-										<IconButton
+										<Button
+											icon="plus"
 											onSpotlightDown={action('onSpotlightDown')}
 											onSpotlightLeft={action('onSpotlightLeft')}
 											onSpotlightRight={action('onSpotlightRight')}
 											onSpotlightUp={action('onSpotlightUp')}
 											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											plus
-										</IconButton>
+										/>
 										<Input
 											onSpotlightDown={action('onSpotlightDown')}
 											onSpotlightLeft={action('onSpotlightLeft')}

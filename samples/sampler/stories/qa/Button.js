@@ -6,7 +6,6 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
 import Heading from '@enact/sandstone/Heading';
 
 import iconNames from '../default/icons';
@@ -114,23 +113,21 @@ storiesOf('Button', module)
 				>
 					Small Button
 				</Button>
-				<Heading>IconButton</Heading>
-				<IconButton
+				<Heading>Button with icons</Heading>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="large"
-				>
-					star
-				</IconButton>
-				<IconButton
+					icon="star"
+				/>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="small"
-				>
-					star
-				</IconButton>
+					icon="star"
+				/>
 			</div>
 		)
 	);
