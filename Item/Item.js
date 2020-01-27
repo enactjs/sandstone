@@ -22,7 +22,6 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
@@ -122,14 +121,6 @@ const ItemBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * The label to be displayed along with the text.
-		 *
-		 * @type {Node}
-		 * @public
-		 */
-		label: PropTypes.node,
-
-		/**
 		 * The icon displayed within the item.
 		 *
 		 * @type {String}
@@ -137,7 +128,14 @@ const ItemBase = kind({
 		 */
 		icon: PropTypes.string,
 
-
+		/**
+		 * The label to be displayed along with the text.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		label: PropTypes.node,
+		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
 		selected: PropTypes.bool,
 		slotAfter: PropTypes.node,
 		slotBefore: PropTypes.node
@@ -152,7 +150,7 @@ const ItemBase = kind({
 		className: ({selected, styler}) => styler.append({selected})
 	},
 
-	render: ({children, css, componentRef, disabled, label, labelPosition, slotBefore, slotAfter,  ...rest}) => {
+	render: ({children, css, componentRef, label, labelPosition, slotBefore, slotAfter,  ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -195,8 +193,8 @@ const ItemBase = kind({
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
- */
- const ItemDecorator = compose(
+*/
+const ItemDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,

@@ -2,11 +2,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-<<<<<<< HEAD
-import BodyText from '../../../../BodyText';
-=======
 import BodyText from '@enact/sandstone/BodyText';
->>>>>>> develop
 
 BodyText.displayName = 'BodyText';
 
