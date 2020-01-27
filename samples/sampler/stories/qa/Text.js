@@ -2,25 +2,25 @@ import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '../../../../BodyText';
-import Button from '../../../../Button';
-import CheckboxItem from '../../../../CheckboxItem';
-import Heading from '../../../../Heading';
-import ExpandableInput from '../../../../ExpandableInput';
-import ExpandableList from '../../../../ExpandableList';
-import ExpandablePicker from '../../../../ExpandablePicker';
-import FormCheckboxItem from '../../../../FormCheckboxItem';
-import GridListImageItem from '../../../../GridListImageItem';
-import {Header} from '../../../../Panels';
-import Input from '../../../../Input';
-import Item from '../../../../Item';
-import LabeledItem from '../../../../LabeledItem';
-import Marquee from '../../../../Marquee';
-import RadioItem from '../../../../RadioItem';
-import Scroller from '../../../../Scroller';
-import SelectableItem from '../../../../SelectableItem';
-import SlotItem from '../../../../SlotItem';
-import SwitchItem from '../../../../SwitchItem';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableInput from '@enact/sandstone/ExpandableInput';
+import ExpandableList from '@enact/sandstone/ExpandableList';
+import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
+import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
+import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import {Header} from '@enact/sandstone/Panels';
+import Input from '@enact/sandstone/Input';
+import Item from '@enact/sandstone/Item';
+import LabeledItem from '@enact/sandstone/LabeledItem';
+import Marquee from '@enact/sandstone/Marquee';
+import RadioItem from '@enact/sandstone/RadioItem';
+import Scroller from '@enact/sandstone/Scroller';
+import SelectableItem from '@enact/sandstone/SelectableItem';
+import SlotItem from '@enact/sandstone/SlotItem';
+import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
 	english: 'We name themes after gemstones',

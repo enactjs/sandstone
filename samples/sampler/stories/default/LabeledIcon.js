@@ -5,8 +5,8 @@ import UiIcon from '@enact/ui/Icon';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import LabeledIcon from '../../../../LabeledIcon';
-import Icon, {IconBase} from '../../../../Icon';
+import LabeledIcon from '@enact/sandstone/LabeledIcon';
+import Icon, {IconBase} from '@enact/sandstone/Icon';
 
 import iconNames from './icons';
 

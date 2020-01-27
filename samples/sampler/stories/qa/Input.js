@@ -4,7 +4,7 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {Input, InputBase} from '../../../../Input';
+import {Input, InputBase} from '@enact/sandstone/Input';
 
 import icons from '../default/icons';
 

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 const shouldRenderChildren = ({disabled, open}, {hideChildren}) => hideChildren && open && !disabled;
 
 /**
- * Default config for {@link mooonstone/ExpandableItem.ExpandableSpotlightDecorator}
+ * Default config for {@link sandstone/ExpandableItem.ExpandableSpotlightDecorator}
  *
  * @memberof sandstone/ExpandableItem.ExpandableSpotlightDecorator
  * @hocconfig

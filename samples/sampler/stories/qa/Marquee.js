@@ -6,11 +6,11 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import Heading from '../../../../Heading';
-import Icon from '../../../../Icon';
-import Item, {ItemBase} from '../../../../Item';
-import Marquee, {MarqueeController} from '../../../../Marquee';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import Icon from '@enact/sandstone/Icon';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
 
 Marquee.displayName = 'Marquee';
 

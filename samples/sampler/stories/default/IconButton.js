@@ -5,8 +5,8 @@ import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import IconButton, {IconButtonBase} from '../../../../IconButton';
-import Button, {ButtonBase} from '../../../../Button';
+import IconButton, {IconButtonBase} from '@enact/sandstone/IconButton';
+import Button, {ButtonBase} from '@enact/sandstone/Button';
 
 import icons from './icons';
 

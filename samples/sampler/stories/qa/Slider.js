@@ -4,9 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {storiesOf} from '@storybook/react';
 
-import Item from '../../../../Item';
-import Slider from '../../../../Slider';
-import VirtualList from '../../../../VirtualList';
+import Item from '@enact/sandstone/Item';
+import Slider from '@enact/sandstone/Slider';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 Slider.displayName = 'Slider';
 

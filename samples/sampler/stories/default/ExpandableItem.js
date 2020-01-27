@@ -4,9 +4,9 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableItem, {Expandable, ExpandableItemBase} from '../../../../ExpandableItem';
-import Icon from '../../../../Icon';
-import Item from '../../../../Item';
+import ExpandableItem, {Expandable, ExpandableItemBase} from '@enact/sandstone/ExpandableItem';
+import Icon from '@enact/sandstone/Icon';
+import Item from '@enact/sandstone/Item';
 
 const Config = mergeComponentMetadata('ExpandableItem', Expandable, ExpandableItem, ExpandableItemBase);
 ExpandableItem.displayName = 'ExpandableItem';

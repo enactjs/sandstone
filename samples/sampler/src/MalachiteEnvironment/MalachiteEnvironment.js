@@ -1,4 +1,4 @@
-// Theme Environment
+// Malachite Environment
 
 import classnames from 'classnames';
 import kind from '@enact/core/kind';
@@ -8,11 +8,11 @@ import {Column, Cell} from '@enact/ui/Layout';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import BodyText from '@enact/sandstone/BodyText';
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import BodyText from '@enact/malachite/BodyText';
+import MoonstoneDecorator from '@enact/malachite/MoonstoneDecorator';
+import {Panels, Panel, Header} from '@enact/malachite/Panels';
 
-import css from './ThemeEnvironment.module.less';
+import css from './MalachiteEnvironment.module.less';
 
 const globalGroup = 'Global Knobs';
 
@@ -22,7 +22,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'ThemeEnvrionmentPanels',
+	name: 'MalachiteEnvironmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
@@ -34,7 +34,7 @@ const PanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'themeEnvrionmentPanels'
+		className: 'malachiteEnvironmentPanels'
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
@@ -54,47 +54,47 @@ const PanelsBase = kind({
 });
 
 const FullscreenBase = kind({
-	name: 'ThemeEnvrionment',
+	name: 'MalachiteEnvironment',
 
 	render: (props) => (
 		<div {...props} />
 	)
 });
 
-const Theme = ThemeDecorator({overlay: false}, PanelsBase);
-const ThemeFullscreen = ThemeDecorator({overlay: false}, FullscreenBase);
+const Malachite = MoonstoneDecorator({overlay: false}, PanelsBase);
+const MalachiteFullscreen = MoonstoneDecorator({overlay: false}, FullscreenBase);
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {
-	'local': '',
-	'en-US - US English': 'en-US',
-	'ko-KR - Korean': 'ko-KR',
-	'es-ES - Spanish, with alternate weekends': 'es-ES',
-	'am-ET - Amharic, 5 meridiems': 'am-ET',
-	'th-TH - Thai, with tall characters': 'th-TH',
-	'ar-SA - Arabic, RTL and standard font': 'ar-SA',
-	'ur-PK - Urdu, RTL and custom Urdu font': 'ur-PK',
-	'zh-Hans-HK - Simplified Chinese, custom Hans font': 'zh-Hans-HK',
-	'zh-Hant-HK - Traditional Chinese, custom Hant font': 'zh-Hant-HK',
-	'vi-VN - Vietnamese, Special non-latin font handling': 'vi-VN',
-	'ta-IN - Tamil, custom Indian font': 'ta-IN',
-	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
-	'en-JP - English, custom Japanese font': 'en-JP',
+	'local':                                                             '',
+	'en-US - US English':                                                'en-US',
+	'ko-KR - Korean':                                                    'ko-KR',
+	'es-ES - Spanish, with alternate weekends':                          'es-ES',
+	'am-ET - Amharic, 5 meridiems':                                      'am-ET',
+	'th-TH - Thai, with tall characters':                                'th-TH',
+	'ar-SA - Arabic, RTL and standard font':                             'ar-SA',
+	'ur-PK - Urdu, RTL and custom Urdu font':                            'ur-PK',
+	'zh-Hans-HK - Simplified Chinese, custom Hans font':                 'zh-Hans-HK',
+	'zh-Hant-HK - Traditional Chinese, custom Hant font':                'zh-Hant-HK',
+	'vi-VN - Vietnamese, Special non-latin font handling':               'vi-VN',
+	'ta-IN - Tamil, custom Indian font':                                 'ta-IN',
+	'ja-JP - Japanese, custom Japanese font':                            'ja-JP',
+	'en-JP - English, custom Japanese font':                             'en-JP',
 	'si-LK - Sinhala, external font family with different line metrics': 'si-LK'
 };
 
 // This mapping/remapping is necessary to support objects being used as select-knob values, since
 // they cannot be safely URL encoded during the knob saving/linking process.
 const backgroundLabels = {
-	'Default (Based on Skin)': '',
-	'Strawberries (Red)': 'backgroundColorful1',
-	'Tunnel (Green)': 'backgroundColorful2',
-	'Mountains (Blue)': 'backgroundColorful3',
-	'Misty River': 'backgroundColorful4',
-	'Turbulant Tides': 'backgroundColorful5',
-	'Space Station': 'backgroundColorful6',
-	'Warm Pup': 'backgroundColorful7',
-	'Random': 'backgroundColorful8'
+	'Default (Based on Skin)':  '',
+	'Strawberries (Red)':       'backgroundColorful1',
+	'Tunnel (Green)':           'backgroundColorful2',
+	'Mountains (Blue)':         'backgroundColorful3',
+	'Misty River':              'backgroundColorful4',
+	'Turbulant Tides':          'backgroundColorful5',
+	'Space Station':            'backgroundColorful6',
+	'Warm Pup':                 'backgroundColorful7',
+	'Random':                   'backgroundColorful8'
 };
 
 // Values of `backgroundLabels` must be kept in sync with keys of `backgroundLabelMap`.
@@ -111,7 +111,8 @@ const backgroundLabelMap = {
 };
 
 const skins = {
-	'Neutral': 'neutral'
+	'Dark': 'dark',
+	'Light': 'light'
 };
 
 const getArgs = (str) => {
@@ -144,7 +145,7 @@ const StorybookDecorator = (story, config) => {
 			locale: 'en-US',
 			'large text': false,
 			'high contrast': false,
-			skin: 'neutral'
+			skin: 'dark'
 		},
 		groupId: globalGroup
 	};
@@ -173,7 +174,7 @@ const StorybookDecorator = (story, config) => {
 	}
 
 	return (
-		<Theme
+		<Malachite
 			className={classnames(classes)}
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
@@ -181,17 +182,17 @@ const StorybookDecorator = (story, config) => {
 			textSize={boolean('large text', Config, getKnobFromArgs(args, 'large text')) ? 'large' : 'normal'}
 			highContrast={boolean('high contrast', Config, getKnobFromArgs(args, 'high contrast'))}
 			style={{
-				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
+				'--malachite-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
 			noHeader={config.noHeader}
 			noPanel={config.noPanel}
 			noPanels={config.noPanels}
-			{...config.sandstoneProps}
+			{...config.malachiteProps}
 			{...config.panelsProps}
 		>
 			{sample}
-		</Theme>
+		</Malachite>
 	);
 };
 
@@ -199,7 +200,7 @@ const FullscreenStorybookDecorator = (story, config) => {
 	const sample = story();
 	const args = getArgs();
 	return (
-		<ThemeFullscreen
+		<MalachiteFullscreen
 			title={`${config.kind} ${config.story}`.trim()}
 			description={config.description}
 			locale={select('locale', locales, 'en-US')}
@@ -209,9 +210,9 @@ const FullscreenStorybookDecorator = (story, config) => {
 			skin={select('skin', skins, getKnobFromArgs(args, 'skin'))}
 		>
 			{sample}
-		</ThemeFullscreen>
+		</MalachiteFullscreen>
 	);
 };
 
 export default StorybookDecorator;
-export {StorybookDecorator as Theme, FullscreenStorybookDecorator as ThemeFullscreen};
+export {StorybookDecorator as Malachite, FullscreenStorybookDecorator as MalachiteFullscreen};

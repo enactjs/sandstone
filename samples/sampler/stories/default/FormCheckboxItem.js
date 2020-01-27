@@ -5,10 +5,10 @@ import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/Toggle
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import FormCheckboxItem from '../../../../FormCheckboxItem';
-import ToggleItem from '../../../../ToggleItem';
-import Item, {ItemBase} from '../../../../Item';
-import Icon from '../../../../Icon';
+import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
+import ToggleItem from '@enact/sandstone/ToggleItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 
 import {listIcons} from './icons';
 

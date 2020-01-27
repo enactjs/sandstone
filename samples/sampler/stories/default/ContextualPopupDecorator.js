@@ -5,9 +5,9 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {ContextualPopupDecorator} from '../../../../ContextualPopupDecorator';
-import BodyText from '../../../../BodyText';
-import Button from '../../../../Button';
+import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 ContextualButton.displayName = 'ContextualButton';

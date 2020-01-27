@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "bootstrap": "npm i && enact link",
     "lint": "enact lint --strict",
     "test": "echo \"No test suite\" && exit 0",
     "pack": "build-storybook -c .storybook -o dist",
@@ -19,14 +20,13 @@
   "dependencies": {
     "@enact/core": "^3.2.5",
     "@enact/i18n": "^3.2.5",
+    "@enact/sandstone": "../../",
     "@enact/spotlight": "^3.2.5",
     "@enact/ui": "^3.2.5",
-    "@enact/webos": "^3.2.5",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "query-string": "^6.7.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.8.6"
   },
   "devDependencies": {
     "@enact/storybook-utils": "^1.0.0",

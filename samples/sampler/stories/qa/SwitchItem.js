@@ -4,8 +4,8 @@ import Group from '@enact/ui/Group';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Heading from '../../../../Heading';
-import SwitchItem from '../../../../SwitchItem';
+import Heading from '@enact/sandstone/Heading';
+import SwitchItem from '@enact/sandstone/SwitchItem';
 
 SwitchItem.displayName = 'SwitchItem';
 

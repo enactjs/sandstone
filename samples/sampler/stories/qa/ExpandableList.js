@@ -5,10 +5,10 @@ import {RadioControllerDecorator} from '@enact/ui/RadioDecorator';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import Heading from '../../../../Heading';
-import ExpandableList, {ExpandableListBase} from '../../../../ExpandableList';
-import Scroller from '../../../../Scroller';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableList, {ExpandableListBase} from '@enact/sandstone/ExpandableList';
+import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('ExpandableList', ExpandableList, ExpandableListBase);
 

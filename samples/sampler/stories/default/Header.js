@@ -3,10 +3,10 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {Header, HeaderBase} from '../../../../Panels';
-import Button from '../../../../Button';
-import IconButton from '../../../../IconButton';
-import Input from '../../../../Input';
+import {Header, HeaderBase} from '@enact/sandstone/Panels';
+import Button from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
+import Input from '@enact/sandstone/Input';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);

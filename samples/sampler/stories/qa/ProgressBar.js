@@ -3,7 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ProgressBar, {ProgressBarBase} from '../../../../ProgressBar';
+import ProgressBar, {ProgressBarBase} from '@enact/sandstone/ProgressBar';
 
 const Config = mergeComponentMetadata('ProgressBar', ProgressBarBase, ProgressBar);
 

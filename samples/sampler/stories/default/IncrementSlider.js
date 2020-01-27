@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import IncrementSlider, {IncrementSliderBase, IncrementSliderTooltip} from '../../../../IncrementSlider';
+import IncrementSlider, {IncrementSliderBase, IncrementSliderTooltip} from '@enact/sandstone/IncrementSlider';
 
 import {decrementIcons, incrementIcons} from './icons';
 

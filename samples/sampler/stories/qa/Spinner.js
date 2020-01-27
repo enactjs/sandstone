@@ -4,9 +4,9 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Button from '../../../../Button';
-import Input from '../../../../Input';
-import Spinner from '../../../../Spinner';
+import Button from '@enact/sandstone/Button';
+import Input from '@enact/sandstone/Input';
+import Spinner from '@enact/sandstone/Spinner';
 
 Spinner.displayName = 'Spinner';
 

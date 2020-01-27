@@ -4,7 +4,7 @@ import UiBodyText, {BodyTextBase as UiBodyTextBase} from '@enact/ui/BodyText';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText, {BodyTextBase} from '../../../../BodyText';
+import BodyText, {BodyTextBase} from '@enact/sandstone/BodyText';
 
 BodyText.displayName = 'BodyText';
 const Config = mergeComponentMetadata('BodyText', UiBodyTextBase, UiBodyText, BodyTextBase, BodyText);

@@ -3,7 +3,7 @@
 // Grouped into logical sets for easy consumption.
 //
 
-import {icons} from '../../../../Icon';
+import {icons} from '@enact/sandstone/Icon';
 
 const decrementIcons = [
 	'minus',

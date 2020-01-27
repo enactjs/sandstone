@@ -3,7 +3,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '../../../../MediaOverlay';
+import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/sandstone/MediaOverlay';
 
 const prop = {
 	videoTitles: [

@@ -3,7 +3,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import DayPicker from '../../../../DayPicker';
+import DayPicker from '@enact/sandstone/DayPicker';
 
 DayPicker.displayName = 'DayPicker';
 
