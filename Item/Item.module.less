@@ -35,11 +35,8 @@
 		background-color: inherit;
 		border-radius: 12px;
 
-		transform: translateZ(0);
 		will-change: transform;
-		animation-duration: 0.2s;
-		animation-iteration-count: 1;
-		animation-timing-function: ease-out;
+		transition: transform 0.2s ease-out;
 	}
 
 	.slotAfter {
@@ -107,9 +104,11 @@
 		}
 
 		.focus({
+			z-index: 1;
 			.bg {
 				background-color: @sand-item-focus-bg-color;
 				opacity: 1;
+				box-shadow: @sand-item-focused-bg-box-shadow;
 				// color: @sand-item-focus-text-color;
 			}
 			.text,
