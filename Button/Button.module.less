@@ -26,12 +26,9 @@
 	});
 
 	.bg {
-		background-color: inherit;
 		border-width: @sand-button-border-width;
-		border-style: solid;
 		border-radius: @sand-button-border-radius;
 
-		will-change: transform;
 		transition: transform 0.2s ease-out;
 	}
 
@@ -184,7 +181,7 @@
 
 				.bg {
 					transform: @sand-button-focused-bg-scale;
-					box-shadow: @sand-button-focused-bg-box-shadow;
+					filter: drop-shadow(@sand-button-focused-bg-shadow);
 				}
 
 				&.small .bg {
