@@ -2,14 +2,51 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
+@import "../styles/skin.less";
 
 .item {
 	.sand-text-base(@sand-item-font-size);
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	line-height: @sand-item-line-height;
+	display: flex;
 	position: relative;
 	color: inherit;
+
+	.itemContent {
+		&.hasLabel {
+			&.labelAfter,
+			&.labelBelow {
+				.content { order: 1; }
+				.label   { order: 2; }
+			}
+
+			&.labelAbove,
+			&.labelBefore {
+				.content { order: 2; }
+				.label   { order: 1; }
+			}
+		}
+	}
+
+	.bg {
+		position: absolute;
+		.position(0);
+		background-color: inherit;
+		border-radius: 12px;
+		will-change: transform;
+		transition: transform 0.2s ease-out;
+	}
+
+	.slotAfter {
+		display: flex;
+		justify-content: center;
+	}
+
+	.slotBefore {
+		display: flex;
+		justify-content: center;
+	}
 
 	.sand-locale-non-latin({
 		line-height: @sand-item-line-height;
@@ -29,4 +66,56 @@
 	}
 
 	.locale-japanese-line-break();
+
+	// Text
+	.label {
+		.sand-font(@sand-expandable-value-font-family, @sand-non-latin-font-family-light, {
+			font-weight: @sand-non-latin-body-font-weight;
+			font-size: @sand-non-latin-body-font-size;
+			line-height: @sand-non-latin-body-line-height;
+		});
+		font-size: @sand-expandable-value-font-size;
+		font-weight: @sand-expandable-value-font-weight;
+		font-style: @sand-expandable-value-font-style;
+		line-height: @sand-body-line-height;
+		text-transform: none;
+		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
+		// margin-top: -@text-vertical-offset;
+		// padding-bottom: @text-vertical-offset;
+		// Force the label to fill the next line in the flexbox container
+		width: 100%;
+
+		:global(.enact-locale-right-to-left) & {
+			padding-left: 0;
+		}
+	}
+
+	&.with-label {
+		.label {
+			padding-bottom: 3px;
+		}
+	}
+
+	// Skin colors
+	.applySkins({
+		.label {
+			color: @sand-labeled-item-label-color;
+		}
+
+		.focus({
+			background-color: @sand-spotlight-bg-color;
+			color: @sand-spotlight-text-color;
+			z-index: 1;
+			.bg {
+				background-color: @sand-item-focus-bg-color;
+				opacity: 1;
+				box-shadow: @sand-item-focused-bg-box-shadow;
+				color: @sand-item-focus-text-color;
+			}
+			.text,
+			.label {
+				color: inherit;
+			}
+		});
+	});
 }
