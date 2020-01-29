@@ -24,7 +24,7 @@ const
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (size) => ({index, ...rest}) => {
 		const itemStyle = {
-			borderBottom: ri.unit(3, 'rem') + ' solid #202328',
+			borderBottom: ri.unit(6, 'rem') + ' solid #202328',
 			boxSizing: 'border-box',
 			height: size + 'px'
 		};
@@ -63,8 +63,8 @@ storiesOf('Sandstone', module)
 					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
 					focusableScrollbar={boolean('focusableScrollbar', VirtualListConfig)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 72)))}
-					itemSize={ri.scale(number('itemSize', VirtualListConfig, 72))}
+					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 144)))}
+					itemSize={ri.scale(number('itemSize', VirtualListConfig, 144))}
 					noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}

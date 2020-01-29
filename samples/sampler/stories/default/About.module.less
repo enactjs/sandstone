@@ -4,8 +4,8 @@
 & {
 	@bg-color: @sand-spinner-ball1-color;
 	@icon-color: @sand-spinner-ball3-color;
-	@icon-size: 12px;
-	@pointer-edge-offset: 9px;
+	@icon-size: 24px;
+	@pointer-edge-offset: 18px;
 
 	@keyframes fadeIn {
 		from {
@@ -18,9 +18,9 @@
 	}
 
 	b {
-		border-radius: 6px;
+		border-radius: 12px;
 		background-color: lighten(@bg-color, 20%);
-		padding: 3px 12px;
+		padding: 6px 24px;
 		white-space: nowrap;
 	}
 
@@ -38,7 +38,7 @@
 			position: absolute;
 			text-align: center;
 			transform-origin: top center;
-			width: 3px;
+			width: 6px;
 
 			.pointerIcon {
 				bottom: 0;
@@ -112,19 +112,19 @@
 
 	.text {
 		display: inline-block;
-		padding: 21px;
-		border-radius: 6px;
+		padding: 42px;
+		border-radius: 12px;
 		background-color: @bg-color;
 		color: @sand-black;
-		font-size: 21px;
-		box-shadow: 3px 3px 9px @sand-dark-gray;
+		font-size: 42px;
+		box-shadow: 6px 6px 18px @sand-dark-gray;
 	}
 
 	.icon {
 		margin: 0;
 		padding: 0;
 		color: @icon-color;
-		font-size: 12px;
+		font-size: 24px;
 		line-height: 0;
 	}
 }

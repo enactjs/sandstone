@@ -54,12 +54,12 @@ storiesOf('VirtualListNative', module)
 					itemRenderer={({index, ...rest}) => {
 						return (<Item {...rest}>{items[index]}</Item>);
 					}}
-					itemSize={ri.scale(number('itemSize', Config, 60))}
+					itemSize={ri.scale(number('itemSize', Config, 120))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
-					spacing={ri.scale(number('spacing', Config, 20))}
+					spacing={ri.scale(number('spacing', Config, 40))}
 					spotlightDisabled={boolean('spotlightDisabled(for all items)', Config, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

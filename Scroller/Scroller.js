@@ -2,7 +2,7 @@
  * Provides Sandstone-themed scroller components and behaviors.
  * @example
  * <Scroller>
- * 	<div style={{height: "150px"}}>
+ * 	<div style={{height: '300px'}}>
  * 		<p>San Francisco</p>
  * 		<p>Seoul</p>
  * 		<p>Bangalore</p>
@@ -159,7 +159,7 @@ class ScrollerBase extends Component {
 	 * @private
 	 */
 	calculateScrollTop = (item) => {
-		const threshold = ri.scale(24);
+		const threshold = ri.scale(48);
 		const roundToStart = (sb, st) => {
 			// round to start
 			if (st < threshold) return 0;

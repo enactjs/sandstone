@@ -59,7 +59,7 @@ class SliderList extends React.Component {
 	renderItem = (size) => ({index, ...rest}) => {
 		const itemStyle = {
 			height: size + 'px',
-			borderBottom: ri.unit(3, 'rem') + ' solid #202328',
+			borderBottom: ri.unit(6, 'rem') + ' solid #202328',
 			boxSizing: 'border-box'
 		};
 
@@ -88,7 +88,7 @@ class SliderList extends React.Component {
 					itemRenderer={this.renderItem(this.props.itemSize)}
 					itemSize={this.props.itemSize}
 					style={{
-						height: ri.unit(552, 'rem')
+						height: ri.unit(1104, 'rem')
 					}}
 				/>
 			</div>
@@ -100,7 +100,7 @@ storiesOf('Slider', module)
 	.add(
 		'Add and Remove ',
 		() => {
-			const itemSize = ri.scale(number('itemSize', Slider, 72));
+			const itemSize = ri.scale(number('itemSize', Slider, 144));
 			return (
 				<SliderList itemSize={itemSize} />
 			);

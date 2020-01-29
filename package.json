@@ -21,11 +21,6 @@
     "mobile",
     "webOS"
   ],
-  "enact": {
-    "ri": {
-      "baseSize": 24
-    }
-  },
   "eslintConfig": {
     "extends": "enact/strict"
   },

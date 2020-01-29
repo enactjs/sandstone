@@ -100,11 +100,11 @@ class MyVirtualList extends React.Component {
 		delete props.closePopup;
 
 		return (
-			<div {...props} style={{width: ri.scaleToRem(915), height: ri.scaleToRem(600)}}>
+			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
 					dataSize={itemList.length}
 					itemRenderer={this.renderItem}
-					itemSize={{minWidth: ri.scale(285), minHeight: ri.scale(60)}}
+					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(120)}}
 					direction="vertical"
 					cbScrollTo={this.getScrollTo}
 				/>
@@ -165,14 +165,14 @@ storiesOf('VirtualGridList', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 180)),
-					minHeight: ri.scale(number('minHeight', Config, 270))
+					minWidth: ri.scale(number('minWidth', Config, 360)),
+					minHeight: ri.scale(number('minHeight', Config, 540))
 				}}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
-				spacing={ri.scale(number('spacing', Config, 18))}
+				spacing={ri.scale(number('spacing', Config, 36))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

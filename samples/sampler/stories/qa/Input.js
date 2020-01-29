@@ -12,7 +12,7 @@ Input.displayName = 'Input';
 
 const iconNames = ['', ...icons];
 
-const divMargin = () => ({margin: ri.unit(12, 'rem')});
+const divMargin = () => ({margin: ri.unit(24, 'rem')});
 
 const inputData = {
 	longText : 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
