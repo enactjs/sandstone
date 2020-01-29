@@ -1,6 +1,7 @@
 // Item.module.less
 //
 @import "../styles/mixins.less";
+@import "../styles/skin.less";
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
@@ -12,6 +13,15 @@
 	display: flex;
 	position: relative;
 	color: inherit;
+
+	.bg {
+		position: absolute;
+		.position(0);
+		opacity: 0;
+		transition: filter 300ms ease-out, opacity 300ms ease-out;
+		will-change: filter, opacity;
+		border-radius: @sand-item-border-radius;
+	}
 
 	.itemContent {
 		&.hasLabel {
@@ -29,23 +39,16 @@
 		}
 	}
 
-	.bg {
-		position: absolute;
-		.position(0);
-		opacity: 0;
-		border-radius: @sand-item-border-radius;
-		will-change: filter, opacity;
-		transition: filter 0.2s ease-out, opacity 0.2s ease-out;
-	}
-
 	.slotAfter {
 		display: flex;
 		justify-content: center;
+		margin-inline-start: @sand-item-slotafter-spacing;
 	}
 
 	.slotBefore {
 		display: flex;
 		justify-content: center;
+		margin-inline-end: @sand-item-slotbefore-spacing;
 	}
 
 	.sand-locale-non-latin({
@@ -80,7 +83,7 @@
 		}
 
 		.focus({
-			color: @sand-spotlight-text-color;
+			color: @sand-item-focus-text-color;
 
 			.bg {
 				opacity: 1;

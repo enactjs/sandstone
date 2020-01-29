@@ -11,15 +11,15 @@
  */
 
 import kind from '@enact/core/kind';
-import Slottable from '@enact/ui/Slottable';
-import ForwardRef from '@enact/ui/ForwardRef';
 import Spottable from '@enact/spotlight/Spottable';
+import ForwardRef from '@enact/ui/ForwardRef';
+import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
 import {Marquee, MarqueeController} from '@enact/ui/Marquee';
 import Pure from '@enact/ui/internal/Pure';
-import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Skinnable from '../Skinnable';
@@ -71,7 +71,7 @@ const ItemContent = kind({
 			<Cell {...rest}>
 				<Layout orientation={orientation}>
 					{contentElement}
-					<Cell component={Marquee} className={css.label}>
+					<Cell component={Marquee} className={css.label} shrink>
 						{label}
 					</Cell>
 				</Layout>
@@ -79,7 +79,6 @@ const ItemContent = kind({
 		);
 	}
 });
-
 
 /**
  * A Sandstone styled item without any behavior.
@@ -139,11 +138,12 @@ const ItemBase = kind({
 		className: ({selected, styler}) => styler.append({selected})
 	},
 
-	render: ({children, css, componentRef, label, labelPosition, slotBefore, slotAfter,  ...rest}) => {
+	render: ({children, componentRef, css, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
 				component={Row}
+				align="center"
 				ref={componentRef}
 				{...rest}
 				css={css}
@@ -182,7 +182,7 @@ const ItemBase = kind({
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
-*/
+ */
 const ItemDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
