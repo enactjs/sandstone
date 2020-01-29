@@ -32,10 +32,10 @@
 	.bg {
 		position: absolute;
 		.position(0);
-		background-color: inherit;
-		border-radius: 12px;
-		will-change: transform;
-		transition: transform 0.2s ease-out;
+		opacity: 0;
+		border-radius: @sand-item-border-radius;
+		will-change: filter, opacity;
+		transition: filter 0.2s ease-out, opacity 0.2s ease-out;
 	}
 
 	.slotAfter {
@@ -69,49 +69,24 @@
 
 	// Text
 	.label {
-		.sand-font(@sand-expandable-value-font-family, @sand-non-latin-font-family-light, {
-			font-weight: @sand-non-latin-body-font-weight;
-			font-size: @sand-non-latin-body-font-size;
-			line-height: @sand-non-latin-body-line-height;
-		});
-		font-size: @sand-expandable-value-font-size;
-		font-weight: @sand-expandable-value-font-weight;
-		font-style: @sand-expandable-value-font-style;
-		line-height: @sand-body-line-height;
-		text-transform: none;
-		// The following two margin values must cancel each other out, so there is zero layout impact when `text` is empty.
-		// margin-top: -@text-vertical-offset;
-		// padding-bottom: @text-vertical-offset;
-		// Force the label to fill the next line in the flexbox container
-		width: 100%;
-
-		:global(.enact-locale-right-to-left) & {
-			padding-left: 0;
-		}
-	}
-
-	&.with-label {
-		.label {
-			padding-bottom: 3px;
-		}
+		.sand-text-base(@sand-item-label-font-size);
 	}
 
 	// Skin colors
 	.applySkins({
-		.label {
-			color: @sand-labeled-item-label-color;
+		.bg {
+			background-color: @sand-item-focus-bg-color;
+			filter: drop-shadow(@sand-item-bg-shadow);
 		}
 
 		.focus({
-			background-color: @sand-spotlight-bg-color;
 			color: @sand-spotlight-text-color;
-			z-index: 1;
+
 			.bg {
-				background-color: @sand-item-focus-bg-color;
 				opacity: 1;
-				box-shadow: @sand-item-focused-bg-box-shadow;
-				color: @sand-item-focus-text-color;
+				filter: drop-shadow(@sand-item-focus-bg-shadow);
 			}
+
 			.text,
 			.label {
 				color: inherit;

@@ -118,14 +118,6 @@ const ItemBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * The icon displayed within the item.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		icon: PropTypes.string,
-
-		/**
 		 * The label to be displayed along with the text.
 		 *
 		 * @type {Node}

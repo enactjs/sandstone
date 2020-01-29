@@ -14,6 +14,7 @@ storiesOf('Sandstone', module)
 		'Item',
 		() => (
 			<Item
+				label={text('label', Config, 'Label')}
 				disabled={boolean('disabled', Config)}
 				inline={boolean('inline', Config)}
 			>
