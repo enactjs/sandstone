@@ -359,12 +359,11 @@
 
 // Radio Item
 // ---------------------------------------
-@sand-radio-item-indicator-size: 42px;
-@sand-radio-item-indicator-size-large: 48px;
-@sand-radio-item-indicator-border: 4px;  // ### Exceptional Case ###
+@sand-radioitem-icon-border-width: 4px; // ### Exceptional Case ###
 	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
 	// this value must be specifically considered as to not impose layout issues related to, for
 	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+@sand-radioitem-icon-border-radius: 999px;
 
 // GridListImageItem
 // ---------------------------------------
