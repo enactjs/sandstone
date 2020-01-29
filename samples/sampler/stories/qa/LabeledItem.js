@@ -22,7 +22,7 @@ storiesOf('LabeledItem', module)
 		() => (
 			<Scroller style={{height: '100%'}}>
 				<div>
-					<Heading showLine style={{paddingTop: '30px'}} >Long children and Short label</Heading>
+					<Heading showLine style={{paddingTop: '60px'}} >Long children and Short label</Heading>
 					<LabeledItem
 						disabled={boolean('disabled', LabeledItem)}
 						label={text('label', LabeledItem, inputData.shortLabel)}
@@ -30,7 +30,7 @@ storiesOf('LabeledItem', module)
 						{text('children2', LabeledItem, inputData.longChildren)}
 					</LabeledItem>
 
-					<Heading showLine style={{paddingTop: '30px'}}>Short children and Long label</Heading>
+					<Heading showLine style={{paddingTop: '60px'}}>Short children and Long label</Heading>
 					<LabeledItem
 						disabled={boolean('disabled', LabeledItem)}
 						label={text('label2', LabeledItem, inputData.longLabel)}
@@ -38,7 +38,7 @@ storiesOf('LabeledItem', module)
 						{text('children', LabeledItem, inputData.shortChildren)}
 					</LabeledItem>
 
-					<Heading showLine style={{paddingTop: '30px'}}>Long children and Long label</Heading>
+					<Heading showLine style={{paddingTop: '60px'}}>Long children and Long label</Heading>
 					<LabeledItem
 						disabled={boolean('disabled', LabeledItem)}
 						label={text('label2', LabeledItem, inputData.longLabel)}

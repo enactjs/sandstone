@@ -29,7 +29,7 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate long marquee when scrollbar is rendered',
 		() => (
-			<Scroller style={{height: ri.unit(399, 'rem'), width: ri.unit(501, 'rem')}}>
+			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
 				<NoUpdate>
 					<Item marqueeOn="render">MARQUEEONRENDER ABCDE</Item>
 					<Item>ABCDEFGHIJKLMNOPQRST</Item>
@@ -47,7 +47,7 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate when selectable item is selected',
 		() => (
-			<Scroller style={{height: ri.unit(399, 'rem'), width: ri.unit(501, 'rem')}}>
+			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
 				<SelectableItem>
 					SELECTABLE ITEM ABCDEFGHIJ
 				</SelectableItem>

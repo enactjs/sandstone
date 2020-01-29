@@ -24,7 +24,7 @@
 @sand-bg-color:      #575e66;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  #595959;
-@sand-overlay-text-shadow: 0 2px 2px fade(@sand-black, 75%);
+@sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 
 // Disabled Opacity
 // ---------------------------------------
@@ -89,7 +89,7 @@
 @sand-editable-integer-picker-input-bg-color: @sand-white;
 @sand-editable-integer-picker-input-text-color: @sand-spotlight-color;
 @sand-editable-integer-picker-input-color: inherit;
-@sand-editable-integer-picker-shadow: inset 0 0 0 3px;  // box-shadow color inherits from `color` if one is provided
+@sand-editable-integer-picker-shadow: inset 0 0 0 6px;  // box-shadow color inherits from `color` if one is provided
 
 // FormCheckbox
 // ---------------------------------------
@@ -167,7 +167,7 @@
 @sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
 @sand-input-border-focus-border-color: @sand-spotlight-border-color;
 @sand-input-border-active-border-color: transparent;
-@sand-input-border-active-shadow: 0 0 0 3px @sand-input-border-focus-border-color;
+@sand-input-border-active-shadow: 0 0 0 6px @sand-input-border-focus-border-color;
 
 // LabeledItem
 // ---------------------------------------
@@ -252,7 +252,7 @@
 @sand-slider-disabled-focus-bar-bg-color: fadeout(@sand-slider-focus-bar-bg-color, percentage(@sand-slider-disabled-bar-opacity), relative);
 @sand-slider-disabled-focus-knob-bg-color: @sand-spotlight-bg-color;
 @sand-slider-disabled-focus-knob-border-color: transparent;
-@sand-slider-knob-shadow: 0 3px 6px fade(black, 50%);
+@sand-slider-knob-shadow: 0 6px 12px fade(black, 50%);
 
 // Spinner
 // ---------------------------------------
@@ -301,7 +301,7 @@
 @sand-tooltip-bg-color:               @sand-darker-gray;
 @sand-tooltip-text-color:             @sand-button-text-color;
 @sand-tooltip-border-color:           @sand-dark-gray;
-@sand-tooltip-shadow:                 0 7px 7px fade(@sand-black, 30%);
+@sand-tooltip-shadow:                 0 14px 14px fade(@sand-black, 30%);
 
 // VideoPlayer
 // ---------------------------------------

@@ -143,7 +143,7 @@ class MarqueeWithContentChanged extends React.Component {
 				<Button onClick={this.handleClick}>
 					{'Click Me'}
 				</Button>
-				<Marquee style={{width: '400px'}} marqueeOn={'render'} >{texts[this.state.count]}</Marquee>
+				<Marquee style={{width: '800px'}} marqueeOn={'render'} >{texts[this.state.count]}</Marquee>
 			</div>
 		);
 	}
@@ -157,7 +157,7 @@ storiesOf('Marquee', module)
 			return (
 				<section>
 					<Marquee
-						style={{width: ri.unit(399, 'rem')}}
+						style={{width: ri.unit(798, 'rem')}}
 						disabled={disabled}
 						forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
 						marqueeDelay={number('marqueeDelay', Marquee, 1000)}
@@ -182,7 +182,7 @@ storiesOf('Marquee', module)
 			return (
 				<section>
 					<Marquee
-						style={{width: ri.unit(399, 'rem')}}
+						style={{width: ri.unit(798, 'rem')}}
 						disabled={disabled}
 						forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
 						marqueeDelay={number('marqueeDelay', Marquee, 1000)}
@@ -205,7 +205,7 @@ storiesOf('Marquee', module)
 		() => {
 			const disabled = boolean('disabled', Marquee, false);
 			return (
-				<Controller style={{width: ri.unit(399, 'rem')}}>
+				<Controller style={{width: ri.unit(798, 'rem')}}>
 					{LTR.map((children, index) => (
 						<Marquee
 							disabled={disabled}
@@ -232,13 +232,13 @@ storiesOf('Marquee', module)
 		() => (
 			<div>
 				<Item
-					style={{width: ri.unit(399, 'rem')}}
+					style={{width: ri.unit(798, 'rem')}}
 					marqueeOn="focus"
 				>
 					{LTR[0]}
 				</Item>
 				<SpottableMarquee
-					style={{width: ri.unit(399, 'rem')}}
+					style={{width: ri.unit(798, 'rem')}}
 					marqueeOn="focus"
 				>
 					{LTR[0]}
@@ -252,7 +252,7 @@ storiesOf('Marquee', module)
 		() => (
 			<SpottableDiv>
 				<Marquee
-					style={{width: ri.unit(399, 'rem')}}
+					style={{width: ri.unit(798, 'rem')}}
 					disabled={false}
 					marqueeDelay={1000}
 					marqueeDisabled={false}
@@ -264,7 +264,7 @@ storiesOf('Marquee', module)
 					{'The quick brown fox.'}
 				</Marquee>
 				<Marquee
-					style={{width: ri.unit(399, 'rem')}}
+					style={{width: ri.unit(798, 'rem')}}
 					disabled={false}
 					marqueeDelay={1000}
 					marqueeDisabled={false}
@@ -307,7 +307,7 @@ storiesOf('Marquee', module)
 		() => (
 			<div>
 				<Heading>Focus on below MarqueeController + Marquee center</Heading>
-				<MarqueeItem style={{width: ri.scale(401), display: 'flex', flexDirection: 'column'}}>
+				<MarqueeItem style={{width: ri.scale(802), display: 'flex', flexDirection: 'column'}}>
 					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1}}>
 						<Marquee
@@ -320,7 +320,7 @@ storiesOf('Marquee', module)
 				</MarqueeItem>
 				<br />
 				<Heading>MarqueeController + Marquee not center</Heading>
-				<MarqueeItem style={{width: ri.scale(401), display: 'flex', flexDirection: 'column', border: '1px solid yellow'}}>
+				<MarqueeItem style={{width: ri.scale(802), display: 'flex', flexDirection: 'column', border: '1px solid yellow'}}>
 					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1, textAlign: 'center'}}>
 						<Marquee

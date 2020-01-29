@@ -118,7 +118,7 @@ class ChangeableTooltip extends React.Component {
 		const {left, top} = this.state.position;
 		const style = {
 			position: 'absolute',
-			width: ri.unit(390, 'rem'),
+			width: ri.unit(780, 'rem'),
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
@@ -152,7 +152,7 @@ const IconButtonItem = kind({
 	name: 'IconButtonItem',
 	render: ({...rest}) => {
 		return (
-			<div style={{height: 100, border: 'solid 3px yellow'}}>
+			<div style={{height: 200, border: 'solid 6px yellow'}}>
 				<Button
 					icon="plus"
 					size="small"
@@ -176,26 +176,26 @@ class TooltipFollow extends React.Component {
 		super(props);
 		this.state = {
 			left: 0,
-			widthMinus: 180,
-			widthPlus: 30
+			widthMinus: 360,
+			widthPlus: 60
 		};
 	}
 
 	handleWidthMinusClick = () => {
 		this.setState((prevState) => {
-			return {widthMinus: prevState.widthMinus - 30};
+			return {widthMinus: prevState.widthMinus - 60};
 		});
 	}
 
 	handleWidthPlusClick = () => {
 		this.setState((prevState) => {
-			return {widthPlus: prevState.widthPlus + 30};
+			return {widthPlus: prevState.widthPlus + 60};
 		});
 	}
 
 	handlePositionClick = () => {
 		this.setState((prevState) => {
-			return {left: prevState.left + 30};
+			return {left: prevState.left + 60};
 		});
 	}
 
@@ -279,7 +279,7 @@ storiesOf('Tooltip', module)
 			const tooltipProps = object('tooltipProps', Config, prop.ariaObject);
 			const tooltipRelative = boolean('tooltipRelative', Config);
 			return (
-				<Layout orientation="vertical" align={buttonAlignment + ' space-between'} className="enact-fit" style={{position: 'fixed', padding: `${ri.unit(ri.scale(18), 'rem')} ${ri.unit(ri.scale(12), 'rem')}`}}>
+				<Layout orientation="vertical" align={buttonAlignment + ' space-between'} className="enact-fit" style={{position: 'fixed', padding: `${ri.unit(ri.scale(36), 'rem')} ${ri.unit(ri.scale(24), 'rem')}`}}>
 					<Cell shrink>
 						<Layout align="center space-between">
 							<Cell shrink>

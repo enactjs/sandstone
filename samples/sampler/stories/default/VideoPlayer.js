@@ -108,7 +108,7 @@ storiesOf('Sandstone', module)
 							padding: '0.1em 1em',
 							fontWeight: 100,
 							fontStyle: 'italic',
-							fontSize: '16px'
+							fontSize: '32px'
 						}}
 					>VideoPlayer Edge</label>
 					<VideoPlayer

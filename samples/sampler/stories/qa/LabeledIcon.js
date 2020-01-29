@@ -25,7 +25,7 @@ storiesOf('LabeledIcon', module)
 				<Scroller>
 					<Layout wrap align="center space-between">
 						{iconNames.map((icon) =>
-							<Cell size={200} key={'icon' + icon}>
+							<Cell size={400} key={'icon' + icon}>
 								<LabeledIcon
 									style={{marginLeft: 0, marginRight: 0}}
 									icon={icon}
