@@ -23,7 +23,7 @@ describe('VirtualList', () => {
 
 	beforeEach(() => {
 		clientSize = {clientWidth: 1280, clientHeight: 720};
-		dataSize = 100;
+		dataSize = 200;
 		items = [];
 		onScrollCount = 0;
 		onScrollStartCount = 0;
@@ -84,7 +84,7 @@ describe('VirtualList', () => {
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
-				itemSize={30}
+				itemSize={60}
 			/>
 		);
 
@@ -100,11 +100,11 @@ describe('VirtualList', () => {
 				clientSize={clientSize}
 				dataSize={dataSize}
 				itemRenderer={renderItem}
-				itemSize={30}
+				itemSize={60}
 			/>
 		);
 
-		const expected = 27; // 720 / 30 + 3
+		const expected = 15; // 720 / 60 + 3
 		const actual = subject.find('Item[data-index]').length;
 
 		expect(actual).toBe(expected);
@@ -117,7 +117,7 @@ describe('VirtualList', () => {
 				dataSize={dataSize}
 				direction="horizontal"
 				itemRenderer={renderItem}
-				itemSize={30}
+				itemSize={60}
 			/>
 		);
 
@@ -132,7 +132,7 @@ describe('VirtualList', () => {
 			'should scroll to the specific item of a given index with scrollTo',
 			(done) => {
 				const onScrollStop = handlerOnScrollStop(done, () => {
-					const expected = 300;
+					const expected = 600;
 					const actual = resultScrollTop;
 
 					expect(actual).toBe(expected);
@@ -144,7 +144,7 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						onScrollStop={onScrollStop}
 					/>
 				);
@@ -155,7 +155,7 @@ describe('VirtualList', () => {
 
 		test('should scroll to the given \'x\' position with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = 100;
+				const expected = 200;
 				const actual = resultScrollLeft;
 
 				expect(actual).toBe(expected);
@@ -168,17 +168,17 @@ describe('VirtualList', () => {
 					dataSize={dataSize}
 					direction="horizontal"
 					itemRenderer={renderItem}
-					itemSize={30}
+					itemSize={60}
 					onScrollStop={onScrollStop}
 				/>
 			);
 
-			myScrollTo({position: {x: 100}, animate: false});
+			myScrollTo({position: {x: 200}, animate: false});
 		});
 
 		test('should scroll to the given \'y\' position with scrollTo', (done) => {
 			const onScrollStop = handlerOnScrollStop(done, () => {
-				const expected = 100;
+				const expected = 200;
 				const actual = resultScrollTop;
 
 				expect(actual).toBe(expected);
@@ -190,12 +190,12 @@ describe('VirtualList', () => {
 					clientSize={clientSize}
 					dataSize={dataSize}
 					itemRenderer={renderItem}
-					itemSize={30}
+					itemSize={60}
 					onScrollStop={onScrollStop}
 				/>
 			);
 
-			myScrollTo({position: {y: 100}, animate: false});
+			myScrollTo({position: {y: 200}, animate: false});
 		});
 
 		describe('scroll events', () => {
@@ -206,12 +206,12 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						onScrollStart={handlerOnScrollStart}
 					/>
 				);
 
-				myScrollTo({position: {y: 100}, animate: false});
+				myScrollTo({position: {y: 200}, animate: false});
 
 				const expected = 1;
 				const actual = onScrollStartCount;
@@ -226,12 +226,12 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						onScroll={handlerOnScroll}
 					/>
 				);
 
-				myScrollTo({position: {y: 100}, animate: false});
+				myScrollTo({position: {y: 200}, animate: false});
 
 				const expected = 1;
 				const actual = onScrollCount;
@@ -253,12 +253,12 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={dataSize}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						onScrollStop={onScrollStop}
 					/>
 				);
 
-				myScrollTo({position: {y: 100}, animate: false});
+				myScrollTo({position: {y: 200}, animate: false});
 			});
 		});
 	});
@@ -281,7 +281,7 @@ describe('VirtualList', () => {
 						clientSize={clientSize}
 						dataSize={itemArray.length}
 						itemRenderer={renderItemArray} // eslint-disable-line react/jsx-no-bind
-						itemSize={30}
+						itemSize={60}
 					/>
 				);
 
@@ -311,7 +311,7 @@ describe('VirtualList', () => {
 						direction="horizontal"
 						scrollLeftAriaLabel={label}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 					/>
 				);
 
@@ -333,7 +333,7 @@ describe('VirtualList', () => {
 						direction="horizontal"
 						scrollRightAriaLabel={label}
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 					/>
 				);
 
@@ -354,7 +354,7 @@ describe('VirtualList', () => {
 						dataSize={dataSize}
 						direction="vertical"
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						scrollUpAriaLabel={label}
 					/>
 				);
@@ -376,7 +376,7 @@ describe('VirtualList', () => {
 						dataSize={dataSize}
 						direction="vertical"
 						itemRenderer={renderItem}
-						itemSize={30}
+						itemSize={60}
 						scrollDownAriaLabel={label}
 					/>
 				);

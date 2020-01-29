@@ -103,9 +103,9 @@ storiesOf('Touchable', module)
 		)
 	)
 	.add(
-		'that pauses the hold when moving beyond tolerance (16px)',
+		'that pauses the hold when moving beyond tolerance (32px)',
 		() => {
-			const moveTolerance = number('holdConfig moveTolerance', Button, 16, {range: true, min: 8, max: 160, step: 8});
+			const moveTolerance = number('holdConfig moveTolerance', Button, 32, {range: true, min: 16, max: 320, step: 16});
 			const cancelOnMove = boolean('holdConfig cancelOnMove', Button, true) || false;
 			return (
 				<TouchArea
@@ -118,7 +118,7 @@ storiesOf('Touchable', module)
 					onHold={action('onHold')}
 					onHoldPulse={action('onHoldPulse', {depth: 0})}
 					disabled={boolean('disabled', TouchArea)}
-					style={{marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', border: '2px dashed #888', width: ri.unit(ri.scale(240), 'rem'), height: ri.unit(ri.scale(240), 'rem')}}
+					style={{marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', border: '4px dashed #888', width: ri.unit(ri.scale(480), 'rem'), height: ri.unit(ri.scale(480), 'rem')}}
 				>
 					Resumable
 				</TouchArea>
@@ -145,7 +145,7 @@ storiesOf('Touchable', module)
 			<TouchableDiv
 				onFlick={action('onFlick')}
 				disabled={boolean('disabled', TouchableDiv)}
-				style={{border: '2px dashed #888', width: ri.unit(ri.scale(500), 'rem'), height: ri.unit(ri.scale(500), 'rem')}}
+				style={{border: '4px dashed #888', width: ri.unit(ri.scale(1000), 'rem'), height: ri.unit(ri.scale(1000), 'rem')}}
 			>
 				Flick within this component
 			</TouchableDiv>
@@ -157,14 +157,14 @@ storiesOf('Touchable', module)
 			<TouchableDiv
 				dragConfig={{
 					global: boolean('dragConfig global', TouchableDiv, false) || false,
-					moveTolerance: number('dragConfig moveTolerance', TouchableDiv, 16)
+					moveTolerance: number('dragConfig moveTolerance', TouchableDiv, 32)
 				}}
 				noResume={boolean('noResume', TouchableDiv, false)}
 				onDragStart={action('onDragStart')}
 				onDrag={action('onDrag')}
 				onDragEnd={action('onDragEnd')}
 				disabled={boolean('disabled', TouchableDiv)}
-				style={{border: '2px dashed #888', width: ri.unit(ri.scale(500), 'rem'), height: ri.unit(ri.scale(500), 'rem')}}
+				style={{border: '4px dashed #888', width: ri.unit(ri.scale(1000), 'rem'), height: ri.unit(ri.scale(1000), 'rem')}}
 			>
 				Drag within this component. Setting <code>noResume</code> to <code>false</code> should
 				prevent drag from resuming when re-entering this component after leaving.
@@ -185,7 +185,7 @@ storiesOf('Touchable', module)
 				onTouchEnd={action('onTouchEnd')}
 				onTouchStart={action('onTouchStart')}
 				onUp={action('onUp')}
-				style={{border: '2px dashed #888', textAlign: 'center'}}
+				style={{border: '4px dashed #888', textAlign: 'center'}}
 			>
 				Click here
 			</TouchableDiv>

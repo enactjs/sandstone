@@ -23,14 +23,14 @@ const
 		display: 'flex'
 	},
 	listStyle = {
-		height: '200px'
+		height: '400px'
 	},
-	borderStyle = ri.unit(3, 'rem') + ' solid #202328',
+	borderStyle = ri.unit(6, 'rem') + ' solid #202328',
 	items = [],
 	defaultDataSize = 1000,
 	defaultDataSizeForSmallMinLargeSize = 5,
-	defaultItemSize = 500,
-	defaultMinItemSize = 100,
+	defaultItemSize = 1000,
+	defaultMinItemSize = 200,
 	prop = {
 		scrollbarOption: ['auto', 'hidden', 'visible']
 	},
@@ -185,8 +185,8 @@ storiesOf('VirtualList', module)
 				direction: 'horizontal',
 				focusableScrollbar: boolean('focusableScrollbar', Config),
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
-				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 72)), false),
-				itemSize: ri.scale(number('itemSize', Config, 72)),
+				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 144)), false),
+				itemSize: ri.scale(number('itemSize', Config, 144)),
 				noScrollByWheel: boolean('noScrollByWheel', Config),
 				onKeyDown: action('onKeyDown'),
 				onScrollStart: action('onScrollStart'),
@@ -215,8 +215,8 @@ storiesOf('VirtualList', module)
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 72)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 72))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 144))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -261,7 +261,7 @@ storiesOf('VirtualList', module)
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemSize={ri.scale(number('itemSize', Config, 72))}
+					itemSize={ri.scale(number('itemSize', Config, 144))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -280,8 +280,8 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualListWithCBScrollTo
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 72)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 72))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 144))}
 				/>
 			);
 		},
@@ -301,8 +301,8 @@ storiesOf('VirtualList', module)
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					focusableScrollbar={boolean('focusableScrollbar', Config)}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 72)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 72))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 144))}
 				/>
 			);
 		},
