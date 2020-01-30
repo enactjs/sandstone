@@ -119,6 +119,10 @@
 			-webkit-margin-end: @sand-button-icon-small-margin-end;
 		}
 
+		&.iconOnly {
+			min-width: 0;
+		};
+
 		&.iconAfter {
 			.icon {
 				-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
@@ -146,8 +150,15 @@
 		}
 
 		.bg {
-			background-color: @sand-button-bg-color;
 			border-color: transparent;
+		}
+
+		&.opaque {
+			color: @sand-button-text-color;
+
+			.bg {
+				background-color: @sand-button-bg-color;
+			}
 		}
 
 		&.transparent {

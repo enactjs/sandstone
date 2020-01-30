@@ -50,10 +50,11 @@ const ButtonBase = kind({
 		 *
 		 * Valid value is: `'transparent'`.
 		 *
-		 * @type {(transparent')}
+		 * @type {('opaque', 'transparent')}
+		 * @default 'opaque'
 		 * @public
 		 */
-		backgroundOpacity: PropTypes.oneOf(['transparent']),
+		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -128,7 +129,7 @@ const ButtonBase = kind({
 	computed: {
 		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler, type}) => styler.append(
 			{iconOnly},
-			backgroundOpacity,
+			iconOnly ? 'transparent' : backgroundOpacity,
 			`icon${cap(iconPosition)}`,
 			size,
 			type
