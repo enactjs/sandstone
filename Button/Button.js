@@ -117,6 +117,7 @@ const ButtonBase = kind({
 	},
 
 	defaultProps: {
+		backgroundOpacity: 'opaque',
 		iconPosition: 'before',
 		size: 'large'
 	},
