@@ -19,7 +19,7 @@
 	"private": true,
 	"repository": "",
 	"enact": {
-		"theme": "moonstone"
+		"theme": "sandstone"
 	},
 	"eslintConfig": {
 		"extends": "enact"
@@ -32,7 +32,6 @@
 	"dependencies": {
 		"@enact/core": "^3.0.0",
 		"@enact/i18n": "^3.0.0",
-		"@enact/moonstone": "^3.0.0",
 		"@enact/sandstone": "../../",
 		"@enact/spotlight": "^3.0.0",
 		"@enact/ui": "^3.0.0",

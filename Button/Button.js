@@ -48,9 +48,12 @@ const ButtonBase = kind({
 		/**
 		 * The background opacity of this button.
 		 *
-		 * Valid value is: `'transparent'`.
+		 * Text buttons and icon+text buttons, by default are opaque, while icon-only buttons
+		 * default to transparent. This value can be overridden by setting this prop.
 		 *
-		 * @type {('opaque', 'transparent')}
+		 * Valid values are: `'opaque'`, and `'transparent'`.
+		 *
+		 * @type {('opaque'|'transparent')}
 		 * @default 'opaque'
 		 * @public
 		 */
@@ -117,9 +120,10 @@ const ButtonBase = kind({
 	},
 
 	defaultProps: {
-		backgroundOpacity: 'opaque',
+		backgroundOpacity: null,
 		iconPosition: 'before',
-		size: 'large'
+		size: 'large',
+		type: 'grid'
 	},
 
 	styles: {
@@ -130,7 +134,7 @@ const ButtonBase = kind({
 	computed: {
 		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler, type}) => styler.append(
 			{iconOnly},
-			iconOnly ? 'transparent' : backgroundOpacity,
+			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			`icon${cap(iconPosition)}`,
 			size,
 			type

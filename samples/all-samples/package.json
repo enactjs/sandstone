@@ -21,6 +21,7 @@
 	"repository": "https://github.com/enactjs/sandstone",
 	"enact": {
 		"title": "Enact Sandstone QA Samples",
+		"theme": "sandstone",
 		"isomorphic": true
 	},
 	"eslintConfig": {
@@ -29,7 +30,6 @@
 	"dependencies": {
 		"@enact/core": "^3.0.0",
 		"@enact/i18n": "^3.0.0",
-		"@enact/moonstone": "^3.0.0",
 		"@enact/sandstone": "../../",
 		"@enact/spotlight": "^3.0.0",
 		"@enact/ui": "^3.0.0",
