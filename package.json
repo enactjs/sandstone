@@ -24,6 +24,9 @@
     "mobile",
     "webOS"
   ],
+  "enact": {
+    "screenTypes": "ThemeDecorator/screenTypes.json"
+  },
   "eslintConfig": {
     "extends": "enact/strict"
   },
