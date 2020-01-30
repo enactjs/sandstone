@@ -39,6 +39,7 @@
 @sand-spotlight-bg-color:             @sand-accent;
 @sand-spotlight-border-color:         @sand-accent;
 @sand-spotlight-color:                @sand-accent;
+@sand-spotlight-shadow-color:         fade(@sand-black, 30%);
 @sand-active-border-color:            @sand-gray;
 @sand-active-spotlight-border-color:  @sand-gray;
 
@@ -138,6 +139,15 @@
 // ---------------------------------------
 @sand-heading-text-color: @sand-text-color;
 @sand-heading-border-color: @sand-border-color;
+
+// Item
+// ---------------------------------------
+@sand-item-text-color: @sand-text-color;
+@sand-item-bg-color: @sand-spotlight-bg-color;  // Set the bg color to the focus background color and let opacity do the work
+@sand-item-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
+@sand-item-focus-text-color: @sand-spotlight-text-color;
+@sand-item-focus-bg-color: @sand-item-bg-color;
+@sand-item-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 
 // IconButton
 // ---------------------------------------

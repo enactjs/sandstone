@@ -4,6 +4,7 @@
 // App
 // ---------------------------------------
 @sand-app-keepout: 48px;
+@sand-component-spacing: 30px;
 
 // Font Sizes
 // ---------------------------------------
@@ -21,10 +22,11 @@
 @sand-body-small-font-size:         54px;
 @sand-item-font-size:               66px;
 @sand-item-font-size-large:         78px;
+@sand-item-label-font-size:         54px;
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
 @sand-popup-content-font-size:      60px;
-@sand-expandable-value-font-size:   54px;
+@sand-expandable-value-font-size:   @sand-item-label-font-size;
 @sand-expandable-value-font-size-large:   60px;
 @sand-expandable-client-item-font-size:   54px;
 @sand-expandable-client-item-font-size-large:   66px;
@@ -142,7 +144,7 @@
 
 // Spotlight
 // ---------------------------------------
-@sand-spotlight-outset: 18px;
+@sand-spotlight-outset: 48px;
 
 // Header
 // ---------------------------------------
@@ -276,14 +278,17 @@
 @sand-input-highlight-max-width: 756px;
 @sand-input-highlight-small-max-width: 714px;
 
-// Items
+// Item
 // ---------------------------------------
-@sand-item-height: 120px;
+@sand-item-height: 156px;
 @sand-item-height-large: 144px;
-@sand-item-vertical-padding: 6px;
-@sand-item-line-height: @sand-item-height - (@sand-item-vertical-padding * 2);
+@sand-item-vertical-padding: 48px;
+@sand-item-line-height: 60px;
 @sand-item-line-height-large: @sand-item-height-large - (@sand-item-vertical-padding * 2);
 @sand-item-indent: 72px;
+@sand-item-border-radius: 12px;
+@sand-item-slotafter-spacing: @sand-component-spacing;
+@sand-item-slotbefore-spacing: @sand-component-spacing;
 
 // FormCheckbox
 // ---------------------------------------
