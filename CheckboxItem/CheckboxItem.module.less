@@ -1,3 +1,30 @@
+// checkboxItem.module.less
+//
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+@import "../styles/mixins.less";
+
+
 .checkboxItem {
-	/* Placeholder for CSS overrides */
+	align-items: center;
+
+	.applySkins({
+
+		.slotAfter {
+			-webkit-margin-start: @sand-checkboxitem-icon-margin;
+			-webkit-margin-end: 0;
+		}
+
+		.slotBefore {
+			-webkit-margin-start: 0;
+			-webkit-margin-end: @sand-checkboxitem-icon-margin;
+		}
+
+		.focus({
+			color: @sand-checkboxitem-focus-text-color;
+			background-color: @sand-checkboxitem-focus-bg-color;
+			border-color: @sand-checkboxitem-focus-border-color;
+		});
+
+	 });
 }
