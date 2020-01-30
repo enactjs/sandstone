@@ -1,14 +1,15 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import RadioItem from '../RadioItem';
+import { shallow } from 'enzyme';
+
+import {RadioItemBase} from '../RadioItem';
 import css from '../RadioItem.module.less';
 
 describe('RadioItem Specs', () => {
 	test('should render correct icon when not selected', () => {
-		const radioItem = mount(
-			<RadioItem>
+		const radioItem = shallow(
+			<RadioItemBase>
 				Hello RadioItem
-			</RadioItem>
+			</RadioItemBase>
 		);
 
 		const expected = 0;
@@ -18,12 +19,13 @@ describe('RadioItem Specs', () => {
 	});
 
 	test('should render correct icon when selected', () => {
-		const radioItem = mount(
-			<RadioItem selected>
+		const radioItem = shallow(
+			<RadioItemBase selected>
 				Hello RadioItem
-			</RadioItem>
+			</RadioItemBase>
 		);
 
+		console.log(radioItem.debug());
 		const expected = 1;
 		const actual = radioItem.find(`.${css.selected}`).length;
 

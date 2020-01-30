@@ -110,5 +110,6 @@ const RadioItem = RadioItemDecorator(RadioItemBase);
 
 export default RadioItem;
 export {
-	RadioItem
+	RadioItem,
+	RadioItemBase
 };
