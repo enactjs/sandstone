@@ -38,6 +38,17 @@ const ProgressBarBase = kind({
 
 	propTypes: /** @lends sandstone/ProgressBar.ProgressBarBase.prototype */ {
 		/**
+		 * The proportion of the loaded portion of the progress bar.
+		 *
+		 * * Valid values are between `0` and `1`.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		backgroundProgress: PropTypes.number,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -119,6 +130,7 @@ const ProgressBarBase = kind({
 	},
 
 	defaultProps: {
+		backgroundProgress: 0,
 		orientation: 'horizontal',
 		progress: 0
 	},
@@ -129,7 +141,11 @@ const ProgressBarBase = kind({
 	},
 
 	computed: {
-		className: ({highlighted, styler}) => styler.append({highlighted}),
+		className: ({backgroundProgress, highlighted, progress, styler}) => styler.append({
+			highlighted,
+			[componentCss.maxFill]: progress === 1,
+			[componentCss.maxLoad]: backgroundProgress === 1
+		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 

@@ -3,13 +3,46 @@
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
+.maxBorderRadius () {
+	&.maxFill {
+		.fill {
+			border-radius: @sand-progress-bar-border-radius;
+		}
+	}
+
+	&.maxLoad {
+		.load {
+			border-radius: @sand-progress-bar-border-radius;
+		}
+	}
+}
+
 .progressBar {
 	height: @sand-progress-bar-height;
 	margin: @sand-spotlight-outset;
 
+	.bar {
+		border-radius: @sand-progress-bar-border-radius;
+	}
+
+	&:not(.vertical) {
+		.maxBorderRadius();
+
+		.fill,
+		.load {
+			border-radius: @sand-progress-bar-border-radius 0 0 @sand-progress-bar-border-radius;
+		}
+	}
+
 	&.vertical {
 		min-height: 240px;
 		width: @sand-progress-bar-height;
+		.maxBorderRadius();
+
+		.fill,
+		.load {
+			border-radius: 0 0 @sand-progress-bar-border-radius @sand-progress-bar-border-radius;
+		}
 	}
 
 	// Skin colors
