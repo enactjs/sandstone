@@ -21,10 +21,7 @@
 	"repository": "https://github.com/enactjs/sandstone",
 	"enact": {
 		"title": "Enact Sandstone QA Samples",
-		"isomorphic": true,
-		"ri": {
-			"baseSize": 24
-		}
+		"isomorphic": true
 	},
 	"eslintConfig": {
 		"extends": "enact/strict"
