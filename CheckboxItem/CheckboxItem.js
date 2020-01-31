@@ -21,7 +21,7 @@ import Toggleable from '@enact/ui/Toggleable';
 
 import Checkbox from '../Checkbox';
 import Item from '../Item';
-import Skinnable from '../Skinnable'
+import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
 
@@ -99,6 +99,10 @@ const CheckboxItemBase = kind({
 		css: componentCss,
 		className: 'checkboxItem',
 		publicClassNames: ['checkboxItem']
+	},
+
+	computed: {
+		className: ({css, selected, styler}) => styler.append(selected && css.selected)
 	},
 
 	render: ({children, css, icon, selected, ...rest}) => (
