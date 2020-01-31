@@ -653,7 +653,6 @@ const VideoPlayerBase = class extends React.Component {
 		this.selectPlaybackRates('fastForward');
 		this.sliderKnobProportion = 0;
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
-		this.moreButtonSpotlightId = this.mediaControlsSpotlightId + '_moreButton';
 
 		// Re-render-necessary State
 		this.state = {
@@ -734,7 +733,6 @@ const VideoPlayerBase = class extends React.Component {
 
 		if (this.props.spotlightId !== prevProps.spotlightId) {
 			this.mediaControlsSpotlightId = this.props.spotlightId + '_mediaControls';
-			this.moreButtonSpotlightId = this.mediaControlsSpotlightId + '_moreButton';
 		}
 
 		if (!this.state.mediaControlsVisible && prevState.mediaControlsVisible) {
@@ -778,17 +776,6 @@ const VideoPlayerBase = class extends React.Component {
 		// Once video starts loading it queues bottom control render until idle
 		if (this.state.bottomControlsRendered && !prevState.bottomControlsRendered && !this.state.mediaControlsVisible) {
 			this.showControls();
-		}
-
-		if (this.state.mediaControlsVisible && prevState.infoVisible !== this.state.infoVisible) {
-			const current = Spotlight.getCurrent();
-			if (current && current.dataset && current.dataset.spotlightId === this.moreButtonSpotlightId) {
-				// need to blur manually to read out `infoComponent`
-				current.blur();
-			}
-			setTimeout(() => {
-				Spotlight.focus(this.moreButtonSpotlightId);
-			}, 1);
 		}
 	}
 
@@ -1939,7 +1926,6 @@ const VideoPlayerBase = class extends React.Component {
 							<ComponentOverride
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
-								moreButtonSpotlightId={this.moreButtonSpotlightId}
 								onBackwardButtonClick={this.handleRewind}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}

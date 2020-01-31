@@ -1,5 +1,3 @@
-
-import {forKey, handle} from '@enact/core/handle';
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import Cancelable from '@enact/ui/Cancelable';
 import kind from '@enact/core/kind';
@@ -12,7 +10,6 @@ import Slottable from '@enact/ui/Slottable';
 import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
-import {Marquee} from '@enact/moonstone/Marquee';
 
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
@@ -21,11 +18,12 @@ import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
 import IconButton from '../IconButton';
+import Icon from '../Icon/Icon';
+import {Marquee} from '../Marquee';
 
 import {countReactChildren} from './util';
 
 import css from './MediaControls.module.less';
-import Icon from '../Icon/Icon';
 
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
@@ -59,6 +57,15 @@ const MediaControlsBase = kind({
 	// intentionally assigning these props to MediaControls instead of Base (which is private)
 	propTypes: /** @lends sandstone/VideoPlayer.MediaControls.prototype */ {
 		/**
+		 * The label for the "more" button. This will show on the tooltip.
+		 *
+		 * @type {String}
+		 * @default 'Scroll or Press V Button'
+		 * @public
+		 */
+		actionGuideLabel: PropTypes.string,
+
+		/**
 		 * Reverse-playback [icon]{@link sandstone/Icon.Icon} name. Accepts any
 		 * [icon]{@link sandstone/Icon.Icon} component type.
 		 *
@@ -67,6 +74,14 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		backwardIcon: PropTypes.string,
+
+		/**
+		 * These components are placed below children. Typically these will be for media playlist
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		bottomComponents: PropTypes.node,
 
 		/**
 		 * Forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
@@ -115,29 +130,12 @@ const MediaControlsBase = kind({
 		mediaDisabled: PropTypes.bool,
 
 		/**
-		 * Disables the media "more" button.
+		 * Render moreComponent. It does not mean that it is shown on the screen.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
-		moreButtonDisabled: PropTypes.bool,
-
-		/**
-		 * The label for the "more" button. This will show on the tooltip.
-		 *
-		 * @type {String}
-		 * @default 'More'
-		 * @public
-		 */
-		moreButtonLabel: PropTypes.string,
-
-		/**
-		 * A custom more button ID to use with Spotlight.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		moreButtonSpotlightId: PropTypes.string,
+		moreComponentsRendered: PropTypes.bool,
 
 		/**
 		 * Removes the "jump" buttons. The buttons that skip forward or backward in the video.
@@ -197,7 +195,7 @@ const MediaControlsBase = kind({
 		onJumpForwardButtonClick: PropTypes.func,
 
 		/**
-		 * Called when the user clicks the More button.
+		 * Called when the user press down button via 5way
 		 *
 		 * @type {Function}
 		 * @public
@@ -323,11 +321,12 @@ const MediaControlsBase = kind({
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
 		childrenContainerClassName: ({styler}) => styler.append('mediaControls', 'childrenContainerComponents'),
 		guideClassName: ({styler, showMoreComponents}) => styler.join('guideContainerComponents', {hidden: showMoreComponents}),
-		bottomClassName: ({styler, showMoreComponents, moreComponentRendered}) => styler.join('bottomContainerComponents', {lift: showMoreComponents && moreComponentRendered}),
+		bottomClassName: ({styler, showMoreComponents, moreComponentsRendered}) => styler.join('bottomContainerComponents', {lift: showMoreComponents && moreComponentsRendered}),
 		playPauseClassName: ({showMoreComponents}) => showMoreComponents ? null : spotlightDefaultClass
 	},
 
 	render: ({
+		actionGuideLabel,
 		backwardIcon,
 		children,
 		forwardIcon,
@@ -337,8 +336,6 @@ const MediaControlsBase = kind({
 		jumpForwardIcon,
 		bottomComponents,
 		mediaDisabled,
-		moreButtonDisabled,
-		moreButtonSpotlightId,
 		noJumpButtons,
 		noRateButtons,
 		onBackwardButtonClick,
@@ -354,14 +351,13 @@ const MediaControlsBase = kind({
 		playPauseClassName,
 		rateButtonsDisabled,
 		showMoreComponents,
-		moreComponentRendered,
+		moreComponentsRendered,
 		childrenContainerClassName,
 		guideClassName,
 		spotlightDisabled,
 		spotlightId,
 		...rest
 	}) => {
-		delete rest.moreButtonLabel;
 		delete rest.onClose;
 		delete rest.visible;
 
@@ -377,12 +373,12 @@ const MediaControlsBase = kind({
 				{countReactChildren(children) || bottomComponents ?
 					<div className={guideClassName} >
 						<Icon>arrowlargedown</Icon>
-						<Marquee marqueeOn="render" alignment="center">{$L('Scroll or Press V Button')}</Marquee>
+						<Marquee marqueeOn="render" alignment="center">{actionGuideLabel}</Marquee>
 					</div> :
 					null
 				}
-				{moreComponentRendered || showMoreComponents ?
-					<Container className={bottomClassName} spotlightDisabled={!showMoreComponents}>
+				{moreComponentsRendered || showMoreComponents ?
+					<Container className={bottomClassName} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
 						{countReactChildren(children) ?
 							<Container className={childrenContainerClassName} >
 								{children}
@@ -452,16 +448,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @type {Boolean}
 			 * @public
 			 */
-			moreButtonDisabled: PropTypes.bool,
-
-			/**
-			 * A custom more button ID to use with Spotlight.
-			 *
-			 * @type {String}
-			 * @default 'mediaButton'
-			 * @public
-			 */
-			moreButtonSpotlightId: PropTypes.string,
+			moreShowingDisabled: PropTypes.bool,
 
 			/**
 			 * Setting this to `true` will disable left and right keys for seeking.
@@ -572,8 +559,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		static defaultProps = {
 			initialJumpDelay: 400,
-			jumpDelay: 200,
-			moreButtonSpotlightId: 'moreButton'
+			jumpDelay: 200
 		}
 
 		constructor (props) {
@@ -584,10 +570,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
 			this.paused = new Pause('VideoPlayer');
+			this.bottomHeight = 0;
+			this.guideHeight = 0;
 
 			this.state = {
 				showMoreComponents: false,
-				moreComponentRendered: false
+				moreComponentsRendered: false
 			};
 
 			if (props.setApiProvider) {
@@ -605,28 +593,26 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		componentDidMount () {
+			on('wheel', this.handleWheel);
 			on('keydown', this.handleKeyDown);
 			on('keyup', this.handleKeyUp);
 			on('blur', this.handleBlur, window);
 		}
 
 		componentDidUpdate (prevProps, prevState) {
-			if (!prevState.showMoreComponents && this.state.showMoreComponents) {
+			if (!prevState.showMoreComponents && this.state.showMoreComponents && !this.state.moreComponentsRendered) {
 				// eslint-disable-next-line
 				this.setState({
-					moreComponentRendered: true
+					moreComponentsRendered: true
 				});
 			}
 
-			if (!prevState.moreComponentRendered && this.state.moreComponentRendered) {
-				const bottomElement = this.mediaControlsNode.querySelector(`.${css.bottomContainerComponents}`);
-				this.bottomHeight = bottomElement ? bottomElement.scrollHeight : 0;
-
-				this.mediaControlsNode.style.setProperty('--bottomComponentsOffset', `${this.bottomHeight}px`);
+			if (!prevState.moreComponentsRendered && this.state.moreComponentsRendered) {
+				this.calculateMoreComponentsHeight();
 				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, lift: this.bottomHeight - this.guideHeight}, this.props);
 			}
 
-			if (this.state.moreComponentRendered && this.state.showMoreComponents !== prevState.showMoreComponents) {
+			if (this.state.moreComponentsRendered && this.state.showMoreComponents !== prevState.showMoreComponents) {
 				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, lift: this.bottomHeight - this.guideHeight}, this.props);
 			}
 
@@ -638,14 +624,25 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		componentWillUnmount () {
+			off('wheel', this.handleWheel);
 			off('keydown', this.handleKeyDown);
 			off('keyup', this.handleKeyUp);
 			off('blur', this.handleBlur, window);
 			this.stopListeningForPulses();
 		}
 
+		calculateMoreComponentsHeight = () => {
+			if (!this.mediaControlsNode) {
+				return;
+			}
+			const bottomElement = this.mediaControlsNode.querySelector(`.${css.bottomContainerComponents}`);
+
+			this.bottomHeight = bottomElement ? bottomElement.scrollHeight : 0;
+			this.mediaControlsNode.style.setProperty('--bottomComponentsOffset', `${this.bottomHeight}px`);
+		}
+
 		handleControlsKeyUp = (e) => {
-			if (is('down', e.keyCode) && !this.state.showMoreComponents) {
+			if (is('down', e.keyCode) && !this.state.showMoreComponents && !this.props.moreShowingDisabled) {
 				this.showMoreComponents();
 				e.stopPropagation();
 			}
@@ -708,6 +705,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.paused.resume();
 		}
 
+		handleWheel = () => {
+			if (!this.state.showMoreComponents && this.props.visible) {
+				this.showMoreComponents();
+			}
+		}
+
 		startListeningForPulses = (keyCode) => {
 			// Ignore new pulse calls if key code is same, otherwise start new series if we're pulsing
 			if (this.pulsing && keyCode !== this.pulsingKeyCode) {
@@ -745,12 +748,10 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		getMediaControls = (node) => {
 			if (!node) return;
-
 			this.mediaControlsNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
 
 			const guideElement = this.mediaControlsNode.querySelector(`.${css.guideContainerComponents}`);
 			this.guideHeight = guideElement ? guideElement.scrollHeight : 0;
-
 			this.mediaControlsNode.style.setProperty('--guideComponentHeight', `${this.guideHeight}px`);
 		}
 
@@ -782,7 +783,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		handleTransitionEnd = (ev) => {
 			if (ev.propertyName === 'transform') {
-				if (this.state.showMoreComponents) {
+				if (this.state.showMoreComponents && !Spotlight.getPointerMode()) {
 					Spotlight.move('down');
 				}
 			}
@@ -805,7 +806,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				<Wrapped
 					ref={this.getMediaControls}
 					{...props}
-					moreComponentRendered={this.state.moreComponentRendered}
+					actionGuideLabel={$L('Scroll or Press V Button')}
+					moreComponentsRendered={this.state.moreComponentsRendered}
 					onClose={this.handleClose}
 					onKeyDownFromMediaControls={this.handleControlsKeyUp}
 					onPlayButtonClick={this.handlePlayButtonClick}
