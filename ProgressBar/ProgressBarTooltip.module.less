@@ -32,6 +32,10 @@
 		&.above {
 			top: 0;
 
+			&.center {
+				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
+			}
+
 			.before({
 				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
 			});
@@ -47,6 +51,10 @@
 
 		&.below {
 			bottom: 0;
+
+			&.center {
+				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
+			}
 
 			.before({
 				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");

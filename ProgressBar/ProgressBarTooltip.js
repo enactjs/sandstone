@@ -237,6 +237,7 @@ const ProgressBarTooltipBase = kind({
 					below: (v === 'below'),
 					before: (h === 'before'),
 					after: (h === 'after'),
+					center: (h === 'center'),
 					left: (h === 'left' || (h === 'auto' && proportion <= 0.5)),
 					right: (h === 'right' || (h === 'auto' && proportion > 0.5))
 				}
