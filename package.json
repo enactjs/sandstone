@@ -14,7 +14,8 @@
     "test-ui-tv": "wdio tests/ui/wdio.tv.conf.js",
     "test-json": "enact test --json",
     "test-watch": "enact test --watch",
-    "transpile": "enact transpile"
+    "transpile": "enact transpile",
+    "validate-docs": "validate-docs --strict --standalone"
   },
   "license": "Apache-2.0",
   "keywords": [
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
+    "@enact/docs-utils": "^0.1.0",
     "@enact/ui-test-utils": "^0.1.1",
     "ilib": "^14.4.0"
   }
