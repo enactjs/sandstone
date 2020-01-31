@@ -77,6 +77,18 @@
 @sand-non-latin-font-weight-bold: 700;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 
+@sand-button-font-family: @sand-alt-font-family;
+@sand-button-font-style: normal;
+@sand-button-font-weight: 600;
+@sand-button-small-font-family: @sand-button-font-family;
+@sand-button-small-font-style: @sand-button-font-style;
+@sand-button-small-font-weight: @sand-button-font-weight;
+@sand-non-latin-button-font-family: @sand-non-latin-font-family-bold;
+@sand-non-latin-button-font-style: @sand-button-font-style;
+@sand-non-latin-button-font-weight: @sand-non-latin-font-weight-bold;
+@sand-non-latin-button-small-font-style: @sand-button-small-font-style;
+@sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
+
 @sand-header-font-family: @sand-alt-font-family;
 @sand-header-font-weight: normal;
 @sand-header-letter-spacing: normal;
@@ -145,6 +157,7 @@
 // Spotlight
 // ---------------------------------------
 @sand-spotlight-outset: 48px;
+@sand-spotlight-focus-animation-duration: 200ms;
 
 // Header
 // ---------------------------------------
@@ -163,9 +176,6 @@
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
-@sand-button-font-family: @sand-alt-font-family;
-@sand-button-font-style: normal;
-@sand-button-font-weight: 600;
 @sand-button-h-margin: 36px;
 @sand-button-h-padding: 60px;
 @sand-button-height-large: 192px;
@@ -173,6 +183,7 @@
 @sand-button-icon-h-margin: 30px;
 @sand-button-icon-margin-end: @sand-button-icon-h-margin;
 @sand-button-icon-margin-start: 0;
+@sand-button-icon-padding: 0 36px;
 @sand-button-icon-position-after-margin-end: @sand-button-icon-margin-start;
 @sand-button-icon-position-after-margin-start: @sand-button-icon-margin-end;
 @sand-button-icon-position-after-small-margin-end: 0;
@@ -182,27 +193,19 @@
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
 @sand-button-icon-small-padding: 0 18px;
-@sand-button-icon-large-padding: 0 36px;
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
-@sand-button-focused-bg-scale: scale(1.05);
-@sand-button-small-font-family: @sand-button-font-family;
-@sand-button-small-font-style: @sand-button-font-style;
-@sand-button-small-font-weight: @sand-button-font-weight;
+@sand-button-focus-bg-transform: scale(1.05);
+@sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-button-small-h-margin: @sand-button-h-margin;
-@sand-button-small-h-padding: 24px;
+@sand-button-small-h-padding: 48px;
 @sand-button-small-height-large: 144px;
 @sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-tap-area-height: (@sand-spotlight-outset + @sand-button-small-height + @sand-spotlight-outset);
-@sand-button-small-focused-bg-scale: scale(1.1);
+@sand-button-small-focus-bg-transform: scale(1.1);
 @sand-button-round-border-radius: 960px; // Generic, sufficiently large value that converts to a nice amount of rem
-@sand-non-latin-button-font-family: @sand-non-latin-font-family-bold;
-@sand-non-latin-button-font-style: @sand-button-font-style;
-@sand-non-latin-button-large-font-weight: @sand-non-latin-font-weight-bold;
-@sand-non-latin-button-small-font-style: @sand-button-small-font-style;
-@sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
 
 // Dropdown
 // ---------------------------------------

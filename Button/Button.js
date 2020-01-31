@@ -99,6 +99,15 @@ const ButtonBase = kind({
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
+		 * Boolean concrolling whether this component should enforce the "minimum width" rules.
+		 *
+		 * @type {Boolean}
+		 * @default true
+		 * @public
+		 */
+		minWidth: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
@@ -139,7 +148,7 @@ const ButtonBase = kind({
 			size,
 			type
 		),
-		minWidth: ({iconOnly}) => !iconOnly
+		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
 	render: ({css, ...rest}) => {

@@ -29,7 +29,7 @@
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
 
-		transition: transform 0.2s ease-out;
+		transition: transform @sand-button-focus-duration ease-out, filter @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -39,8 +39,7 @@
 
 	.icon {
 		flex-shrink: 0;
-		-webkit-margin-start: @sand-button-icon-margin-start;
-		-webkit-margin-end: @sand-button-icon-margin-end;
+		.margin-start-end(@sand-button-icon-margin-start, @sand-button-icon-margin-end);
 	}
 
 	// IconButton rules
@@ -57,7 +56,7 @@
 		}
 
 		&.large {
-			padding: @sand-button-icon-large-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
 		}
 
 		&.round {
@@ -73,8 +72,7 @@
 		}
 
 		.icon {
-			-webkit-margin-start: @sand-button-icon-position-after-margin-start;
-			-webkit-margin-end: @sand-button-icon-position-after-margin-end;
+			.margin-start-end(@sand-button-icon-position-after-margin-start, @sand-button-icon-position-after-margin-end);
 		}
 	}
 
@@ -107,8 +105,6 @@
 		margin: 0 @sand-button-small-h-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
-		margin-left: @sand-button-small-h-margin;
-		margin-right: @sand-button-small-h-margin;
 		.sand-taparea(@sand-button-small-height);
 
 		// Standard Button Scenario
@@ -118,18 +114,12 @@
 
 		.icon {
 			font-size: @sand-button-icon-small-font-size;
-			-webkit-margin-start: @sand-button-icon-small-margin-start;
-			-webkit-margin-end: @sand-button-icon-small-margin-end;
+			.margin-start-end(@sand-button-icon-small-margin-start, @sand-button-icon-small-margin-end);
 		}
-
-		&.iconOnly {
-			min-width: 0;
-		};
 
 		&.iconAfter {
 			.icon {
-				-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
-				-webkit-margin-end: @sand-button-icon-position-after-small-margin-end;
+				.margin-start-end(@sand-button-icon-position-after-small-margin-start, @sand-button-icon-position-after-small-margin-end);
 			}
 		}
 
@@ -154,6 +144,7 @@
 
 		.bg {
 			border-color: transparent;
+			filter: drop-shadow(@sand-button-bg-shadow);
 		}
 
 		&.opaque {
@@ -194,12 +185,12 @@
 				z-index: 1;
 
 				.bg {
-					transform: @sand-button-focused-bg-scale;
-					filter: drop-shadow(@sand-button-focused-bg-shadow);
+					transform: @sand-button-focus-bg-transform;
+					filter: drop-shadow(@sand-button-focus-bg-shadow);
 				}
 
 				&.small .bg {
-					transform: @sand-button-small-focused-bg-scale;
+					transform: @sand-button-small-focus-bg-transform;
 				}
 			});
 		}
