@@ -1,0 +1,81 @@
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
+
+.controlsFrame {
+    @expanding-button-clearance: 3px;
+    --guideComponentHeight: 0;
+	--bottomComponentsOffset: 0;
+
+    position: relative;
+    display: block;
+
+    &.hidden {
+        will-change: opacity;
+        opacity: 0;
+    }
+
+    .mediaControls {
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        direction: ltr;
+        white-space: nowrap;
+
+        > * + * {
+            margin-inline-start: 45px;
+        }
+
+        > * {
+            vertical-align: top;
+        }
+    }
+
+    .guideContainerComponents {
+        .guideText {
+            .sand-font({
+                font-weight: 500;
+                font-size: 24px;
+            });
+            font-weight: 500;
+            font-size: 24px;
+        }
+
+        margin-top: 30px;
+        text-align: center;
+        transition: opacity 0.2s linear;
+        &.hidden {
+            opacity: 0;
+        }
+    }
+
+    .childrenContainerComponents {
+        > * + * {
+            margin-inline-start: 105px;
+
+        }
+    }
+
+    .bottomContainerComponents {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 0px;
+        opacity: 0;
+
+        &.lift {
+            opacity: 1;
+            transition: transform 0.3s linear;
+            transform: translateY(~"calc(var(--guideComponentHeight) * -1)");
+        }
+
+        > :first-child {
+            margin-top: @sand-video-player-padding-bottom;;
+        }
+
+        .bottomComponent {
+            margin-top: 30px;
+            height: 159px;
+        }
+    }
+}

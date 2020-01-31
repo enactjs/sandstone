@@ -1710,26 +1710,19 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showBottomComponents}) => {
-		if (!showBottomComponents) {
+	handleToggleMore = ({showMoreComponents, lift}) => {
+		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
 			this.startDelayedTitleHide();
 		} else {
-			const bottomElement = this.player.querySelector(`.${css.bottomContainerComponents}`);
-			const bottomHeight = bottomElement ? bottomElement.scrollHeight : 0;
-
-			const guideElement = this.player.querySelector(`.${css.guideContainerComponents}`);
-			const guideHeight = guideElement ? guideElement.scrollHeight : 0;
-
-			this.player.style.setProperty('--guideComponentHeight', `${guideHeight}px`);
-			this.player.style.setProperty('--bottomComponentsOffset', `${bottomHeight}px`);
 			// Interrupt the title-hide since we don't want it hiding autonomously in "more".
+			this.player.style.setProperty('--liftComponent', `${lift}px`);
 			this.stopDelayedTitleHide();
 		}
 
 		this.setState(({announce}) => ({
-			infoVisible: showBottomComponents,
+			infoVisible: showMoreComponents,
 			titleVisible: true,
 			announce: announce < AnnounceState.INFO ? AnnounceState.INFO : AnnounceState.DONE
 		}));
@@ -1944,7 +1937,6 @@ const VideoPlayerBase = class extends React.Component {
 								</div>
 							}
 							<ComponentOverride
-								additionalRendered={this.state.additionalRendered}
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
 								moreButtonSpotlightId={this.moreButtonSpotlightId}

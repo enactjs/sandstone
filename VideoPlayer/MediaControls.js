@@ -24,7 +24,7 @@ import IconButton from '../IconButton';
 
 import {countReactChildren} from './util';
 
-import css from './VideoPlayer.module.less';
+import css from './MediaControls.module.less';
 import Icon from '../Icon/Icon';
 
 const OuterContainer = SpotlightContainerDecorator({
@@ -274,7 +274,7 @@ const MediaControlsBase = kind({
 		 * @type {Boolean}
 		 * @private
 		 */
-		showBottomComponents: PropTypes.bool,
+		showMoreComponents: PropTypes.bool,
 
 		/**
 		 * `true` controls are disabled from Spotlight.
@@ -322,9 +322,9 @@ const MediaControlsBase = kind({
 	computed: {
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
 		childrenContainerClassName: ({styler}) => styler.append('mediaControls', 'childrenContainerComponents'),
-		guideClassName: ({styler, showBottomComponents}) => styler.join('guideContainerComponents', {hidden: showBottomComponents}),
-		bottomClassName: ({styler, showBottomComponents}) => styler.join('bottomContainerComponents', {lift: showBottomComponents}),
-		playPauseClassName: ({showBottomComponents}) => showBottomComponents ? null : spotlightDefaultClass
+		guideClassName: ({styler, showMoreComponents}) => styler.join('guideContainerComponents', {hidden: showMoreComponents}),
+		bottomClassName: ({styler, showMoreComponents, moreComponentRendered}) => styler.join('bottomContainerComponents', {lift: showMoreComponents && moreComponentRendered}),
+		playPauseClassName: ({showMoreComponents}) => showMoreComponents ? null : spotlightDefaultClass
 	},
 
 	render: ({
@@ -353,8 +353,8 @@ const MediaControlsBase = kind({
 		playPauseButtonDisabled,
 		playPauseClassName,
 		rateButtonsDisabled,
-		showBottomComponents,
-		bottomComponentRendered,
+		showMoreComponents,
+		moreComponentRendered,
 		childrenContainerClassName,
 		guideClassName,
 		spotlightDisabled,
@@ -381,8 +381,8 @@ const MediaControlsBase = kind({
 					</div> :
 					null
 				}
-				{bottomComponentRendered || showBottomComponents ?
-					<Container className={bottomClassName} spotlightDisabled={!showBottomComponents}>
+				{moreComponentRendered || showMoreComponents ?
+					<Container className={bottomClassName} spotlightDisabled={!showMoreComponents}>
 						{countReactChildren(children) ?
 							<Container className={childrenContainerClassName} >
 								{children}
@@ -586,7 +586,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.paused = new Pause('VideoPlayer');
 
 			this.state = {
-				showBottomComponents: false,
+				showMoreComponents: false,
 				moreComponentRendered: false
 			};
 
@@ -598,7 +598,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		static getDerivedStateFromProps (props) {
 			if (!props.visible) {
 				return {
-					showBottomComponents: false
+					showMoreComponents: false
 				};
 			}
 			return null;
@@ -611,16 +611,23 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		componentDidUpdate (prevProps, prevState) {
-			if (!prevState.showBottomComponents && this.state.showBottomComponents) {
+			if (!prevState.showMoreComponents && this.state.showMoreComponents) {
 				// eslint-disable-next-line
 				this.setState({
-					bottomComponentRendered: true
+					moreComponentRendered: true
 				});
-				this.mediaControlsNode.style.setProperty('--guideComponentHeight', `${this.getHeightForElement('guideContainerComponents')}px`);
 			}
 
-			if (this.state.showBottomComponents !== prevState.showBottomComponents) {
-				forwardToggleMore({showBottomComponents: this.state.showBottomComponents}, this.props);
+			if (!prevState.moreComponentRendered && this.state.moreComponentRendered) {
+				const bottomElement = this.mediaControlsNode.querySelector(`.${css.bottomContainerComponents}`);
+				this.bottomHeight = bottomElement ? bottomElement.scrollHeight : 0;
+
+				this.mediaControlsNode.style.setProperty('--bottomComponentsOffset', `${this.bottomHeight}px`);
+				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, lift: this.bottomHeight - this.guideHeight}, this.props);
+			}
+
+			if (this.state.moreComponentRendered && this.state.showMoreComponents !== prevState.showMoreComponents) {
+				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, lift: this.bottomHeight - this.guideHeight}, this.props);
 			}
 
 			// if media controls disabled, reset key loop
@@ -638,18 +645,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		handleControlsKeyUp = (e) => {
-			if (is('down', e.keyCode) && !this.state.showBottomComponents) {
-				this.showBottomComponents();
+			if (is('down', e.keyCode) && !this.state.showMoreComponents) {
+				this.showMoreComponents();
 				e.stopPropagation();
-			}
-		}
-
-		getHeightForElement = (elementName) => {
-			const element = this.mediaControlsNode.querySelector(`.${css[elementName]}`);
-			if (element) {
-				return element.offsetHeight;
-			} else {
-				return 0;
 			}
 		}
 
@@ -675,12 +673,10 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		handleKeyUp = (ev) => {
 			const {
 				mediaDisabled,
-				moreButtonDisabled,
 				no5WayJump,
 				noRateButtons,
 				playPauseButtonDisabled,
-				rateButtonsDisabled,
-				visible
+				rateButtonsDisabled
 			} = this.props;
 
 			if (mediaDisabled) return;
@@ -748,25 +744,32 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		getMediaControls = (node) => {
+			if (!node) return;
+
 			this.mediaControlsNode = ReactDOM.findDOMNode(node); // eslint-disable-line react/no-find-dom-node
+
+			const guideElement = this.mediaControlsNode.querySelector(`.${css.guideContainerComponents}`);
+			this.guideHeight = guideElement ? guideElement.scrollHeight : 0;
+
+			this.mediaControlsNode.style.setProperty('--guideComponentHeight', `${this.guideHeight}px`);
 		}
 
 		areMoreComponentsAvailable = () => {
-			return this.state.showBottomComponents;
+			return this.state.showMoreComponents;
 		}
 
-		showBottomComponents = () => {
-			this.setState({showBottomComponents: true});
+		showMoreComponents = () => {
+			this.setState({showMoreComponents: true});
 		}
 
 		hideMoreComponents = () => {
-			this.setState({showBottomComponents: false});
+			this.setState({showMoreComponents: false});
 		}
 
 		toggleMoreComponents () {
 			this.setState((prevState) => {
 				return {
-					showBottomComponents: !prevState.showBottomComponents
+					showMoreComponents: !prevState.showMoreComponents
 				};
 			});
 		}
@@ -779,7 +782,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		handleTransitionEnd = (ev) => {
 			if (ev.propertyName === 'transform') {
-				if (this.state.showBottomComponents) {
+				if (this.state.showMoreComponents) {
 					Spotlight.move('down');
 				}
 			}
@@ -802,12 +805,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				<Wrapped
 					ref={this.getMediaControls}
 					{...props}
-					bottomComponentRendered={this.state.bottomComponentRendered}
+					moreComponentRendered={this.state.moreComponentRendered}
 					onClose={this.handleClose}
 					onKeyDownFromMediaControls={this.handleControlsKeyUp}
 					onPlayButtonClick={this.handlePlayButtonClick}
 					onTransitionEnd={this.handleTransitionEnd}
-					showBottomComponents={this.state.showBottomComponents}
+					showMoreComponents={this.state.showMoreComponents}
 				/>
 			);
 		}
@@ -840,7 +843,7 @@ const handleCancel = (ev, {onClose}) => {
 const MediaControls = ApiDecorator(
 	{api: [
 		'areMoreComponentsAvailable',
-		'showBottomComponents',
+		'showMoreComponents',
 		'hideMoreComponents'
 	]},
 	MediaControlsDecorator(
