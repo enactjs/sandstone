@@ -15,7 +15,7 @@ import kind from '@enact/core/kind';
 import UiIcon from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
+import {compose} from 'ramda';
 
 import Skinnable from '../Skinnable';
 
@@ -39,20 +39,30 @@ const IconBase = kind({
 		/**
 		 * The size of the icon.
 		 *
-		 * @type {('large'|'small')}
+		 * @type {('large'|'medium'|'small'|'tiny')}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.string
+		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny'])
 	},
 
 	defaultProps: {
 		size: 'small'
 	},
 
+	styles: {
+		css: componentCss
+	},
+
+	computed: {
+		className: ({size, styler}) => styler.append(
+			size
+		)
+	},
+
 	render: (props) => UiIcon.inline({
 		...props,
-		css: componentCss,
+		css: props.css,
 		iconList
 	})
 });
