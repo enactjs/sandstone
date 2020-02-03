@@ -14,10 +14,11 @@ storiesOf('Sandstone', module)
 		'Item',
 		() => (
 			<Item
-				label={text('label', Config, '')}
-				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config, 'below')}
 				disabled={boolean('disabled', Config)}
 				inline={boolean('inline', Config)}
+				label={text('label', Config, '')}
+				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config, 'below')}
+				selected={boolean('selected', Config)}
 			>
 				{text('children', Config, 'Hello Item')}
 			</Item>
