@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import Button from '../Button';
+import {ButtonBase} from '../Button';
 import Skinnable from '../Skinnable';
 import TooltipDecorator from '../TooltipDecorator';
 
@@ -106,7 +106,7 @@ const IconButtonBase = kind({
 		});
 
 		return (
-			<Button {...rest} minWidth={false} icon={children} />
+			<ButtonBase {...rest} minWidth={false} icon={children} iconOnly />
 		);
 	}
 });
