@@ -8,6 +8,7 @@
     "clean": "enact clean",
     "lint": "enact lint --strict",
     "sampler": "npm run --prefix samples/sampler serve",
+    "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
     "test-json": "enact test --json",
     "test-watch": "enact test --watch",
