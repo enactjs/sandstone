@@ -50,10 +50,18 @@
 	display: inline-flex;
 	position: relative;
 	padding: @sand-input-padding;
-	border-radius: @sand-input-border-radius;
 	margin: @sand-input-margin;
 	box-sizing: border-box;
 	vertical-align: middle;
+
+	.bg {
+		position: absolute;
+		.position(0);
+		z-index: -1;
+		border-radius: @sand-input-border-radius;
+		transition: transform @sand-input-focus-duration ease-out, filter @sand-input-focus-duration ease-out;
+		will-change: transform, filter;
+	}
 
 	.input,
 	.inputHighlight {
@@ -137,8 +145,11 @@
 
 	// Skin colors
 	.applySkins({
-		background-color: @sand-input-decorator-bg-color;
 		color: @sand-input-text-color;
+
+		.bg {
+			background-color: @sand-input-decorator-bg-color;
+		}
 
 		.input {
 			background: transparent;
@@ -170,10 +181,17 @@
 			// background-color: @sand-spotlight-color;
 		}
 
+		.decoratorIcon {
+			color: @sand-input-text-color;
+		}
+
 		.focus({
-			background-color: @sand-input-decorator-focus-bg-color;
 			color: @sand-input-focus-text-color;
-			box-shadow: @sand-input-border-active-shadow;
+
+			.bg {
+				background-color: @sand-input-decorator-focus-bg-color;
+				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
+			}
 
 			.input {
 				.input-placeholder({
@@ -189,7 +207,14 @@
 		});
 
 		&:focus-within {
-			background-color: @sand-input-decorator-active-bg-color;
+			.bg {
+				background-color: @sand-input-decorator-active-bg-color;
+				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
+			}
+
+			.decoratorIcon {
+				color: @sand-input-focus-text-color;
+			}
 		}
 
 		.disabled({
@@ -243,7 +268,9 @@
 	.decorator {
 		.applySkins({
 			.focus({
-				background-color: @sand-input-decorator-bg-color;
+				.bg {
+					background-color: @sand-input-decorator-bg-color;
+				}
 			});
 		});
 	}
