@@ -34,12 +34,12 @@ describe('Item', function () {
 		const itemDisabled = Page.components.itemDisabled;
 
 		it('should focus the disabled when hovered', function () {
-			itemDisabled.focus();
+			itemDisabled.hover();
 			expect(itemDisabled.self.hasFocus()).to.be.true();
 		});
 
 		it('should focus first when hovered', function () {
-			itemDefault.focus();
+			itemDefault.hover();
 			expect(itemDefault.self.hasFocus()).to.be.true()
 		});
 	});

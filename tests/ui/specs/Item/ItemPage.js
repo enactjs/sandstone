@@ -5,13 +5,18 @@ const Page = require('@enact/ui-test-utils/test/Page.js');
 class ItemInterface {
 	constructor (id) {
 		this.id = id;
+		this.selector = `#${this.id}`;
 	}
 
 	focus () {
-		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
+		return browser.selectorExecute(this.selector, (els) => els && !els[0].focus());
 	}
 
-	get self () { return browser.element(`#${this.id}`); }
+	hover () {
+		return browser.moveToObject(this.selector, 0, 0);
+	}
+
+	get self () { return browser.element(this.selector); }
 }
 
 class ItemPage extends Page {
