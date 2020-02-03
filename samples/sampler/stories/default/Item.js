@@ -1,4 +1,4 @@
-import {boolean, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiItem, {ItemBase as UiItemBase} from '@enact/ui/Item';
 import React from 'react';
@@ -14,7 +14,8 @@ storiesOf('Sandstone', module)
 		'Item',
 		() => (
 			<Item
-				label={text('label', Config, 'Label')}
+				label={text('label', Config, '')}
+				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config, 'below')}
 				disabled={boolean('disabled', Config)}
 				inline={boolean('inline', Config)}
 			>
