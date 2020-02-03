@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import Button from '../Button';
+import {ButtonBase, ButtonDecorator} from '../Button';
 import Skinnable from '../Skinnable';
 import TooltipDecorator from '../TooltipDecorator';
 
@@ -99,6 +99,8 @@ const IconButtonBase = kind({
 	},
 
 	render: ({children, ...rest}) => {
+		delete rest.color;
+
 		deprecate({
 			name: 'sandstone/IconButton',
 			replacedBy: 'sandstone/Button',
@@ -106,7 +108,7 @@ const IconButtonBase = kind({
 		});
 
 		return (
-			<Button {...rest} minWidth={false} icon={children} />
+			<ButtonBase {...rest} minWidth={false} icon={children} />
 		);
 	}
 });
@@ -117,19 +119,10 @@ const IconButtonBase = kind({
  *
  * @hoc
  * @memberof sandstone/IconButton
- * @mixes sandstone/TooltipDecorator.TooltipDecorator
- * @mixes ui/IconButton.IconButtonDecorator
- * @mixes spotlight/Spottable.Spottable
- * @mixes sandstone/Skinnable.Skinnable
+ * @mixes sandstone/Button.ButtonDecorator
  * @public
  */
-const IconButtonDecorator = compose(
-	Pure,
-	TooltipDecorator({tooltipDestinationProp: 'decoration'}),
-	UiIconButtonDecorator,
-	Spottable,
-	Skinnable
-);
+const IconButtonDecorator = ButtonDecorator;
 
 /**
  * `IconButton` does not have `Marquee` like `Button` has, as it should not contain text.
