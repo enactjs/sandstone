@@ -15,6 +15,7 @@ import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
 import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '@enact/ui/Button';
+import TooltipDecorator from '../TooltipDecorator';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -114,25 +115,13 @@ const ButtonBase = kind({
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.string,
-
-		/**
-		 * The button type.
-		 *
-		 * Grid buttons are intended to be grouped with other related buttons.
-		 *
-		 * @type {('grid'|'round')}
-		 * @default 'grid'
-		 * @public
-		 */
-		type: PropTypes.oneOf(['grid', 'round'])
+		size: PropTypes.oneOf(['large', 'small'])
 	},
 
 	defaultProps: {
 		backgroundOpacity: null,
 		iconPosition: 'before',
-		size: 'large',
-		type: 'grid'
+		size: 'large'
 	},
 
 	styles: {
@@ -141,12 +130,11 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler, type}) => styler.append(
+		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler}) => styler.append(
 			{iconOnly},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			`icon${cap(iconPosition)}`,
-			size,
-			type
+			size
 		),
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
@@ -156,7 +144,6 @@ const ButtonBase = kind({
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.size;
-		delete rest.type;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
@@ -181,7 +168,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
 	return kind({
 		name: 'IconButtonDecorator',
 		computed: {
-			iconOnly: ({children}) => (React.Children.count(children) === 0 || children === '')
+			iconOnly: ({children}) => (React.Children.toArray(children).filter(Boolean).length === 0)
 		},
 		render: (props) => {
 			return (
@@ -205,6 +192,7 @@ const IconButtonDecorator = hoc((config, Wrapped) => {
 const ButtonDecorator = compose(
 	Pure,
 	IconButtonDecorator,
+	TooltipDecorator({tooltipDestinationProp: 'decoration'}),  // Future note: This should eventually be conditionally applied via hooks (after refactoring)
 	MarqueeDecorator({className: componentCss.marquee}),
 	UiButtonDecorator,
 	Spottable,

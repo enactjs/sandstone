@@ -5,6 +5,7 @@
 // ---------------------------------------
 @sand-app-keepout: 48px;
 @sand-component-spacing: 30px;
+@sand-smallest-tappable-size: 168px;
 
 // Font Sizes
 // ---------------------------------------
@@ -203,7 +204,6 @@
 @sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
-@sand-button-small-tap-area-height: (@sand-spotlight-outset + @sand-button-small-height + @sand-spotlight-outset);
 @sand-button-small-focus-bg-transform: scale(1.1);
 @sand-button-round-border-radius: 960px; // Generic, sufficiently large value that converts to a nice amount of rem
 
@@ -257,7 +257,6 @@
 @sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
 @sand-icon-sprite-size: (@sand-icon-button-size - (@sand-button-border-width * 2));
 @sand-icon-sprite-small-size: (@sand-icon-button-small-size - (@sand-button-border-width * 2));
-@sand-icon-tap-area-offset: -(@sand-button-border-width + (@sand-button-small-tap-area-height - @sand-button-small-height) / 2);
 @sand-icon-margin: 24px;
 
 // Input

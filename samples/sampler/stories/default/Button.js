@@ -15,8 +15,21 @@ const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBa
 
 // Set up some defaults for info and knobs
 const prop = {
-	backgroundOpacity: ['', 'opaque', 'transparent'],
-	icons: ['', ...iconNames]
+	backgroundOpacity: {'undefined/null (automatic)': '', 'opaque (Default for text buttons)': 'opaque', 'transparent (Default for icon-only buttons)': 'transparent'},
+	iconPosition: ['', 'before', 'after'],
+	icons: ['', ...iconNames],
+	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
+	size: ['', 'small', 'large']
+};
+
+// The following is needed to allow us to disambiguate between minWidth=false and minWidth=undefined
+const threeWayBoolean = (value) => {
+	switch (value) {
+		case 'true': return true;
+		case 'false': return false;
+		case '': return null;
+		default: return value;
+	}
 };
 
 storiesOf('Sandstone', module)
@@ -28,10 +41,10 @@ storiesOf('Sandstone', module)
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 				disabled={boolean('disabled', Config)}
 				icon={select('icon', prop.icons, Config)}
-				iconPosition={select('iconPosition', ['', 'before', 'after'], Config, '')}
-				minWidth={boolean('minWidth', Config) ? void 0 : false}
+				iconPosition={select('iconPosition', prop.iconPosition, Config)}
+				minWidth={threeWayBoolean(select('minWidth', prop.minWidth, Config))}
 				selected={boolean('selected', Config)}
-				size={select('size', ['', 'small', 'large'], Config)}
+				size={select('size', prop.size, Config)}
 			>
 				{text('children', Config, 'click me')}
 			</Button>
