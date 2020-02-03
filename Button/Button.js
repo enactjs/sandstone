@@ -15,15 +15,15 @@ import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
 import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '@enact/ui/Button';
-import TooltipDecorator from '../TooltipDecorator';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import React from 'react';
 import compose from 'ramda/src/compose';
+import React from 'react';
 
 import {IconBase} from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
+import TooltipDecorator from '../TooltipDecorator';
 
 import componentCss from './Button.module.less';
 
