@@ -9,12 +9,12 @@
 	/* Available for customization */
 	.applySkins({
 		.icon {
-			border-color: @sand-radioitem-icon-border-color;
+			color: @sand-radioitem-indicator-color;
+			background-color: @sand-radioitem-indicator-bg-color;
+			border-color: @sand-radioitem-indicator-border-color;
 			border-style: solid;
-			border-width: @sand-radioitem-icon-border-width;
-			background-color: transparent;
-			border-radius: @sand-radioitem-icon-border-radius;
-			color: transparent;
+			border-width: @sand-radioitem-indicator-border-width;
+			border-radius: @sand-radioitem-indicator-border-radius;
 		}
 
 		.focus({
@@ -29,13 +29,18 @@
 
 		&.selected {
 			.icon {
-				color: @sand-radio-item-selected-indicator-color;
-				background-color: @sand-radio-item-selected-indicator-bg-color;
-			}
-
-			&::before {
-					background-color: @sand-radio-item-selected-indicator-color;
+				color: @sand-radioitem-selected-indicator-color;
+				background-color: @sand-radioitem-selected-indicator-bg-color;
+				border-color: @sand-radioitem-selected-indicator-border-color;
 			}
 		}
+
+		.focus({
+			.icon {
+				color: @sand-radioitem-focus-indicator-color;
+				background-color: @sand-radioitem-focus-indicator-bg-color;
+				border-color: @sand-radioitem-focus-indicator-border-color;
+			}
+		});
 	});
 }
