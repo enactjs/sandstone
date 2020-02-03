@@ -161,24 +161,20 @@
 
 // Input
 // ---------------------------------------
-@sand-input-text-color:               @sand-black;
-@sand-input-border-color:             #eaeaea;
+@sand-input-text-color:               @sand-text-color;
 @sand-input-textarea-color:           @sand-dark-gray;
-@sand-input-placeholder-color:        @sand-white;
-@sand-input-placeholder-focus-color:  @sand-input-decorator-bg-color;
+@sand-input-placeholder-color:        fade(@sand-light-gray, 20%);
+@sand-input-placeholder-focus-color:  fade(@sand-gray, 20%);
 @sand-input-placeholder-active-color: @sand-input-placeholder-focus-color;
 @sand-input-placeholder-disabled-color:  @sand-white;
-@sand-input-focus-text-color:         @sand-black;
+@sand-input-focus-text-color:         @sand-spotlight-text-color;
 @sand-input-disabled-focus-text-color: fade(@sand-input-text-color, @sand-disabled-opacity-percentage);
 @sand-input-disabled-text-color:      inherit;
-@sand-input-decorator-bg-color:       #aaa;
-@sand-input-decorator-border-color:   @sand-light-gray;
-@sand-input-decorator-focus-bg-color: @sand-white;
+@sand-input-decorator-bg-color:       fade(@sand-light-gray, 20%);
+@sand-input-decorator-focus-bg-color: @sand-spotlight-bg-color;
+@sand-input-decorator-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
 @sand-input-decorator-active-bg-color: @sand-input-decorator-focus-bg-color;
 @sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
-@sand-input-border-focus-border-color: @sand-spotlight-border-color;
-@sand-input-border-active-border-color: transparent;
-@sand-input-border-active-shadow: 0 0 0 6px @sand-input-border-focus-border-color;
 
 // LabeledItem
 // ---------------------------------------

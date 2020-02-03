@@ -93,6 +93,12 @@ const ItemBase = kind({
 	name: 'Item',
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
+		/**
+		 * Called with a reference to the root component.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
 		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
 		/**
@@ -123,9 +129,45 @@ const ItemBase = kind({
 		 * @public
 		 */
 		label: PropTypes.node,
+
+		/**
+		 * The position of the label relative to the primary content, `children`.
+		 *
+		 * @type {('above'|'after'|'before'|'below')}
+		 * @public
+		 */
 		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
+
+		/**
+		 * Applies a selected style to the component
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 *
+		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
+		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
 		slotAfter: PropTypes.node,
+
+		/**
+		 * Nodes to be inserted before `children` and `label`.
+		 *
+		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
+		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
 		slotBefore: PropTypes.node
 	},
 
