@@ -1,4 +1,7 @@
 module.exports = {
+	"globals": {
+		'URL': true
+	},
 	"extends": ["enact/strict"],
 	"root": true,
 	// Disabling these because test app!
