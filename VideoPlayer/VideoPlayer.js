@@ -1976,11 +1976,11 @@ const VideoPlayerBase = class extends React.Component {
  *		<source src="http://my.cat.videos/boots.mp4" type="video/mp4" />
  *		<infoComponents>A video about my cat Boots, wearing boots.</infoComponents>
  *		<MediaControls>
- *			<leftComponents><Button backgroundOpacity="translucent" icon="star" type="round" /></leftComponents>
- *			<rightComponents><Button backgroundOpacity="translucent" icon="flag" type="round" /></rightComponents>
+ *			<leftComponents><Button backgroundOpacity="translucent" icon="star" /></leftComponents>
+ *			<rightComponents><Button backgroundOpacity="translucent" icon="flag" /></rightComponents>
  *
  *			<Button backgroundOpacity="translucent">Add To Favorites</Button>
- *			<Button backgroundOpacity="translucent" icon="search" type="round" />
+ *			<Button backgroundOpacity="translucent" icon="search" />
  *		</MediaControls>
  *	</VideoPlayer>
  * ```
