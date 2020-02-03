@@ -267,9 +267,9 @@ class FocusedAndDisabled extends React.Component {
 
 	tests = [
 		<Button icon="star">Button</Button>,
+		<Button icon="star" />,
 		<Button icon={docs}>Button</Button>,
-		<Button icon="star">Button</Button>,
-		<Button icon={docs}>Button</Button>
+		<Button icon={docs} />
 	]
 
 	handleClear = () => this.setState({index: -1})
