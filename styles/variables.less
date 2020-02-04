@@ -233,17 +233,6 @@
 @sand-heading-padding: 0;
 @sand-heading-showline-padding: 0 0 18px 0;
 
-// Icon Button
-// ---------------------------------------
-@sand-icon-button-colordot-height: 18px;
-@sand-icon-button-size: @sand-button-height;
-@sand-icon-button-size-large: @sand-button-height-large;
-@sand-icon-button-small-colordot-height: 12px;
-@sand-icon-button-small-size: @sand-button-small-height;
-@sand-icon-button-small-size-large: @sand-button-small-height-large;
-// @sand-icon-button-border-radius: 12px;
-@sand-icon-button-border-radius: 1920px; // 960 generates a nicer, round REM number (40) than 999
-
 // Icon Sizes
 // ---------------------------------------
 @sand-icon-size: 96px;
@@ -254,8 +243,8 @@
 @sand-icon-font-size-large: (@sand-icon-font-size * 1.2);
 @sand-icon-small-font-size: (@sand-icon-small-size * 2);
 @sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
-@sand-icon-sprite-size: (@sand-icon-button-size - (@sand-button-border-width * 2));
-@sand-icon-sprite-small-size: (@sand-icon-button-small-size - (@sand-button-border-width * 2));
+@sand-icon-sprite-size: (@sand-button-height - (@sand-button-border-width * 2));
+@sand-icon-sprite-small-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-margin: 24px;
 
 // Input
@@ -378,7 +367,7 @@
 // ---------------------------------------
 @sand-scrollable-overscroll-thickness: 12px;
 @sand-scrollable-overscroll-duration: 300ms;
-@sand-scrollable-scrollbar-size: @sand-icon-button-small-size;
+@sand-scrollable-scrollbar-size: @sand-button-small-height;
 
 // ToggleSwitch
 // ---------------------------------------
@@ -454,6 +443,8 @@
 @sand-contextual-popup-border-width: 1px;
 @sand-contextual-popup-border-radius: @sand-button-border-width;
 @sand-contextual-popup-padding: @sand-spotlight-outset;
+@sand-contextual-popup-with-reserveclose-padding: (@sand-button-small-height + @sand-spotlight-outset);
+@sand-contextual-popup-with-reserveclose-padding-large: (@sand-button-small-height-large + @sand-spotlight-outset);
 @sand-contextual-popup-arrow-height: 60px;
 @sand-contextual-popup-arrow-width: 60px;
 
