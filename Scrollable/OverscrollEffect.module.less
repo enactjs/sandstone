@@ -15,7 +15,7 @@
 		.overscrollFrame {
 			&::before,
 			&::after {
-				background-color: @moon-scroll-overscroll-color;
+				background-color: @sand-scroll-overscroll-color;
 			}
 		}
 	});
@@ -28,7 +28,7 @@
 		position: absolute;
 		content: "";
 		border-radius: 50%;
-		transition-duration: @moon-scroll-overscroll-duration;
+		transition-duration: @sand-scroll-overscroll-duration;
 		transition-property: transform;
 		transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
@@ -37,7 +37,7 @@
 		&::before,
 		&::after {
 			top: 50%; // Center the element
-			width: @moon-scroll-overscroll-thickness;
+			width: @sand-scroll-overscroll-thickness;
 			height: 70%;
 		}
 
@@ -66,9 +66,9 @@
 	&.vertical {
 		&::before,
 		&::after {
-			--overscroll-effect-vertical-size: ~"calc(100% - " @moon-scroll-scrollbar-size ~")";
+			--overscroll-effect-vertical-size: ~"calc(100% - " @sand-scroll-scrollbar-size ~")";
 			width: ~"calc(var(--overscroll-effect-vertical-size) * 0.7)";
-			height: @moon-scroll-overscroll-thickness;
+			height: @sand-scroll-overscroll-thickness;
 			.margin-start-end(~"calc(var(--overscroll-effect-vertical-size) * 0.15)", 0);
 		}
 
@@ -84,7 +84,7 @@
 		}
 
 		&.horizontalScrollbarVisible::after {
-			bottom: @moon-scroll-scrollbar-size;
+			bottom: @sand-scroll-scrollbar-size;
 		}
 	}
 }
