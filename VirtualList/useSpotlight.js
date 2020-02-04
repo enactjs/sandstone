@@ -118,7 +118,7 @@ const useSpotlightRestore = (props, instances) => {
 
 			if (node) {
 				// if we're supposed to restore focus and virtual list has positioned a set of items
-				// thatx includes lastFocusedIndex, clear the indicator
+				// that includes lastFocusedIndex, clear the indicator
 				mutableRef.current.restoreLastFocused = false;
 
 				// try to focus the last focused item

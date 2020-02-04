@@ -120,7 +120,7 @@ const useSpottable = (props, instances) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, props, removeGlobalKeyDownEventListener]);
+	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, uiChildContainerRef]);
 
 	useEffect(() => {
 		return () => setContainerDisabled(false);
@@ -329,52 +329,6 @@ const useSpottable = (props, instances) => {
 			Spotlight.focus(node);
 		}
 	}
-
-/* eslint-disable indent */
-/*
-// Move to Scroller above
-
-	useEffect(() => {
-		return () => setContainerDisabled(false);
-	}, [setContainerDisabled]);
-
-	const setContainerDisabled = useCallback((bool) => {
-		const
-			{spotlightId} = props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
-
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
-
-			if (bool) {
-				addGlobalKeyDownEventListener(() => {
-					setContainerDisabled(false);
-				});
-			} else {
-				removeGlobalKeyDownEventListener();
-			}
-		}
-	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, uiChildContainerRef]);
-
-// Move to useSpotlight
-
-	function handleLeaveContainer ({direction, target}) {
-		// ensure we only scroll to boundary from the contents and not a scroll button which
-		// lie outside of uiChildContainerRef but within the spotlight container
-		if (scrollContainerContainsDangerously(target)) {
-			const
-				{scrollBounds: {maxLeft, maxTop}, scrollPos: {left, top}} = uiScrollAdapter.current,
-				isVerticalDirection = (direction === 'up' || direction === 'down'),
-				pos = isVerticalDirection ? top : left,
-				max = isVerticalDirection ? maxTop : maxLeft;
-
-			// If max is equal to 0, it means scroller can not scroll to the direction.
-			if (pos >= 0 && pos <= max && max !== 0) {
-				props.scrollAndFocusScrollbarButton(direction);
-			}
-		}
-	}
-*/
 
 	// Return
 
