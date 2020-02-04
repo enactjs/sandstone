@@ -15,7 +15,7 @@ import kind from '@enact/core/kind';
 import UiIcon from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import {compose} from 'ramda';
+import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
 
