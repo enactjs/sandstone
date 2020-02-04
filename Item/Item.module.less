@@ -51,6 +51,15 @@
 		margin-inline-end: @sand-item-slotbefore-spacing;
 	}
 
+	&.inline {
+		max-width: @sand-item-inline-max-width;
+	}
+
+	// Text
+	.label {
+		.sand-text-base(@sand-item-label-font-size);
+	}
+
 	.sand-locale-non-latin({
 		line-height: @sand-item-line-height;
 	});
@@ -64,16 +73,7 @@
 		});
 	});
 
-	&.inline {
-		max-width: 480px;
-	}
-
 	.locale-japanese-line-break();
-
-	// Text
-	.label {
-		.sand-text-base(@sand-item-label-font-size);
-	}
 
 	// Skin colors
 	.applySkins({

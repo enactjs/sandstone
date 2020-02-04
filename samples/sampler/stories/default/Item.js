@@ -5,6 +5,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';
@@ -16,9 +17,11 @@ storiesOf('Sandstone', module)
 			<Item
 				disabled={boolean('disabled', Config)}
 				inline={boolean('inline', Config)}
-				label={text('label', Config, '')}
-				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config, 'below')}
+				label={text('label', Config)}
+				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config)}
 				selected={boolean('selected', Config)}
+				slotBefore={select('slotBefore', {'': '', '<Icon />' : 'icon'}, Config) ? <Icon size="small">speakers</Icon> : null}
+				slotAfter={select('slotAfter', {'': '', '<Icon />' : 'icon'}, Config) ? <Icon size="small">arrowlargeright</Icon> : null}
 			>
 				{text('children', Config, 'Hello Item')}
 			</Item>
