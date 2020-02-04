@@ -303,8 +303,8 @@ const useSpottable = (props, instances) => {
 	 */
 	function calculatePositionOnFocus ({item, scrollPosition}) {
 		const containerNode = uiChildContainerRef.current;
-		const horizontal = uiScrollAdapter.current.isHorizontal();
-		const vertical = uiScrollAdapter.current.isVertical();
+		const horizontal = uiChildAdapter.current.isHorizontal();
+		const vertical = uiChildAdapter.current.isVertical();
 
 		if (!vertical && !horizontal || !item || !utilDOM.containsDangerously(containerNode, item)) {
 			return;
