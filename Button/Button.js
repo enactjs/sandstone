@@ -218,9 +218,9 @@ const ButtonDecorator = compose(
  * Usage:
  * ```
  * <Button
- * 	backgroundOpacity="transparent"
- * 	size="small"
- *  icon="home"
+ *	backgroundOpacity="transparent"
+ *	size="small"
+ *	icon="home"
  * >
  * 	Press me!
  * </Button>
