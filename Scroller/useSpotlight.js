@@ -2,7 +2,7 @@ import Spotlight from '@enact/spotlight';
 import {useEffect} from 'react';
 
 const useSpotlightConfig = (props, instances) => {
-	const {uiScrollAdapter} = instances;
+	const {uiChildAdapter} = instances;
 
 	// Hooks
 
@@ -12,7 +12,7 @@ const useSpotlightConfig = (props, instances) => {
 			// lie outside of uiChildContainerRef but within the spotlight container
 			if (props.scrollContainerContainsDangerously(target)) {
 				const
-					{scrollBounds: {maxLeft, maxTop}, scrollPos: {left, top}} = uiScrollAdapter.current,
+					{scrollBounds: {maxLeft, maxTop}, scrollPos: {left, top}} = uiChildAdapter.current,
 					isVerticalDirection = (direction === 'up' || direction === 'down'),
 					pos = isVerticalDirection ? top : left,
 					max = isVerticalDirection ? maxTop : maxLeft;
@@ -32,7 +32,7 @@ const useSpotlightConfig = (props, instances) => {
 		}
 
 		configureSpotlight();
-	}, [props, uiScrollAdapter]);
+	}, [props, uiChildAdapter]);
 };
 
 export {
