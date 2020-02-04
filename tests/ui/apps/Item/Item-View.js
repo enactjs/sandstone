@@ -11,15 +11,25 @@ const app = (props) => <div {...props}>
 	<div>
 		<Item
 			id="item1"
+			title="Item 1"
+			defaultSelected
 		>
-			Item1
+			Item 1
 		</Item>
 		<Item
 			id="item2"
-			defaultSelected
+			title="Item 2 disabled"
+			// defaultSelected
 			disabled
 		>
 			Item disabled
+		</Item>
+		<Item
+			id="item3"
+			title="Item 3"
+			// label="This is a label"
+		>
+			Item 3
 		</Item>
 	</div>
 </div>;

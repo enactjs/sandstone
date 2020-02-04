@@ -23,10 +23,11 @@ class ItemPage extends Page {
 	constructor () {
 		super();
 		this.title = 'Item Test';
-		const itemDefault = new ItemInterface('item1');
-		const itemDisabled = new ItemInterface('item2');
+		const itemDefault1 = new ItemInterface('item1');
+		const item2Disabled = new ItemInterface('item2');
+		const itemDefault3 = new ItemInterface('item3');
 
-		this.components = {itemDefault, itemDisabled};
+		this.components = {itemDefault1, item2Disabled, itemDefault3};
 	}
 
 	open (urlExtra) {
