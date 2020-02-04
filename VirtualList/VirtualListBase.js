@@ -345,19 +345,6 @@ const useSpottable = (props, instances, context) => {
 		}
 	}
 
-/*
-
-Move to useEvent
-
-
-
-	function handleKeyUp ({keyCode}) {
-		if (getDirection(keyCode) || isEnter(keyCode)) {
-			handle5WayKeyUp();
-		}
-	}
-*/
-
 	/**
 	 * Focus on the Node of the VirtualList item
 	 */
@@ -649,7 +636,7 @@ const VirtualListBase = VirtualListCore;
  * @public
  */
 
- /* eslint-disable enact/prop-types */
+/* eslint-disable enact/prop-types */
 function listItemsRenderer (props) {
 	const {
 		cc,

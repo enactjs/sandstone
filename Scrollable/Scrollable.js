@@ -433,22 +433,22 @@ const useSpottableScroll = (props, instances, context) => {
 
 const useScroll = (props) => {
 	const {
-		'data-spotlight-container': spotlightContainer,
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		'data-spotlight-id': spotlightId,
-		focusableScrollbar,
-		preventBubblingOnKeyDown,
-		scrollDownAriaLabel,
-		scrollLeftAriaLabel,
-		scrollRightAriaLabel,
-		scrollUpAriaLabel,
-		type,
-		...rest
-	} = props,
-	downButtonAriaLabel = scrollDownAriaLabel == null ? $L('scroll down') : scrollDownAriaLabel,
-	upButtonAriaLabel = scrollUpAriaLabel == null ? $L('scroll up') : scrollUpAriaLabel,
-	rightButtonAriaLabel = scrollRightAriaLabel == null ? $L('scroll right') : scrollRightAriaLabel,
-	leftButtonAriaLabel = scrollLeftAriaLabel == null ? $L('scroll left') : scrollLeftAriaLabel;
+			'data-spotlight-container': spotlightContainer,
+			'data-spotlight-container-disabled': spotlightContainerDisabled,
+			'data-spotlight-id': spotlightId,
+			focusableScrollbar,
+			preventBubblingOnKeyDown,
+			scrollDownAriaLabel,
+			scrollLeftAriaLabel,
+			scrollRightAriaLabel,
+			scrollUpAriaLabel,
+			type,
+			...rest
+		} = props,
+		downButtonAriaLabel = scrollDownAriaLabel == null ? $L('scroll down') : scrollDownAriaLabel,
+		upButtonAriaLabel = scrollUpAriaLabel == null ? $L('scroll up') : scrollUpAriaLabel,
+		rightButtonAriaLabel = scrollRightAriaLabel == null ? $L('scroll right') : scrollRightAriaLabel,
+		leftButtonAriaLabel = scrollLeftAriaLabel == null ? $L('scroll left') : scrollLeftAriaLabel;
 
 	// Mutable value
 
