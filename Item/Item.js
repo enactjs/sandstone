@@ -34,9 +34,6 @@ const ItemContent = kind({
 		label: PropTypes.any,
 		labelPosition: PropTypes.any
 	},
-	defaultProps: {
-		labelPosition: 'below'
-	},
 	styles: {
 		className: 'itemContent',
 		css: componentCss
