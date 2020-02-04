@@ -61,6 +61,17 @@ const ButtonBase = kind({
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
+		 * The color of the underline beneath button's content.
+		 *
+		 * Accepts one of the following color names, which correspond with the colored buttons on a
+		 * standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
+		 *
+		 * @type {('red'|'green'|'yellow'|'blue')}
+		 * @public
+		 */
+		color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -100,7 +111,7 @@ const ButtonBase = kind({
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
-		 * Boolean concrolling whether this component should enforce the "minimum width" rules.
+		 * Boolean controlling whether this component should enforce the "minimum width" rules.
 		 *
 		 * @type {Boolean}
 		 * @default true
@@ -130,9 +141,10 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
 			{iconOnly},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
+			color,
 			`icon${cap(iconPosition)}`,
 			size
 		),
@@ -141,6 +153,7 @@ const ButtonBase = kind({
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
+		delete rest.color;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 		delete rest.size;
