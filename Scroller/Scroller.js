@@ -120,7 +120,7 @@ const useSpottable = (props, instances) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, uiChildContainerRef]);
+	}, [addGlobalKeyDownEventListener, props, removeGlobalKeyDownEventListener]);
 
 	useEffect(() => {
 		return () => setContainerDisabled(false);

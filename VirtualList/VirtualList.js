@@ -141,13 +141,13 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	*	drag: false,
-	*	pageKey: false,
-	*	scrollbarButton: false,
-	*	wheel: true
-	* }
-	* @private
-	*/
+	 *	drag: false,
+	 *	pageKey: false,
+	 *	scrollbarButton: false,
+	 *	wheel: true
+	 * }
+	 * @private
+	 */
 	overscrollEffectOn: PropTypes.shape({
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
@@ -313,13 +313,13 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	*	drag: false,
-	*	pageKey: false,
-	*	scrollbarButton: false,
-	*	wheel: true
-	* }
-	* @private
-	*/
+	 *	drag: false,
+	 *	pageKey: false,
+	 *	scrollbarButton: false,
+	 *	wheel: true
+	 * }
+	 * @private
+	 */
 	overscrollEffectOn: PropTypes.shape({
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
