@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import {shallow} from 'enzyme';
 
 import {RadioItemBase} from '../RadioItem';
 import css from '../RadioItem.module.less';
@@ -25,7 +25,6 @@ describe('RadioItem Specs', () => {
 			</RadioItemBase>
 		);
 
-		console.log(radioItem.debug());
 		const expected = 1;
 		const actual = radioItem.find(`.${css.selected}`).length;
 

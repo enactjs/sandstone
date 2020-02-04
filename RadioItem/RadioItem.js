@@ -13,13 +13,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import kind from '@enact/core/kind';
-import Spottable from '@enact/spotlight/Spottable';
 import Toggleable from '@enact/ui/Toggleable';
-import Touchable from '@enact/ui/Touchable';
 
 import Icon from '../Icon';
 import Item from '../Item';
-import Skinnable from '../Skinnable';
 
 import componentCss from './RadioItem.module.less';
 
