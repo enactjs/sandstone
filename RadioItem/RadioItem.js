@@ -1,5 +1,5 @@
 /**
- * Provides a Sandstone-themed Item component and interactive radio toggle icon..
+ * Provides a Sandstone-themed Item component and interactive radio toggle icon.
  *
  * @example
  * <RadioItem>Item</RadioItem>
@@ -79,8 +79,7 @@ const RadioItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'radioItem',
-		publicClassNames: true
+		className: 'radioItem'
 	},
 
 	computed: {
@@ -90,7 +89,7 @@ const RadioItemBase = kind({
 	render: ({children, css, icon, ...rest}) => {
 		delete rest.selected;
 		return (
-			<Item {...rest} css={css}>
+			<Item {...rest} css={css} data-webos-voice-intent="SelectRadioItem">
 				<Icon slot="slotBefore" className={css.icon} size="small">{icon}</Icon>
 				{children}
 			</Item>
@@ -98,12 +97,16 @@ const RadioItemBase = kind({
 	}
 });
 
-// Decorator is not exported so not documented
+/**
+ * Sandstone specific behaviors to apply to [RadioItem]{@link Sandstone/RadioItem.RadioItemBase}.
+ *
+ * @hoc
+ * @memberof Sandstone/RadioItem
+ * @mixes ui/RadioItem.RadioItemDecorator
+ * @public
+ */
 const RadioItemDecorator = compose(
 	Toggleable({toggleProp: 'onTap'}),
-	Touchable,
-	Spottable,
-	Skinnable
 );
 
 const RadioItem = RadioItemDecorator(RadioItemBase);
