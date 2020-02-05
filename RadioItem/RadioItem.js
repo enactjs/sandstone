@@ -77,7 +77,7 @@ const RadioItemBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'radioItem',
-		publicClassNames: ['radioItem']
+		publicClassNames: ['radioItem', 'radioIcon']
 	},
 
 	computed: {
