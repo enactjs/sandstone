@@ -5,7 +5,7 @@ import {storiesOf} from '@storybook/react';
 
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Icon from '@enact/sandstone/Icon';
-import IconButton from '@enact/sandstone/IconButton';
+import Button from '@enact/sandstone/Button';
 import Input from '@enact/sandstone/Input';
 
 Header.displayName = 'Header';
@@ -25,10 +25,10 @@ const prop = {
 	},
 	buttons: {
 		'no buttons': null,
-		'1 button': <IconButton>ellipsis</IconButton>,
+		'1 button': <Button icon="ellipsis" />,
 		'2 buttons': <React.Fragment>
-			<IconButton>search</IconButton>
-			<IconButton>ellipsis</IconButton>
+			<Button icon="search" />
+			<Button icon="ellipsis" />
 		</React.Fragment>
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],

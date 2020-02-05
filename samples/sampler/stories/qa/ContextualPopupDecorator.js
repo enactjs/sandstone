@@ -9,12 +9,11 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
-import {IconButton} from '@enact/sandstone/IconButton';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
-const ContextualPopup = ContextualPopupDecorator(IconButton);
+const ContextualPopup = ContextualPopupDecorator(Button);
 
 const buttonMargin = () => ({margin: ri.unit(24, 'rem')});
 

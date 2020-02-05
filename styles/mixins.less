@@ -7,9 +7,9 @@
 @import "~@enact/ui/styles/mixins.less";
 @import "./variables.less";
 
-.sand-taparea(@element-size) when (@sand-button-small-tap-area-height > @element-size) {
+.sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
 	// Take the size of the minimum tappable area, and subtract the element's current size.
-	@_tap-offset: -((@sand-button-small-tap-area-height - @element-size) / 2);
+	@_tap-offset: -((@sand-smallest-tappable-size - @element-size) / 2);
 
 	&::before {
 		content: "";
@@ -22,7 +22,7 @@
 	}
 }
 
-.sand-taparea(@element-size) when (@sand-button-small-tap-area-height <= @element-size) {
+.sand-taparea(@element-size) when (@sand-smallest-tappable-size <= @element-size) {
 	// Remove the tappable area if the tap area is smaller than the element's current size.
 	&::before {
 		content: none;
@@ -306,7 +306,7 @@
 	.sand-font(@sand-button-font-family, @sand-non-latin-button-font-family, {
 		font-size: @sand-non-latin-button-large-font-size;
 		font-style: @sand-non-latin-button-font-style;
-		font-weight: @sand-non-latin-button-large-font-weight;
+		font-weight: @sand-non-latin-button-font-weight;
 	});
 	font-size: @sand-button-font-size;
 	font-style: @sand-button-font-style;
