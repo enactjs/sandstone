@@ -14,10 +14,11 @@ import css from './Panels.module.less';
 const SpottableDiv = Spottable('div');
 
 /**
- * The width of a breadcrumb which may be used to allocate space for it in a panels layout.
+ * The width of a breadcrumb (in 4K resolution) which may be used to allocate space for it in a
+ * panels layout. This value will be scaled for other resolutions so should be divisible by 6.
  *
  * @type {Number}
- * @default 192;
+ * @default 192
  * @private
  * @memberof sandstone/Panels
  */
