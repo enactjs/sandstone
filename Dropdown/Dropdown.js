@@ -24,7 +24,8 @@ import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
-import {compose, equals} from 'ramda';
+import compose from 'ramda/src/compose';
+import equals from 'ramda/src/equals';
 import React from 'react';
 import warning from 'warning';
 
