@@ -1,6 +1,7 @@
 import Spotlight from '@enact/spotlight';
+import {constants} from '@enact/ui/Scrollable';
 
-const paginationPageMultiplier = 0.66;
+const {paginationPageMultiplier} = constants;
 
 const useScrollbar = (props, instances, context) => {
 	const {horizontalScrollbarRef, uiScrollAdapter, verticalScrollbarRef} = instances;

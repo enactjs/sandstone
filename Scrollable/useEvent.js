@@ -10,11 +10,7 @@ import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import {useEffect, useRef} from 'react';
 
-const {overscrollTypeOnce, scrollWheelPageMultiplierForMaxPixel} = constants;
-
-const
-	{animationDuration, epsilon, isPageDown, isPageUp} = constants,
-	paginationPageMultiplier = 0.66;
+const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
