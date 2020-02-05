@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import $L from '../internal/$L';
-import IconButton from '../IconButton';
+import Button from '../Button';
 
 /**
  * An {@link sandstone/ApplicationCloseButton.ApplicationCloseButton} with `closex` icon. It is used in
@@ -58,14 +58,13 @@ const ApplicationCloseButton = kind({
 
 	render: ({backgroundOpacity, onApplicationClose, ...rest}) => {
 		return (
-			<IconButton
+			<Button
 				{...rest}
 				backgroundOpacity={backgroundOpacity}
 				onTap={onApplicationClose}
 				size="small"
-			>
-				closex
-			</IconButton>
+				icon="closex"
+			/>
 		);
 	}
 });

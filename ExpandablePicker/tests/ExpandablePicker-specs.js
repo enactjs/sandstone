@@ -17,7 +17,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('IconButton').last();
+		const checkButton = expandablePicker.find('Button').last();
 		tap(checkButton);
 
 		const expected = false;
@@ -35,7 +35,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('IconButton').last();
+		const checkButton = expandablePicker.find('Button').last();
 		tap(checkButton);
 
 		const expected = value;
@@ -55,7 +55,7 @@ describe('ExpandablePicker Specs', () => {
 				</ExpandablePicker>
 			);
 
-			const checkButton = expandablePicker.find('IconButton').last();
+			const checkButton = expandablePicker.find('Button').last();
 			tap(checkButton);
 
 			const expected = value;
@@ -73,7 +73,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('IconButton').at(2);
+		const checkButton = expandablePicker.find('Button').at(2);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -89,7 +89,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('IconButton').at(1);
+		const checkButton = expandablePicker.find('Button').at(1);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -105,7 +105,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('IconButton').at(0);
+		const checkButton = expandablePicker.find('Button').at(0);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -139,7 +139,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('IconButton').at(0).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('Button').at(0).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -154,7 +154,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('IconButton').at(1).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('Button').at(1).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
