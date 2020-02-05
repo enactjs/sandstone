@@ -1,5 +1,5 @@
 /**
- * Provides a Sandstone-themed Item component an interactive radio toggle icon.
+ * Provides a Sandstone-themed Item component with an interactive radio toggle icon.
  *
  * @example
  * <RadioItem>Item</RadioItem>
