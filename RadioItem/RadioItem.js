@@ -26,10 +26,7 @@ import componentCss from './RadioItem.module.less';
  * @class RadioItem
  * @memberof sandstone/RadioItem
  * @extends sandstone/Item.Item
- * @mixes spotlight/Spottable.Spottable
  * @mixes ui/Toggleable.Toggleable
- * @mixes ui/Touchable.Touchable
- * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
@@ -81,13 +78,13 @@ const RadioItemBase = kind({
 	},
 
 	computed: {
-		className: ({css, selected, styler}) => styler.append(selected && css.selected)
+		className: ({selected, styler}) => styler.append({selected})
 	},
 
 	render: ({children, css, icon, ...rest}) => {
 		delete rest.selected;
 		return (
-			<Item {...rest} css={css} data-webos-voice-intent="SelectRadioItem">
+			<Item data-webos-voice-intent="SelectRadioItem" {...rest} css={css}>
 				<Icon slot="slotBefore" className={css.icon} size="small">{icon}</Icon>
 				{children}
 			</Item>
@@ -96,11 +93,11 @@ const RadioItemBase = kind({
 });
 
 /**
- * Sandstone specific behaviors to apply to [RadioItem]{@link Sandstone/RadioItem.RadioItemBase}.
+ * Sandstone specific behaviors to apply to [RadioItem]{@link sandstone/RadioItem.RadioItemBase}.
  *
  * @hoc
- * @memberof Sandstone/RadioItem
- * @mixes ui/RadioItem.RadioItemDecorator
+ * @memberof sandstone/RadioItem
+ * @mixes ui/Toggleable.Toggleable
  * @public
  */
 const RadioItemDecorator = compose(
