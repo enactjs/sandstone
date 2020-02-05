@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import Button from '../Button';
+import {mount, shallow} from 'enzyme';
+import Button, {ButtonBase} from '../Button';
 
 describe('Button', () => {
 
@@ -17,6 +17,69 @@ describe('Button', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+	it('should have default backgroundOpacity opaque', function () {
+		const subject = shallow(<ButtonBase />);
+
+		expect(subject.prop('className').split(' ')).toContain('opaque');
+	});
+
+	it('should have default minWidth', function () {
+		const subject = shallow(<ButtonBase />);
+
+		expect(subject.prop('className').split(' ')).toContain('minWidth');
+	});
+
+	it('should have default size large', function () {
+		const subject = shallow(<ButtonBase />);
+
+		expect(subject.prop('className').split(' ')).toContain('large');
+	});
+
+	describe('with no minWidth', function () {
+		it('should not have minWidth class', function () {
+			const subject = shallow(<ButtonBase minWidth={false} />);
+
+			expect(subject.prop('className').split(' ')).not.toContain('minWidth');
+		});
+	});
+
+	describe('with transparent backgroundOpacity', function () {
+		it('should have transparent class', function () {
+			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
+
+			expect(subject.prop('className').split(' ')).toContain('transparent');
+		});
+
+		it('should not have have opaque class', function () {
+			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
+
+			expect(subject.prop('className').split(' ')).not.toContain('opaque');
+		});
+	});
+
+	describe('with icon', function () {
+		it('should have check icon when specified', function () {
+			const subject = mount(<Button icon="check">abc</Button>);
+
+			const expected = '✓';
+			const actual = subject.text();
+
+			expect(actual).toEqual(expect.stringContaining(expected));
+		});
+
+		it('should not have minWidth class with only icon', function () {
+			const subject = mount(<Button icon="check" />);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).not.toContain('minWidth');
+		});
+
+		it('should have iconOnly class when there is no children', function () {
+			const subject = mount(<Button icon="check" />);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('iconOnly');
+		});
+	});
 
 	describe('events', () => {
 		test('should call onClick when not disabled', () => {

@@ -67,7 +67,7 @@ const app = (props) => <div {...props}>
 				id="toggleButton7"
 				toggleOnLabel="Small On"
 				toggleOffLabel="Small Off"
-				small
+				size="small"
 			/>
 		</div>
 	</div>

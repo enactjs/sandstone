@@ -260,7 +260,7 @@
 					flex: 0 1;
 					// Take the size of buttons, add margins for each button, multiply that by the amount of buttons, then remove the margins for the first and last button
 					// Due to a LESS parsing issue, this 'calc' must be applied to a full-property, not a short-hand property
-					flex-basis: ~"calc((" @sand-icon-button-size + (@sand-spotlight-outset * 2) ~" * var(--sand-video-player-max-side-components)) - " (@sand-spotlight-outset * 2) ~")";
+					flex-basis: ~"calc((" @sand-button-height + (@sand-spotlight-outset * 2) ~" * var(--sand-video-player-max-side-components)) - " (@sand-spotlight-outset * 2) ~")";
 					white-space: nowrap;
 					padding: @expanding-button-clearance 0;
 				}
