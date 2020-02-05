@@ -9,7 +9,14 @@ install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#develop
     - npm install -g codecov
+    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact .enact
+    - cd .enact
     - npm install
+    - npm run bootstrap -- --ignore enact-sampler
+    - npm run link-all
+    - cd ..
+    - npm install
+    - enact link
 script:
     - echo -e "\x1b\x5b35;1m*** Starting tests...\x1b\x5b0m"
     - npm test -- --runInBand --coverage
