@@ -1,5 +1,5 @@
 /**
- * Provides a Sandstone-themed Item component and interactive radio toggle icon.
+ * Provides a Sandstone-themed Item component an interactive radio toggle icon.
  *
  * @example
  * <RadioItem>Item</RadioItem>
@@ -9,11 +9,11 @@
  * @exports RadioItemBase
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import kind from '@enact/core/kind';
 import Toggleable from '@enact/ui/Toggleable';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
 import Icon from '../Icon';
 import Item from '../Item';
@@ -21,12 +21,14 @@ import Item from '../Item';
 import componentCss from './RadioItem.module.less';
 
 /**
- * Renders an `Item` with a radio-dot component. Useful to show a selected state on an Item.
+ * An item component with a radio toggle icon.
  *
- * @class RadioItem
+ * This component is most often not used directly but may be composed within another component as it
+ * is within [RadioItem]{@link sandstone/RadioItem.RadioItem}.
+ *
+ * @class RadioItemBase
  * @memberof sandstone/RadioItem
  * @extends sandstone/Item.Item
- * @mixes ui/Toggleable.Toggleable
  * @ui
  * @public
  */
@@ -105,6 +107,16 @@ const RadioItemDecorator = compose(
 	Toggleable({toggleProp: 'onTap'}),
 );
 
+/**
+ * Renders an `Item` with a radio-dot component. Useful to show a selected state on an Item.
+ *
+ * @class RadioItem
+ * @memberof sandstone/RadioItem
+ * @extends sandstone/RadioItem.RadioItemBase
+ * @mixes ui/Toggleable.Toggleable
+ * @ui
+ * @public
+ */
 const RadioItem = RadioItemDecorator(RadioItemBase);
 
 export default RadioItem;
