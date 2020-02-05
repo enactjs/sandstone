@@ -31,7 +31,7 @@ import componentCss from './RadioItem.module.less';
  * @public
  */
 const RadioItemBase = kind({
-	name: 'RadioItemBase',
+	name: 'RadioItem',
 
 	propTypes: /** @lends sandstone/RadioItem.RadioItem.prototype */ {
 		/**
@@ -52,6 +52,7 @@ const RadioItemBase = kind({
 		 * The icon to display when selected.
 		 *
 		 * @type {String}
+		 * @default 'circle'
 		 * @see {@link agate/Icon.Icon}
 		 */
 		icon: PropTypes.string,
