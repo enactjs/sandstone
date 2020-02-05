@@ -13,12 +13,12 @@ import ri from '@enact/ui/resolution';
  * @private
  */
 const getLabelUnavailableSpace = function (tooltipWidth) {
-	// Arrow is 15px wide total, we need to know how wide half of it is, since it's centered on the anchor point.
-	const arrowWidth = (15 / 2);
+	// Arrow is 30px wide total, we need to know how wide half of it is, since it's centered on the anchor point.
+	const arrowWidth = (30 / 2);
 
-	// Tooltip is 54px tall, divide by half to get the curve radius ,add the tooltip width
+	// Tooltip is 108px tall, divide by half to get the curve radius, add the tooltip width
 	// to determine the distance that the anchor cannot progress past.
-	const tooltipUnavailableEdge = ri.scale((54 / 2) + arrowWidth);
+	const tooltipUnavailableEdge = ri.scale((108 / 2) + arrowWidth);
 
 	// cap the offset at 50% - that percentage
 	const tooltipUnavaliablePercentage = 0.5 - (tooltipUnavailableEdge / tooltipWidth);

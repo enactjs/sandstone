@@ -27,7 +27,7 @@
 			content: "";
 			position: absolute;
 			.position(auto, 0, 0, 0);
-			height: 360px;
+			height: 720px;
 			transform-origin: bottom;
 			// Fancier gradient for future reference. Keeping linear-gradient as specified from Enyo.
 			// background-image: radial-gradient(rgba(0, 0, 0, 0) 50%, #000000 100%);
@@ -97,7 +97,7 @@
 					// Title
 					.title {
 						position: absolute;
-						bottom: -5px;
+						bottom: -10px;
 						width: 100%;
 						.sand-text-base(@sand-video-player-title-size);
 						line-height: @sand-header-line-height;
@@ -111,7 +111,7 @@
 						.sand-locale-non-latin({
 							// The font-size .times is the same as .title in non-latin locales so no
 							// vertical adjustment is required to align their baselines
-							bottom: 0px;
+							bottom: 0;
 						});
 					}
 
@@ -129,7 +129,7 @@
 
 						> * {
 							display: inline-block;
-							margin: 0 6px;
+							margin: 0 12px;
 						}
 
 						.badgeTextIcon {
@@ -248,9 +248,9 @@
 						.sand-slider-popup-center {
 							font-family: @sand-font-family;
 							font-size: @sand-video-player-indicator-text-size;
-							line-height: 36px;
+							line-height: 72px;
 							position: absolute;	// Allows flip-h to work
-							margin: 0 30px;
+							margin: 0 60px;
 						}
 					}
 				}

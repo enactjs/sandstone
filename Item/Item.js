@@ -12,16 +12,73 @@
 
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
+import ForwardRef from '@enact/ui/ForwardRef';
+import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
+import {Cell, Layout, Row} from '@enact/ui/Layout';
+import {Marquee, MarqueeController} from '@enact/ui/Marquee';
 import Pure from '@enact/ui/internal/Pure';
-import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
+
+const ItemContent = kind({
+	name: 'ItemContent',
+	propTypes: {
+		content: PropTypes.any,
+		css: PropTypes.object,
+		label: PropTypes.any,
+		labelPosition: PropTypes.any
+	},
+	defaultProps: {
+		labelPosition: 'below'
+	},
+	styles: {
+		className: 'itemContent',
+		css: componentCss
+	},
+	computed: {
+		className: ({label, labelPosition, styler}) => styler.append({
+			hasLabel: Boolean(label),
+			labelAbove: labelPosition === 'above',
+			labelAfter: labelPosition === 'after',
+			labelBefore: labelPosition === 'before',
+			labelBelow: labelPosition === 'below'
+		}),
+		orientation: ({labelPosition}) => {
+			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
+		}
+	},
+	render: ({orientation, content, css, label, ...rest}) => {
+		delete rest.labelPosition;
+
+		// Due to flex-box sizing (used in Layout/Cell), in a vertical orientation with no height
+		// specified, all of the cells should be set to `shrink` so their height is summed to define
+		// the height of the entire Layout. Without this, a cell will collapse, causing unwanted overlap.
+		const contentElement = (
+			<Cell component={Marquee} className={css.content} shrink={(label != null && orientation === 'vertical')}>
+				{content}
+			</Cell>
+		);
+
+		if (label == null) return contentElement;
+
+		return (
+			<Cell {...rest}>
+				<Layout orientation={orientation}>
+					{contentElement}
+					<Cell component={Marquee} className={css.label} shrink>
+						{label}
+					</Cell>
+				</Layout>
+			</Cell>
+		);
+	}
+});
 
 /**
  * A Sandstone styled item without any behavior.
@@ -37,6 +94,14 @@ const ItemBase = kind({
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		/**
+		 * Called with a reference to the root component.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -47,21 +112,101 @@ const ItemBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		/**
+		 * Applies a disabled style and the control becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * The label to be displayed along with the text.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		label: PropTypes.node,
+
+		/**
+		 * The position of the label relative to the primary content, `children`.
+		 *
+		 * @type {('above'|'after'|'before'|'below')}
+		 * @public
+		 */
+		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
+
+		/**
+		 * Applies a selected style to the component
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 *
+		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
+		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node,
+
+		/**
+		 * Nodes to be inserted before `children` and `label`.
+		 *
+		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
+		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: 'item'
+		publicClassNames: ['item', 'slotAfter', 'slotBefore']
 	},
 
-	render: ({css, ...rest}) => {
+	computed: {
+		className: ({selected, styler}) => styler.append({selected})
+	},
+
+	render: ({children, componentRef, css, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
+				component={Row}
+				align="center"
+				ref={componentRef}
 				{...rest}
 				css={css}
-			/>
+			>
+				<div className={css.bg} />
+				{slotBefore ? (
+					<Cell className={css.slotBefore} shrink>
+						{slotBefore}
+					</Cell>
+				) : null}
+				<ItemContent
+					content={children}
+					label={label}
+					labelPosition={labelPosition}
+				/>
+				{slotAfter ? (
+					<Cell className={css.slotAfter} shrink>
+						{slotAfter}
+					</Cell>
+				) : null}
+			</UiItemBase>
 		);
 	}
 });
@@ -72,17 +217,21 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
+ * @mixes ui/ForwardRef.ForwardRef
+ * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
- * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Marquee.MarqueeController
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
 const ItemDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
 	UiItemDecorator,
 	Spottable,
-	MarqueeDecorator({invalidateProps: ['inline', 'autoHide']}),
+	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable
 );
 

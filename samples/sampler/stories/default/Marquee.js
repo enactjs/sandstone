@@ -34,7 +34,7 @@ storiesOf('Sandstone', module)
 						marqueeResetDelay={number('marqueeResetDelay', Marquee, 1000)}
 						marqueeSpacing={spacing()}
 						marqueeSpeed={number('marqueeSpeed', Marquee, 60)}
-						style={{width: '400px'}}
+						style={{width: '800px'}}
 					>
 						{text('children', Marquee, 'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.')}
 					</Marquee>

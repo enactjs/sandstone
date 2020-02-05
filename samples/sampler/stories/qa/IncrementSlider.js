@@ -32,12 +32,12 @@ class IncrementSliderView extends React.Component {
 
 	render () {
 		return (
-			<div style={{display: 'flex', marginTop: ri.unit(180, 'rem')}}>
-				<div style={{width: '300px'}}>
+			<div style={{display: 'flex', marginTop: ri.unit(360, 'rem')}}>
+				<div style={{width: '600px'}}>
 					<Button>button</Button>
 					<Button>button</Button>
 				</div>
-				<IncrementSlider style={{flex: 1, width: ri.unit(510, 'rem')}} onChange={this.handleChange} value={this.state.value} />
+				<IncrementSlider style={{flex: 1, width: ri.unit(1020, 'rem')}} onChange={this.handleChange} value={this.state.value} />
 			</div>
 		);
 	}

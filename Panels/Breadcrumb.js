@@ -17,11 +17,11 @@ const SpottableDiv = Spottable('div');
  * The width of a breadcrumb which may be used to allocate space for it in a panels layout.
  *
  * @type {Number}
- * @default 96;
+ * @default 384;
  * @private
  * @memberof sandstone/Panels
  */
-export const breadcrumbWidth = 96;
+export const breadcrumbWidth = 384;
 
 /**
  * Vertical, transparent bar used to navigate to a prior Panel.

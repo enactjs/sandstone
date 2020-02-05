@@ -41,15 +41,15 @@ storiesOf('Heading', module)
 			<Scroller
 				horizontal="auto"
 				style={{
-					height: ri.unit(552, 'rem'),
+					height: ri.unit(1104, 'rem'),
 					width: '100%'
 				}}
 				vertical="auto"
 			>
 				<div
 					style={{
-						height: ri.unit(1002, 'rem'),
-						width: ri.unit(2001, 'rem')
+						height: ri.unit(2004, 'rem'),
+						width: ri.unit(4002, 'rem')
 					}}
 				>
 					<Heading>First Heading</Heading>

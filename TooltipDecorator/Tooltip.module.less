@@ -18,7 +18,7 @@
 	position: absolute;
 	z-index: 1;
 
-	// You'll notice tiny adjustments to the position: 0.5px, 1px, 4px, etc. in the following code.
+	// You'll notice tiny adjustments to the position: 0.5px, 1px, 8px, etc. in the following code.
 	// These are to account for sub-pixel rendering on scaled or "imperfect" rendering scenarios
 	// where hairline gaps can be seen between the tail and the body.
 
@@ -45,7 +45,7 @@
 		}
 	}
 	&.centerArrow .tooltipArrow {
-		width: ((@sand-tooltip-point-height / 2) + 3px);
+		width: ((@sand-tooltip-point-height / 2) + 6px);
 		height: @sand-tooltip-point-width;
 		left: 50%;
 
@@ -55,7 +55,7 @@
 	}
 	&.middleArrow .tooltipArrow {
 		width: @sand-tooltip-point-width;
-		height: ((@sand-tooltip-point-height / 2) + 2px);
+		height: ((@sand-tooltip-point-height / 2) + 4px);
 		top: 50%;
 
 		&::after {

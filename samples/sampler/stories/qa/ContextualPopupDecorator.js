@@ -16,29 +16,29 @@ const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
 const ContextualPopup = ContextualPopupDecorator(IconButton);
 
-const buttonMargin = () => ({margin: ri.unit(12, 'rem')});
+const buttonMargin = () => ({margin: ri.unit(24, 'rem')});
 
 const renderPopup = () => (
-	<div style={{width: ri.unit(600, 'rem')}}>
+	<div style={{width: ri.unit(1200, 'rem')}}>
 		<Button style={buttonMargin()}>First Button</Button>
 		<Button style={buttonMargin()}>Hello Spottable Button</Button>
 	</div>
 );
 
 const renderWidePopup = () => (
-	<div style={{width: ri.unit(501, 'rem')}}>
+	<div style={{width: ri.unit(1002, 'rem')}}>
 		This is a wide popup
 	</div>
 );
 
 const renderTallPopup = () => (
-	<div style={{height: ri.unit(201, 'rem')}}>
+	<div style={{height: ri.unit(402, 'rem')}}>
 		This is a tall popup
 	</div>
 );
 
 const renderSuperTallPopup = () => (
-	<div style={{height: ri.unit(570, 'rem')}}>
+	<div style={{height: ri.unit(1140, 'rem')}}>
 		This is a super tall popup.
 		Note: this popup does not overflow in full screen mode.
 	</div>
@@ -145,7 +145,7 @@ storiesOf('ContextualPopupDecorator', module)
 	.add(
 		'with 5-way selectable activator',
 		() => (
-			<div style={{textAlign: 'center', marginTop: ri.unit(180, 'rem')}}>
+			<div style={{textAlign: 'center', marginTop: ri.unit(360, 'rem')}}>
 				<ContextualPopupWithActivator
 					direction={select('direction', ['up', 'down', 'left', 'right'], Config, 'down')}
 					popupComponent={renderPopup}
@@ -161,7 +161,7 @@ storiesOf('ContextualPopupDecorator', module)
 		() => (
 			<div style={{position: 'relative', width: '100%', height: '100%'}}>
 				<Heading showLine>direction Up</Heading>
-				<div style={{display: 'flex', justifyContent: 'space-between', marginBottom: ri.unit(12, 'rem')}}>
+				<div style={{display: 'flex', justifyContent: 'space-between', marginBottom: ri.unit(24, 'rem')}}>
 					<ContextualPopupWithActivator
 						direction="up"
 						popupComponent={renderWidePopup}
@@ -185,7 +185,7 @@ storiesOf('ContextualPopupDecorator', module)
 					<Heading showLine style={{flexGrow: '1'}}>direction left </Heading>
 					<Heading showLine style={{flexGrow: '1'}}>direction right</Heading>
 				</div>
-				<div style={{display: 'flex', marginBottom: ri.unit(24, 'rem')}}>
+				<div style={{display: 'flex', marginBottom: ri.unit(48, 'rem')}}>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
 							direction="left"
@@ -215,7 +215,7 @@ storiesOf('ContextualPopupDecorator', module)
 						</ContextualPopupWithActivator>
 					</div>
 				</div>
-				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.unit(24, 'rem')}}>
+				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.unit(48, 'rem')}}>
 					<ContextualPopupWithActivator
 						direction="left"
 						popupComponent={renderSuperTallPopup}

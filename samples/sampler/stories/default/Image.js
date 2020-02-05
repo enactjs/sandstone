@@ -32,7 +32,7 @@ storiesOf('Sandstone', module)
 					style={{
 						border: '#ffa500 dashed 1px',
 						borderBottomWidth: 0,
-						borderRadius: '6px 6px 0 0',
+						borderRadius: '12px 12px 0 0',
 						backgroundColor: 'rgba(255, 165, 0, 0.5)',
 						color: '#fff',
 						position: 'absolute',
@@ -40,7 +40,7 @@ storiesOf('Sandstone', module)
 						padding: '0.1em 1em',
 						fontWeight: 100,
 						fontStyle: 'italic',
-						fontSize: '16px'
+						fontSize: '32px'
 					}}
 				>
 					Image Boundry

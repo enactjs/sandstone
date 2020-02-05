@@ -104,7 +104,7 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 72 : 60)
+		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 144 : 120)
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {

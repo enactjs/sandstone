@@ -31,7 +31,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'ContextualPopupDecorator',
 		() => (
-			<div style={{textAlign: 'center', marginTop: ri.unit(99, 'rem')}}>
+			<div style={{textAlign: 'center', marginTop: ri.unit(198, 'rem')}}>
 				<ContextualButton
 					direction={select('direction', ['up', 'down', 'left', 'right'], Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}

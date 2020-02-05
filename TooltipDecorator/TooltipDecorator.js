@@ -33,8 +33,8 @@ const defaultConfig = {
 	/**
 	 * The boundary around the screen which the tooltip should never cross, typically involving
 	 * flipping to an alternate orientation or adjusting its offset to remain on screen.
-	 * The default of 24 is derived from a standard 12px screen-keepout size plus the standard
-	 * Spotlight-outset (12px) margin/padding value which keeps elements and text aligned inside a
+	 * The default of 48 is derived from a standard 24px screen-keepout size plus the standard
+	 * Spotlight-outset (24px) margin/padding value which keeps elements and text aligned inside a
 	 * [Panel]{@link sandstone/Panels.Panel}. Note: This value will be scaled according to the
 	 * resolution.
 	 *
@@ -42,7 +42,7 @@ const defaultConfig = {
 	 * @default 24
 	 * @memberof sandstone/TooltipDecorator.TooltipDecorator.defaultConfig
 	 */
-	screenEdgeKeepout: (12 + 12),
+	screenEdgeKeepout: (24 + 24),
 
 	/**
 	 * The name of the property which will receive the tooltip node.

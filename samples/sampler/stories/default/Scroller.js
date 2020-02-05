@@ -33,15 +33,15 @@ storiesOf('Sandstone', module)
 			>
 				<div
 					style={{
-						height: ri.unit(1002, 'rem'),
-						width: ri.unit(2001, 'rem')
+						height: ri.unit(2004, 'rem'),
+						width: ri.unit(4002, 'rem')
 					}}
 				>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
 					Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
 					<div
 						style={{
-							marginTop: ri.unit(801, 'rem')
+							marginTop: ri.unit(1602, 'rem')
 						}}
 					>
 						Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
