@@ -8,9 +8,8 @@ import RadioItem, {RadioItemBase} from '@enact/sandstone/RadioItem';
 
 import iconNames from './icons';
 
-const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase, RadioItem);
-
 RadioItem.displayName = 'RadioItem';
+const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItemBase, RadioItem);
 
 storiesOf('Sandstone', module)
 	.add(
