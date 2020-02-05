@@ -42,7 +42,6 @@ const RadioItemBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `radioIcon` - Class name for the radio toggle icon
 		 * * `radioItem` - The root class name
 		 *
 		 * @type {Object}
@@ -77,7 +76,7 @@ const RadioItemBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'radioItem',
-		publicClassNames: ['radioItem', 'radioIcon']
+		publicClassNames: ['radioItem']
 	},
 
 	computed: {
