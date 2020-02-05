@@ -7,8 +7,8 @@ const tap = (node) => {
 	node.simulate('mousedown');
 	node.simulate('mouseup');
 };
-const decrement = (slider) => tap(slider.find('IconButton').first());
-const increment = (slider) => tap(slider.find('IconButton').last());
+const decrement = (slider) => tap(slider.find('Button').first());
+const increment = (slider) => tap(slider.find('Button').last());
 const keyDown = (keyCode) => (node) => node.simulate('keydown', {keyCode});
 
 const leftKeyDown = keyDown(37);
@@ -109,7 +109,7 @@ describe('IncrementSlider Specs', () => {
 		);
 
 		const expected = true;
-		const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('disabled');
+		const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -123,7 +123,7 @@ describe('IncrementSlider Specs', () => {
 		);
 
 		const expected = true;
-		const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('disabled');
+		const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -160,7 +160,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = '10 press ok button to decrease the value';
-			const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -175,7 +175,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = `10 ${label}`;
-			const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -189,7 +189,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = '10 press ok button to decrease the value';
-			const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -203,7 +203,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = '10 press ok button to increase the value';
-			const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -218,7 +218,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = `10 ${label}`;
-			const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -232,7 +232,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = '10 press ok button to increase the value';
-			const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('aria-label');
+			const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('aria-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -248,7 +248,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider onSpotlightLeft={handleSpotlight} />
 			);
 
-			leftKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			leftKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -265,7 +265,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightLeft={handleSpotlight} />
 			);
 
-			leftKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			leftKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -282,7 +282,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightLeft={handleSpotlight} />
 			);
 
-			leftKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			leftKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -299,7 +299,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider onSpotlightRight={handleSpotlight} />
 			);
 
-			rightKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			rightKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -316,7 +316,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightRight={handleSpotlight} />
 			);
 
-			rightKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			rightKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -333,7 +333,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightRight={handleSpotlight} />
 			);
 
-			rightKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			rightKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -350,7 +350,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider onSpotlightUp={handleSpotlight} />
 			);
 
-			upKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			upKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -367,7 +367,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider onSpotlightUp={handleSpotlight} />
 			);
 
-			upKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			upKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -384,7 +384,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightUp={handleSpotlight} />
 			);
 
-			upKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			upKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -401,7 +401,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider onSpotlightDown={handleSpotlight} />
 			);
 
-			downKeyDown(incrementSlider.find(`IconButton.${css.incrementButton}`));
+			downKeyDown(incrementSlider.find(`Button.${css.incrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -418,7 +418,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightDown={handleSpotlight} />
 			);
 
-			downKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			downKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -435,7 +435,7 @@ describe('IncrementSlider Specs', () => {
 				<IncrementSlider orientation="vertical" onSpotlightDown={handleSpotlight} />
 			);
 
-			downKeyDown(incrementSlider.find(`IconButton.${css.decrementButton}`));
+			downKeyDown(incrementSlider.find(`Button.${css.decrementButton}`));
 
 			const expected = 'called once';
 			const actual = callCount(handleSpotlight);
@@ -522,7 +522,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = true;
-			const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('data-webos-voice-disabled');
+			const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('data-webos-voice-disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -536,7 +536,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = true;
-			const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('data-webos-voice-disabled');
+			const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('data-webos-voice-disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -551,7 +551,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = label;
-			const actual = incrementSlider.find(`IconButton.${css.incrementButton}`).prop('data-webos-voice-group-label');
+			const actual = incrementSlider.find(`Button.${css.incrementButton}`).prop('data-webos-voice-group-label');
 
 			expect(actual).toBe(expected);
 		}
@@ -566,7 +566,7 @@ describe('IncrementSlider Specs', () => {
 			);
 
 			const expected = label;
-			const actual = incrementSlider.find(`IconButton.${css.decrementButton}`).prop('data-webos-voice-group-label');
+			const actual = incrementSlider.find(`Button.${css.decrementButton}`).prop('data-webos-voice-group-label');
 
 			expect(actual).toBe(expected);
 		}
