@@ -3,7 +3,7 @@
 @import "../styles/skin.less";
 
 .controlsFrame {
-    @expanding-button-clearance: 3px;
+    @expanding-button-clearance: 6px;
     --guideComponentHeight: 0;
 	--bottomComponentsOffset: 0;
 
@@ -23,7 +23,7 @@
         white-space: nowrap;
 
         > * + * {
-            margin-inline-start: 45px;
+            margin-inline-start: 90px;
         }
 
         > * {
@@ -35,13 +35,13 @@
         .guideText {
             .sand-font({
                 font-weight: 500;
-                font-size: 24px;
+                font-size: 48px;
             });
             font-weight: 500;
-            font-size: 24px;
+            font-size: 48px;
         }
 
-        margin-top: 30px;
+        margin-top: 60px;
         text-align: center;
         transition: opacity 0.2s linear;
         &.hidden {
@@ -51,7 +51,7 @@
 
     .childrenContainerComponents {
         > * + * {
-            margin-inline-start: 105px;
+            margin-inline-start: 210px;
 
         }
     }
@@ -74,8 +74,8 @@
         }
 
         .bottomComponent {
-            margin-top: 30px;
-            height: 159px;
+            margin-top: 60px;
+            height: 318px;
         }
     }
 }
