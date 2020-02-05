@@ -4,16 +4,12 @@
 @import "../styles/skin.less";
 @import "../styles/mixins.less";
 
-// Public
 .radioItem {
-	/* Available for customization */
 	.applySkins({
 		.icon {
 			color: @sand-radioitem-indicator-color;
 			background-color: @sand-radioitem-indicator-bg-color;
-			border-color: @sand-radioitem-indicator-border-color;
-			border-style: solid;
-			border-width: @sand-radioitem-indicator-border-width;
+			box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-indicator-border-color;
 			border-radius: @sand-radioitem-indicator-border-radius;
 		}
 
@@ -21,7 +17,7 @@
 			.icon {
 				color: @sand-radioitem-selected-indicator-color;
 				background-color: @sand-radioitem-selected-indicator-bg-color;
-				border-color: @sand-radioitem-selected-indicator-border-color;
+				box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-selected-indicator-border-color;
 			}
 		}
 
@@ -29,14 +25,14 @@
 			.icon {
 				color: @sand-radioitem-focus-indicator-color;
 				background-color: @sand-radioitem-focus-indicator-bg-color;
-				border-color: @sand-radioitem-focus-indicator-border-color;
+				box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-focus-indicator-border-color;
 			}
 
 			&.selected {
 				.icon {
 					color: @sand-radioitem-selected-focus-indicator-color;
 					background-color: @sand-radioitem-selected-focus-indicator-bg-color;
-					border-color: @sand-radioitem-selected-focus-indicator-border-color;
+					box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-selected-focus-indicator-border-color;
 				}
 			}
 		});
