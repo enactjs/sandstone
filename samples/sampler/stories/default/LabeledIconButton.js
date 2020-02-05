@@ -6,13 +6,12 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import LabeledIconButton from '@enact/sandstone/LabeledIconButton';
-import {IconButtonBase} from '@enact/sandstone/IconButton';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 
 import iconNames from './icons';
 
 LabeledIconButton.displayName = 'LabeledIconButton';
-const Config = mergeComponentMetadata('LabeledIconButton', UiLabeledIconBase, UiLabeledIcon, Button, ButtonBase, UIButton, UIButtonBase, IconButtonBase, LabeledIconButton);
+const Config = mergeComponentMetadata('LabeledIconButton', UiLabeledIconBase, UiLabeledIcon, Button, ButtonBase, UIButton, UIButtonBase, LabeledIconButton);
 
 storiesOf('Sandstone', module)
 	.add(
