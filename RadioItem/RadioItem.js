@@ -56,21 +56,11 @@ const RadioItemBase = kind({
 		 * @default 'circle'
 		 * @see {@link agate/Icon.Icon}
 		 */
-		icon: PropTypes.string,
-
-		/**
-		 * Sets the RadioItem to its 'on' state.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		selected: PropTypes.bool
+		icon: PropTypes.string
 	},
 
 	defaultProps: {
-		icon: 'circle',
-		selected: false
+		icon: 'circle'
 	},
 
 	styles: {
@@ -79,12 +69,7 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	computed: {
-		className: ({selected, styler}) => styler.append({selected})
-	},
-
 	render: ({children, css, icon, ...rest}) => {
-		delete rest.selected;
 		return (
 			<Item data-webos-voice-intent="SelectRadioItem" {...rest} css={css}>
 				<Icon slot="slotBefore" className={css.icon} size="small">{icon}</Icon>

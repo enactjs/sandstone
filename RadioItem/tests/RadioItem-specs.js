@@ -2,33 +2,19 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import {RadioItemBase} from '../RadioItem';
-import css from '../RadioItem.module.less';
 
 describe('RadioItem Specs', () => {
-	test('should render correct icon when not selected', () => {
-		const radioItem = shallow(
-			<RadioItemBase>
+	test('should support a custom icon', () => {
+		const expected = 'check';
+
+		const subject = shallow(
+			<RadioItemBase icon={expected}>
 				Hello RadioItem
 			</RadioItemBase>
 		);
 
-		const expected = 0;
-		const actual = radioItem.find(`.${css.selected}`).length;
+		const actual = subject.find('.icon').prop('children');
 
 		expect(actual).toBe(expected);
 	});
-
-	test('should render correct icon when selected', () => {
-		const radioItem = shallow(
-			<RadioItemBase selected>
-				Hello RadioItem
-			</RadioItemBase>
-		);
-
-		const expected = 1;
-		const actual = radioItem.find(`.${css.selected}`).length;
-
-		expect(actual).toBe(expected);
-	});
-
 });
