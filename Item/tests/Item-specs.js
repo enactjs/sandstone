@@ -33,6 +33,20 @@ describe('Item Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should support adding text as a child when a label is also set', () => {
+		const expected = 'Hello Item';
+
+		const subject = mount(
+			<ItemBase label="Example Label">
+				{expected}
+			</ItemBase>
+		);
+
+		const actual = subject.find(`.${css.content}`).first().text();
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should support `slotBefore`', () => {
 		const expected = 'slot before';
 
