@@ -5,6 +5,20 @@ import {ItemBase} from '../Item';
 import css from '../Item.module.less';
 
 describe('Item Specs', () => {
+	test('should support adding text as a child', () => {
+		const expected = 'Hello Item';
+
+		const subject = mount(
+			<ItemBase>
+				{expected}
+			</ItemBase>
+		);
+
+		const actual = subject.text();
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should support adding a `label`', () => {
 		const expected = 'Example Label';
 
