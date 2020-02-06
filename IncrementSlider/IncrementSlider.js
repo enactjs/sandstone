@@ -530,12 +530,11 @@ const IncrementSliderBase = kind({
 					aria-label={decrementAriaLabel}
 					className={css.decrementButton}
 					disabled={decrementDisabled}
+					icon={decrementIcon}
 					onTap={onDecrement}
 					onSpotlightDisappear={onDecrementSpotlightDisappear}
 					spotlightDisabled={spotlightDisabled}
-				>
-					{decrementIcon}
-				</IncrementSliderButton>
+				/>
 				<Slider
 					{...ariaProps}
 					active={active}
@@ -567,12 +566,11 @@ const IncrementSliderBase = kind({
 					aria-label={incrementAriaLabel}
 					className={css.incrementButton}
 					disabled={incrementDisabled}
+					icon={incrementIcon}
 					onTap={onIncrement}
 					onSpotlightDisappear={onIncrementSpotlightDisappear}
 					spotlightDisabled={spotlightDisabled}
-				>
-					{incrementIcon}
-				</IncrementSliderButton>
+				/>
 			</div>
 		);
 	}

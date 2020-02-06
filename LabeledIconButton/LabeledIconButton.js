@@ -25,7 +25,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {IconButtonBase} from '../IconButton';
+import {ButtonBase} from '../Button';
 import Skinnable from '../Skinnable';
 
 import componentCss from './LabeledIconButton.module.less';
@@ -34,7 +34,7 @@ const IconButton = compose(
 	UiIconButtonDecorator,
 	Spottable,
 	Skinnable
-)(IconButtonBase);
+)(ButtonBase);
 
 /**
  * An icon button component with a label.
@@ -145,9 +145,8 @@ const LabeledIconButtonBase = kind({
 					data-webos-voice-group-label={voiceGroupLabel}
 					data-webos-voice-intent={voiceIntent}
 					data-webos-voice-label={voiceLabel}
-				>
-					{icon}
-				</IconButton>
+					icon={icon}
+				/>
 			),
 			css
 		});

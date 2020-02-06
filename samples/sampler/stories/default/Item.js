@@ -5,6 +5,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Item, {ItemBase} from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
 
 const Config = mergeComponentMetadata('Item', UiItemBase, UiItem, ItemBase, Item);
 Item.displayName = 'Item';
