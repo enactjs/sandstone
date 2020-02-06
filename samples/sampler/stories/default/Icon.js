@@ -23,7 +23,7 @@ storiesOf('Sandstone', module)
 		'Icon',
 		() => {
 			const flip = select('flip', ['', 'both', 'horizontal', 'vertical'], Config, '');
-			const size = select('size', ['small', 'large'], Config, 'large');
+			const size = select('size', ['tiny', 'small', 'medium', 'large'], Config);
 			const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
 			let children;
 			switch (iconType) {
