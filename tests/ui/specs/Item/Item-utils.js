@@ -3,7 +3,7 @@
 // Validations are self-contained 'it' statements
 function validateTitle (item, title) {
 	it('should have correct title', function () {
-		const match = item.titleText === title;
+		const match = item.content === title;
 		expect(match).to.be.true();
 	});
 }

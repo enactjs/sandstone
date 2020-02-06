@@ -17,6 +17,7 @@ class ItemInterface {
 	}
 
 	get self () { return browser.element(this.selector); }
+	get content () { return this.self.getText('.Item_Item_content'); }
 }
 
 class ItemPage extends Page {
