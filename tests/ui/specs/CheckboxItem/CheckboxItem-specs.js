@@ -1,6 +1,6 @@
 const Page = require('./CheckboxItemPage'),
 	{expectChecked, expectInline, expectUnchecked} = require('./CheckboxItem-utils.js'),
-	{expectOrdering} = require('@enact/ui-test-utils/test/utils.js');
+	{expectOrdering} = require('@enact/ui-test-utils/utils');
 
 // Skipping until CheckboxItem is updated to handle the new Item structure
 describe.skip('CheckboxItem', function () {

@@ -585,7 +585,7 @@ describe('VirtualList', function () {
 				} else {
 					travelDistance = newTop - initialTop;
 				}
-				expect(travelDistance === scrollDistance).to.be.true();
+				expect(Math.round(travelDistance)).to.equal(scrollDistance);
 			});
 		});
 
