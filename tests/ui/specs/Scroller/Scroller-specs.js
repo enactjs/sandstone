@@ -1,7 +1,7 @@
 
 const ScrollerPage = require('./ScrollerPage');
 
-describe('Scroller', function () {
+describe.skip('Scroller', function () {
 
 	beforeEach(function () {
 		ScrollerPage.open();

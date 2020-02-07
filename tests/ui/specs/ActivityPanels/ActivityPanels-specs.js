@@ -407,7 +407,7 @@ describe('ActivityPanels', function () {
 				expect(Page.item6.hasFocus(), 'item 6').to.be.true();
 			});
 
-			it('should spot last focused item when transitioning back with Back key, deep navigation', function () {
+			it.skip('should spot last focused item when transitioning back with Back key, deep navigation', function () {
 				Page.item3.moveToObject();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);

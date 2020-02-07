@@ -2,7 +2,7 @@
 const Page = require('./VirtualListPage'),
 	{expectFocusedItem, expectNoFocusedItem} = require('./VirtualList-utils');
 
-describe('VirtualList', function () {
+describe.skip('VirtualList', function () {
 
 	it('should meet initial conditions', function () {
 		Page.open();
