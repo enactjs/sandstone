@@ -105,6 +105,9 @@ const ItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `item` - The root class name
+		 * * `slotBefore` - The slot (container) preceding the text of this component
+		 * * `slotAfter` - The slot (container) following the text of this component
+		 * * `selected` - Applied to a `selected` button
 		 *
 		 * @type {Object}
 		 * @public
@@ -174,7 +177,7 @@ const ItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore']
+		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {
