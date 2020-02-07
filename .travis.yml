@@ -2,9 +2,7 @@ language: node_js
 node_js:
     - "10"
 sudo: false
-cache:
-  directories:
-    - $(npm config get cache)
+cache: npm
 install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#develop
@@ -15,6 +13,7 @@ install:
     - npm run bootstrap -- --ignore enact-sampler
     - npm run link-all
     - popd
+    - rm -fr node_modules/@enact
     - npm install
     - enact link
 script:
