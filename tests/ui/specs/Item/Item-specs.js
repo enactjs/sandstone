@@ -40,7 +40,7 @@ describe('Item', function () {
 
 		it('should focus first when hovered', function () {
 			itemDefault.hover();
-			expect(itemDefault.self.hasFocus()).to.be.true()
+			expect(itemDefault.self.hasFocus()).to.be.true();
 		});
 	});
 });
