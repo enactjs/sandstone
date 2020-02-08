@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
-    "@enact/ui-test-utils": "^0.1.1",
+    "@enact/ui-test-utils": "^0.2.0",
     "ilib": "^14.4.0"
   }
 }
