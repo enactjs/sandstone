@@ -2,7 +2,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {isRtlText} from '@enact/i18n/util';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import Transition from '@enact/ui/Transition';
 import ComponentOverride from '@enact/ui/ComponentOverride';
@@ -186,102 +186,79 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, type, styler}) => styler.append({centered, withNav: Boolean(children)}, type),
+		className: ({centered, children, type, slotAbove, styler}) => styler.append({centered, withNav: (Boolean(children) || Boolean(slotAbove))}, type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		titleOrInput: ({centered, headerInput, marqueeOn, title, direction, inputOpen}) => {
-			const titleComponent = (
-				<Heading
-					aria-label={title}
-					size="title"
-					spacing="auto"
-					marqueeOn={marqueeOn}
-					forceDirection={direction}
-					alignment={centered ? 'center' : null}
-					className={css.title}
-				>
-					{title}
-				</Heading>
-			);
-
-			if (headerInput) {
-				return (
-					<div className={css.headerInput}>
-						<Transition visible={inputOpen} className={css.inputTransition}>
-							<ComponentOverride
-								component={headerInput}
-								css={css}
-								size="large"
-							/>
-						</Transition>
-						{titleComponent}
-					</div>
-				);
-			} else {
-				return titleComponent;
-			}
-		}
+		line: ({type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
 
-	// eslint-disable-next-line enact/prop-types
-	render: ({children, className, direction, marqueeOn, subtitle, centered, slotAbove, slotAfter, slotBefore, titleOrInput, type, styler, ...rest}) => {
-		delete rest.headerInput;
-		delete rest.inputOpen;
-		delete rest.title;
+	render: ({children, direction, marqueeOn, headerInput, title, inputOpen, subtitle, line, centered, slotAbove, slotAfter, slotBefore, type, ...rest}) => {
 
-		const rootProps = {
-			component: 'header',
-			...rest
-		};  // Props to spread onto whichever element is rendered as the root node of this component
-
-		const TitlesCells = (
-			<React.Fragment>
-				{(type === 'walkthrough' ? (slotAfter || slotBefore) : slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
-				<Cell className={css.titleCell}>
-					{titleOrInput}
-					<Heading
-						size="subtitle"
-						spacing="auto"
-						marqueeOn={marqueeOn}
-						forceDirection={direction}
-						alignment={centered ? 'center' : null}
-						className={css.subtitle}
-					>
-						{subtitle}
-					</Heading>
-				</Cell>
-				{(type === 'walkthrough' ? (slotAfter || slotBefore) : slotAfter) ? <Cell shrink className={css.slotAfter}>{slotAfter}</Cell> : null}
-			</React.Fragment>
+		// Create the Title component
+		const titleComponent = (
+			<Heading
+				aria-label={title}
+				size="title"
+				spacing="auto"
+				marqueeOn={marqueeOn}
+				forceDirection={direction}
+				alignment={centered ? 'center' : null}
+				className={css.title}
+			>
+				{title}
+			</Heading>
 		);
 
-		if (slotAbove || children) {
-			return (
-				<Layout orientation="vertical" {...rootProps} className={className}>
-					<Cell shrink={(type === 'walkthrough')} className={css.titlesCell}>
-						{slotAbove ? <div className={css.slotAbove}>{slotAbove}</div> : null}
-						<Layout className={css.titlesRow} align="center">{TitlesCells}</Layout>
-					</Cell>
-					{children ? <Cell shrink className={css.slotBelow}>{children}</Cell> : null}
-				</Layout>
-			);
-		} else {
-			// The className here has special handling, so the titlesRow is always applied to the
-			// correct element, whether that happens to be the root, like below, for efficiency, or
-			// in the full header context like above.
-			return (
-				<Layout
-					{...rootProps}
-					className={styler.join(className, css.titlesRow)}
-					align="center"
-				>
-					{TitlesCells}
-				</Layout>
+		let titleOrInput = titleComponent;
+
+		// If there's a headerInput defined, inject the necessary Input pieces and save that as the titleOrInput variable to be used below.
+		if (headerInput) {
+			titleOrInput = (
+				<div className={css.headerInput}>
+					<Transition visible={inputOpen} className={css.inputTransition}>
+						<ComponentOverride
+							component={headerInput}
+							css={css}
+							size="large"
+						/>
+					</Transition>
+					{titleComponent}
+				</div>
 			);
 		}
+
+		// In walkthrough type, if one slot is filled, automatically include the other to keep the title balanced.
+		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
+		const bothBeforeAndAfter = (type === 'walkthrough' && (slotAfter || slotBefore));
+
+		return (
+			<header {...rest}>
+				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
+				<Row className={css.titlesRow} align="center">
+					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
+					<Cell className={css.titleCell}>
+						{titleOrInput}
+						<Heading
+							size="subtitle"
+							spacing="auto"
+							marqueeOn={marqueeOn}
+							forceDirection={direction}
+							alignment={centered ? 'center' : null}
+							className={css.subtitle}
+						>
+							{subtitle}
+						</Heading>
+					</Cell>
+					{(bothBeforeAndAfter || slotAfter) ? <Cell shrink className={css.slotAfter}>{slotAfter}</Cell> : null}
+				</Row>
+				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
+				{line}
+			</header>
+		);
 	}
 });
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
-const Header = Slottable({slots: ['headerInput', '', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase));
+const Header = Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase));
 
 // Set up Header so when it's used in a slottable layout (like Panel), it is automatically
 // recognized as this specific slot.

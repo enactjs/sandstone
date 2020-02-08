@@ -41,6 +41,8 @@
 @sand-expandable-client-item-font-size: 54px;
 @sand-expandable-value-font-size-large: 60px;
 @sand-expandable-value-font-size:   54px;
+@sand-header-compact-title-font-size: 90px;
+@sand-header-walkthrough-title-font-size: 144px;
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
@@ -65,7 +67,9 @@
 @sand-non-latin-large-text-size:        96px;
 @sand-non-latin-pre-text-size:          48px;
 @sand-non-latin-popup-header-font-size: 132px;
-@sand-non-latin-heading-title-font-size:       114px;
+@sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
+@sand-non-latin-header-walkthrough-title-font-size: @sand-header-walkthrough-title-font-size;
+@sand-non-latin-heading-title-font-size: 114px;
 @sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
 @sand-non-latin-body-font-size:         54px;
 @sand-non-latin-body-small-font-size:   48px;
@@ -207,30 +211,29 @@
 // ---------------------------------------
 // @sand-header-controls-border-width: 1px;
 // @sand-header-components-separation: (@sand-spotlight-outset * 2);
+@sand-header-slotabove-margin: 0 0 30px 0;
+@sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
-@sand-header-standard-height: (108px + 210px + 120px);
-// @sand-header-standard-height: auto;
-@sand-header-standard-withnav-height: 666px;
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px (@sand-panel-keepout - @sand-component-spacing) 120px;
-@sand-header-compact-height: auto;
+@sand-header-standard-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 72px;
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px (108px - @sand-component-spacing) 0;
-@sand-header-walkthrough-height: 600px;
-// @sand-header-walkthrough-height: auto;
+@sand-header-compact-padding: 60px (108px - @sand-spotlight-outset) 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
+@sand-header-compact-border-width: 6px;
+@sand-header-compact-line-margin: 54px @sand-spotlight-outset 0 @sand-spotlight-outset;
 @sand-header-walkthrough-margin: 0;
-@sand-header-walkthrough-padding: 108px (@sand-panel-keepout - @sand-component-spacing) 139px;
+@sand-header-walkthrough-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 139px;
 
 
 // Heading
 // ---------------------------------------
 @sand-heading-border-width: 1px;
+@sand-heading-margin: 0 @sand-spotlight-outset (1.5 * @sand-spotlight-outset) @sand-spotlight-outset;
+@sand-heading-padding: 0;
 @sand-heading-spacing-title: 0;
 @sand-heading-spacing-subtitle: 0;
 @sand-heading-spacing-large: 78px;
 @sand-heading-spacing-medium: 42px;
 @sand-heading-spacing-small: 18px;
-@sand-heading-padding: 0;
 @sand-heading-showline-padding: 0 0 18px 0;
 
 // Icon Sizes

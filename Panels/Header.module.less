@@ -10,14 +10,25 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+	.border-box();
 
 	///
 	/// Begin states of header configuration
 	///
 
-	// Titles-only layout when in minimal-mode (.header and .titlesRow are flattened onto the same element)
-	&.titlesRow {
+	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
+	&:not(.withNav) .titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
+
+		// The following updates .subtitle to be removed from the measurement calculations for
+		// vertical centering in a "standard" header, so the title can vertically align with the
+		// side buttons. When *not* in "standard" type, the side buttons should be vertically
+		// aligned with both the title and subtitle.
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
+		}
 	}
 
 	&.centered {
@@ -41,16 +52,18 @@
 		z-index: 1;
 	}
 
-	// Cell containing titles in the above/below layout scenario
-	.titlesCell {
-		margin-top: auto;
-		margin-bottom: auto;
+	.slotAbove {
+		margin-bottom: @sand-header-slotabove-margin;
 	}
 
 	.slotBelow {
-		margin-top: auto; // Always push the slotBelow to the bottom
+		margin-top: @sand-header-slotbelow-margin;
 	}
 
+	.line {
+		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
+		margin: 0;
+	}
 
 	///
 	/// Begin "types" rules configuration
@@ -58,38 +71,43 @@
 
 	// Standard Header
 	&.standard {
-		height: @sand-header-standard-height;
 		margin: @sand-header-standard-margin;
 		padding: @sand-header-standard-padding;
-
-		&.withNav {
-			height: @sand-header-standard-withnav-height;
-		}
-
-		// The following updates .subtitle to be removed from the measurement calculations for
-		// vertical centering in a "standard" header, so the title can vertically align with the
-		// side buttons. When *not* in "standard" type, the side buttons should be vertically
-		// aligned with both the title and subtitle.
-		.subtitle {
-			position: absolute;
-			right: 0;
-			left: 0;
-		}
 	}
 
 	// Compact Header
 	&.compact {
-		height: @sand-header-compact-height;
 		margin: @sand-header-compact-margin;
 		padding: @sand-header-compact-padding;
+
+		.title {
+			.sand-font-size(@sand-header-compact-title-font-size, @sand-non-latin-header-compact-title-font-size);
+		}
+
+		.line {
+			border-bottom-width: @sand-header-compact-border-width;
+			margin: @sand-header-compact-line-margin;
+		}
 	}
 
 	// Walkthrough Header
 	&.walkthrough {
-		height: @sand-header-walkthrough-height;
 		margin: @sand-header-walkthrough-margin;
 		padding: @sand-header-walkthrough-padding;
+
+		.title {
+			.sand-font-size(@sand-header-walkthrough-title-font-size, @sand-non-latin-header-walkthrough-title-font-size);
+		}
 	}
+
+	// Skin colors
+	.applySkins({
+		&.compact {
+			.line {
+				border-bottom-color: @sand-header-compact-border-color;
+			}
+		}
+	});
 }
 
 
