@@ -25,8 +25,11 @@ class ItemPage extends Page {
 		this.title = 'Item Test';
 		const itemDefault = new ItemInterface('item1');
 		const itemDisabled = new ItemInterface('item2');
+		const itemInline1 = new ItemInterface('item3');
+		const itemInline2 = new ItemInterface('item4');
+		const itemInline3 = new ItemInterface('item5');
 
-		this.components = {itemDefault, itemDisabled};
+		this.components = {itemDefault, itemDisabled, itemInline1, itemInline2, itemInline3};
 	}
 
 	open (urlExtra) {
