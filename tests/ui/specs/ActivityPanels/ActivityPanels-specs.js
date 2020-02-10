@@ -407,7 +407,7 @@ describe('ActivityPanels', function () {
 				expect(Page.item6.hasFocus(), 'item 6').to.be.true();
 			});
 
-			// This test is failing intermittently (only when running the full suite and when
+			// This test is failing intermittently (only when running the full suite and not when
 			// running this component only) so we're skipping it for now
 			it.skip('should spot last focused item when transitioning back with Back key, deep navigation', function () {
 				Page.item3.moveToObject();
