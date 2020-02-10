@@ -28,6 +28,11 @@
 		border-radius: @sand-item-border-radius;
 	}
 
+	.slotAfter,
+	.slotBefore {
+		line-height: 0;  // Attempt to get the children of this to always vertically-align their middles with the text
+	}
+
 	.slotAfter {
 		margin-inline-start: @sand-item-slotafter-spacing;
 	}
