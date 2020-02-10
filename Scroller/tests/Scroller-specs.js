@@ -163,24 +163,4 @@ describe('Scroller', () => {
 			}
 		);
 	});
-
-	describe('ScrollerBase API', () => {
-		test('should call onUpdate when Scroller updates', () => {
-			const handleUpdate = jest.fn();
-			const subject = shallow(
-				<ScrollerBase
-					onUpdate={handleUpdate}
-				>
-					{contents}
-				</ScrollerBase>
-			);
-
-			subject.setProps({children: ''});
-
-			const expected = 1;
-			const actual = handleUpdate.mock.calls.length;
-
-			expect(expected).toBe(actual);
-		});
-	});
 });
