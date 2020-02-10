@@ -186,7 +186,7 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, type, slotAbove, styler}) => styler.append({centered, withNav: (Boolean(children) || Boolean(slotAbove))}, type),
+		className: ({centered, children, type, slotAbove, styler}) => styler.append({centered, withChildren: (Boolean(children) || Boolean(slotAbove))}, type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
 		line: ({type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
