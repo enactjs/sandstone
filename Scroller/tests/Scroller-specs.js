@@ -33,7 +33,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 2;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -52,7 +52,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 1;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -71,7 +71,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 0;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
