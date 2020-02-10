@@ -33,7 +33,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 2;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -52,7 +52,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 1;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -71,7 +71,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 0;
-				const actual = subject.find('Scrollbar').length;
+				const actual = subject.find('ScrollButtons').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -162,25 +162,5 @@ describe('Scroller', () => {
 				expect(actual).toBe(expected);
 			}
 		);
-	});
-
-	describe('ScrollerBase API', () => {
-		test('should call onUpdate when Scroller updates', () => {
-			const handleUpdate = jest.fn();
-			const subject = shallow(
-				<ScrollerBase
-					onUpdate={handleUpdate}
-				>
-					{contents}
-				</ScrollerBase>
-			);
-
-			subject.setProps({children: ''});
-
-			const expected = 1;
-			const actual = handleUpdate.mock.calls.length;
-
-			expect(expected).toBe(actual);
-		});
 	});
 });
