@@ -12,6 +12,7 @@
 
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
+import Spottable from '@enact/spotlight/Spottable';
 import UiImage from '@enact/ui/Image';
 import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
@@ -128,7 +129,8 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
 const ImageDecorator = compose(
 	Pure,
 	ResponsiveImageDecorator,
-	Skinnable
+	Skinnable,
+	Spottable
 );
 
 /**

@@ -20,11 +20,11 @@ const ContextualPopupArrow = kind({
 	name: 'ContextualPopupArrow',
 
 	propTypes: /** @lends sandstone/ContextualPopupDecorator.ContextualPopupArrow.prototype */ {
-		direction: PropTypes.oneOf(['up', 'down', 'left', 'right'])
+		direction: PropTypes.oneOf(['above', 'below', 'left', 'right'])
 	},
 
 	defaultProps: {
-		direction: 'down'
+		direction: 'below'
 	},
 
 	styles: {
@@ -88,28 +88,6 @@ const ContextualPopupBase = kind({
 			right: PropTypes.number,
 			top: PropTypes.number
 		}),
-
-		/**
-		 * Style object for container position.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		containerPosition: PropTypes.shape({
-			bottom: PropTypes.number,
-			left: PropTypes.number,
-			right: PropTypes.number,
-			top: PropTypes.number
-		}),
-
-		/**
-		 * Called with the reference to the container node.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		containerRef: PropTypes.func,
-
 		/**
 		 * Direction of ContextualPopup.
 		 *
@@ -119,7 +97,7 @@ const ContextualPopupBase = kind({
 		 * @default 'down'
 		 * @public
 		 */
-		direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+		direction: PropTypes.oneOf(['above', 'below', 'left', 'right']),
 
 		/**
 		 * Called when the close button is clicked.
@@ -128,6 +106,19 @@ const ContextualPopupBase = kind({
 		 * @public
 		 */
 		onCloseButtonClick: PropTypes.func,
+
+		/**
+		 * Style object for container position.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		position: PropTypes.shape({
+			bottom: PropTypes.number,
+			left: PropTypes.number,
+			right: PropTypes.number,
+			top: PropTypes.number
+		}),
 
 		/**
 		 * Shows the arrow.
@@ -145,7 +136,16 @@ const ContextualPopupBase = kind({
 		 * @default false
 		 * @public
 		 */
-		showCloseButton: PropTypes.bool
+		showCloseButton: PropTypes.bool,
+
+		/**
+		 * Called with the reference to the container node.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		tooltipRef: PropTypes.func
+
 	},
 
 	defaultProps: {
@@ -176,13 +176,13 @@ const ContextualPopupBase = kind({
 		}
 	},
 
-	render: ({arrowPosition, containerPosition, containerRef, children, className, closeButton, direction, showArrow, ...rest}) => {
+	render: ({arrowPosition, position, tooltipRef, children, className, closeButton, direction, showArrow, ...rest}) => {
 		delete rest.onCloseButtonClick;
 		delete rest.showCloseButton;
 
 		return (
 			<ContextualPopupRoot aria-live="off" role="alert" {...rest} className={css.contextualPopup}>
-				<div className={className} style={containerPosition} ref={containerRef}>
+				<div className={className} style={position} ref={tooltipRef}>
 					{children}
 					{closeButton}
 				</div>

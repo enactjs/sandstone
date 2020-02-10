@@ -11,15 +11,26 @@
 
 import hoc from '@enact/core/hoc';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import ComponentOverride from '@enact/ui/ComponentOverride';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {FloatingLayerBase} from '@enact/ui/FloatingLayer';
+import Toggleable from '@enact/ui/Toggleable';
 import {forward, handle, forProp} from '@enact/core/handle';
 import {Job} from '@enact/core/util';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ri from '@enact/ui/resolution';
 
+// import {Pinnable} from '../Pinnable';
+import {ContextualPopup} from '../ContextualPopupDecorator';
 import {Tooltip, TooltipBase} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
+
+const ContextualPopupContainer = SpotlightContainerDecorator(
+	{enterTo: 'default-element', preserveId: true},
+	ContextualPopup
+);
+
 
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
 
@@ -328,7 +339,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (tooltipText) {
 				this.clientRef = client;
 				currentTooltip = this;
-				this.showTooltipJob.startAfter(tooltipDelay);
+				// this.showTooltipJob.startAfter(tooltipDelay);
 
 				if (this.mutationObserver) {
 					this.mutationObserver.observe(this.clientRef, {attributes: true, childList: true});
@@ -353,12 +364,12 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.clientRef = null;
 				currentTooltip = null;
 
-				this.showTooltipJob.stop();
+				// this.showTooltipJob.stop();
 				this.setTooltipLayoutJob.stop();
 
-				if (this.state.showing) {
-					this.setState({showing: false});
-				}
+				// if (this.state.showing) {
+				// 	this.setState({showing: false});
+				// }
 			}
 		}
 
@@ -376,6 +387,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		handleMouseOver = this.handle(
 			forward('onMouseOver'),
 			forProp('disabled', true),
+			forward('onOpen'),
 			(ev) => {
 				this.showTooltip(ev.target);
 			}
@@ -384,19 +396,22 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		handleMouseOut = this.handle(
 			forward('onMouseOut'),
 			forProp('disabled', true),
-			() => {
-				this.hideTooltip();
-			}
+			forward('onClose'),
+			// () => {
+			// 	this.hideTooltip();
+			// }
 		)
 
 		handleFocus = this.handle(
 			forward('onFocus'),
+			forward('onOpen'),
 			({target}) => this.showTooltip(target)
 		)
 
 		handleBlur = this.handle(
 			forward('onBlur'),
-			this.hideTooltip
+			forward('onClose'),
+			// this.hideTooltip
 		)
 
 		getTooltipRef = (node) => {
@@ -414,11 +429,12 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @private
 		 */
 		renderTooltip () {
-			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth} = this.props;
+			const {tooltipRelative, tooltipProps, tooltipText, tooltipWidth} = this.props;
 
 			if (tooltipText) {
 				let renderedTooltip = (
-					<Tooltip
+					<ComponentOverride
+						component={ContextualPopupContainer}
 						aria-live="off"
 						role="alert"
 						labelOffset={this.state.labelOffset}
@@ -427,35 +443,26 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						direction={this.state.tooltipDirection}
 						position={tooltipRelative ? null : this.state.position}
 						relative={tooltipRelative}
-						style={{display: ((tooltipRelative && !this.state.showing) ? 'none' : null)}}
+						style={{display: ((tooltipRelative && !this.props.open) ? 'none' : null)}}
 						tooltipRef={this.getTooltipRef}
 						width={tooltipWidth}
 					>
 						{tooltipText}
-					</Tooltip>
+					</ComponentOverride>
 				);
-
 
 				if (!tooltipRelative) {
 					renderedTooltip = (
-						<FloatingLayerBase open={this.state.showing} noAutoDismiss onDismiss={this.hideTooltip} scrimType="none" key="tooltipFloatingLayer">
+						<FloatingLayerBase open={this.props.open} noAutoDismiss onDismiss={this.hideTooltip} scrimType="none" key="tooltipFloatingLayer">
 							{renderedTooltip}
 						</FloatingLayerBase>
 					);
 				}
 
-				if (tooltipDestinationProp === 'children') {
-					return {
-						children: [children, renderedTooltip]
-					};
-				} else {
-					return {
-						[tooltipDestinationProp]: renderedTooltip
-					};
-				}
+				return renderedTooltip;
 			}
 
-			return {children};
+			return null;
 		}
 
 		render () {
@@ -464,7 +471,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const props = Object.assign(
 				{},
 				this.props,
-				this.renderTooltip(),
 				{
 					onBlur: this.handleBlur,
 					onFocus: this.handleFocus,
@@ -484,14 +490,22 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete props.tooltipWidth;
 
 			return (
-				<Wrapped {...props} />
+				<div>
+					{this.renderTooltip()}
+					<Wrapped {...props} />
+				</div>
 			);
 		}
 	};
 
 	return I18nContextDecorator(
 		{rtlProp: 'rtl'},
-		Decorator
+		Toggleable({
+			activate: 'onOpen',
+			deactivate: 'onClose',
+			prop: 'open',
+			toggle: null
+		}, Decorator)
 	);
 });
 
