@@ -6,9 +6,11 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
 import Heading from '@enact/sandstone/Heading';
+import Scroller from '@enact/sandstone/Scroller';
+import {Row} from '@enact/ui/Layout';
 
+import Section from './components/KitchenSinkSection';
 import iconNames from '../default/icons';
 
 import css from './Button.module.less';
@@ -114,23 +116,73 @@ storiesOf('Button', module)
 				>
 					Small Button
 				</Button>
-				<Heading>IconButton</Heading>
-				<IconButton
+				<Heading>Button with icons</Heading>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="large"
-				>
-					star
-				</IconButton>
-				<IconButton
+					icon="star"
+				/>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="small"
-				>
-					star
-				</IconButton>
+					icon="star"
+				/>
 			</div>
+		)
+	)
+	.add(
+		'Kitchen Sink',
+		() => (
+			<Scroller>
+				<Row wrap>
+					<Section title="Small Buttons" size="50%">
+						<Button size="small" alt="Normal">Button</Button>
+						<Button size="small" alt="Selected" selected>Button</Button>
+						<Button size="small" alt="Disabled" disabled>Button</Button>
+						<Button size="small" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button size="small" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Large Buttons" size="50%">
+						<Button size="large" alt="Normal">Button</Button>
+						<Button size="large" alt="Selected" selected>Button</Button>
+						<Button size="large" alt="Disabled" disabled>Button</Button>
+						<Button size="large" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button size="large" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Small Icon Button" size="50%">
+						<Button size="small" icon="play" alt="Normal" />
+						<Button size="small" icon="play" alt="Selected" selected />
+						<Button size="small" icon="play" alt="Disabled" disabled />
+					</Section>
+
+					<Section title="Large Icon Button" size="50%">
+						<Button size="large" icon="play" alt="Normal" />
+						<Button size="large" icon="play" alt="Selected" selected />
+						<Button size="large" icon="play" alt="Disabled" disabled />
+					</Section>
+
+					<Section title="Small Transparent Buttons" size="50%">
+						<Button backgroundOpacity="transparent" size="small" alt="Normal">Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Selected" selected>Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Disabled" disabled>Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Large Transparent Buttons" size="50%">
+						<Button backgroundOpacity="transparent" size="large" alt="Normal">Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Selected" selected>Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Disabled" disabled>Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="With Icon" icon="home">Button</Button>
+					</Section>
+				</Row>
+			</Scroller>
 		)
 	);

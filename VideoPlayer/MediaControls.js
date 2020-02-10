@@ -17,7 +17,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
-import IconButton from '../IconButton';
+import Button from '../Button';
 
 import {countReactChildren} from './util';
 
@@ -40,7 +40,7 @@ const MediaButton = onlyUpdateForKeys([
 	'flip',
 	'onClick',
 	'spotlightDisabled'
-])(IconButton);
+])(Button);
 
 const forwardToggleMore = forward('onToggleMore');
 
@@ -141,7 +141,7 @@ const MediaControlsBase = kind({
 		 * colored buttons on a standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
 		 *
 		 * @type {String}
-		 * @see {@link sandstone/IconButton.IconButtonBase.color}
+		 * @see {@link sandstone/Button.ButtonBase.color}
 		 * @default 'blue'
 		 * @public
 		 */
@@ -418,11 +418,11 @@ const MediaControlsBase = kind({
 				<div className={css.centerComponentsContainer}>
 					<div className={centerClassName}>
 						<Container className={css.mediaControls} spotlightDisabled={showMoreComponents || spotlightDisabled}>
-							{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{jumpBackwardIcon}</MediaButton>}
-							{noRateButtons ? null : <MediaButton aria-label={$L('Rewind')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} onClick={onBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{backwardIcon}</MediaButton>}
-							<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={playPauseClassName} backgroundOpacity="translucent" disabled={mediaDisabled || playPauseButtonDisabled} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{paused ? playIcon : pauseIcon}</MediaButton>
-							{noRateButtons ? null : <MediaButton aria-label={$L('Fast Forward')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} onClick={onForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{forwardIcon}</MediaButton>}
-							{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{jumpForwardIcon}</MediaButton>}
+							{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+							{noRateButtons ? null : <MediaButton aria-label={$L('Rewind')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} icon={backwardIcon} onClick={onBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+							<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={playPauseClassName} backgroundOpacity="translucent" disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
+							{noRateButtons ? null : <MediaButton aria-label={$L('Fast Forward')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} icon={forwardIcon} onClick={onForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+							{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 						</Container>
 						<Container className={css.moreControls} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
 							{children}
@@ -439,16 +439,15 @@ const MediaControlsBase = kind({
 							color={moreButtonColor}
 							disabled={moreButtonDisabled}
 							flip={rtl ? 'horizontal' : ''}
+							icon={moreIcon}
 							onClick={onMoreClick}
 							tooltipProps={{role: 'dialog'}}
 							tooltipRelative
 							size="large"
-							tooltipText={moreIconLabel}
 							spotlightId={moreButtonSpotlightId}
 							spotlightDisabled={spotlightDisabled}
-						>
-							{moreIcon}
-						</MediaButton>
+							tooltipText={moreIconLabel}
+						/>
 					) : null}
 				</div>
 			</OuterContainer>
@@ -518,7 +517,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * colored buttons on a standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`
 			 *
 			 * @type {String}
-			 * @see {@link sandstone/IconButton.IconButtonBase.color}
+			 * @see {@link sandstone/Button.ButtonBase.color}
 			 * @default 'blue'
 			 * @public
 			 */

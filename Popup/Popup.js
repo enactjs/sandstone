@@ -24,7 +24,7 @@ import {forward} from '@enact/core/handle';
 import warning from 'warning';
 
 import $L from '../internal/$L';
-import IconButton from '../IconButton';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Popup.module.less';
@@ -201,15 +201,14 @@ const PopupBase = kind({
 
 				return (
 					<Cell shrink className={css.closeContainer}>
-						<IconButton
+						<Button
 							className={css.closeButton}
 							backgroundOpacity="transparent"
 							size="small"
 							onTap={onCloseButtonClick}
 							aria-label={ariaLabel}
-						>
-							closex
-						</IconButton>
+							icon="closex"
+						/>
 					</Cell>
 				);
 			}

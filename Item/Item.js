@@ -34,16 +34,12 @@ const ItemContent = kind({
 		label: PropTypes.any,
 		labelPosition: PropTypes.any
 	},
-	defaultProps: {
-		labelPosition: 'below'
-	},
 	styles: {
 		className: 'itemContent',
 		css: componentCss
 	},
 	computed: {
-		className: ({label, labelPosition, styler}) => styler.append({
-			hasLabel: Boolean(label),
+		className: ({labelPosition, styler}) => styler.append({
 			labelAbove: labelPosition === 'above',
 			labelAfter: labelPosition === 'after',
 			labelBefore: labelPosition === 'before',
@@ -53,30 +49,30 @@ const ItemContent = kind({
 			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 		}
 	},
-	render: ({orientation, content, css, label, ...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	render: ({orientation, content, css, label, styler, ...rest}) => {
 		delete rest.labelPosition;
 
-		// Due to flex-box sizing (used in Layout/Cell), in a vertical orientation with no height
-		// specified, all of the cells should be set to `shrink` so their height is summed to define
-		// the height of the entire Layout. Without this, a cell will collapse, causing unwanted overlap.
-		const contentElement = (
-			<Cell component={Marquee} className={css.content} shrink={(label != null && orientation === 'vertical')}>
-				{content}
-			</Cell>
-		);
-
-		if (label == null) return contentElement;
-
-		return (
-			<Cell {...rest}>
-				<Layout orientation={orientation}>
-					{contentElement}
-					<Cell component={Marquee} className={css.label} shrink>
-						{label}
-					</Cell>
-				</Layout>
-			</Cell>
-		);
+		if (!label) {
+			return (
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)}>
+					{content}
+				</Cell>
+			);
+		} else {
+			return (
+				<Cell {...rest}>
+					<Layout orientation={orientation}>
+						<Cell component={Marquee} className={css.content} shrink>
+							{content}
+						</Cell>
+						<Cell component={Marquee} className={css.label} shrink>
+							{label}
+						</Cell>
+					</Layout>
+				</Cell>
+			);
+		}
 	}
 });
 
@@ -93,6 +89,12 @@ const ItemBase = kind({
 	name: 'Item',
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
+		/**
+		 * Called with a reference to the root component.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
 		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
 		/**
@@ -102,6 +104,9 @@ const ItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `item` - The root class name
+		 * * `slotBefore` - The slot (container) preceding the text of this component
+		 * * `slotAfter` - The slot (container) following the text of this component
+		 * * `selected` - Applied to a `selected` button
 		 *
 		 * @type {Object}
 		 * @public
@@ -117,28 +122,77 @@ const ItemBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Applies inline styling to the item.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		inline: PropTypes.bool,
+
+		/**
 		 * The label to be displayed along with the text.
 		 *
 		 * @type {Node}
 		 * @public
 		 */
 		label: PropTypes.node,
+
+		/**
+		 * The position of the label relative to the primary content, `children`.
+		 *
+		 * @type {('above'|'after'|'before'|'below')}
+		 * @public
+		 */
 		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
+
+		/**
+		 * Applies a selected style to the component
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 *
+		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
+		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
 		slotAfter: PropTypes.node,
+
+		/**
+		 * Nodes to be inserted before `children` and `label`.
+		 *
+		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
+		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
 		slotBefore: PropTypes.node
+	},
+
+	defaultProps: {
+		labelPosition: 'below'
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore']
+		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
+	render: ({children, componentRef, css, inline, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -146,6 +200,7 @@ const ItemBase = kind({
 				align="center"
 				ref={componentRef}
 				{...rest}
+				inline={inline}
 				css={css}
 			>
 				<div className={css.bg} />
@@ -158,6 +213,7 @@ const ItemBase = kind({
 					content={children}
 					label={label}
 					labelPosition={labelPosition}
+					shrink={inline}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>

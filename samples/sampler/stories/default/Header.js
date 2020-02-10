@@ -5,7 +5,6 @@ import {storiesOf} from '@storybook/react';
 
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Button from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
 import Input from '@enact/sandstone/Input';
 
 Header.displayName = 'Header';
@@ -15,18 +14,18 @@ const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 const prop = {
 	children: {
 		'no buttons': null,
-		'1 button': <IconButton>gear</IconButton>,
+		'1 button': <Button icon="gear" />,
 		'2 buttons': <React.Fragment>
 			<Button>A Button</Button>
-			<IconButton>gear</IconButton>
+			<Button icon="gear" />
 		</React.Fragment>
 	},
 	controls: {
 		'no buttons': null,
-		'1 button': <IconButton>gear</IconButton>,
+		'1 button': <Button icon="gear" />,
 		'2 buttons': <React.Fragment>
-			<IconButton>star</IconButton>
-			<IconButton>gear</IconButton>
+			<Button icon="star" />
+			<Button icon="gear" />
 		</React.Fragment>
 	},
 	marqueeOn: ['', 'hover', 'render'],

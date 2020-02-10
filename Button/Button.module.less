@@ -4,34 +4,8 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Local scope for some math variables
-& {
-	@sand-button-pressed-scaled-up: (1 + @sand-button-pressed-scale);
-	@sand-button-pressed-scaled-down: (1 / @sand-button-pressed-scaled-up);
-
-	@-webkit-keyframes expand {
-		// Old Blink/Webkit doesn't support "@keyframes" so we must use both prefixed and non-prefixed in this section
-		60% {
-			-webkit-transform: translateZ(0) scale(@sand-button-pressed-scaled-up);
-			transform: translateZ(0) scale(@sand-button-pressed-scaled-up);
-		}
-	}
-	@-webkit-keyframes contract {
-		60% {
-			-webkit-transform: translateZ(0) scale(@sand-button-pressed-scaled-down);
-			transform: translateZ(0) scale(@sand-button-pressed-scaled-down);
-		}
-	}
-
-	@keyframes expand {
-		60% { transform: translateZ(0) scale(@sand-button-pressed-scaled-up); }
-	}
-	@keyframes contract {
-		60% { transform: translateZ(0) scale(@sand-button-pressed-scaled-down); }
-	}
-}
-
 .button {
+	// default is size="large"
 	.sand-large-button-text();
 	height: @sand-button-height;
 	line-height: (@sand-button-height - (2 * @sand-button-border-width));
@@ -52,16 +26,10 @@
 	});
 
 	.bg {
-		background-color: inherit;
 		border-width: @sand-button-border-width;
-		border-style: solid;
 		border-radius: @sand-button-border-radius;
 
-		transform: translateZ(0);
-		will-change: transform;
-		animation-duration: 0.2s;
-		animation-iteration-count: 1;
-		animation-timing-function: ease-out;
+		transition: transform @sand-button-focus-duration ease-out, filter @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -71,8 +39,25 @@
 
 	.icon {
 		flex-shrink: 0;
-		-webkit-margin-start: @sand-button-icon-margin-start;
-		-webkit-margin-end: @sand-button-icon-margin-end;
+		.margin-start-end(@sand-button-icon-margin-start, @sand-button-icon-margin-end);
+	}
+
+	// IconButton rules
+	&.iconOnly {
+		&.iconAfter,
+		&.iconBefore,
+		&.large,
+		&.small {
+			padding: @sand-button-icon-small-padding;
+
+			.icon {
+				margin: 0; // reset margins for `IconButton`
+			}
+		}
+
+		&.large {
+			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
 	}
 
 	&.iconAfter {
@@ -81,52 +66,7 @@
 		}
 
 		.icon {
-			-webkit-margin-start: @sand-button-icon-position-after-margin-start;
-			-webkit-margin-end: @sand-button-icon-position-after-margin-end;
-		}
-	}
-
-	// Color prop set, and minWidth prop set, update icon's margin to allow more room for the colordot
-	&.red,
-	&.green,
-	&.yellow,
-	&.blue {
-		// IconButton-like Button scenario
-		.client::before {
-			// Colored under-bar
-			content: "";
-			position: absolute;
-			bottom: 36px;
-			left: 50%;
-			width: @sand-button-colordot-width;
-			height: @sand-button-colordot-height;
-			border-radius: @sand-button-colordot-height;
-			transform: translate(-50%, 50%);
-		}
-
-		// Standard Button Scenario
-		&.minWidth {
-			// Update icon's margin to allow more room for the colordot
-			.icon {
-				-webkit-margin-start: 0;
-			}
-
-			.client {
-				-webkit-margin-start: @sand-button-colordot-width;
-				-webkit-padding-start: @sand-button-icon-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
-
-				&::before {
-					// Colored side-bar
-					bottom: 50%;
-					left: -@sand-button-colordot-width;
-					transform: translateY(50%);
-
-					:global(.enact-locale-right-to-left) & {
-						left: initial;
-						right: -@sand-button-colordot-width;
-					}
-				}
-			}
+			.margin-start-end(@sand-button-icon-position-after-margin-start, @sand-button-icon-position-after-margin-end);
 		}
 	}
 
@@ -159,8 +99,6 @@
 		margin: 0 @sand-button-small-h-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
-		margin-left: @sand-button-small-h-margin;
-		margin-right: @sand-button-small-h-margin;
 		.sand-taparea(@sand-button-small-height);
 
 		// Standard Button Scenario
@@ -169,53 +107,13 @@
 		}
 
 		.icon {
-			-webkit-margin-start: @sand-button-icon-small-margin-start;
-			-webkit-margin-end: @sand-button-icon-small-margin-end;
+			font-size: @sand-button-icon-small-font-size;
+			.margin-start-end(@sand-button-icon-small-margin-start, @sand-button-icon-small-margin-end);
 		}
 
 		&.iconAfter {
 			.icon {
-				-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
-				-webkit-margin-end: @sand-button-icon-position-after-small-margin-end;
-			}
-		}
-
-		&.red,
-		&.green,
-		&.yellow,
-		&.blue {
-			// IconButton-like Button scenario
-			.client::before {
-				bottom: 24px;
-				width: @sand-button-small-colordot-width;
-				height: @sand-button-small-colordot-height;
-			}
-
-			// Standard Button Scenario
-			&.minWidth {
-				.client {
-					-webkit-margin-start: @sand-button-small-colordot-width;
-
-					&::before {
-						bottom: 50%;
-						left: -@sand-button-small-colordot-width;
-
-						:global(.enact-locale-right-to-left) & {
-							right: -@sand-button-small-colordot-width;
-						}
-					}
-				}
-
-				.icon {
-					-webkit-margin-start: 0;
-				}
-
-				&.iconAfter {
-					.icon {
-						// Override the above rule
-						-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
-					}
-				}
+				.margin-start-end(@sand-button-icon-position-after-small-margin-start, @sand-button-icon-position-after-small-margin-end);
 			}
 		}
 
@@ -231,23 +129,6 @@
 		});
 	}
 
-	// Large Button followed by another large Button has a custom wider margin between them
-	&:not(.small) + &:not(.small) {
-		margin-inline-start: (@sand-button-to-button-large-h-margin - @sand-button-h-margin);
-	}
-
-	// Button-non-disabled rules
-	&:not([disabled]) {
-		.focus({
-			&.pressed,
-			&:active {
-				.bg {
-					animation-name: expand;
-				}
-			}
-		});
-	}
-
 	// Skin colors
 	.applySkins({
 		&,
@@ -256,16 +137,16 @@
 		}
 
 		.bg {
-			background-color: @sand-button-bg-color;
 			border-color: transparent;
+			filter: drop-shadow(@sand-button-bg-shadow);
 		}
 
-		&.translucent .bg {
-			background-color: @sand-button-translucent-bg-color;
-		}
+		&.opaque {
+			color: @sand-button-text-color;
 
-		&.lightTranslucent .bg {
-			background-color: @sand-button-lightTranslucent-bg-color;
+			.bg {
+				background-color: @sand-button-bg-color;
+			}
 		}
 
 		&.transparent {
@@ -275,20 +156,6 @@
 				background-color: @sand-button-transparent-bg-color;
 			}
 		}
-
-		&.red .client::before {
-			background-color: @sand-remote-button-red-color;
-		}
-		&.green .client::before {
-			background-color: @sand-remote-button-green-color;
-		}
-		&.yellow .client::before {
-			background-color: @sand-remote-button-yellow-color;
-		}
-		&.blue .client::before {
-			background-color: @sand-remote-button-blue-color;
-		}
-
 
 		.focus({
 			// The complexity below overrides the default high-contrast rules and applies
@@ -304,104 +171,22 @@
 			.bg {
 				background-color: @sand-button-focus-bg-color;
 			}
-
-			.disabled({
-				color: @sand-button-disabled-focus-text-color;
-
-				.client {
-					.vendor-opacity(@sand-disabled-opacity);
-				}
-
-				.bg {
-					background-color: @sand-button-disabled-focus-bg-color;
-				}
-
-				.icon {
-					color: @sand-button-disabled-focus-icon-color;
-				}
-			});
 		});
 
-		// 'Selected' state
-		&.selected {
-			color: @sand-button-selected-text-color;
-
-			.bg {
-				background-color: @sand-button-selected-bg-color;
-				border-color: @sand-button-selected-border-color;
-			}
-
-			&.transparent {
-				color: @sand-button-text-color;
-			}
-
-			// 'Selected+Focus' state, seen in grouped buttons
+		// Button-non-disabled rules
+		&:not([disabled]) {
 			.focus({
-				color: @sand-button-selected-focus-text-color;
+				z-index: 1;
 
 				.bg {
-					background-color: @sand-button-selected-focus-bg-color;
-					border-color: @sand-button-selected-focus-border-color;
+					transform: @sand-button-focus-bg-transform;
+					filter: drop-shadow(@sand-button-focus-bg-shadow);
 				}
 
-				.disabled({
-					.bg {
-						border-color: @sand-button-selected-disabled-focus-border-color;
-					}
-				});
+				&.small .bg {
+					transform: @sand-button-small-focus-bg-transform;
+				}
 			});
 		}
 	});
 }
-
-.muted({
-	.button {
-		// Button-non-disabled rules
-		&:not([disabled]) {
-			.focus({
-				&.pressed {
-					.bg {
-						animation-name: none;
-					}
-				}
-			});
-		}
-
-		// Skin colors
-		.applySkins({
-			.focus({
-				background-color: transparent;
-				color: @sand-button-text-color;
-
-				.bg {
-					background-color: @sand-button-bg-color;
-				}
-
-				&.translucent .bg {
-					background-color: @sand-button-translucent-bg-color;
-				}
-
-				&.lightTranslucent .bg {
-					background-color: @sand-button-lightTranslucent-bg-color;
-				}
-
-				&.transparent {
-					color: @sand-text-color;
-
-					.bg {
-						background-color: transparent;
-					}
-				}
-			});
-
-			&.selected {
-				// 'Selected+Focus' state, seen in grouped buttons
-				.focus({
-					.bg {
-						border-color: @sand-spotlight-border-color;
-					}
-				});
-			}
-		});
-	}
-});

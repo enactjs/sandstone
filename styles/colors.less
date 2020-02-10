@@ -55,26 +55,12 @@
 // Button
 // ---------------------------------------
 @sand-button-text-color: @sand-light-gray;
-@sand-button-bg-color: #383838;
-@sand-button-translucent-bg-color: fade(@sand-button-bg-color, 22%);
-@sand-button-lightTranslucent-bg-color: fade(@sand-white, 22%);
+@sand-button-bg-color: #7D848C;
+@sand-button-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-button-transparent-bg-color: transparent;
-@sand-button-transparent-active-text-color: @sand-white;
-@sand-button-transparent-disabled-bg-color: @sand-button-disabled-bg-color;
-@sand-button-disabled-text-color: @sand-dark-gray;
-@sand-button-disabled-bg-color: @sand-darker-gray;
-@sand-button-focus-text-color: @sand-spotlight-text-color;
+@sand-button-focus-text-color: @sand-gray;
 @sand-button-focus-bg-color: @sand-spotlight-bg-color;
-@sand-button-disabled-focus-text-color: @sand-button-focus-text-color;
-@sand-button-disabled-focus-icon-color: @sand-button-focus-text-color;
-@sand-button-disabled-focus-bg-color: @sand-button-focus-bg-color;
-@sand-button-selected-text-color: @sand-button-text-color;
-@sand-button-selected-bg-color: #222;
-@sand-button-selected-border-color: @sand-spotlight-border-color;
-@sand-button-selected-focus-text-color: @sand-spotlight-text-color;
-@sand-button-selected-focus-bg-color: @sand-spotlight-bg-color;
-@sand-button-selected-focus-border-color: @sand-active-spotlight-border-color;
-@sand-button-selected-disabled-focus-border-color: lighten(@sand-spotlight-border-color, 20%);
+@sand-button-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 
 // ContextualPopup
 // ---------------------------------------
@@ -182,24 +168,20 @@
 
 // Input
 // ---------------------------------------
-@sand-input-text-color:               @sand-black;
-@sand-input-border-color:             #eaeaea;
+@sand-input-text-color:               @sand-text-color;
 @sand-input-textarea-color:           @sand-dark-gray;
-@sand-input-placeholder-color:        @sand-white;
-@sand-input-placeholder-focus-color:  @sand-input-decorator-bg-color;
+@sand-input-placeholder-color:        fade(@sand-light-gray, 20%);
+@sand-input-placeholder-focus-color:  fade(@sand-gray, 20%);
 @sand-input-placeholder-active-color: @sand-input-placeholder-focus-color;
 @sand-input-placeholder-disabled-color:  @sand-white;
-@sand-input-focus-text-color:         @sand-black;
+@sand-input-focus-text-color:         @sand-spotlight-text-color;
 @sand-input-disabled-focus-text-color: fade(@sand-input-text-color, @sand-disabled-opacity-percentage);
 @sand-input-disabled-text-color:      inherit;
-@sand-input-decorator-bg-color:       #aaa;
-@sand-input-decorator-border-color:   @sand-light-gray;
-@sand-input-decorator-focus-bg-color: @sand-white;
+@sand-input-decorator-bg-color:       fade(@sand-light-gray, 20%);
+@sand-input-decorator-focus-bg-color: @sand-spotlight-bg-color;
+@sand-input-decorator-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
 @sand-input-decorator-active-bg-color: @sand-input-decorator-focus-bg-color;
 @sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
-@sand-input-border-focus-border-color: @sand-spotlight-border-color;
-@sand-input-border-active-border-color: transparent;
-@sand-input-border-active-shadow: 0 0 0 6px @sand-input-border-focus-border-color;
 
 // LabeledItem
 // ---------------------------------------
@@ -242,19 +224,22 @@
 
 // RadioItem
 // ---------------------------------------
-@sand-radio-item-indicator-color: @sand-white;
-@sand-radio-item-indicator-bg-color: fade(#a6a6a6, 50%);
-@sand-radio-item-focus-indicator-color: @sand-radio-item-indicator-color;
-@sand-radio-item-focus-indicator-bg-color: @sand-radio-item-indicator-bg-color;
-@sand-radio-item-selected-indicator-color: @sand-radio-item-indicator-color;
-@sand-radio-item-selected-indicator-bg-color: @sand-radio-item-indicator-bg-color;
-@sand-radio-item-selected-focus-indicator-color: @sand-radio-item-selected-indicator-color;
-@sand-radio-item-selected-focus-indicator-bg-color: @sand-radio-item-focus-indicator-bg-color;
+@sand-radioitem-indicator-color: transparent;
+@sand-radioitem-indicator-bg-color: transparent;
+@sand-radioitem-indicator-border-color: @sand-text-color;
+@sand-radioitem-focus-indicator-color: transparent;
+@sand-radioitem-focus-indicator-bg-color: transparent;
+@sand-radioitem-focus-indicator-border-color: @sand-spotlight-text-color;
+@sand-radioitem-selected-indicator-color: @sand-text-color;
+@sand-radioitem-selected-indicator-bg-color: @sand-radioitem-indicator-bg-color;
+@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-color;
+@sand-radioitem-selected-focus-indicator-color: @sand-spotlight-text-color;
+@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-focus-indicator-bg-color;
+@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-focus-indicator-border-color;
 
 // Scrollable
 // ---------------------------------------
 @sand-scrollable-overscroll-color: @sand-light-gray;
-
 
 // Scroller
 // ---------------------------------------

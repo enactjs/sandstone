@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import IconButton from '../IconButton';
+import Button from '../Button';
 
 import css from './Scrollbar.module.less';
 
 /**
- * An [IconButton]{@link sandstone/IconButton.IconButton} used within
+ * An [Button]{@link sandstone/Button.Button} used within
  * a [Scrollbar]{@link sandstone/Scrollable.Scrollbar}.
  *
  * @class ScrollButton
  * @memberof sandstone/Scrollable
- * @extends sandstone/IconButton.IconButton
+ * @extends sandstone/Button.Button
  * @ui
  * @private
  */
@@ -78,7 +78,7 @@ const ScrollButtonBase = kind({
 
 	handlers: {
 		forwardRef: (node, {forwardRef}) => {
-			// Allowing findDOMNode in the absence of a means to retrieve a node ref through IconButton
+			// Allowing findDOMNode in the absence of a means to retrieve a node ref through Button
 			// eslint-disable-next-line react/no-find-dom-node
 			const current = ReactDOM.findDOMNode(node);
 
@@ -102,15 +102,14 @@ const ScrollButtonBase = kind({
 		delete rest.active;
 
 		return (
-			<IconButton
+			<Button
 				{...rest}
 				backgroundOpacity="transparent"
 				disabled={disabled}
+				icon={children}
 				ref={forwardRef}
 				size="small"
-			>
-				{children}
-			</IconButton>
+			/>
 		);
 	}
 });

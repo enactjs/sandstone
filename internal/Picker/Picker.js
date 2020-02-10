@@ -174,7 +174,7 @@ const PickerBase = class extends React.Component {
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * The `data-webos-voice-group-label` for the IconButton of Picker.
+		 * The `data-webos-voice-group-label` for the Button of Picker.
 		 *
 		 * @type {String}
 		 * @memberof sandstone/internal/Picker.PickerBase.prototype

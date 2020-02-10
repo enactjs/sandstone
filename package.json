@@ -6,9 +6,16 @@
   "scripts": {
     "bootstrap": "npm link && enact link && cd samples && cd sampler && npm run bootstrap",
     "clean": "enact clean",
-    "lint": "enact lint --strict",
+    "lint": "enact lint --local",
     "sampler": "npm run --prefix samples/sampler serve",
+    "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
+    "test-ui": "wdio tests/ui/wdio.conf.js",
+    "test-ui-docker": "wdio tests/ui/wdio.docker.conf.js",
+    "test-ui-tv": "wdio tests/ui/wdio.tv.conf.js",
+    "test-ss": "wdio tests/screenshot/wdio.conf.js",
+    "test-ss-docker": "wdio tests/screenshot/wdio.docker.conf.js",
+    "test-ss-tv": "wdio tests/screenshot/wdio.tv.conf.js",
     "test-json": "enact test --json",
     "test-watch": "enact test --watch",
     "transpile": "enact transpile"
@@ -21,6 +28,9 @@
     "mobile",
     "webOS"
   ],
+  "enact": {
+    "screenTypes": "ThemeDecorator/screenTypes.json"
+  },
   "eslintConfig": {
     "extends": "enact/strict"
   },
@@ -42,6 +52,8 @@
     "ilib": "^14.4.0 || ^14.4.0-webostv1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.3",
+    "@enact/ui-test-utils": "^0.2.0",
     "ilib": "^14.4.0"
   }
 }
