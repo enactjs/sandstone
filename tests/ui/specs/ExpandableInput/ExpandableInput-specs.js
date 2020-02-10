@@ -1,6 +1,6 @@
 const Page = require('./ExpandableInputPage'),
 	{validateTitle, expectClosed, expectOpen} = require('./ExpandableInput-utils.js'),
-	{expectOrdering} = require('@enact/ui-test-utils/test/utils.js');
+	{expectOrdering} = require('@enact/ui-test-utils/utils');
 
 // Skipping until expandables are updated to handle the new Item structure
 describe.skip('ExpandableInput', function () {
