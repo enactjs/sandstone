@@ -49,12 +49,13 @@ const ItemContent = kind({
 			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 		}
 	},
-	render: ({orientation, content, css, label, ...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	render: ({orientation, content, css, label, styler, ...rest}) => {
 		delete rest.labelPosition;
 
 		if (!label) {
 			return (
-				<Cell component={Marquee} {...rest} className={css.content}>
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)}>
 					{content}
 				</Cell>
 			);
