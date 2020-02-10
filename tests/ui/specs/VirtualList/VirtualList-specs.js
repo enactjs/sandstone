@@ -74,7 +74,7 @@ describe('VirtualList', function () {
 			Page.pageUp();
 			Page.delay(1500);
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(0, 'step 9 focus');
+			expectFocusedItem(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
 			browser.moveToObject('#item3', 302, 50);
 			// Verify Step 10, Step 11: Spotlight is on 'Item 003'
@@ -568,8 +568,8 @@ describe('VirtualList', function () {
 				expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up is enabled').to.be.null();
 				// Verify Step 3: The list Scrolls 66% of the Scroller height Up.
 				newTop = Page.itemOffsetTopById(elementId);
-				travelDistance = initialTop - newTop;
-				expect(travelDistance === scrollDistance).to.be.true();
+				travelDistance = Math.round(initialTop - newTop);
+				expect(travelDistance).to.equal(scrollDistance);
 				// scroll down to get a valid test for the next step
 				Page.buttonScrollDown.click();
 				Page.delay(1500);
@@ -585,7 +585,7 @@ describe('VirtualList', function () {
 				} else {
 					travelDistance = newTop - initialTop;
 				}
-				expect(travelDistance === scrollDistance).to.be.true();
+				expect(Math.round(travelDistance)).to.equal(scrollDistance);
 			});
 		});
 

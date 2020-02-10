@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import $L from '../internal/$L';
-import IconButton from '../IconButton';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 
 import css from './ContextualPopup.module.less';
@@ -163,15 +163,14 @@ const ContextualPopupBase = kind({
 		closeButton: ({showCloseButton, onCloseButtonClick}) => {
 			if (showCloseButton) {
 				return (
-					<IconButton
-						className={css.closeButton}
-						backgroundOpacity="transparent"
-						size="small"
-						onTap={onCloseButtonClick}
+					<Button
 						aria-label={$L('Close')}
-					>
-						closex
-					</IconButton>
+						backgroundOpacity="transparent"
+						className={css.closeButton}
+						icon="closex"
+						onTap={onCloseButtonClick}
+						size="small"
+					/>
 				);
 			}
 		}

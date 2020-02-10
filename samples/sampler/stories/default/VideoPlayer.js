@@ -5,7 +5,6 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
 import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 
 import icons from './icons';
@@ -157,13 +156,13 @@ storiesOf('Sandstone', module)
 							rateButtonsDisabled={boolean('rateButtonsDisabled', MediaControlsConfig)}
 						>
 							<leftComponents>
-								<IconButton backgroundOpacity="translucent" size="large">fullscreen</IconButton>
+								<Button backgroundOpacity="translucent" size="large" icon="fullscreen" />
 							</leftComponents>
 							<rightComponents>
-								<IconButton backgroundOpacity="translucent" size="large">flag</IconButton>
+								<Button backgroundOpacity="translucent" size="large" icon="flag" />
 							</rightComponents>
 							<Button backgroundOpacity="translucent" size="large">Add To Favorites</Button>
-							<IconButton backgroundOpacity="translucent" size="large">star</IconButton>
+							<Button backgroundOpacity="translucent" size="large" icon="star" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>

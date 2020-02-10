@@ -7,7 +7,7 @@ import Pure from '@enact/ui/internal/Pure';
 import Touchable from '@enact/ui/Touchable';
 
 import Icon from '../../Icon';
-import IconButton from '../../IconButton';
+import Button from '../../Button';
 
 import css from './Picker.module.less';
 
@@ -87,14 +87,13 @@ const PickerButtonBase = kind({
 			);
 		} else {
 			return (
-				<IconButton
+				<Button
 					{...rest}
 					backgroundOpacity="transparent"
 					disabled={disabled}
+					icon={icon}
 					size="small"
-				>
-					{icon}
-				</IconButton>
+				/>
 			);
 		}
 	}

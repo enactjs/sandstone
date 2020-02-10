@@ -34,9 +34,6 @@ const ItemContent = kind({
 		label: PropTypes.any,
 		labelPosition: PropTypes.any
 	},
-	defaultProps: {
-		labelPosition: 'below'
-	},
 	styles: {
 		className: 'itemContent',
 		css: componentCss
@@ -108,6 +105,9 @@ const ItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `item` - The root class name
+		 * * `slotBefore` - The slot (container) preceding the text of this component
+		 * * `slotAfter` - The slot (container) following the text of this component
+		 * * `selected` - Applied to a `selected` button
 		 *
 		 * @type {Object}
 		 * @public
@@ -171,9 +171,13 @@ const ItemBase = kind({
 		slotBefore: PropTypes.node
 	},
 
+	defaultProps: {
+		labelPosition: 'below'
+	},
+
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore']
+		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {

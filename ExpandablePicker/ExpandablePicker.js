@@ -23,7 +23,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Expandable, ExpandableItemBase} from '../ExpandableItem';
-import IconButton from '../IconButton';
+import Button from '../Button';
 import Picker from '../Picker';
 import {extractVoiceProps} from '../internal/util';
 
@@ -388,10 +388,11 @@ const ExpandablePickerBase = kind({
 				>
 					{children}
 				</Picker>
-				<IconButton
+				<Button
 					aria-label={checkButtonAriaLabel}
 					className={css.button}
 					data-webos-voice-disabled={isVoiceDisabled}
+					icon="check"
 					onSpotlightDisappear={onSpotlightDisappear}
 					onSpotlightDown={onSpotlightDown}
 					onSpotlightLeft={rtl ? onSpotlightLeft : null}
@@ -399,7 +400,7 @@ const ExpandablePickerBase = kind({
 					onTap={onChange}
 					size="small"
 					spotlightDisabled={spotlightDisabled}
-				>check</IconButton>
+				/>
 			</ExpandableItemBase>
 		);
 	}

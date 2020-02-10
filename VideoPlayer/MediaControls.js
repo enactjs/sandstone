@@ -17,7 +17,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
-import IconButton from '../IconButton';
+import Button from '../Button';
 import Icon from '../Icon/Icon';
 import {Marquee} from '../Marquee';
 
@@ -37,9 +37,10 @@ const MediaButton = onlyUpdateForKeys([
 	'color',
 	'disabled',
 	'flip',
+	'icon',
 	'onClick',
 	'spotlightDisabled'
-])(IconButton);
+])(Button);
 
 const forwardToggleMore = forward('onToggleMore');
 
@@ -360,15 +361,14 @@ const MediaControlsBase = kind({
 	}) => {
 		delete rest.onClose;
 		delete rest.visible;
-
 		return (
 			<OuterContainer {...rest} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaControls}>
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{jumpBackwardIcon}</MediaButton>}
-					{noRateButtons ? null : <MediaButton aria-label={$L('Rewind')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} onClick={onBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{backwardIcon}</MediaButton>}
-					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={playPauseClassName} backgroundOpacity="translucent" disabled={mediaDisabled || playPauseButtonDisabled} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{paused ? playIcon : pauseIcon}</MediaButton>
-					{noRateButtons ? null : <MediaButton aria-label={$L('Fast Forward')} backgroundOpacity="translucent" disabled={mediaDisabled || rateButtonsDisabled} onClick={onForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{forwardIcon}</MediaButton>}
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="translucent" disabled={mediaDisabled || jumpButtonsDisabled} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled}>{jumpForwardIcon}</MediaButton>}
+					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noRateButtons ? null : <MediaButton aria-label={$L('Rewind')} backgroundOpacity="transparent" disabled={mediaDisabled || rateButtonsDisabled} icon={backwardIcon} onClick={onBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={playPauseClassName} backgroundOpacity="transparent" disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
+					{noRateButtons ? null : <MediaButton aria-label={$L('Fast Forward')} backgroundOpacity="transparent" disabled={mediaDisabled || rateButtonsDisabled} icon={forwardIcon} onClick={onForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{countReactChildren(children) || bottomComponents ?
 					<div className={guideClassName} >
