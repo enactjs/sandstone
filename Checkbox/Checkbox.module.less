@@ -4,77 +4,42 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleIcon {
-	@size: @sand-checkbox-size;
+// Local mixin to make rule application more consistent.
+.checkboxColors (@color, @bg, @border) {
+	color: @color;
+	background-color: @bg;
+	box-shadow: 0 0 0 @sand-checkbox-border-width @border;
+}
 
-	width: @size;
-	height: @size;
-	border-radius: @sand-checkbox-border-radius;
-	border-width: @sand-checkbox-border-width;
-	border-style: solid;
-
-	.icon {
-		visibility: hidden;
-		margin: 0;
-		line-height: @size;
-		width: @size;
-		height: @size;
-		font-size: (@size * 2);
-	}
-
-	.sand-custom-text({
-		@size: @sand-checkbox-size-large;
-
-		width: @size;
-		height: @size;
-		border-radius: @size;
-
-		.icon {
-			line-height: @size;
-			width: @size;
-			height: @size;
-			font-size: (@size * 2);
-		}
-	});
-
-	&.selected {
-		.icon {
-			visibility: visible;
-		}
-	}
-
-	// Skin colors
+.checkbox {
 	.applySkins({
-		color: @sand-checkbox-text-color;
-		background-color: @sand-checkbox-bg-color;
+		.checkboxColors(@sand-checkbox-color, @sand-checkbox-bg-color, @sand-checkbox-border-color);
+		border-radius: @sand-checkbox-border-radius;
+		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
+
+		&.selected {
+			.checkboxColors(@sand-checkbox-selected-color, @sand-checkbox-selected-bg-color, @sand-checkbox-selected-border-color);
+		}
+
+		.focus({
+			.checkboxColors(@sand-checkbox-focus-color, @sand-checkbox-focus-bg-color, @sand-checkbox-focus-border-color);
+
+			&.selected {
+				.checkboxColors(@sand-checkbox-selected-focus-color, @sand-checkbox-selected-focus-bg-color, @sand-checkbox-selected-focus-border-color);
+			}
+		});
 	});
 }
 
+// When the parent is focused
 .focus({
-	.toggleIcon {
-		// Skin colors
+	.checkbox {
 		.applySkins({
-			color: @sand-checkbox-focus-text-color;
-			background-color: @sand-checkbox-focus-bg-color;
+			.checkboxColors(@sand-checkbox-focus-color, @sand-checkbox-focus-bg-color, @sand-checkbox-focus-border-color);
 
-			.disabled({
-				opacity: @sand-disabled-opacity;
-			});
+			&.selected {
+				.checkboxColors(@sand-checkbox-selected-focus-color, @sand-checkbox-selected-focus-bg-color, @sand-checkbox-selected-focus-border-color);
+			}
 		});
 	}
-}, parent);
-
-.muted({
-	.focus({
-		.toggleIcon {
-			// Skin colors
-			.applySkins({
-				&:not([disabled]) {
-					color: @sand-checkbox-text-color;
-					background-color: @sand-checkbox-bg-color;
-				}
-			});
-		}
-	}, parent);
 }, parent);

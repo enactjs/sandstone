@@ -6,6 +6,8 @@ import {storiesOf} from '@storybook/react';
 
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 
+import iconNames from './icons';
+
 CheckboxItem.displayName = 'CheckboxItem';
 const Config = mergeComponentMetadata('CheckboxItem', CheckboxItem);
 
@@ -17,6 +19,7 @@ storiesOf('Sandstone', module)
 				<CheckboxItem
 					// disabled and inline have problems when set to `null` from the internal nullify...
 					disabled={boolean('disabled', Config)}
+					icon={select('icon', ['', ...iconNames], Config)}
 					inline={boolean('inline', Config)}
 					label={text('label', Config, '')}
 					labelPosition={select('labelPosition', ['', 'above', 'after', 'before', 'below'], Config, '')}
