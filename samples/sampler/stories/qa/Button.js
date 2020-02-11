@@ -6,8 +6,10 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
+import kind from '@enact/core/kind';
 import Heading from '@enact/sandstone/Heading';
+import Scroller from '@enact/sandstone/Scroller';
+import {Cell, Row} from '@enact/ui/Layout';
 
 import iconNames from '../default/icons';
 
@@ -16,6 +18,28 @@ import css from './Button.module.less';
 // Button's prop `minWidth` defaults to true and we only want to show `minWidth={false}` in the JSX. In order to hide `minWidth` when `true`, we use the normal storybook boolean knob and return `void 0` when `true`.
 Button.displayName = 'Button';
 const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBase, Button);
+
+const Section = kind({
+	name: 'Section',
+
+	styles: {
+		css,
+		className: 'section'
+	},
+
+	// eslint-disable-next-line enact/prop-types
+	render: ({children, title, ...rest}) => (
+		<Cell size={1500} {...rest}>
+			<Heading showLine>{title}</Heading>
+			{React.Children.map(children, child => (
+				<Row className={css.componentDemo} align="center">
+					<Cell component="label" size="30%">{child.props.alt}</Cell>
+					<Cell>{child}</Cell>
+				</Row>
+			))}
+		</Cell>
+	)
+});
 
 // Set up some defaults for info and knobs
 const prop = {
@@ -114,23 +138,73 @@ storiesOf('Button', module)
 				>
 					Small Button
 				</Button>
-				<Heading>IconButton</Heading>
-				<IconButton
+				<Heading>Button with icons</Heading>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="large"
-				>
-					star
-				</IconButton>
-				<IconButton
+					icon="star"
+				/>
+				<Button
 					className={css.tapArea}
 					disabled={boolean('disabled', Config)}
 					onClick={action('onClick')}
 					size="small"
-				>
-					star
-				</IconButton>
+					icon="star"
+				/>
 			</div>
+		)
+	)
+	.add(
+		'Kitchen Sink',
+		() => (
+			<Scroller>
+				<Row style={{flexWrap: 'wrap'}}>
+					<Section title="Small Buttons" size="50%">
+						<Button size="small" alt="Normal">Button</Button>
+						<Button size="small" alt="Selected" selected>Button</Button>
+						<Button size="small" alt="Disabled" disabled>Button</Button>
+						<Button size="small" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button size="small" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Large Buttons" size="50%">
+						<Button size="large" alt="Normal">Button</Button>
+						<Button size="large" alt="Selected" selected>Button</Button>
+						<Button size="large" alt="Disabled" disabled>Button</Button>
+						<Button size="large" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button size="large" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Small Icon Button" size="50%">
+						<Button size="small" icon="play" alt="Normal" />
+						<Button size="small" icon="play" alt="Selected" selected />
+						<Button size="small" icon="play" alt="Disabled" disabled />
+					</Section>
+
+					<Section title="Large Icon Button" size="50%">
+						<Button size="large" icon="play" alt="Normal" />
+						<Button size="large" icon="play" alt="Selected" selected />
+						<Button size="large" icon="play" alt="Disabled" disabled />
+					</Section>
+
+					<Section title="Small Transparent Buttons" size="50%">
+						<Button backgroundOpacity="transparent" size="small" alt="Normal">Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Selected" selected>Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Disabled" disabled>Button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button backgroundOpacity="transparent" size="small" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Large Transparent Buttons" size="50%">
+						<Button backgroundOpacity="transparent" size="large" alt="Normal">Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Selected" selected>Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Disabled" disabled>Button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="Long Text">Super-duper long text string inside a button</Button>
+						<Button backgroundOpacity="transparent" size="large" alt="With Icon" icon="home">Button</Button>
+					</Section>
+				</Row>
+			</Scroller>
 		)
 	);

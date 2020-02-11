@@ -4,6 +4,8 @@
 // App
 // ---------------------------------------
 @sand-app-keepout: 48px;
+@sand-component-spacing: 30px;
+@sand-smallest-tappable-size: 168px;
 
 // Font Sizes
 // ---------------------------------------
@@ -21,10 +23,11 @@
 @sand-body-small-font-size:         54px;
 @sand-item-font-size:               66px;
 @sand-item-font-size-large:         78px;
+@sand-item-label-font-size:         54px;
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
 @sand-popup-content-font-size:      60px;
-@sand-expandable-value-font-size:   54px;
+@sand-expandable-value-font-size:   @sand-item-label-font-size;
 @sand-expandable-value-font-size-large:   60px;
 @sand-expandable-client-item-font-size:   54px;
 @sand-expandable-client-item-font-size-large:   66px;
@@ -74,6 +77,18 @@
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
+
+@sand-button-font-family: @sand-alt-font-family;
+@sand-button-font-style: normal;
+@sand-button-font-weight: 600;
+@sand-button-small-font-family: @sand-button-font-family;
+@sand-button-small-font-style: @sand-button-font-style;
+@sand-button-small-font-weight: @sand-button-font-weight;
+@sand-non-latin-button-font-family: @sand-non-latin-font-family-bold;
+@sand-non-latin-button-font-style: @sand-button-font-style;
+@sand-non-latin-button-font-weight: @sand-non-latin-font-weight-bold;
+@sand-non-latin-button-small-font-style: @sand-button-small-font-style;
+@sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
 
 @sand-header-font-family: @sand-alt-font-family;
 @sand-header-font-weight: normal;
@@ -143,6 +158,7 @@
 // Spotlight
 // ---------------------------------------
 @sand-spotlight-outset: 18px;
+@sand-spotlight-focus-animation-duration: 200ms;
 
 // Header
 // ---------------------------------------
@@ -159,48 +175,36 @@
 
 // Button
 // ---------------------------------------
-@sand-button-border-radius: 6px;
+@sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
-@sand-button-colordot-height: 18px;
-@sand-button-colordot-width: 54px;
-@sand-button-font-family: @sand-alt-font-family;
-@sand-button-font-style: normal;
-@sand-button-font-weight: 600;
-@sand-button-h-margin: @sand-spotlight-outset;
+@sand-button-h-margin: 36px;
 @sand-button-h-padding: 60px;
 @sand-button-height-large: 192px;
-@sand-button-height: 168px;
+@sand-button-height: 144px;
 @sand-button-icon-h-margin: 30px;
 @sand-button-icon-margin-end: @sand-button-icon-h-margin;
 @sand-button-icon-margin-start: 0;
+@sand-button-icon-padding: 0 36px;
 @sand-button-icon-position-after-margin-end: @sand-button-icon-margin-start;
 @sand-button-icon-position-after-margin-start: @sand-button-icon-margin-end;
 @sand-button-icon-position-after-small-margin-end: 0;
 @sand-button-icon-position-after-small-margin-start: @sand-button-icon-small-margin-end;
+@sand-button-icon-small-font-size: @sand-icon-small-size;
 @sand-button-icon-small-h-margin: @sand-button-icon-h-margin;
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
+@sand-button-icon-small-padding: 0 18px;
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
-@sand-button-pressed-scale: 0.05;
-@sand-button-small-colordot-height: 18px;
-@sand-button-small-colordot-width: 42px;
-@sand-button-small-font-family: @sand-button-font-family;
-@sand-button-small-font-style: @sand-button-font-style;
-@sand-button-small-font-weight: @sand-button-font-weight;
+@sand-button-focus-bg-transform: scale(1.05);
+@sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-button-small-h-margin: @sand-button-h-margin;
-@sand-button-small-h-padding: 42px;
+@sand-button-small-h-padding: 48px;
 @sand-button-small-height-large: 144px;
-@sand-button-small-height: 120px;
+@sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
-@sand-button-small-tap-area-height: (@sand-spotlight-outset + @sand-button-small-height + @sand-spotlight-outset);
-@sand-button-to-button-large-h-margin: 60px;
-@sand-non-latin-button-font-family: @sand-non-latin-font-family-bold;
-@sand-non-latin-button-font-style: @sand-button-font-style;
-@sand-non-latin-button-large-font-weight: @sand-non-latin-font-weight-bold;
-@sand-non-latin-button-small-font-style: @sand-button-small-font-style;
-@sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
+@sand-button-small-focus-bg-transform: scale(1.1);
 
 // Dropdown
 // ---------------------------------------
@@ -229,31 +233,29 @@
 @sand-heading-padding: 0;
 @sand-heading-showline-padding: 0 0 18px 0;
 
-// Icon Button
-// ---------------------------------------
-@sand-icon-button-colordot-height: 18px;
-@sand-icon-button-size: @sand-button-height;
-@sand-icon-button-size-large: @sand-button-height-large;
-@sand-icon-button-small-colordot-height: 12px;
-@sand-icon-button-small-size: @sand-button-small-height;
-@sand-icon-button-small-size-large: @sand-button-small-height-large;
-// @sand-icon-button-border-radius: 12px;
-@sand-icon-button-border-radius: 1920px; // 960 generates a nicer, round REM number (40) than 999
-
 // Icon Sizes
 // ---------------------------------------
-@sand-icon-size: 96px;
-@sand-icon-size-large: (@sand-icon-size * 1.2);
+@sand-icon-large-size: 108px;
+@sand-icon-medium-size: 90px;
 @sand-icon-small-size: 72px;
-@sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
-@sand-icon-font-size: (@sand-icon-size * 2);
-@sand-icon-font-size-large: (@sand-icon-font-size * 1.2);
+@sand-icon-tiny-size: 60px;
+@sand-icon-large-font-size: (@sand-icon-large-size * 2);
+@sand-icon-medium-font-size: (@sand-icon-medium-size * 2);
 @sand-icon-small-font-size: (@sand-icon-small-size * 2);
+@sand-icon-tiny-font-size: (@sand-icon-tiny-size * 2);
+@sand-icon-large-sprite-size: (@sand-button-height - (@sand-button-border-width * 2));
+@sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
+@sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
+@sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
+@sand-icon-large-margin: 24px;
+@sand-icon-medium-margin: @sand-icon-large-margin;
+@sand-icon-small-margin: @sand-icon-large-margin;
+@sand-icon-tiny-margin: @sand-icon-large-margin;
+// Large-mode sizes - Note, may be deprecated.
+@sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
+@sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
+@sand-icon-large-font-size-large: (@sand-icon-large-font-size * 1.2);
 @sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
-@sand-icon-sprite-size: (@sand-icon-button-size - (@sand-button-border-width * 2));
-@sand-icon-sprite-small-size: (@sand-icon-button-small-size - (@sand-button-border-width * 2));
-@sand-icon-tap-area-offset: -(@sand-button-border-width + (@sand-button-small-tap-area-height - @sand-button-small-height) / 2);
-@sand-icon-margin: 24px;
 
 // Input
 // ---------------------------------------
@@ -264,7 +266,7 @@
 @sand-input-disabled-opacity: 0.4;
 @sand-input-placeholder-opacity: 0.5;
 @sand-input-border-radius: @sand-input-border-width;
-@sand-input-border-width: 6px;
+@sand-input-border-width: 12px;
 @sand-input-border-outline-width: @sand-input-border-width;
 @sand-input-tooltip-offset: @sand-input-border-width;
 @sand-input-icon-spacing: 30px;
@@ -275,15 +277,20 @@
 @sand-input-highlight-height: 100%;
 @sand-input-highlight-max-width: 756px;
 @sand-input-highlight-small-max-width: 714px;
+@sand-input-focus-duration: @sand-spotlight-focus-animation-duration;
 
-// Items
+// Item
 // ---------------------------------------
-@sand-item-height: 120px;
+@sand-item-height: 156px;
 @sand-item-height-large: 144px;
-@sand-item-vertical-padding: 6px;
-@sand-item-line-height: @sand-item-height - (@sand-item-vertical-padding * 2);
+@sand-item-vertical-padding: 48px;
+@sand-item-line-height: 60px;
 @sand-item-line-height-large: @sand-item-height-large - (@sand-item-vertical-padding * 2);
 @sand-item-indent: 72px;
+@sand-item-inline-max-width: 480px;
+@sand-item-border-radius: 12px;
+@sand-item-slotafter-spacing: @sand-component-spacing;
+@sand-item-slotbefore-spacing: @sand-component-spacing;
 
 // FormCheckbox
 // ---------------------------------------
@@ -339,13 +346,13 @@
 
 // Toggle Item
 // ---------------------------------------
-@sand-toggle-item-icon-margin: @sand-icon-margin;
+@sand-toggle-item-icon-margin: @sand-icon-large-margin;
 
 // Selectable Item
 // ---------------------------------------
 @sand-selectable-item-indicator-size: @sand-item-height;
 @sand-selectable-item-indicator-size-large: @sand-item-height-large;
-@sand-selectable-item-indicator-width: (@sand-icon-size / 2 - 6px);
+@sand-selectable-item-indicator-width: (@sand-icon-large-size / 2 - 6px);
 @sand-selectable-item-indicator-width-large: (@sand-selectable-item-indicator-width + 12px);
 
 // EditableIntegerPicker
@@ -371,7 +378,7 @@
 // ---------------------------------------
 @sand-scrollable-overscroll-thickness: 12px;
 @sand-scrollable-overscroll-duration: 300ms;
-@sand-scrollable-scrollbar-size: @sand-icon-button-small-size;
+@sand-scrollable-scrollbar-size: @sand-button-small-height;
 
 // ToggleSwitch
 // ---------------------------------------
@@ -449,6 +456,8 @@
 @sand-contextual-popup-border-width: 1px;
 @sand-contextual-popup-border-radius: @sand-button-border-width;
 @sand-contextual-popup-padding: @sand-spotlight-outset;
+@sand-contextual-popup-with-reserveclose-padding: (@sand-button-small-height + @sand-spotlight-outset);
+@sand-contextual-popup-with-reserveclose-padding-large: (@sand-button-small-height-large + @sand-spotlight-outset);
 @sand-contextual-popup-arrow-height: 60px;
 @sand-contextual-popup-arrow-width: 60px;
 

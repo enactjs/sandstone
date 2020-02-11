@@ -10,6 +10,7 @@
  * @exports ButtonDecorator
  */
 
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
@@ -17,10 +18,12 @@ import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import React from 'react';
 
 import {IconBase} from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
+import TooltipDecorator from '../TooltipDecorator';
 
 import componentCss from './Button.module.less';
 
@@ -46,15 +49,16 @@ const ButtonBase = kind({
 		/**
 		 * The background opacity of this button.
 		 *
-		 * Valid values are:
-		 * * `'translucent'`,
-		 * * `'lightTranslucent'`, and
-		 * * `'transparent'`.
+		 * Text buttons and icon+text buttons, by default are opaque, while icon-only buttons
+		 * default to transparent. This value can be overridden by setting this prop.
 		 *
-		 * @type {('translucent'|'lightTranslucent'|'transparent')}
+		 * Valid values are: `'opaque'`, and `'transparent'`.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'opaque'
 		 * @public
 		 */
-		backgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * The color of the underline beneath button's content.
@@ -89,6 +93,15 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * True if button is an icon only button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		iconOnly: PropTypes.bool,
+
+		/**
 		 * Specifies on which side (`'before'` or `'after'`) of the text the icon appears.
 		 *
 		 * @type {('before'|'after')}
@@ -98,38 +111,52 @@ const ButtonBase = kind({
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
+		 * Boolean controlling whether this component should enforce the "minimum width" rules.
+		 *
+		 * @type {Boolean}
+		 * @default true
+		 * @public
+		 */
+		minWidth: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.string
+		size: PropTypes.oneOf(['large', 'small'])
 	},
 
 	defaultProps: {
+		backgroundOpacity: null,
 		iconPosition: 'before',
-		size: 'small'
+		size: 'large'
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small', 'transparent']
+		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconPosition, styler}) => styler.append(
-			{hasColor: color},
-			backgroundOpacity,
+		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
+			{iconOnly},
+			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
-			`icon${cap(iconPosition)}`
-		)
+			`icon${cap(iconPosition)}`,
+			size
+		),
+		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.iconOnly;
 		delete rest.iconPosition;
+		delete rest.size;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
@@ -140,19 +167,29 @@ const ButtonBase = kind({
 	}
 });
 
-/**
- * Enforces a minimum width on the Button.
- *
- * *NOTE*: This property's default is `true` and must be explicitly set to `false` to allow
- * the button to shrink to fit its contents.
- *
- * @name minWidth
- * @memberof sandstone/Button.ButtonBase.prototype
- * @type {Boolean}
- * @default true
- * @public
- */
 
+/**
+ * A higher-order component that determines if it is an
+ * `IconButton`, a button that only displays an icon.
+ *
+ * @class IconButtonDecorator
+ * @memberof sandstone/Button
+ * @hoc
+ * @private
+ */
+const IconButtonDecorator = hoc((config, Wrapped) => {
+	return kind({
+		name: 'IconButtonDecorator',
+		computed: {
+			iconOnly: ({children}) => (React.Children.toArray(children).filter(Boolean).length === 0)
+		},
+		render: (props) => {
+			return (
+				<Wrapped {...props} />
+			);
+		}
+	});
+});
 
 /**
  * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
@@ -167,6 +204,8 @@ const ButtonBase = kind({
  */
 const ButtonDecorator = compose(
 	Pure,
+	IconButtonDecorator,
+	TooltipDecorator({tooltipDestinationProp: 'decoration'}),  // Future note: This should eventually be conditionally applied via hooks (after refactoring)
 	MarqueeDecorator({className: componentCss.marquee}),
 	UiButtonDecorator,
 	Spottable,
@@ -179,8 +218,9 @@ const ButtonDecorator = compose(
  * Usage:
  * ```
  * <Button
- * 	backgroundOpacity="translucent"
- * 	color="blue"
+ *	backgroundOpacity="transparent"
+ *	size="small"
+ *	icon="home"
  * >
  * 	Press me!
  * </Button>
