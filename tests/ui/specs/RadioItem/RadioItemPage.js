@@ -1,6 +1,5 @@
 'use strict';
-const Page = require('@enact/ui-test-utils/utils/Page.js');
-const {getSubComponent, getText, componentSelector, hasClass} = require('@enact/ui-test-utils/test/utils.js');
+const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const isSelected = hasClass(componentSelector({component: 'RadioItem', child: 'selected'}));
 const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});

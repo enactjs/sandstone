@@ -39,8 +39,7 @@ const ItemContent = kind({
 		css: componentCss
 	},
 	computed: {
-		className: ({label, labelPosition, styler}) => styler.append({
-			hasLabel: Boolean(label),
+		className: ({labelPosition, styler}) => styler.append({
 			labelAbove: labelPosition === 'above',
 			labelAfter: labelPosition === 'after',
 			labelBefore: labelPosition === 'before',
@@ -50,30 +49,30 @@ const ItemContent = kind({
 			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 		}
 	},
-	render: ({orientation, content, css, label, ...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	render: ({orientation, content, css, label, styler, ...rest}) => {
 		delete rest.labelPosition;
 
-		// Due to flex-box sizing (used in Layout/Cell), in a vertical orientation with no height
-		// specified, all of the cells should be set to `shrink` so their height is summed to define
-		// the height of the entire Layout. Without this, a cell will collapse, causing unwanted overlap.
-		const contentElement = (
-			<Cell component={Marquee} className={css.content} shrink={(label != null && orientation === 'vertical')}>
-				{content}
-			</Cell>
-		);
-
-		if (label == null) return contentElement;
-
-		return (
-			<Cell {...rest}>
-				<Layout orientation={orientation}>
-					{contentElement}
-					<Cell component={Marquee} className={css.label} shrink>
-						{label}
-					</Cell>
-				</Layout>
-			</Cell>
-		);
+		if (!label) {
+			return (
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)}>
+					{content}
+				</Cell>
+			);
+		} else {
+			return (
+				<Cell {...rest}>
+					<Layout orientation={orientation}>
+						<Cell component={Marquee} className={css.content} shrink>
+							{content}
+						</Cell>
+						<Cell component={Marquee} className={css.label} shrink>
+							{label}
+						</Cell>
+					</Layout>
+				</Cell>
+			);
+		}
 	}
 });
 
@@ -121,6 +120,14 @@ const ItemBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Applies inline styling to the item.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inline: PropTypes.bool,
 
 		/**
 		 * The label to be displayed along with the text.
@@ -181,10 +188,10 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
+	render: ({children, componentRef, css, inline, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -192,6 +199,7 @@ const ItemBase = kind({
 				align="center"
 				ref={componentRef}
 				{...rest}
+				inline={inline}
 				css={css}
 			>
 				<div className={css.bg} />
@@ -204,6 +212,7 @@ const ItemBase = kind({
 					content={children}
 					label={label}
 					labelPosition={labelPosition}
+					shrink={inline}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
