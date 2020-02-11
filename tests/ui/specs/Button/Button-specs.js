@@ -35,7 +35,7 @@ describe('Button', function () {
 
 		it('should focus first when hovered', function () {
 			buttonDefault.hover();
-			expect(buttonDefault.self.hasFocus()).to.be.true()
+			expect(buttonDefault.self.hasFocus()).to.be.true();
 		});
 	});
 
