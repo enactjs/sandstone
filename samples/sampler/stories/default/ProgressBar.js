@@ -27,7 +27,7 @@ storiesOf('Sandstone', module)
 					backgroundProgress={number('backgroundProgress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.5)}
 					disabled={disabled}
 					highlighted={boolean('highlighted', ProgressBarConfig)}
-					orientation={select('orientation', ['horizontal', 'vertical'], ProgressBarConfig, 'horizontal')}
+					orientation={select('orientation', ['horizontal', 'vertical', 'radial'], ProgressBarConfig, 'horizontal')}
 					progress={number('progress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.4)}
 				>
 					{tooltip ? (

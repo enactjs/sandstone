@@ -25,6 +25,53 @@ import {ProgressBarTooltip} from './ProgressBarTooltip';
 
 import componentCss from './ProgressBar.module.less';
 
+const RadialBarBase = kind({
+	name: 'RadialBar',
+
+	propTypes: /** @lends sandstone/ProgressBar.RadialBar.prototype */ {
+		/**
+		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		progress: PropTypes.number
+	},
+
+	defaultProps: {
+		progress: 0
+	},
+
+	styles: {
+		css: componentCss,
+		className: 'radialBar'
+	},
+
+	computed: {
+		className: ({progress, styler}) => styler.append({
+			[componentCss.full]: progress > 0.5
+		}),
+		style: ({progress, style}) => ({
+			...style,
+			['--sand-radialbar-rotation']: `${(360 / 100) * (progress * 100)}deg`
+		})
+	},
+
+	render: (props) => {
+		delete props.progress;
+
+		return (
+			<div {...props}>
+				<div className={componentCss.left} />
+				<div className={componentCss.right} />
+			</div>
+		);
+	}
+});
+
+const RadialBar = Skinnable(RadialBarBase);
+
 /**
  * Renders a sandstone-styled progress bar.
  *
@@ -72,13 +119,13 @@ const ProgressBarBase = kind({
 		/**
 		 * Sets the orientation of the slider.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`
+		 * * Values: `'horizontal'`, `'vertical'`, `'radial'`
 		 *
 		 * @type {String}
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		orientation: PropTypes.oneOf(['horizontal', 'vertical', 'radial']),
 
 		/**
 		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
@@ -141,15 +188,22 @@ const ProgressBarBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundProgress, highlighted, progress, styler}) => styler.append({
+		className: ({highlighted, orientation, styler}) => styler.append({
 			highlighted,
-			[componentCss.maxFill]: progress === 1,
-			[componentCss.maxLoad]: backgroundProgress === 1
+			[componentCss.radial]: orientation === 'radial'
 		}),
+		radialComponent: ({backgroundProgress, orientation, progress}) => (
+			orientation === 'radial' ?
+				<>
+					<RadialBar className={componentCss.load} progress={backgroundProgress} />
+					<RadialBar className={componentCss.fill} progress={progress} />
+				</> :
+				null
+		),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, orientation, progress, tooltip, ...rest}) => {
+	render: ({css, orientation, progress, radialComponent: RadialComponent, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
 
@@ -160,6 +214,7 @@ const ProgressBarBase = kind({
 				progress={progress}
 				css={css}
 			>
+				{RadialComponent}
 				<ComponentOverride
 					component={tooltip}
 					orientation={orientation}

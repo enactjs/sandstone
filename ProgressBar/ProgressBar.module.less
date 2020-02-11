@@ -3,18 +3,13 @@
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
-.maxBorderRadius () {
-	&.maxFill {
-		.fill {
-			border-radius: @sand-progress-bar-border-radius;
-		}
-	}
-
-	&.maxLoad {
-		.load {
-			border-radius: @sand-progress-bar-border-radius;
-		}
-	}
+.radial-bar-styles() {
+	height: calc(100% - (@sand-progress-bar-height * 2));
+	width: calc(100% - (@sand-progress-bar-height * 2));
+	border-color: inherit;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: @sand-progress-bar-height;
 }
 
 .progressBar {
@@ -23,25 +18,20 @@
 
 	.bar {
 		border-radius: @sand-progress-bar-border-radius;
-	}
-
-	&:not(.vertical) {
-		.maxBorderRadius();
-
-		.fill,
-		.load {
-			border-radius: @sand-progress-bar-border-radius 0 0 @sand-progress-bar-border-radius;
-		}
+		overflow: hidden;
 	}
 
 	&.vertical {
-		min-height: 240px;
+		min-height: @sand-progress-bar-height-large;
 		width: @sand-progress-bar-height;
-		.maxBorderRadius();
+	}
 
-		.fill,
-		.load {
-			border-radius: 0 0 @sand-progress-bar-border-radius @sand-progress-bar-border-radius;
+	&.radial {
+		min-height: @sand-progress-bar-height-large;
+		width: @sand-progress-bar-height-large;
+		
+		.bar {
+			.radial-bar-styles();
 		}
 	}
 
@@ -59,10 +49,71 @@
 			background-color: @sand-progress-bar-loaded-bg-color;
 		}
 
+		&.radial {
+			.fill {
+				background-color: transparent;
+			}
+
+			.load {
+				background-color: transparent;
+			}
+
+			.bar {
+				background-color: transparent;
+				border-color: @sand-progress-bar-bg-color;
+			}
+		}
+
 		&.highlighted {
 			.fill {
 				background-color: @sand-progress-bar-highlighted-fill-bg-color;
 			}
+
+			&.radial {
+				.fill {
+					background-color: transparent;
+					border-color: @sand-progress-bar-highlighted-fill-bg-color;
+				}
+			}
+		}
+	});
+}
+
+.radialBar {
+	--sand-radialbar-rotation: 0deg;
+
+	position: absolute;
+	min-height: @sand-progress-bar-height-large;
+	min-width: @sand-progress-bar-height-large;
+	height: 100%;
+	width: 100%;
+	clip-path: inset(0 0 0 50%);
+
+	> * {
+		.radial-bar-styles();
+		position: absolute;
+		clip-path: inset(0 50% 0 0);
+	}
+
+	.right {
+		transform: rotate(var(--sand-radialbar-rotation));
+	}
+
+	&.full {
+		clip-path: initial;
+
+		.left {
+			transform: rotate(180deg);
+		}
+	}
+
+	.applySkins({
+		&.fill {
+			border-color: @sand-progress-bar-fill-bg-color;
+		}
+
+		&.load {
+			border-color: #6c6e73;// @sand-progress-bar-loaded-bg-color;
 		}
 	});
 }
