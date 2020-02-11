@@ -2,8 +2,10 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
+import {scale} from '@enact/ui/resolution';
 
 import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
 import Image from '@enact/sandstone/Image';
 import Item from '@enact/sandstone/Item';
@@ -20,7 +22,12 @@ const inputData = {
 	extraSpaceText : 'This                                                             text                                                                          has                                                                                        extra                                                                         spaces',
 	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'صباح الخير'],
 	disabledText : 'This text is disabled',
-	normalText : 'Item with text that is spottable'
+	normalText : 'Item with text that is spottable',
+	longLabel : 'label starts - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi. Mauris vitae tellus tempus, convallis ligula id, laoreet eros. Nullam eu tempus odio, non mollis tellus. Phasellus vitae iaculis nisl. = label ends',
+	longChildren : 'children starts - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. In quis mattis purus, quis tristique mi. Mauris vitae tellus tempus, convallis ligula id, laoreet eros. Nullam eu tempus odio, non mollis tellus. Phasellus vitae iaculis nisl. - children ends',
+	shortLabel : 'Label',
+	shortChildren : 'Hello LabeledItem',
+	mediumChildren : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. The End.'
 };
 
 Item.displayName = 'Item';
@@ -94,6 +101,55 @@ storiesOf('Item', module)
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>minus</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>trash</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>flag</Icon>
+				</Item>
+			</div>
+		)
+	)
+	.add(
+		'with different text length',
+		() => (
+			<Scroller>
+				<div>
+					<Heading showLine style={{marginTop: scale(90)}} >Long children and Short label</Heading>
+					<Item
+						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
+						label={text('label', Item, inputData.shortLabel)}
+					>
+						{text('children2', Item, inputData.longChildren)}
+					</Item>
+
+					<Heading showLine style={{marginTop: scale(90)}}>Short children and Long label</Heading>
+					<Item
+						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
+						label={text('label2', Item, inputData.longLabel)}
+					>
+						{text('children', Item, inputData.shortChildren)}
+					</Item>
+
+					<Heading showLine style={{marginTop: scale(90)}}>Long children and Long label</Heading>
+					<Item
+						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
+						label={text('label2', Item, inputData.longLabel)}
+					>
+						{text('children2', Item, inputData.longChildren)}
+					</Item>
+				</div>
+			</Scroller>
+		)
+	)
+	.add(
+		'with spotlightDisabled',
+		() => (
+			<div>
+				<Item
+					spotlightDisabled={boolean('spotlightDisabled', Item, true)}
+					marqueeOn={select('marqueeOn', ['render', 'hover'], Item, 'render')}
+					label={text('label', Item, inputData.shortLabel)}
+				>
+					{text('children', Item, inputData.mediumChildren)}
 				</Item>
 			</div>
 		)
