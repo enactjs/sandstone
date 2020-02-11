@@ -113,6 +113,7 @@ storiesOf('Item', module)
 					<Heading showLine style={{marginTop: scale(90)}} >Long children and Short label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
 						label={text('label', Item, inputData.shortLabel)}
 					>
 						{text('children2', Item, inputData.longChildren)}
@@ -121,6 +122,7 @@ storiesOf('Item', module)
 					<Heading showLine style={{marginTop: scale(90)}}>Short children and Long label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
 						label={text('label2', Item, inputData.longLabel)}
 					>
 						{text('children', Item, inputData.shortChildren)}
@@ -129,6 +131,7 @@ storiesOf('Item', module)
 					<Heading showLine style={{marginTop: scale(90)}}>Long children and Long label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
+						inline={boolean('inline', Item)}
 						label={text('label2', Item, inputData.longLabel)}
 					>
 						{text('children2', Item, inputData.longChildren)}
