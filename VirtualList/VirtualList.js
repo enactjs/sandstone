@@ -188,7 +188,7 @@ VirtualList.defaultProps = {
 		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'none',
+	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
 	verticalScrollbar: 'auto'
@@ -359,7 +359,7 @@ VirtualGridList.defaultProps = {
 		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'none',
+	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
 	verticalScrollbar: 'auto'
