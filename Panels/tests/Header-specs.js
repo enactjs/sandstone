@@ -18,15 +18,15 @@ describe('Header Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should have fullBleed class applied', () => {
+	test('should have centered class applied when the centered prop is true', () => {
 		const header = mount(
-			<Header fullBleed>
+			<Header centered>
 				<title>Header</title>
 			</Header>
 		);
 
 		const expected = true;
-		const actual = header.find('header').hasClass(css.fullBleed);
+		const actual = header.find('header').hasClass(css.centered);
 
 		expect(actual).toBe(expected);
 	});

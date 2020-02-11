@@ -5,8 +5,8 @@
 // Universal Color Definitions
 // ---------------------------------------
 @sand-darker-gray: #262626;
-@sand-dark-gray:   #4d4d4d;
-@sand-gray:        #4c5059;
+@sand-dark-gray:   #4c5059;
+@sand-gray:        #abaeb3;
 @sand-light-gray:  #e6e6e6;
 @sand-black:       #000;
 @sand-accent:      @sand-light-gray;
@@ -34,14 +34,14 @@
 
 // Spotlight and State
 // ---------------------------------------
-@sand-spotlight-text-color:           @sand-gray;
+@sand-spotlight-text-color:           @sand-dark-gray;
 @sand-spotlight-disabled-text-color:  fade(@sand-spotlight-text-color, 40%);
 @sand-spotlight-bg-color:             @sand-accent;
 @sand-spotlight-border-color:         @sand-accent;
 @sand-spotlight-color:                @sand-accent;
 @sand-spotlight-shadow-color:         fade(@sand-black, 30%);
-@sand-active-border-color:            @sand-gray;
-@sand-active-spotlight-border-color:  @sand-gray;
+@sand-active-border-color:            @sand-dark-gray;
+@sand-active-spotlight-border-color:  @sand-dark-gray;
 
 
 // ---------------------------------------
@@ -54,11 +54,11 @@
 
 // Button
 // ---------------------------------------
-@sand-button-text-color: @sand-light-gray;
+@sand-button-text-color: @sand-text-color;
 @sand-button-bg-color: #7D848C;
 @sand-button-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-button-transparent-bg-color: transparent;
-@sand-button-focus-text-color: @sand-gray;
+@sand-button-focus-text-color: @sand-spotlight-text-color;
 @sand-button-focus-bg-color: @sand-spotlight-bg-color;
 @sand-button-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 
@@ -125,21 +125,14 @@
 
 // Header
 // ---------------------------------------
-@sand-header-text-color:              @sand-light-gray;
-@sand-header-title-below-text-color:  #a6a6a6;
-@sand-header-border-color:            #505050;
-@sand-header-bottom-border-color:     #404040;
-@sand-header-full-bleed-border-color: fade(@sand-white, 25%);
-@sand-header-full-bleed-text-color:   #f5f5f5;
-@sand-header-title-below-full-bleed-text-color: @sand-light-gray;
 @sand-header-controls-border-color:   #383838;
-@sand-header-input-focus-text-color:  @sand-spotlight-text-color;
-@sand-header-input-focus-background-color:   @sand-spotlight-color;
+@sand-header-compact-border-color: #8d9298;
 
 // Heading
 // ---------------------------------------
 @sand-heading-text-color: @sand-text-color;
 @sand-heading-border-color: @sand-border-color;
+@sand-heading-subtitle-text-color: @sand-gray;
 
 // Item
 // ---------------------------------------
@@ -289,7 +282,7 @@
 
 // Toggle Colors
 // ---------------------------------------
-@sand-toggle-text-color: @sand-header-title-below-text-color;
+@sand-toggle-text-color: @sand-heading-subtitle-text-color;
 @sand-toggle-button-switch-on-bg-color: @sand-accent;
 @sand-toggle-button-switch-on-border-color: @sand-white;
 @sand-toggle-button-switch-dot-on-color: transparent;
@@ -326,7 +319,7 @@
 @sand-video-player-slider-fill-color: fade(@sand-accent, 80%);
 @sand-video-player-slider-knob-color: @sand-white;
 @sand-video-player-slider-load-color: fade(darken(@sand-accent, 30%), 30%);
-@sand-video-player-subdued-text-color: @sand-gray;
+@sand-video-player-subdued-text-color: @sand-dark-gray;
 @sand-video-player-title-color: @sand-white;
 @sand-video-player-title-text-shadow: @sand-overlay-text-shadow;
 @sand-video-player-high-contrast-scrim-gradient-color: initial;

@@ -2,51 +2,19 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {isRtlText} from '@enact/i18n/util';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
+import Transition from '@enact/ui/Transition';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 
-import {MarqueeDecorator, MarqueeBase} from '../Marquee';
+import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
 import css from './Header.module.less';
 
-// Extract the spacing class to override the title Marquee instance
-const marqueeCss = {
-	spacing: css.spacing
-};
-
-const TitleMarquee = (props) => {
-	return (
-		<MarqueeBase {...props} css={marqueeCss} />
-	);
-};
-
-// Create a <h1> and Marquee component
-const MarqueeH1 = MarqueeDecorator({component: TitleMarquee}, 'h1');
-const MarqueeH2 = MarqueeDecorator('h2');
-
-const CompactTitleBase = kind({
-	name: 'CompactTitle',
-	styles: {
-		css,
-		className: 'compactTitle'
-	},
-	render: (props) => {
-		delete props.title;			// eslint-disable-line enact/prop-types
-		delete props.titleBelow;	// eslint-disable-line enact/prop-types
-
-		return (
-			<div {...props} />
-		);
-	}
-});
-
-// Marquee decorated container with title and titleBelow as invalidateProps
-const CompactTitle = MarqueeDecorator({invalidateProps: ['title', 'titleBelow']}, CompactTitleBase);
-
 /**
- * A header component for a Panel with a `title`, `titleBelow`, and `subTitleBelow`
+ * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
+ * [`slots`]{@link ui/Slottable.Slottable} for components.
  *
  * @class Header
  * @memberof sandstone/Panels
@@ -58,9 +26,9 @@ const HeaderBase = kind({
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
-		 * Centers the `title`, `titleBelow`, and `subTitleBelow`.
+		 * Centers the contents of the Header.
 		 *
-		 * This setting has no effect on the `type="compact"` header.
+		 * This setting does not affect `slotBefore` or `slotAfter`.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -80,15 +48,6 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Indents then content and removes separator lines.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		fullBleed: PropTypes.bool,
-
-		/**
 		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
 		 *
 		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
@@ -103,8 +62,7 @@ const HeaderBase = kind({
 		 *  	<headerInput>
 		 *  		<Input dismissOnEnter />
 		 *  	</headerInput>
-		 *  	<titleBelow>The Adventure Continues</titleBelow>
-		 *  	<subTitleBelow>The rebels face attack by imperial forces on the ice planet</subTitleBelow>
+		 *  	<subtitle>The Adventure Continues</subtitle>
 		 *  </Header>
 		 * ```
 		 *
@@ -112,13 +70,8 @@ const HeaderBase = kind({
 		 */
 		headerInput: PropTypes.node,
 
-		/**
-		 * Hides the horizontal-rule (line) under the component
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		hideLine: PropTypes.bool,
+		// WIP - Controls the visibility of the input field.
+		inputOpen: PropTypes.bool,
 
 		/**
 		 * Determines what triggers the header content to start its animation.
@@ -130,14 +83,70 @@ const HeaderBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Sub-title displayed at the bottom of the panel.
+		 * A location for arbitrary elements to be placed above the title
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * ```
+		 * <Header>
+		 * 	<slotAbove><Button /></slotAbove>
+		 * 	<title>My Title</title>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAbove: PropTypes.node,
+
+		/**
+		 * A location for arbitrary elements to be placed to the right the title in LTR locales and
+		 * to the left in RTL locales
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * ```
+		 * <Header>
+		 * 	<title>My Title</title>
+		 * 	<slotAfter><Button /></slotAfter>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node,
+
+		/**
+		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
+		 * to the right in RTL locales
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * ```
+		 * <Header>
+		 * 	<slotBefore><Button /></slotBefore>
+		 * 	<title>My Title</title>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node,
+
+		/**
+		 * Text displayed below the title.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
 		 *
 		 * @type {String}
 		 */
-		subTitleBelow: PropTypes.string,
+		subtitle: PropTypes.string,
 
 		/**
 		 * Title of the header.
@@ -149,8 +158,7 @@ const HeaderBase = kind({
 		 * ```
 		 *  <Header>
 		 *  	<title>Example Header Title</title>
-		 *  	<titleBelow>The Adventure Continues</titleBelow>
-		 *  	<subTitleBelow>The rebels face attack by imperial forces on the ice planet</subTitleBelow>
+		 *  	<subtitle>The Adventure Continues</subtitle>
 		 *  </Header>
 		 * ```
 		 *
@@ -159,28 +167,16 @@ const HeaderBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * Text displayed below the title.
-		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
-		 * this component.
-		 *
-		 * @type {String}
-		 */
-		titleBelow: PropTypes.string,
-
-		/**
 		 * Set the type of header to be used.
 		 *
 		 * @type {('compact'|'dense'|'standard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['compact', 'dense', 'standard'])
+		type: PropTypes.oneOf(['standard', 'compact', 'walkthrough'])
 	},
 
 	defaultProps: {
-		fullBleed: false,
 		marqueeOn: 'render',
-		// titleAbove: '00',
 		type: 'standard'
 	},
 
@@ -190,92 +186,79 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, fullBleed, hideLine, type, styler}) => styler.append({centered, fullBleed, hideLine}, type),
-		direction: ({title, titleBelow}) => isRtlText(title) || isRtlText(titleBelow) ? 'rtl' : 'ltr',
-		titleBelowComponent: ({centered, marqueeOn, titleBelow, type}) => {
-			switch (type) {
-				case 'compact':
-					return titleBelow ? <h2 className={css.titleBelow}>{titleBelow}</h2> : null;
-				case 'dense':
-				case 'standard':
-					return <MarqueeH2 className={css.titleBelow} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>{(titleBelow != null && titleBelow !== '') ? titleBelow : ' '}</MarqueeH2>;
-			}
-		},
-		subTitleBelowComponent: ({centered, marqueeOn, subTitleBelow}) => {
-			return <MarqueeH2 className={css.subTitleBelow} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>{(subTitleBelow != null && subTitleBelow !== '') ? subTitleBelow : ' '}</MarqueeH2>;
-		},
-		titleOrInput: ({centered, headerInput, marqueeOn, title, type}) => {
-			if (headerInput && type === 'standard') {
-				return (
-					<Cell className={css.headerInput}>
+		className: ({centered, children, type, slotAbove, styler}) => styler.append({centered, withChildren: (Boolean(children) || Boolean(slotAbove))}, type),
+		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
+		line: ({type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+	},
+
+	render: ({children, direction, marqueeOn, headerInput, title, inputOpen, subtitle, line, centered, slotAbove, slotAfter, slotBefore, type, ...rest}) => {
+
+		// Create the Title component
+		const titleComponent = (
+			<Heading
+				aria-label={title}
+				size="title"
+				spacing="auto"
+				marqueeOn={marqueeOn}
+				forceDirection={direction}
+				alignment={centered ? 'center' : null}
+				className={css.title}
+			>
+				{title}
+			</Heading>
+		);
+
+		let titleOrInput = titleComponent;
+
+		// If there's a headerInput defined, inject the necessary Input pieces and save that as the titleOrInput variable to be used below.
+		if (headerInput) {
+			titleOrInput = (
+				<div className={css.headerInput}>
+					<Transition visible={inputOpen} className={css.inputTransition}>
 						<ComponentOverride
 							component={headerInput}
 							css={css}
 							size="large"
 						/>
-					</Cell>
-				);
-			} else {
-				return (
-					<Cell>
-						<MarqueeH1 className={css.title} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>
-							{title}
-						</MarqueeH1>
-					</Cell>
-				);
-			}
-		}
-	},
-
-	render: ({children, direction, marqueeOn, subTitleBelowComponent, title, titleOrInput, /* titleAbove, */titleBelowComponent, type, ...rest}) => {
-		delete rest.centered;
-		delete rest.fullBleed;
-		delete rest.headerInput;
-		delete rest.hideLine;
-		delete rest.subTitleBelow;
-		delete rest.titleBelow;
-
-		switch (type) {
-			case 'compact': return (
-				<Layout component="header" aria-label={title} {...rest} align="end">
-					<Cell component={CompactTitle} title={title} titleBelow={titleBelowComponent} marqueeOn={marqueeOn} forceDirection={direction}>
-						<h1 className={css.title}>{title}</h1>
-						{titleBelowComponent}
-					</Cell>
-					{children ? <Cell shrink component="nav" className={css.headerComponents}>{children}</Cell> : null}
-				</Layout>
-			);
-			// Keeping this block in case we need to add it back after discussing with UX and GUI about future plans.
-			// case 'large': return (
-			// 	<header {...rest}>
-			// 		<div className={css.titleAbove}>{titleAbove}</div>
-			// 		<h1 className={css.title}><Marquee>{title}</Marquee></h1>
-			// 		<h2 className={css.titleBelow}><Marquee>{titleBelow}</Marquee></h2>
-			// 		<h2 className={css.subTitleBelow}><Marquee>{subTitleBelow}</Marquee></h2>
-			// 		<nav className={css.headerComponents}>{children}</nav>
-			// 	</header>
-			// );
-			case 'dense':
-			case 'standard': return (
-				<Layout component="header" aria-label={title} {...rest} orientation="vertical">
-					{titleOrInput}
-					<Cell shrink size={192}>
-						<Layout align="end">
-							<Cell className={css.titlesCell}>
-								{titleBelowComponent}
-								{subTitleBelowComponent}
-							</Cell>
-							{children ? <Cell shrink component="nav" className={css.headerComponents}>{children}</Cell> : null}
-						</Layout>
-					</Cell>
-				</Layout>
+					</Transition>
+					{titleComponent}
+				</div>
 			);
 		}
+
+		// In walkthrough type, if one slot is filled, automatically include the other to keep the title balanced.
+		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
+		const bothBeforeAndAfter = (type === 'walkthrough' && (slotAfter || slotBefore));
+
+		return (
+			<header {...rest}>
+				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
+				<Row className={css.titlesRow} align="center">
+					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
+					<Cell className={css.titleCell}>
+						{titleOrInput}
+						<Heading
+							size="subtitle"
+							spacing="auto"
+							marqueeOn={marqueeOn}
+							forceDirection={direction}
+							alignment={centered ? 'center' : null}
+							className={css.subtitle}
+						>
+							{subtitle}
+						</Heading>
+					</Cell>
+					{(bothBeforeAndAfter || slotAfter) ? <Cell shrink className={css.slotAfter}>{slotAfter}</Cell> : null}
+				</Row>
+				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
+				{line}
+			</header>
+		);
 	}
 });
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
-const Header = Slottable({slots: ['headerInput', 'subTitleBelow', 'title', 'titleBelow']}, Skinnable(HeaderBase));
+const Header = Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase));
 
 // Set up Header so when it's used in a slottable layout (like Panel), it is automatically
 // recognized as this specific slot.
