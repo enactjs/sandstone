@@ -2,6 +2,7 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {Row} from '@enact/ui/Layout';
+import {scale} from '@enact/ui/resolution';
 
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
@@ -107,9 +108,9 @@ storiesOf('Item', module)
 	.add(
 		'with different text length',
 		() => (
-			<Scroller style={{height: '100%'}}>
+			<Scroller>
 				<div>
-					<Heading showLine style={{paddingTop: '60px'}} >Long children and Short label</Heading>
+					<Heading showLine style={{marginTop: scale(90)}} >Long children and Short label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
 						label={text('label', Item, inputData.shortLabel)}
@@ -117,7 +118,7 @@ storiesOf('Item', module)
 						{text('children2', Item, inputData.longChildren)}
 					</Item>
 
-					<Heading showLine style={{paddingTop: '60px'}}>Short children and Long label</Heading>
+					<Heading showLine style={{marginTop: scale(90)}}>Short children and Long label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
 						label={text('label2', Item, inputData.longLabel)}
@@ -125,7 +126,7 @@ storiesOf('Item', module)
 						{text('children', Item, inputData.shortChildren)}
 					</Item>
 
-					<Heading showLine style={{paddingTop: '60px'}}>Long children and Long label</Heading>
+					<Heading showLine style={{marginTop: scale(90)}}>Long children and Long label</Heading>
 					<Item
 						disabled={boolean('disabled', Item)}
 						label={text('label2', Item, inputData.longLabel)}
