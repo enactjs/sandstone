@@ -1,31 +1,18 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import {CheckboxItemBase} from '../CheckboxItem';
-import css from '../RadioItem.module.less';
 
 describe('CheckboxItem Specs', () => {
-	test('should render correct icon when not selected', () => {
-		const checkboxItem = shallow(
-			<CheckboxItemBase>
-				Hello RadioItem
+	test('should support a custom icon', () => {
+		const expected = 'trash';
+
+		const subject = mount(
+			<CheckboxItemBase icon={expected}>
+				Hello CheckboxItem
 			</CheckboxItemBase>
 		);
 
-		const expected = 0;
-		const actual = checkboxItem.find(`.${css.selected}`).length;
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should render correct icon when selected', () => {
-		const checkboxItem = shallow(
-			<CheckboxItemBase selected>
-				Hello RadioItem
-			</CheckboxItemBase>
-		);
-
-		const expected = 1;
-		const actual = checkboxItem.find(`.${css.selected}`).length;
+		const actual = subject.find('.checkbox').first().prop('children');
 
 		expect(actual).toBe(expected);
 	});
