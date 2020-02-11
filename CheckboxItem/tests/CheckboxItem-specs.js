@@ -1,18 +1,18 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import {CheckboxItemBase} from '../CheckboxItem';
 
 describe('CheckboxItem Specs', () => {
 	test('should support a custom icon', () => {
 		const expected = 'trash';
 
-		const subject = mount(
+		const subject = shallow(
 			<CheckboxItemBase icon={expected}>
 				Hello CheckboxItem
 			</CheckboxItemBase>
 		);
 
-		const actual = subject.find('.checkbox').first().prop('children');
+		const actual = subject.find('Checkbox').prop('children');
 
 		expect(actual).toBe(expected);
 	});
