@@ -29,8 +29,11 @@ class ItemPage extends Page {
 		const item3WithLabel = new ItemInterface('item3WithLabel');
 		const item4Inline = new ItemInterface('item4Inline');
 		const item5InLineDisabled = new ItemInterface('item5InLineDisabled');
-		this.components = {item1Default, item2Disabled, item3WithLabel, item4Inline, item5InLineDisabled};
-		// this.components = {item1Default, item2Disabled, item3WithLabel};
+		const item6Inline = new ItemInterface('item6Inline');
+		const item7Inline = new ItemInterface('item7Inline');
+		const item8Inline = new ItemInterface('item8Inline');
+		const item9 = new ItemInterface('item9');
+		this.components = {item1Default, item2Disabled, item3WithLabel, item4Inline, item5InLineDisabled, item6Inline, item7Inline, item8Inline, item9};
 	}
 
 	open (urlExtra) {
