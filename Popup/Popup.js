@@ -216,9 +216,11 @@ const PopupBase = kind({
 		transitionDirection: ({position}) => positionToTransitionProps[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupPositionLayout, shrinkBody, spotlightId, spotlightRestrict, transitionDirection,...rest}) => {
+	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupPositionLayout, shrinkBody, spotlightId, spotlightRestrict, transitionDirection, ...rest}) => {
 		delete rest.closeButtonAriaLabel;
+		delete rest.fullscreen;
 		delete rest.onCloseButtonClick;
+		delete rest.position;
 		delete rest.showCloseButton;
 
 		return (
