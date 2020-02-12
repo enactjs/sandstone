@@ -40,7 +40,7 @@ const getContainerNode = (containerId) => {
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
 
-const direction = {
+const transitionDirection = {
 	bottom: 'down',
 	left: 'left',
 	right: 'right',
@@ -209,12 +209,12 @@ const PopupBase = kind({
 				);
 			}
 		},
-		popupOrientation: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
 		popupAlignment: ({position}) => position === 'bottom' || position === 'right' ? 'end' : 'start',
-		transitionDirection: ({position}) => direction[position]
+		popupOrientation: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
+		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupOrientation, shrinkBody, spotlightId, spotlightRestrict, transitionDirection, ...rest}) => {
+	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupOrientation, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
 		delete rest.closeButtonAriaLabel;
 		delete rest.fullscreen;
 		delete rest.onCloseButtonClick;
@@ -225,7 +225,7 @@ const PopupBase = kind({
 			<TransitionContainer
 				className={css.popupTransitionContainer}
 				css={css}
-				direction={transitionDirection}
+				direction={direction}
 				duration="short"
 				noAnimation={position === 'fullscreen' ? true : noAnimation}
 				onHide={onHide}
