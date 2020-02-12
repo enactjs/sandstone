@@ -375,7 +375,7 @@ onWindowReady(() => {
 
 const useEventMouse = (props, instances, context) => {
 	const {childAdapter, uiScrollAdapter} = instances;
-	const {isScrollButtonFocused, type} = context;
+	const {type} = context;
 
 	// Functions
 
@@ -398,10 +398,6 @@ const useEventMouse = (props, instances, context) => {
 	}
 
 	function handleMouseDown (ev) {
-		if (isScrollButtonFocused()) {
-			ev.preventDefault();
-		}
-
 		if (props['data-spotlight-container-disabled']) {
 			ev.preventDefault();
 		} else if (type === 'Native') {
@@ -417,15 +413,13 @@ const useEventMouse = (props, instances, context) => {
 	};
 };
 
-const useEventTouch = (props, instnaces, context) => {
-	const {isScrollButtonFocused} = context;
-
+const useEventTouch = () => {
 	// Functions
 
 	function handleTouchStart () {
 		const focusedItem = Spotlight.getCurrent();
 
-		if (!Spotlight.isPaused() && focusedItem && !isScrollButtonFocused()) {
+		if (!Spotlight.isPaused() && focusedItem) {
 			focusedItem.blur();
 		}
 	}
@@ -437,9 +431,8 @@ const useEventTouch = (props, instnaces, context) => {
 	};
 };
 
-const useEventVoice = (props, instances, context) => {
+const useEventVoice = (props, instances) => {
 	const {uiScrollContainerRef, uiScrollAdapter} = instances;
-	const {onScrollbarButtonClick} = context;
 
 	// Mutable value
 
@@ -525,10 +518,7 @@ const useEventVoice = (props, instances, context) => {
 		} else {
 			mutableRef.current.isVoiceControl = true;
 
-			if (['up', 'down', 'left', 'right'].includes(scroll)) {
-				const isPreviousScrollButton = (scroll === 'up') || (scroll === 'left' && !isRtl) || (scroll === 'right' && isRtl);
-				onScrollbarButtonClick({isPreviousScrollButton, isVerticalScrollBar: verticalDirection.includes(scroll)});
-			} else { // ['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)
+			if (['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)) {
 				uiScrollAdapter.current.scrollTo({align: verticalDirection.includes(scroll) && scroll || (scroll === 'leftmost' && isRtl || scroll === 'rightmost' && !isRtl) && 'right' || 'left'});
 			}
 
@@ -561,7 +551,7 @@ const useEventVoice = (props, instances, context) => {
 
 const useEventWheel = (props, instances, context) => {
 	const {childAdapter, horizontalScrollbarRef, uiScrollAdapter, verticalScrollbarRef} = instances;
-	const {isScrollButtonFocused, type} = context;
+	const {type} = context;
 
 	// Mutable value
 
@@ -572,7 +562,7 @@ const useEventWheel = (props, instances, context) => {
 	function handleWheel ({delta}) {
 		const focusedItem = Spotlight.getCurrent();
 
-		if (focusedItem && !isScrollButtonFocused()) {
+		if (focusedItem) {
 			focusedItem.blur();
 		}
 

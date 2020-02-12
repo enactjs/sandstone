@@ -20,7 +20,6 @@ import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
 import React, {Component, useContext, useRef} from 'react';
 
-import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useChildAdapter} from './useChild';
@@ -151,7 +150,6 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 		 *	arrowKey: false,
 		 *	drag: false,
 		 *	pageKey: false,
-		 *	scrollbarButton: false,
 		 *	wheel: true
 		 * }
 		 * @private
@@ -160,59 +158,8 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: PropTypes.bool,
 			drag: PropTypes.bool,
 			pageKey: PropTypes.bool,
-			scrollbarButton: PropTypes.bool,
 			wheel: PropTypes.bool
 		}),
-
-		/**
-		 * Specifies preventing keydown events from bubbling up to applications.
-		 * Valid values are `'none'`, and `'programmatic'`.
-		 *
-		 * When it is `'none'`, every keydown event is bubbled.
-		 * When it is `'programmatic'`, an event bubbling is not allowed for a keydown input
-		 * which invokes programmatic spotlight moving.
-		 *
-		 * @type {String}
-		 * @default 'none'
-		 * @private
-		 */
-		preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
-
-		/**
-		 * Sets the hint string read when focusing the next button in the vertical scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll down')
-		 * @public
-		 */
-		scrollDownAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll left')
-		 * @public
-		 */
-		scrollLeftAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the next button in the horizontal scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll right')
-		 * @public
-		 */
-		scrollRightAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the previous button in the vertical scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll up')
-		 * @public
-		 */
-		scrollUpAriaLabel: PropTypes.string,
 
 		/*
 		 * TBD
@@ -227,10 +174,8 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: false,
 			drag: false,
 			pageKey: false,
-			scrollbarButton: false,
 			wheel: true
 		},
-		preventBubblingOnKeyDown: 'none',
 		type: 'JS'
 	}
 }
@@ -254,9 +199,6 @@ const useSpottableScroll = (props, instances, context) => {
 
 	const {
 		alertThumb,
-		isScrollButtonFocused,
-		onScrollbarButtonClick,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps
 	} = useScrollbar(props, instances, {isContent});
 
@@ -270,7 +212,7 @@ const useSpottableScroll = (props, instances, context) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {isScrollButtonFocused, type});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances, {type});
 
 	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, type});
 
@@ -278,15 +220,15 @@ const useSpottableScroll = (props, instances, context) => {
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {isScrollButtonFocused, type});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {type});
 
-	const {handleTouchStart} = useEventTouch({}, instances, {isScrollButtonFocused});
+	const {handleTouchStart} = useEventTouch({}, instances, {});
 
 	const {
 		addVoiceEventListener,
 		removeVoiceEventListener,
 		stopVoice
-	} = useEventVoice(props, instances, {onScrollbarButtonClick});
+	} = useEventVoice(props, instances);
 
 	// Functions
 
@@ -422,7 +364,6 @@ const useSpottableScroll = (props, instances, context) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
@@ -432,23 +373,15 @@ const useSpottableScroll = (props, instances, context) => {
 };
 
 const useScroll = (props) => {
-	const {
+	const
+		{
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			preventBubblingOnKeyDown,
-			scrollDownAriaLabel,
-			scrollLeftAriaLabel,
-			scrollRightAriaLabel,
-			scrollUpAriaLabel,
 			type,
 			...rest
-		} = props,
-		downButtonAriaLabel = scrollDownAriaLabel == null ? $L('scroll down') : scrollDownAriaLabel,
-		upButtonAriaLabel = scrollUpAriaLabel == null ? $L('scroll up') : scrollUpAriaLabel,
-		rightButtonAriaLabel = scrollRightAriaLabel == null ? $L('scroll right') : scrollRightAriaLabel,
-		leftButtonAriaLabel = scrollLeftAriaLabel == null ? $L('scroll left') : scrollLeftAriaLabel;
+		} = props;
 
 	// Mutable value
 
@@ -538,7 +471,6 @@ const useScroll = (props) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps,
 		scrollStopOnScroll, // Native
 		scrollTo,
@@ -573,7 +505,6 @@ const useScroll = (props) => {
 
 	decorateChildProps('childProps', {
 		onUpdate: handleScrollerUpdate,
-		scrollAndFocusScrollbarButton,
 		setChildAdapter,
 		spotlightId,
 		uiScrollAdapter
@@ -581,20 +512,12 @@ const useScroll = (props) => {
 
 	decorateChildProps('verticalScrollbarProps', {
 		...scrollbarProps,
-		focusableScrollButtons: focusableScrollbar,
-		nextButtonAriaLabel: downButtonAriaLabel,
-		onKeyDownButton: handleKeyDown,
-		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: upButtonAriaLabel
+		focusableScrollbar
 	});
 
 	decorateChildProps('horizontalScrollbarProps', {
 		...scrollbarProps,
-		focusableScrollButtons: focusableScrollbar,
-		nextButtonAriaLabel: rightButtonAriaLabel,
-		onKeyDownButton: handleKeyDown,
-		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: leftButtonAriaLabel
+		focusableScrollbar
 	});
 
 	const {

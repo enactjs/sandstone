@@ -123,13 +123,13 @@ const useEventKey = (props, instances, context) => {
 					const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, spotlightId} = props;
 					const {dimensionToExtent, isPrimaryDirectionVertical} = uiChildAdapter.current;
 					const targetIndex = target.dataset.index;
-					const isScrollButton = (
-						// if target has an index, it must be an item so can't be a scroll button
+					const isNotItem = (
+						// if target has an index, it must be an item
 						!targetIndex &&
-						// if it lacks an index and is inside the scroller, it must be a button
+						// if it lacks an index and is inside the scroller, we need to handle this
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
-					const index = !isScrollButton ? getNumberValue(targetIndex) : -1;
+					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
 					const directions = {};
 					let isLeaving = false;
@@ -149,7 +149,7 @@ const useEventKey = (props, instances, context) => {
 						isScrollbarVisible = isHorizontalScrollbarVisible;
 					}
 
-					if (!isScrollButton) {
+					if (!isNotItem) {
 						if (nextIndex >= 0) {
 							ev.preventDefault();
 							ev.stopPropagation();
