@@ -1,15 +1,17 @@
 // ProgressBar.module.less
 //
-@import '../styles/variables.less';
-@import '../styles/skin.less';
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
 
 .radial-bar-styles() {
-	height: ~"calc(100% - (" @sand-progress-bar-height ~" * 2))";
-	width: ~"calc(100% - (" @sand-progress-bar-height ~" * 2))";
+	height: 100%;
+	width: 100%;
 	border-color: inherit;
 	border-radius: 50%;
 	border-style: solid;
 	border-width: @sand-progress-bar-height;
+	box-sizing: border-box;
 }
 
 .progressBar {
@@ -29,9 +31,49 @@
 	&.radial {
 		min-height: @sand-progress-bar-height-large;
 		width: @sand-progress-bar-height-large;
-		
+
 		.bar {
 			.radial-bar-styles();
+			overflow: visible;
+		}
+
+		.fill,
+		.load {
+			.position(-@sand-progress-bar-height);
+			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
+
+			&::before,
+			&::after {
+				.radial-bar-styles();
+				position: absolute;
+				content: "";
+			}
+
+			&::before {
+				clip-path: inset(0 0 0 50%);  // Clip off the left half
+				display: none;
+			}
+
+			&::after {
+				clip-path: inset(0 50% 0 0);  // Clip off the right half
+			}
+		}
+
+		.fill::after {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
+		}
+
+		.load::after {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
+		}
+
+		&.fillHalfWay .fill,
+		&.loadHalfWay .load {
+			clip-path: initial;
+
+			&::before {
+				display: block;  // Enable the right-half of the progress circle
+			}
 		}
 	}
 
@@ -50,17 +92,22 @@
 		}
 
 		&.radial {
-			.fill {
-				background-color: transparent;
-			}
-
+			.bar,
+			.fill,
 			.load {
 				background-color: transparent;
 			}
 
 			.bar {
-				background-color: transparent;
 				border-color: @sand-progress-bar-bg-color;
+			}
+
+			.fill {
+				border-color: @sand-progress-bar-fill-bg-color;
+			}
+
+			.load {
+				border-color: #6c6e73;// @sand-progress-bar-loaded-bg-color;
 			}
 		}
 
@@ -75,51 +122,6 @@
 					border-color: @sand-progress-bar-highlighted-fill-bg-color;
 				}
 			}
-		}
-	});
-}
-
-.radialBar {
-	position: absolute;
-	min-height: @sand-progress-bar-height-large;
-	min-width: @sand-progress-bar-height-large;
-	height: 100%;
-	width: 100%;
-	clip-path: inset(0 0 0 50%);
-
-	> * {
-		.radial-bar-styles();
-		position: absolute;
-		clip-path: inset(0 50% 0 0);
-	}
-
-	&.fill {
-		.right {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
-		}
-	}
-
-	&.load {
-		.right {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
-		}
-	}
-
-	&.full {
-		clip-path: initial;
-
-		.left {
-			transform: rotate(180deg);
-		}
-	}
-
-	.applySkins({
-		&.fill {
-			border-color: @sand-progress-bar-fill-bg-color;
-		}
-
-		&.load {
-			border-color: #6c6e73;// @sand-progress-bar-loaded-bg-color;
 		}
 	});
 }
