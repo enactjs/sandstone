@@ -11,7 +11,7 @@
 
 import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
-import {Row, Cell} from '@enact/ui/Layout';
+import {Layout, Row, Cell} from '@enact/ui/Layout';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
 import React from 'react';
@@ -41,6 +41,13 @@ const getContainerNode = (containerId) => {
 
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
+
+const positionToTransitionProps = {
+	bottom: 'down',
+	left: 'left',
+	right: 'right',
+	top: 'up'
+};
 
 /**
  * The base popup component.
@@ -89,6 +96,15 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * If true, Popup takes up the whole screen.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		fullscreen: PropTypes.bool,
+
+		/**
 		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
@@ -131,6 +147,15 @@ const PopupBase = kind({
 		 * @public
 		 */
 		open: PropTypes.bool,
+
+		/**
+		 * Position of the Popup on the screen.
+		 *
+		 * @type {String}
+		 * @default 'bottom'
+		 * @public
+		 */
+		position: PropTypes.oneOf(['bottom', 'left', 'right', 'top']),
 
 		/**
 		 * Shows the close button.
@@ -180,8 +205,10 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
+		fullscreen: false,
 		noAnimation: false,
 		open: false,
+		position: 'bottom',
 		showCloseButton: false,
 		shrinkBody: false,
 		spotlightRestrict: 'self-only'
@@ -194,7 +221,7 @@ const PopupBase = kind({
 	},
 
 	computed: {
-		className: ({showCloseButton, styler}) => styler.append({reserveClose: showCloseButton}),
+		className: ({fullscreen, position, showCloseButton, styler}) => styler.append({reserveClose: showCloseButton, fullscreen}, position),
 		closeButton: ({closeButtonAriaLabel, css, onCloseButtonClick, showCloseButton}) => {
 			if (showCloseButton) {
 				const ariaLabel = (closeButtonAriaLabel == null) ? $L('Close') : closeButtonAriaLabel;
@@ -212,10 +239,13 @@ const PopupBase = kind({
 					</Cell>
 				);
 			}
-		}
+		},
+		popupPositionLayout: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
+		popupAlignment: ({position}) => position === 'bottom' || position === 'right' ? 'end' : 'start',
+		transitionDirection: ({position}) => positionToTransitionProps[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, ...rest}) => {
+	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupPositionLayout, shrinkBody, spotlightId, spotlightRestrict, transitionDirection,...rest}) => {
 		delete rest.closeButtonAriaLabel;
 		delete rest.onCloseButtonClick;
 		delete rest.showCloseButton;
@@ -223,7 +253,8 @@ const PopupBase = kind({
 		return (
 			<TransitionContainer
 				className={css.popupTransitionContainer}
-				direction="down"
+				css={css}
+				direction={transitionDirection}
 				duration="short"
 				noAnimation={noAnimation}
 				onHide={onHide}
@@ -234,23 +265,27 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<Row
+				<Layout
 					aria-live="off"
 					role="alert"
 					{...rest}
+					orientation={popupPositionLayout}
 				>
-					<Cell className={css.body} shrink={shrinkBody}>
-						{children}
+					<Cell align={popupAlignment} className={css.bodyContainer}>
+						<Row>
+							<Cell className={css.body} shrink={shrinkBody}>
+								{children}
+							</Cell>
+							{closeButton}
+						</Row>
 					</Cell>
-					{closeButton}
-				</Row>
+				</Layout>
 			</TransitionContainer>
 		);
 	}
 });
 
 const SkinnedPopupBase = Skinnable(
-	{defaultSkin: 'light'},
 	PopupBase
 );
 

@@ -15,7 +15,9 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<Popup
+					fullscreen={boolean('fullscreen', Config)}
 					open={boolean('open', Config)}
+					position={select('position', ['bottom', 'left', 'right', 'top'], Config, 'bottom')}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onClose={action('onClose')}

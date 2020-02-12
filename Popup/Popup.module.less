@@ -5,44 +5,89 @@
 @import "../styles/skin.less";
 
 .popup {
-	// Local variables to make this easier to read
-	@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
-	@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
-	@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
-	@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
+	height: 100%;
 
-	.sand-text-base();
-	padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
-	.padding-start-end(@popup-padding-left, @popup-padding-right);
-	box-sizing: border-box;
-	pointer-events: auto;
+	.bodyContainer {
+		// Local variables to make this easier to read
+		@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
+		@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
+		@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
+		@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
 
-	.body {
-		margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
-		.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
-		.locale-japanese-line-break();
-	}
+		.sand-text-base();
+		padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+		.padding-start-end(@popup-padding-left, @popup-padding-right);
+		box-sizing: border-box;
+		pointer-events: auto;
+		border-radius: 24px;
 
-	.closeContainer {
-		.margin-start-end(@sand-popup-closecontainer-separation, 0);
-	}
-
-	.closeButton {
-		margin: 0;
-	}
-
-	&.reserveClose {
 		.body {
-			.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
+			margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
+			.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
+			.locale-japanese-line-break();
+		}
+
+		.closeContainer {
+			.margin-start-end(@sand-popup-closecontainer-separation, 0);
+		}
+
+		.closeButton {
+			margin: 0;
+		}
+
+		&.reserveClose {
+			.body {
+				.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
+			}
+		}
+	}
+
+	&.bottom,
+	&.top {
+		padding: 150px 120px;
+
+		.bodyContainer {
+			width: 100%;
+		}
+	}
+
+	&.left,
+	&.right {
+		padding: 120px 60px;
+
+		.bodyContainer {
+			height: 100%;
+			width: 1140px;
+		}
+	}
+
+	&.bottom,
+	&.right {
+		.bodyContainer {
+
+		}
+	}
+
+	&.top {
+		.bodyContainer {
+
+		}
+	}
+
+	&.fullscreen {
+		padding: 0;
+
+		.bodyContainer {
+			height: 100%;
+			width: 100%;
+			border-radius: 0;
 		}
 	}
 
 	// Skin colors
 	.applySkins({
-		background-color: fade(@sand-popup-bg-color, @sand-popup-bg-opacity);
-
-		.closeButton {
-			color: @sand-popup-close-text-color;
+		.bodyContainer {
+			background-color:@sand-popup-bg-color;
 		}
 	});
 }
@@ -50,6 +95,11 @@
 .popupTransitionContainer {
 	position: absolute;
 	bottom: 0;
+	height: 100%;
 	width: 100%;
 	pointer-events: none;
+
+	.inner {
+		height: 100%;
+	}
 }
