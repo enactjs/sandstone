@@ -6,23 +6,58 @@
 
 .popup {
 	height: 100%;
-	border-radius: @sand-popup-border-radius;
 
-	.body {
+	.bodyContainer {
+		// Local variables to make this easier to read
+		@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
+		@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
+		@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
+		@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
+
 		.sand-text-base();
-		padding: @sand-popup-padding-top @sand-popup-padding-right @sand-popup-padding-bottom @sand-popup-padding-left;
-		.padding-start-end(@sand-popup-padding-left, @sand-popup-padding-right);
+		padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
+		.padding-start-end(@popup-padding-left, @popup-padding-right);
 		box-sizing: border-box;
 		pointer-events: auto;
-		.locale-japanese-line-break();
+		border-radius: 24px;
+
+		.body {
+			margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
+			.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
+			.locale-japanese-line-break();
+		}
+
+		.closeContainer {
+			.margin-start-end(@sand-popup-closecontainer-separation, 0);
+		}
+
+		.closeButton {
+			margin: 0;
+		}
+
+		&.reserveClose {
+			.body {
+				.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
+			}
+		}
 	}
 
 	&.bottom,
 	&.top {
-		margin: @sand-popup-position-top-bottom-margin;
+		padding: 150px 120px;
 
-		.body {
-			max-width: 100%;
+		.bodyContainer {
+			width: 100%;
+		}
+	}
+
+	&.left,
+	&.right {
+		padding: 120px 60px;
+
+		.bodyContainer {
+			height: 100%;
+			width: 1140px;
 		}
 	}
 	&.left,
@@ -30,91 +65,45 @@
 		margin: @sand-popup-position-left-right-margin;
 		max-height: calc(100% - extract(@sand-popup-position-left-right-margin, 1) * 2);
 
-		.body {
-			height: 100%;
+	&.bottom,
+	&.right {
+		.bodyContainer {
+
 		}
 	}
 
-	// Remove the mardin on the leading edge so we're not wasting some of our transition frames on animating empty space
-	// This may pose problems for Popups that are 100% height, but `top` and `bottom` aren't intended for those cases.
 	&.top {
-		margin-bottom: 0;
-	}
-	&.right {
-		margin-left: 0;
-	}
-	&.bottom {
-		margin-top: 0;
-	}
-	&.left {
-		margin-right: 0;
-	}
+		.bodyContainer {
 
-	&.center {
-		position: absolute;
-		height: auto;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
+		}
 	}
 
 	&.fullscreen {
-		border-radius: 0;
+		padding: 0;
 
-		.body {
+		.bodyContainer {
 			height: 100%;
 			width: 100%;
+			border-radius: 0;
 		}
 	}
 
 	// Skin colors
 	.applySkins({
-		background-color: @sand-popup-bg-color;
+		.bodyContainer {
+			background-color:@sand-popup-bg-color;
+		}
 	});
 }
 
 .popupTransitionContainer {
 	position: absolute;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
 	pointer-events: none;
 
-	&.bottom,
-	&.top {
-		width: 100%;
-	}
-
-	&.left,
-	&.right {
+	.inner {
 		height: 100%;
-
-		.inner {
-			height: 100%;
-		}
-	}
-
-	&.bottom {
-		bottom: 0;
-	}
-
-	&.left {
-		left: 0;
-	}
-
-	&.right {
-		right: 0;
-	}
-
-	&.top {
-		top: 0;
-	}
-
-	&.center,
-	&.fullscreen {
-		height: 100%;
-		width: 100%;
-
-		.inner {
-			height: 100%;
-			width: 100%;
-		}
 	}
 }

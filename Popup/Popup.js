@@ -11,6 +11,7 @@
 
 import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
+import {Layout, Row, Cell} from '@enact/ui/Layout';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
 import React from 'react';
@@ -39,10 +40,8 @@ const getContainerNode = (containerId) => {
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
 
-const transitionDirection = {
+const positionToTransitionProps = {
 	bottom: 'down',
-	center: 'down',
-	fullscreen: 'down',
 	left: 'left',
 	right: 'right',
 	top: 'up'
@@ -90,6 +89,15 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * If true, Popup takes up the whole screen.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		fullscreen: PropTypes.bool,
+
+		/**
 		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
@@ -128,6 +136,15 @@ const PopupBase = kind({
 		/**
 		 * Position of the Popup on the screen.
 		 *
+		 * @type {String}
+		 * @default 'bottom'
+		 * @public
+		 */
+		position: PropTypes.oneOf(['bottom', 'left', 'right', 'top']),
+
+		/**
+		 * Shows the close button.
+		 *
 		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
 		 * @default 'bottom'
 		 * @public
@@ -159,9 +176,12 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
+		fullscreen: false,
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
+		showCloseButton: false,
+		shrinkBody: false,
 		spotlightRestrict: 'self-only'
 	},
 
@@ -172,18 +192,40 @@ const PopupBase = kind({
 	},
 
 	computed: {
-		className: ({position, styler}) => styler.append(position),
-		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
-		direction: ({position}) => transitionDirection[position]
+		className: ({fullscreen, position, showCloseButton, styler}) => styler.append({reserveClose: showCloseButton, fullscreen}, position),
+		closeButton: ({closeButtonAriaLabel, css, onCloseButtonClick, showCloseButton}) => {
+			if (showCloseButton) {
+				const ariaLabel = (closeButtonAriaLabel == null) ? $L('Close') : closeButtonAriaLabel;
+
+				return (
+					<Cell shrink className={css.closeContainer}>
+						<Button
+							className={css.closeButton}
+							backgroundOpacity="transparent"
+							size="small"
+							onTap={onCloseButtonClick}
+							aria-label={ariaLabel}
+							icon="closex"
+						/>
+					</Cell>
+				);
+			}
+		},
+		popupPositionLayout: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
+		popupAlignment: ({position}) => position === 'bottom' || position === 'right' ? 'end' : 'start',
+		transitionDirection: ({position}) => positionToTransitionProps[position]
 	},
 
-	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
+	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupPositionLayout, shrinkBody, spotlightId, spotlightRestrict, transitionDirection,...rest}) => {
+		delete rest.closeButtonAriaLabel;
+		delete rest.onCloseButtonClick;
+		delete rest.showCloseButton;
 
 		return (
 			<TransitionContainer
-				className={transitionContainerClassName}
+				className={css.popupTransitionContainer}
 				css={css}
-				direction={direction}
+				direction={transitionDirection}
 				duration="short"
 				noAnimation={position === 'fullscreen' ? true : noAnimation}
 				onHide={onHide}
@@ -194,15 +236,21 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<div
+				<Layout
 					aria-live="off"
 					role="alert"
 					{...rest}
+					orientation={popupPositionLayout}
 				>
-					<div className={css.body}>
-						{children}
-					</div>
-				</div>
+					<Cell align={popupAlignment} className={css.bodyContainer}>
+						<Row>
+							<Cell className={css.body} shrink={shrinkBody}>
+								{children}
+							</Cell>
+							{closeButton}
+						</Row>
+					</Cell>
+				</Layout>
 			</TransitionContainer>
 		);
 	}
