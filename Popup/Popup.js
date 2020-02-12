@@ -42,7 +42,7 @@ const getContainerNode = (containerId) => {
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
 
-const positionToTransitionProps = {
+const direction = {
 	bottom: 'down',
 	left: 'left',
 	right: 'right',
@@ -96,10 +96,9 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * If true, Popup takes up the whole screen.
+		 * Enables fullscreen mode.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		fullscreen: PropTypes.bool,
@@ -151,7 +150,7 @@ const PopupBase = kind({
 		/**
 		 * Position of the Popup on the screen.
 		 *
-		 * @type {String}
+		 * @type {('bottom'|'left'|'right'|'top')}
 		 * @default 'bottom'
 		 * @public
 		 */
@@ -205,7 +204,6 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
-		fullscreen: false,
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
@@ -240,12 +238,12 @@ const PopupBase = kind({
 				);
 			}
 		},
-		popupPositionLayout: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
+		popupOrientation: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
 		popupAlignment: ({position}) => position === 'bottom' || position === 'right' ? 'end' : 'start',
-		transitionDirection: ({position}) => positionToTransitionProps[position]
+		transitionDirection: ({position}) => direction[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupPositionLayout, shrinkBody, spotlightId, spotlightRestrict, transitionDirection, ...rest}) => {
+	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupOrientation, shrinkBody, spotlightId, spotlightRestrict, transitionDirection, ...rest}) => {
 		delete rest.closeButtonAriaLabel;
 		delete rest.fullscreen;
 		delete rest.onCloseButtonClick;
@@ -271,7 +269,7 @@ const PopupBase = kind({
 					aria-live="off"
 					role="alert"
 					{...rest}
-					orientation={popupPositionLayout}
+					orientation={popupOrientation}
 				>
 					<Cell align={popupAlignment} className={css.bodyContainer}>
 						<Row>
