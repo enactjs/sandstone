@@ -20,6 +20,7 @@ import ExpandablePicker from './components/ExpandablePicker';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import GridListImageItem from './components/GridListImageItem';
+import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
 import IconButton from './components/IconButton';
@@ -71,6 +72,7 @@ const components = {
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
+	Header,
 	Heading,
 	Icon,
 	IconButton,
