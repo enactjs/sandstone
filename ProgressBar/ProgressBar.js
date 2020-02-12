@@ -30,6 +30,19 @@ const RadialBarBase = kind({
 
 	propTypes: /** @lends sandstone/ProgressBar.RadialBar.prototype */ {
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `radialBar` - The root component class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
 		 *
 		 * @type {Number}
@@ -45,26 +58,23 @@ const RadialBarBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'radialBar'
+		className: 'radialBar',
+		publicClassNames: true
 	},
 
 	computed: {
 		className: ({progress, styler}) => styler.append({
-			[componentCss.full]: progress > 0.5
-		}),
-		style: ({progress, style}) => ({
-			...style,
-			['--sand-radialbar-rotation']: `${(360 / 100) * (progress * 100)}deg`
+			full: (progress > 0.5)
 		})
 	},
 
-	render: (props) => {
-		delete props.progress;
+	render: ({css, ...rest}) => {
+		delete rest.progress;
 
 		return (
-			<div {...props}>
-				<div className={componentCss.left} />
-				<div className={componentCss.right} />
+			<div {...rest}>
+				<div className={css.left} />
+				<div className={css.right} />
 			</div>
 		);
 	}
@@ -190,14 +200,14 @@ const ProgressBarBase = kind({
 	computed: {
 		className: ({highlighted, orientation, styler}) => styler.append({
 			highlighted,
-			[componentCss.radial]: orientation === 'radial'
+			radial: (orientation === 'radial')
 		}),
-		radialComponent: ({backgroundProgress, orientation, progress}) => (
+		radialComponent: ({backgroundProgress, css, orientation, progress}) => (
 			orientation === 'radial' ?
-				<>
-					<RadialBar className={componentCss.load} progress={backgroundProgress} />
-					<RadialBar className={componentCss.fill} progress={progress} />
-				</> :
+				<React.Fragment>
+					<RadialBar className={css.load} progress={backgroundProgress} />
+					<RadialBar className={css.fill} progress={progress} />
+				</React.Fragment> :
 				null
 		),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip

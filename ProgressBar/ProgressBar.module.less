@@ -4,8 +4,8 @@
 @import '../styles/skin.less';
 
 .radial-bar-styles() {
-	height: calc(100% - (@sand-progress-bar-height * 2));
-	width: calc(100% - (@sand-progress-bar-height * 2));
+	height: ~"calc(100% - (" @sand-progress-bar-height ~" * 2))";
+	width: ~"calc(100% - (" @sand-progress-bar-height ~" * 2))";
 	border-color: inherit;
 	border-radius: 50%;
 	border-style: solid;
@@ -80,8 +80,6 @@
 }
 
 .radialBar {
-	--sand-radialbar-rotation: 0deg;
-
 	position: absolute;
 	min-height: @sand-progress-bar-height-large;
 	min-width: @sand-progress-bar-height-large;
@@ -95,8 +93,16 @@
 		clip-path: inset(0 50% 0 0);
 	}
 
-	.right {
-		transform: rotate(var(--sand-radialbar-rotation));
+	&.fill {
+		.right {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
+		}
+	}
+
+	&.load {
+		.right {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
+		}
 	}
 
 	&.full {
