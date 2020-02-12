@@ -26,6 +26,19 @@ describe('Item', function () {
 			Page.spotlightUp();
 			expect(itemDefault.self.hasFocus()).to.be.true();
 		});
+
+		// Validating that the items are in fact inline and can be navigated between via 5-way
+		it('should focus first inline item on SpotlightLeft', function () {
+			Page.components.itemInline2.focus();
+			Page.spotlightLeft();
+			expect(Page.components.itemInline1.self.hasFocus()).to.be.true();
+		});
+
+		it('should focus third inline item on SpotlightLeft', function () {
+			Page.components.itemInline2.focus();
+			Page.spotlightRight();
+			expect(Page.components.itemInline3.self.hasFocus()).to.be.true();
+		});
 	});
 
 	describe('pointer', function () {
@@ -40,7 +53,7 @@ describe('Item', function () {
 
 		it('should focus first when hovered', function () {
 			itemDefault.hover();
-			expect(itemDefault.self.hasFocus()).to.be.true()
+			expect(itemDefault.self.hasFocus()).to.be.true();
 		});
 	});
 });

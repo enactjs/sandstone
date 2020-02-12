@@ -157,7 +157,7 @@
 
 // Spotlight
 // ---------------------------------------
-@sand-spotlight-outset: 18px;
+@sand-spotlight-outset: 48px;
 @sand-spotlight-focus-animation-duration: 200ms;
 
 // Header
@@ -205,6 +205,13 @@
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-focus-bg-transform: scale(1.1);
+
+// Checkbox
+// ---------------------------------------
+@sand-checkbox-size: 54px;
+@sand-checkbox-size-large: 66px;
+@sand-checkbox-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
+@sand-checkbox-border-width: 4px;
 
 // Dropdown
 // ---------------------------------------
@@ -282,10 +289,12 @@
 // Item
 // ---------------------------------------
 @sand-item-height: 156px;
-@sand-item-height-large: 144px;
-@sand-item-vertical-padding: 48px;
-@sand-item-line-height: 60px;
-@sand-item-line-height-large: @sand-item-height-large - (@sand-item-vertical-padding * 2);
+@sand-item-height-large: @sand-item-height;
+@sand-item-withlabel-height: 240px;
+@sand-item-vertical-padding: 6px;
+@sand-item-line-height: 1.3em;
+@sand-item-line-height-large: @sand-item-line-height;
+@sand-item-label-line-height: @sand-item-line-height;
 @sand-item-indent: 72px;
 @sand-item-inline-max-width: 480px;
 @sand-item-border-radius: 12px;
@@ -300,12 +309,6 @@
 @sand-formcheckbox-check-icon-size-large: 144px;
 @sand-formcheckbox-border-size: 4px;
 @sand-formcheckbox-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
-
-// Checkbox
-// ---------------------------------------
-@sand-checkbox-size: 54px;
-@sand-checkbox-size-large: 66px;
-@sand-checkbox-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
 
 // DaySelector
 // ---------------------------------------
@@ -361,12 +364,11 @@
 
 // Radio Item
 // ---------------------------------------
-@sand-radio-item-indicator-size: 42px;
-@sand-radio-item-indicator-size-large: 48px;
-@sand-radio-item-indicator-border: 4px;  // ### Exceptional Case ###
+@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
 	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
 	// this value must be specifically considered as to not impose layout issues related to, for
 	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+@sand-radioitem-indicator-border-radius: 999px;
 
 // GridListImageItem
 // ---------------------------------------
@@ -376,9 +378,9 @@
 
 // Scrollable
 // ---------------------------------------
-@sand-scrollable-overscroll-thickness: 12px;
-@sand-scrollable-overscroll-duration: 300ms;
-@sand-scrollable-scrollbar-size: @sand-button-small-height;
+@sand-scroll-overscroll-thickness: 12px;
+@sand-scroll-overscroll-duration: 300ms;
+@sand-scroll-scrollbar-size: @sand-button-small-height;
 
 // ToggleSwitch
 // ---------------------------------------

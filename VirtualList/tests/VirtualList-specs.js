@@ -122,7 +122,7 @@ describe('VirtualList', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Scrollbar').length;
+		const actual = subject.find('ScrollButtons').length;
 
 		expect(actual).toBe(expected);
 	});
