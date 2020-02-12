@@ -1,0 +1,56 @@
+.scroll {
+	--scroll-scrollbar-size: 60px;
+	--scroll-fadeout-size: 48px;
+	--scroll-padding: 108px;
+
+	position: relative;
+	box-sizing: border-box;
+	padding: var(--scroll-padding);
+	overflow: hidden;
+	direction: lrt;
+
+	.innerVitualList {
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		.childWrapper {
+			position: absolute;
+			box-sizing: border-box;
+			width: calc(100% + (var(--scroll-fadeout-size) * 2));
+            height: calc(100% + (var(--scroll-fadeout-size) * 2));
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+            will-change: transform;
+
+            .contentContainerProps {
+                box-sizing: content-box;
+                width: calc(100% - (var(--scroll-fadeout-size) * 2));
+                height: calc(100% - (var(--scroll-fadeout-size) * 2));
+                padding: var(--scroll-fadeout-size);
+            }
+        }
+
+		.verticalScrollbar {
+			position: absolute;
+			width: var(--scroll-scrollbar-size);
+			height: 100%;
+			left: calc(100% + var(--scroll-fadeout-size));
+		}
+
+		&.rtl {
+			.verticalScrollbar {
+				left: initial;
+				right: calc(100% + var(--scroll-fadeout-size));
+			}
+		}
+
+		.horizontalScrollbar {
+			position: absolute;
+			width: 100%;
+			height: var(--scroll-scrollbar-size);
+			top: calc(100% + var(--scroll-fadeout-size));
+		}
+	}
+}

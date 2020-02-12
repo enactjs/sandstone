@@ -33,6 +33,7 @@ import useScrollbar from './useScrollbar';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
+import scrollableCSS from './Scrollable.module.less';
 
 const
 	reverseDirections = {
@@ -556,7 +557,7 @@ const useScroll = (props) => {
 	}
 
 	decorateChildProps('scrollContainerProps', {
-		className: [overscrollCss.scroll],
+		className: [overscrollCss.scroll, scrollableCSS.scroll],
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -564,11 +565,20 @@ const useScroll = (props) => {
 	});
 
 	decorateChildProps('innerScrollContainerProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.vertical]
+		className: [
+			overscrollCss.overscrollFrame,
+			overscrollCss.vertical,
+			scrollableCSS.innerVitualList,
+			uiScrollAdapter.current.rtl ? scrollableCSS.rtl: null,
+		]
 	});
 
 	decorateChildProps('childWrapperProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal]
+		className: [
+			overscrollCss.overscrollFrame,
+			overscrollCss.horizontal,
+			scrollableCSS.childWrapper
+		]
 	});
 
 	decorateChildProps('childProps', {
@@ -579,8 +589,13 @@ const useScroll = (props) => {
 		uiScrollAdapter
 	});
 
+	decorateChildProps('contentContainerProps', {
+		className: [scrollableCSS.contentContainerProps]
+	});
+
 	decorateChildProps('verticalScrollbarProps', {
 		...scrollbarProps,
+		className: [scrollableCSS.verticalScrollbar],
 		focusableScrollButtons: focusableScrollbar,
 		nextButtonAriaLabel: downButtonAriaLabel,
 		onKeyDownButton: handleKeyDown,
@@ -590,6 +605,7 @@ const useScroll = (props) => {
 
 	decorateChildProps('horizontalScrollbarProps', {
 		...scrollbarProps,
+		className: [scrollableCSS.horizontalScrollbar],
 		focusableScrollButtons: focusableScrollbar,
 		nextButtonAriaLabel: rightButtonAriaLabel,
 		onKeyDownButton: handleKeyDown,

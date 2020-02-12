@@ -22,8 +22,6 @@ import Skinnable from '../Skinnable';
 
 import {useSpottableVirtualList, VirtualListBase} from './VirtualListBase';
 
-import css from './VirtualList.module.less';
-
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
@@ -62,6 +60,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		innerScrollContainerProps,
 		childWrapperProps,
 		childProps,
+		contentContainerProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
@@ -72,21 +71,15 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		role
 	});
 
-	const
-		scrollContainerClass = classNames(scrollContainerProps.className, css.virtualList),
-		innerScrollContainerClass = classNames(innerScrollContainerProps.className, css.innerVitualList, childProps.rtl ? css.rtl: null),
-		childWrapperClass = classNames(childWrapperProps.className, css.childWrapper),
-		uiChildClass = classNames(uiChildProps.className, css.list);
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps} className={scrollContainerClass}>
-				<div {...innerScrollContainerProps} className={innerScrollContainerClass}>
-					<ChildWrapper {...childWrapperProps} className={childWrapperClass}>
-						<UiVirtualListBase {...uiChildProps} className={uiChildClass} />
+			<div {...scrollContainerProps}>
+				<div {...innerScrollContainerProps}>
+					<ChildWrapper {...childWrapperProps}>
+						<UiVirtualListBase {...uiChildProps} contentContainerProps={contentContainerProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} className={css.verticalScrollbar} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} className={css.horizontalScrollbar}  /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</div>
 			</div>
 		</ResizeContext.Provider>
@@ -239,6 +232,7 @@ let VirtualGridList = ({role, ...rest}) => {
 		innerScrollContainerProps,
 		childWrapperProps,
 		childProps,
+		contentContainerProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(rest);
@@ -254,11 +248,11 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+						<UiVirtualListBase {...uiChildProps} contentContainerProps={contentContainerProps} />
 					</ChildWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</div>
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
