@@ -10,8 +10,8 @@ describe('Item', function () {
 	const item1Default = Page.components.item1Default;
 	const item2Disabled = Page.components.item2Disabled;
 	const item3WithLabel = Page.components.item3WithLabel;
-	// const item4Inline = Page.components.item4Inline;
-	// const item5InLineDisabled = Page.components.item5InLineDisabled;
+	const item4Inline = Page.components.item4Inline;
+	const item5InLineDisabled = Page.components.item5InLineDisabled;
 
 	describe('LTR locale', function () {
 		beforeEach(function () {
@@ -41,13 +41,11 @@ describe('Item', function () {
 					expect(item3WithLabel.self.hasFocus()).to.be.true();
 				});
 
-				// it('should focus an inline item with 5-way Down', function () {
-				// 	item3WithLabel.focus();
-				// 	Page.spotlightDown();
-				// 	expect(item4Inline.self.hasFocus()).to.be.true();
-				// });
-
-
+				it('should focus an inline item with 5-way Down', function () {
+					item3WithLabel.focus();
+					Page.spotlightDown();
+					expect(item4Inline.self.hasFocus()).to.be.true();
+				});
 			});
 
 			describe('pointer', function () {

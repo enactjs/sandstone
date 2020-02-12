@@ -28,22 +28,22 @@ const app = (props) => <div {...props}>
 			Item 3
 		</Item>
 		<Item
-+                       id="item4Inline"
-+                       label="label for inline"
-+                       inline
-+               >
-+                       Item 4 inline
-+               </Item>
-+               <Item
-+                       id="item5InLineDisabled"
-+                       label=""
-+                       inline
-                        disabled
-                >
--                       Item disabled
-+                       Item 5 inline disabled
-                </Item>
+			id="item4Inline"
+			label="label for inline"
+			inline
+		>
+			Item 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inline
+		</Item>
+		<Item
+			id="item5InLineDisabled"
+			label=""
+			inline
+			disabled
+		>
+			Item 5 inline disabled
+		</Item>
 	</div>
 </div>;
+
 
 export default ThemeDecorator(app);
