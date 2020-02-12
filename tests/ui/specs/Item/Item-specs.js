@@ -11,7 +11,7 @@ describe('Item', function () {
 	const item2Disabled = Page.components.item2Disabled;
 	const item3WithLabel = Page.components.item3WithLabel;
 	const item4Inline = Page.components.item4Inline;
-	const item5InLineDisabled = Page.components.item5InLineDisabled;
+	// const item5InLineDisabled = Page.components.item5InLineDisabled;
 
 	describe('LTR locale', function () {
 		beforeEach(function () {
@@ -87,17 +87,17 @@ describe('Item', function () {
 		});
 
 		// Validating that the items are in fact inline and can be navigated between via 5-way
-		it('should focus first inline item on SpotlightLeft', function () {
-			Page.components.itemInline2.focus();
-			Page.spotlightLeft();
-			expect(Page.components.itemInline1.self.hasFocus()).to.be.true();
-		});
-
-		it('should focus third inline item on SpotlightLeft', function () {
-			Page.components.itemInline2.focus();
-			Page.spotlightRight();
-			expect(Page.components.itemInline3.self.hasFocus()).to.be.true();
-		});
+		// it('should focus first inline item on SpotlightLeft', function () {
+		// 	Page.components.itemInline2.focus();
+		// 	Page.spotlightLeft();
+		// 	expect(Page.components.itemInline1.self.hasFocus()).to.be.true();
+		// });
+		//
+		// it('should focus third inline item on SpotlightLeft', function () {
+		// 	Page.components.itemInline2.focus();
+		// 	Page.spotlightRight();
+		// 	expect(Page.components.itemInline3.self.hasFocus()).to.be.true();
+		// });
 	});
 
 	describe('RTL locale', function () {

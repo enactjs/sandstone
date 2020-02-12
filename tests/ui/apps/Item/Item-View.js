@@ -32,7 +32,7 @@ const app = (props) => <div {...props}>
 			label="label for inline"
 			inline
 		>
-			Item 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inlineItem 4 inline
+			Item 4 inline
 		</Item>
 		<Item
 			id="item5InLineDisabled"
