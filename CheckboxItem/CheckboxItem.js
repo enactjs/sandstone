@@ -14,9 +14,14 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
+import compose from 'ramda/src/compose';
+
+import Spottable from '@enact/spotlight/Spottable';
+import Toggleable from '@enact/ui/Toggleable';
 
 import Checkbox from '../Checkbox';
-import ToggleItem from '../ToggleItem';
+import Item from '../Item';
+import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
 
@@ -38,7 +43,7 @@ import componentCss from './CheckboxItem.module.less';
  *
  * @class CheckboxItem
  * @memberof sandstone/CheckboxItem
- * @extends sandstone/ToggleItem.ToggleItem
+ * @extends sandstone/Item.Item
  * @omit iconComponent
  * @ui
  * @public
@@ -58,7 +63,36 @@ const CheckboxItemBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		/**
+		 * The icon content.
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String|Object}
+		 * @default 'check'
+		 * @public
+		 */
+		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
+		 * If true the checkbox will be selected.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		selected: PropTypes.bool
+	},
+
+	defaultProps: {
+		icon: 'check'
 	},
 
 	styles: {
@@ -67,18 +101,29 @@ const CheckboxItemBase = kind({
 		publicClassNames: ['checkboxItem']
 	},
 
-	render: (props) => (
-		<ToggleItem
+	render: ({children, css, icon, selected, ...rest}) => (
+		<Item
 			data-webos-voice-intent="SelectCheckItem"
-			{...props}
-			css={props.css}
-			iconComponent={Checkbox}
-		/>
+			role="checkbox"
+			{...rest}
+			css={css}
+		>
+			<Checkbox selected={selected} slot="slotBefore" css={css}>{icon}</Checkbox>
+			{children}
+		</Item>
 	)
 });
 
-export default CheckboxItemBase;
+const CheckboxItemDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Spottable,
+	Skinnable
+);
+
+const CheckboxItem = CheckboxItemDecorator(CheckboxItemBase);
+
+export default CheckboxItem;
 export {
-	CheckboxItemBase as CheckboxItem,
+	CheckboxItem,
 	CheckboxItemBase
 };

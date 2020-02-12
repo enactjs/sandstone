@@ -4,8 +4,8 @@
 function validateTitle (item, title) {
 	it('should have correct title', function () {
 		const match = item.content === title;
-		// console.log('item = ', item);
-		// console.log('title = ', title);
+		console.log('item = ', item);
+		console.log('title = ', title);
 		expect(match).to.be.true();
 	});
 }

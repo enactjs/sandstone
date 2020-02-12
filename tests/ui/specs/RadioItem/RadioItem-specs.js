@@ -1,7 +1,7 @@
 const Page = require('./RadioItemPage');
 
 // Skipping until RadioItem is updated to handle the new Item structure
-describe.skip('RadioItem', function () {
+describe('RadioItem', function () {
 
 	beforeEach(function () {
 		Page.open();
