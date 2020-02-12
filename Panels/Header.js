@@ -10,7 +10,7 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
-import css from './Header.module.less';
+import componentCss from './Header.module.less';
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -48,6 +48,20 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `header` - The root class name
+		 * * `input` - Applied to the `headerInput` element
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
 		 *
 		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
@@ -70,9 +84,6 @@ const HeaderBase = kind({
 		 */
 		headerInput: PropTypes.node,
 
-		// WIP - Controls the visibility of the input field.
-		inputOpen: PropTypes.bool,
-
 		/**
 		 * Determines what triggers the header content to start its animation.
 		 *
@@ -81,6 +92,16 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
+		 * Sets the visibility of the input field
+		 *
+		 * This prop must be set to true for the input field to appear.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showInput: PropTypes.bool,
 
 		/**
 		 * A location for arbitrary elements to be placed above the title
@@ -181,17 +202,23 @@ const HeaderBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'header'
+		css: componentCss,
+		className: 'header',
+		publicClassNames: ['header', 'input']
 	},
 
 	computed: {
-		className: ({centered, children, type, slotAbove, styler}) => styler.append({centered, withChildren: (Boolean(children) || Boolean(slotAbove))}, type),
+		className: ({centered, children, slotAbove, type, styler}) => styler.append(
+			{
+				centered,
+				withChildren: (Boolean(children) || Boolean(slotAbove))
+			},
+			type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
 
-	render: ({children, direction, marqueeOn, headerInput, title, inputOpen, subtitle, line, centered, slotAbove, slotAfter, slotBefore, type, ...rest}) => {
+	render: ({centered, children, css, direction, headerInput, line, marqueeOn, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
 
 		// Create the Title component
 		const titleComponent = (
@@ -214,14 +241,17 @@ const HeaderBase = kind({
 		if (headerInput) {
 			titleOrInput = (
 				<div className={css.headerInput}>
-					<Transition visible={inputOpen} className={css.inputTransition}>
+					<Transition duration="short" visible={!!showInput} className={css.inputTransition}>
 						<ComponentOverride
 							component={headerInput}
+							className={css.input}
 							css={css}
 							size="large"
 						/>
 					</Transition>
-					{titleComponent}
+					<Transition duration="short" direction="down" visible={!showInput}>
+						{titleComponent}
+					</Transition>
 				</div>
 			);
 		}
