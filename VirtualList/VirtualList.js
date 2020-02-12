@@ -11,6 +11,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -20,6 +21,8 @@ import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
 import {useSpottableVirtualList, VirtualListBase} from './VirtualListBase';
+
+import css from './VirtualList.module.less';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
@@ -66,19 +69,25 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	const uiChildProps = useSpottableVirtualList({
 		...childProps,
 		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+		role
 	});
+
+	const
+		scrollContainerClass = classNames(scrollContainerProps.className, css.virtualList),
+		innerScrollContainerClass = classNames(innerScrollContainerProps.className, css.innerVitualList, childProps.rtl ? css.rtl: null),
+		childWrapperClass = classNames(childWrapperProps.className, css.childWrapper),
+		uiChildClass = classNames(uiChildProps.className, css.list);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+			<div {...scrollContainerProps} className={scrollContainerClass}>
+				<div {...innerScrollContainerProps} className={innerScrollContainerClass}>
+					<ChildWrapper {...childWrapperProps} className={childWrapperClass}>
+						<UiVirtualListBase {...uiChildProps} className={uiChildClass} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} className={css.verticalScrollbar} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} className={css.horizontalScrollbar}  /> : null}
 				</div>
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);

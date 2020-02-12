@@ -23,7 +23,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	const scrollbarRef = useRef();
 	const scrollButtonsRef = useRef();
 	// render
-	const {cbAlertThumb, clientSize, corner, vertical, ...rest} = props;
+	const {cbAlertThumb, className, clientSize, corner, vertical, ...rest} = props;
 
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
@@ -48,6 +48,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	return (
 		<UiScrollbarBase
 			clientSize={clientSize}
+			className={className}
 			corner={corner}
 			css={componentCss}
 			ref={scrollbarRef}

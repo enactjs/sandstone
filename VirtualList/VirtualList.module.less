@@ -1,0 +1,58 @@
+.virtualList {
+	--virtuallist-scrollbar-size: 60px;
+	--virtuallist-fadeout-size: 48px;
+	--virtuallist-padding: 108px;
+
+	position: relative;
+	box-sizing: border-box;
+	padding: var(--virtuallist-padding);
+	overflow: hidden;
+	direction: lrt;
+
+	.innerVitualList {
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		.childWrapper {
+			position: absolute;
+			overflow: hidden;
+			box-sizing: border-box;
+			width: calc(100% + (var(--virtuallist-fadeout-size) * 2));
+			height: calc(100% + (var(--virtuallist-fadeout-size) * 2));
+			padding: var(--virtuallist-fadeout-size);
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			will-change: transform;
+
+			.list {
+				position: relative;
+				overflow: visible;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		.verticalScrollbar {
+			position: absolute;
+			width: var(--virtuallist-scrollbar-size);
+			height: 100%;
+			left: calc(100% + var(--virtuallist-fadeout-size));
+		}
+
+		&.rtl {
+			.verticalScrollbar {
+				left: initial;
+				right: calc(100% + var(--virtuallist-fadeout-size));
+			}
+		}
+
+		.horizontalScrollbar {
+			position: absolute;
+			width: 100%;
+			height: var(--virtuallist-scrollbar-size);
+			top: calc(100% + var(--virtuallist-fadeout-size));
+		}
+	}
+}
