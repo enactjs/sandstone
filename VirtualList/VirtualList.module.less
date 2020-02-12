@@ -1,0 +1,27 @@
+.fadeout {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 48px 0px;
+	box-sizing: border-box;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 48px;
+		background: transparent linear-gradient(0deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box;
+		z-index: 1;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 48px;
+		background: transparent linear-gradient(180deg, #00000000 0%, #000000 100%) 0% 0% no-repeat padding-box
+	}
+}
