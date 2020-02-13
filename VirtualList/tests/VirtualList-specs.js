@@ -110,23 +110,25 @@ describe('VirtualList', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test.skip( // TBD: Should be revisited after Spottable thumb is implemented:
-	test('should render only one scrollbar', () => {
-		const subject = mount(
-			<VirtualList
-				clientSize={clientSize}
-				dataSize={dataSize}
-				direction="horizontal"
-				itemRenderer={renderItem}
-				itemSize={60}
-			/>
-		);
+	test.skip( // TBD: Should be revisited after Spottable thumb is implemented
+		'should render only one scrollbar',
+		() => {
+			const subject = mount(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					direction="horizontal"
+					itemRenderer={renderItem}
+					itemSize={60}
+				/>
+			);
 
-		const expected = 1;
-		const actual = subject.find('ScrollButtons').length;
+			const expected = 1;
+			const actual = subject.find('ScrollButtons').length;
 
-		expect(actual).toBe(expected);
-	});
+			expect(actual).toBe(expected);
+		}
+	);
 
 	describe('ScrollTo', () => {
 		test(
