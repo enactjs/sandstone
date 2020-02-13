@@ -459,7 +459,7 @@ let Scroller = (props) => {
 		innerScrollContainerProps,
 		childWrapperProps,
 		childProps,
-		contentContainerProps,
+		contentWrapperProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
@@ -473,7 +473,7 @@ let Scroller = (props) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiScrollerBase {...uiChildProps} contentContainerProps={contentContainerProps} />
+						<UiScrollerBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}

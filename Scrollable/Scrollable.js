@@ -589,8 +589,8 @@ const useScroll = (props) => {
 		uiScrollAdapter
 	});
 
-	decorateChildProps('contentContainerProps', {
-		className: [scrollableCSS.contentContainerProps]
+	decorateChildProps('contentWrapperProps', {
+		className: [scrollableCSS.contentWrapper]
 	});
 
 	decorateChildProps('verticalScrollbarProps', {

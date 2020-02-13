@@ -24,10 +24,8 @@
 			transform: translate(-50%, -50%);
             will-change: transform;
 
-            .contentContainerProps {
-                box-sizing: content-box;
-                width: calc(100% - (var(--scroll-fadeout-size) * 2));
-                height: calc(100% - (var(--scroll-fadeout-size) * 2));
+            .contentWrapper {
+                box-sizing: border-box;
                 padding: var(--scroll-fadeout-size);
             }
         }

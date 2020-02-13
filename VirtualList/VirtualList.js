@@ -60,7 +60,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		innerScrollContainerProps,
 		childWrapperProps,
 		childProps,
-		contentContainerProps,
+		contentWrapperProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
@@ -76,7 +76,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} contentContainerProps={contentContainerProps} />
+						<UiVirtualListBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -249,7 +249,7 @@ let VirtualGridList = ({role, ...rest}) => {
 		innerScrollContainerProps,
 		childWrapperProps,
 		childProps,
-		contentContainerProps,
+		contentWrapperProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(rest);
@@ -265,7 +265,7 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} contentContainerProps={contentContainerProps} />
+						<UiVirtualListBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
