@@ -95,12 +95,6 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 			};
 		}
 
-		componentDidUpdate (prevProps, prevState) {
-			if (prevState.isActive && !this.state.isActive) {
-				forwardChange({value: this.state.value}, this.props);
-			}
-		}
-
 		handleChange = (ev) => {
 			if (!this.state.isActive) {
 				this.setState({
@@ -157,8 +151,12 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 		}
 
 		handleBlur = (ev) => {
+			const value = this.validateValue(parseInt(ev.target.value));
+			if (this.state.value !== value) {
+				forwardChange({value}, this.props);
+			}
 			this.setState({
-				value: this.validateValue(parseInt(ev.target.value)),
+				value,
 				isActive: false
 			}, () => {
 				Spotlight.focus(this.pickerNode);
