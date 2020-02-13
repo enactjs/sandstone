@@ -518,7 +518,23 @@ const useEventVoice = (props, instances) => {
 		} else {
 			mutableRef.current.isVoiceControl = true;
 
-			if (['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)) {
+			if (['up', 'down', 'left', 'right'].includes(scroll)) {
+				const
+					bounds = uiScrollAdapter.current.getScrollBounds(),
+					directionFactor = (scroll === 'up') || (scroll === 'left' && !isRtl) || (scroll === 'right' && isRtl),
+					scrollVertically = verticalDirection.includes(scroll),
+					direction = directionFactor ? -1 : 1,
+					pageDistance = direction * (scrollVertically ? bounds.clientHeight : bounds.clientWidth) * paginationPageMultiplier;
+
+				uiScrollAdapter.current.lastInputType = 'pageKey';
+
+				if (direction !== uiScrollAdapter.current.wheelDirection) {
+					uiScrollAdapter.current.isScrollAnimationTargetAccumulated = false;
+					uiScrollAdapter.current.wheelDirection = direction;
+				}
+
+				uiScrollAdapter.current.scrollToAccumulatedTarget(pageDistance, scrollVertically, props.overscrollEffectOn.pageKey);
+			} else { // ['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)
 				uiScrollAdapter.current.scrollTo({align: verticalDirection.includes(scroll) && scroll || (scroll === 'leftmost' && isRtl || scroll === 'rightmost' && !isRtl) && 'right' || 'left'});
 			}
 

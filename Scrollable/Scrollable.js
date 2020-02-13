@@ -222,7 +222,7 @@ const useSpottableScroll = (props, instances, context) => {
 
 	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {type});
 
-	const {handleTouchStart} = useEventTouch({}, instances, {});
+	const {handleTouchStart} = useEventTouch();
 
 	const {
 		addVoiceEventListener,
