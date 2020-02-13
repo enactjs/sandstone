@@ -11,7 +11,6 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -78,9 +77,9 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -267,9 +266,9 @@ let VirtualGridList = ({role, ...rest}) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);

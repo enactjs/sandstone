@@ -475,9 +475,9 @@ let Scroller = (props) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiScrollerBase {...uiChildProps} contentWrapperProps={contentWrapperProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
