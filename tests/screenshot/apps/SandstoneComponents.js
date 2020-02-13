@@ -93,22 +93,22 @@ const components = {
 	RadioItem,
 	RangePicker,
 	Region,
-	//	Scrollable,
+	// Scrollable,
 	Scroller,
 	SelectableItem,
-	//	Skinnable,
+	// Skinnable,
 	Slider,
 	SlotItem,
-	//	Spinner,
+	// Spinner,
 	Switch,
 	SwitchItem,
 	TimePicker,
 	ToggleButton,
 	ToggleIcon
-//	ToggleItem,
-//	TooltipDecorator,
-//	VideoPlayer,
-//	VirtualList
+	// ToggleItem,
+	// TooltipDecorator,
+	// VideoPlayer,
+	// VirtualList
 };
 
 const testMetadata = {};
