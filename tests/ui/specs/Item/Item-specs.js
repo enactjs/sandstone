@@ -111,10 +111,6 @@ describe('Item', function () {
 			expect(item1Default.self.hasFocus()).to.be.true();
 		});
 
-		it('should have focus on first item at start', function () {
-			expect(item1Default.self.hasFocus()).to.be.true();
-		});
-
 		describe('default', function () {
 
 			validateTitle(item1Default, 'Item 1');
