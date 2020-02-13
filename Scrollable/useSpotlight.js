@@ -11,7 +11,7 @@ const navigableFilter = (elem) => {
 		!Spotlight.getPointerMode() &&
 		// ignore containers passed as their id
 		typeof elem !== 'string' &&
-		utilDOM.containsDangerously(elem.classList, scrollbarCss.scrollButton) /* TBD: should be updated */
+		utilDOM.containsDangerously(elem.classList, scrollbarCss.scrollButton) // TBD: Should be revisited after Spottable thumb is implemented
 	) {
 		return false;
 	}
