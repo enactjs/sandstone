@@ -193,7 +193,7 @@ const HeaderBase = kind({
 		 * @type {('compact'|'dense'|'standard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['standard', 'compact', 'walkthrough'])
+		type: PropTypes.oneOf(['standard', 'compact', 'wizard'])
 	},
 
 	defaultProps: {
@@ -256,9 +256,9 @@ const HeaderBase = kind({
 			);
 		}
 
-		// In walkthrough type, if one slot is filled, automatically include the other to keep the title balanced.
+		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
 		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
-		const bothBeforeAndAfter = (type === 'walkthrough' && (slotAfter || slotBefore));
+		const bothBeforeAndAfter = (type === 'wizard' && (slotAfter || slotBefore));
 
 		return (
 			<header {...rest}>
