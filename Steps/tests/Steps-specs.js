@@ -18,8 +18,6 @@ describe('Steps Specs', () => {
 			const expected = 2;
 			const actual = subject.find(stepSelector);
 
-			// console.debug('steps:', subject.debug(), actual);
-
 			expect(actual).toHaveLength(expected);
 		}
 	);
@@ -215,7 +213,6 @@ describe('Steps Specs', () => {
 	test(
 		'should not show a skip icon if the current step is in the skip list',
 		() => {
-
 			const subject = mount(
 				<Steps skip={[2, 3]} skipIcon="testIconName" current={3} currentIcon="numbers" total={5} />
 			);
