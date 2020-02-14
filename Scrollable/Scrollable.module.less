@@ -1,7 +1,7 @@
 .scroll {
 	--scroll-scrollbar-size: 60px;
 	--scroll-fadeout-size: 48px;
-	--scroll-padding-size: 108px;
+	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
 
 	position: relative;
 	box-sizing: border-box;
@@ -27,7 +27,7 @@
 	.verticalScrollbar {
 		position: absolute;
 		width: var(--scroll-scrollbar-size);
-		height: calc(100% - var(--scroll-padding-size));
+		height: calc(100% - 2 * var(--scroll-padding-size));
 		right: 0;
 		top: 50%;
 		transform: translate(0, -50%);
@@ -42,7 +42,7 @@
 
 	.horizontalScrollbar {
 		position: absolute;
-		width: calc(100% - var(--scroll-padding-size));
+		width: calc(100% - 2 * var(--scroll-padding-size));
 		height: var(--scroll-scrollbar-size);
 		left: 50%;
 		top: calc(100% + var(--scroll-fadeout-size));
