@@ -7,8 +7,6 @@ describe('VirtualList', function () {
 	it('should meet initial conditions', function () {
 		Page.open();
 		expect(Page.buttonFocusableScrollbar.hasFocus(), 'focus').to.be.true();
-		expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
-		expect(Page.buttonScrollDown.getAttribute('disabled'), 'Down disabled').to.be.null();
 	});
 
 	describe('LTR locale', function () {
@@ -86,6 +84,7 @@ describe('VirtualList', function () {
 			expectNoFocusedItem();  // Check that Spotlight hides only.
 		});
 
+		/* TBD: Should be revisited after Spottable thumb is implemented
 		it('should focus back to Paging Controls with 5-way Right [GT-24811]', function () {
 			// Step 3. focusableScrollbar > Check
 			Page.spotlightSelect();
@@ -118,6 +117,7 @@ describe('VirtualList', function () {
 			// Verify Step 6: Spotlight displays on the Down Paging Control (∨).
 			expect(Page.buttonScrollDown.hasFocus(), 'step 6.3 focus').to.be.true();
 		});
+		*/
 
 		// Partly automated - need wheeling at Step 7
 		it('should not scroll when leaving list with 5-way up/down [GT-25987]', function () {
@@ -156,6 +156,8 @@ describe('VirtualList', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
+
+		/* TBD: Should be revisited after Spottable thumb is implemented
 
 		it('should retain focus on Paging Controls via 5-way [GT-23899]', function () {
 			// Step 3. focusableScrollbar > Check
@@ -612,5 +614,6 @@ describe('VirtualList', function () {
 				expect(Page.buttonScrollDown.getAttribute('disabled'), 'Down enabled').to.be.null();
 			});
 		});
+		*/
 	});
 });
