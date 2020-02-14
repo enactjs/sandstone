@@ -385,10 +385,6 @@ describe('ActivityPanels', function () {
 
 				expect(Page.body.hasFocus(), 'body focus').to.be.true();
 
-				Page.spotlightDown();
-
-				expect(Page.breadcrumb.hasFocus(), 'breadcrumb focus').to.be.true();
-
 				Page.button1.moveToObject();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);

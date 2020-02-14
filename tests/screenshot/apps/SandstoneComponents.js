@@ -20,6 +20,7 @@ import ExpandablePicker from './components/ExpandablePicker';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import GridListImageItem from './components/GridListImageItem';
+import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
 import IconButton from './components/IconButton';
@@ -71,6 +72,7 @@ const components = {
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
+	Header,
 	Heading,
 	Icon,
 	IconButton,
@@ -91,22 +93,22 @@ const components = {
 	RadioItem,
 	RangePicker,
 	Region,
-	//	Scrollable,
+	// Scrollable,
 	Scroller,
 	SelectableItem,
-	//	Skinnable,
+	// Skinnable,
 	Slider,
 	SlotItem,
-	//	Spinner,
+	// Spinner,
 	Switch,
 	SwitchItem,
 	TimePicker,
 	ToggleButton,
 	ToggleIcon
-//	ToggleItem,
-//	TooltipDecorator,
-//	VideoPlayer,
-//	VirtualList
+	// ToggleItem,
+	// TooltipDecorator,
+	// VideoPlayer,
+	// VirtualList
 };
 
 const testMetadata = {};

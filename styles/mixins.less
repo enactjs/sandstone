@@ -251,57 +251,6 @@
 	});
 }
 
-.sand-header-text() {
-	.sand-font(@sand-header-font-family, @sand-non-latin-font-family, {
-		font-size: @sand-non-latin-header-font-size;
-		line-height: @sand-non-latin-header-line-height;
-	});
-	font-weight: @sand-header-font-weight;
-	font-size: @sand-header-font-size;
-	font-style: @sand-header-font-style;
-	line-height: @sand-header-line-height;
-	.font-kerning;
-}
-
-.sand-header-title-below-text() {
-	.sand-text-base(@sand-header-title-below-font-size);
-	font-weight: @sand-header-title-below-font-weight;
-	font-size: @sand-header-title-below-font-size;
-	font-style: @sand-header-title-below-font-style;
-	letter-spacing: @sand-header-title-below-letter-spacing;
-	line-height: @sand-header-standard-title-below-line-height;
-
-	.sand-locale-non-latin({
-		font-size: @sand-non-latin-header-title-below-font-size;
-		line-height: @sand-non-latin-header-standard-title-below-line-height;
-	});
-}
-
-.sand-header-sub-title-below-text() {
-	.sand-font(@sand-header-sub-title-below-font-family);
-	font-weight: @sand-header-sub-title-below-font-weight;
-	font-size: @sand-header-sub-title-below-font-size;
-	line-height: @sand-header-standard-sub-title-below-line-height;
-
-	.sand-locale-non-latin({
-		line-height: @sand-non-latin-header-standard-sub-title-below-line-height;
-	});
-}
-
-.sand-dialog-title() {
-	.sand-header-text();
-}
-
-.sand-dialog-title-below() {
-	.sand-font(@sand-dialog-title-below-font-family, @sand-non-latin-font-family);
-	font-weight: @sand-dialog-title-below-font-weight;
-	font-size: @sand-popup-sub-header-font-size;
-}
-
-.sand-dialog-content() {
-	.sand-body-text();
-	.locale-japanese-line-break();
-}
 
 .sand-notification-content() {
 	.sand-font(@sand-notification-font-family, @sand-non-latin-font-family-light, {
