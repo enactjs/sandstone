@@ -484,42 +484,6 @@ const useScroll = (props) => {
 		scrollProps.start = start;
 	}
 
-	decorateChildProps('scrollContainerProps', {
-		className: [
-			css.scroll,
-			uiScrollAdapter.current.rtl ? css.rtl : null,
-			overscrollCss.scroll
-		],
-		'data-spotlight-container': spotlightContainer,
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		'data-spotlight-id': spotlightId,
-		onTouchStart: handleTouchStart
-	});
-
-	decorateChildProps('innerScrollContainerProps', {className: [overscrollCss.overscrollFrame, overscrollCss.vertical]});
-
-	decorateChildProps('childWrapperProps', {className: [overscrollCss.overscrollFrame, overscrollCss.horizontal]});
-
-	decorateChildProps('childProps', {
-		className: [css.contentWrapper],
-		onUpdate: handleScrollerUpdate,
-		setChildAdapter,
-		spotlightId,
-		uiScrollAdapter
-	});
-
-	decorateChildProps('verticalScrollbarProps', {
-		...scrollbarProps,
-		className: [css.verticalScrollbar],
-		focusableScrollbar
-	});
-
-	decorateChildProps('horizontalScrollbarProps', {
-		...scrollbarProps,
-		className: [css.horizontalScrollbar],
-		focusableScrollbar
-	});
-
 	const {
 		childWrapper,
 		isHorizontalScrollbarVisible,
@@ -550,19 +514,56 @@ const useScroll = (props) => {
 		verticalScrollbarRef
 	});
 
-	decorateChildProps('innerScrollContainerProps', {className: [...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])]});
-	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
-	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
-	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
+	decorateChildProps('scrollContainerProps', {
+		className: [
+			css.scroll,
+			uiScrollAdapter.current.rtl ? css.rtl : null,
+			overscrollCss.scroll
+		],
+		'data-spotlight-container': spotlightContainer,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
+		'data-spotlight-id': spotlightId,
+		onTouchStart: handleTouchStart,
+		ref: uiScrollContainerRef
+	});
+
+	decorateChildProps('innerScrollContainerProps', {
+		className: [overscrollCss.overscrollFrame, overscrollCss.vertical, ...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])],
+		ref: overscrollRefs.vertical
+	});
+
+	decorateChildProps('childWrapperProps', {
+		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal],
+		ref: overscrollRefs.horizontal
+	});
+
 	decorateChildProps('childProps', {
 		className: [
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? scrollableCSS.verticalOnly : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? scrollableCSS.horizontalOnly : null
+			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalOnly : null,
+			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalOnly : null,
+			css.contentWrapper
 		],
-		uiChildAdapter, uiChildContainerRef
+		onUpdate: handleScrollerUpdate,
+		setChildAdapter,
+		spotlightId,
+		uiChildAdapter,
+		uiChildContainerRef,
+		uiScrollAdapter
 	});
-	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
-	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
+
+	decorateChildProps('verticalScrollbarProps', {
+		...scrollbarProps,
+		className: [css.verticalScrollbar],
+		focusableScrollbar,
+		ref: verticalScrollbarRef
+	});
+
+	decorateChildProps('horizontalScrollbarProps', {
+		...scrollbarProps,
+		className: [css.horizontalScrollbar],
+		focusableScrollbar,
+		ref: horizontalScrollbarRef
+	});
 
 	return {
 		...decoratedChildProps,
