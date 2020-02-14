@@ -125,14 +125,11 @@ const ProgressBarBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar', 'radial']
+		publicClassNames: ['progressBar']
 	},
 
 	computed: {
-		className: ({highlighted, orientation, styler}) => styler.append({
-			highlighted,
-			//radial: (orientation === 'radial')
-		}),
+		className: ({highlighted, styler}) => styler.append({highlighted}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
