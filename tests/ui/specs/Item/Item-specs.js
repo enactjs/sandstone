@@ -2,7 +2,7 @@ const Page = require('./ItemPage');
 const {validateTitle} = require('./Item-utils');
 
 describe('Item', function () {
-	const item1Default = Page.components.item1Default;
+	const item1 = Page.components.item1;
 	const item2Disabled = Page.components.item2Disabled;
 	const item3WithLabel = Page.components.item3WithLabel;
 	const item4Inline = Page.components.item4Inline;
@@ -15,19 +15,19 @@ describe('Item', function () {
 		});
 
 		it('should have focus on first item at start', function () {
-			expect(item1Default.self.hasFocus()).to.be.true();
+			expect(item1.self.hasFocus()).to.be.true();
 		});
 
 		describe('default', function () {
 
-			validateTitle(item1Default, 'Item 1');
+			validateTitle(item1, 'Item 1');
 
 			describe('5-way', function () {
 			// Step 3 - 5-way Up
 				it('should focus the first item with 5-way Up - [GT-28153]', function () {
 					item2Disabled.focus();
 					Page.spotlightUp();
-					expect(item1Default.self.hasFocus()).to.be.true();
+					expect(item1.self.hasFocus()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
@@ -54,12 +54,12 @@ describe('Item', function () {
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title
 				it('should focus the first item when hovered - [GT-28154]', function () {
-					item1Default.hover();
-					expect(item1Default.self.hasFocus()).to.be.true();
+					item1.hover();
+					expect(item1.self.hasFocus()).to.be.true();
 				});
 
 				it('should focus an item when switching from pointer to 5-way]', function () {
-					item1Default.hover();
+					item1.hover();
 					item2Disabled.focus();
 					expect(item2Disabled.self.hasFocus()).to.be.true();
 				});
@@ -80,7 +80,7 @@ describe('Item', function () {
 
 				// Step 8 - 5-way Down
 				it('should focus a disabled item with 5-way Down - [GT-28153]', function () {
-					item1Default.focus();
+					item1.focus();
 					Page.spotlightDown();
 					expect(item2Disabled.self.hasFocus()).to.be.true();
 				});
@@ -108,19 +108,19 @@ describe('Item', function () {
 		});
 
 		it('should have focus on first item at start', function () {
-			expect(item1Default.self.hasFocus()).to.be.true();
+			expect(item1.self.hasFocus()).to.be.true();
 		});
 
 		describe('default', function () {
 
-			validateTitle(item1Default, 'Item 1');
+			validateTitle(item1, 'Item 1');
 
 			describe('5-way', function () {
 				// Step 3 - 5-way Up
 				it('should focus the first item with 5-way Up - [GT-28153]', function () {
 					item2Disabled.focus();
 					Page.spotlightUp();
-					expect(item1Default.self.hasFocus()).to.be.true();
+					expect(item1.self.hasFocus()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
@@ -134,8 +134,8 @@ describe('Item', function () {
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title
 				it('should focus the first item when hovered - [GT-28154]', function () {
-					item1Default.hover();
-					expect(item1Default.self.hasFocus()).to.be.true();
+					item1.hover();
+					expect(item1.self.hasFocus()).to.be.true();
 				});
 			});
 		});
@@ -154,7 +154,7 @@ describe('Item', function () {
 
 				// Step 8 - 5-way Down
 				it('should focus the disabled item with 5-way Down - [GT-28153]', function () {
-					item1Default.focus();
+					item1.focus();
 					Page.spotlightDown();
 					expect(item2Disabled.self.hasFocus()).to.be.true();
 				});

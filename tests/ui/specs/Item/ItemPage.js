@@ -24,7 +24,7 @@ class ItemPage extends Page {
 	constructor () {
 		super();
 		this.title = 'Item Test';
-		const item1Default = new ItemInterface('item1DefaultSelected');
+		const item1 = new ItemInterface('item1');
 		const item2Disabled = new ItemInterface('item2Disabled');
 		const item3WithLabel = new ItemInterface('item3WithLabel');
 		const item4Inline = new ItemInterface('item4Inline');
@@ -33,7 +33,7 @@ class ItemPage extends Page {
 		const item7Inline = new ItemInterface('item7Inline');
 		const item8Inline = new ItemInterface('item8Inline');
 		const item9 = new ItemInterface('item9');
-		this.components = {item1Default, item2Disabled, item3WithLabel, item4Inline, item5InLineDisabled, item6Inline, item7Inline, item8Inline, item9};
+		this.components = {item1, item2Disabled, item3WithLabel, item4Inline, item5InLineDisabled, item6Inline, item7Inline, item8Inline, item9};
 	}
 
 	open (urlExtra) {
