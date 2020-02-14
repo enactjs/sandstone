@@ -561,7 +561,8 @@ const useScroll = (props) => {
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
-		onTouchStart: handleTouchStart
+		onTouchStart: handleTouchStart,
+		ref: uiScrollContainerRef
 	});
 
 	decorateChildProps('innerScrollContainerProps', {
@@ -569,14 +570,16 @@ const useScroll = (props) => {
 			uiScrollAdapter.current.rtl ? scrollableCSS.rtl: null,
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical
-		]
+		],
+		ref: overscrollRefs.vertical
 	});
 
 	decorateChildProps('childWrapperProps', {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.horizontal
-		]
+		],
+		ref: overscrollRefs.horizontal
 	});
 
 	decorateChildProps('childProps', {
@@ -586,6 +589,7 @@ const useScroll = (props) => {
 		scrollAndFocusScrollbarButton,
 		setChildAdapter,
 		spotlightId,
+		uiChildAdapter, uiChildContainerRef,
 		uiScrollAdapter
 	});
 
@@ -596,7 +600,8 @@ const useScroll = (props) => {
 		nextButtonAriaLabel: downButtonAriaLabel,
 		onKeyDownButton: handleKeyDown,
 		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: upButtonAriaLabel
+		previousButtonAriaLabel: upButtonAriaLabel,
+		ref: verticalScrollbarRef
 	});
 
 	decorateChildProps('horizontalScrollbarProps', {
@@ -606,7 +611,8 @@ const useScroll = (props) => {
 		nextButtonAriaLabel: rightButtonAriaLabel,
 		onKeyDownButton: handleKeyDown,
 		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: leftButtonAriaLabel
+		previousButtonAriaLabel: leftButtonAriaLabel,
+		ref: horizontalScrollbarRef
 	});
 
 	const {
@@ -643,18 +649,12 @@ const useScroll = (props) => {
 		className: [...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])]
 	});
 
-	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
-	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
-	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
 	decorateChildProps('childProps', {
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? scrollableCSS.verticalOnly : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? scrollableCSS.horizontalOnly : null
-		],
-		uiChildAdapter, uiChildContainerRef
+		]
 	});
-	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
-	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
 
 	return {
 		...decoratedChildProps,
