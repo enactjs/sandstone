@@ -584,6 +584,7 @@ const useScroll = (props) => {
 	decorateChildProps('childProps', {
 		className: [scrollableCSS.child],
 		onUpdate: handleScrollerUpdate,
+		padding: true,
 		scrollAndFocusScrollbarButton,
 		setChildAdapter,
 		spotlightId,
