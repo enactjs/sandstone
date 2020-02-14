@@ -25,7 +25,6 @@ storiesOf('Sandstone', module)
 					minimized={boolean('minimized', TabbedPanels)}
 					onSelect={action('onSelect')}
 					orientation={select('orientation', ['vertical', 'horizontal'], TabbedPanels, 'vertical')}
-					tabPosition={select('tabPosition', ['before', 'after'], TabbedPanels, 'before')}
 					tabs={[
 						{title: 'Home', icon: 'home'},
 						{title: 'Button', icon: 'image'},
