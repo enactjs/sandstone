@@ -521,9 +521,7 @@ const useScroll = (props) => {
 		focusableScrollbar
 	});
 
-	const {
-		childWrapper
-	} = useScrollBase({
+	useScrollBase({
 		...rest,
 		...scrollProps,
 		decorateChildProps,
@@ -560,10 +558,7 @@ const useScroll = (props) => {
 	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
 	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
 
-	return {
-		...decoratedChildProps,
-		childWrapper
-	};
+	return decoratedChildProps;
 };
 
 /**

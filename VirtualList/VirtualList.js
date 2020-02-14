@@ -49,15 +49,12 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	// Hooks
 
 	const {
+		childWrapper: ChildWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(ScrollContext);
 
 	const {
-		// Variables
-		childWrapper: ChildWrapper,
-
-		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
 		innerScrollContainerProps,
@@ -72,6 +69,8 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		focusableScrollbar: rest.focusableScrollbar,
 		role: role
 	});
+
+	// Render
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -220,15 +219,12 @@ let VirtualGridList = ({role, ...rest}) => {
 	// Hooks
 
 	const {
+		childWrapper: ChildWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(ScrollContext);
 
 	const {
-		// Variables
-		childWrapper: ChildWrapper,
-
-		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
 		innerScrollContainerProps,
@@ -243,6 +239,8 @@ let VirtualGridList = ({role, ...rest}) => {
 		focusableScrollbar: rest.focusableScrollbar,
 		role: role
 	});
+
+	// Render
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>

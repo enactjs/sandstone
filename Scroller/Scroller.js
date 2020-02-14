@@ -398,13 +398,12 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
+		childWrapper: ChildWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(ScrollContext);
 
 	const {
-		childWrapper: ChildWrapper,
-
 		resizeContextProps,
 		scrollContainerProps,
 		innerScrollContainerProps,
