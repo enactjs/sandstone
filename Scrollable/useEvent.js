@@ -155,7 +155,7 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
-	const {childAdapter, horizontalScrollbarRef, spottable, uiChildContainerRef, uiScrollAdapter, verticalScrollbarRef} = instances;
+	const {childAdapter, spottable, uiChildContainerRef, uiScrollAdapter} = instances;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
 
 	// Functions
@@ -193,12 +193,7 @@ const useEventKey = (props, instances, context) => {
 				direction = getDirection(keyCode);
 
 				if (props.overscrollEffectOn.arrowKey && !(element ? getTargetByDirectionFromElement(direction, element) : null)) {
-					if (
-						!(horizontalScrollbarRef.current && utilDOM.containsDangerously(horizontalScrollbarRef.current.uiScrollbarContainer, element)) &&
-						!(verticalScrollbarRef.current && utilDOM.containsDangerously(verticalScrollbarRef.current.uiScrollbarContainer, element))
-					) {
-						checkAndApplyOverscrollEffectByDirection(direction);
-					}
+					checkAndApplyOverscrollEffectByDirection(direction);
 				}
 			}
 		}
@@ -375,7 +370,7 @@ onWindowReady(() => {
 
 const useEventMouse = (props, instances, context) => {
 	const {childAdapter, uiScrollAdapter} = instances;
-	const {isScrollButtonFocused, type} = context;
+	const {type} = context;
 
 	// Functions
 
@@ -398,10 +393,6 @@ const useEventMouse = (props, instances, context) => {
 	}
 
 	function handleMouseDown (ev) {
-		if (isScrollButtonFocused()) {
-			ev.preventDefault();
-		}
-
 		if (props['data-spotlight-container-disabled']) {
 			ev.preventDefault();
 		} else if (type === 'Native') {
@@ -417,15 +408,13 @@ const useEventMouse = (props, instances, context) => {
 	};
 };
 
-const useEventTouch = (props, instnaces, context) => {
-	const {isScrollButtonFocused} = context;
-
+const useEventTouch = () => {
 	// Functions
 
 	function handleTouchStart () {
 		const focusedItem = Spotlight.getCurrent();
 
-		if (!Spotlight.isPaused() && focusedItem && !isScrollButtonFocused()) {
+		if (!Spotlight.isPaused() && focusedItem) {
 			focusedItem.blur();
 		}
 	}
@@ -437,9 +426,8 @@ const useEventTouch = (props, instnaces, context) => {
 	};
 };
 
-const useEventVoice = (props, instances, context) => {
+const useEventVoice = (props, instances) => {
 	const {uiScrollContainerRef, uiScrollAdapter} = instances;
-	const {onScrollbarButtonClick} = context;
 
 	// Mutable value
 
@@ -526,8 +514,21 @@ const useEventVoice = (props, instances, context) => {
 			mutableRef.current.isVoiceControl = true;
 
 			if (['up', 'down', 'left', 'right'].includes(scroll)) {
-				const isPreviousScrollButton = (scroll === 'up') || (scroll === 'left' && !isRtl) || (scroll === 'right' && isRtl);
-				onScrollbarButtonClick({isPreviousScrollButton, isVerticalScrollBar: verticalDirection.includes(scroll)});
+				const
+					bounds = uiScrollAdapter.current.getScrollBounds(),
+					directionFactor = (scroll === 'up') || (scroll === 'left' && !isRtl) || (scroll === 'right' && isRtl),
+					scrollVertically = verticalDirection.includes(scroll),
+					direction = directionFactor ? -1 : 1,
+					pageDistance = direction * (scrollVertically ? bounds.clientHeight : bounds.clientWidth) * paginationPageMultiplier;
+
+				uiScrollAdapter.current.lastInputType = 'pageKey';
+
+				if (direction !== uiScrollAdapter.current.wheelDirection) {
+					uiScrollAdapter.current.isScrollAnimationTargetAccumulated = false;
+					uiScrollAdapter.current.wheelDirection = direction;
+				}
+
+				uiScrollAdapter.current.scrollToAccumulatedTarget(pageDistance, scrollVertically, props.overscrollEffectOn.pageKey);
 			} else { // ['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)
 				uiScrollAdapter.current.scrollTo({align: verticalDirection.includes(scroll) && scroll || (scroll === 'leftmost' && isRtl || scroll === 'rightmost' && !isRtl) && 'right' || 'left'});
 			}
@@ -560,8 +561,8 @@ const useEventVoice = (props, instances, context) => {
 };
 
 const useEventWheel = (props, instances, context) => {
-	const {childAdapter, horizontalScrollbarRef, uiScrollAdapter, verticalScrollbarRef} = instances;
-	const {isScrollButtonFocused, type} = context;
+	const {childAdapter, uiScrollAdapter} = instances;
+	const {type} = context;
 
 	// Mutable value
 
@@ -572,7 +573,7 @@ const useEventWheel = (props, instances, context) => {
 	function handleWheel ({delta}) {
 		const focusedItem = Spotlight.getCurrent();
 
-		if (focusedItem && !isScrollButtonFocused()) {
+		if (focusedItem) {
 			focusedItem.blur();
 		}
 
@@ -619,13 +620,7 @@ const useEventWheel = (props, instances, context) => {
 				}
 
 				// Not to check if ev.target is a descendant of a wrapped component which may have a lot of nodes in it.
-				if ((horizontalScrollbarRef.current && utilDOM.containsDangerously(horizontalScrollbarRef.current.uiScrollbarContainer, ev.target)) ||
-					(verticalScrollbarRef.current && utilDOM.containsDangerously(verticalScrollbarRef.current.uiScrollbarContainer, ev.target))) {
-					delta = uiScrollAdapter.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
-					needToHideThumb = !delta;
-
-					ev.preventDefault();
-				} else if (overscrollEffectRequired) {
+				if (overscrollEffectRequired) {
 					uiScrollAdapter.current.checkAndApplyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce);
 				}
 

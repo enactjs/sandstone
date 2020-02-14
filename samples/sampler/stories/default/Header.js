@@ -27,7 +27,7 @@ const prop = {
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 	marqueeOn: ['', 'hover', 'render'],
-	type: ['standard', 'compact', 'walkthrough']
+	type: ['standard', 'compact', 'wizard']
 };
 
 storiesOf('Sandstone', module)

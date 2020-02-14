@@ -143,7 +143,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
-	 *	scrollbarButton: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -152,11 +151,9 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
-		scrollbarButton: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
-	preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
 	role: PropTypes.string,
 
 	type: PropTypes.string,
@@ -185,10 +182,8 @@ VirtualList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
-		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
 	verticalScrollbar: 'auto'
@@ -315,7 +310,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
-	 *	scrollbarButton: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -324,11 +318,9 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
-		scrollbarButton: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
-	preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
 	role: PropTypes.string,
 	type: PropTypes.string,
 
@@ -356,10 +348,8 @@ VirtualGridList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
-		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
 	verticalScrollbar: 'auto'

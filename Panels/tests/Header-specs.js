@@ -17,12 +17,12 @@ describe('Header Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should support "walkthrough" type', () => {
+	test('should support "wizard" type', () => {
 		const subject = mount(
-			<Header type="walkthrough"><title>Walkthrough Header</title></Header>
+			<Header type="wizard"><title>Wizard Header</title></Header>
 		);
 
-		const expected = css.walkthrough;
+		const expected = css.wizard;
 		const actual = subject.find(`.${css.header}`).first().prop('className');
 
 		expect(actual).toContain(expected);
