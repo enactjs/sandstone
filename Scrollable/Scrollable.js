@@ -554,7 +554,13 @@ const useScroll = (props) => {
 	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
 	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
 	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
-	decorateChildProps('childProps', {uiChildAdapter, uiChildContainerRef});
+	decorateChildProps('childProps', {
+		className: [
+			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? scrollableCSS.verticalOnly : null,
+			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? scrollableCSS.horizontalOnly : null
+		],
+		uiChildAdapter, uiChildContainerRef
+	});
 	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
 	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
 
