@@ -557,7 +557,7 @@ const useScroll = (props) => {
 	}
 
 	decorateChildProps('scrollContainerProps', {
-		className: [overscrollCss.scroll, scrollableCSS.scroll],
+		className: [scrollableCSS.scroll, overscrollCss.scroll],
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -566,18 +566,18 @@ const useScroll = (props) => {
 
 	decorateChildProps('innerScrollContainerProps', {
 		className: [
-			overscrollCss.overscrollFrame,
-			overscrollCss.vertical,
 			scrollableCSS.innerVitualList,
 			uiScrollAdapter.current.rtl ? scrollableCSS.rtl: null,
+			overscrollCss.overscrollFrame,
+			overscrollCss.vertical
 		]
 	});
 
 	decorateChildProps('childWrapperProps', {
 		className: [
+			scrollableCSS.childWrapper,
 			overscrollCss.overscrollFrame,
-			overscrollCss.horizontal,
-			scrollableCSS.childWrapper
+			overscrollCss.horizontal
 		]
 	});
 
