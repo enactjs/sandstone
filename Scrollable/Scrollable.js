@@ -560,8 +560,8 @@ const useScroll = (props) => {
 		className: [
 			css.scroll,
 			uiScrollAdapter.current.rtl ? css.rtl: null,
-			overscrollCss.scroll]
-		,
+			overscrollCss.scroll
+		],
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -642,10 +642,7 @@ const useScroll = (props) => {
 		verticalScrollbarRef
 	});
 
-	decorateChildProps('innerScrollContainerProps', {
-		className: [...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])]
-	});
-
+	decorateChildProps('innerScrollContainerProps', {className: [...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])]});
 	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
 	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
 	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
