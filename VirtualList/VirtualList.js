@@ -10,9 +10,10 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
+import {ScrollContext, ScrollContextDecorator} from '@enact/ui/Scrollable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useContext} from 'react';
 import warning from 'warning';
 
 import useScroll from '../Scrollable';
@@ -48,10 +49,13 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	// Hooks
 
 	const {
+		isHorizontalScrollbarVisible,
+		isVerticalScrollbarVisible
+	} = useContext(ScrollContext);
+
+	const {
 		// Variables
 		childWrapper: ChildWrapper,
-		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
@@ -198,7 +202,7 @@ VirtualList = Skinnable(
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
-			VirtualList
+			ScrollContextDecorator(VirtualList)
 		)
 	)
 );
@@ -213,11 +217,16 @@ VirtualList = Skinnable(
  * @public
  */
 let VirtualGridList = ({role, ...rest}) => {
+	// Hooks
+
+	const {
+		isHorizontalScrollbarVisible,
+		isVerticalScrollbarVisible
+	} = useContext(ScrollContext);
+
 	const {
 		// Variables
 		childWrapper: ChildWrapper,
-		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
@@ -364,7 +373,7 @@ VirtualGridList = Skinnable(
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
-			VirtualGridList
+			ScrollContextDecorator(VirtualGridList)
 		)
 	)
 );

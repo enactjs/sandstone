@@ -1,10 +1,11 @@
 import {is} from '@enact/core/keymap';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
+import {ScrollContext} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import clamp from 'ramda/src/clamp';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
 
 const
 	isDown = is('down'),
@@ -108,6 +109,11 @@ const useEventKey = (props, instances, context) => {
 
 	// Hooks
 
+	const {
+		isHorizontalScrollbarVisible,
+		isVerticalScrollbarVisible
+	} = useContext(ScrollContext);
+
 	useEffect(() => {
 		function handleKeyDown (ev) {
 			const {keyCode, target} = ev;
@@ -120,7 +126,7 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {repeat} = ev;
-					const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, spotlightId} = props;
+					const {focusableScrollbar, spotlightId} = props;
 					const {dimensionToExtent, isPrimaryDirectionVertical} = uiChildAdapter.current;
 					const targetIndex = target.dataset.index;
 					const isNotItem = (

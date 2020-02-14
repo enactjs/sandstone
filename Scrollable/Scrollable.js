@@ -15,6 +15,7 @@ import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {useScrollBase} from '@enact/ui/Scrollable';
 import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
 import {utilDecorateChildProps} from '@enact/ui/Scrollable';
+import {ScrollContext} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
@@ -449,6 +450,10 @@ const useScroll = (props) => {
 		uiChildAdapter
 	};
 
+	const {
+		isHorizontalScrollbarVisible
+	} = useContext(ScrollContext);
+
 	const
 		decoratedChildProps = {},
 		decorateChildProps = utilDecorateChildProps(decoratedChildProps),
@@ -517,9 +522,7 @@ const useScroll = (props) => {
 	});
 
 	const {
-		childWrapper,
-		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible
+		childWrapper
 	} = useScrollBase({
 		...rest,
 		...scrollProps,
@@ -559,9 +562,7 @@ const useScroll = (props) => {
 
 	return {
 		...decoratedChildProps,
-		childWrapper,
-		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible
+		childWrapper
 	};
 };
 
