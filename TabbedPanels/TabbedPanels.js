@@ -55,7 +55,7 @@ const TabbedPanelsBase = kind({
 				});
 			}
 		},
-		className: ({css, orientation, styler}) => styler.append(orientation === 'vertical' ? css.column : ''),
+		className: ({css, minimized, orientation, styler}) => styler.append({minimized}, orientation === 'vertical' ? css.column : ''),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical'
 	},
 	render: ({children, css, index, minimized, onSelect, orientation, tabOrientation, tabs, ...rest}) => {

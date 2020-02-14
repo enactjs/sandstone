@@ -44,16 +44,15 @@ const TabBase = kind({
 			}
 
 			return (
-				<div className={css.labeledIcon}>
-					<Button
-						backgroundOpacity="transparent"
-						icon={icon}
-						inline={inline}
-						selected={selected}
-					>
-						{minimized ? null : children}
-					</Button>
-				</div>
+				<Button
+					className={css.tabButton}
+					backgroundOpacity="transparent"
+					icon={icon}
+					inline={inline}
+					selected={selected}
+				>
+					{minimized ? null : children}
+				</Button>
 			);
 		}
 	},
