@@ -29,7 +29,7 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
+import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 
@@ -201,8 +201,6 @@ const useSpottableScroll = (props, instances, context) => {
 		alertThumb,
 		scrollbarProps
 	} = useScrollbar(props, instances, {isContent});
-
-	useSpotlightConfig(props);
 
 	useSpotlightRestore(props, instances);
 
@@ -444,8 +442,6 @@ const useScroll = (props) => {
 		uiScrollContainerRef,
 		overscrollRefs,
 		uiChildContainerRef,
-		horizontalScrollbarRef,
-		verticalScrollbarRef,
 
 		// Adapter
 		childAdapter,

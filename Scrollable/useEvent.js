@@ -155,7 +155,7 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
-	const {childAdapter, horizontalScrollbarRef, spottable, uiChildContainerRef, uiScrollAdapter, verticalScrollbarRef} = instances;
+	const {childAdapter, spottable, uiChildContainerRef, uiScrollAdapter} = instances;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
 
 	// Functions
@@ -193,12 +193,7 @@ const useEventKey = (props, instances, context) => {
 				direction = getDirection(keyCode);
 
 				if (props.overscrollEffectOn.arrowKey && !(element ? getTargetByDirectionFromElement(direction, element) : null)) {
-					if (
-						!(horizontalScrollbarRef.current && utilDOM.containsDangerously(horizontalScrollbarRef.current.uiScrollbarContainer, element)) &&
-						!(verticalScrollbarRef.current && utilDOM.containsDangerously(verticalScrollbarRef.current.uiScrollbarContainer, element))
-					) {
-						checkAndApplyOverscrollEffectByDirection(direction);
-					}
+					checkAndApplyOverscrollEffectByDirection(direction);
 				}
 			}
 		}
@@ -566,7 +561,7 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances, context) => {
-	const {childAdapter, horizontalScrollbarRef, uiScrollAdapter, verticalScrollbarRef} = instances;
+	const {childAdapter, uiScrollAdapter} = instances;
 	const {type} = context;
 
 	// Mutable value
@@ -625,13 +620,7 @@ const useEventWheel = (props, instances, context) => {
 				}
 
 				// Not to check if ev.target is a descendant of a wrapped component which may have a lot of nodes in it.
-				if ((horizontalScrollbarRef.current && utilDOM.containsDangerously(horizontalScrollbarRef.current.uiScrollbarContainer, ev.target)) ||
-					(verticalScrollbarRef.current && utilDOM.containsDangerously(verticalScrollbarRef.current.uiScrollbarContainer, ev.target))) {
-					delta = uiScrollAdapter.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
-					needToHideThumb = !delta;
-
-					ev.preventDefault();
-				} else if (overscrollEffectRequired) {
+				if (overscrollEffectRequired) {
 					uiScrollAdapter.current.checkAndApplyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce);
 				}
 
