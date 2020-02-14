@@ -496,19 +496,9 @@ const useScroll = (props) => {
 		onTouchStart: handleTouchStart
 	});
 
-	decorateChildProps('innerScrollContainerProps', {
-		className: [
-			overscrollCss.overscrollFrame,
-			overscrollCss.vertical
-		]
-	});
+	decorateChildProps('innerScrollContainerProps', {className: [overscrollCss.overscrollFrame, overscrollCss.vertical]});
 
-	decorateChildProps('childWrapperProps', {
-		className: [
-			overscrollCss.overscrollFrame,
-			overscrollCss.horizontal
-		]
-	});
+	decorateChildProps('childWrapperProps', {className: [overscrollCss.overscrollFrame, overscrollCss.horizontal]});
 
 	decorateChildProps('childProps', {
 		...(props.itemRenderer ? {padded: true} : null),
