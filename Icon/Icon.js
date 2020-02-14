@@ -37,6 +37,14 @@ const IconBase = kind({
 
 	propTypes: /** @lends sandstone/Icon.IconBase.prototype */ {
 		/**
+		 * No publicClassNames supported
+		 *
+		 * @type {Object}
+		 * @private
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * The size of the icon.
 		 *
 		 * @type {('large'|'medium'|'small'|'tiny')}

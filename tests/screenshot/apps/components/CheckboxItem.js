@@ -1,5 +1,5 @@
 import CheckboxItem from '../../../../CheckboxItem';
-import Icon from '../../../../Icon';
+// import Icon from '../../../../Icon';
 import React from 'react';
 
 const CheckboxItemTests = [
