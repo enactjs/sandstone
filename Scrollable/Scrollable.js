@@ -582,15 +582,12 @@ const useScroll = (props) => {
 	});
 
 	decorateChildProps('childProps', {
+		className: [scrollableCSS.child],
 		onUpdate: handleScrollerUpdate,
 		scrollAndFocusScrollbarButton,
 		setChildAdapter,
 		spotlightId,
 		uiScrollAdapter
-	});
-
-	decorateChildProps('contentWrapperProps', {
-		className: [scrollableCSS.contentWrapper]
 	});
 
 	decorateChildProps('verticalScrollbarProps', {
