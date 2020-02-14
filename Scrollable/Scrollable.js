@@ -566,7 +566,6 @@ const useScroll = (props) => {
 
 	decorateChildProps('innerScrollContainerProps', {
 		className: [
-			scrollableCSS.innerVitualList,
 			uiScrollAdapter.current.rtl ? scrollableCSS.rtl: null,
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical
@@ -575,15 +574,13 @@ const useScroll = (props) => {
 
 	decorateChildProps('childWrapperProps', {
 		className: [
-			scrollableCSS.childWrapper,
 			overscrollCss.overscrollFrame,
 			overscrollCss.horizontal
 		]
 	});
 
 	decorateChildProps('childProps', {
-		//	...(props.itemRenderer ? {padded: true} : null),
-		padded: true,
+		...(props.itemRenderer ? {padded: true} : null),
 		className: [scrollableCSS.child],
 		onUpdate: handleScrollerUpdate,
 		scrollAndFocusScrollbarButton,
