@@ -87,7 +87,7 @@ class ScrollerBase extends Component {
 }
 
 const useSpottable = (props) => {
-	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);;
+	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
 
 	// Hooks
 
@@ -329,19 +329,18 @@ const useSpottable = (props) => {
 };
 
 const useSpottableScroller = (props) => {
-	const {uiChildAdapter, uiChildContainerRef} = props;
+	const {mutableRef, uiChildAdapter, uiChildContainerRef} = useContext(ScrollContext);
 
 	// Hooks
 
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {uiChildAdapter, uiChildContainerRef});
 
-	useEffect(() => {
-		props.setChildAdapter({
-			calculatePositionOnFocus,
-			focusOnNode,
-			setContainerDisabled
-		});
-	}, [calculatePositionOnFocus, focusOnNode, props, props.setChildAdapter, setContainerDisabled]);
+	mutableRef.current = {
+		...mutableRef.current,
+		calculatePositionOnFocus,
+		focusOnNode,
+		setContainerDisabled
+	};
 
 	// Render
 
@@ -349,7 +348,6 @@ const useSpottableScroller = (props) => {
 
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.onUpdate;
-	delete propsObject.setChildAdapter;
 	delete propsObject.spotlightId;
 
 	return propsObject;

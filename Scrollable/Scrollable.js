@@ -15,7 +15,7 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {ScrollContext as uiScrollContext, useScrollBase, utilDecorateChildProps} from '@enact/ui/Scrollable';
-import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
+// import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
@@ -23,7 +23,6 @@ import React, {Component, useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import {useChildAdapter} from './useChild';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
 	useEventTouch, useEventVoice, useEventWheel
@@ -202,8 +201,6 @@ const defaultConfig = {
 
 const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return (props) => {
-		const [childAdapter, setChildAdapter] = useChildAdapter();
-
 		const overscrollRefs = {
 			horizontal: React.useRef(),
 			vertical: React.useRef()
@@ -239,10 +236,8 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		return (
 			<ScrollContext.Provider value={{
-				childAdapter,
 				mutableRef,
-				overscrollRefs,
-				setChildAdapter,
+				overscrollRefs
 			}}>
 				<Wrapped {...props} />;
 			</ScrollContext.Provider>
@@ -251,7 +246,7 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 const useSpottableScroll = (props) => {
-	const {childAdapter, mutableRef} = useContext(ScrollContext);
+	const {mutableRef} = useContext(ScrollContext);
 	const {mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const contextSharedState = useContext(SharedState);
@@ -304,7 +299,7 @@ const useSpottableScroll = (props) => {
 
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
-			childAdapter.current.setContainerDisabled(false);
+			mutableRef.current.setContainerDisabled(false);
 		}
 
 		focusOnItem();
@@ -318,13 +313,13 @@ const useSpottableScroll = (props) => {
 	}
 
 	function focusOnItem () {
-		if (mutableRef.current.indexToFocus !== null && typeof childAdapter.current.focusByIndex === 'function') {
-			childAdapter.current.focusByIndex(mutableRef.current.indexToFocus);
+		if (mutableRef.current.indexToFocus !== null && typeof mutableRef.current.focusByIndex === 'function') {
+			mutableRef.current.focusByIndex(mutableRef.current.indexToFocus);
 			mutableRef.current.indexToFocus = null;
 		}
 
-		if (mutableRef.current.nodeToFocus !== null && typeof childAdapter.current.focusOnNode === 'function') {
-			childAdapter.current.focusOnNode(mutableRef.current.nodeToFocus);
+		if (mutableRef.current.nodeToFocus !== null && typeof mutableRef.current.focusOnNode === 'function') {
+			mutableRef.current.focusOnNode(mutableRef.current.nodeToFocus);
 			mutableRef.current.nodeToFocus = null;
 		}
 
@@ -440,10 +435,8 @@ const useScroll = (props) => {
 
 	// Hooks
 
-	const {
-		setChildAdapter,
-		overscrollRefs
-	} = useContext(ScrollContext);
+	const scrollContext = useContext(ScrollContext);
+	const {overscrollRefs} = scrollContext;
 
 	const {
 		uiScrollContainerRef,
@@ -507,7 +500,7 @@ const useScroll = (props) => {
 
 	decorateChildProps('childProps', {
 		onUpdate: handleScrollerUpdate,
-		setChildAdapter,
+		scrollContext,
 		spotlightId
 	});
 

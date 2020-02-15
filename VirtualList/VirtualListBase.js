@@ -464,11 +464,9 @@ const useSpottable = (props) => {
 };
 
 const useSpottableVirtualList = (props) => {
-	const {type, uiChildAdapter, uiChildContainerRef} = props;
-
 	// Hooks
 
-	const instance = {uiChildAdapter, uiChildContainerRef};
+	const {mutableRef} = useContext(ScrollContext);
 
 	const {
 		calculatePositionOnFocus,
@@ -490,7 +488,8 @@ const useSpottableVirtualList = (props) => {
 
 	usePreventScroll(props);
 
-	const adapter = {
+	mutableRef.current = {
+		...mutableRef.current,
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
@@ -500,9 +499,6 @@ const useSpottableVirtualList = (props) => {
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus
 	};
-	useEffect(() => {
-		props.setChildAdapter(adapter);
-	}, [adapter, props, props.setChildAdapter]);
 
 	// Functions
 
@@ -520,7 +516,6 @@ const useSpottableVirtualList = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.setChildAdapter;
 	delete rest.spotlightId;
 	delete rest.wrap;
 
