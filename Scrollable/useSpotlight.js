@@ -1,11 +1,11 @@
+import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import {useContext, useEffect} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator/SharedStateDecorator';
 
-import {ScrollContext} from './Scrollable';
 
 const useSpotlightRestore = (props) => {
-	const {uiScrollAdapter} = useContext(ScrollContext);
+	const {mutableRef: uiMutableRef} = useContext(uiScrollContext);
 	const context = useContext(SharedState);
 
 	// Hooks
@@ -19,7 +19,7 @@ const useSpotlightRestore = (props) => {
 				const scrollPosition = context.get(`${id}.scrollPosition`);
 
 				if (scrollPosition) {
-					uiScrollAdapter.current.scrollTo({
+					uiMutableRef.current.scrollTo({
 						position: scrollPosition,
 						animate: false
 					});
@@ -28,7 +28,7 @@ const useSpotlightRestore = (props) => {
 		}
 
 		restoreScrollPosition();
-	}, [context, props, uiScrollAdapter]);
+	}, [context, props, uiMutableRef]);
 };
 
 export {

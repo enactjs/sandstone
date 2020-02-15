@@ -204,28 +204,6 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	return (props) => {
 		const [childAdapter, setChildAdapter] = useChildAdapter();
 
-		const uiScrollAdapter = useRef({
-			applyOverscrollEffect: null,
-			calculateDistanceByWheel: null,
-			canScrollHorizontally: null,
-			canScrollVertically: null,
-			checkAndApplyOverscrollEffect: null,
-			getScrollBounds: null,
-			scrollBounds: null,
-			scrollPos: null,
-			scrollTo: null,
-			scrollToAccumulatedTarget: null,
-			setOverscrollStatus: null,
-			showThumb: null,
-			start: null,
-			startHidingThumb: null,
-			stop: null
-		});
-
-		const setUiScrollAdapter = (adapter) => {
-			uiScrollAdapter.current = adapter;
-		};
-
 		const overscrollRefs = {
 			horizontal: React.useRef(),
 			vertical: React.useRef()
@@ -265,8 +243,6 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				mutableRef,
 				overscrollRefs,
 				setChildAdapter,
-				setUiScrollAdapter,
-				uiScrollAdapter
 			}}>
 				<Wrapped {...props} />;
 			</ScrollContext.Provider>
@@ -275,7 +251,7 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 const useSpottableScroll = (props) => {
-	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
+	const {childAdapter, mutableRef} = useContext(ScrollContext);
 	const {mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const contextSharedState = useContext(SharedState);
@@ -389,7 +365,7 @@ const useSpottableScroll = (props) => {
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
 		if (uiMutableRef.current.scrollToInfo === null) {
-			const scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+			const scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
 
 			if (scrollHeight !== uiMutableRef.current.bounds.scrollHeight) {
 				calculateAndScrollTo();
@@ -399,7 +375,7 @@ const useSpottableScroll = (props) => {
 		// oddly, Scroller manages uiMutableRef.current.bounds so if we don't update it here (it is also
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
-		uiMutableRef.current.bounds.scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+		uiMutableRef.current.bounds.scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
 	}
 
 	function handleResizeWindow () {
@@ -466,8 +442,6 @@ const useScroll = (props) => {
 
 	const {
 		setChildAdapter,
-		setUiScrollAdapter,
-		uiScrollAdapter,
 		overscrollRefs
 	} = useContext(ScrollContext);
 
@@ -478,7 +452,6 @@ const useScroll = (props) => {
 		horizontalScrollbarRef,
 		setUiChildAdapter,
 		verticalScrollbarRef,
-
 		isHorizontalScrollbarVisible
 	} = useContext(uiScrollContext);
 
@@ -535,8 +508,7 @@ const useScroll = (props) => {
 	decorateChildProps('childProps', {
 		onUpdate: handleScrollerUpdate,
 		setChildAdapter,
-		spotlightId,
-		uiScrollAdapter
+		spotlightId
 	});
 
 	decorateChildProps('verticalScrollbarProps', {
@@ -567,7 +539,6 @@ const useScroll = (props) => {
 		removeEventListeners,
 		scrollTo,
 		setUiChildAdapter,
-		setUiScrollAdapter,
 		type,
 		uiChildAdapter,
 		uiChildContainerRef,

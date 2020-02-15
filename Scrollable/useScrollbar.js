@@ -5,8 +5,9 @@ import {useContext} from 'react';
 import {ScrollContext} from './Scrollable';
 
 const useScrollbar = (props) => {
-	const {mutableRef: {current: {isContent}}, uiScrollAdapter} = useContext(ScrollContext);
-	const {mutableRef: {current: {isUpdatedScrollThumb}}, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: {current: {isContent}}} = useContext(ScrollContext);
+	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {isUpdatedScrollThumb} = uiMutableRef.current;
 
 	const scrollbarProps = {
 		cbAlertThumb:
@@ -16,10 +17,10 @@ const useScrollbar = (props) => {
 	// Functions
 
 	function alertThumb () {
-		const bounds = uiScrollAdapter.current.getScrollBounds();
+		const bounds = uiMutableRef.current.getScrollBounds();
 
-		uiScrollAdapter.current.showThumb(bounds);
-		uiScrollAdapter.current.startHidingThumb();
+		uiMutableRef.current.showThumb(bounds);
+		uiMutableRef.current.startHidingThumb();
 	}
 
 	function alertThumbAfterRendered () {

@@ -16,7 +16,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, context) => {
-	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
+	const {childAdapter, mutableRef} = useContext(ScrollContext);
 	const {mutableRef: uiMutableRef, uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {isDragging, lastInputType, scrolling, scrollLeft, scrollTop} = uiMutableRef.current;
 	const {alertThumb} = context;
@@ -28,7 +28,7 @@ const useEventFocus = (props, context) => {
 		if (pos) {
 			const
 				{top, left} = pos,
-				bounds = uiScrollAdapter.current.getScrollBounds();
+				bounds = uiMutableRef.current.getScrollBounds();
 
 			if (type === 'JS') {
 				const
@@ -36,7 +36,7 @@ const useEventFocus = (props, context) => {
 					scrollVertically = bounds.maxTop > 0 && top !== scrollTop;
 
 				if (scrollHorizontally || scrollVertically) {
-					uiScrollAdapter.current.start({
+					uiMutableRef.current.start({
 						targetX: left,
 						targetY: top,
 						animate: (animationDuration > 0) && mutableRef.current.animateOnFocus,
@@ -51,7 +51,7 @@ const useEventFocus = (props, context) => {
 					scrollVertically = bounds.maxTop > 0 && Math.abs(top - scrollTop) > epsilon;
 
 				if (scrollHorizontally || scrollVertically) {
-					uiScrollAdapter.current.start({
+					uiMutableRef.current.start({
 						targetX: left,
 						targetY: top,
 						animate: mutableRef.current.animateOnFocus,
@@ -108,7 +108,7 @@ const useEventFocus = (props, context) => {
 			}
 
 			// update `scrollHeight`
-			uiMutableRef.current.bounds.scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+			uiMutableRef.current.bounds.scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
 		}
 	}
 
@@ -118,7 +118,7 @@ const useEventFocus = (props, context) => {
 			false;
 
 		if (type === 'JS' && mutableRef.isWheeling) {
-			uiScrollAdapter.current.stop();
+			uiMutableRef.current.stop();
 			mutableRef.current.animateOnFocus = false;
 		}
 
@@ -160,8 +160,8 @@ const useEventFocus = (props, context) => {
 };
 
 const useEventKey = (props, context) => {
-	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);;
-	const {uiChildContainerRef} = useContext(uiScrollContext);
+	const {childAdapter, mutableRef} = useContext(ScrollContext);;
+	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {isContent} = mutableRef.current;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus} = context;
 	const {type} = props;
@@ -212,7 +212,7 @@ const useEventKey = (props, context) => {
 		const
 			{scrollTop} = mutableRef.current,
 			focusedItem = Spotlight.getCurrent(),
-			bounds = uiScrollAdapter.current.getScrollBounds(),
+			bounds = uiMutableRef.current.getScrollBounds(),
 			isUp = direction === 'up',
 			directionFactor = isUp ? -1 : 1,
 			pageDistance = directionFactor * bounds.clientHeight * paginationPageMultiplier;
@@ -266,7 +266,7 @@ const useEventKey = (props, context) => {
 				mutableRef.current.pointToFocus = {direction, x: lastPointer.x, y: lastPointer.y};
 			}
 
-			uiScrollAdapter.current.scrollToAccumulatedTarget(pageDistance, true, props.overscrollEffectOn.pageKey);
+			uiMutableRef.current.scrollToAccumulatedTarget(pageDistance, true, props.overscrollEffectOn.pageKey);
 		}
 	}
 
@@ -378,15 +378,16 @@ onWindowReady(() => {
 });
 
 const useEventMouse = (props) => {
-	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
+	const {childAdapter} = useContext(ScrollContext);
+	const {mutableRef: uiMutableRef} = useContext(uiScrollContext);
 	const {type} = props;
 
 	// Functions
 
 	function handleFlick ({direction}) {
 		const
-			{canScrollHorizontally, canScrollVertically} = uiScrollAdapter.current,
-			bounds = uiScrollAdapter.current.getScrollBounds(),
+			{canScrollHorizontally, canScrollVertically} = uiMutableRef.current,
+			bounds = uiMutableRef.current.getScrollBounds(),
 			focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
@@ -436,8 +437,7 @@ const useEventTouch = () => {
 };
 
 const useEventVoice = (props) => {
-	const {uiScrollAdapter} = useContext(ScrollContext);
-	const {uiScrollContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 
 	// Mutable value
 
@@ -490,7 +490,7 @@ const useEventVoice = (props) => {
 		const
 			isHorizontal = (props.direction === 'horizontal'),
 			isRtl = props.rtl,
-			{maxLeft, maxTop} = uiScrollAdapter.current.getScrollBounds(),
+			{maxLeft, maxTop} = uiMutableRef.current.getScrollBounds(),
 			verticalDirection = ['up', 'down', 'top', 'bottom'],
 			horizontalDirection = isRtl ? ['right', 'left', 'rightmost', 'leftmost'] : ['left', 'right', 'leftmost', 'rightmost'],
 			movement = ['previous', 'next', 'first', 'last'];
@@ -524,7 +524,7 @@ const useEventVoice = (props) => {
 
 			if (['up', 'down', 'left', 'right'].includes(scroll)) {
 				const
-					bounds = uiScrollAdapter.current.getScrollBounds(),
+					bounds = uiMutableRef.current.getScrollBounds(),
 					directionFactor = (scroll === 'up') || (scroll === 'left' && !isRtl) || (scroll === 'right' && isRtl),
 					scrollVertically = verticalDirection.includes(scroll),
 					direction = directionFactor ? -1 : 1,
@@ -537,9 +537,9 @@ const useEventVoice = (props) => {
 					mutableRef.current.wheelDirection = direction;
 				}
 
-				uiScrollAdapter.current.scrollToAccumulatedTarget(pageDistance, scrollVertically, props.overscrollEffectOn.pageKey);
+				uiMutableRef.current.scrollToAccumulatedTarget(pageDistance, scrollVertically, props.overscrollEffectOn.pageKey);
 			} else { // ['top', 'bottom', 'leftmost', 'rightmost'].includes(scroll)
-				uiScrollAdapter.current.scrollTo({align: verticalDirection.includes(scroll) && scroll || (scroll === 'leftmost' && isRtl || scroll === 'rightmost' && !isRtl) && 'right' || 'left'});
+				uiMutableRef.current.scrollTo({align: verticalDirection.includes(scroll) && scroll || (scroll === 'leftmost' && isRtl || scroll === 'rightmost' && !isRtl) && 'right' || 'left'});
 			}
 
 			e.preventDefault();
@@ -570,7 +570,8 @@ const useEventVoice = (props) => {
 };
 
 const useEventWheel = (props) => {
-	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
+	const {childAdapter, mutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiMutableRef} = useContext(uiScrollContext);
 	const {type} = props;
 
 	// Functions
@@ -598,9 +599,9 @@ const useEventWheel = (props) => {
 	function handleWheelNative (ev) {
 		const
 			overscrollEffectRequired = props.overscrollEffectOn.wheel,
-			bounds = uiScrollAdapter.current.getScrollBounds(),
-			canScrollHorizontally = uiScrollAdapter.current.canScrollHorizontally(bounds),
-			canScrollVertically = uiScrollAdapter.current.canScrollVertically(bounds),
+			bounds = uiMutableRef.current.getScrollBounds(),
+			canScrollHorizontally = uiMutableRef.current.canScrollHorizontally(bounds),
+			canScrollVertically = uiMutableRef.current.canScrollVertically(bounds),
 			eventDeltaMode = ev.deltaMode,
 			eventDelta = (-ev.wheelDeltaY || ev.deltaY);
 		let
@@ -611,7 +612,7 @@ const useEventWheel = (props) => {
 			window.document.activeElement.blur();
 		}
 
-		uiScrollAdapter.current.showThumb(bounds);
+		uiMutableRef.current.showThumb(bounds);
 
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
@@ -626,13 +627,13 @@ const useEventWheel = (props) => {
 
 				// Not to check if ev.target is a descendant of a wrapped component which may have a lot of nodes in it.
 				if (overscrollEffectRequired) {
-					uiScrollAdapter.current.checkAndApplyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce);
+					uiMutableRef.current.checkAndApplyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce);
 				}
 
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (eventDelta < 0 && scrollTop <= 0 || eventDelta > 0 && scrollTop >= bounds.maxTop)) {
-					uiScrollAdapter.current.applyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce, 1);
+					uiMutableRef.current.applyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce, 1);
 				}
 
 				needToHideThumb = true;
@@ -647,14 +648,14 @@ const useEventWheel = (props) => {
 					mutableRef.current.isWheeling = true;
 				}
 
-				delta = uiScrollAdapter.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
+				delta = uiMutableRef.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 				needToHideThumb = !delta;
 
 				ev.preventDefault();
 				ev.stopPropagation();
 			} else {
 				if (overscrollEffectRequired && (eventDelta < 0 && scrollLeft <= 0 || eventDelta > 0 && scrollLeft >= bounds.maxLeft)) {
-					uiScrollAdapter.current.applyOverscrollEffect('horizontal', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce, 1);
+					uiMutableRef.current.applyOverscrollEffect('horizontal', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce, 1);
 				}
 
 				needToHideThumb = true;
@@ -673,11 +674,11 @@ const useEventWheel = (props) => {
 				mutableRef.current.wheelDirection = direction;
 			}
 
-			uiScrollAdapter.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
+			uiMutableRef.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
 		}
 
 		if (needToHideThumb) {
-			uiScrollAdapter.current.startHidingThumb();
+			uiMutableRef.current.startHidingThumb();
 		}
 	}
 
