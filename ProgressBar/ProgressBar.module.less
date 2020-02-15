@@ -10,27 +10,27 @@
 	border-color: inherit;
 	border-radius: 50%;
 	border-style: solid;
-	border-width: @sand-progress-bar-height;
+	border-width: @sand-progressbar-bar-thickness;
 	box-sizing: border-box;
 }
 
 .progressBar {
-	height: @sand-progress-bar-height;
-	margin: @sand-spotlight-outset;
+	height: @sand-progressbar-bar-thickness;
+	margin: @sand-progressbar-margin;
 
 	.bar {
-		border-radius: @sand-progress-bar-border-radius;
+		border-radius: @sand-progressbar-bar-border-radius;
 		overflow: hidden;
 	}
 
 	&.vertical {
-		min-height: @sand-progress-bar-height-large;
-		width: @sand-progress-bar-height;
+		min-height: @sand-progressbar-vertical-min-height;
+		width: @sand-progressbar-bar-thickness;
 	}
 
 	&.radial {
-		min-height: @sand-progress-bar-height-large;
-		width: @sand-progress-bar-height-large;
+		height: @sand-progressbar-radial-size;
+		width: @sand-progressbar-radial-size;
 
 		.bar {
 			.radial-bar-styles();
@@ -39,7 +39,7 @@
 
 		.fill,
 		.load {
-			.position(-@sand-progress-bar-height);
+			.position(-@sand-progressbar-bar-thickness);
 			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
 
 			&::before,
@@ -80,15 +80,15 @@
 	// Skin colors
 	.applySkins({
 		.bar {
-			background-color: @sand-progress-bar-bg-color;
+			background-color: @sand-progressbar-bar-bg-color;
 		}
 
 		.fill {
-			background-color: @sand-progress-bar-fill-bg-color;
+			background-color: @sand-progressbar-fill-bg-color;
 		}
 
 		.load {
-			background-color: @sand-progress-bar-loaded-bg-color;
+			background-color: @sand-progressbar-load-bg-color;
 		}
 
 		&.radial {
@@ -99,27 +99,27 @@
 			}
 
 			.bar {
-				border-color: @sand-progress-bar-bg-color;
+				border-color: @sand-progressbar-radial-bar-bg-color;
 			}
 
 			.fill {
-				border-color: @sand-progress-bar-fill-bg-color;
+				border-color: @sand-progressbar-radial-fill-bg-color;
 			}
 
 			.load {
-				border-color: #6c6e73;// @sand-progress-bar-loaded-bg-color;
+				border-color: @sand-progressbar-radial-load-bg-color;
 			}
 		}
 
 		&.highlighted {
 			.fill {
-				background-color: @sand-progress-bar-highlighted-fill-bg-color;
+				background-color: @sand-progressbar-highlighted-fill-bg-color;
 			}
 
 			&.radial {
 				.fill {
 					background-color: transparent;
-					border-color: @sand-progress-bar-highlighted-fill-bg-color;
+					border-color: @sand-progressbar-highlighted-fill-bg-color;
 				}
 			}
 		}
