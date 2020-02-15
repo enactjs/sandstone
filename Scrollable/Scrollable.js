@@ -195,7 +195,6 @@ const defaultConfig = {
 	 * @default 'children'
 	 * @memberof sandstone/A11yDecorator.A11yDecorator.defaultConfig
 	 */
-	tbd: 'tbd'
 };
 
 const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
