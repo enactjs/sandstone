@@ -247,6 +247,8 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	Wrapper.propTypes = {
 		itemRenderer: PropTypes.func
 	};
+
+	return Wrapper;
 });
 
 const useSpottableScroll = (props) => {
