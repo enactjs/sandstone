@@ -525,7 +525,6 @@ const useScroll = (props) => {
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleResizeWindow,
-		horizontalScrollbarRef,
 		onFlick: handleFlick,
 		onKeyDown: handleKeyDown,
 		onMouseDown: handleMouseDown,
@@ -533,10 +532,7 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		type,
-		uiChildContainerRef,
-		uiScrollContainerRef,
-		verticalScrollbarRef
+		type
 	});
 
 	decorateChildProps('innerScrollContainerProps', {
