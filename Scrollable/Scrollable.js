@@ -229,9 +229,7 @@ const ScrollContextDecorator = hoc((config, Wrapped) => {
 			// sandstone/VirtualList functions which could be called from sandstone/Scrollable
 
 			focusByIndex: nop,
-			focusOnNode: nop,
 			getScrollBounds: nop,
-			setContainerDisabled: nop,
 			setLastFocusedNode: nop,
 			shouldPreventOverscrollEffect: nop,
 			shouldPreventScrollByFocus: nop
