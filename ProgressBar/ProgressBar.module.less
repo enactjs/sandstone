@@ -10,7 +10,7 @@
 	border-color: inherit;
 	border-radius: 50%;
 	border-style: solid;
-	border-width: @sand-progressbar-bar-thickness;
+	border-width: @sand-progressbar-radial-thickness;
 	box-sizing: border-box;
 }
 
@@ -39,7 +39,7 @@
 
 		.fill,
 		.load {
-			.position(-@sand-progressbar-bar-thickness);
+			.position(-@sand-progressbar-radial-thickness);
 			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
 
 			&::before,
