@@ -78,7 +78,7 @@ const useOverscrollEffect = (props) => {
 
 		if (scrollability) {
 			const
-				isRtl = uiScrollAdapter.current.rtl,
+				isRtl = props.rtl,
 				edge = (direction === 'up' || !isRtl && direction === 'left' || isRtl && direction === 'right') ? 'before' : 'after';
 
 			uiScrollAdapter.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);

@@ -213,26 +213,16 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			canScrollVertically: null,
 			checkAndApplyOverscrollEffect: null,
 			getScrollBounds: null,
-			isDragging: null,
-			isScrollAnimationTargetAccumulated: null,
-			isUpdatedScrollThumb: null,
-			lastInputType: null,
-			rtl: null,
 			scrollBounds: null,
-			scrollHeight: null,
-			scrolling: null,
-			scrollLeft: null,
 			scrollPos: null,
 			scrollTo: null,
 			scrollToAccumulatedTarget: null,
 			scrollToInfo: null,
-			scrollTop: null,
 			setOverscrollStatus: null,
 			showThumb: null,
 			start: null,
 			startHidingThumb: null,
-			stop: null,
-			wheelDirection: null
+			stop: null
 		});
 
 		const setUiScrollAdapter = (adapter) => {
@@ -244,8 +234,8 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			vertical: React.useRef()
 		};
 
-		const isContent = (element) => {
-			return (element && utilDOM.containsDangerously(uiChildContainerRef, element));
+		const isContent = (container, element) => {
+			return (element && utilDOM.containsDangerously(container, element));
 		};
 
 		const mutableRef = useRef({
@@ -289,7 +279,7 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 const useSpottableScroll = (props) => {
 	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
-	const {uiChildContainerRef, uiScrollContainerRef} = useContext(uiScrollContext);
+	const {uiChildContainerRef, mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const contextSharedState = useContext(SharedState);
 

@@ -1,13 +1,16 @@
 import Spotlight from '@enact/spotlight';
+import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import {useContext} from 'react';
 
 import {ScrollContext} from './Scrollable';
 
 const useScrollbar = (props) => {
-	const {isContent, uiScrollAdapter} = useContext(ScrollContext);
+	const {mutableRef: {current: {isContent}}, uiScrollAdapter} = useContext(ScrollContext);
+	const {mutableRef: {current: {isUpdatedScrollThumb}}, uiChildContainerRef} = useContext(uiScrollContext);
 
 	const scrollbarProps = {
-		cbAlertThumb: alertThumbAfterRendered
+		cbAlertThumb:
+		 alertThumbAfterRendered
 	};
 
 	// Functions
@@ -22,7 +25,7 @@ const useScrollbar = (props) => {
 	function alertThumbAfterRendered () {
 		const spotItem = Spotlight.getCurrent();
 
-		if (!Spotlight.getPointerMode() && isContent(spotItem) && uiScrollAdapter.current.isUpdatedScrollThumb) {
+		if (!Spotlight.getPointerMode() && isContent(uiChildContainerRef, spotItem) && isUpdatedScrollThumb) {
 			alertThumb();
 		}
 	}
