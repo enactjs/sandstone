@@ -348,7 +348,7 @@ const useEventMonitor = (props, context) => {
 
 	// Mutable value
 
-	const scrollMutableRef = useRef({pageKeyHandlerObj: {scrollByPageOnPointerMode}});
+	const mutableRef = useRef({pageKeyHandlerObj: {scrollByPageOnPointerMode}});
 
 	lastPointer = lastPointerProp;
 
@@ -356,11 +356,11 @@ const useEventMonitor = (props, context) => {
 
 	useEffect(() => {
 		const setMonitorEventTarget = (target) => {
-			scrollers.set(scrollMutableRef.current.pageKeyHandlerObj, target);
+			scrollers.set(mutableRef.current.pageKeyHandlerObj, target);
 		};
 
 		const deleteMonitorEventTarget = () => {
-			scrollers.delete(scrollMutableRef.current.pageKeyHandlerObj);
+			scrollers.delete(mutableRef.current.pageKeyHandlerObj);
 		};
 
 		setMonitorEventTarget(uiScrollContainerRef.current);
@@ -441,7 +441,7 @@ const useEventVoice = (props) => {
 
 	// Mutable value
 
-	const scrollMutableRef = useRef({
+	const mutableRef = useRef({
 		isVoiceControl: false,
 		voiceControlDirection: 'vertical'
 	});
@@ -458,8 +458,8 @@ const useEventVoice = (props) => {
 				viewportBounds = scrollContainerNode.getBoundingClientRect(),
 				spotItemBounds = spotItem.getBoundingClientRect(),
 				nodes = Spotlight.getSpottableDescendants(scrollContainerNode.dataset.spotlightId),
-				first = scrollMutableRef.current.voiceControlDirection === 'vertical' ? 'top' : 'left',
-				last = scrollMutableRef.current.voiceControlDirection === 'vertical' ? 'bottom' : 'right';
+				first = mutableRef.current.voiceControlDirection === 'vertical' ? 'top' : 'left',
+				last = mutableRef.current.voiceControlDirection === 'vertical' ? 'bottom' : 'right';
 
 			if (spotItemBounds[last] < viewportBounds[first] || spotItemBounds[first] > viewportBounds[last]) {
 				for (let i = 0; i < nodes.length; i++) {
@@ -475,8 +475,8 @@ const useEventVoice = (props) => {
 	};
 
 	function stopVoice () {
-		if (scrollMutableRef.current.isVoiceControl) {
-			scrollMutableRef.current.isVoiceControl = false;
+		if (mutableRef.current.isVoiceControl) {
+			mutableRef.current.isVoiceControl = false;
 			updateFocusAfterVoiceControl();
 		}
 	}
@@ -502,11 +502,11 @@ const useEventVoice = (props) => {
 			scroll = isHorizontal ? horizontalDirection[index] : verticalDirection[index];
 		}
 
-		scrollMutableRef.current.voiceControlDirection = verticalDirection.includes(scroll) && 'vertical' || horizontalDirection.includes(scroll) && 'horizontal' || null;
+		mutableRef.current.voiceControlDirection = verticalDirection.includes(scroll) && 'vertical' || horizontalDirection.includes(scroll) && 'horizontal' || null;
 
 		// Case 1. Invalid direction
-		if (scrollMutableRef.current.voiceControlDirection === null) {
-			scrollMutableRef.current.isVoiceControl = false;
+		if (mutableRef.current.voiceControlDirection === null) {
+			mutableRef.current.isVoiceControl = false;
 		// Case 2. Cannot scroll
 		} else if (
 			(['up', 'top'].includes(scroll) && isReachedEdge(scrollTop, 0)) ||
@@ -520,7 +520,7 @@ const useEventVoice = (props) => {
 			}
 		// Case 3. Can scroll
 		} else {
-			scrollMutableRef.current.isVoiceControl = true;
+			mutableRef.current.isVoiceControl = true;
 
 			if (['up', 'down', 'left', 'right'].includes(scroll)) {
 				const
@@ -530,11 +530,11 @@ const useEventVoice = (props) => {
 					direction = directionFactor ? -1 : 1,
 					pageDistance = direction * (scrollVertically ? bounds.clientHeight : bounds.clientWidth) * paginationPageMultiplier;
 
-				scrollMutableRef.current.lastInputType = 'pageKey';
+				mutableRef.current.lastInputType = 'pageKey';
 
-				if (direction !== scrollMutableRef.current.wheelDirection) {
+				if (direction !== mutableRef.current.wheelDirection) {
 					uiScrollMutableRef.current.isScrollAnimationTargetAccumulated = false;
-					scrollMutableRef.current.wheelDirection = direction;
+					mutableRef.current.wheelDirection = direction;
 				}
 
 				uiScrollMutableRef.current.scrollToAccumulatedTarget(pageDistance, scrollVertically, props.overscrollEffectOn.pageKey);

@@ -28,7 +28,7 @@ const useEventKey = (props, context) => {
 
 	// Mutable value
 
-	const scrollMutableRef = useRef({
+	const mutableRef = useRef({
 		fn: null
 	});
 
@@ -218,13 +218,13 @@ const useEventKey = (props, context) => {
 	// Functions
 
 	function addGlobalKeyDownEventListener (fn) {
-		scrollMutableRef.current.fn = fn;
-		utilEvent('keydown').addEventListener(document, scrollMutableRef.current.fn, {capture: true});
+		mutableRef.current.fn = fn;
+		utilEvent('keydown').addEventListener(document, mutableRef.current.fn, {capture: true});
 	}
 
 	function removeGlobalKeyDownEventListener () {
-		utilEvent('keydown').removeEventListener(document, scrollMutableRef.current.fn, {capture: true});
-		scrollMutableRef.current.fn = null;
+		utilEvent('keydown').removeEventListener(document, mutableRef.current.fn, {capture: true});
+		mutableRef.current.fn = null;
 	}
 
 	// Return
