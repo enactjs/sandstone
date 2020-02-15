@@ -5,8 +5,8 @@ import {useContext} from 'react';
 import {ScrollContext} from './Scrollable';
 
 const useScrollbar = () => {
-	const {scrollMutableRef: {current: {isContent}}} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: {current: {isContent}}} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {isUpdatedScrollThumb} = uiScrollMutableRef.current;
 
 	const scrollbarProps = {

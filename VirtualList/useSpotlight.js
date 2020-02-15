@@ -6,7 +6,7 @@ import {useContext, useEffect, useRef} from 'react';
 import {ScrollContext} from '../Scrollable';
 
 const useSpotlightConfig = (props) => {
-	const {scrollMutableRef: {current: {lastFocusedIndex}}} = useContext(ScrollContext);
+	const {mutableRef: {current: {lastFocusedIndex}}} = useContext(ScrollContext);
 
 	// Hooks
 
@@ -70,7 +70,7 @@ const useSpotlightConfig = (props) => {
 const getNumberValue = (index) => index | 0;
 
 const useSpotlightRestore = (props) => {
-	const {scrollMutableRef: listMutableRef} = useContext(ScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
 	const {uiChildContainerRef} = useContext(uiScrollContext);
 
 	// Mutable value
@@ -126,9 +126,9 @@ const useSpotlightRestore = (props) => {
 				mutableRef.current.restoreLastFocused = false;
 
 				// try to focus the last focused item
-				listMutableRef.current.isScrolledByJump = true;
+				scrollMutableRef.current.isScrolledByJump = true;
 				const foundLastFocused = Spotlight.focus(node);
-				listMutableRef.current.isScrolledByJump = false;
+				scrollMutableRef.current.isScrolledByJump = false;
 
 				// but if that fails (because it isn't found or is disabled), focus the container so
 				// spotlight isn't lost

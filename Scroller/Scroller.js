@@ -95,7 +95,7 @@ class ScrollerBase extends Component {
 }
 
 const useSpottable = (props) => {
-	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 
 	// Hooks
 
@@ -337,7 +337,7 @@ const useSpottable = (props) => {
 };
 
 const useSpottableScroller = (props) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
 
 	// Hooks
 
@@ -403,7 +403,7 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
-		childWrapper: ChildWrapper,
+		mutableRef: {current: {childWrapper: ChildWrapper}},
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(uiScrollContext);

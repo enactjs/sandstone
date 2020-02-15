@@ -18,7 +18,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, context) => {
-	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,

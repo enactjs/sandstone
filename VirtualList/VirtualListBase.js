@@ -199,8 +199,8 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const {pause} = scrollMutableRef.current;
 
@@ -479,7 +479,7 @@ const useSpottable = (props) => {
 const useSpottableVirtualList = (props) => {
 	// Hooks
 
-	const {scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
 
 	const {
 		calculatePositionOnFocus,

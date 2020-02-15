@@ -49,7 +49,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	// Hooks
 
 	const {
-		childWrapper: ChildWrapper,
+		mutableRef: {current: {childWrapper: ChildWrapper}},
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(uiScrollContext);
@@ -219,7 +219,7 @@ let VirtualGridList = ({role, ...rest}) => {
 	// Hooks
 
 	const {
-		childWrapper: ChildWrapper,
+		mutableRef: {current: {childWrapper: ChildWrapper}},
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useContext(uiScrollContext);

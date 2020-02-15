@@ -11,7 +11,7 @@ const
 
 const useOverscrollEffect = (props) => {
 	const {overscrollRefs} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
+	const {mutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
 
 	// Mutable value
 

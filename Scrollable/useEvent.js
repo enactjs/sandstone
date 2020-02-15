@@ -16,8 +16,8 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, context) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef, uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {isDragging, lastInputType, scrolling} = uiScrollMutableRef.current;
 	const {alertThumb} = context;
 	const {type} = props;
@@ -160,8 +160,8 @@ const useEventFocus = (props, context) => {
 };
 
 const useEventKey = (props, context) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {isContent} = scrollMutableRef.current;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus} = context;
 	const {type} = props;
@@ -376,8 +376,8 @@ onWindowReady(() => {
 });
 
 const useEventMouse = (props) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
 	const {type} = props;
 
 	// Functions
@@ -435,7 +435,7 @@ const useEventTouch = () => {
 };
 
 const useEventVoice = (props) => {
-	const {scrollMutableRef: uiScrollMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiScrollMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 
 	// Mutable value
 
@@ -568,8 +568,8 @@ const useEventVoice = (props) => {
 };
 
 const useEventWheel = (props) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
+	const {mutableRef: scrollMutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
 	const {type} = props;
 
 	// Functions

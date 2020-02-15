@@ -5,7 +5,7 @@ import {SharedState} from '../internal/SharedStateDecorator/SharedStateDecorator
 
 
 const useSpotlightRestore = (props) => {
-	const {scrollMutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
+	const {mutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
 	const context = useContext(SharedState);
 
 	// Hooks

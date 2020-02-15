@@ -181,34 +181,17 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 
 const ScrollContext = React.createContext();
 
-/**
- * Default config for {@link sandstone/ScrollContextDecorator.ScrollContextDecorator}.
- *
- * @memberof sandstone/ScrollContextDecorator.ScrollContextDecorator
- * @hocconfig
- */
-const defaultConfig = {
-	/**
-	 * Configures ...
-	 *
-	 * @type {String}
-	 * @default 'children'
-	 * @memberof sandstone/A11yDecorator.A11yDecorator.defaultConfig
-	 */
-};
-
-const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
+const ScrollContextDecorator = hoc((config, Wrapped) => {
 	const Wrapper = (props) => {
+		// Ref objects
 		const overscrollRefs = {
 			horizontal: React.useRef(),
 			vertical: React.useRef()
 		};
 
-		const isContent = (container, element) => {
-			return (element && utilDOM.containsDangerously(container, element));
-		};
-
-		const scrollMutableRef = useRef({
+		// Mutable ref objects
+		const isContent = (container, element) => (element && utilDOM.containsDangerously(container, element));
+		const mutableRef = useRef({
 			animateOnFocus: false,
 			indexToFocus: null,
 			lastScrollPositionOnFocus: null,
@@ -235,8 +218,9 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		return (
 			<ScrollContext.Provider
 				value={{
-					scrollMutableRef,
-					overscrollRefs
+					// Refs
+					overscrollRefs,
+					mutableRef
 				}}
 			>
 				<Wrapped {...props} />;
@@ -252,10 +236,10 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 const useSpottableScroll = (props) => {
-	const {scrollMutableRef} = useContext(ScrollContext);
-	const {scrollMutableRef: uiScrollMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
-	const {type} = props;
+	const {mutableRef} = useContext(ScrollContext);
+	const {mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const contextSharedState = useContext(SharedState);
+	const {type} = props;
 
 	// Hooks
 
@@ -293,8 +277,8 @@ const useSpottableScroll = (props) => {
 	// Functions
 
 	function scrollTo (opt) {
-		scrollMutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
-		scrollMutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
+		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
+		mutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
 	}
 
 	function start (animate) {
@@ -305,12 +289,12 @@ const useSpottableScroll = (props) => {
 
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
-			scrollMutableRef.current.setContainerDisabled(false);
+			mutableRef.current.setContainerDisabled(false);
 		}
 
 		focusOnItem();
-		scrollMutableRef.current.lastScrollPositionOnFocus = null;
-		scrollMutableRef.current.isWheeling = false;
+		mutableRef.current.lastScrollPositionOnFocus = null;
+		mutableRef.current.isWheeling = false;
 		stopVoice();
 	}
 
@@ -319,21 +303,21 @@ const useSpottableScroll = (props) => {
 	}
 
 	function focusOnItem () {
-		if (scrollMutableRef.current.indexToFocus !== null && typeof scrollMutableRef.current.focusByIndex === 'function') {
-			scrollMutableRef.current.focusByIndex(scrollMutableRef.current.indexToFocus);
-			scrollMutableRef.current.indexToFocus = null;
+		if (mutableRef.current.indexToFocus !== null && typeof mutableRef.current.focusByIndex === 'function') {
+			mutableRef.current.focusByIndex(mutableRef.current.indexToFocus);
+			mutableRef.current.indexToFocus = null;
 		}
 
-		if (scrollMutableRef.current.nodeToFocus !== null && typeof scrollMutableRef.current.focusOnNode === 'function') {
-			scrollMutableRef.current.focusOnNode(scrollMutableRef.current.nodeToFocus);
-			scrollMutableRef.current.nodeToFocus = null;
+		if (mutableRef.current.nodeToFocus !== null && typeof mutableRef.current.focusOnNode === 'function') {
+			mutableRef.current.focusOnNode(mutableRef.current.nodeToFocus);
+			mutableRef.current.nodeToFocus = null;
 		}
 
-		if (scrollMutableRef.current.pointToFocus !== null) {
+		if (mutableRef.current.pointToFocus !== null) {
 			// no need to focus on pointer mode
 			if (!Spotlight.getPointerMode()) {
 				const
-					{direction, x, y} = scrollMutableRef.current.pointToFocus,
+					{direction, x, y} = mutableRef.current.pointToFocus,
 					position = {x, y},
 					elemFromPoint = document.elementFromPoint(x, y),
 					target =
@@ -346,7 +330,7 @@ const useSpottableScroll = (props) => {
 				}
 			}
 
-			scrollMutableRef.current.pointToFocus = null;
+			mutableRef.current.pointToFocus = null;
 		}
 	}
 
@@ -365,18 +349,18 @@ const useSpottableScroll = (props) => {
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
-		if (uiScrollMutableRef.current.scrollToInfo === null) {
-			const scrollHeight = uiScrollMutableRef.current.getScrollBounds().scrollHeight;
+		if (uiMutableRef.current.scrollToInfo === null) {
+			const scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
 
-			if (scrollHeight !== uiScrollMutableRef.current.bounds.scrollHeight) {
+			if (scrollHeight !== uiMutableRef.current.bounds.scrollHeight) {
 				calculateAndScrollTo();
 			}
 		}
 
-		// oddly, Scroller manages uiScrollMutableRef.current.bounds so if we don't update it here (it is also
+		// oddly, Scroller manages uiMutableRef.current.bounds so if we don't update it here (it is also
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
-		uiScrollMutableRef.current.bounds.scrollHeight = uiScrollMutableRef.current.getScrollBounds().scrollHeight;
+		uiMutableRef.current.bounds.scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
 	}
 
 	function handleResizeWindow () {
