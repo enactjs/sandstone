@@ -77,7 +77,7 @@ const useEventFocus = (props, context) => {
 			// If scroll animation is ongoing, we need to pass last target position to
 			// determine correct scroll position.
 			if (lastPos & (
-				type === 'JS' && uiScrollAdapter.current.animator.isAnimating() ||
+				type === 'JS' && uiMutableRef.current.animator.isAnimating() ||
 				type === 'Native' && scrolling
 			)) {
 				const
@@ -96,7 +96,7 @@ const useEventFocus = (props, context) => {
 				// scrollInfo passes in current `scrollHeight` and `scrollTop` before calculations
 				const
 					scrollInfo = {
-						previousScrollHeight: uiScrollAdapter.current.bounds.scrollHeight,
+						previousScrollHeight: uiMutableRef.current.bounds.scrollHeight,
 						scrollTop: scrollTop
 					};
 
@@ -108,7 +108,7 @@ const useEventFocus = (props, context) => {
 			}
 
 			// update `scrollHeight`
-			uiScrollAdapter.current.bounds.scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+			uiMutableRef.current.bounds.scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
 		}
 	}
 
