@@ -15,7 +15,6 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {ScrollContext as uiScrollContext, useScrollBase, utilDecorateChildProps} from '@enact/ui/Scrollable';
-// import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
@@ -435,15 +434,12 @@ const useScroll = (props) => {
 
 	// Hooks
 
-	const scrollContext = useContext(ScrollContext);
-	const {overscrollRefs} = scrollContext;
+	const {overscrollRefs} = useContext(ScrollContext);
 
 	const {
 		uiScrollContainerRef,
-		uiChildAdapter,
 		uiChildContainerRef,
 		horizontalScrollbarRef,
-		setUiChildAdapter,
 		verticalScrollbarRef,
 		isHorizontalScrollbarVisible
 	} = useContext(uiScrollContext);
@@ -500,7 +496,6 @@ const useScroll = (props) => {
 
 	decorateChildProps('childProps', {
 		onUpdate: handleScrollerUpdate,
-		scrollContext,
 		spotlightId
 	});
 
@@ -531,9 +526,7 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		setUiChildAdapter,
 		type,
-		uiChildAdapter,
 		uiChildContainerRef,
 		uiScrollContainerRef,
 		verticalScrollbarRef
@@ -546,7 +539,7 @@ const useScroll = (props) => {
 	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
 	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
 	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
-	decorateChildProps('childProps', {uiChildAdapter, uiChildContainerRef});
+	decorateChildProps('childProps', {uiChildContainerRef});
 	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
 	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
 

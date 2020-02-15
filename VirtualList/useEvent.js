@@ -18,7 +18,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,
@@ -45,7 +45,9 @@ const useEventKey = (props, context) => {
 
 	const getNextIndex = useCallback(({index, keyCode, repeat}) => {
 		const {dataSize, rtl, wrap} = props;
-		const {isPrimaryDirectionVertical, dimensionToExtent} = uiChildAdapter.current;
+		const {isVertical, getDimensionToExtent} = uiMutableRef.current;
+		const isPrimaryDirectionVertical = isVertical();
+		const dimensionToExtent = getDimensionToExtent();
 		const column = index % dimensionToExtent;
 		const row = (index - column) % dataSize / dimensionToExtent;
 		const isDownKey = isDown(keyCode);
@@ -105,7 +107,7 @@ const useEventKey = (props, context) => {
 		}
 
 		return {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex};
-	}, [findSpottableItem, props, uiChildAdapter]);
+	}, [findSpottableItem, props, uiMutableRef]);
 
 	// Hooks
 
@@ -127,7 +129,9 @@ const useEventKey = (props, context) => {
 				} else {
 					const {repeat} = ev;
 					const {focusableScrollbar, spotlightId} = props;
-					const {dimensionToExtent, isPrimaryDirectionVertical} = uiChildAdapter.current;
+					const {getDimensionToExtent, isVertical} = uiMutableRef.current;
+					const isPrimaryDirectionVertical = isVertical();
+					const dimensionToExtent = getDimensionToExtent();
 					const targetIndex = target.dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -209,7 +213,7 @@ const useEventKey = (props, context) => {
 			utilEvent('keydown').removeEventListener(scrollerNode, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollerNode, handleKeyUp, {capture: true});
 		};
-	}, [uiChildContainerRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiChildAdapter.current]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [uiChildContainerRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiMutableRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 

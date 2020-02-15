@@ -192,7 +192,7 @@ const
 
 const useSpottable = (props) => {
 	const {mutableRef} = useContext(ScrollContext);
-	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
+	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const {pause} = mutableRef.current;
 
@@ -282,7 +282,10 @@ const useSpottable = (props) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = uiChildAdapter.current;
+		const {getDimensionToExtent, getPrimary, getScrollPositionTarget} = uiMutableRef.current;
+		const {clientSize, itemSize} = getPrimary();
+		const scrollPositionTarget = getScrollPositionTarget();
+		const dimensionToExtent = getDimensionToExtent();
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -292,8 +295,8 @@ const useSpottable = (props) => {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
-				start = uiChildAdapter.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? uiChildAdapter.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				start = uiMutableRef.current.getGridPosition(nextIndex).primaryPosition,
+				end = props.itemSizes ? uiMutableRef.current.getItemBottomPosition(nextIndex) : start + itemSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -380,19 +383,21 @@ const useSpottable = (props) => {
 		return mutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
 	}
 
-	function calculatePositionOnFocus ({item, scrollPosition = uiChildAdapter.current.scrollPosition}) {
+	function calculatePositionOnFocus ({item, scrollPositionParam}) {
+		const scrollPosition = scrollPositionParam || uiMutableRef.current.getScrollPosition();
 		const
 
 			{pageScroll} = props,
-			{numOfItems, primary} = uiChildAdapter.current,
+			{numOfItems, getPrimary} = uiMutableRef.current,
+			primary = getPrimary(),
 			offsetToClientEnd = primary.clientSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
-			let gridPosition = uiChildAdapter.current.getGridPosition(focusedIndex);
+			let gridPosition = uiMutableRef.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = uiChildAdapter.current.getItemNode(mutableRef.current.lastFocusedIndex);
+				const node = uiMutableRef.current.getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (node) {
 					node.blur();
@@ -411,7 +416,7 @@ const useSpottable = (props) => {
 					} else {
 						// This code uses the trick to change the target position slightly which will not affect the actual result
 						// since a browser ignore `scrollTo` method if the target position is same as the current position.
-						gridPosition.primaryPosition = scrollPosition + (uiChildAdapter.current.scrollPosition === scrollPosition ? 0.1 : 0);
+						gridPosition.primaryPosition = scrollPosition + (uiMutableRef.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
 					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
@@ -422,7 +427,7 @@ const useSpottable = (props) => {
 			// scrondaryPosition should be 0 here.
 			gridPosition.secondaryPosition = 0;
 
-			return uiChildAdapter.current.gridPositionToItemPosition(gridPosition);
+			return uiMutableRef.current.gridPositionToItemPosition(gridPosition);
 		}
 	}
 
@@ -439,7 +444,7 @@ const useSpottable = (props) => {
 	}
 
 	function getScrollBounds () {
-		return uiChildAdapter.current.getScrollBounds();
+		return uiMutableRef.current.getScrollBounds();
 	}
 
 	// Return
