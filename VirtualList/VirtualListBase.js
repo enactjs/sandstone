@@ -531,8 +531,8 @@ const useSpottableVirtualList = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
+	delete rest.setChildAdapter;
 	delete rest.spotlightId;
-	delete rest.uiScrollAdapter;
 	delete rest.wrap;
 
 	return {

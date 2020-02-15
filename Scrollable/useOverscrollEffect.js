@@ -1,6 +1,8 @@
 import {Job} from '@enact/core/util';
 import {constants} from '@enact/ui/Scrollable';
-import {useCallback, useEffect, useRef} from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
+
+import {ScrollContext} from './Scrollable';
 
 const
 	{overscrollTypeDone, overscrollTypeNone, overscrollTypeOnce} = constants,
@@ -8,7 +10,7 @@ const
 	overscrollTimeout = 300;
 
 const useOverscrollEffect = (props, instances) => {
-	const {overscrollRefs, uiScrollAdapter} = instances;
+	const {overscrollRefs, uiScrollAdapter} = useContext(ScrollContext);
 
 	// Mutable value
 

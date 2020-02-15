@@ -22,13 +22,13 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {getRect} from '@enact/spotlight/src/utils';
 import {ResizeContext} from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
-import {ScrollContext, ScrollContextDecorator} from '@enact/ui/Scrollable';
+import {ScrollContext as uiScrollContext, ScrollContextDecorator as uiScrollContextDecorator} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import {ScrollerBase as UiScrollerBase} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
 import React, {Component, useCallback, useContext, useEffect} from 'react';
 
-import useScroll from '../Scrollable';
+import {ScrollContext, ScrollContextDecorator, useScroll} from '../Scrollable';
 import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
@@ -87,7 +87,7 @@ class ScrollerBase extends Component {
 }
 
 const useSpottable = (props, instances) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);;
 
 	// Hooks
 
@@ -351,7 +351,6 @@ const useSpottableScroller = (props) => {
 	delete propsObject.onUpdate;
 	delete propsObject.setChildAdapter;
 	delete propsObject.spotlightId;
-	delete propsObject.uiScrollAdapter;
 
 	return propsObject;
 };
@@ -401,7 +400,7 @@ let Scroller = (props) => {
 		childWrapper: ChildWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
-	} = useContext(ScrollContext);
+	} = useContext(uiScrollContext);
 
 	const {
 		resizeContextProps,
@@ -488,7 +487,7 @@ Scroller = Skinnable(
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
-			ScrollContextDecorator(Scroller)
+			ScrollContextDecorator(uiScrollContextDecorator(Scroller))
 		)
 	)
 );

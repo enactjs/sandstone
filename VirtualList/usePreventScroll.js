@@ -1,8 +1,9 @@
+import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
-import {useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 
 const usePreventScroll = (props, instances, context) => {
-	const {uiChildContainerRef} = instances;
+	const {uiChildContainerRef} = useContext(uiScrollContext);
 	const {type} = context;
 
 	// Hooks

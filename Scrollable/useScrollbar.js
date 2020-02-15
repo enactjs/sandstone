@@ -1,7 +1,10 @@
 import Spotlight from '@enact/spotlight';
+import {useContext} from 'react';
+
+import {ScrollContext} from './Scrollable';
 
 const useScrollbar = (props, instances, context) => {
-	const {uiScrollAdapter} = instances;
+	const {uiScrollAdapter} = useContext(ScrollContext);
 	const {isContent} = context;
 
 	const scrollbarProps = {

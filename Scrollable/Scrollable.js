@@ -7,12 +7,13 @@
  */
 
 import {forward} from '@enact/core/handle';
+import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import {ScrollContext, useScrollBase, utilDecorateChildProps} from '@enact/ui/Scrollable';
+import {ScrollContext as uiScrollContext, useScrollBase, utilDecorateChildProps} from '@enact/ui/Scrollable';
 import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
@@ -179,9 +180,86 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 	}
 }
 
+const ScrollContext = React.createContext();
+
+/**
+ * Default config for {@link sandstone/ScrollContextDecorator.ScrollContextDecorator}.
+ *
+ * @memberof sandstone/ScrollContextDecorator.ScrollContextDecorator
+ * @hocconfig
+ */
+const defaultConfig = {
+	/**
+	 * Configures ...
+	 *
+	 * @type {String}
+	 * @default 'children'
+	 * @memberof sandstone/A11yDecorator.A11yDecorator.defaultConfig
+	 */
+	tbd: 'tbd'
+};
+
+const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
+	return (props) => {
+		const [childAdapter, setChildAdapter] = useChildAdapter();
+
+		const uiScrollAdapter = useRef({
+			animator: null,
+			applyOverscrollEffect: null,
+			bounds: null,
+			calculateDistanceByWheel: null,
+			canScrollHorizontally: null,
+			canScrollVertically: null,
+			checkAndApplyOverscrollEffect: null,
+			getScrollBounds: null,
+			isDragging: null,
+			isScrollAnimationTargetAccumulated: null,
+			isUpdatedScrollThumb: null,
+			lastInputType: null,
+			rtl: null,
+			scrollBounds: null,
+			scrollHeight: null,
+			scrolling: null,
+			scrollLeft: null,
+			scrollPos: null,
+			scrollTo: null,
+			scrollToAccumulatedTarget: null,
+			scrollToInfo: null,
+			scrollTop: null,
+			setOverscrollStatus: null,
+			showThumb: null,
+			start: null,
+			startHidingThumb: null,
+			stop: null,
+			wheelDirection: null
+		});
+
+		const setUiScrollAdapter = (adapter) => {
+			uiScrollAdapter.current = adapter;
+		};
+
+		const overscrollRefs = {
+			horizontal: React.useRef(),
+			vertical: React.useRef()
+		};
+
+		return (
+			<ScrollContext.Provider value={{
+				childAdapter,
+				overscrollRefs,
+				setChildAdapter,
+				setUiScrollAdapter,
+				uiScrollAdapter
+			}}>
+				<Wrapped {...props} />;
+			</ScrollContext.Provider>
+		);
+	};
+});
+
 const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, uiScrollAdapter} = instances;
-	const {uiChildContainerRef, uiScrollContainerRef} = useContext(ScrollContext);
+	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
+	const {uiChildContainerRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
 
@@ -381,53 +459,14 @@ const useScroll = (props) => {
 			...rest
 		} = props;
 
-	// Mutable value
-
-	const overscrollRefs = {
-		horizontal: React.useRef(),
-		vertical: React.useRef()
-	};
-
-	// Adapters
-
-	const [childAdapter, setChildAdapter] = useChildAdapter();
-
-	const uiScrollAdapter = useRef({
-		animator: null,
-		applyOverscrollEffect: null,
-		bounds: null,
-		calculateDistanceByWheel: null,
-		canScrollHorizontally: null,
-		canScrollVertically: null,
-		checkAndApplyOverscrollEffect: null,
-		getScrollBounds: null,
-		isDragging: null,
-		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollThumb: null,
-		lastInputType: null,
-		rtl: null,
-		scrollBounds: null,
-		scrollHeight: null,
-		scrolling: null,
-		scrollLeft: null,
-		scrollPos: null,
-		scrollTo: null,
-		scrollToAccumulatedTarget: null,
-		scrollToInfo: null,
-		scrollTop: null,
-		setOverscrollStatus: null,
-		showThumb: null,
-		start: null,
-		startHidingThumb: null,
-		stop: null,
-		wheelDirection: null
-	});
-
-	const setUiScrollAdapter = (adapter) => {
-		uiScrollAdapter.current = adapter;
-	};
-
 	// Hooks
+
+	const {
+		setChildAdapter,
+		setUiScrollAdapter,
+		uiScrollAdapter,
+		overscrollRefs
+	} = useContext(ScrollContext);
 
 	const {
 		uiScrollContainerRef,
@@ -435,24 +474,13 @@ const useScroll = (props) => {
 		uiChildContainerRef,
 		horizontalScrollbarRef,
 		setUiChildAdapter,
-		verticalScrollbarRef
-	} = useContext(ScrollContext);
+		verticalScrollbarRef,
+
+		isHorizontalScrollbarVisible
+	} = useContext(uiScrollContext);
 
 	const instance = {
-		// Ref
-		uiScrollContainerRef,
-		overscrollRefs,
-		uiChildContainerRef,
-
-		// Adapter
-		childAdapter,
-		uiScrollAdapter,
-		uiChildAdapter
 	};
-
-	const {
-		isHorizontalScrollbarVisible
-	} = useContext(ScrollContext);
 
 	const
 		decoratedChildProps = {},
@@ -577,5 +605,7 @@ export {
 	dataIndexAttribute,
 	ScrollableBase as Scrollable,
 	ScrollableBase,
+	ScrollContext,
+	ScrollContextDecorator,
 	useScroll
 };

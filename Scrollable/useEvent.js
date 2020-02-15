@@ -5,17 +5,20 @@ import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
-import {constants, ScrollContext} from '@enact/ui/Scrollable';
+import {constants, ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import {useContext, useEffect, useRef} from 'react';
+
+import {ScrollContext} from './Scrollable';
 
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
-	const {childAdapter, spottable, uiScrollAdapter} = instances;
-	const {uiScrollContainerRef, uiChildContainerRef} = useContext(ScrollContext);
+	const {spottable} = instances;
+	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
+	const {uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {alertThumb, isWheeling, type} = context;
 
 	// Functions
@@ -156,7 +159,9 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
-	const {childAdapter, spottable, uiChildContainerRef, uiScrollAdapter} = instances;
+	const {spottable} = instances;
+	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);;
+	const {uiChildContainerRef} = useContext(uiScrollContext);;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
 
 	// Functions
@@ -335,7 +340,7 @@ const pageKeyHandler = (ev) => {
 };
 
 const useEventMonitor = (props, instances, context) => {
-	const {uiScrollContainerRef} = instances;
+	const {uiScrollContainerRef} = useContext(uiScrollContext);
 	const {lastPointer: lastPointerProp, scrollByPageOnPointerMode} = context;
 
 	// Mutable value
@@ -370,7 +375,7 @@ onWindowReady(() => {
 });
 
 const useEventMouse = (props, instances, context) => {
-	const {childAdapter, uiScrollAdapter} = instances;
+	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
 	const {type} = context;
 
 	// Functions
@@ -428,7 +433,8 @@ const useEventTouch = () => {
 };
 
 const useEventVoice = (props, instances) => {
-	const {uiScrollContainerRef, uiScrollAdapter} = instances;
+	const {uiScrollAdapter} = useContext(ScrollContext);
+	const {uiScrollContainerRef} = useContext(uiScrollContext);
 
 	// Mutable value
 
@@ -562,7 +568,7 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances, context) => {
-	const {childAdapter, uiScrollAdapter} = instances;
+	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
 	const {type} = context;
 
 	// Mutable value

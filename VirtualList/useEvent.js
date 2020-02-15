@@ -1,7 +1,7 @@
 import {is} from '@enact/core/keymap';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
-import {ScrollContext} from '@enact/ui/Scrollable';
+import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import clamp from 'ramda/src/clamp';
@@ -112,7 +112,7 @@ const useEventKey = (props, instances, context) => {
 	const {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
-	} = useContext(ScrollContext);
+	} = useContext(uiScrollContext);
 
 	useEffect(() => {
 		function handleKeyDown (ev) {

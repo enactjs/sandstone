@@ -2,8 +2,10 @@ import {useContext, useEffect} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator/SharedStateDecorator';
 
+import {ScrollContext} from './Scrollable';
+
 const useSpotlightRestore = (props, instances) => {
-	const {uiScrollAdapter} = instances;
+	const {uiScrollAdapter} = useContext(ScrollContext);
 	const context = useContext(SharedState);
 
 	// Hooks
