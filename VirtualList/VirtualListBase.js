@@ -1,11 +1,11 @@
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
-import Pause from '@enact/spotlight/Pause';
 import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
+import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import PropTypes from 'prop-types';
-import React, {Component, useCallback, useEffect, useRef} from 'react';
+import React, {Component, useCallback, useContext, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute} from '../Scrollable';
+import {dataIndexAttribute, ScrollContext} from '../Scrollable';
 
 import {useEventKey} from './useEvent';
 import usePreventScroll from './usePreventScroll';
@@ -190,28 +190,17 @@ const
 	getNumberValue = (index) => index | 0,
 	spottableSelector = `.${spottableClass}`;
 
-const useSpottable = (props, instances, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+const useSpottable = (props, context) => {
+	const {mutableRef} = useContext(ScrollContext);
+	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
 	const {type} = context;
-
-	// Mutable value
-
-	const mutableRef = useRef({
-		isScrolledBy5way: false,
-		isScrolledByJump: false,
-		isWrappedBy5way: false,
-		lastFocusedIndex: null,
-		nodeIndexToBeFocused: false,
-		pause: new Pause('VirtualListBase')
-	});
-
 	const {pause} = mutableRef.current;
 
 	// Hooks
 
-	useSpotlightConfig(props, {spottable: mutableRef});
+	useSpotlightConfig(props);
 
-	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances, {
+	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, {
 		handlePageUpDownKeyDown: () => {
 			mutableRef.current.isScrolledBy5way = false;
 		},
@@ -248,7 +237,7 @@ const useSpottable = (props, instances, context) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
+	} = useSpotlightRestore(props);
 
 	const setContainerDisabled = useCallback((bool) => {
 		const
@@ -497,9 +486,9 @@ const useSpottableVirtualList = (props) => {
 		shouldPreventScrollByFocus,
 		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
-	} = useSpottable(props, instance, {type});
+	} = useSpottable(props, {type});
 
-	usePreventScroll(props, instance, {type});
+	usePreventScroll(props, {type});
 
 	const adapter = {
 		calculatePositionOnFocus,

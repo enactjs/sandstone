@@ -9,7 +9,7 @@ const
 	overscrollRatioPrefix = '--scroll-overscroll-ratio-',
 	overscrollTimeout = 300;
 
-const useOverscrollEffect = (props, instances) => {
+const useOverscrollEffect = (props) => {
 	const {overscrollRefs, uiScrollAdapter} = useContext(ScrollContext);
 
 	// Mutable value

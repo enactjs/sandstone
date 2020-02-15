@@ -15,9 +15,8 @@ import {ScrollContext} from './Scrollable';
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
-const useEventFocus = (props, instances, context) => {
-	const {spottable} = instances;
-	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
+const useEventFocus = (props, context) => {
+	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
 	const {uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {alertThumb, isWheeling, type} = context;
 
@@ -38,11 +37,11 @@ const useEventFocus = (props, instances, context) => {
 					uiScrollAdapter.current.start({
 						targetX: left,
 						targetY: top,
-						animate: (animationDuration > 0) && spottable.current.animateOnFocus,
+						animate: (animationDuration > 0) && mutableRef.current.animateOnFocus,
 						overscrollEffect: props.overscrollEffectOn[uiScrollAdapter.current.lastInputType] &&
 							(!childAdapter.current.shouldPreventOverscrollEffect || !childAdapter.current.shouldPreventOverscrollEffect())
 					});
-					spottable.current.lastScrollPositionOnFocus = pos;
+					mutableRef.current.lastScrollPositionOnFocus = pos;
 				}
 			} else {
 				const
@@ -53,11 +52,11 @@ const useEventFocus = (props, instances, context) => {
 					uiScrollAdapter.current.start({
 						targetX: left,
 						targetY: top,
-						animate: spottable.current.animateOnFocus,
+						animate: mutableRef.current.animateOnFocus,
 						overscrollEffect: props.overscrollEffectOn[uiScrollAdapter.current.lastInputType] &&
 							(!childAdapter.current.shouldPreventOverscrollEffect || !childAdapter.current.shouldPreventOverscrollEffect())
 					});
-					spottable.current.lastScrollPositionOnFocus = pos;
+					mutableRef.current.lastScrollPositionOnFocus = pos;
 				}
 			}
 		}
@@ -70,7 +69,7 @@ const useEventFocus = (props, instances, context) => {
 			spotItem = Spotlight.getCurrent();
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(childContainerNode, spotItem)) {
-			const lastPos = spottable.current.lastScrollPositionOnFocus;
+			const lastPos = mutableRef.current.lastScrollPositionOnFocus;
 			let pos;
 
 			// If scroll animation is ongoing, we need to pass last target position to
@@ -118,7 +117,7 @@ const useEventFocus = (props, instances, context) => {
 
 		if (type === 'JS' && isWheeling) {
 			uiScrollAdapter.current.stop();
-			spottable.current.animateOnFocus = false;
+			mutableRef.current.animateOnFocus = false;
 		}
 
 		if (!Spotlight.getPointerMode()) {
@@ -158,9 +157,8 @@ const useEventFocus = (props, instances, context) => {
 	};
 };
 
-const useEventKey = (props, instances, context) => {
-	const {spottable} = instances;
-	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);;
+const useEventKey = (props, context) => {
+	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);;
 	const {uiChildContainerRef} = useContext(uiScrollContext);;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
 
@@ -175,7 +173,7 @@ const useEventKey = (props, instances, context) => {
 			ev.preventDefault();
 		}
 
-		spottable.current.animateOnFocus = true;
+		mutableRef.current.animateOnFocus = true;
 
 		if (!repeat && hasFocus()) {
 			let direction = null;
@@ -257,10 +255,10 @@ const useEventKey = (props, instances, context) => {
 						childAdapter.current.setContainerDisabled(true);
 					}
 
-					spottable.current.pointToFocus = {direction, x, y};
+					mutableRef.current.pointToFocus = {direction, x, y};
 				}
 			} else {
-				spottable.current.pointToFocus = {direction, x: lastPointer.x, y: lastPointer.y};
+				mutableRef.current.pointToFocus = {direction, x: lastPointer.x, y: lastPointer.y};
 			}
 
 			uiScrollAdapter.current.scrollToAccumulatedTarget(pageDistance, true, props.overscrollEffectOn.pageKey);
@@ -273,7 +271,7 @@ const useEventKey = (props, instances, context) => {
 		forward('onKeyDown', ev, props);
 		ev.preventDefault();
 
-		spottable.current.animateOnFocus = true;
+		mutableRef.current.animateOnFocus = true;
 
 		if (!repeat && (props.direction === 'vertical' || props.direction === 'both')) {
 			const direction = isPageUp(keyCode) ? 'up' : 'down';
@@ -339,7 +337,7 @@ const pageKeyHandler = (ev) => {
 	}
 };
 
-const useEventMonitor = (props, instances, context) => {
+const useEventMonitor = (props, context) => {
 	const {uiScrollContainerRef} = useContext(uiScrollContext);
 	const {lastPointer: lastPointerProp, scrollByPageOnPointerMode} = context;
 
@@ -374,7 +372,7 @@ onWindowReady(() => {
 	utilEvent('keydown').addEventListener(document, pageKeyHandler);
 });
 
-const useEventMouse = (props, instances, context) => {
+const useEventMouse = (props, context) => {
 	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
 	const {type} = context;
 
@@ -432,7 +430,7 @@ const useEventTouch = () => {
 	};
 };
 
-const useEventVoice = (props, instances) => {
+const useEventVoice = (props) => {
 	const {uiScrollAdapter} = useContext(ScrollContext);
 	const {uiScrollContainerRef} = useContext(uiScrollContext);
 
@@ -567,7 +565,7 @@ const useEventVoice = (props, instances) => {
 	};
 };
 
-const useEventWheel = (props, instances, context) => {
+const useEventWheel = (props, context) => {
 	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
 	const {type} = context;
 

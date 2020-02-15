@@ -86,7 +86,7 @@ class ScrollerBase extends Component {
 	}
 }
 
-const useSpottable = (props, instances) => {
+const useSpottable = (props) => {
 	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);;
 
 	// Hooks

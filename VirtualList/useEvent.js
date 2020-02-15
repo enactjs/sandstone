@@ -17,8 +17,8 @@ const
 	isUp = is('up'),
 	getNumberValue = (index) => index | 0;
 
-const useEventKey = (props, instances, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+const useEventKey = (props, context) => {
+	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,

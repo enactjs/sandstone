@@ -10,6 +10,7 @@ import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
@@ -243,9 +244,31 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			vertical: React.useRef()
 		};
 
+		const mutableRef = useRef({
+			animateOnFocus: false,
+			indexToFocus: null,
+			lastScrollPositionOnFocus: null,
+			nodeToFocus: null,
+			pointToFocus: null,
+
+			// For VirtualList
+			...(props.itemRenderer ?
+				{
+					isScrolledBy5way: false,
+					isScrolledByJump: false,
+					isWrappedBy5way: false,
+					lastFocusedIndex: null,
+					nodeIndexToBeFocused: false,
+					pause: new Pause('VirtualListBase')
+				} :
+				{}
+			)
+		});
+
 		return (
 			<ScrollContext.Provider value={{
 				childAdapter,
+				mutableRef,
 				overscrollRefs,
 				setChildAdapter,
 				setUiScrollAdapter,
@@ -257,46 +280,36 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	};
 });
 
-const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
+const useSpottableScroll = (props, context) => {
+	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
 	const {uiChildContainerRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
-
-	// Mutable value
-
-	const mutableRef = useRef({
-		animateOnFocus: false,
-		indexToFocus: null,
-		lastScrollPositionOnFocus: null,
-		nodeToFocus: null,
-		pointToFocus: null
-	});
 
 	// Hooks
 
 	const {
 		alertThumb,
 		scrollbarProps
-	} = useScrollbar(props, instances, {isContent});
+	} = useScrollbar(props, {isContent});
 
-	useSpotlightRestore(props, instances);
+	useSpotlightRestore(props);
 
 	const {
 		applyOverscrollEffect,
 		checkAndApplyOverscrollEffectByDirection,
 		clearOverscrollEffect
-	} = useOverscrollEffect({}, instances);
+	} = useOverscrollEffect({});
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {type});
+	const {handleWheel, isWheeling} = useEventWheel(props, {type});
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, type});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {alertThumb, isWheeling, type});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type});
 
-	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
+	useEventMonitor({}, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {type});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, {type});
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -304,7 +317,7 @@ const useSpottableScroll = (props, instances, context) => {
 		addVoiceEventListener,
 		removeVoiceEventListener,
 		stopVoice
-	} = useEventVoice(props, instances);
+	} = useEventVoice(props);
 
 	// Functions
 
@@ -505,7 +518,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // Native
 		stop // JS
-	} = useSpottableScroll(props, instance, {type});
+	} = useSpottableScroll(props, {type});
 
 	// Render
 

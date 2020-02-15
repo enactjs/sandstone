@@ -3,7 +3,7 @@ import {useContext} from 'react';
 
 import {ScrollContext} from './Scrollable';
 
-const useScrollbar = (props, instances, context) => {
+const useScrollbar = (props, context) => {
 	const {uiScrollAdapter} = useContext(ScrollContext);
 	const {isContent} = context;
 
