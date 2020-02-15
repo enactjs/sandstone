@@ -190,10 +190,10 @@ const
 	getNumberValue = (index) => index | 0,
 	spottableSelector = `.${spottableClass}`;
 
-const useSpottable = (props, context) => {
+const useSpottable = (props) => {
 	const {mutableRef} = useContext(ScrollContext);
 	const {uiChildAdapter, uiChildContainerRef} = useContext(uiScrollContext);
-	const {type} = context;
+	const {type} = props;
 	const {pause} = mutableRef.current;
 
 	// Hooks
@@ -486,9 +486,9 @@ const useSpottableVirtualList = (props) => {
 		shouldPreventScrollByFocus,
 		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
-	} = useSpottable(props, {type});
+	} = useSpottable(props);
 
-	usePreventScroll(props, {type});
+	usePreventScroll(props);
 
 	const adapter = {
 		calculatePositionOnFocus,

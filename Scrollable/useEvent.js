@@ -18,7 +18,8 @@ let lastPointer = {x: 0, y: 0};
 const useEventFocus = (props, context) => {
 	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
 	const {uiScrollContainerRef, uiChildContainerRef} = useContext(uiScrollContext);
-	const {alertThumb, isWheeling, type} = context;
+	const {alertThumb} = context;
+	const {type} = props;
 
 	// Functions
 
@@ -115,7 +116,7 @@ const useEventFocus = (props, context) => {
 			childAdapter.current.shouldPreventScrollByFocus() :
 			false;
 
-		if (type === 'JS' && isWheeling) {
+		if (type === 'JS' && mutableRef.isWheeling) {
 			uiScrollAdapter.current.stop();
 			mutableRef.current.animateOnFocus = false;
 		}
@@ -158,9 +159,10 @@ const useEventFocus = (props, context) => {
 };
 
 const useEventKey = (props, context) => {
-	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);;
+	const {childAdapter, isContent, mutableRef, uiScrollAdapter} = useContext(ScrollContext);;
 	const {uiChildContainerRef} = useContext(uiScrollContext);;
-	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
+	const {checkAndApplyOverscrollEffectByDirection, hasFocus} = context;
+	const {type} = props;
 
 	// Functions
 
@@ -372,9 +374,9 @@ onWindowReady(() => {
 	utilEvent('keydown').addEventListener(document, pageKeyHandler);
 });
 
-const useEventMouse = (props, context) => {
+const useEventMouse = (props) => {
 	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
-	const {type} = context;
+	const {type} = props;
 
 	// Functions
 
@@ -565,13 +567,9 @@ const useEventVoice = (props) => {
 	};
 };
 
-const useEventWheel = (props, context) => {
-	const {childAdapter, uiScrollAdapter} = useContext(ScrollContext);
-	const {type} = context;
-
-	// Mutable value
-
-	const mutableRef = useRef({isWheeling: false});
+const useEventWheel = (props) => {
+	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
+	const {type} = props;
 
 	// Functions
 
@@ -684,8 +682,7 @@ const useEventWheel = (props, context) => {
 	// Return
 
 	return {
-		handleWheel: type === 'JS' ? handleWheel : handleWheelNative,
-		isWheeling: mutableRef.current.isWheeling
+		handleWheel: type === 'JS' ? handleWheel : handleWheelNative
 	};
 };
 

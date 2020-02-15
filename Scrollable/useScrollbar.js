@@ -3,9 +3,8 @@ import {useContext} from 'react';
 
 import {ScrollContext} from './Scrollable';
 
-const useScrollbar = (props, context) => {
-	const {uiScrollAdapter} = useContext(ScrollContext);
-	const {isContent} = context;
+const useScrollbar = (props) => {
+	const {isContent, uiScrollAdapter} = useContext(ScrollContext);
 
 	const scrollbarProps = {
 		cbAlertThumb: alertThumbAfterRendered

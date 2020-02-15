@@ -244,12 +244,19 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			vertical: React.useRef()
 		};
 
+		const isContent = (element) => {
+			return (element && utilDOM.containsDangerously(uiChildContainerRef, element));
+		};
+
 		const mutableRef = useRef({
 			animateOnFocus: false,
 			indexToFocus: null,
 			lastScrollPositionOnFocus: null,
 			nodeToFocus: null,
 			pointToFocus: null,
+
+			isContent,
+			isWheeling: false,
 
 			// For VirtualList
 			...(props.itemRenderer ?
@@ -280,10 +287,10 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	};
 });
 
-const useSpottableScroll = (props, context) => {
+const useSpottableScroll = (props) => {
 	const {childAdapter, mutableRef, uiScrollAdapter} = useContext(ScrollContext);
 	const {uiChildContainerRef, uiScrollContainerRef} = useContext(uiScrollContext);
-	const {type} = context;
+	const {type} = props;
 	const contextSharedState = useContext(SharedState);
 
 	// Hooks
@@ -291,7 +298,7 @@ const useSpottableScroll = (props, context) => {
 	const {
 		alertThumb,
 		scrollbarProps
-	} = useScrollbar(props, {isContent});
+	} = useScrollbar(props);
 
 	useSpotlightRestore(props);
 
@@ -301,15 +308,15 @@ const useSpottableScroll = (props, context) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({});
 
-	const {handleWheel, isWheeling} = useEventWheel(props, {type});
+	const {handleWheel} = useEventWheel(props);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {alertThumb, isWheeling, type});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {alertThumb});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {checkAndApplyOverscrollEffectByDirection, hasFocus});
 
 	useEventMonitor({}, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, {type});
+	const {handleFlick, handleMouseDown} = useEventMouse(props);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -320,10 +327,6 @@ const useSpottableScroll = (props, context) => {
 	} = useEventVoice(props);
 
 	// Functions
-
-	function isContent (element) {
-		return (element && utilDOM.containsDangerously(uiChildContainerRef, element));
-	}
 
 	function scrollTo (opt) {
 		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
@@ -518,7 +521,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // Native
 		stop // JS
-	} = useSpottableScroll(props, {type});
+	} = useSpottableScroll(props);
 
 	// Render
 
