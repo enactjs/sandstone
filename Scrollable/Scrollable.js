@@ -36,7 +36,8 @@ const
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
-	};
+	},
+	nop = () => {};
 
 /**
  * The name of a custom attribute which indicates the index of an item in
@@ -218,22 +219,22 @@ const ScrollContextDecorator = hoc((config, Wrapped) => {
 			// sandstone/VirtualList and sandstone/ Scroller functions
 			// which could be called from sandstone/Scrollable
 
-			focusOnNode,
-			setContainerDisabled,
+			focusOnNode: nop,
+			setContainerDisabled: nop,
 
 			// sandstone/Scroller functions which could be called from sandstone/Scrollable
 
-			calculatePositionOnFocus,
+			calculatePositionOnFocus: nop,
 
 			// sandstone/VirtualList functions which could be called from sandstone/Scrollable
 
-			focusByIndex,
-			focusOnNode,
-			getScrollBounds,
-			setContainerDisabled,
-			setLastFocusedNode,
-			shouldPreventOverscrollEffect,
-			shouldPreventScrollByFocus
+			focusByIndex: nop,
+			focusOnNode: nop,
+			getScrollBounds: nop,
+			setContainerDisabled: nop,
+			setLastFocusedNode: nop,
+			shouldPreventOverscrollEffect: nop,
+			shouldPreventScrollByFocus: nop
 		});
 
 		return (

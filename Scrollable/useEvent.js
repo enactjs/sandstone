@@ -224,9 +224,9 @@ const useEventKey = (props, context) => {
 
 		uiScrollMutableRef.current.lastInputType = 'pageKey';
 
-		if (directionFactor !== scrollMutableRef.current.wheelDirection) {
+		if (directionFactor !== uiScrollMutableRef.current.wheelDirection) {
 			uiScrollMutableRef.current.isScrollAnimationTargetAccumulated = false;
-			scrollMutableRef.current.wheelDirection = directionFactor;
+			uiScrollMutableRef.current.wheelDirection = directionFactor;
 		}
 
 		if (scrollPossible) {
@@ -668,9 +668,9 @@ const useEventWheel = (props) => {
 			const direction = Math.sign(delta);
 
 			// Not to accumulate scroll position if wheel direction is different from hold direction
-			if (direction !== scrollMutableRef.current.wheelDirection) {
+			if (direction !== uiScrollMutableRef.current.wheelDirection) {
 				uiScrollMutableRef.current.isScrollAnimationTargetAccumulated = false;
-				scrollMutableRef.current.wheelDirection = direction;
+				uiScrollMutableRef.current.wheelDirection = direction;
 			}
 
 			uiScrollMutableRef.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
