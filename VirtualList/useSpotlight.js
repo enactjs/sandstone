@@ -6,7 +6,7 @@ import {useContext, useEffect, useRef} from 'react';
 import {ScrollContext} from '../Scrollable';
 
 const useSpotlightConfig = (props) => {
-	const {mutableRef: {current: {lastFocusedIndex}}} = useContext(ScrollContext);
+	const {scrollMutableRef: {current: {lastFocusedIndex}}} = useContext(ScrollContext);
 
 	// Hooks
 
@@ -70,12 +70,12 @@ const useSpotlightConfig = (props) => {
 const getNumberValue = (index) => index | 0;
 
 const useSpotlightRestore = (props) => {
-	const {mutableRef: listMutableRef} = useContext(ScrollContext);
+	const {scrollMutableRef: listMutableRef} = useContext(ScrollContext);
 	const {uiChildContainerRef} = useContext(uiScrollContext);
 
 	// Mutable value
 
-	const mutableRef = useRef({
+	const scrollMutableRef = useRef({
 		preservedIndex: false,
 		restoreLastFocused: false
 	});
@@ -93,8 +93,8 @@ const useSpotlightRestore = (props) => {
 			const index = placeholder.dataset.index;
 
 			if (index) {
-				mutableRef.current.preservedIndex = getNumberValue(index);
-				mutableRef.current.restoreLastFocused = true;
+				scrollMutableRef.current.preservedIndex = getNumberValue(index);
+				scrollMutableRef.current.restoreLastFocused = true;
 			}
 		}
 	}
@@ -111,19 +111,19 @@ const useSpotlightRestore = (props) => {
 
 	function restoreFocus () {
 		if (
-			mutableRef.current.restoreLastFocused &&
+			scrollMutableRef.current.restoreLastFocused &&
 			!isPlaceholderFocused()
 		) {
 			const
 				{spotlightId} = props,
 				node = uiChildContainerRef.current.querySelector(
-					`[data-spotlight-id="${spotlightId}"] [data-index="${mutableRef.current.preservedIndex}"]`
+					`[data-spotlight-id="${spotlightId}"] [data-index="${scrollMutableRef.current.preservedIndex}"]`
 				);
 
 			if (node) {
 				// if we're supposed to restore focus and virtual list has positioned a set of items
 				// that includes lastFocusedIndex, clear the indicator
-				mutableRef.current.restoreLastFocused = false;
+				scrollMutableRef.current.restoreLastFocused = false;
 
 				// try to focus the last focused item
 				listMutableRef.current.isScrolledByJump = true;
@@ -133,7 +133,7 @@ const useSpotlightRestore = (props) => {
 				// but if that fails (because it isn't found or is disabled), focus the container so
 				// spotlight isn't lost
 				if (!foundLastFocused) {
-					mutableRef.current.restoreLastFocused = true;
+					scrollMutableRef.current.restoreLastFocused = true;
 					Spotlight.focus(spotlightId);
 				}
 			}
@@ -141,20 +141,20 @@ const useSpotlightRestore = (props) => {
 	}
 
 	function handleRestoreLastFocus ({firstIndex, lastIndex}) {
-		if (mutableRef.current.restoreLastFocused && mutableRef.current.preservedIndex >= firstIndex && mutableRef.current.preservedIndex <= lastIndex) {
+		if (scrollMutableRef.current.restoreLastFocused && scrollMutableRef.current.preservedIndex >= firstIndex && scrollMutableRef.current.preservedIndex <= lastIndex) {
 			restoreFocus();
 		}
 	}
 
 	function updateStatesAndBounds ({dataSize, moreInfo, numOfItems}) {
-		return (mutableRef.current.restoreLastFocused && numOfItems > 0 && mutableRef.current.preservedIndex < dataSize && (
-			mutableRef.current.preservedIndex < moreInfo.firstVisibleIndex || mutableRef.current.preservedIndex > moreInfo.lastVisibleIndex
+		return (scrollMutableRef.current.restoreLastFocused && numOfItems > 0 && scrollMutableRef.current.preservedIndex < dataSize && (
+			scrollMutableRef.current.preservedIndex < moreInfo.firstVisibleIndex || scrollMutableRef.current.preservedIndex > moreInfo.lastVisibleIndex
 		));
 	}
 
 	function setPreservedIndex (index) {
-		mutableRef.current.preservedIndex = index;
-		mutableRef.current.restoreLastFocused = true;
+		scrollMutableRef.current.preservedIndex = index;
+		scrollMutableRef.current.restoreLastFocused = true;
 	}
 
 	// Return

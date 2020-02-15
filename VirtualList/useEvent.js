@@ -18,7 +18,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, context) => {
-	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,
@@ -28,7 +28,7 @@ const useEventKey = (props, context) => {
 
 	// Mutable value
 
-	const mutableRef = useRef({
+	const scrollMutableRef = useRef({
 		fn: null
 	});
 
@@ -45,7 +45,7 @@ const useEventKey = (props, context) => {
 
 	const getNextIndex = useCallback(({index, keyCode, repeat}) => {
 		const {dataSize, rtl, wrap} = props;
-		const {isVertical, getDimensionToExtent} = uiMutableRef.current;
+		const {isVertical, getDimensionToExtent} = uiScrollMutableRef.current;
 		const isPrimaryDirectionVertical = isVertical();
 		const dimensionToExtent = getDimensionToExtent();
 		const column = index % dimensionToExtent;
@@ -107,7 +107,7 @@ const useEventKey = (props, context) => {
 		}
 
 		return {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex};
-	}, [findSpottableItem, props, uiMutableRef]);
+	}, [findSpottableItem, props, uiScrollMutableRef]);
 
 	// Hooks
 
@@ -129,7 +129,7 @@ const useEventKey = (props, context) => {
 				} else {
 					const {repeat} = ev;
 					const {focusableScrollbar, spotlightId} = props;
-					const {getDimensionToExtent, isVertical} = uiMutableRef.current;
+					const {getDimensionToExtent, isVertical} = uiScrollMutableRef.current;
 					const isPrimaryDirectionVertical = isVertical();
 					const dimensionToExtent = getDimensionToExtent();
 					const targetIndex = target.dataset.index;
@@ -213,18 +213,18 @@ const useEventKey = (props, context) => {
 			utilEvent('keydown').removeEventListener(scrollerNode, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollerNode, handleKeyUp, {capture: true});
 		};
-	}, [uiChildContainerRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiMutableRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [uiChildContainerRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiScrollMutableRef.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 
 	function addGlobalKeyDownEventListener (fn) {
-		mutableRef.current.fn = fn;
-		utilEvent('keydown').addEventListener(document, mutableRef.current.fn, {capture: true});
+		scrollMutableRef.current.fn = fn;
+		utilEvent('keydown').addEventListener(document, scrollMutableRef.current.fn, {capture: true});
 	}
 
 	function removeGlobalKeyDownEventListener () {
-		utilEvent('keydown').removeEventListener(document, mutableRef.current.fn, {capture: true});
-		mutableRef.current.fn = null;
+		utilEvent('keydown').removeEventListener(document, scrollMutableRef.current.fn, {capture: true});
+		scrollMutableRef.current.fn = null;
 	}
 
 	// Return

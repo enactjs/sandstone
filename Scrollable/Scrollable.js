@@ -209,7 +209,7 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return (element && utilDOM.containsDangerously(container, element));
 		};
 
-		const mutableRef = useRef({
+		const scrollMutableRef = useRef({
 			animateOnFocus: false,
 			indexToFocus: null,
 			lastScrollPositionOnFocus: null,
@@ -235,7 +235,7 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		return (
 			<ScrollContext.Provider value={{
-				mutableRef,
+				scrollMutableRef,
 				overscrollRefs
 			}}>
 				<Wrapped {...props} />;
@@ -245,8 +245,8 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 });
 
 const useSpottableScroll = (props) => {
-	const {mutableRef} = useContext(ScrollContext);
-	const {mutableRef: uiMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
+	const {scrollMutableRef} = useContext(ScrollContext);
+	const {scrollMutableRef: uiScrollMutableRef, uiScrollContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
 	const contextSharedState = useContext(SharedState);
 
@@ -286,8 +286,8 @@ const useSpottableScroll = (props) => {
 	// Functions
 
 	function scrollTo (opt) {
-		mutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
-		mutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
+		scrollMutableRef.current.indexToFocus = (opt.focus && typeof opt.index === 'number') ? opt.index : null;
+		scrollMutableRef.current.nodeToFocus = (opt.focus && opt.node instanceof Object && opt.node.nodeType === 1) ? opt.node : null;
 	}
 
 	function start (animate) {
@@ -298,12 +298,12 @@ const useSpottableScroll = (props) => {
 
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
-			mutableRef.current.setContainerDisabled(false);
+			scrollMutableRef.current.setContainerDisabled(false);
 		}
 
 		focusOnItem();
-		mutableRef.current.lastScrollPositionOnFocus = null;
-		mutableRef.current.isWheeling = false;
+		scrollMutableRef.current.lastScrollPositionOnFocus = null;
+		scrollMutableRef.current.isWheeling = false;
 		stopVoice();
 	}
 
@@ -312,21 +312,21 @@ const useSpottableScroll = (props) => {
 	}
 
 	function focusOnItem () {
-		if (mutableRef.current.indexToFocus !== null && typeof mutableRef.current.focusByIndex === 'function') {
-			mutableRef.current.focusByIndex(mutableRef.current.indexToFocus);
-			mutableRef.current.indexToFocus = null;
+		if (scrollMutableRef.current.indexToFocus !== null && typeof scrollMutableRef.current.focusByIndex === 'function') {
+			scrollMutableRef.current.focusByIndex(scrollMutableRef.current.indexToFocus);
+			scrollMutableRef.current.indexToFocus = null;
 		}
 
-		if (mutableRef.current.nodeToFocus !== null && typeof mutableRef.current.focusOnNode === 'function') {
-			mutableRef.current.focusOnNode(mutableRef.current.nodeToFocus);
-			mutableRef.current.nodeToFocus = null;
+		if (scrollMutableRef.current.nodeToFocus !== null && typeof scrollMutableRef.current.focusOnNode === 'function') {
+			scrollMutableRef.current.focusOnNode(scrollMutableRef.current.nodeToFocus);
+			scrollMutableRef.current.nodeToFocus = null;
 		}
 
-		if (mutableRef.current.pointToFocus !== null) {
+		if (scrollMutableRef.current.pointToFocus !== null) {
 			// no need to focus on pointer mode
 			if (!Spotlight.getPointerMode()) {
 				const
-					{direction, x, y} = mutableRef.current.pointToFocus,
+					{direction, x, y} = scrollMutableRef.current.pointToFocus,
 					position = {x, y},
 					elemFromPoint = document.elementFromPoint(x, y),
 					target =
@@ -339,7 +339,7 @@ const useSpottableScroll = (props) => {
 				}
 			}
 
-			mutableRef.current.pointToFocus = null;
+			scrollMutableRef.current.pointToFocus = null;
 		}
 	}
 
@@ -358,18 +358,18 @@ const useSpottableScroll = (props) => {
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
-		if (uiMutableRef.current.scrollToInfo === null) {
-			const scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
+		if (uiScrollMutableRef.current.scrollToInfo === null) {
+			const scrollHeight = uiScrollMutableRef.current.getScrollBounds().scrollHeight;
 
-			if (scrollHeight !== uiMutableRef.current.bounds.scrollHeight) {
+			if (scrollHeight !== uiScrollMutableRef.current.bounds.scrollHeight) {
 				calculateAndScrollTo();
 			}
 		}
 
-		// oddly, Scroller manages uiMutableRef.current.bounds so if we don't update it here (it is also
+		// oddly, Scroller manages uiScrollMutableRef.current.bounds so if we don't update it here (it is also
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
-		uiMutableRef.current.bounds.scrollHeight = uiMutableRef.current.getScrollBounds().scrollHeight;
+		uiScrollMutableRef.current.bounds.scrollHeight = uiScrollMutableRef.current.getScrollBounds().scrollHeight;
 	}
 
 	function handleResizeWindow () {

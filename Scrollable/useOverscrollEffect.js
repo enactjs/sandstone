@@ -11,11 +11,11 @@ const
 
 const useOverscrollEffect = (props) => {
 	const {overscrollRefs} = useContext(ScrollContext);
-	const {mutableRef: uiMutableRef} = useContext(uiScrollContext);
+	const {scrollMutableRef: uiScrollMutableRef} = useContext(uiScrollContext);
 
 	// Mutable value
 
-	const mutableRef = useRef({
+	const scrollMutableRef = useRef({
 		overscrollJobs: {
 			horizontal: {before: null, after: null},
 			vertical: {before: null, after: null}
@@ -31,20 +31,20 @@ const useOverscrollEffect = (props) => {
 			nodeRef.style.setProperty(overscrollRatioPrefix + orientation + edge, ratio);
 
 			if (type === overscrollTypeOnce) {
-				mutableRef.current.overscrollJobs[orientation][edge].start(orientation, edge, overscrollTypeDone, 0);
+				scrollMutableRef.current.overscrollJobs[orientation][edge].start(orientation, edge, overscrollTypeDone, 0);
 			}
 		}
 	}, [overscrollRefs]);
 
 	useEffect(() => {
 		function createOverscrollJob (orientation, edge) {
-			if (!mutableRef.current.overscrollJobs[orientation][edge]) {
-				mutableRef.current.overscrollJobs[orientation][edge] = new Job(applyOverscrollEffect, overscrollTimeout);
+			if (!scrollMutableRef.current.overscrollJobs[orientation][edge]) {
+				scrollMutableRef.current.overscrollJobs[orientation][edge] = new Job(applyOverscrollEffect, overscrollTimeout);
 			}
 		}
 
 		function stopOverscrollJob (orientation, edge) {
-			const job = mutableRef.current.overscrollJobs[orientation][edge];
+			const job = scrollMutableRef.current.overscrollJobs[orientation][edge];
 
 			if (job) {
 				job.stop();
@@ -67,22 +67,22 @@ const useOverscrollEffect = (props) => {
 	// Functions
 
 	function clearOverscrollEffect (orientation, edge) {
-		mutableRef.current.overscrollJobs[orientation][edge].startAfter(overscrollTimeout, orientation, edge, overscrollTypeNone, 0);
-		uiMutableRef.current.setOverscrollStatus(orientation, edge, overscrollTypeNone, 0);
+		scrollMutableRef.current.overscrollJobs[orientation][edge].startAfter(overscrollTimeout, orientation, edge, overscrollTypeNone, 0);
+		uiScrollMutableRef.current.setOverscrollStatus(orientation, edge, overscrollTypeNone, 0);
 	}
 
 	function checkAndApplyOverscrollEffectByDirection (direction) {
 		const
 			orientation = (direction === 'up' || direction === 'down') ? 'vertical' : 'horizontal',
-			bounds = uiMutableRef.current.getScrollBounds(),
-			scrollability = orientation === 'vertical' ? uiMutableRef.current.canScrollVertically(bounds) : uiMutableRef.current.canScrollHorizontally(bounds);
+			bounds = uiScrollMutableRef.current.getScrollBounds(),
+			scrollability = orientation === 'vertical' ? uiScrollMutableRef.current.canScrollVertically(bounds) : uiScrollMutableRef.current.canScrollHorizontally(bounds);
 
 		if (scrollability) {
 			const
 				isRtl = props.rtl,
 				edge = (direction === 'up' || !isRtl && direction === 'left' || isRtl && direction === 'right') ? 'before' : 'after';
 
-			uiMutableRef.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
+			uiScrollMutableRef.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
 		}
 	}
 

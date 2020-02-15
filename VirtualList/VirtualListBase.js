@@ -191,10 +191,10 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props) => {
-	const {mutableRef} = useContext(ScrollContext);
-	const {mutableRef: uiMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
+	const {scrollMutableRef} = useContext(ScrollContext);
+	const {scrollMutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
 	const {type} = props;
-	const {pause} = mutableRef.current;
+	const {pause} = scrollMutableRef.current;
 
 	// Hooks
 
@@ -202,7 +202,7 @@ const useSpottable = (props) => {
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, {
 		handlePageUpDownKeyDown: () => {
-			mutableRef.current.isScrolledBy5way = false;
+			scrollMutableRef.current.isScrolledBy5way = false;
 		},
 		handleDirectionKeyDown: (ev, eventType, param) => {
 			switch (eventType) {
@@ -273,43 +273,43 @@ const useSpottable = (props) => {
 	// Functions
 
 	function getNodeIndexToBeFocused () {
-		return mutableRef.current.nodeIndexToBeFocused;
+		return scrollMutableRef.current.nodeIndexToBeFocused;
 	}
 
 	function setNodeIndexToBeFocused (index) {
-		mutableRef.current.nodeIndexToBeFocused = index;
+		scrollMutableRef.current.nodeIndexToBeFocused = index;
 	}
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {getDimensionToExtent, getPrimary, getScrollPositionTarget} = uiMutableRef.current;
+		const {getDimensionToExtent, getPrimary, getScrollPositionTarget} = uiScrollMutableRef.current;
 		const {clientSize, itemSize} = getPrimary();
 		const scrollPositionTarget = getScrollPositionTarget();
 		const dimensionToExtent = getDimensionToExtent();
 		const index = getNumberValue(target.dataset.index);
 
-		mutableRef.current.isScrolledBy5way = false;
-		mutableRef.current.isScrolledByJump = false;
+		scrollMutableRef.current.isScrolledBy5way = false;
+		scrollMutableRef.current.isScrolledByJump = false;
 
 		if (nextIndex >= 0) {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
-				start = uiMutableRef.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? uiMutableRef.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				start = uiScrollMutableRef.current.getGridPosition(nextIndex).primaryPosition,
+				end = props.itemSizes ? uiScrollMutableRef.current.getItemBottomPosition(nextIndex) : start + itemSize;
 
-			mutableRef.current.lastFocusedIndex = nextIndex;
+			scrollMutableRef.current.lastFocusedIndex = nextIndex;
 
 			if (start >= scrollPositionTarget && end <= scrollPositionTarget + clientSize) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
-				mutableRef.current.isScrolledBy5way = true;
+				scrollMutableRef.current.isScrolledBy5way = true;
 				focusByIndex(nextIndex);
-				mutableRef.current.isScrolledBy5way = false;
+				scrollMutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex);
 			} else {
-				mutableRef.current.isScrolledBy5way = true;
-				mutableRef.current.isWrappedBy5way = isWrapped;
+				scrollMutableRef.current.isScrolledBy5way = true;
+				scrollMutableRef.current.isWrappedBy5way = isWrapped;
 
 				if (isWrapped && (
 					uiChildContainerRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
@@ -353,15 +353,15 @@ const useSpottable = (props) => {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
 			setPreservedIndex(index);
 		} else {
-			if (mutableRef.current.isWrappedBy5way) {
+			if (scrollMutableRef.current.isWrappedBy5way) {
 				SpotlightAccelerator.reset();
-				mutableRef.current.isWrappedBy5way = false;
+				scrollMutableRef.current.isWrappedBy5way = false;
 			}
 
 			pause.resume();
 			focusOnNode(item);
 			setNodeIndexToBeFocused(null);
-			mutableRef.current.isScrolledByJump = false;
+			scrollMutableRef.current.isScrolledByJump = false;
 		}
 	}
 
@@ -373,31 +373,31 @@ const useSpottable = (props) => {
 				// If focusing the item of VirtuallistNative, `onFocus` in Scrollable will be called.
 				// Then VirtualListNative tries to scroll again differently from VirtualList.
 				// So we would like to skip `focus` handling when focusing the item as a workaround.
-				mutableRef.current.isScrolledByJump = true;
+				scrollMutableRef.current.isScrolledByJump = true;
 				focusByIndex(index);
 			}
 		}
 	}
 
 	function isNeededScrollingPlaceholder () {
-		return mutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
+		return scrollMutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
 	}
 
 	function calculatePositionOnFocus ({item, scrollPositionParam}) {
-		const scrollPosition = scrollPositionParam || uiMutableRef.current.getScrollPosition();
+		const scrollPosition = scrollPositionParam || uiScrollMutableRef.current.getScrollPosition();
 		const
 
 			{pageScroll} = props,
-			{numOfItems, getPrimary} = uiMutableRef.current,
+			{numOfItems, getPrimary} = uiScrollMutableRef.current,
 			primary = getPrimary(),
 			offsetToClientEnd = primary.clientSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
-			let gridPosition = uiMutableRef.current.getGridPosition(focusedIndex);
+			let gridPosition = uiScrollMutableRef.current.getGridPosition(focusedIndex);
 
-			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = uiMutableRef.current.getItemNode(mutableRef.current.lastFocusedIndex);
+			if (numOfItems > 0 && focusedIndex % numOfItems !== scrollMutableRef.current.lastFocusedIndex % numOfItems) {
+				const node = uiScrollMutableRef.current.getItemNode(scrollMutableRef.current.lastFocusedIndex);
 
 				if (node) {
 					node.blur();
@@ -405,7 +405,7 @@ const useSpottable = (props) => {
 			}
 
 			setNodeIndexToBeFocused(null);
-			mutableRef.current.lastFocusedIndex = focusedIndex;
+			scrollMutableRef.current.lastFocusedIndex = focusedIndex;
 
 			if (primary.clientSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
@@ -416,7 +416,7 @@ const useSpottable = (props) => {
 					} else {
 						// This code uses the trick to change the target position slightly which will not affect the actual result
 						// since a browser ignore `scrollTo` method if the target position is same as the current position.
-						gridPosition.primaryPosition = scrollPosition + (uiMutableRef.current.scrollPosition === scrollPosition ? 0.1 : 0);
+						gridPosition.primaryPosition = scrollPosition + (uiScrollMutableRef.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
 					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
@@ -427,24 +427,24 @@ const useSpottable = (props) => {
 			// scrondaryPosition should be 0 here.
 			gridPosition.secondaryPosition = 0;
 
-			return uiMutableRef.current.gridPositionToItemPosition(gridPosition);
+			return uiScrollMutableRef.current.gridPositionToItemPosition(gridPosition);
 		}
 	}
 
 	function shouldPreventScrollByFocus () {
-		return ((type === JS) ? (mutableRef.current.isScrolledBy5way) : (mutableRef.current.isScrolledBy5way || mutableRef.current.isScrolledByJump));
+		return ((type === JS) ? (scrollMutableRef.current.isScrolledBy5way) : (scrollMutableRef.current.isScrolledBy5way || scrollMutableRef.current.isScrolledByJump));
 	}
 
 	function shouldPreventOverscrollEffect () {
-		return mutableRef.current.isWrappedBy5way;
+		return scrollMutableRef.current.isWrappedBy5way;
 	}
 
 	function setLastFocusedNode (node) {
-		mutableRef.current.lastFocusedIndex = node.dataset && getNumberValue(node.dataset.index);
+		scrollMutableRef.current.lastFocusedIndex = node.dataset && getNumberValue(node.dataset.index);
 	}
 
 	function getScrollBounds () {
-		return uiMutableRef.current.getScrollBounds();
+		return uiScrollMutableRef.current.getScrollBounds();
 	}
 
 	// Return
@@ -471,7 +471,7 @@ const useSpottable = (props) => {
 const useSpottableVirtualList = (props) => {
 	// Hooks
 
-	const {mutableRef} = useContext(ScrollContext);
+	const {scrollMutableRef} = useContext(ScrollContext);
 
 	const {
 		calculatePositionOnFocus,
@@ -493,8 +493,8 @@ const useSpottableVirtualList = (props) => {
 
 	usePreventScroll(props);
 
-	mutableRef.current = {
-		...mutableRef.current,
+	scrollMutableRef.current = {
+		...scrollMutableRef.current,
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,

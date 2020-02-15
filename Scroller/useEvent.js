@@ -4,20 +4,20 @@ import {useRef} from 'react';
 const useEventKey = () => {
 	// Mutable value
 
-	const mutableRef = useRef({
+	const scrollMutableRef = useRef({
 		fn: null
 	});
 
 	// Functions
 
 	function addGlobalKeyDownEventListener (fn) {
-		mutableRef.current.fn = fn;
-		utilEvent('keydown').addEventListener(document, mutableRef.current.fn, {capture: true});
+		scrollMutableRef.current.fn = fn;
+		utilEvent('keydown').addEventListener(document, scrollMutableRef.current.fn, {capture: true});
 	}
 
 	function removeGlobalKeyDownEventListener () {
-		utilEvent('keydown').removeEventListener(document, mutableRef.current.fn, {capture: true});
-		mutableRef.current.fn = null;
+		utilEvent('keydown').removeEventListener(document, scrollMutableRef.current.fn, {capture: true});
+		scrollMutableRef.current.fn = null;
 	}
 
 	// Return
