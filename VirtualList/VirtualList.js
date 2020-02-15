@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 import React, {useContext} from 'react';
 import warning from 'warning';
 
-import {ScrollContext, ScrollContextDecorator, useScroll} from '../Scrollable';
+import {ScrollContextDecorator, useScroll} from '../Scrollable';
 import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 

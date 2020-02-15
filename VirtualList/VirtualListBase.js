@@ -3,7 +3,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
 import {ScrollContext as uiScrollContext} from '@enact/ui/Scrollable';
 import PropTypes from 'prop-types';
-import React, {Component, useCallback, useContext, useEffect, useRef} from 'react';
+import React, {Component, useCallback, useContext, useEffect} from 'react';
 
 import {dataIndexAttribute, ScrollContext} from '../Scrollable';
 
@@ -133,6 +133,14 @@ class VirtualListCore extends Component {
 		 * @private
 		 */
 		rtl: PropTypes.bool,
+
+		/**
+		 * The context from the ScrollContext is needed to share the ScrollBase methods to Scrollable
+		 *
+		 * @type {Function}
+		 * @private
+		 */
+		scrollContext: PropTypes.object,
 
 		/**
 		 * Spacing between items.

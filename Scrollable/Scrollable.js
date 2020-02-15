@@ -198,7 +198,7 @@ const defaultConfig = {
 };
 
 const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	return (props) => {
+	const Wrapper = (props) => {
 		const overscrollRefs = {
 			horizontal: React.useRef(),
 			vertical: React.useRef()
@@ -233,13 +233,19 @@ const ScrollContextDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		});
 
 		return (
-			<ScrollContext.Provider value={{
-				scrollMutableRef,
-				overscrollRefs
-			}}>
+			<ScrollContext.Provider
+				value={{
+					scrollMutableRef,
+					overscrollRefs
+				}}
+			>
 				<Wrapped {...props} />;
 			</ScrollContext.Provider>
 		);
+	};
+
+	Wrapper.propTypes = {
+		itemRenderer: PropTypes.func
 	};
 });
 
