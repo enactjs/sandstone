@@ -7,11 +7,8 @@ import {ScrollContext} from './Scrollable';
 const useScrollbar = () => {
 	const {mutableRef: {current: {isContent}}} = useContext(ScrollContext);
 	const {mutableRef: uiScrollMutableRef, uiChildContainerRef} = useContext(uiScrollContext);
-	const {isUpdatedScrollThumb} = uiScrollMutableRef.current;
-
 	const scrollbarProps = {
-		cbAlertThumb:
-		alertThumbAfterRendered
+		cbAlertThumb: alertThumbAfterRendered
 	};
 
 	// Functions
@@ -26,7 +23,7 @@ const useScrollbar = () => {
 	function alertThumbAfterRendered () {
 		const spotItem = Spotlight.getCurrent();
 
-		if (!Spotlight.getPointerMode() && isContent(uiChildContainerRef, spotItem) && isUpdatedScrollThumb) {
+		if (!Spotlight.getPointerMode() && isContent(uiChildContainerRef, spotItem) && uiScrollMutableRef.current.isUpdatedScrollThumb) {
 			alertThumb();
 		}
 	}

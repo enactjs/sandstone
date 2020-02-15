@@ -201,7 +201,8 @@ const ScrollContextDecorator = hoc((config, Wrapped) => {
 			isContent,
 			isWheeling: false,
 
-			// For VirtualList
+			// mutable variables for sanstone/VirtualList
+
 			...(props.itemRenderer ?
 				{
 					isScrolledBy5way: false,
@@ -212,7 +213,27 @@ const ScrollContextDecorator = hoc((config, Wrapped) => {
 					pause: new Pause('VirtualListBase')
 				} :
 				{}
-			)
+			),
+
+			// sandstone/VirtualList and sandstone/ Scroller functions
+			// which could be called from sandstone/Scrollable
+
+			focusOnNode,
+			setContainerDisabled,
+
+			// sandstone/Scroller functions which could be called from sandstone/Scrollable
+
+			calculatePositionOnFocus,
+
+			// sandstone/VirtualList functions which could be called from sandstone/Scrollable
+
+			focusByIndex,
+			focusOnNode,
+			getScrollBounds,
+			setContainerDisabled,
+			setLastFocusedNode,
+			shouldPreventOverscrollEffect,
+			shouldPreventScrollByFocus
 		});
 
 		return (
