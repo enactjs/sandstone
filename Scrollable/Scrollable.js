@@ -12,10 +12,8 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import {useScrollBase} from '@enact/ui/Scrollable';
+import {ScrollContext, useScrollBase, utilDecorateChildProps} from '@enact/ui/Scrollable';
 import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
-import {utilDecorateChildProps} from '@enact/ui/Scrollable';
-import {ScrollContext} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
@@ -182,7 +180,8 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 }
 
 const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, uiChildContainerRef, uiScrollAdapter, uiScrollContainerRef} = instances;
+	const {childAdapter, uiScrollAdapter} = instances;
+	const {uiChildContainerRef, uiScrollContainerRef} = useContext(ScrollContext);
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
 
@@ -384,16 +383,10 @@ const useScroll = (props) => {
 
 	// Mutable value
 
-	const uiScrollContainerRef = useRef();
-	const uiChildContainerRef = useRef();
-
 	const overscrollRefs = {
 		horizontal: React.useRef(),
 		vertical: React.useRef()
 	};
-
-	const horizontalScrollbarRef = useRef();
-	const verticalScrollbarRef = useRef();
 
 	// Adapters
 
@@ -434,9 +427,16 @@ const useScroll = (props) => {
 		uiScrollAdapter.current = adapter;
 	};
 
-	const [uiChildAdapter, setUiChildAdapter] = useUiChildAdapter();
-
 	// Hooks
+
+	const {
+		uiScrollContainerRef,
+		uiChildAdapter,
+		uiChildContainerRef,
+		horizontalScrollbarRef,
+		setUiChildAdapter,
+		verticalScrollbarRef
+	} = useContext(ScrollContext);
 
 	const instance = {
 		// Ref

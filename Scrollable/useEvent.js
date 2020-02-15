@@ -5,16 +5,17 @@ import {clamp} from '@enact/core/util';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
-import {constants} from '@enact/ui/Scrollable';
+import {constants, ScrollContext} from '@enact/ui/Scrollable';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
-import {useEffect, useRef} from 'react';
+import {useContext, useEffect, useRef} from 'react';
 
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
-	const {childAdapter, spottable, uiScrollContainerRef, uiChildContainerRef, uiScrollAdapter} = instances;
+	const {childAdapter, spottable, uiScrollAdapter} = instances;
+	const {uiScrollContainerRef, uiChildContainerRef} = useContext(ScrollContext);
 	const {alertThumb, isWheeling, type} = context;
 
 	// Functions
