@@ -1,0 +1,53 @@
+// AlertOverlay.module.less
+//
+@import '../styles/variables.less';
+@import '../styles/mixins.less';
+@import '../styles/skin.less';
+
+.alertOverlay {
+	position: relative;
+	left: 50%;
+	width: fit-content;
+	border-radius: @sand-alert-overlay-border-radius;
+	margin-bottom: @sand-alert-overlay-margin-bottom;
+	transform: translate3d(-50%, 0, 0);
+	padding: @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-left-right;
+
+	.body {
+		width: fit-content;
+		margin: 0;
+	}
+
+	.alertOverlayBody {
+		margin: 33px 202px 33px 60px;
+		max-height: 710px;
+
+		.sand-alert-overlay-content();
+
+		:global(.enact-locale-ja) &,
+		:global(.enact-locale-zh) & {
+			overflow-wrap: normal;
+			word-break: normal;
+		}
+	}
+
+	.buttons {
+		box-sizing: border-box;
+		width: 450px;
+
+		& > * {
+			width: 100%;
+			margin: 15px 0;
+		}
+	}
+
+	:global(.enact-locale-right-to-left) & {
+		right: 50%;
+		transform: translate3d(50%, 0%, 0);
+	}
+
+	// Skin colors
+	.applySkins({
+		box-shadow: 0 40px 24px @sand-alert-overlay-box-shadow-color;
+	});
+}

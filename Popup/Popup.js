@@ -250,7 +250,6 @@ const PopupBase = kind({
 });
 
 const SkinnedPopupBase = Skinnable(
-	{defaultSkin: 'light'},
 	PopupBase
 );
 

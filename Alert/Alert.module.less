@@ -1,0 +1,61 @@
+// Alert.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.alert {
+	position: relative;
+	height: fill-available;
+	height: -webkit-fill-available;
+
+	.alertImage {
+		&.thumbnail {
+			width: 640px;
+			height: 360px;
+		}
+
+		&.icon {
+			width: 240px;
+			height: 240px;
+		}
+	}
+
+	.title {
+		.sand-alert-title();
+		text-align: center;
+		margin-top: @sand-alert-title-margin-top;
+	}
+
+	.titleBelow {
+		.sand-alert-title-below();
+		text-align: center;
+		margin-top: @sand-alert-title-below-margin-top;
+	}
+
+	.buttons {
+		box-sizing: border-box;
+		width: 540px;
+		margin-top: 120px;
+		& > * {
+			min-width: 100%;
+			width: 100%;
+			margin: 60px 0 0 0;
+		}
+	}
+
+	&.noImage {
+		.buttons {
+			margin-top: 240px;
+		}
+	}
+
+	// Skin colors
+	.applySkins({
+		background: @sand-alert-bg-color 0% 0% no-repeat padding-box;
+
+		.titleBelow {
+			color: @sand-alert-title-below-color;
+		}
+	});
+}
