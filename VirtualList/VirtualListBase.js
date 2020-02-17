@@ -531,7 +531,6 @@ const useSpottableVirtualList = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.scrollAndFocusScrollbarButton;
 	delete rest.spotlightId;
 	delete rest.uiScrollAdapter;
 	delete rest.wrap;
@@ -593,46 +592,6 @@ const VirtualListBase = VirtualListCore;
  * @name id
  * @memberof sandstone/VirtualList.VirtualListBase.prototype
  * @type {String}
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the vertical scroll bar.
- *
- * @name scrollDownAriaLabel
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {String}
- * @default $L('scroll down')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
- *
- * @name scrollLeftAriaLabel
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {String}
- * @default $L('scroll left')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the horizontal scroll bar.
- *
- * @name scrollRightAriaLabel
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {String}
- * @default $L('scroll right')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the vertical scroll bar.
- *
- * @name scrollUpAriaLabel
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {String}
- * @default $L('scroll up')
  * @public
  */
 

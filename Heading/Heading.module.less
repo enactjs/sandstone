@@ -5,20 +5,47 @@
 @import "../styles/skin.less";
 
 .heading {
-	border-bottom: @sand-heading-border-width solid transparent;
-	margin: 0 @sand-spotlight-outset (1.5 * @sand-spotlight-outset) @sand-spotlight-outset;
+	margin: @sand-heading-margin;
 	padding: @sand-heading-padding;
-	min-height: (1.5 * @sand-spotlight-outset);
 	letter-spacing: @sand-heading-letter-spacing;
 	line-height: @sand-heading-line-height;
-	.sand-font(@sand-heading-large-font-family, @sand-heading-non-latin-font-family, {
-		line-height: @sand-heading-non-latin-line-height;
+	.sand-font(@sand-heading-large-font-family, @sand-non-latin-heading-font-family, {
+		line-height: @sand-non-latin-heading-line-height;
 	});
 
 	&.showLine {
 		padding: @sand-heading-showline-padding;
 	}
 
+	// Only the following sizes get a bottom border
+	&.large,
+	&.medium,
+	&.small,
+	&.tiny {
+		border-bottom: @sand-heading-border-width solid transparent;
+	}
+
+	&.title {
+		.sand-font(@sand-heading-title-font-family, @sand-non-latin-font-family, {
+			font-size: @sand-non-latin-heading-title-font-size;
+			line-height: @sand-non-latin-heading-title-line-height;
+		});
+		font-weight: @sand-heading-title-font-weight;
+		font-style: @sand-heading-title-font-style;
+		font-size: @sand-heading-title-font-size;
+		line-height: @sand-heading-title-line-height;
+		.font-kerning;
+	}
+	&.subtitle {
+		.sand-font(@sand-heading-subtitle-font-family, @sand-non-latin-font-family, {
+			font-size: @sand-non-latin-heading-subtitle-font-size;
+			line-height: @sand-non-latin-heading-subtitle-line-height;
+		});
+		font-weight: @sand-heading-subtitle-font-weight;
+		font-style: @sand-heading-subtitle-font-style;
+		font-size: @sand-heading-subtitle-font-size;
+		line-height: @sand-heading-subtitle-line-height;
+	}
 	&.large {
 		font-family: @sand-heading-large-font-family;
 		font-weight: @sand-heading-large-font-weight;
@@ -41,6 +68,12 @@
 
 	// Margin-bottom is set up this way so the presence of the line does not affect the height of the Heading.
 	// We simply toggle the color from transparent to "colored" below, leaving the height untouched.
+	&.titleSpacing {
+		margin-bottom: @sand-heading-spacing-title;
+	}
+	&.subtitleSpacing {
+		margin-bottom: @sand-heading-spacing-subtitle;
+	}
 	&.largeSpacing {
 		margin-bottom: (@sand-heading-spacing-large - @sand-heading-border-width);
 		min-height: (@sand-heading-spacing-large - @sand-heading-border-width);
@@ -61,6 +94,10 @@
 	// Skin colors
 	.applySkins({
 		color: @sand-heading-text-color;
+
+		&.subtitle {
+			color: @sand-heading-subtitle-text-color;
+		}
 
 		&.showLine {
 			border-bottom-color: @sand-heading-border-color;

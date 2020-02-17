@@ -3,7 +3,6 @@ import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/Scrollable/Scrollbar';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
 
-import ScrollButtons from './ScrollButtons';
 import ScrollThumb from './ScrollThumb';
 // import Skinnable from '../Skinnable';
 
@@ -21,29 +20,27 @@ import componentCss from './Scrollbar.module.less';
 const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
-	const scrollButtonsRef = useRef();
 	// render
 	const {cbAlertThumb, clientSize, corner, vertical, ...rest} = props;
 
+	delete rest.focusableScrollbar;
+	delete rest.rtl;
+
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
-		const {focusOnButton, isOneOfScrollButtonsFocused, updateButtons} = scrollButtonsRef.current;
 
 		return {
-			focusOnButton,
 			get uiScrollbarContainer () {
 				return getContainerRef();
 			},
-			isOneOfScrollButtonsFocused,
 			showThumb,
 			startHidingThumb,
 			uiUpdate,
 			update: (bounds) => {
-				updateButtons(bounds);
 				uiUpdate(bounds);
 			}
 		};
-	}, [scrollbarRef, scrollButtonsRef]);
+	}, [scrollbarRef]);
 
 	return (
 		<UiScrollbarBase
@@ -54,20 +51,12 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
 				return (
-					<ScrollButtons
+					<ScrollThumb
 						{...rest}
-						ref={scrollButtonsRef}
+						cbAlertThumb={cbAlertThumb}
+						key="thumb"
+						ref={thumbRef}
 						vertical={vertical}
-						thumbRenderer={() => { // eslint-disable-line react/jsx-no-bind
-							return (
-								<ScrollThumb
-									cbAlertThumb={cbAlertThumb}
-									key="thumb"
-									ref={thumbRef}
-									vertical={vertical}
-								/>
-							);
-						}}
 					/>
 				);
 			}}
@@ -109,16 +98,7 @@ ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */
 	corner: PropTypes.bool,
 
 	/**
-	 * `true` if rtl, `false` if ltr.
-	 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	rtl: PropTypes.bool,
-
-	/**
-	 * Registers the ScrollButtons component with an
+	 * Registers the Scrollbar component with an
 	 * {@link core/internal/ApiDecorator.ApiDecorator}.
 	 *
 	 * @type {Function}
@@ -152,9 +132,6 @@ ScrollbarBase.defaultProps = {
 /* TODO: Is it possible to use ApiDecorator?
 const Scrollbar = ApiDecorator(
 	{api: [
-		'focusOnButton',
-		'getContainerRef',
-		'isOneOfScrollButtonsFocused',
 		'showThumb',
 		'startHidingThumb',
 		'update'

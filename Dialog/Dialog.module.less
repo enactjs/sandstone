@@ -11,8 +11,6 @@
 
 	&.showDivider {
 		.titleWrapper {
-			border-bottom-width: @sand-header-border-bottom-width;
-			border-bottom-style: solid;
 			padding-bottom: 36px;
 			margin-bottom: 36px;
 		}
@@ -37,20 +35,14 @@
 
 	.title {
 		.padding-start-end(0, @sand-dialog-title-padding-right);
-		.sand-dialog-title();
-		line-height: @sand-dialog-title-line-height;
-		font-size: @sand-dialog-title-font-size;
-		font-weight: @sand-dialog-title-font-weight;
 		margin: 0;
 	}
 
 	.titleBelow {
-		.sand-dialog-title-below();
 		margin: 0;
 	}
 
 	.dialogBody {
-		.sand-dialog-content();
 		margin: 0;
 		position: relative;
 	}
@@ -59,13 +51,4 @@
 	.buttons > :last-child {
 		-webkit-margin-end: 0;
 	}
-
-	// Skin colors
-	.applySkins({
-		&.showDivider {
-			.titleWrapper {
-				border-bottom-color: @sand-header-border-color;
-			}
-		}
-	});
 }

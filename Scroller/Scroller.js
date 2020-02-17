@@ -32,7 +32,6 @@ import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
 import {useEventKey} from './useEvent';
-import {useSpotlightConfig} from './useSpotlight';
 
 const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
 /**
@@ -77,15 +76,6 @@ class ScrollerBase extends Component {
 		rtl: PropTypes.bool,
 
 		/**
-		 * Called when [Scroller]{@link sandstone/Scroller.Scroller} should be scrolled
-		 * and the focus should be moved to a scrollbar button.
-		 *
-		 * @type {function}
-		 * @private
-		 */
-		scrollAndFocusScrollbarButton: PropTypes.func,
-
-		/**
 		 * The spotlight id for the component.
 		 *
 		 * @type {String}
@@ -99,8 +89,6 @@ const useSpottable = (props, instances) => {
 	const {uiChildAdapter, uiChildContainerRef} = instances;
 
 	// Hooks
-
-	useSpotlightConfig(props, instances);
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey();
 
@@ -360,7 +348,6 @@ const useSpottableScroller = (props) => {
 
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.onUpdate;
-	delete propsObject.scrollAndFocusScrollbarButton;
 	delete propsObject.setChildAdapter;
 	delete propsObject.spotlightId;
 	delete propsObject.uiScrollAdapter;
@@ -389,46 +376,6 @@ const useSpottableScroller = (props) => {
  * @name id
  * @memberof sandstone/Scroller.ScrollerBase.prototype
  * @type {String}
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the vertical scroll bar.
- *
- * @name scrollDownAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll down')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
- *
- * @name scrollLeftAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll left')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the horizontal scroll bar.
- *
- * @name scrollRightAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll right')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the vertical scroll bar.
- *
- * @name scrollUpAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll up')
  * @public
  */
 
@@ -523,10 +470,8 @@ Scroller.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
-		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'none', // eslint-disable-line react/default-props-match-prop-types
 	type: 'JS', // eslint-disable-line react/default-props-match-prop-types
 	verticalScrollbar: 'auto'
 };
