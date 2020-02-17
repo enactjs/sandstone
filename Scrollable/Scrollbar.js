@@ -23,6 +23,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// render
 	const {cbAlertThumb, className, clientSize, vertical, ...rest} = props;
 
+	delete rest.corner;
 	delete rest.focusableScrollbar;
 	delete rest.rtl;
 

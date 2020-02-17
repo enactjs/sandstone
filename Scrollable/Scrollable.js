@@ -487,7 +487,7 @@ const useScroll = (props) => {
 	decorateChildProps('scrollContainerProps', {
 		className: [
 			css.scroll,
-			uiScrollAdapter.current.rtl ? css.rtl: null,
+			uiScrollAdapter.current.rtl ? css.rtl : null,
 			overscrollCss.scroll
 		],
 		'data-spotlight-container': spotlightContainer,
