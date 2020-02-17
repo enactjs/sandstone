@@ -21,8 +21,7 @@
 		width: var(--scroll-scrollbar-size);
 		height: calc(100% - 2 * var(--scroll-padding-size));
 		right: 0;
-		top: 50%;
-		transform: translate(0, -50%);
+		top: var(--scroll-padding-size);
 	}
 
 	&.rtl {
@@ -36,8 +35,7 @@
 		position: absolute;
 		width: calc(100% - 2 * var(--scroll-padding-size));
 		height: var(--scroll-scrollbar-size);
-		left: 50%;
+		left: var(--scroll-padding-size);
 		bottom: 0;
-		transform: translate(-50%, 0);
 	}
 }
