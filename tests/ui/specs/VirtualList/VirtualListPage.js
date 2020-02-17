@@ -1,7 +1,7 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollableSelector = '.enact_ui_Scrollable_Scrollable_scrollable';
+const scrollableSelector = '.enact_ui_Scrollable_Scrollable_scroll';
 const scrollbarSelector = '.Scrollable_Scrollbar_scrollbar';
 
 class VirtualListPage extends Page {
@@ -22,8 +22,6 @@ class VirtualListPage extends Page {
 	get buttonLeft () { return element('#left', browser); }
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
-	get buttonScrollUp () { return element(`${scrollbarSelector} :nth-child(1)`, browser); }
-	get buttonScrollDown () { return element(`${scrollbarSelector} :nth-child(3)`, browser); }
 	get buttonWrap () { return element('#wrap', browser); }
 	get scrollBarSize () { return browser.getElementSize(`${scrollbarSelector}`); }
 	get list () { return element('#list', browser); }

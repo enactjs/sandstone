@@ -103,7 +103,7 @@ describe('RadioItem', function () {
 	describe('inline', function () {
 		const radioItem = Page.components.radioInline;
 
-		it.skip('should have correct text', function () {
+		it('should have correct text', function () {
 			expect(radioItem.valueText).to.equal('Radio Item inline');
 		});
 
@@ -182,7 +182,7 @@ describe('RadioItem', function () {
 		const radioItem = Page.components.radioInlineDisabled;
 		const radioDisabled = Page.components.radioDisabled;
 
-		it.skip('should have correct text', function () {
+		it('should have correct text', function () {
 			expect(radioItem.valueText).to.equal('Radio Item inline disabled');
 		});
 

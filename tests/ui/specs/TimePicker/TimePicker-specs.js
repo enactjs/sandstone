@@ -561,9 +561,10 @@ describe('TimePicker', function () {
 		});
 
 		it('should increment hours from 23 to 0', function () {
-			Page.waitTransitionEnd(3000, undefined, () => {
-				timePicker.title.click();
-			});
+			timePicker.title.click();
+			// FIXME: replace with trigger for expandable open (or replace with defaultOpen picker)
+			Page.delay(500);
+
 			// go to 23 first
 			timePicker.decrementer(timePicker.hour).click();
 			expect(extractValues(timePicker).hour).to.equal(23);
@@ -573,9 +574,10 @@ describe('TimePicker', function () {
 		});
 
 		it('should decrement hours from 0 to 23', function () {
-			Page.waitTransitionEnd(3000, undefined, () => {
-				timePicker.title.click();
-			});
+			timePicker.title.click();
+			// FIXME: replace with trigger for expandable open (or replace with defaultOpen picker)
+			Page.delay(500);
+
 			timePicker.decrementer(timePicker.hour).click();
 			expect(extractValues(timePicker).hour).to.equal(23);
 		});

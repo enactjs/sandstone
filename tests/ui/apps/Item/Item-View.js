@@ -21,6 +21,9 @@ const app = (props) => <div {...props}>
 		>
 			Item disabled
 		</Item>
+		<Item id="item3" inline>Inline Item</Item>
+		<Item id="item4" inline>Inline Item</Item>
+		<Item id="item5" inline>Inline Item</Item>
 	</div>
 </div>;
 

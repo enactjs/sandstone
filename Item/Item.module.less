@@ -14,6 +14,7 @@
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	line-height: @sand-item-line-height;
+	height: @sand-item-height;
 	display: flex;
 	position: relative;
 	color: inherit;
@@ -27,8 +28,23 @@
 		border-radius: @sand-item-border-radius;
 	}
 
-	.itemContent {
-		&.hasLabel {
+	.slotAfter,
+	.slotBefore {
+		line-height: 0;  // Attempt to get the children of this to always vertically-align their middles with the text
+	}
+
+	.slotAfter {
+		margin-inline-start: @sand-item-slotafter-spacing;
+	}
+
+	.slotBefore {
+		margin-inline-end: @sand-item-slotbefore-spacing;
+	}
+
+	&.hasLabel {
+		height: @sand-item-withlabel-height;
+
+		.itemContent {
 			&.labelAfter,
 			&.labelBelow {
 				.content { order: 1; }
@@ -43,25 +59,22 @@
 		}
 	}
 
-	.slotAfter {
-		display: flex;
-		justify-content: center;
-		margin-inline-start: @sand-item-slotafter-spacing;
-	}
-
-	.slotBefore {
-		display: flex;
-		justify-content: center;
-		margin-inline-end: @sand-item-slotbefore-spacing;
-	}
-
 	&.inline {
+		display: inline-flex;
 		max-width: @sand-item-inline-max-width;
+
+		// Apply to the marquee content area to tell it to expand to the available width of the container
+		.content,
+		.itemContent {
+			flex-shrink: 1;
+			overflow: auto;
+		}
 	}
 
 	// Text
 	.label {
 		.sand-text-base(@sand-item-label-font-size);
+		line-height: @sand-item-label-line-height;
 	}
 
 	.sand-locale-non-latin({
