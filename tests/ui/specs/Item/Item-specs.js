@@ -1,5 +1,4 @@
 const Page = require('./ItemPage');
-const {validateTitle} = require('./Item-utils');
 
 describe('Item', function () {
 	const item1 = Page.components.item1;
@@ -19,8 +18,6 @@ describe('Item', function () {
 		});
 
 		describe('default', function () {
-
-			validateTitle(item1, 'Item 1');
 
 			describe('5-way', function () {
 			// Step 3 - 5-way Up
@@ -52,13 +49,13 @@ describe('Item', function () {
 			});
 
 			describe('pointer', function () {
-			// Step 3 - Focus on the Item title
-				it('should focus the first item when hovered - [GT-28154]', function () {
-					item1.hover();
-					expect(item1.self.hasFocus()).to.be.true();
+			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
+				it('should focus the third item when hovered - [GT-28154]', function () {
+					item3WithLabel.hover();
+					expect(item3WithLabel.self.hasFocus()).to.be.true();
 				});
 
-				it('should focus an item when switching from pointer to 5-way]', function () {
+				it('should focus an item when switching from pointer to 5-way', function () {
 					item1.hover();
 					item2Disabled.focus();
 					expect(item2Disabled.self.hasFocus()).to.be.true();
@@ -67,8 +64,6 @@ describe('Item', function () {
 		});
 
 		describe('disabled', function () {
-
-			validateTitle(item2Disabled, 'Item 2 disabled');
 
 			describe('5-way', function () {
 			// Step 7 - 5-way Up
@@ -113,8 +108,6 @@ describe('Item', function () {
 
 		describe('default', function () {
 
-			validateTitle(item1, 'Item 1');
-
 			describe('5-way', function () {
 				// Step 3 - 5-way Up
 				it('should focus the first item with 5-way Up - [GT-28153]', function () {
@@ -133,16 +126,14 @@ describe('Item', function () {
 
 			describe('pointer', function () {
 			// Step 3 - Focus on the Item title
-				it('should focus the first item when hovered - [GT-28154]', function () {
-					item1.hover();
-					expect(item1.self.hasFocus()).to.be.true();
+				it('should focus the third item when hovered - [GT-28154]', function () {
+					item3WithLabel.hover();
+					expect(item3WithLabel.self.hasFocus()).to.be.true();
 				});
 			});
 		});
 
 		describe('disabled', function () {
-
-			validateTitle(item2Disabled, 'Item 2 disabled');
 
 			describe('5-way', function () {
 			// Step 7 - 5-way Up
