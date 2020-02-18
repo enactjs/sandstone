@@ -123,33 +123,5 @@ describe('Item', function () {
 				});
 			});
 		});
-
-		describe('disabled', function () {
-
-			describe('5-way', function () {
-			// Step 7 - 5-way Up
-				it('should focus the disabled item with 5-way Up - [GT-28153]', function () {
-					item3WithLabel.focus();
-					Page.spotlightUp();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
-				});
-
-				// Step 8 - 5-way Down
-				it('should focus the disabled item with 5-way Down - [GT-28153]', function () {
-					item1.focus();
-					Page.spotlightDown();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
-				});
-			});
-
-			// Step 4 - Focus on the disabled Item title
-			describe('pointer', function () {
-				it('should focus the disabled item with hover - [GT-28154]', function () {
-					item2Disabled.hover();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
-				});
-			});
-		});
-
 	});
 });
