@@ -1,0 +1,35 @@
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.KeyGuide {
+    position: absolute;
+    width: @sand-keyguide-width;
+    bottom: @sand-keyguide-position-bottom;
+    right: @sand-keyguide-position-left-right;
+
+    :global(.enact-locale-right-to-left) & {
+        left: @sand-keyguide-position-left-right;
+        right: auto;
+	}
+
+    .labeledIcon {
+        max-width: none;
+        padding: 0;
+        font-size: @sand-keyguide-labeled-icon-font-size;
+    }
+
+    .icon {
+        margin: 0 @sand-keyguide-icon-margin-right 0 0;
+        :global(.enact-locale-right-to-left) & {
+            margin: 0 0 0 @sand-keyguide-icon-margin-right;
+        }
+    }
+
+    .applySkins({
+        background: @sand-keyguide-bg-color;
+
+        .labeledIcon {
+            color: @sand-keyguide-labeled-icon-color;
+        }
+    })
+}
