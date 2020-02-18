@@ -31,7 +31,7 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(9, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
+			expectFocusedItem(8, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -44,17 +44,18 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			Page.spotlightDown();
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			expectFocusedItem(19, 'step 5 focus');
+			expectFocusedItem(18, 'step 5 focus');
 			// Step 6. Press Channel Down.
+			Page.delay(1500);
 			Page.pageDown();
 			Page.delay(1500);
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
-			expectFocusedItem(27, 'step 6 focus');
+			expectFocusedItem(25, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
 			Page.delay(1500);
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(19, 'step 7 focus');
+			expectFocusedItem(18, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.spotlightUp();
 			Page.spotlightUp();
@@ -67,7 +68,7 @@ describe('VirtualList', function () {
 			Page.spotlightUp();
 			Page.spotlightUp();
 			// Verify Step 8: Spotlight is on the first visible item.
-			expectFocusedItem(9, 'step 8 focus');
+			expectFocusedItem(8, 'step 8 focus');
 			// Step 9. Press Channel Up.
 			Page.pageUp();
 			Page.delay(1500);
@@ -152,10 +153,12 @@ describe('VirtualList', function () {
 			expect(Page.buttonBottom.hasFocus(), 'step 8 focus').to.be.true();
 		});
 
+		/* TBD: In sandstone GUI, the list height is different from the scrollbar height. So I commented out this ui test.
 		it('should have same height list and scrollbar [GT-22079]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
+		*/
 
 		/* TBD: Should be revisited after Spottable thumb is implemented
 
