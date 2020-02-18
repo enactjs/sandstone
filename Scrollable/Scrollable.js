@@ -501,7 +501,6 @@ const useScroll = (props) => {
 	decorateChildProps('childWrapperProps', {className: [overscrollCss.overscrollFrame, overscrollCss.horizontal]});
 
 	decorateChildProps('childProps', {
-		...(props.itemRenderer ? {padded: true} : null),
 		className: [css.contentWrapper],
 		onUpdate: handleScrollerUpdate,
 		setChildAdapter,
