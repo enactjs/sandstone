@@ -26,6 +26,7 @@
 		}
 	}
 
+	&.radial,
 	&.horizontal {
 		left: var(--tooltip-progress-percent);
 
@@ -70,6 +71,7 @@
 		}
 	}
 
+	&.radial
 	&.vertical {
 		bottom: var(--tooltip-progress-percent);
 
@@ -91,6 +93,34 @@
 			.sand-custom-text({
 				transform: translate(~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")", 50%);
 			});
+		});
+	}
+
+	&.radial {
+		left: 50%;
+		bottom: 50%;
+
+		&.above,
+		&.below {
+			.before({
+				left: 50%;
+			});
+
+			.after({
+				left: 50%;
+			});
+
+			&.center {
+				left: 50%
+			}
+		}
+
+		.before({
+			left: 0;
+		});
+
+		.after({
+			left: 100%;
 		});
 	}
 }
