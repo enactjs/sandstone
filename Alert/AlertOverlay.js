@@ -10,6 +10,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slottable from '@enact/ui/Slottable';
 import {Row, Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
 
 import Popup from '../Popup';
 import componentCss from './AlertOverlay.module.less';
@@ -160,7 +161,7 @@ const AlertOverlayBase = kind({
 			<Popup noAnimation {...rest} css={css} shrinkBody>
 				<Row align="center">
 					{image ? <div>{image}</div> : null}
-					<Cell className={css.alertOverlayBody} ref={fixTransform} size={1196} shrink>
+					<Cell className={css.alertOverlayBody} ref={fixTransform} size={ri.scale(1196)} shrink>
 						{children}
 					</Cell>
 					{buttons ? <div className={css.buttons}>
