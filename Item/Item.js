@@ -14,7 +14,8 @@ import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
-import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
+import Touchable from '@enact/ui/Touchable';
+import {ItemBase as UiItemBase} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
 import {Marquee, MarqueeController} from '@enact/ui/Marquee';
 import Pure from '@enact/ui/internal/Pure';
@@ -242,7 +243,7 @@ const ItemDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
-	UiItemDecorator,
+	Touchable,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable
