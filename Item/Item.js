@@ -233,6 +233,7 @@ const ItemBase = kind({
  * @memberof sandstone/Item
  * @mixes ui/ForwardRef.ForwardRef
  * @mixes ui/Slottable.Slottable
+ * @mixes ui/Touchable.Touchable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes sandstone/Skinnable.Skinnable
