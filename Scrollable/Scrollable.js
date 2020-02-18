@@ -528,7 +528,11 @@ const useScroll = (props) => {
 	});
 
 	decorateChildProps('innerScrollContainerProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.vertical, ...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])],
+		className: [
+			overscrollCss.overscrollFrame,
+			overscrollCss.vertical,
+			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+		],
 		ref: overscrollRefs.vertical
 	});
 
