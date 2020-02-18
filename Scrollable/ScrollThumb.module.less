@@ -6,12 +6,12 @@
 	--scrollbar-size: ~"calc(100% * var(--scrollbar-size-ratio))";
 	--scrollbar-progress: ~"calc(((1 - var(--scrollbar-size-ratio)) * var(--scrollbar-progress-ratio)) * 100%)";
 
-	@sand-scroll-focused-thumb-width: 30px;
-	@sand-scroll-focused-thumb-left-margin: -9px;	// TODO: Re-apply 4k GUI.
-	@sand-scroll-focused-thumb-triangle-width: 18px;
-	@sand-scroll-focused-thumb-triangle-height: 12px;
-	@sand-scroll-focused-thumb-triangle-top-margin: 9px;
-	@sand-scroll-focused-thumb-triangle-left-margin: 6px;
+	@sand-scroll-thumb-focus-width: 30px;
+	@sand-scroll-thumb-focus-left-margin: -9px;	// TODO: Re-apply 4k GUI.
+	@sand-scroll-thumb-focus-direction-indicator-width: 18px;
+	@sand-scroll-thumb-focus-direction-indicator-height: 12px;
+	@sand-scroll-thumb-focus-direction-indicator-top-margin: 9px;
+	@sand-scroll-thumb-focus-direction-indicator-left-margin: 6px;
 
 	position: relative;
 	height: 100%;
@@ -30,7 +30,7 @@
 
 		&:focus {
 			position: absolute;
-			background-color: @sand-scroll-focused-thumb-bg-color;
+			background-color: @sand-scroll-thumb-focus-bg-color;
 			box-shadow: 0px 40px 24px #0000004D;
 			border-radius: 15px;
 		}
@@ -41,10 +41,10 @@
 		position: absolute;
 		width: 0px;
 		height: 0px;
-		border-top: @sand-scroll-focused-thumb-triangle-height solid transparent;
-		border-bottom: @sand-scroll-focused-thumb-triangle-height solid @sand-scroll-focused-thumb-triangle-color;
-		border-right: @sand-scroll-focused-thumb-triangle-width/2 solid transparent;
-		border-left: @sand-scroll-focused-thumb-triangle-width/2 solid  transparent;
+		border-top: @sand-scroll-thumb-focus-direction-indicator-height solid transparent;
+		border-bottom: @sand-scroll-thumb-focus-direction-indicator-height solid @sand-scroll-thumb-focus-direction-indicator-color;
+		border-right: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
+		border-left: @sand-scroll-thumb-focus-direction-indicator-width/2 solid  transparent;
 	}
 
 	&.vertical {
@@ -56,20 +56,20 @@
 			top: var(--scrollbar-progress);
 
 			&:focus {
-				width: @sand-scroll-focused-thumb-width;
-				left: @sand-scroll-focused-thumb-left-margin;
+				width: @sand-scroll-thumb-focus-width;
+				left: @sand-scroll-thumb-focus-left-margin;
 
 				.TriangleUp {
 					.triangle;
-					top: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
-					left: @sand-scroll-focused-thumb-triangle-left-margin;
+					top: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 
 				.TriangleDown {
 					.triangle;
 					transform: rotate(180deg);
-					bottom: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
-					left: @sand-scroll-focused-thumb-triangle-left-margin;
+					bottom: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 			}
 		}
@@ -86,20 +86,20 @@
 			transform: translateY(-50%);
 
 			&:focus {
-				height: @sand-scroll-focused-thumb-width;
+				height: @sand-scroll-thumb-focus-width;
 
 				.TriangleUp {
 					.triangle;
 					transform: rotate(-90deg);
-					left: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
-					top: @sand-scroll-focused-thumb-triangle-left-margin;
+					left: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+					top: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 
 				.TriangleDown {
 					.triangle;
 					transform: rotate(90deg);
-					right: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
-					top: @sand-scroll-focused-thumb-triangle-left-margin;
+					right: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+					top: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 			}
 		}
