@@ -21,9 +21,8 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
 	// render
-	const {cbAlertThumb, clientSize, corner, vertical, ...rest} = props;
+	const {cbAlertThumb, clientSize, corner, focusableScrollbar, onInteractionForScroll, vertical, ...rest} = props;
 
-	delete rest.focusableScrollbar;
 	delete rest.rtl;
 
 	useImperativeHandle(ref, () => {
@@ -47,6 +46,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			clientSize={clientSize}
 			corner={corner}
 			css={componentCss}
+			minThumbSize={48}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
@@ -54,7 +54,8 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 					<ScrollThumb
 						{...rest}
 						cbAlertThumb={cbAlertThumb}
-						key="thumb"
+						focusableThumb={focusableScrollbar}
+						scroll={onInteractionForScroll}
 						ref={thumbRef}
 						vertical={vertical}
 					/>

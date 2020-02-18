@@ -1,0 +1,107 @@
+@import '../styles/colors.less';
+
+.ScrollThumb {
+	--scrollbar-size-ratio: 1;
+	--scrollbar-progress-ratio: 0;
+	--scrollbar-size: ~"calc(100% * var(--scrollbar-size-ratio))";
+	--scrollbar-progress: ~"calc(((1 - var(--scrollbar-size-ratio)) * var(--scrollbar-progress-ratio)) * 100%)";
+
+	@sand-scroll-focused-thumb-width: 30px;
+	@sand-scroll-focused-thumb-left-margin: -9px;	// TODO: Re-apply 4k GUI.
+	@sand-scroll-focused-thumb-triangle-width: 18px;
+	@sand-scroll-focused-thumb-triangle-height: 12px;
+	@sand-scroll-focused-thumb-triangle-top-margin: 9px;
+	@sand-scroll-focused-thumb-triangle-left-margin: 6px;
+
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: @sand-scroll-track-bg-color;
+	border-radius: 6px;
+
+	.Thumb {
+		background: @sand-scroll-thumb-bg-color;
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: 6px;
+		will-change: transform, top, left, right;
+
+		&:focus {
+			position: absolute;
+			background-color: @sand-scroll-focused-thumb-bg-color;
+			box-shadow: 0px 40px 24px #0000004D;
+			border-radius: 15px;
+		}
+	}
+
+
+	.triangle {
+		position: absolute;
+		width: 0px;
+		height: 0px;
+		border-top: @sand-scroll-focused-thumb-triangle-height solid transparent;
+		border-bottom: @sand-scroll-focused-thumb-triangle-height solid @sand-scroll-focused-thumb-triangle-color;
+		border-right: @sand-scroll-focused-thumb-triangle-width/2 solid transparent;
+		border-left: @sand-scroll-focused-thumb-triangle-width/2 solid  transparent;
+	}
+
+	&.vertical {
+		margin: 0 24px;
+		width: 12px;
+
+		.Thumb {
+			height: var(--scrollbar-size);
+			top: var(--scrollbar-progress);
+
+			&:focus {
+				width: @sand-scroll-focused-thumb-width;
+				left: @sand-scroll-focused-thumb-left-margin;
+
+				.TriangleUp {
+					.triangle;
+					top: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
+					left: @sand-scroll-focused-thumb-triangle-left-margin;
+				}
+
+				.TriangleDown {
+					.triangle;
+					transform: rotate(180deg);
+					bottom: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
+					left: @sand-scroll-focused-thumb-triangle-left-margin;
+				}
+			}
+		}
+	}
+
+	&:not(.vertical) {
+		margin: 24px 0;
+		height: 12px;
+
+		.Thumb {
+			width: var(--scrollbar-size);
+			left: var(--scrollbar-progress);
+			top: 50%;
+			transform: translateY(-50%);
+
+			&:focus {
+				height: @sand-scroll-focused-thumb-width;
+
+				.TriangleUp {
+					.triangle;
+					transform: rotate(-90deg);
+					left: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
+					top: @sand-scroll-focused-thumb-triangle-left-margin;
+				}
+
+				.TriangleDown {
+					.triangle;
+					transform: rotate(90deg);
+					right: @sand-scroll-focused-thumb-triangle-top-margin - @sand-scroll-focused-thumb-triangle-height;
+					top: @sand-scroll-focused-thumb-triangle-left-margin;
+				}
+			}
+		}
+	}
+}
