@@ -60,7 +60,7 @@ const StepsBase = kind({
 		currentIcon: PropTypes.string,
 
 		/**
-		 * The icon to use for indicating all steps preceding the current step.
+		 * The icon to use for indicating all steps following the current step.
 		 *
 		 * This accepts any icon supported by {@link sandstone/Icon}, in addition to a special
 		 * value: "numbers", which instead of a standard icon, shows the number of the step.
@@ -72,7 +72,7 @@ const StepsBase = kind({
 		futureIcon: PropTypes.string,
 
 		/**
-		 * The icon to use for indicating all steps following the current step.
+		 * The icon to use for indicating all steps preceding the current step.
 		 *
 		 * This accepts any icon supported by {@link sandstone/Icon}, in addition to a special
 		 * value: "numbers", which instead of a standard icon, shows the number of the step.
