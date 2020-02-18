@@ -109,26 +109,17 @@ describe('Item', function () {
 		describe('default', function () {
 
 			describe('5-way', function () {
-				// Step 3 - 5-way Up
-				it('should focus the first item with 5-way Up - [GT-28153]', function () {
-					item2Disabled.focus();
-					Page.spotlightUp();
-					expect(item1.self.hasFocus()).to.be.true();
+				// Validating that the items are in fact inline and can be navigated between via 5-way
+				it('should focus an inline item with 5-way Left', function () {
+					item7Inline.focus();
+					Page.spotlightRight();
+					expect(Page.components.item6Inline.self.hasFocus()).to.be.true();
 				});
 
-				// Step 5 - 5-way Down
-				it('should focus an item with 5-way Down - [GT-28153]', function () {
-					item2Disabled.focus();
-					Page.spotlightDown();
-					expect(item3WithLabel.self.hasFocus()).to.be.true();
-				});
-			});
-
-			describe('pointer', function () {
-			// Step 3 - Focus on the Item title
-				it('should focus the third item when hovered - [GT-28154]', function () {
-					item3WithLabel.hover();
-					expect(item3WithLabel.self.hasFocus()).to.be.true();
+				it('should focus an inline item with 5-way Right', function () {
+					item7Inline.focus();
+					Page.spotlightLeft();
+					expect(Page.components.item8Inline.self.hasFocus()).to.be.true();
 				});
 			});
 		});
