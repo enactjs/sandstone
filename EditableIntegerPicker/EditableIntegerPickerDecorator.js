@@ -101,8 +101,8 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 					value: this.validateValue(parseInt(ev.value)),
 					noAnimation: false
 				});
+				forwardChange(ev, this.props);
 			}
-			forwardChange(ev, this.props);
 		}
 
 		prepareInput = () => {
