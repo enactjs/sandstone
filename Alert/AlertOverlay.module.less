@@ -19,9 +19,7 @@
 	}
 
 	.alertOverlayBody {
-		margin: 33px 202px 33px 60px;
-		max-height: 710px;
-
+		margin: 33px 0px;
 		.sand-alert-overlay-content();
 
 		:global(.enact-locale-ja) &,
@@ -31,9 +29,20 @@
 		}
 	}
 
+	.image {
+		align-self: baseline;
+		margin-right: 60px;
+	}
+
+	.content {
+		width: 1200px;
+		align-self: center;
+	}
+
 	.buttons {
 		box-sizing: border-box;
 		width: 450px;
+		margin-left: 202px;
 
 		& > * {
 			width: 100%;
@@ -48,6 +57,8 @@
 
 	// Skin colors
 	.applySkins({
+		background: @sand-alert-overlay-background-color 0% 0% no-repeat padding-box;
 		box-shadow: 0 40px 24px @sand-alert-overlay-box-shadow-color;
+		color: @sand-alert-overlay-text-color;
 	});
 }

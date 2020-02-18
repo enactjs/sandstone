@@ -160,13 +160,15 @@ const AlertOverlayBase = kind({
 		return (
 			<Popup noAnimation {...rest} css={css} shrinkBody>
 				<Row align="center">
-					{image ? <div>{image}</div> : null}
-					<Cell className={css.alertOverlayBody} ref={fixTransform} size={ri.scale(1196)} shrink>
-						{children}
-					</Cell>
-					{buttons ? <div className={css.buttons}>
+					<Row className={css.alertOverlayBody} ref={fixTransform}>
+						{image ? <div className={css.image}>{image}</div> : null}
+						<div className={css.content}>
+							{children}
+						</div>
+					</Row>
+					{buttons ? <Cell className={css.buttons} size={ri.scale(450)} align="end">
 						{buttons}
-					</div> : null}
+					</Cell> : null}
 				</Row>
 			</Popup>
 		);
