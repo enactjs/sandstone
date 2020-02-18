@@ -44,7 +44,7 @@ import componentCss from './KeyGuide.module.less';
 const KeyGuideBase = kind({
 	name: 'KeyGuide',
 
-	propTypes: /** @lends sandstone/MediaOverlay.MediaOverlayBase.prototype */ {
+	propTypes: /** @lends sandstone/KeyGuide.KeyGuideBase.prototype */ {
 		/**
 		 * The items to be displayed in the `KeyGuide` when `open`.
 		 *
@@ -61,6 +61,19 @@ const KeyGuideBase = kind({
 		})).isRequired,
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `keyGuide` - The root component class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * Controls the visibility of the KeyGuide.
 		 *
 		 * @type {Boolean}
@@ -71,19 +84,19 @@ const KeyGuideBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => {
+		children: ({children, css}) => {
 			if (!Array.isArray(children)) return [];
 
 			return children.map((child) => {
-				return <LabeledIcon {...child} css={componentCss} labelPosition="after" size="small" />;
+				return <LabeledIcon {...child} css={css} labelPosition="after" size="small" />;
 			});
 		}
 	},
 
 	styles: {
 		css: componentCss,
-		className: 'KeyGuide',
-		publicClassNames: ['KeyGuide']
+		className: 'keyGuide',
+		publicClassNames: ['keyGuide']
 	},
 
 	render: ({open, children, ...rest}) => {

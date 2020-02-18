@@ -1,11 +1,12 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-.KeyGuide {
+.keyGuide {
     position: absolute;
     width: @sand-keyguide-width;
     bottom: @sand-keyguide-position-bottom;
     right: @sand-keyguide-position-left-right;
+    padding: 6px 0;
 
     :global(.enact-locale-right-to-left) & {
         left: @sand-keyguide-position-left-right;
@@ -15,6 +16,7 @@
     .labeledIcon {
         max-width: none;
         padding: 0;
+        margin: 54px 48px;
         font-size: @sand-keyguide-labeled-icon-font-size;
     }
 
