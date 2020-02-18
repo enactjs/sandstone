@@ -19,7 +19,7 @@
 	}
 
 	.alertOverlayBody {
-		margin: 33px 0px;
+		margin: @sand-alert-overlay-body-margin;
 		.sand-alert-overlay-content();
 
 		:global(.enact-locale-ja) &,
@@ -31,18 +31,18 @@
 
 	.image {
 		align-self: baseline;
-		margin-right: 60px;
+		margin-right: @sand-alert-overlay-image-margin;
 	}
 
 	.content {
-		width: 1200px;
+		width: @sand-alert-overlay-content-width;
 		align-self: center;
 	}
 
 	.buttons {
 		box-sizing: border-box;
-		width: 450px;
-		margin-left: 202px;
+		width: @sand-alert-overlay-buttons-width;
+		margin-left: @sand-alert-overlay-buttons-margin;
 
 		& > * {
 			width: 100%;
@@ -55,13 +55,12 @@
 		transform: translate3d(50%, 0%, 0);
 
 		.image {
-			margin-left: 60px;
+			margin-left: @sand-alert-overlay-image-margin;
 			margin-right: auto;
 		}
 
-
 		.buttons {
-			margin-right: 202px;
+			margin-right: @sand-alert-overlay-buttons-margin;
 			margin-left: auto;
 		}
 	}

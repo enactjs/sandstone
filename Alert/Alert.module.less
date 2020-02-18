@@ -9,18 +9,6 @@
 	height: fill-available;
 	height: -webkit-fill-available;
 
-	.alertImage {
-		&.thumbnail {
-			width: 640px;
-			height: 360px;
-		}
-
-		&.icon {
-			width: 240px;
-			height: 240px;
-		}
-	}
-
 	.title {
 		.sand-alert-title();
 		text-align: center;
@@ -35,8 +23,8 @@
 
 	.buttons {
 		box-sizing: border-box;
-		width: 540px;
-		margin-top: 120px;
+		width: @sand-alert-buttons-width;
+		margin-top: @sand-alert-buttons-small-margin-top;
 		& > * {
 			min-width: 100%;
 			width: 100%;
@@ -46,7 +34,7 @@
 
 	&.noImage {
 		.buttons {
-			margin-top: 240px;
+			margin-top: @sand-alert-buttons-margin-top;
 		}
 	}
 
