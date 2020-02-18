@@ -153,7 +153,7 @@ describe('VirtualList', function () {
 			expect(Page.buttonBottom.hasFocus(), 'step 8 focus').to.be.true();
 		});
 
-		/* TBD: In sandstone GUI, the list height is different from the scrollbar height. So I commented out this ui test.
+		/* TBD: In sandstone GUI, the list height is different from the scrollbar height. Needs to be updated.
 		it('should have same height list and scrollbar [GT-22079]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
