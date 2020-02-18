@@ -99,7 +99,7 @@ ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */
 	rtl: PropTypes.bool,
 
 	/**
-	 * Registers the ScrollButtons component with an
+	 * Registers the Scrollbar component with an
 	 * {@link core/internal/ApiDecorator.ApiDecorator}.
 	 *
 	 * @type {Function}
