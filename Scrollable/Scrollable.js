@@ -18,7 +18,7 @@ import {utilDecorateChildProps} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
-import React, {Component, useContext, useRef} from 'react';
+import React, {Component, useContext, useEffect, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
@@ -182,7 +182,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 }
 
 const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, uiChildContainerRef, uiScrollAdapter, uiScrollContainerRef} = instances;
+	const {childAdapter, uiChildContainerRef, uiScrollAdapter, uiScrollContainerRef, verticalScrollbarRef} = instances;
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
 
@@ -228,6 +228,16 @@ const useSpottableScroll = (props, instances, context) => {
 		removeVoiceEventListener,
 		stopVoice
 	} = useEventVoice(props, instances);
+
+	useEffect(() => {
+		const
+			{initialHiddenHeight} = props,
+			{syncHeight} = verticalScrollbarRef.current || {};
+
+		if (initialHiddenHeight && syncHeight) {
+			syncHeight(initialHiddenHeight, uiScrollAdapter.current.scrollTop);
+		}
+	});
 
 	// Functions
 
@@ -296,13 +306,22 @@ const useSpottableScroll = (props, instances, context) => {
 	function handleScroll (ev) {
 		const
 			{scrollLeft: x, scrollTop: y} = ev,
-			{id} = props;
+			{id, initialHiddenHeight} = props,
+			{syncHeight} = verticalScrollbarRef.current || {};
 
 		forward('onScroll', ev, props);
 
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
+		}
+
+		if (initialHiddenHeight && syncHeight) {
+			if (uiScrollAdapter.current.scrollTop < initialHiddenHeight) {
+				syncHeight(initialHiddenHeight, uiScrollAdapter.current.scrollTop);
+			} else {
+				syncHeight(initialHiddenHeight, initialHiddenHeight);
+			}
 		}
 	}
 
@@ -382,6 +401,8 @@ const useScroll = (props) => {
 			...rest
 		} = props;
 
+	delete rest.initialHiddenHeight;
+
 	// Mutable value
 
 	const uiScrollContainerRef = useRef();
@@ -443,6 +464,7 @@ const useScroll = (props) => {
 		uiScrollContainerRef,
 		overscrollRefs,
 		uiChildContainerRef,
+		verticalScrollbarRef,
 
 		// Adapter
 		childAdapter,

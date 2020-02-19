@@ -1,12 +1,13 @@
 // import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/Scrollable/Scrollbar';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
 
 import ScrollThumb from './ScrollThumb';
 // import Skinnable from '../Skinnable';
 
-import componentCss from './Scrollbar.module.less';
+import css from './Scrollbar.module.less';
 
 /**
  * A Sandstone-styled scroller base component.
@@ -27,6 +28,17 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	delete rest.focusableScrollbar;
 	delete rest.rtl;
 
+	const syncHeight = (initialHiddenHeight, scrollPosition) => {
+		if (scrollbarRef.current && typeof window !== 'undefined') {
+			const
+				node = scrollbarRef.current.getContainerRef().current,
+				height = parseInt(window.getComputedStyle(node).getPropertyValue('height'));
+
+			// To scale the scrollbar height depending on the VirtualList position
+			node.style.transform = 'scale3d(1, ' + (height - initialHiddenHeight + scrollPosition) / (height) + ', 1)';
+		}
+	};
+
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
 
@@ -36,6 +48,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			},
 			showThumb,
 			startHidingThumb,
+			syncHeight,
 			uiUpdate,
 			update: (bounds) => {
 				uiUpdate(bounds);
@@ -46,8 +59,8 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	return (
 		<UiScrollbarBase
 			clientSize={clientSize}
-			className={className}
-			css={componentCss}
+			className={classNames(className, css.initialHiddenHeight)}
+			css={css}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
