@@ -1,11 +1,15 @@
+@import '../styles/colors.less';
 @import '../styles/mixins.less';
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
+.transitionEffect {
+	transition: transform .2s ease-in-out;
+	will-change: transform;
+}
+
 .gridListImageItem {
-	box-sizing: border-box;
-	border-width: @sand-gridlist-item-border-width;
-	border-style: solid;
+	width: 100%;
 
 	.icon {
 		width: @sand-gridlist-item-overlay-icon-size;
@@ -27,17 +31,21 @@
 	}
 
 	.caption {
-		// .sand-header-subtitle-text();
+		.sand-text-base(@sand-gridlist-item-caption-font-size);
 		padding-top: @sand-gridlist-item-caption-padding-top;
+		.transitionEffect;
 	}
 
 	.subCaption {
-		// .sand-body-text();
-		padding-top: @sand-gridlist-item-caption-padding-top;
+		.sand-text-base(@sand-gridlist-item-subcaption-font-size);
+		color: @sand-gridlist-item-subcaption-color;
+		padding-top: @sand-gridlist-item-subcaption-padding-top;
+		.transitionEffect;
 	}
 
 	.image {
 		/* Public Class Names */
+		.transitionEffect;
 	}
 
 	// Skin colors
@@ -66,21 +74,21 @@
 		}
 
 		.focus({
-			border-color: @sand-gridlist-item-spotlight-border-color;
-			background-color: @sand-gridlist-item-spotlight-bg-color;
+			.image {
+				transform: scale(1.2);
+				filter: drop-shadow(@sand-gridlist-item-focus-bg-shadow);
+			}
 
 			.icon {
-				color: @sand-gridlist-item-spotlight-icon-color;
 			}
 
 			.caption,
 			.subCaption {
-				color: @sand-gridlist-item-spotlight-color;
+				transform: translateY(20%);
 			}
 
 			&.selected {
 				.icon {
-					color: @sand-gridlist-item-spotlight-selected-icon-color;
 				}
 			}
 		});
