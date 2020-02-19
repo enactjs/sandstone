@@ -240,7 +240,6 @@ const ItemDecorator = compose(
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
-	Touchable,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable
