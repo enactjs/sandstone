@@ -14,6 +14,7 @@
  */
 
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -36,6 +37,24 @@ const StepsBase = kind({
 	name: 'Steps',
 
 	propTypes: /** @lends sandstone/Steps.StepsBase.prototype */ {
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `steps` - The root class name
+		 * * `step` - Applied to each individual step
+		 * * `numbers` - Applied on the steps designated as "numbers" special case (See: icon props below)
+		 * * `past` - Applied to the steps preceeding the current step
+		 * * `current` - Applied to the current step
+		 * * `future` - Applied to the steps following the current step
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
 		/**
 		 * Indicate the current step.
 		 *
@@ -70,6 +89,20 @@ const StepsBase = kind({
 		 * @public
 		 */
 		futureIcon: PropTypes.string,
+
+		/**
+		 * Defines a custom element to use as the icon component.
+		 *
+		 * This component will be repeated `total` number of times and will receive the classes:
+		 * 'step' (always), 'numbers' (conditionally, based on the "numbers" value), and one of the
+		 * following three, based on the `current` step: 'past', 'current', and 'future', as well as
+		 * the `children` and `size` props.
+		 *
+		 * @type {Component}
+		 * @default `sandstone/Icon`
+		 * @public
+		 */
+		iconComponent: EnactPropTypes.component,
 
 		/**
 		 * The icon to use for indicating all steps preceding the current step.
@@ -130,6 +163,7 @@ const StepsBase = kind({
 
 	defaultProps: {
 		current: 1,
+		iconComponent: Icon,
 		pastIcon: 'check',
 		currentIcon: 'numbers',
 		futureIcon: 'numbers',
@@ -139,7 +173,8 @@ const StepsBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'steps'
+		className: 'steps',
+		publicClassNames: ['steps', 'step', 'numbers', 'past', 'current', 'future']
 	},
 
 	computed: {
@@ -177,7 +212,7 @@ const StepsBase = kind({
 		}
 	},
 
-	render: ({size, steps, ...rest}) => {
+	render: ({iconComponent, size, steps, ...rest}) => {
 		delete rest.current;
 		delete rest.currentIcon;
 		delete rest.futureIcon;
@@ -189,7 +224,7 @@ const StepsBase = kind({
 			<Repeater
 				{...rest}
 				component="div"
-				childComponent={Icon}
+				childComponent={iconComponent}
 				itemProps={{size}}
 			>
 				{steps}
