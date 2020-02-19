@@ -12,7 +12,6 @@
 
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
@@ -230,7 +229,7 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
- * @mixes ui/ForwardRef.ForwardRef
+ * @mixes ui/Item.ItemDecorator
  * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
@@ -239,10 +238,9 @@ const ItemBase = kind({
  * @public
  */
 const ItemDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
+	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
-	UiItemDecorator,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable
