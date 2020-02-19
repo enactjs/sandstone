@@ -55,6 +55,7 @@ const ProgressBarBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `progressBar` - The root component class
+		 * * `radial` - Applied when `orientation` is `'radial'`
 		 *
 		 * @type {Object}
 		 * @public
@@ -70,11 +71,9 @@ const ProgressBarBase = kind({
 		highlighted: PropTypes.bool,
 
 		/**
-		 * Sets the orientation of the slider.
+		 * The orientation of the slider.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`, `'radial'`
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical'|'radial')}
 		 * @default 'horizontal'
 		 * @public
 		 */
@@ -144,8 +143,8 @@ const ProgressBarBase = kind({
 		className: ({highlighted, orientation, progress, backgroundProgress, styler}) => styler.append({
 			highlighted,
 			radial: (orientation === 'radial'),
-			fillHalfWay: (progress > 0.5),
-			loadHalfWay: (backgroundProgress > 0.5)
+			fillOverHalf: (progress > 0.5),
+			loadOverHalf: (backgroundProgress > 0.5)
 		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
