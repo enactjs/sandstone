@@ -6,8 +6,44 @@ import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
 import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import ri from '@enact/ui/resolution';
 
 import icons from './icons';
+
+const moreButtons = ['playlist', 'resumeplay', 'languages', 'cc', 'sub'];
+
+const items = [];
+const size = 20;
+// eslint-disable-next-line enact/prop-types
+const renderItem = ({index, ...rest}) => {
+	const {source} = items[index];
+
+	return (
+		<GridListImageItem
+			{...rest}
+			caption={`caption ${index}`}
+			source={source}
+		/>
+	);
+};
+
+const updateDataSize = (dataSize) => {
+	items.length = 0;
+
+	for (let i = 0; i < dataSize; i++) {
+		const
+			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+
+		items.push({source});
+	}
+
+	return dataSize;
+};
+
+updateDataSize(size);
 
 // Set up some defaults for info and knobs
 const prop = {
@@ -88,6 +124,7 @@ storiesOf('Sandstone', module)
 			const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
 			const videoSource = prop.videos[videoTitle];
 			const poster = prop.posters[videoTitle];
+			const itemCount = number('moreButtons', Config, {range: true, min: 1, max: 5}, 3);
 			return (
 				<div
 					style={{
@@ -143,10 +180,6 @@ storiesOf('Sandstone', module)
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
 							jumpDelay={number('jumpDelay', MediaControlsConfig, 200)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-							moreButtonCloseLabel={text('moreButtonCloseLabel', MediaControlsConfig)}
-							moreButtonColor={select('moreButtonColor', prop.moreButtonColor, MediaControlsConfig, '')}
-							moreButtonDisabled={boolean('moreButtonDisabled', MediaControlsConfig)}
-							moreButtonLabel={text('moreButtonLabel', MediaControlsConfig)}
 							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
 							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
@@ -155,14 +188,21 @@ storiesOf('Sandstone', module)
 							playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
 							rateButtonsDisabled={boolean('rateButtonsDisabled', MediaControlsConfig)}
 						>
-							<leftComponents>
-								<Button backgroundOpacity="translucent" size="large" icon="fullscreen" />
-							</leftComponents>
-							<rightComponents>
-								<Button backgroundOpacity="translucent" size="large" icon="flag" />
-							</rightComponents>
-							<Button backgroundOpacity="translucent" size="large">Add To Favorites</Button>
-							<Button backgroundOpacity="translucent" size="large" icon="star" />
+							<bottomComponents>
+								<VirtualGridList
+									horizontalScrollbar={'hidden'}
+									dataSize={size}
+									direction="horizontal"
+									itemSize={{
+										minWidth: ri.scale(400),
+										minHeight: ri.scale(200)
+									}}
+									itemRenderer={renderItem}
+								/>
+							</bottomComponents>
+							{moreButtons.slice(0, itemCount).map((icon, index) => {
+								return <Button size="large" icon={icon} key={index} />;
+							})}
 						</MediaControls>
 					</VideoPlayer>
 				</div>
