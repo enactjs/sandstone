@@ -110,13 +110,13 @@ describe('Item', function () {
 
 			describe('5-way', function () {
 				// Validating that the items are in fact inline and can be navigated between via 5-way
-				it('should focus an inline item with 5-way Left', function () {
+				it('should focus an inline item with 5-way Right', function () {
 					item7Inline.focus();
 					Page.spotlightRight();
 					expect(Page.components.item6Inline.self.hasFocus()).to.be.true();
 				});
 
-				it('should focus an inline item with 5-way Right', function () {
+				it('should focus an inline item with 5-way Left', function () {
 					item7Inline.focus();
 					Page.spotlightLeft();
 					expect(Page.components.item8Inline.self.hasFocus()).to.be.true();
