@@ -229,6 +229,7 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
+ * @mixes ui/Item.ItemDecorator
  * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
