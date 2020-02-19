@@ -11,23 +11,26 @@
 .gridListImageItem {
 	width: 100%;
 
+	.overlayComponent {
+		display: block;
+		height: 100%;
+	}
+
 	.icon {
 		width: @sand-gridlist-item-overlay-icon-size;
 		height: @sand-gridlist-item-overlay-icon-size;
 		line-height: @sand-gridlist-item-overlay-icon-size;
 		position: relative;
 		display: block;
-		border-width: @sand-button-border-width;
+		border-width: @sand-gridlist-item-overlay-icon-border-width;
 		border-style: solid;
 		border-radius: 50%;
-		margin: 0;
-		opacity: 0.5;
+		margin: 30px;
 	}
 
-	&.selected {
-		.icon {
-			opacity: 1;
-		}
+	.image {
+		/* Public Class Names */
+		.transitionEffect;
 	}
 
 	.caption {
@@ -38,38 +41,36 @@
 
 	.subCaption {
 		.sand-text-base(@sand-gridlist-item-subcaption-font-size);
-		color: @sand-gridlist-item-subcaption-color;
 		padding-top: @sand-gridlist-item-subcaption-padding-top;
 		.transitionEffect;
 	}
 
-	.image {
-		/* Public Class Names */
-		.transitionEffect;
+	&.selected {
+		.image {
+			border-width: @sand-gridlist-item-overlay-icon-border-width;
+			border-style: solid;
+		}
 	}
 
 	// Skin colors
 	.applySkins({
-		border-color: transparent;
-		color: @sand-gridlist-item-color;
-
 		.icon {
-			background-color: @sand-gridlist-item-icon-bg-color;
-			border-color: @sand-gridlist-item-icon-border-color;
+			background-color: transparent;
+			border-color: @sand-gridlist-item-icon-color;
 			color: transparent;
 		}
 
+		.subCaption {
+			color: @sand-gridlist-item-subcaption-color;
+		}
+
 		&.selected {
-			border-color: @sand-gridlist-item-selected-border-color;
-			background-color: @sand-gridlist-item-selected-bg-color;
+			.image {
+				border-color: @sand-gridlist-item-selected-border-color;
+			}
 
 			.icon {
-				border-color: @sand-gridlist-item-selected-icon-border-color;
-				color: @sand-gridlist-item-selected-icon-color;
-			}
-			.caption,
-			.subCaption {
-				color: @sand-gridlist-item-selected-color;
+				color: @sand-gridlist-item-icon-color;
 			}
 		}
 
@@ -80,6 +81,7 @@
 			}
 
 			.icon {
+				color: transparent;
 			}
 
 			.caption,
@@ -89,6 +91,7 @@
 
 			&.selected {
 				.icon {
+					color: @sand-gridlist-item-icon-color;
 				}
 			}
 		});
@@ -101,21 +104,13 @@
 		.applySkins({
 			.focus({
 				&:not(.selected) {
-					border-color: transparent;
-					background-color: transparent;
-
-					.caption,
-					.subCaption {
-						color: @sand-body-text-color;
-					}
 					.icon {
 						color: transparent;
 					}
 				}
 				&.selected {
 					.icon {
-						border-color: @sand-accent;
-						color: @sand-accent;
+						color: @sand-gridlist-item-icon-color;
 					}
 				}
 			});
