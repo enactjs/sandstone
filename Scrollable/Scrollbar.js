@@ -21,9 +21,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
 	// render
-	const {cbAlertThumb, clientSize, corner, focusableScrollbar, onInteractionForScroll, vertical, ...rest} = props;
-
-	delete rest.rtl;
+	const {clientSize, corner, vertical, ...rest} = props;
 
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
@@ -53,9 +51,6 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 				return (
 					<ScrollThumb
 						{...rest}
-						cbAlertThumb={cbAlertThumb}
-						focusableThumb={focusableScrollbar}
-						scroll={onInteractionForScroll}
 						ref={thumbRef}
 						vertical={vertical}
 					/>
@@ -68,14 +63,6 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 ScrollbarBase.displayName = 'ScrollbarBase';
 
 ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */ {
-	/**
-	 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
-	 *
-	 * @type {Function}
-	 * @private
-	 */
-	cbAlertThumb: PropTypes.func,
-
 	/**
 	 * Client size of the container; valid values are an object that has `clientWidth` and `clientHeight`.
 	 *

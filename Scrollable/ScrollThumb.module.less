@@ -1,6 +1,6 @@
 @import '../styles/colors.less';
 
-.ScrollThumb {
+.scrollThumb {
 	--scrollbar-size-ratio: 1;
 	--scrollbar-progress-ratio: 0;
 	--scrollbar-size: ~"calc(100% * var(--scrollbar-size-ratio))";
@@ -19,56 +19,54 @@
 	background-color: @sand-scroll-track-bg-color;
 	border-radius: 6px;
 
-	.Thumb {
+	.thumb {
 		background: @sand-scroll-thumb-bg-color;
 		display: block;
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		border-radius: 6px;
-		will-change: transform, top, left, right;
 
 		&:focus {
 			position: absolute;
 			background-color: @sand-scroll-thumb-focus-bg-color;
-			box-shadow: 0px 40px 24px #0000004D;
+			box-shadow: 0 40px 24px #0000004D;
 			border-radius: 15px;
+
+			.directionIndicator {
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-top: @sand-scroll-thumb-focus-direction-indicator-height solid transparent;
+				border-bottom: @sand-scroll-thumb-focus-direction-indicator-height solid @sand-scroll-thumb-focus-direction-indicator-color;
+				border-right: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-left: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
+			}
 		}
-	}
-
-
-	.triangle {
-		position: absolute;
-		width: 0px;
-		height: 0px;
-		border-top: @sand-scroll-thumb-focus-direction-indicator-height solid transparent;
-		border-bottom: @sand-scroll-thumb-focus-direction-indicator-height solid @sand-scroll-thumb-focus-direction-indicator-color;
-		border-right: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
-		border-left: @sand-scroll-thumb-focus-direction-indicator-width/2 solid  transparent;
 	}
 
 	&.vertical {
 		margin: 0 24px;
 		width: 12px;
 
-		.Thumb {
+		.thumb {
 			height: var(--scrollbar-size);
 			top: var(--scrollbar-progress);
+			will-change: top;
 
 			&:focus {
+
 				width: @sand-scroll-thumb-focus-width;
 				left: @sand-scroll-thumb-focus-left-margin;
 
-				.TriangleUp {
-					.triangle;
-					top: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+				.directionIndicator.backward {
+					top: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
 					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 
-				.TriangleDown {
-					.triangle;
+				.directionIndicator.forward {
 					transform: rotate(180deg);
-					bottom: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
+					bottom: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
 					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
 				}
 			}
@@ -79,27 +77,26 @@
 		margin: 24px 0;
 		height: 12px;
 
-		.Thumb {
+		.thumb {
 			width: var(--scrollbar-size);
 			left: var(--scrollbar-progress);
+			will-change: left;
 			top: 50%;
-			transform: translateY(-50%);
+			transform: translateY(-50%);	// 이것있어야하나?
 
 			&:focus {
 				height: @sand-scroll-thumb-focus-width;
 
-				.TriangleUp {
-					.triangle;
+				.directionIndicator.backward {
 					transform: rotate(-90deg);
-					left: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
-					top: @sand-scroll-thumb-focus-direction-indicator-left-margin;
+					left: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
+					top: calc(@sand-scroll-thumb-focus-direction-indicator-left-margin/2);
 				}
 
-				.TriangleDown {
-					.triangle;
+				.directionIndicator.forward {
 					transform: rotate(90deg);
-					right: @sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height;
-					top: @sand-scroll-thumb-focus-direction-indicator-left-margin;
+					right: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
+					top: calc(@sand-scroll-thumb-focus-direction-indicator-left-margin/2);
 				}
 			}
 		}

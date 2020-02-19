@@ -26,9 +26,9 @@ const
  */
 let ScrollThumb = forwardRef((props, ref) => {
 	const
-		{cbAlertThumb, focusableThumb, scroll, vertical, ...rest} = props,
-		className = classNames(css.ScrollThumb, vertical ? css.vertical : null),
-		ScrollbarDiv = focusableThumb ?  Spottable('div') : 'div';
+		{cbAlertThumb, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		className = classNames(css.scrollThumb, vertical ? css.vertical : null),
+		ScrollbarDiv = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
 		cbAlertThumb();
@@ -37,48 +37,56 @@ let ScrollThumb = forwardRef((props, ref) => {
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();
 		ev.nativeEvent.stopImmediatePropagation();
-		scroll(scrollParam);
-	}, [scroll]);
+		onInteractionForScroll(scrollParam);
+	}, [onInteractionForScroll]);
 
 	const onKeyDown = useCallback((ev) => {
 		const
 			{keyCode} = ev,
+			isLeftRight = isLeft(keyCode) || isRight(keyCode),
+			isUpDown = isUp(keyCode) || isDown(keyCode),
+			isPageKey = isPageUp(keyCode) || isPageDown(keyCode),
 			scrollParam = {
-				isPreviousScrollButton: isUp(keyCode) || isLeft(keyCode) || isPageUp(keyCode),
+				inputType: isPageKey ? 'pageKey' : 'arrowKey',
+				isPagination: isPageKey,
+				isPreviousScroll: (!rtl && isLeft(keyCode)) || (rtl && isRight(keyCode)) || isUp(keyCode) || isPageUp(keyCode),
 				isVerticalScrollBar: vertical
 			};
 
-		if (vertical && (isUp(keyCode) || isDown(keyCode))) {
-			// Scroll distance of Chrome browser is 40px.
-			scrollParam.distance = 42;
+		if ((vertical && (isUpDown || isPageKey)) ||
+			(!vertical && (isLeftRight))) { // Do nothing when (!vertical && pageKey)
 			consumeEventWithScroll(scrollParam, ev);
-		} else if (!vertical && (isLeft(keyCode) || isRight(keyCode))) {
-			scrollParam.distance = 42;
-			consumeEventWithScroll(scrollParam, ev);
-		} else if (vertical && (isPageUp(keyCode) || isPageDown(keyCode))) {
-			consumeEventWithScroll(scrollParam, ev);
-		} // Do nothing when (!vertical && page key)
-	}, [consumeEventWithScroll, vertical]);
+		}
+
+	}, [consumeEventWithScroll, rtl, vertical]);
 
 	const onClick = useCallback((ev) => {
 		// Click the track. If user click the thumb, do nothing.
 		if (ev.target === ref.current || ev.target === ref.current.node) {
 			const
 				clickPoint = vertical ? ev.nativeEvent.offsetY : ev.nativeEvent.offsetX,
-				thumbPosition = vertical ? ev.target.children[0].offsetTop : ev.target.children[0].offsetLeft,
-				scrollParam = {isVerticalScrollBar: vertical, isPreviousScrollButton: (clickPoint < thumbPosition)};
+				thumbPosition = vertical ? ev.target.children[0].offsetTop : ev.target.children[0].offsetLeft;
 
-			consumeEventWithScroll(scrollParam, ev);
+			consumeEventWithScroll(
+				{
+					inputType: 'track',
+					isPagination: true,
+					isPreviousScroll: !rtl === (clickPoint < thumbPosition),
+					isVerticalScrollBar: vertical
+				},
+				ev
+			);
 		}
-	}, [consumeEventWithScroll, vertical, ref]);
+	}, [consumeEventWithScroll, ref, rtl, vertical]);
 
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
-			<ScrollbarDiv className={css.Thumb} onKeyDown={onKeyDown}>
-				<div className={css.TriangleUp} />
-				<div className={css.TriangleDown} />
+			<ScrollbarDiv className={css.thumb} onKeyDown={onKeyDown}>
+				<div className={classNames(css.directionIndicator, css.backward)} />
+				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarDiv>
-		</div>);
+		</div>
+	);
 });
 
 ScrollThumb.displayName = 'ScrollThumb';
@@ -91,11 +99,46 @@ ScrollThumb.propTypes = /** @lends sandstone/Scrollable.ScrollThumb.prototype */
 	 * @private
 	 */
 	cbAlertThumb: PropTypes.func,
-	scroll: PropTypes.func
+
+	/**
+	 * `true` if scroll thumb is spottable.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	focusableScrollbar: PropTypes.bool,
+
+	/**
+	 * Called when the user requests scroll.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	onInteractionForScroll: PropTypes.func,
+
+	/**
+	 * `true` if rtl, `false` if ltr.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	rtl: PropTypes.bool,
+
+	/**
+	 * `true` if vertical scroll, `false` if horizontal scroll.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	vertical: PropTypes.bool
 };
 
 ScrollThumb.defaultProps = {
-	cbAlertThumb: nop
+	cbAlertThumb: nop,
+	focusableScrollbar: false,
+	onInteractionForScroll: nop,
+	rtl: false,
+	vertical: true
 };
 
 export default ScrollThumb;

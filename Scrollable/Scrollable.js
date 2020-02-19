@@ -158,6 +158,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: PropTypes.bool,
 			drag: PropTypes.bool,
 			pageKey: PropTypes.bool,
+			track: PropTypes.bool,
 			wheel: PropTypes.bool
 		}),
 
@@ -174,6 +175,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: false,
 			drag: false,
 			pageKey: false,
+			track: false,
 			wheel: true
 		},
 		type: 'JS'
