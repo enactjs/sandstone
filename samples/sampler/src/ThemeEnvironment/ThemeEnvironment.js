@@ -22,7 +22,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'ThemeEnvrionmentPanels',
+	name: 'ThemeEnvironmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
@@ -34,7 +34,7 @@ const PanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'themeEnvrionmentPanels'
+		className: 'themeEnvironmentPanels'
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (

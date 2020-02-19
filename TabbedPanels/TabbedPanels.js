@@ -1,13 +1,19 @@
+/**
+ * Provides an Sandstone-themed TabbedPanels.
+ *
+ * @module sandstone/TabbedPanels
+ * @exports TabbedPanels
+ */
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {Changeable} from '@enact/ui/Changeable';
+import Slottable from '@enact/ui/Slottable';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
-import Slottable from '@enact/ui/Slottable';
 
 import TabGroup from '../TabGroup/TabGroup';
-
 import {Panels} from '../Panels';
 
 import componentCss from './TabbedPanels.module.less';
@@ -27,7 +33,7 @@ const TabbedPanelsBase = kind({
 		index: PropTypes.number,
 		minimized: PropTypes.bool,
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-		tabs: PropTypes.oneOfType([TabGroup])
+		tabs: PropTypes.array
 	},
 	defaultProps: {
 		index: 0
@@ -85,14 +91,13 @@ const TabbedPanelsBase = kind({
 	}
 });
 
-// Currently not documenting the base output since it's not exported from index.js
-const TabbedPanels = Slottable(
-	{slots: ['tabs', 'afterTabs', 'beforeTabs']},
-	Changeable(
-		{prop: 'index', change: 'onSelect'},
-		TabbedPanelsBase
-	)
+const TabbedPanelsDecorator = compose(
+	Slottable({slots: ['tabs', 'afterTabs', 'beforeTabs']}),
+	Changeable({prop: 'index', change: 'onSelect'})
 );
+
+// Currently not documenting the base output since it's not exported
+const TabbedPanels = TabbedPanelsDecorator(TabbedPanelsBase);
 
 export default TabbedPanels;
 export {

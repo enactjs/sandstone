@@ -5,27 +5,9 @@
 
 .tabBar {
 	.applySkins({
-		.tabButton {
+		.tab {
 			margin-left: 24px;
 			margin-right: 24px;
-		}
-
-		.tabGroup {
-			.tab {
-				&::before {
-					position: absolute;
-					content: "";
-					display: block;
-				}
-				&:first-child {
-					border-left-width: 0;
-				}
-
-				.focus({
-					background-color: transparent;
-					background-image: none;
-				});
-			}
 		}
 
 		&.horizontal {

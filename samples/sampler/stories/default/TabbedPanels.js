@@ -68,11 +68,12 @@ storiesOf('Sandstone', module)
 					</Panel>
 					<Panel>
 						<Button icon="image">Button!</Button>
+						<Button icon="image">Button!</Button>
+						<Button icon="image">Button!</Button>
+						<Button icon="image">Button!</Button>
 					</Panel>
 					<Panel className="enact-fit">
-						<div>
-							<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
-						</div>
+						<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
 					</Panel>
 					<Panel>
 						<div>
