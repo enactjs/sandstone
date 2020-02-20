@@ -1,17 +1,21 @@
+// TabbedPanels.module.less
+//
+@import "../styles/variables.less";
+
 .tabbedPanels {
 	.panels {
-		margin-top: 127px;
-		margin-left: 210px;
+		margin-top: @sand-tabbedpanels-panels-margin-top;
+		margin-left: @sand-tabbedpanels-panels-margin-left;
 	}
 
 	.tabs {
-		margin-top: 127px;
-		margin-left: 150px;
+		margin-top: @sand-tabbedpanels-tas-margin-top;
+		margin-left: @sand-tabbedpanels-tas-margin-left;
 	}
 
 	&.minimized {
 		.panels {
-			margin-left: 108px;
+			margin-left: @sand-tabbedpanels-panels-minimized-margin-left;
 		}
 	}
 

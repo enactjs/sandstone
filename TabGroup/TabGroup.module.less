@@ -1,21 +1,18 @@
 // TabGroup.module.less
-@import "../styles/mixins.less";
+//
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 
 .tabBar {
-	.applySkins({
-		.tab {
-			margin-left: 24px;
-			margin-right: 24px;
-		}
+	.tab {
+		margin-left: @sand-tabgroup-tab-margin-left;
+		margin-right: @sand-tabgroup-tab-margin-right;
+	}
 
-		&.horizontal {
-			&.positionAfter {
-				.tab {
-					right: 0;
-				}
+	&.horizontal {
+		&.positionAfter {
+			.tab {
+				right: 0;
 			}
 		}
-	});
+	}
 }
