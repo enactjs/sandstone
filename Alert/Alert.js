@@ -8,7 +8,6 @@
 
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {Layout, Column} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -153,7 +152,7 @@ const AlertBase = kind({
 	render: ({buttons, css, id, image, title, titleBelow, ...rest}) => {
 		return (
 			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css}>
-				<Layout align="center center" orientation="vertical">
+				<div className={css.alertBody}>
 					{
 						image ? <div>{image}</div> : null
 					}
@@ -163,12 +162,10 @@ const AlertBase = kind({
 					<div className={css.titleBelow} id={`${id}_titleBelow`}>
 						{titleBelow}
 					</div>
-					<div>
-						<Column className={css.buttons} id={`${id}_buttons`}>
-							{buttons}
-						</Column>
+					<div className={css.buttons} id={`${id}_buttons`}>
+						{buttons}
 					</div>
-				</Layout>
+				</div>
 			</Popup>
 		);
 	}
@@ -177,8 +174,8 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The Alert
- * consists of a image, title, a subtitle and an area for additional
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
+ * consists of a title, a subtitle, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
  * Usage:
