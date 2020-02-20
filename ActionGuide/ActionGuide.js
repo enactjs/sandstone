@@ -57,6 +57,7 @@ const ActionGuideBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
 		/**
 		 * The icon displayed within the action guide.
 		 *
