@@ -89,9 +89,9 @@ const TabGroupBase = kind({
 		className: ({orientation, styler}) => styler.append(orientation),
 		children: ({orientation, tabs}) => {
 			let children = [...tabs];
-			if (orientation === 'horizontal') {
+			if (orientation === 'horizontal' && tabs.length > 6) {
 				// limited to the first 6 tabs for horizontal TabGroup
-				children = tabs.splice((tabs.length - 5), 4);
+				children = tabs.splice((tabs.length - 6), 4);
 			}
 
 			return children.map((tab, i) => {
