@@ -1,11 +1,9 @@
 import Spotlight from '@enact/spotlight';
 import {constants} from '@enact/ui/Scrollable';
+import ri from '@enact/ui/resolution';
 
 const {paginationPageMultiplier} = constants;
-
-// When user press arrow keys, scroll distance of Chrome browser is 40px.
-// 42 is the number which is a multiple of 6 to support 4k.
-const defaultScrollDistance = 42;
+const defaultScrollDistance = 168;	// TODO : Change to the value decided by UX.
 
 const useScrollbar = (props, instances, context) => {
 	const {uiScrollAdapter} = instances;
@@ -17,11 +15,11 @@ const useScrollbar = (props, instances, context) => {
 	};
 
 	// Functions
-	function onInteractionForScroll ({inputType, isPagination, isPreviousScroll, isVerticalScrollBar}) {
+	function onInteractionForScroll ({inputType, isForward, isPagination, isVerticalScrollBar}) {
 		const
 			{wheelDirection} = uiScrollAdapter.current,
 			bounds = uiScrollAdapter.current.getScrollBounds(),
-			direction = isPreviousScroll ? -1 : 1,
+			direction = isForward ? 1 : -1,
 			singlePageDistance = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
 			distance = isPagination ? (singlePageDistance * paginationPageMultiplier) : defaultScrollDistance;
 
@@ -32,7 +30,7 @@ const useScrollbar = (props, instances, context) => {
 			uiScrollAdapter.current.wheelDirection = direction;
 		}
 
-		uiScrollAdapter.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+		uiScrollAdapter.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
 	}
 
 	function alertThumb () {
