@@ -47,12 +47,12 @@ const IconTests = [
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
-	// [GT-21212 - Icon Functionality RTL
+	// [GT-28211] - Icon Functionality RTL
 	{
 		locale: 'ar-SA',
 		component: <Icon>minus</Icon>
 	},
-
+	// end of [GT-28211]
 	{
 		locale: 'ar-SA',
 		component: <Icon size="tiny">minus</Icon>
