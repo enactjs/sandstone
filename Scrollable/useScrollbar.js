@@ -20,8 +20,8 @@ const useScrollbar = (props, instances, context) => {
 			{wheelDirection} = uiScrollAdapter.current,
 			bounds = uiScrollAdapter.current.getScrollBounds(),
 			direction = isForward ? 1 : -1,
-			singlePageDistance = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
-			distance = isPagination ? (singlePageDistance * paginationPageMultiplier) : defaultScrollDistance;
+			pageSize = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
+			distance = isPagination ? (pageSize * paginationPageMultiplier) : defaultScrollDistance;
 
 		uiScrollAdapter.current.lastInputType = inputType;
 

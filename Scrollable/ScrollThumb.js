@@ -53,8 +53,8 @@ let ScrollThumb = forwardRef((props, ref) => {
 				isVerticalScrollBar: vertical
 			};
 
-		if ((vertical && (isUpDown || isPageKey)) ||
-			(!vertical && (isLeftRight))) { // Do nothing when (!vertical && pageKey)
+		if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
+			// Do nothing when (!vertical && pageKey)
 			consumeEventWithScroll(scrollParam, ev);
 		}
 
