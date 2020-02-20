@@ -50,12 +50,12 @@ const ItemContent = kind({
 		}
 	},
 	// eslint-disable-next-line enact/prop-types
-	render: ({orientation, content, css, label, styler, ...rest}) => {
+	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
 		delete rest.labelPosition;
 
 		if (!label) {
 			return (
-				<Cell {...rest} component={Marquee} className={styler.append(css.content)}>
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
 					{content}
 				</Cell>
 			);
@@ -63,10 +63,10 @@ const ItemContent = kind({
 			return (
 				<Cell {...rest}>
 					<Layout orientation={orientation}>
-						<Cell component={Marquee} className={css.content} shrink>
+						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 							{content}
 						</Cell>
-						<Cell component={Marquee} className={css.label} shrink>
+						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
 							{label}
 						</Cell>
 					</Layout>
