@@ -22,6 +22,7 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import Pure from '@enact/ui/internal/Pure';
+import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -77,7 +78,6 @@ const KeyGuideBase = kind({
 		 * Controls the visibility of the KeyGuide.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		open: PropTypes.bool
@@ -87,9 +87,7 @@ const KeyGuideBase = kind({
 		children: ({children, css}) => {
 			if (!Array.isArray(children)) return [];
 
-			return children.map((child) => {
-				return <LabeledIcon {...child} css={css} labelPosition="after" size="small" />;
-			});
+			return children;
 		}
 	},
 
@@ -99,16 +97,24 @@ const KeyGuideBase = kind({
 		publicClassNames: ['keyGuide']
 	},
 
-	render: ({open, children, ...rest}) => {
+	render: ({open, css, ...rest}) => {
+		const openKeyGuide = open && rest.children.length > 0;
+
 		return (
 			<FloatingLayer
 				noAutoDismiss
-				open={open}
+				open={openKeyGuide}
 				scrimType="none"
 			>
-				<div {...rest}>
-					{children}
-				</div>
+				<Repeater
+					{...rest}
+					childComponent={LabeledIcon}
+					itemProps={{
+						labelPosition: 'after',
+						size: 'small',
+						css: css
+					}}
+				/>
 			</FloatingLayer>
 		);
 	}

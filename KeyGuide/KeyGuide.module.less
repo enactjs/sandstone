@@ -1,30 +1,26 @@
-@import "../styles/variables.less";
+@import "../styles/mixins.less";
 @import "../styles/skin.less";
+@import "../styles/variables.less";
 
 .keyGuide {
+    .position-start-end(auto, @sand-keyguide-position-right);
+
     position: absolute;
     width: @sand-keyguide-width;
     bottom: @sand-keyguide-position-bottom;
-    right: @sand-keyguide-position-left-right;
-    padding: @sand-keyguide-padding-top-bottom 0;
-
-    :global(.enact-locale-right-to-left) & {
-        left: @sand-keyguide-position-left-right;
-        right: auto;
-	}
+    padding: @sand-keyguide-padding;
 
     .labeledIcon {
+        .sand-text-base(@sand-keyguide-labeled-icon-font-size);
+
         max-width: none;
         padding: 0;
-        margin: 54px 48px;
-        font-size: @sand-keyguide-labeled-icon-font-size;
+        margin: @sand-keyguide-labeled-icon-margin;
     }
 
     .icon {
-        margin: 0 @sand-keyguide-icon-margin-right 0 0;
-        :global(.enact-locale-right-to-left) & {
-            margin: 0 0 0 @sand-keyguide-icon-margin-right;
-        }
+        margin: 0;
+        .margin-start-end(0, @sand-keyguide-icon-margin-right);
     }
 
     .applySkins({

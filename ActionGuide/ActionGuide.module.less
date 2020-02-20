@@ -1,11 +1,12 @@
-@import "../styles/variables.less";
+@import "../styles/mixins.less";
 @import "../styles/skin.less";
+@import "../styles/variables.less";
 
 .actionGuide {
     text-align: center;
 
     .label {
-        font-size: @sand-actionguide-label-font-size;
+        .sand-text-base(@sand-actionguide-label-font-size);
     }
 
     .icon {
