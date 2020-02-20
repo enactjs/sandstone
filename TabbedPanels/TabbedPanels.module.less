@@ -9,20 +9,26 @@
 	}
 
 	.tabs {
-		margin-top: @sand-tabbedpanels-tas-margin-top;
-		margin-left: @sand-tabbedpanels-tas-margin-left;
+		margin-top: @sand-tabbedpanels-tabs-margin-top;
+		margin-left: @sand-tabbedpanels-tabs-margin-left;
 	}
 
 	&.minimized {
 		.panels {
 			margin-left: @sand-tabbedpanels-panels-minimized-margin-left;
 		}
+
+		&.vertical {
+			.tabs {
+				margin-left: @sand-tabbedpanels-tabs-minimized-margin-left;
+			}
+		}
 	}
 
 	&.reverse {
 		flex-direction: row-reverse;
 
-		&.column {
+		&.vertical {
 			flex-direction: column-reverse;
 		}
 	}

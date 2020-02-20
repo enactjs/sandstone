@@ -8,6 +8,7 @@ import {Image} from '@enact/sandstone/Image';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Panel} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
 import {TabbedPanels} from '@enact/sandstone/TabbedPanels';
 
 TabbedPanels.displayName = 'TabbedPanels';
@@ -33,7 +34,7 @@ storiesOf('Sandstone', module)
 				>
 					<Panel>
 						<Icon>home</Icon>Home
-						<div>
+						<Scroller style={{height: '500px'}}>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
@@ -64,7 +65,7 @@ storiesOf('Sandstone', module)
 								src="http://placehold.it/360x240/"
 								style={{marginTop: '24px'}}
 							/>
-						</div>
+						</Scroller>
 					</Panel>
 					<Panel>
 						<Button icon="image">Button!</Button>

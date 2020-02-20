@@ -87,20 +87,12 @@ const TabGroupBase = kind({
 
 	computed: {
 		className: ({orientation, styler}) => styler.append(orientation),
-		children: ({orientation, tabs}) => {
-			let children = [...tabs];
-			if (orientation === 'horizontal' && tabs.length > 6) {
-				// limited to the first 6 tabs for horizontal TabGroup
-				children = tabs.splice((tabs.length - 6), 4);
-			}
-
-			return children.map((tab, i) => {
-				tab.key = 'tab' + i;
-				tab.children = tab.title || tab.children;
-				delete tab.title;
-				return tab;
-			});
-		}
+		children: ({tabs}) => [...tabs].map((tab, i) => {
+			tab.key = 'tab' + i;
+			tab.children = tab.title || tab.children;
+			delete tab.title;
+			return tab;
+		})
 	},
 
 	render: ({minimized, orientation, selectedIndex, ...rest}) => {

@@ -61,8 +61,10 @@ const TabbedPanelsBase = kind({
 				});
 			}
 		},
-		className: ({css, minimized, orientation, styler}) => styler.append({minimized}, orientation === 'vertical' ? css.column : ''),
-		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical'
+		className: ({minimized, orientation, styler}) => styler.append({minimized, orientation}),
+		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
+		// limit to 5 tabs for horizontal orientation
+		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
 	},
 	render: ({children, css, index, minimized, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
