@@ -14,6 +14,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import Button from '../Button';
+import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
 import componentCss from './TabGroup.module.less';
@@ -99,20 +100,22 @@ const TabGroupBase = kind({
 		delete rest.tabs;
 
 		return (
-			<Layout
-				{...rest}
-				align="start"
-				childComponent={Tab}
-				component={Group}
-				itemProps={{
-					minimized,
-					orientation
-				}}
-				orientation={orientation}
-				select="radio"
-				selected={selectedIndex}
-				selectedProp="selected"
-			/>
+			<Scroller>
+				<Layout
+					{...rest}
+					align="start"
+					childComponent={Tab}
+					component={Group}
+					itemProps={{
+						minimized,
+						orientation
+					}}
+					orientation={orientation}
+					select="radio"
+					selected={selectedIndex}
+					selectedProp="selected"
+				/>
+			</Scroller>
 		);
 	}
 });

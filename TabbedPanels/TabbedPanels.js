@@ -12,9 +12,10 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
+import warning from 'warning';
 
-import TabGroup from '../TabGroup/TabGroup';
 import {Panels} from '../Panels';
+import TabGroup from '../TabGroup';
 
 import componentCss from './TabbedPanels.module.less';
 
@@ -29,6 +30,18 @@ import componentCss from './TabbedPanels.module.less';
 const TabbedPanelsBase = kind({
 	name: 'TabbedPanels',
 	propTypes: /** @lends sandstone/TabbedPanels.prototype */ {
+		/**
+		 * List of tabs to display.
+		 *
+		 * Each object in the array of tabs should include a `title` property and, optionally, an
+		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
+		 * supplied for the first tab, no icons will be displayed when minimized.
+		 *
+		 * @type {Object[]}
+		 * @public
+		 */
+		tabs: PropTypes.array.isRequired,
+
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -69,19 +82,7 @@ const TabbedPanelsBase = kind({
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-
-		/**
-		 * List of tabs to display.
-		 *
-		 * Each object in the array of tabs should include a `title` property and, optionally, an
-		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for the first tab, no icons will be displayed when minimized.
-		 *
-		 * @type {Object[]}
-		 * @public
-		 */
-		tabs: PropTypes.array
+		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
 	},
 	defaultProps: {
 		index: 0,
@@ -97,25 +98,17 @@ const TabbedPanelsBase = kind({
 		)
 	},
 	computed: {
-		children: ({children, tabs}) => {
-			// if there are children use them
-			if (children) {
-				return children;
-			}
-			// otherwise try to make children from the tabs' view and viewProps
-			if (tabs) {
-				return tabs.map((tab, index) => {
-					const {view: View, viewProps} = tab;
-					return <View key={index} {...viewProps} />;
-				});
-			}
-		},
-		className: ({minimized, orientation, styler}) => styler.append({minimized, orientation}),
+		className: ({minimized, orientation, styler}) => styler.append({minimized: orientation === 'vertical' && minimized, orientation}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
 	},
 	render: ({children, css, index, minimized, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		warning(
+			children.length === tabs.length,
+			'The number of children should match the number of tabs'
+		);
+
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell shrink>
