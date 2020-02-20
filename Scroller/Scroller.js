@@ -88,7 +88,7 @@ class ScrollerBase extends Component {
 }
 
 const useSpottable = (props, instances) => {
-	const {uiChildAdapter, scrollContentRef} = instances;
+	const {scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
 
@@ -258,14 +258,14 @@ const useSpottable = (props, instances) => {
 
 		const
 			{rtl} = props,
-			{clientWidth} = uiChildAdapter.current.scrollBounds,
+			{clientWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
-			scrollLastPosition = scrollPosition ? scrollPosition : uiChildAdapter.current.scrollPos.left,
-			currentScrollLeft = rtl ? (uiChildAdapter.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
+			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
+			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
 			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
-		let nextScrollLeft = uiChildAdapter.current.scrollPos.left;
+		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
 			// If focus is moved to an element outside of view area (to the right), scroller will move
@@ -293,8 +293,8 @@ const useSpottable = (props, instances) => {
 	 */
 	function calculatePositionOnFocus ({item, scrollPosition}) {
 		const containerNode = scrollContentRef.current;
-		const horizontal = uiChildAdapter.current.isHorizontal();
-		const vertical = uiChildAdapter.current.isVertical();
+		const horizontal = scrollContentHandle.current.isHorizontal();
+		const vertical = scrollContentHandle.current.isVertical();
 
 		if (!vertical && !horizontal || !item || !utilDOM.containsDangerously(containerNode, item)) {
 			return;
@@ -304,14 +304,14 @@ const useSpottable = (props, instances) => {
 		const itemRect = getRect(item);
 
 		if (horizontal && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
-			uiChildAdapter.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
+			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
 		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
-			uiChildAdapter.current.scrollPos.top = calculateScrollTop(item);
+			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
-		return uiChildAdapter.current.scrollPos;
+		return scrollContentHandle.current.scrollPos;
 	}
 
 	function focusOnNode (node) {
@@ -330,19 +330,19 @@ const useSpottable = (props, instances) => {
 };
 
 const useSpottableScroller = (props) => {
-	const {uiChildAdapter, scrollContentRef} = props;
+	const {scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {uiChildAdapter, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContentHandle, scrollContentRef});
 
 	useEffect(() => {
-		props.setChildAdapter({
+		props.setThemeScrollContentHandle({
 			calculatePositionOnFocus,
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, props, props.setChildAdapter, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, props, props.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
 
@@ -351,9 +351,9 @@ const useSpottableScroller = (props) => {
 	delete propsObject.children;
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.onUpdate;
-	delete propsObject.setChildAdapter;
+	delete propsObject.setThemeScrollContentHandle;
 	delete propsObject.spotlightId;
-	delete propsObject.uiScrollAdapter;
+	delete propsObject.scrollContainerHandle;
 
 	propsObject.children = (
 		<div className={css.contentWrapper}>

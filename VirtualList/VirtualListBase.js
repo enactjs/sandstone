@@ -191,7 +191,7 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
-	const {uiChildAdapter, scrollContentRef} = instances;
+	const {scrollContentHandle, scrollContentRef} = instances;
 	const {type} = context;
 
 	// Mutable value
@@ -293,7 +293,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = uiChildAdapter.current;
+		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -303,8 +303,8 @@ const useSpottable = (props, instances, context) => {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
-				start = uiChildAdapter.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? uiChildAdapter.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
+				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -391,19 +391,19 @@ const useSpottable = (props, instances, context) => {
 		return mutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
 	}
 
-	function calculatePositionOnFocus ({item, scrollPosition = uiChildAdapter.current.scrollPosition}) {
+	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
 
 			{pageScroll} = props,
-			{numOfItems, primary} = uiChildAdapter.current,
+			{numOfItems, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
-			let gridPosition = uiChildAdapter.current.getGridPosition(focusedIndex);
+			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = uiChildAdapter.current.getItemNode(mutableRef.current.lastFocusedIndex);
+				const node = scrollContentHandle.current.getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (node) {
 					node.blur();
@@ -422,7 +422,7 @@ const useSpottable = (props, instances, context) => {
 					} else {
 						// This code uses the trick to change the target position slightly which will not affect the actual result
 						// since a browser ignore `scrollTo` method if the target position is same as the current position.
-						gridPosition.primaryPosition = scrollPosition + (uiChildAdapter.current.scrollPosition === scrollPosition ? 0.1 : 0);
+						gridPosition.primaryPosition = scrollPosition + (scrollContentHandle.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
 					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
@@ -433,7 +433,7 @@ const useSpottable = (props, instances, context) => {
 			// scrondaryPosition should be 0 here.
 			gridPosition.secondaryPosition = 0;
 
-			return uiChildAdapter.current.gridPositionToItemPosition(gridPosition);
+			return scrollContentHandle.current.gridPositionToItemPosition(gridPosition);
 		}
 	}
 
@@ -450,7 +450,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function getScrollBounds () {
-		return uiChildAdapter.current.getScrollBounds();
+		return scrollContentHandle.current.getScrollBounds();
 	}
 
 	// Return
@@ -475,11 +475,11 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useSpottableVirtualList = (props) => {
-	const {type, uiChildAdapter, scrollContentRef} = props;
+	const {type, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
-	const instance = {uiChildAdapter, scrollContentRef};
+	const instance = {scrollContentHandle, scrollContentRef};
 
 	const {
 		calculatePositionOnFocus,
@@ -501,7 +501,7 @@ const useSpottableVirtualList = (props) => {
 
 	usePreventScroll(props, instance, {type});
 
-	const adapter = {
+	const handle = {
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
@@ -512,8 +512,8 @@ const useSpottableVirtualList = (props) => {
 		shouldPreventScrollByFocus
 	};
 	useEffect(() => {
-		props.setChildAdapter(adapter);
-	}, [adapter, props, props.setChildAdapter]);
+		props.setThemeScrollContentHandle(handle);
+	}, [handle, props, props.setThemeScrollContentHandle]);
 
 	// Functions
 
@@ -532,7 +532,7 @@ const useSpottableVirtualList = (props) => {
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
 	delete rest.spotlightId;
-	delete rest.uiScrollAdapter;
+	delete rest.scrollContainerHandle;
 	delete rest.wrap;
 
 	return {

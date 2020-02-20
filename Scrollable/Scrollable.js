@@ -13,7 +13,7 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {useScrollBase} from '@enact/ui/Scrollable';
-import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
+import {useScrollContentHandle} from '@enact/ui/Scrollable/useScrollContentHandle';
 import {utilDecorateChildProps} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
@@ -22,7 +22,7 @@ import React, {Component, useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import {useChildAdapter} from './useChild';
+import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
 	useEventTouch, useEventVoice, useEventWheel
@@ -182,7 +182,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 }
 
 const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, scrollContentRef, uiScrollAdapter, scrollContainerRef} = instances;
+	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
 
@@ -248,7 +248,7 @@ const useSpottableScroll = (props, instances, context) => {
 
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
-			childAdapter.current.setContainerDisabled(false);
+			themeScrollContentHandle.current.setContainerDisabled(false);
 		}
 
 		focusOnItem();
@@ -262,13 +262,13 @@ const useSpottableScroll = (props, instances, context) => {
 	}
 
 	function focusOnItem () {
-		if (mutableRef.current.indexToFocus !== null && typeof childAdapter.current.focusByIndex === 'function') {
-			childAdapter.current.focusByIndex(mutableRef.current.indexToFocus);
+		if (mutableRef.current.indexToFocus !== null && typeof themeScrollContentHandle.current.focusByIndex === 'function') {
+			themeScrollContentHandle.current.focusByIndex(mutableRef.current.indexToFocus);
 			mutableRef.current.indexToFocus = null;
 		}
 
-		if (mutableRef.current.nodeToFocus !== null && typeof childAdapter.current.focusOnNode === 'function') {
-			childAdapter.current.focusOnNode(mutableRef.current.nodeToFocus);
+		if (mutableRef.current.nodeToFocus !== null && typeof themeScrollContentHandle.current.focusOnNode === 'function') {
+			themeScrollContentHandle.current.focusOnNode(mutableRef.current.nodeToFocus);
 			mutableRef.current.nodeToFocus = null;
 		}
 
@@ -308,18 +308,18 @@ const useSpottableScroll = (props, instances, context) => {
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
-		if (uiScrollAdapter.current.scrollToInfo === null) {
-			const scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+		if (scrollContainerHandle.current.scrollToInfo === null) {
+			const scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 
-			if (scrollHeight !== uiScrollAdapter.current.bounds.scrollHeight) {
+			if (scrollHeight !== scrollContainerHandle.current.bounds.scrollHeight) {
 				calculateAndScrollTo();
 			}
 		}
 
-		// oddly, Scroller manages uiScrollAdapter.current.bounds so if we don't update it here (it is also
+		// oddly, Scroller manages scrollContainerHandle.current.bounds so if we don't update it here (it is also
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
-		uiScrollAdapter.current.bounds.scrollHeight = uiScrollAdapter.current.getScrollBounds().scrollHeight;
+		scrollContainerHandle.current.bounds.scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 	}
 
 	function handleResizeWindow () {
@@ -397,9 +397,9 @@ const useScroll = (props) => {
 
 	// Adapters
 
-	const [childAdapter, setChildAdapter] = useChildAdapter();
+	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
-	const uiScrollAdapter = useRef({
+	const scrollContainerHandle = useRef({
 		animator: null,
 		applyOverscrollEffect: null,
 		bounds: null,
@@ -430,11 +430,11 @@ const useScroll = (props) => {
 		wheelDirection: null
 	});
 
-	const setUiScrollAdapter = (adapter) => {
-		uiScrollAdapter.current = adapter;
+	const setScrollContainerHandle = (handle) => {
+		scrollContainerHandle.current = handle;
 	};
 
-	const [uiChildAdapter, setUiChildAdapter] = useUiChildAdapter();
+	const [scrollContentHandle, setScrollContentHandle] = useScrollContentHandle();
 
 	// Hooks
 
@@ -445,9 +445,9 @@ const useScroll = (props) => {
 		scrollContentRef,
 
 		// Adapter
-		childAdapter,
-		uiScrollAdapter,
-		uiChildAdapter
+		themeScrollContentHandle,
+		scrollContainerHandle,
+		scrollContentHandle
 	};
 
 	const
@@ -505,10 +505,10 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		setUiChildAdapter,
-		setUiScrollAdapter,
+		setScrollContentHandle,
+		setScrollContainerHandle,
 		type,
-		uiChildAdapter,
+		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
 		verticalScrollbarRef
@@ -517,7 +517,7 @@ const useScroll = (props) => {
 	decorateChildProps('scrollContainerProps', {
 		className: [
 			css.scroll,
-			uiScrollAdapter.current.rtl ? css.rtl : null,
+			scrollContainerHandle.current.rtl ? css.rtl : null,
 			overscrollCss.scroll
 		],
 		'data-spotlight-container': spotlightContainer,
@@ -548,11 +548,11 @@ const useScroll = (props) => {
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
-		setChildAdapter,
+		setThemeScrollContentHandle,
 		spotlightId,
-		uiChildAdapter,
+		scrollContentHandle,
 		scrollContentRef,
-		uiScrollAdapter
+		scrollContainerHandle
 	});
 
 	decorateChildProps('verticalScrollbarProps', {
