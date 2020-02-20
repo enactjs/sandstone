@@ -49,7 +49,7 @@ let ScrollThumb = forwardRef((props, ref) => {
 			scrollParam = {
 				inputType: isPageKey ? 'pageKey' : 'arrowKey',
 				isPagination: isPageKey,
-				isPreviousScroll: (!rtl && isLeft(keyCode)) || (rtl && isRight(keyCode)) || isUp(keyCode) || isPageUp(keyCode),
+				isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
 				isVerticalScrollBar: vertical
 			};
 
@@ -71,7 +71,7 @@ let ScrollThumb = forwardRef((props, ref) => {
 				{
 					inputType: 'track',
 					isPagination: true,
-					isPreviousScroll: !rtl === (clickPoint < thumbPosition),
+					isForward: clickPoint > thumbPosition,
 					isVerticalScrollBar: vertical
 				},
 				ev

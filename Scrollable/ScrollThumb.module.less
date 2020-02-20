@@ -7,10 +7,10 @@
 	--scrollbar-progress: ~"calc(((1 - var(--scrollbar-size-ratio)) * var(--scrollbar-progress-ratio)) * 100%)";
 
 	@sand-scroll-thumb-focus-width: 30px;
-	@sand-scroll-thumb-focus-left-margin: -9px;	// TODO: Re-apply 4k GUI.
+	@sand-scroll-thumb-focus-left-margin: -9px; // TODO: Re-apply 4K GUI.
 	@sand-scroll-thumb-focus-direction-indicator-width: 18px;
 	@sand-scroll-thumb-focus-direction-indicator-height: 12px;
-	@sand-scroll-thumb-focus-direction-indicator-top-margin: 9px;
+	@sand-scroll-thumb-focus-direction-indicator-top-margin: 9px; // TODO: Re-apply 4K GUI.
 	@sand-scroll-thumb-focus-direction-indicator-left-margin: 6px;
 
 	position: relative;
@@ -82,7 +82,7 @@
 			left: var(--scrollbar-progress);
 			will-change: left;
 			top: 50%;
-			transform: translateY(-50%);	// 이것있어야하나?
+			transform: translateY(-50%);
 
 			&:focus {
 				height: @sand-scroll-thumb-focus-width;
