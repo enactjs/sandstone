@@ -242,7 +242,7 @@ const useEventFocus = (props, instances) => {
 			// only for VirtualGridList
 			// To make the blurred item normal
 			if (ev.target && uiChildAdapter.current.isItemSized) {
-				ev.target.parentNode.style.setProperty('z-index', 0);
+				ev.target.parentNode.style.setProperty('z-index', null);
 			}
 		}
 
