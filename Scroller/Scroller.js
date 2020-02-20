@@ -329,7 +329,7 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useSpottableScroller = (props) => {
+const useThemeScroller = (props) => {
 	const {scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
@@ -419,7 +419,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const themeScrollContentProps = useSpottableScroller(scrollContentProps);
+	const themeScrollContentProps = useThemeScroller(scrollContentProps);
 
 	// Render
 

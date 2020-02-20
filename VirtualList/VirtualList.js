@@ -19,7 +19,7 @@ import useScroll from '../Scrollable';
 import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import {useSpottableVirtualList, VirtualListBase} from './VirtualListBase';
+import {useThemeVirtualList, VirtualListBase} from './VirtualListBase';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
@@ -63,7 +63,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const themeScrollContentProps = useSpottableVirtualList({
+	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role
@@ -246,7 +246,7 @@ let VirtualGridList = ({role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll(rest);
 
-	const themeScrollContentProps = useSpottableVirtualList({
+	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role: role

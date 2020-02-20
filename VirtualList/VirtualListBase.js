@@ -474,7 +474,7 @@ const useSpottable = (props, instances, context) => {
 	};
 };
 
-const useSpottableVirtualList = (props) => {
+const useThemeVirtualList = (props) => {
 	const {type, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
@@ -630,8 +630,8 @@ function listItemsRenderer (props) {
 }
 /* eslint-enable enact/prop-types */
 
-export default useSpottableVirtualList;
+export default useThemeVirtualList;
 export {
-	useSpottableVirtualList,
+	useThemeVirtualList,
 	VirtualListBase
 };
