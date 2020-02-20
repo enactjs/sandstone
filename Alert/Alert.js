@@ -177,8 +177,8 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
- * consists of a title, a subtitle, a message, and an area for additional
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user. The Alert
+ * consists of a image, title, a subtitle and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
  * Usage:
