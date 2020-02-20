@@ -22,7 +22,6 @@ storiesOf('Sandstone', module)
 			<div style={{paddingBottom: '56.25%'}}>
 				<TabbedPanels
 					onClick={action('onClick')}
-					// index={Number(select('index', ['0', '1', '2', '3'], TabbedPanels, '0'))}
 					minimized={boolean('minimized', TabbedPanels)}
 					onSelect={action('onSelect')}
 					orientation={select('orientation', ['vertical', 'horizontal'], TabbedPanels, 'vertical')}
