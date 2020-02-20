@@ -91,7 +91,7 @@ const TabGroupBase = kind({
 			let children = [...tabs];
 			if (orientation === 'horizontal') {
 				// limited to the first 6 tabs for horizontal TabGroup
-				children = tabs.splice(4, (tabs.length - 5));
+				children = tabs.splice((tabs.length - 5), 4);
 			}
 
 			return children.map((tab, i) => {
