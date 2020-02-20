@@ -38,9 +38,18 @@ const TabbedPanelsBase = kind({
 		 * supplied for the first tab, no icons will be displayed when minimized.
 		 *
 		 * @type {Object[]}
+		 * @required
 		 * @public
 		 */
 		tabs: PropTypes.array.isRequired,
+
+		/**
+		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		children: PropTypes.node,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
