@@ -253,7 +253,7 @@ const useEventFocus = (props, instances) => {
 
 		return () => {
 			utilEvent('focusin').removeEventListener(scrollerNode, handleFocus);
-			utilEvent('focusin').removeEventListener(scrollerNode, handleBlur);
+			utilEvent('focusout').removeEventListener(scrollerNode, handleBlur);
 		};
 	});
 
