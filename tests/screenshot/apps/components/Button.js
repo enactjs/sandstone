@@ -26,6 +26,12 @@ const ButtonTests = [
 	<Button icon="plus" iconPosition="before">click me</Button>,
 	<Button icon="plus" iconPosition="before" size="large">click me</Button>,
 
+	// Icon only, iconPosition = before (Default) + icon + iconPosition + small (default) + large
+	<Button icon="minus" iconPosition="after" />,
+	<Button icon="minus" iconPosition="after" size="large" />,
+	<Button icon="plus" iconPosition="before" />,
+	<Button icon="plus" iconPosition="before" size="large" />,
+
 	// iconPosition = before (Default) + backgroundOpacity
 	// Step 3 - [GT-28180]
 	<Button icon="plus" backgroundOpacity="transparent">click me</Button>,
@@ -73,6 +79,23 @@ const ButtonTests = [
 	{
 		locale: 'ar-SA',
 		component: <Button size="large">click me</Button>
+	},
+	// Icon only - iconPosition = before (Default) + icon + iconPosition + small (default) + large
+	{
+		locale: 'ar-SA',
+		component: <Button icon="minus" iconPosition="after" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="minus" iconPosition="after" size="large" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="plus" iconPosition="before" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="plus" iconPosition="before" size="large" />
 	},
 	// iconPosition = before (Default) + icon + iconPosition + small (default) + large
 	{
