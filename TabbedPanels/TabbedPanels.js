@@ -29,14 +29,63 @@ import componentCss from './TabbedPanels.module.less';
 const TabbedPanelsBase = kind({
 	name: 'TabbedPanels',
 	propTypes: /** @lends sandstone/TabbedPanels.prototype */ {
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
+
+		/**
+		 * The currently selected tab.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
 		index: PropTypes.number,
+
+		/**
+		 * Collapse the vertical tab list into icons only.
+		 *
+		 * Only applies to `orientation="vertical"`.  If the tabs do not include icons, a single
+		 * collapsed icon will be shown.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		minimized: PropTypes.bool,
+
+		/**
+		 * Orientation of the tabs.
+		 *
+		 * Horizontal tabs support a maximum of five tabs.
+		 *
+		 * @type {('horizontal'|'vertical')}
+		 * @default 'horizontal'
+		 * @public
+		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * List of tabs to display.
+		 *
+		 * Each object in the array of tabs should include a `title` property and, optionally, an
+		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
+		 * supplied for the first tab, no icons will be displayed when minimized.
+		 *
+		 * @type {Object[]}
+		 * @public
+		 */
 		tabs: PropTypes.array
 	},
 	defaultProps: {
-		index: 0
+		index: 0,
+		orientation: 'vertical'
 	},
 	styles: {
 		css: componentCss,

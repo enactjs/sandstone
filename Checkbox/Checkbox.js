@@ -41,7 +41,7 @@ const CheckboxBase = kind({
 		/**
 		 * The icon displayed when `selected`.
 		 *
-		 * @see {@link sandstone/Icon.Icon.children}
+		 * @see {@link sandstone/Icon.IconBase.children}
 		 * @type {String|Object}
 		 * @default	'check'
 		 * @public
