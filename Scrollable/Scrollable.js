@@ -14,7 +14,7 @@ import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {useScrollBase} from '@enact/ui/Scrollable';
 import {useScrollContentHandle} from '@enact/ui/Scrollable/useScrollContentHandle';
-import {utilDecorateChildProps} from '@enact/ui/Scrollable';
+import {assignPropertiesOf} from '@enact/ui/Scrollable';
 import utilDOM from '@enact/ui/Scrollable/utilDOM';
 import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
@@ -451,8 +451,8 @@ const useScroll = (props) => {
 	};
 
 	const
-		decoratedChildProps = {},
-		decorateChildProps = utilDecorateChildProps(decoratedChildProps),
+		collectionOfProperties = {},
+		assignProperties = assignPropertiesOf(collectionOfProperties),
 		scrollProps = {};
 
 	const {
@@ -491,7 +491,7 @@ const useScroll = (props) => {
 	} = useScrollBase({
 		...rest,
 		...scrollProps,
-		decorateChildProps,
+		assignProperties,
 		noScrollByDrag: !platform.touchscreen,
 		addEventListeners,
 		applyOverscrollEffect,
@@ -514,7 +514,7 @@ const useScroll = (props) => {
 		verticalScrollbarRef
 	});
 
-	decorateChildProps('scrollContainerProps', {
+	assignProperties('scrollContainerProps', {
 		className: [
 			css.scroll,
 			scrollContainerHandle.current.rtl ? css.rtl : null,
@@ -527,7 +527,7 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
-	decorateChildProps('scrollInnerContainerProps', {
+	assignProperties('scrollInnerContainerProps', {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
@@ -536,12 +536,12 @@ const useScroll = (props) => {
 		ref: overscrollRefs.vertical
 	});
 
-	decorateChildProps('scrollContentWrapperProps', {
+	assignProperties('scrollContentWrapperProps', {
 		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal],
 		ref: overscrollRefs.horizontal
 	});
 
-	decorateChildProps('scrollContentProps', {
+	assignProperties('scrollContentProps', {
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
@@ -555,14 +555,14 @@ const useScroll = (props) => {
 		scrollContainerHandle
 	});
 
-	decorateChildProps('verticalScrollbarProps', {
+	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		ref: verticalScrollbarRef
 	});
 
-	decorateChildProps('horizontalScrollbarProps', {
+	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
@@ -570,7 +570,7 @@ const useScroll = (props) => {
 	});
 
 	return {
-		...decoratedChildProps,
+		...collectionOfProperties,
 		scrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
