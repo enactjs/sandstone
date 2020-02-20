@@ -191,7 +191,7 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+	const {uiChildAdapter, scrollContentRef} = instances;
 	const {type} = context;
 
 	// Mutable value
@@ -320,7 +320,7 @@ const useSpottable = (props, instances, context) => {
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
 				if (isWrapped && (
-					uiChildContainerRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
+					scrollContentRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
 				)) {
 					if (wrap === true) {
 						pause.pause();
@@ -355,7 +355,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const item = uiChildContainerRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
+		const item = scrollContentRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
 
 		if (!item && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
@@ -475,11 +475,11 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useSpottableVirtualList = (props) => {
-	const {type, uiChildAdapter, uiChildContainerRef} = props;
+	const {type, uiChildAdapter, scrollContentRef} = props;
 
 	// Hooks
 
-	const instance = {uiChildAdapter, uiChildContainerRef};
+	const instance = {uiChildAdapter, scrollContentRef};
 
 	const {
 		calculatePositionOnFocus,

@@ -14,7 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
-	const {childAdapter, spottable, uiScrollContainerRef, uiChildContainerRef, uiScrollAdapter} = instances;
+	const {childAdapter, spottable, scrollContainerRef, scrollContentRef, uiScrollAdapter} = instances;
 	const {alertThumb, isWheeling, type} = context;
 
 	// Functions
@@ -62,10 +62,10 @@ const useEventFocus = (props, instances, context) => {
 	function calculateAndScrollTo () {
 		const
 			positionFn = childAdapter.current.calculatePositionOnFocus,
-			childContainerNode = uiChildContainerRef.current,
+			scrollContentNode = scrollContentRef.current,
 			spotItem = Spotlight.getCurrent();
 
-		if (spotItem && positionFn && utilDOM.containsDangerously(childContainerNode, spotItem)) {
+		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {
 			const lastPos = spottable.current.lastScrollPositionOnFocus;
 			let pos;
 
@@ -76,13 +76,13 @@ const useEventFocus = (props, instances, context) => {
 				type === 'Native' && uiScrollAdapter.current.scrolling
 			)) {
 				const
-					containerRect = getRect(childContainerNode),
+					contentRect = getRect(scrollContentNode),
 					itemRect = getRect(spotItem);
 				let scrollPosition;
 
-				if (props.direction === 'horizontal' || props.direction === 'both' && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
+				if (props.direction === 'horizontal' || props.direction === 'both' && !(itemRect.left >= contentRect.left && itemRect.right <= contentRect.right)) {
 					scrollPosition = lastPos.left;
-				} else if (props.direction === 'vertical' || props.direction === 'both' && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
+				} else if (props.direction === 'vertical' || props.direction === 'both' && !(itemRect.top >= contentRect.top && itemRect.bottom <= contentRect.bottom)) {
 					scrollPosition = lastPos.top;
 				}
 
@@ -142,7 +142,7 @@ const useEventFocus = (props, instances, context) => {
 			current = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
 		}
 
-		return utilDOM.containsDangerously(uiScrollContainerRef, current);
+		return utilDOM.containsDangerously(scrollContainerRef, current);
 	}
 
 	// Return
@@ -155,7 +155,7 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
-	const {childAdapter, spottable, uiChildContainerRef, uiScrollAdapter} = instances;
+	const {childAdapter, spottable, scrollContentRef, uiScrollAdapter} = instances;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, type} = context;
 
 	// Functions
@@ -224,7 +224,7 @@ const useEventKey = (props, instances, context) => {
 
 		if (scrollPossible) {
 			if (focusedItem) {
-				const contentNode = uiChildContainerRef.current;
+				const contentNode = scrollContentRef.current;
 
 				// Should do nothing when focusedItem is paging control button of Scrollbar
 				if (utilDOM.containsDangerously(contentNode, focusedItem)) {
@@ -334,7 +334,7 @@ const pageKeyHandler = (ev) => {
 };
 
 const useEventMonitor = (props, instances, context) => {
-	const {uiScrollContainerRef} = instances;
+	const {scrollContainerRef} = instances;
 	const {lastPointer: lastPointerProp, scrollByPageOnPointerMode} = context;
 
 	// Mutable value
@@ -354,13 +354,13 @@ const useEventMonitor = (props, instances, context) => {
 			scrollers.delete(mutableRef.current.pageKeyHandlerObj);
 		};
 
-		setMonitorEventTarget(uiScrollContainerRef.current);
+		setMonitorEventTarget(scrollContainerRef.current);
 
 		return () => {
 			// TODO: Replace `this` to something.
 			deleteMonitorEventTarget();
 		};
-	}, [uiScrollContainerRef]);
+	}, [scrollContainerRef]);
 };
 
 onWindowReady(() => {
@@ -427,7 +427,7 @@ const useEventTouch = () => {
 };
 
 const useEventVoice = (props, instances) => {
-	const {uiScrollContainerRef, uiScrollAdapter} = instances;
+	const {scrollContainerRef, uiScrollAdapter} = instances;
 
 	// Mutable value
 
@@ -441,7 +441,7 @@ const useEventVoice = (props, instances) => {
 	const updateFocusAfterVoiceControl = () => {
 		const
 			spotItem = Spotlight.getCurrent(),
-			scrollContainerNode = uiScrollContainerRef.current;
+			scrollContainerNode = scrollContainerRef.current;
 
 		if (utilDOM.containsDangerously(scrollContainerNode, spotItem)) {
 			const
@@ -537,17 +537,17 @@ const useEventVoice = (props, instances) => {
 		}
 	};
 
-	function addVoiceEventListener (uiChildContainerRef) {
+	function addVoiceEventListener (scrollContentRef) {
 		if (platform.webos) {
-			utilEvent('webOSVoice').addEventListener(uiChildContainerRef, handleVoice);
-			uiChildContainerRef.current.setAttribute('data-webos-voice-intent', 'Scroll');
+			utilEvent('webOSVoice').addEventListener(scrollContentRef, handleVoice);
+			scrollContentRef.current.setAttribute('data-webos-voice-intent', 'Scroll');
 		}
 	}
 
-	function removeVoiceEventListener (uiChildContainerRef) {
+	function removeVoiceEventListener (scrollContentRef) {
 		if (platform.webos) {
-			utilEvent('webOSVoice').removeEventListener(uiChildContainerRef, handleVoice);
-			uiChildContainerRef.current.removeAttribute('data-webos-voice-intent');
+			utilEvent('webOSVoice').removeEventListener(scrollContentRef, handleVoice);
+			scrollContentRef.current.removeAttribute('data-webos-voice-intent');
 		}
 	}
 

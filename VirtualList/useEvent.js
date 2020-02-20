@@ -17,7 +17,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, instances, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+	const {uiChildAdapter, scrollContentRef} = instances;
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,
@@ -203,7 +203,7 @@ const useEventKey = (props, instances, context) => {
 			utilEvent('keydown').removeEventListener(scrollerNode, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollerNode, handleKeyUp, {capture: true});
 		};
-	}, [uiChildContainerRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiChildAdapter.current]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [scrollContentRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, uiChildAdapter.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 

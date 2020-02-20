@@ -182,7 +182,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 }
 
 const useSpottableScroll = (props, instances, context) => {
-	const {childAdapter, uiChildContainerRef, uiScrollAdapter, uiScrollContainerRef} = instances;
+	const {childAdapter, scrollContentRef, uiScrollAdapter, scrollContainerRef} = instances;
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
 
@@ -232,7 +232,7 @@ const useSpottableScroll = (props, instances, context) => {
 	// Functions
 
 	function isContent (element) {
-		return (element && utilDOM.containsDangerously(uiChildContainerRef, element));
+		return (element && utilDOM.containsDangerously(scrollContentRef, element));
 	}
 
 	function scrollTo (opt) {
@@ -280,9 +280,9 @@ const useSpottableScroll = (props, instances, context) => {
 					position = {x, y},
 					elemFromPoint = document.elementFromPoint(x, y),
 					target =
-						elemFromPoint && elemFromPoint.closest && getIntersectingElement(elemFromPoint.closest(`.${spottableClass}`), uiScrollContainerRef.current) ||
-						getTargetInViewByDirectionFromPosition(direction, position, uiScrollContainerRef.current) ||
-						getTargetInViewByDirectionFromPosition(reverseDirections[direction], position, uiScrollContainerRef.current);
+						elemFromPoint && elemFromPoint.closest && getIntersectingElement(elemFromPoint.closest(`.${spottableClass}`), scrollContainerRef.current) ||
+						getTargetInViewByDirectionFromPosition(direction, position, scrollContainerRef.current) ||
+						getTargetInViewByDirectionFromPosition(reverseDirections[direction], position, scrollContainerRef.current);
 
 				if (target) {
 					Spotlight.focus(target);
@@ -331,7 +331,7 @@ const useSpottableScroll = (props, instances, context) => {
 	}
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
-	function addEventListeners (ref) { // `ref` is always `uiChildContainerRef`.
+	function addEventListeners (ref) { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').addEventListener(ref, handleFocus);
 
 		if (ref.current) {
@@ -340,7 +340,7 @@ const useSpottableScroll = (props, instances, context) => {
 	}
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
-	function removeEventListeners (ref) { // `ref` is always `uiChildContainerRef`.
+	function removeEventListeners (ref) { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').removeEventListener(ref, handleFocus);
 
 		if (ref.current) {
@@ -384,8 +384,8 @@ const useScroll = (props) => {
 
 	// Mutable value
 
-	const uiScrollContainerRef = useRef();
-	const uiChildContainerRef = useRef();
+	const scrollContainerRef = useRef();
+	const scrollContentRef = useRef();
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -440,9 +440,9 @@ const useScroll = (props) => {
 
 	const instance = {
 		// Ref
-		uiScrollContainerRef,
+		scrollContainerRef,
 		overscrollRefs,
-		uiChildContainerRef,
+		scrollContentRef,
 
 		// Adapter
 		childAdapter,
@@ -509,8 +509,8 @@ const useScroll = (props) => {
 		setUiScrollAdapter,
 		type,
 		uiChildAdapter,
-		uiChildContainerRef,
-		uiScrollContainerRef,
+		scrollContentRef,
+		scrollContainerRef,
 		verticalScrollbarRef
 	});
 
@@ -524,7 +524,7 @@ const useScroll = (props) => {
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
 		onTouchStart: handleTouchStart,
-		ref: uiScrollContainerRef
+		ref: scrollContainerRef
 	});
 
 	decorateChildProps('scrollInnerContainerProps', {
@@ -551,7 +551,7 @@ const useScroll = (props) => {
 		setChildAdapter,
 		spotlightId,
 		uiChildAdapter,
-		uiChildContainerRef,
+		scrollContentRef,
 		uiScrollAdapter
 	});
 
