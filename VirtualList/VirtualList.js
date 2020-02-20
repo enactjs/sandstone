@@ -151,6 +151,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
@@ -198,6 +199,7 @@ VirtualList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
+		track: false,
 		wheel: true
 	},
 	role: 'list',
@@ -335,6 +337,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
@@ -381,6 +384,7 @@ VirtualGridList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
+		track: false,
 		wheel: true
 	},
 	role: 'list',

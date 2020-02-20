@@ -479,6 +479,7 @@ Scroller.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
+		track: false,
 		wheel: true
 	},
 	type: 'JS', // eslint-disable-line react/default-props-match-prop-types
