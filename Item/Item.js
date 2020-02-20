@@ -146,6 +146,14 @@ const ItemBase = kind({
 		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
 
 		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
 		 * Applies a selected style to the component
 		 *
 		 * @type {Boolean}
@@ -191,7 +199,7 @@ const ItemBase = kind({
 		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, inline, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
+	render: ({children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -212,6 +220,7 @@ const ItemBase = kind({
 					content={children}
 					label={label}
 					labelPosition={labelPosition}
+					marqueeOn={marqueeOn}
 					shrink={inline}
 				/>
 				{slotAfter ? (
