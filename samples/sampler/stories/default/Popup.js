@@ -24,7 +24,6 @@ storiesOf('Sandstone', module)
 					onHide={action('onHide')}
 					onShow={action('onShow')}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
-					showCloseButton={boolean('showCloseButton', Config)}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
 					<div>{text('children', Config, 'Hello Popup')}</div>
