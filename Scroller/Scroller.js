@@ -406,30 +406,30 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
-		childWrapper: ChildWrapper,
+		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		resizeContextProps,
 		scrollContainerProps,
-		innerScrollContainerProps,
-		childWrapperProps,
-		childProps,
+		scrollInnerContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const uiChildProps = useSpottableScroller(childProps);
+	const uiChildProps = useSpottableScroller(scrollContentProps);
 
 	// Render
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
+				<div {...scrollInnerContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBase {...uiChildProps} />
-					</ChildWrapper>
+					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}

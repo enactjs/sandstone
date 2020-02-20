@@ -49,22 +49,22 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const {
 		// Variables
-		childWrapper: ChildWrapper,
+		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		innerScrollContainerProps,
-		childWrapperProps,
-		childProps,
+		scrollInnerlContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
 	const uiChildProps = useSpottableVirtualList({
-		...childProps,
+		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role
 	});
@@ -72,10 +72,10 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
+				<div {...scrollInnerlContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} />
-					</ChildWrapper>
+					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -232,22 +232,22 @@ VirtualList = Skinnable(
 let VirtualGridList = ({role, ...rest}) => {
 	const {
 		// Variables
-		childWrapper: ChildWrapper,
+		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		innerScrollContainerProps,
-		childWrapperProps,
-		childProps,
+		scrollInnerContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(rest);
 
 	const uiChildProps = useSpottableVirtualList({
-		...childProps,
+		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role: role
 	});
@@ -255,10 +255,10 @@ let VirtualGridList = ({role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
+				<div {...scrollInnerContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} />
-					</ChildWrapper>
+					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}

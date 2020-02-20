@@ -485,7 +485,7 @@ const useScroll = (props) => {
 	}
 
 	const {
-		childWrapper,
+		scrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useScrollBase({
@@ -527,7 +527,7 @@ const useScroll = (props) => {
 		ref: uiScrollContainerRef
 	});
 
-	decorateChildProps('innerScrollContainerProps', {
+	decorateChildProps('scrollInnerContainerProps', {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
@@ -536,12 +536,12 @@ const useScroll = (props) => {
 		ref: overscrollRefs.vertical
 	});
 
-	decorateChildProps('childWrapperProps', {
+	decorateChildProps('scrollContentWrapperProps', {
 		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal],
 		ref: overscrollRefs.horizontal
 	});
 
-	decorateChildProps('childProps', {
+	decorateChildProps('scrollContentProps', {
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
@@ -571,7 +571,7 @@ const useScroll = (props) => {
 
 	return {
 		...decoratedChildProps,
-		childWrapper,
+		scrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	};
