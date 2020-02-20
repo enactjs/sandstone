@@ -545,7 +545,7 @@ const useScroll = (props) => {
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
-			css.contentWrapper
+			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
 		setChildAdapter,
