@@ -181,7 +181,7 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 	}
 }
 
-const useSpottableScroll = (props, instances, context) => {
+const useThemeScroll = (props, instances, context) => {
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const {type} = context;
 	const contextSharedState = useContext(SharedState);
@@ -473,7 +473,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // Native
 		stop // JS
-	} = useSpottableScroll(props, instance, {type});
+	} = useThemeScroll(props, instance, {type});
 
 	// Render
 
