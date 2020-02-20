@@ -1,0 +1,35 @@
+// InputPopup.module.less
+//
+@import "../styles/mixins.less";
+
+.inputPopup {
+	position: relative;
+	height: fill-available;
+
+	.popupBody {
+		position: relative;
+		box-sizing: border-box;
+		padding: @sand-input-popup-padding;
+
+		.headerArea {
+			height:@sand-input-popup-header-area-height;
+
+			.title {
+				font-size: @sand-input-popup-header-title-font-size;
+				line-height: @sand-input-popup-header-title-line-height;
+			}
+
+			.titleBelow {
+				font-size: @sand-input-popup-header-title-below-font-size;
+				line-height: @sand-input-popup-header-title-below-line-height;
+				margin-top: @sand-input-popup-header-title-below-margin-top;
+			}
+		}
+
+		.inputArea {
+			text-align: center;
+			height: @sand-input-popup-header-input-area-height;
+			margin-top: @sand-input-popup-header-input-area-margin-top;
+		}
+	}
+}

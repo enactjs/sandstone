@@ -1,0 +1,199 @@
+// InputNumberPopup.module.less
+//
+@import "../styles/mixins.less";
+@import '../styles/skin.less';
+
+.inputNumberPopup {
+	position: relative;
+	height: fill-available;
+
+	&.full {
+		.popupBody {
+			position: relative;
+			padding: @sand-input-popup-padding;
+			box-sizing: border-box;
+
+			.headerArea {
+				height: @sand-input-popup-header-area-height;
+
+				.title {
+					font-size: @sand-input-popup-header-title-font-size;
+					line-height: @sand-input-popup-header-title-line-height;
+				}
+
+				.titleBelow {
+					font-size: @sand-input-popup-header-title-below-font-size;
+					line-height: @sand-input-popup-header-title-below-line-height;
+					margin-top: @sand-input-popup-header-title-below-margin-top;
+				}
+			}
+
+			.previewArea {
+				height: @sand-input-number-popup-full-preview-area-height;
+				margin-top: @sand-input-number-popup-full-preview-area-margin-top;
+				text-align: center;
+
+				.previewItem {
+					width: @sand-input-number-popup-full-preview-item-width;
+					height: @sand-input-number-popup-full-preview-item-height;
+					font-size: @sand-input-number-popup-full-preview-font-size;
+					margin: @sand-input-number-popup-full-preview-item-margin;
+					border-radius: @sand-input-popup-border-radius;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.previewText {
+					display: inline-flex;
+					justify-content: center;
+					align-items: center;
+					width: @sand-input-number-popup-full-preview-text-width;
+					height: @sand-input-number-popup-full-preview-text-height;
+					overflow: hidden;
+					font-size: @sand-input-number-popup-full-preview-font-size;
+					border-radius: @sand-input-popup-border-radius;
+					border: solid 2px;
+				}
+			}
+
+			.keypadArea {
+				height: @sand-input-number-popup-full-keypad-area-height;
+				margin-top: @sand-input-number-popup-full-keypad-area-margin-top;
+
+				.keypadItem {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: @sand-input-number-popup-full-keypad-item-width;
+					height: @sand-input-number-popup-full-keypad-item-height;
+					border-radius: @sand-input-popup-border-radius;
+					font-size: @sand-input-number-popup-full-keypad-item-font-size;
+					margin: @sand-input-number-popup-full-keypad-item-margin;
+					border: solid 2px; // TBD: this value will be removed (temporary value for distinguish spottable item area)
+				}
+			}
+
+			.buttonArea {
+				width: 100%;
+				height: @sand-input-number-popup-full-button-area-height;
+				margin-top: @sand-input-number-popup-full-button-area-margin-top;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+		}
+	}
+
+	&.overlay {
+		background-color: rgba(0,0,0,0);
+
+		.popupBody {
+			position: relative;
+			width: @sand-input-number-popup-overlay-width;
+			height: @sand-input-number-popup-overlay-height;
+			margin-top: @sand-input-number-popup-overlay-margin-top;
+			border-radius: @sand-input-number-popup-overlay-border-radius;
+			padding: @sand-input-number-popup-overlay-padding;
+			box-sizing: border-box;
+			left: 50%;
+			transform: translateX(-50%);
+
+			.headerArea {
+				width: 100%;
+				height: @sand-input-number-popup-overlay-header-area-height;
+
+				.title {
+					font-size: @sand-input-number-popup-overlay-header-title-font-size;
+					line-height: @sand-input-number-popup-overlay-header-title-line-height;
+				}
+
+				.titleBelow {
+					font-size: @sand-input-number-popup-overlay-header-title-below-font-size;
+					line-height: @sand-input-number-popup-overlay-header-title-below-line-height;
+					margin-top: @sand-input-number-popup-overlay-header-title-below-margin-top;
+				}
+			}
+
+			.previewArea {
+				width: 100%;
+				height: @sand-input-number-popup-overlay-preview-area-height;
+				margin-top: @sand-input-number-popup-overlay-preview-area-margin-top;
+				text-align: center;
+
+				.previewItem {
+					width: @sand-input-number-popup-overlay-preview-item-width;
+					height: @sand-input-number-popup-overlay-preview-item-height;
+					font-size: @sand-input-number-popup-overlay-preview-item-font-size;
+					margin: @sand-input-number-popup-overlay-preview-item-margin;
+					border-radius: @sand-input-popup-border-radius;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.previewText {
+					width: @sand-input-number-popup-overlay-preview-text-width;
+					height: @sand-input-number-popup-overlay-preview-text-height;
+					overflow: hidden;
+					font-size: @sand-input-number-popup-overlay-preview-text-font-size;
+					border-radius: @sand-input-popup-border-radius;
+					display: inline-flex;
+					justify-content: center;
+					align-items: center;
+					border: solid 2px;
+				}
+			}
+
+			.keypadArea {
+				width: 100%;
+				height: @sand-input-number-popup-overlay-keypad-area-height;
+				margin-top: @sand-input-number-popup-overlay-keypad-area-margin-top;
+
+				.keypadItem {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: @sand-input-number-popup-overlay-keypad-item-width;
+					height: @sand-input-number-popup-overlay-keypad-item-height;
+					border-radius: @sand-input-popup-border-radius;
+					font-size: @sand-input-number-popup-overlay-keypad-item-font-size;
+					margin: @sand-input-number-popup-overlay-keypad-item-margin;
+					border: solid 2px; // TBD: this value will be removed (temporary value for distinguish spottable item area)
+				}
+			}
+
+			.buttonArea {
+				width: 100%;
+				height: @sand-input-number-popup-overlay-button-area-height;
+				margin-top: @sand-input-number-popup-overlay-button-area-margin-top;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+			}
+		}
+	}
+
+	.applySkins({
+		&.full {
+			.popupBody {
+				.previewArea {
+					.previewItem {
+						background-color: #888888;
+					}
+				}
+			}
+		}
+
+		&.overlay {
+			.popupBody {
+				background-color: #575E66;
+				.previewArea {
+					.previewItem {
+						background-color: #888888;
+					}
+				}
+			}
+		}
+	});
+}
