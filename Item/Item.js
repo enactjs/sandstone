@@ -12,7 +12,6 @@
 
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
@@ -157,7 +156,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted after `children` and hidden using `autoHide`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
-		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -169,7 +168,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
-		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the right. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -230,7 +229,7 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
- * @mixes ui/ForwardRef.ForwardRef
+ * @mixes ui/Item.ItemDecorator
  * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
@@ -239,10 +238,9 @@ const ItemBase = kind({
  * @public
  */
 const ItemDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
+	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
-	UiItemDecorator,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable

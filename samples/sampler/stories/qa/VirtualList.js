@@ -296,7 +296,6 @@ storiesOf('VirtualList', module)
 						arrowKey: false,
 						drag: false,
 						pageKey: true,
-						scrollbarButton: false,
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}

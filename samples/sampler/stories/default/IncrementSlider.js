@@ -17,9 +17,9 @@ storiesOf('Sandstone', module)
 	.add(
 		'IncrementSlider',
 		() => {
-			const side = select('side (Deprecated)', ['after', 'before', 'left', 'right'], IncrementSliderTooltipConfig, 'after');
 			const tooltip = boolean('tooltip', IncrementSliderTooltipConfig);
 			const percent = boolean('percent', IncrementSliderTooltipConfig);
+			const position = select('position', ['', 'above', 'above left', 'above center', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below center', 'below right', 'below before', 'below after'], IncrementSliderTooltipConfig, '');
 
 			return (
 				<IncrementSlider
@@ -38,7 +38,7 @@ storiesOf('Sandstone', module)
 					{tooltip ? (
 						<IncrementSliderTooltip
 							percent={percent}
-							side={side}
+							position={position}
 						/>
 					) : null}
 				</IncrementSlider>

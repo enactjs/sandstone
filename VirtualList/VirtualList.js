@@ -66,7 +66,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	const uiChildProps = useSpottableVirtualList({
 		...childProps,
 		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+		role
 	});
 
 	return (
@@ -76,8 +76,8 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
@@ -143,7 +143,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
-	 *	scrollbarButton: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -152,11 +151,9 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
-		scrollbarButton: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
-	preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
 	role: PropTypes.string,
 
 	type: PropTypes.string,
@@ -173,7 +170,23 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
+	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
+	 *
+	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
+	 * except that a list is scrolled without an animation.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	wrap: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.oneOf(['noAnimation'])
+	])
 };
 
 VirtualList.defaultProps = {
@@ -185,13 +198,12 @@ VirtualList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
-		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
-	verticalScrollbar: 'auto'
+	verticalScrollbar: 'auto',
+	wrap: false
 };
 
 VirtualList = Skinnable(
@@ -247,8 +259,8 @@ let VirtualGridList = ({role, ...rest}) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiVirtualListBase {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
@@ -315,7 +327,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
-	 *	scrollbarButton: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -324,11 +335,9 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
-		scrollbarButton: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
-	preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
 	role: PropTypes.string,
 	type: PropTypes.string,
 
@@ -344,7 +353,23 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
+	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
+	 *
+	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
+	 * except that a list is scrolled without an animation.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	wrap: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.oneOf(['noAnimation'])
+	])
 };
 
 VirtualGridList.defaultProps = {
@@ -356,13 +381,12 @@ VirtualGridList.defaultProps = {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
-		scrollbarButton: false,
 		wheel: true
 	},
-	preventBubblingOnKeyDown: 'programmatic',
 	role: 'list',
 	type: 'JS',
-	verticalScrollbar: 'auto'
+	verticalScrollbar: 'auto',
+	wrap: false
 };
 
 VirtualGridList = Skinnable(

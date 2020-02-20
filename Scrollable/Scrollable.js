@@ -20,7 +20,6 @@ import utilEvent from '@enact/ui/Scrollable/utilEvent';
 import PropTypes from 'prop-types';
 import React, {Component, useContext, useRef} from 'react';
 
-import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useChildAdapter} from './useChild';
@@ -30,9 +29,10 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
+import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
+import css from './Scrollable.module.less';
 
 const
 	reverseDirections = {
@@ -151,7 +151,6 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 		 *	arrowKey: false,
 		 *	drag: false,
 		 *	pageKey: false,
-		 *	scrollbarButton: false,
 		 *	wheel: true
 		 * }
 		 * @private
@@ -160,59 +159,8 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: PropTypes.bool,
 			drag: PropTypes.bool,
 			pageKey: PropTypes.bool,
-			scrollbarButton: PropTypes.bool,
 			wheel: PropTypes.bool
 		}),
-
-		/**
-		 * Specifies preventing keydown events from bubbling up to applications.
-		 * Valid values are `'none'`, and `'programmatic'`.
-		 *
-		 * When it is `'none'`, every keydown event is bubbled.
-		 * When it is `'programmatic'`, an event bubbling is not allowed for a keydown input
-		 * which invokes programmatic spotlight moving.
-		 *
-		 * @type {String}
-		 * @default 'none'
-		 * @private
-		 */
-		preventBubblingOnKeyDown: PropTypes.oneOf(['none', 'programmatic']),
-
-		/**
-		 * Sets the hint string read when focusing the next button in the vertical scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll down')
-		 * @public
-		 */
-		scrollDownAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll left')
-		 * @public
-		 */
-		scrollLeftAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the next button in the horizontal scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll right')
-		 * @public
-		 */
-		scrollRightAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the previous button in the vertical scroll bar.
-		 *
-		 * @type {String}
-		 * @default $L('scroll up')
-		 * @public
-		 */
-		scrollUpAriaLabel: PropTypes.string,
 
 		/*
 		 * TBD
@@ -227,10 +175,8 @@ class ScrollableBase extends Component { // ScrollableBase is now only used in s
 			arrowKey: false,
 			drag: false,
 			pageKey: false,
-			scrollbarButton: false,
 			wheel: true
 		},
-		preventBubblingOnKeyDown: 'none',
 		type: 'JS'
 	}
 }
@@ -254,13 +200,8 @@ const useSpottableScroll = (props, instances, context) => {
 
 	const {
 		alertThumb,
-		isScrollButtonFocused,
-		onScrollbarButtonClick,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps
 	} = useScrollbar(props, instances, {isContent});
-
-	useSpotlightConfig(props);
 
 	useSpotlightRestore(props, instances);
 
@@ -270,7 +211,7 @@ const useSpottableScroll = (props, instances, context) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {isScrollButtonFocused, type});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances, {type});
 
 	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, type});
 
@@ -278,15 +219,15 @@ const useSpottableScroll = (props, instances, context) => {
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {isScrollButtonFocused, type});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {type});
 
-	const {handleTouchStart} = useEventTouch({}, instances, {isScrollButtonFocused});
+	const {handleTouchStart} = useEventTouch();
 
 	const {
 		addVoiceEventListener,
 		removeVoiceEventListener,
 		stopVoice
-	} = useEventVoice(props, instances, {onScrollbarButtonClick});
+	} = useEventVoice(props, instances);
 
 	// Functions
 
@@ -422,7 +363,6 @@ const useSpottableScroll = (props, instances, context) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
@@ -432,23 +372,15 @@ const useSpottableScroll = (props, instances, context) => {
 };
 
 const useScroll = (props) => {
-	const {
+	const
+		{
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			preventBubblingOnKeyDown,
-			scrollDownAriaLabel,
-			scrollLeftAriaLabel,
-			scrollRightAriaLabel,
-			scrollUpAriaLabel,
 			type,
 			...rest
-		} = props,
-		downButtonAriaLabel = scrollDownAriaLabel == null ? $L('scroll down') : scrollDownAriaLabel,
-		upButtonAriaLabel = scrollUpAriaLabel == null ? $L('scroll up') : scrollUpAriaLabel,
-		rightButtonAriaLabel = scrollRightAriaLabel == null ? $L('scroll right') : scrollRightAriaLabel,
-		leftButtonAriaLabel = scrollLeftAriaLabel == null ? $L('scroll left') : scrollLeftAriaLabel;
+		} = props;
 
 	// Mutable value
 
@@ -511,8 +443,6 @@ const useScroll = (props) => {
 		uiScrollContainerRef,
 		overscrollRefs,
 		uiChildContainerRef,
-		horizontalScrollbarRef,
-		verticalScrollbarRef,
 
 		// Adapter
 		childAdapter,
@@ -538,7 +468,6 @@ const useScroll = (props) => {
 		handleTouchStart,
 		handleWheel,
 		removeEventListeners,
-		scrollAndFocusScrollbarButton,
 		scrollbarProps,
 		scrollStopOnScroll, // Native
 		scrollTo,
@@ -554,48 +483,6 @@ const useScroll = (props) => {
 		scrollProps.scrollStopOnScroll = scrollStopOnScroll;
 		scrollProps.start = start;
 	}
-
-	decorateChildProps('scrollContainerProps', {
-		className: [overscrollCss.scroll],
-		'data-spotlight-container': spotlightContainer,
-		'data-spotlight-container-disabled': spotlightContainerDisabled,
-		'data-spotlight-id': spotlightId,
-		onTouchStart: handleTouchStart
-	});
-
-	decorateChildProps('innerScrollContainerProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.vertical]
-	});
-
-	decorateChildProps('childWrapperProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal]
-	});
-
-	decorateChildProps('childProps', {
-		onUpdate: handleScrollerUpdate,
-		scrollAndFocusScrollbarButton,
-		setChildAdapter,
-		spotlightId,
-		uiScrollAdapter
-	});
-
-	decorateChildProps('verticalScrollbarProps', {
-		...scrollbarProps,
-		focusableScrollButtons: focusableScrollbar,
-		nextButtonAriaLabel: downButtonAriaLabel,
-		onKeyDownButton: handleKeyDown,
-		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: upButtonAriaLabel
-	});
-
-	decorateChildProps('horizontalScrollbarProps', {
-		...scrollbarProps,
-		focusableScrollButtons: focusableScrollbar,
-		nextButtonAriaLabel: rightButtonAriaLabel,
-		onKeyDownButton: handleKeyDown,
-		preventBubblingOnKeyDown,
-		previousButtonAriaLabel: leftButtonAriaLabel
-	});
 
 	const {
 		childWrapper,
@@ -627,16 +514,60 @@ const useScroll = (props) => {
 		verticalScrollbarRef
 	});
 
-	decorateChildProps('innerScrollContainerProps', {
-		className: [...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])]
+	decorateChildProps('scrollContainerProps', {
+		className: [
+			css.scroll,
+			uiScrollAdapter.current.rtl ? css.rtl : null,
+			overscrollCss.scroll
+		],
+		'data-spotlight-container': spotlightContainer,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
+		'data-spotlight-id': spotlightId,
+		onTouchStart: handleTouchStart,
+		ref: uiScrollContainerRef
 	});
 
-	decorateChildProps('scrollContainerProps', {ref: uiScrollContainerRef});
-	decorateChildProps('innerScrollContainerProps', {ref: overscrollRefs.vertical});
-	decorateChildProps('childWrapperProps', {ref: overscrollRefs.horizontal});
-	decorateChildProps('childProps', {uiChildAdapter, uiChildContainerRef});
-	decorateChildProps('verticalScrollbarProps', {ref: verticalScrollbarRef});
-	decorateChildProps('horizontalScrollbarProps', {ref: horizontalScrollbarRef});
+	decorateChildProps('innerScrollContainerProps', {
+		className: [
+			overscrollCss.overscrollFrame,
+			overscrollCss.vertical,
+			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+		],
+		ref: overscrollRefs.vertical
+	});
+
+	decorateChildProps('childWrapperProps', {
+		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal],
+		ref: overscrollRefs.horizontal
+	});
+
+	decorateChildProps('childProps', {
+		className: [
+			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
+			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
+			css.contentWrapper
+		],
+		onUpdate: handleScrollerUpdate,
+		setChildAdapter,
+		spotlightId,
+		uiChildAdapter,
+		uiChildContainerRef,
+		uiScrollAdapter
+	});
+
+	decorateChildProps('verticalScrollbarProps', {
+		...scrollbarProps,
+		className: [css.verticalScrollbar],
+		focusableScrollbar,
+		ref: verticalScrollbarRef
+	});
+
+	decorateChildProps('horizontalScrollbarProps', {
+		...scrollbarProps,
+		className: [css.horizontalScrollbar],
+		focusableScrollbar,
+		ref: horizontalScrollbarRef
+	});
 
 	return {
 		...decoratedChildProps,

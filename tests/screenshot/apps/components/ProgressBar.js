@@ -44,6 +44,25 @@ const ProgressBarTests = [
 	<ProgressBar orientation="vertical" backgroundProgress={0.25} progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar orientation="vertical" backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar orientation="vertical" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
-	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip />
+	<ProgressBar orientation="vertical" progress={0.25} progressAnchor={0.5} tooltip />,
+	<ProgressBar orientation="radial" />,
+	<ProgressBar orientation="radial" highlighted />,
+	<ProgressBar orientation="radial" progress={0.5} />,
+	<ProgressBar orientation="radial" progress={1} />,
+	<ProgressBar orientation="radial" highlighted progress={0.5} />,
+	<ProgressBar orientation="radial" highlighted progress={1} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.5} />,
+	<ProgressBar orientation="radial" backgroundProgress={1} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.25} progress={0.5} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.5} progress={0.25} />,
+	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} />,
+	<ProgressBar orientation="radial" highlighted backgroundProgress={1} />,
+	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />,
+	<ProgressBar orientation="radial" progress={0.75} progressAnchor={0.5} />,
+	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.25} progress={0.75} progressAnchor={0.5} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
+	<ProgressBar orientation="radial" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
+	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} tooltip />
 ];
 export default ProgressBarTests;

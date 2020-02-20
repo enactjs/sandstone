@@ -105,6 +105,93 @@ describe('EditableIntegerPicker', () => {
 	);
 
 	test(
+		'should send change event with correct value on blur',
+		() => {
+			const handleChange = jest.fn();
+			const node = document.body.appendChild(document.createElement('div'));
+			const picker = mount(
+				<EditableIntegerPicker onChange={handleChange} min={0} max={100} defaultValue={10} step={1} noAnimation />,
+				{attachTo: node}
+			);
+
+			picker.find('PickerItem').simulate('click', {target: {type: 'click'}});
+
+			const input = node.querySelector('input');
+			picker.find('input').simulate('focus');
+			input.value = 38;
+			input.blur();
+
+			picker.update();
+
+			const expected = 38;
+			const actual = handleChange.mock.calls[0] &&
+				handleChange.mock.calls[0][0] &&
+				handleChange.mock.calls[0][0].value;
+
+			node.parentNode.removeChild(node);
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should not send change event with invalid value on blur',
+		() => {
+			const handleChange = jest.fn();
+			const node = document.body.appendChild(document.createElement('div'));
+			const picker = mount(
+				<EditableIntegerPicker onChange={handleChange} min={0} max={100} defaultValue={10} step={1} noAnimation />,
+				{attachTo: node}
+			);
+
+			picker.find('PickerItem').simulate('click', {target: {type: 'click'}});
+
+			const input = node.querySelector('input');
+			picker.find('input').simulate('focus');
+			input.value = 138;
+			input.blur();
+
+			picker.update();
+
+			const expected = 0;
+			const actual = handleChange.mock.calls.length;
+
+			node.parentNode.removeChild(node);
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should not send two change event when incrementing from edit mode',
+		() => {
+			const handleChange = jest.fn();
+			const node = document.body.appendChild(document.createElement('div'));
+			const picker = mount(
+				<EditableIntegerPicker onChange={handleChange} min={0} max={100} defaultValue={10} step={1} noAnimation />,
+				{attachTo: node}
+			);
+
+			picker.find('PickerItem').simulate('click', {target: {type: 'click'}});
+
+			const input = node.querySelector('input');
+			picker.find('input').simulate('focus');
+			input.value = 38;
+			increment(picker);
+			input.blur();	// It seems it must be manually blurred
+
+			picker.update();
+
+			const expected = 1;
+			const actual = handleChange.mock.calls.length;
+
+			node.parentNode.removeChild(node);
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should enable input field when some number is typed on the picker',
 		() => {
 			const picker = mount(
