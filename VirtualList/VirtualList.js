@@ -63,7 +63,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const uiChildProps = useSpottableVirtualList({
+	const themeScrollContentProps = useSpottableVirtualList({
 		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role
@@ -74,7 +74,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerlContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+						<UiVirtualListBase {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -246,7 +246,7 @@ let VirtualGridList = ({role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll(rest);
 
-	const uiChildProps = useSpottableVirtualList({
+	const themeScrollContentProps = useSpottableVirtualList({
 		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
 		role: role
@@ -257,7 +257,7 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+						<UiVirtualListBase {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}

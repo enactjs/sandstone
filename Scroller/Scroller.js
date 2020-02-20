@@ -419,7 +419,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const uiChildProps = useSpottableScroller(scrollContentProps);
+	const themeScrollContentProps = useSpottableScroller(scrollContentProps);
 
 	// Render
 
@@ -428,7 +428,7 @@ let Scroller = (props) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiScrollerBase {...uiChildProps} />
+						<UiScrollerBase {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
