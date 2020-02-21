@@ -27,7 +27,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import LabeledIcon from '../LabeledIcon';
+import Icon from '../Icon';
+import {ItemBase} from '../Item';
 import Skinnable from '../Skinnable';
 import componentCss from './KeyGuide.module.less';
 
@@ -87,7 +88,12 @@ const KeyGuideBase = kind({
 		children: ({children, css}) => {
 			if (!Array.isArray(children)) return [];
 
-			return children;
+			return children.map(({icon, ...child}) => {
+				return {
+					...child,
+					slotBefore: <Icon className={css.icon}>{icon}</Icon>
+				};
+			});
 		}
 	},
 
@@ -108,12 +114,8 @@ const KeyGuideBase = kind({
 			>
 				<Repeater
 					{...rest}
-					childComponent={LabeledIcon}
-					itemProps={{
-						labelPosition: 'after',
-						size: 'small',
-						css: css
-					}}
+					childComponent={ItemBase}
+					itemProps={{css: css}}
 				/>
 			</FloatingLayer>
 		);

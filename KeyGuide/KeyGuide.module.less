@@ -10,24 +10,26 @@
     bottom: @sand-keyguide-position-bottom;
     padding: @sand-keyguide-padding;
 
-    .labeledIcon {
-        .sand-text-base(@sand-keyguide-labeled-icon-font-size);
+    .item {
+        .sand-font({
+            font-size: @sand-keyguide-font-size;
+        });
+        font-size: @sand-keyguide-font-size;
 
-        max-width: none;
-        padding: 0;
-        margin: @sand-keyguide-labeled-icon-margin;
-    }
+        .icon {
+            margin: 0;
+        }
 
-    .icon {
-        margin: 0;
-        .margin-start-end(0, @sand-keyguide-icon-margin-right);
+        .slotBefore {
+            margin-inline-end: @sand-keyguide-icon-margin-right;
+        }
     }
 
     .applySkins({
         background: @sand-keyguide-bg-color;
 
-        .labeledIcon {
-            color: @sand-keyguide-labeled-icon-color;
+        .item {
+            color: @sand-keyguide-item-color;
         }
     })
 }
