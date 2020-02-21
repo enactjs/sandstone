@@ -93,28 +93,33 @@ const TabGroupBase = kind({
 			tab.children = tab.title || tab.children;
 			delete tab.title;
 			return tab;
-		})
+		}),
+		noIcons: ({minimized, orientation, tabs}) => orientation === 'vertical' && !tabs[0].icon && minimized
 	},
 
-	render: ({minimized, orientation, selectedIndex, ...rest}) => {
+	render: ({minimized, noIcons, orientation, selectedIndex, ...rest}) => {
 		delete rest.tabs;
 
 		return (
 			<Scroller>
-				<Layout
-					{...rest}
-					align="start"
-					childComponent={Tab}
-					component={Group}
-					itemProps={{
-						minimized,
-						orientation
-					}}
-					orientation={orientation}
-					select="radio"
-					selected={selectedIndex}
-					selectedProp="selected"
-				/>
+				{noIcons ?
+					<Button icon="list" /> :
+					<Layout
+						{...rest}
+						align="start"
+						childComponent={Tab}
+						component={Group}
+						itemProps={{
+							minimized: orientation === 'vertical' ? minimized : false,
+							orientation
+						}}
+						orientation={orientation}
+						select="radio"
+						selected={selectedIndex}
+						selectedProp="
+						selected"
+					/>
+				}
 			</Scroller>
 		);
 	}
