@@ -89,14 +89,6 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Enables fullscreen mode.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		fullscreen: PropTypes.bool,
-
-		/**
 		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
@@ -135,11 +127,11 @@ const PopupBase = kind({
 		/**
 		 * Position of the Popup on the screen.
 		 *
-		 * @type {('bottom'|'left'|'right'|'top')}
+		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
 		 * @default 'bottom'
 		 * @public
 		 */
-		position: PropTypes.oneOf(['bottom', 'left', 'right', 'top']),
+		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
 		/**
 		 * Tells the body element to shrink to the size of the content.
@@ -194,14 +186,13 @@ const PopupBase = kind({
 	},
 
 	computed: {
-		className: ({fullscreen, position, styler}) => styler.append({fullscreen}, position),
+		className: ({position, styler}) => styler.append(position),
 		align: ({position}) => (position === 'bottom' || position === 'right') ? 'end' : 'start',
 		orientation: ({position}) => (position === 'left' || position === 'right') ? 'vertical' : 'horizontal',
 		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({children, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
-		delete rest.fullscreen;
+	render: ({align, children, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
 		delete rest.position;
 
 		return (
@@ -224,7 +215,7 @@ const PopupBase = kind({
 					role="alert"
 					{...rest}
 				>
-					<Cell className={css.body} shrink={shrinkBody}>
+					<Cell align={align} className={css.body} shrink={shrinkBody}>
 						{children}
 					</Cell>
 				</Layout>
