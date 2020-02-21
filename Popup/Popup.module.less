@@ -19,7 +19,7 @@
 
 	&.bottom,
 	&.top {
-		padding: 150px 120px;
+		padding: @sand-popup-position-top-bottom-padding;
 
 		.body {
 			width: 100%;
@@ -28,7 +28,7 @@
 
 	&.left,
 	&.right {
-		padding: 120px 60px;
+		padding: @sand-popup-position-left-right-padding;
 
 		.body {
 			height: 100%;
@@ -40,7 +40,7 @@
 		max-height: calc(100% - extract(@sand-popup-position-left-right-margin, 1) * 2);
 
 	&.fullscreen {
-		padding: 0;
+		padding: @sand-popup-position-fullscreen-padding;
 
 		.body {
 			height: 100%;
