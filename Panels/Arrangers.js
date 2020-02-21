@@ -104,3 +104,43 @@ export const ActivityArranger = {
 		], animationOptions);
 	}
 };
+
+/**
+ * Arranger that slides panels in from the right and out to the left allowing space for the single
+ * breadcrumb when `to` index is greater than zero.
+ *
+ * @type {Arranger}
+ * @private
+ */
+export const BasicArranger = {
+	enter: (config) => {
+		const {node, reverse} = config;
+		const transform = getHorizontalTranslation(node);
+
+		return arrange(config, [
+			{transform, offset: 0},
+			reverse ?
+				{transform: 'none', offset: 0.75} :
+				{transform, offset: 0.25},
+			{transform: 'none', offset: 1}
+		], animationOptions);
+	},
+	leave: (config) => {
+		const {node, reverse} = config;
+		const transform = getHorizontalTranslation(node, -1);
+
+		return arrange(config, [
+			{transform: 'none', offset: 0},
+			reverse ?
+				{transform, offset: 0.75} :
+				{transform: 'none', offset: 0.25},
+			{transform, offset: 1}
+		], animationOptions);
+	},
+	stay: (config) => {
+		return arrange(config, [
+			{transform: 'none'},
+			{transform: 'none'}
+		], animationOptions);
+	}
+};
