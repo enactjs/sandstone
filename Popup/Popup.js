@@ -42,6 +42,8 @@ const forwardShow = forward('onShow');
 
 const transitionDirection = {
 	bottom: 'down',
+	center: 'none',
+	fullscreen: 'none',
 	left: 'left',
 	right: 'right',
 	top: 'up'
@@ -187,17 +189,18 @@ const PopupBase = kind({
 
 	computed: {
 		className: ({position, styler}) => styler.append(position),
-		align: ({position}) => (position === 'bottom' || position === 'right') ? 'end' : 'start',
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
+		// align: ({position}) => (position === 'bottom' || position === 'right') ? 'end' : 'start',
 		orientation: ({position}) => (position === 'left' || position === 'right') ? 'vertical' : 'horizontal',
 		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({align, children, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
+	render: ({children, css,  direction, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
 		delete rest.position;
 
 		return (
 			<TransitionContainer
-				className={css.popupTransitionContainer}
+				className={transitionContainerClassName}
 				css={css}
 				direction={direction}
 				duration="short"
@@ -215,7 +218,7 @@ const PopupBase = kind({
 					role="alert"
 					{...rest}
 				>
-					<Cell align={align} className={css.body} shrink={shrinkBody}>
+					<Cell className={css.body} shrink={shrinkBody}>
 						{children}
 					</Cell>
 				</Layout>
