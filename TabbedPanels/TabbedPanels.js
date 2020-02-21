@@ -34,7 +34,7 @@ const TabbedPanelsBase = kind({
 		 *
 		 * Each object in the array of tabs should include a `title` property and, optionally, an
 		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for the first tab, no icons will be displayed when minimized.
+		 * supplied for any tabs, no icons will be displayed when minimized.
 		 *
 		 * @type {Object[]}
 		 * @required
