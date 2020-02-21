@@ -116,8 +116,7 @@ const TabGroupBase = kind({
 						orientation={orientation}
 						select="radio"
 						selected={selectedIndex}
-						selectedProp="
-						selected"
+						selectedProp="selected"
 					/>
 				}
 			</Scroller>

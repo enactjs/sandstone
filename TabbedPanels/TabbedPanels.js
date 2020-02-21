@@ -12,7 +12,6 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
-import warning from 'warning';
 
 import {Panels} from '../Panels';
 import TabGroup from '../TabGroup';
@@ -113,11 +112,6 @@ const TabbedPanelsBase = kind({
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
 	},
 	render: ({children, css, index, minimized, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		warning(
-			children.length === tabs.length,
-			'The number of children should match the number of tabs'
-		);
-
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell shrink>
