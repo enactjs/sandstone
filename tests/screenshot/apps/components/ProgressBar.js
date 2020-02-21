@@ -1,4 +1,4 @@
-import ProgressBar from '../../../../ProgressBar';
+import ProgressBar, {ProgressBarTooltip as Tooltip} from '../../../../ProgressBar';
 import React from 'react';
 
 // TODO: RTL
@@ -53,85 +53,85 @@ const ProgressBarTests = [
 	// *************************************************************
 	// Change 'position' (location and direction) dynamically of Tooltip - [GT-28225]
 	{
-		component: <ProgressBar tooltip position="above" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="above" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="above left" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="above left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="above right" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="above right" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="above before" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="above before" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="above after" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="above after" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="before" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="before" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="left" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="right" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="right" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="after" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="after" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="below" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="below" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="below left" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="below left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="below right" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="below right" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="below before" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="below before" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ProgressBar tooltip position="below after" progress={0.4} backgroundProgress={0.5} />,
+		component: <ProgressBar tooltip={<Tooltip position="below after" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
 		}
