@@ -34,11 +34,7 @@ describe('Popup specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-<<<<<<< HEAD
 	it('should set role to alert by default', () => {
-=======
-	test('should set role to alert by default', () => {
->>>>>>> add back the height for fullscreen and remove closebutton unit test
 		const popup = shallow(
 			<PopupBase><div>popup</div></PopupBase>
 		);
