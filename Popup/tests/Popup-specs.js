@@ -34,21 +34,6 @@ describe('Popup specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should set popup close button "aria-label" to closeButtonAriaLabel',
-		() => {
-			const label = 'custom close button label';
-			const popup = shallow(
-				<PopupBase showCloseButton closeButtonAriaLabel={label}><div>popup</div></PopupBase>
-			);
-
-			const expected = label;
-			const actual = popup.find(`.${css.closeButton}`).prop('aria-label');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
 	test('should set role to alert by default', () => {
 		const popup = shallow(
 			<PopupBase><div>popup</div></PopupBase>
