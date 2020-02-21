@@ -153,12 +153,14 @@ const ProgressBarTests = [
 	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={1} />,
 	<ProgressBar orientation="radial" highlighted backgroundProgress={0.5} progress={0.25} />,
+	/* Disabling progressAnchor tests for radial as it's not supported yet
 	<ProgressBar orientation="radial" progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" backgroundProgress={0.25} progress={0.75} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" backgroundProgress={0.75} progress={0.25} progressAnchor={0.5} />,
 	<ProgressBar orientation="radial" backgroundProgress={0.1} progress={0.25} progressAnchor={0.2} />,
 	<ProgressBar orientation="radial" progress={0.25} progressAnchor={0.5} tooltip />,
+	*/
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
