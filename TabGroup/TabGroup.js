@@ -94,7 +94,8 @@ const TabGroupBase = kind({
 			delete tab.title;
 			return tab;
 		}),
-		noIcons: ({minimized, orientation, tabs}) => orientation === 'vertical' && !tabs[0].icon && minimized
+		// check if there's no tab icons
+		noIcons: ({minimized, orientation, tabs}) => orientation === 'vertical' && minimized && tabs.filter((tab) => !tab.icon).length
 	},
 
 	render: ({minimized, noIcons, orientation, selectedIndex, ...rest}) => {
