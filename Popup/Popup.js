@@ -11,7 +11,7 @@
 
 import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
-import {Layout, Row, Cell} from '@enact/ui/Layout';
+import {Layout, Cell} from '@enact/ui/Layout';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
 import React from 'react';
@@ -142,13 +142,18 @@ const PopupBase = kind({
 		position: PropTypes.oneOf(['bottom', 'left', 'right', 'top']),
 
 		/**
-		 * Shows the close button.
+		 * Tells the body element to shrink to the size of the content.
 		 *
-		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
-		 * @default 'bottom'
-		 * @public
+		 * Popup is composed of a [Layout]{@link ui/Layout.Layout} and [Cells]{@link ui/Layout.Cell}.
+		 * This informs the body cell to use the [shrink]{@link ui/Layout.Cell#shrink} property so
+		 * it will match the dimensions of its contents rather than expand to the width of the
+		 * Popup's assigned dimensions.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
 		 */
-		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
+		shrinkBody: PropTypes.bool,
 
 		/**
 		 * The container id for {@link spotlight/Spotlight}.
@@ -178,7 +183,6 @@ const PopupBase = kind({
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
-		showCloseButton: false,
 		shrinkBody: false,
 		spotlightRestrict: 'self-only'
 	},
@@ -186,40 +190,19 @@ const PopupBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'popup',
-		publicClassNames: ['popup', 'body', 'popupTransitionContainer', 'top', 'right', 'bottom', 'left']
+		publicClassNames: ['popup', 'body']
 	},
 
 	computed: {
-		className: ({fullscreen, position, showCloseButton, styler}) => styler.append({reserveClose: showCloseButton, fullscreen}, position),
-		closeButton: ({closeButtonAriaLabel, css, onCloseButtonClick, showCloseButton}) => {
-			if (showCloseButton) {
-				const ariaLabel = (closeButtonAriaLabel == null) ? $L('Close') : closeButtonAriaLabel;
-
-				return (
-					<Cell shrink className={css.closeContainer}>
-						<Button
-							className={css.closeButton}
-							backgroundOpacity="transparent"
-							size="small"
-							onTap={onCloseButtonClick}
-							aria-label={ariaLabel}
-							icon="closex"
-						/>
-					</Cell>
-				);
-			}
-		},
-		popupAlignment: ({position}) => position === 'bottom' || position === 'right' ? 'end' : 'start',
-		popupOrientation: ({position}) => position === 'left' || position === 'right' ? 'vertical' : 'horizontal',
+		className: ({fullscreen, position, styler}) => styler.append({fullscreen}, position),
+		align: ({position}) => (position === 'bottom' || position === 'right') ? 'end' : 'start',
+		orientation: ({position}) => (position === 'left' || position === 'right') ? 'vertical' : 'horizontal',
 		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, popupAlignment, popupOrientation, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
-		delete rest.closeButtonAriaLabel;
+	render: ({children, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, direction, ...rest}) => {
 		delete rest.fullscreen;
-		delete rest.onCloseButtonClick;
 		delete rest.position;
-		delete rest.showCloseButton;
 
 		return (
 			<TransitionContainer
@@ -240,15 +223,9 @@ const PopupBase = kind({
 					aria-live="off"
 					role="alert"
 					{...rest}
-					orientation={popupOrientation}
 				>
-					<Cell align={popupAlignment} className={css.bodyContainer}>
-						<Row>
-							<Cell className={css.body} shrink={shrinkBody}>
-								{children}
-							</Cell>
-							{closeButton}
-						</Row>
+					<Cell className={css.body} shrink={shrinkBody}>
+						{children}
 					</Cell>
 				</Layout>
 			</TransitionContainer>

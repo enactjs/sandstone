@@ -7,46 +7,21 @@
 .popup {
 	height: 100%;
 
-	.bodyContainer {
-		// Local variables to make this easier to read
-		@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
-		@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
-		@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
-		@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
-
+	.body {
 		.sand-text-base();
-		padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
-		.padding-start-end(@popup-padding-left, @popup-padding-right);
+		padding: @sand-popup-padding-top @sand-popup-padding-right @sand-popup-padding-bottom @sand-popup-padding-left;
+		.padding-start-end(@sand-popup-padding-left, @sand-popup-padding-right);
 		box-sizing: border-box;
 		pointer-events: auto;
 		border-radius: 24px;
-
-		.body {
-			margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
-			.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
-			.locale-japanese-line-break();
-		}
-
-		.closeContainer {
-			.margin-start-end(@sand-popup-closecontainer-separation, 0);
-		}
-
-		.closeButton {
-			margin: 0;
-		}
-
-		&.reserveClose {
-			.body {
-				.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
-			}
-		}
+		.locale-japanese-line-break();
 	}
 
 	&.bottom,
 	&.top {
 		padding: 150px 120px;
 
-		.bodyContainer {
+		.body {
 			width: 100%;
 		}
 	}
@@ -55,7 +30,7 @@
 	&.right {
 		padding: 120px 60px;
 
-		.bodyContainer {
+		.body {
 			height: 100%;
 			width: 1140px;
 		}
@@ -68,7 +43,7 @@
 	&.fullscreen {
 		padding: 0;
 
-		.bodyContainer {
+		.body {
 			height: 100%;
 			width: 100%;
 			border-radius: 0;
@@ -77,7 +52,7 @@
 
 	// Skin colors
 	.applySkins({
-		.bodyContainer {
+		.body {
 			background-color:@sand-popup-bg-color;
 		}
 	});
