@@ -156,7 +156,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted after `children` and hidden using `autoHide`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
-		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -168,7 +168,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
-		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the right. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
