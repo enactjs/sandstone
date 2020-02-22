@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -15,6 +15,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<OptionPanels
+					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 					open={boolean('open', Config)}
 					position={select('position', ['left', 'right'], Config, 'right')}
 					noAnimation={boolean('noAnimation', Config)}
@@ -35,6 +36,17 @@ storiesOf('Sandstone', module)
 							</subtitle>
 						</Header>
 						<BodyText>Example text inside an OptionPanels Panel</BodyText>
+					</Panel>
+					<Panel>
+						<Header type="compact">
+							<title>
+								Another Panel
+							</title>
+							<subtitle>
+								This is the second page
+							</subtitle>
+						</Header>
+						<BodyText>Woo woo</BodyText>
 					</Panel>
 				</OptionPanels>
 				<BodyText centered>Use KNOBS to interact with OptionPanels.</BodyText>

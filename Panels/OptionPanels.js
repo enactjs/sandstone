@@ -17,15 +17,15 @@ const OptionPanelsDecorator = compose(
 
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
- * half of the screen with the left half used for breadcrumbs that allow navigating to previous
- * panels. Typically used for overlaying panels over a screen.
+ * or left side of the screen inside a popup. Typically used for overlaying panels over other
+ * content.
  *
- * @class OpitonPanels
+ * @class OptionPanels
  * @memberof sandstone/Panels
  * @ui
  * @public
  */
-const OpitonPanels = OptionPanelsDecorator(Viewport);
+const OptionPanels = OptionPanelsDecorator(Viewport);
 
-export default OpitonPanels;
-export {OpitonPanels};
+export default OptionPanels;
+export {OptionPanels};

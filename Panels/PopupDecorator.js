@@ -22,6 +22,7 @@ const popupPropList = ['noAutoDismiss', 'onClose', 'onHide', 'onKeyDown', 'onSho
  * Default config for {@link sandstone/Panels.PopupDecorator}
  * @hocconfig
  * @memberof sandstone/Panels.PopupDecorator
+ * @private
  */
 const defaultConfig = {
 	/**
@@ -45,7 +46,7 @@ const defaultConfig = {
 
 
 /**
- * A higher-order component that adds breadcrumbs to a Panels component
+ * A higher-order component that puts a Panels component into a Popup.
  *
  * @class PopupDecorator
  * @type {Function}
@@ -61,9 +62,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		propTypes: /** @lends sandstone/Panels.PopupDecorator.prototype */ {
 			/**
-			 * An object containing properties to be passed to each child. `aria-owns` will be added
-			 * or updated to this object to add the breadcrumbs to the accessibility tree of each
-			 * panel.
+			 * An object containing properties to be passed to each child.
 			 *
 			 * @type {Object}
 			 * @public
@@ -99,24 +98,26 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *
 			 * @type {Number}
 			 * @default 0
+			 * @public
 			 */
 			index: PropTypes.number,
 
 			/**
-			 * Disable breadcrumb transitions.
+			 * Disable transitions.
 			 *
 			 * @type {Boolean}
 			 * @default false
+			 * @public
 			 */
 			noAnimation: PropTypes.bool,
 
 			/**
-			 * Called when a breadcrumb is clicked. The payload includes the `index` of the selected
-			 * breadcrumb
+			 * Called with cancel/back key events.
 			 *
 			 * @type {Function}
+			 * @public
 			 */
-			onSelectBreadcrumb: PropTypes.func,
+			onBack: PropTypes.func,
 
 			/**
 			 * Position of the Popup on the screen.
@@ -141,8 +142,6 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, ...rest}) => {
-			delete rest.onSelectBreadcrumb;
-
 			const count = React.Children.count(children);
 			invariant(
 				index === 0 && count === 0 || index < count,
@@ -176,7 +175,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	});
 
 	return CancelDecorator(
-		{cancel: 'onSelectBreadcrumb'},
+		{cancel: 'onBack'},
 		IdProvider(
 			Skinnable(
 				Decorator

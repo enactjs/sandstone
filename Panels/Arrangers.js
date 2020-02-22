@@ -106,8 +106,7 @@ export const ActivityArranger = {
 };
 
 /**
- * Arranger that slides panels in from the right and out to the left allowing space for the single
- * breadcrumb when `to` index is greater than zero.
+ * Arranger that slides panels in from the right and out to the left.
  *
  * @type {Arranger}
  * @private
