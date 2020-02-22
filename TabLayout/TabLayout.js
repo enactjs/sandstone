@@ -1,8 +1,8 @@
 /**
- * Provides an Sandstone-themed TabbedPanels.
+ * Provides an Sandstone-themed TabLayout.
  *
- * @module sandstone/TabbedPanels
- * @exports TabbedPanels
+ * @module sandstone/TabLayout
+ * @exports TabLayout
  */
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -14,21 +14,21 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import {Panels} from '../Panels';
-import TabGroup from '../TabGroup';
+import TabGroup from '../TabGroup/TabGroup';
 
-import componentCss from './TabbedPanels.module.less';
+import componentCss from './TabLayout.module.less';
 
 /**
  * Tabbed Panels component.
  *
- * @class TabbedPanels
- * @memberof sandstone/TabbedPanels
+ * @class TabLayout
+ * @memberof sandstone/TabLayout
  * @ui
  * @public
  */
-const TabbedPanelsBase = kind({
-	name: 'TabbedPanels',
-	propTypes: /** @lends sandstone/TabbedPanels.prototype */ {
+const TabLayoutBase = kind({
+	name: 'TabLayout',
+	propTypes: /** @lends sandstone/TabLayout.prototype */ {
 		/**
 		 * List of tabs to display.
 		 *
@@ -98,7 +98,7 @@ const TabbedPanelsBase = kind({
 	},
 	styles: {
 		css: componentCss,
-		className: 'tabbedPanels enact-fit'
+		className: 'tabLayout enact-fit'
 	},
 	handlers: {
 		onSelect: handle(
@@ -125,7 +125,7 @@ const TabbedPanelsBase = kind({
 					/>
 				</Cell>
 				<Cell
-					className={css.panels}
+					className={css.content}
 					component={Panels}
 					noCloseButton
 					orientation={orientation}
@@ -138,16 +138,16 @@ const TabbedPanelsBase = kind({
 	}
 });
 
-const TabbedPanelsDecorator = compose(
+const TabLayoutDecorator = compose(
 	Slottable({slots: ['tabs', 'afterTabs', 'beforeTabs']}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
 
 // Currently not documenting the base output since it's not exported
-const TabbedPanels = TabbedPanelsDecorator(TabbedPanelsBase);
+const TabLayout = TabLayoutDecorator(TabLayoutBase);
 
-export default TabbedPanels;
+export default TabLayout;
 export {
-	TabbedPanels,
-	TabbedPanelsBase
+	TabLayout,
+	TabLayoutBase
 };
