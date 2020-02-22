@@ -20,6 +20,7 @@ storiesOf('Sandstone', module)
 					position={select('position', ['left', 'right'], Config, 'right')}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
+					onBack={action('onBack')}
 					onClose={action('onClose')}
 					onHide={action('onHide')}
 					onShow={action('onShow')}

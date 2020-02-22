@@ -142,6 +142,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, ...rest}) => {
+			delete rest.onBack;
+
 			const count = React.Children.count(children);
 			invariant(
 				index === 0 && count === 0 || index < count,
