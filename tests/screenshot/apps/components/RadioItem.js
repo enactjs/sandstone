@@ -6,27 +6,33 @@ const RadioItemTests = [
 	<RadioItem disabled>RadioItem</RadioItem>,
 	<RadioItem inline>Inline RadioItem</RadioItem>,
 	<RadioItem disabled inline>RadioItem Not Checked</RadioItem>,
-	// [GT-21620]
+	// [GT-28206]
 	<RadioItem disabled>مساء الخير</RadioItem>,
-	// [GT-21620]
+	// [GT-28206]
+	<RadioItem inline>مساء الخير</RadioItem>,
+	// [GT-28210]
+	<RadioItem disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
+	// [GT-28210]
 	<RadioItem inline>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
-	// [GT-22259]
+	// [GT-28210]
+	<RadioItem inline>ฟิ้  ไั  ஒ  து</RadioItem>,
+	// [GT-28207]
 	<RadioItem>ฟิ้  ไั  ஒ  து</RadioItem>,
-	// [GT-22259]
-	<RadioItem defaultSelected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
-	// [GT-22259]
-	<RadioItem defaultSelected>ฟิ้  ไั  ஒ  து</RadioItem>,
+	// [GT-28207]
+	<RadioItem selected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
+	// [GT-28207]
+	<RadioItem selected>ฟิ้  ไั  ஒ  து</RadioItem>,
 	// Selected - disabled
-	// [GT-22104]
-	<RadioItem defaultSelected disabled>RadioItem Checked</RadioItem>,
+	// [GT-28198]
+	<RadioItem selected disabled>RadioItem Checked</RadioItem>,
 	// Selected - disabled - inline
-	<RadioItem defaultSelected disabled inline>RadioItem Checked</RadioItem>,
+	<RadioItem selected disabled inline>RadioItem Checked</RadioItem>,
 	// Selected - inline
-	// [GT-21615]
-	<RadioItem defaultSelected inline>RadioItem Checked</RadioItem>,
-	<RadioItem defaultSelected>RadioItem Checked</RadioItem>,
-	// Long text selected - LTR [GT-21139]
-	<RadioItem defaultSelected>-Lorem</RadioItem>,
+	// [GT-28199]
+	<RadioItem selected inline>RadioItem Checked</RadioItem>,
+	<RadioItem selected>RadioItem Checked</RadioItem>,
+	// Long text selected - LTR [GT-28204]
+	<RadioItem selected>-Lorem</RadioItem>,
 	// *************************************************************
 	// locale = 'ar-SA'
 
@@ -47,56 +53,56 @@ const RadioItemTests = [
 		locale: 'ar-SA',
 		component: <RadioItem disabled inline>RadioItem Not Checked</RadioItem>
 	},
-	// [GT-21620]
+	// [GT-28206]
 	{
 		locale: 'ar-SA',
 		component: <RadioItem disabled>مساء الخير</RadioItem>
 	},
-	// [GT-21620]
+	// [GT-28206]
 	{
 		locale: 'ar-SA',
 		component: <RadioItem inline>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
 	},
-	// [GT-22259]
+	// [GT-28207]
 	{
 		locale: 'ar-SA',
 		component: <RadioItem>ฟิ้  ไั  ஒ  து</RadioItem>
 	},
-	// [GT-22259]
+	// [GT-28207]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
+		component: <RadioItem selected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
 	},
-	// [GT-22259]
+	// [GT-28207]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected>ฟิ้  ไั  ஒ  து</RadioItem>
+		component: <RadioItem selected>ฟิ้  ไั  ஒ  து</RadioItem>
 	},
 	// RadioItem* is selected - RTL [GT-21221}
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected>RadioItem Checked</RadioItem>
+		component: <RadioItem selected>RadioItem Checked</RadioItem>
 	},
 	// Selected - disabled
-	// [GT-22104]
+	// [GT-28198]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected disabled>RadioItem Checked</RadioItem>
+		component: <RadioItem selected disabled>RadioItem Checked</RadioItem>
 	},
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected disabled inline>RadioItem Checked</RadioItem>
+		component: <RadioItem selected disabled inline>RadioItem Checked</RadioItem>
 	},
 	// Selected - inline
-	// [GT-21615]
+	// [GT-28199]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected inline>RadioItem Checked</RadioItem>
+		component: <RadioItem selected inline>RadioItem Checked</RadioItem>
 	},
-	// Long text selected - LTR [GT-21139]
+	// Long text selected - LTR [GT-28204]
 	{
 		locale: 'ar-SA',
-		component: <RadioItem defaultSelected>-Lorem</RadioItem>
+		component: <RadioItem selected>-Lorem</RadioItem>
 	}
 ];
 export default RadioItemTests;

@@ -11,7 +11,7 @@
 
 import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
-import {Row, Cell} from '@enact/ui/Layout';
+import {Layout, Cell} from '@enact/ui/Layout';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
 import React from 'react';
@@ -23,8 +23,6 @@ import Transition from '@enact/ui/Transition';
 import {forward} from '@enact/core/handle';
 import warning from 'warning';
 
-import $L from '../internal/$L';
-import Button from '../Button';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Popup.module.less';
@@ -41,6 +39,15 @@ const getContainerNode = (containerId) => {
 
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
+
+const transitionDirection = {
+	bottom: 'down',
+	center: 'none',
+	fullscreen: 'none',
+	left: 'left',
+	right: 'right',
+	top: 'up'
+};
 
 /**
  * The base popup component.
@@ -62,15 +69,6 @@ const PopupBase = kind({
 		 * @public
 		 */
 		children: PropTypes.node.isRequired,
-
-		/**
-		 * Sets the hint string read when focusing the popup close button.
-		 *
-		 * @type {String}
-		 * @default 'Close'
-		 * @public
-		 */
-		closeButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -96,14 +94,6 @@ const PopupBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		 * Called when the close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onCloseButtonClick: PropTypes.func,
 
 		/**
 		 * Called after the popup's "hide" transition finishes.
@@ -133,13 +123,13 @@ const PopupBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Shows the close button.
+		 * Position of the Popup on the screen.
 		 *
-		 * @type {Boolean}
-		 * @default false
+		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
+		 * @default 'bottom'
 		 * @public
 		 */
-		showCloseButton: PropTypes.bool,
+		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
 		/**
 		 * Tells the body element to shrink to the size of the content.
@@ -182,7 +172,7 @@ const PopupBase = kind({
 	defaultProps: {
 		noAnimation: false,
 		open: false,
-		showCloseButton: false,
+		position: 'bottom',
 		shrinkBody: false,
 		spotlightRestrict: 'self-only'
 	},
@@ -190,40 +180,25 @@ const PopupBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'popup',
-		publicClassNames: ['popup', 'body', 'closeContainer', 'reserveClose']
+		publicClassNames: ['popup', 'body']
 	},
 
 	computed: {
-		className: ({showCloseButton, styler}) => styler.append({reserveClose: showCloseButton}),
-		closeButton: ({closeButtonAriaLabel, css, onCloseButtonClick, showCloseButton}) => {
-			if (showCloseButton) {
-				const ariaLabel = (closeButtonAriaLabel == null) ? $L('Close') : closeButtonAriaLabel;
-
-				return (
-					<Cell shrink className={css.closeContainer}>
-						<Button
-							className={css.closeButton}
-							backgroundOpacity="transparent"
-							size="small"
-							onTap={onCloseButtonClick}
-							aria-label={ariaLabel}
-							icon="closex"
-						/>
-					</Cell>
-				);
-			}
-		}
+		className: ({position, styler}) => styler.append(position),
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
+		// align: ({position}) => (position === 'bottom' || position === 'right') ? 'end' : 'start',
+		orientation: ({position}) => (position === 'left' || position === 'right') ? 'vertical' : 'horizontal',
+		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, ...rest}) => {
-		delete rest.closeButtonAriaLabel;
-		delete rest.onCloseButtonClick;
-		delete rest.showCloseButton;
+	render: ({children, css,  direction, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
+		delete rest.position;
 
 		return (
 			<TransitionContainer
-				className={css.popupTransitionContainer}
-				direction="down"
+				className={transitionContainerClassName}
+				css={css}
+				direction={direction}
 				duration="short"
 				noAnimation={noAnimation}
 				onHide={onHide}
@@ -234,7 +209,7 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<Row
+				<Layout
 					aria-live="off"
 					role="alert"
 					{...rest}
@@ -242,8 +217,7 @@ const PopupBase = kind({
 					<Cell className={css.body} shrink={shrinkBody}>
 						{children}
 					</Cell>
-					{closeButton}
-				</Row>
+				</Layout>
 			</TransitionContainer>
 		);
 	}
@@ -374,15 +348,6 @@ class Popup extends React.Component {
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * Shows a close button.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		showCloseButton: PropTypes.bool,
-
-		/**
 		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
 		 *
 		 * * Values: `'self-first'`, or `'self-only'`.
@@ -402,21 +367,7 @@ class Popup extends React.Component {
 		noAutoDismiss: false,
 		open: false,
 		scrimType: 'translucent',
-		showCloseButton: false,
 		spotlightRestrict: 'self-only'
-	}
-
-	constructor (props) {
-		super(props);
-		this.paused = new Pause('Popup');
-		this.state = {
-			floatLayerOpen: this.props.open,
-			popupOpen: this.props.open ? OpenState.OPEN : OpenState.CLOSED,
-			prevOpen: this.props.open,
-			containerId: Spotlight.add(),
-			activator: null
-		};
-		checkScrimNone(this.props);
 	}
 
 	static getDerivedStateFromProps (props, state) {
@@ -438,6 +389,19 @@ class Popup extends React.Component {
 			}
 		}
 		return null;
+	}
+
+	constructor (props) {
+		super(props);
+		this.paused = new Pause('Popup');
+		this.state = {
+			floatLayerOpen: this.props.open,
+			popupOpen: this.props.open ? OpenState.OPEN : OpenState.CLOSED,
+			prevOpen: this.props.open,
+			containerId: Spotlight.add(),
+			activator: null
+		};
+		checkScrimNone(this.props);
 	}
 
 	// Spot the content after it's mounted.
@@ -591,7 +555,6 @@ class Popup extends React.Component {
 				<SkinnedPopupBase
 					{...rest}
 					data-webos-voice-exclusive
-					onCloseButtonClick={onClose}
 					onHide={this.handlePopupHide}
 					onShow={this.handlePopupShow}
 					open={this.state.popupOpen >= OpenState.OPENING}

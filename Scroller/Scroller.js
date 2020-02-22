@@ -33,6 +33,8 @@ import Skinnable from '../Skinnable';
 
 import {useEventKey} from './useEvent';
 
+import css from './Scroller.module.less';
+
 const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
 /**
  * A Sandstone-styled base component for [Scroller]{@link sandstone/Scroller.Scroller}.
@@ -346,11 +348,18 @@ const useSpottableScroller = (props) => {
 
 	const propsObject = Object.assign({}, props);
 
+	delete propsObject.children;
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.onUpdate;
 	delete propsObject.setChildAdapter;
 	delete propsObject.spotlightId;
 	delete propsObject.uiScrollAdapter;
+
+	propsObject.children = (
+		<div className={css.contentWrapper}>
+			{props.children}
+		</div>
+	);
 
 	return propsObject;
 };
@@ -421,8 +430,8 @@ let Scroller = (props) => {
 					<ChildWrapper {...childWrapperProps}>
 						<UiScrollerBase {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
