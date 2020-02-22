@@ -137,7 +137,7 @@ const ProgressBarTests = [
 		}
 	},
 	// end of [GT-28225]
-	// Vertical tooltip placement -- valid positions: before/after/left/right
+	// Vertical tooltip placement -- valid positions: before/after/left/right [GT-28231]
 	{
 		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
@@ -162,7 +162,8 @@ const ProgressBarTests = [
 			padded: true
 		}
 	},
-	// Radial tooltip placement -- valid positions: before/after/left/right
+	// end of [GT-28231]
+	// Radial tooltip placement -- valid positions: before/after/left/right [GT-28232]
 	{
 		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
 		wrapper: {
@@ -187,6 +188,7 @@ const ProgressBarTests = [
 			padded: true
 		}
 	},
+	// end of [GT-28232]
 	// *************************************************************
 	// end of tooltip - all positions
 	// *************************************************************
