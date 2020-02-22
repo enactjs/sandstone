@@ -480,7 +480,7 @@ class Popup extends React.Component {
 			activator: null
 		});
 
-		if (ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
+		if (ev.currentTarget && ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 			this.paused.resume();
 
 			if (!this.props.open) {
@@ -496,7 +496,7 @@ class Popup extends React.Component {
 			popupOpen: OpenState.OPEN
 		});
 
-		if (ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
+		if (ev.currentTarget && ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 			this.paused.resume();
 
 			if (this.props.open) {

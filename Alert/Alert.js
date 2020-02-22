@@ -8,6 +8,7 @@
 
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
+import {Column, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -129,11 +130,14 @@ const AlertBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		titleBelow: PropTypes.string
+		titleBelow: PropTypes.string,
+
+		type: PropTypes.oneOf(['fullscreen', 'overlay'])
 	},
 
 	defaultProps: {
-		open: false
+		open: false,
+		type: 'fullscreen'
 	},
 
 	styles: {
@@ -149,23 +153,25 @@ const AlertBase = kind({
 		titleBelow: ({title, titleBelow}) => title ? titleBelow : ''
 	},
 
-	render: ({buttons, css, id, image, title, titleBelow, ...rest}) => {
+	render: ({buttons, css, id, image, title, titleBelow, type, ...rest}) => {
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css}>
-				<div className={css.alertBody}>
+			<Popup {...rest} aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css} position={type}>
+				<Column align="center center" className={css.alertBody}>
 					{
-						image ? <div>{image}</div> : null
+						image ? <Cell shrink>{image}</Cell> : null
 					}
-					<div className={css.title} id={`${id}_title`}>
+					<Cell className={css.title} id={`${id}_title`} shrink>
 						{title}
-					</div>
-					<div className={css.titleBelow} id={`${id}_titleBelow`}>
+					</Cell>
+					<Cell className={css.titleBelow} id={`${id}_titleBelow`} shrink>
 						{titleBelow}
-					</div>
-					<div className={css.buttons} id={`${id}_buttons`}>
-						{buttons}
-					</div>
-				</div>
+					</Cell>
+					<Cell shrink>
+						<Column className={css.buttons} id={`${id}_buttons`}>
+							{buttons}
+						</Column>
+					</Cell>
+				</Column>
 			</Popup>
 		);
 	}

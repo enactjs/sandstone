@@ -26,6 +26,7 @@ storiesOf('Sandstone', module)
 					onClose={action('onClose')}
 					title={text('title', Config, 'This is title')}
 					titleBelow={text('titleBelow', Config, 'This is titlebelow')}
+					type={select('type', ['fullscreen', 'overlay'], Config, 'fullscreen')}
 				>
 					{image ?
 						<image>
