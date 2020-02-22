@@ -42,8 +42,8 @@ const forwardShow = forward('onShow');
 
 const transitionDirection = {
 	bottom: 'down',
-	center: 'none',
-	fullscreen: 'none',
+	center: 'down',
+	fullscreen: 'down',
 	left: 'left',
 	right: 'right',
 	top: 'up'
@@ -195,8 +195,7 @@ const PopupBase = kind({
 		direction: ({position}) => transitionDirection[position]
 	},
 
-	render: ({children, css,  direction, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
-		delete rest.position;
+	render: ({children, css,  direction, noAnimation, onHide, onShow, open, position, shrinkBody, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
 
 		return (
 			<TransitionContainer
@@ -204,7 +203,7 @@ const PopupBase = kind({
 				css={css}
 				direction={direction}
 				duration="short"
-				noAnimation={position === 'fullscreen' ? true : noAnimation}
+				noAnimation={position === 'center' || position === 'fullscreen' ? true : noAnimation}
 				onHide={onHide}
 				onShow={onShow}
 				spotlightDisabled={!open}
