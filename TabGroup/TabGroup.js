@@ -83,7 +83,7 @@ const TabGroupBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tabBar'
+		className: 'tabGroup'
 	},
 
 	computed: {

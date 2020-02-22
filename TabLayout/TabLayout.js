@@ -19,7 +19,7 @@ import TabGroup from '../TabGroup/TabGroup';
 import componentCss from './TabLayout.module.less';
 
 /**
- * Tabbed Panels component.
+ * Tabbed Layout component.
  *
  * @class TabLayout
  * @memberof sandstone/TabLayout
@@ -106,7 +106,7 @@ const TabLayoutBase = kind({
 		)
 	},
 	computed: {
-		className: ({minimized, orientation, styler}) => styler.append({minimized: orientation === 'vertical' && minimized, orientation}),
+		className: ({minimized, orientation, styler}) => styler.append({minimized: orientation === 'vertical' && minimized}, orientation),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
@@ -139,7 +139,7 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
-	Slottable({slots: ['tabs', 'afterTabs', 'beforeTabs']}),
+	Slottable({slots: ['tabs']}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
 
