@@ -13,7 +13,7 @@
 		.padding-start-end(@sand-popup-padding-left, @sand-popup-padding-right);
 		box-sizing: border-box;
 		pointer-events: auto;
-		border-radius: 24px;
+		border-radius: @sand-popup-border-radius;
 		.locale-japanese-line-break();
 	}
 
@@ -48,7 +48,7 @@
 	// Skin colors
 	.applySkins({
 		.body {
-			background-color:@sand-popup-bg-color;
+			background-color: @sand-popup-bg-color;
 		}
 	});
 }
