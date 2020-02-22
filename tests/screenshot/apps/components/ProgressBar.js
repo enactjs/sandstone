@@ -137,6 +137,56 @@ const ProgressBarTests = [
 		}
 	},
 	// end of [GT-28225]
+	// Vertical tooltip placement -- valid positions: before/after/left/right
+	{
+		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="right" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="before" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="vertical" tooltip={<Tooltip position="after" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	// Radial tooltip placement -- valid positions: before/after/left/right
+	{
+		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="left" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="right" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="before" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ProgressBar orientation="radial" tooltip={<Tooltip position="after" />} progress={0.4} backgroundProgress={0.5} />,
+		wrapper: {
+			padded: true
+		}
+	},
 	// *************************************************************
 	// end of tooltip - all positions
 	// *************************************************************
