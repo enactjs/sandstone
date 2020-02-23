@@ -217,11 +217,13 @@
 
 // Progress Bar
 // ---------------------------------------
-@sand-progress-bar-bg-color: fade(@sand-light-gray, 20%);
-@sand-progress-bar-loaded-bg-color: fade(@sand-light-gray, 20%);
-@sand-progress-bar-fill-bg-color: @sand-spotlight-bg-color;
-@sand-progress-bar-tooltip-text-color: @sand-white;
-@sand-progress-bar-highlighted-fill-bg-color: @sand-white;
+@sand-progressbar-bar-bg-color: #373A41;
+@sand-progressbar-load-bg-color: fade(@sand-light-gray, 30%);
+@sand-progressbar-fill-bg-color: @sand-spotlight-bg-color;
+@sand-progressbar-highlighted-fill-bg-color: @sand-white;
+@sand-progressbar-radial-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-progressbar-radial-fill-bg-color: @sand-progressbar-fill-bg-color;
+@sand-progressbar-radial-load-bg-color: #6c6e73; // The load color cannot be translucent in this implementation of radial.
 
 // RadioItem
 // ---------------------------------------
@@ -248,9 +250,9 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-bg-color: @sand-progress-bar-bg-color;
-@sand-slider-fill-bg-color: @sand-progress-bar-fill-bg-color;
-@sand-slider-load-bg-color: @sand-progress-bar-loaded-bg-color;
+@sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-slider-fill-bg-color: @sand-progressbar-fill-bg-color;
+@sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
 @sand-slider-knob-bg-color: @sand-white;
 @sand-slider-knob-border-color: transparent;
 @sand-slider-focus-bar-bg-color: @sand-slider-bar-bg-color;

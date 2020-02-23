@@ -347,9 +347,6 @@ const useSpottable = (props, instances, context) => {
 		}
 	}
 
-	/**
-	 * Focus on the Node of the VirtualList item
-	 */
 	function focusOnNode (node) {
 		if (node) {
 			Spotlight.focus(node);
