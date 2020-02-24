@@ -5,7 +5,7 @@ import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import React, {Component, useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute} from '../Scrollable';
+import {dataIndexAttribute} from '../Scrollable/Scrollable';
 
 import {useEventKey} from './useEvent';
 import usePreventScroll from './usePreventScroll';
@@ -17,9 +17,9 @@ const SpotlightPlaceholder = Spottable('div');
 const nop = () => {};
 
 class VirtualListCore extends Component {
-	displayName = 'VirtualListBase'
+	displayName = 'VirtualListBasic'
 
-	static propTypes = /** @lends sandstone/VirtualList.VirtualListBase.prototype */ {
+	static propTypes = /** @lends sandstone/VirtualList.VirtualListBasic.prototype */ {
 		/**
 		 * The `render` function called for each item in the list.
 		 *
@@ -202,7 +202,7 @@ const useSpottable = (props, instances, context) => {
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		nodeIndexToBeFocused: false,
-		pause: new Pause('VirtualListBase')
+		pause: new Pause('VirtualListBasic')
 	});
 
 	const {pause} = mutableRef.current;
@@ -560,20 +560,20 @@ const useSpottableVirtualList = (props) => {
  * A Sandstone-styled base component for [VirtualList]{@link sandstone/VirtualList.VirtualList} and
  * [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
  *
- * @class VirtualListBase
+ * @class VirtualListBasic
  * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBase
+ * @extends ui/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
-const VirtualListBase = VirtualListCore;
+const VirtualListBasic = VirtualListCore;
 
 /**
  * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
  * not move focus to the scrollbar controls.
  *
  * @name focusableScrollbar
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBasic.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -587,7 +587,7 @@ const VirtualListBase = VirtualListCore;
  * the `Panel`.
  *
  * @name id
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
+ * @memberof sandstone/VirtualList.VirtualListBasic.prototype
  * @type {String}
  * @public
  */
@@ -630,5 +630,5 @@ function listItemsRenderer (props) {
 export default useSpottableVirtualList;
 export {
 	useSpottableVirtualList,
-	VirtualListBase
+	VirtualListBasic
 };

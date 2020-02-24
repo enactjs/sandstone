@@ -1,4 +1,4 @@
-import utilEvent from '@enact/ui/Scrollable/utilEvent';
+import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useRef} from 'react';
 
 const useEventKey = () => {

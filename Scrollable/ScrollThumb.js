@@ -1,4 +1,4 @@
-import {ScrollThumb as UiScrollThumb} from '@enact/ui/Scrollable/Scrollbar';
+import {ScrollThumb as UiScrollThumb} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
 import React, {forwardRef, useEffect} from 'react';
 
