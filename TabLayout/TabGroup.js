@@ -64,18 +64,21 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
+		children: ({collapsed, orientation, tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
+				...rest,
 				key: `tabs${i}`,
 				children: title || children,
-				...rest
+				collapsed: orientation === 'vertical' ? collapsed : false,
+				orientation
 			};
 		}),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({collapsed, noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
+	render: ({noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
+		delete rest.collapsed;
 		delete rest.tabs;
 
 		return (
@@ -87,10 +90,6 @@ const TabGroupBase = kind({
 						align="start"
 						childComponent={TabBase}
 						component={Group}
-						itemProps={{
-							collapsed: orientation === 'vertical' ? collapsed : false,
-							orientation
-						}}
 						orientation={orientation}
 						select="radio"
 						selected={selectedIndex}
