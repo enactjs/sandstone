@@ -2,15 +2,20 @@
 //
 @import '../styles/skin.less';
 
+/*
+// our convention is to use camelCase class name on the root node of the component. however, we do
+// not have a way to set that class on ContextualPopupDecorator's root so we can't use it right now
+// but keeping it around as a future note.
 .contextualMenu {
-	&.popup {
-		overflow: hidden;
-		padding: 0;
-	}
-
-	/*.applySkins({
+	.applySkins({
 		&.contextMenuPopup {
 			// add theme styles
 		}
-	});*/
+	});
+}
+*/
+
+.popup {
+	overflow: hidden;
+	padding: 0;
 }
