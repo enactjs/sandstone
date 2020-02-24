@@ -5,50 +5,49 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
+import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
+import Item from '@enact/sandstone/Item';
 
-const ContextualButton = ContextualPopupDecorator(Button);
+const ContextualButton = ContextualMenuDecorator(Button);
 ContextualButton.displayName = 'ContextualButton';
 
-const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, ContextualButton);
+const Config = mergeComponentMetadata('ContextualMenuDecorator', Button, ContextualButton);
 
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-	direction: 'below center',
-	open: false,
-	showCloseButton: false,
-	spotlightRestrict: 'self-first'
+	direction: 'below',
+	open: false
 };
 
 const renderPopup = () => (
-	<div>{text('popup string', {groupId: 'Popup'}, 'Hello Contextual Popup')}</div>
+	<div style={{width: '500px'}}>
+		<Item>Item 1</Item>
+		<Item>Item 2</Item>
+	</div>
 );
 
 storiesOf('Sandstone', module)
 	.add(
-		'ContextualPopupDecorator',
+		'ContextualMenuDecorator',
 		() => (
 			<div style={{textAlign: 'center', marginTop: ri.unit(198, 'rem')}}>
 				<ContextualButton
 					direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
-					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onClose={action('onClose')}
 					open={boolean('open', Config)}
 					popupComponent={renderPopup}
-					showCloseButton={boolean('showCloseButton', Config)}
-					spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config)}
 				>
-					{text('button string', Config, 'Hello Contextual Button')}
+					{text('button string', Config, 'Contextual Button')}
 				</ContextualButton>
-				<BodyText centered>Use KNOBS to interact with the ContextualPopup.</BodyText>
+				<BodyText centered>Use KNOBS to interact with the ContextualMenu.</BodyText>
 			</div>
 		),
 		{
 			info: {
-				text: 'Basic usage of ContextualPopupDecorator'
+				text: 'Basic usage of ContextualMenuDecorator'
 			}
 		}
 	);

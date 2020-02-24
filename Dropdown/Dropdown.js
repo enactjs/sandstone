@@ -176,7 +176,7 @@ const DropdownBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'down',
+		direction: 'below',
 		open: false,
 		width: 'medium'
 	},
@@ -243,6 +243,7 @@ const DropdownBase = kind({
 			});
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
+		direction: ({direction}) => `${direction} center`,
 		title: ({children, selected, title}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];

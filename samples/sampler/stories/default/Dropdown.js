@@ -20,7 +20,7 @@ storiesOf('Sandstone', module)
 
 			return (
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
