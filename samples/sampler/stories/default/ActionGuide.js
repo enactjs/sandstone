@@ -18,16 +18,8 @@ storiesOf('Sandstone', module)
 	.add(
 		'ActionGuide',
 		() => {
-			const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
-			let icon;
-			switch (iconType) {
-				case 'glyph': icon = select('icon', ['', ...iconNames], Config, 'arrowlargedown'); break;
-				case 'url src': icon = select('src', [docs, factory, logo], Config, logo); break;
-				default: icon = text('custom icon', Config);
-			}
-
 			return (
-				<ActionGuide icon={icon}>
+				<ActionGuide icon={'arrowsmalldown'}>
 					{text('children', Config, 'Press some key to do something')}
 				</ActionGuide>
 			);

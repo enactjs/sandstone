@@ -60,7 +60,7 @@ const KeyGuideBase = kind({
 			children: EnactPropTypes.renderable.isRequired,
 			key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 			icon: PropTypes.string
-		})).isRequired,
+		})),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -84,17 +84,20 @@ const KeyGuideBase = kind({
 		open: PropTypes.bool
 	},
 
-	computed: {
-		children: ({children, css}) => {
-			if (!Array.isArray(children)) return [];
+	defaultProps: {
+		children: []
+	},
 
-			return children.map(({icon, ...child}) => {
+	computed: {
+		children: ({children, css}) => (
+			children.map(({icon, ...child}) => {
 				return {
 					...child,
 					slotBefore: <Icon className={css.icon}>{icon}</Icon>
 				};
-			});
-		}
+			})
+		),
+		open: ({children, open}) => (children.length > 0 && open)
 	},
 
 	styles: {
@@ -104,12 +107,11 @@ const KeyGuideBase = kind({
 	},
 
 	render: ({open, css, ...rest}) => {
-		const openKeyGuide = open && rest.children.length > 0;
 
 		return (
 			<FloatingLayer
 				noAutoDismiss
-				open={openKeyGuide}
+				open={open}
 				scrimType="none"
 			>
 				<Repeater
