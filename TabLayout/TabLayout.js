@@ -137,9 +137,8 @@ const TabLayoutBase = kind({
 	render: ({children, collapsed, css, index, onTabsBlur, onTabsFocus, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell shrink>
+				<Cell className={css.tabs} size={collapsed ? 450 : 885}>
 					<TabGroup
-						className={css.tabs}
 						collapsed={collapsed}
 						onBlur={onTabsBlur}
 						onFocus={onTabsFocus}

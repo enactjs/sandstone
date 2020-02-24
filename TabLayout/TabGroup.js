@@ -5,14 +5,14 @@
  * @exports TabGroup
  */
 import kind from '@enact/core/kind';
-import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import Button from '../Button';
+import Icon from '../Icon';
+import Item from '../Item';
 import Scroller from '../Scroller';
 
 const TabBase = kind({
@@ -24,20 +24,19 @@ const TabBase = kind({
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, collapsed, selected, ...rest}) => {
+	render: ({children, icon, selected, ...rest}) => {
 		delete rest.selected;
 
 		return (
-			<Cell
+			<Item
 				{...rest}
-				backgroundOpacity="transparent"
-				component={Button}
-				icon={icon}
 				selected={selected}
-				shrink
 			>
-				{collapsed ? null : children}
-			</Cell>
+				<slotBefore>
+					<Icon>{icon}</Icon>
+				</slotBefore>
+				{children}
+			</Item>
 		);
 	}
 });
@@ -79,19 +78,18 @@ const TabGroupBase = kind({
 		delete rest.tabs;
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus} >
+			<Scroller onBlur={onBlur} onFocus={onFocus}>
 				{noIcons ?
-					<Button icon="list" /> :
-					<Layout
+					<Item><slotBefore><Icon>list</Icon></slotBefore></Item> :
+					<Group
 						{...rest}
 						align="start"
 						childComponent={TabBase}
-						component={Group}
+						component="div"
 						itemProps={{
 							collapsed: orientation === 'vertical' ? collapsed : false,
 							orientation
 						}}
-						orientation={orientation}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"

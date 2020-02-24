@@ -25,9 +25,9 @@ storiesOf('Sandstone', module)
 					onSelect={action('onSelect')}
 					orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					tabs={[
-						{title: 'Home', icon: 'home'},
-						{title: 'Button', icon: 'image'},
-						{title: 'Item', icon: 'resumeplay'}
+						{children: 'Home', icon: 'home'},
+						{children: 'Button', icon: 'image'},
+						{children: 'Item', icon: 'resumeplay'}
 					]}
 				>
 					<React.Fragment>
