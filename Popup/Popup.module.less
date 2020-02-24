@@ -6,6 +6,7 @@
 
 .popup {
 	height: 100%;
+	border-radius: @sand-popup-border-radius;
 
 	.body {
 		.sand-text-base();
@@ -13,43 +14,62 @@
 		.padding-start-end(@sand-popup-padding-left, @sand-popup-padding-right);
 		box-sizing: border-box;
 		pointer-events: auto;
-		border-radius: @sand-popup-border-radius;
 		.locale-japanese-line-break();
 	}
 
 	&.bottom,
 	&.top {
-		padding: @sand-popup-position-top-bottom-padding;
+		margin: @sand-popup-position-top-bottom-margin;
 
 		.body {
-			width: 100%;
+			max-width: 100%;
 		}
 	}
-
 	&.left,
 	&.right {
-		padding: @sand-popup-position-left-right-padding;
+		margin: @sand-popup-position-left-right-margin;
+		max-height: calc(100% - extract(@sand-popup-position-left-right-margin, 1) * 2);
 
 		.body {
 			height: 100%;
 		}
+	}
+
+	// Remove the mardin on the leading edge so we're not wasting some of our transition frames on animating empty space
+	// This may pose problems for Popups that are 100% height, but `top` and `bottom` aren't intended for those cases.
+	&.top {
+		margin-bottom: 0;
+	}
+	&.right {
+		margin-left: 0;
+	}
+	&.bottom {
+		margin-top: 0;
+	}
+	&.left {
+		margin-right: 0;
+	}
+
+	&.center {
+		position: absolute;
+		height: auto;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 	&.fullscreen {
-		padding: @sand-popup-position-fullscreen-padding;
+		border-radius: 0;
 
 		.body {
 			height: 100%;
 			width: 100%;
-			border-radius: 0;
 		}
 	}
 
 	// Skin colors
 	.applySkins({
-		.body {
-			background-color: @sand-popup-bg-color;
-		}
+		background-color: @sand-popup-bg-color;
 	});
 }
 
@@ -87,19 +107,7 @@
 		top: 0;
 	}
 
-	&.center {
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 50%;
-		width: 50%;
-
-		.inner {
-			height: 100%;
-			width: 100%;
-		}
-	}
-
+	&.center,
 	&.fullscreen {
 		height: 100%;
 		width: 100%;
