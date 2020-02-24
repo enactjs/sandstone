@@ -56,7 +56,19 @@ const ActionGuideBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		/**
+		 * The icon displayed within the action guide.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		icon: PropTypes.string
+	},
+
+	defaultProps: {
+		icon: 'arrowsmalldown'
 	},
 
 	styles: {
@@ -65,10 +77,10 @@ const ActionGuideBase = kind({
 		publicClassNames: ['actionGuide']
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({icon, children, css, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Icon size="small" className={css.icon}>{'arrowsmalldown'}</Icon>
+				<Icon size="small" className={css.icon}>{icon}</Icon>
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);

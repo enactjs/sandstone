@@ -108,7 +108,6 @@ const KeyGuideBase = kind({
 	},
 
 	render: ({open, css, ...rest}) => {
-
 		return (
 			<FloatingLayer
 				noAutoDismiss
