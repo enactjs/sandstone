@@ -22,7 +22,6 @@ storiesOf('Sandstone', module)
 			<Panel>
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout
-					minimized={boolean('minimized', TabLayout)}
 					onSelect={action('onSelect')}
 					orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					tabs={[

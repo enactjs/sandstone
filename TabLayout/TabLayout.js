@@ -8,13 +8,14 @@ import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {Changeable} from '@enact/ui/Changeable';
 import Slottable from '@enact/ui/Slottable';
+import Toggleable from '@enact/ui/Toggleable';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
 import {Panels} from '../Panels';
-import TabGroup from '../TabGroup/TabGroup';
+import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
 
@@ -34,7 +35,7 @@ const TabLayoutBase = kind({
 		 *
 		 * Each object in the array of tabs should include a `title` property and, optionally, an
 		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for any tabs, no icons will be displayed when minimized.
+		 * supplied for any tabs, no icons will be displayed when collapsed.
 		 *
 		 * @type {Object[]}
 		 * @required
@@ -49,6 +50,17 @@ const TabLayoutBase = kind({
 		 * @public
 		 */
 		children: PropTypes.node,
+
+		/**
+		 * Collapse the vertical tab list into icons only.
+		 *
+		 * Only applies to `orientation="vertical"`.  If the tabs do not include icons, a single
+		 * collapsed icon will be shown.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		collapsed: PropTypes.bool,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -69,17 +81,6 @@ const TabLayoutBase = kind({
 		 * @public
 		 */
 		index: PropTypes.number,
-
-		/**
-		 * Collapse the vertical tab list into icons only.
-		 *
-		 * Only applies to `orientation="vertical"`.  If the tabs do not include icons, a single
-		 * collapsed icon will be shown.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		minimized: PropTypes.bool,
 
 		/**
 		 * Orientation of the tabs.
@@ -103,21 +104,25 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
+		),
+		onCollapse: handle(
+			forward('onCollapseToggle')
 		)
 	},
 	computed: {
-		className: ({minimized, orientation, styler}) => styler.append({minimized: orientation === 'vertical' && minimized}, orientation),
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed: orientation === 'vertical' && collapsed}, orientation),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
 	},
-	render: ({children, css, index, minimized, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onCollapse, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell shrink>
 					<TabGroup
 						className={css.tabs}
-						minimized={minimized}
+						collapsed={collapsed}
+						onCollapse={onCollapse}
 						onSelect={onSelect}
 						orientation={orientation}
 						tabs={tabs}

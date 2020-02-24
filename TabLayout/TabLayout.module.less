@@ -1,24 +1,16 @@
-// TabbedPanels.module.less
+// TabLayout.module.less
 //
 @import "../styles/variables.less";
 
 .tabLayout {
 	.content {
-		margin-top: @sand-tabbedpanels-panels-margin-top;
-		margin-left: @sand-tabbedpanels-panels-margin-left;
+		margin-top: @sand-tablayout-panels-margin-top;
+		margin-left: @sand-tablayout-panels-margin-left;
 	}
 
 	&.minimized {
 		.content {
-			margin-left: @sand-tabbedpanels-panels-minimized-margin-left;
-		}
-	}
-
-	&.reverse {
-		flex-direction: row-reverse;
-
-		&.vertical {
-			flex-direction: column-reverse;
+			margin-left: @sand-tablayout-panels-minimized-margin-left;
 		}
 	}
 }
