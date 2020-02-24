@@ -27,8 +27,8 @@ const
 let ScrollThumb = forwardRef((props, ref) => {
 	const
 		{cbAlertThumb, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
-		className = classNames(css.scrollThumb, vertical ? css.vertical : null),
-		ScrollbarDiv = focusableScrollbar ? Spottable('div') : 'div';
+		className = classNames(css.scrollTrack, vertical ? css.vertical : null),
+		ScrollThumbDiv = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
 		cbAlertThumb();
@@ -62,7 +62,7 @@ let ScrollThumb = forwardRef((props, ref) => {
 
 	const onClick = useCallback((ev) => {
 		// Click the track. If user click the thumb, do nothing.
-		if (ev.target === ref.current || ev.target === ref.current.node) {
+		if (ev.target === ref.current) {
 			const
 				clickPoint = vertical ? ev.nativeEvent.offsetY : ev.nativeEvent.offsetX,
 				thumbPosition = vertical ? ev.target.children[0].offsetTop : ev.target.children[0].offsetLeft;
@@ -81,10 +81,10 @@ let ScrollThumb = forwardRef((props, ref) => {
 
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
-			<ScrollbarDiv className={css.thumb} onKeyDown={onKeyDown}>
+			<ScrollThumbDiv className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
-			</ScrollbarDiv>
+			</ScrollThumbDiv>
 		</div>
 	);
 });

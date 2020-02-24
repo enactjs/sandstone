@@ -1,53 +1,48 @@
 @import '../styles/colors.less';
+@import "../styles/mixins.less";
+@import '../styles/variables.less';
 
-.scrollThumb {
+.scrollTrack {
 	--scrollbar-size-ratio: 1;
 	--scrollbar-progress-ratio: 0;
 	--scrollbar-size: ~"calc(100% * var(--scrollbar-size-ratio))";
 	--scrollbar-progress: ~"calc(((1 - var(--scrollbar-size-ratio)) * var(--scrollbar-progress-ratio)) * 100%)";
 
-	@sand-scroll-thumb-focus-width: 30px;
-	@sand-scroll-thumb-focus-left-margin: -9px; // TODO: Re-apply 4K GUI.
-	@sand-scroll-thumb-focus-direction-indicator-width: 18px;
-	@sand-scroll-thumb-focus-direction-indicator-height: 12px;
-	@sand-scroll-thumb-focus-direction-indicator-top-margin: 9px; // TODO: Re-apply 4K GUI.
-	@sand-scroll-thumb-focus-direction-indicator-left-margin: 6px;
-
 	position: relative;
 	height: 100%;
 	width: 100%;
-	background-color: @sand-scroll-track-bg-color;
-	border-radius: 6px;
+	background-color: @sand-scrolltrack-bg-color;
+	border-radius: @sand-scrolltrack-border-radius;
 
 	.thumb {
-		background: @sand-scroll-thumb-bg-color;
+		background: @sand-scrollthumb-bg-color;
 		display: block;
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		border-radius: 6px;
+		border-radius: @sand-scrollthumb-border-radius;
 
-		&:focus {
+		.focus({
 			position: absolute;
-			background-color: @sand-scroll-thumb-focus-bg-color;
-			box-shadow: 0 40px 24px #0000004D;
-			border-radius: 15px;
+			background-color: @sand-scrollthumb-focus-bg-color;
+			filter: drop-shadow(@sand-scrollthumb-focus-box-shadow @sand-scrollthumb-focus-box-shadow-color);
+			border-radius: @sand-scrollthumb-focus-border-radius;
 
 			.directionIndicator {
 				position: absolute;
 				width: 0;
 				height: 0;
-				border-top: @sand-scroll-thumb-focus-direction-indicator-height solid transparent;
-				border-bottom: @sand-scroll-thumb-focus-direction-indicator-height solid @sand-scroll-thumb-focus-direction-indicator-color;
-				border-right: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
-				border-left: @sand-scroll-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-top: @sand-scrollthumb-focus-direction-indicator-height solid transparent;
+				border-bottom: @sand-scrollthumb-focus-direction-indicator-height solid @sand-scrollthumb-focus-direction-indicator-color;
+				border-right: @sand-scrollthumb-focus-direction-indicator-width/2 solid transparent;
+				border-left: @sand-scrollthumb-focus-direction-indicator-width/2 solid transparent;
 			}
-		}
+		})
 	}
 
 	&.vertical {
-		margin: 0 24px;
-		width: 12px;
+		margin: 0 @sand-scrolltrack-margin;
+		width: @sand-scrolltrack-width;
 
 		.thumb {
 			height: var(--scrollbar-size);
@@ -56,26 +51,26 @@
 
 			&:focus {
 
-				width: @sand-scroll-thumb-focus-width;
-				left: @sand-scroll-thumb-focus-left-margin;
+				width: @sand-scrollthumb-focus-width;
+				left: @sand-scrollthumb-focus-left;
 
 				.directionIndicator.backward {
-					top: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
-					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
+					top: calc(@sand-scrollthumb-focus-direction-indicator-top - @sand-scrollthumb-focus-direction-indicator-height);
+					left: @sand-scrollthumb-focus-direction-indicator-left;
 				}
 
 				.directionIndicator.forward {
 					transform: rotate(180deg);
-					bottom: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
-					left: @sand-scroll-thumb-focus-direction-indicator-left-margin;
+					bottom: calc(@sand-scrollthumb-focus-direction-indicator-top - @sand-scrollthumb-focus-direction-indicator-height);
+					left: @sand-scrollthumb-focus-direction-indicator-left;
 				}
 			}
 		}
 	}
 
 	&:not(.vertical) {
-		margin: 24px 0;
-		height: 12px;
+		margin: @sand-scrolltrack-margin 0;
+		height: @sand-scrolltrack-width;
 
 		.thumb {
 			width: var(--scrollbar-size);
@@ -84,21 +79,21 @@
 			top: 50%;
 			transform: translateY(-50%);
 
-			&:focus {
-				height: @sand-scroll-thumb-focus-width;
+			.focus({
+				height: @sand-scrollthumb-focus-width;
 
 				.directionIndicator.backward {
 					transform: rotate(-90deg);
-					left: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
-					top: calc(@sand-scroll-thumb-focus-direction-indicator-left-margin/2);
+					left: calc(@sand-scrollthumb-focus-direction-indicator-top - @sand-scrollthumb-focus-direction-indicator-height);
+					top: calc(@sand-scrollthumb-focus-direction-indicator-left/2);
 				}
 
 				.directionIndicator.forward {
 					transform: rotate(90deg);
-					right: calc(@sand-scroll-thumb-focus-direction-indicator-top-margin - @sand-scroll-thumb-focus-direction-indicator-height);
-					top: calc(@sand-scroll-thumb-focus-direction-indicator-left-margin/2);
+					right: calc(@sand-scrollthumb-focus-direction-indicator-top - @sand-scrollthumb-focus-direction-indicator-height);
+					top: calc(@sand-scrollthumb-focus-direction-indicator-left/2);
 				}
-			}
+			})
 		}
 	}
 }
