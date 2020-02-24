@@ -40,7 +40,8 @@ storiesOf('Sandstone', module)
 	.add(
 		'Header',
 		() => {
-			const headerInput = boolean('headerInput', Config) ? <Input placeholder="placeholder text" /> : null;
+			const headerInput = boolean('headerInput', Config, true) ? <Input placeholder="placeholder text" /> : null;
+			const showInput = boolean('showInput', Config);
 			const slotAboveSelection = select('slotAbove', ['none', 'steps'], Config);
 			const slotAbove = prop.above[slotAboveSelection];
 			const slotBeforeSelection = select('slotBefore', prop.buttonsSelection, Config);
@@ -57,6 +58,7 @@ storiesOf('Sandstone', module)
 					type={select('type', prop.type, Config)}
 					centered={boolean('centered', Config)}
 					headerInput={headerInput}
+					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 					slotAbove={slotAbove}
 					slotBefore={slotBefore}

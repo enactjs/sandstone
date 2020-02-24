@@ -195,9 +195,9 @@ const PopupBase = kind({
 				visible={open}
 			>
 				<div
-					{...rest}
 					aria-live="off"
 					role="alert"
+					{...rest}
 				>
 					<div className={css.body}>
 						{children}
