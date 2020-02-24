@@ -13,6 +13,7 @@ import {handle, forKeyCode, forward} from '@enact/core/handle';
 import Layout from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
+import Changeable from '@enact/ui/Changeable';
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import {Marquee} from '@enact/sandstone/Marquee';
@@ -290,6 +291,7 @@ class InputNumberPopupBase extends React.Component {
 const InputNumberPopupDecorator = compose(
 	Pure,
 	Toggleable({activate: 'openPopup', deactivate: 'closePopup', prop: 'open'}),
+	Changeable({change: 'onComplete'}),
 	Skinnable
 );
 

@@ -14,6 +14,7 @@ import compose from 'ramda/src/compose';
 import {handle, forKey, forKeyCode, forward} from '@enact/core/handle';
 import Toggleable from '@enact/ui/Toggleable';
 import Pure from '@enact/ui/internal/Pure';
+import Changeable from '@enact/ui/Changeable';
 import Button from '@enact/sandstone/Button';
 import Input from '@enact/sandstone/Input';
 import {Marquee} from '@enact/sandstone/Marquee';
@@ -213,6 +214,7 @@ class InputPopupBase extends React.Component {
 const InputPopupDecorator = compose(
 	Pure,
 	Toggleable({activate: 'openPopup', deactivate: 'closePopup', prop: 'open'}),
+	Changeable({change: 'onComplete'}),
 	Skinnable
 );
 
