@@ -29,6 +29,7 @@ import React from 'react';
 
 import Icon from '../Icon';
 import {ItemBase} from '../Item';
+import {MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 import componentCss from './KeyGuide.module.less';
 
@@ -117,18 +118,53 @@ const KeyGuideBase = kind({
 				<Repeater
 					{...rest}
 					childComponent={ItemBase}
-					itemProps={{css: css}}
+					itemProps={{css: css, marqueeOn: 'render'}}
 				/>
 			</FloatingLayer>
 		);
 	}
 });
 
+/**
+ * Applies Sandstone specific behaviors to [KeyGuide]{@link sandstone/KeyGuide.KeyGuideBase}.
+ *
+ * @hoc
+ * @memberof sandstone/KeyGuide
+ * @mixes sandstone/Marquee.MarqueeController
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const KeyGuideDecorator = compose(
+	MarqueeController({marqueeOnFocus: true}),
 	Pure,
 	Skinnable
 );
 
+/**
+ * A Key Guide component, ready to use in Sandstone applications.
+ *
+ * `KeyGuide' may be used to display list of text and icon to describe behavior.
+ *
+ * Usage:
+ * ```
+ * <KeyGuide
+ *		open
+ * >
+ * 	{[
+ *		{icon: 'star', children: 'start label', key: 1},
+ *		{icon: 'plus', children: 'plus label', key: 2},
+ *		{icon: 'minus', children: 'minus label', key: 3}
+ *	]}
+ * </KeyGuide>
+ * ```
+ *
+ * @class KeyGuide
+ * @memberof sandstone/KeyGuide
+ * @extends sandstone/KeyGuide.KeyGuideBase
+ * @mixes sandstone/KeyGuide.KeyGuideDecorator
+ * @ui
+ * @public
+ */
 const KeyGuide = KeyGuideDecorator(KeyGuideBase);
 
 export default KeyGuide;
