@@ -33,7 +33,7 @@ storiesOf('TabLayout', module)
 						}))}
 					>
 						{Array.from({length: tabs}, (v, i) => (
-							<Scroller>
+							<Scroller key={'view' + i}>
 								<Button>Tab {i} Top</Button>
 								<BodyText>
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus, quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia mi.
@@ -77,7 +77,7 @@ storiesOf('TabLayout', module)
 						}))}
 					>
 						{Array.from({length: tabs}, (v, i) => (
-							<Scroller>
+							<Scroller key={'view' + i}>
 								<Button>Tab {i} Top</Button>
 								<BodyText>
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus, quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia mi.
