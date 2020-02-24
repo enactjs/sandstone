@@ -83,6 +83,24 @@ const TabLayoutBase = kind({
 		index: PropTypes.number,
 
 		/**
+		 * Calls onBlur when focus is blurred from the tabs.
+		 * This collapses the vertical tab.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onTabsBlur: PropTypes.func,
+
+		/**
+		 * Calls onFocus when focus is blurred from the tabs.
+		 * This expands the vertical tab.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onTabsFocus: PropTypes.func,
+
+		/**
 		 * Orientation of the tabs.
 		 *
 		 * Horizontal tabs support a maximum of five tabs.
@@ -93,36 +111,39 @@ const TabLayoutBase = kind({
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
 	},
+
 	defaultProps: {
 		index: 0,
 		orientation: 'vertical'
 	},
+
 	styles: {
 		css: componentCss,
 		className: 'tabLayout enact-fit'
 	},
+
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
-		),
-		onCollapse: handle(
-			forward('onCollapseToggle')
 		)
 	},
+
 	computed: {
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed: orientation === 'vertical' && collapsed}, orientation),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
 	},
-	render: ({children, collapsed, css, index, onCollapse, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+
+	render: ({children, collapsed, css, index, onTabsBlur, onTabsFocus, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell shrink>
+				<Cell style={{transition: 'all 2s'}} shrink>
 					<TabGroup
 						className={css.tabs}
 						collapsed={collapsed}
-						onCollapse={onCollapse}
+						onBlur={onTabsBlur}
+						onFocus={onTabsFocus}
 						onSelect={onSelect}
 						orientation={orientation}
 						tabs={tabs}
@@ -145,6 +166,7 @@ const TabLayoutBase = kind({
 
 const TabLayoutDecorator = compose(
 	Slottable({slots: ['tabs']}),
+	Toggleable({prop: 'collapsed', activate: 'onTabsBlur', deactivate: 'onTabsFocus'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
 

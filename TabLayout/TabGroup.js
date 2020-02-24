@@ -20,8 +20,8 @@ const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
-		icon: PropTypes.string,
 		collapsed: PropTypes.bool,
+		icon: PropTypes.string,
 		selected: PropTypes.bool
 	},
 
@@ -59,6 +59,8 @@ const TabGroupBase = kind({
 		tabs: PropTypes.array.isRequired,
 		collapsed: PropTypes.bool,
 		css: PropTypes.object,
+		onBlur: PropTypes.func,
+		onFocus: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},
@@ -74,11 +76,11 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({collapsed, noIcons, orientation, selectedIndex, ...rest}) => {
+	render: ({collapsed, noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
 		delete rest.tabs;
 
 		return (
-			<Scroller>
+			<Scroller onBlur={onBlur} onFocus={onFocus} >
 				{noIcons ?
 					<Button icon="list" /> :
 					<Layout

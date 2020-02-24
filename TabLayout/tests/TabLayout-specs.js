@@ -1,13 +1,13 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {TabLayout, TabLayoutBase} from '../TabLayout';
+import {TabLayoutBase} from '../TabLayout';
 
 describe('TabLayout specs', () => {
-	it('should be minimized when minimized is true', () => {
+	it('should be collapsed when collapsed is true', () => {
 		const subject = shallow(
 			<TabLayoutBase
-				minimized
+				collapsed
 				tabs={[
 					{title: 'Home', icon: 'home'},
 					{title: 'Button', icon: 'image'},
@@ -20,7 +20,7 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('minimized');
+		expect(subject.prop('className').split(' ')).toContain('collapsed');
 	});
 
 	it('should have default orientation of horizontal', () => {

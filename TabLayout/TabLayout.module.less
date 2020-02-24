@@ -8,9 +8,13 @@
 		margin-left: @sand-tablayout-panels-margin-left;
 	}
 
-	&.minimized {
+	.tabs {
+		transition: all 2s;
+	}
+
+	&.collapsed {
 		.content {
-			margin-left: @sand-tablayout-panels-minimized-margin-left;
+			margin-left: @sand-tablayout-panels-collapsed-margin-left;
 		}
 	}
 }
