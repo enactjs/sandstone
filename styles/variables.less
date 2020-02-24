@@ -416,15 +416,18 @@
 @sand-popup-padding-right: 72px;
 @sand-popup-padding-bottom: @sand-popup-padding-top;
 @sand-popup-padding-left: @sand-popup-padding-right;
-@sand-popup-body-margin-top: (@sand-popup-padding-top - 18px);
-@sand-popup-body-margin-right: (@sand-popup-padding-right - 18px);
-@sand-popup-body-margin-bottom: (@sand-popup-padding-bottom - 30px);
-@sand-popup-body-margin-left: @sand-popup-body-margin-right;
-@sand-popup-closecontainer-separation: @sand-spotlight-outset;
+@sand-popup-border-radius: 24px;
+@sand-popup-position-top-bottom-margin: 150px 120px;
+@sand-popup-position-left-right-margin: 120px 60px;
 
 // ProgressBar
 // ---------------------------------------
-@sand-progress-bar-height: 12px;
+@sand-progressbar-bar-thickness: 12px;
+@sand-progressbar-bar-border-radius: (@sand-progressbar-bar-thickness / 2);
+@sand-progressbar-margin: @sand-spotlight-outset;
+@sand-progressbar-vertical-min-height: 240px;
+@sand-progressbar-radial-size: 72px;
+@sand-progressbar-radial-thickness: 9px;
 
 // RadioItem
 // ---------------------------------------
@@ -453,7 +456,7 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-height: @sand-progress-bar-height;
+@sand-slider-bar-height: @sand-progressbar-bar-thickness;
 @sand-slider-knob-width: @sand-button-small-height;
 @sand-slider-knob-width-large: @sand-button-small-height-large;
 @sand-slider-knob-height: @sand-button-small-height;

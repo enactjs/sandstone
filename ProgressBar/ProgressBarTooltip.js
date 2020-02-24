@@ -1,4 +1,3 @@
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {memoize} from '@enact/core/util';
 import ilib from '@enact/i18n';
@@ -6,11 +5,13 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import NumFmt from 'ilib/lib/NumFmt';
 import React from 'react';
 import PropTypes from 'prop-types';
-import warning from 'warning';
 
 import Tooltip from '../TooltipDecorator/Tooltip';
 
 import css from './ProgressBarTooltip.module.less';
+
+const verticalPositions = ['before', 'after', 'left', 'right'];
+const isVerticalModeRadial = (orientation, position) => orientation === 'radial' && verticalPositions.includes(position);
 
 // prop-type validator that warns on invalid orientation + position
 /* istanbul ignore next */
@@ -20,7 +21,7 @@ const validatePosition = (base) => (props, key, componentName, location, propFul
 
 	if (!result && position) {
 		const orientation = props.orientation || 'horizontal';
-		const hasVerticalValue = ['before', 'after', 'left', 'right'].includes(position);
+		const hasVerticalValue = verticalPositions.includes(position);
 		if (
 			(orientation === 'vertical' && !hasVerticalValue) ||
 			(orientation === 'horizontal' && hasVerticalValue)
@@ -42,56 +43,65 @@ const memoizedPercentFormatter = memoize((/* locale */) => new NumFmt({
 const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'before';
 
 // Returns an array of keywords with horizontal first and vetical second
-const getSide = (orientation, side, position) => {
-	if (position || !side) {
-		position = position || getDefaultPosition(orientation);
+const getSide = (orientation, position) => {
+	position = position || getDefaultPosition(orientation);
 
-		if (orientation === 'horizontal') {
-			switch (position) {
-				case 'above':
-				case 'below':
-					return ['auto', position];
-				case 'above after':
-				case 'above before':
-				case 'above left':
-				case 'above right':
-				case 'below after':
-				case 'below before':
-				case 'below left':
-				case 'below right':
-					return position.split(' ').reverse();
-				default:
-					// invalid values for horizontal so use defaults
-					return ['auto', 'above'];
-			}
-		} else {
-			switch (position) {
-				case 'after':
-				case 'before':
-				case 'left':
-				case 'right':
-					return [position, 'above'];
-				default:
-					// invalid values for horizontal so use defaults
-					return ['before', 'auto'];
-			}
+	if (orientation === 'horizontal') {
+		switch (position) {
+			case 'above':
+			case 'below':
+				return ['auto', position];
+			case 'above after':
+			case 'above before':
+			case 'above center':
+			case 'above left':
+			case 'above right':
+			case 'below after':
+			case 'below before':
+			case 'below center':
+			case 'below left':
+			case 'below right':
+				return position.split(' ').reverse();
+			default:
+				// invalid values for horizontal so use defaults
+				return ['auto', 'above'];
+		}
+	} else if (orientation === 'vertical') {
+		switch (position) {
+			case 'after':
+			case 'before':
+			case 'left':
+			case 'right':
+				return [position, 'above'];
+			default:
+				// invalid values for horizontal so use defaults
+				return ['before', 'auto'];
 		}
 	} else {
-		const valid = orientation === 'vertical' || (
-			orientation === 'horizontal' && (side === 'before' || side === 'after')
-		);
-
-		warning(
-			valid,
-			'The value of `side` must be either "after" or "before" when `orientation` is "horizontal"'
-		);
-
-		if (orientation === 'horizontal') {
-			// Testing for 'after' so if side === left or right, we default to "above"
-			return ['auto', side === 'after' ? 'below' : 'above'];
+		switch (position) {
+			case 'above':
+			case 'below':
+				return ['auto', position];
+			case 'above after':
+			case 'above before':
+			case 'above center':
+			case 'above left':
+			case 'above right':
+			case 'below after':
+			case 'below before':
+			case 'below center':
+			case 'below left':
+			case 'below right':
+				return position.split(' ').reverse();
+			case 'after':
+			case 'before':
+			case 'left':
+			case 'right':
+				return [position, 'above'];
+			default:
+				// invalid values for radial so use defaults
+				return ['auto', 'above'];
 		}
-
-		return [side, 'auto'];
 	}
 };
 
@@ -113,14 +123,14 @@ const ProgressBarTooltipBase = kind({
 		/**
 		 * Sets the orientation of the tooltip based on the orientation of the bar.
 		 *
-		 * 'vertical' sends the tooltip to one of the sides, 'horizontal'  positions it above the bar.
+		 * 'vertical' sends the tooltip to one of the sides, 'horizontal' positions it above the bar, 'radial' can position it on all sides.
 		 * * Values: `'horizontal'`, `'vertical'`
 		 *
 		 * @type {String}
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		orientation: PropTypes.oneOf(['horizontal', 'vertical', 'radial']),
 
 		/**
 		 * Displays the value as a percentage.
@@ -134,7 +144,7 @@ const ProgressBarTooltipBase = kind({
 		/**
 		 * Position of the tooltip with respect to the progress bar.
 		 *
-		 * * For `orientation="horizontal"` progress bars, the default value is `'above'`.
+		 * * For `orientation="horizontal"` or `orientation="radial"` progress bars, the default value is `'above'`.
 		 * * For `orientation="vertical"` progress bars, the default value is `'before'`.
 		 *
 		 * When using `'before'` or `'after'` alone or in any of the below combinations, `'before'`
@@ -143,22 +153,24 @@ const ProgressBarTooltipBase = kind({
 		 * `'after'` will position the tooltip on the oppoosite side: the right side for LTR and
 		 * left for RTL.
 		 *
-		 * Valid values when `orientation="horizontal"`
+		 * Valid values when `orientation="horizontal"` or `orientation="radial"`
 		 *
 		 * | *Value* | *Tooltip Direction* |
 		 * |---|---|
 		 * | `'above'` | Above component, flowing to the nearest end |
 		 * | `'above left'` | Above component, flowing to the left |
 		 * | `'above before'` | Above component, flowing to the start of text |
+		 * | `'above center'` | Above component, flowing to the center |
 		 * | `'above right'` | Above component, flowing to the right |
 		 * | `'above after'` | Above component, flowing to the end of text |
 		 * | `'below'` | Below component, flowing to the nearest end |
 		 * | `'below left'` | Below component, flowing to the left |
 		 * | `'below before'` | Below component, flowing to the start of text |
+		 * | `'below center'` | Below component, flowing to the center |
 		 * | `'below right'` | Below component, flowing to the right |
 		 * | `'below after'` | Below component, flowing to the end of text |
 		 *
-		 * Valid values when `orientation="vertical"`
+		 * Valid values when `orientation="vertical"` or `orientation="radial"`
 		 *
 		 * | *Value* | *Tooltip Direction* |
 		 * |---|---|
@@ -167,23 +179,25 @@ const ProgressBarTooltipBase = kind({
 		 * | `'right'` | right of the component, contents middle aligned |
 		 * | `'after'` | End of text side of the component, contents middle aligned |
 		 *
-		 * @type {('above'|'above before'|'above left'|'above after'|'above right'|'below'|'below left'|'below before'|'below right'|'below after'|'left'|'before'|'right'|'after')}
+		 * @type {('above'|'above before'|'above left'|'above after'|'above center'|'above right'|'below'|'below left'|'below before'|'below center'|'below right'|'below after'|'left'|'before'|'right'|'after')}
 		 * @public
 		 */
 		position: validatePosition(PropTypes.oneOf([
-			// horizontal
+			// horizontal or radial
 			'above',
 			'above before',
 			'above left',
+			'above center',
 			'above after',
 			'above right',
 			'below',
 			'below left',
 			'below before',
+			'below center',
 			'below right',
 			'below after',
 
-			// vertical
+			// vertical or radial
 			'left',
 			'before',
 			'right',
@@ -208,32 +222,6 @@ const ProgressBarTooltipBase = kind({
 		 * @private
 		 */
 		rtl: PropTypes.bool,
-
-		/**
-		 * Specify where the tooltip should appear in relation to the ProgressBar/Slider bar.
-		 *
-		 * Allowed values are:
-		 *
-		 * * `'after'` renders below a `horizontal` ProgressBar/Slider and after (respecting the
-		 *   current locale's text direction) a `vertical` ProgressBar/Slider
-		 * * `'before'` renders above a `horizontal` ProgressBar/Slider and before (respecting the
-		 *   current locale's text direction) a `vertical` ProgressBar/Slider
-		 * * `'left'` renders to the left of a `vertical` ProgressBar/Slider regardless of locale
-		 * * `'right'` renders to the right of a `vertical` ProgressBar/Slider regardless of locale
-		 *
-		 * @type {String}
-		 * @deprecated Deprecated since 3.1 until 4.0 in favor of `position`
-		 * @public
-		 */
-		side: EnactPropTypes.deprecated(
-			PropTypes.oneOf(['after', 'before', 'left', 'right']),
-			{
-				name: 'side',
-				since: '3.1.0',
-				until: '4.0.0',
-				replacedBy: 'position'
-			}
-		),
 
 		/**
 		 * Visibility of the tooltip
@@ -267,25 +255,26 @@ const ProgressBarTooltipBase = kind({
 
 			return children;
 		},
-		className: ({orientation, position, proportion, side, styler}) => {
-			const [h, v] = getSide(orientation, side, position);
+		className: ({orientation, position, proportion, styler}) => {
+			const [h, v] = getSide(orientation, position);
 
 			return styler.append(
 				orientation,
 				{
-					above: (v === 'above'),
-					below: (v === 'below'),
+					above: (v === 'above' && !isVerticalModeRadial(orientation, position)),
+					below: (v === 'below' && !isVerticalModeRadial(orientation, position)),
 					before: (h === 'before'),
 					after: (h === 'after'),
+					center: (h === 'center'),
 					left: (h === 'left' || (h === 'auto' && proportion <= 0.5)),
 					right: (h === 'right' || (h === 'auto' && proportion > 0.5))
 				}
 			);
 		},
 		arrowAnchor: ({orientation, position, proportion, rtl}) => {
-			if (orientation === 'vertical') return 'middle';
+			if (orientation === 'vertical' || isVerticalModeRadial(orientation, position)) return 'middle';
 
-			const [h] = getSide(orientation, false, position);
+			const [h] = getSide(orientation, position);
 			switch (h) {
 				case 'auto':
 					return proportion > 0.5 ? 'left' : 'right';
@@ -295,14 +284,15 @@ const ProgressBarTooltipBase = kind({
 					return rtl ? 'left' : 'right';
 				case 'left':
 				case 'right':
+				case 'center':
 					return h;
 			}
 		},
-		direction: ({orientation, position, rtl, side}) => {
-			const [h, v] = getSide(orientation, side, position);
+		direction: ({orientation, position, rtl}) => {
+			const [h, v] = getSide(orientation, position);
 
 			let dir = 'right';
-			if (orientation === 'vertical') {
+			if (orientation === 'vertical' || isVerticalModeRadial(orientation, position)) {
 				if (
 					// forced to the left
 					h === 'left' ||
@@ -332,7 +322,6 @@ const ProgressBarTooltipBase = kind({
 		delete rest.position;
 		delete rest.proportion;
 		delete rest.rtl;
-		delete rest.side;
 
 		return (
 			<Tooltip {...rest}>
