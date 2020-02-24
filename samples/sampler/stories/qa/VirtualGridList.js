@@ -143,7 +143,6 @@ class ButtonAndVirtualGridList extends React.Component {
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
 					direction="right"
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
