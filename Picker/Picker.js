@@ -103,19 +103,6 @@ const PickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
-		 * Allows the user to use the arrow keys to adjust the picker's value.
-		 *
-		 * Key presses are captured in the directions of the increment and decrement buttons but
-		 * others are unaffected. A non-joined Picker allows navigation in any direction, but
-		 * requires individual ENTER presses on the incrementer and decrementer buttons. Pointer
-		 * interaction is the same for both formats.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		joined: PropTypes.bool,
-
-		/**
 		 * Disables marqueeing of items.
 		 *
 		 * By default, each picker item is wrapped by a
@@ -203,8 +190,8 @@ const PickerBase = kind({
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
 		reverse: ({orientation}) => (orientation === 'vertical'),
-		children: ({children, disabled, joined, marqueeDisabled}) => React.Children.map(children, (child) => {
-			const focusOrHover = !disabled && joined ? 'focus' : 'hover';
+		children: ({children, disabled, marqueeDisabled}) => React.Children.map(children, (child) => {
+			const focusOrHover = !disabled ? 'focus' : 'hover';
 			return (
 				<PickerItem
 					marqueeDisabled={marqueeDisabled}

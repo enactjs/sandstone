@@ -60,7 +60,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'large')}
 				orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
 				wrap={boolean('wrap', Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 				incrementIcon={select('incrementIcon', iconNames, Picker)}
@@ -78,7 +77,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'large')}
 				orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
 				wrap={boolean('wrap', Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 				incrementIcon={select('incrementIcon', iconNames, Picker)}
@@ -96,7 +94,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'medium')}
 				orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
 				wrap={boolean('wrap', Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 				incrementIcon={select('incrementIcon', iconNames, Picker)}
@@ -115,7 +112,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'large')}
 				orientation={select('orientation', prop.orientation, Picker)}
 				wrap={boolean('wrap', Picker, true)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 				incrementIcon={select('incrementIcon', iconNames, Picker)}
@@ -133,7 +129,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'large')}
 				orientation={select('orientation', prop.orientation, Picker)}
 				wrap={boolean('wrap', Picker, true)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 				incrementIcon={select('incrementIcon', iconNames, Picker)}
@@ -150,7 +145,6 @@ storiesOf('Picker', module)
 				width={select('width', prop.width, Picker, 'medium')}
 				orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
 				wrap={boolean('wrap', Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 			>
@@ -164,7 +158,6 @@ storiesOf('Picker', module)
 			<PickerRTL
 				width={select('width', prop.width, Picker, 'medium')}
 				wrap={boolean('wrap', Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				disabled={boolean('disabled', Picker)}
 			>
