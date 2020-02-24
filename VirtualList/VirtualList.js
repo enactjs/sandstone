@@ -4,13 +4,13 @@
  * @module sandstone/VirtualList
  * @exports VirtualGridList
  * @exports VirtualList
- * @exports VirtualListBase
+ * @exports VirtualListBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
-import {gridListItemSizeShape, itemSizesShape, VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -19,14 +19,14 @@ import useScroll from '../Scrollable';
 import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import {useThemeVirtualList, VirtualListBase} from './VirtualListBase';
+import {useThemeVirtualList, VirtualListBasic} from './VirtualListBasic';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
  * @class VirtualList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBase
+ * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -74,7 +74,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerlContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBase {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -225,7 +225,7 @@ VirtualList = Skinnable(
  *
  * @class VirtualGridList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBase
+ * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -257,7 +257,7 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBase {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -407,5 +407,5 @@ export default VirtualList;
 export {
 	VirtualGridList,
 	VirtualList,
-	VirtualListBase
+	VirtualListBasic
 };
