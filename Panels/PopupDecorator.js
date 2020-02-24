@@ -14,7 +14,7 @@ import css from './Panels.module.less';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onClose', 'onHide', 'onKeyDown', 'onShow', 'open',
-	'position', 'scrimType', 'shrinkBody', 'spotlightId', 'spotlightRestrict'];
+	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
 
 // TODO: Figure out how to document private sub-module members
 
