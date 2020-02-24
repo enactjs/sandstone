@@ -101,8 +101,8 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 					value: this.validateValue(parseInt(ev.value)),
 					noAnimation: false
 				});
+				forwardChange(ev, this.props);
 			}
-			forwardChange(ev, this.props);
 		}
 
 		prepareInput = () => {
@@ -151,8 +151,12 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 		}
 
 		handleBlur = (ev) => {
+			const value = this.validateValue(parseInt(ev.target.value));
+			if (this.state.value !== value) {
+				forwardChange({value}, this.props);
+			}
 			this.setState({
-				value: this.validateValue(parseInt(ev.target.value)),
+				value,
 				isActive: false
 			}, () => {
 				Spotlight.focus(this.pickerNode);

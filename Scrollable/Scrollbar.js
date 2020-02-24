@@ -1,5 +1,5 @@
 // import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/Scrollable/Scrollbar';
+import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
 
@@ -21,8 +21,9 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
 	// render
-	const {cbAlertThumb, clientSize, corner, vertical, ...rest} = props;
+	const {cbAlertThumb, className, clientSize, vertical, ...rest} = props;
 
+	delete rest.corner;
 	delete rest.focusableScrollbar;
 	delete rest.rtl;
 
@@ -45,7 +46,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	return (
 		<UiScrollbarBase
 			clientSize={clientSize}
-			corner={corner}
+			className={className}
 			css={componentCss}
 			ref={scrollbarRef}
 			vertical={vertical}
@@ -89,13 +90,13 @@ ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */
 	}),
 
 	/**
-	 * Adds the corner between vertical and horizontal scrollbars.
+	 * `true` if rtl, `false` if ltr.
+	 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
 	 *
-	 * @type {Booelan}
-	 * @default false
-	 * @public
+	 * @type {Boolean}
+	 * @private
 	 */
-	corner: PropTypes.bool,
+	rtl: PropTypes.bool,
 
 	/**
 	 * Registers the Scrollbar component with an
@@ -117,7 +118,6 @@ ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */
 };
 
 ScrollbarBase.defaultProps = {
-	corner: false,
 	vertical: true
 };
 
