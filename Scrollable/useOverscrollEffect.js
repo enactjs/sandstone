@@ -1,5 +1,5 @@
 import {Job} from '@enact/core/util';
-import {constants} from '@enact/ui/Scrollable';
+import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
