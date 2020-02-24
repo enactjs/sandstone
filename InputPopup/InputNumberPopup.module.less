@@ -70,7 +70,6 @@
 					border-radius: @sand-input-popup-border-radius;
 					font-size: @sand-input-number-popup-full-keypad-item-font-size;
 					margin: @sand-input-number-popup-full-keypad-item-margin;
-					border: solid 2px; // TBD: this value will be removed (temporary value for distinguish spottable item area)
 				}
 			}
 
@@ -159,7 +158,6 @@
 					border-radius: @sand-input-popup-border-radius;
 					font-size: @sand-input-number-popup-overlay-keypad-item-font-size;
 					margin: @sand-input-number-popup-overlay-keypad-item-margin;
-					border: solid 2px; // TBD: this value will be removed (temporary value for distinguish spottable item area)
 				}
 			}
 
@@ -175,7 +173,8 @@
 	}
 
 	.applySkins({
-		&.full {
+		&.full,
+		&.overlay {
 			.popupBody {
 				.previewArea {
 					.previewItem {
@@ -188,11 +187,15 @@
 		&.overlay {
 			.popupBody {
 				background-color: @sand-input-number-popup-overlay-background-color;
-				.previewArea {
-					.previewItem {
-						background-color: @sand-input-number-popup-preview-item-background-color;
-					}
-				}
+			}
+		}
+
+		.keypadArea {
+			.keypadItem {
+				.focus({
+					color: @sand-button-focus-text-color;
+					background-color: @sand-button-focus-bg-color;
+				})
 			}
 		}
 	});
