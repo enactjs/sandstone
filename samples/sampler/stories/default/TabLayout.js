@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -22,7 +22,6 @@ storiesOf('Sandstone', module)
 			<Panel>
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout
-					minimized={boolean('minimized', TabLayout)}
 					onSelect={action('onSelect')}
 					orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					tabs={[

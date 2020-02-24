@@ -4,11 +4,11 @@ import {mount} from 'enzyme';
 import TabGroup from '../TabGroup';
 
 describe('TabGroup specs', () => {
-	it('should only have one icon button when minimized and vertical orientation when there is a tab without an icon', () => {
+	it('should only have one icon button when collapsed and vertical orientation when there is a tab without an icon', () => {
 		const subject = mount(
 			<TabGroup
 				orientation="vertical"
-				minimized
+				collapsed
 				tabs={[
 					{title: 'Home', icon: 'home'},
 					{title: 'Button'},
@@ -21,10 +21,10 @@ describe('TabGroup specs', () => {
 	});
 
 
-	it('should only have same amount of icon buttons when minimized', () => {
+	it('should only have same amount of icon buttons when collapsed', () => {
 		const subject = mount(
 			<TabGroup
-				minimized
+				collapsed
 				tabs={[
 					{title: 'Home', icon: 'home'},
 					{title: 'Button', icon: 'image'},

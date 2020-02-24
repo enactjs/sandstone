@@ -7,7 +7,6 @@
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
-import Slottable from '@enact/ui/Slottable';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -20,27 +19,14 @@ const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
+		collapsed: PropTypes.bool,
 		icon: PropTypes.string,
-		minimized: PropTypes.bool,
-		orientation: PropTypes.string,
 		selected: PropTypes.bool
 	},
 
-	styles: {
-		css: componentCss,
-		className: 'tab'
-	},
-
-	computed: {
-		className: ({selected, styler}) => styler.append({selected})
-	},
-
-	render: ({children, icon, minimized, selected, orientation, style = {}, ...rest}) => {
+	render: ({children, icon, collapsed, selected, ...rest}) => {
 		delete rest.selected;
 
-		if (orientation === 'vertical') {
-			style.textAlign = 'center';
-		}
 		return (
 			<Cell
 				{...rest}
@@ -49,66 +35,60 @@ const TabBase = kind({
 				icon={icon}
 				selected={selected}
 				shrink
-				style={style}
 			>
-				{minimized ? null : children}
+				{collapsed ? null : children}
 			</Cell>
 		);
 	}
 });
-const Tab = Skinnable(TabBase);
 
 /**
- * TBD.
+ * A group of tabs
  *
  * @class TabGroup
- * @memberof sandstone/TabGroup
- * @mixes sandstone/Skinnable.Skinnable
+ * @memberof sandstone/TabLayout
  * @ui
- * @public
+ * @private
  */
 const TabGroupBase = kind({
 	name: 'TabGroup',
 
 	propTypes: /** @lends sandstone/TabGroup.TabGroup.prototype */ {
 		tabs: PropTypes.array.isRequired,
+		collapsed: PropTypes.bool,
 		css: PropTypes.object,
-		minimized: PropTypes.bool,
+		onBlur: PropTypes.func,
+		onFocus: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},
 
-	styles: {
-		css: componentCss,
-		className: 'tabGroup'
-	},
-
 	computed: {
-		className: ({orientation, styler}) => styler.append(orientation),
-		children: ({tabs}) => [...tabs].map((tab, i) => {
-			tab.key = 'tab' + i;
-			tab.children = tab.title || tab.children;
-			delete tab.title;
-			return tab;
+		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
+			return {
+				key: `tabs${i}`,
+				children: title || children,
+				...rest
+			};
 		}),
 		// check if there's no tab icons
-		noIcons: ({minimized, orientation, tabs}) => orientation === 'vertical' && minimized && tabs.filter((tab) => !tab.icon).length
+		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({minimized, noIcons, orientation, selectedIndex, ...rest}) => {
+	render: ({collapsed, noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
 		delete rest.tabs;
 
 		return (
-			<Scroller>
+			<Scroller onBlur={onBlur} onFocus={onFocus} >
 				{noIcons ?
 					<Button icon="list" /> :
 					<Layout
 						{...rest}
 						align="start"
-						childComponent={Tab}
+						childComponent={TabBase}
 						component={Group}
 						itemProps={{
-							minimized: orientation === 'vertical' ? minimized : false,
+							collapsed: orientation === 'vertical' ? collapsed : false,
 							orientation
 						}}
 						orientation={orientation}
@@ -122,10 +102,7 @@ const TabGroupBase = kind({
 	}
 });
 
-TabGroupBase.defaultSlot = 'tabs';
-
 const TabGroupDecorator = compose(
-	Slottable({slots: ['tabs']}),
 	SpotlightContainerDecorator
 );
 
