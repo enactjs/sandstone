@@ -7,7 +7,6 @@
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
-import Slottable from '@enact/ui/Slottable';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -25,7 +24,7 @@ const TabBase = kind({
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, collapsed, selected, style = {}, ...rest}) => {
+	render: ({children, icon, collapsed, selected, ...rest}) => {
 		delete rest.selected;
 
 		return (
@@ -36,7 +35,6 @@ const TabBase = kind({
 				icon={icon}
 				selected={selected}
 				shrink
-				style={style}
 			>
 				{collapsed ? null : children}
 			</Cell>
@@ -66,11 +64,12 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({tabs}) => [...tabs].map((tab, i) => {
-			tab.key = 'tab' + i;
-			tab.children = tab.title || tab.children;
-			delete tab.title;
-			return tab;
+		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
+			return {
+				key: `tabs${i}`,
+				children: title || children,
+				...rest
+			};
 		}),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
@@ -103,10 +102,7 @@ const TabGroupBase = kind({
 	}
 });
 
-TabGroupBase.defaultSlot = 'tabs';
-
 const TabGroupDecorator = compose(
-	Slottable({slots: ['tabs']}),
 	SpotlightContainerDecorator
 );
 

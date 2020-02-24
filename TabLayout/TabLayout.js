@@ -7,14 +7,13 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {Changeable} from '@enact/ui/Changeable';
-import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
+import ViewManager from '@enact/ui/ViewManager';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {Panels} from '../Panels';
 import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
@@ -29,7 +28,7 @@ import componentCss from './TabLayout.module.less';
  */
 const TabLayoutBase = kind({
 	name: 'TabLayout',
-	propTypes: /** @lends sandstone/TabLayout.prototype */ {
+	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
 		 * List of tabs to display.
 		 *
@@ -132,13 +131,13 @@ const TabLayoutBase = kind({
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed: orientation === 'vertical' && collapsed}, orientation),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
-		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? [...tabs].slice(0, 5) : tabs
+		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs
 	},
 
 	render: ({children, collapsed, css, index, onTabsBlur, onTabsFocus, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell style={{transition: 'all 2s'}} shrink>
+				<Cell shrink>
 					<TabGroup
 						className={css.tabs}
 						collapsed={collapsed}
@@ -146,16 +145,16 @@ const TabLayoutBase = kind({
 						onFocus={onTabsFocus}
 						onSelect={onSelect}
 						orientation={orientation}
-						tabs={tabs}
 						selectedIndex={index}
+						tabs={tabs}
 					/>
 				</Cell>
 				<Cell
 					className={css.content}
-					component={Panels}
-					noCloseButton
-					orientation={orientation}
+					component={ViewManager}
 					index={index}
+					orientation={orientation}
+					noAnimation
 				>
 					{children}
 				</Cell>
@@ -165,7 +164,6 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
-	Slottable({slots: ['tabs']}),
 	Toggleable({prop: 'collapsed', activate: 'onTabsBlur', deactivate: 'onTabsFocus'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
