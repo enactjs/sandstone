@@ -7,7 +7,6 @@ import Pure from '@enact/ui/internal/Pure';
 import Touchable from '@enact/ui/Touchable';
 
 import Icon from '../../Icon';
-import Button from '../../Button';
 
 import css from './Picker.module.less';
 
@@ -32,7 +31,7 @@ const JoinedPickerButtonBase = kind({
 const JoinedPickerButton = Touchable(JoinedPickerButtonBase);
 
 const PickerButtonBase = kind({
-	name: 'PickerButton',
+	name: 'PickerButtonBase',
 
 	propTypes: {
 		disabled: PropTypes.bool,
@@ -41,7 +40,6 @@ const PickerButtonBase = kind({
 			PropTypes.string,
 			PropTypes.object
 		]),
-		joined: PropTypes.bool,
 		onSpotlightDisappear: PropTypes.func,
 		spotlightDisabled: PropTypes.bool
 	},
@@ -75,27 +73,14 @@ const PickerButtonBase = kind({
 		})
 	},
 
-	render: ({disabled, icon, joined, ...rest}) => {
+	render: ({disabled, icon, ...rest}) => {
 		delete rest.hidden;
+		delete rest.onSpotlightDisappear;
+		delete rest.spotlightDisabled;
 
-		if (joined) {
-			delete rest.onSpotlightDisappear;
-			delete rest.spotlightDisabled;
-
-			return (
-				<JoinedPickerButton {...rest} icon={icon} disabled={disabled} />
-			);
-		} else {
-			return (
-				<Button
-					{...rest}
-					backgroundOpacity="transparent"
-					disabled={disabled}
-					icon={icon}
-					size="small"
-				/>
-			);
-		}
+		return (
+			<JoinedPickerButton {...rest} icon={icon} disabled={disabled} />
+		);
 	}
 });
 

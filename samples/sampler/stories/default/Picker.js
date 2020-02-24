@@ -34,7 +34,6 @@ storiesOf('Sandstone', module)
 				disabled={boolean('disabled', Picker)}
 				incrementAriaLabel={text('incrementAriaLabel', Picker, '')}
 				incrementIcon={select('incrementIcon', ['', ...incrementIcons], Picker)}
-				joined={boolean('joined', Picker)}
 				noAnimation={boolean('noAnimation', Picker)}
 				onChange={action('onChange')}
 				orientation={select('orientation', prop.orientation, Picker, prop.orientation[0])}
