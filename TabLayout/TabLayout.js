@@ -82,22 +82,22 @@ const TabLayoutBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Calls onBlur when focus is blurred from the tabs.
-		 * This collapses the vertical tab.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onTabsBlur: PropTypes.func,
-
-		/**
 		 * Calls onFocus when focus is blurred from the tabs.
 		 * This expands the vertical tab.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
-		onTabsFocus: PropTypes.func,
+		onCollapse: PropTypes.func,
+
+		/**
+		 * Calls onBlur when focus is blurred from the tabs.
+		 * This collapses the vertical tab.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onExpand: PropTypes.func,
 
 		/**
 		 * Orientation of the tabs.
@@ -134,15 +134,14 @@ const TabLayoutBase = kind({
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs
 	},
 
-	render: ({children, collapsed, css, index, onTabsBlur, onTabsFocus, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onExpand, onCollapse, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell shrink>
 					<TabGroup
 						className={css.tabs}
 						collapsed={collapsed}
-						onBlur={onTabsBlur}
-						onFocus={onTabsFocus}
+						onFocus={onExpand}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}
@@ -153,6 +152,7 @@ const TabLayoutBase = kind({
 					className={css.content}
 					component={ViewManager}
 					index={index}
+					onFocus={onCollapse}
 					orientation={orientation}
 					noAnimation
 				>
@@ -164,7 +164,7 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
-	Toggleable({prop: 'collapsed', activate: 'onTabsBlur', deactivate: 'onTabsFocus'}),
+	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
 
