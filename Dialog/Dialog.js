@@ -141,15 +141,6 @@ const DialogBase = kind({
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * Shows the close button within the component.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		showCloseButton: PropTypes.bool,
-
-		/**
 		 * The primary text displayed within the header
 		 *
 		 * @type {String}
@@ -172,7 +163,6 @@ const DialogBase = kind({
 		noAnimation: false,
 		noDivider: false,
 		open: false,
-		showCloseButton: false,
 		scrimType: 'translucent'
 	},
 
@@ -224,7 +214,6 @@ const DialogBase = kind({
  * ```
  * <Dialog
  *   open={this.state.open}
- *   showCloseButton
  *   title="An Important Dialog"
  *   titleBelow="Some important context to share about the purpose"
  * >
