@@ -889,7 +889,7 @@ const PickerBase = class extends React.Component {
 									{...voiceProps}
 									key={key}
 									data-key={key}
-									className={index === key ? css.active : ''}
+									className={index === key ? css.active : css.inactive}
 								/>
 							))}
 						</div>
