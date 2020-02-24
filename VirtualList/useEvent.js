@@ -1,8 +1,8 @@
 import {is} from '@enact/core/keymap';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
-import utilDOM from '@enact/ui/Scrollable/utilDOM';
-import utilEvent from '@enact/ui/Scrollable/utilEvent';
+import utilDOM from '@enact/ui/useScroll/utilDOM';
+import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
