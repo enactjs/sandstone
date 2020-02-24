@@ -15,9 +15,6 @@ import React from 'react';
 
 import Button from '../Button';
 import Scroller from '../Scroller';
-import Skinnable from '../Skinnable';
-
-import componentCss from './TabGroup.module.less';
 
 const TabBase = kind({
 	name: 'Tab',
@@ -128,7 +125,6 @@ const TabGroupBase = kind({
 TabGroupBase.defaultSlot = 'tabs';
 
 const TabGroupDecorator = compose(
-	Skinnable,
 	Slottable({slots: ['tabs']}),
 	SpotlightContainerDecorator
 );
