@@ -1,34 +1,126 @@
 // ProgressBar.module.less
 //
-@import '../styles/variables.less';
-@import '../styles/skin.less';
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.radial-bar-styles() {
+	height: 100%;
+	width: 100%;
+	border-color: inherit;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: @sand-progressbar-radial-thickness;
+	box-sizing: border-box;
+}
 
 .progressBar {
-	height: @sand-progress-bar-height;
-	margin: @sand-spotlight-outset;
+	height: @sand-progressbar-bar-thickness;
+	margin: @sand-progressbar-margin;
+
+	.bar {
+		border-radius: @sand-progressbar-bar-border-radius;
+		overflow: hidden;
+	}
 
 	&.vertical {
-		min-height: 240px;
-		width: @sand-progress-bar-height;
+		min-height: @sand-progressbar-vertical-min-height;
+		width: @sand-progressbar-bar-thickness;
+	}
+
+	&.radial {
+		height: @sand-progressbar-radial-size;
+		width: @sand-progressbar-radial-size;
+
+		.bar {
+			.radial-bar-styles();
+			overflow: visible;
+		}
+
+		.fill,
+		.load {
+			.position(-@sand-progressbar-radial-thickness);
+			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
+
+			&::before,
+			&::after {
+				.radial-bar-styles();
+				position: absolute;
+				content: "";
+			}
+
+			&::before {
+				clip-path: inset(0 0 0 50%);  // Clip off the left half
+				display: none;
+			}
+
+			&::after {
+				clip-path: inset(0 50% 0 0);  // Clip off the right half
+			}
+		}
+
+		.fill::after {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
+		}
+
+		.load::after {
+			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
+		}
+
+		&.fillOverHalf .fill,
+		&.loadOverHalf .load {
+			clip-path: initial;
+
+			&::before {
+				display: block;  // Enable the right-half of the progress circle
+			}
+		}
 	}
 
 	// Skin colors
 	.applySkins({
 		.bar {
-			background-color: @sand-progress-bar-bg-color;
+			background-color: @sand-progressbar-bar-bg-color;
 		}
 
 		.fill {
-			background-color: @sand-progress-bar-fill-bg-color;
+			background-color: @sand-progressbar-fill-bg-color;
 		}
 
 		.load {
-			background-color: @sand-progress-bar-loaded-bg-color;
+			background-color: @sand-progressbar-load-bg-color;
+		}
+
+		&.radial {
+			.bar,
+			.fill,
+			.load {
+				background-color: transparent;
+			}
+
+			.bar {
+				border-color: @sand-progressbar-radial-bar-bg-color;
+			}
+
+			.fill {
+				border-color: @sand-progressbar-radial-fill-bg-color;
+			}
+
+			.load {
+				border-color: @sand-progressbar-radial-load-bg-color;
+			}
 		}
 
 		&.highlighted {
 			.fill {
-				background-color: @sand-progress-bar-highlighted-fill-bg-color;
+				background-color: @sand-progressbar-highlighted-fill-bg-color;
+			}
+
+			&.radial {
+				.fill {
+					background-color: transparent;
+					border-color: @sand-progressbar-highlighted-fill-bg-color;
+				}
 			}
 		}
 	});

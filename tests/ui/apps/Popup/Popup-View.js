@@ -62,7 +62,6 @@ class app extends Component {
 					open={this.state.open1}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open1: false})}
 				>
@@ -78,7 +77,6 @@ class app extends Component {
 					open={this.state.open2}
 					noAnimation={false}
 					noAutoDismiss
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open2: false})}
 				>
@@ -94,7 +92,6 @@ class app extends Component {
 					open={this.state.open3}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton={false}
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open3: false})}
 				>
@@ -105,7 +102,6 @@ class app extends Component {
 					open={this.state.open4}
 					noAnimation
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open4: false})}
 				>
@@ -121,7 +117,6 @@ class app extends Component {
 					open={this.state.open5}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton={false}
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open5: false})}
 				>
@@ -137,7 +132,6 @@ class app extends Component {
 					open={this.state.open6}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={() => this.clickHandler({open6: false})}
 				>
@@ -153,7 +147,6 @@ class app extends Component {
 					open={this.state.open7}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-first"
 					onClose={() => this.clickHandler({open7: false})}
 				>
@@ -169,7 +162,6 @@ class app extends Component {
 					open={this.state.open8}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-first"
 					scrimType="transparent"
 					onClose={() => this.clickHandler({open8: false})}
@@ -186,7 +178,6 @@ class app extends Component {
 					open={this.state.open9}
 					noAnimation={false}
 					noAutoDismiss={false}
-					showCloseButton
 					spotlightRestrict="self-first"
 					scrimType="none"
 					onClose={() => this.clickHandler({open9: false})}

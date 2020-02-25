@@ -4,13 +4,13 @@
  * @module sandstone/VirtualList
  * @exports VirtualGridList
  * @exports VirtualList
- * @exports VirtualListBase
+ * @exports VirtualListBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
-import {gridListItemSizeShape, itemSizesShape, VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -19,14 +19,14 @@ import useScroll from '../Scrollable';
 import Scrollbar from '../Scrollable/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import {useSpottableVirtualList, VirtualListBase} from './VirtualListBase';
+import {useSpottableVirtualList, VirtualListBasic} from './VirtualListBasic';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
  * @class VirtualList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBase
+ * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -66,7 +66,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	const uiChildProps = useSpottableVirtualList({
 		...childProps,
 		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+		role
 	});
 
 	return (
@@ -74,10 +74,10 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+						<UiVirtualListBasic {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
@@ -170,7 +170,23 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
+	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
+	 *
+	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
+	 * except that a list is scrolled without an animation.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	wrap: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.oneOf(['noAnimation'])
+	])
 };
 
 VirtualList.defaultProps = {
@@ -186,7 +202,8 @@ VirtualList.defaultProps = {
 	},
 	role: 'list',
 	type: 'JS',
-	verticalScrollbar: 'auto'
+	verticalScrollbar: 'auto',
+	wrap: false
 };
 
 VirtualList = Skinnable(
@@ -208,7 +225,7 @@ VirtualList = Skinnable(
  *
  * @class VirtualGridList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBase
+ * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -240,10 +257,10 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBase {...uiChildProps} />
+						<UiVirtualListBasic {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
@@ -336,7 +353,23 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
+	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
+	 *
+	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
+	 * except that a list is scrolled without an animation.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	wrap: PropTypes.oneOfType([
+		PropTypes.bool,
+		PropTypes.oneOf(['noAnimation'])
+	])
 };
 
 VirtualGridList.defaultProps = {
@@ -352,7 +385,8 @@ VirtualGridList.defaultProps = {
 	},
 	role: 'list',
 	type: 'JS',
-	verticalScrollbar: 'auto'
+	verticalScrollbar: 'auto',
+	wrap: false
 };
 
 VirtualGridList = Skinnable(
@@ -373,5 +407,5 @@ export default VirtualList;
 export {
 	VirtualGridList,
 	VirtualList,
-	VirtualListBase
+	VirtualListBasic
 };
