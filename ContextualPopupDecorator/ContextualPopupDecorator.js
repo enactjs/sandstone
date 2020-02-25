@@ -418,13 +418,21 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {anchor, direction} = this.getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
-				if (anchor === 'left') {
+				if (this.overflow.isOverRight && !this.overflow.isOverLeft) {
+					position.left = window.innerWidth - ((containerNode.width + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+				} else if (!this.overflow.isOverRight && this.overflow.isOverLeft) {
+					position.left = ((containerNode.width - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
+				} else if (anchor === 'left') {
 					position.left = clientNode.left + (containerNode.width - this.ARROW_WIDTH) / 2;
 				} else if (anchor === 'right') {
 					position.left = clientNode.right - containerNode.width + (containerNode.width - this.ARROW_WIDTH) / 2;
 				} else {
 					position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
 				}
+			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop) {
+				position.top = window.innerHeight - ((containerNode.height + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+			} else if (!this.overflow.isOverBottom && this.overflow.isOverTop) {
+				position.top = ((containerNode.height - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
 			} else if (anchor === 'top') {
 				position.top = clientNode.top + (containerNode.height - this.ARROW_WIDTH) / 2;
 			} else if (anchor === 'bottom') {
@@ -455,7 +463,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		calcOverflow (container, client) {
 			let containerHeight, containerWidth;
-			const {direction} = this.getContainerAdjustedPosition();
+			const {anchor, direction} = this.getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
 				containerHeight = container.height;
@@ -466,10 +474,18 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			this.overflow = {
-				isOverTop: client.top - containerHeight - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
-				isOverBottom: client.bottom + containerHeight + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT  > window.innerHeight,
-				isOverLeft: client.left - containerWidth - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
-				isOverRight: client.right + containerWidth + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerWidth
+				isOverTop: anchor === 'top' && (direction === 'left' || direction === 'right') ?
+					!(client.top > this.KEEPOUT) :
+					client.top - containerHeight - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
+				isOverBottom: anchor === 'bottom' && (direction === 'left' || direction === 'right') ?
+					client.bottom + this.KEEPOUT > window.innerHeight :
+					client.bottom + containerHeight + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerHeight,
+				isOverLeft: anchor === 'left' && (direction === 'above' || direction === 'below') ?
+					!(client.left > this.KEEPOUT) :
+					client.left - containerWidth - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
+				isOverRight: anchor === 'right' && (direction === 'above' || direction === 'below') ?
+					client.right + this.KEEPOUT > window.innerWidth :
+					client.right + containerWidth + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerWidth
 			};
 		}
 
