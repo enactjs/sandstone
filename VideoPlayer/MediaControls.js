@@ -10,6 +10,7 @@ import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
 
+import equals from 'ramda/src/equals';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -22,6 +23,24 @@ import ActionGuide from '../ActionGuide';
 import {countReactChildren} from './util';
 
 import css from './MediaControls.module.less';
+
+const compareChildren = (a, b) => {
+	if (!a || !b || a.length !== b.length) return false;
+
+	let type = null;
+	for (let i = 0; i < a.length; i++) {
+		type = type || typeof a[i];
+		if (type === 'string') {
+			if (a[i] !== b[i]) {
+				return false;
+			}
+		} else if (!equals(a[i], b[i])) {
+			return false;
+		}
+	}
+
+	return true;
+};
 
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
@@ -464,7 +483,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @type {Boolean}
 			 * @public
 			 */
-			moreShowingDisabled: PropTypes.bool,
+			moreActionDisabled: PropTypes.bool,
 
 			/**
 			 * Setting this to `true` will disable left and right keys for seeking.
@@ -626,7 +645,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			if (!prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
 				this.state.moreComponentsRendered && prevProps.bottomComponents !== this.props.bottomComponents ||
-				this.props.children !== prevProps.children
+				!compareChildren(this.props.children, prevProps.children)
 			) {
 				this.calculateMoreComponentsHeight();
 			}
@@ -663,7 +682,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		handleKeyDownFromMediaButtons = (e) => {
-			if (is('down', e.keyCode) && !this.state.showMoreComponents && !this.props.moreShowingDisabled) {
+			if (is('down', e.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
 				this.showMoreComponents();
 				e.stopPropagation();
 			}
@@ -727,7 +746,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		}
 
 		handleWheel = () => {
-			if (!this.state.showMoreComponents && this.props.visible) {
+			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled) {
 				this.showMoreComponents();
 			}
 		}

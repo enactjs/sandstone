@@ -124,7 +124,8 @@ storiesOf('Sandstone', module)
 			const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
 			const videoSource = prop.videos[videoTitle];
 			const poster = prop.posters[videoTitle];
-			const itemCount = number('moreButtons', Config, {range: true, min: 1, max: 5}, 3);
+			const itemCount = number('moreButtons', Config, {range: true, min: 0, max: 5}, 4);
+
 			return (
 				<div
 					style={{
@@ -173,6 +174,7 @@ storiesOf('Sandstone', module)
 						<source src={videoSource} type="video/mp4" />
 						<infoComponents>A video about some things happening to and around some characters. Very exciting stuff.</infoComponents>
 						<MediaControls
+							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
 							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
 							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
 							initialJumpDelay={number('initialJumpDelay', MediaControlsConfig, 400)}
@@ -183,6 +185,7 @@ storiesOf('Sandstone', module)
 							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
 							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
+							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
 							pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
 							playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
 							playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
@@ -190,6 +193,7 @@ storiesOf('Sandstone', module)
 						>
 							<bottomComponents>
 								<VirtualGridList
+									style={{height: '230px'}}
 									horizontalScrollbar={'hidden'}
 									dataSize={size}
 									direction="horizontal"
