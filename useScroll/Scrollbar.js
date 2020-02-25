@@ -12,7 +12,7 @@ import componentCss from './Scrollbar.module.less';
  * A Sandstone-styled scroller base component.
  *
  * @class ScrollbarBase
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @extends ui/ScrollbarBase
  * @ui
  * @private
@@ -67,9 +67,9 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 
 ScrollbarBase.displayName = 'ScrollbarBase';
 
-ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */ {
+ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
 	/**
-	 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
+	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
 	 *
 	 * @type {Function}
 	 * @private
@@ -122,10 +122,10 @@ ScrollbarBase.defaultProps = {
 };
 
 /**
- * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/Scrollable.Scrollable}.
+ * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/useScroll.Scrollable}.
  *
  * @class Scrollbar
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @ui
  * @private
  */

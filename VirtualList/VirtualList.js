@@ -15,11 +15,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
 
-import useScroll from '../Scrollable';
-import Scrollbar from '../Scrollable/Scrollbar';
+import useScroll from '../useScroll';
+import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import {useThemeVirtualList, VirtualListBasic} from './VirtualListBasic';
+import {useThemeVirtualList} from './useThemeVirtualList';
+import {VirtualListBasic} from './VirtualListBasic';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
