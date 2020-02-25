@@ -14,7 +14,7 @@ const prop = {
 	icons: [null, 'numbers', ...starIcons, ...iconNames],
 	sizes: {
 		tiny: 'tiny',
-		'small (default)': 'small',
+		small: 'small',
 		medium: 'medium',
 		large: 'large'
 	},
