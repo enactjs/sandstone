@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
-import {Alert, AlertBase, AlertImage, AlertOverlay} from '../Alert';
+import {Alert, AlertBase, AlertImage} from '../Alert';
 import Button from '../../Button';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
@@ -106,7 +106,7 @@ describe('AlertOverlay specs', () => {
 	test('should be rendered opened if open is set to true', () => {
 		const alertOverlay = mount(
 			<FloatingLayerController>
-				<AlertOverlay open />
+				<Alert type="overlay" open />
 			</FloatingLayerController>
 		);
 
@@ -119,7 +119,7 @@ describe('AlertOverlay specs', () => {
 	test('should not be rendered if open is set to false', () => {
 		const alertOverlay = mount(
 			<FloatingLayerController>
-				<AlertOverlay />
+				<Alert type="overlay" />
 			</FloatingLayerController>
 		);
 
@@ -131,7 +131,7 @@ describe('AlertOverlay specs', () => {
 
 	test('should render content', () => {
 		const alertOverlay = shallow(
-			<AlertOverlay open>
+			<Alert type="overlay" open>
 				<span>
 					this is alert overlay.
 				</span>
@@ -139,7 +139,7 @@ describe('AlertOverlay specs', () => {
 					<Button>yes</Button>
 					<Button>yes</Button>
 				</buttons>
-			</AlertOverlay>
+			</Alert>
 		);
 		const expected = 'this is alert overlay.';
 		const actual = alertOverlay.find('span').prop('children');
@@ -150,14 +150,14 @@ describe('AlertOverlay specs', () => {
 	test('should render icon type of image if `image` prop is set to `icon`', () => {
 		const alertOverlay = mount(
 			<FloatingLayerController>
-				<AlertOverlay open>
+				<Alert type="overlay" open>
 					<image>
 						<AlertImage src="testIconImage.png" type="icon" />
 					</image>
 					<buttons>
 						<Button>yes</Button>
 					</buttons>
-				</AlertOverlay>
+				</Alert>
 			</FloatingLayerController>
 		);
 		const expected = 'testIconImage.png';
@@ -169,14 +169,14 @@ describe('AlertOverlay specs', () => {
 	test('should render icon type of image if `image` prop is set to `thumbnail`', () => {
 		const alertOverlay = mount(
 			<FloatingLayerController>
-				<AlertOverlay open>
+				<Alert type="overlay" open>
 					<image>
 						<AlertImage src="testThumbnailImage.png" type="thumbnail" />
 					</image>
 					<buttons>
 						<Button>yes</Button>
 					</buttons>
-				</AlertOverlay>
+				</Alert>
 			</FloatingLayerController>
 		);
 		const expected = 'testThumbnailImage.png';

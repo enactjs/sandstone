@@ -48,6 +48,7 @@ const AlertBase = kind({
 
 		/**
 		 * The contents of the body of the component.
+		 * This is only shown in `type="overlay"`
 		 *
 		 * @type {Node}
 		 * @public
@@ -114,7 +115,8 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * The primary text displayed.
+		 * The primary text displayed. This is only shown in
+		 * `type="fullscreen"`
 		 *
 		 * @type {String}
 		 * @public
@@ -123,6 +125,7 @@ const AlertBase = kind({
 
 		/**
 		 * The secondary text displayed below the `title`.
+		 * This is only shown in `type="fullscreen"`
 		 *
 		 * Will not display if `title` is not set.
 		 *
@@ -154,6 +157,17 @@ const AlertBase = kind({
 	},
 
 	computed: {
+		buttons: ({buttons, css}) => {
+			if (buttons) {
+				return React.Children.map(buttons, (button, index) => (
+					<Cell className={css.button} key={`button${index}`}>
+						{button}
+					</Cell>
+				));
+			} else {
+				return null;
+			}
+		},
 		className: ({buttons, image, type, styler}) => styler.append(
 			{
 				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
@@ -189,7 +203,7 @@ const AlertBase = kind({
 						}
 					</Container>
 					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink>
-						<Column className={css.buttons} id={`${id}_buttons`}>
+						<Column className={css.buttonContainer} id={`${id}_buttons`}>
 							{buttons}
 						</Column>
 					</Cell>

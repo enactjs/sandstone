@@ -24,8 +24,9 @@ storiesOf('Sandstone', module)
 				<Alert
 					open={boolean('open', Config, false)}
 					onClose={action('onClose')}
-					title={text('title', Config, 'This is title')}
-					titleBelow={text('titleBelow', Config, 'This is titlebelow')}
+					title={text('title', Config, 'This is fullscreen Alert title')}
+					titleBelow={text('titleBelow', Config, 'This is fullscreen Alert titlebelow')}
+					type={select('type', ['fullscreen', 'overlay'], Config, 'fullscreen')}
 				>
 					{image ?
 						<image>
@@ -39,6 +40,7 @@ storiesOf('Sandstone', module)
 						<Button>Yes</Button>
 						<Button>No</Button>
 					</buttons>
+					{text('children', Config, 'This is an overlay Alert')}
 				</Alert>
 			);
 		},

@@ -25,50 +25,46 @@
 		}
 
 		&.noImage, &.maxButtons {
-			.buttons {
+			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;
 			}
 		}
 
-		.buttons {
+		.buttonContainer {
 			margin-top: @sand-alert-buttons-margin-top;
 			height: fit-content;
 
-			& > * {
+			.button > * {
 				margin: 0;
 				width: @sand-alert-buttons-width;
 			}
 
-			& > :not(:last-child) {
+			.button:not(:last-child) {
 				margin-bottom: @sand-alert-overlay-fullscreen-button-margin;
 			}
 		}
 	}
 
 	&.overlay {
-
 		.alertImage {
 			align-self: baseline;
 		}
 
-		.buttons {
-
+		.buttonContainer {
 			box-sizing: border-box;
 			width: @sand-alert-overlay-buttons-width;
 
-			& > * {
+			.button > * {
 				margin: 0;
 				min-width: @sand-alert-overlay-buttons-width;
 			}
 
-			& > :not(:last-child) {
+			.button:not(:last-child) {
 				margin-bottom: @sand-alert-overlay-button-margin;
 			}
 		}
 
 		.content {
-			display: flex;
-			align-items: center;
 			width: @sand-alert-overlay-content-width;
 			margin-right: @sand-alert-overlay-content-margin-right;
 			margin-left: @sand-alert-overlay-content-margin-left;
