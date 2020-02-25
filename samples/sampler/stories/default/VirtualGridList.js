@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
@@ -63,7 +63,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, UiScrollableBase, VirtualListBasic);
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
 
 storiesOf('Sandstone', module)
 	.add(
