@@ -18,6 +18,9 @@ import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
 
+const is5WayMode = () => !Spotlight.getPointerMode();
+const hasEventIndex = (ev) => 'index' in ev;
+
 /**
  * Tabbed Layout component.
  *
@@ -122,6 +125,12 @@ const TabLayoutBase = kind({
 	},
 
 	handlers: {
+		onActivate: handle(
+			forward('onExpand'),
+			is5WayMode,
+			hasEventIndex,
+			forward('onSelect')
+		),
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
 		)
@@ -134,7 +143,9 @@ const TabLayoutBase = kind({
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onActivate, onCollapse, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		delete rest.onExpand;
+
 		const tabSize = collapsed ? 450 : 855;
 
 		return (
@@ -142,7 +153,7 @@ const TabLayoutBase = kind({
 				<Cell className={css.tabs} size={tabSize}>
 					<TabGroup
 						collapsed={collapsed}
-						onFocus={onExpand}
+						onActivate={onActivate}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}

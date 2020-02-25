@@ -4,6 +4,7 @@
  * @module sandstone/TabGroup
  * @exports TabGroup
  */
+import handle, {adaptEvent, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -23,12 +24,19 @@ const TabBase = kind({
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, ...rest}) => {
+	handlers: {
+		onActivate: handle(
+			adaptEvent(
+				(ev, {'data-index': index}) => ({index}),
+				forward('onActivate')
+			)
+		)
+	},
+
+	render: ({children, icon, onActivate, ...rest}) => {
 
 		return (
-			<Item
-				{...rest}
-			>
+			<Item {...rest} onFocus={onActivate}>
 				{icon ? (
 					<Icon slot="slotBefore">{icon}</Icon>
 				) : null}
@@ -53,17 +61,17 @@ const TabGroupBase = kind({
 		tabs: PropTypes.array.isRequired,
 		collapsed: PropTypes.bool,
 		css: PropTypes.object,
-		onBlur: PropTypes.func,
-		onFocus: PropTypes.func,
+		onActivate: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},
 
 	computed: {
-		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
+		children: ({onActivate, tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
 				key: `tabs${i}`,
 				children: title || children,
+				onActivate,
 				...rest
 			};
 		}),
@@ -71,14 +79,14 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
+	render: ({noIcons, onActivate, selectedIndex, ...rest}) => {
 		delete rest.collapsed;
 		delete rest.tabs;
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus}>
+			<Scroller>
 				{noIcons ? (
-					<Item>
+					<Item onFocus={onActivate}>
 						<Icon slot="slotBefore">list</Icon>
 					</Item>
 				) : (
