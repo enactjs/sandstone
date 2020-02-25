@@ -20,7 +20,6 @@ const StepsTests = [
 	<Steps skip={[1]} total={1} />,
 	<Steps skip={10} total={10} />,
 	<Steps skip={[4, 5, 9]} total={10} />,
-	<Steps skip={[4, '5', 9]} total={10} />,
 	<Steps skip={[4, null, 9]} total={10} />,
 	<Steps skip={[9, 5, 4]} total={10} />,
 	<Steps current={3} skip={[4, 5, 9]} total={10} />,
