@@ -31,9 +31,9 @@ const TabBase = kind({
 				{...rest}
 				selected={selected}
 			>
-				<slotBefore>
-					<Icon>{icon}</Icon>
-				</slotBefore>
+				{icon ? (
+					<Icon slot="slotBefore">{icon}</Icon>
+				) : null}
 				{children}
 			</Item>
 		);
@@ -79,8 +79,11 @@ const TabGroupBase = kind({
 
 		return (
 			<Scroller onBlur={onBlur} onFocus={onFocus}>
-				{noIcons ?
-					<Item><slotBefore><Icon>list</Icon></slotBefore></Item> :
+				{noIcons ? (
+					<Item>
+						<Icon slot="slotBefore">list</Icon>
+					</Item>
+				) : (
 					<Group
 						{...rest}
 						childComponent={TabBase}
@@ -89,7 +92,7 @@ const TabGroupBase = kind({
 						selected={selectedIndex}
 						selectedProp="selected"
 					/>
-				}
+				)}
 			</Scroller>
 		);
 	}
