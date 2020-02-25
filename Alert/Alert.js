@@ -8,12 +8,12 @@
 
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
+import {Column, Cell, Row} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import Popup from '../Popup';
-import AlertOverlay from './AlertOverlay';
 import AlertImage from './AlertImage';
 
 import componentCss from './Alert.module.less';
@@ -129,11 +129,22 @@ const AlertBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		titleBelow: PropTypes.string
+		titleBelow: PropTypes.string,
+
+		/**
+		 * Type of popup to appear in the screen. There are two types.
+		 *
+		 * * `fullscreen` - Full screen popup
+		 * * `overlay` - Popup in the center of the screen
+		 * @type {String|Object}
+		 * @public
+		 */
+		type: PropTypes.oneOf(['fullscreen', 'overlay'])
 	},
 
 	defaultProps: {
-		open: false
+		open: false,
+		type: 'fullscreen'
 	},
 
 	styles: {
@@ -143,29 +154,46 @@ const AlertBase = kind({
 	},
 
 	computed: {
-		className: ({image, styler}) => styler.append({
-			noImage: !image
-		}),
-		titleBelow: ({title, titleBelow}) => title ? titleBelow : ''
+		className: ({buttons, image, type, styler}) => styler.append(
+			{
+				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
+				noImage: !image
+			},
+			type
+		),
+		titleBelow: ({title, titleBelow}) => title ? titleBelow : '',
+		type: ({type}) => type === 'overlay' ? 'center' : type
 	},
 
-	render: ({buttons, css, id, image, title, titleBelow, ...rest}) => {
+	render: ({buttons, children, css, id, image, title, titleBelow, type, ...rest}) => {
+		const Container = type === 'fullscreen' ? Column : Row;
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css}>
-				<div className={css.alertBody}>
-					{
-						image ? <div>{image}</div> : null
-					}
-					<div className={css.title} id={`${id}_title`}>
-						{title}
-					</div>
-					<div className={css.titleBelow} id={`${id}_titleBelow`}>
-						{titleBelow}
-					</div>
-					<div className={css.buttons} id={`${id}_buttons`}>
-						{buttons}
-					</div>
-				</div>
+			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css} position={type}>
+				<Container align="center center">
+					<Container className={css.innerContainer}>
+						{
+							image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null
+						}
+						{type === 'fullscreen' ?
+							<Fragment>
+								<Cell align="center" className={css.title} id={`${id}_title`} shrink>
+									{title}
+								</Cell>
+								<Cell align="center" className={css.titleBelow} id={`${id}_titleBelow`} shrink>
+									{titleBelow}
+								</Cell>
+							</Fragment> :
+							<Cell className={css.content} id={`${id}content`} shrink>
+								{children}
+							</Cell>
+						}
+					</Container>
+					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink>
+						<Column className={css.buttons} id={`${id}_buttons`}>
+							{buttons}
+						</Column>
+					</Cell>
+				</Container>
 			</Popup>
 		);
 	}
@@ -214,6 +242,5 @@ export default Alert;
 export {
 	Alert,
 	AlertBase,
-	AlertImage,
-	AlertOverlay
+	AlertImage
 };
