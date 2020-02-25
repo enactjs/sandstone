@@ -24,7 +24,31 @@ const ContextualPopupDecoratorTests = [
 		}
 	},
 	{
+		component: <ContextualPopupButton open direction="above left" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="above right" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
 		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="below left" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="below right" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -36,7 +60,31 @@ const ContextualPopupDecoratorTests = [
 		}
 	},
 	{
+		component: <ContextualPopupButton open direction="left top" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="left bottom" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
 		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="right top" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="right bottom" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
