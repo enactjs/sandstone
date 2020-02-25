@@ -16,13 +16,13 @@ storiesOf('Sandstone', module)
 			<div>
 				<Popup
 					open={boolean('open', Config)}
+					position={select('position', ['bottom', 'center', 'fullscreen', 'left', 'right', 'top'], Config, 'bottom')}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onClose={action('onClose')}
 					onHide={action('onHide')}
 					onShow={action('onShow')}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
-					showCloseButton={boolean('showCloseButton', Config)}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
 					<div>{text('children', Config, 'Hello Popup')}</div>

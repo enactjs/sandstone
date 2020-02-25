@@ -12,11 +12,11 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import {useScrollBase} from '@enact/ui/Scrollable';
-import {useChildAdapter as useUiChildAdapter} from '@enact/ui/Scrollable/useChild';
-import {utilDecorateChildProps} from '@enact/ui/Scrollable';
-import utilDOM from '@enact/ui/Scrollable/utilDOM';
-import utilEvent from '@enact/ui/Scrollable/utilEvent';
+import {useScrollBase} from '@enact/ui/useScroll';
+import {useChildAdapter as useUiChildAdapter} from '@enact/ui/useScroll/useChild';
+import {utilDecorateChildProps} from '@enact/ui/useScroll';
+import utilDOM from '@enact/ui/useScroll/utilDOM';
+import utilEvent from '@enact/ui/useScroll/utilEvent';
 import PropTypes from 'prop-types';
 import React, {Component, useContext, useRef} from 'react';
 

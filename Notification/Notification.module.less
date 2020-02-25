@@ -1,12 +1,10 @@
 // Notification.module.less
 //
-@import '../styles/variables.less';
-@import '../styles/mixins.less';
-@import '../styles/skin.less';
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
 
 .notification {
-	position: relative;
-	left: 50%;
 	min-width: @sand-notification-min-width;
 	max-width: @sand-notification-max-width;
 	width: fit-content;  // Notification should shrink to the size of the content
@@ -14,9 +12,14 @@
 	border-radius: @sand-notification-border-radius;
 	border-style: solid;
 	border-width: @sand-notification-border-width;
-	margin-bottom: @sand-notification-margin-bottom;
-	transform: translate3d(-50%, 50%, 0);
 	padding: @sand-notification-padding-top-bottom @sand-notification-padding-left-right;
+
+	// Override Popup's margin settings
+	&.popup {
+		margin-bottom: @sand-notification-margin-bottom;
+		margin-left: auto;
+		margin-right: auto;
+	}
 
 	&.wide {
 		max-width: @sand-notification-wide-width; // 4 button case
