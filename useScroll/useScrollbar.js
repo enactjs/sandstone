@@ -1,7 +1,7 @@
 import Spotlight from '@enact/spotlight';
 
 const useScrollbar = (props, instances, context) => {
-	const {uiScrollAdapter} = instances;
+	const {scrollContainerHandle} = instances;
 	const {isContent} = context;
 
 	const scrollbarProps = {
@@ -11,16 +11,16 @@ const useScrollbar = (props, instances, context) => {
 	// Functions
 
 	function alertThumb () {
-		const bounds = uiScrollAdapter.current.getScrollBounds();
+		const bounds = scrollContainerHandle.current.getScrollBounds();
 
-		uiScrollAdapter.current.showThumb(bounds);
-		uiScrollAdapter.current.startHidingThumb();
+		scrollContainerHandle.current.showThumb(bounds);
+		scrollContainerHandle.current.startHidingThumb();
 	}
 
 	function alertThumbAfterRendered () {
 		const spotItem = Spotlight.getCurrent();
 
-		if (!Spotlight.getPointerMode() && isContent(spotItem) && uiScrollAdapter.current.isUpdatedScrollThumb) {
+		if (!Spotlight.getPointerMode() && isContent(spotItem) && scrollContainerHandle.current.isUpdatedScrollThumb) {
 			alertThumb();
 		}
 	}
