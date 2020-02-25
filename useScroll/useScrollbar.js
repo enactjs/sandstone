@@ -17,20 +17,20 @@ const useScrollbar = (props, instances, context) => {
 	// Functions
 	function onInteractionForScroll ({inputType, isForward, isPagination, isVerticalScrollBar}) {
 		const
-			{wheelDirection} = uiScrollAdapter.current,
-			bounds = uiScrollAdapter.current.getScrollBounds(),
+			{wheelDirection} = scrollContainerHandle.current,
+			bounds = scrollContainerHandle.current.getScrollBounds(),
 			direction = isForward ? 1 : -1,
 			pageSize = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
 			distance = isPagination ? (pageSize * paginationPageMultiplier) : defaultScrollDistance;
 
-		uiScrollAdapter.current.lastInputType = inputType;
+		scrollContainerHandle.current.lastInputType = inputType;
 
 		if (direction !== wheelDirection) {
-			uiScrollAdapter.current.isScrollAnimationTargetAccumulated = false;
-			uiScrollAdapter.current.wheelDirection = direction;
+			scrollContainerHandle.current.isScrollAnimationTargetAccumulated = false;
+			scrollContainerHandle.current.wheelDirection = direction;
 		}
 
-		uiScrollAdapter.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
 	}
 
 	function alertThumb () {

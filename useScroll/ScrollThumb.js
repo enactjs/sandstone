@@ -1,10 +1,6 @@
-<<<<<<< HEAD:Scrollable/ScrollThumb.js
 import classNames from 'classnames';
 import {is} from '@enact/core/keymap';
 import Spottable from '@enact/spotlight/Spottable';
-=======
-import {ScrollThumb as UiScrollThumb} from '@enact/ui/useScroll/Scrollbar';
->>>>>>> origin/develop:useScroll/ScrollThumb.js
 import PropTypes from 'prop-types';
 import React, {forwardRef, useCallback, useEffect} from 'react';
 
