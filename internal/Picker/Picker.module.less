@@ -15,9 +15,9 @@
 	margin-right: @sand-spotlight-outset;
 	padding: @sand-picker-padding;
 
-	@joined-arrow-transform-resting: scale(0.7);
-	@joined-arrow-transform-focus: scale(0.95);
-	@joined-arrow-transform-active: @joined-arrow-transform-resting;
+	@picker-arrow-transform-resting: scale(0.7);
+	@picker-arrow-transform-focus: scale(0.95);
+	@picker-arrow-transform-active: @picker-arrow-transform-resting;
 
 	&::before {
 		.position(0);
@@ -58,7 +58,7 @@
 	.incrementer,
 	.decrementer {
 		will-change: transform;
-		transform: @joined-arrow-transform-resting;
+		transform: @picker-arrow-transform-resting;
 
 		&.hidden {
 			visibility: hidden;
@@ -68,18 +68,18 @@
 	.focus({
 		.incrementer,
 		.decrementer {
-			transform: @joined-arrow-transform-focus;
+			transform: @picker-arrow-transform-focus;
 		}
 
 		&.incrementing .incrementer,
 		&.decrementing .decrementer {
-			transform: @joined-arrow-transform-active;
+			transform: @picker-arrow-transform-active;
 		}
 
 		.disabled({
 			.incrementer,
 			.decrementer {
-				transform: @joined-arrow-transform-resting;
+				transform: @picker-arrow-transform-resting;
 			}
 		});
 	});

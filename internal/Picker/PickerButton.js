@@ -10,26 +10,6 @@ import Icon from '../../Icon';
 
 import css from './Picker.module.less';
 
-const JoinedPickerButtonBase = kind({
-	name: 'JoinedPickerButtonBase',
-
-	propTypes: {
-		disabled: PropTypes.bool,
-		icon: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.object
-		])
-	},
-
-	render: ({disabled, icon, ...rest}) => (
-		<span {...rest} data-webos-voice-intent="Select" disabled={disabled}>
-			<Icon className={css.icon} disabled={disabled} size="small">{icon}</Icon>
-		</span>
-	)
-});
-
-const JoinedPickerButton = Touchable(JoinedPickerButtonBase);
-
 const PickerButtonBase = kind({
 	name: 'PickerButtonBase',
 
@@ -79,7 +59,9 @@ const PickerButtonBase = kind({
 		delete rest.spotlightDisabled;
 
 		return (
-			<JoinedPickerButton {...rest} icon={icon} disabled={disabled} />
+			<span {...rest} data-webos-voice-intent="Select" disabled={disabled}>
+				<Icon className={css.icon} disabled={disabled} size="small">{icon}</Icon>
+			</span>
 		);
 	}
 });
@@ -88,7 +70,7 @@ const PickerButtonBase = kind({
 PickerButtonBase.contextType = MarqueeControllerContext;
 
 const PickerButton = Pure(
-	PickerButtonBase
+	Touchable(PickerButtonBase)
 );
 
 export default PickerButton;

@@ -8,8 +8,8 @@ const tap = (node) => {
 	node.simulate('mousedown');
 	node.simulate('mouseup');
 };
-const decrement = (slider) => tap(slider.find('JoinedPickerButtonBase').last());
-const increment = (slider) => tap(slider.find('JoinedPickerButtonBase').first());
+const decrement = (slider) => tap(slider.find('PickerButtonBase').last());
+const increment = (slider) => tap(slider.find('PickerButtonBase').first());
 
 describe('Picker Specs', () => {
 
@@ -170,7 +170,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = false;
-			const actual = picker.find(`JoinedPickerButtonBase.${css.incrementer}`).prop('disabled');
+			const actual = picker.find(`PickerButtonBase.${css.incrementer}`).prop('disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -184,7 +184,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = false;
-			const actual = picker.find(`JoinedPickerButtonBase.${css.incrementer}`).prop('disabled');
+			const actual = picker.find(`PickerButtonBase.${css.incrementer}`).prop('disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -198,7 +198,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = true;
-			const actual = picker.find(`JoinedPickerButtonBase.${css.incrementer}`).prop('disabled');
+			const actual = picker.find(`PickerButtonBase.${css.incrementer}`).prop('disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -212,7 +212,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = true;
-			const actual = picker.find(`JoinedPickerButtonBase.${css.decrementer}`).prop('disabled');
+			const actual = picker.find(`PickerButtonBase.${css.decrementer}`).prop('disabled');
 
 			expect(actual).toBe(expected);
 		}
@@ -226,8 +226,8 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = true;
-			const actual = picker.find(`JoinedPickerButtonBase.${css.decrementer}`).prop('disabled') &&
-                picker.find(`JoinedPickerButtonBase.${css.incrementer}`).prop('disabled');
+			const actual = picker.find(`PickerButtonBase.${css.decrementer}`).prop('disabled') &&
+                picker.find(`PickerButtonBase.${css.incrementer}`).prop('disabled');
 
 			expect(actual).toBe(expected);
 		}

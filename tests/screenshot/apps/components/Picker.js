@@ -137,10 +137,10 @@ const PickerTests = [
 
 	<Picker value={1} width="medium" orientation="vertical" >{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap >{pickerList.vegetables}</Picker>,
-	<Picker width="medium" orientation="vertical" wrap  noAnimation>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" orientation="vertical" wrap  noAnimation disabled>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" orientation="vertical" wrap  noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
-	<Picker width="medium" orientation="vertical" wrap  noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" orientation="vertical" wrap noAnimation>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" orientation="vertical" wrap noAnimation disabled>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" orientation="vertical" wrap noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" orientation="vertical" wrap noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -289,19 +289,19 @@ const PickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap  noAnimation>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap noAnimation>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap  noAnimation disabled>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap noAnimation disabled>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap  noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" wrap  noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" wrap noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
 	},
 
 	// *************************************************************

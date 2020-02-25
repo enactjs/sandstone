@@ -89,7 +89,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('JoinedPickerButtonBase').at(1);
+		const checkButton = expandablePicker.find('PickerButtonBase').at(1);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -105,7 +105,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('JoinedPickerButtonBase').at(0);
+		const checkButton = expandablePicker.find('PickerButtonBase').at(0);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -123,7 +123,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('JoinedPickerButtonBase').at(0).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('PickerButtonBase').at(0).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -138,7 +138,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('JoinedPickerButtonBase').at(1).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('PickerButtonBase').at(1).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
