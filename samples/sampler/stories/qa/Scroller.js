@@ -8,7 +8,7 @@ import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import UiScroller from '@enact/ui/Scroller';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 
 import {storiesOf} from '@storybook/react';
 
@@ -16,10 +16,10 @@ import Button from '@enact/sandstone/Button';
 import ExpandableList from '@enact/sandstone/ExpandableList';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import {ScrollableBase} from '@enact/sandstone/Scrollable';
+import {ScrollableBasic} from '@enact/sandstone/useScroll';
 import Scroller from '@enact/sandstone/Scroller';
 
-const Config = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
+const Config = mergeComponentMetadata('Scroller', UiScrollableBasic, ScrollableBasic, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {

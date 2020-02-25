@@ -8,7 +8,7 @@ const nop = () => {};
  * A Sandstone-styled scroll thumb with sandstone behavior
  *
  * @class ScrollThumb
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @extends ui/Scrollable/ScrollThumb
  * @ui
  * @private
@@ -23,9 +23,9 @@ const ScrollThumb = forwardRef(({cbAlertThumb, ...rest}, ref) => {
 
 ScrollThumb.displayName = 'ScrollThumb';
 
-ScrollThumb.propTypes = /** @lends sandstone/Scrollable.ScrollThumb.prototype */ {
+ScrollThumb.propTypes = /** @lends sandstone/useScroll.ScrollThumb.prototype */ {
 	/**
-	 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
+	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
 	 *
 	 * @type {Function}
 	 * @private

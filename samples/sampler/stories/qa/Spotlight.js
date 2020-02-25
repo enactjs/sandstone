@@ -201,7 +201,6 @@ class PopupFocusTest extends React.Component {
 		noAnimation: PropTypes.bool,
 		noAutoDismiss: PropTypes.bool,
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
-		showCloseButton: PropTypes.bool,
 		spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only'])
 	}
 
@@ -209,7 +208,6 @@ class PopupFocusTest extends React.Component {
 		noAnimation: false,
 		noAutoDismiss: false,
 		scrimType: 'translucent',
-		showCloseButton: false,
 		spotlightRestrict: 'self-only'
 	}
 
@@ -229,7 +227,7 @@ class PopupFocusTest extends React.Component {
 	}
 
 	render () {
-		const {noAnimation, noAutoDismiss, scrimType, showCloseButton, spotlightRestrict} = this.props;
+		const {noAnimation, noAutoDismiss, scrimType, spotlightRestrict} = this.props;
 
 		return (
 			<div>
@@ -250,7 +248,6 @@ class PopupFocusTest extends React.Component {
 					onClose={this.handleClosePopup}
 					open={this.state.popupOpen}
 					scrimType={scrimType}
-					showCloseButton={showCloseButton}
 					spotlightRestrict={spotlightRestrict}
 				>
 					<div>This is a Popup</div>
@@ -427,7 +424,6 @@ storiesOf('Spotlight', module)
 				noAnimation={boolean('noAnimation', Popup, false)}
 				noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
 				scrimType={select('scrimType', ['none', 'transparent', 'translucent'], Popup, 'translucent')}
-				showCloseButton={boolean('showCloseButton', Popup, true)}
 				spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Popup, 'self-only')}
 			/>
 		)
