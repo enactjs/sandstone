@@ -413,12 +413,22 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			return pos;
 		}
 
-		getArrowPosition (clientNode) {
+		getArrowPosition (containerNode, clientNode) {
 			const position = {};
-			const {direction} = this.getContainerAdjustedPosition();
+			const {anchor, direction} = this.getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
-				position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+				if (anchor === 'left') {
+					position.left = clientNode.left + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else if (anchor === 'right') {
+					position.left = clientNode.right - containerNode.width + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else {
+					position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+				}
+			} else if (anchor === 'top') {
+				position.top = clientNode.top + (containerNode.height - this.ARROW_WIDTH) / 2;
+			} else if (anchor === 'bottom') {
+				position.top = clientNode.bottom - containerNode.height + (containerNode.height - this.ARROW_WIDTH) / 2;
 			} else {
 				position.top = clientNode.top + (clientNode.height - this.ARROW_WIDTH) / 2;
 			}
@@ -467,13 +477,13 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {anchor, direction} = this.getContainerAdjustedPosition();
 
 			if (this.overflow.isOverTop && !this.overflow.isOverBottom && direction === 'above') {
-				this.adjustedDirection = `below ${anchor}`;
+				this.adjustedDirection = anchor ? `below ${anchor}` : 'below';
 			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop && direction === 'below') {
-				this.adjustedDirection = `above ${anchor}`;
+				this.adjustedDirection = anchor ? `above ${anchor}` : 'above';
 			} else if (this.overflow.isOverLeft && !this.overflow.isOverRight && direction === 'left' && !this.props.rtl) {
-				this.adjustedDirection = `right ${anchor}`;
+				this.adjustedDirection = anchor ? `right ${anchor}` : 'right';
 			} else if (this.overflow.isOverRight && !this.overflow.isOverLeft && direction === 'right' && !this.props.rtl) {
-				this.adjustedDirection = `left ${anchor}`;
+				this.adjustedDirection = anchor ? `left ${anchor}` : 'left';
 			}
 		}
 
@@ -511,7 +521,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 				this.setState({
 					direction: this.adjustedDirection,
-					arrowPosition: this.getArrowPosition(clientNode),
+					arrowPosition: this.getArrowPosition(containerNode, clientNode),
 					containerPosition: this.getContainerPosition(containerNode, clientNode)
 				});
 			}
