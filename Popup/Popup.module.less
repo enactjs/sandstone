@@ -5,51 +5,116 @@
 @import "../styles/skin.less";
 
 .popup {
-	// Local variables to make this easier to read
-	@popup-padding-top: (@sand-popup-padding-top - @sand-popup-body-margin-top);
-	@popup-padding-right: (@sand-popup-padding-right - @sand-popup-body-margin-right);
-	@popup-padding-bottom: (@sand-popup-padding-bottom - @sand-popup-body-margin-bottom);
-	@popup-padding-left: (@sand-popup-padding-left - @sand-popup-body-margin-left);
-
-	.sand-text-base();
-	padding: @popup-padding-top @popup-padding-right @popup-padding-bottom @popup-padding-left;
-	.padding-start-end(@popup-padding-left, @popup-padding-right);
-	box-sizing: border-box;
-	pointer-events: auto;
+	height: 100%;
+	border-radius: @sand-popup-border-radius;
 
 	.body {
-		margin: @sand-popup-body-margin-top @sand-popup-body-margin-right @sand-popup-body-margin-bottom @sand-popup-body-margin-left;
-		.margin-start-end(@sand-popup-body-margin-left, @sand-popup-body-margin-right);
+		.sand-text-base();
+		padding: @sand-popup-padding-top @sand-popup-padding-right @sand-popup-padding-bottom @sand-popup-padding-left;
+		.padding-start-end(@sand-popup-padding-left, @sand-popup-padding-right);
+		box-sizing: border-box;
+		pointer-events: auto;
 		.locale-japanese-line-break();
 	}
 
-	.closeContainer {
-		.margin-start-end(@sand-popup-closecontainer-separation, 0);
-	}
+	&.bottom,
+	&.top {
+		margin: @sand-popup-position-top-bottom-margin;
 
-	.closeButton {
-		margin: 0;
-	}
-
-	&.reserveClose {
 		.body {
-			.margin-start-end(@sand-popup-body-margin-left, 0); // Remove the spacing on the body, since closeContainer handles this.
+			max-width: 100%;
+		}
+	}
+	&.left,
+	&.right {
+		margin: @sand-popup-position-left-right-margin;
+		max-height: calc(100% - extract(@sand-popup-position-left-right-margin, 1) * 2);
+
+		.body {
+			height: 100%;
+		}
+	}
+
+	// Remove the mardin on the leading edge so we're not wasting some of our transition frames on animating empty space
+	// This may pose problems for Popups that are 100% height, but `top` and `bottom` aren't intended for those cases.
+	&.top {
+		margin-bottom: 0;
+	}
+	&.right {
+		margin-left: 0;
+	}
+	&.bottom {
+		margin-top: 0;
+	}
+	&.left {
+		margin-right: 0;
+	}
+
+	&.center {
+		position: absolute;
+		height: auto;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	&.fullscreen {
+		border-radius: 0;
+
+		.body {
+			height: 100%;
+			width: 100%;
 		}
 	}
 
 	// Skin colors
 	.applySkins({
-		background-color: fade(@sand-popup-bg-color, @sand-popup-bg-opacity);
-
-		.closeButton {
-			color: @sand-popup-close-text-color;
-		}
+		background-color: @sand-popup-bg-color;
 	});
 }
 
 .popupTransitionContainer {
 	position: absolute;
-	bottom: 0;
-	width: 100%;
 	pointer-events: none;
+
+	&.bottom,
+	&.top {
+		width: 100%;
+	}
+
+	&.left,
+	&.right {
+		height: 100%;
+
+		.inner {
+			height: 100%;
+		}
+	}
+
+	&.bottom {
+		bottom: 0;
+	}
+
+	&.left {
+		left: 0;
+	}
+
+	&.right {
+		right: 0;
+	}
+
+	&.top {
+		top: 0;
+	}
+
+	&.center,
+	&.fullscreen {
+		height: 100%;
+		width: 100%;
+
+		.inner {
+			height: 100%;
+			width: 100%;
+		}
+	}
 }
