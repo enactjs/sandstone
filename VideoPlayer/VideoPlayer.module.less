@@ -6,7 +6,7 @@
 
 .videoPlayer {
 	// Set by counting the IconButtons inside the side components.
-	--liftComponent: 0px;
+	--liftDistance: 0px;
 
 	overflow: hidden;
 
@@ -54,21 +54,21 @@
 		}
 
 		.bottom {
-			transition: transform 0.3s linear;
 			position: absolute;
 			z-index: 100;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
 			bottom: @sand-video-player-padding-bottom;
 			left: @sand-video-player-padding-side;
 			right: @sand-video-player-padding-side;
 
-			&.shift {
-				transform: translateY(~"calc(var(--liftComponent) * -1)");
+			&.lift {
+				transform: translateY(~"calc(var(--liftDistance) * -1)");
+				transition: transform 0.3s linear;
 			}
 
 			&.hidden {
 				pointer-events: none;
 
-				.timeSliderFrame {
+				.sliderContainer {
 					position: absolute;
 					width: 100%;
 				}
@@ -147,7 +147,7 @@
 				}
 			}
 
-			.timeSliderFrame {
+			.sliderContainer {
 				display: flex;
 				align-items: center;
 
@@ -194,7 +194,7 @@
 						// Grow the knob when the Slider gets spotted
 						.focus({
 							.knob::before {
-								transform: @sand-translate-center scale(0.5);
+								transform: @sand-translate-center scale(0.75);
 								opacity: 1;
 							}
 						});

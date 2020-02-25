@@ -1576,15 +1576,6 @@ const VideoPlayerBase = class extends React.Component {
 		return true;
 	}
 
-	handleKeyDownFromControls = this.handle(
-		// onKeyDown is used as a proxy for when the title has been read because it can only occur
-		// after the controls have been shown.
-		this.markAnnounceRead
-		// forKey('down'),
-		// this.disablePointerMode,
-		// this.hideControls
-	)
-
 	//
 	// Player Interaction events
 	//
@@ -1697,17 +1688,17 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showMoreComponents, lift}) => {
+	handleToggleMore = ({showMoreComponents, liftDistance}) => {
 		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
 			this.startDelayedTitleHide();
 		} else {
 			// Interrupt the title-hide since we don't want it hiding autonomously in "more".
-			this.player.style.setProperty('--liftComponent', `${lift}px`);
 			this.stopDelayedTitleHide();
 		}
 
+		this.player.style.setProperty('--liftDistance', `${liftDistance}px`);
 		this.setState(({announce}) => ({
 			infoVisible: showMoreComponents,
 			titleVisible: true,
@@ -1861,7 +1852,7 @@ const VideoPlayerBase = class extends React.Component {
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
 						<ControlsContainer
-							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.shift : '')}
+							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 						>
 							{/*
@@ -1880,12 +1871,16 @@ const VideoPlayerBase = class extends React.Component {
 									>
 										{infoComponents}
 									</MediaTitle>
+									{noSlider ?
+										<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
+										null
+									}
 								</div> :
 								null
 							}
 							{noSlider ?
 								null :
-								<div className={css.timeSliderFrame}>
+								<div className={css.sliderContainer}>
 									{this.state.mediaSliderVisible ?
 										<Times noTotalTime current={this.state.currentTime} formatter={durFmt} /> :
 										null
@@ -1933,7 +1928,6 @@ const VideoPlayerBase = class extends React.Component {
 								onJump={this.handleJump}
 								onJumpBackwardButtonClick={this.onJumpBackward}
 								onJumpForwardButtonClick={this.onJumpForward}
-								onKeyDown={this.handleKeyDownFromControls}
 								onPause={this.handlePause}
 								onPlay={this.handlePlay}
 								onRewind={this.handleRewind}

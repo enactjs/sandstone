@@ -3,9 +3,7 @@
 @import "../styles/skin.less";
 
 .controlsFrame {
-    @expanding-button-clearance: 6px;
-    --guideComponentHeight: 0;
-	--bottomComponentsOffset: 0;
+    --actionGuideComponentHeight: 0;
 
     position: relative;
     display: block;
@@ -16,14 +14,16 @@
     }
 
     .mediaControls {
-        width: 100%;
-        display: inline-block;
         text-align: center;
         direction: ltr;
         white-space: nowrap;
 
+        > * {
+            .margin-start-end(0, 0);
+        }
+
         > * + * {
-            margin-inline-start: 90px;
+            -webkit-margin-start: @sand-mediacontrols-button-margin-start;
         }
 
         > * {
@@ -31,32 +31,21 @@
         }
     }
 
-    .guideContainerComponents {
-        .guideText {
-            .sand-font({
-                font-weight: 500;
-                font-size: 48px;
-            });
-            font-weight: 500;
-            font-size: 48px;
-        }
-
-        margin-top: 60px;
-        text-align: center;
-        transition: opacity 0.2s linear;
+    .actionGuide {
+        padding-top: @sand-mediacontrols-actionguide-padding-top;
+        transition: opacity @sand-mediacontrols-actionguide-time linear;
         &.hidden {
             opacity: 0;
         }
     }
 
-    .childrenContainerComponents {
+    .moreButtonsComponents {
         > * + * {
-            margin-inline-start: 210px;
-
+            -webkit-margin-start: @sand-mediacontrols-morebuttons-margin-start;
         }
     }
 
-    .bottomContainerComponents {
+    .moreComponents {
         position: absolute;
         left: 0;
         right: 0;
@@ -65,17 +54,12 @@
 
         &.lift {
             opacity: 1;
-            transition: transform 0.3s linear;
-            transform: translateY(~"calc(var(--guideComponentHeight) * -1)");
+            transition: transform @sand-mediacontrols-moreComponents-time linear;
+            transform: translateY(~"calc(var(--actionGuideComponentHeight) * -1)");
         }
 
         > :first-child {
-            margin-top: @sand-video-player-padding-bottom;;
-        }
-
-        .bottomComponent {
-            margin-top: 60px;
-            height: 318px;
+            margin-top: @sand-mediacontrols-moreComponents-margin-top;
         }
     }
 }

@@ -37,7 +37,20 @@ const TimesBase = kind({
 		 */
 		current: PropTypes.number,
 
+		/**
+		 * Removes current time.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		noCurrentTime: PropTypes.bool,
+
+		/**
+		 * Removes total time.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		noTotalTime: PropTypes.bool,
 
 		/**
@@ -63,11 +76,12 @@ const TimesBase = kind({
 	computed: {
 		currentPeriod:   ({current}) => secondsToPeriod(current),
 		currentReadable: ({current, formatter}) => secondsToTime(current, formatter),
+		noSeparator: ({noCurrentTime, noTotalTime}) => noCurrentTime || noTotalTime,
 		totalPeriod:     ({total}) => secondsToPeriod(total),
 		totalReadable:   ({total, formatter}) => secondsToTime(total, formatter)
 	},
 
-	render: ({currentPeriod, currentReadable, totalPeriod, totalReadable, noCurrentTime, noTotalTime, ...rest}) => {
+	render: ({currentPeriod, currentReadable, noCurrentTime, noSeparator, noTotalTime, totalPeriod, totalReadable, ...rest}) => {
 		delete rest.current;
 		delete rest.formatter;
 		delete rest.total;
@@ -78,9 +92,9 @@ const TimesBase = kind({
 					null :
 					<time className={css.currentTime} dateTime={currentPeriod}>{currentReadable}</time>
 				}
-				{!noCurrentTime && !noTotalTime ?
-					<span className={css.separator}>/</span> :
-					null
+				{noSeparator ?
+					null :
+					<span className={css.separator}>/</span>
 				}
 				{noTotalTime ?
 					null :
