@@ -57,7 +57,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerlContainerProps,
+		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
@@ -73,7 +73,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerlContainerProps}>
+				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiVirtualListBasic {...themeScrollContentProps} />
 					</ScrollContentWrapper>
