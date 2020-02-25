@@ -6,7 +6,7 @@ import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
 
-import {useEventKey} from './useEvent';
+import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
@@ -74,6 +74,8 @@ const useSpottable = (props, instances, context) => {
 			return SpotlightAccelerator.processKey(ev, nop);
 		}
 	});
+
+	useEventFocus(props, instances);
 
 	const {
 		handlePlaceholderFocus,
