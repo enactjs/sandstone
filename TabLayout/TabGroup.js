@@ -74,6 +74,7 @@ const TabGroupBase = kind({
 	},
 
 	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
+		delete rest.collapsed;
 		delete rest.tabs;
 
 		return (
