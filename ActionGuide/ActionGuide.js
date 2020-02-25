@@ -23,7 +23,7 @@ import Skinnable from '../Skinnable';
 import componentCss from './ActionGuide.module.less';
 
 /**
- * A Action Guide component.
+ * An Action Guide component.
  *
  * This component is most often not used directly but may be composed within another component as it
  * is within [ActionGuide]{@link sandstone/ActionGuide.ActionGuide}.
@@ -62,6 +62,7 @@ const ActionGuideBase = kind({
 		 * The icon displayed within the action guide.
 		 *
 		 * @type {String}
+		 * @default 'arrowsmalldown'
 		 * @public
 		 */
 		icon: PropTypes.string
@@ -101,9 +102,9 @@ const ActionGuideDecorator = compose(
 );
 
 /**
- * A Action Guide component, ready to use in Sandstone applications.
+ * An Action Guide component, ready to use in Sandstone applications.
  *
- * `ActionGuide' may be used to display text and icon to describe action.
+ * `ActionGuide` may be used to display text and icon to describe an action.
  *
  * Usage:
  * ```

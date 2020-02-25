@@ -142,7 +142,7 @@ const KeyGuideDecorator = compose(
 /**
  * A Key Guide component, ready to use in Sandstone applications.
  *
- * `KeyGuide' may be used to display list of text and icon to describe behavior.
+ * `KeyGuide' may be used to display list of text with icons to describe key behavior.
  *
  * Usage:
  * ```
