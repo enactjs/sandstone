@@ -12,12 +12,7 @@ const Config = mergeComponentMetadata('Steps', StepsBase, Steps);
 
 const prop = {
 	icons: [null, 'numbers', ...starIcons, ...iconNames],
-	sizes: {
-		tiny: 'tiny',
-		small: 'small',
-		medium: 'medium',
-		large: 'large'
-	},
+	sizes: ['tiny', 'small', 'medium', 'large'],
 	skip: {
 		'null (Default, skip nothing)': null,
 		'3 (skip just step 3)': 3,
@@ -36,7 +31,7 @@ storiesOf('Sandstone', module)
 					pastIcon={select('pastIcon', prop.icons, Config)}
 					currentIcon={select('currentIcon', prop.icons, Config)}
 					futureIcon={select('futureIcon', prop.icons, Config)}
-					size={select('size', prop.sizes, Config, 'small')}
+					size={select('size', prop.sizes, Config)}
 					skip={select('skip', prop.skip, Config)}
 					skipIcon={select('skipIcon', prop.icons, Config)}
 				/>
