@@ -57,6 +57,7 @@ const ActionGuideBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
 		/**
 		 * The icon displayed within the action guide.
 		 *
@@ -64,6 +65,10 @@ const ActionGuideBase = kind({
 		 * @public
 		 */
 		icon: PropTypes.string
+	},
+
+	defaultProps: {
+		icon: 'arrowsmalldown'
 	},
 
 	styles: {
@@ -75,18 +80,43 @@ const ActionGuideBase = kind({
 	render: ({icon, children, css, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Icon size="tiny" className={css.icon}>{icon}</Icon>
+				<Icon size="small" className={css.icon}>{icon}</Icon>
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);
 	}
 });
 
+/**
+ * Applies Sandstone specific behaviors to [ActionGuide]{@link sandstone/ActionGuide.ActionGuideBase}.
+ *
+ * @hoc
+ * @memberof sandstone/ActionGuide
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const ActionGuideDecorator = compose(
 	Pure,
 	Skinnable
 );
 
+/**
+ * A Action Guide component, ready to use in Sandstone applications.
+ *
+ * `ActionGuide' may be used to display text and icon to describe action.
+ *
+ * Usage:
+ * ```
+ * <ActionGuide icon="arrowlargedown">Hello</ActionGuide>
+ * ```
+ *
+ * @class ActionGuide
+ * @memberof sandstone/ActionGuide
+ * @extends sandstone/ActionGuide.ActionGuideBase
+ * @mixes sandstone/ActionGuide.ActionGuideDecorator
+ * @ui
+ * @public
+ */
 const ActionGuide = ActionGuideDecorator(ActionGuideBase);
 
 export default ActionGuide;

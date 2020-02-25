@@ -23,6 +23,7 @@
 
 // Font Sizes
 // ---------------------------------------
+@sand-actionguide-label-font-size:  48px;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -52,6 +53,7 @@
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
+@sand-keyguide-font-size: 60px;
 @sand-labeledicon-font-size:        48px;
 @sand-large-text-size:              96px;
 @sand-notification-font-size:       60px;
@@ -168,7 +170,7 @@
 
 // ActionGuide
 // ---------------------------------------
-@sand-actionguide-label-font-size: 48px;
+@sand-actionguide-max-width: 1500px;
 
 // Button
 // ---------------------------------------
@@ -379,15 +381,11 @@
 @sand-item-slotafter-spacing: @sand-component-spacing;
 @sand-item-slotbefore-spacing: @sand-component-spacing;
 
-// KeyGuide
-// ---------------------------------------
 @sand-keyguide-width: 750px;
 @sand-keyguide-position-bottom: 120px;
-@sand-keyguide-position-left-right: 150px;
-@sand-keyguide-labeled-icon-font-size: 60px;
+@sand-keyguide-position-right: 150px;
 @sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding-top-bottom: 6px;
-
+@sand-keyguide-padding: 6px 0;
 
 // MediaOverlay
 // ---------------------------------------
@@ -434,7 +432,12 @@
 
 // ProgressBar
 // ---------------------------------------
-@sand-progress-bar-height: 12px;
+@sand-progressbar-bar-thickness: 12px;
+@sand-progressbar-bar-border-radius: (@sand-progressbar-bar-thickness / 2);
+@sand-progressbar-margin: @sand-spotlight-outset;
+@sand-progressbar-vertical-min-height: 240px;
+@sand-progressbar-radial-size: 72px;
+@sand-progressbar-radial-thickness: 9px;
 
 // Scrim
 // ---------------------------------------
@@ -455,7 +458,7 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-height: @sand-progress-bar-height;
+@sand-slider-bar-height: @sand-progressbar-bar-thickness;
 @sand-slider-knob-width: @sand-button-small-height;
 @sand-slider-knob-width-large: @sand-button-small-height-large;
 @sand-slider-knob-height: @sand-button-small-height;

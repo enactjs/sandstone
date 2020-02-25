@@ -13,7 +13,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'KeyGuide',
 		() => {
-			const itemCount = number('items', Config, {range: true, min: 1, max: 4}, 3);
+			const itemCount = number('items', Config, {range: true, min: 0, max: 4}, 3);
 			const items = [
 				{icon: logo, children: 'This is long name item', key: 1},
 				{icon: 'plus', children: 'Item 1', key: 2},

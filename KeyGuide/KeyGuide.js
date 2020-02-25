@@ -22,11 +22,14 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import Pure from '@enact/ui/internal/Pure';
+import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import LabeledIcon from '../LabeledIcon';
+import Icon from '../Icon';
+import {ItemBase} from '../Item';
+import {MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 import componentCss from './KeyGuide.module.less';
 
@@ -58,7 +61,7 @@ const KeyGuideBase = kind({
 			children: EnactPropTypes.renderable.isRequired,
 			key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 			icon: PropTypes.string
-		})).isRequired,
+		})),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -77,20 +80,25 @@ const KeyGuideBase = kind({
 		 * Controls the visibility of the KeyGuide.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		open: PropTypes.bool
 	},
 
-	computed: {
-		children: ({children, css}) => {
-			if (!Array.isArray(children)) return [];
+	defaultProps: {
+		children: []
+	},
 
-			return children.map((child) => {
-				return <LabeledIcon {...child} css={css} labelPosition="after" size="small" />;
-			});
-		}
+	computed: {
+		children: ({children, css}) => (
+			children.map(({icon, ...child}) => {
+				return {
+					...child,
+					slotBefore: <Icon className={css.icon}>{icon}</Icon>
+				};
+			})
+		),
+		open: ({children, open}) => (children.length > 0 && open)
 	},
 
 	styles: {
@@ -99,26 +107,63 @@ const KeyGuideBase = kind({
 		publicClassNames: ['keyGuide']
 	},
 
-	render: ({open, children, ...rest}) => {
+	render: ({open, css, ...rest}) => {
 		return (
 			<FloatingLayer
 				noAutoDismiss
 				open={open}
 				scrimType="none"
 			>
-				<div {...rest}>
-					{children}
-				</div>
+				<Repeater
+					{...rest}
+					childComponent={ItemBase}
+					itemProps={{css: css, marqueeOn: 'render'}}
+				/>
 			</FloatingLayer>
 		);
 	}
 });
 
+/**
+ * Applies Sandstone specific behaviors to [KeyGuide]{@link sandstone/KeyGuide.KeyGuideBase}.
+ *
+ * @hoc
+ * @memberof sandstone/KeyGuide
+ * @mixes sandstone/Marquee.MarqueeController
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const KeyGuideDecorator = compose(
+	MarqueeController({marqueeOnFocus: true}),
 	Pure,
 	Skinnable
 );
 
+/**
+ * A Key Guide component, ready to use in Sandstone applications.
+ *
+ * `KeyGuide' may be used to display list of text and icon to describe behavior.
+ *
+ * Usage:
+ * ```
+ * <KeyGuide
+ *		open
+ * >
+ * 	{[
+ *		{icon: 'star', children: 'start label', key: 1},
+ *		{icon: 'plus', children: 'plus label', key: 2},
+ *		{icon: 'minus', children: 'minus label', key: 3}
+ *	]}
+ * </KeyGuide>
+ * ```
+ *
+ * @class KeyGuide
+ * @memberof sandstone/KeyGuide
+ * @extends sandstone/KeyGuide.KeyGuideBase
+ * @mixes sandstone/KeyGuide.KeyGuideDecorator
+ * @ui
+ * @public
+ */
 const KeyGuide = KeyGuideDecorator(KeyGuideBase);
 
 export default KeyGuide;
