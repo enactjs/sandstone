@@ -2,10 +2,9 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
-import PropTypes from 'prop-types';
-import React, {Component, useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute} from '../Scrollable';
+import {dataIndexAttribute} from '../useScroll';
 
 import {useEventKey} from './useEvent';
 import usePreventScroll from './usePreventScroll';
@@ -16,173 +15,6 @@ const SpotlightPlaceholder = Spottable('div');
 
 const nop = () => {};
 
-class VirtualListCore extends Component {
-	displayName = 'VirtualListBase'
-
-	static propTypes = /** @lends sandstone/VirtualList.VirtualListBase.prototype */ {
-		/**
-		 * The `render` function called for each item in the list.
-		 *
-		 * > NOTE: The list does NOT always render a component whenever its render function is called
-		 * due to performance optimization.
-		 *
-		 * Usage:
-		 * ```
-		 * renderItem = ({index, ...rest}) => {
-		 * 	return (
-		 * 		<MyComponent index={index} {...rest} />
-		 * 	);
-		 * }
-		 * ```
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @param {Number} event.data-index It is required for Spotlight 5-way navigation. Pass to the root element in the component.
-		 * @param {Number} event.index The index number of the component to render
-		 * @param {Number} event.key It MUST be passed as a prop to the root element in the component for DOM recycling.
-		 *
-		 * @required
-		 * @public
-		 */
-		itemRenderer: PropTypes.func.isRequired,
-
-		/**
-		 * The render function for the items.
-		 *
-		 * @type {Function}
-		 * @required
-		 * @private
-		 */
-		itemsRenderer: PropTypes.func.isRequired,
-
-		/**
-		 * Callback method of scrollTo.
-		 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		cbScrollTo: PropTypes.func,
-
-		/**
-		 * Size of the data.
-		 *
-		 * @type {Number}
-		 * @default 0
-		 * @public
-		 */
-		dataSize: PropTypes.number,
-
-		/**
-		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
-		 * not move focus to the scrollbar controls.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		focusableScrollbar: PropTypes.bool,
-
-		/**
-		 * Prop to check if horizontal Scrollbar exists or not.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		isHorizontalScrollbarVisible: PropTypes.bool,
-
-		/**
-		 * Prop to check if vertical Scrollbar exists or not.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		isVerticalScrollbarVisible: PropTypes.bool,
-
-		/**
-		 * The array for individually sized items.
-		 *
-		 * @type {Number[]}
-		 * @private
-		 */
-		itemSizes: PropTypes.array,
-
-		/**
-		 * It scrolls by page when `true`, by item when `false`.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
-		 */
-		pageScroll: PropTypes.bool,
-
-		/**
-		 * The ARIA role for the list.
-		 *
-		 * @type {String}
-		 * @default 'list'
-		 * @public
-		 */
-		role: PropTypes.string,
-
-		/**
-		 * `true` if rtl, `false` if ltr.
-		 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
-		 * Spacing between items.
-		 *
-		 * @type {Number}
-		 * @default 0
-		 * @public
-		 */
-		spacing: PropTypes.number,
-
-		/**
-		 * Spotlight Id. It would be the same with [Scrollable]{@link ui/Scrollable.Scrollable}'s.
-		 *
-		 * @type {String}
-		 * @private
-		 */
-		spotlightId: PropTypes.string,
-
-		/**
-		 * TBD
-		 */
-		type: PropTypes.string,
-
-		/**
-		 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
-		 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
-		 *
-		 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
-		 * except that a list is scrolled without an animation.
-		 *
-		 * @type {Boolean|String}
-		 * @default false
-		 * @public
-		 */
-		wrap: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.oneOf(['noAnimation'])
-		])
-	}
-
-	static defaultProps = {
-		dataSize: 0,
-		focusableScrollbar: false,
-		pageScroll: false,
-		spacing: 0,
-		type: 'JS',
-		wrap: false
-	}
-}
-
 const
 	dataContainerDisabledAttribute = 'data-spotlight-container-disabled',
 	JS = 'JS',
@@ -191,7 +23,7 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
-	const {uiChildAdapter, uiChildContainerRef} = instances;
+	const {scrollContentHandle, scrollContentRef} = instances;
 	const {type} = context;
 
 	// Mutable value
@@ -202,7 +34,7 @@ const useSpottable = (props, instances, context) => {
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		nodeIndexToBeFocused: false,
-		pause: new Pause('VirtualListBase')
+		pause: new Pause('VirtualListBasic')
 	});
 
 	const {pause} = mutableRef.current;
@@ -293,7 +125,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = uiChildAdapter.current;
+		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -303,8 +135,8 @@ const useSpottable = (props, instances, context) => {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
-				start = uiChildAdapter.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? uiChildAdapter.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
+				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -320,7 +152,7 @@ const useSpottable = (props, instances, context) => {
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
 				if (isWrapped && (
-					uiChildContainerRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
+					scrollContentRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
 				)) {
 					if (wrap === true) {
 						pause.pause();
@@ -345,9 +177,6 @@ const useSpottable = (props, instances, context) => {
 		}
 	}
 
-	/**
-	 * Focus on the Node of the VirtualList item
-	 */
 	function focusOnNode (node) {
 		if (node) {
 			Spotlight.focus(node);
@@ -355,7 +184,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const item = uiChildContainerRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
+		const item = scrollContentRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
 
 		if (!item && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
@@ -391,19 +220,19 @@ const useSpottable = (props, instances, context) => {
 		return mutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
 	}
 
-	function calculatePositionOnFocus ({item, scrollPosition = uiChildAdapter.current.scrollPosition}) {
+	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
 
 			{pageScroll} = props,
-			{numOfItems, primary} = uiChildAdapter.current,
+			{numOfItems, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
-			let gridPosition = uiChildAdapter.current.getGridPosition(focusedIndex);
+			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = uiChildAdapter.current.getItemNode(mutableRef.current.lastFocusedIndex);
+				const node = scrollContentHandle.current.getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (node) {
 					node.blur();
@@ -422,7 +251,7 @@ const useSpottable = (props, instances, context) => {
 					} else {
 						// This code uses the trick to change the target position slightly which will not affect the actual result
 						// since a browser ignore `scrollTo` method if the target position is same as the current position.
-						gridPosition.primaryPosition = scrollPosition + (uiChildAdapter.current.scrollPosition === scrollPosition ? 0.1 : 0);
+						gridPosition.primaryPosition = scrollPosition + (scrollContentHandle.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
 					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
@@ -433,7 +262,7 @@ const useSpottable = (props, instances, context) => {
 			// scrondaryPosition should be 0 here.
 			gridPosition.secondaryPosition = 0;
 
-			return uiChildAdapter.current.gridPositionToItemPosition(gridPosition);
+			return scrollContentHandle.current.gridPositionToItemPosition(gridPosition);
 		}
 	}
 
@@ -450,7 +279,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function getScrollBounds () {
-		return uiChildAdapter.current.getScrollBounds();
+		return scrollContentHandle.current.getScrollBounds();
 	}
 
 	// Return
@@ -474,12 +303,12 @@ const useSpottable = (props, instances, context) => {
 	};
 };
 
-const useSpottableVirtualList = (props) => {
-	const {type, uiChildAdapter, uiChildContainerRef} = props;
+const useThemeVirtualList = (props) => {
+	const {type, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
-	const instance = {uiChildAdapter, uiChildContainerRef};
+	const instance = {scrollContentHandle, scrollContentRef};
 
 	const {
 		calculatePositionOnFocus,
@@ -501,7 +330,7 @@ const useSpottableVirtualList = (props) => {
 
 	usePreventScroll(props, instance, {type});
 
-	const adapter = {
+	const handle = {
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
@@ -512,8 +341,8 @@ const useSpottableVirtualList = (props) => {
 		shouldPreventScrollByFocus
 	};
 	useEffect(() => {
-		props.setChildAdapter(adapter);
-	}, [adapter, props, props.setChildAdapter]);
+		props.setThemeScrollContentHandle(handle);
+	}, [handle, props, props.setThemeScrollContentHandle]);
 
 	// Functions
 
@@ -532,7 +361,7 @@ const useSpottableVirtualList = (props) => {
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
 	delete rest.spotlightId;
-	delete rest.uiScrollAdapter;
+	delete rest.scrollContainerHandle;
 	delete rest.wrap;
 
 	return {
@@ -558,42 +387,6 @@ const useSpottableVirtualList = (props) => {
 		updateStatesAndBounds: updateStatesAndBounds
 	};
 };
-
-/**
- * A Sandstone-styled base component for [VirtualList]{@link sandstone/VirtualList.VirtualList} and
- * [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
- *
- * @class VirtualListBase
- * @memberof sandstone/VirtualList
- * @extends ui/VirtualList.VirtualListBase
- * @ui
- * @public
- */
-const VirtualListBase = VirtualListCore;
-
-/**
- * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
- * not move focus to the scrollbar controls.
- *
- * @name focusableScrollbar
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
-
-/**
- * Unique identifier for the component.
- *
- * When defined and when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
- * the `VirtualList` will store its scroll position and restore that position when returning to
- * the `Panel`.
- *
- * @name id
- * @memberof sandstone/VirtualList.VirtualListBase.prototype
- * @type {String}
- * @public
- */
 
 /* eslint-disable enact/prop-types */
 function listItemsRenderer (props) {
@@ -630,8 +423,7 @@ function listItemsRenderer (props) {
 }
 /* eslint-enable enact/prop-types */
 
-export default useSpottableVirtualList;
+export default useThemeVirtualList;
 export {
-	useSpottableVirtualList,
-	VirtualListBase
+	useThemeVirtualList
 };

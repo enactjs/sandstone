@@ -1,6 +1,10 @@
+<<<<<<< HEAD:Scrollable/ScrollThumb.js
 import classNames from 'classnames';
 import {is} from '@enact/core/keymap';
 import Spottable from '@enact/spotlight/Spottable';
+=======
+import {ScrollThumb as UiScrollThumb} from '@enact/ui/useScroll/Scrollbar';
+>>>>>>> origin/develop:useScroll/ScrollThumb.js
 import PropTypes from 'prop-types';
 import React, {forwardRef, useCallback, useEffect} from 'react';
 
@@ -19,7 +23,7 @@ const
  * A Sandstone-styled scroll thumb with sandstone behavior
  *
  * @class ScrollThumb
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @extends ui/Scrollable/ScrollThumb
  * @ui
  * @private
@@ -91,9 +95,9 @@ let ScrollThumb = forwardRef((props, ref) => {
 
 ScrollThumb.displayName = 'ScrollThumb';
 
-ScrollThumb.propTypes = /** @lends sandstone/Scrollable.ScrollThumb.prototype */ {
+ScrollThumb.propTypes = /** @lends sandstone/useScroll.ScrollThumb.prototype */ {
 	/**
-	 * Called when [ScrollThumb]{@link sandstone/Scrollable.ScrollThumb} is updated.
+	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
 	 *
 	 * @type {Function}
 	 * @private

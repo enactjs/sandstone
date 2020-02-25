@@ -1,5 +1,5 @@
 // import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/Scrollable/Scrollbar';
+import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
 
@@ -12,7 +12,7 @@ import componentCss from './Scrollbar.module.less';
  * A Sandstone-styled scroller base component.
  *
  * @class ScrollbarBase
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @extends ui/ScrollbarBase
  * @ui
  * @private
@@ -21,9 +21,11 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
 	// render
-	const {className, clientSize, vertical, ...rest} = props;
+	const {cbAlertThumb, className, clientSize, vertical, ...rest} = props;
 
 	delete rest.corner;
+	delete rest.focusableScrollbar;
+	delete rest.rtl;
 
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
@@ -46,13 +48,14 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			clientSize={clientSize}
 			className={className}
 			css={componentCss}
-			minThumbSize={48}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
 				return (
 					<ScrollThumb
 						{...rest}
+						cbAlertThumb={cbAlertThumb}
+						key="thumb"
 						ref={thumbRef}
 						vertical={vertical}
 					/>
@@ -64,7 +67,15 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 
 ScrollbarBase.displayName = 'ScrollbarBase';
 
-ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */ {
+ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
+	/**
+	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
+	 *
+	 * @type {Function}
+	 * @private
+	 */
+	cbAlertThumb: PropTypes.func,
+
 	/**
 	 * Client size of the container; valid values are an object that has `clientWidth` and `clientHeight`.
 	 *
@@ -77,6 +88,15 @@ ScrollbarBase.propTypes = /** @lends sandstone/Scrollable.Scrollbar.prototype */
 		clientHeight: PropTypes.number.isRequired,
 		clientWidth: PropTypes.number.isRequired
 	}),
+
+	/**
+	 * `true` if rtl, `false` if ltr.
+	 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	rtl: PropTypes.bool,
 
 	/**
 	 * Registers the Scrollbar component with an
@@ -102,10 +122,10 @@ ScrollbarBase.defaultProps = {
 };
 
 /**
- * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/Scrollable.Scrollable}.
+ * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/useScroll.Scrollable}.
  *
  * @class Scrollbar
- * @memberof sandstone/Scrollable
+ * @memberof sandstone/useScroll
  * @ui
  * @private
  */

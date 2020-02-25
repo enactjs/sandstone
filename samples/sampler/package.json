@@ -5,7 +5,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "bootstrap": "npm i && enact link",
+    "bootstrap": "enact bootstrap",
+    "clean": "enact clean",
+    "cleanall": "enact clean --all",
     "lint": "enact lint --strict",
     "test": "echo \"No test suite\" && exit 0",
     "pack": "build-storybook -c .storybook -o dist",

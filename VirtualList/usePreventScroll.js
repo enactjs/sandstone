@@ -1,27 +1,27 @@
-import utilEvent from '@enact/ui/Scrollable/utilEvent';
+import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useEffect} from 'react';
 
 const usePreventScroll = (props, instances, context) => {
-	const {uiChildContainerRef} = instances;
+	const {scrollContentRef} = instances;
 	const {type} = context;
 
 	// Hooks
 
 	useEffect(() => {
 		const {rtl} = props;
-		const containerNode = uiChildContainerRef.current;
+		const scrollContentNode = scrollContentRef.current;
 
-		if (type === 'JS' && containerNode) {
+		if (type === 'JS' && scrollContentNode) {
 			const preventScroll = () => {
-				containerNode.scrollTop = 0;
-				containerNode.scrollLeft = rtl ? containerNode.scrollWidth : 0;
+				scrollContentNode.scrollTop = 0;
+				scrollContentNode.scrollLeft = rtl ? scrollContentNode.scrollWidth : 0;
 			};
 
-			utilEvent('scroll').addEventListener(containerNode, preventScroll);
+			utilEvent('scroll').addEventListener(scrollContentNode, preventScroll);
 
 			return () => {
 				// remove a function for preventing native scrolling by Spotlight
-				utilEvent('scroll').removeEventListener(containerNode, preventScroll);
+				utilEvent('scroll').removeEventListener(scrollContentNode, preventScroll);
 			};
 		}
 	}, [props, type]); // eslint-disable-line react-hooks/exhaustive-deps

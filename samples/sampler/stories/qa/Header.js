@@ -227,12 +227,14 @@ storiesOf('Header.Input', module)
 		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
+			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
 					title={text('title', Config, inputData.tallText)}
 					headerInput={input}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					showInput={showInput}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
@@ -244,12 +246,14 @@ storiesOf('Header.Input', module)
 		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
+			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
 					headerInput={input}
 					title={text('title', Config, inputData.longTitle)}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					showInput={showInput}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
