@@ -3,7 +3,6 @@
  *
  * @example
  * <ExpandablePicker
- *   joined
  *   title="Choose an option"
  *   width="medium"
  * >
@@ -129,19 +128,6 @@ const ExpandablePickerBase = kind({
 		 * @public
 		 */
 		incrementIcon: PropTypes.string,
-
-		/**
-		 * Allows the user to use the arrow keys to adjust the picker's value.
-		 *
-		 * Key presses are captured in the directions of the increment and decrement buttons but
-		 * others are unaffected. A non-joined Picker allows navigation in any direction, but
-		 * requires individual ENTER presses on the incrementer and decrementer buttons. Pointer
-		 * interaction is the same for both formats.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		joined: PropTypes.bool,
 
 		/**
 		 * Prevents any transition animation for the component.
@@ -330,7 +316,6 @@ const ExpandablePickerBase = kind({
 			disabled,
 			incrementAriaLabel,
 			incrementIcon,
-			joined,
 			noAnimation,
 			onChange,
 			onPick,
@@ -373,7 +358,6 @@ const ExpandablePickerBase = kind({
 					disabled={disabled}
 					incrementAriaLabel={incrementAriaLabel}
 					incrementIcon={incrementIcon}
-					joined={joined}
 					noAnimation={noAnimation}
 					onChange={onPick}
 					onSpotlightDisappear={onSpotlightDisappear}

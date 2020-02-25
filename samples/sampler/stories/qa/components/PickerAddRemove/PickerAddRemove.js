@@ -10,7 +10,6 @@ class PickerAddRemove extends React.Component {
 
 	static propTypes = {
 		disabled: PropTypes.bool,
-		joined: PropTypes.bool,
 		noAnimation: PropTypes.bool,
 		orientation: PropTypes.string,
 		width: PropTypes.string,
@@ -19,7 +18,6 @@ class PickerAddRemove extends React.Component {
 
 	static defaultProps = {
 		disabled: false,
-		joined: false,
 		noAnimation: false,
 		orientation: 'horizontal',
 		width: 'medium',

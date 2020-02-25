@@ -132,18 +132,6 @@ const RangePickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
-		 * Allows the user can use the arrow keys to adjust the picker's value.
-		 *
-		 * The user may no longer use those arrow keys to navigate while this control is focused.
-		 * A default control allows full navigation, but requires individual ENTER presses on the
-		 * incrementer and decrementer buttons. Pointer interaction is the same for both formats.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		joined: PropTypes.bool,
-
-		/**
 		 * Disables animation.
 		 *
 		 * By default, the picker will animate transitions between items, provided a `width` is

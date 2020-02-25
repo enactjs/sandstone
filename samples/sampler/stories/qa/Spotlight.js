@@ -546,7 +546,6 @@ storiesOf('Spotlight', module)
 											{Items}
 										</Picker>
 										<Picker
-											joined
 											onSpotlightDown={action('onSpotlightDown')}
 											onSpotlightLeft={action('onSpotlightLeft')}
 											onSpotlightRight={action('onSpotlightRight')}

@@ -324,7 +324,7 @@ describe('Picker Specs', () => {
 		() => {
 			const handleChange = jest.fn();
 			const picker = mount(
-				<Picker index={0}  max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0} />
+				<Picker index={0} max={1} min={-1} onChange={handleChange} orientation="horizontal" value={0} />
 			);
 
 			const expected = 0;

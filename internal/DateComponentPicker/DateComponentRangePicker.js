@@ -91,7 +91,6 @@ const DateComponentRangePickerBase = kind({
 				{...rest}
 				accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
 				data-webos-voice-labels-ext={voiceLabel}
-				joined
 				max={max}
 				min={min}
 				noAnimation={noAnimation}

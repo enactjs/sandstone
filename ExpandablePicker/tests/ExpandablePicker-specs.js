@@ -73,7 +73,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('Button').at(2);
+		const checkButton = expandablePicker.find('Button').last();
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -89,7 +89,7 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('Button').at(1);
+		const checkButton = expandablePicker.find('JoinedPickerButtonBase').at(1);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
@@ -105,26 +105,10 @@ describe('ExpandablePicker Specs', () => {
 			</ExpandablePicker>
 		);
 
-		const checkButton = expandablePicker.find('Button').at(0);
+		const checkButton = expandablePicker.find('JoinedPickerButtonBase').at(0);
 
 		const expected = label;
 		const actual = checkButton.prop('aria-label');
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should set "pickerAriaLabel" to joined picker', () => {
-		const label = 'custom joined picker aria-label';
-		const expandablePicker = mount(
-			<ExpandablePicker joined open pickerAriaLabel={label} title="Options">
-				{['Option one', 'Option two', 'Option three']}
-			</ExpandablePicker>
-		);
-
-		const joinedPicker = expandablePicker.find('Picker').at(1);
-
-		const expected = label;
-		const actual = joinedPicker.prop('aria-label');
 
 		expect(actual).toBe(expected);
 	});
@@ -139,7 +123,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('Button').at(0).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('JoinedPickerButtonBase').at(0).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -154,7 +138,7 @@ describe('ExpandablePicker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = expandablePicker.find('Button').at(1).prop('data-webos-voice-disabled');
+		const actual = expandablePicker.find('JoinedPickerButtonBase').at(1).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});

@@ -18,8 +18,7 @@ describe('TimePicker', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should emit an onChange event when changing a component picker',
+	test.only('should emit an onChange event when changing a component picker',
 		() => {
 			const handleChange = jest.fn();
 			const subject = mount(

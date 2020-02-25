@@ -26,6 +26,7 @@ describe('DatePicker', () => {
 				<DatePicker onChange={handleChange} open title="Date" value={new Date(2000, 6, 15)} locale="en-US" />
 			);
 
+			console.log(subject.debug())
 			const base = subject.find('DateComponentRangePicker').first();
 
 			base.prop('onChange')({value: 0});
