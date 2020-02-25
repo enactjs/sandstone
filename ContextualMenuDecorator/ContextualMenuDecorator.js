@@ -1,52 +1,18 @@
+import {handle, forward, forProp} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
+import Repeater from '@enact/ui/Repeater';
+import Toggleable from '@enact/ui/Toggleable';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
+import Item from '../Item';
 import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
-
-/**
- * A popup component used by
- * [ContextualMenuDecorator]{@link sandstone/ContextualMenuDecorator.ContextualMenuDecorator} to
- * wrap its
- * [popupComponent]{@link sandstone/ContextualMenuDecorator.ContextualMenuDecorator.popupComponent}.
- *
- * `ContextualMenuPopup` is usually not used directly but is made available for unique application use
- * cases.
- *
- * @class ContextualMenuPopup
- * @memberof sandstone/ContextualMenuPopupDecorator
- * @ui
- * @private
- */
-const ContextualMenuPopup = hoc((config, Wrapped) => {
-	return kind({
-		name: 'ContextualMenuPopup',
-
-		styles: {
-			css,
-			className: 'contextualMenu'
-		},
-
-		computed: {
-			popupClassName: ({popupClassName, styler}) => styler.append('popup', popupClassName)
-		},
-
-		render: (props) => {
-			return <Wrapped {...props} />;
-		}
-	});
-});
-
-const ContextualMenuPopupDecorator = compose(
-	Skinnable,
-	ContextualMenuPopup
-);
 
 /**
  * Default config for {@link sandstone/ContextualMenuDecorator.ContextualMenuDecorator}
@@ -79,35 +45,20 @@ const defaultConfig = {
 	openProp: 'selected'
 };
 
-const ContextualMenuDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const Component = ContextualMenuPopupDecorator(
-		ContextualPopupDecorator({...config, noArrow: true}, Wrapped)
+const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
+	// we might not need Skinnable at all here. If we want to skin the popup and it's defined as a
+	// private component in this module, we can wrap it with skinnable and style it as needed there.
+	const Component = Skinnable(
+		ContextualPopupDecorator(
+			{...config, noArrow: true},
+			Wrapped
+		)
 	);
 
-	return class extends React.Component {
-		static displayName = 'ContextualMenuDecorator';
+	return kind({
+		name: 'ContextualMenuDecorator',
 
-		static propTypes = /** @lends sandstone/ContextualMenuDecorator.ContextualMenuDecorator.prototype */ {
-			/**
-			 * The component rendered within the
-			 * [ContextualMenuPopup]{@link sandstone/ContextualMenuDecorator.ContextualMenuPopup}.
-			 *
-			 * @type {Component}
-			 * @required
-			 * @public
-			 */
-			popupComponent: EnactPropTypes.component.isRequired,
-
-			/**
-			 * Limits the range of voice control to the popup.
-			 *
-			 * @memberof sandstone/ContextualMenuDecorator.ContextualMenuDecorator.prototype
-			 * @type {Boolean}
-			 * @default true
-			 * @public
-			 */
-			'data-webos-voice-exclusive': PropTypes.bool,
-
+		propTypes: /** @lends sandstone/ContextualMenuDecorator.ContextualMenuDecorator.prototype */ {
 			/**
 			 * Direction of popup with respect to the wrapped component.
 			 *
@@ -118,14 +69,23 @@ const ContextualMenuDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 			/**
-			 * Disables closing the popup when the user presses the cancel key or taps outside the
-			 * popup.
+			 * The items to be displayed in the `ContextualMenuDecorator` when `open`.
 			 *
-			 * @type {Boolean}
-			 * @default false
+			 * Takes either an array of strings or an array of objects. When strings, the values will be
+			 * used in the generated components as the readable text. When objects, the properties will
+			 * be passed onto an `Item` component and `children` as well as a unique `key` property are
+			 * required.
+			 *
+			 * @type {String[]|Array.<{key: (Number|String), children: (String|Component)}>}
 			 * @public
 			 */
-			noAutoDismiss: PropTypes.bool,
+			menuItems: PropTypes.oneOfType([
+				PropTypes.arrayOf(PropTypes.string),
+				PropTypes.arrayOf(PropTypes.shape({
+					children: EnactPropTypes.renderable.isRequired,
+					key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+				}))
+			]),
 
 			/**
 			 * Called when the user has attempted to close the popup.
@@ -148,15 +108,6 @@ const ContextualMenuDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			onOpen: PropTypes.func,
 
 			/**
-			 * Displays the contextual menu popup.
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
-			open: PropTypes.bool,
-
-			/**
 			 * CSS class name to pass to the
 			 * [ContextualMenuPopup]{@link sandstone/ContextualMenuDecorator.ContextualMenuPopup}.
 			 *
@@ -173,93 +124,58 @@ const ContextualMenuDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Object}
 			 * @public
 			 */
-			popupProps: PropTypes.object,
+			popupProps: PropTypes.object
+		},
 
-			/**
-			 * The container ID to use with Spotlight.
-			 *
-			 * The spotlight container for the popup isn't created until it is open. To configure
-			 * the container using `Spotlight.set()`, handle the `onOpen` event which is fired after
-			 * the popup has been created and opened.
-			 *
-			 * @type {String}
-			 * @public
-			 */
-			popupSpotlightId: PropTypes.string,
+		defaultProps: {
+			direction: 'below'
+		},
 
-			/**
-			 * Indicates the content's text direction is right-to-left.
-			 *
-			 * @type {Boolean}
-			 * @private
-			 */
-			rtl: PropTypes.bool,
+		handlers: {
+			onOpen: handle(
+				forward('onClick'),
+				forProp('open', false),
+				forward('onOpen')
+			)
+		},
 
-			/**
-			 * Registers the ContextualMenuDecorator component with an [ApiDecorator]
-			 * {@link core/internal/ApiDecorator.ApiDecorator}.
-			 *
-			 * @type {Function}
-			 * @private
-			 */
-			setApiProvider: PropTypes.func,
+		styles: {
+			css
+		},
 
-			/**
-			 * Shows the close button.
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
-			showCloseButton: PropTypes.bool,
+		computed: {
+			// expect we'll be able to drop this when we add the private popupComponent
+			// implementation with the Repeater for the items since the popup class could be set
+			// on the component by itself
+			popupClassName: ({popupClassName, styler}) => styler.join(
+				'popup',
+				'container',
+				popupClassName
+			),
+			popupProps: ({menuItems, popupProps}) => ({children: menuItems, childComponent: Item, component: 'div', ...popupProps})
+		},
 
-			/**
-			 * The current skin for this component.
-			 *
-			 * When `noSkin` is set on the config object, `skin` will only be applied to the
-			 * [ContextualMenuPopup]{@link sandstone/ContextualMenuDecorator.ContextualMenuPopup} and not
-			 * to the popup's activator component.
-			 *
-			 * @see {@link sandstone/Skinnable.Skinnable.skin}
-			 * @type {String}
-			 * @public
-			 */
-			skin: PropTypes.string,
+		render: ({onOpen, popupProps, ...rest}) => {
+			delete rest.menuItems;
+			delete rest.onOpen;
 
-			/**
-			 * Restricts or prioritizes spotlight navigation.
-			 *
-			 * Allowed values are:
-			 * * `'none'` - Spotlight can move freely within and beyond the popup
-			 * * `'self-first'` - Spotlight should prefer components within the popup over
-			 *   components beyond the popup, or
-			 * * `'self-only'` - Spotlight can only be set within the popup
-			 *
-			 * @type {String}
-			 * @default 'self-first'
-			 * @public
-			 */
-			spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
+			return <Component popupComponent={Repeater} popupProps={popupProps} {...rest} onClick={onOpen} />;
 		}
-
-		static defaultProps = {
-			'data-webos-voice-exclusive': true,
-			direction: 'below',
-			noAutoDismiss: false,
-			open: false,
-			showCloseButton: false,
-			spotlightRestrict: 'self-first'
-		}
-
-		render () {
-			return <Component {...this.props} />;
-		}
-	};
+	});
 });
+
+const ContextualMenuDecorator = compose(
+	Toggleable({
+		activate: 'onOpen',
+		deactivate: 'onClose',
+		prop: 'open',
+		toggle: null
+	}),
+	ContextualMenuDecoratorBase
+);
 
 export default ContextualMenuDecorator;
 export {
-	ContextualMenuDecorator,
-	ContextualMenuPopup,
-	ContextualMenuPopupDecorator
+	ContextualMenuDecoratorBase,
+	ContextualMenuDecorator
 };
