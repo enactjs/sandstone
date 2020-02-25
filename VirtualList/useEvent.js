@@ -226,14 +226,14 @@ const useEventKey = (props, instances, context) => {
 };
 
 const useEventFocus = (props, instances) => {
-	const {uiChildAdapter} = instances;
+	const {scrollContentHandle} = instances;
 
 	useEffect(() => {
 		function handleFocus (ev) {
 			// only for VirtualGridList
 			// To make the focused item cover other near items
 			// We need to find out the general solution for multiple spottable inside of one item
-			if (ev.target && uiChildAdapter.current.isItemSized) {
+			if (ev.target && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', 1);
 			}
 		}
@@ -241,7 +241,7 @@ const useEventFocus = (props, instances) => {
 		function handleBlur (ev) {
 			// only for VirtualGridList
 			// To make the blurred item normal
-			if (ev.target && uiChildAdapter.current.isItemSized) {
+			if (ev.target && scrollContentHandle.current.isItemSized) {
 				ev.target.parentNode.style.setProperty('z-index', null);
 			}
 		}
