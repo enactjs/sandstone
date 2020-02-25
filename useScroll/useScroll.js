@@ -9,8 +9,7 @@ import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle
 import {assignPropertiesOf} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import PropTypes from 'prop-types';
-import React, {Component, useContext, useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
