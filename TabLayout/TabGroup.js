@@ -23,13 +23,11 @@ const TabBase = kind({
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, selected, ...rest}) => {
-		delete rest.selected;
+	render: ({children, icon, ...rest}) => {
 
 		return (
 			<Item
 				{...rest}
-				selected={selected}
 			>
 				{icon ? (
 					<Icon slot="slotBefore">{icon}</Icon>
