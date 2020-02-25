@@ -21,10 +21,9 @@ describe('TabGroup specs', () => {
 	});
 
 
-	it('should only have same amount of icon item when collapsed', () => {
+	it('should only have 3 item tabs when 3 tabs were specified', () => {
 		const subject = mount(
 			<TabGroup
-				collapsed
 				tabs={[
 					{children: 'Home', icon: 'home'},
 					{children: 'Button', icon: 'image'},

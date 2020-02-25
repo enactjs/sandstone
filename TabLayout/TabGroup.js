@@ -19,7 +19,6 @@ const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
-		collapsed: PropTypes.bool,
 		icon: PropTypes.string,
 		selected: PropTypes.bool
 	},
@@ -74,7 +73,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({collapsed, noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
+	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
 		delete rest.tabs;
 
 		return (
@@ -83,13 +82,8 @@ const TabGroupBase = kind({
 					<Item><slotBefore><Icon>list</Icon></slotBefore></Item> :
 					<Group
 						{...rest}
-						align="start"
 						childComponent={TabBase}
 						component="div"
-						itemProps={{
-							collapsed: orientation === 'vertical' ? collapsed : false,
-							orientation
-						}}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
@@ -101,7 +95,7 @@ const TabGroupBase = kind({
 });
 
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator
+	SpotlightContainerDecorator({enterTo: 'last-focused'})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is
