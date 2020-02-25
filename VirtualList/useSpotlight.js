@@ -1,5 +1,5 @@
 import Spotlight from '@enact/spotlight';
-import utilDOM from '@enact/ui/Scrollable/utilDOM';
+import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
 const useSpotlightConfig = (props, instances) => {

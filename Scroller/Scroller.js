@@ -13,7 +13,7 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
- * @exports ScrollerBase
+ * @exports ScrollerBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -22,8 +22,8 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {getRect} from '@enact/spotlight/src/utils';
 import {ResizeContext} from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
-import utilDOM from '@enact/ui/Scrollable/utilDOM';
-import {ScrollerBase as UiScrollerBase} from '@enact/ui/Scroller';
+import utilDOM from '@enact/ui/useScroll/utilDOM';
+import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
 import React, {Component, useCallback, useEffect} from 'react';
 
@@ -33,6 +33,8 @@ import Skinnable from '../Skinnable';
 
 import {useEventKey} from './useEvent';
 
+import css from './Scroller.module.less';
+
 const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
 /**
  * A Sandstone-styled base component for [Scroller]{@link sandstone/Scroller.Scroller}.
@@ -40,16 +42,16 @@ const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
  * [SpotlightContainerDecorator]{@link spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator}
  * and the Scrollable version, [Scroller]{@link sandstone/Scroller.Scroller}.
  *
- * @class ScrollerBase
+ * @class ScrollerBasic
  * @memberof sandstone/Scroller
- * @extends ui/Scroller.ScrollerBase
+ * @extends ui/Scroller.ScrollerBasic
  * @ui
  * @public
  */
-class ScrollerBase extends Component {
-	static displayName = 'ScrollerBase'
+class ScrollerBasic extends Component {
+	static displayName = 'ScrollerBasic'
 
-	static propTypes = /** @lends sandstone/Scroller.ScrollerBase.prototype */ {
+	static propTypes = /** @lends sandstone/Scroller.ScrollerBasic.prototype */ {
 		/**
 		 * Passes the instance of [Scroller]{@link ui/Scroller.Scroller}.
 		 *
@@ -346,11 +348,18 @@ const useSpottableScroller = (props) => {
 
 	const propsObject = Object.assign({}, props);
 
+	delete propsObject.children;
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.onUpdate;
 	delete propsObject.setChildAdapter;
 	delete propsObject.spotlightId;
 	delete propsObject.uiScrollAdapter;
+
+	propsObject.children = (
+		<div className={css.contentWrapper}>
+			{props.children}
+		</div>
+	);
 
 	return propsObject;
 };
@@ -360,7 +369,7 @@ const useSpottableScroller = (props) => {
  * not move focus to the scrollbar controls.
  *
  * @name focusableScrollbar
- * @memberof sandstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBasic.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -374,7 +383,7 @@ const useSpottableScroller = (props) => {
  * `Panel`.
  *
  * @name id
- * @memberof sandstone/Scroller.ScrollerBase.prototype
+ * @memberof sandstone/Scroller.ScrollerBasic.prototype
  * @type {String}
  * @public
  */
@@ -389,7 +398,7 @@ const useSpottableScroller = (props) => {
  *
  * @class Scroller
  * @memberof sandstone/Scroller
- * @extends sandstone/Scroller.ScrollerBase
+ * @extends sandstone/Scroller.ScrollerBasic
  * @ui
  * @public
  */
@@ -419,10 +428,10 @@ let Scroller = (props) => {
 			<div {...scrollContainerProps}>
 				<div {...innerScrollContainerProps}>
 					<ChildWrapper {...childWrapperProps}>
-						<UiScrollerBase {...uiChildProps} />
+						<UiScrollerBasic {...uiChildProps} />
 					</ChildWrapper>
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				</div>
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
 		</ResizeContext.Provider>
@@ -493,5 +502,5 @@ Scroller = Skinnable(
 export default Scroller;
 export {
 	Scroller,
-	ScrollerBase
+	ScrollerBasic
 };

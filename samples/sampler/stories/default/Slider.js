@@ -1,6 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
-import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -22,8 +22,7 @@ storiesOf('Sandstone', module)
 			// tooltip is first so it appears at the top of the tab. the rest are alphabetical
 			const tooltip = boolean('tooltip', SliderTooltipConfig);
 			const percent = boolean('percent', SliderTooltipConfig);
-			const position = select('position', ['', 'above', 'above left', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below right', 'below before', 'below after'], SliderTooltipConfig, '');
-			const side = nullify(select('side (Deprecated)', ['', 'after', 'before', 'left', 'right'], SliderTooltipConfig, ''));
+			const position = select('position', ['', 'above', 'above left', 'above center', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below center', 'below right', 'below before', 'below after'], SliderTooltipConfig, '');
 
 			return (
 				<Slider
@@ -43,7 +42,6 @@ storiesOf('Sandstone', module)
 						<SliderTooltip
 							percent={percent}
 							position={position}
-							side={side}
 						/>
 					) : null}
 				</Slider>
