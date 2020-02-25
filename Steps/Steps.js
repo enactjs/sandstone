@@ -167,6 +167,7 @@ const StepsBase = kind({
 		pastIcon: 'check',
 		currentIcon: 'numbers',
 		futureIcon: 'numbers',
+		size: 'small',
 		skipIcon: 'minus',
 		total: 2
 	},
