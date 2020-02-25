@@ -34,7 +34,7 @@ storiesOf('Sandstone', module)
 		},
 		{
 			info: {
-				text: 'Explain operation of action'
+				text: 'Explains the operation of an action'
 			}
 		}
 	);

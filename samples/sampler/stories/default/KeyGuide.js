@@ -32,7 +32,7 @@ storiesOf('Sandstone', module)
 		},
 		{
 			info: {
-				text: 'Explain operation of key'
+				text: 'Explains the operation of remote keys'
 			}
 		}
 	);
