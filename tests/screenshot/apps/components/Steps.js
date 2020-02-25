@@ -33,7 +33,17 @@ const StepsTests = [
 	<Steps current={2} total={1} />,
 	<Steps current={2} skip={1} total={1} />,
 	<Steps current={2} skip={2} total={1} />,
-	<Steps current={2} skip={[1, 2]} total={1} />
-	//TODO: some icon related tests
+	<Steps current={2} skip={[1, 2]} total={1} />,
+	<Steps currentIcon="arrowlargeup" total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" total={10} />,
+	<Steps currentIcon="arrowlargeup" futureIcon="arrowlargeright" total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" futureIcon="arrowlargeright" total={10} />,
+	<Steps currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" total={10} />,
+	<Steps currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" skip={[1, 5, 10]} total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" skip={[1, 5, 10]} total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" skip={[1, 5, 10]} skipIcon="numbers" total={10} />,
+	<Steps currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" skip={[1, 5, 10]} skipIcon="closex" total={10} />,
+	<Steps current={3} currentIcon="arrowlargeup" futureIcon="arrowlargeright" pastIcon="arrowlargeleft" skip={[1, 5, 10]} skipIcon="closex" total={10} />
 ];
 export default StepsTests;
