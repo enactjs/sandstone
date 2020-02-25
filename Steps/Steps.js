@@ -200,7 +200,8 @@ const StepsBase = kind({
 				}
 
 				if (skipStep && !present) {
-					children = skipIcon;
+					numbers = (skipIcon === 'numbers');
+					children = numbers ? stepNum.toString() : skipIcon;
 				}
 
 				return {
