@@ -65,6 +65,8 @@
 		}
 
 		.content {
+			display: flex;
+			align-items: center;
 			width: @sand-alert-overlay-content-width;
 			margin-right: @sand-alert-overlay-content-margin-right;
 			margin-left: @sand-alert-overlay-content-margin-left;
@@ -113,6 +115,7 @@
 	.applySkins({
 		&.overlay {
 			background-color: @sand-alert-overlay-bg-color;
+			box-shadow: 0 40px 24px @sand-alert-overlay-box-shadow-color;
 			color: @sand-alert-overlay-text-color;
 		}
 
