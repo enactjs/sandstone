@@ -12,7 +12,7 @@ import SharedStateDecorator, {SharedState} from '../internal/SharedStateDecorato
 
 import css from './Panels.module.less';
 
-const PanelTypeContext = React.createContext('basic');
+const PanelTypeContext = React.createContext(null);
 
 /**
  * The container for a set of Panels
@@ -72,8 +72,7 @@ const ViewportBase = class extends React.Component {
 
 	static defaultProps = {
 		index: 0,
-		noAnimation: false,
-		type: 'basic'
+		noAnimation: false
 	}
 
 	constructor () {

@@ -12,7 +12,7 @@ const OptionPanelsDecorator = compose(
 	PopupDecorator({
 		className: 'panels option',
 		panelArranger: BasicArranger,
-		panelType: 'narrow'
+		panelType: 'option'
 	})
 );
 
