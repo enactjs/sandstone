@@ -3,6 +3,7 @@ import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import Slottable from '@enact/ui/Slottable';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -167,6 +168,15 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		header: ({header}, type) => (
+			// If this is a OptionPanels Panel, automatically add the "compact" type to the incoming Header component.
+			type === 'option' ?
+				<ComponentOverride
+					component={header}
+					type="compact"
+				/> :
+				header
+		),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
