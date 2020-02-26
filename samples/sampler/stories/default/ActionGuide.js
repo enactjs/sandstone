@@ -1,6 +1,6 @@
 import {text, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import ActionGuide from '@enact/sandstone/ActionGuide';
+import ActionGuide, {ActionGuideBase} from '@enact/sandstone/ActionGuide';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -11,8 +11,8 @@ import docs from '../../images/icon-enact-docs.png';
 import factory from '../../images/icon-enact-factory.svg';
 import logo from '../../images/icon-enact-logo.svg';
 
-const Config = mergeComponentMetadata('ActionGuide', ActionGuide);
 ActionGuide.displayName = 'ActionGuide';
+const Config = mergeComponentMetadata('ActionGuide', ActionGuideBase, ActionGuide);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -34,7 +34,7 @@ storiesOf('Sandstone', module)
 		},
 		{
 			info: {
-				text: 'Explain operation of action'
+				text: 'Explains the operation of an action'
 			}
 		}
 	);

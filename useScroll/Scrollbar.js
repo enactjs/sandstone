@@ -21,11 +21,9 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
 	const scrollbarRef = useRef();
 	// render
-	const {cbAlertThumb, className, clientSize, vertical, ...rest} = props;
+	const {className, clientSize, vertical, ...rest} = props;
 
 	delete rest.corner;
-	delete rest.focusableScrollbar;
-	delete rest.rtl;
 
 	useImperativeHandle(ref, () => {
 		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
@@ -48,14 +46,13 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			clientSize={clientSize}
 			className={className}
 			css={componentCss}
+			minThumbSize={48}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
 				return (
 					<ScrollThumb
 						{...rest}
-						cbAlertThumb={cbAlertThumb}
-						key="thumb"
 						ref={thumbRef}
 						vertical={vertical}
 					/>
@@ -69,14 +66,6 @@ ScrollbarBase.displayName = 'ScrollbarBase';
 
 ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
 	/**
-	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
-	 *
-	 * @type {Function}
-	 * @private
-	 */
-	cbAlertThumb: PropTypes.func,
-
-	/**
 	 * Client size of the container; valid values are an object that has `clientWidth` and `clientHeight`.
 	 *
 	 * @type {Object}
@@ -88,15 +77,6 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 		clientHeight: PropTypes.number.isRequired,
 		clientWidth: PropTypes.number.isRequired
 	}),
-
-	/**
-	 * `true` if rtl, `false` if ltr.
-	 * Normally, [Scrollable]{@link ui/Scrollable.Scrollable} should set this value.
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	rtl: PropTypes.bool,
 
 	/**
 	 * Registers the Scrollbar component with an
