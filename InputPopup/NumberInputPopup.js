@@ -14,12 +14,13 @@ import Layout from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Changeable from '@enact/ui/Changeable';
-import Button from '@enact/sandstone/Button';
-import Icon from '@enact/sandstone/Icon';
-import {Marquee} from '@enact/sandstone/Marquee';
-import Popup from '@enact/sandstone/Popup';
-import Skinnable from '@enact/sandstone/Skinnable';
 import Spottable from '@enact/spotlight/Spottable';
+
+import Button from '../Button';
+import Icon from '../Icon';
+import {Marquee} from '../Marquee';
+import Popup from '../Popup';
+import Skinnable from '../Skinnable';
 
 import {convertToPasswordFormat} from './util';
 import componentCss from './NumberInputPopup.module.less';

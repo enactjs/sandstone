@@ -15,12 +15,13 @@ import {handle, forKey, forKeyCode, forward} from '@enact/core/handle';
 import Toggleable from '@enact/ui/Toggleable';
 import Pure from '@enact/ui/internal/Pure';
 import Changeable from '@enact/ui/Changeable';
-import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
-import {Marquee} from '@enact/sandstone/Marquee';
-import Popup from '@enact/sandstone/Popup';
-import Skinnable from '@enact/sandstone/Skinnable';
 import Spotlight from '@enact/spotlight';
+
+import Button from '../Button';
+import Input from '../Input';
+import {Marquee} from '../Marquee';
+import Popup from '../Popup';
+import Skinnable from '../Skinnable';
 
 import {NumberInputPopup, NumberInputPopupBase} from './NumberInputPopup';
 import {convertToPasswordFormat} from './util';
