@@ -162,7 +162,7 @@ class VirtualListCore extends Component {
 		dataSize: 0,
 		focusableScrollbar: false,
 		pageScroll: false,
-		scrollMode: 'translate',
+		scrollMode: 'native',
 		spacing: 0,
 		wrap: false
 	}

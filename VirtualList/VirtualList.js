@@ -390,7 +390,7 @@ VirtualGridList.defaultProps = {
 		wheel: true
 	},
 	role: 'list',
-	scrollMode: 'translate',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };
