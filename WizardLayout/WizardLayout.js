@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {Cell, Column} from '@enact/ui/Layout';
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import {SlideLeftArranger, ViewManager} from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
@@ -8,20 +8,15 @@ import React from 'react';
 
 import Button from '../Button';
 import Steps from '../Steps';
-
-import {ActivityArranger} from '../Panels/Arrangers';
-import BreadcrumbDecorator from '../Panels/BreadcrumbDecorator';
-import Header from '../Panels/Header';
+import {Header} from '../Panels';
 
 /**
- * A Panel is the standard view container used inside a [WizardLayout]{@link sandstone/Panels.WizardLayout} view
- * manager instance.
+ * A WizardLayout that has steps with corresponding views. Required to have [Panel]{@link sandstone/Panels} as children.
  *
- * [WizardLayout]{@link sandstone/Panels.WizardLayout} will typically contain several instances of these and
- * transition between them.
+ * [WizardLayout]{@link sandstone/WizardLayout} transitions between [Panel]{@link sandstone/Panels} with next button and previous button.
  *
  * @class WizardLayout
- * @memberof sandstone/Panels
+ * @memberof sandstone/WizardLayout
  * @ui
  * @public
  */
@@ -29,7 +24,7 @@ const WizardLayoutBase = kind({
 
 	name: 'WizardLayout',
 
-	propTypes: /** @lends sandstone/Panels.WizardLayout.prototype */ {
+	propTypes: /** @lends sandstone/WizardLayout.WizardLayout.prototype */ {
 		/**
 		 * List of titles to display. Could be an array of strings or array of objects;
 		 * each object in the array of titles should include a `title` property and, optionally, an
@@ -42,6 +37,27 @@ const WizardLayoutBase = kind({
 		titles: PropTypes.array.isRequired,
 
 		/**
+		 * Buttons to be included under the component.
+		 *
+		 * Typically, up to 2 buttons are used.
+		 *
+		 * @type {Element|Element[]}
+		 * @public
+		 */
+		buttons: PropTypes.oneOfType([
+			PropTypes.element,
+			PropTypes.arrayOf(PropTypes.element)
+		]),
+
+		/**
+		 * The footer for WizardLayout.
+		 *
+		 * @type {node}
+		 * @public
+		 */
+		footer: PropTypes.node,
+
+		/**
 		 * The currently selected step.
 		 *
 		 * @type {Number}
@@ -51,13 +67,29 @@ const WizardLayoutBase = kind({
 		index: PropTypes.number,
 
 		/**
+		 * The text for next button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		nextButtonText: PropTypes.string,
+
+		/**
 		 * Called when the index value is changed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
 		 * @public
 		 */
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
+
+		/**
+		 * The text for previous button.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		prevButtonText: PropTypes.string
 	},
 
 	defaultProps: {
@@ -86,24 +118,39 @@ const WizardLayoutBase = kind({
 	},
 
 	computed: {
+		buttons: ({buttons}) => {
+			if (buttons) {
+				return React.Children.map(buttons, (button, index) => (
+					<Cell key={`button${index}`} shrink>
+						{button}
+					</Cell>
+				));
+			} else {
+				return null;
+			}
+		},
 		subtitle: ({titles, index}) => titles[index] ? titles[index].subtitle : null,
 		title: ({titles, index}) => typeof titles[index] === 'object' && titles[index] !== null ? titles[index].title : titles[index]
 	},
 
-	render: ({children, index, onIncrementStep, onDecrementStep, subtitle, title, titles, ...rest}) => {
+	render: ({buttons, children, footer, index, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, subtitle, title, titles, ...rest}) => {
 		return (
 			<Column {...rest}>
 				<Cell component={Header} centered shrink subtitle={subtitle} title={title} type="wizard">
 					<Steps current={index + 1} slot="slotAbove" total={titles.length} />
-					{index < (titles.length - 1) ? (
-						<Button icon="arrowlargeright" onClick={onIncrementStep} slot="slotAfter" />
-					) : null}
-					{index > 0 ? (
-						<Button icon="arrowlargeleft" onClick={onDecrementStep} slot="slotBefore" />
-					) : null}
+					<Button disabled={index === (titles.length - 1)} icon="arrowlargeright" onClick={onIncrementStep} slot="slotAfter">{nextButtonText}</Button>
+					<Button disabled={index === 0} icon="arrowlargeleft" onClick={onDecrementStep} slot="slotBefore">{prevButtonText}</Button>
 				</Cell>
 				<Cell component={ViewManager} arranger={SlideLeftArranger} index={index}>
 					{children}
+				</Cell>
+				<Cell shrink>
+					<Row align="center center">
+						{buttons}
+					</Row>
+					<Row align="center center">
+						<Cell shrink>{footer}</Cell>
+					</Row>
 				</Cell>
 			</Column>
 		);

@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-// import {select} from '@enact/storybook-utils/addons/knobs';
+import {text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -13,8 +13,6 @@ import {WizardLayout} from '@enact/sandstone/WizardLayout';
 
 WizardLayout.displayName = 'WizardLayout';
 
-// `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
-
 storiesOf('Sandstone', module)
 	.add(
 		'WizardLayout',
@@ -22,8 +20,8 @@ storiesOf('Sandstone', module)
 			<Panel>
 				<WizardLayout
 					onSelect={action('onSelect')}
-					// leaving this knob out for now until we build out horizontal tabs
-					// orientation={select('orientation', ['vertical', 'horizontal'], WizardLayout, 'vertical')}
+					buttons={[(<Button>Yes</Button>), (<Button>No</Button>)]}
+					footer={text('footer', WizardLayout, 'Footer area')}
 					titles={[
 						{title: 'Step 1', subtitle: 'Step 1 subtitle'},
 						{title: 'Step 2', subtitle: 'Step 2 subtitle'},
