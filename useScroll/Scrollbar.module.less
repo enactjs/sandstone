@@ -1,8 +1,8 @@
 @import "../styles/skin.less";
-@import '../styles/variables.less';
+@import "../styles/variables.less";
 
 .scrollbar {
-	background: inherit;
+	background: none;
 	display: flex;
 	border-color: transparent;
 	visibility: visible;
@@ -26,19 +26,5 @@
 			transform: scaleX(-1);
 		}
 	}
-
-	/* ScrollThumb */
-	.thumbShown {
-		opacity: 1;
-	}
 }
 
-.applySkins({
-	.scrollbar {
-		.thumbShown {
-			&::before {
-				background-color: @sand-scroll-scrollthumb-bg-color;
-			}
-		}
-	}
-});

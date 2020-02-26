@@ -157,6 +157,8 @@
 @sand-item-focus-text-color: @sand-spotlight-text-color;
 @sand-item-focus-bg-color: @sand-item-bg-color;
 @sand-item-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-item-selected-text-color: @sand-item-focus-text-color;
+@sand-item-selected-background-color: fade(@sand-white, 30%);
 
 // IconButton
 // ---------------------------------------
@@ -205,6 +207,7 @@
 @sand-panels-spot-fg-color: @sand-accent;
 @sand-panels-spot-bg-color: @sand-dark-gray;
 @sand-panels-handle-bg-color: @sand-dark-gray;
+@sand-panels-optionpanels-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
 
 // Picker
 // ---------------------------------------
@@ -243,13 +246,18 @@
 @sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-focus-indicator-bg-color;
 @sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-focus-indicator-border-color;
 
-// Scrollable
+// Scrollbar
 // ---------------------------------------
-@sand-scroll-overscroll-color: @sand-light-gray;
+@sand-scrollthumb-bg-color: #7E848C;
+@sand-scrolltrack-bg-color: #41454B;
+@sand-scrollthumb-focus-bg-color: @sand-light-gray;
+@sand-scrollthumb-focus-direction-indicator-color: #9A9A9A;
+@sand-scrollthumb-focus-box-shadow-color: fade(@sand-black, 30%);
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-scrollthumb-bg-color: fade(#666, 75%);
+@sand-scroll-focusablebody-focus-bg-color: fade(@sand-white, 10%);
+@sand-scroll-overscroll-color: @sand-light-gray;
 
 // Slider
 // ---------------------------------------

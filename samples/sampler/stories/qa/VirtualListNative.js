@@ -39,7 +39,7 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-storiesOf('VirtualList with Native type', module)
+storiesOf('VirtualList with native scrollMode', module)
 	.add(
 		'with extra items',
 		() => (
@@ -48,7 +48,6 @@ storiesOf('VirtualList with Native type', module)
 					component={VirtualList}
 					dataSize={updateDataSize(number('dataSize', Config, 10))}
 					direction="vertical"
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					// eslint-disable-next-line react/jsx-no-bind
 					itemRenderer={({index, ...rest}) => {
@@ -61,7 +60,6 @@ storiesOf('VirtualList with Native type', module)
 					onScrollStop={action('onScrollStop')}
 					spacing={ri.scale(number('spacing', Config, 40))}
 					spotlightDisabled={boolean('spotlightDisabled(for all items)', Config, false)}
-					type="Native"
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 				/>

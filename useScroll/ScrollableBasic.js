@@ -72,14 +72,17 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 		direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
 
 		/**
-		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
-		 * not move focus to the scrollbar controls.
+		 * Allows 5-way navigation to the scroll thumb.
+		 * By default, 5-way will not move focus to the scroll thumb.
+		 * If `true`, the scroll thumb will get focus by directional keys.
+		 * If `'byEnter'`, scroll body will get focus first by directional keys,
+		 * then the scroll thumb will get focus by enter key pressed on scroll body.
 		 *
-		 * @type {Boolean}
+		 * @type {Boolean|String}
 		 * @default false
 		 * @public
 		 */
-		focusableScrollbar: PropTypes.bool,
+		focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 		/**
 		 * A unique identifier for the scrollable component.
@@ -109,13 +112,14 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			arrowKey: PropTypes.bool,
 			drag: PropTypes.bool,
 			pageKey: PropTypes.bool,
+			track: PropTypes.bool,
 			wheel: PropTypes.bool
 		}),
 
 		/*
 		 * TBD
 		 */
-		type: PropTypes.string
+		scrollMode: PropTypes.string
 	}
 
 	static defaultProps = {
@@ -125,9 +129,10 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			arrowKey: false,
 			drag: false,
 			pageKey: false,
+			track: false,
 			wheel: true
 		},
-		type: 'JS'
+		scrollMode: 'native'
 	}
 }
 

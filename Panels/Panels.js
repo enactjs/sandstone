@@ -60,7 +60,7 @@ const PanelsBase = kind({
 		childProps: PropTypes.object,
 
 		/**
-		 * [`Panels`]{@link sandstone/Panels.Panel} to be rendered
+		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public

@@ -58,15 +58,6 @@ class VirtualListCore extends Component {
 		 */
 		dataSize: PropTypes.number,
 
-		/**
-		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
-		 * not move focus to the scrollbar controls.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		focusableScrollbar: PropTypes.bool,
 
 		/**
 		 * Prop to check if horizontal Scrollbar exists or not.
@@ -120,6 +111,11 @@ class VirtualListCore extends Component {
 		rtl: PropTypes.bool,
 
 		/**
+		 * TBD
+		 */
+		scrollMode: PropTypes.string,
+
+		/**
 		 * Spacing between items.
 		 *
 		 * @type {Number}
@@ -135,11 +131,6 @@ class VirtualListCore extends Component {
 		 * @private
 		 */
 		spotlightId: PropTypes.string,
-
-		/**
-		 * TBD
-		 */
-		type: PropTypes.string,
 
 		/**
 		 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -160,10 +151,9 @@ class VirtualListCore extends Component {
 
 	static defaultProps = {
 		dataSize: 0,
-		focusableScrollbar: false,
 		pageScroll: false,
+		scrollMode: 'native',
 		spacing: 0,
-		type: 'JS',
 		wrap: false
 	}
 }
@@ -179,17 +169,6 @@ class VirtualListCore extends Component {
  * @private
  */
 const VirtualListBasic = VirtualListCore;
-
-/**
- * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
- * not move focus to the scrollbar controls.
- *
- * @name focusableScrollbar
- * @memberof sandstone/VirtualList.VirtualListBasic.prototype
- * @type {Boolean}
- * @default false
- * @private
- */
 
 /**
  * Unique identifier for the component.
