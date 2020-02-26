@@ -49,12 +49,12 @@ const ItemContent = kind({
 		}
 	},
 	// eslint-disable-next-line enact/prop-types
-	render: ({orientation, content, css, label, styler, ...rest}) => {
+	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
 		delete rest.labelPosition;
 
 		if (!label) {
 			return (
-				<Cell {...rest} component={Marquee} className={styler.append(css.content)}>
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
 					{content}
 				</Cell>
 			);
@@ -62,10 +62,10 @@ const ItemContent = kind({
 			return (
 				<Cell {...rest}>
 					<Layout orientation={orientation}>
-						<Cell component={Marquee} className={css.content} shrink>
+						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 							{content}
 						</Cell>
-						<Cell component={Marquee} className={css.label} shrink>
+						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
 							{label}
 						</Cell>
 					</Layout>
@@ -145,6 +145,14 @@ const ItemBase = kind({
 		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
 
 		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
 		 * Applies a selected style to the component
 		 *
 		 * @type {Boolean}
@@ -156,7 +164,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted after `children` and hidden using `autoHide`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
-		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -168,7 +176,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
-		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the right. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -190,7 +198,7 @@ const ItemBase = kind({
 		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, inline, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
+	render: ({children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -211,6 +219,7 @@ const ItemBase = kind({
 					content={children}
 					label={label}
 					labelPosition={labelPosition}
+					marqueeOn={marqueeOn}
 					shrink={inline}
 				/>
 				{slotAfter ? (

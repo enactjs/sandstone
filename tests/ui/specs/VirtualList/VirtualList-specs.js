@@ -6,7 +6,7 @@ describe('VirtualList', function () {
 
 	it('should meet initial conditions', function () {
 		Page.open();
-		expect(Page.buttonFocusableScrollbar.hasFocus(), 'focus').to.be.true();
+		expect(Page.buttonHideScrollbar.hasFocus(), 'focus').to.be.true();
 	});
 
 	describe('LTR locale', function () {

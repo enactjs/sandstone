@@ -1,0 +1,35 @@
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.keyGuide {
+    .position-start-end(auto, @sand-keyguide-position-right);
+
+    position: absolute;
+    width: @sand-keyguide-width;
+    bottom: @sand-keyguide-position-bottom;
+    padding: @sand-keyguide-padding;
+
+    .item {
+        .sand-font({
+            font-size: @sand-keyguide-font-size;
+        });
+        font-size: @sand-keyguide-font-size;
+
+        .icon {
+            margin: 0;
+        }
+
+        .slotBefore {
+            margin-inline-end: @sand-keyguide-icon-margin-right;
+        }
+    }
+
+    .applySkins({
+        background: @sand-keyguide-bg-color;
+
+        .item {
+            color: @sand-keyguide-item-color;
+        }
+    })
+}

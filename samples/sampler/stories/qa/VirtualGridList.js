@@ -2,19 +2,19 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
-import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList/VirtualListBase';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import React from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import Item from '@enact/sandstone/Item';
-import {VirtualGridList, VirtualListBase} from '@enact/sandstone/VirtualList';
+import {VirtualGridList, VirtualListBasic} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
+const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
 
 const
 	defaultDataSize = 1000,
@@ -143,7 +143,6 @@ class ButtonAndVirtualGridList extends React.Component {
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
 					direction="right"
-					showCloseButton
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
@@ -161,7 +160,6 @@ storiesOf('VirtualGridList', module)
 			<VirtualGridList
 				dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 				direction="horizontal"
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{

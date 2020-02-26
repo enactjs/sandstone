@@ -121,20 +121,22 @@
 
 // GridListImageItem
 // ---------------------------------------
-@sand-gridlist-item-selection-color: #404040;
-@sand-gridlist-item-color: @sand-body-text-color;
-@sand-gridlist-item-icon-bg-color: @sand-white;
-@sand-gridlist-item-icon-border-color: @sand-black;
-@sand-gridlist-item-selected-color: @sand-spotlight-text-color;
-@sand-gridlist-item-selected-bg-color: @sand-gridlist-item-selection-color;
-@sand-gridlist-item-selected-border-color: @sand-gridlist-item-selection-color;
-@sand-gridlist-item-selected-icon-border-color: @sand-accent;
-@sand-gridlist-item-selected-icon-color: @sand-accent;
-@sand-gridlist-item-spotlight-color: @sand-spotlight-text-color;
-@sand-gridlist-item-spotlight-bg-color: @sand-spotlight-border-color;
-@sand-gridlist-item-spotlight-border-color: @sand-spotlight-border-color;
-@sand-gridlist-item-spotlight-icon-color: transparent;
-@sand-gridlist-item-spotlight-selected-icon-color: @sand-gridlist-item-selected-icon-color;
+@sand-gridlistimageitem-overlay-icon-color: transparent;
+@sand-gridlistimageitem-overlay-icon-bg-color: transparent;
+@sand-gridlistimageitem-overlay-icon-border-color: @sand-light-gray;
+@sand-gridlistimageitem-caption-color: @sand-light-gray;
+@sand-gridlistimageitem-subcaption-color: @sand-gray;
+@sand-gridlistimageitem-focus-image-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-gridlistimageitem-focus-overlay-icon-color: @sand-gridlistimageitem-overlay-icon-color;
+@sand-gridlistimageitem-focus-caption-color: @sand-gridlistimageitem-caption-color;
+@sand-gridlistimageitem-focus-subcaption-color: @sand-gridlistimageitem-subcaption-color;
+@sand-gridlistimageitem-selected-overlay-icon-color: @sand-light-gray;
+@sand-gridlistimageitem-selected-image-border-color: fade(@sand-light-gray, 70%);
+@sand-gridlistimageitem-selected-caption-color: @sand-gridlistimageitem-caption-color;
+@sand-gridlistimageitem-selected-subcaption-color: @sand-gridlistimageitem-subcaption-color;
+@sand-gridlistimageitem-selected-focus-overlay-icon-color: @sand-gridlistimageitem-selected-overlay-icon-color;
+@sand-gridlistimageitem-selected-focus-caption-color: @sand-gridlistimageitem-caption-color;
+@sand-gridlistimageitem-selected-focus-subcaption-color: @sand-gridlistimageitem-subcaption-color;
 
 // Header
 // ---------------------------------------
@@ -155,6 +157,8 @@
 @sand-item-focus-text-color: @sand-spotlight-text-color;
 @sand-item-focus-bg-color: @sand-item-bg-color;
 @sand-item-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-item-selected-text-color: @sand-item-focus-text-color;
+@sand-item-selected-background-color: fade(@sand-white, 30%);
 
 // IconButton
 // ---------------------------------------
@@ -182,6 +186,11 @@
 @sand-input-decorator-active-bg-color: @sand-input-decorator-focus-bg-color;
 @sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
 
+// KeyGuide
+// ---------------------------------------
+@sand-keyguide-bg-color: fade(#373A41, 90%);
+@sand-keyguide-item-color: @sand-gray;
+
 // LabeledItem
 // ---------------------------------------
 @sand-labeled-item-label-color: inherit;
@@ -198,6 +207,7 @@
 @sand-panels-spot-fg-color: @sand-accent;
 @sand-panels-spot-bg-color: @sand-dark-gray;
 @sand-panels-handle-bg-color: @sand-dark-gray;
+@sand-panels-optionpanels-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
 
 // Picker
 // ---------------------------------------
@@ -209,17 +219,17 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: @sand-dark-gray;
-@sand-popup-bg-opacity: 95%;
-@sand-popup-close-text-color: @sand-white;
+@sand-popup-bg-color: @sand-bg-color;
 
 // Progress Bar
 // ---------------------------------------
-@sand-progress-bar-bg-color: fade(@sand-light-gray, 20%);
-@sand-progress-bar-loaded-bg-color: fade(@sand-light-gray, 20%);
-@sand-progress-bar-fill-bg-color: @sand-spotlight-bg-color;
-@sand-progress-bar-tooltip-text-color: @sand-white;
-@sand-progress-bar-highlighted-fill-bg-color: @sand-white;
+@sand-progressbar-bar-bg-color: #373A41;
+@sand-progressbar-load-bg-color: fade(@sand-light-gray, 30%);
+@sand-progressbar-fill-bg-color: @sand-spotlight-bg-color;
+@sand-progressbar-highlighted-fill-bg-color: @sand-white;
+@sand-progressbar-radial-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-progressbar-radial-fill-bg-color: @sand-progressbar-fill-bg-color;
+@sand-progressbar-radial-load-bg-color: #6c6e73; // The load color cannot be translucent in this implementation of radial.
 
 // RadioItem
 // ---------------------------------------
@@ -236,19 +246,24 @@
 @sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-focus-indicator-bg-color;
 @sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-focus-indicator-border-color;
 
-// Scrollable
+// Scrollbar
 // ---------------------------------------
-@sand-scroll-overscroll-color: @sand-light-gray;
+@sand-scrollthumb-bg-color: #7E848C;
+@sand-scrolltrack-bg-color: #41454B;
+@sand-scrollthumb-focus-bg-color: @sand-light-gray;
+@sand-scrollthumb-focus-direction-indicator-color: #9A9A9A;
+@sand-scrollthumb-focus-box-shadow-color: fade(@sand-black, 30%);
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-scrollthumb-bg-color: fade(#666, 75%);
+@sand-scroll-focusablebody-focus-bg-color: fade(@sand-white, 10%);
+@sand-scroll-overscroll-color: @sand-light-gray;
 
 // Slider
 // ---------------------------------------
-@sand-slider-bar-bg-color: @sand-progress-bar-bg-color;
-@sand-slider-fill-bg-color: @sand-progress-bar-fill-bg-color;
-@sand-slider-load-bg-color: @sand-progress-bar-loaded-bg-color;
+@sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
+@sand-slider-fill-bg-color: @sand-progressbar-fill-bg-color;
+@sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
 @sand-slider-knob-bg-color: @sand-white;
 @sand-slider-knob-border-color: transparent;
 @sand-slider-focus-bar-bg-color: @sand-slider-bar-bg-color;
