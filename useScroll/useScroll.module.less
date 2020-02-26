@@ -8,7 +8,6 @@
 	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
 
 	box-sizing: border-box;
-	padding: var(--scroll-scrollbar-size);
 	overflow: hidden;
 
 	&.focusableBody {
@@ -16,6 +15,15 @@
 		.focus({
 			background-color: @sand-scroll-focusablebody-focus-bg-color;
 		})
+  }
+
+	&.verticalPadding {
+		padding-left: var(--scroll-scrollbar-size);
+		padding-right: var(--scroll-scrollbar-size);
+	}
+
+	&.horizontalPadding {
+		padding-bottom: var(--scroll-scrollbar-size);
 	}
 
 	.scrollContent {

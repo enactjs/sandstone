@@ -37,6 +37,15 @@ const IconBase = kind({
 
 	propTypes: /** @lends sandstone/Icon.IconBase.prototype */ {
 		/**
+		 * The icon content.
+		 *
+		 * @see {@link ui/Icon.Icon.children}
+		 * @type {String|Object}
+		 * @public
+		 */
+		children: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
 		 * No publicClassNames supported
 		 *
 		 * @type {Object}
