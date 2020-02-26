@@ -66,7 +66,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
 		role
 	});
 
@@ -118,7 +117,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -158,7 +156,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 
 	role: PropTypes.string,
 
-	type: PropTypes.string,
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -194,7 +192,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
@@ -204,7 +201,7 @@ VirtualList.defaultProps = {
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };
@@ -251,8 +248,7 @@ let VirtualGridList = ({role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+		role
 	});
 
 	return (
@@ -305,7 +301,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
@@ -343,7 +339,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	}),
 
 	role: PropTypes.string,
-	type: PropTypes.string,
+
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -379,7 +376,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
@@ -389,7 +385,7 @@ VirtualGridList.defaultProps = {
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };
