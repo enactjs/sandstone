@@ -14,6 +14,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {coerceArray} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Repeater from '@enact/ui/Repeater';
 import PropTypes from 'prop-types';
@@ -180,7 +181,7 @@ const StepsBase = kind({
 
 	computed: {
 		steps: ({current, pastIcon, currentIcon, futureIcon, skip, skipIcon, total, styler}) => {
-			if (!(skip instanceof Array)) skip = [skip];
+			skip = coerceArray(skip);
 			return Array.from(Array(total)).map((el, index) => {
 				const stepNum = index + 1;
 				const skipStep = (skip.indexOf(stepNum) >= 0);
