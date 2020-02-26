@@ -4,9 +4,9 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
-import Icon from '@enact/sandstone/Icon';
 import Button from '@enact/sandstone/Button';
 import Input from '@enact/sandstone/Input';
+import Steps from '@enact/sandstone/Steps';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -15,13 +15,7 @@ const Config = mergeComponentMetadata('Header', HeaderBase, Header);
 const prop = {
 	above: {
 		none: null,
-		steps: <React.Fragment>
-			<Icon>check</Icon>
-			<Icon>check</Icon>
-			<Icon>circle</Icon>
-			<Icon>4</Icon>
-			<Icon>5</Icon>
-		</React.Fragment>
+		steps: <Steps current={3} total={5} />
 	},
 	buttons: {
 		'no buttons': null,

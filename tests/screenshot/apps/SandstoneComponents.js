@@ -45,6 +45,7 @@ import Scroller from './components/Scroller';
 import SelectableItem from './components/SelectableItem';
 import Slider from './components/Slider';
 import SlotItem from './components/SlotItem';
+import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TimePicker from './components/TimePicker';
@@ -100,6 +101,7 @@ const components = {
 	Slider,
 	SlotItem,
 	// Spinner,
+	Steps,
 	Switch,
 	SwitchItem,
 	TimePicker,

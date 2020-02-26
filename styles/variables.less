@@ -59,6 +59,7 @@
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
 @sand-pre-text-size:                48px;
+@sand-steps-step-number-font-size:  54px;
 @sand-superscript-text-size:        48px;
 @sand-tooltip-label-font-size:      54px;
 
@@ -160,6 +161,9 @@
 @sand-popup-header-font-weight: normal;
 @sand-popup-header-letter-spacing: normal;
 @sand-popup-header-line-height: normal;
+
+// Steps
+@sand-steps-step-number-font-family: @sand-font-family;
 
 
 // ---------------------------------------
@@ -425,6 +429,14 @@
 @sand-progressbar-radial-size: 72px;
 @sand-progressbar-radial-thickness: 9px;
 
+// RadioItem
+// ---------------------------------------
+@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
+	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
+	// this value must be specifically considered as to not impose layout issues related to, for
+	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+@sand-radioitem-indicator-border-radius: 999px;
+
 // Scrim
 // ---------------------------------------
 @sand-scrim-color: fade(black, 30%);
@@ -469,13 +481,14 @@
 @sand-spinner-icon: @sand-icon-circle;
 @sand-spinner-font-weight: bold;
 
-// RadioItem
+// Steps
 // ---------------------------------------
-@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
-	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
-	// this value must be specifically considered as to not impose layout issues related to, for
-	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
-@sand-radioitem-indicator-border-radius: 999px;
+@sand-steps-step-number-font-weight: 600;
+@sand-steps-margin: 0;
+@sand-steps-step-margin: 0 @sand-component-spacing;
+@sand-steps-step-past-opacity: 1;
+@sand-steps-step-current-opacity: 1;
+@sand-steps-step-future-opacity: 0.2;
 
 // ToggleButton
 // ---------------------------------------
