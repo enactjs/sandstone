@@ -109,6 +109,7 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			arrowKey: PropTypes.bool,
 			drag: PropTypes.bool,
 			pageKey: PropTypes.bool,
+			track: PropTypes.bool,
 			wheel: PropTypes.bool
 		}),
 
@@ -125,6 +126,7 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			arrowKey: false,
 			drag: false,
 			pageKey: false,
+			track: false,
 			wheel: true
 		},
 		type: 'JS'
