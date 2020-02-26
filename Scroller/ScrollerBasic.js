@@ -53,12 +53,15 @@ class ScrollerBasic extends Component {
 }
 
 /**
- * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
- * not move focus to the scrollbar controls.
+ * Allows 5-way navigation to the scroll thumb.
+ * By default, 5-way will not move focus to the scroll thumb.
+ * If `true`, the scroll thumb will get focus by directional keys.
+ * If `'byEnter'`, scroll body will get focus first by directional keys,
+ * then the scroll thumb will get focus by enter key pressed on scroll body.
  *
  * @name focusableScrollbar
  * @memberof sandstone/Scroller.ScrollerBasic.prototype
- * @type {Boolean|'byEnter'}
+ * @type {Boolean|String}
  * @default false
  * @private
  */

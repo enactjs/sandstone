@@ -59,8 +59,11 @@ class VirtualListCore extends Component {
 		dataSize: PropTypes.number,
 
 		/**
-		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
-		 * not move focus to the scrollbar controls.
+		 * Allows 5-way navigation to the scroll thumb.
+		 * By default, 5-way will not move focus to the scroll thumb.
+		 * If `true`, the scroll thumb will get focus by directional keys.
+		 * If `'byEnter'`, scroll body will get focus first by directional keys,
+		 * then the scroll thumb will get focus by enter key pressed on scroll body.
 		 *
 		 * @type {Boolean|String}
 		 * @default false
@@ -181,12 +184,15 @@ class VirtualListCore extends Component {
 const VirtualListBasic = VirtualListCore;
 
 /**
- * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
- * not move focus to the scrollbar controls.
+ * Allows 5-way navigation to the scroll thumb.
+ * By default, 5-way will not move focus to the scroll thumb.
+ * If `true`, the scroll thumb will get focus by directional keys.
+ * If `'byEnter'`, scroll body will get focus first by directional keys,
+ * then the scroll thumb will get focus by enter key pressed on scroll body.
  *
  * @name focusableScrollbar
  * @memberof sandstone/VirtualList.VirtualListBasic.prototype
- * @type {Boolean|'byEnter'}
+ * @type {Boolean|String}
  * @default false
  * @private
  */
