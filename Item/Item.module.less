@@ -6,10 +6,6 @@
 @import "../styles/skin.less";
 
 .item {
-	.selected {
-		/* Available for customization */
-	}
-
 	.sand-text-base(@sand-item-font-size);
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
@@ -97,6 +93,13 @@
 		.bg {
 			background-color: @sand-item-bg-color;
 			filter: drop-shadow(@sand-item-bg-shadow);
+		}
+
+		&.selected {
+			.bg {
+				background-color: @sand-item-selected-background-color;
+				opacity: 1;
+			}
 		}
 
 		.focus({
