@@ -100,7 +100,7 @@ const WizardLayoutBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'wizardPanel enact-fit'
+		className: 'wizardLayout enact-fit'
 	},
 
 	handlers: {
@@ -128,12 +128,38 @@ const WizardLayoutBase = kind({
 	render: ({buttons, children, footer, index, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, subtitle, title, titles, ...rest}) => {
 		return (
 			<Column {...rest}>
-				<Cell component={Header} centered shrink subtitle={subtitle} title={title} type="wizard">
+				<Cell
+					component={Header}
+					centered
+					shrink
+					subtitle={subtitle}
+					title={title}
+					type="wizard"
+				>
 					<Steps current={index + 1} slot="slotAbove" total={titles.length} />
-					<Button disabled={index === (titles.length - 1)} icon="arrowlargeright" onClick={onIncrementStep} slot="slotAfter">{nextButtonText}</Button>
-					<Button disabled={index === 0} icon="arrowlargeleft" onClick={onDecrementStep} slot="slotBefore">{prevButtonText}</Button>
+					<Button
+						disabled={index === (titles.length - 1)}
+						icon="arrowlargeright"
+						onClick={onIncrementStep}
+						slot="slotAfter"
+					>
+						{nextButtonText}
+					</Button>
+					<Button
+						disabled={index === 0}
+						icon="arrowlargeleft"
+						onClick={onDecrementStep}
+						slot="slotBefore"
+					>
+						{prevButtonText}
+					</Button>
 				</Cell>
-				<Cell className={componentCss.content} component={ViewManager} arranger={SlideLeftArranger} index={index}>
+				<Cell
+					component={ViewManager}
+					arranger={SlideLeftArranger}
+					className={componentCss.content}
+					index={index}
+				>
 					{children}
 				</Cell>
 				<Cell className={componentCss.bottomContainer} shrink>
