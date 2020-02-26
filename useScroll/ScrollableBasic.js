@@ -129,7 +129,7 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			track: false,
 			wheel: true
 		},
-		scrollMode: 'translate'
+		scrollMode: 'native'
 	}
 }
 
