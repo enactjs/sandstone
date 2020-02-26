@@ -117,7 +117,7 @@ const KeyGuideBase = kind({
 				<Repeater
 					{...rest}
 					childComponent={ItemBase}
-					itemProps={{css: css, marqueeOn: 'render'}}
+					itemProps={{css, marqueeOn: 'render'}}
 				/>
 			</FloatingLayer>
 		);
