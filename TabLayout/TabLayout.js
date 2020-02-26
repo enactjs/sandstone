@@ -6,11 +6,11 @@
  */
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
-import {Cell, Layout} from '@enact/ui/Layout';
+import kind from '@enact/core/kind';
 import {Changeable} from '@enact/ui/Changeable';
+import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
-import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -29,6 +29,7 @@ import componentCss from './TabLayout.module.less';
  */
 const TabLayoutBase = kind({
 	name: 'TabLayout',
+
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
 		 * List of tabs to display.
@@ -44,15 +45,17 @@ const TabLayoutBase = kind({
 		tabs: PropTypes.array.isRequired,
 
 		/**
-		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
+		 * List of content to be rendered for each tab.
 		 *
-		 * @type {Node}
+		 * The number of children should match the number of tabs.
+		 *
+		 * @type {Node[]}
 		 * @public
 		 */
-		children: PropTypes.node,
+		children: PropTypes.arrayOf(PropTypes.node),
 
 		/**
-		 * Collapse the vertical tab list into icons only.
+		 * Collapses the vertical tab list into icons only.
 		 *
 		 * Only applies to `orientation="vertical"`.  If the tabs do not include icons, a single
 		 * collapsed icon will be shown.
@@ -83,8 +86,7 @@ const TabLayoutBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Calls onBlur when focus is blurred from the tabs.
-		 * This collapses the vertical tab.
+		 * Called when the tabs are collapsed.
 		 *
 		 * @type {Function}
 		 * @public
@@ -92,8 +94,7 @@ const TabLayoutBase = kind({
 		onCollapse: PropTypes.func,
 
 		/**
-		 * Calls onFocus when focus is blurred from the tabs.
-		 * This expands the vertical tab.
+		 * Called when the tabs are expanded.
 		 *
 		 * @type {Function}
 		 * @public
@@ -129,10 +130,15 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
-		className: ({collapsed, orientation, styler}) => styler.append({collapsed: orientation === 'vertical' && collapsed}, orientation),
+		className: ({collapsed, orientation, styler}) => styler.append(
+			{collapsed: orientation === 'vertical' && collapsed},
+			orientation
+		),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
-		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs
+		tabs: ({orientation, tabs}) => {
+			return orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs;
+		}
 	},
 
 	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
@@ -154,9 +160,9 @@ const TabLayoutBase = kind({
 					className={css.content}
 					component={ViewManager}
 					index={index}
+					noAnimation
 					onFocus={onCollapse}
 					orientation={orientation}
-					noAnimation
 				>
 					{children}
 				</Cell>
