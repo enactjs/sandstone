@@ -1,9 +1,9 @@
 import {useRef} from 'react';
 
-const useChildAdapter = () => {
+const useThemeScrollContentHandle = () => {
 	// Mutable value
 
-	const childAdapter = useRef({
+	const themeScrollContentHandle = useRef({
 		calculatePositionOnFocus: null,
 		focusByIndex: null,
 		focusOnNode: null,
@@ -17,15 +17,15 @@ const useChildAdapter = () => {
 
 	// Functions
 
-	const setChildAdapter = (adapter) => {
-		childAdapter.current = adapter;
+	const setThemeScrollContentHandle = (handle) => {
+		themeScrollContentHandle.current = handle;
 	};
 
 	// Return
 
-	return [childAdapter, setChildAdapter];
+	return [themeScrollContentHandle, setThemeScrollContentHandle];
 };
 
 export {
-	useChildAdapter
+	useThemeScrollContentHandle
 };

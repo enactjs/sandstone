@@ -40,6 +40,8 @@
 @sand-expandable-client-item-font-size: 54px;
 @sand-expandable-value-font-size-large: 60px;
 @sand-expandable-value-font-size:   @sand-item-label-font-size;
+@sand-gridlistimageitem-caption-font-size: 60px;
+@sand-gridlistimageitem-subcaption-font-size: 48px;
 @sand-header-compact-title-font-size: 90px;
 @sand-header-wizard-title-font-size: 144px;
 @sand-heading-large-font-size:      72px;
@@ -55,6 +57,7 @@
 @sand-labeledicon-font-size:        48px;
 @sand-large-text-size:              96px;
 @sand-notification-font-size:       60px;
+@sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-popup-content-font-size:      60px;
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
@@ -154,6 +157,9 @@
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-font-family-lg: "LG Icons";
+
+// Panels
+@sand-panels-breadcrumb-font-family: @sand-alt-font-family;
 
 // Popup
 @sand-popup-header-font-family: @sand-heading-title-font-family;
@@ -281,9 +287,14 @@
 
 // GridListImageItem
 // ---------------------------------------
-@sand-gridlist-item-overlay-icon-size: 120px;
-@sand-gridlist-item-border-width: 12px;
-@sand-gridlist-item-caption-padding-top: 18px;
+@sand-gridlistimageitem-focus-image-transform: scale(1.2);
+@sand-gridlistimageitem-focus-caption-transform: translateY(20%);
+@sand-gridlistimageitem-overlay-icon-size: 72px;
+@sand-gridlistimageitem-overlay-icon-border-width: 6px;
+@sand-gridlistimageitem-overlay-icon-margin: 30px;
+@sand-gridlistimageitem-image-border-width: 6px;
+@sand-gridlistimageitem-caption-padding-top: 24px;
+@sand-gridlistimageitem-subcaption-padding-top: 6px;
 
 // Header
 // ---------------------------------------
@@ -401,14 +412,14 @@
 
 // Panels
 // ---------------------------------------
-@sand-panels-breadcrumb-font-family: @sand-alt-font-family;
-@sand-panels-breadcrumb-text-size: @sand-body-font-size;
 @sand-panels-breadcrumb-width: 192px;
-@sand-panels-handle-width: 264px;
-@sand-panel-v-padding: @sand-app-keepout;
-@sand-panel-h-padding: (@sand-app-keepout - @sand-spotlight-outset);
-@sand-panel-handle-icon-font-size: 288px;
+@sand-panels-controls-right: extract(@sand-panel-padding, 2);
+@sand-panels-controls-spacing: 36px;
+@sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
+@sand-panels-optionpanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
 @sand-panel-keepout: 150px;
+@sand-panel-body-padding: 24px 0 0 0;
 
 // Popup
 // ---------------------------------------
@@ -446,6 +457,21 @@
 @sand-scroll-overscroll-thickness: 12px;
 @sand-scroll-overscroll-duration: 300ms;
 @sand-scroll-scrollbar-size: @sand-button-small-height;
+
+// Scrollbar
+// ---------------------------------------
+@sand-scrolltrack-margin: 24px;
+@sand-scrolltrack-width: 12px;
+@sand-scrolltrack-border-radius: 6px;
+@sand-scrollthumb-border-radius: 6px;
+@sand-scrollthumb-focus-width: 30px;
+@sand-scrollthumb-focus-left: -9px; // TODO: Re-apply 4K GUI.
+@sand-scrollthumb-focus-border-radius: 15px;
+@sand-scrollthumb-focus-box-shadow: 0 40px 24px;
+@sand-scrollthumb-focus-direction-indicator-width: 18px;
+@sand-scrollthumb-focus-direction-indicator-height: 12px;
+@sand-scrollthumb-focus-direction-indicator-top: 9px; // TODO: Re-apply 4K GUI.
+@sand-scrollthumb-focus-direction-indicator-left: 6px;
 
 // SelectableItem
 // ---------------------------------------
@@ -489,6 +515,10 @@
 @sand-steps-step-past-opacity: 1;
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
+
+// TabLayout
+// ---------------------------------------
+@sand-tablayout-panels-margin-top: 79px;
 
 // ToggleButton
 // ---------------------------------------
