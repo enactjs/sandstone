@@ -15,11 +15,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
 
-import useScroll from '../Scrollable';
-import Scrollbar from '../Scrollable/Scrollbar';
+import useScroll from '../useScroll';
+import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import {useSpottableVirtualList, VirtualListBasic} from './VirtualListBasic';
+import {useThemeVirtualList} from './useThemeVirtualList';
+import {VirtualListBasic} from './VirtualListBasic';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
@@ -49,33 +50,32 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const {
 		// Variables
-		childWrapper: ChildWrapper,
+		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		innerScrollContainerProps,
-		childWrapperProps,
-		childProps,
+		scrollInnerContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const uiChildProps = useSpottableVirtualList({
-		...childProps,
-		focusableScrollbar: rest.focusableScrollbar,
+	const themeScrollContentProps = useThemeVirtualList({
+		...scrollContentProps,
 		role
 	});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBasic {...uiChildProps} />
-					</ChildWrapper>
+				<div {...scrollInnerContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
+						<UiVirtualListBasic {...themeScrollContentProps} />
+					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -117,7 +117,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -151,12 +150,13 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
 	role: PropTypes.string,
 
-	type: PropTypes.string,
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -192,16 +192,16 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
+		track: false,
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };
@@ -232,33 +232,32 @@ VirtualList = Skinnable(
 let VirtualGridList = ({role, ...rest}) => {
 	const {
 		// Variables
-		childWrapper: ChildWrapper,
+		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		innerScrollContainerProps,
-		childWrapperProps,
-		childProps,
+		scrollInnerContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(rest);
 
-	const uiChildProps = useSpottableVirtualList({
-		...childProps,
-		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+	const themeScrollContentProps = useThemeVirtualList({
+		...scrollContentProps,
+		role
 	});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...innerScrollContainerProps}>
-					<ChildWrapper {...childWrapperProps}>
-						<UiVirtualListBasic {...uiChildProps} />
-					</ChildWrapper>
+				<div {...scrollInnerContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
+						<UiVirtualListBasic {...themeScrollContentProps} />
+					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -302,7 +301,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
@@ -335,11 +334,13 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 		arrowKey: PropTypes.bool,
 		drag: PropTypes.bool,
 		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
 		wheel: PropTypes.bool
 	}),
 
 	role: PropTypes.string,
-	type: PropTypes.string,
+
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -375,16 +376,16 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
+		track: false,
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };

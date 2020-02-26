@@ -1,86 +1,105 @@
+@import '../styles/colors.less';
 @import '../styles/mixins.less';
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
+.transitionEffect() {
+	transition: transform 200ms ease-in-out;
+}
+
 .gridListImageItem {
-	box-sizing: border-box;
-	border-width: @sand-gridlist-item-border-width;
-	border-style: solid;
+	width: 100%;
+
+	.overlayComponent {
+		align-items: flex-start;
+		justify-content: flex-start;
+	}
 
 	.icon {
-		width: @sand-gridlist-item-overlay-icon-size;
-		height: @sand-gridlist-item-overlay-icon-size;
-		line-height: @sand-gridlist-item-overlay-icon-size;
+		width: @sand-gridlistimageitem-overlay-icon-size;
+		height: @sand-gridlistimageitem-overlay-icon-size;
+		line-height: @sand-gridlistimageitem-overlay-icon-size;
 		position: relative;
 		display: block;
-		border-width: @sand-button-border-width;
+		border-width: @sand-gridlistimageitem-overlay-icon-border-width;
 		border-style: solid;
 		border-radius: 50%;
-		margin: 0;
-		opacity: 0.5;
-	}
-
-	&.selected {
-		.icon {
-			opacity: 1;
-		}
-	}
-
-	.caption {
-		// .sand-header-subtitle-text();
-		padding-top: @sand-gridlist-item-caption-padding-top;
-	}
-
-	.subCaption {
-		// .sand-body-text();
-		padding-top: @sand-gridlist-item-caption-padding-top;
+		margin: @sand-gridlistimageitem-overlay-icon-margin;
 	}
 
 	.image {
-		/* Public Class Names */
+		transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+		will-change: filter, transform;
+	}
+
+	.image::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-width: @sand-gridlistimageitem-image-border-width;
+	}
+
+	.caption {
+		.sand-text-base(@sand-gridlistimageitem-caption-font-size);
+		padding-top: @sand-gridlistimageitem-caption-padding-top;
+		.transitionEffect();
+	}
+
+	.subCaption {
+		.sand-text-base(@sand-gridlistimageitem-subcaption-font-size);
+		padding-top: @sand-gridlistimageitem-subcaption-padding-top;
+		.transitionEffect();
+	}
+
+	&.selected {
+		.image::after {
+			border-style: solid;
+		}
 	}
 
 	// Skin colors
 	.applySkins({
-		border-color: transparent;
-		color: @sand-gridlist-item-color;
-
 		.icon {
-			background-color: @sand-gridlist-item-icon-bg-color;
-			border-color: @sand-gridlist-item-icon-border-color;
-			color: transparent;
+			background-color: @sand-gridlistimageitem-overlay-icon-bg-color;
+			border-color: @sand-gridlistimageitem-overlay-icon-border-color;
+			color: @sand-gridlistimageitem-overlay-icon-color;
+		}
+
+		.subCaption {
+			color: @sand-gridlistimageitem-subcaption-color;
 		}
 
 		&.selected {
-			border-color: @sand-gridlist-item-selected-border-color;
-			background-color: @sand-gridlist-item-selected-bg-color;
+			.image::after {
+				border-color: @sand-gridlistimageitem-selected-image-border-color;
+			}
 
 			.icon {
-				border-color: @sand-gridlist-item-selected-icon-border-color;
-				color: @sand-gridlist-item-selected-icon-color;
-			}
-			.caption,
-			.subCaption {
-				color: @sand-gridlist-item-selected-color;
+				color: @sand-gridlistimageitem-selected-overlay-icon-color;
 			}
 		}
 
 		.focus({
-			border-color: @sand-gridlist-item-spotlight-border-color;
-			background-color: @sand-gridlist-item-spotlight-bg-color;
+			.image {
+				transform: @sand-gridlistimageitem-focus-image-transform;
+				filter: drop-shadow(@sand-gridlistimageitem-focus-image-bg-shadow);
+			}
 
 			.icon {
-				color: @sand-gridlist-item-spotlight-icon-color;
+				color: @sand-gridlistimageitem-focus-overlay-icon-color;
 			}
 
 			.caption,
 			.subCaption {
-				color: @sand-gridlist-item-spotlight-color;
+				transform: @sand-gridlistimageitem-focus-caption-transform;
 			}
 
 			&.selected {
 				.icon {
-					color: @sand-gridlist-item-spotlight-selected-icon-color;
+					color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 				}
 			}
 		});
@@ -93,21 +112,13 @@
 		.applySkins({
 			.focus({
 				&:not(.selected) {
-					border-color: transparent;
-					background-color: transparent;
-
-					.caption,
-					.subCaption {
-						color: @sand-body-text-color;
-					}
 					.icon {
-						color: transparent;
+						color: @sand-gridlistimageitem-focus-overlay-icon-color;
 					}
 				}
 				&.selected {
 					.icon {
-						border-color: @sand-accent;
-						color: @sand-accent;
+						color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 					}
 				}
 			});

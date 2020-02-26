@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
@@ -52,7 +52,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBase, VirtualListBasic);
+const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -61,7 +61,6 @@ storiesOf('Sandstone', module)
 			return (
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', VirtualListConfig)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
 					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 144)))}
 					itemSize={ri.scale(number('itemSize', VirtualListConfig, 144))}
