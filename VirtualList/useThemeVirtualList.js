@@ -17,14 +17,13 @@ const nop = () => {};
 
 const
 	dataContainerDisabledAttribute = 'data-spotlight-container-disabled',
-	JS = 'JS',
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0,
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
 	const {scrollContentHandle, scrollContentRef} = instances;
-	const {type} = context;
+	const {scrollMode} = context;
 
 	// Mutable value
 
@@ -206,7 +205,7 @@ const useSpottable = (props, instances, context) => {
 
 	function initItemRef (ref, index) {
 		if (ref) {
-			if (type === JS) {
+			if (scrollMode === 'translate') {
 				focusByIndex(index);
 			} else {
 				// If focusing the item of VirtuallistNative, `onFocus` in Scrollable will be called.
@@ -248,7 +247,7 @@ const useSpottable = (props, instances, context) => {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
 					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
 				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
-					if (type === JS) {
+					if (scrollMode === 'translate') {
 						gridPosition.primaryPosition = scrollPosition;
 					} else {
 						// This code uses the trick to change the target position slightly which will not affect the actual result
@@ -269,7 +268,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function shouldPreventScrollByFocus () {
-		return ((type === JS) ? (mutableRef.current.isScrolledBy5way) : (mutableRef.current.isScrolledBy5way || mutableRef.current.isScrolledByJump));
+		return ((scrollMode === 'translate') ? (mutableRef.current.isScrolledBy5way) : (mutableRef.current.isScrolledBy5way || mutableRef.current.isScrolledByJump));
 	}
 
 	function shouldPreventOverscrollEffect () {
@@ -306,7 +305,7 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
-	const {type, scrollContentHandle, scrollContentRef} = props;
+	const {scrollMode, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
@@ -328,9 +327,9 @@ const useThemeVirtualList = (props) => {
 		shouldPreventScrollByFocus,
 		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
-	} = useSpottable(props, instance, {type});
+	} = useSpottable(props, instance, {scrollMode});
 
-	usePreventScroll(props, instance, {type});
+	usePreventScroll(props, instance, {scrollMode});
 
 	const handle = {
 		calculatePositionOnFocus,

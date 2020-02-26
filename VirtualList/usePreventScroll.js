@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 
 const usePreventScroll = (props, instances, context) => {
 	const {scrollContentRef} = instances;
-	const {type} = context;
+	const {scrollMode} = context;
 
 	// Hooks
 
@@ -11,7 +11,7 @@ const usePreventScroll = (props, instances, context) => {
 		const {rtl} = props;
 		const scrollContentNode = scrollContentRef.current;
 
-		if (type === 'JS' && scrollContentNode) {
+		if (scrollMode === 'translate' && scrollContentNode) {
 			const preventScroll = () => {
 				scrollContentNode.scrollTop = 0;
 				scrollContentNode.scrollLeft = rtl ? scrollContentNode.scrollWidth : 0;
@@ -24,7 +24,7 @@ const usePreventScroll = (props, instances, context) => {
 				utilEvent('scroll').removeEventListener(scrollContentNode, preventScroll);
 			};
 		}
-	}, [props, type]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [props, scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export default usePreventScroll;

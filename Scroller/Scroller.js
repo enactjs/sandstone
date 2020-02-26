@@ -138,7 +138,7 @@ Scroller.defaultProps = {
 		track: false,
 		wheel: true
 	},
-	type: 'JS', // eslint-disable-line react/default-props-match-prop-types
+	scrollMode: 'native', // eslint-disable-line react/default-props-match-prop-types
 	verticalScrollbar: 'auto'
 };
 
