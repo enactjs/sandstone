@@ -48,7 +48,6 @@ storiesOf('VirtualList with native scrollMode', module)
 					component={VirtualList}
 					dataSize={updateDataSize(number('dataSize', Config, 10))}
 					direction="vertical"
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					// eslint-disable-next-line react/jsx-no-bind
 					itemRenderer={({index, ...rest}) => {

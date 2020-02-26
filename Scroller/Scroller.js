@@ -18,6 +18,7 @@
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
@@ -62,12 +63,12 @@ let Scroller = (props) => {
 	} = useScroll(props);
 
 	const themeScrollContentProps = useThemeScroller(scrollContentProps);
+	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
 
 	// Render
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
+			<ScrollContainerDiv {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} />
@@ -75,13 +76,26 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</div>
+			</ScrollContainerDiv>
 		</ResizeContext.Provider>
 	);
 };
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * Allows 5-way navigation to the scroll thumb.
+	 * By default, 5-way will not move focus to the scroll thumb.
+	 * If `true`, the scroll thumb will get focus by directional keys.
+	 * If `'byEnter'`, scroll body will get focus first by directional keys,
+	 * then the scroll thumb will get focus by enter key pressed on scroll body.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
