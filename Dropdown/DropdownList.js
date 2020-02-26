@@ -121,6 +121,7 @@ const DropdownListBase = kind({
 				dataSize={dataSize}
 				itemSize={itemSize}
 				role="group"
+				scrollMode="translate"
 				style={{height: itemSize * dataSize}}
 			/>
 		);
