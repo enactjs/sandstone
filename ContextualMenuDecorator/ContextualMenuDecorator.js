@@ -1,6 +1,5 @@
 import {handle, forward, forProp} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Repeater from '@enact/ui/Repeater';
 import Toggleable from '@enact/ui/Toggleable';
@@ -82,7 +81,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			menuItems: PropTypes.oneOfType([
 				PropTypes.arrayOf(PropTypes.string),
 				PropTypes.arrayOf(PropTypes.shape({
-					children: EnactPropTypes.renderable.isRequired,
+					children: PropTypes.string.isRequired,
 					key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 				}))
 			]),
