@@ -24,7 +24,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, ScrollerConfig)}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, false)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 				onScrollStart={action('onScrollStart')}

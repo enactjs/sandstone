@@ -18,6 +18,7 @@
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
@@ -62,12 +63,12 @@ let Scroller = (props) => {
 	} = useScroll(props);
 
 	const themeScrollContentProps = useThemeScroller(scrollContentProps);
+	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
 
 	// Render
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
+			<ScrollContainerDiv {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} />
@@ -75,7 +76,7 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</div>
+			</ScrollContainerDiv>
 		</ResizeContext.Provider>
 	);
 };
