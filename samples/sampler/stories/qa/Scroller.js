@@ -424,7 +424,7 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
 			return (
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, false)}
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, true)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}

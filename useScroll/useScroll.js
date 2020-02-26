@@ -451,9 +451,6 @@ const useScroll = (props) => {
 					// Scroll thumb get focus.
 					setNavigableFilter('body');
 					Spotlight.move('right');
-
-					// Set scrollContainerRef.
-					scrollContainerRef.current = target;
 				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb)) {
 					// Esc key on scroll thumb.
 					// Scroll body get focus.
