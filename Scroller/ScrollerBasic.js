@@ -58,7 +58,7 @@ class ScrollerBasic extends Component {
  *
  * @name focusableScrollbar
  * @memberof sandstone/Scroller.ScrollerBasic.prototype
- * @type {true|false|'byEnter'}
+ * @type {Boolean|'byEnter'}
  * @default false
  * @private
  */

@@ -88,11 +88,11 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
 	 * not move focus to the scrollbar controls.
 	 *
-	 * @type {true|false|'byEnter'}
+	 * @type {Boolean|String}
 	 * @default false
 	 * @public
 	 */
-	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
+	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.

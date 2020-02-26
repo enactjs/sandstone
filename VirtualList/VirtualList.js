@@ -70,6 +70,8 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		role
 	});
 
+	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
+
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
@@ -118,7 +120,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
+
+	/**
+	 * `true` if scroll thumb is spottable.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -305,7 +315,16 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
+
+	/**
+	 * `true` if scroll thumb is spottable.
+	 *
+	 * @type {Boolean|String}
+	 * @default false
+	 * @public
+	 */
+	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
