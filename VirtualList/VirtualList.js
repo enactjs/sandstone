@@ -66,7 +66,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
 		role
 	});
 
@@ -118,19 +117,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-
-	/**
-	 * Allows 5-way navigation to the scroll thumb.
-	 * By default, 5-way will not move focus to the scroll thumb.
-	 * If `true`, the scroll thumb will get focus by directional keys.
-	 * If `'byEnter'`, scroll body will get focus first by directional keys,
-	 * then the scroll thumb will get focus by enter key pressed on scroll body.
-	 *
-	 * @type {Boolean|String}
-	 * @default false
-	 * @public
-	 */
-	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -206,7 +192,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
@@ -263,7 +248,6 @@ let VirtualGridList = ({role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
 		role: role
 	});
 
@@ -317,19 +301,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-
-	/**
-	 * Allows 5-way navigation to the scroll thumb.
-	 * By default, 5-way will not move focus to the scroll thumb.
-	 * If `true`, the scroll thumb will get focus by directional keys.
-	 * If `'byEnter'`, scroll body will get focus first by directional keys,
-	 * then the scroll thumb will get focus by enter key pressed on scroll body.
-	 *
-	 * @type {Boolean|String}
-	 * @default false
-	 * @public
-	 */
-	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -404,7 +375,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,

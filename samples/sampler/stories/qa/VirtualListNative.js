@@ -17,7 +17,6 @@ const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrol
 const
 	items = [],
 	prop = {
-		focusableScrollbarOption: [true, false, 'byEnter'],
 		scrollbarOption: ['auto', 'hidden', 'visible']
 	},
 	wrapOption = {
@@ -49,7 +48,6 @@ storiesOf('VirtualList with Native type', module)
 					component={VirtualList}
 					dataSize={updateDataSize(number('dataSize', Config, 10))}
 					direction="vertical"
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					// eslint-disable-next-line react/jsx-no-bind
 					itemRenderer={({index, ...rest}) => {

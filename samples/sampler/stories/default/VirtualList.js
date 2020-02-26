@@ -17,7 +17,6 @@ const
 		'&quot;noAnimation&quot;': 'noAnimation'
 	},
 	prop = {
-		focusableScrollbarOption: [true, false, 'byEnter'],
 		scrollbarOption: ['auto', 'hidden', 'visible']
 	},
 	items = [],
@@ -62,7 +61,6 @@ storiesOf('Sandstone', module)
 			return (
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, VirtualListConfig)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
 					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 144)))}
 					itemSize={ri.scale(number('itemSize', VirtualListConfig, 144))}

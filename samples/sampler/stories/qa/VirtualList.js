@@ -183,7 +183,6 @@ storiesOf('VirtualList', module)
 			const listProps = {
 				dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 				direction: 'horizontal',
-				focusableScrollbar: boolean('focusableScrollbar', Config),
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
 				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 144)), false),
 				itemSize: ri.scale(number('itemSize', Config, 144)),
@@ -213,7 +212,6 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
@@ -259,7 +257,6 @@ storiesOf('VirtualList', module)
 				<InPanels
 					title={title}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -300,7 +297,6 @@ storiesOf('VirtualList', module)
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
 				/>

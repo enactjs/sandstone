@@ -160,7 +160,6 @@ storiesOf('VirtualGridList', module)
 			<VirtualGridList
 				dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 				direction="horizontal"
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
