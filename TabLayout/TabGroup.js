@@ -1,9 +1,3 @@
-/**
- * Provides an Sandstone-themed tab group.
- *
- * @module sandstone/TabGroup
- * @exports TabGroup
- */
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';

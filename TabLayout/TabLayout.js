@@ -4,6 +4,7 @@
  * @module sandstone/TabLayout
  * @exports TabLayout
  */
+
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {Changeable} from '@enact/ui/Changeable';
