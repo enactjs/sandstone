@@ -10,6 +10,8 @@ import Button from '../Button';
 import Steps from '../Steps';
 import {Header} from '../Panels';
 
+import componentCss from './WizardLayout.module.less';
+
 /**
  * A WizardLayout that has steps with corresponding views. Required to have [Panel]{@link sandstone/Panels} as children.
  *
@@ -97,6 +99,7 @@ const WizardLayoutBase = kind({
 	},
 
 	styles: {
+		css: componentCss,
 		className: 'wizardPanel enact-fit'
 	},
 
@@ -133,7 +136,7 @@ const WizardLayoutBase = kind({
 		title: ({titles, index}) => typeof titles[index] === 'object' && titles[index] !== null ? titles[index].title : titles[index]
 	},
 
-	render: ({buttons, children, footer, index, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, subtitle, title, titles, ...rest}) => {
+	render: ({buttons, children, css, footer, index, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, subtitle, title, titles, ...rest}) => {
 		return (
 			<Column {...rest}>
 				<Cell component={Header} centered shrink subtitle={subtitle} title={title} type="wizard">
@@ -141,14 +144,14 @@ const WizardLayoutBase = kind({
 					<Button disabled={index === (titles.length - 1)} icon="arrowlargeright" onClick={onIncrementStep} slot="slotAfter">{nextButtonText}</Button>
 					<Button disabled={index === 0} icon="arrowlargeleft" onClick={onDecrementStep} slot="slotBefore">{prevButtonText}</Button>
 				</Cell>
-				<Cell component={ViewManager} arranger={SlideLeftArranger} index={index}>
+				<Cell className={css.content} component={ViewManager} arranger={SlideLeftArranger} index={index}>
 					{children}
 				</Cell>
-				<Cell shrink>
-					<Row align="center center">
+				<Cell className={css.bottomContainer} shrink>
+					<Row align="center center" className={css.buttonContainer}>
 						{buttons}
 					</Row>
-					<Row align="center center">
+					<Row align="center center" className={css.footer}>
 						<Cell shrink>{footer}</Cell>
 					</Row>
 				</Cell>
