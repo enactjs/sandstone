@@ -20,7 +20,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'themeEnvironmentPanels',
+	name: 'ThemeEnvironmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
