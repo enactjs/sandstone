@@ -15,13 +15,19 @@
 		margin-top: @sand-alert-title-below-margin-top;
 	}
 
+	&.noImage {
+		.alertImage {
+			display: none;
+		}
+	}
+
 	&.fullscreen {
 		.alertImage {
 			align-self: center;
 		}
 
-		.innerContainer {
-			height: fit-content;
+		.content {
+			display: none;
 		}
 
 		&.noImage, &.maxButtons {
@@ -50,6 +56,11 @@
 			align-self: baseline;
 		}
 
+		.title,
+		.titleBelow {
+			display: none;
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
 			width: @sand-alert-overlay-buttons-width;
@@ -65,8 +76,6 @@
 		}
 
 		.content {
-			display: flex;
-			align-items: center;
 			width: @sand-alert-overlay-content-width;
 			margin-right: @sand-alert-overlay-content-margin-right;
 			margin-left: @sand-alert-overlay-content-margin-left;

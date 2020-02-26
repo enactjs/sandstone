@@ -184,24 +184,20 @@ const AlertBase = kind({
 		return (
 			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css} position={type}>
 				<Container align="center center">
-					<Container className={css.innerContainer}>
-						{
-							image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null
-						}
-						{type === 'fullscreen' ?
-							<Fragment>
-								<Cell align="center" className={css.title} id={`${id}_title`} shrink>
-									{title}
-								</Cell>
-								<Cell align="center" className={css.titleBelow} id={`${id}_titleBelow`} shrink>
-									{titleBelow}
-								</Cell>
-							</Fragment> :
+					<Cell shrink>
+						<Container align="center">
+							<Cell className={css.alertImage} shrink>{image}</Cell>
+							<Cell align="center" className={css.title} id={`${id}_title`} shrink>
+								{title}
+							</Cell>
+							<Cell align="center" className={css.titleBelow} id={`${id}_titleBelow`} shrink>
+								{titleBelow}
+							</Cell>
 							<Cell className={css.content} id={`${id}content`} shrink>
 								{children}
 							</Cell>
-						}
-					</Container>
+						</Container>
+					</Cell>
 					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink>
 						<Column className={css.buttonContainer} id={`${id}_buttons`}>
 							{buttons}
