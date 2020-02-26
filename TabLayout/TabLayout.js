@@ -82,8 +82,8 @@ const TabLayoutBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Calls onFocus when focus is blurred from the tabs.
-		 * This expands the vertical tab.
+		 * Calls onBlur when focus is blurred from the tabs.
+		 * This collapses the vertical tab.
 		 *
 		 * @type {Function}
 		 * @public
@@ -91,8 +91,8 @@ const TabLayoutBase = kind({
 		onCollapse: PropTypes.func,
 
 		/**
-		 * Calls onBlur when focus is blurred from the tabs.
-		 * This collapses the vertical tab.
+		 * Calls onFocus when focus is blurred from the tabs.
+		 * This expands the vertical tab.
 		 *
 		 * @type {Function}
 		 * @public
@@ -134,12 +134,13 @@ const TabLayoutBase = kind({
 		tabs: ({orientation, tabs}) => orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs
 	},
 
-	render: ({children, collapsed, css, index, onExpand, onCollapse, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		const tabSize = collapsed ? 450 : 855;
+
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell shrink>
+				<Cell className={css.tabs} size={tabSize}>
 					<TabGroup
-						className={css.tabs}
 						collapsed={collapsed}
 						onFocus={onExpand}
 						onSelect={onSelect}

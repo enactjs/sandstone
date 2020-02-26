@@ -5,39 +5,35 @@
  * @exports TabGroup
  */
 import kind from '@enact/core/kind';
-import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import Button from '../Button';
+import Icon from '../Icon';
+import Item from '../Item';
 import Scroller from '../Scroller';
 
 const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
-		collapsed: PropTypes.bool,
 		icon: PropTypes.string,
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, collapsed, selected, ...rest}) => {
-		delete rest.selected;
+	render: ({children, icon, ...rest}) => {
 
 		return (
-			<Cell
+			<Item
 				{...rest}
-				backgroundOpacity="transparent"
-				component={Button}
-				icon={icon}
-				selected={selected}
-				shrink
 			>
-				{collapsed ? null : children}
-			</Cell>
+				{icon ? (
+					<Icon slot="slotBefore">{icon}</Icon>
+				) : null}
+				{children}
+			</Item>
 		);
 	}
 });
@@ -64,45 +60,44 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({collapsed, orientation, tabs}) => tabs.map(({children, title, ...rest}, i) => {
+		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
-				...rest,
 				key: `tabs${i}`,
 				children: title || children,
-				collapsed: orientation === 'vertical' ? collapsed : false,
-				orientation
+				...rest
 			};
 		}),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, orientation, selectedIndex, ...rest}) => {
+	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
 		delete rest.collapsed;
 		delete rest.tabs;
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus} >
-				{noIcons ?
-					<Button icon="list" /> :
-					<Layout
+			<Scroller onBlur={onBlur} onFocus={onFocus}>
+				{noIcons ? (
+					<Item>
+						<Icon slot="slotBefore">list</Icon>
+					</Item>
+				) : (
+					<Group
 						{...rest}
-						align="start"
 						childComponent={TabBase}
-						component={Group}
-						orientation={orientation}
+						component="div"
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
 					/>
-				}
+				)}
 			</Scroller>
 		);
 	}
 });
 
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator
+	SpotlightContainerDecorator({enterTo: 'last-focused'})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is

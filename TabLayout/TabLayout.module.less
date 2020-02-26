@@ -5,12 +5,9 @@
 .tabLayout {
 	.content {
 		margin-top: @sand-tablayout-panels-margin-top;
-		margin-left: @sand-tablayout-panels-margin-left;
 	}
 
-	&.collapsed {
-		.content {
-			margin-left: @sand-tablayout-panels-collapsed-margin-left;
-		}
+	.tabs {
+		transition: flex-basis 1s, max-width 1s;
 	}
 }

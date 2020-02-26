@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {select} from '@enact/storybook-utils/addons/knobs';
+// import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -23,11 +23,12 @@ storiesOf('Sandstone', module)
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout
 					onSelect={action('onSelect')}
-					orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+					// leaving this knob out for now until we build out horizontal tabs
+					// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					tabs={[
-						{title: 'Home', icon: 'home'},
-						{title: 'Button', icon: 'image'},
-						{title: 'Item', icon: 'resumeplay'}
+						{children: 'Home', icon: 'home'},
+						{children: 'Button', icon: 'image'},
+						{children: 'Item', icon: 'resumeplay'}
 					]}
 				>
 					<React.Fragment>

@@ -9,9 +9,9 @@ describe('TabLayout specs', () => {
 			<TabLayoutBase
 				collapsed
 				tabs={[
-					{title: 'Home', icon: 'home'},
-					{title: 'Button', icon: 'image'},
-					{title: 'Item', icon: 'resumeplay'}
+					{children: 'Home', icon: 'home'},
+					{children: 'Button', icon: 'image'},
+					{children: 'Item', icon: 'resumeplay'}
 				]}
 			>
 				<div>Home</div>
@@ -27,9 +27,9 @@ describe('TabLayout specs', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				tabs={[
-					{title: 'Home', icon: 'home'},
-					{title: 'Button', icon: 'image'},
-					{title: 'Item', icon: 'resumeplay'}
+					{children: 'Home', icon: 'home'},
+					{children: 'Button', icon: 'image'},
+					{children: 'Item', icon: 'resumeplay'}
 				]}
 			>
 				<div>Home</div>
@@ -46,9 +46,9 @@ describe('TabLayout specs', () => {
 			<TabLayoutBase
 				orientation="horizontal"
 				tabs={[
-					{title: 'Home', icon: 'home'},
-					{title: 'Button', icon: 'image'},
-					{title: 'Item', icon: 'resumeplay'}
+					{children: 'Home', icon: 'home'},
+					{children: 'Button', icon: 'image'},
+					{children: 'Item', icon: 'resumeplay'}
 				]}
 			>
 				<div>Home</div>
