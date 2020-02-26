@@ -4,8 +4,8 @@
  * @module sandstone/InputPopup
  * @exports InputPopup
  * @exports InputPopupBase
- * @exports InputNumberPopup
- * @exports InputNumberPopupBase
+ * @exports NumberInputPopup
+ * @exports NumberInputPopupBase
  */
 
 import React from 'react';
@@ -22,7 +22,7 @@ import Popup from '@enact/sandstone/Popup';
 import Skinnable from '@enact/sandstone/Skinnable';
 import Spotlight from '@enact/spotlight';
 
-import {InputNumberPopup, InputNumberPopupBase} from './InputNumberPopup';
+import {NumberInputPopup, NumberInputPopupBase} from './NumberInputPopup';
 import {convertToPasswordFormat} from './util';
 import componentCss from './InputPopup.module.less';
 
@@ -242,4 +242,4 @@ const InputPopupDecorator = compose(
 const InputPopup = InputPopupDecorator(InputPopupBase);
 
 export default InputPopup;
-export {InputPopupBase, InputPopup, InputNumberPopupBase, InputNumberPopup};
+export {InputPopupBase, InputPopup, NumberInputPopupBase, NumberInputPopup};

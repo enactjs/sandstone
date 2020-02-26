@@ -1,8 +1,8 @@
 /**
  * Popup style input for number
  *
- * @module sandstone/InputNumberPopup
- * @exports InputNumberPopup
+ * @module sandstone/NumberInputPopup
+ * @exports NumberInputPopup
  * @exports InputNumberBasePopup
  */
 
@@ -22,7 +22,7 @@ import Skinnable from '@enact/sandstone/Skinnable';
 import Spottable from '@enact/spotlight/Spottable';
 
 import {convertToPasswordFormat} from './util';
-import componentCss from './InputNumberPopup.module.less';
+import componentCss from './NumberInputPopup.module.less';
 
 const LENGTH_LIMIT = 6;
 const FULL_KEY_LIST = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'del']];
@@ -30,7 +30,7 @@ const OVERLAY_KEY_LIST = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], [''
 
 const SpottableDiv = Spottable('div');
 
-class InputNumberPopupBase extends React.Component {
+class NumberInputPopupBase extends React.Component {
 	static propTypes = {
 		length: PropTypes.number.isRequired,
 
@@ -267,7 +267,7 @@ class InputNumberPopupBase extends React.Component {
 				<Popup
 					onShow={this.handleShow}
 					onKeyDown={this.handleBackKey}
-					className={`${className} ${componentCss.inputNumberPopup} ${popupType === 'full' ? componentCss.full : componentCss.overlay}`}
+					className={`${className} ${componentCss.numberInputPopup} ${popupType === 'full' ? componentCss.full : componentCss.overlay}`}
 					{...rest}
 				>
 					<div className={componentCss.popupBody}>
@@ -288,7 +288,7 @@ class InputNumberPopupBase extends React.Component {
 	}
 }
 
-const InputNumberPopupDecorator = compose(
+const NumberInputPopupDecorator = compose(
 	Pure,
 	Toggleable({activate: 'openPopup', deactivate: 'closePopup', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
@@ -300,7 +300,7 @@ const InputNumberPopupDecorator = compose(
  *
  * Usage:
  * ```
- * <InputNumberPopup
+ * <NumberInputPopup
  * 	 popupType={'overlay'}
  * 	 length={4}
  *   title={'Title'}
@@ -312,14 +312,15 @@ const InputNumberPopupDecorator = compose(
  * ```
  *
  * @class InputPopup
- * @memberof sandstone/InputNumberPopup
- * @extends sandstone/InputNumberPopup.InputNumberPopupBase
+ * @memberof sandstone/NumberInputPopup
+ * @extends sandstone/NumberInputPopup.NumberInputPopupBase
  * @mixes ui/Toggleable.Toggleable
+ * @mixes ui/Changeable.Changeable
  * @ui
  * @public
  */
 
-const InputNumberPopup = InputNumberPopupDecorator(InputNumberPopupBase);
+const NumberInputPopup = NumberInputPopupDecorator(NumberInputPopupBase);
 
-export default InputNumberPopup;
-export {InputNumberPopup, InputNumberPopupBase};
+export default NumberInputPopup;
+export {NumberInputPopup, NumberInputPopupBase};
