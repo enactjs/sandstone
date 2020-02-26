@@ -4,8 +4,16 @@
 	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
 
 	box-sizing: border-box;
-	padding: var(--scroll-scrollbar-size);
 	overflow: hidden;
+
+	&.verticalPadding {
+		padding-left: var(--scroll-scrollbar-size);
+		padding-right: var(--scroll-scrollbar-size);
+	}
+
+	&.horizontalPadding {
+		padding-bottom: var(--scroll-scrollbar-size);
+	}
 
 	.scrollContent {
 		box-sizing: border-box;
