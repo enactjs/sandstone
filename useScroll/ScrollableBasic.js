@@ -116,7 +116,7 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 		/*
 		 * TBD
 		 */
-		type: PropTypes.string
+		scrollMode: PropTypes.string
 	}
 
 	static defaultProps = {
@@ -129,7 +129,7 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 			track: false,
 			wheel: true
 		},
-		type: 'JS'
+		scrollMode: 'translate'
 	}
 }
 

@@ -158,7 +158,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 
 	role: PropTypes.string,
 
-	type: PropTypes.string,
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -204,7 +204,7 @@ VirtualList.defaultProps = {
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'native',
 	verticalScrollbar: 'auto',
 	wrap: false
 };
@@ -343,7 +343,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	}),
 
 	role: PropTypes.string,
-	type: PropTypes.string,
+
+	scrollMode: PropTypes.string,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
@@ -389,7 +390,7 @@ VirtualGridList.defaultProps = {
 		wheel: true
 	},
 	role: 'list',
-	type: 'JS',
+	scrollMode: 'translate',
 	verticalScrollbar: 'auto',
 	wrap: false
 };

@@ -120,6 +120,11 @@ class VirtualListCore extends Component {
 		rtl: PropTypes.bool,
 
 		/**
+		 * TBD
+		 */
+		scrollMode: PropTypes.string,
+
+		/**
 		 * Spacing between items.
 		 *
 		 * @type {Number}
@@ -135,11 +140,6 @@ class VirtualListCore extends Component {
 		 * @private
 		 */
 		spotlightId: PropTypes.string,
-
-		/**
-		 * TBD
-		 */
-		type: PropTypes.string,
 
 		/**
 		 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -162,8 +162,8 @@ class VirtualListCore extends Component {
 		dataSize: 0,
 		focusableScrollbar: false,
 		pageScroll: false,
+		scrollMode: 'translate',
 		spacing: 0,
-		type: 'JS',
 		wrap: false
 	}
 }
