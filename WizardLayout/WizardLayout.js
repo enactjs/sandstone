@@ -121,17 +121,6 @@ const WizardLayoutBase = kind({
 	},
 
 	computed: {
-		buttons: ({buttons}) => {
-			if (buttons) {
-				return React.Children.map(buttons, (button, index) => (
-					<Cell key={`button${index}`} shrink>
-						{button}
-					</Cell>
-				));
-			} else {
-				return null;
-			}
-		},
 		subtitle: ({titles, index}) => titles[index] ? titles[index].subtitle : null,
 		title: ({titles, index}) => typeof titles[index] === 'object' && titles[index] !== null ? titles[index].title : titles[index]
 	},
@@ -148,12 +137,12 @@ const WizardLayoutBase = kind({
 					{children}
 				</Cell>
 				<Cell className={componentCss.bottomContainer} shrink>
-					<Row align="center center" className={componentCss.buttonContainer}>
+					<div className={componentCss.buttonContainer}>
 						{buttons}
-					</Row>
-					<Row align="center center" className={componentCss.footer}>
-						<Cell shrink>{footer}</Cell>
-					</Row>
+					</div>
+					<div className={componentCss.footer}>
+						{footer}
+					</div>
 				</Cell>
 			</Column>
 		);
