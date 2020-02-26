@@ -1,6 +1,6 @@
-@import '../styles/colors.less';
-@import '../styles/mixins.less';
-@import '../styles/variables.less';
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
 
 .scroll {
 	--scroll-scrollbar-size: 60px;
@@ -15,7 +15,7 @@
 		.focus({
 			background-color: @sand-scroll-focusablebody-focus-bg-color;
 		})
-  }
+	}
 
 	&.verticalPadding {
 		padding-left: var(--scroll-scrollbar-size);
@@ -31,13 +31,13 @@
 		padding: var(--scroll-fadeout-size);
 
 		&.verticalFadeout {
-			-webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,1) 48px, rgba(0,0,0,1) calc(100% - 48px), rgba(0,0,0,0));
-			mask-image: linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,1) 48px, rgba(0,0,0,1) calc(100% - 48px), rgba(0,0,0,0));
+			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
+			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 		}
 
 		&.horizontalFadeout {
-			-webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,1) 48px, rgba(0,0,0,1) calc(100% - 48px), rgba(0,0,0,0));
-			mask-image: linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,1) 48px, rgba(0,0,0,1) calc(100% - 48px), rgba(0,0,0,0));
+			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
+			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 		}
 	}
 
