@@ -158,7 +158,14 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.menuItems;
 			delete rest.onOpen;
 
-			return <Component popupComponent={Repeater} popupProps={popupProps} {...rest} onClick={onOpen} />;
+			return (
+				<Component
+					{...rest}
+					onClick={onOpen}
+					popupComponent={Repeater}
+					popupProps={popupProps}
+				/>
+			);
 		}
 	});
 });
