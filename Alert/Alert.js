@@ -11,7 +11,7 @@ import IdProvider from '@enact/ui/internal/IdProvider';
 import {Column, Cell, Row} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import React, {Fragment} from 'react';
+import React from 'react';
 
 import Popup from '../Popup';
 import AlertImage from './AlertImage';
