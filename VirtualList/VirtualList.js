@@ -70,8 +70,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		role
 	});
 
-	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
