@@ -43,6 +43,7 @@ import SelectableItem from '../../../SelectableItem';
 import Slider from '../../../Slider';
 import SlotItem from '../../../SlotItem';
 import Spinner from '../../../Spinner';
+import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
@@ -99,6 +100,7 @@ const components = {
 	Slider,
 	SlotItem,
 	Spinner,
+	Steps,
 	Switch,
 	SwitchItem,
 	TimePicker,
