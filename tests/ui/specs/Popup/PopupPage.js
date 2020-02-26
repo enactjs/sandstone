@@ -26,11 +26,9 @@ class PopupInterface {
 	get          self () { return element(`#${this.id}`, browser); }
 	get      buttonOK () { return element(`#${this.id} #buttonOK`, browser); }
 	get  buttonCancel () { return element(`#${this.id} #buttonCancel`, browser); }
-	get   buttonClose () { return element(`#${this.id} .Popup_Popup_closeButton`, browser); }
 	get   closeSymbol () { return getText(element(`#${this.id} .Icon_Icon_icon`, browser)); }
 	get         popup () { return element(`#${this.id}`, browser); }
 	get         title () { return getText(element(`#${this.id}>div>div`, browser)); }
-	get isCloseButton () { return this.self.isExisting('.Popup_Popup_closeButton'); }
 	get        isOpen () { return browser.isExisting(`.enact_ui_Transition_Transition_shown #${this.id}`); }
 }
 
