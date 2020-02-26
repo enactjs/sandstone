@@ -16,7 +16,6 @@ class VirtualListPage extends Page {
 		super.open('VirtualList-View', urlExtra);
 	}
 
-	get buttonFocusableScrollbar () { return element('#focusableScrollbar', browser); }
 	get buttonHideScrollbar () { return element('#hideScrollbar', browser); }
 	get buttonTop () { return element('#top', browser); }
 	get buttonLeft () { return element('#left', browser); }

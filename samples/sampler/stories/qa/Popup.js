@@ -80,7 +80,6 @@ storiesOf('Popup', module)
 					noAnimation={boolean('noAnimation', Popup, false)}
 					noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
 					onClose={action('onClose')}
-					showCloseButton={boolean('showCloseButton', Popup, true)}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Popup, 'self-only')}
 				>
 					<div>{text('children', Popup, 'Hello Popup')}</div>

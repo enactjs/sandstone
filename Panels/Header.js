@@ -165,9 +165,12 @@ const HeaderBase = kind({
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
 		 *
-		 * @type {String}
+		 * @type {String|String[]}
 		 */
-		subtitle: PropTypes.string,
+		subtitle: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string)
+		]),
 
 		/**
 		 * Title of the header.
@@ -183,9 +186,12 @@ const HeaderBase = kind({
 		 *  </Header>
 		 * ```
 		 *
-		 * @type {String}
+		 * @type {String|String[]}
 		 */
-		title: PropTypes.string,
+		title: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string)
+		]),
 
 		/**
 		 * Set the type of header to be used.

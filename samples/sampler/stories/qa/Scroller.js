@@ -8,7 +8,7 @@ import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import UiScroller from '@enact/ui/Scroller';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 
 import {storiesOf} from '@storybook/react';
 
@@ -16,10 +16,10 @@ import Button from '@enact/sandstone/Button';
 import ExpandableList from '@enact/sandstone/ExpandableList';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import {ScrollableBase} from '@enact/sandstone/Scrollable';
+import {ScrollableBasic} from '@enact/sandstone/useScroll';
 import Scroller from '@enact/sandstone/Scroller';
 
-const Config = mergeComponentMetadata('Scroller', UiScrollableBase, ScrollableBase, Scroller);
+const Config = mergeComponentMetadata('Scroller', UiScrollableBasic, ScrollableBasic, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {
@@ -29,6 +29,7 @@ for (let i = 0; i < 100; i++) {
 const
 	prop = {
 		direction: ['both', 'horizontal', 'vertical'],
+		focusableScrollbarOption: [true, false, 'byEnter'],
 		scrollbarOption: ['auto', 'hidden', 'visible']
 	};
 
@@ -153,7 +154,7 @@ storiesOf('Scroller', module)
 		'List of things',
 		() => (
 			<Scroller
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
@@ -172,7 +173,7 @@ storiesOf('Scroller', module)
 		'With ExpandableList',
 		() => (
 			<Scroller
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
@@ -196,7 +197,7 @@ storiesOf('Scroller', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, Config, 'horizontal')}
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
@@ -225,7 +226,7 @@ storiesOf('Scroller', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, Config)}
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
@@ -256,7 +257,7 @@ storiesOf('Scroller', module)
 		'With Many ExpandableList',
 		() => (
 			<Scroller
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
@@ -423,7 +424,7 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
 			return (
 				<Scroller
-					focusableScrollbar={boolean('focusableScrollbar', Config, true)}
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, true)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}

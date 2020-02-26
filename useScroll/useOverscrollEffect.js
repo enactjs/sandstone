@@ -1,5 +1,5 @@
 import {Job} from '@enact/core/util';
-import {constants} from '@enact/ui/Scrollable';
+import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
@@ -8,7 +8,7 @@ const
 	overscrollTimeout = 300;
 
 const useOverscrollEffect = (props, instances) => {
-	const {overscrollRefs, uiScrollAdapter} = instances;
+	const {overscrollRefs, scrollContainerHandle} = instances;
 
 	// Mutable value
 
@@ -65,21 +65,21 @@ const useOverscrollEffect = (props, instances) => {
 
 	function clearOverscrollEffect (orientation, edge) {
 		mutableRef.current.overscrollJobs[orientation][edge].startAfter(overscrollTimeout, orientation, edge, overscrollTypeNone, 0);
-		uiScrollAdapter.current.setOverscrollStatus(orientation, edge, overscrollTypeNone, 0);
+		scrollContainerHandle.current.setOverscrollStatus(orientation, edge, overscrollTypeNone, 0);
 	}
 
 	function checkAndApplyOverscrollEffectByDirection (direction) {
 		const
 			orientation = (direction === 'up' || direction === 'down') ? 'vertical' : 'horizontal',
-			bounds = uiScrollAdapter.current.getScrollBounds(),
-			scrollability = orientation === 'vertical' ? uiScrollAdapter.current.canScrollVertically(bounds) : uiScrollAdapter.current.canScrollHorizontally(bounds);
+			bounds = scrollContainerHandle.current.getScrollBounds(),
+			scrollability = orientation === 'vertical' ? scrollContainerHandle.current.canScrollVertically(bounds) : scrollContainerHandle.current.canScrollHorizontally(bounds);
 
 		if (scrollability) {
 			const
-				isRtl = uiScrollAdapter.current.rtl,
+				isRtl = scrollContainerHandle.current.rtl,
 				edge = (direction === 'up' || !isRtl && direction === 'left' || isRtl && direction === 'right') ? 'before' : 'after';
 
-			uiScrollAdapter.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
+			scrollContainerHandle.current.checkAndApplyOverscrollEffect(orientation, edge, overscrollTypeOnce);
 		}
 	}
 

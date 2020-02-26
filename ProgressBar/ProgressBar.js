@@ -38,12 +38,24 @@ const ProgressBarBase = kind({
 
 	propTypes: /** @lends sandstone/ProgressBar.ProgressBarBase.prototype */ {
 		/**
+		 * The proportion of the loaded portion of the progress bar.
+		 *
+		 * * Valid values are between `0` and `1`.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		backgroundProgress: PropTypes.number,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
 		 * The following classes are supported:
 		 *
 		 * * `progressBar` - The root component class
+		 * * `radial` - Applied when `orientation` is `'radial'`
 		 *
 		 * @type {Object}
 		 * @public
@@ -59,15 +71,13 @@ const ProgressBarBase = kind({
 		highlighted: PropTypes.bool,
 
 		/**
-		 * Sets the orientation of the slider.
+		 * The orientation of the slider.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical'|'radial')}
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		orientation: PropTypes.oneOf(['horizontal', 'vertical', 'radial']),
 
 		/**
 		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
@@ -97,7 +107,7 @@ const ProgressBarBase = kind({
 		 * ```
 		 * <ProgressBar
 		 *   tooltip={
-		 *     <ProgressBarTooltip side="after" />
+		 *     <ProgressBarTooltip position="after" />
 		 *   }
 		 * />
 		 * ```
@@ -108,7 +118,7 @@ const ProgressBarBase = kind({
 		 * Usage:
 		 * ```
 		 * <ProgressBar>
-		 *   <ProgressBarTooltip side="after" />
+		 *   <ProgressBarTooltip position="after" />
 		 * </ProgressBar>
 		 * ```
 		 *
@@ -119,17 +129,23 @@ const ProgressBarBase = kind({
 	},
 
 	defaultProps: {
+		backgroundProgress: 0,
 		orientation: 'horizontal',
 		progress: 0
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar']
+		publicClassNames: ['progressBar', 'radial']
 	},
 
 	computed: {
-		className: ({highlighted, styler}) => styler.append({highlighted}),
+		className: ({highlighted, orientation, progress, backgroundProgress, styler}) => styler.append({
+			highlighted,
+			radial: (orientation === 'radial'),
+			fillOverHalf: (progress > 0.5),
+			loadOverHalf: (backgroundProgress > 0.5)
+		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
