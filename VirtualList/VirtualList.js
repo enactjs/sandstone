@@ -252,7 +252,7 @@ let VirtualGridList = ({role, ...rest}) => {
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
 		focusableScrollbar: rest.focusableScrollbar,
-		role: role
+		role
 	});
 
 	return (
