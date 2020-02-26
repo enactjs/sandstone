@@ -62,7 +62,7 @@ let ScrollThumb = forwardRef((props, ref) => {
 
 	const onClick = useCallback((ev) => {
 		// Click the track. If user click the thumb, do nothing.
-		if (ev.target === ref.current) {
+		if (ref && ev.target === ref.current) {
 			const
 				clickPoint = vertical ? ev.nativeEvent.offsetY : ev.nativeEvent.offsetX,
 				thumbPosition = vertical ? ev.target.children[0].offsetTop : ev.target.children[0].offsetLeft;
