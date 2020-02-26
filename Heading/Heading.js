@@ -143,7 +143,7 @@ const Heading = HeadingDecorator(HeadingBase);
  * * `'render'` - Marquee begins when the component is rendered
  *
  * @name marqueeOn
- * @type {String}
+ * @type {('hover'|'render')}
  * @default 'render'
  * @memberof sandstone/Heading.Heading.prototype
  * @see {@link sandstone/Marquee.Marquee}

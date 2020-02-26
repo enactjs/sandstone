@@ -23,9 +23,13 @@
 
 // Font Sizes
 // ---------------------------------------
+<<<<<<< HEAD
 @sand-alert-title-below-font-size: @sand-popup-content-font-size;
 @sand-alert-title-font-size: @sand-popup-header-font-size;
 @sand-alert-overlay-font-size: 60px;
+=======
+@sand-actionguide-label-font-size:  48px;
+>>>>>>> develop
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -57,6 +61,7 @@
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
+@sand-keyguide-font-size: 60px;
 @sand-labeledicon-font-size:        48px;
 @sand-large-text-size:              96px;
 @sand-notification-font-size:       60px;
@@ -65,6 +70,7 @@
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
 @sand-pre-text-size:                48px;
+@sand-steps-step-number-font-size:  54px;
 @sand-superscript-text-size:        48px;
 @sand-tooltip-label-font-size:      54px;
 
@@ -175,30 +181,26 @@
 @sand-popup-header-letter-spacing: normal;
 @sand-popup-header-line-height: normal;
 
+// Steps
+@sand-steps-step-number-font-family: @sand-font-family;
+
 
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
 
+
+// ActionGuide
+// ---------------------------------------
+@sand-actionguide-max-width: 1500px;
+
 // Alert
 // ---------------------------------------
-
 @sand-alert-buttons-margin-top: 180px;
 @sand-alert-buttons-width: 540px;
 @sand-alert-max-buttons-margin-top: 300px;
 @sand-alert-title-margin-top: 30px;
 @sand-alert-title-below-margin-top: 12px;
-
-// AlertImage
-// ---------------------------------------
-
-@sand-alert-image-thumbnail-width: 450px;
-@sand-alert-image-thumbnail-height: 252px;
-@sand-alert-image-icon-size: 240px;
-@sand-alert-image-icon-border-radius: 12px;
-
-// AlertOverlay
-// ---------------------------------------
 @sand-alert-overlay-border-radius: 24px;
 @sand-alert-overlay-button-margin: 30px;
 @sand-alert-overlay-buttons-width: 450px;
@@ -209,6 +211,14 @@
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left-right: 90px;
+
+// AlertImage
+// ---------------------------------------
+
+@sand-alert-image-thumbnail-width: 450px;
+@sand-alert-image-thumbnail-height: 252px;
+@sand-alert-image-icon-size: 240px;
+@sand-alert-image-icon-border-radius: 12px;
 
 // Button
 // ---------------------------------------
@@ -424,6 +434,12 @@
 @sand-item-slotafter-spacing: @sand-component-spacing;
 @sand-item-slotbefore-spacing: @sand-component-spacing;
 
+@sand-keyguide-width: 750px;
+@sand-keyguide-position-bottom: 120px;
+@sand-keyguide-position-right: 150px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 6px 0;
+
 // MediaOverlay
 // ---------------------------------------
 @sand-mediaoverlay-width: 642px;
@@ -473,6 +489,14 @@
 @sand-progressbar-vertical-min-height: 240px;
 @sand-progressbar-radial-size: 72px;
 @sand-progressbar-radial-thickness: 9px;
+
+// RadioItem
+// ---------------------------------------
+@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
+	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
+	// this value must be specifically considered as to not impose layout issues related to, for
+	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+@sand-radioitem-indicator-border-radius: 999px;
 
 // Scrim
 // ---------------------------------------
@@ -534,13 +558,14 @@
 @sand-spinner-icon: @sand-icon-circle;
 @sand-spinner-font-weight: bold;
 
-// RadioItem
+// Steps
 // ---------------------------------------
-@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
-	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
-	// this value must be specifically considered as to not impose layout issues related to, for
-	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
-@sand-radioitem-indicator-border-radius: 999px;
+@sand-steps-step-number-font-weight: 600;
+@sand-steps-margin: 0;
+@sand-steps-step-margin: 0 @sand-component-spacing;
+@sand-steps-step-past-opacity: 1;
+@sand-steps-step-current-opacity: 1;
+@sand-steps-step-future-opacity: 0.2;
 
 // TabLayout
 // ---------------------------------------
