@@ -149,6 +149,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStop={onScrollStop}
+						scrollMode="translate"
 					/>
 				);
 
@@ -173,6 +174,7 @@ describe('VirtualList', () => {
 					itemRenderer={renderItem}
 					itemSize={60}
 					onScrollStop={onScrollStop}
+					scrollMode="translate"
 				/>
 			);
 
@@ -195,6 +197,7 @@ describe('VirtualList', () => {
 					itemRenderer={renderItem}
 					itemSize={60}
 					onScrollStop={onScrollStop}
+					scrollMode="translate"
 				/>
 			);
 
@@ -211,6 +214,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStart={handlerOnScrollStart}
+						scrollMode="translate"
 					/>
 				);
 
@@ -231,6 +235,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScroll={handlerOnScroll}
+						scrollMode="translate"
 					/>
 				);
 
@@ -258,6 +263,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStop={onScrollStop}
+						scrollMode="translate"
 					/>
 				);
 
