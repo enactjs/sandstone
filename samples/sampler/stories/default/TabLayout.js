@@ -3,6 +3,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
+import {scale} from '@enact/ui/resolution';
 import Button from '@enact/sandstone/Button';
 import {Image} from '@enact/sandstone/Image';
 import Icon from '@enact/sandstone/Icon';
@@ -33,7 +34,7 @@ storiesOf('Sandstone', module)
 				>
 					<React.Fragment>
 						<Icon>home</Icon>Home
-						<Scroller style={{height: '500px'}}>
+						<Scroller style={{height: scale(1000)}}>
 							<Image
 								caption="Image"
 								src="http://placehold.it/360x240/"
