@@ -96,7 +96,6 @@ class app extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			focusableScrollbar: false,
 			hideScrollbar: false,
 			keyDownEvents: 0,
 			wrap: false
@@ -113,12 +112,11 @@ class app extends React.Component {
 	}
 
 	render () {
-		const {focusableScrollbar, hideScrollbar, keyDownEvents, wrap} = this.state;
+		const {hideScrollbar, keyDownEvents, wrap} = this.state;
 		return (
 			<div {...this.props} data-keydown-events={keyDownEvents} id="list" style={fullHeightStyle}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<ToggleButton id="focusableScrollbar" onClick={this.onToggle} selected={focusableScrollbar}>focusableScrollbar</ToggleButton>
 						<ToggleButton id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</ToggleButton>
 						<ToggleButton id="wrap" onClick={this.onToggle} selected={wrap}>wrap</ToggleButton>
 					</Cell>
@@ -135,7 +133,6 @@ class app extends React.Component {
 									<Cell>
 										<VirtualList
 											dataSize={numItems}
-											focusableScrollbar={focusableScrollbar}
 											itemRenderer={renderItem(itemSize)}
 											itemSize={itemSize}
 											onKeyDown={this.onKeyDown}

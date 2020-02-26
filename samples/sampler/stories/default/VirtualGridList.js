@@ -72,7 +72,6 @@ storiesOf('Sandstone', module)
 			<VirtualGridList
 				dataSize={updateDataSize(number('dataSize', VirtualGridListConfig, defaultDataSize))}
 				direction={select('direction', prop.direction, VirtualGridListConfig)}
-				focusableScrollbar={boolean('focusableScrollbar', VirtualGridListConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{

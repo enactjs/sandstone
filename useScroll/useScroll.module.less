@@ -1,4 +1,6 @@
 @import '../styles/colors.less';
+@import '../styles/mixins.less';
+@import '../styles/variables.less';
 
 .scroll {
 	--scroll-scrollbar-size: 60px;
@@ -6,8 +8,23 @@
 	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
 
 	box-sizing: border-box;
-	padding: var(--scroll-scrollbar-size);
 	overflow: hidden;
+
+	&.focusableBody {
+		border-radius: @sand-scroll-focusablebody-focus-border-radius;
+		.focus({
+			background-color: @sand-scroll-focusablebody-focus-bg-color;
+		})
+	}
+
+	&.verticalPadding {
+		padding-left: var(--scroll-scrollbar-size);
+		padding-right: var(--scroll-scrollbar-size);
+	}
+
+	&.horizontalPadding {
+		padding-bottom: var(--scroll-scrollbar-size);
+	}
 
 	.scrollContent {
 		box-sizing: border-box;

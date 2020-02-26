@@ -66,7 +66,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
 		role
 	});
 
@@ -118,7 +117,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -194,7 +192,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
@@ -251,7 +248,6 @@ let VirtualGridList = ({role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		focusableScrollbar: rest.focusableScrollbar,
 		role: role
 	});
 
@@ -305,7 +301,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
@@ -379,7 +375,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	direction: 'vertical',
-	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
 		arrowKey: false,
