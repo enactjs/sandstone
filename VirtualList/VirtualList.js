@@ -118,7 +118,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
+	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -305,7 +305,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	'data-spotlight-container-disabled': PropTypes.bool,
 
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-	focusableScrollbar: PropTypes.bool,
+	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *

@@ -62,11 +62,11 @@ class VirtualListCore extends Component {
 		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
 		 * not move focus to the scrollbar controls.
 		 *
-		 * @type {Boolean}
+		 * @type {true|false|'byEnter'}
 		 * @default false
 		 * @public
 		 */
-		focusableScrollbar: PropTypes.bool,
+		focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
 
 		/**
 		 * Prop to check if horizontal Scrollbar exists or not.
@@ -186,7 +186,7 @@ const VirtualListBasic = VirtualListCore;
  *
  * @name focusableScrollbar
  * @memberof sandstone/VirtualList.VirtualListBasic.prototype
- * @type {Boolean}
+ * @type {true|false|'byEnter'}
  * @default false
  * @private
  */

@@ -103,10 +103,10 @@ ScrollThumb.propTypes = /** @lends sandstone/useScroll.ScrollThumb.prototype */ 
 	/**
 	 * `true` if scroll thumb is spottable.
 	 *
-	 * @type {Boolean}
+	 * @type {true|false|'byEnter'}
 	 * @private
 	 */
-	focusableScrollbar: PropTypes.bool,
+	focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
 
 	/**
 	 * Called when the user requests scroll.

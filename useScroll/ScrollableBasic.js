@@ -75,11 +75,11 @@ class ScrollableBasic extends Component { // ScrollableBasic is now only used in
 		 * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
 		 * not move focus to the scrollbar controls.
 		 *
-		 * @type {Boolean}
+		 * @type {true|false|'byEnter'}
 		 * @default false
 		 * @public
 		 */
-		focusableScrollbar: PropTypes.bool,
+		focusableScrollbar: PropTypes.oneOf([true, false, 'byEnter']),
 
 		/**
 		 * A unique identifier for the scrollable component.
