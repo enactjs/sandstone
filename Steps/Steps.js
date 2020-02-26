@@ -46,10 +46,14 @@ const StepsBase = kind({
 		 *
 		 * * `steps` - The root class name
 		 * * `step` - Applied to each individual step
-		 * * `numbers` - Applied on the steps designated as "numbers" special case (See: icon props below)
+		 * * `numbers` - Applied on the steps designated as "numbers" special case (See: `Icon` related props below)
 		 * * `past` - Applied to the steps preceeding the current step
 		 * * `current` - Applied to the current step
 		 * * `future` - Applied to the steps following the current step
+		 *
+		 * When providing a custom `iconComponent` it will receive the classes:
+		 * 'step' (always), 'numbers' (conditionally, based on the "numbers" value), and one of the
+		 * following three, based on the `current` step: 'past', 'current', and 'future'.
 		 *
 		 * @type {Object}
 		 * @public
@@ -94,10 +98,9 @@ const StepsBase = kind({
 		/**
 		 * Defines a custom element to use as the icon component.
 		 *
-		 * This component will be repeated `total` number of times and will receive the classes:
-		 * 'step' (always), 'numbers' (conditionally, based on the "numbers" value), and one of the
-		 * following three, based on the `current` step: 'past', 'current', and 'future', as well as
-		 * the `children` and `size` props.
+		 * Use the `css` prop and public class name override system to target the classes applied to
+		 * this component. This component will be repeated `total` number of times and will also
+		 * receive the `children` and `size` props.
 		 *
 		 * @type {Component}
 		 * @default `sandstone/Icon`
