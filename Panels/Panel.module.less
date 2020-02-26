@@ -49,4 +49,17 @@
 	&.visible {
 		opacity: 1;
 	}
+
+	// Support various types of Panel
+	.listType & {
+		padding: @sand-panel-body-list-padding;
+	}
+
+	.optionType & {
+		padding: @sand-panel-body-option-padding;
+	}
+
+	.wizardType & {
+		padding: @sand-panel-body-wizard-padding;
+	}
 }

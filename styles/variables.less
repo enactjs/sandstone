@@ -7,7 +7,7 @@
 
 // Generic/Common/Shared
 // ---------------------------------------
-@sand-component-spacing: 30px;
+@sand-component-spacing: 42px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate3d(-50%, -50%, 0);
 
@@ -182,12 +182,18 @@
 // ---------------------------------------
 @sand-actionguide-max-width: 1500px;
 
+// BodyText
+// ---------------------------------------
+@sand-bodytext-margin: 0 @sand-component-spacing @sand-body-font-size @sand-component-spacing;
+@sand-bodytext-padding: 0;
+
 // Button
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
-@sand-button-h-margin: @sand-spotlight-outset;
+@sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
+@sand-button-with-icon-h-padding: @sand-spotlight-outset;
 @sand-button-height-large: 192px;
 @sand-button-height: 144px;
 @sand-button-icon-h-margin: 30px;
@@ -310,13 +316,13 @@
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 72px;
+@sand-header-standard-padding: 108px extract(@sand-panel-body-list-padding, 2) 72px;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding: 60px (108px - @sand-spotlight-outset) 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-compact-border-width: 6px;
 @sand-header-compact-line-margin: 54px @sand-spotlight-outset 0 @sand-spotlight-outset;
 @sand-header-wizard-margin: 0;
-@sand-header-wizard-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 139px;
+@sand-header-wizard-padding: 108px extract(@sand-panel-body-wizard-padding, 2) 139px;
 
 // Heading
 // ---------------------------------------
@@ -395,8 +401,7 @@
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: @sand-component-spacing;
 @sand-item-slotbefore-spacing: @sand-component-spacing;
-// @sand-item-margin: 0 @sand-component-spacing 81px @sand-component-spacing;
-@sand-item-margin: 0 @sand-spotlight-outset 81px @sand-spotlight-outset;
+@sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
 
 @sand-keyguide-width: 750px;
 @sand-keyguide-position-bottom: 120px;
@@ -427,17 +432,19 @@
 // Panels
 // ---------------------------------------
 @sand-panels-breadcrumb-width: 192px;
-@sand-panels-controls-right: extract(@sand-panel-padding, 2);
+@sand-panels-controls-right: extract(@sand-panel-padding, 2) + 108px;
 @sand-panels-controls-spacing: 36px;
 @sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
 @sand-panels-optionpanels-width : 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
-@sand-panel-keepout: 150px;
-@sand-panel-body-padding: 24px 0 0 0;
-
-@sand-panel-wizard-padding: @sand-app-keepout (150px - (@sand-component-spacing + @sand-spotlight-outset));
-@sand-panel-list-padding: @sand-app-keepout (150px - (@sand-component-spacing));
-@sand-panel-option-padding: @sand-app-keepout (60px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-panel-wizard-padding: 0;
+@sand-panel-list-padding: 0;
+@sand-panel-option-padding: 0;
+@sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
+@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset)) 0;
+@sand-panel-body-wizard-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
+@sand-panel-body-option-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
 
 // Popup
 // ---------------------------------------
