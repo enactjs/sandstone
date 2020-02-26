@@ -268,6 +268,7 @@ class NumberInputPopupBase extends React.Component {
 					onShow={this.handleShow}
 					onKeyDown={this.handleBackKey}
 					className={`${className} ${componentCss.numberInputPopup} ${popupType === 'full' ? componentCss.full : componentCss.overlay}`}
+					noAnimation
 					{...rest}
 				>
 					<div className={componentCss.popupBody}>

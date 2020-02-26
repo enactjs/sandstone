@@ -182,6 +182,7 @@ class InputPopupBase extends React.Component {
 					onHide={this.handleHide}
 					onKeyDown={this.handleBackKey}
 					className={`${className} ${componentCss.inputPopup}`}
+					noAnimation
 					{...rest}
 				>
 					<div className={componentCss.popupBody}>
