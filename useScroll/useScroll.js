@@ -446,20 +446,23 @@ const useScroll = (props) => {
 			},
 			onKeyDown: (ev) => {
 				const {keyCode, target} = ev;
-				if (isEnter(keyCode) && target.classList.contains(css.scroll)) {	// TODO Handle OK key for TV.
-					// Enter key on scroll Body
+				if (isEnter(keyCode) && target.classList.contains(css.scroll)) {
+					// Enter key on scroll Body.
+					// Scroll thumb get focus.
 					setNavigableFilter('body');
 					Spotlight.move('right');
 
 					// Set scrollContainerRef.
 					scrollContainerRef.current = target;
-				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb)) {	// TODO Handle Cancel key for TV.
+				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb)) {
 					// Esc key on scroll thumb.
+					// Scroll body get focus.
 					setNavigableFilter('thumb');
-					scrollContainerRef.current.focus();
+					Spotlight.move('left');
 				}
 			}
-			// ref: scrollContainerRef	// TODO: Resolve the ref problem on Spottable element.
+			// ref: scrollContainerRef	// TODO(@Ahn): Resolve the ref problem on Spottable element.
+			// Wheel operation is not currently working.
 		});
 	}
 
