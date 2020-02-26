@@ -122,7 +122,11 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 
 	/**
-	 * `true` if scroll thumb is spottable.
+	 * Allows 5-way navigation to the scroll thumb.
+	 * By default, 5-way will not move focus to the scroll thumb.
+	 * If `true`, the scroll thumb will get focus by directional keys.
+	 * If `'byEnter'`, scroll body will get focus first by directional keys,
+	 * then the scroll thumb will get focus by enter key pressed on scroll body.
 	 *
 	 * @type {Boolean|String}
 	 * @default false
@@ -317,7 +321,11 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 
 	/**
-	 * `true` if scroll thumb is spottable.
+	 * Allows 5-way navigation to the scroll thumb.
+	 * By default, 5-way will not move focus to the scroll thumb.
+	 * If `true`, the scroll thumb will get focus by directional keys.
+	 * If `'byEnter'`, scroll body will get focus first by directional keys,
+	 * then the scroll thumb will get focus by enter key pressed on scroll body.
 	 *
 	 * @type {Boolean|String}
 	 * @default false
