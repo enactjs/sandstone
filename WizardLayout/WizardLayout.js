@@ -123,7 +123,7 @@ const WizardLayoutBase = kind({
 	},
 
 	computed: {
-		subtitle: ({titles, index}) => titles[index] ? titles[index].subtitle : null,
+		subtitle: ({titles, index}) => titles[index] && titles[index].subtitle ? titles[index].subtitle : null,
 		title: ({titles, index}) => typeof titles[index] === 'object' && titles[index] !== null ? titles[index].title : titles[index]
 	},
 
