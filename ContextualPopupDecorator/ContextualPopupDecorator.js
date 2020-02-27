@@ -102,7 +102,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Direction of popup with respect to the wrapped component.
 			 *
-			 * @type {String}
+			 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
 			 * @default 'below center'
 			 * @public
 			 */

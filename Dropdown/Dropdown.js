@@ -103,6 +103,15 @@ const DropdownBase = kind({
 		]),
 
 		/**
+		 * The placement of the Dropdown.
+		 *
+		 * @type {('above'|'below')}
+		 * @default 'below'
+		 * @public
+		 */
+		direction: PropTypes.oneOf(['above', 'below']),
+
+		/**
 		 * Disables Dropdown and becomes non-interactive.
 		 *
 		 * @type {Boolean}

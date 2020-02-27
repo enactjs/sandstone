@@ -162,19 +162,19 @@ storiesOf('ContextualPopupDecorator', module)
 				<Heading showLine>direction Up</Heading>
 				<div style={{display: 'flex', justifyContent: 'space-between', marginBottom: ri.unit(24, 'rem')}}>
 					<ContextualPopupWithActivator
-						direction="up"
+						direction="above"
 						popupComponent={renderWidePopup}
 					>
 						Overflows Left
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="up"
+						direction="above"
 						popupComponent={renderTallPopup}
 					>
 						Overflows Top
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="up"
+						direction="above"
 						popupComponent={renderWidePopup}
 					>
 						Overflows Right
@@ -231,19 +231,19 @@ storiesOf('ContextualPopupDecorator', module)
 				<Heading showLine>direction down</Heading>
 				<div style={{display: 'flex', justifyContent: 'space-between'}}>
 					<ContextualPopupWithActivator
-						direction="down"
+						direction="below"
 						popupComponent={renderWidePopup}
 					>
 						Overflows Left
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="down"
+						direction="below"
 						popupComponent={renderTallPopup}
 					>
 						Overflows Bottom
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="down"
+						direction="below"
 						popupComponent={renderWidePopup}
 					>
 						Overflows Right

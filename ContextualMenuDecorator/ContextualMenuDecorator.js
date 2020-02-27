@@ -1,3 +1,11 @@
+/**
+ * A decorator for adding contextual menus to components.
+ *
+ * @module sandstone/ContextualMenuDecorator
+ * @exports ContextualMenuDecorator
+ * @exports ContextualMenuDecoratorBase
+ */
+
 import {handle, forward, forProp} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
