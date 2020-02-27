@@ -27,7 +27,6 @@ import {VirtualListBasic} from './VirtualListBasic';
  *
  * @class VirtualList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -225,7 +224,6 @@ VirtualList = Skinnable(
  *
  * @class VirtualGridList
  * @memberof sandstone/VirtualList
- * @extends sandstone/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
