@@ -160,7 +160,7 @@ const AlertBase = kind({
 		buttons: ({buttons, css}) => {
 			if (buttons) {
 				return React.Children.map(buttons, (button, index) => (
-					<Cell className={css.button} key={`button${index}`}>
+					<Cell className={css.buttonCell} key={`button${index}`} shrink>
 						{button}
 					</Cell>
 				));
@@ -180,26 +180,31 @@ const AlertBase = kind({
 	},
 
 	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
-		const Container = type === 'fullscreen' ? Column : Row;
+		const fullscreen = (type === 'fullscreen');
+		const Container = fullscreen ? Column : Row;
 		return (
 			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={type}>
 				<Container align="center center">
 					<Cell shrink>
 						<Container align="center">
-							<Cell className={css.alertImage} shrink>{image}</Cell>
-							<Cell className={css.title} id={`${id}_title`} shrink>
-								{title}
-							</Cell>
-							<Cell className={css.subtitle} id={`${id}_subtitle`} shrink>
-								{subtitle}
-							</Cell>
-							<Cell className={css.content} id={`${id}content`} shrink>
-								{children}
-							</Cell>
+							{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
+							{fullscreen ?
+								<React.Fragment>
+									<Cell className={css.title} id={`${id}_title`} shrink>
+										{title}
+									</Cell>
+									<Cell className={css.subtitle} id={`${id}_subtitle`} shrink>
+										{subtitle}
+									</Cell>
+								</React.Fragment> :
+								<Cell className={css.content} id={`${id}content`} shrink>
+									{children}
+								</Cell>
+							}
 						</Container>
 					</Cell>
-					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink>
-						<Column className={css.buttonContainer} id={`${id}_buttons`}>
+					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink className={css.buttonContainer}>
+						<Column id={`${id}_buttons`} align="center center">
 							{buttons}
 						</Column>
 					</Cell>

@@ -11,26 +11,13 @@
 	}
 
 	.subtitle {
-		.sand-alert-title-below();
+		.sand-alert-subtitle();
 		margin-top: @sand-alert-subtitle-margin-top;
 	}
 
-	&.noImage {
-		.alertImage {
-			display: none;
-		}
-	}
-
 	&.fullscreen {
-		.alertImage {
-			align-self: center;
-		}
-
-		.content {
-			display: none;
-		}
-
-		&.noImage, &.maxButtons {
+		&.noImage,
+		&.maxButtons {
 			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;
 			}
@@ -38,49 +25,29 @@
 
 		.buttonContainer {
 			margin-top: @sand-alert-buttons-margin-top;
-			height: fit-content;
 
-			.button > * {
-				margin: 0;
-				width: @sand-alert-buttons-width;
-			}
-
-			.button:not(:last-child) {
-				margin-bottom: @sand-alert-overlay-fullscreen-button-margin;
+			// Every buttonCell after the first one
+			.buttonCell + .buttonCell {
+				margin-top: @sand-alert-fullscreen-button-margin;
 			}
 		}
 	}
 
 	&.overlay {
-		.alertImage {
-			align-self: baseline;
-		}
-
-		.title,
-		.subtitle {
-			display: none;
-		}
-
 		.buttonContainer {
 			box-sizing: border-box;
-			width: @sand-alert-overlay-buttons-width;
+			margin: @sand-alert-overlay-buttoncontainer-margin;
 
-			.button > * {
-				margin: 0;
-				min-width: @sand-alert-overlay-buttons-width;
-			}
-
-			.button:not(:last-child) {
-				margin-bottom: @sand-alert-overlay-button-margin;
+			// Every buttonCell after the first one
+			.buttonCell + .buttonCell {
+				margin-top: @sand-alert-overlay-button-margin;
 			}
 		}
 
 		.content {
-			width: @sand-alert-overlay-content-width;
-			margin-right: @sand-alert-overlay-content-margin-right;
-			margin-left: @sand-alert-overlay-content-margin-left;
-
 			.sand-alert-overlay-content();
+			width: @sand-alert-overlay-content-width;
+			.margin-start-end(@sand-alert-overlay-content-margin-left, @sand-alert-overlay-content-margin-right);
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
@@ -90,19 +57,14 @@
 		}
 	}
 
-	:global(.enact-locale-right-to-left) & {
-		&.overlay {
-			.content {
-				margin-right: @sand-alert-overlay-content-margin-left;
-				margin-left: @sand-alert-overlay-content-margin-right;
-			}
-		}
-	}
-
 	// Skin colors
 	.applySkins({
+		.title {
+			color: @sand-alert-title-color;
+		}
+
 		.subtitle {
-			color: @sand-alert-title-below-color;
+			color: @sand-alert-subtitle-color;
 		}
 	});
 }
@@ -110,9 +72,6 @@
 .popup {
 	&.overlay {
 		width: fit-content;
-		// top: unset;
-		// bottom: 0;
-		// transform: translate3d(-50%, 0, 0);
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: @sand-alert-overlay-margin-bottom;
@@ -124,12 +83,12 @@
 	}
 
 	.applySkins({
+		background-color: @sand-alert-bg-color;
+
 		&.overlay {
 			background-color: @sand-alert-overlay-bg-color;
 			box-shadow: @sand-alert-overlay-shadow;
 			color: @sand-alert-overlay-text-color;
 		}
-
-		background-color: @sand-alert-bg-color;
 	});
 }
