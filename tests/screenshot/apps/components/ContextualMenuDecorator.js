@@ -1,3 +1,4 @@
+/*
 import Button from '../../../../Button';
 import ContextualMenuDecorator from '../../../../ContextualMenuDecorator';
 import React from 'react';
@@ -13,6 +14,7 @@ const style = {
 	top: '50%',
 	transform: 'translate(-50%, -50%)'
 };
+*/
 
 // TO DO: add menuItem options
 // TO DO: add open/close
