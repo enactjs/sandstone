@@ -6,6 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import {OptionPanels, Panel, Header} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
+import Item from '@enact/sandstone/Item';
 
 const Config = mergeComponentMetadata('OptionPanels', OptionPanels);
 
@@ -37,6 +38,9 @@ storiesOf('Sandstone', module)
 							</subtitle>
 						</Header>
 						<BodyText>Example text inside an OptionPanels Panel</BodyText>
+						<Item>Example Item 1</Item>
+						<Item>Example Item 2</Item>
+						<Item>Example Item 3</Item>
 					</Panel>
 					<Panel>
 						<Header type="compact">
@@ -48,6 +52,9 @@ storiesOf('Sandstone', module)
 							</subtitle>
 						</Header>
 						<BodyText>Woo woo</BodyText>
+						<Item>Example Item 1 on Panel 2</Item>
+						<Item>Example Item 2 on Panel 2</Item>
+						<Item>Example Item 3 on Panel 2</Item>
 					</Panel>
 				</OptionPanels>
 				<BodyText centered>Use KNOBS to interact with OptionPanels.</BodyText>
