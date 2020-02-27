@@ -55,7 +55,7 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {panelArranger, className: cfgClassName} = config;
+	const {className: cfgClassName, panelArranger, panelType} = config;
 
 	const Decorator = kind({
 		name: 'PopupDecorator',
@@ -168,6 +168,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						id={`${id}_panels`}
 						index={index}
 						noAnimation={noAnimation}
+						type={panelType}
 					>
 						{children}
 					</Wrapped>
