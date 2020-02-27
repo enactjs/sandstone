@@ -2,8 +2,8 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
-import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,11 +11,11 @@ import Item from '@enact/sandstone/Item';
 import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import VirtualList, {VirtualListBase} from '@enact/sandstone/VirtualList';
+import VirtualList, {VirtualListBasic} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
+const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
 
 const
 	itemStyle = {
@@ -183,7 +183,6 @@ storiesOf('VirtualList', module)
 			const listProps = {
 				dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 				direction: 'horizontal',
-				focusableScrollbar: boolean('focusableScrollbar', Config),
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
 				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 144)), false),
 				itemSize: ri.scale(number('itemSize', Config, 144)),
@@ -213,7 +212,6 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
@@ -259,7 +257,6 @@ storiesOf('VirtualList', module)
 				<InPanels
 					title={title}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -296,11 +293,10 @@ storiesOf('VirtualList', module)
 						arrowKey: false,
 						drag: false,
 						pageKey: true,
-						scrollbarButton: false,
+						track: false,
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 144))}
 				/>

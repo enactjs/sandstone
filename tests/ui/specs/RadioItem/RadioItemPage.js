@@ -1,8 +1,8 @@
 'use strict';
-const Page = require('@enact/ui-test-utils/test/Page.js');
-const {getSubComponent, getText} = require('@enact/ui-test-utils/test/utils.js');
+const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
-const getMarqueeText = getSubComponent({lib: 'ui', component:'Marquee', child:'text'});
+const isSelected = hasClass(componentSelector({component: 'RadioItem', child: 'selected'}));
+const getMarqueeText = getSubComponent({lib: 'ui', component: 'Marquee', child: 'text'});
 
 class RadioItemInterface {
 	constructor (id) {
@@ -15,7 +15,7 @@ class RadioItemInterface {
 
 	get self () { return browser.element(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
-	get isSelected () { return this.self.isExisting('.RadioItem_RadioItem_selected'); }
+	get isSelected () { return isSelected(this.self); }
 	get isInline () { return browser.isExisting(`#${this.id}.Item_Item_inline`); }
 }
 

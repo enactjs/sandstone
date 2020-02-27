@@ -102,11 +102,11 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Direction of popup with respect to the wrapped component.
 			 *
-			 * @type {String}
-			 * @default 'down'
+			 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
+			 * @default 'below center'
 			 * @public
 			 */
-			direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 			/**
 			 * Disables closing the popup when the user presses the cancel key or taps outside the
@@ -235,7 +235,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		static defaultProps = {
 			'data-webos-voice-exclusive': true,
-			direction: 'down',
+			direction: 'below center',
 			noAutoDismiss: false,
 			open: false,
 			showCloseButton: false,
@@ -326,14 +326,30 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			});
 		}
 
+		getContainerAdjustedPosition = () => {
+			const position = this.adjustedDirection;
+			const arr = this.adjustedDirection.split(' ');
+			let direction = null;
+			let anchor = null;
+
+			if (arr.length === 2) {
+				[direction, anchor] = arr;
+			} else {
+				direction = position;
+			}
+
+			return {anchor, direction};
+		}
+
 		getContainerPosition (containerNode, clientNode) {
 			const position = this.centerContainerPosition(containerNode, clientNode);
+			const {direction} = this.getContainerAdjustedPosition();
 
-			switch (this.adjustedDirection) {
-				case 'up':
+			switch (direction) {
+				case 'above':
 					position.top = clientNode.top - this.ARROW_OFFSET - containerNode.height - this.MARGIN;
 					break;
-				case 'down':
+				case 'below':
 					position.top = clientNode.bottom + this.ARROW_OFFSET + this.MARGIN;
 					break;
 				case 'right':
@@ -348,48 +364,88 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		centerContainerPosition (containerNode, clientNode) {
-			let pos = {};
-			if (this.adjustedDirection === 'up' || this.adjustedDirection === 'down') {
+			const pos = {};
+			const {anchor, direction} = this.getContainerAdjustedPosition();
+
+			if (direction === 'above' || direction === 'below') {
 				if (this.overflow.isOverLeft) {
 					// anchor to the left of the screen
 					pos.left = this.KEEPOUT;
 				} else if (this.overflow.isOverRight) {
 					// anchor to the right of the screen
 					pos.left = window.innerWidth - containerNode.width - this.KEEPOUT;
+				} else if (anchor) {
+					if (anchor === 'center') {
+						// center horizontally
+						pos.left = clientNode.left + (clientNode.width - containerNode.width) / 2;
+					} else if (anchor === 'left') {
+						// anchor to the left side of the activator
+						pos.left = clientNode.left;
+					} else {
+						// anchor to the right side of the activator
+						pos.left = clientNode.right - containerNode.width;
+					}
 				} else {
-					// center horizontally
-					pos.left = clientNode.left + (clientNode.width - containerNode.width) / 2;
+					// anchor to the left side of the activator, matching its width
+					pos.left = clientNode.left;
+					pos.width = clientNode.width;
 				}
-			} else if (this.adjustedDirection === 'left' || this.adjustedDirection === 'right') {
+
+			} else if (direction === 'left' || direction === 'right') {
 				if (this.overflow.isOverTop) {
 					// anchor to the top of the screen
 					pos.top = this.KEEPOUT;
 				} else if (this.overflow.isOverBottom) {
 					// anchor to the bottom of the screen
 					pos.top = window.innerHeight - containerNode.height - this.KEEPOUT;
-				} else {
+				} else if (anchor === 'middle') {
 					// center vertically
 					pos.top = clientNode.top - (containerNode.height - clientNode.height) / 2;
+				} else if (anchor === 'top') {
+					// anchor to the top of the activator
+					pos.top = clientNode.top;
+				} else {
+					// anchor to the bottom of the activator
+					pos.top = clientNode.bottom - containerNode.height;
 				}
 			}
 
 			return pos;
 		}
 
-		getArrowPosition (clientNode) {
+		getArrowPosition (containerNode, clientNode) {
 			const position = {};
+			const {anchor, direction} = this.getContainerAdjustedPosition();
 
-			if (this.adjustedDirection === 'up' || this.adjustedDirection === 'down') {
-				position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+			if (direction === 'above' || direction === 'below') {
+				if (this.overflow.isOverRight && !this.overflow.isOverLeft) {
+					position.left = window.innerWidth - ((containerNode.width + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+				} else if (!this.overflow.isOverRight && this.overflow.isOverLeft) {
+					position.left = ((containerNode.width - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
+				} else if (anchor === 'left') {
+					position.left = clientNode.left + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else if (anchor === 'right') {
+					position.left = clientNode.right - containerNode.width + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else {
+					position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+				}
+			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop) {
+				position.top = window.innerHeight - ((containerNode.height + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+			} else if (!this.overflow.isOverBottom && this.overflow.isOverTop) {
+				position.top = ((containerNode.height - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
+			} else if (anchor === 'top') {
+				position.top = clientNode.top + (containerNode.height - this.ARROW_WIDTH) / 2;
+			} else if (anchor === 'bottom') {
+				position.top = clientNode.bottom - containerNode.height + (containerNode.height - this.ARROW_WIDTH) / 2;
 			} else {
 				position.top = clientNode.top + (clientNode.height - this.ARROW_WIDTH) / 2;
 			}
 
-			switch (this.adjustedDirection) {
-				case 'up':
+			switch (direction) {
+				case 'above':
 					position.top = clientNode.top - this.ARROW_WIDTH - this.MARGIN;
 					break;
-				case 'down':
+				case 'below':
 					position.top = clientNode.bottom + this.MARGIN;
 					break;
 				case 'left':
@@ -407,8 +463,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		calcOverflow (container, client) {
 			let containerHeight, containerWidth;
+			const {anchor, direction} = this.getContainerAdjustedPosition();
 
-			if (this.adjustedDirection === 'up' || this.adjustedDirection === 'down') {
+			if (direction === 'above' || direction === 'below') {
 				containerHeight = container.height;
 				containerWidth = (container.width - client.width) / 2;
 			} else {
@@ -417,22 +474,32 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			this.overflow = {
-				isOverTop: client.top - containerHeight - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
-				isOverBottom: client.bottom + containerHeight + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT  > window.innerHeight,
-				isOverLeft: client.left - containerWidth - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
-				isOverRight: client.right + containerWidth + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerWidth
+				isOverTop: anchor === 'top' && (direction === 'left' || direction === 'right') ?
+					!(client.top > this.KEEPOUT) :
+					client.top - containerHeight - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
+				isOverBottom: anchor === 'bottom' && (direction === 'left' || direction === 'right') ?
+					client.bottom + this.KEEPOUT > window.innerHeight :
+					client.bottom + containerHeight + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerHeight,
+				isOverLeft: anchor === 'left' && (direction === 'above' || direction === 'below') ?
+					!(client.left > this.KEEPOUT) :
+					client.left - containerWidth - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
+				isOverRight: anchor === 'right' && (direction === 'above' || direction === 'below') ?
+					client.right + this.KEEPOUT > window.innerWidth :
+					client.right + containerWidth + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerWidth
 			};
 		}
 
 		adjustDirection () {
-			if (this.overflow.isOverTop && !this.overflow.isOverBottom && this.adjustedDirection === 'up') {
-				this.adjustedDirection = 'down';
-			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop && this.adjustedDirection === 'down') {
-				this.adjustedDirection = 'up';
-			} else if (this.overflow.isOverLeft && !this.overflow.isOverRight && this.adjustedDirection === 'left' && !this.props.rtl) {
-				this.adjustedDirection = 'right';
-			} else if (this.overflow.isOverRight && !this.overflow.isOverLeft && this.adjustedDirection === 'right' && !this.props.rtl) {
-				this.adjustedDirection = 'left';
+			const {anchor, direction} = this.getContainerAdjustedPosition();
+
+			if (this.overflow.isOverTop && !this.overflow.isOverBottom && direction === 'above') {
+				this.adjustedDirection = anchor ? `below ${anchor}` : 'below';
+			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop && direction === 'below') {
+				this.adjustedDirection = anchor ? `above ${anchor}` : 'above';
+			} else if (this.overflow.isOverLeft && !this.overflow.isOverRight && direction === 'left' && !this.props.rtl) {
+				this.adjustedDirection = anchor ? `right ${anchor}` : 'right';
+			} else if (this.overflow.isOverRight && !this.overflow.isOverLeft && direction === 'right' && !this.props.rtl) {
+				this.adjustedDirection = anchor ? `left ${anchor}` : 'left';
 			}
 		}
 
@@ -470,7 +537,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 				this.setState({
 					direction: this.adjustedDirection,
-					arrowPosition: this.getArrowPosition(clientNode),
+					arrowPosition: this.getArrowPosition(containerNode, clientNode),
 					containerPosition: this.getContainerPosition(containerNode, clientNode)
 				});
 			}
@@ -647,7 +714,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
  * ```
  * const ButtonWithPopup = ContextualPopupDecorator(Button);
  * <ButtonWithPopup
- *   direction="up"
+ *   direction="above center"
  *   open={this.state.open}
  *   popupComponent={CustomPopupComponent}
  * >

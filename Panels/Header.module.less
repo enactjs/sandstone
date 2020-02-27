@@ -5,240 +5,164 @@
 @import "../styles/skin.less";
 
 .header {
-	.border-box();
-	border-bottom-width: @sand-header-border-bottom-width;
-	border-bottom-style: solid;
 	position: relative;
 	max-width: 100%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	margin: 0 @sand-spotlight-outset;
+	.border-box();
 
-	// Remove the built-in h1 and h2 margins
-	.decorator,
-	.decorator .input,
-	.decorator .inputHighlight,
+	///
+	/// Begin states of header configuration
+	///
+
+	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
+	&:not(.withChildren) .titlesRow {
+		padding-bottom: @sand-header-subtitle-height;
+
+		// The following updates .subtitle to be removed from the measurement calculations for
+		// vertical centering in a "standard" header, so the title can vertically align with the
+		// side buttons. When *not* in "standard" type, the side buttons should be vertically
+		// aligned with both the title and subtitle.
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
+		}
+	}
+
+	&.centered {
+		.inputTransition,
+		.slotAbove,
+		.slotBelow {
+			text-align: center;
+		}
+	}
+
+
+	///
+	/// Begin child node rules configuration, shared across multiple types
+	///
+
+	.inputTransition {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 1;
+	}
+
 	.title,
-	.titleBelow,
-	.subTitleBelow {
+	.subtitle {
 		margin: 0;
 	}
 
-	.decorator .input,
-	.decorator .inputHighlight,
-	.title {
-		.sand-header-text();
-		text-indent: 0.05em;  // Fix for characters like `j` being left-truncated because of being too close to the edge
-
-		.spacing {
-			margin-left: 0.05em;
-		}
+	.slotAbove {
+		margin-bottom: @sand-header-slotabove-margin;
 	}
 
-	.decorator {
-		padding: 0;
-		margin: -2px 3px 0 -3px; // Negative 3px here to allow the decorator title text to horizontally align with the rest of the header text
+	.slotBelow {
+		margin-top: @sand-header-slotbelow-margin;
 	}
 
-	.headerComponents {
-		.remove-margin-on-edge-children();
-		.margin-start-end(@sand-header-components-gutter, 0);
-		margin-bottom: 18px;
-
-		white-space: nowrap;
+	.line {
+		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
+		margin: 0;
 	}
 
-	&.dense,
-	&.standard,
-	&.compact {
-		.titleBelow,
-		.subTitleBelow {
-			.sand-header-title-below-text();
-		}
-
-		.subTitleBelow {
-			.sand-header-sub-title-below-text();
-		}
-	}
-
-	// Standard and Dense Header
-	&.dense,
-	&.standard {
-		height: @sand-header-standard-height;
-
-		.title {
-			// The height is determined by the line-height below, but we want to maintain that as a
-			// relative unit (`em`) rather than dictate specific pixels to automatically accomodate
-			// font size changes.
-			line-height: @sand-header-standard-title-line-height;
-			margin-left: -3px; // Negative 3px here to allow the title text to horizontally align with the rest of the header text
-
-			.sand-locale-non-latin({line-height: @sand-non-latin-header-standard-title-line-height;});
-		}
-
-		.decorator,
-		.input {
-			height: 100%;
-			width: 100%;
-		}
-
-		.inputHighlight {
-			max-width: 100%;
-		}
-
-	}
+	///
+	/// Begin "types" rules configuration
+	///
 
 	// Standard Header
 	&.standard {
-		.titlesCell {
-			margin-bottom: 9px;
-		}
-	}
-
-	// Dense Header
-	&.dense {
-		height: @sand-header-dense-height;
-
-		.title {
-			font-size: @sand-header-dense-title-font-size;
-			font-weight: @sand-header-dense-title-font-weight;
-		}
-
-		.titlesCell {
-			margin-bottom: 15px;
-		}
-
-		.titleBelow,
-		.subTitleBelow {
-			font-size: @sand-header-dense-title-below-font-size;
-		}
+		margin: @sand-header-standard-margin;
+		padding: @sand-header-standard-padding;
 	}
 
 	// Compact Header
 	&.compact {
-		height: @sand-header-compact-height;
+		margin: @sand-header-compact-margin;
+		padding: @sand-header-compact-padding;
 
-		.compactTitle {
-			margin-bottom: 3px;
-		}
-
-		.input,
-		.inputHighlight,
 		.title {
-			font-size: @sand-header-compact-font-size;
-			display: inline;
-
-			.sand-locale-non-latin({line-height:  @sand-non-latin-header-compact-title-line-height;});
+			.sand-font-size(@sand-header-compact-title-font-size, @sand-non-latin-header-compact-title-font-size);
 		}
 
-		.titleBelow {
-			display: inline;
-			padding-inline-start: 18px;
+		.line {
+			border-bottom-width: @sand-header-compact-border-width;
+			margin: @sand-header-compact-line-margin;
 		}
 	}
 
-	&.fullBleed {
-		border-top-width: 0;
+	// Wizard Header
+	&.wizard {
+		margin: @sand-header-wizard-margin;
+		padding: @sand-header-wizard-padding;
+
+		.title {
+			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
+		}
 	}
 
 	// Skin colors
 	.applySkins({
-		color: @sand-header-text-color;
-		border-bottom-color: @sand-header-bottom-border-color;
-
-		&.hideLine {
-			border-bottom-color: transparent;
-		}
-
-		&.dense,
-		&.standard {
-			.decorator {
-				background-color: transparent;
-
-				.focus({
-					background-color: transparent;
-					box-shadow: none;
-
-					.input {
-						color: @sand-header-input-focus-text-color;
-					}
-
-					.inputHighlight {
-						opacity: 1;
-					}
-				});
-
-				.input {
-					color: @sand-header-text-color;
-
-					.input-placeholder({
-						color: @sand-header-text-color;
-					});
-				}
-
-				.inputHighlight {
-					background-color: @sand-header-input-focus-background-color;
-				}
-			}
-
-			.titleBelow,
-			.subTitleBelow {
-				color: @sand-header-title-below-text-color;
-			}
-		}
-
-		&.fullBleed {
-			border-color: @sand-header-full-bleed-border-color;
-			color: @sand-header-full-bleed-text-color;
-
-			.titleBelow,
-			.subTitleBelow {
-				color: @sand-header-title-below-full-bleed-text-color;
+		&.compact {
+			.line {
+				border-bottom-color: @sand-header-compact-border-color;
 			}
 		}
 	});
 }
 
-:global(.sand-panels-hasControls) {
-	.header.compact,
-	.header.dense .title,
-	.header.dense .headerInput,
-	.header.standard .title,
-	.header.standard .headerInput {
-		.padding-start-end(0, var(--sand-panels-controls-width));
-	}
-
-	.header.centered.dense .title,
-	.header.centered.dense .headerInput,
-	.header.centered.standard .title,
-	.header.centered.standard .headerInput {
-		.padding-start-end(var(--sand-panels-controls-width), var(--sand-panels-controls-width));
-	}
-
-	.header.compact {
-		.headerComponents {
-			border-right-width: @sand-header-controls-border-width;
-			border-right-style: solid;
-			.padding-start-end(initial, @sand-header-components-separation);
-
-			:global(.enact-locale-right-to-left) & {
-				border-right-width: 0;
-				border-right-style: none;
-				border-left-width: @sand-header-controls-border-width;
-				border-left-style: solid;
-			}
-		}
-
-		.applySkins({
-			.headerComponents {
-				border-right-color: @sand-header-controls-border-color;
-
-				:global(.enact-locale-right-to-left) & {
-					border-right-color: transparent;
-					border-left-color: @sand-header-controls-border-color;
-				}
-			}
-		});
-	}
+// Intentionally low precedence for easier overriding
+.input {
+	width: 1440px;
 }
+
+
+// DEV NOTE: Will likely delete later, but retaining at least temporarily in case the close button
+// or something like it needs to be added. -BS
+
+// :global(.sand-panels-hasControls) {
+// 	.header.compact,
+// 	.header.dense .title,
+// 	.header.dense .headerInput,
+// 	.header.standard .title,
+// 	.header.standard .headerInput {
+// 		.padding-start-end(0, var(--sand-panels-controls-width));
+// 	}
+
+// 	.header.centered.dense .title,
+// 	.header.centered.dense .headerInput,
+// 	.header.centered.standard .title,
+// 	.header.centered.standard .headerInput {
+// 		.padding-start-end(var(--sand-panels-controls-width), var(--sand-panels-controls-width));
+// 	}
+
+// 	.header.compact {
+// 		.headerComponents {
+// 			border-right-width: @sand-header-controls-border-width;
+// 			border-right-style: solid;
+// 			.padding-start-end(initial, @sand-header-components-separation);
+
+// 			:global(.enact-locale-right-to-left) & {
+// 				border-right-width: 0;
+// 				border-right-style: none;
+// 				border-left-width: @sand-header-controls-border-width;
+// 				border-left-style: solid;
+// 			}
+// 		}
+
+// 		.applySkins({
+// 			.headerComponents {
+// 				border-right-color: @sand-header-controls-border-color;
+
+// 				:global(.enact-locale-right-to-left) & {
+// 					border-right-color: transparent;
+// 					border-left-color: @sand-header-controls-border-color;
+// 				}
+// 			}
+// 		});
+// 	}
+// }

@@ -14,14 +14,12 @@ const inputData = {
 	tallText: 'ฟิ้  ไั  ஒ  த',
 
 	shortTitle: 'Enact',
-	shortTitleBelow: 'An app framework',
-	shortSubTitleBelow: 'Built atop React',
+	shortSubtitle: 'An app framework',
 	shortRtlTitle: 'غينيا واستمر',
-	shortRtlTitleBelow: 'غينيا واستمر',
+	shortRtlSubtitle: 'غينيا واستمر',
 
 	longTitle: 'Core, The building blocks of an Enact application. Sandstone, our touch-centric UI library.',
-	longTitleBelow: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
-	longSubTitleBelow: 'With over 50 components to choose from, Sandstone provides a solid base for creating applications designed for touchscreens. The Enact team welcomes contributions from anyone motivated to help out.',
+	longSubtitle: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
 	longRtlTitle: 'هذا النص طويل ولكن ليس طويلاً. بالتأكيد ليست قصيرة جدا ، على الرغم من.'
 };
 
@@ -31,11 +29,16 @@ const prop = {
 	marqueeOn: ['hover', 'render']
 };
 
+const headerStoryConfig = {
+	props: {
+		noHeader: true
+	}
+};
+
 storiesOf('Header', module)
 	.add(
 		'just title',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
@@ -45,12 +48,11 @@ storiesOf('Header', module)
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'just title, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
@@ -61,217 +63,200 @@ storiesOf('Header', module)
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'short titles',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					title={text('title', Config, inputData.shortTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.shortSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'short titles, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.shortTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.shortSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'long titles',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					title={text('title', Config, inputData.longTitle)}
-					titleBelow={text('titleBelow', Config, inputData.longTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.longSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'long titles, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.longTitle)}
-					titleBelow={text('titleBelow', Config, inputData.longTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.longSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'RTL text',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					title={text('title', Config, inputData.shortRtlTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortRtlTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.shortRtlTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'RTL text, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.shortRtlTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortRtlTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'RTL text, long title',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					title={text('title', Config, inputData. longRtlTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortRtlTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.shortRtlTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'RTL text, long title, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData. longRtlTitle)}
-					titleBelow={text('titleBelow', Config, inputData.shortRtlTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'tall-glyphs',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					title={text('title', Config, inputData.tallText)}
-					titleBelow={text('titleBelow', Config, inputData.tallText)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.tallText)}
+					subtitle={text('subtitle', Config, inputData.tallText)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'tall-glyphs, Compact',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.tallText)}
-					titleBelow={text('titleBelow', Config, inputData.tallText)}
+					subtitle={text('subtitle', Config, inputData.tallText)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	);
 
 storiesOf('Header.Input', module)
 	.add(
 		'tall-glyphs',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
+			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
 					title={text('title', Config, inputData.tallText)}
 					headerInput={input}
-					titleBelow={text('titleBelow', Config, inputData.longTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.longSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					showInput={showInput}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	)
 	.add(
 		'long text',
-		context => {
-			context.noHeader = true;
+		() => {
 			const addHeaderComponents = boolean('add headerComponents', Config);
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
+			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
 					headerInput={input}
 					title={text('title', Config, inputData.longTitle)}
-					titleBelow={text('titleBelow', Config, inputData.longTitleBelow)}
-					subTitleBelow={text('subTitleBelow', Config, inputData.longSubTitleBelow)}
+					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					showInput={showInput}
 				>
 					{addHeaderComponents ? headerComponents : null}
 				</Header>
 			);
-		}
+		}, headerStoryConfig
 	);

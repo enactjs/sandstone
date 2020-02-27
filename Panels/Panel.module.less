@@ -7,10 +7,52 @@
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	padding: @sand-panel-v-padding @sand-panel-h-padding;
+	padding: @sand-panel-padding;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+
+	.body {
+		position: relative;
+		padding: @sand-panel-body-padding;
+		flex: 1;
+		min-height: 0;
+		opacity: 0;
+		transition: opacity 200ms ease-out;
+		will-change: opacity;
+
+		&.noHeader {
+			padding-top: 0;
+		}
+
+		&.visible {
+			opacity: 1;
+		}
+	}
+
+	&.listType {
+		padding: @sand-panel-list-padding;
+
+		.body {
+			padding: @sand-panel-body-list-padding;
+		}
+	}
+
+	&.optionType {
+		padding: @sand-panel-option-padding;
+
+		.body {
+			padding: @sand-panel-body-option-padding;
+		}
+	}
+
+	&.wizardType {
+		padding: @sand-panel-wizard-padding;
+
+		.body {
+			padding: @sand-panel-body-wizard-padding;
+		}
+	}
 
 	&:global(.enact-fit) {
 		height: auto;
@@ -18,23 +60,5 @@
 
 	:global(.enact-locale-right-to-left) & {
 		direction: rtl;
-	}
-}
-
-.body {
-	position: relative;
-	padding-top: 24px;
-	flex: 1;
-	min-height: 0;
-	opacity: 0;
-	transition: opacity 200ms ease-out;
-	will-change: opacity;
-
-	&.noHeader {
-		padding-top: 0;
-	}
-
-	&.visible {
-		opacity: 1;
 	}
 }

@@ -4,11 +4,9 @@ import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Column, Cell} from '@enact/ui/Layout';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import BodyText from '@enact/sandstone/BodyText';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 
@@ -22,7 +20,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'ThemeEnvrionmentPanels',
+	name: 'ThemeEnvironmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
@@ -34,20 +32,14 @@ const PanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'themeEnvrionmentPanels'
+		className: 'themeEnvironmentPanels'
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
 		!noPanels ? <Panels {...rest} onApplicationClose={reloadPage}>
 			{!noPanel ? <Panel className={css.panel}>
-				{!noHeader ? [<Header type="compact" title={title} key="header" />,
-					<Column key="body">
-						{description ? (
-							<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
-						) : null}
-						<Cell className={css.storyCell}>{children}</Cell>
-					</Column>] : children
-				}
+				{!noHeader ? <Header title={title} subtitle={description} /> : null}
+				{children}
 			</Panel> : children}
 		</Panels> : <div {...rest}>{children}</div>
 	)
@@ -135,7 +127,7 @@ const getKnobFromArgs = (args, propName, fallbackValue) => {
 	return value;
 };
 
-const StorybookDecorator = (story, config) => {
+const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story knobs to register and render before the global knobs below.
 	const sample = story();
 
@@ -158,8 +150,13 @@ const StorybookDecorator = (story, config) => {
 		groupId: 'Development'
 	};
 
-	if (sample && sample.props && sample.props.info) {
-		config.description = sample.props.info;
+	if (config.parameters) {
+		if (config.parameters.info && config.parameters.info.text) {
+			config.description = config.parameters.info.text;
+		}
+		if (config.parameters.props) {
+			config.props = config.parameters.props;
+		}
 	}
 
 	const args = getArgs();
@@ -184,18 +181,14 @@ const StorybookDecorator = (story, config) => {
 				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
-			noHeader={config.noHeader}
-			noPanel={config.noPanel}
-			noPanels={config.noPanels}
-			{...config.sandstoneProps}
-			{...config.panelsProps}
+			{...config.props}
 		>
 			{sample}
 		</Theme>
 	);
 };
 
-const FullscreenStorybookDecorator = (story, config) => {
+const FullscreenStorybookDecorator = (story, config = {}) => {
 	const sample = story();
 	const args = getArgs();
 	return (

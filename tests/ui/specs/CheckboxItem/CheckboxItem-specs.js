@@ -1,6 +1,6 @@
 const Page = require('./CheckboxItemPage'),
 	{expectChecked, expectInline, expectUnchecked} = require('./CheckboxItem-utils.js'),
-	{expectOrdering} = require('@enact/ui-test-utils/test/utils.js');
+	{expectOrdering} = require('@enact/ui-test-utils/utils');
 
 describe('CheckboxItem', function () {
 
@@ -24,7 +24,8 @@ describe('CheckboxItem', function () {
 				expectUnchecked(checkboxItem);
 			});
 
-			it('should display icon before the text', function () {
+			// need to re-add support for iconPosition
+			it.skip('should display icon before the text', function () {
 				expect(checkboxItem.isBefore).to.be.true();
 			});
 
@@ -33,7 +34,7 @@ describe('CheckboxItem', function () {
 			});
 
 			describe('5-way', function () {
-				it('should check the item when selected - [GT-21124]', function () {
+				it('should check the item when selected - [GT-28221]', function () {
 					Page.spotlightSelect();
 					expectChecked(checkboxItem);
 				});
@@ -91,7 +92,7 @@ describe('CheckboxItem', function () {
 				expectChecked(checkboxItem);
 			});
 
-			it('should display correct icon - [GT-21121]', function () {
+			it('should display correct icon - [GT-28222]', function () {
 				expect(checkboxItem.iconSymbol).to.equal('✓');
 			});
 
@@ -135,7 +136,8 @@ describe('CheckboxItem', function () {
 				expectChecked(checkboxItemIconAfter);
 			});
 
-			it('should display icon after the text', function () {
+			// need to re-add support for iconPosition
+			it.skip('should display icon after the text', function () {
 				expect(checkboxItemIconAfter.isAfter).to.be.true();
 			});
 
@@ -185,7 +187,8 @@ describe('CheckboxItem', function () {
 				expectChecked(checkboxItem);
 			});
 
-			it('should display icon before the text', function () {
+			// need to re-add support for iconPosition
+			it.skip('should display icon before the text', function () {
 				expect(checkboxItem.isBefore).to.be.true();
 			});
 
@@ -233,7 +236,8 @@ describe('CheckboxItem', function () {
 				expectChecked(checkboxItem);
 			});
 
-			it('should display icon after the text', function () {
+			// need to re-add support for iconPosition
+			it.skip('should display icon after the text', function () {
 				expect(checkboxItem.isAfter).to.be.true();
 			});
 
@@ -285,7 +289,8 @@ describe('CheckboxItem', function () {
 				expectChecked(checkboxItem);
 			});
 
-			it('should display icon before the text', function () {
+			// need to re-add support for iconPosition
+			it.skip('should display icon before the text', function () {
 				expect(checkboxItem.isBefore).to.be.true();
 			});
 

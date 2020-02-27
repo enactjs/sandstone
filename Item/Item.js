@@ -12,7 +12,6 @@
 
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
@@ -39,8 +38,7 @@ const ItemContent = kind({
 		css: componentCss
 	},
 	computed: {
-		className: ({label, labelPosition, styler}) => styler.append({
-			hasLabel: Boolean(label),
+		className: ({labelPosition, styler}) => styler.append({
 			labelAbove: labelPosition === 'above',
 			labelAfter: labelPosition === 'after',
 			labelBefore: labelPosition === 'before',
@@ -50,30 +48,30 @@ const ItemContent = kind({
 			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 		}
 	},
-	render: ({orientation, content, css, label, ...rest}) => {
+	// eslint-disable-next-line enact/prop-types
+	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
 		delete rest.labelPosition;
 
-		// Due to flex-box sizing (used in Layout/Cell), in a vertical orientation with no height
-		// specified, all of the cells should be set to `shrink` so their height is summed to define
-		// the height of the entire Layout. Without this, a cell will collapse, causing unwanted overlap.
-		const contentElement = (
-			<Cell component={Marquee} className={css.content} shrink={(label != null && orientation === 'vertical')}>
-				{content}
-			</Cell>
-		);
-
-		if (label == null) return contentElement;
-
-		return (
-			<Cell {...rest}>
-				<Layout orientation={orientation}>
-					{contentElement}
-					<Cell component={Marquee} className={css.label} shrink>
-						{label}
-					</Cell>
-				</Layout>
-			</Cell>
-		);
+		if (!label) {
+			return (
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
+					{content}
+				</Cell>
+			);
+		} else {
+			return (
+				<Cell {...rest}>
+					<Layout orientation={orientation}>
+						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+							{content}
+						</Cell>
+						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+							{label}
+						</Cell>
+					</Layout>
+				</Cell>
+			);
+		}
 	}
 });
 
@@ -105,6 +103,9 @@ const ItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `item` - The root class name
+		 * * `slotBefore` - The slot (container) preceding the text of this component
+		 * * `slotAfter` - The slot (container) following the text of this component
+		 * * `selected` - Applied to a `selected` button
 		 *
 		 * @type {Object}
 		 * @public
@@ -118,6 +119,14 @@ const ItemBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * Applies inline styling to the item.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inline: PropTypes.bool,
 
 		/**
 		 * The label to be displayed along with the text.
@@ -136,6 +145,14 @@ const ItemBase = kind({
 		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
 
 		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
 		 * Applies a selected style to the component
 		 *
 		 * @type {Boolean}
@@ -147,7 +164,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted after `children` and hidden using `autoHide`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
-		 * locales, the nodes are insterted to the left. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -159,7 +176,7 @@ const ItemBase = kind({
 		 * Nodes to be inserted before `children` and `label`.
 		 *
 		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
-		 * locales, the nodes are insterted to the right. If nothing is specified, nothing, not even
+		 * locales, the nodes are inserted to the right. If nothing is specified, nothing, not even
 		 * an empty container, is rendered in this place.
 		 *
 		 * @type {Node}
@@ -174,14 +191,14 @@ const ItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore']
+		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, label, labelPosition, slotAfter, slotBefore, ...rest}) => {
+	render: ({children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
@@ -189,6 +206,7 @@ const ItemBase = kind({
 				align="center"
 				ref={componentRef}
 				{...rest}
+				inline={inline}
 				css={css}
 			>
 				<div className={css.bg} />
@@ -201,6 +219,8 @@ const ItemBase = kind({
 					content={children}
 					label={label}
 					labelPosition={labelPosition}
+					marqueeOn={marqueeOn}
+					shrink={inline}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
@@ -218,7 +238,7 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
- * @mixes ui/ForwardRef.ForwardRef
+ * @mixes ui/Item.ItemDecorator
  * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
@@ -227,10 +247,9 @@ const ItemBase = kind({
  * @public
  */
 const ItemDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
+	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
-	UiItemDecorator,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
 	Skinnable

@@ -72,7 +72,6 @@ storiesOf('About', module)
 		() => (
 			<div style={{overflow: 'hidden', height: '100%'}}>
 				<BodyText
-					style={{margin: `0 ${riSafe(24)} 0.8em`}}
 					centered={boolean('text centered', BodyText)}
 				>
 					Welcome to the Sandstone sampler! Explore Sandstone components.

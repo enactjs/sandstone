@@ -9,18 +9,15 @@ spotlight.setPointerMode(false);
 
 const app = (props) => <div {...props}>
 	<div>
-		<Item
-			id="item1"
-		>
-			Item1
-		</Item>
-		<Item
-			id="item2"
-			defaultSelected
-			disabled
-		>
-			Item disabled
-		</Item>
+		<Item id="item1">Item 1</Item>
+		<Item id="item2Disabled" disabled>Item 2 disabled</Item>
+		<Item id="item3WithLabel" label="This is a label">Item 3 with a label</Item>
+		<Item id="item4Inline" label="label for inline" inline>Item 4 inline Item</Item>
+		<Item id="item5InLineDisabled" label="" inline disabled>Item 5 inline disabled</Item>
+		<Item id="item6Inline" inline>item6 inline Item</Item>
+		<Item id="item7Inline" inline>item7 inline Item</Item>
+		<Item id="item8Inline" inline>item8 inline Item</Item>
+
 	</div>
 </div>;
 

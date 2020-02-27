@@ -52,7 +52,7 @@ storiesOf('Dropdown', module)
 		'with 2 options for testing direction',
 		() => (
 			<Dropdown
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
@@ -70,7 +70,7 @@ storiesOf('Dropdown', module)
 		() => (
 			<Dropdown
 				defaultSelected={10}
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
@@ -86,7 +86,7 @@ storiesOf('Dropdown', module)
 		'with long text',
 		() => (
 			<Dropdown
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
@@ -103,7 +103,7 @@ storiesOf('Dropdown', module)
 		() => (
 			<div>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
@@ -116,7 +116,7 @@ storiesOf('Dropdown', module)
 					{items(5)}
 				</Dropdown>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
@@ -134,7 +134,7 @@ storiesOf('Dropdown', module)
 		() => (
 			<div>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}

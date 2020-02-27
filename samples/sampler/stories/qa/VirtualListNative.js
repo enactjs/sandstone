@@ -3,16 +3,16 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import {ScrollableBaseNative as UiScrollableBaseNative} from '@enact/ui/Scrollable/ScrollableNative';
-import {VirtualListBaseNative as UiVirtualListBaseNative} from '@enact/ui/VirtualList/VirtualListBase';
+import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import React from 'react';
 
 import Item from '@enact/sandstone/Item';
-import {VirtualListNative, VirtualListBase} from '@enact/sandstone/VirtualList';
+import {VirtualList, VirtualListBasic} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualListNative', UiVirtualListBaseNative, UiScrollableBaseNative, VirtualListBase);
+const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
 
 const
 	items = [],
@@ -39,16 +39,15 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-storiesOf('VirtualListNative', module)
+storiesOf('VirtualList with native scrollMode', module)
 	.add(
 		'with extra items',
 		() => (
 			<Column>
 				<Cell
-					component={VirtualListNative}
+					component={VirtualList}
 					dataSize={updateDataSize(number('dataSize', Config, 10))}
 					direction="vertical"
-					focusableScrollbar={boolean('focusableScrollbar', Config)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					// eslint-disable-next-line react/jsx-no-bind
 					itemRenderer={({index, ...rest}) => {
