@@ -137,7 +137,7 @@ describe('VirtualList', function () {
 			// Wheeling will not be implemented - see ENYO-6178
 			for (let i = 0; i < 100; ++i) {
 				Page.spotlightDown();
-				Page.delay(70); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+				Page.delay(100); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			}
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
