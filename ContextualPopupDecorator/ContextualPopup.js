@@ -20,11 +20,11 @@ const ContextualPopupArrow = kind({
 	name: 'ContextualPopupArrow',
 
 	propTypes: /** @lends sandstone/ContextualPopupDecorator.ContextualPopupArrow.prototype */ {
-		direction: PropTypes.oneOf(['up', 'down', 'left', 'right'])
+		direction: PropTypes.oneOf(['above', 'below', 'left', 'right'])
 	},
 
 	defaultProps: {
-		direction: 'down'
+		direction: 'below'
 	},
 
 	styles: {
@@ -44,10 +44,7 @@ const ContextualPopupArrow = kind({
 	)
 });
 
-const ContextualPopupRoot = Skinnable(
-	{defaultSkin: 'light'},
-	'div'
-);
+const ContextualPopupRoot = Skinnable('div');
 
 /**
  * A popup component used by
@@ -113,13 +110,13 @@ const ContextualPopupBase = kind({
 		/**
 		 * Direction of ContextualPopup.
 		 *
-		 * Can be one of: `'up'`, `'down'`, `'left'`, or `'right'`.
+		 * Can be one of: `'above'`, `'above center'`, `'above left'`, `'above right'`, `'below'`, `'below center'`, `'below left'`, `'below right'`, `'left middle'`, `'left top'`, `'left bottom'`, `'right middle'`, `'right top'`, or `'right bottom'`.
 		 *
-		 * @type {('up'|'down'|'left'|'right')}
-		 * @default 'down'
+		 * @type {('above'|'below'|'left'|'right')}
+		 * @default 'below'
 		 * @public
 		 */
-		direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+		direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 		/**
 		 * Called when the close button is clicked.
@@ -149,7 +146,7 @@ const ContextualPopupBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'down',
+		direction: 'below center',
 		showCloseButton: false
 	},
 
@@ -159,6 +156,10 @@ const ContextualPopupBase = kind({
 	},
 
 	computed: {
+		arrowDirection: ({direction}) => {
+			const [arrowDirection] = direction.split(' ');
+			return arrowDirection;
+		},
 		className: ({showCloseButton, styler}) => styler.append({reserveClose: showCloseButton}),
 		closeButton: ({showCloseButton, onCloseButtonClick}) => {
 			if (showCloseButton) {
@@ -176,7 +177,8 @@ const ContextualPopupBase = kind({
 		}
 	},
 
-	render: ({arrowPosition, containerPosition, containerRef, children, className, closeButton, direction, showArrow, ...rest}) => {
+	render: ({arrowDirection, arrowPosition, containerPosition, containerRef, children, className, closeButton, showArrow, ...rest}) => {
+		delete rest.direction;
 		delete rest.onCloseButtonClick;
 		delete rest.showCloseButton;
 
@@ -186,7 +188,7 @@ const ContextualPopupBase = kind({
 					{children}
 					{closeButton}
 				</div>
-				{showArrow ? <ContextualPopupArrow direction={direction} style={arrowPosition} /> : null}
+				{showArrow ? <ContextualPopupArrow direction={arrowDirection} style={arrowPosition} /> : null}
 			</ContextualPopupRoot>
 		);
 	}
