@@ -17,30 +17,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
+import {compareChildren} from '../internal/util';
 import Button from '../Button';
 import ActionGuide from '../ActionGuide';
 
 import {countReactChildren} from './util';
 
 import css from './MediaControls.module.less';
-
-const compareChildren = (a, b) => {
-	if (!a || !b || a.length !== b.length) return false;
-
-	let type = null;
-	for (let i = 0; i < a.length; i++) {
-		type = type || typeof a[i];
-		if (type === 'string') {
-			if (a[i] !== b[i]) {
-				return false;
-			}
-		} else if (!equals(a[i], b[i])) {
-			return false;
-		}
-	}
-
-	return true;
-};
 
 const OuterContainer = SpotlightContainerDecorator({
 	defaultElement: [
@@ -836,6 +819,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			const props = Object.assign({}, this.props);
 			delete props.initialJumpDelay;
 			delete props.jumpDelay;
+			delete props.moreActionDisabled;
 			delete props.no5WayJump;
 			delete props.onFastForward;
 			delete props.onJump;

@@ -193,15 +193,16 @@ storiesOf('Sandstone', module)
 						>
 							<bottomComponents>
 								<VirtualGridList
-									style={{height: '230px'}}
+									// style={{height: '200px'}}
 									horizontalScrollbar={'hidden'}
 									dataSize={size}
 									direction="horizontal"
 									itemSize={{
-										minWidth: ri.scale(400),
-										minHeight: ri.scale(200)
+										minWidth: ri.scale(640),
+										minHeight: ri.scale(540)
 									}}
 									itemRenderer={renderItem}
+									spacing={ri.scale(12)}
 								/>
 							</bottomComponents>
 							{moreButtons.slice(0, itemCount).map((icon, index) => {
