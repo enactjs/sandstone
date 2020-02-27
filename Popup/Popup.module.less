@@ -19,35 +19,30 @@
 
 	&.bottom,
 	&.top {
-		margin: @sand-popup-position-top-bottom-margin;
-
 		.body {
 			max-width: 100%;
 		}
 	}
 	&.left,
 	&.right {
-		margin: @sand-popup-position-left-right-margin;
-		max-height: calc(100% - extract(@sand-popup-position-left-right-margin, 1) * 2);
-
 		.body {
 			height: 100%;
 		}
 	}
 
-	// Remove the mardin on the leading edge so we're not wasting some of our transition frames on animating empty space
-	// This may pose problems for Popups that are 100% height, but `top` and `bottom` aren't intended for those cases.
 	&.top {
-		margin-bottom: 0;
+		margin: @sand-popup-position-top-margin;
 	}
 	&.right {
-		margin-left: 0;
+		margin: @sand-popup-position-right-margin;
+		max-height: calc(100% - extract(@sand-popup-position-right-margin, 1) * 2);
 	}
 	&.bottom {
-		margin-top: 0;
+		margin: @sand-popup-position-bottom-margin;
 	}
 	&.left {
-		margin-right: 0;
+		margin: @sand-popup-position-left-margin;
+		max-height: calc(100% - extract(@sand-popup-position-left-margin, 1) * 2);
 	}
 
 	&.center {

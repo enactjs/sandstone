@@ -41,7 +41,6 @@ import useThemeScroller from './useThemeScroller';
  *
  * @class Scroller
  * @memberof sandstone/Scroller
- * @extends sandstone/Scroller.ScrollerBasic
  * @ui
  * @public
  */

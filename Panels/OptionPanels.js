@@ -11,7 +11,8 @@ const OptionPanelsDecorator = compose(
 	Skinnable,
 	PopupDecorator({
 		className: 'panels option',
-		panelArranger: BasicArranger
+		panelArranger: BasicArranger,
+		panelType: 'option'
 	})
 );
 
