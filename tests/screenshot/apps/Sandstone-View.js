@@ -29,12 +29,6 @@ function getWrapperClasses ({wrapper}) {
 
 // TODO: Show error on screen if bad test ID or props
 function prepareTest (componentName, testId) {
-	const ElementProps = {
-		'data-ui-test-id': 'test',
-		style: {outlineColor: 'lime'},
-		className: css.outline
-	};
-
 	if (!components[componentName] || !components[componentName][testId]) {
 		return {
 			testElement: <div>INVALID COMPONENT OR TEST ID</div>,
@@ -53,6 +47,12 @@ function prepareTest (componentName, testId) {
 	if (children === '-Lorem') {
 		children = LoremString;
 	}
+
+	const ElementProps = {
+		'data-ui-test-id': 'test',
+		style: {...component.props.style, outlineColor: 'lime'},
+		className: css.outline
+	};
 
 	return {
 		testElement: React.cloneElement(component, ElementProps, children),
