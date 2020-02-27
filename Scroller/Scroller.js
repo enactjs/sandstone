@@ -52,6 +52,7 @@ let Scroller = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
+		focusableBodyProps,
 		resizeContextProps,
 		scrollContainerProps,
 		scrollInnerContainerProps,
@@ -62,12 +63,11 @@ let Scroller = (props) => {
 	} = useScroll(props);
 
 	const themeScrollContentProps = useThemeScroller(scrollContentProps);
-	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
 
 	// Render
-	return (
+	const scrollContainer = (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContainerDiv {...scrollContainerProps}>
+			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} />
@@ -75,9 +75,21 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</ScrollContainerDiv>
+			</div>
 		</ResizeContext.Provider>
 	);
+
+	if (props.focusableScrollbar === 'byEnter') {
+		const SpottableDiv = Spottable('div');
+
+		return (
+			<SpottableDiv {...focusableBodyProps} id="abcd">
+				{scrollContainer}
+			</SpottableDiv>
+		);
+	} else {
+		return scrollContainer;
+	}
 };
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {

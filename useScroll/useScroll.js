@@ -400,43 +400,26 @@ const useScroll = (props) => {
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
-		onTouchStart: handleTouchStart
+		'data-spotlight-container': spotlightContainer,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
+		'data-spotlight-id': spotlightId,
+		onTouchStart: handleTouchStart,
+		ref: scrollContainerRef
 	});
 
-	if (focusableScrollbar !== 'byEnter') {
-		assignProperties('scrollContainerProps', {
-			'data-spotlight-container': spotlightContainer,
-			'data-spotlight-container-disabled': spotlightContainerDisabled,
-			'data-spotlight-id': spotlightId,
-			ref: scrollContainerRef
-		});
-	} else {
-		let nearestSpotlightContainer = null;
+	if (focusableScrollbar === 'byEnter') {
 		const setNavigableFilter = (filterTarget) => {
-			if (!nearestSpotlightContainer) {
-				return;
-			}
-
-			const targetClassName = (filterTarget === 'body') ? css.scroll : thumbCss.thumb;
-			Spotlight.set(nearestSpotlightContainer, {
-				navigableFilter: (elem) => {
-					if (typeof elem !== 'string' &&	elem.classList.contains(targetClassName)) {
-						return false;
-					}
-				}
+			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
+			Spotlight.set(spotlightId, {
+				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
 			});
 		};
 
-		assignProperties('scrollContainerProps', {
-			className: [
-				css.focusableBody
-			],
+		assignProperties('focusableBodyProps', {
+			className: [css.focusableBody],
 			onFocus: (ev) => {
 				const {target} = ev;
-				if (target.classList.contains(css.scroll)) {
-					if (!nearestSpotlightContainer) {
-						nearestSpotlightContainer = getContainersForNode(target).pop();
-					}
+				if (target.classList.contains(css.focusableBody)) {
 					setNavigableFilter('thumb');
 				} else if (target.classList.contains(thumbCss.thumb)) {
 					setNavigableFilter('body');
@@ -448,20 +431,18 @@ const useScroll = (props) => {
 			},
 			onKeyDown: (ev) => {
 				const {keyCode, target} = ev;
-				if (isEnter(keyCode) && target.classList.contains(css.scroll)) {
+				if (isEnter(keyCode) && target.classList.contains(css.focusableBody)) {
 					// Enter key on scroll Body.
 					// Scroll thumb get focus.
 					setNavigableFilter('body');
-					Spotlight.move('right');
-				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb)) {
+					Spotlight.focus(target.querySelector(`.${thumbCss.thumb}`));
+				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb) && scrollContainerRef.current) {
 					// Esc key on scroll thumb.
 					// Scroll body get focus.
 					setNavigableFilter('thumb');
-					Spotlight.move('left');
+					Spotlight.focus(scrollContainerRef.current.parentNode);
 				}
 			}
-			// ref: scrollContainerRef	// TODO(@Ahn): Resolve the ref problem on Spottable element.
-			// Wheel operation is not currently working.
 		});
 	}
 
