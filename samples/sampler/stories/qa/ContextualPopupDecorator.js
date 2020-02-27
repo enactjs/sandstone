@@ -146,7 +146,7 @@ storiesOf('ContextualPopupDecorator', module)
 		() => (
 			<div style={{textAlign: 'center', marginTop: ri.unit(360, 'rem')}}>
 				<ContextualPopupWithActivator
-					direction={select('direction', ['up', 'down', 'left', 'right'], Config, 'down')}
+					direction={select('direction', ['above', 'below', 'left', 'right'], Config, 'down')}
 					popupComponent={renderPopup}
 					spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config, 'self-only')}
 				>
