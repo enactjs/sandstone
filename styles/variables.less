@@ -24,6 +24,9 @@
 // Font Sizes
 // ---------------------------------------
 @sand-actionguide-label-font-size:  48px;
+@sand-alert-overlay-font-size:      60px;
+@sand-alert-subtitle-font-size:     60px;
+@sand-alert-title-font-size:        144px;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -96,6 +99,11 @@
 @sand-non-latin-font-weight: 400;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
+
+// Alert
+@sand-alert-font-family: @sand-font-family;
+@sand-alert-font-weight: normal;
+@sand-alert-line-height: normal;
 
 // Body
 @sand-body-font-family: @sand-font-family;
@@ -181,6 +189,31 @@
 // ActionGuide
 // ---------------------------------------
 @sand-actionguide-max-width: 1500px;
+
+// Alert
+// ---------------------------------------
+@sand-alert-buttons-margin-top: 180px;
+@sand-alert-buttons-width: 540px;
+@sand-alert-max-buttons-margin-top: 300px;
+@sand-alert-title-margin-top: 30px;
+@sand-alert-subtitle-margin-top: 12px;
+@sand-alert-overlay-border-radius: 24px;
+@sand-alert-overlay-button-margin: 30px;
+@sand-alert-overlay-content-margin-left: 48px;
+@sand-alert-overlay-content-margin-right: 202px;
+@sand-alert-overlay-content-width: 1200px;
+@sand-alert-fullscreen-button-margin: 60px;
+@sand-alert-overlay-margin-bottom: 360px;
+@sand-alert-overlay-padding-top-bottom: 60px;
+@sand-alert-overlay-padding-left-right: 90px;
+@sand-alert-overlay-buttoncontainer-margin: 0 0 0 90px;
+
+// AlertImage
+// ---------------------------------------
+@sand-alert-image-thumbnail-width: 450px;
+@sand-alert-image-thumbnail-height: 252px;
+@sand-alert-image-icon-size: 240px;
+@sand-alert-image-icon-border-radius: 12px;
 
 // BodyText
 // ---------------------------------------
@@ -435,7 +468,7 @@
 @sand-panels-controls-right: extract(@sand-panel-padding, 2) + 108px;
 @sand-panels-controls-spacing: 36px;
 @sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
-@sand-panels-optionpanels-width : 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-panels-optionpanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
 @sand-panel-wizard-padding: 0;
 @sand-panel-list-padding: 0;
