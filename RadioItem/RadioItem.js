@@ -54,7 +54,7 @@ const RadioItemBase = kind({
 		 *
 		 * @type {String}
 		 * @default 'circle'
-		 * @see {@link agate/Icon.Icon}
+		 * @see {@link sandstone/Icon.Icon}
 		 */
 		icon: PropTypes.string
 	},

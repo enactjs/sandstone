@@ -12,6 +12,8 @@ import SharedStateDecorator, {SharedState} from '../internal/SharedStateDecorato
 
 import css from './Panels.module.less';
 
+const PanelTypeContext = React.createContext(null);
+
 /**
  * The container for a set of Panels
  *
@@ -63,7 +65,9 @@ const ViewportBase = class extends React.Component {
 		 * @type {Boolean}
 		 * @default false
 		 */
-		noAnimation: PropTypes.bool
+		noAnimation: PropTypes.bool,
+
+		type: PropTypes.string
 	}
 
 	static defaultProps = {
@@ -158,7 +162,7 @@ const ViewportBase = class extends React.Component {
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
 
 	render () {
-		const {arranger, children, generateId, index, noAnimation, ...rest} = this.props;
+		const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -170,21 +174,23 @@ const ViewportBase = class extends React.Component {
 		);
 
 		return (
-			<ViewManager
-				{...rest}
-				arranger={arranger}
-				className={className}
-				component="main"
-				duration={250}
-				enteringDelay={100} // TODO: Can we remove this?
-				enteringProp={enteringProp}
-				index={index}
-				noAnimation={noAnimation}
-				onTransition={this.handleTransition}
-				onWillTransition={this.handleWillTransition}
-			>
-				{mappedChildren}
-			</ViewManager>
+			<PanelTypeContext.Provider value={type}>
+				<ViewManager
+					{...rest}
+					arranger={arranger}
+					className={className}
+					component="main"
+					duration={250}
+					enteringDelay={100} // TODO: Can we remove this?
+					enteringProp={enteringProp}
+					index={index}
+					noAnimation={noAnimation}
+					onTransition={this.handleTransition}
+					onWillTransition={this.handleWillTransition}
+				>
+					{mappedChildren}
+				</ViewManager>
+			</PanelTypeContext.Provider>
 		);
 	}
 };
@@ -193,6 +199,7 @@ const Viewport = SharedStateDecorator(ViewportBase);
 
 export default Viewport;
 export {
+	PanelTypeContext,
 	Viewport,
 	ViewportBase
 };

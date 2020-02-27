@@ -17,7 +17,7 @@ const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, Contex
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-	direction: 'down',
+	direction: 'below center',
 	open: false,
 	showCloseButton: false,
 	spotlightRestrict: 'self-first'
@@ -33,7 +33,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<div style={{textAlign: 'center', marginTop: ri.unit(198, 'rem')}}>
 				<ContextualButton
-					direction={select('direction', ['up', 'down', 'left', 'right'], Config)}
+					direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onClose={action('onClose')}
 					open={boolean('open', Config)}

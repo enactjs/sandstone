@@ -35,7 +35,7 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==',
 	captionComponent = (props) => (
-		<Marquee alignment="center" marqueeOn="hover" {...props} />
+		<Marquee marqueeOn="hover" {...props} />
 	);
 
 /**
