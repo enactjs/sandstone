@@ -34,9 +34,17 @@
 	}
 
 	&.overlay {
+		.alertImage {
+			align-self: baseline;
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
-			margin: @sand-alert-overlay-buttoncontainer-margin;
+			margin: 0;
+
+			.buttonCell > * {
+				margin: 0;
+			}
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
