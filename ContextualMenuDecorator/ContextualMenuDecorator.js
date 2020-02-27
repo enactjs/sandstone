@@ -3,7 +3,6 @@
  *
  * @module sandstone/ContextualMenuDecorator
  * @exports ContextualMenuDecorator
- * @exports ContextualMenuDecoratorBase
  */
 
 import {handle, forward, forProp} from '@enact/core/handle';
@@ -69,7 +68,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Direction of popup with respect to the wrapped component.
 			 *
-			 * @type {String}
+			 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
 			 * @default 'below left'
 			 * @public
 			 */
@@ -116,7 +115,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 
 			/**
 			 * CSS class name to pass to the
-			 * [ContextualMenuPopup]{@link sandstone/ContextualMenuDecorator.ContextualMenuPopup}.
+			 * [ContextualPopup]{@link sandstone/ContextualPopupDecorator.ContextualPopup}.
 			 *
 			 * This is commonly used to set width and height of the popup.
 			 *
@@ -178,6 +177,16 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 	});
 });
 
+/**
+ * Wraps a component to display a contextual popup menu.
+ *
+ * @hoc
+ * @memberof sandstone/ContextualMenuDecorator
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @mixes sandstone/ContextualPopupDecorator.ContextualPopupDecorator
+ * @public
+ */
 const ContextualMenuDecorator = compose(
 	Toggleable({
 		activate: 'onOpen',
@@ -190,6 +199,5 @@ const ContextualMenuDecorator = compose(
 
 export default ContextualMenuDecorator;
 export {
-	ContextualMenuDecoratorBase,
 	ContextualMenuDecorator
 };
