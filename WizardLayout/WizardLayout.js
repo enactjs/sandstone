@@ -105,14 +105,16 @@ const WizardLayoutBase = kind({
 
 	handlers: {
 		onIncrementStep: (ev, {index, onChange, titles}) => {
-			if (onChange) {
-				const nextIndex = index < (titles.length - 1) ? (index + 1) : index;
+			const lastIndex = titles.length - 1;
+
+			if (onChange && index !== lastIndex) {
+				const nextIndex = index < (lastIndex) ? (index + 1) : index;
 
 				onChange({index: nextIndex});
 			}
 		},
 		onDecrementStep: (ev, {index, onChange}) => {
-			if (onChange) {
+			if (onChange && index !== 0) {
 				const prevIndex = index > 0 ? (index - 1) : index;
 
 				onChange({index: prevIndex});
