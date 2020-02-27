@@ -4,29 +4,31 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Alert, {AlertImage} from '@enact/sandstone/Alert';
+import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 
 
 Alert.displayName = 'Alert';
-const Config = mergeComponentMetadata('Alert', Alert);
+AlertImage.displayName = 'AlertImage';
+const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
 const ImageConfig = mergeComponentMetadata('AlertImage', AlertImage);
 
 storiesOf('Sandstone', module)
 	.add(
 		'Alert',
 		() => {
-			const image = boolean('image', Config, false);
+			const open = boolean('open', Config); // This is first so the Knob tabs are in a more intuitive order.
+			const image = boolean('image', ImageConfig);
 			const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
 			const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
 
 			return (
 				<Alert
-					open={boolean('open', Config, false)}
+					open={open}
 					onClose={action('onClose')}
-					title={text('title', Config, 'This is fullscreen Alert title')}
-					titleBelow={text('titleBelow', Config, 'This is fullscreen Alert titlebelow')}
-					type={select('type', ['fullscreen', 'overlay'], Config, 'fullscreen')}
+					title={text('title', Config, 'Fullscreen Alert Title')}
+					subtitle={text('subtitle', Config, 'This is a fullscreen Alert subtitle')}
+					type={select('type', ['fullscreen', 'overlay'], Config)}
 				>
 					{image ?
 						<image>
@@ -40,7 +42,7 @@ storiesOf('Sandstone', module)
 						<Button>Yes</Button>
 						<Button>No</Button>
 					</buttons>
-					{text('children', Config, 'This is an overlay Alert')}
+					{text('children', Config, 'Additional text content for Alert')}
 				</Alert>
 			);
 		},

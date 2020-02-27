@@ -69,7 +69,7 @@ const AlertBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * The id of Alert referred to when generating ids for `'title'`, `'titleBelow'` and `'buttons'`.
+		 * The id of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
 		 *
 		 * @type {String}
 		 * @private
@@ -115,15 +115,6 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * The primary text displayed. This is only shown in
-		 * `type="fullscreen"`
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		title: PropTypes.string,
-
-		/**
 		 * The secondary text displayed below the `title`.
 		 * This is only shown in `type="fullscreen"`
 		 *
@@ -132,7 +123,16 @@ const AlertBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		titleBelow: PropTypes.string,
+		subtitle: PropTypes.string,
+
+		/**
+		 * The primary text displayed. This is only shown in
+		 * `type="fullscreen"`
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string,
 
 		/**
 		 * Type of popup to appear in the screen. There are two types.
@@ -175,23 +175,23 @@ const AlertBase = kind({
 			},
 			type
 		),
-		titleBelow: ({title, titleBelow}) => title ? titleBelow : '',
-		type: ({type}) => type === 'overlay' ? 'center' : type
+		subtitle: ({title, subtitle}) => title ? subtitle : '',
+		type: ({type}) => type === 'overlay' ? 'bottom' : type
 	},
 
-	render: ({buttons, children, css, id, image, title, titleBelow, type, ...rest}) => {
+	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
 		const Container = type === 'fullscreen' ? Column : Row;
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_titleBelow ${id}_buttons`} css={css} position={type}>
+			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={type}>
 				<Container align="center center">
 					<Cell shrink>
 						<Container align="center">
 							<Cell className={css.alertImage} shrink>{image}</Cell>
-							<Cell align="center" className={css.title} id={`${id}_title`} shrink>
+							<Cell className={css.title} id={`${id}_title`} shrink>
 								{title}
 							</Cell>
-							<Cell align="center" className={css.titleBelow} id={`${id}_titleBelow`} shrink>
-								{titleBelow}
+							<Cell className={css.subtitle} id={`${id}_subtitle`} shrink>
+								{subtitle}
 							</Cell>
 							<Cell className={css.content} id={`${id}content`} shrink>
 								{children}
@@ -221,7 +221,7 @@ const AlertBase = kind({
  * <Alert
  *   open={this.state.open}
  *   title="An Important Alert"
- *   titleBelow="Some important context to share about the purpose"
+ *   subtitle="Some important context to share about the purpose"
  * >
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
@@ -243,7 +243,7 @@ const AlertBase = kind({
 const Alert = IdProvider(
 	{generateProp: null, prefix: 'a_'},
 	Slottable(
-		{slots: ['title', 'titleBelow', 'buttons', 'image']},
+		{slots: ['title', 'subtitle', 'buttons', 'image']},
 		AlertBase
 	)
 );

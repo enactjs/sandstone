@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import Image from '../Image';
 import componentCss from './AlertImage.module.less';
 
-
 const AlertImage = kind({
 	name: 'AlertImage',
 	propTypes: {
