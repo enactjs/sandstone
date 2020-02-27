@@ -407,7 +407,10 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
-	if (focusableScrollbar === 'byEnter') {
+	if (focusableScrollbar === true) {
+		// Remove navigableFilter to support dynamic prop change.
+		Spotlight.set(spotlightId, {navigableFilter: () => (true)});
+	} else if (focusableScrollbar === 'byEnter') {
 		const setNavigableFilter = (filterTarget) => {
 			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
 			Spotlight.set(spotlightId, {
