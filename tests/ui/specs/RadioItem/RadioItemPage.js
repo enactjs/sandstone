@@ -10,7 +10,7 @@ class RadioItemInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(`#${this.id}`));
 	}
 
 	get self () { return $(`#${this.id}`); }

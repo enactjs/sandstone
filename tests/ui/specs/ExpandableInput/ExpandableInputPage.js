@@ -14,7 +14,7 @@ class ExpandableInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(`#${this.id}>div`, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(`#${this.id}>div`));
 	}
 
 	get self () { return element(`#${this.id}`, browser); }
@@ -66,7 +66,7 @@ class ExpandableInputPage extends Page {
 	}
 
 	hover () {
-		browser.moveToObject('#expandable2');
+		$('#expandable2').moveTo();
 	}
 
 }
