@@ -18,7 +18,6 @@
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import Spottable from '@enact/spotlight/Spottable';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import PropTypes from 'prop-types';
@@ -28,6 +27,7 @@ import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
+import SpotlightScrollerDecorator from './SpotlightScrollerDecorator';
 import ScrollerBasic from './ScrollerBasic';
 import useThemeScroller from './useThemeScroller';
 
@@ -52,7 +52,6 @@ let Scroller = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
-		focusableBodyProps,
 		resizeContextProps,
 		scrollContainerProps,
 		scrollInnerContainerProps,
@@ -65,7 +64,7 @@ let Scroller = (props) => {
 	const themeScrollContentProps = useThemeScroller(scrollContentProps);
 
 	// Render
-	const scrollContainer = (
+	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
@@ -78,18 +77,6 @@ let Scroller = (props) => {
 			</div>
 		</ResizeContext.Provider>
 	);
-
-	if (props.focusableScrollbar === 'byEnter') {
-		const SpottableDiv = Spottable('div');
-
-		return (
-			<SpottableDiv {...focusableBodyProps} id="abcd">
-				{scrollContainer}
-			</SpottableDiv>
-		);
-	} else {
-		return scrollContainer;
-	}
 };
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
@@ -154,15 +141,17 @@ Scroller.defaultProps = {
 };
 
 Scroller = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			Scroller
+	SpotlightScrollerDecorator(
+		SpotlightContainerDecorator(
+			{
+				overflow: true,
+				preserveId: true,
+				restrict: 'self-first'
+			},
+			I18nContextDecorator(
+				{rtlProp: 'rtl'},
+				Scroller
+			)
 		)
 	)
 );
