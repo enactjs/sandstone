@@ -7,18 +7,18 @@
  */
 
 import React from 'react';
+import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {handle, forKeyCode, forward} from '@enact/core/handle';
-import Layout from '@enact/ui/Layout';
+import {handle, forKeyCode, forward, adaptEvent} from '@enact/core/handle';
+import Layout, {Cell} from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Changeable from '@enact/ui/Changeable';
-import Spottable from '@enact/spotlight/Spottable';
 
 import Button from '../Button';
+import Heading from '../Heading';
 import Icon from '../Icon';
-import {Marquee} from '../Marquee';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 
@@ -26,30 +26,90 @@ import {convertToPasswordFormat} from './util';
 import componentCss from './NumberInputPopup.module.less';
 
 const LENGTH_LIMIT = 6;
-const FULL_KEY_LIST = [['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'del']];
-const OVERLAY_KEY_LIST = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['', '0', 'del']];
+const KEY_LIST = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'del'];
 
-const SpottableDiv = Spottable('div');
+const LargeButton = (props) => <Button size="large" {...props} />;
 
-class NumberInputPopupBase extends React.Component {
-	static propTypes = {
-		length: PropTypes.number.isRequired,
+const PreviewItem = kind({
+	name: 'PreviewItem',
 
-		/**
-		 * Delegate props to button component in popup.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		buttonProps: PropTypes.object,
+	propTypes: /** @lends sandstone/Checkbox.PreviewItem.prototype */ {
+		children: PropTypes.string,
+		password: PropTypes.bool,
+		passwordIcon: PropTypes.string
+	},
 
-		/**
-		 * Close input popup.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		closePopup: PropTypes.func,
+	defaultProps: {
+		password: false,
+		passwordIcon: 'circle'
+	},
+
+	styles: {
+		css: componentCss,
+		className: 'previewItem'
+	},
+
+	computed: {
+		className: ({password, styler}) => styler.append({password})
+	},
+
+	render: ({children, password, passwordIcon, ...rest}) => {
+		return (
+			<Icon
+				size="large"
+				{...rest}
+			>
+				{(password && children) ? passwordIcon : children}
+			</Icon>
+		);
+	}
+});
+
+const KeyButton = kind({
+	name: 'KeyButton',
+	handlers: {
+		onClick: handle(
+			adaptEvent((ev, {children: value}) => ({value}), forward('onClick'))
+		)
+	},
+	render: ({children, ...rest}) => {
+		const content = (children === 'del') ? 'arrowleftprevious' : children; // TBD: arrowleftprevious should be replaced to correct one base on GUI
+		return (
+			<Cell
+				{...rest}
+				component={LargeButton}
+				shrink
+				className={componentCss.keypadItem}
+				icon={content}
+			/>
+		);
+	}
+});
+
+// eslint-disable-next-line enact/prop-types
+const Keypad = ({onAdd, onRemove, ...rest}) => {
+	return (
+		<Layout align="center end" wrap {...rest}>
+			{KEY_LIST.map((keyText, rowIndex) => {
+				return (
+					<KeyButton
+						key={`key${rowIndex}-${keyText}`}
+						onClick={keyText === 'del' ? onRemove : onAdd}
+					>
+						{keyText}
+					</KeyButton>
+				);
+			})}
+		</Layout>
+	);
+};
+
+
+const NumberInputPopupBase = kind({
+	name: 'NumberInputPopup',
+
+	propTypes: {
+		css: PropTypes.object,
 
 		/**
 		 * Disable the button that activate the input popup.
@@ -68,6 +128,18 @@ class NumberInputPopupBase extends React.Component {
 		 */
 		inputType: PropTypes.oneOf(['number', 'password']),
 
+		length: PropTypes.number,
+
+		onChange: PropTypes.func,
+
+		/**
+		 * Close input popup.
+		 *
+		 * @type {Function}
+		 * @private
+		 */
+		onClosePopup: PropTypes.func,
+
 		/**
 		 * Pass the input value when input is complete.
 		 *
@@ -82,7 +154,7 @@ class NumberInputPopupBase extends React.Component {
 		 * @type {Function}
 		 * @private
 		 */
-		openPopup: PropTypes.func,
+		onOpenPopup: PropTypes.func,
 
 		/**
 		 * Text to display when value is not set.
@@ -103,6 +175,15 @@ class NumberInputPopupBase extends React.Component {
 		popupType: PropTypes.oneOf(['full', 'overlay']),
 
 		/**
+		 * Subtitle below the title of popup.
+		 *
+		 * @type {String}
+		 * @default ''
+		 * @public
+		 */
+		subtitle: PropTypes.string,
+
+		/**
 		 * Title text of popup.
 		 *
 		 * @type {String}
@@ -112,188 +193,125 @@ class NumberInputPopupBase extends React.Component {
 		title: PropTypes.string,
 
 		/**
-		 * Title below text of popup.
-		 *
-		 * @type {String}
-		 * @default ''
-		 * @public
-		 */
-		titleBelow: PropTypes.string,
-
-		/**
 		 * The value of the input.
 		 *
 		 * @type {String|Number}
 		 * @public
 		 */
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-	}
+	},
 
-	static defaultProps = {
+	defaultProps: {
+		length: 4,
 		inputType: 'number',
-		placeholder: '',
+		placeholder: '-',
 		popupType: 'full',
+		subtitle: '',
 		title: '',
-		titleBelow: '',
 		value: ''
-	}
+	},
 
-	constructor (props) {
-		super(props);
-		this.state = {
-			inputValue: props.value
-		};
-	}
+	styles: {
+		css: componentCss,
+		className: 'numberInput'
+	},
 
-	handle = handle.bind(this);
+	handlers: {
+		onAdd: handle(
+			adaptEvent(({value: key}, {length, value}) => ({value: (value.length >= length ? value : `${value}${key}`)}),
+				handle(
+					forward('onChange'),
 
-	add = (str) => () => {
-		const result = this.state.inputValue + str;
+					// DEV NOTE: Probably move these to its own Decorator
+					({value: updatedValue}, {length}) => (updatedValue.length >= length),
+					(ev, props) => {
+						setTimeout(() => {
+							forward('onClosePopup', ev, props);
+							forward('onComplete', ev, props);
+						}, 250);
+						return true;
+					}
+				)
+			),
+		),
+		onClick: handle(
+			forward('onClick'),
+			forward('onOpenPopup')
+		),
+		onRemove: handle(
+			adaptEvent((ev, {value}) => ({value: value.toString().slice(0, -1)}), forward('onChange'))
+		),
+		handleBackKey: handle(
+			forKeyCode(461),
+			() => this.cancel(),
+			forward('onClosePopup')
+		)
+	},
 
-		if (result.length < this.props.length) {
-			this.handleChange(result);
-		} else if (result.length === this.props.length)  {
-			this.handleChange(result);
-			setTimeout(() => {
-				this.complete();
-				this.props.closePopup();
-			}, 100);
-		} else {
-			this.props.closePopup();
-		}
-	}
+	computed: {
+		popupClassName: ({popupType, styler}) => styler.join('numberInputPopup', popupType),
+		preview: ({css, inputType, value, length}) => {
+			const values = value.toString().split('');
+			const password = (inputType === 'password');
 
-	remove = () => {
-		const result = this.state.inputValue.toString().slice(0, -1);
-		this.handleChange(result);
-	}
-
-	complete = () => {
-		forward('onComplete', {value: this.state.inputValue}, this.props);
-		return true;
-	}
-
-	cancel = () => {
-		this.setState({inputValue: this.props.value});
-		return true;
-	}
-
-	handleShow = (ev) => {
-		forward('onShow', ev, this.props);
-		this.setState({inputValue: this.props.value});
-	}
-
-	handleChange = (value) => {
-		this.setState({inputValue: value});
-	}
-
-	handleBackKey = this.handle(
-		forKeyCode(461),
-		() => this.cancel(),
-		() => this.props.closePopup()
-	)
-
-	renderPreview = () => {
-		const {inputType} = this.props;
-		const values = this.state.inputValue.toString().split('');
-		const getItemValue = (index) => {
-			if (index < values.length) {
-				if (this.props.inputType === 'password') {
-					return '*';
-				} else {
-					return values[index];
-				}
+			if (length <= LENGTH_LIMIT) {
+				const items = new Array(length).fill('');
+				return (
+					<Layout aria-label={!password ? values.join(' ') : null} aria-live="polite">
+						{items.map((_, index) => (
+							<Cell shrink component={PreviewItem} key={index} password={password}>
+								{values[index]}
+							</Cell>
+						))}
+					</Layout>
+				);
 			} else {
-				return '';
+				return <div className={css.previewText}>{password ? convertToPasswordFormat(values) : values.join('')}</div>;
 			}
-		};
-
-		if (this.props.length <= LENGTH_LIMIT) {
-			const items = new Array(this.props.length).fill('');
-			return (
-				<Layout inline aria-label={inputType !== 'password' ? values.join(' ') : null} aria-live="polite">
-					{items.map((_, index) => (
-						<div className={componentCss.previewItem} key={index}>
-							{getItemValue(index)}
-						</div>
-					))}
-				</Layout>
-			);
-		} else {
-			return <div className={componentCss.previewText}>{inputType === 'password' ? convertToPasswordFormat(values) : values.join('')}</div>;
 		}
-	}
+	},
 
-	renderKeypad = () => {
-		const keyList = this.props.popupType === 'full' ?  FULL_KEY_LIST : OVERLAY_KEY_LIST;
+	render: ({children, css, disabled, handleBackKey, inputType, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
+		const password = (inputType === 'password');
 
-		return (
-			<Layout orientation="vertical" align="center center">
-				{
-					keyList.map((row, rowIndex) => (
-						<Layout key={`row_${rowIndex}`} align="center center" inline>
-							{
-								row.map((val, colIndex) => {
-									const content = val === 'del' ? <Icon>arrowleftprevious</Icon> : val; // TBD: arrowleftprevious should be replaced to correct one base on GUI
-
-									return (
-										<SpottableDiv
-											role="button"
-											data-webos-voice-intent="Select"
-											className={componentCss.keypadItem}
-											style={{visibility: val === '' ? 'hidden' : 'visible'}}
-											onClick={val === 'del' ? this.remove : this.add(val)}
-											key={`col_${colIndex}`}
-										>
-											{content}
-										</SpottableDiv>
-									);
-								})
-							}
-						</Layout>
-					))
-				}
-			</Layout>
-		);
-	}
-
-	render () {
-		let {placeholder, title, titleBelow, popupType, inputType, buttonProps, children, disabled, value, openPopup, className, ...rest} = this.props;
-
-		delete rest.closePopup;
+		delete rest.onClosePopup;
+		delete rest.onChange;
 		delete rest.onComplete;
+		delete rest.onOpenPopup;
 
 		return (
 			<React.Fragment>
 				<Popup
-					onShow={this.handleShow}
-					onKeyDown={this.handleBackKey}
-					className={`${className} ${componentCss.numberInputPopup} ${popupType === 'full' ? componentCss.full : componentCss.overlay}`}
+					onKeyDown={handleBackKey}
 					noAnimation
-					{...rest}
+					position={popupType === 'full' ? 'fullscreen' : 'center'}
+					className={popupClassName}
+					open={open}
 				>
-					<div className={componentCss.popupBody}>
-						<div className={componentCss.headerArea}>
-							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.title}>{title}</Marquee>
-							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.titleBelow}>{titleBelow}</Marquee>
-						</div>
-						<div className={componentCss.previewArea}>{this.renderPreview()}</div>
-						<div className={componentCss.keypadArea}>{this.renderKeypad()}</div>
-						<div className={componentCss.buttonArea}>{children}</div>
-					</div>
+					<Layout orientation="vertical" align="center space-between" className={css.popupBody}>
+						<Cell shrink className={css.headerArea}>
+							<Heading size="title" marqueeOn={'render'} alignment="center">{title}</Heading>
+							<Heading size="subtitle" marqueeOn={'render'} alignment="center">{subtitle}</Heading>
+						</Cell>
+						<Cell shrink className={css.previewArea}>{preview}</Cell>
+						<Cell shrink className={css.keypadArea}>
+							<Keypad onAdd={onAdd} onRemove={onRemove} />
+						</Cell>
+						<Cell shrink className={css.buttonArea}>{children}</Cell>
+					</Layout>
 				</Popup>
-				<Button disabled={disabled} onClick={openPopup} {...buttonProps}>
-					{(inputType === 'password' ? convertToPasswordFormat(value) : value) || placeholder}
+				<Button disabled={disabled} {...rest}>
+					{(password ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
 		);
 	}
-}
+});
 
 const NumberInputPopupDecorator = compose(
 	Pure,
-	Toggleable({activate: 'openPopup', deactivate: 'closePopup', prop: 'open'}),
-	Changeable({change: 'onComplete'}),
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClosePopup', prop: 'open'}),
+	Changeable,
 	Skinnable
 );
 
@@ -306,7 +324,7 @@ const NumberInputPopupDecorator = compose(
  * 	 popupType={'overlay'}
  * 	 length={4}
  *   title={'Title'}
- *   titleBelow={'TitleBelow'}
+ *   subtitle={'TitleBelow'}
  *   placeholder={'Placeholder'}
  * 	 value={this.state.inputText}
  * 	 onComplete={this.handleInputComplete}

@@ -39,12 +39,12 @@ describe('InputPopup specs', () => {
 		const str = 'title below text';
 		const inputPopup = mount(
 			<FloatingLayerController>
-				<InputPopup open titleBelow={str} />
+				<InputPopup open subtitle={str} />
 			</FloatingLayerController>
 		);
 
 		const expected = str;
-		const actual = inputPopup.find(`.${css.titleBelow}`).at(0).text();
+		const actual = inputPopup.find(`.${css.subtitle}`).at(0).text();
 
 		expect(actual).toBe(expected);
 	});

@@ -21,7 +21,7 @@ storiesOf('Sandstone', module)
 				<NumberInputPopup
 					length={number('length', Config, 4)}
 					title={text('title', Config, 'Title Text')}
-					titleBelow={text('titleBelow', Config, 'Title Below Text')}
+					subtitle={text('subtitle', Config, 'Title Below Text')}
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					inputType={select('inputType', prop.inputType, Config, prop.inputType[0])}
 					popupType={select('popupType', prop.popupType, Config, prop.popupType[0])}

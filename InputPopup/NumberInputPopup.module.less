@@ -1,202 +1,94 @@
 // NumberInputPopup.module.less
 //
 @import "../styles/mixins.less";
-@import '../styles/skin.less';
+@import "../styles/skin.less";
 
 .numberInputPopup {
-	position: relative;
-	height: fill-available;
+	.previewItem,
+	.previewText {
+		justify-content: center;
+		align-items: center;
+		border-radius: @sand-input-popup-border-radius;
+	}
+	.previewItem {
+		display: flex;
+	}
+	.previewText {
+		display: inline-flex;
+		overflow: hidden;
+		border: solid 2px;
+	}
 
 	&.full {
 		.popupBody {
-			position: relative;
 			padding: @sand-input-popup-padding;
-			box-sizing: border-box;
+		}
 
-			.headerArea {
-				height: @sand-input-popup-header-area-height;
+		.previewArea,
+		.keypadArea,
+		.buttonArea {
+			margin-top: 42px;
+		}
 
-				.title {
-					font-size: @sand-input-popup-header-title-font-size;
-					line-height: @sand-input-popup-header-title-line-height;
-				}
+		.previewItem {
+			width: @sand-input-number-popup-full-preview-item-width;
+			height: @sand-input-number-popup-full-preview-item-height;
+			font-size: @sand-input-number-popup-full-preview-font-size;
+			margin: @sand-input-number-popup-full-preview-item-margin;
+		}
 
-				.titleBelow {
-					font-size: @sand-input-popup-header-title-below-font-size;
-					line-height: @sand-input-popup-header-title-below-line-height;
-					margin-top: @sand-input-popup-header-title-below-margin-top;
-				}
-			}
+		.previewText {
+			width: @sand-input-number-popup-full-preview-text-width;
+			height: @sand-input-number-popup-full-preview-text-height;
+			font-size: @sand-input-number-popup-full-preview-font-size;
+		}
 
-			.previewArea {
-				height: @sand-input-number-popup-full-preview-area-height;
-				margin-top: @sand-input-number-popup-full-preview-area-margin-top;
-				text-align: center;
-
-				.previewItem {
-					width: @sand-input-number-popup-full-preview-item-width;
-					height: @sand-input-number-popup-full-preview-item-height;
-					font-size: @sand-input-number-popup-full-preview-font-size;
-					margin: @sand-input-number-popup-full-preview-item-margin;
-					border-radius: @sand-input-popup-border-radius;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-				}
-
-				.previewText {
-					display: inline-flex;
-					justify-content: center;
-					align-items: center;
-					width: @sand-input-number-popup-full-preview-text-width;
-					height: @sand-input-number-popup-full-preview-text-height;
-					overflow: hidden;
-					font-size: @sand-input-number-popup-full-preview-font-size;
-					border-radius: @sand-input-popup-border-radius;
-					border: solid 2px;
-				}
-			}
-
-			.keypadArea {
-				height: @sand-input-number-popup-full-keypad-area-height;
-				margin-top: @sand-input-number-popup-full-keypad-area-margin-top;
-
-				.keypadItem {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					width: @sand-input-number-popup-full-keypad-item-width;
-					height: @sand-input-number-popup-full-keypad-item-height;
-					border-radius: @sand-input-popup-border-radius;
-					font-size: @sand-input-number-popup-full-keypad-item-font-size;
-					margin: @sand-input-number-popup-full-keypad-item-margin;
-				}
-			}
-
-			.buttonArea {
-				width: 100%;
-				height: @sand-input-number-popup-full-button-area-height;
-				margin-top: @sand-input-number-popup-full-button-area-margin-top;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-			}
+		.keypadItem {
+			margin: @sand-input-number-popup-full-keypad-item-margin;
 		}
 	}
 
 	&.overlay {
-		background-color: rgba(0,0,0,0);
-
 		.popupBody {
-			position: relative;
-			width: @sand-input-number-popup-overlay-width;
-			height: @sand-input-number-popup-overlay-height;
-			margin-top: @sand-input-number-popup-overlay-margin-top;
-			border-radius: @sand-input-number-popup-overlay-border-radius;
 			padding: @sand-input-number-popup-overlay-padding;
-			box-sizing: border-box;
-			left: 50%;
-			transform: translateX(-50%);
+		}
 
-			.headerArea {
-				width: 100%;
-				height: @sand-input-number-popup-overlay-header-area-height;
+		.previewArea {
+			margin-top: @sand-input-number-popup-overlay-preview-area-margin-top;
+		}
 
-				.title {
-					font-size: @sand-input-number-popup-overlay-header-title-font-size;
-					line-height: @sand-input-number-popup-overlay-header-title-line-height;
-				}
+		.previewItem {
+			width: @sand-input-number-popup-overlay-preview-item-width;
+			height: @sand-input-number-popup-overlay-preview-item-height;
+			font-size: @sand-input-number-popup-overlay-preview-item-font-size;
+			margin: @sand-input-number-popup-overlay-preview-item-margin;
+		}
 
-				.titleBelow {
-					font-size: @sand-input-number-popup-overlay-header-title-below-font-size;
-					line-height: @sand-input-number-popup-overlay-header-title-below-line-height;
-					margin-top: @sand-input-number-popup-overlay-header-title-below-margin-top;
-				}
-			}
+		.previewText {
+			width: @sand-input-number-popup-overlay-preview-text-width;
+			height: @sand-input-number-popup-overlay-preview-text-height;
+			font-size: @sand-input-number-popup-overlay-preview-text-font-size;
+		}
 
-			.previewArea {
-				width: 100%;
-				height: @sand-input-number-popup-overlay-preview-area-height;
-				margin-top: @sand-input-number-popup-overlay-preview-area-margin-top;
-				text-align: center;
+		.keypadArea {
+			margin: @sand-input-number-popup-overlay-keypad-area-margin;
+			width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+		}
 
-				.previewItem {
-					width: @sand-input-number-popup-overlay-preview-item-width;
-					height: @sand-input-number-popup-overlay-preview-item-height;
-					font-size: @sand-input-number-popup-overlay-preview-item-font-size;
-					margin: @sand-input-number-popup-overlay-preview-item-margin;
-					border-radius: @sand-input-popup-border-radius;
-					display: flex;
-					justify-content: center;
-					align-items: center;
-				}
-
-				.previewText {
-					width: @sand-input-number-popup-overlay-preview-text-width;
-					height: @sand-input-number-popup-overlay-preview-text-height;
-					overflow: hidden;
-					font-size: @sand-input-number-popup-overlay-preview-text-font-size;
-					border-radius: @sand-input-popup-border-radius;
-					display: inline-flex;
-					justify-content: center;
-					align-items: center;
-					border: solid 2px;
-				}
-			}
-
-			.keypadArea {
-				width: 100%;
-				height: @sand-input-number-popup-overlay-keypad-area-height;
-				margin-top: @sand-input-number-popup-overlay-keypad-area-margin-top;
-
-				.keypadItem {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					width: @sand-input-number-popup-overlay-keypad-item-width;
-					height: @sand-input-number-popup-overlay-keypad-item-height;
-					border-radius: @sand-input-popup-border-radius;
-					font-size: @sand-input-number-popup-overlay-keypad-item-font-size;
-					margin: @sand-input-number-popup-overlay-keypad-item-margin;
-				}
-			}
-
-			.buttonArea {
-				width: 100%;
-				height: @sand-input-number-popup-overlay-button-area-height;
-				margin-top: @sand-input-number-popup-overlay-button-area-margin-top;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-			}
+		.buttonArea {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
 		}
 	}
 
 	.applySkins({
-		&.full,
-		&.overlay {
-			.popupBody {
-				.previewArea {
-					.previewItem {
-						background-color: @sand-input-number-popup-preview-item-background-color;
-					}
-				}
-			}
+		.previewItem {
+			background-color: @sand-input-number-popup-preview-item-background-color;
 		}
 
 		&.overlay {
-			.popupBody {
 				background-color: @sand-input-number-popup-overlay-background-color;
-			}
-		}
-
-		.keypadArea {
-			.keypadItem {
-				.focus({
-					color: @sand-button-focus-text-color;
-					background-color: @sand-button-focus-bg-color;
-				})
-			}
 		}
 	});
 }

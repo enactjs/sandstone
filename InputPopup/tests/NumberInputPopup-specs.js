@@ -39,12 +39,12 @@ describe('NumberInputPopup specs', () => {
 		const str = 'title below text';
 		const numberInputPopup = mount(
 			<FloatingLayerController>
-				<NumberInputPopup open length={4} titleBelow={str} />
+				<NumberInputPopup open length={4} subtitle={str} />
 			</FloatingLayerController>
 		);
 
 		const expected = str;
-		const actual = numberInputPopup.find(`.${css.titleBelow}`).at(0).text();
+		const actual = numberInputPopup.find(`.${css.subtitle}`).at(0).text();
 
 		expect(actual).toBe(expected);
 	});

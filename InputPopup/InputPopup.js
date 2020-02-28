@@ -96,6 +96,15 @@ class InputPopupBase extends React.Component {
 		placeholder: PropTypes.string,
 
 		/**
+		 * Subtitle below the title of popup.
+		 *
+		 * @type {String}
+		 * @default ''
+		 * @public
+		 */
+		subtitle: PropTypes.string,
+
+		/**
 		 * Title text of popup.
 		 *
 		 * @type {String}
@@ -103,15 +112,6 @@ class InputPopupBase extends React.Component {
 		 * @public
 		 */
 		title: PropTypes.string,
-
-		/**
-		 * Title below text of popup.
-		 *
-		 * @type {String}
-		 * @default ''
-		 * @public
-		 */
-		titleBelow: PropTypes.string,
 
 		/**
 		 * The value of the input.
@@ -126,7 +126,7 @@ class InputPopupBase extends React.Component {
 		inputType: 'text',
 		placeholder: '',
 		title: '',
-		titleBelow: ''
+		subtitle: ''
 	}
 
 	constructor (props) {
@@ -171,7 +171,7 @@ class InputPopupBase extends React.Component {
 	)
 
 	render () {
-		let {placeholder, title, titleBelow, buttonProps, inputProps, inputType, disabled, openPopup, value, className, ...rest} = this.props;
+		let {placeholder, title, subtitle, buttonProps, inputProps, inputType, disabled, openPopup, value, className, ...rest} = this.props;
 
 		delete rest.closePopup;
 		delete rest.onComplete;
@@ -189,7 +189,7 @@ class InputPopupBase extends React.Component {
 					<div className={componentCss.popupBody}>
 						<div className={componentCss.headerArea}>
 							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.title}>{title}</Marquee>
-							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.titleBelow}>{titleBelow}</Marquee>
+							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.subtitle}>{subtitle}</Marquee>
 						</div>
 						<div className={componentCss.inputArea}>
 							<Input
@@ -227,7 +227,7 @@ const InputPopupDecorator = compose(
  * ```
  * <InputPopup
  *   title={'Title'}
- *   titleBelow={'TitleBelow'}
+ *   subtitle={'TitleBelow'}
  *   placeholder={'Placeholder'}
  * 	 value={this.state.inputText}
  * 	 onComplete={this.handleInputComplete}
