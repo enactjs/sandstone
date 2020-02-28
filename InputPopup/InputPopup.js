@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {handle, forKey, forKeyCode, forward} from '@enact/core/handle';
@@ -16,34 +17,29 @@ import Toggleable from '@enact/ui/Toggleable';
 import Pure from '@enact/ui/internal/Pure';
 import Changeable from '@enact/ui/Changeable';
 import Spotlight from '@enact/spotlight';
+import Layout, {Cell} from '@enact/ui/Layout';
 
 import Button from '../Button';
-import Input from '../Input';
-import {Marquee} from '../Marquee';
+import Input, {extractInputProps} from '../Input';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
+import Heading from '../Heading';
 
 import {NumberInputPopup, NumberInputPopupBase} from './NumberInputPopup';
 import {convertToPasswordFormat} from './util';
 import componentCss from './InputPopup.module.less';
 
-class InputPopupBase extends React.Component {
-	static propTypes = {
+const InputPopupBase = kind({
+	name: 'InputPopup',
+
+	propTypes: {
 		/**
-		 * Delegate props to button component in popup.
+		 * Customize component style
 		 *
 		 * @type {Object}
 		 * @public
 		 */
-		buttonProps: PropTypes.object,
-
-		/**
-		 * Close input popup.
-		 *
-		 * @type {Function}
-		 * @private
-		 */
-		closePopup: PropTypes.func,
+		css: PropTypes.object,
 
 		/**
 		 * Disable the button that activate the input popup.
@@ -54,14 +50,6 @@ class InputPopupBase extends React.Component {
 		disabled: PropTypes.bool,
 
 		/**
-		 * Delegate props to input component in popup.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		inputProps: PropTypes.object,
-
-		/**
 		 * Set the type of input value.
 		 *
 		 * @type {String}
@@ -69,6 +57,22 @@ class InputPopupBase extends React.Component {
 		 * @public
 		 */
 		inputType: PropTypes.oneOf(['text', 'password']),
+
+		/**
+		 * Called when the input value is changed.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onChange: PropTypes.func,
+
+		/**
+		 * Close input popup.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClosePopup: PropTypes.func,
 
 		/**
 		 * Pass the input value when input is complete.
@@ -82,9 +86,17 @@ class InputPopupBase extends React.Component {
 		 * Open input popup.
 		 *
 		 * @type {Function}
-		 * @private
+		 * @public
 		 */
-		openPopup: PropTypes.func,
+		onOpenPopup: PropTypes.func,
+
+		/**
+		 * Visibility of Popup
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		open: PropTypes.bool,
 
 		/**
 		 * Text to display when value is not set.
@@ -120,102 +132,89 @@ class InputPopupBase extends React.Component {
 		 * @public
 		 */
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-	}
+	},
 
-	static defaultProps = {
+	defaultProps: {
 		inputType: 'text',
 		placeholder: '',
 		title: '',
 		subtitle: ''
-	}
+	},
 
-	constructor (props) {
-		super(props);
-		this.state = {
-			inputValue: props.value
-		};
-	}
+	styles: {
+		css: componentCss,
+		className: 'inputPopup'
+	},
 
-	handle = handle.bind(this);
+	handlers: {
+		handleShow: handle(
+			forward('onShow'),
+			() => Spotlight.setPointerMode(false)
+		),
 
-	handleChange = (ev) => {
-		this.setState({inputValue: ev.value});
-	}
+		handleChange: handle(
+			forward('onChange')
+		),
 
-	complete = () => {
-		forward('onComplete', {value: this.state.inputValue}, this.props);
-		return true;
-	}
+		handleBackKey: handle(
+			forKeyCode(461),
+			forward('onClosePopup')
+		),
 
-	cancel = () => {
-		this.setState({inputValue: this.props.value});
-		return true;
-	}
+		handleEnterKey: handle(
+			forKey('enter'),
+			forward('onClosePopup'),
+			forward('onComplete')
+		)
+	},
 
-	handleShow = (ev) => {
-		forward('onShow', ev, this.props);
-		this.setState({inputValue: this.props.value});
-		if (Spotlight.getPointerMode()) Spotlight.setPointerMode(false); // TBD: Need more explict way to open VKB automatically in case of cursor mode
-	}
+	render: ({placeholder, css, title, subtitle, inputType, disabled, onOpenPopup, className, open, value, handleShow, handleChange, handleBackKey, handleEnterKey, ...rest}) => {
 
-	handleEnterKey = this.handle(
-		forKey('enter'),
-		() => this.complete(),
-		() => this.props.closePopup()
-	)
+		const inputProps = extractInputProps(rest);
 
-	handleBackKey = this.handle(
-		forKeyCode(461),
-		() => this.cancel(),
-		() => this.props.closePopup()
-	)
-
-	render () {
-		let {placeholder, title, subtitle, buttonProps, inputProps, inputType, disabled, openPopup, value, className, ...rest} = this.props;
-
-		delete rest.closePopup;
+		delete rest.onChange;
+		delete rest.onClosePopup;
 		delete rest.onComplete;
 
 		return (
 			<React.Fragment>
 				<Popup
-					onShow={this.handleShow}
-					onHide={this.handleHide}
-					onKeyDown={this.handleBackKey}
-					className={`${className} ${componentCss.inputPopup}`}
+					onShow={handleShow}
+					onKeyDown={handleBackKey}
+					className={className}
+					position="fullscreen"
 					noAnimation
-					{...rest}
+					open={open}
 				>
-					<div className={componentCss.popupBody}>
-						<div className={componentCss.headerArea}>
-							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.title}>{title}</Marquee>
-							<Marquee marqueeOn={'render'} alignment={'center'} className={componentCss.subtitle}>{subtitle}</Marquee>
-						</div>
-						<div className={componentCss.inputArea}>
+					<Layout orientation="vertical" align="center" className={css.popupBody}>
+						<Cell shrink>
+							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+						</Cell>
+						<Cell align="center" className={css.inputArea}>
 							<Input
 								autoFocus
 								type={inputType}
-								value={this.state.inputValue}
+								value={value}
 								placeholder={placeholder}
-								onChange={this.handleChange}
-								onKeyDown={this.handleEnterKey}
+								onChange={handleChange}
+								onKeyDown={handleEnterKey}
 								{...inputProps}
 							/>
-						</div>
-					</div>
-
+						</Cell>
+					</Layout>
 				</Popup>
-				<Button disabled={disabled} onClick={openPopup} {...buttonProps}>
+				<Button disabled={disabled} onClick={onOpenPopup} {...rest}>
 					{(inputType === 'password' ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
 		);
 	}
-}
+});
 
 const InputPopupDecorator = compose(
 	Pure,
-	Toggleable({activate: 'openPopup', deactivate: 'closePopup', prop: 'open'}),
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClosePopup', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
 	Skinnable
 );
