@@ -8,7 +8,6 @@
 
 import React from 'react';
 import kind from '@enact/core/kind';
-// import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {handle, forKeyCode, forward, adaptEvent} from '@enact/core/handle';
@@ -130,8 +129,20 @@ const NumberInputPopupBase = kind({
 		 */
 		inputType: PropTypes.oneOf(['number', 'password']),
 
+		/**
+		 * Set the length of input value.
+		 *
+		 * @type {String}
+		 * @public
+		 */
 		length: PropTypes.number,
 
+		/**
+		 * Called when the input value is changed.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		onChange: PropTypes.func,
 
 		/**
@@ -157,6 +168,14 @@ const NumberInputPopupBase = kind({
 		 * @private
 		 */
 		onOpenPopup: PropTypes.func,
+
+		/**
+		 * Visibility of Popup
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		open: PropTypes.bool,
 
 		/**
 		 * Text to display when value is not set.
@@ -245,7 +264,6 @@ const NumberInputPopupBase = kind({
 		),
 		handleBackKey: handle(
 			forKeyCode(461),
-			() => this.cancel(),
 			forward('onClosePopup')
 		)
 	},
