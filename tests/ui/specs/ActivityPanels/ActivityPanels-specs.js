@@ -11,9 +11,8 @@ describe('ActivityPanels', function () {
 	});
 
 	it('should have breadcrumb on second panel', function () {
-		Page.waitTransitionEnd(5000, undefined, () => {
-			Page.button1.click();
-		});
+		Page.button1.click();
+		Page.waitForPanelLeave(0);
 
 		expect(Page.breadcrumbHeader.getText()).to.include('01');
 	});

@@ -62,11 +62,13 @@ describe('VirtualList', function () {
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
+			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
+			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(9, 'step 8 focus');
 			// Step 9. Press Channel Up.
@@ -137,7 +139,7 @@ describe('VirtualList', function () {
 			// Wheeling will not be implemented - see ENYO-6178
 			for (let i = 0; i < 100; ++i) {
 				Page.spotlightDown();
-				Page.delay(100); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+				Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			}
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
