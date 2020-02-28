@@ -8,6 +8,7 @@
 
 import React from 'react';
 import kind from '@enact/core/kind';
+// import hoc from '@enact/core/hoc';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import {handle, forKeyCode, forward, adaptEvent} from '@enact/core/handle';
@@ -23,6 +24,7 @@ import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 
 import {convertToPasswordFormat} from './util';
+
 import componentCss from './NumberInputPopup.module.less';
 
 const LENGTH_LIMIT = 6;

@@ -12,6 +12,10 @@
 	}
 	.previewItem {
 		display: flex;
+
+		&:not(.password) {
+			font-family: @sand-input-number-preview-item-font-family;
+		}
 	}
 	.previewText {
 		display: inline-flex;
@@ -27,7 +31,7 @@
 		.previewArea,
 		.keypadArea,
 		.buttonArea {
-			margin-top: 42px;
+			margin-top: @sand-input-popup-component-v-spacing;
 		}
 
 		.previewItem {
