@@ -34,7 +34,8 @@ const isLeft = is('left');
 const isRight = is('right');
 const isUp = is('up');
 
-const TouchablePicker = Touchable(SpottablePicker);
+const Div = Touchable('div');
+const SpottableDiv = Touchable(SpottablePicker);
 
 const PickerViewManager = shouldUpdate((props, nextProps) => {
 	return (
@@ -237,6 +238,18 @@ const PickerBase = class extends React.Component {
 		incrementIcon: PropTypes.string,
 
 		/**
+		 * Determines the user interaction of the control. A joined picker allows the user to use
+		 * the arrow keys to adjust the picker's value. The user may no longer use those arrow keys
+		 * to navigate, while this control is focused. A split control allows full navigation,
+		 * but requires individual ENTER presses on the incrementer and decrementer buttons.
+		 * Pointer interaction is the same for both formats.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		joined: PropTypes.bool,
+
+		/**
 		 * By default, the picker will animate transitions between items if it has a defined
 		 * `width`. Specifying `noAnimation` will prevent any transition animation for the
 		 * component.
@@ -401,10 +414,18 @@ const PickerBase = class extends React.Component {
 	}
 
 	componentDidMount () {
-		this.containerRef.addEventListener('wheel', this.handleWheel);
-
+		if (this.props.joined) {
+			this.containerRef.addEventListener('wheel', this.handleWheel);
+		}
 		if (platform.webos) {
 			this.containerRef.addEventListener('webOSVoice', this.handleVoice);
+		}
+	}
+	componentDidUpdate (prevProps) {
+		if (this.props.joined && !prevProps.joined) {
+			this.containerRef.addEventListener('wheel', this.handleWheel);
+		} else if (prevProps.joined && !this.props.joined) {
+			this.containerRef.removeEventListener('wheel', this.handleWheel);
 		}
 	}
 
@@ -412,8 +433,9 @@ const PickerBase = class extends React.Component {
 		this.emulateMouseUp.stop();
 		this.throttleWheelInc.stop();
 		this.throttleWheelDec.stop();
-		this.containerRef.removeEventListener('wheel', this.handleWheel);
-
+		if (this.props.joined) {
+			this.containerRef.removeEventListener('wheel', this.handleWheel);
+		}
 		if (platform.webos) {
 			this.containerRef.removeEventListener('webOSVoice', this.handleVoice);
 		}
@@ -477,7 +499,10 @@ const PickerBase = class extends React.Component {
 	}
 
 	setPressedState = (pressed) => {
-		this.setState({pressed});
+		const {joined} = this.props;
+		if (joined) {
+			this.setState({pressed});
+		}
 	}
 
 	clearPressedState = () => {
@@ -496,10 +521,12 @@ const PickerBase = class extends React.Component {
 	}
 
 	handleDown = () => {
-		if (this.pickerButtonPressed === 1) {
+		const {joined} = this.props;
+
+		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
 			this.emulateMouseUp.start();
-		} else if (this.pickerButtonPressed === -1) {
+		} else if (joined && this.pickerButtonPressed === -1) {
 			this.handleDecrement();
 			this.emulateMouseUp.start();
 		}
@@ -552,15 +579,17 @@ const PickerBase = class extends React.Component {
 	}
 
 	handleHoldPulse = () => {
-		if (this.pickerButtonPressed === 1) {
+		const {joined} = this.props;
+		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
-		} else if (this.pickerButtonPressed === -1) {
+		} else if (joined && this.pickerButtonPressed === -1) {
 			this.handleDecrement();
 		}
 	}
 
 	handleKeyDown = (ev) => {
 		const {
+			joined,
 			onSpotlightDown,
 			onSpotlightLeft,
 			onSpotlightRight,
@@ -570,7 +599,7 @@ const PickerBase = class extends React.Component {
 		const {keyCode} = ev;
 		forwardKeyDown(ev, this.props);
 
-		if (!this.props.disabled) {
+		if (joined && !this.props.disabled) {
 			const direction = getDirection(keyCode);
 
 			const directions = {
@@ -599,12 +628,13 @@ const PickerBase = class extends React.Component {
 
 	handleKeyUp = (ev) => {
 		const {
+			joined,
 			orientation
 		} = this.props;
 		const {keyCode} = ev;
 		forwardKeyUp(ev, this.props);
 
-		if (!this.props.disabled) {
+		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
 			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
 
@@ -680,12 +710,13 @@ const PickerBase = class extends React.Component {
 	}
 
 	determineClasses (decrementerDisabled, incrementerDisabled) {
-		const {orientation, width} = this.props;
+		const {joined, orientation, width} = this.props;
 		const {pressed} = this.state;
 		return [
 			css.picker,
 			css[orientation],
 			css[width],
+			joined ? css.joined : null,
 			!decrementerDisabled && pressed === -1 ? css.decrementing : null,
 			!incrementerDisabled && pressed === 1 ? css.incrementing : null,
 			this.props.className
@@ -729,19 +760,19 @@ const PickerBase = class extends React.Component {
 	}
 
 	calcDecrementLabel (valueText) {
-		return this.calcButtonLabel(this.props.reverse, valueText);
+		return !this.props.joined ? this.calcButtonLabel(this.props.reverse, valueText) : null;
 	}
 
 	calcIncrementLabel (valueText) {
-		return this.calcButtonLabel(!this.props.reverse, valueText);
+		return !this.props.joined ? this.calcButtonLabel(!this.props.reverse, valueText) : null;
 	}
 
 	calcAriaLabel (valueText) {
 		const
-			{'aria-label': ariaLabel, orientation} = this.props,
+			{'aria-label': ariaLabel, joined, orientation} = this.props,
 			hint = orientation === 'horizontal' ? $L('change a value with left right button') : $L('change a value with up down button');
 
-		if (ariaLabel != null) {
+		if (!joined || ariaLabel != null) {
 			return ariaLabel;
 		}
 
@@ -765,6 +796,7 @@ const PickerBase = class extends React.Component {
 			disabled,
 			id,
 			index,
+			joined,
 			max,
 			min,
 			onSpotlightDisappear,
@@ -825,15 +857,22 @@ const PickerBase = class extends React.Component {
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
 		const spottablePickerProps = {};
 
-		spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
-		spottablePickerProps.orientation = orientation;
-		spottablePickerProps.spotlightDisabled = spotlightDisabled;
+		let Component;
+
+		if (joined) {
+			Component = SpottableDiv;
+			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
+			spottablePickerProps.orientation = orientation;
+			spottablePickerProps.spotlightDisabled = spotlightDisabled;
+		} else {
+			Component = Div;
+		}
 
 		return (
-			<TouchablePicker
+			<Component
 				{...voiceProps}
 				{...rest}
-				aria-controls={id}
+				aria-controls={joined ? id : null}
 				aria-disabled={disabled}
 				aria-label={this.calcAriaLabel(valueText)}
 				className={classes}
@@ -854,14 +893,15 @@ const PickerBase = class extends React.Component {
 			>
 				<PickerButton
 					{...voiceProps}
-					aria-controls={incrementerAriaControls}
+					aria-controls={!joined ? incrementerAriaControls : null}
 					aria-label={this.calcIncrementLabel(valueText)}
 					className={css.incrementer}
-					data-webos-voice-label={this.calcButtonLabel(!reverse, valueText)}
+					data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
 					disabled={incrementerDisabled}
 					hidden={reachedEnd}
 					holdConfig={holdConfig}
 					icon={incrementIcon}
+					joined={joined}
 					onDown={this.handleIncrement}
 					onHoldPulse={this.handleIncrement}
 					onKeyDown={this.handleIncKeyDown}
@@ -902,21 +942,22 @@ const PickerBase = class extends React.Component {
 				</div>
 				<PickerButton
 					{...voiceProps}
-					aria-controls={decrementerAriaControls}
+					aria-controls={!joined ? decrementerAriaControls : null}
 					aria-label={this.calcDecrementLabel(valueText)}
 					className={css.decrementer}
-					data-webos-voice-label={this.calcButtonLabel(reverse, valueText)}
+					data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
 					disabled={decrementerDisabled}
 					hidden={reachedStart}
 					holdConfig={holdConfig}
 					icon={decrementIcon}
+					joined={joined}
 					onDown={this.handleDecrement}
 					onHoldPulse={this.handleDecrement}
 					onKeyDown={this.handleDecKeyDown}
 					onSpotlightDisappear={onSpotlightDisappear}
 					spotlightDisabled={spotlightDisabled}
 				/>
-			</TouchablePicker>
+			</Component>
 		);
 	}
 };

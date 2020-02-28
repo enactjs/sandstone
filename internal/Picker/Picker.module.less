@@ -6,84 +6,12 @@
 
 .picker {
 	display: inline-block;
-	box-shadow: @sand-picker-box-shadow;
-	border-radius: @sand-picker-border-radius;
+	border-radius: @sand-button-small-height;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
 	margin-left: @sand-spotlight-outset;
 	margin-right: @sand-spotlight-outset;
-	padding: @sand-picker-padding;
-
-	@picker-arrow-transform-resting: scale(0.7);
-	@picker-arrow-transform-focus: scale(0.95);
-	@picker-arrow-transform-active: @picker-arrow-transform-resting;
-
-	&::before {
-		.position(0);
-
-		content: "";
-		display: block;
-		position: absolute;
-		border-width: 0;
-		border-style: solid;
-		border-radius: inherit;
-		pointer-events: none;
-	}
-
-	.icon {
-		vertical-align: top;
-		margin: 0;
-		width: @sand-button-small-height;
-		height: @sand-button-small-height;
-		line-height: @sand-button-small-height;
-	}
-
-	.indicators {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		.active,
-		.inactive {
-			width: 24px;
-			height: 24px;
-			margin-right: 10px;
-			margin-bottom: 10px;
-			margin-top: 120px;
-			border-radius: 50%;
-			cursor: pointer;
-		}
-	}
-
-	.incrementer,
-	.decrementer {
-		will-change: transform;
-		transform: @picker-arrow-transform-resting;
-
-		&.hidden {
-			visibility: hidden;
-		}
-	}
-
-	.focus({
-		.incrementer,
-		.decrementer {
-			transform: @picker-arrow-transform-focus;
-		}
-
-		&.incrementing .incrementer,
-		&.decrementing .decrementer {
-			transform: @picker-arrow-transform-active;
-		}
-
-		.disabled({
-			.incrementer,
-			.decrementer {
-				transform: @picker-arrow-transform-resting;
-			}
-		});
-	});
-
 
 	.sizingPlaceholder,
 	.valueWrapper {
@@ -106,73 +34,148 @@
 		height: @sand-button-small-height;
 	}
 
+	.incrementer,
+	.decrementer {
+		cursor: pointer;
+		margin: 0;
+		position: relative;
+		transition: transform 100ms;
+
+		.disabled({
+			cursor: default;
+		});
+	}
+
 	&.horizontal {
 		display: inline-flex;
-		font-size: @sand-item-font-size-large;
-		height:  @sand-picker-horizontal-button-height-small;
-		line-height: @sand-button-small-height-large;
-		border-radius: @sand-picker-horizontal-button-border-radius;
 
 		:global(.enact-locale-right-to-left) & {
 			flex-direction: row-reverse;
-		}
-
-		&.incrementing::before {
-			border-right-width: @sand-integer-picker-shadow-width;
-		}
-
-		&.decrementing::before {
-			border-left-width: @sand-integer-picker-shadow-width;
-		}
-
-		.incrementer,
-		.decrementer {
-			margin: 0;
-			height: @sand-button-small-height;
-			line-height: @sand-button-small-height;
-			.icon {
-				visibility: hidden;
-			}
 		}
 
 		.incrementer {
 			order: 3;
 			flex-shrink: 0;
 			margin-left: @sand-spotlight-outset;
-			height: @sand-button-small-height-large;
-			line-height: @sand-button-small-height-large;
 		}
 		.decrementer {
 			order: 1;
 			flex-shrink: 0;
-			height: @sand-button-small-height-large;
-			line-height: @sand-button-small-height-large;
 			margin-right: @sand-spotlight-outset;
 		}
-
 		.valueWrapper {
 			order: 2;
-			text-align: center;
-			letter-spacing: 0;
-			opacity: 1;
-			line-height: @sand-button-small-height-large;
-			height: @sand-button-small-height-large;
 		}
 	}
 
-	&.vertical {
-		&.incrementing::before {
-			border-top-width: @sand-integer-picker-shadow-width;
+	&.joined {
+		@joined-arrow-transform-resting: scale(0.7);
+		@joined-arrow-transform-focus: scale(0.95);
+		@joined-arrow-transform-active: @joined-arrow-transform-resting;
+
+		&::before {
+			.position(0);
+
+			content: "";
+			display: block;
+			position: absolute;
+			border-width: 0;
+			border-style: solid;
+			border-radius: inherit;
+			pointer-events: none;
 		}
-		&.decrementing::before {
-			border-bottom-width: @sand-integer-picker-shadow-width;
+
+		.icon {
+			vertical-align: top;
+			margin: 0;
+			width: @sand-button-small-height;
+			height: @sand-button-small-height;
+			line-height: @sand-button-small-height;
 		}
+
+		.indicators {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			.active,
+			.inactive {
+				width: 24px;
+				height: 24px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+				margin-top: 120px;
+				border-radius: 50%;
+				cursor: pointer;
+			}
+		}
+
 		.incrementer,
 		.decrementer {
-			display: block;
+			will-change: transform;
+			transform: @joined-arrow-transform-resting;
+
+			&.hidden {
+				visibility: hidden;
+			}
 		}
-		.indicators {
-			visibility: hidden;
+
+		.focus({
+			.incrementer,
+			.decrementer {
+				transform: @joined-arrow-transform-focus;
+			}
+
+			&.incrementing .incrementer,
+			&.decrementing .decrementer {
+				transform: @joined-arrow-transform-active;
+			}
+
+			.disabled({
+				.incrementer,
+				.decrementer {
+					transform: @joined-arrow-transform-resting;
+				}
+			});
+		});
+
+		&.horizontal {
+			display: inline-flex;
+			font-size: @sand-item-font-size-large;
+			height:  @sand-picker-horizontal-button-height-small;
+			line-height: @sand-button-small-height-large;
+			border-radius: @sand-picker-horizontal-button-border-radius;
+
+			:global(.enact-locale-right-to-left) & {
+				flex-direction: row-reverse;
+			}
+			&.incrementing::before {
+				border-right-width: @sand-integer-picker-shadow-width;
+			}
+			&.decrementing::before {
+				border-left-width: @sand-integer-picker-shadow-width;
+			}
+			.incrementer,
+			.decrementer {
+				margin: 0;
+				height: @sand-button-small-height;
+				line-height: @sand-button-small-height;
+				.icon {
+					visibility: hidden;
+				}
+			}
+		}
+
+		&.vertical {
+			&.incrementing::before {
+				border-top-width: @sand-integer-picker-shadow-width;
+			}
+			&.decrementing::before {
+				border-bottom-width: @sand-integer-picker-shadow-width;
+			}
+			.incrementer,
+			.decrementer {
+				display: block;
+			}
 		}
 	}
 
@@ -229,50 +232,49 @@
 			color: inherit;
 		}
 
-		.indicators {
-			.inactive {
-				background-color: @sand-picker-indicators-inactive-bg-color;
-			}
-			.active {
-				background-color: @sand-picker-indicators-active-bg-color;
-			};
-
-		}
-
-		&.vertical {
-			background: @sand-picker-bg-color;
-			color: @sand-picker-text-color;
+		&.joined {
+			color: @sand-picker-joined-text-color;
+			background-color: @sand-picker-joined-bg-color;
 
 			&::before {
-				border-color: @sand-picker-border-color;
+				border-color: @sand-picker-joined-fingernail-border-color;
 			}
-		}
 
-		&.horizontal {
-			background: @sand-picker-bg-color;
-		}
-
-		.focus({
-			background: @sand-picker-focus-bg-color;
-		 	color: @sand-spotlight-text-color;
-
-			.disabled({
-				color: @sand-spotlight-disabled-text-color;
-			});
-
-			.indicators {
-				.inactive {
-					background-color: @sand-picker-indicators-inactive-focus-bg-color;
+			&.horizontal {
+				background: @sand-picker-bg-color;
+				.indicators {
+					.inactive {
+						background-color: @sand-picker-indicators-inactive-bg-color;
+					}
+					.active {
+						background-color: @sand-picker-indicators-active-bg-color;
+					};
 				}
-				.active {
-					background-color: @sand-picker-indicators-active-focus-bg-color
-				};
 			}
-		});
+
+			.focus({
+				background-color: @sand-picker-joined-focused-bg-color;
+				color: @sand-spotlight-text-color;
+
+				.disabled({
+					color: @sand-spotlight-disabled-text-color;
+				});
+
+				.indicators {
+					.inactive {
+						background-color: @sand-picker-indicators-inactive-focus-bg-color;
+					}
+					.active {
+						background-color: @sand-picker-indicators-active-focus-bg-color
+					};
+				}
+			});
+		}
 	});
 
 	// Large-text mode rules
 	.sand-custom-text({
+		border-radius: @sand-button-small-height-large;
 
 		.sizingPlaceholder,
 		.valueWrapper {
@@ -281,6 +283,23 @@
 		.valueWrapper {
 			line-height: @sand-button-small-height-large;
 			height: @sand-button-small-height-large;
+		}
+
+		&.joined {
+			&.horizontal {
+				font-size: @sand-item-font-size-large;
+				height: @sand-button-small-height-large;
+				line-height: @sand-button-small-height-large;
+
+				.incrementer,
+				.decrementer {
+					&,
+					.icon {
+						height: @sand-button-small-height-large;
+						line-height: @sand-button-small-height-large;
+					}
+				}
+			}
 		}
 
 		&.small,
@@ -312,15 +331,17 @@
 .muted({
 	.picker {
 		.applySkins({
-			.focus({
-				background-color: transparent;
-				color: @sand-picker-text-color;
+			&.joined {
+				.focus({
+					background-color: transparent;
+					color: @sand-picker-text-color;
 
-				.incrementer,
-				.decrementer {
-					transform: scale(0.7);
-				}
-			});
+					.incrementer,
+					.decrementer {
+						transform: scale(0.7);
+					}
+				});
+			}
 		});
 	}
 });
