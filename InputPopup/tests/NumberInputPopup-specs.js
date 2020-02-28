@@ -58,20 +58,7 @@ describe('NumberInputPopup specs', () => {
 		);
 
 		const expected = str;
-		const actual = numberInputPopup.find(`.${css.previewArea}`).text();
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should change value to asterisk when input type is "password"', () => {
-		const numberInputPopup = mount(
-			<FloatingLayerController>
-				<NumberInputPopup open length={4} value={'1234'} inputType={'password'} />
-			</FloatingLayerController>
-		);
-
-		const expected = '****';
-		const actual = numberInputPopup.find(`.${css.previewArea}`).text();
+		const actual = numberInputPopup.find(`.${css.previewArea}`).at(0).text();
 
 		expect(actual).toBe(expected);
 	});
