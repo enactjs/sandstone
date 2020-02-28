@@ -1,3 +1,4 @@
+import ri from '@enact/ui/resolution';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
@@ -17,6 +18,7 @@ const nop = () => {};
 
 const
 	dataContainerDisabledAttribute = 'data-spotlight-container-disabled',
+	fadeoutSize = 48,
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0,
 	spottableSelector = `.${spottableClass}`;
@@ -347,6 +349,13 @@ const useThemeVirtualList = (props) => {
 
 	// Functions
 
+	function getClientSize ({clientWidth, clientHeight}) {
+		return {
+			clientWidth: clientWidth - 2 * ri.scale(fadeoutSize),
+			clientHeight: clientHeight - 2 * ri.scale(fadeoutSize)
+		};
+	}
+
 	function getComponentProps (index) {
 		return (index === getNodeIndexToBeFocused()) ? {ref: (ref) => initItemRef(ref, index)} : {};
 	}
@@ -367,6 +376,7 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
+		getClientSize,
 		getComponentProps,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
