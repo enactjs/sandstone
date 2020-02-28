@@ -67,7 +67,7 @@ describe.skip('ExpandableList', function () {
 				});
 
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text on select', function () {
@@ -87,7 +87,7 @@ describe.skip('ExpandableList', function () {
 
 				Page.spotlightSelect();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should only allow one selected item', function () {
@@ -98,8 +98,8 @@ describe.skip('ExpandableList', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 		});
 
@@ -127,7 +127,7 @@ describe.skip('ExpandableList', function () {
 					expandable.title.click();
 				});
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text', function () {
@@ -147,7 +147,7 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should only allow one selected item', function () {
@@ -156,8 +156,8 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(1).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 		});
 	});
@@ -193,7 +193,7 @@ describe.skip('ExpandableList', function () {
 				});
 
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text on select', function () {
@@ -215,7 +215,7 @@ describe.skip('ExpandableList', function () {
 
 				Page.spotlightSelect();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
 			});
 
 			it('should allow multiple selected items', function () {
@@ -227,8 +227,8 @@ describe.skip('ExpandableList', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should combine value text with multi-select', function () {
@@ -270,7 +270,7 @@ describe.skip('ExpandableList', function () {
 					expandable.title.click();
 				});
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text', function () {
@@ -290,7 +290,7 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
 			});
 
 			it('should allow multiple selected items', function () {
@@ -299,8 +299,8 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(1).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 		});
 	});
@@ -336,7 +336,7 @@ describe.skip('ExpandableList', function () {
 				});
 
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text on select', function () {
@@ -358,7 +358,7 @@ describe.skip('ExpandableList', function () {
 
 				Page.spotlightSelect();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
 			});
 
 			it('should reset none text if nothing selected', function () {
@@ -382,8 +382,8 @@ describe.skip('ExpandableList', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightSelect();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 		});
 
@@ -411,7 +411,7 @@ describe.skip('ExpandableList', function () {
 					expandable.title.click();
 				});
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 
 			it('should update value text', function () {
@@ -431,7 +431,7 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(0).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
 			});
 
 			it('should only allow one selected item', function () {
@@ -440,8 +440,8 @@ describe.skip('ExpandableList', function () {
 				});
 				expandable.item(0).click();
 				expandable.item(1).click();
-				expect(expandable.item(0).isExisting(expandable.selectedClass)).to.be.false();
-				expect(expandable.item(1).isExisting(expandable.selectedClass)).to.be.true();
+				expect(expandable.item(0).$(expandable.selectedClass).isExisting()).to.be.false();
+				expect(expandable.item(1).$(expandable.selectedClass).isExisting()).to.be.true();
 			});
 		});
 	});

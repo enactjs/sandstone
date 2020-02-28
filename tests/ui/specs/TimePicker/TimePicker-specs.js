@@ -30,12 +30,13 @@ describe('TimePicker', function () {
 					Page.spotlightSelect();
 				});
 
+				browser.pause(1500);
 				expectOpen(timePicker);
-				expect(timePicker.hour.isFocused()).to.be.true();
+				expect(timePicker.hour.isFocused(), 'hour focused').to.be.true();
 				Page.spotlightRight();
-				expect(timePicker.minute.isFocused()).to.be.true();
+				expect(timePicker.minute.isFocused(), 'minute focused').to.be.true();
 				Page.spotlightRight();
-				expect(timePicker.meridiem.isFocused()).to.be.true();
+				expect(timePicker.meridiem.isFocused(), 'meridiem focused').to.be.true();
 			});
 
 			describe('5-way', function () {
@@ -552,7 +553,7 @@ describe('TimePicker', function () {
 
 		it('should not have a meridiem picker', function () {
 			timePicker.title.click();
-			expect(timePicker.meridiem.value).to.be.null();
+			expect(timePicker.meridiem.isExisting(), 'meridiem exists').to.be.false();
 		});
 
 		it('should display hours in 24-hour format', function () {

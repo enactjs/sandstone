@@ -23,8 +23,8 @@ class PickerInterface {
 	get     value () { return getLabeledItemValue(this.self); }
 	get valueText () { return getText(this.value); }
 	get    isOpen () {
-		return !(!this.self.isExisting('.enact_ui_Transition_Transition_transition') ||
-		!this.self.isExisting('.enact_ui_Transition_Transition_shown') && this.self.isExisting('.enact_ui_Transition_Transition_hidden'));
+		return !(!this.self.$('.enact_ui_Transition_Transition_transition').isExisting() ||
+		!this.self.$('.enact_ui_Transition_Transition_shown').isExisting() && this.self.$('.enact_ui_Transition_Transition_hidden').isExisting());
 	}
 
 	get day () {

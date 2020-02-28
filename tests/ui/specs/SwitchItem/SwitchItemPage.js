@@ -15,7 +15,7 @@ class SwitchItemInterface {
 
 	get self () { return $(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
-	get isSelected () { return !!element('.Switch_Switch_selected', this.self).value; }
+	get isSelected () { return element('.Switch_Switch_selected', this.self).isExisting(); }
 	get isInline () { return $(`#${this.id}.Item_Item_inline`).isExisting(); }
 }
 

@@ -13,8 +13,8 @@ class PopupCommon {
 	get buttonPopup8 () { return element('#buttonPopup8', browser); }
 	get buttonPopup9 () { return element('#buttonPopup9', browser); }
 	get   popupLayer () { return element('#floatLayer', browser); }
-	get isPopupExist () { return this.popupLayer.isExisting('.Popup_Popup_popup'); }
-	get isScrimExist () { return this.popupLayer.isExisting('.enact_ui_FloatingLayer_Scrim_scrim'); }
+	get isPopupExist () { return this.popupLayer.$('.Popup_Popup_popup').isExisting(); }
+	get isScrimExist () { return this.popupLayer.$('.enact_ui_FloatingLayer_Scrim_scrim').isExisting(); }
 }
 
 class PopupInterface {

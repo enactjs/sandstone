@@ -28,15 +28,15 @@ class ExpandableInterface {
 	get labelText () { return getText(this.label); }
 	get isLabelExists () { return this.self.isVisible('.LabeledItem_LabeledItem_label'); }
 	get isOpen () {
-		return !(!this.self.isExisting('.enact_ui_Transition_Transition_transition') ||
-		!this.self.isExisting('.enact_ui_Transition_Transition_shown') && this.self.isExisting('.enact_ui_Transition_Transition_hidden'));
+		return !(!this.self.$('.enact_ui_Transition_Transition_transition').isExisting() ||
+		!this.self.$('.enact_ui_Transition_Transition_shown').isExisting() && this.self.$('.enact_ui_Transition_Transition_hidden').isExisting());
 	}
 	get iconBefore () { return element('.Input_Input_iconBefore', this.self); }
 	get iconBeforeSymbol () { return getText(this.iconBefore); }
 	get iconAfter () { return element('.Input_Input_iconAfter', this.self); }
 	get iconAfterSymbol () { return getText(this.iconAfter); }
-	get isIconBefore () { return this.self.isExisting('.Input_Input_iconBefore');}
-	get isIconAfter () { return this.self.isExisting('.Input_Input_iconAfter');}
+	get isIconBefore () { return this.self.$('.Input_Input_iconBefore').isExisting();}
+	get isIconAfter () { return this.self.$('.Input_Input_iconAfter').isExisting();}
 	get placeHolder () { return this.self.getAttribute('.Input_Input_input', 'placeholder'); }
 
 }

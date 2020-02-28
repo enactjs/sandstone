@@ -50,7 +50,7 @@ class VirtualListPage extends Page {
 				// else, it's inside the list itself, increment y and try again
 			}
 			return 'unknown';	// we didn't find it?!
-		}, scrollableSelector).value;
+		}, scrollableSelector);
 	}
 
 	/* global document */
@@ -76,14 +76,14 @@ class VirtualListPage extends Page {
 				// else, it's inside the list itself, decrement y and try again
 			}
 			return 'unknown';	// we didn't find it?!
-		}, scrollableSelector).value;
+		}, scrollableSelector);
 	}
 
 	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;
-		}, this.item(id).value).value;
+		}, this.item(id).value);
 	}
 }
 
