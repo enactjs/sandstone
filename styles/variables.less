@@ -200,12 +200,13 @@
 @sand-alert-overlay-border-radius: 24px;
 @sand-alert-overlay-button-margin: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: 202px;
+@sand-alert-overlay-content-margin-right: (202px - @sand-button-h-margin);
 @sand-alert-overlay-content-width: 1200px;
 @sand-alert-fullscreen-button-margin: 60px;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
-@sand-alert-overlay-padding-left-right: 90px;
+@sand-alert-overlay-padding-left: 90px;
+@sand-alert-overlay-padding-right: (90px - @sand-button-h-margin);
 
 // AlertImage
 // ---------------------------------------
