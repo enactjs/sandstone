@@ -12,10 +12,10 @@ class CheckboxItemInterface {
 		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
 	}
 
-	get self () { return browser.element(`#${this.id}`); }
-	get value () { return browser.element(this.marqueeTextSelector); }
+	get self () { return $(`#${this.id}`); }
+	get value () { return $(this.marqueeTextSelector); }
 	get valueText () { return this.value.getText(); }
-	get icon () { return browser.element(this.iconSelector); }
+	get icon () { return $(this.iconSelector); }
 	get iconSymbol () { return this.icon.getText(); }
 	get isChecked () { return browser.isExisting(`#${this.id} .Checkbox_Checkbox_selected`); }
 	get isAfter () { return browser.isExisting(`#${this.id} .SlotItem_SlotItem_after`); }

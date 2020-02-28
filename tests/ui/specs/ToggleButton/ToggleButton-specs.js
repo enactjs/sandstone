@@ -7,7 +7,7 @@ describe('ToggleButton', function () {
 	});
 
 	it('should have focus on first item at start', function () {
-		expect(Page.components.toggleDefault.self.hasFocus()).to.be.true();
+		expect(Page.components.toggleDefault.self.isFocused()).to.be.true();
 	});
 
 	// Note, the 5-way up/down tests require the next component to be known.  If you add components
@@ -40,13 +40,13 @@ describe('ToggleButton', function () {
 
 			it('should move focus down on SpotlightDown', function () {
 				Page.spotlightDown();
-				expect(nextButton.self.hasFocus()).to.be.true();
+				expect(nextButton.self.isFocused()).to.be.true();
 			});
 
 			it('should move focus Up on SpotlightUp', function () {
 				nextButton.focus();
 				Page.spotlightUp();
-				expect(toggleButton.self.hasFocus()).to.be.true();
+				expect(toggleButton.self.isFocused()).to.be.true();
 			});
 
 		});
@@ -245,7 +245,7 @@ describe('ToggleButton', function () {
 			it('should be able to focus the toggleButton', function () {
 				previousToggle.focus();
 				Page.spotlightDown();
-				expect(toggleButton.self.hasFocus()).to.be.true();
+				expect(toggleButton.self.isFocused()).to.be.true();
 			});
 			it('should not unselect the item when selected - [GT-21952]', function () {
 				toggleButton.focus();

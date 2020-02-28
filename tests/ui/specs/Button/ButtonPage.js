@@ -18,7 +18,7 @@ class ButtonInterface {
 		return browser.moveToObject(this.selector, 0, 0);
 	}
 
-	get self () { return browser.element(this.selector); }
+	get self () { return $(this.selector); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
 	get icon () { return getIcon(this.self);}
 	get iconSymbol () { return getText(this.icon); }

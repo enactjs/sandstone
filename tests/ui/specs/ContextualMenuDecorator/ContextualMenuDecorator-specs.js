@@ -19,7 +19,7 @@ describe('ContextualMenuDecorator', function () {
 		});
 
 		it('should focus the first button on start', function () {
-			expect(button1.self.hasFocus()).to.be.true();
+			expect(button1.self.isFocused()).to.be.true();
 		});
 
 		it('should not have the menu on start', function () {
@@ -36,7 +36,7 @@ describe('ContextualMenuDecorator', function () {
 			});
 
 			it('should move focus to first menu item on select', function () {
-				expect(menu1.item(0).hasFocus()).to.be.true();
+				expect(menu1.item(0).isFocused()).to.be.true();
 			});
 
 			it('should dismiss the menu on 5-way left from menu item', function () {
@@ -56,7 +56,7 @@ describe('ContextualMenuDecorator', function () {
 
 			it('should move focus to the next menu item on 5-way down', function () {
 				Page.spotlightDown();
-				expect(menu1.item(1).hasFocus()).to.be.true();
+				expect(menu1.item(1).isFocused()).to.be.true();
 			});
 
 			it('should dismiss the menu and move focus back to activator on close', function () {
@@ -64,7 +64,7 @@ describe('ContextualMenuDecorator', function () {
 				Page.spotlightDown();
 				Page.spotlightDown();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 		});
 	});
@@ -75,7 +75,7 @@ describe('ContextualMenuDecorator', function () {
 		});
 
 		it('should set focus to first menu item on start', function () {
-			expect(menu2.item(0).hasFocus()).to.be.true();
+			expect(menu2.item(0).isFocused()).to.be.true();
 		});
 	});
 });

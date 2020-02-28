@@ -21,7 +21,7 @@ class SpotlightMultiplePage extends Page {
 
 	waitToClick (selector, duration) {
 		this.waitForExist(selector, duration);
-		browser.element(selector).click();
+		$(selector).click();
 	}
 
 	waitForPanelEnter (index, duration) {
@@ -48,23 +48,23 @@ class SpotlightMultiplePage extends Page {
 		return `.Panels_Panel_panel[data-index="${index}"]`;
 	}
 
-	get item1 () { return browser.element('#item1'); }
-	get item2 () { return browser.element('#item2'); }
-	get item3 () { return browser.element('#item3'); }
-	get item4 () { return browser.element('#item4'); }
-	get item5 () { return browser.element('#item5'); }
-	get item6 () { return browser.element('#item6'); }
-	get item7 () { return browser.element('#item7'); }
-	get item8 () { return browser.element('#item8'); }
-	get button1 () { return browser.element('#button1'); }
-	get button2 () { return browser.element('#button2'); }
-	get button3 () { return browser.element('#button3'); }
-	get button4 () { return browser.element('#button4'); }
-	get breadcrumb () { return browser.element(this.getBreadcrumbSelector()); }
-	get breadcrumbHeader () { return browser.element('.Panels_Panels_breadcrumbHeader'); }
-	get closeButton () { return browser.element('.Panels_ApplicationCloseButton_applicationCloseButton'); }
-	get panelTitle () { return browser.element('.Panels_Header_title .enact_ui_Marquee_Marquee_text').getText(); }
-	get body () { return browser.element('body'); }
+	get item1 () { return $('#item1'); }
+	get item2 () { return $('#item2'); }
+	get item3 () { return $('#item3'); }
+	get item4 () { return $('#item4'); }
+	get item5 () { return $('#item5'); }
+	get item6 () { return $('#item6'); }
+	get item7 () { return $('#item7'); }
+	get item8 () { return $('#item8'); }
+	get button1 () { return $('#button1'); }
+	get button2 () { return $('#button2'); }
+	get button3 () { return $('#button3'); }
+	get button4 () { return $('#button4'); }
+	get breadcrumb () { return $(this.getBreadcrumbSelector()); }
+	get breadcrumbHeader () { return $('.Panels_Panels_breadcrumbHeader'); }
+	get closeButton () { return $('.Panels_ApplicationCloseButton_applicationCloseButton'); }
+	get panelTitle () { return $('.Panels_Header_title .enact_ui_Marquee_Marquee_text').getText(); }
+	get body () { return $('body'); }
 }
 
 module.exports = new SpotlightMultiplePage();

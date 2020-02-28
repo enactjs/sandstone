@@ -144,7 +144,7 @@ describe('ActivityPanels', function () {
 
 	describe('Spotlight', function () {
 		it('should spot item 1 on render', function () {
-			expect(Page.item1.hasFocus()).to.be.true();
+			expect(Page.item1.isFocused()).to.be.true();
 		});
 
 		describe('pointer', function () {
@@ -156,7 +156,7 @@ describe('ActivityPanels', function () {
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item2.hasFocus()).to.be.false();
+				expect(Page.item2.isFocused()).to.be.false();
 			});
 
 			// The ESC button (Back Key) does _not_ unset the pointer mode and does _not_ focus [ENYO-5865] [ENYO-5882]
@@ -168,7 +168,7 @@ describe('ActivityPanels', function () {
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item2.hasFocus()).to.be.false();
+				expect(Page.item2.isFocused()).to.be.false();
 			});
 		});
 
@@ -178,7 +178,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 			});
 
 			it('should spot last focused item when transitioning back using back key', function () {
@@ -186,12 +186,12 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item2.hasFocus()).to.be.true();
+				expect(Page.item2.isFocused()).to.be.true();
 			});
 
 			// Revisit this test.  As we can't focus the breadcrumb with 5-way by going down right now
@@ -202,26 +202,26 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus(), 'Item 5 focus').to.be.true();
+				expect(Page.item5.isFocused(), 'Item 5 focus').to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.button3.hasFocus(), 'Button 3 focus').to.be.true();
+				expect(Page.button3.isFocused(), 'Button 3 focus').to.be.true();
 
 				Page.spotlightRight();
 
-				expect(Page.button4.hasFocus(), 'Button 4 focus').to.be.true();
+				expect(Page.button4.isFocused(), 'Button 4 focus').to.be.true();
 
 				Page.spotlightLeft();
 				Page.spotlightLeft();
 
-				expect(Page.breadcrumb.hasFocus(), 'Breadcrumb focus').to.be.true();
+				expect(Page.breadcrumb.isFocused(), 'Breadcrumb focus').to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				expect(Page.item5.hasFocus(), 'Item 5 refocus').to.be.true();
+				expect(Page.item5.isFocused(), 'Item 5 refocus').to.be.true();
 			});
 
 			it('should spot last focused item in first panel when transitioning after deep navigation', function () {
@@ -231,22 +231,22 @@ describe('ActivityPanels', function () {
 
 				Page.spotlightDown();
 
-				expect(Page.item6.hasFocus(), 'Item 6 focus').to.be.true();
+				expect(Page.item6.isFocused(), 'Item 6 focus').to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.button3.hasFocus(), 'Button 3 focus').to.be.true();
+				expect(Page.button3.isFocused(), 'Button 3 focus').to.be.true();
 
 				Page.backKey();
 				Page.waitForPanelLeave(2);
 
-				expect(Page.item6.hasFocus(), 'Item 6 refocus').to.be.true();
+				expect(Page.item6.isFocused(), 'Item 6 refocus').to.be.true();
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item2.hasFocus(), 'Item 2 refocus').to.be.true();
+				expect(Page.item2.isFocused(), 'Item 2 refocus').to.be.true();
 			});
 
 			// Panel does not remember last focused item when moving forward to already visited panel
@@ -258,15 +258,15 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.spotlightLeft();
 
-				expect(Page.breadcrumb.hasFocus()).to.be.true();
+				expect(Page.breadcrumb.isFocused()).to.be.true();
 
 				Page.spotlightRight();
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.spotlightDown();
 				Page.spotlightDown();
@@ -274,8 +274,8 @@ describe('ActivityPanels', function () {
 				Page.spotlightLeft();
 				Page.spotlightRight();
 
-				expect(Page.item5.hasFocus()).to.be.true(); // only from 2.4.0
-				// expect(Page.item8.hasFocus()).to.be.true(); // on 2.3.0 and prior
+				expect(Page.item5.isFocused()).to.be.true(); // only from 2.4.0
+				// expect(Page.item8.isFocused()).to.be.true(); // on 2.3.0 and prior
 			});
 
 			it('should spot the seventh item on last panel', function () {
@@ -293,17 +293,17 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightLeft();
 
-				expect(Page.breadcrumb.hasFocus()).to.be.true();
+				expect(Page.breadcrumb.isFocused()).to.be.true();
 
 				Page.spotlightRight();
 
-				expect(Page.item7.hasFocus()).to.be.true();
+				expect(Page.item7.isFocused()).to.be.true();
 			});
 
 			it('should spot third item on first panel', function () {
@@ -312,13 +312,13 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.spotlightLeft();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item3.hasFocus()).to.be.true();
+				expect(Page.item3.isFocused()).to.be.true();
 			});
 		});
 
@@ -334,12 +334,12 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.button3.hasFocus()).to.be.true();
+				expect(Page.button3.isFocused()).to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				expect(Page.body.hasFocus()).to.be.true();
+				expect(Page.body.isFocused()).to.be.true();
 			});
 
 			it('should spot default item in Default panel', function () {
@@ -364,7 +364,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 			});
 
 			it('should re-spot last focused in last focused panel', function () {
@@ -372,24 +372,24 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus(), 'item 5 focus 1').to.be.true();
+				expect(Page.item5.isFocused(), 'item 5 focus 1').to.be.true();
 
 				Page.item8.moveToObject();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.button3.hasFocus(), 'button 3 focus').to.be.true();
+				expect(Page.button3.isFocused(), 'button 3 focus').to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				expect(Page.body.hasFocus(), 'body focus').to.be.true();
+				expect(Page.body.isFocused(), 'body focus').to.be.true();
 
 				Page.button1.moveToObject();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				expect(Page.item5.hasFocus(), 'item 5 focus 2').to.be.true();
+				expect(Page.item5.isFocused(), 'item 5 focus 2').to.be.true();
 
 				// Focus to item 6 so it can be last-focused item when returning
 				Page.spotlightDown();
@@ -400,7 +400,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				expect(Page.item6.hasFocus(), 'item 6').to.be.true();
+				expect(Page.item6.isFocused(), 'item 6').to.be.true();
 			});
 
 			// This test is failing intermittently (only when running the full suite and not when
@@ -410,22 +410,22 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.button3.hasFocus()).to.be.true();
+				expect(Page.button3.isFocused()).to.be.true();
 
 				Page.backKey();
 				Page.waitForPanelLeave(2);
 
-				expect(Page.item5.hasFocus()).to.be.true();
+				expect(Page.item5.isFocused()).to.be.true();
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				expect(Page.item3.hasFocus()).to.be.true();
+				expect(Page.item3.isFocused()).to.be.true();
 			});
 		});
 	});

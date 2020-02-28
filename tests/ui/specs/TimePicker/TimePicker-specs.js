@@ -5,7 +5,7 @@ describe('TimePicker', function () {
 	Page.open();
 
 	it('should have focus on start', function () {
-		expect(Page.components.timePickerDefaultClosedWithoutNoneText.title.hasFocus()).to.be.true();
+		expect(Page.components.timePickerDefaultClosedWithoutNoneText.title.isFocused()).to.be.true();
 	});
 
 	describe('LTR locale', function () {
@@ -31,11 +31,11 @@ describe('TimePicker', function () {
 				});
 
 				expectOpen(timePicker);
-				expect(timePicker.hour.hasFocus()).to.be.true();
+				expect(timePicker.hour.isFocused()).to.be.true();
 				Page.spotlightRight();
-				expect(timePicker.minute.hasFocus()).to.be.true();
+				expect(timePicker.minute.isFocused()).to.be.true();
 				Page.spotlightRight();
-				expect(timePicker.meridiem.hasFocus()).to.be.true();
+				expect(timePicker.meridiem.isFocused()).to.be.true();
 			});
 
 			describe('5-way', function () {
@@ -68,11 +68,11 @@ describe('TimePicker', function () {
 					});
 
 					expectOpen(timePicker);
-					expect(timePicker.hour.hasFocus()).to.be.true();
+					expect(timePicker.hour.isFocused()).to.be.true();
 					Page.spotlightRight();
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(timePicker.title.hasFocus()).to.be.true();
+					expect(timePicker.title.isFocused()).to.be.true();
 				});
 
 				it('should increase the hour when incrementing the picker', function () {
@@ -82,7 +82,7 @@ describe('TimePicker', function () {
 
 					const {hour} = extractValues(timePicker);
 					expectOpen(timePicker);
-					expect(timePicker.hour.hasFocus()).to.be.true();
+					expect(timePicker.hour.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -98,7 +98,7 @@ describe('TimePicker', function () {
 
 					const {hour} = extractValues(timePicker);
 					expectOpen(timePicker);
-					expect(timePicker.hour.hasFocus()).to.be.true();
+					expect(timePicker.hour.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -115,7 +115,7 @@ describe('TimePicker', function () {
 					const {minute} = extractValues(timePicker);
 					expectOpen(timePicker);
 					Page.spotlightRight();
-					expect(timePicker.minute.hasFocus()).to.be.true();
+					expect(timePicker.minute.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -132,7 +132,7 @@ describe('TimePicker', function () {
 					const {minute} = extractValues(timePicker);
 					expectOpen(timePicker);
 					Page.spotlightRight();
-					expect(timePicker.minute.hasFocus()).to.be.true();
+					expect(timePicker.minute.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -150,7 +150,7 @@ describe('TimePicker', function () {
 					expectOpen(timePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(timePicker.meridiem.hasFocus()).to.be.true();
+					expect(timePicker.meridiem.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -168,7 +168,7 @@ describe('TimePicker', function () {
 					expectOpen(timePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(timePicker.meridiem.hasFocus()).to.be.true();
+					expect(timePicker.meridiem.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -215,7 +215,7 @@ describe('TimePicker', function () {
 						timePicker.title.click();
 					});
 					timePicker.hour.click();
-					expect(timePicker.hour.hasFocus()).to.be.true();
+					expect(timePicker.hour.isFocused()).to.be.true();
 				});
 
 				it('should increase the hour when incrementing the picker', function () {
@@ -340,7 +340,7 @@ describe('TimePicker', function () {
 					});
 
 					expectClosed(timePicker);
-					expect(timePicker.title.hasFocus()).to.be.true();
+					expect(timePicker.title.isFocused()).to.be.true();
 				});
 			});
 
@@ -438,7 +438,7 @@ describe('TimePicker', function () {
 				it('should be able receive focus', function () {
 					Page.components.timePickerNoLabels.focus();
 					Page.spotlightDown();
-					expect(timePicker.title.hasFocus()).to.be.true();
+					expect(timePicker.title.isFocused()).to.be.true();
 				});
 				it('should not open when selected', function () {
 					timePicker.focus();
@@ -513,7 +513,7 @@ describe('TimePicker', function () {
 			});
 
 			expectOpen(timePicker);
-			expect(timePicker.hour.hasFocus()).to.be.true();
+			expect(timePicker.hour.isFocused()).to.be.true();
 		});
 
 		it('should have minute-hour-meridiem order', function () {
@@ -523,11 +523,11 @@ describe('TimePicker', function () {
 
 			expectOpen(timePicker);
 			Page.spotlightRight();
-			expect(timePicker.minute.hasFocus()).to.be.true();
+			expect(timePicker.minute.isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(timePicker.hour.hasFocus()).to.be.true();
+			expect(timePicker.hour.isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(timePicker.meridiem.hasFocus()).to.be.true();
+			expect(timePicker.meridiem.isFocused()).to.be.true();
 		});
 
 		it('should focus title when 5-way left from last picker - [GT-25247]', function () {
@@ -536,10 +536,10 @@ describe('TimePicker', function () {
 			});
 
 			expectOpen(timePicker);
-			expect(timePicker.hour.hasFocus()).to.be.true();
+			expect(timePicker.hour.isFocused()).to.be.true();
 			Page.spotlightLeft();
 			Page.spotlightLeft();
-			expect(timePicker.title.hasFocus()).to.be.true();
+			expect(timePicker.title.isFocused()).to.be.true();
 		});
 	});
 

@@ -13,7 +13,7 @@ class RadioItemInterface {
 		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
 	}
 
-	get self () { return browser.element(`#${this.id}`); }
+	get self () { return $(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
 	get isSelected () { return isSelected(this.self); }
 	get isInline () { return browser.isExisting(`#${this.id}.Item_Item_inline`); }

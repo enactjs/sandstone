@@ -12,7 +12,7 @@ class SelectableItemInterface {
 		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
 	}
 
-	get self () { return browser.element(`#${this.id}`); }
+	get self () { return $(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
 	get isSelected () { return !!element('.SelectableItem_SelectableIcon_selected', this.self).value; }
 	get isToggled () { return !!element('.enact_ui_ToggleIcon_ToggleIcon_selected', this.self).value; }

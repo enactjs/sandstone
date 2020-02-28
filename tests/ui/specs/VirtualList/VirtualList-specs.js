@@ -6,7 +6,7 @@ describe('VirtualList', function () {
 
 	it('should meet initial conditions', function () {
 		Page.open();
-		expect(Page.buttonHideScrollbar.hasFocus(), 'focus').to.be.true();
+		expect(Page.buttonHideScrollbar.isFocused(), 'focus').to.be.true();
 	});
 
 	describe('LTR locale', function () {
@@ -101,7 +101,7 @@ describe('VirtualList', function () {
 			Page.spotlightRight();
 			// Verify Step 3: Spotlight displays on the Disabled Up Paging Control (∧).
 			expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
-			expect(Page.buttonScrollUp.hasFocus(), 'step 5 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 5 focus').to.be.true();
 			// Step 6.1. 5-way Left to go back to the list.
 			Page.spotlightLeft();
 			expectFocusedItem(0, 'step 6.1 focus');
@@ -116,7 +116,7 @@ describe('VirtualList', function () {
 			// Step 6.3. 5-way Right.
 			Page.spotlightRight();
 			// Verify Step 6: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.hasFocus(), 'step 6.3 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 6.3 focus').to.be.true();
 		});
 		*/
 
@@ -131,7 +131,7 @@ describe('VirtualList', function () {
 			// Step 6: 5-way Up.
 			Page.spotlightUp();
 			// Verify Step 6: 1. The list *does not* Scroll to the Bottom. 2. Spotlight is on the close button 'x'.
-			expect(Page.buttonTop.hasFocus(), 'step 6 focus').to.be.true();  // buttonTop replaces the X button
+			expect(Page.buttonTop.isFocused(), 'step 6 focus').to.be.true();  // buttonTop replaces the X button
 			// Step 7: 1. Wheel Down on the list to the last item.
 			// Page.mouseWheel(40, Page.item(6));  // currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
@@ -150,7 +150,7 @@ describe('VirtualList', function () {
 			Page.delay(1000);
 			// Verify Step 8: 1. The list *does not* Scroll to the Top. 2. Spotlight stays on the last item.
 			// Checking focus is on buttonBottom instead of last item since 5-way Down on last item using this app takes Spotlight to buttonBottom.
-			expect(Page.buttonBottom.hasFocus(), 'step 8 focus').to.be.true();
+			expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 		});
 
 		/* TBD: In sandstone GUI, the list height is different from the scrollbar height. Needs to be updated.
@@ -180,7 +180,7 @@ describe('VirtualList', function () {
 			// Step 4. 2. 5-way Right.
 			Page.spotlightRight();
 			// Verify Item 4: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.hasFocus(), 'step 4.2 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 4.2 focus').to.be.true();
 			// Step 5. 5-way Select *two times* while the Down Paging Control (∨) remains spotted.
 			Page.spotlightSelect();
 			Page.delay(1500);
@@ -192,14 +192,14 @@ describe('VirtualList', function () {
 			Page.spotlightUp();
 			Page.delay(1500);
 			// Verify Step 6: Spotlight moves to the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.hasFocus(), 'step 6 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
 			// Step 7. 5-way Select and Hold until you reach the Top of the list.
 			Page.spotlightSelect();
 			Page.delay(1500);
 			Page.spotlightSelect();
 			Page.delay(1500);
 			// Verify Step 7: 1.Spotlight stays on the Up Paging Control (∧) 2.The Up Paging Control (∧) becomes Disabled.
-			expect(Page.buttonScrollUp.hasFocus()).to.be.true();
+			expect(Page.buttonScrollUp.isFocused()).to.be.true();
 			expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
 		});
 
@@ -219,26 +219,26 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			expectFocusedItem(6);  // Check that Spotlight is on an item
 			Page.spotlightRight();
-			expect(Page.buttonScrollDown.hasFocus(), 'step 4 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 4 focus').to.be.true();
 			// Step 5. Press Channel Down two times.
 			Page.pageDown();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			Page.pageDown();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			// Verify Step 5: Spotlight remains on the Down Paging Control (∨) as the list Scrolls.
-			expect(Page.buttonScrollDown.hasFocus(), 'step 5 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 5 focus').to.be.true();
 			// Step 6. Press Channel Up once.
 			Page.pageUp();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			// Verify Step 6: Spotlight navigates to the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.hasFocus(), 'step 6 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
 			// Step 7. Press Channel Up *two times*.
 			Page.pageUp();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			Page.pageUp();
 			Page.delay(1500);  // TODO: Need better way to detect scroll end
 			// Verify Step 7: Spotlight remains on the Up Paging Control (∧) as the list Scrolls.
-			expect(Page.buttonScrollUp.hasFocus(), 'step 7 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 7 focus').to.be.true();
 		});
 
 		it('should position Paging Controls on right side in LTR [GT-21271]', function () {
@@ -248,9 +248,9 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			expectFocusedItem(1); // Check that Spotlight is on an item
 			Page.spotlightRight();
-			expect(Page.buttonScrollUp.hasFocus(), 'step 2.2 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 2.2 focus').to.be.true();
 			Page.spotlightDown();
-			expect(Page.buttonScrollDown.hasFocus(), 'step 2.2 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
 		});
 
 		it('should navigate inside and outside of the Paging Controls via 5-way Up, Down, and Right [GT-22761]', function () {
@@ -266,24 +266,24 @@ describe('VirtualList', function () {
 			// Step 4.2. 5-way Right.
 			Page.spotlightRight();
 			// Verify Step 4: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.hasFocus(), 'step 4.2 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 4.2 focus').to.be.true();
 			// Step 5. 5-way Down while the Down Paging Control (∨) remains spotted.
 			Page.spotlightDown();
 			// Verify Step 5: Spotlight retains on the Down Paging Control (∨).
 			// In ui-tests, only check Spotlight goes to the Bottom button
-			expect(Page.buttonBottom.hasFocus()).to.be.true();
+			expect(Page.buttonBottom.isFocused()).to.be.true();
 			// Step 5. 5-way Up.
 			Page.spotlightUp();
 			// Verify Step 5: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.hasFocus(), 'step 5 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 5 focus').to.be.true();
 			// Step 6. 5-way Up.
 			Page.spotlightUp();
 			// Verify Step 6: Spotlight displays on the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.hasFocus(), 'step 6 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
 			// Step 7. 5-way Up again while the Up Paging Control (∧) remains spotted.
 			Page.spotlightUp();
 			// Verify Step 7: Spotlight displays on the close button ('*x*') above.
-			expect(Page.buttonTop.hasFocus(), 'step 7 focus').to.be.true();
+			expect(Page.buttonTop.isFocused(), 'step 7 focus').to.be.true();
 		});
 
 		it('should navigate between items and Paging Controls via 5-way Right [GT-21163]', function () {
@@ -298,7 +298,7 @@ describe('VirtualList', function () {
 			// Step 6. 5-way Right.
 			Page.spotlightRight();
 			// Verify Step 6: Spotlight displays on the Disabled Up Paging Control (^)
-			expect(Page.buttonScrollUp.hasFocus(), 'step 6 focus').to.be.true();
+			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
 			expect(Page.buttonScrollUp.getAttribute('disabled'), ' Step 5 Up disabled').to.be.equal('true');
 			// Step 7. 5-way Spot the last item in the list.
 			Page.spotlightLeft(); // to spot item 0 at the top of the list
@@ -315,7 +315,7 @@ describe('VirtualList', function () {
 			// Step 8. 5-way Right.
 			Page.spotlightRight();
 			// Verify Step 8: Spotlight displays on the Disabled Down Paging Control (v).
-			expect(Page.buttonScrollDown.hasFocus(), 'step 8 focus').to.be.true();
+			expect(Page.buttonScrollDown.isFocused(), 'step 8 focus').to.be.true();
 			expect(Page.buttonScrollDown.getAttribute('disabled'), ' Step 7 Down disabled').to.be.equal('true');
 		});
 
@@ -438,11 +438,11 @@ describe('VirtualList', function () {
 				Page.spotlightUp();
 				expectFocusedItem(0, 'focus 3');
 				Page.spotlightRight();
-				expect(Page.buttonScrollUp.hasFocus(), 'focus 4').to.be.true();
+				expect(Page.buttonScrollUp.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightDown();
-				expect(Page.buttonScrollDown.hasFocus(), 'focus 5').to.be.true();
+				expect(Page.buttonScrollDown.isFocused(), 'focus 5').to.be.true();
 				Page.spotlightUp();
-				expect(Page.buttonScrollUp.hasFocus(), 'focus 6').to.be.true();
+				expect(Page.buttonScrollUp.isFocused(), 'focus 6').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 7');
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
@@ -469,7 +469,7 @@ describe('VirtualList', function () {
 				Page.spotlightDown();
 				Page.spotlightRight();
 				Page.spotlightRight();
-				expect(Page.buttonScrollUp.hasFocus(), 'focus 1').to.be.true();
+				expect(Page.buttonScrollUp.isFocused(), 'focus 1').to.be.true();
 				Page.spotlightRight();
 				Page.spotlightLeft();
 				Page.spotlightUp();
@@ -509,13 +509,13 @@ describe('VirtualList', function () {
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
 				Page.spotlightUp();
-				expect(Page.buttonTop.hasFocus(), 'focus 2').to.be.true();
+				expect(Page.buttonTop.isFocused(), 'focus 2').to.be.true();
 				Page.spotlightDown();
 				Page.spotlightLeft();
-				expect(Page.buttonLeft.hasFocus(), 'focus 3').to.be.true();
+				expect(Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
 				Page.spotlightRight();
 				Page.spotlightRight();
-				expect(Page.buttonRight.hasFocus(), 'focus 4').to.be.true();
+				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
 				for (let i = 0; i < 99; ++i) {
@@ -525,7 +525,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
-				expect(Page.buttonBottom.hasFocus(), 'focus 7').to.be.true();
+				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
 			});
 
@@ -535,13 +535,13 @@ describe('VirtualList', function () {
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
 				Page.spotlightUp();
-				expect(Page.buttonTop.hasFocus(), 'focus 2').to.be.true();
+				expect(Page.buttonTop.isFocused(), 'focus 2').to.be.true();
 				Page.spotlightDown();
 				Page.spotlightLeft();
-				expect(Page.buttonLeft.hasFocus(), 'focus 3').to.be.true();
+				expect(Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
 				Page.spotlightRight();
 				Page.spotlightRight();
-				expect(Page.buttonRight.hasFocus(), 'focus 4').to.be.true();
+				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
 				for (let i = 0; i < 99; ++i) {
@@ -551,7 +551,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
-				expect(Page.buttonBottom.hasFocus(), 'focus 7').to.be.true();
+				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
 			});
 		});
@@ -610,7 +610,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(1);
 				Page.spotlightLeft();
 				// Verify Step 3.2: Paging Controls display left aligned.
-				expect(Page.buttonScrollUp.hasFocus(), 'step 3 focus').to.be.true();
+				expect(Page.buttonScrollUp.isFocused(), 'step 3 focus').to.be.true();
 				// Verify Up Paging Control (∧) is Disabled.
 				expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
 				// Verify Step 9: 3. Down Paging Control (∨) is Enabled.

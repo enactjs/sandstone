@@ -11,13 +11,12 @@ class SpotlightMultiplePage extends Page {
 		super.open('Input-View', urlExtra);
 	}
 
-	get input1 () { return browser.element('#input1'); }
-	get input2 () { return browser.element('#input2'); }
-	get input3 () { return browser.element('#input3'); }
-	get input4 () { return browser.element('#input4'); }
-	get disabledInput () { return browser.element('#input5'); }
-	get inputElement1 () { return browser.element('#input1 input'); }
+	get input1 () { return $('#input1'); }
+	get input2 () { return $('#input2'); }
+	get input3 () { return $('#input3'); }
+	get input4 () { return $('#input4'); }
+	get disabledInput () { return $('#input5'); }
+	get inputElement1 () { return $('#input1 input'); }
 }
 
 module.exports = new SpotlightMultiplePage();
-
