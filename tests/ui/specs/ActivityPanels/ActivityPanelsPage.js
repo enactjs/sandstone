@@ -12,15 +12,15 @@ class SpotlightMultiplePage extends Page {
 	}
 
 	waitForExist (selector, duration) {
-		browser.waitForExist(selector, duration);
+		$(selector).waitForExist(duration);
 	}
 
 	waitForLeave (selector, duration) {
-		browser.waitForExist(selector, duration, true);
+		$(selector).waitForExist(duration, true);
 	}
 
 	waitToClick (selector, duration) {
-		this.waitForExist(selector, duration);
+		$(selector).waitForExist(duration);
 		$(selector).click();
 	}
 

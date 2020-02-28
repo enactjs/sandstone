@@ -16,7 +16,7 @@ class SelectableItemInterface {
 	get valueText () { return getText(getMarqueeText(this.self)); }
 	get isSelected () { return !!element('.SelectableItem_SelectableIcon_selected', this.self).value; }
 	get isToggled () { return !!element('.enact_ui_ToggleIcon_ToggleIcon_selected', this.self).value; }
-	get isInline () { return browser.isExisting(`#${this.id}.Item_Item_inline`); }
+	get isInline () { return $(`#${this.id}.Item_Item_inline`).isExisting(); }
 }
 
 class SelectableItemPage extends Page {

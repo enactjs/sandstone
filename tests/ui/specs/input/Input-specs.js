@@ -10,7 +10,7 @@ describe('Input', function () {
 	it('should focus input element on enter', function () {
 		Page.open();
 		Page.spotlightSelect();
-		expect(Page.input1.element('input').isFocused()).to.be.true();
+		expect(Page.input1.$('input').isFocused()).to.be.true();
 	});
 
 	it('should focus input 2 on 5-way right', function () {
@@ -21,7 +21,7 @@ describe('Input', function () {
 
 	it('should have text-align equal to "right" when in ar-SA locale', function () {
 		Page.open('?locale=ar-SA');
-		expect(Page.inputElement1.getCssProperty('text-align').value).to.equal('right');
+		expect(Page.inputElement1.getCSSProperty('text-align').value).to.equal('right');
 	});
 
 	describe('disabled', function () {

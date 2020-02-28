@@ -699,13 +699,13 @@ describe('Popup', function () {
 				// 5-way to the Cancel button
 				Page.spotlightLeft();
 
-				// Spotight is on Cancel button (verify step 4)
+				// Spotlight is on Cancel button (verify step 4)
 				expect(popup.buttonCancel.isFocused()).to.be.true();
 
 				// 5-way Up (step 5)
 				Page.spotlightUp();
 
-				// Spotight remains on the Close button inside the popup (verify step 5)
+				// Spotlight remains on the Close button inside the popup (verify step 5)
 				expect(popup.buttonCancel.isFocused()).to.be.true();
 			});
 
@@ -910,7 +910,7 @@ describe('Popup', function () {
 				// 5-way to the OK button (step 5) (How to get it to spot Cancel button?)
 				Page.spotlightLeft();
 
-				// Spotight is on OK button (verify steo 5)
+				// Spotlight is on OK button (verify steo 5)
 				expect(popup.buttonOK.isFocused()).to.be.true();
 			});
 		});

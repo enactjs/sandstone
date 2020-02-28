@@ -89,13 +89,13 @@ describe('ActivityPanels', function () {
 		});
 
 		it('should move from first panel to the third', function () {
-			Page.button1.moveToObject();
+			Page.button1.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(0);
 
 			expect(Page.panelTitle.toLowerCase()).to.equal('SECOND'.toLowerCase());
 
-			Page.item8.moveToObject();
+			Page.item8.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(1);
 
@@ -103,26 +103,26 @@ describe('ActivityPanels', function () {
 		});
 
 		it('should move to first panel from the third', function () {
-			Page.button1.moveToObject();
+			Page.button1.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(0);
 
 			expect(Page.panelTitle.toLowerCase()).to.equal('SECOND'.toLowerCase());
 
-			Page.item8.moveToObject();
+			Page.item8.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(1);
 
 			expect(Page.panelTitle.toLowerCase()).to.equal('THIRD'.toLowerCase());
 
-			Page.breadcrumbHeader.moveToObject();
+			Page.breadcrumbHeader.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(2);
 
 			expect(Page.panelTitle.toLowerCase()).to.equal('SECOND'.toLowerCase());
 
-			Page.item8.moveToObject();
-			Page.breadcrumbHeader.moveToObject();
+			Page.item8.moveTo();
+			Page.breadcrumbHeader.moveTo();
 			Page.spotlightSelect();
 			Page.waitForPanelLeave(1);
 
@@ -164,7 +164,7 @@ describe('ActivityPanels', function () {
 				Page.item2.click();
 				Page.waitForPanelLeave(0);
 
-				Page.item8.moveToObject();
+				Page.item8.moveTo();
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
@@ -324,13 +324,13 @@ describe('ActivityPanels', function () {
 
 		describe('5way and pointer', function () {
 			it('should not spot in None panel', function () {
-				Page.button1.moveToObject();
+				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
 				expect(Page.panelTitle.toLowerCase()).to.equal('SECOND'.toLowerCase());
 
-				Page.item8.moveToObject();
+				Page.item8.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
@@ -343,24 +343,24 @@ describe('ActivityPanels', function () {
 			});
 
 			it('should spot default item in Default panel', function () {
-				Page.button1.moveToObject();
+				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
 				expect(Page.panelTitle.toLowerCase()).to.equal('SECOND'.toLowerCase());
 
-				Page.item8.moveToObject();
+				Page.item8.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
 				expect(Page.panelTitle.toLowerCase()).to.equal('THIRD'.toLowerCase());
-				Page.button4.moveToObject();
+				Page.button4.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
 				expect(Page.panelTitle.toLowerCase()).to.equal('NONE'.toLowerCase());
 
-				Page.button1.moveToObject();
+				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
@@ -368,13 +368,13 @@ describe('ActivityPanels', function () {
 			});
 
 			it('should re-spot last focused in last focused panel', function () {
-				Page.button1.moveToObject();
+				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
 				expect(Page.item5.isFocused(), 'item 5 focus 1').to.be.true();
 
-				Page.item8.moveToObject();
+				Page.item8.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
@@ -385,7 +385,7 @@ describe('ActivityPanels', function () {
 
 				expect(Page.body.isFocused(), 'body focus').to.be.true();
 
-				Page.button1.moveToObject();
+				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
@@ -406,7 +406,7 @@ describe('ActivityPanels', function () {
 			// This test is failing intermittently (only when running the full suite and not when
 			// running this component only) so we're skipping it for now
 			it.skip('should spot last focused item when transitioning back with Back key, deep navigation', function () {
-				Page.item3.moveToObject();
+				Page.item3.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 

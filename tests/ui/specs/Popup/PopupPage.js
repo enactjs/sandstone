@@ -29,7 +29,7 @@ class PopupInterface {
 	get   closeSymbol () { return getText(element(`#${this.id} .Icon_Icon_icon`, browser)); }
 	get         popup () { return element(`#${this.id}`, browser); }
 	get         title () { return getText(element(`#${this.id}>div>div`, browser)); }
-	get        isOpen () { return browser.isExisting(`.enact_ui_Transition_Transition_shown #${this.id}`); }
+	get        isOpen () { return $(`.enact_ui_Transition_Transition_shown #${this.id}`).isExisting(); }
 }
 
 class PopupPage extends Page {
@@ -56,23 +56,23 @@ class PopupPage extends Page {
 	}
 
 	clickPopupFloatLayer () {
-		browser.click('#floatLayer');
+		$('#floatLayer').click();
 	}
 
 	clickPopupMain () {
-		browser.click('#popupMain');
+		$('#popupMain').click();
 	}
 
 	waitForOpen (selector, duration) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		browser.waitForExist(`${selector}[data-popup-open="true"]`, duration);
+		$(`${selector}[data-popup-open="true"]`).waitForExist(duration);
 	}
 
 	waitForClose (selector, duration) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		browser.waitForExist(`${selector}[data-popup-open="true"]`, duration, true);
+		$(`${selector}[data-popup-open="true"]`).waitForExist(duration, true);
 	}
 }
 

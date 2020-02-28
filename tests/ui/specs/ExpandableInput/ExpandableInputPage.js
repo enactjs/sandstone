@@ -22,7 +22,7 @@ class ExpandableInterface {
 	get chevron () { return getText(getIcon(this.self)); }
 	get title () { return getLabeledItem(this.self); }
 	get titleText () { return getText(getLabeledItemTitle(this.self)); }
-	get titleTextMarquee () { return getLabeledItemTitle(this.self).element('.enact_ui_Marquee_Marquee_text'); }
+	get titleTextMarquee () { return getLabeledItemTitle(this.self).$('.enact_ui_Marquee_Marquee_text'); }
 	get titleIcon () { return getLabeledItemIcon(this.self); }
 	get label () { return getLabeledItemValue(this.self); }
 	get labelText () { return getText(this.label); }

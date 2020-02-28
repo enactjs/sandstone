@@ -21,7 +21,7 @@ function expectOpen (item) {
 
 // Other utility functions
 function getChevronRotation (item) {
-	const matrix = item.chevron.getCssProperty('transform');
+	const matrix = item.chevron.getCSSProperty('transform');
 
 	if (matrix.value === 'matrix(1, 0, 0, -1, 0, 0)') {
 		return 'up';

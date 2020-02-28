@@ -17,10 +17,10 @@ class CheckboxItemInterface {
 	get valueText () { return this.value.getText(); }
 	get icon () { return $(this.iconSelector); }
 	get iconSymbol () { return this.icon.getText(); }
-	get isChecked () { return browser.isExisting(`#${this.id} .Checkbox_Checkbox_selected`); }
-	get isAfter () { return browser.isExisting(`#${this.id} .SlotItem_SlotItem_after`); }
-	get isBefore () { return browser.isExisting(`#${this.id} .SlotItem_SlotItem_before`); }
-	get isInline () { return browser.isExisting(`#${this.id}.Item_Item_inline`); }
+	get isChecked () { return $(`#${this.id} .Checkbox_Checkbox_selected`).isExisting(); }
+	get isAfter () { return $(`#${this.id} .SlotItem_SlotItem_after`).isExisting(); }
+	get isBefore () { return $(`#${this.id} .SlotItem_SlotItem_before`).isExisting(); }
+	get isInline () { return $(`#${this.id}.Item_Item_inline`).isExisting(); }
 }
 
 class CheckboxItemPage extends Page {

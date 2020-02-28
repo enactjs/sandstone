@@ -44,7 +44,7 @@ describe('Spotlight', function () {
 	it('should spot nearest control in container when leaving pointer mode with a target in direction', function () {
 		Page.open();
 		// Hovering non-focusable item with pointer
-		Page.item2.moveToObject();
+		Page.item2.moveTo();
 		// move down (no more spotted controls)
 		Page.spotlightDown();
 		// Should re-spot item 1
@@ -54,7 +54,7 @@ describe('Spotlight', function () {
 	it('should spot next container when leaving pointer mode with focus on spottable item', function () {
 		Page.open();
 		// Hovering non-focusable item with pointer
-		Page.item2.moveToObject();
+		Page.item2.moveTo();
 		// move down (no more spotted controls)
 		Page.spotlightRight();
 		// Should re-spot item 1
@@ -64,7 +64,7 @@ describe('Spotlight', function () {
 	it('should spot closest control in container when leaving pointer in new container', function () {
 		Page.open();
 		// Hovering non-focusable item in different container with pointer
-		Page.nonSpottableItemB.moveToObject();
+		Page.nonSpottableItemB.moveTo();
 		// move down
 		Page.spotlightDown();
 		// Should spot item A
@@ -74,14 +74,14 @@ describe('Spotlight', function () {
 	describe('Nested Containers', function (){
 		it('should spot child item', function () {
 			Page.open();
-			Page.itemParent.moveToObject();
+			Page.itemParent.moveTo();
 			Page.spotlightDown();
 			expect(Page.itemChild.isFocused()).to.be.true();
 		});
 
 		it('should spot parent item', function () {
 			Page.open();
-			Page.itemChild.moveToObject();
+			Page.itemChild.moveTo();
 			Page.spotlightUp();
 			expect(Page.itemParent.isFocused()).to.be.true();
 		});
@@ -90,7 +90,7 @@ describe('Spotlight', function () {
 	describe('Disappear Test', function (){
 		it('should spot restore button when focus button disappears - [GT-22523]', function () {
 			Page.open();
-			Page.restoreButton.moveToObject();
+			Page.restoreButton.moveTo();
 			Page.spotlightUp();
 			browser.pause(5000);
 			expect(Page.restoreButton.isFocused()).to.be.true();

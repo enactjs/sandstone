@@ -93,7 +93,7 @@ describe('VirtualList', function () {
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 4. Position the pointer on 'Item 001'.
 			Page.showPointerByKeycode();
-			Page.item(1).moveToObject();
+			Page.item(1).moveTo();
 			// Verify Step 4: Spotlight displays on 'Item 001'.
 			expectFocusedItem(1, 'focus Item 1');
 			// Step 5. 5-way Down aznd 5-way Right.
@@ -401,7 +401,7 @@ describe('VirtualList', function () {
 			// Step 3. 1. Position the pointer on the last item in a current page.
 			bottomId = Page.bottomVisibleItemId();
 			Page.showPointerByKeycode();
-			Page.item(bottomId).moveToObject();
+			Page.item(bottomId).moveTo();
 			// Verify Step 3: Spotlight displays on the item.
 			Page.delay(1000); // needed to run on mpc
 			expectFocusedItem(Number((Page.bottomVisibleItemId().slice(4))), 'focus bottomId');

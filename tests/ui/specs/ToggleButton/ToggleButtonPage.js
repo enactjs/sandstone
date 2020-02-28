@@ -13,8 +13,8 @@ class ToggleButtonInterface {
 
 	get self () { return $(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
-	get isSelected () { return browser.isExisting(`#${this.id}.ToggleButton_ToggleButton_selected`); }
-	get isSmall () { return browser.isExisting(`#${this.id}.ToggleButton_ToggleButton_small`); }
+	get isSelected () { return $(`#${this.id}.ToggleButton_ToggleButton_selected`).isExisting(); }
+	get isSmall () { return $(`#${this.id}.ToggleButton_ToggleButton_small`).isExisting(); }
 }
 
 class ToggleButtonPage extends Page {
