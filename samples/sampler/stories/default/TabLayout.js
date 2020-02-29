@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-// import {select} from '@enact/storybook-utils/addons/knobs';
+import {boolean/*, select*/} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -24,6 +24,7 @@ storiesOf('Sandstone', module)
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout
 					onSelect={action('onSelect')}
+					collapsed={boolean('collapsed', TabLayout)}
 					// leaving this knob out for now until we build out horizontal tabs
 					// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					tabs={[
