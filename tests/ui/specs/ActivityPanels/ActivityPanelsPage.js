@@ -30,7 +30,7 @@ class SpotlightMultiplePage extends Page {
 
 	waitForPanelLeave (index, duration) {
 		this.waitForLeave(this.getPanelSelector(index), duration);
-		browser.delay(100);
+		this.delay(100);	// FIXME
 	}
 
 	getBreadcrumbSelector (index) {
