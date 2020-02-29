@@ -15,7 +15,7 @@ class SpotlightMultiplePage extends Page {
 		$(selector).waitForExist(duration);
 	}
 
-	waitForLeave (selector, duration) {
+	waitForLeave (selector, duration = 1500) {
 		$(selector).waitForExist(duration, true);
 	}
 
