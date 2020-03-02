@@ -46,7 +46,6 @@ describe('VirtualList', function () {
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
 			expectFocusedItem(19, 'step 5 focus');
 			// Step 6. Press Channel Down.
-			Page.delay(1500);
 			Page.pageDown();
 			Page.delay(1500);
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?

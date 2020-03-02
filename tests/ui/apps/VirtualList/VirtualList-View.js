@@ -103,7 +103,7 @@ class app extends React.Component {
 	}
 
 	onKeyDown = () => {
-		this.setState(({keyDownEvents}) => ({keyDownEvents: keyDownEvents + 1}));
+		// FixMe this.setState(({keyDownEvents}) => ({keyDownEvents: keyDownEvents + 1}));
 	}
 
 	onToggle = ({currentTarget}) => {
