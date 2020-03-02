@@ -13,16 +13,16 @@ import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
-const nop = () => {};
-
 const
-	dataContainerDisabledAttribute = 'data-spotlight-container-disabled',
+	nop = () => {},
+	// Defined in /Enact/packages/spotlight/src/container.js
+	disabledKey = 'spotlightContainerDisabled',
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0,
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
-	const {scrollContentHandle, scrollContentRef} = instances;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 	const {scrollMode} = context;
 
 	// Mutable value
@@ -84,18 +84,12 @@ const useSpottable = (props, instances, context) => {
 	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
 
 	const setContainerDisabled = useCallback((bool) => {
-		const
-			{spotlightId} = props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
+		scrollContainerRef.current.dataset[disabledKey] = bool;
 
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
-
-			if (bool) {
-				addGlobalKeyDownEventListener(handleGlobalKeyDown);
-			} else {
-				removeGlobalKeyDownEventListener();
-			}
+		if (bool) {
+			addGlobalKeyDownEventListener(handleGlobalKeyDown);
+		} else {
+			removeGlobalKeyDownEventListener();
 		}
 	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, props, removeGlobalKeyDownEventListener]);
 

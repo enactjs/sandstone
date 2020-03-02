@@ -14,7 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
-	const {themeScrollContentHandle, spottable, scrollContainerRef, scrollContentRef, scrollContainerHandle} = instances;
+	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 	const {alertThumb, isWheeling, scrollMode} = context;
 
 	// Functions

@@ -8,30 +8,25 @@ import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 
-const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
+// Defined in /Enact/packages/spotlight/src/container.js
+const disabledKey = 'spotlightContainerDisabled';
 
 const useSpottable = (props, instances) => {
-	const {scrollContentHandle, scrollContentRef} = instances;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey();
 
 	const setContainerDisabled = useCallback((bool) => {
-		const
-			{spotlightId} = props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
+		scrollContainerRef.current.dataset[disabledKey] = bool;
 
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
-
-			if (bool) {
-				addGlobalKeyDownEventListener(() => {
-					setContainerDisabled(false);
-				});
-			} else {
-				removeGlobalKeyDownEventListener();
-			}
+		if (bool) {
+			addGlobalKeyDownEventListener(() => {
+				setContainerDisabled(false);
+			});
+		} else {
+			removeGlobalKeyDownEventListener();
 		}
 	}, [addGlobalKeyDownEventListener, props, removeGlobalKeyDownEventListener]);
 
