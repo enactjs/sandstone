@@ -852,6 +852,7 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
+		const checkForChildren = children && Array.isArray(children) && orientation === 'horizontal';
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
@@ -927,7 +928,7 @@ const PickerBase = class extends React.Component {
 					>
 						{children}
 					</PickerViewManager>
-					{children && Array.isArray(children) && (
+					{checkForChildren && (
 						<div className={css.indicators}>
 							{children.map((each, key) => (
 								<div
