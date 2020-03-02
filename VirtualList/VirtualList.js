@@ -4,7 +4,6 @@
  * @module sandstone/VirtualList
  * @exports VirtualGridList
  * @exports VirtualList
- * @exports VirtualListBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -20,13 +19,13 @@ import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
 import {useThemeVirtualList} from './useThemeVirtualList';
-import {VirtualListBasic} from './VirtualListBasic';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
  * @class VirtualList
  * @memberof sandstone/VirtualList
+ * @extends ui/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -104,8 +103,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
-	cbScrollTo: PropTypes.func,
-
 	/**
 	 * `false` if the content of the list or the scroller could get focus
 	 *
@@ -115,23 +112,17 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 */
 	'data-spotlight-container-disabled': PropTypes.bool,
 
-	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-
 	/**
-	 * Specifies how to show horizontal scrollbar.
+	 * Unique identifier for the component.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
+	 * When defined and when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
+	 * the `VirtualList` will store its scroll position and restore that position when returning to
+	 * the `Panel`.
 	 *
 	 * @type {String}
-	 * @default 'auto'
 	 * @public
 	 */
-	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
-
-	itemSizes: PropTypes.array,
+	id: PropTypes.string,
 
 	/**
 	 * Specifies overscroll effects shows on which type of inputs.
@@ -153,23 +144,28 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 		wheel: PropTypes.bool
 	}),
 
-	role: PropTypes.string,
-
-	scrollMode: PropTypes.string,
-
 	/**
-	 * Specifies how to show vertical scrollbar.
-	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
+	 * The ARIA role for the list.
 	 *
 	 * @type {String}
-	 * @default 'auto'
+	 * @default 'list'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+	role: PropTypes.string,
+
+	/**
+	 * Specifies how to scroll.
+	 *
+	 * Valid values are:
+	 * * `'translate'`,
+	 * * `'native'`.
+	 *
+	 * @name scrollMode
+	 * @type {String}
+	 * @default 'native'
+	 * @public
+	 */
+	scrollMode: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -190,6 +186,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
+	dataSize: 0,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
@@ -199,8 +196,10 @@ VirtualList.defaultProps = {
 		track: false,
 		wheel: true
 	},
+	pageScroll: false,
 	role: 'list',
 	scrollMode: 'native',
+	spacing: 0,
 	verticalScrollbar: 'auto',
 	wrap: false
 };
@@ -224,6 +223,7 @@ VirtualList = Skinnable(
  *
  * @class VirtualGridList
  * @memberof sandstone/VirtualList
+ * @extends ui/VirtualList.VirtualListBasic
  * @ui
  * @public
  */
@@ -287,8 +287,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 */
 	itemSize: gridListItemSizeShape.isRequired,
 
-	cbScrollTo: PropTypes.func,
-
 	/**
 	 * `false` if the content of the list or the scroller could get focus
 	 *
@@ -298,23 +296,17 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 */
 	'data-spotlight-container-disabled': PropTypes.bool,
 
-	direction: PropTypes.oneOf(['horizontal', 'vertical']),
-
 	/**
-	 * Specifies how to show horizontal scrollbar.
+	 * Unique identifier for the component.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
+	 * When defined and when the `VirtualGridList` is within a [Panel]{@link sandstone/Panels.Panel},
+	 * the `VirtualGridList` will store its scroll position and restore that position when returning to
+	 * the `Panel`.
 	 *
 	 * @type {String}
-	 * @default 'auto'
 	 * @public
 	 */
-	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
-
-	itemSizes: PropTypes.array,
+	id: PropTypes.string,
 
 	/**
 	 * Specifies overscroll effects shows on which type of inputs.
@@ -336,23 +328,28 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 		wheel: PropTypes.bool
 	}),
 
-	role: PropTypes.string,
-
-	scrollMode: PropTypes.string,
-
 	/**
-	 * Specifies how to show vertical scrollbar.
-	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
+	 * The ARIA role for the list.
 	 *
 	 * @type {String}
-	 * @default 'auto'
+	 * @default 'list'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+	role: PropTypes.string,
+
+	/**
+	 * Specifies how to scroll.
+	 *
+	 * Valid values are:
+	 * * `'translate'`,
+	 * * `'native'`.
+	 *
+	 * @name scrollMode
+	 * @type {String}
+	 * @default 'native'
+	 * @public
+	 */
+	scrollMode: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -373,6 +370,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
+	dataSize: 0,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
 	overscrollEffectOn: {
@@ -382,8 +380,10 @@ VirtualGridList.defaultProps = {
 		track: false,
 		wheel: true
 	},
+	pageScroll: false,
 	role: 'list',
 	scrollMode: 'native',
+	spacing: 0,
 	verticalScrollbar: 'auto',
 	wrap: false
 };
@@ -405,6 +405,5 @@ VirtualGridList = Skinnable(
 export default VirtualList;
 export {
 	VirtualGridList,
-	VirtualList,
-	VirtualListBasic
+	VirtualList
 };
