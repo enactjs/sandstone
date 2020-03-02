@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 
 import {StepsBase as Steps} from '../Steps';
 import css from '../Steps.module.less';
@@ -224,4 +224,3 @@ describe('Steps Specs', () => {
 		}
 	);
 });
-

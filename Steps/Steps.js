@@ -139,7 +139,7 @@ const StepsBase = kind({
 		 * @type {Number|Number[]}
 		 * @public
 		 */
-		skip: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf[PropTypes.number]]),
+		skip: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]),
 
 		/**
 		 * The icon to use for any skipped steps, past or future.

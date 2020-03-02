@@ -3,6 +3,7 @@ import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import CheckboxItem from '../../../CheckboxItem';
+import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DayPicker from '../../../DayPicker';
@@ -59,6 +60,7 @@ const components = {
 	Button,
 	Checkbox,
 	CheckboxItem,
+	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,

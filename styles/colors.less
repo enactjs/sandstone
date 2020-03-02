@@ -46,9 +46,19 @@
 // Component Colors
 // ---------------------------------------
 
+// Alert
+// ---------------------------------------
+@sand-alert-bg-color: #373a41;
+@sand-alert-overlay-bg-color: fade(#cacbcc, 95%);
+@sand-alert-title-color: @sand-light-gray;
+@sand-alert-subtitle-color: @sand-gray;
+@sand-alert-overlay-box-shadow-color: fade(@sand-black, 30%);
+@sand-alert-overlay-text-color: @sand-black;
+@sand-alert-overlay-shadow: 0 42px 24px @sand-alert-overlay-box-shadow-color;
+
 // Body Text
 // ---------------------------------------
-@sand-body-text-color:                @sand-text-color;
+@sand-body-text-color: @sand-text-color;
 
 // Button
 // ---------------------------------------
@@ -185,6 +195,11 @@
 @sand-input-decorator-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
 @sand-input-decorator-active-bg-color: @sand-input-decorator-focus-bg-color;
 @sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
+
+// KeyGuide
+// ---------------------------------------
+@sand-keyguide-bg-color: fade(#373A41, 90%);
+@sand-keyguide-item-color: @sand-gray;
 
 // LabeledItem
 // ---------------------------------------

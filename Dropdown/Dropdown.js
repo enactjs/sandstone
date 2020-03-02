@@ -103,6 +103,15 @@ const DropdownBase = kind({
 		]),
 
 		/**
+		 * The placement of the Dropdown.
+		 *
+		 * @type {('above'|'below')}
+		 * @default 'below'
+		 * @public
+		 */
+		direction: PropTypes.oneOf(['above', 'below']),
+
+		/**
 		 * Disables Dropdown and becomes non-interactive.
 		 *
 		 * @type {Boolean}
@@ -176,7 +185,7 @@ const DropdownBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'down',
+		direction: 'below',
 		open: false,
 		width: 'medium'
 	},
@@ -243,6 +252,7 @@ const DropdownBase = kind({
 			});
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
+		direction: ({direction}) => `${direction} center`,
 		title: ({children, selected, title}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];

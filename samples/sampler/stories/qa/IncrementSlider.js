@@ -72,7 +72,7 @@ class IncrementSliderWithContextualPopup extends React.Component {
 		return (
 			<div>
 				<ContextualPopupButton
-					direction="down"
+					direction="below center"
 					spotlightRestrict="self-only"
 					onClick={this.handleClick}
 					onClose={this.handleClick}

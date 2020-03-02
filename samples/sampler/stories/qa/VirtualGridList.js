@@ -7,7 +7,7 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/Virt
 import React from 'react';
 
 import Button from '@enact/sandstone/Button';
-import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList, VirtualListBasic} from '@enact/sandstone/VirtualList';
@@ -69,7 +69,7 @@ for (let i = 0; i < 60; i++) {
 	itemList.push('item' + i);
 }
 
-const ContexturePopupButton = ContexturePopupDecorator(Button);
+const ContextualPopupButton = ContextualPopupDecorator(Button);
 
 let lastIndex = 0;
 
@@ -138,7 +138,7 @@ class ButtonAndVirtualGridList extends React.Component {
 	render () {
 		return (
 			<div>
-				<ContexturePopupButton
+				<ContextualPopupButton
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
@@ -147,7 +147,7 @@ class ButtonAndVirtualGridList extends React.Component {
 					onClose={this.closePopup}
 				>
 					Focus here
-				</ContexturePopupButton>
+				</ContextualPopupButton>
 			</div>
 		);
 	}
