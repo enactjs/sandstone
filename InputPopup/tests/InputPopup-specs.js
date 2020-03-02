@@ -80,7 +80,7 @@ describe('InputPopup specs', () => {
 	test('should set type to password at input when input type is "password"', () => {
 		const inputPopup = mount(
 			<FloatingLayerController>
-				<InputPopup open inputType={'password'} />
+				<InputPopup open type="password" />
 			</FloatingLayerController>
 		);
 
