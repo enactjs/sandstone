@@ -1,6 +1,6 @@
 
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem} = require('./VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused} = require('./VirtualList-utils');
 
 describe('VirtualList', function () {
 
@@ -139,7 +139,7 @@ describe('VirtualList', function () {
 			// Wheeling will not be implemented - see ENYO-6178
 			for (let i = 0; i < 100; ++i) {
 				Page.spotlightDown();
-				Page.delay(250); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+				waitUntilFocused(i);
 			}
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
