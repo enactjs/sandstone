@@ -22,8 +22,12 @@ const
 	spottableSelector = `.${spottableClass}`;
 
 const useSpottable = (props, instances, context) => {
-	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
+	const {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 	const {scrollMode} = context;
+	const getItemNode = (index) => {
+		const itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+		return itemRef && itemRef.children[0] || null;
+	};
 
 	// Mutable value
 
@@ -81,15 +85,17 @@ const useSpottable = (props, instances, context) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
+	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {getItemNode});
 
 	const setContainerDisabled = useCallback((bool) => {
-		scrollContainerRef.current.dataset[disabledKey] = bool;
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.dataset[disabledKey] = bool;
 
-		if (bool) {
-			addGlobalKeyDownEventListener(handleGlobalKeyDown);
-		} else {
-			removeGlobalKeyDownEventListener();
+			if (bool) {
+				addGlobalKeyDownEventListener(handleGlobalKeyDown);
+			} else {
+				removeGlobalKeyDownEventListener();
+			}
 		}
 	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, props, removeGlobalKeyDownEventListener]);
 
@@ -147,7 +153,7 @@ const useSpottable = (props, instances, context) => {
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
 				if (isWrapped && (
-					scrollContentRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
+					getItemNode(nextIndex) == null
 				)) {
 					if (wrap === true) {
 						pause.pause();
@@ -179,7 +185,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const item = scrollContentRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
+		const item = getItemNode(index);
 
 		if (!item && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
@@ -219,7 +225,7 @@ const useSpottable = (props, instances, context) => {
 		const
 
 			{pageScroll} = props,
-			{numOfItems, primary} = scrollContentHandle.current,
+			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
@@ -299,11 +305,13 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
-	const {scrollMode, scrollContentHandle, scrollContentRef} = props;
+	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
+
+	// Mutable value
 
 	// Hooks
 
-	const instance = {scrollContentHandle, scrollContentRef};
+	const instance = {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef};
 
 	const {
 		calculatePositionOnFocus,
@@ -353,6 +361,7 @@ const useThemeVirtualList = (props) => {
 
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
+	delete rest.scrollContainerRef;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
 	delete rest.spotlightId;

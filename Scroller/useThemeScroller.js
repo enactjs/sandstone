@@ -19,14 +19,16 @@ const useSpottable = (props, instances) => {
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey();
 
 	const setContainerDisabled = useCallback((bool) => {
-		scrollContainerRef.current.dataset[disabledKey] = bool;
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.dataset[disabledKey] = bool;
 
-		if (bool) {
-			addGlobalKeyDownEventListener(() => {
-				setContainerDisabled(false);
-			});
-		} else {
-			removeGlobalKeyDownEventListener();
+			if (bool) {
+				addGlobalKeyDownEventListener(() => {
+					setContainerDisabled(false);
+				});
+			} else {
+				removeGlobalKeyDownEventListener();
+			}
 		}
 	}, [addGlobalKeyDownEventListener, props, removeGlobalKeyDownEventListener]);
 
@@ -248,11 +250,11 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props) => {
-	const {scrollContentHandle, scrollContentRef} = props;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 
 	useEffect(() => {
 		props.setThemeScrollContentHandle({
@@ -267,7 +269,9 @@ const useThemeScroller = (props) => {
 	const propsObject = Object.assign({}, props);
 
 	delete propsObject.children;
+	delete propsObject.itemRefs;
 	delete propsObject.scrollContainerContainsDangerously;
+	delete propsObject.scrollContainerRef;
 	delete propsObject.onUpdate;
 	delete propsObject.setThemeScrollContentHandle;
 	delete propsObject.spotlightId;

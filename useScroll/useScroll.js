@@ -273,6 +273,8 @@ const useScroll = (props) => {
 	const horizontalScrollbarRef = useRef();
 	const verticalScrollbarRef = useRef();
 
+	const itemRefs = useRef([]);
+
 	// Adapters
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
@@ -485,7 +487,9 @@ const useScroll = (props) => {
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
+		itemRefs,
 		onUpdate: handleScrollerUpdate,
+		scrollContainerRef,
 		setThemeScrollContentHandle,
 		spotlightId,
 		scrollContainerHandle,
