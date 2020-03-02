@@ -153,118 +153,26 @@ const InputPopupBase = kind({
 			() => Spotlight.setPointerMode(false)
 		),
 
-		onKeyDown: handle(
-			forward('onKeyDown'),
-			// (e, props, context) => {
-			// 	// console.log('custom handler', forKey('left', e, props));
-			// 	if (forKeyCode(461) || forKeyCode(18) || forKey('esc')) {
-			// 		return handle( // Alt key
-			// 			oneOf(
-			// 				// If the value didn't change at all, just close and don't bother firing an update.
-			// 				[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 				// If the above failed, the value is different, proceed with firing an update.
-			// 				[returnsTrue, adaptEvent(
-			// 					(ev, {value}) => ({value}),
-			// 					forward('onChange')
-			// 				)]
-			// 			),
-			// 			e, props, context
-			// 		);
-			// 	}
-			// 	return true;
-			// },
-			oneOf(
-				// If any of the following are detected, continue
-				[forKey('cancel'), handle( // Back and ESC keys
-					oneOf(
-						// If the value didn't change at all, just close and don't bother firing an update.
-						[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-						// If the above failed, the value is different, proceed with firing an update.
-						[returnsTrue, adaptEvent(
-							(ev, {value}) => ({value}),
-							forward('onChange')
-						)]
-					),
-				)],
-				[forKey('enter'), adaptEvent(
-					setInputValue,
-					forward('onComplete')
-				)]
+		onInputKeyDown: handle(
+			forKey('enter'),
+			adaptEvent(
+				setInputValue,
+				forward('onComplete')
 			),
-			// oneOf(
-			// 	// If any of the following are detected, continue
-			// 	[allOf(
-			// 		[
-			// 			forKeyCode(461),
-			// 			forKeyCode(18), // Alt
-			// 			forKeyCode(17), // Ctrl
-			// 			forKeyCode(16), // Shift
-			// 			forKey('esc')
-			// 		], returnsTrue
-			// 	), log('allOf')],
-			// 	[anyOf(
-			// 		[
-			// 			forKeyCode(461),
-			// 			forKeyCode(18), // Alt
-			// 			forKeyCode(17), // Ctrl
-			// 			forKeyCode(16), // Shift
-			// 			forKey('esc')
-			// 		], returnsTrue
-			// 	), log('anyOf')],
-			// 	[forKeyCode(461), returnsTrue], // Back key
-			// 	[forKeyCode(18), handle( // Alt key
-			// 		oneOf(
-			// 			// If the value didn't change at all, just close and don't bother firing an update.
-			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 			// If the above failed, the value is different, proceed with firing an update.
-			// 			[returnsTrue, adaptEvent(
-			// 				(ev, {value}) => ({value}),
-			// 				forward('onChange')
-			// 			)]
-			// 		),
-			// 	)],
-			// 	// log('input and original differ'),
-			// 	[forKey('esc'), returnsTrue],
-			// 	[forKey('enter'), adaptEvent(
-			// 		setInputValue,
-			// 		forward('onComplete')
-			// 	)]
-			// ),
-			// oneOf(
-			// 	// If any of the following are detected, continue
-			// 	[forKeyCode(461), returnsTrue], // Back key
-			// 	[forKeyCode(18), handle( // Alt key
-			// 		oneOf(
-			// 			// If the value didn't change at all, just close and don't bother firing an update.
-			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 			// If the above failed, the value is different, proceed with firing an update.
-			// 			[returnsTrue, adaptEvent(
-			// 				(ev, {value}) => ({value}),
-			// 				forward('onChange')
-			// 			)]
-			// 		),
-			// 	)],
-			// 	// log('input and original differ'),
-			// 	[forKey('esc'), returnsTrue],
-			// 	[forKey('enter'), adaptEvent(
-			// 		setInputValue,
-			// 		forward('onComplete')
-			// 	)]
-			// ),
 			forward('onClosePopup')
 		)
 	},
 
-	render: ({placeholder, children, css, title, subtitle, type, disabled, onOpenPopup, className, open, value, onShow, onChange, onKeyDown, ...rest}) => {
+	render: ({placeholder, children, css, title, subtitle, type, disabled, onClosePopup, onOpenPopup, className, open, value, onShow, onChange, onInputKeyDown, ...rest}) => {
 
 		const inputProps = extractInputProps(rest);
 
-		delete rest.onClosePopup;
 		delete rest.onComplete;
 
 		return (
 			<React.Fragment>
 				<Popup
+					onClose={onClosePopup}
 					onShow={onShow}
 					className={className}
 					position="fullscreen"
@@ -283,7 +191,7 @@ const InputPopupBase = kind({
 								defaultValue={value}
 								placeholder={placeholder}
 								onChange={onChange}
-								onKeyDown={onKeyDown}
+								onKeyDown={onInputKeyDown}
 								{...inputProps}
 							/>
 						</Cell>
@@ -292,7 +200,7 @@ const InputPopupBase = kind({
 						</Cell>
 					</Layout>
 				</Popup>
-				<Button disabled={disabled} onClick={onOpenPopup} {...rest}>
+				<Button {...rest} disabled={disabled} onClick={onOpenPopup}>
 					{(type === 'password' ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
