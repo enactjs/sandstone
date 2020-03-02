@@ -12,6 +12,7 @@ const PickerRTLBase = kind({
 	propTypes: {
 		children: PropTypes.node.isRequired,
 		disabled: PropTypes.bool,
+		joined: PropTypes.bool,
 		noAnimation: PropTypes.bool,
 		rtl: PropTypes.bool,
 		width: PropTypes.string,
@@ -20,6 +21,7 @@ const PickerRTLBase = kind({
 
 	defaultProps: {
 		disabled: false,
+		joined: false,
 		noAnimation: false,
 		rtl: false,
 		width: 'medium',

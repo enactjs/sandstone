@@ -49,7 +49,7 @@ const PickerTests = [
 	},
 	// end of [GT-21467]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
+	// tallCharacters: Change 'width', 'wrap', 'noAnimation', 'joined', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
 	// Marked part automated due to Marquee and Click actions
 	// Step 3: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,

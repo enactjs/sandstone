@@ -326,7 +326,7 @@ const RangePickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} joined  />
+		component: <RangePicker min={0} max={5} value={0} joined />
 	},
 	{
 		locale: 'ar-SA',
