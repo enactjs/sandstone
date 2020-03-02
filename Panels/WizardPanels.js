@@ -13,17 +13,17 @@ import Header from './Header';
 import Panel from './Panel';
 import {PanelTypeContext} from './Viewport';
 
-import css from './WizardPanel.module.less';
+import css from './WizardPanels.module.less';
 
-const WizardPanelContext = React.createContext(null);
+const WizardPanelsContext = React.createContext(null);
 
 /**
- * A WizardPanel that has steps with corresponding views.
- * Takes [View]{@link sandstone/Panels.WizardPanel.View} as children.
+ * A WizardPanels that has steps with corresponding views.
+ * Takes [View]{@link sandstone/Panels.WizardPanels.View} as children.
  *
  * @example
- * 			<WizardPanel>
- *				<WizardPanel.View title="a" subtitle="b" footer="c">
+ * 			<WizardPanels>
+ *				<WizardPanels.View title="a" subtitle="b" footer="c">
  *					<Scroller>
  *						lorem ipsum ...
  *					</Scroller>
@@ -34,16 +34,16 @@ const WizardPanelContext = React.createContext(null);
  *					<footer>
  *						<CheckboxItem inline>Confirm</CheckboxItem>
  *					</footer>
- *				</WizardPanel.View>
- *			</WizardPanel>
+ *				</WizardPanels.View>
+ *			</WizardPanels>
  *
- * @class WizardPanel
+ * @class WizardPanels
  * @memberof sandstone/Panels
  * @ui
  * @public
  */
-const WizardPanelBase = kind({
-	name: 'WizardPanel',
+const WizardPanelsBase = kind({
+	name: 'WizardPanels',
 
 	contextType: PanelTypeContext,
 
@@ -143,7 +143,7 @@ const WizardPanelBase = kind({
 
 	styles: {
 		css,
-		className: 'wizardPanel'
+		className: 'wizardPanels'
 	},
 
 	handlers: {
@@ -238,13 +238,13 @@ function useReverseTransition (index = -1) {
 	return reverse;
 }
 
-const WizardPanelDecorator = (Wrapped) => ({children, index = 0, ...rest}) => {
+const WizardPanelsDecorator = (Wrapped) => ({children, index = 0, ...rest}) => {
 	const [view, setView] = React.useState(null);
 	const reverseTransition = useReverseTransition(index);
 	const totalViews = React.Children.count(children);
 
 	return (
-		<WizardPanelContext.Provider value={setView}>
+		<WizardPanelsContext.Provider value={setView}>
 			{React.Children.toArray(children)[index]}
 			<Wrapped {...rest} {...view} index={index} lastIndex={totalViews - 1} reverseTransition={reverseTransition}>
 				{view && view.children ? (
@@ -253,19 +253,19 @@ const WizardPanelDecorator = (Wrapped) => ({children, index = 0, ...rest}) => {
 					</div>
 				) : null}
 			</Wrapped>
-		</WizardPanelContext.Provider>
+		</WizardPanelsContext.Provider>
 	);
 };
 
-const WizardPanel = Changeable(
+const WizardPanels = Changeable(
 	{prop: 'index'},
-	WizardPanelDecorator(
-			WizardPanelBase
+	WizardPanelsDecorator(
+			WizardPanelsBase
 	)
 );
 
 function ViewBase ({buttons, children, footer, subtitle, title}) {
-	const set = React.useContext(WizardPanelContext);
+	const set = React.useContext(WizardPanelsContext);
 
 	React.useEffect(() => {
 		set({buttons, children, footer, subtitle, title});
@@ -275,10 +275,10 @@ function ViewBase ({buttons, children, footer, subtitle, title}) {
 }
 
 /**
- * View for [WizardPanel]{@link sandstone/Panels.WizardPanel}.
+ * View for [WizardPanels]{@link sandstone/Panels.WizardPanels}.
  *
  * @class View
- * @memberof sandstone/Panels.WizardPanel
+ * @memberof sandstone/Panels.WizardPanels
  * @ui
  * @public
  */
@@ -287,7 +287,7 @@ const View = Slottable(
 	ViewBase
 );
 
-WizardPanel.View = View;
+WizardPanels.View = View;
 
-export default WizardPanel;
-export {WizardPanel, WizardPanelBase, View};
+export default WizardPanels;
+export {WizardPanels, WizardPanelsBase, View};
