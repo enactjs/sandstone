@@ -103,7 +103,7 @@ const RangePickerTests = [
 		textSize: 'large',
 		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
-	<RangePicker min={0} max={5} orientation="vertical" joined  />,
+	<RangePicker min={0} max={5} orientation="vertical" joined />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined disabled />,
 	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined width="medium" />,

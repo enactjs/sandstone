@@ -51,7 +51,7 @@ describe('Picker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = picker.find('Button').at(0).prop('data-webos-voice-disabled');
+		const actual = picker.find('PickerButton').at(1).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});
@@ -64,7 +64,7 @@ describe('Picker Specs', () => {
 		);
 
 		const expected = true;
-		const actual = picker.find('Button').at(1).prop('data-webos-voice-disabled');
+		const actual = picker.find('PickerButton').at(0).prop('data-webos-voice-disabled');
 
 		expect(actual).toBe(expected);
 	});

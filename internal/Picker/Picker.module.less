@@ -30,8 +30,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		vertical-align: bottom;
-		line-height: @sand-picker-button-height/2;
-		height: @sand-picker-button-height;
+		line-height: @sand-picker-value-line-height;
+		height: @sand-picker-value-height;
 	}
 
 	.incrementer,
@@ -94,19 +94,14 @@
 		}
 
 		.indicators {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-			.active,
-			.inactive {
-				width: 24px;
-				height: 24px;
-				margin-right: 10px;
-				margin-bottom: 10px;
-				margin-top: 120px;
-				border-radius: 50%;
-				cursor: pointer;
-			}
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			margin-top: 120px;
+			border-radius: 50%;
+			cursor: pointer;
 		}
 
 		.incrementer,
@@ -139,7 +134,6 @@
 		});
 
 		&.horizontal {
-			display: inline-flex;
 			font-size: @sand-item-font-size-large;
 			height:  @sand-picker-horizontal-button-height-small;
 			line-height: @sand-button-small-height-large;
@@ -159,6 +153,7 @@
 				margin: 0;
 				height: @sand-button-small-height;
 				line-height: @sand-button-small-height;
+
 				.icon {
 					visibility: hidden;
 				}
@@ -243,10 +238,9 @@
 			&.horizontal {
 				background: @sand-picker-bg-color;
 				.indicators {
-					.inactive {
-						background-color: @sand-picker-indicators-inactive-bg-color;
-					}
-					.active {
+					background-color: @sand-picker-indicators-inactive-bg-color;
+
+					&.active {
 						background-color: @sand-picker-indicators-active-bg-color;
 					};
 				}
@@ -261,10 +255,9 @@
 				});
 
 				.indicators {
-					.inactive {
-						background-color: @sand-picker-indicators-inactive-focus-bg-color;
-					}
-					.active {
+					background-color: @sand-picker-indicators-inactive-focus-bg-color;
+
+					&.active {
 						background-color: @sand-picker-indicators-active-focus-bg-color
 					};
 				}

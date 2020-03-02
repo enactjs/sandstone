@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {forward, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
@@ -515,7 +516,7 @@ const PickerBase = class extends React.Component {
 	emulateMouseUp = new Job(this.clearPressedState, 175)
 
 	handleUp = () => {
-		if (this.pickerButtonPressed !== 0 || this.state.pressed !== 0) {
+		if (this.props.joined && (this.pickerButtonPressed !== 0 || this.state.pressed !== 0)) {
 			this.emulateMouseUp.start();
 		}
 	}
@@ -838,13 +839,15 @@ const PickerBase = class extends React.Component {
 		const incrementIcon = selectIncIcon(this.props);
 		const decrementIcon = selectDecIcon(this.props);
 
+		const horizontal = orientation === 'horizontal';
+
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
 		const reachedEnd = this.hasReachedBound(step);
 		const incrementerDisabled = disabled || reachedEnd;
 		const classes = this.determineClasses(decrementerDisabled, incrementerDisabled);
 
-		let arranger = orientation === 'vertical' ? SlideTopArranger : SlideLeftArranger;
+		let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
 		let noAnimation = this.props.noAnimation || disabled;
 
 		let sizingPlaceholder = null;
@@ -852,7 +855,7 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
-		const checkForChildren = children && Array.isArray(children) && orientation === 'horizontal';
+		const checkForChildren = children && Array.isArray(children) && horizontal;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
@@ -929,13 +932,12 @@ const PickerBase = class extends React.Component {
 						{children}
 					</PickerViewManager>
 					{checkForChildren && (
-						<div className={css.indicators}>
-							{children.map((each, key) => (
+						<div>
+							{children.map((indicators, indicator) => (
 								<div
 									{...voiceProps}
-									key={key}
-									data-key={key}
-									className={index === key ? css.active : css.inactive}
+									key={indicator}
+									className={classnames(css.indicators, {[css.active]: (index === indicator)})}
 								/>
 							))}
 						</div>

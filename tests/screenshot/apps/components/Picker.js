@@ -49,7 +49,7 @@ const PickerTests = [
 	},
 	// end of [GT-21467]
 
-	// tallCharacters: Change 'width', 'wrap', 'noAnimation', 'joined', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
 	// Marked part automated due to Marquee and Click actions
 	// Step 3: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,
@@ -83,10 +83,10 @@ const PickerTests = [
 	<Picker value={2} width="medium" decrementIcon="play">{pickerList.vegetables}</Picker>,
 
 	<Picker width="medium" wrap joined>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap noAnimation joined>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap noAnimation joined disabled>{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap noAnimation joined disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
-	<Picker width="medium" wrap noAnimation joined disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined noAnimation>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined noAnimation disabled>{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
+	<Picker width="medium" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 
 	// Ellipsis Displays with RTL Text in LTR Locale - [GT-21559]
 	// Marked part automated as cannnot check for marquee (step 4 - part 2)
@@ -113,7 +113,7 @@ const PickerTests = [
 	<Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	// end of [GT-23461]
 
-	// Change 'width', 'wrap', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-21642]
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-21642]
 	<Picker orientation="vertical" />,
 	// step 3,4:  Picker displays vertically.
 	<Picker value={2} width="medium" orientation="vertical">{pickerList.vegetables}</Picker>,
@@ -124,7 +124,7 @@ const PickerTests = [
 	// step 8: Up and Down arrow buttons are enabled.
 	<Picker value={2} width="medium" orientation="vertical" wrap>{pickerList.vegetables}</Picker>,
 	// step 9: The size of the arrows buttons reduces.
-	<Picker value={2} width="medium" orientation="vertical" >{pickerList.vegetables}</Picker>,
+	<Picker value={2} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>,
 	// step 10: Item transition effect in picker is disabled.
 	<Picker value={2} width="medium" orientation="vertical" noAnimation>{pickerList.vegetables}</Picker>,
 	// step 11: Picker is disabled.
@@ -135,7 +135,7 @@ const PickerTests = [
 	<Picker value={2} width="medium" orientation="vertical" decrementIcon="play">{pickerList.vegetables}</Picker>,
 	// end of [GT-21642]
 
-	<Picker value={1} width="medium" orientation="vertical" >{pickerList.vegetables}</Picker>,
+	<Picker value={1} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined noAnimation>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined noAnimation disabled>{pickerList.vegetables}</Picker>,
@@ -193,7 +193,7 @@ const PickerTests = [
 	},
 	// end of [GT-21643]
 
-	// tallCharacters: Change 'width', 'wrap', 'noAnimation', 'joined', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
 	// Marked part automated due to Marquee and Click actions
 	// Step 3: Tall characters display fully and are not truncated.
 	{
@@ -411,19 +411,19 @@ const PickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" orientation="vertical" wrap noAnimation joined>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" orientation="vertical" wrap joined noAnimation>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" orientation="vertical" wrap noAnimation joined disabled>{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" orientation="vertical" wrap joined noAnimation disabled>{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" orientation="vertical" wrap noAnimation joined disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" orientation="vertical" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Picker width="medium" orientation="vertical" wrap noAnimation joined disabled decrementIcon="play">{pickerList.vegetables}</Picker>
+		component: <Picker width="medium" orientation="vertical" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>
 	}
 
 ];
