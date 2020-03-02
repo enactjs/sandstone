@@ -3,6 +3,7 @@ import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import CheckboxItem from '../../../CheckboxItem';
+import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DayPicker from '../../../DayPicker';
@@ -43,6 +44,7 @@ import SelectableItem from '../../../SelectableItem';
 import Slider from '../../../Slider';
 import SlotItem from '../../../SlotItem';
 import Spinner from '../../../Spinner';
+import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
@@ -58,6 +60,7 @@ const components = {
 	Button,
 	Checkbox,
 	CheckboxItem,
+	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,
@@ -99,6 +102,7 @@ const components = {
 	Slider,
 	SlotItem,
 	Spinner,
+	Steps,
 	Switch,
 	SwitchItem,
 	TimePicker,

@@ -13,10 +13,10 @@
 
 	.controls {
 		position: absolute;
-		top: (@sand-app-keepout + @sand-spotlight-outset);
-		.position-start-end(auto, @sand-panel-h-padding);
+		top: @sand-panels-controls-top;
+		.position-start-end(auto, @sand-panels-controls-right);
 		z-index: 1;
-		.padding-start-end(36px, initial);
+		.padding-start-end(@sand-panels-controls-spacing, initial);
 		.remove-margin-on-edge-children();
 	}
 
@@ -35,7 +35,7 @@
 
 			.breadcrumbHeader {
 				padding-top: 6px;
-				margin: @sand-panel-v-padding @sand-panel-h-padding;
+				margin: @sand-panel-padding;
 				font-family: @sand-panels-breadcrumb-font-family;
 				font-size: @sand-panels-breadcrumb-text-size;
 			}
@@ -137,6 +137,19 @@
 					border-top: 12px solid white;
 				}
 			}
+		}
+	});
+}
+
+.panels.option {
+	width: @sand-panels-optionpanels-width;
+
+	// Skin colors
+	.applySkins({
+		filter: drop-shadow(@sand-panels-optionpanels-shadow);
+
+		.body {
+			padding: 0;
 		}
 	});
 }

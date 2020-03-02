@@ -12,7 +12,7 @@ const useThemeScrollContentHandle = () => {
 		setLastFocusedNode: null,
 		shouldPreventOverscrollEffect: null,
 		shouldPreventScrollByFocus: null,
-		type: null
+		scrollMode: null
 	});
 
 	// Functions

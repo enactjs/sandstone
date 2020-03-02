@@ -7,7 +7,7 @@
 
 // Generic/Common/Shared
 // ---------------------------------------
-@sand-component-spacing: 30px;
+@sand-component-spacing: 42px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate3d(-50%, -50%, 0);
 
@@ -23,6 +23,10 @@
 
 // Font Sizes
 // ---------------------------------------
+@sand-actionguide-label-font-size:  48px;
+@sand-alert-overlay-font-size:      60px;
+@sand-alert-subtitle-font-size:     60px;
+@sand-alert-title-font-size:        144px;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -40,6 +44,8 @@
 @sand-expandable-client-item-font-size: 54px;
 @sand-expandable-value-font-size-large: 60px;
 @sand-expandable-value-font-size:   @sand-item-label-font-size;
+@sand-gridlistimageitem-caption-font-size: 60px;
+@sand-gridlistimageitem-subcaption-font-size: 48px;
 @sand-header-compact-title-font-size: 90px;
 @sand-header-wizard-title-font-size: 144px;
 @sand-heading-large-font-size:      72px;
@@ -52,13 +58,16 @@
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
+@sand-keyguide-font-size: 60px;
 @sand-labeledicon-font-size:        48px;
 @sand-large-text-size:              96px;
 @sand-notification-font-size:       60px;
+@sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-popup-content-font-size:      60px;
 @sand-popup-header-font-size:       144px;
 @sand-popup-sub-header-font-size:   54px;
 @sand-pre-text-size:                48px;
+@sand-steps-step-number-font-size:  54px;
 @sand-superscript-text-size:        48px;
 @sand-tooltip-label-font-size:      54px;
 
@@ -90,6 +99,11 @@
 @sand-non-latin-font-weight: 400;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
+
+// Alert
+@sand-alert-font-family: @sand-font-family;
+@sand-alert-font-weight: normal;
+@sand-alert-line-height: normal;
 
 // Body
 @sand-body-font-family: @sand-font-family;
@@ -154,6 +168,9 @@
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-font-family-lg: "LG Icons";
 
+// Panels
+@sand-panels-breadcrumb-font-family: @sand-alt-font-family;
+
 // Popup
 @sand-popup-header-font-family: @sand-heading-title-font-family;
 @sand-popup-header-font-style: normal;
@@ -161,17 +178,55 @@
 @sand-popup-header-letter-spacing: normal;
 @sand-popup-header-line-height: normal;
 
+// Steps
+@sand-steps-step-number-font-family: @sand-font-family;
+
 
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
 
+// ActionGuide
+// ---------------------------------------
+@sand-actionguide-max-width: 1500px;
+
+// Alert
+// ---------------------------------------
+@sand-alert-buttons-margin-top: 180px;
+@sand-alert-buttons-width: 540px;
+@sand-alert-max-buttons-margin-top: 300px;
+@sand-alert-title-margin-top: 30px;
+@sand-alert-subtitle-margin-top: 12px;
+@sand-alert-overlay-border-radius: 24px;
+@sand-alert-overlay-button-margin: 30px;
+@sand-alert-overlay-content-margin-left: 48px;
+@sand-alert-overlay-content-margin-right: 202px;
+@sand-alert-overlay-content-width: 1200px;
+@sand-alert-fullscreen-button-margin: 60px;
+@sand-alert-overlay-margin-bottom: 360px;
+@sand-alert-overlay-padding-top-bottom: 60px;
+@sand-alert-overlay-padding-left-right: 90px;
+@sand-alert-overlay-buttoncontainer-margin: 0 0 0 90px;
+
+// AlertImage
+// ---------------------------------------
+@sand-alert-image-thumbnail-width: 450px;
+@sand-alert-image-thumbnail-height: 252px;
+@sand-alert-image-icon-size: 240px;
+@sand-alert-image-icon-border-radius: 12px;
+
+// BodyText
+// ---------------------------------------
+@sand-bodytext-margin: 0 @sand-component-spacing @sand-body-font-size @sand-component-spacing;
+@sand-bodytext-padding: 0;
+
 // Button
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
-@sand-button-h-margin: 36px;
+@sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
+@sand-button-with-icon-h-padding: @sand-spotlight-outset;
 @sand-button-height-large: 192px;
 @sand-button-height: 144px;
 @sand-button-icon-h-margin: 30px;
@@ -277,9 +332,14 @@
 
 // GridListImageItem
 // ---------------------------------------
-@sand-gridlist-item-overlay-icon-size: 120px;
-@sand-gridlist-item-border-width: 12px;
-@sand-gridlist-item-caption-padding-top: 18px;
+@sand-gridlistimageitem-focus-image-transform: scale(1.2);
+@sand-gridlistimageitem-focus-caption-transform: translateY(20%);
+@sand-gridlistimageitem-overlay-icon-size: 72px;
+@sand-gridlistimageitem-overlay-icon-border-width: 6px;
+@sand-gridlistimageitem-overlay-icon-margin: 30px;
+@sand-gridlistimageitem-image-border-width: 6px;
+@sand-gridlistimageitem-caption-padding-top: 24px;
+@sand-gridlistimageitem-subcaption-padding-top: 6px;
 
 // Header
 // ---------------------------------------
@@ -289,13 +349,13 @@
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 72px;
+@sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px (108px - @sand-spotlight-outset) 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
+@sand-header-compact-padding: 60px 108px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-compact-border-width: 6px;
-@sand-header-compact-line-margin: 54px @sand-spotlight-outset 0 @sand-spotlight-outset;
+@sand-header-compact-line-margin: 54px 0 0 0;
 @sand-header-wizard-margin: 0;
-@sand-header-wizard-padding: 108px (@sand-panel-keepout - @sand-spotlight-outset) 139px;
+@sand-header-wizard-padding: 108px 150px 139px;
 
 // Heading
 // ---------------------------------------
@@ -374,6 +434,13 @@
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: @sand-component-spacing;
 @sand-item-slotbefore-spacing: @sand-component-spacing;
+@sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
+
+@sand-keyguide-width: 750px;
+@sand-keyguide-position-bottom: 120px;
+@sand-keyguide-position-right: 150px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 6px 0;
 
 // MediaOverlay
 // ---------------------------------------
@@ -397,14 +464,20 @@
 
 // Panels
 // ---------------------------------------
-@sand-panels-breadcrumb-font-family: @sand-alt-font-family;
-@sand-panels-breadcrumb-text-size: @sand-body-font-size;
 @sand-panels-breadcrumb-width: 192px;
-@sand-panels-handle-width: 264px;
-@sand-panel-v-padding: @sand-app-keepout;
-@sand-panel-h-padding: (@sand-app-keepout - @sand-spotlight-outset);
-@sand-panel-handle-icon-font-size: 288px;
-@sand-panel-keepout: 150px;
+@sand-panels-controls-right: extract(@sand-panel-padding, 2) + 108px;
+@sand-panels-controls-spacing: 36px;
+@sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
+@sand-panels-optionpanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
+@sand-panel-wizard-padding: 0;
+@sand-panel-list-padding: 0;
+@sand-panel-option-padding: 0;
+@sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
+@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-spotlight-outset)) 0;
+@sand-panel-body-wizard-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
+@sand-panel-body-option-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
 
 // Picker
 // ----------------------------------------
@@ -421,8 +494,11 @@
 @sand-popup-padding-bottom: @sand-popup-padding-top;
 @sand-popup-padding-left: @sand-popup-padding-right;
 @sand-popup-border-radius: 24px;
-@sand-popup-position-top-bottom-margin: 150px 120px;
-@sand-popup-position-left-right-margin: 120px 60px;
+// Remove the margin on the leading edge so we're not wasting some of our transition frames on animating empty space, but also account for the shadow.
+@sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount of space the shadow renders onto, so it's not clipped.
+@sand-popup-position-right-margin: 120px 60px 120px @sand-component-spacing;
+@sand-popup-position-bottom-margin: 0 120px 150px 120px;
+@sand-popup-position-left-margin: 120px @sand-component-spacing 120px 60px;
 
 // ProgressBar
 // ---------------------------------------
@@ -433,12 +509,36 @@
 @sand-progressbar-radial-size: 72px;
 @sand-progressbar-radial-thickness: 9px;
 
+// RadioItem
+// ---------------------------------------
+@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
+	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
+	// this value must be specifically considered as to not impose layout issues related to, for
+	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
+@sand-radioitem-indicator-border-radius: 999px;
+
 // Scrim
 // ---------------------------------------
 @sand-scrim-color: fade(black, 30%);
 
-// Scrollable
+// Scrollbar
 // ---------------------------------------
+@sand-scrolltrack-margin: 24px;
+@sand-scrolltrack-width: 12px;
+@sand-scrolltrack-border-radius: 6px;
+@sand-scrollthumb-border-radius: 6px;
+@sand-scrollthumb-focus-width: 30px;
+@sand-scrollthumb-focus-left: -9px; // TODO: Re-apply 4K GUI.
+@sand-scrollthumb-focus-border-radius: 15px;
+@sand-scrollthumb-focus-box-shadow: 0 40px 24px;
+@sand-scrollthumb-focus-direction-indicator-width: 18px;
+@sand-scrollthumb-focus-direction-indicator-height: 12px;
+@sand-scrollthumb-focus-direction-indicator-top: 9px; // TODO: Re-apply 4K GUI.
+@sand-scrollthumb-focus-direction-indicator-left: 6px;
+
+// Scroller
+// ---------------------------------------
+@sand-scroll-focusablebody-focus-border-radius: 12px;
 @sand-scroll-overscroll-thickness: 12px;
 @sand-scroll-overscroll-duration: 300ms;
 @sand-scroll-scrollbar-size: @sand-button-small-height;
@@ -477,13 +577,18 @@
 @sand-spinner-icon: @sand-icon-circle;
 @sand-spinner-font-weight: bold;
 
-// RadioItem
+// Steps
 // ---------------------------------------
-@sand-radioitem-indicator-border-width: 4px; // ### Exceptional Case ###
-	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
-	// this value must be specifically considered as to not impose layout issues related to, for
-	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
-@sand-radioitem-indicator-border-radius: 999px;
+@sand-steps-step-number-font-weight: 600;
+@sand-steps-margin: 0;
+@sand-steps-step-margin: 0 @sand-component-spacing;
+@sand-steps-step-past-opacity: 1;
+@sand-steps-step-current-opacity: 1;
+@sand-steps-step-future-opacity: 0.2;
+
+// TabLayout
+// ---------------------------------------
+@sand-tablayout-panels-margin-top: 79px;
 
 // ToggleButton
 // ---------------------------------------

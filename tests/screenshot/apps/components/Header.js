@@ -1,6 +1,6 @@
 import {Header} from '../../../../Panels';
 import Button from '../../../../Button';
-import Icon from '../../../../Icon';
+import Steps from '../../../../Steps';
 import Input from '../../../../Input';
 import React from 'react';
 
@@ -41,15 +41,7 @@ const baseTests = [
 ];
 
 const dropIn = {
-	steps: (
-		<React.Fragment>
-			<Icon>check</Icon>
-			<Icon>check</Icon>
-			<Icon>circle</Icon>
-			<Icon>4</Icon>
-			<Icon>5</Icon>
-		</React.Fragment>
-	),
+	steps: <Steps current={3} total={5} />,
 	backButton: <Button icon="arrowlargeleft" />,
 	nextButton: <Button icon="arrowlargeright" />,
 	input: <Input />,

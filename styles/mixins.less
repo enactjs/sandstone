@@ -211,6 +211,34 @@
 // Text definitions
 //
 
+.sand-alert-title() {
+	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light, {
+		line-height: @sand-non-latin-body-line-height;
+	});
+	font-size: @sand-alert-title-font-size;
+	font-weight: @sand-alert-font-weight;
+	line-height: @sand-alert-line-height;
+}
+
+.sand-alert-subtitle() {
+	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light);
+	font-size: @sand-alert-subtitle-font-size;
+	font-weight: @sand-alert-font-weight;
+	line-height: @sand-alert-line-height;
+}
+
+.sand-alert-overlay-content() {
+	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light, {
+		line-height: @sand-non-latin-body-line-height;
+	});
+	font-weight: @sand-alert-font-weight;
+	font-size: @sand-alert-overlay-font-size;
+	line-height: @sand-alert-line-height;
+	text-align: initial;
+	.sand-word-break();
+	.locale-japanese-line-break();
+}
+
 .sand-notification-content() {
 	.sand-font(@sand-notification-font-family, @sand-non-latin-font-family-light, {
 		line-height: @sand-non-latin-body-line-height;
