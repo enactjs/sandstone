@@ -15,7 +15,7 @@ class SpotlightMultiplePage extends Page {
 		$(selector).waitForExist(duration);
 	}
 
-	waitForLeave (selector, duration = 1500) {
+	waitForLeave (selector, duration = 3000) {
 		$(selector).waitForExist(duration, true);
 	}
 
@@ -30,7 +30,6 @@ class SpotlightMultiplePage extends Page {
 
 	waitForPanelLeave (index, duration) {
 		this.waitForLeave(this.getPanelSelector(index), duration);
-		this.delay(100);	// FIXME
 	}
 
 	getBreadcrumbSelector (index) {
