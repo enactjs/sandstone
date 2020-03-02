@@ -15,7 +15,6 @@ import React, {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import ScrollableBasic from './ScrollableBasic';
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
@@ -518,6 +517,5 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
-	ScrollableBasic,
 	useScroll
 };

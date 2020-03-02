@@ -96,7 +96,6 @@ const components = {
 	RadioItem,
 	RangePicker,
 	Region,
-	// Scrollable,
 	Scroller,
 	SelectableItem,
 	// Skinnable,
