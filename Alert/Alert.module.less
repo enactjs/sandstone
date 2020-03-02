@@ -34,9 +34,13 @@
 	}
 
 	&.overlay {
+		.alertImage {
+			align-self: baseline;
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
-			margin: @sand-alert-overlay-buttoncontainer-margin;
+			margin: 0;
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
@@ -78,7 +82,8 @@
 
 		.body {
 			border-radius: @sand-alert-overlay-border-radius;
-			padding: @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-left-right;
+			padding: @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-right @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-left;
+			.padding-start-end(@sand-alert-overlay-padding-left, @sand-alert-overlay-padding-right);
 		}
 	}
 
