@@ -38,6 +38,7 @@ storiesOf('Sandstone', module)
 				width={parseIntOrNullify(select('width', prop.width, Config, 'small'))}
 				orientation={select('orientation', prop.orientation, Config, 'horizontal')}
 				wrap={boolean('wrap', Config)}
+				joined={boolean('joined', Config)}
 				noAnimation={boolean('noAnimation', Config)}
 				disabled={boolean('disabled', Config)}
 				incrementIcon={select('incrementIcon', ['', ...incrementIcons], Config)}

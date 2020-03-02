@@ -20,6 +20,7 @@ storiesOf('Sandstone', module)
 				disabled={boolean('disabled', Config)}
 				decrementAriaLabel={text('decrementAriaLabel', Config, '')}
 				incrementAriaLabel={text('incrementAriaLabel', Config, '')}
+				joined={boolean('joined', Config)}
 				onChange={action('onChange')}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}

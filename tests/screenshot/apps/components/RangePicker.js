@@ -87,34 +87,34 @@ const RangePickerTests = [
 		component: <RangePicker min={0} max={5} orientation="vertical" value={0} width="large" wrap />
 	},
 
-	// 'wrap' and 'disabled'
-	<RangePicker min={0} max={5} />,
-	<RangePicker min={0} max={5} value={0}  />,
-	<RangePicker min={0} max={5} value={5}  />,
-	<RangePicker min={0} max={5} value={0} wrap  />,
-	<RangePicker min={0} max={5} value={0} wrap disabled />,
-	<RangePicker min={0} max={5} value={0} wrap width="medium" />,
-	<RangePicker min={0} max={5} value={0} wrap width="medium" disabled />,
-	<RangePicker min={0} max={5} value={0} wrap width="large" />,
-	<RangePicker min={0} max={5} value={0} wrap width="large" disabled />,
-	<RangePicker min={0} max={5} value={0} wrap width={1} />,
-	<RangePicker min={0} max={5} value={0} wrap width={6} disabled />,
+	// 'wrap', 'joined' and 'disabled'
+	<RangePicker min={0} max={5} joined />,
+	<RangePicker min={0} max={5} value={0} joined />,
+	<RangePicker min={0} max={5} value={5} joined />,
+	<RangePicker min={0} max={5} value={0} wrap joined />,
+	<RangePicker min={0} max={5} value={0} wrap joined disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined width="medium" />,
+	<RangePicker min={0} max={5} value={0} wrap joined width="medium" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined width="large" />,
+	<RangePicker min={0} max={5} value={0} wrap joined width="large" disabled />,
+	<RangePicker min={0} max={5} value={0} wrap joined width={1} />,
+	<RangePicker min={0} max={5} value={0} wrap joined width={6} disabled />,
 	{
 		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} wrap width="medium" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
-	<RangePicker min={0} max={5} orientation="vertical"  />,
-	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap  />,
-	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap disabled />,
-	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap width="medium" />,
-	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap width="medium" disabled />,
-	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" />,
-	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" disabled />,
-	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap width={1} />,
-	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap width={6} disabled />,
+	<RangePicker min={0} max={5} orientation="vertical" joined  />,
+	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />,
+	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined disabled />,
+	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined width="medium" />,
+	<RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined width="medium" disabled />,
+	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" />,
+	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" disabled />,
+	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width={1} />,
+	<RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width={6} disabled />,
 	{
 		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" />
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" />
 	},
 
 	// Icon changed
@@ -319,96 +319,96 @@ const RangePickerTests = [
 		component: <RangePicker min={0} max={5} orientation="vertical" value={0} width="large" wrap />
 	},
 
-	// 'wrap' and 'disabled'
+	// 'wrap', 'joined' and 'disabled'
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} />
+		component: <RangePicker min={0} max={5} joined />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0}  />
+		component: <RangePicker min={0} max={5} value={0} joined  />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={5}  />
+		component: <RangePicker min={0} max={5} value={5} joined />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap  />
+		component: <RangePicker min={0} max={5} value={0} wrap joined />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width="medium" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width="medium" disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width="large" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="large" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width="large" disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="large" disabled />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width={1} />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width={1} />
 	},
 	{
 		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} wrap width={6} disabled />
-	},
-	{
-		locale: 'ar-SA',
-		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} wrap width="medium" />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} orientation="vertical"  />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap  />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap disabled />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap width="medium" />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap width="medium" disabled />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" disabled />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width={1} />
-	},
-	{
-		locale: 'ar-SA',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width={6} disabled />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width={6} disabled />
 	},
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap width="large" />
+		component: <RangePicker min={0} max={5} value={0} wrap joined width="medium" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} orientation="vertical" joined />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined width="medium" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} orientation="vertical" value={0} wrap joined width="medium" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" disabled />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width={1} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width={6} disabled />
+	},
+	{
+		locale: 'ar-SA',
+		textSize: 'large',
+		component: <RangePicker min={0} max={5} value={0} orientation="vertical" wrap joined width="large" />
 	},
 
 	// Icon changed
