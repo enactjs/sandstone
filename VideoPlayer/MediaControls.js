@@ -10,7 +10,6 @@ import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
 
-import equals from 'ramda/src/equals';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -18,8 +17,8 @@ import ReactDOM from 'react-dom';
 
 import $L from '../internal/$L';
 import {compareChildren} from '../internal/util';
-import Button from '../Button';
 import ActionGuide from '../ActionGuide';
+import Button from '../Button';
 
 import {countReactChildren} from './util';
 
@@ -76,7 +75,7 @@ const MediaControlsBase = kind({
 		backwardIcon: PropTypes.string,
 
 		/**
-		 * These components are placed below children. Typically these will be for media playlist
+		 * These components are placed below the action guide. Typically these will be media playlist controls.
 		 *
 		 * @type {Node}
 		 * @public
@@ -130,7 +129,7 @@ const MediaControlsBase = kind({
 		mediaDisabled: PropTypes.bool,
 
 		/**
-		 * Render moreComponent. It does not mean that it is shown on the screen.
+		 * When `true`, more components are rendered. This does not indicate the visibility of more components.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -204,7 +203,7 @@ const MediaControlsBase = kind({
 		onJumpForwardButtonClick: PropTypes.func,
 
 		/**
-		 * Called when the user press down button via 5way
+		 * Called when the user presses a media control button.
 		 *
 		 * @type {Function}
 		 * @public
@@ -266,14 +265,6 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		rateButtonsDisabled: PropTypes.bool,
-
-		/**
-		 * Indicates rtl locale.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
 
 		/**
 		 * When `true`, more components are visible.
@@ -424,8 +415,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @public
 			 */
 			actionGuideLabel: PropTypes.string,
+
 			/**
-			 * These components are placed below children. Typically these will be for media playlist
+			 * These components are placed below the children. Typically these will be media playlist items.
 			 *
 			 * @type {Node}
 			 * @public
@@ -461,7 +453,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			mediaDisabled: PropTypes.bool,
 
 			/**
-			 * Disables the showing more components
+			 * Disables showing more components.
 			 *
 			 * @type {Boolean}
 			 * @public
@@ -857,10 +849,9 @@ const handleCancel = (ev, {onClose}) => {
  * A set of components for controlling media playback and rendering additional components.
  *
  * This uses [Slottable]{@link ui/Slottable} to accept the custom tags, `<bottomComponents>`
- * to add components to the left and right of the media
- * controls. Any additional children will be rendered into the "more" controls area causing the
- * "more" button to appear. Showing the additional components is handled by `MediaControls` when the
- * user taps the "more" button.
+ * to add components to the bottom of the media controls. Any additional children will be
+ * rendered into the "more" controls area. Showing the additional components is handled by
+ * `MediaControls` when the user navigates down from the media buttons.
  *
  * @class MediaControls
  * @memberof sandstone/VideoPlayer

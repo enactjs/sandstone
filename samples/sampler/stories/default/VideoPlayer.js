@@ -12,8 +12,6 @@ import ri from '@enact/ui/resolution';
 
 import icons from './icons';
 
-const moreButtons = ['playlist', 'resumeplay', 'languages', 'cc', 'sub'];
-
 const items = [];
 const size = 20;
 // eslint-disable-next-line enact/prop-types
@@ -124,7 +122,6 @@ storiesOf('Sandstone', module)
 			const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
 			const videoSource = prop.videos[videoTitle];
 			const poster = prop.posters[videoTitle];
-			const itemCount = number('moreButtons', Config, {range: true, min: 0, max: 5}, 4);
 
 			return (
 				<div
@@ -204,9 +201,11 @@ storiesOf('Sandstone', module)
 									spacing={ri.scale(12)}
 								/>
 							</bottomComponents>
-							{moreButtons.slice(0, itemCount).map((icon, index) => {
-								return <Button size="large" icon={icon} key={index} />;
-							})}
+							<Button size="large" icon="playlist" />
+							<Button size="large" icon="resumeplay" />
+							<Button size="large" icon="languages" />
+							<Button size="large" icon="cc" />
+							<Button size="large" icon="sub" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>

@@ -38,7 +38,7 @@ const TimesBase = kind({
 		current: PropTypes.number,
 
 		/**
-		 * Removes current time.
+		 * Removes the current time.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -46,7 +46,7 @@ const TimesBase = kind({
 		noCurrentTime: PropTypes.bool,
 
 		/**
-		 * Removes total time.
+		 * Removes the total time.
 		 *
 		 * @type {Boolean}
 		 * @public
