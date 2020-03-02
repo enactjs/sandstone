@@ -2,7 +2,8 @@ import React from 'react';
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {mount} from 'enzyme';
 
-import {NumberInputPopup} from '../InputPopup';
+import {NumberInputPopup} from '../NumberInputPopup';
+
 import css from '../NumberInputPopup.module.less';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
