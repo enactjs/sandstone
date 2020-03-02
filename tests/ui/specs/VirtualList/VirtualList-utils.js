@@ -20,6 +20,25 @@ function waitUntilFocused (itemNum) {
 	}, 1500, `timed out waiting to focus index ${itemNum}`);
 }
 
+function isScrolling () {
+	return $('#scrolling').getText() === 'Scrolling';
+}
+
+function isNotScrolling () {
+	return $('#scrolling').getText() === 'Not Scrolling';
+}
+
+/**
+ * Waits for scrolling to start, then stop
+ *
+ * @param {Number} [timeout=3000]
+ */
+function waitForScrollStop (timeout = 3000) {
+	browser.waitUntil(isScrolling, timeout);
+	browser.waitUntil(isNotScrolling, timeout);
+}
+
 exports.expectFocusedItem = expectFocusedItem;
 exports.expectNoFocusedItem = expectNoFocusedItem;
+exports.waitForScrollStop = waitForScrollStop;
 exports.waitUntilFocused = waitUntilFocused;

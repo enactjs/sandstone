@@ -1,6 +1,6 @@
 
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused} = require('./VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitForScrollStop, waitUntilFocused} = require('./VirtualList-utils');
 
 describe('VirtualList', function () {
 
@@ -29,7 +29,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(1, 'step 3 focus');
 			// Step 4. Press Channel Down.
 			Page.pageDown();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
+			waitForScrollStop();
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(9, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
@@ -47,12 +47,12 @@ describe('VirtualList', function () {
 			expectFocusedItem(19, 'step 5 focus');
 			// Step 6. Press Channel Down.
 			Page.pageDown();
-			Page.delay(1500);
+			waitForScrollStop();
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
 			expectFocusedItem(27, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
-			Page.delay(1500);
+			waitForScrollStop();
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(19, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
@@ -72,7 +72,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(9, 'step 8 focus');
 			// Step 9. Press Channel Up.
 			Page.pageUp();
-			Page.delay(1500);
+			waitForScrollStop();
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
@@ -81,7 +81,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(3, 'step 11 focus');
 			// Step 12. Press Channel Down.
 			Page.pageDown();
-			Page.delay(1000);
+			waitForScrollStop();
 			// Verify Step 12: 1. Spotlight hides. 2. The list Scrolls Up by page with animation. 3. The list stops scrolling. 4. Spotlight still hides (for a few seconds).
 			expectNoFocusedItem();  // Check that Spotlight hides only.
 		});
