@@ -2,7 +2,9 @@ import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import {Column, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
+import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -14,8 +16,6 @@ import Panel from './Panel';
 import {PanelTypeContext} from './Viewport';
 
 import css from './Panel.module.less';
-import {Column, Cell} from '@enact/ui/Layout/Layout';
-import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 
 const WizardLayoutContext = React.createContext(null);
 
