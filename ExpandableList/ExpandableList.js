@@ -26,28 +26,11 @@ import PropTypes from 'prop-types';
 
 import CheckboxItem from '../CheckboxItem';
 import {Expandable, ExpandableItemBase} from '../ExpandableItem';
+import {compareChildren} from '../internal/util';
 import RadioItem from '../RadioItem';
 import Skinnable from '../Skinnable';
 
 import css from './ExpandableList.module.less';
-
-const compareChildren = (a, b) => {
-	if (!a || !b || a.length !== b.length) return false;
-
-	let type = null;
-	for (let i = 0; i < a.length; i++) {
-		type = type || typeof a[i];
-		if (type === 'string') {
-			if (a[i] !== b[i]) {
-				return false;
-			}
-		} else if (!equals(a[i], b[i])) {
-			return false;
-		}
-	}
-
-	return true;
-};
 
 const PureGroup = Pure(
 	{propComparators: {

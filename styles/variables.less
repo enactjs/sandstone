@@ -200,13 +200,13 @@
 @sand-alert-overlay-border-radius: 24px;
 @sand-alert-overlay-button-margin: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: 202px;
+@sand-alert-overlay-content-margin-right: (202px - @sand-button-h-margin);
 @sand-alert-overlay-content-width: 1200px;
 @sand-alert-fullscreen-button-margin: 60px;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
-@sand-alert-overlay-padding-left-right: 90px;
-@sand-alert-overlay-buttoncontainer-margin: 0 0 0 90px;
+@sand-alert-overlay-padding-left: 90px;
+@sand-alert-overlay-padding-right: (90px - @sand-button-h-margin);
 
 // AlertImage
 // ---------------------------------------
@@ -441,6 +441,15 @@
 @sand-keyguide-position-right: 150px;
 @sand-keyguide-icon-margin-right: 48px;
 @sand-keyguide-padding: 6px 0;
+
+// MediaControls
+// ---------------------------------------
+@sand-mediacontrols-actionguide-padding-top: 78px;
+@sand-mediacontrols-actionguide-time: 0.2s;		// Length of the animation
+@sand-mediacontrols-button-margin-start: 108px;
+@sand-mediacontrols-morebuttons-margin-start: 228px;
+@sand-mediacontrols-moreComponents-time: 0.3s;		// Length of the animation
+@sand-mediacontrols-moreComponents-margin-top: 42px;
 
 // MediaOverlay
 // ---------------------------------------
