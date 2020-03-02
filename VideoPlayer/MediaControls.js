@@ -656,10 +656,10 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
 		}
 
-		handleKeyDownFromMediaButtons = (e) => {
-			if (is('down', e.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
+		handleKeyDownFromMediaButtons = (ev) => {
+			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
 				this.showMoreComponents();
-				e.stopPropagation();
+				ev.stopPropagation();
 			}
 		}
 
