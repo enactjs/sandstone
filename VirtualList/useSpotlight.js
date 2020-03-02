@@ -112,7 +112,7 @@ const useSpotlightRestore = (props, instances) => {
 		) {
 			const
 				{spotlightId} = props,
-				node = scrollContentRef.current.querySelector(
+				node = scrollContainerRef.current.querySelector(
 					`[data-spotlight-id="${spotlightId}"] [data-index="${mutableRef.current.preservedIndex}"]`
 				);
 
