@@ -175,6 +175,7 @@ const EditableIntegerPickerDecorator = hoc((config, Wrapped) => {	// eslint-disa
 					{...this.props}
 					editMode={this.state.isActive}
 					inputRef={this.getInputNode}
+					joined
 					noAnimation={this.props.noAnimation || this.state.noAnimation}
 					onChange={this.handleChange}
 					onPickerItemClick={this.handleClick}

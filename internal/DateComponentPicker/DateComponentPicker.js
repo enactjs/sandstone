@@ -111,6 +111,7 @@ const DateComponentPickerBase = kind({
 				aria-valuetext={(accessibilityHint == null) ? ariaValuetext : null}
 				data-webos-voice-labels-ext={voiceLabel}
 				index={value}
+				joined
 				max={max}
 				min={0}
 				noAnimation={noAnimation}

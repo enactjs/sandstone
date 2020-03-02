@@ -128,7 +128,7 @@ const PickerBase = class extends React.Component {
 		 * The "aria-label" for the picker.
 		 *
 		 * While the `aria-label` will always be set on the root node, that node is only focusable
-		 * on the picker.
+		 * when the picker is `joined`.
 		 *
 		 * @type {String}
 		 * @memberof sandstone/internal/Picker.PickerBase.prototype

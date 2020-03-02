@@ -7,11 +7,32 @@ import Pure from '@enact/ui/internal/Pure';
 import Touchable from '@enact/ui/Touchable';
 
 import Icon from '../../Icon';
+import Button from '../../Button';
 
 import css from './Picker.module.less';
 
+const JoinedPickerButtonBase = kind({
+	name: 'JoinedPickerButtonBase',
+
+	propTypes: {
+		disabled: PropTypes.bool,
+		icon: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		])
+	},
+
+	render: ({disabled, icon, ...rest}) => (
+		<span {...rest} data-webos-voice-intent="Select" disabled={disabled}>
+			<Icon className={css.icon} disabled={disabled} size="small">{icon}</Icon>
+		</span>
+	)
+});
+
+const JoinedPickerButton = Touchable(JoinedPickerButtonBase);
+
 const PickerButtonBase = kind({
-	name: 'PickerButtonBase',
+	name: 'PickerButton',
 
 	propTypes: {
 		disabled: PropTypes.bool,
@@ -20,6 +41,7 @@ const PickerButtonBase = kind({
 			PropTypes.string,
 			PropTypes.object
 		]),
+		joined: PropTypes.bool,
 		onSpotlightDisappear: PropTypes.func,
 		spotlightDisabled: PropTypes.bool
 	},
@@ -53,16 +75,27 @@ const PickerButtonBase = kind({
 		})
 	},
 
-	render: ({disabled, icon, ...rest}) => {
+	render: ({disabled, icon, joined, ...rest}) => {
 		delete rest.hidden;
-		delete rest.onSpotlightDisappear;
-		delete rest.spotlightDisabled;
 
-		return (
-			<span {...rest} data-webos-voice-intent="Select" disabled={disabled}>
-				<Icon className={css.icon} disabled={disabled} size="small">{icon}</Icon>
-			</span>
-		);
+		if (joined) {
+			delete rest.onSpotlightDisappear;
+			delete rest.spotlightDisabled;
+
+			return (
+				<JoinedPickerButton {...rest} icon={icon} disabled={disabled} />
+			);
+		} else {
+			return (
+				<Button
+					{...rest}
+					backgroundOpacity="transparent"
+					disabled={disabled}
+					icon={icon}
+					size="small"
+				/>
+			);
+		}
 	}
 });
 
@@ -70,7 +103,7 @@ const PickerButtonBase = kind({
 PickerButtonBase.contextType = MarqueeControllerContext;
 
 const PickerButton = Pure(
-	Touchable(PickerButtonBase)
+	PickerButtonBase
 );
 
 export default PickerButton;

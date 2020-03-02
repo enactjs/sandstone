@@ -6,8 +6,8 @@ const tap = (node) => {
 	node.simulate('mousedown');
 	node.simulate('mouseup');
 };
-const decrement = (slider) => tap(slider.find('PickerButtonBase').last());
-const increment = (slider) => tap(slider.find('PickerButtonBase').first());
+const decrement = (slider) => tap(slider.find('Button').last());
+const increment = (slider) => tap(slider.find('Button').first());
 
 describe('RangePicker Specs', () => {
 	test('should render a single child with the current value', () => {
