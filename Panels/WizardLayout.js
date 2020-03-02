@@ -15,6 +15,7 @@ import {PanelTypeContext} from './Viewport';
 
 import css from './Panel.module.less';
 import {Column, Cell} from '@enact/ui/Layout/Layout';
+import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 
 const WizardLayoutContext = React.createContext(null);
 
@@ -56,7 +57,7 @@ const WizardLayoutBase = kind({
 	computed: {
 	},
 
-	render: ({buttons, children, footer, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, reverseTransition, subtitle, title, ...rest}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
 
@@ -68,7 +69,17 @@ const WizardLayoutBase = kind({
 				<Column>
 					<Cell>
 						{/* This should probably use portals */}
-						{children}
+						{/* skip creating ViewManager when there aren't children to avoid animating
+						    the first view into the viewport */}
+						{children ? (
+							<ViewManager
+								arranger={SlideLeftArranger}
+								duration={400}
+								reverseTransition={reverseTransition}
+							>
+								{children}
+							</ViewManager>
+						) : null}
 					</Cell>
 					<Cell shrink>
 						{/* This should probably use portals */}
@@ -83,20 +94,42 @@ const WizardLayoutBase = kind({
 	}
 });
 
+// single-index ViewManagers need some help knowing when the transition direction needs to change
+// because the index is always 0 from its perspective.
+function useReverseTransition (index = -1) {
+	const [prevIndex, setPrevIndex] = React.useState(-1);
+	let [reverse, setReverse] = React.useState(false);
+
+	if (prevIndex !== index) {
+		reverse = index < prevIndex;
+		setReverse(reverse);
+		setPrevIndex(index);
+	}
+
+	return reverse;
+}
+
 const WizardLayoutDecorator = (Wrapped) => ({children, index = 0, ...rest}) => {
-	const [state, setState] = React.useState(null);
+	const [view, setView] = React.useState(null);
+	const reverseTransition = useReverseTransition(index);
 
 	return (
-		<WizardLayoutContext.Provider value={setState}>
+		<WizardLayoutContext.Provider value={setView}>
 			{React.Children.toArray(children)[index]}
-			<Wrapped {...rest} {...state} />
+			<Wrapped {...rest} {...view} reverseTransition={reverseTransition}>
+				{view && view.children ? (
+					<div className="enact-fit" key={'view'+index}>
+						{view.children}
+					</div>
+				) : null}
+			</Wrapped>
 		</WizardLayoutContext.Provider>
 	);
 };
 
-const WizardLayout = WizardLayoutDecorator(Slottable({slots: ['buttons', 'subtitle', 'title']}, WizardLayoutBase));
+const WizardLayout = WizardLayoutDecorator(WizardLayoutBase);
 
-function View ({buttons, children, footer, subtitle, title}) {
+function ViewBase ({buttons, children, footer, subtitle, title}) {
 	const set = React.useContext(WizardLayoutContext);
 
 	React.useEffect(() => {
@@ -105,6 +138,11 @@ function View ({buttons, children, footer, subtitle, title}) {
 
 	return null;
 }
+
+const View = Slottable(
+	{slots: ['buttons', 'subtitle', 'title']},
+	ViewBase
+);
 
 WizardLayout.View = View;
 
