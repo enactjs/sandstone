@@ -100,7 +100,7 @@ const NumberInputPopupBase = kind({
 		 * @type {Function}
 		 * @private
 		 */
-		onClosePopup: PropTypes.func,
+		onClose: PropTypes.func,
 
 		/**
 		 * Pass the input value when input is complete.
@@ -205,7 +205,7 @@ const NumberInputPopupBase = kind({
 					({value: updatedValue}, {length}) => (updatedValue.length >= length),
 					(ev, props) => {
 						setTimeout(() => {
-							forward('onClosePopup', ev, props);
+							forward('onClose', ev, props);
 							forward('onComplete', ev, props);
 						}, 250);
 						return true;
@@ -222,7 +222,7 @@ const NumberInputPopupBase = kind({
 		),
 		handleBackKey: handle(
 			forKeyCode(461),
-			forward('onClosePopup')
+			forward('onClose')
 		)
 	},
 
@@ -252,7 +252,7 @@ const NumberInputPopupBase = kind({
 	render: ({children, css, disabled, handleBackKey, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
 		const password = (type === 'password');
 
-		delete rest.onClosePopup;
+		delete rest.onClose;
 		delete rest.onChange;
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
@@ -288,7 +288,7 @@ const NumberInputPopupBase = kind({
 
 const NumberInputPopupDecorator = compose(
 	Pure,
-	Toggleable({activate: 'onOpenPopup', deactivate: 'onClosePopup', prop: 'open'}),
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable,
 	Skinnable
 );

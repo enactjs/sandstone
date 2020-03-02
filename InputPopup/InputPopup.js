@@ -64,7 +64,7 @@ const InputPopupBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClosePopup: PropTypes.func,
+		onClose: PropTypes.func,
 
 		/**
 		 * Pass the input value when input is complete.
@@ -155,30 +155,12 @@ const InputPopupBase = kind({
 
 		onKeyDown: handle(
 			forward('onKeyDown'),
-			// (e, props, context) => {
-			// 	// console.log('custom handler', forKey('left', e, props));
-			// 	if (forKeyCode(461) || forKeyCode(18) || forKey('esc')) {
-			// 		return handle( // Alt key
-			// 			oneOf(
-			// 				// If the value didn't change at all, just close and don't bother firing an update.
-			// 				[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 				// If the above failed, the value is different, proceed with firing an update.
-			// 				[returnsTrue, adaptEvent(
-			// 					(ev, {value}) => ({value}),
-			// 					forward('onChange')
-			// 				)]
-			// 			),
-			// 			e, props, context
-			// 		);
-			// 	}
-			// 	return true;
-			// },
 			oneOf(
 				// If any of the following are detected, continue
 				[forKey('cancel'), handle( // Back and ESC keys
 					oneOf(
 						// If the value didn't change at all, just close and don't bother firing an update.
-						[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
+						[(ev, {value}) => (ev.target.value === value), handle(forward('onClose'), () => false)],
 						// If the above failed, the value is different, proceed with firing an update.
 						[returnsTrue, adaptEvent(
 							(ev, {value}) => ({value}),
@@ -191,80 +173,20 @@ const InputPopupBase = kind({
 					forward('onComplete')
 				)]
 			),
-			// oneOf(
-			// 	// If any of the following are detected, continue
-			// 	[allOf(
-			// 		[
-			// 			forKeyCode(461),
-			// 			forKeyCode(18), // Alt
-			// 			forKeyCode(17), // Ctrl
-			// 			forKeyCode(16), // Shift
-			// 			forKey('esc')
-			// 		], returnsTrue
-			// 	), log('allOf')],
-			// 	[anyOf(
-			// 		[
-			// 			forKeyCode(461),
-			// 			forKeyCode(18), // Alt
-			// 			forKeyCode(17), // Ctrl
-			// 			forKeyCode(16), // Shift
-			// 			forKey('esc')
-			// 		], returnsTrue
-			// 	), log('anyOf')],
-			// 	[forKeyCode(461), returnsTrue], // Back key
-			// 	[forKeyCode(18), handle( // Alt key
-			// 		oneOf(
-			// 			// If the value didn't change at all, just close and don't bother firing an update.
-			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 			// If the above failed, the value is different, proceed with firing an update.
-			// 			[returnsTrue, adaptEvent(
-			// 				(ev, {value}) => ({value}),
-			// 				forward('onChange')
-			// 			)]
-			// 		),
-			// 	)],
-			// 	// log('input and original differ'),
-			// 	[forKey('esc'), returnsTrue],
-			// 	[forKey('enter'), adaptEvent(
-			// 		setInputValue,
-			// 		forward('onComplete')
-			// 	)]
-			// ),
-			// oneOf(
-			// 	// If any of the following are detected, continue
-			// 	[forKeyCode(461), returnsTrue], // Back key
-			// 	[forKeyCode(18), handle( // Alt key
-			// 		oneOf(
-			// 			// If the value didn't change at all, just close and don't bother firing an update.
-			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
-			// 			// If the above failed, the value is different, proceed with firing an update.
-			// 			[returnsTrue, adaptEvent(
-			// 				(ev, {value}) => ({value}),
-			// 				forward('onChange')
-			// 			)]
-			// 		),
-			// 	)],
-			// 	// log('input and original differ'),
-			// 	[forKey('esc'), returnsTrue],
-			// 	[forKey('enter'), adaptEvent(
-			// 		setInputValue,
-			// 		forward('onComplete')
-			// 	)]
-			// ),
-			forward('onClosePopup')
+			forward('onClose')
 		)
 	},
 
-	render: ({placeholder, children, css, title, subtitle, type, disabled, onOpenPopup, className, open, value, onShow, onChange, onKeyDown, ...rest}) => {
+	render: ({children, className, css, disabled, onChange, onClose, onKeyDown, onOpenPopup, onShow, open, placeholder, subtitle, title, type, value, ...rest}) => {
 
 		const inputProps = extractInputProps(rest);
 
-		delete rest.onClosePopup;
 		delete rest.onComplete;
 
 		return (
 			<React.Fragment>
 				<Popup
+					onClose={onClose}
 					onShow={onShow}
 					className={className}
 					position="fullscreen"
@@ -302,7 +224,7 @@ const InputPopupBase = kind({
 
 const InputPopupDecorator = compose(
 	Pure,
-	Toggleable({activate: 'onOpenPopup', deactivate: 'onClosePopup', prop: 'open'}),
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
 	Skinnable
 );
