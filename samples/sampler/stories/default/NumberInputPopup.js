@@ -4,12 +4,13 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {NumberInputPopup} from '@enact/sandstone/InputPopup';
+import {NumberInputPopup, NumberInputPopupBase} from '@enact/sandstone/InputPopup';
 
-const Config = mergeComponentMetadata('NumberInputPopup', NumberInputPopup);
+NumberInputPopup.displayName = 'NumberInputPopup';
+const Config = mergeComponentMetadata('NumberInputPopup', NumberInputPopupBase, NumberInputPopup);
 
 const prop = {
-	inputType: ['number', 'password'],
+	type: ['number', 'password'],
 	popupType: ['full', 'overlay']
 };
 
@@ -19,12 +20,12 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<NumberInputPopup
-					length={number('length', Config, 4)}
+					length={number('length', Config)}
 					title={text('title', Config, 'Title Text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					placeholder={text('placeholder', Config, 'placeholder text')}
-					inputType={select('inputType', prop.inputType, Config, prop.inputType[0])}
-					popupType={select('popupType', prop.popupType, Config, prop.popupType[0])}
+					type={select('type', prop.type, Config)}
+					popupType={select('popupType', prop.popupType, Config)}
 					onComplete={action('onComplete')}
 					disabled={boolean('disabled', Config)}
 				/>

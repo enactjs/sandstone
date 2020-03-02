@@ -12,7 +12,7 @@ import React from 'react';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {handle, forKey, forKeyCode, forward} from '@enact/core/handle';
+import {handle, adaptEvent, oneOf, forKey, forward, returnsTrue} from '@enact/core/handle';
 import Toggleable from '@enact/ui/Toggleable';
 import Pure from '@enact/ui/internal/Pure';
 import Changeable from '@enact/ui/Changeable';
@@ -25,9 +25,10 @@ import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import Heading from '../Heading';
 
-import {NumberInputPopup, NumberInputPopupBase} from './NumberInputPopup';
 import {convertToPasswordFormat} from './util';
 import componentCss from './InputPopup.module.less';
+
+const setInputValue = ev => ({value: ev.target.value});
 
 const InputPopupBase = kind({
 	name: 'InputPopup',
@@ -48,15 +49,6 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
-
-		/**
-		 * Set the type of input value.
-		 *
-		 * @type {String}
-		 * @default 'text'
-		 * @public
-		 */
-		inputType: PropTypes.oneOf(['text', 'password']),
 
 		/**
 		 * Called when the input value is changed.
@@ -126,6 +118,15 @@ const InputPopupBase = kind({
 		title: PropTypes.string,
 
 		/**
+		 * Set the type of input value.
+		 *
+		 * @type {String}
+		 * @default 'text'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['text', 'password']),
+
+		/**
 		 * The value of the input.
 		 *
 		 * @type {String|Number}
@@ -135,10 +136,10 @@ const InputPopupBase = kind({
 	},
 
 	defaultProps: {
-		inputType: 'text',
 		placeholder: '',
+		subtitle: '',
 		title: '',
-		subtitle: ''
+		type: 'text'
 	},
 
 	styles: {
@@ -147,44 +148,128 @@ const InputPopupBase = kind({
 	},
 
 	handlers: {
-		handleShow: handle(
+		onShow: handle(
 			forward('onShow'),
 			() => Spotlight.setPointerMode(false)
 		),
 
-		handleChange: handle(
-			forward('onChange')
-		),
-
-		handleBackKey: handle(
-			forKeyCode(461),
+		onKeyDown: handle(
+			forward('onKeyDown'),
+			// (e, props, context) => {
+			// 	// console.log('custom handler', forKey('left', e, props));
+			// 	if (forKeyCode(461) || forKeyCode(18) || forKey('esc')) {
+			// 		return handle( // Alt key
+			// 			oneOf(
+			// 				// If the value didn't change at all, just close and don't bother firing an update.
+			// 				[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
+			// 				// If the above failed, the value is different, proceed with firing an update.
+			// 				[returnsTrue, adaptEvent(
+			// 					(ev, {value}) => ({value}),
+			// 					forward('onChange')
+			// 				)]
+			// 			),
+			// 			e, props, context
+			// 		);
+			// 	}
+			// 	return true;
+			// },
+			oneOf(
+				// If any of the following are detected, continue
+				[forKey('cancel'), handle( // Back and ESC keys
+					oneOf(
+						// If the value didn't change at all, just close and don't bother firing an update.
+						[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
+						// If the above failed, the value is different, proceed with firing an update.
+						[returnsTrue, adaptEvent(
+							(ev, {value}) => ({value}),
+							forward('onChange')
+						)]
+					),
+				)],
+				[forKey('enter'), adaptEvent(
+					setInputValue,
+					forward('onComplete')
+				)]
+			),
+			// oneOf(
+			// 	// If any of the following are detected, continue
+			// 	[allOf(
+			// 		[
+			// 			forKeyCode(461),
+			// 			forKeyCode(18), // Alt
+			// 			forKeyCode(17), // Ctrl
+			// 			forKeyCode(16), // Shift
+			// 			forKey('esc')
+			// 		], returnsTrue
+			// 	), log('allOf')],
+			// 	[anyOf(
+			// 		[
+			// 			forKeyCode(461),
+			// 			forKeyCode(18), // Alt
+			// 			forKeyCode(17), // Ctrl
+			// 			forKeyCode(16), // Shift
+			// 			forKey('esc')
+			// 		], returnsTrue
+			// 	), log('anyOf')],
+			// 	[forKeyCode(461), returnsTrue], // Back key
+			// 	[forKeyCode(18), handle( // Alt key
+			// 		oneOf(
+			// 			// If the value didn't change at all, just close and don't bother firing an update.
+			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
+			// 			// If the above failed, the value is different, proceed with firing an update.
+			// 			[returnsTrue, adaptEvent(
+			// 				(ev, {value}) => ({value}),
+			// 				forward('onChange')
+			// 			)]
+			// 		),
+			// 	)],
+			// 	// log('input and original differ'),
+			// 	[forKey('esc'), returnsTrue],
+			// 	[forKey('enter'), adaptEvent(
+			// 		setInputValue,
+			// 		forward('onComplete')
+			// 	)]
+			// ),
+			// oneOf(
+			// 	// If any of the following are detected, continue
+			// 	[forKeyCode(461), returnsTrue], // Back key
+			// 	[forKeyCode(18), handle( // Alt key
+			// 		oneOf(
+			// 			// If the value didn't change at all, just close and don't bother firing an update.
+			// 			[(ev, {value}) => (ev.target.value === value), forward('onClosePopup')],
+			// 			// If the above failed, the value is different, proceed with firing an update.
+			// 			[returnsTrue, adaptEvent(
+			// 				(ev, {value}) => ({value}),
+			// 				forward('onChange')
+			// 			)]
+			// 		),
+			// 	)],
+			// 	// log('input and original differ'),
+			// 	[forKey('esc'), returnsTrue],
+			// 	[forKey('enter'), adaptEvent(
+			// 		setInputValue,
+			// 		forward('onComplete')
+			// 	)]
+			// ),
 			forward('onClosePopup')
-		),
-
-		handleEnterKey: handle(
-			forKey('enter'),
-			forward('onClosePopup'),
-			forward('onComplete')
 		)
 	},
 
-	render: ({placeholder, css, title, subtitle, inputType, disabled, onOpenPopup, className, open, value, handleShow, handleChange, handleBackKey, handleEnterKey, ...rest}) => {
+	render: ({placeholder, children, css, title, subtitle, type, disabled, onOpenPopup, className, open, value, onShow, onChange, onKeyDown, ...rest}) => {
 
 		const inputProps = extractInputProps(rest);
 
-		delete rest.onChange;
 		delete rest.onClosePopup;
 		delete rest.onComplete;
 
 		return (
 			<React.Fragment>
 				<Popup
-					onShow={handleShow}
-					onKeyDown={handleBackKey}
+					onShow={onShow}
 					className={className}
 					position="fullscreen"
 					noAnimation
-					open={open}
+					open={!disabled && open}
 				>
 					<Layout orientation="vertical" align="center" className={css.popupBody}>
 						<Cell shrink>
@@ -194,18 +279,21 @@ const InputPopupBase = kind({
 						<Cell align="center" className={css.inputArea}>
 							<Input
 								autoFocus
-								type={inputType}
-								value={value}
+								type={type}
+								defaultValue={value}
 								placeholder={placeholder}
-								onChange={handleChange}
-								onKeyDown={handleEnterKey}
+								onChange={onChange}
+								onKeyDown={onKeyDown}
 								{...inputProps}
 							/>
+						</Cell>
+						<Cell shrink>
+							{children}
 						</Cell>
 					</Layout>
 				</Popup>
 				<Button disabled={disabled} onClick={onOpenPopup} {...rest}>
-					{(inputType === 'password' ? convertToPasswordFormat(value) : value) || placeholder}
+					{(type === 'password' ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
 		);
@@ -243,4 +331,8 @@ const InputPopupDecorator = compose(
 const InputPopup = InputPopupDecorator(InputPopupBase);
 
 export default InputPopup;
-export {InputPopupBase, InputPopup, NumberInputPopupBase, NumberInputPopup};
+export {
+	InputPopup,
+	InputPopupBase,
+	InputPopupDecorator
+};

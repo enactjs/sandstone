@@ -22,14 +22,12 @@ import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 
+import Keypad from './Keypad';
 import {convertToPasswordFormat} from './util';
 
 import componentCss from './NumberInputPopup.module.less';
 
 const LENGTH_LIMIT = 6;
-const KEY_LIST = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'del'];
-
-const LargeButton = (props) => <Button size="large" {...props} />;
 
 const PreviewItem = kind({
 	name: 'PreviewItem',
@@ -66,46 +64,6 @@ const PreviewItem = kind({
 	}
 });
 
-const KeyButton = kind({
-	name: 'KeyButton',
-	handlers: {
-		onClick: handle(
-			adaptEvent((ev, {children: value}) => ({value}), forward('onClick'))
-		)
-	},
-	render: ({children, ...rest}) => {
-		const content = (children === 'del') ? 'arrowleftprevious' : children; // TBD: arrowleftprevious should be replaced to correct one base on GUI
-		return (
-			<Cell
-				{...rest}
-				component={LargeButton}
-				shrink
-				className={componentCss.keypadItem}
-				icon={content}
-			/>
-		);
-	}
-});
-
-// eslint-disable-next-line enact/prop-types
-const Keypad = ({onAdd, onRemove, ...rest}) => {
-	return (
-		<Layout align="center end" wrap {...rest}>
-			{KEY_LIST.map((keyText, rowIndex) => {
-				return (
-					<KeyButton
-						key={`key${rowIndex}-${keyText}`}
-						onClick={keyText === 'del' ? onRemove : onAdd}
-					>
-						{keyText}
-					</KeyButton>
-				);
-			})}
-		</Layout>
-	);
-};
-
-
 const NumberInputPopupBase = kind({
 	name: 'NumberInputPopup',
 
@@ -119,15 +77,6 @@ const NumberInputPopupBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
-
-		/**
-		 * Set the type of input value.
-		 *
-		 * @type {String}
-		 * @default 'number'
-		 * @public
-		 */
-		inputType: PropTypes.oneOf(['number', 'password']),
 
 		/**
 		 * Set the length of input value.
@@ -214,6 +163,15 @@ const NumberInputPopupBase = kind({
 		title: PropTypes.string,
 
 		/**
+		 * Set the type of input value.
+		 *
+		 * @type {String}
+		 * @default 'number'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['number', 'password']),
+
+		/**
 		 * The value of the input.
 		 *
 		 * @type {String|Number}
@@ -224,11 +182,11 @@ const NumberInputPopupBase = kind({
 
 	defaultProps: {
 		length: 4,
-		inputType: 'number',
 		placeholder: '-',
 		popupType: 'full',
 		subtitle: '',
 		title: '',
+		type: 'number',
 		value: ''
 	},
 
@@ -270,9 +228,9 @@ const NumberInputPopupBase = kind({
 
 	computed: {
 		popupClassName: ({popupType, styler}) => styler.join('numberInputPopup', popupType),
-		preview: ({css, inputType, value, length}) => {
+		preview: ({css, type, value, length}) => {
 			const values = value.toString().split('');
-			const password = (inputType === 'password');
+			const password = (type === 'password');
 
 			if (length <= LENGTH_LIMIT) {
 				const items = new Array(length).fill('');
@@ -291,8 +249,8 @@ const NumberInputPopupBase = kind({
 		}
 	},
 
-	render: ({children, css, disabled, handleBackKey, inputType, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
-		const password = (inputType === 'password');
+	render: ({children, css, disabled, handleBackKey, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
+		const password = (type === 'password');
 
 		delete rest.onClosePopup;
 		delete rest.onChange;
@@ -363,4 +321,8 @@ const NumberInputPopupDecorator = compose(
 const NumberInputPopup = NumberInputPopupDecorator(NumberInputPopupBase);
 
 export default NumberInputPopup;
-export {NumberInputPopup, NumberInputPopupBase};
+export {
+	NumberInputPopup,
+	NumberInputPopupBase,
+	NumberInputPopupDecorator
+};

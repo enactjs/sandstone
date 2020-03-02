@@ -4,12 +4,13 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {InputPopup} from '@enact/sandstone/InputPopup';
+import InputPopup, {InputPopupBase} from '@enact/sandstone/InputPopup';
 
-const Config = mergeComponentMetadata('InputPopup', InputPopup);
+InputPopup.displayName = 'InputPopup';
+const Config = mergeComponentMetadata('InputPopup', InputPopupBase, InputPopup);
 
 const prop = {
-	inputType: ['text', 'password']
+	type: ['text', 'password']
 };
 
 storiesOf('Sandstone', module)
@@ -21,7 +22,7 @@ storiesOf('Sandstone', module)
 					title={text('title', Config, 'Title Text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					placeholder={text('placeholder', Config, 'placeholder text')}
-					inputType={select('inputType', prop.inputType, Config, prop.inputType[0])}
+					type={select('type', prop.type, Config)}
 					onComplete={action('onComplete')}
 					disabled={boolean('disabled', Config)}
 				/>
