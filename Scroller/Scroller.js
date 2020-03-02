@@ -13,7 +13,6 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
- * @exports ScrollerBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -28,11 +27,10 @@ import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import ScrollerBasic from './ScrollerBasic';
 import useThemeScroller from './useThemeScroller';
 
 /**
- * A Sandstone-styled Scroller, Scrollable applied.
+ * A Sandstone-styled Scroller, useScroll applied.
  *
  * Usage:
  * ```
@@ -41,6 +39,7 @@ import useThemeScroller from './useThemeScroller';
  *
  * @class Scroller
  * @memberof sandstone/Scroller
+ * @extends ui/Scroller.ScrollerBasic
  * @ui
  * @public
  */
@@ -81,8 +80,6 @@ let Scroller = (props) => {
 };
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
-	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
-
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
 	 * By default, 5-way will not move focus to the scroll thumb.
@@ -97,32 +94,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
 
 	/**
-	 * Specifies how to show horizontal scrollbar.
+	 * Unique identifier for the component.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
-	 * @default 'auto'
-	 * @public
-	 */
-	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
-
-	/**
-	 * Specifies how to show vertical scrollbar.
-	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
+	 * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
+	 * `Scroller` will store its scroll position and restore that position when returning to the
+	 * `Panel`.
 	 *
 	 * @type {String}
-	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	id: PropTypes.string
 };
 
 Scroller.defaultProps = {
@@ -158,5 +139,4 @@ Scroller = Skinnable(
 export default Scroller;
 export {
 	Scroller,
-	ScrollerBasic
 };
