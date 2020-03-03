@@ -33,12 +33,12 @@ function isNotScrolling () {
  *
  * @param {Number} [timeout=3000]
  */
-function waitForScrollStop (timeout = 3000) {
+function waitForScrollStartStop (timeout = 3000) {
 	browser.waitUntil(isScrolling, timeout);
 	browser.waitUntil(isNotScrolling, timeout);
 }
 
 exports.expectFocusedItem = expectFocusedItem;
 exports.expectNoFocusedItem = expectNoFocusedItem;
-exports.waitForScrollStop = waitForScrollStop;
+exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;
