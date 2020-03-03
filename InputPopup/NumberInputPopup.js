@@ -8,9 +8,10 @@
 
 import React from 'react';
 import kind from '@enact/core/kind';
+import {add} from '@enact/core/keymap';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {handle, forKeyCode, forward, adaptEvent} from '@enact/core/handle';
+import {handle, forKey, oneOf, forward, adaptEvent} from '@enact/core/handle';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
@@ -28,6 +29,8 @@ import {convertToPasswordFormat} from './util';
 import componentCss from './NumberInputPopup.module.less';
 
 const LENGTH_LIMIT = 6;
+
+add('number', [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]); // Establish all number keys as 'number' keyword.
 
 const PreviewItem = kind({
 	name: 'PreviewItem',
@@ -196,6 +199,30 @@ const NumberInputPopupBase = kind({
 	},
 
 	handlers: {
+		onKeyDown: handle(
+			oneOf(
+				[forKey('cancel'), forward('onClose')],
+				[forKey('number'),
+					handle(
+						// LAZILY copy/paste the below code to get the same behavior
+						adaptEvent(({key}, {length, value}) => ({value: (value.length >= length ? value : `${value}${key}`)}),
+							handle(
+								forward('onChange'),
+
+								// DEV NOTE: Probably move these to its own Decorator
+								({value: updatedValue}, {length}) => (updatedValue.length >= length),
+								(ev, props) => {
+									setTimeout(() => {
+										forward('onClose', ev, props);
+										forward('onComplete', ev, props);
+									}, 250);
+									return true;
+								}
+							)
+						)
+					)
+				])
+		),
 		onAdd: handle(
 			adaptEvent(({value: key}, {length, value}) => ({value: (value.length >= length ? value : `${value}${key}`)}),
 				handle(
@@ -219,10 +246,6 @@ const NumberInputPopupBase = kind({
 		),
 		onRemove: handle(
 			adaptEvent((ev, {value}) => ({value: value.toString().slice(0, -1)}), forward('onChange'))
-		),
-		handleBackKey: handle(
-			forKeyCode(461),
-			forward('onClose')
 		)
 	},
 
@@ -249,7 +272,7 @@ const NumberInputPopupBase = kind({
 		}
 	},
 
-	render: ({children, css, disabled, handleBackKey, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
+	render: ({children, css, disabled, onKeyDown, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
 		const password = (type === 'password');
 
 		delete rest.onClose;
@@ -260,7 +283,7 @@ const NumberInputPopupBase = kind({
 		return (
 			<React.Fragment>
 				<Popup
-					onKeyDown={handleBackKey}
+					onKeyDown={onKeyDown}
 					noAnimation
 					position={popupType === 'full' ? 'fullscreen' : 'center'}
 					className={popupClassName}
