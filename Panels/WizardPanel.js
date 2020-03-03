@@ -171,7 +171,7 @@ const WizardPanelBase = kind({
 				>
 					<Steps current={index + 1} slot="slotAbove" total={total} />
 					<Button
-						disabled={index === total}
+						disabled={index === (total - 1)}
 						icon="arrowlargeright"
 						onClick={onIncrementStep}
 						slot="slotAfter"
@@ -269,11 +269,11 @@ const WizardPanel = Changeable(
 function ViewBase ({buttons, children, footer, subtitle, title}) {
 	const set = React.useContext(WizardPanelContext);
 
-	if (set) {
-		React.useEffect(() => {
+	React.useEffect(() => {
+		if (set) {
 			set({buttons, children, footer, subtitle, title});
-		}, [buttons, children, footer, subtitle, set, title]);
-	}
+		}
+	}, [buttons, children, footer, subtitle, set, title]);
 
 	return null;
 }
