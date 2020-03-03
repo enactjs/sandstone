@@ -238,29 +238,37 @@ function useReverseTransition (index = -1) {
 	return reverse;
 }
 
-const WizardPanelsDecorator = (Wrapped) => ({children, index = 0, ...rest}) => {
-	const [view, setView] = React.useState(null);
-	const reverseTransition = useReverseTransition(index);
-	const totalViews = React.Children.count(children);
+const WizardPanelsDecorator = (Wrapped) => {
+	const WizardPanelsProvider = ({children, index = 0, ...rest}) => {
+		const [view, setView] = React.useState(null);
+		const reverseTransition = useReverseTransition(index);
+		const totalViews = React.Children.count(children);
 
-	return (
-		<WizardPanelsContext.Provider value={setView}>
-			{React.Children.toArray(children)[index]}
-			<Wrapped {...rest} {...view} index={index} lastIndex={totalViews - 1} reverseTransition={reverseTransition}>
-				{view && view.children ? (
-					<div className="enact-fit" key={'view'+index}>
-						{view.children}
-					</div>
-				) : null}
-			</Wrapped>
-		</WizardPanelsContext.Provider>
-	);
+		return (
+			<WizardPanelsContext.Provider value={setView}>
+				{React.Children.toArray(children)[index]}
+				<Wrapped {...rest} {...view} index={index} lastIndex={totalViews - 1} reverseTransition={reverseTransition}>
+					{view && view.children ? (
+						<div className="enact-fit" key={'view' + index}>
+							{view.children}
+						</div>
+					) : null}
+				</Wrapped>
+			</WizardPanelsContext.Provider>
+		);
+	};
+
+	WizardPanelsProvider.propTypes = {
+		index: PropTypes.number
+	};
+
+	return WizardPanelsProvider;
 };
 
 const WizardPanels = Changeable(
 	{prop: 'index'},
 	WizardPanelsDecorator(
-			WizardPanelsBase
+		WizardPanelsBase
 	)
 );
 
@@ -269,7 +277,7 @@ function ViewBase ({buttons, children, footer, subtitle, title}) {
 
 	React.useEffect(() => {
 		set({buttons, children, footer, subtitle, title});
-	}, []);
+	});
 
 	return null;
 }
