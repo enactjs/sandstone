@@ -3,6 +3,7 @@ import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {mount} from 'enzyme';
 
 import {InputPopup} from '../InputPopup';
+
 import css from '../InputPopup.module.less';
 
 const FloatingLayerController = FloatingLayerDecorator('div');

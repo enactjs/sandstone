@@ -64,7 +64,7 @@ const InputPopupBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClosePopup: PropTypes.func,
+		onClose: PropTypes.func,
 
 		/**
 		 * Pass the input value when input is complete.
@@ -159,11 +159,11 @@ const InputPopupBase = kind({
 				setInputValue,
 				forward('onComplete')
 			),
-			forward('onClosePopup')
+			forward('onClose')
 		)
 	},
 
-	render: ({placeholder, children, css, title, subtitle, type, disabled, onClosePopup, onOpenPopup, className, open, value, onShow, onChange, onInputKeyDown, ...rest}) => {
+	render: ({placeholder, children, css, title, subtitle, type, disabled, onClose, onOpenPopup, className, open, value, onShow, onChange, onInputKeyDown, ...rest}) => {
 
 		const inputProps = extractInputProps(rest);
 
@@ -172,7 +172,7 @@ const InputPopupBase = kind({
 		return (
 			<React.Fragment>
 				<Popup
-					onClose={onClosePopup}
+					onClose={onClose}
 					onShow={onShow}
 					className={className}
 					position="fullscreen"
@@ -210,7 +210,7 @@ const InputPopupBase = kind({
 
 const InputPopupDecorator = compose(
 	Pure,
-	Toggleable({activate: 'onOpenPopup', deactivate: 'onClosePopup', prop: 'open'}),
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
 	Skinnable
 );
