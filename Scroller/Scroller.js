@@ -81,6 +81,15 @@ let Scroller = (props) => {
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
+	 * `false` if the content of the scroller could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
 	 * Allows 5-way navigation to the scroll thumb.
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
@@ -103,7 +112,40 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @type {String}
 	 * @public
 	 */
-	id: PropTypes.string
+	id: PropTypes.string,
+
+	/**
+	 * Specifies overscroll effects shows on which type of inputs.
+	 *
+	 * @type {Object}
+	 * @default {
+	 *	arrowKey: false,
+	 *	drag: false,
+	 *	pageKey: false,
+	 *	wheel: true
+	 * }
+	 * @private
+	 */
+	overscrollEffectOn: PropTypes.shape({
+		arrowKey: PropTypes.bool,
+		drag: PropTypes.bool,
+		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
+		wheel: PropTypes.bool
+	}),
+
+	/**
+	 * Specifies how to scroll.
+	 *
+	 * Valid values are:
+	 * * `'translate'`,
+	 * * `'native'`.
+	 *
+	 * @type {String}
+	 * @default 'native'
+	 * @public
+	 */
+	scrollMode: PropTypes.string
 };
 
 Scroller.defaultProps = {

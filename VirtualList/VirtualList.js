@@ -104,7 +104,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
 	/**
-	 * `false` if the content of the list or the scroller could get focus
+	 * `false` if the content of the list could get focus
 	 *
 	 * @type {Boolean}
 	 * @default false
@@ -287,7 +287,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	itemSize: gridListItemSizeShape.isRequired,
 
 	/**
-	 * `false` if the content of the list or the scroller could get focus
+	 * `false` if the content of the list could get focus
 	 *
 	 * @type {Boolean}
 	 * @default false
