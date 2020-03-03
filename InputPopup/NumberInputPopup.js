@@ -1,21 +1,13 @@
-/**
- * Popup style input for number
- *
- * @module sandstone/NumberInputPopup
- * @exports NumberInputPopup
- * @exports InputNumberBasePopup
- */
-
-import React from 'react';
-import kind from '@enact/core/kind';
-import {add} from '@enact/core/keymap';
-import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import {handle, forKey, oneOf, forward, adaptEvent} from '@enact/core/handle';
+import {add} from '@enact/core/keymap';
+import kind from '@enact/core/kind';
+import Changeable from '@enact/ui/Changeable';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
-import Changeable from '@enact/ui/Changeable';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
 import Button from '../Button';
 import Heading from '../Heading';
@@ -67,14 +59,28 @@ const PreviewItem = kind({
 	}
 });
 
+/**
+ * Base component for providing numeric input in the form of a popup
+ *
+ * @class NumberInputPopupBase
+ * @memberof sandstone/InputPopup
+ * @ui
+ * @public
+ */
 const NumberInputPopupBase = kind({
 	name: 'NumberInputPopup',
 
-	propTypes: {
+	propTypes: /** @lends sandstone/InputPopup.NumberInputPopupBase */ {
+		/**
+		 * Customize component style
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
 
 		/**
-		 * Disable the button that activate the input popup.
+		 * Disables the button that activates the input popup.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -106,7 +112,7 @@ const NumberInputPopupBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Pass the input value when input is complete.
+		 * Called when input is complete.
 		 *
 		 * @type {Function}
 		 * @public
@@ -114,7 +120,7 @@ const NumberInputPopupBase = kind({
 		onComplete: PropTypes.func,
 
 		/**
-		 * Open input popup.
+		 * Called when the popup is opened.
 		 *
 		 * @type {Function}
 		 * @private
@@ -122,7 +128,7 @@ const NumberInputPopupBase = kind({
 		onOpenPopup: PropTypes.func,
 
 		/**
-		 * Visibility of Popup
+		 * Opens the popup.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -130,7 +136,7 @@ const NumberInputPopupBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Text to display when value is not set.
+		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -157,7 +163,7 @@ const NumberInputPopupBase = kind({
 		subtitle: PropTypes.string,
 
 		/**
-		 * Title text of popup.
+		 * The title text of popup.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -166,7 +172,7 @@ const NumberInputPopupBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * Set the type of input value.
+		 * Type of the input.
 		 *
 		 * @type {String}
 		 * @default 'number'
@@ -175,7 +181,7 @@ const NumberInputPopupBase = kind({
 		type: PropTypes.oneOf(['number', 'password']),
 
 		/**
-		 * The value of the input.
+		 * Value of the input.
 		 *
 		 * @type {String|Number}
 		 * @public
@@ -200,31 +206,32 @@ const NumberInputPopupBase = kind({
 
 	handlers: {
 		onKeyDown: handle(
-			oneOf(
-				[forKey('cancel'), forward('onClose')],
-				[forKey('number'),
-					handle(
-						// LAZILY copy/paste the below code to get the same behavior
-						adaptEvent(({key}, {length, value}) => ({value: (value.length >= length ? value : `${value}${key}`)}),
-							handle(
-								forward('onChange'),
+			forKey('number'),
+			// LAZILY copy/paste the below code to get the same behavior
+			adaptEvent(
+				({key}, {length, value}) => ({
+					value: (value.length >= length ? value : `${value}${key}`)
+				}),
+				handle(
+					forward('onChange'),
 
-								// DEV NOTE: Probably move these to its own Decorator
-								({value: updatedValue}, {length}) => (updatedValue.length >= length),
-								(ev, props) => {
-									setTimeout(() => {
-										forward('onClose', ev, props);
-										forward('onComplete', ev, props);
-									}, 250);
-									return true;
-								}
-							)
-						)
-					)
-				])
+					// DEV NOTE: Probably move these to its own Decorator
+					({value: updatedValue}, {length}) => (updatedValue.length >= length),
+					(ev, props) => {
+						setTimeout(() => {
+							forward('onClose', ev, props);
+							forward('onComplete', ev, props);
+						}, 250);
+						return true;
+					}
+				)
+			)
 		),
 		onAdd: handle(
-			adaptEvent(({value: key}, {length, value}) => ({value: (value.length >= length ? value : `${value}${key}`)}),
+			adaptEvent(
+				({value: key}, {length, value}) => ({
+					value: (value.length >= length ? value : `${value}${key}`)
+				}),
 				handle(
 					forward('onChange'),
 
@@ -245,7 +252,10 @@ const NumberInputPopupBase = kind({
 			forward('onOpenPopup')
 		),
 		onRemove: handle(
-			adaptEvent((ev, {value}) => ({value: value.toString().slice(0, -1)}), forward('onChange'))
+			adaptEvent(
+				(ev, {value}) => ({value: value.toString().slice(0, -1)}),
+				forward('onChange')
+			)
 		)
 	},
 
@@ -267,15 +277,18 @@ const NumberInputPopupBase = kind({
 					</Layout>
 				);
 			} else {
-				return <div className={css.previewText}>{password ? convertToPasswordFormat(values) : values.join('')}</div>;
+				return (
+					<div className={css.previewText}>
+						{password ? convertToPasswordFormat(values) : values.join('')}
+					</div>
+				);
 			}
 		}
 	},
 
-	render: ({children, css, disabled, onKeyDown, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
+	render: ({children, css, disabled, onClose, onKeyDown, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
 		const password = (type === 'password');
 
-		delete rest.onClose;
 		delete rest.onChange;
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
@@ -283,6 +296,7 @@ const NumberInputPopupBase = kind({
 		return (
 			<React.Fragment>
 				<Popup
+					onClose={onClose}
 					onKeyDown={onKeyDown}
 					noAnimation
 					position={popupType === 'full' ? 'fullscreen' : 'center'}
@@ -322,21 +336,21 @@ const NumberInputPopupDecorator = compose(
  * Usage:
  * ```
  * <NumberInputPopup
- * 	 popupType={'overlay'}
- * 	 length={4}
- *   title={'Title'}
- *   subtitle={'TitleBelow'}
- *   placeholder={'Placeholder'}
- * 	 value={this.state.inputText}
- * 	 onComplete={this.handleInputComplete}
+ *   length={4}
+ *   onComplete={this.handleInputComplete}
+ *   placeholder="Placeholder"
+ *   popupType="overlay"
+ *   title="Title"
+ *   subtitle="TitleBelow"
+ *   value={this.state.inputText}
  * />
  * ```
  *
- * @class InputPopup
- * @memberof sandstone/NumberInputPopup
- * @extends sandstone/NumberInputPopup.NumberInputPopupBase
- * @mixes ui/Toggleable.Toggleable
+ * @class NumberInputPopup
+ * @memberof sandstone/InputPopup
+ * @extends sandstone/InputPopup.NumberInputPopupBase
  * @mixes ui/Changeable.Changeable
+ * @mixes ui/Toggleable.Toggleable
  * @ui
  * @public
  */

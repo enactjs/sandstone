@@ -1,23 +1,13 @@
-/**
- * Popup style input
- *
- * @module sandstone/InputPopup
- * @exports InputPopup
- * @exports InputPopupBase
- * @exports NumberInputPopup
- * @exports NumberInputPopupBase
- */
-
-import React from 'react';
+import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import Spotlight from '@enact/spotlight';
+import Changeable from '@enact/ui/Changeable';
+import Pure from '@enact/ui/internal/Pure';
+import Toggleable from '@enact/ui/Toggleable';
+import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
-import Toggleable from '@enact/ui/Toggleable';
-import Pure from '@enact/ui/internal/Pure';
-import Changeable from '@enact/ui/Changeable';
-import Spotlight from '@enact/spotlight';
-import Layout, {Cell} from '@enact/ui/Layout';
+import React from 'react';
 
 import Button from '../Button';
 import Input, {extractInputProps} from '../Input';
@@ -30,10 +20,18 @@ import componentCss from './InputPopup.module.less';
 
 const setInputValue = ev => ({value: ev.target.value});
 
+/**
+ * Base component for providing text input in the form of a popup
+ *
+ * @class InputPopupBase
+ * @memberof sandstone/InputPopup
+ * @ui
+ * @public
+ */
 const InputPopupBase = kind({
 	name: 'InputPopup',
 
-	propTypes: {
+	propTypes: /** @lends sandstone/InputPopup.InputPopupBase */ {
 		/**
 		 * Customize component style
 		 *
@@ -43,7 +41,7 @@ const InputPopupBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Disable the button that activate the input popup.
+		 * Disables the button that activates the input popup.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -59,7 +57,7 @@ const InputPopupBase = kind({
 		onChange: PropTypes.func,
 
 		/**
-		 * Close input popup.
+		 * Called when the popup is closed.
 		 *
 		 * @type {Function}
 		 * @public
@@ -67,7 +65,7 @@ const InputPopupBase = kind({
 		onClose: PropTypes.func,
 
 		/**
-		 * Pass the input value when input is complete.
+		 * Called when input is complete.
 		 *
 		 * @type {Function}
 		 * @public
@@ -75,7 +73,7 @@ const InputPopupBase = kind({
 		onComplete: PropTypes.func,
 
 		/**
-		 * Open input popup.
+		 * Called when the popup is opened.
 		 *
 		 * @type {Function}
 		 * @public
@@ -83,7 +81,7 @@ const InputPopupBase = kind({
 		onOpenPopup: PropTypes.func,
 
 		/**
-		 * Visibility of Popup
+		 * Opens the popup.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -91,7 +89,7 @@ const InputPopupBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Text to display when value is not set.
+		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -118,7 +116,7 @@ const InputPopupBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * Set the type of input value.
+		 * Type of the input.
 		 *
 		 * @type {String}
 		 * @default 'text'
@@ -127,7 +125,7 @@ const InputPopupBase = kind({
 		type: PropTypes.oneOf(['text', 'password']),
 
 		/**
-		 * The value of the input.
+		 * Value of the input.
 		 *
 		 * @type {String|Number}
 		 * @public
@@ -148,11 +146,14 @@ const InputPopupBase = kind({
 	},
 
 	handlers: {
+		onClick: handle(
+			forward('onClick'),
+			forward('onOpenPopup')
+		),
 		onShow: handle(
 			forward('onShow'),
 			() => Spotlight.setPointerMode(false)
 		),
-
 		onInputKeyDown: handle(
 			forKey('enter'),
 			adaptEvent(
@@ -221,17 +222,18 @@ const InputPopupDecorator = compose(
  * Usage:
  * ```
  * <InputPopup
- *   title={'Title'}
- *   subtitle={'TitleBelow'}
- *   placeholder={'Placeholder'}
- * 	 value={this.state.inputText}
- * 	 onComplete={this.handleInputComplete}
+ *   onComplete={this.handleInputComplete}
+ *   placeholder="Placeholder"
+ *   subtitle="TitleBelow"
+ *   title="Title"
+ *   value={this.state.inputText}
  * />
  * ```
  *
  * @class InputPopup
  * @memberof sandstone/InputPopup
  * @extends sandstone/InputPopup.InputPopupBase
+ * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
  * @ui
  * @public
