@@ -49,6 +49,7 @@ import SlotItem from './components/SlotItem';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
+import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 import ToggleButton from './components/ToggleButton';
 import ToggleIcon from './components/ToggleIcon';
@@ -106,6 +107,7 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
+	TabLayout,
 	TimePicker,
 	ToggleButton,
 	ToggleIcon
