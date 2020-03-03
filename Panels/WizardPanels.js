@@ -22,20 +22,20 @@ const WizardPanelsContext = React.createContext(null);
  * Takes [View]{@link sandstone/Panels.WizardPanels.View} as children.
  *
  * @example
- * 			<WizardPanels>
- *				<WizardPanels.View title="a" subtitle="b" footer="c">
- *					<Scroller>
- *						lorem ipsum ...
- *					</Scroller>
- *					<buttons>
- *						<Button>OK</Button>
- *						<Button>Cancel</Button>
- *					</buttons>
- *					<footer>
- *						<CheckboxItem inline>Confirm</CheckboxItem>
- *					</footer>
- *				</WizardPanels.View>
- *			</WizardPanels>
+ * 	<WizardPanels>
+ *		<WizardPanels.View title="a" subtitle="b" footer="c">
+ *			<Scroller>
+ *				lorem ipsum ...
+ *			</Scroller>
+ *			<buttons>
+ *				<Button>OK</Button>
+ *				<Button>Cancel</Button>
+ *			</buttons>
+ *			<footer>
+ *				<CheckboxItem inline>Confirm</CheckboxItem>
+ *			</footer>
+ *		</WizardPanels.View>
+ *	</WizardPanels>
  *
  * @class WizardPanels
  * @memberof sandstone/Panels
@@ -249,7 +249,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 				{React.Children.toArray(children)[index]}
 				<Wrapped {...rest} {...view} index={index} lastIndex={totalViews - 1} reverseTransition={reverseTransition}>
 					{view && view.children ? (
-						<div className="enact-fit" key={'view' + index}>
+						<div className="enact-fit" key={`view${index}`}>
 							{view.children}
 						</div>
 					) : null}
@@ -277,7 +277,7 @@ function ViewBase ({buttons, children, footer, subtitle, title}) {
 
 	React.useEffect(() => {
 		set({buttons, children, footer, subtitle, title});
-	});
+	}, [buttons, children, footer, subtitle, set, title]);
 
 	return null;
 }
