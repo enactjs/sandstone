@@ -1,4 +1,4 @@
-import {handle, forKey, oneOf, forward, adaptEvent} from '@enact/core/handle';
+import {handle, forKey, forward, adaptEvent} from '@enact/core/handle';
 import {add} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import Changeable from '@enact/ui/Changeable';

@@ -17,7 +17,6 @@
 
 import Changeable from '@enact/ui/Changeable';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import equals from 'ramda/src/equals';
 import Group from '@enact/ui/Group';
 import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
