@@ -279,12 +279,15 @@ describe('ActivityPanels', function () {
 			});
 
 			it('should spot the seventh item on last panel', function () {
+				browser.waitUntil(() => Page.item1.isFocused(), 3000, undefined, 100);
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, undefined, 100);
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
@@ -393,10 +396,11 @@ describe('ActivityPanels', function () {
 
 				// Focus to item 6 so it can be last-focused item when returning
 				Page.spotlightDown();
+				browser.waitUntil(() => Page.item6.isFocused(), 3000, 'item 5 focus 2', 100);
 				Page.backKey();
 				Page.waitForPanelLeave(4);
 
-				Page.spotlightDown();
+				Page.item2.moveTo();	// Can't be sure what will be focused on down, be explicit
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
