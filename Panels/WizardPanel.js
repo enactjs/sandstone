@@ -21,7 +21,7 @@ const WizardPanelContext = React.createContext(null);
  *
  * @example
  * 	<WizardPanel>
- *		<WizardPanel.View title="Title" subtitle="Subtitle">
+ *		<WizardPanel.View subtitle="Subtitle" title="Title">
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
@@ -111,7 +111,6 @@ const WizardPanelBase = kind({
 		* The subtitle to display.
 		*
 		* @type {String}
-		* @required
 		* @public
 		*/
 		subtitle: PropTypes.string,
@@ -120,7 +119,6 @@ const WizardPanelBase = kind({
 		* The title to display.
 		*
 		* @type {String}
-		* @required
 		* @public
 		*/
 		title: PropTypes.string,
@@ -355,4 +353,9 @@ const View = Slottable(
 WizardPanel.View = View;
 
 export default WizardPanel;
-export {WizardPanel, WizardPanelBase, View};
+export {
+	WizardPanel,
+	WizardPanelBase,
+	WizardPanelDecorator,
+	View
+};
