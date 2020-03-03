@@ -15,8 +15,7 @@ const SpotlightPlaceholder = Spottable('div');
 
 const
 	nop = () => {},
-	// Defined in /Enact/packages/spotlight/src/container.js
-	disabledKey = 'spotlightContainerDisabled',
+	disabledKey = 'spotlightContainerDisabled', // It's the same way defined in /Enact/packages/spotlight/src/container.js
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0;
 
@@ -24,8 +23,11 @@ const useSpottable = (props, instances, context) => {
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const {scrollMode} = context;
 	const getItemNode = (index) => {
-		const itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
-		return itemRef && itemRef.children[0] || null;
+		const
+			itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems],
+			itemContent = itemRef && itemRef.children[0];
+
+		return (itemContent.dataset.index === index) ? itemContent : null;
 	};
 
 	// Mutable value
@@ -151,9 +153,7 @@ const useSpottable = (props, instances, context) => {
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
-				if (isWrapped && (
-					getItemNode(nextIndex) == null
-				)) {
+				if (isWrapped && getItemNode(nextIndex) === null) {
 					if (wrap === true) {
 						pause.pause();
 						target.blur();
