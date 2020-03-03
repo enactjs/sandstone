@@ -142,6 +142,22 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	id: PropTypes.string,
 
 	/**
+	 * Prop to check if horizontal Scrollbar exists or not.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	isHorizontalScrollbarVisible: PropTypes.bool,
+
+	/**
+	 * Prop to check if vertical Scrollbar exists or not.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	isVerticalScrollbarVisible: PropTypes.bool,
+
+	/**
 	 * Specifies overscroll effects shows on which type of inputs.
 	 *
 	 * @type {Object}
@@ -149,6 +165,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
+	 *	track: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -182,6 +199,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	scrollMode: PropTypes.string,
+
+	/**
+	 * Spotlight Id.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	spotlightId: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -342,6 +367,22 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	id: PropTypes.string,
 
 	/**
+	 * Prop to check if horizontal Scrollbar exists or not.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	isHorizontalScrollbarVisible: PropTypes.bool,
+
+	/**
+	 * Prop to check if vertical Scrollbar exists or not.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	isVerticalScrollbarVisible: PropTypes.bool,
+
+	/**
 	 * Specifies overscroll effects shows on which type of inputs.
 	 *
 	 * @type {Object}
@@ -349,6 +390,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
+	 *	track: false,
 	 *	wheel: true
 	 * }
 	 * @private
@@ -382,6 +424,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	scrollMode: PropTypes.string,
+
+	/**
+	 * Spotlight Id.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	spotlightId: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
