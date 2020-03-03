@@ -523,6 +523,7 @@ describe('TimePicker', function () {
 			});
 
 			expectOpen(timePicker);
+			browser.waitUntil(() => timePicker.hour.isFocused(), 1500, 'initial', 100);
 			Page.spotlightRight();
 			browser.waitUntil(() => timePicker.minute.isFocused(), 1500, 'minute', 100);
 			Page.spotlightLeft();
