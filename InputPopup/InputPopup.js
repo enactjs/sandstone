@@ -12,7 +12,7 @@ import React from 'react';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-import {handle, adaptEvent, oneOf, forKey, forward, returnsTrue} from '@enact/core/handle';
+import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import Toggleable from '@enact/ui/Toggleable';
 import Pure from '@enact/ui/internal/Pure';
 import Changeable from '@enact/ui/Changeable';
