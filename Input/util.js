@@ -22,6 +22,11 @@ const calcAriaLabel = function (prefix, type, value = '') {
 	return `${prefix} ${value} ${hint}`;
 };
 
+const convertToPasswordFormat = (value) => {
+	if (value && value.length > 0) return new Array(value.length).fill('*');
+	return '';
+};
+
 /**
  * Removes `<input>` related props from `props` and returns them in a new object.
  *
@@ -34,7 +39,7 @@ const calcAriaLabel = function (prefix, type, value = '') {
  * @returns {Object}        input related props
  * @private
  */
-const extractInputProps = function (props) {
+const extractInputFieldProps = function (props) {
 	const inputProps = {};
 	Object.keys(props).forEach(key => {
 		switch (key) {
@@ -55,5 +60,6 @@ const extractInputProps = function (props) {
 
 export {
 	calcAriaLabel,
-	extractInputProps
+	convertToPasswordFormat,
+	extractInputFieldProps
 };

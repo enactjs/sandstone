@@ -4,10 +4,10 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {NumberInputPopup, NumberInputPopupBase} from '@enact/sandstone/InputPopup';
+import Input, {InputBase} from '@enact/sandstone/Input';
 
-NumberInputPopup.displayName = 'NumberInputPopup';
-const Config = mergeComponentMetadata('NumberInputPopup', NumberInputPopupBase, NumberInputPopup);
+Input.displayName = 'Input';
+const Config = mergeComponentMetadata('Input', InputBase, Input);
 
 const prop = {
 	type: ['number', 'password'],
@@ -16,10 +16,10 @@ const prop = {
 
 storiesOf('Sandstone', module)
 	.add(
-		'NumberInputPopup',
+		'Input',
 		() => (
 			<div>
-				<NumberInputPopup
+				<Input
 					disabled={boolean('disabled', Config)}
 					length={number('length', Config)}
 					onComplete={action('onComplete')}
@@ -33,7 +33,7 @@ storiesOf('Sandstone', module)
 		),
 		{
 			info: {
-				text: 'Basic usage of NumberInputPopup'
+				text: 'Basic usage of Input'
 			}
 		}
 	);

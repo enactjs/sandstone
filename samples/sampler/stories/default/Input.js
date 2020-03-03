@@ -4,14 +4,14 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Input, {InputBase} from '@enact/sandstone/Input';
+import {InputField, InputFieldBase} from '@enact/sandstone/Input';
 
 import icons from './icons';
 
 const iconNames = ['', ...icons];
 
-const Config = mergeComponentMetadata('Input', InputBase, Input);
-Input.displayName = 'Input';
+InputField.displayName = 'InputField';
+const Config = mergeComponentMetadata('InputField', InputFieldBase, InputField);
 
 // Set up some defaults for info and knobs
 const prop = {
@@ -20,9 +20,9 @@ const prop = {
 
 storiesOf('Sandstone', module)
 	.add(
-		'Input',
+		'InputField',
 		() => (
-			<Input
+			<InputField
 				autoFocus={boolean('autoFocus', Config)}
 				onChange={action('onChange')}
 				disabled={boolean('disabled', Config)}
@@ -38,7 +38,7 @@ storiesOf('Sandstone', module)
 		),
 		{
 			info: {
-				text: 'The basic Input'
+				text: 'The basic InputField'
 			}
 		}
 	);

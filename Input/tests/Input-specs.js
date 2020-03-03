@@ -1,232 +1,101 @@
 import React from 'react';
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {mount} from 'enzyme';
-import Input from '../Input';
-import Spotlight from '@enact/spotlight';
 
-const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
+import {InputPopup} from '../InputPopup';
 
-describe('Input Specs', () => {
-	test('should have an input element', () => {
-		const subject = mount(
-			<Input />
+import css from '../InputPopup.module.less';
+
+const FloatingLayerController = FloatingLayerDecorator('div');
+
+describe('InputPopup specs', () => {
+	test('should be rendered opened if open is set to true', () => {
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open />
+			</FloatingLayerController>
 		);
 
-		expect(subject.find('input')).toHaveLength(1);
-	});
-
-	test('should include a placeholder if specified', () => {
-		const subject = mount(
-			<Input placeholder="hello" />
-		);
-
-		expect(subject.find('input').prop('placeholder')).toBe('hello');
-	});
-
-	test('should callback onChange when the text changes', () => {
-		const handleChange = jest.fn();
-		const value = 'blah';
-		const evt = {target: {value: value}};
-		const subject = mount(
-			<Input onChange={handleChange} />
-		);
-
-		subject.find('input').simulate('change', evt);
-
-		const expected = value;
-		const actual = handleChange.mock.calls[0][0].value;
+		const expected = true;
+		const actual = inputPopup.find('FloatingLayer').prop('open');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should blur input on enter if dismissOnEnter', () => {
-		const node = document.body.appendChild(document.createElement('div'));
-		const handleChange = jest.fn();
-
-		const subject = mount(
-			<Input onBlur={handleChange} dismissOnEnter />,
-			{attachTo: node}
+	test('should set title when there is title text', () => {
+		const str = 'title text';
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open title={str} />
+			</FloatingLayerController>
 		);
-		const input = subject.find('input');
 
-		input.simulate('mouseDown');
-		input.simulate('keyUp', {which: 13, keyCode: 13, code:13});
-		node.remove();
-
-		const expected = 1;
-		const actual = handleChange.mock.calls.length;
+		const expected = str;
+		const actual = inputPopup.find(`.${css.title}`).at(0).text();
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should be able to be disabled', () => {
-		const subject = mount(
-			<Input disabled />
+	test('should set title below when there is title below text', () => {
+		const str = 'title below text';
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open subtitle={str} />
+			</FloatingLayerController>
 		);
 
-		expect(subject.find('input').prop('disabled')).toBe(true);
-	});
-
-	test('should reflect the value if specified', () => {
-		const subject = mount(
-			<Input value="hello" />
-		);
-
-		expect(subject.find('input').prop('value')).toBe('hello');
-	});
-
-	test('should have dir equal to rtl when there is rtl text', () => {
-		const subject = mount(
-			<Input value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
-		);
-
-		const expected = 'rtl';
-		const actual = subject.find('input').prop('dir');
+		const expected = str;
+		const actual = inputPopup.find(`.${css.subtitle}`).at(0).text();
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should have dir equal to ltr when there is ltr text', () => {
-		const subject = mount(
-			<Input value="content" />
+	test('should set value at input when there is value text', () => {
+		const str = 'value text';
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open value={str} />
+			</FloatingLayerController>
 		);
 
-		const expected = 'ltr';
-		const actual = subject.find('input').prop('dir');
+		const expected = str;
+		const actual = inputPopup.find('input').prop('value');
 
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should have dir equal to rtl when there is rtl text in the placeholder',
-		() => {
-			const subject = mount(
-				<Input value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
-			);
-
-			const expected = 'rtl';
-			const actual = subject.find('input').prop('dir');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should have dir equal to ltr when there is ltr text in the placeholder',
-		() => {
-			const subject = mount(
-				<Input placeholder="content" />
-			);
-
-			const expected = 'ltr';
-			const actual = subject.find('input').prop('dir');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should have dir equal to rtl when there is ltr text in the placeholder, but rtl text in value',
-		() => {
-			const subject = mount(
-				<Input
-					placeholder="content"
-					value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
-				/>
-			);
-
-			const expected = 'rtl';
-			const actual = subject.find('input').prop('dir');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should have dir equal to ltr when there is rtl text in the placeholder, but ltr text in value',
-		() => {
-			const subject = mount(
-				<Input
-					placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
-					value="content"
-				/>
-			);
-
-			const expected = 'ltr';
-			const actual = subject.find('input').prop('dir');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test('should pause spotlight when input has focus', () => {
-		const subject = mount(
-			<Input />
+	test('should set placeholder at input when there is placeholder text', () => {
+		const str = 'placeholder text';
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open placeholder={str} />
+			</FloatingLayerController>
 		);
 
-		subject.simulate('mouseDown');
-
-		const expected = 'paused';
-		const actual = isPaused();
-
-		Spotlight.resume();
+		const expected = str;
+		const actual = inputPopup.find('input').prop('placeholder');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should resume spotlight on unmount', () => {
-		const subject = mount(
-			<Input />
+	test('should set type to password at input when input type is "password"', () => {
+		const inputPopup = mount(
+			<FloatingLayerController>
+				<InputPopup open type="password" />
+			</FloatingLayerController>
 		);
 
-		subject.simulate('mouseDown');
-		subject.unmount();
-
-		const expected = 'not paused';
-		const actual = isPaused();
-
-		Spotlight.resume();
+		const expected = 'password';
+		const actual = inputPopup.find('input').prop('type');
 
 		expect(actual).toBe(expected);
 	});
 
-	test(
-		'should display invalid message if it invalid and invalid message exists',
-		() => {
-			const subject = mount(
-				<Input invalid invalidMessage="invalid message" />
-			);
+	test('should set disabled at button when popup is disabled', () => {
+		const inputPopup = mount(<InputPopup disabled />);
 
-			expect(subject.find('Tooltip').prop('children')).toBe('invalid message');
-		}
-	);
-
-	test('should not display invalid message if it is valid', () => {
-		const subject = mount(
-			<Input invalidMessage="invalid message" />
-		);
-
-		expect(subject.find('Tooltip')).toHaveLength(0);
-	});
-
-	test('should set voice intent if specified', () => {
-		const input = mount(
-			<Input data-webos-voice-intent="Select" />
-		);
-
-		const expected = 'Select';
-		const actual = input.find('input').prop('data-webos-voice-intent');
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should set voice label if specified', () => {
-		const label = 'input label';
-		const input = mount(
-			<Input data-webos-voice-label={label} />
-		);
-
-		const expected = label;
-		const actual = input.find('input').prop('data-webos-voice-label');
+		const expected = true;
+		const actual = inputPopup.find('[role="button"]').prop('disabled');
 
 		expect(actual).toBe(expected);
 	});

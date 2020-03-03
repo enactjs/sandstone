@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import Pause from '@enact/spotlight/Pause';
 
-import {calcAriaLabel, extractInputProps, Input} from '../Input';
+import {calcAriaLabel, extractInputFieldProps, Input} from '../Input';
 import {Expandable, ExpandableItemBase} from '../ExpandableItem';
 
 import css from './ExpandableInput.module.less';
@@ -284,7 +284,7 @@ class ExpandableInputBase extends React.Component {
 			...rest
 		} = this.props;
 
-		const inputProps = extractInputProps(rest);
+		const inputProps = extractInputFieldProps(rest);
 		delete rest.onChange;
 
 		return (
