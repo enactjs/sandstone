@@ -138,10 +138,10 @@ const useEventFocus = (props, instances, context) => {
 		let current = Spotlight.getCurrent();
 
 		if (current) {
-			return utilDOM.containsDangerously(scrollContainerRef, current);
+			return utilDOM.containsDangerously(scrollContainerRef.current, current);
 		} else {
 			const spotlightId = Spotlight.getActiveContainer();
-			return (scrollContainerRef.dataset.spotlightId === spotlightId);
+			return (scrollContainerRef.current.dataset.spotlightId === spotlightId);
 		}
 	}
 

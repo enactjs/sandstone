@@ -27,7 +27,7 @@ const useSpottable = (props, instances, context) => {
 			itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems],
 			itemContent = itemRef && itemRef.children[0];
 
-		return (itemContent.dataset.index === index) ? itemContent : null;
+		return (itemContent && parseInt(itemContent.dataset.index) === index) ? itemContent : null;
 	};
 
 	// Mutable value
