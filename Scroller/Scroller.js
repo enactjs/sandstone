@@ -80,11 +80,9 @@ let Scroller = (props) => {
 	);
 
 	if (props.focusableScrollbar === 'byEnter') {
-		const
-			SpottableDiv = Spottable('div'),
-			{style} = props;
+		const SpottableDiv = Spottable('div');
 		return (
-			<SpottableDiv {...focusableBodyProps} style={style}>
+			<SpottableDiv {...focusableBodyProps}>
 				{scrollContainer}
 			</SpottableDiv>
 		);

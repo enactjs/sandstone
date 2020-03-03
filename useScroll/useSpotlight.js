@@ -1,3 +1,4 @@
+import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {add, is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {useContext, useEffect} from 'react';
@@ -11,61 +12,83 @@ add('esc', 27);
 
 const
 	isEsc = is('esc'),
-	isEnter = is('enter');
+	isEnter = is('enter'),
+	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const setFocusableBodyProps = ({scrollContainerRef}, assignProperties) => {
+const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignProperties) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
-	const setNavigableFilter = (filterTarget) => {
-		if (spotlightId) {
+	const setNavigableFilter = ({filterTarget}) => {
+		if (spotlightId && filterTarget) {
 			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
 			});
+			return true;
 		}
 	};
 
-	const consumeEventWithFocus = (ev, nextTarget) => {
-		ev.preventDefault();
-		ev.nativeEvent.stopImmediatePropagation();
-		Spotlight.focus(nextTarget);
+	const getNavigableFilterTarget = (ev) => {
+		const {keyCode, target, type} = ev;
+		let filterTarget;
+
+		if (type === 'focus') {
+			filterTarget = isBody(target) ? 'thumb' : 'body';
+		} else if (type === 'blur') {
+			filterTarget = 'thumb';
+		} else if (type === 'keydown') {
+			filterTarget =
+				isEnter(keyCode) && isBody(target) && 'body' ||
+				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				null;
+		}
+
+		return {
+			filterTarget
+		};
+	};
+
+	const consumeEventWithFocus = (ev) => {
+		const {target} = ev;
+		let nextTarget;
+		if (isBody(target)) {
+			// Enter key on scroll Body.
+			// Scroll thumb get focus.
+			const spottableDescendants = Spotlight.getSpottableDescendants(spotlightId);
+			if (spottableDescendants.length > 0) {
+				// Last spottable descendant(thumb) get focus.
+				nextTarget = spottableDescendants.pop();
+			}
+		} else {
+			// Esc key on scroll thumb.
+			// Scroll body get focus.
+			nextTarget = target.closest(`.${css.focusableBody}`);
+		}
+
+		if (nextTarget) {
+			Spotlight.focus(nextTarget);
+			ev.preventDefault();
+			ev.nativeEvent.stopImmediatePropagation();
+		}
 	};
 
 	assignProperties('focusableBodyProps', {
-		className: [css.focusableBody],
-
-		onFocus: (ev) => {
-			const {currentTarget, target} = ev;
-			if (currentTarget === target) {
-				setNavigableFilter('thumb', target);
-			} else if (target.classList.contains(thumbCss.thumb)) {
-				setNavigableFilter('body');
-			}
-		},
-
-		onBlur: () => {
+		className: [className, css.focusableBody],
+		onFocus: handle(
+			forward('onFocus'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onBlur: handle(
 			// Focus out to external element.
-			setNavigableFilter('thumb');
-		},
-
-		onKeyDown: (ev) => {
-			const {keyCode, currentTarget, target} = ev;
-			if (isEnter(keyCode) && currentTarget === target) {
-				// Enter key on scroll Body.
-				// Scroll thumb get focus.
-				setNavigableFilter('body');
-				const spottableDescendants = Spotlight.getSpottableDescendants(spotlightId);
-				if (spottableDescendants.length > 0) {
-					// Last spottable descendant(thumb) get focus.
-					consumeEventWithFocus(ev, spottableDescendants.pop());
-				}
-			} else if (isEsc(keyCode) && currentTarget !== target) {
-				// Esc key on scroll thumb.
-				// Scroll body get focus.
-				setNavigableFilter('thumb');
-				consumeEventWithFocus(ev, currentTarget);
-			}
-		}
+			forward('onBlur'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onKeyDown: handle(
+			forward('onKeyDown'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			consumeEventWithFocus
+		),
+		style
 	});
 };
 

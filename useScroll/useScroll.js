@@ -75,7 +75,7 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	useSpotlightRestore(props, instances);
 
 	if (props.focusableScrollbar === 'byEnter') {
-		setFocusableBodyProps(instances, assignProperties);
+		setFocusableBodyProps(props, instances, assignProperties);
 	}
 
 	const {
@@ -247,11 +247,13 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 const useScroll = (props) => {
 	const
 		{
+			className,
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
 			scrollMode,
+			style,
 			...rest
 		} = props;
 
@@ -389,12 +391,14 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContainerProps', {
 		className: [
+			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
 			scrollContainerHandle.current.rtl ? css.rtl : null,
 			overscrollCss.scroll,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
+		style: (focusableScrollbar !== 'byEnter') ? style : null,
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
