@@ -80,10 +80,11 @@ let Scroller = (props) => {
 	);
 
 	if (props.focusableScrollbar === 'byEnter') {
-		const SpottableDiv = Spottable('div');
-
+		const
+			SpottableDiv = Spottable('div'),
+			{style} = props;
 		return (
-			<SpottableDiv {...focusableBodyProps} id="abcd">
+			<SpottableDiv {...focusableBodyProps} style={style}>
 				{scrollContainer}
 			</SpottableDiv>
 		);
@@ -138,18 +139,18 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 };
 
 Scroller.defaultProps = {
-	'data-spotlight-container-disabled': false, // eslint-disable-line react/default-props-match-prop-types
+	'data-spotlight-container-disabled': false,
 	direction: 'both',
-	focusableScrollbar: false, // eslint-disable-line react/default-props-match-prop-types
+	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
-	overscrollEffectOn: { // eslint-disable-line react/default-props-match-prop-types
+	overscrollEffectOn: {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
 		track: false,
 		wheel: true
 	},
-	scrollMode: 'native', // eslint-disable-line react/default-props-match-prop-types
+	scrollMode: 'native',
 	verticalScrollbar: 'auto'
 };
 

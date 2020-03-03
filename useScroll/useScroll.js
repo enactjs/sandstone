@@ -1,14 +1,11 @@
-import {getContainersForNode} from '@enact/spotlight/src/container';
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
-import {add, is} from '@enact/core/keymap';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import {useScrollBase} from '@enact/ui/useScroll';
+import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle';
-import {assignPropertiesOf} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
@@ -23,22 +20,16 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {useSpotlightRestore} from './useSpotlight';
+import {setFocusableBodyProps, useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
-import thumbCss from './ScrollThumb.module.less';
-
-add('esc', 27);
 
 const
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
-	},
-
-	isEsc = is('esc'),
-	isEnter = is('enter');
+	};
 
 /**
  * The name of a custom attribute which indicates the index of an item in
@@ -59,7 +50,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context) => {
+const useThemeScroll = (props, instances, context, assignProperties) => {
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
@@ -82,6 +73,10 @@ const useThemeScroll = (props, instances, context) => {
 	} = useScrollbar(props, instances, {isContent});
 
 	useSpotlightRestore(props, instances);
+
+	if (props.focusableScrollbar === 'byEnter') {
+		setFocusableBodyProps(instances, assignProperties);
+	}
 
 	const {
 		applyOverscrollEffect,
@@ -351,7 +346,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode});
+	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
 
 	// Render
 
@@ -406,48 +401,6 @@ const useScroll = (props) => {
 		onTouchStart: handleTouchStart,
 		ref: scrollContainerRef
 	});
-
-	if (focusableScrollbar === true) {
-		// Remove navigableFilter to support dynamic prop change.
-		Spotlight.set(spotlightId, {navigableFilter: () => (true)});
-	} else if (focusableScrollbar === 'byEnter') {
-		const setNavigableFilter = (filterTarget) => {
-			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
-			Spotlight.set(spotlightId, {
-				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
-			});
-		};
-
-		assignProperties('focusableBodyProps', {
-			className: [css.focusableBody],
-			onFocus: (ev) => {
-				const {target} = ev;
-				if (target.classList.contains(css.focusableBody)) {
-					setNavigableFilter('thumb');
-				} else if (target.classList.contains(thumbCss.thumb)) {
-					setNavigableFilter('body');
-				}
-			},
-			onBlur: () => {
-				// Focus out to external element.
-				setNavigableFilter('thumb');
-			},
-			onKeyDown: (ev) => {
-				const {keyCode, target} = ev;
-				if (isEnter(keyCode) && target.classList.contains(css.focusableBody)) {
-					// Enter key on scroll Body.
-					// Scroll thumb get focus.
-					setNavigableFilter('body');
-					Spotlight.focus(target.querySelector(`.${thumbCss.thumb}`));
-				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb) && scrollContainerRef.current) {
-					// Esc key on scroll thumb.
-					// Scroll body get focus.
-					setNavigableFilter('thumb');
-					Spotlight.focus(scrollContainerRef.current.parentNode);
-				}
-			}
-		});
-	}
 
 	assignProperties('scrollInnerContainerProps', {
 		className: [
