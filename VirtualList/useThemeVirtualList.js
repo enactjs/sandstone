@@ -1,7 +1,7 @@
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
-import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
+import {Spottable} from '@enact/spotlight/Spottable';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
@@ -18,11 +18,10 @@ const
 	// Defined in /Enact/packages/spotlight/src/container.js
 	disabledKey = 'spotlightContainerDisabled',
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-	getNumberValue = (index) => index | 0,
-	spottableSelector = `.${spottableClass}`;
+	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances, context) => {
-	const {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
+	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const {scrollMode} = context;
 	const getItemNode = (index) => {
 		const itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
@@ -97,7 +96,7 @@ const useSpottable = (props, instances, context) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, props, removeGlobalKeyDownEventListener]);
+	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function handleGlobalKeyDown () {
