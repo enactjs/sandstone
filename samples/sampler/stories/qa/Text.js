@@ -85,11 +85,11 @@ storiesOf('Text', module)
 					<SwitchItem>{children}</SwitchItem>
 
 					<Heading showLine>Headers (Standard, Compact, Input)</Heading>
-					<Header type="standard" title={children} titleBelow={children} subTitleBelow={children} />
+					<Header type="standard" title={children} subtitle={children} subTitleBelow={children} />
 					<br />
-					<Header type="compact" title={children} titleBelow={children} subTitleBelow={children} />
+					<Header type="compact" title={children} subtitle={children} subTitleBelow={children} />
 					<br />
-					<Header title={children} titleBelow={children} subTitleBelow={children}>
+					<Header title={children} subtitle={children} subTitleBelow={children}>
 						<Input value={children} slot="headerInput" />
 					</Header>
 				</Scroller>

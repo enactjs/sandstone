@@ -10,6 +10,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {handle, adaptEvent, forward} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -229,11 +230,12 @@ const InputBase = kind({
 	},
 
 	handlers: {
-		onChange: (ev, {onChange}) => {
-			if (onChange) {
-				onChange({value: ev.target.value});
-			}
-		}
+		onChange: handle(
+			adaptEvent(
+				ev => ({value: ev.target.value}),
+				forward('onChange')
+			)
+		)
 	},
 
 	computed: {
