@@ -19,12 +19,12 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<InputPopup
-					title={text('title', Config, 'Title Text')}
-					subtitle={text('subtitle', Config, 'Title Below Text')}
-					placeholder={text('placeholder', Config, 'placeholder text')}
-					type={select('type', prop.type, Config)}
-					onComplete={action('onComplete')}
 					disabled={boolean('disabled', Config)}
+					onComplete={action('onComplete')}
+					placeholder={text('placeholder', Config, 'placeholder text')}
+					subtitle={text('subtitle', Config, 'Title Below Text')}
+					title={text('title', Config, 'Title Text')}
+					type={select('type', prop.type, Config)}
 				/>
 			</div>
 		),

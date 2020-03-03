@@ -20,14 +20,14 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<NumberInputPopup
-					maxLength={number('maxLength', Config)}
-					title={text('title', Config, 'Title Text')}
-					subtitle={text('subtitle', Config, 'Title Below Text')}
-					placeholder={text('placeholder', Config, 'placeholder text')}
-					type={select('type', prop.type, Config)}
-					popupType={select('popupType', prop.popupType, Config)}
-					onComplete={action('onComplete')}
 					disabled={boolean('disabled', Config)}
+					maxLength={number('maxLength', Config)}
+					onComplete={action('onComplete')}
+					placeholder={text('placeholder', Config, 'placeholder text')}
+					popupType={select('popupType', prop.popupType, Config)}
+					subtitle={text('subtitle', Config, 'Title Below Text')}
+					title={text('title', Config, 'Title Text')}
+					type={select('type', prop.type, Config)}
 				/>
 			</div>
 		),
