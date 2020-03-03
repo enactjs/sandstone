@@ -6,24 +6,23 @@ import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Button from '../Button';
-import Steps from '../Steps';
+import Button from '../Button/Button';
+import Steps from '../Steps/Steps';
 
 import Header from './Header';
 import Panel from './Panel';
-import {PanelTypeContext} from './Viewport';
 
-import css from './WizardPanels.module.less';
+import css from './WizardPanel.module.less';
 
-const WizardPanelsContext = React.createContext(null);
+const WizardPanelContext = React.createContext(null);
 
 /**
- * A WizardPanels that has steps with corresponding views.
- * Takes [View]{@link sandstone/Panels.WizardPanels.View} as children.
+ * A WizardPanel that has steps with corresponding views.
+ * Takes [View]{@link sandstone/Panels.WizardPanel.View} as children.
  *
  * @example
- * 	<WizardPanels>
- *		<WizardPanels.View title="a" subtitle="b" footer="c">
+ * 	<WizardPanel>
+ *		<WizardPanel.View title="a" subtitle="b" footer="c">
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
@@ -34,18 +33,16 @@ const WizardPanelsContext = React.createContext(null);
  *			<footer>
  *				<CheckboxItem inline>Confirm</CheckboxItem>
  *			</footer>
- *		</WizardPanels.View>
- *	</WizardPanels>
+ *		</WizardPanel.View>
+ *	</WizardPanel>
  *
- * @class WizardPanels
+ * @class WizardPanel
  * @memberof sandstone/Panels
  * @ui
  * @public
  */
-const WizardPanelsBase = kind({
-	name: 'WizardPanels',
-
-	contextType: PanelTypeContext,
+const WizardPanelBase = kind({
+	name: 'WizardPanel',
 
 	propTypes: {
 		/**
@@ -64,7 +61,7 @@ const WizardPanelsBase = kind({
 		/**
 		* The footer for WizardLayout.
 		*
-		* @type {node}
+		* @type {Node}
 		* @public
 		*/
 		footer: PropTypes.node,
@@ -77,14 +74,6 @@ const WizardPanelsBase = kind({
 		* @public
 		*/
 		index: PropTypes.number,
-
-		/**
-		* The last index.
-		*
-		* @type {Number}
-		* @public
-		*/
-		lastIndex: PropTypes.number,
 
 		/**
 		* The text for next button.
@@ -134,7 +123,15 @@ const WizardPanelsBase = kind({
 		* @required
 		* @public
 		*/
-		title: PropTypes.string
+		title: PropTypes.string,
+
+		/**
+		* The total views in WizardPanel.
+		*
+		* @type {Number}
+		* @public
+		*/
+		total: PropTypes.number
 	},
 
 	defaultProps: {
@@ -143,13 +140,13 @@ const WizardPanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'wizardPanels'
+		className: 'wizardPanel'
 	},
 
 	handlers: {
-		onIncrementStep: (ev, {index, onChange, lastIndex}) => {
-			if (onChange && index !== lastIndex) {
-				const nextIndex = index < (lastIndex) ? (index + 1) : index;
+		onIncrementStep: (ev, {index, onChange, total}) => {
+			if (onChange && index !== total) {
+				const nextIndex = index < (total - 1) ? (index + 1) : index;
 
 				onChange({index: nextIndex});
 			}
@@ -163,10 +160,7 @@ const WizardPanelsBase = kind({
 		}
 	},
 
-	computed: {
-	},
-
-	render: ({buttons, children, footer, index, lastIndex, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
@@ -175,9 +169,9 @@ const WizardPanelsBase = kind({
 					title={title}
 					type="wizard"
 				>
-					<Steps current={index + 1} slot="slotAbove" total={lastIndex + 1} />
+					<Steps current={index + 1} slot="slotAbove" total={total} />
 					<Button
-						disabled={index === lastIndex}
+						disabled={index === total}
 						icon="arrowlargeright"
 						onClick={onIncrementStep}
 						slot="slotAfter"
@@ -238,55 +232,57 @@ function useReverseTransition (index = -1) {
 	return reverse;
 }
 
-const WizardPanelsDecorator = (Wrapped) => {
-	const WizardPanelsProvider = ({children, index = 0, ...rest}) => {
+const WizardPanelDecorator = (Wrapped) => {
+	const WizardPanelProvider = ({children, index = 0, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
 
 		return (
-			<WizardPanelsContext.Provider value={setView}>
+			<WizardPanelContext.Provider value={setView}>
 				{React.Children.toArray(children)[index]}
-				<Wrapped {...rest} {...view} index={index} lastIndex={totalViews - 1} reverseTransition={reverseTransition}>
+				<Wrapped {...rest} {...view} index={index} total={totalViews} reverseTransition={reverseTransition}>
 					{view && view.children ? (
 						<div className="enact-fit" key={`view${index}`}>
 							{view.children}
 						</div>
 					) : null}
 				</Wrapped>
-			</WizardPanelsContext.Provider>
+			</WizardPanelContext.Provider>
 		);
 	};
 
-	WizardPanelsProvider.propTypes = {
+	WizardPanelProvider.propTypes = {
 		index: PropTypes.number
 	};
 
-	return WizardPanelsProvider;
+	return WizardPanelProvider;
 };
 
-const WizardPanels = Changeable(
+const WizardPanel = Changeable(
 	{prop: 'index'},
-	WizardPanelsDecorator(
-		WizardPanelsBase
+	WizardPanelDecorator(
+		WizardPanelBase
 	)
 );
 
 function ViewBase ({buttons, children, footer, subtitle, title}) {
-	const set = React.useContext(WizardPanelsContext);
+	const set = React.useContext(WizardPanelContext);
 
-	React.useEffect(() => {
-		set({buttons, children, footer, subtitle, title});
-	}, [buttons, children, footer, subtitle, set, title]);
+	if (set) {
+		React.useEffect(() => {
+			set({buttons, children, footer, subtitle, title});
+		}, [buttons, children, footer, subtitle, set, title]);
+	}
 
 	return null;
 }
 
 /**
- * View for [WizardPanels]{@link sandstone/Panels.WizardPanels}.
+ * View for [WizardPanel]{@link sandstone/Panels.WizardPanel}.
  *
  * @class View
- * @memberof sandstone/Panels.WizardPanels
+ * @memberof sandstone/Panels.WizardPanel
  * @ui
  * @public
  */
@@ -295,7 +291,7 @@ const View = Slottable(
 	ViewBase
 );
 
-WizardPanels.View = View;
+WizardPanel.View = View;
 
-export default WizardPanels;
-export {WizardPanels, WizardPanelsBase, View};
+export default WizardPanel;
+export {WizardPanel, WizardPanelBase, View};

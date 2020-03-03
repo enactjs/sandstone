@@ -22,7 +22,7 @@ import Header, {HeaderBase} from './Header';
 import OptionPanels from './OptionPanels';
 import Panel from './Panel';
 import Panels from './Panels';
-import WizardPanels from './WizardPanels';
+import WizardPanel from './WizardPanel';
 
 export default Panels;
 export {
@@ -35,7 +35,7 @@ export {
 	Panel,
 	Panels,
 	Panels as PanelsBase,
-	WizardPanels,
+	WizardPanel,
 
 	/**
 	 * A higher-order component that provides support for mapping Routes as children of a component
