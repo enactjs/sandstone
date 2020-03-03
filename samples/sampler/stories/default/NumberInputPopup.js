@@ -21,7 +21,7 @@ storiesOf('Sandstone', module)
 			<div>
 				<NumberInputPopup
 					disabled={boolean('disabled', Config)}
-					maxLength={number('maxLength', Config)}
+					length={number('length', Config)}
 					onComplete={action('onComplete')}
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					popupType={select('popupType', prop.popupType, Config)}
