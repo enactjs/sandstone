@@ -18,11 +18,10 @@ const WizardPanelContext = React.createContext(null);
 
 /**
  * A WizardPanel that has steps with corresponding views.
- * Takes [View]{@link sandstone/Panels.WizardPanel.View} as children.
  *
  * @example
  * 	<WizardPanel>
- *		<WizardPanel.View title="a" subtitle="b" footer="c">
+ *		<WizardPanel.View title="Title" subtitle="Subtitle">
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
@@ -36,15 +35,15 @@ const WizardPanelContext = React.createContext(null);
  *		</WizardPanel.View>
  *	</WizardPanel>
  *
- * @class WizardPanel
- * @memberof sandstone/Panels
+ * @class WizardPanelBase
+ * @memberof sandstone/Panels.WizardPanel
  * @ui
  * @public
  */
 const WizardPanelBase = kind({
 	name: 'WizardPanel',
 
-	propTypes: {
+	propTypes: /** @lends sandstone/Panels.WizardPanel.WizardPanelBase.prototype */ {
 		/**
 		* Buttons to be included under the component.
 		*
@@ -71,7 +70,7 @@ const WizardPanelBase = kind({
 		*
 		* @type {Number}
 		* @default 0
-		* @public
+		* @private
 		*/
 		index: PropTypes.number,
 
@@ -104,6 +103,7 @@ const WizardPanelBase = kind({
 		 * Explicitly sets the ViewManager transition direction.
 		 *
 		 * @type {Boolean}
+		 * @private
 		 */
 		reverseTransition: PropTypes.bool,
 
@@ -129,7 +129,7 @@ const WizardPanelBase = kind({
 		* The total views in WizardPanel.
 		*
 		* @type {Number}
-		* @public
+		* @private
 		*/
 		total: PropTypes.number
 	},
@@ -202,7 +202,7 @@ const WizardPanelBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.bottomContainer} shrink>
+					<Cell className={css.bottom} component="footer" shrink>
 						<div className={css.buttonContainer}>
 							{/* This should probably use portals */}
 							{buttons}
@@ -232,16 +232,32 @@ function useReverseTransition (index = -1) {
 	return reverse;
 }
 
+/**
+ * WizardPanelDecorator passes the buttons, children, footer,
+ * subtitle, and title from [View]{@link sandstone/Panels.WizardPanel.View} to [WizardPanelBase]{@link sandstone/Panels.WizardPanel.WizardPanelBase}.
+ *
+ * @class WizardPanelDecorator
+ * @memberof sandstone/Panels.WizardPanel
+ * @ui
+ */
 const WizardPanelDecorator = (Wrapped) => {
-	const WizardPanelProvider = ({children, index = 0, ...rest}) => {
+	const WizardPanelProvider = ({children, index, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
+		const currentTitle = view && view.title ? view.title : title;
 
 		return (
 			<WizardPanelContext.Provider value={setView}>
 				{React.Children.toArray(children)[index]}
-				<Wrapped {...rest} {...view} index={index} total={totalViews} reverseTransition={reverseTransition}>
+				<Wrapped
+					{...rest}
+					{...view}
+					index={index}
+					title={currentTitle}
+					total={totalViews}
+					reverseTransition={reverseTransition}
+				>
 					{view && view.children ? (
 						<div className="enact-fit" key={`view${index}`}>
 							{view.children}
@@ -252,13 +268,50 @@ const WizardPanelDecorator = (Wrapped) => {
 		);
 	};
 
-	WizardPanelProvider.propTypes = {
-		index: PropTypes.number
+	WizardPanelProvider.propTypes =  /** @lends sandstone/Panels.WizardPanel.WizardPanelProvider.prototype */  {
+		/**
+		* The currently selected step.
+		*
+		* @type {Number}
+		* @default 0
+		* @private
+		*/
+		index: PropTypes.number,
+
+		/**
+		* The "default" title for WizardPanel if title isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
+		* @example
+		* 	<WizardPanel title="Title">
+		*		<WizardPanel.View>
+		*			lorem ipsum ...
+		*		</WizardPanel.View>
+		*	</WizardPanel>
+		*
+		* @type {Number}
+		* @private
+		*/
+		title: PropTypes.string
+	};
+
+	WizardPanelProvider.defaultProps = {
+		index: 0,
+		title: ''
 	};
 
 	return WizardPanelProvider;
 };
 
+/**
+ * A WizardPanel that can step through different views.
+ * Expects [View]{@link sandstone/Panels.WizardPanel.View} as children.
+ *
+ * @class WizardPanel
+ * @memberof sandstone/Panels
+ * @extends sandstone/Panels.WizardPanel
+ * @mixes ui/Changeable.Changeable
+ * @ui
+ * @public
+ */
 const WizardPanel = Changeable(
 	{prop: 'index'},
 	WizardPanelDecorator(
@@ -266,6 +319,14 @@ const WizardPanel = Changeable(
 	)
 );
 
+/**
+ * ViewBase that sets the buttons, children, footer,
+ * subtitle, and title for [WizardPanelBase]{@link sandstone/Panels.WizardPanel.WizardPanelBase}.
+ *
+ * @class ViewBase
+ * @memberof sandstone/Panels.WizardPanel
+ * @ui
+ */
 function ViewBase ({buttons, children, footer, subtitle, title}) {
 	const set = React.useContext(WizardPanelContext);
 
