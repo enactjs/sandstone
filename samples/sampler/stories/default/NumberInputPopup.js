@@ -20,7 +20,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<div>
 				<NumberInputPopup
-					length={number('length', Config)}
+					maxLength={number('maxLength', Config)}
 					title={text('title', Config, 'Title Text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					placeholder={text('placeholder', Config, 'placeholder text')}

@@ -88,12 +88,12 @@ const NumberInputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Set the length of input value.
+		 * Set the maximum length of input value.
 		 *
 		 * @type {String}
 		 * @public
 		 */
-		length: PropTypes.number,
+		maxLength: PropTypes.number,
 
 		/**
 		 * Called when the input value is changed.
@@ -190,7 +190,7 @@ const NumberInputPopupBase = kind({
 	},
 
 	defaultProps: {
-		length: 4,
+		maxLength: 4,
 		placeholder: '-',
 		popupType: 'full',
 		subtitle: '',
@@ -209,14 +209,14 @@ const NumberInputPopupBase = kind({
 			forKey('number'),
 			// LAZILY copy/paste the below code to get the same behavior
 			adaptEvent(
-				({key}, {length, value}) => ({
-					value: (value.length >= length ? value : `${value}${key}`)
+				({key}, {maxLength, value}) => ({
+					value: (value.maxLength >= maxLength ? value : `${value}${key}`)
 				}),
 				handle(
 					forward('onChange'),
 
 					// DEV NOTE: Probably move these to its own Decorator
-					({value: updatedValue}, {length}) => (updatedValue.length >= length),
+					({value: updatedValue}, {maxLength}) => (updatedValue.maxLength >= maxLength),
 					(ev, props) => {
 						setTimeout(() => {
 							forward('onClose', ev, props);
@@ -229,14 +229,14 @@ const NumberInputPopupBase = kind({
 		),
 		onAdd: handle(
 			adaptEvent(
-				({value: key}, {length, value}) => ({
-					value: (value.length >= length ? value : `${value}${key}`)
+				({value: key}, {maxLength, value}) => ({
+					value: (value.maxLength >= maxLength ? value : `${value}${key}`)
 				}),
 				handle(
 					forward('onChange'),
 
 					// DEV NOTE: Probably move these to its own Decorator
-					({value: updatedValue}, {length}) => (updatedValue.length >= length),
+					({value: updatedValue}, {maxLength}) => (updatedValue.maxLength >= maxLength),
 					(ev, props) => {
 						setTimeout(() => {
 							forward('onClose', ev, props);
@@ -261,12 +261,12 @@ const NumberInputPopupBase = kind({
 
 	computed: {
 		popupClassName: ({popupType, styler}) => styler.join('numberInputPopup', popupType),
-		preview: ({css, type, value, length}) => {
+		preview: ({css, type, value, maxLength}) => {
 			const values = value.toString().split('');
 			const password = (type === 'password');
 
-			if (length <= LENGTH_LIMIT) {
-				const items = new Array(length).fill('');
+			if (maxLength <= LENGTH_LIMIT) {
+				const items = new Array(maxLength).fill('');
 				return (
 					<Layout aria-label={!password ? values.join(' ') : null} aria-live="polite">
 						{items.map((_, index) => (
@@ -336,7 +336,7 @@ const NumberInputPopupDecorator = compose(
  * Usage:
  * ```
  * <NumberInputPopup
- *   length={4}
+ *   maxLength={4}
  *   onComplete={this.handleInputComplete}
  *   placeholder="Placeholder"
  *   popupType="overlay"
