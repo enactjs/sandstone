@@ -104,6 +104,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
 	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
 	 * `false` if the content of the list could get focus
 	 *
 	 * @type {Boolean}
@@ -111,6 +119,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @private
 	 */
 	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -287,6 +304,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	itemSize: gridListItemSizeShape.isRequired,
 
 	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
 	 * `false` if the content of the list could get focus
 	 *
 	 * @type {Boolean}
@@ -294,6 +319,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @private
 	 */
 	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.

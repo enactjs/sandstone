@@ -81,6 +81,14 @@ let Scroller = (props) => {
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
 	 * `false` if the content of the scroller could get focus
 	 *
 	 * @type {Boolean}
@@ -88,6 +96,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @private
 	 */
 	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
 
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
@@ -122,6 +139,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 *	arrowKey: false,
 	 *	drag: false,
 	 *	pageKey: false,
+	 *	track: false,
 	 *	wheel: true
 	 * }
 	 * @private
