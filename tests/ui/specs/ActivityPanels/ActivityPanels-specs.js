@@ -233,7 +233,6 @@ describe('ActivityPanels', function () {
 
 				browser.waitUntil(() => Page.item6.isFocused(), 3000, 'Item 6 focus', 100);
 
-				Page.button3.waitForExist();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
