@@ -143,7 +143,7 @@ describe('ActivityPanels', function () {
 
 	describe('Spotlight', function () {
 		it('should spot item 1 on render', function () {
-			browser.waitUntil(() => Page.item1.isFocused(), 2000, undefined, 100);
+			browser.waitUntil(() => Page.item1.isFocused(), 3000, undefined, 100);
 		});
 
 		describe('pointer', function () {
@@ -177,7 +177,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 			});
 
 			it('should spot last focused item when transitioning back using back key', function () {
@@ -185,12 +185,12 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.item2.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item2.isFocused(), 3000, undefined, 100);
 			});
 
 			// Revisit this test.  As we can't focus the breadcrumb with 5-way by going down right now
@@ -201,26 +201,26 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, 'Item 5 focus', 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, 'Item 5 focus', 100);
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.button3.isFocused(), 2000, 'Button 3 focus', 100);
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, 'Button 3 focus', 100);
 
 				Page.spotlightRight();
 
-				browser.waitUntil(() => Page.button4.isFocused(), 2000, 'Button 4 focus', 100);
+				browser.waitUntil(() => Page.button4.isFocused(), 3000, 'Button 4 focus', 100);
 
 				Page.spotlightLeft();
 				Page.spotlightLeft();
 
-				browser.waitUntil(() => Page.breadcrumb.isFocused(), 2000, 'Breadcrumb focus', 100);
+				browser.waitUntil(() => Page.breadcrumb.isFocused(), 3000, 'Breadcrumb focus', 100);
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, 'Item 5 refocus', 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, 'Item 5 refocus', 100);
 			});
 
 			it('should spot last focused item in first panel when transitioning after deep navigation', function () {
@@ -231,23 +231,23 @@ describe('ActivityPanels', function () {
 				Page.item6.waitForExist();
 				Page.spotlightDown();
 
-				browser.waitUntil(() => Page.item6.isFocused(), 2000, 'Item 6 focus', 100);
+				browser.waitUntil(() => Page.item6.isFocused(), 3000, 'Item 6 focus', 100);
 
 				Page.button3.waitForExist();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.button3.isFocused(), 2000, 'Button 3 focus', 100);
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, 'Button 3 focus', 100);
 
 				Page.backKey();
 				Page.waitForPanelLeave(2);
 
-				browser.waitUntil(() => Page.item6.isFocused(), 2000, 'Item 6 refocus', 100);
+				browser.waitUntil(() => Page.item6.isFocused(), 3000, 'Item 6 refocus', 100);
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.item2.isFocused(), 2000, 'Item 2 refocus', 100);
+				browser.waitUntil(() => Page.item2.isFocused(), 3000, 'Item 2 refocus', 100);
 			});
 
 			// Panel does not remember last focused item when moving forward to already visited panel
@@ -259,15 +259,15 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightLeft();
 
-				browser.waitUntil(() => Page.breadcrumb.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.breadcrumb.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightRight();
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightDown();
 				Page.spotlightDown();
@@ -275,8 +275,8 @@ describe('ActivityPanels', function () {
 				Page.spotlightLeft();
 				Page.spotlightRight();
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100); // only from 2.4.0
-				// browser.waitUntil(() => Page.item8.isFocused(), 2000, undefined, 100); // on 2.3.0 and prior
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100); // only from 2.4.0
+				// browser.waitUntil(() => Page.item8.isFocused(), 3000, undefined, 100); // on 2.3.0 and prior
 			});
 
 			it('should spot the seventh item on last panel', function () {
@@ -294,17 +294,17 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightLeft();
 
-				browser.waitUntil(() => Page.breadcrumb.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.breadcrumb.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightRight();
 
-				browser.waitUntil(() => Page.item7.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item7.isFocused(), 3000, undefined, 100);
 			});
 
 			it('should spot third item on first panel', function () {
@@ -313,13 +313,13 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightLeft();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.item3.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item3.isFocused(), 3000, undefined, 100);
 			});
 		});
 
@@ -335,12 +335,12 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.button3.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				browser.waitUntil(() => Page.body.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.body.isFocused(), 3000, undefined, 100);
 			});
 
 			it('should spot default item in Default panel', function () {
@@ -365,7 +365,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 			});
 
 			it('should re-spot last focused in last focused panel', function () {
@@ -373,24 +373,24 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, 'item 5 focus 1', 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, 'item 5 focus 1', 100);
 
 				Page.item8.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.button3.isFocused(), 2000, 'button 3 focus', 100);
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, 'button 3 focus', 100);
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(2);
 
-				browser.waitUntil(() => Page.body.isFocused(), 2000, 'body focus', 100);
+				browser.waitUntil(() => Page.body.isFocused(), 3000, 'body focus', 100);
 
 				Page.button1.moveTo();
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, 'item 5 focus 2', 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, 'item 5 focus 2', 100);
 
 				// Focus to item 6 so it can be last-focused item when returning
 				Page.spotlightDown();
@@ -401,7 +401,7 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(3);
 
-				browser.waitUntil(() => Page.item6.isFocused(), 2000, 'item 6', 100);
+				browser.waitUntil(() => Page.item6.isFocused(), 3000, 'item 6', 100);
 			});
 
 			// This test is failing intermittently (only when running the full suite and not when
@@ -411,22 +411,22 @@ describe('ActivityPanels', function () {
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(0);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.spotlightSelect();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.button3.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.button3.isFocused(), 3000, undefined, 100);
 
 				Page.backKey();
 				Page.waitForPanelLeave(2);
 
-				browser.waitUntil(() => Page.item5.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item5.isFocused(), 3000, undefined, 100);
 
 				Page.backKey();
 				Page.waitForPanelLeave(1);
 
-				browser.waitUntil(() => Page.item3.isFocused(), 2000, undefined, 100);
+				browser.waitUntil(() => Page.item3.isFocused(), 3000, undefined, 100);
 			});
 		});
 	});
