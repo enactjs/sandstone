@@ -11,6 +11,8 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
+import css from './VirtualList.module.less';
+
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
@@ -376,6 +378,7 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
+		css,
 		getClientSize,
 		getComponentProps,
 		itemRenderer: ({index, ...itemRest}) => (
