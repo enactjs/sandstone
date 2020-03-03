@@ -160,7 +160,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `'translate'`,
 	 * * `'native'`.
 	 *
-	 * @name scrollMode
 	 * @type {String}
 	 * @default 'native'
 	 * @public
@@ -344,7 +343,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `'translate'`,
 	 * * `'native'`.
 	 *
-	 * @name scrollMode
 	 * @type {String}
 	 * @default 'native'
 	 * @public
