@@ -169,6 +169,7 @@ const WizardPanelBase = kind({
 				>
 					<Steps current={index + 1} slot="slotAbove" total={total} />
 					<Button
+						className={css.nextButton}
 						disabled={index === (total - 1)}
 						icon="arrowlargeright"
 						onClick={onIncrementStep}
@@ -177,6 +178,7 @@ const WizardPanelBase = kind({
 						{nextButtonText}
 					</Button>
 					<Button
+						className={css.prevButton}
 						disabled={index === 0}
 						icon="arrowlargeleft"
 						onClick={onDecrementStep}
