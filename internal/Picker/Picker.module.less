@@ -6,7 +6,7 @@
 
 .picker {
 	display: inline-block;
-	border-radius: @sand-button-small-height;
+	border-radius: @sand-picker-border-radius;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -30,8 +30,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		vertical-align: bottom;
-		line-height: @sand-picker-value-line-height;
-		height: @sand-picker-value-height;
+		line-height: @sand-picker-valuewrapper-line-height;
+		height: @sand-picker-button-height;
 	}
 
 	.incrementer,
@@ -93,15 +93,27 @@
 			line-height: @sand-button-small-height;
 		}
 
-		.indicators {
-			display: inline-block;
-			width: 24px;
-			height: 24px;
-			margin-right: 10px;
-			margin-bottom: 10px;
-			margin-top: 120px;
-			border-radius: 50%;
-			cursor: pointer;
+		.valueWrapper {
+			line-height: @sand-picker-joined-valuewrapper-line-height;
+		}
+
+		.indicatorContainer {
+			margin-bottom: 33px;
+			margin-top: 160px;
+			line-height: 0;
+			.indicator {
+				display: inline-block;
+				width: 18px;
+				height: 18px;
+				margin-right: 24px;
+				border-radius: 50%;
+				vertical-align: middle;
+				cursor: pointer;
+				&.active {
+					width: 24px;
+					height: 24px;
+				}
+			}
 		}
 
 		.incrementer,
@@ -134,25 +146,27 @@
 		});
 
 		&.horizontal {
-			font-size: @sand-item-font-size-large;
-			height:  @sand-picker-horizontal-button-height-small;
-			line-height: @sand-button-small-height-large;
-			border-radius: @sand-picker-horizontal-button-border-radius;
+			&.picker{
+				border-radius: @sand-picker-horizontal-button-border-radius;
+			}
 
 			:global(.enact-locale-right-to-left) & {
 				flex-direction: row-reverse;
 			}
+
 			&.incrementing::before {
 				border-right-width: @sand-integer-picker-shadow-width;
 			}
+
 			&.decrementing::before {
 				border-left-width: @sand-integer-picker-shadow-width;
 			}
+
 			.incrementer,
 			.decrementer {
 				margin: 0;
-				height: @sand-button-small-height;
-				line-height: @sand-button-small-height;
+				height: @sand-picker-button-height;
+				line-height: @sand-picker-button-height;
 
 				.icon {
 					visibility: hidden;
@@ -203,6 +217,7 @@
 	&.vertical .valueWrapper {
 		display: block;
 		position: relative;
+		line-height: @sand-picker-joined-valuewrapper-line-height;
 
 		.sizingPlaceholder,
 		.item {
@@ -237,7 +252,7 @@
 
 			&.horizontal {
 				background: @sand-picker-bg-color;
-				.indicators {
+				.indicator {
 					background-color: @sand-picker-indicators-inactive-bg-color;
 
 					&.active {
@@ -254,7 +269,7 @@
 					color: @sand-spotlight-disabled-text-color;
 				});
 
-				.indicators {
+				.indicator {
 					background-color: @sand-picker-indicators-inactive-focus-bg-color;
 
 					&.active {
