@@ -51,6 +51,7 @@ const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignP
 	const consumeEventWithFocus = (ev) => {
 		const {target} = ev;
 		let nextTarget;
+
 		if (isBody(target)) {
 			// Enter key on scroll Body.
 			// Scroll thumb get focus.
