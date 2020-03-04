@@ -5,8 +5,8 @@ import React from 'react';
 
 import Input from './Input';
 
-const NumberInputPopupBase = kind({
-	name: 'NumberInputPopup',
+const InputPopupBase = kind({
+	name: 'InputPopup',
 
 	propTypes: {
 		type: PropTypes.oneOf(['number', 'password'])
@@ -14,7 +14,7 @@ const NumberInputPopupBase = kind({
 
 	render: ({type, ...rest}) => {
 		deprecate({
-			name: 'sandstone/NumberInputPopup',
+			name: 'sandstone/InputPopup',
 			replacedBy: 'sandstone/Input',
 			message: 'Use `sandstone/Input` with `type="number"` or `type="passwordnumber"'
 		});
@@ -30,7 +30,7 @@ const NumberInputPopupBase = kind({
  *
  * Usage:
  * ```
- * <NumberInputPopup
+ * <InputPopup
  *   length={4}
  *   onComplete={this.handleInputComplete}
  *   placeholder="Placeholder"
@@ -41,17 +41,17 @@ const NumberInputPopupBase = kind({
  * />
  * ```
  *
- * @class NumberInputPopup
+ * @class InputPopup
  * @memberof sandstone/InputPopup
- * @extends sandstone/InputPopup.NumberInputPopupBase
+ * @extends sandstone/InputPopup.InputPopupBase
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
  * @ui
  * @public
  */
 
-export default NumberInputPopupBase;
+export default InputPopupBase;
 export {
-	NumberInputPopupBase as NumberInputPopup,
-	NumberInputPopupBase
+	InputPopupBase as InputPopup,
+	InputPopupBase
 };
