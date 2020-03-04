@@ -690,9 +690,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			on('touchmove', this.activityDetected);
 		}
-		on('keydown', this.handleGlobalKeyDown);
+		document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
 		document.addEventListener('wheel', this.activityDetected, {capture: true});
-		document.addEventListener('keydown', this.activityDetected, {capture: true});
 		this.startDelayedFeedbackHide();
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
@@ -786,9 +785,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			off('touchmove', this.activityDetected);
 		}
-		off('keydown', this.handleGlobalKeyDown);
+		document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
 		document.removeEventListener('wheel', this.activityDetected, {capture: true});
-		document.removeEventListener('keydown', this.activityDetected, {capture: true});
 		this.stopRewindJob();
 		this.stopAutoCloseTimeout();
 		this.stopDelayedTitleHide();
@@ -1126,6 +1124,11 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	handleGlobalKeyDown = this.handle(
+		returnsTrue(this.activityDetected),
+		returnsTrue(() => {
+			console.count('@@@')
+			;
+		}),
 		forKey('down'),
 		() => (
 			!this.state.mediaControlsVisible &&
@@ -1676,8 +1679,6 @@ const VideoPlayerBase = class extends React.Component {
 
 			this.handleSliderBlur();
 			this.hideControls();
-		} else {
-			this.activityDetected();
 		}
 	}
 
