@@ -726,7 +726,7 @@ describe('Popup', function () {
 
 				// Wave the pointer to change to cursor mode (step 5)
 				Page.showPointerByKeycode();
-				// Position the pointer on the right of the Cancel buttion inside popup
+				// Position the pointer on the right of the Cancel button inside popup
 				$('#buttonCancel').moveTo(200, 200);
 
 				// Spotlight on button in popup is blur (verify step 5)
@@ -910,7 +910,7 @@ describe('Popup', function () {
 				// 5-way to the OK button (step 5) (How to get it to spot Cancel button?)
 				Page.spotlightLeft();
 
-				// Spotlight is on OK button (verify steo 5)
+				// Spotlight is on OK button (verify step 5)
 				expect(popup.buttonOK.isFocused()).to.be.true();
 			});
 		});

@@ -221,7 +221,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  */
 
 /**
- * The text displayed in the label when every weekeday is selected
+ * The text displayed in the label when every weekday is selected
  *
  * @name everyWeekdayText
  * @type {String}

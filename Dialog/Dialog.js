@@ -206,7 +206,7 @@ const DialogBase = kind({
 /**
  * A modal dialog component, ready to use in Sandstone applications.
  *
- * `Dialog` may be used to interrupt a workflow to receive feedback from the user. The dialong
+ * `Dialog` may be used to interrupt a workflow to receive feedback from the user. The dialog
  * consists of a title, a subtitle, a message, and an area for additional
  * [buttons]{@link sandstone/Dialog.Dialog.buttons}.
  *

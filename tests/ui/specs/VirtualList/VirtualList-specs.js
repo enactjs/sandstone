@@ -98,7 +98,7 @@ describe('VirtualList', function () {
 			Page.item(1).moveTo();
 			// Verify Step 4: Spotlight displays on 'Item 001'.
 			expectFocusedItem(1, 'focus Item 1');
-			// Step 5. 5-way Down aznd 5-way Right.
+			// Step 5. 5-way Down and 5-way Right.
 			Page.spotlightDown();
 			Page.spotlightRight();
 			// Verify Step 3: Spotlight displays on the Disabled Up Paging Control (∧).
