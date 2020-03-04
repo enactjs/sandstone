@@ -22,7 +22,7 @@ describe('VirtualList', () => {
 		resultScrollTop;
 
 	beforeEach(() => {
-		clientSize = {clientWidth: 1280, clientHeight: 720};
+		clientSize = {clientWidth: 1280, clientHeight: 768};
 		dataSize = 200;
 		items = [];
 		onScrollCount = 0;
@@ -104,7 +104,7 @@ describe('VirtualList', () => {
 			/>
 		);
 
-		const expected = 15; // 720 / 60 + 3
+		const expected = 15; // (768 - 48) / 60 + 3
 		const actual = subject.find('Item[data-index]').length;
 
 		expect(actual).toBe(expected);
