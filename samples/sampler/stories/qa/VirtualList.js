@@ -223,7 +223,6 @@ storiesOf('VirtualList', module)
 					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-					scrollMode='translate'
 				/>
 			);
 		},
