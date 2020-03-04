@@ -38,6 +38,22 @@ const TimesBase = kind({
 		current: PropTypes.number,
 
 		/**
+		 * Removes the current time.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noCurrentTime: PropTypes.bool,
+
+		/**
+		 * Removes the total time.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noTotalTime: PropTypes.bool,
+
+		/**
 		 * The total time (duration) in seconds of the loaded video source.
 		 *
 		 * @type {Number}
@@ -60,20 +76,30 @@ const TimesBase = kind({
 	computed: {
 		currentPeriod:   ({current}) => secondsToPeriod(current),
 		currentReadable: ({current, formatter}) => secondsToTime(current, formatter),
+		noSeparator: ({noCurrentTime, noTotalTime}) => noCurrentTime || noTotalTime,
 		totalPeriod:     ({total}) => secondsToPeriod(total),
 		totalReadable:   ({total, formatter}) => secondsToTime(total, formatter)
 	},
 
-	render: ({currentPeriod, currentReadable, totalPeriod, totalReadable, ...rest}) => {
+	render: ({currentPeriod, currentReadable, noCurrentTime, noSeparator, noTotalTime, totalPeriod, totalReadable, ...rest}) => {
 		delete rest.current;
 		delete rest.formatter;
 		delete rest.total;
 
 		return (
 			<div {...rest}>
-				<time className={css.currentTime} dateTime={currentPeriod}>{currentReadable}</time>
-				<span className={css.separator}>/</span>
-				<time className={css.totalTime} dateTime={totalPeriod}>{totalReadable}</time>
+				{noCurrentTime ?
+					null :
+					<time className={css.currentTime} dateTime={currentPeriod}>{currentReadable}</time>
+				}
+				{noSeparator ?
+					null :
+					<span className={css.separator}>/</span>
+				}
+				{noTotalTime ?
+					null :
+					<time className={css.totalTime} dateTime={totalPeriod}>{totalReadable}</time>
+				}
 			</div>
 		);
 	}

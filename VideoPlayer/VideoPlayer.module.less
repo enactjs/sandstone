@@ -6,7 +6,7 @@
 
 .videoPlayer {
 	// Set by counting the IconButtons inside the side components.
-	--sand-video-player-max-side-components: 0;
+	--liftDistance: 0px;
 
 	overflow: hidden;
 
@@ -60,10 +60,15 @@
 			left: @sand-video-player-padding-side;
 			right: @sand-video-player-padding-side;
 
+			&.lift {
+				transform: translateY(~"calc(var(--liftDistance) * -1)");
+				transition: transform 0.3s linear;
+			}
+
 			&.hidden {
 				pointer-events: none;
 
-				.sliderFrame {
+				.sliderContainer {
 					position: absolute;
 					width: 100%;
 				}
@@ -113,6 +118,7 @@
 					// Badges and title components
 					.infoComponents {
 						vertical-align: super;
+						font-size: 54px;
 
 						&.hidden {
 							opacity: 0;
@@ -139,11 +145,20 @@
 						}
 					}
 				}
+			}
+
+			.sliderContainer {
+				display: flex;
+				align-items: center;
+
+				:global(.enact-locale-right-to-left) & {
+					direction: ltr;
+				}
 
 				.times {
 					.sand-text-base(@sand-video-player-indicator-text-size);
-					align-self: flex-end;
 					white-space: nowrap;
+					flex: 0 1 auto;
 
 					> * {
 						display: inline-block;
@@ -157,175 +172,89 @@
 						direction: ltr;
 					}
 				}
-			}
 
-			.sliderFrame {
-				@slider-padding-v: ((@sand-video-player-slider-tap-area - @sand-video-player-slider-height) / 2);
-				@slider-padding-h: @sand-video-player-slider-knob-size;
+				.sliderFrame {
+					@slider-padding-v: ((@sand-video-player-slider-tap-area - @sand-video-player-slider-height) / 2);
+					@slider-padding-h: @sand-video-player-slider-knob-size;
+					flex: 1 0 auto;
 
-				&.hidden {
-					will-change: opacity;
-					opacity: 0;
-				}
-
-				.mediaSlider {
-					margin: 0;
-					padding: @slider-padding-v 0;
-					height: @sand-video-player-slider-height;
-
-					// Add a tap area that extends to the edges of the screen, to make the slider more accessible
-					&::before {
-						content: "";
-						position: absolute;
-						.position(0, -(@sand-video-player-padding-side));
+					&.hidden {
+						will-change: opacity;
+						opacity: 0;
 					}
 
-					// Grow the knob when the Slider gets spotted
-					.focus({
-						.knob::before {
-							transform: @sand-translate-center scale(0.5);
-							opacity: 1;
-						}
-					});
+					.mediaSlider {
+						margin: 0 @sand-video-player-slider-knob-size;
+						padding: @slider-padding-v 0;
+						height: @sand-video-player-slider-height;
 
-					.spottable({
-						&.pressed {
+						// Add a tap area that extends to the edges of the screen, to make the slider more accessible
+						&::before {
+							content: "";
+							position: absolute;
+							.position(0, -(@sand-video-player-padding-side));
+						}
+
+						// Grow the knob when the Slider gets spotted
+						.focus({
 							.knob::before {
 								transform: @sand-translate-center scale(0.75);
 								opacity: 1;
 							}
-						}
-					});
-				}
+						});
 
-				.fill,
-				.load {
-					border-top-right-radius: (@sand-video-player-slider-height / 2);
-					border-bottom-right-radius: (@sand-video-player-slider-height / 2);
-				}
-
-				// Knob
-				.knob {
-					@activate-transition-function: cubic-bezier(0.15, 0.85, 0.6, 1.65);
-					//@slide-transition-function:    cubic-bezier(0.15, 0.85, 0.53, 1.09);
-
-					//-webkit-transition: -webkit-transform @slide-transition-function 0.2s;
-					//transition:                 transform @slide-transition-function 0.2s;
-
-					&::before {
-						width: (@sand-video-player-slider-knob-size * 2);
-						height: (@sand-video-player-slider-knob-size * 2);
-						border-width: 0;
-						border-radius: @sand-video-player-slider-knob-size;
-						-webkit-transform: @sand-translate-center scale(0.5);
-						transform:         @sand-translate-center scale(0.5);
-						opacity: 0;
-						will-change: transform, opacity;
-						-webkit-transition: -webkit-transform @activate-transition-function 0.2s, opacity ease 0.2s;
-						transition:                 transform @activate-transition-function 0.2s, opacity ease 0.2s;
+						.spottable({
+							&.pressed {
+								.knob::before {
+									transform: @sand-translate-center scale(0.75);
+									opacity: 1;
+								}
+							}
+						});
 					}
-				}
 
-				&.scrubbing {
+					.fill,
+					.load {
+						border-top-right-radius: (@sand-video-player-slider-height / 2);
+						border-bottom-right-radius: (@sand-video-player-slider-height / 2);
+					}
+
+					// Knob
 					.knob {
-						display: block;
-					}
-				}
+						@activate-transition-function: cubic-bezier(0.15, 0.85, 0.6, 1.65);
+						//@slide-transition-function:    cubic-bezier(0.15, 0.85, 0.53, 1.09);
 
-				// Status Indicator
-				.status-indicator {
-					.sand-slider-popup-center {
-						font-family: @sand-font-family;
-						font-size: @sand-video-player-indicator-text-size;
-						line-height: 72px;
-						position: absolute;	// Allows flip-h to work
-						margin: 0 60px;
-					}
-				}
-			}
+						//-webkit-transition: -webkit-transform @slide-transition-function 0.2s;
+						//transition:                 transform @slide-transition-function 0.2s;
 
-			.controlsFrame {
-				@expanding-button-clearance: 6px;
-
-				position: relative;
-				display: flex;
-
-				&.hidden {
-					will-change: opacity;
-					opacity: 0;
-				}
-
-				.leftComponents,
-				.rightComponents {
-					flex: 0 1;
-					// Take the size of buttons, add margins for each button, multiply that by the amount of buttons, then remove the margins for the first and last button
-					// Due to a LESS parsing issue, this 'calc' must be applied to a full-property, not a short-hand property
-					flex-basis: ~"calc((" @sand-button-height + (@sand-spotlight-outset * 2) ~" * var(--sand-video-player-max-side-components)) - " (@sand-spotlight-outset * 2) ~")";
-					white-space: nowrap;
-					padding: @expanding-button-clearance 0;
-				}
-				.leftComponents {
-					text-align: start;
-
-					> :first-child {
-						.margin-start-end(0, @sand-button-h-margin);
-					}
-				}
-				.rightComponents {
-					text-align: end;
-
-					> :last-child {
-						.margin-start-end(@sand-button-h-margin, 0);
-					}
-				}
-				.centerComponentsContainer {
-					flex: 3 1;
-					width: 0; // the width will be automatically pushed wider by flex. width:auto breaks this.
-					// Must get clever with the masking. This container must support horizontal
-					// clipping without inhibiting the ability for components to overflow out of
-					// their natural containers. overflow-x:hidden;overflow-y:visible; adds a clip
-					// region and a scrollbar which conflicts with buttons' ability to grow large
-					// when clicked. Basic overflow:hidden cannot be used either, as it clips too.
-					-webkit-mask-image: -webkit-gradient(linear, left top, right top, color-stop(0.9,  rgba(0,0,0,1)), color-stop(1,  rgba(0,0,0,0)));
-					padding: @expanding-button-clearance 0;
-
-					.centerComponents {
-						transition: 500ms transform ease;
-						will-change: transform;
-						white-space: nowrap;
-
-						&.more {
-							transform: translateX(-100%);
-							text-align: center;
-							pointer-events: none;
-
-							.moreControls {
-								pointer-events: auto;
-							}
-						}
-						.mediaControls,
-						.moreControls {
-							width: 100%;
-							display: inline-block;
-
-							> * {
-								vertical-align: top;
-							}
-						}
-						.mediaControls {
-							text-align: center;
-							direction: ltr;
-						}
-						.moreControls {
-							pointer-events: none;
+						&::before {
+							width: (@sand-video-player-slider-knob-size * 2);
+							height: (@sand-video-player-slider-knob-size * 2);
+							border-width: 0;
+							border-radius: @sand-video-player-slider-knob-size;
+							-webkit-transform: @sand-translate-center scale(0.5);
+							transform:         @sand-translate-center scale(0.5);
+							opacity: 0;
+							will-change: transform, opacity;
+							-webkit-transition: -webkit-transform @activate-transition-function 0.2s, opacity ease 0.2s;
+							transition:                 transform @activate-transition-function 0.2s, opacity ease 0.2s;
 						}
 					}
 
-					:global(.enact-locale-right-to-left) & {
-						-webkit-mask-image: -webkit-gradient(linear, right top, left top, color-stop(0.9,  rgba(0,0,0,1)), color-stop(1,  rgba(0,0,0,0)));
+					&.scrubbing {
+						.knob {
+							display: block;
+						}
+					}
 
-						.centerComponents.more {
-							transform: translateX(100%);
+					// Status Indicator
+					.status-indicator {
+						.sand-slider-popup-center {
+							font-family: @sand-font-family;
+							font-size: @sand-video-player-indicator-text-size;
+							line-height: 72px;
+							position: absolute;	// Allows flip-h to work
+							margin: 0 60px;
 						}
 					}
 				}
@@ -346,6 +275,7 @@
 				background-color: @sand-video-feedback-mini-bg-color;
 				color: @sand-video-feedback-mini-text-color;
 			}
+
 			.bottom {
 				background-color: @sand-video-player-bottom-bg-color;
 
@@ -359,24 +289,6 @@
 						.redIcon {
 							background-color: @sand-video-player-redicon-bg-color;
 							color: @sand-video-player-redicon-text-color;
-						}
-					}
-					.times {
-						.sand-text-base(@sand-video-player-indicator-text-size);
-						align-self: flex-end;
-						white-space: nowrap;
-						color: @sand-video-player-subdued-text-color;
-
-						> * {
-							display: inline-block;
-						}
-
-						.separator {
-							padding: 0 1ex;
-						}
-
-						.currentTime {
-							color: @sand-video-player-indicator-text-color;
 						}
 					}
 				}
