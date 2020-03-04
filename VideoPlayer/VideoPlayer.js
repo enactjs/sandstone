@@ -653,7 +653,6 @@ const VideoPlayerBase = class extends React.Component {
 		this.selectPlaybackRates('fastForward');
 		this.sliderKnobProportion = 0;
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
-		this.moreButtonSpotlightId = this.mediaControlsSpotlightId + '_moreButton';
 
 		// Re-render-necessary State
 		this.state = {
@@ -734,7 +733,6 @@ const VideoPlayerBase = class extends React.Component {
 
 		if (this.props.spotlightId !== prevProps.spotlightId) {
 			this.mediaControlsSpotlightId = this.props.spotlightId + '_mediaControls';
-			this.moreButtonSpotlightId = this.mediaControlsSpotlightId + '_moreButton';
 		}
 
 		if (!this.state.mediaControlsVisible && prevState.mediaControlsVisible) {
@@ -778,17 +776,6 @@ const VideoPlayerBase = class extends React.Component {
 		// Once video starts loading it queues bottom control render until idle
 		if (this.state.bottomControlsRendered && !prevState.bottomControlsRendered && !this.state.mediaControlsVisible) {
 			this.showControls();
-		}
-
-		if (this.state.mediaControlsVisible && prevState.infoVisible !== this.state.infoVisible) {
-			const current = Spotlight.getCurrent();
-			if (current && current.dataset && current.dataset.spotlightId === this.moreButtonSpotlightId) {
-				// need to blur manually to read out `infoComponent`
-				current.blur();
-			}
-			setTimeout(() => {
-				Spotlight.focus(this.moreButtonSpotlightId);
-			}, 1);
 		}
 	}
 
@@ -1589,15 +1576,6 @@ const VideoPlayerBase = class extends React.Component {
 		return true;
 	}
 
-	handleKeyDownFromControls = this.handle(
-		// onKeyDown is used as a proxy for when the title has been read because it can only occur
-		// after the controls have been shown.
-		this.markAnnounceRead,
-		forKey('down'),
-		this.disablePointerMode,
-		this.hideControls
-	)
-
 	//
 	// Player Interaction events
 	//
@@ -1710,7 +1688,7 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showMoreComponents}) => {
+	handleToggleMore = ({showMoreComponents, liftDistance}) => {
 		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
@@ -1720,6 +1698,7 @@ const VideoPlayerBase = class extends React.Component {
 			this.stopDelayedTitleHide();
 		}
 
+		this.player.style.setProperty('--liftDistance', `${liftDistance}px`);
 		this.setState(({announce}) => ({
 			infoVisible: showMoreComponents,
 			titleVisible: true,
@@ -1873,7 +1852,7 @@ const VideoPlayerBase = class extends React.Component {
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
 						<ControlsContainer
-							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden)}
+							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
 						>
 							{/*
@@ -1892,43 +1871,56 @@ const VideoPlayerBase = class extends React.Component {
 									>
 										{infoComponents}
 									</MediaTitle>
-									<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} />
+									{noSlider ?
+										<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
+										null
+									}
 								</div> :
 								null
 							}
-
-							{noSlider ? null : <MediaSlider
-								backgroundProgress={this.state.proportionLoaded}
-								disabled={disabled || this.state.sourceUnavailable}
-								forcePressed={this.state.slider5WayPressed}
-								onBlur={this.handleSliderBlur}
-								onChange={this.onSliderChange}
-								onFocus={this.handleSliderFocus}
-								onKeyDown={this.handleSliderKeyDown}
-								onKnobMove={this.handleKnobMove}
-								onSpotlightUp={this.handleSpotlightUpFromSlider}
-								selection={proportionSelection}
-								spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
-								value={this.state.proportionPlayed}
-								visible={this.state.mediaSliderVisible}
-							>
-								<FeedbackTooltip
-									action={this.state.feedbackAction}
-									duration={this.state.duration}
-									formatter={durFmt}
-									hidden={!this.state.feedbackVisible || this.state.sourceUnavailable}
-									playbackRate={this.selectPlaybackRate(this.speedIndex)}
-									playbackState={this.prevCommand}
-									thumbnailComponent={thumbnailComponent}
-									thumbnailDeactivated={this.props.thumbnailUnavailable}
-									thumbnailSrc={thumbnailSrc}
-								/>
-							</MediaSlider>}
-
+							{noSlider ?
+								null :
+								<div className={css.sliderContainer}>
+									{this.state.mediaSliderVisible ?
+										<Times noTotalTime current={this.state.currentTime} formatter={durFmt} /> :
+										null
+									}
+									<MediaSlider
+										backgroundProgress={this.state.proportionLoaded}
+										disabled={disabled || this.state.sourceUnavailable}
+										forcePressed={this.state.slider5WayPressed}
+										onBlur={this.handleSliderBlur}
+										onChange={this.onSliderChange}
+										onFocus={this.handleSliderFocus}
+										onKeyDown={this.handleSliderKeyDown}
+										onKnobMove={this.handleKnobMove}
+										onSpotlightUp={this.handleSpotlightUpFromSlider}
+										selection={proportionSelection}
+										spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
+										value={this.state.proportionPlayed}
+										visible={this.state.mediaSliderVisible}
+									>
+										<FeedbackTooltip
+											action={this.state.feedbackAction}
+											duration={this.state.duration}
+											formatter={durFmt}
+											hidden={!this.state.feedbackVisible || this.state.sourceUnavailable}
+											playbackRate={this.selectPlaybackRate(this.speedIndex)}
+											playbackState={this.prevCommand}
+											thumbnailComponent={thumbnailComponent}
+											thumbnailDeactivated={this.props.thumbnailUnavailable}
+											thumbnailSrc={thumbnailSrc}
+										/>
+									</MediaSlider>
+									{this.state.mediaSliderVisible ?
+										<Times noCurrentTime total={this.state.duration} formatter={durFmt} /> :
+										null
+									}
+								</div>
+							}
 							<ComponentOverride
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
-								moreButtonSpotlightId={this.moreButtonSpotlightId}
 								onBackwardButtonClick={this.handleRewind}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}
@@ -1936,7 +1928,6 @@ const VideoPlayerBase = class extends React.Component {
 								onJump={this.handleJump}
 								onJumpBackwardButtonClick={this.onJumpBackward}
 								onJumpForwardButtonClick={this.onJumpForward}
-								onKeyDown={this.handleKeyDownFromControls}
 								onPause={this.handlePause}
 								onPlay={this.handlePlay}
 								onRewind={this.handleRewind}

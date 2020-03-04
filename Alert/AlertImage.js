@@ -5,9 +5,17 @@ import PropTypes from 'prop-types';
 import Image from '../Image';
 import componentCss from './AlertImage.module.less';
 
+/**
+ * An image for use in an Alert.
+ *
+ * @class
+ * @memberof sandstone/Alert
+ * @ui
+ * @public
+ */
 const AlertImage = kind({
 	name: 'AlertImage',
-	propTypes: {
+	propTypes: /** @lends sandstone/Alert.AlertImage */ {
 		/**
 		 * String value or Object of values used to determine which image will appear on
 		 * a specific component size.
