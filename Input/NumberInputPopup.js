@@ -1,4 +1,4 @@
-import {handle, forKey, oneOf, forward, adaptEvent} from '@enact/core/handle';
+import {handle, forKey, forward, adaptEvent} from '@enact/core/handle';
 import {add} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import Changeable from '@enact/ui/Changeable';
@@ -11,11 +11,12 @@ import React from 'react';
 
 import Button from '../Button';
 import Heading from '../Heading';
-import Icon from '../Icon';
+// import Icon from '../Icon';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 
 import Keypad from './Keypad';
+import NumberCell from './NumberCell';
 import {convertToPasswordFormat} from './util';
 
 import componentCss from './NumberInputPopup.module.less';
@@ -24,40 +25,40 @@ const LENGTH_LIMIT = 6;
 
 add('number', [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]); // Establish all number keys as 'number' keyword.
 
-const PreviewItem = kind({
-	name: 'PreviewItem',
+// const PreviewItem = kind({
+// 	name: 'PreviewItem',
 
-	propTypes: /** @lends sandstone/Checkbox.PreviewItem.prototype */ {
-		children: PropTypes.string,
-		password: PropTypes.bool,
-		passwordIcon: PropTypes.string
-	},
+// 	propTypes: /** @lends sandstone/Checkbox.PreviewItem.prototype */ {
+// 		children: PropTypes.string,
+// 		password: PropTypes.bool,
+// 		passwordIcon: PropTypes.string
+// 	},
 
-	defaultProps: {
-		password: false,
-		passwordIcon: 'circle'
-	},
+// 	defaultProps: {
+// 		password: false,
+// 		passwordIcon: 'circle'
+// 	},
 
-	styles: {
-		css: componentCss,
-		className: 'previewItem'
-	},
+// 	styles: {
+// 		css: componentCss,
+// 		className: 'previewItem'
+// 	},
 
-	computed: {
-		className: ({password, styler}) => styler.append({password})
-	},
+// 	computed: {
+// 		className: ({password, styler}) => styler.append({password})
+// 	},
 
-	render: ({children, password, passwordIcon, ...rest}) => {
-		return (
-			<Icon
-				size="large"
-				{...rest}
-			>
-				{(password && children) ? passwordIcon : children}
-			</Icon>
-		);
-	}
-});
+// 	render: ({children, password, passwordIcon, ...rest}) => {
+// 		return (
+// 			<Icon
+// 				size="large"
+// 				{...rest}
+// 			>
+// 				{(password && children) ? passwordIcon : children}
+// 			</Icon>
+// 		);
+// 	}
+// });
 
 /**
  * Base component for providing numeric input in the form of a popup
@@ -261,37 +262,49 @@ const NumberInputPopupBase = kind({
 
 	computed: {
 		popupClassName: ({popupType, styler}) => styler.join('numberInputPopup', popupType),
-		preview: ({css, type, value, length}) => {
+		fieldArea: ({css, onAdd, onRemove, type, value, length}) => {
 			const values = value.toString().split('');
 			const password = (type === 'password');
 
+			let preview;
 			if (length <= LENGTH_LIMIT) {
 				const items = new Array(length).fill('');
-				return (
+				preview = (
 					<Layout aria-label={!password ? values.join(' ') : null} aria-live="polite">
 						{items.map((_, index) => (
-							<Cell shrink component={PreviewItem} key={index} password={password}>
+							<Cell shrink component={NumberCell} key={index} password={password}>
 								{values[index]}
 							</Cell>
 						))}
 					</Layout>
 				);
 			} else {
-				return (
+				preview = (
 					<div className={css.previewText}>
 						{password ? convertToPasswordFormat(values) : values.join('')}
 					</div>
 				);
 			}
+
+			return (
+				<React.Fragment>
+					<Cell shrink className={css.previewArea}>{preview}</Cell>
+					<Cell shrink className={css.keypadArea}>
+						<Keypad onAdd={onAdd} onRemove={onRemove} />
+					</Cell>
+				</React.Fragment>
+			);
 		}
 	},
 
-	render: ({children, css, disabled, onClose, onKeyDown, type, onAdd, onRemove, open, placeholder, popupClassName, popupType, preview, subtitle, title, value, ...rest}) => {
+	render: ({children, css, disabled, fieldArea, onClose, onKeyDown, type, open, placeholder, popupClassName, popupType, subtitle, title, value, ...rest}) => {
 		const password = (type === 'password');
 
 		delete rest.onChange;
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
+		delete rest.onAdd;
+		delete rest.onRemove;
 
 		return (
 			<React.Fragment>
@@ -308,10 +321,7 @@ const NumberInputPopupBase = kind({
 							<Heading size="title" marqueeOn={'render'} alignment="center">{title}</Heading>
 							<Heading size="subtitle" marqueeOn={'render'} alignment="center">{subtitle}</Heading>
 						</Cell>
-						<Cell shrink className={css.previewArea}>{preview}</Cell>
-						<Cell shrink className={css.keypadArea}>
-							<Keypad onAdd={onAdd} onRemove={onRemove} />
-						</Cell>
+						{fieldArea}
 						<Cell shrink className={css.buttonArea}>{children}</Cell>
 					</Layout>
 				</Popup>

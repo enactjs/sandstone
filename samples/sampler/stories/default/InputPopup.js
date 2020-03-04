@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -10,7 +10,7 @@ Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputBase, Input);
 
 const prop = {
-	type: ['text', 'password']
+	type: ['text', 'password', 'number', 'passwordnumber']
 };
 
 storiesOf('Sandstone', module)
@@ -21,6 +21,7 @@ storiesOf('Sandstone', module)
 				<Input
 					disabled={boolean('disabled', Config)}
 					onComplete={action('onComplete')}
+					length={number('length', Config, {range: true, min: 1, max: 10}, 4)}
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					title={text('title', Config, 'Title Text')}
