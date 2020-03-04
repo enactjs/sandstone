@@ -126,7 +126,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
+		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -137,11 +137,13 @@ const useSpottable = (props, instances, context) => {
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
+				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
+				endBoundary = startBoundary + clientSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
-			if (start >= scrollPositionTarget && end <= scrollPositionTarget + clientSize) {
+			if (start >= startBoundary && end <= endBoundary) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
 				mutableRef.current.isScrolledBy5way = true;
 				focusByIndex(nextIndex);
