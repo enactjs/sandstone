@@ -16,7 +16,7 @@ const prop = {
 
 storiesOf('Sandstone', module)
 	.add(
-		'Input',
+		'Input OldNumericPopup',
 		() => (
 			<div>
 				<Input
