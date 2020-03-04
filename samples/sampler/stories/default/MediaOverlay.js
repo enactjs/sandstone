@@ -1,4 +1,4 @@
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -72,11 +72,14 @@ storiesOf('Sandstone', module)
 			const imageSource = prop.images[imageName];
 			const placeholderName = select('placeholder', prop.placeholderNames, Config, 'None');
 			const placeholder = prop.placeholder[placeholderName];
+			const progress = number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5);
 			return (
 				<MediaOverlay
 					disabled={boolean('disabled', Config)}
 					imageOverlay={imageSource}
 					placeholder={placeholder}
+					progress={progress}
+					progressBarShowing={boolean('progressBarShowing', Config)}
 					text={select('text', prop.text, Config, prop.text[0])}
 					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'center')}
 				>

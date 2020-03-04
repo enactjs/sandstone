@@ -152,7 +152,6 @@ const ProgressBarBase = kind({
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
-		console.log(css);
 
 		return (
 			<UiProgressBar

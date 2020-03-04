@@ -108,6 +108,14 @@ const MediaOverlayBase = kind({
 		progress: PropTypes.number,
 
 		/**
+		 * Progress Bar visibility
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		progressBarShowing: PropTypes.bool,
+
+		/**
 		 * Text to display over media.
 		 *
 		 * @type {String}
@@ -143,7 +151,7 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({css, imageOverlay, mediaComponent, placeholder, progress, source, text, textAlign, ...rest}) => {
+	render: ({css, imageOverlay, mediaComponent, placeholder, progress, progressBarShowing, source, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
@@ -169,11 +177,13 @@ const MediaOverlayBase = kind({
 						</Cell>
 					</Layout>
 				) : null}
-				<ProgressBar
-					css={css}
-					orientation="horizontal"
-					progress={progress}
-				/>
+				{progressBarShowing ?
+					<ProgressBar
+						css={css}
+						orientation="horizontal"
+						progress={progress}
+					/> : null
+				}
 			</div>
 		);
 	}
