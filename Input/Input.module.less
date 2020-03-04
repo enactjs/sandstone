@@ -5,26 +5,18 @@
 
 .popup {
 	.body {
-		padding: @sand-input-popup-padding;
-
-		.inputArea {
-			margin-top: @sand-input-popup-component-v-spacing;
-		}
+		line-height: 0; // This removes an undesirable layout shift occuring when a number is entered into the numberCells (Popup adds a line-height to all children).
 	}
-}
 
-.popup {
-	.numberCell,
-	.previewText {
+	.numberCell {
 		justify-content: center;
 		align-items: center;
 		border-radius: @sand-input-popup-border-radius;
-	}
+		display: flex;
 
-	.previewText {
-		display: inline-flex;
-		overflow: hidden;
-		border: solid 2px;
+		&:not(.password) {
+			font-family: @sand-input-number-preview-item-font-family;
+		}
 	}
 
 	&.fullscreen {
@@ -32,10 +24,15 @@
 			padding: @sand-input-popup-padding;
 		}
 
+		.inputArea,
 		.previewArea,
 		.keypadArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
+		}
+
+		.inputArea {
+			text-align: center;
 		}
 
 		.numberCell {
@@ -45,14 +42,18 @@
 			margin: @sand-input-number-popup-full-preview-item-margin;
 		}
 
-		.previewText {
+		.combined {
 			width: @sand-input-number-popup-full-preview-text-width;
 			height: @sand-input-number-popup-full-preview-text-height;
 			font-size: @sand-input-number-popup-full-preview-font-size;
 		}
 
-		.keypadItem {
-			margin: @sand-input-number-popup-full-keypad-item-margin;
+		.keypad {
+			margin: @sand-input-number-popup-full-keypad-margin;
+		}
+
+		.key {
+			margin: @sand-input-number-popup-full-keypad-key-margin;
 		}
 	}
 
@@ -72,15 +73,15 @@
 			margin: @sand-input-number-popup-overlay-preview-item-margin;
 		}
 
-		.previewText {
+		.combined {
 			width: @sand-input-number-popup-overlay-preview-text-width;
 			height: @sand-input-number-popup-overlay-preview-text-height;
 			font-size: @sand-input-number-popup-overlay-preview-text-font-size;
 		}
 
-		.keypadArea {
-			margin: @sand-input-number-popup-overlay-keypad-area-margin;
-			width: @sand-input-number-popup-overlay-keypad-area-width;
+		.keypad {
+			margin: @sand-input-number-popup-overlay-keypad-margin;
+			width: @sand-input-number-popup-overlay-keypad-width;
 		}
 
 		.buttonArea {

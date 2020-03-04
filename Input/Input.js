@@ -1,5 +1,4 @@
 import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
-import {add} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
@@ -15,14 +14,11 @@ import Popup from '../Popup';
 import Skinnable from '../Skinnable';
 import Heading from '../Heading';
 
-import Keypad from './Keypad';
 import NumberField from './NumberField';
 import InputField from './InputField';
 import {convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
-
-add('number', [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]); // Establish all number keys as 'number' keyword.
 
 const setInputValue = ev => ({value: ev.target.value});
 
@@ -176,33 +172,6 @@ const InputBase = kind({
 	},
 
 	handlers: {
-		onAdd: handle(
-			adaptEvent(
-				({value: key}, {length, value}) => ({
-					value: (value.length >= length ? value : `${value}${key}`)
-				}),
-				handle(
-					handle.log('onAdd'),
-					forward('onChange'),
-
-					// DEV NOTE: Probably move these to its own Decorator
-					({value: updatedValue}, {length}) => (updatedValue.length >= length),
-					(ev, props) => {
-						setTimeout(() => {
-							forward('onClose', ev, props);
-							forward('onComplete', ev, props);
-						}, 250);
-						return true;
-					}
-				)
-			),
-		),
-		onRemove: handle(
-			adaptEvent(
-				(ev, {value}) => ({value: value.toString().slice(0, -1)}),
-				forward('onChange')
-			)
-		),
 		onClick: handle(
 			forward('onClick'),
 			forward('onOpenPopup')
@@ -230,11 +199,9 @@ const InputBase = kind({
 		css,
 		disabled,
 		length,
-		onAdd,
 		onChange,
 		onClose,
 		onInputKeyDown,
-		onRemove,
 		onShow,
 		open,
 		placeholder,
@@ -248,44 +215,11 @@ const InputBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
+		const textMode = (type === 'text' || type === 'password');
 		const password = (type === 'password' || type === 'passwordnumber');
-		let fieldArea;
 
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
-
-		if (type === 'text' || type === 'password') {
-			fieldArea = (
-				<Cell shrink className={css.inputArea}>
-					<InputField
-						autoFocus
-						type={type}
-						defaultValue={value}
-						placeholder={placeholder}
-						onChange={onChange}
-						onKeyDown={onInputKeyDown}
-						{...inputProps}
-					/>
-				</Cell>
-			);
-		} else {
-			fieldArea = (
-				<React.Fragment>
-					<Cell shrink className={css.previewArea}>
-						<NumberField
-							defaultValue={value}
-							length={length}
-							onChange={onChange}
-							onKeyDown={onInputKeyDown}
-							type={(type === 'passwordnumber') ? 'password' : 'number'}
-						/>
-					</Cell>
-					<Cell shrink className={css.keypadArea}>
-						<Keypad onAdd={onAdd} onRemove={onRemove} />
-					</Cell>
-				</React.Fragment>
-			);
-		}
 
 		return (
 			<React.Fragment>
@@ -297,12 +231,33 @@ const InputBase = kind({
 					noAnimation
 					open={!disabled && open}
 				>
-					<Layout orientation="vertical" align="center" className={css.body}>
+					<Layout orientation="vertical" align={`center ${textMode ? '' : 'space-between'}`} className={css.body}>
 						<Cell shrink>
 							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
 							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 						</Cell>
-						{fieldArea}
+						<Cell shrink className={css.inputArea}>
+							{textMode ?
+								<InputField
+									autoFocus
+									type={type}
+									defaultValue={value}
+									placeholder={placeholder}
+									onChange={onChange}
+									onKeyDown={onInputKeyDown}
+									{...inputProps}
+								/> :
+								<NumberField
+									css={css}
+									defaultValue={value}
+									length={length}
+									onChange={onChange}
+									onKeyDown={onInputKeyDown}
+									showKeypad
+									type={(type === 'passwordnumber') ? 'password' : 'number'}
+								/>
+							}
+						</Cell>
 						<Cell shrink className={css.buttonArea}>{children}</Cell>
 					</Layout>
 				</Popup>
@@ -318,7 +273,7 @@ const InputDecorator = compose(
 	Pure,
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
-	Changeable,
+	// Changeable,
 	Skinnable
 );
 
