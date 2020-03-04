@@ -25,6 +25,7 @@ import React from 'react';
 
 import Image from '../Image';
 import {Marquee} from '../Marquee';
+import ProgressBar from '../ProgressBar';
 import Skinnable from '../Skinnable';
 
 import componentCss from './MediaOverlay.module.less';
@@ -98,6 +99,15 @@ const MediaOverlayBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
+		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		progress: PropTypes.number,
+
+		/**
 		 * Text to display over media.
 		 *
 		 * @type {String}
@@ -123,6 +133,7 @@ const MediaOverlayBase = kind({
 
 	defaultProps: {
 		mediaComponent: 'video',
+		progress: 0,
 		textAlign: 'center'
 	},
 
@@ -132,9 +143,10 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({css, imageOverlay, mediaComponent, placeholder, source, text, textAlign, ...rest}) => {
+	render: ({css, imageOverlay, mediaComponent, placeholder, progress, source, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
+				<div className={css.bg} />
 				<Media
 					autoPlay
 					className={css.media}
@@ -157,6 +169,11 @@ const MediaOverlayBase = kind({
 						</Cell>
 					</Layout>
 				) : null}
+				<ProgressBar
+					css={css}
+					orientation="horizontal"
+					progress={progress}
+				/>
 			</div>
 		);
 	}

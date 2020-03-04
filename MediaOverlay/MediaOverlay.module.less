@@ -5,12 +5,13 @@
 .mediaOverlay {
 	display: block;
 	position: relative;
-	padding: @sand-mediaoverlay-spotlight-outset-width;
+	padding: @sand-mediaoverlay-padding-top-bottom @sand-mediaoverlay-padding-left-right;
 	width: @sand-mediaoverlay-width;
 	height: auto;
 
 	.media {
 		display: block;
+		position: relative; // it is for z-index;
 		width: 100%;
 		height: 100%;
 		margin: 0;
@@ -23,11 +24,11 @@
 	}
 
 	.textLayout {
-		margin: (@sand-mediaoverlay-spotlight-outset-width * 2);
+		margin: (@sand-mediaoverlay-padding-left-right * 2);
 	}
 
 	.image {
-		margin: @sand-mediaoverlay-spotlight-outset-width;
+		margin: @sand-mediaoverlay-image-margin-top-bottom @sand-mediaoverlay-image-margin-left-right;
 		height: auto;
 		width: auto;
 	}
@@ -36,7 +37,53 @@
 		font-weight: @sand-mediaoverlay-font-weight;
 	}
 
+	.bg {
+		position: absolute;
+		.position(0);
+		opacity: 0;
+		transition: filter 300ms ease-out, opacity 300ms ease-out;
+		will-change: filter, opacity;
+		border-radius: @sand-mediaoverlay-border-radius;
+	}
+
+	.focus({
+		.progressBar {
+			.applySkins({
+				.fill {
+					background-color: @sand-mediaoverlay-pg-fill-focus-color;
+				}
+			})
+		}
+	});
+
+	.progressBar {
+		position: absolute;
+		.position(auto, 0, 0);
+		margin-bottom: @sand-mediaoverlay-pg-margin-bottom;
+
+		.bar {
+			border-radius: 0;
+		}
+
+		.applySkins({
+			.bar {
+				background-color: @sand-mediaoverlay-pg-bar-color;
+			}
+		})
+	}
+
 	.applySkins({
+		.bg {
+			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
+		}
+
+		.focus({
+			.bg {
+				background-color: @sand-mediaoverlay-focus-bg-color;
+				opacity: 1;
+				filter: drop-shadow(@sand-mediaoverlay-focus-bg-shadow);
+			}
+		});
 		.disabled({
 			// The global disabled rule handles the non-focused state, so no rules are necessary here.
 

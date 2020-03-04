@@ -136,7 +136,7 @@ const ProgressBarBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar', 'radial']
+		publicClassNames: ['progressBar', 'radial', 'bar', 'fill', 'load']
 	},
 
 	computed: {
@@ -152,6 +152,7 @@ const ProgressBarBase = kind({
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
+		console.log(css);
 
 		return (
 			<UiProgressBar
