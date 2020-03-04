@@ -75,6 +75,50 @@
 		}
 	}
 
+	&.red,
+	&.green,
+	&.yellow,
+	&.blue {
+		.padding-start-end(@sand-button-colordot-padding-start, @sand-button-h-padding);
+
+		// IconButton-like Button scenario
+		.client::before {
+			// Colored under-bar
+			content: "";
+			position: absolute;
+			left: 50%;
+			width: @sand-button-colordot-width;
+			height: @sand-button-colordot-height;
+			border-radius: @sand-button-colordot-border-radius;
+			transform: translate(-50%, 50%);
+		}
+
+		// Standard Button Scenario
+		&.minWidth {
+			// Update icon's margin to allow more room for the colordot
+			.icon {
+				-webkit-margin-start: 0;
+			}
+
+			.client {
+				-webkit-margin-start: @sand-button-colordot-width;
+				-webkit-padding-start: @sand-button-colordot-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
+
+				&::before {
+					// Colored side-bar
+					bottom: 50%;
+					left: -@sand-button-colordot-width;
+					transform: translateY(50%);
+
+					:global(.enact-locale-right-to-left) & {
+						left: initial;
+						right: -@sand-button-colordot-width;
+					}
+				}
+			}
+		}
+	}
+
 	//**
 	//* The marquee container of the client area. Added by {@link sandstone/MarqueeDecorator}.
 	//* @public
@@ -122,6 +166,46 @@
 			}
 		}
 
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.padding-start-end(@sand-button-small-colordot-padding-start, @sand-button-small-h-padding);
+
+			// IconButton-like Button scenario
+			.client::before {
+				width: @sand-button-small-colordot-width;
+				height: @sand-button-colordot-height;
+			}
+
+			// Standard Button Scenario
+			&.minWidth {
+				.client {
+					-webkit-margin-start: @sand-button-small-colordot-width;
+
+					&::before {
+						bottom: 50%;
+						left: -@sand-button-small-colordot-width;
+
+						:global(.enact-locale-right-to-left) & {
+							right: -@sand-button-small-colordot-width;
+						}
+					}
+				}
+
+				.icon {
+					-webkit-margin-start: 0;
+				}
+
+				&.iconAfter {
+					.icon {
+						// Override the above rule
+						-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
+					}
+				}
+			}
+		}
+
 		.sand-custom-text({
 			font-size: @sand-button-small-font-size-large;
 			height: @sand-button-small-height-large;
@@ -160,6 +244,19 @@
 			.bg {
 				background-color: @sand-button-transparent-bg-color;
 			}
+		}
+
+		&.red .client::before {
+			background-color: @sand-remote-button-red-color;
+		}
+		&.green .client::before {
+			background-color: @sand-remote-button-green-color;
+		}
+		&.yellow .client::before {
+			background-color: @sand-remote-button-yellow-color;
+		}
+		&.blue .client::before {
+			background-color: @sand-remote-button-blue-color;
 		}
 
 		.focus({
