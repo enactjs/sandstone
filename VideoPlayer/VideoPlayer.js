@@ -1125,10 +1125,6 @@ const VideoPlayerBase = class extends React.Component {
 
 	handleGlobalKeyDown = this.handle(
 		returnsTrue(this.activityDetected),
-		returnsTrue(() => {
-			console.count('@@@')
-			;
-		}),
 		forKey('down'),
 		() => (
 			!this.state.mediaControlsVisible &&
