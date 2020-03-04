@@ -30,7 +30,7 @@ const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignP
 
 	const getNavigableFilterTarget = (ev) => {
 		const {keyCode, target, type} = ev;
-		let filterTarget;
+		let filterTarget = null;
 
 		if (type === 'focus') {
 			filterTarget = isBody(target) ? 'thumb' : 'body';
