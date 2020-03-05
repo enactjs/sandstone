@@ -187,4 +187,33 @@ describe('Popup specs', () => {
 			expect(popup.prop('className').split(' ')).toContain('fullscreen');
 		});
 	});
+
+	describe('with position changes dynamically - [GT-28270]', function () {
+		it('should not have top class when position change from top to any other position', () => {
+			const firstPosition = 'top';
+			const popup = shallow(
+				<PopupBase open position={firstPosition} ><div>popup</div></PopupBase>
+			);
+
+			popup.setProps({position: 'fullscreen'});
+
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);
+
+			popup.setProps({position: 'bottom'});
+
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);
+
+			popup.setProps({position: 'left'});
+
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);
+
+			popup.setProps({position: 'right'});
+
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);
+		});
+	});
 });
