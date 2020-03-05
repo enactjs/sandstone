@@ -16,10 +16,8 @@
 		line-height: @sand-gridlistimageitem-overlay-icon-size;
 		position: relative;
 		display: block;
-		border-width: @sand-gridlistimageitem-overlay-icon-border-width;
-		border-style: solid;
 		border-radius: 50%;
-		margin: @sand-gridlistimageitem-overlay-icon-margin;
+		margin: 0;
 	}
 
 	.image {
@@ -59,7 +57,6 @@
 	.applySkins({
 		.icon {
 			background-color: @sand-gridlistimageitem-overlay-icon-bg-color;
-			border-color: @sand-gridlistimageitem-overlay-icon-border-color;
 			color: @sand-gridlistimageitem-overlay-icon-color;
 		}
 
@@ -81,10 +78,6 @@
 			.image {
 				transform: @sand-gridlistimageitem-focus-image-transform;
 				filter: drop-shadow(@sand-gridlistimageitem-focus-image-bg-shadow);
-			}
-
-			.icon {
-				color: @sand-gridlistimageitem-focus-overlay-icon-color;
 			}
 
 			.caption,
