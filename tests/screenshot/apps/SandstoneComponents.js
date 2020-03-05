@@ -1,5 +1,6 @@
 import {generateTestData} from '@enact/ui-test-utils/utils';
 
+import ActionGuide from './components/ActionGuide';
 import AlwaysViewingPanels from './components/AlwaysViewingPanels';
 import ActivityPanels from './components/ActivityPanels';
 import Button from './components/Button';
@@ -54,6 +55,7 @@ import ToggleButton from './components/ToggleButton';
 import ToggleIcon from './components/ToggleIcon';
 
 const components = {
+	ActionGuide,
 	AlwaysViewingPanels,
 	ActivityPanels,
 	BodyText,

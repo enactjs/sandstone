@@ -1,4 +1,5 @@
 // Sandstone
+import ActionGuide from '../../../ActionGuide';
 import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
@@ -56,6 +57,7 @@ import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
 
 const components = {
+	ActionGuide,
 	BodyText,
 	Button,
 	Checkbox,
