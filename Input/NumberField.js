@@ -56,7 +56,7 @@ const NumberFieldBase = kind({
 	name: 'NumberField',
 
 	propTypes: /** @lends sandstone/Input.NumberField.prototype */ {
-		css: PropTypes.obj,
+		css: PropTypes.object,
 		length: PropTypes.number,
 		showKeypad: PropTypes.bool,
 		type: PropTypes.oneOf(['number', 'password']),

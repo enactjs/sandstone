@@ -1,14 +1,14 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import Input from '../Input';
+import {InputField} from '../';
 import Spotlight from '@enact/spotlight';
 
 const isPaused = () => Spotlight.isPaused() ? 'paused' : 'not paused';
 
-describe('Input Specs', () => {
+describe('InputField Specs', () => {
 	test('should have an input element', () => {
 		const subject = mount(
-			<Input />
+			<InputField />
 		);
 
 		expect(subject.find('input')).toHaveLength(1);
@@ -16,7 +16,7 @@ describe('Input Specs', () => {
 
 	test('should include a placeholder if specified', () => {
 		const subject = mount(
-			<Input placeholder="hello" />
+			<InputField placeholder="hello" />
 		);
 
 		expect(subject.find('input').prop('placeholder')).toBe('hello');
@@ -27,7 +27,7 @@ describe('Input Specs', () => {
 		const value = 'blah';
 		const evt = {target: {value: value}};
 		const subject = mount(
-			<Input onChange={handleChange} />
+			<InputField onChange={handleChange} />
 		);
 
 		subject.find('input').simulate('change', evt);
@@ -43,7 +43,7 @@ describe('Input Specs', () => {
 		const handleChange = jest.fn();
 
 		const subject = mount(
-			<Input onBlur={handleChange} dismissOnEnter />,
+			<InputField onBlur={handleChange} dismissOnEnter />,
 			{attachTo: node}
 		);
 		const input = subject.find('input');
@@ -60,7 +60,7 @@ describe('Input Specs', () => {
 
 	test('should be able to be disabled', () => {
 		const subject = mount(
-			<Input disabled />
+			<InputField disabled />
 		);
 
 		expect(subject.find('input').prop('disabled')).toBe(true);
@@ -68,7 +68,7 @@ describe('Input Specs', () => {
 
 	test('should reflect the value if specified', () => {
 		const subject = mount(
-			<Input value="hello" />
+			<InputField value="hello" />
 		);
 
 		expect(subject.find('input').prop('value')).toBe('hello');
@@ -76,7 +76,7 @@ describe('Input Specs', () => {
 
 	test('should have dir equal to rtl when there is rtl text', () => {
 		const subject = mount(
-			<Input value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
+			<InputField value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
 		);
 
 		const expected = 'rtl';
@@ -87,7 +87,7 @@ describe('Input Specs', () => {
 
 	test('should have dir equal to ltr when there is ltr text', () => {
 		const subject = mount(
-			<Input value="content" />
+			<InputField value="content" />
 		);
 
 		const expected = 'ltr';
@@ -100,7 +100,7 @@ describe('Input Specs', () => {
 		'should have dir equal to rtl when there is rtl text in the placeholder',
 		() => {
 			const subject = mount(
-				<Input value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
+				<InputField value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי" />
 			);
 
 			const expected = 'rtl';
@@ -114,7 +114,7 @@ describe('Input Specs', () => {
 		'should have dir equal to ltr when there is ltr text in the placeholder',
 		() => {
 			const subject = mount(
-				<Input placeholder="content" />
+				<InputField placeholder="content" />
 			);
 
 			const expected = 'ltr';
@@ -128,7 +128,7 @@ describe('Input Specs', () => {
 		'should have dir equal to rtl when there is ltr text in the placeholder, but rtl text in value',
 		() => {
 			const subject = mount(
-				<Input
+				<InputField
 					placeholder="content"
 					value="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
 				/>
@@ -145,7 +145,7 @@ describe('Input Specs', () => {
 		'should have dir equal to ltr when there is rtl text in the placeholder, but ltr text in value',
 		() => {
 			const subject = mount(
-				<Input
+				<InputField
 					placeholder="שועל החום הזריז קפץ מעל הכלב העצלן.ציפור עפה השעועית עם שקי"
 					value="content"
 				/>
@@ -160,7 +160,7 @@ describe('Input Specs', () => {
 
 	test('should pause spotlight when input has focus', () => {
 		const subject = mount(
-			<Input />
+			<InputField />
 		);
 
 		subject.simulate('mouseDown');
@@ -175,7 +175,7 @@ describe('Input Specs', () => {
 
 	test('should resume spotlight on unmount', () => {
 		const subject = mount(
-			<Input />
+			<InputField />
 		);
 
 		subject.simulate('mouseDown');
@@ -193,7 +193,7 @@ describe('Input Specs', () => {
 		'should display invalid message if it invalid and invalid message exists',
 		() => {
 			const subject = mount(
-				<Input invalid invalidMessage="invalid message" />
+				<InputField invalid invalidMessage="invalid message" />
 			);
 
 			expect(subject.find('Tooltip').prop('children')).toBe('invalid message');
@@ -202,7 +202,7 @@ describe('Input Specs', () => {
 
 	test('should not display invalid message if it is valid', () => {
 		const subject = mount(
-			<Input invalidMessage="invalid message" />
+			<InputField invalidMessage="invalid message" />
 		);
 
 		expect(subject.find('Tooltip')).toHaveLength(0);
@@ -210,7 +210,7 @@ describe('Input Specs', () => {
 
 	test('should set voice intent if specified', () => {
 		const input = mount(
-			<Input data-webos-voice-intent="Select" />
+			<InputField data-webos-voice-intent="Select" />
 		);
 
 		const expected = 'Select';
@@ -222,7 +222,7 @@ describe('Input Specs', () => {
 	test('should set voice label if specified', () => {
 		const label = 'input label';
 		const input = mount(
-			<Input data-webos-voice-label={label} />
+			<InputField data-webos-voice-label={label} />
 		);
 
 		const expected = label;
