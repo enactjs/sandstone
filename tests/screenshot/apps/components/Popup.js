@@ -11,6 +11,6 @@ const PopupTests = [
 	{
 		locale: 'ar-SA',
 		component: <Popup open>Popup!</Popup>
-	},
+	}
 ];
 export default PopupTests;
