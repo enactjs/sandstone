@@ -51,15 +51,9 @@ const app = (props) => <div {...props}>
 			{views}
 		</TabLayout>
 		<TabLayout
-			id="tabLayoutDefaultWithIcons"
-			tabs={tabsWithIcons}
-		>
-			{views}
-		</TabLayout>
-		<TabLayout
 			id="tabLayoutCollapsedWithIcons"
 			collapsed
-			tabs={tabs}
+			tabs={tabsWithIcons}
 		>
 			{views}
 		</TabLayout>
@@ -75,13 +69,6 @@ const app = (props) => <div {...props}>
 			collapsed
 			orientation="horizontal"
 			tabs={tabs}
-		>
-			{views}
-		</TabLayout>
-		<TabLayout
-			id="tabLayoutHorizontalWithIcons"
-			orientation="horizontal"
-			tabs={tabsWithIcons}
 		>
 			{views}
 		</TabLayout>

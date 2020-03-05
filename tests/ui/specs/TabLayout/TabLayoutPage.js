@@ -1,7 +1,8 @@
 'use strict';
-const {getComponent, Page} = require('@enact/ui-test-utils/utils');
+const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
+const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
 
 class TabLayoutInterface {
 	constructor (id) {
@@ -9,12 +10,15 @@ class TabLayoutInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	get currentView () {return this.content.element('div');}
-	get self () {return browser.element(this.selector);}
 	get content () {return getContent(this.self);}
-	get tabOrientation () {return this.tabContainer.getAttribute('orientation');}
-	get tabContainer () {return this.self.element('[role=group]');}
-	get tabs () {return this.tabContainer.elements('[data-index]');}
+	get currentView () {return this.content.element('div');}
+	get isCollapsed () {return hasClass('collapsed', this.self);}
+	get self () {return browser.element(this.selector);}
+	get tabGroup () {return this.self.element('[role=group]');}
+	get tabIcons () {return this.tabs.elements('.Icon_Icon_icon');}
+	get tabItems () {return this.tabs.elements('[data-index]');}
+	get tabOrientation () {return this.tabGroup.getAttribute('orientation');}
+	get tabs () {return getTabs(this.self);}
 }
 
 class TabLayoutPage extends Page {
@@ -23,22 +27,18 @@ class TabLayoutPage extends Page {
 		this.title = 'TabLayout Test';
 		const tabLayoutDefaultWithoutIcons = new TabLayoutInterface('tabLayoutDefaultWithoutIcons');
 		const tabLayoutCollapsedWithoutIcons = new TabLayoutInterface('tabLayoutCollapsedWithoutIcons');
-		const tabLayoutDefaultWithIcons = new TabLayoutInterface('tabLayoutDefaultWithIcons');
 		const tabLayoutCollapsedWithIcons = new TabLayoutInterface('tabLayoutCollapsedWithIcons');
 		const tabLayoutHorizontalWithoutIcons = new TabLayoutInterface('tabLayoutHorizontalWithoutIcons');
 		const tabLayoutHorizontalCollapsedWithoutIcons = new TabLayoutInterface('tabLayoutHorizontalCollapsedWithoutIcons');
-		const tabLayoutHorizontalWithIcons = new TabLayoutInterface('tabLayoutHorizontalWithIcons');
 		const tabLayoutHorizontalCollapsedWithIcons = new TabLayoutInterface('tabLayoutHorizontalCollapsedWithIcons');
 
 
 		this.components = {
 			tabLayoutDefaultWithoutIcons,
 			tabLayoutCollapsedWithoutIcons,
-			tabLayoutDefaultWithIcons,
 			tabLayoutCollapsedWithIcons,
 			tabLayoutHorizontalWithoutIcons,
 			tabLayoutHorizontalCollapsedWithoutIcons,
-			tabLayoutHorizontalWithIcons,
 			tabLayoutHorizontalCollapsedWithIcons
 		};
 	}

@@ -8,65 +8,100 @@ describe('TabLayout', function () {
 
 	const {
 		tabLayoutDefaultWithoutIcons,
+		tabLayoutCollapsedWithIcons,
 		tabLayoutCollapsedWithoutIcons,
-		tabLayoutHorizontalWithoutIcons,
-		tabLayoutHorizontalCollapsedWithoutIcons
+		tabLayoutHorizontalCollapsedWithIcons,
+		// tabLayoutHorizontalCollapsedWithoutIcons,
+		tabLayoutHorizontalWithoutIcons
 	} = Page.components;
 
 	describe('default', function () {
-		const tabLayout = tabLayoutDefaultWithoutIcons;
 
 		it('should display first view on render', function () {
 			const expected = 'view1';
-			const actual = tabLayout.currentView.getAttribute('id');
+			const actual = tabLayoutDefaultWithoutIcons.currentView.getAttribute('id');
 
 			expect(actual).to.equal(expected);
 		});
 
 		it('should have vertical tabs', function () {
 			const expected = 'vertical';
-			const actual = tabLayout.tabOrientation;
+			const actual = tabLayoutDefaultWithoutIcons.tabOrientation;
 
 			expect(actual).to.equal(expected);
 		});
 
-		// TODO: ui tests for collapsed TabLayout
-		// describe('collapsed', function () {
+		describe('collapsed', function () {
 
-		// 	describe('with tabs having icons', function () {});
+			it.only('should not render a <Group> component', function () {
+				const expected = null;
+				const actual = tabLayoutCollapsedWithoutIcons.tabGroup.value;
 
-		// 	describe('with no tabs having icons', function () {
-		// 		const tabLayout = tabLayoutCollapsedWithoutIcons;
-		// 	});
-		// });
+				expect(actual).to.equal(expected);
+			});
+
+			describe('with tabs having icons', function () {
+
+				it('should display all icons', function () {
+					const expected = 6;
+					const actual = tabLayoutCollapsedWithIcons.tabIcons.value.length;
+
+					expect(actual).to.equal(expected);
+				});
+			});
+
+			describe('with no tabs having icons', function () {
+
+				it('should display only one icon', function () {
+					const expected = 1;
+					const actual = tabLayoutCollapsedWithoutIcons.tabIcons.value.length;
+
+					expect(actual).to.equal(expected);
+				});
+			});
+		});
 	});
 
 	describe('horizontal orientation', function () {
-		const tabLayout = tabLayoutHorizontalWithoutIcons;
 
 		it('should have horizontal tabs', function () {
 			const expected = 'horizontal';
-			const actual = tabLayout.tabOrientation;
+			const actual = tabLayoutHorizontalWithoutIcons.tabOrientation;
 
 			expect(actual).to.equal(expected);
 		});
 
 		it('should show a maximum of five tabs in horizontal orientation', function () {
-			const expected = 5;
-			const actual = tabLayout.tabs.value.length;
+			const expected = 5; // there are 6 tabs passed to the test component
+			const actual = tabLayoutHorizontalWithoutIcons.tabItems.value.length;
 
 			expect(actual).to.equal(expected);
 		});
 
 		// TODO: ui tests for collapsed TabLayout
-		// describe('collapsed', function () {
+		describe('collapsed', function () {
 
-		// 	describe('with tabs having icons', function () {});
+			describe('with tabs having icons', function () {
 
-		// 	describe('with no tabs having icons', function () {
-		// 		const tabLayout = tabLayoutHorizontalCollapsedWithoutIcons;
-		// 	});
+				it('should display all icons', function () {
+					const expected = 5;
+					const actual = tabLayoutHorizontalCollapsedWithIcons.tabIcons.value.length;
 
-		// });
+					expect(actual).to.equal(expected);
+				});
+			});
+
+			// TODO: write test for horizontal collapsed without icons when we have the guidance for what it should do
+			// describe('with no tabs having icons', function () {
+
+			// 	it('should display only one icon', function () {
+			// 		const expected = 1;
+			// 		const actual = tabLayoutHorizontalCollapsedWithoutIcons.tabIcons.value.length;
+
+			// 		expect(actual).to.equal(expected);
+			// 	});
+			// });
+
+		});
 	});
 });
