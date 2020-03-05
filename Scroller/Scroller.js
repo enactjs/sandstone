@@ -53,6 +53,7 @@ let Scroller = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
+		focusableBodyProps,
 		resizeContextProps,
 		scrollContainerProps,
 		scrollInnerContainerProps,
@@ -63,12 +64,11 @@ let Scroller = (props) => {
 	} = useScroll(props);
 
 	const themeScrollContentProps = useThemeScroller(scrollContentProps);
-	const ScrollContainerDiv = (props.focusableScrollbar === 'byEnter') ? Spottable('div') : 'div';
 
 	// Render
-	return (
+	const scrollContainer = (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContainerDiv {...scrollContainerProps}>
+			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} />
@@ -76,9 +76,20 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</ScrollContainerDiv>
+			</div>
 		</ResizeContext.Provider>
 	);
+
+	if (props.focusableScrollbar === 'byEnter') {
+		const SpottableDiv = Spottable('div');
+		return (
+			<SpottableDiv {...focusableBodyProps}>
+				{scrollContainer}
+			</SpottableDiv>
+		);
+	} else {
+		return scrollContainer;
+	}
 };
 
 Scroller.displayName = 'Scroller';
@@ -330,24 +341,24 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 };
 
 Scroller.defaultProps = {
-	'data-spotlight-container-disabled': false, // eslint-disable-line react/default-props-match-prop-types
+	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'both',
-	focusableScrollbar: false, // eslint-disable-line react/default-props-match-prop-types
+	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
 	onScrollStart: nop,
 	onScrollStop: nop,
-	overscrollEffectOn: { // eslint-disable-line react/default-props-match-prop-types
+	overscrollEffectOn: {
 		arrowKey: false,
 		drag: false,
 		pageKey: false,
 		track: false,
 		wheel: true
 	},
-	scrollMode: 'native', // eslint-disable-line react/default-props-match-prop-types
+	scrollMode: 'native',
 	verticalScrollbar: 'auto'
 };
 

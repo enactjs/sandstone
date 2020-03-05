@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
+
 ## [1.0.0-alpha.2] - 2020-03-03
 
 ### Changed
