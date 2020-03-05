@@ -353,8 +353,8 @@ const useThemeVirtualList = (props) => {
 
 	function getClientSize ({clientWidth, clientHeight}) {
 		return {
-			clientWidth: clientWidth - 2 * ri.scale(fadeoutSize),
-			clientHeight: clientHeight - 2 * ri.scale(fadeoutSize)
+			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
+			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
 		};
 	}
 
