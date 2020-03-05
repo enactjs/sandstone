@@ -78,7 +78,6 @@ describe('TabLayout', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		// TODO: ui tests for collapsed TabLayout
 		describe('collapsed', function () {
 
 			describe('with tabs having icons', function () {
