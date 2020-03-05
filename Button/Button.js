@@ -123,7 +123,7 @@ const ButtonBase = kind({
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'small'
+		 * @default 'large'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['large', 'small'])

@@ -11,7 +11,7 @@ import Icon, {IconBase} from '@enact/sandstone/Icon';
 import iconNames from './icons';
 
 LabeledIcon.displayName = 'LabeledIcon';
-const Config = mergeComponentMetadata('LabeledIcon', UiLabeledIconBase, UiLabeledIcon, UiIcon, IconBase, Icon, LabeledIcon);
+const Config = mergeComponentMetadata('LabeledIcon', UiIcon, IconBase, Icon, UiLabeledIconBase, UiLabeledIcon);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -23,7 +23,7 @@ storiesOf('Sandstone', module)
 				inline={boolean('inline', Config)}
 				labelPosition={select('labelPosition', ['above', 'after', 'before', 'below', 'left', 'right'], Config)}
 				flip={select('flip', ['', 'both', 'horizontal', 'vertical'], Config, '')}
-				size={select('size', ['small', 'large'], Config)}
+				size={select('size', ['small', 'large'], Config, 'large')}
 			>
 				{text('children', Config, 'Hello LabeledIcon')}
 			</LabeledIcon>
