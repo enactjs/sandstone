@@ -58,10 +58,30 @@
 			.icon {
 				margin: 0; // reset margins for `IconButton`
 			}
+
+			&.red,
+			&.green,
+			&.yellow,
+			&.blue {
+				.client::before {
+					width: @sand-button-icon-only-colordot-width;
+					height: @sand-button-icon-only-colordot-height;
+				}
+			}
 		}
 
 		&.large {
 			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.client::before {
+				width: @sand-button-icon-only-colordot-width;
+				height: @sand-button-icon-only-colordot-height;
+			}
 		}
 	}
 
@@ -86,6 +106,7 @@
 			// Colored under-bar
 			content: "";
 			position: absolute;
+			bottom: 18px;
 			left: 50%;
 			width: @sand-button-colordot-width;
 			height: @sand-button-colordot-height;
@@ -107,13 +128,8 @@
 				&::before {
 					// Colored side-bar
 					bottom: 50%;
-					left: -@sand-button-colordot-width;
 					transform: translateY(50%);
-
-					:global(.enact-locale-right-to-left) & {
-						left: initial;
-						right: -@sand-button-colordot-width;
-					}
+					.position-start-end(-@sand-button-colordot-width, initial);
 				}
 			}
 		}
@@ -174,6 +190,7 @@
 
 			// IconButton-like Button scenario
 			.client::before {
+				bottom: 12px;
 				width: @sand-button-small-colordot-width;
 				height: @sand-button-colordot-height;
 			}
@@ -185,11 +202,7 @@
 
 					&::before {
 						bottom: 50%;
-						left: -@sand-button-small-colordot-width;
-
-						:global(.enact-locale-right-to-left) & {
-							right: -@sand-button-small-colordot-width;
-						}
+						.position-start-end(-@sand-button-small-colordot-width, initial);
 					}
 				}
 
