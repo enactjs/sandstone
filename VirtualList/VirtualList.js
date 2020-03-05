@@ -20,6 +20,8 @@ import Skinnable from '../Skinnable';
 
 import {useThemeVirtualList} from './useThemeVirtualList';
 
+const nop = () => {};
+
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.
  *
@@ -104,6 +106,32 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
 
 	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
+	 * `false` if the content of the list could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
+
+	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
 	 * Once received, the `scrollTo` method can be called as an imperative interface.
@@ -134,45 +162,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	cbScrollTo: PropTypes.func,
-
-	/**
-	 * This is set to `true` by SpotlightContainerDecorator
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	'data-spotlight-container': PropTypes.bool,
-
-	/**
-	 * `false` if the content of the list could get focus
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	'data-spotlight-container-disabled': PropTypes.bool,
-
-	/**
-	 * This is passed onto the wrapped component to allow
-	 * it to customize the spotlight container for its use case.
-	 *
-	 * @type {String}
-	 * @private
-	 */
-	'data-spotlight-id': PropTypes.string,
-
-	/**
-	 * The layout direction of the list.
-	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
-	 * @default 'vertical'
-	 * @public
-	 */
-	direction: PropTypes.oneOf(['horizontal', 'vertical']),
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -215,6 +204,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @private
 	 */
 	isVerticalScrollbarVisible: PropTypes.bool,
+
+	/**
+	 * The array for individually sized items.
+	 *
+	 * @type {Number[]}
+	 * @private
+	 */
+	itemSizes: PropTypes.arrayOf(PropTypes.number),
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -404,9 +401,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 };
 
 VirtualList.defaultProps = {
-	cbScrollTo: nop,
 	'data-spotlight-container-disabled': false,
-	direction: 'vertical',
+	cbScrollTo: nop,
 	horizontalScrollbar: 'auto',
 	noScrollByDrag: false,
 	noScrollByWheel: false,
@@ -511,6 +507,32 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	itemSize: gridListItemSizeShape.isRequired,
 
 	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
+	 * `false` if the content of the list could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
+
+	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
 	 * Once received, the `scrollTo` method can be called as an imperative interface.
@@ -541,32 +563,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	cbScrollTo: PropTypes.func,
-
-	/**
-	 * This is set to `true` by SpotlightContainerDecorator
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	'data-spotlight-container': PropTypes.bool,
-
-	/**
-	 * `false` if the content of the list could get focus
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	'data-spotlight-container-disabled': PropTypes.bool,
-
-	/**
-	 * This is passed onto the wrapped component to allow
-	 * it to customize the spotlight container for its use case.
-	 *
-	 * @type {String}
-	 * @private
-	 */
-	'data-spotlight-id': PropTypes.string,
 
 	/**
 	 * Specifies how to show horizontal scrollbar.
@@ -798,9 +794,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 };
 
 VirtualGridList.defaultProps = {
-	cbScrollTo: nop,
 	'data-spotlight-container-disabled': false,
-	direction: 'vertical',
+	cbScrollTo: nop,
 	horizontalScrollbar: 'auto',
 	noScrollByDrag: false,
 	noScrollByWheel: false,
