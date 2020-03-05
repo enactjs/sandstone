@@ -81,6 +81,42 @@ describe('Button', () => {
 		});
 	});
 
+	describe('with color', () => {
+		it('should have hasColor class', () => {
+			const subject = mount(<Button color="red">abc</Button>);
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('hasColor');
+		});
+
+		it('should have not hasColor class', () => {
+			const subject = mount(<Button>abc</Button>);
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).not.toContain('hasColor');
+		});
+
+		it('should have red class', () => {
+			const subject = mount(<Button color="red">abc</Button>);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('red');
+		});
+
+		it('should have blue class', () => {
+			const subject = mount(<Button color="blue">abc</Button>);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('blue');
+		});
+
+		it('should have yellow class', () => {
+			const subject = mount(<Button color="yellow">abc</Button>);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('yellow');
+		});
+
+		it('should have green class', () => {
+			const subject = mount(<Button color="green">abc</Button>);
+
+			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('green');
+		});
+	});
+
 	describe('events', () => {
 		test('should call onClick when not disabled', () => {
 			const handleClick = jest.fn();
