@@ -20,7 +20,7 @@ const prop = {
 
 storiesOf('Sandstone', module)
 	.add(
-		'InputField',
+		'Input.InputField',
 		() => (
 			<InputField
 				autoFocus={boolean('autoFocus', Config)}
