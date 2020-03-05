@@ -155,14 +155,9 @@ const ToggleButtonBase = kind({
 		}
 	},
 
-	render: ({selected, ...rest}) => {
+	render: deprecate(({selected, ...rest}) => {
 		delete rest.toggleOffLabel;
 		delete rest.toggleOnLabel;
-
-		deprecate({
-			name: 'sandstone/ToggleButton',
-			message: 'ToggleButton is deprecated and will be removed.'
-		});
 
 		return (
 			<Button
@@ -174,7 +169,10 @@ const ToggleButtonBase = kind({
 				selected={selected}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/ToggleButton',
+		message: 'ToggleButton is deprecated and will be removed.'
+	})
 });
 
 /**
