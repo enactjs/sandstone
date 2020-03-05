@@ -85,32 +85,6 @@ Scroller.displayName = 'Scroller';
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
-	 * This is set to `true` by SpotlightContainerDecorator
-	 *
-	 * @type {Boolean}
-	 * @private
-	 */
-	'data-spotlight-container': PropTypes.bool,
-
-	/**
-	 * `false` if the content of the scroller could get focus
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	'data-spotlight-container-disabled': PropTypes.bool,
-
-	/**
-	 * This is passed onto the wrapped component to allow
-	 * it to customize the spotlight container for its use case.
-	 *
-	 * @type {String}
-	 * @private
-	 */
-	'data-spotlight-id': PropTypes.string,
-
-	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
 	 * Once received, the `scrollTo` method can be called as an imperative interface.
@@ -138,6 +112,32 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	cbScrollTo: PropTypes.func,
+
+	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
+	 * `false` if the content of the scroller could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
 
 	/**
 	 * Direction of the scroller.
