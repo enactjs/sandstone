@@ -12,7 +12,7 @@ import SharedStateDecorator, {SharedState} from '../internal/SharedStateDecorato
 
 import css from './Panels.module.less';
 
-const PanelTypeContext = React.createContext(null);
+const PanelsStateContext = React.createContext(null);
 
 /**
  * The container for a set of Panels
@@ -67,6 +67,7 @@ const ViewportBase = class extends React.Component {
 		 */
 		noAnimation: PropTypes.bool,
 
+		onBack: PropTypes.func,
 		type: PropTypes.string
 	}
 
@@ -162,7 +163,7 @@ const ViewportBase = class extends React.Component {
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
 
 	render () {
-		const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
+		const {arranger, children, generateId, index, noAnimation, onBack, type, ...rest} = this.props;
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -174,7 +175,7 @@ const ViewportBase = class extends React.Component {
 		);
 
 		return (
-			<PanelTypeContext.Provider value={type}>
+			<PanelsStateContext.Provider value={{type, index, onBack}}>
 				<ViewManager
 					{...rest}
 					arranger={arranger}
@@ -190,7 +191,7 @@ const ViewportBase = class extends React.Component {
 				>
 					{mappedChildren}
 				</ViewManager>
-			</PanelTypeContext.Provider>
+			</PanelsStateContext.Provider>
 		);
 	}
 };
@@ -199,7 +200,7 @@ const Viewport = SharedStateDecorator(ViewportBase);
 
 export default Viewport;
 export {
-	PanelTypeContext,
+	PanelsStateContext,
 	Viewport,
 	ViewportBase
 };

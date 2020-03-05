@@ -1,3 +1,4 @@
+import IdProvider from '@enact/ui/internal/IdProvider';
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
 import compose from 'ramda/src/compose';
@@ -6,11 +7,14 @@ import Skinnable from '../Skinnable';
 
 import {ActivityArranger} from './Arrangers';
 import BreadcrumbDecorator from './BreadcrumbDecorator';
+import CancelDecorator from './CancelDecorator';
 import {PanelsBase} from './Panels';
 
 const ActivityPanelsDecorator = compose(
 	Slottable({slots: ['controls']}),
 	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
+	IdProvider,
+	CancelDecorator({cancel: 'onBack'}),
 	Skinnable,
 	BreadcrumbDecorator({
 		className: 'panels activity enact-fit',

@@ -8,7 +8,7 @@ import React from 'react';
 
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
-import {PanelTypeContext} from './Viewport';
+import {PanelsStateContext} from './Viewport';
 
 import css from './Panel.module.less';
 
@@ -30,7 +30,7 @@ const PanelBase = kind({
 
 	name: 'Panel',
 
-	contextType: PanelTypeContext,
+	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -150,7 +150,7 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		className: ({className, styler}, type) => type ? styler.append(type + 'Type') : className,
+		className: ({className, styler}, {type}) => type ? styler.append(type + 'Type') : className,
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot

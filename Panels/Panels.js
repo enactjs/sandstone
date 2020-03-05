@@ -231,7 +231,7 @@ const PanelsBase = kind({
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, childProps, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, controls, controlsRef, generateId, id, index, noAnimation, noCloseButton, noSharedState, onApplicationClose, viewportId, ...rest}) => {
+	render: ({arranger, childProps, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, controls, controlsRef, generateId, id, index, noAnimation, noCloseButton, noSharedState, onApplicationClose, onBack, viewportId, ...rest}) => {
 		delete rest.controlsMeasurements;
 		delete rest.onBack;
 
@@ -258,6 +258,7 @@ const PanelsBase = kind({
 					index={index}
 					noAnimation={noAnimation}
 					noSharedState={noSharedState}
+					onBack={onBack}
 				>
 					{children}
 				</Viewport>

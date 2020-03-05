@@ -1,16 +1,22 @@
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
 import {isRtlText} from '@enact/i18n/util';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
+import Toggleable from '@enact/ui/Toggleable';
 import Transition from '@enact/ui/Transition';
-import ComponentOverride from '@enact/ui/ComponentOverride';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
+import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
+import {PanelsStateContext} from './Viewport';
+
 import componentCss from './Header.module.less';
+import handle, {forwardWithPrevent} from '@enact/core/handle/handle';
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -23,6 +29,8 @@ import componentCss from './Header.module.less';
  */
 const HeaderBase = kind({
 	name: 'Header',
+
+	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -213,6 +221,17 @@ const HeaderBase = kind({
 		publicClassNames: ['header', 'input']
 	},
 
+	handlers: {
+		onBack: handle(
+			forwardWithPrevent('onBack'),
+			(ev, props, panelsState) => {
+				if (panelsState && panelsState.onBack) {
+					panelsState.onBack({index: panelsState.index - 1});
+				}
+			}
+		)
+	},
+
 	computed: {
 		className: ({centered, children, slotAbove, type, styler}) => styler.append(
 			{
@@ -221,10 +240,13 @@ const HeaderBase = kind({
 			},
 			type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
+		showBackButton: ({showBackButton}, panelsState) => {
+			return panelsState && panelsState.index > 0 && panelsState.type !== 'wizard' && showBackButton;
+		}
 	},
 
-	render: ({centered, children, css, direction, headerInput, line, marqueeOn, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+	render: ({centered, children, css, direction, headerInput, line, marqueeOn, onBack, showBackButton, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
 
 		// Create the Title component
 		const titleComponent = (
@@ -270,6 +292,11 @@ const HeaderBase = kind({
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
+					{showBackButton ? (
+						<Cell shrink>
+							<Button size="large" backgroundOpacity="transparent" icon="arrowhookleft" onClick={onBack} />
+						</Cell>
+					) : null}
 					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
 					<Cell className={css.titleCell}>
 						{titleOrInput}
@@ -293,8 +320,14 @@ const HeaderBase = kind({
 	}
 });
 
+const HeaderDecorator = compose(
+	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	Skinnable,
+	Toggleable({prop: 'showBackButton', activate: 'onMouseEnter', deactivate: 'onMouseLeave'})
+);
+
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
-const Header = Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase));
+const Header = HeaderDecorator(HeaderBase);
 
 // Set up Header so when it's used in a slottable layout (like Panel), it is automatically
 // recognized as this specific slot.
