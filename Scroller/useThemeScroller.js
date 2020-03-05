@@ -8,9 +8,6 @@ import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 
-// Defined in /Enact/packages/spotlight/src/container.js
-const disabledKey = 'spotlightContainerDisabled';
-
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
@@ -20,7 +17,7 @@ const useSpottable = (props, instances) => {
 
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
-			scrollContainerRef.current.dataset[disabledKey] = bool;
+			scrollContainerRef.current.dataset.spotlightContainerDisabled = bool;
 
 			if (bool) {
 				addGlobalKeyDownEventListener(() => {
