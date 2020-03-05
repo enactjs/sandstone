@@ -166,7 +166,7 @@ const InputPopupBase = kind({
 
 	render: ({placeholder, children, css, title, subtitle, type, disabled, onClose, onOpenPopup, className, open, value, onShow, onChange, onInputKeyDown, ...rest}) => {
 
-		const inputProps = extractInputProps(rest);
+		// const inputProps = extractInputProps(rest);
 
 		delete rest.onComplete;
 
@@ -186,15 +186,7 @@ const InputPopupBase = kind({
 							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 						</Cell>
 						<Cell align="center" className={css.inputArea}>
-							<Input
-								autoFocus
-								type={type}
-								defaultValue={value}
-								placeholder={placeholder}
-								onChange={onChange}
-								onKeyDown={onInputKeyDown}
-								{...inputProps}
-							/>
+							<Input placeholder="hello" />
 						</Cell>
 						<Cell shrink>
 							{children}
