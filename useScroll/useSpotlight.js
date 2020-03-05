@@ -59,6 +59,10 @@ const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignP
 			if (spottableDescendants.length > 0) {
 				// Last spottable descendant(thumb) get focus.
 				nextTarget = spottableDescendants.pop();
+
+				// If there are both thumbs, vertical thumb is the next target
+				const verticalThumb = spottableDescendants.pop();
+				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
 			}
 		} else {
 			// Esc key on scroll thumb.
