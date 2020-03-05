@@ -109,8 +109,8 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * - {animate} - When `true`, scroll occurs with animation. When `false`, no
 	 *   animation occurs.
 	 * - {focus} - When `true`, attempts to focus item after scroll. Only valid when scrolling
-	 *   by `index` or `node`.
-	 * > Note: Only specify one of: `position`, `align`, `index` or `node`
+	 *   by `node`.
+	 * > Note: Only specify one of: `position`, `align`, `node`
 	 *
 	 * Example:
 	 * ```
