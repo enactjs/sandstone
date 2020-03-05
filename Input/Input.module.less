@@ -8,10 +8,14 @@
 		line-height: 0; // This removes an undesirable layout shift occuring when a number is entered into the numberCells (Popup adds a line-height to all children).
 	}
 
+	.combined,
+	.numberCell {
+		border-radius: @sand-input-numbercell-border-radius;
+	}
+
 	.numberCell {
 		justify-content: center;
 		align-items: center;
-		border-radius: @sand-input-numbercell-border-radius;
 		display: flex;
 
 		&:not(.password) {
@@ -43,7 +47,12 @@
 		.combined {
 			width: @sand-input-fullscreen-numberfield-width;
 			height: @sand-input-fullscreen-numberfield-height;
+			line-height: @sand-input-fullscreen-numberfield-height;
+			letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
+			text-indent: @sand-input-fullscreen-numberfield-letter-spacing; // account for the letter spacing offset
 			font-size: @sand-input-fullscreen-numberfield-font-size;
+			margin: @sand-input-fullscreen-numberfield-margin;
+			padding: @sand-input-fullscreen-numberfield-padding;
 		}
 
 		.keypad {
@@ -78,7 +87,12 @@
 		.combined {
 			width: @sand-input-overlay-numberfield-width;
 			height: @sand-input-overlay-numberfield-height;
+			line-height: @sand-input-overlay-numberfield-height;
+			letter-spacing: @sand-input-overlay-numberfield-letter-spacing;
+			text-indent: @sand-input-overlay-numberfield-letter-spacing; // account for the letter spacing offset
 			font-size: @sand-input-overlay-numberfield-font-size;
+			margin: @sand-input-overlay-numberfield-margin;
+			padding: @sand-input-overlay-numberfield-padding;
 		}
 
 		.keypad {
@@ -95,7 +109,8 @@
 	}
 
 	.applySkins({
-		.numberCell {
+		.numberCell,
+		.combined {
 			background-color: @sand-input-numbercell-background-color;
 		}
 
