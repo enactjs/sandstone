@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
+- `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
 ## [1.0.0-alpha.2] - 2020-03-03
 
