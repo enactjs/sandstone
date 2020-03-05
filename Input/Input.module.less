@@ -11,22 +11,20 @@
 	.numberCell {
 		justify-content: center;
 		align-items: center;
-		border-radius: @sand-input-popup-border-radius;
+		border-radius: @sand-input-numbercell-border-radius;
 		display: flex;
 
 		&:not(.password) {
-			font-family: @sand-input-number-preview-item-font-family;
+			font-family: @sand-input-number-font-family;
 		}
 	}
 
 	&.fullscreen {
 		.body {
-			padding: @sand-input-popup-padding;
+			padding: @sand-input-fullscreen-padding;
 		}
 
 		.inputArea,
-		.previewArea,
-		.keypadArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
 		}
@@ -36,68 +34,73 @@
 		}
 
 		.numberCell {
-			width: @sand-input-number-popup-full-preview-item-width;
-			height: @sand-input-number-popup-full-preview-item-height;
-			font-size: @sand-input-number-popup-full-preview-font-size;
-			margin: @sand-input-number-popup-full-preview-item-margin;
+			width: @sand-input-fullscreen-numbercell-width;
+			height: @sand-input-fullscreen-numbercell-height;
+			font-size: @sand-input-fullscreen-numbercell-font-size;
+			margin: @sand-input-fullscreen-numbercell-margin;
 		}
 
 		.combined {
-			width: @sand-input-number-popup-full-preview-text-width;
-			height: @sand-input-number-popup-full-preview-text-height;
-			font-size: @sand-input-number-popup-full-preview-font-size;
+			width: @sand-input-fullscreen-numberfield-width;
+			height: @sand-input-fullscreen-numberfield-height;
+			font-size: @sand-input-fullscreen-numberfield-font-size;
 		}
 
 		.keypad {
-			margin: @sand-input-number-popup-full-keypad-margin;
+			margin: @sand-input-fullscreen-keypad-margin;
 		}
 
 		.key {
-			margin: @sand-input-number-popup-full-keypad-key-margin;
+			margin: @sand-input-fullscreen-keypad-key-margin;
+		}
+
+		.buttonArea {
+			margin: @sand-input-fullscreen-buttonarea-margin;
 		}
 	}
 
 	&.overlay {
 		.body {
-			padding: @sand-input-number-popup-overlay-padding;
+			padding: @sand-input-overlay-padding;
 		}
 
-		.previewArea {
-			margin-top: @sand-input-number-popup-overlay-preview-area-margin-top;
+		.inputArea {
+			margin-top: @sand-input-overlay-inputarea-margin;
 		}
 
 		.numberCell {
-			width: @sand-input-number-popup-overlay-preview-item-width;
-			height: @sand-input-number-popup-overlay-preview-item-height;
-			font-size: @sand-input-number-popup-overlay-preview-item-font-size;
-			margin: @sand-input-number-popup-overlay-preview-item-margin;
+			width: @sand-input-overlay-numbercell-width;
+			height: @sand-input-overlay-numbercell-height;
+			font-size: @sand-input-overlay-numbercell-font-size;
+			margin: @sand-input-overlay-numbercell-margin;
 		}
 
 		.combined {
-			width: @sand-input-number-popup-overlay-preview-text-width;
-			height: @sand-input-number-popup-overlay-preview-text-height;
-			font-size: @sand-input-number-popup-overlay-preview-text-font-size;
+			width: @sand-input-overlay-numberfield-width;
+			height: @sand-input-overlay-numberfield-height;
+			font-size: @sand-input-overlay-numberfield-font-size;
 		}
 
 		.keypad {
-			margin: @sand-input-number-popup-overlay-keypad-margin;
-			width: @sand-input-number-popup-overlay-keypad-width;
+			margin: @sand-input-overlay-keypad-margin;
+			width: @sand-input-overlay-keypad-width;
 		}
 
 		.buttonArea {
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
+			margin: @sand-input-overlay-buttonarea-margin;
 		}
 	}
 
 	.applySkins({
 		.numberCell {
-			background-color: @sand-input-number-popup-preview-item-background-color;
+			background-color: @sand-input-numbercell-background-color;
 		}
 
 		&.overlay {
-			background-color: @sand-input-number-popup-overlay-background-color;
+			background-color: @sand-input-overlay-background-color;
 		}
 	});
 }
