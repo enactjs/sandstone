@@ -1,3 +1,12 @@
+/**
+ * Sandstone-themed scrollable hook and behaviors.
+ *
+ * @module sandstone/useScroll
+ * @exports dataIndexAttribute
+ * @exports useScroll
+ * @private
+ */
+
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
@@ -243,6 +252,14 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	};
 };
 
+/**
+ * A custom hook that passes Sandstone-themed scrollable behavior information as its render prop.
+ *
+ * @class
+ * @memberof sandstone/useScroll
+ * @ui
+ * @private
+ */
 const useScroll = (props) => {
 	const
 		{

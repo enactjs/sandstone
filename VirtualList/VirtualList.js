@@ -403,6 +403,10 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
 	 * except that a list is scrolled without an animation.
 	 *
+	 * Valid values are:
+	 * * `false`,
+	 * * `true`, and
+	 * * `'noAnimation'`
 	 * @type {Boolean|String}
 	 * @default false
 	 * @public
@@ -702,7 +706,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * Called when scroll stops.
 	 *
 	 * Passes `scrollLeft`, `scrollTop`, and `moreInfo`.
-	 * You can get firstVisibleIndex and lastVisibleIndex from VirtualList with `moreInfo`.
+	 * You can get firstVisibleIndex and lastVisibleIndex from VirtualGridList with `moreInfo`.
 	 *
 	 * Example:
 	 * ```
@@ -809,6 +813,11 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 *
 	 * When it's `'noAnimation'`, the spotlight focus moves in wraparound manner as same as when it's `true`
 	 * except that a list is scrolled without an animation.
+	 *
+	 * Valid values are:
+	 * * `false`,
+	 * * `true`, and
+	 * * `'noAnimation'`
 	 *
 	 * @type {Boolean|String}
 	 * @default false

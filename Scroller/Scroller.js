@@ -1,5 +1,6 @@
 /**
  * Provides Sandstone-themed scroller components and behaviors.
+ *
  * @example
  * <Scroller>
  * 	<div style={{height: '300px'}}>
@@ -176,6 +177,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
+
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
