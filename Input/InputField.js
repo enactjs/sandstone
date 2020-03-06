@@ -27,7 +27,7 @@ import {extractVoiceProps} from '../internal/util';
 import componentCss from './InputField.module.less';
 import InputFieldDecoratorIcon from './InputFieldDecoratorIcon';
 import InputFieldSpotlightDecorator from './InputFieldSpotlightDecorator';
-import {calcAriaLabel, extractInputFieldProps} from './util';
+import {calcAriaLabel, extractInputProps} from './util';
 
 /**
  * A Sandstone styled input component.
@@ -261,7 +261,7 @@ const InputFieldBase = kind({
 	},
 
 	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
-		const inputProps = extractInputFieldProps(rest);
+		const inputProps = extractInputProps(rest);
 		const voiceProps = extractVoiceProps(rest);
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
