@@ -1,7 +1,5 @@
 import {generateTestData} from '@enact/ui-test-utils/utils';
 
-import AlwaysViewingPanels from './components/AlwaysViewingPanels';
-import ActivityPanels from './components/ActivityPanels';
 import Button from './components/Button';
 import BodyText from './components/BodyText';
 import Checkbox from './components/Checkbox';
@@ -10,9 +8,12 @@ import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import DayPicker from './components/DayPicker';
+<<<<<<< HEAD
 import Dialog from './components/Dialog';
+=======
+import DaySelector from './components/DaySelector';
+>>>>>>> origin/develop
 import Dropdown from './components/Dropdown';
-import EditableIntegerPicker from './components/EditableIntegerPicker';
 import ExpandableInput from './components/ExpandableInput';
 import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
@@ -43,7 +44,6 @@ import Region from './components/Region';
 import Scroller from './components/Scroller';
 import SelectableItem from './components/SelectableItem';
 import Slider from './components/Slider';
-import SlotItem from './components/SlotItem';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
@@ -51,8 +51,6 @@ import TimePicker from './components/TimePicker';
 import ToggleIcon from './components/ToggleIcon';
 
 const components = {
-	AlwaysViewingPanels,
-	ActivityPanels,
 	BodyText,
 	Button,
 	Checkbox,
@@ -61,9 +59,12 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,
+<<<<<<< HEAD
 	Dialog,
+=======
+	DaySelector,
+>>>>>>> origin/develop
 	Dropdown,
-	EditableIntegerPicker,
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
@@ -96,7 +97,6 @@ const components = {
 	SelectableItem,
 	// Skinnable,
 	Slider,
-	SlotItem,
 	// Spinner,
 	Steps,
 	Switch,

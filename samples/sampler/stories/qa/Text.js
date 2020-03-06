@@ -18,7 +18,6 @@ import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
 import SelectableItem from '@enact/sandstone/SelectableItem';
-import SlotItem from '@enact/sandstone/SlotItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
@@ -98,40 +97,40 @@ storiesOf('Text', module)
 	.add(
 		'Languages',
 		() => Object.keys(inputData).map(key =>
-			<SlotItem key={key}>
+			<Item key={key}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>
 				</slotBefore>
 				{inputData[key]}
-			</SlotItem>
+			</Item>
 		)
 	)
 	.add(
 		'Mixed Scripts',
 		() => <div>
-			<SlotItem style={{fontWeight: 300}}>
+			<Item style={{fontWeight: 300}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 400}}>
+			</Item>
+			<Item style={{fontWeight: 400}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 600}}>
+			</Item>
+			<Item style={{fontWeight: 600}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 700}}>
+			</Item>
+			<Item style={{fontWeight: 700}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
+			</Item>
 		</div>
 	);

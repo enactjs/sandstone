@@ -7,9 +7,7 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DayPicker from '../../../DayPicker';
-import Dialog from '../../../Dialog';
 import Dropdown from '../../../Dropdown';
-import EditableIntegerPicker from '../../../EditableIntegerPicker';
 import ExpandableInput from '../../../ExpandableInput';
 import ExpandableItem from '../../../ExpandableItem';
 import ExpandableList from '../../../ExpandableList';
@@ -40,7 +38,6 @@ import Region from '../../../Region';
 import Scroller from '../../../Scroller';
 import SelectableItem from '../../../SelectableItem';
 import Slider from '../../../Slider';
-import SlotItem from '../../../SlotItem';
 import Spinner from '../../../Spinner';
 import Steps from '../../../Steps';
 import Switch from '../../../Switch';
@@ -61,9 +58,7 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,
-	Dialog,
 	Dropdown,
-	EditableIntegerPicker,
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
@@ -95,7 +90,6 @@ const components = {
 	Scroller,
 	SelectableItem,
 	Slider,
-	SlotItem,
 	Spinner,
 	Steps,
 	Switch,

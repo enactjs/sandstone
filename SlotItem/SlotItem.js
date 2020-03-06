@@ -18,8 +18,9 @@
  * @exports SlotItem
  * @exports SlotItemBase
  * @exports SlotItemDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  */
-
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import Pure from '@enact/ui/internal/Pure';
@@ -70,7 +71,7 @@ const SlotItemBase = kind({
 		publicClassNames: ['slotItem', 'slot']
 	},
 
-	render: (props) => {
+	render: deprecate((props) => {
 		return (
 			<UiSlotItemBase
 				{...props}
@@ -78,7 +79,11 @@ const SlotItemBase = kind({
 				css={props.css}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/SlotItem',
+		replacedBy: 'sandstone/Item',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
