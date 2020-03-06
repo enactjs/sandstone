@@ -4,11 +4,10 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Item from '@enact/sandstone/Item';
-import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList, {VirtualListBasic} from '@enact/sandstone/VirtualList';
@@ -64,7 +63,7 @@ const updateDataSize = (dataSize) => {
 	items.length = 0;
 
 	for (let i = 0; i < dataSize; i++) {
-		items.push({item :'Item ' + (headingZeros + i).slice(-itemNumberDigits), selected: false});
+		items.push({item: 'Item ' + (headingZeros + i).slice(-itemNumberDigits), selected: false});
 	}
 
 	return dataSize;
@@ -116,37 +115,6 @@ class StatefulSwitchItem extends React.Component {
 		);
 	}
 }
-
-// eslint-disable-next-line enact/prop-types
-const InPanels = ({className, title, ...rest}) => {
-	const [index, setIndex] = useState(0);
-	function handleSelectBreadcrumb (ev) {
-		setIndex(ev.index);
-	}
-
-	function handleSelectItem () {
-		setIndex(index === 0 ? 1 : 0);
-	}
-
-	return (
-		<ActivityPanels className={className} index={index} onSelectBreadcrumb={handleSelectBreadcrumb} noCloseButton>
-			<Panel>
-				<Header type="compact" title={`${title} Panel 0`} key="header" />
-				<VirtualList
-					id="spotlight-list"
-					// eslint-disable-next-line enact/prop-types
-					itemRenderer={renderItem(Item, rest.itemSize, true, handleSelectItem)}
-					spotlightId="virtual-list"
-					{...rest}
-				/>
-			</Panel>
-			<Panel title={`${title} Panel 1`}>
-				<Header type="compact" title={`${title} Panel 1`} key="header" />
-				<Item onClick={handleSelectItem}>Go Back</Item>
-			</Panel>
-		</ActivityPanels>
-	);
-};
 
 // eslint-disable-next-line enact/prop-types
 class VirtualListWithCBScrollTo extends React.Component {
@@ -247,29 +215,6 @@ storiesOf('VirtualList', module)
 			);
 		},
 		{propTables: [Config]}
-	)
-	.add(
-		'in Panels',
-		context => {
-			context.noPanels = true;
-			const title = `${context.kind} ${context.story}`.trim();
-			return (
-				<InPanels
-					title={title}
-					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemSize={ri.scale(number('itemSize', Config, 144))}
-					noScrollByWheel={boolean('noScrollByWheel', Config)}
-					onKeyDown={action('onKeyDown')}
-					onScrollStart={action('onScrollStart')}
-					onScrollStop={action('onScrollStop')}
-					spacing={ri.scale(number('spacing', Config))}
-					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-				/>
-			);
-		}
 	)
 	.add(
 		'scrolling to 0 whenever dataSize changes',
