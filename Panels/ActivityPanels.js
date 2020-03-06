@@ -1,4 +1,6 @@
 import deprecate from '@enact/core/internal/deprecate';
+import React from 'react';
+
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
 import compose from 'ramda/src/compose';
@@ -9,7 +11,7 @@ import {ActivityArranger} from './Arrangers';
 import BreadcrumbDecorator from './BreadcrumbDecorator';
 import {PanelsBase} from './Panels';
 
-const ActivityPanelsDecorator = deprecate(compose(
+const ActivityPanelsDecorator = compose(
 	Slottable({slots: ['controls']}),
 	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	Skinnable,
@@ -18,10 +20,7 @@ const ActivityPanelsDecorator = deprecate(compose(
 		max: 1,
 		panelArranger: ActivityArranger
 	})
-), {
-	name: 'sandstone/ActivityPanels',
-	message: 'ActivityPanels is deprecated and will be removed.'
-});
+);
 
 /**
  * An instance of Panels in which the Panel uses the entire viewable screen with a single breadcrumb
@@ -37,7 +36,22 @@ const ActivityPanelsDecorator = deprecate(compose(
  * @ui
  * @public
  */
-const ActivityPanels = ActivityPanelsDecorator(PanelsBase);
+
+class Deprecated extends React.Component {
+	constructor (props) {
+		super(props);
+		deprecate({
+			name: 'sandstone/ActivityPanels',
+			message: 'ActivityPanels is deprecated and will be removed.'
+		});
+	}
+
+	render () {
+		return (<PanelsBase {...this.props} />);
+	}
+}
+
+const ActivityPanels = ActivityPanelsDecorator(Deprecated);
 
 export default ActivityPanels;
 export {ActivityPanels};
