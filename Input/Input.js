@@ -225,7 +225,7 @@ const InputBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const textMode = (type === 'text' || type === 'password');
+		const numberMode = (type === 'number' || type === 'passwordnumber');
 		const password = (type === 'password' || type === 'passwordnumber');
 
 		delete rest.onComplete;
@@ -241,13 +241,21 @@ const InputBase = kind({
 					noAnimation
 					open={!disabled && open}
 				>
-					<Layout orientation="vertical" align={`center ${textMode ? '' : 'space-between'}`} className={css.body}>
+					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 						<Cell shrink>
 							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
 							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 						</Cell>
 						<Cell shrink className={css.inputArea}>
-							{textMode ?
+							{numberMode ?
+								<NumberField
+									defaultValue={value}
+									length={length}
+									onChange={onChange}
+									onComplete={onNumberComplete}
+									showKeypad
+									type={(type === 'passwordnumber') ? 'password' : 'number'}
+								/> :
 								<InputField
 									autoFocus
 									type={type}
@@ -256,14 +264,6 @@ const InputBase = kind({
 									onChange={onChange}
 									onKeyDown={onInputKeyDown}
 									{...inputProps}
-								/> :
-								<NumberField
-									defaultValue={value}
-									length={length}
-									onChange={onChange}
-									onComplete={onNumberComplete}
-									showKeypad
-									type={(type === 'passwordnumber') ? 'password' : 'number'}
 								/>
 							}
 						</Cell>
