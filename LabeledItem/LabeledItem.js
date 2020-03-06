@@ -7,6 +7,7 @@
  * @module sandstone/LabeledItem
  * @exports LabeledItem
  * @exports LabeledItemBase
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  */
 
 import deprecate from '@enact/core/internal/deprecate';
@@ -44,7 +45,6 @@ import componentCss from './LabeledItem.module.less';
  * @mixes ui/Touchable.Touchable
  * @mixes sandstone/Marquee.MarqueeController
  * @ui
- * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  * @public
  */
 const LabeledItemBase = kind({
@@ -138,7 +138,6 @@ const LabeledItemBase = kind({
  * @extends sandstone/LabeledItem.LabeledItemBase
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
- * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  * @public
  */
 const LabeledItem = Pure(
