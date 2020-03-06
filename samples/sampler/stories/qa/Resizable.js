@@ -1,3 +1,4 @@
+import Resizable from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -12,6 +13,8 @@ const data = [
 	'ABCDEFGHIJKLMNOPQRSTUVW12345',
 	'c'
 ];
+
+const ResizeButton = Resizable({resize: 'onClick'}, Button);
 
 class NoUpdate extends React.Component {
 	shouldComponentUpdate () {
@@ -46,7 +49,7 @@ class Items extends React.Component {
 
 		return (
 			<React.Fragment>
-				<Button onClick={this.toggleRenderItems}>Render {amount} Items</Button>
+				<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
 				{more ?
 					data.map((item) => {
 						return <Item key={item}>{item}</Item>;
@@ -62,7 +65,7 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate long marquee when scrollbar is rendered',
 		() => (
-			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
+			<Scroller>
 				<NoUpdate>
 					<Item marqueeOn="render">MARQUEEONRENDER ABCDE</Item>
 					<Item>ABCDEFGHIJKLMNOPQRST</Item>
@@ -78,7 +81,7 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate when selectable item is selected',
 		() => (
-			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
+			<Scroller>
 				<SelectableItem>
 					SELECTABLE ITEM ABCDEFGHIJ
 				</SelectableItem>
