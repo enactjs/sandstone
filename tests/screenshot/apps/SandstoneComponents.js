@@ -59,11 +59,6 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,
-<<<<<<< HEAD
-	Dialog,
-=======
-	DaySelector,
->>>>>>> origin/develop
 	Dropdown,
 	ExpandableInput,
 	ExpandableItem,
