@@ -27,8 +27,10 @@
  * @exports ToggleIcon
  * @exports ToggleIconBase
  * @exports ToggleIconDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
 import UiToggleIcon from '@enact/ui/ToggleIcon';
@@ -50,11 +52,14 @@ import Skinnable from '../Skinnable';
 const ToggleIconBase = kind({
 	name: 'ToggleIcon',
 
-	render: (props) => {
+	render: deprecate((props) => {
 		return (
 			<UiToggleIcon {...props} iconComponent={Icon} />
 		);
-	}
+	}, {
+		name: 'sandstone/ToggleIcon',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

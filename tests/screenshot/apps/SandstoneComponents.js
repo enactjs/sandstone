@@ -7,12 +7,10 @@ import CheckboxItem from './components/CheckboxItem';
 import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
-import DayPicker from './components/DayPicker';
 import Dropdown from './components/Dropdown';
 import ExpandableInput from './components/ExpandableInput';
 import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
-import ExpandablePicker from './components/ExpandablePicker';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import GridListImageItem from './components/GridListImageItem';
@@ -43,7 +41,6 @@ import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TimePicker from './components/TimePicker';
-import ToggleIcon from './components/ToggleIcon';
 
 const components = {
 	BodyText,
@@ -53,12 +50,10 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
-	DayPicker,
 	Dropdown,
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
-	ExpandablePicker,
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
@@ -92,7 +87,6 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
-	ToggleIcon
 	// ToggleItem,
 	// TooltipDecorator,
 	// VideoPlayer,

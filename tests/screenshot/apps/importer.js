@@ -6,12 +6,10 @@ import CheckboxItem from '../../../CheckboxItem';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
-import DayPicker from '../../../DayPicker';
 import Dropdown from '../../../Dropdown';
 import ExpandableInput from '../../../ExpandableInput';
 import ExpandableItem from '../../../ExpandableItem';
 import ExpandableList from '../../../ExpandableList';
-import ExpandablePicker from '../../../ExpandablePicker';
 import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import GridListImageItem from '../../../GridListImageItem';
@@ -43,7 +41,6 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import ToggleIcon from '../../../ToggleIcon';
 import ToggleItem from '../../../ToggleItem';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
@@ -57,12 +54,10 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
-	DayPicker,
 	Dropdown,
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
-	ExpandablePicker,
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
@@ -95,7 +90,6 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
-	ToggleIcon,
 	ToggleItem,
 	TooltipDecorator,
 	VideoPlayer,
