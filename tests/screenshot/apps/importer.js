@@ -44,7 +44,6 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import ToggleIcon from '../../../ToggleIcon';
 import ToggleItem from '../../../ToggleItem';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
@@ -97,7 +96,6 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
-	ToggleIcon,
 	ToggleItem,
 	TooltipDecorator,
 	VideoPlayer,
