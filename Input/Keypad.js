@@ -26,6 +26,12 @@ const KEY_LIST = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'backspace']
 const Key = kind({
 	name: 'Key',
 
+	propTypes: {
+		// Event callback fired when this button is clicked. Includes the 'key' key in its event
+		// payload to let the clicker know what was clicked inside their callback.
+		onKeyButtonClick: PropTypes.func
+	},
+
 	styles: {
 		css,
 		className: 'key'
@@ -33,12 +39,14 @@ const Key = kind({
 
 	handlers: {
 		onClick: handle(
-			adaptEvent((ev, {children: key}) => ({key}), forward('onClick'))
+			forward('onClick'),
+			adaptEvent((ev, {children: key}) => ({key}), forward('onKeyButtonClick'))
 		)
 	},
 
 	render: ({children, ...rest}) => {
 		const content = (children === 'backspace') ? 'arrowleftprevious' : children; // TBD: arrowleftprevious should be replaced to correct one base on GUI
+		delete rest.onKeyButtonClick;
 		return (
 			<Button
 				{...rest}
@@ -71,7 +79,7 @@ const Keypad = kind({
 							shrink
 							component={Key}
 							key={`key${rowIndex}-${keyText}`}
-							onClick={keyText === 'backspace' ? onRemove : onAdd}
+							onKeyButtonClick={keyText === 'backspace' ? onRemove : onAdd}
 						>
 							{keyText}
 						</Cell>

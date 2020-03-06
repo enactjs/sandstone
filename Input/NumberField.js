@@ -112,10 +112,10 @@ const NumberFieldBase = kind({
 			const items = new Array(length).fill('');
 			field = (
 				<Repeater
-					component={Layout}
 					aria-label={!password ? values.join(' ') : null}
 					aria-live="polite"
 					{...rest}
+					component={Layout}
 					childComponent={Cell}
 					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
