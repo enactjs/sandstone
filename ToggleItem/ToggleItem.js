@@ -17,8 +17,9 @@
  * @exports ToggleItem
  * @exports ToggleItemBase
  * @exports ToggleItemDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  */
-
+import deprecate from '@enact/core/internal/deprecate';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -98,7 +99,7 @@ const ToggleItemBase = kind({
 		publicClassNames: ['toggleItem', 'slot']
 	},
 
-	render: (props) => {
+	render: deprecate((props) => {
 		return (
 			<UiToggleItem
 				role="checkbox"
@@ -107,7 +108,11 @@ const ToggleItemBase = kind({
 				css={props.css}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/ToggleItem',
+		replacedBy: 'sandstone/Item',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

@@ -16,7 +16,6 @@ import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import ExpandableList from '@enact/sandstone/ExpandableList';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import Icon from '@enact/sandstone/Icon';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
@@ -26,7 +25,6 @@ import RadioItem from '@enact/sandstone/RadioItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import ToggleButton from '@enact/sandstone/ToggleButton';
-import ToggleItem from '@enact/sandstone/ToggleItem';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 
@@ -612,17 +610,6 @@ storiesOf('Spotlight', module)
 									>
 										SwitchItem
 									</SwitchItem>
-									<ToggleItem
-										icon="plus"
-										iconComponent={Icon}
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-									>
-										ToggleItem
-									</ToggleItem>
 								</Cell>
 							</Column>
 						</Cell>
