@@ -66,9 +66,8 @@ const useSpotlightConfig = (props, instances) => {
 
 const getNumberValue = (index) => index | 0;
 
-const useSpotlightRestore = (props, instances, context) => {
-	const {scrollContentRef, spottable} = instances;
-	const {getItemNode} = context;
+const useSpotlightRestore = (props, instances) => {
+	const {itemRefs, scrollContentHandle, scrollContentRef, spottable} = instances;
 
 	// Mutable value
 
@@ -113,7 +112,7 @@ const useSpotlightRestore = (props, instances, context) => {
 		) {
 			const
 				{spotlightId} = props,
-				node = getItemNode(mutableRef.current.preservedIndex);
+				node = itemRefs.current[mutableRef.current.preservedIndex % scrollContentHandle.current.state.numOfItems];
 
 			if (node) {
 				// if we're supposed to restore focus and virtual list has positioned a set of items

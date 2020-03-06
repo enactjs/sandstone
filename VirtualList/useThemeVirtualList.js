@@ -21,13 +21,6 @@ const
 const useSpottable = (props, instances, context) => {
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const {scrollMode} = context;
-	const getItemNode = (index) => {
-		const
-			itemRef = itemRefs.current[index % scrollContentHandle.current.state.numOfItems],
-			itemContent = itemRef && itemRef.children[0];
-
-		return (itemContent && parseInt(itemContent.dataset.index) === index) ? itemContent : null;
-	};
 
 	// Mutable value
 
@@ -85,7 +78,7 @@ const useSpottable = (props, instances, context) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {getItemNode});
+	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
 
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
@@ -149,10 +142,12 @@ const useSpottable = (props, instances, context) => {
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex);
 			} else {
+				const itemNode = itemRefs.current[nextIndex % scrollContentHandle.current.state.numOfItems];
+
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
-				if (isWrapped && getItemNode(nextIndex) === null) {
+				if (isWrapped && itemNode === null) {
 					if (wrap === true) {
 						pause.pause();
 						target.blur();
@@ -183,9 +178,9 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const item = getItemNode(index);
+		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
 
-		if (!item && index >= 0 && index < props.dataSize) {
+		if (!itemNode && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
 			setPreservedIndex(index);
 		} else {
@@ -195,7 +190,7 @@ const useSpottable = (props, instances, context) => {
 			}
 
 			pause.resume();
-			focusOnNode(item);
+			focusOnNode(itemNode);
 			setNodeIndexToBeFocused(null);
 			mutableRef.current.isScrolledByJump = false;
 		}
@@ -231,10 +226,10 @@ const useSpottable = (props, instances, context) => {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = scrollContentHandle.current.getItemNode(mutableRef.current.lastFocusedIndex);
+				const itemNode = itemRefs.current[mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems];
 
-				if (node) {
-					node.blur();
+				if (itemNode) {
+					itemNode.blur();
 				}
 			}
 

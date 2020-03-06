@@ -264,6 +264,7 @@ const useScroll = (props) => {
 
 	const scrollContainerRef = useRef();
 	const scrollContentRef = useRef();
+	const itemRefs = useRef([]);
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -272,8 +273,6 @@ const useScroll = (props) => {
 
 	const horizontalScrollbarRef = useRef();
 	const verticalScrollbarRef = useRef();
-
-	const itemRefs = useRef([]);
 
 	// Adapters
 
@@ -323,6 +322,7 @@ const useScroll = (props) => {
 		scrollContainerRef,
 		overscrollRefs,
 		scrollContentRef,
+		itemRefs,
 
 		// Adapter
 		themeScrollContentHandle,
@@ -378,6 +378,7 @@ const useScroll = (props) => {
 		clearOverscrollEffect,
 		handleResizeWindow,
 		horizontalScrollbarRef,
+		itemRefs,
 		onFlick: handleFlick,
 		onKeyDown: handleKeyDown,
 		onMouseDown: handleMouseDown,
