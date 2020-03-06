@@ -3,7 +3,6 @@
  */
 
 import kind from '@enact/core/kind';
-import hoc from '@enact/core/hoc';
 import {add} from '@enact/core/keymap';
 import {handle, oneOf, forKey, forward, adaptEvent} from '@enact/core/handle';
 import Layout, {Cell} from '@enact/ui/Layout';
@@ -11,6 +10,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import Button from '../Button';
+
+import WindowEventable from './WindowEventable';
 
 import css from './Input.module.less';
 
@@ -74,68 +75,6 @@ const Keypad = kind({
 			</Layout>
 		);
 	}
-});
-
-const defaultConfig = {
-	globalNode: null
-};
-
-
-
-//
-// WindowEventable (Eventful?)
-//
-import {on, off} from '@enact/core/dispatcher';
-
-// In config, extract all of the config stuff we know about. Everything else is an event.
-const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) => {
-	return class extends React.Component {
-
-		static displayName = 'WindowEventable';
-
-		constructor (props) {
-			super(props);
-
-			if (globalNode == null) globalNode = window;
-
-			this.events = {};
-			for (let [evName, fn] of Object.entries(events)) {
-				// Tailored event names (convert from react style to browser style naming)
-				if (evName.indexOf('on') === 0) evName = evName.substr(2).toLowerCase();
-
-				if (typeof fn === 'function') {
-					// Support functions passed directly into the config
-					this.events[evName] = handle(eventPayload => fn(eventPayload, props));
-				} else if (typeof fn === 'string') {
-					// Support strings, representing a callback in the props list
-					this.events[evName] = handle(forward(fn, props));
-				}
-			}
-
-			if (typeof globalNode === 'object') {
-				for (const [evName, fn] of Object.entries(this.events)) {
-					on(evName, fn, globalNode);
-				}
-			}
-		}
-
-		componentWillUnmount () {
-			if (typeof globalNode === 'object') {
-				for (const [evName, fn] of Object.entries(this.events)) {
-					off(evName, fn, globalNode);
-				}
-			}
-		}
-
-		render () {
-			const {...rest} = this.props;
-			for (const evName of Object.keys(events)) {
-				delete rest[evName];
-			}
-
-			return (<Wrapped {...rest} />);
-		}
-	};
 });
 
 // Setup a keypress handler for window that monitors each of the number keys and the backspace key
