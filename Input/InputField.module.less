@@ -57,7 +57,6 @@
 	.bg {
 		position: absolute;
 		.position(0);
-		z-index: -1;
 		border-radius: @sand-input-border-radius;
 		transition: transform @sand-input-focus-duration ease-out, filter @sand-input-focus-duration ease-out;
 		will-change: transform, filter;
@@ -65,6 +64,7 @@
 
 	.input,
 	.inputHighlight {
+		z-index: 1;
 		font-size: @sand-input-font-size;
 		font-weight: @sand-input-font-weight;
 	}
