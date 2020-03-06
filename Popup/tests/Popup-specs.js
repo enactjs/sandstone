@@ -195,7 +195,25 @@ describe('Popup specs', () => {
 				<PopupBase open position={firstPosition} ><div>popup</div></PopupBase>
 			);
 
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).toContain(firstPosition);
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain('fullscreen');
+			expect(popup.prop('className').split(' ')).not.toContain('fullscreen');
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain('center');
+			expect(popup.prop('className').split(' ')).not.toContain('center');
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain('bottom');
+			expect(popup.prop('className').split(' ')).not.toContain('bottom');
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain('right');
+			expect(popup.prop('className').split(' ')).not.toContain('right');
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain('left');
+			expect(popup.prop('className').split(' ')).not.toContain('left');
+
 			popup.setProps({position: 'fullscreen'});
+
+			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
+			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);
+
+			popup.setProps({position: 'center'});
 
 			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).not.toContain(firstPosition);
 			expect(popup.prop('className').split(' ')).not.toContain(firstPosition);

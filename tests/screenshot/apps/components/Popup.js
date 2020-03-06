@@ -2,7 +2,6 @@ import Popup from '../../../../Popup';
 import React from 'react';
 
 const PopupTests = [
-	<Popup>Popup!</Popup>,
 	<Popup open>Popup!</Popup>,
 	//GT-28270,
 	<Popup open position="fullscreen">Fullscreen Popup!</Popup>,
