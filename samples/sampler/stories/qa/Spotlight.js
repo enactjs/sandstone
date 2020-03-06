@@ -17,7 +17,6 @@ import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import ExpandableItem from '@enact/sandstone/ExpandableItem';
 import ExpandableList from '@enact/sandstone/ExpandableList';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
@@ -677,16 +676,6 @@ storiesOf('Spotlight', module)
 										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 										title="ExpandableInput"
 									/>
-									<ExpandablePicker
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="ExpandablePicker"
-									>
-										{Items}
-									</ExpandablePicker>
 									<DatePicker
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}

@@ -17,7 +17,6 @@ import EditableIntegerPicker from './components/EditableIntegerPicker';
 import ExpandableInput from './components/ExpandableInput';
 import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
-import ExpandablePicker from './components/ExpandablePicker';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import GridListImageItem from './components/GridListImageItem';
@@ -70,7 +69,6 @@ const components = {
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
-	ExpandablePicker,
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
