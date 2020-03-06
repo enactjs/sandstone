@@ -620,15 +620,6 @@ storiesOf('Spotlight', module)
 									>
 										SwitchItem
 									</SwitchItem>
-									<Item
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-									>
-										Item
-									</Item>
 								</Cell>
 							</Column>
 						</Cell>
