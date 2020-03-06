@@ -20,7 +20,7 @@ import {convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
-const setInputValue = ev => ({value: ev.target.value});
+const prepareInputEventPayload = ev => ({value: ev.target.value});
 
 /**
  * Base component for providing text input in the form of a popup
@@ -192,7 +192,7 @@ const InputBase = kind({
 		onInputKeyDown: handle(
 			forKey('enter'),
 			adaptEvent(
-				setInputValue,
+				prepareInputEventPayload,
 				forward('onComplete')
 			),
 			forward('onClose')

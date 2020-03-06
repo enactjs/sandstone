@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
 import Pause from '@enact/spotlight/Pause';
 
-import {calcAriaLabel, extractInputFieldProps, Input} from '../Input';
+import {calcAriaLabel, extractInputFieldProps, InputField} from '../Input';
 import {Expandable, ExpandableItemBase} from '../ExpandableItem';
 
 import css from './ExpandableInput.module.less';
@@ -43,7 +43,7 @@ const handleUpDown = handle(
 );
 
 /**
- * A stateless component that expands to render a {@link sandstone/Input.Input}.
+ * A stateless component that expands to render a {@link sandstone/Input.InputField}.
  *
  * @class ExpandableInputBase
  * @memberof sandstone/ExpandableInput
@@ -155,7 +155,7 @@ class ExpandableInputBase extends React.Component {
 		 * The placeholder text to display.
 		 *
 		 * @type {String}
-		 * @see {@link sandstone/Input.Input#placeholder}
+		 * @see {@link sandstone/Input.InputField#placeholder}
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -173,7 +173,7 @@ class ExpandableInputBase extends React.Component {
 		 * The type of input. Accepted values correspond to the standard HTML5 input types.
 		 *
 		 * @type {String}
-		 * @see {@link sandstone/Input.Input#type}
+		 * @see {@link sandstone/Input.InputField#type}
 		 * @public
 		 */
 		type: PropTypes.string,
@@ -182,7 +182,7 @@ class ExpandableInputBase extends React.Component {
 		 * The value of the input.
 		 *
 		 * @type {String|Number}
-		 * @see {@link sandstone/Input.Input#value}
+		 * @see {@link sandstone/Input.InputField#value}
 		 * @public
 		 */
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -302,7 +302,7 @@ class ExpandableInputBase extends React.Component {
 				showLabel={type === 'password' ? 'never' : 'auto'}
 				spotlightDisabled={spotlightDisabled}
 			>
-				<Input
+				<InputField
 					{...inputProps}
 					autoFocus
 					className={css.decorator}
@@ -325,7 +325,7 @@ class ExpandableInputBase extends React.Component {
 }
 
 /**
- * A stateful component that expands to render a {@link sandstone/Input.Input}.
+ * A stateful component that expands to render a {@link sandstone/Input.InputField}.
  *
  * By default, `ExpandableInput` maintains the state of its `value` property. Supply the
  * `defaultValue` property to control its initial value. If you wish to directly control updates
