@@ -32,8 +32,7 @@ import {calcAriaLabel, extractInputProps} from './util';
 /**
  * A Sandstone styled input component.
  *
- * It supports start and end icons. Note that this base component is not stateless as many other
- * base components are. However, it does not support Spotlight. Apps will want to use
+ * It supports start and end icons but it does not support Spotlight. Apps should use
  * {@link sandstone/InputField.InputField}.
  *
  * @class InputFieldBase
