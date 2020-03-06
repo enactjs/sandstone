@@ -18,6 +18,7 @@
 		display: block;
 		border-radius: 50%;
 		margin: 0;
+		.transitionEffect();
 	}
 
 	.image {
@@ -33,6 +34,7 @@
 		left: 0;
 		right: 0;
 		border-width: @sand-gridlistimageitem-image-border-width;
+		border-style: none;
 	}
 
 	.caption {
@@ -84,6 +86,7 @@
 			.icon {
 				background-color: @sand-gridlistimageitem-focus-overlay-icon-bg-color;
 				color: @sand-gridlistimageitem-focus-overlay-icon-color;
+				transform: @sand-gridlistimageitem-focus-icon-transform;
 			}
 
 			.caption,
@@ -93,6 +96,7 @@
 
 			&.selected {
 				.icon {
+
 					background-color: @sand-gridlistimageitem-selected-focus-overlay-icon-bg-color;
 					color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 				}
