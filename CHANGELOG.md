@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `Scroller.Scroller` to handle scroll for key holding case on `scrollthumb`.
 - `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
 ## [1.0.0-alpha.2] - 2020-03-03
