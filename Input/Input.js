@@ -180,6 +180,15 @@ const InputBase = kind({
 			forward('onShow'),
 			() => Spotlight.setPointerMode(false)
 		),
+		onNumberComplete: handle(
+			(ev, props) => {
+				setTimeout(() => {
+					forward('onComplete', ev, props);
+					forward('onClose', ev, props);
+				}, 250);
+				return true;
+			}
+		),
 		onInputKeyDown: handle(
 			forKey('enter'),
 			adaptEvent(
@@ -201,6 +210,7 @@ const InputBase = kind({
 		length,
 		onChange,
 		onClose,
+		onNumberComplete,
 		onInputKeyDown,
 		onShow,
 		open,
@@ -252,7 +262,7 @@ const InputBase = kind({
 									defaultValue={value}
 									length={length}
 									onChange={onChange}
-									onKeyDown={onInputKeyDown}
+									onComplete={onNumberComplete}
 									showKeypad
 									type={(type === 'passwordnumber') ? 'password' : 'number'}
 								/>
@@ -273,7 +283,6 @@ const InputDecorator = compose(
 	Pure,
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
-	// Changeable,
 	Skinnable
 );
 

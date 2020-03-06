@@ -6,7 +6,6 @@ import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import Layout, {Cell} from '@enact/ui/Layout';
 
-// import Skinnable from '../Skinnable';
 import Icon from '../Icon';
 
 import Keypad from './Keypad';
@@ -14,8 +13,7 @@ import {convertToPasswordFormat} from './util';
 
 import componentCss from './Input.module.less';
 
-const NUMBER_LENGTH_LIMIT = 6;
-
+const SEPARATE_DIGITS_LIMIT = 6;
 
 const NumberCell = kind({
 	name: 'NumberCell',
@@ -58,6 +56,7 @@ const NumberFieldBase = kind({
 	propTypes: /** @lends sandstone/Input.NumberField.prototype */ {
 		css: PropTypes.object,
 		length: PropTypes.number,
+		onComplete: PropTypes.func,
 		showKeypad: PropTypes.bool,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -81,18 +80,12 @@ const NumberFieldBase = kind({
 					value: (value.length >= length ? value : `${value}${key}`)
 				}),
 				handle(
-					// handle.log('onAdd'),
+					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
+					({value: updatedValue}, {value}) => (updatedValue !== value),
 					forward('onChange'),
-
-					// DEV NOTE: Probably move these to its own Decorator
+					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
 					({value: updatedValue}, {length}) => (updatedValue.length >= length),
-					(ev, props) => {
-						setTimeout(() => {
-							forward('onClose', ev, props);
-							forward('onComplete', ev, props);
-						}, 250);
-						return true;
-					}
+					forward('onComplete'),
 				)
 			),
 		),
@@ -101,26 +94,22 @@ const NumberFieldBase = kind({
 				(ev, {value}) => ({value: value.toString().slice(0, -1)}),
 				forward('onChange')
 			)
-		),
-		onChange: handle(
-			handle.log('onChange'),
-			adaptEvent(
-				ev => ({value: ev.target.dataset.value}),
-				forward('onChange')
-			)
 		)
 	},
 
 	computed: {
-		className: ({length, type, styler}) => styler.append(type, (length <= NUMBER_LENGTH_LIMIT ? 'separated' : 'combined'))
+		className: ({length, type, styler}) => styler.append(type, (length <= SEPARATE_DIGITS_LIMIT ? 'separated' : 'combined')),
+		// Normalize the value, also prune out any non-digit characters
+		value: ({value}) => ((value != null) ? value.toString().replace(/\D/g, '') : '')
 	},
 
 	render: ({css, length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
 		const password = (type === 'password');
+		delete rest.onComplete;
 
 		let field;
-		if (length <= NUMBER_LENGTH_LIMIT) {
-			const values = (value != null) ? value.toString().split('') : [];
+		if (length <= SEPARATE_DIGITS_LIMIT) {
+			const values = value.split('');
 			const items = new Array(length).fill('');
 			field = (
 				<Layout inline aria-label={!password ? values.join(' ') : null} aria-live="polite" {...rest} dataset={value}>
@@ -150,7 +139,6 @@ const NumberFieldBase = kind({
 
 const NumberFieldDecorator = compose(
 	Changeable
-	// Skinnable
 );
 
 const NumberField = NumberFieldDecorator(NumberFieldBase);
