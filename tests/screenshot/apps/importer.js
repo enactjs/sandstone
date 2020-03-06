@@ -27,7 +27,6 @@ import Input from '../../../Input';
 import Item from '../../../Item';
 import LabeledIcon from '../../../LabeledIcon';
 import LabeledIconButton from '../../../LabeledIconButton';
-import LabeledItem from '../../../LabeledItem';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -83,7 +82,6 @@ const components = {
 	IncrementSlider,
 	Input,
 	Item,
-	LabeledItem,
 	LabeledIcon,
 	LabeledIconButton,
 	Marquee,

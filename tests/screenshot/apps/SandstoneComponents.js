@@ -31,7 +31,6 @@ import Input from './components/Input';
 import Item from './components/Item';
 import LabeledIcon from './components/LabeledIcon';
 import LabeledIconButton from './components/LabeledIconButton';
-import LabeledItem from './components/LabeledItem';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
 import Notification from './components/Notification';
@@ -85,7 +84,6 @@ const components = {
 	Item,
 	LabeledIcon,
 	LabeledIconButton,
-	LabeledItem,
 	Marquee,
 	MediaOverlay,
 	Notification,
