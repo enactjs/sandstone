@@ -1,6 +1,5 @@
 import {generateTestData} from '@enact/ui-test-utils/utils';
 
-import AlwaysViewingPanels from './components/AlwaysViewingPanels';
 import ActivityPanels from './components/ActivityPanels';
 import Button from './components/Button';
 import BodyText from './components/BodyText';
@@ -52,7 +51,6 @@ import TimePicker from './components/TimePicker';
 import ToggleIcon from './components/ToggleIcon';
 
 const components = {
-	AlwaysViewingPanels,
 	ActivityPanels,
 	BodyText,
 	Button,

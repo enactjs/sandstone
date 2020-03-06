@@ -97,9 +97,8 @@ const PanelBase = kind({
 		/**
 		 * Hides the body components.
 		 *
-		 * When a Panel is used within [`Panels`]{@link sandstone/Panels.Panels},
-		 * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels}, or
-		 * [`AlwaysViewingPanels`]{@link sandstone/Panels.AlwaysViewingPanels},
+		 * When a Panel is used within [`Panels`]{@link sandstone/Panels.Panels} or
+		 * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels},
 		 * this property will be set automatically to `true` on render and `false` after animating
 		 * into view.
 		 *

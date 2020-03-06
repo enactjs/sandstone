@@ -27,9 +27,7 @@ export const breadcrumbWidth = 192;
 /**
  * Vertical, transparent bar used to navigate to a prior Panel.
  *
- * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels} has one breadcrumb, and
- * [`AlwaysViewingPanels`]{@link sandstone/Panels.AlwaysViewingPanels} can have multiple stacked
- * horizontally.
+ * [`ActivityPanels`]{@link sandstone/Panels.ActivityPanels} has one breadcrumb.
  *
  * @class Breadcrumb
  * @memberof sandstone/Panels

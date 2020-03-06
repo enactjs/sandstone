@@ -1,3 +1,4 @@
+import deprecate from '@enact/core/internal/deprecate';
 import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
@@ -25,7 +26,7 @@ const calcMax = () => {
 	}
 };
 
-const AlwaysViewingPanelsDecorator = compose(
+const AlwaysViewingPanelsDecorator = deprecate(compose(
 	Slottable({slots: ['controls']}),
 	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	Skinnable,
@@ -34,7 +35,10 @@ const AlwaysViewingPanelsDecorator = compose(
 		max: calcMax,
 		panelArranger: AlwaysViewingArranger
 	})
-);
+), {
+	name: 'sandstone/AlwaysViewingPanels',
+	message: 'AlwaysViewingPanels is deprecated and will be removed.'
+});
 
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
