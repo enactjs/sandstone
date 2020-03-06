@@ -70,6 +70,7 @@
 			}
 
 			.icon {
+				background-color: @sand-gridlistimageitem-selected-overlay-icon-bg-color;
 				color: @sand-gridlistimageitem-selected-overlay-icon-color;
 			}
 		}
@@ -81,7 +82,8 @@
 			}
 
 			.icon {
-				color: @sand-gridlistimageitem-overlay-icon-color;
+				background-color: @sand-gridlistimageitem-focus-overlay-icon-bg-color;
+				color: @sand-gridlistimageitem-focus-overlay-icon-color;
 			}
 
 			.caption,
@@ -91,6 +93,7 @@
 
 			&.selected {
 				.icon {
+					background-color: @sand-gridlistimageitem-selected-focus-overlay-icon-bg-color;
 					color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 				}
 			}
@@ -105,11 +108,13 @@
 			.focus({
 				&:not(.selected) {
 					.icon {
+						background-color: @sand-gridlistimageitem-focus-overlay-icon-bg-color;
 						color: @sand-gridlistimageitem-focus-overlay-icon-color;
 					}
 				}
 				&.selected {
 					.icon {
+						background-color: @sand-gridlistimageitem-selected-focus-overlay-icon-bg-color;
 						color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 					}
 				}
