@@ -192,7 +192,7 @@ describe('Popup specs', () => {
 		it('should not have top class when position change from top to any other position', () => {
 			const firstPosition = 'top';
 			const popup = shallow(
-				<PopupBase open position={firstPosition} ><div>popup</div></PopupBase>
+				<PopupBase open position={firstPosition}><div>popup</div></PopupBase>
 			);
 
 			expect(popup.find(`.${css.popup}`).prop('className').split(' ')).toContain(firstPosition);
