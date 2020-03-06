@@ -66,8 +66,9 @@ const useSpotlightConfig = (props, instances) => {
 
 const getNumberValue = (index) => index | 0;
 
-const useSpotlightRestore = (props, instances) => {
-	const {itemRefs, scrollContentHandle, scrollContentRef, spottable} = instances;
+const useSpotlightRestore = (props, instances, context) => {
+	const {scrollContentRef, spottable} = instances;
+	const {getItemNode} = context
 
 	// Mutable value
 
@@ -112,16 +113,16 @@ const useSpotlightRestore = (props, instances) => {
 		) {
 			const
 				{spotlightId} = props,
-				node = itemRefs.current[mutableRef.current.preservedIndex % scrollContentHandle.current.state.numOfItems];
+				itemNode = getItemNode(mutableRef.current.preservedIndex);
 
-			if (node) {
+			if (itemNode) {
 				// if we're supposed to restore focus and virtual list has positioned a set of items
 				// that includes lastFocusedIndex, clear the indicator
 				mutableRef.current.restoreLastFocused = false;
 
 				// try to focus the last focused item
 				spottable.current.isScrolledByJump = true;
-				const foundLastFocused = Spotlight.focus(node);
+				const foundLastFocused = Spotlight.focus(itemNode);
 				spottable.current.isScrolledByJump = false;
 
 				// but if that fails (because it isn't found or is disabled), focus the container so

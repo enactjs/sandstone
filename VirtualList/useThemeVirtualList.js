@@ -19,8 +19,13 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances, context) => {
-	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
-	const {scrollMode} = context;
+	const
+		{itemRefs, scrollContainerRef, scrollContentHandle} = instances,
+		{scrollMode} = context,
+		getItemNode = (index) => {
+			const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+			return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
+		};
 
 	// Mutable value
 
@@ -78,7 +83,7 @@ const useSpottable = (props, instances, context) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
+	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {getItemNode});
 
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
@@ -142,7 +147,7 @@ const useSpottable = (props, instances, context) => {
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex);
 			} else {
-				const itemNode = itemRefs.current[nextIndex % scrollContentHandle.current.state.numOfItems];
+				const itemNode = getItemNode(nextIndex);
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
@@ -178,7 +183,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+		const itemNode = getItemNode(index);
 
 		if (!itemNode && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
@@ -226,7 +231,7 @@ const useSpottable = (props, instances, context) => {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const itemNode = itemRefs.current[mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems];
+				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems);
 
 				if (itemNode) {
 					itemNode.blur();
