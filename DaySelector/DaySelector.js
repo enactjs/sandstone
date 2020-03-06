@@ -84,7 +84,7 @@ const DaySelectorBase = kind({
 		className: 'daySelector'
 	},
 
-	render: deprecate ((props) => {
+	render: deprecate((props) => {
 		return (
 			<Group
 				{...props}
