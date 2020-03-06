@@ -322,7 +322,6 @@ const useScroll = (props) => {
 		scrollContainerRef,
 		overscrollRefs,
 		scrollContentRef,
-		itemRefs,
 
 		// Adapter
 		themeScrollContentHandle,
@@ -483,12 +482,12 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
+		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
-		itemRefs,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,

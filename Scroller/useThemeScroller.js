@@ -266,7 +266,6 @@ const useThemeScroller = (props) => {
 	const propsObject = Object.assign({}, props);
 
 	delete propsObject.children;
-	delete propsObject.itemRefs;
 	delete propsObject.scrollContainerContainsDangerously;
 	delete propsObject.scrollContainerRef;
 	delete propsObject.onUpdate;
