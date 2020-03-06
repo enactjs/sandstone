@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import {is} from '@enact/core/keymap';
+import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import React, {forwardRef, useCallback, useEffect} from 'react';
@@ -15,12 +16,13 @@ const
 	isRight = is('right'),
 	isUp = is('up');
 
+const SpotlightAccelerator = new Accelerator();
+
 /**
  * A Sandstone-styled scroll thumb with sandstone behavior
  *
  * @class ScrollThumb
  * @memberof sandstone/useScroll
- * @extends ui/Scrollable/ScrollThumb
  * @ui
  * @private
  */
@@ -34,6 +36,10 @@ let ScrollThumb = forwardRef((props, ref) => {
 		cbAlertThumb();
 	});
 
+	useEffect (()=> {
+		SpotlightAccelerator.reset();
+	}, []);
+
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();
 		ev.nativeEvent.stopImmediatePropagation();
@@ -41,23 +47,30 @@ let ScrollThumb = forwardRef((props, ref) => {
 	}, [onInteractionForScroll]);
 
 	const onKeyDown = useCallback((ev) => {
-		const
-			{keyCode} = ev,
-			isLeftRight = isLeft(keyCode) || isRight(keyCode),
-			isUpDown = isUp(keyCode) || isDown(keyCode),
-			isPageKey = isPageUp(keyCode) || isPageDown(keyCode),
-			scrollParam = {
-				inputType: isPageKey ? 'pageKey' : 'arrowKey',
-				isPagination: isPageKey,
-				isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
-				isVerticalScrollBar: vertical
-			};
+		if (SpotlightAccelerator.processKey(ev, nop)) {
+			ev.nativeEvent.stopImmediatePropagation();
+		} else {
+			const
+				{keyCode} = ev,
+				isLeftRight = isLeft(keyCode) || isRight(keyCode),
+				isUpDown = isUp(keyCode) || isDown(keyCode),
+				isPageKey = isPageUp(keyCode) || isPageDown(keyCode),
+				scrollParam = {
+					inputType: isPageKey ? 'pageKey' : 'arrowKey',
+					isPagination: isPageKey,
+					isForward: (!rtl && isRight(keyCode)) || (rtl && isLeft(keyCode)) || isDown(keyCode) || isPageDown(keyCode),
+					isVerticalScrollBar: vertical
+				};
 
-		if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
-			// Do nothing when (!vertical && pageKey)
-			consumeEventWithScroll(scrollParam, ev);
+			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
+				// Do nothing when (!vertical && pageKey)
+				consumeEventWithScroll(scrollParam, ev);
+			}
+
+			if (!ev.repeat) {
+				SpotlightAccelerator.reset();
+			}
 		}
-
 	}, [consumeEventWithScroll, rtl, vertical]);
 
 	const onClick = useCallback((ev) => {
