@@ -8,7 +8,11 @@ import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DaySelector from '../../../DaySelector';
 import Dropdown from '../../../Dropdown';
+<<<<<<< HEAD
 import ExpandableInput from '../../../ExpandableInput';
+=======
+import EditableIntegerPicker from '../../../EditableIntegerPicker';
+>>>>>>> PLAT-102008: Deprecate ExpandableInput
 import ExpandableItem from '../../../ExpandableItem';
 import ExpandableList from '../../../ExpandableList';
 import FormCheckbox from '../../../FormCheckbox';
@@ -57,7 +61,6 @@ const components = {
 	DatePicker,
 	DaySelector,
 	Dropdown,
-	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
 	FormCheckbox,

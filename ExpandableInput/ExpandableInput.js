@@ -12,6 +12,7 @@
  * @exports ExpandableInputBase
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import Changeable from '@enact/ui/Changeable';
 import {adaptEvent, call, forKey, forward, handle, oneOf, preventDefault, stopImmediate} from '@enact/core/handle';
 import React from 'react';
@@ -203,6 +204,11 @@ class ExpandableInputBase extends React.Component {
 
 		this.handleUpDown = handleUpDown.bind(this);
 		this.handleDeactivate = handleDeactivate.bind(this);
+
+		deprecate({
+			name: 'sandstone/ExpandableInput',
+			until: '1.0.0-beta.1'
+		});
 	}
 
 	componentDidUpdate (prevProps) {
