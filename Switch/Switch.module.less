@@ -4,9 +4,8 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleIcon {
-	border-radius: (@sand-toggleswitch-height / 2);
+.switch {
+	border-radius: @sand-toggleswitch-border-radius;
 	width: @sand-toggleswitch-width;
 	height: @sand-toggleswitch-height;
 	line-height: @sand-toggleswitch-height;
@@ -66,15 +65,8 @@
 		}
 
 		&.selected {
-			background-color: @sand-checkbox-toggle-switch-selected-bg-color;
-			box-shadow: 0 0 0 @sand-checkbox-toggle-switch-selected-border-width @sand-checkbox-toggle-switch-selected-border-color;
-
 			.icon {
 				color: @sand-checkbox-toggle-switch-selected-color;
-
-				// :global(.spottable):focus & {
-				// 	color: @sand-checkbox-toggle-switch-selected-color;
-				// }
 			}
 		}
 
@@ -87,8 +79,6 @@
 			}
 
 			&.selected {
-				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
-
 				.icon {
 					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
 				}
@@ -99,7 +89,7 @@
 
 // When a parent is disabled
 .disabled({
-	.toggleIcon {
+	.switch {
 		.applySkins({
 			opacity: 1;
 		});
@@ -108,16 +98,16 @@
 
 // Keep the switch handle (the icon) a constant color regardless of focus state.
 .focus({
-	.toggleIcon {
+	.switch {
 		// Skin colors
 		.applySkins({
+			box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-spotlight-border-color;
+
 			.icon {
-				color: @sand-checkbox-toggle-switch-color;
+				color: @sand-checkbox-toggle-switch-spotlight-color;
 			}
 
 			&.selected {
-				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
-
 				.icon {
 					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
 				}
@@ -126,7 +116,7 @@
 	}
 
 	.disabled({
-		.toggleIcon {
+		.switch {
 			.applySkins({
 				opacity: @sand-disabled-opacity;
 			});

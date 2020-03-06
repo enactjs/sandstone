@@ -33,20 +33,4 @@ describe('SwitchItem Specs', () => {
 
 		expect(actual).toBe(expected);
 	});
-
-	test('should pass disabled to Switch element', () => {
-
-		const switchItem = mount(
-			<SwitchItem disabled>
-				SwitchItem
-			</SwitchItem>
-		);
-
-		const SwitchComponent = switchItem.find('Switch');
-
-		const expected = true;
-		const actual = SwitchComponent.prop('disabled');
-
-		expect(actual).toBe(expected);
-	});
 });

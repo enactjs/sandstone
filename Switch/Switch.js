@@ -12,8 +12,12 @@
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 
-import ToggleIcon from '../ToggleIcon';
+import Toggleable from '@enact/ui/Toggleable';
+
+import Icon from '../Icon';
+import Skinnable from '../Skinnable';
 
 import componentCss from './Switch.module.less';
 
@@ -40,21 +44,34 @@ const SwitchBase = kind({
 		 * @default false
 		 * @public
 		 */
-		noAnimation: PropTypes.bool
+		noAnimation: PropTypes.bool,
+
+		/**
+		 * Sets whether this control is in the 'on' or 'off' state. `true` for 'on', `false` for 'off'.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		selected: PropTypes.bool
 	},
 
 	defaultProps: {
 		children: 'circle',
-		noAnimation: false
+		noAnimation: false,
+		selected: false
 	},
 
 	styles: {
-		css: componentCss
+		css: componentCss,
+		className: 'switch',
+		publicClassNames: ['switch', 'selected']
 	},
 
 	computed: {
-		className: ({noAnimation, styler}) => styler.append({
-			animated: !noAnimation
+		className: ({noAnimation, selected, styler}) => styler.append({
+			animated: !noAnimation,
+			selected
 		})
 	},
 
@@ -62,18 +79,27 @@ const SwitchBase = kind({
 		delete rest.noAnimation;
 
 		return (
-			<ToggleIcon
-				{...rest}
-				css={css}
-			>
-				{children}
-			</ToggleIcon>
+			<div {...rest}>
+				<Icon
+					size="small"
+					className={css.icon}
+				>
+					{children}
+				</Icon>
+			</div>
 		);
 	}
 });
 
-export default SwitchBase;
+const SwitchDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Skinnable
+);
+const Switch = SwitchDecorator(SwitchBase);
+
+export default Switch;
+
 export {
-	SwitchBase as Switch,
+	Switch,
 	SwitchBase
 };
