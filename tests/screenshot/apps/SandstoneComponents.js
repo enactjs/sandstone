@@ -82,8 +82,7 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
-	TimePicker,
-	// ToggleItem,
+	TimePicker
 	// TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList
