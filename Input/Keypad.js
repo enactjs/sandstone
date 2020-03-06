@@ -57,9 +57,14 @@ const Keypad = kind({
 		onRemove: PropTypes.func
 	},
 
+	styles: {
+		css,
+		className: 'keypad'
+	},
+
 	render: ({onAdd, onRemove, ...rest}) => {
 		return (
-			<Layout align="center end" wrap {...rest}>
+			<Layout align="center end" wrap {...rest} inline>
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell

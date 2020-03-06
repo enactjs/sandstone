@@ -258,7 +258,6 @@ const InputBase = kind({
 									{...inputProps}
 								/> :
 								<NumberField
-									css={css}
 									defaultValue={value}
 									length={length}
 									onChange={onChange}

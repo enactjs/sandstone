@@ -55,7 +55,6 @@ const NumberFieldBase = kind({
 	name: 'NumberField',
 
 	propTypes: {
-		css: PropTypes.object,
 		length: PropTypes.number,
 		onComplete: PropTypes.func,
 		showKeypad: PropTypes.bool,
@@ -70,8 +69,7 @@ const NumberFieldBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'numberField',
-		publicClassNames: ['numberField', 'combined', 'separated', 'numberCell', 'keypad']
+		className: 'numberField'
 	},
 
 	handlers: {
@@ -104,7 +102,7 @@ const NumberFieldBase = kind({
 		value: ({value}) => ((value != null) ? value.toString().replace(/\D/g, '') : '')
 	},
 
-	render: ({css, length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
+	render: ({length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.onComplete;
 
@@ -136,7 +134,8 @@ const NumberFieldBase = kind({
 		return (
 			<React.Fragment>
 				{field}
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} className={css.keypad} /> : null}
+				<br />
+				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
 			</React.Fragment>
 		);
 	}
