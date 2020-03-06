@@ -12,7 +12,6 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
-import DayPicker from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import ExpandableItem from '@enact/sandstone/ExpandableItem';
@@ -694,14 +693,6 @@ storiesOf('Spotlight', module)
 										onSpotlightUp={action('onSpotlightUp')}
 										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 										title="DatePicker"
-									/>
-									<DayPicker
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="DayPicker"
 									/>
 									<TimePicker
 										onSpotlightDown={action('onSpotlightDown')}
