@@ -122,7 +122,7 @@ const NumberFieldBase = kind({
 					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
 				>
-					{items.map((_, index) => ({children: values[index], key: ('cell' + index)}))}
+					{items.map((_, index) => (values[index]))}
 				</Repeater>
 			);
 		} else {
