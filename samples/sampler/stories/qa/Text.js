@@ -8,7 +8,6 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import ExpandableList from '@enact/sandstone/ExpandableList';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import {Header} from '@enact/sandstone/Panels';
@@ -73,7 +72,6 @@ storiesOf('Text', module)
 					<Heading showLine>Expandables (Input, List, Picker)</Heading>
 					<ExpandableInput title={children} value={children} />
 					<ExpandableList title={children}>{[children, children, children]}</ExpandableList>
-					<ExpandablePicker title={children}>{[children, children, children]}</ExpandablePicker>
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
