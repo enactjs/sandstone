@@ -34,6 +34,7 @@ const ActivityPanelsDecorator = compose(
  * @class ActivityPanels
  * @memberof sandstone/Panels
  * @ui
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Panels.Panels} instead.
  * @public
  */
 
