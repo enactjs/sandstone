@@ -63,11 +63,11 @@ const SelectableItemBase = kind({
 			css={props.css}
 			iconComponent={SelectableIcon}
 		/>
-	),{
+	), {
 		name: 'sandstone/SelectableItem',
 		replacedBy: 'sandstone/CheckboxItem',
 		until: '1.0.0-beta.1'
-	};
+	})
 });
 
 /**
