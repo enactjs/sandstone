@@ -377,7 +377,6 @@ const useScroll = (props) => {
 		clearOverscrollEffect,
 		handleResizeWindow,
 		horizontalScrollbarRef,
-		itemRefs,
 		onFlick: handleFlick,
 		onKeyDown: handleKeyDown,
 		onMouseDown: handleMouseDown,
