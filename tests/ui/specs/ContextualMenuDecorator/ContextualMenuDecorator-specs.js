@@ -81,17 +81,9 @@ describe('ContextualMenuDecorator', function () {
 
 		describe('using pointer', function () {
 			// [GT-28282]
-			// The 3 steps below are needed for the test to pass
-			// We need to test that focus remains on the *Contextual Button* button when being clicked. Since the view renders with menu2 in an open state, clicking
-			// button1 will result in menu2 changing to a closed state, which will remove focus from the view. We need to then close and re-open menu1 in order to
-			// properly test focus in this case.
 			it('should keep Spotlight on button when menu opens with pointer', function () {
 				button1.focus();
 				button1.self.click(); // this will close menu2 and open menu1
-				button1.focus();
-				button1.self.click(); // this will close menu1
-				button1.focus();
-				button1.self.click(); // this will open menu1
 				expect(button1.self.hasFocus()).to.be.true();  // (verify step 3)
 				expect(menu1.isMenuExist).to.be.true();  // (verify step 3)
 				expect(menu1.item(0).hasFocus()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
