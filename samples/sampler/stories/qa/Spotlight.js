@@ -23,7 +23,6 @@ import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
-import SelectableItem from '@enact/sandstone/SelectableItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import ToggleButton from '@enact/sandstone/ToggleButton';
@@ -604,15 +603,6 @@ storiesOf('Spotlight', module)
 									>
 										RadioItem
 									</RadioItem>
-									<SelectableItem
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-									>
-										SelectableItem
-									</SelectableItem>
 									<SwitchItem
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}
