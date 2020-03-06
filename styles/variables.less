@@ -61,7 +61,7 @@
 @sand-input-overlay-numbercell-font-size:     108px;
 @sand-input-overlay-numberfield-font-size:    126px;
 @sand-input-overlay-keypad-key-font-size:     96px;
-@sand-input-small-font-size:        72px;
+@sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
@@ -328,6 +328,10 @@
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
 
+// EditableInput
+// ---------------------------------------
+@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
+
 // EditableIntegerPicker
 // ---------------------------------------
 @sand-editable-integer-picker-border-size: 12px;
@@ -409,6 +413,8 @@
 // ---------------------------------------
 @sand-input-popup-border-radius: 12px;
 @sand-input-popup-component-v-spacing: 42px;
+@sand-input-numbercell-border-radius: 12px;
+@sand-input-numberfield-border-radius: 12px;
 @sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
 @sand-input-fullscreen-numbercell-width: 246px;
 @sand-input-fullscreen-numbercell-height: 300px;
@@ -437,27 +443,23 @@
 
 // InputField
 // ---------------------------------------
-@sand-input-margin: 0 @sand-spotlight-outset;
-@sand-input-padding: 0 @sand-input-icon-spacing;
-@sand-input-font-weight: 600;
-@sand-input-text-indent: 0.2em;
-@sand-input-disabled-opacity: 0.4;
-@sand-input-placeholder-opacity: 0.5;
-@sand-input-border-radius: @sand-input-border-width;
-@sand-input-border-width: 12px;
-@sand-input-border-outline-width: @sand-input-border-width;
-@sand-input-tooltip-offset: @sand-input-border-width;
-@sand-input-icon-spacing: 30px;
-@sand-input-height: @sand-button-height;
-@sand-input-small-height: @sand-button-small-height;
-@sand-inputfield-small-height: @sand-input-small-height;
-@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
-@sand-input-highlight-height: 100%;
-@sand-input-highlight-max-width: 756px;
-@sand-input-highlight-small-max-width: 714px;
-@sand-input-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-input-numbercell-border-radius: 12px;
-@sand-input-numberfield-border-radius: 12px;
+@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-text-indent: 0.2em;
+@sand-inputfield-disabled-opacity: 0.4;
+@sand-inputfield-placeholder-opacity: 0.5;
+@sand-inputfield-border-radius: @sand-inputfield-border-width;
+@sand-inputfield-border-width: 12px;
+@sand-inputfield-border-outline-width: @sand-inputfield-border-width;
+@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
+@sand-inputfield-icon-spacing: 30px;
+@sand-inputfield-height: @sand-button-height;
+@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-highlight-height: 100%;
+@sand-inputfield-highlight-max-width: 756px;
+@sand-inputfield-highlight-small-max-width: 714px;
+@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // IntegerPicker
 // ---------------------------------------

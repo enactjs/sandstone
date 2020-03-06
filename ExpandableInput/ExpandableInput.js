@@ -305,7 +305,7 @@ class ExpandableInputBase extends React.Component {
 				<InputField
 					{...inputProps}
 					autoFocus
-					className={css.decorator}
+					className={css.inputField}
 					disabled={disabled}
 					dismissOnEnter
 					iconAfter={iconAfter}

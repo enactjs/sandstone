@@ -14,7 +14,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	flex-grow: 1;
-	text-indent: @sand-input-text-indent;
+	text-indent: @sand-inputfield-text-indent;
 
 	&[type=number] {
 		-moz-appearance: textfield;
@@ -49,16 +49,16 @@
 .inputField {
 	display: inline-flex;
 	position: relative;
-	padding: @sand-input-padding;
-	margin: @sand-input-margin;
+	padding: @sand-inputfield-padding;
+	margin: @sand-inputfield-margin;
 	box-sizing: border-box;
 	vertical-align: middle;
 
 	.bg {
 		position: absolute;
 		.position(0);
-		border-radius: @sand-input-border-radius;
-		transition: transform @sand-input-focus-duration ease-out, filter @sand-input-focus-duration ease-out;
+		border-radius: @sand-inputfield-border-radius;
+		transition: transform @sand-inputfield-focus-duration ease-out, filter @sand-inputfield-focus-duration ease-out;
 		will-change: transform, filter;
 	}
 
@@ -66,23 +66,23 @@
 	.inputHighlight {
 		z-index: 1;
 		font-size: @sand-input-font-size;
-		font-weight: @sand-input-font-weight;
+		font-weight: @sand-inputfield-font-weight;
 	}
 
 	.input,
 	.inputHighlight,
 	.iconBefore,
 	.iconAfter {
-		line-height: @sand-input-height;
-		height: @sand-input-height;
+		line-height: @sand-inputfield-height;
+		height: @sand-inputfield-height;
 		vertical-align: middle;
 	}
 
 	.inputHighlight {
 		position: absolute;
 		top: 0;
-		height: @sand-input-highlight-height;
-		max-width: @sand-input-highlight-max-width;
+		height: @sand-inputfield-highlight-height;
+		max-width: @sand-inputfield-highlight-max-width;
 		overflow: hidden;
 		letter-spacing: 0.1px;
 		pointer-events: none;
@@ -95,19 +95,19 @@
 
 		.iconBefore,
 		.iconAfter {
-			line-height: @sand-input-small-height;
-			height: @sand-input-small-height;
+			line-height: @sand-inputfield-small-height;
+			height: @sand-inputfield-small-height;
 		}
 
 		.input {
-			font-size: @sand-input-small-font-size;
-			height: @sand-input-small-height;
+			font-size: @sand-inputfield-small-font-size;
+			height: @sand-inputfield-small-height;
 		}
 
 		.inputHighlight {
-			line-height: @sand-input-small-height;
+			line-height: @sand-inputfield-small-height;
 			height: @sand-inputfield-small-height;
-			max-width: @sand-input-highlight-small-max-width;
+			max-width: @sand-inputfield-highlight-small-max-width;
 		}
 	}
 
@@ -117,11 +117,11 @@
 	}
 
 	.iconAfter {
-		.padding-start-end(@sand-input-icon-spacing, 0);
+		.padding-start-end(@sand-inputfield-icon-spacing, 0);
 	}
 
 	.iconBefore {
-		.padding-start-end(0, @sand-input-icon-spacing);
+		.padding-start-end(0, @sand-inputfield-icon-spacing);
 	}
 
 	// RIGBY NOTE: multiline is a NOT YET IMPLEMENTED feature that combines <input> and <textarea>
@@ -145,7 +145,7 @@
 
 	// Skin colors
 	.applySkins({
-		color: @sand-input-text-color;
+		color: @sand-inputfield-text-color;
 
 		.bg {
 			background-color: @sand-inputfield-bg-color;
@@ -156,15 +156,15 @@
 			color: inherit;
 
 			.input-placeholder({
-				.vendor-opacity(@sand-input-placeholder-opacity);
-				color: @sand-input-placeholder-color;
+				.vendor-opacity(@sand-inputfield-placeholder-opacity);
+				color: @sand-inputfield-placeholder-color;
 			});
 
 			&:focus-within {
-				color: @sand-input-focus-text-color;
+				color: @sand-inputfield-focus-text-color;
 
 				.input-placeholder({
-					color: @sand-input-placeholder-active-color;
+					color: @sand-inputfield-placeholder-active-color;
 				});
 			}
 		}
@@ -182,11 +182,11 @@
 		}
 
 		.inputFieldIcon {
-			color: @sand-input-text-color;
+			color: @sand-inputfield-text-color;
 		}
 
 		.focus({
-			color: @sand-input-focus-text-color;
+			color: @sand-inputfield-focus-text-color;
 
 			.bg {
 				background-color: @sand-inputfield-focus-bg-color;
@@ -195,7 +195,7 @@
 
 			.input {
 				.input-placeholder({
-					color: @sand-input-placeholder-focus-color;
+					color: @sand-inputfield-placeholder-focus-color;
 				});
 			}
 
@@ -213,12 +213,12 @@
 			}
 
 			.inputFieldIcon {
-				color: @sand-input-focus-text-color;
+				color: @sand-inputfield-focus-text-color;
 			}
 		}
 
 		.disabled({
-			.vendor-opacity(@sand-input-disabled-opacity);
+			.vendor-opacity(@sand-inputfield-disabled-opacity);
 
 			.focus({
 				background-color: @sand-inputfield-disabled-focus-bg-color;
@@ -226,24 +226,24 @@
 				.input,
 				.inputFieldIcon {
 					.vendor-opacity(1);
-					color: @sand-input-disabled-focus-text-color;
+					color: @sand-inputfield-disabled-focus-text-color;
 
 					.input-placeholder({
-						.vendor-opacity(@sand-input-disabled-opacity);
+						.vendor-opacity(@sand-inputfield-disabled-opacity);
 					});
 				}
 			});
 
 			.input,
 			.inputFieldIcon {
-				.vendor-opacity(@sand-input-disabled-opacity);
-				color: @sand-input-disabled-text-color;
+				.vendor-opacity(@sand-inputfield-disabled-opacity);
+				color: @sand-inputfield-disabled-text-color;
 			}
 
 			.input {
 				.input-placeholder({
 					.vendor-opacity(1);
-					color: @sand-input-placeholder-disabled-color;
+					color: @sand-inputfield-placeholder-disabled-color;
 				});
 			}
 		});
@@ -255,12 +255,12 @@
 	left: auto;
 	right: 0;
 	pointer-events: none;
-	transform: translate(100%, -100%) translateX(@sand-input-tooltip-offset);
+	transform: translate(100%, -100%) translateX(@sand-inputfield-tooltip-offset);
 
 	:global(.enact-locale-right-to-left) & {
 		left: 0;
 		right: auto;
-		transform: translate(-100%, -100%) translateX(-@sand-input-tooltip-offset);
+		transform: translate(-100%, -100%) translateX(-@sand-inputfield-tooltip-offset);
 	}
 }
 
