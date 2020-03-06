@@ -112,7 +112,12 @@ const NumberFieldBase = kind({
 			const values = value.split('');
 			const items = new Array(length).fill('');
 			field = (
-				<Layout inline aria-label={!password ? values.join(' ') : null} aria-live="polite" {...rest} dataset={value}>
+				<Layout
+					aria-label={!password ? values.join(' ') : null}
+					aria-live="polite"
+					{...rest}
+					inline
+				>
 					{items.map((_, index) => (
 						<Cell shrink component={NumberCell} key={index} password={password} className={css.numberCell}>
 							{values[index]}
@@ -122,7 +127,7 @@ const NumberFieldBase = kind({
 			);
 		} else {
 			field = (
-				<div {...rest} dataset={value}>
+				<div {...rest}>
 					{password ? convertToPasswordFormat(value) : value}
 				</div>
 			);

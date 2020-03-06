@@ -2,7 +2,7 @@ import kind from '@enact/core/kind';
 import deprecate from '@enact/core/internal/deprecate';
 import React from 'react';
 
-import Input from './Input';
+import Input from '../Input';
 
 const InputPopupBase = kind({
 	name: 'InputPopup',
