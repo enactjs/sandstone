@@ -12,9 +12,11 @@
  * @exports Expandable
  * @exports ExpandableItem
  * @exports ExpandableItemBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
 import handle, {forward, forProp, oneOf, returnsTrue} from '@enact/core/handle';
+import deprecate from '@enact/core/internal/deprecate';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
@@ -354,7 +356,7 @@ const ExpandableItemBase = kind({
 		transitionSpotlightDisabled: ({open, spotlightDisabled}) => (spotlightDisabled || !open)
 	},
 
-	render: ({
+	render: deprecate(({
 		children,
 		disabled,
 		handleKeyDown,
@@ -430,7 +432,10 @@ const ExpandableItemBase = kind({
 				}
 			</ContainerDiv>
 		);
-	}
+	}, {
+		name: 'sandstone/ExpandableItem',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

@@ -9,7 +9,6 @@ import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import Dropdown from './components/Dropdown';
 import ExpandableInput from './components/ExpandableInput';
-import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
@@ -51,7 +50,6 @@ const components = {
 	DatePicker,
 	Dropdown,
 	ExpandableInput,
-	ExpandableItem,
 	ExpandableList,
 	FormCheckbox,
 	FormCheckboxItem,
