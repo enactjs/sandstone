@@ -19,13 +19,12 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances, context) => {
-	const
-		{itemRefs, scrollContainerRef, scrollContentHandle} = instances,
-		{scrollMode} = context,
-		getItemNode = (index) => {
-			const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
-			return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
-		};
+	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
+	const {scrollMode} = context;
+	const getItemNode = (index) => {
+		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
+	};
 
 	// Mutable value
 
