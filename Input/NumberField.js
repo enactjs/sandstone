@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
+import Repeater from '@enact/ui/Repeater';
 import Layout, {Cell} from '@enact/ui/Layout';
 
 import Icon from '../Icon';
@@ -112,18 +113,17 @@ const NumberFieldBase = kind({
 			const values = value.split('');
 			const items = new Array(length).fill('');
 			field = (
-				<Layout
+				<Repeater
+					component={Layout}
 					aria-label={!password ? values.join(' ') : null}
 					aria-live="polite"
 					{...rest}
+					childComponent={Cell}
+					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
 				>
-					{items.map((_, index) => (
-						<Cell shrink component={NumberCell} key={index} password={password} className={css.numberCell}>
-							{values[index]}
-						</Cell>
-					))}
-				</Layout>
+					{items.map((_, index) => ({children: values[index], key: ('cell' + index)}))}
+				</Repeater>
 			);
 		} else {
 			field = (
