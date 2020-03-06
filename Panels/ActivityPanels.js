@@ -42,7 +42,7 @@ class Deprecated extends React.Component {
 		super(props);
 		deprecate({
 			name: 'sandstone/ActivityPanels',
-			message: 'ActivityPanels is deprecated and will be removed.'
+			until: '1.0.0-beta.1'
 		});
 	}
 
