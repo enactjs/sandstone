@@ -55,7 +55,7 @@ class Deprecated extends React.Component {
 		super(props);
 		deprecate({
 			name: 'sandstone/AlwaysViewingPanels',
-			message: 'AlwaysViewingPanels is deprecated and will be removed.'
+			until: '1.0.0-beta.1'
 		});
 	}
 
