@@ -27,9 +27,6 @@ export const breadcrumbWidth = 192;
 /**
  * Transparent bar used to navigate to a prior Panel.
  *
- * [`AlwaysViewingPanels`]{@link sandstone/Panels.AlwaysViewingPanels} can have multiple breadcrumbs
- * stacked horizontally.
- *
  * @class Breadcrumb
  * @memberof sandstone/Panels
  * @ui
