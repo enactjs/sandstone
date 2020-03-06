@@ -10,7 +10,6 @@ import DatePicker from './components/DatePicker';
 import DayPicker from './components/DayPicker';
 import DaySelector from './components/DaySelector';
 import Dropdown from './components/Dropdown';
-import EditableIntegerPicker from './components/EditableIntegerPicker';
 import ExpandableInput from './components/ExpandableInput';
 import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
@@ -59,7 +58,6 @@ const components = {
 	DayPicker,
 	DaySelector,
 	Dropdown,
-	EditableIntegerPicker,
 	ExpandableInput,
 	ExpandableItem,
 	ExpandableList,
