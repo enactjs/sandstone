@@ -18,6 +18,10 @@
 		border-radius: @sand-input-numbercell-border-radius;
 	}
 
+	.inputArea {
+		text-align: center;
+	}
+
 	.numberCell {
 		justify-content: center;
 		align-items: center;
@@ -31,15 +35,6 @@
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
-		}
-
-		.inputArea,
-		.buttonArea {
-			margin-top: @sand-input-popup-component-v-spacing;
-		}
-
-		.inputArea {
-			text-align: center;
 		}
 
 		.numberCell {
@@ -71,6 +66,11 @@
 		.buttonArea {
 			margin: @sand-input-fullscreen-buttonarea-margin;
 		}
+
+		.inputArea,
+		.buttonArea {
+			margin-top: @sand-input-popup-component-v-spacing;
+		}
 	}
 
 	&.overlay {
@@ -79,7 +79,7 @@
 		}
 
 		.inputArea {
-			margin-top: @sand-input-overlay-inputarea-margin;
+			margin: @sand-input-overlay-inputarea-margin;
 		}
 
 		.numberCell {
@@ -110,6 +110,11 @@
 			flex-direction: row;
 			justify-content: center;
 			margin: @sand-input-overlay-buttonarea-margin;
+		}
+
+		.inputArea,
+		.buttonArea {
+			margin-top: @sand-input-popup-component-v-spacing;
 		}
 	}
 
