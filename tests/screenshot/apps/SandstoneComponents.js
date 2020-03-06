@@ -40,7 +40,6 @@ import Region from './components/Region';
 import Scroller from './components/Scroller';
 import SelectableItem from './components/SelectableItem';
 import Slider from './components/Slider';
-import SlotItem from './components/SlotItem';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
@@ -90,7 +89,6 @@ const components = {
 	SelectableItem,
 	// Skinnable,
 	Slider,
-	SlotItem,
 	// Spinner,
 	Steps,
 	Switch,

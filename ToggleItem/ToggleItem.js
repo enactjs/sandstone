@@ -31,7 +31,7 @@ import compose from 'ramda/src/compose';
 
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
-import {SlotItemBase} from '../SlotItem';
+import {ItemBase} from '../Item';
 
 import componentCss from './ToggleItem.module.less';
 
@@ -103,7 +103,7 @@ const ToggleItemBase = kind({
 			<UiToggleItem
 				role="checkbox"
 				{...props}
-				component={SlotItemBase}
+				component={ItemBase}
 				css={props.css}
 			/>
 		);
