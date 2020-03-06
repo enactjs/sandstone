@@ -8,7 +8,6 @@ import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DayPicker from '../../../DayPicker';
 import DaySelector from '../../../DaySelector';
-import Dialog from '../../../Dialog';
 import Dropdown from '../../../Dropdown';
 import EditableIntegerPicker from '../../../EditableIntegerPicker';
 import ExpandableInput from '../../../ExpandableInput';
@@ -63,7 +62,6 @@ const components = {
 	DatePicker,
 	DayPicker,
 	DaySelector,
-	Dialog,
 	Dropdown,
 	EditableIntegerPicker,
 	ExpandableInput,
