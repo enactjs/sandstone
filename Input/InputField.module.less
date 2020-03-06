@@ -46,7 +46,7 @@
 	}
 }
 
-.decorator {
+.inputField {
 	display: inline-flex;
 	position: relative;
 	padding: @sand-input-padding;
@@ -91,7 +91,7 @@
 	}
 
 	&.small {
-		height: @sand-input-decorator-small-height;
+		height: @sand-inputfield-small-height;
 
 		.iconBefore,
 		.iconAfter {
@@ -106,7 +106,7 @@
 
 		.inputHighlight {
 			line-height: @sand-input-small-height;
-			height: @sand-input-decorator-small-height;
+			height: @sand-inputfield-small-height;
 			max-width: @sand-input-highlight-small-max-width;
 		}
 	}
@@ -137,8 +137,8 @@
 		pointer-events: none;
 	}
 
-	.decoratorIcon,
-	&:global(.spottable):focus .decoratorIcon {
+	.inputFieldIcon,
+	&:global(.spottable):focus .inputFieldIcon {
 		width: auto;
 		margin: 0;
 	}
@@ -148,7 +148,7 @@
 		color: @sand-input-text-color;
 
 		.bg {
-			background-color: @sand-input-decorator-bg-color;
+			background-color: @sand-inputfield-bg-color;
 		}
 
 		.input {
@@ -177,11 +177,11 @@
 			color: transparent;
 			background-color: transparent;
 			// Set `.inputHighlight` background color to make it appear that the text is highlighted
-			// when `.input` has transparent background and when `.decorator` has focus, but not `.input`.
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
 			// background-color: @sand-spotlight-color;
 		}
 
-		.decoratorIcon {
+		.inputFieldIcon {
 			color: @sand-input-text-color;
 		}
 
@@ -189,8 +189,8 @@
 			color: @sand-input-focus-text-color;
 
 			.bg {
-				background-color: @sand-input-decorator-focus-bg-color;
-				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
+				background-color: @sand-inputfield-focus-bg-color;
+				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
 			}
 
 			.input {
@@ -200,7 +200,7 @@
 			}
 
 			// Set `.inputHighlight` opacity to make it appear that the text is highlighted
-			// when `.input` has transparent background and when `.decorator` has focus, but not `.input`.
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
 			// .inputHighlight {
 			// 	opacity: 1;
 			// }
@@ -208,11 +208,11 @@
 
 		&:focus-within {
 			.bg {
-				background-color: @sand-input-decorator-active-bg-color;
-				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
+				background-color: @sand-inputfield-active-bg-color;
+				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
 			}
 
-			.decoratorIcon {
+			.inputFieldIcon {
 				color: @sand-input-focus-text-color;
 			}
 		}
@@ -221,10 +221,10 @@
 			.vendor-opacity(@sand-input-disabled-opacity);
 
 			.focus({
-				background-color: @sand-input-decorator-disabled-focus-bg-color;
+				background-color: @sand-inputfield-disabled-focus-bg-color;
 
 				.input,
-				.decoratorIcon {
+				.inputFieldIcon {
 					.vendor-opacity(1);
 					color: @sand-input-disabled-focus-text-color;
 
@@ -235,7 +235,7 @@
 			});
 
 			.input,
-			.decoratorIcon {
+			.inputFieldIcon {
 				.vendor-opacity(@sand-input-disabled-opacity);
 				color: @sand-input-disabled-text-color;
 			}
@@ -265,11 +265,11 @@
 }
 
 .muted({
-	.decorator {
+	.inputField {
 		.applySkins({
 			.focus({
 				.bg {
-					background-color: @sand-input-decorator-bg-color;
+					background-color: @sand-inputfield-bg-color;
 				}
 			});
 		});

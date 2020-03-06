@@ -51,9 +51,9 @@ const InputFieldBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `decorator` - The root class name
+		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
-		 * * `inputHighlight` - The class used to make input text appear highlighted when `.decorator` has focus, but not `.input`
+		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
 		 *
 		 * @type {Object}
 		 * @private
@@ -226,8 +226,8 @@ const InputFieldBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'decorator',
-		publicClassNames: ['decorator', 'input', 'inputHighlight']
+		className: 'inputField',
+		publicClassNames: ['inputField', 'input', 'inputHighlight']
 	},
 
 	handlers: {
