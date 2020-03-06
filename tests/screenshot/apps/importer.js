@@ -13,7 +13,6 @@ import Dropdown from '../../../Dropdown';
 import EditableIntegerPicker from '../../../EditableIntegerPicker';
 import ExpandableInput from '../../../ExpandableInput';
 import ExpandableItem from '../../../ExpandableItem';
-import ExpandableList from '../../../ExpandableList';
 import ExpandablePicker from '../../../ExpandablePicker';
 import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
@@ -69,7 +68,6 @@ const components = {
 	EditableIntegerPicker,
 	ExpandableInput,
 	ExpandableItem,
-	ExpandableList,
 	ExpandablePicker,
 	FormCheckbox,
 	FormCheckboxItem,

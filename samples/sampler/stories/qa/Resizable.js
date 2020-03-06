@@ -2,7 +2,7 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableList from '@enact/sandstone/ExpandableList';
+import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import SelectableItem from '@enact/sandstone/SelectableItem';
@@ -25,6 +25,39 @@ class NoUpdate extends React.Component {
 	}
 }
 
+class Items extends React.Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			more: false
+		};
+	}
+
+	toggleRenderItems = () => {
+		this.setState(({more}) => {
+			return {more: !more};
+		});
+	}
+
+	render () {
+		const {more} = this.state;
+		const amount = more ? 'Fewer' : 'More';
+
+		return (
+			<React.Fragment>
+				<Button onClick={this.toggleRenderItems}>Render {amount} Items</Button>
+				{more ?
+					data.map((item) => {
+						return <Item key={item}>{item}</Item>;
+					}) :
+					null
+				}
+			</React.Fragment>
+		);
+	}
+}
+
 storiesOf('Resizable', module)
 	.add(
 		'should recalculate long marquee when scrollbar is rendered',
@@ -36,9 +69,7 @@ storiesOf('Resizable', module)
 					<SelectableItem>
 						SELECTABLE ITEM ABCDEFG
 					</SelectableItem>
-					<ExpandableList title={'ABCDEFGHIJKLMNOPQRS'}>
-						{data}
-					</ExpandableList>
+					<Items />
 					<Item>dummy</Item>
 				</NoUpdate>
 			</Scroller>

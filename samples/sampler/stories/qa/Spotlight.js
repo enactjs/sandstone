@@ -16,7 +16,6 @@ import DayPicker from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import ExpandableItem from '@enact/sandstone/ExpandableItem';
-import ExpandableList from '@enact/sandstone/ExpandableList';
 import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Icon from '@enact/sandstone/Icon';
@@ -658,17 +657,6 @@ storiesOf('Spotlight', module)
 											ToggleItem
 										</ToggleItem>
 									</ExpandableItem>
-									<ExpandableList
-										noLockBottom
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="ExpandableList"
-									>
-										{Items}
-									</ExpandableList>
 									<ExpandableInput
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}
