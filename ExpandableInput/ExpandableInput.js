@@ -10,6 +10,7 @@
  * @module sandstone/ExpandableInput
  * @exports ExpandableInput
  * @exports ExpandableInputBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
 import deprecate from '@enact/core/internal/deprecate';

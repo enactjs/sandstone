@@ -9,11 +9,6 @@ import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import DaySelector from './components/DaySelector';
 import Dropdown from './components/Dropdown';
-<<<<<<< HEAD
-import ExpandableInput from './components/ExpandableInput';
-=======
-import EditableIntegerPicker from './components/EditableIntegerPicker';
->>>>>>> PLAT-102008: Deprecate ExpandableInput
 import ExpandableItem from './components/ExpandableItem';
 import ExpandableList from './components/ExpandableList';
 import FormCheckbox from './components/FormCheckbox';
