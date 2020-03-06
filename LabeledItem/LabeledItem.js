@@ -44,7 +44,7 @@ import componentCss from './LabeledItem.module.less';
  * @mixes ui/Touchable.Touchable
  * @mixes sandstone/Marquee.MarqueeController
  * @ui
- * @deprecated Use {@link sandstone/Item} instead
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  * @public
  */
 const LabeledItemBase = kind({
@@ -125,7 +125,8 @@ const LabeledItemBase = kind({
 		</Controller>
 	), {
 		name: 'sandstone/LabeledItem',
-		replacedBy: 'sandstone/Item'
+		replacedBy: 'sandstone/Item',
+		until: '1.0.0-beta.1'
 	})
 });
 
@@ -137,7 +138,7 @@ const LabeledItemBase = kind({
  * @extends sandstone/LabeledItem.LabeledItemBase
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
- * @deprecated Use {@link sandstone/Item} instead
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  * @public
  */
 const LabeledItem = Pure(
