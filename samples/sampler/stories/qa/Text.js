@@ -16,7 +16,6 @@ import Item from '@enact/sandstone/Item';
 import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
-import SelectableItem from '@enact/sandstone/SelectableItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
@@ -77,7 +76,6 @@ storiesOf('Text', module)
 					<CheckboxItem>{children}</CheckboxItem>
 					<FormCheckboxItem>{children}</FormCheckboxItem>
 					<RadioItem>{children}</RadioItem>
-					<SelectableItem>{children}</SelectableItem>
 					<SwitchItem>{children}</SwitchItem>
 
 					<Heading showLine>Headers (Standard, Compact, Input)</Heading>

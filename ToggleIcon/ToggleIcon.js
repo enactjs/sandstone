@@ -16,7 +16,6 @@
  * * [FormCheckbox]{@link sandstone/FormCheckbox.FormCheckbox},
  * * [Switch]{@link sandstone/Switch.Switch},
  * * [RadioItem]{@link sandstone/RadioItem.RadioItem}, and
- * * [SelectableItem]{@link sandstone/SelectableItem.SelectableItem}.
  *
  * @example
  * <ToggleIcon onToggle={(props)=> console.log(props.selected)}>

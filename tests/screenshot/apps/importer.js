@@ -32,7 +32,6 @@ import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
 import Region from '../../../Region';
 import Scroller from '../../../Scroller';
-import SelectableItem from '../../../SelectableItem';
 import Slider from '../../../Slider';
 import Spinner from '../../../Spinner';
 import Steps from '../../../Steps';
@@ -79,7 +78,6 @@ const components = {
 	RangePicker,
 	Region,
 	Scroller,
-	SelectableItem,
 	Slider,
 	Spinner,
 	Steps,
