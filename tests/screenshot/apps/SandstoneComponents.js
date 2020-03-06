@@ -50,11 +50,6 @@ import TimePicker from './components/TimePicker';
 import ToggleIcon from './components/ToggleIcon';
 
 const components = {
-<<<<<<< HEAD
-	ActivityPanels,
-=======
-	AlwaysViewingPanels,
->>>>>>> origin/develop
 	BodyText,
 	Button,
 	Checkbox,
