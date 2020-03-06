@@ -109,7 +109,7 @@ const ToggleItemBase = kind({
 			/>
 		);
 	}, {
-		name: 'sandstone/SlotItem',
+		name: 'sandstone/ToggleItem',
 		replacedBy: 'sandstone/Item',
 		until: '1.0.0-beta.1'
 	})
