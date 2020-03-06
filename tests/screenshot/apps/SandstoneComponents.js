@@ -33,7 +33,6 @@ import LabeledIcon from './components/LabeledIcon';
 import LabeledIconButton from './components/LabeledIconButton';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
-import Notification from './components/Notification';
 import Panels from './components/Panels';
 import Picker from './components/Picker';
 import Popup from './components/Popup';
@@ -85,7 +84,6 @@ const components = {
 	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
-	Notification,
 	Panels,
 	Picker,
 	Popup,
