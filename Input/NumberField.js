@@ -53,7 +53,7 @@ const NumberCell = kind({
 const NumberFieldBase = kind({
 	name: 'NumberField',
 
-	propTypes: /** @lends sandstone/Input.NumberField.prototype */ {
+	propTypes: {
 		css: PropTypes.object,
 		length: PropTypes.number,
 		onComplete: PropTypes.func,
