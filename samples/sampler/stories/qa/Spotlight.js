@@ -23,7 +23,6 @@ import Icon from '@enact/sandstone/Icon';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import LabeledItem from '@enact/sandstone/LabeledItem';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
@@ -575,7 +574,7 @@ storiesOf('Spotlight', module)
 									>
 										Item
 									</Item>
-									<LabeledItem
+									<Item
 										label="Label"
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}
@@ -583,8 +582,8 @@ storiesOf('Spotlight', module)
 										onSpotlightUp={action('onSpotlightUp')}
 										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 									>
-										LabeledItem
-									</LabeledItem>
+										Item with label
+									</Item>
 								</Cell>
 							</Column>
 						</Cell>
