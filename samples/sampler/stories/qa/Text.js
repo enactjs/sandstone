@@ -14,7 +14,6 @@ import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import LabeledItem from '@enact/sandstone/LabeledItem';
 import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
@@ -67,9 +66,9 @@ storiesOf('Text', module)
 					<Input placeholder={children} />
 					<Input value={children} />
 
-					<Heading showLine>Simple Items (Item, LabeledItem, GridListImageItem)</Heading>
+					<Heading showLine>Simple Items (Item, GridListImageItem)</Heading>
 					<Item>{children}</Item>
-					<LabeledItem label={children}>{children}</LabeledItem>
+					<Item label={children}>{children}</Item>
 					<GridListImageItem caption={children} style={{height: 200}} />
 
 					<Heading showLine>Expandables (Input, List, Picker)</Heading>

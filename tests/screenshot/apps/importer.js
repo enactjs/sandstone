@@ -27,7 +27,6 @@ import Input from '../../../Input';
 import Item from '../../../Item';
 import LabeledIcon from '../../../LabeledIcon';
 import LabeledIconButton from '../../../LabeledIconButton';
-import LabeledItem from '../../../LabeledItem';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -48,7 +47,6 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import ToggleButton from '../../../ToggleButton';
 import ToggleIcon from '../../../ToggleIcon';
 import ToggleItem from '../../../ToggleItem';
 import TooltipDecorator from '../../../TooltipDecorator';
@@ -83,7 +81,6 @@ const components = {
 	IncrementSlider,
 	Input,
 	Item,
-	LabeledItem,
 	LabeledIcon,
 	LabeledIconButton,
 	Marquee,
@@ -106,7 +103,6 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
-	ToggleButton,
 	ToggleIcon,
 	ToggleItem,
 	TooltipDecorator,
