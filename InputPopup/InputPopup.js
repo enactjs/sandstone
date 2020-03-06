@@ -3,6 +3,7 @@ import deprecate from '@enact/core/internal/deprecate';
 import React from 'react';
 
 import Input from '../Input';
+import NumberInputPopup from './NumberInputPopup';
 
 const InputPopupBase = kind({
 	name: 'InputPopup',
@@ -47,5 +48,7 @@ const InputPopupBase = kind({
 export default InputPopupBase;
 export {
 	InputPopupBase as InputPopup,
-	InputPopupBase
+	InputPopupBase,
+	NumberInputPopup as NumberInputPopupBase,
+	NumberInputPopup
 };
