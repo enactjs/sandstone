@@ -7,7 +7,6 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import DayPicker from '../../../DayPicker';
-import DaySelector from '../../../DaySelector';
 import Dialog from '../../../Dialog';
 import Dropdown from '../../../Dropdown';
 import EditableIntegerPicker from '../../../EditableIntegerPicker';
@@ -63,7 +62,6 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	DayPicker,
-	DaySelector,
 	Dialog,
 	Dropdown,
 	EditableIntegerPicker,
