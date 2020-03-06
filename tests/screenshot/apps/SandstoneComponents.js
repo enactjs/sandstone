@@ -8,11 +8,6 @@ import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import DayPicker from './components/DayPicker';
-<<<<<<< HEAD
-import Dialog from './components/Dialog';
-=======
-import DaySelector from './components/DaySelector';
->>>>>>> origin/develop
 import Dropdown from './components/Dropdown';
 import ExpandableInput from './components/ExpandableInput';
 import ExpandableItem from './components/ExpandableItem';
