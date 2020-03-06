@@ -30,8 +30,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		vertical-align: bottom;
-		line-height: @sand-picker-valuewrapper-line-height;
-		height: @sand-picker-button-height;
+		line-height: @sand-picker-value-line-height;
+		height: @sand-picker-value-height;
 	}
 
 	.incrementer,
@@ -93,25 +93,21 @@
 			line-height: @sand-button-small-height;
 		}
 
-		.valueWrapper {
-			line-height: @sand-picker-joined-valuewrapper-line-height;
-		}
-
 		.indicatorContainer {
-			margin-bottom: 33px;
-			margin-top: 160px;
-			line-height: 0;
+			position: absolute;
+    		bottom: 8px;
+    		left: 90px;
 			.indicator {
 				display: inline-block;
-				width: 18px;
-				height: 18px;
+				width: @sand-picker-indicator-width;
+				height: @sand-picker-indicator-height;
 				margin-right: 24px;
 				border-radius: 50%;
 				vertical-align: middle;
 				cursor: pointer;
 				&.active {
-					width: 24px;
-					height: 24px;
+					width: @sand-picker-indicator-active-width;
+					height: @sand-picker-indicator-active-height;
 				}
 			}
 		}
@@ -146,13 +142,8 @@
 		});
 
 		&.horizontal {
-			&.picker{
-				border-radius: @sand-picker-horizontal-button-border-radius;
-			}
-
-			:global(.enact-locale-right-to-left) & {
-				flex-direction: row-reverse;
-			}
+			border-radius: @sand-picker-horizontal-button-border-radius;
+			line-height: @sand-picker-joined-value-line-height;
 
 			&.incrementing::before {
 				border-right-width: @sand-integer-picker-shadow-width;
@@ -165,8 +156,8 @@
 			.incrementer,
 			.decrementer {
 				margin: 0;
-				height: @sand-picker-button-height;
-				line-height: @sand-picker-button-height;
+				height: @sand-picker-value-height;
+				line-height: @sand-picker-value-height;
 
 				.icon {
 					visibility: hidden;
@@ -192,10 +183,10 @@
 		width: (@sand-icon-large-size + @sand-spotlight-outset*3);
 	}
 	&.medium .valueWrapper {
-		width: 360px;
+		width: @sand-picker-medium-value-width;
 	}
 	&.large .valueWrapper {
-		width: 700px;
+		width: @sand-picker-large-value-width;
 	}
 
 	&.horizontal {
@@ -217,7 +208,7 @@
 	&.vertical .valueWrapper {
 		display: block;
 		position: relative;
-		line-height: @sand-picker-joined-valuewrapper-line-height;
+		line-height: @sand-picker-joined-value-line-height;
 
 		.sizingPlaceholder,
 		.item {
@@ -251,7 +242,8 @@
 			}
 
 			&.horizontal {
-				background: @sand-picker-bg-color;
+				background-color: @sand-picker-joined-horizontal-bg-color;
+
 				.indicator {
 					background-color: @sand-picker-indicators-inactive-bg-color;
 
@@ -263,7 +255,7 @@
 
 			.focus({
 				background-color: @sand-picker-joined-focused-bg-color;
-				color: @sand-spotlight-text-color;
+				color: @sand-picker-focus-text-color;
 
 				.disabled({
 					color: @sand-spotlight-disabled-text-color;
@@ -273,10 +265,10 @@
 					background-color: @sand-picker-indicators-inactive-focus-bg-color;
 
 					&.active {
-						background-color: @sand-picker-indicators-active-focus-bg-color
-					};
+						background-color: @sand-picker-indicators-active-focus-bg-color;
+					}
 				}
-			});
+			})
 		}
 	});
 

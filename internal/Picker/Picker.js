@@ -932,10 +932,9 @@ const PickerBase = class extends React.Component {
 						{children}
 					</PickerViewManager>
 					{checkForChildren && (
-						<div className={css.indicatorContainer}>
+						<div className={css.indicatorContainer} {...voiceProps}>
 							{children.map((indicators, indicator) => (
 								<div
-									{...voiceProps}
 									key={indicator}
 									className={classnames(css.indicator, {[css.active]: (index === indicator)})}
 								/>
