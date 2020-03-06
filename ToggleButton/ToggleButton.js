@@ -10,6 +10,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {deprecate} from '@enact/core/internal/deprecate';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pure from '@enact/ui/internal/Pure';
@@ -154,7 +155,7 @@ const ToggleButtonBase = kind({
 		}
 	},
 
-	render: ({selected, ...rest}) => {
+	render: deprecate(({selected, ...rest}) => {
 		delete rest.toggleOffLabel;
 		delete rest.toggleOnLabel;
 
@@ -168,7 +169,10 @@ const ToggleButtonBase = kind({
 				selected={selected}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/ToggleButton',
+		message: 'ToggleButton is deprecated and will be removed.'
+	})
 });
 
 /**
