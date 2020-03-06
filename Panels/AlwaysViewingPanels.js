@@ -1,4 +1,6 @@
 import deprecate from '@enact/core/internal/deprecate';
+import React from 'react';
+
 import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
@@ -26,7 +28,7 @@ const calcMax = () => {
 	}
 };
 
-const AlwaysViewingPanelsDecorator = deprecate(compose(
+const AlwaysViewingPanelsDecorator = compose(
 	Slottable({slots: ['controls']}),
 	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	Skinnable,
@@ -35,10 +37,7 @@ const AlwaysViewingPanelsDecorator = deprecate(compose(
 		max: calcMax,
 		panelArranger: AlwaysViewingArranger
 	})
-), {
-	name: 'sandstone/AlwaysViewingPanels',
-	message: 'AlwaysViewingPanels is deprecated and will be removed.'
-});
+);
 
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
@@ -50,7 +49,21 @@ const AlwaysViewingPanelsDecorator = deprecate(compose(
  * @ui
  * @public
  */
-const AlwaysViewingPanels = AlwaysViewingPanelsDecorator(Viewport);
+
+class Deprecated extends React.Component {
+	constructor (props) {
+		super(props);
+		deprecate({
+			name: 'sandstone/AlwaysViewingPanels',
+			message: 'AlwaysViewingPanels is deprecated and will be removed.'
+		});
+	}
+
+	render () {
+		return (<Viewport {...this.props} />);
+	}
+}
+const AlwaysViewingPanels = AlwaysViewingPanelsDecorator(Deprecated);
 
 export default AlwaysViewingPanels;
 export {AlwaysViewingPanels};
