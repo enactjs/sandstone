@@ -2,6 +2,17 @@
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 
+.focusableBody {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	border-radius: @sand-scroll-focusablebody-focus-border-radius;
+
+	.focus({
+		background-color: @sand-scroll-focusablebody-focus-bg-color;
+	})
+}
+
 .scroll {
 	--scroll-scrollbar-size: 60px;
 	--scroll-fadeout-size: 48px;
@@ -9,13 +20,6 @@
 
 	box-sizing: border-box;
 	overflow: hidden;
-
-	&.focusableBody {
-		border-radius: @sand-scroll-focusablebody-focus-border-radius;
-		.focus({
-			background-color: @sand-scroll-focusablebody-focus-bg-color;
-		})
-	}
 
 	&.verticalPadding {
 		padding-left: var(--scroll-scrollbar-size);
