@@ -6,7 +6,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
-import ExpandableList from '@enact/sandstone/ExpandableList';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import {Header} from '@enact/sandstone/Panels';
@@ -15,7 +14,6 @@ import Item from '@enact/sandstone/Item';
 import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
-import SelectableItem from '@enact/sandstone/SelectableItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
@@ -68,14 +66,10 @@ storiesOf('Text', module)
 					<Item label={children}>{children}</Item>
 					<GridListImageItem caption={children} style={{height: 200}} />
 
-					<Heading showLine>Expandables (List, Picker)</Heading>
-					<ExpandableList title={children}>{[children, children, children]}</ExpandableList>
-
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
 					<FormCheckboxItem>{children}</FormCheckboxItem>
 					<RadioItem>{children}</RadioItem>
-					<SelectableItem>{children}</SelectableItem>
 					<SwitchItem>{children}</SwitchItem>
 
 					<Heading showLine>Headers (Standard, Compact, Input)</Heading>

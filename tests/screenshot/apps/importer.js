@@ -6,10 +6,7 @@ import CheckboxItem from '../../../CheckboxItem';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
-import DaySelector from '../../../DaySelector';
 import Dropdown from '../../../Dropdown';
-import ExpandableItem from '../../../ExpandableItem';
-import ExpandableList from '../../../ExpandableList';
 import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import GridListImageItem from '../../../GridListImageItem';
@@ -25,7 +22,6 @@ import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
-import Notification from '../../../Notification';
 import Panels, {Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
@@ -34,14 +30,12 @@ import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
 import Region from '../../../Region';
 import Scroller from '../../../Scroller';
-import SelectableItem from '../../../SelectableItem';
 import Slider from '../../../Slider';
 import Spinner from '../../../Spinner';
 import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import ToggleItem from '../../../ToggleItem';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
@@ -54,10 +48,7 @@ const components = {
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
-	DaySelector,
 	Dropdown,
-	ExpandableItem,
-	ExpandableList,
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
@@ -74,7 +65,6 @@ const components = {
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
-	Notification,
 	Panels,
 	Picker,
 	Popup,
@@ -83,14 +73,12 @@ const components = {
 	RangePicker,
 	Region,
 	Scroller,
-	SelectableItem,
 	Slider,
 	Spinner,
 	Steps,
 	Switch,
 	SwitchItem,
 	TimePicker,
-	ToggleItem,
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList
