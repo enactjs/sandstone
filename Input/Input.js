@@ -258,13 +258,13 @@ const InputBase = kind({
 									type={(type === 'passwordnumber') ? 'password' : 'number'}
 								/> :
 								<InputField
+									{...inputProps}
 									autoFocus
 									type={type}
 									defaultValue={value}
 									placeholder={placeholder}
 									onChange={onChange}
 									onKeyDown={onInputKeyDown}
-									{...inputProps}
 								/>
 							}
 						</Cell>
