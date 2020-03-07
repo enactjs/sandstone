@@ -54,7 +54,7 @@ const InputBase = kind({
 		 * Set the length of number input field.
 		 *
 		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
-		 * (inclusive) will render individual number cells, greater than 6 will render a single  box
+		 * (inclusive) will render individual number cells, greater than 6 will render a single box
 		 * with numbers in it. This only has an effect on "number" and "passwordnumber" `type`.
 		 *
 		 * @type {Number}
