@@ -16,6 +16,9 @@ import componentCss from './Input.module.less';
 
 const SEPARATE_DIGITS_LIMIT = 6;
 
+const normalizeValue = (value, length) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, length) : '');
+const normalizeValueProp = ({value, length}) => normalizeValue(value, length);
+
 const NumberCell = kind({
 	name: 'NumberCell',
 
@@ -75,22 +78,20 @@ const NumberFieldBase = kind({
 	handlers: {
 		onAdd: handle(
 			adaptEvent(
-				({key}, {length, value}) => ({
-					value: (value.length >= length ? value : `${value}${key}`)
-				}),
+				({key}, {length, value}) => ({value: normalizeValue(`${value}${key}`, length)}),
 				handle(
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
-					({value: updatedValue}, {value}) => (updatedValue !== value),
+					({value: updatedValue}, {value, length}) => (normalizeValue(updatedValue, length) !== normalizeValue(value, length)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {length}) => (updatedValue.length >= length),
+					({value: updatedValue}, {length}) => (normalizeValue(updatedValue, length).length >= length),
 					forward('onComplete'),
 				)
 			),
 		),
 		onRemove: handle(
 			adaptEvent(
-				(ev, {value}) => ({value: value.toString().slice(0, -1)}),
+				(ev, {value, length}) => ({value: normalizeValue(value, length).toString().slice(0, -1)}),
 				forward('onChange')
 			)
 		)
@@ -99,7 +100,7 @@ const NumberFieldBase = kind({
 	computed: {
 		className: ({length, type, styler}) => styler.append(type, (length <= SEPARATE_DIGITS_LIMIT ? 'separated' : 'combined')),
 		// Normalize the value, also prune out any non-digit characters
-		value: ({value}) => ((value != null) ? value.toString().replace(/\D/g, '') : '')
+		value: normalizeValueProp
 	},
 
 	render: ({length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
