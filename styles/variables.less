@@ -55,16 +55,13 @@
 @sand-heading-subtitle-font-size:   60px; // 70px;
 @sand-heading-title-font-size:      144px; // 127px;
 @sand-input-font-size:              78px;
-@sand-input-popup-header-title-font-size:                   144px;
-@sand-input-popup-header-subtitle-font-size:                @sand-heading-subtitle-font-size;
-@sand-input-number-popup-full-preview-font-size:            126px;
-@sand-input-number-popup-full-keypad-item-font-size:        96px;
-@sand-input-number-popup-overlay-header-title-font-size:    90px;
-@sand-input-number-popup-overlay-header-subtitle-font-size: @sand-heading-subtitle-font-size;
-@sand-input-number-popup-overlay-preview-item-font-size:    108px;
-@sand-input-number-popup-overlay-preview-text-font-size:    126px;
-@sand-input-number-popup-overlay-keypad-item-font-size:     96px;
-@sand-input-small-font-size:        72px;
+@sand-input-fullscreen-numbercell-font-size:  126px;
+@sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
+@sand-input-fullscreen-keypad-key-font-size:  96px;
+@sand-input-overlay-numbercell-font-size:     108px;
+@sand-input-overlay-numberfield-font-size:    126px;
+@sand-input-overlay-keypad-key-font-size:     96px;
+@sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
@@ -179,7 +176,7 @@
 @sand-icon-other-font-family: "LG Icons";
 
 // InputNumber
-@sand-input-number-preview-item-font-family: @sand-body-font-family;
+@sand-input-number-font-family: @sand-body-font-family;
 @sand-input-number-keypad-item-font-family: @sand-button-font-family;
 
 // Panels
@@ -342,6 +339,10 @@
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
 
+// EditableInput
+// ---------------------------------------
+@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
+
 // EditableIntegerPicker
 // ---------------------------------------
 @sand-editable-integer-picker-border-size: 12px;
@@ -421,55 +422,55 @@
 
 // Input
 // ---------------------------------------
-@sand-input-margin: 0 @sand-spotlight-outset;
-@sand-input-padding: 0 @sand-input-icon-spacing;
-@sand-input-font-weight: 600;
-@sand-input-text-indent: 0.2em;
-@sand-input-disabled-opacity: 0.4;
-@sand-input-placeholder-opacity: 0.5;
-@sand-input-border-radius: @sand-input-border-width;
-@sand-input-border-width: 12px;
-@sand-input-border-outline-width: @sand-input-border-width;
-@sand-input-tooltip-offset: @sand-input-border-width;
-@sand-input-icon-spacing: 30px;
-@sand-input-height: @sand-button-height;
-@sand-input-small-height: @sand-button-small-height;
-@sand-input-decorator-small-height: @sand-input-small-height;
-@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
-@sand-input-highlight-height: 100%;
-@sand-input-highlight-max-width: 756px;
-@sand-input-highlight-small-max-width: 714px;
-@sand-input-focus-duration: @sand-spotlight-focus-animation-duration;
+@sand-input-popup-border-radius: 12px;
+@sand-input-popup-component-v-spacing: 42px;
+@sand-input-numbercell-border-radius: 12px;
+@sand-input-numberfield-border-radius: 12px;
+@sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
+@sand-input-fullscreen-numbercell-width: 246px;
+@sand-input-fullscreen-numbercell-height: 300px;
+@sand-input-fullscreen-numbercell-margin: 0 18px;
+@sand-input-fullscreen-numberfield-width: 1200px;
+@sand-input-fullscreen-numberfield-height: 210px;
+@sand-input-fullscreen-numberfield-margin: auto;
+@sand-input-fullscreen-numberfield-padding: 0 0.5em;
+@sand-input-fullscreen-numberfield-letter-spacing: 48px;
+@sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
+@sand-input-fullscreen-keypad-key-margin: 0;
+@sand-input-fullscreen-buttonarea-margin: 0;
+@sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
+@sand-input-overlay-inputarea-margin: 0;
+@sand-input-overlay-numbercell-width: 174px;
+@sand-input-overlay-numbercell-height: 210px;
+@sand-input-overlay-numbercell-margin: 0 6px;
+@sand-input-overlay-numberfield-width: 800px;
+@sand-input-overlay-numberfield-height: @sand-input-fullscreen-numberfield-height;
+@sand-input-overlay-numberfield-margin: @sand-input-fullscreen-numberfield-margin;
+@sand-input-overlay-numberfield-padding: @sand-input-fullscreen-numberfield-padding;
+@sand-input-overlay-numberfield-letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
+@sand-input-overlay-keypad-margin: 84px auto 0 auto;
+@sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 
-// InputPopup
+// InputField
 // ---------------------------------------
-@sand-input-popup-border-radius:                  12px;
-@sand-input-popup-padding:                        (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
-@sand-input-popup-header-area-height:             251px;
-@sand-input-popup-header-title-line-height:       169px;
-@sand-input-popup-header-subtitle-line-height:    70px;
-@sand-input-popup-header-subtitle-margin-top:     12px;
-@sand-input-popup-header-input-area-height:       114px;
-@sand-input-popup-header-input-area-margin-top:   270px;
-@sand-input-popup-component-v-spacing:            42px;
-
-// InputNumberPopup
-// ---------------------------------------
-@sand-input-number-popup-full-preview-item-width:         246px;
-@sand-input-number-popup-full-preview-item-height:        300px;
-@sand-input-number-popup-full-preview-item-margin:        0 18px;
-@sand-input-number-popup-full-preview-text-width:         1200px;
-@sand-input-number-popup-full-preview-text-height:        210px;
-@sand-input-number-popup-full-keypad-item-margin:         0;
-@sand-input-number-popup-overlay-padding:                 (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
-@sand-input-number-popup-overlay-preview-area-margin-top: 0;
-@sand-input-number-popup-overlay-preview-item-width:      174px;
-@sand-input-number-popup-overlay-preview-item-height:     210px;
-@sand-input-number-popup-overlay-preview-item-margin:     0 6px;
-@sand-input-number-popup-overlay-preview-text-width:      800px;
-@sand-input-number-popup-overlay-preview-text-height:     210px;
-@sand-input-number-popup-overlay-keypad-area-margin:      84px 0;
-@sand-input-number-popup-overlay-keypad-area-width:       ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-text-indent: 0.2em;
+@sand-inputfield-disabled-opacity: 0.4;
+@sand-inputfield-placeholder-opacity: 0.5;
+@sand-inputfield-border-radius: @sand-inputfield-border-width;
+@sand-inputfield-border-width: 12px;
+@sand-inputfield-border-outline-width: @sand-inputfield-border-width;
+@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
+@sand-inputfield-icon-spacing: 30px;
+@sand-inputfield-height: @sand-button-height;
+@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-highlight-height: 100%;
+@sand-inputfield-highlight-max-width: 756px;
+@sand-inputfield-highlight-small-max-width: 714px;
+@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // IntegerPicker
 // ---------------------------------------
