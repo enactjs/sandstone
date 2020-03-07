@@ -12,17 +12,15 @@ const NumberInputPopupBase = kind({
 		type: PropTypes.oneOf(['number', 'password'])
 	},
 
-	render: ({type, ...rest}) => {
-		deprecate({
-			name: 'sandstone/NumberInputPopup',
-			replacedBy: 'sandstone/Input',
-			message: 'Use `sandstone/Input` with `type="number"` or `type="passwordnumber"'
-		});
-
+	render: deprecate(({type, ...rest}) => {
 		return (
 			<Input {...rest} type={type === 'password' ? 'passwordnumber' : type} />
 		);
-	}
+	}, {
+		name: 'sandstone/NumberInputPopup',
+		replacedBy: 'sandstone/Input',
+		message: 'Use `sandstone/Input` with `type="number"` or `type="passwordnumber"'
+	})
 });
 
 /**

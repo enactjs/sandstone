@@ -8,17 +8,15 @@ import NumberInputPopup from './NumberInputPopup';
 const InputPopupBase = kind({
 	name: 'InputPopup',
 
-	render: ({...rest}) => {
-		deprecate({
-			name: 'sandstone/InputPopup',
-			replacedBy: 'sandstone/Input',
-			message: 'Use `sandstone/Input`'
-		});
-
+	render: deprecate(({...rest}) => {
 		return (
 			<Input {...rest} />
 		);
-	}
+	}, {
+		name: 'sandstone/InputPopup',
+		replacedBy: 'sandstone/Input',
+		message: 'Use `sandstone/Input`'
+	})
 });
 
 /**
