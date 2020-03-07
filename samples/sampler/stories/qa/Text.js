@@ -7,8 +7,6 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
-import ExpandableList from '@enact/sandstone/ExpandableList';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import {Header} from '@enact/sandstone/Panels';
@@ -17,8 +15,6 @@ import Item from '@enact/sandstone/Item';
 import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
-import SelectableItem from '@enact/sandstone/SelectableItem';
-import SlotItem from '@enact/sandstone/SlotItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
 const inputData = {
@@ -73,14 +69,11 @@ storiesOf('Text', module)
 
 					<Heading showLine>Expandables (Input, List, Picker)</Heading>
 					<ExpandableInput title={children} value={children} />
-					<ExpandableList title={children}>{[children, children, children]}</ExpandableList>
-					<ExpandablePicker title={children}>{[children, children, children]}</ExpandablePicker>
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
 					<FormCheckboxItem>{children}</FormCheckboxItem>
 					<RadioItem>{children}</RadioItem>
-					<SelectableItem>{children}</SelectableItem>
 					<SwitchItem>{children}</SwitchItem>
 
 					<Heading showLine>Headers (Standard, Compact, Input)</Heading>
@@ -98,40 +91,40 @@ storiesOf('Text', module)
 	.add(
 		'Languages',
 		() => Object.keys(inputData).map(key =>
-			<SlotItem key={key}>
+			<Item key={key}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>
 				</slotBefore>
 				{inputData[key]}
-			</SlotItem>
+			</Item>
 		)
 	)
 	.add(
 		'Mixed Scripts',
 		() => <div>
-			<SlotItem style={{fontWeight: 300}}>
+			<Item style={{fontWeight: 300}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 400}}>
+			</Item>
+			<Item style={{fontWeight: 400}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 600}}>
+			</Item>
+			<Item style={{fontWeight: 600}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 700}}>
+			</Item>
+			<Item style={{fontWeight: 700}}>
 				<slotBefore>
 					<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
 				</slotBefore>
 				{mixedText}
-			</SlotItem>
+			</Item>
 		</div>
 	);
