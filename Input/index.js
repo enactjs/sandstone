@@ -1,5 +1,5 @@
 /**
- * Popup style inputs for text and numbers
+ * Popup style inputs for text and numbers.
  *
  * @module sandstone/Input
  * @exports Input

@@ -23,7 +23,7 @@ import componentCss from './Input.module.less';
 const prepareInputEventPayload = ev => ({value: ev.target.value});
 
 /**
- * Base component for providing text input in the form of a popup
+ * Base component for providing text input in the form of a popup.
  *
  * @class InputBase
  * @memberof sandstone/Input
@@ -33,7 +33,7 @@ const prepareInputEventPayload = ev => ({value: ev.target.value});
 const InputBase = kind({
 	name: 'Input',
 
-	propTypes: /** @lends sandstone/Input.InputBase */ {
+	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
 		/**
 		 * Customize component style
 		 *
@@ -58,6 +58,7 @@ const InputBase = kind({
 		 * with numbers in it. This only has an effect on "number" and "passwordnumber" `type`.
 		 *
 		 * @type {Number}
+		 * @default 4
 		 * @public
 		 */
 		length: PropTypes.number,
@@ -106,7 +107,7 @@ const InputBase = kind({
 		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
-		 * @default ''
+		 * @default '-'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -278,6 +279,18 @@ const InputBase = kind({
 	}
 });
 
+/**
+ * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.
+ *
+ * @class InputDecorator
+ * @hoc
+ * @memberof sandstone/Input
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes ui/Changeable.Changeable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @ui
+ * @public
+ */
 const InputDecorator = compose(
 	Pure,
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
@@ -286,7 +299,7 @@ const InputDecorator = compose(
 );
 
 /**
- * Provide input in the form of a popup
+ * Provides an input in the form of a popup.
  *
  * Usage:
  * ```
@@ -302,8 +315,6 @@ const InputDecorator = compose(
  * @class Input
  * @memberof sandstone/Input
  * @extends sandstone/Input.InputBase
- * @mixes ui/Changeable.Changeable
- * @mixes ui/Toggleable.Toggleable
  * @ui
  * @public
  */

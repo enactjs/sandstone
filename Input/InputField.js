@@ -1,14 +1,3 @@
-/**
- * Sandstone styled input components.
- *
- * @example
- * <InputField placeholder="Enter text here" />
- *
- * @module sandstone/InputField
- * @exports InputField
- * @exports InputFieldBase
- */
-
 import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -33,17 +22,17 @@ import {calcAriaLabel, extractInputProps} from './util';
  * A Sandstone styled input component.
  *
  * It supports start and end icons but it does not support Spotlight. Apps should use
- * {@link sandstone/InputField.InputField}.
+ * {@link sandstone/Input.InputField}.
  *
  * @class InputFieldBase
- * @memberof sandstone/InputField
+ * @memberof sandstone/Input
  * @ui
  * @public
  */
 const InputFieldBase = kind({
 	name: 'InputField',
 
-	propTypes: /** @lends sandstone/InputField.InputFieldBase.prototype */ {
+	propTypes: /** @lends sandstone/Input.InputFieldBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -101,8 +90,8 @@ const InputFieldBase = kind({
 		iconBefore: PropTypes.string,
 
 		/**
-		 * Indicates [value]{@link sandstone/InputField.InputFieldBase.value} is invalid and shows
-		 * [invalidMessage]{@link sandstone/InputField.InputFieldBase.invalidMessage}, if set.
+		 * Indicates [value]{@link sandstone/Input.InputFieldBase.value} is invalid and shows
+		 * [invalidMessage]{@link sandstone/Input.InputFieldBase.invalidMessage}, if set.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -112,7 +101,7 @@ const InputFieldBase = kind({
 
 		/**
 		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link sandstone/InputField.InputFieldBase.invalid}.
+		 * [invalid]{@link sandstone/Input.InputFieldBase.invalid}.
 		 *
 		 * If this value is *falsy*, the tooltip will not be shown.
 		 *
@@ -168,7 +157,7 @@ const InputFieldBase = kind({
 		onKeyDown: PropTypes.func,
 
 		/**
-		 * Text to display when [value]{@link sandstone/InputField.InputFieldBase.value} is not set.
+		 * Text to display when [value]{@link sandstone/Input.InputFieldBase.value} is not set.
 		 *
 		 * @type {String}
 		 * @default ''
@@ -293,17 +282,12 @@ const InputFieldBase = kind({
 });
 
 /**
- * A Spottable, Sandstone styled input component with embedded icon support.
+ * Sandstone specific item behaviors to apply to [InputField]{@link sandstone/Input.InputFieldBase}.
  *
- * By default, `InputField` maintains the state of its `value` property. Supply the `defaultValue`
- * property to control its initial value. If you wish to directly control updates to the component,
- * supply a value to `value` at creation time and update it in response to `onChange` events.
- *
- * @class InputField
- * @memberof sandstone/InputField
- * @extends sandstone/InputField.InputFieldBase
+ * @class InputFieldDecorator
+ * @hoc
+ * @memberof sandstone/Input
  * @mixes ui/Changeable.Changeable
- * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
@@ -316,6 +300,22 @@ const InputFieldDecorator = compose(
 	Skinnable
 );
 
+/**
+ * A Spottable, Sandstone styled input component with embedded icon support.
+ *
+ * By default, `InputField` maintains the state of its `value` property. Supply the `defaultValue`
+ * property to control its initial value. If you wish to directly control updates to the component,
+ * supply a value to `value` at creation time and update it in response to `onChange` events.
+ *
+ * @class InputField
+ * @memberof sandstone/Input
+ * @extends sandstone/Input.InputFieldBase
+ * @mixes ui/Changeable.Changeable
+ * @mixes spotlight/Spottable.Spottable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @ui
+ * @public
+ */
 const InputField = InputFieldDecorator(InputFieldBase);
 
 /**
@@ -325,7 +325,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * be selected to become interactive. In pointer mode, the input will be editable when clicked.
  *
  * @name autoFocus
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -335,7 +335,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Applies a disabled style and prevents interacting with the component.
  *
  * @name disabled
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -345,7 +345,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Sets the initial value.
  *
  * @name defaultValue
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {String}
  * @public
  */
@@ -354,7 +354,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Blurs the input when the "enter" key is pressed.
  *
  * @name dismissOnEnter
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Boolean}
  * @default false
  * @public
@@ -364,7 +364,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Called when the internal input is focused.
  *
  * @name onActivate
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -374,7 +374,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Called when the internal input loses focus.
  *
  * @name onDeactivate
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -384,7 +384,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Called when the component is removed when it had focus.
  *
  * @name onSpotlightDisappear
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Function}
  * @param {Object} event
  * @public
@@ -394,7 +394,7 @@ const InputField = InputFieldDecorator(InputFieldBase);
  * Disables spotlight navigation into the component.
  *
  * @name spotlightDisabled
- * @memberof sandstone/InputField.InputField.prototype
+ * @memberof sandstone/Input.InputField.prototype
  * @type {Boolean}
  * @default false
  * @public
