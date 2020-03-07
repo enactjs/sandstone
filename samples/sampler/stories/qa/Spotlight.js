@@ -12,24 +12,18 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
-import DayPicker from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
 import ExpandableInput from '@enact/sandstone/ExpandableInput';
-import ExpandableItem from '@enact/sandstone/ExpandableItem';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import Icon from '@enact/sandstone/Icon';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
-import SelectableItem from '@enact/sandstone/SelectableItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
 import ToggleButton from '@enact/sandstone/ToggleButton';
-import ToggleItem from '@enact/sandstone/ToggleItem';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 
@@ -439,15 +433,11 @@ storiesOf('Spotlight', module)
 				<Item>Before last-focused Container + Scroller</Item>
 				<Container style={{outline: '1px dotted #ffffff80'}}>
 					<Scroller>
-						<ExpandableItem disabled title="Expandable Item">
-							<Button>Hiding!</Button>
-						</ExpandableItem>
-						<Item>Item A</Item>
-						<Item disabled>Item B</Item>
-						<Item>Item C</Item>
-						<ExpandableItem disabled title="Expandable Item">
-							<Button>Hiding!</Button>
-						</ExpandableItem>
+						<Item disabled>Item A</Item>
+						<Item>Item B</Item>
+						<Item disabled>Item C</Item>
+						<Item>Item D</Item>
+						<Item disabled>Item E</Item>
 					</Scroller>
 				</Container>
 				<Item>After last-focused Container + Scroller</Item>
@@ -583,6 +573,42 @@ storiesOf('Spotlight', module)
 									>
 										Item with label
 									</Item>
+									<CheckboxItem
+										onSpotlightDown={action('onSpotlightDown')}
+										onSpotlightLeft={action('onSpotlightLeft')}
+										onSpotlightRight={action('onSpotlightRight')}
+										onSpotlightUp={action('onSpotlightUp')}
+										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									>
+										CheckboxItem
+									</CheckboxItem>
+									<FormCheckboxItem
+										onSpotlightDown={action('onSpotlightDown')}
+										onSpotlightLeft={action('onSpotlightLeft')}
+										onSpotlightRight={action('onSpotlightRight')}
+										onSpotlightUp={action('onSpotlightUp')}
+										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									>
+										FormCheckboxItem
+									</FormCheckboxItem>
+									<RadioItem
+										onSpotlightDown={action('onSpotlightDown')}
+										onSpotlightLeft={action('onSpotlightLeft')}
+										onSpotlightRight={action('onSpotlightRight')}
+										onSpotlightUp={action('onSpotlightUp')}
+										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									>
+										RadioItem
+									</RadioItem>
+									<SwitchItem
+										onSpotlightDown={action('onSpotlightDown')}
+										onSpotlightLeft={action('onSpotlightLeft')}
+										onSpotlightRight={action('onSpotlightRight')}
+										onSpotlightUp={action('onSpotlightUp')}
+										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
+									>
+										SwitchItem
+									</SwitchItem>
 								</Cell>
 							</Column>
 						</Cell>
@@ -592,71 +618,6 @@ storiesOf('Spotlight', module)
 									Expandables
 								</Cell>
 								<Cell component={Scroller}>
-									<ExpandableItem
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="Various Items in an ExpandableItem"
-									>
-										<CheckboxItem
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											CheckboxItem
-										</CheckboxItem>
-										<FormCheckboxItem
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											FormCheckboxItem
-										</FormCheckboxItem>
-										<RadioItem
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											RadioItem
-										</RadioItem>
-										<SelectableItem
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											SelectableItem
-										</SelectableItem>
-										<SwitchItem
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											SwitchItem
-										</SwitchItem>
-										<ToggleItem
-											icon="plus"
-											iconComponent={Icon}
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											ToggleItem
-										</ToggleItem>
-									</ExpandableItem>
 									<ExpandableInput
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}
@@ -665,16 +626,6 @@ storiesOf('Spotlight', module)
 										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 										title="ExpandableInput"
 									/>
-									<ExpandablePicker
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="ExpandablePicker"
-									>
-										{Items}
-									</ExpandablePicker>
 									<DatePicker
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}
@@ -682,14 +633,6 @@ storiesOf('Spotlight', module)
 										onSpotlightUp={action('onSpotlightUp')}
 										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
 										title="DatePicker"
-									/>
-									<DayPicker
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="DayPicker"
 									/>
 									<TimePicker
 										onSpotlightDown={action('onSpotlightDown')}

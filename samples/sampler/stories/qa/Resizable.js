@@ -6,7 +6,6 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
-import SelectableItem from '@enact/sandstone/SelectableItem';
 
 const data = [
 	'a',
@@ -65,26 +64,16 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate long marquee when scrollbar is rendered',
 		() => (
-			<Scroller>
+			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
 				<NoUpdate>
 					<Item marqueeOn="render">MARQUEEONRENDER ABCDE</Item>
 					<Item>ABCDEFGHIJKLMNOPQRST</Item>
-					<SelectableItem>
-						SELECTABLE ITEM ABCDEFG
-					</SelectableItem>
+					<Item>
+						ITEM ABCDEFGHIJKLMNOPQRST
+					</Item>
 					<Items />
 					<Item>dummy</Item>
 				</NoUpdate>
-			</Scroller>
-		)
-	)
-	.add(
-		'should recalculate when selectable item is selected',
-		() => (
-			<Scroller>
-				<SelectableItem>
-					SELECTABLE ITEM ABCDEFGHIJ
-				</SelectableItem>
 			</Scroller>
 		)
 	);
