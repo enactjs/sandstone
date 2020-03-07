@@ -95,14 +95,16 @@
 
 		.indicatorContainer {
 			position: absolute;
-    		bottom: 8px;
-    		left: 90px;
+			bottom: @sand-picker-indicator-bottom;
+    		width: 100%;
+			margin: 0 auto;
+			line-height: 0;
 			.indicator {
 				display: inline-block;
 				width: @sand-picker-indicator-width;
 				height: @sand-picker-indicator-height;
-				margin-right: 24px;
-				border-radius: 50%;
+				margin-right: @sand-picker-indicator-margin-right;
+				border-radius: @sand-picker-indicator-border-radius;
 				vertical-align: middle;
 				cursor: pointer;
 				&.active {
@@ -143,7 +145,9 @@
 
 		&.horizontal {
 			border-radius: @sand-picker-horizontal-button-border-radius;
-			line-height: @sand-picker-joined-value-line-height;
+			.valueWrapper {
+				line-height: @sand-picker-joined-value-line-height;
+			}
 
 			&.incrementing::before {
 				border-right-width: @sand-integer-picker-shadow-width;

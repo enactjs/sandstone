@@ -855,7 +855,7 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
-		const checkForChildren = children && Array.isArray(children) && horizontal;
+		const checkForChildren = children && children.length > 1 && Array.isArray(children) && horizontal;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
