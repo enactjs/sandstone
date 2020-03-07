@@ -7,7 +7,6 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
-import ExpandableInput from '../../../ExpandableInput';
 import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import GridListImageItem from '../../../GridListImageItem';
@@ -50,7 +49,6 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
-	ExpandableInput,
 	FormCheckbox,
 	FormCheckboxItem,
 	GridListImageItem,
