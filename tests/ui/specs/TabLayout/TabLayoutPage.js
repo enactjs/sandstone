@@ -28,18 +28,14 @@ class TabLayoutPage extends Page {
 		const tabLayoutDefaultWithoutIcons = new TabLayoutInterface('tabLayoutDefaultWithoutIcons');
 		const tabLayoutCollapsedWithoutIcons = new TabLayoutInterface('tabLayoutCollapsedWithoutIcons');
 		const tabLayoutCollapsedWithIcons = new TabLayoutInterface('tabLayoutCollapsedWithIcons');
-		const tabLayoutHorizontalWithoutIcons = new TabLayoutInterface('tabLayoutHorizontalWithoutIcons');
-		const tabLayoutHorizontalCollapsedWithoutIcons = new TabLayoutInterface('tabLayoutHorizontalCollapsedWithoutIcons');
-		const tabLayoutHorizontalCollapsedWithIcons = new TabLayoutInterface('tabLayoutHorizontalCollapsedWithIcons');
+		const tabLayoutHorizontal = new TabLayoutInterface('tabLayoutHorizontal');
 
 
 		this.components = {
 			tabLayoutDefaultWithoutIcons,
 			tabLayoutCollapsedWithoutIcons,
 			tabLayoutCollapsedWithIcons,
-			tabLayoutHorizontalWithoutIcons,
-			tabLayoutHorizontalCollapsedWithoutIcons,
-			tabLayoutHorizontalCollapsedWithIcons
+			tabLayoutHorizontal
 		};
 	}
 

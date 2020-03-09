@@ -10,9 +10,7 @@ describe('TabLayout', function () {
 		tabLayoutDefaultWithoutIcons,
 		tabLayoutCollapsedWithIcons,
 		tabLayoutCollapsedWithoutIcons,
-		tabLayoutHorizontalCollapsedWithIcons,
-		// tabLayoutHorizontalCollapsedWithoutIcons,
-		tabLayoutHorizontalWithoutIcons
+		tabLayoutHorizontal
 	} = Page.components;
 
 	describe('default', function () {
@@ -33,7 +31,7 @@ describe('TabLayout', function () {
 
 		describe('collapsed', function () {
 
-			it.only('should not render a <Group> component', function () {
+			it('should not render a <Group> component', function () {
 				const expected = null;
 				const actual = tabLayoutCollapsedWithoutIcons.tabGroup.value;
 
@@ -66,41 +64,26 @@ describe('TabLayout', function () {
 
 		it('should have horizontal tabs', function () {
 			const expected = 'horizontal';
-			const actual = tabLayoutHorizontalWithoutIcons.tabOrientation;
+			const actual = tabLayoutHorizontal.tabOrientation;
 
 			expect(actual).to.equal(expected);
 		});
 
 		it('should show a maximum of five tabs in horizontal orientation', function () {
 			const expected = 5; // there are 6 tabs passed to the test component
-			const actual = tabLayoutHorizontalWithoutIcons.tabItems.value.length;
+			const actual = tabLayoutHorizontal.tabItems.value.length;
 
 			expect(actual).to.equal(expected);
 		});
 
 		describe('collapsed', function () {
 
-			describe('with tabs having icons', function () {
+			it('should not collapse', function () {
+				const expected = true;
+				const actual = !!tabLayoutCollapsedWithoutIcons.tabGroup;
 
-				it('should display all icons', function () {
-					const expected = 5;
-					const actual = tabLayoutHorizontalCollapsedWithIcons.tabIcons.value.length;
-
-					expect(actual).to.equal(expected);
-				});
+				expect(actual).to.equal(expected);
 			});
-
-			// TODO: write test for horizontal collapsed without icons when we have the guidance for what it should do
-			// describe('with no tabs having icons', function () {
-
-			// 	it('should display only one icon', function () {
-			// 		const expected = 1;
-			// 		const actual = tabLayoutHorizontalCollapsedWithoutIcons.tabIcons.value.length;
-
-			// 		expect(actual).to.equal(expected);
-			// 	});
-			// });
-
 		});
 	});
 });
