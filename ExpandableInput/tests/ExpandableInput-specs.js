@@ -110,7 +110,7 @@ describe('ExpandableInputBase', () => {
 });
 
 describe('ExpandableInput', () => {
-	test('should pass onChange callback to input', () => {
+	test.skip('should pass onChange callback to input', () => {
 		const handleChange = jest.fn();
 		const value = 'input string';
 		const evt = {target: {value: value}};

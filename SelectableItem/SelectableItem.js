@@ -8,8 +8,10 @@
  * @exports SelectableItem
  * @exports SelectableItemBase
  * @exports SelectableItemDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/CheckboxItem} instead.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -54,14 +56,18 @@ const SelectableItemBase = kind({
 		publicClassNames: ['selectableItem']
 	},
 
-	render: (props) => (
+	render: deprecate((props) => (
 		<ToggleItemBase
 			data-webos-voice-intent="SelectCheckItem"
 			{...props}
 			css={props.css}
 			iconComponent={SelectableIcon}
 		/>
-	)
+	), {
+		name: 'sandstone/SelectableItem',
+		replacedBy: 'sandstone/CheckboxItem',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

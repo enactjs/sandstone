@@ -1,6 +1,6 @@
 import Spotlight from '@enact/spotlight';
-import {constants} from '@enact/ui/Scrollable';
 import ri from '@enact/ui/resolution';
+import {constants} from '@enact/ui/useScroll';
 
 const {paginationPageMultiplier} = constants;
 const defaultScrollDistance = 168;	// TODO : Change to the value decided by UX.
