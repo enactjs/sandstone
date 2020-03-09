@@ -21,11 +21,8 @@ const fullHeightStyle = {
 spotlight.setPointerMode(false);
 
 const items = [],
-	itemSize = 72,
-	itemStyle = {
-		borderBottom: ri.unit(3, 'rem') + ' solid #202328',
-		boxSizing: 'border-box'
-	},
+	itemSize = 156,
+	itemStyle = {margin: 0, paddingBottom: 0, paddingTop: 0},
 	numItems = 100;
 
 const renderItem = (size) => ({index, ...rest}) => {

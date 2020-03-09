@@ -12,8 +12,10 @@ import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/u
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import Item from '@enact/sandstone/Item';
+import {Item as ThemeItem} from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+
+const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, paddingBottom: 0, paddingTop: 0, ...style}}></ThemeItem>);
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -22,12 +24,11 @@ for (let i = 0; i < 100; i++) {
 	itemData.push(`Item ${i}`);
 }
 
-const
-	prop = {
-		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: [true, false, 'byEnter'],
-		scrollbarOption: ['auto', 'hidden', 'visible']
-	};
+const prop = {
+	direction: ['both', 'horizontal', 'vertical'],
+	focusableScrollbarOption: [true, false, 'byEnter'],
+	scrollbarOption: ['auto', 'hidden', 'visible']
+};
 
 class ScrollerResizableItem extends React.Component {
 	static propTypes = {
@@ -36,6 +37,7 @@ class ScrollerResizableItem extends React.Component {
 		more: PropTypes.bool,
 		toggleMore: PropTypes.func
 	}
+
 	render () {
 		const {max = 3000, min = 800, more, toggleMore} = this.props;
 		const height = ri.unit(more ? max : min, 'rem');

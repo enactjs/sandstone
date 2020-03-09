@@ -17,9 +17,7 @@ const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, Vir
 
 const
 	defaultDataSize = 1000,
-	prop = {
-		scrollbarOption: ['auto', 'hidden', 'visible']
-	},
+	prop = {scrollbarOption: ['auto', 'hidden', 'visible']},
 	wrapOption = {
 		false: false,
 		true: true,
@@ -86,7 +84,14 @@ class MyVirtualList extends React.Component {
 	renderItem = ({index, ...rest}) => {
 		return (
 			/* eslint-disable react/jsx-no-bind */
-			<Item key={index} onClick={() => this.closePopup(index)} {...rest}>{itemList[index]}</Item>
+			<Item
+				{...rest}
+				key={index}
+				onClick={() => this.closePopup(index)}
+				style={{margin:0, paddingBottom: 0 , paddingTop: 0}}
+			>
+				{itemList[index]}
+			</Item>
 		);
 	};
 
@@ -103,7 +108,7 @@ class MyVirtualList extends React.Component {
 				<VirtualGridList
 					dataSize={itemList.length}
 					itemRenderer={this.renderItem}
-					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(120)}}
+					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
 					direction="vertical"
 					cbScrollTo={this.getScrollTo}
 				/>

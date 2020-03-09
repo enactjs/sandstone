@@ -50,14 +50,14 @@ storiesOf('VirtualList with native scrollMode', module)
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 					// eslint-disable-next-line react/jsx-no-bind
 					itemRenderer={({index, ...rest}) => {
-						return (<Item {...rest}>{items[index]}</Item>);
+						return (<Item {...rest} style={{margin: 0, padding: 0}}>{items[index]}</Item>);
 					}}
-					itemSize={ri.scale(number('itemSize', Config, 120))}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
-					spacing={ri.scale(number('spacing', Config, 40))}
+					spacing={ri.scale(number('spacing', Config, 0))}
 					spotlightDisabled={boolean('spotlightDisabled(for all items)', Config, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
