@@ -4,9 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/InputPopup` and `sandstone/InputPopup.NumberInputPopup` are now just `sandstone/Input`, accessible via`type="text"`, `type="password"`, `type="number"`, or `type="passwordnumber"`
+
+### Changed
+
+- `sandstone/Input` has been moved into `sandstone/Input.InputField` but is reserved and should only be used when expressly permitted
+
 ### Fixed
 
-- `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
+- `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
 
 ## [1.0.0-alpha.2] - 2020-03-03
 
