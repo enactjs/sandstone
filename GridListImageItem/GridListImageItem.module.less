@@ -24,17 +24,23 @@
 	.image {
 		transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
 		will-change: filter, transform;
+		margin-bottom: @sand-gridlistimageitem-image-margin-bottom;
+	}
+
+	.imageIcon {
+		height: @sand-gridlistimageitem-image-icon-size;
+		width: @sand-gridlistimageitem-image-icon-size;
+		margin-left: 0;
+		.transitionEffect();
 	}
 
 	.caption {
 		.sand-text-base(@sand-gridlistimageitem-caption-font-size);
-		padding-top: @sand-gridlistimageitem-caption-padding-top;
 		.transitionEffect();
 	}
 
 	.subCaption {
 		.sand-text-base(@sand-gridlistimageitem-subcaption-font-size);
-		padding-top: @sand-gridlistimageitem-subcaption-padding-top;
 		.transitionEffect();
 	}
 
@@ -89,13 +95,13 @@
 			}
 
 			.caption,
+			.imageIcon,
 			.subCaption {
 				transform: @sand-gridlistimageitem-focus-caption-transform;
 			}
 
 			&.selected {
 				.icon {
-
 					background-color: @sand-gridlistimageitem-selected-focus-overlay-icon-bg-color;
 					color: @sand-gridlistimageitem-selected-focus-overlay-icon-color;
 				}

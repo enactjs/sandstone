@@ -14,12 +14,14 @@
  * @exports GridListImageItemDecorator
  */
 
-import compose from 'ramda/src/compose';
-import {GridListImageItem as UiGridListImageItem} from '@enact/ui/GridListImageItem';
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
-import React from 'react';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
+import {GridListImageItem as UiGridListImageItem} from '@enact/ui/GridListImageItem';
+import {Cell, Column, Row} from '@enact/ui/Layout';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
 import Icon from '../Icon';
 import {ImageBase as Image} from '../Image';
@@ -52,6 +54,22 @@ const GridListImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/GridListImageItem.GridListImageItemBase.prototype */ {
 		/**
+		 * The primary caption to be displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		caption: PropTypes.string,
+
+		/**
+		 * The component used to render the captions
+		 *
+		 * @type {String|Component}
+		 * @public
+		 */
+		captionComponent: EnactPropTypes.renderable,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -77,6 +95,24 @@ const GridListImageItemBase = kind({
 		 * @public
 		 */
 		'data-webos-voice-intent': PropTypes.string,
+
+		/**
+		 * The component used to render the image icon component.
+		 *
+		 * @type {Component}
+		 * @default sandstone/Image.Image
+		 * @public
+		 */
+		imageIconComponent: EnactPropTypes.component,
+
+		/**
+		 * The absolute URL path to the image icon.
+		 * Set this value when you want to show image icon component.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		imageIconSource: PropTypes.string,
 
 		/**
 		 * Placeholder image used while [source]{@link ui/GridListImageItem.GridListImageItem#source}
@@ -118,11 +154,20 @@ const GridListImageItemBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		selectionOverlay: PropTypes.func
+		selectionOverlay: PropTypes.func,
+
+		/**
+		 * The second caption line to be displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		subCaption: PropTypes.string,
 	},
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
+		imageIconComponent: Image,
 		placeholder: defaultPlaceholder,
 		selected: false
 	},
@@ -132,7 +177,33 @@ const GridListImageItemBase = kind({
 		publicClassNames: ['gridListImageItem', 'icon', 'image', 'selected', 'caption', 'subCaption']
 	},
 
-	render: ({css, selectionOverlay, ...rest}) => {
+	computed: {
+		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource}) => {
+			return (
+				imageIconSource ?
+				<Row className={css.subComponents}>
+					<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink/>
+					<Cell size={"75%"}>
+						<Column>
+							{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
+							{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
+						</Column>
+					</Cell>
+				</Row>
+				:
+				[
+					caption ? (<Cell className={css.caption} component={captionComponent} shrink key={'caption'}>{caption}</Cell>) : null,
+					subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink key={'subCaption'}>{subCaption}</Cell>) : null
+				]
+			);
+		}
+	},
+
+	render: ({css, selectionOverlay, subComponents, ...rest}) => {
+		delete rest.imageIconComponent;
+		delete rest.imageIconPlaceholder;
+		delete rest.imageIconSource;
+
 		if (selectionOverlay) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
@@ -141,11 +212,11 @@ const GridListImageItemBase = kind({
 		return (
 			<UiGridListImageItem
 				{...rest}
-				captionComponent={captionComponent}
 				css={css}
 				iconComponent={Icon}
 				imageComponent={Image}
 				selectionOverlay={selectionOverlay}
+				subComponents={subComponents}
 			/>
 		);
 	}
