@@ -26,17 +26,6 @@
 		will-change: filter, transform;
 	}
 
-	.image::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		border-width: @sand-gridlistimageitem-image-border-width;
-		border-style: none;
-	}
-
 	.caption {
 		.sand-text-base(@sand-gridlistimageitem-caption-font-size);
 		padding-top: @sand-gridlistimageitem-caption-padding-top;
@@ -49,8 +38,19 @@
 		.transitionEffect();
 	}
 
+	.overlayContainer::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-width: @sand-gridlistimageitem-image-border-width;
+		border-style: none;
+	}
+
 	&.selected {
-		.image::after {
+		.overlayContainer::after {
 			border-style: solid;
 		}
 	}
