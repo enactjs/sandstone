@@ -3,12 +3,11 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
 import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
-import {VirtualGridList, VirtualListBasic} from '@enact/sandstone/VirtualList';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
 	wrapOption = {
@@ -63,7 +62,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 storiesOf('Sandstone', module)
 	.add(
