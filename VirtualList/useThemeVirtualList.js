@@ -2,7 +2,7 @@ import ri from '@enact/ui/resolution';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
-import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
+import {Spottable} from '@enact/spotlight/Spottable';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
@@ -16,18 +16,19 @@ import css from './VirtualList.module.less';
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
-const nop = () => {};
-
 const
-	dataContainerDisabledAttribute = 'data-spotlight-container-disabled',
+	nop = () => {},
 	fadeoutSize = 48,
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-	getNumberValue = (index) => index | 0,
-	spottableSelector = `.${spottableClass}`;
+	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances, context) => {
-	const {scrollContentHandle, scrollContentRef} = instances;
+	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const {scrollMode} = context;
+	const getItemNode = (index) => {
+		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
+		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
+	};
 
 	// Mutable value
 
@@ -85,15 +86,11 @@ const useSpottable = (props, instances, context) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef});
+	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {getItemNode});
 
 	const setContainerDisabled = useCallback((bool) => {
-		const
-			{spotlightId} = props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
-
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.dataset.spotlightContainerDisabled = bool;
 
 			if (bool) {
 				addGlobalKeyDownEventListener(handleGlobalKeyDown);
@@ -101,7 +98,7 @@ const useSpottable = (props, instances, context) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, props, removeGlobalKeyDownEventListener]);
+	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function handleGlobalKeyDown () {
@@ -130,7 +127,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {contentSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
+		const {dimensionToExtent, primary: {contentSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -141,11 +138,13 @@ const useSpottable = (props, instances, context) => {
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
-				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize;
+				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
+				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
+				endBoundary = startBoundary + contentSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
-			if (start >= scrollPositionTarget && end <= scrollPositionTarget + contentSize) {
+			if (start >= startBoundary && end <= endBoundary) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
 				mutableRef.current.isScrolledBy5way = true;
 				focusByIndex(nextIndex);
@@ -153,12 +152,12 @@ const useSpottable = (props, instances, context) => {
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex);
 			} else {
+				const itemNode = getItemNode(nextIndex);
+
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
-				if (isWrapped && (
-					scrollContentRef.current.querySelector(`[data-index='${nextIndex}']${spottableSelector}`) == null
-				)) {
+				if (isWrapped && itemNode === null) {
 					if (wrap === true) {
 						pause.pause();
 						target.blur();
@@ -189,9 +188,9 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	function focusByIndex (index) {
-		const item = scrollContentRef.current.querySelector(`[data-index='${index}']${spottableSelector}`);
+		const itemNode = getItemNode(index);
 
-		if (!item && index >= 0 && index < props.dataSize) {
+		if (!itemNode && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
 			setPreservedIndex(index);
 		} else {
@@ -201,7 +200,7 @@ const useSpottable = (props, instances, context) => {
 			}
 
 			pause.resume();
-			focusOnNode(item);
+			focusOnNode(itemNode);
 			setNodeIndexToBeFocused(null);
 			mutableRef.current.isScrolledByJump = false;
 		}
@@ -229,7 +228,7 @@ const useSpottable = (props, instances, context) => {
 		const
 
 			{pageScroll} = props,
-			{numOfItems, primary} = scrollContentHandle.current,
+			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.contentSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
@@ -237,10 +236,10 @@ const useSpottable = (props, instances, context) => {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const node = scrollContentHandle.current.getItemNode(mutableRef.current.lastFocusedIndex);
+				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems);
 
-				if (node) {
-					node.blur();
+				if (itemNode) {
+					itemNode.blur();
 				}
 			}
 
@@ -309,11 +308,13 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
-	const {scrollMode, scrollContentHandle, scrollContentRef} = props;
+	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
+
+	// Mutable value
 
 	// Hooks
 
-	const instance = {scrollContentHandle, scrollContentRef};
+	const instance = {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef};
 
 	const {
 		calculatePositionOnFocus,
@@ -370,6 +371,7 @@ const useThemeVirtualList = (props) => {
 
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
+	delete rest.scrollContainerRef;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
 	delete rest.spotlightId;
@@ -407,7 +409,6 @@ function listItemsRenderer (props) {
 	const {
 		cc,
 		handlePlaceholderFocus,
-		itemContainerRef: initUiItemContainerRef,
 		needsScrollingPlaceholder,
 		primary,
 		role,
@@ -417,7 +418,7 @@ function listItemsRenderer (props) {
 	return (
 		<>
 			{cc.length ? (
-				<div ref={initUiItemContainerRef} role={role}>{cc}</div>
+				<div role={role}>{cc}</div>
 			) : null}
 			{primary ? null : (
 				<SpotlightPlaceholder

@@ -277,6 +277,7 @@ const useScroll = (props) => {
 
 	const scrollContainerRef = useRef();
 	const scrollContentRef = useRef();
+	const itemRefs = useRef([]);
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -437,12 +438,14 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
+		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
+		scrollContainerRef,
 		setThemeScrollContentHandle,
 		spotlightId,
 		scrollContainerHandle,
