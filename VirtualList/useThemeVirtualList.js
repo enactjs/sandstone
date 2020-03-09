@@ -379,8 +379,8 @@ const useThemeVirtualList = (props) => {
 	return {
 		...rest,
 		css,
-		getContentSize,
 		getComponentProps,
+		getContentSize,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
 				...itemRest,
