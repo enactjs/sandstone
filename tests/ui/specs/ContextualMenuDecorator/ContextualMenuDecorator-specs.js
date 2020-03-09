@@ -46,21 +46,21 @@ describe('ContextualMenuDecorator', function () {
 			it('should dismiss the menu on 5-way left from menu item', function () {
 				Page.spotlightLeft();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28284] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button (verify step 5)
 			it('should dismiss the menu on 5-way right from menu item', function () {
 				Page.spotlightRight();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28284] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button (verify step 6)
 			it('should dismiss the menu on 5-way up from first menu item', function () {
 				Page.spotlightUp();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28285] - Spotlight is on the second item. (verify step 4)
@@ -92,13 +92,13 @@ describe('ContextualMenuDecorator', function () {
 				button1.self.click(); // this will close menu1
 				button1.focus();
 				button1.self.click(); // this will open menu1
-				expect(button1.self.hasFocus()).to.be.true();  // (verify step 3)
+				expect(button1.self.isFocused()).to.be.true();  // (verify step 3)
 				expect(menu1.isMenuExist).to.be.true();  // (verify step 3)
-				expect(menu1.item(0).hasFocus()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
+				expect(menu1.item(0).isFocused()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
 				button1.self.click(); // this will close menu1
 				button1.focus();
 				expect(menu1.isMenuExist).to.be.false(); 	// (verify step 4)
-				expect(button1.self.hasFocus()).to.be.true();	// (verify step 4)
+				expect(button1.self.isFocused()).to.be.true();	// (verify step 4)
 			});
 		});
 	});
