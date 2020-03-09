@@ -108,7 +108,7 @@ const SpinnerBase = kind({
 		 * Customize the size of this component.
 		 *
 		 * Recommended usage is "medium" (default) for standalone and popup scenarios, while "small"
-		 * is best suited for use inside other elements, like {@link sandstone/SlotItem.SlotItem}.
+		 * is best suited for use inside other elements, like {@link sandstone/Item.Item}.
 		 *
 		 * @type {('medium'|'small')}
 		 * @default 'medium'

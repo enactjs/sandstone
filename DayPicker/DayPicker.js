@@ -11,8 +11,10 @@
  * @module sandstone/DayPicker
  * @exports DayPicker
  * @exports DayPickerBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -107,7 +109,7 @@ const DayPickerBase = kind({
 		children: ({children}) => children.map(child => child['aria-label'])
 	},
 
-	render: ({title, ...rest}) => {
+	render: deprecate(({title, ...rest}) => {
 		return (
 			<ExpandableListBase
 				{...rest}
@@ -116,7 +118,10 @@ const DayPickerBase = kind({
 				title={title}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/DayPicker',
+		until: '1.0.0-beta.1'
+	})
 });
 
 const DayPickerDecorator = compose(
@@ -221,7 +226,7 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
  */
 
 /**
- * The text displayed in the label when every weekeday is selected
+ * The text displayed in the label when every weekday is selected
  *
  * @name everyWeekdayText
  * @type {String}

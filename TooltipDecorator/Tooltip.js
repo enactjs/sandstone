@@ -53,7 +53,7 @@ const TooltipBase = kind({
 		 * A value representing the amount to offset the label portion of the tooltip.
 		 *
 		 * In a "center" aligned tooltip, the label may be desirable to offset to one side or the
-		 * other. This prop accepts a value betwen -0.5 and 0.5 (representing 50% to the left or
+		 * other. This prop accepts a value between -0.5 and 0.5 (representing 50% to the left or
 		 * right). This defaults to 0 offset (centered). It also automatically caps the value so it
 		 * never positions the tooltip label past the anchored arrow. If the tooltip label or arrow
 		 * has non-rectangular geometry (rounded corners, a wide tail, etc), you'll need to manually
