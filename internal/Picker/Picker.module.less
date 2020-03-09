@@ -96,17 +96,19 @@
 		.indicatorContainer {
 			position: absolute;
 			bottom: @sand-picker-indicator-bottom;
-    		width: 100%;
+			width: 100%;
 			margin: 0 auto;
 			line-height: 0;
+
 			.indicator {
 				display: inline-block;
 				width: @sand-picker-indicator-width;
 				height: @sand-picker-indicator-height;
-				margin-right: @sand-picker-indicator-margin-right;
+				margin: @sand-picker-indicator-margin;
 				border-radius: @sand-picker-indicator-border-radius;
 				vertical-align: middle;
 				cursor: pointer;
+
 				&.active {
 					width: @sand-picker-indicator-active-width;
 					height: @sand-picker-indicator-active-height;
@@ -145,18 +147,16 @@
 
 		&.horizontal {
 			border-radius: @sand-picker-horizontal-button-border-radius;
+
 			.valueWrapper {
 				line-height: @sand-picker-joined-value-line-height;
 			}
-
 			&.incrementing::before {
 				border-right-width: @sand-integer-picker-shadow-width;
 			}
-
 			&.decrementing::before {
 				border-left-width: @sand-integer-picker-shadow-width;
 			}
-
 			.incrementer,
 			.decrementer {
 				margin: 0;
@@ -253,7 +253,7 @@
 
 					&.active {
 						background-color: @sand-picker-indicators-active-bg-color;
-					};
+					}
 				}
 			}
 

@@ -422,6 +422,7 @@ const PickerBase = class extends React.Component {
 			this.containerRef.addEventListener('webOSVoice', this.handleVoice);
 		}
 	}
+
 	componentDidUpdate (prevProps) {
 		if (this.props.joined && !prevProps.joined) {
 			this.containerRef.addEventListener('wheel', this.handleWheel);
