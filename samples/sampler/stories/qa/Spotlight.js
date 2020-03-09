@@ -13,8 +13,6 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
 import Heading from '@enact/sandstone/Heading';
-import ExpandableInput from '@enact/sandstone/ExpandableInput';
-import ExpandableList from '@enact/sandstone/ExpandableList';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
@@ -619,25 +617,6 @@ storiesOf('Spotlight', module)
 									Expandables
 								</Cell>
 								<Cell component={Scroller}>
-									<ExpandableList
-										noLockBottom
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="ExpandableList"
-									>
-										{Items}
-									</ExpandableList>
-									<ExpandableInput
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										title="ExpandableInput"
-									/>
 									<DatePicker
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}

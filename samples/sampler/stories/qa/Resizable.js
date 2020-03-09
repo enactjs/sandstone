@@ -1,8 +1,9 @@
+import Resizable from '@enact/ui/Resizable';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import ExpandableList from '@enact/sandstone/ExpandableList';
+import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
@@ -12,6 +13,8 @@ const data = [
 	'c'
 ];
 
+const ResizeButton = Resizable({resize: 'onClick'}, Button);
+
 class NoUpdate extends React.Component {
 	shouldComponentUpdate () {
 		return false;
@@ -20,6 +23,39 @@ class NoUpdate extends React.Component {
 	render () {
 		return (
 			<div>{this.props.children}</div>
+		);
+	}
+}
+
+class Items extends React.Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			more: false
+		};
+	}
+
+	toggleRenderItems = () => {
+		this.setState(({more}) => {
+			return {more: !more};
+		});
+	}
+
+	render () {
+		const {more} = this.state;
+		const amount = more ? 'Fewer' : 'More';
+
+		return (
+			<React.Fragment>
+				<ResizeButton onClick={this.toggleRenderItems}>Render {amount} Items</ResizeButton>
+				{more ?
+					data.map((item) => {
+						return <Item key={item}>{item}</Item>;
+					}) :
+					null
+				}
+			</React.Fragment>
 		);
 	}
 }
@@ -35,9 +71,7 @@ storiesOf('Resizable', module)
 					<Item>
 						ITEM ABCDEFGHIJKLMNOPQRST
 					</Item>
-					<ExpandableList title={'ABCDEFGHIJKLMNOPQRS'}>
-						{data}
-					</ExpandableList>
+					<Items />
 					<Item>dummy</Item>
 				</NoUpdate>
 			</Scroller>

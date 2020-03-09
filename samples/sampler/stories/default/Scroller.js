@@ -3,10 +3,9 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
-import {ScrollableBasic} from '@enact/sandstone/useScroll';
 import Scroller from '@enact/sandstone/Scroller';
 
 const
@@ -16,7 +15,7 @@ const
 		scrollbarOption: ['auto', 'hidden', 'visible']
 	};
 
-const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollableBasic, ScrollableBasic, Scroller);
+const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 storiesOf('Sandstone', module)
 	.add(
