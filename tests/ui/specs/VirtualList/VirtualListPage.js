@@ -22,9 +22,9 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
-	get scrollBarSize () { return browser.getElementSize(`${scrollbarSelector}`); }
+	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
 	get list () { return element('#list', browser); }
-	get listSize () { return browser.getElementSize(`${scrollableSelector}`); }
+	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
 
 	item (id) {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
@@ -50,7 +50,7 @@ class VirtualListPage extends Page {
 				// else, it's inside the list itself, increment y and try again
 			}
 			return 'unknown';	// we didn't find it?!
-		}, scrollableSelector).value;
+		}, scrollableSelector);
 	}
 
 	/* global document */
@@ -76,14 +76,14 @@ class VirtualListPage extends Page {
 				// else, it's inside the list itself, decrement y and try again
 			}
 			return 'unknown';	// we didn't find it?!
-		}, scrollableSelector).value;
+		}, scrollableSelector);
 	}
 
 	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;
-		}, this.item(id).value).value;
+		}, this.item(id).value);
 	}
 }
 
