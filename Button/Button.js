@@ -142,7 +142,10 @@ const ButtonBase = kind({
 
 	computed: {
 		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
-			{iconOnly},
+			{
+				hasColor: color,
+				iconOnly
+			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
 			`icon${cap(iconPosition)}`,

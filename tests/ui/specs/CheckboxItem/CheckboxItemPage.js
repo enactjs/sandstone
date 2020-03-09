@@ -18,8 +18,8 @@ class CheckboxItemInterface {
 	get icon () { return browser.element(this.iconSelector); }
 	get iconSymbol () { return this.icon.getText(); }
 	get isChecked () { return browser.isExisting(`#${this.id} .Checkbox_Checkbox_selected`); }
-	get isAfter () { return browser.isExisting(`#${this.id} .SlotItem_SlotItem_after`); }
-	get isBefore () { return browser.isExisting(`#${this.id} .SlotItem_SlotItem_before`); }
+	get isAfter () { return browser.isExisting(`#${this.id} .Item_Item_after`); }
+	get isBefore () { return browser.isExisting(`#${this.id} .Item_Item_before`); }
 	get isInline () { return browser.isExisting(`#${this.id}.Item_Item_inline`); }
 }
 

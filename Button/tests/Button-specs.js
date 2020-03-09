@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
+
 import Button, {ButtonBase} from '../Button';
+import css from '../Button.module.less';
 
 describe('Button', () => {
 
@@ -21,26 +23,38 @@ describe('Button', () => {
 	it('should have default backgroundOpacity opaque', function () {
 		const subject = shallow(<ButtonBase />);
 
-		expect(subject.prop('className').split(' ')).toContain('opaque');
+		const expected = css.opaque;
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have default minWidth', function () {
 		const subject = shallow(<ButtonBase />);
 
-		expect(subject.prop('className').split(' ')).toContain('minWidth');
+		const expected = css.minWidth;
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have default size large', function () {
 		const subject = shallow(<ButtonBase />);
 
-		expect(subject.prop('className').split(' ')).toContain('large');
+		const expected = css.large;
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	describe('with no minWidth', function () {
 		it('should not have minWidth class', function () {
 			const subject = shallow(<ButtonBase minWidth={false} />);
 
-			expect(subject.prop('className').split(' ')).not.toContain('minWidth');
+			const expected = css.minWidth;
+			const actual = subject.first().prop('className');
+
+			expect(actual).not.toContain(expected);
 		});
 	});
 
@@ -48,13 +62,19 @@ describe('Button', () => {
 		it('should have transparent class', function () {
 			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
 
-			expect(subject.prop('className').split(' ')).toContain('transparent');
+			const expected = css.transparent;
+			const actual = subject.first().prop('className');
+
+			expect(actual).toContain(expected);
 		});
 
 		it('should not have have opaque class', function () {
 			const subject = shallow(<ButtonBase backgroundOpacity="transparent" />);
 
-			expect(subject.prop('className').split(' ')).not.toContain('opaque');
+			const expected = css.opaque;
+			const actual = subject.first().prop('className');
+
+			expect(actual).not.toContain(expected);
 		});
 	});
 
@@ -63,21 +83,83 @@ describe('Button', () => {
 			const subject = mount(<Button icon="check">abc</Button>);
 
 			const expected = '✓';
-			const actual = subject.text();
+			const actual = subject.find('Icon').first().text();
 
-			expect(actual).toEqual(expect.stringContaining(expected));
+			expect(actual).toEqual(expected);
 		});
 
 		it('should not have minWidth class with only icon', function () {
 			const subject = mount(<Button icon="check" />);
 
-			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).not.toContain('minWidth');
+			const expected = css.minWidth;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).not.toContain(expected);
 		});
 
 		it('should have iconOnly class when there is no children', function () {
 			const subject = mount(<Button icon="check" />);
 
-			expect(subject.find(ButtonBase).childAt(0).prop('className').split(' ')).toContain('iconOnly');
+			const expected = css.iconOnly;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+	});
+
+	describe('with color', () => {
+		it('should have hasColor class', () => {
+			const subject = mount(<Button color="red">abc</Button>);
+
+			const expected = css.hasColor;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should have not hasColor class', () => {
+			const subject = mount(<Button>abc</Button>);
+
+			const expected = css.hasColor;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).not.toContain(expected);
+		});
+
+		it('should have red class', () => {
+			const subject = mount(<Button color="red">abc</Button>);
+
+			const expected = css.red;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should have blue class', () => {
+			const subject = mount(<Button color="blue">abc</Button>);
+
+			const expected = css.blue;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should have yellow class', () => {
+			const subject = mount(<Button color="yellow">abc</Button>);
+
+			const expected = css.yellow;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should have green class', () => {
+			const subject = mount(<Button color="green">abc</Button>);
+
+			const expected = css.green;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
 		});
 	});
 

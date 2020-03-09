@@ -8,9 +8,8 @@ import {storiesOf} from '@storybook/react';
 
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
-import ToggleItem from '@enact/sandstone/ToggleItem';
 
-const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, CheckboxItem);
+const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, CheckboxItem);
 
 const prop = {
 	longText : 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
