@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import TabLayout from '../../../../TabLayout';
 import React from 'react';
 
@@ -48,21 +47,53 @@ const views = [
 ];
 
 const TabLayoutTests = [
-	<TabLayout children={views} tabs={tabs} />,
-	<TabLayout children={views} tabs={tabsWithIcons} />,
-	<TabLayout children={views} tabs={someTabsWithIcons} />,
-	<TabLayout children={views} tabs={oneTabWithIcons} />,
-	<TabLayout children={views} orientation="horizontal" tabs={tabs} />,
-	<TabLayout children={views} orientation="horizontal" tabs={tabsWithIcons} />,
-	<TabLayout children={views} orientation="horizontal" tabs={someTabsWithIcons} />,
-	<TabLayout children={views} orientation="horizontal" tabs={oneTabWithIcons} />,
-	<TabLayout children={views} collapsed tabs={tabs} />,
-	<TabLayout children={views} collapsed tabs={tabsWithIcons} />,
-	<TabLayout children={views} collapsed tabs={someTabsWithIcons} />,
-	<TabLayout children={views} collapsed tabs={oneTabWithIcons} />,
-	<TabLayout children={views} collapsed orientation="horizontal" tabs={tabs} />,
-	<TabLayout children={views} collapsed orientation="horizontal" tabs={tabsWithIcons} />,
-	<TabLayout children={views} collapsed orientation="horizontal" tabs={someTabsWithIcons} />,
-	<TabLayout children={views} collapsed orientation="horizontal" tabs={oneTabWithIcons} />
+	<TabLayout tabs={tabs}>
+		{views}
+	</TabLayout>,
+	<TabLayout tabs={tabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout tabs={someTabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout tabs={oneTabWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout orientation="horizontal" tabs={tabs}>
+		{views}
+	</TabLayout>,
+	<TabLayout orientation="horizontal" tabs={tabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout orientation="horizontal" tabs={someTabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout orientation="horizontal" tabs={oneTabWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed tabs={tabs}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed tabs={tabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed tabs={someTabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed tabs={oneTabWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed orientation="horizontal" tabs={tabs}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed orientation="horizontal" tabs={tabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed orientation="horizontal" tabs={someTabsWithIcons}>
+		{views}
+	</TabLayout>,
+	<TabLayout collapsed orientation="horizontal" tabs={oneTabWithIcons}>
+		{views}
+	</TabLayout>
 ];
 export default TabLayoutTests;
