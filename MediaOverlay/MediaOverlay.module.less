@@ -3,39 +3,12 @@
 @import "../styles/skin.less";
 
 .mediaOverlay {
+	.sand-spotlight-padding(@sand-mediaoverlay-padding-top-bottom);
+
 	display: block;
 	position: relative;
-	padding: @sand-mediaoverlay-padding-top-bottom @sand-mediaoverlay-padding-left-right;
 	width: @sand-mediaoverlay-width;
 	height: auto;
-
-	.media {
-		display: block;
-		position: relative; // it is for z-index;
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
-
-	.image,
-	.textLayout {
-		position: absolute;
-		.position(0);
-	}
-
-	.textLayout {
-		margin: (@sand-mediaoverlay-padding-left-right * 2);
-	}
-
-	.image {
-		margin: @sand-mediaoverlay-image-margin-top-bottom @sand-mediaoverlay-image-margin-left-right;
-		height: auto;
-		width: auto;
-	}
-
-	.text {
-		font-weight: @sand-mediaoverlay-font-weight;
-	}
 
 	.bg {
 		position: absolute;
@@ -44,6 +17,59 @@
 		transition: filter 300ms ease-out, opacity 300ms ease-out;
 		will-change: filter, opacity;
 		border-radius: @sand-mediaoverlay-border-radius;
+	}
+
+	.mediaContainer {
+		position: relative;
+
+		.media {
+			display: block;
+			position: relative; // it is for z-index;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+		}
+
+		.image,
+		.textLayout {
+			position: absolute;
+			.position(0);
+		}
+
+		.textLayout {
+			margin: @sand-mediaoverlay-padding-left-right;
+		}
+
+		.image {
+			margin: 0;
+			height: auto;
+			width: auto;
+		}
+
+		.text {
+			font-weight: @sand-mediaoverlay-font-weight;
+		}
+
+		.progressBar {
+			position: absolute;
+			.position(auto, 0, 0);
+			margin: 0;
+
+			.bar {
+				border-radius: 0;
+			}
+
+			.applySkins({
+				.bar {
+					background-color: @sand-mediaoverlay-pg-bar-color;
+				}
+			})
+		}
+	}
+
+	.captionContainer {
+		min-height: 192px;
+		margin-top: 24px;
 	}
 
 	.focus({
@@ -56,28 +82,38 @@
 		}
 	});
 
-	.progressBar {
-		position: absolute;
-		.position(auto, 0, 0);
-		margin-bottom: @sand-mediaoverlay-pg-margin-bottom;
+	.caption,
+	.subCaptionBelow {
+		.sand-font({
+            font-size: 48px;
+        });
+        font-size: 48px;
+	}
 
-		.bar {
-			border-radius: 0;
-		}
-
-		.applySkins({
-			.bar {
-				background-color: @sand-mediaoverlay-pg-bar-color;
-			}
-		})
+	.subCaption {
+		.sand-font({
+            font-size: 60px;
+        });
+        font-size: 60px;
 	}
 
 	.applySkins({
 		.bg {
 			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
 		}
-
+		.caption,
+		.subCaption {
+			color: #E6E6E6;
+		}
+		.subCaptionBelow {
+			color: #ABAEB3;
+		}
 		.focus({
+			.caption,
+			.subCaption,
+			.subCaptionBelow {
+				color: #4C5059;
+			}
 			.bg {
 				background-color: @sand-mediaoverlay-focus-bg-color;
 				opacity: 1;

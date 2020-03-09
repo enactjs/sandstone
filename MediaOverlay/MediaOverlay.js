@@ -23,8 +23,11 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import {MarqueeController} from '../Marquee';
+import Icon from '../Icon';
 import Image from '../Image';
 import {Marquee} from '../Marquee';
+import {ItemBase} from '../Item';
 import ProgressBar from '../ProgressBar';
 import Skinnable from '../Skinnable';
 
@@ -50,6 +53,22 @@ const MediaOverlayBase = kind({
 		 * @public
 		 */
 		source: PropTypes.node.isRequired,
+
+		/**
+		 * The primary caption to be displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		caption: PropTypes.string,
+
+		/**
+		 * The component used to render the caption
+		 *
+		 * @type {String|Component}
+		 * @public
+		 */
+		captionComponent: EnactPropTypes.renderable,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -113,7 +132,23 @@ const MediaOverlayBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		progressBarShowing: PropTypes.bool,
+		progressShowing: PropTypes.bool,
+
+		/**
+		 * The second caption line to be displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		subCaption: PropTypes.string,
+
+		/**
+		 * The third caption line to be displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		subCaptionBelow: PropTypes.string,
 
 		/**
 		 * Text to display over media.
@@ -140,6 +175,7 @@ const MediaOverlayBase = kind({
 	},
 
 	defaultProps: {
+		captionComponent: Marquee,
 		mediaComponent: 'video',
 		progress: 0,
 		textAlign: 'center'
@@ -151,39 +187,46 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({css, imageOverlay, mediaComponent, placeholder, progress, progressBarShowing, source, text, textAlign, ...rest}) => {
+	render: ({caption, captionComponent: CaptionComponent, css, imageOverlay, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
-				<Media
-					autoPlay
-					className={css.media}
-					controls={false}
-					mediaComponent={mediaComponent}
-					source={source}
-				/>
-				{imageOverlay ? (
-					<Image
-						className={css.image}
-						placeholder={placeholder}
-						sizing="fill"
-						src={imageOverlay}
+				<div className={css.mediaContainer}>
+					<Media
+						autoPlay
+						className={css.media}
+						controls={false}
+						mediaComponent={mediaComponent}
+						source={source}
 					/>
-				) : null}
-				{text ? (
-					<Layout align={textAlign} className={css.textLayout}>
-						<Cell component={Marquee} alignment="center" className={css.text} marqueeOn="render">
-							{text}
-						</Cell>
-					</Layout>
-				) : null}
-				{progressBarShowing ?
-					<ProgressBar
-						css={css}
-						orientation="horizontal"
-						progress={progress}
-					/> : null
-				}
+					{imageOverlay ? (
+						<Image
+							className={css.image}
+							placeholder={placeholder}
+							sizing="fill"
+							src={imageOverlay}
+						/>
+					) : null}
+					{text ? (
+						<Layout align={textAlign} className={css.textLayout}>
+							<Cell component={Marquee} alignment="center" className={css.text} marqueeOn="render">
+								{text}
+							</Cell>
+						</Layout>
+					) : null}
+					{progressShowing ?
+						<ProgressBar
+							css={css}
+							orientation="horizontal"
+							progress={progress}
+						/> : null
+					}
+				</div>
+				<div className={css.captionContainer}>
+					{caption ? (<CaptionComponent css={css} className={css.caption} marqueeOn="focus">{caption}</CaptionComponent>) : null}
+					{subCaption ? (<Marquee css={css} className={css.subCaption} marqueeOn="focus">{subCaption}</Marquee>) : null}
+					{subCaptionBelow ? (<Marquee css={css} className={css.subCaptionBelow} marqueeOn="focus">{subCaptionBelow}</Marquee>) : null}
+				</div>
 			</div>
 		);
 	}
@@ -200,6 +243,7 @@ const MediaOverlayBase = kind({
  * @public
  */
 const MediaOverlayDecorator = compose(
+	MarqueeController({marqueeOnFocus: true}),
 	Pure,
 	Spottable,
 	Slottable({slots: ['source']}),
