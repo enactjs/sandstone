@@ -22,7 +22,8 @@ describe('VirtualList', () => {
 		resultScrollTop;
 
 	beforeEach(() => {
-		clientSize = {clientWidth: 1280, clientHeight: 768};
+		// Note: We have 48 pixels of fading area around a content area of a list in baseSize 48
+		clientSize = {clientWidth: 1328, clientHeight: 768}; // 1280 + 24 + 24 and 720 + 24 + 24
 		dataSize = 200;
 		items = [];
 		onScrollCount = 0;
