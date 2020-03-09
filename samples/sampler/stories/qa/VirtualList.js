@@ -6,10 +6,10 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
-import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
@@ -100,9 +100,9 @@ class StatefulSwitchItem extends React.Component {
 		delete props.index;
 
 		return (
-			<SwitchItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
+			<CheckboxItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
 				{this.props.children}
-			</SwitchItem>
+			</CheckboxItem>
 		);
 	}
 }
