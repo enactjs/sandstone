@@ -1,277 +1,133 @@
 // Input.module.less
 //
 @import "../styles/mixins.less";
-@import "../styles/variables.less";
 @import "../styles/skin.less";
 
-.input {
-	.sand-body-text();
-
-	padding: 0;
-	border: 0;
-	cursor: pointer;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	flex-grow: 1;
-	text-indent: @sand-input-text-indent;
-
-	&[type=number] {
-		-moz-appearance: textfield;
-
-		&::-webkit-inner-spin-button,
-		&::-webkit-outer-spin-button {
-			-webkit-appearance: none;
-		}
-
-		&:hover {
-			-moz-appearance: none;
-		}
+.popup {
+	.numberField,
+	.number,
+	.password,
+	.separated {
+		/* Available for customization */
 	}
 
-	&[placeholder] {
-		text-overflow: ellipsis;
+	.body {
+		line-height: 0; // This removes an undesirable layout shift occuring when a number is entered into the numberCells (Popup adds a line-height to all children).
 	}
 
-	.focus({
-		cursor: text;
-	});
-
-	.disabled({
-		cursor: default;
-	});
-
-	:global(.enact-locale-right-to-left) & {
-		text-align: right;
-	}
-}
-
-.decorator {
-	display: inline-flex;
-	position: relative;
-	padding: @sand-input-padding;
-	margin: @sand-input-margin;
-	box-sizing: border-box;
-	vertical-align: middle;
-
-	.bg {
-		position: absolute;
-		.position(0);
-		z-index: -1;
-		border-radius: @sand-input-border-radius;
-		transition: transform @sand-input-focus-duration ease-out, filter @sand-input-focus-duration ease-out;
-		will-change: transform, filter;
+	.combined,
+	.numberCell {
+		border-radius: @sand-input-numbercell-border-radius;
 	}
 
-	.input,
-	.inputHighlight {
-		font-size: @sand-input-font-size;
-		font-weight: @sand-input-font-weight;
+	.inputArea {
+		text-align: center;
 	}
 
-	.input,
-	.inputHighlight,
-	.iconBefore,
-	.iconAfter {
-		line-height: @sand-input-height;
-		height: @sand-input-height;
-		vertical-align: middle;
-	}
+	.numberCell {
+		justify-content: center;
+		align-items: center;
+		display: flex;
 
-	.inputHighlight {
-		position: absolute;
-		top: 0;
-		height: @sand-input-highlight-height;
-		max-width: @sand-input-highlight-max-width;
-		overflow: hidden;
-		letter-spacing: 0.1px;
-		pointer-events: none;
-		opacity: 0;
-		z-index: -1;
-	}
-
-	&.small {
-		height: @sand-input-decorator-small-height;
-
-		.iconBefore,
-		.iconAfter {
-			line-height: @sand-input-small-height;
-			height: @sand-input-small-height;
-		}
-
-		.input {
-			font-size: @sand-input-small-font-size;
-			height: @sand-input-small-height;
-		}
-
-		.inputHighlight {
-			line-height: @sand-input-small-height;
-			height: @sand-input-decorator-small-height;
-			max-width: @sand-input-highlight-small-max-width;
+		&:not(.password) {
+			font-family: @sand-input-number-font-family;
 		}
 	}
 
-	.iconBefore,
-	.iconAfter {
-		flex: 0 0;
+	&.fullscreen {
+		.body {
+			padding: @sand-input-fullscreen-padding;
+		}
+
+		.numberCell {
+			width: @sand-input-fullscreen-numbercell-width;
+			height: @sand-input-fullscreen-numbercell-height;
+			font-size: @sand-input-fullscreen-numbercell-font-size;
+			margin: @sand-input-fullscreen-numbercell-margin;
+		}
+
+		.combined {
+			width: @sand-input-fullscreen-numberfield-width;
+			height: @sand-input-fullscreen-numberfield-height;
+			line-height: @sand-input-fullscreen-numberfield-height;
+			letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
+			text-indent: @sand-input-fullscreen-numberfield-letter-spacing; // account for the letter spacing offset
+			font-size: @sand-input-fullscreen-numberfield-font-size;
+			margin: @sand-input-fullscreen-numberfield-margin;
+			padding: @sand-input-fullscreen-numberfield-padding;
+		}
+
+		.keypad {
+			margin: @sand-input-fullscreen-keypad-margin;
+		}
+
+		.key {
+			margin: @sand-input-fullscreen-keypad-key-margin;
+		}
+
+		.buttonArea {
+			margin: @sand-input-fullscreen-buttonarea-margin;
+		}
+
+		.inputArea,
+		.buttonArea {
+			margin-top: @sand-input-popup-component-v-spacing;
+		}
 	}
 
-	.iconAfter {
-		.padding-start-end(@sand-input-icon-spacing, 0);
+	&.overlay {
+		.body {
+			padding: @sand-input-overlay-padding;
+		}
+
+		.inputArea {
+			margin: @sand-input-overlay-inputarea-margin;
+		}
+
+		.numberCell {
+			width: @sand-input-overlay-numbercell-width;
+			height: @sand-input-overlay-numbercell-height;
+			font-size: @sand-input-overlay-numbercell-font-size;
+			margin: @sand-input-overlay-numbercell-margin;
+		}
+
+		.combined {
+			width: @sand-input-overlay-numberfield-width;
+			height: @sand-input-overlay-numberfield-height;
+			line-height: @sand-input-overlay-numberfield-height;
+			letter-spacing: @sand-input-overlay-numberfield-letter-spacing;
+			text-indent: @sand-input-overlay-numberfield-letter-spacing; // account for the letter spacing offset
+			font-size: @sand-input-overlay-numberfield-font-size;
+			margin: @sand-input-overlay-numberfield-margin;
+			padding: @sand-input-overlay-numberfield-padding;
+		}
+
+		.keypad {
+			margin: @sand-input-overlay-keypad-margin;
+			width: @sand-input-overlay-keypad-width;
+		}
+
+		.buttonArea {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			margin: @sand-input-overlay-buttonarea-margin;
+		}
+
+		.inputArea,
+		.buttonArea {
+			margin-top: @sand-input-popup-component-v-spacing;
+		}
 	}
 
-	.iconBefore {
-		.padding-start-end(0, @sand-input-icon-spacing);
-	}
-
-	// RIGBY NOTE: multiline is a NOT YET IMPLEMENTED feature that combines <input> and <textarea>
-	// into one control, to simplify input handling.
-	&.multiline {
-		display: block;
-		padding: 24px 36px;
-		border-radius: 24px;
-	}
-
-	// an Input that isn't spottable is behaviorly disabled but not visually
-	&:not(:global(.spottable)) .input {
-		pointer-events: none;
-	}
-
-	.decoratorIcon,
-	&:global(.spottable):focus .decoratorIcon {
-		width: auto;
-		margin: 0;
-	}
-
-	// Skin colors
 	.applySkins({
-		color: @sand-input-text-color;
-
-		.bg {
-			background-color: @sand-input-decorator-bg-color;
+		.numberCell,
+		.combined {
+			background-color: @sand-input-numbercell-background-color;
 		}
 
-		.input {
-			background: transparent;
-			color: inherit;
-
-			.input-placeholder({
-				.vendor-opacity(@sand-input-placeholder-opacity);
-				color: @sand-input-placeholder-color;
-			});
-
-			&:focus-within {
-				color: @sand-input-focus-text-color;
-
-				.input-placeholder({
-					color: @sand-input-placeholder-active-color;
-				});
-			}
+		&.overlay {
+			background-color: @sand-input-overlay-background-color;
 		}
-
-		&.invalid input {
-			color: @sand-red;
-		}
-
-		.inputHighlight {
-			color: transparent;
-			background-color: transparent;
-			// Set `.inputHighlight` background color to make it appear that the text is highlighted
-			// when `.input` has transparent background and when `.decorator` has focus, but not `.input`.
-			// background-color: @sand-spotlight-color;
-		}
-
-		.decoratorIcon {
-			color: @sand-input-text-color;
-		}
-
-		.focus({
-			color: @sand-input-focus-text-color;
-
-			.bg {
-				background-color: @sand-input-decorator-focus-bg-color;
-				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
-			}
-
-			.input {
-				.input-placeholder({
-					color: @sand-input-placeholder-focus-color;
-				});
-			}
-
-			// Set `.inputHighlight` opacity to make it appear that the text is highlighted
-			// when `.input` has transparent background and when `.decorator` has focus, but not `.input`.
-			// .inputHighlight {
-			// 	opacity: 1;
-			// }
-		});
-
-		&:focus-within {
-			.bg {
-				background-color: @sand-input-decorator-active-bg-color;
-				filter: drop-shadow(@sand-input-decorator-focus-bg-shadow);
-			}
-
-			.decoratorIcon {
-				color: @sand-input-focus-text-color;
-			}
-		}
-
-		.disabled({
-			.vendor-opacity(@sand-input-disabled-opacity);
-
-			.focus({
-				background-color: @sand-input-decorator-disabled-focus-bg-color;
-
-				.input,
-				.decoratorIcon {
-					.vendor-opacity(1);
-					color: @sand-input-disabled-focus-text-color;
-
-					.input-placeholder({
-						.vendor-opacity(@sand-input-disabled-opacity);
-					});
-				}
-			});
-
-			.input,
-			.decoratorIcon {
-				.vendor-opacity(@sand-input-disabled-opacity);
-				color: @sand-input-disabled-text-color;
-			}
-
-			.input {
-				.input-placeholder({
-					.vendor-opacity(1);
-					color: @sand-input-placeholder-disabled-color;
-				});
-			}
-		});
 	});
 }
-
-.invalidTooltip {
-	top: 50%;
-	left: auto;
-	right: 0;
-	pointer-events: none;
-	transform: translate(100%, -100%) translateX(@sand-input-tooltip-offset);
-
-	:global(.enact-locale-right-to-left) & {
-		left: 0;
-		right: auto;
-		transform: translate(-100%, -100%) translateX(-@sand-input-tooltip-offset);
-	}
-}
-
-.muted({
-	.decorator {
-		.applySkins({
-			.focus({
-				.bg {
-					background-color: @sand-input-decorator-bg-color;
-				}
-			});
-		});
-	}
-});

@@ -16,6 +16,7 @@ const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBa
 // Set up some defaults for info and knobs
 const prop = {
 	backgroundOpacity: {'undefined/null (automatic)': '', 'opaque (Default for text buttons)': 'opaque', 'transparent (Default for icon-only buttons)': 'transparent'},
+	color: ['', 'red', 'green', 'yellow', 'blue'],
 	iconPosition: ['', 'before', 'after'],
 	icons: ['', ...iconNames],
 	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
@@ -39,6 +40,7 @@ storiesOf('Sandstone', module)
 			<Button
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
+				color={select('color', prop.color, Config)}
 				disabled={boolean('disabled', Config)}
 				icon={select('icon', prop.icons, Config)}
 				iconPosition={select('iconPosition', prop.iconPosition, Config)}

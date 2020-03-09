@@ -7,8 +7,10 @@
  * @module sandstone/LabeledItem
  * @exports LabeledItem
  * @exports LabeledItemBase
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -113,7 +115,7 @@ const LabeledItemBase = kind({
 		publicClassNames: ['labeledItem', 'icon', 'label']
 	},
 
-	render: ({children, css, disabled, label, marqueeOn, titleIcon, ...rest}) => (
+	render: deprecate(({children, css, disabled, label, marqueeOn, titleIcon, ...rest}) => (
 		<Controller disabled={disabled} {...rest} css={css}>
 			<div className={css.text}>
 				<Marquee disabled={disabled} className={css.title} marqueeOn={marqueeOn}>{children}</Marquee>
@@ -121,7 +123,11 @@ const LabeledItemBase = kind({
 			</div>
 			{(label != null) ? <Marquee disabled={disabled} className={css.label} marqueeOn={marqueeOn}>{label}</Marquee> : null}
 		</Controller>
-	)
+	), {
+		name: 'sandstone/LabeledItem',
+		replacedBy: 'sandstone/Item',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
