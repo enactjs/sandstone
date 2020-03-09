@@ -1,9 +1,10 @@
-import Icon from '../../../../Icon';
+import Icon, {icons} from '../../../../Icon';
 import React from 'react';
 
 import buttonstate from '../../images/button-state.svg';
 
 const IconTests = [
+	...icons.map(icon => <Icon>{icon}</Icon>),
 	<Icon>minus</Icon>, // default `size` prop is "small"
 	<Icon size="tiny">minus</Icon>,
 	<Icon size="medium">minus</Icon>,
