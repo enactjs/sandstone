@@ -67,7 +67,7 @@ const ImageBase = kind({
 });
 
 
-// This induces a render when there is a screen size change that has a corosponding image src value
+// This induces a render when there is a screen size change that has a corresponding image src value
 // associated with the new screen size. The render is kicked off by remembering the new image src.
 //
 // This hoc could (should) be rewritten at a later time to use a smarter context API and callbacks,
