@@ -20,7 +20,7 @@ const
  *
  * @class ScrollThumb
  * @memberof sandstone/useScroll
- * @extends ui/Scrollable/ScrollThumb
+ * @extends ui/useScroll/ScrollThumb
  * @ui
  * @private
  */

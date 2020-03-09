@@ -1,3 +1,6 @@
+import deprecate from '@enact/core/internal/deprecate';
+import React from 'react';
+
 import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
@@ -44,9 +47,25 @@ const AlwaysViewingPanelsDecorator = compose(
  * @class AlwaysViewingPanels
  * @memberof sandstone/Panels
  * @ui
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Panels.Panels} instead.
  * @public
  */
-const AlwaysViewingPanels = AlwaysViewingPanelsDecorator(Viewport);
+
+class Deprecated extends React.Component {
+	constructor (props) {
+		super(props);
+		deprecate({
+			name: 'sandstone/AlwaysViewingPanels',
+			replacedBy: 'sandstone/Panels',
+			until: '1.0.0-beta.1'
+		});
+	}
+
+	render () {
+		return (<Viewport {...this.props} />);
+	}
+}
+const AlwaysViewingPanels = AlwaysViewingPanelsDecorator(Deprecated);
 
 export default AlwaysViewingPanels;
 export {AlwaysViewingPanels};

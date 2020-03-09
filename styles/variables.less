@@ -25,8 +25,8 @@
 // ---------------------------------------
 @sand-actionguide-label-font-size:  48px;
 @sand-alert-overlay-font-size:      60px;
-@sand-alert-subtitle-font-size:     60px;
-@sand-alert-title-font-size:        144px;
+@sand-alert-subtitle-font-size:     @sand-heading-subtitle-font-size;
+@sand-alert-title-font-size:        @sand-heading-title-font-size;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -46,26 +46,33 @@
 @sand-expandable-value-font-size:   @sand-item-label-font-size;
 @sand-gridlistimageitem-caption-font-size: 60px;
 @sand-gridlistimageitem-subcaption-font-size: 48px;
+@sand-header-standard-title-font-size: 108px; // 127px;
 @sand-header-compact-title-font-size: 90px;
-@sand-header-wizard-title-font-size: 144px;
+@sand-header-wizard-title-font-size: @sand-heading-title-font-size;
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
 @sand-heading-subtitle-font-size:   60px; // 70px;
-@sand-heading-title-font-size:      108px; // 127px;
+@sand-heading-title-font-size:      144px; // 127px;
 @sand-input-font-size:              78px;
-@sand-input-small-font-size:        72px;
+@sand-input-fullscreen-numbercell-font-size:  126px;
+@sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
+@sand-input-fullscreen-keypad-key-font-size:  96px;
+@sand-input-overlay-numbercell-font-size:     108px;
+@sand-input-overlay-numberfield-font-size:    126px;
+@sand-input-overlay-keypad-key-font-size:     96px;
+@sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
-@sand-keyguide-font-size: 60px;
+@sand-keyguide-font-size:           60px;
 @sand-labeledicon-font-size:        48px;
 @sand-large-text-size:              96px;
 @sand-notification-font-size:       60px;
 @sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-popup-content-font-size:      60px;
-@sand-popup-header-font-size:       144px;
-@sand-popup-sub-header-font-size:   54px;
+@sand-popup-subtitle-font-size:     @sand-heading-subtitle-font-size;
+@sand-popup-title-font-size:        @sand-heading-title-font-size;
 @sand-pre-text-size:                48px;
 @sand-steps-step-number-font-size:  54px;
 @sand-superscript-text-size:        48px;
@@ -166,7 +173,11 @@
 
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
-@sand-icon-font-family-lg: "LG Icons";
+@sand-icon-other-font-family: "LG Icons";
+
+// InputNumber
+@sand-input-number-font-family: @sand-body-font-family;
+@sand-input-number-keypad-item-font-family: @sand-button-font-family;
 
 // Panels
 @sand-panels-breadcrumb-font-family: @sand-alt-font-family;
@@ -200,13 +211,13 @@
 @sand-alert-overlay-border-radius: 24px;
 @sand-alert-overlay-button-margin: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: 202px;
+@sand-alert-overlay-content-margin-right: (202px - @sand-button-h-margin);
 @sand-alert-overlay-content-width: 1200px;
 @sand-alert-fullscreen-button-margin: 60px;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
-@sand-alert-overlay-padding-left-right: 90px;
-@sand-alert-overlay-buttoncontainer-margin: 0 0 0 90px;
+@sand-alert-overlay-padding-left: 90px;
+@sand-alert-overlay-padding-right: (90px - @sand-button-h-margin);
 
 // AlertImage
 // ---------------------------------------
@@ -253,6 +264,17 @@
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-focus-bg-transform: scale(1.1);
+@sand-button-colordot-bottom: 18px;
+@sand-button-colordot-border-radius: 6px;
+@sand-button-colordot-width: 60px;
+@sand-button-colordot-height: 12px;
+@sand-button-colordot-h-margin: 24px;
+@sand-button-colordot-padding-start: (@sand-button-h-padding / 2);
+@sand-button-small-colordot-bottom: 12px;
+@sand-button-small-colordot-width: 48px;
+@sand-button-small-colordot-padding-start: 30px;
+@sand-button-icon-only-colordot-width: 66px;
+@sand-button-icon-only-colordot-height: 9px;
 
 // Checkbox
 // ---------------------------------------
@@ -316,6 +338,10 @@
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+
+// EditableInput
+// ---------------------------------------
+@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
 
 // EditableIntegerPicker
 // ---------------------------------------
@@ -396,25 +422,55 @@
 
 // Input
 // ---------------------------------------
-@sand-input-margin: 0 @sand-spotlight-outset;
-@sand-input-padding: 0 @sand-input-icon-spacing;
-@sand-input-font-weight: 600;
-@sand-input-text-indent: 0.2em;
-@sand-input-disabled-opacity: 0.4;
-@sand-input-placeholder-opacity: 0.5;
-@sand-input-border-radius: @sand-input-border-width;
-@sand-input-border-width: 12px;
-@sand-input-border-outline-width: @sand-input-border-width;
-@sand-input-tooltip-offset: @sand-input-border-width;
-@sand-input-icon-spacing: 30px;
-@sand-input-height: @sand-button-height;
-@sand-input-small-height: @sand-button-small-height;
-@sand-input-decorator-small-height: @sand-input-small-height;
-@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
-@sand-input-highlight-height: 100%;
-@sand-input-highlight-max-width: 756px;
-@sand-input-highlight-small-max-width: 714px;
-@sand-input-focus-duration: @sand-spotlight-focus-animation-duration;
+@sand-input-popup-border-radius: 12px;
+@sand-input-popup-component-v-spacing: 42px;
+@sand-input-numbercell-border-radius: 12px;
+@sand-input-numberfield-border-radius: 12px;
+@sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
+@sand-input-fullscreen-numbercell-width: 246px;
+@sand-input-fullscreen-numbercell-height: 300px;
+@sand-input-fullscreen-numbercell-margin: 0 18px;
+@sand-input-fullscreen-numberfield-width: 1200px;
+@sand-input-fullscreen-numberfield-height: 210px;
+@sand-input-fullscreen-numberfield-margin: auto;
+@sand-input-fullscreen-numberfield-padding: 0 0.5em;
+@sand-input-fullscreen-numberfield-letter-spacing: 48px;
+@sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
+@sand-input-fullscreen-keypad-key-margin: 0;
+@sand-input-fullscreen-buttonarea-margin: 0;
+@sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
+@sand-input-overlay-inputarea-margin: 0;
+@sand-input-overlay-numbercell-width: 174px;
+@sand-input-overlay-numbercell-height: 210px;
+@sand-input-overlay-numbercell-margin: 0 6px;
+@sand-input-overlay-numberfield-width: 800px;
+@sand-input-overlay-numberfield-height: @sand-input-fullscreen-numberfield-height;
+@sand-input-overlay-numberfield-margin: @sand-input-fullscreen-numberfield-margin;
+@sand-input-overlay-numberfield-padding: @sand-input-fullscreen-numberfield-padding;
+@sand-input-overlay-numberfield-letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
+@sand-input-overlay-keypad-margin: 84px auto 0 auto;
+@sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-input-overlay-buttonarea-margin: 84px 0 0 0;
+
+// InputField
+// ---------------------------------------
+@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-text-indent: 0.2em;
+@sand-inputfield-disabled-opacity: 0.4;
+@sand-inputfield-placeholder-opacity: 0.5;
+@sand-inputfield-border-radius: @sand-inputfield-border-width;
+@sand-inputfield-border-width: 12px;
+@sand-inputfield-border-outline-width: @sand-inputfield-border-width;
+@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
+@sand-inputfield-icon-spacing: 30px;
+@sand-inputfield-height: @sand-button-height;
+@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-highlight-height: 100%;
+@sand-inputfield-highlight-max-width: 756px;
+@sand-inputfield-highlight-small-max-width: 714px;
+@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // IntegerPicker
 // ---------------------------------------
@@ -441,6 +497,15 @@
 @sand-keyguide-position-right: 150px;
 @sand-keyguide-icon-margin-right: 48px;
 @sand-keyguide-padding: 6px 0;
+
+// MediaControls
+// ---------------------------------------
+@sand-mediacontrols-actionguide-padding-top: 78px;
+@sand-mediacontrols-actionguide-time: 0.2s;		// Length of the animation
+@sand-mediacontrols-button-margin-start: 108px;
+@sand-mediacontrols-morebuttons-margin-start: 228px;
+@sand-mediacontrols-moreComponents-time: 0.3s;		// Length of the animation
+@sand-mediacontrols-moreComponents-margin-top: 42px;
 
 // MediaOverlay
 // ---------------------------------------
@@ -648,6 +713,10 @@
 @sand-video-player-slider-tap-area:                162px;
 @sand-video-player-title-size:                     96px;
 
+// WizardPanel
+// ---------------------------------------
+@sand-wizard-panel-content-margin: 0 0 150px 0;
+@sand-wizard-panel-button-container-margin: 0 0 60px 0;
 
 // ---------------------------------------
 // Deprecated - Will be removed in 4.0
