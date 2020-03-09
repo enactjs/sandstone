@@ -1,6 +1,6 @@
-let Page = require('./Input5WayPage');
+let Page = require('./InputFieldPage');
 
-describe('Input', function () {
+describe('InputField', function () {
 
 	it('should have focus on first input at start', function () {
 		Page.open();
