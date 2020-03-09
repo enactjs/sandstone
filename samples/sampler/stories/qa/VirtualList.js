@@ -2,20 +2,19 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import Item from '@enact/sandstone/Item';
-import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import VirtualList, {VirtualListBasic} from '@enact/sandstone/VirtualList';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
+const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 const
 	itemStyle = {
@@ -64,7 +63,7 @@ const updateDataSize = (dataSize) => {
 	items.length = 0;
 
 	for (let i = 0; i < dataSize; i++) {
-		items.push({item :'Item ' + (headingZeros + i).slice(-itemNumberDigits), selected: false});
+		items.push({item: 'Item ' + (headingZeros + i).slice(-itemNumberDigits), selected: false});
 	}
 
 	return dataSize;
@@ -120,16 +119,13 @@ class StatefulSwitchItem extends React.Component {
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
-	function handleSelectBreadcrumb (ev) {
-		setIndex(ev.index);
-	}
 
 	function handleSelectItem () {
 		setIndex(index === 0 ? 1 : 0);
 	}
 
 	return (
-		<ActivityPanels className={className} index={index} onSelectBreadcrumb={handleSelectBreadcrumb} noCloseButton>
+		<Panels className={className} index={index} noCloseButton>
 			<Panel>
 				<Header type="compact" title={`${title} Panel 0`} key="header" />
 				<VirtualList
@@ -144,7 +140,7 @@ const InPanels = ({className, title, ...rest}) => {
 				<Header type="compact" title={`${title} Panel 1`} key="header" />
 				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
-		</ActivityPanels>
+		</Panels>
 	);
 };
 
