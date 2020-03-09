@@ -18,8 +18,8 @@ class CheckboxItemInterface {
 	get icon () { return $(this.iconSelector); }
 	get iconSymbol () { return this.icon.getText(); }
 	get isChecked () { return $(`#${this.id} .Checkbox_Checkbox_selected`).isExisting(); }
-	get isAfter () { return $(`#${this.id} .SlotItem_SlotItem_after`).isExisting(); }
-	get isBefore () { return $(`#${this.id} .SlotItem_SlotItem_before`).isExisting(); }
+	get isAfter () { return $(`#${this.id} .Item_Item_after`).isExisting(); }
+	get isBefore () { return $(`#${this.id} .Item_Item_before`).isExisting(); }
 	get isInline () { return $(`#${this.id}.Item_Item_inline`).isExisting(); }
 }
 

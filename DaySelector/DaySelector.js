@@ -11,8 +11,10 @@
  * @exports	DaySelector
  * @exports DaySelectorBase
  * @exports DaySelectorDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -82,7 +84,7 @@ const DaySelectorBase = kind({
 		className: 'daySelector'
 	},
 
-	render: (props) => {
+	render: deprecate((props) => {
 		return (
 			<Group
 				{...props}
@@ -96,7 +98,10 @@ const DaySelectorBase = kind({
 				selectedProp="selected"
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/DaySelector',
+		until: '1.0.0-beta.1'
+	})
 });
 
 // documented in ./DaySelectorDecorator.js

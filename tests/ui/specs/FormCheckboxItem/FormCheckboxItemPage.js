@@ -18,8 +18,8 @@ class FormCheckboxItemInterface {
 	get icon () { return getIcon(this.self);}
 	get iconSymbol () { return getText(this.icon); }
 	get isChecked () { return this.self.$(componentSelector({component: 'FormCheckbox', child: 'selected'}).isExisting()); }
-	get isAfter () { return this.self.$(componentSelector({component: 'SlotItem', child: 'after'}).isExisting()); }
-	get isBefore () { return this.self.$(componentSelector({component: 'SlotItem', child: 'before'}).isExisting()); }
+	get isAfter () { return this.self.$(componentSelector({component: 'Item', child: 'after'}).isExisting()); }
+	get isBefore () { return this.self.$(componentSelector({component: 'Item', child: 'before'}).isExisting()); }
 	get isInline () { return hasClass(componentSelector({component: 'Item', child: 'inline'}), this.self); }
 }
 

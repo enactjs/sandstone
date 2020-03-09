@@ -4,8 +4,10 @@
  * @module sandstone/Dialog
  * @exports Dialog
  * @exports DialogBase
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Popup} instead.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {Layout, Cell} from '@enact/ui/Layout';
@@ -177,7 +179,7 @@ const DialogBase = kind({
 		titleBelow: ({title, titleBelow}) => title ? titleBelow : ''
 	},
 
-	render: ({buttons, css, children, id, title, titleBelow, ...rest}) => {
+	render: deprecate(({buttons, css, children, id, title, titleBelow, ...rest}) => {
 		delete rest.noDivider;
 
 		return (
@@ -200,7 +202,11 @@ const DialogBase = kind({
 				</div>
 			</Popup>
 		);
-	}
+	}, {
+		name: 'sandstone/Dialog',
+		replacedBy: 'sandstone/Popup',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
