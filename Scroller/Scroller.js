@@ -26,6 +26,7 @@ import React from 'react';
 
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
+import css from '../useScroll/useScroll.module.less';
 import Skinnable from '../Skinnable';
 
 import useThemeScroller from './useThemeScroller';
@@ -85,6 +86,7 @@ let Scroller = (props) => {
 		const SpottableDiv = Spottable('div');
 		return (
 			<SpottableDiv {...focusableBodyProps}>
+				<div className={css.bg} />
 				{scrollContainer}
 			</SpottableDiv>
 		);
