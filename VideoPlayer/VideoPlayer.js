@@ -1666,7 +1666,6 @@ const VideoPlayerBase = class extends React.Component {
 			if (Spotlight.focus(this.mediaControlsSpotlightId)) {
 				preventDefault(ev);
 				stopImmediate(ev);
-				this.activityDetected();
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
