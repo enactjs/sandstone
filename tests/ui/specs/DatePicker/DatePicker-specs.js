@@ -5,7 +5,7 @@ describe('DatePicker', function () {
 	Page.open();
 
 	it('should have focus on start', function () {
-		expect(Page.components.datePickerDefaultClosedWithoutNoneText.title.hasFocus()).to.be.true();
+		expect(Page.components.datePickerDefaultClosedWithoutNoneText.title.isFocused()).to.be.true();
 	});
 
 	describe('LTR locale', function () {
@@ -31,11 +31,11 @@ describe('DatePicker', function () {
 				});
 
 				expectOpen(datePicker);
-				expect(datePicker.month.hasFocus(), 'Month').to.be.true();
+				expect(datePicker.month.isFocused(), 'Month').to.be.true();
 				Page.spotlightRight();
-				expect(datePicker.day.hasFocus(), 'Day').to.be.true();
+				expect(datePicker.day.isFocused(), 'Day').to.be.true();
 				Page.spotlightRight();
-				expect(datePicker.year.hasFocus(), 'Year').to.be.true();
+				expect(datePicker.year.isFocused(), 'Year').to.be.true();
 			});
 
 			describe('5-way', function () {
@@ -46,7 +46,7 @@ describe('DatePicker', function () {
 
 					const month = new Date(datePicker.valueText).getMonth();
 					expectOpen(datePicker);
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 					expect(month).to.be.within(0, 11);
 				});
 
@@ -56,7 +56,7 @@ describe('DatePicker', function () {
 					});
 
 					expectOpen(datePicker);
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 					Page.spotlightSelect();
 					expectClosed(datePicker);
 				});
@@ -67,11 +67,11 @@ describe('DatePicker', function () {
 					});
 
 					expectOpen(datePicker);
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 					Page.spotlightRight();
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(datePicker.title.hasFocus()).to.be.true();
+					expect(datePicker.title.isFocused()).to.be.true();
 				});
 
 				it('should increase the month when incrementing the picker', function () {
@@ -81,7 +81,7 @@ describe('DatePicker', function () {
 
 					const {month} = extractValues(datePicker);
 					expectOpen(datePicker);
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -97,7 +97,7 @@ describe('DatePicker', function () {
 
 					const {month} = extractValues(datePicker);
 					expectOpen(datePicker);
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -115,7 +115,7 @@ describe('DatePicker', function () {
 					const numDays = daysInMonth({month, year});
 					expectOpen(datePicker);
 					Page.spotlightRight();
-					expect(datePicker.day.hasFocus()).to.be.true();
+					expect(datePicker.day.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -133,7 +133,7 @@ describe('DatePicker', function () {
 					const numDays = daysInMonth({month, year});
 					expectOpen(datePicker);
 					Page.spotlightRight();
-					expect(datePicker.day.hasFocus()).to.be.true();
+					expect(datePicker.day.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -151,7 +151,7 @@ describe('DatePicker', function () {
 					expectOpen(datePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(datePicker.year.hasFocus()).to.be.true();
+					expect(datePicker.year.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
@@ -169,7 +169,7 @@ describe('DatePicker', function () {
 					expectOpen(datePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
-					expect(datePicker.year.hasFocus()).to.be.true();
+					expect(datePicker.year.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
@@ -203,7 +203,7 @@ describe('DatePicker', function () {
 						datePicker.title.click();
 					});
 					datePicker.month.click();
-					expect(datePicker.month.hasFocus()).to.be.true();
+					expect(datePicker.month.isFocused()).to.be.true();
 				});
 
 				it('should increase the month when incrementing the picker', function () {
@@ -318,7 +318,7 @@ describe('DatePicker', function () {
 					});
 
 					expectClosed(datePicker);
-					expect(datePicker.title.hasFocus()).to.be.true();
+					expect(datePicker.title.isFocused()).to.be.true();
 				});
 			});
 
@@ -416,7 +416,7 @@ describe('DatePicker', function () {
 				it('should be able to receive focus', function () {
 					Page.components.datePickerNoLabels.focus();
 					Page.spotlightDown();
-					expect(datePicker.title.hasFocus()).to.be.true();
+					expect(datePicker.title.isFocused()).to.be.true();
 				});
 				it('should not open when selected', function () {
 					Page.spotlightSelect();
@@ -488,7 +488,7 @@ describe('DatePicker', function () {
 			});
 
 			expectOpen(datePicker);
-			expect(datePicker.day.hasFocus()).to.be.true();
+			expect(datePicker.day.isFocused()).to.be.true();
 		});
 
 		it('should have day-month-year order', function () {
@@ -497,11 +497,11 @@ describe('DatePicker', function () {
 			});
 
 			expectOpen(datePicker);
-			expect(datePicker.day.hasFocus()).to.be.true();
+			expect(datePicker.day.isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(datePicker.month.hasFocus()).to.be.true();
+			expect(datePicker.month.isFocused()).to.be.true();
 			Page.spotlightLeft();
-			expect(datePicker.year.hasFocus()).to.be.true();
+			expect(datePicker.year.isFocused()).to.be.true();
 		});
 
 		it('should focus title when 5-way left from last picker - [GT-25238]', function () {
@@ -510,11 +510,11 @@ describe('DatePicker', function () {
 			});
 
 			expectOpen(datePicker);
-			expect(datePicker.day.hasFocus()).to.be.true();
+			expect(datePicker.day.isFocused()).to.be.true();
 			Page.spotlightLeft();
 			Page.spotlightLeft();
 			Page.spotlightLeft();
-			expect(datePicker.title.hasFocus()).to.be.true();
+			expect(datePicker.title.isFocused()).to.be.true();
 		});
 	});
 

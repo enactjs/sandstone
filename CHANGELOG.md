@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-alpha.3] - 2020-03-09
 
 ### Deprecated
 
@@ -14,7 +14,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
+- `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
+- `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
 ## [1.0.0-alpha.2] - 2020-03-03
 
