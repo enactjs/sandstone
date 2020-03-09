@@ -1,6 +1,6 @@
 {
   "name": "sandstone-sampler",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",

@@ -13,9 +13,15 @@ spotlight.setPointerMode(false);
 
 class app extends Component {
 
+	state = {
+		open: true
+	};
+
+	clickHandler = (st) =>  this.setState(st);
+
 	render () {
 		return (
-			<div>
+			<div {...this.props}>
 				<ContextualButton
 					id="button1"
 					menuItems={menuItems}
@@ -26,7 +32,9 @@ class app extends Component {
 				<ContextualButton
 					id="button2"
 					menuItems={menuItems}
-					open
+					onClose={() => this.clickHandler({open: false})}
+					onOpen={() => this.clickHandler({open: true})}
+					open={this.state.open}
 					popupSpotlightId="menu2"
 				>
 					Contextual Menu Button

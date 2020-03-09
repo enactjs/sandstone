@@ -13,11 +13,12 @@
  * @module sandstone/ExpandableList
  * @exports ExpandableList
  * @exports ExpandableItemBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import Changeable from '@enact/ui/Changeable';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import equals from 'ramda/src/equals';
 import Group from '@enact/ui/Group';
 import kind from '@enact/core/kind';
 import Pure from '@enact/ui/internal/Pure';
@@ -322,7 +323,7 @@ const ExpandableListBase = kind({
 		}
 	},
 
-	render: ({
+	render: deprecate(({
 		children,
 		itemProps,
 		ListItem,
@@ -355,7 +356,10 @@ const ExpandableListBase = kind({
 				</PureGroup>
 			</ExpandableItemBase>
 		);
-	}
+	}, {
+		name: 'sandstone/ExpandableList',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
