@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
+- `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
 ## [1.0.0-alpha.2] - 2020-03-03

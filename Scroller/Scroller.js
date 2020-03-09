@@ -1,5 +1,6 @@
 /**
  * Provides Sandstone-themed scroller components and behaviors.
+ *
  * @example
  * <Scroller>
  * 	<div style={{height: '300px'}}>
@@ -13,7 +14,6 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
- * @exports ScrollerBasic
  */
 
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -28,11 +28,12 @@ import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
-import ScrollerBasic from './ScrollerBasic';
 import useThemeScroller from './useThemeScroller';
 
+const nop = () => {};
+
 /**
- * A Sandstone-styled Scroller, Scrollable applied.
+ * A Sandstone-styled Scroller, useScroll applied.
  *
  * Usage:
  * ```
@@ -41,6 +42,7 @@ import useThemeScroller from './useThemeScroller';
  *
  * @class Scroller
  * @memberof sandstone/Scroller
+ * @extends ui/Scroller.ScrollerBasic
  * @ui
  * @public
  */
@@ -91,8 +93,77 @@ let Scroller = (props) => {
 	}
 };
 
+Scroller.displayName = 'Scroller';
+
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
-	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+	/**
+	 * A callback function that receives a reference to the `scrollTo` feature.
+	 *
+	 * Once received, the `scrollTo` method can be called as an imperative interface.
+	 *
+	 * - {position: {x, y}} - Pixel value for x and/or y position
+	 * - {align} - Where the scroll area should be aligned. Values are:
+	 *   `'left'`, `'right'`, `'top'`, `'bottom'`,
+	 *   `'topleft'`, `'topright'`, `'bottomleft'`, and `'bottomright'`.
+	 * - {node} - Node to scroll into view
+	 * - {animate} - When `true`, scroll occurs with animation. When `false`, no
+	 *   animation occurs.
+	 * - {focus} - When `true`, attempts to focus item after scroll. Only valid when scrolling
+	 *   by `node`.
+	 * > Note: Only specify one of: `position`, `align`, `node`
+	 *
+	 * Example:
+	 * ```
+	 *	// If you set cbScrollTo prop like below;
+	 *	cbScrollTo: (fn) => {this.scrollTo = fn;}
+	 *	// You can simply call like below;
+	 *	this.scrollTo({align: 'top'}); // scroll to the top
+	 * ```
+	 *
+	 * @type {Function}
+	 * @public
+	 */
+	cbScrollTo: PropTypes.func,
+
+	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
+	 * `false` if the content of the scroller could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
+
+	/**
+	 * Direction of the scroller.
+	 *
+	 * Valid values are:
+	 * * `'both'`,
+	 * * `'horizontal'`, and
+	 * * `'vertical'`.
+	 *
+	 * @type {String}
+	 * @default 'both'
+	 * @public
+	 */
+	direction: PropTypes.string,
 
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
@@ -122,6 +193,141 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
+	 * Unique identifier for the component.
+	 *
+	 * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
+	 * `Scroller` will store its scroll position and restore that position when returning to the
+	 * `Panel`.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	id: PropTypes.string,
+
+	/**
+	 * Prevents scroll by dragging or flicking on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noScrollByDrag: PropTypes.bool,
+
+	/**
+	 * Prevents scroll by wheeling on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	noScrollByWheel: PropTypes.bool,
+
+	/**
+	 * Called when scrolling.
+	 *
+	 * Passes `scrollLeft`, `scrollTop`.
+	 * It is not recommended to set this prop since it can cause performance degradation.
+	 * Use `onScrollStart` or `onScrollStop` instead.
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScroll: PropTypes.func,
+
+	/**
+	 * Called when scroll starts.
+	 *
+	 * Passes `scrollLeft` and `scrollTop`.
+	 *
+	 * Example:
+	 * ```
+	 * onScrollStart = ({scrollLeft, scrollTop}) => {
+	 *     // do something with scrollLeft and scrollTop
+	 * }
+	 *
+	 * render = () => (
+	 *     <Scroller
+	 *         ...
+	 *         onScrollStart={this.onScrollStart}
+	 *         ...
+	 *     />
+	 * )
+	 * ```
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScrollStart: PropTypes.func,
+
+	/**
+	 * Called when scroll stops.
+	 *
+	 * Passes `scrollLeft` and `scrollTop`.
+	 *
+	 * Example:
+	 * ```
+	 * onScrollStop = ({scrollLeft, scrollTop}) => {
+	 *     // do something with scrollLeft and scrollTop
+	 * }
+	 *
+	 * render = () => (
+	 *     <Scroller
+	 *         ...
+	 *         onScrollStop={this.onScrollStop}
+	 *         ...
+	 *     />
+	 * )
+	 * ```
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScrollStop: PropTypes.func,
+
+	/**
+	 * Specifies overscroll effects shows on which type of inputs.
+	 *
+	 * @type {Object}
+	 * @default {
+	 *	arrowKey: false,
+	 *	drag: false,
+	 *	pageKey: false,
+	 *	track: false,
+	 *	wheel: true
+	 * }
+	 * @private
+	 */
+	overscrollEffectOn: PropTypes.shape({
+		arrowKey: PropTypes.bool,
+		drag: PropTypes.bool,
+		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
+		wheel: PropTypes.bool
+	}),
+
+	/**
+	 * Specifies how to scroll.
+	 *
+	 * Valid values are:
+	 * * `'translate'`,
+	 * * `'native'`.
+	 *
+	 * @type {String}
+	 * @default 'native'
+	 * @public
+	 */
+	scrollMode: PropTypes.string,
+
+	/**
 	 * Specifies how to show vertical scrollbar.
 	 *
 	 * Valid values are:
@@ -138,9 +344,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 
 Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
 	direction: 'both',
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
 		drag: false,
@@ -168,6 +380,5 @@ Scroller = Skinnable(
 
 export default Scroller;
 export {
-	Scroller,
-	ScrollerBasic
+	Scroller
 };

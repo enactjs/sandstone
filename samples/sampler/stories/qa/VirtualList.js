@@ -2,7 +2,6 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
@@ -11,11 +10,11 @@ import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import VirtualList, {VirtualListBasic} from '@enact/sandstone/VirtualList';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
+const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 const
 	itemStyle = {
