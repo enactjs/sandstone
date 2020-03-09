@@ -19,7 +19,9 @@
 .scroll {
 	--scroll-scrollbar-size: 60px;
 	--scroll-fadeout-size: 48px;
-	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
+	--scroll-vertical-scrollbar-height: calc(100% - 2 * var(--scroll-fadeout-size));
+	--scroll-horizontal-scrollbar-width: calc(100% - 2 * var(--scroll-fadeout-size));
+	--scroll-horizontal-scrollbar-left: var(--scroll-fadeout-size);
 
 	box-sizing: border-box;
 	overflow: hidden;
@@ -27,10 +29,13 @@
 	&.verticalPadding {
 		padding-left: var(--scroll-scrollbar-size);
 		padding-right: var(--scroll-scrollbar-size);
+		--scroll-horizontal-scrollbar-width: calc(100% - 2 * var(--scroll-fadeout-size) - 2 * var(--scroll-scrollbar-size));
+		--scroll-horizontal-scrollbar-left: calc(var(--scroll-fadeout-size) + var(--scroll-scrollbar-size));
 	}
 
 	&.horizontalPadding {
 		padding-bottom: var(--scroll-scrollbar-size);
+		--scroll-vertical-scrollbar-height: calc(100% - 2 * var(--scroll-fadeout-size) - var(--scroll-scrollbar-size));
 	}
 
 	.scrollContent {
@@ -51,7 +56,7 @@
 	.verticalScrollbar {
 		position: absolute;
 		width: var(--scroll-scrollbar-size);
-		height: calc(100% - var(--scroll-padding-size));
+		height: var(--scroll-vertical-scrollbar-height);
 		right: 0;
 		top: var(--scroll-fadeout-size);
 	}
@@ -65,9 +70,9 @@
 
 	.horizontalScrollbar {
 		position: absolute;
-		width: calc(100% - 2 * var(--scroll-padding-size));
+		width: var(--scroll-horizontal-scrollbar-width);
 		height: var(--scroll-scrollbar-size);
-		left: var(--scroll-padding-size);
+		left: var(--scroll-horizontal-scrollbar-left);
 		bottom: 0;
 	}
 }
