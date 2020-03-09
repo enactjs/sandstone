@@ -8,22 +8,16 @@ import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 
-const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
-
 const useSpottable = (props, instances) => {
-	const {scrollContentHandle, scrollContentRef} = instances;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
 
 	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey();
 
 	const setContainerDisabled = useCallback((bool) => {
-		const
-			{spotlightId} = props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
-
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.dataset.spotlightContainerDisabled = bool;
 
 			if (bool) {
 				addGlobalKeyDownEventListener(() => {
@@ -33,7 +27,7 @@ const useSpottable = (props, instances) => {
 				removeGlobalKeyDownEventListener();
 			}
 		}
-	}, [addGlobalKeyDownEventListener, props, removeGlobalKeyDownEventListener]);
+	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	useEffect(() => {
 		return () => setContainerDisabled(false);
@@ -253,11 +247,11 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props) => {
-	const {scrollContentHandle, scrollContentRef} = props;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 
 	useEffect(() => {
 		props.setThemeScrollContentHandle({
@@ -273,6 +267,7 @@ const useThemeScroller = (props) => {
 
 	delete propsObject.children;
 	delete propsObject.scrollContainerContainsDangerously;
+	delete propsObject.scrollContainerRef;
 	delete propsObject.onUpdate;
 	delete propsObject.setThemeScrollContentHandle;
 	delete propsObject.spotlightId;

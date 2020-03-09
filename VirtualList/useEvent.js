@@ -17,7 +17,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, instances, context) => {
-	const {scrollContentHandle, scrollContentRef} = instances;
+	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 	const {
 		handle5WayKeyUp,
 		handleDirectionKeyDown,
@@ -194,14 +194,12 @@ const useEventKey = (props, instances, context) => {
 			}
 		}
 
-		const scrollerNode = document.querySelector(`[data-spotlight-id="${props.spotlightId}"]`);
-
-		utilEvent('keydown').addEventListener(scrollerNode, handleKeyDown, {capture: true});
-		utilEvent('keyup').addEventListener(scrollerNode, handleKeyUp, {capture: true});
+		utilEvent('keydown').addEventListener(scrollContainerRef, handleKeyDown, {capture: true});
+		utilEvent('keyup').addEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 
 		return () => {
-			utilEvent('keydown').removeEventListener(scrollerNode, handleKeyDown, {capture: true});
-			utilEvent('keyup').removeEventListener(scrollerNode, handleKeyUp, {capture: true});
+			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
+			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 		};
 	}, [scrollContentRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, scrollContentHandle.current]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -226,7 +224,7 @@ const useEventKey = (props, instances, context) => {
 };
 
 const useEventFocus = (props, instances) => {
-	const {scrollContentHandle} = instances;
+	const {scrollContainerRef, scrollContentHandle} = instances;
 
 	useEffect(() => {
 		function handleFocus (ev) {
@@ -246,14 +244,12 @@ const useEventFocus = (props, instances) => {
 			}
 		}
 
-		const scrollerNode = document.querySelector(`[data-spotlight-id="${props.spotlightId}"]`);
-
-		utilEvent('focusin').addEventListener(scrollerNode, handleFocus);
-		utilEvent('focusout').addEventListener(scrollerNode, handleBlur);
+		utilEvent('focusin').addEventListener(scrollContainerRef, handleFocus);
+		utilEvent('focusout').addEventListener(scrollContainerRef, handleBlur);
 
 		return () => {
-			utilEvent('focusin').removeEventListener(scrollerNode, handleFocus);
-			utilEvent('focusout').removeEventListener(scrollerNode, handleBlur);
+			utilEvent('focusin').removeEventListener(scrollContainerRef, handleFocus);
+			utilEvent('focusout').removeEventListener(scrollContainerRef, handleBlur);
 		};
 	});
 

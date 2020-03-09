@@ -4,8 +4,10 @@
  * @module sandstone/Notification
  * @exports Notification
  * @exports NotificationBase
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Alert} instead.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -147,7 +149,7 @@ const NotificationBase = kind({
 		})
 	},
 
-	render: ({buttons, children, css, ...rest}) => {
+	render: deprecate(({buttons, children, css, ...rest}) => {
 		return (
 			<Popup noAnimation {...rest} css={css}>
 				<div className={css.notificationBody} ref={fixTransform}>
@@ -158,7 +160,11 @@ const NotificationBase = kind({
 				</div> : null}
 			</Popup>
 		);
-	}
+	}, {
+		name: 'sandstone/Notification',
+		replacedBy: 'sandstone/Alert',
+		until: '1.0.0-beta.1'
+	})
 });
 
 

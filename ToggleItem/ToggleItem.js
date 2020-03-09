@@ -17,8 +17,9 @@
  * @exports ToggleItem
  * @exports ToggleItemBase
  * @exports ToggleItemDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Item} instead.
  */
-
+import deprecate from '@enact/core/internal/deprecate';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -31,7 +32,7 @@ import compose from 'ramda/src/compose';
 
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
-import {SlotItemBase} from '../SlotItem';
+import {ItemBase} from '../Item';
 
 import componentCss from './ToggleItem.module.less';
 
@@ -98,16 +99,20 @@ const ToggleItemBase = kind({
 		publicClassNames: ['toggleItem', 'slot']
 	},
 
-	render: (props) => {
+	render: deprecate((props) => {
 		return (
 			<UiToggleItem
 				role="checkbox"
 				{...props}
-				component={SlotItemBase}
+				component={ItemBase}
 				css={props.css}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/ToggleItem',
+		replacedBy: 'sandstone/Item',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
