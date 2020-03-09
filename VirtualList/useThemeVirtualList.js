@@ -130,7 +130,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
+		const {dimensionToExtent, primary: {contentSize, itemSize}, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -145,7 +145,7 @@ const useSpottable = (props, instances, context) => {
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
-			if (start >= scrollPositionTarget && end <= scrollPositionTarget + clientSize) {
+			if (start >= scrollPositionTarget && end <= scrollPositionTarget + contentSize) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
 				mutableRef.current.isScrolledBy5way = true;
 				focusByIndex(nextIndex);
@@ -230,7 +230,7 @@ const useSpottable = (props, instances, context) => {
 
 			{pageScroll} = props,
 			{numOfItems, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize,
+			offsetToClientEnd = primary.contentSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -247,7 +247,7 @@ const useSpottable = (props, instances, context) => {
 			setNodeIndexToBeFocused(null);
 			mutableRef.current.lastFocusedIndex = focusedIndex;
 
-			if (primary.clientSize >= primary.itemSize) {
+			if (primary.contentSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
 					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
 				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
@@ -351,7 +351,7 @@ const useThemeVirtualList = (props) => {
 
 	// Functions
 
-	function getClientSize ({clientWidth, clientHeight}) {
+	function getContentSize ({clientWidth, clientHeight}) {
 		return {
 			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
 			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
@@ -379,7 +379,7 @@ const useThemeVirtualList = (props) => {
 	return {
 		...rest,
 		css,
-		getClientSize,
+		getContentSize,
 		getComponentProps,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
