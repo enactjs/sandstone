@@ -45,7 +45,6 @@ This document describes VirtualList, VirtualGridList, and Scroller.
 *   A renderer for an item should be specified in `itemRenderer` prop in VirtualList.
 *   VirtualList passes `index` and `data-index` to the `itemRenderer` function.
 *   Be sure you are passing `{...rest}` to the item component for reusing DOM.
-*   VirtualList will automatically give proper className for items.
 *   Make sure you are not using an inline function for `itemRenderer`.
 *   If you want to scroll the list via 5-way navigation on the certain component in an item, you should pass `data-index` prop.
 *   Example:
