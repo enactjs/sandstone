@@ -253,6 +253,7 @@ const InputBase = kind({
 									defaultValue={value}
 									length={length}
 									onChange={onChange}
+									onClose={onClose}
 									onComplete={onNumberComplete}
 									showKeypad
 									type={(type === 'passwordnumber') ? 'password' : 'number'}

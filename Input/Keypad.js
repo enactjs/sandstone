@@ -18,7 +18,7 @@ import css from './Input.module.less';
 add('number', [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]); // Establish all number keys as 'number' keyword.
 add('backspace', 8);
 
-const KEY_LIST = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'backspace'];
+const KEY_LIST = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'backspace', 'x'];
 
 /*
  * A key used inside a Keypad Layout component.
@@ -44,14 +44,21 @@ const Key = kind({
 		)
 	},
 
-	render: ({children, ...rest}) => {
-		const content = (children === 'backspace') ? 'arrowleftprevious' : children; // TBD: arrowleftprevious should be replaced to correct one base on GUI
+	computed: {
+		className: ({children, styler}) => styler.append(`key${children}`)
+	},
+	render: ({children: icon, ...rest}) => {
+		switch (icon) {
+			case 'backspace': { icon = 'arrowleftprevious'; break; } // TBD: arrowleftprevious should be replaced to correct one base on GUI
+			case 'x': { icon = 'closex'; break; }
+		}
+
 		delete rest.onKeyButtonClick;
 		return (
 			<Button
 				{...rest}
 				size="large"
-				icon={content}
+				icon={icon}
 			/>
 		);
 	}
@@ -62,6 +69,7 @@ const Keypad = kind({
 
 	propTypes: {
 		onAdd: PropTypes.func,
+		onClose: PropTypes.func,
 		onRemove: PropTypes.func
 	},
 
@@ -70,16 +78,20 @@ const Keypad = kind({
 		className: 'keypad'
 	},
 
-	render: ({onAdd, onRemove, ...rest}) => {
+	render: ({onAdd, onClose, onRemove, ...rest}) => {
 		return (
 			<Layout align="center end" wrap {...rest} inline>
 				{KEY_LIST.map((keyText, rowIndex) => {
+					let onKeyButtonClick = onAdd;
+					if (keyText === 'backspace') onKeyButtonClick = onRemove;
+					if (keyText === 'x') onKeyButtonClick = onClose;
+
 					return (
 						<Cell
 							shrink
 							component={Key}
 							key={`key${rowIndex}-${keyText}`}
-							onKeyButtonClick={keyText === 'backspace' ? onRemove : onAdd}
+							onKeyButtonClick={onKeyButtonClick}
 						>
 							{keyText}
 						</Cell>

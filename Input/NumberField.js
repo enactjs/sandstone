@@ -103,7 +103,7 @@ const NumberFieldBase = kind({
 		value: normalizeValueProp
 	},
 
-	render: ({length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
+	render: ({length, showKeypad, onAdd, onClose, onRemove, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.onComplete;
 
@@ -136,7 +136,7 @@ const NumberFieldBase = kind({
 			<React.Fragment>
 				{field}
 				<br />
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad onAdd={onAdd} onClose={onClose} onRemove={onRemove} /> : null}
 			</React.Fragment>
 		);
 	}
