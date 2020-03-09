@@ -69,7 +69,7 @@ describe('TabLayout', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		it('should show a maximum of five tabs in horizontal orientation', function () {
+		it('should show a maximum of five tabs', function () {
 			const expected = 5; // there are 6 tabs passed to the test component
 			const actual = tabLayoutHorizontal.tabItems.value.length;
 
