@@ -747,15 +747,15 @@ const PickerBase = class extends React.Component {
 
 	calcButtonLabel (next, valueText) {
 		const {decrementAriaLabel, incrementAriaLabel, orientation} = this.props;
-		let reverseLabel = '';
+		let label;
 		if (orientation === 'vertical') {
-			reverseLabel = next ? decrementAriaLabel : incrementAriaLabel;
+			label = next ? decrementAriaLabel : incrementAriaLabel;
 		} else {
-			reverseLabel = next ? incrementAriaLabel : decrementAriaLabel;
+			label = next ? incrementAriaLabel : decrementAriaLabel;
 		}
 
-		if (reverseLabel != null) {
-			return reverseLabel;
+		if (label != null) {
+			return label;
 		}
 
 		return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
