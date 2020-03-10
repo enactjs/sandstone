@@ -13,8 +13,10 @@
  * @module sandstone/ExpandablePicker
  * @exports ExpandablePicker
  * @exports ExpandablePickerBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import Changeable from '@enact/ui/Changeable';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -321,7 +323,7 @@ const ExpandablePickerBase = kind({
 		label: ({children, value}) => React.Children.toArray(children)[value]
 	},
 
-	render: (props) => {
+	render: deprecate((props) => {
 		const {
 			checkButtonAriaLabel,
 			children,
@@ -403,7 +405,10 @@ const ExpandablePickerBase = kind({
 				/>
 			</ExpandableItemBase>
 		);
-	}
+	}, {
+		name: 'sandstone/ExpandablePicker',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

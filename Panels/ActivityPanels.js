@@ -1,3 +1,6 @@
+import deprecate from '@enact/core/internal/deprecate';
+import React from 'react';
+
 import Slottable from '@enact/ui/Slottable';
 import Measurable from '@enact/ui/Measurable';
 import compose from 'ramda/src/compose';
@@ -31,9 +34,26 @@ const ActivityPanelsDecorator = compose(
  * @class ActivityPanels
  * @memberof sandstone/Panels
  * @ui
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Panels.Panels} instead.
  * @public
  */
-const ActivityPanels = ActivityPanelsDecorator(PanelsBase);
+
+class Deprecated extends React.Component {
+	constructor (props) {
+		super(props);
+		deprecate({
+			name: 'sandstone/ActivityPanels',
+			replacedBy: 'sandstone/Panels',
+			until: '1.0.0-beta.1'
+		});
+	}
+
+	render () {
+		return (<PanelsBase {...this.props} />);
+	}
+}
+
+const ActivityPanels = ActivityPanelsDecorator(Deprecated);
 
 export default ActivityPanels;
 export {ActivityPanels};
