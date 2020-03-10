@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -16,6 +16,23 @@ TabLayout.displayName = 'TabLayout';
 
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
+const tabsWithIcons = [
+	{children: 'Home', icon: 'home'},
+	{children: 'Button', icon: 'image'},
+	{children: 'Item', icon: 'resumeplay'}
+];
+
+const tabsWithoutIcons = [
+	{children: 'Home'},
+	{children: 'Button'},
+	{children: 'Item'}
+];
+
+const tabSelections = {
+	'with icons': tabsWithIcons,
+	'without icons': tabsWithoutIcons
+};
+
 storiesOf('Sandstone', module)
 	.add(
 		'TabLayout',
@@ -27,11 +44,7 @@ storiesOf('Sandstone', module)
 					collapsed={boolean('collapsed', TabLayout)}
 					// leaving this knob out for now until we build out horizontal tabs
 					// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
-					tabs={[
-						{children: 'Home', icon: 'home'},
-						{children: 'Button', icon: 'image'},
-						{children: 'Item', icon: 'resumeplay'}
-					]}
+					tabs={select('tabs', tabSelections, TabLayout, tabSelections['with icons'])}
 				>
 					<React.Fragment>
 						<Icon>home</Icon>Home
