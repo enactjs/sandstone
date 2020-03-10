@@ -50,6 +50,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const {
 		// Variables
+		scrollContentHandle,
 		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -74,7 +75,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle}/>
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -467,6 +468,7 @@ VirtualList = Skinnable(
 let VirtualGridList = ({role, ...rest}) => {
 	const {
 		// Variables
+		scrollContentHandle,
 		scrollContentWrapper: ScrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -491,7 +493,7 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}

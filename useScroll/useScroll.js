@@ -14,7 +14,6 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
-import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
@@ -189,8 +188,11 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+		const scrollHeight = bounds && bounds.scrollHeight && 0;
+
 		if (scrollContainerHandle.current.scrollToInfo === null) {
-			const scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
+
 
 			if (scrollHeight !== scrollContainerHandle.current.bounds.scrollHeight) {
 				calculateAndScrollTo();
@@ -200,7 +202,7 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 		// oddly, Scroller manages scrollContainerHandle.current.bounds so if we don't update it here (it is also
 		// updated in calculateAndScrollTo but we might not have made it to that point), it will be
 		// out of date when we land back in this method next time.
-		scrollContainerHandle.current.bounds.scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
+		scrollContainerHandle.current.bounds.scrollHeight = scrollHeight;
 	}
 
 	function handleResizeWindow () {
@@ -276,6 +278,7 @@ const useScroll = (props) => {
 	// Mutable value
 
 	const scrollContainerRef = useRef();
+	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
 	const itemRefs = useRef([]);
 
@@ -291,42 +294,11 @@ const useScroll = (props) => {
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
-	const scrollContainerHandle = useRef({
-		animator: null,
-		applyOverscrollEffect: null,
-		bounds: null,
-		calculateDistanceByWheel: null,
-		canScrollHorizontally: null,
-		canScrollVertically: null,
-		checkAndApplyOverscrollEffect: null,
-		getScrollBounds: null,
-		isDragging: null,
-		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollThumb: null,
-		lastInputType: null,
-		rtl: null,
-		scrollBounds: null,
-		scrollHeight: null,
-		scrolling: null,
-		scrollLeft: null,
-		scrollPos: null,
-		scrollTo: null,
-		scrollToAccumulatedTarget: null,
-		scrollToInfo: null,
-		scrollTop: null,
-		setOverscrollStatus: null,
-		showThumb: null,
-		start: null,
-		startHidingThumb: null,
-		stop: null,
-		wheelDirection: null
-	});
+	const scrollContainerHandle = useRef();
 
 	const setScrollContainerHandle = (handle) => {
 		scrollContainerHandle.current = handle;
 	};
-
-	const [scrollContentHandle, setScrollContentHandle] = useScrollContentHandle();
 
 	// Hooks
 
@@ -397,7 +369,6 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		setScrollContentHandle,
 		setScrollContainerHandle,
 		scrollMode,
 		scrollContentHandle,
@@ -410,7 +381,7 @@ const useScroll = (props) => {
 		className: [
 			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
-			scrollContainerHandle.current.rtl ? css.rtl : null,
+			props.rtl ? css.rtl : null,
 			overscrollCss.scroll,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
@@ -469,6 +440,7 @@ const useScroll = (props) => {
 
 	return {
 		...collectionOfProperties,
+		scrollContentHandle,
 		scrollContentWrapper,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
