@@ -306,8 +306,6 @@ const useSpottable = (props, instances, context) => {
 const useThemeVirtualList = (props) => {
 	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
-	// Mutable value
-
 	// Hooks
 
 	const instance = {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef};
@@ -359,12 +357,12 @@ const useThemeVirtualList = (props) => {
 		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
 
 	// not used by VirtualList
-	delete rest.scrollContainerContainsDangerously;
-	delete rest.scrollContainerRef;
-	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.spotlightId;
+	// not used by VirtualList
+	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
+	delete rest.scrollContainerRef;
+	delete rest.spotlightId;
 	delete rest.wrap;
 
 	return {
