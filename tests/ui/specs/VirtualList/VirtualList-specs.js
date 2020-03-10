@@ -35,18 +35,16 @@ describe('VirtualList', function () {
 			expectFocusedItem(3, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			// TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
+			Page.spotlightDown() && Page.delay(100);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
 			expectFocusedItem(13, 'step 5 focus');
 			// Step 6. Press Channel Down.
@@ -61,18 +59,16 @@ describe('VirtualList', function () {
 			expectFocusedItem(13, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			// TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
+			Page.spotlightUp() && Page.delay(100);
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(3, 'step 8 focus');
 			// Step 9. Press Channel Up.
