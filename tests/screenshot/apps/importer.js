@@ -15,7 +15,7 @@ import Icon from '../../../Icon';
 import IconButton from '../../../IconButton';
 import Image from '../../../Image';
 import IncrementSlider from '../../../IncrementSlider';
-import Input from '../../../Input';
+import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
 import LabeledIcon from '../../../LabeledIcon';
 import LabeledIconButton from '../../../LabeledIconButton';
@@ -59,6 +59,7 @@ const components = {
 	Image,
 	IncrementSlider,
 	Input,
+	InputField,
 	Item,
 	LabeledIcon,
 	LabeledIconButton,

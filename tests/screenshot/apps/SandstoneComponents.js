@@ -17,7 +17,7 @@ import Icon from './components/Icon';
 import IconButton from './components/IconButton';
 import Image from './components/Image';
 import IncrementSlider from './components/IncrementSlider';
-import Input from './components/Input';
+import InputField from './components/InputField';
 import Item from './components/Item';
 import LabeledIcon from './components/LabeledIcon';
 import LabeledIconButton from './components/LabeledIconButton';
@@ -55,7 +55,7 @@ const components = {
 	IconButton,
 	Image,
 	IncrementSlider,
-	Input,
+	InputField,
 	Item,
 	LabeledIcon,
 	LabeledIconButton,

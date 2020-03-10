@@ -1,5 +1,5 @@
 /**
- * An [Icon]{@link sandstone/Icon.Icon} ecorated with a label.
+ * An [Icon]{@link sandstone/Icon.Icon} decorated with a label.
  *
  * You may specify an image or a font-based icon by setting the `icon` to either the path
  * to the image or a string from an [iconList]{@link sandstone/Icon.IconBase.iconList}.

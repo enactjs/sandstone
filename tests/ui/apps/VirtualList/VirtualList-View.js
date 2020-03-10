@@ -95,13 +95,26 @@ class app extends React.Component {
 		super(props);
 		this.state = {
 			hideScrollbar: false,
-			keyDownEvents: 0,
 			wrap: false
 		};
+		this.rootRef = React.createRef();
+		this.scrollingRef = React.createRef();
 	}
 
 	onKeyDown = () => {
-		this.setState(({keyDownEvents}) => ({keyDownEvents: keyDownEvents + 1}));
+		if (this.rootRef.current.dataset.keydownEvents) {
+			this.rootRef.current.dataset.keydownEvents = Number(this.rootRef.current.dataset.keydownEvents) + 1;
+		} else {
+			this.rootRef.current.dataset.keydownEvents = 1;
+		}
+	}
+
+	onScrollStart = () => {
+		this.scrollingRef.current.innerHTML = 'Scrolling';
+	}
+
+	onScrollStop = () => {
+		this.scrollingRef.current.innerHTML = 'Not Scrolling';
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -110,13 +123,14 @@ class app extends React.Component {
 	}
 
 	render () {
-		const {hideScrollbar, keyDownEvents, wrap} = this.state;
+		const {hideScrollbar, wrap} = this.state;
 		return (
-			<div {...this.props} data-keydown-events={keyDownEvents} id="list" style={fullHeightStyle}>
+			<div {...this.props} id="list" style={fullHeightStyle} ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
 						<ToggleButton id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</ToggleButton>
 						<ToggleButton id="wrap" onClick={this.onToggle} selected={wrap}>wrap</ToggleButton>
+						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
 						<Row align="center" style={fullHeightStyle}>
@@ -134,6 +148,8 @@ class app extends React.Component {
 											itemRenderer={renderItem(itemSize)}
 											itemSize={itemSize}
 											onKeyDown={this.onKeyDown}
+											onScrollStart={this.onScrollStart}
+											onScrollStop={this.onScrollStop}
 											spacing={0}
 											style={{height: listSize + 'px'}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
