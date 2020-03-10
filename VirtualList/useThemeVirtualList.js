@@ -1,8 +1,8 @@
-import ri from '@enact/ui/resolution';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
