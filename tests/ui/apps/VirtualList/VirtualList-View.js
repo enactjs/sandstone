@@ -20,7 +20,7 @@ const fullHeightStyle = {
 spotlight.setPointerMode(false);
 
 const items = [],
-	itemSize = 156,
+	itemSize = 72,
 	itemStyle = {margin: 0, paddingBottom: 0, paddingTop: 0},
 	numItems = 100;
 
