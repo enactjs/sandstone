@@ -856,7 +856,7 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
-		const checkForChildren = children && children.length > 1 && Array.isArray(children) && horizontal;
+		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
@@ -932,11 +932,11 @@ const PickerBase = class extends React.Component {
 					>
 						{children}
 					</PickerViewManager>
-					{checkForChildren && (
+					{showIndicators && (
 						<div className={css.indicatorContainer} {...voiceProps}>
-							{children.map((indicators, indicator) => (
+							{children.map((c, indicator) => (
 								<div
-									key={indicator}
+									key={`indicator${indicator}`}
 									className={classnames(css.indicator, {[css.active]: (index === indicator)})}
 								/>
 							))}
