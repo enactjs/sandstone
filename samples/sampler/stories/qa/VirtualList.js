@@ -264,7 +264,7 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualListWithCBScrollTo
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);
@@ -284,7 +284,7 @@ storiesOf('VirtualList', module)
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);
