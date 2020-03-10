@@ -50,8 +50,8 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
-		scrollContentHandle,
 		scrollContentWrapper: ScrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 

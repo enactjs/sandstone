@@ -361,6 +361,7 @@ const useThemeVirtualList = (props) => {
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerRef;
+	delete rest.scrollContentHandle;
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
 	delete rest.spotlightId;

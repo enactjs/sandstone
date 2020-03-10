@@ -469,8 +469,8 @@ const useScroll = (props) => {
 
 	return {
 		...collectionOfProperties,
-		scrollContentHandle,
 		scrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	};
