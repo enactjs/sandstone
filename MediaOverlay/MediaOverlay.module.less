@@ -37,7 +37,7 @@
 		}
 
 		.textLayout {
-			margin: @sand-mediaoverlay-padding-left-right;
+			margin: @sand-mediaoverlay-textlayout-margin;
 		}
 
 		.image {
@@ -68,34 +68,37 @@
 	}
 
 	.captionContainer {
-		min-height: 192px;
-		margin-top: 24px;
+		> :first-child {
+			margin-top: @sand-mediaoverlay-caption-margin-top;
+		}
+
+		.caption,
+		.subCaptionBelow {
+			.sand-font({
+				font-size: @sand-mediaoverlay-caption-font-size;
+				line-height: @sand-mediaoverlay-line-height;
+			});
+			font-size: @sand-mediaoverlay-caption-font-size;
+		}
+
+		.subCaption {
+			.sand-font({
+				font-size: @sand-mediaoverlay-subcaption-font-size;
+				line-height: @sand-mediaoverlay-line-height;
+			});
+			font-size: @sand-mediaoverlay-subcaption-font-size;
+		}
 	}
 
 	.focus({
 		.progressBar {
 			.applySkins({
 				.fill {
-					background-color: @sand-mediaoverlay-pg-fill-focus-color;
+					background-color: @sand-mediaoverlay-focus-pg-fill-color;
 				}
 			})
 		}
 	});
-
-	.caption,
-	.subCaptionBelow {
-		.sand-font({
-            font-size: 48px;
-        });
-        font-size: 48px;
-	}
-
-	.subCaption {
-		.sand-font({
-            font-size: 60px;
-        });
-        font-size: 60px;
-	}
 
 	.applySkins({
 		.bg {
@@ -103,16 +106,16 @@
 		}
 		.caption,
 		.subCaption {
-			color: #E6E6E6;
+			color: @sand-mediaoverlay-caption-color;
 		}
 		.subCaptionBelow {
-			color: #ABAEB3;
+			color: @sand-mediaoverlay-subcaptionbelow-color;
 		}
 		.focus({
 			.caption,
 			.subCaption,
 			.subCaptionBelow {
-				color: #4C5059;
+				color: @sand-mediaoverlay-focus-caption-color;
 			}
 			.bg {
 				background-color: @sand-mediaoverlay-focus-bg-color;

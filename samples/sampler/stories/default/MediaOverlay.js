@@ -4,6 +4,8 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/sandstone/MediaOverlay';
+import {Marquee} from '@enact/sandstone/Marquee';
+import {Image} from '@enact/sandstone/Image';
 import {ItemBase} from '@enact/sandstone/Item';
 
 const prop = {
@@ -58,9 +60,6 @@ const prop = {
 		'4NCg=='
 	}
 };
-const CaptionComponent = (props) => {
-	return <ItemBase {...props} />;
-};
 
 const Config = mergeComponentMetadata('MediaOverlay', MediaOverlay, MediaOverlayBase, MediaOverlayDecorator);
 Config.groupId = 'MediaOverlay';
@@ -79,10 +78,9 @@ storiesOf('Sandstone', module)
 			const progress = number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5);
 			return (
 				<MediaOverlay
-					// captionComponent={CaptionComponent}
-					caption={text('caption', Config, 'DTV 6-1')}
+					caption={text('caption', Config, 'DTV 7-1')}
 					subCaption={text('subCaption', Config, 'Program Name')}
-					subCaptionBelow={text('subCaptionBelow', Config, '00:00 AM - 00:00 AM')}
+					subCaptionBelow={text('subCaptionBelow', Config, '07:00 AM - 08:00 AM')}
 					disabled={boolean('disabled', Config)}
 					imageOverlay={imageSource}
 					placeholder={placeholder}

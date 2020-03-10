@@ -55,20 +55,12 @@ const MediaOverlayBase = kind({
 		source: PropTypes.node.isRequired,
 
 		/**
-		 * The primary caption to be displayed with the image.
+		 * The primary caption to be displayed.
 		 *
 		 * @type {String}
 		 * @public
 		 */
 		caption: PropTypes.string,
-
-		/**
-		 * The component used to render the caption
-		 *
-		 * @type {String|Component}
-		 * @public
-		 */
-		captionComponent: EnactPropTypes.renderable,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -135,7 +127,7 @@ const MediaOverlayBase = kind({
 		progressShowing: PropTypes.bool,
 
 		/**
-		 * The second caption line to be displayed with the image.
+		 * The second caption line to be displayed.
 		 *
 		 * @type {String}
 		 * @public
@@ -143,7 +135,7 @@ const MediaOverlayBase = kind({
 		subCaption: PropTypes.string,
 
 		/**
-		 * The third caption line to be displayed with the image.
+		 * The third caption line to be displayed.
 		 *
 		 * @type {String}
 		 * @public
@@ -175,7 +167,6 @@ const MediaOverlayBase = kind({
 	},
 
 	defaultProps: {
-		captionComponent: Marquee,
 		mediaComponent: 'video',
 		progress: 0,
 		textAlign: 'center'
@@ -187,7 +178,7 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({caption, captionComponent: CaptionComponent, css, imageOverlay, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
+	render: ({caption, css, imageOverlay, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
@@ -223,9 +214,9 @@ const MediaOverlayBase = kind({
 					}
 				</div>
 				<div className={css.captionContainer}>
-					{caption ? (<CaptionComponent css={css} className={css.caption} marqueeOn="focus">{caption}</CaptionComponent>) : null}
-					{subCaption ? (<Marquee css={css} className={css.subCaption} marqueeOn="focus">{subCaption}</Marquee>) : null}
-					{subCaptionBelow ? (<Marquee css={css} className={css.subCaptionBelow} marqueeOn="focus">{subCaptionBelow}</Marquee>) : null}
+					{caption ? (<Marquee className={css.caption}>{caption}</Marquee>) : null}
+					{subCaption ? (<Marquee className={css.subCaption}>{subCaption}</Marquee>) : null}
+					{subCaptionBelow ? (<Marquee className={css.subCaptionBelow}>{subCaptionBelow}</Marquee>) : null}
 				</div>
 			</div>
 		);
