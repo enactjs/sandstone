@@ -232,7 +232,7 @@ const useSpottable = (props, instances, context) => {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems);
+				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (itemNode) {
 					itemNode.blur();
