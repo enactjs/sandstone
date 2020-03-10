@@ -1,4 +1,5 @@
 const Page = require('./TabLayoutPage');
+const {selectTab} = require('./TabLayout-utils.js');
 
 describe('TabLayout', function () {
 
@@ -25,6 +26,18 @@ describe('TabLayout', function () {
 		it('should have vertical tabs', function () {
 			const expected = 'vertical';
 			const actual = tabLayoutDefaultWithoutIcons.tabOrientation;
+
+			expect(actual).to.equal(expected);
+		});
+
+		it.only('should render a tab\'s associated view when it is selected', function () {
+			const expected = 'view5';
+			const actual = 'view5';
+
+			const originalView = tabLayoutDefaultWithoutIcons.currentView.getAttribute('id');
+
+			expect(originalView).to.equal('view1');
+			selectTab(tabLayoutDefaultWithoutIcons.tabItems.value[4]);
 
 			expect(actual).to.equal(expected);
 		});
