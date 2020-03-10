@@ -83,6 +83,7 @@ storiesOf('Sandstone', module)
 					subCaptionBelow={text('subCaptionBelow', Config, '07:00 AM - 08:00 AM')}
 					disabled={boolean('disabled', Config)}
 					imageOverlay={imageSource}
+					marqueeOn={select('marqueeOn', ['focus', 'hover', 'render'], Config, 'focus')}
 					placeholder={placeholder}
 					progress={progress}
 					progressShowing={boolean('progressShowing', Config)}

@@ -87,6 +87,14 @@ const MediaOverlayBase = kind({
 		imageOverlay: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
 		 * Media component to use.
 		 *
 		 * The default (`'video'`) renders an `HTMLVideoElement`. Custom media components must have
@@ -178,7 +186,7 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({caption, css, imageOverlay, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
+	render: ({caption, css, imageOverlay, marqueeOn, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
@@ -200,7 +208,7 @@ const MediaOverlayBase = kind({
 					) : null}
 					{text ? (
 						<Layout align={textAlign} className={css.textLayout}>
-							<Cell component={Marquee} alignment="center" className={css.text} marqueeOn="render">
+							<Cell component={Marquee} alignment="center" className={css.text} marqueeOn={marqueeOn}>
 								{text}
 							</Cell>
 						</Layout>
@@ -214,9 +222,9 @@ const MediaOverlayBase = kind({
 					}
 				</div>
 				<div className={css.captionContainer}>
-					{caption ? (<Marquee className={css.caption}>{caption}</Marquee>) : null}
-					{subCaption ? (<Marquee className={css.subCaption}>{subCaption}</Marquee>) : null}
-					{subCaptionBelow ? (<Marquee className={css.subCaptionBelow}>{subCaptionBelow}</Marquee>) : null}
+					{caption ? (<Marquee className={css.caption} marqueeOn={marqueeOn}>{caption}</Marquee>) : null}
+					{subCaption ? (<Marquee className={css.subCaption} marqueeOn={marqueeOn}>{subCaption}</Marquee>) : null}
+					{subCaptionBelow ? (<Marquee className={css.subCaptionBelow} marqueeOn={marqueeOn}>{subCaptionBelow}</Marquee>) : null}
 				</div>
 			</div>
 		);
