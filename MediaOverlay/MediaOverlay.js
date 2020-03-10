@@ -23,11 +23,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {MarqueeController} from '../Marquee';
-import Icon from '../Icon';
 import Image from '../Image';
-import {Marquee} from '../Marquee';
-import {ItemBase} from '../Item';
+import {Marquee, MarqueeController} from '../Marquee';
 import ProgressBar from '../ProgressBar';
 import Skinnable from '../Skinnable';
 
@@ -236,6 +233,7 @@ const MediaOverlayBase = kind({
  *
  * @hoc
  * @memberof sandstone/MediaOverlay
+ * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes ui/Slottable.Slottable
  * @mixes sandstone/Skinnable.Skinnable

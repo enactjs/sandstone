@@ -4,9 +4,6 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/sandstone/MediaOverlay';
-import {Marquee} from '@enact/sandstone/Marquee';
-import {Image} from '@enact/sandstone/Image';
-import {ItemBase} from '@enact/sandstone/Item';
 
 const prop = {
 	videoTitles: [
