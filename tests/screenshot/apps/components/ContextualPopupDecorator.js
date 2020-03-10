@@ -142,6 +142,18 @@ const ContextualPopupDecoratorTests = [
 		}
 	},
 	// *************************************************************
+	// locale = 'ur-PK'
+	// *************************************************************
+	// [GT-28299]
+	{
+		locale: 'ur-PK',
+		textSize: 'large',
+		component: <ContextualPopupButton open popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	}
+	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
 	{
