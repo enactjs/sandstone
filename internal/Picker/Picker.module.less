@@ -65,6 +65,43 @@
 		}
 		.valueWrapper {
 			order: 2;
+			position: relative;
+
+			.item {
+				transform: translateX(100%);
+			}
+		}
+
+		&.small,
+		&.medium,
+		&.large {
+			.valueWrapper {
+
+				.item {
+					position: absolute;
+					.position(0);
+					transform: translateX(100%);
+				}
+			}
+		}
+	}
+
+	&.vertical {
+		.valueWrapper {
+			display: block;
+			position: relative;
+			line-height: @sand-picker-value-height;
+
+			.sizingPlaceholder,
+			.item {
+				margin: 0 @sand-spotlight-outset;
+			}
+
+			.item {
+				position: absolute;
+				.position(0);
+				transform: translateY(100%);
+			}
 		}
 	}
 
@@ -100,33 +137,6 @@
 			line-height: @sand-picker-value-height;
 		}
 
-		.indicatorContainer {
-			position: absolute;
-			bottom: @sand-picker-indicator-bottom;
-			left: 50%;
-			transform: translateX(-50%);
-			margin: 0 auto;
-			line-height: 0;
-			white-space: nowrap;
-
-			.indicator {
-				display: inline-block;
-				width: @sand-picker-indicator-width;
-				height: @sand-picker-indicator-height;
-				margin: @sand-picker-indicator-margin;
-				border-radius: @sand-picker-indicator-border-radius;
-				transform: scale(@sand-picker-indicator-inactive-scale);
-				vertical-align: middle;
-				cursor: pointer;
-				will-change: transform;
-				transition: transform @sand-picker-focus-duration ease-out;
-
-				&.active {
-					transform: scale(@sand-picker-indicator-active-scale);
-				}
-			}
-		}
-
 		.incrementer,
 		.decrementer {
 			will-change: transform;
@@ -146,6 +156,7 @@
 				height: @sand-picker-joined-horizontal-value-line-height;
 				line-height: @sand-picker-joined-horizontal-value-line-height;
 			}
+
 			&.incrementing::before {
 				border-right-width: @sand-integer-picker-shadow-width;
 			}
@@ -160,6 +171,33 @@
 
 				.icon {
 					visibility: hidden;
+				}
+			}
+
+			.indicatorContainer {
+				position: absolute;
+				bottom: @sand-picker-indicator-bottom;
+				left: 50%;
+				transform: translateX(-50%);
+				margin: 0 auto;
+				line-height: 0;
+				white-space: nowrap;
+
+				.indicator {
+					display: inline-block;
+					width: @sand-picker-indicator-width;
+					height: @sand-picker-indicator-height;
+					margin: @sand-picker-indicator-margin;
+					border-radius: @sand-picker-indicator-border-radius;
+					transform: scale(@sand-picker-indicator-inactive-scale);
+					vertical-align: middle;
+					cursor: pointer;
+					will-change: transform;
+					transition: transform @sand-picker-focus-duration ease-out;
+
+					&.active {
+						transform: scale(@sand-picker-indicator-active-scale);
+					}
 				}
 			}
 		}
@@ -205,47 +243,6 @@
 	}
 	&.large .valueWrapper {
 		width: @sand-picker-large-value-width;
-	}
-
-	&.horizontal {
-		.valueWrapper {
-			.item {
-				transform: translateX(100%);
-			}
-		}
-	}
-
-	// &.horizontal {
-	// 	// &.small,
-	// 	// &.medium,
-	// 	// &.large {
-	// 		.valueWrapper {
-	// 			// position: relative;
-
-	// 			.item {
-	// 				// position: absolute;
-	// 				// .position(0);
-	// 				transform: translateX(100%);
-	// 			}
-	// 		}
-	// 	// }
-	// }
-
-	&.vertical .valueWrapper {
-		display: block;
-		position: relative;
-		line-height: @sand-picker-value-height;
-
-		.sizingPlaceholder,
-		.item {
-			margin: 0 @sand-spotlight-outset;
-		}
-
-		.item {
-			position: absolute;
-			.position(0);
-			transform: translateY(100%);
-		}
 	}
 
 	// Skin colors
