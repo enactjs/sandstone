@@ -14,7 +14,7 @@ describe('Item', function () {
 		});
 
 		it('should have focus on first item at start', function () {
-			expect(item1.self.hasFocus()).to.be.true();
+			expect(item1.self.isFocused()).to.be.true();
 		});
 
 		describe('default', function () {
@@ -24,27 +24,27 @@ describe('Item', function () {
 				it('should focus the first item with 5-way Up - [GT-28153]', function () {
 					item2Disabled.focus();
 					Page.spotlightUp();
-					expect(item1.self.hasFocus()).to.be.true();
+					expect(item1.self.isFocused()).to.be.true();
 				});
 
 				// Step 5 - 5-way Down
 				it('should focus an item with a label with 5-way Down - [GT-28153]', function () {
 					item2Disabled.focus();
 					Page.spotlightDown();
-					expect(item3WithLabel.self.hasFocus()).to.be.true();
+					expect(item3WithLabel.self.isFocused()).to.be.true();
 				});
 
 				// Validating that the items are in fact inline and can be navigated between via 5-way
 				it('should focus an inline item with 5-way Left', function () {
 					item7Inline.focus();
 					Page.spotlightLeft();
-					expect(Page.components.item6Inline.self.hasFocus()).to.be.true();
+					expect(Page.components.item6Inline.self.isFocused()).to.be.true();
 				});
 
 				it('should focus an inline item with 5-way Right', function () {
 					item7Inline.focus();
 					Page.spotlightRight();
-					expect(Page.components.item8Inline.self.hasFocus()).to.be.true();
+					expect(Page.components.item8Inline.self.isFocused()).to.be.true();
 				});
 			});
 
@@ -52,13 +52,13 @@ describe('Item', function () {
 			// Step 3 - Focus on the Item title. In sampler, the item has no label. Here we focusing on an item with a label.
 				it('should focus the third item when hovered - [GT-28154]', function () {
 					item3WithLabel.hover();
-					expect(item3WithLabel.self.hasFocus()).to.be.true();
+					expect(item3WithLabel.self.isFocused()).to.be.true();
 				});
 
 				it('should focus an item when switching from pointer to 5-way', function () {
 					item1.hover();
 					item2Disabled.focus();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
+					expect(item2Disabled.self.isFocused()).to.be.true();
 				});
 			});
 		});
@@ -70,20 +70,20 @@ describe('Item', function () {
 				it('should focus a disabled item with 5-way Up - [GT-28153]', function () {
 					item3WithLabel.focus();
 					Page.spotlightUp();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
+					expect(item2Disabled.self.isFocused()).to.be.true();
 				});
 
 				// Step 8 - 5-way Down
 				it('should focus a disabled item with 5-way Down - [GT-28153]', function () {
 					item1.focus();
 					Page.spotlightDown();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
+					expect(item2Disabled.self.isFocused()).to.be.true();
 				});
 
 				it('should focus a disabled and inline item with 5-way Right', function () {
 					item4Inline.focus();
 					Page.spotlightRight();
-					expect(item5InLineDisabled.self.hasFocus()).to.be.true();
+					expect(item5InLineDisabled.self.isFocused()).to.be.true();
 				});
 			});
 
@@ -91,7 +91,7 @@ describe('Item', function () {
 			describe('pointer', function () {
 				it('should focus the disabled item with hover - [GT-28154]', function () {
 					item2Disabled.hover();
-					expect(item2Disabled.self.hasFocus()).to.be.true();
+					expect(item2Disabled.self.isFocused()).to.be.true();
 				});
 			});
 		});
@@ -103,7 +103,7 @@ describe('Item', function () {
 		});
 
 		it('should have focus on first item at start', function () {
-			expect(item1.self.hasFocus()).to.be.true();
+			expect(item1.self.isFocused()).to.be.true();
 		});
 
 		describe('default', function () {
@@ -113,13 +113,13 @@ describe('Item', function () {
 				it('should focus an inline item with 5-way Right', function () {
 					item7Inline.focus();
 					Page.spotlightRight();
-					expect(Page.components.item6Inline.self.hasFocus()).to.be.true();
+					expect(Page.components.item6Inline.self.isFocused()).to.be.true();
 				});
 
 				it('should focus an inline item with 5-way Left', function () {
 					item7Inline.focus();
 					Page.spotlightLeft();
-					expect(Page.components.item8Inline.self.hasFocus()).to.be.true();
+					expect(Page.components.item8Inline.self.isFocused()).to.be.true();
 				});
 			});
 		});

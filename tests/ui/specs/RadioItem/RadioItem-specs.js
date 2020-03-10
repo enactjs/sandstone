@@ -8,7 +8,7 @@ describe('RadioItem', function () {
 	});
 
 	it('should have focus on first item at start', function () {
-		expect(Page.components.radioDefault.self.hasFocus()).to.be.true();
+		expect(Page.components.radioDefault.self.isFocused()).to.be.true();
 	});
 
 	describe('default', function () {
@@ -36,13 +36,13 @@ describe('RadioItem', function () {
 
 			it('should move focus down on SpotlightDown', function () {
 				Page.spotlightDown();
-				expect(Page.components.radioDefaultSelected.self.hasFocus()).to.be.true();
+				expect(Page.components.radioDefaultSelected.self.isFocused()).to.be.true();
 			});
 
 			it('should move focus up on SpotlightUp', function () {
 				Page.components.radioDefaultSelected.focus();
 				Page.spotlightUp();
-				expect(radioItem.self.hasFocus()).to.be.true();
+				expect(radioItem.self.isFocused()).to.be.true();
 			});
 		});
 
@@ -163,7 +163,7 @@ describe('RadioItem', function () {
 			it('should be able to focus the item', function () {
 				prevRadioItem.focus();
 				Page.spotlightDown();
-				expect(radioItem.self.hasFocus()).to.be.true();
+				expect(radioItem.self.isFocused()).to.be.true();
 			});
 		});
 
@@ -198,7 +198,7 @@ describe('RadioItem', function () {
 			it('should be able to focus the item', function () {
 				radioDisabled.focus();
 				Page.spotlightDown();
-				expect(radioItem.self.hasFocus()).to.be.true();
+				expect(radioItem.self.isFocused()).to.be.true();
 			});
 			it('should not unselect the item when selected', function () {
 				radioItem.focus();

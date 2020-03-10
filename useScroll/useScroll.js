@@ -1,3 +1,12 @@
+/**
+ * Sandstone-themed scrollable hook and behaviors.
+ *
+ * @module sandstone/useScroll
+ * @exports dataIndexAttribute
+ * @exports useScroll
+ * @private
+ */
+
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
@@ -12,7 +21,6 @@ import React, {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import ScrollableBasic from './ScrollableBasic';
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
@@ -244,6 +252,14 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	};
 };
 
+/**
+ * A custom hook that passes Sandstone-themed scrollable behavior information as its render prop.
+ *
+ * @class
+ * @memberof sandstone/useScroll
+ * @ui
+ * @private
+ */
 const useScroll = (props) => {
 	const
 		{
@@ -261,6 +277,7 @@ const useScroll = (props) => {
 
 	const scrollContainerRef = useRef();
 	const scrollContentRef = useRef();
+	const itemRefs = useRef([]);
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -421,12 +438,14 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
+		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
+		scrollContainerRef,
 		setThemeScrollContentHandle,
 		spotlightId,
 		scrollContainerHandle,
@@ -459,6 +478,5 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
-	ScrollableBasic,
 	useScroll
 };

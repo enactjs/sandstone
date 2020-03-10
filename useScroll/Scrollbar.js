@@ -102,7 +102,7 @@ ScrollbarBase.defaultProps = {
 };
 
 /**
- * A Sandstone-styled scroll bar. It is used in [Scrollable]{@link sandstone/useScroll.Scrollable}.
+ * A Sandstone-styled scroll bar.
  *
  * @class Scrollbar
  * @memberof sandstone/useScroll
