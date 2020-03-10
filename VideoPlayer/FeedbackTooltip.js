@@ -161,9 +161,8 @@ const FeedbackTooltipBase = kind({
 		children: ({children, duration, formatter}) => {
 			return secondsToTime(children * duration, formatter);
 		},
-		className: ({hidden, playbackState: s, proportion, thumbnailDeactivated, styler}) => {
+		className: ({hidden, playbackState: s, thumbnailDeactivated, styler}) => {
 			return styler.append({
-				afterMidpoint: proportion > 0.5,
 				hidden: hidden && states[s] && states[s].allowHide,
 				thumbnailDeactivated
 			});
@@ -202,15 +201,17 @@ const FeedbackTooltipBase = kind({
 
 		return (
 			<div {...rest}>
-				{thumbnailComponent}
-				<FeedbackContent
-					className={css.content}
-					feedbackVisible={feedbackVisible}
-					playbackRate={playbackRate}
-					playbackState={playbackState}
-				>
-					{children}
-				</FeedbackContent>
+				<div className={css.alignmentContainer}>
+					{thumbnailComponent}
+					<FeedbackContent
+						className={css.content}
+						feedbackVisible={feedbackVisible}
+						playbackRate={playbackRate}
+						playbackState={playbackState}
+					>
+						{children}
+					</FeedbackContent>
+				</div>
 			</div>
 		);
 	}

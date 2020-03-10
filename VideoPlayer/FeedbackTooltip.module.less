@@ -42,17 +42,16 @@
 		.sand-text-base(@sand-video-slider-tooltip-font-size);
 		line-height: @sand-video-slider-tooltip-line-height;
 		white-space: nowrap;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: center;
 	}
 
-	&.afterMidpoint {
-		.thumbnail,
-		.content {
-			transform: translateX(-100%) translateX(0);
-		}
-
-		.content {
-			text-align: right;
-		}
+	.alignmentContainer {
+		position: relative;
+		right:50%;
 	}
 
 	.applySkins({
