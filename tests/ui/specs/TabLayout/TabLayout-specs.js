@@ -30,7 +30,7 @@ describe('TabLayout', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		it.only('should render a tab\'s associated view when it is selected', function () {
+		it('should render a tab\'s associated view when it is selected', function () {
 			const expected = 'view5';
 			const actual = 'view5';
 
