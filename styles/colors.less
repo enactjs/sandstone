@@ -25,6 +25,7 @@
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
+@sand-selected-bg-color: #30ad6b;
 
 // Disabled Opacity
 // ---------------------------------------
@@ -79,11 +80,11 @@
 @sand-checkbox-focus-bg-color: transparent;
 @sand-checkbox-focus-border-color: @sand-spotlight-text-color;
 @sand-checkbox-selected-color: @sand-text-color;
-@sand-checkbox-selected-bg-color: transparent;
-@sand-checkbox-selected-border-color: @sand-checkbox-selected-color;
-@sand-checkbox-selected-focus-color: @sand-spotlight-text-color;
-@sand-checkbox-selected-focus-bg-color: @sand-checkbox-focus-bg-color;
-@sand-checkbox-selected-focus-border-color: @sand-checkbox-focus-border-color;
+@sand-checkbox-selected-bg-color: @sand-selected-bg-color;
+@sand-checkbox-selected-border-color: @sand-checkbox-selected-bg-color;
+@sand-checkbox-selected-focus-color: @sand-checkbox-selected-color;
+@sand-checkbox-selected-focus-bg-color: @sand-checkbox-selected-bg-color;
+@sand-checkbox-selected-focus-border-color: @sand-checkbox-selected-border-color;
 
 // CheckboxItem
 // ---------------------------------------
@@ -255,11 +256,11 @@
 @sand-radioitem-focus-indicator-bg-color: transparent;
 @sand-radioitem-focus-indicator-border-color: @sand-spotlight-text-color;
 @sand-radioitem-selected-indicator-color: @sand-text-color;
-@sand-radioitem-selected-indicator-bg-color: @sand-radioitem-indicator-bg-color;
-@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-color;
-@sand-radioitem-selected-focus-indicator-color: @sand-spotlight-text-color;
-@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-focus-indicator-bg-color;
-@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-focus-indicator-border-color;
+@sand-radioitem-selected-indicator-bg-color: @sand-selected-bg-color;
+@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
+@sand-radioitem-selected-focus-indicator-color: @sand-radioitem-selected-indicator-color;
+@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-selected-indicator-bg-color;
+@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-selected-indicator-border-color;
 
 // Scrollbar
 // ---------------------------------------
@@ -314,13 +315,14 @@
 
 // Switch
 // ---------------------------------------
-@sand-checkbox-toggle-switch-color: fade(@sand-light-gray, 20%);
-@sand-checkbox-toggle-switch-bg-color: transparent;
-@sand-checkbox-toggle-switch-border-color: @sand-light-gray;
+@sand-checkbox-toggle-switch-color: #aeaeae;
+@sand-checkbox-toggle-switch-bg-color: #777777;
+@sand-checkbox-toggle-switch-border-color: @sand-checkbox-toggle-switch-bg-color;
+@sand-checkbox-toggle-switch-selected-border-color: @sand-selected-bg-color;
 @sand-checkbox-toggle-switch-selected-color: @sand-light-gray;
-@sand-checkbox-toggle-switch-spotlight-border-color: @sand-spotlight-text-color;
-@sand-checkbox-toggle-switch-spotlight-color: fade(@sand-dark-gray, 20%);
-@sand-checkbox-toggle-switch-spotlight-selected-color: @sand-dark-gray;
+@sand-checkbox-toggle-switch-selected-bg-color: @sand-selected-bg-color;
+@sand-checkbox-toggle-switch-spotlight-color: @sand-checkbox-toggle-switch-color;
+@sand-checkbox-toggle-switch-spotlight-selected-color: @sand-light-gray;
 
 // Toggle Colors
 // ---------------------------------------
