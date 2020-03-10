@@ -14,7 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `Scroller.Scroller` to handle scroll for key holding case on `scrollthumb`.
+- `sandstone/Scroller.Scroller` to scroll not sluggish when holding directional keys on scroll thumb.
 - `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
