@@ -1,5 +1,4 @@
 import {Button} from '../../../../Button';
-import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import CheckboxItem from '../../../../CheckboxItem';
 import ToggleButton from '../../../../ToggleButton';
