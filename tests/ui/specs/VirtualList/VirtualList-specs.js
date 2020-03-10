@@ -34,7 +34,6 @@ describe('VirtualList', function () {
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(9, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
-			// TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			Page.spotlightDown();
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -58,7 +57,6 @@ describe('VirtualList', function () {
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(19, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
-			// TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
