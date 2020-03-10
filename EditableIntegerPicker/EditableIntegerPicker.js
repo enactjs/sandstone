@@ -11,8 +11,10 @@
  * @module sandstone/EditableIntegerPicker
  * @exports EditableIntegerPicker
  * @exports EditableIntegerPickerBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import {clamp} from '@enact/core/util';
 import Changeable from '@enact/ui/Changeable';
@@ -125,7 +127,7 @@ const EditableIntegerPickerBase = kind({
 		incrementIcon: PropTypes.string,
 
 		/**
-		 * Called when the input mounts witha reference to the DOM node.
+		 * Called when the input mounts with a reference to the DOM node.
 		 *
 		 * @type {Function}
 		 * @private
@@ -218,7 +220,7 @@ const EditableIntegerPickerBase = kind({
 		 * good for numeric pickers, `'medium'` for single or short word pickers, `'large'` for
 		 * maximum-sized pickers.
 		 *
-		 * You may also supply a number which will determine the minumum size of the Picker.
+		 * You may also supply a number which will determine the minimum size of the Picker.
 		 * Setting a number to less than the number of characters in your longest value may produce
 		 * unexpected results.
 		 *
@@ -306,7 +308,7 @@ const EditableIntegerPickerBase = kind({
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled
 	},
 
-	render: ({ariaValueText, pickerRef, ...rest}) => {
+	render: deprecate(({ariaValueText, pickerRef, ...rest}) => {
 		delete rest.editMode;
 		delete rest.inputRef;
 		delete rest.onInputBlur;
@@ -317,7 +319,10 @@ const EditableIntegerPickerBase = kind({
 		return (
 			<Picker aria-valuetext={ariaValueText} {...rest} index={0} ref={pickerRef} />
 		);
-	}
+	}, {
+		name: 'sandstone/EditableIntegerPicker',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**

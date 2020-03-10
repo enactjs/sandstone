@@ -12,7 +12,7 @@ class PickerInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(`#${this.id}>div`, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(`#${this.id}>div`));
 	}
 
 	get      self () { return element(`#${this.id}`, browser); }
@@ -21,10 +21,9 @@ class PickerInterface {
 	get titleText () { return getText(getLabeledItemTitle(this.self)); }
 	get     value () { return getLabeledItemValue(this.self); }
 	get valueText () { return getText(this.value); }
-	// get    isOpen () { return this.self.isExisting('.enact_ui_Transition_Transition_shown'); }
 	get    isOpen () {
-		return !(!this.self.isExisting('.enact_ui_Transition_Transition_transition') ||
-		!this.self.isExisting('.enact_ui_Transition_Transition_shown') && this.self.isExisting('.enact_ui_Transition_Transition_hidden'));
+		return !(!this.self.$('.enact_ui_Transition_Transition_transition').isExisting() ||
+		!this.self.$('.enact_ui_Transition_Transition_shown').isExisting() && this.self.$('.enact_ui_Transition_Transition_hidden').isExisting());
 	}
 
 	get hour () { return element('.TimePicker_TimePicker_hourComponents .internal_Picker_Picker_picker', this.self); }

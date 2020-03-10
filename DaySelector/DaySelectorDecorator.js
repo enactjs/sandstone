@@ -125,7 +125,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			everyDayText: PropTypes.string,
 
 			/**
-			 * The text displayed in the label when every weekeday is selected.
+			 * The text displayed in the label when every weekday is selected.
 			 *
 			 * @type {String}
 			 * @default 'Every Weekday'
