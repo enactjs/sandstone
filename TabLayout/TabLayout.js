@@ -7,6 +7,7 @@
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {is} from '@enact/core/keymap';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -18,6 +19,7 @@ import React from 'react';
 import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
+
 
 /**
  * Tabbed Layout component.
@@ -110,7 +112,25 @@ const TabLayoutBase = kind({
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * Called prior to focus leaving the expandable when the 5-way down key is pressed.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onSpotlightDown: PropTypes.func,
+
+		/**
+		 * Called prior to focus leaving the expandable when the 5-way up key is pressed.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onSpotlightUp: PropTypes.func
 	},
 
 	defaultProps: {
@@ -126,7 +146,20 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
-		)
+		),
+
+		onSpotlightDown: (ev, {index, onSelect, tabs, ...rest}) => {
+			if(onSelect && index < tabs.length-1) {
+				onSelect({index: index+1});
+			}
+		},
+
+		onSpotlightUp: (ev, {index, onSelect, tabs, ...rest}) => {
+			if(onSelect && index !== 0) {
+				const prevIndex = index > 0 ? (index - 1) : index;
+				onSelect({index: prevIndex});
+			}
+		},
 	},
 
 	computed: {
@@ -141,9 +174,8 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, onSpotlightDown, onSpotlightUp, tabOrientation, tabs, ...rest}) => {
 		const tabSize = collapsed ? 450 : 855;
-
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
@@ -154,6 +186,8 @@ const TabLayoutBase = kind({
 						orientation={orientation}
 						selectedIndex={index}
 						tabs={tabs}
+						onSpotlightDown={onSpotlightDown}
+      					onSpotlightUp={onSpotlightUp}
 					/>
 				</Cell>
 				<Cell

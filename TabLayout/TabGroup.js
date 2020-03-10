@@ -65,7 +65,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
+	render: ({noIcons, onBlur, onFocus, selectedIndex, onSpotlightDown, onSpotlightUp, ...rest}) => {
 		delete rest.collapsed;
 		delete rest.tabs;
 
@@ -83,6 +83,7 @@ const TabGroupBase = kind({
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
+						itemProps={{onSpotlightDown:onSpotlightDown, onSpotlightUp:onSpotlightUp}}
 					/>
 				)}
 			</Scroller>
