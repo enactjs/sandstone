@@ -88,7 +88,7 @@ class MyVirtualList extends React.Component {
 				{...rest}
 				key={index}
 				onClick={() => this.closePopup(index)}
-				style={{margin:0, paddingBottom: 0 , paddingTop: 0}}
+				style={{margin:0, paddingBottom: 0, paddingTop: 0}}
 			>
 				{itemList[index]}
 			</Item>

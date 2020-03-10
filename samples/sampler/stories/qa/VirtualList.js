@@ -37,7 +37,7 @@ const
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 		const style = vertical ?
 			{margin: 0, paddingBottom: 0, paddingTop: 0} :
-			{margin: 0, paddingBottom: 0, paddingTop: 0, width: size + 'px', height: '100%', writingMode: 'vertical-lr'};
+			{margin: 0, paddingBottom: 0, paddingTop: 0, height: '100%', width: size + 'px', writingMode: 'vertical-lr'};
 
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
@@ -64,7 +64,7 @@ updateDataSize(defaultDataSize);
 
 const updateItemSize = ({minSize, dataSize, size}) => ({minSize, size: new Array(dataSize).fill(size)});
 
-class StatefulSwitchItem extends React.Component {
+class StatefulCheckboxItem extends React.Component {
 	static propTypes = {
 		index: PropTypes.number
 	}
@@ -200,7 +200,7 @@ storiesOf('VirtualList', module)
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}

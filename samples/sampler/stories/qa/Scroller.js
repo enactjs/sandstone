@@ -15,7 +15,7 @@ import Button from '@enact/sandstone/Button';
 import {Item as ThemeItem} from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
-const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, paddingBottom: 0, paddingTop: 0, ...style}}></ThemeItem>);
+const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, paddingBottom: 0, paddingTop: 0, ...style}} />);
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
