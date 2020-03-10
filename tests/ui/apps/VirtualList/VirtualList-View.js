@@ -1,4 +1,5 @@
 import {Button} from '../../../../Button';
+import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import CheckboxItem from '../../../../CheckboxItem';
 import ToggleButton from '../../../../ToggleButton';
@@ -20,7 +21,8 @@ const fullHeightStyle = {
 spotlight.setPointerMode(false);
 
 const items = [],
-	itemSize = 72,
+	listSize = ri.scale(468),
+	itemSize = ri.scale(156),
 	itemStyle = {margin: 0, paddingBottom: 0, paddingTop: 0},
 	numItems = 100;
 
@@ -133,6 +135,7 @@ class app extends React.Component {
 											itemSize={itemSize}
 											onKeyDown={this.onKeyDown}
 											spacing={0}
+											style={{height: listSize + 'px'}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
