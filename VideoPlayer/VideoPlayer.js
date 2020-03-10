@@ -1673,7 +1673,6 @@ const VideoPlayerBase = class extends React.Component {
 			stopImmediate(ev);
 
 			this.handleSliderBlur();
-			this.hideControls();
 		} else {
 			this.activityDetected();
 		}
