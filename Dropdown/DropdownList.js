@@ -104,9 +104,7 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		// FIXME: Currently the dropdown doesn't support the largeText in the item.
-		// So @sand-item-height-large is same with @sand-item-height.
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 144 : 120)
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
