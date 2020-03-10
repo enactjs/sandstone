@@ -141,6 +141,13 @@ const ContextualPopupDecoratorTests = [
 			padded: true
 		}
 	},
+	// [GT-28292] - Popup Retains Left Direction
+	{
+		component: <ContextualPopupButton open direction="left" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
 	// *************************************************************
 	// locale = 'ur-PK'
 	// *************************************************************
@@ -152,7 +159,7 @@ const ContextualPopupDecoratorTests = [
 		wrapper: {
 			padded: true
 		}
-	}
+	},
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************

@@ -15,7 +15,7 @@ class ButtonInterface {
 		return browser.moveToObject(this.selector, 0, 0);
 	}
 
-	get self () { return browser.element(this.selector); }
+	get self () { return element(this.selector); }
 	get isButtonExist () { return this.self.isExisting(); }
 }
 
