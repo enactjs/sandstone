@@ -86,7 +86,6 @@ class MyVirtualList extends React.Component {
 			/* eslint-disable react/jsx-no-bind */
 			<Item
 				{...rest}
-				key={index}
 				onClick={() => this.closePopup(index)}
 				style={{margin:0}}
 			>
