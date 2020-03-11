@@ -36,8 +36,8 @@ const
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 		const style = vertical ?
-			{margin: 0, paddingBottom: 0, paddingTop: 0} :
-			{margin: 0, paddingBottom: 0, paddingTop: 0, height: '100%', width: size + 'px', writingMode: 'vertical-lr'};
+			{margin: 0} :
+			{margin: 0, height: '100%', width: size + 'px', writingMode: 'vertical-lr'};
 
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
