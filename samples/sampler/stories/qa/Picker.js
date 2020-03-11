@@ -198,28 +198,29 @@ storiesOf('Picker', module)
 						<Picker alt="Picker Horizontal">{pickerList.vegetables}</Picker>
 						<Picker alt="Tall text size">{pickerList.tall}</Picker>
 						<Picker alt="Disabled" disabled>{pickerList.vegetables}</Picker>
-						<Picker alt="No Animation" width={"medium"} noAnimation>{pickerList.airports}</Picker>
-						<Picker alt="Picker Vertical Small" width={"small"} orientation="vertical">{pickerList.orderedList}</Picker>
-						<Picker alt="Picker Vertical Medium" width={"medium"} orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
-						<Picker alt="Picker Vertical Large" width={"large"} orientation="vertical">{pickerList.tall}</Picker>
+						<Picker alt="No Animation" width="medium" noAnimation>{pickerList.airports}</Picker>
+						<Picker alt="Picker Vertical Small" width="small" orientation="vertical">{pickerList.orderedList}</Picker>
+						<Picker alt="Picker Vertical Medium" width="medium" orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
+						<Picker alt="Picker Vertical Large" width="large" orientation="vertical">{pickerList.tall}</Picker>
 					</Section>
 
 					<Section title="Picker Joined">
 						<Picker alt="Joined" joined>{pickerList.airports}</Picker>
-						<Picker alt="Joined with medium width" joined width={"medium"} noAnimation wrap>{pickerList.tall}</Picker>
-						<Picker alt="Joined with small width" joined width={"small"}>{pickerList.numberList}</Picker>
+						<Picker alt="Joined Medium Wrap" joined width="medium" wrap>{pickerList.vegetables}</Picker>
+						<Picker alt="Joined Medium noAnimation" joined width="medium" noAnimation>{pickerList.tall}</Picker>
+						<Picker alt="Joined Small" joined width="small">{pickerList.numberList}</Picker>
 					</Section>
 
 					<Section title="Picker Joined Vertical">
-						<Picker alt="Joined Vertical Small" joined width={"small"} orientation="vertical">{pickerList.numberList}</Picker>
-						<Picker alt="Joined Vertical Medium" joined width={"medium"} orientation="vertical">{pickerList.orderedList}</Picker>
-						<Picker alt="Joined Vertical large" joined width={"large"} orientation="vertical">{pickerList.tall}</Picker>
-						<Picker alt="Joined Vertical Wrap" joined width={"medium"} orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
+						<Picker alt="Joined Vertical Small" joined width="small" orientation="vertical">{pickerList.numberList}</Picker>
+						<Picker alt="Joined Vertical Medium" joined width="medium" orientation="vertical">{pickerList.orderedList}</Picker>
+						<Picker alt="Joined Vertical large" joined width="large" orientation="vertical">{pickerList.tall}</Picker>
+						<Picker alt="Joined Vertical" joined width="large" orientation="vertical" noAnimation>{pickerList.airports}</Picker>
 					</Section>
 
 					<Section title="Different Pickers">
-						<RangePicker alt="Range Picker" defaultValue={70} min={0} max={100}></RangePicker>
-						<RangePicker alt="Range Picker Joined" joined defaultValue={70} min={0} max={100}></RangePicker>
+						<RangePicker alt="Range Picker" defaultValue={70} min={0} max={100} />
+						<RangePicker alt="Range Picker Joined" joined defaultValue={70} min={0} max={100} />
 						<DatePicker alt="Date Picker" day={1} maxDays={31} maxMonths={12} month={1} noLabels open order={['m', 'd', 'y']} title="Date" year={2000} />
 					</Section>
 				</Row>
