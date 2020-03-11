@@ -125,7 +125,7 @@ const AnnounceState = {
  */
 
 /**
- * A set of playback rates when media fast forwards, rewinds, slow-fowards, or slow-rewinds.
+ * A set of playback rates when media fast forwards, rewinds, slow-forwards, or slow-rewinds.
  *
  * The number used for each operation is proportional to the normal playing speed, 1. If the rate
  * is less than 1, it will play slower than normal speed, and, if it is larger than 1, it will play
@@ -757,7 +757,7 @@ const VideoPlayerBase = class extends React.Component {
 				}
 
 				// Set focus to the hidden spottable control - maintaining focus on available spottable
-				// controls, which prevents an addiitional 5-way attempt in order to re-show media controls
+				// controls, which prevents an additional 5-way attempt in order to re-show media controls
 				Spotlight.focus(`.${css.controlsHandleAbove}`);
 			}
 		} else if (this.state.mediaControlsVisible && !prevState.mediaControlsVisible) {
@@ -1488,7 +1488,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
-		// Stop rewind (if happenning)
+		// Stop rewind (if happening)
 		this.stopRewindJob();
 
 		// Make sure rate is a string

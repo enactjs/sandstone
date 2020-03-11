@@ -47,7 +47,7 @@ export const AlwaysViewingArranger = {
 	}
 };
 
-// Actvity Arranger
+// Activity Arranger
 
 /*
  * Appends a transform that accounts for a single breadcrumb

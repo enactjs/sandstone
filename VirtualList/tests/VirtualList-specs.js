@@ -22,7 +22,8 @@ describe('VirtualList', () => {
 		resultScrollTop;
 
 	beforeEach(() => {
-		clientSize = {clientWidth: 1280, clientHeight: 720};
+		// Note: We have 48 pixels of fading area around a content area of a list in baseSize 48
+		clientSize = {clientWidth: 1328, clientHeight: 768}; // 1280 + 24 + 24 and 720 + 24 + 24
 		dataSize = 200;
 		items = [];
 		onScrollCount = 0;
@@ -104,7 +105,7 @@ describe('VirtualList', () => {
 			/>
 		);
 
-		const expected = 15; // 720 / 60 + 3
+		const expected = 15; // (768 - 48) / 60 + 3
 		const actual = subject.find('Item[data-index]').length;
 
 		expect(actual).toBe(expected);

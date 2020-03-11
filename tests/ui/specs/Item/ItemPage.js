@@ -9,14 +9,14 @@ class ItemInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(this.selector, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(this.selector));
 	}
 
 	hover () {
-		return browser.moveToObject(this.selector, 0, 0);
+		return $(this.selector).moveTo(0, 0);
 	}
 
-	get self () { return browser.element(this.selector); }
+	get self () { return $(this.selector); }
 }
 
 class ItemPage extends Page {

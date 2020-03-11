@@ -8,12 +8,11 @@ import {storiesOf} from '@storybook/react';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import ToggleItem from '@enact/sandstone/ToggleItem';
 
 import {listIcons} from './icons';
 
 SwitchItem.displayName = 'SwitchItem';
-const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, SwitchItem);
+const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, SwitchItem);
 
 storiesOf('Sandstone', module)
 	.add(
