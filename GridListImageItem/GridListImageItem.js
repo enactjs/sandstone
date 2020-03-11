@@ -62,14 +62,6 @@ const GridListImageItemBase = kind({
 		caption: PropTypes.string,
 
 		/**
-		 * The component used to render the captions
-		 *
-		 * @type {String|Component}
-		 * @public
-		 */
-		captionComponent: EnactPropTypes.renderable,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
