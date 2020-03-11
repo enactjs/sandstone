@@ -54,10 +54,10 @@ const MediaOverlayBase = kind({
 		/**
 		 * The primary caption to be displayed.
 		 *
-		 * @type {String}
+		 * @type {Node}
 		 * @public
 		 */
-		caption: PropTypes.string,
+		caption: PropTypes.node,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the

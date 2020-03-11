@@ -90,16 +90,6 @@
 		}
 	}
 
-	.focus({
-		.progressBar {
-			.applySkins({
-				.fill {
-					background-color: @sand-mediaoverlay-focus-pg-fill-color;
-				}
-			})
-		}
-	});
-
 	.applySkins({
 		.bg {
 			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
@@ -115,11 +105,18 @@
 		}
 
 		.focus({
+			.progressBar {
+				.fill {
+					background-color: @sand-mediaoverlay-focus-pg-fill-color;
+				}
+			}
+
 			.caption,
 			.title,
 			.subtitle {
 				color: @sand-mediaoverlay-focus-caption-color;
 			}
+
 			.bg {
 				background-color: @sand-mediaoverlay-focus-bg-color;
 				opacity: 1;

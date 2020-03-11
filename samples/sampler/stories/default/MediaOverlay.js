@@ -83,7 +83,7 @@ storiesOf('Sandstone', module)
 					marqueeOn={select('marqueeOn', ['focus', 'hover', 'render'], Config, 'focus')}
 					placeholder={placeholder}
 					progress={progress}
-					progressShowing={boolean('progressShowing', Config)}
+					showProgress={boolean('showProgress', Config)}
 					text={select('text', prop.text, Config, prop.text[0])}
 					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'center')}
 				>
