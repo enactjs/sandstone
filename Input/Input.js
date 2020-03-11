@@ -254,7 +254,7 @@ const InputBase = kind({
 					open={!disabled && open}
 				>
 					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-						<Cell shrink>
+						<Cell shrink className={css.titles}>
 							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
 							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 						</Cell>
