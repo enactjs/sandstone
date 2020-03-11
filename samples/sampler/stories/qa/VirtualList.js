@@ -6,10 +6,10 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
+import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
@@ -64,7 +64,7 @@ updateDataSize(defaultDataSize);
 
 const updateItemSize = ({minSize, dataSize, size}) => ({minSize, size: new Array(dataSize).fill(size)});
 
-class StatefulCheckboxItem extends React.Component {
+class StatefulSwitchItem extends React.Component {
 	static propTypes = {
 		index: PropTypes.number
 	}
@@ -100,9 +100,9 @@ class StatefulCheckboxItem extends React.Component {
 		delete props.index;
 
 		return (
-			<CheckboxItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
+			<SwitchItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
 				{this.props.children}
-			</CheckboxItem>
+			</SwitchItem>
 		);
 	}
 }
@@ -200,7 +200,7 @@ storiesOf('VirtualList', module)
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
@@ -264,7 +264,7 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualListWithCBScrollTo
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);
@@ -284,7 +284,7 @@ storiesOf('VirtualList', module)
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulCheckboxItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
 					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);

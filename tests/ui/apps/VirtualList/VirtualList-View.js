@@ -1,7 +1,7 @@
 import {Button} from '../../../../Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import CheckboxItem from '../../../../CheckboxItem';
+import SwitchItem from '../../../../SwitchItem';
 import ToggleButton from '../../../../ToggleButton';
 import VirtualList from '../../../../VirtualList';
 import ThemeDecorator from '../../../../ThemeDecorator';
@@ -29,9 +29,9 @@ const items = [],
 const renderItem = (size) => ({index, ...rest}) => {
 	const style = {height: size + 'px', ...itemStyle};
 	return (
-		<StatefulCheckboxItem index={index} style={style} {...rest} id={`item${index}`}>
+		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
 			{items[index].item}
-		</StatefulCheckboxItem>
+		</StatefulSwitchItem>
 	);
 };
 
@@ -51,7 +51,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(numItems);
 
-class StatefulCheckboxItem extends React.Component {
+class StatefulSwitchItem extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -83,9 +83,9 @@ class StatefulCheckboxItem extends React.Component {
 		delete props.index;
 
 		return (
-			<CheckboxItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
+			<SwitchItem {...props} onToggle={this.onToggle} selected={this.state.selected}>
 				{this.props.children}
-			</CheckboxItem>
+			</SwitchItem>
 		);
 	}
 }
