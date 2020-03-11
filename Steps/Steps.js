@@ -47,7 +47,7 @@ const StepsBase = kind({
 		 * * `steps` - The root class name
 		 * * `step` - Applied to each individual step
 		 * * `numbers` - Applied on the steps designated as "numbers" special case (See: `Icon` related props below)
-		 * * `past` - Applied to the steps preceeding the current step
+		 * * `past` - Applied to the steps preceding the current step
 		 * * `current` - Applied to the current step
 		 * * `future` - Applied to the steps following the current step
 		 *
