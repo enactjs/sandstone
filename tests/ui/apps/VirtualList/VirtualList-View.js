@@ -23,7 +23,7 @@ spotlight.setPointerMode(false);
 const items = [],
 	listSize = ri.scale(468),
 	itemSize = ri.scale(156),
-	itemStyle = {margin: 0, paddingBottom: 0, paddingTop: 0},
+	itemStyle = {margin: 0},
 	numItems = 100;
 
 const renderItem = (size) => ({index, ...rest}) => {
