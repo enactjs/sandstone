@@ -188,9 +188,6 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 
 	// Callback for scroller updates; calculate and, if needed, scroll to new position based on focused item.
 	function handleScrollerUpdate () {
-		// const bounds = scrollContainerHandle.current.getScrollBounds();
-		// const scrollHeight = bounds && bounds.scrollHeight || 0;
-
 		if (scrollContainerHandle.current.scrollToInfo === null) {
 			const scrollHeight = scrollContainerHandle.current.getScrollBounds().scrollHeight;
 
