@@ -284,7 +284,7 @@ storiesOf('VirtualList', module)
 		{propTables: [Config]}
 	)
 	.add(
-		'overscrollEffectOn',
+		'overscrollEffectOn where pageKey is true',
 		() => {
 			return (
 				<VirtualList
