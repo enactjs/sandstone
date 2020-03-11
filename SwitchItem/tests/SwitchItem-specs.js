@@ -1,6 +1,8 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import SwitchItem from '../SwitchItem';
+import css from '../SwitchItem.module.less';
+
 
 describe('SwitchItem Specs', () => {
 
@@ -32,5 +34,18 @@ describe('SwitchItem Specs', () => {
 		const actual = SwitchComponent.prop('selected');
 
 		expect(actual).toBe(expected);
+	});
+
+	it('should have switchOnly class.', function () {
+		const switchItem = mount(
+			<SwitchItem selected switchOnly>
+				SwitchItem
+			</SwitchItem>
+		);
+
+		const expected = css.switchOnly;
+		const actual = switchItem.find('Item').prop('className');
+
+		expect(actual).toContain(expected);
 	});
 });

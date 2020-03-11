@@ -59,7 +59,13 @@ const SwitchItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+		switchOnly: PropTypes.bool
+	},
+
+	defaultProps: {
+		selected: false,
+		switchOnly: false
 	},
 
 	styles: {
@@ -68,26 +74,36 @@ const SwitchItemBase = kind({
 		publicClassNames: ['switchItem']
 	},
 
-	render: ({children, css, selected, ...rest}) => (
-		<Item
-			data-webos-voice-intent="SetToggleItem"
-			role="checkbox"
-			{...rest}
-			css={css}
-		>
-			<Switch selected={selected} slot="slotAfter" css={css} />
-			{children}
-		</Item>
-	)
+	computed: {
+		className: ({switchOnly, styler}) => styler.append({
+			switchOnly
+		})
+	},
+
+	render: ({children, css, selected, ...rest}) => {
+		delete rest.switchOnly;
+
+		return (
+			<Item
+				data-webos-voice-intent="SetToggleItem"
+				role="checkbox"
+				{...rest}
+				css={css}
+			>
+				<Switch selected={selected} slot="slotAfter" css={css} />
+				{children}
+			</Item>
+		);
+	}
 });
 
-const SwitchItemDecorator = compose(
+const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Spottable,
 	Skinnable
 );
 
-const SwitchItem = SwitchItemDecorator(SwitchItemBase);
+const SwitchItem = SwitchDecorator(SwitchItemBase);
 
 export default SwitchItem;
 export {

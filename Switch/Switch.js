@@ -92,7 +92,6 @@ const SwitchBase = kind({
 });
 
 const SwitchDecorator = compose(
-	Toggleable({toggleProp: 'onClick'}),
 	Skinnable
 );
 const Switch = SwitchDecorator(SwitchBase);
