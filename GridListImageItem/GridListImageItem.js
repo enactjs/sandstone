@@ -162,7 +162,7 @@ const GridListImageItemBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		subCaption: PropTypes.string,
+		subCaption: PropTypes.string
 	},
 
 	defaultProps: {
@@ -181,27 +181,24 @@ const GridListImageItemBase = kind({
 		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource}) => {
 			return (
 				imageIconSource ?
-				<Row className={css.subComponents}>
-					<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink/>
-					<Cell size={"75%"}>
-						<Column>
-							{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
-							{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
-						</Column>
-					</Cell>
-				</Row>
-				:
-				[
-					caption ? (<Cell className={css.caption} component={captionComponent} shrink key={'caption'}>{caption}</Cell>) : null,
-					subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink key={'subCaption'}>{subCaption}</Cell>) : null
-				]
+					<Row className={css.subComponents}>
+						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink />
+						<Cell size={'75%'}>
+							<Column>
+								{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
+								{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
+							</Column>
+						</Cell>
+					</Row> : [
+						caption ? (<Cell className={css.caption} component={captionComponent} shrink key={'caption'}>{caption}</Cell>) : null,
+						subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink key={'subCaption'}>{subCaption}</Cell>) : null
+					]
 			);
 		}
 	},
 
 	render: ({css, selectionOverlay, subComponents, ...rest}) => {
 		delete rest.imageIconComponent;
-		delete rest.imageIconPlaceholder;
 		delete rest.imageIconSource;
 
 		if (selectionOverlay) {
