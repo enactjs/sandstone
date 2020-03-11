@@ -6,6 +6,11 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Picker from '@enact/sandstone/Picker';
+import Scroller from '@enact/sandstone/Scroller';
+import {Row} from '@enact/ui/Layout';
+import Section from '../qa/components/KitchenSinkSection';
+import RangePicker from '@enact/sandstone/RangePicker';
+import DatePicker from '@enact/sandstone/DatePicker';
 
 import iconNames from '../default/icons';
 
@@ -23,11 +28,11 @@ const pickerList = {
 		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
 	],
 	long: [
-		'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text1',
-		'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text2',
-		'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text3',
-		'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text4',
-		'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text5'
+		'1 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text1',
+		'2 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text2',
+		'3 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text3',
+		'4 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text4',
+		'5 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text5'
 	],
 	vegetables: [
 		'Celery',
@@ -36,6 +41,9 @@ const pickerList = {
 		'Onion',
 		'Broccoli',
 		'Spinach'
+	],
+	numberList: [
+		'0', '1', '2', '3', '4'
 	],
 	oneAirport: [
 		'San Francisco Airport Terminal Gate 1'
@@ -48,6 +56,15 @@ const pickerList = {
 		'D',
 		'E',
 		'F'
+	],
+	airports: [
+		'San Francisco Airport Terminal Gate 1',
+		'Boston Airport Terminal Gate 2',
+		'Tokyo Airport Terminal Gate 3',
+		'London Airport Terminal Gate 4',
+		'Paris Airport Terminal Gate 6',
+		'Milan Airport Terminal Gate 5',
+		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	]
 };
 
@@ -170,5 +187,42 @@ storiesOf('Picker', module)
 			>
 				{pickerList.orderedList}
 			</PickerRTL>
+		)
+	)
+	.add(
+		'Kitchen Sink',
+		() => (
+			<Scroller>
+				<Row wrap>
+					<Section title="Picker Non-Joined">
+						<Picker alt="Picker Horizontal">{pickerList.vegetables}</Picker>
+						<Picker alt="Tall text size">{pickerList.tall}</Picker>
+						<Picker alt="Disabled" disabled>{pickerList.vegetables}</Picker>
+						<Picker alt="No Animation" width={"medium"} noAnimation>{pickerList.airports}</Picker>
+						<Picker alt="Picker Vertical Small" width={"small"} orientation="vertical">{pickerList.orderedList}</Picker>
+						<Picker alt="Picker Vertical Medium" width={"medium"} orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
+						<Picker alt="Picker Vertical Large" width={"large"} orientation="vertical">{pickerList.tall}</Picker>
+					</Section>
+
+					<Section title="Picker Joined">
+						<Picker alt="Joined" joined>{pickerList.airports}</Picker>
+						<Picker alt="Joined with medium width" joined width={"medium"} noAnimation wrap>{pickerList.tall}</Picker>
+						<Picker alt="Joined with small width" joined width={"small"}>{pickerList.numberList}</Picker>
+					</Section>
+
+					<Section title="Picker Joined Vertical">
+						<Picker alt="Joined Vertical Small" joined width={"small"} orientation="vertical">{pickerList.numberList}</Picker>
+						<Picker alt="Joined Vertical Medium" joined width={"medium"} orientation="vertical">{pickerList.orderedList}</Picker>
+						<Picker alt="Joined Vertical large" joined width={"large"} orientation="vertical">{pickerList.tall}</Picker>
+						<Picker alt="Joined Vertical Wrap" joined width={"medium"} orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
+					</Section>
+
+					<Section title="Different Pickers">
+						<RangePicker alt="Range Picker" defaultValue={70} min={0} max={100}></RangePicker>
+						<RangePicker alt="Range Picker Joined" joined defaultValue={70} min={0} max={100}></RangePicker>
+						<DatePicker alt="Date Picker" day={1} maxDays={31} maxMonths={12} month={1} noLabels open order={['m', 'd', 'y']} title="Date" year={2000} />
+					</Section>
+				</Row>
+			</Scroller>
 		)
 	);
