@@ -18,7 +18,7 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 import {GridListImageItem as UiGridListImageItem} from '@enact/ui/GridListImageItem';
-import {Cell, Column, Row} from '@enact/ui/Layout';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -171,21 +171,24 @@ const GridListImageItemBase = kind({
 
 	computed: {
 		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource}) => {
-			const captions = (columnClass) => (
-				<Column className={columnClass}>
+			const captions = () => (
+				<React.fragment>
 					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
 					{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
-				</Column>
+				</React.fragment>
 			);
 
 			return (
 				imageIconSource ?
 					<Row className={css.subComponents}>
 						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink />
-						<Cell size="75%">
-							{captions(null)}
+						<Cell size="77%">
+							{captions()}
 						</Cell>
-					</Row> : captions(css.subComponents)
+					</Row> :
+					<div className={css.subComponents}>
+						{captions()}
+					</div>
 			);
 		}
 	},
