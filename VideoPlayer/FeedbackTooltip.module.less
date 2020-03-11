@@ -7,6 +7,9 @@
 .feedbackTooltip {
 	position: absolute;
 	bottom: @sand-video-slider-tooltip-position-bottom;
+	&.thumbnailShown {
+		bottom: @sand-video-slider-tooltip-shift-position-bottom;
+	}
 
 	&.hidden {
 		display: none;
@@ -27,8 +30,8 @@
 
 		.image {
 			margin: 0;
-			width: 504px;
-			height: 282px;
+			width: 426px;
+			height: 240px;
 		}
 	}
 
@@ -54,13 +57,37 @@
 		right:50%;
 	}
 
+	.arrowContainer {
+		position: absolute;
+		right: 0;
+		left: 0;
+
+		.arrow {
+			margin: auto;
+			width: 0px;
+			height: 0px;
+			border-top: 24px solid;
+			border-right: 18px solid;
+			border-left: 18px solid;
+		}
+	}
+
 	.applySkins({
 		.thumbnail {
 			border-color: @sand-video-slider-tooltip-thumbnail-border-color;
 		}
 
+		.arrow {
+			border-top-color: #e6e6e6;
+			border-right-color: transparent;
+			border-left-color: transparent;
+		}
+
 		.content {
-			color: @sand-white;
+			font-size: 54px;
+			color: @sand-light-gray;
+			font-weight: 700;
+			margin-bottom: 6px;
 			text-shadow: @sand-video-player-title-text-shadow;
 		}
 	});

@@ -161,10 +161,11 @@ const FeedbackTooltipBase = kind({
 		children: ({children, duration, formatter}) => {
 			return secondsToTime(children * duration, formatter);
 		},
-		className: ({hidden, playbackState: s, thumbnailDeactivated, styler}) => {
+		className: ({hidden, playbackState: s, thumbnailDeactivated, styler, action, thumbnailComponent, thumbnailSrc}) => {
 			return styler.append({
 				hidden: hidden && states[s] && states[s].allowHide,
-				thumbnailDeactivated
+				thumbnailDeactivated,
+				thumbnailShown: action === 'focus' && (thumbnailComponent || thumbnailSrc)
 			});
 		},
 		feedbackVisible: ({action, playbackState}) => {
@@ -211,6 +212,11 @@ const FeedbackTooltipBase = kind({
 					>
 						{children}
 					</FeedbackContent>
+					{thumbnailComponent ?
+						<div className={css.arrowContainer}>
+							<div className={css.arrow} />
+						</div> : null
+					}
 				</div>
 			</div>
 		);
