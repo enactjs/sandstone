@@ -1,5 +1,5 @@
-import Input from '../../../../Input';
-import ThemeDecorator from '../../../../ThemeDecorator';
+import {InputField} from '../../../../Input';
+import ThemeDecorator from '../../../../ThemeDecorator/ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 
@@ -12,34 +12,33 @@ spotlight.setPointerMode(false);
 const app = (props) => <div {...props}>
 	<div>
 		<div>
-			<Input
+			<InputField
 				id="input1"
-				defaultValue="Input field one"
+				defaultValue="InputField one"
 			/>
-			<Input
+			<InputField
 				id="input2"
-				defaultValue="Input field two"
+				defaultValue="InputField two"
 			/>
 		</div>
 		<div>
-			<Input
+			<InputField
 				id="input3"
-				defaultValue="Input field three"
+				defaultValue="InputField three"
 			/>
-			<Input
+			<InputField
 				id="input4"
-				defaultValue="Input field four"
+				defaultValue="InputField four"
 			/>
 		</div>
 		<div>
-			<Input
+			<InputField
 				id="input5"
 				disabled
-				defaultValue="Input field five"
+				defaultValue="InputField five"
 			/>
 		</div>
 	</div>
 </div>;
 
 export default ThemeDecorator(app);
-
