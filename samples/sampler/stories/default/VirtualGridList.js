@@ -10,6 +10,7 @@ import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
+	scrollModeOption = ['native', 'translate'],
 	wrapOption = {
 		false: false,
 		true: true,
@@ -77,9 +78,11 @@ storiesOf('Sandstone', module)
 					minWidth: ri.scale(number('minWidth', 640)),
 					minHeight: ri.scale(number('minHeight', 540))
 				}}
+				key={select('scrollMode', scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', scrollModeOption, VirtualGridListConfig)}
 				spacing={ri.scale(number('spacing', 48))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}

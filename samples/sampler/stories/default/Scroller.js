@@ -10,6 +10,7 @@ import Scroller from '@enact/sandstone/Scroller';
 
 const
 	prop = {
+		scrollModeOption: ['native', 'translate'],
 		direction: ['both', 'horizontal', 'vertical'],
 		focusableScrollbarOption: [true, false, 'byEnter'],
 		scrollbarOption: ['auto', 'hidden', 'visible']
@@ -25,9 +26,11 @@ storiesOf('Sandstone', module)
 				direction={select('direction', prop.direction, ScrollerConfig)}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
+				key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 				spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 			>

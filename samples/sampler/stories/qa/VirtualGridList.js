@@ -17,7 +17,10 @@ const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, Vir
 
 const
 	defaultDataSize = 1000,
-	prop = {scrollbarOption: ['auto', 'hidden', 'visible']},
+	prop = {
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
+	},
 	wrapOption = {
 		false: false,
 		true: true,
@@ -105,11 +108,13 @@ class MyVirtualList extends React.Component {
 		return (
 			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
+					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
+					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
-					direction="vertical"
-					cbScrollTo={this.getScrollTo}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				/>
 			</div>
 		);
@@ -169,10 +174,12 @@ storiesOf('VirtualGridList', module)
 					minWidth: ri.scale(number('minWidth', Config, 640)),
 					minHeight: ri.scale(number('minHeight', Config, 540))
 				}}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spacing={ri.scale(number('spacing', Config, 48))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
