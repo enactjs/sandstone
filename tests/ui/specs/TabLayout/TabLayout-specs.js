@@ -32,12 +32,11 @@ describe('TabLayout', function () {
 
 		it('should render a tab\'s associated view when it is selected', function () {
 			const expected = 'view5';
-			const actual = 'view5';
-
 			const originalView = tabLayoutDefaultWithoutIcons.currentView.getAttribute('id');
 
 			expect(originalView).to.equal('view1');
 			selectTab(tabLayoutDefaultWithoutIcons.tabItems.value[4]);
+			const actual = tabLayoutDefaultWithoutIcons.currentView.getAttribute('id');
 
 			expect(actual).to.equal(expected);
 		});
