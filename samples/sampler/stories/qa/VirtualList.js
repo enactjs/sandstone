@@ -17,14 +17,9 @@ import {storiesOf} from '@storybook/react';
 const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 const
-	itemStyle = {
-		boxSizing: 'border-box',
-		display: 'flex'
-	},
 	listStyle = {
 		height: '400px'
 	},
-	borderStyle = ri.unit(6, 'rem') + ' solid #202328',
 	items = [],
 	defaultDataSize = 1000,
 	defaultDataSizeForSmallMinLargeSize = 5,
@@ -40,14 +35,10 @@ const
 	},
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
-		const style = {
-			...(
-				vertical ?
-					{borderBottom: borderStyle, height: size + 'px'} :
-					{borderRight: borderStyle, height: '100%', width: size + 'px', writingMode: 'vertical-lr'}
-			),
-			...itemStyle
-		};
+		const style = vertical ?
+			{margin: 0} :
+			{margin: 0, height: '100%', width: size + 'px', writingMode: 'vertical-lr'};
+
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
 				{items[index].item}
@@ -180,8 +171,8 @@ storiesOf('VirtualList', module)
 				dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 				direction: 'horizontal',
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
-				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 144)), false),
-				itemSize: ri.scale(number('itemSize', Config, 144)),
+				itemRenderer: renderItem(Item, ri.scale(number('itemSize', Config, 156)), false),
+				itemSize: ri.scale(number('itemSize', Config, 156)),
 				noScrollByWheel: boolean('noScrollByWheel', Config),
 				onKeyDown: action('onKeyDown'),
 				onScrollStart: action('onScrollStart'),
@@ -209,8 +200,8 @@ storiesOf('VirtualList', module)
 				<VirtualList
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 144))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -254,7 +245,7 @@ storiesOf('VirtualList', module)
 					title={title}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-					itemSize={ri.scale(number('itemSize', Config, 144))}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -273,8 +264,8 @@ storiesOf('VirtualList', module)
 			return (
 				<VirtualListWithCBScrollTo
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 144))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);
 		},
@@ -293,8 +284,8 @@ storiesOf('VirtualList', module)
 						wheel: false
 					}}
 					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 144)), true)}
-					itemSize={ri.scale(number('itemSize', Config, 144))}
+					itemRenderer={renderItem(StatefulSwitchItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
 				/>
 			);
 		},
