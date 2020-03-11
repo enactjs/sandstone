@@ -36,8 +36,11 @@ let ScrollThumb = forwardRef((props, ref) => {
 		cbAlertThumb();
 	});
 
-	useEffect (()=> {
+	useEffect (() => {
 		SpotlightAccelerator.reset();
+		return () => {
+			SpotlightAccelerator.reset();
+		};
 	}, []);
 
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
