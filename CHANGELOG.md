@@ -14,15 +14,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-<<<<<<< HEAD
 - `Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
-=======
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
 - `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
 - `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
->>>>>>> develop
 
 ## [1.0.0-alpha.2] - 2020-03-03
 

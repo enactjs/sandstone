@@ -84,7 +84,7 @@ describe('ContextualMenuDecorator', function () {
 			it('should keep Spotlight on button when menu opens with pointer', function () {
 				button1.focus();
 				button1.self.click(); // this will close menu2 and open menu1
-				expect(button1.self.hasFocus()).to.be.true();  // (verify step 3)
+				expect(button1.self.isFocused()).to.be.true();  // (verify step 3)
 				expect(menu1.isMenuExist).to.be.true();  // (verify step 3)
 				expect(menu1.item(0).isFocused()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
 				button1.self.click(); // this will close menu1
