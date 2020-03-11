@@ -35,7 +35,7 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 		constructor (props) {
 			super(props);
 
-			if (globalNode == null) globalNode = window;
+			if (globalNode == null && typeof window !== 'undefined') globalNode = window;
 
 			this.events = {};
 			for (let [evName, fn] of Object.entries(events)) {
