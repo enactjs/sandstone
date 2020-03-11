@@ -179,27 +179,30 @@ const GridListImageItemBase = kind({
 
 	computed: {
 		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource}) => {
+			const captions = (columnClass) => (
+				<Column className={columnClass}>
+					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
+					{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
+				</Column>
+			);
+
 			return (
 				imageIconSource ?
 					<Row className={css.subComponents}>
 						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink />
-						<Cell size={'75%'}>
-							<Column>
-								{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
-								{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
-							</Column>
+						<Cell size="75%">
+							{captions(null)}
 						</Cell>
-					</Row> : [
-						caption ? (<Cell className={css.caption} component={captionComponent} shrink key={'caption'}>{caption}</Cell>) : null,
-						subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink key={'subCaption'}>{subCaption}</Cell>) : null
-					]
+					</Row> : captions(css.subComponents)
 			);
 		}
 	},
 
 	render: ({css, selectionOverlay, subComponents, ...rest}) => {
+		delete rest.caption;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSource;
+		delete rest.subCaption;
 
 		if (selectionOverlay) {
 			rest['role'] = 'checkbox';

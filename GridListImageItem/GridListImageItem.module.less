@@ -27,21 +27,22 @@
 		margin-bottom: @sand-gridlistimageitem-image-margin-bottom;
 	}
 
+	.subComponents {
+		.transitionEffect();
+	}
+
 	.imageIcon {
 		height: @sand-gridlistimageitem-image-icon-size;
 		width: @sand-gridlistimageitem-image-icon-size;
 		margin-left: 0;
-		.transitionEffect();
 	}
 
 	.caption {
 		.sand-text-base(@sand-gridlistimageitem-caption-font-size);
-		.transitionEffect();
 	}
 
 	.subCaption {
 		.sand-text-base(@sand-gridlistimageitem-subcaption-font-size);
-		.transitionEffect();
 	}
 
 	.overlayContainer::after {
@@ -94,9 +95,7 @@
 				color: @sand-gridlistimageitem-focus-overlay-icon-color;
 			}
 
-			.caption,
-			.imageIcon,
-			.subCaption {
+			.subComponents {
 				transform: @sand-gridlistimageitem-focus-caption-transform;
 			}
 
