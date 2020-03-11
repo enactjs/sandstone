@@ -129,15 +129,7 @@ const MediaOverlayBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		progressShowing: PropTypes.bool,
-
-		/**
-		 * The second caption line to be displayed.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		subCaption: PropTypes.string,
+		showProgress: PropTypes.bool,
 
 		/**
 		 * The third caption line to be displayed.
@@ -145,7 +137,7 @@ const MediaOverlayBase = kind({
 		 * @type {String}
 		 * @public
 		 */
-		subCaptionBelow: PropTypes.string,
+		subtitle: PropTypes.string,
 
 		/**
 		 * Text to display over media.
@@ -168,7 +160,15 @@ const MediaOverlayBase = kind({
 		 * @public
 		 * @default "center"
 		 */
-		textAlign: PropTypes.string
+		textAlign: PropTypes.string,
+
+		/**
+		 * The second caption line to be displayed.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		title: PropTypes.string
 	},
 
 	defaultProps: {
@@ -183,7 +183,7 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({caption, css, imageOverlay, marqueeOn, mediaComponent, placeholder, progress, progressShowing, source, subCaption, subCaptionBelow, text, textAlign, ...rest}) => {
+	render: ({caption, css, imageOverlay, marqueeOn, mediaComponent, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
@@ -210,7 +210,7 @@ const MediaOverlayBase = kind({
 							</Cell>
 						</Layout>
 					) : null}
-					{progressShowing ?
+					{showProgress ?
 						<ProgressBar
 							css={css}
 							orientation="horizontal"
@@ -220,8 +220,8 @@ const MediaOverlayBase = kind({
 				</div>
 				<div className={css.captionContainer}>
 					{caption ? (<Marquee className={css.caption} marqueeOn={marqueeOn}>{caption}</Marquee>) : null}
-					{subCaption ? (<Marquee className={css.subCaption} marqueeOn={marqueeOn}>{subCaption}</Marquee>) : null}
-					{subCaptionBelow ? (<Marquee className={css.subCaptionBelow} marqueeOn={marqueeOn}>{subCaptionBelow}</Marquee>) : null}
+					{title ? (<Marquee className={css.title} marqueeOn={marqueeOn}>{title}</Marquee>) : null}
+					{subtitle ? (<Marquee className={css.subtitle} marqueeOn={marqueeOn}>{subtitle}</Marquee>) : null}
 				</div>
 			</div>
 		);

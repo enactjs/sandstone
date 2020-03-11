@@ -76,8 +76,8 @@ storiesOf('Sandstone', module)
 			return (
 				<MediaOverlay
 					caption={text('caption', Config, 'DTV 7-1')}
-					subCaption={text('subCaption', Config, 'Program Name')}
-					subCaptionBelow={text('subCaptionBelow', Config, '07:00 AM - 08:00 AM')}
+					title={text('title', Config, 'Program Name')}
+					subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
 					disabled={boolean('disabled', Config)}
 					imageOverlay={imageSource}
 					marqueeOn={select('marqueeOn', ['focus', 'hover', 'render'], Config, 'focus')}
