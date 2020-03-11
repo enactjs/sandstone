@@ -236,7 +236,7 @@ const useSpottable = (props, instances, context) => {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems);
+				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (itemNode) {
 					itemNode.blur();
@@ -310,8 +310,6 @@ const useSpottable = (props, instances, context) => {
 const useThemeVirtualList = (props) => {
 	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
-	// Mutable value
-
 	// Hooks
 
 	const instance = {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef};
@@ -370,12 +368,12 @@ const useThemeVirtualList = (props) => {
 		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
 
 	// not used by VirtualList
-	delete rest.scrollContainerContainsDangerously;
-	delete rest.scrollContainerRef;
-	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.spotlightId;
+	// not used by VirtualList
+	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
+	delete rest.scrollContainerRef;
+	delete rest.spotlightId;
 	delete rest.wrap;
 
 	return {
