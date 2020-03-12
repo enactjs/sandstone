@@ -14,7 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
-	const {themeScrollContentHandle, spottable, scrollContainerRef, scrollContentRef, scrollContainerHandle} = instances;
+	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 	const {alertThumb, isWheeling, scrollMode} = context;
 
 	// Functions
@@ -135,14 +135,11 @@ const useEventFocus = (props, instances, context) => {
 	}
 
 	function hasFocus () {
-		let current = Spotlight.getCurrent();
+		const current = Spotlight.getCurrent();
 
-		if (!current) {
-			const spotlightId = Spotlight.getActiveContainer();
-			current = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
+		if (current) {
+			return utilDOM.containsDangerously(scrollContainerRef.current, current);
 		}
-
-		return utilDOM.containsDangerously(scrollContainerRef, current);
 	}
 
 	// Return
