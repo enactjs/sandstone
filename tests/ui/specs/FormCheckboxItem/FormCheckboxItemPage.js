@@ -10,16 +10,16 @@ class FormCheckboxItemInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(`#${this.id}`, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(`#${this.id}`));
 	}
 
-	get self () { return browser.element(`#${this.id}`); }
+	get self () { return $(`#${this.id}`); }
 	get valueText () { return getText(getMarqueeText(this.self)); }
 	get icon () { return getIcon(this.self);}
 	get iconSymbol () { return getText(this.icon); }
-	get isChecked () { return this.self.isExisting(componentSelector({component: 'FormCheckbox', child: 'selected'})); }
-	get isAfter () { return this.self.isExisting(componentSelector({component: 'Item', child: 'after'})); }
-	get isBefore () { return this.self.isExisting(componentSelector({component: 'Item', child: 'before'})); }
+	get isChecked () { return this.self.$(componentSelector({component: 'FormCheckbox', child: 'selected'}).isExisting()); }
+	get isAfter () { return this.self.$(componentSelector({component: 'Item', child: 'after'}).isExisting()); }
+	get isBefore () { return this.self.$(componentSelector({component: 'Item', child: 'before'}).isExisting()); }
 	get isInline () { return hasClass(componentSelector({component: 'Item', child: 'inline'}), this.self); }
 }
 

@@ -19,7 +19,7 @@ describe('ContextualMenuDecorator', function () {
 		});
 
 		it('should focus the first button on start', function () {
-			expect(button1.self.hasFocus()).to.be.true();
+			expect(button1.self.isFocused()).to.be.true();
 		});
 
 		it('should not have the menu on start', function () {
@@ -39,34 +39,34 @@ describe('ContextualMenuDecorator', function () {
 
 			// [GT-28276] - Spotlight is on the first item (verify step 3 - part 2)
 			it('should move focus to first menu item on select', function () {
-				expect(menu1.item(0).hasFocus()).to.be.true();
+				expect(menu1.item(0).isFocused()).to.be.true();
 			});
 
 			// [GT-28284] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button (verify step 4)
 			it('should dismiss the menu on 5-way left from menu item', function () {
 				Page.spotlightLeft();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28284] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button (verify step 5)
 			it('should dismiss the menu on 5-way right from menu item', function () {
 				Page.spotlightRight();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28284] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button (verify step 6)
 			it('should dismiss the menu on 5-way up from first menu item', function () {
 				Page.spotlightUp();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 
 			// [GT-28285] - Spotlight is on the second item. (verify step 4)
 			it('should move focus to the next menu item on 5-way down', function () {
 				Page.spotlightDown();
-				expect(menu1.item(1).hasFocus()).to.be.true();
+				expect(menu1.item(1).isFocused()).to.be.true();
 			});
 
 			// [GT-28285] - The *Contextual Button* menu closes. Spotlight is on *Contextual Button* button. (verify step 5)
@@ -75,30 +75,22 @@ describe('ContextualMenuDecorator', function () {
 				Page.spotlightDown();
 				Page.spotlightDown();
 				expect(menu1.isMenuExist).to.be.false();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(button1.self.isFocused()).to.be.true();
 			});
 		});
 
 		describe('using pointer', function () {
 			// [GT-28282]
-			// The 3 steps below are needed for the test to pass
-			// We need to test that focus remains on the *Contextual Button* button when being clicked. Since the view renders with menu2 in an open state, clicking
-			// button1 will result in menu2 changing to a closed state, which will remove focus from the view. We need to then close and re-open menu1 in order to
-			// properly test focus in this case.
 			it('should keep Spotlight on button when menu opens with pointer', function () {
 				button1.focus();
 				button1.self.click(); // this will close menu2 and open menu1
-				button1.focus();
-				button1.self.click(); // this will close menu1
-				button1.focus();
-				button1.self.click(); // this will open menu1
-				expect(button1.self.hasFocus()).to.be.true();  // (verify step 3)
+				expect(button1.self.isFocused()).to.be.true();  // (verify step 3)
 				expect(menu1.isMenuExist).to.be.true();  // (verify step 3)
-				expect(menu1.item(0).hasFocus()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
+				expect(menu1.item(0).isFocused()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
 				button1.self.click(); // this will close menu1
 				button1.focus();
 				expect(menu1.isMenuExist).to.be.false(); 	// (verify step 4)
-				expect(button1.self.hasFocus()).to.be.true();	// (verify step 4)
+				expect(button1.self.isFocused()).to.be.true();	// (verify step 4)
 			});
 		});
 	});
@@ -110,7 +102,7 @@ describe('ContextualMenuDecorator', function () {
 		});
 
 		it('should set focus to first menu item on start', function () {
-			expect(menu2.item(0).hasFocus()).to.be.true();
+			expect(menu2.item(0).isFocused()).to.be.true();
 		});
 	});
 
