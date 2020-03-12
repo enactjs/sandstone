@@ -27,18 +27,22 @@ const SpotlightAccelerator = new Accelerator();
  * @private
  */
 let ScrollThumb = forwardRef((props, ref) => {
+	console.log("ss/useScroll/ScrollThumb start =====================");
 	const
 		{cbAlertThumb, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollTrack, vertical ? css.vertical : null),
 		ScrollThumbDiv = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
+		console.log("ss/useScroll/ScrollThumb useEffect1 cbAlertThumb");
 		cbAlertThumb();
 	});
 
 	useEffect (() => {
+		console.log("ss/useScroll/ScrollThumb useEffect2 ApotlightAccelerator.reset");
 		SpotlightAccelerator.reset();
 		return () => {
+			console.log("ss/useScroll/ScrollThumb useEffect2 cleanup ApotlightAccelerator.reset");
 			SpotlightAccelerator.reset();
 		};
 	}, []);
@@ -94,7 +98,7 @@ let ScrollThumb = forwardRef((props, ref) => {
 			);
 		}
 	}, [consumeEventWithScroll, ref, vertical]);
-
+	console.log("ss/useScroll/ScrollThumb end ==========================");
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
 			<ScrollThumbDiv className={css.thumb} onKeyDown={onKeyDown}>

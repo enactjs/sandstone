@@ -1,6 +1,7 @@
 import {useRef} from 'react';
 
 const useThemeScrollContentHandle = () => {
+	console.log("ss/useScroll/useThemeScrollContentHandle start===================");
 	// Mutable value
 
 	const themeScrollContentHandle = useRef({
@@ -22,7 +23,7 @@ const useThemeScrollContentHandle = () => {
 	};
 
 	// Return
-
+	console.log("ss/useScroll/useThemeScrollContentHandle end===================");
 	return [themeScrollContentHandle, setThemeScrollContentHandle];
 };
 

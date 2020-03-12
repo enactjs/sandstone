@@ -23,6 +23,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances, context) => {
+	console.log("ss/VL/useSpottable start =====================");
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const {scrollMode} = context;
 	const getItemNode = (index) => {
@@ -106,7 +107,9 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	useEffect(() => {
+		console.log("ss/VL/useSpottable useEffect1 nothing");
 		return () => {
+			console.log("ss/VL/useSpottable useEffect1 cleanup SpotlightAccelerator reset");
 			// TODO: Fix eslint
 			pause.resume(); // eslint-disable-line react-hooks/exhaustive
 			SpotlightAccelerator.reset();
@@ -287,7 +290,7 @@ const useSpottable = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/VL/useSpottable end =====================");
 	return {
 		calculatePositionOnFocus,
 		focusByIndex,
@@ -308,6 +311,7 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
+	console.log("ss/VL/useThemeVirtualList start =====================");
 	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
@@ -345,6 +349,7 @@ const useThemeVirtualList = (props) => {
 		shouldPreventScrollByFocus
 	};
 	useEffect(() => {
+		console.log("ss/VL/useThemeVirtualList useEffect1 setThemeScrollContentHandle ");
 		props.setThemeScrollContentHandle(handle);
 	}, [handle, props, props.setThemeScrollContentHandle]);
 
@@ -376,6 +381,7 @@ const useThemeVirtualList = (props) => {
 	delete rest.spotlightId;
 	delete rest.wrap;
 
+	console.log("ss/VL/useThemeVirtualList end =====================");
 	return {
 		...rest,
 		css,
@@ -413,6 +419,7 @@ function listItemsRenderer (props) {
 		SpotlightPlaceholder // eslint-disable-line no-shadow
 	} = props;
 
+	console.log("ss/VL/listItemsRenderer render");
 	return (
 		<>
 			{cc.length ? (

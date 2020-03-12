@@ -59,6 +59,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances, context, assignProperties) => {
+	console.log("ss/useScroll/useThemeScroll start===================");
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
@@ -230,7 +231,7 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useThemeScroll end===================");
 	return {
 		addEventListeners,
 		applyOverscrollEffect,
@@ -261,6 +262,7 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
  * @private
  */
 const useScroll = (props) => {
+	console.log("ss/useScroll/useScroll start===================");
 	const
 		{
 			className,
@@ -466,6 +468,8 @@ const useScroll = (props) => {
 		focusableScrollbar,
 		ref: horizontalScrollbarRef
 	});
+
+	console.log("ss/useScroll/useScroll end===================");
 
 	return {
 		...collectionOfProperties,

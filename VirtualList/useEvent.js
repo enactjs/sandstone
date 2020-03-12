@@ -17,6 +17,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, instances, context) => {
+	console.log("ss/VL/useEventKey start======================");
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 	const {
 		handle5WayKeyUp,
@@ -109,6 +110,7 @@ const useEventKey = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log("ss/VL/useEventKey useEffect1 handleKeyDown/up addEventListener");
 		function handleKeyDown (ev) {
 			const {keyCode, target} = ev;
 			const direction = getDirection(keyCode);
@@ -198,6 +200,7 @@ const useEventKey = (props, instances, context) => {
 		utilEvent('keyup').addEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 
 		return () => {
+			console.log("ss/VL/useEventKey useEffect1 keyDown removeEventListener");
 			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 		};
@@ -216,7 +219,7 @@ const useEventKey = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/VL/useEventKey end======================");
 	return {
 		addGlobalKeyDownEventListener,
 		removeGlobalKeyDownEventListener
@@ -224,9 +227,11 @@ const useEventKey = (props, instances, context) => {
 };
 
 const useEventFocus = (props, instances) => {
+	console.log("ss/VL/useEventFocus start======================");
 	const {scrollContainerRef, scrollContentHandle} = instances;
 
 	useEffect(() => {
+		console.log("ss/VL/useEventFocus useEffect1 handleFocus, handleBlur add eventlistener");
 		function handleFocus (ev) {
 			// only for VirtualGridList
 			// To make the focused item cover other near items
@@ -248,6 +253,7 @@ const useEventFocus = (props, instances) => {
 		utilEvent('focusout').addEventListener(scrollContainerRef, handleBlur);
 
 		return () => {
+			console.log("ss/VL/useEventFocus useEffect1 cleanup handleFocus, handleBlur remove eventlistener");
 			utilEvent('focusin').removeEventListener(scrollContainerRef, handleFocus);
 			utilEvent('focusout').removeEventListener(scrollContainerRef, handleBlur);
 		};

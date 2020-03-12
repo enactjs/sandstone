@@ -6,6 +6,7 @@ const {paginationPageMultiplier} = constants;
 const defaultScrollDistance = 168;	// TODO : Change to the value decided by UX.
 
 const useScrollbar = (props, instances, context) => {
+	console.log("ss/useScroll/useScrollbar start===================");
 	const {scrollContainerHandle} = instances;
 	const {isContent} = context;
 
@@ -49,7 +50,7 @@ const useScrollbar = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useScrollbar end===================");
 	return {
 		alertThumb,
 		scrollbarProps

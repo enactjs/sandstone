@@ -16,6 +16,7 @@ const
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
 const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignProperties) => {
+	console.log("ss/useScroll/setFocusableBodyProps start===================");
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -95,15 +96,18 @@ const setFocusableBodyProps = ({className, style}, {scrollContainerRef}, assignP
 		),
 		style
 	});
+	console.log("ss/useScroll/setFocusableBodyProps end===================");
 };
 
 const useSpotlightRestore = (props, instances) => {
+	console.log("ss/useScroll/useSpotlightRestore start===================");
 	const {scrollContainerHandle} = instances;
 	const context = useContext(SharedState);
 
 	// Hooks
 
 	useEffect(() => {
+		console.log("ss/useScroll/useSpotlightRestore useEffect1 restoreScrollPosition");
 		// Only intended to be used within componentDidMount, this method will fetch the last stored
 		// scroll position from SharedState and scroll (without animation) to that position
 		function restoreScrollPosition () {
@@ -122,6 +126,7 @@ const useSpotlightRestore = (props, instances) => {
 
 		restoreScrollPosition();
 	}, [context, props, scrollContainerHandle]);
+	console.log("ss/useScroll/useSpotlightRestore end===================");
 };
 
 export {

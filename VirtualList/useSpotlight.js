@@ -4,10 +4,11 @@ import {useEffect, useRef} from 'react';
 
 const useSpotlightConfig = (props, instances) => {
 	const {spottable: {current: {lastFocusedIndex}}} = instances;
-
+	console.log("ss/VL/useSpotlightConfig start =====================");
 	// Hooks
 
 	useEffect(() => {
+		console.log("ss/VL/useSpotlightConfig useEffect1 configureSpotlight");
 		const lastFocusedPersist = () => {
 			if (lastFocusedIndex != null) {
 				return {
@@ -62,11 +63,13 @@ const useSpotlightConfig = (props, instances) => {
 			return focused || Number(node.dataset.index) === key && node;
 		}, null);
 	}
+	console.log("ss/VL/useSpotlightConfig end =====================");
 };
 
 const getNumberValue = (index) => index | 0;
 
 const useSpotlightRestore = (props, instances, context) => {
+	console.log("ss/VL/useSpotlightRestore start =====================");
 	const {scrollContentRef, spottable} = instances;
 	const {getItemNode} = context;
 
@@ -107,6 +110,7 @@ const useSpotlightRestore = (props, instances, context) => {
 	}
 
 	function restoreFocus () {
+		console.log("ss/VL/useSpotlightRestore useEffect1 restoreFocus");
 		if (
 			mutableRef.current.restoreLastFocused &&
 			!isPlaceholderFocused()
@@ -153,7 +157,7 @@ const useSpotlightRestore = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/VL/useSpotlightRestore end =====================");
 	return {
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,

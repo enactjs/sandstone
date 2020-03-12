@@ -8,6 +8,7 @@ const
 	overscrollTimeout = 300;
 
 const useOverscrollEffect = (props, instances) => {
+	console.log("ss/useScroll/useOverscrollEffect start===================");
 	const {overscrollRefs, scrollContainerHandle} = instances;
 
 	// Mutable value
@@ -34,6 +35,7 @@ const useOverscrollEffect = (props, instances) => {
 	}, [overscrollRefs]);
 
 	useEffect(() => {
+		console.log("ss/useScroll/useOverscrollEffect useEffect1 createOverscrollJob");
 		function createOverscrollJob (orientation, edge) {
 			if (!mutableRef.current.overscrollJobs[orientation][edge]) {
 				mutableRef.current.overscrollJobs[orientation][edge] = new Job(applyOverscrollEffect, overscrollTimeout);
@@ -54,6 +56,7 @@ const useOverscrollEffect = (props, instances) => {
 		createOverscrollJob('vertical', 'after');
 
 		return () => {
+			console.log("ss/useScroll/useOverscrollEffect useEffect1 cleanup stopOverscrollJob");
 			stopOverscrollJob('horizontal', 'before');
 			stopOverscrollJob('horizontal', 'after');
 			stopOverscrollJob('vertical', 'before');
@@ -84,7 +87,7 @@ const useOverscrollEffect = (props, instances) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useOverscrollEffect start===================");
 	return {
 		applyOverscrollEffect,
 		checkAndApplyOverscrollEffectByDirection,

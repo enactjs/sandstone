@@ -18,6 +18,7 @@ import componentCss from './Scrollbar.module.less';
  * @private
  */
 const ScrollbarBase = memo(forwardRef((props, ref) => {
+	console.log("ss/useScroll/ScrollbarBase start ==========================");
 	// Refs
 	const scrollbarRef = useRef();
 	// render
@@ -40,7 +41,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			}
 		};
 	}, [scrollbarRef]);
-
+	console.log("ss/useScroll/ScrollbarBase render ==========================");
 	return (
 		<UiScrollbarBase
 			clientSize={clientSize}

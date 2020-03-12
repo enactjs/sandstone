@@ -69,6 +69,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		role
 	});
 
+	console.log("ss/VirtualList render");
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>

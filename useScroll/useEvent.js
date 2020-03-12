@@ -14,6 +14,7 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
+	console.log("ss/useScroll/useEventFocus start =================");
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
 	const {alertThumb, isWheeling, scrollMode} = context;
 
@@ -143,7 +144,7 @@ const useEventFocus = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventFocus end =================");
 	return {
 		calculateAndScrollTo,
 		handleFocus,
@@ -152,6 +153,7 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
+	console.log("ss/useScroll/useEventKey start =================");
 	const {themeScrollContentHandle, spottable, scrollContentRef, scrollContainerHandle} = instances;
 	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode} = context;
 
@@ -282,7 +284,7 @@ const useEventKey = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventKey end =================");
 	return {
 		handleKeyDown,
 		lastPointer,
@@ -331,6 +333,7 @@ const pageKeyHandler = (ev) => {
 };
 
 const useEventMonitor = (props, instances, context) => {
+	console.log("ss/useScroll/useEventMonitor start =================");
 	const {scrollContainerRef} = instances;
 	const {lastPointer: lastPointerProp, scrollByPageOnPointerMode} = context;
 
@@ -343,6 +346,7 @@ const useEventMonitor = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log("ss/useScroll/useEventMonitor useEffect1 setMonitorEventTarget");
 		const setMonitorEventTarget = (target) => {
 			scrollers.set(mutableRef.current.pageKeyHandlerObj, target);
 		};
@@ -354,6 +358,7 @@ const useEventMonitor = (props, instances, context) => {
 		setMonitorEventTarget(scrollContainerRef.current);
 
 		return () => {
+			console.log("ss/useScroll/useEventMonitor useEffect1 cleanup deleteMonitorEventTarget");
 			// TODO: Replace `this` to something.
 			deleteMonitorEventTarget();
 		};
@@ -366,6 +371,7 @@ onWindowReady(() => {
 });
 
 const useEventMouse = (props, instances, context) => {
+	console.log("ss/useScroll/useEventMouse start =====================");
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
 	const {scrollMode} = context;
 
@@ -398,7 +404,7 @@ const useEventMouse = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventMouse end =====================");
 	return {
 		handleFlick,
 		handleMouseDown
@@ -406,6 +412,7 @@ const useEventMouse = (props, instances, context) => {
 };
 
 const useEventTouch = () => {
+	console.log("ss/useScroll/useEventTouch start =====================");
 	// Functions
 
 	function handleTouchStart () {
@@ -417,13 +424,14 @@ const useEventTouch = () => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventTouch end =====================");
 	return {
 		handleTouchStart
 	};
 };
 
 const useEventVoice = (props, instances) => {
+	console.log("ss/useScroll/useEventVoice start =====================");
 	const {scrollContainerRef, scrollContainerHandle} = instances;
 
 	// Mutable value
@@ -549,7 +557,7 @@ const useEventVoice = (props, instances) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventVoice end =====================");
 	return {
 		addVoiceEventListener,
 		removeVoiceEventListener,
@@ -558,6 +566,7 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances, context) => {
+	console.log("ss/useScroll/useEventWheel start =====================");
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
 	const {scrollMode} = context;
 
@@ -674,7 +683,7 @@ const useEventWheel = (props, instances, context) => {
 	}
 
 	// Return
-
+	console.log("ss/useScroll/useEventWheel end =====================");
 	return {
 		handleWheel: scrollMode === 'translate' ? handleWheel : handleWheelNative,
 		isWheeling: mutableRef.current.isWheeling
