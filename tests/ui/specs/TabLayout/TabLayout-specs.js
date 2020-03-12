@@ -32,6 +32,7 @@ describe('TabLayout', function () {
 			expect(actual).to.equal(expected);
 		});
 
+		// this covers GT-28261
 		it('should render a tab\'s associated view when it is selected', function () {
 			const expected = 'view5';
 			const originalView = tabLayoutWithoutIcons.currentView.getAttribute('id');
