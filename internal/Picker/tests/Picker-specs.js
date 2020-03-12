@@ -375,10 +375,11 @@ describe('Picker Specs', () => {
 			const picker = mount(
 				<Picker index={0} joined max={1} min={-1} orientation="horizontal" />
 			);
-			const expected = 0;
-			const actual = picker.find('.indicator').length;
-			expect(actual).toBe(expected);
 
+			const expected = 0;
+			const actual = picker.find(`.${css.indicator}`).length;
+
+			expect(actual).toBe(expected);
 		}
 	);
 
@@ -390,8 +391,10 @@ describe('Picker Specs', () => {
 					<PickerItem>Test one picker</PickerItem>
 				</Picker>
 			);
+
 			const expected = 0;
-			const actual = picker.find('.indicator').length;
+			const actual = picker.find(`.${css.indicator}`).length;
+
 			expect(actual).toBe(expected);
 		}
 	);
@@ -406,8 +409,10 @@ describe('Picker Specs', () => {
 					<PickerItem>Test three picker</PickerItem>
 				</Picker>
 			);
+
 			const expected = 3;
-			const actual = picker.find('.indicator').length;
+			const actual = picker.find(`.${css.indicator}`).length;
+
 			expect(actual).toBe(expected);
 		}
 	);
