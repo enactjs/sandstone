@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [Unreleased]
+## [unreleased]
 
 ### Added
 
@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
 - `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
 
