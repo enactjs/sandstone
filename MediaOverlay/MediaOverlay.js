@@ -209,11 +209,11 @@ const MediaOverlayBase = kind({
 				<div className={css.mediaContainer}>
 					<Media
 						autoPlay={autoPlay}
-						loop={loop}
-						muted={muted}
 						className={css.media}
 						controls={false}
+						loop={loop}
 						mediaComponent={mediaComponent}
+						muted={muted}
 						source={source}
 					/>
 					{imageOverlay ? (
