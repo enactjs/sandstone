@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Changed
-
-- `sandstone/VirtualList.VirtualList`, `sandstone/VirtualList.VirtualGridList` and `sandstone/Scroller.Scroller` samplers have been updated based on current VirtualList and Scroller APIs
-
 ### Fixed
 
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
