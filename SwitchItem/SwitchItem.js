@@ -16,14 +16,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
-import Spottable from '@enact/spotlight/Spottable';
 import Toggleable from '@enact/ui/Toggleable';
 
-import Switch from '../Switch';
+import {SwitchBase} from '../Switch';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
 
 import componentCss from './SwitchItem.module.less';
+
 
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.
@@ -59,13 +59,11 @@ const SwitchItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selected: PropTypes.bool,
-		switchOnly: PropTypes.bool
+		selected: PropTypes.bool
 	},
 
 	defaultProps: {
-		selected: false,
-		switchOnly: false
+		selected: false
 	},
 
 	styles: {
@@ -74,36 +72,25 @@ const SwitchItemBase = kind({
 		publicClassNames: ['switchItem']
 	},
 
-	computed: {
-		className: ({switchOnly, styler}) => styler.append({
-			switchOnly
-		})
-	},
-
-	render: ({children, css, selected, ...rest}) => {
-		delete rest.switchOnly;
-
-		return (
-			<Item
-				data-webos-voice-intent="SetToggleItem"
-				role="checkbox"
-				{...rest}
-				css={css}
-			>
-				<Switch selected={selected} slot="slotAfter" css={css} />
-				{children}
-			</Item>
-		);
-	}
+	render: ({children, css, selected, ...rest}) => (
+		<Item
+			data-webos-voice-intent="SetToggleItem"
+			role="checkbox"
+			{...rest}
+			css={css}
+		>
+			<SwitchBase selected={selected} slot="slotAfter" css={css} />
+			{children}
+		</Item>
+	)
 });
 
-const SwitchDecorator = compose(
+const SwitchItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Spottable,
 	Skinnable
 );
 
-const SwitchItem = SwitchDecorator(SwitchItemBase);
+const SwitchItem = SwitchItemDecorator(SwitchItemBase);
 
 export default SwitchItem;
 export {

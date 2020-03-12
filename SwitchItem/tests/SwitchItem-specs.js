@@ -35,17 +35,4 @@ describe('SwitchItem Specs', () => {
 
 		expect(actual).toBe(expected);
 	});
-
-	it('should have switchOnly class.', function () {
-		const switchItem = mount(
-			<SwitchItem selected switchOnly>
-				SwitchItem
-			</SwitchItem>
-		);
-
-		const expected = css.switchOnly;
-		const actual = switchItem.find('Item').prop('className');
-
-		expect(actual).toContain(expected);
-	});
 });

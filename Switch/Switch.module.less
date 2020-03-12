@@ -21,8 +21,18 @@
 		border-radius: (@sand-toggleswitch-height-large / 2);
 	});
 
-
 	.sand-taparea(@sand-toggleswitch-height);
+
+	&::after {
+		content: "";
+		position: absolute;
+		.position(50%, 0, 0, 50%);
+		transform: translate3d(-50%, -50%, 0);
+		width: 174px;
+		height: 96px;
+		border-radius: 12px;
+		z-index: -1;
+	}
 
 	.icon {
 		visibility: visible;
@@ -57,7 +67,11 @@
 	// Skin colors
 	.applySkins({
 		background-color: @sand-checkbox-toggle-switch-bg-color;
-		box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-border-color;
+		border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
+
+		&::after {
+			background-color: @sand-checkbox-toggle-switch-after-bg-color;
+		}
 
 		.icon {
 			background-color: transparent;
@@ -66,7 +80,7 @@
 
 		&.selected {
 			background-color: @sand-checkbox-toggle-switch-selected-bg-color;
-			box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-selected-border-color;
+			border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-selected-border-color;
 			.icon {
 				color: @sand-checkbox-toggle-switch-selected-color;
 			}
@@ -74,10 +88,37 @@
 
 		.disabled({
 			background-color: @sand-checkbox-toggle-switch-bg-color;
-			opacity: @sand-disabled-opacity;
+			opacity: 0.4;
+
+			&::after {
+				opacity: 1;
+			}
 
 			.icon {
 				color: @sand-checkbox-toggle-switch-color;
+			}
+
+			&.selected {
+				border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
+			}
+
+
+		});
+
+		.focus({
+			&::after {
+				background-color: @sand-checkbox-toggle-switch-after-spotlight-bg-color;
+				box-shadow: @sand-checkbox-toggle-switch-after-box-shadow;
+			}
+
+			.icon {
+				color: @sand-checkbox-toggle-switch-spotlight-color;
+			}
+
+			&.selected {
+				.icon {
+					color: @sand-checkbox-toggle-switch-selected-color;
+				}
 			}
 		});
 	});
@@ -87,7 +128,16 @@
 .disabled({
 	.switch {
 		.applySkins({
-			opacity: 1;
+			background-color: @sand-checkbox-toggle-switch-bg-color;
+			border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
+
+			&.selected {
+				border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
+			}
+
+			.icon {
+				color: @sand-checkbox-toggle-switch-color;
+			}
 		});
 	}
 });
@@ -113,6 +163,9 @@
 		.switch {
 			.applySkins({
 				opacity: @sand-disabled-opacity;
+
+				background-color: @sand-checkbox-toggle-switch-bg-color;
+				box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-border-color;
 			});
 		}
 	});

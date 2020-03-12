@@ -14,6 +14,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
+import Spottable from '@enact/spotlight/Spottable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import Icon from '../Icon';
@@ -91,14 +92,18 @@ const SwitchBase = kind({
 	}
 });
 
+const SkinnableSwitchBase = Skinnable(SwitchBase);
+
 const SwitchDecorator = compose(
-	Skinnable
+	Toggleable({toggleProp: 'onClick'}),
+	Spottable
 );
-const Switch = SwitchDecorator(SwitchBase);
+
+const Switch = SwitchDecorator(SkinnableSwitchBase);
 
 export default Switch;
 
 export {
 	Switch,
-	SwitchBase
+	SkinnableSwitchBase as SwitchBase
 };
