@@ -28,11 +28,11 @@ const pickerList = {
 		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
 	],
 	long: [
-		'1 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text1',
-		'2 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text2',
-		'3 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text3',
-		'4 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text4',
-		'5 Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text5'
+		'1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius sit amet mattis vulputate enim nulla. A pellentesque sit amet porttitor eget dolor morbi non arcu. Text1',
+		'2 Sit amet consectetur adipiscing elit. Ac turpis egestas integer eget aliquet nibh. Est ullamcorper eget nulla facilisi etiam dignissim. Pellentesque dignissim enim sit amet. Non blandit massa enim nec dui nunc mattis. Text2',
+		'3 Platea dictumst vestibulum rhoncus est pellentesque. Massa sapien faucibus et molestie ac feugiat. Diam quis enim lobortis scelerisque fermentum dui faucibus. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Text3',
+		'4 In metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Urna id volutpat lacus laoreet non curabitur. Lobortis feugiat vivamus at augue. Praesent semper feugiat nibh sed. Ac tincidunt vitae semper quis lectus. Text4',
+		'5 Purus sit amet volutpat consequat mauris nunc congue nisi. Sit amet cursus sit amet dictum sit amet justo. Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper. Libero id faucibus nisl tincidunt eget. Text5'
 	],
 	vegetables: [
 		'Celery',
@@ -42,21 +42,12 @@ const pickerList = {
 		'Broccoli',
 		'Spinach'
 	],
-	numberList: [
-		'0', '1', '2', '3', '4'
-	],
+	numberList: ['0', '1', '2', '3', '4'],
 	oneAirport: [
 		'San Francisco Airport Terminal Gate 1'
 	],
 	emptyList: [],
-	orderedList: [
-		'A',
-		'B',
-		'C',
-		'D',
-		'E',
-		'F'
-	],
+	orderedList: ['A', 'B', 'C', 'D', 'E', 'F'],
 	airports: [
 		'San Francisco Airport Terminal Gate 1',
 		'Boston Airport Terminal Gate 2',
@@ -194,34 +185,60 @@ storiesOf('Picker', module)
 		() => (
 			<Scroller>
 				<Row wrap>
-					<Section title="Picker Non-Joined">
-						<Picker alt="Picker Horizontal">{pickerList.vegetables}</Picker>
-						<Picker alt="Tall text size">{pickerList.tall}</Picker>
-						<Picker alt="Disabled" disabled>{pickerList.vegetables}</Picker>
-						<Picker alt="No Animation" width="medium" noAnimation>{pickerList.airports}</Picker>
-						<Picker alt="Picker Vertical Small" width="small" orientation="vertical">{pickerList.orderedList}</Picker>
-						<Picker alt="Picker Vertical Medium" width="medium" orientation="vertical" noAnimation wrap>{pickerList.airports}</Picker>
-						<Picker alt="Picker Vertical Large" width="large" orientation="vertical">{pickerList.tall}</Picker>
+					<Section title="Horizontal" size="100%">
+						<Picker alt="Basic" width="medium">{pickerList.vegetables}</Picker>
+						<Picker alt="Disabled" width="medium" disabled>{pickerList.vegetables}</Picker>
+						<Picker alt="Tall text" width="medium">{pickerList.tall}</Picker>
+						<Picker alt="No Width">{pickerList.vegetables}</Picker>
+						<Picker alt="Small" width="small">{pickerList.orderedList}</Picker>
+						<Picker alt="Medium" width="medium">{pickerList.vegetables}</Picker>
+						<Picker alt="Large" width="large">{pickerList.airports}</Picker>
+						<Picker alt="Width=1" width={1}>{pickerList.numberList}</Picker>
+						<Picker alt="Width=5" width={5}>{pickerList.orderedList}</Picker>
+						<Picker alt="Width=10" width={10}>{pickerList.vegetables}</Picker>
+						<Picker alt="Width=20" width={20}>{pickerList.airports}</Picker>
 					</Section>
 
-					<Section title="Picker Joined">
-						<Picker alt="Joined" joined>{pickerList.airports}</Picker>
-						<Picker alt="Joined Medium Wrap" joined width="medium" wrap>{pickerList.vegetables}</Picker>
-						<Picker alt="Joined Medium noAnimation" joined width="medium" noAnimation>{pickerList.tall}</Picker>
-						<Picker alt="Joined Small" joined width="small">{pickerList.numberList}</Picker>
+					<Section title="Vertical" size="100%">
+						<Picker orientation="vertical" alt="Basic" width="medium">{pickerList.vegetables}</Picker>
+						<Picker orientation="vertical" alt="Disabled" width="medium" disabled>{pickerList.vegetables}</Picker>
+						<Picker orientation="vertical" alt="Tall text" width="medium">{pickerList.tall}</Picker>
+						<Picker orientation="vertical" alt="No Width">{pickerList.vegetables}</Picker>
+						<Picker orientation="vertical" alt="Small" width="small">{pickerList.orderedList}</Picker>
+						<Picker orientation="vertical" alt="Medium" width="medium">{pickerList.vegetables}</Picker>
+						<Picker orientation="vertical" alt="Large" width="large">{pickerList.airports}</Picker>
+						<Picker orientation="vertical" alt="Width=1" width={1}>{pickerList.numberList}</Picker>
+						<Picker orientation="vertical" alt="Width=5" width={5}>{pickerList.orderedList}</Picker>
+						<Picker orientation="vertical" alt="Width=10" width={10}>{pickerList.vegetables}</Picker>
+						<Picker orientation="vertical" alt="Width=20" width={20}>{pickerList.airports}</Picker>
 					</Section>
 
-					<Section title="Picker Joined Vertical">
-						<Picker alt="Joined Vertical Small" joined width="small" orientation="vertical">{pickerList.numberList}</Picker>
-						<Picker alt="Joined Vertical Medium" joined width="medium" orientation="vertical">{pickerList.orderedList}</Picker>
-						<Picker alt="Joined Vertical large" joined width="large" orientation="vertical">{pickerList.tall}</Picker>
-						<Picker alt="Joined Vertical" joined width="large" orientation="vertical" noAnimation>{pickerList.airports}</Picker>
+					<Section title="Joined Horizontal" size="100%">
+						<Picker joined alt="Basic" width="medium">{pickerList.vegetables}</Picker>
+						<Picker joined alt="Disabled" width="medium" disabled>{pickerList.vegetables}</Picker>
+						<Picker joined alt="Tall text" width="medium">{pickerList.tall}</Picker>
+						<Picker joined alt="No Width">{pickerList.vegetables}</Picker>
+						<Picker joined alt="Small" width="small">{pickerList.orderedList}</Picker>
+						<Picker joined alt="Medium" width="medium">{pickerList.vegetables}</Picker>
+						<Picker joined alt="Large" width="large">{pickerList.airports}</Picker>
+						<Picker joined alt="Width=1" width={1}>{pickerList.numberList}</Picker>
+						<Picker joined alt="Width=5" width={5}>{pickerList.orderedList}</Picker>
+						<Picker joined alt="Width=10" width={10}>{pickerList.vegetables}</Picker>
+						<Picker joined alt="Width=20" width={20}>{pickerList.airports}</Picker>
 					</Section>
 
-					<Section title="Different Pickers">
-						<RangePicker alt="Range Picker" defaultValue={70} min={0} max={100} />
-						<RangePicker alt="Range Picker Joined" joined defaultValue={70} min={0} max={100} />
-						<DatePicker alt="Date Picker" day={1} maxDays={31} maxMonths={12} month={1} noLabels open order={['m', 'd', 'y']} title="Date" year={2000} />
+					<Section title="Joined Vertical" size="100%">
+						<Picker joined orientation="vertical" alt="Basic" width="medium">{pickerList.vegetables}</Picker>
+						<Picker joined orientation="vertical" alt="Disabled" width="medium" disabled>{pickerList.vegetables}</Picker>
+						<Picker joined orientation="vertical" alt="Tall text" width="medium">{pickerList.tall}</Picker>
+						<Picker joined orientation="vertical" alt="No Width">{pickerList.vegetables}</Picker>
+						<Picker joined orientation="vertical" alt="Small" width="small">{pickerList.orderedList}</Picker>
+						<Picker joined orientation="vertical" alt="Medium" width="medium">{pickerList.vegetables}</Picker>
+						<Picker joined orientation="vertical" alt="Large" width="large">{pickerList.airports}</Picker>
+						<Picker joined orientation="vertical" alt="Width=1" width={1}>{pickerList.numberList}</Picker>
+						<Picker joined orientation="vertical" alt="Width=5" width={5}>{pickerList.orderedList}</Picker>
+						<Picker joined orientation="vertical" alt="Width=10" width={10}>{pickerList.vegetables}</Picker>
+						<Picker joined orientation="vertical" alt="Width=20" width={20}>{pickerList.airports}</Picker>
 					</Section>
 				</Row>
 			</Scroller>
