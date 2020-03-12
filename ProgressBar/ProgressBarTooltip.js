@@ -42,7 +42,7 @@ const memoizedPercentFormatter = memoize((/* locale */) => new NumFmt({
 
 const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'before';
 
-// Returns an array of keywords with horizontal first and vetical second
+// Returns an array of keywords with horizontal first and vertical second
 const getSide = (orientation, position) => {
 	position = position || getDefaultPosition(orientation);
 
@@ -150,7 +150,7 @@ const ProgressBarTooltipBase = kind({
 		 * When using `'before'` or `'after'` alone or in any of the below combinations, `'before'`
 		 * will position the tooltip on the side of the current locale's text directionality. In LTR
 		 * locales, it will be on the left; in RTL locales, it will be on the right. Similarly,
-		 * `'after'` will position the tooltip on the oppoosite side: the right side for LTR and
+		 * `'after'` will position the tooltip on the opposite side: the right side for LTR and
 		 * left for RTL.
 		 *
 		 * Valid values when `orientation="horizontal"` or `orientation="radial"`

@@ -23,7 +23,7 @@
 // ---------------------------------------
 @sand-bg-color:      #575e66;
 @sand-text-color:    @sand-light-gray;
-@sand-border-color:  #595959;
+@sand-border-color:  @sand-light-gray;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 
 // Disabled Opacity
@@ -133,18 +133,20 @@
 // ---------------------------------------
 @sand-gridlistimageitem-overlay-icon-color: transparent;
 @sand-gridlistimageitem-overlay-icon-bg-color: transparent;
-@sand-gridlistimageitem-overlay-icon-border-color: @sand-light-gray;
 @sand-gridlistimageitem-caption-color: @sand-light-gray;
 @sand-gridlistimageitem-subcaption-color: @sand-gray;
 @sand-gridlistimageitem-focus-image-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 @sand-gridlistimageitem-focus-overlay-icon-color: @sand-gridlistimageitem-overlay-icon-color;
+@sand-gridlistimageitem-focus-overlay-icon-bg-color: @sand-gridlistimageitem-overlay-icon-bg-color;
 @sand-gridlistimageitem-focus-caption-color: @sand-gridlistimageitem-caption-color;
 @sand-gridlistimageitem-focus-subcaption-color: @sand-gridlistimageitem-subcaption-color;
 @sand-gridlistimageitem-selected-overlay-icon-color: @sand-light-gray;
+@sand-gridlistimageitem-selected-overlay-icon-bg-color: fade(@sand-black, 30%);
 @sand-gridlistimageitem-selected-image-border-color: fade(@sand-light-gray, 70%);
 @sand-gridlistimageitem-selected-caption-color: @sand-gridlistimageitem-caption-color;
 @sand-gridlistimageitem-selected-subcaption-color: @sand-gridlistimageitem-subcaption-color;
 @sand-gridlistimageitem-selected-focus-overlay-icon-color: @sand-gridlistimageitem-selected-overlay-icon-color;
+@sand-gridlistimageitem-selected-focus-overlay-icon-bg-color: @sand-gridlistimageitem-selected-overlay-icon-bg-color;
 @sand-gridlistimageitem-selected-focus-caption-color: @sand-gridlistimageitem-caption-color;
 @sand-gridlistimageitem-selected-focus-subcaption-color: @sand-gridlistimageitem-subcaption-color;
 
@@ -181,25 +183,25 @@
 
 // Input
 // ---------------------------------------
-@sand-input-text-color:               @sand-text-color;
-@sand-input-textarea-color:           @sand-dark-gray;
-@sand-input-placeholder-color:        fade(@sand-light-gray, 20%);
-@sand-input-placeholder-focus-color:  fade(@sand-gray, 20%);
-@sand-input-placeholder-active-color: @sand-input-placeholder-focus-color;
-@sand-input-placeholder-disabled-color: @sand-white;
-@sand-input-focus-text-color:         @sand-spotlight-text-color;
-@sand-input-disabled-focus-text-color: fade(@sand-input-text-color, @sand-disabled-opacity-percentage);
-@sand-input-disabled-text-color:      inherit;
-@sand-input-decorator-bg-color:       fade(@sand-light-gray, 20%);
-@sand-input-decorator-focus-bg-color: @sand-spotlight-bg-color;
-@sand-input-decorator-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
-@sand-input-decorator-active-bg-color: @sand-input-decorator-focus-bg-color;
-@sand-input-decorator-disabled-focus-bg-color: fade(@sand-input-decorator-focus-bg-color, @sand-disabled-opacity-percentage);
+@sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
+@sand-input-overlay-background-color: fade(@sand-bg-color, 90%);
 
-// InputNumberPopup
+// InputField
 // ---------------------------------------
-@sand-input-number-popup-preview-item-background-color: fade(@sand-light-gray, 20%);
-@sand-input-number-popup-overlay-background-color: fade(@sand-bg-color, 90%);
+@sand-inputfield-text-color: @sand-text-color;
+@sand-inputfield-textarea-color: @sand-dark-gray;
+@sand-inputfield-placeholder-color: fade(@sand-light-gray, 20%);
+@sand-inputfield-placeholder-focus-color: fade(@sand-gray, 20%);
+@sand-inputfield-placeholder-active-color: @sand-inputfield-placeholder-focus-color;
+@sand-inputfield-placeholder-disabled-color: @sand-white;
+@sand-inputfield-focus-text-color: @sand-spotlight-text-color;
+@sand-inputfield-disabled-focus-text-color: fade(@sand-inputfield-text-color, @sand-disabled-opacity-percentage);
+@sand-inputfield-disabled-text-color: inherit;
+@sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
+@sand-inputfield-focus-bg-color: @sand-spotlight-bg-color;
+@sand-inputfield-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
+@sand-inputfield-active-bg-color: @sand-inputfield-focus-bg-color;
+@sand-inputfield-disabled-focus-bg-color: fade(@sand-inputfield-focus-bg-color, @sand-disabled-opacity-percentage);
 
 // KeyGuide
 // ---------------------------------------

@@ -6,7 +6,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import Notification from '@enact/sandstone/Notification';
+import Alert from '@enact/sandstone/Alert';
 import Popup from '@enact/sandstone/Popup';
 
 Popup.displayName = 'Popup';
@@ -20,12 +20,12 @@ const PopupFromSelfOnlyContainer = Toggleable(
 			<Container spotlightId="selfOnlyContainer" spotlightRestrict="self-only">
 				<Button onClick={onToggle}>button</Button>
 			</Container>
-			<Notification open={open}>
+			<Alert open={open}>
 				<span>popup</span>
 				<buttons>
 					<Button onClick={onToggle}>button</Button>
 				</buttons>
-			</Notification>
+			</Alert>
 		</div>
 	)
 );

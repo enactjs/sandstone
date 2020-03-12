@@ -1,21 +1,26 @@
-import {getContainersForNode} from '@enact/spotlight/src/container';
+/**
+ * Sandstone-themed scrollable hook and behaviors.
+ *
+ * @module sandstone/useScroll
+ * @exports dataIndexAttribute
+ * @exports useScroll
+ * @private
+ */
+
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
-import {add, is} from '@enact/core/keymap';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import {useScrollBase} from '@enact/ui/useScroll';
+import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle';
-import {assignPropertiesOf} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import ScrollableBasic from './ScrollableBasic';
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
@@ -23,22 +28,16 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {useSpotlightRestore} from './useSpotlight';
+import {setFocusableBodyProps, useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
-import thumbCss from './ScrollThumb.module.less';
-
-add('esc', 27);
 
 const
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
-	},
-
-	isEsc = is('esc'),
-	isEnter = is('enter');
+	};
 
 /**
  * The name of a custom attribute which indicates the index of an item in
@@ -59,7 +58,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context) => {
+const useThemeScroll = (props, instances, context, assignProperties) => {
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
@@ -82,6 +81,10 @@ const useThemeScroll = (props, instances, context) => {
 	} = useScrollbar(props, instances, {isContent});
 
 	useSpotlightRestore(props, instances);
+
+	if (props.focusableScrollbar === 'byEnter') {
+		setFocusableBodyProps(props, instances, assignProperties);
+	}
 
 	const {
 		applyOverscrollEffect,
@@ -249,14 +252,24 @@ const useThemeScroll = (props, instances, context) => {
 	};
 };
 
+/**
+ * A custom hook that passes Sandstone-themed scrollable behavior information as its render prop.
+ *
+ * @class
+ * @memberof sandstone/useScroll
+ * @ui
+ * @private
+ */
 const useScroll = (props) => {
 	const
 		{
+			className,
 			'data-spotlight-container': spotlightContainer,
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
 			scrollMode,
+			style,
 			...rest
 		} = props;
 
@@ -264,6 +277,7 @@ const useScroll = (props) => {
 
 	const scrollContainerRef = useRef();
 	const scrollContentRef = useRef();
+	const itemRefs = useRef([]);
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -351,7 +365,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode});
+	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
 
 	// Render
 
@@ -394,76 +408,20 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContainerProps', {
 		className: [
+			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
 			scrollContainerHandle.current.rtl ? css.rtl : null,
 			overscrollCss.scroll,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
-		onTouchStart: handleTouchStart
+		style: (focusableScrollbar !== 'byEnter') ? style : null,
+		'data-spotlight-container': spotlightContainer,
+		'data-spotlight-container-disabled': spotlightContainerDisabled,
+		'data-spotlight-id': spotlightId,
+		onTouchStart: handleTouchStart,
+		ref: scrollContainerRef
 	});
-
-	if (focusableScrollbar !== 'byEnter') {
-		assignProperties('scrollContainerProps', {
-			'data-spotlight-container': spotlightContainer,
-			'data-spotlight-container-disabled': spotlightContainerDisabled,
-			'data-spotlight-id': spotlightId,
-			ref: scrollContainerRef
-		});
-	} else {
-		let nearestSpotlightContainer = null;
-		const setNavigableFilter = (filterTarget) => {
-			if (!nearestSpotlightContainer) {
-				return;
-			}
-
-			const targetClassName = (filterTarget === 'body') ? css.scroll : thumbCss.thumb;
-			Spotlight.set(nearestSpotlightContainer, {
-				navigableFilter: (elem) => {
-					if (typeof elem !== 'string' &&	elem.classList.contains(targetClassName)) {
-						return false;
-					}
-				}
-			});
-		};
-
-		assignProperties('scrollContainerProps', {
-			className: [
-				css.focusableBody
-			],
-			onFocus: (ev) => {
-				const {target} = ev;
-				if (target.classList.contains(css.scroll)) {
-					if (!nearestSpotlightContainer) {
-						nearestSpotlightContainer = getContainersForNode(target).pop();
-					}
-					setNavigableFilter('thumb');
-				} else if (target.classList.contains(thumbCss.thumb)) {
-					setNavigableFilter('body');
-				}
-			},
-			onBlur: () => {
-				// Focus out to external element.
-				setNavigableFilter('thumb');
-			},
-			onKeyDown: (ev) => {
-				const {keyCode, target} = ev;
-				if (isEnter(keyCode) && target.classList.contains(css.scroll)) {
-					// Enter key on scroll Body.
-					// Scroll thumb get focus.
-					setNavigableFilter('body');
-					Spotlight.move('right');
-				} else if (isEsc(keyCode) && target.classList.contains(thumbCss.thumb)) {
-					// Esc key on scroll thumb.
-					// Scroll body get focus.
-					setNavigableFilter('thumb');
-					Spotlight.move('left');
-				}
-			}
-			// ref: scrollContainerRef	// TODO(@Ahn): Resolve the ref problem on Spottable element.
-			// Wheel operation is not currently working.
-		});
-	}
 
 	assignProperties('scrollInnerContainerProps', {
 		className: [
@@ -480,12 +438,14 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
+		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
+		scrollContainerRef,
 		setThemeScrollContentHandle,
 		spotlightId,
 		scrollContainerHandle,
@@ -518,6 +478,5 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
-	ScrollableBasic,
 	useScroll
 };
