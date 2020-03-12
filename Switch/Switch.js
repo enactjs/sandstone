@@ -105,5 +105,6 @@ export default Switch;
 
 export {
 	Switch,
-	SkinnableSwitchBase as SwitchBase
+	SwitchBase,
+	SkinnableSwitchBase
 };

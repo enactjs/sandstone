@@ -18,7 +18,7 @@ import compose from 'ramda/src/compose';
 
 import Toggleable from '@enact/ui/Toggleable';
 
-import {SwitchBase} from '../Switch';
+import {SkinnableSwitchBase as Switch} from '../Switch';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
 
@@ -79,7 +79,7 @@ const SwitchItemBase = kind({
 			{...rest}
 			css={css}
 		>
-			<SwitchBase selected={selected} slot="slotAfter" css={css} />
+			<Switch selected={selected} slot="slotAfter" css={css} />
 			{children}
 		</Item>
 	)

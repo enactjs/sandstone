@@ -1,7 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import SwitchItem from '../SwitchItem';
-import css from '../SwitchItem.module.less';
 
 
 describe('SwitchItem Specs', () => {
