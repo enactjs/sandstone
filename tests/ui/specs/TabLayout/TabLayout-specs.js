@@ -1,7 +1,7 @@
 const Page = require('./TabLayoutPage');
 const {selectTab} = require('./TabLayout-utils.js');
 
-describe('TabLayout', function () {
+describe.skip('TabLayout', function () {
 
 	beforeEach(function () {
 		Page.open();
@@ -84,10 +84,6 @@ describe('TabLayout', function () {
 		});
 
 		describe('collapsing/expanding behavior', function () {
-			beforeEach(function () {
-				Page.hideAll();
-			});
-
 			describe('5-way interaction', function () {
 
 				// this covers GT-28257 and GT-28259 step 3

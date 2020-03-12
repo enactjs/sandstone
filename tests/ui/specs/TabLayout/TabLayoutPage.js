@@ -22,40 +22,20 @@ class TabLayoutInterface {
 	}
 
 	hoverScroller () {
-		return browser.moveToObject(this.tabsScroller.selector);
-	}
-
-	hideSelf () {
-		const hide = (id) => {
-			const el = document.getElementById(id);
-			el.style.display = 'none';
-			return el;
-		};
-		browser.execute(hide, this.id);
+		return $(this.tabsScroller.selector).moveTo();
 	}
 
 	hoverTabs () {
-		return browser.moveToObject(this.tabs.selector);
-	}
-
-	showSelf () {
-		const show = (id) => {
-			const el = document.getElementById(id);
-
-			document.activeElement.blur();
-			el.style.display = 'flex';
-			return el;
-		};
-		browser.execute(show, this.id);
+		return $(this.tabs.selector).moveTo();
 	}
 
 	get content () {return getContent(this.self);}
-	get currentView () {return this.content.element('div');}
+	get currentView () {return this.content.$('div');}
 	get isCollapsed () {return hasClass('collapsed', this.self);}
-	get self () {return browser.element(this.selector);}
-	get tabGroup () {return this.self.element('[role=group]');}
-	get tabIcons () {return this.tabs.elements('.Icon_Icon_icon');}
-	get tabItems () {return this.tabs.elements('.Item_Item_item');}
+	get self () {return browser.$(this.selector);}
+	get tabGroup () {return this.self.$('[role=group]');}
+	get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
+	get tabItems () {return this.tabs.$$('.Item_Item_item');}
 	get tabOrientation () {return this.tabGroup.getAttribute('orientation');}
 	get tabs () {return getTabs(this.self);}
 	get tabsScroller () {return getScroller(this.self);}
@@ -65,32 +45,15 @@ class TabLayoutPage extends Page {
 	constructor () {
 		super();
 		this.title = 'TabLayout Test';
-		const tabLayoutWithoutIcons = new TabLayoutInterface('tabLayoutWithoutIcons');
-		const tabLayoutWithIcons = new TabLayoutInterface('tabLayoutWithIcons');
-		const tabLayoutCollapsedWithoutIcons = new TabLayoutInterface('tabLayoutCollapsedWithoutIcons');
-		const tabLayoutCollapsedWithIcons = new TabLayoutInterface('tabLayoutCollapsedWithIcons');
-		const tabLayoutHorizontal = new TabLayoutInterface('tabLayoutHorizontal');
-		const tabLayoutHorizontalCollapsed = new TabLayoutInterface('tabLayoutHorizontalCollapsed');
-
+		const tabLayout = new TabLayoutInterface('tabLayout');
 
 		this.components = {
-			tabLayoutWithoutIcons,
-			tabLayoutWithIcons,
-			tabLayoutCollapsedWithoutIcons,
-			tabLayoutCollapsedWithIcons,
-			tabLayoutHorizontal,
-			tabLayoutHorizontalCollapsed
+			tabLayout
 		};
 	}
 
-	hideAll () {
-		for (let c in this.components) {
-			this.components[c].hideSelf();
-		}
-	}
-
-	open (urlExtra) {
-		super.open('TabLayout-View', urlExtra);
+	open (layout, urlExtra) {
+		super.open(`TabLayout${layout}-View`, urlExtra);
 	}
 }
 
