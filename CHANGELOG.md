@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/VirtualList.VirtualList`, `sandstone/VirtualList.VirtualGridList` and `sandstone/Scroller.Scroller` samplers have been updated based on current VirtualList and Scroller APIs
+
 ## [1.0.0-alpha.3] - 2020-03-09
 
 ### Deprecated
