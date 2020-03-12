@@ -172,7 +172,7 @@ const FeedbackTooltipBase = kind({
 			return (action !== 'focus' || action === 'idle') && !(action === 'blur' && playbackState === 'play');
 		},
 		thumbnailComponent: ({action, thumbnailComponent, thumbnailSrc}) => {
-			if (true || action === 'focus') {
+			if (action === 'focus') {
 				if (thumbnailComponent) {
 					return <ComponentOverride
 						component={thumbnailComponent}
