@@ -10,13 +10,15 @@ import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 
 const
-	scrollModeOption = ['native', 'translate'],
 	wrapOption = {
 		false: false,
 		true: true,
 		'&quot;noAnimation&quot;': 'noAnimation'
 	},
-	prop = {scrollbarOption: ['auto', 'hidden', 'visible']},
+	prop = {
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
+	},
 	items = [],
 	defaultDataSize = 1000,
 	// eslint-disable-next-line enact/prop-types, enact/display-name
@@ -56,11 +58,11 @@ storiesOf('Sandstone', module)
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
 					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
 					itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
-					key={select('scrollMode', scrollModeOption, VirtualListConfig)}
+					key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
-					scrollMode={select('scrollMode', scrollModeOption, VirtualListConfig)}
+					scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					spacing={ri.scale(number('spacing', VirtualListConfig))}
 					spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}

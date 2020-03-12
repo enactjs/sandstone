@@ -10,7 +10,6 @@ import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
-	scrollModeOption = ['native', 'translate'],
 	wrapOption = {
 		false: false,
 		true: true,
@@ -18,7 +17,8 @@ const
 	},
 	prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -78,11 +78,11 @@ storiesOf('Sandstone', module)
 					minWidth: ri.scale(number('minWidth', 640)),
 					minHeight: ri.scale(number('minHeight', 540))
 				}}
-				key={select('scrollMode', scrollModeOption, VirtualGridListConfig)}
+				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
-				scrollMode={select('scrollMode', scrollModeOption, VirtualGridListConfig)}
+				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				spacing={ri.scale(number('spacing', 48))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}

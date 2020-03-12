@@ -10,10 +10,10 @@ import Scroller from '@enact/sandstone/Scroller';
 
 const
 	prop = {
-		scrollModeOption: ['native', 'translate'],
 		direction: ['both', 'horizontal', 'vertical'],
 		focusableScrollbarOption: [true, false, 'byEnter'],
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	};
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
