@@ -52,6 +52,14 @@ const MediaOverlayBase = kind({
 		source: PropTypes.node.isRequired,
 
 		/**
+		 * The video will automatically start playing
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		autoPlay: PropTypes.bool,
+
+		/**
 		 * The primary caption to be displayed.
 		 *
 		 * @type {Node}
@@ -84,6 +92,14 @@ const MediaOverlayBase = kind({
 		imageOverlay: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * The video will start over again, every time it is finished.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		loop: PropTypes.bool,
+
+		/**
 		 * Determines what triggers the marquee to start its animation.
 		 *
 		 * @type {('focus'|'hover'|'render')}
@@ -105,6 +121,14 @@ const MediaOverlayBase = kind({
 		 * @public
 		 */
 		mediaComponent: EnactPropTypes.renderable,
+
+		/**
+		 * The audio output of the video should be muted.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		muted: PropTypes.bool,
 
 		/**
 		 * Placeholder for image overlay.
@@ -166,6 +190,7 @@ const MediaOverlayBase = kind({
 	},
 
 	defaultProps: {
+		autoPlay: true,
 		mediaComponent: 'video',
 		progress: 0,
 		textAlign: 'center'
@@ -177,13 +202,15 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({caption, css, imageOverlay, marqueeOn, mediaComponent, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
+	render: ({autoPlay, caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
 				<div className={css.mediaContainer}>
 					<Media
-						autoPlay
+						autoPlay={autoPlay}
+						loop={loop}
+						muted={muted}
 						className={css.media}
 						controls={false}
 						mediaComponent={mediaComponent}
