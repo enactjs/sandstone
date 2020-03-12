@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
+
 ## [1.0.0-alpha.3] - 2020-03-09
 
 ### Deprecated
