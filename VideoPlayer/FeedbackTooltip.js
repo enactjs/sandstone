@@ -165,14 +165,14 @@ const FeedbackTooltipBase = kind({
 			return styler.append({
 				hidden: hidden && states[s] && states[s].allowHide,
 				thumbnailDeactivated,
-				thumbnailShown: action === 'focus' && (thumbnailComponent || thumbnailSrc)
+				shift: action === 'focus' && (thumbnailComponent || thumbnailSrc)
 			});
 		},
 		feedbackVisible: ({action, playbackState}) => {
 			return (action !== 'focus' || action === 'idle') && !(action === 'blur' && playbackState === 'play');
 		},
 		thumbnailComponent: ({action, thumbnailComponent, thumbnailSrc}) => {
-			if (action === 'focus') {
+			if (true || action === 'focus') {
 				if (thumbnailComponent) {
 					return <ComponentOverride
 						component={thumbnailComponent}
