@@ -7,6 +7,7 @@ import {storiesOf} from '@storybook/react';
 
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
+import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
 import {listIcons} from './icons';
@@ -21,7 +22,7 @@ storiesOf('Sandstone', module)
 			const icon = select('itemIcon', ['', ...listIcons], Config);
 			const itemIcon = nullify(icon ? <Icon>{icon}</Icon> : null);
 			const itemIconPosition = select('itemIconPosition', ['', 'before', 'beforeChildren', 'afterChildren', 'after'], Config);
-			return (
+			return (<div>
 				<SwitchItem
 					disabled={boolean('disabled', Config)}
 					inline={boolean('inline', Config)}
@@ -31,7 +32,11 @@ storiesOf('Sandstone', module)
 				>
 					{text('children', Config, 'Hello SwitchItem')}
 				</SwitchItem>
-			);
+				<Switch
+					disabled={boolean('disabled', Config)}
+					onToggle={action('onToggle')}
+				/>
+			</div>);
 		},
 		{
 			info: {

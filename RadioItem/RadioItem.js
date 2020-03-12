@@ -71,7 +71,11 @@ const RadioItemBase = kind({
 
 	render: ({children, css, icon, ...rest}) => {
 		return (
-			<Item data-webos-voice-intent="SelectRadioItem" {...rest} css={css}>
+			<Item
+				data-webos-voice-intent="SelectRadioItem"
+				{...rest}
+				css={css}
+			>
 				<Icon slot="slotBefore" className={css.icon} size="tiny">{icon}</Icon>
 				{children}
 			</Item>

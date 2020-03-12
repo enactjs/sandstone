@@ -410,10 +410,7 @@
 @sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-large-margin: 24px;
-@sand-icon-medium-margin: @sand-icon-large-margin;
-@sand-icon-small-margin: @sand-icon-large-margin;
-@sand-icon-tiny-margin: @sand-icon-large-margin;
+@sand-icon-margin: 24px;
 // Large-mode sizes - Note, may be deprecated.
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
@@ -488,8 +485,8 @@
 @sand-item-indent: 72px;
 @sand-item-inline-max-width: 480px;
 @sand-item-border-radius: 12px;
-@sand-item-slotafter-spacing: @sand-component-spacing;
-@sand-item-slotbefore-spacing: @sand-component-spacing;
+@sand-item-slotafter-spacing: 30px;
+@sand-item-slotbefore-spacing: 30px;
 @sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
 
 @sand-keyguide-width: 750px;
@@ -645,7 +642,8 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-panels-margin-top: 79px;
+@sand-tablayout-panels-margin-top: 78px;
+@sand-tablayout-tab-selected-opacity: 0.3;
 
 // ToggleButton
 // ---------------------------------------
@@ -661,7 +659,7 @@
 
 // ToggleItem
 // ---------------------------------------
-@sand-toggle-item-icon-margin: @sand-icon-large-margin;
+@sand-toggle-item-icon-margin: @sand-icon-margin;
 
 // ToggleSwitch
 // ---------------------------------------
