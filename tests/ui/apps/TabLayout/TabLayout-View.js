@@ -1,6 +1,7 @@
 import React from 'react';
 import spotlight from '@enact/spotlight';
 
+import Button from '../../../../Button';
 import TabLayout from '../../../../TabLayout';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
@@ -9,56 +10,70 @@ import ThemeDecorator from '../../../../ThemeDecorator';
 spotlight.setPointerMode(false);
 
 const tabs = [
-	{title: 'One'},
-	{title: 'Two'},
-	{title: 'Three'},
-	{title: 'Four'},
-	{title: 'Five'},
-	{title: 'Six'}
+	{id: 'tab1', title: 'One'},
+	{id: 'tab2', title: 'Two'},
+	{id: 'tab3', title: 'Three'},
+	{id: 'tab4', title: 'Four'},
+	{id: 'tab5', title: 'Five'},
+	{id: 'tab6', title: 'Six'}
 ];
 
 const tabsWithIcons = [
-	{title: 'One', icon: 'star'},
-	{title: 'Two', icon: 'home'},
-	{title: 'Three', icon: 'plug'},
-	{title: 'Four', icon: 'lock'},
-	{title: 'Five', icon: 'picture'},
-	{title: 'Six', icon: 'search'}
+	{id: 'tab1', title: 'One', icon: 'star'},
+	{id: 'tab2', title: 'Two', icon: 'home'},
+	{id: 'tab3', title: 'Three', icon: 'plug'},
+	{id: 'tab4', title: 'Four', icon: 'lock'},
+	{id: 'tab5', title: 'Five', icon: 'picture'},
+	{id: 'tab6', title: 'Six', icon: 'search'}
 ];
 
 const views = [
 	<div id="view1" key={1}>View One</div>,
-	<div id="view2" key={2}>View Two</div>,
+	<div id="view2" key={2}><Button id="button2">Button Two</Button></div>,
 	<div id="view3" key={3}>View Three</div>,
-	<div id="view4" key={4}>View Four</div>,
+	<div id="view4" key={4}><Button id="button4">Button Four</Button></div>,
 	<div id="view5" key={5}>View Five</div>,
-	<div id="view6" key={6}>View Six</div>
+	<div id="view6" key={6}><Button id="button6">Button Six</Button></div>
 ];
 
 const app = (props) => <div {...props}>
 	<div>
 		<TabLayout
-			id="tabLayoutDefaultWithoutIcons"
+			id="tabLayoutWithoutIcons"
 			tabs={tabs}
 		>
 			{views}
 		</TabLayout>
 		<TabLayout
+			id="tabLayoutWithIcons"
+			tabs={tabsWithIcons}
+		>
+			{views}
+		</TabLayout>
+		<TabLayout
 			id="tabLayoutCollapsedWithoutIcons"
-			collapsed
+			defaultCollapsed
 			tabs={tabs}
 		>
 			{views}
 		</TabLayout>
 		<TabLayout
 			id="tabLayoutCollapsedWithIcons"
-			collapsed
+			defaultCollapsed
 			tabs={tabsWithIcons}
 		>
 			{views}
 		</TabLayout>
 		<TabLayout
 			id="tabLayoutHorizontal"
+			orientation="horizontal"
+			tabs={tabs}
+		>
+			{views}
+		</TabLayout>
+		<TabLayout
+			id="tabLayoutHorizontalCollapsed"
+			defaultCollapsed
 			orientation="horizontal"
 			tabs={tabs}
 		>
