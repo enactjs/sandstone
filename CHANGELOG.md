@@ -13,7 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
 - `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
-- `sandstone/VideoPlayer` to continue to display controls when user activity is detected
+- `sandstone/VideoPlayer` to continue to display controls when user activity is detected˛
 
 ## [1.0.0-alpha.3] - 2020-03-09
 
