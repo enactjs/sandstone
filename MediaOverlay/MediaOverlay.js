@@ -150,17 +150,11 @@ const MediaOverlayBase = kind({
 		/**
 		 * Aligns the `text` vertically within the component.
 		 *
-		 * Allowed values are:
-		 *
-		 * * `"center"`, the default, aligns the text in the middle
-		 * * `"start"` aligns the text to the top
-		 * * `"end"` aligns the text to the bottom
-		 *
-		 * @type {String}
+		 * @type {('center'|'end'|'start')}
 		 * @public
 		 * @default "center"
 		 */
-		textAlign: PropTypes.string,
+		textAlign: PropTypes.oneOf(['center', 'end', 'start']),
 
 		/**
 		 * The second caption line to be displayed.
