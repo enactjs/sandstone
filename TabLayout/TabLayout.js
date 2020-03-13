@@ -102,7 +102,7 @@ const TabLayoutBase = kind({
 		onExpand: PropTypes.func,
 
 		/**
-		 * Handler for `onSelect` events
+		 * Called when a tab is selected
 		 *
 		 * @type {Function}
 		 * @public
