@@ -10,8 +10,8 @@
 // Assign the complement of rules that the spotlight focus animation requires
 .sand-spotlight-resting(@opacity: 0) {
 	opacity: @opacity;
-	transition: filter @sand-spotlight-focus-animation-duration ease-out, opacity @sand-spotlight-focus-animation-duration ease-out;
-	will-change: filter, opacity;
+	transition+: filter @sand-spotlight-focus-animation-duration ease-out, opacity @sand-spotlight-focus-animation-duration ease-out;
+	will-change+: filter, opacity;
 }
 
 // Spotlight focus-state animation rules which are _not_color_related_

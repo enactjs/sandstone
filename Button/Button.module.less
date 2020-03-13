@@ -28,8 +28,9 @@
 	.bg {
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
-
-		transition: transform @sand-button-focus-duration ease-out, filter @sand-button-focus-duration ease-out;
+		.sand-spotlight-resting();
+		will-change+: transform;
+		transition+: transform @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -239,7 +240,7 @@
 
 		.bg {
 			border-color: transparent;
-			filter: drop-shadow(@sand-button-bg-shadow);
+			.sand-spotlight-resting-colors();
 		}
 
 		&.opaque {
@@ -247,6 +248,7 @@
 
 			.bg {
 				background-color: @sand-button-bg-color;
+				opacity: @sand-button-bg-opacity;
 			}
 		}
 
@@ -255,6 +257,7 @@
 
 			.bg {
 				background-color: @sand-button-transparent-bg-color;
+				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
 
@@ -283,7 +286,8 @@
 			}
 
 			.bg {
-				background-color: @sand-button-focus-bg-color;
+				.sand-spotlight-focus();
+				.sand-spotlight-focus-colors();
 			}
 		});
 
@@ -294,7 +298,6 @@
 
 				.bg {
 					transform: @sand-button-focus-bg-transform;
-					filter: drop-shadow(@sand-button-focus-bg-shadow);
 				}
 
 				&.small .bg {

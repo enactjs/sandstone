@@ -1,0 +1,26 @@
+// color-mixins.less
+//
+// Mixins specifically dependent on theme colors.
+// Shortcuts for easily getting consistent colorization rules onto components.
+//
+
+// ---------------------------------------
+// Focus Shadow and background setup
+// ---------------------------------------
+
+// Establish rules assignment for before focus has happened
+.sand-spotlight-resting-colors () {
+	background-color: @sand-spotlight-bg-color;
+	filter+: drop-shadow(@sand-spotlight-resting-shadow);
+}
+
+// Establish rules assignment for after focus has happened
+.sand-spotlight-focus-colors () {
+	background-color: @sand-spotlight-bg-color;
+	filter+: drop-shadow(@sand-spotlight-focus-shadow);
+}
+
+.poc-accent-bg-color () {
+	background-color: @sand-accent;
+	content: "correctly applied";
+}
