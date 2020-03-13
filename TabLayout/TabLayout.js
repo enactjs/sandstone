@@ -133,7 +133,6 @@ const TabLayoutBase = kind({
 
 	handlers: {
 		onSelect: handle(
-			handle.log('onSelect'),
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
 		)
 	},
