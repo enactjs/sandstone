@@ -36,6 +36,7 @@ const SwitchBase = kind({
 
 	propTypes: /** @lends sandstone/Switch.Switch.prototype */ {
 		children: PropTypes.string,
+
 		css: PropTypes.object,
 
 		/**
@@ -92,19 +93,18 @@ const SwitchBase = kind({
 	}
 });
 
-const SkinnableSwitchBase = Skinnable(SwitchBase);
-
 const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Spottable
+	Spottable,
+	Skinnable
 );
 
-const Switch = SwitchDecorator(SkinnableSwitchBase);
+const Switch = SwitchDecorator(SwitchBase);
 
 export default Switch;
 
 export {
 	Switch,
 	SwitchBase,
-	SkinnableSwitchBase
+	SwitchDecorator
 };

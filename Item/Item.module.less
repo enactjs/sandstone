@@ -23,10 +23,8 @@
 	.bg {
 		position: absolute;
 		.position(0);
-		opacity: 0;
-		transition: filter 300ms ease-out, opacity 300ms ease-out;
-		will-change: filter, opacity;
 		border-radius: @sand-item-border-radius;
+		.sand-spotlight-resting();
 	}
 
 	.slotAfter,
@@ -93,6 +91,12 @@
 
 	.locale-japanese-line-break();
 
+	.focus({
+		.bg {
+			.sand-spotlight-focus();
+		}
+	});
+
 	// Skin colors
 	.applySkins({
 		.bg {
@@ -105,7 +109,6 @@
 
 			.bg {
 				background-color: @sand-item-focus-bg-color;
-				opacity: 1;
 				filter: drop-shadow(@sand-item-focus-bg-shadow);
 			}
 

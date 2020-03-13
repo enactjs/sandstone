@@ -15,15 +15,15 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-
 import Toggleable from '@enact/ui/Toggleable';
 
-import {SkinnableSwitchBase as Switch} from '../Switch';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
+import {SwitchBase} from '../Switch';
 
 import componentCss from './SwitchItem.module.less';
 
+const Switch = Skinnable(SwitchBase);
 
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.
@@ -79,8 +79,8 @@ const SwitchItemBase = kind({
 			{...rest}
 			css={css}
 		>
-			<Switch selected={selected} slot="slotAfter" css={css} />
 			{children}
+			<Switch selected={selected} slot="slotAfter" css={css} />
 		</Item>
 	)
 });
@@ -95,5 +95,6 @@ const SwitchItem = SwitchItemDecorator(SwitchItemBase);
 export default SwitchItem;
 export {
 	SwitchItem,
-	SwitchItemBase
+	SwitchItemBase,
+	SwitchItemDecorator
 };

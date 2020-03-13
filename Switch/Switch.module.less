@@ -5,10 +5,10 @@
 @import "../styles/skin.less";
 
 .switch {
-	border-radius: @sand-toggleswitch-border-radius;
-	width: @sand-toggleswitch-width;
-	height: @sand-toggleswitch-height;
-	line-height: @sand-toggleswitch-height;
+	border-radius: @sand-switch-border-radius;
+	width: @sand-switch-width;
+	height: @sand-switch-height;
+	line-height: @sand-switch-height;
 	font-family: @sand-icon-font-family;
 	position: relative;
 	display: inline-block;
@@ -16,40 +16,29 @@
 	cursor: default;
 
 	.sand-custom-text({
-		width: @sand-toggleswitch-width-large;
-		height: @sand-toggleswitch-height-large;
-		border-radius: (@sand-toggleswitch-height-large / 2);
+		width: @sand-switch-width-large;
+		height: @sand-switch-height-large;
+		border-radius: (@sand-switch-height-large / 2);
 	});
 
-	.sand-taparea(@sand-toggleswitch-height);
-
-	&::after {
-		content: "";
-		position: absolute;
-		.position(50%, 0, 0, 50%);
-		transform: translate3d(-50%, -50%, 0);
-		width: 174px;
-		height: 96px;
-		border-radius: 12px;
-		z-index: -1;
-	}
+	.sand-taparea(@sand-switch-height);
 
 	.icon {
 		visibility: visible;
 		left: 0;
-		width: @sand-toggleswitch-height;
+		width: @sand-switch-height;
 		height: inherit;
-		font-size: (@sand-toggleswitch-height * 3);
+		font-size: (@sand-switch-height * 3);
 		line-height: inherit;
 		margin: 0;
 	}
 
 	&.selected {
 		.icon {
-			left: (@sand-toggleswitch-width - @sand-toggleswitch-height);
+			left: (@sand-switch-width - @sand-switch-height);
 
 			.sand-custom-text({
-				left: (@sand-toggleswitch-width-large - @sand-toggleswitch-height-large);
+				left: (@sand-switch-width-large - @sand-switch-height-large);
 			});
 		}
 	}
@@ -64,83 +53,69 @@
 		}
 	}
 
-	// Skin colors
-	.applySkins({
-		background-color: @sand-checkbox-toggle-switch-bg-color;
-		border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
+	// The switch is acting a standalone capacity and is Spottable
+	.spottable({
+		margin: 18px (@sand-component-spacing + 30px); // This margin must also account for the @sand-component-spacing, in addition to the @sand-spotlight-outset
 
 		&::after {
-			background-color: @sand-checkbox-toggle-switch-after-bg-color;
+			content: "";
+			position: absolute;
+			.position(-18px, -30px);
+			border-radius: 12px;
+			z-index: -1;
+			.sand-spotlight-resting();
 		}
+	});
+
+	.focus({
+		&::after {
+			.sand-spotlight-focus();
+		}
+	});
+
+	// Skin colors
+	.applySkins({
+		background-color: @sand-switch-bg-color;
 
 		.icon {
 			background-color: transparent;
-			color: @sand-checkbox-toggle-switch-color;
+			color: @sand-switch-color;
 		}
 
 		&.selected {
-			background-color: @sand-checkbox-toggle-switch-selected-bg-color;
-			border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-selected-border-color;
+			background-color: @sand-switch-selected-bg-color;
+
 			.icon {
-				color: @sand-checkbox-toggle-switch-selected-color;
+				color: @sand-switch-selected-color;
 			}
 		}
 
-		.disabled({
-			background-color: @sand-checkbox-toggle-switch-bg-color;
-			opacity: 0.4;
-
+		// Standalone Switch
+		.spottable({
 			&::after {
-				opacity: 1;
+				background-color: @sand-switch-container-bg-color;
+				filter: drop-shadow(@sand-switch-container-resting-shadow);
 			}
-
-			.icon {
-				color: @sand-checkbox-toggle-switch-color;
-			}
-
-			&.selected {
-				border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
-			}
-
-
 		});
 
 		.focus({
 			&::after {
-				background-color: @sand-checkbox-toggle-switch-after-spotlight-bg-color;
-				box-shadow: @sand-checkbox-toggle-switch-after-box-shadow;
+				background-color: @sand-switch-container-focus-bg-color;
+				filter: drop-shadow(@sand-switch-container-focus-shadow);
 			}
 
 			.icon {
-				color: @sand-checkbox-toggle-switch-spotlight-color;
+				color: @sand-switch-focus-color;
 			}
 
 			&.selected {
 				.icon {
-					color: @sand-checkbox-toggle-switch-selected-color;
+					color: @sand-switch-selected-focus-color;
 				}
 			}
 		});
 	});
 }
-
-// When a parent is disabled
-.disabled({
-	.switch {
-		.applySkins({
-			background-color: @sand-checkbox-toggle-switch-bg-color;
-			border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
-
-			&.selected {
-				border: @sand-checkbox-toggle-switch-border-width solid @sand-checkbox-toggle-switch-border-color;
-			}
-
-			.icon {
-				color: @sand-checkbox-toggle-switch-color;
-			}
-		});
-	}
-});
 
 // Keep the switch handle (the icon) a constant color regardless of focus state.
 .focus({
@@ -148,25 +123,14 @@
 		// Skin colors
 		.applySkins({
 			.icon {
-				color: @sand-checkbox-toggle-switch-spotlight-color;
+				color: @sand-switch-focus-color;
 			}
 
 			&.selected {
 				.icon {
-					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
+					color: @sand-switch-selected-focus-color;
 				}
 			}
 		});
 	}
-
-	.disabled({
-		.switch {
-			.applySkins({
-				opacity: @sand-disabled-opacity;
-
-				background-color: @sand-checkbox-toggle-switch-bg-color;
-				box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-border-color;
-			});
-		}
-	});
 }, parent);
