@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {forward, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
@@ -745,8 +746,13 @@ const PickerBase = class extends React.Component {
 	}
 
 	calcButtonLabel (next, valueText) {
-		const {decrementAriaLabel, incrementAriaLabel} = this.props;
-		let label = next ? incrementAriaLabel : decrementAriaLabel;
+		const {decrementAriaLabel, incrementAriaLabel, orientation} = this.props;
+		let label;
+		if (orientation === 'vertical') {
+			label = next ? decrementAriaLabel : incrementAriaLabel;
+		} else {
+			label = next ? incrementAriaLabel : decrementAriaLabel;
+		}
 
 		if (label != null) {
 			return label;
@@ -834,13 +840,15 @@ const PickerBase = class extends React.Component {
 		const incrementIcon = selectIncIcon(this.props);
 		const decrementIcon = selectDecIcon(this.props);
 
+		const horizontal = orientation === 'horizontal';
+
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
 		const reachedEnd = this.hasReachedBound(step);
 		const incrementerDisabled = disabled || reachedEnd;
 		const classes = this.determineClasses(decrementerDisabled, incrementerDisabled);
 
-		let arranger = orientation === 'vertical' ? SlideTopArranger : SlideLeftArranger;
+		let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
 		let noAnimation = this.props.noAnimation || disabled;
 
 		let sizingPlaceholder = null;
@@ -848,10 +856,12 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
+		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
 		const spottablePickerProps = {};
+
 		let Component;
 
 		if (joined) {
@@ -922,6 +932,16 @@ const PickerBase = class extends React.Component {
 					>
 						{children}
 					</PickerViewManager>
+					{showIndicators && (
+						<div className={css.indicatorContainer} {...voiceProps}>
+							{children.map((c, indicator) => (
+								<div
+									key={`indicator${indicator}`}
+									className={classnames(css.indicator, {[css.active]: (index === indicator)})}
+								/>
+							))}
+						</div>
+					)}
 				</div>
 				<PickerButton
 					{...voiceProps}

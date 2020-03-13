@@ -369,6 +369,54 @@ describe('Picker Specs', () => {
 		}
 	);
 
+	test(
+		'indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has no children',
+		() => {
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} orientation="horizontal" />
+			);
+
+			const expected = 0;
+			const actual = picker.find(`.${css.indicator}`).length;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'indicator Container should not show any indicator when \'joined\' and \'horizontal\' and has one children',
+		() => {
+			const picker = mount(
+				<Picker index={0} max={1} min={-1} joined orientation="horizontal">
+					<PickerItem>Test one picker</PickerItem>
+				</Picker>
+			);
+
+			const expected = 0;
+			const actual = picker.find(`.${css.indicator}`).length;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'indicator Container should show with the exact number of children indicator when \'joined\' and \'horizontal\'',
+		() => {
+			const picker = mount(
+				<Picker index={0} max={2} min={0} joined orientation="horizontal">
+					<PickerItem>Test one picker</PickerItem>
+					<PickerItem>Test two picker</PickerItem>
+					<PickerItem>Test three picker</PickerItem>
+				</Picker>
+			);
+
+			const expected = 3;
+			const actual = picker.find(`.${css.indicator}`).length;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
 	describe('accessibility', () => {
 
 		test(
