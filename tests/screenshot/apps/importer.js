@@ -39,6 +39,7 @@ import TimePicker from '../../../TimePicker';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
+import WizardPanel from '../../../WizardPanel';
 
 const components = {
 	BodyText,
@@ -82,7 +83,8 @@ const components = {
 	TimePicker,
 	TooltipDecorator,
 	VideoPlayer,
-	VirtualList
+	VirtualList,
+	WizardPanel
 };
 
 export default components;
