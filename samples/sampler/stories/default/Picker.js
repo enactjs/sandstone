@@ -14,12 +14,12 @@ const prop = {
 };
 
 const airports = [
-	'San Francisco Airport Terminal Gate 1',
-	'Boston Airport Terminal Gate 2',
-	'Tokyo Airport Terminal Gate 3',
-	'London Airport Terminal Gate 4',
-	'Milan Airport Terminal Gate 5',
-	'Paris Airport Terminal Gate 6',
+	'San Francisco International Airport Terminal 1',
+	'Milan Malpensa Airport Terminal 2',
+	'Paris-Charles De Gaulle Airport Terminal 3',
+	'Boston Logan Airport Terminal D',
+	'Tokyo Narita Airport Terminal 5',
+	'Heathrow Terminal 6',
 	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
 
