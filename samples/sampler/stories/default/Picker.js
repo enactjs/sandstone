@@ -18,8 +18,8 @@ const airports = [
 	'Boston Airport Terminal Gate 2',
 	'Tokyo Airport Terminal Gate 3',
 	'London Airport Terminal Gate 4',
-	'Paris Airport Terminal Gate 6',
 	'Milan Airport Terminal Gate 5',
+	'Paris Airport Terminal Gate 6',
 	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
 
