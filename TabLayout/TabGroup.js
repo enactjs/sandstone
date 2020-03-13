@@ -7,13 +7,16 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import DebounceDecorator from '../internal/DebounceDecorator';
 import Icon from '../Icon';
 import Item from '../Item';
 import Scroller from '../Scroller';
 
-const forwardSelect = adaptEvent(
+const DebouncedItem = DebounceDecorator({debounce: 'onFocus', delay: 1000}, Item);
+
+const forwardSelectTab = adaptEvent(
 	(ev, {index}) => ({index}),
-	forward('onSelect')
+	forward('onSelectTab')
 );
 
 const TabBase = kind({
@@ -21,32 +24,34 @@ const TabBase = kind({
 
 	propTypes: {
 		icon: PropTypes.string,
+		onSelectTab: PropTypes.func,
 		selected: PropTypes.bool
 	},
 
 	handlers: {
-		onClick: handle(
-			forward('onClick'),
-			forwardSelect
-		),
+		// onClick: handle(
+		// 	forward('onClick'),
+		// 	forwardSelectTab
+		// ),
 		onFocus: handle(
 			forward('onFocus'),
 			() => !Spotlight.getPointerMode(),
-			forwardSelect
+			forwardSelectTab
 		)
 	},
 
 	render: ({children, icon, ...rest}) => {
+		delete rest.onSelectTab;
 
 		return (
-			<Item
+			<DebouncedItem
 				{...rest}
 			>
 				{icon ? (
 					<Icon slot="slotBefore">{icon}</Icon>
 				) : null}
 				{children}
-			</Item>
+			</DebouncedItem>
 		);
 	}
 });
@@ -98,7 +103,7 @@ const TabGroupBase = kind({
 					<Group
 						{...rest}
 						childComponent={TabBase}
-						childSelect="onSelect"
+						childSelect="onSelectTab"
 						component="div"
 						indexProp="index"
 						select="radio"

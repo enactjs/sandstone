@@ -7,7 +7,6 @@
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import DebounceDecorator from '../internal/DebounceDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -182,8 +181,7 @@ const TabLayoutBase = kind({
 
 const TabLayoutDecorator = compose(
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
-	Changeable({prop: 'index', change: 'onSelect'}),
-	DebounceDecorator
+	Changeable({prop: 'index', change: 'onSelect'})
 );
 
 // Currently not documenting the base output since it's not exported
