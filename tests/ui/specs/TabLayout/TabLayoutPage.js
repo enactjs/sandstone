@@ -11,16 +11,6 @@ class TabLayoutInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	focusScroller () {
-		const focus = (selector) => {
-			const el = document.querySelector(selector);
-			el.focus();
-			return el;
-		}
-
-		browser.execute(focus, this.tabsScroller.selector);
-	}
-
 	hoverScroller () {
 		return $(this.tabsScroller.selector).moveTo();
 	}
@@ -33,10 +23,8 @@ class TabLayoutInterface {
 	get currentView () {return this.content.$('div');}
 	get isCollapsed () {return hasClass('collapsed', this.self);}
 	get self () {return browser.$(this.selector);}
-	get tabGroup () {return this.self.$('[role=group]');}
 	get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
 	get tabItems () {return this.tabs.$$('.Item_Item_item');}
-	get tabOrientation () {return this.tabGroup.getAttribute('orientation');}
 	get tabs () {return getTabs(this.self);}
 	get tabsScroller () {return getScroller(this.self);}
 }
@@ -52,7 +40,7 @@ class TabLayoutPage extends Page {
 		};
 	}
 
-	open (layout, urlExtra) {
+	open (layout = '', urlExtra) {
 		super.open(`TabLayout${layout}-View`, urlExtra);
 	}
 }
