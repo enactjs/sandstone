@@ -7,7 +7,6 @@
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import DebounceDecorator from '../internal/DebounceDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -19,7 +18,6 @@ import React from 'react';
 import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
-
 
 /**
  * Tabbed Layout component.
@@ -136,20 +134,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
-		),
-
-		onSpotlightDown: (ev, {index, onSelect, tabs}) => {
-			if (onSelect && index < tabs.length - 1) {
-				onSelect({index: index + 1});
-			}
-		},
-
-		onSpotlightUp: (ev, {index, onSelect}) => {
-			if (onSelect && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
-				onSelect({index: prevIndex});
-			}
-		}
+		)
 	},
 
 	computed: {
@@ -164,7 +149,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, onSpotlightDown, onSpotlightUp, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		const tabSize = collapsed ? 450 : 855;
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
@@ -172,12 +157,11 @@ const TabLayoutBase = kind({
 					<TabGroup
 						collapsed={collapsed}
 						onFocus={onExpand}
+						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}
 						tabs={tabs}
-						onSpotlightDown={onSpotlightDown}
-						onSpotlightUp={onSpotlightUp}
 					/>
 				</Cell>
 				<Cell
@@ -197,8 +181,7 @@ const TabLayoutBase = kind({
 
 const TabLayoutDecorator = compose(
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
-	Changeable({prop: 'index', change: 'onSelect'}),
-	DebounceDecorator
+	Changeable({prop: 'index', change: 'onSelect'})
 );
 
 // Currently not documenting the base output since it's not exported
