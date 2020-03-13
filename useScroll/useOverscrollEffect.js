@@ -87,7 +87,7 @@ const useOverscrollEffect = (props, instances) => {
 	}
 
 	// Return
-	console.log("ss/useScroll/useOverscrollEffect start===================");
+	console.log("ss/useScroll/useOverscrollEffect end===================");
 	return {
 		applyOverscrollEffect,
 		checkAndApplyOverscrollEffectByDirection,

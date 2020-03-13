@@ -27,7 +27,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	delete rest.corner;
 
 	useImperativeHandle(ref, () => {
-		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
+		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate, setScrollbarVisible} = scrollbarRef.current;
 
 		return {
 			get uiScrollbarContainer () {
@@ -38,7 +38,8 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			uiUpdate,
 			update: (bounds) => {
 				uiUpdate(bounds);
-			}
+			},
+			setScrollbarVisible
 		};
 	}, [scrollbarRef]);
 	console.log("ss/useScroll/ScrollbarBase render ==========================");

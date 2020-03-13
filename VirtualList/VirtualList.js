@@ -78,8 +78,8 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 						<UiVirtualListBasic {...themeScrollContentProps} />
 					</ScrollContentWrapper>
 				</div>
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				<Scrollbar {...verticalScrollbarProps} />
+				<Scrollbar {...horizontalScrollbarProps} />
 			</div>
 		</ResizeContext.Provider>
 	);
