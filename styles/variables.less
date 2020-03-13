@@ -650,11 +650,10 @@
 @sand-switch-icon-size: 54px;
 @sand-switch-margin: @sand-switch-width + @sand-spotlight-outset;
 @sand-switch-border-width: 4px;
-@sand-switch-spottable-margin-top-bottom: 18px;
-@sand-switch-spottable-margin-left-right: (@sand-component-spacing + 30px);
-@sand-switch-spottable-after-border-radius: 12px;
-@sand-switch-spottable-after-position-top-bottom: -18px;
-@sand-switch-spottable-after-position-left-right: -30px;
+@sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
+@sand-switch-spottable-border-radius: @sand-item-border-radius;
+@sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
+@sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
 
 // TabLayout
 // ---------------------------------------
