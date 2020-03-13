@@ -6,9 +6,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Item, {ItemBase} from '@enact/sandstone/Item';
-import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-
 
 SwitchItem.displayName = 'SwitchItem';
 const Config = mergeComponentMetadata('SwitchItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, SwitchItem);
@@ -25,10 +23,6 @@ storiesOf('Sandstone', module)
 				>
 					{text('children', Config, 'Hello SwitchItem')}
 				</SwitchItem>
-				<Switch
-					disabled={boolean('disabled', Config)}
-					onToggle={action('onToggle')}
-				/>
 			</div>);
 		},
 		{
