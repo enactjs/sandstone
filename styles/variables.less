@@ -541,6 +541,25 @@
 @sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
 @sand-panel-body-option-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
 
+// Picker
+// ----------------------------------------
+@sand-picker-border-radius: 24px;
+@sand-picker-padding: 24px;
+@sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
+@sand-picker-value-height: @sand-button-small-height;
+@sand-picker-joined-horizontal-border-radius: 960px;
+@sand-picker-joined-horizontal-height: 210px;
+@sand-picker-joined-horizontal-value-line-height: (@sand-picker-joined-horizontal-height - 30px);
+@sand-picker-medium-value-width: 360px;
+@sand-picker-large-value-width: 696px;
+@sand-picker-indicator-width: 24px;
+@sand-picker-indicator-height: 24px;
+@sand-picker-indicator-border-radius: @sand-picker-indicator-width;
+@sand-picker-indicator-inactive-scale: 0.75;
+@sand-picker-indicator-active-scale: 1;
+@sand-picker-indicator-margin: 0 12px;
+@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it alows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
+
 // Popup
 // ---------------------------------------
 @sand-popup-padding-top: 48px;
