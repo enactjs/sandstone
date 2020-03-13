@@ -112,24 +112,6 @@ const TabLayoutBase = kind({
 		onSelect: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way down key is pressed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onSpotlightDown: PropTypes.func,
-
-		/**
-		 * Called prior to focus leaving the expandable when the 5-way up key is pressed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onSpotlightUp: PropTypes.func,
-
-		/**
 		 * Orientation of the tabs.
 		 *
 		 * Horizontal tabs support a maximum of five tabs.
@@ -154,20 +136,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
-		),
-
-		onSpotlightDown: (ev, {index, onSelect, tabs}) => {
-			if (onSelect && index < tabs.length - 1) {
-				onSelect({index: index + 1});
-			}
-		},
-
-		onSpotlightUp: (ev, {index, onSelect}) => {
-			if (onSelect && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
-				onSelect({index: prevIndex});
-			}
-		}
+		)
 	},
 
 	computed: {
@@ -182,7 +151,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, onSpotlightDown, onSpotlightUp, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		const tabSize = collapsed ? 450 : 855;
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
@@ -194,8 +163,6 @@ const TabLayoutBase = kind({
 						orientation={orientation}
 						selectedIndex={index}
 						tabs={tabs}
-						onSpotlightDown={onSpotlightDown}
-						onSpotlightUp={onSpotlightUp}
 					/>
 				</Cell>
 				<Cell

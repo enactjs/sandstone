@@ -1,5 +1,7 @@
+import handle, {adaptEvent, forward} from '@enact/core/handle/handle';
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
+import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -9,12 +11,29 @@ import Icon from '../Icon';
 import Item from '../Item';
 import Scroller from '../Scroller';
 
+const forwardSelect = adaptEvent(
+	(ev, {index}) => ({index}),
+	forward('onSelect')
+);
+
 const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
 		icon: PropTypes.string,
 		selected: PropTypes.bool
+	},
+
+	handlers: {
+		onClick: handle(
+			forward('onClick'),
+			forwardSelect
+		),
+		onFocus: handle(
+			forward('onFocus'),
+			() => !Spotlight.getPointerMode(),
+			forwardSelect
+		)
 	},
 
 	render: ({children, icon, ...rest}) => {
@@ -49,8 +68,6 @@ const TabGroupBase = kind({
 		css: PropTypes.object,
 		onBlur: PropTypes.func,
 		onFocus: PropTypes.func,
-		onSpotlightDown: PropTypes.func,
-		onSpotlightUp: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},
@@ -67,7 +84,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, onSpotlightDown, onSpotlightUp, ...rest}) => {
+	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
 		delete rest.collapsed;
 		delete rest.tabs;
 
@@ -81,11 +98,12 @@ const TabGroupBase = kind({
 					<Group
 						{...rest}
 						childComponent={TabBase}
+						childSelect="onSelect"
 						component="div"
+						indexProp="index"
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
-						itemProps={{onSpotlightDown:onSpotlightDown, onSpotlightUp:onSpotlightUp}}
 					/>
 				)}
 			</Scroller>
