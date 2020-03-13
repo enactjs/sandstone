@@ -55,13 +55,13 @@
 
 	// The switch is acting a standalone capacity and is Spottable
 	.spottable({
-		margin: 18px (@sand-component-spacing + 30px); // This margin must also account for the @sand-component-spacing, in addition to the @sand-spotlight-outset
+		margin: @sand-switch-spottable-margin-top-bottom @sand-switch-spottable-margin-left-right; // This margin must also account for the @sand-component-spacing, in addition to the @sand-spotlight-outset
 
 		&::after {
 			content: "";
 			position: absolute;
-			.position(-18px, -30px);
-			border-radius: 12px;
+			.position(@sand-switch-spottable-after-position-top-bottom, @sand-switch-spottable-after-position-left-right);
+			border-radius: @sand-switch-spottable-after-border-radius;
 			z-index: -1;
 			.sand-spotlight-resting();
 		}
