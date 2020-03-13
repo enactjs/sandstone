@@ -112,24 +112,6 @@ const TabLayoutBase = kind({
 		onSelect: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way down key is pressed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onSpotlightDown: PropTypes.func,
-
-		/**
-		 * Called prior to focus leaving the expandable when the 5-way up key is pressed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onSpotlightUp: PropTypes.func,
-
-		/**
 		 * Orientation of the tabs.
 		 *
 		 * Horizontal tabs support a maximum of five tabs.
