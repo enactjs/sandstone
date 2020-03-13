@@ -1,18 +1,16 @@
+import Picker from '@enact/sandstone/Picker';
+import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
-import PickerAddRemove from './components/PickerAddRemove';
-import PickerRTL from './components/PickerRTL';
+import {Row} from '@enact/ui/Layout';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import Picker from '@enact/sandstone/Picker';
-import Scroller from '@enact/sandstone/Scroller';
-import {Row} from '@enact/ui/Layout';
-import Section from '../qa/components/KitchenSinkSection';
-import RangePicker from '@enact/sandstone/RangePicker';
-import DatePicker from '@enact/sandstone/DatePicker';
-
 import iconNames from '../default/icons';
+
+import Section from './components/KitchenSinkSection';
+import PickerAddRemove from './components/PickerAddRemove';
+import PickerRTL from './components/PickerRTL';
 
 Picker.displayName = 'Picker';
 
@@ -53,8 +51,8 @@ const pickerList = {
 		'Boston Airport Terminal Gate 2',
 		'Tokyo Airport Terminal Gate 3',
 		'London Airport Terminal Gate 4',
-		'Paris Airport Terminal Gate 6',
 		'Milan Airport Terminal Gate 5',
+		'Paris Airport Terminal Gate 6',
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	]
 };
