@@ -5,7 +5,6 @@
  * @private
  */
 
-import handle, {call} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {Job} from '@enact/core/util';
 import PropTypes from 'prop-types';
@@ -21,7 +20,7 @@ const defaultConfig = {
 	/**
 	 * Event to debounce
 	 *
-	 * @type {String[]}
+	 * @type {String}
 	 * @required
 	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
 	 */
@@ -30,8 +29,7 @@ const defaultConfig = {
 	/**
 	 * Time, in ms, to wait to emit the event
 	 *
-	 * @type {String[]}
-	 * @required
+	 * @type {Number}
 	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
 	 */
 	delay: 300
@@ -74,19 +72,19 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		}
 
-		handleEvent (ev) {
+		handleEvent = (ev) => {
 			this.job.start(ev);
 		}
 
-		handleKeyEvent = handle (
-			call('handleEvent')
-		).bindAs(this, 'handleKeyEvent')
-
 		render () {
-			const props = {
-				...this.props,
-				[debounce]: this.handleKeyEvent
-			};
+			let props = this.props;
+
+			if (debounce) {
+				props = {
+					...props,
+					[debounce]: this.handleEvent
+				};
+			}
 
 			return (
 				<Wrapped {...props} />

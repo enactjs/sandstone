@@ -19,7 +19,6 @@ import TabGroup from './TabGroup';
 
 import componentCss from './TabLayout.module.less';
 
-
 /**
  * Tabbed Layout component.
  *
