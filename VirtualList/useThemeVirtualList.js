@@ -373,6 +373,7 @@ const useThemeVirtualList = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
+	delete rest.scrollContentHandle;
 	delete rest.spotlightId;
 	delete rest.wrap;
 
