@@ -12,46 +12,38 @@ import Icon from '../Icon';
 import Item from '../Item';
 import Scroller from '../Scroller';
 
-const DebouncedItem = DebounceDecorator({debounce: 'onFocus', delay: 1000}, Item);
-
-const forwardSelectTab = adaptEvent(
-	(ev, {index}) => ({index}),
-	forward('onSelectTab')
-);
-
 const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
 		icon: PropTypes.string,
-		onSelectTab: PropTypes.func,
+		onFocusTab: PropTypes.func,
 		selected: PropTypes.bool
 	},
 
 	handlers: {
-		// onClick: handle(
-		// 	forward('onClick'),
-		// 	forwardSelectTab
-		// ),
 		onFocus: handle(
 			forward('onFocus'),
 			() => !Spotlight.getPointerMode(),
-			forwardSelectTab
+			adaptEvent(
+				(ev, {index}) => ({selected: index}),
+				forward('onFocusTab')
+			)
 		)
 	},
 
 	render: ({children, icon, ...rest}) => {
-		delete rest.onSelectTab;
+		delete rest.onFocusTab;
 
 		return (
-			<DebouncedItem
+			<Item
 				{...rest}
 			>
 				{icon ? (
 					<Icon slot="slotBefore">{icon}</Icon>
 				) : null}
 				{children}
-			</DebouncedItem>
+			</Item>
 		);
 	}
 });
@@ -73,15 +65,18 @@ const TabGroupBase = kind({
 		css: PropTypes.object,
 		onBlur: PropTypes.func,
 		onFocus: PropTypes.func,
+		onFocusTab: PropTypes.func,
+		onSelect: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},
 
 	computed: {
-		children: ({tabs}) => tabs.map(({children, title, ...rest}, i) => {
+		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
 				key: `tabs${i}`,
 				children: title || children,
+				onFocusTab,
 				...rest
 			};
 		}),
@@ -91,6 +86,7 @@ const TabGroupBase = kind({
 
 	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
 		delete rest.collapsed;
+		delete rest.onFocusTab;
 		delete rest.tabs;
 
 		return (
@@ -103,7 +99,6 @@ const TabGroupBase = kind({
 					<Group
 						{...rest}
 						childComponent={TabBase}
-						childSelect="onSelectTab"
 						component="div"
 						indexProp="index"
 						select="radio"
@@ -117,7 +112,8 @@ const TabGroupBase = kind({
 });
 
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator({enterTo: 'last-focused'})
+	SpotlightContainerDecorator({enterTo: 'last-focused'}),
+	DebounceDecorator({debounce: 'onFocusTab', delay: 300})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is

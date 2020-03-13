@@ -133,6 +133,7 @@ const TabLayoutBase = kind({
 
 	handlers: {
 		onSelect: handle(
+			handle.log('onSelect'),
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
 		)
 	},
@@ -157,6 +158,7 @@ const TabLayoutBase = kind({
 					<TabGroup
 						collapsed={collapsed}
 						onFocus={onExpand}
+						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}
