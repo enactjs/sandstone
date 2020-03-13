@@ -418,6 +418,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	])
 };
 
+VirtualList = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			VirtualList
+		)
+	)
+);
+
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -441,20 +455,6 @@ VirtualList.defaultProps = {
 	verticalScrollbar: 'auto',
 	wrap: false
 };
-
-VirtualList = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			VirtualList
-		)
-	)
-);
 
 /**
  * A Sandstone-styled scrollable and spottable virtual grid list component.
@@ -831,6 +831,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	])
 };
 
+VirtualGridList = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			VirtualGridList
+		)
+	)
+);
+
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -854,20 +868,6 @@ VirtualGridList.defaultProps = {
 	verticalScrollbar: 'auto',
 	wrap: false
 };
-
-VirtualGridList = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			VirtualGridList
-		)
-	)
-);
 
 export default VirtualList;
 export {
