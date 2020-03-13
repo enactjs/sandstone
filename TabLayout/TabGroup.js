@@ -49,6 +49,8 @@ const TabGroupBase = kind({
 		css: PropTypes.object,
 		onBlur: PropTypes.func,
 		onFocus: PropTypes.func,
+		onSpotlightDown: PropTypes.func,
+		onSpotlightUp: PropTypes.func,
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number
 	},

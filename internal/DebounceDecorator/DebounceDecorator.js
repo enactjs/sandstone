@@ -5,8 +5,10 @@
  * @private
  */
 
+import handle, {call} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import {Job} from "@enact/core/util";
+import {Job} from '@enact/core/util';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
@@ -20,30 +22,44 @@ import React from 'react';
  */
 
 const DebounceDecorator = hoc((config, Wrapped) => {
-    return class extends React.Component {
+	return class extends React.Component {
 		static displayName = 'DebounceDecorator'
 
-		constructor(props) {
+		static propTypes = /** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */ {
+			/**
+			 * Handler for `onSelect` events
+			 *
+			 * @type {Function}
+			 * @public
+			 */
+			onSelect: PropTypes.func
+		}
+
+		constructor (props) {
 			super(props);
 			this.job = new Job(this.emitSelect.bind(this), 1000);
 		}
 
-		emitSelect(ev) {
+		emitSelect (ev) {
 			if (this.props.onSelect) {
 				this.props.onSelect(ev);
 			}
 		}
 
-		handleSelect(ev) {
+		handleSelect (ev) {
 			this.job.start(ev);
 		}
 
-		render() {
+		handleKeyEvent = handle (
+			call('handleSelect')
+		).bindAs(this, 'handleKeyEvent')
+
+		render () {
 			return (
-				<Wrapped {...this.props} onSelect={this.handleSelect.bind(this)} />
+				<Wrapped {...this.props} onSelect={this.handleKeyEvent} />
 			);
 		}
-	}
+	};
 });
 
 export default DebounceDecorator;

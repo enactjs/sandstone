@@ -7,7 +7,6 @@
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {is} from '@enact/core/keymap';
 import DebounceDecorator from '../internal/DebounceDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -105,15 +104,12 @@ const TabLayoutBase = kind({
 		onExpand: PropTypes.func,
 
 		/**
-		 * Orientation of the tabs.
+		 * Handler for `onSelect` events
 		 *
-		 * Horizontal tabs support a maximum of five tabs.
-		 *
-		 * @type {('horizontal'|'vertical')}
-		 * @default 'horizontal'
+		 * @type {Function}
 		 * @public
-		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		*/
+		onSelect: PropTypes.func,
 
 		/**
 		 * Called prior to focus leaving the expandable when the 5-way down key is pressed.
@@ -131,7 +127,18 @@ const TabLayoutBase = kind({
 		 * @param {Object} event
 		 * @public
 		 */
-		onSpotlightUp: PropTypes.func
+		onSpotlightUp: PropTypes.func,
+
+		/**
+		 * Orientation of the tabs.
+		 *
+		 * Horizontal tabs support a maximum of five tabs.
+		 *
+		 * @type {('horizontal'|'vertical')}
+		 * @default 'horizontal'
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
 	},
 
 	defaultProps: {
@@ -146,18 +153,17 @@ const TabLayoutBase = kind({
 
 	handlers: {
 		onSelect: handle(
-			// ({index}) => {console.log(index); return true;},
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
 		),
 
-		onSpotlightDown: (ev, {index, onSelect, tabs, ...rest}) => {
-			if(onSelect && index < tabs.length-1) {
-				onSelect({index: index+1});
+		onSpotlightDown: (ev, {index, onSelect, tabs}) => {
+			if (onSelect && index < tabs.length - 1) {
+				onSelect({index: index + 1});
 			}
 		},
 
-		onSpotlightUp: (ev, {index, onSelect, tabs, ...rest}) => {
-			if(onSelect && index !== 0) {
+		onSpotlightUp: (ev, {index, onSelect}) => {
+			if (onSelect && index !== 0) {
 				const prevIndex = index > 0 ? (index - 1) : index;
 				onSelect({index: prevIndex});
 			}
@@ -189,7 +195,7 @@ const TabLayoutBase = kind({
 						selectedIndex={index}
 						tabs={tabs}
 						onSpotlightDown={onSpotlightDown}
-      					onSpotlightUp={onSpotlightUp}
+						onSpotlightUp={onSpotlightUp}
 					/>
 				</Cell>
 				<Cell
