@@ -12,6 +12,32 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
+ * Default config for {@link sandstone/internal/DebounceDecorator.DebounceDecorator}.
+ *
+ * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator
+ * @hocconfig
+ */
+const defaultConfig = {
+	/**
+	 * Event to debounce
+	 *
+	 * @type {String[]}
+	 * @required
+	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
+	 */
+	debounce: null,
+
+	/**
+	 * Time, in ms, to wait to emit the event
+	 *
+	 * @type {String[]}
+	 * @required
+	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
+	 */
+	delay: 300
+};
+
+/**
  * {@link sandstone/internal/DebounceDecorator.DebounceDecorator} provides common behavior for
  * debounce an event on particular action
  *
@@ -21,7 +47,9 @@ import React from 'react';
  * @private
  */
 
-const DebounceDecorator = hoc((config, Wrapped) => {
+const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
+	const {debounce, delay} = config;
+
 	return class extends React.Component {
 		static displayName = 'DebounceDecorator'
 
@@ -32,31 +60,36 @@ const DebounceDecorator = hoc((config, Wrapped) => {
 			 * @type {Function}
 			 * @public
 			 */
-			onSelect: PropTypes.func
+			[debounce]: PropTypes.func
 		}
 
 		constructor (props) {
 			super(props);
-			this.job = new Job(this.emitSelect.bind(this), 1000);
+			this.job = new Job(this.emitEvent.bind(this), delay);
 		}
 
-		emitSelect (ev) {
-			if (this.props.onSelect) {
-				this.props.onSelect(ev);
+		emitEvent (ev) {
+			if (this.props[debounce]) {
+				this.props[debounce](ev);
 			}
 		}
 
-		handleSelect (ev) {
+		handleEvent (ev) {
 			this.job.start(ev);
 		}
 
 		handleKeyEvent = handle (
-			call('handleSelect')
+			call('handleEvent')
 		).bindAs(this, 'handleKeyEvent')
 
 		render () {
+			const props = {
+				...this.props,
+				[debounce]: this.handleKeyEvent
+			};
+
 			return (
-				<Wrapped {...this.props} onSelect={this.handleKeyEvent} />
+				<Wrapped {...props} />
 			);
 		}
 	};
