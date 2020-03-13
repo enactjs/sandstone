@@ -17,6 +17,7 @@ const TabBase = kind({
 
 	propTypes: {
 		icon: PropTypes.string,
+		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
 		selected: PropTypes.bool
 	},
@@ -33,6 +34,7 @@ const TabBase = kind({
 	},
 
 	render: ({children, icon, ...rest}) => {
+		delete rest.index;
 		delete rest.onFocusTab;
 
 		return (
