@@ -39,7 +39,7 @@ import TimePicker from '../../../TimePicker';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
-import WizardPanel from '../../../WizardPanel';
+import {WizardPanel} from '../../../Panels';
 
 const components = {
 	BodyText,
