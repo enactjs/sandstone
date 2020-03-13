@@ -11,7 +11,11 @@ import Scroller from '@enact/sandstone/Scroller';
 const
 	prop = {
 		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: [true, false, 'byEnter'],
+		focusableScrollbarOption: {
+			'true': true,
+			'false': false,
+			'byEnter': 'byEnter'
+		},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate']
 	};
