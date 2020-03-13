@@ -4,11 +4,11 @@ const {Page} = require('@enact/ui-test-utils/utils');
 class SpotlightMultiplePage extends Page {
 	constructor () {
 		super();
-		this.title = 'Input 5-Way Test';
+		this.title = 'InputField Test';
 	}
 
 	open (urlExtra) {
-		super.open('Input-View', urlExtra);
+		super.open('InputField-View', urlExtra);
 	}
 
 	get input1 () { return $('#input1'); }

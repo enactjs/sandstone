@@ -2,6 +2,19 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/GridListImageItem` prop `imageIconComponent` and `imageIconSource` to support an image icon.
+
+### Fixed
+
+- `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
+- `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
+- `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
+- `sandstone/VideoPlayer` to continue to display controls when user activity is detected˛
+
 ## [1.0.0-alpha.3] - 2020-03-09
 
 ### Deprecated
@@ -14,8 +27,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
-- `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
 - `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
 
