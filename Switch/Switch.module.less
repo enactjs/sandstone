@@ -21,8 +21,6 @@
 		border-radius: (@sand-switch-height-large / 2);
 	});
 
-	.sand-taparea(@sand-switch-height);
-
 	.icon {
 		visibility: visible;
 		left: 0;
@@ -44,17 +42,16 @@
 	}
 
 	&.animated {
-		-webkit-transition: background-color 0.2s;
-		transition: background-color 0.2s;
+		transition: background-color 200ms;
 
 		.icon {
-			-webkit-transition: left 0.2s, color 0.2s;
-			transition: left 0.2s, color 0.2s;
+			transition: left 200ms, color 200ms;
 		}
 	}
 
 	// The switch is acting a standalone capacity and is Spottable
 	.spottable({
+		.sand-taparea(@sand-switch-height);
 		margin: @sand-switch-spottable-margin;
 
 		&::after {
@@ -64,12 +61,6 @@
 			border-radius: @sand-switch-spottable-border-radius;
 			z-index: -1;
 			.sand-spotlight-resting();
-		}
-	});
-
-	.focus({
-		&::after {
-			.sand-spotlight-focus();
 		}
 	});
 
@@ -93,15 +84,14 @@
 		// Standalone Switch
 		.spottable({
 			&::after {
-				background-color: @sand-switch-container-bg-color;
-				filter: drop-shadow(@sand-switch-container-resting-shadow);
+				.sand-spotlight-resting-colors();
 			}
 		});
 
 		.focus({
 			&::after {
-				background-color: @sand-switch-container-focus-bg-color;
-				filter: drop-shadow(@sand-switch-container-focus-shadow);
+				.sand-spotlight-focus();
+				.sand-spotlight-focus-colors();
 			}
 
 			.icon {
