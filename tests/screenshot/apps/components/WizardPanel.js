@@ -1,8 +1,10 @@
-import {WizardPanel, View} from '../../../../Panels/WizardPanel';
+import {WizardPanel, View} from '../../../../Panels';
 import React from 'react';
 
+const wizardPanelStyle = {height: '1080px', width: '1920px'};
+
 const WizardPanelTests = [
-	<WizardPanel>
+	<WizardPanel style={wizardPanelStyle}>
 		<View>
 			View 1
 		</View>
@@ -10,7 +12,7 @@ const WizardPanelTests = [
 			View 2
 		</View>
 	</WizardPanel>,
-	<WizardPanel index={1}>
+	<WizardPanel index={1} style={wizardPanelStyle}>
 		<View>
 			View 1
 		</View>
@@ -23,6 +25,7 @@ const WizardPanelTests = [
 		index={1}
 		nextButtonText="nextButtonText"
 		prevButtonText="prevButtonText"
+		style={wizardPanelStyle}
 		title="WizardPanel"
 	>
 		<View>
