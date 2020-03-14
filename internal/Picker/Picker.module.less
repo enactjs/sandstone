@@ -6,7 +6,6 @@
 
 .picker {
 	display: inline-block;
-	border-radius: @sand-picker-border-radius;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -113,6 +112,13 @@
 		transition: filter @sand-picker-focus-duration ease-out;
 
 		&::before {
+			.sand-spotlight-resting();
+			content: "";
+			position: absolute;
+			.position(0);
+		}
+
+		&::after {
 			.position(0);
 
 			content: "";
@@ -150,17 +156,21 @@
 		&.horizontal {
 			height: @sand-picker-joined-horizontal-height;
 			line-height: @sand-picker-joined-horizontal-height;
-			border-radius: @sand-picker-joined-horizontal-border-radius;
+
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-horizontal-border-radius;
+			}
 
 			.valueWrapper {
 				height: @sand-picker-joined-horizontal-value-line-height;
 				line-height: @sand-picker-joined-horizontal-value-line-height;
 			}
 
-			&.incrementing::before {
+			&.incrementing::after {
 				border-right-width: @sand-integer-picker-shadow-width;
 			}
-			&.decrementing::before {
+			&.decrementing::after {
 				border-left-width: @sand-integer-picker-shadow-width;
 			}
 			.incrementer,
@@ -191,7 +201,6 @@
 					border-radius: @sand-picker-indicator-border-radius;
 					transform: scale(@sand-picker-indicator-inactive-scale);
 					vertical-align: middle;
-					cursor: pointer;
 					will-change: transform;
 					transition: transform @sand-picker-focus-duration ease-out;
 
@@ -203,10 +212,15 @@
 		}
 
 		&.vertical {
-			&.incrementing::before {
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+
+			&.incrementing::after {
 				border-top-width: @sand-integer-picker-shadow-width;
 			}
-			&.decrementing::before {
+			&.decrementing::after {
 				border-bottom-width: @sand-integer-picker-shadow-width;
 			}
 			.incrementer,
@@ -216,6 +230,10 @@
 		}
 
 		.focus({
+			&::before {
+				.sand-spotlight-focus();
+			}
+
 			.incrementer,
 			.decrementer {
 				transform: @joined-arrow-transform-focus;
@@ -258,15 +276,19 @@
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-			background-color: @sand-picker-joined-bg-color;
-			filter: drop-shadow(@sand-picker-resting-shadow);
 
 			&::before {
+				.sand-spotlight-resting-colors();
+			}
+
+			&::after {
 				border-color: @sand-picker-joined-fingernail-border-color;
 			}
 
 			&.horizontal {
-				background-color: @sand-picker-joined-horizontal-bg-color;
+				&::before {
+					background-color: @sand-picker-joined-horizontal-bg-color;
+				}
 
 				.indicator {
 					background-color: @sand-picker-indicators-inactive-bg-color;
@@ -278,9 +300,13 @@
 			}
 
 			.focus({
-				background-color: @sand-picker-joined-focused-bg-color;
 				color: @sand-picker-focus-text-color;
-				filter: drop-shadow(@sand-picker-focus-shadow);
+
+				&::before {
+					// background-color: @sand-picker-joined-bg-color;
+					// filter: drop-shadow(@sand-picker-resting-shadow);
+					.sand-spotlight-focus-colors();
+				}
 
 				.disabled({
 					color: @sand-spotlight-disabled-text-color;
@@ -299,8 +325,6 @@
 
 	// Large-text mode rules
 	.sand-custom-text({
-		border-radius: @sand-button-small-height-large;
-
 		.sizingPlaceholder,
 		.valueWrapper {
 			font-size: @sand-item-font-size-large;
@@ -358,8 +382,13 @@
 		.applySkins({
 			&.joined {
 				.focus({
-					background-color: transparent;
-					color: @sand-picker-text-color;
+					color: @sand-picker-joined-text-color;
+
+					&.horizontal {
+						&::before {
+							background-color: @sand-picker-joined-horizontal-bg-color;
+						}
+					}
 
 					.incrementer,
 					.decrementer {
