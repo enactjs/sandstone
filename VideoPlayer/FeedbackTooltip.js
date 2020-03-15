@@ -97,15 +97,6 @@ const FeedbackTooltipBase = kind({
 		playbackState: PropTypes.oneOf(Object.keys(states)),
 
 		/**
-		 * A number between 0 and 1 representing the proportion of the `value` in terms of `min`
-		 * and `max` props of the slider
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		proportion: PropTypes.number,
-
-		/**
 		 * This component will be used instead of the built-in version. The internal thumbnail style
 		 * will be applied to this component. This component follows the same rules as the built-in
 		 * version; hiding and showing according to the state of `action`.
@@ -195,7 +186,6 @@ const FeedbackTooltipBase = kind({
 		delete rest.formatter;
 		delete rest.hidden;
 		delete rest.orientation;
-		delete rest.proportion;
 		delete rest.thumbnailDeactivated;
 		delete rest.thumbnailSrc;
 		delete rest.visible;
