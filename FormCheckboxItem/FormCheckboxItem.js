@@ -12,9 +12,13 @@
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+
+import Toggleable from '@enact/ui/Toggleable';
 
 import FormCheckbox from '../FormCheckbox';
-import {ToggleItemBase, ToggleItemDecorator} from '../ToggleItem';
+import Item from '../Item';
+import Skinnable from '../Skinnable';
 
 import componentCss from './FormCheckboxItem.module.less';
 
@@ -23,9 +27,6 @@ import componentCss from './FormCheckboxItem.module.less';
  *
  * @class FormCheckboxItem
  * @memberof sandstone/FormCheckboxItem
- * @extends sandstone/ToggleItem.ToggleItem
- * @omit iconComponent
- * @ui
  * @public
  */
 const FormCheckboxItemBase = kind({
@@ -43,7 +44,20 @@ const FormCheckboxItemBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		/**
+		 * If true it will be checked.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		selected: PropTypes.bool
+	},
+
+	defaultProps: {
+		selected: false
 	},
 
 	styles: {
@@ -52,22 +66,29 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, ...props}) => (
-		<ToggleItemBase
+	render: ({children, css, selected, ...rest}) => (
+		<Item
 			data-webos-voice-intent="SelectCheckItem"
-			{...props}
+			role="checkbox"
+			{...rest}
 			css={css}
-			iconComponent={<FormCheckbox className={componentCss.toggleIcon} />}
 		>
+			<FormCheckbox slot="slotBefore" selected={selected} className={css.formCheckbox} css={css} />
 			{children}
-		</ToggleItemBase>
+		</Item>
 	)
 });
 
-const FormCheckboxItem = ToggleItemDecorator(FormCheckboxItemBase);
+const FormCheckboxItemDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Skinnable,
+);
+
+const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);
 
 export default FormCheckboxItem;
 export {
 	FormCheckboxItem,
-	FormCheckboxItemBase
+	FormCheckboxItemBase,
+	FormCheckboxItemDecorator
 };

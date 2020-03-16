@@ -15,56 +15,76 @@
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 
-import ToggleIcon from '../ToggleIcon';
+import Spottable from '@enact/spotlight/Spottable';
+import Toggleable from '@enact/ui/Toggleable';
+
+import Checkbox from '../Checkbox';
+import Skinnable from '../Skinnable';
 
 import componentCss from './FormCheckbox.module.less';
 
 /**
- * A component that represents a Boolean state, and looks like a check mark in a circle.
+ * A component that represents a Boolean state, and looks like a Checkbox.
  *
  * @class FormCheckbox
  * @memberof sandstone/FormCheckbox
- * @extends sandstone/ToggleIcon.ToggleIcon
- * @ui
  * @public
  */
 const FormCheckboxBase = kind({
 	name: 'FormCheckbox',
 
 	propTypes: /** @lends sandstone/FormCheckbox.FormCheckbox.prototype */ {
+		css: PropTypes.object,
+
 		/**
-		 * The icon to be shown when selected.
+		 * Sets whether this control is in the 'on' or 'off' state. `true` for 'on', `false` for 'off'.
 		 *
-		 * May be specified as either:
-		 *
-		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
-		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
-		 * * A URL specifying path to an icon image, or
-		 * * An object representing a resolution independent resource (See {@link ui/resolution}).
-		 *
-		 * @type {String}
+		 * @type {Boolean}
+		 * @default false
 		 * @public
 		 */
-		children: PropTypes.string,
-		css: PropTypes.object
+		selected: PropTypes.bool
 	},
 
 	defaultProps: {
-		children: 'check'
+		selected: false
+	},
+
+	computed: {
+		className: ({selected, styler}) => styler.append({
+			selected
+		})
 	},
 
 	styles: {
-		css: componentCss
+		css: componentCss,
+		className: 'formCheckbox',
+		publicClassNames: ['formCheckbox', 'selected']
 	},
 
-	render: ({children, css, ...rest}) => (
-		<ToggleIcon {...rest} css={css}>{children}</ToggleIcon>
+	render: ({css, selected, ...rest}) => (
+		<Checkbox
+			{...rest}
+			css={css}
+			selected={selected}
+		/>
 	)
 });
 
-export default FormCheckboxBase;
+const FormCheckboxDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Spottable,
+	Skinnable
+);
+
+const FormCheckbox = FormCheckboxDecorator(FormCheckboxBase);
+
+export default FormCheckbox;
+
 export {
-	FormCheckboxBase as FormCheckbox,
-	FormCheckboxBase
+	FormCheckbox,
+	FormCheckboxBase,
+	FormCheckboxDecorator
 };

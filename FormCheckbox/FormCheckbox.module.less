@@ -4,29 +4,10 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Internally theme our implementation using published classes from ToggleIcon
-.toggleIcon {
-	width: @sand-formcheckbox-size;
-	height: @sand-formcheckbox-size;
-	border-radius: @sand-formcheckbox-border-radius;
 
-	.icon {
-		width: @sand-formcheckbox-size;
-		height: @sand-formcheckbox-size;
-		line-height: @sand-formcheckbox-size;
-		font-size: @sand-formcheckbox-check-icon-size;
-		margin: 0;
-		visibility: hidden;
-	}
-
-	&.selected {
-		.icon {
-			visibility: visible;
-		}
-	}
-
+.formCheckbox {
 	.sand-custom-text({
-		.icon {
+		.checkbox {
 			width: @sand-formcheckbox-size;
 			height: @sand-formcheckbox-size;
 			line-height: @sand-formcheckbox-size;
@@ -34,50 +15,51 @@
 		}
 	});
 
+	.spottable({
+		&::after {
+			content: "";
+			position: absolute;
+			.position(@sand-formcheckbox-spottable-position);
+			border-radius: @sand-formcheckbox-spottable-border-radius;
+			z-index: -1;
+			.sand-spotlight-resting();
+		}
+	});
+
+	.focus({
+		&::after {
+			.sand-spotlight-focus();
+		}
+	});
+
 	// Skin colors
 	.applySkins({
-		box-shadow: inset 0 0 0 @sand-formcheckbox-border-size @sand-formcheckbox-border-color;
-		background-color: @sand-formcheckbox-bg-color;
+		.spottable({
+			&::after {
+				background-color: @sand-switch-container-focus-bg-color;
+				filter: drop-shadow(@sand-formcheckboxitem-resting-shadow);
+			}
+		});
 
-		.icon {
-			color: @sand-formcheckbox-text-color;
-		}
+		.focus({
+			&::after {
+				background-color: @sand-switch-container-focus-bg-color;
+				filter: drop-shadow(@sand-formcheckboxitem-focus-shadow);
+			}
+		});
 	});
 }
 
 .focus({
-	.toggleIcon {
-		// Skin colors
+	.formCheckbox {
+		&::after {
+			opacity: 1;
+		}
+
 		.applySkins({
-			box-shadow: none;
-			background-color: @sand-formcheckbox-focus-bg-color;
-
-			.icon {
-				color: @sand-formcheckbox-focus-text-color;
+			&::after {
+				filter: drop-shadow(@sand-formcheckboxitem-focus-shadow);
 			}
-
-			.disabled({
-				.icon {
-					opacity: @sand-disabled-opacity;
-				}
-			});
 		});
 	}
-}, parent);
-
-.muted({
-	.focus({
-		.toggleIcon {
-			.applySkins({
-				&:not([disabled]) {
-					box-shadow: inset 0 0 0 @sand-formcheckbox-border-size @sand-formcheckbox-border-color;
-					background-color: @sand-formcheckbox-bg-color;
-
-					.icon {
-						color: @sand-formcheckbox-text-color;
-					}
-				}
-			});
-		}
-	}, parent);
 }, parent);
