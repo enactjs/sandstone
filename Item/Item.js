@@ -27,16 +27,19 @@ import componentCss from './Item.module.less';
 
 const ItemContent = kind({
 	name: 'ItemContent',
+
 	propTypes: {
 		content: PropTypes.any,
 		css: PropTypes.object,
 		label: PropTypes.any,
 		labelPosition: PropTypes.any
 	},
+
 	styles: {
-		className: 'itemContent',
-		css: componentCss
+		css: componentCss,
+		className: 'itemContent'
 	},
+
 	computed: {
 		className: ({labelPosition, styler}) => styler.append({
 			labelAbove: labelPosition === 'above',
@@ -48,6 +51,7 @@ const ItemContent = kind({
 			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
 		}
 	},
+
 	// eslint-disable-next-line enact/prop-types
 	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
 		delete rest.labelPosition;
@@ -191,7 +195,7 @@ const ItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['item', 'slotAfter', 'slotBefore', 'selected']
+		publicClassNames: ['item', 'bg', 'slotAfter', 'slotBefore', 'selected']
 	},
 
 	computed: {

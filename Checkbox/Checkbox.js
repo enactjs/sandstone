@@ -90,7 +90,7 @@ const CheckboxBase = kind({
 	render: ({children, css, ...rest}) => {
 		return (
 			<Icon
-				size="small"
+				size="tiny"
 				{...rest}
 				css={css}
 			>

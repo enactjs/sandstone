@@ -12,6 +12,7 @@
 @sand-accent:      @sand-light-gray;
 @sand-white:       #fff;
 @sand-red:         #f00;
+@sand-green:       #30ad6b;
 
 @sand-remote-button-red-color:     #e1777e; // #ff6d78; // #da3c3c; // #e71b1c;
 @sand-remote-button-green-color:   #7fd563; // #6ff467; // #21c171; // #339966;
@@ -24,6 +25,7 @@
 @sand-bg-color:      #575e66;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
+@sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 
 // Disabled Opacity
@@ -40,6 +42,8 @@
 @sand-spotlight-border-color:         @sand-accent;
 @sand-spotlight-color:                @sand-accent;
 @sand-spotlight-shadow-color:         fade(@sand-black, 30%);
+@sand-spotlight-resting-shadow:       0 0 0 @sand-spotlight-shadow-color;
+@sand-spotlight-focus-shadow:         0 42px 24px @sand-spotlight-shadow-color;
 
 
 // ---------------------------------------
@@ -52,9 +56,8 @@
 @sand-alert-overlay-bg-color: fade(#cacbcc, 95%);
 @sand-alert-title-color: @sand-light-gray;
 @sand-alert-subtitle-color: @sand-gray;
-@sand-alert-overlay-box-shadow-color: fade(@sand-black, 30%);
 @sand-alert-overlay-text-color: @sand-black;
-@sand-alert-overlay-shadow: 0 42px 24px @sand-alert-overlay-box-shadow-color;
+@sand-alert-overlay-shadow: @sand-spotlight-focus-shadow;
 
 // Body Text
 // ---------------------------------------
@@ -63,12 +66,12 @@
 // Button
 // ---------------------------------------
 @sand-button-text-color: @sand-text-color;
-@sand-button-bg-color: #7D848C;
-@sand-button-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
+@sand-button-bg-color: #7d848c;
+@sand-button-bg-shadow: @sand-spotlight-resting-shadow;
 @sand-button-transparent-bg-color: transparent;
 @sand-button-focus-text-color: @sand-spotlight-text-color;
 @sand-button-focus-bg-color: @sand-spotlight-bg-color;
-@sand-button-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-button-focus-bg-shadow: @sand-spotlight-focus-shadow;
 
 // Checkbox
 // ---------------------------------------
@@ -79,11 +82,11 @@
 @sand-checkbox-focus-bg-color: transparent;
 @sand-checkbox-focus-border-color: @sand-spotlight-text-color;
 @sand-checkbox-selected-color: @sand-text-color;
-@sand-checkbox-selected-bg-color: transparent;
-@sand-checkbox-selected-border-color: @sand-checkbox-selected-color;
-@sand-checkbox-selected-focus-color: @sand-spotlight-text-color;
-@sand-checkbox-selected-focus-bg-color: @sand-checkbox-focus-bg-color;
-@sand-checkbox-selected-focus-border-color: @sand-checkbox-focus-border-color;
+@sand-checkbox-selected-bg-color: @sand-feature-color;
+@sand-checkbox-selected-border-color: @sand-checkbox-selected-bg-color;
+@sand-checkbox-selected-focus-color: @sand-checkbox-selected-color;
+@sand-checkbox-selected-focus-bg-color: @sand-checkbox-selected-bg-color;
+@sand-checkbox-selected-focus-border-color: @sand-checkbox-selected-border-color;
 
 // CheckboxItem
 // ---------------------------------------
@@ -135,7 +138,7 @@
 @sand-gridlistimageitem-overlay-icon-bg-color: transparent;
 @sand-gridlistimageitem-caption-color: @sand-light-gray;
 @sand-gridlistimageitem-subcaption-color: @sand-gray;
-@sand-gridlistimageitem-focus-image-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-gridlistimageitem-focus-image-bg-shadow: @sand-spotlight-focus-shadow;
 @sand-gridlistimageitem-focus-overlay-icon-color: @sand-gridlistimageitem-overlay-icon-color;
 @sand-gridlistimageitem-focus-overlay-icon-bg-color: @sand-gridlistimageitem-overlay-icon-bg-color;
 @sand-gridlistimageitem-focus-caption-color: @sand-gridlistimageitem-caption-color;
@@ -168,7 +171,7 @@
 @sand-item-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-item-focus-text-color: @sand-spotlight-text-color;
 @sand-item-focus-bg-color: @sand-item-bg-color;
-@sand-item-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-item-focus-bg-shadow: @sand-spotlight-focus-shadow;
 @sand-item-selected-text-color: @sand-item-focus-text-color;
 @sand-item-selected-background-color: fade(@sand-white, 30%);
 
@@ -199,7 +202,7 @@
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
 @sand-inputfield-focus-bg-color: @sand-spotlight-bg-color;
-@sand-inputfield-focus-bg-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
+@sand-inputfield-focus-bg-shadow: @sand-spotlight-focus-shadow;
 @sand-inputfield-active-bg-color: @sand-inputfield-focus-bg-color;
 @sand-inputfield-disabled-focus-bg-color: fade(@sand-inputfield-focus-bg-color, @sand-disabled-opacity-percentage);
 
@@ -224,11 +227,21 @@
 @sand-panels-spot-fg-color: @sand-accent;
 @sand-panels-spot-bg-color: @sand-dark-gray;
 @sand-panels-handle-bg-color: @sand-dark-gray;
-@sand-panels-optionpanels-shadow: 0px 42px 24px @sand-spotlight-shadow-color;
+@sand-panels-optionpanels-shadow: @sand-spotlight-focus-shadow;
 
 // Picker
 // ---------------------------------------
 @sand-picker-text-color: @sand-text-color;
+@sand-picker-focus-text-color: @sand-spotlight-text-color;
+@sand-picker-border-color: fade(@sand-black, 20%);
+@sand-picker-resting-shadow: @sand-spotlight-resting-shadow;
+@sand-picker-focus-bg-color: @sand-light-gray;
+@sand-picker-focus-shadow: @sand-spotlight-focus-shadow;
+@sand-picker-indicators-active-bg-color: @sand-text-color;
+@sand-picker-indicators-active-focus-bg-color: #4c4f59;
+@sand-picker-indicators-inactive-bg-color: #9da2a7;
+@sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
+@sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
 @sand-picker-joined-bg-color: transparent;
 @sand-picker-joined-fingernail-border-color: fade(@sand-black, 20%);
@@ -257,11 +270,11 @@
 @sand-radioitem-focus-indicator-bg-color: transparent;
 @sand-radioitem-focus-indicator-border-color: @sand-spotlight-text-color;
 @sand-radioitem-selected-indicator-color: @sand-text-color;
-@sand-radioitem-selected-indicator-bg-color: @sand-radioitem-indicator-bg-color;
-@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-color;
-@sand-radioitem-selected-focus-indicator-color: @sand-spotlight-text-color;
-@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-focus-indicator-bg-color;
-@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-focus-indicator-border-color;
+@sand-radioitem-selected-indicator-bg-color: @sand-feature-color;
+@sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
+@sand-radioitem-selected-focus-indicator-color: @sand-radioitem-selected-indicator-color;
+@sand-radioitem-selected-focus-indicator-bg-color:  @sand-radioitem-selected-indicator-bg-color;
+@sand-radioitem-selected-focus-indicator-border-color: @sand-radioitem-selected-indicator-border-color;
 
 // Scrollbar
 // ---------------------------------------
@@ -316,14 +329,21 @@
 
 // Switch
 // ---------------------------------------
-@sand-checkbox-toggle-switch-color: #a6a6a6;
-@sand-checkbox-toggle-switch-bg-color: @sand-dark-gray;
-@sand-checkbox-toggle-switch-border-color: transparent;
-@sand-checkbox-toggle-switch-selected-color: @sand-spotlight-color;
-@sand-checkbox-toggle-switch-selected-bg-color: @sand-spotlight-text-color;
-@sand-checkbox-toggle-switch-selected-border-color: @sand-checkbox-toggle-switch-border-color;
-@sand-checkbox-toggle-switch-spotlight-selected-bg-color: @sand-checkbox-toggle-switch-selected-bg-color;
-@sand-checkbox-toggle-switch-spotlight-selected-color: @sand-checkbox-toggle-switch-selected-color;
+@sand-switch-color: #aeaeae;
+@sand-switch-bg-color: #777777;
+@sand-switch-selected-color: @sand-light-gray;
+@sand-switch-selected-bg-color: @sand-feature-color;
+@sand-switch-focus-color: @sand-switch-color;
+@sand-switch-selected-focus-color: @sand-switch-selected-color;
+@sand-switch-container-bg-color: @sand-item-bg-color;
+@sand-switch-container-resting-shadow: @sand-item-bg-shadow;
+@sand-switch-container-focus-bg-color: @sand-item-focus-bg-color;
+@sand-switch-container-focus-shadow: @sand-item-focus-bg-shadow;
+
+// TabLayout
+// ---------------------------------------
+@sand-tablayout-tab-selected-text-color: @sand-item-text-color;
+@sand-tablayout-tab-selected-bg-color: @sand-item-focus-bg-color;
 
 // Toggle Colors
 // ---------------------------------------
