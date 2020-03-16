@@ -129,6 +129,12 @@ const useSpottable = (props, instances) => {
 		const container = getSpotlightContainerForNode(item);
 		const scrollerBounds = scrollContentRef.current.getBoundingClientRect();
 		let {scrollHeight, scrollTop} = scrollContentRef.current;
+
+		const scrollerContentBounds = {
+			top: scrollerBounds.top + ri.scale(fadeoutSize),
+			height: Math.max(scrollerBounds.height - 2 * ri.scale(fadeoutSize), 0)
+		};
+
 		let scrollTopDelta = 0;
 
 		const adjustScrollTop = (v) => {
@@ -140,20 +146,20 @@ const useSpottable = (props, instances) => {
 			const containerBounds = container.getBoundingClientRect();
 
 			// if the entire container fits in the scroller, scroll it into view
-			if (canItemFit(containerBounds, scrollerBounds)) {
-				return calcItemInView(containerBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
+			if (canItemFit(containerBounds, scrollerContentBounds)) {
+				return calcItemInView(containerBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
 			}
 
 			// if the container doesn't fit, adjust the scroll top ...
-			if (containerBounds.top > scrollerBounds.top) {
+			if (containerBounds.top > scrollerContentBounds.top) {
 				// ... to the top of the container if the top is below the top of the scroller
-				adjustScrollTop(calcItemAtStart(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
+				adjustScrollTop(calcItemAtStart(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
 			}
 			// removing support for "snap to bottom" for 2.2.8
-			// } else if (containerBounds.top + containerBounds.height < scrollerBounds.top + scrollerBounds.height) {
+			// } else if (containerBounds.top + containerBounds.height < scrollerContentBounds.top + scrollerContentBounds.height) {
 			// 	// ... to the bottom of the container if the bottom is above the bottom of the
 			// 	// scroller
-			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
+			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
 			// }
 
 			// N.B. if the container covers the scrollable area (its top is above the top of the
@@ -163,7 +169,7 @@ const useSpottable = (props, instances) => {
 
 		const itemBounds = item.getBoundingClientRect();
 
-		return calcItemInView(itemBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
+		return calcItemInView(itemBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
 	}
 
 	/**
@@ -185,19 +191,20 @@ const useSpottable = (props, instances) => {
 		const
 			{rtl} = props,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
+			contentWidth = clientWidth - 2 * ri.scale(fadeoutSize),
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
 			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
+			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - fadeoutSize);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
-		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
+		if (newItemLeft + itemWidth > (contentWidth + currentScrollLeft) && itemWidth < contentWidth) {
 			// If focus is moved to an element outside of view area (to the right), scroller will move
 			// to the right just enough to show the current `focusedItem`. This does not apply to
-			// `focusedItem` that has a width that is bigger than `scrollBounds.clientWidth`.
-			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (clientWidth + currentScrollLeft));
+			// `focusedItem` that has a width that is bigger than `scrollBounds.contentWidth`.
+			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (contentWidth + currentScrollLeft));
 		} else if (newItemLeft < currentScrollLeft) {
 			// If focus is outside of the view area to the left, move scroller to the left accordingly.
 			nextScrollLeft += rtlDirection * (newItemLeft - currentScrollLeft);
