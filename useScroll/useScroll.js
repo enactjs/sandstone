@@ -58,8 +58,8 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances, context, assignProperties) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
-	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
 
 	// Mutable value
@@ -91,15 +91,15 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {scrollMode});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, scrollMode});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {scrollMode});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -363,7 +363,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
+	} = useThemeScroll(props, instance, {}, assignProperties);
 
 	// Render
 
