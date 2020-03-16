@@ -7,7 +7,7 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {ImageItem} from '@enact/sandstone/ImageItem';
 import ri from '@enact/ui/resolution';
 
 import icons from './icons';
@@ -19,7 +19,7 @@ const renderItem = ({index, ...rest}) => {
 	const {source} = items[index];
 
 	return (
-		<GridListImageItem
+		<ImageItem
 			{...rest}
 			caption={`caption ${index}`}
 			source={source}

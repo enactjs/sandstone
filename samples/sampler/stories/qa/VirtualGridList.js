@@ -7,7 +7,7 @@ import React from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
@@ -32,7 +32,7 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
 				caption={text}
 				source={source}

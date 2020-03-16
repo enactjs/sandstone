@@ -6,7 +6,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
@@ -31,7 +31,7 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
 				caption={text}
 				source={source}
