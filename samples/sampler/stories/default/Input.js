@@ -11,6 +11,7 @@ const Config = mergeComponentMetadata('Input', InputBase, Input);
 
 const prop = {
 	popupType: ['fullscreen', 'overlay'],
+	size: ['small', 'large'],
 	type: ['text', 'password', 'number', 'passwordnumber']
 };
 
@@ -26,6 +27,7 @@ storiesOf('Sandstone', module)
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					title={text('title', Config, 'Title Text')}
+					size={select('size', prop.size, Config)}
 					type={select('type', prop.type, Config)}
 					popupType={select('popupType', prop.popupType, Config)}
 				/>

@@ -5,23 +5,33 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import Skinnable from '../Skinnable';
 import Icon from '../Icon';
 import Item from '../Item';
 import Scroller from '../Scroller';
+
+import componentCss from './TabGroup.module.less';
 
 const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
+		css: PropTypes.object,
 		icon: PropTypes.string,
 		selected: PropTypes.bool
 	},
 
-	render: ({children, icon, ...rest}) => {
+	styles: {
+		css: componentCss,
+		className: 'tab'
+	},
+
+	render: ({children, css, icon, ...rest}) => {
 
 		return (
 			<Item
 				{...rest}
+				css={css}
 			>
 				{icon ? (
 					<Icon slot="slotBefore">{icon}</Icon>
@@ -31,6 +41,8 @@ const TabBase = kind({
 		);
 	}
 });
+
+const Tab = Skinnable(TabBase);
 
 /**
  * A group of tabs
@@ -78,7 +90,7 @@ const TabGroupBase = kind({
 				) : (
 					<Group
 						{...rest}
-						childComponent={TabBase}
+						childComponent={Tab}
 						component="div"
 						select="radio"
 						selected={selectedIndex}

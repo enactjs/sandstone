@@ -266,12 +266,13 @@ const useThemeScroller = (props) => {
 	const propsObject = Object.assign({}, props);
 
 	delete propsObject.children;
-	delete propsObject.scrollContainerContainsDangerously;
-	delete propsObject.scrollContainerRef;
 	delete propsObject.onUpdate;
+	delete propsObject.scrollContainerContainsDangerously;
+	delete propsObject.scrollContainerHandle;
+	delete propsObject.scrollContainerRef;
+	delete propsObject.scrollContentHandle;
 	delete propsObject.setThemeScrollContentHandle;
 	delete propsObject.spotlightId;
-	delete propsObject.scrollContainerHandle;
 
 	propsObject.children = (
 		<div className={css.contentWrapper}>

@@ -12,20 +12,38 @@
 }
 
 .checkbox {
+	margin: 0;
+
 	.applySkins({
-		.checkboxColors(@sand-checkbox-color, @sand-checkbox-bg-color, @sand-checkbox-border-color);
+		.checkboxColors(
+			@sand-checkbox-color,
+			@sand-checkbox-bg-color,
+			@sand-checkbox-border-color
+		);
 		border-radius: @sand-checkbox-border-radius;
 		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
 
 		&.selected {
-			.checkboxColors(@sand-checkbox-selected-color, @sand-checkbox-selected-bg-color, @sand-checkbox-selected-border-color);
+			.checkboxColors(
+				@sand-checkbox-selected-color,
+				@sand-checkbox-selected-bg-color,
+				@sand-checkbox-selected-border-color
+			);
 		}
 
 		.focus({
-			.checkboxColors(@sand-checkbox-focus-color, @sand-checkbox-focus-bg-color, @sand-checkbox-focus-border-color);
+			.checkboxColors(
+				@sand-checkbox-focus-color,
+				@sand-checkbox-focus-bg-color,
+				@sand-checkbox-focus-border-color
+			);
 
 			&.selected {
-				.checkboxColors(@sand-checkbox-selected-focus-color, @sand-checkbox-selected-focus-bg-color, @sand-checkbox-selected-focus-border-color);
+				.checkboxColors(
+					@sand-checkbox-selected-focus-color,
+					@sand-checkbox-selected-focus-bg-color,
+					@sand-checkbox-selected-focus-border-color
+				);
 			}
 		});
 	});
@@ -35,10 +53,18 @@
 .focus({
 	.checkbox {
 		.applySkins({
-			.checkboxColors(@sand-checkbox-focus-color, @sand-checkbox-focus-bg-color, @sand-checkbox-focus-border-color);
+			.checkboxColors(
+				@sand-checkbox-focus-color,
+				@sand-checkbox-focus-bg-color,
+				@sand-checkbox-focus-border-color
+			);
 
 			&.selected {
-				.checkboxColors(@sand-checkbox-selected-focus-color, @sand-checkbox-selected-focus-bg-color, @sand-checkbox-selected-focus-border-color);
+				.checkboxColors(
+					@sand-checkbox-selected-focus-color,
+					@sand-checkbox-selected-focus-bg-color,
+					@sand-checkbox-selected-focus-border-color
+				);
 			}
 		});
 	}
