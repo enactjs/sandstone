@@ -191,20 +191,19 @@ const useSpottable = (props, instances) => {
 		const
 			{rtl} = props,
 			{clientWidth} = scrollContentHandle.current.scrollBounds,
-			contentWidth = clientWidth - 2 * ri.scale(fadeoutSize),
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
 			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - fadeoutSize);
+			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - ri.scale(fadeoutSize));
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
-		if (newItemLeft + itemWidth > (contentWidth + currentScrollLeft) && itemWidth < contentWidth) {
+		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
 			// If focus is moved to an element outside of view area (to the right), scroller will move
 			// to the right just enough to show the current `focusedItem`. This does not apply to
-			// `focusedItem` that has a width that is bigger than `scrollBounds.contentWidth`.
-			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (contentWidth + currentScrollLeft));
+			// `focusedItem` that has a width that is bigger than `scrollBounds.clientWidth`.
+			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (clientWidth + currentScrollLeft));
 		} else if (newItemLeft < currentScrollLeft) {
 			// If focus is outside of the view area to the left, move scroller to the left accordingly.
 			nextScrollLeft += rtlDirection * (newItemLeft - currentScrollLeft);
