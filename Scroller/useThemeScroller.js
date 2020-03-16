@@ -8,6 +8,8 @@ import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 
+const fadeoutSize = 48;
+
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
@@ -42,6 +44,13 @@ const useSpottable = (props, instances) => {
 	});
 
 	// Functions
+
+	function getContentSize ({clientWidth, clientHeight}) {
+		return {
+			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
+			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
+		};
+	}
 
 	/**
 	 * Returns the first spotlight container between `node` and the scroller
@@ -242,6 +251,7 @@ const useSpottable = (props, instances) => {
 	return {
 		calculatePositionOnFocus,
 		focusOnNode,
+		getContentSize,
 		setContainerDisabled
 	};
 };
@@ -255,13 +265,13 @@ const useThemeScroller = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
-	delete rest.scrollContentHandle;  
+	delete rest.scrollContentHandle;
 	delete rest.setThemeScrollContentHandle;
 	delete rest.spotlightId;
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 
 	useEffect(() => {
 		props.setThemeScrollContentHandle({
@@ -278,6 +288,7 @@ const useThemeScroller = (props) => {
 			{props.children}
 		</div>
 	);
+	rest.getContentSize = getContentSize;
 
 	return rest;
 };
