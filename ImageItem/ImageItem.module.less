@@ -109,6 +109,10 @@
 		color: @sand-imageitem-overlay-icon-color;
 	}
 
+	.caption {
+		color: @sand-imageitem-caption-color;
+	}
+
 	.subCaption {
 		color: @sand-imageitem-subcaption-color;
 	}
@@ -125,6 +129,10 @@
 	}
 
 	.focus({
+		.disabled ({
+			.vendor-opacity(@sand-disabled-opacity);
+		});
+
 		.icon {
 			background-color: @sand-imageitem-focus-overlay-icon-bg-color;
 			color: @sand-imageitem-focus-overlay-icon-color;
