@@ -4,8 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+
 ### Added
 
+- `sandstone/ImageItem` component
 - `sandstone/GridListImageItem` prop `imageIconComponent` and `imageIconSource` to support an image icon.
 - `sandstone/Input` prop `size`
 
