@@ -69,6 +69,7 @@ const ImageItemBase = kind({
 		 *
 		 * * `icon` - The icon component class for default selection overlay
 		 * * `image` - The image component class
+		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `caption` - The caption component class
 		 * * `subCaption` - The subCaption component class
@@ -100,11 +101,25 @@ const ImageItemBase = kind({
 		/**
 		 * The absolute URL path to the image icon.
 		 * Set this value when you want to show image icon component.
+		 * This feature is only valid when `orientation` is `'vertical'`.
 		 *
 		 * @type {String}
 		 * @public
 		 */
 		imageIconSource: PropTypes.string,
+
+		/**
+		 * The layout orientation of the component.
+		 *
+		 * Valid values are:
+		 * * `'horizontal'`, and
+		 * * `'vertical'`.
+		 *
+		 * @type {String}
+		 * @default 'vertical'
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
 		 * Placeholder image used while [source]{@link ui/ImageItem.ImageItem#source}
@@ -160,17 +175,18 @@ const ImageItemBase = kind({
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
 		imageIconComponent: Image,
+		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
 		selected: false
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['imageItem', 'icon', 'image', 'selected', 'caption', 'subCaption']
+		publicClassNames: ['caption', 'icon', 'image', 'imageIcon', 'imageItem', 'selected', 'subCaption']
 	},
 
 	computed: {
-		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource}) => {
+		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource, orientation}) => {
 			const captions = () => (
 				<React.Fragment>
 					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
@@ -179,7 +195,7 @@ const ImageItemBase = kind({
 			);
 
 			return (
-				imageIconSource ?
+				imageIconSource && orientation === 'vertical' ?
 					<Row className={css.subComponents}>
 						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink />
 						<Cell size="77%">
