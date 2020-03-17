@@ -631,8 +631,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, liftDistance: this.bottomComponentsHeight - this.actionGuideHeight}, this.props);
 			}
 
-			// if media controls disabled, reset key loop
-			if (!prevProps.mediaDisabled && this.props.mediaDisabled) {
+			// if media controls or 5way jump is disabled, reset key loop
+			if (!prevProps.mediaDisabled && this.props.mediaDisabled || !prevProps.no5WayJump && this.props.no5WayJump) {
 				this.stopListeningForPulses();
 				this.paused.resume();
 			}
@@ -670,12 +670,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				visible
 			} = this.props;
 
-			const current = Spotlight.getCurrent();
-
 			if (!no5WayJump &&
 					!visible &&
 					!mediaDisabled &&
-					(!current || current.classList.contains(css.controlsHandleAbove)) &&
 					(is('left', ev.keyCode) || is('right', ev.keyCode))) {
 				this.paused.pause();
 				this.startListeningForPulses(ev.keyCode);

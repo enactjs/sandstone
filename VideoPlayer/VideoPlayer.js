@@ -661,6 +661,7 @@ const VideoPlayerBase = class extends React.Component {
 			duration: 0,
 			error: false,
 			loading: false,
+			no5WayJump: false,
 			paused: props.noAutoPlay,
 			playbackRate: 1,
 			titleOffsetHeight: 0,
@@ -1709,6 +1710,18 @@ const VideoPlayerBase = class extends React.Component {
 		ev.stopPropagation();
 	}
 
+	handleControlsHandleAboveFocus = () => {
+		if (this.state.no5WayJump) {
+			this.setState({no5WayJump: false});
+		}
+	}
+
+	handleControlsHandleAboveBlur = () => {
+		if (!this.state.no5WayJump) {
+			this.setState({no5WayJump: true});
+		}
+	}
+
 	setPlayerRef = (node) => {
 		// TODO: We've moved SpotlightContainerDecorator up to allow VP to be spottable but also
 		// need a ref to the root node to query for children and set CSS variables.
@@ -1919,6 +1932,7 @@ const VideoPlayerBase = class extends React.Component {
 							<ComponentOverride
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
+								no5WayJump={this.state.no5WayJump}
 								onBackwardButtonClick={this.handleRewind}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}
@@ -1944,6 +1958,8 @@ const VideoPlayerBase = class extends React.Component {
 					// It's non-visible but lives at the top of the VideoPlayer.
 					className={css.controlsHandleAbove}
 					onClick={this.showControls}
+					onFocus={this.handleControlsHandleAboveFocus}
+					onBlur={this.handleControlsHandleAboveBlur}
 					onSpotlightDown={this.showControls}
 					spotlightDisabled={this.state.mediaControlsVisible || spotlightDisabled}
 				/>
