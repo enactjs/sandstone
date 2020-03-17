@@ -6,8 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
-- `sandstone/Input.InputField` to show icons when focused.
+- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
+- `sandstone/Input.InputField` to show icons when focused
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
