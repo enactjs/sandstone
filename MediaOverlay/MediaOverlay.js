@@ -52,14 +52,6 @@ const MediaOverlayBase = kind({
 		source: PropTypes.node.isRequired,
 
 		/**
-		 * The video will automatically start playing
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		autoPlay: PropTypes.bool,
-
-		/**
 		 * The primary caption to be displayed.
 		 *
 		 * @type {Node}
@@ -92,7 +84,7 @@ const MediaOverlayBase = kind({
 		imageOverlay: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * The video will start over again, every time it is finished.
+		 * Restarts the video every time it is finished.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -123,12 +115,20 @@ const MediaOverlayBase = kind({
 		mediaComponent: EnactPropTypes.renderable,
 
 		/**
-		 * The audio output of the video should be muted.
+		 * Mutes the audio output of the video.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
 		muted: PropTypes.bool,
+
+		/**
+		 * Prevents the video playback starting on load.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAutoPlay: PropTypes.bool,
 
 		/**
 		 * Placeholder for image overlay.
@@ -141,6 +141,8 @@ const MediaOverlayBase = kind({
 		/**
 		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
 		 *
+		 * Only applicable when `showProgress` is enabled.
+		 *
 		 * @type {Number}
 		 * @default 0
 		 * @public
@@ -148,7 +150,7 @@ const MediaOverlayBase = kind({
 		progress: PropTypes.number,
 
 		/**
-		 * Progress Bar visibility
+		 * Displays the progress bar
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -190,7 +192,6 @@ const MediaOverlayBase = kind({
 	},
 
 	defaultProps: {
-		autoPlay: true,
 		mediaComponent: 'video',
 		progress: 0,
 		textAlign: 'center'
@@ -202,13 +203,13 @@ const MediaOverlayBase = kind({
 		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
 	},
 
-	render: ({autoPlay, caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
+	render: ({caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, noAutoPlay, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
 				<div className={css.bg} />
 				<div className={css.mediaContainer}>
 					<Media
-						autoPlay={autoPlay}
+						autoPlay={!noAutoPlay}
 						className={css.media}
 						controls={false}
 						loop={loop}

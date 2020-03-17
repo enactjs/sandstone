@@ -76,20 +76,20 @@ storiesOf('Sandstone', module)
 			const progress = number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5);
 			return (
 				<MediaOverlay
-					autoPlay={boolean('autoPlay', Config, true)}
 					caption={text('caption', Config, 'DTV 7-1')}
-					title={text('title', Config, 'Program Name')}
-					subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
 					disabled={boolean('disabled', Config)}
 					imageOverlay={imageSource}
-					marqueeOn={select('marqueeOn', ['focus', 'hover', 'render'], Config, 'focus')}
 					loop={boolean('loop', Config)}
+					marqueeOn={select('marqueeOn', ['focus', 'hover', 'render'], Config, 'focus')}
 					muted={boolean('muted', Config)}
+					noAutoPlay={boolean('noAutoPlay', Config, false)}
 					placeholder={placeholder}
 					progress={progress}
 					showProgress={boolean('showProgress', Config)}
+					subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
 					text={select('text', prop.text, Config, prop.text[0])}
 					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'center')}
+					title={text('title', Config, 'Program Name')}
 				>
 					<source src={videoSource} />
 				</MediaOverlay>
