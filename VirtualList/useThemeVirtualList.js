@@ -22,9 +22,9 @@ const
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0;
 
-const useSpottable = (props, instances, context) => {
+const useSpottable = (props, instances) => {
+	const {scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
-	const {scrollMode} = context;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
 		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
@@ -308,7 +308,7 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
-	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
+	const {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
@@ -330,9 +330,9 @@ const useThemeVirtualList = (props) => {
 		shouldPreventScrollByFocus,
 		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
-	} = useSpottable(props, instance, {scrollMode});
+	} = useSpottable(props, instance);
 
-	usePreventScroll(props, instance, {scrollMode});
+	usePreventScroll(props, instance);
 
 	const handle = {
 		calculatePositionOnFocus,
@@ -373,6 +373,7 @@ const useThemeVirtualList = (props) => {
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
+	delete rest.scrollContentHandle;
 	delete rest.spotlightId;
 	delete rest.wrap;
 
