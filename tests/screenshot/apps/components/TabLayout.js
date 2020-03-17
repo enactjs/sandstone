@@ -82,18 +82,6 @@ const TabLayoutTests = [
 	</TabLayout>,
 	<TabLayout collapsed tabs={oneTabWithIcons}>
 		{views}
-	</TabLayout>,
-	<TabLayout collapsed orientation="horizontal" tabs={tabs}>
-		{views}
-	</TabLayout>,
-	<TabLayout collapsed orientation="horizontal" tabs={tabsWithIcons}>
-		{views}
-	</TabLayout>,
-	<TabLayout collapsed orientation="horizontal" tabs={someTabsWithIcons}>
-		{views}
-	</TabLayout>,
-	<TabLayout collapsed orientation="horizontal" tabs={oneTabWithIcons}>
-		{views}
 	</TabLayout>
 ];
 export default TabLayoutTests;
