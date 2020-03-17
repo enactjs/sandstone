@@ -12,9 +12,11 @@
  * @exports GridListImageItem
  * @exports GridListImageItemBase
  * @exports GridListImageItemDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/ImageItem} instead.
  */
 
 import kind from '@enact/core/kind';
+import deprecate from '@enact/core/internal/deprecate';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 import {GridListImageItem as UiGridListImageItem} from '@enact/ui/GridListImageItem';
@@ -193,7 +195,7 @@ const GridListImageItemBase = kind({
 		}
 	},
 
-	render: ({css, selectionOverlay, subComponents, ...rest}) => {
+	render: deprecate(({css, selectionOverlay, subComponents, ...rest}) => {
 		delete rest.caption;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSource;
@@ -214,7 +216,11 @@ const GridListImageItemBase = kind({
 				subComponents={subComponents}
 			/>
 		);
-	}
+	}, {
+		name: 'sandstone/GridListImageItem',
+		replacedBy: 'sandstone/ImageItem',
+		until: '1.0.0-beta.1'
+	})
 });
 
 /**
