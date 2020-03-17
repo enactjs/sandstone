@@ -20,6 +20,7 @@ import css from './Scrollbar.module.less';
  */
 const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
+	const mutableRef = useRef({prevScrollPosition: -1});
 	const scrollbarRef = useRef();
 	// render
 	const {className, clientSize, vertical, ...rest} = props;
@@ -27,14 +28,15 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	delete rest.corner;
 
 	const syncHeight = (initialHiddenHeight, scrollPosition) => {
-		if (scrollbarRef.current && typeof window !== 'undefined') {
+		if (scrollbarRef.current && typeof window !== 'undefined' && mutableRef.current.prevScrollPosition !== scrollPosition) {
 			const
 				node = scrollbarRef.current.getContainerRef().current,
-				height = node.getBoundingClientRect().height;
+				height = parseInt(window.getComputedStyle(node).getPropertyValue('height'));
 
 			// To scale the scrollbar height depending on the VirtualList position
 			node.style.transform = 'scale3d(1, ' + (height - initialHiddenHeight + scrollPosition) / (height) + ', 1)';
 		}
+		mutableRef.current.prevScrollPosition = scrollPosition;
 	};
 
 	useImperativeHandle(ref, () => {
