@@ -8,13 +8,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/GridListImageItem` props `imageIconComponent` and `imageIconSource` to support an image icon
 - `sandstone/Input` prop `size`
+- `sandstone/Switch` support for focus state
 
 ### Fixed
 
-- `sandstone/Button` icon styling 
+- `sandstone/Button` icon sizing 
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
-- `sandstone/Picker` styling
+- `sandstone/Picker` joined styling
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height
 - `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb
 - `sandstone/SwitchItem` styling
