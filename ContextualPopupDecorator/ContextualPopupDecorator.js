@@ -628,7 +628,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		spotActivator = (activator) => {
-			if (activator && activator === Spotlight.getCurrent()) {
+			if (!Spotlight.getPointerMode() && activator && activator === Spotlight.getCurrent()) {
 				activator.blur();
 			}
 			if (!Spotlight.focus(activator)) {

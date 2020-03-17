@@ -47,44 +47,6 @@
 		padding: 0 @sand-button-with-icon-h-padding;
 	}
 
-	// IconButton rules
-	&.iconOnly {
-		&.iconAfter,
-		&.iconBefore,
-		&.large,
-		&.small {
-			padding: @sand-button-icon-small-padding;
-
-			.icon {
-				margin: 0; // reset margins for `IconButton`
-			}
-
-			&.red,
-			&.green,
-			&.yellow,
-			&.blue {
-				.client::before {
-					width: @sand-button-icon-only-colordot-width;
-					height: @sand-button-icon-only-colordot-height;
-				}
-			}
-		}
-
-		&.large {
-			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
-		}
-
-		&.red,
-		&.green,
-		&.yellow,
-		&.blue {
-			.client::before {
-				width: @sand-button-icon-only-colordot-width;
-				height: @sand-button-icon-only-colordot-height;
-			}
-		}
-	}
-
 	&.iconAfter {
 		.client {
 			flex-direction: row-reverse;
@@ -172,7 +134,6 @@
 		}
 
 		.icon {
-			font-size: @sand-button-icon-small-font-size;
 			.margin-start-end(@sand-button-icon-small-margin-start, @sand-button-icon-small-margin-end);
 		}
 
@@ -229,6 +190,44 @@
 				min-width: @sand-button-small-min-width;
 			}
 		});
+	}
+
+	// IconButton rules
+	&.iconOnly {
+		&.iconAfter,
+		&.iconBefore,
+		&.large,
+		&.small {
+			padding: @sand-button-icon-small-padding;
+
+			.icon {
+				margin: 0; // reset margins for `IconButton`
+			}
+
+			&.red,
+			&.green,
+			&.yellow,
+			&.blue {
+				.client::before {
+					width: @sand-button-icon-only-colordot-width;
+					height: @sand-button-icon-only-colordot-height;
+				}
+			}
+		}
+
+		&.large {
+			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.client::before {
+				width: @sand-button-icon-only-colordot-width;
+				height: @sand-button-icon-only-colordot-height;
+			}
+		}
 	}
 
 	// Skin colors
