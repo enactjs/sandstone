@@ -149,6 +149,12 @@ const FeedbackTooltipBase = kind({
 	},
 
 	computed: {
+		arrowContainerClassName: ({action, styler, thumbnailComponent, thumbnailSrc}) => {
+			return styler.join(
+				'arrowContainer',
+				{hidden: action !== 'focus' || (!thumbnailComponent && !thumbnailSrc)}
+			);
+		},
 		children: ({children, duration, formatter}) => {
 			return secondsToTime(children * duration, formatter);
 		},
@@ -168,10 +174,11 @@ const FeedbackTooltipBase = kind({
 					return <ComponentOverride
 						component={thumbnailComponent}
 						className={css.thumbnail}
+						key="thumbnailComponent"
 					/>;
 				} else if (thumbnailSrc) {
 					return (
-						<div className={css.thumbnail}>
+						<div className={css.thumbnail} key="thumbnailComponent">
 							<Image src={thumbnailSrc} className={css.image} />
 						</div>
 					);
@@ -180,7 +187,7 @@ const FeedbackTooltipBase = kind({
 		}
 	},
 
-	render: ({children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
+	render: ({arrowContainerClassName, children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
 		delete rest.action;
 		delete rest.duration;
 		delete rest.formatter;
@@ -197,16 +204,15 @@ const FeedbackTooltipBase = kind({
 					<FeedbackContent
 						className={css.content}
 						feedbackVisible={feedbackVisible}
+						key="feedbackContent"
 						playbackRate={playbackRate}
 						playbackState={playbackState}
 					>
 						{children}
 					</FeedbackContent>
-					{thumbnailComponent ?
-						<div className={css.arrowContainer}>
-							<div className={css.arrow} />
-						</div> : null
-					}
+					<div className={arrowContainerClassName}>
+						<div className={css.arrow} />
+					</div>
 				</div>
 			</div>
 		);

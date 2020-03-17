@@ -7,6 +7,7 @@
 .feedbackTooltip {
 	position: absolute;
 	bottom: @sand-video-slider-tooltip-position-bottom;
+
 	&.shift {
 		bottom: @sand-video-slider-tooltip-shift-position-bottom;
 	}
@@ -68,10 +69,14 @@
 		left: 0;
 		right: 0;
 
+		&.hidden {
+			display: none;
+		}
+
 		.arrow {
 			margin: auto;
-			width: 0px;
-			height: 0px;
+			width: 0;
+			height: 0;
 			border-top: @sand-video-slider-tooltip-arrow-border-top solid;
 			border-right: @sand-video-slider-tooltip-arrow-border-left-right solid;
 			border-left: @sand-video-slider-tooltip-arrow-border-left-right solid;
