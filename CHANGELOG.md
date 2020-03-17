@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/MediaOverlay` styling
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
 
 ## [1.0.0-alpha.4] - 2020-03-17
