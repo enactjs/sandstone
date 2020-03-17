@@ -53,17 +53,7 @@
 		.progressBar {
 			position: absolute;
 			.position(auto, 0, 0);
-			margin: 0;
-
-			.bar {
-				border-radius: 0;
-			}
-
-			.applySkins({
-				.bar {
-					background-color: @sand-mediaoverlay-pg-bar-color;
-				}
-			})
+			margin: 0 @sand-mediaoverlay-progressbar-margin-left-right @sand-mediaoverlay-progressbar-margin-bottom;
 		}
 	}
 
@@ -105,12 +95,6 @@
 		}
 
 		.focus({
-			.progressBar {
-				.fill {
-					background-color: @sand-mediaoverlay-focus-pg-fill-color;
-				}
-			}
-
 			.caption,
 			.title,
 			.subtitle {
