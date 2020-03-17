@@ -106,6 +106,7 @@ const CheckboxItemBase = kind({
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
 			{...rest}
+			selected={selected}
 			css={css}
 		>
 			<Checkbox selected={selected} slot="slotBefore" css={css}>{icon}</Checkbox>

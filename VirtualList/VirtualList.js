@@ -51,6 +51,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
@@ -74,7 +75,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -417,6 +418,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	])
 };
 
+VirtualList = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			VirtualList
+		)
+	)
+);
+
 VirtualList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -441,20 +456,6 @@ VirtualList.defaultProps = {
 	wrap: false
 };
 
-VirtualList = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			VirtualList
-		)
-	)
-);
-
 /**
  * A Sandstone-styled scrollable and spottable virtual grid list component.
  *
@@ -468,6 +469,7 @@ let VirtualGridList = ({role, ...rest}) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
@@ -491,7 +493,7 @@ let VirtualGridList = ({role, ...rest}) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} />
+						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -829,6 +831,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	])
 };
 
+VirtualGridList = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			VirtualGridList
+		)
+	)
+);
+
 VirtualGridList.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -852,20 +868,6 @@ VirtualGridList.defaultProps = {
 	verticalScrollbar: 'auto',
 	wrap: false
 };
-
-VirtualGridList = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			VirtualGridList
-		)
-	)
-);
 
 export default VirtualList;
 export {
