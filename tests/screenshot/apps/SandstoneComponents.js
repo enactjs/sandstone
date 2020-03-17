@@ -77,7 +77,7 @@ const components = {
 	Switch,
 	SwitchItem,
 	TabLayout,
-	TimePicker,
+	TimePicker
 	// TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList
