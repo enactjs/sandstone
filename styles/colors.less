@@ -291,20 +291,21 @@
 
 // Slider
 // ---------------------------------------
+@sand-slider-normal-bg-color: #8D9298;
 @sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
-@sand-slider-fill-bg-color: @sand-progressbar-fill-bg-color;
+@sand-slider-fill-bg-color: @sand-slider-normal-bg-color;
 @sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
-@sand-slider-knob-bg-color: @sand-white;
+@sand-slider-knob-bg-color: @sand-slider-normal-bg-color;
 @sand-slider-knob-border-color: transparent;
 @sand-slider-focus-bar-bg-color: @sand-slider-bar-bg-color;
-@sand-slider-focus-fill-bg-color: @sand-slider-fill-bg-color;
+@sand-slider-focus-fill-bg-color: @sand-spotlight-bg-color;
 @sand-slider-focus-load-bg-color: @sand-slider-load-bg-color;
 @sand-slider-focus-knob-bg-color: @sand-spotlight-bg-color;
 @sand-slider-focus-knob-border-color: transparent;
 @sand-slider-active-bar-bg-color: @sand-slider-bar-bg-color;
-@sand-slider-active-fill-bg-color: @sand-slider-fill-bg-color;
+@sand-slider-active-fill-bg-color: @sand-spotlight-bg-color;
 @sand-slider-active-load-bg-color: @sand-slider-load-bg-color;
-@sand-slider-active-knob-bg-color: @sand-slider-knob-bg-color;
+@sand-slider-active-knob-bg-color: @sand-spotlight-bg-color;
 @sand-slider-active-knob-border-color: @sand-spotlight-color;
 @sand-slider-disabled-bar-opacity: 0.4;
 @sand-slider-disabled-bar-bg-color: fadeout(@sand-slider-bar-bg-color, percentage(@sand-slider-disabled-bar-opacity), relative);
@@ -366,10 +367,10 @@
 
 // Tooltip
 // ---------------------------------------
-@sand-tooltip-bg-color:               @sand-darker-gray;
-@sand-tooltip-text-color:             @sand-button-text-color;
-@sand-tooltip-border-color:           @sand-dark-gray;
-@sand-tooltip-shadow:                 0 14px 14px fade(@sand-black, 30%);
+@sand-tooltip-bg-color:               @sand-light-gray;
+@sand-tooltip-text-color:             @sand-dark-gray;
+@sand-tooltip-border-color:           @sand-light-gray;
+@sand-tooltip-shadow:                 0 20px 12px @sand-spotlight-shadow-color;
 
 // VideoPlayer
 // ---------------------------------------

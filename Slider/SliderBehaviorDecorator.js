@@ -1,4 +1,4 @@
-import {forward} from '@enact/core/handle';
+import {forward, forKey} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';
@@ -73,12 +73,15 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.handleDragStart = this.handleDragStart.bind(this);
 			this.handleFocus = this.handleFocus.bind(this);
 			this.handleSpotlightEvents = this.handleSpotlightEvents.bind(this);
+			this.handleMouseOver = this.handleMouseOver.bind(this);
+			this.handleMouseOut = this.handleMouseOut.bind(this);
 			this.bounds = {};
 
 			this.state = {
 				active: false,
 				dragging: false,
 				focused: false,
+				hover: false,
 				useHintText: false,
 				prevValue: props.value
 			};
@@ -159,7 +162,19 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				forward('onKeyDown', ev, this.props);
 			}
 
+			if (forKey('pointerHide', ev, this.props)) this.setState({hover: false});
+
 			forwardSpotlightEvents(ev, this.props);
+		}
+
+		handleMouseOver (ev) {
+			forward('onMouseOver', ev, this.props);
+			this.setState({hover: true});
+		}
+
+		handleMouseOut (ev) {
+			forward('onMouseOut', ev, this.props);
+			this.setState({hover: false});
 		}
 
 		render () {
@@ -189,6 +204,9 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					onDragStart={this.handleDragStart}
 					onDragEnd={this.handleDragEnd}
 					onFocus={this.handleFocus}
+					onMouseOver={this.handleMouseOver}
+					onMouseOut={this.handleMouseOut}
+					hover={this.state.hover}
 				/>
 			);
 		}

@@ -41,6 +41,8 @@
 			will-change: transform;
 			transition: transform ease-out 100ms;
 		}
+
+
 	}
 
 	.disabled({
@@ -176,6 +178,18 @@
 				}
 			}
 
+			&.hover {
+				.fill {
+					background-color: @sand-slider-normal-bg-color;
+				}
+			}
+
+			&.pressed {
+				.fill {
+					background-color: @sand-slider-active-fill-bg-color;
+				}
+			}
+
 			.disabled({
 				.bar {
 					opacity: @sand-slider-disabled-bar-opacity;
@@ -208,7 +222,6 @@
 				border-color: @sand-slider-knob-border-color;
 			}
 		});
-
 
 		&.noFill {
 			.fill {
