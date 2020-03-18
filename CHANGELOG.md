@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
