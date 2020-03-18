@@ -2,6 +2,7 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
@@ -10,17 +11,20 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
+import css from './VirtualList.module.less';
+
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
 const
 	nop = () => {},
+	fadeoutSize = 48,
 	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
 	getNumberValue = (index) => index | 0;
 
-const useSpottable = (props, instances, context) => {
+const useSpottable = (props, instances) => {
+	const {scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
-	const {scrollMode} = context;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
 		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
@@ -123,7 +127,7 @@ const useSpottable = (props, instances, context) => {
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
-		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
+		const {dimensionToExtent, primary: {contentSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
 		mutableRef.current.isScrolledBy5way = false;
@@ -136,7 +140,7 @@ const useSpottable = (props, instances, context) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize;
+				endBoundary = startBoundary + contentSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -225,14 +229,14 @@ const useSpottable = (props, instances, context) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize,
+			offsetToClientEnd = primary.contentSize - primary.itemSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {
-				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex % scrollContentHandle.current.state.numOfItems);
+				const itemNode = getItemNode(mutableRef.current.lastFocusedIndex);
 
 				if (itemNode) {
 					itemNode.blur();
@@ -242,7 +246,7 @@ const useSpottable = (props, instances, context) => {
 			setNodeIndexToBeFocused(null);
 			mutableRef.current.lastFocusedIndex = focusedIndex;
 
-			if (primary.clientSize >= primary.itemSize) {
+			if (primary.contentSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
 					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
 				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
@@ -304,9 +308,7 @@ const useSpottable = (props, instances, context) => {
 };
 
 const useThemeVirtualList = (props) => {
-	const {itemRefs, scrollMode, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
-
-	// Mutable value
+	const {itemRefs, scrollContainerRef, scrollContentHandle, scrollContentRef} = props;
 
 	// Hooks
 
@@ -328,9 +330,9 @@ const useThemeVirtualList = (props) => {
 		shouldPreventScrollByFocus,
 		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
-	} = useSpottable(props, instance, {scrollMode});
+	} = useSpottable(props, instance);
 
-	usePreventScroll(props, instance, {scrollMode});
+	usePreventScroll(props, instance);
 
 	const handle = {
 		calculatePositionOnFocus,
@@ -348,6 +350,13 @@ const useThemeVirtualList = (props) => {
 
 	// Functions
 
+	function getContentSize ({clientWidth, clientHeight}) {
+		return {
+			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
+			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
+		};
+	}
+
 	function getComponentProps (index) {
 		return (index === getNodeIndexToBeFocused()) ? {ref: (ref) => initItemRef(ref, index)} : {};
 	}
@@ -359,17 +368,20 @@ const useThemeVirtualList = (props) => {
 		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
 
 	// not used by VirtualList
-	delete rest.scrollContainerContainsDangerously;
-	delete rest.scrollContainerRef;
-	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.spotlightId;
+	// not used by VirtualList
+	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
+	delete rest.scrollContainerRef;
+	delete rest.scrollContentHandle;
+	delete rest.spotlightId;
 	delete rest.wrap;
 
 	return {
 		...rest,
+		css,
 		getComponentProps,
+		getContentSize,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
 				...itemRest,

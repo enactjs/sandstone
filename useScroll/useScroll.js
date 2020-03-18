@@ -14,7 +14,6 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
-import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
@@ -59,8 +58,8 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances, context, assignProperties) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
-	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
 
 	// Mutable value
@@ -92,15 +91,15 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {scrollMode});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, scrollMode});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {scrollMode});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -276,6 +275,7 @@ const useScroll = (props) => {
 	// Mutable value
 
 	const scrollContainerRef = useRef();
+	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
 	const itemRefs = useRef([]);
 
@@ -326,8 +326,6 @@ const useScroll = (props) => {
 		scrollContainerHandle.current = handle;
 	};
 
-	const [scrollContentHandle, setScrollContentHandle] = useScrollContentHandle();
-
 	// Hooks
 
 	const instance = {
@@ -365,7 +363,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
+	} = useThemeScroll(props, instance, {}, assignProperties);
 
 	// Render
 
@@ -397,7 +395,6 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		setScrollContentHandle,
 		setScrollContainerHandle,
 		scrollMode,
 		scrollContentHandle,
@@ -410,7 +407,7 @@ const useScroll = (props) => {
 		className: [
 			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
-			scrollContainerHandle.current.rtl ? css.rtl : null,
+			props.rtl ? css.rtl : null,
 			overscrollCss.scroll,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
@@ -470,6 +467,7 @@ const useScroll = (props) => {
 	return {
 		...collectionOfProperties,
 		scrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	};

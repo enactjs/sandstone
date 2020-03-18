@@ -43,10 +43,8 @@ This document describes VirtualList, VirtualGridList, and Scroller.
 ### Common rules of Items for VirtualList/VirtualGridList
 
 *   A renderer for an item should be specified in `itemRenderer` prop in VirtualList.
-*   VirtualList passes `index`, `data-index`, and `key` to the `itemRenderer` function.
-*   Be sure you are passing `{...rest}` to the item component for reusing DOM.
-*   VirtualList will automatically give proper className for items.
-*   Be sure to compose `className` prop when you make customized item component.
+*   VirtualList passes `index`, `data-index`, and `childProps` to the `itemRenderer` function.
+*   Be sure you are passing `{...rest}` to the item component for getting focus properly.
 *   Make sure you are not using an inline function for `itemRenderer`.
 *   If you want to scroll the list via 5-way navigation on the certain component in an item, you should pass `data-index` prop.
 *   Example:
@@ -154,7 +152,7 @@ This document describes VirtualList, VirtualGridList, and Scroller.
 *   Prop `cbScrollTo` is a callback function.
     *   `VirtualList`, `VirtualGridList`, and `Scroller` provide `cbScrollTo` prop which can be set to a callback function that will receive the `scrollTo()` method.
     *   The callback function is called just once when a list or a scroller is created to prevent repeated calls when a list or a scroller is updated.
-    *   Do not change `cbScrollTo` prop after a list or a scroller is mounted. It does not have any effect.
+    *   Do not change `cbScrollTo` prop after a list or a scroller is initially rendered. It does not have any effect.
 *   The binding of a callback function
     *   Please make sure the context of a callback function is properly bound. In general, your app component instance would be the right one.
     *   We recommend to use ECMAScript 2015 (a.k.a ECMAScript 6 or ES6) arrow functions to handle binding.
