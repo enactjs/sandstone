@@ -62,7 +62,7 @@ const defaultConfig = {
  * A higher-order component which positions [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} in
  * relation to the wrapped component.
  *
- * The tooltip is automatically displayed when the decoratorated component is focused after a set
+ * The tooltip is automatically displayed when the decorated component is focused after a set
  * period of time.
  *
  * The tooltip is positioned around the decorator where there is available window space.
@@ -128,7 +128,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * | `'right middle'` | Right of the component, contents middle aligned |
 			 * | `'right top'` | Right of the component, contents at the top |
 			 *
-			 * `TooltipDectorator` attempts to choose the best direction to meet layout and language
+			 * `TooltipDecorator` attempts to choose the best direction to meet layout and language
 			 * requirements. Left and right directions will reverse for RTL languages. Additionally,
 			 * the tooltip will reverse direction if it will prevent overflowing off the viewport
 			 *

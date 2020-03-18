@@ -7,7 +7,7 @@ import css from './Tooltip.module.less';
 
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
- * Sandston styling applied.
+ * Sandstone styling applied.
  *
  * @class TooltipLabel
  * @memberof sandstone/TooltipDecorator

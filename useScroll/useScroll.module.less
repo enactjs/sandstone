@@ -28,7 +28,6 @@
 .scroll {
 	--scroll-scrollbar-size: 60px;
 	--scroll-fadeout-size: 48px;
-	--scroll-padding-size: calc(var(--scroll-scrollbar-size) + var(--scroll-fadeout-size));
 
 	box-sizing: border-box;
 	overflow: hidden;
@@ -36,10 +35,44 @@
 	&.verticalPadding {
 		padding-left: var(--scroll-scrollbar-size);
 		padding-right: var(--scroll-scrollbar-size);
+
+		.verticalScrollbar {
+			position: absolute;
+			width: var(--scroll-scrollbar-size);
+			height: calc(100% - 2 * var(--scroll-fadeout-size));
+			right: 0;
+			top: var(--scroll-fadeout-size);
+		}
+
+		&.rtl {
+			.verticalScrollbar {
+				left: 0;
+				right: initial;
+			}
+		}
 	}
 
 	&.horizontalPadding {
 		padding-bottom: var(--scroll-scrollbar-size);
+
+		.horizontalScrollbar {
+			position: absolute;
+			width: calc(100% - 2 * var(--scroll-fadeout-size));
+			height: var(--scroll-scrollbar-size);
+			left: var(--scroll-fadeout-size);
+			bottom: 0;
+		}
+	}
+
+	&.verticalPadding.horizontalPadding {
+		.verticalScrollbar {
+			height: calc(100% - 2 * var(--scroll-fadeout-size) - var(--scroll-scrollbar-size));
+		}
+
+		.horizontalScrollbar {
+			width: calc(100% - 2 * var(--scroll-fadeout-size) - 2 * var(--scroll-scrollbar-size));
+			left: calc(var(--scroll-fadeout-size) + var(--scroll-scrollbar-size));
+		}
 	}
 
 	.scrollContent {
@@ -55,28 +88,5 @@
 			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 		}
-	}
-
-	.verticalScrollbar {
-		position: absolute;
-		width: var(--scroll-scrollbar-size);
-		height: calc(100% - 2 * var(--scroll-padding-size));
-		right: 0;
-		top: var(--scroll-padding-size);
-	}
-
-	&.rtl {
-		.verticalScrollbar {
-			left: 0;
-			right: initial;
-		}
-	}
-
-	.horizontalScrollbar {
-		position: absolute;
-		width: calc(100% - 2 * var(--scroll-padding-size));
-		height: var(--scroll-scrollbar-size);
-		left: var(--scroll-padding-size);
-		bottom: 0;
 	}
 }

@@ -52,6 +52,7 @@ let Scroller = (props) => {
 
 	const {
 		scrollContentWrapper: ScrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
@@ -73,7 +74,7 @@ let Scroller = (props) => {
 			<div {...scrollContainerProps}>
 				<div {...scrollInnerContainerProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiScrollerBasic {...themeScrollContentProps} />
+						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -344,6 +345,20 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
 };
 
+Scroller = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			Scroller
+		)
+	)
+);
+
 Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
@@ -365,20 +380,6 @@ Scroller.defaultProps = {
 	scrollMode: 'native',
 	verticalScrollbar: 'auto'
 };
-
-Scroller = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			Scroller
-		)
-	)
-);
 
 export default Scroller;
 export {

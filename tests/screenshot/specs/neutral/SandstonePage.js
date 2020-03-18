@@ -11,7 +11,7 @@ class SandstonePage extends Page {
 		super.open('Sandstone-View', urlExtra);
 	}
 
-	get component () { return browser.element('[data-ui-test-id="test"]'); }
+	get component () { return $('[data-ui-test-id="test"]'); }
 }
 
 module.exports = new SandstonePage();

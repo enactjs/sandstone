@@ -1,0 +1,17 @@
+// TabGroup.module.less
+//
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.tab {
+	.applySkins({
+		&.selected {
+			color: @sand-tablayout-tab-selected-text-color;
+
+			.bg {
+				background-color: @sand-tablayout-tab-selected-bg-color;
+				opacity: @sand-tablayout-tab-selected-opacity;
+			}
+		}
+	});
+}
