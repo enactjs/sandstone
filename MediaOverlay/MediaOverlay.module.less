@@ -107,21 +107,5 @@
 				filter: drop-shadow(@sand-mediaoverlay-focus-bg-shadow);
 			}
 		});
-
-		.disabled({
-			// The global disabled rule handles the non-focused state, so no rules are necessary here.
-
-			.focus({
-				opacity: @sand-disabled-opacity;
-
-				.media,
-				.image,
-				.textLayout {
-					// We're setting the parent's opacity, so we need to "unset" the children,
-					// so they don't get double-set, becoming more transparent than our intent.
-					opacity: 1;
-				}
-			});
-		});
 	});
 }
