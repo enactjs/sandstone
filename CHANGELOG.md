@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
+- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
@@ -18,7 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling

@@ -105,8 +105,8 @@
 // ---------------------------------------
 @sand-day-selector-border-color: @sand-white;
 @sand-day-selector-selected-bg-color: @sand-button-bg-color;
-@sand-day-selector-checkbox-bg-color: @sand-formcheckbox-bg-color;
-@sand-day-selector-checkbox-text-color: @sand-formcheckbox-text-color;
+@sand-day-selector-checkbox-bg-color: fade(@sand-white, 22%);
+@sand-day-selector-checkbox-text-color: @sand-white;
 
 // Dropdown
 // ---------------------------------------
@@ -121,17 +121,13 @@
 
 // FormCheckbox
 // ---------------------------------------
-@sand-formcheckbox-bg-color: fade(@sand-white, 22%);
-@sand-formcheckbox-text-color: @sand-white;
-@sand-formcheckbox-border-color: fade(@sand-white, 15%);
-@sand-formcheckbox-focus-bg-color: @sand-spotlight-color;
-@sand-formcheckbox-focus-text-color: @sand-spotlight-text-color;
+@sand-formcheckbox-container-focus-bg-color: @sand-item-focus-bg-color;
+@sand-formcheckbox-focus-shadow: @sand-item-focus-bg-shadow;
+@sand-formcheckbox-resting-shadow: @sand-item-bg-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-resting-shadow: @sand-item-bg-shadow;
-@sand-switch-container-focus-bg-color: @sand-item-focus-bg-color;
-@sand-formcheckboxitem-focus-shadow: @sand-item-focus-bg-shadow;
+@sand-formcheckboxitem-focus-text-color: @sand-white;
 
 // GridListImageItem
 // ---------------------------------------
