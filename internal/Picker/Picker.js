@@ -896,6 +896,7 @@ const PickerBase = class extends React.Component {
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
+				<div className={css.bg} />
 				<PickerButton
 					{...voiceProps}
 					aria-controls={!joined ? incrementerAriaControls : null}
