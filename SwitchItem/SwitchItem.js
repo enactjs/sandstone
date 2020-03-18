@@ -12,22 +12,25 @@
  */
 
 import kind from '@enact/core/kind';
-import ComponentOverride from '@enact/ui/ComponentOverride';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import React from 'react';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import Toggleable from '@enact/ui/Toggleable';
 
-import Switch from '../Switch';
-import ToggleItem from '../ToggleItem';
+import Item from '../Item';
+import Skinnable from '../Skinnable';
+import {SwitchBase} from '../Switch';
 
 import componentCss from './SwitchItem.module.less';
+
+const Switch = Skinnable(SwitchBase);
 
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.
  *
  * @class SwitchItem
  * @memberof sandstone/SwitchItem
- * @extends sandstone/ToggleItem.ToggleItem
+ * @extends sandstone/Item.Item
  * @omit iconComponent
  * @ui
  * @public
@@ -50,17 +53,17 @@ const SwitchItemBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Customize the component used as the switch.
+		 * If true the switch will be selected.
 		 *
-		 * @type {Element|Component}
-		 * @default {@link sandstone/Switch.Switch}
-		 * @private
+		 * @type {Boolean}
+		 * @default false
+		 * @public
 		 */
-		iconComponent: EnactPropTypes.componentOverride
+		selected: PropTypes.bool
 	},
 
 	defaultProps: {
-		iconComponent: Switch
+		selected: false
 	},
 
 	styles: {
@@ -69,27 +72,28 @@ const SwitchItemBase = kind({
 		publicClassNames: ['switchItem']
 	},
 
-	computed: {
-		iconComponent: ({css, iconComponent}) => (
-			<ComponentOverride
-				component={iconComponent}
-				className={css.switch}
-			/>
-		)
-	},
-
-	render: (props) => (
-		<ToggleItem
+	render: ({children, css, selected, ...rest}) => (
+		<Item
 			data-webos-voice-intent="SetToggleItem"
-			{...props}
-			css={props.css}
-			iconPosition="after"
-		/>
+			role="checkbox"
+			{...rest}
+			css={css}
+		>
+			{children}
+			<Switch selected={selected} slot="slotAfter" css={css} />
+		</Item>
 	)
 });
 
-export default SwitchItemBase;
+const SwitchItemDecorator = compose(
+	Toggleable({toggleProp: 'onClick'})
+);
+
+const SwitchItem = SwitchItemDecorator(SwitchItemBase);
+
+export default SwitchItem;
 export {
-	SwitchItemBase as SwitchItem,
-	SwitchItemBase
+	SwitchItem,
+	SwitchItemBase,
+	SwitchItemDecorator
 };

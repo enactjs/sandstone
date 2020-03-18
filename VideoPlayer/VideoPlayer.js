@@ -125,7 +125,7 @@ const AnnounceState = {
  */
 
 /**
- * A set of playback rates when media fast forwards, rewinds, slow-fowards, or slow-rewinds.
+ * A set of playback rates when media fast forwards, rewinds, slow-forwards, or slow-rewinds.
  *
  * The number used for each operation is proportional to the normal playing speed, 1. If the rate
  * is less than 1, it will play slower than normal speed, and, if it is larger than 1, it will play
@@ -690,7 +690,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			on('touchmove', this.activityDetected);
 		}
-		on('keydown', this.handleGlobalKeyDown);
+		document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.addEventListener('wheel', this.activityDetected, {capture: true});
 		this.startDelayedFeedbackHide();
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
@@ -757,7 +758,7 @@ const VideoPlayerBase = class extends React.Component {
 				}
 
 				// Set focus to the hidden spottable control - maintaining focus on available spottable
-				// controls, which prevents an addiitional 5-way attempt in order to re-show media controls
+				// controls, which prevents an additional 5-way attempt in order to re-show media controls
 				Spotlight.focus(`.${css.controlsHandleAbove}`);
 			}
 		} else if (this.state.mediaControlsVisible && !prevState.mediaControlsVisible) {
@@ -784,7 +785,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			off('touchmove', this.activityDetected);
 		}
-		off('keydown', this.handleGlobalKeyDown);
+		document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.removeEventListener('wheel', this.activityDetected, {capture: true});
 		this.stopRewindJob();
 		this.stopAutoCloseTimeout();
 		this.stopDelayedTitleHide();
@@ -819,7 +821,6 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	activityDetected = () => {
-		// console.count('activityDetected');
 		this.startAutoCloseTimeout();
 	}
 
@@ -1488,7 +1489,7 @@ const VideoPlayerBase = class extends React.Component {
 	 * @private
 	 */
 	setPlaybackRate = (rate) => {
-		// Stop rewind (if happenning)
+		// Stop rewind (if happening)
 		this.stopRewindJob();
 
 		// Make sure rate is a string
@@ -1665,7 +1666,6 @@ const VideoPlayerBase = class extends React.Component {
 			if (Spotlight.focus(this.mediaControlsSpotlightId)) {
 				preventDefault(ev);
 				stopImmediate(ev);
-				this.activityDetected();
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
@@ -1674,8 +1674,6 @@ const VideoPlayerBase = class extends React.Component {
 
 			this.handleSliderBlur();
 			this.hideControls();
-		} else {
-			this.activityDetected();
 		}
 	}
 

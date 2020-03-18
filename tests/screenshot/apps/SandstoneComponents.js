@@ -17,7 +17,7 @@ import Icon from './components/Icon';
 import IconButton from './components/IconButton';
 import Image from './components/Image';
 import IncrementSlider from './components/IncrementSlider';
-import Input from './components/Input';
+import InputField from './components/InputField';
 import Item from './components/Item';
 import LabeledIcon from './components/LabeledIcon';
 import LabeledIconButton from './components/LabeledIconButton';
@@ -35,6 +35,7 @@ import Slider from './components/Slider';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
+import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 
 const components = {
@@ -55,7 +56,7 @@ const components = {
 	IconButton,
 	Image,
 	IncrementSlider,
-	Input,
+	InputField,
 	Item,
 	LabeledIcon,
 	LabeledIconButton,
@@ -75,6 +76,7 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
+	TabLayout,
 	TimePicker
 	// TooltipDecorator,
 	// VideoPlayer,
