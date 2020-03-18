@@ -26,10 +26,11 @@ import React from 'react';
 
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
-import css from '../useScroll/useScroll.module.less';
 import Skinnable from '../Skinnable';
 
 import useThemeScroller from './useThemeScroller';
+
+import css from './Scroller.module.less';
 
 const nop = () => {};
 
@@ -56,7 +57,6 @@ let Scroller = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
-		focusableBodyProps,
 		resizeContextProps,
 		scrollContainerProps,
 		scrollInnerContainerProps,
@@ -66,7 +66,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeScroller(scrollContentProps);
+	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
 
 	// Render
 	const scrollContainer = (

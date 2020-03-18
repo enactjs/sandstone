@@ -2,28 +2,7 @@
 //
 
 @import "../styles/colors.less";
-@import "../styles/mixins.less";
 @import "../styles/variables.less";
-
-.focusableBody {
-	width: 100%;
-	height: 100%;
-	position: relative;
-
-	.bg {
-		border-radius: @sand-scroll-focusablebody-focus-border-radius;
-		position: absolute;
-		.position(0);
-		opacity: 0;
-	}
-
-	.focus({
-		.bg {
-			background-color: @sand-scroll-focusablebody-focus-bg-color;
-			opacity: 1;
-		}
-	})
-}
 
 .scroll {
 	--scroll-scrollbar-size: 60px;
