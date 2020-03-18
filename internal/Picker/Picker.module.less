@@ -109,21 +109,14 @@
 		@joined-arrow-transform-focus: scale(0.95);
 		@joined-arrow-transform-active: @joined-arrow-transform-resting;
 
-		transition: filter @sand-picker-focus-duration ease-out;
-
-		&::before {
-			.sand-spotlight-resting();
+		&::before,
+		&::after {
 			content: "";
 			position: absolute;
 			.position(0);
 		}
 
 		&::after {
-			.position(0);
-
-			content: "";
-			display: block;
-			position: absolute;
 			border-width: 0;
 			border-style: solid;
 			border-radius: inherit;
@@ -160,6 +153,10 @@
 			&::before,
 			&::after {
 				border-radius: @sand-picker-joined-horizontal-border-radius;
+			}
+
+			&::before {
+				.sand-spotlight-resting(1);
 			}
 
 			.valueWrapper {
@@ -215,6 +212,10 @@
 			&::before,
 			&::after {
 				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+
+			&::before {
+				.sand-spotlight-resting();
 			}
 
 			&.incrementing::after {
@@ -302,10 +303,12 @@
 			.focus({
 				color: @sand-picker-focus-text-color;
 
-				&::before {
-					// background-color: @sand-picker-joined-bg-color;
-					// filter: drop-shadow(@sand-picker-resting-shadow);
-					.sand-spotlight-focus-colors();
+				&.horizontal {
+					&::before {
+						.sand-spotlight-focus-colors();
+						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+						filter+_: saturate(0) brightness(1.89);
+					}
 				}
 
 				.disabled({
