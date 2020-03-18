@@ -303,6 +303,19 @@
 				&.small .bg {
 					transform: @sand-button-small-focus-bg-transform;
 				}
+
+				&.pressed,
+				&:active {
+					.bg {
+						transform: @sand-button-pressed-bg-transform;
+					}
+
+					&.small {
+						.bg {
+							transform: @sand-button-small-pressed-bg-transform;
+						}
+					}
+				}
 			});
 		}
 	});
