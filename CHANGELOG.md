@@ -16,6 +16,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
 - `sandstone/VideoPlayer` to continue to display controls when user activity is detected˛
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
+- `sandstone/Slider` to change the value in focus state when using 5-way
+- `sandstone/Slider` display only center type regardless of the value
+
 
 ## [1.0.0-alpha.3] - 2020-03-09
 

@@ -291,11 +291,10 @@
 
 // Slider
 // ---------------------------------------
-@sand-slider-normal-bg-color: #8D9298;
 @sand-slider-bar-bg-color: @sand-progressbar-bar-bg-color;
-@sand-slider-fill-bg-color: @sand-slider-normal-bg-color;
+@sand-slider-fill-bg-color: #8D9298;
 @sand-slider-load-bg-color: @sand-progressbar-load-bg-color;
-@sand-slider-knob-bg-color: @sand-slider-normal-bg-color;
+@sand-slider-knob-bg-color: @sand-slider-fill-bg-color;
 @sand-slider-knob-border-color: transparent;
 @sand-slider-focus-bar-bg-color: @sand-slider-bar-bg-color;
 @sand-slider-focus-fill-bg-color: @sand-spotlight-bg-color;
@@ -305,7 +304,7 @@
 @sand-slider-active-bar-bg-color: @sand-slider-bar-bg-color;
 @sand-slider-active-fill-bg-color: @sand-spotlight-bg-color;
 @sand-slider-active-load-bg-color: @sand-slider-load-bg-color;
-@sand-slider-active-knob-bg-color: @sand-spotlight-bg-color;
+@sand-slider-active-knob-bg-color: @sand-slider-active-fill-bg-color;
 @sand-slider-active-knob-border-color: @sand-spotlight-color;
 @sand-slider-disabled-bar-opacity: 0.4;
 @sand-slider-disabled-bar-bg-color: fadeout(@sand-slider-bar-bg-color, percentage(@sand-slider-disabled-bar-opacity), relative);
@@ -370,7 +369,7 @@
 @sand-tooltip-bg-color:               @sand-light-gray;
 @sand-tooltip-text-color:             @sand-dark-gray;
 @sand-tooltip-border-color:           @sand-light-gray;
-@sand-tooltip-shadow:                 0 20px 12px @sand-spotlight-shadow-color;
+@sand-tooltip-shadow:                 0 18px 12px @sand-spotlight-shadow-color;
 
 // VideoPlayer
 // ---------------------------------------
