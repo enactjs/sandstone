@@ -10,12 +10,13 @@ import React from 'react';
 import Skinnable from '../Skinnable';
 
 import CancelDecorator from './CancelDecorator';
-import Controls from './Controls';
+
 import Viewport from './Viewport';
 
 import css from './Panels.module.less';
 
-const getControlsId = (id) => id && `${id}-controls`;
+const getId = (id) => id && `${id}`;
+
 
 /**
  * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
@@ -66,26 +67,6 @@ const PanelsBase = kind({
 		 * @public
 		 */
 		children: PropTypes.node,
-
-		/**
-		 * Sets the hint string read when focusing the application close button.
-		 *
-		 * @type {String}
-		 * @default 'Exit app'
-		 * @public
-		 */
-		closeButtonAriaLabel: PropTypes.string,
-
-		/**
-		 * The background opacity of the application close button.
-		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
-		 *
-		 * @type {String}
-		 * @default 'transparent'
-		 * @public
-		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
 
 		/**
 		 * A slot to insert additional Panels-level buttons into the global-navigation area.
@@ -147,15 +128,6 @@ const PanelsBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Indicates the close button will not be rendered on the top right corner.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		noCloseButton: PropTypes.bool,
-
-		/**
 		 * Prevents maintaining shared state for framework components within this `Panels` instance.
 		 *
 		 * When `false`, each `Panel` will track the state of some framework components in order to
@@ -191,10 +163,8 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
-		closeButtonBackgroundOpacity: 'transparent',
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
@@ -204,22 +174,19 @@ const PanelsBase = kind({
 	},
 
 	computed: {
-		className: ({controls, noCloseButton, styler}) => styler.append({
-			'sand-panels-hasControls': (!noCloseButton || !!controls) // If there is a close button or controls were specified
-		}),
-		childProps: ({childProps, controls, id, noCloseButton}) => {
-			if ((noCloseButton && !controls) || !id) {
+
+		childProps: ({childProps, id}) => {
+			if (!id) {
 				return childProps;
 			}
-
 			const updatedChildProps = Object.assign({}, childProps);
-			const controlsId = getControlsId(id);
+			const childId = getId(id);
 			const owns = updatedChildProps['aria-owns'];
 
-			if (owns) {
-				updatedChildProps['aria-owns'] = `${owns} ${controlsId}`;
+			if (owns && childId) {
+				updatedChildProps['aria-owns'] = `${owns} ${childId}`;
 			} else {
-				updatedChildProps['aria-owns'] = controlsId;
+				updatedChildProps['aria-owns'] = childId;
 			}
 
 			return updatedChildProps;
@@ -231,25 +198,10 @@ const PanelsBase = kind({
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, childProps, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, controls, controlsRef, generateId, id, index, noAnimation, noCloseButton, noSharedState, onApplicationClose, viewportId, ...rest}) => {
-		delete rest.controlsMeasurements;
-		delete rest.onBack;
-
-		const controlsId = getControlsId(id);
+	render: ({arranger, childProps, children,  generateId, id, index, noAnimation, noSharedState, viewportId, ...rest}) => {
 
 		return (
 			<div {...rest} id={id}>
-				<Controls
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
-					id={controlsId}
-					spotlightId={controlsId}
-					noCloseButton={noCloseButton}
-					onApplicationClose={onApplicationClose}
-					ref={controlsRef}
-				>
-					{controls}
-				</Controls>
 				<Viewport
 					arranger={arranger}
 					childProps={childProps}

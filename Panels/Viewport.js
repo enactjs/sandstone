@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
-import ViewManager, {shape} from '@enact/ui/ViewManager';
+import ViewManager, {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -71,6 +71,7 @@ const ViewportBase = class extends React.Component {
 	}
 
 	static defaultProps = {
+		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false
 	}
@@ -162,7 +163,8 @@ const ViewportBase = class extends React.Component {
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
 
 	render () {
-		const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
+		const {children, generateId, index, noAnimation, type, ...rest} = this.props;
+		// const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -177,7 +179,8 @@ const ViewportBase = class extends React.Component {
 			<PanelTypeContext.Provider value={type}>
 				<ViewManager
 					{...rest}
-					arranger={arranger}
+					// arranger={arranger}
+					arranger={SlideLeftArranger}
 					className={className}
 					component="main"
 					duration={250}
