@@ -13,12 +13,11 @@
  */
 
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
-
 import Spottable from '@enact/spotlight/Spottable';
 import Toggleable from '@enact/ui/Toggleable';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
 import Checkbox from '../Checkbox';
 import Skinnable from '../Skinnable';
@@ -30,6 +29,7 @@ import componentCss from './FormCheckbox.module.less';
  *
  * @class FormCheckbox
  * @memberof sandstone/FormCheckbox
+ * @extends sandstone/Checkbox.Checkbox
  * @public
  */
 const FormCheckboxBase = kind({

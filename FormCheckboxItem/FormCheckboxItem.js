@@ -10,11 +10,10 @@
  */
 
 import kind from '@enact/core/kind';
-import React from 'react';
+import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
-
-import Toggleable from '@enact/ui/Toggleable';
+import React from 'react';
 
 import FormCheckbox from '../FormCheckbox';
 import Item from '../Item';
