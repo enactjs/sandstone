@@ -20,7 +20,7 @@ Config.defaultProps = {
 };
 
 const popupProps = {
-	style: {width: '500px'}
+	// style: {width: '500px'}
 };
 
 storiesOf('Sandstone', module)
