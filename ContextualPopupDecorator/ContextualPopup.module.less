@@ -12,20 +12,11 @@
 		position: absolute;
 		min-height: 192px;
 		min-width: 192px;
-		border-width: @sand-contextual-popup-border-width;
-		border-style: solid;
 		border-radius: @sand-contextual-popup-border-radius;
 		padding: @sand-contextual-popup-padding;
 		background-clip: padding-box;
 		-webkit-background-clip: padding-box;
 		-moz-background-clip: padding-box;
-
-		.closeButton {
-			position: absolute;
-			right: @sand-spotlight-outset;
-			top: @sand-spotlight-outset;
-			margin: 0;
-		}
 
 		&.reserveClose {
 			.padding-start-end(@sand-contextual-popup-padding, @sand-contextual-popup-with-reserveclose-padding);
@@ -43,11 +34,6 @@
 	:global(.enact-locale-right-to-left) & {
 		.container {
 			direction: rtl;
-
-			.closeButton {
-				right: auto;
-				left: @sand-spotlight-outset;
-			}
 		}
 	}
 
@@ -80,10 +66,6 @@
 		}
 
 		.arrow {
-			.arrowBorder {
-				fill: @sand-contextual-popup-border-color;
-			}
-
 			.arrowFill {
 				fill: @sand-contextual-popup-bg-color;
 			}
