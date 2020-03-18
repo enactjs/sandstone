@@ -25,11 +25,6 @@
 	.disabled({
 		.vendor-opacity(@sand-disabled-opacity);
 
-		// Focused and disabled, must restore their natural opacity, then assign the faded text/content color
-		.focus({
-			color: @sand-spotlight-disabled-text-color;
-		});
-
 		cursor: default;
 
 		// Disabled children of disabled components
