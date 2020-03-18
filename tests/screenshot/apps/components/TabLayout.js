@@ -64,22 +64,6 @@ const TabLayoutTests = [
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout orientation="horizontal" tabs={tabs}>{views}</TabLayout>,
-		wrapper: {full: true}
-	},
-	{
-		component: <TabLayout orientation="horizontal" tabs={tabsWithIcons}>{views}</TabLayout>,
-		wrapper: {full: true}
-	},
-	{
-		component: <TabLayout orientation="horizontal" tabs={someTabsWithIcons}>{views}</TabLayout>,
-		wrapper: {full: true}
-	},
-	{
-		component: <TabLayout orientation="horizontal" tabs={oneTabWithIcons}>{views}</TabLayout>,
-		wrapper: {full: true}
-	},
-	{
 		component: <TabLayout collapsed tabs={tabs}>{views}</TabLayout>,
 		wrapper: {full: true}
 	},
