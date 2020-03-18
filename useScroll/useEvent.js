@@ -561,7 +561,7 @@ const useEventVoice = (props, instances) => {
 
 const useEventWheel = (props, instances) => {
 	const {scrollMode} = props;
-	const {themeScrollContentHandle, scrollContainerHandle} = instances;
+	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef} = instances;
 
 	// Mutable value
 
@@ -618,8 +618,13 @@ const useEventWheel = (props, instances) => {
 					mutableRef.current.isWheeling = true;
 				}
 
-				// Not to check if ev.target is a descendant of a wrapped component which may have a lot of nodes in it.
-				if (overscrollEffectRequired) {
+				// If ev.target is a descendant of scrollContent, the event will be handled on onscroll handler.
+				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
+					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
+					needToHideThumb = !delta;
+
+					ev.preventDefault();
+				} else if (overscrollEffectRequired) {
 					scrollContainerHandle.current.checkAndApplyOverscrollEffect('vertical', eventDelta > 0 ? 'after' : 'before', overscrollTypeOnce);
 				}
 
