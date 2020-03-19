@@ -8,10 +8,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ProgressButton` component
 
+### Changed
+
+- `sandstone/Videoplayer` to not hide playback controls using up key via 5-way.
+
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
+- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
+- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
+- `sandstone/Input.InputField` to show icons when focused
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
@@ -23,7 +29,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling
