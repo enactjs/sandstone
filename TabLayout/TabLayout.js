@@ -1,5 +1,5 @@
 /**
- * Provides an Sandstone-themed TabLayout.
+ * Provides a Sandstone-themed TabLayout.
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
@@ -115,7 +115,7 @@ const TabLayoutBase = kind({
 		 * Horizontal tabs support a maximum of five tabs.
 		 *
 		 * @type {('horizontal'|'vertical')}
-		 * @default 'horizontal'
+		 * @default 'vertical'
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
