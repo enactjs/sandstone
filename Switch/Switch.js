@@ -79,6 +79,7 @@ const SwitchBase = kind({
 
 	render: ({children, css, ...rest}) => {
 		delete rest.noAnimation;
+		delete rest.selected;
 
 		return (
 			<div {...rest}>

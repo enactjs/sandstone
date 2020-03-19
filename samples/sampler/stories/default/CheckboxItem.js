@@ -4,12 +4,13 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 
 import iconNames from './icons';
 
 CheckboxItem.displayName = 'CheckboxItem';
-const Config = mergeComponentMetadata('CheckboxItem', CheckboxItem);
+const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItemBase, CheckboxItem);
 
 storiesOf('Sandstone', module)
 	.add(

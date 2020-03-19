@@ -14,6 +14,24 @@
 .checkbox {
 	margin: 0;
 
+	// Spottable version of the Checkbox
+	.spottable({
+		&::after {
+			content: "";
+			position: absolute;
+			.position(@sand-checkbox-container-position);
+			border-radius: @sand-checkbox-container-border-radius;
+			z-index: -1;
+			.sand-spotlight-resting();
+		}
+	});
+
+	.focus({
+		&::after {
+			.sand-spotlight-focus();
+		}
+	});
+
 	.applySkins({
 		.checkboxColors(
 			@sand-checkbox-color,
@@ -31,12 +49,25 @@
 			);
 		}
 
+		// Spottable version of the Checkbox
+		.spottable({
+			&::after {
+				background-color: @sand-checkbox-container-focus-bg-color;
+				filter: drop-shadow(@sand-checkbox-container-resting-shadow);
+			}
+		});
+
 		.focus({
 			.checkboxColors(
 				@sand-checkbox-focus-color,
 				@sand-checkbox-focus-bg-color,
 				@sand-checkbox-focus-border-color
 			);
+
+			&::after {
+				background-color: @sand-checkbox-container-focus-bg-color;
+				filter: drop-shadow(@sand-checkbox-container-focus-shadow);
+			}
 
 			&.selected {
 				.checkboxColors(
@@ -66,6 +97,15 @@
 					@sand-checkbox-selected-focus-border-color
 				);
 			}
+
+			// Spottable version of the Checkbox
+			.spottable({
+				&::after {
+					.sand-spotlight-focus();
+					background-color: @sand-checkbox-container-focus-bg-color;
+					filter: drop-shadow(@sand-checkbox-container-resting-shadow);
+				}
+			});
 		});
 	}
 }, parent);

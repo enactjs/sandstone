@@ -11,7 +11,10 @@
 
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
+import Spottable from '@enact/spotlight/Spottable';
+import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
 
@@ -88,6 +91,7 @@ const CheckboxBase = kind({
 	},
 
 	render: ({children, css, ...rest}) => {
+		delete rest.selected;
 		return (
 			<Icon
 				size="tiny"
@@ -100,8 +104,16 @@ const CheckboxBase = kind({
 	}
 });
 
-export default CheckboxBase;
+const CheckboxDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Spottable
+);
+
+const Checkbox = CheckboxDecorator(CheckboxBase);
+
+export default Checkbox;
 export {
-	CheckboxBase as Checkbox,
-	CheckboxBase
+	Checkbox,
+	CheckboxBase,
+	CheckboxDecorator
 };

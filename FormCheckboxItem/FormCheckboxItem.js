@@ -11,15 +11,17 @@
 
 import kind from '@enact/core/kind';
 import Toggleable from '@enact/ui/Toggleable';
+import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import FormCheckbox from '../FormCheckbox';
+import {CheckboxBase} from '../Checkbox';
 import Item from '../Item';
-import Skinnable from '../Skinnable';
 
 import componentCss from './FormCheckboxItem.module.less';
+
+const Checkbox = Spottable(CheckboxBase);
 
 /**
  * Renders a form item with a checkbox component. Useful to show a selected state on an item inside a form.
@@ -46,16 +48,32 @@ const FormCheckboxItemBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * If true it will be checked.
+		 * The icon content.
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String|Object}
+		 * @default 'check'
+		 * @public
+		 */
+		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
+		 * Controls the prsence of the checkmark icon.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		selected: PropTypes.bool
 	},
 
 	defaultProps: {
+		icon: 'check',
 		selected: false
 	},
 
@@ -65,22 +83,22 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, selected, ...rest}) => (
+	render: ({children, css, icon, selected, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
 			{...rest}
+			selected={selected}
 			css={css}
 		>
-			<FormCheckbox slot="slotBefore" selected={selected} className={css.formCheckbox} css={css} />
+			<Checkbox slot="slotBefore" selected={selected} css={css}>{icon}</Checkbox>
 			{children}
 		</Item>
 	)
 });
 
 const FormCheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'}),
-	Skinnable,
+	Toggleable({toggleProp: 'onClick'})
 );
 
 const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);

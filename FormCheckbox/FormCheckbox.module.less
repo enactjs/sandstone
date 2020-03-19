@@ -19,8 +19,8 @@
 		&::after {
 			content: "";
 			position: absolute;
-			.position(@sand-formcheckbox-spottable-position);
-			border-radius: @sand-formcheckbox-spottable-border-radius;
+			.position(@sand-checkbox-container-position);
+			border-radius: @sand-checkbox-container-border-radius;
 			z-index: -1;
 			.sand-spotlight-resting();
 		}
@@ -36,15 +36,15 @@
 	.applySkins({
 		.spottable({
 			&::after {
-				background-color: @sand-formcheckbox-container-focus-bg-color;
-				filter: drop-shadow(@sand-formcheckbox-resting-shadow);
+				background-color: @sand-checkbox-container-focus-bg-color;
+				filter: drop-shadow(@sand-checkbox-container-resting-shadow);
 			}
 		});
 
 		.focus({
 			&::after {
-				background-color: @sand-formcheckbox-container-focus-bg-color;
-				filter: drop-shadow(@sand-formcheckbox-focus-shadow);
+				background-color: @sand-checkbox-container-focus-bg-color;
+				filter: drop-shadow(@sand-checkbox-container-focus-shadow);
 			}
 		});
 	});
@@ -58,7 +58,7 @@
 
 		.applySkins({
 			&::after {
-				filter: drop-shadow(@sand-formcheckbox-focus-shadow);
+				filter: drop-shadow(@sand-checkbox-container-focus-shadow);
 			}
 		});
 	}
