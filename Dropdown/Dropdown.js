@@ -234,7 +234,6 @@ const DropdownBase = kind({
 			});
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
-		direction: ({direction}) => `${direction} center`,
 		title: ({children, selected, title}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
@@ -252,8 +251,6 @@ const DropdownBase = kind({
 		// prevent Dropdown to open if there are no children.
 		const hasChildren = children.length > 0;
 		const openDropdown = hasChildren && !disabled && open;
-
-		delete rest.width;
 
 		return (
 			<ContextualButton
