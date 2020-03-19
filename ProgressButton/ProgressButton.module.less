@@ -1,0 +1,49 @@
+// ProgressButton.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
+
+
+.progressButton {
+	text-align: initial;
+
+	.progressContainer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.icon {
+		position: absolute;
+		margin: 0;
+		font-size: @sand-progressbutton-icon-font-size;
+	}
+
+	.progressBar {
+		margin: 0;
+
+		.applySkins({
+			&.radial {
+				.bar {
+					border-color: @sand-progressbutton-bar-border-color;
+				}
+
+				.fill {
+					border-color: @sand-progressbutton-fill-border-color;
+				}
+			}
+		});
+	}
+
+	.focus({
+		.progressBar {
+			.applySkins({
+				&.radial {
+					.fill {
+						border-color: @sand-progressbutton-focus-fill-border-color;
+					}
+				}
+			});
+		}
+	});
+}
