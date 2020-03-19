@@ -97,14 +97,6 @@ const SliderBase = kind({
 		focused: PropTypes.bool,
 
 		/**
-		 * Sets the knob to hover state
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		hover: PropTypes.bool,
-
-		/**
 		 * The amount to increment or decrement the position of the knob via 5-way controls.
 		 *
 		 * It must evenly divide into the range designated by `min` and `max`. If not specified,
@@ -270,10 +262,9 @@ const SliderBase = kind({
 	},
 
 	computed: {
-		className: ({activateOnFocus, active, hover, styler}) => styler.append({
+		className: ({activateOnFocus, active, styler}) => styler.append({
 			activateOnFocus,
-			active,
-			hover
+			active
 		}),
 		knobStep: validateSteppedOnce(props => props.knobStep, {
 			component: 'Slider',
@@ -292,7 +283,6 @@ const SliderBase = kind({
 		delete rest.active;
 		delete rest.onActivate;
 		delete rest.knobStep;
-		delete rest.hover;
 
 		return (
 			<UiSlider
