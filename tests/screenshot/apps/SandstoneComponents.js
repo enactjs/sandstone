@@ -35,6 +35,7 @@ import Slider from './components/Slider';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
+import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 
 const components = {
@@ -75,6 +76,7 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
+	TabLayout,
 	TimePicker
 	// TooltipDecorator,
 	// VideoPlayer,
