@@ -3,6 +3,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/ToggleItem';
 import Group from '@enact/ui/Group';
+Group.displayName = 'Group';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -72,14 +73,14 @@ storiesOf('CheckboxItem', module)
 		)
 	)
 	.add(
-		'that is grouped',
+		'grouped',
 		() => (
 			<Group
 				childComponent={CheckboxItem}
 				childSelect="onToggle"
 				itemProps={{
-					inline: boolean('ItemProps-Inline', Group, false),
-					disabled: boolean('disabled', Group, false)
+					inline: boolean('itemProps-inline', Group, false),
+					disabled: boolean('itemProps-disabled', Group, false)
 				}}
 				select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
 				selectedProp="selected"
