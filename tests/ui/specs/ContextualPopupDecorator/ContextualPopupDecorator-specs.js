@@ -26,16 +26,6 @@ describe('ContextualPopupDecorator', function () {
 				Page.spotlightSelect();
 			});
 
-			// [GT-28289] - Spotlight remains on Close Button inside the Contextual Popup
-			it('should have Spotlight on close button when ContextualPopup opens', function () {
-				let closeButton = browser.element('.ContextualPopupDecorator_ContextualPopup_closeButton');
-
-				expect(closeButton.hasFocus()).to.be.true();
-
-				Page.spotlightUp();
-				expect(closeButton.hasFocus()).to.be.true();
-			});
-
 			// [GT-28291] - 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
 			it('should have Spotlight on close button when ContextualPopup opens', function () {
 				let closeButton = browser.element('.ContextualPopupDecorator_ContextualPopup_closeButton');
@@ -47,6 +37,4 @@ describe('ContextualPopupDecorator', function () {
 			});
 		});
 	});
-
-
 });
