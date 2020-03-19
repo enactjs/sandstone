@@ -236,7 +236,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			super(props);
 			this.state = {
 				arrowPosition: {top: 0, left: 0},
-				containerPosition: {top: 0, left: 0},
+				containerPosition: {top: 0, left: 0, width: 0},
 				containerId: Spotlight.add(this.props.popupSpotlightId),
 				activator: null
 			};
@@ -354,6 +354,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		centerContainerPosition (containerNode, clientNode) {
+			// `centerContainerPosition` returns {left, top, width}.
 			const pos = {};
 			const {anchor, direction} = this.getContainerAdjustedPosition();
 

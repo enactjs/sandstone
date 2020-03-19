@@ -33,7 +33,6 @@ class app extends Component {
 					open={open}
 					popupComponent={renderPopup}
 					spotlightRestrict="self-only"
-					showCloseButton
 				>
 					Contextual Popup Button
 				</ContextualButton>

@@ -81,7 +81,8 @@ const ContextualPopupBase = kind({
 			bottom: PropTypes.number,
 			left: PropTypes.number,
 			right: PropTypes.number,
-			top: PropTypes.number
+			top: PropTypes.number,
+			width: PropTypes.number
 		}),
 
 		/**
@@ -127,13 +128,13 @@ const ContextualPopupBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'below center',
-		showCloseButton: false
+		direction: 'below center'
 	},
 
 	styles: {
 		css,
-		className: 'container'
+		className: 'contextualPopup',
+		publicClassNames: true
 	},
 
 	computed: {
@@ -143,12 +144,12 @@ const ContextualPopupBase = kind({
 		}
 	},
 
-	render: ({arrowDirection, arrowPosition, containerPosition, containerRef, children, className, showArrow, ...rest}) => {
+	render: ({arrowDirection, arrowPosition, containerPosition, containerRef, children, showArrow, ...rest}) => {
 		delete rest.direction;
 
 		return (
-			<ContextualPopupRoot aria-live="off" role="alert" {...rest} className={css.contextualPopup}>
-				<div className={className} style={containerPosition} ref={containerRef}>
+			<ContextualPopupRoot aria-live="off" role="alert" {...rest}>
+				<div className={css.container} style={containerPosition} ref={containerRef}>
 					{children}
 				</div>
 				{showArrow ? <ContextualPopupArrow direction={arrowDirection} style={arrowPosition} /> : null}

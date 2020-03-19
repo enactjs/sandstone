@@ -8,7 +8,7 @@ const Popup = () => <div>hello</div>;
 const ContextualPopupDecoratorTests = [
 	<ContextualPopupButton popupComponent={Popup}>Button</ContextualPopupButton>,
 	<ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>,
-	<ContextualPopupButton open popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+	<ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>,
 	// Tooltip will be pushed Down because it's too close to the top edge of the screen (auto-swap code)
 	<ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
 	<ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
@@ -88,62 +88,62 @@ const ContextualPopupDecoratorTests = [
 		}
 	},
 	{
-		component: <ContextualPopupButton open direction="above center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
-		component: <ContextualPopupButton open direction="below center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
-		wrapper: {
-			padded: true
-		}
-	},
-	// Tooltip will be pushed Right because it's too close to the left edge of the screen (auto-swap code) - even with padding
-	{
-		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
-		wrapper: {
-			padded: true
-		}
-	},
-	{
-		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
-		wrapper: {
-			padded: true
-		}
-	},
-	{
-		textSize: 'large',
-		component: <ContextualPopupButton open direction="above center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
-		wrapper: {
-			padded: true
-		}
-	},
-	{
-		textSize: 'large',
-		component: <ContextualPopupButton open direction="below center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	// Tooltip will be pushed Right because it's too close to the left edge of the screen (auto-swap code) - even with padding
 	{
-		textSize: 'large',
-		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
 		textSize: 'large',
-		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		textSize: 'large',
+		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	// Tooltip will be pushed Right because it's too close to the left edge of the screen (auto-swap code) - even with padding
+	{
+		textSize: 'large',
+		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup}>Button</ContextualPopupButton>,
+		wrapper: {
+			padded: true
+		}
+	},
+	{
+		textSize: 'large',
+		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	// [GT-28292] - Popup Retains Left Direction
 	{
-		component: <ContextualPopupButton open direction="left" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="left" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -155,7 +155,7 @@ const ContextualPopupDecoratorTests = [
 	{
 		locale: 'ur-PK',
 		textSize: 'large',
-		component: <ContextualPopupButton open popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -173,7 +173,7 @@ const ContextualPopupDecoratorTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <ContextualPopupButton open popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>
+		component: <ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>
 	},
 	// Tooltip will be pushed Down because it's too close to the top edge of the screen (auto-swap code)
 	{
@@ -223,21 +223,21 @@ const ContextualPopupDecoratorTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <ContextualPopupButton open direction="above center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
 		locale: 'ar-SA',
-		component: <ContextualPopupButton open direction="below center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
 	},
 	{
 		locale: 'ar-SA',
-		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -245,7 +245,7 @@ const ContextualPopupDecoratorTests = [
 	// Tooltip will be partially hidden to the Right because it's too close to the right edge of the screen (auto-swap code)
 	{
 		locale: 'ar-SA',
-		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -253,7 +253,7 @@ const ContextualPopupDecoratorTests = [
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <ContextualPopupButton open direction="above center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -261,7 +261,7 @@ const ContextualPopupDecoratorTests = [
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <ContextualPopupButton open direction="below center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -270,7 +270,7 @@ const ContextualPopupDecoratorTests = [
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="left middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}
@@ -278,7 +278,7 @@ const ContextualPopupDecoratorTests = [
 	{
 		locale: 'ar-SA',
 		textSize: 'large',
-		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
+		component: <ContextualPopupButton open direction="right middle" popupComponent={Popup}>Button</ContextualPopupButton>,
 		wrapper: {
 			padded: true
 		}

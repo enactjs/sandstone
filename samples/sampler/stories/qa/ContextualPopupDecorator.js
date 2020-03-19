@@ -61,7 +61,6 @@ class ContextualPopupWithActivator extends React.Component {
 				onClose={this.handleOpenToggle}
 				onClick={this.handleOpenToggle}
 				open={this.state.open}
-				showCloseButton
 			/>
 		);
 	}
