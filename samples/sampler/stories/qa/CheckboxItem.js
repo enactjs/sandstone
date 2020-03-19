@@ -78,7 +78,8 @@ storiesOf('CheckboxItem', module)
 				childComponent={CheckboxItem}
 				childSelect="onToggle"
 				itemProps={{
-					inline: boolean('ItemProps-Inline', Group, false)
+					inline: boolean('ItemProps-Inline', Group, false),
+					disabled: boolean('disabled', Group, false)
 				}}
 				select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
 				selectedProp="selected"
