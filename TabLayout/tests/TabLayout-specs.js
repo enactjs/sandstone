@@ -23,7 +23,7 @@ describe('TabLayout specs', () => {
 		expect(subject.prop('className').split(' ')).toContain('collapsed');
 	});
 
-	it('should have default orientation of horizontal', () => {
+	it('should have default orientation of vertical', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				tabs={[
