@@ -690,7 +690,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			on('touchmove', this.activityDetected);
 		}
-		on('keydown', this.handleGlobalKeyDown);
+		document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.addEventListener('wheel', this.activityDetected, {capture: true});
 		this.startDelayedFeedbackHide();
 		if (this.context && typeof this.context === 'function') {
 			this.floatingLayerController = this.context(() => {});
@@ -784,7 +785,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (platform.touch) {
 			off('touchmove', this.activityDetected);
 		}
-		off('keydown', this.handleGlobalKeyDown);
+		document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
+		document.removeEventListener('wheel', this.activityDetected, {capture: true});
 		this.stopRewindJob();
 		this.stopAutoCloseTimeout();
 		this.stopDelayedTitleHide();
@@ -819,7 +821,6 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	activityDetected = () => {
-		// console.count('activityDetected');
 		this.startAutoCloseTimeout();
 	}
 
@@ -1665,14 +1666,11 @@ const VideoPlayerBase = class extends React.Component {
 			if (Spotlight.focus(this.mediaControlsSpotlightId)) {
 				preventDefault(ev);
 				stopImmediate(ev);
-				this.activityDetected();
 			}
 		} else if (is('up', keyCode)) {
 			Spotlight.setPointerMode(false);
 			preventDefault(ev);
 			stopImmediate(ev);
-		} else {
-			this.activityDetected();
 		}
 	}
 

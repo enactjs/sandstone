@@ -1,6 +1,9 @@
 import {InputField} from '../../../../Input';
 import React from 'react';
 
+const LoremString =
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat.';
+
 const InputFieldTests = [
 	<InputField />,
 	<InputField placeholder="Placeholder InputField" />,
@@ -17,17 +20,17 @@ const InputFieldTests = [
 	<InputField value="Simple value" type="password" disabled />,
 
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-21198]
-	<InputField value="-Lorem" />,
+	<InputField value={LoremString} />,
 	<InputField value="!@#$%^&()_+-=[]\;',./{}|:?" />,
 	<InputField value="012345678901234567890123456789" />,
 
 	// 'invalid' Knob - Tooltip is on the Right and Aligns with InputField in LTR Layout - [GT-22818]
-	<InputField value="-Lorem" invalid />,
+	<InputField value={LoremString} invalid />,
 
-	<InputField value="-Lorem" invalid invalidMessage="Changed invalid Message " />,
+	<InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />,
 
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-21089]
-	<InputField value="-Lorem" iconBefore="check" iconAfter="bluetoothoff" />,
+	<InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />,
 
 	// tallCharacters: Change 'size' dynamically - [GT-27619]
 	// Note: text stays the same size, the input field becomes larger
@@ -58,7 +61,7 @@ const InputFieldTests = [
 	// 'invalid' Knob - Tooltip is on the Left and Aligns with InputField in RTL Layout - [GT-22817]
 	{
 		locale: 'ar-SA',
-		component: <InputField value="-Lorem" invalid />
+		component: <InputField value={LoremString} invalid />
 	},
 
 	// Text Vertically Center Aligns in InputField Field - RTL - [GT-23785]
@@ -108,7 +111,7 @@ const InputFieldTests = [
 	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-21198]
 	{
 		locale: 'ar-SA',
-		component: <InputField value="-Lorem" />
+		component: <InputField value={LoremString} />
 	},
 	{
 		locale: 'ar-SA',
@@ -121,13 +124,13 @@ const InputFieldTests = [
 
 	{
 		locale: 'ar-SA',
-		component: <InputField value="-Lorem" invalid invalidMessage="Changed invalid Message " />
+		component: <InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />
 	},
 
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-21089]
 	{
 		locale: 'ar-SA',
-		component: <InputField value="-Lorem" iconBefore="check" iconAfter="bluetoothoff" />
+		component: <InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />
 	},
 
 	// tallCharacters: Change 'size' dynamically - [GT-27619]
