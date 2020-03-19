@@ -1,4 +1,3 @@
-/*
 import Button from '../../../../Button';
 import ContextualMenuDecorator from '../../../../ContextualMenuDecorator';
 import React from 'react';
@@ -14,7 +13,6 @@ const style = {
 	top: '50%',
 	transform: 'translate(-50%, -50%)'
 };
-*/
 
 // TO DO: add menuItem options
 // TO DO: add open/close
@@ -22,7 +20,6 @@ const style = {
 
 const ContextualMenuDecoratorTests = [
 	// directions
-	/*
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="above" style={style}>Button</ContextualMenuButton>,
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="above center" style={style}>Button</ContextualMenuButton>,
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="above left" style={style}>Button</ContextualMenuButton>,
@@ -37,7 +34,6 @@ const ContextualMenuDecoratorTests = [
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right top" style={style}>Button</ContextualMenuButton>,
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right middle" style={style}>Button</ContextualMenuButton>,
 	<ContextualMenuButton popupProps={popupProps} menuItems={menuItems} open direction="right bottom" style={style}>Button</ContextualMenuButton>
-	*/
 ].map(component => ({
 	component,
 	wrapper: {
