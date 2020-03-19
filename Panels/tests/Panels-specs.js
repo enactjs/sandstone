@@ -9,7 +9,7 @@ import {Panels} from '../Panels';
 
 describe('Panels Specs', () => {
 
-	test.skip(
+	test(
 		'should set {autoFocus} on child to "default-element" on first render',
 		() => {
 			// eslint-disable-next-line enact/prop-types
@@ -28,7 +28,7 @@ describe('Panels Specs', () => {
 		}
 	);
 
-	test.skip(
+	test(
 		'should set {autoFocus} on child to "default-element" when navigating to a higher index',
 		() => {
 			// eslint-disable-next-line enact/prop-types
@@ -51,7 +51,7 @@ describe('Panels Specs', () => {
 		}
 	);
 
-	test.skip(
+	test(
 		'should not set {autoFocus} on child when navigating to a higher index when it has an autoFocus prop set',
 		() => {
 			// eslint-disable-next-line enact/prop-types
