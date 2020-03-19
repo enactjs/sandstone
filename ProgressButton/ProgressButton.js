@@ -109,25 +109,11 @@ const ProgressButtonBase = kind({
 });
 
 /**
- * Sandstone-specific behaviors to apply to [ProgressButton]{@link sandstone/ProgressButton.ProgressButtonBase}.
- *
- * @hoc
- * @memberof sandstone/ProgressButton
- * @mixes sandstone/Skinnable.Skinnable
- * @public
- */
-const ProgressButtonDecorator = compose(
-	Pure,
-	Skinnable
-);
-
-/**
  * The ready-to-use Sandstone-styled ProgressButton.
  *
  * @class ProgressButton
  * @memberof sandstone/ProgressButton
  * @extends sandstone/ProgressButton.ProgressButtonBase
- * @mixes sandstone/ProgressButton.ProgressButtonDecorator
  * @ui
  * @public
  */
@@ -137,6 +123,5 @@ const ProgressButton = ButtonDecorator(ProgressButtonBase);
 export default ProgressButton;
 export {
 	ProgressButton,
-	ProgressButtonBase,
-	ProgressButtonDecorator
+	ProgressButtonBase
 };

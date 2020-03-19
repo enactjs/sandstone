@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1584660292513" clover="3.2.0">
+  <project timestamp="1584660292513" name="All files">
+    <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1" elements="7" coveredelements="7" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
+    <file name="ProgressButton.js" path="/home/sangwook/public_html/enact4.0/PR/PLAT-101894/sandstone/ProgressButton/ProgressButton.js">
+      <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="87" count="6" type="stmt"/>
+      <line num="119" count="1" type="stmt"/>
+      <line num="134" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>
