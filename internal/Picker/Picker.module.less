@@ -155,9 +155,6 @@
 				border-radius: @sand-picker-joined-horizontal-border-radius;
 			}
 
-			&::before {
-				.sand-spotlight-resting(1);
-			}
 
 			.valueWrapper {
 				height: @sand-picker-joined-horizontal-value-line-height;
@@ -214,9 +211,6 @@
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 
-			&::before {
-				.sand-spotlight-resting();
-			}
 
 			&.incrementing::after {
 				border-top-width: @sand-integer-picker-shadow-width;
@@ -231,10 +225,6 @@
 		}
 
 		.focus({
-			&::before {
-				.sand-spotlight-focus();
-			}
-
 			.incrementer,
 			.decrementer {
 				transform: @joined-arrow-transform-focus;
@@ -278,9 +268,6 @@
 		&.joined {
 			color: @sand-picker-joined-text-color;
 
-			&::before {
-				.sand-spotlight-resting-colors();
-			}
 
 			&::after {
 				border-color: @sand-picker-joined-fingernail-border-color;
@@ -288,6 +275,7 @@
 
 			&.horizontal {
 				&::before {
+					.sand-spotlight-resting-colors(1);
 					background-color: @sand-picker-joined-horizontal-bg-color;
 				}
 
@@ -300,6 +288,12 @@
 				}
 			}
 
+			&.vertical {
+				&::before {
+					.sand-spotlight-resting-colors();
+				}
+			}
+
 			.focus({
 				color: @sand-picker-focus-text-color;
 
@@ -308,6 +302,12 @@
 						.sand-spotlight-focus-colors();
 						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
 						filter+_: saturate(0) brightness(1.89);
+					}
+				}
+
+				&.vertical {
+					&::before {
+						.sand-spotlight-focus-colors();
 					}
 				}
 

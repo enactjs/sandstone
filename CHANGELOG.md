@@ -6,7 +6,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/styles/mixins.less` `.sand-spotlight-resting` and `.sand-spotlight-focus` for consistently applying CSS rules for focus states on components
 - `sandstone/styles/color-mixins.less` `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` for consistently applying colors CSS rules for focus states on components
 
 ### Fixed

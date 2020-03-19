@@ -9,13 +9,19 @@
 // ---------------------------------------
 
 // Establish rules assignment for before focus has happened
-.sand-spotlight-resting-colors () {
+.sand-spotlight-resting-colors (@opacity: 0) {
 	background-color: @sand-spotlight-bg-color;
-	filter+: drop-shadow(@sand-spotlight-resting-shadow);
+	filter+_: drop-shadow(@sand-spotlight-resting-shadow);
+	opacity: @opacity;
+	transition+:
+		filter @sand-spotlight-focus-animation-duration ease-out,
+		opacity @sand-spotlight-focus-animation-duration ease-out;
+	will-change+: filter, opacity;
 }
 
 // Establish rules assignment for after focus has happened
-.sand-spotlight-focus-colors () {
+.sand-spotlight-focus-colors (@opacity: 1) {
 	background-color: @sand-spotlight-bg-color;
-	filter+: drop-shadow(@sand-spotlight-focus-shadow);
+	filter+_: drop-shadow(@sand-spotlight-focus-shadow);
+	opacity: @opacity;
 }

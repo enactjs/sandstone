@@ -28,9 +28,6 @@
 	.bg {
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
-		.sand-spotlight-resting();
-		will-change+: transform;
-		transition+: transform @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -241,6 +238,8 @@
 		.bg {
 			border-color: transparent;
 			.sand-spotlight-resting-colors();
+			will-change+: transform;
+			transition+: transform @sand-button-focus-duration ease-out;
 		}
 
 		&.opaque {
@@ -278,7 +277,6 @@
 			color: @sand-button-focus-text-color;
 
 			.bg {
-				.sand-spotlight-focus();
 				.sand-spotlight-focus-colors();
 			}
 
