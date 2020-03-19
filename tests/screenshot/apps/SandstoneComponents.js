@@ -37,6 +37,7 @@ import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
+import WizardPanel from './components/WizardPanel';
 
 const components = {
 	BodyText,
@@ -77,10 +78,11 @@ const components = {
 	Switch,
 	SwitchItem,
 	TabLayout,
-	TimePicker
+	TimePicker,
 	// TooltipDecorator,
 	// VideoPlayer,
-	// VirtualList
+	// VirtualList,
+	WizardPanel
 };
 
 const testMetadata = {};
