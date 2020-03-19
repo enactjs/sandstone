@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
 
-import {Panels, PanelsBase} from '../Panels';
+import {Panels} from '../Panels';
 
 
 // 2019-04-11 - Skipped tests here are avoiding a Hooks testing issue. At this time, enzyme does not
@@ -73,53 +73,4 @@ describe('Panels Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
-
-	describe('computed', () => {
-		describe('childProps', () => {
-
-			test('should not add aria-owns when id is not set', () => {
-				const childProps = {};
-				const props = {
-					childProps
-				};
-
-				const expected = childProps;
-				const actual = PanelsBase.computed.childProps(props);
-
-				expect(actual).toBe(expected);
-			});
-
-			test('should add aria-owns', () => {
-				const id = 'id';
-				const childProps = {};
-				const props = {
-					childProps,
-					id
-				};
-
-				const expected = `${id}`;
-				const actual = PanelsBase.computed.childProps(props)['aria-owns'];
-
-				expect(actual).toBe(expected);
-			});
-
-			test('should append aria-owns', () => {
-				const id = 'id';
-				const ariaOwns = ':allthethings:';
-				const childProps = {
-					'aria-owns': ariaOwns
-				};
-				const props = {
-					childProps,
-					id
-				};
-
-				const expected = `${ariaOwns} ${id}`;
-				const actual = PanelsBase.computed.childProps(props)['aria-owns'];
-
-				expect(actual).toBe(expected);
-			});
-
-		});
-	});
 });

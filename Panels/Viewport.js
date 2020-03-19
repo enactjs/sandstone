@@ -163,8 +163,7 @@ const ViewportBase = class extends React.Component {
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
 
 	render () {
-		const {children, generateId, index, noAnimation, type, ...rest} = this.props;
-		// const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
+		const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -179,8 +178,7 @@ const ViewportBase = class extends React.Component {
 			<PanelTypeContext.Provider value={type}>
 				<ViewManager
 					{...rest}
-					// arranger={arranger}
-					arranger={SlideLeftArranger}
+					arranger={arranger}
 					className={className}
 					component="main"
 					duration={250}

@@ -1,6 +1,4 @@
 import kind from '@enact/core/kind';
-import Measurable from '@enact/ui/Measurable';
-import Slottable from '@enact/ui/Slottable';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -14,8 +12,6 @@ import CancelDecorator from './CancelDecorator';
 import Viewport from './Viewport';
 
 import css from './Panels.module.less';
-
-const getId = (id) => id && `${id}`;
 
 
 /**
@@ -50,51 +46,12 @@ const PanelsBase = kind({
 		arranger: shape,
 
 		/**
-		 * An object containing properties to be passed to each child.
-		 *
-		 *`aria-owns` will be added or updated to this object to add the close button to the
-		 * accessibility tree of each panel.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		childProps: PropTypes.object,
-
-		/**
 		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
 		 */
 		children: PropTypes.node,
-
-		/**
-		 * A slot to insert additional Panels-level buttons into the global-navigation area.
-		 *
-		 * @type {Node}
-		 * @public
-		 */
-		controls: PropTypes.node,
-
-		/**
-		 * The measurement bounds of the controls node
-		 *
-		 * @type {Object}
-		 * @private
-		 */
-		controlsMeasurements: PropTypes.object,
-
-		/**
-		 * The method which receives the reference node to the controls element, used to determine
-		 * the `controlsMeasurements`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		controlsRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -146,14 +103,6 @@ const PanelsBase = kind({
 		noSharedState: PropTypes.bool,
 
 		/**
-		 * Called when the app close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onApplicationClose: PropTypes.func,
-
-		/**
 		 * Called with cancel/back key events.
 		 *
 		 * @type {Function}
@@ -174,37 +123,16 @@ const PanelsBase = kind({
 	},
 
 	computed: {
-
-		childProps: ({childProps, id}) => {
-			if (!id) {
-				return childProps;
-			}
-			const updatedChildProps = Object.assign({}, childProps);
-			const childId = getId(id);
-			const owns = updatedChildProps['aria-owns'];
-
-			if (owns && childId) {
-				updatedChildProps['aria-owns'] = `${owns} ${childId}`;
-			} else {
-				updatedChildProps['aria-owns'] = childId;
-			}
-
-			return updatedChildProps;
-		},
-		style: ({controlsMeasurements, style = {}}) => (controlsMeasurements ? {
-			...style,
-			'--sand-panels-controls-width': controlsMeasurements.width + 'px'
-		} : style),
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, childProps, children,  generateId, id, index, noAnimation, noSharedState, viewportId, ...rest}) => {
+	render: ({arranger, children,  generateId, id, index, noAnimation, noSharedState, viewportId, ...rest}) => {
+		delete rest.onBack;
 
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
-					childProps={childProps}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
@@ -219,9 +147,7 @@ const PanelsBase = kind({
 });
 
 const PanelsDecorator = compose(
-	Slottable({slots: ['controls']}),
 	CancelDecorator({cancel: 'onBack'}),
-	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	IdProvider,
 	Skinnable
 );
