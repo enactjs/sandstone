@@ -1,4 +1,4 @@
-import {number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -22,6 +22,7 @@ storiesOf('TabLayout', module)
 				<Panel>
 					<Header title="TabLayout" subtitle="With variable number of tabs" />
 					<TabLayout
+						collapsed={boolean('collapsed', TabLayout)}
 						orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 						tabs={Array.from({length: tabs}, (v, i) => ({
 							title: `Tab ${i}`,
