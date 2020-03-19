@@ -14,8 +14,9 @@ const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, pag
 let lastPointer = {x: 0, y: 0};
 
 const useEventFocus = (props, instances, context) => {
+	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
-	const {alertThumb, isWheeling, scrollMode} = context;
+	const {alertThumb, isWheeling} = context;
 
 	// Functions
 
@@ -152,8 +153,9 @@ const useEventFocus = (props, instances, context) => {
 };
 
 const useEventKey = (props, instances, context) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, spottable, scrollContentRef, scrollContainerHandle} = instances;
-	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode} = context;
+	const {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent} = context;
 
 	// Functions
 
@@ -365,9 +367,9 @@ onWindowReady(() => {
 	utilEvent('keydown').addEventListener(document, pageKeyHandler);
 });
 
-const useEventMouse = (props, instances, context) => {
+const useEventMouse = (props, instances) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
-	const {scrollMode} = context;
 
 	// Functions
 
@@ -557,9 +559,9 @@ const useEventVoice = (props, instances) => {
 	};
 };
 
-const useEventWheel = (props, instances, context) => {
+const useEventWheel = (props, instances) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContainerHandle} = instances;
-	const {scrollMode} = context;
 
 	// Mutable value
 
