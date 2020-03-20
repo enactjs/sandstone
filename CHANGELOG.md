@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to able to wheel on the scrollbar area.
+- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to able to wheel on the scrollbar area
 - `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values

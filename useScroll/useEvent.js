@@ -560,9 +560,8 @@ const useEventVoice = (props, instances) => {
 };
 
 const useEventWheel = (props, instances) => {
-	const
-		{scrollMode} = props,
-		{themeScrollContentHandle, scrollContainerHandle, scrollContentRef} = instances;
+	const {scrollMode} = props;
+	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef} = instances;
 
 	// Mutable value
 
@@ -585,7 +584,7 @@ const useEventWheel = (props, instances) => {
 		}
 	}
 
-	function setWheeling () {
+	function setWheelingState () {
 		if (!mutableRef.current.isWheeling) {
 			if (!props['data-spotlight-container-disabled']) {
 				themeScrollContentHandle.current.setContainerDisabled(true);
@@ -607,9 +606,9 @@ const useEventWheel = (props, instances) => {
 			canScrollVertically = scrollContainerHandle.current.canScrollVertically(bounds),
 			eventDeltaMode = ev.deltaMode,
 			eventDelta = (-ev.wheelDeltaY || ev.deltaY),
-			isPositiveDelta = eventDelta > 0,
-			isNegativeDelta = eventDelta < 0,
-			overScrollEdge = isPositiveDelta ? 'after' : 'before',
+			positiveDelta = eventDelta > 0,
+			negativeDelta = eventDelta < 0,
+			overScrollEdge = positiveDelta ? 'after' : 'before',
 			{scrollTop, scrollLeft} = scrollContainerHandle.current;
 		let
 			delta = 0,
@@ -624,8 +623,8 @@ const useEventWheel = (props, instances) => {
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
-			if (isNegativeDelta && scrollTop > 0 || isPositiveDelta && scrollTop < bounds.maxTop) {
-				setWheeling();
+			if (negativeDelta && scrollTop > 0 || positiveDelta && scrollTop < bounds.maxTop) {
+				setWheelingState();
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on onscroll handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
@@ -639,15 +638,15 @@ const useEventWheel = (props, instances) => {
 
 				ev.stopPropagation();
 			} else {
-				if (overscrollEffectRequired && (isNegativeDelta && scrollTop <= 0 || isPositiveDelta && scrollTop >= bounds.maxTop)) {
+				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
 					scrollContainerHandle.current.applyOverscrollEffect('vertical', overScrollEdge, overscrollTypeOnce, 1);
 				}
 
 				needToHideThumb = true;
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
-			if (isNegativeDelta && scrollLeft > 0 || isPositiveDelta && scrollLeft < bounds.maxLeft) {
-				setWheeling();
+			if (negativeDelta && scrollLeft > 0 || positiveDelta && scrollLeft < bounds.maxLeft) {
+				setWheelingState();
 
 				delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 				needToHideThumb = !delta;
@@ -655,7 +654,7 @@ const useEventWheel = (props, instances) => {
 				ev.preventDefault();
 				ev.stopPropagation();
 			} else {
-				if (overscrollEffectRequired && (isNegativeDelta && scrollLeft <= 0 || isPositiveDelta && scrollLeft >= bounds.maxLeft)) {
+				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
 					scrollContainerHandle.current.applyOverscrollEffect('horizontal', overScrollEdge, overscrollTypeOnce, 1);
 				}
 
