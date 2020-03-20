@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller.Scroller` to scroll to the end via wheeling
 - `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
@@ -25,7 +26,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling
