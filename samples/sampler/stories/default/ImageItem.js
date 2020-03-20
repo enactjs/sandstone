@@ -21,11 +21,11 @@ storiesOf('Sandstone', module)
 			<ImageItem
 				caption={text('caption', Config, 'ImageItem Caption')}
 				disabled={boolean('disabled', Config)}
-				imageIconSource={text('imageIconSource', Config, 'http://placehold.it/300x300/ffffff/ffffff&text=Icon')}
+				imageIconSrc={text('imageIconSrc', Config, 'http://placehold.it/300x300/ffffff/ffffff&text=Icon')}
 				orientation={select('orientation', prop.orientation, Config)}
 				selected={boolean('selected', Config)}
-				selectionOverlayShowing={boolean('selectionOverlayShowing', Config)}
-				source={text('source', Config, 'http://placehold.it/600x600/7ed31d/ffffff&text=Image')}
+				selectionShowing={boolean('selectionShowing', Config)}
+				src={text('src', Config, 'http://placehold.it/600x600/7ed31d/ffffff&text=Image')}
 				style={{
 					position: 'absolute',
 					width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 640 : 1020),
