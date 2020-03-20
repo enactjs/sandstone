@@ -135,7 +135,7 @@ describe('SharedStateDecorator Specs', () => {
 
 		const subject = mount(<Component />);
 
-		const actual = subject.find(Component).prop('children');
+		const actual = subject.text();
 
 		expect(actual).toBeFalsy();
 	});
