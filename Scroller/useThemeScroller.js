@@ -47,8 +47,8 @@ const useSpottable = (props, instances) => {
 
 	function getContentSize ({clientWidth, clientHeight}) {
 		return {
-			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
-			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
+			contentWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
+			contentHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
 		};
 	}
 
@@ -190,7 +190,7 @@ const useSpottable = (props, instances) => {
 
 		const
 			{rtl} = props,
-			{clientWidth} = scrollContentHandle.current.scrollBounds,
+			{contentWidth} = scrollContentHandle.current.scrollBounds,
 			rtlDirection = rtl ? -1 : 1,
 			{left: containerLeft} = scrollContentNode.getBoundingClientRect(),
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
@@ -199,11 +199,11 @@ const useSpottable = (props, instances) => {
 			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - ri.scale(fadeoutSize));
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
-		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
+		if (newItemLeft + itemWidth > (contentWidth + currentScrollLeft) && itemWidth < contentWidth) {
 			// If focus is moved to an element outside of view area (to the right), scroller will move
 			// to the right just enough to show the current `focusedItem`. This does not apply to
-			// `focusedItem` that has a width that is bigger than `scrollBounds.clientWidth`.
-			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (clientWidth + currentScrollLeft));
+			// `focusedItem` that has a width that is bigger than `scrollBounds.contentWidth`.
+			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (contentWidth + currentScrollLeft));
 		} else if (newItemLeft < currentScrollLeft) {
 			// If focus is outside of the view area to the left, move scroller to the left accordingly.
 			nextScrollLeft += rtlDirection * (newItemLeft - currentScrollLeft);
