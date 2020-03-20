@@ -43,6 +43,10 @@ class TabLayoutPage extends Page {
 	open (layout = '', urlExtra) {
 		super.open(`TabLayout${layout}-View`, urlExtra);
 	}
+
+	waitForExist (selector, duration) {
+		$(selector).waitForExist(duration);
+	}
 }
 
 module.exports = new TabLayoutPage();
