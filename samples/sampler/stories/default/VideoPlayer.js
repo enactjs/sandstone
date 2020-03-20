@@ -22,7 +22,7 @@ const renderItem = ({index, ...rest}) => {
 		<ImageItem
 			{...rest}
 			caption={`caption ${index}`}
-			source={source}
+			src={source}
 		/>
 	);
 };

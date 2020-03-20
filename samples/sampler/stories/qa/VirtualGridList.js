@@ -35,7 +35,7 @@ const
 			<ImageItem
 				{...rest}
 				caption={text}
-				source={source}
+				src={source}
 				subCaption={subText}
 			/>
 		);

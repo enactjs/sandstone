@@ -54,7 +54,7 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
-		 * The primary caption to be displayed with the image.
+		 * The primary caption string to be displayed with the image.
 		 *
 		 * @type {String}
 		 * @public
@@ -67,11 +67,11 @@ const ImageItemBase = kind({
 		 *
 		 * The following classes are supported:
 		 *
-		 * * `icon` - The icon component class for default selection overlay
+		 * * `caption` - The caption component class
 		 * * `image` - The image component class
 		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
-		 * * `caption` - The caption component class
+		 * * `selectionIcon` - The icon component class for default selection component
 		 * * `subCaption` - The subCaption component class
 		 *
 		 * @type {Object}
@@ -90,6 +90,14 @@ const ImageItemBase = kind({
 		'data-webos-voice-intent': PropTypes.string,
 
 		/**
+		 * The component used to render the image component.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		imageComponent: PropTypes.node,
+
+		/**
 		 * The component used to render the image icon component.
 		 *
 		 * @type {Component}
@@ -99,14 +107,15 @@ const ImageItemBase = kind({
 		imageIconComponent: EnactPropTypes.component,
 
 		/**
-		 * The absolute URL path to the image icon.
-		 * Set this value when you want to show image icon component.
-		 * This feature is only valid when `orientation` is `'vertical'`.
+		 * Source for the image icon.
+		 * String value or Object of values used to determine which image will appear on
+		 * a specific screenSize.
+		 * This feature is only valid when `orientation` is `'vertical'.
 		 *
-		 * @type {String}
+		 * @type {String|Object}
 		 * @public
 		 */
-		imageIconSource: PropTypes.string,
+		imageIconSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
 		 * The layout orientation of the component.
@@ -122,7 +131,7 @@ const ImageItemBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Placeholder image used while [source]{@link ui/ImageItem.ImageItem#source}
+		 * Placeholder image used while [source]{@link sandstone/ImageItem.ImageItem#source}
 		 * is loaded.
 		 *
 		 * @type {String}
@@ -135,7 +144,7 @@ const ImageItemBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Applies a selected visual effect to the image, but only if `selectionOverlayShowing`
+		 * Applies a selected visual effect to the image, but only if `selectionShowing`
 		 * is also `true`.
 		 *
 		 * @type {Boolean}
@@ -145,23 +154,42 @@ const ImageItemBase = kind({
 		selected: PropTypes.bool,
 
 		/**
-		 * The custom selection overlay component to render. A component can be a stateless functional
+		 * The custom selection component to render. A component can be a stateless functional
 		 * component, `kind()` or React component. The following is an example with custom selection
-		 * overlay kind.
+		 * kind.
 		 *
 		 * Usage:
 		 * ```
-		 * const SelectionOverlay = kind({
-		 * 	render: () => <div>custom overlay</div>
+		 * const SelectionComponent = kind({
+		 * 	render: () => <div>custom selection component</div>
 		 * });
 		 *
-		 * <ImageItem selectionOverlay={SelectionOverlay} />
+		 * <ImageItem selectionComponent={SelectionComponent} />
 		 * ```
 		 *
 		 * @type {Function}
 		 * @public
 		 */
-		selectionOverlay: PropTypes.func,
+		selectionComponent: PropTypes.func,
+
+		/**
+		 * Shows a selection component with a centered icon. When `selected` is true, a check mark is shown.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		selectionShowing: PropTypes.bool,
+
+		/**
+		 * Source for the image.
+		 * String value or Object of values used to determine which image will appear on
+		 * a specific screenSize.
+		 *
+		 * @type {String|Object}
+		 * @public
+		 */
+		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
 		 * The second caption line to be displayed with the image.
@@ -177,16 +205,17 @@ const ImageItemBase = kind({
 		imageIconComponent: Image,
 		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
-		selected: false
+		selected: false,
+		selectionShowing: false
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['caption', 'icon', 'image', 'imageIcon', 'imageItem', 'selected', 'subCaption']
+		publicClassNames: ['caption', 'image', 'imageIcon', 'imageItem', 'selected', 'selectionIcon', 'subCaption']
 	},
 
 	computed: {
-		subComponents: ({caption, css, subCaption, imageIconComponent, imageIconSource, orientation}) => {
+		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
 			const captions = () => (
 				<React.Fragment>
 					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
@@ -195,27 +224,43 @@ const ImageItemBase = kind({
 			);
 
 			return (
-				imageIconSource && orientation === 'vertical' ?
-					<Row className={css.subComponents}>
-						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSource} shrink />
+				imageIconSrc && orientation === 'vertical' ?
+					<Row className={css.captions}>
+						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSrc} shrink />
 						<Cell size="77%">
 							{captions()}
 						</Cell>
 					</Row> :
-					<div className={css.subComponents}>
+					<div className={css.captions}>
 						{captions()}
 					</div>
+			);
+		},
+		imageComponent: ({css, orientation, placeholder, selectionComponent: SelectionComponent, selectionShowing, src}) => {
+			return (
+				<Cell className={css.image} component={Image} placeholder={placeholder} shrink={orientation === 'horizontal'} src={src}>
+					{selectionShowing ?
+						<div className={css.selectionContainer}>
+							{SelectionComponent ?
+								<SelectionComponent /> :
+								<div className={css.selectionComponent}>
+									<Icon className={css.selectionIcon}>check</Icon>
+								</div>
+							}
+						</div> : null
+					}
+				</Cell>
 			);
 		}
 	},
 
-	render: ({css, selectionOverlay, subComponents, ...rest}) => {
-		delete rest.caption;
+	render: ({css, selectionComponent, ...rest}) => {
 		delete rest.imageIconComponent;
-		delete rest.imageIconSource;
+		delete rest.imageIconSrc;
+		delete rest.selectionShowing;
 		delete rest.subCaption;
 
-		if (selectionOverlay) {
+		if (selectionComponent) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}
@@ -224,10 +269,6 @@ const ImageItemBase = kind({
 			<UiImageItem
 				{...rest}
 				css={css}
-				iconComponent={Icon}
-				imageComponent={Image}
-				selectionOverlay={selectionOverlay}
-				subComponents={subComponents}
 			/>
 		);
 	}

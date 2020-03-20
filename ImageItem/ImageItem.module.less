@@ -1,6 +1,5 @@
 // ImageItem.module.less
 //
-
 @import '../styles/colors.less';
 @import '../styles/mixins.less';
 @import '../styles/variables.less';
@@ -16,10 +15,8 @@
 	height: 100%;
 }
 
-.icon {
-	position: relative;
+.image {
 	display: block;
-	border-radius: 50%;
 	margin: 0;
 }
 
@@ -31,7 +28,20 @@
 	.sand-text-base(@sand-imageitem-subcaption-font-size);
 }
 
-.overlayContainer::after {
+.selectionComponent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.selectionContainer {
+	background-color: transparent;
+	pointer-events: none;
+	height: 100%;
+}
+
+.selectionContainer::after {
 	content: '';
 	position: absolute;
 	top: 0;
@@ -42,6 +52,13 @@
 	border-style: none;
 }
 
+.selectionIcon {
+	position: relative;
+	display: block;
+	border-radius: 50%;
+	margin: 0;
+}
+
 // vertical image item
 .vertical {
 	.image {
@@ -50,15 +67,8 @@
 		margin-bottom: @sand-imageitem-vertical-image-margin-bottom;
 	}
 
-	.icon {
-		width: @sand-imageitem-vertical-overlay-icon-size;
-		height: @sand-imageitem-vertical-overlay-icon-size;
-		line-height: @sand-imageitem-vertical-overlay-icon-size;
-		.transitionEffect();
-	}
-
-	.subComponents {
-		height: @sand-imageitem-vertical-subcomponents-height;
+	.captions {
+		height: @sand-imageitem-vertical-captions-height;
 		.transitionEffect();
 	}
 
@@ -67,6 +77,13 @@
 		width: @sand-imageitem-vertical-image-icon-size;
 		margin-left: 0;
 		margin-right: @sand-imageitem-vertical-image-icon-margin-right;
+	}
+
+	.selectionIcon {
+		width: @sand-imageitem-vertical-selection-icon-size;
+		height: @sand-imageitem-vertical-selection-icon-size;
+		line-height: @sand-imageitem-vertical-selection-icon-size;
+		.transitionEffect();
 	}
 }
 
@@ -89,26 +106,21 @@
 		margin: @sand-imageitem-horizontal-image-margin;
 	}
 
-	.icon {
-		width: @sand-imageitem-horizontal-overlay-icon-size;
-		height: @sand-imageitem-horizontal-overlay-icon-size;
-		line-height: @sand-imageitem-horizontal-overlay-icon-size;
+	.selectionIcon {
+		width: @sand-imageitem-horizontal-selection-icon-size;
+		height: @sand-imageitem-horizontal-selection-icon-size;
+		line-height: @sand-imageitem-horizontal-selection-icon-size;
 	}
 }
 
 &.selected {
-	.overlayContainer::after {
+	.selectionContainer::after {
 		border-style: solid;
 	}
 }
 
 // Skin colors
 .applySkins({
-	.icon {
-		background-color: @sand-imageitem-overlay-icon-bg-color;
-		color: @sand-imageitem-overlay-icon-color;
-	}
-
 	.caption {
 		color: @sand-imageitem-caption-color;
 	}
@@ -117,14 +129,19 @@
 		color: @sand-imageitem-subcaption-color;
 	}
 
+	.selectionIcon {
+		background-color: @sand-imageitem-selection-icon-bg-color;
+		color: @sand-imageitem-selection-icon-color;
+	}
+
 	&.selected {
 		.image::after {
 			border-color: @sand-imageitem-selected-image-border-color;
 		}
 
-		.icon {
-			background-color: @sand-imageitem-selected-overlay-icon-bg-color;
-			color: @sand-imageitem-selected-overlay-icon-color;
+		.selectionIcon {
+			background-color: @sand-imageitem-selected-selection-icon-bg-color;
+			color: @sand-imageitem-selected-selection-icon-color;
 		}
 	}
 
@@ -133,9 +150,9 @@
 			.vendor-opacity(@sand-disabled-opacity);
 		});
 
-		.icon {
-			background-color: @sand-imageitem-focus-overlay-icon-bg-color;
-			color: @sand-imageitem-focus-overlay-icon-color;
+		.selectionIcon {
+			background-color: @sand-imageitem-focus-selection-icon-bg-color;
+			color: @sand-imageitem-focus-selection-icon-color;
 		}
 
 		&.vertical {
@@ -144,8 +161,8 @@
 				filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
 			}
 
-			.subComponents {
-				transform: @sand-imageitem-vertical-focus-subcomponents-transform;
+			.captions {
+				transform: @sand-imageitem-vertical-focus-captions-transform;
 			}
 		}
 
@@ -163,9 +180,9 @@
 		}
 
 		&.selected {
-			.icon {
-				background-color: @sand-imageitem-selected-focus-overlay-icon-bg-color;
-				color: @sand-imageitem-selected-focus-overlay-icon-color;
+			.selectionIcon {
+				background-color: @sand-imageitem-selected-focus-selection-icon-bg-color;
+				color: @sand-imageitem-selected-focus-selection-icon-color;
 			}
 		}
 	});
@@ -177,15 +194,15 @@
 		.applySkins({
 			.focus({
 				&:not(.selected) {
-					.icon {
-						background-color: @sand-imageitem-focus-overlay-icon-bg-color;
-						color: @sand-imageitem-focus-overlay-icon-color;
+					.selectionIcon {
+						background-color: @sand-imageitem-focus-selection-icon-bg-color;
+						color: @sand-imageitem-focus-selection-icon-color;
 					}
 				}
 				&.selected {
-					.icon {
-						background-color: @sand-imageitem-selected-focus-overlay-icon-bg-color;
-						color: @sand-imageitem-selected-focus-overlay-icon-color;
+					.selectionIcon {
+						background-color: @sand-imageitem-selected-focus-selection-icon-bg-color;
+						color: @sand-imageitem-selected-focus-selection-icon-color;
 					}
 				}
 			});
