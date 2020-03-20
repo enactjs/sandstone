@@ -55,8 +55,14 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		static propTypes = /** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */ {
 			/**
-			 * Handler for `onSelect` events
+			 * Handler for `onChange` events
 			 *
+			 * `'onChange'` can be changed to a different prop name by specifying the `debounce`
+			 * config option.
+			 *
+			 * @see {@link sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig#debounce}
+			 * @name onChange
+			 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.prototype
 			 * @type {Function}
 			 * @public
 			 */
