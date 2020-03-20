@@ -2,12 +2,12 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import ri from '@enact/ui/resolution';
-import React from 'react';
 import {storiesOf} from '@storybook/react';
+import React from 'react';
 
-import {ImageItem, ImageItemBase, ImageItemDecorator} from '@enact/sandstone/ImageItem';
+import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 
-const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItem, ImageItemBase, ImageItemDecorator);
+const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase);
 ImageItem.displayName = 'ImageItem';
 
 const prop = {
