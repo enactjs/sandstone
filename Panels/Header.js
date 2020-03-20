@@ -48,6 +48,16 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * Collapses the Header to only show the header-components.
+		 *
+		 * Has no effect on `type="compact"`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		collapsed: PropTypes.bool,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -214,8 +224,9 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({centered, children, collapsed, slotAbove, type, styler}) => styler.append(
 			{
+				collapsed,
 				centered,
 				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
@@ -225,6 +236,7 @@ const HeaderBase = kind({
 	},
 
 	render: ({centered, children, css, direction, headerInput, line, marqueeOn, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+		delete rest.collapsed;
 
 		// Create the Title component
 		const titleComponent = (

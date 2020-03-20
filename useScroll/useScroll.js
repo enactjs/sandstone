@@ -27,6 +27,7 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
+import {useScrollPosition} from './useScrollPosition';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -61,6 +62,7 @@ const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
+	const scrollPositionContext = useScrollPosition();
 
 	// Mutable value
 
@@ -179,6 +181,10 @@ const useThemeScroll = (props, instances) => {
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
+		}
+
+		if (scrollPositionContext && scrollPositionContext.onScroll) {
+			scrollPositionContext.onScroll({id, x, y});
 		}
 	}
 
