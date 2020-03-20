@@ -18,7 +18,7 @@ import React from 'react';
  */
 const defaultConfig = {
 	/**
-	 * Event to debounce
+	 * Event name to debounce
 	 *
 	 * @type {String}
 	 * @required
@@ -27,7 +27,7 @@ const defaultConfig = {
 	debounce: null,
 
 	/**
-	 * Time, in ms, to wait to emit the event
+	 * Time, in milliseconds, to wait before emitting the event
 	 *
 	 * @type {Number}
 	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
@@ -36,15 +36,16 @@ const defaultConfig = {
 };
 
 /**
- * {@link sandstone/internal/DebounceDecorator.DebounceDecorator} provides common behavior for
- * debounce an event on particular action
+ * Provides common means of delaying an event response, like throttling
+ *
+ * This is useful if events are flooding in too quickly to efficiently handle. This lates you ignore
+ * events occuring after `delay` of milliseconds.
  *
  * @class DebounceDecorator
  * @memberof sandstone/internal/DebounceDecorator
  * @hoc
  * @private
  */
-
 const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {debounce, delay} = config;
 
