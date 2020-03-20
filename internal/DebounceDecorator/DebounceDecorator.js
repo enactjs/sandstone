@@ -21,25 +21,26 @@ const defaultConfig = {
 	 * Event name to debounce
 	 *
 	 * @type {String}
-	 * @required
+	 * @default 'onChange'
 	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
 	 */
-	debounce: null,
+	debounce: 'onChange',
 
 	/**
 	 * Time, in milliseconds, to wait before emitting the event
 	 *
 	 * @type {Number}
+	 * @default 500
 	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
 	 */
-	delay: 300
+	delay: 500
 };
 
 /**
  * Provides common means of delaying an event response, like throttling
  *
- * This is useful if events are flooding in too quickly to efficiently handle. This lates you ignore
- * events occuring after `delay` of milliseconds.
+ * This is useful if events are flooding in too quickly to efficiently handle. This lets you ignore
+ * events occurring after `delay` of milliseconds.
  *
  * @class DebounceDecorator
  * @memberof sandstone/internal/DebounceDecorator
@@ -65,6 +66,10 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		constructor (props) {
 			super(props);
 			this.job = new Job(this.emitEvent.bind(this), delay);
+		}
+
+		componentWillUnmount () {
+			this.job.stop();
 		}
 
 		emitEvent (ev) {
