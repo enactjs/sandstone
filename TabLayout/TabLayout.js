@@ -102,6 +102,14 @@ const TabLayoutBase = kind({
 		onExpand: PropTypes.func,
 
 		/**
+		 * Called when a tab is selected
+		 *
+		 * @type {Function}
+		 * @public
+		*/
+		onSelect: PropTypes.func,
+
+		/**
 		 * Orientation of the tabs.
 		 *
 		 * Horizontal tabs support a maximum of five tabs.
@@ -143,13 +151,13 @@ const TabLayoutBase = kind({
 
 	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		const tabSize = collapsed ? 450 : 855;
-
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
 					<TabGroup
 						collapsed={collapsed}
 						onFocus={onExpand}
+						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}

@@ -18,10 +18,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
+- `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
-- `sandstone/Input.InputField` to show icons when focused
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
