@@ -13,15 +13,16 @@
 	height: 100%;
 	position: relative;
 
-	.bg {
-		border-radius: @sand-scroll-focusablebody-focus-border-radius;
+	&::before {
+		content: '';
 		position: absolute;
 		.position(0);
+		border-radius: @sand-scroll-focusablebody-focus-border-radius;
 		opacity: 0;
 	}
 
 	.focus({
-		.bg {
+		&::before {
 			background-color: @sand-scroll-focusablebody-focus-bg-color;
 			opacity: 1;
 		}

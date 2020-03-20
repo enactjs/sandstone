@@ -57,7 +57,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context) => {
+const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
@@ -359,7 +359,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {});
+	} = useThemeScroll(props, instance);
 
 	// Render
 

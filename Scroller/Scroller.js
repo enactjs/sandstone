@@ -30,8 +30,6 @@ import Skinnable from '../Skinnable';
 
 import useThemeScroller from './useThemeScroller';
 
-import css from './Scroller.module.less';
-
 const nop = () => {};
 
 /**
@@ -87,7 +85,6 @@ let Scroller = (props) => {
 		const SpottableDiv = Spottable('div');
 		return (
 			<SpottableDiv {...focusableBodyProps}>
-				<div className={css.bg} />
 				{scrollContainer}
 			</SpottableDiv>
 		);

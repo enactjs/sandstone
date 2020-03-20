@@ -1,10 +1,10 @@
-import classNames from 'classnames';
 import {adaptEvent, forward, handle} from '@enact/core/handle';
 import {add, is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
+import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
 import {useEventKey} from './useEvent';
@@ -13,12 +13,14 @@ import css from './Scroller.module.less';
 import thumbCss from '../useScroll/ScrollThumb.module.less';
 
 add('esc', 27);
+
 const
+	fadeoutSize = 48,
 	isEsc = is('esc'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, style, scrollContainerRef}) => {
+const getFocusableBodyProps = ({className, scrollContainerRef, style}) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -99,8 +101,6 @@ const getFocusableBodyProps = ({className, style, scrollContainerRef}) => {
 		style
 	};
 };
-
-const fadeoutSize = 48;
 
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
