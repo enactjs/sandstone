@@ -1,7 +1,8 @@
 'use strict';
-const {element, getComponent, getSubComponent, getText, Page} = require('@enact/ui-test-utils/utils');
+const {componentSelector, Page} = require('@enact/ui-test-utils/utils');
 
-const getButton = getComponent({component: 'TabLayout', child: 'tabs'});
+const elements = (selector) => (el) => el.$$(selector);
+const getButtons = elements(componentSelector({component: 'Button'}));
 
 class WizardPanelInterface {
 	constructor (id) {
@@ -10,16 +11,17 @@ class WizardPanelInterface {
 	}
 
 	focusNextButton () {
-		return browser.execute((el) => el.focus(), $('.Panels_WizardPanel_nextButton'));
+		return browser.execute((el) => el.focus(), this.nextButton);
 	}
+
 	focusPrevButton () {
-		return browser.execute((el) => el.focus(), $('.Panels_WizardPanel_prevButton'));
+		return browser.execute((el) => el.focus(), this.prevButton);
 	}
 
-	get self () {return element(this.selector);}
+	get self () { return $(this.selector); }
 
-	get nextButton () { return element('.Panels_WizardPanel_nextButton', browser); }
-	get prevButton () { return element('.Panels_WizardPanel_prevButton', browser); }
+	get nextButton () { return getButtons(this.self)[1]; }
+	get prevButton () { return getButtons(this.self)[0]; }
 }
 
 class WizardPanelPage extends Page {
