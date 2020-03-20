@@ -235,6 +235,8 @@
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
+@sand-button-bg-opacity: 1;
+@sand-button-transparent-bg-opacity: 0;
 @sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
@@ -255,6 +257,7 @@
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
+@sand-button-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-button-small-h-margin: @sand-button-h-margin;
 @sand-button-small-h-padding: 48px;
@@ -263,6 +266,7 @@
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-focus-bg-transform: scale(1.1);
+@sand-button-small-pressed-bg-transform: scale(1.04);
 @sand-button-colordot-bottom: 18px;
 @sand-button-colordot-border-radius: 6px;
 @sand-button-colordot-width: 60px;
@@ -482,7 +486,6 @@
 @sand-item-line-height: 1.3em;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
-@sand-item-indent: 72px;
 @sand-item-inline-max-width: 480px;
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: 30px;
@@ -543,8 +546,7 @@
 
 // Picker
 // ----------------------------------------
-@sand-picker-border-radius: 24px;
-@sand-picker-padding: 24px;
+@sand-picker-joined-vertical-border-radius: 24px;
 @sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-picker-value-height: @sand-button-small-height;
 @sand-picker-joined-horizontal-border-radius: 960px;
@@ -666,8 +668,6 @@
 @sand-switch-width: 114px;
 @sand-switch-height-large: 84px;
 @sand-switch-width-large: 168px;
-@sand-switch-icon-size: 54px;
-@sand-switch-margin: @sand-switch-width + @sand-spotlight-outset;
 @sand-switch-border-width: 4px;
 @sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
 @sand-switch-spottable-border-radius: @sand-item-border-radius;

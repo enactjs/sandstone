@@ -4,6 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/styles/mixins.less` `.sand-spotlight-resting` and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
+
+### Added
+
+- `sandstone/styles/color-mixins.less` `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` for consistently applying colors CSS rules for focus states on components
+
 ### Changed
 
 - `sandstone/Videoplayer` to not hide playback controls using up key via 5-way.
@@ -25,7 +33,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling
