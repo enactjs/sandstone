@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forward} from '@enact/core/handle/handle';
+import handle, {adaptEvent, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
 import Spotlight from '@enact/spotlight';
