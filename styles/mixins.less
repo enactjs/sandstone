@@ -7,18 +7,6 @@
 @import "~@enact/ui/styles/mixins.less";
 @import "./variables.less";
 
-// Assign the complement of rules that the spotlight focus animation requires
-.sand-spotlight-resting(@opacity: 0) {
-	opacity: @opacity;
-	transition: filter @sand-spotlight-focus-animation-duration ease-out, opacity @sand-spotlight-focus-animation-duration ease-out;
-	will-change: filter, opacity;
-}
-
-// Spotlight focus-state animation rules which are _not_color_related_
-.sand-spotlight-focus(@opacity: 1) {
-	opacity: @opacity;
-}
-
 .sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
 	// Take the size of the minimum tappable area, and subtract the element's current size.
 	@_tap-offset: -((@sand-smallest-tappable-size - @element-size) / 2);

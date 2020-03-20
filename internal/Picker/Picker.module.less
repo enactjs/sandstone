@@ -6,7 +6,6 @@
 
 .picker {
 	display: inline-block;
-	border-radius: @sand-picker-border-radius;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -110,14 +109,14 @@
 		@joined-arrow-transform-focus: scale(0.95);
 		@joined-arrow-transform-active: @joined-arrow-transform-resting;
 
-		transition: filter @sand-picker-focus-duration ease-out;
-
-		&::before {
-			.position(0);
-
+		&::before,
+		&::after {
 			content: "";
-			display: block;
 			position: absolute;
+			.position(0);
+		}
+
+		&::after {
 			border-width: 0;
 			border-style: solid;
 			border-radius: inherit;
@@ -150,17 +149,22 @@
 		&.horizontal {
 			height: @sand-picker-joined-horizontal-height;
 			line-height: @sand-picker-joined-horizontal-height;
-			border-radius: @sand-picker-joined-horizontal-border-radius;
+
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-horizontal-border-radius;
+			}
+
 
 			.valueWrapper {
 				height: @sand-picker-joined-horizontal-value-line-height;
 				line-height: @sand-picker-joined-horizontal-value-line-height;
 			}
 
-			&.incrementing::before {
+			&.incrementing::after {
 				border-right-width: @sand-integer-picker-shadow-width;
 			}
-			&.decrementing::before {
+			&.decrementing::after {
 				border-left-width: @sand-integer-picker-shadow-width;
 			}
 			.incrementer,
@@ -191,7 +195,6 @@
 					border-radius: @sand-picker-indicator-border-radius;
 					transform: scale(@sand-picker-indicator-inactive-scale);
 					vertical-align: middle;
-					cursor: pointer;
 					will-change: transform;
 					transition: transform @sand-picker-focus-duration ease-out;
 
@@ -203,10 +206,16 @@
 		}
 
 		&.vertical {
-			&.incrementing::before {
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+
+
+			&.incrementing::after {
 				border-top-width: @sand-integer-picker-shadow-width;
 			}
-			&.decrementing::before {
+			&.decrementing::after {
 				border-bottom-width: @sand-integer-picker-shadow-width;
 			}
 			.incrementer,
@@ -258,15 +267,17 @@
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-			background-color: @sand-picker-joined-bg-color;
-			filter: drop-shadow(@sand-picker-resting-shadow);
 
-			&::before {
+
+			&::after {
 				border-color: @sand-picker-joined-fingernail-border-color;
 			}
 
 			&.horizontal {
-				background-color: @sand-picker-joined-horizontal-bg-color;
+				&::before {
+					.sand-spotlight-resting-colors(1);
+					background-color: @sand-picker-joined-horizontal-bg-color;
+				}
 
 				.indicator {
 					background-color: @sand-picker-indicators-inactive-bg-color;
@@ -277,10 +288,28 @@
 				}
 			}
 
+			&.vertical {
+				&::before {
+					.sand-spotlight-resting-colors();
+				}
+			}
+
 			.focus({
-				background-color: @sand-picker-joined-focused-bg-color;
 				color: @sand-picker-focus-text-color;
-				filter: drop-shadow(@sand-picker-focus-shadow);
+
+				&.horizontal {
+					&::before {
+						.sand-spotlight-focus-colors();
+						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+						filter+_: saturate(0) brightness(1.89);
+					}
+				}
+
+				&.vertical {
+					&::before {
+						.sand-spotlight-focus-colors();
+					}
+				}
 
 				.disabled({
 					color: @sand-spotlight-disabled-text-color;
@@ -299,8 +328,6 @@
 
 	// Large-text mode rules
 	.sand-custom-text({
-		border-radius: @sand-button-small-height-large;
-
 		.sizingPlaceholder,
 		.valueWrapper {
 			font-size: @sand-item-font-size-large;
@@ -358,8 +385,13 @@
 		.applySkins({
 			&.joined {
 				.focus({
-					background-color: transparent;
-					color: @sand-picker-text-color;
+					color: @sand-picker-joined-text-color;
+
+					&.horizontal {
+						&::before {
+							background-color: @sand-picker-joined-horizontal-bg-color;
+						}
+					}
 
 					.incrementer,
 					.decrementer {
