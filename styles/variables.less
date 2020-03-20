@@ -235,6 +235,8 @@
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
+@sand-button-bg-opacity: 1;
+@sand-button-transparent-bg-opacity: 0;
 @sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
@@ -255,6 +257,7 @@
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
+@sand-button-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-button-small-h-margin: @sand-button-h-margin;
 @sand-button-small-h-padding: 48px;
@@ -263,6 +266,7 @@
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-focus-bg-transform: scale(1.1);
+@sand-button-small-pressed-bg-transform: scale(1.04);
 @sand-button-colordot-bottom: 18px;
 @sand-button-colordot-border-radius: 6px;
 @sand-button-colordot-width: 60px;
@@ -410,10 +414,7 @@
 @sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-large-margin: 24px;
-@sand-icon-medium-margin: @sand-icon-large-margin;
-@sand-icon-small-margin: @sand-icon-large-margin;
-@sand-icon-tiny-margin: @sand-icon-large-margin;
+@sand-icon-margin: 24px;
 // Large-mode sizes - Note, may be deprecated.
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
@@ -485,11 +486,10 @@
 @sand-item-line-height: 1.3em;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
-@sand-item-indent: 72px;
 @sand-item-inline-max-width: 480px;
 @sand-item-border-radius: 12px;
-@sand-item-slotafter-spacing: @sand-component-spacing;
-@sand-item-slotbefore-spacing: @sand-component-spacing;
+@sand-item-slotafter-spacing: 30px;
+@sand-item-slotbefore-spacing: 30px;
 @sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
 
 @sand-keyguide-width: 750px;
@@ -546,8 +546,7 @@
 
 // Picker
 // ----------------------------------------
-@sand-picker-border-radius: 24px;
-@sand-picker-padding: 24px;
+@sand-picker-joined-vertical-border-radius: 24px;
 @sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-picker-value-height: @sand-button-small-height;
 @sand-picker-joined-horizontal-border-radius: 960px;
@@ -662,9 +661,23 @@
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
 
+// Switch
+// ---------------------------------------
+@sand-switch-border-radius: 960px;
+@sand-switch-height: 60px;
+@sand-switch-width: 114px;
+@sand-switch-height-large: 84px;
+@sand-switch-width-large: 168px;
+@sand-switch-border-width: 4px;
+@sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
+@sand-switch-spottable-border-radius: @sand-item-border-radius;
+@sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
+@sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
+
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-panels-margin-top: 79px;
+@sand-tablayout-panels-margin-top: 78px;
+@sand-tablayout-tab-selected-opacity: 0.3;
 
 // ToggleButton
 // ---------------------------------------
@@ -677,20 +690,6 @@
 @sand-toggle-button-switch-icon-font-size: 60px;
 @sand-toggle-button-switch-icon-font-family: @sand-icon-font-family;
 @sand-toggle-button-selected-glyph-highcontrast: "\0EFFDB";
-
-// ToggleItem
-// ---------------------------------------
-@sand-toggle-item-icon-margin: @sand-icon-large-margin;
-
-// ToggleSwitch
-// ---------------------------------------
-@sand-toggleswitch-height: 60px;
-@sand-toggleswitch-width: 120px;
-@sand-toggleswitch-height-large: 84px;
-@sand-toggleswitch-width-large: 168px;
-@sand-toggleswitch-margin: @sand-toggleswitch-width + @sand-spotlight-outset;
-@sand-checkbox-toggle-switch-border-width: 1px;
-@sand-checkbox-toggle-switch-selected-border-width: @sand-checkbox-toggle-switch-border-width;
 
 // Tooltip
 // ---------------------------------------

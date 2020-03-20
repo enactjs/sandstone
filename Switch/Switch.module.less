@@ -4,12 +4,11 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Interally theme our implementation using published classes from ToggleIcon
-.toggleIcon {
-	border-radius: (@sand-toggleswitch-height / 2);
-	width: @sand-toggleswitch-width;
-	height: @sand-toggleswitch-height;
-	line-height: @sand-toggleswitch-height;
+.switch {
+	border-radius: @sand-switch-border-radius;
+	width: @sand-switch-width;
+	height: @sand-switch-height;
+	line-height: @sand-switch-height;
 	font-family: @sand-icon-font-family;
 	position: relative;
 	display: inline-block;
@@ -17,119 +16,109 @@
 	cursor: default;
 
 	.sand-custom-text({
-		width: @sand-toggleswitch-width-large;
-		height: @sand-toggleswitch-height-large;
-		border-radius: (@sand-toggleswitch-height-large / 2);
+		width: @sand-switch-width-large;
+		height: @sand-switch-height-large;
+		border-radius: (@sand-switch-height-large / 2);
 	});
-
-
-	.sand-taparea(@sand-toggleswitch-height);
 
 	.icon {
 		visibility: visible;
 		left: 0;
-		width: @sand-toggleswitch-height;
+		width: @sand-switch-height;
 		height: inherit;
-		font-size: (@sand-toggleswitch-height * 2);
+		font-size: (@sand-switch-height * 3);
 		line-height: inherit;
 		margin: 0;
 	}
 
 	&.selected {
 		.icon {
-			left: (@sand-toggleswitch-width - @sand-toggleswitch-height);
+			left: (@sand-switch-width - @sand-switch-height);
 
 			.sand-custom-text({
-				left: (@sand-toggleswitch-width-large - @sand-toggleswitch-height-large);
+				left: (@sand-switch-width-large - @sand-switch-height-large);
 			});
 		}
 	}
 
 	&.animated {
-		-webkit-transition: background-color 0.2s;
-		transition: background-color 0.2s;
+		transition: background-color 200ms;
 
 		.icon {
-			-webkit-transition: left 0.2s, color 0.2s;
-			transition: left 0.2s, color 0.2s;
+			transition: left 200ms, color 200ms;
 		}
 	}
 
+	// The switch is acting a standalone capacity and is Spottable
+	.spottable({
+		.sand-taparea(@sand-switch-height);
+		margin: @sand-switch-spottable-margin;
+
+		&::after {
+			content: "";
+			position: absolute;
+			.position(@sand-switch-spottable-position-top-bottom, @sand-switch-spottable-position-left-right);
+			border-radius: @sand-switch-spottable-border-radius;
+			z-index: -1;
+		}
+	});
+
 	// Skin colors
 	.applySkins({
-		background-color: @sand-checkbox-toggle-switch-bg-color;
-		box-shadow: 0 0 0 @sand-checkbox-toggle-switch-border-width @sand-checkbox-toggle-switch-border-color;
+		background-color: @sand-switch-bg-color;
 
 		.icon {
 			background-color: transparent;
-			color: @sand-checkbox-toggle-switch-color;
+			color: @sand-switch-color;
 		}
 
 		&.selected {
-			background-color: @sand-checkbox-toggle-switch-selected-bg-color;
-			box-shadow: 0 0 0 @sand-checkbox-toggle-switch-selected-border-width @sand-checkbox-toggle-switch-selected-border-color;
+			background-color: @sand-switch-selected-bg-color;
 
 			.icon {
-				color: @sand-checkbox-toggle-switch-selected-color;
-
-				// :global(.spottable):focus & {
-				// 	color: @sand-checkbox-toggle-switch-selected-color;
-				// }
+				color: @sand-switch-selected-color;
 			}
 		}
 
-		.disabled({
-			background-color: @sand-checkbox-toggle-switch-bg-color;
-			opacity: @sand-disabled-opacity;
+		// Standalone Switch
+		.spottable({
+			&::after {
+				.sand-spotlight-resting-colors();
+			}
+		});
+
+		.focus({
+			&::after {
+				.sand-spotlight-focus-colors();
+			}
 
 			.icon {
-				color: @sand-checkbox-toggle-switch-color;
+				color: @sand-switch-focus-color;
 			}
 
 			&.selected {
-				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
-
 				.icon {
-					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
+					color: @sand-switch-selected-focus-color;
 				}
 			}
 		});
 	});
 }
 
-// When a parent is disabled
-.disabled({
-	.toggleIcon {
-		.applySkins({
-			opacity: 1;
-		});
-	}
-});
-
 // Keep the switch handle (the icon) a constant color regardless of focus state.
 .focus({
-	.toggleIcon {
+	.switch {
 		// Skin colors
 		.applySkins({
 			.icon {
-				color: @sand-checkbox-toggle-switch-color;
+				color: @sand-switch-focus-color;
 			}
 
 			&.selected {
-				background-color: @sand-checkbox-toggle-switch-spotlight-selected-bg-color;
-
 				.icon {
-					color: @sand-checkbox-toggle-switch-spotlight-selected-color;
+					color: @sand-switch-selected-focus-color;
 				}
 			}
 		});
 	}
-
-	.disabled({
-		.toggleIcon {
-			.applySkins({
-				opacity: @sand-disabled-opacity;
-			});
-		}
-	});
 }, parent);

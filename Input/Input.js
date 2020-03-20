@@ -122,6 +122,15 @@ const InputBase = kind({
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
 		/**
+		 * The size of the input field.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['small', 'large']),
+
+		/**
 		 * Subtitle below the title of popup.
 		 *
 		 * @type {String}
@@ -161,6 +170,7 @@ const InputBase = kind({
 		length: 4,
 		placeholder: '-',
 		popupType: 'fullscreen',
+		size: 'large',
 		subtitle: '',
 		title: '',
 		type: 'text',
@@ -218,6 +228,7 @@ const InputBase = kind({
 		placeholder,
 		popupClassName,
 		popupType,
+		size,
 		subtitle,
 		title,
 		type,
@@ -243,7 +254,7 @@ const InputBase = kind({
 					open={!disabled && open}
 				>
 					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-						<Cell shrink>
+						<Cell shrink className={css.titles}>
 							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
 							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 						</Cell>
@@ -259,6 +270,7 @@ const InputBase = kind({
 								/> :
 								<InputField
 									{...inputProps}
+									size={size}
 									autoFocus
 									type={type}
 									defaultValue={value}
@@ -271,7 +283,7 @@ const InputBase = kind({
 						<Cell shrink className={css.buttonArea}>{children}</Cell>
 					</Layout>
 				</Popup>
-				<Button {...rest} disabled={disabled}>
+				<Button {...rest} size={size} disabled={disabled}>
 					{(password ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>

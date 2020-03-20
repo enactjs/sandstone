@@ -1,5 +1,7 @@
 import {generateTestData} from '@enact/ui-test-utils/utils';
 
+
+import ActionGuide from './components/ActionGuide';
 import Button from './components/Button';
 import BodyText from './components/BodyText';
 import Checkbox from './components/Checkbox';
@@ -35,10 +37,12 @@ import Slider from './components/Slider';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
+import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
 import WizardPanel from './components/WizardPanel';
 
 const components = {
+	ActionGuide,
 	BodyText,
 	Button,
 	Checkbox,
@@ -76,6 +80,7 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
+	TabLayout,
 	TimePicker,
 	// TooltipDecorator,
 	// VideoPlayer,
