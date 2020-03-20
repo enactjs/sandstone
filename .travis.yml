@@ -12,7 +12,7 @@ install:
     - npm --no-audit link
     - popd
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
-    - pushd ../enact-cli
+    - pushd ../enact
     - npm install
     - npm run bootstrap -- --ignore enact-sampler
     - npm run link-all
