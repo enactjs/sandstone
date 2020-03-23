@@ -5,12 +5,17 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 import thumbCss from '../useScroll/ScrollThumb.module.less';
+
+import {assign, Machine, interpret} from 'xstate';
+import {useMachine} from '@xstate/react';
+//import {useMachine} from 'use-machine';
+import { createMachine } from '@xstate/fsm';
 
 add('esc', 27);
 
@@ -101,6 +106,237 @@ const getFocusableBodyProps = ({className, scrollContainerRef, style}) => {
 		style
 	};
 };
+
+/*
+const increment = context => context.count + 1;
+const decrement = context => context.count - 1;
+const counterMachine = Machine({
+	initial: 'active',
+	context: {
+	  count: 0
+	},
+	states: {
+	  active: {
+		on: {
+		  INC: { actions: assign({ count: increment }) },
+		  DEC: { actions: assign({ count: decrement }) }
+		}
+	  }
+	}
+  });
+
+  const counterService = interpret(counterMachine)
+	.onTransition(state => console.log(state.context.count))
+	.start();
+  // => 0
+
+  counterService.send('INC');
+  // => 1
+
+  counterService.send('INC');
+  // => 2
+
+  counterService.send('DEC');
+
+const toggleMachine = Machine({
+	id: 'toggle',
+	initial: 'inactive',
+	states: {
+	  inactive: {
+		on: { TOGGLE: 'active' }
+	  },
+	  active: {
+		on: { TOGGLE: 'inactive' }
+	  }
+	}
+  });
+*/
+
+const focusableBodyMachine = Machine({
+	id: 'Scroller',
+	initial: 'focusableBody',
+	context: {
+		focusableScrollbar: 'byEnter',
+		filters: [],
+	},
+	states: {
+		construct: {
+			entry: [
+				{target: 'focusableBody', cond: 'isBodyFocusable'},
+				{target: 'noFocusableBody'}
+			],
+		},
+		noFocusableBody: {
+			type: 'final'
+		},
+		focusableBody: {
+			id: 'focusableBody',
+			initial: 'keyMode',
+			states: {
+				keyMode: {
+					id: 'keyMode',
+					initial: 'notFocused',
+					entry: [
+						assign({
+							filters: 'thumb'
+						}),
+						'setNavigableFilter',
+					],
+					exit: [
+						assign({
+							filters: 'body'
+						}),
+						'setNavigableFilter',
+					],
+					states: {
+						notFocused: {
+							entry: [
+								() => {console.log('focused entry');},
+							],
+							on: {
+								FOCUS: {
+									target: 'focused', cond: 'isBodyFocused'
+								}
+							},
+						},
+						focused: {
+							id: 'containerFocused',
+							initial: 'bodyFocused',
+							entry: [
+								() => {console.log('focused entry');},
+							],
+							states: {
+								bodyFocused: {
+									entry: [
+										() => {console.log('bodyFocused entry');},
+										// assign({
+										// 	filters: 'thumb'
+										// }),
+										// 'setNavigableFilter',
+										// 'initBodyFocused',
+									],
+									on: {
+										KEY_DOWN: {
+											target: 'thumbFocused', cond: 'isEnterPressed'
+										},
+										BLUR: {
+											target: '#keyMode.notFocused',
+											cond: 'isNotThumbFocused'
+										}
+									},
+								},
+								thumbFocused: {
+									entry: [
+										() => {console.log('thumbFocused entry');},
+										assign({
+											filters: 'body'
+										}),
+										'setNavigableFilter',
+										'initThumbFocused',
+									],
+									on: {
+										KEY_DOWN: {
+											target: 'bodyFocused', cond: 'isESCPressed'
+										}
+									}
+								},
+							}
+						}, // focused
+					}, // states
+					on: {
+						MOUSE_MOVE: {
+							target: '#pointerMode'
+						}
+					}
+				}, // keyMode
+				pointerMode: {
+					id: 'pointerMode',
+					initial: 'idle',
+					states: {
+						idle: {
+							on: {
+								KEY_DOWN: {
+									target: '#keyMode',
+									cond: 'isDirectionKey',
+								}
+							}
+						}
+					},
+				}, // pointerMode
+			},
+		}, // focusableBody
+	},
+}, {
+	actions: {
+		setNavigableFilter: ctx => (true),
+		initBodyFocused: ctx => (true),
+		initThumbFocused: ctx => (true),
+	},
+	guards: {
+		isBodyFocusable: ctx => (ctx.focusableScrollbar === 'byEnter'),
+		isBodyFocused: (ctx, ev) => (true),
+		isThumbFocused: (ctx, ev) => (console.log(ev) && true),
+		isNotThumbFocused: (ctx, ev) => (console.log(ev) && true),
+		isEnterPressed: (ctx, ev) => (console.log(ev) && true),
+		isESCPressed: (ctx, ev) => (console.log(ev) && true),
+		isDirectionKey: (ctx, ev) => (console.log(ev) && true),
+		isEnterPressed4: (ctx, ev) => (console.log(ev) && true),
+		isPointerMoved: (ctx, ev) => (console.log(ev) && true),
+	},
+});
+
+// const scrollerMachine = Machine(focusableBodyMachine);
+
+// const scrollerService = interpret(scrollerMachine)
+// 		.onTransition(state => console.log(JSON.stringify(state.value)))
+// 		.start();
+
+const useFocusableBodyProps = ({className, scrollContainerRef, style}) => {
+	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+
+	// const mutableRef = useRef();
+	// mutableRef.current = mutableRef.current || interpret(scrollerMachine)
+	// // 	.onTransition(state => console.log(JSON.stringify(state.value)))
+	// 	.start();
+
+	const [state, send] = useMachine(focusableBodyMachine);
+
+	//scrollerService.send('FOCUS');
+
+	console.log('current', JSON.stringify(state.value));
+
+	return {
+		className: classNames(className, css.focusableBody),
+		onFocus: handle(
+			forward('onFocus'),
+			(ev) => console.log('onFocus') && send('FOCUS', {type: ev.type, target: ev.target}),
+			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onBlur: handle(
+			// Focus out to external element.
+			forward('onBlur'),
+			(ev) => console.log('onBlur') && send('BLUR', {type: ev.type, target: ev.target}),
+			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onKeyDown: handle(
+			forward('onKeyDown'),
+			(ev) => {
+				debugger
+				return console.log('onKeyDown') && send('KEY_DOWN', {type: ev.type, keyCode: ev.keyCode})
+			},
+			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			// consumeEventWithFocus
+		),
+		// onKeyDown: (ev) => {
+		// 	debugger
+		// 	console.log('onKeyDown')
+		// 	machine.send('TOGGLE', {type: ev.type, keyCode: ev.keyCode})
+		// 	// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		// 	// consumeEventWithFocus
+		// },
+		style
+	};
+}
 
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
@@ -369,9 +605,9 @@ const useThemeScroller = ({className, focusableScrollbar, style}, props) => {
 
 	// Hooks
 
-	const
-		{calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef}),
-		focusableBodyProps = (focusableScrollbar === 'byEnter') ? getFocusableBodyProps({className, scrollContainerRef, style}) : {};
+	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	// const focusableBodyProps = (focusableScrollbar === 'byEnter') ? getFocusableBodyProps({className, scrollContainerRef, style}) : {};
+	const focusableBodyProps = useFocusableBodyProps({className, scrollContainerRef, style});
 
 	useEffect(() => {
 		props.setThemeScrollContentHandle({

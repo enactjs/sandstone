@@ -161,7 +161,7 @@ storiesOf('Scroller', module)
 		'List of things',
 		() => (
 			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar="byEnter"
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -172,7 +172,7 @@ storiesOf('Scroller', module)
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 			>
-				<Group childComponent={Item}>
+				<Group childComponent={'div'}>
 					{itemData}
 				</Group>
 			</Scroller>
