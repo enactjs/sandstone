@@ -2,25 +2,25 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed
 
-- `sandstone/styles/mixins.less` `.sand-spotlight-resting` and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
+- `sandstone/styles/mixins.less`, `.sand-spotlight-resting`, and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
 
 ### Added
 
-- `sandstone/styles/color-mixins.less` `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` for consistently applying colors CSS rules for focus states on components
+- `sandstone/styles/color-mixins.less`, `.sand-spotlight-resting-color`, and `.sand-spotlight-focus-color` for consistently applying CSS color rules for focus states on components
 
 ### Changed
 
-- `sandstone/Videoplayer` to not hide playback controls using up key via 5-way.
+- `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
 
 ### Fixed
 
 - `sandstone/Input.InputField` to show icons when focused
-- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
-- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
+- `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
 - `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
 
