@@ -20,7 +20,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, scrollContainerRef, style}) => {
+const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -354,38 +354,36 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = ({className, focusableScrollbar, style}, props) => {
-	const {scrollContainerRef, ...rest} = props;
+const useThemeScroller = (props, scrollContentProps) => {
+	const {scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
-	delete rest.scrollContainerRef;
 	delete rest.scrollContentHandle;
 	delete rest.setThemeScrollContentHandle;
 	delete rest.spotlightId;
 
 	// Hooks
 
-	const
-		{calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef}),
-		focusableBodyProps = (focusableScrollbar === 'byEnter') ? getFocusableBodyProps({className, scrollContainerRef, style}) : {};
+	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(props, scrollContainerRef) : {};
 
 	useEffect(() => {
-		props.setThemeScrollContentHandle({
+		scrollContentProps.setThemeScrollContentHandle({
 			calculatePositionOnFocus,
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, props, props.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
 
 	rest.children = (
 		<div className={css.contentWrapper}>
-			{props.children}
+			{scrollContentProps.children}
 		</div>
 	);
 	rest.getContentSize = getContentSize;
