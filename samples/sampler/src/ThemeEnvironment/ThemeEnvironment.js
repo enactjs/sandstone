@@ -36,7 +36,7 @@ const PanelsBase = kind({
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
-		!noPanels ? <Panels {...rest} onApplicationClose={reloadPage}>
+		!noPanels ? <Panels {...rest}>
 			{!noPanel ? <Panel className={css.panel}>
 				{!noHeader ? <Header title={title} subtitle={description} /> : null}
 				{children}

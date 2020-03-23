@@ -17,7 +17,6 @@ describe('Panels Specs', () => {
 			const panels = mount(
 				<Panels index={0}>
 					<Panel id="p1" />
-					<Panel id="p2" />
 				</Panels>
 			);
 
@@ -40,12 +39,14 @@ describe('Panels Specs', () => {
 				</Panels>
 			);
 
+			console.log(panels.debug());
+
 			panels.setProps({
 				index: 1
 			});
 
 			const expected = 'default-element';
-			const actual = panels.find('Panel').prop('autoFocus');
+			const actual = panels.find('Panel#p2').prop('autoFocus');
 
 			expect(actual).toBe(expected);
 		}
@@ -68,7 +69,7 @@ describe('Panels Specs', () => {
 			});
 
 			const expected = 'last-focused';
-			const actual = panels.find('Panel').prop('autoFocus');
+			const actual = panels.find('Panel#p2').prop('autoFocus');
 
 			expect(actual).toBe(expected);
 		}
