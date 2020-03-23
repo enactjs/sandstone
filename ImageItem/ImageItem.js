@@ -18,7 +18,7 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
-import {Cell, Row} from '@enact/ui/Layout';
+import {Cell, Column, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -35,10 +35,7 @@ const
 	'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
 	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-	'4NCg==',
-	captionComponent = (props) => (
-		<Marquee marqueeOn="hover" {...props} />
-	);
+	'4NCg==';
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -216,51 +213,50 @@ const ImageItemBase = kind({
 
 	computed: {
 		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
-			const captions = () => (
+			const captions = (
 				<React.Fragment>
-					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
-					{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
+					{caption ? (
+						<Cell className={css.caption} component={Marquee} marqueeOn="hover" shrink>
+							{caption}
+						</Cell>
+					) : null}
+					{subCaption ? (
+						<Cell className={css.subCaption} component={Marquee} marqueeOn="hover" shrink>
+							{subCaption}
+						</Cell>
+					) : null}
 				</React.Fragment>
 			);
 
-			return (
-				imageIconSrc && orientation === 'vertical' ?
-					<Row className={css.captions}>
-						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSrc} shrink />
-						<Cell size="77%">
-							{captions()}
-						</Cell>
-					</Row> :
-					<div className={css.captions}>
-						{captions()}
-					</div>
-			);
-		},
-		imageComponent: ({css, orientation, placeholder, selectionComponent: SelectionComponent, selectionShowing, src}) => {
-			return (
-				<Cell className={css.image} component={Image} placeholder={placeholder} shrink={orientation === 'horizontal'} src={src}>
-					{selectionShowing ?
-						<div className={css.selectionContainer}>
-							{SelectionComponent ?
-								<SelectionComponent /> :
-								<div className={css.selectionComponent}>
-									<Icon className={css.selectionIcon}>check</Icon>
-								</div>
-							}
-						</div> : null
-					}
-				</Cell>
+			return imageIconSrc && orientation === 'vertical' ? (
+				<Row className={css.captions}>
+					<Cell
+						className={css.imageIcon}
+						component={imageIconComponent}
+						src={imageIconSrc}
+						shrink
+					/>
+					<Cell size="77%">
+						<Column>
+							{captions}
+						</Column>
+					</Cell>
+				</Row>
+			) : (
+				<Column className={css.captions}>
+					{captions}
+				</Column>
 			);
 		}
 	},
 
-	render: ({css, selectionComponent, ...rest}) => {
+	render: ({css, selectionComponent: SelectionComponent, selectionShowing, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.selectionShowing;
 		delete rest.subCaption;
 
-		if (selectionComponent) {
+		if (SelectionComponent) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}
@@ -269,6 +265,20 @@ const ImageItemBase = kind({
 			<UiImageItem
 				{...rest}
 				css={css}
+				imageComponent={
+					<Image>
+						{selectionShowing ?
+							<div className={css.selectionContainer}>
+								{SelectionComponent ?
+									<SelectionComponent /> :
+									<div className={css.selectionComponent}>
+										<Icon className={css.selectionIcon}>check</Icon>
+									</div>
+								}
+							</div> : null
+						}
+					</Image>
+				}
 			/>
 		);
 	}
