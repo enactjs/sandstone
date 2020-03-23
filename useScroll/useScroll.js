@@ -27,7 +27,7 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {setFocusableBodyProps, useSpotlightRestore} from './useSpotlight';
+import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
@@ -57,9 +57,9 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context, assignProperties) => {
+const useThemeScroll = (props, instances) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
-	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
 
 	// Mutable value
@@ -81,25 +81,21 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 
 	useSpotlightRestore(props, instances);
 
-	if (props.focusableScrollbar === 'byEnter') {
-		setFocusableBodyProps(props, instances, assignProperties);
-	}
-
 	const {
 		applyOverscrollEffect,
 		checkAndApplyOverscrollEffectByDirection,
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {scrollMode});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, scrollMode});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {scrollMode});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -363,7 +359,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
+	} = useThemeScroll(props, instance);
 
 	// Render
 
@@ -424,7 +420,7 @@ const useScroll = (props) => {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
-			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+			isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : null
 		],
 		ref: overscrollRefs.vertical
 	});

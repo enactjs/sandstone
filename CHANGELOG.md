@@ -4,36 +4,78 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
-
-- `sandstone/GridListImageItem` prop `imageIconComponent` and `imageIconSource` to support an image icon.
-- `sandstone/Input` prop `size`
-
 ### Fixed
 
-- `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
-- `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height.
-- `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb.
-- `sandstone/VideoPlayer` to continue to display controls when user activity is detected˛
-- `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Slider` to change the value in focus state when using 5-way
 - `sandstone/Slider` display only center type regardless of the value
 
+## [1.0.0-alpha.5] - 2020-03-23
+
+### Removed
+
+- `sandstone/styles/mixins.less` `.sand-spotlight-resting` and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
+
+### Added
+
+- `sandstone/styles/color-mixins.less` `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` for consistently applying colors CSS rules for focus states on components
+
+### Changed
+
+- `sandstone/Videoplayer` to not hide playback controls using up key via 5-way.
+
+### Fixed
+
+- `sandstone/Input.InputField` to show icons when focused
+- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
+- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
+- `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
+- `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
+- `sandstone/Slider` to change the value in focus state when using 5-way
+- `sandstone/Slider` display only center type regardless of the value
+
+
+## [1.0.0-alpha.4] - 2020-03-17
+
+### Added
+
+- `sandstone/GridListImageItem` props `imageIconComponent` and `imageIconSource` to support an image icon
+- `sandstone/Input` prop `size`
+- `sandstone/Switch` support for focus state
+
+### Fixed
+
+- `sandstone/Button` icon sizing
+- `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
+- `sandstone/Input` and `sandstone/Popup` to correctly support marquee
+- `sandstone/Picker` joined styling
+- `sandstone/Scroller.Scroller` to display the `scrollbar` as the correct height
+- `sandstone/Scroller.Scroller` to scroll not sluggish when holding keys on scroll thumb
+- `sandstone/SwitchItem` styling
+- `sandstone/VideoPlayer` to continue to display controls when user activity is detected˛
 
 ## [1.0.0-alpha.3] - 2020-03-09
 
 ### Deprecated
 
-- `sandstone/InputPopup` and `sandstone/InputPopup.NumberInputPopup` are now just `sandstone/Input`, accessible via`type="text"`, `type="password"`, `type="number"`, or `type="passwordnumber"`
+- `sandstone/Panels.ActivityPanels` and `sandstone/Panels.AlwaysViewingPanels`, use `sandstone/Panels.Panels` or one of the pre-defined views.
+- `sandstone/DayPicker`, `sandstone/DaySelector`, `sandstone/EditableIntegerPicker`, `sandstone/ExpandableItem`, `sandstone/ExpandablePicker`, `sandstone/ToggleButton`, `sandstone/ToggleIcon` to be removed in beta.1
+- `sandstone/Dialog`, use `sandstone/Popup`
+- `sandstone/ExpandableInput`, `sandstone/InputPopup`, `sandstone/InputPopup.NumberInputPopup`, use `sandstone/Input`
+- `sandstone/LabeledItem`, `sandstone/SlotItem`, `sandstone/ToggleItem`, use `sandstone/Item`
+- `sandstone/Notification`, use `sandstone/Alert`
+- `sandstone/SelectableItem`, use `sandstone/CheckboxItem`
 
 ### Changed
 
-- `sandstone/Input` has been moved into `sandstone/Input.InputField` but is reserved and should only be used when expressly permitted
+- `sandstone/Input` to implement a popup-style input. The old functionality was moved to `sandstone/Input.InputField`, but is reserved and should only be used when expressly permitted.
 
 ### Fixed
 
-- `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` not to suddenly jump when pressing directional keys after wheeling.
-- `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`.
+- `sandstone/VirtualList.VirtualList` and `sandstone/VirtualList.VirtualGridList` to not suddenly jump when pressing directional keys after wheeling
+- `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Button` styling
+- `sandstone/Heading` styling
+
 
 ## [1.0.0-alpha.2] - 2020-03-03
 
