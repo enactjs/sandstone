@@ -21,29 +21,25 @@
 
 	.progressBar {
 		margin: 0;
+	}
 
-		.applySkins({
-			&.radial {
-				.bar {
-					border-color: @sand-progressbutton-bar-border-color;
-				}
+	.applySkins({
+		.progressBar {
+			.bar {
+				border-color: @sand-progressbutton-bar-border-color;
+			}
 
+			.fill {
+				border-color: @sand-progressbutton-fill-border-color;
+			}
+		}
+
+		.focus({
+			.progressBar {
 				.fill {
-					border-color: @sand-progressbutton-fill-border-color;
+					border-color: @sand-progressbutton-focus-fill-border-color;
 				}
 			}
 		});
-	}
-
-	.focus({
-		.progressBar {
-			.applySkins({
-				&.radial {
-					.fill {
-						border-color: @sand-progressbutton-focus-fill-border-color;
-					}
-				}
-			});
-		}
 	});
 }

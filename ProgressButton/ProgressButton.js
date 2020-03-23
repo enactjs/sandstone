@@ -1,13 +1,10 @@
 import kind from '@enact/core/kind';
-import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import React from 'react';
 
 import {ButtonBase, ButtonDecorator} from '../Button';
 import Icon from '../Icon';
 import ProgressBar from '../ProgressBar';
-import Skinnable from '../Skinnable';
 
 import componentCss from './ProgressButton.module.less';
 
@@ -77,9 +74,6 @@ const ProgressButtonBase = kind({
 		css: componentCss,
 		className: 'progressButton',
 		publicClassNames: ['progressButton']
-	},
-
-	computed: {
 	},
 
 	render: ({css, children, icon, progress, showProgress, ...rest}) => {
