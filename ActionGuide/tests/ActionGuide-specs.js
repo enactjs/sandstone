@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme';
-import ActionGuide, {ActionGuideBase} from '../ActionGuide';
+import {shallow} from 'enzyme';
+import {ActionGuideBase} from '../ActionGuide';
 
 describe('ActionGuide', () => {
 
