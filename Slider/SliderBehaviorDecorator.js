@@ -1,4 +1,4 @@
-import {forward, forKey} from '@enact/core/handle';
+import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import platform from '@enact/core/platform';
 import Pause from '@enact/spotlight/Pause';

@@ -78,7 +78,7 @@ describe('Slider', () => {
 
 	test('should activate the slider on enter keyup', () => {
 		const subject = mount(
-			<Slider />
+			<Slider activateOnFocus={false} />
 		);
 
 		activate(subject);
