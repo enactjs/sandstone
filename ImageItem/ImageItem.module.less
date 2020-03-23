@@ -13,6 +13,12 @@
 .imageItem {
 	width: 100%;
 	height: 100%;
+
+	position: relative;
+
+	&.vertical {
+		margin: 60px;
+	}
 }
 
 .image {
@@ -38,7 +44,8 @@
 .selectionContainer {
 	background-color: transparent;
 	pointer-events: none;
-	height: 100%;
+	.position(0);
+	position: absolute;
 }
 
 .selectionContainer::after {
