@@ -6,11 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
-- `sandstone/styles/mixins.less`, `.sand-spotlight-resting`, and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
-
-### Added
-
-- `sandstone/styles/color-mixins.less`, `.sand-spotlight-resting-color`, and `.sand-spotlight-focus-color` for consistently applying CSS color rules for focus states on components
+- `sandstone` LESS mixins `.sand-spotlight-resting` and `.sand-spotlight-focus`, replacing them with `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` respectively
 
 ### Changed
 
