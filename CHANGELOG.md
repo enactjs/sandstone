@@ -30,9 +30,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
 - `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
-- `sandstone/Slider` to change the value in focus state when using 5-way
-- `sandstone/Slider` display only center type regardless of the value
-
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
