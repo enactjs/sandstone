@@ -8,9 +8,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
 
+### Removed
+
+- `sandstone/styles/mixins.less` `.sand-spotlight-resting` and `.sand-spotlight-focus`, consolidating them into `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color`, respectively
+
 ### Added
 
 - `sandstone/ImageItem` component
+- `sandstone/styles/color-mixins.less` `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` for consistently applying colors CSS rules for focus states on components
 
 ### Changed
 
@@ -18,10 +23,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys
+- `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
-- `sandstone/Input.InputField` to show icons when focused
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
@@ -33,7 +39,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling
