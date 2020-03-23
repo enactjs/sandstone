@@ -8,8 +8,6 @@ import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 
-const fadeoutSize = 48;
-
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
@@ -44,13 +42,6 @@ const useSpottable = (props, instances) => {
 	});
 
 	// Functions
-
-	function getContentSize ({clientWidth, clientHeight}) {
-		return {
-			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
-			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
-		};
-	}
 
 	/**
 	 * Returns the first spotlight container between `node` and the scroller
@@ -129,12 +120,6 @@ const useSpottable = (props, instances) => {
 		const container = getSpotlightContainerForNode(item);
 		const scrollerBounds = scrollContentRef.current.getBoundingClientRect();
 		let {scrollHeight, scrollTop} = scrollContentRef.current;
-
-		const scrollerContentBounds = {
-			top: scrollerBounds.top + ri.scale(fadeoutSize),
-			height: Math.max(scrollerBounds.height - 2 * ri.scale(fadeoutSize), 0)
-		};
-
 		let scrollTopDelta = 0;
 
 		const adjustScrollTop = (v) => {
@@ -146,20 +131,20 @@ const useSpottable = (props, instances) => {
 			const containerBounds = container.getBoundingClientRect();
 
 			// if the entire container fits in the scroller, scroll it into view
-			if (canItemFit(containerBounds, scrollerContentBounds)) {
-				return calcItemInView(containerBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
+			if (canItemFit(containerBounds, scrollerBounds)) {
+				return calcItemInView(containerBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
 			}
 
 			// if the container doesn't fit, adjust the scroll top ...
-			if (containerBounds.top > scrollerContentBounds.top) {
+			if (containerBounds.top > scrollerBounds.top) {
 				// ... to the top of the container if the top is below the top of the scroller
-				adjustScrollTop(calcItemAtStart(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
+				adjustScrollTop(calcItemAtStart(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
 			}
 			// removing support for "snap to bottom" for 2.2.8
-			// } else if (containerBounds.top + containerBounds.height < scrollerContentBounds.top + scrollerContentBounds.height) {
+			// } else if (containerBounds.top + containerBounds.height < scrollerBounds.top + scrollerBounds.height) {
 			// 	// ... to the bottom of the container if the bottom is above the bottom of the
 			// 	// scroller
-			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
+			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
 			// }
 
 			// N.B. if the container covers the scrollable area (its top is above the top of the
@@ -169,7 +154,7 @@ const useSpottable = (props, instances) => {
 
 		const itemBounds = item.getBoundingClientRect();
 
-		return calcItemInView(itemBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
+		return calcItemInView(itemBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
 	}
 
 	/**
@@ -196,7 +181,7 @@ const useSpottable = (props, instances) => {
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
 			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - ri.scale(fadeoutSize));
+			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
@@ -257,7 +242,6 @@ const useSpottable = (props, instances) => {
 	return {
 		calculatePositionOnFocus,
 		focusOnNode,
-		getContentSize,
 		setContainerDisabled
 	};
 };
@@ -277,7 +261,7 @@ const useThemeScroller = (props) => {
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 
 	useEffect(() => {
 		props.setThemeScrollContentHandle({
@@ -294,7 +278,6 @@ const useThemeScroller = (props) => {
 			{props.children}
 		</div>
 	);
-	rest.getContentSize = getContentSize;
 
 	return rest;
 };
