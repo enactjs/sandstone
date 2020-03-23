@@ -568,6 +568,12 @@ const useEventWheel = (props, instances) => {
 	const mutableRef = useRef({isWheeling: false});
 
 	// Functions
+	function initializeWheeling () {
+		if (!props['data-spotlight-container-disabled']) {
+			themeScrollContentHandle.current.setContainerDisabled(true);
+		}
+		mutableRef.current.isWheeling = true;
+	}
 
 	function handleWheel ({delta}) {
 		const focusedItem = Spotlight.getCurrent();
@@ -577,19 +583,7 @@ const useEventWheel = (props, instances) => {
 		}
 
 		if (delta !== 0) {
-			mutableRef.current.isWheeling = true;
-			if (!props['data-spotlight-container-disabled']) {
-				themeScrollContentHandle.current.setContainerDisabled(true);
-			}
-		}
-	}
-
-	function initializeWheeling () {
-		if (!mutableRef.current.isWheeling) {
-			if (!props['data-spotlight-container-disabled']) {
-				themeScrollContentHandle.current.setContainerDisabled(true);
-			}
-			mutableRef.current.isWheeling = true;
+			initializeWheeling();
 		}
 	}
 
@@ -623,7 +617,9 @@ const useEventWheel = (props, instances) => {
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
 			if (negativeDelta && scrollTop > 0 || positiveDelta && scrollTop < bounds.maxTop) {
-				initializeWheeling();
+				if (!mutableRef.current.isWheeling) {
+					initializeWheeling();
+				}
 
 				// If ev.target is a descendant of scrollContent, the event will be handled on onscroll handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
@@ -645,7 +641,9 @@ const useEventWheel = (props, instances) => {
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
 			if (negativeDelta && scrollLeft > 0 || positiveDelta && scrollLeft < bounds.maxLeft) {
-				initializeWheeling();
+				if (!mutableRef.current.isWheeling) {
+					initializeWheeling();
+				}
 
 				delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
 				needToHideThumb = !delta;
