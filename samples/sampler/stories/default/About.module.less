@@ -1,9 +1,8 @@
-@import "../../../../styles/colors.less";
 @import "../../../../styles/variables.less";
 
 & {
-	@bg-color: @sand-spinner-ball1-color;
-	@icon-color: @sand-spinner-ball3-color;
+	@bg-color: #e6e6e6;
+	@accent-color: #30ad6b;
 	@icon-size: 24px;
 	@pointer-edge-offset: 18px;
 
@@ -19,9 +18,10 @@
 
 	b {
 		border-radius: 12px;
-		background-color: lighten(@bg-color, 20%);
+		background-color: @accent-color;
 		padding: 6px 24px;
 		white-space: nowrap;
+		color: white;
 	}
 
 	.hintDialog {
@@ -31,6 +31,7 @@
 		animation-fill-mode: forwards;
 		animation-duration: 1s;
 		direction: ltr;
+		filter: drop-shadow(6px 12px 48px fade(black, 30%));
 
 		.pointer {
 			background-color: @bg-color;
@@ -108,23 +109,18 @@
 				transform: rotate(90deg);
 			}
 		}
-	}
 
-	.text {
-		display: inline-block;
-		padding: 42px;
-		border-radius: 12px;
-		background-color: @bg-color;
-		color: @sand-black;
-		font-size: 42px;
-		box-shadow: 6px 6px 18px @sand-dark-gray;
-	}
+		.text {
+			display: inline-block;
+			padding: 42px;
+			border-radius: 12px;
+			background-color: @bg-color;
+			color: black;
+			font-size: 42px;
 
-	.icon {
-		margin: 0;
-		padding: 0;
-		color: @icon-color;
-		font-size: 24px;
-		line-height: 0;
+			.icon {
+				margin: 0 0 0 0.25ex;
+			}
+		}
 	}
 }
