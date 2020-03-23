@@ -156,10 +156,50 @@ describe('WizardPanel Specs', () => {
 				<WizardPanel prevButtonText={prevButtonText} />
 			);
 
-			const nextButton = wizardPanel.find('.prevButton .text').text();
+			const prevButton = wizardPanel.find('.prevButton .text').text();
 
 			const expected = prevButtonText;
+			const actual = prevButton;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should have disabled `.nextButton` on the last view',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanel index={2}>
+					<View>View 1</View>
+					<View>View 2</View>
+					<View>View 3</View>
+				</WizardPanel>
+			);
+
+			const nextButton = wizardPanel.find('Button .nextButton').prop('disabled');
+
+			const expected = true;
 			const actual = nextButton;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should have disabled `.prevButton` on the first view',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanel>
+					<View>View 1</View>
+					<View>View 2</View>
+					<View>View 3</View>
+				</WizardPanel>
+			);
+
+			const prevButton = wizardPanel.find('Button .prevButton').prop('disabled');
+
+			const expected = true;
+			const actual = prevButton;
 
 			expect(actual).toBe(expected);
 		}

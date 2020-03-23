@@ -27,7 +27,7 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {setFocusableBodyProps, useSpotlightRestore} from './useSpotlight';
+import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
@@ -57,7 +57,7 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context, assignProperties) => {
+const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
@@ -80,10 +80,6 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	} = useScrollbar(props, instances, {isContent});
 
 	useSpotlightRestore(props, instances);
-
-	if (props.focusableScrollbar === 'byEnter') {
-		setFocusableBodyProps(props, instances, assignProperties);
-	}
 
 	const {
 		applyOverscrollEffect,
@@ -363,7 +359,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {}, assignProperties);
+	} = useThemeScroll(props, instance);
 
 	// Render
 
@@ -424,7 +420,7 @@ const useScroll = (props) => {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
-			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+			isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : null
 		],
 		ref: overscrollRefs.vertical
 	});
