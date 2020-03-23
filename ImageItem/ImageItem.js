@@ -214,7 +214,7 @@ const ImageItemBase = kind({
 	computed: {
 		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
 			const captions = (
-				<React.Fragment>
+				<Column>
 					{caption ? (
 						<Cell className={css.caption} component={Marquee} marqueeOn="hover" shrink>
 							{caption}
@@ -225,9 +225,10 @@ const ImageItemBase = kind({
 							{subCaption}
 						</Cell>
 					) : null}
-				</React.Fragment>
+				</Column>
 			);
 
+			// An additional Row is required when an imageIcon is specified
 			return imageIconSrc && orientation === 'vertical' ? (
 				<Row className={css.captions}>
 					<Cell
@@ -237,16 +238,10 @@ const ImageItemBase = kind({
 						shrink
 					/>
 					<Cell size="77%">
-						<Column>
-							{captions}
-						</Column>
+						{captions}
 					</Cell>
 				</Row>
-			) : (
-				<Column className={css.captions}>
-					{captions}
-				</Column>
-			);
+			) : captions;
 		}
 	},
 
@@ -267,16 +262,17 @@ const ImageItemBase = kind({
 				css={css}
 				imageComponent={
 					<Image>
-						{selectionShowing ?
+						{selectionShowing ? (
 							<div className={css.selectionContainer}>
-								{SelectionComponent ?
-									<SelectionComponent /> :
+								{SelectionComponent ? (
+									<SelectionComponent />
+								) : (
 									<div className={css.selectionComponent}>
 										<Icon className={css.selectionIcon}>check</Icon>
 									</div>
-								}
-							</div> : null
-						}
+								)}
+							</div>
+						) : null}
 					</Image>
 				}
 			/>
