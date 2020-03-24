@@ -13,7 +13,7 @@ import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
-const fadeOutSize = 48;
+const fadeOutSize = ri.scale(48);
 
 const
 	nop = () => {},
@@ -137,8 +137,8 @@ const useSpottable = (props, instances) => {
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
-				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize;
+				startBoundary = ((scrollMode === 'native') ? scrollPosition : scrollPositionTarget) + fadeOutSize,
+				endBoundary = startBoundary + clientSize - fadeOutSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -171,7 +171,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					optionalOffset: ri.scale(fadeOutSize),
+					optionalOffset: fadeOutSize,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
