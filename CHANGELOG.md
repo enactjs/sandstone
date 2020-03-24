@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/MediaOverlay` styling
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed
@@ -10,7 +16,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/MediaOverlay` visuals for updated GUI
 - `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
 
 ### Fixed
