@@ -406,10 +406,28 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		getArrowPosition (containerNode, clientNode) {
 			const position = {};
-			const {direction} = this.getContainerAdjustedPosition();
+			const {anchor, direction} = this.getContainerAdjustedPosition();
 
 			if (direction === 'above' || direction === 'below') {
-				position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+				if (this.overflow.isOverRight && !this.overflow.isOverLeft) {
+					position.left = window.innerWidth - ((containerNode.width + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+				} else if (!this.overflow.isOverRight && this.overflow.isOverLeft) {
+					position.left = ((containerNode.width - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
+				} else if (anchor === 'left') {
+					position.left = clientNode.left + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else if (anchor === 'right') {
+					position.left = clientNode.right - containerNode.width + (containerNode.width - this.ARROW_WIDTH) / 2;
+				} else {
+					position.left = clientNode.left + (clientNode.width - this.ARROW_WIDTH) / 2;
+				}
+			} else if (this.overflow.isOverBottom && !this.overflow.isOverTop) {
+				position.top = window.innerHeight - ((containerNode.height + this.ARROW_WIDTH) / 2) - this.KEEPOUT;
+			} else if (!this.overflow.isOverBottom && this.overflow.isOverTop) {
+				position.top = ((containerNode.height - this.ARROW_WIDTH) / 2) + this.KEEPOUT;
+			} else if (anchor === 'top') {
+				position.top = clientNode.top + (containerNode.height - this.ARROW_WIDTH) / 2;
+			} else if (anchor === 'bottom') {
+				position.top = clientNode.bottom - containerNode.height + (containerNode.height - this.ARROW_WIDTH) / 2;
 			} else {
 				position.top = clientNode.top + (clientNode.height - this.ARROW_WIDTH) / 2;
 			}
