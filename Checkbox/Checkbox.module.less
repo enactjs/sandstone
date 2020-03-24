@@ -22,13 +22,6 @@
 			.position(@sand-checkbox-container-position);
 			border-radius: @sand-checkbox-container-border-radius;
 			z-index: -1;
-			.sand-spotlight-resting();
-		}
-	});
-
-	.focus({
-		&::after {
-			.sand-spotlight-focus();
 		}
 	});
 
@@ -52,8 +45,7 @@
 		// Spottable version of the Checkbox
 		.spottable({
 			&::after {
-				background-color: @sand-checkbox-container-focus-bg-color;
-				filter: drop-shadow(@sand-checkbox-container-resting-shadow);
+				.sand-spotlight-resting-colors();
 			}
 		});
 
@@ -65,8 +57,7 @@
 			);
 
 			&::after {
-				background-color: @sand-checkbox-container-focus-bg-color;
-				filter: drop-shadow(@sand-checkbox-container-focus-shadow);
+				.sand-spotlight-focus-colors();
 			}
 
 			&.selected {
@@ -101,9 +92,7 @@
 			// Spottable version of the Checkbox
 			.spottable({
 				&::after {
-					.sand-spotlight-focus();
-					background-color: @sand-checkbox-container-focus-bg-color;
-					filter: drop-shadow(@sand-checkbox-container-resting-shadow);
+					.sand-spotlight-focus-colors();
 				}
 			});
 		});
