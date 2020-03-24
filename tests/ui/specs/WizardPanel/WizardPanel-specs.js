@@ -27,12 +27,14 @@ describe('WizardPanel', function () {
 	describe('Pointer', function () {
 		it('should navigate between views', function () {
 			browser.moveToElement(wizardPanel.nextButton.ELEMENT);
+			expect(wizardPanel.nextButton.isFocused()).to.be.true();
 			Page.spotlightSelect();
 
 			wizardPanel.waitForLeave(1);
 			expect(wizardPanel.view2.isExisting()).to.be.true();
 
 			browser.moveToElement(wizardPanel.prevButton.ELEMENT);
+			expect(wizardPanel.prevButton.isFocused()).to.be.true();
 			Page.spotlightSelect();
 
 			wizardPanel.waitForLeave(2);
