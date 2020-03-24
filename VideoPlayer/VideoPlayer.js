@@ -1712,7 +1712,7 @@ const VideoPlayerBase = class extends React.Component {
 			if (!no5WayJump) {
 				return null;
 			}
-			this.setState({no5WayJump: false});
+			return {no5WayJump: false};
 		});
 	}
 
@@ -1721,7 +1721,7 @@ const VideoPlayerBase = class extends React.Component {
 			if (no5WayJump) {
 				return null;
 			}
-			this.setState({no5WayJump: true});
+			return {no5WayJump: true};
 		});
 	}
 
