@@ -19,6 +19,10 @@ Config.defaultProps = {
 	direction: 'below'
 };
 
+const popupProps = {
+	style: {width: '500px'}
+};
+
 storiesOf('Sandstone', module)
 	.add(
 		'ContextualMenuDecorator',
@@ -32,6 +36,7 @@ storiesOf('Sandstone', module)
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
 						onClose={action('onClose')}
+						popupProps={popupProps}
 					>
 						{text('button string', Config, 'Contextual Button')}
 					</ContextualButton>

@@ -186,13 +186,13 @@ storiesOf('ContextualPopupDecorator', module)
 				<div style={{display: 'flex', marginBottom: ri.unit(48, 'rem')}}>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
-							direction="left center"
+							direction="left middle"
 							popupComponent={renderWidePopup}
 						>
 							Overflows Left
 						</ContextualPopupWithActivator>
 						<ContextualPopupWithActivator
-							direction="left center"
+							direction="left middle"
 							popupComponent={renderSuperTallPopup}
 						>
 							Overflows Top
@@ -200,13 +200,13 @@ storiesOf('ContextualPopupDecorator', module)
 					</div>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
-							direction="right center"
+							direction="right middle"
 							popupComponent={renderSuperTallPopup}
 						>
 							Overflows Top
 						</ContextualPopupWithActivator>
 						<ContextualPopupWithActivator
-							direction="right center"
+							direction="right middle"
 							popupComponent={renderWidePopup}
 						>
 							Overflows Right
@@ -221,7 +221,7 @@ storiesOf('ContextualPopupDecorator', module)
 						Overflows Bottom
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="right center"
+						direction="right middle"
 						popupComponent={renderSuperTallPopup}
 					>
 						Overflows Bottom

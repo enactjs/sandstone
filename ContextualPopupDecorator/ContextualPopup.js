@@ -133,8 +133,7 @@ const ContextualPopupBase = kind({
 
 	styles: {
 		css,
-		className: 'contextualPopup',
-		publicClassNames: true
+		className: 'container'
 	},
 
 	computed: {
@@ -144,12 +143,12 @@ const ContextualPopupBase = kind({
 		}
 	},
 
-	render: ({arrowDirection, arrowPosition, containerPosition, containerRef, children, showArrow, ...rest}) => {
+	render: ({arrowDirection, arrowPosition, className, containerPosition, containerRef, children, showArrow, ...rest}) => {
 		delete rest.direction;
 
 		return (
-			<ContextualPopupRoot aria-live="off" role="alert" {...rest}>
-				<div className={css.container} style={containerPosition} ref={containerRef}>
+			<ContextualPopupRoot aria-live="off" role="alert" {...rest} className={css.contextualPopup}>
+				<div className={className} style={containerPosition} ref={containerRef}>
 					{children}
 				</div>
 				{showArrow ? <ContextualPopupArrow direction={arrowDirection} style={arrowPosition} /> : null}
