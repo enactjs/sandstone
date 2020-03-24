@@ -10,8 +10,8 @@ install:
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
-    - npm run bootstrap -- --ignore enact-sampler
-    - npm run link-all
+    - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
+    - npm run lerna link -- --ignore enact-sampler
     - popd
     - rm -fr node_modules/@enact
     - npm install
