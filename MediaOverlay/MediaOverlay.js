@@ -227,7 +227,12 @@ const MediaOverlayBase = kind({
 					) : null}
 					{text ? (
 						<Layout align={textAlign} className={css.textLayout}>
-							<Cell component={Marquee} alignment="center" className={css.text} marqueeOn={marqueeOn}>
+							<Cell
+								component={Marquee}
+								alignment="center"
+								className={css.text}
+								marqueeOn={marqueeOn}
+							>
 								{text}
 							</Cell>
 						</Layout>
@@ -241,9 +246,15 @@ const MediaOverlayBase = kind({
 					}
 				</div>
 				<div className={css.captionContainer}>
-					{caption ? (<Marquee className={css.caption} marqueeOn={marqueeOn}>{caption}</Marquee>) : null}
-					{title ? (<Marquee className={css.title} marqueeOn={marqueeOn}>{title}</Marquee>) : null}
-					{subtitle ? (<Marquee className={css.subtitle} marqueeOn={marqueeOn}>{subtitle}</Marquee>) : null}
+					{caption ? (
+						<Marquee className={css.caption} marqueeOn={marqueeOn}>{caption}</Marquee>
+					) : null}
+					{title ? (
+						<Marquee className={css.title} marqueeOn={marqueeOn}>{title}</Marquee>
+					) : null}
+					{subtitle ? (
+						<Marquee className={css.subtitle} marqueeOn={marqueeOn}>{subtitle}</Marquee>
+					) : null}
 				</div>
 			</div>
 		);
