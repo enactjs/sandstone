@@ -107,51 +107,6 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 	};
 };
 
-/*
-const increment = context => context.count + 1;
-const decrement = context => context.count - 1;
-const counterMachine = Machine({
-	initial: 'active',
-	context: {
-	  count: 0
-	},
-	states: {
-	  active: {
-		on: {
-		  INC: { actions: assign({ count: increment }) },
-		  DEC: { actions: assign({ count: decrement }) }
-		}
-	  }
-	}
-  });
-
-  const counterService = interpret(counterMachine)
-	.onTransition(state => console.log(state.context.count))
-	.start();
-  // => 0
-
-  counterService.send('INC');
-  // => 1
-
-  counterService.send('INC');
-  // => 2
-
-  counterService.send('DEC');
-
-const toggleMachine = Machine({
-	id: 'toggle',
-	initial: 'inactive',
-	states: {
-	  inactive: {
-		on: { TOGGLE: 'active' }
-	  },
-	  active: {
-		on: { TOGGLE: 'inactive' }
-	  }
-	}
-  });
-*/
-
 const focusableBodyMachine = Machine({
 	id: 'Scroller',
 	initial: 'focusableBody',
@@ -209,11 +164,11 @@ const focusableBodyMachine = Machine({
 								bodyFocused: {
 									entry: [
 										() => {console.log('bodyFocused entry');},
-										// assign({
-										// 	filters: 'thumb'
-										// }),
-										// 'setNavigableFilter',
-										// 'initBodyFocused',
+										assign({
+											filters: 'thumb'
+										}),
+										'setNavigableFilter',
+										'initBodyFocused',
 									],
 									on: {
 										KEY_DOWN: {
@@ -291,98 +246,31 @@ const focusableBodyMachine = Machine({
 // 		.onTransition(state => console.log(JSON.stringify(state.value)))
 // 		.start();
 
+// const mutableRef = useRef();
+// mutableRef.current = mutableRef.current || interpret(scrollerMachine)
+// // 	.onTransition(state => console.log(JSON.stringify(state.value)))
+// 	.start();
+
 const useFocusableBodyProps = ({className, style}, scrollContainerRef) => {
-	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
-
-	// const mutableRef = useRef();
-	// mutableRef.current = mutableRef.current || interpret(scrollerMachine)
-	// // 	.onTransition(state => console.log(JSON.stringify(state.value)))
-	// 	.start();
-
 	const [state, send] = useMachine(focusableBodyMachine);
 
-	//scrollerService.send('FOCUS');
-
 	console.log('current', JSON.stringify(state.value));
-
-	const getNavigableFilterTarget = (ev) => {
-		const {keyCode, target, type} = ev;
-		let filterTarget = null;
-
-		if (type === 'focus') {
-			filterTarget = isBody(target) ? 'thumb' : 'body';
-		} else if (type === 'blur') {
-			filterTarget = 'thumb';
-		} else if (type === 'keydown') {
-			filterTarget =
-				isEnter(keyCode) && isBody(target) && 'body' ||
-				isEsc(keyCode) && !isBody(target) && 'thumb' ||
-				null;
-		}
-
-		return {
-			filterTarget
-		};
-	};
-
-	const consumeEventWithFocus = (ev) => {
-		const {target} = ev;
-		let nextTarget;
-
-		if (isBody(target)) {
-			// Enter key on scroll Body.
-			// Scroll thumb get focus.
-			const spottableDescendants = Spotlight.getSpottableDescendants(spotlightId);
-			if (spottableDescendants.length > 0) {
-				// Last spottable descendant(thumb) get focus.
-				nextTarget = spottableDescendants.pop();
-
-				// If there are both thumbs, vertical thumb is the next target
-				const verticalThumb = spottableDescendants.pop();
-				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
-			}
-		} else {
-			// Esc key on scroll thumb.
-			// Scroll body get focus.
-			nextTarget = target.closest(`.${css.focusableBody}`);
-		}
-
-		if (nextTarget) {
-			Spotlight.focus(nextTarget);
-			ev.preventDefault();
-			ev.nativeEvent.stopImmediatePropagation();
-		}
-	};
 
 	return {
 		className: classNames(className, css.focusableBody),
 		onFocus: handle(
 			forward('onFocus'),
-			(ev) => console.log('onFocus') && send('FOCUS', {type: ev.type, target: ev.target}),
-			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			(ev) => console.log('onFocus') && send('FOCUS', {type: ev.type, target: ev.target})
 		),
 		onBlur: handle(
 			// Focus out to external element.
 			forward('onBlur'),
-			(ev) => console.log('onBlur') && send('BLUR', {type: ev.type, target: ev.target}),
-			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			(ev) => console.log('onBlur') && send('BLUR', {type: ev.type, target: ev.target})
 		),
 		onKeyDown: handle(
 			forward('onKeyDown'),
-			(ev) => {
-				debugger
-				return console.log('onKeyDown') && send('KEY_DOWN', {type: ev.type, keyCode: ev.keyCode})
-			},
-			// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
-			// consumeEventWithFocus
+			(ev) => console.log('onKeyDown') && send('KEY_DOWN', {type: ev.type, keyCode: ev.keyCode})
 		),
-		// onKeyDown: (ev) => {
-		// 	debugger
-		// 	console.log('onKeyDown')
-		// 	machine.send('TOGGLE', {type: ev.type, keyCode: ev.keyCode})
-		// 	// adaptEvent(getNavigableFilterTarget, setNavigableFilter),
-		// 	// consumeEventWithFocus
-		// },
 		style
 	};
 }
