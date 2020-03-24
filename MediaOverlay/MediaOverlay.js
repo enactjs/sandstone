@@ -200,7 +200,7 @@ const MediaOverlayBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'mediaOverlay',
-		publicClassNames: ['caption', '.captionContainer', 'image', 'mediaOverlay', 'subtitle', 'text', 'title']
+		publicClassNames: ['mediaOverlay', 'caption', 'captionContainer', 'image', 'subtitle', 'text', 'title']
 	},
 
 	render: ({caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, noAutoPlay, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
