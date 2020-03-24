@@ -137,12 +137,6 @@
 		pointer-events: none;
 	}
 
-	.inputFieldIcon,
-	&:global(.spottable):focus .inputFieldIcon {
-		width: auto;
-		margin: 0;
-	}
-
 	// Skin colors
 	.applySkins({
 		color: @sand-inputfield-text-color;
@@ -181,10 +175,6 @@
 			// background-color: @sand-spotlight-color;
 		}
 
-		.inputFieldIcon {
-			color: @sand-inputfield-text-color;
-		}
-
 		.focus({
 			color: @sand-inputfield-focus-text-color;
 
@@ -207,13 +197,11 @@
 		});
 
 		&:focus-within {
+			color: @sand-inputfield-focus-text-color;
+
 			.bg {
 				background-color: @sand-inputfield-active-bg-color;
 				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
-			}
-
-			.inputFieldIcon {
-				color: @sand-inputfield-focus-text-color;
 			}
 		}
 
@@ -223,8 +211,7 @@
 			.focus({
 				background-color: @sand-inputfield-disabled-focus-bg-color;
 
-				.input,
-				.inputFieldIcon {
+				.input {
 					.vendor-opacity(1);
 					color: @sand-inputfield-disabled-focus-text-color;
 
@@ -234,8 +221,7 @@
 				}
 			});
 
-			.input,
-			.inputFieldIcon {
+			.input {
 				.vendor-opacity(@sand-inputfield-disabled-opacity);
 				color: @sand-inputfield-disabled-text-color;
 			}
