@@ -84,7 +84,10 @@ const CheckboxBase = kind({
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({children, selected, styler}) => styler.append({
+			check: children === 'check',
+			selected
+		})
 	},
 
 	render: ({children, css, ...rest}) => {

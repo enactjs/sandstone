@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [Unreleased]
+
+### Fixed
+
+- `sandstone/Checkbox` styling
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed

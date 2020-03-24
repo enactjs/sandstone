@@ -29,6 +29,14 @@
 				@sand-checkbox-selected-bg-color,
 				@sand-checkbox-selected-border-color
 			);
+
+			&:not(.check) {
+				.checkboxColors(
+					@sand-checkbox-selected-no-check-color,
+					@sand-checkbox-selected-no-check-bg-color,
+					@sand-checkbox-selected-no-check-border-color
+				);
+			}
 		}
 
 		.focus({
@@ -44,6 +52,14 @@
 					@sand-checkbox-selected-focus-bg-color,
 					@sand-checkbox-selected-focus-border-color
 				);
+
+				&:not(.check) {
+					.checkboxColors(
+						@sand-checkbox-selected-no-check-focus-color,
+						@sand-checkbox-selected-no-check-focus-bg-color,
+						@sand-checkbox-selected-no-check-focus-border-color
+					);
+				}
 			}
 		});
 	});
@@ -65,6 +81,14 @@
 					@sand-checkbox-selected-focus-bg-color,
 					@sand-checkbox-selected-focus-border-color
 				);
+
+				&:not(.check) {
+					.checkboxColors(
+						@sand-checkbox-selected-no-check-focus-color,
+						@sand-checkbox-selected-no-check-focus-bg-color,
+						@sand-checkbox-selected-no-check-focus-border-color
+					);
+				}
 			}
 		});
 	}
