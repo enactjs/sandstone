@@ -24,7 +24,7 @@ const
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (size) => ({index, ...rest}) => {
 		return (
-			<Item {...rest} style={{height: size + 'px', margin: 0}}>
+			<Item {...rest} style={{height: size + 'px'}}>
 				{items[index]}
 			</Item>
 		);

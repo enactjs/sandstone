@@ -2,6 +2,7 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {dataIndexAttribute} from '../useScroll';
@@ -12,6 +13,7 @@ import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
+const fadeOutSize = 48;
 
 const
 	nop = () => {},
@@ -169,6 +171,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
+					optionalOffset: ri.scale(fadeOutSize),
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
