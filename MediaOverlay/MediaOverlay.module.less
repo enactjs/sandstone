@@ -21,64 +21,72 @@
 
 	.mediaContainer {
 		position: relative;
-
-		.media {
-			display: block;
-			position: relative; // it is for z-index;
-			width: 100%;
-			height: 100%;
-			margin: 0;
-		}
-
-		.image,
-		.textLayout {
-			position: absolute;
-			.position(0);
-		}
-
-		.textLayout {
-			margin: @sand-mediaoverlay-textlayout-margin;
-		}
-
-		.image {
-			margin: 0;
-			height: auto;
-			width: auto;
-		}
-
-		.text {
-			font-weight: @sand-mediaoverlay-font-weight;
-		}
-
-		.progressBar {
-			position: absolute;
-			.position(auto, 0, 0);
-			margin: 0 @sand-mediaoverlay-progressbar-margin-left-right @sand-mediaoverlay-progressbar-margin-bottom;
-		}
 	}
+
+    .media {
+        display: block;
+        position: relative; // it is for z-index;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
+
+    .image,
+    .textLayout {
+        position: absolute;
+        .position(0);
+    }
+
+    .textLayout {
+        margin: @sand-mediaoverlay-textlayout-margin;
+    }
+
+    .image {
+        margin: 0;
+        height: auto;
+        width: auto;
+    }
+
+    .text {
+        .sand-font({
+            font-size: @sand-mediaoverlay-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+        font-weight: @sand-mediaoverlay-font-weight;
+    }
+
+    .progressBar {
+        position: absolute;
+        .position(auto, 0, 0);
+        margin: 0 @sand-mediaoverlay-progressbar-margin-left-right @sand-mediaoverlay-progressbar-margin-bottom;
+    }
 
 	.captionContainer {
 		> :first-child {
 			margin-top: @sand-mediaoverlay-caption-margin-top;
 		}
+    }
 
-		.caption,
-		.subtitle {
-			.sand-font({
-				font-size: @sand-mediaoverlay-caption-font-size;
-				line-height: @sand-mediaoverlay-line-height;
-			});
-			font-size: @sand-mediaoverlay-caption-font-size;
-		}
+    .caption,
+    .subtitle {
+        .sand-font({
+            font-size: @sand-mediaoverlay-caption-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-caption-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+    }
 
-		.title {
-			.sand-font({
-				font-size: @sand-mediaoverlay-title-font-size;
-				line-height: @sand-mediaoverlay-line-height;
-			});
-			font-size: @sand-mediaoverlay-title-font-size;
-		}
-	}
+    .title {
+        .sand-font({
+            font-size: @sand-mediaoverlay-title-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-title-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+    }
 
 	.applySkins({
 		.bg {
