@@ -2,7 +2,15 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-alpha.5] - 2020-03-23
+
+### Removed
+
+- `sandstone` LESS mixins `.sand-spotlight-resting` and `.sand-spotlight-focus`, replacing them with `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` respectively
+
+### Changed
+
+- `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
 
 ### Changed
 
@@ -10,7 +18,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
+- `sandstone/Input.InputField` to show icons when focused
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
+- `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
+- `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
 
 ## [1.0.0-alpha.4] - 2020-03-17
@@ -23,7 +34,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling

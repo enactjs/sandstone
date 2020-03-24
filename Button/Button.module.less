@@ -28,8 +28,6 @@
 	.bg {
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
-
-		transition: transform @sand-button-focus-duration ease-out, filter @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -239,7 +237,9 @@
 
 		.bg {
 			border-color: transparent;
-			filter: drop-shadow(@sand-button-bg-shadow);
+			.sand-spotlight-resting-colors();
+			will-change+: transform;
+			transition+: transform @sand-button-focus-duration ease-out;
 		}
 
 		&.opaque {
@@ -247,6 +247,7 @@
 
 			.bg {
 				background-color: @sand-button-bg-color;
+				opacity: @sand-button-bg-opacity;
 			}
 		}
 
@@ -255,6 +256,7 @@
 
 			.bg {
 				background-color: @sand-button-transparent-bg-color;
+				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
 
@@ -272,18 +274,26 @@
 		}
 
 		.focus({
-			// The complexity below overrides the default high-contrast rules and applies
-			// non-high-contrast rules. The precedence for the general rule is too high for the
-			// basic button override rule to take effect, so we must overcome it by stacking more
-			// classes here.
-			&,
-			:global(.enact-a11y-high-contrast) &:not(:global(.highContrast)) {
-				color: @sand-button-focus-text-color;
-				background-color: transparent;
-			}
+			color: @sand-button-focus-text-color;
 
 			.bg {
-				background-color: @sand-button-focus-bg-color;
+				.sand-spotlight-focus-colors();
+			}
+
+			// The technique below is special handling for opaque buttons, which have an opaque
+			// color defined for the initial background-color. This means we can't use the
+			// traditional opacity change to animate the difference. Instead, this smoothly applies
+			// (via transition) a series of filters that match the spotlight-focus bg color. The
+			// values were manually calculated to perfectly match, taking the resting bg-color and
+			// adjusting it to become the focus-bg-color. If either color value changes, these
+			// adjustments must be recalculated. This is not automatic. It may be possible to
+			// autonomously calculate this in the future...
+			&.opaque {
+				.bg {
+					.sand-spotlight-focus-colors();
+					background-color: @sand-button-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+					filter+_: saturate(0) brightness(1.89);
+				}
 			}
 		});
 
@@ -294,11 +304,23 @@
 
 				.bg {
 					transform: @sand-button-focus-bg-transform;
-					filter: drop-shadow(@sand-button-focus-bg-shadow);
 				}
 
 				&.small .bg {
 					transform: @sand-button-small-focus-bg-transform;
+				}
+
+				&.pressed,
+				&:active {
+					.bg {
+						transform: @sand-button-pressed-bg-transform;
+					}
+
+					&.small {
+						.bg {
+							transform: @sand-button-small-pressed-bg-transform;
+						}
+					}
 				}
 			});
 		}

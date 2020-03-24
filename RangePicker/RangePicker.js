@@ -19,6 +19,8 @@ import React from 'react';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
+import css from './RangePicker.module.less';
+
 const digits = (num) => {
 	// minor optimization
 	return	num > -10 && num < 10 && 1 ||
@@ -229,6 +231,11 @@ const RangePickerBase = kind({
 		wrap: PropTypes.bool
 	},
 
+	styles: {
+		css,
+		className: 'rangePicker'
+	},
+
 	computed: {
 		disabled: ({disabled, max, min}) => min >= max ? true : disabled,
 		label: ({max, min, padded, value}) => {
@@ -258,7 +265,7 @@ const RangePickerBase = kind({
 	render: ({label, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
-			<Picker {...rest} data-webos-voice-labels-ext={voiceLabel} index={0} value={value} reverse={false}>
+			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} value={value} reverse={false}>
 				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 			</Picker>
 		);
