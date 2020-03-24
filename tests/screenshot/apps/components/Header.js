@@ -4,34 +4,7 @@ import Steps from '../../../../Steps';
 import Input from '../../../../Input';
 import React from 'react';
 
-const withProps = (props, tests) => {
-	return tests.map(t => {
-		if (React.isValidElement(t)) {
-			return React.cloneElement(t, props);
-		}
-
-		return {
-			...t,
-			component: React.cloneElement(t.component, props)
-		};
-	});
-};
-
-const withConfig = (config, tests) => {
-	return tests.map(t => {
-		if (React.isValidElement(t)) {
-			return {
-				...config,
-				component: t
-			};
-		}
-
-		return {
-			...t,
-			...config
-		};
-	});
-};
+import {withConfig, withProps} from './utils';
 
 const baseTests = [
 	<Header type="standard" title="Title" />,

@@ -12,16 +12,38 @@ describe('TabLayout', function () {
 
 	describe('default', function () {
 
-		// this covers GT-28261
-		it('should render a tab\'s associated view when it is selected', function () {
-			const expected = 'view5';
-			const originalView = tabLayout.currentView.getAttribute('id');
+		describe('view navigation behavior', function () {
 
-			expect(originalView).to.equal('view1');
-			tabLayout.tabItems[4].click();
-			const actual = tabLayout.currentView.getAttribute('id');
+			describe('5-way interaction', function () {
 
-			expect(actual).to.equal(expected);
+				it('should render a tab\'s associated view when it is focused via 5-way move', function () {
+					const expected = 'view2';
+					const originalView = tabLayout.currentView.getAttribute('id');
+
+					expect(originalView).to.equal('view1');
+					Page.spotlightDown();
+					Page.waitForExist(`#${expected}`);
+					const actual = tabLayout.currentView.getAttribute('id');
+
+					expect(actual).to.equal(expected);
+				});
+			});
+
+			describe('pointer interaction', function () {
+
+				// this covers GT-28261
+				it('should render a tab\'s associated view when it is selected via pointer click', function () {
+					const expected = 'view5';
+					const originalView = tabLayout.currentView.getAttribute('id');
+
+					expect(originalView).to.equal('view1');
+					tabLayout.tabItems[4].click();
+					Page.waitForExist(`#${expected}`);
+					const actual = tabLayout.currentView.getAttribute('id');
+
+					expect(actual).to.equal(expected);
+				});
+			});
 		});
 	});
 });
