@@ -1,6 +1,6 @@
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {shape} from '@enact/ui/ViewManager';
+import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -41,6 +41,7 @@ const PanelsBase = kind({
 		 *
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
+		 * @default {@link ui/ViewManager.SlideLeftArranger}
 		 * @public
 		 */
 		arranger: shape,
@@ -112,6 +113,7 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
+		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false,
 		noSharedState: false

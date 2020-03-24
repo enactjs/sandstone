@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
-import ViewManager, {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -71,7 +71,6 @@ const ViewportBase = class extends React.Component {
 	}
 
 	static defaultProps = {
-		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false
 	}

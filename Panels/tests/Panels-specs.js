@@ -3,10 +3,6 @@ import {mount} from 'enzyme';
 
 import {Panels} from '../Panels';
 
-
-// 2019-04-11 - Skipped tests here are avoiding a Hooks testing issue. At this time, enzyme does not
-// properly test hooks, specifically the useCallback method.
-
 describe('Panels Specs', () => {
 
 	test(
@@ -38,8 +34,6 @@ describe('Panels Specs', () => {
 					<Panel id="p2" />
 				</Panels>
 			);
-
-			console.log(panels.debug());
 
 			panels.setProps({
 				index: 1
