@@ -2,6 +2,10 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+### Fixed
+
+- `sandstone/Input` to change the keypad width for resolve layout broken in overlay popup
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed
