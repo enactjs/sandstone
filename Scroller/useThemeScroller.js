@@ -1,14 +1,106 @@
+import {adaptEvent, forward, handle} from '@enact/core/handle';
+import {add, is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
+import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
+import thumbCss from '../useScroll/ScrollThumb.module.less';
 
-const fadeoutSize = 48;
+add('esc', 27);
+
+const
+	fadeoutSize = 48,
+	isEsc = is('esc'),
+	isEnter = is('enter'),
+	isBody = (elem) => (elem.classList.contains(css.focusableBody));
+
+const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
+	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
+
+	const setNavigableFilter = ({filterTarget}) => {
+		if (spotlightId && filterTarget) {
+			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
+			Spotlight.set(spotlightId, {
+				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
+			});
+			return true;
+		}
+	};
+
+	const getNavigableFilterTarget = (ev) => {
+		const {keyCode, target, type} = ev;
+		let filterTarget = null;
+
+		if (type === 'focus') {
+			filterTarget = isBody(target) ? 'thumb' : 'body';
+		} else if (type === 'blur') {
+			filterTarget = 'thumb';
+		} else if (type === 'keydown') {
+			filterTarget =
+				isEnter(keyCode) && isBody(target) && 'body' ||
+				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				null;
+		}
+
+		return {
+			filterTarget
+		};
+	};
+
+	const consumeEventWithFocus = (ev) => {
+		const {target} = ev;
+		let nextTarget;
+
+		if (isBody(target)) {
+			// Enter key on scroll Body.
+			// Scroll thumb get focus.
+			const spottableDescendants = Spotlight.getSpottableDescendants(spotlightId);
+			if (spottableDescendants.length > 0) {
+				// Last spottable descendant(thumb) get focus.
+				nextTarget = spottableDescendants.pop();
+
+				// If there are both thumbs, vertical thumb is the next target
+				const verticalThumb = spottableDescendants.pop();
+				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
+			}
+		} else {
+			// Esc key on scroll thumb.
+			// Scroll body get focus.
+			nextTarget = target.closest(`.${css.focusableBody}`);
+		}
+
+		if (nextTarget) {
+			Spotlight.focus(nextTarget);
+			ev.preventDefault();
+			ev.nativeEvent.stopImmediatePropagation();
+		}
+	};
+
+	return {
+		className: classNames(className, css.focusableBody),
+		onFocus: handle(
+			forward('onFocus'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onBlur: handle(
+			// Focus out to external element.
+			forward('onBlur'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+		),
+		onKeyDown: handle(
+			forward('onKeyDown'),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			consumeEventWithFocus
+		),
+		style
+	};
+};
 
 const useSpottable = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
@@ -111,7 +203,7 @@ const useSpottable = (props, instances) => {
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
-		// itme itself is in view (e.g. due to margins)
+		// item itself is in view (e.g. due to margins)
 		const isItemBeforeView = (ib, sb, d) => ib.top + d - threshold < sb.top;
 		const isItemAfterView = (ib, sb, d) => ib.top + d + ib.height + threshold > sb.top + sb.height;
 		const canItemFit = (ib, sb) => ib.height <= sb.height;
@@ -262,41 +354,41 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = (props) => {
-	const {scrollContainerRef, ...rest} = props;
+const useThemeScroller = (props, scrollContentProps) => {
+	const {scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
-	delete rest.scrollContainerRef;
 	delete rest.scrollContentHandle;
 	delete rest.setThemeScrollContentHandle;
 	delete rest.spotlightId;
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(props, scrollContainerRef) : {};
 
 	useEffect(() => {
-		props.setThemeScrollContentHandle({
+		scrollContentProps.setThemeScrollContentHandle({
 			calculatePositionOnFocus,
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, props, props.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
 
 	rest.children = (
 		<div className={css.contentWrapper}>
-			{props.children}
+			{scrollContentProps.children}
 		</div>
 	);
 	rest.getContentSize = getContentSize;
 
-	return rest;
+	return {focusableBodyProps, themeScrollContentProps: rest};
 };
 
 export default useThemeScroller;
