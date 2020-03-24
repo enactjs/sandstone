@@ -1672,9 +1672,6 @@ const VideoPlayerBase = class extends React.Component {
 			Spotlight.setPointerMode(false);
 			preventDefault(ev);
 			stopImmediate(ev);
-
-			this.handleSliderBlur();
-			this.hideControls();
 		}
 	}
 
