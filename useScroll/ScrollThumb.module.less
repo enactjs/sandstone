@@ -16,6 +16,17 @@
 	width: 100%;
 	background-color: @sand-scrolltrack-bg-color;
 	border-radius: @sand-scrolltrack-border-radius;
+	opacity: 0;
+	transition: opacity 100ms linear;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.focusableScrollbar {
+		// Always show the scrollbar
+		opacity: 1;
+	}
 
 	.thumb {
 		background: @sand-scrollthumb-bg-color;
