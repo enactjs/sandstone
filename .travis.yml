@@ -5,7 +5,7 @@ sudo: false
 cache: npm
 install:
     - npm config set prefer-offline true
-    - npm install -g enactjs/cli#develop
+    - npm install -g enactjs/cli#feature/remove-shrinkwrap
     - npm install -g codecov
     - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
