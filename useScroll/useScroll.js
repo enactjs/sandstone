@@ -124,15 +124,21 @@ const useThemeScroll = (props, instances) => {
 		}
 	}
 
-	function applyFadeoutEffect (curVal, value, maxVal) {
-		if (curVal === 0 && value > 0) {
+	function applyFadeoutEffect (prevVal, value, maxVal) {
+		// Show backward fadeout if prevVal is leaving 0 position
+		// Hide backward fadeout if value is coming to 0 position
+		if (prevVal === 0 && value > 0) {
 			scrollContentRef.current.style.setProperty('--scroll-fadeout-backward-size', fadeOutSize + 'px');
-		} else if (curVal < maxVal && value === maxVal) {
-			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', 0);
-		} else if (curVal === maxVal && value < maxVal) {
-			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', fadeOutSize + 'px');
-		} else if (curVal < maxVal && value === 0) {
+		} else if (prevVal <= maxVal && value <= 0) {
 			scrollContentRef.current.style.setProperty('--scroll-fadeout-backward-size', 0);
+		}
+
+		// Show forward fadeout if prevVal is leaving maxVal position
+		// Hide forward fadeout if value is coming to maxVal position
+		if (prevVal === maxVal && value < maxVal) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', fadeOutSize + 'px');
+		} else if (prevVal <= maxVal && value >= maxVal) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', -fadeOutSize + 'px');
 		}
 	}
 
