@@ -25,7 +25,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, scrollContainerRef, style}) => {
+const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -291,7 +291,7 @@ const focusableBodyMachine = Machine({
 // 		.onTransition(state => console.log(JSON.stringify(state.value)))
 // 		.start();
 
-const useFocusableBodyProps = ({className, scrollContainerRef, style}) => {
+const useFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	// const mutableRef = useRef();
@@ -590,8 +590,8 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = ({className, focusableScrollbar, style}, props) => {
-	const {scrollContainerRef, ...rest} = props;
+const useThemeScroller = (props, scrollContentProps) => {
+	const {scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
@@ -605,23 +605,23 @@ const useThemeScroller = ({className, focusableScrollbar, style}, props) => {
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(props, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	// const focusableBodyProps = (focusableScrollbar === 'byEnter') ? getFocusableBodyProps({className, scrollContainerRef, style}) : {};
-	const focusableBodyProps = useFocusableBodyProps({className, scrollContainerRef, style});
+	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	// const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(props, scrollContainerRef) : {};
+	const focusableBodyProps = useFocusableBodyProps(props, scrollContainerRef);
 
 	useEffect(() => {
-		props.setThemeScrollContentHandle({
+		scrollContentProps.setThemeScrollContentHandle({
 			calculatePositionOnFocus,
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, props, props.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
 
 	rest.children = (
 		<div className={css.contentWrapper}>
-			{props.children}
+			{scrollContentProps.children}
 		</div>
 	);
 	rest.getContentSize = getContentSize;
