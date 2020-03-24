@@ -1,4 +1,5 @@
 // Sandstone
+import ActionGuide from '../../../ActionGuide';
 import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
@@ -39,8 +40,10 @@ import TimePicker from '../../../TimePicker';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
+import {WizardPanel} from '../../../Panels';
 
 const components = {
+	ActionGuide,
 	BodyText,
 	Button,
 	Checkbox,
@@ -82,7 +85,8 @@ const components = {
 	TimePicker,
 	TooltipDecorator,
 	VideoPlayer,
-	VirtualList
+	VirtualList,
+	WizardPanel
 };
 
 export default components;
