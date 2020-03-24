@@ -6,7 +6,6 @@
 
 .picker {
 	display: inline-block;
-	border-radius: @sand-button-small-height;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -30,8 +29,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		vertical-align: bottom;
-		line-height: @sand-button-small-height;
-		height: @sand-button-small-height;
+		height: @sand-picker-value-height;
+		line-height: @sand-picker-value-height;
 	}
 
 	.incrementer,
@@ -65,6 +64,43 @@
 		}
 		.valueWrapper {
 			order: 2;
+			position: relative;
+
+			.item {
+				transform: translateX(100%);
+			}
+		}
+
+		&.small,
+		&.medium,
+		&.large {
+			.valueWrapper {
+
+				.item {
+					position: absolute;
+					.position(0);
+					transform: translateX(100%);
+				}
+			}
+		}
+	}
+
+	&.vertical {
+		.valueWrapper {
+			display: block;
+			position: relative;
+			line-height: @sand-picker-value-height;
+
+			.sizingPlaceholder,
+			.item {
+				margin: 0 @sand-spotlight-outset;
+			}
+
+			.item {
+				position: absolute;
+				.position(0);
+				transform: translateY(100%);
+			}
 		}
 	}
 
@@ -73,12 +109,14 @@
 		@joined-arrow-transform-focus: scale(0.95);
 		@joined-arrow-transform-active: @joined-arrow-transform-resting;
 
-		&::before {
-			.position(0);
-
+		&::before,
+		&::after {
 			content: "";
-			display: block;
 			position: absolute;
+			.position(0);
+		}
+
+		&::after {
 			border-width: 0;
 			border-style: solid;
 			border-radius: inherit;
@@ -93,6 +131,11 @@
 			line-height: @sand-button-small-height;
 		}
 
+		.valueWrapper {
+			height: @sand-picker-value-height;
+			line-height: @sand-picker-value-height;
+		}
+
 		.incrementer,
 		.decrementer {
 			will-change: transform;
@@ -100,6 +143,84 @@
 
 			&.hidden {
 				visibility: hidden;
+			}
+		}
+
+		&.horizontal {
+			height: @sand-picker-joined-horizontal-height;
+			line-height: @sand-picker-joined-horizontal-height;
+
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-horizontal-border-radius;
+			}
+
+
+			.valueWrapper {
+				height: @sand-picker-joined-horizontal-value-line-height;
+				line-height: @sand-picker-joined-horizontal-value-line-height;
+			}
+
+			&.incrementing::after {
+				border-right-width: @sand-integer-picker-shadow-width;
+			}
+			&.decrementing::after {
+				border-left-width: @sand-integer-picker-shadow-width;
+			}
+			.incrementer,
+			.decrementer {
+				margin: 0;
+				height: @sand-picker-joined-horizontal-height;
+				line-height: @sand-picker-joined-horizontal-height;
+
+				.icon {
+					visibility: hidden;
+				}
+			}
+
+			.indicatorContainer {
+				position: absolute;
+				bottom: @sand-picker-indicator-bottom;
+				left: 50%;
+				transform: translateX(-50%);
+				margin: 0 auto;
+				line-height: 0;
+				white-space: nowrap;
+
+				.indicator {
+					display: inline-block;
+					width: @sand-picker-indicator-width;
+					height: @sand-picker-indicator-height;
+					margin: @sand-picker-indicator-margin;
+					border-radius: @sand-picker-indicator-border-radius;
+					transform: scale(@sand-picker-indicator-inactive-scale);
+					vertical-align: middle;
+					will-change: transform;
+					transition: transform @sand-picker-focus-duration ease-out;
+
+					&.active {
+						transform: scale(@sand-picker-indicator-active-scale);
+					}
+				}
+			}
+		}
+
+		&.vertical {
+			&::before,
+			&::after {
+				border-radius: @sand-picker-joined-vertical-border-radius;
+			}
+
+
+			&.incrementing::after {
+				border-top-width: @sand-integer-picker-shadow-width;
+			}
+			&.decrementing::after {
+				border-bottom-width: @sand-integer-picker-shadow-width;
+			}
+			.incrementer,
+			.decrementer {
+				display: block;
 			}
 		}
 
@@ -121,76 +242,16 @@
 				}
 			});
 		});
-
-		&.horizontal {
-			&.incrementing::before {
-				border-right-width: @sand-integer-picker-shadow-width;
-			}
-			&.decrementing::before {
-				border-left-width: @sand-integer-picker-shadow-width;
-			}
-			.incrementer,
-			.decrementer {
-				margin: 0;
-				height: @sand-button-small-height;
-				line-height: @sand-button-small-height;
-			}
-		}
-
-		&.vertical {
-			&.incrementing::before {
-				border-top-width: @sand-integer-picker-shadow-width;
-			}
-			&.decrementing::before {
-				border-bottom-width: @sand-integer-picker-shadow-width;
-			}
-			.incrementer,
-			.decrementer {
-				display: block;
-			}
-		}
 	}
 
 	&.small .valueWrapper {
 		width: (@sand-icon-large-size + @sand-spotlight-outset*3);
 	}
 	&.medium .valueWrapper {
-		width: 360px;
+		width: @sand-picker-medium-value-width;
 	}
 	&.large .valueWrapper {
-		width: 600px;
-	}
-
-	&.horizontal {
-		&.small,
-		&.medium,
-		&.large {
-			.valueWrapper {
-				position: relative;
-
-				.item {
-					position: absolute;
-					.position(0);
-					transform: translateX(100%);
-				}
-			}
-		}
-	}
-
-	&.vertical .valueWrapper {
-		display: block;
-		position: relative;
-
-		.sizingPlaceholder,
-		.item {
-			margin: 0 @sand-spotlight-outset;
-		}
-
-		.item {
-			position: absolute;
-			.position(0);
-			transform: translateY(100%);
-		}
+		width: @sand-picker-large-value-width;
 	}
 
 	// Skin colors
@@ -206,27 +267,67 @@
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-			background-color: @sand-picker-joined-bg-color;
 
-			&::before {
+
+			&::after {
 				border-color: @sand-picker-joined-fingernail-border-color;
 			}
 
+			&.horizontal {
+				&::before {
+					.sand-spotlight-resting-colors(1);
+					background-color: @sand-picker-joined-horizontal-bg-color;
+				}
+
+				.indicator {
+					background-color: @sand-picker-indicators-inactive-bg-color;
+
+					&.active {
+						background-color: @sand-picker-indicators-active-bg-color;
+					}
+				}
+			}
+
+			&.vertical {
+				&::before {
+					.sand-spotlight-resting-colors();
+				}
+			}
+
 			.focus({
-				background-color: @sand-picker-joined-focused-bg-color;
-				color: @sand-spotlight-text-color;
+				color: @sand-picker-focus-text-color;
+
+				&.horizontal {
+					&::before {
+						.sand-spotlight-focus-colors();
+						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+						filter+_: saturate(0) brightness(1.89);
+					}
+				}
+
+				&.vertical {
+					&::before {
+						.sand-spotlight-focus-colors();
+					}
+				}
 
 				.disabled({
 					color: @sand-spotlight-disabled-text-color;
 				});
-			});
+
+				.indicator {
+					background-color: @sand-picker-indicators-inactive-focus-bg-color;
+
+					&.active {
+						background-color: @sand-picker-indicators-active-focus-bg-color;
+					}
+				}
+			})
 		}
 	});
 
 	// Large-text mode rules
 	.sand-custom-text({
-		border-radius: @sand-button-small-height-large;
-
 		.sizingPlaceholder,
 		.valueWrapper {
 			font-size: @sand-item-font-size-large;
@@ -284,8 +385,13 @@
 		.applySkins({
 			&.joined {
 				.focus({
-					background-color: transparent;
-					color: @sand-picker-text-color;
+					color: @sand-picker-joined-text-color;
+
+					&.horizontal {
+						&::before {
+							background-color: @sand-picker-joined-horizontal-bg-color;
+						}
+					}
 
 					.incrementer,
 					.decrementer {

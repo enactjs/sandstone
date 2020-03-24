@@ -1,0 +1,263 @@
+// Input.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.input {
+	.sand-body-text();
+
+	padding: 0;
+	border: 0;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex-grow: 1;
+	text-indent: @sand-inputfield-text-indent;
+
+	&[type=number] {
+		-moz-appearance: textfield;
+
+		&::-webkit-inner-spin-button,
+		&::-webkit-outer-spin-button {
+			-webkit-appearance: none;
+		}
+
+		&:hover {
+			-moz-appearance: none;
+		}
+	}
+
+	&[placeholder] {
+		text-overflow: ellipsis;
+	}
+
+	.focus({
+		cursor: text;
+	});
+
+	.disabled({
+		cursor: default;
+	});
+
+	:global(.enact-locale-right-to-left) & {
+		text-align: right;
+	}
+}
+
+.inputField {
+	display: inline-flex;
+	position: relative;
+	padding: @sand-inputfield-padding;
+	margin: @sand-inputfield-margin;
+	box-sizing: border-box;
+	vertical-align: middle;
+
+	.bg {
+		position: absolute;
+		.position(0);
+		border-radius: @sand-inputfield-border-radius;
+		transition: transform @sand-inputfield-focus-duration ease-out, filter @sand-inputfield-focus-duration ease-out;
+		will-change: transform, filter;
+	}
+
+	.input,
+	.inputHighlight {
+		z-index: 1;
+		font-size: @sand-input-font-size;
+		font-weight: @sand-inputfield-font-weight;
+	}
+
+	.input,
+	.inputHighlight,
+	.iconBefore,
+	.iconAfter {
+		line-height: @sand-inputfield-height;
+		height: @sand-inputfield-height;
+		vertical-align: middle;
+	}
+
+	.inputHighlight {
+		position: absolute;
+		top: 0;
+		height: @sand-inputfield-highlight-height;
+		max-width: @sand-inputfield-highlight-max-width;
+		overflow: hidden;
+		letter-spacing: 0.1px;
+		pointer-events: none;
+		opacity: 0;
+		z-index: -1;
+	}
+
+	&.small {
+		height: @sand-inputfield-small-height;
+
+		.iconBefore,
+		.iconAfter {
+			line-height: @sand-inputfield-small-height;
+			height: @sand-inputfield-small-height;
+		}
+
+		.input {
+			font-size: @sand-inputfield-small-font-size;
+			height: @sand-inputfield-small-height;
+		}
+
+		.inputHighlight {
+			line-height: @sand-inputfield-small-height;
+			height: @sand-inputfield-small-height;
+			max-width: @sand-inputfield-highlight-small-max-width;
+		}
+	}
+
+	.iconBefore,
+	.iconAfter {
+		flex: 0 0;
+	}
+
+	.iconAfter {
+		.padding-start-end(@sand-inputfield-icon-spacing, 0);
+	}
+
+	.iconBefore {
+		.padding-start-end(0, @sand-inputfield-icon-spacing);
+	}
+
+	// RIGBY NOTE: multiline is a NOT YET IMPLEMENTED feature that combines <input> and <textarea>
+	// into one control, to simplify input handling.
+	&.multiline {
+		display: block;
+		padding: 24px 36px;
+		border-radius: 24px;
+	}
+
+	// an Input that isn't spottable is behaviorly disabled but not visually
+	&:not(:global(.spottable)) .input {
+		pointer-events: none;
+	}
+
+	// Skin colors
+	.applySkins({
+		color: @sand-inputfield-text-color;
+
+		.bg {
+			background-color: @sand-inputfield-bg-color;
+		}
+
+		.input {
+			background: transparent;
+			color: inherit;
+
+			.input-placeholder({
+				.vendor-opacity(@sand-inputfield-placeholder-opacity);
+				color: @sand-inputfield-placeholder-color;
+			});
+
+			&:focus-within {
+				color: @sand-inputfield-focus-text-color;
+
+				.input-placeholder({
+					color: @sand-inputfield-placeholder-active-color;
+				});
+			}
+		}
+
+		&.invalid input {
+			color: @sand-red;
+		}
+
+		.inputHighlight {
+			color: transparent;
+			background-color: transparent;
+			// Set `.inputHighlight` background color to make it appear that the text is highlighted
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
+			// background-color: @sand-spotlight-color;
+		}
+
+		.focus({
+			color: @sand-inputfield-focus-text-color;
+
+			.bg {
+				background-color: @sand-inputfield-focus-bg-color;
+				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
+			}
+
+			.input {
+				.input-placeholder({
+					color: @sand-inputfield-placeholder-focus-color;
+				});
+			}
+
+			// Set `.inputHighlight` opacity to make it appear that the text is highlighted
+			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
+			// .inputHighlight {
+			// 	opacity: 1;
+			// }
+		});
+
+		&:focus-within {
+			color: @sand-inputfield-focus-text-color;
+
+			.bg {
+				background-color: @sand-inputfield-active-bg-color;
+				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
+			}
+		}
+
+		.disabled({
+			.vendor-opacity(@sand-inputfield-disabled-opacity);
+
+			.focus({
+				background-color: @sand-inputfield-disabled-focus-bg-color;
+
+				.input {
+					.vendor-opacity(1);
+					color: @sand-inputfield-disabled-focus-text-color;
+
+					.input-placeholder({
+						.vendor-opacity(@sand-inputfield-disabled-opacity);
+					});
+				}
+			});
+
+			.input {
+				.vendor-opacity(@sand-inputfield-disabled-opacity);
+				color: @sand-inputfield-disabled-text-color;
+			}
+
+			.input {
+				.input-placeholder({
+					.vendor-opacity(1);
+					color: @sand-inputfield-placeholder-disabled-color;
+				});
+			}
+		});
+	});
+}
+
+.invalidTooltip {
+	top: 50%;
+	left: auto;
+	right: 0;
+	pointer-events: none;
+	transform: translate(100%, -100%) translateX(@sand-inputfield-tooltip-offset);
+
+	:global(.enact-locale-right-to-left) & {
+		left: 0;
+		right: auto;
+		transform: translate(-100%, -100%) translateX(-@sand-inputfield-tooltip-offset);
+	}
+}
+
+.muted({
+	.inputField {
+		.applySkins({
+			.focus({
+				.bg {
+					background-color: @sand-inputfield-bg-color;
+				}
+			});
+		});
+	}
+});

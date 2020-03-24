@@ -3,12 +3,11 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
 import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
-import {VirtualGridList, VirtualListBasic} from '@enact/sandstone/VirtualList';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
 	wrapOption = {
@@ -18,7 +17,8 @@ const
 	},
 	prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -63,7 +63,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, UiScrollableBasic, VirtualListBasic);
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -78,9 +78,11 @@ storiesOf('Sandstone', module)
 					minWidth: ri.scale(number('minWidth', 640)),
 					minHeight: ri.scale(number('minHeight', 540))
 				}}
+				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				spacing={ri.scale(number('spacing', 48))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}

@@ -1,38 +1,57 @@
 // RadioItem.module.less
 //
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 @import "../styles/mixins.less";
+@import "../styles/skin.less";
+
+// Local mixin to make rule application more consistent.
+.radioIconColors (@color, @bg, @border) {
+	color: @color;
+	background-color: @bg;
+	box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @border;
+}
 
 .radioItem {
+	.icon {
+		margin: 0;
+	}
+
 	.applySkins({
 		.icon {
-			color: @sand-radioitem-indicator-color;
-			background-color: @sand-radioitem-indicator-bg-color;
-			box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-indicator-border-color;
+			.radioIconColors(
+				@sand-radioitem-indicator-color,
+				@sand-radioitem-indicator-bg-color,
+				@sand-radioitem-indicator-border-color
+			);
 			border-radius: @sand-radioitem-indicator-border-radius;
 		}
 
 		&.selected {
 			.icon {
-				color: @sand-radioitem-selected-indicator-color;
-				background-color: @sand-radioitem-selected-indicator-bg-color;
-				box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-selected-indicator-border-color;
+				.radioIconColors(
+					@sand-radioitem-selected-indicator-color,
+					@sand-radioitem-selected-indicator-bg-color,
+					@sand-radioitem-selected-indicator-border-color
+				);
 			}
 		}
 
 		.focus({
 			.icon {
-				color: @sand-radioitem-focus-indicator-color;
-				background-color: @sand-radioitem-focus-indicator-bg-color;
-				box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-focus-indicator-border-color;
+				.radioIconColors(
+					@sand-radioitem-focus-indicator-color,
+					@sand-radioitem-focus-indicator-bg-color,
+					@sand-radioitem-focus-indicator-border-color
+				);
 			}
 
 			&.selected {
 				.icon {
-					color: @sand-radioitem-selected-focus-indicator-color;
-					background-color: @sand-radioitem-selected-focus-indicator-bg-color;
-					box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @sand-radioitem-selected-focus-indicator-border-color;
+					.radioIconColors(
+						@sand-radioitem-selected-focus-indicator-color,
+						@sand-radioitem-selected-focus-indicator-bg-color,
+						@sand-radioitem-selected-focus-indicator-border-color
+					);
 				}
 			}
 		});

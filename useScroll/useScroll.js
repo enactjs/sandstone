@@ -1,3 +1,12 @@
+/**
+ * Sandstone-themed scrollable hook and behaviors.
+ *
+ * @module sandstone/useScroll
+ * @exports dataIndexAttribute
+ * @exports useScroll
+ * @private
+ */
+
 import {forward} from '@enact/core/handle';
 import platform from '@enact/core/platform';
 import Spotlight from '@enact/spotlight';
@@ -5,14 +14,12 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
-import {useScrollContentHandle} from '@enact/ui/useScroll/useScrollContentHandle';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
-import ScrollableBasic from './ScrollableBasic';
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
 import {
 	useEventFocus, useEventKey, useEventMonitor, useEventMouse,
@@ -20,7 +27,7 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
-import {setFocusableBodyProps, useSpotlightRestore} from './useSpotlight';
+import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
@@ -50,9 +57,9 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 	return getIntersectingElement(target, container);
 };
 
-const useThemeScroll = (props, instances, context, assignProperties) => {
+const useThemeScroll = (props, instances) => {
+	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
-	const {scrollMode} = context;
 	const contextSharedState = useContext(SharedState);
 
 	// Mutable value
@@ -74,25 +81,21 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 
 	useSpotlightRestore(props, instances);
 
-	if (props.focusableScrollbar === 'byEnter') {
-		setFocusableBodyProps(props, instances, assignProperties);
-	}
-
 	const {
 		applyOverscrollEffect,
 		checkAndApplyOverscrollEffectByDirection,
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances, {scrollMode});
+	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling, scrollMode});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling});
 
-	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent, scrollMode});
+	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
 	useEventMonitor({}, instances, {lastPointer, scrollByPageOnPointerMode});
 
-	const {handleFlick, handleMouseDown} = useEventMouse({}, instances, {scrollMode});
+	const {handleFlick, handleMouseDown} = useEventMouse({}, instances);
 
 	const {handleTouchStart} = useEventTouch();
 
@@ -244,6 +247,14 @@ const useThemeScroll = (props, instances, context, assignProperties) => {
 	};
 };
 
+/**
+ * A custom hook that passes Sandstone-themed scrollable behavior information as its render prop.
+ *
+ * @class
+ * @memberof sandstone/useScroll
+ * @ui
+ * @private
+ */
 const useScroll = (props) => {
 	const
 		{
@@ -260,7 +271,9 @@ const useScroll = (props) => {
 	// Mutable value
 
 	const scrollContainerRef = useRef();
+	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
+	const itemRefs = useRef([]);
 
 	const overscrollRefs = {
 		horizontal: React.useRef(),
@@ -309,8 +322,6 @@ const useScroll = (props) => {
 		scrollContainerHandle.current = handle;
 	};
 
-	const [scrollContentHandle, setScrollContentHandle] = useScrollContentHandle();
-
 	// Hooks
 
 	const instance = {
@@ -348,7 +359,7 @@ const useScroll = (props) => {
 		scrollTo,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
-	} = useThemeScroll(props, instance, {scrollMode}, assignProperties);
+	} = useThemeScroll(props, instance);
 
 	// Render
 
@@ -380,7 +391,6 @@ const useScroll = (props) => {
 		onWheel: handleWheel,
 		removeEventListeners,
 		scrollTo,
-		setScrollContentHandle,
 		setScrollContainerHandle,
 		scrollMode,
 		scrollContentHandle,
@@ -393,7 +403,7 @@ const useScroll = (props) => {
 		className: [
 			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
-			scrollContainerHandle.current.rtl ? css.rtl : null,
+			props.rtl ? css.rtl : null,
 			overscrollCss.scroll,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
@@ -410,7 +420,7 @@ const useScroll = (props) => {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
-			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+			isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : null
 		],
 		ref: overscrollRefs.vertical
 	});
@@ -421,12 +431,14 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
+		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
+		scrollContainerRef,
 		setThemeScrollContentHandle,
 		spotlightId,
 		scrollContainerHandle,
@@ -451,6 +463,7 @@ const useScroll = (props) => {
 	return {
 		...collectionOfProperties,
 		scrollContentWrapper,
+		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	};
@@ -459,6 +472,5 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
-	ScrollableBasic,
 	useScroll
 };

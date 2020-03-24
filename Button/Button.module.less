@@ -28,8 +28,6 @@
 	.bg {
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
-
-		transition: transform @sand-button-focus-duration ease-out, filter @sand-button-focus-duration ease-out;
 	}
 
 	.client {
@@ -47,24 +45,6 @@
 		padding: 0 @sand-button-with-icon-h-padding;
 	}
 
-	// IconButton rules
-	&.iconOnly {
-		&.iconAfter,
-		&.iconBefore,
-		&.large,
-		&.small {
-			padding: @sand-button-icon-small-padding;
-
-			.icon {
-				margin: 0; // reset margins for `IconButton`
-			}
-		}
-
-		&.large {
-			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
-		}
-	}
-
 	&.iconAfter {
 		.client {
 			flex-direction: row-reverse;
@@ -72,6 +52,46 @@
 
 		.icon {
 			.margin-start-end(@sand-button-icon-position-after-margin-start, @sand-button-icon-position-after-margin-end);
+		}
+	}
+
+	&.red,
+	&.green,
+	&.yellow,
+	&.blue {
+		.padding-start-end(@sand-button-colordot-padding-start, @sand-button-h-padding);
+
+		// IconButton-like Button scenario
+		.client::before {
+			// Colored under-bar
+			content: "";
+			position: absolute;
+			bottom: @sand-button-colordot-bottom;
+			left: 50%;
+			width: @sand-button-colordot-width;
+			height: @sand-button-colordot-height;
+			border-radius: @sand-button-colordot-border-radius;
+			transform: translate(-50%, 50%);
+		}
+
+		// Standard Button Scenario
+		&.minWidth {
+			// Update icon's margin to allow more room for the colordot
+			.icon {
+				-webkit-margin-start: 0;
+			}
+
+			.client {
+				-webkit-margin-start: @sand-button-colordot-width;
+				-webkit-padding-start: @sand-button-colordot-h-margin; // The gap between the color-dot and the content matches the space between the regular icon and the text
+
+				&::before {
+					// Colored side-bar
+					bottom: 50%;
+					transform: translateY(50%);
+					.position-start-end(-@sand-button-colordot-width, initial);
+				}
+			}
 		}
 	}
 
@@ -112,13 +132,49 @@
 		}
 
 		.icon {
-			font-size: @sand-button-icon-small-font-size;
 			.margin-start-end(@sand-button-icon-small-margin-start, @sand-button-icon-small-margin-end);
 		}
 
 		&.iconAfter {
 			.icon {
 				.margin-start-end(@sand-button-icon-position-after-small-margin-start, @sand-button-icon-position-after-small-margin-end);
+			}
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.padding-start-end(@sand-button-small-colordot-padding-start, @sand-button-small-h-padding);
+
+			// IconButton-like Button scenario
+			.client::before {
+				bottom: @sand-button-small-colordot-bottom;
+				width: @sand-button-small-colordot-width;
+				height: @sand-button-colordot-height;
+			}
+
+			// Standard Button Scenario
+			&.minWidth {
+				.client {
+					-webkit-margin-start: @sand-button-small-colordot-width;
+
+					&::before {
+						bottom: 50%;
+						.position-start-end(-@sand-button-small-colordot-width, initial);
+					}
+				}
+
+				.icon {
+					-webkit-margin-start: 0;
+				}
+
+				&.iconAfter {
+					.icon {
+						// Override the above rule
+						-webkit-margin-start: @sand-button-icon-position-after-small-margin-start;
+					}
+				}
 			}
 		}
 
@@ -134,6 +190,44 @@
 		});
 	}
 
+	// IconButton rules
+	&.iconOnly {
+		&.iconAfter,
+		&.iconBefore,
+		&.large,
+		&.small {
+			padding: @sand-button-icon-small-padding;
+
+			.icon {
+				margin: 0; // reset margins for `IconButton`
+			}
+
+			&.red,
+			&.green,
+			&.yellow,
+			&.blue {
+				.client::before {
+					width: @sand-button-icon-only-colordot-width;
+					height: @sand-button-icon-only-colordot-height;
+				}
+			}
+		}
+
+		&.large {
+			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
+		}
+
+		&.red,
+		&.green,
+		&.yellow,
+		&.blue {
+			.client::before {
+				width: @sand-button-icon-only-colordot-width;
+				height: @sand-button-icon-only-colordot-height;
+			}
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		&,
@@ -143,7 +237,9 @@
 
 		.bg {
 			border-color: transparent;
-			filter: drop-shadow(@sand-button-bg-shadow);
+			.sand-spotlight-resting-colors();
+			will-change+: transform;
+			transition+: transform @sand-button-focus-duration ease-out;
 		}
 
 		&.opaque {
@@ -151,6 +247,7 @@
 
 			.bg {
 				background-color: @sand-button-bg-color;
+				opacity: @sand-button-bg-opacity;
 			}
 		}
 
@@ -159,22 +256,44 @@
 
 			.bg {
 				background-color: @sand-button-transparent-bg-color;
+				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
 
+		&.red .client::before {
+			background-color: @sand-remote-button-red-color;
+		}
+		&.green .client::before {
+			background-color: @sand-remote-button-green-color;
+		}
+		&.yellow .client::before {
+			background-color: @sand-remote-button-yellow-color;
+		}
+		&.blue .client::before {
+			background-color: @sand-remote-button-blue-color;
+		}
+
 		.focus({
-			// The complexity below overrides the default high-contrast rules and applies
-			// non-high-contrast rules. The precedence for the general rule is too high for the
-			// basic button override rule to take effect, so we must overcome it by stacking more
-			// classes here.
-			&,
-			:global(.enact-a11y-high-contrast) &:not(:global(.highContrast)) {
-				color: @sand-button-focus-text-color;
-				background-color: transparent;
-			}
+			color: @sand-button-focus-text-color;
 
 			.bg {
-				background-color: @sand-button-focus-bg-color;
+				.sand-spotlight-focus-colors();
+			}
+
+			// The technique below is special handling for opaque buttons, which have an opaque
+			// color defined for the initial background-color. This means we can't use the
+			// traditional opacity change to animate the difference. Instead, this smoothly applies
+			// (via transition) a series of filters that match the spotlight-focus bg color. The
+			// values were manually calculated to perfectly match, taking the resting bg-color and
+			// adjusting it to become the focus-bg-color. If either color value changes, these
+			// adjustments must be recalculated. This is not automatic. It may be possible to
+			// autonomously calculate this in the future...
+			&.opaque {
+				.bg {
+					.sand-spotlight-focus-colors();
+					background-color: @sand-button-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+					filter+_: saturate(0) brightness(1.89);
+				}
 			}
 		});
 
@@ -185,11 +304,23 @@
 
 				.bg {
 					transform: @sand-button-focus-bg-transform;
-					filter: drop-shadow(@sand-button-focus-bg-shadow);
 				}
 
 				&.small .bg {
 					transform: @sand-button-small-focus-bg-transform;
+				}
+
+				&.pressed,
+				&:active {
+					.bg {
+						transform: @sand-button-pressed-bg-transform;
+					}
+
+					&.small {
+						.bg {
+							transform: @sand-button-small-pressed-bg-transform;
+						}
+					}
 				}
 			});
 		}

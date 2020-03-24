@@ -22,6 +22,52 @@ const calcAriaLabel = function (prefix, type, value = '') {
 	return `${prefix} ${value} ${hint}`;
 };
 
+const convertToPasswordFormat = (value) => {
+	return '*'.repeat(value && value.length);
+};
+
+/**
+ * Removes `<InputField>` related props from `props` and returns them in a new object.
+ *
+ * Useful when redirecting `<InputField>` related props from a non-input root element to the
+ * `<InputField>` component.
+ *
+ * @method
+ * @memberof sandstone/Input
+ * @param   {Object} props  Props object
+ * @returns {Object}        input related props
+ * @private
+ */
+const extractInputFieldProps = function (props) {
+	const inputProps = {};
+	Object.keys(props).forEach(key => {
+		switch (key) {
+			case 'autoComplete':
+			case 'data-webos-voice-group-label':
+			case 'data-webos-voice-intent':
+			case 'data-webos-voice-label':
+			case 'dismissOnEnter':
+			case 'iconAfter':
+			case 'iconBefore':
+			case 'invalid':
+			case 'invalidMessage':
+			case 'list':
+			case 'maxLength':
+			case 'minLength':
+			case 'onActivate':
+			case 'onBlur':
+			case 'onDeactivate':
+			case 'pattern':
+			case 'required':
+			case 'size':
+				inputProps[key] = props[key];
+				delete props[key];
+		}
+	});
+
+	return inputProps;
+};
+
 /**
  * Removes `<input>` related props from `props` and returns them in a new object.
  *
@@ -55,5 +101,7 @@ const extractInputProps = function (props) {
 
 export {
 	calcAriaLabel,
-	extractInputProps
+	convertToPasswordFormat,
+	extractInputProps,
+	extractInputFieldProps
 };

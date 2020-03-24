@@ -24,9 +24,9 @@ function expectClosed (picker) {
 }
 
 function expectNoLabels (picker) {
-	expect(picker.monthLabel.value).to.be.null();
-	expect(picker.dayLabel.value).to.be.null();
-	expect(picker.yearLabel.value).to.be.null();
+	expect(picker.monthLabel.isExisting()).to.be.false();
+	expect(picker.dayLabel.isExisting()).to.be.false();
+	expect(picker.yearLabel.isExisting()).to.be.false();
 }
 
 function expectOpen (picker) {

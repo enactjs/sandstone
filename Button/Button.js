@@ -142,7 +142,10 @@ const ButtonBase = kind({
 
 	computed: {
 		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
-			{iconOnly},
+			{
+				hasColor: color,
+				iconOnly
+			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
 			`icon${cap(iconPosition)}`,
@@ -156,7 +159,6 @@ const ButtonBase = kind({
 		delete rest.color;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
-		delete rest.size;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
