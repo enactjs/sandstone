@@ -6,8 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Slider` to change the value in focus state when using 5-way
-- `sandstone/Slider` display only center type regardless of the value
+- `sandstone/Slider` default for `activateOnFocus` to `true` so the slider is immediately interactive when using 5-way
+- `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
 
 ## [1.0.0-alpha.5] - 2020-03-23
 
