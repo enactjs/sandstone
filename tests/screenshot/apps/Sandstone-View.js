@@ -27,7 +27,7 @@ function getWrapperClasses ({wrapper}) {
 	return cx('wrapper', wrapper, parsed.skin);
 }
 
-function getWrapperStyle ({wrapper}) {
+function getWrapperStyle ({wrapper = {}}) {
 	const {padded} = wrapper;
 	if (padded && padded !== true) {
 		return {'--wrapper-padding': padded};
