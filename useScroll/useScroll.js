@@ -13,6 +13,7 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
+import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
@@ -33,6 +34,7 @@ import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
 
 const
+	fadeOutSize = ri.scale(48),
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
@@ -119,6 +121,18 @@ const useThemeScroll = (props, instances) => {
 	function start (animate) {
 		if (scrollMode === 'native' && !animate) {
 			focusOnItem();
+		}
+	}
+
+	function applyFadeoutEffect (curVal, value, maxVal) {
+		if (curVal === 0 && value > 0) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-backward-size', fadeOutSize + 'px');
+		} else if (curVal < maxVal && value === maxVal) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', 0);
+		} else if (curVal === maxVal && value < maxVal) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-forward-size', fadeOutSize + 'px');
+		} else if (curVal < maxVal && value === 0) {
+			scrollContentRef.current.style.setProperty('--scroll-fadeout-backward-size', 0);
 		}
 	}
 
@@ -228,6 +242,7 @@ const useThemeScroll = (props, instances) => {
 
 	return {
 		addEventListeners,
+		applyFadeoutEffect,
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleFlick,
@@ -343,6 +358,7 @@ const useScroll = (props) => {
 
 	const {
 		addEventListeners,
+		applyFadeoutEffect,
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleFlick,
@@ -380,6 +396,7 @@ const useScroll = (props) => {
 		assignProperties,
 		noScrollByDrag: !platform.touchscreen,
 		addEventListeners,
+		applyFadeoutEffect,
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleResizeWindow,

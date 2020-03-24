@@ -6,7 +6,8 @@
 
 .scroll {
 	--scroll-scrollbar-size: 60px;
-	--scroll-fadeout-size: 48px;
+	--scroll-fadeout-backward-size: 0px; // 48px to show the gradient
+	--scroll-fadeout-forward-size: 48px; // 48px to show the gradient
 
 	box-sizing: border-box;
 	overflow: hidden;
@@ -18,9 +19,9 @@
 		.verticalScrollbar {
 			position: absolute;
 			width: var(--scroll-scrollbar-size);
-			height: calc(100% - 2 * var(--scroll-fadeout-size));
+			height: 100%;
 			right: 0;
-			top: var(--scroll-fadeout-size);
+			top: 0;
 		}
 
 		&.rtl {
@@ -36,36 +37,35 @@
 
 		.horizontalScrollbar {
 			position: absolute;
-			width: calc(100% - 2 * var(--scroll-fadeout-size));
+			width: 100%;
 			height: var(--scroll-scrollbar-size);
-			left: var(--scroll-fadeout-size);
+			left: 0;
 			bottom: 0;
 		}
 	}
 
 	&.verticalPadding.horizontalPadding {
 		.verticalScrollbar {
-			height: calc(100% - 2 * var(--scroll-fadeout-size) - var(--scroll-scrollbar-size));
+			height: calc(100% - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * var(--scroll-fadeout-size) - 2 * var(--scroll-scrollbar-size));
-			left: calc(var(--scroll-fadeout-size) + var(--scroll-scrollbar-size));
+			width: calc(100% - 2 * var(--scroll-scrollbar-size));
+			left: var(--scroll-scrollbar-size);
 		}
 	}
 
 	.scrollContent {
 		box-sizing: border-box;
-		padding: var(--scroll-fadeout-size);
 
 		&.verticalFadeout {
-			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
+			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-backward-size), @sand-black calc(100% - var(--scroll-fadeout-forward-size)), transparent);
+			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-backward-size), @sand-black calc(100% - var(--scroll-fadeout-forward-size)), transparent);
 		}
 
 		&.horizontalFadeout {
-			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
+			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-backward-size), @sand-black calc(100% - var(--scroll-fadeout-forward-size)), transparent);
+			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-backward-size), @sand-black calc(100% - var(--scroll-fadeout-forward-size)), transparent);
 		}
 	}
 }
