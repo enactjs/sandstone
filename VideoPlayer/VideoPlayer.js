@@ -1711,15 +1711,21 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	handleControlsHandleAboveFocus = () => {
-		if (this.state.no5WayJump) {
+		this.setState(({no5WayJump}) => {
+			if (!no5WayJump) {
+				return null;
+			}
 			this.setState({no5WayJump: false});
-		}
+		});
 	}
 
 	handleControlsHandleAboveBlur = () => {
-		if (!this.state.no5WayJump) {
+		this.setState(({no5WayJump}) => {
+			if (no5WayJump) {
+				return null;
+			}
 			this.setState({no5WayJump: true});
-		}
+		});
 	}
 
 	setPlayerRef = (node) => {

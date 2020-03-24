@@ -670,9 +670,11 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				visible
 			} = this.props;
 
-			if (!no5WayJump &&
+			const current = Spotlight.getCurrent();
+
+			if ((!no5WayJump || !current) &&
 					!visible &&
-					!mediaDisabled &&
+                    !mediaDisabled &&
 					(is('left', ev.keyCode) || is('right', ev.keyCode))) {
 				this.paused.pause();
 				this.startListeningForPulses(ev.keyCode);
@@ -682,7 +684,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		handleKeyUp = (ev) => {
 			const {
 				mediaDisabled,
-				no5WayJump,
 				noRateButtons,
 				playPauseButtonDisabled,
 				rateButtonsDisabled
@@ -698,7 +699,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				}
 			}
 
-			if (!no5WayJump && (is('left', ev.keyCode) || is('right', ev.keyCode))) {
+			if (this.pulsing && (is('left', ev.keyCode) || is('right', ev.keyCode))) {
 				this.stopListeningForPulses();
 				this.paused.resume();
 			}
