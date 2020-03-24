@@ -420,7 +420,7 @@ const useScroll = (props) => {
 		className: [
 			overscrollCss.overscrollFrame,
 			overscrollCss.vertical,
-			...(isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : [])
+			isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : null
 		],
 		ref: overscrollRefs.vertical
 	});

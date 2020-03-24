@@ -5,7 +5,7 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import {useEventKey} from './useEvent';
 
@@ -305,6 +305,55 @@ const useFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 
 	console.log('current', JSON.stringify(state.value));
 
+	const getNavigableFilterTarget = (ev) => {
+		const {keyCode, target, type} = ev;
+		let filterTarget = null;
+
+		if (type === 'focus') {
+			filterTarget = isBody(target) ? 'thumb' : 'body';
+		} else if (type === 'blur') {
+			filterTarget = 'thumb';
+		} else if (type === 'keydown') {
+			filterTarget =
+				isEnter(keyCode) && isBody(target) && 'body' ||
+				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				null;
+		}
+
+		return {
+			filterTarget
+		};
+	};
+
+	const consumeEventWithFocus = (ev) => {
+		const {target} = ev;
+		let nextTarget;
+
+		if (isBody(target)) {
+			// Enter key on scroll Body.
+			// Scroll thumb get focus.
+			const spottableDescendants = Spotlight.getSpottableDescendants(spotlightId);
+			if (spottableDescendants.length > 0) {
+				// Last spottable descendant(thumb) get focus.
+				nextTarget = spottableDescendants.pop();
+
+				// If there are both thumbs, vertical thumb is the next target
+				const verticalThumb = spottableDescendants.pop();
+				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
+			}
+		} else {
+			// Esc key on scroll thumb.
+			// Scroll body get focus.
+			nextTarget = target.closest(`.${css.focusableBody}`);
+		}
+
+		if (nextTarget) {
+			Spotlight.focus(nextTarget);
+			ev.preventDefault();
+			ev.nativeEvent.stopImmediatePropagation();
+		}
+	};
+
 	return {
 		className: classNames(className, css.focusableBody),
 		onFocus: handle(
@@ -598,7 +647,6 @@ const useThemeScroller = (props, scrollContentProps) => {
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
-	delete rest.scrollContainerRef;
 	delete rest.scrollContentHandle;
 	delete rest.setThemeScrollContentHandle;
 	delete rest.spotlightId;
