@@ -538,7 +538,7 @@ const IncrementSliderBase = kind({
 				<Slider
 					{...ariaProps}
 					active={active}
-					activateOnFocus={false}
+					activateOnSelect
 					aria-hidden={ariaHidden}
 					backgroundProgress={backgroundProgress}
 					className={css.slider}

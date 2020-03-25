@@ -26,7 +26,7 @@ storiesOf('Sandstone', module)
 
 			return (
 				<Slider
-					activateOnFocus={boolean('activateOnFocus', SliderConfig) || false}
+					activateOnSelect={boolean('activateOnSelect', SliderConfig) || false}
 					backgroundProgress={number('backgroundProgress', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.5)}
 					disabled={disabled}
 					knobStep={number('knobStep', SliderConfig)}

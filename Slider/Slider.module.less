@@ -150,15 +150,19 @@
 			.knob::before {
 				background-color: @sand-slider-focus-knob-bg-color;
 				border-color: @sand-slider-focus-knob-border-color;
+				transform: @knob-transform-active;
 			}
 
-			&.active,
-			&.activateOnFocus,
-			&.pressed {
+			&.activateOnSelect {
 				.knob::before {
-					background-color: @sand-slider-active-knob-bg-color;
-					border-color: @sand-slider-active-knob-border-color;
-					transform: @knob-transform-active;
+					transform: @knob-transform-resting;
+				}
+
+				&.active,
+				&.pressed {
+					.knob::before {
+						transform: @knob-transform-active;
+					}
 				}
 			}
 
@@ -184,14 +188,7 @@
 				.knob::before {
 					background-color: @sand-slider-disabled-focus-knob-bg-color;
 					border-color: @sand-slider-focus-knob-border-color;
-				}
-
-				&.active,
-				&.activateOnFocus,
-				&.pressed {
-					.knob::before {
-						transform: @knob-transform-resting;
-					}
+					transform: @knob-transform-resting;
 				}
 			});
 		});
