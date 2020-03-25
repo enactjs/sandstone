@@ -60,7 +60,6 @@ const FormCheckboxItemBase = kind({
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
 		 *
 		 * @type {String|Object}
-		 * @default 'check'
 		 * @public
 		 */
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -72,7 +71,6 @@ const FormCheckboxItemBase = kind({
 		 * to represent that some, not all, children are selected.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		indeterminate: PropTypes.bool,
@@ -88,7 +86,6 @@ const FormCheckboxItemBase = kind({
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
 		 *
 		 * @type {String}
-		 * @default 'minus'
 		 * @public
 		 */
 		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -100,11 +97,6 @@ const FormCheckboxItemBase = kind({
 		 * @public
 		 */
 		selected: PropTypes.bool
-	},
-
-	defaultProps: {
-		icon: 'check',
-		selected: false
 	},
 
 	styles: {
