@@ -82,7 +82,7 @@ const CheckboxItemBase = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * Enables the "indetermine" state.
+		 * Enables the "indeterminate" state.
 		 *
 		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
 		 * to represent that some, not all, children are selected.
