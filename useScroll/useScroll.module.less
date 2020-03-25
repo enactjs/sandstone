@@ -19,9 +19,9 @@
 		.verticalScrollbar {
 			position: absolute;
 			width: var(--scroll-scrollbar-size);
-			height: 100%;
+			height: calc(100% - 2 * @sand-scroll-fadeout-size);
 			right: 0;
-			top: 0;
+			top: @sand-scroll-fadeout-size;
 		}
 
 		&.rtl {
@@ -37,21 +37,21 @@
 
 		.horizontalScrollbar {
 			position: absolute;
-			width: 100%;
+			width: calc(100% - 2 * @sand-scroll-fadeout-size);
 			height: var(--scroll-scrollbar-size);
-			left: 0;
+			left: @sand-scroll-fadeout-size;
 			bottom: 0;
 		}
 	}
 
 	&.verticalPadding.horizontalPadding {
 		.verticalScrollbar {
-			height: calc(100% - var(--scroll-scrollbar-size));
+			height: calc(100% - 2 * @sand-scroll-fadeout-size - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * var(--scroll-scrollbar-size));
-			left: var(--scroll-scrollbar-size);
+			width: calc(100% - 2 * @sand-scroll-fadeout-size - 2 * var(--scroll-scrollbar-size));
+			left: calc(@sand-scroll-fadeout-size + var(--scroll-scrollbar-size));
 		}
 	}
 
