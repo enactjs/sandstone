@@ -5,11 +5,6 @@
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
-// common image item
-.transitionEffect() {
-	transition: transform 200ms ease-in-out;
-}
-
 .imageItem {
 	position: relative;
 
@@ -70,26 +65,25 @@
 		.image {
 			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
 			will-change: filter, transform;
-			margin-bottom: @sand-imageitem-vertical-image-margin-bottom;
 		}
-	
+
 		.captions {
+			margin-top: @sand-imageitem-vertical-captions-margin-top;
 			height: @sand-imageitem-vertical-captions-height;
-			.transitionEffect();
+			transition: transform 200ms ease-in-out;
 		}
 	
 		.imageIcon {
 			height: @sand-imageitem-vertical-image-icon-size;
 			width: @sand-imageitem-vertical-image-icon-size;
-			margin-left: 0;
-			margin-right: @sand-imageitem-vertical-image-icon-margin-right;
+			margin: @sand-imageitem-vertical-image-icon-margin;
 		}
 	
 		.selectionIcon {
 			width: @sand-imageitem-vertical-selection-icon-size;
 			height: @sand-imageitem-vertical-selection-icon-size;
 			line-height: @sand-imageitem-vertical-selection-icon-size;
-			.transitionEffect();
+			transition: transform 200ms ease-in-out;
 		}
 	}
 
@@ -100,17 +94,14 @@
 		&::before {
 			content: '';
 			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
+			.position(0);
 			border-radius: @sand-imageitem-horizontal-border-radius;
 			.sand-spotlight-resting();
 		}
 
 		.image {
-			width: 180px;
-			height: 180px;
+			width: @sand-imageitem-horizontal-image-width;
+			height: @sand-imageitem-horizontal-image-height;
 			margin: @sand-imageitem-horizontal-image-margin;
 		}
 

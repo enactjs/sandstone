@@ -18,7 +18,7 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
-import {Cell, Column, Row} from '@enact/ui/Layout';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -85,14 +85,6 @@ const ImageItemBase = kind({
 		 * @public
 		 */
 		'data-webos-voice-intent': PropTypes.string,
-
-		/**
-		 * The component used to render the image component.
-		 *
-		 * @type {Node}
-		 * @public
-		 */
-		imageComponent: PropTypes.node,
 
 		/**
 		 * The component used to render the image icon component.
@@ -215,6 +207,8 @@ const ImageItemBase = kind({
 		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
+			if (!hasImageIcon && !caption && !subCaption) return;
+
 			return (
 				<Row className={css.captions}>
 					{hasImageIcon ? (
@@ -222,7 +216,7 @@ const ImageItemBase = kind({
 							className={css.imageIcon}
 							component={imageIconComponent}
 							src={imageIconSrc}
-							size="23%"
+							shrink
 						/>
 					) : null}
 					<Cell>
