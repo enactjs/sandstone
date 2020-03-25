@@ -4,9 +4,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/FeedbackTooltip` visuals for updated GUI
+
 ### Added
 
+- `sandstone/Checkbox` standalone interactive capability
 - `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` prop `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
+- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
 
 ## [1.0.0-alpha.5] - 2020-03-23
 
@@ -18,10 +28,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
 
-### Added
-
-- `sandstone/Checkbox` standalone interactive capability
-
 ### Fixed
 
 - `sandstone/Input.InputField` to show icons when focused
@@ -29,7 +35,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
 - `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
-- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
