@@ -12,6 +12,7 @@ import iconNames from './icons';
 
 CheckboxItem.displayName = 'CheckboxItem';
 const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxBase, Checkbox, CheckboxItemBase, CheckboxItem);
+Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 storiesOf('Sandstone', module)
 	.add(
@@ -21,12 +22,12 @@ storiesOf('Sandstone', module)
 				<CheckboxItem
 					// disabled and inline have problems when set to `null` from the internal nullify...
 					disabled={boolean('disabled', Config)}
-					icon={select('icon', ['', ...iconNames], Config, 'check')}
+					icon={select('icon', iconNames, Config)}
 					indeterminate={boolean('indeterminate', Config)}
-					indeterminateIcon={select('indeterminateIcon', ['', ...iconNames], Config)}
+					indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
 					inline={boolean('inline', Config)}
-					label={text('label', Config, '')}
-					labelPosition={select('labelPosition', ['', 'above', 'after', 'before', 'below'], Config, '')}
+					label={text('label', Config)}
+					labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
 					onToggle={action('onToggle')}
 				>
 					{text('children', Config, 'Hello CheckboxItem')}
