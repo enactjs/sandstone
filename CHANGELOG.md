@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
+- `sandstone/MediaOverlay` styling
 
 ### Fixed
 
