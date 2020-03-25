@@ -213,35 +213,24 @@ const ImageItemBase = kind({
 
 	computed: {
 		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
-			const captions = (
-				<Column>
-					{caption ? (
-						<Cell className={css.caption} component={Marquee} marqueeOn="hover" shrink>
-							{caption}
-						</Cell>
-					) : null}
-					{subCaption ? (
-						<Cell className={css.subCaption} component={Marquee} marqueeOn="hover" shrink>
-							{subCaption}
-						</Cell>
-					) : null}
-				</Column>
-			);
+			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
-			// An additional Row is required when an imageIcon is specified
-			return imageIconSrc && orientation === 'vertical' ? (
+			return (
 				<Row className={css.captions}>
-					<Cell
-						className={css.imageIcon}
-						component={imageIconComponent}
-						src={imageIconSrc}
-						shrink
-					/>
-					<Cell size="77%">
-						{captions}
+					{hasImageIcon ? (
+						<Cell
+							className={css.imageIcon}
+							component={imageIconComponent}
+							src={imageIconSrc}
+							size="23%"
+						/>
+					) : null}
+					<Cell>
+						<Marquee className={css.caption} marqueeOn="hover">{caption}</Marquee>
+						<Marquee className={css.subCaption} marqueeOn="hover">{subCaption}</Marquee>
 					</Cell>
 				</Row>
-			) : captions;
+			);
 		}
 	},
 

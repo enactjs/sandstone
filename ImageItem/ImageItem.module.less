@@ -11,118 +11,114 @@
 }
 
 .imageItem {
-	width: 100%;
-	height: 100%;
-
 	position: relative;
+
+	.image {
+		display: block;
+		margin: 0;
+	}
+
+	.caption {
+		.sand-text-base(@sand-imageitem-caption-font-size);
+	}
+
+	.subCaption {
+		.sand-text-base(@sand-imageitem-subcaption-font-size);
+	}
+
+	.selectionContainer {
+		background-color: transparent;
+		pointer-events: none;
+		.position(0);
+		position: absolute;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border-width: @sand-imageitem-image-border-width;
+			border-style: none;
+		}
+
+		.selectionComponent {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+		}
+
+		.selectionIcon {
+			position: relative;
+			display: block;
+			border-radius: 50%;
+			margin: 0;
+		}
+	}
+
+	&.selected {
+		.selectionContainer::after {
+			border-style: solid;
+		}
+	}
 
 	&.vertical {
-		margin: 60px;
-	}
-}
+		margin: @sand-imageitem-vertical-margin;
 
-.image {
-	display: block;
-	margin: 0;
-}
-
-.caption {
-	.sand-text-base(@sand-imageitem-caption-font-size);
-}
-
-.subCaption {
-	.sand-text-base(@sand-imageitem-subcaption-font-size);
-}
-
-.selectionComponent {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-}
-
-.selectionContainer {
-	background-color: transparent;
-	pointer-events: none;
-	.position(0);
-	position: absolute;
-}
-
-.selectionContainer::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	border-width: @sand-imageitem-image-border-width;
-	border-style: none;
-}
-
-.selectionIcon {
-	position: relative;
-	display: block;
-	border-radius: 50%;
-	margin: 0;
-}
-
-// vertical image item
-.vertical {
-	.image {
-		transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
-		will-change: filter, transform;
-		margin-bottom: @sand-imageitem-vertical-image-margin-bottom;
+		.image {
+			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+			will-change: filter, transform;
+			margin-bottom: @sand-imageitem-vertical-image-margin-bottom;
+		}
+	
+		.captions {
+			height: @sand-imageitem-vertical-captions-height;
+			.transitionEffect();
+		}
+	
+		.imageIcon {
+			height: @sand-imageitem-vertical-image-icon-size;
+			width: @sand-imageitem-vertical-image-icon-size;
+			margin-left: 0;
+			margin-right: @sand-imageitem-vertical-image-icon-margin-right;
+		}
+	
+		.selectionIcon {
+			width: @sand-imageitem-vertical-selection-icon-size;
+			height: @sand-imageitem-vertical-selection-icon-size;
+			line-height: @sand-imageitem-vertical-selection-icon-size;
+			.transitionEffect();
+		}
 	}
 
-	.captions {
-		height: @sand-imageitem-vertical-captions-height;
-		.transitionEffect();
-	}
+	&.horizontal {
+		.sand-spotlight-padding(@sand-item-vertical-padding);
+		margin: @sand-imageitem-horizontal-margin;
 
-	.imageIcon {
-		height: @sand-imageitem-vertical-image-icon-size;
-		width: @sand-imageitem-vertical-image-icon-size;
-		margin-left: 0;
-		margin-right: @sand-imageitem-vertical-image-icon-margin-right;
-	}
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			border-radius: @sand-imageitem-horizontal-border-radius;
+			.sand-spotlight-resting();
+		}
 
-	.selectionIcon {
-		width: @sand-imageitem-vertical-selection-icon-size;
-		height: @sand-imageitem-vertical-selection-icon-size;
-		line-height: @sand-imageitem-vertical-selection-icon-size;
-		.transitionEffect();
-	}
-}
+		.image {
+			width: 180px;
+			height: 180px;
+			margin: @sand-imageitem-horizontal-image-margin;
+		}
 
-// horizontal image item
-.horizontal {
-	&.imageItem::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		border-radius: @sand-imageitem-horizontal-border-radius;
-		.sand-spotlight-resting();
-	}
-
-	.image {
-		width: 18%;
-		height: 75%;
-		margin: @sand-imageitem-horizontal-image-margin;
-	}
-
-	.selectionIcon {
-		width: @sand-imageitem-horizontal-selection-icon-size;
-		height: @sand-imageitem-horizontal-selection-icon-size;
-		line-height: @sand-imageitem-horizontal-selection-icon-size;
-	}
-}
-
-&.selected {
-	.selectionContainer::after {
-		border-style: solid;
+		.selectionIcon {
+			width: @sand-imageitem-horizontal-selection-icon-size;
+			height: @sand-imageitem-horizontal-selection-icon-size;
+			line-height: @sand-imageitem-horizontal-selection-icon-size;
+		}
 	}
 }
 
