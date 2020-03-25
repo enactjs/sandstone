@@ -51,6 +51,7 @@ storiesOf('Sandstone', module)
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
 					centered={boolean('centered', Config)}
+					collapsed={boolean('collapsed', Config)}
 					headerInput={headerInput}
 					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
