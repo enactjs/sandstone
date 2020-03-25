@@ -58,6 +58,9 @@
 @sand-item-label-font-size:         54px;
 @sand-keyguide-font-size:           60px;
 @sand-labeledicon-font-size:        48px;
+@sand-mediaoverlay-caption-font-size: 48px;
+@sand-mediaoverlay-font-size:         48px;
+@sand-mediaoverlay-title-font-size:   60px;
 @sand-notification-font-size:       60px;
 @sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-steps-step-number-font-size:  54px;
@@ -78,6 +81,7 @@
 @sand-font-family: "Sandstone";        // Formerly weight: 700
 @sand-font-family-bold: "Sandstone";   // Formerly weight: 900
 @sand-alt-font-family: "Sandstone";
+@sand-number-font-family: "Sandstone Number";
 @sand-non-latin-font-family: "Sandstone";
 @sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
 @sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
@@ -468,9 +472,14 @@
 
 // MediaOverlay
 // ---------------------------------------
-@sand-mediaoverlay-width: 642px;
-@sand-mediaoverlay-spotlight-outset-width: 12px;
+@sand-mediaoverlay-border-radius: 12px;
+@sand-mediaoverlay-caption-margin-top: 24px;
 @sand-mediaoverlay-font-weight: 500;
+@sand-mediaoverlay-line-height: 1.3em;
+@sand-mediaoverlay-padding-top-bottom: 30px;
+@sand-mediaoverlay-progressbar-margin: 0 6px 6px 6px;
+@sand-mediaoverlay-textlayout-margin: 24px 60px;
+@sand-mediaoverlay-width: 642px;
 
 // Notification
 // ---------------------------------------
@@ -657,11 +666,19 @@
 
 // Video
 // ---------------------------------------
+@sand-video-slider-tooltip-arrow-border-left-right: 18px;
+@sand-video-slider-tooltip-arrow-border-top:       24px;
 @sand-video-slider-tooltip-position-bottom:        @sand-spotlight-outset;
-@sand-video-slider-tooltip-font-size:              48px;
+@sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
+@sand-video-slider-tooltip-margin-bottom:          6px;
+@sand-video-slider-tooltip-font-size:              54px;
+@sand-video-slider-tooltip-font-weight:            700;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           24px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
+@sand-video-slider-tooltip-thumbnail-width:  426px;
+@sand-video-slider-tooltip-thumbnail-height: 240px;
+@sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
 @sand-video-feedback-icon-font-size:               2em;
 @sand-video-feedback-mini-font-family:             @sand-alt-font-family;
