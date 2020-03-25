@@ -621,7 +621,7 @@ const useEventWheel = (props, instances) => {
 					initializeWheeling();
 				}
 
-				// If ev.target is a descendant of scrollContent, the event will be handled on onscroll handler.
+				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
 					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
 					needToHideThumb = !delta;
