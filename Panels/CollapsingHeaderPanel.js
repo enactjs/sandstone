@@ -1,10 +1,8 @@
-import React from 'react';
-
 import {ScrollPositionDecorator} from '../useScroll/useScrollPosition';
 
 import {Panel} from './Panel';
 
- /**
+/**
  * Sandstone specific behaviors to apply to [Item]{@link sandstone/Panels.CollapsingHeaderPanel}.
  *
  * @class CollapsingHeaderPanelDecorator

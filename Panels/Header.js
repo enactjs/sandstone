@@ -51,7 +51,9 @@ const HeaderBase = kind({
 		/**
 		 * Collapses the Header to only show the header-components.
 		 *
-		 * Has no effect on `type="compact"`.
+		 * Has no effect on `type="compact"`. When a `Header` is used inside a
+		 * [`CollapsingHeaderPanel`]{@link sandstone/Panels.CollapsingHeaderPanel} it will
+		 * automatically collapse unless overridden by this prop.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -308,6 +310,7 @@ const HeaderBase = kind({
 
 const CollapsingHeaderDecorator = (Wrapped) => {
 	return (props) => {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const {collapsed} = useScrollPosition() || {};
 		return <Wrapped collapsed={collapsed} {...props} />;
 	};
