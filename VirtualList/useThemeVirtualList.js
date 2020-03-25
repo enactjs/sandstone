@@ -228,7 +228,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize,
+			offsetToClientEnd = primary.clientSize - primary.itemSize - fadeOutSize,
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -248,7 +248,7 @@ const useSpottable = (props, instances) => {
 			if (primary.clientSize >= primary.itemSize) {
 				if (gridPosition.primaryPosition > scrollPosition + offsetToClientEnd) { // forward over
 					gridPosition.primaryPosition -= pageScroll ? 0 : offsetToClientEnd;
-				} else if (gridPosition.primaryPosition >= scrollPosition) { // inside of client
+				} else if (gridPosition.primaryPosition >= scrollPosition + fadeOutSize) { // inside of client
 					if (scrollMode === 'translate') {
 						gridPosition.primaryPosition = scrollPosition;
 					} else {
@@ -257,7 +257,7 @@ const useSpottable = (props, instances) => {
 						gridPosition.primaryPosition = scrollPosition + (scrollContentHandle.current.scrollPosition === scrollPosition ? 0.1 : 0);
 					}
 				} else { // backward over
-					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : 0;
+					gridPosition.primaryPosition -= pageScroll ? offsetToClientEnd : fadeOutSize;
 				}
 			}
 
