@@ -6,6 +6,8 @@
  * @exports TabGridListItem
  */
 
+import ComponentOverride from '@enact/ui/ComponentOverride';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -26,6 +28,15 @@ const TabGridListLayoutBase = kind({
 	name: 'TabGridListLayout',
 
 	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayout.prototype */ {
+
+		/**
+		 * The header component.
+		 *
+		 * @type {Component|Element}
+		 * @default sandstone/Panels.Header
+		 */
+		headerComponent: EnactPropTypes.componentOverride,
+
 		/**
 		 * Text displayed below the title in the header.
 		 *
@@ -53,6 +64,10 @@ const TabGridListLayoutBase = kind({
 		])
 	},
 
+	defaultProps: {
+		headerComponent: Header
+	},
+
 	computed: {
 		children: ({children}) => {
 			return React.Children.map(children, (child) => {
@@ -70,10 +85,15 @@ const TabGridListLayoutBase = kind({
 		}
 	},
 
-	render: ({subtitle, title, ...rest}) => {
+	render: ({headerComponent, subtitle, title, ...rest}) => {
 		return (
 			<Panel>
-				<Header subtitle={subtitle} title={title} />
+				<ComponentOverride
+					component={headerComponent}
+					slot="header"
+					subtitle={subtitle}
+					title={title}
+				/>
 				<TabLayout {...rest} />
 			</Panel>
 		);
