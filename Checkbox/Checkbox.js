@@ -46,7 +46,7 @@ const CheckboxBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
@@ -85,11 +85,11 @@ const CheckboxBase = kind({
 		indeterminate: PropTypes.bool,
 
 		/**
-		 * Sets an icon to be used in the `indeterminate` state
+		 * The icon to be used in the `indeterminate` state.
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
