@@ -133,7 +133,7 @@ const ImageItemBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Applies a selected visual effect to the image, but only if `selectionShowing`
+		 * Applies a selected visual effect to the image, but only if `showSelection`
 		 * is also `true`.
 		 *
 		 * @type {Boolean}
@@ -168,7 +168,7 @@ const ImageItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selectionShowing: PropTypes.bool,
+		showSelection: PropTypes.bool,
 
 		/**
 		 * Source for the image.
@@ -195,7 +195,7 @@ const ImageItemBase = kind({
 		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
 		selected: false,
-		selectionShowing: false
+		showSelection: false
 	},
 
 	styles: {
@@ -228,10 +228,10 @@ const ImageItemBase = kind({
 		}
 	},
 
-	render: ({css, selectionComponent: SelectionComponent, selectionShowing, ...rest}) => {
+	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
-		delete rest.selectionShowing;
+		delete rest.showSelection;
 		delete rest.subCaption;
 
 		if (SelectionComponent) {
@@ -245,7 +245,7 @@ const ImageItemBase = kind({
 				css={css}
 				imageComponent={
 					<Image>
-						{selectionShowing ? (
+						{showSelection ? (
 							<div className={css.selectionContainer}>
 								{SelectionComponent ? (
 									<SelectionComponent />
