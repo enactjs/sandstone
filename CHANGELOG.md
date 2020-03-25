@@ -2,6 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/FeedbackTooltip` visuals for updated GUI
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed
@@ -12,13 +22,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
 
-### Changed
-
-- `sandstone/FeedbackTooltip` visuals for updated GUI
-
 ### Fixed
 
-- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
