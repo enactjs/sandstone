@@ -4,9 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/FeedbackTooltip` visuals for updated GUI
+- `sandstone/MediaOverlay` styling
+
 ### Fixed
 
-- `sandstone/MediaOverlay` styling
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
 
 ## [1.0.0-alpha.5] - 2020-03-23
 
