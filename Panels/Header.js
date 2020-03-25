@@ -9,6 +9,7 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
+import {useScrollPosition} from '../useScroll/useScrollPosition';
 
 import componentCss from './Header.module.less';
 
@@ -305,8 +306,15 @@ const HeaderBase = kind({
 	}
 });
 
+const CollapsingHeaderDecorator = (Wrapped) => {
+	return (props) => {
+		const {collapsed} = useScrollPosition() || {};
+		return <Wrapped collapsed={collapsed} {...props} />;
+	};
+};
+
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
-const Header = Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase));
+const Header = CollapsingHeaderDecorator(Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}, Skinnable(HeaderBase)));
 
 // Set up Header so when it's used in a slottable layout (like Panel), it is automatically
 // recognized as this specific slot.

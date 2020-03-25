@@ -10,15 +10,14 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {Panel, Header} from '../Panels';
+import {CollapsingHeaderPanel as Panel, Header} from '../Panels';
 import TabLayout from '../TabLayout';
-import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 import {VirtualGridList} from '../VirtualList';
 
 /**
  * A layout incorporating `TabLayout` and `VirtualGridList`.
  *
- * @class TabGridListLayoutBase
+ * @class TabGridListLayout
  * @memberof sandstone/TabGridListLayout
  * @ui
  * @public
@@ -26,9 +25,7 @@ import {VirtualGridList} from '../VirtualList';
 const TabGridListLayoutBase = kind({
 	name: 'TabGridListLayout',
 
-	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayoutBase.prototype */ {
-		headerCollapsed: PropTypes.bool,
-
+	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayout.prototype */ {
 		/**
 		 * Text displayed below the title in the header.
 		 *
@@ -73,10 +70,10 @@ const TabGridListLayoutBase = kind({
 		}
 	},
 
-	render: ({headerCollapsed, subtitle, title, ...rest}) => {
+	render: ({subtitle, title, ...rest}) => {
 		return (
 			<Panel>
-				<Header collapsed={headerCollapsed} subtitle={subtitle} title={title} />
+				<Header subtitle={subtitle} title={title} />
 				<TabLayout {...rest} />
 			</Panel>
 		);
@@ -230,32 +227,5 @@ const TabGridListItem = kind({
 	render: () => <div>TabGridListItem is only to be used in TabGridListLayout!</div>
 });
 
-/**
- * Sandstone specific behaviors to apply to [Item]{@link sandstone/TabGridListLayout.TabGridListLayoutBase}.
- *
- * @class TabGridListLayoutDecorator
- * @hoc
- * @memberof sandstone/TabGridListLayout
- * @public
- */
-const TabGridListLayoutDecorator = (Wrapped) => {
-	const Inner = (props) => {
-		const {collapsed} = useScrollPosition();
-		return <Wrapped headerCollapsed={collapsed} {...props} />;
-	};
-
-	return ScrollPositionDecorator(Inner);
-};
-
-/**
- * A layout incorporating `TabLayout` and `VirtualGridList`.
- *
- * @class TabGridListLayout
- * @memberof sandstone/TabGridListLayout
- * @ui
- * @public
- */
-const TabGridListLayout = TabGridListLayoutDecorator(TabGridListLayoutBase)
-
-export default TabGridListLayout;
-export {TabGridListLayoutDecorator, TabGridListItem, TabGridListLayout, TabGridListLayoutBase};
+export default TabGridListLayoutBase;
+export {TabGridListItem, TabGridListLayoutBase as TabGridListLayout};
