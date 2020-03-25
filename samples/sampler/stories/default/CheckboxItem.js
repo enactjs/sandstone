@@ -4,13 +4,14 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
+import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 
 import iconNames from './icons';
 
 CheckboxItem.displayName = 'CheckboxItem';
-const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItemBase, CheckboxItem);
+const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxBase, Checkbox, CheckboxItemBase, CheckboxItem);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -20,7 +21,9 @@ storiesOf('Sandstone', module)
 				<CheckboxItem
 					// disabled and inline have problems when set to `null` from the internal nullify...
 					disabled={boolean('disabled', Config)}
-					icon={select('icon', ['', ...iconNames], Config)}
+					icon={select('icon', ['', ...iconNames], Config, 'check')}
+					indeterminate={boolean('indeterminate', Config)}
+					indeterminateIcon={select('indeterminateIcon', ['', ...iconNames], Config)}
 					inline={boolean('inline', Config)}
 					label={text('label', Config, '')}
 					labelPosition={select('labelPosition', ['', 'above', 'after', 'before', 'below'], Config, '')}

@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` prop `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed

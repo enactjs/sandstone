@@ -64,6 +64,34 @@ const FormCheckboxItemBase = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Enables the "indetermine" state.
+		 *
+		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
+		 * to represent that some, not all, children are selected.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		indeterminate: PropTypes.bool,
+
+		/**
+		 * Sets an icon to be used in the `indeterminate` state
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String}
+		 * @default 'minus'
+		 * @public
+		 */
+		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
 		 * Controls the prsence of the checkmark icon.
 		 *
 		 * @type {Boolean}
@@ -83,7 +111,7 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, icon, selected, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -91,7 +119,15 @@ const FormCheckboxItemBase = kind({
 			selected={selected}
 			css={css}
 		>
-			<Checkbox slot="slotBefore" selected={selected} css={css}>{icon}</Checkbox>
+			<Checkbox
+				indeterminate={indeterminate}
+				indeterminateIcon={indeterminateIcon}
+				slot="slotBefore"
+				selected={selected}
+				css={css}
+			>
+				{icon}
+			</Checkbox>
 			{children}
 		</Item>
 	)

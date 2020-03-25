@@ -44,6 +44,13 @@ const CheckboxBase = kind({
 		/**
 		 * The icon displayed when `selected`.
 		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
 		 * @see {@link sandstone/Icon.IconBase.children}
 		 * @type {String|Object}
 		 * @default	'check'
@@ -66,6 +73,34 @@ const CheckboxBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Enables the "indetermine" state.
+		 *
+		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
+		 * to represent that some, not all, children are selected.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		indeterminate: PropTypes.bool,
+
+		/**
+		 * Sets an icon to be used in the `indeterminate` state
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String}
+		 * @default 'minus'
+		 * @public
+		 */
+		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
 		 * Sets whether this control is in the 'on' or 'off' state. `true` for 'on', `false` for 'off'.
 		 *
 		 * @type {Boolean}
@@ -77,6 +112,8 @@ const CheckboxBase = kind({
 
 	defaultProps: {
 		children: 'check',
+		indeterminate: false,
+		indeterminateIcon: 'minus',
 		selected: false
 	},
 
@@ -87,10 +124,13 @@ const CheckboxBase = kind({
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({indeterminate, selected, styler}) => styler.append({selected, indeterminate}),
+		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
 	render: ({children, css, ...rest}) => {
+		delete rest.indeterminate;
+		delete rest.indeterminateIcon;
 		delete rest.selected;
 		return (
 			<Icon

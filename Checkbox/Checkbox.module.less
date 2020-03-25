@@ -35,11 +35,20 @@
 		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
 
 		&.selected {
-			.checkboxColors(
-				@sand-checkbox-selected-color,
-				@sand-checkbox-selected-bg-color,
-				@sand-checkbox-selected-border-color
-			);
+			&:not(.indeterminate) {
+				.checkboxColors(
+					@sand-checkbox-selected-color,
+					@sand-checkbox-selected-bg-color,
+					@sand-checkbox-selected-border-color
+				);
+			}
+			&.indeterminate {
+				.checkboxColors(
+					@sand-checkbox-indeterminate-color,
+					@sand-checkbox-indeterminate-bg-color,
+					@sand-checkbox-indeterminate-border-color
+				);
+			}
 		}
 
 		// Spottable version of the Checkbox
@@ -61,11 +70,20 @@
 			}
 
 			&.selected {
-				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
-				);
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
+				&.indeterminate {
+					.checkboxColors(
+						@sand-checkbox-indeterminate-selected-focus-color,
+						@sand-checkbox-indeterminate-selected-focus-bg-color,
+						@sand-checkbox-indeterminate-selected-focus-border-color
+					);
+				}
 			}
 		});
 	});
@@ -82,11 +100,20 @@
 			);
 
 			&.selected {
-				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
-				);
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
+				&.indeterminate {
+					.checkboxColors(
+						@sand-checkbox-indeterminate-selected-focus-color,
+						@sand-checkbox-indeterminate-selected-focus-bg-color,
+						@sand-checkbox-indeterminate-selected-focus-border-color
+					);
+				}
 			}
 
 			// Spottable version of the Checkbox
