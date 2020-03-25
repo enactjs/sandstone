@@ -234,6 +234,7 @@ const DropdownBase = kind({
 			});
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
+		direction: ({direction}) => `${direction} center`,
 		title: ({children, selected, title}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
