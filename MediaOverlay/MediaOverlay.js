@@ -178,7 +178,7 @@ const MediaOverlayBase = kind({
 		 *
 		 * @type {('center'|'end'|'start')}
 		 * @public
-		 * @default "center"
+		 * @default "end"
 		 */
 		textAlign: PropTypes.oneOf(['center', 'end', 'start']),
 
@@ -194,13 +194,13 @@ const MediaOverlayBase = kind({
 	defaultProps: {
 		mediaComponent: 'video',
 		progress: 0,
-		textAlign: 'center'
+		textAlign: 'end'
 	},
 
 	styles: {
 		css: componentCss,
 		className: 'mediaOverlay',
-		publicClassNames: ['mediaOverlay', 'caption', 'captionContainer', 'image', 'subtitle', 'text', 'title']
+		publicClassNames: ['mediaOverlay', 'image', 'text']
 	},
 
 	render: ({caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, noAutoPlay, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {

@@ -88,7 +88,7 @@ storiesOf('Sandstone', module)
 					showProgress={boolean('showProgress', Config)}
 					subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
 					text={select('text', prop.text, Config, prop.text[0])}
-					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'center')}
+					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'end')}
 					title={text('title', Config, 'Program Name')}
 				>
 					<source src={videoSource} />
