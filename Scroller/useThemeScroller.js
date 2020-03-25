@@ -15,6 +15,7 @@ import thumbCss from '../useScroll/ScrollThumb.module.less';
 add('esc', 27);
 
 const
+	fadeOutSize = ri.scale(48),
 	isEsc = is('esc'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
@@ -185,13 +186,13 @@ const useSpottable = (props, instances) => {
 			// round to start
 			if (st < threshold) return 0;
 
-			return st;
+			return st - fadeOutSize;
 		};
 		const roundToEnd = (sb, st, sh) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st;
+			return st + fadeOutSize;
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -313,11 +314,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + fadeOutSize) && itemRect.right <= (containerRect.right - fadeOutSize))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
+		if (vertical && !(itemRect.top >= (containerRect.top + fadeOutSize) && itemRect.bottom <= (containerRect.bottom - fadeOutSize))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
