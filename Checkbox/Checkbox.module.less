@@ -34,19 +34,20 @@
 		border-radius: @sand-checkbox-border-radius;
 		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
 
+		&.indeterminate {
+			.checkboxColors(
+				@sand-checkbox-indeterminate-color,
+				@sand-checkbox-indeterminate-bg-color,
+				@sand-checkbox-indeterminate-border-color
+			);
+		}
+
 		&.selected {
 			&:not(.indeterminate) {
 				.checkboxColors(
 					@sand-checkbox-selected-color,
 					@sand-checkbox-selected-bg-color,
 					@sand-checkbox-selected-border-color
-				);
-			}
-			&.indeterminate {
-				.checkboxColors(
-					@sand-checkbox-indeterminate-color,
-					@sand-checkbox-indeterminate-bg-color,
-					@sand-checkbox-indeterminate-border-color
 				);
 			}
 		}
@@ -69,19 +70,20 @@
 				.sand-spotlight-focus-colors();
 			}
 
+			&.indeterminate {
+				.checkboxColors(
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
+				);
+			}
+
 			&.selected {
 				&:not(.indeterminate) {
 					.checkboxColors(
 						@sand-checkbox-selected-focus-color,
 						@sand-checkbox-selected-focus-bg-color,
 						@sand-checkbox-selected-focus-border-color
-					);
-				}
-				&.indeterminate {
-					.checkboxColors(
-						@sand-checkbox-indeterminate-selected-focus-color,
-						@sand-checkbox-indeterminate-selected-focus-bg-color,
-						@sand-checkbox-indeterminate-selected-focus-border-color
 					);
 				}
 			}
@@ -99,19 +101,20 @@
 				@sand-checkbox-focus-border-color
 			);
 
+			&.indeterminate {
+				.checkboxColors(
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
+				);
+			}
+
 			&.selected {
 				&:not(.indeterminate) {
 					.checkboxColors(
 						@sand-checkbox-selected-focus-color,
 						@sand-checkbox-selected-focus-bg-color,
 						@sand-checkbox-selected-focus-border-color
-					);
-				}
-				&.indeterminate {
-					.checkboxColors(
-						@sand-checkbox-indeterminate-selected-focus-color,
-						@sand-checkbox-indeterminate-selected-focus-bg-color,
-						@sand-checkbox-indeterminate-selected-focus-border-color
 					);
 				}
 			}
