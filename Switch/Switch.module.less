@@ -80,6 +80,16 @@
 			}
 		}
 
+		.disabled({
+			&.selected {
+				background-color: @sand-switch-bg-color;
+
+				.icon {
+					color: @sand-switch-color;
+				}
+			}
+		});
+
 		// Standalone Switch
 		.spottable({
 			&::after {
@@ -101,6 +111,20 @@
 					color: @sand-switch-selected-focus-color;
 				}
 			}
+
+			.disabled({
+				opacity: 1;
+
+				&::after {
+					opacity: 0.4;
+				}
+
+				&.selected {
+					.icon {
+						opacity: 0.4;
+					}
+				}
+			})
 		});
 	});
 }
@@ -122,3 +146,18 @@
 		});
 	}
 }, parent);
+
+.disabled({
+	.switch {
+		// Skin colors
+		.applySkins({
+			&.selected {
+				background-color: @sand-switch-bg-color;
+
+				.icon {
+					color: @sand-switch-color;
+				}
+			}
+		});
+	}
+});

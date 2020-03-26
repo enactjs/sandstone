@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` icon-only sizing so it is square once again
 - `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Switch` styling when disabled and focused
 
 ## [1.0.0-alpha.5] - 2020-03-23
 
