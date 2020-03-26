@@ -281,7 +281,19 @@
 				}
 
 				.disabled({
-					color: @sand-spotlight-disabled-text-color;
+					color: @sand-picker-joined-focus-disabled-text-color;
+
+					&::before {
+						background-color: @sand-picker-joined-focus-disabled-bg-color;
+					}
+
+					.indicator {
+						opacity:  @sand-picker-joined-focus-disabled-indicator-opacity;
+
+						&.active {
+							opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
+						}
+					}
 				});
 
 				.indicator {
