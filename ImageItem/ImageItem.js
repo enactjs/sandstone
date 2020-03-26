@@ -297,6 +297,7 @@ const ImageItemDecorator = compose(
  * @public
  */
 const ImageItem = ImageItemDecorator(ImageItemBase);
+ImageItem.displayName = 'ImageItem';
 
 export default ImageItem;
 export {
