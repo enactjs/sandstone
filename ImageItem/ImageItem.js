@@ -231,7 +231,6 @@ const ImageItemBase = kind({
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
-		delete rest.showSelection;
 		delete rest.subCaption;
 
 		if (SelectionComponent) {
