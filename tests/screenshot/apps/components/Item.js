@@ -10,7 +10,7 @@ const ItemTests = [
 	<Item> ฟิ้  ไั  ஒ  து</Item>,
 	<Item>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	<Item>صباح الخير</Item>,
-	// With tall characters and disabled [GT-23418]
+	// With tall characters and disabled [GT-28165]
 	<Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	{
 		textSize: 'large',
@@ -26,7 +26,7 @@ const ItemTests = [
 	},
 	// *************************************************************
 	// locale = 'ar-SA'
-	// Item Functionality RTL [GT-21217]
+	// Item Functionality RTL [GT-28162]
 	{
 		locale: 'ar-SA',
 		component: <Item>Hello Item RTL</Item>
@@ -59,7 +59,7 @@ const ItemTests = [
 		locale: 'ar-SA',
 		component: <Item>صباح الخير</Item>
 	},
-	// With tall characters and disabled [GT-23418]
+	// With tall characters and disabled [GT-28165]
 	{
 		locale: 'ar-SA',
 		component: <Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>

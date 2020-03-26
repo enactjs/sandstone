@@ -8,6 +8,10 @@
 	position: absolute;
 	bottom: @sand-video-slider-tooltip-position-bottom;
 
+	&.shift {
+		bottom: @sand-video-slider-tooltip-shift-position-bottom;
+	}
+
 	&.hidden {
 		display: none;
 	}
@@ -27,31 +31,55 @@
 
 		.image {
 			margin: 0;
-			width: 504px;
-			height: 282px;
+			width: @sand-video-slider-tooltip-thumbnail-width;
+			height: @sand-video-slider-tooltip-thumbnail-height;
 		}
 	}
 
 	&.thumbnailDeactivated {
 		.thumbnail {
-			opacity: 0.5;
+			opacity: @sand-video-slider-tooltip-deactivated-thumbnail-opacity;
 		}
 	}
 
 	.content {
-		.sand-text-base(@sand-video-slider-tooltip-font-size);
+		.sand-font({
+			font-size: @sand-video-slider-tooltip-font-size;
+			font-weight: @sand-video-slider-tooltip-font-weight;
+		});
+		font-size: @sand-video-slider-tooltip-font-size;
+		font-weight: @sand-video-slider-tooltip-font-weight;
 		line-height: @sand-video-slider-tooltip-line-height;
 		white-space: nowrap;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		text-align: center;
+		margin-bottom: @sand-video-slider-tooltip-margin-bottom;
 	}
 
-	&.afterMidpoint {
-		.thumbnail,
-		.content {
-			transform: translateX(-100%) translateX(0);
+	.alignmentContainer {
+		position: relative;
+		right: 50%;
+	}
+
+	.arrowContainer {
+		position: absolute;
+		left: 0;
+		right: 0;
+
+		&.hidden {
+			display: none;
 		}
 
-		.content {
-			text-align: right;
+		.arrow {
+			margin: auto;
+			width: 0;
+			height: 0;
+			border-top: @sand-video-slider-tooltip-arrow-border-top solid;
+			border-right: @sand-video-slider-tooltip-arrow-border-left-right solid;
+			border-left: @sand-video-slider-tooltip-arrow-border-left-right solid;
 		}
 	}
 
@@ -60,8 +88,14 @@
 			border-color: @sand-video-slider-tooltip-thumbnail-border-color;
 		}
 
+		.arrow {
+			border-top-color: @sand-video-slider-tooltip-thumbnail-border-color;
+			border-right-color: transparent;
+			border-left-color: transparent;
+		}
+
 		.content {
-			color: @sand-white;
+			color: @sand-light-gray;
 			text-shadow: @sand-video-player-title-text-shadow;
 		}
 	});
