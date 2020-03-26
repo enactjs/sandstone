@@ -5,117 +5,108 @@
 @import '../styles/variables.less';
 @import '../styles/skin.less';
 
-// common image item
-.transitionEffect() {
-	transition: transform 200ms ease-in-out;
-}
-
 .imageItem {
-	width: 100%;
-	height: 100%;
-}
-
-.image {
-	display: block;
-	margin: 0;
-}
-
-.caption {
-	.sand-text-base(@sand-imageitem-caption-font-size);
-}
-
-.subCaption {
-	.sand-text-base(@sand-imageitem-subcaption-font-size);
-}
-
-.selectionComponent {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-}
-
-.selectionContainer {
-	background-color: transparent;
-	pointer-events: none;
-	height: 100%;
-}
-
-.selectionContainer::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	border-width: @sand-imageitem-image-border-width;
-	border-style: none;
-}
-
-.selectionIcon {
 	position: relative;
-	display: block;
-	border-radius: 50%;
-	margin: 0;
-}
 
-// vertical image item
-.vertical {
 	.image {
-		transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
-		will-change: filter, transform;
-		margin-bottom: @sand-imageitem-vertical-image-margin-bottom;
+		display: block;
+		margin: 0;
 	}
 
-	.captions {
-		height: @sand-imageitem-vertical-captions-height;
-		.transitionEffect();
+	.caption {
+		.sand-text-base(@sand-imageitem-caption-font-size);
 	}
 
-	.imageIcon {
-		height: @sand-imageitem-vertical-image-icon-size;
-		width: @sand-imageitem-vertical-image-icon-size;
-		margin-left: 0;
-		margin-right: @sand-imageitem-vertical-image-icon-margin-right;
+	.subCaption {
+		.sand-text-base(@sand-imageitem-subcaption-font-size);
 	}
 
-	.selectionIcon {
-		width: @sand-imageitem-vertical-selection-icon-size;
-		height: @sand-imageitem-vertical-selection-icon-size;
-		line-height: @sand-imageitem-vertical-selection-icon-size;
-		.transitionEffect();
-	}
-}
-
-// horizontal image item
-.horizontal {
-	&.imageItem::before {
-		content: '';
+	.selectionContainer {
+		background-color: transparent;
+		pointer-events: none;
+		.position(0);
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		border-radius: @sand-imageitem-horizontal-border-radius;
-		.sand-spotlight-resting();
+
+		&::after {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-width: @sand-imageitem-image-border-width;
+			border-style: none;
+		}
+
+		.selectionComponent {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+		}
+
+		.selectionIcon {
+			position: relative;
+			display: block;
+			border-radius: 50%;
+			margin: 0;
+		}
 	}
 
-	.image {
-		width: 18%;
-		height: 75%;
-		margin: @sand-imageitem-horizontal-image-margin;
+	&.selected {
+		.selectionContainer::after {
+			border-style: solid;
+		}
 	}
 
-	.selectionIcon {
-		width: @sand-imageitem-horizontal-selection-icon-size;
-		height: @sand-imageitem-horizontal-selection-icon-size;
-		line-height: @sand-imageitem-horizontal-selection-icon-size;
-	}
-}
+	&.vertical {
+		padding: @sand-imageitem-vertical-padding;
 
-&.selected {
-	.selectionContainer::after {
-		border-style: solid;
+		.image {
+			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+			will-change: filter, transform;
+		}
+
+		.captions {
+			margin-top: @sand-imageitem-vertical-captions-margin-top;
+			height: @sand-imageitem-vertical-captions-height;
+			transition: transform 200ms ease-in-out;
+		}
+	
+		.imageIcon {
+			height: @sand-imageitem-vertical-image-icon-size;
+			width: @sand-imageitem-vertical-image-icon-size;
+			margin: @sand-imageitem-vertical-image-icon-margin;
+		}
+	
+		.selectionIcon {
+			width: @sand-imageitem-vertical-selection-icon-size;
+			height: @sand-imageitem-vertical-selection-icon-size;
+			line-height: @sand-imageitem-vertical-selection-icon-size;
+			transition: transform 200ms ease-in-out;
+		}
+	}
+
+	&.horizontal {
+		.sand-spotlight-padding(@sand-item-vertical-padding);
+		margin: @sand-imageitem-horizontal-margin;
+
+		&::before {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-radius: @sand-imageitem-horizontal-border-radius;
+			.sand-spotlight-resting();
+		}
+
+		.image {
+			width: @sand-imageitem-horizontal-image-width;
+			height: @sand-imageitem-horizontal-image-height;
+			margin: @sand-imageitem-horizontal-image-margin;
+		}
+
+		.selectionIcon {
+			width: @sand-imageitem-horizontal-selection-icon-size;
+			height: @sand-imageitem-horizontal-selection-icon-size;
+			line-height: @sand-imageitem-horizontal-selection-icon-size;
+		}
 	}
 }
 

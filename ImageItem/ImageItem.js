@@ -35,10 +35,7 @@ const
 	'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
 	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-	'4NCg==',
-	captionComponent = (props) => (
-		<Marquee marqueeOn="hover" {...props} />
-	);
+	'4NCg==';
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -90,14 +87,6 @@ const ImageItemBase = kind({
 		'data-webos-voice-intent': PropTypes.string,
 
 		/**
-		 * The component used to render the image component.
-		 *
-		 * @type {Node}
-		 * @public
-		 */
-		imageComponent: PropTypes.node,
-
-		/**
 		 * The component used to render the image icon component.
 		 *
 		 * @type {Component}
@@ -144,7 +133,7 @@ const ImageItemBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Applies a selected visual effect to the image, but only if `selectionShowing`
+		 * Applies a selected visual effect to the image, but only if `showSelection`
 		 * is also `true`.
 		 *
 		 * @type {Boolean}
@@ -179,7 +168,7 @@ const ImageItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selectionShowing: PropTypes.bool,
+		showSelection: PropTypes.bool,
 
 		/**
 		 * Source for the image.
@@ -206,7 +195,7 @@ const ImageItemBase = kind({
 		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
 		selected: false,
-		selectionShowing: false
+		showSelection: false
 	},
 
 	styles: {
@@ -216,51 +205,35 @@ const ImageItemBase = kind({
 
 	computed: {
 		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
-			const captions = () => (
-				<React.Fragment>
-					{caption ? (<Cell className={css.caption} component={captionComponent} shrink>{caption}</Cell>) : null}
-					{subCaption ? (<Cell className={css.subCaption} component={captionComponent} shrink>{subCaption}</Cell>) : null}
-				</React.Fragment>
-			);
+			const hasImageIcon = imageIconSrc && orientation === 'vertical';
+
+			if (!hasImageIcon && !caption && !subCaption) return;
 
 			return (
-				imageIconSrc && orientation === 'vertical' ?
-					<Row className={css.captions}>
-						<Cell className={css.imageIcon} component={imageIconComponent} src={imageIconSrc} shrink />
-						<Cell size="77%">
-							{captions()}
-						</Cell>
-					</Row> :
-					<div className={css.captions}>
-						{captions()}
-					</div>
-			);
-		},
-		imageComponent: ({css, orientation, placeholder, selectionComponent: SelectionComponent, selectionShowing, src}) => {
-			return (
-				<Cell className={css.image} component={Image} placeholder={placeholder} shrink={orientation === 'horizontal'} src={src}>
-					{selectionShowing ?
-						<div className={css.selectionContainer}>
-							{SelectionComponent ?
-								<SelectionComponent /> :
-								<div className={css.selectionComponent}>
-									<Icon className={css.selectionIcon}>check</Icon>
-								</div>
-							}
-						</div> : null
-					}
-				</Cell>
+				<Row className={css.captions}>
+					{hasImageIcon ? (
+						<Cell
+							className={css.imageIcon}
+							component={imageIconComponent}
+							src={imageIconSrc}
+							shrink
+						/>
+					) : null}
+					<Cell>
+						<Marquee className={css.caption} marqueeOn="hover">{caption}</Marquee>
+						<Marquee className={css.subCaption} marqueeOn="hover">{subCaption}</Marquee>
+					</Cell>
+				</Row>
 			);
 		}
 	},
 
-	render: ({css, selectionComponent, ...rest}) => {
+	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
-		delete rest.selectionShowing;
 		delete rest.subCaption;
 
-		if (selectionComponent) {
+		if (SelectionComponent) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}
@@ -269,6 +242,21 @@ const ImageItemBase = kind({
 			<UiImageItem
 				{...rest}
 				css={css}
+				imageComponent={
+					<Image>
+						{showSelection ? (
+							<div className={css.selectionContainer}>
+								{SelectionComponent ? (
+									<SelectionComponent />
+								) : (
+									<div className={css.selectionComponent}>
+										<Icon className={css.selectionIcon}>check</Icon>
+									</div>
+								)}
+							</div>
+						) : null}
+					</Image>
+				}
 			/>
 		);
 	}
