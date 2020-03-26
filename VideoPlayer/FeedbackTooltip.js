@@ -97,15 +97,6 @@ const FeedbackTooltipBase = kind({
 		playbackState: PropTypes.oneOf(Object.keys(states)),
 
 		/**
-		 * A number between 0 and 1 representing the proportion of the `value` in terms of `min`
-		 * and `max` props of the slider
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		proportion: PropTypes.number,
-
-		/**
 		 * This component will be used instead of the built-in version. The internal thumbnail style
 		 * will be applied to this component. This component follows the same rules as the built-in
 		 * version; hiding and showing according to the state of `action`.
@@ -158,14 +149,20 @@ const FeedbackTooltipBase = kind({
 	},
 
 	computed: {
+		arrowContainerClassName: ({action, styler, thumbnailComponent, thumbnailSrc}) => {
+			return styler.join(
+				'arrowContainer',
+				{hidden: action !== 'focus' || (!thumbnailComponent && !thumbnailSrc)}
+			);
+		},
 		children: ({children, duration, formatter}) => {
 			return secondsToTime(children * duration, formatter);
 		},
-		className: ({hidden, playbackState: s, proportion, thumbnailDeactivated, styler}) => {
+		className: ({hidden, playbackState: s, thumbnailDeactivated, styler, action, thumbnailComponent, thumbnailSrc}) => {
 			return styler.append({
-				afterMidpoint: proportion > 0.5,
 				hidden: hidden && states[s] && states[s].allowHide,
-				thumbnailDeactivated
+				thumbnailDeactivated,
+				shift: action === 'focus' && (thumbnailComponent || thumbnailSrc)
 			});
 		},
 		feedbackVisible: ({action, playbackState}) => {
@@ -177,10 +174,11 @@ const FeedbackTooltipBase = kind({
 					return <ComponentOverride
 						component={thumbnailComponent}
 						className={css.thumbnail}
+						key="thumbnailComponent"
 					/>;
 				} else if (thumbnailSrc) {
 					return (
-						<div className={css.thumbnail}>
+						<div className={css.thumbnail} key="thumbnailComponent">
 							<Image src={thumbnailSrc} className={css.image} />
 						</div>
 					);
@@ -189,28 +187,33 @@ const FeedbackTooltipBase = kind({
 		}
 	},
 
-	render: ({children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
+	render: ({arrowContainerClassName, children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
 		delete rest.action;
 		delete rest.duration;
 		delete rest.formatter;
 		delete rest.hidden;
 		delete rest.orientation;
-		delete rest.proportion;
 		delete rest.thumbnailDeactivated;
 		delete rest.thumbnailSrc;
 		delete rest.visible;
 
 		return (
 			<div {...rest}>
-				{thumbnailComponent}
-				<FeedbackContent
-					className={css.content}
-					feedbackVisible={feedbackVisible}
-					playbackRate={playbackRate}
-					playbackState={playbackState}
-				>
-					{children}
-				</FeedbackContent>
+				<div className={css.alignmentContainer}>
+					{thumbnailComponent}
+					<FeedbackContent
+						className={css.content}
+						feedbackVisible={feedbackVisible}
+						key="feedbackContent"
+						playbackRate={playbackRate}
+						playbackState={playbackState}
+					>
+						{children}
+					</FeedbackContent>
+					<div className={arrowContainerClassName}>
+						<div className={css.arrow} />
+					</div>
+				</div>
 			</div>
 		);
 	}
