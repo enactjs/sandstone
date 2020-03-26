@@ -23,13 +23,13 @@
 
 	// Disabled Components
 	.disabled({
-		.vendor-opacity(@sand-disabled-opacity);
+		.sand-disabled-colors(custom-focus);
 
 		cursor: default;
 
 		// Disabled children of disabled components
 		.disabled({
-			.vendor-opacity(1);
+			opacity: 1;
 		}, parent);
 	});
 });

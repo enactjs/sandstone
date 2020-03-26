@@ -107,6 +107,18 @@
 			.label {
 				color: inherit;
 			}
+
+			.disabled({
+				.bg {
+					.sand-disabled-focus-bg-colors();
+				}
+
+				.slotBefore,
+				.itemContent,
+				.slotAfter {
+					.sand-disabled-focus-content-colors();
+				}
+			})
 		});
 	});
 }

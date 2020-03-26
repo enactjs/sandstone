@@ -4,6 +4,8 @@
 // Shortcuts for easily getting consistent colorization rules onto components.
 //
 
+@import "./mixins.less";
+
 // ---------------------------------------
 // Focus Shadow and background setup
 // ---------------------------------------
@@ -24,4 +26,30 @@
 	background-color: @sand-spotlight-bg-color;
 	filter+_: drop-shadow(@sand-spotlight-focus-shadow);
 	opacity: @opacity;
+}
+
+// Prepares not only the disabled state, but includes the "reset" necessary to apply other opacity
+// rules directly to children (to avoid double unintended opacity levels).
+.sand-disabled-colors (@target) when (@target = custom-focus) {
+	.sand-disabled-colors();
+
+	.focus({
+		opacity: 1;
+	});
+}
+// Assign the standard disabled rules
+.sand-disabled-colors () {
+	opacity: @sand-disabled-opacity;
+}
+
+// Assign the standard disabled rules of content to content nodes.
+// This should be used on children of a root component node.
+.sand-disabled-focus-content-colors () {
+	opacity: @sand-disabled-focus-content-opacity;
+}
+
+// Assign the standard disabled rules of backgrounds to bg nodes.
+// This should be used on children of a root component node.
+.sand-disabled-focus-bg-colors () {
+	opacity: @sand-disabled-focus-bg-opacity;
 }

@@ -328,5 +328,20 @@
 				}
 			});
 		}
+
+		.disabled({
+			// Ensure a smooth transition to the focus state
+			transition: opacity @sand-spotlight-focus-animation-duration ease-in;
+
+			.focus({
+				.bg {
+					.sand-disabled-focus-bg-colors();
+				}
+
+				.client {
+					.sand-disabled-focus-content-colors();
+				}
+			})
+		})
 	});
 }
