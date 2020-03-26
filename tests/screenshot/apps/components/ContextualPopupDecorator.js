@@ -6,8 +6,8 @@ const ContextualPopupButton = ContextualPopupDecorator(Button);
 const Popup = () => <div>hello</div>;
 
 const ContextualPopupDecoratorTests = [
-	<ContextualPopupButton popupComponent={Popup}>Button</ContextualPopupButton>,
-	<ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>,
+	<ContextualPopupButton popupComponent={Popup}>Button</ContextualPopupButton>, // [GT-28290]
+	<ContextualPopupButton open popupComponent={Popup}>Button</ContextualPopupButton>, // [GT-28290]
 	<ContextualPopupButton open popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
 	// Tooltip will be pushed Down because it's too close to the top edge of the screen (auto-swap code)
 	<ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
@@ -231,7 +231,7 @@ const ContextualPopupDecoratorTests = [
 			padded: true
 		}
 	},
-	{
+	{ // [GT-28299]
 		locale: 'ar-SA',
 		textSize: 'large',
 		component: <ContextualPopupButton open direction="above center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
@@ -239,7 +239,7 @@ const ContextualPopupDecoratorTests = [
 			padded: true
 		}
 	},
-	{
+	{ // [GT-28299]
 		locale: 'ar-SA',
 		textSize: 'large',
 		component: <ContextualPopupButton open direction="below center" popupComponent={Popup} showCloseButton>Button</ContextualPopupButton>,
