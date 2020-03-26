@@ -470,7 +470,7 @@ describe('Picker Specs', () => {
 				);
 
 				const expected = '2';
-				const actual = picker.find(`.${css.valueWrapper}`).prop('aria-valuetext');
+				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-valuetext');
 
 				expect(actual).toBe(expected);
 			}
@@ -489,7 +489,7 @@ describe('Picker Specs', () => {
 				);
 
 				const expected = true;
-				const actual = picker.find(`.${css.valueWrapper}`).prop('aria-hidden');
+				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
 
 				expect(actual).toBe(expected);
 			}
@@ -508,7 +508,7 @@ describe('Picker Specs', () => {
 			picker.simulate('focus');
 
 			const expected = false;
-			const actual = picker.find(`.${css.valueWrapper}`).prop('aria-hidden');
+			const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
 
 			expect(actual).toBe(expected);
 		});
@@ -559,7 +559,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = label;
-			const actual = picker.find(`.${css.valueWrapper}`).parent().prop('aria-label');
+			const actual = picker.find(`.${css.valueWrapper}`).first().parent().prop('aria-label');
 
 			expect(actual).toBe(expected);
 		});
