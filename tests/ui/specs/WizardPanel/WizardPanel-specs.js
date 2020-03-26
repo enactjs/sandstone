@@ -28,14 +28,14 @@ describe('WizardPanel', function () {
 		it('should navigate between views', function () {
 			browser.moveToElement(wizardPanel.nextButton.ELEMENT);
 			expect(wizardPanel.nextButton.isFocused()).to.be.true();
-			Page.spotlightSelect();
+			wizardPanel.nextButton.click();
 
 			wizardPanel.waitForLeave(1);
 			expect(wizardPanel.view2.isExisting()).to.be.true();
 
 			browser.moveToElement(wizardPanel.prevButton.ELEMENT);
 			expect(wizardPanel.prevButton.isFocused()).to.be.true();
-			Page.spotlightSelect();
+			wizardPanel.prevButton.click();
 
 			wizardPanel.waitForLeave(2);
 			expect(wizardPanel.view1.isExisting()).to.be.true();
