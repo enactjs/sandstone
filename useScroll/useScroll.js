@@ -2,6 +2,7 @@
  * Sandstone-themed scrollable hook and behaviors.
  *
  * @module sandstone/useScroll
+ * @exports fadeOutSize
  * @exports dataIndexAttribute
  * @exports useScroll
  * @private
@@ -495,5 +496,6 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
+	fadeOutSize,
 	useScroll
 };
