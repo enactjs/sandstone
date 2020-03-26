@@ -9,7 +9,8 @@ const PickerItemBase = kind({
 
 	styles: {
 		css,
-		className: 'item'
+		className: 'item',
+		publicClassNames: true
 	},
 
 	render: (props) => (

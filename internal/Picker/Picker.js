@@ -877,6 +877,7 @@ const PickerBase = class extends React.Component {
 		const reachedEnd = this.hasReachedBound(step);
 		const incrementerDisabled = disabled || reachedEnd;
 		const className = this.determineClasses(css, decrementerDisabled, incrementerDisabled);
+		const pickerAlignItems = horizontal && joined ? 'start' : 'center space-around';
 
 		let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
 		let noAnimation = this.props.noAnimation || disabled;
@@ -907,7 +908,7 @@ const PickerBase = class extends React.Component {
 			<Layout
 				{...voiceProps}
 				{...rest}
-				align="center space-around"
+				align={pickerAlignItems}
 				orientation={orientation}
 				aria-controls={joined ? id : null}
 				aria-disabled={disabled}
