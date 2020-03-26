@@ -150,23 +150,11 @@
 			.knob::before {
 				background-color: @sand-slider-focus-knob-bg-color;
 				border-color: @sand-slider-focus-knob-border-color;
-				transform: @knob-transform-active;
+				transform: @knob-transform-resting;
 			}
 
-			&.activateOnSelect {
-				.knob::before {
-					transform: @knob-transform-resting;
-				}
-
-				&.active,
-				&.pressed {
-					.knob::before {
-						transform: @knob-transform-active;
-					}
-				}
-			}
-
-			&.active {
+			&.active,
+			&.pressed {
 				.bar {
 					background-color: @sand-slider-active-bar-bg-color;
 				}
@@ -177,6 +165,10 @@
 
 				.load {
 					background-color: @sand-slider-active-load-bg-color;
+				}
+
+				.knob::before {
+					transform: @knob-transform-active;
 				}
 			}
 
@@ -211,7 +203,7 @@
 				background-color: transparent;
 			}
 
-			.spottable({
+			.focus({
 				&,
 				&.active,
 				&.pressed {
@@ -227,12 +219,10 @@
 .muted({
 	.slider {
 		.applySkins({
-			.spottable({
-				.focus({
-					.knob::before {
-						background-color: @sand-slider-knob-bg-color;
-					}
-				});
+			.focus({
+				.knob::before {
+					background-color: @sand-slider-knob-bg-color;
+				}
 			});
 		});
 	}
