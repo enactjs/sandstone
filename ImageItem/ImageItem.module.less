@@ -93,7 +93,6 @@
 			position: absolute;
 			.position(0);
 			border-radius: @sand-imageitem-horizontal-border-radius;
-			.sand-spotlight-resting();
 		}
 
 		.image {
@@ -136,6 +135,12 @@
 		}
 	}
 
+	&.horizontal {
+		&.imageItem::before {
+			.sand-spotlight-resting-colors();
+		}
+	}
+
 	.focus({
 		.disabled ({
 			.vendor-opacity(@sand-disabled-opacity);
@@ -159,9 +164,7 @@
 
 		&.horizontal {
 			&.imageItem::before {
-				.sand-spotlight-focus();
-				background-color: @sand-imageitem-horizontal-focus-bg-color;
-				filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
+				.sand-spotlight-focus-colors();
 			}
 
 			.caption,
