@@ -16,7 +16,7 @@ import {getRect, intersects} from '@enact/spotlight/src/utils';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import React, {useContext, useRef} from 'react';
+import React, {useContext, useEffect, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
@@ -81,6 +81,14 @@ const useThemeScroll = (props, instances) => {
 		scrollbarProps
 	} = useScrollbar(props, instances, {isContent});
 
+	// Before restoring spotlight position, alert useScrollPosition
+	useEffect(() => {
+		// On mount, send initial position, empty dependency to prevent re-running
+		if (scrollPositionContext && scrollPositionContext.onScroll) {
+			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	useSpotlightRestore(props, instances);
 
 	const {
@@ -106,6 +114,13 @@ const useThemeScroll = (props, instances) => {
 		removeVoiceEventListener,
 		stopVoice
 	} = useEventVoice(props, instances);
+
+	useEffect(() => {
+		// On mount, send initial position, empty dependency to prevent re-running
+		if (scrollPositionContext && scrollPositionContext.onScroll) {
+			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 
