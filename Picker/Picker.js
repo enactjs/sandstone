@@ -201,7 +201,7 @@ const PickerBase = kind({
 	},
 
 	handlers: {
-		onSpotlightEnter: (ev, {onChange, value}) => onChange({value: value + 1})
+		onSpotlightEnter: (ev, {children, onChange, value, wrap}) => children && wrap && value === (children.length - 1) ? onChange({value: 0}) : onChange({value: value + 1})
 	},
 
 	computed: {
