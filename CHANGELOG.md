@@ -23,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/MediaOverlay` styling
 - `sandstone/Panels` to default to `SlideLeftArranger`
 - `sandstone/Panels` styling to match updated GUI
+- `sandstone/Picker` styling
 
 ### Fixed
 
