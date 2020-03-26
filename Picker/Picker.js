@@ -200,6 +200,10 @@ const PickerBase = kind({
 		value: 0
 	},
 
+	handlers: {
+		onSpotlightEnter: (ev, {onChange, value}) => onChange({value: value + 1})
+	},
+
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
 		reverse: ({orientation}) => (orientation === 'vertical'),

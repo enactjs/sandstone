@@ -32,6 +32,7 @@ const holdConfig = {
 };
 
 const isDown = is('down');
+const isEnter = is('enter');
 const isLeft = is('left');
 const isRight = is('right');
 const isUp = is('up');
@@ -295,6 +296,15 @@ const PickerBase = class extends React.Component {
 		 * @public
 		 */
 		onSpotlightDown: PropTypes.func,
+
+		/**
+		 * The handler to run prior to focus leaving the picker when the 5-way select/enter key is pressed.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onSpotlightEnter: PropTypes.func,
 
 		/**
 		 * The handler to run prior to focus leaving the picker when the 5-way left key is pressed.
@@ -604,6 +614,7 @@ const PickerBase = class extends React.Component {
 		const {
 			joined,
 			onSpotlightDown,
+			onSpotlightEnter,
 			onSpotlightLeft,
 			onSpotlightRight,
 			onSpotlightUp,
@@ -629,6 +640,8 @@ const PickerBase = class extends React.Component {
 				directions[direction]();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
 				onSpotlightDown(ev);
+			} else if (orientation === 'horizontal' && isEnter(keyCode) && onSpotlightEnter) {
+				onSpotlightEnter(ev);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
 				onSpotlightUp(ev);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
@@ -848,6 +861,7 @@ const PickerBase = class extends React.Component {
 		delete rest.noAnimation;
 		delete rest.onChange;
 		delete rest.onSpotlightDown;
+		delete rest.onSpotlightEnter;
 		delete rest.onSpotlightLeft;
 		delete rest.onSpotlightRight;
 		delete rest.onSpotlightUp;
