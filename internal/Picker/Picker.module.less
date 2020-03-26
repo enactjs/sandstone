@@ -5,7 +5,6 @@
 @import "../../styles/skin.less";
 
 .picker {
-	display: inline-block;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -14,7 +13,7 @@
 
 	.sizingPlaceholder,
 	.valueWrapper {
-		.sand-text-base();
+		.sand-text-base(@sand-picker-font-size);
 		.sand-locale-non-latin({line-height: @sand-button-small-height;});
 		max-width: 960px;
 	}
@@ -46,8 +45,6 @@
 	}
 
 	&.horizontal {
-		display: inline-flex;
-
 		:global(.enact-locale-right-to-left) & {
 			flex-direction: row-reverse;
 		}
@@ -86,8 +83,9 @@
 	}
 
 	&.vertical {
+		height: 362px;
+
 		.valueWrapper {
-			display: block;
 			position: relative;
 			line-height: @sand-picker-value-height;
 
@@ -105,10 +103,6 @@
 	}
 
 	&.joined {
-		@joined-arrow-transform-resting: scale(0.7);
-		@joined-arrow-transform-focus: scale(0.95);
-		@joined-arrow-transform-active: @joined-arrow-transform-resting;
-
 		&::before,
 		&::after {
 			content: "";
@@ -138,9 +132,6 @@
 
 		.incrementer,
 		.decrementer {
-			will-change: transform;
-			transform: @joined-arrow-transform-resting;
-
 			&.hidden {
 				visibility: hidden;
 			}
@@ -155,6 +146,10 @@
 				border-radius: @sand-picker-joined-horizontal-border-radius;
 			}
 
+			.sizingPlaceholder,
+			.valueWrapper {
+				font-size: @sand-picker-joined-font-size;
+			}
 
 			.valueWrapper {
 				height: @sand-picker-joined-horizontal-value-line-height;
@@ -211,37 +206,13 @@
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 
-
 			&.incrementing::after {
 				border-top-width: @sand-integer-picker-shadow-width;
 			}
 			&.decrementing::after {
 				border-bottom-width: @sand-integer-picker-shadow-width;
 			}
-			.incrementer,
-			.decrementer {
-				display: block;
-			}
 		}
-
-		.focus({
-			.incrementer,
-			.decrementer {
-				transform: @joined-arrow-transform-focus;
-			}
-
-			&.incrementing .incrementer,
-			&.decrementing .decrementer {
-				transform: @joined-arrow-transform-active;
-			}
-
-			.disabled({
-				.incrementer,
-				.decrementer {
-					transform: @joined-arrow-transform-resting;
-				}
-			});
-		});
 	}
 
 	&.small .valueWrapper {
@@ -391,11 +362,6 @@
 						&::before {
 							background-color: @sand-picker-joined-horizontal-bg-color;
 						}
-					}
-
-					.incrementer,
-					.decrementer {
-						transform: scale(0.7);
 					}
 				});
 			}
