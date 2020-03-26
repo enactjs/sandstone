@@ -4,7 +4,7 @@
  * @example
  * <ImageItem
  *   caption="image0"
- *   source="http://placehold.it/100x100/9037ab/ffffff&text=Image0"
+ *   src="http://placehold.it/100x100/9037ab/ffffff&text=Image0"
  *   subCaption="sub-image0"
  * />
  *
@@ -117,7 +117,7 @@ const ImageItemBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Placeholder image used while [source]{@link sandstone/ImageItem.ImageItem#source}
+		 * Placeholder image used while [src]{@link sandstone/ImageItem.ImageItem#src}
 		 * is loaded.
 		 *
 		 * @type {String}
@@ -283,7 +283,7 @@ const ImageItemDecorator = compose(
  * ```
  * <ImageItem
  * 	caption="image0"
- * 	source="http://placehold.it/300x300/9037ab/ffffff&text=Image0"
+ * 	src="http://placehold.it/300x300/9037ab/ffffff&text=Image0"
  * 	subCaption="sub-image0"
  * />
  * ```
