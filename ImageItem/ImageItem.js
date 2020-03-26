@@ -66,6 +66,7 @@ const ImageItemBase = kind({
 		 *
 		 * * `caption` - The caption component class
 		 * * `image` - The image component class
+		 * * `imageItem` - The image item component class
 		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `selectionIcon` - The icon component class for default selection component
@@ -109,11 +110,7 @@ const ImageItemBase = kind({
 		/**
 		 * The layout orientation of the component.
 		 *
-		 * Valid values are:
-		 * * `'horizontal'`, and
-		 * * `'vertical'`.
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical')}
 		 * @default 'vertical'
 		 * @public
 		 */
