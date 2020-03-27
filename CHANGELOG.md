@@ -4,6 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+
+### Added
+
+- `sandstone/ImageItem` component
+
 ### Changed
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
@@ -27,6 +35,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
