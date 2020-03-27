@@ -9,6 +9,7 @@
  * @module sandstone/CheckboxItem
  * @exports CheckboxItem
  * @exports CheckboxItemBase
+ * @exports CheckboxItemDecorator
  */
 
 import kind from '@enact/core/kind';
@@ -26,7 +27,7 @@ import Skinnable from '../Skinnable';
 import componentCss from './CheckboxItem.module.less';
 
 /**
- * An item with a checkbox component, ready to use in Sandstone applications.
+ * A Sandstone-styled item with a checkbox component.
  *
  * `CheckboxItem` may be used to allow the user to select a single option or used as part of a
  * [Group]{@link ui/Group} when multiple [selections]{@link ui/Group.Group.select} are possible.
@@ -41,7 +42,7 @@ import componentCss from './CheckboxItem.module.less';
  * </CheckboxItem>
  * ```
  *
- * @class CheckboxItem
+ * @class CheckboxItemBase
  * @memberof sandstone/CheckboxItem
  * @extends sandstone/Item.Item
  * @omit iconComponent
@@ -51,7 +52,7 @@ import componentCss from './CheckboxItem.module.less';
 const CheckboxItemBase = kind({
 	name: 'CheckboxItem',
 
-	propTypes: /** @lends sandstone/CheckboxItem.CheckboxItem.prototype */ {
+	propTypes: /** @lends sandstone/CheckboxItem.CheckboxItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -146,12 +147,32 @@ const CheckboxItemBase = kind({
 	)
 });
 
+/**
+ * Adds interactive functionality to `CheckboxItem`.
+ *
+ * @class CheckboxItemDecorator
+ * @memberof sandstone/CheckboxItem
+ * @mixes ui/Toggleable.Toggleable
+ * @hoc
+ * @public
+ */
 const CheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'}),
-	Spottable,
-	Skinnable
+	Toggleable({toggleProp: 'onClick'})
 );
 
+/**
+ * A Sandstone-styled item with a checkbox component.
+ *
+ * `CheckboxItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class CheckboxItem
+ * @memberof sandstone/CheckboxItem
+ * @extends sandstone/CheckboxItem.CheckboxItemBase
+ * @mixes sandstone/CheckboxItem.CheckboxItemDecorator
+ * @ui
+ * @public
+ */
 const CheckboxItem = CheckboxItemDecorator(CheckboxItemBase);
 
 export default CheckboxItem;

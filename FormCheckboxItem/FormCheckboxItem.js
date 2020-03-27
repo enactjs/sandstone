@@ -7,6 +7,7 @@
  * @module sandstone/FormCheckboxItem
  * @exports FormCheckboxItem
  * @exports FormCheckboxItemBase
+ * @exports FormCheckboxItemDecorator
  */
 
 import kind from '@enact/core/kind';
@@ -24,9 +25,11 @@ import componentCss from './FormCheckboxItem.module.less';
 const Checkbox = Spottable(CheckboxBase);
 
 /**
- * Renders a form item with a checkbox component. Useful to show a selected state on an item inside a form.
+ * A Sandstone-styled form item with a checkbox component.
  *
- * @class FormCheckboxItem
+ * Useful to show a selected state on an item inside a form.
+ *
+ * @class FormCheckboxItemBase
  * @memberof sandstone/FormCheckboxItem
  * @extends sandstone/Item.Item
  * @ui
@@ -35,7 +38,7 @@ const Checkbox = Spottable(CheckboxBase);
 const FormCheckboxItemBase = kind({
 	name: 'FormCheckboxItem',
 
-	propTypes: /** @lends sandstone/FormCheckboxItem.FormCheckboxItem.prototype */ {
+	propTypes: /** @lends sandstone/FormCheckboxItem.FormCheckboxItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -94,7 +97,7 @@ const FormCheckboxItemBase = kind({
 		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * Controls the prsence of the checkmark icon.
+		 * Controls the presence of the checkmark icon.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -130,10 +133,32 @@ const FormCheckboxItemBase = kind({
 	)
 });
 
+/**
+ * Adds interactive functionality to `FormCheckboxItem`.
+ *
+ * @class FormCheckboxItemDecorator
+ * @memberof sandstone/FormCheckboxItem
+ * @mixes ui/Toggleable.Toggleable
+ * @hoc
+ * @public
+ */
 const FormCheckboxItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'})
 );
 
+/**
+ * A Sandstone-styled form item with a checkbox component.
+ *
+ * `FormCheckboxItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless
+ * set directly.
+ *
+ * @class FormCheckboxItem
+ * @memberof sandstone/FormCheckboxItem
+ * @extends sandstone/FormCheckboxItem.FormCheckboxItemBase
+ * @mixes sandstone/FormCheckboxItem.FormCheckboxItemDecorator
+ * @ui
+ * @public
+ */
 const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);
 
 export default FormCheckboxItem;
