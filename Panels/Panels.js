@@ -41,7 +41,7 @@ const PanelsBase = kind({
 		 *
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
-		 * @default {@link ui/ViewManager.SlideLeftArranger}
+		 * @default ui/ViewManager.SlideLeftArranger
 		 * @public
 		 */
 		arranger: shape,
