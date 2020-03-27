@@ -60,6 +60,9 @@ const ProgressBarBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
+		// `'bar` and `fill'` were intentionally excluded from the above documented
+		// exported classes as they do not appear to provide value to the end-developer, but are
+		// needed by ProgressButton internally for its design guidelines.
 		css: PropTypes.object,
 
 		/**
