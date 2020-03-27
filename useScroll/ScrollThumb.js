@@ -29,7 +29,7 @@ const SpotlightAccelerator = new Accelerator();
 let ScrollThumb = forwardRef((props, ref) => {
 	const
 		{cbAlertThumb, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
-		className = classNames(css.scrollTrack, {[css.vertical]: vertical}, {[css.focusableScrollbar]: focusableScrollbar}),
+		className = classNames(css.scrollTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollThumbDiv = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
