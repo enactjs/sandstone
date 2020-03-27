@@ -104,7 +104,19 @@ const PanelBase = kind({
 		 * @default false
 		 * @public
 		 */
-		hideChildren: PropTypes.bool
+		hideChildren: PropTypes.bool,
+
+		/**
+		 * The method which receives the reference node to the title element, used to determine
+		 * the `titleMeasurements` of the header.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		titleRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		])
 	},
 
 	defaultProps: {
@@ -170,13 +182,13 @@ const PanelBase = kind({
 		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
-	render: ({bodyClassName, children, header, headerId, spotOnRender, ...rest}) => {
+	render: ({bodyClassName, children, header, headerId, spotOnRender, titleRef, ...rest}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
-				<div className={css.header} id={headerId}>{header}</div>
+				<div className={css.header} id={headerId} ref={titleRef}>{header}</div>
 				<section className={bodyClassName}>{children}</section>
 			</article>
 		);

@@ -107,17 +107,24 @@
 
 	// TODO: A placeholder for future work
 	transition: transform 300ms ease-out;
-	.title {
+	.titlesRow {
 		transition: transform 300ms ease-out, opacity 300ms ease-out;
 	}
 
 	&.collapsed {
 		transform: translateY(-12px);
 
-		.title {
+		.titlesRow {
 			transform: translateY(-50%);
 			opacity: 0.3;
 		}
+
+		.slotBelow,
+		.slotAbove,
+		.subtitle {
+			display: none;
+		}
+
 	}
 
 	// Skin colors

@@ -207,6 +207,18 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * The method which receives the reference node to the title element, used to determine
+		 * the `titleMeasurements`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		titleRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
 		 * Set the type of header to be used.
 		 *
 		 * @type {('compact'|'dense'|'standard')}
@@ -238,7 +250,7 @@ const HeaderBase = kind({
 		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
 
-	render: ({centered, children, css, direction, headerInput, line, marqueeOn, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+	render: ({centered, children, css, direction, headerInput, line, marqueeOn, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, titleRef, type, ...rest}) => {
 		delete rest.collapsed;
 
 		// Create the Title component
@@ -286,7 +298,7 @@ const HeaderBase = kind({
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
 					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
-					<Cell className={css.titleCell}>
+					<Cell className={css.titleCell} ref={titleRef}>
 						{titleOrInput}
 						<Heading
 							size="subtitle"
