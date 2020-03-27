@@ -8,7 +8,6 @@ import ProgressBar from '../ProgressBar';
 
 import componentCss from './ProgressButton.module.less';
 
-
 /**
  * Renders a sandstone-styled progress button.
  *
@@ -23,7 +22,6 @@ const ProgressButtonBase = kind({
 	name: 'ProgressButton',
 
 	propTypes: /** @lends sandstone/ProgressButton.ProgressButtonBase.prototype */ {
-
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -77,7 +75,6 @@ const ProgressButtonBase = kind({
 	},
 
 	render: ({css, children, icon, progress, showProgress, ...rest}) => {
-
 		return (
 			<ButtonBase
 				{...rest}
@@ -102,6 +99,7 @@ const ProgressButtonBase = kind({
 	}
 });
 
+
 /**
  * The ready-to-use Sandstone-styled ProgressButton.
  *
@@ -117,5 +115,6 @@ const ProgressButton = ButtonDecorator(ProgressButtonBase);
 export default ProgressButton;
 export {
 	ProgressButton,
-	ProgressButtonBase
+	ProgressButtonBase,
+	ButtonDecorator as ProgressButtonDecorator
 };
