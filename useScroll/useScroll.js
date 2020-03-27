@@ -115,13 +115,6 @@ const useThemeScroll = (props, instances) => {
 		stopVoice
 	} = useEventVoice(props, instances);
 
-	useEffect(() => {
-		// On mount, send initial position, empty dependency to prevent re-running
-		if (scrollPositionContext && scrollPositionContext.onScroll) {
-			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
-		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
-
 	// Functions
 
 	function isContent (element) {
