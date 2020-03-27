@@ -1,13 +1,11 @@
-import Spotlight from '@enact/spotlight';
 import ri from '@enact/ui/resolution';
 import {constants} from '@enact/ui/useScroll';
 
 const {paginationPageMultiplier} = constants;
 const defaultScrollDistance = 168;	// TODO : Change to the value decided by UX.
 
-const useScrollbar = (props, instances, context) => {
+const useScrollbar = (props, instances) => {
 	const {scrollContainerHandle} = instances;
-	const {isContent} = context;
 
 	const scrollbarProps = {
 		cbAlertThumb: alertThumbAfterRendered,
@@ -41,9 +39,7 @@ const useScrollbar = (props, instances, context) => {
 	}
 
 	function alertThumbAfterRendered () {
-		const spotItem = Spotlight.getCurrent();
-
-		if (!Spotlight.getPointerMode() && isContent(spotItem) && scrollContainerHandle.current.isUpdatedScrollThumb) {
+		if (scrollContainerHandle.current.isUpdatedScrollThumb) {
 			alertThumb();
 		}
 	}
