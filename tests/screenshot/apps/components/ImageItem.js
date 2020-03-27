@@ -1,4 +1,4 @@
-import ri from '@enact/core/resolution';
+import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import ImageItem from '../../../../ImageItem';
@@ -10,19 +10,19 @@ const verticalStyle = {height: ri.scale(540), width: ri.scale(640)};
 
 const ImageItemTests = [
 	<ImageItem src={img} style={verticalStyle} orientation="vertical" />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" caption="Short" />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" subCaption="Short" />,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical">Short</ImageItem>,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" />,
 	<ImageItem src={img} style={verticalStyle} orientation="vertical" imageIconSrc={img} />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" caption="Short" subCaption="Short" />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" caption="Short" subCaption="Short" imageIconSrc={img} />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" caption="Short" subCaption="Short" showSelection />,
-	<ImageItem src={img} style={verticalStyle} orientation="vertical" caption="Short" subCaption="Short" selected showSelection />,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short">Short</ImageItem>,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" imageIconSrc={img}>Short</ImageItem>,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" showSelection>Short</ImageItem>,
+	<ImageItem src={img} style={verticalStyle} orientation="vertical" label="Short" selected showSelection>Short</ImageItem>,
 
 	<ImageItem src={img} orientation="horizontal" />,
-	<ImageItem src={img} orientation="horizontal" caption="Short" />,
-	<ImageItem src={img} orientation="horizontal" subCaption="Short" />,
-	<ImageItem src={img} orientation="horizontal" caption="Short" subCaption="Short" />,
-	<ImageItem src={img} orientation="horizontal" caption="Short" subCaption="Short" showSelection />,
-	<ImageItem src={img} orientation="horizontal" caption="Short" subCaption="Short" selected showSelection />
+	<ImageItem src={img} orientation="horizontal">Short</ImageItem>,
+	<ImageItem src={img} orientation="horizontal" label="Short" />,
+	<ImageItem src={img} orientation="horizontal" label="Short">Short</ImageItem>,
+	<ImageItem src={img} orientation="horizontal" label="Short" showSelection>Short</ImageItem>,
+	<ImageItem src={img} orientation="horizontal" label="Short" selected showSelection>Short</ImageItem>
 ];
 export default ImageItemTests;
