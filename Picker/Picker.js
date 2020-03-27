@@ -206,7 +206,10 @@ const PickerBase = kind({
 		children: ({children, disabled, joined, marqueeDisabled}) => React.Children.map(children, (child) => {
 			const focusOrHover = !disabled && joined ? 'focus' : 'hover';
 			return (
-				<PickerItem>
+				<PickerItem
+					marqueeDisabled={marqueeDisabled}
+					marqueeOn={focusOrHover}
+				>
 					{child}
 				</PickerItem>
 			);
