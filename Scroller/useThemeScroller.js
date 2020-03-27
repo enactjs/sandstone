@@ -7,6 +7,8 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
+import {fadeOutSize} from '../useScroll';
+
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
@@ -102,6 +104,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 };
 
 const useSpottable = (props, instances) => {
+	const {noFadeOut} = props;
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
@@ -185,13 +188,13 @@ const useSpottable = (props, instances) => {
 			// round to start
 			if (st < threshold) return 0;
 
-			return st;
+			return st - (noFadeOut ? 0 : fadeOutSize);
 		};
 		const roundToEnd = (sb, st, sh) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st;
+			return st + (noFadeOut ? 0 : fadeOutSize);
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -305,6 +308,7 @@ const useSpottable = (props, instances) => {
 		const containerNode = scrollContentRef.current;
 		const horizontal = scrollContentHandle.current.isHorizontal();
 		const vertical = scrollContentHandle.current.isVertical();
+		const fadeOutOffset = noFadeOut ? 0 : fadeOutSize;
 
 		if (!vertical && !horizontal || !item || !utilDOM.containsDangerously(containerNode, item)) {
 			return;
@@ -313,11 +317,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + fadeOutOffset) && itemRect.right <= (containerRect.right - fadeOutOffset))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
+		if (vertical && !(itemRect.top >= (containerRect.top + fadeOutOffset) && itemRect.bottom <= (containerRect.bottom - fadeOutOffset))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 

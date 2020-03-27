@@ -136,7 +136,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = noFadeOut ? startBoundary + clientSize : startBoundary + clientSize - fadeOutSize;
+				endBoundary = startBoundary + clientSize - (noFadeOut ? 0 : fadeOutSize);
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -225,9 +225,9 @@ const useSpottable = (props, instances) => {
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
 
-			{pageScroll} = props,
+			{noFadeOut, pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize,
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noFadeOut ? 0 : fadeOutSize * 2),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
