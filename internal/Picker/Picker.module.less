@@ -283,14 +283,17 @@
 					color: @sand-picker-joined-focus-disabled-text-color;
 
 					&::before {
+						.sand-disabled-focus-bg-colors();
+
 						background-color: @sand-picker-joined-focus-disabled-bg-color;
 					}
 
 					.indicator {
+						background-color: @sand-picker-joined-focus-disabled-indicator-bg-color;
 						opacity:  @sand-picker-joined-focus-disabled-indicator-opacity;
 
 						&.active {
-							opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
+							.sand-disabled-focus-content-colors();
 						}
 					}
 				});
