@@ -23,8 +23,6 @@ import {validateRange} from '../internal/validators';
 
 import PickerCore, {PickerItem} from '../internal/Picker';
 
-import css from './Picker.module.less';
-
 /**
  * The base `Picker` component.
  *
@@ -205,14 +203,10 @@ const PickerBase = kind({
 	computed: {
 		max: ({children}) => children && children.length ? children.length - 1 : 0,
 		reverse: ({orientation}) => (orientation === 'vertical'),
-		children: ({children, disabled, joined, marqueeDisabled, orientation}) => React.Children.map(children, (child) => {
+		children: ({children, disabled, joined, marqueeDisabled}) => React.Children.map(children, (child) => {
 			const focusOrHover = !disabled && joined ? 'focus' : 'hover';
 			return (
-				<PickerItem
-					css={joined && orientation === 'horizontal' ? css : null}
-					marqueeDisabled={marqueeDisabled}
-					marqueeOn={focusOrHover}
-				>
+				<PickerItem>
 					{child}
 				</PickerItem>
 			);
