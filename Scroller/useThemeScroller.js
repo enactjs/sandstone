@@ -15,7 +15,6 @@ import thumbCss from '../useScroll/ScrollThumb.module.less';
 add('esc', 27);
 
 const
-	fadeoutSize = 48,
 	isEsc = is('esc'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));

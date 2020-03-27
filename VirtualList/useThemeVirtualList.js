@@ -4,7 +4,7 @@ import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
 import React, {useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute} from '../useScroll';
+import {dataIndexAttribute, fadeOutSize} from '../useScroll';
 
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
@@ -122,7 +122,7 @@ const useSpottable = (props, instances) => {
 	}
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, wrap} = props;
+		const {cbScrollTo, noFadeOut, wrap} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
@@ -136,7 +136,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize;
+				endBoundary = noFadeOut ? startBoundary + clientSize : startBoundary + clientSize - fadeOutSize;
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -169,8 +169,10 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
+					offset: (!noFadeOut && index < nextIndex) ? fadeOutSize * 2 : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
+
 			}
 		} else if (!repeat && Spotlight.move(getDirection(keyCode))) {
 			SpotlightAccelerator.reset();
