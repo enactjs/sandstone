@@ -41,9 +41,7 @@ const useScrollbar = (props, instances, context) => {
 	}
 
 	function alertThumbAfterRendered () {
-		const spotItem = Spotlight.getCurrent();
-
-		if (!Spotlight.getPointerMode() && isContent(spotItem) && scrollContainerHandle.current.isUpdatedScrollThumb) {
+		if (scrollContainerHandle.current.isUpdatedScrollThumb) {
 			alertThumb();
 		}
 	}
