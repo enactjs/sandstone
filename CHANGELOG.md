@@ -4,10 +4,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Panels` support for `controls` and the application close button
+
 ### Deprecated
 
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
-- `sandstone/Panels` removed controls and Arrangers from Panels
 
 ### Added
 
@@ -17,7 +20,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
 - `sandstone/MediaOverlay` styling
-- `sandstone/Panels` styling for updated GUI
+- `sandstone/Panels` to default to `SlideLeftArranger`
+- `sandstone/Panels` styling to match updated GUI
 
 ### Fixed
 
