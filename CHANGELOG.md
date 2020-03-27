@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ImageItem` component
+- `sandstone/ProgressButton` component
 
 ### Changed
 
