@@ -78,7 +78,7 @@ describe('Slider', () => {
 
 	test('should activate the slider on enter keyup', () => {
 		const subject = mount(
-			<Slider />
+			<Slider activateOnSelect />
 		);
 
 		activate(subject);
@@ -103,9 +103,9 @@ describe('Slider', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should not activate the slider on enter when activateOnFocus', () => {
+	test('should not activate the slider on enter', () => {
 		const subject = mount(
-			<Slider activateOnFocus />
+			<Slider />
 		);
 
 		activate(subject);
@@ -133,10 +133,10 @@ describe('Slider', () => {
 	);
 
 	test(
-		'should decrement the value of horizontal slider on key left when activateOnFocus is true',
+		'should decrement the value of horizontal slider on key left',
 		() => {
 			const subject = mount(
-				<Slider defaultValue={50} activateOnFocus />
+				<Slider defaultValue={50} />
 			);
 
 			focus(subject);
@@ -167,10 +167,10 @@ describe('Slider', () => {
 	);
 
 	test(
-		'should decrement the value of vertical slider on key down when activateOnFocus is true',
+		'should decrement the value of vertical slider on key down',
 		() => {
 			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" activateOnFocus />
+				<Slider defaultValue={50} orientation="vertical" />
 			);
 
 			focus(subject);
@@ -201,10 +201,10 @@ describe('Slider', () => {
 	);
 
 	test(
-		'should increment the value of horizontal slider on key right when activateOnFocus is true',
+		'should increment the value of horizontal slider on key right',
 		() => {
 			const subject = mount(
-				<Slider defaultValue={50} activateOnFocus />
+				<Slider defaultValue={50} />
 			);
 
 			focus(subject);
@@ -235,10 +235,10 @@ describe('Slider', () => {
 	);
 
 	test(
-		'should increment the value of vertical slider on key up when activateOnFocus is true',
+		'should increment the value of vertical slider on key up when',
 		() => {
 			const subject = mount(
-				<Slider defaultValue={50} orientation="vertical" activateOnFocus />
+				<Slider defaultValue={50} orientation="vertical" />
 			);
 
 			focus(subject);
