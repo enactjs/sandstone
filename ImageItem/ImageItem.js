@@ -51,12 +51,12 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
-		 * The primary caption string to be displayed with the image.
+		 * The primary caption displayed with the image.
 		 *
 		 * @type {String}
 		 * @public
 		 */
-		caption: PropTypes.string,
+		children: PropTypes.string,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -92,7 +92,7 @@ const ImageItemBase = kind({
 		 *
 		 * @type {Component}
 		 * @default sandstone/Image.Image
-		 * @public
+		 * @private
 		 */
 		imageIconComponent: EnactPropTypes.component,
 
@@ -103,9 +103,17 @@ const ImageItemBase = kind({
 		 * This feature is only valid when `orientation` is `'vertical'.
 		 *
 		 * @type {String|Object}
-		 * @public
+		 * @private
 		 */
 		imageIconSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
+		 * A secondary caption displayed with the image.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		label: PropTypes.string,
 
 		/**
 		 * The layout orientation of the component.
@@ -175,15 +183,7 @@ const ImageItemBase = kind({
 		 * @type {String|Object}
 		 * @public
 		 */
-		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-		/**
-		 * The second caption line to be displayed with the image.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		subCaption: PropTypes.string
+		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 	},
 
 	defaultProps: {
@@ -201,10 +201,10 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		caption: ({caption, css, subCaption, imageIconComponent, imageIconSrc, orientation}) => {
+		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
-			if (!hasImageIcon && !caption && !subCaption) return;
+			if (!hasImageIcon && !children && !label) return;
 
 			return (
 				<Row className={css.captions}>
@@ -217,8 +217,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover">{caption}</Marquee>
-						<Marquee className={css.subCaption} marqueeOn="hover">{subCaption}</Marquee>
+						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
+						<Marquee className={css.label} marqueeOn="hover">{label}</Marquee>
 					</Cell>
 				</Row>
 			);
@@ -228,7 +228,7 @@ const ImageItemBase = kind({
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
-		delete rest.subCaption;
+		delete rest.label;
 
 		if (SelectionComponent) {
 			rest['role'] = 'checkbox';
@@ -246,9 +246,7 @@ const ImageItemBase = kind({
 								{SelectionComponent ? (
 									<SelectionComponent />
 								) : (
-									<div className={css.selectionComponent}>
-										<Icon className={css.selectionIcon}>check</Icon>
-									</div>
+									<Icon className={css.selectionIcon}>check</Icon>
 								)}
 							</div>
 						) : null}

@@ -7,30 +7,26 @@ function SelectionComponent () {
 }
 
 describe('ImageItem', () => {
-	test('should support `caption` prop', () => {
-		const caption = 'caption';
+	test('should support `children` prop', () => {
+		const children = 'caption';
 		const subject = shallow(
-			<ImageItemBase caption={caption} />
+			<ImageItemBase>{children}</ImageItemBase>
 		);
 
-		const captionSubject = shallow(subject.prop('caption'));
-
-		const expected = caption;
-		const actual = captionSubject.find('.caption').prop('children');
+		const expected = children;
+		const actual = subject.find('.caption').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should support `subCaption` prop', () => {
-		const subCaption = 'subCaption';
+	test('should support `label` prop', () => {
+		const label = 'label';
 		const subject = shallow(
-			<ImageItemBase subCaption={subCaption} />
+			<ImageItemBase label={label} />
 		);
 
-		const captionSubject = shallow(subject.prop('caption'));
-
-		const expected = subCaption;
-		const actual = captionSubject.find('.subCaption').prop('children');
+		const expected = label;
+		const actual = subject.find('.label').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -41,10 +37,8 @@ describe('ImageItem', () => {
 			<ImageItemBase imageIconSrc={imageIconSrc} orientation="vertical" />
 		);
 
-		const captionSubject = shallow(subject.prop('caption'));
-
 		const expected = imageIconSrc;
-		const actual = captionSubject.find('.imageIcon').prop('src');
+		const actual = subject.find('.imageIcon').prop('src');
 
 		expect(actual).toBe(expected);
 	});
@@ -54,9 +48,7 @@ describe('ImageItem', () => {
 			<ImageItemBase caption="caption" />
 		);
 
-		const captionSubject = shallow(subject.prop('caption'));
-
-		const actual = captionSubject.find('.imageIcon');
+		const actual = subject.find('.imageIcon');
 
 		expect(actual).toHaveLength(0);
 	});
@@ -66,9 +58,7 @@ describe('ImageItem', () => {
 			<ImageItemBase subCaption="subCaption" />
 		);
 
-		const captionSubject = shallow(subject.prop('caption'));
-
-		const actual = captionSubject.find('.imageIcon');
+		const actual = subject.find('.imageIcon');
 
 		expect(actual).toHaveLength(0);
 	});
