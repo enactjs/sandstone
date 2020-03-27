@@ -1,4 +1,3 @@
-
 import ri from '@enact/ui/resolution';
 import {constants} from '@enact/ui/useScroll';
 
