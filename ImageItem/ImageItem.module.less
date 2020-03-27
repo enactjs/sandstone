@@ -176,25 +176,3 @@
 		});
 	});
 }
-
-.muted({
-	.imageItem {
-		// Skin colors
-		.applySkins({
-			.focus({
-				&:not(.selected) {
-					.selectionIcon {
-						background-color: @sand-imageitem-focus-selection-icon-bg-color;
-						color: @sand-imageitem-focus-selection-icon-color;
-					}
-				}
-				&.selected {
-					.selectionIcon {
-						background-color: @sand-imageitem-selected-focus-selection-icon-bg-color;
-						color: @sand-imageitem-selected-focus-selection-icon-color;
-					}
-				}
-			});
-		});
-	}
-}, parent);
