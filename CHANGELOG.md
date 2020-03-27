@@ -2,6 +2,29 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Deprecated
+
+- `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+
+### Added
+
+- `sandstone/ImageItem` component
+
+### Changed
+
+- `sandstone/FeedbackTooltip` visuals for updated GUI
+- `sandstone/MediaOverlay` styling
+
+### Fixed
+
+- `sandstone/Button` icon-only sizing so it is square once again
+- `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Slider` default for activate by focus so the slider is immediately interactive when using 5-way
+- `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
+
 ## [1.0.0-alpha.5] - 2020-03-23
 
 ### Removed
@@ -20,7 +43,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys

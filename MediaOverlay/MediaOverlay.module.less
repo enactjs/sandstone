@@ -3,54 +3,117 @@
 @import "../styles/skin.less";
 
 .mediaOverlay {
+	.sand-spotlight-padding(@sand-mediaoverlay-padding-top-bottom);
+
 	display: block;
 	position: relative;
-	padding: @sand-mediaoverlay-spotlight-outset-width;
 	width: @sand-mediaoverlay-width;
 	height: auto;
 
-	.media {
-		display: block;
-		width: 100%;
-		height: 100%;
-		margin: 0;
-	}
-
-	.image,
-	.textLayout {
+	.bg {
 		position: absolute;
 		.position(0);
+		opacity: 0;
+		transition: filter 300ms ease-out, opacity 300ms ease-out;
+		will-change: filter, opacity;
+		border-radius: @sand-mediaoverlay-border-radius;
 	}
 
-	.textLayout {
-		margin: (@sand-mediaoverlay-spotlight-outset-width * 2);
+	.mediaContainer {
+		position: relative;
 	}
 
-	.image {
-		margin: @sand-mediaoverlay-spotlight-outset-width;
-		height: auto;
-		width: auto;
-	}
+    .media {
+        display: block;
+        position: relative; // it is for z-index;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+    }
 
-	.text {
-		font-weight: @sand-mediaoverlay-font-weight;
-	}
+    .image,
+    .textLayout {
+        position: absolute;
+        .position(0);
+    }
+
+    .textLayout {
+        margin: @sand-mediaoverlay-textlayout-margin;
+    }
+
+    .image {
+        margin: 0;
+        height: auto;
+        width: auto;
+    }
+
+    .text {
+        .sand-font({
+            font-size: @sand-mediaoverlay-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+        font-weight: @sand-mediaoverlay-font-weight;
+    }
+
+    .progressBar {
+        position: absolute;
+        .position(auto, 0, 0);
+        margin: @sand-mediaoverlay-progressbar-margin;
+    }
+
+	.captionContainer {
+		> :first-child {
+			margin-top: @sand-mediaoverlay-caption-margin-top;
+		}
+    }
+
+    .caption,
+    .subtitle {
+        .sand-font({
+            font-size: @sand-mediaoverlay-caption-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-caption-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+    }
+
+    .title {
+        .sand-font({
+            font-size: @sand-mediaoverlay-title-font-size;
+            line-height: @sand-mediaoverlay-line-height;
+        });
+        font-size: @sand-mediaoverlay-title-font-size;
+        line-height: @sand-mediaoverlay-line-height;
+    }
 
 	.applySkins({
-		.disabled({
-			// The global disabled rule handles the non-focused state, so no rules are necessary here.
+		.bg {
+			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
+		}
 
-			.focus({
-				opacity: @sand-disabled-opacity;
+		.caption,
+		.title {
+			color: @sand-mediaoverlay-caption-color;
+		}
 
-				.media,
-				.image,
-				.textLayout {
-					// We're setting the parent's opacity, so we need to "unset" the children,
-					// so they don't get double-set, becoming more transparent than our intent.
-					opacity: 1;
-				}
-			});
+		.subtitle {
+			color: @sand-mediaoverlay-subtitle-color;
+		}
+
+		.focus({
+			.caption,
+			.title,
+			.subtitle {
+				color: @sand-mediaoverlay-focus-caption-color;
+			}
+
+			.bg {
+				background-color: @sand-mediaoverlay-focus-bg-color;
+				opacity: 1;
+				filter: drop-shadow(@sand-mediaoverlay-focus-bg-shadow);
+			}
 		});
 	});
 }

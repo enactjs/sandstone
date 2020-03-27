@@ -47,6 +47,8 @@
 @sand-heading-small-font-size:      54px;
 @sand-heading-subtitle-font-size:   60px; // 70px;
 @sand-heading-title-font-size:      144px; // 127px;
+@sand-imageitem-caption-font-size:  60px;
+@sand-imageitem-label-font-size:    48px;
 @sand-input-font-size:              78px;
 @sand-input-fullscreen-numbercell-font-size:  126px;
 @sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
@@ -58,6 +60,9 @@
 @sand-item-label-font-size:         54px;
 @sand-keyguide-font-size:           60px;
 @sand-labeledicon-font-size:        48px;
+@sand-mediaoverlay-caption-font-size: 48px;
+@sand-mediaoverlay-font-size:         48px;
+@sand-mediaoverlay-title-font-size:   60px;
 @sand-notification-font-size:       60px;
 @sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-steps-step-number-font-size:  54px;
@@ -210,7 +215,7 @@
 @sand-button-icon-h-margin: 30px;
 @sand-button-icon-margin-end: @sand-button-icon-h-margin;
 @sand-button-icon-margin-start: 0;
-@sand-button-icon-padding: 0 36px;
+@sand-button-icon-padding: 0 ((@sand-button-height - @sand-icon-large-size) / 2);
 @sand-button-icon-position-after-margin-end: @sand-button-icon-margin-start;
 @sand-button-icon-position-after-margin-start: @sand-button-icon-margin-end;
 @sand-button-icon-position-after-small-margin-end: 0;
@@ -218,7 +223,7 @@
 @sand-button-icon-small-h-margin: @sand-button-icon-h-margin;
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
-@sand-button-icon-small-padding: 0 18px;
+@sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
@@ -296,6 +301,8 @@
 @sand-dropdown-large-width: 780px;
 @sand-dropdown-x-large-width: 1050px;
 @sand-dropdown-huge-width: 1380px;
+@sand-dropdown-list-scrollbar-size: 36px;
+@sand-dropdown-list-scrollbar-thumb-margin: 12px;
 @sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-small-width: (@sand-dropdown-small-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
@@ -381,6 +388,24 @@
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
 @sand-icon-large-font-size-large: (@sand-icon-large-font-size * 1.2);
 @sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
+
+// ImageItem
+// ---------------------------------------
+@sand-imageitem-image-border-width: 6px;
+@sand-imageitem-horizontal-border-radius: 12px;
+@sand-imageitem-horizontal-margin: @sand-item-margin;
+@sand-imageitem-horizontal-image-width: 180px;
+@sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
+@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0px;
+@sand-imageitem-horizontal-selection-icon-size: 90px;
+@sand-imageitem-vertical-padding: 48px;
+@sand-imageitem-vertical-captions-height: 132px;
+@sand-imageitem-vertical-captions-margin-top: 24px;
+@sand-imageitem-vertical-focus-captions-transform: translateY(36px);
+@sand-imageitem-vertical-focus-image-transform: scale(1.2);
+@sand-imageitem-vertical-image-icon-margin: 0 24px 0 0;
+@sand-imageitem-vertical-image-icon-size: 132px;
+@sand-imageitem-vertical-selection-icon-size: 150px;
 
 // Input
 // ---------------------------------------
@@ -469,9 +494,14 @@
 
 // MediaOverlay
 // ---------------------------------------
-@sand-mediaoverlay-width: 642px;
-@sand-mediaoverlay-spotlight-outset-width: 12px;
+@sand-mediaoverlay-border-radius: 12px;
+@sand-mediaoverlay-caption-margin-top: 24px;
 @sand-mediaoverlay-font-weight: 500;
+@sand-mediaoverlay-line-height: 1.3em;
+@sand-mediaoverlay-padding-top-bottom: 30px;
+@sand-mediaoverlay-progressbar-margin: 0 6px 6px 6px;
+@sand-mediaoverlay-textlayout-margin: 24px 60px;
+@sand-mediaoverlay-width: 642px;
 
 // Notification
 // ---------------------------------------
@@ -592,10 +622,10 @@
 // Slider
 // ---------------------------------------
 @sand-slider-bar-height: @sand-progressbar-bar-thickness;
-@sand-slider-knob-width: @sand-button-small-height;
-@sand-slider-knob-width-large: @sand-button-small-height-large;
-@sand-slider-knob-height: @sand-button-small-height;
-@sand-slider-knob-height-large: @sand-button-small-height-large;
+@sand-slider-knob-width: 48px;
+@sand-slider-knob-width-large: @sand-slider-knob-width;
+@sand-slider-knob-height: @sand-slider-knob-width;
+@sand-slider-knob-height-large: @sand-slider-knob-height;
 @sand-slider-tooltip-offset: (@sand-slider-knob-height / 2);
 @sand-slider-knob-resting-state-scale: 0.75;
 
@@ -662,11 +692,19 @@
 
 // Video
 // ---------------------------------------
+@sand-video-slider-tooltip-arrow-border-left-right: 18px;
+@sand-video-slider-tooltip-arrow-border-top:       24px;
 @sand-video-slider-tooltip-position-bottom:        @sand-spotlight-outset;
-@sand-video-slider-tooltip-font-size:              48px;
+@sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
+@sand-video-slider-tooltip-margin-bottom:          6px;
+@sand-video-slider-tooltip-font-size:              54px;
+@sand-video-slider-tooltip-font-weight:            700;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           24px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
+@sand-video-slider-tooltip-thumbnail-width:  426px;
+@sand-video-slider-tooltip-thumbnail-height: 240px;
+@sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
 @sand-video-feedback-icon-font-size:               2em;
 @sand-video-feedback-mini-font-family:             @sand-alt-font-family;
