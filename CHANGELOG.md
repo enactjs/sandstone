@@ -4,9 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Panels` support for `controls` and the application close button
+
 ### Deprecated
 
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+- `sandstone/Panels.Breadcrumb`, to be removed in beta.1
 
 ### Added
 
@@ -16,6 +21,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
 - `sandstone/MediaOverlay` styling
+- `sandstone/Panels` to default to `SlideLeftArranger`
+- `sandstone/Panels` styling to match updated GUI
 
 ### Fixed
 
