@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Deprecated
 
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+- `sandstone/Panels.Breadcrumb`, to be removed in beta.1
 
 ### Added
 
