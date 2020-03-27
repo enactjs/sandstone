@@ -19,9 +19,8 @@ storiesOf('Sandstone', module)
 		'ImageItem',
 		() => (
 			<ImageItem
-				caption={text('caption', Config, 'ImageItem Caption')}
+				children={text('children', Config, 'ImageItem Caption')}
 				disabled={boolean('disabled', Config)}
-				imageIconSrc={text('imageIconSrc', Config, 'http://placehold.it/300x300/ffffff/ffffff&text=Icon')}
 				orientation={select('orientation', prop.orientation, Config)}
 				selected={boolean('selected', Config)}
 				showSelection={boolean('showSelection', Config)}
@@ -31,7 +30,7 @@ storiesOf('Sandstone', module)
 					width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 640 : 1020),
 					height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 516 : 240)
 				}}
-				subCaption={text('subCaption', Config, 'ImageItem subCaption')}
+				label={text('label', Config, 'ImageItem label')}
 			/>
 		),
 		{
