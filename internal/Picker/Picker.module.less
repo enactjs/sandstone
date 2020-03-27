@@ -279,21 +279,23 @@
 					}
 				}
 
-				.disabled({
+				.sand-disabled({
 					color: @sand-picker-joined-focus-disabled-text-color;
 
 					&::before {
 						.sand-disabled-focus-bg-colors();
+					}
 
-						background-color: @sand-picker-joined-focus-disabled-bg-color;
+					.valueWrapper {
+						.sand-disabled-focus-content-colors();
 					}
 
 					.indicator {
 						background-color: @sand-picker-joined-focus-disabled-indicator-bg-color;
-						opacity:  @sand-picker-joined-focus-disabled-indicator-opacity;
+						opacity: @sand-picker-joined-focus-disabled-indicator-opacity;
 
 						&.active {
-							.sand-disabled-focus-content-colors();
+							opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
 						}
 					}
 				});
