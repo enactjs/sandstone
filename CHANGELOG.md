@@ -28,6 +28,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` icon-only sizing so it is square once again
 - `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Slider` default for activate by focus so the slider is immediately interactive when using 5-way
+- `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
 
 ## [1.0.0-alpha.5] - 2020-03-23
 

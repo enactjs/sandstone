@@ -50,6 +50,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		static displayName = 'SliderBehaviorDecorator'
 
 		static propTypes = {
+			activateOnSelect: PropTypes.bool,
 			'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 			max: PropTypes.number,
 			min: PropTypes.number,
@@ -151,6 +152,9 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		handleFocus (ev) {
 			forward('onFocus', ev, this.props);
+			if (!this.props.activateOnSelect) {
+				this.handleActivate();
+			}
 			this.setState({focused: true});
 		}
 
