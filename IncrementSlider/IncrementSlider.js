@@ -20,6 +20,7 @@
  */
 
 import {forward} from '@enact/core/handle';
+import {deprecate} from '@enact/core/internal/deprecate';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
@@ -477,7 +478,7 @@ const IncrementSliderBase = kind({
 		}
 	},
 
-	render: ({active,
+	render: deprecate(({active,
 		'aria-hidden': ariaHidden,
 		backgroundProgress,
 		css,
@@ -573,7 +574,10 @@ const IncrementSliderBase = kind({
 				/>
 			</div>
 		);
-	}
+	}, {
+		name: 'sandstone/IncrementSlider',
+		message: 'IncrementSlider is deprecated and will be removed.'
+	})
 });
 
 const IncrementSliderDecorator = compose(

@@ -141,6 +141,23 @@
 @sand-heading-border-color: @sand-border-color;
 @sand-heading-subtitle-text-color: @sand-gray;
 
+// ImageItem
+// ---------------------------------------
+@sand-imageitem-caption-color: @sand-light-gray;
+@sand-imageitem-label-color: @sand-gray;
+@sand-imageitem-image-border-color: transparent;
+@sand-imageitem-selection-icon-color: transparent;
+@sand-imageitem-selection-icon-bg-color: transparent;
+@sand-imageitem-horizontal-focus-caption-color: @sand-dark-gray;
+@sand-imageitem-focus-bg-shadow: @sand-spotlight-focus-shadow;
+@sand-imageitem-focus-selection-icon-color: @sand-imageitem-selection-icon-color;
+@sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
+@sand-imageitem-selected-selection-icon-color: @sand-light-gray;
+@sand-imageitem-selected-selection-icon-bg-color: fade(@sand-black, 30%);
+@sand-imageitem-selected-image-border-color: fade(@sand-light-gray, 70%);
+@sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
+@sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
+
 // Item
 // ---------------------------------------
 @sand-item-text-color: @sand-text-color;
@@ -179,6 +196,15 @@
 // LabeledItem
 // ---------------------------------------
 @sand-labeled-item-label-color: inherit;
+
+// MediaOverlay
+// ---------------------------------------
+@sand-mediaoverlay-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
+@sand-mediaoverlay-caption-color: @sand-light-gray;
+@sand-mediaoverlay-focus-bg-color: @sand-spotlight-bg-color;
+@sand-mediaoverlay-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
+@sand-mediaoverlay-subtitle-color: @sand-gray;
 
 // Notification
 // ---------------------------------------
@@ -318,15 +344,12 @@
 // ---------------------------------------
 @sand-video-feedback-mini-bg-color: fade(#4b4b4b, 70%);
 @sand-video-feedback-mini-text-color: @sand-white;
-@sand-video-slider-tooltip-thumbnail-border-color: @sand-contextual-popup-border-color;
+@sand-video-slider-tooltip-thumbnail-border-color: @sand-light-gray;
 @sand-video-player-indicator-text-color: @sand-white;
 @sand-video-player-bottom-bg-color: transparent;
 @sand-video-player-redicon-bg-color: transparent;
 @sand-video-player-redicon-text-color: #fe4a4b;
-@sand-video-player-slider-bg-color: fade(@sand-darker-gray, 20%);
-@sand-video-player-slider-fill-color: fade(@sand-accent, 80%);
 @sand-video-player-slider-knob-color: @sand-white;
-@sand-video-player-slider-load-color: fade(darken(@sand-accent, 30%), 30%);
 @sand-video-player-title-color: @sand-white;
 @sand-video-player-title-text-shadow: @sand-overlay-text-shadow;
 @sand-video-player-high-contrast-scrim-gradient-color: initial;
