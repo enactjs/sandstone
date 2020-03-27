@@ -28,6 +28,7 @@ import {
 import useOverscrollEffect from './useOverscrollEffect';
 import useScrollbar from './useScrollbar';
 import {useScrollPosition} from './useScrollPosition';
+import useScrollToTop from './useScrollToTop';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -115,6 +116,11 @@ const useThemeScroll = (props, instances) => {
 		stopVoice
 	} = useEventVoice(props, instances);
 
+	const {
+		ScrollToTopButton,
+		setScrollButtonVisible
+	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
+
 	// Functions
 
 	function isContent (element) {
@@ -186,6 +192,8 @@ const useThemeScroll = (props, instances) => {
 
 		forward('onScroll', ev, props);
 
+		setScrollButtonVisible({id, x, y});
+
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
@@ -256,6 +264,7 @@ const useThemeScroll = (props, instances) => {
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
+		ScrollToTopButton,
 		start,
 		stop
 	};
@@ -371,6 +380,7 @@ const useScroll = (props) => {
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
 		scrollTo,
+		ScrollToTopButton,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
 	} = useThemeScroll(props, instance);
@@ -479,7 +489,8 @@ const useScroll = (props) => {
 		scrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible
+		isVerticalScrollbarVisible,
+		ScrollToTopButton
 	};
 };
 

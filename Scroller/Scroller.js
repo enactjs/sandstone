@@ -60,11 +60,15 @@ let Scroller = (props) => {
 		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
+		ScrollToTopButton,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
+	const {
+		focusableBodyProps,
+		themeScrollContentProps
+	} = useThemeScroller(props, scrollContentProps);
 
 	// Render
 	const scrollContainer = (
@@ -77,6 +81,7 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{ScrollToTopButton}
 			</div>
 		</ResizeContext.Provider>
 	);

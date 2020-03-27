@@ -74,7 +74,7 @@ const TabGridListLayoutBase = kind({
 				const props = Object.assign({}, child.props);
 				delete props.title;
 				delete props.icon;
-				return <VirtualGridList {...props} />;
+				return <VirtualGridList showScrollToTopButton {...props} />;
 			});
 		},
 		tabs: ({children}) => {
