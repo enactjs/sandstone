@@ -330,8 +330,12 @@
 		}
 
 		.disabled({
-			// Ensure a smooth transition to the focus state
-			transition: opacity @sand-spotlight-focus-animation-duration ease-in;
+			// Unset the global rule to ensure a smooth transition to the focus state
+			opacity: 1;
+
+			.client {
+				.sand-disabled-colors();
+			}
 
 			.focus({
 				.bg {

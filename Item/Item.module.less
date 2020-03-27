@@ -96,6 +96,16 @@
 			.sand-spotlight-resting-colors();
 		}
 
+		.disabled({
+			opacity: 1;
+
+			.slotBefore,
+			.itemContent,
+			.slotAfter {
+				.sand-disabled-colors();
+			}
+		});
+
 		.focus({
 			color: @sand-item-focus-text-color;
 
