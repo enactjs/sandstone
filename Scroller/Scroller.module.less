@@ -1,5 +1,30 @@
-/* Scroller.module.less */
+// Scroller.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
 
 .contentWrapper {
 	position: relative; // The content could be fittable to the Scroller without paddgins.
+}
+
+.focusableBody {
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	&::before {
+		content: '';
+		position: absolute;
+		.position(0);
+		border-radius: @sand-scroll-focusablebody-focus-border-radius;
+		opacity: 0;
+	}
+
+	.focus({
+		&::before {
+			background-color: @sand-scroll-focusablebody-focus-bg-color;
+			opacity: 1;
+		}
+	})
 }

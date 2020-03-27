@@ -3,20 +3,24 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
-import {ScrollableBasic} from '@enact/sandstone/useScroll';
 import Scroller from '@enact/sandstone/Scroller';
 
 const
 	prop = {
 		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: [true, false, 'byEnter'],
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		focusableScrollbarOption: {
+			'true': true,
+			'false': false,
+			'byEnter': 'byEnter'
+		},
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	};
 
-const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollableBasic, ScrollableBasic, Scroller);
+const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -26,9 +30,11 @@ storiesOf('Sandstone', module)
 				direction={select('direction', prop.direction, ScrollerConfig)}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
+				key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 				spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 			>

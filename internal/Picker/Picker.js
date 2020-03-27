@@ -1,7 +1,8 @@
+import classnames from 'classnames';
 import {forward, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
-import {cap, clamp, Job} from '@enact/core/util';
+import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
@@ -21,7 +22,7 @@ import {extractVoiceProps} from '../util';
 import PickerButton from './PickerButton';
 import SpottablePicker from './SpottablePicker';
 
-import css from './Picker.module.less';
+import componentCss from './Picker.module.less';
 
 const holdConfig = {
 	events: [
@@ -66,6 +67,8 @@ const forwardBlur = forward('onBlur'),
 	forwardKeyDown = forward('onKeyDown'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
+
+const allowedClassNames = ['picker', 'valueWrapper'];
 
 /**
  * The base component for {@link sandstone/internal/Picker.Picker}.
@@ -163,6 +166,14 @@ const PickerBase = class extends React.Component {
 		 * @public
 		 */
 		className: PropTypes.string,
+
+		/**
+		 * Customize component style
+		 *
+		 * @type {Object}
+		 * @private
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Disables voice control.
@@ -664,7 +675,7 @@ const PickerBase = class extends React.Component {
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
-				Spotlight.focus(this.containerRef.querySelector(`.${css.incrementer}`));
+				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.incrementer}`));
 			} else {
 				forward(`onSpotlight${cap(direction)}`, ev, this.props);
 			}
@@ -690,7 +701,7 @@ const PickerBase = class extends React.Component {
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
-				Spotlight.focus(this.containerRef.querySelector(`.${css.decrementer}`));
+				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.decrementer}`));
 			} else {
 				forward(`onSpotlight${cap(direction)}`, ev, this.props);
 			}
@@ -710,18 +721,21 @@ const PickerBase = class extends React.Component {
 		}
 	}
 
-	determineClasses (decrementerDisabled, incrementerDisabled) {
-		const {joined, orientation, width} = this.props;
+	determineClasses (css, decrementerDisabled, incrementerDisabled) {
+		const {className, joined, orientation, width} = this.props;
 		const {pressed} = this.state;
-		return [
+
+		return classnames(
 			css.picker,
 			css[orientation],
 			css[width],
-			joined ? css.joined : null,
-			!decrementerDisabled && pressed === -1 ? css.decrementing : null,
-			!incrementerDisabled && pressed === 1 ? css.incrementing : null,
-			this.props.className
-		].join(' ');
+			{
+				[css.joined]: joined,
+				[css.decrementing]: (!decrementerDisabled && pressed === -1),
+				[css.incrementing]: (!incrementerDisabled && pressed === 1)
+			},
+			className
+		);
 	}
 
 	calcValueText () {
@@ -745,8 +759,13 @@ const PickerBase = class extends React.Component {
 	}
 
 	calcButtonLabel (next, valueText) {
-		const {decrementAriaLabel, incrementAriaLabel} = this.props;
-		let label = next ? incrementAriaLabel : decrementAriaLabel;
+		const {decrementAriaLabel, incrementAriaLabel, orientation} = this.props;
+		let label;
+		if (orientation === 'vertical') {
+			label = next ? decrementAriaLabel : incrementAriaLabel;
+		} else {
+			label = next ? incrementAriaLabel : decrementAriaLabel;
+		}
 
 		if (label != null) {
 			return label;
@@ -789,6 +808,7 @@ const PickerBase = class extends React.Component {
 		const {
 			'aria-valuetext': ariaValueText,
 			children,
+			css: incomingCss,
 			disabled,
 			id,
 			index,
@@ -805,6 +825,7 @@ const PickerBase = class extends React.Component {
 			...rest
 		} = this.props;
 
+		const css = mergeClassNameMaps(componentCss, incomingCss, allowedClassNames);
 		const voiceProps = extractVoiceProps(rest);
 		const voiceLabelsExt = voiceProps['data-webos-voice-labels-ext'];
 		delete voiceProps['data-webos-voice-label'];
@@ -834,13 +855,15 @@ const PickerBase = class extends React.Component {
 		const incrementIcon = selectIncIcon(this.props);
 		const decrementIcon = selectDecIcon(this.props);
 
+		const horizontal = orientation === 'horizontal';
+
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
 		const reachedEnd = this.hasReachedBound(step);
 		const incrementerDisabled = disabled || reachedEnd;
-		const classes = this.determineClasses(decrementerDisabled, incrementerDisabled);
+		const className = this.determineClasses(css, decrementerDisabled, incrementerDisabled);
 
-		let arranger = orientation === 'vertical' ? SlideTopArranger : SlideLeftArranger;
+		let arranger = horizontal ? SlideLeftArranger : SlideTopArranger;
 		let noAnimation = this.props.noAnimation || disabled;
 
 		let sizingPlaceholder = null;
@@ -848,10 +871,12 @@ const PickerBase = class extends React.Component {
 			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
 		}
 
+		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
 		const valueText = ariaValueText != null ? ariaValueText : this.calcValueText();
 		const decrementerAriaControls = !incrementerDisabled ? id : null;
 		const incrementerAriaControls = !decrementerDisabled ? id : null;
 		const spottablePickerProps = {};
+
 		let Component;
 
 		if (joined) {
@@ -870,7 +895,7 @@ const PickerBase = class extends React.Component {
 				aria-controls={joined ? id : null}
 				aria-disabled={disabled}
 				aria-label={this.calcAriaLabel(valueText)}
-				className={classes}
+				className={className}
 				data-webos-voice-intent="Select"
 				data-webos-voice-labels-ext={voiceLabelsExt}
 				disabled={disabled}
@@ -922,6 +947,16 @@ const PickerBase = class extends React.Component {
 					>
 						{children}
 					</PickerViewManager>
+					{showIndicators && (
+						<div className={css.indicatorContainer} {...voiceProps}>
+							{children.map((c, indicator) => (
+								<div
+									key={`indicator${indicator}`}
+									className={classnames(css.indicator, {[css.active]: (index === indicator)})}
+								/>
+							))}
+						</div>
+					)}
 				</div>
 				<PickerButton
 					{...voiceProps}

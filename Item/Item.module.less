@@ -6,6 +6,10 @@
 @import "../styles/skin.less";
 
 .item {
+	.selected {
+		/* Available for customization */
+	}
+
 	.sand-text-base(@sand-item-font-size);
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
@@ -19,9 +23,6 @@
 	.bg {
 		position: absolute;
 		.position(0);
-		opacity: 0;
-		transition: filter 300ms ease-out, opacity 300ms ease-out;
-		will-change: filter, opacity;
 		border-radius: @sand-item-border-radius;
 	}
 
@@ -92,24 +93,14 @@
 	// Skin colors
 	.applySkins({
 		.bg {
-			background-color: @sand-item-bg-color;
-			filter: drop-shadow(@sand-item-bg-shadow);
-		}
-
-		&.selected {
-			.bg {
-				background-color: @sand-item-selected-background-color;
-				opacity: 1;
-			}
+			.sand-spotlight-resting-colors();
 		}
 
 		.focus({
 			color: @sand-item-focus-text-color;
 
 			.bg {
-				background-color: @sand-item-focus-bg-color;
-				opacity: 1;
-				filter: drop-shadow(@sand-item-focus-bg-shadow);
+				.sand-spotlight-focus-colors();
 			}
 
 			.text,

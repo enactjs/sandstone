@@ -1,7 +1,7 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 
-import {View, WizardPanel} from '../WizardPanel';
+import {View, WizardPanel, WizardPanelBase} from '../WizardPanel';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -9,11 +9,11 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const title = 'WizardPanel title';
 
-			const wizardPanel = mount(
-				<WizardPanel title={title} />
+			const wizardPanel = shallow(
+				<WizardPanelBase title={title} />
 			);
 
-			const headerTitle = wizardPanel.find('Cell.titleCell').find('.text').first().text();
+			const headerTitle = wizardPanel.find({type: 'wizard'}).prop('title');
 
 			const expected = title;
 			const actual = headerTitle;
@@ -21,7 +21,6 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
-
 
 	test(
 		'should have title overridden by title set in `View`',
@@ -35,7 +34,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanel>
 			);
 
-			const headerTitle = wizardPanel.find('Cell.titleCell .text').first().text();
+			const headerTitle = wizardPanel.find('Header').prop('title');
 
 			const expected = viewTitle;
 			const actual = headerTitle;
@@ -134,16 +133,17 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const nextButtonText = 'next';
 
-			const wizardPanel = mount(
-				<WizardPanel nextButtonText={nextButtonText} />
+			const wizardPanel = shallow(
+				<WizardPanelBase nextButtonText={nextButtonText} />
 			);
 
-			const nextButton = wizardPanel.find('.nextButton .text').text();
+			// Using slot as a proxy to find Button since it's name isn't set
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
-			const expected = nextButtonText;
-			const actual = nextButton;
+			const expected = {children: nextButtonText};
+			const actual = nextButton.props();
 
-			expect(actual).toBe(expected);
+			expect(actual).toMatchObject(expected);
 		}
 	);
 
@@ -152,16 +152,64 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const prevButtonText = 'previous';
 
-			const wizardPanel = mount(
-				<WizardPanel prevButtonText={prevButtonText} />
+			const wizardPanel = shallow(
+				<WizardPanelBase prevButtonText={prevButtonText} />
 			);
 
-			const nextButton = wizardPanel.find('.prevButton .text').text();
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 
-			const expected = prevButtonText;
-			const actual = nextButton;
+			const expected = {children: prevButtonText};
+			const actual = prevButton.props();
 
-			expect(actual).toBe(expected);
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should have disabled `.nextButton` on the last view',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={2} total={3} />
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = {disabled: true};
+			const actual = nextButton.props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should have disabled `.prevButton` on the first view',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={0} total={3} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = {disabled: true};
+			const actual = prevButton.props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	// [GT-28312]
+	test(
+		'should reflect the current index in Steps',
+		() => {
+			const index = 1;
+			const wizardPanel = shallow(
+				<WizardPanelBase index={index} total={5} />
+			);
+
+			const expected = {current: index + 1};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
 		}
 	);
 });

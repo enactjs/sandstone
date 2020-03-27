@@ -7,40 +7,46 @@ import React from 'react';
 import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import UiScroller from '@enact/ui/Scroller';
-import {ScrollableBasic as UiScrollableBasic} from '@enact/ui/useScroll';
+import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import ExpandableList from '@enact/sandstone/ExpandableList';
-import Heading from '@enact/sandstone/Heading';
-import Item from '@enact/sandstone/Item';
-import {ScrollableBasic} from '@enact/sandstone/useScroll';
+import {Item as ThemeItem} from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
-const Config = mergeComponentMetadata('Scroller', UiScrollableBasic, ScrollableBasic, Scroller);
+const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, ...style}} />);
+
+const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {
 	itemData.push(`Item ${i}`);
 }
 
-const
-	prop = {
-		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: [true, false, 'byEnter'],
-		scrollbarOption: ['auto', 'hidden', 'visible']
-	};
+const prop = {
+	direction: ['both', 'horizontal', 'vertical'],
+	focusableScrollbarOption: {
+		'true': true,
+		'false': false,
+		'byEnter': 'byEnter'
+	},
+	scrollbarOption: ['auto', 'hidden', 'visible'],
+	scrollModeOption: ['native', 'translate']
+};
 
 class ScrollerResizableItem extends React.Component {
 	static propTypes = {
+		max: PropTypes.number,
+		min: PropTypes.number,
 		more: PropTypes.bool,
 		toggleMore: PropTypes.func
 	}
+
 	render () {
-		const height = ri.unit(this.props.more ? 3000 : 800, 'rem');
-		const text = this.props.more ? 'less' : 'more';
+		const {max = 3000, min = 800, more, toggleMore} = this.props;
+		const height = ri.unit(more ? max : min, 'rem');
+		const text = more ? 'less' : 'more';
 		const style = {
 			border: 'solid yellow',
 			position: 'relative',
@@ -48,8 +54,37 @@ class ScrollerResizableItem extends React.Component {
 		};
 		return (
 			<div style={{...style, height}}>
-				<Button onClick={this.props.toggleMore} size="small" style={{position: 'absolute', bottom: 0}}>{text}</Button>
+				<Button onClick={toggleMore} size="small" style={{position: 'absolute', bottom: 0}}>{text}</Button>
 			</div>
+		);
+	}
+}
+
+class ScrollerWithLongItem extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			more: false
+		};
+	}
+
+	handleClick = () => {
+		this.setState(prevState => ({more: !prevState.more}));
+	}
+
+	render () {
+		return (
+			<Scroller
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			>
+				<Item>Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Text</Item>
+				<ScrollerResizableItem min={100} more={this.state.more} toggleMore={this.handleClick} />
+			</Scroller>
 		);
 	}
 }
@@ -69,47 +104,17 @@ class ScrollerWithResizable extends React.Component {
 	render () {
 		return (
 			<Scroller
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				verticalScrollbar="visible"
 			>
 				<Item>Item</Item>
 				<Item>Item</Item>
 				<ScrollerResizableItem more={this.state.more} toggleMore={this.handleClick} />
 			</Scroller>
-		);
-	}
-}
-
-class ScrollerWithTwoExpandableList extends React.Component {
-	render () {
-
-		return (
-			<div>
-				<Scroller
-					direction="vertical"
-					onKeyDown={action('onKeyDown (1st Scroller)')}
-					onScrollStart={action('onScrollStart (1st Scroller)')}
-					onScrollStop={action('onScrollStop (1st Scroller)')}
-					style={{height: ri.scale(400)}}
-				>
-					<ExpandableList selected={0} title="first">
-						{['a', 'b', 'c', 'd', 'b', 'c', 'd', 'b', 'c', 'd', 'b', 'c', 'd', 'b', 'c', 'd']}
-					</ExpandableList>
-				</Scroller>
-				<Scroller
-					direction="vertical"
-					style={{height: ri.scale(400)}}
-					onKeyDown={action('onKeyDown (2nd Scroller)')}
-					onScrollStart={action('onScrollStart (2nd Scroller)')}
-					onScrollStop={action('onScrollStop (2nd Scroller)')}
-				>
-					<ExpandableList title="second">
-						{['a', 'b', 'c', 'd']}
-					</ExpandableList>
-				</Scroller>
-			</div>
 		);
 	}
 }
@@ -126,10 +131,12 @@ class ScrollerWithLargeContainer extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spotlightId="scroller"
 				style={{height: 400}}
 			>
@@ -156,10 +163,12 @@ storiesOf('Scroller', module)
 			<Scroller
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 			>
@@ -170,39 +179,18 @@ storiesOf('Scroller', module)
 		)
 	)
 	.add(
-		'With ExpandableList',
-		() => (
-			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
-				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-				noScrollByWheel={boolean('noScrollByWheel', Config)}
-				onKeyDown={action('onKeyDown')}
-				onScrollStart={action('onScrollStart')}
-				onScrollStop={action('onScrollStop')}
-				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-			>
-
-				<ExpandableList
-					closeOnSelect
-					title="Expandable List in Scroller"
-				>
-					{itemData}
-				</ExpandableList>
-			</Scroller>
-		)
-	)
-	.add(
 		'Horizontal scroll',
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, Config, 'horizontal')}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 			>
@@ -228,10 +216,12 @@ storiesOf('Scroller', module)
 				direction={select('direction', prop.direction, Config)}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 			>
@@ -254,93 +244,9 @@ storiesOf('Scroller', module)
 		)
 	)
 	.add(
-		'With Many ExpandableList',
-		() => (
-			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
-				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-				noScrollByWheel={boolean('noScrollByWheel', Config)}
-				onKeyDown={action('onKeyDown')}
-				onScrollStart={action('onScrollStart')}
-				onScrollStop={action('onScrollStop')}
-				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-			>
-				<Heading showLine>Nothing selected</Heading>
-				<ExpandableList
-					closeOnSelect
-					noneText="Nothing Selected"
-					title="Default"
-				>
-					{['Option 1', 'Option 2', 'Option 3',
-						'Option 4', 'Option 5', 'Option 6',
-						'Option 7', 'Option 8', 'Option 9',
-						'Option 10', 'Option 11', 'Option 12',
-						'Option 13', 'Option 14', 'Option 15',
-						'Option 16', 'Option 17', 'Option 18',
-						'Option 19', 'Option 20'
-					]}
-				</ExpandableList>
-				<br />
-				<Heading showLine>Default selected</Heading>
-				<ExpandableList
-					noneText="Nothing Selected"
-					selected={1}
-					title="Default"
-				>
-					{['Option 1', 'Option 2', 'Option 3']}
-				</ExpandableList>
-				<br />
-				<Heading showLine>Default selected</Heading>
-				<ExpandableList
-					noneText="Nothing Selected"
-					selected={1}
-					title="Default"
-				>
-					{['Option 1', 'Option 2', 'Option 3']}
-				</ExpandableList>
-				<br />
-				<Heading showLine>Default selected</Heading>
-				<ExpandableList
-					noneText="Nothing Selected"
-					selected={1}
-					title="Default"
-				>
-					{['Option 1', 'Option 2', 'Option 3']}
-				</ExpandableList>
-				<br />
-				<Heading showLine>Multitple selected</Heading>
-				<ExpandableList
-					noneText="Nothing Selected"
-					select="multiple"
-					selected={[1, 2]}
-					title="multiple"
-				>
-					{['Option 1', 'Option 2', 'Option 3']}
-				</ExpandableList>
-				<br />
-				<Heading showLine>Long contents selected</Heading>
-				<ExpandableList
-					noneText="Nothing Selected"
-					select="multiple"
-					selected={[18, 19]}
-					title="multiple"
-				>
-					{['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6', 'Option 7', 'Option 8', 'Option 9', 'Option 10', 'Option 11', 'Option 12', 'Option 13', 'Option 14', 'Option 15', 'Option 16', 'Option 17', 'Option 18', 'Option 19', 'Option 20']}
-				</ExpandableList>
-			</Scroller>
-		)
-	)
-	.add(
 		'With Resizable',
 		() => (
 			<ScrollerWithResizable />
-		)
-	)
-	.add(
-		'With Two Expandable List',
-		() => (
-			<ScrollerWithTwoExpandableList />
 		)
 	)
 	.add(
@@ -348,18 +254,22 @@ storiesOf('Scroller', module)
 		() => (
 			<div style={{display: 'flex', height: ri.unit(798, 'rem')}}>
 				<UiScroller
+					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				>
 					<Group childComponent={Item}>
 						{itemData}
 					</Group>
 				</UiScroller>
 				<UiScroller
+					key={select('scrollMode', prop.scrollModeOption, Config) + '2'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				>
 					<Group childComponent={Item}>
 						{itemData}
@@ -380,10 +290,12 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>focus to me</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					style={{height: ri.unit(ri.scale(840), 'rem'), width: ri.unit(ri.scale(600), 'rem'), display:'inline-block'}}
 				>
 					<Item>Item 1</Item>
@@ -406,9 +318,11 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 200);
 			return (
 				<Scroller
+					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					style={{height: ri.scaleToRem(400)}}
 				>
 					<Item>1</Item>
@@ -424,10 +338,12 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
 			return (
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, true)}
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					style={{height: ri.scaleToRem(400)}}
 				>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
@@ -444,10 +360,12 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>hello</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					style={{height: 400}}
 				>
 					<Group childComponent={Item}>
@@ -460,27 +378,19 @@ storiesOf('Scroller', module)
 	.add(
 		'With Long Item',
 		() => (
-			<Scroller
-				focusableScrollbar
-				onKeyDown={action('onKeyDown')}
-				onScrollStart={action('onScrollStart')}
-				onScrollStop={action('onScrollStop')}
-			>
-				<Item>Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long Text</Item>
-				<ExpandableList title="Title">
-					{itemData}
-				</ExpandableList>
-			</Scroller>
+			<ScrollerWithLongItem />
 		)
 	)
 	.add(
 		'With One Long Height Item',
 		() => (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			>
 				<div style={{height: '1220px'}}>
 					<Item style={{height: '1200px'}}>Long Height Item</Item>
@@ -495,19 +405,24 @@ storiesOf('Scroller', module)
 			return (
 				<Scroller
 					direction="vertical"
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
-
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 					verticalScrollbar="visible"
 				>
 					<Scroller
 						direction="horizontal"
+						focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 						horizontalScrollbar="visible"
+						key={select('scrollMode', prop.scrollModeOption, Config) + '2'}
 						noScrollByWheel={noScrollByWheel}
 						onKeyDown={action('onKeyDown (Nested 1st Scroller)')}
 						onScrollStart={action('onScrollStart (Nested 1st Scroller)')}
 						onScrollStop={action('onScrollStop (Nested 1st Scroller)')}
+						scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 						style={{
 							height: 'auto',
 							width: '90%'
@@ -534,10 +449,12 @@ storiesOf('Scroller', module)
 					<Scroller
 						direction="horizontal"
 						horizontalScrollbar="visible"
+						key={select('scrollMode', prop.scrollModeOption, Config) + '3'}
 						noScrollByWheel={noScrollByWheel}
 						onKeyDown={action('onKeyDown (Nested 2nd Scroller)')}
 						onScrollStart={action('onScrollStart (Nested 2nd Scroller)')}
 						onScrollStop={action('onScrollStop (Nested 2nd Scroller)')}
+						scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 						style={{
 							height: 'auto',
 							width: '90%'

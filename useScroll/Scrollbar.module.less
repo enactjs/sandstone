@@ -1,4 +1,8 @@
+// Scrollbar.module.less
+//
+
 @import "../styles/skin.less";
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .scrollbar {
@@ -25,6 +29,11 @@
 			direction: ltr;
 			transform: scaleX(-1);
 		}
+	}
+
+	/* ScrollThumb */
+	.thumbShown {
+		opacity: 1;
 	}
 }
 

@@ -1,9 +1,9 @@
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useEffect} from 'react';
 
-const usePreventScroll = (props, instances, context) => {
+const usePreventScroll = (props, instances) => {
+	const {scrollMode} = props;
 	const {scrollContentRef} = instances;
-	const {scrollMode} = context;
 
 	// Hooks
 

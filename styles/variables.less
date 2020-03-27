@@ -34,19 +34,12 @@
 @sand-button-font-size:             78px;
 @sand-button-small-font-size-large: 72px;
 @sand-button-small-font-size:       60px;
-@sand-calendar-day-small-font-size: 48px;
-@sand-clock-bottom-font-size:       54px;
-@sand-clock-meridiem-font-size:     48px;
-@sand-clock-minute-font-size:       120px;
-@sand-clock-text-font-size:         108px;
-@sand-clock-top-font-size:          132px;
 @sand-expandable-client-item-font-size-large: 66px;
 @sand-expandable-client-item-font-size: 54px;
 @sand-expandable-value-font-size-large: 60px;
 @sand-expandable-value-font-size:   @sand-item-label-font-size;
 @sand-gridlistimageitem-caption-font-size: 60px;
 @sand-gridlistimageitem-subcaption-font-size: 48px;
-@sand-header-standard-title-font-size: 108px; // 127px;
 @sand-header-compact-title-font-size: 90px;
 @sand-header-wizard-title-font-size: @sand-heading-title-font-size;
 @sand-heading-large-font-size:      72px;
@@ -55,30 +48,22 @@
 @sand-heading-subtitle-font-size:   60px; // 70px;
 @sand-heading-title-font-size:      144px; // 127px;
 @sand-input-font-size:              78px;
-@sand-input-popup-header-title-font-size:                   144px;
-@sand-input-popup-header-subtitle-font-size:                @sand-heading-subtitle-font-size;
-@sand-input-number-popup-full-preview-font-size:            126px;
-@sand-input-number-popup-full-keypad-item-font-size:        96px;
-@sand-input-number-popup-overlay-header-title-font-size:    90px;
-@sand-input-number-popup-overlay-header-subtitle-font-size: @sand-heading-subtitle-font-size;
-@sand-input-number-popup-overlay-preview-item-font-size:    108px;
-@sand-input-number-popup-overlay-preview-text-font-size:    126px;
-@sand-input-number-popup-overlay-keypad-item-font-size:     96px;
-@sand-input-small-font-size:        72px;
+@sand-input-fullscreen-numbercell-font-size:  126px;
+@sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
+@sand-input-overlay-numbercell-font-size:     108px;
+@sand-input-overlay-numberfield-font-size:    126px;
+@sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
 @sand-keyguide-font-size:           60px;
 @sand-labeledicon-font-size:        48px;
-@sand-large-text-size:              96px;
+@sand-mediaoverlay-caption-font-size: 48px;
+@sand-mediaoverlay-font-size:         48px;
+@sand-mediaoverlay-title-font-size:   60px;
 @sand-notification-font-size:       60px;
 @sand-panels-breadcrumb-text-size:  @sand-body-font-size;
-@sand-popup-content-font-size:      60px;
-@sand-popup-subtitle-font-size:     @sand-heading-subtitle-font-size;
-@sand-popup-title-font-size:        @sand-heading-title-font-size;
-@sand-pre-text-size:                48px;
 @sand-steps-step-number-font-size:  54px;
-@sand-superscript-text-size:        48px;
 @sand-tooltip-label-font-size:      54px;
 
 @sand-non-latin-base-font-size:         66px;
@@ -86,23 +71,17 @@
 @sand-non-latin-body-small-font-size:   48px;
 @sand-non-latin-button-large-font-size: 72px;
 @sand-non-latin-button-small-font-size: 54px;
-@sand-non-latin-expandable-client-item-font-size: 54px;
 @sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
 @sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
 @sand-non-latin-heading-title-font-size: 114px;
-@sand-non-latin-large-text-size:        96px;
-@sand-non-latin-popup-header-font-size: 132px;
-@sand-non-latin-pre-text-size:          48px;
-@sand-non-latin-superscript-text-size:  48px;
 
 // Other Font Properties
 // ---------------------------------------
 @sand-font-family: "Sandstone";        // Formerly weight: 700
-@sand-font-family-light: "Sandstone";  // Formerly weight: 300
-@sand-font-family-small: "Sandstone";  // Formerly weight: 500
 @sand-font-family-bold: "Sandstone";   // Formerly weight: 900
 @sand-alt-font-family: "Sandstone";
+@sand-number-font-family: "Sandstone Number";
 @sand-non-latin-font-family: "Sandstone";
 @sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
 @sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
@@ -119,11 +98,11 @@
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
 @sand-body-font-weight: 300;
-@sand-body-letter-spacing: 0;
 // Body text line heights must be speified in px, since sand.ExpandableText requires precise line measurement
 @sand-body-line-height-large: @sand-body-line-height + 6; // The fact that this 6 is the same number as the above 6 is coincidental. LargeText is typically 12px larger than normal.
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
+@sand-non-latin-body-font-style: @sand-body-font-style;
 @sand-non-latin-body-line-height: 1.7em;
 
 // Button
@@ -143,11 +122,6 @@
 @sand-expandable-value-font-family: @sand-font-family;
 @sand-expandable-value-font-style: normal;
 @sand-expandable-value-font-weight: 300;
-
-// Header
-@sand-non-latin-header-compact-title-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-header-standard-subtitle-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-header-standard-title-line-height: @sand-non-latin-heading-title-line-height;
 
 // Heading
 @sand-heading-line-height: 1.3em;
@@ -170,7 +144,7 @@
 @sand-heading-small-font-weight: 400;
 @sand-heading-letter-spacing: 0;
 @sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
-@sand-non-latin-heading-line-height: @sand-non-latin-header-standard-title-line-height;
+@sand-non-latin-heading-line-height: @sand-non-latin-heading-title-line-height;
 @sand-non-latin-heading-subtitle-line-height: @sand-non-latin-heading-title-line-height;
 @sand-non-latin-heading-title-line-height: 1.5em;
 
@@ -179,18 +153,10 @@
 @sand-icon-other-font-family: "LG Icons";
 
 // InputNumber
-@sand-input-number-preview-item-font-family: @sand-body-font-family;
-@sand-input-number-keypad-item-font-family: @sand-button-font-family;
+@sand-input-number-font-family: @sand-body-font-family;
 
 // Panels
 @sand-panels-breadcrumb-font-family: @sand-alt-font-family;
-
-// Popup
-@sand-popup-header-font-family: @sand-heading-title-font-family;
-@sand-popup-header-font-style: normal;
-@sand-popup-header-font-weight: normal;
-@sand-popup-header-letter-spacing: normal;
-@sand-popup-header-line-height: normal;
 
 // Steps
 @sand-steps-step-number-font-family: @sand-font-family;
@@ -207,7 +173,6 @@
 // Alert
 // ---------------------------------------
 @sand-alert-buttons-margin-top: 180px;
-@sand-alert-buttons-width: 540px;
 @sand-alert-max-buttons-margin-top: 300px;
 @sand-alert-title-margin-top: 30px;
 @sand-alert-subtitle-margin-top: 12px;
@@ -238,6 +203,8 @@
 // ---------------------------------------
 @sand-button-border-radius: 12px;
 @sand-button-border-width: 6px;
+@sand-button-bg-opacity: 1;
+@sand-button-transparent-bg-opacity: 0;
 @sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
@@ -246,19 +213,19 @@
 @sand-button-icon-h-margin: 30px;
 @sand-button-icon-margin-end: @sand-button-icon-h-margin;
 @sand-button-icon-margin-start: 0;
-@sand-button-icon-padding: 0 36px;
+@sand-button-icon-padding: 0 ((@sand-button-height - @sand-icon-large-size) / 2);
 @sand-button-icon-position-after-margin-end: @sand-button-icon-margin-start;
 @sand-button-icon-position-after-margin-start: @sand-button-icon-margin-end;
 @sand-button-icon-position-after-small-margin-end: 0;
 @sand-button-icon-position-after-small-margin-start: @sand-button-icon-small-margin-end;
-@sand-button-icon-small-font-size: @sand-icon-small-size;
 @sand-button-icon-small-h-margin: @sand-button-icon-h-margin;
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
-@sand-button-icon-small-padding: 0 18px;
+@sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
+@sand-button-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
 @sand-button-small-h-margin: @sand-button-h-margin;
 @sand-button-small-h-padding: 48px;
@@ -267,11 +234,21 @@
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
 @sand-button-small-focus-bg-transform: scale(1.1);
+@sand-button-small-pressed-bg-transform: scale(1.04);
+@sand-button-colordot-bottom: 18px;
+@sand-button-colordot-border-radius: 6px;
+@sand-button-colordot-width: 60px;
+@sand-button-colordot-height: 12px;
+@sand-button-colordot-h-margin: 24px;
+@sand-button-colordot-padding-start: (@sand-button-h-padding / 2);
+@sand-button-small-colordot-bottom: 12px;
+@sand-button-small-colordot-width: 48px;
+@sand-button-small-colordot-padding-start: 30px;
+@sand-button-icon-only-colordot-width: 66px;
+@sand-button-icon-only-colordot-height: 9px;
 
 // Checkbox
 // ---------------------------------------
-@sand-checkbox-size: 54px;
-@sand-checkbox-size-large: 66px;
 @sand-checkbox-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
 @sand-checkbox-border-width: 4px;
 
@@ -322,6 +299,8 @@
 @sand-dropdown-large-width: 780px;
 @sand-dropdown-x-large-width: 1050px;
 @sand-dropdown-huge-width: 1380px;
+@sand-dropdown-list-scrollbar-size: 36px;
+@sand-dropdown-list-scrollbar-thumb-margin: 12px;
 @sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-small-width: (@sand-dropdown-small-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
@@ -330,6 +309,10 @@
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+
+// EditableInput
+// ---------------------------------------
+@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
 
 // EditableIntegerPicker
 // ---------------------------------------
@@ -347,13 +330,13 @@
 // GridListImageItem
 // ---------------------------------------
 @sand-gridlistimageitem-focus-image-transform: scale(1.2);
-@sand-gridlistimageitem-focus-caption-transform: translateY(20%);
-@sand-gridlistimageitem-overlay-icon-size: 72px;
-@sand-gridlistimageitem-overlay-icon-border-width: 6px;
-@sand-gridlistimageitem-overlay-icon-margin: 30px;
+@sand-gridlistimageitem-focus-subcomponents-transform: translateY(36px);
+@sand-gridlistimageitem-overlay-icon-size: 150px;
 @sand-gridlistimageitem-image-border-width: 6px;
-@sand-gridlistimageitem-caption-padding-top: 24px;
-@sand-gridlistimageitem-subcaption-padding-top: 6px;
+@sand-gridlistimageitem-image-margin-bottom: 24px;
+@sand-gridlistimageitem-image-icon-size: 132px;
+@sand-gridlistimageitem-image-icon-margin-right: 24px;
+@sand-gridlistimageitem-subcomponents-height: 132px;
 
 // Header
 // ---------------------------------------
@@ -385,10 +368,9 @@
 
 // Icon
 // ---------------------------------------
-@sand-icon-circle: "\0EFFDB";
 @sand-icon-large-size: 108px;
 @sand-icon-medium-size: 90px;
-@sand-icon-small-size: 72px;
+@sand-icon-small-size: 78px;
 @sand-icon-tiny-size: 60px;
 @sand-icon-large-font-size: (@sand-icon-large-size * 2);
 @sand-icon-medium-font-size: (@sand-icon-medium-size * 2);
@@ -398,10 +380,7 @@
 @sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-large-margin: 24px;
-@sand-icon-medium-margin: @sand-icon-large-margin;
-@sand-icon-small-margin: @sand-icon-large-margin;
-@sand-icon-tiny-margin: @sand-icon-large-margin;
+@sand-icon-margin: 24px;
 // Large-mode sizes - Note, may be deprecated.
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
@@ -410,55 +389,52 @@
 
 // Input
 // ---------------------------------------
-@sand-input-margin: 0 @sand-spotlight-outset;
-@sand-input-padding: 0 @sand-input-icon-spacing;
-@sand-input-font-weight: 600;
-@sand-input-text-indent: 0.2em;
-@sand-input-disabled-opacity: 0.4;
-@sand-input-placeholder-opacity: 0.5;
-@sand-input-border-radius: @sand-input-border-width;
-@sand-input-border-width: 12px;
-@sand-input-border-outline-width: @sand-input-border-width;
-@sand-input-tooltip-offset: @sand-input-border-width;
-@sand-input-icon-spacing: 30px;
-@sand-input-height: @sand-button-height;
-@sand-input-small-height: @sand-button-small-height;
-@sand-input-decorator-small-height: @sand-input-small-height;
-@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
-@sand-input-highlight-height: 100%;
-@sand-input-highlight-max-width: 756px;
-@sand-input-highlight-small-max-width: 714px;
-@sand-input-focus-duration: @sand-spotlight-focus-animation-duration;
+@sand-input-popup-component-v-spacing: 42px;
+@sand-input-numbercell-border-radius: 12px;
+@sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
+@sand-input-fullscreen-numbercell-width: 246px;
+@sand-input-fullscreen-numbercell-height: 300px;
+@sand-input-fullscreen-numbercell-margin: 0 18px;
+@sand-input-fullscreen-numberfield-width: 1200px;
+@sand-input-fullscreen-numberfield-height: 210px;
+@sand-input-fullscreen-numberfield-margin: auto;
+@sand-input-fullscreen-numberfield-padding: 0 0.5em;
+@sand-input-fullscreen-numberfield-letter-spacing: 48px;
+@sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
+@sand-input-fullscreen-keypad-key-margin: 0;
+@sand-input-fullscreen-buttonarea-margin: 0;
+@sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
+@sand-input-overlay-inputarea-margin: 0;
+@sand-input-overlay-numbercell-width: 174px;
+@sand-input-overlay-numbercell-height: 210px;
+@sand-input-overlay-numbercell-margin: 0 6px;
+@sand-input-overlay-numberfield-width: 800px;
+@sand-input-overlay-numberfield-height: @sand-input-fullscreen-numberfield-height;
+@sand-input-overlay-numberfield-margin: @sand-input-fullscreen-numberfield-margin;
+@sand-input-overlay-numberfield-padding: @sand-input-fullscreen-numberfield-padding;
+@sand-input-overlay-numberfield-letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
+@sand-input-overlay-keypad-margin: 84px auto 0 auto;
+@sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 
-// InputPopup
+// InputField
 // ---------------------------------------
-@sand-input-popup-border-radius:                  12px;
-@sand-input-popup-padding:                        (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
-@sand-input-popup-header-area-height:             251px;
-@sand-input-popup-header-title-line-height:       169px;
-@sand-input-popup-header-subtitle-line-height:    70px;
-@sand-input-popup-header-subtitle-margin-top:     12px;
-@sand-input-popup-header-input-area-height:       114px;
-@sand-input-popup-header-input-area-margin-top:   270px;
-@sand-input-popup-component-v-spacing:            42px;
-
-// InputNumberPopup
-// ---------------------------------------
-@sand-input-number-popup-full-preview-item-width:         246px;
-@sand-input-number-popup-full-preview-item-height:        300px;
-@sand-input-number-popup-full-preview-item-margin:        0 18px;
-@sand-input-number-popup-full-preview-text-width:         1200px;
-@sand-input-number-popup-full-preview-text-height:        210px;
-@sand-input-number-popup-full-keypad-item-margin:         0;
-@sand-input-number-popup-overlay-padding:                 (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
-@sand-input-number-popup-overlay-preview-area-margin-top: 0;
-@sand-input-number-popup-overlay-preview-item-width:      174px;
-@sand-input-number-popup-overlay-preview-item-height:     210px;
-@sand-input-number-popup-overlay-preview-item-margin:     0 6px;
-@sand-input-number-popup-overlay-preview-text-width:      800px;
-@sand-input-number-popup-overlay-preview-text-height:     210px;
-@sand-input-number-popup-overlay-keypad-area-margin:      84px 0;
-@sand-input-number-popup-overlay-keypad-area-width:       ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
+@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-text-indent: 0.2em;
+@sand-inputfield-disabled-opacity: 0.4;
+@sand-inputfield-placeholder-opacity: 0.5;
+@sand-inputfield-border-radius: @sand-inputfield-border-width;
+@sand-inputfield-border-width: 12px;
+@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
+@sand-inputfield-icon-spacing: 30px;
+@sand-inputfield-height: @sand-button-height;
+@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-highlight-height: 100%;
+@sand-inputfield-highlight-max-width: 756px;
+@sand-inputfield-highlight-small-max-width: 714px;
+@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // IntegerPicker
 // ---------------------------------------
@@ -473,13 +449,14 @@
 @sand-item-line-height: 1.3em;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
-@sand-item-indent: 72px;
 @sand-item-inline-max-width: 480px;
 @sand-item-border-radius: 12px;
-@sand-item-slotafter-spacing: @sand-component-spacing;
-@sand-item-slotbefore-spacing: @sand-component-spacing;
+@sand-item-slotafter-spacing: 30px;
+@sand-item-slotbefore-spacing: 30px;
 @sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
 
+// Keyguide
+// ---------------------------------------
 @sand-keyguide-width: 750px;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
@@ -497,9 +474,14 @@
 
 // MediaOverlay
 // ---------------------------------------
-@sand-mediaoverlay-width: 642px;
-@sand-mediaoverlay-spotlight-outset-width: 12px;
+@sand-mediaoverlay-border-radius: 12px;
+@sand-mediaoverlay-caption-margin-top: 24px;
 @sand-mediaoverlay-font-weight: 500;
+@sand-mediaoverlay-line-height: 1.3em;
+@sand-mediaoverlay-padding-top-bottom: 30px;
+@sand-mediaoverlay-progressbar-margin: 0 6px 6px 6px;
+@sand-mediaoverlay-textlayout-margin: 24px 60px;
+@sand-mediaoverlay-width: 642px;
 
 // Notification
 // ---------------------------------------
@@ -531,6 +513,24 @@
 @sand-panel-body-wizard-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
 @sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
 @sand-panel-body-option-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+
+// Picker
+// ----------------------------------------
+@sand-picker-joined-vertical-border-radius: 24px;
+@sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
+@sand-picker-value-height: @sand-button-small-height;
+@sand-picker-joined-horizontal-border-radius: 960px;
+@sand-picker-joined-horizontal-height: 210px;
+@sand-picker-joined-horizontal-value-line-height: (@sand-picker-joined-horizontal-height - 30px);
+@sand-picker-medium-value-width: 360px;
+@sand-picker-large-value-width: 696px;
+@sand-picker-indicator-width: 24px;
+@sand-picker-indicator-height: 24px;
+@sand-picker-indicator-border-radius: @sand-picker-indicator-width;
+@sand-picker-indicator-inactive-scale: 0.75;
+@sand-picker-indicator-active-scale: 1;
+@sand-picker-indicator-margin: 0 12px;
+@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it alows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
 
 // Popup
 // ---------------------------------------
@@ -615,11 +615,6 @@
 @sand-spinner-small-line-width: 6px;
 @sand-spinner-line-margin: 24px;
 @sand-spinner-small-line-margin: 18px;
-@sand-spinner-ball-height: 15%;	// Height of the ball container
-@sand-spinner-ball-width: @sand-spinner-ball-height;	// Height of the ball container
-@sand-spinner-ball-distance: 20%;	// Distance of the ball from the center
-@sand-spinner-ball-angle: 13deg;
-@sand-spinner-icon: @sand-icon-circle;
 @sand-spinner-font-weight: bold;
 
 // Steps
@@ -631,9 +626,22 @@
 @sand-steps-step-current-opacity: 1;
 @sand-steps-step-future-opacity: 0.2;
 
+// Switch
+// ---------------------------------------
+@sand-switch-border-radius: 960px;
+@sand-switch-height: 60px;
+@sand-switch-width: 114px;
+@sand-switch-height-large: 84px;
+@sand-switch-width-large: 168px;
+@sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
+@sand-switch-spottable-border-radius: @sand-item-border-radius;
+@sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
+@sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
+
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-panels-margin-top: 79px;
+@sand-tablayout-panels-margin-top: 78px;
+@sand-tablayout-tab-selected-opacity: 0.3;
 
 // ToggleButton
 // ---------------------------------------
@@ -646,20 +654,6 @@
 @sand-toggle-button-switch-icon-font-size: 60px;
 @sand-toggle-button-switch-icon-font-family: @sand-icon-font-family;
 @sand-toggle-button-selected-glyph-highcontrast: "\0EFFDB";
-
-// ToggleItem
-// ---------------------------------------
-@sand-toggle-item-icon-margin: @sand-icon-large-margin;
-
-// ToggleSwitch
-// ---------------------------------------
-@sand-toggleswitch-height: 60px;
-@sand-toggleswitch-width: 120px;
-@sand-toggleswitch-height-large: 84px;
-@sand-toggleswitch-width-large: 168px;
-@sand-toggleswitch-margin: @sand-toggleswitch-width + @sand-spotlight-outset;
-@sand-checkbox-toggle-switch-border-width: 1px;
-@sand-checkbox-toggle-switch-selected-border-width: @sand-checkbox-toggle-switch-border-width;
 
 // Tooltip
 // ---------------------------------------
@@ -674,12 +668,19 @@
 
 // Video
 // ---------------------------------------
+@sand-video-slider-tooltip-arrow-border-left-right: 18px;
+@sand-video-slider-tooltip-arrow-border-top:       24px;
 @sand-video-slider-tooltip-position-bottom:        @sand-spotlight-outset;
-@sand-video-slider-tooltip-font-size:              48px;
+@sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
+@sand-video-slider-tooltip-margin-bottom:          6px;
+@sand-video-slider-tooltip-font-size:              54px;
+@sand-video-slider-tooltip-font-weight:            700;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           24px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
-@sand-video-slider-tooltip-thumbnail-border-radius: @sand-contextual-popup-border-radius;
+@sand-video-slider-tooltip-thumbnail-width:  426px;
+@sand-video-slider-tooltip-thumbnail-height: 240px;
+@sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
 @sand-video-feedback-icon-font-size:               2em;
 @sand-video-feedback-mini-font-family:             @sand-alt-font-family;
@@ -690,8 +691,6 @@
 @sand-video-feedback-mini-padding-side:            36px;
 @sand-video-feedback-mini-font-size:               78px;
 @sand-video-feedback-mini-line-height:             120px;
-// @sand-video-feedback-icon-pausejumpbackward-width: 72px;	// May need this later
-// @sand-video-feedback-icon-pausejumpforward-width:  72px;	// May need this later
 @sand-video-player-badge-text-size:                48px;
 @sand-video-player-indicator-text-size:            48px;
 @sand-video-player-padding-bottom:                 60px;
@@ -705,10 +704,3 @@
 // ---------------------------------------
 @sand-wizard-panel-content-margin: 0 0 150px 0;
 @sand-wizard-panel-button-container-margin: 0 0 60px 0;
-
-// ---------------------------------------
-// Deprecated - Will be removed in 4.0
-// ---------------------------------------
-
-// No longer shrinking these with updated sandstone font
-@sand-video-feedback-icon-shrunken-size:           2em; // For play and pause icons, the em value is smaller since these glyphs are larger scale than the others.

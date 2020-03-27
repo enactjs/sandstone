@@ -1,44 +1,41 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Input, {InputBase} from '@enact/sandstone/Input';
 
-import icons from './icons';
-
-const iconNames = ['', ...icons];
-
-const Config = mergeComponentMetadata('Input', InputBase, Input);
 Input.displayName = 'Input';
+const Config = mergeComponentMetadata('Input', InputBase, Input);
 
-// Set up some defaults for info and knobs
 const prop = {
-	type: ['text', 'number', 'password']
+	popupType: ['fullscreen', 'overlay'],
+	size: ['small', 'large'],
+	type: ['text', 'password', 'number', 'passwordnumber']
 };
 
 storiesOf('Sandstone', module)
 	.add(
 		'Input',
 		() => (
-			<Input
-				autoFocus={boolean('autoFocus', Config)}
-				onChange={action('onChange')}
-				disabled={boolean('disabled', Config)}
-				dismissOnEnter={boolean('dismissOnEnter', Config)}
-				iconAfter={select('iconAfter', iconNames, Config)}
-				iconBefore={select('iconBefore', iconNames, Config)}
-				invalid={boolean('invalid', Config)}
-				invalidMessage={text('invalidMessage', Config)}
-				placeholder={text('placeholder', Config)}
-				size={select('size', ['small', 'large'], Config)}
-				type={select('type', prop.type, Config, prop.type[0])}
-			/>
+			<div>
+				<Input
+					disabled={boolean('disabled', Config)}
+					onComplete={action('onComplete')}
+					length={number('length', Config, {range: true, min: 1, max: 10}, 4)}
+					placeholder={text('placeholder', Config, 'placeholder text')}
+					subtitle={text('subtitle', Config, 'Title Below Text')}
+					title={text('title', Config, 'Title Text')}
+					size={select('size', prop.size, Config)}
+					type={select('type', prop.type, Config)}
+					popupType={select('popupType', prop.popupType, Config)}
+				/>
+			</div>
 		),
 		{
 			info: {
-				text: 'The basic Input'
+				text: 'Basic usage of Input'
 			}
 		}
 	);
