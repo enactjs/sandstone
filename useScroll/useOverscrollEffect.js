@@ -1,14 +1,19 @@
 import {Job} from '@enact/core/util';
+import ri from '@enact/ui/resolution';
 import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
 	{overscrollTypeDone, overscrollTypeNone, overscrollTypeOnce} = constants,
-	overscrollRatioPrefix = '--scroll-overscroll-ratio-',
-	overscrollTimeout = 300;
+	overscrollEasePrefix = '--scroll-overscroll-ease-',
+	overscrollTranslatePrefix = '--scroll-overscroll-translate-',
+	overscrollEaseStart = 'cubic-bezier(0.1, 1, 0.1, 1)',
+	overscrollEaseEnd = 'cubic-bezier(0.1, 1, 0.1, 1)',
+	overscrollMaxTranslate = ri.scale(120),
+	overscrollTimeout = 220;
 
 const useOverscrollEffect = (props, instances) => {
-	const {overscrollRefs, scrollContainerHandle} = instances;
+	const {scrollContainerHandle, scrollContentRef, scrollContentWrapperRef} = instances;
 
 	// Mutable value
 
@@ -22,16 +27,24 @@ const useOverscrollEffect = (props, instances) => {
 	// Hooks
 
 	const applyOverscrollEffect = useCallback((orientation, edge, type, ratio) => {
-		const nodeRef = overscrollRefs[orientation].current;
+		const
+			isHorizontal = orientation === 'horizontal',
+			nodeRef = isHorizontal ? scrollContentWrapperRef.current : scrollContentRef.current;
 
 		if (nodeRef) {
-			nodeRef.style.setProperty(overscrollRatioPrefix + orientation + edge, ratio);
+			const
+				effectSize = ratio * (edge === 'before' ? 1 : -1) * overscrollMaxTranslate,
+				translation = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
+				easeing = ratio !== 0 ? overscrollEaseStart : overscrollEaseEnd;
+
+			nodeRef.style.setProperty(overscrollTranslatePrefix + orientation, translation);
+			nodeRef.style.setProperty(overscrollEasePrefix + orientation, easeing);
 
 			if (type === overscrollTypeOnce) {
 				mutableRef.current.overscrollJobs[orientation][edge].start(orientation, edge, overscrollTypeDone, 0);
 			}
 		}
-	}, [overscrollRefs]);
+	}, [scrollContentRef, scrollContentWrapperRef]);
 
 	useEffect(() => {
 		function createOverscrollJob (orientation, edge) {
