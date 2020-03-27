@@ -1,17 +1,16 @@
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import MediaOverlay, {MediaOverlayBase, MediaOverlayDecorator} from '@enact/sandstone/MediaOverlay';
+import MediaOverlay, {MediaOverlayBase} from '@enact/sandstone/MediaOverlay';
+
+MediaOverlay.displayName = 'MediaOverlay';
+const Config = mergeComponentMetadata('MediaOverlay', MediaOverlayBase, MediaOverlay);
 
 const prop = {
-	videoTitles: [
-		'Sintel',
-		'Big Buck Bunny',
-		'VideoTest',
-		'Bad Video Source'
-	],
+	marqueeOn: ['focus', 'hover', 'render'],
+	textAlign: ['start', 'center', 'end'],
 	videos: {
 		'Sintel': 'http://media.w3.org/2010/05/sintel/trailer.mp4',
 		'Big Buck Bunny': 'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_h264.mov',
@@ -19,13 +18,6 @@ const prop = {
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
 	},
-	imageNames: [
-		'None',
-		'Strawberries',
-		'Tunnel',
-		'Mountains',
-		'Bad Image Source'
-	],
 	images: {
 		'None': '',
 		'Strawberries': 'https://picsum.photos/1280/720?image=1080',
@@ -33,8 +25,9 @@ const prop = {
 		'Mountains': 'https://picsum.photos/1280/720?image=930',
 		'Bad Image Source': 'imagenotfound.png'
 	},
-	text: [
+	strings: [
 		'',
+		'Short',
 		'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.',
 		'Η γρήγορη καφέ αλεπού πήδηξε πάνω από το μεσημέρι. Το πουλί πετά σε φασολιών δύση του ηλίου.',
 		'ਤੁਰੰਤ ਭੂਰਾ Fox ਆਲਸੀ ਕੁੱਤੇ ਨੂੰ ਵੱਧ ਗਈ. ਬੀਨ ਪੰਛੀ ਸੂਰਜ ਡੁੱਬਣ \'ਤੇ ਉਡਾਣ ਭਰਦੀ ਹੈ.',
@@ -45,42 +38,37 @@ const prop = {
 		'قفز الثعلب البني السريع فوق الكلب الكسول. الطيور تطير في الفول عند غروب الشمس.',
 		'فوری بھوری لومڑی سست کتے پر چھلانگ لگا. بین پرندوں سوریاست میں پرواز.'
 	],
-	placeholderNames: [
-		'None',
-		'SVG'
-	],
-	placeholder: {
+	placeholders: {
 		'None': '',
 		'SVG': 'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
-		'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
-		'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
-		'4NCg=='
+			'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
+			'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
+			'4NCg=='
 	}
 };
-
-const Config = mergeComponentMetadata('MediaOverlay', MediaOverlay, MediaOverlayBase, MediaOverlayDecorator);
-Config.groupId = 'MediaOverlay';
-MediaOverlay.displayName = 'MediaOverlay';
 
 storiesOf('Sandstone', module)
 	.add(
 		'MediaOverlay',
 		() => {
-			const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
-			const videoSource = prop.videos[videoTitle];
-			const imageName = select('imageOverlay', prop.imageNames, Config);
-			const imageSource = prop.images[imageName];
-			const placeholderName = select('placeholder', prop.placeholderNames, Config, 'None');
-			const placeholder = prop.placeholder[placeholderName];
 			return (
 				<MediaOverlay
+					caption={text('caption', Config, 'DTV 7-1')}
 					disabled={boolean('disabled', Config)}
-					imageOverlay={imageSource}
-					placeholder={placeholder}
-					text={select('text', prop.text, Config, prop.text[0])}
-					textAlign={select('textAlign', ['start', 'center', 'end'], Config, 'center')}
+					imageOverlay={select('imageOverlay', prop.images, Config)}
+					loop={boolean('loop', Config)}
+					marqueeOn={select('marqueeOn', prop.marqueeOn, Config, 'focus')}
+					muted={boolean('muted', Config, true)}
+					noAutoPlay={boolean('noAutoPlay', Config)}
+					placeholder={select('placeholder', prop.placeholders, Config)}
+					progress={number('progress', Config, {range: true, min: 0, max: 1, step: 0.05}, 0.5)}
+					showProgress={boolean('showProgress', Config)}
+					subtitle={text('subtitle', Config, '07:00 AM - 08:00 AM')}
+					text={select('text', prop.strings, Config)}
+					textAlign={select('textAlign', prop.textAlign, Config)}
+					title={text('title', Config, 'Program Name')}
 				>
-					<source src={videoSource} />
+					<source src={select('source', prop.videos, Config, prop.videos.Sintel)} />
 				</MediaOverlay>
 			);
 		},
