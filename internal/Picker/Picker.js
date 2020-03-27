@@ -623,6 +623,7 @@ const PickerBase = class extends React.Component {
 		const {keyCode} = ev;
 		forwardKeyDown(ev, this.props);
 
+
 		if (joined && !this.props.disabled) {
 			const direction = getDirection(keyCode);
 
@@ -640,8 +641,13 @@ const PickerBase = class extends React.Component {
 				directions[direction]();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
 				onSpotlightDown(ev);
-			} else if (orientation === 'horizontal' && isEnter(keyCode) && onSpotlightEnter) {
-				onSpotlightEnter(ev);
+			} else if (orientation === 'horizontal' && isEnter(keyCode)) {
+				// Increment on enter
+				this.handleIncrement();
+
+				if (onSpotlightEnter) {
+					onSpotlightEnter(ev);
+				}
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
 				onSpotlightUp(ev);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
