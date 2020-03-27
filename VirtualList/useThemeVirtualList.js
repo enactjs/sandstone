@@ -172,7 +172,6 @@ const useSpottable = (props, instances) => {
 					offset: (!noFadeOut && index < nextIndex) ? fadeOutSize * 2 : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
-
 			}
 		} else if (!repeat && Spotlight.move(getDirection(keyCode))) {
 			SpotlightAccelerator.reset();
