@@ -1,27 +1,32 @@
 /* eslint-disable react/jsx-no-bind */
+import classnames from 'classnames';
 import React, {useMemo, useState} from 'react';
 
 import Button from '../Button';
 
+import css from './ScrollToTopButton.module.less';
+
 const useScrollToTop = (scrollContainerHandleCurrent, showScrollToTopButton) => {
 	const [state, setState] = useState(false);
-	const ScrollTopButton = useMemo(() => (
-		<Button
+	const ScrollTopButton = useMemo(() => {
+		const classes = classnames(
+			css.scrollToTopButton,
+			showScrollToTopButton && state ? css.showing : false
+		);
+
+		// TODO: This embedded button may be a bit too :yuck:
+		// TODO: RTL & scrollbars are not accounted for
+		return (<Button
+			className={classes}
 			icon="arrowlargeup"
 			onClick={() => scrollContainerHandleCurrent.scrollTo({
 				position: {x: 0, y: 0},
 				animate: true
 			})}
-			style={{
-				position: 'absolute',
-				bottom: 0,
-				right: 0,
-				opacity: showScrollToTopButton && state ? 1 : 0
-			}}
 		>
 			Scroll to top
-		</Button>
-	), [scrollContainerHandleCurrent, state, showScrollToTopButton]);
+		</Button>);
+	}, [scrollContainerHandleCurrent, state, showScrollToTopButton]);
 
 	return {
 		ScrollToTopButton: ScrollTopButton,

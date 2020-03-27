@@ -394,6 +394,8 @@ const useScroll = (props) => {
 		scrollProps.start = start;
 	}
 
+	delete rest.showScrollToTopButton;
+
 	const {
 		scrollContentWrapper,
 		isHorizontalScrollbarVisible,
