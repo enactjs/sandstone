@@ -78,6 +78,9 @@ const CheckboxBase = kind({
 		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
 		 * to represent that some, not all, children are selected.
 		 *
+		 * NOTE: This does not prevent updating the `selected` state. Applications must control this
+		 * property directly.
+		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @public
