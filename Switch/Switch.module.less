@@ -82,10 +82,10 @@
 
 		.disabled({
 			&.selected {
-				background-color: @sand-switch-bg-color;
+				background-color: @sand-switch-disabled-selected-bg-color;
 
 				.icon {
-					color: @sand-switch-color;
+					color: @sand-switch-disabled-selected-color;
 				}
 			}
 		});
@@ -111,20 +111,6 @@
 					color: @sand-switch-selected-focus-color;
 				}
 			}
-
-			.disabled({
-				opacity: 1;
-
-				&::after {
-					opacity: 0.4;
-				}
-
-				&.selected {
-					.icon {
-						opacity: 0.4;
-					}
-				}
-			})
 		});
 	});
 }
@@ -152,10 +138,10 @@
 		// Skin colors
 		.applySkins({
 			&.selected {
-				background-color: @sand-switch-bg-color;
+				background-color: @sand-switch-disabled-selected-bg-color;
 
 				.icon {
-					color: @sand-switch-color;
+					color: @sand-switch-disabled-selected-color;
 				}
 			}
 		});
