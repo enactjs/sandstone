@@ -12,13 +12,12 @@ import DatePicker from './components/DatePicker';
 import Dropdown from './components/Dropdown';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
-import GridListImageItem from './components/GridListImageItem';
 import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
 import IconButton from './components/IconButton';
 import Image from './components/Image';
-import IncrementSlider from './components/IncrementSlider';
+import ImageItem from './components/ImageItem';
 import InputField from './components/InputField';
 import Item from './components/Item';
 import LabeledIcon from './components/LabeledIcon';
@@ -53,13 +52,12 @@ const components = {
 	Dropdown,
 	FormCheckbox,
 	FormCheckboxItem,
-	GridListImageItem,
 	Header,
 	Heading,
 	Icon,
 	IconButton,
 	Image,
-	IncrementSlider,
+	ImageItem,
 	InputField,
 	Item,
 	LabeledIcon,
