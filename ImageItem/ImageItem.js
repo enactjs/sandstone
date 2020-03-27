@@ -197,7 +197,7 @@ const ImageItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['caption', 'image', 'imageIcon', 'imageItem', 'selected', 'selectionIcon', 'subCaption']
+		publicClassNames: ['imageItem', 'caption', 'image', 'label', 'selected', 'selectionIcon']
 	},
 
 	computed: {
