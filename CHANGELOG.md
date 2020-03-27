@@ -4,9 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Panels` support for `controls` and the application close button
+
 ### Deprecated
 
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+- `sandstone/Panels.Breadcrumb`, to be removed in beta.1
 
 ### Added
 
@@ -17,9 +22,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
 - `sandstone/MediaOverlay` styling
+- `sandstone/Panels` to default to `SlideLeftArranger`
+- `sandstone/Panels` styling to match updated GUI
 
 ### Fixed
 
+- `sandstone/Button` and `sandstone/Item` (and their derivatives) disabled colors
 - `sandstone/Button` icon-only sizing so it is square once again
 - `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar

@@ -192,7 +192,7 @@ const PanelBase = kind({
  *
  * @name noSharedState
  * @type {Boolean}
- * @default {false}
+ * @default false
  * @memberof sandstone/Panels.Panel.prototype
  */
 
