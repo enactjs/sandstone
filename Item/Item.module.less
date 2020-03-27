@@ -96,16 +96,6 @@
 			.sand-spotlight-resting-colors();
 		}
 
-		.disabled({
-			opacity: 1;
-
-			.slotBefore,
-			.itemContent,
-			.slotAfter {
-				.sand-disabled-colors();
-			}
-		});
-
 		.focus({
 			color: @sand-item-focus-text-color;
 
@@ -117,8 +107,16 @@
 			.label {
 				color: inherit;
 			}
+		});
 
-			.disabled({
+		.sand-disabled({
+			.slotBefore,
+			.itemContent,
+			.slotAfter {
+				.sand-disabled-colors();
+			}
+
+			.focus({
 				.bg {
 					.sand-disabled-focus-bg-colors();
 				}
@@ -128,7 +126,7 @@
 				.slotAfter {
 					.sand-disabled-focus-content-colors();
 				}
-			})
+			});
 		});
 	});
 }
