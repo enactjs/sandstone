@@ -31,7 +31,7 @@ import componentCss from './Checkbox.module.less';
  * <Checkbox selected />
  * ```
  *
- * @class Checkbox
+ * @class CheckboxBase
  * @memberof sandstone/Checkbox
  * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
@@ -40,7 +40,7 @@ import componentCss from './Checkbox.module.less';
 const CheckboxBase = kind({
 	name: 'Checkbox',
 
-	propTypes: /** @lends sandstone/Checkbox.Checkbox.prototype */ {
+	propTypes: /** @lends sandstone/Checkbox.CheckboxBase.prototype */ {
 		/**
 		 * The icon displayed when `selected`.
 		 *

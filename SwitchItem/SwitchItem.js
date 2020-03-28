@@ -28,7 +28,7 @@ const Switch = Skinnable(SwitchBase);
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.
  *
- * @class SwitchItem
+ * @class SwitchItemBase
  * @memberof sandstone/SwitchItem
  * @extends sandstone/Item.Item
  * @omit iconComponent
@@ -38,7 +38,7 @@ const Switch = Skinnable(SwitchBase);
 const SwitchItemBase = kind({
 	name: 'SwitchItem',
 
-	propTypes: /** @lends sandstone/SwitchItem.SwitchItem.prototype */ {
+	propTypes: /** @lends sandstone/SwitchItem.SwitchItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.

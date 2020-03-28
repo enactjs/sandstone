@@ -25,7 +25,7 @@ import componentCss from './Switch.module.less';
 /**
  * Renders the base level DOM structure of the component.
  *
- * @class Switch
+ * @class SwitchBase
  * @memberof sandstone/Switch
  * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
@@ -34,7 +34,7 @@ import componentCss from './Switch.module.less';
 const SwitchBase = kind({
 	name: 'Switch',
 
-	propTypes: /** @lends sandstone/Switch.Switch.prototype */ {
+	propTypes: /** @lends sandstone/Switch.SwitchBase.prototype */ {
 		children: PropTypes.string,
 
 		css: PropTypes.object,
