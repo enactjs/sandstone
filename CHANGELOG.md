@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
 - `sandstone/MediaOverlay` styling
+- to number font for `sandstone/ProgressBar/ProgressBarTooltip`, `standstone/Steps`, `sandstone/Tooltip`, and numbered `sandstond/Picker`
 
 ### Fixed
 
