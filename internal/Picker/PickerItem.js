@@ -12,6 +12,11 @@ const PickerItemBase = kind({
 		className: 'item'
 	},
 
+	computed: {
+		className: ({children, styler}) => styler.append({numberPickerItem: !isNaN(Number(children))})
+
+	},
+
 	render: (props) => (
 		<Marquee {...props} alignment="center" />
 	)
