@@ -33,9 +33,9 @@ const
 		return (
 			<ImageItem
 				{...rest}
-				caption={text}
+				children={text}
+				label={subText}
 				src={source}
-				subCaption={subText}
 			/>
 		);
 	};
@@ -75,15 +75,15 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', 640)),
-					minHeight: ri.scale(number('minHeight', 540))
+					minWidth: ri.scale(number('minWidth', 768)),
+					minHeight: ri.scale(number('minHeight', 588))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', 48))}
+				spacing={ri.scale(number('spacing', -48))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}
