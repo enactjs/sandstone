@@ -178,5 +178,6 @@ const CheckboxItem = CheckboxItemDecorator(CheckboxItemBase);
 export default CheckboxItem;
 export {
 	CheckboxItem,
-	CheckboxItemBase
+	CheckboxItemBase,
+	CheckboxItemDecorator
 };

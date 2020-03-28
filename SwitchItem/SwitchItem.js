@@ -85,10 +85,32 @@ const SwitchItemBase = kind({
 	)
 });
 
+/**
+ * Adds interactive functionality to `SwitchItem`.
+ *
+ * @class SwitchItemDecorator
+ * @memberof sandstone/SwitchItem
+ * @mixes ui/Toggleable.Toggleable
+ * @hoc
+ * @public
+ */
 const SwitchItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'})
 );
 
+/**
+ * A Sandstone-styled item with a switch component.
+ *
+ * `SwitchItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class SwitchItem
+ * @memberof sandstone/SwitchItem
+ * @extends sandstone/SwitchItem.SwitchItemBase
+ * @mixes sandstone/SwitchItem.SwitchItemDecorator
+ * @ui
+ * @public
+ */
 const SwitchItem = SwitchItemDecorator(SwitchItemBase);
 
 export default SwitchItem;

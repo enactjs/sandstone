@@ -147,11 +147,34 @@ const CheckboxBase = kind({
 	}
 });
 
+/**
+ * Adds interactive functionality to `Checkbox`.
+ *
+ * @class CheckboxDecorator
+ * @memberof sandstone/Checkbox
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/Spottable.Spottable
+ * @hoc
+ * @public
+ */
 const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Spottable
 );
 
+/**
+ * A Sandstone-styled checkbox component.
+ *
+ * `Checkbox` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class Checkbox
+ * @memberof sandstone/Checkbox
+ * @extends sandstone/Checkbox.CheckboxBase
+ * @mixes sandstone/Checkbox.CheckboxDecorator
+ * @ui
+ * @public
+ */
 const Checkbox = CheckboxDecorator(CheckboxBase);
 
 export default Checkbox;
