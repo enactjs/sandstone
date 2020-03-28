@@ -10,6 +10,7 @@
 @sand-component-spacing: 42px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate3d(-50%, -50%, 0);
+@sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
 
 // Spotlight
 // ---------------------------------------
@@ -251,7 +252,7 @@
 
 // Checkbox
 // ---------------------------------------
-@sand-checkbox-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
+@sand-checkbox-border-radius: @sand-common-circular-corners;
 @sand-checkbox-border-width: 4px;
 @sand-checkbox-container-position: -42px;
 @sand-checkbox-container-border-radius: @sand-item-border-radius;
@@ -282,7 +283,7 @@
 @sand-day-selector-checkbox-size-large: @sand-formcheckbox-size-large;
 @sand-day-selector-checkbox-check-icon-size: @sand-formcheckbox-check-icon-size;
 @sand-day-selector-checkbox-check-icon-size-large: 144px;
-@sand-day-selector-checkbox-check-border-radius: 1920px; // Generic, sufficiently large value that converts to a nice amount of rem
+@sand-day-selector-checkbox-check-border-radius: @sand-common-circular-corners;
 @sand-day-selector-checkbox-check-border-radius-large: @sand-day-selector-checkbox-check-border-radius;
 
 // Dialog
@@ -583,7 +584,7 @@
 	// 4px, not being a multiple of 3, poses special problems. Any math or assignment related to
 	// this value must be specifically considered as to not impose layout issues related to, for
 	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
-@sand-radioitem-indicator-border-radius: 999px;
+@sand-radioitem-indicator-border-radius: @sand-common-circular-corners;
 
 // Scrim
 // ---------------------------------------
@@ -669,7 +670,7 @@
 // ToggleButton
 // ---------------------------------------
 @sand-toggle-button-switch-border-width: 6px;
-@sand-toggle-button-switch-border-radius: 1920px;
+@sand-toggle-button-switch-border-radius: @sand-common-circular-corners;
 @sand-toggle-button-switch-width: 30px;
 @sand-toggle-button-text-switch-gutter: 36px;
 @sand-toggle-button-small-text-switch-gutter: 24px;
