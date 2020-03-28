@@ -14,6 +14,17 @@
 .checkbox {
 	margin: 0;
 
+	// Spottable version of the Checkbox
+	.spottable({
+		&::after {
+			content: "";
+			position: absolute;
+			.position(@sand-checkbox-container-position);
+			border-radius: @sand-checkbox-container-border-radius;
+			z-index: -1;
+		}
+	});
+
 	.applySkins({
 		.checkboxColors(
 			@sand-checkbox-color,
@@ -23,13 +34,30 @@
 		border-radius: @sand-checkbox-border-radius;
 		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
 
-		&.selected {
+		&.indeterminate {
 			.checkboxColors(
-				@sand-checkbox-selected-color,
-				@sand-checkbox-selected-bg-color,
-				@sand-checkbox-selected-border-color
+				@sand-checkbox-indeterminate-color,
+				@sand-checkbox-indeterminate-bg-color,
+				@sand-checkbox-indeterminate-border-color
 			);
 		}
+
+		&.selected {
+			&:not(.indeterminate) {
+				.checkboxColors(
+					@sand-checkbox-selected-color,
+					@sand-checkbox-selected-bg-color,
+					@sand-checkbox-selected-border-color
+				);
+			}
+		}
+
+		// Spottable version of the Checkbox
+		.spottable({
+			&::after {
+				.sand-spotlight-resting-colors();
+			}
+		});
 
 		.focus({
 			.checkboxColors(
@@ -38,12 +66,26 @@
 				@sand-checkbox-focus-border-color
 			);
 
-			&.selected {
+			&::after {
+				.sand-spotlight-focus-colors();
+			}
+
+			&.indeterminate {
 				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
 				);
+			}
+
+			&.selected {
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
 			}
 		});
 	});
@@ -59,13 +101,30 @@
 				@sand-checkbox-focus-border-color
 			);
 
-			&.selected {
+			&.indeterminate {
 				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
 				);
 			}
+
+			&.selected {
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
+			}
+
+			// Spottable version of the Checkbox
+			.spottable({
+				&::after {
+					.sand-spotlight-focus-colors();
+				}
+			});
 		});
 	}
 }, parent);

@@ -10,13 +10,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Deprecated
 
+- `sandstone/FormCheckbox`, use `sandstone/Checkbox` instead
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
 - `sandstone/Panels.Breadcrumb`, to be removed in beta.1
-
-### Added
-
-- `sandstone/ImageItem` component
-- `sandstone/ProgressButton` component
 
 ### Changed
 
@@ -24,6 +20,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/MediaOverlay` styling
 - `sandstone/Panels` to default to `SlideLeftArranger`
 - `sandstone/Panels` styling to match updated GUI
+
+### Added
+
+- `sandstone/ImageItem` component
+- `sandstone/ProgressButton` component
+- `sandstone/Checkbox` standalone interactive capability
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` prop `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
+- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
 
 ### Fixed
 
