@@ -33,7 +33,7 @@ storiesOf('Sandstone', module)
 				src={object('src', Config, src)}
 				style={{
 					position: 'absolute',
-					width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 788 : 1020),
+					width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
 					height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
 				}}
 			>
