@@ -64,7 +64,7 @@ storiesOf('Text', module)
 					<Heading showLine>Simple Items (Item, ImageItem)</Heading>
 					<Item>{children}</Item>
 					<Item label={children}>{children}</Item>
-					<ImageItem children={children} style={{height: 200}} />
+					<ImageItem style={{height: 200}}>{children}</ImageItem>
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>

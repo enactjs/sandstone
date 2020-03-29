@@ -33,10 +33,11 @@ const
 		return (
 			<ImageItem
 				{...rest}
-				children={text}
 				label={subText}
 				src={source}
-			/>
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
