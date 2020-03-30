@@ -58,13 +58,13 @@ const SliderBase = kind({
 
 	propTypes: /** @lends sandstone/Slider.SliderBase.prototype */ {
 		/**
-		 * Activates the component when focused so that it may be manipulated via the directional
+		 * Activates the component when selected so that it may be manipulated via the directional
 		 * input keys.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
-		activateOnFocus: PropTypes.bool,
+		activateOnSelect: PropTypes.bool,
 
 		/**
 		 * Sets the knob to selected state and allows it to move via 5-way controls.
@@ -143,7 +143,7 @@ const SliderBase = kind({
 		 * Called when a key is pressed down while the slider is focused.
 		 *
 		 * When a directional key is pressed down and the knob is active (either by first
-		 * pressing enter or when `activateOnFocus` is enabled), the Slider will increment or
+		 * pressing enter or when `activateOnSelect` is disabled), the Slider will increment or
 		 * decrement the current value and emit an `onChange` event. This default behavior can be
 		 * prevented by calling `preventDefault()` on the event passed to this callback.
 		 *
@@ -155,7 +155,7 @@ const SliderBase = kind({
 		/**
 		 * Called when a key is released while the slider is focused.
 		 *
-		 * When the enter key is released and `activateOnFocus` is not enabled, the slider will be
+		 * When the enter key is released and `activateOnSelect` is enabled, the slider will be
 		 * activated to enable incrementing or decrementing the value via directional keys. This
 		 * default behavior can be prevented by calling `preventDefault()` on the event passed to
 		 * this callback.
@@ -224,7 +224,7 @@ const SliderBase = kind({
 	},
 
 	defaultProps: {
-		activateOnFocus: false,
+		activateOnSelect: false,
 		active: false,
 		disabled: false,
 		max: 100,
@@ -255,15 +255,15 @@ const SliderBase = kind({
 		onKeyUp: handle(
 			forProp('disabled', false),
 			forwardWithPrevent('onKeyUp'),
-			forProp('activateOnFocus', false),
+			forProp('activateOnSelect', true),
 			forKey('enter'),
 			forward('onActivate')
 		)
 	},
 
 	computed: {
-		className: ({activateOnFocus, active, styler}) => styler.append({
-			activateOnFocus,
+		className: ({activateOnSelect, active, styler}) => styler.append({
+			activateOnSelect,
 			active
 		}),
 		knobStep: validateSteppedOnce(props => props.knobStep, {
@@ -279,7 +279,7 @@ const SliderBase = kind({
 	},
 
 	render: ({css, focused, tooltip, ...rest}) => {
-		delete rest.activateOnFocus;
+		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
 		delete rest.knobStep;
