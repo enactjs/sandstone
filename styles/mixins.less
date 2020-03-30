@@ -7,6 +7,15 @@
 @import "~@enact/ui/styles/mixins.less";
 @import "./variables.less";
 
+// Allows a component to override the existing "disabled" rules and apply its own customized rules.
+.sand-disabled(@rules) when (isruleset(@rules)) {
+	.disabled({
+		opacity: 1; // reset standard disabled rule.
+
+		@rules();
+	});
+}
+
 .sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
 	// Take the size of the minimum tappable area, and subtract the element's current size.
 	@_tap-offset: -((@sand-smallest-tappable-size - @element-size) / 2);

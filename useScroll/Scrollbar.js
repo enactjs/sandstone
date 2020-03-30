@@ -46,7 +46,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			clientSize={clientSize}
 			className={className}
 			css={componentCss}
-			minThumbSize={48}
+			minThumbSize={120}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind

@@ -7,7 +7,7 @@ import React from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
@@ -32,10 +32,10 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
 				caption={text}
-				source={source}
+				src={source}
 				subCaption={subText}
 			/>
 		);
@@ -54,7 +54,7 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}`,
 			subText = `SubItem ${count}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
 
 		items.push({text, subText, source});
 	}

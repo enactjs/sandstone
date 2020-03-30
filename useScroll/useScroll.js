@@ -77,7 +77,7 @@ const useThemeScroll = (props, instances) => {
 	const {
 		alertThumb,
 		scrollbarProps
-	} = useScrollbar(props, instances, {isContent});
+	} = useScrollbar(props, instances);
 
 	useSpotlightRestore(props, instances);
 
