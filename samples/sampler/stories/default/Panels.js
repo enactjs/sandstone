@@ -50,7 +50,7 @@ const tabSelections = {
 };
 
 
-Header.displayName = 'Panels';
+Panels.displayName = 'Panels';
 
 
 storiesOf('Sandstone', module)
