@@ -34,7 +34,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` and `sandstone/Item` (and their derivatives) disabled colors
 - `sandstone/Button` icon-only sizing so it is square once again
 - `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
-- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/Slider` default behavior to activate by focus, so the slider is immediately interactive when using 5-way
 - `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
 
@@ -50,7 +51,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
