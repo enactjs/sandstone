@@ -80,7 +80,7 @@ const useThemeScroll = (props, instances) => {
 	const {
 		alertThumb,
 		scrollbarProps
-	} = useScrollbar(props, instances, {isContent});
+	} = useScrollbar(props, instances);
 
 	// Before restoring spotlight position, alert useScrollPosition
 	useEffect(() => {
