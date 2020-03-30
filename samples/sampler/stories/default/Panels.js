@@ -1,4 +1,3 @@
-import {number} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -16,8 +15,7 @@ import {Scroller} from '@enact/sandstone/Scroller';
 import {TabLayout} from '@enact/sandstone/TabLayout';
 
 // Used to render VirtualGridList into Panels
-const renderItem = ({index, ...rest}) => {
-	// const {text, subText, source} = items[index];
+const renderItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
 	const text = `Item ${index}`,
 		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
 		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
@@ -33,7 +31,7 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
-//Used to render TabLayout into Panels
+// Used to render TabLayout into Panels
 const tabsWithIcons = [
 	{children: 'Home', icon: 'home'},
 	{children: 'Button', icon: 'image'},
@@ -61,9 +59,11 @@ storiesOf('Sandstone', module)
 		() => {
 			// hooks
 			const initialState = 0;
-			const [index, setState] = React.useState(initialState);
+			const [panelIndex, setState] = React.useState(initialState);
+			const forward = () => setState(panelIndex + 1);
+			const backward = () => setState(panelIndex - 1);
 			const story = (
-				<Panels index={index}>
+				<Panels index={panelIndex}>
 					<Panel>
 						<Header title="Panel with Item view">
 							<Button
@@ -71,7 +71,7 @@ storiesOf('Sandstone', module)
 								icon="arrowlargeright"
 								minWidth={false}
 								slot="slotAfter"
-								onClick={() => setState(index + 1)}
+								onClick={forward} // eslint-disable-line react/jsx-no-bind
 							/>
 						</Header>
 						<BodyText>Example text inside an Panel Body</BodyText>
@@ -104,14 +104,14 @@ storiesOf('Sandstone', module)
 								icon="arrowlargeleft"
 								minWidth={false}
 								slot="slotBefore"
-								onClick={() => setState(index - 1)}
+								onClick={backward} // eslint-disable-line react/jsx-no-bind
 							/>
 							<Button
 								backgroundOpacity="transparent"
 								icon="arrowlargeright"
 								minWidth={false}
 								slot="slotAfter"
-								onClick={() => setState(index + 1)}
+								onClick={forward} // eslint-disable-line react/jsx-no-bind
 							/>
 						</Header>
 						<VirtualGridList
@@ -136,7 +136,7 @@ storiesOf('Sandstone', module)
 								icon="arrowlargeleft"
 								minWidth={false}
 								slot="slotBefore"
-								onClick={() => setState(index - 1)}
+								onClick={backward} // eslint-disable-line react/jsx-no-bind
 							/>
 						</Header>
 						<TabLayout
