@@ -6,31 +6,9 @@ import {Header, Panels, Panel} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
-import Picker from '@enact/sandstone/Picker';
-import {Row} from '@enact/ui/Layout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
-
-const pickerList = {
-	vegetables: [
-		'Celery',
-		'Carrot',
-		'Tomato',
-		'Onion',
-		'Broccoli',
-		'Spinach'
-	],
-	airports: [
-		'San Francisco International Airport Terminal 1',
-		'Milan Malpensa Airport Terminal 2',
-		'Paris-Charles De Gaulle Airport Terminal 3',
-		'Boston Logan Airport Terminal D',
-		'Tokyo Narita Airport Terminal 5',
-		'Heathrow Terminal 6',
-		'נמל התעופה בן גוריון טרמינל הבינלאומי'
-	]
-};
 
 const renderItem = ({index, ...rest}) => {
 		//const {text, subText, source} = items[index];
@@ -59,7 +37,6 @@ storiesOf('Sandstone', module)
 		() => {
 			const story = (
 				//hooks
-				
 				<Panels index={number('index', {}, {range: true, min: 0, max: 2, step: 1}, 0)}>
 					<Panel>
 						<Header type="compact">
@@ -74,7 +51,6 @@ storiesOf('Sandstone', module)
 								icon="arrowlargeleft"
 								minWidth={false}
 								slot="slotBefore"
-								// onClick={this.handleClick}
 							/>
 						</Header>
 						<BodyText>Example text inside an OptionPanels Panel</BodyText>
@@ -113,15 +89,6 @@ storiesOf('Sandstone', module)
 								minHeight: ri.scale(540)
 							}}
 						/>
-					</Panel>
-						<Panel>
-						<Header type="compact" title="Picker Panel" />
-						<Row wrap>
-							<Picker alt="Basic" width="medium">{pickerList.airports}</Picker>
-							<Picker orientation="vertical" alt="Basic" width="medium">{pickerList.vegetables}</Picker>
-							<Picker joined alt="Basic" width="medium">{pickerList.vegetables}</Picker>
-							<Picker joined orientation="vertical" alt="Basic" width="medium">{pickerList.vegetables}</Picker>
-						</Row>
 					</Panel>
 				</Panels>
 			);
