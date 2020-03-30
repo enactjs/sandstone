@@ -7,16 +7,13 @@
 @import "~@enact/ui/styles/mixins.less";
 @import "./variables.less";
 
-// Assign the complement of rules that the spotlight focus animation requires
-.sand-spotlight-resting(@opacity: 0) {
-	opacity: @opacity;
-	transition: filter @sand-spotlight-focus-animation-duration ease-out, opacity @sand-spotlight-focus-animation-duration ease-out;
-	will-change: filter, opacity;
-}
+// Allows a component to override the existing "disabled" rules and apply its own customized rules.
+.sand-disabled(@rules) when (isruleset(@rules)) {
+	.disabled({
+		opacity: 1; // reset standard disabled rule.
 
-// Spotlight focus-state animation rules which are _not_color_related_
-.sand-spotlight-focus(@opacity: 1) {
-	opacity: @opacity;
+		@rules();
+	});
 }
 
 .sand-taparea(@element-size) when (@sand-smallest-tappable-size > @element-size) {
@@ -61,7 +58,7 @@
 //  * @param  {Measurement} @t Top margin
 //  * @param  {Measurement} @b Bottom margin
 //  */
-.sand-spotlight-margin(@t, @b) {
+.sand-spotlight-margin(@t; @b) {
 	margin: @t @sand-spotlight-outset @b;
 }
 
@@ -91,7 +88,7 @@
 //  * @param  {Measurement} @t Top padding
 //  * @param  {Measurement} @b Bottom padding
 //  */
-.sand-spotlight-padding(@t, @b) {
+.sand-spotlight-padding(@t; @b) {
 	padding: @t @sand-spotlight-outset @b;
 }
 
@@ -139,14 +136,17 @@
 //
 // When only rules are provided. Default populate the @target argument.
 .sand-font(@nlrules; @target: normal) when (isruleset(@nlrules)) {
+	// content: "Applying .sand-font (rules)";
 	.sand-font(@sand-font-family, @sand-non-latin-font-family, @nlrules, @target);
 }
 // When 0, 1, or 2 strings (font family names) are provided. Default populate the @target argument so the signature stays the same.
-.sand-font(@family: @sand-font-family; @nlfamily: @sand-non-latin-font-family; @target: normal) when (isstring(@family)) and (isstring(@nlfamily)) and (isstring(@target)) {
+.sand-font(@family: @sand-font-family; @nlfamily: @sand-non-latin-font-family; @target: normal) when (isstring(@family)) and (isstring(@nlfamily)) {
+	// content: "Applying .sand-font 0123";
 	.sand-font(@family, @nlfamily, {}, @target);
 }
 // When exactly 3 or 4 args are provided. Types are assumed because they went through the trouble to provide all 3 required args.
-.sand-font(@family; @nlfamily; @nlrules; @target: normal) {
+.sand-font(@family; @nlfamily; @nlrules; @target: normal) when (isruleset(@nlrules)) {
+	// content: "Applying .sand-font 34";
 	font-family: @family;
 
 	.sand-locale-non-latin({
@@ -219,12 +219,17 @@
 	}
 }
 
+.sand-font-number() {
+	// content: "Applying .sand-font-number";
+	.sand-font(@sand-number-font-family; @sand-number-font-family);
+}
+
 //
 // Text definitions
 //
 
 .sand-alert-title() {
-	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light, {
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
 		line-height: @sand-non-latin-body-line-height;
 	});
 	font-size: @sand-alert-title-font-size;
@@ -233,14 +238,14 @@
 }
 
 .sand-alert-subtitle() {
-	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light);
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
 	font-size: @sand-alert-subtitle-font-size;
 	font-weight: @sand-alert-font-weight;
 	line-height: @sand-alert-line-height;
 }
 
 .sand-alert-overlay-content() {
-	.sand-font(@sand-alert-font-family, @sand-non-latin-font-family-light, {
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
 		line-height: @sand-non-latin-body-line-height;
 	});
 	font-weight: @sand-alert-font-weight;
@@ -252,7 +257,7 @@
 }
 
 .sand-notification-content() {
-	.sand-font(@sand-notification-font-family, @sand-non-latin-font-family-light, {
+	.sand-font(@sand-notification-font-family; @sand-non-latin-font-family-light; {
 		line-height: @sand-non-latin-body-line-height;
 	});
 	font-weight: @sand-notification-font-weight;
@@ -265,13 +270,15 @@
 }
 
 .sand-body-text() {
-	.sand-font(@sand-body-font-family, @sand-non-latin-font-family-light, {
+	.sand-font(@sand-body-font-family; @sand-non-latin-font-family-light; {
 		font-weight: @sand-non-latin-body-font-weight;
 		font-size: @sand-non-latin-body-font-size;
+		font-style: @sand-non-latin-body-font-style;
 		line-height: @sand-non-latin-body-line-height;
 	});
 	font-weight: @sand-body-font-weight;
 	font-size: @sand-body-font-size;
+	font-style: @sand-body-font-style;
 	line-height: @sand-body-line-height;
 	a:link {color: inherit; text-decoration:none;}
 	a:visited {color: inherit; text-decoration:none;}
@@ -280,7 +287,7 @@
 }
 
 .sand-large-button-text() {
-	.sand-font(@sand-button-font-family, @sand-non-latin-button-font-family, {
+	.sand-font(@sand-button-font-family; @sand-non-latin-button-font-family; {
 		font-size: @sand-non-latin-button-large-font-size;
 		font-style: @sand-non-latin-button-font-style;
 		font-weight: @sand-non-latin-button-font-weight;
@@ -292,7 +299,7 @@
 }
 
 .sand-small-button-text() {
-	.sand-font(@sand-button-small-font-family, @sand-non-latin-button-font-family, {
+	.sand-font(@sand-button-small-font-family; @sand-non-latin-button-font-family; {
 		font-size: @sand-non-latin-button-small-font-size;
 		font-style: @sand-non-latin-button-small-font-style;
 		font-weight: @sand-non-latin-button-small-font-weight;

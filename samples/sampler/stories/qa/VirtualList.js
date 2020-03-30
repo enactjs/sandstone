@@ -118,7 +118,7 @@ const InPanels = ({className, title, ...rest}) => {
 	}
 
 	return (
-		<Panels className={className} index={index} noCloseButton>
+		<Panels className={className} index={index}>
 			<Panel>
 				<Header type="compact" title={`${title} Panel 0`} key="header" />
 				<VirtualList

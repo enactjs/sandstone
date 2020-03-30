@@ -42,11 +42,11 @@ const InputFieldTests = [
 	<InputField value=" ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
 
-	// Change 'size' dynamically to 'Large' - [GT-25290]
-	<InputField value="large InputField" size="large" />,
+	// Change 'size' dynamically to 'small' - [GT-28357]
+	<InputField value="small InputField" size="small" />,
 
-	// Disabled Characters Displays in the Disabled InputField - [GT-22051]
-	// This will also test: Transparent Disabled InputField Displays with Background - [GT-21161]
+	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
+	// This will also test: Transparent Disabled InputField Displays with Background - [GT-28351]
 	<InputField value="I am value" />,
 	<InputField value="I am a disabled value" disabled />,
 
@@ -64,7 +64,7 @@ const InputFieldTests = [
 		component: <InputField value={LoremString} invalid />
 	},
 
-	// Text Vertically Center Aligns in InputField Field - RTL - [GT-23785]
+	// Text Vertically Center Aligns in InputField Field - RTL - [GT-28352]
 	{
 		locale: 'ar-SA',
 		component: <InputField value="HHHHHH" />
@@ -162,14 +162,14 @@ const InputFieldTests = [
 		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />
 	},
 
-	// Change 'size' dynamically to 'Large' - [GT-25290]
+	// Change 'size' dynamically to 'small' - [GT-28357]
 	{
 		locale: 'ar-SA',
-		component: <InputField value="large InputField" size="large" />
+		component: <InputField value="small InputField" size="small" />
 	},
 
-	// Disabled Characters Displays in the Disabled InputField - [GT-22051]
-	// This will also test: Transparent Disabled InputField Displays with Background - [GT-21161]
+	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
+	// This will also test: Transparent Disabled InputField Displays with Background - [GT-28351]
 	{
 		locale: 'ar-SA',
 		component: <InputField value="I am value" />

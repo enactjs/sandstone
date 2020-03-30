@@ -16,6 +16,18 @@
 	width: 100%;
 	background-color: @sand-scrolltrack-bg-color;
 	border-radius: @sand-scrolltrack-border-radius;
+	opacity: 0;
+	transition: opacity 100ms linear;
+	-webkit-transition: opacity 100ms linear;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.focusableScrollbar {
+		// Always show the scrollbar
+		opacity: 1;
+	}
 
 	.thumb {
 		background: @sand-scrollthumb-bg-color;
@@ -44,7 +56,7 @@
 	}
 
 	&.vertical {
-		margin: 0 @sand-scrolltrack-margin;
+		margin: 0 var(--scrollbar-thumb-margin);
 		width: @sand-scrolltrack-width;
 
 		.thumb {
@@ -71,7 +83,7 @@
 	}
 
 	&:not(.vertical) {
-		margin: @sand-scrolltrack-margin 0;
+		margin: var(--scrollbar-thumb-margin) 0;
 		height: @sand-scrolltrack-width;
 
 		.thumb {

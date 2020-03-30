@@ -24,7 +24,6 @@
 		position: absolute;
 		.position(0);
 		border-radius: @sand-item-border-radius;
-		.sand-spotlight-resting();
 	}
 
 	.slotAfter,
@@ -91,31 +90,43 @@
 
 	.locale-japanese-line-break();
 
-	.focus({
-		.bg {
-			.sand-spotlight-focus();
-		}
-	});
-
 	// Skin colors
 	.applySkins({
 		.bg {
-			background-color: @sand-item-bg-color;
-			filter: drop-shadow(@sand-item-bg-shadow);
+			.sand-spotlight-resting-colors();
 		}
 
 		.focus({
 			color: @sand-item-focus-text-color;
 
 			.bg {
-				background-color: @sand-item-focus-bg-color;
-				filter: drop-shadow(@sand-item-focus-bg-shadow);
+				.sand-spotlight-focus-colors();
 			}
 
 			.text,
 			.label {
 				color: inherit;
 			}
+		});
+
+		.sand-disabled({
+			.slotBefore,
+			.itemContent,
+			.slotAfter {
+				.sand-disabled-colors();
+			}
+
+			.focus({
+				.bg {
+					.sand-disabled-focus-bg-colors();
+				}
+
+				.slotBefore,
+				.itemContent,
+				.slotAfter {
+					.sand-disabled-focus-content-colors();
+				}
+			});
 		});
 	});
 }

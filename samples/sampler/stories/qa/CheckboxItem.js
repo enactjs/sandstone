@@ -9,6 +9,7 @@ import {storiesOf} from '@storybook/react';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 
+Group.displayName = 'Group';
 const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, CheckboxItem);
 
 const prop = {
@@ -68,13 +69,14 @@ storiesOf('CheckboxItem', module)
 		)
 	)
 	.add(
-		'that is grouped',
+		'grouped',
 		() => (
 			<Group
 				childComponent={CheckboxItem}
 				childSelect="onToggle"
 				itemProps={{
-					inline: boolean('ItemProps-Inline', Group, false)
+					inline: boolean('itemProps-inline', Group, false),
+					disabled: boolean('itemProps-disabled', Group, false)
 				}}
 				select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
 				selectedProp="selected"

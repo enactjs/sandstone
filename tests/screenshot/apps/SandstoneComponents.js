@@ -1,5 +1,7 @@
 import {generateTestData} from '@enact/ui-test-utils/utils';
 
+
+import ActionGuide from './components/ActionGuide';
 import Button from './components/Button';
 import BodyText from './components/BodyText';
 import Checkbox from './components/Checkbox';
@@ -10,13 +12,12 @@ import DatePicker from './components/DatePicker';
 import Dropdown from './components/Dropdown';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
-import GridListImageItem from './components/GridListImageItem';
 import Header from './components/Header';
 import Heading from './components/Heading';
 import Icon from './components/Icon';
 import IconButton from './components/IconButton';
 import Image from './components/Image';
-import IncrementSlider from './components/IncrementSlider';
+import ImageItem from './components/ImageItem';
 import InputField from './components/InputField';
 import Item from './components/Item';
 import LabeledIcon from './components/LabeledIcon';
@@ -35,9 +36,12 @@ import Slider from './components/Slider';
 import Steps from './components/Steps';
 import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
+import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
+import WizardPanel from './components/WizardPanel';
 
 const components = {
+	ActionGuide,
 	BodyText,
 	Button,
 	Checkbox,
@@ -48,13 +52,12 @@ const components = {
 	Dropdown,
 	FormCheckbox,
 	FormCheckboxItem,
-	GridListImageItem,
 	Header,
 	Heading,
 	Icon,
 	IconButton,
 	Image,
-	IncrementSlider,
+	ImageItem,
 	InputField,
 	Item,
 	LabeledIcon,
@@ -75,10 +78,12 @@ const components = {
 	Steps,
 	Switch,
 	SwitchItem,
-	TimePicker
+	TabLayout,
+	TimePicker,
 	// TooltipDecorator,
 	// VideoPlayer,
-	// VirtualList
+	// VirtualList,
+	WizardPanel
 };
 
 const testMetadata = {};

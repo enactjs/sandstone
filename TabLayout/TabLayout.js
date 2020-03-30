@@ -1,5 +1,5 @@
 /**
- * Provides an Sandstone-themed TabLayout.
+ * Provides a Sandstone-themed TabLayout.
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
@@ -102,12 +102,20 @@ const TabLayoutBase = kind({
 		onExpand: PropTypes.func,
 
 		/**
+		 * Called when a tab is selected
+		 *
+		 * @type {Function}
+		 * @public
+		*/
+		onSelect: PropTypes.func,
+
+		/**
 		 * Orientation of the tabs.
 		 *
 		 * Horizontal tabs support a maximum of five tabs.
 		 *
 		 * @type {('horizontal'|'vertical')}
-		 * @default 'horizontal'
+		 * @default 'vertical'
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
@@ -143,13 +151,13 @@ const TabLayoutBase = kind({
 
 	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		const tabSize = collapsed ? 450 : 855;
-
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
 					<TabGroup
 						collapsed={collapsed}
 						onFocus={onExpand}
+						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
 						selectedIndex={index}

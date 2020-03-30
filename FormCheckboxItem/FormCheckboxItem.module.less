@@ -3,7 +3,6 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-// Public
 .formCheckboxItem {
 	/* Available for customization */
 
@@ -18,42 +17,19 @@
 	});
 }
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleItem {
-	.content {
-		overflow: hidden;
-	}
-
-	// Skin colors
+.item {
 	.applySkins({
-		// The following code targets all elements that don't act as an invisible frame, and sets
-		// them to the disabled opacity. Invisible frames however are set to fully opaque so their
-		// children can be affected. Below toggleIcon is specifically targeted so it remains full
-		// opacity when focused and disabled, overriding these more general rules.
-		.disabled({
-			opacity: 1;
-
-			> * {
-			    opacity: @sand-disabled-opacity;
-			}
-			.slot {
-			    opacity: 1;
-
-				> * {
-				    opacity: @sand-disabled-opacity;
-				}
-			}
-		});
-
 		.focus({
 			color: @sand-formcheckboxitem-focus-text-color;
-			background-color: @sand-formcheckboxitem-focus-bg-color;
+
+			.bg {
+				background-color: transparent;
+				opacity: 0;
+			}
 
 			.disabled({
-				.slot {
-					.toggleIcon {
-					    opacity: 1;
-					}
+				.bg {
+					opacity: 0;
 				}
 			});
 		});

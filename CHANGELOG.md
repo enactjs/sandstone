@@ -4,9 +4,58 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Panels` support for `controls` and the application close button
+
+### Deprecated
+
+- `sandstone/FormCheckbox`, use `sandstone/Checkbox` instead
+- `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
+- `sandstone/Panels.Breadcrumb`, to be removed in beta.1
+
+### Changed
+
+- `sandstone/FeedbackTooltip` visuals for updated GUI
+- `sandstone/MediaOverlay` styling
+- `sandstone/Panels` to default to `SlideLeftArranger`
+- `sandstone/Panels` styling to match updated GUI
+
+### Added
+
+- `sandstone/ImageItem` component
+- `sandstone/ProgressButton` component
+- `sandstone/Checkbox` standalone interactive capability
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` prop `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
+- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
+
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to show the focused item fully while scroll by directional keys.
+- `sandstone/Button` and `sandstone/Item` (and their derivatives) disabled colors
+- `sandstone/Button` icon-only sizing so it is square once again
+- `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Slider` default for activate by focus so the slider is immediately interactive when using 5-way
+- `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
+
+## [1.0.0-alpha.5] - 2020-03-23
+
+### Removed
+
+- `sandstone` LESS mixins `.sand-spotlight-resting` and `.sand-spotlight-focus`, replacing them with `.sand-spotlight-resting-color` and `.sand-spotlight-focus-color` respectively
+
+### Changed
+
+- `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
+
+### Fixed
+
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to hide the scrollbar after N seconds
+- `sandstone/Input.InputField` to show icons when focused
+- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
+- `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
+- `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
+- `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
@@ -18,7 +67,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` icon sizing 
+- `sandstone/Button` icon sizing
 - `sandstone/ContextualPopupDecorator` to correctly manage focus when changing its open state
 - `sandstone/Input` and `sandstone/Popup` to correctly support marquee
 - `sandstone/Picker` joined styling

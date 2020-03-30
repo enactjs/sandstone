@@ -170,7 +170,6 @@ const WizardPanelBase = kind({
 					<Steps current={index + 1} slot="slotAbove" total={total} />
 					<Button
 						backgroundOpacity="transparent"
-						className={css.nextButton}
 						disabled={index === (total - 1)}
 						icon="arrowlargeright"
 						iconPosition="after"
@@ -182,7 +181,6 @@ const WizardPanelBase = kind({
 					</Button>
 					<Button
 						backgroundOpacity="transparent"
-						className={css.prevButton}
 						disabled={index === 0}
 						icon="arrowlargeleft"
 						minWidth={false}
