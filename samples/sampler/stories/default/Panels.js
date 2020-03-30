@@ -1,5 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {boolean} from '@enact/storybook-utils/addons/knobs';
 
 import {Header, Panels, Panel} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
@@ -49,9 +50,7 @@ const tabSelections = {
 	'without icons': tabsWithoutIcons
 };
 
-
 Panels.displayName = 'Panels';
-
 
 storiesOf('Sandstone', module)
 	.add(
@@ -63,9 +62,9 @@ storiesOf('Sandstone', module)
 			const forward = () => setState(panelIndex + 1);
 			const backward = () => setState(panelIndex - 1);
 			const story = (
-				<Panels index={panelIndex}>
+				<Panels index={panelIndex} noAnimation={boolean('noAnimation', Panels, false)}>
 					<Panel>
-						<Header title="Panel with Item view">
+						<Header title="Panel with Items">
 							<Button
 								backgroundOpacity="transparent"
 								icon="arrowlargeright"
@@ -95,10 +94,7 @@ storiesOf('Sandstone', module)
 						</Item>
 					</Panel>
 					<Panel>
-						<Header>
-							<title>
-								VirtualGridList Panel
-							</title>
+						<Header title="Panel with VirtualGridList">
 							<Button
 								backgroundOpacity="transparent"
 								icon="arrowlargeleft"
@@ -124,13 +120,7 @@ storiesOf('Sandstone', module)
 						/>
 					</Panel>
 					<Panel>
-						<Header>
-							<title>
-								Sandstone TabLayout
-							</title>
-							<subtitle>
-								Basic TabLayout
-							</subtitle>
+						<Header title="Panel with TabLayout">
 							<Button
 								backgroundOpacity="transparent"
 								icon="arrowlargeleft"
