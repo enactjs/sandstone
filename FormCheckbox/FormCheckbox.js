@@ -10,8 +10,10 @@
  * @module sandstone/FormCheckbox
  * @exports FormCheckbox
  * @exports FormCheckboxBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
+import deprecate from '@enact/core/internal/deprecate';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -58,9 +60,12 @@ const FormCheckboxBase = kind({
 		css: componentCss
 	},
 
-	render: ({children, css, ...rest}) => (
+	render: deprecate(({children, css, ...rest}) => (
 		<ToggleIcon {...rest} css={css}>{children}</ToggleIcon>
-	)
+	), {
+		name: 'sandstone/FormCheckbox',
+		until: '1.0.0-beta.1'
+	})
 });
 
 export default FormCheckboxBase;
