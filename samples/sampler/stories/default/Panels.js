@@ -11,21 +11,21 @@ import ri from '@enact/ui/resolution';
 import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 
 const renderItem = ({index, ...rest}) => {
-		//const {text, subText, source} = items[index];
-        const text = `Item ${index}`,
-              color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			  source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
-			  caption = 'Sample list'
+	// const {text, subText, source} = items[index];
+	const text = `Item ${index}`,
+		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
+		caption = 'Sample list';
 
-		return (
-			<GridListImageItem
-				{...rest}
-				caption={text}
-				source={source}
-				subCaption={caption}
-			/>
-		);
-	};
+	return (
+		<GridListImageItem
+			{...rest}
+			caption={text}
+			source={source}
+			subCaption={caption}
+		/>
+	);
+};
 
 
 Header.displayName = 'Panels';
@@ -36,7 +36,7 @@ storiesOf('Sandstone', module)
 		'Panels',
 		() => {
 			const story = (
-				//hooks
+				// hooks
 				<Panels index={number('index', {}, {range: true, min: 0, max: 2, step: 1}, 0)}>
 					<Panel>
 						<Header type="compact">
