@@ -12,7 +12,7 @@ import css from './CollapsingHeaderPanel.module.less';
  *
  * @class CollapsingHeaderPanelDecorator
  * @hoc
- * @memberof sandstone/CollapsingHeaderPanel
+ * @memberof sandstone/Panels
  * @public
  */
 const CollapsingHeaderPanelDecorator = (Wrapped) => {
@@ -42,7 +42,7 @@ const CollapsingHeaderPanelDecorator = (Wrapped) => {
  * A [Panel]{@link sandstone/Panels.Panel} that collapses its header in response to scrolling within
  * its children.
  *
- * @class Panel
+ * @class CollapsingHeaderPanel
  * @memberof sandstone/Panels
  * @ui
  * @public
