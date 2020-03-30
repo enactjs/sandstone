@@ -81,7 +81,7 @@ let Scroller = (props) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				{ScrollToTopButton}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);

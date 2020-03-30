@@ -81,7 +81,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				{ScrollToTopButton}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -501,7 +501,7 @@ let VirtualGridList = ({role, ...rest}) => {
 				</div>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				{ScrollToTopButton}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
