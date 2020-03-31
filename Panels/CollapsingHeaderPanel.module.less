@@ -3,9 +3,9 @@
 .panel {
 	transition: 700ms transform ease-in-out, 700ms height ease-in-out;
 	will-change: transform, height;
+	height: calc(100% + var(--panel-header-title-height));
 
 	&.collapsed {
 		transform: translateY(calc(var(--panel-header-title-height) * -1));
-		height: calc(100% + var(--panel-header-title-height));
 	}
 }

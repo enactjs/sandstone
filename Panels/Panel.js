@@ -1,3 +1,4 @@
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
@@ -176,19 +177,26 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		header: ({header, titleRef}) => (
+			<ComponentOverride
+				component={header}
+				titleRef={titleRef}
+			/>
+		),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
 		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
-	render: ({bodyClassName, children, header, headerId, spotOnRender, titleRef, ...rest}) => {
+	render: ({bodyClassName, children, header, headerId, spotOnRender, ...rest}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
+		delete rest.titleRef;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
-				<div className={css.header} id={headerId} ref={titleRef}>{header}</div>
+				<div className={css.header} id={headerId}>{header}</div>
 				<section className={bodyClassName}>{children}</section>
 			</article>
 		);
