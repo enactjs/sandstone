@@ -250,7 +250,7 @@ const ContextualPopupDecoratorTests = [
 			padded: true
 		}
 	},
-	{
+	{ // [GT-28299]
 		locale: 'ar-SA',
 		textSize: 'large',
 		component: <ContextualPopupButton open direction="above center" popupComponent={Popup}>Button</ContextualPopupButton>,
@@ -258,7 +258,7 @@ const ContextualPopupDecoratorTests = [
 			padded: true
 		}
 	},
-	{
+	{ // [GT-28299]
 		locale: 'ar-SA',
 		textSize: 'large',
 		component: <ContextualPopupButton open direction="below center" popupComponent={Popup}>Button</ContextualPopupButton>,

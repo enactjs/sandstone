@@ -213,12 +213,6 @@
 						});
 					}
 
-					.fill,
-					.load {
-						border-top-right-radius: (@sand-video-player-slider-height / 2);
-						border-bottom-right-radius: (@sand-video-player-slider-height / 2);
-					}
-
 					// Knob
 					.knob {
 						@activate-transition-function: cubic-bezier(0.15, 0.85, 0.6, 1.65);
@@ -295,19 +289,6 @@
 
 				.sliderFrame {
 					.slider {
-						.bars {
-							background-color: @sand-video-player-slider-bg-color;
-						}
-
-						.load {
-							background-color: @sand-video-player-slider-load-color;
-						}
-
-						.fill {
-							background-color: @sand-video-player-slider-fill-color;
-						}
-
-						// Knob
 						.knob {
 							&::before {
 								background-color: @sand-video-player-slider-knob-color;
