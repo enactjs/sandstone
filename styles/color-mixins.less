@@ -28,15 +28,11 @@
 	opacity: @opacity;
 }
 
-// Prepares not only the disabled state, but includes the "reset" necessary to apply other opacity
-// rules directly to children (to avoid double unintended opacity levels).
-.sand-disabled-colors (@target) when (@target = custom-focus) {
-	.sand-disabled-colors();
 
-	.focus({
-		opacity: 1;
-	});
-}
+//
+// The following 3 mixins should be used inside the `.sand-disabled()` mixin's ruleset.
+//
+
 // Assign the standard disabled rules
 .sand-disabled-colors () {
 	opacity: @sand-disabled-opacity;

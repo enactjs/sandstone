@@ -55,7 +55,7 @@ class Deprecated extends React.Component {
 	constructor (props) {
 		super(props);
 		deprecate({
-			name: 'sandstone/AlwaysViewingPanels',
+			name: 'sandstone/Panels.AlwaysViewingPanels',
 			replacedBy: 'sandstone/Panels',
 			until: '1.0.0-beta.1'
 		});

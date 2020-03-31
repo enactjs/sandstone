@@ -47,7 +47,7 @@ const emitChange = (direction) =>  adaptEvent(
 );
 
 const isActive = (ev, props) => {
-	return props.active || props.activateOnFocus;
+	return props.active || !props.activateOnSelect;
 };
 
 const handleIncrement = handle(

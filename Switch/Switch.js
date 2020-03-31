@@ -25,7 +25,7 @@ import componentCss from './Switch.module.less';
 /**
  * Renders the base level DOM structure of the component.
  *
- * @class Switch
+ * @class SwitchBase
  * @memberof sandstone/Switch
  * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
@@ -34,7 +34,7 @@ import componentCss from './Switch.module.less';
 const SwitchBase = kind({
 	name: 'Switch',
 
-	propTypes: /** @lends sandstone/Switch.Switch.prototype */ {
+	propTypes: /** @lends sandstone/Switch.SwitchBase.prototype */ {
 		children: PropTypes.string,
 
 		css: PropTypes.object,
@@ -79,6 +79,7 @@ const SwitchBase = kind({
 
 	render: ({children, css, ...rest}) => {
 		delete rest.noAnimation;
+		delete rest.selected;
 
 		return (
 			<div {...rest}>
@@ -93,16 +94,38 @@ const SwitchBase = kind({
 	}
 });
 
+/**
+ * Adds interactive functionality to `Switch`.
+ *
+ * @class SwitchDecorator
+ * @memberof sandstone/Switch
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/Spottable.Spottable
+ * @hoc
+ * @public
+ */
 const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Spottable,
 	Skinnable
 );
 
+/**
+ * A Sandstone-styled component that looks like a toggle switch.
+ *
+ * `Switch` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class Switch
+ * @memberof sandstone/Switch
+ * @extends sandstone/Switch.SwitchBase
+ * @mixes sandstone/Switch.SwitchDecorator
+ * @ui
+ * @public
+ */
 const Switch = SwitchDecorator(SwitchBase);
 
 export default Switch;
-
 export {
 	Switch,
 	SwitchBase,
