@@ -140,7 +140,10 @@ const ContextualPopupBase = kind({
 		arrowDirection: ({direction}) => {
 			const [arrowDirection] = direction.split(' ');
 			return arrowDirection;
-		}
+		},
+		className: ({direction, styler}) => styler.append({
+			fixedSize: direction === 'above' || direction === 'below'
+		})
 	},
 
 	render: ({arrowDirection, arrowPosition, className, containerPosition, containerRef, children, showArrow, ...rest}) => {
