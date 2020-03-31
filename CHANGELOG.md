@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Panels.Header` to always vertically center the input field
+
 ## [1.0.0-alpha.6] - 2020-03-30
 
 ### Removed
