@@ -14,11 +14,24 @@
 	}
 
 	.caption {
-		.sand-text-base(@sand-imageitem-caption-font-size);
+		font-size: @sand-imageitem-caption-font-size;
+		line-height: @sand-imageitem-caption-line-height;
+
+		.sand-locale-non-latin({
+			font-size: @sand-imageitem-caption-font-size;
+			line-height: @sand-imageitem-caption-line-height;
+		});
 	}
 
 	.label {
-		.sand-text-base(@sand-imageitem-label-font-size);
+		font-size: @sand-imageitem-label-font-size;
+		line-height: @sand-imageitem-label-line-height;
+		margin-top: @sand-imageitem-label-margin-top;
+
+		.sand-locale-non-latin({
+			font-size: @sand-imageitem-label-font-size;
+			line-height: @sand-imageitem-label-line-height;
+		});
 	}
 
 	.selectionContainer {
@@ -90,6 +103,10 @@
 			width: @sand-imageitem-horizontal-image-width;
 			height: @sand-imageitem-horizontal-image-height;
 			margin: @sand-imageitem-horizontal-image-margin;
+
+			:global(.enact-locale-right-to-left) & {
+				margin: @sand-imageitem-horizontal-image-margin-rtl;
+			}
 		}
 
 		.selectionIcon {
