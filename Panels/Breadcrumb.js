@@ -1,3 +1,4 @@
+import deprecate from '@enact/core/internal/deprecate';
 import {handle, forward, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
@@ -30,6 +31,7 @@ export const breadcrumbWidth = 192;
  * @class Breadcrumb
  * @memberof sandstone/Panels
  * @ui
+ * @deprecated Will be removed in 1.0.0-beta.1.
  * @public
  */
 const BreadcrumbBase = kind({
@@ -74,7 +76,7 @@ const BreadcrumbBase = kind({
 		)
 	},
 
-	render: ({children, index, onSelect, ...rest}) => (
+	render: deprecate(({children, index, onSelect, ...rest}) => (
 		<SpottableDiv
 			{...rest}
 			aria-label={$L('GO TO PREVIOUS')}
@@ -85,7 +87,11 @@ const BreadcrumbBase = kind({
 				{children}
 			</div>
 		</SpottableDiv>
-	)
+	),
+	{
+		name: 'sandstone/Panels.Breadcrumb',
+		until: '1.0.0-beta.1'
+	})
 });
 
 export default BreadcrumbBase;

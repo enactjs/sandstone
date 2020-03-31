@@ -15,13 +15,16 @@ storiesOf('Sandstone', module)
 	.add(
 		'Checkbox',
 		() => {
-			return (<div>
+			return (
 				<Checkbox
 					disabled={boolean('disabled', Config)}
-					icon={select('icon', ['', ...iconNames], Config)}
+					indeterminate={boolean('indeterminate', Config)}
+					indeterminateIcon={select('indeterminateIcon', ['', ...iconNames], Config)}
 					onToggle={action('onToggle')}
-				/>
-			</div>);
+				>
+					{select('children', ['', ...iconNames], Config)}
+				</Checkbox>
+			);
 		},
 		{
 			info: {

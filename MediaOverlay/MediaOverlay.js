@@ -24,7 +24,8 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import Image from '../Image';
-import {Marquee} from '../Marquee';
+import {Marquee, MarqueeController} from '../Marquee';
+import ProgressBar from '../ProgressBar';
 import Skinnable from '../Skinnable';
 
 import componentCss from './MediaOverlay.module.less';
@@ -51,6 +52,14 @@ const MediaOverlayBase = kind({
 		source: PropTypes.node.isRequired,
 
 		/**
+		 * The primary caption to be displayed.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		caption: PropTypes.node,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -75,6 +84,22 @@ const MediaOverlayBase = kind({
 		imageOverlay: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Restarts the video every time it is finished.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		loop: PropTypes.bool,
+
+		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
 		 * Media component to use.
 		 *
 		 * The default (`'video'`) renders an `HTMLVideoElement`. Custom media components must have
@@ -90,12 +115,55 @@ const MediaOverlayBase = kind({
 		mediaComponent: EnactPropTypes.renderable,
 
 		/**
+		 * Mutes the audio output of the video.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		muted: PropTypes.bool,
+
+		/**
+		 * Prevents the video playback starting on load.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAutoPlay: PropTypes.bool,
+
+		/**
 		 * Placeholder for image overlay.
 		 *
 		 * @type {String}
 		 * @public
 		 */
 		placeholder: PropTypes.string,
+
+		/**
+		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
+		 *
+		 * Only applicable when `showProgress` is enabled.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		progress: PropTypes.number,
+
+		/**
+		 * Displays the progress bar
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showProgress: PropTypes.bool,
+
+		/**
+		 * The third caption line to be displayed.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		subtitle: PropTypes.string,
 
 		/**
 		 * Text to display over media.
@@ -108,55 +176,86 @@ const MediaOverlayBase = kind({
 		/**
 		 * Aligns the `text` vertically within the component.
 		 *
-		 * Allowed values are:
-		 *
-		 * * `"center"`, the default, aligns the text in the middle
-		 * * `"start"` aligns the text to the top
-		 * * `"end"` aligns the text to the bottom
+		 * @type {('center'|'end'|'start')}
+		 * @public
+		 * @default "end"
+		 */
+		textAlign: PropTypes.oneOf(['center', 'end', 'start']),
+
+		/**
+		 * The second caption line to be displayed.
 		 *
 		 * @type {String}
 		 * @public
-		 * @default "center"
 		 */
-		textAlign: PropTypes.string
+		title: PropTypes.string
 	},
 
 	defaultProps: {
 		mediaComponent: 'video',
-		textAlign: 'center'
+		progress: 0,
+		textAlign: 'end'
 	},
 
 	styles: {
 		css: componentCss,
 		className: 'mediaOverlay',
-		publicClassNames: ['mediaOverlay', 'image', 'textLayout']
+		publicClassNames: ['mediaOverlay', 'image', 'text']
 	},
 
-	render: ({css, imageOverlay, mediaComponent, placeholder, source, text, textAlign, ...rest}) => {
+	render: ({caption, css, imageOverlay, loop, marqueeOn, mediaComponent, muted, noAutoPlay, placeholder, progress, showProgress, source, title, subtitle, text, textAlign, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Media
-					autoPlay
-					className={css.media}
-					controls={false}
-					mediaComponent={mediaComponent}
-					source={source}
-				/>
-				{imageOverlay ? (
-					<Image
-						className={css.image}
-						placeholder={placeholder}
-						sizing="fill"
-						src={imageOverlay}
+				<div className={css.bg} />
+				<div className={css.mediaContainer}>
+					<Media
+						autoPlay={!noAutoPlay}
+						className={css.media}
+						controls={false}
+						loop={loop}
+						mediaComponent={mediaComponent}
+						muted={muted}
+						source={source}
 					/>
-				) : null}
-				{text ? (
-					<Layout align={textAlign} className={css.textLayout}>
-						<Cell component={Marquee} alignment="center" className={css.text} marqueeOn="render">
-							{text}
-						</Cell>
-					</Layout>
-				) : null}
+					{imageOverlay ? (
+						<Image
+							className={css.image}
+							placeholder={placeholder}
+							sizing="fill"
+							src={imageOverlay}
+						/>
+					) : null}
+					{text ? (
+						<Layout align={textAlign} className={css.textLayout}>
+							<Cell
+								component={Marquee}
+								alignment="center"
+								className={css.text}
+								marqueeOn={marqueeOn}
+							>
+								{text}
+							</Cell>
+						</Layout>
+					) : null}
+					{showProgress ?
+						<ProgressBar
+							css={css}
+							orientation="horizontal"
+							progress={progress}
+						/> : null
+					}
+				</div>
+				<div className={css.captionContainer}>
+					{caption ? (
+						<Marquee className={css.caption} marqueeOn={marqueeOn}>{caption}</Marquee>
+					) : null}
+					{title ? (
+						<Marquee className={css.title} marqueeOn={marqueeOn}>{title}</Marquee>
+					) : null}
+					{subtitle ? (
+						<Marquee className={css.subtitle} marqueeOn={marqueeOn}>{subtitle}</Marquee>
+					) : null}
+				</div>
 			</div>
 		);
 	}
@@ -167,12 +266,14 @@ const MediaOverlayBase = kind({
  *
  * @hoc
  * @memberof sandstone/MediaOverlay
+ * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes ui/Slottable.Slottable
  * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const MediaOverlayDecorator = compose(
+	MarqueeController({marqueeOnFocus: true}),
 	Pure,
 	Spottable,
 	Slottable({slots: ['source']}),

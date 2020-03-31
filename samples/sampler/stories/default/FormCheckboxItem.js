@@ -4,13 +4,15 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
+import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import FormCheckboxItem, {FormCheckboxItemBase} from '@enact/sandstone/FormCheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 
 import iconNames from './icons';
 
 FormCheckboxItem.displayName = 'FormCheckboxItem';
-const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, FormCheckboxItemBase, FormCheckboxItem);
+const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, CheckboxBase, Checkbox, FormCheckboxItemBase, FormCheckboxItem);
+Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 storiesOf('Sandstone', module)
 	.add(
@@ -19,10 +21,12 @@ storiesOf('Sandstone', module)
 			return (
 				<FormCheckboxItem
 					disabled={boolean('disabled', Config)}
-					icon={select('icon', ['', ...iconNames], Config)}
+					icon={select('icon', iconNames, Config)}
+					indeterminate={boolean('indeterminate', Config)}
+					indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
 					inline={boolean('inline', Config)}
-					label={text('label', Config, '')}
-					labelPosition={select('labelPosition', ['', 'above', 'after', 'before', 'below'], Config, '')}
+					label={text('label', Config)}
+					labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
 					onToggle={action('onToggle')}
 				>
 					{text('children', Config, 'A Checkbox for a form')}

@@ -7,7 +7,7 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
@@ -61,10 +61,10 @@ storiesOf('Text', module)
 					<Input placeholder={children} />
 					<Input value={children} />
 
-					<Heading showLine>Simple Items (Item, GridListImageItem)</Heading>
+					<Heading showLine>Simple Items (Item, ImageItem)</Heading>
 					<Item>{children}</Item>
 					<Item label={children}>{children}</Item>
-					<GridListImageItem caption={children} style={{height: 200}} />
+					<ImageItem caption={children} style={{height: 200}} />
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>

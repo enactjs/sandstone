@@ -1,8 +1,6 @@
 import kind from '@enact/core/kind';
-import Measurable from '@enact/ui/Measurable';
-import Slottable from '@enact/ui/Slottable';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {shape} from '@enact/ui/ViewManager';
+import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -10,12 +8,11 @@ import React from 'react';
 import Skinnable from '../Skinnable';
 
 import CancelDecorator from './CancelDecorator';
-import Controls from './Controls';
+
 import Viewport from './Viewport';
 
 import css from './Panels.module.less';
 
-const getControlsId = (id) => id && `${id}-controls`;
 
 /**
  * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
@@ -44,20 +41,10 @@ const PanelsBase = kind({
 		 *
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
+		 * @default ui/ViewManager.SlideLeftArranger
 		 * @public
 		 */
 		arranger: shape,
-
-		/**
-		 * An object containing properties to be passed to each child.
-		 *
-		 *`aria-owns` will be added or updated to this object to add the close button to the
-		 * accessibility tree of each panel.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		childProps: PropTypes.object,
 
 		/**
 		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
@@ -66,54 +53,6 @@ const PanelsBase = kind({
 		 * @public
 		 */
 		children: PropTypes.node,
-
-		/**
-		 * Sets the hint string read when focusing the application close button.
-		 *
-		 * @type {String}
-		 * @default 'Exit app'
-		 * @public
-		 */
-		closeButtonAriaLabel: PropTypes.string,
-
-		/**
-		 * The background opacity of the application close button.
-		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
-		 *
-		 * @type {String}
-		 * @default 'transparent'
-		 * @public
-		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
-
-		/**
-		 * A slot to insert additional Panels-level buttons into the global-navigation area.
-		 *
-		 * @type {Node}
-		 * @public
-		 */
-		controls: PropTypes.node,
-
-		/**
-		 * The measurement bounds of the controls node
-		 *
-		 * @type {Object}
-		 * @private
-		 */
-		controlsMeasurements: PropTypes.object,
-
-		/**
-		 * The method which receives the reference node to the controls element, used to determine
-		 * the `controlsMeasurements`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		controlsRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -147,15 +86,6 @@ const PanelsBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Indicates the close button will not be rendered on the top right corner.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		noCloseButton: PropTypes.bool,
-
-		/**
 		 * Prevents maintaining shared state for framework components within this `Panels` instance.
 		 *
 		 * When `false`, each `Panel` will track the state of some framework components in order to
@@ -174,14 +104,6 @@ const PanelsBase = kind({
 		noSharedState: PropTypes.bool,
 
 		/**
-		 * Called when the app close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onApplicationClose: PropTypes.func,
-
-		/**
 		 * Called with cancel/back key events.
 		 *
 		 * @type {Function}
@@ -191,10 +113,9 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
-		closeButtonBackgroundOpacity: 'transparent',
+		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
@@ -204,55 +125,16 @@ const PanelsBase = kind({
 	},
 
 	computed: {
-		className: ({controls, noCloseButton, styler}) => styler.append({
-			'sand-panels-hasControls': (!noCloseButton || !!controls) // If there is a close button or controls were specified
-		}),
-		childProps: ({childProps, controls, id, noCloseButton}) => {
-			if ((noCloseButton && !controls) || !id) {
-				return childProps;
-			}
-
-			const updatedChildProps = Object.assign({}, childProps);
-			const controlsId = getControlsId(id);
-			const owns = updatedChildProps['aria-owns'];
-
-			if (owns) {
-				updatedChildProps['aria-owns'] = `${owns} ${controlsId}`;
-			} else {
-				updatedChildProps['aria-owns'] = controlsId;
-			}
-
-			return updatedChildProps;
-		},
-		style: ({controlsMeasurements, style = {}}) => (controlsMeasurements ? {
-			...style,
-			'--sand-panels-controls-width': controlsMeasurements.width + 'px'
-		} : style),
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, childProps, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, controls, controlsRef, generateId, id, index, noAnimation, noCloseButton, noSharedState, onApplicationClose, viewportId, ...rest}) => {
-		delete rest.controlsMeasurements;
+	render: ({arranger, children,  generateId, id, index, noAnimation, noSharedState, viewportId, ...rest}) => {
 		delete rest.onBack;
-
-		const controlsId = getControlsId(id);
 
 		return (
 			<div {...rest} id={id}>
-				<Controls
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
-					id={controlsId}
-					spotlightId={controlsId}
-					noCloseButton={noCloseButton}
-					onApplicationClose={onApplicationClose}
-					ref={controlsRef}
-				>
-					{controls}
-				</Controls>
 				<Viewport
 					arranger={arranger}
-					childProps={childProps}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
@@ -267,9 +149,7 @@ const PanelsBase = kind({
 });
 
 const PanelsDecorator = compose(
-	Slottable({slots: ['controls']}),
 	CancelDecorator({cancel: 'onBack'}),
-	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	IdProvider,
 	Skinnable
 );

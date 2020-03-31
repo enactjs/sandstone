@@ -34,13 +34,30 @@
 		border-radius: @sand-checkbox-border-radius;
 		margin: 0;  // Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
 
-		&.selected {
+		&.indeterminate {
 			.checkboxColors(
-				@sand-checkbox-selected-color,
-				@sand-checkbox-selected-bg-color,
-				@sand-checkbox-selected-border-color
+				@sand-checkbox-indeterminate-color,
+				@sand-checkbox-indeterminate-bg-color,
+				@sand-checkbox-indeterminate-border-color
 			);
 		}
+
+		&.selected {
+			&:not(.indeterminate) {
+				.checkboxColors(
+					@sand-checkbox-selected-color,
+					@sand-checkbox-selected-bg-color,
+					@sand-checkbox-selected-border-color
+				);
+			}
+		}
+
+		// Spottable version of the Checkbox
+		.spottable({
+			&::after {
+				.sand-spotlight-resting-colors();
+			}
+		});
 
 		// Spottable version of the Checkbox
 		.spottable({
@@ -60,12 +77,22 @@
 				.sand-spotlight-focus-colors();
 			}
 
-			&.selected {
+			&.indeterminate {
 				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
 				);
+			}
+
+			&.selected {
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
 			}
 		});
 	});
@@ -81,12 +108,22 @@
 				@sand-checkbox-focus-border-color
 			);
 
-			&.selected {
+			&.indeterminate {
 				.checkboxColors(
-					@sand-checkbox-selected-focus-color,
-					@sand-checkbox-selected-focus-bg-color,
-					@sand-checkbox-selected-focus-border-color
+					@sand-checkbox-indeterminate-selected-focus-color,
+					@sand-checkbox-indeterminate-selected-focus-bg-color,
+					@sand-checkbox-indeterminate-selected-focus-border-color
 				);
+			}
+
+			&.selected {
+				&:not(.indeterminate) {
+					.checkboxColors(
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
+					);
+				}
 			}
 
 			// Spottable version of the Checkbox

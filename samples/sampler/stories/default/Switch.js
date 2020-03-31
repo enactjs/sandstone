@@ -13,12 +13,12 @@ storiesOf('Sandstone', module)
 	.add(
 		'Switch',
 		() => {
-			return (<div>
+			return (
 				<Switch
 					disabled={boolean('disabled', Config)}
 					onToggle={action('onToggle')}
 				/>
-			</div>);
+			);
 		},
 		{
 			info: {

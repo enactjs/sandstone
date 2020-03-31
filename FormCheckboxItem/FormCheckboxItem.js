@@ -7,6 +7,7 @@
  * @module sandstone/FormCheckboxItem
  * @exports FormCheckboxItem
  * @exports FormCheckboxItemBase
+ * @exports FormCheckboxItemDecorator
  */
 
 import kind from '@enact/core/kind';
@@ -24,16 +25,20 @@ import componentCss from './FormCheckboxItem.module.less';
 const Checkbox = Spottable(CheckboxBase);
 
 /**
- * Renders a form item with a checkbox component. Useful to show a selected state on an item inside a form.
+ * A Sandstone-styled form item with a checkbox component.
  *
- * @class FormCheckboxItem
+ * Useful to show a selected state on an item inside a form.
+ *
+ * @class FormCheckboxItemBase
  * @memberof sandstone/FormCheckboxItem
+ * @extends sandstone/Item.Item
+ * @ui
  * @public
  */
 const FormCheckboxItemBase = kind({
 	name: 'FormCheckboxItem',
 
-	propTypes: /** @lends sandstone/FormCheckboxItem.FormCheckboxItem.prototype */ {
+	propTypes: /** @lends sandstone/FormCheckboxItem.FormCheckboxItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -52,29 +57,52 @@ const FormCheckboxItemBase = kind({
 		 *
 		 * May be specified as either:
 		 *
-		 * * A string that represents an icon from the [iconList]{@link ui/Icon.Icon.iconList},
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
 		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
 		 * * A URL specifying path to an icon image, or
 		 * * An object representing a resolution independent resource (See {@link ui/resolution})
 		 *
 		 * @type {String|Object}
-		 * @default 'check'
 		 * @public
 		 */
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * Controls the prsence of the checkmark icon.
+		 * Enables the "indeterminate" state.
+		 *
+		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
+		 * to represent that some, not all, children are selected.
+		 *
+		 * NOTE: This does not prevent updating the `selected` state. Applications must control this
+		 * property directly.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		indeterminate: PropTypes.bool,
+
+		/**
+		 * The icon to be used in the `indeterminate` state.
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
+		 * Controls the presence of the checkmark icon.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
 		selected: PropTypes.bool
-	},
-
-	defaultProps: {
-		icon: 'check',
-		selected: false
 	},
 
 	styles: {
@@ -83,7 +111,7 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, icon, selected, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -91,16 +119,46 @@ const FormCheckboxItemBase = kind({
 			selected={selected}
 			css={css}
 		>
-			<Checkbox slot="slotBefore" selected={selected} css={css}>{icon}</Checkbox>
+			<Checkbox
+				indeterminate={indeterminate}
+				indeterminateIcon={indeterminateIcon}
+				slot="slotBefore"
+				selected={selected}
+				css={css}
+			>
+				{icon}
+			</Checkbox>
 			{children}
 		</Item>
 	)
 });
 
+/**
+ * Adds interactive functionality to `FormCheckboxItem`.
+ *
+ * @class FormCheckboxItemDecorator
+ * @memberof sandstone/FormCheckboxItem
+ * @mixes ui/Toggleable.Toggleable
+ * @hoc
+ * @public
+ */
 const FormCheckboxItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'})
 );
 
+/**
+ * A Sandstone-styled form item with a checkbox component.
+ *
+ * `FormCheckboxItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless
+ * set directly.
+ *
+ * @class FormCheckboxItem
+ * @memberof sandstone/FormCheckboxItem
+ * @extends sandstone/FormCheckboxItem.FormCheckboxItemBase
+ * @mixes sandstone/FormCheckboxItem.FormCheckboxItemDecorator
+ * @ui
+ * @public
+ */
 const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);
 
 export default FormCheckboxItem;
