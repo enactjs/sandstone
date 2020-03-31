@@ -96,16 +96,6 @@
 			.sand-spotlight-resting-colors();
 		}
 
-		.disabled({
-			opacity: 1;
-
-			.slotBefore,
-			.itemContent,
-			.slotAfter {
-				.sand-disabled-colors();
-			}
-		});
-
 		.focus({
 			color: @sand-item-focus-text-color;
 
@@ -117,18 +107,6 @@
 			.label {
 				color: inherit;
 			}
-
-			.disabled({
-				.bg {
-					.sand-disabled-focus-bg-colors();
-				}
-
-				.slotBefore,
-				.itemContent,
-				.slotAfter {
-					.sand-disabled-focus-content-colors();
-				}
-			})
 		});
 
 		.sand-disabled({
