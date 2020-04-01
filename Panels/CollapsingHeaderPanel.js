@@ -36,7 +36,7 @@ const CollapsingHeaderPanelDecorator = (Wrapped) => {
 			}
 		)
 	);
-}
+};
 
 /**
  * A [Panel]{@link sandstone/Panels.Panel} that collapses its header in response to scrolling within
