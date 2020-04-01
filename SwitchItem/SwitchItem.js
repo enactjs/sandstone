@@ -28,7 +28,7 @@ const Switch = Skinnable(SwitchBase);
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.
  *
- * @class SwitchItem
+ * @class SwitchItemBase
  * @memberof sandstone/SwitchItem
  * @extends sandstone/Item.Item
  * @omit iconComponent
@@ -38,7 +38,7 @@ const Switch = Skinnable(SwitchBase);
 const SwitchItemBase = kind({
 	name: 'SwitchItem',
 
-	propTypes: /** @lends sandstone/SwitchItem.SwitchItem.prototype */ {
+	propTypes: /** @lends sandstone/SwitchItem.SwitchItemBase.prototype */ {
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -85,10 +85,32 @@ const SwitchItemBase = kind({
 	)
 });
 
+/**
+ * Adds interactive functionality to `SwitchItem`.
+ *
+ * @class SwitchItemDecorator
+ * @memberof sandstone/SwitchItem
+ * @mixes ui/Toggleable.Toggleable
+ * @hoc
+ * @public
+ */
 const SwitchItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'})
 );
 
+/**
+ * A Sandstone-styled item with a switch component.
+ *
+ * `SwitchItem` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class SwitchItem
+ * @memberof sandstone/SwitchItem
+ * @extends sandstone/SwitchItem.SwitchItemBase
+ * @mixes sandstone/SwitchItem.SwitchItemDecorator
+ * @ui
+ * @public
+ */
 const SwitchItem = SwitchItemDecorator(SwitchItemBase);
 
 export default SwitchItem;

@@ -13,11 +13,6 @@ const PanelsTests = [
 		component: <Panels />,
 		wrapper: {full: true}
 	},
-	// Image will be blank and the Close 'X' button will NOT show
-	{
-		component: <Panels noCloseButton />,
-		wrapper: {full: true}
-	},
 	{
 		title: 'with standard Panel Components',
 		component: <Panels>{PanelComponents}</Panels>,
@@ -38,11 +33,6 @@ const PanelsTests = [
 	{
 		locale: 'ar-SA',
 		component: <Panels />,
-		wrapper: {full: true}
-	},
-	{
-		locale: 'ar-SA',
-		component: <Panels noCloseButton />,
 		wrapper: {full: true}
 	},
 	{
