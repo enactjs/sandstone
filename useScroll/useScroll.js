@@ -2,6 +2,7 @@
  * Sandstone-themed scrollable hook and behaviors.
  *
  * @module sandstone/useScroll
+ * @exports fadeOutSize
  * @exports dataIndexAttribute
  * @exports useScroll
  * @private
@@ -13,6 +14,7 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
+import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
@@ -33,6 +35,7 @@ import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
 
 const
+	fadeOutSize = ri.scale(48),
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
@@ -263,6 +266,7 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
+			noFadeOut,
 			scrollMode,
 			style,
 			...rest
@@ -421,11 +425,12 @@ const useScroll = (props) => {
 	assignProperties('scrollContentProps', {
 		...(props.itemRenderer ? {itemRefs} : {}),
 		className: [
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible ? css.verticalFadeout : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible ? css.horizontalFadeout : null,
+			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
+			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
 			overscrollCss.vertical,
 			css.scrollContent
 		],
+		noFadeOut,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,
@@ -461,5 +466,6 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
+	fadeOutSize,
 	useScroll
 };
