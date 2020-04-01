@@ -2,6 +2,7 @@ import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -170,13 +171,17 @@ const PanelBase = kind({
 		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
-	render: ({bodyClassName, children, header, headerId, spotOnRender, ...rest}) => {
+	render: ({bodyClassName, children, header, headerId, hideChildren, spotOnRender, ...rest}) => {
 		delete rest.autoFocus;
-		delete rest.hideChildren;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
-				<div className={css.header} id={headerId}>{header}</div>
+				<div className={css.header} id={headerId}>
+					<ComponentOverride
+						component={header}
+						entering={hideChildren && Spotlight.getPointerMode()}
+					/>
+				</div>
 				<section className={bodyClassName}>{children}</section>
 			</article>
 		);

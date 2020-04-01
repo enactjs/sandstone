@@ -70,6 +70,16 @@ const HeaderBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
+		 * be set automatically to `true` on render and `false` after animating into view.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		entering: PropTypes.bool,
+
+		/**
 		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
 		 *
 		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
@@ -100,6 +110,18 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
+		 * Shows the back button.
+		 *
+		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
+		 * be set to `true` when being hovered.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		showBackButton: PropTypes.bool,
 
 		/**
 		 * Sets the visibility of the input field
@@ -241,12 +263,17 @@ const HeaderBase = kind({
 			type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
 		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
-		showBackButton: ({showBackButton}, panelsState) => {
-			return panelsState && panelsState.index > 0 && panelsState.type !== 'wizard' && showBackButton;
-		}
+		backButtonClassName: ({entering, showBackButton, styler}, panelsState) => styler.join(
+			'backButton',
+			{
+				hidden: !(panelsState && panelsState.index > 0 && panelsState.type !== 'wizard' && (showBackButton || entering))
+			}
+		)
 	},
 
-	render: ({centered, children, css, direction, headerInput, line, marqueeOn, onBack, showBackButton, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+	render: ({backButtonClassName, centered, children, css, direction, headerInput, line, marqueeOn, onBack, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+		delete rest.entering;
+		delete rest.showBackButton;
 
 		// Create the Title component
 		const titleComponent = (
@@ -292,11 +319,9 @@ const HeaderBase = kind({
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					{showBackButton ? (
-						<Cell shrink>
-							<Button size="large" backgroundOpacity="transparent" icon="arrowhookleft" onClick={onBack} />
-						</Cell>
-					) : null}
+					<Cell className={backButtonClassName} shrink>
+						<Button size="large" backgroundOpacity="transparent" icon="arrowhookleft" onClick={onBack} />
+					</Cell>
 					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
 					<Cell className={css.titleCell}>
 						{titleOrInput}
