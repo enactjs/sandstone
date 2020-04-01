@@ -3,7 +3,7 @@ import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {ImageItem} from '@enact/sandstone/ImageItem';
 import {scale} from '@enact/ui/resolution';
 import {TabGridListLayout, TabGridListItem} from '@enact/sandstone/TabGridListLayout';
 
@@ -22,15 +22,14 @@ const items = [],
 	),
 	// eslint-disable-next-line enact/prop-types
 	renderItem = ({index, ...rest}) => {
-		const {caption, subText, source} = items[index];
+		const {children, label, src} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={caption}
-				source={source}
-				subCaption={subText}
-			/>
+				label={label}
+				src={src}
+			>{children}</ImageItem>
 		);
 	};
 
@@ -44,12 +43,12 @@ const updateDataSize = (dataSize) => {
 	for (let i = 0; i < dataSize; i++) {
 		const
 			count = (headingZeros + i).slice(-itemNumberDigits),
-			caption = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
-			subText = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
+			children = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
+			label = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			src = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
 
-		items.push({caption, subText, source});
+		items.push({children, label, src});
 	}
 
 	return dataSize;
