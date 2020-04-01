@@ -21,9 +21,10 @@ const renderItem = ({index, ...rest}) => {
 	return (
 		<ImageItem
 			{...rest}
-			caption={`caption ${index}`}
 			src={source}
-		/>
+		>
+			{`caption ${index}`}
+		</ImageItem>
 	);
 };
 

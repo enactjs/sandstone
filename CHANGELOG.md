@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
+
+## [1.0.0-alpha.6] - 2020-03-30
+
 ### Removed
 
 - `sandstone/Panels` support for `controls` and the application close button
@@ -14,6 +20,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/GridListImageItem`, use `sandstone/ImageItem` instead
 - `sandstone/Panels.Breadcrumb`, to be removed in beta.1
 
+### Added
+
+- `sandstone/ImageItem` component
+- `sandstone/ProgressButton` component
+- `sandstone/Checkbox` standalone interactive capability
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` props `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
+- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
+
 ### Changed
 
 - `sandstone/FeedbackTooltip` visuals for updated GUI
@@ -21,21 +35,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels` to default to `SlideLeftArranger`
 - `sandstone/Panels` styling to match updated GUI
 
-### Added
-
-- `sandstone/ImageItem` component
-- `sandstone/ProgressButton` component
-- `sandstone/Checkbox` standalone interactive capability
-- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` prop `indeterminate` and `indeterminateIcon`, for representing a half or mixed state of a checkbox
-- `sandstone/FromCheckboxItem` and `sandstone/Item` styling
-
 ### Fixed
 
 - `sandstone/Button` and `sandstone/Item` (and their derivatives) disabled colors
 - `sandstone/Button` icon-only sizing so it is square once again
 - `sandstone/Input` overlay number type keypad to lay-out its buttons correctly, in a 3x4 grid
-- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList.VirtualList` to scroll by wheel on the scrollbar
-- `sandstone/Slider` default for activate by focus so the slider is immediately interactive when using 5-way
+- `sandstone/Scroller` and `sandstone/VirtualList` to scroll by wheel on the scrollbar
+- `sandstone/Scroller` and `sandstone/VirtualList` to hide the scrollbar after N seconds
+- `sandstone/Slider` default behavior to activate by focus, so the slider is immediately interactive when using 5-way
 - `sandstone/ProgressBar.ProgressBarTooltip` to display only "center" position when "auto" is selected
 
 ## [1.0.0-alpha.5] - 2020-03-23
@@ -50,7 +57,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to hide the scrollbar after N seconds
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
