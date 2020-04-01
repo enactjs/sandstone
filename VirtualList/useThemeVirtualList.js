@@ -19,7 +19,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances) => {
-	const {scrollMode} = props;
+	const {noFadeOut, scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
@@ -122,7 +122,7 @@ const useSpottable = (props, instances) => {
 	}
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
-		const {cbScrollTo, noFadeOut, wrap} = props;
+		const {cbScrollTo, wrap} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
 
@@ -224,7 +224,7 @@ const useSpottable = (props, instances) => {
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
 
-			{noFadeOut, pageScroll} = props,
+			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noFadeOut ? 0 : fadeOutSize * 2),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
@@ -359,6 +359,7 @@ const useThemeVirtualList = (props) => {
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
+	delete rest.noFadeOut;
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
