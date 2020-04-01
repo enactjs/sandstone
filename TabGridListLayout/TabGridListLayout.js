@@ -16,6 +16,8 @@ import {CollapsingHeaderPanel as Panel, Header} from '../Panels';
 import TabLayout from '../TabLayout';
 import {VirtualGridList} from '../VirtualList';
 
+import componentCss from './TabGridListLayout.module.less';
+
 /**
  * A layout incorporating `TabLayout` and `VirtualGridList`.
  *
@@ -68,13 +70,18 @@ const TabGridListLayoutBase = kind({
 		headerComponent: Header
 	},
 
+	styles: {
+		css: componentCss,
+		className: 'tabGridListLayout'
+	},
+
 	computed: {
 		children: ({children}) => {
 			return React.Children.map(children, (child) => {
 				const props = Object.assign({}, child.props);
 				delete props.title;
 				delete props.icon;
-				return <VirtualGridList showScrollToTopButton {...props} />;
+				return <VirtualGridList className={componentCss.list} showScrollToTopButton {...props} />;
 			});
 		},
 		tabs: ({children}) => {
