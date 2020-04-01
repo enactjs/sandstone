@@ -17,7 +17,7 @@ describe('ContextualPopupDecorator', function () {
 		});
 
 		it('should focus the first button on start', function () {
-			expect(button1.self.hasFocus()).to.be.true();
+			expect(button1.self.isFocused()).to.be.true();
 		});
 
 		describe('using 5-way', function () {
@@ -28,12 +28,9 @@ describe('ContextualPopupDecorator', function () {
 
 			// [GT-28291] - 5-waySelectableActivator: Button Retains Spotlight when Popup Hides
 			it('should have Spotlight on close button when ContextualPopup opens', function () {
-				let closeButton = browser.element('.ContextualPopupDecorator_ContextualPopup_closeButton');
+				let popupButton = $('#popupButton');
 
-				expect(closeButton.hasFocus()).to.be.true();
-
-				Page.spotlightSelect();
-				expect(button1.self.hasFocus()).to.be.true();
+				expect(popupButton.isFocused()).to.be.true();
 			});
 		});
 	});

@@ -1,5 +1,5 @@
 'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+const {Page} = require('@enact/ui-test-utils/utils');
 
 class ButtonInterface {
 	constructor (id) {
@@ -8,14 +8,14 @@ class ButtonInterface {
 	}
 
 	focus () {
-		return browser.selectorExecute(this.selector, (els) => els && !els[0].focus());
+		return browser.execute((el) => el.focus(), $(this.selector));
 	}
 
 	hover () {
-		return browser.moveToObject(this.selector, 0, 0);
+		return $(this.selector).moveTo(0, 0);
 	}
 
-	get self () { return element(this.selector); }
+	get self () { return $(this.selector); }
 	get isButtonExist () { return this.self.isExisting(); }
 }
 

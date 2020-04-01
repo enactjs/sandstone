@@ -11,7 +11,7 @@ const ContextualButton = ContextualPopupDecorator(Button);
 spotlight.setPointerMode(false);
 
 const renderPopup = () => (
-	<div>Hello Contextual Popup</div>
+	<Button id="popupButton">Hello Contextual Popup</Button>
 );
 
 class app extends Component {
