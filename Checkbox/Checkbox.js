@@ -17,6 +17,7 @@ import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
+import Skinnable from '../Skinnable';
 
 import componentCss from './Checkbox.module.less';
 
@@ -123,7 +124,7 @@ const CheckboxBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'checkbox',
-		publicClassNames: ['checkbox', 'selected']
+		publicClassNames: ['checkbox', 'icon', 'selected']
 	},
 
 	computed: {
@@ -136,13 +137,15 @@ const CheckboxBase = kind({
 		delete rest.indeterminateIcon;
 		delete rest.selected;
 		return (
-			<Icon
-				size="tiny"
-				{...rest}
-				css={css}
-			>
-				{children}
-			</Icon>
+			<div {...rest}>
+				<div className={css.bg} />
+				<Icon
+					size="tiny"
+					className={css.icon}
+				>
+					{children}
+				</Icon>
+			</div>
 		);
 	}
 });
@@ -157,6 +160,7 @@ const CheckboxBase = kind({
  * @hoc
  * @public
  */
+const SkinnableCheckbox = Skinnable(CheckboxBase);
 const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Spottable
@@ -175,11 +179,11 @@ const CheckboxDecorator = compose(
  * @ui
  * @public
  */
-const Checkbox = CheckboxDecorator(CheckboxBase);
+const Checkbox = CheckboxDecorator(SkinnableCheckbox);
 
 export default Checkbox;
 export {
 	Checkbox,
-	CheckboxBase,
+	SkinnableCheckbox as CheckboxBase,
 	CheckboxDecorator
 };
