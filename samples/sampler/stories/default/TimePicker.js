@@ -21,12 +21,7 @@ storiesOf('Sandstone', module)
 				meridiemLabel={text('meridiemLabel', Config, '')}
 				minuteAriaLabel={text('minuteAriaLabel', Config, '')}
 				minuteLabel={text('minuteLabel', Config, '')}
-				noLabels={boolean('noLabels', Config)}
-				noneText={text('noneText', Config, 'Nothing Selected')}
 				onChange={action('onChange')}
-				onClose={action('onClose')}
-				onOpen={action('onOpen')}
-				title={text('title', Config, 'Time')}
 			/>
 		),
 		{
