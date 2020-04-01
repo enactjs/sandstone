@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Switch` styling when disabled and focused
+- `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
 
 ## [1.0.0-alpha.6] - 2020-03-30
 
