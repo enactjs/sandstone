@@ -16,19 +16,12 @@ storiesOf('Sandstone', module)
 		'DatePicker',
 		() => (
 			<DatePicker
-				dayAriaLabel={text('dayAriaLabel', Config)}
-				dayLabel={text('dayLabel', Config)}
 				disabled={boolean('disabled', Config)}
-				monthAriaLabel={text('monthAriaLabel', Config)}
-				monthLabel={text('monthLabel', Config)}
-				noLabels={boolean('noLabels', Config)}
-				noneText={text('noneText', Config, 'Nothing Selected')}
 				onChange={action('onChange')}
-				onClose={action('onClose')}
-				onOpen={action('onOpen')}
 				title={text('title', Config, 'Date')}
+				monthAriaLabel={text('monthAriaLabel', Config)}
+				dayAriaLabel={text('dayAriaLabel', Config)}
 				yearAriaLabel={text('yearAriaLabel', Config)}
-				yearLabel={text('yearLabel', Config)}
 			/>
 		),
 		{

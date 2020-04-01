@@ -2,10 +2,8 @@ import {forKey, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
-import {ExpandableItemBase} from '../ExpandableItem';
 
 import css from './DatePicker.module.less';
 import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
@@ -132,7 +130,7 @@ const DatePickerBase = kind({
 		 * @default 2099
 		 * @public
 		 */
-		maxYear: PropTypes.number,
+		label: PropTypes.string,
 
 		/**
 		 * The minimum selectable `year` value.
@@ -141,7 +139,7 @@ const DatePickerBase = kind({
 		 * @default 1900
 		 * @public
 		 */
-		minYear: PropTypes.number,
+		maxYear: PropTypes.number,
 
 		/**
 		 * The "aria-label" for the month picker.
@@ -150,7 +148,7 @@ const DatePickerBase = kind({
 		 * @default 'change a value with up down button'
 		 * @public
 		 */
-		monthAriaLabel: PropTypes.string,
+		minYear: PropTypes.number,
 
 		/**
 		 * The label displayed below the month picker.
@@ -162,15 +160,15 @@ const DatePickerBase = kind({
 		 * @default 'month'
 		 * @public
 		 */
-		monthLabel: PropTypes.string,
+		monthAriaLabel: PropTypes.string,
 
 		/**
-		 * Omits the labels below the pickers.
+		 * label text to show pickers selected value .
 		 *
-		 * @type {Boolean}
+		 * @type {String}
 		 * @public
 		 */
-		noLabels: PropTypes.bool,
+		monthLabel: PropTypes.string,
 
 		/**
 		 * Called when the `date` component of the Date changes.
@@ -301,7 +299,6 @@ const DatePickerBase = kind({
 		month,
 		monthAriaLabel,
 		monthLabel = $L('month'),
-		noLabels,
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -316,98 +313,84 @@ const DatePickerBase = kind({
 		yearLabel = $L('year'),
 		...rest
 	}) => {
-
 		return (
-			<ExpandableItemBase
-				{...rest}
-				showLabel="always"
-				autoClose={false}
-				data-webos-voice-disabled={voiceDisabled}
-				lockBottom={false}
-				onSpotlightDisappear={onSpotlightDisappear}
-				onSpotlightLeft={onSpotlightLeft}
-				onSpotlightRight={onSpotlightRight}
-				spotlightDisabled={spotlightDisabled}
-			>
-				<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
-					{order.map((picker, index) => {
-						const isFirst = index === 0;
-						const isLast = index === order.length - 1;
-						const isLeft = isFirst && !rtl || isLast && rtl;
-						const isRight = isFirst && rtl || isLast && !rtl;
-
-						switch (picker) {
-							case 'd':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={dayLabel}
-										aria-label={dayAriaLabel}
-										className={css.day}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={dayLabel}
-										key="day-picker"
-										label={noLabels ? null : dayLabel}
-										max={maxDays}
-										min={1}
-										onChange={onChangeDate}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={day}
-										width={2}
-										wrap
-									/>
-								);
-							case 'm':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={monthLabel}
-										aria-label={monthAriaLabel}
-										className={css.month}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={monthLabel}
-										key="month-picker"
-										label={noLabels ? null : monthLabel}
-										max={maxMonths}
-										min={1}
-										onChange={onChangeMonth}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={month}
-										width={2}
-										wrap
-									/>
-								);
-							case 'y':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={yearLabel}
-										aria-label={yearAriaLabel}
-										className={css.year}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={yearLabel}
-										key="year-picker"
-										label={noLabels ? null : yearLabel}
-										max={maxYear}
-										min={minYear}
-										onChange={onChangeYear}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={year}
-										width={4}
-									/>
-								);
-						}
-
-						return null;
-					})}
+			<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
+				<div className={css.label}>
+					{rest.label}
 				</div>
-			</ExpandableItemBase>
+				{order.map((picker, index) => {
+					const isFirst = index === 0;
+					const isLast = index === order.length - 1;
+					const isLeft = isFirst && !rtl || isLast && rtl;
+					const isRight = isFirst && rtl || isLast && !rtl;
+
+					switch (picker) {
+						case 'd':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={dayLabel}
+									aria-label={dayAriaLabel}
+									className={css.day}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={dayLabel}
+									key="day-picker"
+									max={maxDays}
+									min={1}
+									onChange={onChangeDate}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={day}
+									width={2}
+									wrap
+								/>
+							);
+						case 'm':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={monthLabel}
+									aria-label={monthAriaLabel}
+									className={css.month}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={monthLabel}
+									key="month-picker"
+									max={maxMonths}
+									min={1}
+									onChange={onChangeMonth}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={month}
+									width={2}
+									wrap
+								/>
+							);
+						case 'y':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={yearLabel}
+									aria-label={yearAriaLabel}
+									className={css.year}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={yearLabel}
+									key="year-picker"
+									max={maxYear}
+									min={minYear}
+									onChange={onChangeYear}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={year}
+									width={4}
+								/>
+							);
+					}
+					return null;
+				})}
+			</div>
 		);
 	}
 });
