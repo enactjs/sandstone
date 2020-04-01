@@ -149,7 +149,7 @@ storiesOf('ContextualPopupDecorator', module)
 					popupComponent={renderPopup}
 					spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config, 'self-only')}
 				>
-					Hello Contextual Button
+					<Button>Button Inside Popup</Button>
 				</ContextualPopupWithActivator>
 			</div>
 		)
