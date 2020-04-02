@@ -48,6 +48,7 @@ class VirtualGridListSample extends Component {
 					focusableScrollbar
 					itemRenderer={this.renderItem}
 					itemSize={{minWidth: ri.scale(316), minHeight: ri.scale(300)}}
+					scrollMode="translate"
 					spacing={ri.scale(67)}
 				/>
 			</div>
