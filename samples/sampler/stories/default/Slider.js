@@ -24,10 +24,13 @@ storiesOf('Sandstone', module)
 			const percent = boolean('percent', SliderTooltipConfig);
 			const position = select('position', ['', 'above', 'above left', 'above center', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below center', 'below right', 'below before', 'below after'], SliderTooltipConfig, '');
 
+			const balanced = boolean('balanced', SliderConfig);
+
 			return (
 				<Slider
 					activateOnSelect={boolean('activateOnSelect', SliderConfig) || false}
 					backgroundProgress={number('backgroundProgress', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.5)}
+					balanced={balanced}
 					disabled={disabled}
 					knobStep={number('knobStep', SliderConfig)}
 					max={number('max', SliderConfig, 10)}

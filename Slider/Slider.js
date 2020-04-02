@@ -75,6 +75,14 @@ const SliderBase = kind({
 		active: PropTypes.bool,
 
 		/**
+		 * Display fill and load base on center
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		balanced: PropTypes.bool,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -278,7 +286,7 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, focused, tooltip, ...rest}) => {
+	render: ({balanced, css, focused, tooltip, ...rest}) => {
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
@@ -289,7 +297,10 @@ const SliderBase = kind({
 				{...rest}
 				css={css}
 				progressBarComponent={
-					<ProgressBar css={css} />
+					<ProgressBar
+						css={css}
+						balanced={balanced}
+					/>
 				}
 				tooltipComponent={
 					<ComponentOverride

@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Slider` display fill and load in progress base on center using `balanced` prop
+
 ### Fixed
 
 - `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
