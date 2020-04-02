@@ -44,7 +44,7 @@ class ScrollerResizableItem extends React.Component {
 	}
 
 	render () {
-		const {max = 3000, min = 500, more, toggleMore} = this.props;
+		const {max = 3000, min = 504, more, toggleMore} = this.props;
 		const height = ri.scaleToRem(more ? max : min);
 		const text = more ? 'less' : 'more';
 		const style = {
@@ -227,14 +227,14 @@ storiesOf('Scroller', module)
 			>
 				<div
 					style={{
-						width: ri.scaleToRem(8800),
-						height: ri.scaleToRem(8000),
+						width: ri.scaleToRem(8802),
+						height: ri.scaleToRem(8004),
 						padding: '1px'
 					}}
 				>
 					{[...Array(10)].map((y, j) => <div key={j + 1}>{(
 						[...Array(10)].map((x, i) => (
-							<Button key={i + 1} style={{width: ri.scale(400) + 'px', height: ri.scale(100) + 'px', margin: ri.scale(50) + 'px'}}>
+							<Button key={i + 1} style={{width: ri.scale(402) + 'px', height: ri.scale(102) + 'px', margin: ri.scale(51) + 'px'}}>
 								Button {j * 10 + i + 1}
 							</Button>
 						))
@@ -323,7 +323,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(400)}}
+					style={{height: ri.scaleToRem(402)}}
 				>
 					<Item>1</Item>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
@@ -335,7 +335,7 @@ storiesOf('Scroller', module)
 	.add(
 		'Test scrolling to boundary with long overflow',
 		() => {
-			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
+			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 402);
 			return (
 				<Scroller
 					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
@@ -344,7 +344,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(400)}}
+					style={{height: ri.scaleToRem(402)}}
 				>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
 					<Item>1</Item>
@@ -366,7 +366,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(800)}}
+					style={{height: ri.scaleToRem(804)}}
 				>
 					<Group childComponent={Item}>
 						{itemData}
@@ -392,7 +392,7 @@ storiesOf('Scroller', module)
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			>
-				<div style={{height: ri.scale(2440) + 'px'}}>
+				<div style={{height: ri.scale(2442) + 'px'}}>
 					<Item style={{height: ri.scale(2400) + 'px'}}>Long Height Item</Item>
 				</div>
 			</Scroller>

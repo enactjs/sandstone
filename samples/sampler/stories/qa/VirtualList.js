@@ -19,7 +19,7 @@ const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, Virtual
 
 const
 	listStyle = {
-		height: ri.scale(400) + 'px'
+		height: ri.scale(402) + 'px'
 	},
 	items = [],
 	defaultDataSize = 1000,
