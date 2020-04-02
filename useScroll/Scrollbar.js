@@ -3,6 +3,7 @@ import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
+import ReactDOM from 'react-dom';
 
 import ScrollThumb from './ScrollThumb';
 // import Skinnable from '../Skinnable';
@@ -20,8 +21,10 @@ import componentCss from './Scrollbar.module.less';
  */
 const ScrollbarBase = memo(forwardRef((props, ref) => {
 	// Refs
-	const mutableRef = useRef({prevScrollPosition: -1});
+	const mutableRef = useRef({prevScrollPosition: -1, scale: 1});
 	const scrollbarRef = useRef();
+	const thumbDivRef = useRef();
+
 	// render
 	const {className, clientSize, vertical, ...rest} = props;
 
@@ -30,11 +33,16 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	const syncHeight = (initialHiddenHeight, scrollPosition) => {
 		if (scrollbarRef.current && typeof window !== 'undefined' && mutableRef.current.prevScrollPosition !== scrollPosition) {
 			const
-				node = scrollbarRef.current.getContainerRef().current,
-				height = parseInt(window.getComputedStyle(node).getPropertyValue('height'));
+				scrollbarNode = scrollbarRef.current.getContainerRef().current,
+				thumbNode = ReactDOM.findDOMNode(thumbDivRef.current), // eslint-disable-line react/no-find-dom-node
+				height = parseInt(window.getComputedStyle(scrollbarNode).getPropertyValue('height')),
+				scale = (height - initialHiddenHeight + scrollPosition) / (height);
 
 			// To scale the scrollbar height depending on the VirtualList position
-			node.style.transform = 'scale3d(1, ' + (height - initialHiddenHeight + scrollPosition) / (height) + ', 1)';
+			scrollbarNode.style.transform = 'scale3d(1, ' + scale + ', 1)';
+			thumbNode.style.transform = 'scale3d(1, ' + 1 / scale + ', 1)';
+
+			mutableRef.current.scale = scale;
 		}
 		mutableRef.current.prevScrollPosition = scrollPosition;
 	};
@@ -51,7 +59,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			syncHeight,
 			uiUpdate,
 			update: (bounds) => {
-				uiUpdate(bounds);
+				uiUpdate(bounds, mutableRef.current.scale);
 			}
 		};
 	}, [scrollbarRef]);
@@ -69,6 +77,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 					<ScrollThumb
 						{...rest}
 						ref={thumbRef}
+						thumbDivRef={thumbDivRef}
 						vertical={vertical}
 					/>
 				);
