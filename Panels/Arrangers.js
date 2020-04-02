@@ -143,3 +143,32 @@ export const BasicArranger = {
 		], animationOptions);
 	}
 };
+
+/**
+ * Arranger that slides panels in from the right and out to the left.
+ *
+ * @type {Arranger}
+ * @private
+ */
+export const FadeAndSlideArranger = {
+	enter: (config) => {
+		const {node} = config;
+		const transform = getHorizontalTranslation(node);
+
+		return arrange(config, [
+			{transform, opacity: 0, offset: 0},
+			{opacity: 0, offset: 0.5},
+			{transform: 'none', opacity: 1, offset: 1}
+		], animationOptions);
+	},
+	leave: (config) => {
+		const {node} = config;
+		const transform = getHorizontalTranslation(node, -1);
+
+		return arrange(config, [
+			{transform: 'none', opacity: 1, offset: 0},
+			{opacity: 0, offset: 0.5},
+			{transform, opacity: 0, offset: 1}
+		], animationOptions);
+	}
+};

@@ -37,6 +37,7 @@
 		position: absolute;
 		.position(0);
 		overflow: hidden;
+		white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
 
 		&.transitioning::before {
 			content: "";
@@ -138,6 +139,26 @@
 	// Skin colors
 	.applySkins({
 		filter: drop-shadow(@sand-panels-optionpanels-shadow);
+
+		.body {
+			padding: 0;
+		}
+	});
+}
+
+.panels.mini {
+	// TODO: Relocate these to their final home.
+	// width: @sand-panels-optionpanels-width;
+	width: 50vw;
+	margin-top: 108px;
+
+	.body {
+		position: relative;
+	}
+
+	// Skin colors
+	.applySkins({
+		background-color: transparent;
 
 		.body {
 			padding: 0;

@@ -1,6 +1,7 @@
 // Panel.module.less
 //
 @import "../styles/variables.less";
+@import "../styles/skin.less";
 
 .panel {
 	position: absolute;
@@ -11,6 +12,7 @@
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+	vertical-align: top;
 
 	.body {
 		position: relative;
@@ -40,9 +42,23 @@
 
 	&.optionType {
 		padding: @sand-panel-option-padding;
+		display: inline-block;
 
 		.body {
 			padding: @sand-panel-body-option-padding;
+		}
+	}
+
+	&.miniType {
+		padding: 0;
+		display: inline-block;
+		display: inline-flex;
+
+		.body {
+			margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+			padding: 60px (60px - @sand-component-spacing);
+			align-self: start;  // Allow this node to horizontally shrink to fit the content.
+			flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
 		}
 	}
 
@@ -61,4 +77,14 @@
 	:global(.enact-locale-right-to-left) & {
 		direction: rtl;
 	}
+
+	.applySkins({
+		&.miniType {
+			.body {
+				background-color: fade(#575e66, 90%); // TEMPORARY - Make custom variable name, based it on Popup BG color.
+				border-radius: @sand-popup-border-radius; // TEMPORARY - Make custom variable name, based it on Popup BG color.
+				filter: drop-shadow(@sand-panels-optionpanels-shadow);
+			}
+		}
+	});
 }

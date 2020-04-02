@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Panels.MiniPanels` for a flexible size pop-up Panels experience
+
 ### Fixed
 
 - `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key

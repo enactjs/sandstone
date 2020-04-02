@@ -19,6 +19,7 @@ import ActivityPanels from './ActivityPanels';
 import AlwaysViewingPanels from './AlwaysViewingPanels';
 import Breadcrumb from './Breadcrumb';
 import Header, {HeaderBase} from './Header';
+import MiniPanels from './MiniPanels';
 import OptionPanels from './OptionPanels';
 import Panel from './Panel';
 import Panels from './Panels';
@@ -31,6 +32,7 @@ export {
 	Breadcrumb,
 	Header,
 	HeaderBase,
+	MiniPanels,
 	OptionPanels,
 	Panel,
 	Panels,
