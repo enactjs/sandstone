@@ -27,7 +27,7 @@ const items = [],
 	numItems = 100;
 
 const renderItem = (size) => ({index, ...rest}) => {
-	const style = {height: size + 'px', ...itemStyle};
+	const style = {height: ri.unit(size , 'rem'), ...itemStyle};
 	return (
 		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
 			{items[index].item}
