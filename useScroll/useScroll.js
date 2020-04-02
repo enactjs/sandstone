@@ -441,6 +441,7 @@ const useScroll = (props) => {
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
 			css.scrollContent
 		],
+		noFadeOut,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,
