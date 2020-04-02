@@ -2,7 +2,6 @@ import {forKey, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
-import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './DatePicker.module.less';
@@ -76,15 +75,6 @@ const DatePickerBase = kind({
 		order: PropTypes.arrayOf(PropTypes.oneOf(['m', 'd', 'y'])).isRequired,
 
 		/**
-		 * The primary text of the item.
-		 *
-		 * @type {String}
-		 * @required
-		 * @public
-		 */
-		title: PropTypes.string.isRequired,
-
-		/**
 		 * The `year` component of the Date.
 		 *
 		 * @type {Number}
@@ -110,18 +100,6 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		dayAriaLabel: PropTypes.string,
-
-		/**
-		 * The label displayed below the day picker.
-		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
-		 *
-		 * @type {String}
-		 * @default 'day'
-		 * @public
-		 */
-		dayLabel: PropTypes.string,
 
 		/**
 		 * The maximum selectable `year` value.
@@ -161,14 +139,6 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
-
-		/**
-		 * label text to show pickers selected value .
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		monthLabel: PropTypes.string,
 
 		/**
 		 * Called when the `date` component of the Date changes.
@@ -253,19 +223,7 @@ const DatePickerBase = kind({
 		 * @default 'change a value with up down button'
 		 * @public
 		 */
-		yearAriaLabel: PropTypes.string,
-
-		/**
-		 * The label displayed below the year picker.
-		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
-		 *
-		 * @type {String}
-		 * @default 'year'
-		 * @public
-		 */
-		yearLabel: PropTypes.string
+		yearAriaLabel: PropTypes.string
 	},
 
 	defaultProps: {
@@ -290,7 +248,6 @@ const DatePickerBase = kind({
 		'data-webos-voice-disabled': voiceDisabled,
 		day,
 		dayAriaLabel,
-		dayLabel = $L('day'),
 		handlePickerKeyDown,
 		maxDays,
 		maxMonths,
@@ -298,7 +255,6 @@ const DatePickerBase = kind({
 		minYear,
 		month,
 		monthAriaLabel,
-		monthLabel = $L('month'),
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -310,7 +266,6 @@ const DatePickerBase = kind({
 		spotlightDisabled,
 		year,
 		yearAriaLabel,
-		yearLabel = $L('year'),
 		...rest
 	}) => {
 		return (
@@ -328,11 +283,11 @@ const DatePickerBase = kind({
 						case 'd':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={dayLabel}
+									accessibilityHint={dayAriaLabel}
 									aria-label={dayAriaLabel}
 									className={css.day}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={dayLabel}
+									data-webos-voice-group-label={dayAriaLabel}
 									key="day-picker"
 									max={maxDays}
 									min={1}
@@ -349,11 +304,11 @@ const DatePickerBase = kind({
 						case 'm':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={monthLabel}
+									accessibilityHint={monthAriaLabel}
 									aria-label={monthAriaLabel}
 									className={css.month}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={monthLabel}
+									data-webos-voice-group-label={monthAriaLabel}
 									key="month-picker"
 									max={maxMonths}
 									min={1}
@@ -370,11 +325,11 @@ const DatePickerBase = kind({
 						case 'y':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={yearLabel}
+									accessibilityHint={yearAriaLabel}
 									aria-label={yearAriaLabel}
 									className={css.year}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={yearLabel}
+									data-webos-voice-group-label={yearAriaLabel}
 									key="year-picker"
 									max={maxYear}
 									min={minYear}

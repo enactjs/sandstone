@@ -17,7 +17,6 @@ storiesOf('Sandstone', module)
 				disabled={boolean('disabled', Config)}
 				hourAriaLabel={text('hourAriaLabel', Config, '')}
 				meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
-				meridiemLabel={text('meridiemLabel', Config, '')}
 				minuteAriaLabel={text('minuteAriaLabel', Config, '')}
 				onChange={action('onChange')}
 			/>

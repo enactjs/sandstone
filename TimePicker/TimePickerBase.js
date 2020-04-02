@@ -3,7 +3,6 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import $L from '../internal/$L';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './TimePicker.module.less';
@@ -139,15 +138,6 @@ const TimePickerBase = kind({
 		hourAriaLabel: PropTypes.string,
 
 		/**
-		 * The "aria-label" for the hour picker
-		 *
-		 * @type {String}
-		 * @default 'change a value with up down button'
-		 * @public
-		 */
-		hourLabel: PropTypes.string,
-
-		/**
 		 * Sets the hint string read when focusing the hour picker.
 		 *
 		 * @type {String}
@@ -199,15 +189,6 @@ const TimePickerBase = kind({
 		 * @public
 		 */
 		minuteAriaLabel: PropTypes.string,
-
-		/**
-		 * Sets the hint string read when focusing the minute picker.
-		 *
-		 * @type {String}
-		 * @default 'minute'
-		 * @public
-		 */
-		minuteLabel: PropTypes.string,
 
 		/**
 		 * Called on changes in the `hour` component of the time.
@@ -315,7 +296,6 @@ const TimePickerBase = kind({
 		hasMeridiem,
 		hour,
 		hourAriaLabel,
-		hourLabel = $L('hour'),
 		meridiem,
 		meridiemAriaLabel,
 		meridiemLabel,
@@ -323,7 +303,6 @@ const TimePickerBase = kind({
 		meridiems,
 		minute,
 		minuteAriaLabel,
-		minuteLabel = $L('minute'),
 		onChangeHour,
 		onChangeMeridiem,
 		onChangeMinute,
@@ -356,12 +335,12 @@ const TimePickerBase = kind({
 							case 'k':
 								return (
 									<HourPicker
-										accessibilityHint={hourLabel}
+										accessibilityHint={hourAriaLabel}
 										aria-label={hourAriaLabel}
 										className={css.hourComponents}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={hourLabel}
+										data-webos-voice-group-label={hourAriaLabel}
 										hasMeridiem={hasMeridiem}
 										key="hour-picker"
 										onChange={onChangeHour}
@@ -377,12 +356,12 @@ const TimePickerBase = kind({
 							case 'm':
 								return (
 									<DateComponentRangePicker
-										accessibilityHint={minuteLabel}
+										accessibilityHint={minuteAriaLabel}
 										aria-label={minuteAriaLabel}
 										className={css.minutesComponents}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={minuteLabel}
+										data-webos-voice-group-label={minuteAriaLabel}
 										key="minute-picker"
 										max={59}
 										min={0}
