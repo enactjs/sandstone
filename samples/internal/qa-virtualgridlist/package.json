@@ -1,0 +1,44 @@
+{
+  "name": "qa-virtualgridlist",
+  "version": "1.0.0",
+  "description": "A qa sample for testing VirtualGridList",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test start --single-run --browsers PhantomJS",
+    "test-json": "enact test start --single-run --browsers PhantomJS --reporters json",
+    "test-watch": "enact test start --browsers PhantomJS"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "https://github.com/enyojs/enact-internal-samples",
+  "enact": {
+    "title": "QA VirtualGridList",
+    "isomorphic": true,
+    "ri": {
+      "baseSize": 24
+    }
+  },
+  "eslintConfig": {
+    "extends": "enact/strict"
+  },
+  "dependencies": {
+    "@enact/core": "^3.0.0",
+    "@enact/i18n": "^3.0.0",
+    "@enact/sandstone": "enyojs/sandstone",
+    "@enact/spotlight": "^3.0.0",
+    "@enact/ui": "^3.0.0",
+    "ilib": "^14.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.1"
+  }
+}
