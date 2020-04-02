@@ -15,7 +15,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'SwitchItem',
 		() => {
-			return (<div>
+			return (
 				<SwitchItem
 					disabled={boolean('disabled', Config)}
 					inline={boolean('inline', Config)}
@@ -23,7 +23,7 @@ storiesOf('Sandstone', module)
 				>
 					{text('children', Config, 'Hello SwitchItem')}
 				</SwitchItem>
-			</div>);
+			);
 		},
 		{
 			info: {

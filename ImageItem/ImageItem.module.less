@@ -1,0 +1,178 @@
+// ImageItem.module.less
+//
+@import '../styles/colors.less';
+@import '../styles/mixins.less';
+@import '../styles/variables.less';
+@import '../styles/skin.less';
+
+.imageItem {
+	position: relative;
+
+	.image {
+		display: block;
+		margin: 0;
+	}
+
+	.caption {
+		.sand-text-base(@sand-imageitem-caption-font-size);
+	}
+
+	.label {
+		.sand-text-base(@sand-imageitem-label-font-size);
+	}
+
+	.selectionContainer {
+		background-color: transparent;
+		pointer-events: none;
+		.position(0);
+		position: absolute;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&::after {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-width: @sand-imageitem-image-border-width;
+			border-style: solid;
+		}
+
+		.selectionIcon {
+			position: relative;
+			display: block;
+			border-radius: 50%;
+			margin: 0;
+		}
+	}
+
+	&.vertical {
+		padding: @sand-imageitem-vertical-padding;
+
+		.image {
+			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+			will-change: filter, transform;
+		}
+
+		.captions {
+			margin-top: @sand-imageitem-vertical-captions-margin-top;
+			height: @sand-imageitem-vertical-captions-height;
+			transition: transform 200ms ease-in-out;
+		}
+	
+		.imageIcon {
+			height: @sand-imageitem-vertical-image-icon-size;
+			width: @sand-imageitem-vertical-image-icon-size;
+			margin: @sand-imageitem-vertical-image-icon-margin;
+		}
+	
+		.selectionIcon {
+			width: @sand-imageitem-vertical-selection-icon-size;
+			height: @sand-imageitem-vertical-selection-icon-size;
+			line-height: @sand-imageitem-vertical-selection-icon-size;
+			transition: transform 200ms ease-in-out;
+		}
+	}
+
+	&.horizontal {
+		.sand-spotlight-padding(@sand-item-vertical-padding);
+		margin: @sand-imageitem-horizontal-margin;
+
+		&::before {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-radius: @sand-imageitem-horizontal-border-radius;
+		}
+
+		.image {
+			width: @sand-imageitem-horizontal-image-width;
+			height: @sand-imageitem-horizontal-image-height;
+			margin: @sand-imageitem-horizontal-image-margin;
+		}
+
+		.selectionIcon {
+			width: @sand-imageitem-horizontal-selection-icon-size;
+			height: @sand-imageitem-horizontal-selection-icon-size;
+			line-height: @sand-imageitem-horizontal-selection-icon-size;
+		}
+	}
+
+	// Skin colors
+	.applySkins({
+		.caption {
+			color: @sand-imageitem-caption-color;
+		}
+
+		.label {
+			color: @sand-imageitem-label-color;
+		}
+
+		.selectionContainer::after {
+			border-color: @sand-imageitem-image-border-color;
+		}
+
+		.selectionIcon {
+			background-color: @sand-imageitem-selection-icon-bg-color;
+			color: @sand-imageitem-selection-icon-color;
+		}
+
+		&.selected {
+			.selectionContainer::after {
+				border-color: @sand-imageitem-selected-image-border-color;
+			}
+
+			.selectionIcon {
+				background-color: @sand-imageitem-selected-selection-icon-bg-color;
+				color: @sand-imageitem-selected-selection-icon-color;
+			}
+		}
+
+		&.horizontal {
+			&::before {
+				.sand-spotlight-resting-colors();
+			}
+		}
+
+		.focus({
+			.disabled ({
+				.vendor-opacity(@sand-disabled-opacity);
+			});
+
+			.selectionIcon {
+				background-color: @sand-imageitem-focus-selection-icon-bg-color;
+				color: @sand-imageitem-focus-selection-icon-color;
+			}
+
+			&.vertical {
+				.image {
+					transform: @sand-imageitem-vertical-focus-image-transform;
+					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
+				}
+
+				.captions {
+					transform: @sand-imageitem-vertical-focus-captions-transform;
+				}
+			}
+
+			&.horizontal {
+				&::before {
+					.sand-spotlight-focus-colors();
+				}
+
+				.caption,
+				.label {
+					color: @sand-imageitem-horizontal-focus-caption-color;
+				}
+			}
+
+			&.selected {
+				.selectionIcon {
+					background-color: @sand-imageitem-selected-focus-selection-icon-bg-color;
+					color: @sand-imageitem-selected-focus-selection-icon-color;
+				}
+			}
+		});
+	});
+}

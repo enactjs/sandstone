@@ -7,7 +7,7 @@ import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
 import ScrollThumb from './ScrollThumb';
 // import Skinnable from '../Skinnable';
 
-import css from './Scrollbar.module.less';
+import componentCss from './Scrollbar.module.less';
 
 /**
  * A Sandstone-styled scroller base component.
@@ -59,9 +59,9 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	return (
 		<UiScrollbarBase
 			clientSize={clientSize}
-			className={classNames(className, css.initialHiddenHeight)}
-			css={css}
-			minThumbSize={48}
+			className={classNames(className, componentCss.initialHiddenHeight)}
+			css={componentCss}
+			minThumbSize={120}
 			ref={scrollbarRef}
 			vertical={vertical}
 			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind

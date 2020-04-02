@@ -75,7 +75,7 @@ class ScrollerWithLongItem extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -131,7 +131,7 @@ class ScrollerWithLargeContainer extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -290,7 +290,7 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>focus to me</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -338,7 +338,7 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
 			return (
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, true)}
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -360,7 +360,7 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>hello</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -385,7 +385,7 @@ storiesOf('Scroller', module)
 		'With One Long Height Item',
 		() => (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -405,6 +405,7 @@ storiesOf('Scroller', module)
 			return (
 				<Scroller
 					direction="vertical"
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -414,6 +415,7 @@ storiesOf('Scroller', module)
 				>
 					<Scroller
 						direction="horizontal"
+						focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 						horizontalScrollbar="visible"
 						key={select('scrollMode', prop.scrollModeOption, Config) + '2'}
 						noScrollByWheel={noScrollByWheel}

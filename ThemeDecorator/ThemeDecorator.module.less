@@ -23,19 +23,13 @@
 
 	// Disabled Components
 	.disabled({
-		.vendor-opacity(@sand-disabled-opacity);
-
-		// Focused and disabled, must restore their natural opacity, then assign the faded text/content color
-		.focus({
-			.vendor-opacity(1);
-			color: @sand-spotlight-disabled-text-color;
-		});
+		.sand-disabled-colors();
 
 		cursor: default;
 
 		// Disabled children of disabled components
 		.disabled({
-			.vendor-opacity(1);
+			opacity: 1;
 		}, parent);
 	});
 });

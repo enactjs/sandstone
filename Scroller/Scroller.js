@@ -55,7 +55,6 @@ let Scroller = (props) => {
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
-		focusableBodyProps,
 		resizeContextProps,
 		scrollContainerProps,
 		scrollInnerContainerProps,
@@ -65,7 +64,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeScroller(scrollContentProps);
+	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
 
 	// Render
 	const scrollContainer = (
@@ -212,6 +211,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @private
 	 */
 	initialHiddenHeight: PropTypes.number,
+
+	/**
+	 * Removes fade-out effect on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noFadeOut: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.
@@ -371,6 +379,7 @@ Scroller.defaultProps = {
 	direction: 'both',
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
+	noFadeOut: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
