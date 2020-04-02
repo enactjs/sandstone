@@ -63,8 +63,8 @@ const getTargetInViewByDirectionFromPosition = (direction, position, container) 
 };
 
 const useThemeScroll = (props, instances) => {
-	const {scrollMode} = props;
-	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
+	const {id, initialHiddenHeight, scrollMode} = props;
+	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef, verticalScrollbarRef} = instances;
 	const contextSharedState = useContext(SharedState);
 	const scrollPositionContext = useScrollPosition();
 
@@ -123,6 +123,14 @@ const useThemeScroll = (props, instances) => {
 		ScrollToTopButton,
 		setScrollButtonVisible
 	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
+
+	useEffect(() => {
+		const {syncHeight} = verticalScrollbarRef.current || {};
+
+		if (initialHiddenHeight && syncHeight) {
+			syncHeight(initialHiddenHeight, scrollContainerHandle.current.scrollTop);
+		}
+	});
 
 	// Functions
 
@@ -191,7 +199,7 @@ const useThemeScroll = (props, instances) => {
 	function handleScroll (ev) {
 		const
 			{scrollLeft: x, scrollTop: y} = ev,
-			{id} = props;
+			{syncHeight} = verticalScrollbarRef.current || {};
 
 		forward('onScroll', ev, props);
 
@@ -204,6 +212,14 @@ const useThemeScroll = (props, instances) => {
 
 		if (scrollPositionContext && scrollPositionContext.onScroll) {
 			scrollPositionContext.onScroll({id, x, y});
+		}
+
+		if (initialHiddenHeight && syncHeight) {
+			if (scrollContainerHandle.current.scrollTop < initialHiddenHeight) {
+				syncHeight(initialHiddenHeight, scrollContainerHandle.current.scrollTop);
+			} else {
+				syncHeight(initialHiddenHeight, initialHiddenHeight);
+			}
 		}
 	}
 
@@ -295,6 +311,8 @@ const useScroll = (props) => {
 			...rest
 		} = props;
 
+	delete rest.initialHiddenHeight;
+
 	// Mutable value
 
 	const scrollContainerRef = useRef();
@@ -356,6 +374,7 @@ const useScroll = (props) => {
 		scrollContainerRef,
 		overscrollRefs,
 		scrollContentRef,
+		verticalScrollbarRef,
 
 		// Adapter
 		themeScrollContentHandle,

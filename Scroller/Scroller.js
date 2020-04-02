@@ -210,6 +210,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	id: PropTypes.string,
 
 	/**
+	 * Initial height of the hidden part of the vertical scroll bar.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	initialHiddenHeight: PropTypes.number,
+
+	/**
 	 * Removes fade-out effect on the scroller.
 	 *
 	 * @type {Boolean}
