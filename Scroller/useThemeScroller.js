@@ -348,6 +348,7 @@ const useThemeScroller = (props, scrollContentProps) => {
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
+	delete rest.noFadeOut;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
