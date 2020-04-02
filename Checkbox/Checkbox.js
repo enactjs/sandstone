@@ -184,6 +184,7 @@ const Checkbox = CheckboxDecorator(SkinnableCheckbox);
 export default Checkbox;
 export {
 	Checkbox,
-	SkinnableCheckbox as CheckboxBase,
+	CheckboxBase,
+	SkinnableCheckbox,
 	CheckboxDecorator
 };

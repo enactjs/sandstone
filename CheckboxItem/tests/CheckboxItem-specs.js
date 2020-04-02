@@ -12,7 +12,7 @@ describe('CheckboxItem Specs', () => {
 			</CheckboxItemBase>
 		);
 
-		const actual = subject.find('Checkbox').prop('children');
+		const actual = subject.find('Skinnable').prop('children');
 
 		expect(actual).toBe(expected);
 	});

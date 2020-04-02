@@ -19,7 +19,7 @@ import compose from 'ramda/src/compose';
 
 import Toggleable from '@enact/ui/Toggleable';
 
-import {CheckboxBase} from '../Checkbox';
+import {SkinnableCheckbox as CheckboxBase} from '../Checkbox';
 import Item from '../Item';
 
 import componentCss from './CheckboxItem.module.less';
