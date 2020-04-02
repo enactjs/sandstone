@@ -21,7 +21,7 @@ const fullHeightStyle = {
 spotlight.setPointerMode(false);
 
 const items = [],
-	listSize = ri.scale(468),
+	listSize = ri.scaleToRem(468),
 	itemSize = ri.scale(156),
 	itemStyle = {margin: 0},
 	numItems = 100;
@@ -151,7 +151,7 @@ class app extends React.Component {
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											spacing={0}
-											style={{height: listSize + 'px'}}
+											style={{height: listSize}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>

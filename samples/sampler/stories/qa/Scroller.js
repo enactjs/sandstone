@@ -234,7 +234,7 @@ storiesOf('Scroller', module)
 				>
 					{[...Array(10)].map((y, j) => <div key={j + 1}>{(
 						[...Array(10)].map((x, i) => (
-							<Button key={i + 1} style={{width: ri.scale(402) + 'px', height: ri.scale(102) + 'px', margin: ri.scale(51) + 'px'}}>
+							<Button key={i + 1} style={{width: ri.scaleToRem(402) , height: ri.scaleToRem(102), margin: ri.scaleToRem(51)}}>
 								Button {j * 10 + i + 1}
 							</Button>
 						))
@@ -392,8 +392,8 @@ storiesOf('Scroller', module)
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			>
-				<div style={{height: ri.scale(2442) + 'px'}}>
-					<Item style={{height: ri.scale(2400) + 'px'}}>Long Height Item</Item>
+				<div style={{height: ri.scaleToRem(2442)}}>
+					<Item style={{height: ri.scaleToRem(2400)}}>Long Height Item</Item>
 				</div>
 			</Scroller>
 		)
