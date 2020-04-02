@@ -105,6 +105,8 @@ body {
 // The :not() bit targets only non-enact elements, so if a story doesn't use withInfo, and a `div`
 // isn't added, the components aren't being told to be a different size/position.
 .panel > section > div:not([class]):not([style]):first-child,
+// additional selector on first div right after themeEnvironmentPanels to add min-height to display Panels content when Panels are used as a component inside storybook.
+.themeEnvironmentPanels > div:first-child,
 // additional selector when noPanel option is used
 .themeEnvironmentPanels > main > div {
 	width: 100%;
