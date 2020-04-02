@@ -35,10 +35,10 @@ const useOverscrollEffect = (props, instances) => {
 			const
 				effectSize = ratio * (edge === 'before' ? 1 : -1) * overscrollMaxTranslate,
 				translation = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
-				easeing = ratio !== 0 ? overscrollEaseStart : overscrollEaseEnd;
+				easing = ratio !== 0 ? overscrollEaseStart : overscrollEaseEnd;
 
 			nodeRef.style.setProperty(overscrollTranslatePrefix + orientation, translation);
-			nodeRef.style.setProperty(overscrollEasePrefix + orientation, easeing);
+			nodeRef.style.setProperty(overscrollEasePrefix + orientation, easing);
 
 			if (type === overscrollTypeOnce) {
 				mutableRef.current.overscrollJobs[orientation][edge].start(orientation, edge, overscrollTypeDone, 0);
