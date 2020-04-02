@@ -7,6 +7,7 @@
  */
 
 import ComponentOverride from '@enact/ui/ComponentOverride';
+import ri from '@enact/ui/resolution';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
@@ -81,7 +82,7 @@ const TabGridListLayoutBase = kind({
 				const props = Object.assign({}, child.props);
 				delete props.title;
 				delete props.icon;
-				return <VirtualGridList className={componentCss.list} showScrollToTopButton {...props} />;
+				return <VirtualGridList className={componentCss.list} initialHiddenHeight={ri.scale(184)} showScrollToTopButton {...props} />;
 			});
 		},
 		tabs: ({children}) => {
