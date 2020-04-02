@@ -33,6 +33,7 @@ const ScrollerSample = ({className}) => {
 	return (
 		<Scroller
 			className={classNames(className, css.scroller)}
+			scrollMode="translate"
 		>
 			{items}
 		</Scroller>
