@@ -41,18 +41,17 @@ const ButtonTests = [
 	// iconPosition = before (Default) + children has 1 letter +	minWidth = false
 	<Button minWidth={false}>H</Button>,
 
-	// 2021 - 'color' to be determined
 	// iconPosition = before (Default) + color
-	// <Button color="red">click me</Button>,
-	// <Button color="green">click me</Button>,
-	// <Button color="yellow">click me</Button>,
-	// <Button color="blue">click me</Button>,
-	// // iconPosition = before (Default) + color + icon + iconPosition
-	// <Button color="red" icon="minus" iconPosition="before">click me</Button>,
-	// <Button color="green" icon="plus" iconPosition="after">click me</Button>,
-	// // iconPosition = before (Default) + color + icon + iconPosition + minWidth
-	// <Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>,
-	// <Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>,
+	<Button color="red">click me</Button>,
+	<Button color="green">click me</Button>,
+	<Button color="yellow">click me</Button>,
+	<Button color="blue">click me</Button>,
+	// iconPosition = before (Default) + color + icon + iconPosition
+	<Button color="red" icon="minus" iconPosition="before">click me</Button>,
+	<Button color="green" icon="plus" iconPosition="after">click me</Button>,
+	// iconPosition = before (Default) + color + icon + iconPosition + minWidth
+	<Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>,
+	<Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>,
 
 	// iconPosition = before (Default) + icon
 	<Button icon="plus">click me</Button>,
@@ -132,42 +131,40 @@ const ButtonTests = [
 		locale: 'ar-SA',
 		component: <Button minWidth={false}>H</Button>
 	},
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="red">click me</Button>
-	// },
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="green">click me</Button>
-	// },
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="yellow">click me</Button>
-	// },
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="blue">click me</Button>
-	// },
-	// 2021 - 'color' to be determined
+	{
+		locale: 'ar-SA',
+		component: <Button color="red">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="green">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="yellow">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="blue">click me</Button>
+	},
 	// iconPosition = before (Default) + color + icon + iconPosition
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="red" icon="minus" iconPosition="before">click me</Button>
-	// },
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="green" icon="plus" iconPosition="after">click me</Button>
-	// },
-	// 2021 - 'color' to be determined
+	{
+		locale: 'ar-SA',
+		component: <Button color="red" icon="minus" iconPosition="before">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="green" icon="plus" iconPosition="after">click me</Button>
+	},
 	// iconPosition = before (Default) + color + icon + iconPosition + minWidth
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>
-	// },
-	// {
-	// 	locale: 'ar-SA',
-	// 	component: <Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>
-	// },
+	{
+		locale: 'ar-SA',
+		component: <Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>
+	},
 	// iconPosition = before (Default) + icon
 	{
 		locale: 'ar-SA',
