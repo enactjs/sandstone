@@ -49,6 +49,14 @@ const ProgressBarBase = kind({
 		backgroundProgress: PropTypes.number,
 
 		/**
+		 * Display fill and load base on center
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		balanced: PropTypes.bool,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *

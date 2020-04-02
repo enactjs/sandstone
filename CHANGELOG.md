@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Slider` display fill and load in progress base on center using `balanced` prop
+- `sandstone/Slider` and `sandstone/ProgressBar` display fill and load in progress base on center
 
 ### Fixed
 
