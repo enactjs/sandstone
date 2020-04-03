@@ -203,6 +203,18 @@
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 
+			.incrementer,
+			.decrementer {
+				visibility: hidden;
+			}
+
+			.focus({
+				.incrementer,
+				.decrementer {
+					visibility: visible;
+				}
+			});
+
 			&.incrementing::after {
 				// border-top-width: @sand-integer-picker-shadow-width;
 			}
