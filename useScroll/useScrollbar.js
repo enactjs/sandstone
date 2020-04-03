@@ -2,7 +2,7 @@ import ri from '@enact/ui/resolution';
 import {constants} from '@enact/ui/useScroll';
 
 const {paginationPageMultiplier} = constants;
-const defaultScrollDistance = 168;	// TODO : Change to the value decided by UX.
+const defaultScrollDistance = ri.scale(198);	// TODO : Change to the value decided by UX.
 
 const useScrollbar = (props, instances) => {
 	const {scrollContainerHandle} = instances;
@@ -28,7 +28,7 @@ const useScrollbar = (props, instances) => {
 			scrollContainerHandle.current.wheelDirection = direction;
 		}
 
-		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
 	}
 
 	function alertThumb () {
