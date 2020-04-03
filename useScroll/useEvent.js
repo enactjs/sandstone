@@ -89,14 +89,7 @@ const useEventFocus = (props, instances, context) => {
 
 				pos = positionFn({item: spotItem, scrollPosition});
 			} else {
-				// scrollInfo passes in current `scrollHeight` and `scrollTop` before calculations
-				const
-					scrollInfo = {
-						previousScrollHeight: scrollContainerHandle.current.bounds.scrollHeight,
-						scrollTop: scrollContainerHandle.current.scrollTop
-					};
-
-				pos = positionFn({item: spotItem, scrollInfo});
+				pos = positionFn({item: spotItem});
 			}
 
 			if (pos && (pos.left !== scrollContainerHandle.current.scrollLeft || pos.top !== scrollContainerHandle.current.scrollTop)) {
