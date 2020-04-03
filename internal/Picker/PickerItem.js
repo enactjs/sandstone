@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 
 import Marquee from '../../Marquee';
+
 import css from './Picker.module.less';
 
 const PickerItemBase = kind({
@@ -13,8 +14,7 @@ const PickerItemBase = kind({
 	},
 
 	computed: {
-		className: ({children, styler}) => styler.append({numberPickerItem: !isNaN(Number(children))})
-
+		className: ({children, styler}) => styler.append({numeric: !isNaN(Number(children))})
 	},
 
 	render: (props) => (
@@ -23,4 +23,7 @@ const PickerItemBase = kind({
 });
 
 export default PickerItemBase;
-export {PickerItemBase as PickerItem, PickerItemBase};
+export {
+	PickerItemBase as PickerItem,
+	PickerItemBase
+};
