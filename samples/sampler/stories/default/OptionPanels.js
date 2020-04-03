@@ -12,7 +12,7 @@ const Config = mergeComponentMetadata('OptionPanels', OptionPanels);
 
 storiesOf('Sandstone', module)
 	.add(
-		'OptionPanels',
+		'Panels.OptionPanels',
 		() => (
 			<div>
 				<OptionPanels

@@ -17,7 +17,7 @@ const Config = mergeComponentMetadata('MiniPanels', MiniPanels);
 
 storiesOf('Sandstone', module)
 	.add(
-		'MiniPanels',
+		'Panels.MiniPanels',
 		() => {
 			const defaultOpen = false;
 			const [open, setOpenState] = React.useState(defaultOpen);
