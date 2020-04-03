@@ -1,4 +1,4 @@
-import {forKey, forward, handle} from '@enact/core/handle';
+import {forKey, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -102,13 +102,22 @@ const DatePickerBase = kind({
 		dayAriaLabel: PropTypes.string,
 
 		/**
+		 * The primary text of the item.
+		 *
+		 * @type {String}
+		 * @required
+		 * @public
+		 */
+		label: PropTypes.string,
+
+		/**
 		 * The maximum selectable `year` value.
 		 *
 		 * @type {Number}
 		 * @default 2099
 		 * @public
 		 */
-		label: PropTypes.string,
+		maxYear: PropTypes.number,
 
 		/**
 		 * The minimum selectable `year` value.
@@ -117,25 +126,13 @@ const DatePickerBase = kind({
 		 * @default 1900
 		 * @public
 		 */
-		maxYear: PropTypes.number,
+		minYear: PropTypes.number,
 
 		/**
 		 * The "aria-label" for the month picker.
 		 *
 		 * @type {String}
 		 * @default 'change a value with up down button'
-		 * @public
-		 */
-		minYear: PropTypes.number,
-
-		/**
-		 * The label displayed below the month picker.
-		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
-		 *
-		 * @type {String}
-		 * @default 'month'
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
@@ -163,14 +160,6 @@ const DatePickerBase = kind({
 		 * @public
 		 */
 		onChangeYear: PropTypes.func,
-
-		/**
-		 * Called when the user requests the expandable close.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onClose: PropTypes.func,
 
 		/**
 		 * Called when the component is removed when it had focus.
@@ -239,8 +228,7 @@ const DatePickerBase = kind({
 
 	handlers: {
 		handlePickerKeyDown: handle(
-			forKey('enter'),
-			forward('onClose')
+			forKey('enter')
 		)
 	},
 
@@ -270,7 +258,7 @@ const DatePickerBase = kind({
 	}) => {
 		return (
 			<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
-				<div className={css.label}>
+				<div className={css.dateLabel}>
 					{rest.label}
 				</div>
 				{order.map((picker, index) => {

@@ -1,4 +1,4 @@
-import {forKey, forward, handle} from '@enact/core/handle';
+import {forKey, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -82,22 +82,13 @@ const TimePickerBase = kind({
 
 	propTypes: /** @lends sandstone/TimePicker.TimePickerBase.prototype */ {
 		/**
-		 * Disables ExpandableItem and the control becomes non-interactive.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		hour: PropTypes.number.isRequired,
-
-		/**
 		 * The `hour` component of the time.
 		 *
 		 * @type {Number}
 		 * @required
 		 * @public
 		 */
-		minute: PropTypes.number.isRequired,
+		hour: PropTypes.number.isRequired,
 
 		/**
 		 * The `minute` component of the time.
@@ -106,7 +97,7 @@ const TimePickerBase = kind({
 		 * @required
 		 * @public
 		 */
-		order: PropTypes.arrayOf(PropTypes.oneOf(['h', 'k', 'm', 'a'])).isRequired,
+		minute: PropTypes.number.isRequired,
 
 		/**
 		 * The order in which the component pickers are displayed.
@@ -117,7 +108,7 @@ const TimePickerBase = kind({
 		 * @required
 		 * @public
 		 */
-		'data-webos-voice-disabled': PropTypes.bool,
+		order: PropTypes.arrayOf(PropTypes.oneOf(['h', 'k', 'm', 'a'])).isRequired,
 
 		/**
 		 * Disables voice control.
@@ -126,22 +117,31 @@ const TimePickerBase = kind({
 		 * @memberof sandstone/TimePicker.TimePickerBase.prototype
 		 * @public
 		 */
+		'data-webos-voice-disabled': PropTypes.bool,
+
+		/**
+		 * The "aria-label" for the hour picker
+		 *
+		 * @type {String}
+		 * @default 'change a value with up down button'
+		 * @public
+		 */
 		disabled: PropTypes.bool,
 
 		/**
-		 * The maximum selectable `year` value.
+		 * The "aria-label" for the hour picker
 		 *
-		 * @type {Number}
-		 * @default 2099
+		 * @type {String}
+		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		hourAriaLabel: PropTypes.string,
 
 		/**
-		 * Sets the hint string read when focusing the hour picker.
+		 * The primary text of the item.
 		 *
 		 * @type {String}
-		 * @default 'hour'
+		 * @required
 		 * @public
 		 */
 		label: PropTypes.string,
@@ -215,14 +215,6 @@ const TimePickerBase = kind({
 		onChangeMinute: PropTypes.func,
 
 		/**
-		 * Called when a condition occurs which should cause the expandable to close.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onClose: PropTypes.func,
-
-		/**
 		 * Called when the component is removed while retaining focus.
 		 *
 		 * @type {Function}
@@ -268,7 +260,6 @@ const TimePickerBase = kind({
 	},
 
 	defaultProps: {
-		disabled: false,
 		spotlightDisabled: false
 	},
 
@@ -279,8 +270,7 @@ const TimePickerBase = kind({
 
 	handlers: {
 		handlePickerKeyDown: handle(
-			forKey('enter'),
-			forward('onClose')
+			forKey('enter')
 		)
 	},
 

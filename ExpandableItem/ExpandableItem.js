@@ -411,7 +411,7 @@ const ExpandableItemBase = kind({
 					onSpotlightRight={onSpotlightRight}
 					onSpotlightUp={onSpotlightUp}
 					spotlightDisabled={spotlightDisabled}
-					// titleIcon="arrowlargedown"
+					titleIcon="arrowlargedown"
 				>{title}</LabeledItem>
 				{!hideChildren ?
 					<ExpandableTransitionContainer
