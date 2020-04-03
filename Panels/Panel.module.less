@@ -51,8 +51,12 @@
 
 	&.miniType {
 		padding: 0;
-		display: inline-block;
 		display: inline-flex;
+		pointer-events: none;
+
+		> * {
+			pointer-events: auto;
+		}
 
 		.body {
 			margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
