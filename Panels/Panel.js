@@ -168,10 +168,29 @@ const PanelBase = kind({
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
+		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
+		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
+		headerType: (props, {type}) => {
+			switch (type) {
+				case 'option': return 'compact';
+				case 'wizard': return 'wizard';
+			}
+		}
 	},
 
-	render: ({bodyClassName, children, header, headerId, hideChildren, spotOnRender, ...rest}) => {
+	render: ({
+		bodyClassName,
+		children,
+		header,
+		headerId,
+		headerType,
+		hideChildren,
+		spotOnRender,
+		...rest
+	}, {
+		index,
+		type
+	}) => {
 		delete rest.autoFocus;
 
 		return (
@@ -179,6 +198,8 @@ const PanelBase = kind({
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
+						type={headerType}
+						backButtonAvailable={(index > 0 && type !== 'wizard')}
 						entering={hideChildren && Spotlight.getPointerMode()}
 					/>
 				</div>

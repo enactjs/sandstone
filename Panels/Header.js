@@ -9,14 +9,17 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
-import {PanelsStateContext} from './Viewport';
-
 import componentCss from './Header.module.less';
-import handle, {forwardWithPrevent} from '@enact/core/handle/handle';
+
+// A conditional method that takes in a prop name (string) and returns a method that when executed
+// with props and context as arguments, chooses between the values, preferring the props version if
+// it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
+const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context[prop]);
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -30,15 +33,28 @@ import handle, {forwardWithPrevent} from '@enact/core/handle/handle';
 const HeaderBase = kind({
 	name: 'Header',
 
-	contextType: PanelsStateContext,
-
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
+		/**
+		 * Informs Header that the back button as allowed to be shown.
+		 *
+		 * This does not represent whether it is showing, just whether it can or not.
+		 *
+		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
+		 * be set to `true` when being hovered.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		backButtonAvailable: PropTypes.bool,
+
 		/**
 		 * Centers the contents of the Header.
 		 *
 		 * This setting does not affect `slotBefore` or `slotAfter`.
 		 *
 		 * @type {Boolean}
+		 * @default false
 		 * @public
 		 */
 		centered: PropTypes.bool,
@@ -54,6 +70,26 @@ const HeaderBase = kind({
 			PropTypes.element,
 			PropTypes.arrayOf(PropTypes.element)
 		]),
+
+		/**
+		 * Sets the hint string read when focusing the application close button.
+		 *
+		 * @type {String}
+		 * @default 'Exit app'
+		 * @public
+		 */
+		closeButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * The background opacity of the application close button.
+		 *
+		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
+		 *
+		 * @type {String}
+		 * @default 'transparent'
+		 * @public
+		 */
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -112,16 +148,38 @@ const HeaderBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Shows the back button.
-		 *
-		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
-		 * be set to `true` when being hovered.
+		 * Omits the back button.
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @private
+		 * @public
 		 */
-		showBackButton: PropTypes.bool,
+		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
+		 * Called with cancel/back key events.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBack: PropTypes.func,
+
+		/**
+		 * Called when the app close button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClose: PropTypes.func,
 
 		/**
 		 * Sets the visibility of the input field
@@ -233,6 +291,7 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
+		backButtonAvailable: false,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -243,37 +302,73 @@ const HeaderBase = kind({
 		publicClassNames: ['header', 'input']
 	},
 
-	handlers: {
-		onBack: handle(
-			forwardWithPrevent('onBack'),
-			(ev, props, panelsState) => {
-				if (panelsState && panelsState.onBack) {
-					panelsState.onBack({index: panelsState.index - 1});
-				}
-			}
-		)
-	},
-
 	computed: {
-		className: ({centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
 				centered,
+				showBack: (backButtonAvailable && (!noBackButton || entering)),
 				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
 			type),
+		// This unruly looking pile of props allows these props to override their context equivelents
+		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
+		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
+		// noBackButton: preferPropOverContext('noBackButton'), // This needs to move into the className
+		noCloseButton: preferPropOverContext('noCloseButton'),
+		onBack: preferPropOverContext('onBack'),
+		onClose: preferPropOverContext('onClose'),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
-		backButtonClassName: ({entering, showBackButton, styler}, panelsState) => styler.join(
-			'backButton',
-			{
-				hidden: !(panelsState && panelsState.index > 0 && panelsState.type !== 'wizard' && (showBackButton || entering))
-			}
-		)
+		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
 
-	render: ({backButtonClassName, centered, children, css, direction, headerInput, line, marqueeOn, onBack, showInput, slotAbove, slotAfter, slotBefore, subtitle, title, type, ...rest}) => {
+	render: ({
+		centered,
+		children,
+		closeButtonAriaLabel,
+		closeButtonBackgroundOpacity,
+		css,
+		direction,
+		headerInput,
+		line,
+		marqueeOn,
+		noCloseButton,
+		onBack,
+		onClose,
+		showInput,
+		slotAbove,
+		slotAfter,
+		slotBefore,
+		subtitle,
+		title,
+		type,
+		...rest
+	}) => {
+		delete rest.backButtonAvailable;
 		delete rest.entering;
-		delete rest.showBackButton;
+		delete rest.noBackButton;
+
+		// Set up the back button
+		const backButton = (
+			<Button
+				backgroundOpacity="transparent"
+				className={css.back}
+				icon="arrowhookleft"
+				onClick={onBack}
+				size="large"
+			/>
+		);
+
+		// Set up the close button
+		const closeButton = (noCloseButton ? null : (
+			<Button
+				aria-label={closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel}
+				backgroundOpacity={closeButtonBackgroundOpacity}
+				className={css.close}
+				icon="closex"
+				onTap={onClose}
+				size="small"
+			/>
+		));
 
 		// Create the Title component
 		const titleComponent = (
@@ -319,10 +414,7 @@ const HeaderBase = kind({
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					<Cell className={backButtonClassName} shrink>
-						<Button size="large" backgroundOpacity="transparent" icon="arrowhookleft" onClick={onBack} />
-					</Cell>
-					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
+					{(bothBeforeAndAfter || slotBefore || backButton) ? <Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell> : null}
 					<Cell className={css.titleCell}>
 						{titleOrInput}
 						<Heading
@@ -336,7 +428,7 @@ const HeaderBase = kind({
 							{subtitle}
 						</Heading>
 					</Cell>
-					{(bothBeforeAndAfter || slotAfter) ? <Cell shrink className={css.slotAfter}>{slotAfter}</Cell> : null}
+					{(bothBeforeAndAfter || slotAfter || closeButton) ? <Cell shrink className={css.slotAfter}>{slotAfter}{closeButton}</Cell> : null}
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
 				{line}
@@ -348,7 +440,7 @@ const HeaderBase = kind({
 const HeaderDecorator = compose(
 	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
-	Toggleable({prop: 'showBackButton', activate: 'onMouseEnter', deactivate: 'onMouseLeave'})
+	Toggleable({prop: 'noBackButton', activate: 'onMouseLeave', deactivate: 'onMouseEnter'})
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.

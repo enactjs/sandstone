@@ -39,12 +39,11 @@
 		}
 	}
 
-	.backButton {
-		&.hidden {
+	&:not(.showBack) {
+		.back {
 			visibility: hidden;
 		}
 	}
-
 
 	///
 	/// Begin child node rules configuration, shared across multiple types
