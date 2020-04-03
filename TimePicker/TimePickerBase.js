@@ -120,10 +120,9 @@ const TimePickerBase = kind({
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * The "aria-label" for the hour picker
+		 * Disables voice control.
 		 *
-		 * @type {String}
-		 * @default 'change a value with up down button'
+		 * @type {Boolean}
 		 * @public
 		 */
 		disabled: PropTypes.bool,
@@ -260,6 +259,7 @@ const TimePickerBase = kind({
 	},
 
 	defaultProps: {
+		disabled: false,
 		spotlightDisabled: false
 	},
 
@@ -324,24 +324,27 @@ const TimePickerBase = kind({
 							case 'h':
 							case 'k':
 								return (
-									<HourPicker
-										accessibilityHint={hourAriaLabel}
-										aria-label={hourAriaLabel}
-										className={css.hourComponents}
-										disabled={disabled}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={hourAriaLabel}
-										hasMeridiem={hasMeridiem}
-										key="hour-picker"
-										onChange={onChangeHour}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={hour}
-										width={2}
-										wrap
-									/>
+									<React.Fragment>
+										<HourPicker
+											accessibilityHint={hourAriaLabel}
+											aria-label={hourAriaLabel}
+											className={css.hourComponents}
+											disabled={disabled}
+											data-webos-voice-disabled={voiceDisabled}
+											data-webos-voice-group-label={hourAriaLabel}
+											hasMeridiem={hasMeridiem}
+											key="hour-picker"
+											onChange={onChangeHour}
+											onSpotlightDisappear={onSpotlightDisappear}
+											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+											onSpotlightRight={isRight ? onSpotlightRight : null}
+											spotlightDisabled={spotlightDisabled}
+											value={hour}
+											width={2}
+											wrap
+										/>
+										<span className={css.colonMark}>:</span>
+									</React.Fragment>
 								);
 							case 'm':
 								return (

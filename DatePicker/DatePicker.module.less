@@ -1,15 +1,18 @@
 // DatePicker.module.less
 //
 
+@import "../styles/variables.less";
+
+
 .day,
 .month {
 	/* day and month should be available to the JS but have no associated rules at this time. */
 }
 
 .year {
-	min-width: 240px;
+	min-width: @sand-date-time-picker-min-width;
 }
 
 .dateLabel {
-	padding: 42px 21px;
+	padding: @sand-date-time-picker-label-padding;
 }

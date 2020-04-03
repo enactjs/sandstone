@@ -1,7 +1,14 @@
+@import "../styles/variables.less";
+
 // hour and minute should always be left-to-right
 .timeComponents {
 	direction: ltr;
 	display: inline-block;
+
+	.colonMark {
+		position: absolute;
+    	padding: 48px 0;
+	}
 
 	:global(.enact-locale-right-to-left) & {
 		display: flex;
@@ -19,5 +26,5 @@
 }
 
 .pickerLabel {
-	padding: 42px 21px;
+	padding: @sand-date-time-picker-label-padding
 }

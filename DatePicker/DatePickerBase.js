@@ -93,9 +93,9 @@ const DatePickerBase = kind({
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * The "aria-label" for the day picker.
+		 * Disables picker.
 		 *
-		 * @type {String}
+		 * @type {Boolean}
 		 * @default 'change a value with up down button'
 		 * @public
 		 */
@@ -218,6 +218,7 @@ const DatePickerBase = kind({
 	defaultProps: {
 		maxYear: 2099,
 		minYear: 1900,
+		disabled: false,
 		spotlightDisabled: false
 	},
 
@@ -234,6 +235,7 @@ const DatePickerBase = kind({
 
 	render: ({
 		'data-webos-voice-disabled': voiceDisabled,
+		disabled,
 		day,
 		dayAriaLabel,
 		handlePickerKeyDown,
@@ -274,6 +276,7 @@ const DatePickerBase = kind({
 									accessibilityHint={dayAriaLabel}
 									aria-label={dayAriaLabel}
 									className={css.day}
+									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={dayAriaLabel}
 									key="day-picker"
@@ -295,6 +298,7 @@ const DatePickerBase = kind({
 									accessibilityHint={monthAriaLabel}
 									aria-label={monthAriaLabel}
 									className={css.month}
+									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={monthAriaLabel}
 									key="month-picker"
@@ -316,6 +320,7 @@ const DatePickerBase = kind({
 									accessibilityHint={yearAriaLabel}
 									aria-label={yearAriaLabel}
 									className={css.year}
+									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={yearAriaLabel}
 									key="year-picker"
