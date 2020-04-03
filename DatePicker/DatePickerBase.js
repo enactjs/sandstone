@@ -102,6 +102,14 @@ const DatePickerBase = kind({
 		dayAriaLabel: PropTypes.string,
 
 		/**
+		 * Disables voice control.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * The primary text of the item.
 		 *
 		 * @type {String}
