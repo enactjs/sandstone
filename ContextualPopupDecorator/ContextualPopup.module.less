@@ -19,22 +19,10 @@
 		-moz-background-clip: padding-box;
 		box-sizing: border-box;
 
-		&.reserveClose {
-			.padding-start-end(@sand-contextual-popup-padding, @sand-contextual-popup-with-reserveclose-padding);
-		}
-
 		&.fixedSize {
 			overflow: hidden;
 		}
 	}
-
-	.sand-custom-text({
-		.container {
-			&.reserveClose {
-				.padding-start-end(@sand-contextual-popup-padding, @sand-contextual-popup-with-reserveclose-padding-large);
-			}
-		}
-	});
 
 	:global(.enact-locale-right-to-left) & {
 		.container {
