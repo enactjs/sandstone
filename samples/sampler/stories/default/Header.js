@@ -32,7 +32,7 @@ const prop = {
 
 storiesOf('Sandstone', module)
 	.add(
-		'Header',
+		'Panels.Header',
 		() => {
 			const headerInput = boolean('headerInput', Config, true) ? <Input placeholder="placeholder text" /> : null;
 			const showInput = boolean('showInput', Config);
