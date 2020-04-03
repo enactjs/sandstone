@@ -259,9 +259,8 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextual-popup-border-width: 1px;
-@sand-contextual-popup-border-radius: @sand-button-border-width;
-@sand-contextual-popup-padding: @sand-spotlight-outset;
+@sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
+@sand-contextual-popup-padding: @sand-spotlight-outset 0;
 @sand-contextual-popup-with-reserveclose-padding: (@sand-button-small-height + @sand-spotlight-outset);
 @sand-contextual-popup-with-reserveclose-padding-large: (@sand-button-small-height-large + @sand-spotlight-outset);
 @sand-contextual-popup-arrow-height: 60px;
@@ -304,14 +303,14 @@
 @sand-dropdown-large-width: 780px;
 @sand-dropdown-x-large-width: 1050px;
 @sand-dropdown-huge-width: 1380px;
+@sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - @sand-button-border-width);
+@sand-dropdown-list-small-width: (@sand-dropdown-small-width - @sand-button-border-width);
+@sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - @sand-button-border-width);
+@sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
+@sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
+@sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-list-scrollbar-size: 36px;
 @sand-dropdown-list-scrollbar-thumb-margin: 12px;
-@sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-small-width: (@sand-dropdown-small-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-large-width: (@sand-dropdown-large-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
 
@@ -392,11 +391,15 @@
 // ImageItem
 // ---------------------------------------
 @sand-imageitem-image-border-width: 6px;
+@sand-imageitem-caption-line-height: 72px;
+@sand-imageitem-label-line-height: 54px;
+@sand-imageitem-label-margin-top: 6px;
 @sand-imageitem-horizontal-border-radius: 12px;
 @sand-imageitem-horizontal-margin: @sand-item-margin;
 @sand-imageitem-horizontal-image-width: 180px;
 @sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
-@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0px;
+@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0;
+@sand-imageitem-horizontal-image-margin-rtl: 30px 0 30px 30px;
 @sand-imageitem-horizontal-selection-icon-size: 90px;
 @sand-imageitem-vertical-padding: 48px;
 @sand-imageitem-vertical-captions-height: 132px;
