@@ -3,6 +3,8 @@ import {isRtlText} from '@enact/i18n/util';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import css from './Tooltip.module.less';
+
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
  * Sandstone styling applied.
@@ -35,7 +37,7 @@ const TooltipLabel = kind({
 	},
 
 	styles: {
-		className: 'tooltipLabel'
+		css
 	},
 
 	computed: {
