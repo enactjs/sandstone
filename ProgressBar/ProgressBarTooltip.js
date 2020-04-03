@@ -271,13 +271,13 @@ const ProgressBarTooltipBase = kind({
 				}
 			);
 		},
-		arrowAnchor: ({orientation, position, proportion, rtl}) => {
+		arrowAnchor: ({orientation, position, rtl}) => {
 			if (orientation === 'vertical' || isVerticalModeRadial(orientation, position)) return 'middle';
 
 			const [h] = getSide(orientation, position);
 			switch (h) {
 				case 'auto':
-					return proportion > 0.5 ? 'left' : 'right';
+					return 'center';
 				case 'before':
 					return rtl ? 'right' : 'left';
 				case 'after':

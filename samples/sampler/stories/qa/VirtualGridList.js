@@ -7,7 +7,7 @@ import React from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
@@ -32,12 +32,13 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={text}
-				source={source}
-				subCaption={subText}
-			/>
+				label={subText}
+				src={source}
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
@@ -54,7 +55,7 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}`,
 			subText = `SubItem ${count}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
 
 		items.push({text, subText, source});
 	}
@@ -171,8 +172,8 @@ storiesOf('VirtualGridList', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 640)),
-					minHeight: ri.scale(number('minHeight', Config, 540))
+					minWidth: ri.scale(number('minWidth', Config, 768)),
+					minHeight: ri.scale(number('minHeight', Config, 588))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -180,7 +181,7 @@ storiesOf('VirtualGridList', module)
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, 48))}
+				spacing={ri.scale(number('spacing', Config, -48))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

@@ -196,15 +196,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			setApiProvider: PropTypes.func,
 
 			/**
-			 * Shows the close button.
-			 *
-			 * @type {Boolean}
-			 * @default false
-			 * @public
-			 */
-			showCloseButton: PropTypes.bool,
-
-			/**
 			 * The current skin for this component.
 			 *
 			 * When `noSkin` is set on the config object, `skin` will only be applied to the
@@ -238,7 +229,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			direction: 'below center',
 			noAutoDismiss: false,
 			open: false,
-			showCloseButton: false,
 			spotlightRestrict: 'self-first'
 		}
 
@@ -650,7 +640,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, showCloseButton, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const scrimType = spotlightRestrict === 'self-only' ? 'transparent' : 'none';
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
@@ -679,8 +669,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						<ContextualPopupContainer
 							{...ariaProps}
 							className={popupClassName}
-							showCloseButton={showCloseButton}
-							onCloseButtonClick={onClose}
 							onKeyDown={this.handleContainerKeyDown}
 							direction={this.state.direction}
 							arrowPosition={this.state.arrowPosition}

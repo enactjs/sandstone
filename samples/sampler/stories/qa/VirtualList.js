@@ -19,7 +19,7 @@ const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, Virtual
 
 const
 	listStyle = {
-		height: '400px'
+		height: ri.scaleToRem(402)
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -39,7 +39,7 @@ const
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 		const style = vertical ?
 			{margin: 0} :
-			{margin: 0, height: '100%', width: size + 'px', writingMode: 'vertical-lr'};
+			{margin: 0, height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
 
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
@@ -118,7 +118,7 @@ const InPanels = ({className, title, ...rest}) => {
 	}
 
 	return (
-		<Panels className={className} index={index} noCloseButton>
+		<Panels className={className} index={index}>
 			<Panel>
 				<Header type="compact" title={`${title} Panel 0`} key="header" />
 				<VirtualList

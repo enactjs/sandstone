@@ -7,6 +7,8 @@
 .scroll {
 	--scroll-scrollbar-size: 60px;
 	--scroll-fadeout-size: 48px;
+	// To override margin of thumb in dropdown list
+	--scrollbar-thumb-margin: @sand-scrolltrack-margin;
 
 	box-sizing: border-box;
 	overflow: hidden;
@@ -56,14 +58,15 @@
 
 	.scrollContent {
 		box-sizing: border-box;
-		padding: var(--scroll-fadeout-size);
 
 		&.verticalFadeout {
+			padding: var(--scroll-fadeout-size) 0;
 			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 		}
 
 		&.horizontalFadeout {
+			padding: 0 var(--scroll-fadeout-size);
 			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
 		}
