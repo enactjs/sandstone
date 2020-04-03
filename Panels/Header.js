@@ -14,6 +14,8 @@ import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
+import {PanelsStateContext} from './Viewport';
+
 import componentCss from './Header.module.less';
 
 // A conditional method that takes in a prop name (string) and returns a method that when executed
@@ -32,6 +34,8 @@ const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] 
  */
 const HeaderBase = kind({
 	name: 'Header',
+
+	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -137,6 +141,17 @@ const HeaderBase = kind({
 		 * @type {Node}
 		 */
 		headerInput: PropTypes.node,
+
+		/**
+		 * Sets the "hover" state.
+		 *
+		 * This is linked to displaying the "back" button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		hover: PropTypes.bool,
 
 		/**
 		 * Determines what triggers the header content to start its animation.
@@ -303,17 +318,17 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({backButtonAvailable, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
 				centered,
-				showBack: (backButtonAvailable && (!noBackButton || entering)),
+				showBack: (backButtonAvailable && !noBackButton && (hover || entering)), // This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
 			type),
 		// This unruly looking pile of props allows these props to override their context equivelents
 		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
 		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
-		// noBackButton: preferPropOverContext('noBackButton'), // This needs to move into the className
+		noBackButton: preferPropOverContext('noBackButton'),
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
@@ -322,6 +337,7 @@ const HeaderBase = kind({
 	},
 
 	render: ({
+		backButtonAvailable,
 		centered,
 		children,
 		closeButtonAriaLabel,
@@ -331,6 +347,7 @@ const HeaderBase = kind({
 		headerInput,
 		line,
 		marqueeOn,
+		noBackButton,
 		noCloseButton,
 		onBack,
 		onClose,
@@ -343,12 +360,11 @@ const HeaderBase = kind({
 		type,
 		...rest
 	}) => {
-		delete rest.backButtonAvailable;
 		delete rest.entering;
-		delete rest.noBackButton;
+		delete rest.hover;
 
 		// Set up the back button
-		const backButton = (
+		const backButton = (backButtonAvailable && !noBackButton ? (
 			<Button
 				backgroundOpacity="transparent"
 				className={css.back}
@@ -356,10 +372,10 @@ const HeaderBase = kind({
 				onClick={onBack}
 				size="large"
 			/>
-		);
+		) : null);
 
 		// Set up the close button
-		const closeButton = (noCloseButton ? null : (
+		const closeButton = (!noCloseButton ? (
 			<Button
 				aria-label={closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel}
 				backgroundOpacity={closeButtonBackgroundOpacity}
@@ -368,7 +384,7 @@ const HeaderBase = kind({
 				onTap={onClose}
 				size="small"
 			/>
-		));
+		) : null);
 
 		// Create the Title component
 		const titleComponent = (
@@ -440,7 +456,7 @@ const HeaderBase = kind({
 const HeaderDecorator = compose(
 	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
-	Toggleable({prop: 'noBackButton', activate: 'onMouseLeave', deactivate: 'onMouseEnter'})
+	Toggleable({prop: 'hover', activate: 'onMouseEnter', deactivate: 'onMouseLeave'})
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
