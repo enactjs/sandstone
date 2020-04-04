@@ -136,33 +136,28 @@
 .panels.option {
 	width: @sand-panels-optionpanels-width;
 
+	.body {
+		padding: 0;
+	}
+
 	// Skin colors
 	.applySkins({
 		filter: drop-shadow(@sand-panels-optionpanels-shadow);
-
-		.body {
-			padding: 0;
-		}
 	});
 }
 
 .panels.mini {
-	// TODO: Relocate these to their final home.
-	// width: @sand-panels-optionpanels-width;
-	width: 50vw;
-	margin-top: 108px;
+	width: @sand-panels-minipanels-width;
+	margin-top: @sand-panels-minipanels-margin-top;
 
 	.body {
 		position: relative;
 		pointer-events: none;
+		padding: 0;
 	}
 
 	// Skin colors
 	.applySkins({
 		background-color: transparent;
-
-		.body {
-			padding: 0;
-		}
 	});
 }

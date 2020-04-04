@@ -42,6 +42,7 @@
 @sand-gridlistimageitem-caption-font-size: 60px;
 @sand-gridlistimageitem-subcaption-font-size: 48px;
 @sand-header-compact-title-font-size: 90px;
+@sand-header-mini-title-font-size:  84px;
 @sand-header-wizard-title-font-size: @sand-heading-title-font-size;
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
@@ -75,6 +76,7 @@
 @sand-non-latin-button-large-font-size: 72px;
 @sand-non-latin-button-small-font-size: 54px;
 @sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
+@sand-non-latin-header-mini-title-font-size: @sand-header-mini-title-font-size;
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
 @sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
 @sand-non-latin-heading-title-font-size: 114px;
@@ -353,6 +355,8 @@
 @sand-header-compact-padding: 60px 108px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-compact-border-width: 6px;
 @sand-header-compact-line-margin: 54px 0 0 0;
+@sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
+@sand-header-mini-padding: 0;
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding: 108px 150px 139px;
 
@@ -524,8 +528,12 @@
 @sand-panels-controls-spacing: 36px;
 @sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
 @sand-panels-optionpanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-panels-minipanels-width: 50vw;
+@sand-panels-minipanels-margin-top: 108px;
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
 @sand-panel-wizard-padding: 0;
+@sand-panel-mini-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-panel-mini-padding: 60px (60px - @sand-component-spacing);
 @sand-panel-list-padding: 0;
 @sand-panel-option-padding: 0;
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency

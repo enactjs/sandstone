@@ -59,8 +59,8 @@
 		}
 
 		.body {
-			margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
-			padding: 60px (60px - @sand-component-spacing);
+			margin: @sand-panel-mini-margin;
+			padding: @sand-panel-mini-padding;
 			align-self: start;  // Allow this node to horizontally shrink to fit the content.
 			flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
 		}
@@ -85,9 +85,9 @@
 	.applySkins({
 		&.miniType {
 			.body {
-				background-color: fade(#575e66, 90%); // TEMPORARY - Make custom variable name, based it on Popup BG color.
-				border-radius: @sand-popup-border-radius; // TEMPORARY - Make custom variable name, based it on Popup BG color.
-				filter: drop-shadow(@sand-panels-optionpanels-shadow);
+				background-color: @sand-panel-mini-bg-color;
+				border-radius: @sand-panel-mini-border-radius;
+				filter: drop-shadow(@sand-panel-mini-shadow);
 			}
 		}
 	});
