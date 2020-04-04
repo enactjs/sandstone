@@ -37,8 +37,7 @@ const TooltipLabel = kind({
 	},
 
 	styles: {
-		css,
-		className: 'tooltipLabel'
+		css
 	},
 
 	computed: {

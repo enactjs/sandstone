@@ -4,6 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Picker`, `sandstone/ProgressBar.ProgressBarTooltip`, and `standstone/Steps` to use a number font for numeric content
+
+### Added
+
+- `sandstone/Tooltip` public class names `tooltip` and `tooltipLabel`
+
 ### Fixed
 
 - `sandstone/Panels.Header` to always vertically center the input field
