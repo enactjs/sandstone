@@ -6,7 +6,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
+import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const
@@ -31,12 +31,13 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={text}
-				source={source}
-				subCaption={subText}
-			/>
+				label={subText}
+				src={source}
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
@@ -53,7 +54,7 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			subText = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
 
 		items.push({text, subText, source});
 	}
@@ -75,15 +76,15 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', 640)),
-					minHeight: ri.scale(number('minHeight', 540))
+					minWidth: ri.scale(number('minWidth', 768)),
+					minHeight: ri.scale(number('minHeight', 588))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', 48))}
+				spacing={ri.scale(number('spacing', -48))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}

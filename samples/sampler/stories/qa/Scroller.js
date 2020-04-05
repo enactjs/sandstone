@@ -44,8 +44,8 @@ class ScrollerResizableItem extends React.Component {
 	}
 
 	render () {
-		const {max = 3000, min = 800, more, toggleMore} = this.props;
-		const height = ri.unit(more ? max : min, 'rem');
+		const {max = 3000, min = 504, more, toggleMore} = this.props;
+		const height = ri.scaleToRem(more ? max : min);
 		const text = more ? 'less' : 'more';
 		const style = {
 			border: 'solid yellow',
@@ -75,7 +75,7 @@ class ScrollerWithLongItem extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -131,14 +131,14 @@ class ScrollerWithLargeContainer extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spotlightId="scroller"
-				style={{height: 400}}
+				style={{height: ri.scaleToRem(600)}}
 			>
 				<Container>
 					<Item>Hello</Item>
@@ -196,7 +196,7 @@ storiesOf('Scroller', module)
 			>
 				<div
 					style={{
-						width: ri.unit(8400, 'rem'),
+						width: ri.scaleToRem(14400, 'rem'),
 						padding: '1px'
 					}}
 				>
@@ -227,14 +227,14 @@ storiesOf('Scroller', module)
 			>
 				<div
 					style={{
-						width: ri.unit(8800, 'rem'),
-						height: ri.unit(8000, 'rem'),
+						width: ri.scaleToRem(8802),
+						height: ri.scaleToRem(8004),
 						padding: '1px'
 					}}
 				>
 					{[...Array(10)].map((y, j) => <div key={j + 1}>{(
 						[...Array(10)].map((x, i) => (
-							<Button key={i + 1} style={{width: '400px', height: '100px', margin: '50px'}}>
+							<Button key={i + 1} style={{width: ri.scaleToRem(402) , height: ri.scaleToRem(102), margin: ri.scaleToRem(51)}}>
 								Button {j * 10 + i + 1}
 							</Button>
 						))
@@ -252,7 +252,7 @@ storiesOf('Scroller', module)
 	.add(
 		'With Two ui:Scroller',
 		() => (
-			<div style={{display: 'flex', height: ri.unit(798, 'rem')}}>
+			<div style={{display: 'flex', height: ri.scaleToRem(798)}}>
 				<UiScroller
 					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
@@ -287,16 +287,16 @@ storiesOf('Scroller', module)
 	.add(
 		'With Focus outside Container',
 		() => (
-			<div>
+			<div style={{display: 'flex'}}>
 				<Button>focus to me</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.unit(ri.scale(840), 'rem'), width: ri.unit(ri.scale(600), 'rem'), display:'inline-block'}}
+					style={{height: ri.scaleToRem(840), width: ri.scaleToRem(600), display:'inline-block'}}
 				>
 					<Item>Item 1</Item>
 					<Item>Item 2</Item>
@@ -323,7 +323,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(400)}}
+					style={{height: ri.scaleToRem(402)}}
 				>
 					<Item>1</Item>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
@@ -335,16 +335,16 @@ storiesOf('Scroller', module)
 	.add(
 		'Test scrolling to boundary with long overflow',
 		() => {
-			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 400);
+			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 402);
 			return (
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, true)}
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(400)}}
+					style={{height: ri.scaleToRem(402)}}
 				>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
 					<Item>1</Item>
@@ -360,13 +360,13 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>hello</Button>
 				<Scroller
-					focusableScrollbar
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: 400}}
+					style={{height: ri.scaleToRem(804)}}
 				>
 					<Group childComponent={Item}>
 						{itemData}
@@ -385,15 +385,15 @@ storiesOf('Scroller', module)
 		'With One Long Height Item',
 		() => (
 			<Scroller
-				focusableScrollbar
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			>
-				<div style={{height: '1220px'}}>
-					<Item style={{height: '1200px'}}>Long Height Item</Item>
+				<div style={{height: ri.scaleToRem(2442)}}>
+					<Item style={{height: ri.scaleToRem(2400)}}>Long Height Item</Item>
 				</div>
 			</Scroller>
 		)
@@ -405,6 +405,7 @@ storiesOf('Scroller', module)
 			return (
 				<Scroller
 					direction="vertical"
+					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -414,6 +415,7 @@ storiesOf('Scroller', module)
 				>
 					<Scroller
 						direction="horizontal"
+						focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
 						horizontalScrollbar="visible"
 						key={select('scrollMode', prop.scrollModeOption, Config) + '2'}
 						noScrollByWheel={noScrollByWheel}
@@ -429,7 +431,7 @@ storiesOf('Scroller', module)
 						<div
 							style={{
 								backgroundColor: '#444',
-								width: ri.unit(4800, 'rem')
+								width: ri.scaleToRem(4800)
 							}}
 						>
 							<Item>The first nested scroller.</Item>
@@ -461,7 +463,7 @@ storiesOf('Scroller', module)
 						<div
 							style={{
 								backgroundColor: '#444',
-								width: ri.unit(4800, 'rem')
+								width: ri.scaleToRem(4800)
 							}}
 						>
 							<Item>The second nested scroller.</Item>

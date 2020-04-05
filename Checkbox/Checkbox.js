@@ -11,7 +11,10 @@
 
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
+import Spottable from '@enact/spotlight/Spottable';
+import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
 
@@ -28,7 +31,7 @@ import componentCss from './Checkbox.module.less';
  * <Checkbox selected />
  * ```
  *
- * @class Checkbox
+ * @class CheckboxBase
  * @memberof sandstone/Checkbox
  * @extends sandstone/ToggleIcon.ToggleIcon
  * @ui
@@ -37,9 +40,16 @@ import componentCss from './Checkbox.module.less';
 const CheckboxBase = kind({
 	name: 'Checkbox',
 
-	propTypes: /** @lends sandstone/Checkbox.Checkbox.prototype */ {
+	propTypes: /** @lends sandstone/Checkbox.CheckboxBase.prototype */ {
 		/**
 		 * The icon displayed when `selected`.
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
 		 *
 		 * @see {@link sandstone/Icon.IconBase.children}
 		 * @type {String|Object}
@@ -63,6 +73,37 @@ const CheckboxBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Enables the "indeterminate" state.
+		 *
+		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
+		 * to represent that some, not all, children are selected.
+		 *
+		 * NOTE: This does not prevent updating the `selected` state. Applications must control this
+		 * property directly.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		indeterminate: PropTypes.bool,
+
+		/**
+		 * The icon to be used in the `indeterminate` state.
+		 *
+		 * May be specified as either:
+		 *
+		 * * A string that represents an icon from the [iconList]{@link sandstone/Icon.Icon.iconList},
+		 * * An HTML entity string, Unicode reference or hex value (in the form '0x...'),
+		 * * A URL specifying path to an icon image, or
+		 * * An object representing a resolution independent resource (See {@link ui/resolution})
+		 *
+		 * @type {String}
+		 * @default 'minus'
+		 * @public
+		 */
+		indeterminateIcon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
 		 * Sets whether this control is in the 'on' or 'off' state. `true` for 'on', `false` for 'off'.
 		 *
 		 * @type {Boolean}
@@ -74,6 +115,8 @@ const CheckboxBase = kind({
 
 	defaultProps: {
 		children: 'check',
+		indeterminate: false,
+		indeterminateIcon: 'minus',
 		selected: false
 	},
 
@@ -84,10 +127,14 @@ const CheckboxBase = kind({
 	},
 
 	computed: {
-		className: ({selected, styler}) => styler.append({selected})
+		className: ({indeterminate, selected, styler}) => styler.append({selected, indeterminate}),
+		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
 	render: ({children, css, ...rest}) => {
+		delete rest.indeterminate;
+		delete rest.indeterminateIcon;
+		delete rest.selected;
 		return (
 			<Icon
 				size="tiny"
@@ -100,8 +147,39 @@ const CheckboxBase = kind({
 	}
 });
 
-export default CheckboxBase;
+/**
+ * Adds interactive functionality to `Checkbox`.
+ *
+ * @class CheckboxDecorator
+ * @memberof sandstone/Checkbox
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/Spottable.Spottable
+ * @hoc
+ * @public
+ */
+const CheckboxDecorator = compose(
+	Toggleable({toggleProp: 'onClick'}),
+	Spottable
+);
+
+/**
+ * A Sandstone-styled checkbox component.
+ *
+ * `Checkbox` will manage its `selected` state via [Toggleable]{@link ui/Toggleable} unless set
+ * directly.
+ *
+ * @class Checkbox
+ * @memberof sandstone/Checkbox
+ * @extends sandstone/Checkbox.CheckboxBase
+ * @mixes sandstone/Checkbox.CheckboxDecorator
+ * @ui
+ * @public
+ */
+const Checkbox = CheckboxDecorator(CheckboxBase);
+
+export default Checkbox;
 export {
-	CheckboxBase as Checkbox,
-	CheckboxBase
+	Checkbox,
+	CheckboxBase,
+	CheckboxDecorator
 };
