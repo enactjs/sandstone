@@ -18,9 +18,9 @@ const ContextualPopup = ContextualPopupDecorator(Button);
 const buttonMargin = () => ({margin: ri.unit(24, 'rem')});
 
 const renderPopup = () => (
-	<div style={{width: ri.unit(1200, 'rem')}}>
+	<div>
 		<Button style={buttonMargin()}>First Button</Button>
-		<Button style={buttonMargin()}>Hello Spottable Button</Button>
+		<Button style={buttonMargin()}>Second Button</Button>
 	</div>
 );
 
@@ -61,7 +61,6 @@ class ContextualPopupWithActivator extends React.Component {
 				onClose={this.handleOpenToggle}
 				onClick={this.handleOpenToggle}
 				open={this.state.open}
-				showCloseButton
 			/>
 		);
 	}
@@ -144,9 +143,9 @@ storiesOf('ContextualPopupDecorator', module)
 	.add(
 		'with 5-way selectable activator',
 		() => (
-			<div style={{textAlign: 'center', marginTop: ri.unit(360, 'rem')}}>
+			<div style={{textAlign: 'center', marginTop: ri.unit(260, 'rem')}}>
 				<ContextualPopupWithActivator
-					direction={select('direction', ['above', 'below', 'left', 'right'], Config, 'down')}
+					direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config, 'below')}
 					popupComponent={renderPopup}
 					spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config, 'self-only')}
 				>
@@ -187,13 +186,13 @@ storiesOf('ContextualPopupDecorator', module)
 				<div style={{display: 'flex', marginBottom: ri.unit(48, 'rem')}}>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
-							direction="left"
+							direction="left middle"
 							popupComponent={renderWidePopup}
 						>
 							Overflows Left
 						</ContextualPopupWithActivator>
 						<ContextualPopupWithActivator
-							direction="left"
+							direction="left middle"
 							popupComponent={renderSuperTallPopup}
 						>
 							Overflows Top
@@ -201,13 +200,13 @@ storiesOf('ContextualPopupDecorator', module)
 					</div>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
-							direction="right"
+							direction="right middle"
 							popupComponent={renderSuperTallPopup}
 						>
 							Overflows Top
 						</ContextualPopupWithActivator>
 						<ContextualPopupWithActivator
-							direction="right"
+							direction="right middle"
 							popupComponent={renderWidePopup}
 						>
 							Overflows Right
@@ -222,7 +221,7 @@ storiesOf('ContextualPopupDecorator', module)
 						Overflows Bottom
 					</ContextualPopupWithActivator>
 					<ContextualPopupWithActivator
-						direction="right"
+						direction="right middle"
 						popupComponent={renderSuperTallPopup}
 					>
 						Overflows Bottom
