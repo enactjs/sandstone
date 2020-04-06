@@ -163,6 +163,7 @@ const CheckboxBase = kind({
 const SkinnableCheckbox = Skinnable(CheckboxBase);
 const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
+	Skinnable,
 	Spottable
 );
 
@@ -184,7 +185,6 @@ const Checkbox = CheckboxDecorator(SkinnableCheckbox);
 export default Checkbox;
 export {
 	Checkbox,
-	CheckboxBase,
-	SkinnableCheckbox,
+	SkinnableCheckbox as CheckboxBase,
 	CheckboxDecorator
 };
