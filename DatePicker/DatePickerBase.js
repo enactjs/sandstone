@@ -1,4 +1,3 @@
-import {forKey, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -93,16 +92,16 @@ const DatePickerBase = kind({
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * Disables picker.
+		 * The "aria-label" for the day picker.
 		 *
-		 * @type {Boolean}
+		 * @type {String}
 		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		dayAriaLabel: PropTypes.string,
 
 		/**
-		 * Disables voice control.
+		 * Disables picker.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -113,7 +112,6 @@ const DatePickerBase = kind({
 		 * The primary text of the item.
 		 *
 		 * @type {String}
-		 * @required
 		 * @public
 		 */
 		label: PropTypes.string,
@@ -235,12 +233,6 @@ const DatePickerBase = kind({
 		className: 'datePicker'
 	},
 
-	handlers: {
-		handlePickerKeyDown: handle(
-			forKey('enter')
-		)
-	},
-
 	render: ({
 		'data-webos-voice-disabled': voiceDisabled,
 		disabled,
@@ -267,7 +259,7 @@ const DatePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
+			<div className={dateComponentPickers}>
 				<div className={css.dateLabel}>
 					{rest.label}
 				</div>

@@ -90,6 +90,15 @@ const TimePickerBase = kind({
 		hour: PropTypes.number.isRequired,
 
 		/**
+		 * The `meridiem` component of the time.
+		 *
+		 * @type {Number}
+		 * @required
+		 * @public
+		 */
+		meridiem: PropTypes.number.isRequired,
+
+		/**
 		 * The `minute` component of the time.
 		 *
 		 * @type {Number}
@@ -119,7 +128,7 @@ const TimePickerBase = kind({
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * Disables voice control.
+		 * Disables time picker.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -139,19 +148,9 @@ const TimePickerBase = kind({
 		 * The primary text of the item.
 		 *
 		 * @type {String}
-		 * @required
 		 * @public
 		 */
 		label: PropTypes.string,
-
-		/**
-		 * The `meridiem` component of the time.
-		 *
-		 * @type {Number}
-		 * @required
-		 * @public
-		 */
-		meridiem: PropTypes.number,
 
 		/**
 		 * The "aria-label" for the meridiem picker.
@@ -316,7 +315,7 @@ const TimePickerBase = kind({
 							case 'h':
 							case 'k':
 								return (
-									<React.Fragment>
+									<React.Fragment key="hour-picker">
 										<HourPicker
 											accessibilityHint={hourAriaLabel}
 											aria-label={hourAriaLabel}
@@ -325,7 +324,6 @@ const TimePickerBase = kind({
 											data-webos-voice-disabled={voiceDisabled}
 											data-webos-voice-group-label={hourAriaLabel}
 											hasMeridiem={hasMeridiem}
-											key="hour-picker"
 											onChange={onChangeHour}
 											onSpotlightDisappear={onSpotlightDisappear}
 											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
