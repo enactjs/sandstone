@@ -58,8 +58,8 @@ const FullscreenBase = kind({
 	)
 });
 
-const Theme = ThemeDecorator({overlay: false}, PanelsBase);
-const ThemeFullscreen = ThemeDecorator({overlay: false}, FullscreenBase);
+const Theme = ThemeDecorator({overlay: false, i18n: {sync: false}}, PanelsBase);
+const ThemeFullscreen = ThemeDecorator({overlay: false, i18n: {sync: true}}, FullscreenBase);
 
 // NOTE: Locales taken from strawman. Might need to add more in the future.
 const locales = {

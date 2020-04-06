@@ -169,6 +169,7 @@ const ThemeDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	if (float) App = FloatingLayerDecorator({wrappedClassName: bgClassName}, App);
 	if (ri) App = ResolutionDecorator(ri, App);
 	if (i18n) {
+		console.log('ThemeDecorator', i18n.sync);
 		// Apply the @enact/i18n decorator around the font decorator so the latter will update the
 		// font stylesheet when the locale changes
 		App = I18nDecorator(
