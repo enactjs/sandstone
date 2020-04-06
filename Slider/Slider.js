@@ -75,12 +75,12 @@ const SliderBase = kind({
 		active: PropTypes.bool,
 
 		/**
-		 * Display fill and load base on center
+		 * Display separator at the center
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
-		balanced: PropTypes.bool,
+		separator: PropTypes.bool,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -286,7 +286,7 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({balanced, css, focused, tooltip, ...rest}) => {
+	render: ({css, focused, tooltip, separator, ...rest}) => {
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
@@ -299,7 +299,7 @@ const SliderBase = kind({
 				progressBarComponent={
 					<ProgressBar
 						css={css}
-						balanced={balanced}
+						separator={separator}
 					/>
 				}
 				tooltipComponent={

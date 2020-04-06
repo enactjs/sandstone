@@ -49,12 +49,12 @@ const ProgressBarBase = kind({
 		backgroundProgress: PropTypes.number,
 
 		/**
-		 * Display fill and load base on center
+		 * Display separator at the center
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
-		balanced: PropTypes.bool,
+		separator: PropTypes.bool,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -147,7 +147,7 @@ const ProgressBarBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar', 'radial', 'bar', 'fill', 'seperator']
+		publicClassNames: ['progressBar', 'radial', 'bar', 'fill', 'separator']
 	},
 
 	computed: {
