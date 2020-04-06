@@ -670,9 +670,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				visible
 			} = this.props;
 
-			const current = Spotlight.getCurrent();
-
-			if ((!no5WayJump || !current) &&
+			if (!no5WayJump &&
 					!visible &&
 					!mediaDisabled &&
 					(is('left', ev.keyCode) || is('right', ev.keyCode))) {

@@ -740,6 +740,14 @@ const VideoPlayerBase = class extends React.Component {
 		if (!this.state.mediaControlsVisible && prevState.mediaControlsVisible) {
 			forwardControlsAvailable({available: false}, this.props);
 			this.stopAutoCloseTimeout();
+			// eslint-disable-next-line react/no-did-update-set-state
+			this.setState(({no5WayJump}) => {
+				const current = Spotlight.getCurrent();
+				if (!no5WayJump || current) {
+					return null;
+				}
+				return {no5WayJump: false};
+			});
 
 			if (!this.props.spotlightDisabled) {
 				// If last focused item were in the media controls or slider, we need to explicitly
@@ -1717,8 +1725,8 @@ const VideoPlayerBase = class extends React.Component {
 	}
 
 	handleControlsHandleAboveBlur = () => {
-		this.setState(({no5WayJump}) => {
-			if (no5WayJump) {
+		this.setState(({no5WayJump, mediaControlsVisible}) => {
+			if (no5WayJump || !mediaControlsVisible) {
 				return null;
 			}
 			return {no5WayJump: true};

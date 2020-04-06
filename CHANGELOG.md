@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/VideoPlayer` to seek playing time using left, right key
 - `sandstone/Panels.Header` to always vertically center the input field
 - `sandstone/ImageItem` not to have truncated label in RTL
 - `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
@@ -65,7 +66,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
 - `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
-- `sandstone/VideoPlayer` to seek playing time using left, right key
 
 ## [1.0.0-alpha.4] - 2020-03-17
 
