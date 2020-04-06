@@ -109,7 +109,7 @@ const DatePickerBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * The primary text of the item.
+		 * The primary text of the `DatePicker`.
 		 *
 		 * @type {String}
 		 * @public

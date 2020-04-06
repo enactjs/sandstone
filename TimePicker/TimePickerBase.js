@@ -145,7 +145,7 @@ const TimePickerBase = kind({
 		hourAriaLabel: PropTypes.string,
 
 		/**
-		 * The primary text of the item.
+		 * The primary text of `TimePicker`.
 		 *
 		 * @type {String}
 		 * @public
