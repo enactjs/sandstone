@@ -1,5 +1,8 @@
+import {forward, forProp, handle, oneOf, forKey} from '@enact/core/handle/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
+import Spotlight from '@enact/spotlight';
+import {hasPointerMoved} from '@enact/spotlight/src/pointer';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
@@ -13,6 +16,7 @@ import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
+import WindowEventable from '../Input/WindowEventable';
 
 import {PanelsStateContext} from './Viewport';
 
@@ -22,6 +26,19 @@ import componentCss from './Header.module.less';
 // with props and context as arguments, chooses between the values, preferring the props version if
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
 const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context[prop]);
+
+const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
+const forwardMouseLeave = forward('onMouseLeave');
+const handleWindowKeyPress = handle(
+	forProp('backButtonAvailable', true),
+	() => (!Spotlight.getCurrent()),
+	oneOf(
+		[forKey('down'), forwardMouseLeave],
+		[forKey('left'), forwardMouseLeave],
+		[forKey('right'), forwardMouseLeave],
+		[forKey('up'), forwardMouseLeave]
+	)
+);
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -317,6 +334,27 @@ const HeaderBase = kind({
 		publicClassNames: ['header', 'input']
 	},
 
+	handlers: {
+		onBlur: (ev, props) => {
+			if (ev.target.classList.contains(componentCss.back) && !Spotlight.getPointerMode()) {
+				forward('onMouseLeave', ev, props);
+			}
+		},
+		onMouseEnter: handle(
+			isNewPointerPosition,
+			forward('onMouseEnter')
+		),
+		onMouseLeave: handle(
+			isNewPointerPosition,
+			forward('onMouseLeave')
+		),
+		onMouseMove: handle(
+			forward('onMouseMove'),
+			isNewPointerPosition,
+			forward('onMouseEnter')
+		)
+	},
+
 	computed: {
 		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
@@ -456,7 +494,8 @@ const HeaderBase = kind({
 const HeaderDecorator = compose(
 	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
-	Toggleable({prop: 'hover', activate: 'onMouseEnter', deactivate: 'onMouseLeave'})
+	Toggleable({prop: 'hover', activate: 'onMouseEnter', deactivate: 'onMouseLeave', toggle: null}),
+	WindowEventable({globalNode: document, onKeyDown: handleWindowKeyPress})
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
