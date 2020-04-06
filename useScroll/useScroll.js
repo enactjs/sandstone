@@ -417,6 +417,7 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContentWrapperProps', {
 		className: [
+			css.scrollContentWrapper,
 			overscrollCss.horizontal
 		],
 		ref: scrollContentWrapperRef
