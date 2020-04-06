@@ -6,7 +6,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Panels.Header` to always vertically center the input field
+- `sandstone/ImageItem` not to have truncated label in RTL
 - `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
+- `sandstone/Switch` styling when disabled and focused
 - `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
 
 ## [1.0.0-alpha.6] - 2020-03-30

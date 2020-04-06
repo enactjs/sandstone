@@ -172,12 +172,7 @@ const useSpottable = (props, instances) => {
 	/**
 	 * Calculates the new `scrollTop`.
 	 *
-	 * @param {Node} focusedItem node
-	 * @param {Number} itemTop of the focusedItem / focusedContainer
-	 * @param {Number} itemHeight of focusedItem / focusedContainer
-	 * @param {Object} scrollInfo position info. Uses `scrollInfo.previousScrollHeight`
-	 * and `scrollInfo.scrollTop`
-	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
+	 * @param {Node} item Focused item node
 	 *
 	 * @returns {Number} Calculated `scrollTop`
 	 * @private
@@ -297,8 +292,6 @@ const useSpottable = (props, instances) => {
 	 * Calculates the new top and left position for scroller based on focusedItem.
 	 *
 	 * @param {Node} item node
-	 * @param {Object} scrollInfo position info. `calculateScrollTop` uses
-	 * `scrollInfo.previousScrollHeight` and `scrollInfo.scrollTop`
 	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
 	 *
 	 * @returns {Object} with keys {top, left} containing calculated top and left positions for scroll.

@@ -67,7 +67,7 @@ const SwitchBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'switch',
-		publicClassNames: ['switch', 'selected']
+		publicClassNames: ['switch', 'selected', 'client']
 	},
 
 	computed: {
@@ -83,12 +83,15 @@ const SwitchBase = kind({
 
 		return (
 			<div {...rest}>
-				<Icon
-					size="small"
-					className={css.icon}
-				>
-					{children}
-				</Icon>
+				<div className={css.bg} />
+				<div className={css.client}>
+					<Icon
+						size="small"
+						className={css.icon}
+					>
+						{children}
+					</Icon>
+				</div>
 			</div>
 		);
 	}

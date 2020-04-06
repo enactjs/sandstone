@@ -2,8 +2,6 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import $L from '../internal/$L';
-import Button from '../Button';
 import Skinnable from '../Skinnable';
 
 import css from './ContextualPopup.module.less';
@@ -38,7 +36,6 @@ const ContextualPopupArrow = kind({
 
 	render: (props) => (
 		<svg {...props} viewBox="0 0 30 30">
-			<path d="M0 18 L15 0 L30 18" className={css.arrowBorder} />
 			<path d="M15 2 L0 20 L30 20 Z" className={css.arrowFill} />
 		</svg>
 	)
@@ -96,7 +93,8 @@ const ContextualPopupBase = kind({
 			bottom: PropTypes.number,
 			left: PropTypes.number,
 			right: PropTypes.number,
-			top: PropTypes.number
+			top: PropTypes.number,
+			width: PropTypes.number
 		}),
 
 		/**
@@ -119,35 +117,17 @@ const ContextualPopupBase = kind({
 		direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 		/**
-		 * Called when the close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onCloseButtonClick: PropTypes.func,
-
-		/**
 		 * Shows the arrow.
 		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @public
 		 */
-		showArrow: PropTypes.bool,
-
-		/**
-		 * Shows the close button.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		showCloseButton: PropTypes.bool
+		showArrow: PropTypes.bool
 	},
 
 	defaultProps: {
-		direction: 'below center',
-		showCloseButton: false
+		direction: 'below center'
 	},
 
 	styles: {
@@ -160,33 +140,18 @@ const ContextualPopupBase = kind({
 			const [arrowDirection] = direction.split(' ');
 			return arrowDirection;
 		},
-		className: ({showCloseButton, styler}) => styler.append({reserveClose: showCloseButton}),
-		closeButton: ({showCloseButton, onCloseButtonClick}) => {
-			if (showCloseButton) {
-				return (
-					<Button
-						aria-label={$L('Close')}
-						backgroundOpacity="transparent"
-						className={css.closeButton}
-						icon="closex"
-						onTap={onCloseButtonClick}
-						size="small"
-					/>
-				);
-			}
-		}
+		className: ({direction, styler}) => styler.append({
+			fixedSize: direction === 'above' || direction === 'below'
+		})
 	},
 
-	render: ({arrowDirection, arrowPosition, containerPosition, containerRef, children, className, closeButton, showArrow, ...rest}) => {
+	render: ({arrowDirection, arrowPosition, className, containerPosition, containerRef, children, showArrow, ...rest}) => {
 		delete rest.direction;
-		delete rest.onCloseButtonClick;
-		delete rest.showCloseButton;
 
 		return (
 			<ContextualPopupRoot aria-live="off" role="alert" {...rest} className={css.contextualPopup}>
 				<div className={className} style={containerPosition} ref={containerRef}>
 					{children}
-					{closeButton}
 				</div>
 				{showArrow ? <ContextualPopupArrow direction={arrowDirection} style={arrowPosition} /> : null}
 			</ContextualPopupRoot>
