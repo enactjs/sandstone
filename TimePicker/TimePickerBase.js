@@ -268,12 +268,6 @@ const TimePickerBase = kind({
 		className: 'timePicker'
 	},
 
-	handlers: {
-		handlePickerKeyDown: handle(
-			forKey('enter')
-		)
-	},
-
 	computed: {
 		hasMeridiem: ({order}) => order.indexOf('a') >= 0,
 		meridiemPickerWidth: ({meridiem, meridiems}) => meridiems[meridiem].length * 2
@@ -282,7 +276,6 @@ const TimePickerBase = kind({
 	render: ({
 		'data-webos-voice-disabled': voiceDisabled,
 		disabled,
-		handlePickerKeyDown,
 		hasMeridiem,
 		hour,
 		hourAriaLabel,
@@ -305,7 +298,7 @@ const TimePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
+			<div className={dateComponentPickers}>
 				<div className={css.pickerLabel}>
 					{rest.label}
 				</div>
