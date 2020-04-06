@@ -26,7 +26,7 @@ const useSpotlightRestore = (props, instances) => {
 		}
 
 		restoreScrollPosition();
-	}, [context, props, scrollContainerHandle]);
+	}, []);
 };
 
 export {
