@@ -21,8 +21,11 @@ import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
 import Item from '../Item';
+import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
+
+const Checkbox = Skinnable(CheckboxBase);
 
 /**
  * A Sandstone-styled item with a checkbox component.
@@ -131,7 +134,7 @@ const CheckboxItemBase = kind({
 			selected={selected}
 			css={css}
 		>
-			<CheckboxBase
+			<Checkbox
 				selected={selected}
 				indeterminate={indeterminate}
 				indeterminateIcon={indeterminateIcon}
@@ -139,7 +142,7 @@ const CheckboxItemBase = kind({
 				css={css}
 			>
 				{icon}
-			</CheckboxBase>
+			</Checkbox>
 			{children}
 		</Item>
 	)
