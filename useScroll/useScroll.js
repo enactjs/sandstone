@@ -18,7 +18,7 @@ import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import React, {useContext, useRef} from 'react';
+import {useContext, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
@@ -277,7 +277,7 @@ const useScroll = (props) => {
 	const scrollContainerRef = useRef();
 	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
-	const scrollContentWrapperRef = React.useRef();
+	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
 
 	const horizontalScrollbarRef = useRef();
