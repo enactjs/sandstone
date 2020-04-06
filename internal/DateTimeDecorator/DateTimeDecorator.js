@@ -242,11 +242,9 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 
 	return I18nContextDecorator(
 		{rtlProp: 'rtl', localeProp: 'locale'},
-		// Expandable(
 		Changeable(
 			Decorator
 		)
-		// )
 	);
 });
 
