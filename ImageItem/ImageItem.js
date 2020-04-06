@@ -281,10 +281,11 @@ const ImageItemDecorator = compose(
  * Usage:
  * ```
  * <ImageItem
- * 	caption="image0"
- * 	src="http://placehold.it/300x300/9037ab/ffffff&text=Image0"
- * 	subCaption="sub-image0"
- * />
+ *   src="http://placehold.it/100x100/9037ab/ffffff&text=Image0"
+ *   label="A secondary caption"
+ * >
+ * 	The primary caption for the image
+ * </ImageItem>
  * ```
  *
  * @class ImageItem
