@@ -101,7 +101,7 @@ const DatePickerBase = kind({
 		dayAriaLabel: PropTypes.string,
 
 		/**
-		 * Disables picker.
+		 * Disables `DatePicker`.
 		 *
 		 * @type {Boolean}
 		 * @public

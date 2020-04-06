@@ -128,7 +128,7 @@ const TimePickerBase = kind({
 		'data-webos-voice-disabled': PropTypes.bool,
 
 		/**
-		 * Disables time picker.
+		 * Disables `TimePicker`.
 		 *
 		 * @type {Boolean}
 		 * @public
