@@ -30,7 +30,7 @@ let ScrollbarTrack = forwardRef((props, ref) => {
 	const
 		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
-		ScrollThumb = focusableScrollbar ? Spottable('div') : 'div';
+		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
 		cbAlertScrollbarTrack();
@@ -97,10 +97,10 @@ let ScrollbarTrack = forwardRef((props, ref) => {
 
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
-			<ScrollThumb className={css.thumb} onKeyDown={onKeyDown}>
+			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
-			</ScrollThumb>
+			</ScrollbarThumb>
 		</div>
 	);
 });
