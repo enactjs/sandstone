@@ -78,6 +78,11 @@
 			@h-gap-large: (@sand-slider-knob-width-large / 2);
 			padding: ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2) @h-gap-large;
 		});
+
+		.separator {
+			width: @sand-progressbar-separator-width;
+			height: @sand-progressbar-separator-height;
+		}
 	}
 
 	&.vertical {
@@ -102,6 +107,11 @@
 			@v-gap-large: (@sand-slider-knob-width / 2);
 			padding: @v-gap-large ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2);
 		});
+
+		.separator {
+			width: @sand-progressbar-separator-height;
+			height: @sand-progressbar-separator-width;
+		}
 	}
 
 	.spottable({

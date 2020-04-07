@@ -23,9 +23,21 @@
 		overflow: hidden;
 	}
 
+	&.horizontal {
+		.separator {
+			width: @sand-progressbar-separator-width;
+			height: @sand-progressbar-separator-height;
+		}
+	}
+
 	&.vertical {
 		min-height: @sand-progressbar-vertical-min-height;
 		width: @sand-progressbar-bar-thickness;
+
+		.separator {
+			width: @sand-progressbar-separator-height;
+			height: @sand-progressbar-separator-width;
+		}
 	}
 
 	&.radial {

@@ -40,6 +40,7 @@ storiesOf('Sandstone', module)
 					orientation={select('orientation', ['horizontal', 'vertical'], SliderConfig, 'horizontal')}
 					separator={separator}
 					step={number('step', SliderConfig, 1)}
+					progressAnchor={number('progressAnchor', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
 				>
 					{tooltip ? (
 						<SliderTooltip

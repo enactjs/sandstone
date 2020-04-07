@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Slider` and `sandstone/ProgressBar` add `separator` for support balance slider
+- `sandstone/Slider` and `sandstone/ProgressBar` prop `separator` to show rectangle separator
 
 ### Fixed
 

@@ -32,6 +32,7 @@ storiesOf('Sandstone', module)
 					orientation={select('orientation', ['horizontal', 'vertical', 'radial'], ProgressBarConfig, 'horizontal')}
 					progress={number('progress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.4)}
 					separator={separator}
+					progressAnchor={number('progressAnchor', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
 				>
 					{tooltip ? (
 						<ProgressBarTooltip
