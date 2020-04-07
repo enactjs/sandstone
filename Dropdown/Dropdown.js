@@ -16,21 +16,20 @@
  * @exports DropdownBaseDecorator
  */
 
-import {handle, forKey, forward, forProp} from '@enact/core/handle';
+import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import Changeable from '@enact/ui/Changeable';
-import Pure from '@enact/ui/internal/Pure';
-import Toggleable from '@enact/ui/Toggleable';
+import useHandlers from '@enact/core/useHandlers';
+import {useI18nContext} from '@enact/i18n/I18nDecorator';
+import useControlledState from '@enact/ui/useControlledState';
+import {useToggle} from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import React from 'react';
 import warning from 'warning';
 
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
-import {compareChildren} from '../internal/util';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
@@ -284,52 +283,93 @@ const DropdownBase = kind({
  * @omit onChange
  * @public
  */
-const DropdownDecorator = compose(
-	Pure({propComparators: {
-		children: compareChildren
-	}}),
-	I18nContextDecorator(
-		{rtlProp: 'rtl'}
-	),
-	Changeable({
-		change: 'onSelect',
-		prop: 'selected'
-	}),
-	Toggleable({
-		activate: 'onOpen',
-		deactivate: 'onClose',
-		prop: 'open',
-		toggle: null
-	})
-);
+const DropdownDecorator = hoc((config, Wrapped) => {
 
-/**
- * Displays the items.
- *
- * @name open
- * @memberof sandstone/Dropdown.DropdownDecorator.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
+	const handlers = {
+		onClose: handle(
+			forward('onClose'),
+			(ev, props, {toggleOpen}) => toggleOpen.deactivate()
+		),
+		onOpen: handle(
+			forward('onOpen'),
+			(ev, props, {toggleOpen}) => toggleOpen.activate()
+		),
+		onSelect: handle(
+			not(forProp('disabled', true)),
+			forward('onSelect'),
+			({value}, props, {onSelect}) => onSelect(value)
+		)
+	};
 
-/**
- * Index of the selected item.
- *
- * @name selected
- * @memberof sandstone/Dropdown.DropdownDecorator.prototype
- * @type {Number}
- * @public
- */
+	// eslint-disable-next-line no-shadow
+	function DropdownDecorator (props) {
+		const toggleOpen = useToggle({
+			defaultSelected: props.defaultOpen,
+			disabled: props.disabled,
+			selected: props.open
+		});
 
-/**
- * The initial selected index when `selected` is not defined.
- *
- * @name defaultSelected
- * @memberof sandstone/Dropdown.DropdownDecorator.prototype
- * @type {Number}
- * @public
- */
+		// lacks the 'disabled' check that useChange would likely provide so it's implemented in the
+		// hanlder instead.
+		const [selected, onSelect] = useControlledState(
+			props.defaultSelected,
+			props.selected,
+			typeof props.selected !== 'undefined'
+		);
+
+		const i18n = useI18nContext();
+
+		const boundHandlers = useHandlers(handlers, props, {toggleOpen, onSelect});
+
+		return (
+			<Wrapped
+				{...props}
+				{...boundHandlers}
+				open={toggleOpen.selected}
+				rtl={i18n ? i18n.rtl : false}
+				selected={selected}/*  */
+			/>
+		);
+	}
+
+	DropdownDecorator.propTypes = /** @lends sandstone/Dropdown.DropdownDecorator.prototype */ {
+		defaultOpen: PropTypes.any,
+
+		/**
+		 * The initial selected index when `selected` is not defined.
+		 *
+		 * @name defaultSelected
+		 * @type {Number}
+		 * @public
+		 */
+		defaultSelected: PropTypes.any,
+		disabled: PropTypes.any,
+		onClose: PropTypes.any,
+		onOpen: PropTypes.any,
+		onSelect: PropTypes.any,
+
+		/**
+		 * Displays the items.
+		 *
+		 * @name open
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		open: PropTypes.any,
+
+		/**
+		 * Index of the selected item.
+		 *
+		 * @name selected
+		 * @type {Number}
+		 * @public
+		 */
+		selected: PropTypes.any
+	};
+
+	return DropdownDecorator;
+});
 
 /**
  * A Sandstone Dropdown component.
@@ -342,6 +382,7 @@ const DropdownDecorator = compose(
  * @class Dropdown
  * @memberof sandstone/Dropdown
  * @extends sandstone/Dropdown.DropdownBase
+ * @mixes sandstone/Dropdown.DropdownDecorator
  * @ui
  * @public
  */
