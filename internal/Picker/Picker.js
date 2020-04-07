@@ -649,7 +649,7 @@ const PickerBase = class extends React.Component {
 
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
 
 			if (isVertical || isHorizontal) {
 				this.pickerButtonPressed = 0;
