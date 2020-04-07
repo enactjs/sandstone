@@ -327,7 +327,7 @@ const DropdownDecorator = hoc((config, Wrapped) => {
 				{...boundHandlers}
 				open={toggleOpen.selected}
 				rtl={i18n ? i18n.rtl : false}
-				selected={selected}/*  */
+				selected={selected}
 			/>
 		);
 	}
