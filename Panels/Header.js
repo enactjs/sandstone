@@ -1,8 +1,9 @@
-import {forward, forProp, handle, oneOf, forKey} from '@enact/core/handle/handle';
+import {forward, forProp, handle, not} from '@enact/core/handle/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
-import Spotlight from '@enact/spotlight';
-import {hasPointerMoved} from '@enact/spotlight/src/pointer';
+import {getDirection, Spotlight} from '@enact/spotlight';
+import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
+import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
@@ -27,17 +28,17 @@ import componentCss from './Header.module.less';
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
 const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context[prop]);
 
+const isBackButton = (node) => node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
-const forwardMouseLeave = forward('onMouseLeave');
+
 const handleWindowKeyPress = handle(
 	forProp('backButtonAvailable', true),
-	() => (!Spotlight.getCurrent()),
-	oneOf(
-		[forKey('down'), forwardMouseLeave],
-		[forKey('left'), forwardMouseLeave],
-		[forKey('right'), forwardMouseLeave],
-		[forKey('up'), forwardMouseLeave]
-	)
+	not(Spotlight.getCurrent),
+	({keyCode}) => {
+		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
+		return !(target && isBackButton(target));
+	},
+	forward('onMouseLeave')
 );
 
 /**
@@ -336,16 +337,16 @@ const HeaderBase = kind({
 
 	handlers: {
 		onBlur: (ev, props) => {
-			if (ev.target.classList.contains(componentCss.back) && !Spotlight.getPointerMode()) {
+			if (isBackButton(ev.target) && !Spotlight.getPointerMode()) {
 				forward('onMouseLeave', ev, props);
 			}
 		},
 		onMouseEnter: handle(
-			isNewPointerPosition,
+			Spotlight.getPointerMode,
 			forward('onMouseEnter')
 		),
 		onMouseLeave: handle(
-			isNewPointerPosition,
+			Spotlight.getPointerMode,
 			forward('onMouseLeave')
 		),
 		onMouseMove: handle(
