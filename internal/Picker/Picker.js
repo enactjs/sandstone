@@ -30,6 +30,7 @@ const holdConfig = {
 	]
 };
 
+const isEnter = is('enter');
 const isDown = is('down');
 const isLeft = is('left');
 const isRight = is('right');
@@ -454,8 +455,8 @@ const PickerBase = class extends React.Component {
 	}
 
 	computeNextValue = (delta) => {
-		const {min, max, value, wrap} = this.props;
-		return wrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
+		const {joined, min, max, orientation, value, wrap} = this.props;
+		return wrap || joined && orientation === 'horizontal' ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
 	}
 
 	adjustDirection = (dir) => this.props.reverse ? -dir : dir
@@ -616,16 +617,16 @@ const PickerBase = class extends React.Component {
 
 			const directions = {
 				up: this.setIncPickerButtonPressed,
-				down: this.setDecPickerButtonPressed,
-				right: this.setIncPickerButtonPressed,
-				left: this.setDecPickerButtonPressed
+				down: this.setDecPickerButtonPressed
 			};
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
 
-			if (isVertical || isHorizontal) {
+			if (isVertical) {
 				directions[direction]();
+			} else if (isHorizontal) {
+				this.setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
 				onSpotlightDown(ev);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
