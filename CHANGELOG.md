@@ -2,13 +2,21 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-alpha.7] - 2020-04-06
+
+### Added
+
+- `sandstone/Tooltip` public class names `tooltip` and `tooltipLabel`
+
+### Changed
+
+- `sandstone/Picker`, `sandstone/ProgressBar.ProgressBarTooltip`, and `standstone/Steps` to use a number font for numeric content
 
 ### Fixed
 
 - `sandstone/Panels.Header` to always vertically center the input field
-- `sandstone/ImageItem` not to have truncated label in RTL
-- `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
+- `sandstone/ImageItem` to not have a truncated label in RTL locales
+- `sandstone/VirtualList.VirtualGridList` to position items correctly at the bottom when scrolling via down key
 - `sandstone/Switch` styling when disabled and focused
 
 ## [1.0.0-alpha.6] - 2020-03-30
