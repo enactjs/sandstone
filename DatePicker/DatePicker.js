@@ -109,17 +109,11 @@ const dateTimeConfig = {
  * to the component, supply a value to `value` at creation time and update it in response to
  * `onChange` events.
  *
- * `DatePicker` is an expandable component and it maintains its open/closed state by default. The
- * initial state can be supplied using `defaultOpen`. In order to directly control the open/closed
- * state, supply a value for `open` at creation time and update its value in response to
- * `onClose`/`onOpen` events.
- *
  * Usage:
  * ```
  * <DatePicker
  *  defaultValue={selectedDate}
  *  onChange={handleChange}
- *  title="Select Date"
  * />
  * ```
  *
@@ -148,29 +142,10 @@ const DatePicker = Pure(
 );
 
 /**
- * The initial value used when `open` is not set.
- *
- * @name defaultOpen
- * @type {Boolean}
- * @memberof sandstone/DatePicker.DatePicker.prototype
- * @public
- */
-
-/**
  * The initial value used when `value` is not set.
  *
  * @name defaultValue
  * @type {Date}
- * @memberof sandstone/DatePicker.DatePicker.prototype
- * @public
- */
-
-/**
- * Opens the component to display the date component pickers.
- *
- * @name open
- * @type {Boolean}
- * @default false
  * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */

@@ -238,7 +238,6 @@ const DatePickerBase = kind({
 		disabled,
 		day,
 		dayAriaLabel,
-		handlePickerKeyDown,
 		maxDays,
 		maxMonths,
 		maxYear,
