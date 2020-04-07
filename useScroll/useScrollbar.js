@@ -34,12 +34,12 @@ const useScrollbar = (props, instances) => {
 	function alertThumb () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
 
-		scrollContainerHandle.current.showThumb(bounds);
-		scrollContainerHandle.current.startHidingThumb();
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
+		scrollContainerHandle.current.startHidingScrollbarTrack();
 	}
 
 	function alertThumbAfterRendered () {
-		if (scrollContainerHandle.current.isUpdatedScrollThumb) {
+		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
 			alertThumb();
 		}
 	}

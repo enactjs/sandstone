@@ -287,7 +287,7 @@ const useScroll = (props) => {
 	const horizontalScrollbarRef = useRef();
 	const verticalScrollbarRef = useRef();
 
-	// Adapters
+	// Handles
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
@@ -302,7 +302,7 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollThumb: null,
+		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
@@ -315,9 +315,9 @@ const useScroll = (props) => {
 		scrollToInfo: null,
 		scrollTop: null,
 		setOverscrollStatus: null,
-		showThumb: null,
+		showScrollbarTrack: null,
 		start: null,
-		startHidingThumb: null,
+		startHidingScrollbarTrack: null,
 		stop: null,
 		wheelDirection: null
 	});

@@ -1,7 +1,7 @@
 // import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
+import {useScrollbar} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
-import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
+import React, {forwardRef, memo, useImperativeHandle} from 'react';
 
 import ScrollThumb from './ScrollThumb';
 // import Skinnable from '../Skinnable';
@@ -9,56 +9,56 @@ import ScrollThumb from './ScrollThumb';
 import componentCss from './Scrollbar.module.less';
 
 /**
- * A Sandstone-styled scroller base component.
+ * A Sandstone-styled scrollbar base component.
  *
  * @class ScrollbarBase
  * @memberof sandstone/useScroll
- * @extends ui/ScrollbarBase
  * @ui
  * @private
  */
 const ScrollbarBase = memo(forwardRef((props, ref) => {
-	// Refs
-	const scrollbarRef = useRef();
-	// render
-	const {className, clientSize, vertical, ...rest} = props;
+	const {
+		className,
+		getContainerRef,
+		scrollbarProps,
+		scrollbarTrackRef,
+		showScrollbarTrack,
+		startHidingScrollbarTrack,
+		uiScrollbarContainerRef,
+		update,
+		vertical
+	} = useScrollbar(props);
 
-	delete rest.corner;
+	const {
+		cbAlertThumb,
+		focusableScrollbar,
+		onInteractionForScroll,
+		rtl,
+		...rest
+	} = scrollbarProps;
 
-	useImperativeHandle(ref, () => {
-		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
-
-		return {
-			get uiScrollbarContainer () {
-				return getContainerRef();
-			},
-			showThumb,
-			startHidingThumb,
-			uiUpdate,
-			update: (bounds) => {
-				uiUpdate(bounds);
-			}
-		};
-	}, [scrollbarRef]);
+	useImperativeHandle(ref, () => ({
+		getContainerRef,
+		showScrollbarTrack,
+		startHidingScrollbarTrack,
+		update
+	}));
 
 	return (
-		<UiScrollbarBase
-			clientSize={clientSize}
+		<div
+			{...rest}
 			className={className}
-			css={componentCss}
-			minThumbSize={120}
-			ref={scrollbarRef}
-			vertical={vertical}
-			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
-				return (
-					<ScrollThumb
-						{...rest}
-						ref={thumbRef}
-						vertical={vertical}
-					/>
-				);
-			}}
-		/>
+			ref={uiScrollbarContainerRef}
+		>
+			<ScrollThumb
+				cbAlertThumb={cbAlertThumb}
+				focusableScrollbar={focusableScrollbar}
+				onInteractionForScroll={onInteractionForScroll}
+				ref={scrollbarTrackRef}
+				rtl={rtl}
+				vertical={vertical}
+			/>
+		</div>
 	);
 }));
 
@@ -66,17 +66,17 @@ ScrollbarBase.displayName = 'ScrollbarBase';
 
 ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
 	/**
-	 * Client size of the container; valid values are an object that has `clientWidth` and `clientHeight`.
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbar` - The scrollbar component class
 	 *
 	 * @type {Object}
-	 * @property {Number}    clientHeight    The client height of the list.
-	 * @property {Number}    clientWidth    The client width of the list.
 	 * @public
 	 */
-	clientSize: PropTypes.shape({
-		clientHeight: PropTypes.number.isRequired,
-		clientWidth: PropTypes.number.isRequired
-	}),
+	css: PropTypes.object,
 
 	/**
 	 * Registers the Scrollbar component with an
@@ -86,6 +86,15 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 	 * @private
 	 */
 	// setApiProvider: PropTypes.func,
+
+	/**
+	 * The minimum size of the thumb.
+	 * This value will be applied ri.scale.
+	 *
+	 * @type {number}
+	 * @public
+	 */
+	minThumbSize: PropTypes.number,
 
 	/**
 	 * The scrollbar will be oriented vertically.
@@ -98,6 +107,8 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 };
 
 ScrollbarBase.defaultProps = {
+	css: componentCss,
+	minThumbSize: 120,
 	vertical: true
 };
 
@@ -125,5 +136,5 @@ Scrollbar.displayName = 'Scrollbar';
 export default Scrollbar;
 export {
 	Scrollbar,
-	Scrollbar as ScrollbarBase
+	ScrollbarBase
 };

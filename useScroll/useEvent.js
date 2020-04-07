@@ -604,7 +604,7 @@ const useEventWheel = (props, instances) => {
 			window.document.activeElement.blur();
 		}
 
-		scrollContainerHandle.current.showThumb(bounds);
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
 
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
@@ -668,7 +668,7 @@ const useEventWheel = (props, instances) => {
 		}
 
 		if (needToHideThumb) {
-			scrollContainerHandle.current.startHidingThumb();
+			scrollContainerHandle.current.startHidingScrollbarTrack();
 		}
 	}
 
