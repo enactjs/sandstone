@@ -15,7 +15,7 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
-import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
+import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import React, {useContext, useRef} from 'react';
@@ -28,14 +28,15 @@ import {
 	useEventTouch, useEventVoice, useEventWheel
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
-import useScrollbar from './useScrollbar';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
 
 const
+	defaultScrollDistance = 168,	// TODO : Change to the value decided by UX.
 	fadeOutSize = ri.scale(48),
+	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
@@ -77,11 +78,6 @@ const useThemeScroll = (props, instances) => {
 
 	// Hooks
 
-	const {
-		alertScrollbarTrack,
-		scrollbarProps
-	} = useScrollbar(props, instances);
-
 	useSpotlightRestore(props, instances);
 
 	const {
@@ -107,6 +103,11 @@ const useThemeScroll = (props, instances) => {
 		removeVoiceEventListener,
 		stopVoice
 	} = useEventVoice(props, instances);
+
+	const scrollbarProps = {
+		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		onInteractionForScroll
+	};
 
 	// Functions
 
@@ -138,6 +139,37 @@ const useThemeScroll = (props, instances) => {
 
 	function scrollStopOnScroll () {
 		stop();
+	}
+
+	function onInteractionForScroll ({inputType, isForward, isPagination, isVerticalScrollBar}) {
+		const
+			{wheelDirection} = scrollContainerHandle.current,
+			bounds = scrollContainerHandle.current.getScrollBounds(),
+			direction = isForward ? 1 : -1,
+			pageSize = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
+			distance = isPagination ? (pageSize * paginationPageMultiplier) : defaultScrollDistance;
+
+		scrollContainerHandle.current.lastInputType = inputType;
+
+		if (direction !== wheelDirection) {
+			scrollContainerHandle.current.isScrollAnimationTargetAccumulated = false;
+			scrollContainerHandle.current.wheelDirection = direction;
+		}
+
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+	}
+
+	function alertScrollbarTrack () {
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
+		scrollContainerHandle.current.startHidingScrollbarTrack();
+	}
+
+	function alertScrollbarTrackAfterRendered () {
+		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
+			alertScrollbarTrack();
+		}
 	}
 
 	function focusOnItem () {
@@ -208,6 +240,7 @@ const useThemeScroll = (props, instances) => {
 			focusedItem.blur();
 		}
 	}
+
 
 	// FIXME setting event handlers directly to work on the V8 snapshot.
 	function addEventListeners (ref) { // `ref` is always `scrollContentRef`.
