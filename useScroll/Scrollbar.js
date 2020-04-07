@@ -3,7 +3,7 @@ import {useScrollbar} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
 import React, {forwardRef, memo, useImperativeHandle} from 'react';
 
-import ScrollThumb from './ScrollThumb';
+import ScrollbarTrack from './ScrollbarTrack';
 // import Skinnable from '../Skinnable';
 
 import componentCss from './Scrollbar.module.less';
@@ -30,7 +30,7 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 	} = useScrollbar(props);
 
 	const {
-		cbAlertThumb,
+		cbAlertScrollbarTrack,
 		focusableScrollbar,
 		onInteractionForScroll,
 		rtl,
@@ -50,8 +50,8 @@ const ScrollbarBase = memo(forwardRef((props, ref) => {
 			className={className}
 			ref={uiScrollbarContainerRef}
 		>
-			<ScrollThumb
-				cbAlertThumb={cbAlertThumb}
+			<ScrollbarTrack
+				cbAlertScrollbarTrack={cbAlertScrollbarTrack}
 				focusableScrollbar={focusableScrollbar}
 				onInteractionForScroll={onInteractionForScroll}
 				ref={scrollbarTrackRef}
@@ -123,8 +123,8 @@ ScrollbarBase.defaultProps = {
 /* TODO: Is it possible to use ApiDecorator?
 const Scrollbar = ApiDecorator(
 	{api: [
-		'showThumb',
-		'startHidingThumb',
+		'showScrollbarTrack',
+		'startHidingScrollbarTrack',
 		'update'
 	]}, Skinnable(ScrollbarBase)
 );

@@ -8,7 +8,7 @@ const useScrollbar = (props, instances) => {
 	const {scrollContainerHandle} = instances;
 
 	const scrollbarProps = {
-		cbAlertThumb: alertThumbAfterRendered,
+		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
 		onInteractionForScroll
 	};
 
@@ -31,23 +31,23 @@ const useScrollbar = (props, instances) => {
 		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
 	}
 
-	function alertThumb () {
+	function alertScrollbarTrack () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
 
 		scrollContainerHandle.current.showScrollbarTrack(bounds);
 		scrollContainerHandle.current.startHidingScrollbarTrack();
 	}
 
-	function alertThumbAfterRendered () {
+	function alertScrollbarTrackAfterRendered () {
 		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
-			alertThumb();
+			alertScrollbarTrack();
 		}
 	}
 
 	// Return
 
 	return {
-		alertThumb,
+		alertScrollbarTrack,
 		scrollbarProps
 	};
 };

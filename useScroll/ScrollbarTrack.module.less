@@ -1,0 +1,112 @@
+// ScrollbarTrack.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.scrollbarTrack {
+	--scrollbar-size-ratio: 1;
+	--scrollbar-progress-ratio: 0;
+	--scrollbar-size: ~"calc(100% * var(--scrollbar-size-ratio))";
+	--scrollbar-progress: ~"calc(((1 - var(--scrollbar-size-ratio)) * var(--scrollbar-progress-ratio)) * 100%)";
+
+	position: relative;
+	height: 100%;
+	width: 100%;
+	background-color: @sand-scrollbar-track-bg-color;
+	border-radius: @sand-scrollbar-track-border-radius;
+	opacity: 0;
+	transition: opacity 100ms linear;
+	-webkit-transition: opacity 100ms linear;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&.focusableScrollbar {
+		// Always show the scrollbar
+		opacity: 1;
+	}
+
+	.thumb {
+		background: @sand-scrollbar-thumb-bg-color;
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		border-radius: @sand-scrollbar-thumb-border-radius;
+
+		.focus({
+			position: absolute;
+			background-color: @sand-scrollbar-thumb-focus-bg-color;
+			filter: drop-shadow(@sand-scrollbar-thumb-focus-box-shadow @sand-scrollbar-thumb-focus-box-shadow-color);
+			border-radius: @sand-scrollbar-thumb-focus-border-radius;
+
+			.directionIndicator {
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-top: @sand-scrollbar-thumb-focus-direction-indicator-height solid transparent;
+				border-bottom: @sand-scrollbar-thumb-focus-direction-indicator-height solid @sand-scrollbar-thumb-focus-direction-indicator-color;
+				border-right: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+				border-left: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
+			}
+		})
+	}
+
+	&.vertical {
+		margin: 0 var(--scrollbar-track-margin);
+		width: @sand-scrollbar-track-width;
+
+		.thumb {
+			height: var(--scrollbar-size);
+			top: var(--scrollbar-progress);
+			will-change: top;
+
+			&:focus {
+				width: @sand-scrollbar-thumb-focus-width;
+				left: @sand-scrollbar-thumb-focus-left;
+
+				.directionIndicator.backward {
+					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
+					left: @sand-scrollbar-thumb-focus-direction-indicator-left;
+				}
+
+				.directionIndicator.forward {
+					transform: rotate(180deg);
+					bottom: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
+					left: @sand-scrollbar-thumb-focus-direction-indicator-left;
+				}
+			}
+		}
+	}
+
+	&:not(.vertical) {
+		margin: var(--scrollbar-track-margin) 0;
+		height: @sand-scrollbar-track-width;
+
+		.thumb {
+			width: var(--scrollbar-size);
+			left: var(--scrollbar-progress);
+			will-change: left;
+			top: 50%;
+			transform: translateY(-50%);
+
+			.focus({
+				height: @sand-scrollbar-thumb-focus-width;
+
+				.directionIndicator.backward {
+					transform: rotate(-90deg);
+					left: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
+					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left/2);
+				}
+
+				.directionIndicator.forward {
+					transform: rotate(90deg);
+					right: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
+					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left/2);
+				}
+			})
+		}
+	}
+}
