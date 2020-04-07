@@ -1,6 +1,13 @@
 // OverscrollEffect.module.less
 //
 
+.scroll {
+	--scroll-overscroll-translate-horizontal: none;
+	--scroll-overscroll-ease-horizontal: unset;
+	--scroll-overscroll-translate-vertical: none;
+	--scroll-overscroll-ease-vertical: unset;
+}
+
 .horizontal {
 	transform: var(--scroll-overscroll-translate-horizontal);
 	transition-timing-function: var(--scroll-overscroll-ease-horizontal);
