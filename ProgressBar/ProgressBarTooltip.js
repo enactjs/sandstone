@@ -324,7 +324,7 @@ const ProgressBarTooltipBase = kind({
 		delete rest.rtl;
 
 		return (
-			<Tooltip {...rest}>
+			<Tooltip {...rest} css={css}>
 				{children}
 			</Tooltip>
 		);

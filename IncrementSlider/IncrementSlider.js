@@ -17,6 +17,7 @@
  * @exports IncrementSliderBase
  * @exports IncrementSliderDecorator
  * @exports IncrementSliderTooltip
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
 import {forward} from '@enact/core/handle';
