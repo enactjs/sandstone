@@ -333,7 +333,7 @@ const DropdownDecorator = hoc((config, Wrapped) => {
 	}
 
 	DropdownDecorator.propTypes = /** @lends sandstone/Dropdown.DropdownDecorator.prototype */ {
-		defaultOpen: PropTypes.any,
+		defaultOpen: PropTypes.bool,
 
 		/**
 		 * The initial selected index when `selected` is not defined.
@@ -342,11 +342,11 @@ const DropdownDecorator = hoc((config, Wrapped) => {
 		 * @type {Number}
 		 * @public
 		 */
-		defaultSelected: PropTypes.any,
-		disabled: PropTypes.any,
-		onClose: PropTypes.any,
-		onOpen: PropTypes.any,
-		onSelect: PropTypes.any,
+		defaultSelected: PropTypes.number,
+		disabled: PropTypes.bool,
+		onClose: PropTypes.func,
+		onOpen: PropTypes.func,
+		onSelect: PropTypes.func,
 
 		/**
 		 * Displays the items.
@@ -356,7 +356,7 @@ const DropdownDecorator = hoc((config, Wrapped) => {
 		 * @default false
 		 * @public
 		 */
-		open: PropTypes.any,
+		open: PropTypes.bool,
 
 		/**
 		 * Index of the selected item.
@@ -365,7 +365,7 @@ const DropdownDecorator = hoc((config, Wrapped) => {
 		 * @type {Number}
 		 * @public
 		 */
-		selected: PropTypes.any
+		selected: PropTypes.number
 	};
 
 	return DropdownDecorator;
