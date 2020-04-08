@@ -163,7 +163,7 @@ const ProgressBarBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip,
 		style: ({progressAnchor, style}) => {
 			return {
-				'--progress--anchor': progressAnchor
+				'--progress-anchor': progressAnchor
 			}
 		}
 	},
