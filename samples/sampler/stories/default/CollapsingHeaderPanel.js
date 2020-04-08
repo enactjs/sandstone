@@ -6,12 +6,14 @@ import {storiesOf} from '@storybook/react';
 
 import ImageItem from '@enact/sandstone/ImageItem';
 import {scale} from '@enact/ui/resolution';
-import TabGridListLayout, {TabGridListItem} from '@enact/sandstone/TabGridListLayout';
+import {CollapsingHeaderPanel} from '@enact/sandstone/Panels';
+import TabLayout, {TabLayoutItem} from '@enact/sandstone/TabLayout';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
 
-TabGridListLayout.displayName = 'TabGridListLayout';
-const Config = mergeComponentMetadata('TabGridListLayout', TabGridListLayout);
+CollapsingHeaderPanel.displayName = 'CollapsingHeaderPanel';
+const Config = mergeComponentMetadata('CollapsingHeaderPanel', CollapsingHeaderPanel);
 
 // Set up some defaults for info and knobs
 const items = [],
@@ -82,46 +84,54 @@ updateDataSize(defaultDataSize);
 
 storiesOf('Sandstone', module)
 	.add(
-		'TabGridListLayout',
+		'Panels.CollapsingHeaderPanel',
 		() => {
 			const childrenSelection = select('children', prop.buttonsSelection, Config);
 			const children = prop.buttons[childrenSelection];
 
 			return (
-				<TabGridListLayout
-					onSelect={action('onSelect')}
-					// leaving this knob out for now until we build out horizontal tabs
-					// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
-				>
+				<CollapsingHeaderPanel>
 					<Header
 						title={text('title', Config, 'The Matrix')}
 						subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					>
 						{children}
 					</Header>
-					<TabGridListItem
-						dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-						direction={select('direction', prop.direction, Config)}
-						icon="circle"
-						title="List one"
-						itemRenderer={renderItem}
-						itemSize={{
-							minWidth: scale(number('minWidth', Config, 640)),
-							minHeight: scale(number('minHeight', Config, 540))
-						}}
-					/>
-					<TabGridListItem
-						dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-						direction={select('direction', prop.direction, Config)}
-						icon="star"
-						title="List two"
-						itemRenderer={renderItem}
-						itemSize={{
-							minWidth: scale(number('minWidth', Config, 640)),
-							minHeight: scale(number('minHeight', Config, 540))
-						}}
-					/>
-				</TabGridListLayout>
+					<TabLayout
+						onSelect={action('onSelect')}
+						// leaving this knob out for now until we build out horizontal tabs
+						// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
+					>
+						<TabLayoutItem
+							icon="circle"
+							title="List one"
+						>
+							<VirtualGridList
+								dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+								direction={select('direction', prop.direction, Config)}
+								itemRenderer={renderItem}
+								itemSize={{
+									minWidth: scale(number('minWidth', Config, 640)),
+									minHeight: scale(number('minHeight', Config, 540))
+								}}
+							/>
+						</TabLayoutItem>
+						<TabLayoutItem
+							icon="star"
+							title="List two"
+						>
+							<VirtualGridList
+								dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+								direction={select('direction', prop.direction, Config)}
+								itemRenderer={renderItem}
+								itemSize={{
+									minWidth: scale(number('minWidth', Config, 640)),
+									minHeight: scale(number('minHeight', Config, 540))
+								}}
+							/>
+						</TabLayoutItem>
+					</TabLayout>
+				</CollapsingHeaderPanel>
 			);
 		},
 		{
