@@ -6,13 +6,12 @@
  * @exports TabGridListItem
  */
 
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {CollapsingHeaderPanel as Panel, Header} from '../Panels';
+import {CollapsingHeaderPanel as Panel} from '../Panels';
 import TabLayout from '../TabLayout';
 import {VirtualGridList} from '../VirtualList';
 
@@ -29,8 +28,18 @@ import componentCss from './TabGridListLayout.module.less';
 const TabGridListLayoutBase = kind({
 	name: 'TabGridListLayout',
 
-	// propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayout.prototype */ {
-	// },
+	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayout.prototype */ {
+		/**
+		 * Header for the panel.
+		 *
+		 * This is usually passed by the [Slottable]{@link ui/Slottable.Slottable} API by using a
+		 * [Header]{@link sandstone/Panels.Header} component as a child of the Panel.
+		 *
+		 * @type {Header}
+		 * @public
+		 */
+		header: PropTypes.node
+	},
 
 	styles: {
 		css: componentCss,
