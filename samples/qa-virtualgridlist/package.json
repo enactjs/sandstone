@@ -17,7 +17,7 @@
   },
   "license": "Apache-2.0",
   "private": true,
-  "repository": "https://github.com/enyojs/enact-internal-samples",
+  "repository": "",
   "enact": {
     "title": "QA VirtualGridList",
     "isomorphic": true,
