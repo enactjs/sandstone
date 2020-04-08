@@ -234,14 +234,31 @@ describe('Picker Specs', () => {
 	);
 
 	test(
-		'should allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
+		'should allow keyboard increment via enter key when \'joined\' and \'horizontal\'',
 		() => {
 			const handleChange = jest.fn();
 			const picker = mount(
 				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
 			);
 
-			const expected = -1;
+			const expected = 1;
+			picker.simulate('keyDown', {keyCode: 13});
+			picker.simulate('mousedown');
+			const actual = handleChange.mock.calls[0][0].value;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should not allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
+		() => {
+			const handleChange = jest.fn();
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+			);
+
+			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 37});
 			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls[0][0].value;
@@ -251,14 +268,14 @@ describe('Picker Specs', () => {
 	);
 
 	test(
-		'should allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'',
+		'should not allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'',
 		() => {
 			const handleChange = jest.fn();
 			const picker = mount(
 				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
 			);
 
-			const expected = 1;
+			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 39});
 			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls[0][0].value;
