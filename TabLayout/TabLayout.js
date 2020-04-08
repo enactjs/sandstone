@@ -24,15 +24,16 @@ import componentCss from './TabLayout.module.less';
  * Tabbed Layout component.
  *
  * Example:
- * ```js
- *	<TabLayout>
+ *
+ * ```jsx
+ * 	<TabLayout>
  * 		<TabLayoutItem title="Tab One">
  * 			<Item>Hello</Item>
- *		</TabLayoutItem>
- *		<TabLayoutItem title="Tab Two">
- *			<Item>Goodbye</Item>
- *		</TabLayoutItem>
- *	</TabLayout>
+ * 		</TabLayoutItem>
+ * 		<TabLayoutItem title="Tab Two">
+ * 			<Item>Goodbye</Item>
+ * 		</TabLayoutItem>
+ * 	</TabLayout>
  * ```
  *
  * @class TabLayout
