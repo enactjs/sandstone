@@ -465,8 +465,17 @@ const PickerBase = class extends React.Component {
 	}
 
 	computeNextValue = (delta) => {
-		const {min, max, value, wrap} = this.props;
-		return wrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
+		const {
+			joined,
+			min,
+			max,
+			orientation,
+			value,
+			wrap
+		} = this.props;
+		const shouldWrap = (orientation === 'horizontal' && joined) || wrap;
+
+		return shouldWrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
 	}
 
 	adjustDirection = (dir) => this.props.reverse ? -dir : dir
