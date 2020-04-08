@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to show bounce effect on overscrolling
+
 ## [1.0.0-alpha.7] - 2020-04-06
 
 ### Added
