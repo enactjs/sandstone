@@ -1,12 +1,43 @@
 // import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import {useScrollbar} from '@enact/ui/useScroll/Scrollbar';
+import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
+import pick from 'ramda/src/pick';
 import React, {forwardRef, memo, useImperativeHandle} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 // import Skinnable from '../Skinnable';
 
 import componentCss from './Scrollbar.module.less';
+
+const useThemeScrollbar = (props) => {
+	const {
+		imperativeHandles,
+		restProps,
+		scrollbarProps,
+		scrollbarTrackProps
+	} = useScrollbarBase(props);
+
+	const {
+		cbAlertScrollbarTrack,
+		focusableScrollbar,
+		onInteractionForScroll,
+		rtl,
+		...rest
+	} = restProps;
+
+	return {
+		imperativeHandles,
+		restProps: rest,
+		scrollbarProps,
+		scrollbarTrackProps: {
+			...scrollbarTrackProps,
+			cbAlertScrollbarTrack,
+			focusableScrollbar,
+			onInteractionForScroll,
+			rtl
+		}
+	};
+};
 
 /**
  * A Sandstone-styled scrollbar base component.
@@ -18,46 +49,25 @@ import componentCss from './Scrollbar.module.less';
  */
 const ScrollbarBase = memo(forwardRef((props, ref) => {
 	const {
-		className,
-		getContainerRef,
+		imperativeHandles,
+		restProps,
 		scrollbarProps,
-		scrollbarTrackRef,
-		showScrollbarTrack,
-		startHidingScrollbarTrack,
-		uiScrollbarContainerRef,
-		update,
-		vertical
-	} = useScrollbar(props);
+		scrollbarTrackProps
+	} = useThemeScrollbar(props);
 
-	const {
-		cbAlertScrollbarTrack,
-		focusableScrollbar,
-		onInteractionForScroll,
-		rtl,
-		...rest
-	} = scrollbarProps;
-
-	useImperativeHandle(ref, () => ({
-		getContainerRef,
-		showScrollbarTrack,
-		startHidingScrollbarTrack,
-		update
-	}));
+	useImperativeHandle(ref, () => {
+		const handles = pick([
+			'getContainerRef',
+			'showScrollbarTrack',
+			'startHidingScrollbarTrack',
+			'update'
+		], imperativeHandles);
+		return handles;
+	});
 
 	return (
-		<div
-			{...rest}
-			className={className}
-			ref={uiScrollbarContainerRef}
-		>
-			<ScrollbarTrack
-				cbAlertScrollbarTrack={cbAlertScrollbarTrack}
-				focusableScrollbar={focusableScrollbar}
-				onInteractionForScroll={onInteractionForScroll}
-				ref={scrollbarTrackRef}
-				rtl={rtl}
-				vertical={vertical}
-			/>
+		<div {...restProps} {...scrollbarProps}>
+			<ScrollbarTrack {...scrollbarTrackProps} />
 		</div>
 	);
 }));

@@ -241,7 +241,6 @@ const useThemeScroll = (props, instances) => {
 		}
 	}
 
-
 	// FIXME setting event handlers directly to work on the V8 snapshot.
 	function addEventListeners (ref) { // `ref` is always `scrollContentRef`.
 		utilEvent('focusin').addEventListener(ref, handleFocus);
