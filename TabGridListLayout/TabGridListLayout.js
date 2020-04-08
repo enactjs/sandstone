@@ -6,13 +6,12 @@
  * @exports TabGridListItem
  */
 
-import ComponentOverride from '@enact/ui/ComponentOverride';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
+import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {CollapsingHeaderPanel as Panel, Header} from '../Panels';
+import {CollapsingHeaderPanel as Panel} from '../Panels';
 import TabLayout from '../TabLayout';
 import {VirtualGridList} from '../VirtualList';
 
@@ -30,44 +29,16 @@ const TabGridListLayoutBase = kind({
 	name: 'TabGridListLayout',
 
 	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListLayout.prototype */ {
-
 		/**
-		 * The header component.
+		 * Header for the panel.
 		 *
-		 * @type {Component|Element}
-		 * @default sandstone/Panels.Header
+		 * This is usually passed by the [Slottable]{@link ui/Slottable.Slottable} API by using a
+		 * [Header]{@link sandstone/Panels.Header} component as a child of the Panel.
+		 *
+		 * @type {Header}
+		 * @public
 		 */
-		headerComponent: EnactPropTypes.componentOverride,
-
-		/**
-		 * Text displayed below the title in the header.
-		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
-		 * this component.
-		 *
-		 * @type {String|String[]}
-		 */
-		subtitle: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.arrayOf(PropTypes.string)
-		]),
-
-		/**
-		 * Title of the header.
-		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
-		 * this component.
-		 *
-		 * @type {String|String[]}
-		 */
-		title: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.arrayOf(PropTypes.string)
-		])
-	},
-
-	defaultProps: {
-		headerComponent: Header
+		header: PropTypes.node
 	},
 
 	styles: {
@@ -92,15 +63,9 @@ const TabGridListLayoutBase = kind({
 		}
 	},
 
-	render: ({headerComponent, subtitle, title, ...rest}) => {
+	render: ({header, ...rest}) => {
 		return (
-			<Panel>
-				<ComponentOverride
-					component={headerComponent}
-					slot="header"
-					subtitle={subtitle}
-					title={title}
-				/>
+			<Panel header={header}>
 				<TabLayout {...rest} />
 			</Panel>
 		);
@@ -254,10 +219,16 @@ const TabGridListItemBase = kind({
 	render: () => <div>TabGridListItem is only to be used in TabGridListLayout!</div>
 });
 
-export default TabGridListLayoutBase;
+const TabGridListLayout = Slottable(
+	{slots: ['header']},
+	TabGridListLayoutBase
+);
+
+
+export default TabGridListLayout;
 export {
 	TabGridListItemBase,
 	TabGridListItemBase as TabGridListItem,
-	TabGridListLayoutBase,
-	TabGridListLayoutBase as TabGridListLayout
+	TabGridListLayout,
+	TabGridListLayoutBase
 };

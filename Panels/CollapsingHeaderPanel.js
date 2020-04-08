@@ -24,7 +24,7 @@ const CollapsingHeaderPanelDecorator = (Wrapped) => {
 
 				const enhancedStyle = {
 					...style,
-					'--panel-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || 'auto'
+					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || 'auto'
 				};
 
 				const enhancedClassName = classnames(
@@ -50,4 +50,7 @@ const CollapsingHeaderPanelDecorator = (Wrapped) => {
 const CollapsingHeaderPanel = CollapsingHeaderPanelDecorator(Panel);
 
 export default CollapsingHeaderPanel;
-export {CollapsingHeaderPanel, CollapsingHeaderPanelDecorator};
+export {
+	CollapsingHeaderPanel,
+	CollapsingHeaderPanelDecorator
+};
