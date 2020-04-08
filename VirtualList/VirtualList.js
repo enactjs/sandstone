@@ -58,7 +58,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
@@ -74,11 +73,9 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				<ScrollToTopButton />
@@ -488,7 +485,6 @@ let VirtualGridList = ({role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
@@ -504,11 +500,9 @@ let VirtualGridList = ({role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				<ScrollToTopButton />

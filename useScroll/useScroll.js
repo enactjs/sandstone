@@ -18,7 +18,7 @@ import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import React, {useContext, useEffect, useRef} from 'react';
+import {useContext, useEffect, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
@@ -300,12 +300,8 @@ const useScroll = (props) => {
 	const scrollContainerRef = useRef();
 	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
+	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
-
-	const overscrollRefs = {
-		horizontal: React.useRef(),
-		vertical: React.useRef()
-	};
 
 	const horizontalScrollbarRef = useRef();
 	const verticalScrollbarRef = useRef();
@@ -354,8 +350,8 @@ const useScroll = (props) => {
 	const instance = {
 		// Ref
 		scrollContainerRef,
-		overscrollRefs,
 		scrollContentRef,
+		scrollContentWrapperRef,
 
 		// Adapter
 		themeScrollContentHandle,
@@ -433,8 +429,8 @@ const useScroll = (props) => {
 		className: [
 			(focusableScrollbar !== 'byEnter') ? className : null,
 			css.scroll,
-			props.rtl ? css.rtl : null,
 			overscrollCss.scroll,
+			props.rtl ? css.rtl : null,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
@@ -446,18 +442,12 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
-	assignProperties('scrollInnerContainerProps', {
-		className: [
-			overscrollCss.overscrollFrame,
-			overscrollCss.vertical,
-			isHorizontalScrollbarVisible ? overscrollCss.horizontalScrollbarVisible : null
-		],
-		ref: overscrollRefs.vertical
-	});
-
 	assignProperties('scrollContentWrapperProps', {
-		className: [overscrollCss.overscrollFrame, overscrollCss.horizontal],
-		ref: overscrollRefs.horizontal
+		className: [
+			css.scrollContentWrapper,
+			overscrollCss.horizontal
+		],
+		ref: scrollContentWrapperRef
 	});
 
 	assignProperties('scrollContentProps', {
@@ -465,6 +455,7 @@ const useScroll = (props) => {
 		className: [
 			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
 			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
+			overscrollCss.vertical,
 			css.scrollContent
 		],
 		noFadeOut,

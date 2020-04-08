@@ -57,7 +57,6 @@ let Scroller = (props) => {
 
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		ScrollToTopButton,
@@ -74,11 +73,9 @@ let Scroller = (props) => {
 	const scrollContainer = (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				<ScrollToTopButton />
