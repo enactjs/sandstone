@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
-
-- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor base on `progressAnchor` value
-
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
