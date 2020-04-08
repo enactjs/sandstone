@@ -298,15 +298,6 @@ const PickerBase = class extends React.Component {
 		onSpotlightDown: PropTypes.func,
 
 		/**
-		 * The handler to run prior to focus leaving the picker when the 5-way select/enter key is pressed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onSpotlightEnter: PropTypes.func,
-
-		/**
 		 * The handler to run prior to focus leaving the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
@@ -473,7 +464,8 @@ const PickerBase = class extends React.Component {
 			value,
 			wrap
 		} = this.props;
-		const shouldWrap = (orientation === 'horizontal' && joined) || wrap;
+		const horizontalJoined = orientation === 'horizontal' && joined;
+		const shouldWrap = horizontalJoined || wrap;
 
 		return shouldWrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
 	}
@@ -623,7 +615,6 @@ const PickerBase = class extends React.Component {
 		const {
 			joined,
 			onSpotlightDown,
-			onSpotlightEnter,
 			onSpotlightLeft,
 			onSpotlightRight,
 			onSpotlightUp,
@@ -638,25 +629,18 @@ const PickerBase = class extends React.Component {
 
 			const directions = {
 				up: this.setIncPickerButtonPressed,
-				down: this.setDecPickerButtonPressed,
-				right: this.setIncPickerButtonPressed,
-				left: this.setDecPickerButtonPressed
+				down: this.setDecPickerButtonPressed
 			};
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && isEnter(keyCode);
 
-			if (isVertical || isHorizontal) {
+			if (isVertical) {
 				directions[direction]();
+			} else if (isHorizontal) {
+				this.setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
 				onSpotlightDown(ev);
-			} else if (orientation === 'horizontal' && isEnter(keyCode)) {
-				// Increment on enter
-				this.handleIncrement();
-
-				if (onSpotlightEnter) {
-					onSpotlightEnter(ev);
-				}
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
 				onSpotlightUp(ev);
 			} else if (orientation === 'vertical' && isLeft(keyCode) && onSpotlightLeft) {
@@ -677,7 +661,7 @@ const PickerBase = class extends React.Component {
 
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
 
 			if (isVertical || isHorizontal) {
 				this.pickerButtonPressed = 0;
@@ -876,7 +860,6 @@ const PickerBase = class extends React.Component {
 		delete rest.noAnimation;
 		delete rest.onChange;
 		delete rest.onSpotlightDown;
-		delete rest.onSpotlightEnter;
 		delete rest.onSpotlightLeft;
 		delete rest.onSpotlightRight;
 		delete rest.onSpotlightUp;
@@ -943,6 +926,7 @@ const PickerBase = class extends React.Component {
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
 				onMouseLeave={this.clearPressedState}
+				pickerOrientation={joined ? orientation : null}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
