@@ -174,7 +174,7 @@ const ProgressBarBase = kind({
 			return {
 				...style,
 				'--progress-anchor': progressAnchor
-			}
+			};
 		}
 	},
 

@@ -300,7 +300,7 @@ const SliderBase = kind({
 			return {
 				...style,
 				'--progress-anchor': progressAnchor
-			}
+			};
 		}
 	},
 
