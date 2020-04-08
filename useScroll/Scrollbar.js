@@ -1,17 +1,14 @@
-// import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
-import pick from 'ramda/src/pick';
-import React, {forwardRef, memo, useImperativeHandle} from 'react';
+import React, {memo} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
-// import Skinnable from '../Skinnable';
+import Skinnable from '../Skinnable';
 
 import componentCss from './Scrollbar.module.less';
 
 const useThemeScrollbar = (props) => {
 	const {
-		imperativeHandles,
 		restProps,
 		scrollbarProps,
 		scrollbarTrackProps
@@ -26,7 +23,6 @@ const useThemeScrollbar = (props) => {
 	} = restProps;
 
 	return {
-		imperativeHandles,
 		restProps: rest,
 		scrollbarProps,
 		scrollbarTrackProps: {
@@ -47,30 +43,19 @@ const useThemeScrollbar = (props) => {
  * @ui
  * @private
  */
-const ScrollbarBase = memo(forwardRef((props, ref) => {
+const ScrollbarBase = memo((props) => {
 	const {
-		imperativeHandles,
 		restProps,
 		scrollbarProps,
 		scrollbarTrackProps
 	} = useThemeScrollbar(props);
-
-	useImperativeHandle(ref, () => {
-		const handles = pick([
-			'getContainerRef',
-			'showScrollbarTrack',
-			'startHidingScrollbarTrack',
-			'update'
-		], imperativeHandles);
-		return handles;
-	});
 
 	return (
 		<div {...restProps} {...scrollbarProps}>
 			<ScrollbarTrack {...scrollbarTrackProps} />
 		</div>
 	);
-}));
+});
 
 ScrollbarBase.displayName = 'ScrollbarBase';
 
@@ -130,16 +115,7 @@ ScrollbarBase.defaultProps = {
  * @ui
  * @private
  */
-/* TODO: Is it possible to use ApiDecorator?
-const Scrollbar = ApiDecorator(
-	{api: [
-		'showScrollbarTrack',
-		'startHidingScrollbarTrack',
-		'update'
-	]}, Skinnable(ScrollbarBase)
-);
-*/
-const Scrollbar = ScrollbarBase;
+const Scrollbar = Skinnable(ScrollbarBase);
 
 Scrollbar.displayName = 'Scrollbar';
 

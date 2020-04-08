@@ -312,8 +312,8 @@ const useScroll = (props) => {
 	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
 
-	const horizontalScrollbarRef = useRef();
-	const verticalScrollbarRef = useRef();
+	const horizontalScrollbarHandle = useRef();
+	const verticalScrollbarHandle = useRef();
 
 	// Handles
 
@@ -415,7 +415,7 @@ const useScroll = (props) => {
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleResizeWindow,
-		horizontalScrollbarRef,
+		horizontalScrollbarHandle,
 		onFlick: handleFlick,
 		onKeyDown: handleKeyDown,
 		onMouseDown: handleMouseDown,
@@ -428,7 +428,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
-		verticalScrollbarRef
+		verticalScrollbarHandle
 	});
 
 	assignProperties('scrollContainerProps', {
@@ -478,14 +478,14 @@ const useScroll = (props) => {
 		...scrollbarProps,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
-		ref: verticalScrollbarRef
+		scrollbarHandle: verticalScrollbarHandle
 	});
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
-		ref: horizontalScrollbarRef
+		scrollbarHandle: horizontalScrollbarHandle
 	});
 
 	return {
