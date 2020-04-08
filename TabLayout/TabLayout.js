@@ -155,7 +155,7 @@ const TabLayoutBase = kind({
 				return children;
 			} else {
 				return React.Children.map(children, (child) => {
-					return <>{child.props.children}</>;
+					return <React.Fragment>{child.props.children}</React.Fragment>;
 				});
 			}
 		},

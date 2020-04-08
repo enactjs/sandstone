@@ -12,8 +12,14 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
 
+import iconNames from './icons';
+
 CollapsingHeaderPanel.displayName = 'CollapsingHeaderPanel';
 const Config = mergeComponentMetadata('CollapsingHeaderPanel', CollapsingHeaderPanel);
+TabLayoutItem.displayName = 'TabLayoutItem';
+const ItemConfig = mergeComponentMetadata('TabLayoutItem', TabLayoutItem);
+VirtualGridList.displayName = 'VirtualGridList';
+const VGLConfig = mergeComponentMetadata('VirtualGridList', VirtualGridList);
 
 // Set up some defaults for info and knobs
 const items = [],
@@ -72,16 +78,6 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-//
-//
-//
-//
-// Header doesn't collapse properly when the buttons are showing. It only moves a little bit, likely because the margins are getting in the way.
-//
-//
-//
-//
-
 storiesOf('Sandstone', module)
 	.add(
 		'Panels.CollapsingHeaderPanel',
@@ -103,30 +99,30 @@ storiesOf('Sandstone', module)
 						// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
 					>
 						<TabLayoutItem
-							icon="circle"
-							title="List one"
+							icon={select('First View icon', iconNames, ItemConfig, 'circle')}
+							title={text('First View title', ItemConfig, 'List one')}
 						>
 							<VirtualGridList
-								dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-								direction={select('direction', prop.direction, Config)}
+								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
+								direction={select('direction', prop.direction, VGLConfig)}
 								itemRenderer={renderItem}
 								itemSize={{
-									minWidth: scale(number('minWidth', Config, 640)),
-									minHeight: scale(number('minHeight', Config, 540))
+									minWidth: scale(number('minWidth', VGLConfig, 640)),
+									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
 						</TabLayoutItem>
 						<TabLayoutItem
-							icon="star"
-							title="List two"
+							icon={select('Second View icon', iconNames, ItemConfig, 'star')}
+							title={text('Second View title', ItemConfig, 'List two')}
 						>
 							<VirtualGridList
-								dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-								direction={select('direction', prop.direction, Config)}
+								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
+								direction={select('direction', prop.direction, VGLConfig)}
 								itemRenderer={renderItem}
 								itemSize={{
-									minWidth: scale(number('minWidth', Config, 640)),
-									minHeight: scale(number('minHeight', Config, 540))
+									minWidth: scale(number('minWidth', VGLConfig, 640)),
+									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
 						</TabLayoutItem>
