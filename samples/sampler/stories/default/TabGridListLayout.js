@@ -87,21 +87,18 @@ storiesOf('Sandstone', module)
 			const childrenSelection = select('children', prop.buttonsSelection, Config);
 			const children = prop.buttons[childrenSelection];
 
-			const HeaderWithChildren = (props) => (
-				<Header {...props}>
-					{children}
-				</Header>
-			);
-
 			return (
 				<TabGridListLayout
 					onSelect={action('onSelect')}
 					// leaving this knob out for now until we build out horizontal tabs
 					// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
-					title={text('title', Config, 'The Matrix')}
-					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
-					headerComponent={HeaderWithChildren}
 				>
+					<Header
+						title={text('title', Config, 'The Matrix')}
+						subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
+					>
+						{children}
+					</Header>
 					<TabGridListItem
 						dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 						direction={select('direction', prop.direction, Config)}
