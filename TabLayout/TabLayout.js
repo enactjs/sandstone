@@ -23,6 +23,18 @@ import componentCss from './TabLayout.module.less';
 /**
  * Tabbed Layout component.
  *
+ * Example:
+ * ```js
+ *	<TabLayout>
+ * 		<TabLayoutItem title="Tab One">
+ * 			<Item>Hello</Item>
+ *		</TabLayoutItem>
+ *		<TabLayoutItem title="Tab Two">
+ *			<Item>Goodbye</Item>
+ *		</TabLayoutItem>
+ *	</TabLayout>
+ * ```
+ *
  * @class TabLayout
  * @memberof sandstone/TabLayout
  * @ui
@@ -33,12 +45,12 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
-		 * List of [TabLayoutItems]{@link sandstone/TabLayout.TabLayoutItem} to render.
+		 * Collection of [TabLayoutItems]{@link sandstone/TabLayout.TabLayoutItem} to render.
 		 *
-		 * @type {Node[]}
+		 * @type {Node}
 		 * @public
 		 */
-		children: PropTypes.arrayOf(PropTypes.node),
+		children: PropTypes.node,
 
 		/**
 		 * Collapses the vertical tab list into icons only.
@@ -115,7 +127,7 @@ const TabLayoutBase = kind({
 		 *
 		 * @type {Object[]}
 		 * @deprecated To be removed in 1.0.0-beta.1. Use
-		 *	[TabItem.title]{@link sandstone/TabLayout.TabItem.title} instead.
+		 *	[TabLayoutItem.title]{@link sandstone/TabLayout.TabLayoutItem.title} instead.
 		 * @public
 		 */
 		tabs: PropTypes.array
