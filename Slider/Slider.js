@@ -306,9 +306,7 @@ const SliderBase = kind({
 				{...rest}
 				css={css}
 				progressBarComponent={
-					<ProgressBar
-						css={css}
-					/>
+					<ProgressBar css={css} />
 				}
 				tooltipComponent={
 					<ComponentOverride
