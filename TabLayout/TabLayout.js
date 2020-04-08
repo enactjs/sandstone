@@ -16,6 +16,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import TabGroup from './TabGroup';
+import TabLayoutItem from './TabLayoutItem';
 
 import componentCss from './TabLayout.module.less';
 
@@ -32,22 +33,7 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
-		 * List of tabs to display.
-		 *
-		 * Each object in the array of tabs should include a `title` property and, optionally, an
-		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for any tabs, no icons will be displayed when collapsed.
-		 *
-		 * @type {Object[]}
-		 * @required
-		 * @public
-		 */
-		tabs: PropTypes.array.isRequired,
-
-		/**
-		 * List of content to be rendered for each tab.
-		 *
-		 * The number of children should match the number of tabs.
+		 * List of [TabItems]{@link sandstone/TabLayout.TabItem} to render.
 		 *
 		 * @type {Node[]}
 		 * @public
@@ -118,7 +104,21 @@ const TabLayoutBase = kind({
 		 * @default 'vertical'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * List of tabs to display.
+		 *
+		 * Each object in the array of tabs should include a `title` property and, optionally, an
+		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
+		 * supplied for any tabs, no icons will be displayed when collapsed.
+		 *
+		 * @type {Object[]}
+		 * @deprecated To be removed in 1.0.0-beta.1. Use
+		 *	[TabItem.title]{@link sandstone/TabLayout.TabItem.title} instead.
+		 * @public
+		 */
+		tabs: PropTypes.array
 	},
 
 	defaultProps: {
@@ -138,14 +138,27 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
+		children: ({children, tabs}) => {
+			if (tabs) {
+				return children;
+			} else {
+				return React.Children.map(children, (child) => {
+					return <>{child.props.children}</>;
+				});
+			}
+		},
 		className: ({collapsed, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
 		),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
-		tabs: ({orientation, tabs}) => {
-			return orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs;
+		tabs: ({children, orientation, tabs}) => {
+			let outTabs = tabs || React.Children.map(children, (child) => {
+				const {icon, title} = child.props;
+				return {icon, title};
+			});
+			return orientation === 'horizontal' && outTabs.length > 5 ? outTabs.slice(0, 5) : outTabs;
 		}
 	},
 
@@ -190,5 +203,6 @@ const TabLayout = TabLayoutDecorator(TabLayoutBase);
 export default TabLayout;
 export {
 	TabLayout,
-	TabLayoutBase
+	TabLayoutBase,
+	TabLayoutItem
 };

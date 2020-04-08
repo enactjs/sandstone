@@ -10,22 +10,22 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
-import {TabLayout} from '@enact/sandstone/TabLayout';
+import {TabLayout, TabLayoutItem} from '@enact/sandstone/TabLayout';
 
 TabLayout.displayName = 'TabLayout';
 
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
 const tabsWithIcons = [
-	{children: 'Home', icon: 'home'},
-	{children: 'Button', icon: 'image'},
-	{children: 'Item', icon: 'resumeplay'}
+	{title: 'Home', icon: 'home'},
+	{title: 'Button', icon: 'image'},
+	{title: 'Item', icon: 'resumeplay'}
 ];
 
 const tabsWithoutIcons = [
-	{children: 'Home'},
-	{children: 'Button'},
-	{children: 'Item'}
+	{title: 'Home'},
+	{title: 'Button'},
+	{title: 'Item'}
 ];
 
 const tabSelections = {
@@ -36,68 +36,74 @@ const tabSelections = {
 storiesOf('Sandstone', module)
 	.add(
 		'TabLayout',
-		() => (
-			<Panel>
-				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
-				<TabLayout
-					onSelect={action('onSelect')}
-					// leaving this knob out for now until we build out horizontal tabs
-					// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
-					tabs={select('tabs', tabSelections, TabLayout, tabSelections['with icons'])}
-				>
-					<React.Fragment>
-						<Icon>home</Icon>Home
-						<Scroller style={{height: scale(1000)}}>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-							<Image
-								caption="Image"
-								src="http://placehold.it/360x240/"
-								style={{marginTop: '24px'}}
-							/>
-						</Scroller>
-					</React.Fragment>
-					<React.Fragment>
-						<Button icon="image">Button!</Button>
-						<Button icon="image">Button!</Button>
-						<Button icon="image">Button!</Button>
-						<Button icon="image">Button!</Button>
-					</React.Fragment>
-					<React.Fragment>
-						<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
-					</React.Fragment>
-					<React.Fragment>
-						<div>
-							<Icon>resumeplay</Icon>
-							A simple view with no associated tab
-						</div>
-					</React.Fragment>
-				</TabLayout>
-			</Panel>
-		),
+		() => {
+			const tabs = select('tabs', tabSelections, TabLayout, tabSelections['with icons']);
+
+			return (
+				<Panel>
+					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
+					<TabLayout
+						onSelect={action('onSelect')}
+						// leaving this knob out for now until we build out horizontal tabs
+						// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+					>
+						<TabLayoutItem
+							title={tabs[0].title}
+							icon={tabs[0].icon}
+						>
+							<Icon>home</Icon>Home
+							<Scroller style={{height: scale(1000)}}>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+								<Image
+									caption="Image"
+									src="http://placehold.it/360x240/"
+									style={{marginTop: '24px'}}
+								/>
+							</Scroller>
+						</TabLayoutItem>
+						<TabLayoutItem
+							title={tabs[1].title}
+							icon={tabs[1].icon}
+						>
+							<Button icon="image">Button!</Button>
+							<Button icon="image">Button!</Button>
+							<Button icon="image">Button!</Button>
+							<Button icon="image">Button!</Button>
+						</TabLayoutItem>
+						<TabLayoutItem
+							title={tabs[2].title}
+							icon={tabs[2].icon}
+						>
+							<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
+						</TabLayoutItem>
+					</TabLayout>
+				</Panel>
+			);
+		},
 		{
 			props: {
 				noPanel: true
