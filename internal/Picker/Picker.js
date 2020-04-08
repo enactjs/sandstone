@@ -896,7 +896,7 @@ const PickerBase = class extends React.Component {
 		if (joined) {
 			Component = SpottableDiv;
 			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
-			spottablePickerProps.orientation = orientation;
+			spottablePickerProps.pickerOrientation = orientation;
 			spottablePickerProps.spotlightDisabled = spotlightDisabled;
 		} else {
 			Component = Div;
@@ -926,7 +926,6 @@ const PickerBase = class extends React.Component {
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
 				onMouseLeave={this.clearPressedState}
-				pickerOrientation={joined ? orientation : null}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
