@@ -12,9 +12,8 @@
     "clean": "enact clean",
     "lint": "enact lint --strict .",
     "license": "enact license",
-    "test": "enact test start --single-run --browsers PhantomJS",
-    "test-json": "enact test start --single-run --browsers PhantomJS --reporters json",
-    "test-watch": "enact test start --browsers PhantomJS"
+    "test": "enact test",
+    "test-watch": "enact test --watch"
   },
   "license": "Apache-2.0",
   "private": true,

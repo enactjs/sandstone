@@ -12,8 +12,8 @@
 		"clean": "enact clean",
 		"lint": "enact lint .",
 		"license": "enact license",
-		"test": "enact test start --single-run",
-		"test-watch": "enact test start"
+		"test": "enact test",
+		"test-watch": "enact test --watch"
 	},
 	"license": "UNLICENSED",
 	"private": true,
