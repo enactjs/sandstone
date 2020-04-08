@@ -10,6 +10,7 @@
  * @exports IconButton
  * @exports IconButtonBase
  * @exports IconButtonDecorator
+ * @deprecated Will be removed in 1.0.0-beta.1. Use {@link sandstone/Button} instead.
  */
 
 import kind from '@enact/core/kind';
