@@ -117,7 +117,7 @@ const TabGridListLayoutBase = kind({
  * @ui
  * @public
  */
-const TabGridListItem = kind({
+const TabGridListItemBase = kind({
 	name: 'TabGridListItem',
 
 	propTypes: /** @lends sandstone/TabGridListLayout.TabGridListItem.prototype */ {
@@ -255,4 +255,9 @@ const TabGridListItem = kind({
 });
 
 export default TabGridListLayoutBase;
-export {TabGridListItem, TabGridListLayoutBase as TabGridListLayout};
+export {
+	TabGridListItemBase,
+	TabGridListItemBase as TabGridListItem,
+	TabGridListLayoutBase,
+	TabGridListLayoutBase as TabGridListLayout
+};

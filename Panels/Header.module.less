@@ -59,11 +59,11 @@
 	}
 
 	.slotAbove {
-		margin-bottom: @sand-header-slotabove-margin;
+		margin: @sand-header-slotabove-margin;
 	}
 
 	.slotBelow {
-		margin-top: @sand-header-slotbelow-margin;
+		margin: @sand-header-slotbelow-margin;
 	}
 
 	.line {
@@ -108,6 +108,7 @@
 
 	// TODO: A placeholder for future work
 	transition: transform 300ms ease-out;
+
 	.titlesRow {
 		transition: transform 300ms ease-out, opacity 300ms ease-out;
 	}
@@ -119,13 +120,6 @@
 			transform: translateY(-50%);
 			opacity: 0.3;
 		}
-
-		.slotBelow,
-		.slotAbove,
-		.subtitle {
-			display: none;
-		}
-
 	}
 
 	// Skin colors

@@ -296,9 +296,9 @@ const HeaderBase = kind({
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={css.titlesRow} align="center">
+				<Row className={css.titlesRow} align="center" ref={titleRef}>
 					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
-					<Cell className={css.titleCell} ref={titleRef}>
+					<Cell className={css.titleCell}>
 						{titleOrInput}
 						<Heading
 							size="subtitle"
