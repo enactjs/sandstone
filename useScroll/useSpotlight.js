@@ -26,7 +26,7 @@ const useSpotlightRestore = (props, instances) => {
 		}
 
 		restoreScrollPosition();
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export {
