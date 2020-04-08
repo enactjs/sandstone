@@ -28,7 +28,7 @@ const useScrollbar = (props, instances) => {
 			scrollContainerHandle.current.wheelDirection = direction;
 		}
 
-		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn[inputType]);
 	}
 
 	function alertThumb () {
