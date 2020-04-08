@@ -49,14 +49,6 @@ const ProgressBarBase = kind({
 		backgroundProgress: PropTypes.number,
 
 		/**
-		 * Display separator at the center
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		separator: PropTypes.bool,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -98,6 +90,16 @@ const ProgressBarBase = kind({
 		 * @public
 		 */
 		progress: PropTypes.number,
+
+		/**
+		 * Display anchor.
+		 *
+		 * The anchor is positioned by `progressAnchor` value.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
 
 		/**
 		 * Enables the built-in tooltip.
@@ -147,22 +149,29 @@ const ProgressBarBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar', 'radial', 'bar', 'fill', 'separator']
+		publicClassNames: ['progressBar', 'radial', 'bar', 'fill']
 	},
 
 	computed: {
-		className: ({highlighted, orientation, progress, backgroundProgress, styler}) => styler.append({
+		className: ({highlighted, orientation, progress, backgroundProgress, showAnchor, styler}) => styler.append({
 			highlighted,
 			radial: (orientation === 'radial'),
 			fillOverHalf: (progress > 0.5),
-			loadOverHalf: (backgroundProgress > 0.5)
+			loadOverHalf: (backgroundProgress > 0.5),
+			showAnchor
 		}),
-		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
+		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip,
+		style: ({progressAnchor, style}) => {
+			return {
+				'--progress--anchor': progressAnchor
+			}
+		}
 	},
 
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
+		delete rest.showAnchor;
 
 		return (
 			<UiProgressBar

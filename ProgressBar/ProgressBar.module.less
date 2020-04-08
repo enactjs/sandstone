@@ -17,6 +17,15 @@
 .progressBar {
 	height: @sand-progressbar-bar-thickness;
 	margin: @sand-progressbar-margin;
+	--progress--anchor: 0;
+
+	&.showAnchor {
+		&::after {
+			content: "";
+			position: absolute;
+			transform: translate(-50%, -50%);
+		}
+	}
 
 	.bar {
 		border-radius: @sand-progressbar-bar-border-radius;
@@ -24,9 +33,13 @@
 	}
 
 	&.horizontal {
-		.separator {
-			width: @sand-progressbar-separator-width;
-			height: @sand-progressbar-separator-height;
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-width;
+				height: @sand-progressbar-anchor-height;
+				top: 50%;
+				left: ~"calc(var(--progress--anchor) * 100%)";
+			}
 		}
 	}
 
@@ -34,9 +47,13 @@
 		min-height: @sand-progressbar-vertical-min-height;
 		width: @sand-progressbar-bar-thickness;
 
-		.separator {
-			width: @sand-progressbar-separator-height;
-			height: @sand-progressbar-separator-width;
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-height;
+				height: @sand-progressbar-anchor-width;
+				top: ~"calc((1 - var(--progress--anchor)) * 100%)";
+				left: 50%;
+			}
 		}
 	}
 
@@ -91,8 +108,7 @@
 
 	// Skin colors
 	.applySkins({
-		.bar,
-		.separator {
+		.bar {
 			background-color: @sand-progressbar-bar-bg-color;
 		}
 
@@ -134,6 +150,12 @@
 					background-color: transparent;
 					border-color: @sand-progressbar-highlighted-fill-bg-color;
 				}
+			}
+		}
+
+		&.showAnchor {
+			&::after {
+				background-color: @sand-progressbar-bar-bg-color;
 			}
 		}
 	});

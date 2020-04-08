@@ -75,14 +75,6 @@ const SliderBase = kind({
 		active: PropTypes.bool,
 
 		/**
-		 * Display separator at the center
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		separator: PropTypes.bool,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -172,6 +164,16 @@ const SliderBase = kind({
 		 * @public
 		 */
 		onKeyUp: PropTypes.func,
+
+		/**
+		 * Display anchor.
+		 *
+		 * The anchor is positioned by `progressAnchor` value.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
 
 		/**
 		 * The amount to increment or decrement the value.
@@ -270,9 +272,10 @@ const SliderBase = kind({
 	},
 
 	computed: {
-		className: ({activateOnSelect, active, styler}) => styler.append({
+		className: ({activateOnSelect, active, showAnchor, styler}) => styler.append({
 			activateOnSelect,
-			active
+			active,
+			showAnchor
 		}),
 		knobStep: validateSteppedOnce(props => props.knobStep, {
 			component: 'Slider',
@@ -283,14 +286,20 @@ const SliderBase = kind({
 			component: 'Slider',
 			valueName: 'max'
 		}),
-		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
+		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip,
+		style: ({progressAnchor, style}) => {
+			return {
+				'--progress--anchor': progressAnchor
+			}
+		}
 	},
 
-	render: ({css, focused, tooltip, separator, ...rest}) => {
+	render: ({css, focused, tooltip, ...rest}) => {
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
 		delete rest.knobStep;
+		delete rest.showAnchor;
 
 		return (
 			<UiSlider
@@ -299,7 +308,6 @@ const SliderBase = kind({
 				progressBarComponent={
 					<ProgressBar
 						css={css}
-						separator={separator}
 					/>
 				}
 				tooltipComponent={

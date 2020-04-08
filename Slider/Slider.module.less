@@ -7,6 +7,7 @@
 .slider {
 	@knob-transform-resting: @sand-translate-center scale(@sand-slider-knob-resting-state-scale);
 	@knob-transform-active: @sand-translate-center scale(1);
+	--progress--anchor: 0;
 
 	position: relative;
 	margin: 0 @sand-spotlight-outset;
@@ -40,6 +41,35 @@
 			box-sizing: border-box;
 			will-change: transform;
 			transition: transform ease-out 100ms;
+		}
+	}
+
+	&.showAnchor {
+		.progressBar {
+			&::after {
+				content: "";
+				position: absolute;
+				transform: translate(-50%, -50%);
+				z-index: -1;
+			}
+
+			&.horizontal {
+				&::after {
+					width: @sand-progressbar-anchor-width;
+					height: @sand-progressbar-anchor-height;
+					top: 50%;
+					left: ~"calc(var(--progress--anchor) * 100%)";
+				}
+			}
+
+			&.vertical {
+				&::after {
+					width: @sand-progressbar-anchor-height;
+					height: @sand-progressbar-anchor-width;
+					top: ~"calc(var(--progress--anchor) * 100%)";
+					left: 50%;
+				}
+			}
 		}
 	}
 
@@ -78,11 +108,6 @@
 			@h-gap-large: (@sand-slider-knob-width-large / 2);
 			padding: ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2) @h-gap-large;
 		});
-
-		.separator {
-			width: @sand-progressbar-separator-width;
-			height: @sand-progressbar-separator-height;
-		}
 	}
 
 	&.vertical {
@@ -107,11 +132,6 @@
 			@v-gap-large: (@sand-slider-knob-width / 2);
 			padding: @v-gap-large ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2);
 		});
-
-		.separator {
-			width: @sand-progressbar-separator-height;
-			height: @sand-progressbar-separator-width;
-		}
 	}
 
 	.spottable({
@@ -124,8 +144,7 @@
 	});
 
 	.applySkins({
-		.bar,
-		.separator {
+		.bar {
 			background-color: @sand-slider-bar-bg-color;
 		}
 
@@ -184,8 +203,7 @@
 			}
 
 			.disabled({
-				.bar,
-				.separator {
+				.bar {
 					opacity: @sand-slider-disabled-bar-opacity;
 				}
 
@@ -200,14 +218,21 @@
 		.disabled({
 			opacity: 1;
 
-			.bar,
-			.separator {
+			.bar {
 				opacity: @sand-slider-disabled-bar-opacity;
 			}
 
 			.knob::before {
 				background-color: @sand-slider-disabled-knob-bg-color;
 				border-color: @sand-slider-knob-border-color;
+			}
+
+			&.showAnchor {
+				.progressBar {
+					&::after {
+						opacity: @sand-slider-disabled-bar-opacity;
+					}
+				}
 			}
 		});
 
@@ -225,6 +250,14 @@
 					}
 				}
 			});
+		}
+
+		&.showAnchor {
+			.progressBar {
+				&::after {
+					background-color: @sand-progressbar-bar-bg-color;
+				}
+			}
 		}
 	});
 }
