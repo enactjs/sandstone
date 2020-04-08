@@ -1,5 +1,5 @@
-import Button from '../../../../../Button';
-import Heading from '../../../../../Heading';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
 import Group from '@enact/ui/Group';
 import React from 'react';
 

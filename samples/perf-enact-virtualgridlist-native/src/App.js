@@ -1,8 +1,8 @@
-import GridListImageItem from '../../../../GridListImageItem';
+import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import ThemeDecorator from '../../../../ThemeDecorator';
-import {VirtualGridList} from '../../../../VirtualList';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import css from './App.module.less';
 

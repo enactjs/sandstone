@@ -1,6 +1,6 @@
 import A11yDecorator from '@enact/ui/A11yDecorator/A11yDecorator.js';
-import Button from '../../../../../Button';
-import Heading from '../../../../../Heading';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
 import React from 'react';
 
 const A11yButton = A11yDecorator(Button);

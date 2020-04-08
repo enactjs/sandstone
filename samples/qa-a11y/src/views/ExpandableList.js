@@ -1,8 +1,8 @@
-import Heading from '../../../../../Heading';
-import ExpandableList from '../../../../../ExpandableList';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableList from '@enact/sandstone/ExpandableList';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 const
 	data = [

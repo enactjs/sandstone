@@ -1,9 +1,9 @@
-import Heading from '../../../../../../Heading';
-import {Header} from '../../../../../../Panels';
-import Input from '../../../../../../Input';
+import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import Input from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ToggleButton from '../../../../../../ToggleButton';
+import ToggleButton from '@enact/sandstone/ToggleButton';
 
 import LocaleSwitch from '../LocaleSwitch';
 

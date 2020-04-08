@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import Item from '../../../../Item';
+import Item from '@enact/sandstone/Item';
 import React from 'react';
-import Scroller from '../../../../Scroller';
-import ThemeDecorator from '../../../../ThemeDecorator';
+import Scroller from '@enact/sandstone/Scroller';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import css from './App.module.less';
 

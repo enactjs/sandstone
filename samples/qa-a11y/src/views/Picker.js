@@ -1,11 +1,11 @@
-import DatePicker from '../../../../../DatePicker';
-import Heading from '../../../../../Heading';
-import ExpandablePicker from '../../../../../ExpandablePicker';
-import Picker from '../../../../../Picker';
-import RangePicker from '../../../../../RangePicker';
+import DatePicker from '@enact/sandstone/DatePicker';
+import Heading from '@enact/sandstone/Heading';
+import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
+import Picker from '@enact/sandstone/Picker';
+import RangePicker from '@enact/sandstone/RangePicker';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
-import TimePicker from '../../../../../TimePicker';
+import Scroller from '@enact/sandstone/Scroller';
+import TimePicker from '@enact/sandstone/TimePicker';
 
 const
 	airports = [

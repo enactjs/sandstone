@@ -1,16 +1,16 @@
-import DatePicker from '../../../../../DatePicker';
-import ExpandableInput from '../../../../../ExpandableInput';
-import ExpandableItem from '../../../../../ExpandableItem';
-import ExpandableList from '../../../../../ExpandableList';
+import DatePicker from '@enact/sandstone/DatePicker';
+import ExpandableInput from '@enact/sandstone/ExpandableInput';
+import ExpandableItem from '@enact/sandstone/ExpandableItem';
+import ExpandableList from '@enact/sandstone/ExpandableList';
 import Group from '@enact/ui/Group';
-import Icon from '../../../../../Icon';
-import Item from '../../../../../Item';
-import Picker from '../../../../../Picker';
-import RadioItem from '../../../../../RadioItem';
+import Icon from '@enact/sandstone/Icon';
+import Item from '@enact/sandstone/Item';
+import Picker from '@enact/sandstone/Picker';
+import RadioItem from '@enact/sandstone/RadioItem';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import Scroller from '../../../../../Scroller';
-import TimePicker from '../../../../../TimePicker';
+import Scroller from '@enact/sandstone/Scroller';
+import TimePicker from '@enact/sandstone/TimePicker';
 
 import PanelHeader from '../components/PanelHeader';
 

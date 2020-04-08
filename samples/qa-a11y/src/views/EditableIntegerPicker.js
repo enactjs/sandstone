@@ -1,6 +1,6 @@
-import EditableIntegerPicker from '../../../../../EditableIntegerPicker';
-import Heading from '../../../../../Heading';
-import Scroller from '../../../../../Scroller';
+import EditableIntegerPicker from '@enact/sandstone/EditableIntegerPicker';
+import Heading from '@enact/sandstone/Heading';
+import Scroller from '@enact/sandstone/Scroller';
 import PropTypes from 'prop-types';
 import React from 'react';
 

@@ -1,6 +1,6 @@
-import {ActivityPanels} from '../../../../../Panels';
+import {ActivityPanels} from '@enact/sandstone/Panels';
 import React from 'react';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import MainPanel from '../views/MainPanel';
 

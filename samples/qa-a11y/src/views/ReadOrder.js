@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import Button from '../../../../../Button';
+import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
 import React from 'react';
-import Region from '../../../../../Region';
-import Scroller from '../../../../../Scroller';
+import Region from '@enact/sandstone/Region';
+import Scroller from '@enact/sandstone/Scroller';
 
 import css from './ReadOrder.module.less';
 

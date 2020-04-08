@@ -1,14 +1,14 @@
-import Button from '../../../../../Button';
+import Button from '@enact/sandstone/Button';
 import {connect} from 'react-redux';
-import Heading from '../../../../../Heading';
-import {Header, Panel} from '../../../../../Panels';
-import Input from '../../../../../Input';
+import Heading from '@enact/sandstone/Heading';
+import {Header, Panel} from '@enact/sandstone/Panels';
+import Input from '@enact/sandstone/Input';
 import LocaleSwitch from '../components/LocaleSwitch';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import ToggleButton from '../../../../../ToggleButton';
-import VirtualList from '../../../../../VirtualList';
+import ToggleButton from '@enact/sandstone/ToggleButton';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 import {setData} from '../actions';
 import ListItem from '../components/ListItem';

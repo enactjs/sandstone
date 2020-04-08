@@ -1,8 +1,8 @@
-import Button from '../../../../../Button';
-import IconButton from '../../../../../IconButton';
+import Button from '@enact/sandstone/Button';
+import IconButton from '@enact/sandstone/IconButton';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import VideoPlayer, {MediaControls} from '../../../../../VideoPlayer';
+import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
 
 const VideoPlayerView = () => (
 	<div style={{width: ri.scale(1280) + 'px', height: ri.scale(800) + 'px'}}>

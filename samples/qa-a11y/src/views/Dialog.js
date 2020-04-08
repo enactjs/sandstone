@@ -1,5 +1,5 @@
-import Button from '../../../../../Button';
-import Dialog from '../../../../../Dialog';
+import Button from '@enact/sandstone/Button';
+import Dialog from '@enact/sandstone/Dialog';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';

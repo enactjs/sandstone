@@ -1,9 +1,9 @@
-import Heading from '../../../../../Heading';
-import ExpandableInput from '../../../../../ExpandableInput';
-import Input from '../../../../../Input';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableInput from '@enact/sandstone/ExpandableInput';
+import Input from '@enact/sandstone/Input';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 const InputView = () => (
 	<Layout orientation="vertical">

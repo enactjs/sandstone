@@ -1,8 +1,8 @@
-import Heading from '../../../../../Heading';
-import Dropdown from '../../../../../Dropdown';
+import Heading from '@enact/sandstone/Heading';
+import Dropdown from '@enact/sandstone/Dropdown';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 const list = [
 	{children: 'Option1', key: 'item1', 'aria-label': 'aria label 1'},

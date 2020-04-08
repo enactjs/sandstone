@@ -1,8 +1,8 @@
-import Button from '../../../../../Button';
+import Button from '@enact/sandstone/Button';
 import LS2Request from '@enact/webos/LS2Request';
 import React from 'react';
 import {readAlert} from '@enact/webos/speech';
-import ToggleButton from '../../../../../ToggleButton';
+import ToggleButton from '@enact/sandstone/ToggleButton';
 
 class ReadAlertView extends React.Component {
 	constructor () {

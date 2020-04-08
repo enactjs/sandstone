@@ -1,11 +1,11 @@
 import kind from '@enact/core/kind';
 import $L from '@enact/i18n/$L';
 import Text from '@enact/i18n/Text';
-import BodyText from '../../../../../BodyText';
-import DayPicker from '../../../../../DayPicker';
-import Heading from '../../../../../Heading';
-import {Panel, Header} from '../../../../../Panels';
-import Scroller from '../../../../../Scroller';
+import BodyText from '@enact/sandstone/BodyText';
+import DayPicker from '@enact/sandstone/DayPicker';
+import Heading from '@enact/sandstone/Heading';
+import {Panel, Header} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 import React from 'react';
 
 const MainPanel = kind({

@@ -1,8 +1,8 @@
 import {contextTypes} from '@enact/i18n/I18nDecorator';
-import Heading from '../../../../../Heading';
+import Heading from '@enact/sandstone/Heading';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ToggleButton from '../../../../../ToggleButton';
+import ToggleButton from '@enact/sandstone/ToggleButton';
 
 class Option extends React.Component {
 	static propTypes = {

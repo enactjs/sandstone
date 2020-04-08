@@ -1,5 +1,5 @@
-import Button from '../../../../../Button';
-import Notification from '../../../../../Notification';
+import Button from '@enact/sandstone/Button';
+import Notification from '@enact/sandstone/Notification';
 import React from 'react';
 
 class NotificationView extends React.Component {

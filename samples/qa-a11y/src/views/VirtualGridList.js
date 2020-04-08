@@ -1,10 +1,10 @@
-import {GridListImageItem} from '../../../../../GridListImageItem';
+import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Region from '../../../../../Region';
+import Region from '@enact/sandstone/Region';
 import ri from '@enact/ui/resolution';
-import ToggleButton from '../../../../../ToggleButton';
-import {VirtualGridList} from '../../../../../VirtualList';
+import ToggleButton from '@enact/sandstone/ToggleButton';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import css from './VirtualGridList.module.less';
 

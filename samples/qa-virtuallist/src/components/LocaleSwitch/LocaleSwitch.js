@@ -1,6 +1,6 @@
 import {contextTypes} from '@enact/i18n/I18nDecorator';
 import React, {Component} from 'react';
-import ToggleButton from '../../../../../../ToggleButton';
+import ToggleButton from '@enact/sandstone/ToggleButton';
 
 class LocaleSwitch extends Component {
 	constructor (props) {

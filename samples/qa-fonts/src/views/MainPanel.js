@@ -1,8 +1,8 @@
-import Button from '../../../../../Button';
-import Heading from '../../../../../Heading';
-import {Header, Panel} from '../../../../../Panels';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import {Header, Panel} from '@enact/sandstone/Panels';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 import FontList from '../components/FontList';
 

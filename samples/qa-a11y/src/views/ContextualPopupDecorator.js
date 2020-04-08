@@ -1,7 +1,7 @@
-import Button from '../../../../../Button';
-import ContextualPopupDecorator from '../../../../../ContextualPopupDecorator';
+import Button from '@enact/sandstone/Button';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import Group from '@enact/ui/Group';
-import RadioItem from '../../../../../RadioItem';
+import RadioItem from '@enact/sandstone/RadioItem';
 import React from 'react';
 import Toggleable from '@enact/ui/Toggleable';
 

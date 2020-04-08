@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {VirtualGridList} from '../../../../../../VirtualList';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import ImageItem from '../ImageItem';
 

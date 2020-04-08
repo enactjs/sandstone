@@ -1,8 +1,8 @@
-import DayPicker from '../../../../../DayPicker';
-import Heading from '../../../../../Heading';
+import DayPicker from '@enact/sandstone/DayPicker';
+import Heading from '@enact/sandstone/Heading';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 const DayPickerView = () => (
 	<Layout orientation="vertical">

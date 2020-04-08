@@ -1,12 +1,12 @@
-import Button from '../../../../../Button';
-import Heading from '../../../../../Heading';
-import IconButton from '../../../../../IconButton';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import IconButton from '@enact/sandstone/IconButton';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 import Toggleable from '@enact/ui/Toggleable';
-import ToggleButton from '../../../../../ToggleButton';
-import TooltipDecorator from '../../../../../TooltipDecorator';
+import ToggleButton from '@enact/sandstone/ToggleButton';
+import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 
 const
 	StatefulButton = Toggleable({toggle: 'onClick', prop: 'selected'}, Button),

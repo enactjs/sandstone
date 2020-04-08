@@ -1,10 +1,10 @@
-import Button from "../../../../../Button";
-import ExpandableList from "../../../../../ExpandableList";
+import Button from "@enact/sandstone/Button";
+import ExpandableList from "@enact/sandstone/ExpandableList";
 import {I18nContextDecorator} from "@enact/i18n/I18nDecorator";
 import React from "react";
 import $L from "@enact/i18n/$L";
 import Text, {TextDecorator} from "@enact/i18n/Text";
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 const TextButton = TextDecorator(Button);
 

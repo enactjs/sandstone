@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import GridListImageItem from '../../../../../../GridListImageItem';
+import GridListImageItem from '@enact/sandstone/GridListImageItem';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';

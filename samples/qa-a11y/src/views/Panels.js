@@ -1,10 +1,10 @@
-import {ActivityPanels, Panel, Header} from '../../../../../Panels';
-import Item from '../../../../../Item';
+import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
+import Item from '@enact/sandstone/Item';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 import Spotlight from '@enact/spotlight';
-import VirtualList from '../../../../../VirtualList';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 const itemList = [];
 for (let i = 0; i < 50; i++) {

@@ -1,8 +1,8 @@
-import Item from '../../../../Item';
+import Item from '@enact/sandstone/Item';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import ThemeDecorator from '../../../../ThemeDecorator';
-import VirtualList from '../../../../VirtualList';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 import css from './App.module.less';
 

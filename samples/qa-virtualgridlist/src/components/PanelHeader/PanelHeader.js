@@ -1,14 +1,14 @@
-import Button from '../../../../../../Button';
+import Button from '@enact/sandstone/Button';
 import {connect} from 'react-redux';
-import Heading from '../../../../../../Heading';
-import {Header} from '../../../../../../Panels';
-import IconButton from '../../../../../../IconButton';
-import Input from '../../../../../../Input';
+import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import IconButton from '@enact/sandstone/IconButton';
+import Input from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
 import LocaleSwitch from '../LocaleSwitch';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ToggleButton from '../../../../../../ToggleButton';
+import ToggleButton from '@enact/sandstone/ToggleButton';
 
 import {
 	addItem as addAction,

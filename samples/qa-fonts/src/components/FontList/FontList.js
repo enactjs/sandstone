@@ -1,5 +1,5 @@
-import Heading from '../../../../../../Heading';
-import SlotItem from '../../../../../../SlotItem';
+import Heading from '@enact/sandstone/Heading';
+import SlotItem from '@enact/sandstone/SlotItem';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';

@@ -1,9 +1,9 @@
 import Group from '@enact/ui/Group';
-import Item from '../../../../../Item';
+import Item from '@enact/sandstone/Item';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import ScrollerComponent from '../../../../../Scroller';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import ScrollerComponent from '@enact/sandstone/Scroller';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import ViewManager from '@enact/ui/ViewManager';
 
 import A11yDecorator from '../views/A11yDecorator';

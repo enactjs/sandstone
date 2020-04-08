@@ -1,6 +1,6 @@
-import Button from '../../../../../Button';
+import Button from '@enact/sandstone/Button';
 import React from 'react';
-import TooltipDecorator from '../../../../../TooltipDecorator';
+import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 
 const
 	TooltipButton = TooltipDecorator(Button),

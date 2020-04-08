@@ -1,10 +1,10 @@
-import Heading from '../../../../../Heading';
-import ExpandableItem from '../../../../../ExpandableItem';
-import Icon from '../../../../../Icon';
-import Item from '../../../../../Item';
+import Heading from '@enact/sandstone/Heading';
+import ExpandableItem from '@enact/sandstone/ExpandableItem';
+import Icon from '@enact/sandstone/Icon';
+import Item from '@enact/sandstone/Item';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
+import Scroller from '@enact/sandstone/Scroller';
 
 const ExpandableItemView = () => (
 	<Layout orientation="vertical">

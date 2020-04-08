@@ -1,9 +1,9 @@
-import {ActivityPanels} from '../../../../../Panels';
+import {ActivityPanels} from '@enact/sandstone/Panels';
 import {connect} from 'react-redux';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 
 import {decreaseIndex, increaseIndex} from '../actions';
 import MainPanel from '../views/MainPanel';

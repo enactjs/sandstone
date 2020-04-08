@@ -1,16 +1,16 @@
-import {CheckboxItem as CheckboxItemBase} from '../../../../../CheckboxItem';
-import Heading from '../../../../../Heading';
-import Item from '../../../../../Item';
-import Icon from '../../../../../Icon';
-import LabeledItem from '../../../../../LabeledItem';
+import {CheckboxItem as CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
+import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
+import Icon from '@enact/sandstone/Icon';
+import LabeledItem from '@enact/sandstone/LabeledItem';
 import Layout, {Cell} from '@enact/ui/Layout';
-import {RadioItem as RadioItemBase} from '../../../../../RadioItem';
+import {RadioItem as RadioItemBase} from '@enact/sandstone/RadioItem';
 import React from 'react';
-import Scroller from '../../../../../Scroller';
-import {SelectableItem as SelectItemBase} from '../../../../../SelectableItem';
-import {SwitchItem as SwitchItemBase} from '../../../../../SwitchItem';
+import Scroller from '@enact/sandstone/Scroller';
+import {SelectableItem as SelectItemBase} from '@enact/sandstone/SelectableItem';
+import {SwitchItem as SwitchItemBase} from '@enact/sandstone/SwitchItem';
 import Toggleable from '@enact/ui/Toggleable';
-import {ToggleItem as ToggleItemBase} from '../../../../../ToggleItem';
+import {ToggleItem as ToggleItemBase} from '@enact/sandstone/ToggleItem';
 
 const CheckboxItem = Toggleable({prop: 'selected'}, CheckboxItemBase);
 const RadioItem = Toggleable({prop: 'selected'}, RadioItemBase);

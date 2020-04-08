@@ -1,7 +1,7 @@
-import Item from '../../../../../Item';
+import Item from '@enact/sandstone/Item';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import {VirtualList} from '../../../../../VirtualList';
+import {VirtualList} from '@enact/sandstone/VirtualList';
 
 const
 	languages = [

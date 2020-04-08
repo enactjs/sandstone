@@ -1,6 +1,6 @@
-import Heading from '../../../../../Heading';
-import IconButton from '../../../../../IconButton';
-import ProgressBar from '../../../../../ProgressBar';
+import Heading from '@enact/sandstone/Heading';
+import IconButton from '@enact/sandstone/IconButton';
+import ProgressBar from '@enact/sandstone/ProgressBar';
 import React from 'react';
 
 class ProgressBarView extends React.Component {

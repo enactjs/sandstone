@@ -1,10 +1,10 @@
-import Button from '../../../../../Button';
-import Icon from '../../../../../Icon';
-import IconButton from '../../../../../IconButton';
+import Button from '@enact/sandstone/Button';
+import Icon from '@enact/sandstone/Icon';
+import IconButton from '@enact/sandstone/IconButton';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ri from '@enact/ui/resolution';
-import {VirtualList} from '../../../../../VirtualList';
+import {VirtualList} from '@enact/sandstone/VirtualList';
 
 const
 	languages = [

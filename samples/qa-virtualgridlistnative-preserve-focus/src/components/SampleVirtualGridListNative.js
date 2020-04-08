@@ -1,8 +1,8 @@
-import Item from '../../../../../Item';
+import Item from '@enact/sandstone/Item';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import {VirtualGridList} from '../../../../../VirtualList';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const items = Array.from(new Array(1000)).map((n, i) => `Item  ${('00' + i).slice(-3)}`);
 

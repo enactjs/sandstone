@@ -1,6 +1,6 @@
-import Heading from '../../../../../Heading';
+import Heading from '@enact/sandstone/Heading';
 import React from 'react';
-import Spinner from '../../../../../Spinner';
+import Spinner from '@enact/sandstone/Spinner';
 
 const SpinnerView = () => (
 	<div>

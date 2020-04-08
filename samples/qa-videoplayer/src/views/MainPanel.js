@@ -1,7 +1,7 @@
-import IconButton from '../../../../../IconButton';
+import IconButton from '@enact/sandstone/IconButton';
 import kind from '@enact/core/kind';
 import React from 'react';
-import VideoPlayer, {MediaControls} from '../../../../../VideoPlayer';
+import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
 
 import componentCss from './MainPanel.module.less';
 

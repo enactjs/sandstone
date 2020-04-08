@@ -1,8 +1,8 @@
-import Heading from '../../../../../Heading';
-import IncrementSlider from '../../../../../IncrementSlider';
+import Heading from '@enact/sandstone/Heading';
+import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Slider from '../../../../../Slider';
+import Slider from '@enact/sandstone/Slider';
 
 class CustomIncrementSlider extends React.Component {
 	static propTypes = {
