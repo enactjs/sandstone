@@ -71,8 +71,8 @@
 @sand-checkbox-color: transparent;
 @sand-checkbox-bg-color: transparent;
 @sand-checkbox-border-color: @sand-text-color;
-@sand-checkbox-focus-color: transparent;
-@sand-checkbox-focus-bg-color: transparent;
+@sand-checkbox-focus-color: @sand-checkbox-color;
+@sand-checkbox-focus-bg-color: @sand-checkbox-bg-color;
 @sand-checkbox-focus-border-color: @sand-spotlight-text-color;
 @sand-checkbox-selected-color: @sand-text-color;
 @sand-checkbox-selected-bg-color: @sand-feature-color;
@@ -80,6 +80,12 @@
 @sand-checkbox-selected-focus-color: @sand-checkbox-selected-color;
 @sand-checkbox-selected-focus-bg-color: @sand-checkbox-selected-bg-color;
 @sand-checkbox-selected-focus-border-color: @sand-checkbox-selected-border-color;
+@sand-checkbox-indeterminate-color: @sand-text-color;
+@sand-checkbox-indeterminate-bg-color: @sand-checkbox-bg-color;
+@sand-checkbox-indeterminate-border-color: @sand-checkbox-border-color;
+@sand-checkbox-indeterminate-selected-focus-color: @sand-spotlight-text-color;
+@sand-checkbox-indeterminate-selected-focus-bg-color: @sand-checkbox-focus-bg-color;
+@sand-checkbox-indeterminate-selected-focus-border-color: @sand-checkbox-focus-border-color;
 
 // ContextualPopup
 // ---------------------------------------
@@ -91,8 +97,8 @@
 // ---------------------------------------
 @sand-day-selector-border-color: @sand-white;
 @sand-day-selector-selected-bg-color: @sand-button-bg-color;
-@sand-day-selector-checkbox-bg-color: @sand-formcheckbox-bg-color;
-@sand-day-selector-checkbox-text-color: @sand-formcheckbox-text-color;
+@sand-day-selector-checkbox-bg-color: fade(@sand-white, 22%);
+@sand-day-selector-checkbox-text-color: @sand-white;
 
 // Dropdown
 // ---------------------------------------
@@ -105,18 +111,9 @@
 @sand-editable-integer-picker-input-color: inherit;
 @sand-editable-integer-picker-shadow: inset 0 0 0 6px;  // box-shadow color inherits from `color` if one is provided
 
-// FormCheckbox
-// ---------------------------------------
-@sand-formcheckbox-bg-color: fade(@sand-white, 22%);
-@sand-formcheckbox-text-color: @sand-white;
-@sand-formcheckbox-border-color: fade(@sand-white, 15%);
-@sand-formcheckbox-focus-bg-color: @sand-spotlight-color;
-@sand-formcheckbox-focus-text-color: @sand-spotlight-text-color;
-
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-focus-text-color: @sand-spotlight-text-color;
-@sand-formcheckboxitem-focus-bg-color: transparent;
+@sand-formcheckboxitem-focus-text-color: @sand-white;
 
 // GridListImageItem
 // ---------------------------------------
@@ -239,7 +236,7 @@
 // ---------------------------------------
 @sand-popup-bg-color: @sand-bg-color;
 
-// Progress Bar
+// ProgressBar
 // ---------------------------------------
 @sand-progressbar-bar-bg-color: #373A41;
 @sand-progressbar-load-bg-color: fade(@sand-light-gray, 30%);
@@ -248,6 +245,12 @@
 @sand-progressbar-radial-bar-bg-color: @sand-progressbar-bar-bg-color;
 @sand-progressbar-radial-fill-bg-color: @sand-progressbar-fill-bg-color;
 @sand-progressbar-radial-load-bg-color: #6c6e73; // The load color cannot be translucent in this implementation of radial.
+
+// ProgressButton
+// ---------------------------------------
+@sand-progressbutton-bar-color: @sand-gray;
+@sand-progressbutton-fill-color: @sand-button-text-color;
+@sand-progressbutton-focus-fill-color: @sand-button-focus-text-color;
 
 // RadioItem
 // ---------------------------------------
@@ -314,6 +317,8 @@
 @sand-switch-selected-bg-color: @sand-feature-color;
 @sand-switch-focus-color: @sand-switch-color;
 @sand-switch-selected-focus-color: @sand-switch-selected-color;
+@sand-switch-disabled-selected-bg-color: @sand-switch-bg-color;
+@sand-switch-disabled-selected-color: @sand-switch-color;
 
 // TabLayout
 // ---------------------------------------

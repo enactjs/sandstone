@@ -16,6 +16,12 @@
 		.sand-text-base(@sand-picker-font-size);
 		.sand-locale-non-latin({line-height: @sand-button-small-height;});
 		max-width: 960px;
+
+		.item {
+			&.numeric {
+				.sand-font-number();
+			}
+		}
 	}
 
 	.sizingPlaceholder {
@@ -72,7 +78,6 @@
 		&.medium,
 		&.large {
 			.valueWrapper {
-
 				.item {
 					position: absolute;
 					.position(0);

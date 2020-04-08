@@ -7,6 +7,7 @@
  * @module sandstone/ToggleButton
  * @exports ToggleButton
  * @exports ToggleButtonBase
+ * @deprecated Will be removed in 1.0.0-beta.1.
  */
 
 import kind from '@enact/core/kind';

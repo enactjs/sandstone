@@ -19,7 +19,6 @@ const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, Contex
 Config.defaultProps = {
 	direction: 'below center',
 	open: false,
-	showCloseButton: false,
 	spotlightRestrict: 'self-first'
 };
 
@@ -38,7 +37,6 @@ storiesOf('Sandstone', module)
 					onClose={action('onClose')}
 					open={boolean('open', Config)}
 					popupComponent={renderPopup}
-					showCloseButton={boolean('showCloseButton', Config)}
 					spotlightRestrict={select('spotlightRestrict', ['none', 'self-first', 'self-only'], Config)}
 				>
 					{text('button string', Config, 'Hello Contextual Button')}

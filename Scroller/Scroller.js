@@ -205,6 +205,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	id: PropTypes.string,
 
 	/**
+	 * Removes fade-out effect on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noFadeOut: PropTypes.bool,
+
+	/**
 	 * Prevents scroll by dragging or flicking on the scroller.
 	 *
 	 * @type {Boolean}
@@ -362,6 +371,7 @@ Scroller.defaultProps = {
 	direction: 'both',
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
+	noFadeOut: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

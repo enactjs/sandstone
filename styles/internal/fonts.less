@@ -20,10 +20,10 @@
 @font-system-src-sandstone-900:    local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Black.ttf") format("truetype");
 @font-system-src-sandstone-900-i:  local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BlackItalic.ttf") format("truetype");
 
-@font-system-src-sandstone-number-300:  local("LG Smart UI NUMBER Light"), local("LGSmartUINUMBER-Light") format("truetype");
-@font-system-src-sandstone-number-400:  local("LG Smart UI NUMBER Regular"), local("LGSmartUINUMBER-Regular") format("truetype");
-@font-system-src-sandstone-number-600:  local("LG Smart UI NUMBER SemiBold"), local("LGSmartUINUMBER-SemiBold") format("truetype");
-@font-system-src-sandstone-number-700:  local("LG Smart UI NUMBER Bold"), local("LGSmartUINUMBER-Bold") format("truetype");
+@font-system-src-sandstone-number-300:  local("LG Smart UI NUMBER Light"), local("LGSmartUINUMBER-Light");
+@font-system-src-sandstone-number-400:  local("LG Smart UI NUMBER"), local("LGSmartUINUMBER");
+@font-system-src-sandstone-number-600:  local("LG Smart UI NUMBER SemiBold"), local("LGSmartUINUMBER-SemiBold");
+@font-system-src-sandstone-number-700:  local("LG Smart UI NUMBER Bold"), local("LGSmartUINUMBER-Bold");
 
 @font-system-src-non-latin-300:  local("LG Smart UI AR HE TH Regular"), local("LGSmartUIARHETH-Regular");
 @font-system-src-non-latin-400:  local("LG Smart UI AR HE TH Regular"), local("LGSmartUIARHETH-Regular");
@@ -106,10 +106,11 @@
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-condensed-700; { font-stretch: condensed; font-weight: 700; });
 
 /* ----- Sandstone Number ------ */
-.buildFontFace("@{font-family-base-name} Number"; @font-system-src-sandstone-number-300);
-.buildFontFace("@{font-family-base-name} Number"; @font-system-src-sandstone-number-400; 300);
-.buildFontFace("@{font-family-base-name} Number"; @font-system-src-sandstone-number-600; 600);
-.buildFontFace("@{font-family-base-name} Number"; @font-system-src-sandstone-number-700; 700);
+// This incorporates a fallback font (condensed) to catch any glyphs that are not present in the number fontp
+.buildFontFamily("@{font-family-base-name} Number"; @font-system-src-sandstone-number-400; @font-system-src-sandstone-condensed-400);
+.buildFontFamily("@{font-family-base-name} Number"; @font-system-src-sandstone-number-300; @font-system-src-sandstone-condensed-300; 300);
+.buildFontFamily("@{font-family-base-name} Number"; @font-system-src-sandstone-number-600; @font-system-src-sandstone-condensed-600; 600);
+.buildFontFamily("@{font-family-base-name} Number"; @font-system-src-sandstone-number-700; @font-system-src-sandstone-condensed-700; 700);
 
 /* ----- Manual Sandstone Locale Fonts (Stacking onto "Sandstone") ------ */
 .buildFontFace(@font-family-base-name; @font-system-src-non-latin-400);
