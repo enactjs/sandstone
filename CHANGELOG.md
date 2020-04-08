@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+`sandstone/Picker` horizontal joined behavior and style for updated GUI
+
 ## [1.0.0-alpha.7] - 2020-04-06
 
 ### Added
@@ -45,7 +51,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/MediaOverlay` styling
 - `sandstone/Panels` to default to `SlideLeftArranger`
 - `sandstone/Panels` styling to match updated GUI
-- `sandstone/Picker` styling
 
 ### Fixed
 
