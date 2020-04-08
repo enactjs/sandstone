@@ -33,7 +33,7 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
-		 * List of [TabItems]{@link sandstone/TabLayout.TabItem} to render.
+		 * List of [TabLayoutItems]{@link sandstone/TabLayout.TabLayoutItem} to render.
 		 *
 		 * @type {Node[]}
 		 * @public

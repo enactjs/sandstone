@@ -17,21 +17,31 @@ const TabLayoutItem = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayoutItem.prototype */ {
 		/**
-		 * The icon content.
+		 * Title of the tab.
+		 *
+		 * @type {String}
+		 * @required
+		 * @public
+		 */
+		title: PropTypes.string.isRequired,
+
+		/**
+		 * The contents to show when the tab is selected.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		children: PropTypes.node,
+
+		/**
+		 * The icon content of the tab.
 		 *
 		 * @see {@link ui/Icon.Icon.children}
 		 * @type {String|Object}
 		 * @public
 		 */
-		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 
-		/**
-		 * Title of the tab.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		title: PropTypes.string
 	},
 
 	render: () => <div>TabLayoutItem is only to be used in TabLayout!</div>
