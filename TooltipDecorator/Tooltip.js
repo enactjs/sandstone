@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Skinnable from '../Skinnable';
 
 import TooltipLabel from './TooltipLabel';
-import css from './Tooltip.module.less';
+import componentCss from './Tooltip.module.less';
 
 /**
  * A stateless tooltip component with Sandstone styling applied.
@@ -39,6 +39,20 @@ const TooltipBase = kind({
 		 * @public
 		 */
 		arrowAnchor: PropTypes.oneOf(['left', 'center', 'right', 'top', 'middle', 'bottom']),
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `tooltip` - The root component class
+		 * * `tooltipLabel` - Applied the label node
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Direction of label in relation to the activator.
@@ -117,8 +131,9 @@ const TooltipBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'tooltip'
+		css: componentCss,
+		className: 'tooltip',
+		publicClassNames: ['tooltip', 'tooltipLabel']
 	},
 
 	computed: {
@@ -137,7 +152,7 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, tooltipRef, width, labelOffset, ...rest}) => {
+	render: ({children, css, tooltipRef, width, labelOffset, ...rest}) => {
 		delete rest.arrowAnchor;
 		delete rest.labelOffset;
 		delete rest.direction;
@@ -148,7 +163,7 @@ const TooltipBase = kind({
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>
