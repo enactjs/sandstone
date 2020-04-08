@@ -38,12 +38,25 @@
 	&.selected {
 		.icon {
 			left: (@sand-switch-width - @sand-switch-height);
-
-			.sand-custom-text({
-				left: (@sand-switch-width-large - @sand-switch-height-large);
-			});
 		}
 	}
+
+	.sand-custom-text({
+		.icon {
+			left: 0;
+			width: @sand-switch-height;
+			// height: inherit;
+			font-size: (@sand-switch-height * 3);
+			line-height: inherit;
+			margin: 0;
+		}
+
+		&.selected {
+			.icon {
+				left: (@sand-switch-width - @sand-switch-height);
+			}
+		}
+	});
 
 	&.animated {
 		.client {
