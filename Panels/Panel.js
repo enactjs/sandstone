@@ -177,12 +177,12 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
-		header: ({header, titleRef}) => (
+		header: ({header, titleRef}) => (!titleRef ? header : (
 			<ComponentOverride
 				component={header}
 				titleRef={titleRef}
 			/>
-		),
+		)),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)

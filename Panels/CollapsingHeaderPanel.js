@@ -4,7 +4,7 @@ import React from 'react';
 
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {Panel} from './Panel';
+import Panel from './Panel';
 import css from './CollapsingHeaderPanel.module.less';
 
 /**
