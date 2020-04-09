@@ -4,6 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/TabLayout` prop `tabs`, to be removed in beta.1. Use `sandstone/TabLayout.TabLayoutItem` instead.
+
+### Added
+
+- `sandstone/Panels.CollapsingHeaderPanel`
+- `sandstone/TabLayout.TabLayoutItem` for configuring `TabLayout` tab contents
+
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
