@@ -10,6 +10,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+	transition: transform 300ms ease-out; // to support collapsing header
 	.border-box();
 
 	///
@@ -53,6 +54,10 @@
 		z-index: 1;
 	}
 
+	.titlesRow {
+		transition: transform 300ms ease-out, opacity 300ms ease-out;
+	}
+
 	.title,
 	.subtitle {
 		margin: 0;
@@ -70,6 +75,16 @@
 		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
 		margin: 0;
 	}
+
+	&.collapsed {
+		transform: translateY(-12px);
+
+		.titlesRow {
+			transform: translateY(-50%);
+			opacity: 0.3;
+		}
+	}
+
 
 	///
 	/// Begin "types" rules configuration
@@ -103,22 +118,6 @@
 
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
-		}
-	}
-
-	// TODO: A placeholder for future work
-	transition: transform 300ms ease-out;
-
-	.titlesRow {
-		transition: transform 300ms ease-out, opacity 300ms ease-out;
-	}
-
-	&.collapsed {
-		transform: translateY(-12px);
-
-		.titlesRow {
-			transform: translateY(-50%);
-			opacity: 0.3;
 		}
 	}
 
