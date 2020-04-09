@@ -4,7 +4,6 @@ import React from 'react';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './DatePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 /**
  * A date selection component.
@@ -14,7 +13,6 @@ import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponen
  *
  * @class DatePickerBase
  * @memberof sandstone/DatePicker
- * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
@@ -177,7 +175,7 @@ const DatePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way left key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -186,7 +184,7 @@ const DatePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way right key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -230,7 +228,7 @@ const DatePickerBase = kind({
 
 	styles: {
 		css,
-		className: dateComponentPickers
+		className: 'datePicker'
 	},
 
 	render: ({

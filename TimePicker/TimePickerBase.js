@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './TimePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 // values to use in hour picker for 24 and 12 hour locales
 const hours24 = [
@@ -221,7 +220,7 @@ const TimePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way left key is pressed.
+		 * Called when the focus leaves the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -230,7 +229,7 @@ const TimePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way right key is pressed.
+		 * Called when the focus leaves the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -263,7 +262,7 @@ const TimePickerBase = kind({
 
 	styles: {
 		css,
-		className: dateComponentPickers
+		className: 'timePicker'
 	},
 
 	computed: {
