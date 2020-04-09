@@ -77,10 +77,10 @@
 	}
 
 	&.collapsed {
-		transform: translateY(-12px);
+		transform: @sand-header-collapsed-transform;;
 
 		.titlesRow {
-			transform: translateY(-50%);
+			transform: @sand-header-collapsed-title-transform;
 			opacity: @sand-header-collapsed-title-opacity;
 		}
 	}
