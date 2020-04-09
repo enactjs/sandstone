@@ -58,8 +58,26 @@
 		margin: 0;
 	}
 
+	// Limit the width of `title` and `subtitle` when there are both `slotBefore` and `slotAfter` to avoid overlaps with the slots when the title and/or the subtitle is too long.
+	&.withSlotsBeforeAfter {
+		.title,
+		.subtitle {
+			max-width: @sand-header-title-max-width;
+		}
+	}
+
 	.slotAbove {
 		margin-bottom: @sand-header-slotabove-margin;
+	}
+
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		:global(.enact-locale-right-to-left) & {
+			text-align: left;
+		}
 	}
 
 	.slotBelow {

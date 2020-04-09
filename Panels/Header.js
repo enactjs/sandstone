@@ -214,10 +214,11 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({centered, children, slotAbove, slotAfter, slotBefore, type, styler}) => styler.append(
 			{
 				centered,
-				withChildren: (Boolean(children) || Boolean(slotAbove))
+				withChildren: (Boolean(children) || Boolean(slotAbove)),
+				withSlotsBeforeAfter: (Boolean(slotAfter) && Boolean(slotBefore))
 			},
 			type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
@@ -270,8 +271,8 @@ const HeaderBase = kind({
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					{(bothBeforeAndAfter || slotBefore) ? <Cell shrink className={css.slotBefore}>{slotBefore}</Cell> : null}
-					<Cell className={css.titleCell}>
+					{(bothBeforeAndAfter || slotBefore) ? <Cell className={css.slotBefore}>{slotBefore}</Cell> : null}
+					<Cell className={css.titleCell} shrink={bothBeforeAndAfter}>
 						{titleOrInput}
 						<Heading
 							size="subtitle"
@@ -284,7 +285,7 @@ const HeaderBase = kind({
 							{subtitle}
 						</Heading>
 					</Cell>
-					{(bothBeforeAndAfter || slotAfter) ? <Cell shrink className={css.slotAfter}>{slotAfter}</Cell> : null}
+					{(bothBeforeAndAfter || slotAfter) ? <Cell className={css.slotAfter}>{slotAfter}</Cell> : null}
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
 				{line}
