@@ -295,6 +295,20 @@ const WizardPanelDecorator = (Wrapped) => {
 		index: PropTypes.number,
 
 		/**
+		* The "default" subtitle for WizardPanel if subtitle isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
+		* @example
+		* 	<WizardPanel subtitle="Subtitle">
+		*		<WizardPanel.View>
+		*			lorem ipsum ...
+		*		</WizardPanel.View>
+		*	</WizardPanel>
+		*
+		* @type {Number}
+		* @private
+		*/
+		subtitle: PropTypes.string
+
+		/**
 		* The "default" title for WizardPanel if title isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
 		* @example
 		* 	<WizardPanel title="Title">
