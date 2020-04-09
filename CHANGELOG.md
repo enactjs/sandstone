@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
 
+### Fixed
+
+- `sandstone/Header` centering
+
 ## [1.0.0-alpha.7] - 2020-04-06
 
 ### Added
