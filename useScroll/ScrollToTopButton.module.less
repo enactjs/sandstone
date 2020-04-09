@@ -1,5 +1,5 @@
 .scrollToTopButton {
-	transition: opacity 0.5s;
+	transition: opacity @sand-scrolltotop-animation-duration;
 	opacity: 0;
 	position: absolute;
 	right: 0;
@@ -10,11 +10,11 @@
 	}
 
 	&.horizontalScrollbar {
-		bottom: 60px;
+		bottom: @sand-scrolltotop-scrollbar-offset;
 	}
 
 	&.verticalScrollbar {
-		right: 60px;
+		right: @sand-scrolltotop-scrollbar-offset;
 	}
 
 	&.rtl {
@@ -22,7 +22,7 @@
 		right: auto;
 
 		&.verticalScrollbar {
-			left: 60px;
+			left: @sand-scrolltotop-scrollbar-offset;
 		}
 	}
 }
