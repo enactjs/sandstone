@@ -74,15 +74,6 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 	css: PropTypes.object,
 
 	/**
-	 * Registers the Scrollbar component with an
-	 * {@link core/internal/ApiDecorator.ApiDecorator}.
-	 *
-	 * @type {Function}
-	 * @private
-	 */
-	// setApiProvider: PropTypes.func,
-
-	/**
 	 * The minimum size of the thumb.
 	 * This value will be applied ri.scale.
 	 *

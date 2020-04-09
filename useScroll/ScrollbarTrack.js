@@ -26,7 +26,7 @@ const SpotlightAccelerator = new Accelerator();
  * @ui
  * @private
  */
-let ScrollbarTrack = forwardRef((props, ref) => {
+const ScrollbarTrack = forwardRef((props, ref) => {
 	const
 		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
