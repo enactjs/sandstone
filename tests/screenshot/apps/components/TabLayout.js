@@ -1,82 +1,122 @@
-import TabLayout from '../../../../TabLayout';
+import {TabLayout, TabLayoutItem} from '../../../../TabLayout';
 import React from 'react';
 
 const tabs = [
-	{title: 'One'},
-	{title: 'Two'},
-	{title: 'Three'},
-	{title: 'Four'},
-	{title: 'Five'},
-	{title: 'Six'}
+	<TabLayoutItem title="One">
+		<div>View One</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Two">
+		<div>View Two</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Three">
+		<div>View Three</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Four">
+		<div>View Four</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Five">
+		<div>View Five</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Six">
+		<div>View Six</div>
+	</TabLayoutItem>
+
 ];
 
 const tabsWithIcons = [
-	{title: 'One', icon: 'star'},
-	{title: 'Two', icon: 'home'},
-	{title: 'Three', icon: 'plug'},
-	{title: 'Four', icon: 'lock'},
-	{title: 'Five', icon: 'info'},
-	{title: 'Six', icon: 'picture'}
+	<TabLayoutItem title="One" icon="star">
+		<div>View One</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Two" icon="home">
+		<div>View Two</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Three" icon="plug">
+		<div>View Three</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Four" icon="lock">
+		<div>View Four</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Five" icon="info">
+		<div>View Five</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Six" icon="picture">
+		<div>View Six</div>
+	</TabLayoutItem>
 ];
 
 const oneTabWithIcons = [
-	{title: 'One', icon: 'star'},
-	{title: 'Two'},
-	{title: 'Three'},
-	{title: 'Four'},
-	{title: 'Five'},
-	{title: 'Six'}
+	<TabLayoutItem title="One" icon="star">
+		<div>View One</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Two">
+		<div>View Two</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Three">
+		<div>View Three</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Four">
+		<div>View Four</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Five">
+		<div>View Five</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Six">
+		<div>View Six</div>
+	</TabLayoutItem>
 ];
 
 const someTabsWithIcons = [
-	{title: 'One', icon: 'star'},
-	{title: 'Two'},
-	{title: 'Three', icon: 'plug'},
-	{title: 'Four', icon: 'lock'},
-	{title: 'Five'},
-	{title: 'Six', icon: 'picture'}
-];
-
-const views = [
-	<div>View One</div>,
-	<div>View Two</div>,
-	<div>View Three</div>,
-	<div>View Four</div>,
-	<div>View Five</div>,
-	<div>View Six</div>
+	<TabLayoutItem title="One" icon="star">
+		<div>View One</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Two">
+		<div>View Two</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Three" icon="plug">
+		<div>View Three</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Four" icon="lock">
+		<div>View Four</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Five">
+		<div>View Five</div>
+	</TabLayoutItem>,
+	<TabLayoutItem title="Six" icon="picture">
+		<div>View Six</div>
+	</TabLayoutItem>
 ];
 
 const TabLayoutTests = [
 	{
-		component: <TabLayout tabs={tabs}>{views}</TabLayout>,
+		component: <TabLayout>{tabs}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout tabs={tabsWithIcons}>{views}</TabLayout>,
+		component: <TabLayout>{tabsWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout tabs={someTabsWithIcons}>{views}</TabLayout>,
+		component: <TabLayout>{someTabsWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout tabs={oneTabWithIcons}>{views}</TabLayout>,
+		component: <TabLayout>{oneTabWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout collapsed tabs={tabs}>{views}</TabLayout>,
+		component: <TabLayout collapsed>{tabs}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout collapsed tabs={tabsWithIcons}>{views}</TabLayout>,
+		component: <TabLayout collapsed>{tabsWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout collapsed tabs={someTabsWithIcons}>{views}</TabLayout>,
+		component: <TabLayout collapsed>{someTabsWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	},
 	{
-		component: <TabLayout collapsed tabs={oneTabWithIcons}>{views}</TabLayout>,
+		component: <TabLayout collapsed>{oneTabWithIcons}</TabLayout>,
 		wrapper: {full: true}
 	}
 ];
