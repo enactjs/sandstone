@@ -10,7 +10,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	transition: transform 300ms ease-out; // to support collapsing header
+	transition: @sand-header-transform; // to support collapsing header
 	.border-box();
 
 	///
@@ -55,7 +55,7 @@
 	}
 
 	.titlesRow {
-		transition: transform 300ms ease-out, opacity 300ms ease-out;
+		transition: @sand-header-transform;
 	}
 
 	.title,
@@ -77,11 +77,11 @@
 	}
 
 	&.collapsed {
-		transform: translateY(-12px);
+		transform: @sand-header-collapsed-transform;
 
 		.titlesRow {
-			transform: translateY(-50%);
-			opacity: 0.3;
+			transform: @sand-header-collapsed-title-transform;
+			opacity: @sand-header-collapsed-title-opacity;
 		}
 	}
 
