@@ -16,7 +16,7 @@ describe('TimePicker', function () {
 				validateTitle(timePicker, 'Time Picker Default');
 			});
 
-			it.only('should have hour-minute-meridiem order', function () {
+			it('should have hour-minute-meridiem order', function () {
 				browser.waitUntil(() => timePicker.hour.isFocused(), 1500, 'hour focused');
 				Page.spotlightRight();
 				browser.waitUntil(() => timePicker.minute.isFocused(), 1500, 'minute focused');
@@ -25,14 +25,6 @@ describe('TimePicker', function () {
 			});
 
 			describe('5-way', function () {
-				it('update value to current time', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					const value = /^\d{1,2}:\d{2}\s[A|P]M$/.test(timePicker.valueText);
-					expect(value).to.be.true();
-				});
 
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
@@ -81,46 +73,39 @@ describe('TimePicker', function () {
 				});
 
 				it('should update value text when incrementing the meridiem picker', function () {
-					const time = timePicker.valueText;
+					const time = timePicker.timeLabel;
 					Page.spotlightRight();
 					Page.spotlightRight();
 					browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, undefined, 100);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
 					});
-					const newTime = timePicker.valueText;
+					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
 					expect(value).to.equal(true);
 				});
 
 				it('should update value text when decrementing the meridiem picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					const time = timePicker.valueText;
+					const time = timePicker.timeLabel;
 					Page.spotlightRight();
 					Page.spotlightRight();
 					browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, undefined, 100);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightDown();
 					});
-					const newTime = timePicker.valueText;
+					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
 					expect(value).to.equal(true);
 				});
 
 				it('should change the meridiem on hour boundaries', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					const value = timePicker.item(timePicker.meridiem).getText();
+					const {meridiem} = extractValues(timePicker);
+					//const value = timePicker.item(timePicker.meridiem).getText();
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {
 						Page.spotlightDown();
 					}
-					expect(value !== timePicker.item(timePicker.meridiem).getText()).to.be.true();
+					expect(meridiem !== timePicker.item(timePicker.meridiem).getText()).to.be.true();
 				});
 			});
 
@@ -172,12 +157,12 @@ describe('TimePicker', function () {
 				});
 
 				it('should change the meridiem on hour boundaries - [GT-28546]', function () {
-					const value = timePicker.valueText;
+					const value = timePicker.timeLabel;
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {
 						timePicker.decrementer(timePicker.hour).click();
 					}
-					expect(value !== timePicker.valueText).to.be.true();
+					expect(value !== timePicker.timeLabel).to.be.true();
 				});
 			});
 		});
@@ -202,10 +187,7 @@ describe('TimePicker', function () {
 			});
 
 			describe('pointer', function () {
-				it('should not update on title click', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						timePicker.title.click();
-					});
+				it('should not update on click', function () {
 					const {hour, minute, meridiem} = extractValues(timePicker);
 
 					expect(hour).to.equal(12);
@@ -220,19 +202,16 @@ describe('TimePicker', function () {
 			const timePicker = Page.components.timePickerDisabled;
 
 			describe('5-way', function () {
-				it('should not open when selected', function () {
-					timePicker.hour.focus();
+				it('should not update on select', function () {
 					Page.spotlightSelect();
-					// it should never open, but wait and then check to be sure
-					browser.pause(500);
+					timePicker.focus();
 				});
 			});
 
 			describe('pointer', function () {
-				it('should not open when clicked', function () {
-					timePicker.hour.click();
-					// it should never open, but wait and then check to be sure
-					browser.pause(500);
+				it('should not update on click', function () {
+					timePicker.decrementer(timePicker.hour).click();
+					Page.spotlightSelect();
 				});
 			});
 		});
@@ -241,7 +220,7 @@ describe('TimePicker', function () {
 			const timePicker = Page.components.timePickerDisabledWithDefaultValue;
 
 			it('should not display \'noneText\'', function () {
-				expect(timePicker.valueText).to.not.equal('Nothing Selected');
+				expect(timePicker.timeLabel).to.not.equal('Nothing Selected');
 			});
 		});
 	});
