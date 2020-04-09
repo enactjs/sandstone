@@ -34,7 +34,7 @@ import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
 
 const
-	defaultScrollDistance = 168,	// TODO : Change to the value decided by UX.
+	arrowKeyMultiplier = 0.2,
 	fadeOutSize = ri.scale(48),
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
@@ -147,7 +147,7 @@ const useThemeScroll = (props, instances) => {
 			bounds = scrollContainerHandle.current.getScrollBounds(),
 			direction = isForward ? 1 : -1,
 			pageSize = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
-			distance = isPagination ? (pageSize * paginationPageMultiplier) : defaultScrollDistance;
+			distance = pageSize * (isPagination ? paginationPageMultiplier : arrowKeyMultiplier);
 
 		scrollContainerHandle.current.lastInputType = inputType;
 
@@ -156,7 +156,7 @@ const useThemeScroll = (props, instances) => {
 			scrollContainerHandle.current.wheelDirection = direction;
 		}
 
-		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * ri.scale(distance), isVerticalScrollBar, props.overscrollEffectOn.scrollbarButton);
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn[inputType]);
 	}
 
 	function alertScrollbarTrack () {
