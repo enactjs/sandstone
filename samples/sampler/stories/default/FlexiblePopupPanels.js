@@ -6,18 +6,18 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {MiniPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {FlexiblePopupPanels, Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 
-const Config = mergeComponentMetadata('MiniPanels', MiniPanels);
+const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels);
 
 storiesOf('Sandstone', module)
 	.add(
-		'Panels.MiniPanels',
+		'Panels.FlexiblePopupPanels',
 		() => {
 			const defaultOpen = false;
 			const [open, setOpenState] = React.useState(defaultOpen);
@@ -29,7 +29,7 @@ storiesOf('Sandstone', module)
 			const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 
 			return (<div>
-				<MiniPanels
+				<FlexiblePopupPanels
 					index={index}
 					open={open}
 					noAnimation={boolean('noAnimation', Config)}
@@ -95,13 +95,13 @@ storiesOf('Sandstone', module)
 						</Header>
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
 					</Panel>
-				</MiniPanels>
-				<Button onClick={toggleOpen}>Open MiniPanels</Button>
+				</FlexiblePopupPanels>
+				<Button onClick={toggleOpen}>Open FlexiblePopupPanels</Button>
 			</div>);
 		},
 		{
 			info: {
-				text: 'Basic usage of MiniPanels'
+				text: 'Basic usage of FlexiblePopupPanels'
 			}
 		}
 	);
