@@ -7,12 +7,12 @@ import PopupDecorator from './PopupDecorator';
 import Viewport from './Viewport';
 
 
-const OptionPanelsDecorator = compose(
+const FixedPopupPanelsDecorator = compose(
 	Skinnable,
 	PopupDecorator({
-		className: 'panels option',
+		className: 'panels fixedPopup',
 		panelArranger: BasicArranger,
-		panelType: 'option'
+		panelType: 'fixedPopup'
 	})
 );
 
@@ -21,12 +21,12 @@ const OptionPanelsDecorator = compose(
  * or left side of the screen inside a popup. Typically used for overlaying panels over other
  * content.
  *
- * @class OptionPanels
+ * @class FixedPopupPanels
  * @memberof sandstone/Panels
  * @ui
  * @public
  */
-const OptionPanels = OptionPanelsDecorator(Viewport);
+const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
 
-export default OptionPanels;
-export {OptionPanels};
+export default FixedPopupPanels;
+export {FixedPopupPanels};

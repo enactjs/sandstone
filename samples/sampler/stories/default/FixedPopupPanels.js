@@ -4,18 +4,18 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {OptionPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
 import Item from '@enact/sandstone/Item';
 
-const Config = mergeComponentMetadata('OptionPanels', OptionPanels);
+const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 
 storiesOf('Sandstone', module)
 	.add(
-		'Panels.OptionPanels',
+		'Panels.FixedPopupPanels',
 		() => (
 			<div>
-				<OptionPanels
+				<FixedPopupPanels
 					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 					open={boolean('open', Config)}
 					position={select('position', ['left', 'right'], Config, 'right')}
@@ -31,13 +31,13 @@ storiesOf('Sandstone', module)
 					<Panel>
 						<Header type="compact">
 							<title>
-								OptionPanels Title
+								FixedPopupPanels Title
 							</title>
 							<subtitle>
 								A panel type for options views
 							</subtitle>
 						</Header>
-						<BodyText>Example text inside an OptionPanels Panel</BodyText>
+						<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
 						<Item>Example Item 1</Item>
 						<Item>Example Item 2</Item>
 						<Item>Example Item 3</Item>
@@ -56,13 +56,13 @@ storiesOf('Sandstone', module)
 						<Item>Example Item 2 on Panel 2</Item>
 						<Item>Example Item 3 on Panel 2</Item>
 					</Panel>
-				</OptionPanels>
-				<BodyText centered>Use KNOBS to interact with OptionPanels.</BodyText>
+				</FixedPopupPanels>
+				<BodyText centered>Use KNOBS to interact with FixedPopupPanels.</BodyText>
 			</div>
 		),
 		{
 			info: {
-				text: 'Basic usage of OptionPanels'
+				text: 'Basic usage of FixedPopupPanels'
 			}
 		}
 	);

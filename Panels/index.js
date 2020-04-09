@@ -20,7 +20,7 @@ import AlwaysViewingPanels from './AlwaysViewingPanels';
 import Breadcrumb from './Breadcrumb';
 import Header, {HeaderBase} from './Header';
 import FlexiblePopupPanels from './FlexiblePopupPanels';
-import OptionPanels from './OptionPanels';
+import FixedPopupPanels from './FixedPopupPanels';
 import Panel from './Panel';
 import Panels from './Panels';
 import WizardPanel, {View, WizardPanelBase} from './WizardPanel';
@@ -33,7 +33,7 @@ export {
 	Header,
 	HeaderBase,
 	FlexiblePopupPanels,
-	OptionPanels,
+	FixedPopupPanels,
 	Panel,
 	Panels,
 	Panels as PanelsBase,

@@ -10,9 +10,9 @@ import Viewport from './Viewport';
 const FlexiblePopupPanelsDecorator = compose(
 	Skinnable,
 	PopupDecorator({
-		className: 'panels mini',
+		className: 'panels flexiblePopup',
 		panelArranger: FadeAndSlideArranger,
-		panelType: 'mini'
+		panelType: 'flexiblePopup'
 	})
 );
 
