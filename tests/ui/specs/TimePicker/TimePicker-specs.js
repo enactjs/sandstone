@@ -100,7 +100,6 @@ describe('TimePicker', function () {
 
 				it('should change the meridiem on hour boundaries', function () {
 					const {meridiem} = extractValues(timePicker);
-					//const value = timePicker.item(timePicker.meridiem).getText();
 					// 12 hours ought to change the value text if meridiem changes
 					for (let i = 12; i; i -= 1) {
 						Page.spotlightDown();
