@@ -5,21 +5,24 @@
 @import "../styles/skin.less";
 
 .switch {
-	border-radius: @sand-switch-border-radius;
-	width: @sand-switch-width;
-	height: @sand-switch-height;
-	line-height: @sand-switch-height;
-	font-family: @sand-icon-font-family;
-	position: relative;
 	display: inline-block;
-	text-align: left;
-	cursor: default;
+	position: relative;
 
-	.sand-custom-text({
-		width: @sand-switch-width-large;
-		height: @sand-switch-height-large;
-		border-radius: (@sand-switch-height-large / 2);
-	});
+	.client {
+		border-radius: @sand-switch-border-radius;
+		width: @sand-switch-width;
+		height: @sand-switch-height;
+		line-height: @sand-switch-height;
+		position: relative;
+		text-align: left;
+		cursor: default;
+
+		.sand-custom-text({
+			width: @sand-switch-width-large;
+			height: @sand-switch-height-large;
+			border-radius: (@sand-switch-height-large / 2);
+		});
+	}
 
 	.icon {
 		visibility: visible;
@@ -29,6 +32,7 @@
 		font-size: (@sand-switch-height * 3);
 		line-height: inherit;
 		margin: 0;
+		vertical-align: top;
 	}
 
 	&.selected {
@@ -42,7 +46,9 @@
 	}
 
 	&.animated {
-		transition: background-color 200ms;
+		.client {
+			transition: background-color 200ms;
+		}
 
 		.icon {
 			transition: left 200ms, color 200ms;
@@ -54,8 +60,7 @@
 		.sand-taparea(@sand-switch-height);
 		margin: @sand-switch-spottable-margin;
 
-		&::after {
-			content: "";
+		.bg {
 			position: absolute;
 			.position(@sand-switch-spottable-position-top-bottom, @sand-switch-spottable-position-left-right);
 			border-radius: @sand-switch-spottable-border-radius;
@@ -65,7 +70,9 @@
 
 	// Skin colors
 	.applySkins({
-		background-color: @sand-switch-bg-color;
+		.client {
+			background-color: @sand-switch-bg-color;
+		}
 
 		.icon {
 			background-color: transparent;
@@ -73,22 +80,36 @@
 		}
 
 		&.selected {
-			background-color: @sand-switch-selected-bg-color;
+			.client {
+				background-color: @sand-switch-selected-bg-color;
+			}
 
 			.icon {
 				color: @sand-switch-selected-color;
 			}
 		}
 
+		.disabled({
+			&.selected {
+				.client {
+					background-color: @sand-switch-disabled-selected-bg-color;
+				}
+
+				.icon {
+					color: @sand-switch-disabled-selected-color;
+				}
+			}
+		});
+
 		// Standalone Switch
 		.spottable({
-			&::after {
+			.bg {
 				.sand-spotlight-resting-colors();
 			}
 		});
 
 		.focus({
-			&::after {
+			.bg {
 				.sand-spotlight-focus-colors();
 			}
 
@@ -102,6 +123,22 @@
 				}
 			}
 		});
+
+		.sand-disabled({
+			.client {
+				.sand-disabled-colors();
+			}
+
+			.focus({
+				.bg {
+					.sand-disabled-focus-bg-colors();
+				}
+				.client {
+					.sand-disabled-focus-content-colors();
+				}
+			});
+		});
+
 	});
 }
 
@@ -122,3 +159,20 @@
 		});
 	}
 }, parent);
+
+.disabled({
+	.switch {
+		// Skin colors
+		.applySkins({
+			&.selected {
+				.client {
+					background-color: @sand-switch-disabled-selected-bg-color;
+				}
+
+				.icon {
+					color: @sand-switch-disabled-selected-color;
+				}
+			}
+		});
+	}
+});

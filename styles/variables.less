@@ -123,6 +123,13 @@
 @sand-non-latin-button-small-font-style: @sand-button-small-font-style;
 @sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
 
+// Date and Time Picker
+@sand-date-time-picker-min-width: 240px;
+@sand-date-time-picker-label-padding: 42px 21px;
+@sand-datepicker-padding: @sand-component-spacing;
+@sand-timepicker-padding: @sand-datepicker-padding;
+@sand-timepicker-colon-line-height: 6em;
+
 // Expandable
 @sand-expandable-value-font-family: @sand-font-family;
 @sand-expandable-value-font-style: normal;
@@ -162,9 +169,6 @@
 
 // Panels
 @sand-panels-breadcrumb-font-family: @sand-alt-font-family;
-
-// Steps
-@sand-steps-step-number-font-family: @sand-font-family;
 
 
 // ---------------------------------------
@@ -261,9 +265,8 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextual-popup-border-width: 1px;
-@sand-contextual-popup-border-radius: @sand-button-border-width;
-@sand-contextual-popup-padding: @sand-spotlight-outset;
+@sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
+@sand-contextual-popup-padding: @sand-spotlight-outset 0;
 @sand-contextual-popup-with-reserveclose-padding: (@sand-button-small-height + @sand-spotlight-outset);
 @sand-contextual-popup-with-reserveclose-padding-large: (@sand-button-small-height-large + @sand-spotlight-outset);
 @sand-contextual-popup-arrow-height: 60px;
@@ -306,14 +309,14 @@
 @sand-dropdown-large-width: 780px;
 @sand-dropdown-x-large-width: 1050px;
 @sand-dropdown-huge-width: 1380px;
+@sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - @sand-button-border-width);
+@sand-dropdown-list-small-width: (@sand-dropdown-small-width - @sand-button-border-width);
+@sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - @sand-button-border-width);
+@sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
+@sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
+@sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-list-scrollbar-size: 36px;
 @sand-dropdown-list-scrollbar-thumb-margin: 12px;
-@sand-dropdown-list-tiny-width: (@sand-dropdown-tiny-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-small-width: (@sand-dropdown-small-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-medium-width: (@sand-dropdown-medium-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-large-width: (@sand-dropdown-large-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
-@sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - (@sand-contextual-popup-padding * 2) - @sand-button-border-width);
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
 
@@ -396,11 +399,15 @@
 // ImageItem
 // ---------------------------------------
 @sand-imageitem-image-border-width: 6px;
+@sand-imageitem-caption-line-height: 72px;
+@sand-imageitem-label-line-height: 54px;
+@sand-imageitem-label-margin-top: 6px;
 @sand-imageitem-horizontal-border-radius: 12px;
 @sand-imageitem-horizontal-margin: @sand-item-margin;
 @sand-imageitem-horizontal-image-width: 180px;
 @sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
-@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0px;
+@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0;
+@sand-imageitem-horizontal-image-margin-rtl: 30px 0 30px 30px;
 @sand-imageitem-horizontal-selection-icon-size: 90px;
 @sand-imageitem-vertical-padding: 48px;
 @sand-imageitem-vertical-captions-height: 132px;
@@ -600,18 +607,18 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrolltrack-margin: 24px;
-@sand-scrolltrack-width: 12px;
-@sand-scrolltrack-border-radius: 6px;
-@sand-scrollthumb-border-radius: 6px;
-@sand-scrollthumb-focus-width: 30px;
-@sand-scrollthumb-focus-left: -9px; // TODO: Re-apply 4K GUI.
-@sand-scrollthumb-focus-border-radius: 15px;
-@sand-scrollthumb-focus-box-shadow: 0 40px 24px;
-@sand-scrollthumb-focus-direction-indicator-width: 18px;
-@sand-scrollthumb-focus-direction-indicator-height: 12px;
-@sand-scrollthumb-focus-direction-indicator-top: 9px; // TODO: Re-apply 4K GUI.
-@sand-scrollthumb-focus-direction-indicator-left: 6px;
+@sand-scrollbar-track-margin: 24px;
+@sand-scrollbar-track-width: 12px;
+@sand-scrollbar-track-border-radius: 6px;
+@sand-scrollbar-thumb-border-radius: 6px;
+@sand-scrollbar-thumb-focus-width: 30px;
+@sand-scrollbar-thumb-focus-left: -9px; // TODO: Re-apply 4K GUI.
+@sand-scrollbar-thumb-focus-border-radius: 15px;
+@sand-scrollbar-thumb-focus-box-shadow: 0 40px 24px;
+@sand-scrollbar-thumb-focus-direction-indicator-width: 18px;
+@sand-scrollbar-thumb-focus-direction-indicator-height: 12px;
+@sand-scrollbar-thumb-focus-direction-indicator-top: 9px; // TODO: Re-apply 4K GUI.
+@sand-scrollbar-thumb-focus-direction-indicator-left: 6px;
 
 // Scroller
 // ---------------------------------------

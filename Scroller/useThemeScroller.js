@@ -12,7 +12,7 @@ import {fadeOutSize} from '../useScroll';
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
-import thumbCss from '../useScroll/ScrollThumb.module.less';
+import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
 
 add('esc', 27);
 
@@ -26,7 +26,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 
 	const setNavigableFilter = ({filterTarget}) => {
 		if (spotlightId && filterTarget) {
-			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
+			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
 			});
@@ -68,7 +68,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 
 				// If there are both thumbs, vertical thumb is the next target
 				const verticalThumb = spottableDescendants.pop();
-				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
+				nextTarget = (verticalThumb && verticalThumb.classList.contains(scrollbarTrackCss.thumb)) ? verticalThumb : nextTarget;
 			}
 		} else {
 			// Esc key on scroll thumb.
@@ -172,12 +172,7 @@ const useSpottable = (props, instances) => {
 	/**
 	 * Calculates the new `scrollTop`.
 	 *
-	 * @param {Node} focusedItem node
-	 * @param {Number} itemTop of the focusedItem / focusedContainer
-	 * @param {Number} itemHeight of focusedItem / focusedContainer
-	 * @param {Object} scrollInfo position info. Uses `scrollInfo.previousScrollHeight`
-	 * and `scrollInfo.scrollTop`
-	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
+	 * @param {Node} item Focused item node
 	 *
 	 * @returns {Number} Calculated `scrollTop`
 	 * @private
@@ -297,8 +292,6 @@ const useSpottable = (props, instances) => {
 	 * Calculates the new top and left position for scroller based on focusedItem.
 	 *
 	 * @param {Node} item node
-	 * @param {Object} scrollInfo position info. `calculateScrollTop` uses
-	 * `scrollInfo.previousScrollHeight` and `scrollInfo.scrollTop`
 	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
 	 *
 	 * @returns {Object} with keys {top, left} containing calculated top and left positions for scroll.
