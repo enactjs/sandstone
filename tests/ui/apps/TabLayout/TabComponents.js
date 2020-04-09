@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '../../../../Button';
-import {TabLayoutItem} from '../../../../TabLayout'
+import {TabLayoutItem} from '../../../../TabLayout';
 
 export const tabs = [
 	<TabLayoutItem title="One" icon="">
