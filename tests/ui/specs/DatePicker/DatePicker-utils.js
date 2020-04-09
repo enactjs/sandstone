@@ -18,26 +18,8 @@ function validateTitle (picker, title) {
 	});
 }
 
-// Expects are blocks of expects or other commands to be embedded in an 'it' statement
-function expectClosed (picker) {
-	expect(picker.isOpen, 'Picker open').to.be.false();
-}
-
-function expectNoLabels (picker) {
-	expect(picker.monthLabel.isExisting()).to.be.false();
-	expect(picker.dayLabel.isExisting()).to.be.false();
-	expect(picker.yearLabel.isExisting()).to.be.false();
-}
-
-function expectOpen (picker) {
-	expect(picker.isOpen, 'Picker open').to.be.true();
-}
-
 module.exports = {
 	daysInMonth,
-	expectClosed,
-	expectNoLabels,
-	expectOpen,
 	extractValues,
 	validateTitle
 };

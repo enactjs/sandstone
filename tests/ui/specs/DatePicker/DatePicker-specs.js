@@ -1,12 +1,8 @@
 const Page = require('./DatePickerPage');
-const {daysInMonth, expectClosed, expectNoLabels, expectOpen, extractValues, validateTitle} = require('./DatePicker-utils.js');
+const {daysInMonth, extractValues, validateTitle} = require('./DatePicker-utils.js');
 
 describe('DatePicker', function () {
 	Page.open();
-
-	it('should have focus on start', function () {
-		expect(Page.components.datePickerDefaultClosedWithoutNoneText.title.isFocused()).to.be.true();
-	});
 
 	describe('LTR locale', function () {
 		beforeEach(function () {
@@ -14,23 +10,13 @@ describe('DatePicker', function () {
 		});
 
 		describe('default', function () {
-			const datePicker = Page.components.datePickerDefaultClosedWithoutNoneText;
+			const datePicker = Page.components.datePickerDefault;
 
 			it('should have correct title', function () {
 				validateTitle(datePicker, 'Date Picker Default');
 			});
 
-			it('should be initially closed', function () {
-				datePicker.self.waitForExist(500);
-				expectClosed(datePicker);
-			});
-
 			it('should have month-day-year order', function () {
-				Page.waitTransitionEnd(3000, undefined, () => {
-					Page.spotlightSelect();
-				});
-
-				expectOpen(datePicker);
 				expect(datePicker.month.isFocused(), 'Month').to.be.true();
 				Page.spotlightRight();
 				expect(datePicker.day.isFocused(), 'Day').to.be.true();
@@ -39,35 +25,12 @@ describe('DatePicker', function () {
 			});
 
 			describe('5-way', function () {
-				it('should open, spot first item on select, and update value to current date', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					const month = new Date(datePicker.valueText).getMonth();
-					expectOpen(datePicker);
-					expect(datePicker.month.isFocused()).to.be.true();
-					expect(month).to.be.within(0, 11);
-				});
-
-				it('should close when pressing select', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					expectOpen(datePicker);
-					expect(datePicker.month.isFocused()).to.be.true();
-					Page.spotlightSelect();
-					expectClosed(datePicker);
-				});
-
 				it('should increase the month when incrementing the picker', function () {
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightSelect();
 					});
 
 					const {month} = extractValues(datePicker);
-					expectOpen(datePicker);
 					expect(datePicker.month.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightUp();
@@ -84,7 +47,6 @@ describe('DatePicker', function () {
 
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
-					expectOpen(datePicker);
 					Page.spotlightRight();
 					expect(datePicker.day.isFocused()).to.be.true();
 					Page.waitTransitionEnd(3000, undefined, () => {
@@ -101,7 +63,6 @@ describe('DatePicker', function () {
 					});
 
 					const {year} = extractValues(datePicker);
-					expectOpen(datePicker);
 					Page.spotlightRight();
 					Page.spotlightRight();
 					expect(datePicker.year.isFocused()).to.be.true();
@@ -115,38 +76,14 @@ describe('DatePicker', function () {
 			});
 
 			describe('pointer', function () {
-				it('should open on title click when closed', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
-					expectOpen(datePicker);
-				});
-
-				it('should close on title click when open', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
-					expectOpen(datePicker);
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
-					expectClosed(datePicker);
-				});
 
 				it('should select item', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					datePicker.month.click();
 					expect(datePicker.month.isFocused()).to.be.true();
 				});
 
 				it('should increase the month when incrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {month} = extractValues(datePicker);
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.incrementer(datePicker.month).click();
 					});
@@ -156,11 +93,7 @@ describe('DatePicker', function () {
 				});
 
 				it('should decrease the month when decrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {month} = extractValues(datePicker);
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.decrementer(datePicker.month).click();
 					});
@@ -170,12 +103,8 @@ describe('DatePicker', function () {
 				});
 
 				it('should increase the day when incrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.incrementer(datePicker.day).click();
 					});
@@ -185,12 +114,8 @@ describe('DatePicker', function () {
 				});
 
 				it('should decrease the day when decrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {day, month, year} = extractValues(datePicker);
 					const numDays = daysInMonth({month, year});
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.decrementer(datePicker.day).click();
 					});
@@ -200,11 +125,7 @@ describe('DatePicker', function () {
 				});
 
 				it('should increase the year when incrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {year} = extractValues(datePicker);
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.incrementer(datePicker.year).click();
 					});
@@ -214,11 +135,7 @@ describe('DatePicker', function () {
 				});
 
 				it('should decrease the year when decrementing the picker', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
 					const {year} = extractValues(datePicker);
-					expectOpen(datePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
 						datePicker.decrementer(datePicker.year).click();
 					});
@@ -226,55 +143,6 @@ describe('DatePicker', function () {
 					const expected = year - 1;
 					expect(value).to.equal(expected);
 				});
-			});
-		});
-
-		describe('default open', function () {
-			const datePicker = Page.components.datePickerDefaultOpenWithNoneText;
-
-			it('should be initially open', function () {
-				datePicker.self.waitForExist(500);
-				expectOpen(datePicker);
-			});
-
-			describe('5-way', function () {
-				it('should close when pressing select', function () {
-					datePicker.focus();
-					Page.waitTransitionEnd(3000, undefined, () => {
-						Page.spotlightSelect();
-					});
-
-					expectClosed(datePicker);
-					expect(datePicker.title.isFocused()).to.be.true();
-				});
-			});
-
-			describe('pointer', function () {
-
-				it('should open on title click when closed', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
-					expectClosed(datePicker);
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
-					expectOpen(datePicker);
-				});
-			});
-		});
-
-		describe('\'defaultOpen\' with \'defaultValue\'', function () {
-			// supplied value is `new Date(2009, 5, 6)` (time will be midnight)
-			const datePicker = Page.components.datePickerDefaultOpenWithDefaultValue;
-
-			it('should be initially open', function () {
-				datePicker.self.waitForExist(500);
-				expectOpen(datePicker);
-			});
-
-			it('should not display \'noneText\'', function () {
-				expect(datePicker.valueText).to.not.equal('Nothing Selected');
 			});
 		});
 
@@ -298,10 +166,7 @@ describe('DatePicker', function () {
 			});
 
 			describe('pointer', function () {
-				it('should not update on title click', function () {
-					Page.waitTransitionEnd(3000, undefined, () => {
-						datePicker.title.click();
-					});
+				it('should not update on click', function () {
 					const {day, month, year} = extractValues(datePicker);
 
 					expect(day).to.equal(6);
@@ -312,92 +177,27 @@ describe('DatePicker', function () {
 
 		});
 
-		describe('no labels', function () {
-			const datePicker = Page.components.datePickerNoLabels;
-
-			it('should not have labeled pickers', function () {
-				datePicker.title.click();
-				expectNoLabels(datePicker);
-			});
-		});
 
 		describe('disabled', function () {
-			const datePicker = Page.components.datePickerDisabledWithNoneText;
+			const datePicker = Page.components.datePickerDisabled;
 
-			it('should be initially closed', function () {
-				datePicker.self.waitForExist(500);
-				expectClosed(datePicker);
-			});
-
-			it('should display \'noneText\'', function () {
-				expect(datePicker.valueText).to.equal('Nothing Selected');
-			});
-
-			describe('5-way', function () {
-				it('should be able to receive focus', function () {
-					Page.components.datePickerNoLabels.focus();
-					Page.spotlightDown();
-					expect(datePicker.title.isFocused()).to.be.true();
-				});
-				it('should not open when selected', function () {
-					Page.spotlightSelect();
-					browser.pause(500);
-					expectClosed(datePicker);
-				});
-			});
-
-			describe('pointer', function () {
-				it('should not open when clicked', function () {
-					datePicker.title.click();
-					// it should never open, but wait and then check to be sure
-					browser.pause(500);
-					expectClosed(datePicker);
-				});
+			it('should not display \'noneText\'', function () {
+				expect(datePicker.dateLabel).to.not.equal('Nothing Selected');
 			});
 		});
 
 		describe('disabled with \'defaultValue\'', function () {
 			const datePicker = Page.components.datePickerDisabledWithDefaultValue;
 
-			it('should be initially closed', function () {
-				datePicker.self.waitForExist(500);
-				expectClosed(datePicker);
-			});
-
 			it('should not display \'noneText\'', function () {
-				expect(datePicker.valueText).to.not.equal('Nothing Selected');
+				expect(datePicker.dateLabel).to.not.equal('Nothing Selected');
 			});
 		});
 
-		describe('disabled \'defaultOpen\'', function () {
-			const datePicker = Page.components.datePickerDisabledOpenWithNoneText;
-			it('should be initially closed', function () {
-				datePicker.self.waitForExist(500);
-				expectClosed(datePicker);
-			});
-
-			it('should display \'noneText\'', function () {
-				expect(datePicker.valueText).to.equal('Nothing Selected');
-			});
-		});
-
-		describe('disabled \'defaultOpen\' with \'defaultValue\'', function () {
-			// supplied value is `new Date(2009, 5, 6)` (time will be midnight)
-			const datePicker = Page.components.datePickerDisabledOpenWithDefaultValue;
-
-			it('should be initially closed', function () {
-				datePicker.self.waitForExist(500);
-				expectClosed(datePicker);
-			});
-
-			it('should not display \'noneText\'', function () {
-				expect(datePicker.valueText).to.not.equal('Nothing Selected');
-			});
-		});
 	});
 
 	describe('RTL locale', function () {
-		const datePicker = Page.components.datePickerDefaultClosedWithoutNoneText;
+		const datePicker = Page.components.datePickerDefault;
 
 		beforeEach(function () {
 			Page.open('?locale=ar-SA');
@@ -408,7 +208,6 @@ describe('DatePicker', function () {
 				Page.spotlightSelect();
 			});
 
-			expectOpen(datePicker);
 			expect(datePicker.day.isFocused()).to.be.true();
 		});
 
@@ -417,7 +216,6 @@ describe('DatePicker', function () {
 				Page.spotlightSelect();
 			});
 
-			expectOpen(datePicker);
 			expect(datePicker.day.isFocused()).to.be.true();
 			Page.spotlightLeft();
 			expect(datePicker.month.isFocused()).to.be.true();
