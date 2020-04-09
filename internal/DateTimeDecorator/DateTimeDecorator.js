@@ -14,7 +14,6 @@ import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {Expandable} from '../../ExpandableItem';
 
 /*
  * Converts a JavaScript Date to unix time
@@ -96,6 +95,14 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 				value: null
 			};
 
+			const newValue = toTime(this.props.value);
+			const value = newValue || Date.now();
+
+			// if no value was provided, we need to emit the onChange event for the generated value
+			if (!newValue) {
+				this.emitChange(this.toIDate(value));
+			}
+
 			this.handlers = {};
 			if (handlers) {
 				Object.keys(handlers).forEach(name => {
@@ -172,33 +179,6 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			forward('onChange', {value: date ? date.getJSDate() : null}, this.props);
 		}
 
-		handleOpen = (ev) => {
-			forward('onOpen', ev, this.props);
-
-			const newValue = toTime(this.props.value);
-			const value = newValue || Date.now();
-
-			// if we're opening, store the current value as the initial value for cancellation
-			this.setState({
-				initialValue: newValue,
-				pickerValue: null,
-				value
-			});
-
-			// if no value was provided, we need to emit the onChange event for the generated value
-			if (!newValue) {
-				this.emitChange(this.toIDate(value));
-			}
-		}
-
-		handleClose = (ev) => {
-			forward('onClose', ev, this.props);
-			const newValue = toTime(this.props.value);
-			this.setState({
-				value: newValue
-			});
-		}
-
 		handlePickerChange = (handler, ev) => {
 			const value = this.toIDate(this.state.value);
 			handler(ev, value, memoizedI18nConfig(this.props.locale));
@@ -253,8 +233,6 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 					{...this.handlers}
 					label={label}
 					onKeyDown={this.handleKeyDown}
-					onClose={this.handleClose}
-					onOpen={this.handleOpen}
 					order={order}
 					value={value}
 				/>
@@ -264,10 +242,8 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 
 	return I18nContextDecorator(
 		{rtlProp: 'rtl', localeProp: 'locale'},
-		Expandable(
-			Changeable(
-				Decorator
-			)
+		Changeable(
+			Decorator
 		)
 	);
 });
