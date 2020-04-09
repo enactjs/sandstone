@@ -253,11 +253,14 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelDecorator = (Wrapped) => {
-	const WizardPanelProvider = ({children, index, title, ...rest}) => {
+	const WizardPanelProvider = ({children, index, subtitle, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
-		const currentTitle = view && view.title ? view.title : title;
+
+		// If `subtitle` and `title` is not provided by `view`, fallback to the `subtitle` and `title` from `WizardPanel`
+		const currentSubtitle = view && (typeof view.subtitle !== 'undefined') ? view.subtitle : subtitle;
+		const currentTitle = view && (typeof view.title !== 'undefined') ? view.title : title;
 
 		return (
 			<WizardPanelContext.Provider value={setView}>
@@ -266,9 +269,10 @@ const WizardPanelDecorator = (Wrapped) => {
 					{...rest}
 					{...view}
 					index={index}
+					reverseTransition={reverseTransition}
+					subtitle={currentSubtitle}
 					title={currentTitle}
 					total={totalViews}
-					reverseTransition={reverseTransition}
 				>
 					{view && view.children ? (
 						<div className="enact-fit" key={`view${index}`}>
@@ -326,8 +330,10 @@ const WizardPanelDecorator = (Wrapped) => {
  */
 const WizardPanel = Changeable(
 	{prop: 'index'},
-	WizardPanelDecorator(
-		WizardPanelBase
+	I18nContextDecorator({rtlProp: 'rtl'},
+		WizardPanelDecorator(
+			WizardPanelBase
+		)
 	)
 );
 
