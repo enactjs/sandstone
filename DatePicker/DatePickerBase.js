@@ -229,7 +229,7 @@ const DatePickerBase = kind({
 
 	styles: {
 		css,
-		className: dateComponentPickers
+		className: `datePicker ${dateComponentPickers}`
 	},
 
 	render: ({

@@ -1,32 +1,34 @@
 @import "../styles/variables.less";
 
-// hour and minute should always be left-to-right
-.timeComponents {
-	direction: ltr;
-	display: inline-block;
+.timePicker {
+	// hour and minute should always be left-to-right
+	.timeComponents {
+		direction: ltr;
+		display: inline-block;
 
-	.colonMark {
-		line-height: @sand-date-time-picker-colon-line-height;
-	}
-
-	:global(.enact-locale-right-to-left) & {
-		display: flex;
-
-		.hourComponents {
-			order: 2;
-		}
 		.colonMark {
-			order: 2;
+			line-height: @sand-date-time-picker-colon-line-height;
 		}
-		.minutesComponents {
-			order: 3;
-		}
-		.meridiemComponent{
-			order: 1;
+
+		:global(.enact-locale-right-to-left) & {
+			display: flex;
+
+			.hourComponents {
+				order: 2;
+			}
+			.colonMark {
+				order: 2;
+			}
+			.minutesComponents {
+				order: 3;
+			}
+			.meridiemComponent{
+				order: 1;
+			}
 		}
 	}
-}
 
-.pickerLabel {
-	padding: @sand-date-time-picker-label-padding
+	.pickerLabel {
+		padding: @sand-date-time-picker-label-padding
+	}
 }

@@ -263,7 +263,7 @@ const TimePickerBase = kind({
 
 	styles: {
 		css,
-		className: dateComponentPickers
+		className: `timePicker ${dateComponentPickers}`
 	},
 
 	computed: {
