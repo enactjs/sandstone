@@ -1,13 +1,16 @@
 @import "../styles/variables.less";
 
 .timePicker {
+	.padding-start-end(@sand-timepicker-padding, inherit);
+	display: inline-block;
+
 	// hour and minute should always be left-to-right
 	.timeComponents {
 		direction: ltr;
 		display: inline-block;
 
 		.colonMark {
-			line-height: @sand-date-time-picker-colon-line-height;
+			line-height: @sand-time-picker-colon-line-height;
 		}
 
 		:global(.enact-locale-right-to-left) & {

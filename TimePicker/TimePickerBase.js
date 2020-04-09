@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './TimePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 // values to use in hour picker for 24 and 12 hour locales
 const hours24 = [
@@ -263,7 +262,7 @@ const TimePickerBase = kind({
 
 	styles: {
 		css,
-		className: `timePicker ${dateComponentPickers}`
+		className: 'timePicker'
 	},
 
 	computed: {

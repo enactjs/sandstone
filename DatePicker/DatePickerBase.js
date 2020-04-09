@@ -4,7 +4,6 @@ import React from 'react';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 
 import css from './DatePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 /**
  * A date selection component.
@@ -229,7 +228,7 @@ const DatePickerBase = kind({
 
 	styles: {
 		css,
-		className: `datePicker ${dateComponentPickers}`
+		className: 'datePicker'
 	},
 
 	render: ({
