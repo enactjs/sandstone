@@ -2,10 +2,7 @@
  * Date selection components and behaviors.
  *
  * @example
- * <DatePicker
- *   onChange={console.log}
- * 	 title="Select Date"
- * />
+ * <DatePicker onChange={console.log} />
  *
  * @module sandstone/DatePicker
  * @exports DatePicker

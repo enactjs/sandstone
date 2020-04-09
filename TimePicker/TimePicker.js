@@ -2,7 +2,7 @@
  * Provides a Sandstone-themed time selection component.
  *
  * @example
- * <TimePicker value={new Date()}></TimePicker>
+ * <TimePicker value={new Date()} />
  *
  * @module sandstone/TimePicker
  * @exports TimePicker
