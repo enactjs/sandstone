@@ -9,6 +9,7 @@ import {adaptEvent, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
+import deprecate from '@enact/core/internal/deprecate';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -153,6 +154,10 @@ const TabLayoutBase = kind({
 	computed: {
 		children: ({children, tabs}) => {
 			if (tabs) {
+				deprecate({
+					name: 'sandstone/TabLayout.TabLayout.tabs',
+					until: '1.0.0-beta.1'
+				});
 				return children;
 			} else {
 				return React.Children.map(children, (child) => {
