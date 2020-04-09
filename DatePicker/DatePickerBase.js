@@ -230,7 +230,7 @@ const DatePickerBase = kind({
 
 	styles: {
 		css,
-		className: 'datePicker'
+		className: dateComponentPickers
 	},
 
 	render: ({
@@ -258,7 +258,7 @@ const DatePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div className={dateComponentPickers}>
+			<div {...rest}>
 				<div className={css.dateLabel}>
 					{rest.label}
 				</div>

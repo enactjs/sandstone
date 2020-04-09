@@ -263,7 +263,7 @@ const TimePickerBase = kind({
 
 	styles: {
 		css,
-		className: 'timePicker'
+		className: dateComponentPickers
 	},
 
 	computed: {
@@ -296,7 +296,7 @@ const TimePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div className={dateComponentPickers}>
+			<div {...rest}>
 				<div className={css.pickerLabel}>
 					{rest.label}
 				</div>
