@@ -206,32 +206,35 @@
 		}
 
 		.disabled({
-			.vendor-opacity(@sand-inputfield-disabled-opacity);
+			.vendor-opacity(1);
 
-			.focus({
-				background-color: @sand-inputfield-disabled-focus-bg-color;
-
-				.input {
-					.vendor-opacity(1);
-					color: @sand-inputfield-disabled-focus-text-color;
-
-					.input-placeholder({
-						.vendor-opacity(@sand-inputfield-disabled-opacity);
-					});
-				}
-			});
+			.bg {
+				background-color: @sand-inputfield-disabled-bg-color;
+			}
 
 			.input {
 				.vendor-opacity(@sand-inputfield-disabled-opacity);
 				color: @sand-inputfield-disabled-text-color;
-			}
 
-			.input {
 				.input-placeholder({
 					.vendor-opacity(1);
 					color: @sand-inputfield-placeholder-disabled-color;
 				});
 			}
+
+			.focus({
+				.vendor-opacity(@sand-inputfield-disabled-focus-opacity);
+				background-color: @sand-inputfield-disabled-focus-bg-color;
+
+				.bg {
+					.sand-spotlight-focus-colors();
+				}
+
+				.input {
+					.vendor-opacity(1);
+					color: @sand-inputfield-disabled-focus-text-color;
+				}
+			});
 		});
 	});
 }
