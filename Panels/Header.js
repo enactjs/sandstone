@@ -404,13 +404,15 @@ const HeaderBase = kind({
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
-			<Button
-				backgroundOpacity="transparent"
-				className={css.back}
-				icon="arrowhookleft"
-				onClick={onBack}
-				size="large"
-			/>
+			<div className={css.backContainer}>
+				<Button
+					backgroundOpacity="transparent"
+					className={css.back}
+					icon="arrowhookleft"
+					onClick={onBack}
+					size="large"
+				/>
+			</div>
 		) : null);
 
 		// Set up the close button
