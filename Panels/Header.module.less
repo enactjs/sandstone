@@ -10,7 +10,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	transition: @sand-header-transform; // to support collapsing header
+	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
@@ -55,7 +55,7 @@
 	}
 
 	.titlesRow {
-		transition: @sand-header-transform;
+		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
 	}
 
 	.title,
@@ -77,10 +77,10 @@
 	}
 
 	&.collapsed {
-		transform: @sand-header-collapsed-transform;
+		transform: translateY(-12px);
 
 		.titlesRow {
-			transform: @sand-header-collapsed-title-transform;
+			transform: translateY(-50%);
 			opacity: @sand-header-collapsed-title-opacity;
 		}
 	}
