@@ -95,7 +95,7 @@ const dateTimeConfig = {
 };
 
 /**
- * An expand date selection component, ready to use in Sandstone applications.
+ * A date selection component, ready to use in Sandstone applications.
  *
  * `DatePicker` may be used to select the year, month, and day. It uses a standard `Date` object for
  * its `value` which can be shared as the `value` for a

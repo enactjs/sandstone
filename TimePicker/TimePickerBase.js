@@ -221,7 +221,7 @@ const TimePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way left key is pressed.
+		 * Called when the focus leaves the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -230,7 +230,7 @@ const TimePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way right key is pressed.
+		 * Called when the focus leaves the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event

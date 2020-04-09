@@ -14,7 +14,6 @@ import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponen
  *
  * @class DatePickerBase
  * @memberof sandstone/DatePicker
- * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
@@ -177,7 +176,7 @@ const DatePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way left key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -186,7 +185,7 @@ const DatePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way right key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
