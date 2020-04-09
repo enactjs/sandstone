@@ -1,91 +1,86 @@
-// import ApiDecorator from '@enact/core/internal/ApiDecorator';
-import {ScrollbarBase as UiScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
+import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
-import React, {forwardRef, memo, useImperativeHandle, useRef} from 'react';
+import React, {memo} from 'react';
 
-import ScrollThumb from './ScrollThumb';
-// import Skinnable from '../Skinnable';
+import ScrollbarTrack from './ScrollbarTrack';
+import Skinnable from '../Skinnable';
 
 import componentCss from './Scrollbar.module.less';
 
+const useThemeScrollbar = (props) => {
+	const {
+		restProps,
+		scrollbarProps,
+		scrollbarTrackProps
+	} = useScrollbarBase(props);
+
+	const {
+		cbAlertScrollbarTrack,
+		focusableScrollbar,
+		onInteractionForScroll,
+		rtl,
+		...rest
+	} = restProps;
+
+	return {
+		restProps: rest,
+		scrollbarProps,
+		scrollbarTrackProps: {
+			...scrollbarTrackProps,
+			cbAlertScrollbarTrack,
+			focusableScrollbar,
+			onInteractionForScroll,
+			rtl
+		}
+	};
+};
+
 /**
- * A Sandstone-styled scroller base component.
+ * A Sandstone-styled scrollbar base component.
  *
  * @class ScrollbarBase
  * @memberof sandstone/useScroll
- * @extends ui/ScrollbarBase
  * @ui
  * @private
  */
-const ScrollbarBase = memo(forwardRef((props, ref) => {
-	// Refs
-	const scrollbarRef = useRef();
-	// render
-	const {className, clientSize, vertical, ...rest} = props;
-
-	delete rest.corner;
-
-	useImperativeHandle(ref, () => {
-		const {getContainerRef, showThumb, startHidingThumb, update: uiUpdate} = scrollbarRef.current;
-
-		return {
-			get uiScrollbarContainer () {
-				return getContainerRef();
-			},
-			showThumb,
-			startHidingThumb,
-			uiUpdate,
-			update: (bounds) => {
-				uiUpdate(bounds);
-			}
-		};
-	}, [scrollbarRef]);
+const ScrollbarBase = memo((props) => {
+	const {
+		restProps,
+		scrollbarProps,
+		scrollbarTrackProps
+	} = useThemeScrollbar(props);
 
 	return (
-		<UiScrollbarBase
-			clientSize={clientSize}
-			className={className}
-			css={componentCss}
-			minThumbSize={120}
-			ref={scrollbarRef}
-			vertical={vertical}
-			childRenderer={({thumbRef}) => { // eslint-disable-line react/jsx-no-bind
-				return (
-					<ScrollThumb
-						{...rest}
-						ref={thumbRef}
-						vertical={vertical}
-					/>
-				);
-			}}
-		/>
+		<div {...restProps} {...scrollbarProps}>
+			<ScrollbarTrack {...scrollbarTrackProps} />
+		</div>
 	);
-}));
+});
 
 ScrollbarBase.displayName = 'ScrollbarBase';
 
 ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
 	/**
-	 * Client size of the container; valid values are an object that has `clientWidth` and `clientHeight`.
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `scrollbar` - The scrollbar component class
 	 *
 	 * @type {Object}
-	 * @property {Number}    clientHeight    The client height of the list.
-	 * @property {Number}    clientWidth    The client width of the list.
 	 * @public
 	 */
-	clientSize: PropTypes.shape({
-		clientHeight: PropTypes.number.isRequired,
-		clientWidth: PropTypes.number.isRequired
-	}),
+	css: PropTypes.object,
 
 	/**
-	 * Registers the Scrollbar component with an
-	 * {@link core/internal/ApiDecorator.ApiDecorator}.
+	 * The minimum size of the thumb.
+	 * This value will be applied ri.scale.
 	 *
-	 * @type {Function}
-	 * @private
+	 * @type {number}
+	 * @public
 	 */
-	// setApiProvider: PropTypes.func,
+	minThumbSize: PropTypes.number,
 
 	/**
 	 * The scrollbar will be oriented vertically.
@@ -98,6 +93,8 @@ ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ 
 };
 
 ScrollbarBase.defaultProps = {
+	css: componentCss,
+	minThumbSize: 120,
 	vertical: true
 };
 
@@ -109,21 +106,12 @@ ScrollbarBase.defaultProps = {
  * @ui
  * @private
  */
-/* TODO: Is it possible to use ApiDecorator?
-const Scrollbar = ApiDecorator(
-	{api: [
-		'showThumb',
-		'startHidingThumb',
-		'update'
-	]}, Skinnable(ScrollbarBase)
-);
-*/
-const Scrollbar = ScrollbarBase;
+const Scrollbar = Skinnable(ScrollbarBase);
 
 Scrollbar.displayName = 'Scrollbar';
 
 export default Scrollbar;
 export {
 	Scrollbar,
-	Scrollbar as ScrollbarBase
+	ScrollbarBase
 };
