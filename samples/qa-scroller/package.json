@@ -19,10 +19,7 @@
   "repository": "",
   "enact": {
     "title": "QA Scroller",
-    "isomorphic": true,
-    "ri": {
-      "baseSize": 24
-    }
+    "theme": "sandstone"
   },
   "eslintConfig": {
     "extends": "enact/strict"

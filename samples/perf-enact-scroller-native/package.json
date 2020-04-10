@@ -19,10 +19,7 @@
   "repository": "",
   "enact": {
     "title": "Perf Enact Scroller Native",
-    "isomorphic": true,
-    "ri": {
-      "baseSize": 24
-    }
+    "theme": "sandstone"
   },
   "eslintConfig": {
     "extends": "enact/strict"

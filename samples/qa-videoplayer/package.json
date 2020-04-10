@@ -19,11 +19,7 @@
 	"repository": "",
 	"enact": {
 		"theme": "sandstone",
-		"title": "QA VideoPlayer",
-		"isomorphic": true,
-		"ri": {
-			"baseSize": 24
-		}
+		"title": "QA VideoPlayer"
 	},
 	"eslintConfig": {
 		"extends": "enact/strict"
