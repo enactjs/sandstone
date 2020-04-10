@@ -17,6 +17,16 @@ import React from 'react';
  * @hocconfig
  */
 const defaultConfig = {
+
+	/**
+	 * Event name to cancel an active debounce
+	 *
+	 * @type {String}
+	 * @default null
+	 * @memberof sandstone/internal/DebounceDecorator.DebounceDecorator.defaultConfig
+	 */
+	cancel: null,
+
 	/**
 	 * Event name to debounce
 	 *
@@ -48,7 +58,7 @@ const defaultConfig = {
  * @private
  */
 const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {debounce, delay} = config;
+	const {cancel, debounce, delay} = config;
 
 	return class extends React.Component {
 		static displayName = 'DebounceDecorator'
@@ -85,17 +95,27 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		handleEvent = (ev) => {
+			if (this.props[debounce]) {
+				this.props[debounce](ev);
+			}
 			this.job.start(ev);
+		}
+
+		handleCancel = (ev) => {
+			if (this.props[cancel]) {
+				this.props[cancel](ev);
+			}
+			this.job.stop();
 		}
 
 		render () {
 			let props = this.props;
 
-			if (debounce) {
-				props = {
-					...props,
-					[debounce]: this.handleEvent
-				};
+			if (debounce || cancel) {
+				props = {...props};
+
+				if (debounce) props[debounce] = this.handleEvent;
+				if (cancel) props[cancel] = this.handleCancel;
 			}
 
 			return (
