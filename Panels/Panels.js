@@ -176,7 +176,6 @@ const PanelsBase = kind({
 
 	handlers: {
 		onBack: handle(
-			// handle.log,
 			adaptEvent(
 				(ev, {index}) => ({index: Math.max(index - 1, 0)}),
 				forwardWithPrevent('onBack')

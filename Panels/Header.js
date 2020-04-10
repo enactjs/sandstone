@@ -17,7 +17,7 @@ import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
-import WindowEventable from '../Input/WindowEventable';
+import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from './Viewport';
 
@@ -384,6 +384,7 @@ const HeaderBase = kind({
 		css,
 		direction,
 		headerInput,
+		hover,
 		line,
 		marqueeOn,
 		noBackButton,
@@ -400,7 +401,6 @@ const HeaderBase = kind({
 		...rest
 	}) => {
 		delete rest.entering;
-		delete rest.hover;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -411,6 +411,7 @@ const HeaderBase = kind({
 					icon="arrowhookleft"
 					onClick={onBack}
 					size="large"
+					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
 				/>
 			</div>
 		) : null);

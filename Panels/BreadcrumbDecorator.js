@@ -1,4 +1,3 @@
-import handle, {adaptEvent, forward} from '@enact/core/handle/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {coerceFunction} from '@enact/core/util';
@@ -69,7 +68,7 @@ const BreadcrumbDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {max, panelArranger, className: cfgClassName} = config;
 	const calcMax = coerceFunction(max);
 
-	return kind({
+	const Decorator = kind({
 		name: 'BreadcrumbDecorator',
 
 		propTypes: /** @lends sandstone/Panels.BreadcrumbDecorator.prototype */ {
@@ -163,17 +162,7 @@ const BreadcrumbDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				if (breadcrumbs && breadcrumbs.contains(current)) {
 					current.blur();
 				}
-			},
-			onSelectBreadcrumb: handle(
-				forward('onSelectBreadcrumb'),
-				adaptEvent(
-					({index}, {index: currentIndex}) => ({
-						// use the event index if provided or an index >= 0
-						index: index != null ? index : Math.max(0, currentIndex - 1)
-					}),
-					forward('onBack')
-				)
-			)
+			}
 		},
 
 		computed: {
@@ -265,6 +254,15 @@ const BreadcrumbDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			);
 		}
 	});
+
+	return CancelDecorator(
+		{cancel: 'onSelectBreadcrumb'},
+		IdProvider(
+			Skinnable(
+				Decorator
+			)
+		)
+	);
 });
 
 export default BreadcrumbDecorator;
