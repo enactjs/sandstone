@@ -66,6 +66,7 @@ const CheckboxBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `checkbox` - The root class name
+		 * * `icon` - Applied to the icon
 		 * * `selected` - Applied when the `selected` prop is true
 		 *
 		 * @type {Object}
@@ -156,6 +157,7 @@ const CheckboxBase = kind({
  * @class CheckboxDecorator
  * @memberof sandstone/Checkbox
  * @mixes ui/Toggleable.Toggleable
+ * @mixes sandstone/Skinnable.Skinnable
  * @mixes spotlight/Spottable.Spottable
  * @hoc
  * @public
