@@ -1,7 +1,7 @@
 const Page = require('./DatePickerPage');
 const {daysInMonth, expectClosed, expectNoLabels, expectOpen, extractValues, validateTitle} = require('./DatePicker-utils.js');
 
-describe.skip('DatePicker', function () {
+describe('DatePicker', function () {
 	Page.open();
 
 	it('should have focus on start', function () {

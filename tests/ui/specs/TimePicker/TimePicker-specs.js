@@ -1,7 +1,7 @@
 const Page = require('./TimePickerPage');
 const {expectClosed, expectOpen, expectNoLabels, extractValues, validateTitle} = require('./TimePicker-utils.js');
 
-describe.skip('TimePicker', function () {
+describe('TimePicker', function () {
 	Page.open();
 
 	it('should have focus on start', function () {
