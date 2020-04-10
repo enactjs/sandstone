@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Button` `iconFlip` prop
+
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
