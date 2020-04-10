@@ -869,6 +869,7 @@ const PickerBase = class extends React.Component {
 		const decrementIcon = selectDecIcon(this.props);
 
 		const horizontal = orientation === 'horizontal';
+		const isHorizontalJoined = horizontal && joined;
 
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
@@ -925,29 +926,32 @@ const PickerBase = class extends React.Component {
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
+				onMouseDown={this.setIncPickerButtonPressed}
 				onMouseLeave={this.clearPressedState}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
-				<Cell
-					{...voiceProps}
-					aria-controls={!joined ? incrementerAriaControls : null}
-					aria-label={this.calcIncrementLabel(valueText)}
-					className={css.incrementer}
-					component={PickerButton}
-					data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
-					disabled={incrementerDisabled}
-					hidden={reachedEnd}
-					holdConfig={holdConfig}
-					icon={incrementIcon}
-					joined={joined}
-					onDown={this.handleIncrement}
-					onHoldPulse={this.handleIncrement}
-					onKeyDown={this.handleIncKeyDown}
-					onSpotlightDisappear={onSpotlightDisappear}
-					shrink
-					spotlightDisabled={spotlightDisabled}
-				/>
+				{isHorizontalJoined ? null :
+					<Cell
+						{...voiceProps}
+						aria-controls={!joined ? incrementerAriaControls : null}
+						aria-label={this.calcIncrementLabel(valueText)}
+						className={css.incrementer}
+						component={PickerButton}
+						data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
+						disabled={incrementerDisabled}
+						hidden={reachedEnd}
+						holdConfig={holdConfig}
+						icon={incrementIcon}
+						joined={joined}
+						onDown={this.handleIncrement}
+						onHoldPulse={this.handleIncrement}
+						onKeyDown={this.handleIncKeyDown}
+						onSpotlightDisappear={onSpotlightDisappear}
+						shrink
+						spotlightDisabled={spotlightDisabled}
+					/>
+				}
 				<Cell
 					aria-disabled={disabled}
 					aria-hidden={!active}
@@ -979,25 +983,27 @@ const PickerBase = class extends React.Component {
 						</div>
 					)}
 				</Cell>
-				<Cell
-					{...voiceProps}
-					aria-controls={!joined ? decrementerAriaControls : null}
-					aria-label={this.calcDecrementLabel(valueText)}
-					className={css.decrementer}
-					component={PickerButton}
-					data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
-					disabled={decrementerDisabled}
-					hidden={reachedStart}
-					holdConfig={holdConfig}
-					icon={decrementIcon}
-					joined={joined}
-					onDown={this.handleDecrement}
-					onHoldPulse={this.handleDecrement}
-					onKeyDown={this.handleDecKeyDown}
-					onSpotlightDisappear={onSpotlightDisappear}
-					shrink
-					spotlightDisabled={spotlightDisabled}
-				/>
+				{isHorizontalJoined ? null :
+					<Cell
+						{...voiceProps}
+						aria-controls={!joined ? decrementerAriaControls : null}
+						aria-label={this.calcDecrementLabel(valueText)}
+						className={css.decrementer}
+						component={PickerButton}
+						data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
+						disabled={decrementerDisabled}
+						hidden={reachedStart}
+						holdConfig={holdConfig}
+						icon={decrementIcon}
+						joined={joined}
+						onDown={this.handleDecrement}
+						onHoldPulse={this.handleDecrement}
+						onKeyDown={this.handleDecKeyDown}
+						onSpotlightDisappear={onSpotlightDisappear}
+						shrink
+						spotlightDisabled={spotlightDisabled}
+					/>
+				}
 			</Layout>
 		);
 	}
