@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
 - `sandstone/Picker` horizontal joined behavior and style for updated GUI
 
 ## [1.0.0-alpha.7] - 2020-04-06

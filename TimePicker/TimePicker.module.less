@@ -1,19 +1,40 @@
-// hour and minute should always be left-to-right
-.timeComponents {
-	direction: ltr;
+// TimePicker.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.timePicker {
+	.padding-start-end(@sand-timepicker-padding, inherit);
 	display: inline-block;
 
-	:global(.enact-locale-right-to-left) & {
-		display: flex;
+	// hour and minute should always be left-to-right
+	.timeComponents {
+		direction: ltr;
+		display: inline-block;
 
-		.hourComponents {
-			order: 2;
+		.colonMark {
+			line-height: @sand-timepicker-colon-line-height;
 		}
-		.minutesComponents {
-			order: 3;
+
+		:global(.enact-locale-right-to-left) & {
+			display: flex;
+
+			.hourComponents {
+				order: 2;
+			}
+			.colonMark {
+				order: 2;
+			}
+			.minutesComponents {
+				order: 3;
+			}
+			.meridiemComponent{
+				order: 1;
+			}
 		}
-		.meridiemComponent{
-			order: 1;
-		}
+	}
+
+	.pickerLabel {
+		padding: @sand-date-time-picker-label-padding
 	}
 }
