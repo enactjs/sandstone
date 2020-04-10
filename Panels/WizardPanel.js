@@ -172,6 +172,7 @@ const WizardPanelBase = kind({
 			<Panel {...rest}>
 				<Header
 					centered
+					css={css}
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
@@ -296,6 +297,7 @@ const WizardPanelDecorator = (Wrapped) => {
 
 		/**
 		* The "default" subtitle for WizardPanel if subtitle isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
+		*
 		* @example
 		* 	<WizardPanel subtitle="Subtitle">
 		*		<WizardPanel.View>
@@ -310,6 +312,7 @@ const WizardPanelDecorator = (Wrapped) => {
 
 		/**
 		* The "default" title for WizardPanel if title isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
+		*
 		* @example
 		* 	<WizardPanel title="Title">
 		*		<WizardPanel.View>

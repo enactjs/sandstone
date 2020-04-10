@@ -55,6 +55,8 @@ const HeaderBase = kind({
 		 *
 		 * * `header` - The root class name
 		 * * `input` - Applied to the `headerInput` element
+		 * * `subtitle` - Applied to the `subtitle` element
+		 * * `title` - Applied to the `title` element
 		 *
 		 * @type {Object}
 		 * @public
@@ -210,15 +212,14 @@ const HeaderBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'header',
-		publicClassNames: ['header', 'input']
+		publicClassNames: ['header', 'input', 'subtitle', 'title']
 	},
 
 	computed: {
-		className: ({centered, children, slotAbove, slotAfter, slotBefore, type, styler}) => styler.append(
+		className: ({centered, children, slotAbove, type, styler}) => styler.append(
 			{
 				centered,
-				withChildren: (Boolean(children) || Boolean(slotAbove)),
-				withSlotsBeforeAfter: (Boolean(slotAfter) && Boolean(slotBefore))
+				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
 			type),
 		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
