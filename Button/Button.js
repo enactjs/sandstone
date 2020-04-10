@@ -93,6 +93,14 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Flip the icon horizontally, vertically or both.
+		 *
+		 * @type {('both'|'horizontal'|'vertical')}
+		 * @public
+		 */
+		iconFlip: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+		/**
 		 * True if button is an icon only button.
 		 *
 		 * @type {Boolean}
@@ -151,12 +159,14 @@ const ButtonBase = kind({
 			`icon${cap(iconPosition)}`,
 			size
 		),
+		iconComponent: ({iconFlip}) => <Icon flip={iconFlip} />,
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.iconFlip;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 
@@ -164,7 +174,6 @@ const ButtonBase = kind({
 			'data-webos-voice-intent': 'Select',
 			...rest,
 			css,
-			iconComponent: Icon
 		});
 	}
 });

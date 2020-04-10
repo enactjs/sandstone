@@ -181,7 +181,8 @@ const WizardPanelBase = kind({
 					<Button
 						backgroundOpacity="transparent"
 						disabled={index === (total - 1)}
-						icon={rtl ? 'arrowlargeleft' : 'arrowlargeright'}
+						icon="arrowlargeright"
+						iconFlip={rtl ? 'horizontal' : null}
 						iconPosition="after"
 						minWidth={false}
 						onClick={onIncrementStep}
@@ -192,7 +193,8 @@ const WizardPanelBase = kind({
 					<Button
 						backgroundOpacity="transparent"
 						disabled={index === 0}
-						icon={rtl ? 'arrowlargeright' : 'arrowlargeleft'}
+						icon="arrowlargeleft"
+						iconFlip={rtl ? 'horizontal' : null}
 						minWidth={false}
 						onClick={onDecrementStep}
 						slot="slotBefore"
