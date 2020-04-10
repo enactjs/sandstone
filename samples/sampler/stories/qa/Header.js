@@ -6,6 +6,7 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import Input from '@enact/sandstone/Input';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
+import Steps from '@enact/sandstone/Steps';
 
 Header.displayName = 'Header';
 const Config = mergeComponentMetadata('Header', HeaderBase, Header);
@@ -23,9 +24,20 @@ const inputData = {
 	longRtlTitle: 'هذا النص طويل ولكن ليس طويلاً. بالتأكيد ليست قصيرة جدا ، على الرغم من.'
 };
 
-const headerComponents = <Button>Header Button</Button>;
-
 const prop = {
+	above: {
+		none: null,
+		steps: <Steps current={3} total={5} />
+	},
+	buttons: {
+		'no buttons': null,
+		'1 button': <Button icon="ellipsis" />,
+		'2 buttons': <React.Fragment>
+			<Button icon="search" />
+			<Button icon="ellipsis" />
+		</React.Fragment>
+	},
+	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 	marqueeOn: ['hover', 'render']
 };
 
@@ -35,17 +47,33 @@ const headerStoryConfig = {
 	}
 };
 
+function headerComponents () {
+	const slotAboveSelection = select('slotAbove', ['none', 'steps'], Config);
+	const slotAbove = prop.above[slotAboveSelection];
+	const slotBeforeSelection = select('slotBefore', prop.buttonsSelection, Config);
+	const slotBefore = prop.buttons[slotBeforeSelection];
+	const slotAfterSelection = select('slotAfter', prop.buttonsSelection, Config);
+	const slotAfter = prop.buttons[slotAfterSelection];
+	const childrenSelection = select('children', prop.buttonsSelection, Config);
+	const children = prop.buttons[childrenSelection];
+
+	return {slotAbove, slotBefore, slotAfter, children};
+}
+
 storiesOf('Header', module)
 	.add(
 		'just title',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData.shortTitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -53,14 +81,17 @@ storiesOf('Header', module)
 	.add(
 		'just title, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.shortTitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -68,14 +99,17 @@ storiesOf('Header', module)
 	.add(
 		'short titles',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData.shortTitle)}
 					subtitle={text('subtitle', Config, inputData.shortSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -83,15 +117,18 @@ storiesOf('Header', module)
 	.add(
 		'short titles, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.shortTitle)}
 					subtitle={text('subtitle', Config, inputData.shortSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -99,14 +136,17 @@ storiesOf('Header', module)
 	.add(
 		'long titles',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData.longTitle)}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -114,15 +154,18 @@ storiesOf('Header', module)
 	.add(
 		'long titles, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.longTitle)}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -130,14 +173,17 @@ storiesOf('Header', module)
 	.add(
 		'RTL text',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData.shortRtlTitle)}
 					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -145,15 +191,18 @@ storiesOf('Header', module)
 	.add(
 		'RTL text, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.shortRtlTitle)}
 					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -161,14 +210,17 @@ storiesOf('Header', module)
 	.add(
 		'RTL text, long title',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData. longRtlTitle)}
 					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -176,15 +228,18 @@ storiesOf('Header', module)
 	.add(
 		'RTL text, long title, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData. longRtlTitle)}
 					subtitle={text('subtitle', Config, inputData.shortRtlSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -192,14 +247,17 @@ storiesOf('Header', module)
 	.add(
 		'tall-glyphs',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					title={text('title', Config, inputData.tallText)}
 					subtitle={text('subtitle', Config, inputData.tallText)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -207,15 +265,18 @@ storiesOf('Header', module)
 	.add(
 		'tall-glyphs, Compact',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			return (
 				<Header
 					type="compact"
 					title={text('title', Config, inputData.tallText)}
 					subtitle={text('subtitle', Config, inputData.tallText)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -225,7 +286,7 @@ storiesOf('Header.Input', module)
 	.add(
 		'tall-glyphs',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
 			const showInput = boolean('showInput', Config, true);
 			return (
@@ -235,8 +296,11 @@ storiesOf('Header.Input', module)
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 					showInput={showInput}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
@@ -244,7 +308,7 @@ storiesOf('Header.Input', module)
 	.add(
 		'long text',
 		() => {
-			const addHeaderComponents = boolean('add headerComponents', Config);
+			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
 			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
 			const showInput = boolean('showInput', Config, true);
 			return (
@@ -254,8 +318,11 @@ storiesOf('Header.Input', module)
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 					showInput={showInput}
+					slotAbove={slotAbove}
+					slotAfter={slotAfter}
+					slotBefore={slotBefore}
 				>
-					{addHeaderComponents ? headerComponents : null}
+					{children}
 				</Header>
 			);
 		}, headerStoryConfig
