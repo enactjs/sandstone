@@ -95,9 +95,6 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		handleEvent = (ev) => {
-			if (this.props[debounce]) {
-				this.props[debounce](ev);
-			}
 			this.job.start(ev);
 		}
 
