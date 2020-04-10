@@ -40,6 +40,38 @@ describe('DatePicker', function () {
 					expect(value).to.equal(expected);
 				});
 
+				it('should decrease the month when decrementing the picker', function () {
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightSelect();
+					});
+
+					const {month} = extractValues(datePicker);
+					expect(datePicker.month.isFocused()).to.be.true();
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightDown();
+					});
+					const {month: value} = extractValues(datePicker);
+					const expected = month > 1 ? month - 1 : 12;
+					expect(value).to.equal(expected);
+				});
+
+				it('should increase the day when incrementing the picker', function () {
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightSelect();
+					});
+
+					const {day, month, year} = extractValues(datePicker);
+					const numDays = daysInMonth({month, year});
+					Page.spotlightRight();
+					expect(datePicker.day.isFocused()).to.be.true();
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightUp();
+					});
+					const {day: value} = extractValues(datePicker);
+					const expected = day !== numDays ? day + 1 : 1;
+					expect(value).to.equal(expected);
+				});
+
 				it('should decrease the day when decrementing the picker', function () {
 					Page.waitTransitionEnd(3000, undefined, () => {
 						Page.spotlightSelect();
@@ -56,6 +88,24 @@ describe('DatePicker', function () {
 					const expected = day !== 1 ? day - 1 : numDays;
 					expect(value).to.equal(expected);
 				});
+
+				it('should increase the year when incrementing the picker', function () {
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightSelect();
+					});
+
+					const {year} = extractValues(datePicker);
+					Page.spotlightRight();
+					Page.spotlightRight();
+					expect(datePicker.year.isFocused()).to.be.true();
+					Page.waitTransitionEnd(3000, undefined, () => {
+						Page.spotlightUp();
+					});
+					const {year: value} = extractValues(datePicker);
+					const expected = year + 1;
+					expect(value).to.equal(expected);
+				});
+
 
 				it('should decrease the year when decrementing the picker', function () {
 					Page.waitTransitionEnd(3000, undefined, () => {
