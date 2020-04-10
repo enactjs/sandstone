@@ -33,16 +33,14 @@ describe('FixedPopupPanels', function () {
 	describe('Pointer', function () {
 		it('should open FlexiblePopupPanels and navigate to Panel', function () {
 			Interface.openButton.click();
-			Interface.waitForOpen();
-
-			Interface.nextButton.click();
-			Interface.waitForEnter(2);
-
-			expect(Interface.panel2.isExisting(), 'navigate to the second Panel').to.be.true();
-
-			Interface.prevButton.click();
 			Interface.waitForEnter(1);
 
+			Interface.waitForTransition(Interface.nextButton.click());
+			Interface.waitForEnter(2);
+			expect(Interface.panel2.isExisting(), 'navigate to the second Panel').to.be.true();
+
+			Interface.waitForTransition(Interface.prevButton.click());
+			Interface.waitForEnter(1);
 			expect(Interface.panel1.isExisting(), 'navigate back to the first Panel').to.be.true();
 		});
 	});

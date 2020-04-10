@@ -9,12 +9,12 @@ class FlexiblePopupPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForOpen (duration = 1000) {
-		this.self.waitForExist(duration);
+	waitForTransition (timeout = 1000, message = 'Timed out waiting for transitionend', callback, ignore = ['opacity', 'filter']) {
+		Page.waitTransitionEnd(timeout, message, callback, ignore);
 	}
 
-	waitForClose (duration = 1000) {
-		this.self.waitForExist(duration, true);
+	waitForOpen (duration = 1000) {
+		this.self.waitForExist(duration);
 	}
 
 	waitForEnter (panel, duration = 1000) {
