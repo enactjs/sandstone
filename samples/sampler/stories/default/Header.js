@@ -1,3 +1,4 @@
+import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
@@ -51,9 +52,12 @@ storiesOf('Sandstone', module)
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
 					centered={boolean('centered', Config)}
+					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					headerInput={headerInput}
 					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					noCloseButton={boolean('noCloseButton', Config)}
+					onClose={action('onClose')}
 					slotAbove={slotAbove}
 					slotBefore={slotBefore}
 					slotAfter={slotAfter}

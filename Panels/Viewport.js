@@ -45,6 +45,22 @@ const ViewportBase = class extends React.Component {
 		arranger: shape,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * The background opacity of the application back button.
+		 *
+		 * * Values: `'opaque'`, `'transparent'`
+		 *
+		 * @type {String}
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
 		 * Panels to be rendered
 		 *
 		 * @type {Panel}
@@ -61,11 +77,11 @@ const ViewportBase = class extends React.Component {
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
+		 * * Values: `'opaque'`, `'transparent'`
 		 *
 		 * @type {String}
 		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Index of the active panel
@@ -214,6 +230,7 @@ const ViewportBase = class extends React.Component {
 			noAnimation,
 			onBack,
 			type,
+			backButtonBackgroundOpacity,
 			closeButtonAriaLabel,
 			closeButtonBackgroundOpacity,
 			noBackButton,
@@ -227,6 +244,7 @@ const ViewportBase = class extends React.Component {
 			type,
 			index,
 			onBack,
+			backButtonBackgroundOpacity,
 			closeButtonAriaLabel,
 			closeButtonBackgroundOpacity,
 			noBackButton,

@@ -46,6 +46,26 @@ const PanelsBase = kind({
 		arranger: shape,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'Go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * The background opacity of the application back button.
+		 *
+		 * * Values: `'opaque'`, `'transparent'`
+		 *
+		 * @type {String}
+		 * @default 'transparent'
+		 * @public
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
 		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
@@ -65,13 +85,13 @@ const PanelsBase = kind({
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
+		 * * Values: `'opaque'`, `'transparent'`
 		 *
 		 * @type {String}
 		 * @default 'transparent'
 		 * @public
 		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -183,11 +203,12 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({arranger, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
+					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
 					closeButtonAriaLabel={closeButtonAriaLabel}
 					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}

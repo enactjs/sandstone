@@ -148,7 +148,13 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		className: ({className, styler}, {type}) => type ? styler.append(type + 'Type') : className,
+		backButtonAvailable: (props, context) => {
+			if (!context) {
+				return;
+			}
+			return context.index > 0 && context.type !== 'wizard';
+		},
+		className: ({className, styler}, context) => context && context.type ? styler.append([context.type] + 'Type') : className,
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -170,8 +176,12 @@ const PanelBase = kind({
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
 		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
 		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
-		headerType: (props, {type}) => {
-			switch (type) {
+		headerType: (props, context) => {
+			if (!context) {
+				return;
+			}
+
+			switch (context.type) {
 				case 'option': return 'compact';
 				case 'wizard': return 'wizard';
 			}
@@ -179,6 +189,7 @@ const PanelBase = kind({
 	},
 
 	render: ({
+		backButtonAvailable,
 		bodyClassName,
 		children,
 		header,
@@ -187,9 +198,6 @@ const PanelBase = kind({
 		hideChildren,
 		spotOnRender,
 		...rest
-	}, {
-		index,
-		type
 	}) => {
 		delete rest.autoFocus;
 
@@ -199,7 +207,7 @@ const PanelBase = kind({
 					<ComponentOverride
 						component={header}
 						type={headerType}
-						backButtonAvailable={(index > 0 && type !== 'wizard')}
+						backButtonAvailable={backButtonAvailable}
 						entering={hideChildren && Spotlight.getPointerMode()}
 					/>
 				</div>

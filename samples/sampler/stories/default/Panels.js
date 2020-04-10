@@ -1,6 +1,8 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
+import {action} from '@enact/storybook-utils/addons/actions';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 
 import {Header, Panels, Panel} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
@@ -14,6 +16,8 @@ import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import {scale} from '@enact/ui/resolution';
 import {Scroller} from '@enact/sandstone/Scroller';
 import {TabLayout} from '@enact/sandstone/TabLayout';
+
+const Config = mergeComponentMetadata('Panels', Panels);
 
 // Used to render VirtualGridList into Panels
 const renderItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
@@ -62,13 +66,23 @@ storiesOf('Sandstone', module)
 			const forward = () => setState(panelIndex + 1);
 			const backward = () => setState(panelIndex - 1);
 			const story = (
-				<Panels index={panelIndex} noAnimation={boolean('noAnimation', Panels, false)}>
+				<Panels
+					backButtonBackgroundOpacity={select('backButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
+					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
+					index={panelIndex}
+					noAnimation={boolean('noAnimation', Panels, false)}
+					noBackButton={boolean('noBackButton', Panels, false)}
+					noCloseButton={boolean('noCloseButton', Panels, false)}
+					onBack={action('onBack')}
+					onClose={action('onClose')}
+				>
 					<Panel>
 						<Header title="Panel with Items">
 							<Button
 								backgroundOpacity="transparent"
 								icon="arrowlargeright"
 								minWidth={false}
+								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
 							/>
@@ -99,6 +113,7 @@ storiesOf('Sandstone', module)
 								backgroundOpacity="transparent"
 								icon="arrowlargeleft"
 								minWidth={false}
+								size="small"
 								slot="slotBefore"
 								onClick={backward} // eslint-disable-line react/jsx-no-bind
 							/>
@@ -106,6 +121,7 @@ storiesOf('Sandstone', module)
 								backgroundOpacity="transparent"
 								icon="arrowlargeright"
 								minWidth={false}
+								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
 							/>
@@ -125,6 +141,7 @@ storiesOf('Sandstone', module)
 								backgroundOpacity="transparent"
 								icon="arrowlargeleft"
 								minWidth={false}
+								size="small"
 								slot="slotBefore"
 								onClick={backward} // eslint-disable-line react/jsx-no-bind
 							/>

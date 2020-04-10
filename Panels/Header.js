@@ -26,7 +26,7 @@ import componentCss from './Header.module.less';
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context[prop]);
+const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
 
 const isBackButton = (node) => node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
@@ -57,6 +57,15 @@ const HeaderBase = kind({
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'Go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
 		 * Informs Header that the back button as allowed to be shown.
 		 *
 		 * This does not represent whether it is showing, just whether it can or not.
@@ -69,6 +78,17 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		backButtonAvailable: PropTypes.bool,
+
+		/**
+		 * The background opacity of the application back button.
+		 *
+		 * * Values: `'opaque'`, `'transparent'`
+		 *
+		 * @type {String}
+		 * @default 'transparent'
+		 * @public
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Centers the contents of the Header.
@@ -105,13 +125,13 @@ const HeaderBase = kind({
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
+		 * * Values: `'opaque'`, `'transparent'`
 		 *
 		 * @type {String}
 		 * @default 'transparent'
 		 * @public
 		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -357,6 +377,7 @@ const HeaderBase = kind({
 	},
 
 	computed: {
+		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
 		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
 				centered,
@@ -377,6 +398,7 @@ const HeaderBase = kind({
 
 	render: ({
 		backButtonAvailable,
+		backButtonBackgroundOpacity,
 		centered,
 		children,
 		closeButtonAriaLabel,
@@ -406,11 +428,11 @@ const HeaderBase = kind({
 		const backButton = (backButtonAvailable && !noBackButton ? (
 			<div className={css.backContainer}>
 				<Button
-					backgroundOpacity="transparent"
+					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
 					onClick={onBack}
-					size="large"
+					size="small"
 					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
 				/>
 			</div>
