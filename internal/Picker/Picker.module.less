@@ -5,6 +5,7 @@
 @import "../../styles/skin.less";
 
 .picker {
+	display: inline-block;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -51,6 +52,8 @@
 	}
 
 	&.horizontal {
+		display: inline-flex;
+
 		:global(.enact-locale-right-to-left) & {
 			flex-direction: row-reverse;
 		}
@@ -91,6 +94,7 @@
 		height: @sand-picker-joined-vertical-height;
 
 		.valueWrapper {
+			display: block;
 			position: relative;
 
 			.sizingPlaceholder,

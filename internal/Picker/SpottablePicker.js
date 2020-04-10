@@ -10,19 +10,19 @@ const SpottablePicker = kind({
 
 	propTypes: {
 		disabled: PropTypes.bool,
-		pickerOrientation: PropTypes.string
+		orientation: PropTypes.string
 	},
 
 	computed: {
-		selectionKeys: ({disabled, pickerOrientation}) => {
-			if (disabled || pickerOrientation === 'horizontal') return;
+		selectionKeys: ({disabled, orientation}) => {
+			if (disabled || orientation === 'horizontal') return;
 
 			return [38, 40];
 		}
 	},
 
 	render: ({selectionKeys, ...rest}) => {
-		delete rest.pickerOrientation;
+		delete rest.orientation;
 
 		return (
 			<Div {...rest} selectionKeys={selectionKeys} />

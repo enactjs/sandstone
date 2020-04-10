@@ -251,6 +251,37 @@ describe('Picker Specs', () => {
 	);
 
 	test(
+		'should increment via mousedown when \'joined\' and \'horizontal\'',
+		() => {
+			const handleChange = jest.fn();
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+			);
+
+			const expected = 1;
+			picker.simulate('mousedown');
+			const actual = handleChange.mock.calls[0][0].value;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+
+	test('should allow keyboard increment via enter key when \'joined\' and \'horizontal\' and wrap successfully', () => {
+		const handleChange = jest.fn();
+		const picker = mount(
+			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
+		);
+
+		const expected = 0;
+		picker.simulate('keyDown', {keyCode: 13});
+		picker.simulate('mousedown');
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test(
 		'should not allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
 		() => {
 			const handleChange = jest.fn();
@@ -260,7 +291,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 37});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
@@ -277,7 +307,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 39});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
@@ -362,7 +391,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 40});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
@@ -379,7 +407,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 38});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
