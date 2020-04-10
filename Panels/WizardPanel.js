@@ -307,7 +307,7 @@ const WizardPanelDecorator = (Wrapped) => {
 		*		</WizardPanel.View>
 		*	</WizardPanel>
 		*
-		* @type {Number}
+		* @type {String}
 		* @private
 		*/
 		subtitle: PropTypes.string,
@@ -322,7 +322,7 @@ const WizardPanelDecorator = (Wrapped) => {
 		*		</WizardPanel.View>
 		*	</WizardPanel>
 		*
-		* @type {Number}
+		* @type {String}
 		* @private
 		*/
 		title: PropTypes.string

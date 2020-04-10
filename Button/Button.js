@@ -173,7 +173,7 @@ const ButtonBase = kind({
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
 			...rest,
-			css,
+			css
 		});
 	}
 });
