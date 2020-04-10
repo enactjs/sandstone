@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
 
+### Fixed
+
+- `sandstone/TabLayout` selecting a previously focused tab after switching from 5-way to pointer mode
+
 ## [1.0.0-alpha.7] - 2020-04-06
 
 ### Added
