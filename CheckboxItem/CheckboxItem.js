@@ -21,7 +21,6 @@ import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
 import Item from '../Item';
-import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
 
