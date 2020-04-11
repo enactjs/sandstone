@@ -25,7 +25,7 @@ describe('TimePicker', function () {
 			});
 
 			describe('5-way', function () {
-
+				// Start of [GT-28551] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
 					browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
@@ -97,6 +97,7 @@ describe('TimePicker', function () {
 					const value = time !== newTime;
 					expect(value).to.equal(true);
 				});
+				// End of [GT-28551] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 
 				it('should change the meridiem on hour boundaries', function () {
 					const {meridiem} = extractValues(timePicker);
@@ -115,6 +116,7 @@ describe('TimePicker', function () {
 					browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
 				});
 
+				// Start of [GT-28545] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
 					Page.waitTransitionEnd(3000, undefined, () => {
@@ -154,6 +156,7 @@ describe('TimePicker', function () {
 					const expected = minute !== 0 ? minute - 1 : 59;
 					expect(value).to.equal(expected);
 				});
+				// End of [GT-28545] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
 
 				it('should change the meridiem on hour boundaries - [GT-28546]', function () {
 					const value = timePicker.timeLabel;
