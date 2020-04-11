@@ -25,7 +25,7 @@ storiesOf('Sandstone', module)
 
 			const defaultIndex = 0;
 			const [index, setPanelIndexState] = React.useState(defaultIndex);
-			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 2));
+			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
 			const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
 
 			return (<div>
@@ -50,41 +50,11 @@ storiesOf('Sandstone', module)
 								null
 							}
 						</Header>
-						<div style={{width: ri.scaleToRem(900)}}>
-							<Item onClick={nextPanel}>Item 1</Item>
-							<Item onClick={nextPanel}>Item 2</Item>
-							<Item onClick={nextPanel}>Item 3</Item>
-							<Item onClick={nextPanel}>Item 4</Item>
-						</div>
-					</Panel>
-					<Panel>
-						<Header title="Way way way too many Items for this list to handle, plus a wicked long title" type="mini">
-							<slotBefore>
-								<Button icon="arrowhookleft" onClick={prevPanel} size="small" />
-							</slotBefore>
-						</Header>
 						<Scroller style={{width: ri.scaleToRem(900)}}>
 							<Item onClick={nextPanel}>Item 1</Item>
 							<Item onClick={nextPanel}>Item 2</Item>
 							<Item onClick={nextPanel}>Item 3</Item>
 							<Item onClick={nextPanel}>Item 4</Item>
-							<Item onClick={nextPanel}>Item 5</Item>
-							<Item onClick={nextPanel}>Item 6</Item>
-							<Item onClick={nextPanel}>Item 7</Item>
-							<Item onClick={nextPanel}>Item 8</Item>
-							<Item onClick={nextPanel}>Item 9</Item>
-							<Item onClick={nextPanel}>Item 10</Item>
-							<Item onClick={nextPanel}>Item 11</Item>
-							<Item onClick={nextPanel}>Item 12</Item>
-							<Item onClick={nextPanel}>Item 13</Item>
-							<Item onClick={nextPanel}>Item 14</Item>
-							<Item onClick={nextPanel}>Item 15</Item>
-							<Item onClick={nextPanel}>Item 16</Item>
-							<Item onClick={nextPanel}>Item 17</Item>
-							<Item onClick={nextPanel}>Item 18</Item>
-							<Item onClick={nextPanel}>Item 19</Item>
-							<Item onClick={nextPanel}>Item 20</Item>
-							<Item onClick={nextPanel}>Item 21</Item>
 						</Scroller>
 					</Panel>
 					<Panel>
@@ -101,7 +71,7 @@ storiesOf('Sandstone', module)
 		},
 		{
 			info: {
-				text: 'Basic usage of FlexiblePopupPanels'
+				text: 'Intended for use with a single "control" at a time, to maximize the amount of background visible.'
 			}
 		}
 	);
