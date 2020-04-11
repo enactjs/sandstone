@@ -15,7 +15,6 @@ class PickerInterface {
 
 	get      self () { return element(`#${this.id}`, browser); }
 	get   chevron () { return getText(getIcon(this.self)); }
-	get valueText () { return getText(this.value); }
 
 	get day () {
 		return getComponent(
@@ -23,7 +22,7 @@ class PickerInterface {
 			getComponent({component: 'DatePicker', child: 'day'}, this.self)
 		);
 	}
-	// classname  picker_datepicker_month
+
 	get month () { return getComponent({internal: true, component: 'Picker'}, getComponent({component: 'DatePicker', child: 'month'}, this.self)); }
 	get year () { return getComponent({internal: true, component: 'Picker'}, getComponent({component: 'DatePicker', child: 'year'}, this.self)); }
 	get dateLabel () { return getComponent({internal: true, component: 'Picker'}, getComponent({component: 'DatePicker', child: 'dateLabel'}, this.self));}

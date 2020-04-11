@@ -231,7 +231,7 @@ describe('DatePicker', function () {
 		describe('disabled', function () {
 			const datePicker = Page.components.datePickerDisabled;
 
-			it('should not display \'noneText\'', function () {
+			it('should not display text', function () {
 				expect(datePicker.dateLabel).to.not.equal('Nothing Selected');
 			});
 		});
@@ -239,8 +239,13 @@ describe('DatePicker', function () {
 		describe('disabled with \'defaultValue\'', function () {
 			const datePicker = Page.components.datePickerDisabledWithDefaultValue;
 
-			it('should not display \'noneText\'', function () {
-				expect(datePicker.dateLabel).to.not.equal('Nothing Selected');
+			it('should display default date', function () {
+				const {day, month, year} = extractValues(datePicker);
+
+				expect(day).to.equal(6);
+				expect(month).to.equal(6); // `Date` uses 0-indexed months, picker displays 1-indexed month values
+				expect(year).to.equal(2009);
+
 			});
 		});
 

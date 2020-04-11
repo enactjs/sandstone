@@ -14,7 +14,6 @@ class PickerInterface {
 
 	get      self () { return element(`#${this.id}`, browser); }
 	get   chevron () { return getText(getIcon(this.self)); }
-	get valueText () { return getText(this.value); }
 
 	get hour () { return element('.TimePicker_TimePicker_hourComponents .internal_Picker_Picker_picker', this.self); }
 	get meridiem () { return element('.TimePicker_TimePicker_meridiemComponent .internal_Picker_Picker_picker', this.self); }

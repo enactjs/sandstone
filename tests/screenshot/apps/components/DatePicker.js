@@ -6,7 +6,6 @@ import React from 'react';
 const jan31 = generateDate('2019-01-31');
 
 const DatePickerTests = [
-	<DatePicker />,
 	<DatePicker defaultValue={jan31} />,
 	<DatePicker defaultValue={jan31} disabled />,
 	<DatePicker disabled />,
