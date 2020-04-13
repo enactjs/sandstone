@@ -17,11 +17,11 @@ import ThemeDecorator from '../../../../ThemeDecorator';
 // runs the same way
 spotlight.setPointerMode(false);
 
-const blockStyles = {
+const blockStyles = () => ({
 	backgroundColor: '#58a',
 	border: `${scaleToRem(6)} solid #6ac`,
 	borderRadius: scaleToRem(6)
-};
+});
 
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
@@ -33,10 +33,10 @@ const app = kind({
 	},
 
 	computed: {
-		fatBlock: () => (<div style={{...blockStyles, height: scaleToRem(99), width: scaleToRem(900)}} />),
-		mediumBlock: () => (<div style={{...blockStyles, height: scaleToRem(900), width: scaleToRem(900)}} />),
-		skinnyBlock: () => (<div style={{...blockStyles, height: scaleToRem(600), width: scaleToRem(99)}} />),
-		smallBlock: () => (<div style={{...blockStyles, height: scaleToRem(300), width: scaleToRem(300)}} />)
+		fatBlock: () => (<div style={{...blockStyles(), height: scaleToRem(99), width: scaleToRem(900)}} />),
+		mediumBlock: () => (<div style={{...blockStyles(), height: scaleToRem(900), width: scaleToRem(900)}} />),
+		skinnyBlock: () => (<div style={{...blockStyles(), height: scaleToRem(600), width: scaleToRem(99)}} />),
+		smallBlock: () => (<div style={{...blockStyles(), height: scaleToRem(300), width: scaleToRem(300)}} />)
 	},
 
 	handlers: {
