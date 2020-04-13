@@ -13,8 +13,7 @@ class PopupView extends React.Component {
 			open1: false,
 			open2: false,
 			open3: false,
-			open4: false,
-			open5: false
+			open4: false
 		};
 
 		this.handleOpen1 = this.handleOpen(1);
@@ -35,7 +34,7 @@ class PopupView extends React.Component {
 	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
 
 	render () {
-		const {open1, open2, open3, open4, open5} = this.state;
+		const {open1, open2, open3, open4} = this.state;
 
 		return (
 			<div>
@@ -55,7 +54,6 @@ class PopupView extends React.Component {
 				<Popup
 					open={open2}
 					onClose={this.handleClose2}
-					showCloseButton
 				>
 					<span>
 						Enact is a framework designed to be performant, customizable and well structured.
@@ -81,7 +79,6 @@ class PopupView extends React.Component {
 				<Popup
 					open={open3}
 					onClose={this.handleClose3}
-					showCloseButton
 				>
 					<Button size="small">Button Outside Scroller</Button>
 					<Scroller style={{height: ri.scale(170) + 'px', marginTop: ri.scale(10) + 'px'}}>
@@ -101,20 +98,8 @@ class PopupView extends React.Component {
 				<Popup
 					open={open4}
 					onClose={this.handleClose4}
-					showCloseButton
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
-					<Button size="small">Hello</Button>
-					<Button size="small">Goodbye</Button>
-				</Popup>
-
-				<Popup
-					closeButtonAriaLabel="Close popup"
-					onClose={this.handleClose5}
-					open={open5}
-					showCloseButton
-				>
-					<Heading showLine>Customizable aria-label close button in popup Example</Heading>
 					<Button size="small">Hello</Button>
 					<Button size="small">Goodbye</Button>
 				</Popup>

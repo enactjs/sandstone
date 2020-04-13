@@ -1,4 +1,4 @@
-import {ActivityPanels} from '@enact/sandstone/Panels';
+import {Panels} from '@enact/sandstone/Panels';
 import {connect} from 'react-redux';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
@@ -23,12 +23,12 @@ const App = kind({
 
 	render: ({index, pushPanel, popPanel, ...rest}) => {
 		return (
-			<ActivityPanels {...rest} onSelectBreadcrumb={popPanel} index={index}>
+			<Panels {...rest} onBack={popPanel} index={index}>
 				<MainPanel title="First" onClick={pushPanel} />
 				<MainPanel title="Second" onClick={pushPanel} />
 				<MainPanel title="Third" onClick={pushPanel} />
 				<MainPanel title="Fourth" />
-			</ActivityPanels>
+			</Panels>
 		);
 	}
 });

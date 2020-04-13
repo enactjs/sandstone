@@ -44,7 +44,7 @@ const ReadOrder = kind({
 			<Region className={css.region} title="With aria-label">
 				<p>Focusing Button 6 should read "With aria-label, Popup, Button 6, button"</p>
 				<div role="dialog" aria-label="Popup">
-					<p>Dialog with aria-label="Popup"</p>
+					<p>Popup with aria-label="Popup"</p>
 					<Button size="small">Button 6</Button>
 				</div>
 			</Region>
@@ -62,7 +62,7 @@ const ReadOrder = kind({
 				<div id="header4" aria-label="The Panel">Header</div>
 				<p>Focusing Button 8 should read "The Panel, Popup, Button 8, button"</p>
 				<div role="dialog" aria-label="Popup">
-					<p>Dialog with aria-label="Popup"</p>
+					<p>Popup with aria-label="Popup"</p>
 					<Button size="small">Button 8</Button>
 				</div>
 			</Region>
@@ -72,7 +72,7 @@ const ReadOrder = kind({
 				<Button size="small">Button 9</Button>
 				<p>Focusing Button 10 should read "Popup, Button 10, button"</p>
 				<div role="dialog" aria-label="Popup">
-					<p>Dialog with aria-label="Popup"</p>
+					<p>Popup with aria-label="Popup"</p>
 					<Button size="small">Button 10</Button>
 				</div>
 			</Region>
@@ -80,7 +80,7 @@ const ReadOrder = kind({
 			<Region title="Moving up a Level">
 				<p>Focusing Button 11 should read "Moving up a Level, Popup, Button 11, button"</p>
 				<div role="dialog" aria-label="Popup">
-					<p>Dialog with aria-label="Popup"</p>
+					<p>Popup with aria-label="Popup"</p>
 					<Button size="small">Button 11</Button>
 				</div>
 				<p>Focusing Button 12 should read "Moving up a Level, Button 12, button"</p>

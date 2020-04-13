@@ -1,29 +1,29 @@
-import {contextTypes} from '@enact/i18n/I18nDecorator';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import PropTypes from 'prop-types';
-import React from 'react';
-import ToggleButton from '@enact/sandstone/ToggleButton';
+import React, {useCallback} from 'react';
+import {useI18nContext} from '@enact/i18n/I18nDecorator';
 
-class Option extends React.Component {
-	static propTypes = {
-		handleDebug: PropTypes.func.isRequired,
-		isDebugMode: PropTypes.bool.isRequired
-	}
+const Option = (props) => {
+	const {handleDebug, isDebugMode} = props;
+	const {rtl, updateLocale} = useI18nContext();
+	const onClick = useCallback(() => {
+		updateLocale(!rtl ? 'ar-SA' : 'en-US');
+	}, [rtl, updateLocale]);
 
-	static contextTypes = contextTypes
+	return (
+		<div>
+			<Heading showLine>Set a language direction</Heading>
+			<CheckboxItem onClick={onClick} selected={rtl}>RTL</CheckboxItem>
+			<Heading showLine>Set an aria debug mode</Heading>
+			<CheckboxItem onClick={handleDebug} selected={isDebugMode}>Debug aria</CheckboxItem>
+		</div>
+	);
+};
 
-	handleLocale = () => this.context.updateLocale(this.context.rtl ? 'en-US' : 'ar-SA')
-
-	render () {
-		return (
-			<div>
-				<Heading showLine>Set a language direction</Heading>
-				<ToggleButton size="small" onClick={this.handleLocale} selected={this.context.rtl}>RTL</ToggleButton>
-				<Heading showLine>Set an aria debug mode</Heading>
-				<ToggleButton size="small" onClick={this.props.handleDebug} selected={this.props.isDebugMode}>Debug aria</ToggleButton>
-			</div>
-		);
-	}
-}
+Option.propTypes = {
+	handleDebug: PropTypes.func.isRequired,
+	isDebugMode: PropTypes.bool.isRequired
+};
 
 export default Option;

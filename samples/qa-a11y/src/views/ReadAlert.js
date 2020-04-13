@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import LS2Request from '@enact/webos/LS2Request';
 import React from 'react';
 import {readAlert} from '@enact/webos/speech';
-import ToggleButton from '@enact/sandstone/ToggleButton';
 
 class ReadAlertView extends React.Component {
 	constructor () {
@@ -35,10 +35,10 @@ class ReadAlertView extends React.Component {
 
 	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear)
 
-	onToggle = () => {
+	onToggle = ({selected: audioGuidance}) => {
 		if (window.PalmServiceBridge) {
 			this.setState(
-				(state) => ({audioGuidance: !state.audioGuidance}),
+				() => ({audioGuidance}),
 				() => {
 					new LS2Request().send({
 						service: 'luna://com.webos.settingsservice/',
@@ -46,7 +46,7 @@ class ReadAlertView extends React.Component {
 						parameters: {
 							category: 'option',
 							settings: {
-								audioGuidance: this.state.audioGuidance ? 'on' : 'off'
+								audioGuidance: audioGuidance ? 'on' : 'off'
 							}
 						}
 					});
@@ -58,14 +58,13 @@ class ReadAlertView extends React.Component {
 	render = () => {
 		return (
 			<div>
-				<ToggleButton
-					size="small"
+				<CheckboxItem
+					defaultSelected={this.state.audioGuidance}
 					disabled={this.state.toggleDisabled}
 					onToggle={this.onToggle}
-					selected={this.state.audioGuidance}
 				>
 					Audio guidance
-				</ToggleButton>
+				</CheckboxItem>
 				<Button size="small" onClick={this.onClick1}>readAlert test(clear true)</Button>
 				<Button size="small" onClick={this.onClick2}>readAlert test(clear false)</Button>
 			</div>

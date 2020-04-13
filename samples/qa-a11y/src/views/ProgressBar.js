@@ -1,5 +1,5 @@
+import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
-import IconButton from '@enact/sandstone/IconButton';
 import ProgressBar from '@enact/sandstone/ProgressBar';
 import React from 'react';
 
@@ -30,8 +30,8 @@ class ProgressBarView extends React.Component {
 				<Heading showLine>Default</Heading>
 				<ProgressBar aria-live="assertive" aria-label={a11yValueText} progress={progressVal} />
 				<br />
-				<IconButton size="small" aria-label="Increase" onClick={this.onInc}>plus</IconButton>
-				<IconButton size="small" aria-label="Decrease" onClick={this.onDec}>minus</IconButton>
+				<Button icon="plus" size="small" aria-label="Increase" onClick={this.onInc} />
+				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.onDec} />
 			</div>
 		);
 	}

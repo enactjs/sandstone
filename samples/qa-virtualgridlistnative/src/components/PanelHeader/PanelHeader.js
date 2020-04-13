@@ -1,14 +1,14 @@
 import Button from '@enact/sandstone/Button';
+import {Cell, Row} from '@enact/ui/Layout';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
 import Heading from '@enact/sandstone/Heading';
 import {Header} from '@enact/sandstone/Panels';
-import IconButton from '@enact/sandstone/IconButton';
 import Input from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
 import LocaleSwitch from '../LocaleSwitch';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ToggleButton from '@enact/sandstone/ToggleButton';
 
 import {
 	addItem as addAction,
@@ -31,11 +31,11 @@ const createMockItem = (dataSize, showOverlay) => {
 		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
 
 	return {
+		children: dataLength + caption,
+		label: subCaption,
 		selected: false,
-		selectionOverlayShowing: showOverlay,
-		caption: dataLength + caption,
-		subCaption: subCaption,
-		source: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
+		showSelection: showOverlay,
+		src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
 	};
 };
 
@@ -96,17 +96,17 @@ const PanelHeader = kind({
 	computed: {
 		addButton: ({addMockItem, showOverlay}) => {
 			if (!showOverlay) {
-				return (<IconButton size="small" tooltipText="Add Item" onClick={addMockItem}>plus</IconButton>);
+				return (<Button icon="plus" onClick={addMockItem} size="small" tooltipText="Add Item" />);
 			}
 		},
 		changeDirectionButton: ({onChangeDirection, showOverlay}) => {
 			if (!showOverlay) {
-				return (<ToggleButton size="small" minWidth onClick={onChangeDirection}>Horizontal</ToggleButton>);
+				return (<CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>);
 			}
 		},
 		changeFocusableScrollbarButton: ({onChangeFocusableScrollbar, showOverlay}) => {
 			if (!showOverlay) {
-				return (<ToggleButton size="small" minWidth onClick={onChangeFocusableScrollbar}>Focusable Scrollbar</ToggleButton>);
+				return (<CheckboxItem onClick={onChangeFocusableScrollbar}>Focusable Scrollbar</CheckboxItem>);
 			}
 		},
 		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
@@ -114,18 +114,30 @@ const PanelHeader = kind({
 				const inputWidth = {width: '5em'};
 
 				return (
-					<div style={{direction: 'ltr'}}>
-						dataSize:<Input size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
-						minHeightSize:<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
-						minWidthSize:<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
-						spacingSize:<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
-					</div>
+					<Row style={{direction: 'ltr'}}>
+						<Cell>
+							<label>dataSize:</label>
+							<Input size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
+						</Cell>
+						<Cell>
+							<label>minHeightSize:</label>
+							<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
+						</Cell>
+						<Cell>
+							<label>minWidthSize:</label>
+							<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
+						</Cell>
+						<Cell>
+							<label>spacingSize:</label>
+							<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
+						</Cell>
+					</Row>
 				);
 			}
 		},
 		deleteButton: ({deleteItem, showOverlay}) => {
 			if (!showOverlay) {
-				return (<IconButton size="small" tooltipText="Delete Item" onClick={deleteItem}>minus</IconButton>);
+				return (<Button icon="minus" onClick={deleteItem} size="small" tooltipText="Delete Item" />);
 			}
 		},
 		deleteSelectedButton: ({deleteSelectedItem, showOverlay}) => {
@@ -168,14 +180,32 @@ const PanelHeader = kind({
 		return (
 			<div>
 				<Header {...rest} />
-				{addButton}
-				{deleteButton}
-				{deleteSelectedButton}
-				{selectAllButton}
-				{selectionPreviousButton}
-				{changeFocusableScrollbarButton}
-				{changeDirectionButton}
-				<LocaleSwitch size="small" />
+				<Row>
+					<Cell shrink>
+						{addButton}
+					</Cell>
+					<Cell shrink>
+						{deleteButton}
+					</Cell>
+					<Cell shrink>
+						{deleteSelectedButton}
+					</Cell>
+					<Cell shrink>
+						{selectAllButton}
+					</Cell>
+					<Cell shrink>
+						{selectionPreviousButton}
+					</Cell>
+					<Cell>
+						{changeFocusableScrollbarButton}
+					</Cell>
+					<Cell>
+						{changeDirectionButton}
+					</Cell>
+					<Cell>
+						<LocaleSwitch />
+					</Cell>
+				</Row>
 				{changeListProps}
 				<Heading showLine />
 			</div>

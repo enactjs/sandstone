@@ -1,5 +1,4 @@
 import Heading from '@enact/sandstone/Heading';
-import ExpandableInput from '@enact/sandstone/ExpandableInput';
 import Input from '@enact/sandstone/Input';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
@@ -17,16 +16,8 @@ const InputView = () => (
 			<Input size="small" placeholder="Dismiss on Enter" dismissOnEnter />
 			<Input size="small" defaultValue="Initial value" />
 			<Input size="small" placeholder="Placeholder" />
-			<Heading showLine>Expandable Input</Heading>
-			<ExpandableInput title="No noneText" />
-			<ExpandableInput title="Disabled Input" noneText="I am disabled." disabled />
-			<ExpandableInput title="Input with noneText" noneText="Nothing inputted" />
-			<ExpandableInput title="Input with defaultValue" defaultValue="Initial value" />
-			<ExpandableInput title="Input with Placeholder" noneText="No input" placeholder="Placeholder" />
-			<ExpandableInput title="Input with Password" type="password" />
 			<Heading showLine>Customizable aria-labels</Heading>
 			<Input size="small" iconBefore="plus" aria-label="add input" />
-			<ExpandableInput title="Expandable Input" aria-label="expandable input" />
 		</Cell>
 	</Layout>
 );

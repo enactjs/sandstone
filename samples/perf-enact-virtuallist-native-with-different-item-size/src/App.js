@@ -39,7 +39,7 @@ class VirtualListSample extends Component {
 		return (
 			<div {...this.props}>
 				<Dropdown
-					direction="down"
+					direction="below"
 					onSelect={this.onSelect}
 					size="large"
 					title={viewNames[defaultViewIndex]}

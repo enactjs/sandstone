@@ -1,4 +1,4 @@
-import IconButton from '@enact/sandstone/IconButton';
+import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
 import React from 'react';
 import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
@@ -86,7 +86,7 @@ const SelectableVideoPlayer = class extends React.Component {
 				ref={this.setVideo}
 			>
 				<MediaControls>
-					<IconButton className={selecting ? css.selecting : ''} slot="rightComponents" onTap={this.handleToggleSelection}>repeat</IconButton>
+					<Button className={selecting ? css.selecting : ''} onTap={this.handleToggleSelection}>repeat</Button>
 				</MediaControls>
 				<source src="http://media.w3.org/2010/05/video/movie_300.mp4" />
 			</VideoPlayer>

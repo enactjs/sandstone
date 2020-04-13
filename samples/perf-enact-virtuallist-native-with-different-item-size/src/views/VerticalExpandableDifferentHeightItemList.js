@@ -1,6 +1,5 @@
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
-import IconButton from '@enact/sandstone/IconButton';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ri from '@enact/ui/resolution';
@@ -70,7 +69,7 @@ class ExpandableDifferenctHeightItem extends Component {
 					<Button data-index={dataIndex} style={this.buttonStyleDefault} onClick={() => updateItemStatus(index, true)/* eslint-disable-line react/jsx-no-bind */}>
 						Open<Icon>arrowsmalldown</Icon>
 					</Button>
-					<IconButton data-index={dataIndex} style={this.iconButtonStyleDefault}>closex</IconButton>
+					<Button data-index={dataIndex} icon="closex" style={this.iconButtonStyleDefault} />
 				</div>
 			);
 
@@ -84,7 +83,7 @@ class ExpandableDifferenctHeightItem extends Component {
 					<Button data-index={dataIndex} style={this.buttonStyleDefault} onClick={() => updateItemStatus(index, false)/* eslint-disable-line react/jsx-no-bind */}>
 						Close<Icon>arrowsmallup</Icon>
 					</Button>
-					<IconButton data-index={dataIndex} style={this.iconButtonStyleDefault}>closex</IconButton>
+					<Button data-index={dataIndex} icon="closex" style={this.iconButtonStyleDefault} />
 				</div>
 			);
 
@@ -95,7 +94,7 @@ class ExpandableDifferenctHeightItem extends Component {
 					<div style={{height: oneLineSize * numOfLines}}>
 						{children}
 					</div>
-					<IconButton data-index={dataIndex} style={this.iconButtonStyleDefault}>closex</IconButton>
+					<Button data-index={dataIndex} icon="closex" style={this.iconButtonStyleDefault} />
 				</div>
 			);
 		}

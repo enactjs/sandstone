@@ -1,5 +1,5 @@
 import Heading from '@enact/sandstone/Heading';
-import SlotItem from '@enact/sandstone/SlotItem';
+import Item from '@enact/sandstone/Item';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -29,7 +29,7 @@ const FontList = kind({
 					if (Array.isArray(font)) [font, sample] = font;
 					const fontForDisplay = font.replace('1em ', '');
 					return (
-						<SlotItem key={'item' + i}>
+						<Item key={'item' + i}>
 							<slotBefore>
 								{document.fonts.check(font) ?
 									<Status loaded>Loaded</Status> :
@@ -40,7 +40,7 @@ const FontList = kind({
 							<slotAfter>
 								<span style={{font: font + ', cursive'}}>{sample || fontForDisplay}</span>
 							</slotAfter>
-						</SlotItem>
+						</Item>
 					);
 				})}
 			</section>

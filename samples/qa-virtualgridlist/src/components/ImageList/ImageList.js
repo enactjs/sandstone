@@ -36,7 +36,6 @@ class ImageList extends React.Component {
 				dataSize={imageitems.length}
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
-				scrollMode="translate"
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);

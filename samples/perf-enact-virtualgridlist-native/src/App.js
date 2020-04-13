@@ -1,4 +1,4 @@
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -29,13 +29,14 @@ class VirtualGridListNativeSample extends Component {
 
 	renderItem = ({index, ...rest}) => {
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={items[index].text}
 				className={css.gridListItem}
-				source={items[index].url}
-				subCaption={items[index].subText}
-			/>
+				src={items[index].url}
+				label={items[index].subText}
+			>
+				{items[index].text}
+			</ImageItem>
 		);
 	}
 

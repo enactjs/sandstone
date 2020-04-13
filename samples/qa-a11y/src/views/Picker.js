@@ -1,6 +1,5 @@
 import DatePicker from '@enact/sandstone/DatePicker';
 import Heading from '@enact/sandstone/Heading';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import Picker from '@enact/sandstone/Picker';
 import RangePicker from '@enact/sandstone/RangePicker';
 import React from 'react';
@@ -14,7 +13,6 @@ const
 		'Tokyo Airport Terminal Gate 3',
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	],
-	emoticons = ['💥 boom', '😩🖐 facepalm', '🍩 doughnut', '👻 ghost', '💍 ring', '🎮 videogame', '🍌🍌 bananas'],
 	subjects = ['English', 'Maths', 'Korean', 'Science', 'History'],
 	subjectValue = ['80', '90', '100', '70', '50'];
 
@@ -123,25 +121,13 @@ const PickerView = () => (
 			width="medium"
 		/>
 
-		<Heading showLine>ExpandablePicker</Heading>
-		<ExpandablePicker
-			title="Favorite Emoji"
-			width="medium"
-		>
-			{emoticons}
-		</ExpandablePicker>
-
 		<Heading showLine>DatePicker</Heading>
 		<DatePicker
-			noLabels={false}
-			noneText="Nothing Selected"
 			title="Date"
 		/>
 
 		<Heading showLine>TimePicker</Heading>
 		<TimePicker
-			noLabels={false}
-			noneText="Nothing Selected"
 			title="Time"
 		/>
 
@@ -240,39 +226,19 @@ const PickerView = () => (
 			width="medium"
 		/>
 
-		<Heading showLine>ExpandablePicker</Heading>
-		<ExpandablePicker
-			checkButtonAriaLabel="Check"
-			decrementAriaLabel="Decrement"
-			incrementAriaLabel="Increment"
-			title="Favorite Emoji"
-			width="medium"
-		>
-			{emoticons}
-		</ExpandablePicker>
-
 		<Heading showLine>DatePicker</Heading>
 		<DatePicker
 			dayAriaLabel="Day picker"
-			dayLabel="My Day"
 			monthAriaLabel="Month picker"
-			monthLabel="My Month"
-			noLabels={false}
-			noneText="Nothing Selected"
 			title="Date"
 			yearAriaLabel="Year picker"
-			yearLabel="My Year"
 		/>
 
 		<Heading showLine>TimePicker</Heading>
 		<TimePicker
 			hourAriaLabel="Hour picker"
-			hourLabel="HR"
 			meridiemAriaLabel="Meridiem picker"
 			minuteAriaLabel="Minute picker"
-			minuteLabel="MIN"
-			noLabels={false}
-			noneText="Nothing Selected"
 			title="Time"
 		/>
 	</Scroller>

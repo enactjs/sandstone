@@ -1,6 +1,7 @@
 import Button from "@enact/sandstone/Button";
-import ExpandableList from "@enact/sandstone/ExpandableList";
+import Dropdown from '@enact/sandstone/Dropdown';
 import {I18nContextDecorator} from "@enact/i18n/I18nDecorator";
+import PropTypes from 'prop-types';
 import React from "react";
 import $L from "@enact/i18n/$L";
 import Text, {TextDecorator} from "@enact/i18n/Text";
@@ -15,7 +16,11 @@ const AsyncILib = I18nContextDecorator(
 
   // eslint-disable-next-line enact/display-name
   class extends React.Component {
-    handleSelect = ({data: locale}) => this.props.updateLocale(locale);
+    static propTypes = {
+      locale: PropTypes.string
+    };
+
+    onSelect = ({data: locale}) => this.props.updateLocale(locale);
 
     render () {
       const {locale, ...rest} = this.props;
@@ -24,14 +29,16 @@ const AsyncILib = I18nContextDecorator(
 
       return (
         <div {...rest}>
-          <ExpandableList
-            title={$L("locales")}
-            noneText="none"
+          <Dropdown
+            direction="below"
+            onSelect={this.onSelect}
             selected={locales.indexOf(locale)}
-            onSelect={this.handleSelect}
+            size="large"
+            title={$L("select locale")}
+            width="large"
           >
             {locales}
-          </ExpandableList>
+          </Dropdown>
           <Button>
             <Text>hi</Text>
           </Button>

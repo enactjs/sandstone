@@ -1,9 +1,10 @@
+import {Cell, Row} from '@enact/ui/Layout';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ToggleButton from '@enact/sandstone/ToggleButton';
 
 import LocaleSwitch from '../LocaleSwitch';
 
@@ -24,13 +25,26 @@ class PanelHeader extends React.Component {
 		return (
 			<div>
 				<Header {...rest} />
-				<div style={{direction: 'ltr'}}>
-					height:<Input size="small" onChange={handleHeight} style={inputWidth} type="number" value={height} />
-					width:<Input size="small" onChange={handleWidth} style={inputWidth} type="number" value={width} />
-					<ToggleButton size="small" onClick={handleFocusableScrollbar}>Focusable Scrollbar</ToggleButton>
-					<LocaleSwitch size="small" />
-					<Heading showLine />
-				</div>
+				<Row style={{direction: 'ltr'}}>
+					<Cell>
+						<label>height:</label>
+						<Input size="small" onChange={handleHeight} style={inputWidth} type="number" value={height} />
+					</Cell>
+					<Cell>
+						<label>width:</label>
+						<Input size="small" onChange={handleWidth} style={inputWidth} type="number" value={width} />
+					</Cell>
+					<Cell
+						component={CheckboxItem}
+						onClick={handleFocusableScrollbar}
+					>
+						Focusable Scrollbar
+					</Cell>
+					<Cell>
+						<LocaleSwitch />
+					</Cell>
+				</Row>
+				<Heading showLine />
 			</div>
 		);
 	}

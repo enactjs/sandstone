@@ -1,4 +1,4 @@
-import {ActivityPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
 import ri from '@enact/ui/resolution';
@@ -37,7 +37,7 @@ class PanelsView extends React.Component {
 
 	render () {
 		return (
-			<ActivityPanels index={this.state.panelIndex} onSelectBreadcrumb={this.prevPanel}>
+			<Panels index={this.state.panelIndex} onBack={this.prevPanel}>
 				<Panel>
 					<Header title="Panel 0" />
 					<VirtualList
@@ -61,7 +61,7 @@ class PanelsView extends React.Component {
 						}
 					</Scroller>
 				</Panel>
-			</ActivityPanels>
+			</Panels>
 		);
 	}
 }

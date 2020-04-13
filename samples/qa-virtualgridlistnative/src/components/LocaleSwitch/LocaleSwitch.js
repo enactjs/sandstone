@@ -1,30 +1,16 @@
-import {contextTypes} from '@enact/i18n/I18nDecorator';
-import React, {Component} from 'react';
-import ToggleButton from '@enact/sandstone/ToggleButton';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import React, {useCallback} from 'react';
+import {useI18nContext} from '@enact/i18n/I18nDecorator';
 
-class LocaleSwitch extends Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			rtl: false
-		};
-	}
+const LocaleSwitch = (props) => {
+	const {rtl, updateLocale} = useI18nContext();
+	const onClick = useCallback(() => {
+		updateLocale(!rtl ? 'ar-SA' : 'en-US');
+	}, [rtl, updateLocale]);
 
-	onClick = () => {
-		this.setState((state) => {
-			const rtl = !state.rtl;
-			this.context.updateLocale(rtl ? 'ar-SA' : 'en-US');
-			return {rtl};
-		});
-	}
-
-	render () {
-		return (
-			<ToggleButton onClick={this.onClick} {...this.props}>RTL</ToggleButton>
-		);
-	}
-}
-
-LocaleSwitch.contextTypes = contextTypes;
+	return (
+		<CheckboxItem {...props} onClick={onClick}>RTL</CheckboxItem>
+	);
+};
 
 export default LocaleSwitch;

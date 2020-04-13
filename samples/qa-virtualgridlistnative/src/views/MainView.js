@@ -35,7 +35,7 @@ class MainView extends React.Component {
 			<div className={css.mainView}>
 				<PanelHeader
 					title="VirtualGridList Native"
-					type="compact"
+					type="mini"
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
 				/>

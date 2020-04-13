@@ -35,7 +35,7 @@ class MainView extends React.Component {
 			<div className={css.mainView}>
 				<PanelHeader
 					title="VirtualGridList"
-					type="compact"
+					type="mini"
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
 				/>
@@ -45,6 +45,7 @@ class MainView extends React.Component {
 						className={css.list}
 						focusableScrollbar={this.state.focusableScrollbar}
 						direction={this.state.horizontal ? 'horizontal' : 'vertical'}
+						scrollMode="translate"
 					/>
 				</div>
 			</div>

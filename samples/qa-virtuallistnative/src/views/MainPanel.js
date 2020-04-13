@@ -1,4 +1,6 @@
 import Button from '@enact/sandstone/Button';
+import {Cell, Row} from '@enact/ui/Layout';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
 import Heading from '@enact/sandstone/Heading';
 import {Header, Panel} from '@enact/sandstone/Panels';
@@ -7,8 +9,7 @@ import LocaleSwitch from '../components/LocaleSwitch';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
-import ToggleButton from '@enact/sandstone/ToggleButton';
-import {VirtualList} from '@enact/sandstone/VirtualList';
+import VirtualList from '@enact/sandstone/VirtualList';
 
 import {setData} from '../actions';
 import ListItem from '../components/ListItem';
@@ -71,25 +72,37 @@ const MainPanel = class extends Component {
 			<Panel {...rest}>
 				<Header
 					title="VirtualList Native"
-					type="compact"
+					type="mini"
 				/>
 				<div className={css.header}>
-					<div>
-						DataSize:
-						<Input
-							onChange={this.handleChange}
-							placeholder={`${listItems.length}`}
-							size="small"
-							style={{width: '5em'}}
-							type="number"
-							value={this.state.value}
-						/>
-						<Button size="small" onClick={this.onChangeDataSize}>Set DataSize</Button>
-						<ToggleButton size="small" onClick={this.onToggleDisabled}>Disabled Items</ToggleButton>
-						<ToggleButton size="small" onClick={this.onToggleChildProps}>Child Props</ToggleButton>
-						<LocaleSwitch size="small" />
-						<Heading showLine />
-					</div>
+					<Row>
+						<Cell shrink>
+							<label>
+								DataSize:
+							</label>
+							<Input
+								onChange={this.handleChange}
+								placeholder={`${listItems.length}`}
+								size="small"
+								style={{width: '5em'}}
+								type="number"
+								value={this.state.value}
+							/>
+						</Cell>
+						<Cell shrink>
+							<Button size="small" onClick={this.onChangeDataSize}>Set DataSize</Button>
+						</Cell>
+						<Cell>
+							<CheckboxItem onClick={this.onToggleDisabled}>Disabled Items</CheckboxItem>
+						</Cell>
+						<Cell>
+							<CheckboxItem onClick={this.onToggleChildProps}>Child Props</CheckboxItem>
+						</Cell>
+						<Cell>
+							<LocaleSwitch />
+						</Cell>
+					</Row>
+					<Heading showLine />
 					<div className={css.list}>
 						<VirtualList
 							childProps={this.state.hasChildProps ? childProps : null}
@@ -97,6 +110,7 @@ const MainPanel = class extends Component {
 							focusableScrollbar
 							itemRenderer={this.renderItem}
 							itemSize={ri.scale(60 + 3)}
+							scrollMode="translate"
 						/>
 					</div>
 				</div>

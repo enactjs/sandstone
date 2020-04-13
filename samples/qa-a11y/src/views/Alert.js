@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
-import Notification from '@enact/sandstone/Notification';
+import Alert from '@enact/sandstone/Alert';
 import React from 'react';
 
-class NotificationView extends React.Component {
+class AlertView extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -26,10 +26,10 @@ class NotificationView extends React.Component {
 
 		return (
 			<div>
-				<Button size="small" onClick={this.handleOpen1}>Small Notification</Button>
-				<Button size="small" onClick={this.handleOpen2}>Large Notification</Button>
+				<Button size="small" onClick={this.handleOpen1}>Small Alert</Button>
+				<Button size="small" onClick={this.handleOpen2}>Large Alert</Button>
 
-				<Notification
+				<Alert
 					open={open1}
 					onClose={this.handleClose1}
 				>
@@ -37,9 +37,9 @@ class NotificationView extends React.Component {
 					<buttons>
 						<Button size="small" onClick={this.handleClose1}>Howdy</Button>
 					</buttons>
-				</Notification>
+				</Alert>
 
-				<Notification
+				<Alert
 					open={open2}
 					onClose={this.handleClose2}
 				>
@@ -52,10 +52,10 @@ class NotificationView extends React.Component {
 						<Button size="small" onClick={this.handleClose2}>Hide And Show</Button>
 						<Button size="small" onClick={this.handleClose2}>Close</Button>
 					</buttons>
-				</Notification>
+				</Alert>
 			</div>
 		);
 	}
 }
 
-export default NotificationView;
+export default AlertView;
