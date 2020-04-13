@@ -39,7 +39,6 @@ describe('useScrollPosition', () => {
 
 	test('Custom transform config', () => {
 		const transform = jest.fn(() => false);
-		;
 		const WrappedComponent = ScrollPositionDecorator({transform}, Component);
 
 		const subject = mount(<WrappedComponent />);
