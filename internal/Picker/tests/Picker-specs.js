@@ -233,6 +233,8 @@ describe('Picker Specs', () => {
 		}
 	);
 
+	// TODO: ui-tests for select keys for joined horizontal pickers
+	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
 	test(
 		'should allow keyboard increment via enter key when \'joined\' and \'horizontal\'',
 		() => {
@@ -266,8 +268,22 @@ describe('Picker Specs', () => {
 		}
 	);
 
+	test('should increment via mousedown when \'joined\' and \'horizontal\' and wrap successfully', () => {
+		const handleChange = jest.fn();
+		const picker = mount(
+			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
+		);
 
-	test('should allow keyboard increment via enter key when \'joined\' and \'horizontal\' and wrap successfully', () => {
+		const expected = 0;
+		picker.simulate('mousedown');
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	// TODO: ui-tests for select keys for joined horizontal pickers
+	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
+	test('should increment keyboard select when \'joined\' and \'horizontal\' and wrap successfully', () => {
 		const handleChange = jest.fn();
 		const picker = mount(
 			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
