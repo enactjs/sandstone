@@ -8,7 +8,6 @@ const jan31 = generateDate('2019-01-31');
 const DatePickerTests = [
 	<DatePicker defaultValue={jan31} />,
 	<DatePicker defaultValue={jan31} disabled />,
-	<DatePicker disabled />,
 	// *************************************************************
 	// locale = 'ar-SA'
 	{

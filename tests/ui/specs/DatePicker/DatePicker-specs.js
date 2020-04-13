@@ -234,7 +234,7 @@ describe('DatePicker', function () {
 		describe('disabled', function () {
 			const datePicker = Page.components.datePickerDisabled;
 
-			it('should not select month', function () {
+			it('should focus the disabled month picker', function () {
 				datePicker.month.click();
 				expect(datePicker.month.isFocused()).to.be.true();
 			});
@@ -267,34 +267,31 @@ describe('DatePicker', function () {
 
 			});
 
-			it('should not increase the month when incrementing the picker', function () {
-					datePicker.incrementer(datePicker.month).click();
-					browser.pause(500);
-					const {month: value} = extractValues(datePicker);
-					expect(value).to.equal(6);
-				});
-
-			it('should not decrease the month when decrementing the picker', function () {
+			it('should not update \'defaultValue\' on decrementing disabled picker', function () {
+				const {day, month, year} = extractValues(datePicker);
 				datePicker.decrementer(datePicker.month).click();
 				browser.pause(500);
-				const {month: value} = extractValues(datePicker);
-				expect(value).to.equal(6);
-			});
-
-			it('should not increase the day when incrementing the picker', function () {
-					datePicker.incrementer(datePicker.day).click();
-					browser.pause(500);
-					const {day: value} = extractValues(datePicker);
-					expect(value).to.equal(6);
-			});
-
-			it('should not decrease the day when decrementing the picker', function () {
 				datePicker.decrementer(datePicker.day).click();
 				browser.pause(500);
-				const {day: value} = extractValues(datePicker);
-				expect(value).to.equal(6);
+				datePicker.decrementer(datePicker.year).click();
+				browser.pause(500);
+				expect(day).to.equal(6);
+				expect(month).to.equal(6);
+				expect(year).to.equal(2009);
 			});
 
+			it('should not update \'defaultValue\' on incrementing disabled picker', function () {
+				const {day, month, year} = extractValues(datePicker);
+				datePicker.incrementer(datePicker.month).click();
+				browser.pause(500);
+				datePicker.incrementer(datePicker.day).click();
+				browser.pause(500);
+				datePicker.incrementer(datePicker.year).click();
+				browser.pause(500);
+				expect(day).to.equal(6);
+				expect(month).to.equal(6);
+				expect(year).to.equal(2009);
+			});
 		});
 
 	});

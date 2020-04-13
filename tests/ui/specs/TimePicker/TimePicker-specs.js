@@ -209,7 +209,7 @@ describe('TimePicker', function () {
 
 		describe('disabled with \'defaultValue\'', function () {
 			const timePicker = Page.components.timePickerDisabledWithDefaultValue;
-			it('should not \'defaultValue\' update on click', function () {
+			it('should not update \'defaultValue\' on click', function () {
 				const {hour, minute, meridiem} = extractValues(timePicker);
 				timePicker.decrementer(timePicker.minute).click();
 				browser.pause(500);
