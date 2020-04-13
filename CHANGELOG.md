@@ -6,8 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
 - `sandstone/Panels` and `sandstone/Panels.Header` props `backButtonAriaLabel`, `backButtonBackgroundOpacity`, `closeButtonAriaLabel`, `closeButtonBackgroundOpacity`, `noBackButton`, `noCloseButton`, `onBack`, and `onClose`
+
+### Added
+
+- `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
 
 ## [1.0.0-alpha.7] - 2020-04-06
 

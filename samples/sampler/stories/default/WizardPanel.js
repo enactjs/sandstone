@@ -15,7 +15,7 @@ WizardPanel.displayName = 'WizardPanel';
 
 storiesOf('Sandstone', module)
 	.add(
-		'WizardPanel',
+		'Panels.WizardPanel',
 		() => (
 			<WizardPanel
 				nextButtonText={text('nextButtonText', WizardPanel, '')}

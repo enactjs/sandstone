@@ -7,6 +7,7 @@ import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
 import {PanelsStateContext} from './Viewport';
@@ -242,7 +243,9 @@ const Panel = SharedStateDecorator(
 		},
 		Slottable(
 			{slots: ['header']},
-			PanelBase
+			Skinnable(
+				PanelBase
+			)
 		)
 	)
 );

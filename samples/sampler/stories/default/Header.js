@@ -28,12 +28,12 @@ const prop = {
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
 	marqueeOn: ['', 'hover', 'render'],
-	type: ['standard', 'compact', 'wizard']
+	type: ['standard', 'compact', 'wizard', 'mini']
 };
 
 storiesOf('Sandstone', module)
 	.add(
-		'Header',
+		'Panels.Header',
 		() => {
 			const headerInput = boolean('headerInput', Config, true) ? <Input placeholder="placeholder text" /> : null;
 			const showInput = boolean('showInput', Config);
