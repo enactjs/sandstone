@@ -196,10 +196,10 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'dense'|'standard')}
+		 * @type {('compact'|'dense'|'mini'|'standard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['standard', 'compact', 'wizard'])
+		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
 	},
 
 	defaultProps: {
