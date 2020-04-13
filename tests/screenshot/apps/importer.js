@@ -4,6 +4,7 @@ import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import CheckboxItem from '../../../CheckboxItem';
+import {CollapsingHeaderPanel} from '../../../Panels';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
@@ -47,6 +48,7 @@ const components = {
 	Button,
 	Checkbox,
 	CheckboxItem,
+	CollapsingHeaderPanel,
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
