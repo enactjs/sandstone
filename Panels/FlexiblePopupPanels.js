@@ -1,14 +1,11 @@
 import compose from 'ramda/src/compose';
 
-import Skinnable from '../Skinnable';
-
 import {FadeAndSlideArranger} from './Arrangers';
 import PopupDecorator from './PopupDecorator';
 import Viewport from './Viewport';
 
 
 const FlexiblePopupPanelsDecorator = compose(
-	Skinnable,
 	PopupDecorator({
 		className: 'panels flexiblePopup',
 		panelArranger: FadeAndSlideArranger,
@@ -31,7 +28,10 @@ const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct
 // side. The real default is assigned in PopupDecorator, but should still be overridable by an app.
-FlexiblePopupPanels.defaultProps = {position: 'left'};
+FlexiblePopupPanels.defaultProps = {
+	...FlexiblePopupPanels.defaultProps,
+	position: 'left'
+};
 
 export default FlexiblePopupPanels;
 export {FlexiblePopupPanels};

@@ -1,14 +1,11 @@
 import compose from 'ramda/src/compose';
 
-import Skinnable from '../Skinnable';
-
 import {BasicArranger} from './Arrangers';
 import PopupDecorator from './PopupDecorator';
 import Viewport from './Viewport';
 
 
 const FixedPopupPanelsDecorator = compose(
-	Skinnable,
 	PopupDecorator({
 		className: 'panels fixedPopup',
 		panelArranger: BasicArranger,
