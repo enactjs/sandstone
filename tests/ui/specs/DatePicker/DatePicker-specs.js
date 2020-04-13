@@ -234,9 +234,25 @@ describe('DatePicker', function () {
 		describe('disabled', function () {
 			const datePicker = Page.components.datePickerDisabled;
 
-			it('should not display text', function () {
-				expect(datePicker.dateLabel).to.not.equal('Nothing Selected');
+			it('should not select month', function () {
+				datePicker.month.click();
+				expect(datePicker.month.isFocused()).to.be.true();
 			});
+
+			it('should not increase the day when incrementing disabled picker', function () {
+				datePicker.incrementer(datePicker.day).click();
+				browser.pause(500);
+				const {day: value} = extractValues(datePicker);
+				expect(value).to.equal(1);
+			});
+
+			it('should not decrease the month when decrementing disabled picker', function () {
+				datePicker.decrementer(datePicker.day).click();
+				browser.pause(500);
+				const {day: value} = extractValues(datePicker);
+				expect(value).to.equal(1);
+			});
+
 		});
 
 		describe('disabled with \'defaultValue\'', function () {
@@ -250,6 +266,35 @@ describe('DatePicker', function () {
 				expect(year).to.equal(2009);
 
 			});
+
+			it('should not increase the month when incrementing the picker', function () {
+					datePicker.incrementer(datePicker.month).click();
+					browser.pause(500);
+					const {month: value} = extractValues(datePicker);
+					expect(value).to.equal(6);
+				});
+
+			it('should not decrease the month when decrementing the picker', function () {
+				datePicker.decrementer(datePicker.month).click();
+				browser.pause(500);
+				const {month: value} = extractValues(datePicker);
+				expect(value).to.equal(6);
+			});
+
+			it('should not increase the day when incrementing the picker', function () {
+					datePicker.incrementer(datePicker.day).click();
+					browser.pause(500);
+					const {day: value} = extractValues(datePicker);
+					expect(value).to.equal(6);
+			});
+
+			it('should not decrease the day when decrementing the picker', function () {
+				datePicker.decrementer(datePicker.day).click();
+				browser.pause(500);
+				const {day: value} = extractValues(datePicker);
+				expect(value).to.equal(6);
+			});
+
 		});
 
 	});

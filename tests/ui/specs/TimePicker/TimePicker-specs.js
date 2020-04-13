@@ -187,17 +187,6 @@ describe('TimePicker', function () {
 					expect(meridiem).to.equal('AM');
 				});
 			});
-
-			describe('pointer', function () {
-				it('should not update on click', function () {
-					const {hour, minute, meridiem} = extractValues(timePicker);
-
-					expect(hour).to.equal(12);
-					expect(minute).to.equal(0);
-					expect(meridiem).to.equal('AM');
-				});
-			});
-
 		});
 
 		describe('disabled', function () {
@@ -220,10 +209,19 @@ describe('TimePicker', function () {
 
 		describe('disabled with \'defaultValue\'', function () {
 			const timePicker = Page.components.timePickerDisabledWithDefaultValue;
-
-			it('should not display \'noneText\'', function () {
-				expect(timePicker.timeLabel).to.not.equal('Nothing Selected');
+			it('should not \'defaultValue\' update on click', function () {
+				const {hour, minute, meridiem} = extractValues(timePicker);
+				timePicker.decrementer(timePicker.minute).click();
+				browser.pause(500);
+				timePicker.decrementer(timePicker.hour).click();
+				browser.pause(500);
+				timePicker.decrementer(timePicker.meridiem).click();
+				browser.pause(500);
+				expect(hour).to.equal(12);
+				expect(minute).to.equal(0);
+				expect(meridiem).to.equal('AM');
 			});
+
 		});
 	});
 
