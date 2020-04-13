@@ -16,10 +16,6 @@ const DatePickerTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <DatePicker disabled />
-	},
-	{
-		locale: 'ar-SA',
 		component: <DatePicker defaultValue={jan31} />
 	},
 	{

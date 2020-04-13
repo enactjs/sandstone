@@ -212,9 +212,7 @@ describe('TimePicker', function () {
 			it('should not update \'defaultValue\' on click', function () {
 				const {hour, minute, meridiem} = extractValues(timePicker);
 				timePicker.decrementer(timePicker.minute).click();
-				browser.pause(500);
 				timePicker.decrementer(timePicker.hour).click();
-				browser.pause(500);
 				timePicker.decrementer(timePicker.meridiem).click();
 				browser.pause(500);
 				expect(hour).to.equal(12);

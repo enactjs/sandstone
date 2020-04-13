@@ -270,9 +270,7 @@ describe('DatePicker', function () {
 			it('should not update \'defaultValue\' on decrementing disabled picker', function () {
 				const {day, month, year} = extractValues(datePicker);
 				datePicker.decrementer(datePicker.month).click();
-				browser.pause(500);
 				datePicker.decrementer(datePicker.day).click();
-				browser.pause(500);
 				datePicker.decrementer(datePicker.year).click();
 				browser.pause(500);
 				expect(day).to.equal(6);
@@ -283,9 +281,7 @@ describe('DatePicker', function () {
 			it('should not update \'defaultValue\' on incrementing disabled picker', function () {
 				const {day, month, year} = extractValues(datePicker);
 				datePicker.incrementer(datePicker.month).click();
-				browser.pause(500);
 				datePicker.incrementer(datePicker.day).click();
-				browser.pause(500);
 				datePicker.incrementer(datePicker.year).click();
 				browser.pause(500);
 				expect(day).to.equal(6);
