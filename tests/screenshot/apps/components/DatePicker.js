@@ -12,10 +12,6 @@ const DatePickerTests = [
 	// locale = 'ar-SA'
 	{
 		locale: 'ar-SA',
-		component: <DatePicker />
-	},
-	{
-		locale: 'ar-SA',
 		component: <DatePicker defaultValue={jan31} />
 	},
 	{
