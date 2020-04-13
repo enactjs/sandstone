@@ -4,6 +4,7 @@ import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
+import Layout, {Cell} from '@enact/ui/Layout';
 import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -908,24 +909,27 @@ const PickerBase = class extends React.Component {
 		if (joined) {
 			Component = SpottableDiv;
 			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
-			spottablePickerProps.orientation = orientation;
+			spottablePickerProps.pickerOrientation = orientation;
 			spottablePickerProps.spotlightDisabled = spotlightDisabled;
 		} else {
 			Component = Div;
 		}
 
 		return (
-			<Component
+			<Layout
 				{...voiceProps}
 				{...rest}
+				align="center space-around"
 				aria-controls={joined ? id : null}
 				aria-disabled={disabled}
 				aria-label={this.calcAriaLabel(valueText)}
 				className={className}
+				component={Component}
 				data-webos-voice-intent="Select"
 				data-webos-voice-labels-ext={voiceLabelsExt}
 				disabled={disabled}
 				holdConfig={holdConfig}
+				inline
 				onBlur={this.handleBlur}
 				onDown={this.handleDown}
 				onFocus={this.handleFocus}
@@ -935,16 +939,18 @@ const PickerBase = class extends React.Component {
 				onUp={this.handleUp}
 				onMouseDown={this.handleMouseDown}
 				onMouseLeave={this.clearPressedState}
+				orientation={orientation}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
 				{isHorizontalJoined ?
 					null :
-					<PickerButton
+					<Cell
 						{...voiceProps}
 						aria-controls={!joined ? incrementerAriaControls : null}
 						aria-label={this.calcIncrementLabel(valueText)}
 						className={css.incrementer}
+						component={PickerButton}
 						data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
 						disabled={incrementerDisabled}
 						hidden={reachedEnd}
@@ -955,17 +961,18 @@ const PickerBase = class extends React.Component {
 						onHoldPulse={this.handleIncrement}
 						onKeyDown={this.handleIncKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
-
+						shrink
 						spotlightDisabled={spotlightDisabled}
 					/>
 				}
-				<div
+				<Cell
 					aria-disabled={disabled}
 					aria-hidden={!active}
 					aria-valuetext={valueText}
 					className={css.valueWrapper}
 					id={id}
 					role="spinbutton"
+					shrink
 				>
 					{sizingPlaceholder}
 					<PickerViewManager
@@ -988,14 +995,15 @@ const PickerBase = class extends React.Component {
 							))}
 						</div>
 					)}
-				</div>
+				</Cell>
 				{isHorizontalJoined ?
 					null :
-					<PickerButton
+					<Cell
 						{...voiceProps}
 						aria-controls={!joined ? decrementerAriaControls : null}
 						aria-label={this.calcDecrementLabel(valueText)}
 						className={css.decrementer}
+						component={PickerButton}
 						data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
 						disabled={decrementerDisabled}
 						hidden={reachedStart}
@@ -1006,11 +1014,11 @@ const PickerBase = class extends React.Component {
 						onHoldPulse={this.handleDecrement}
 						onKeyDown={this.handleDecKeyDown}
 						onSpotlightDisappear={onSpotlightDisappear}
-
+						shrink
 						spotlightDisabled={spotlightDisabled}
 					/>
 				}
-			</Component>
+			</Layout>
 		);
 	}
 };
