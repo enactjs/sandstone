@@ -636,7 +636,6 @@ const PickerBase = class extends React.Component {
 		const {keyCode} = ev;
 		forwardKeyDown(ev, this.props);
 
-
 		if (joined && !this.props.disabled) {
 			const direction = getDirection(keyCode);
 
