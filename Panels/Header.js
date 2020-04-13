@@ -405,7 +405,8 @@ const HeaderBase = kind({
 		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
 				centered,
-				showBack: (backButtonAvailable && !noBackButton && (hover || entering)), // This likely doesn't need to be as verbose as it is, with the first 2 conditionals
+				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
+				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
 				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
 			type
@@ -448,6 +449,8 @@ const HeaderBase = kind({
 		...rest
 	}) => {
 		delete rest.entering;
+		delete rest.onHideBack;
+		delete rest.onShowBack;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
