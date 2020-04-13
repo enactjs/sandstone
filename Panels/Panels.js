@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle/handle';
+import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -57,9 +57,7 @@ const PanelsBase = kind({
 		/**
 		 * The background opacity of the application back button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
@@ -85,9 +83,7 @@ const PanelsBase = kind({
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
