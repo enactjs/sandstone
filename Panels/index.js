@@ -19,7 +19,8 @@ import ActivityPanels from './ActivityPanels';
 import AlwaysViewingPanels from './AlwaysViewingPanels';
 import Breadcrumb from './Breadcrumb';
 import Header, {HeaderBase} from './Header';
-import OptionPanels from './OptionPanels';
+import FlexiblePopupPanels from './FlexiblePopupPanels';
+import FixedPopupPanels from './FixedPopupPanels';
 import Panel from './Panel';
 import Panels from './Panels';
 import WizardPanel, {View, WizardPanelBase} from './WizardPanel';
@@ -31,7 +32,8 @@ export {
 	Breadcrumb,
 	Header,
 	HeaderBase,
-	OptionPanels,
+	FlexiblePopupPanels,
+	FixedPopupPanels,
 	Panel,
 	Panels,
 	Panels as PanelsBase,
