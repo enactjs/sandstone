@@ -3,6 +3,7 @@ import {storiesOf} from '@storybook/react';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
+import compose from 'ramda/src/compose';
 
 import {Header, Panels, Panel} from '@enact/sandstone/Panels';
 import BodyText from '@enact/sandstone/BodyText';
@@ -65,6 +66,9 @@ storiesOf('Sandstone', module)
 			const [panelIndex, setState] = React.useState(initialState);
 			const forward = () => setState(panelIndex + 1);
 			const backward = () => setState(panelIndex - 1);
+
+			const handleBack = compose(backward, action('onBack'));
+
 			const story = (
 				<Panels
 					backButtonBackgroundOpacity={select('backButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
@@ -73,15 +77,13 @@ storiesOf('Sandstone', module)
 					noAnimation={boolean('noAnimation', Panels, false)}
 					noBackButton={boolean('noBackButton', Panels, false)}
 					noCloseButton={boolean('noCloseButton', Panels, false)}
-					onBack={action('onBack')}
+					onBack={handleBack}
 					onClose={action('onClose')}
 				>
 					<Panel>
 						<Header title="Panel with Items">
 							<Button
-								backgroundOpacity="transparent"
 								icon="arrowlargeright"
-								minWidth={false}
 								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
@@ -110,17 +112,7 @@ storiesOf('Sandstone', module)
 					<Panel>
 						<Header title="Panel with VirtualGridList">
 							<Button
-								backgroundOpacity="transparent"
-								icon="arrowlargeleft"
-								minWidth={false}
-								size="small"
-								slot="slotBefore"
-								onClick={backward} // eslint-disable-line react/jsx-no-bind
-							/>
-							<Button
-								backgroundOpacity="transparent"
 								icon="arrowlargeright"
-								minWidth={false}
 								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
@@ -136,16 +128,7 @@ storiesOf('Sandstone', module)
 						/>
 					</Panel>
 					<Panel>
-						<Header title="Panel with TabLayout">
-							<Button
-								backgroundOpacity="transparent"
-								icon="arrowlargeleft"
-								minWidth={false}
-								size="small"
-								slot="slotBefore"
-								onClick={backward} // eslint-disable-line react/jsx-no-bind
-							/>
-						</Header>
+						<Header title="Panel with TabLayout" />
 						<TabLayout
 							tabs={tabSelections['with icons']}
 						>

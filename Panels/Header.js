@@ -384,7 +384,8 @@ const HeaderBase = kind({
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)), // This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				withChildren: (Boolean(children) || Boolean(slotAbove))
 			},
-			type),
+			type
+		),
 		// This unruly looking pile of props allows these props to override their context equivelents
 		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
 		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),

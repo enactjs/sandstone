@@ -183,7 +183,8 @@ const PanelBase = kind({
 			}
 
 			switch (context.type) {
-				case 'option': return 'compact';
+				case 'fixedPopup': return 'compact';
+				case 'flexiblePopup': return 'mini';
 				case 'wizard': return 'wizard';
 			}
 		}

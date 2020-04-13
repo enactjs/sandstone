@@ -20,10 +20,10 @@ const prop = {
 	},
 	buttons: {
 		'no buttons': null,
-		'1 button': <Button icon="ellipsis" />,
+		'1 button': <Button size="small" icon="ellipsis" />,
 		'2 buttons': <React.Fragment>
-			<Button icon="search" />
-			<Button icon="ellipsis" />
+			<Button size="small" icon="search" />
+			<Button size="small" icon="ellipsis" />
 		</React.Fragment>
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
@@ -51,6 +51,7 @@ storiesOf('Sandstone', module)
 					title={text('title', Config, 'The Matrix')}
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
+					backButtonAvailable={boolean('backButtonAvailable', Config)}
 					centered={boolean('centered', Config)}
 					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					headerInput={headerInput}
