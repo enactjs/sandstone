@@ -554,11 +554,14 @@ const PickerBase = class extends React.Component {
 	}
 
 	handleDown = () => {
-		const {joined} = this.props;
+		const {joined, orientation} = this.props;
 
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
-			this.emulateMouseUp.start();
+
+			if (orientation === 'vertical') {
+				this.emulateMouseUp.start();
+			}
 		} else if (joined && this.pickerButtonPressed === -1) {
 			this.handleDecrement();
 			this.emulateMouseUp.start();
