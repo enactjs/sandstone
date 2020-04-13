@@ -28,18 +28,22 @@ import componentCss from './Header.module.less';
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
 const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
 
-const isBackButton = (node) => node.classList.contains(componentCss.back);
+const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
 const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
 
+// Hides the back button when 5-way navigation when in pointer mode and the target would not be the
+// back button.
 const handleWindowKeyPress = handle(
+	Spotlight.getPointerMode,
 	forProp('backButtonAvailable', true),
-	not(Spotlight.getCurrent),
-	({keyCode}) => {
-		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
-		return !(target && isBackButton(target));
-	},
+	adaptEvent(
+		({keyCode}) => ({
+			target: getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition())
+		}),
+		not(isBackButton)
+	),
 	forwardHideBack
 );
 
@@ -374,11 +378,11 @@ const HeaderBase = kind({
 	},
 
 	handlers: {
-		onBlur: (ev, props) => {
-			if (isBackButton(ev.target) && !Spotlight.getPointerMode()) {
-				forwardHideBack(ev, props);
-			}
-		},
+		onBlur: handle(
+			isBackButton,
+			not(Spotlight.getPointerMode),
+			forwardHideBack
+		),
 		onMouseEnter: handle(
 			forward('onMouseEnter'),
 			Spotlight.getPointerMode,
