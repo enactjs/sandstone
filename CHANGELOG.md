@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
+
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode

@@ -1,14 +1,10 @@
-import {forKey, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import $L from '../internal/$L';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
-import {ExpandableItemBase} from '../ExpandableItem';
 
 import css from './TimePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 // values to use in hour picker for 24 and 12 hour locales
 const hours24 = [
@@ -93,6 +89,15 @@ const TimePickerBase = kind({
 		hour: PropTypes.number.isRequired,
 
 		/**
+		 * The `meridiem` component of the time.
+		 *
+		 * @type {Number}
+		 * @required
+		 * @public
+		 */
+		meridiem: PropTypes.number.isRequired,
+
+		/**
 		 * The `minute` component of the time.
 		 *
 		 * @type {Number}
@@ -113,15 +118,6 @@ const TimePickerBase = kind({
 		order: PropTypes.arrayOf(PropTypes.oneOf(['h', 'k', 'm', 'a'])).isRequired,
 
 		/**
-		 * The primary text of the item.
-		 *
-		 * @type {String}
-		 * @required
-		 * @public
-		 */
-		title: PropTypes.string.isRequired,
-
-		/**
 		 * Disables voice control.
 		 *
 		 * @type {Boolean}
@@ -129,6 +125,14 @@ const TimePickerBase = kind({
 		 * @public
 		 */
 		'data-webos-voice-disabled': PropTypes.bool,
+
+		/**
+		 * Disables the `TimePicker`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
 
 		/**
 		 * The "aria-label" for the hour picker
@@ -140,22 +144,12 @@ const TimePickerBase = kind({
 		hourAriaLabel: PropTypes.string,
 
 		/**
-		 * Sets the hint string read when focusing the hour picker.
+		 * The primary text of `TimePicker`.
 		 *
 		 * @type {String}
-		 * @default 'hour'
 		 * @public
 		 */
-		hourLabel: PropTypes.string,
-
-		/**
-		 * The `meridiem` component of the time.
-		 *
-		 * @type {Number}
-		 * @required
-		 * @public
-		 */
-		meridiem: PropTypes.number,
+		label: PropTypes.string,
 
 		/**
 		 * The "aria-label" for the meridiem picker.
@@ -193,23 +187,6 @@ const TimePickerBase = kind({
 		minuteAriaLabel: PropTypes.string,
 
 		/**
-		 * Sets the hint string read when focusing the minute picker.
-		 *
-		 * @type {String}
-		 * @default 'minute'
-		 * @public
-		 */
-		minuteLabel: PropTypes.string,
-
-		/**
-		 * Omits the labels below the pickers.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noLabels: PropTypes.bool,
-
-		/**
 		 * Called on changes in the `hour` component of the time.
 		 *
 		 * @type {Function}
@@ -234,14 +211,6 @@ const TimePickerBase = kind({
 		onChangeMinute: PropTypes.func,
 
 		/**
-		 * Called when a condition occurs which should cause the expandable to close.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onClose: PropTypes.func,
-
-		/**
 		 * Called when the component is removed while retaining focus.
 		 *
 		 * @type {Function}
@@ -251,7 +220,7 @@ const TimePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way left key is pressed.
+		 * Called when the focus leaves the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -260,7 +229,7 @@ const TimePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called when the focus leaves the expandable when the 5-way right key is pressed.
+		 * Called when the focus leaves the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -287,19 +256,13 @@ const TimePickerBase = kind({
 	},
 
 	defaultProps: {
+		disabled: false,
 		spotlightDisabled: false
 	},
 
 	styles: {
 		css,
 		className: 'timePicker'
-	},
-
-	handlers: {
-		handlePickerKeyDown: handle(
-			forKey('enter'),
-			forward('onClose')
-		)
 	},
 
 	computed: {
@@ -309,11 +272,10 @@ const TimePickerBase = kind({
 
 	render: ({
 		'data-webos-voice-disabled': voiceDisabled,
-		handlePickerKeyDown,
+		disabled,
 		hasMeridiem,
 		hour,
 		hourAriaLabel,
-		hourLabel = $L('hour'),
 		meridiem,
 		meridiemAriaLabel,
 		meridiemLabel,
@@ -321,8 +283,6 @@ const TimePickerBase = kind({
 		meridiems,
 		minute,
 		minuteAriaLabel,
-		minuteLabel = $L('minute'),
-		noLabels,
 		onChangeHour,
 		onChangeMeridiem,
 		onChangeMinute,
@@ -335,42 +295,34 @@ const TimePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<ExpandableItemBase
-				{...rest}
-				showLabel="always"
-				autoClose={false}
-				data-webos-voice-disabled={voiceDisabled}
-				lockBottom={false}
-				onSpotlightDisappear={onSpotlightDisappear}
-				onSpotlightLeft={onSpotlightLeft}
-				onSpotlightRight={onSpotlightRight}
-				spotlightDisabled={spotlightDisabled}
-			>
-				<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
-					<div className={css.timeComponents}>
-						{order.map((picker, index) => {
-							// although we create a component array based on the provided
-							// order, we ultimately force order in CSS for RTL
-							const isFirst = index === 0;
-							const isLast = index === order.length - 1;
-							// meridiem will always be the left-most control in RTL, regardless of the provided order
-							const isLeft = rtl && picker === 'a' || isFirst && !rtl;
-							// minute will always be the right-most control in RTL, regardless of the provided order
-							const isRight = rtl && picker === 'm' || isLast && !rtl;
+			<div {...rest}>
+				<div className={css.pickerLabel}>
+					{rest.label}
+				</div>
+				<div className={css.timeComponents}>
+					{order.map((picker, index) => {
+						// although we create a component array based on the provided
+						// order, we ultimately force order in CSS for RTL
+						const isFirst = index === 0;
+						const isLast = index === order.length - 1;
+						// meridiem will always be the left-most control in RTL, regardless of the provided order
+						const isLeft = rtl && picker === 'a' || isFirst && !rtl;
+						// minute will always be the right-most control in RTL, regardless of the provided order
+						const isRight = rtl && picker === 'm' || isLast && !rtl;
 
-							switch (picker) {
-								case 'h':
-								case 'k':
-									return (
+						switch (picker) {
+							case 'h':
+							case 'k':
+								return (
+									<React.Fragment key="hour-picker">
 										<HourPicker
-											accessibilityHint={hourLabel}
+											accessibilityHint={hourAriaLabel}
 											aria-label={hourAriaLabel}
 											className={css.hourComponents}
+											disabled={disabled}
 											data-webos-voice-disabled={voiceDisabled}
-											data-webos-voice-group-label={hourLabel}
+											data-webos-voice-group-label={hourAriaLabel}
 											hasMeridiem={hasMeridiem}
-											key="hour-picker"
-											label={noLabels ? null : hourLabel}
 											onChange={onChangeHour}
 											onSpotlightDisappear={onSpotlightDisappear}
 											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
@@ -380,60 +332,61 @@ const TimePickerBase = kind({
 											width={2}
 											wrap
 										/>
-									);
-								case 'm':
-									return (
-										<DateComponentRangePicker
-											accessibilityHint={minuteLabel}
-											aria-label={minuteAriaLabel}
-											className={css.minutesComponents}
-											data-webos-voice-disabled={voiceDisabled}
-											data-webos-voice-group-label={minuteLabel}
-											key="minute-picker"
-											label={noLabels ? null : minuteLabel}
-											max={59}
-											min={0}
-											onChange={onChangeMinute}
-											onSpotlightDisappear={onSpotlightDisappear}
-											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-											onSpotlightRight={isRight ? onSpotlightRight : null}
-											padded
-											spotlightDisabled={spotlightDisabled}
-											value={minute}
-											width={2}
-											wrap
-										/>
-									);
-								case 'a':
-									return (
-										<DateComponentPicker
-											aria-label={meridiemAriaLabel}
-											aria-valuetext={meridiems ? meridiems[meridiem] : null}
-											className={css.meridiemComponent}
-											data-webos-voice-disabled={voiceDisabled}
-											data-webos-voice-group-label={meridiemLabel}
-											key="meridiem-picker"
-											label={noLabels ? null : meridiemLabel}
-											onChange={onChangeMeridiem}
-											onSpotlightDisappear={onSpotlightDisappear}
-											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-											onSpotlightRight={isRight ? onSpotlightRight : null}
-											reverse
-											spotlightDisabled={spotlightDisabled}
-											value={meridiem}
-											width={meridiemPickerWidth}
-											wrap
-										>
-											{meridiems}
-										</DateComponentPicker>
-									);
-							}
+										<span className={css.colonMark}>:</span>
+									</React.Fragment>
+								);
+							case 'm':
+								return (
+									<DateComponentRangePicker
+										accessibilityHint={minuteAriaLabel}
+										aria-label={minuteAriaLabel}
+										className={css.minutesComponents}
+										disabled={disabled}
+										data-webos-voice-disabled={voiceDisabled}
+										data-webos-voice-group-label={minuteAriaLabel}
+										key="minute-picker"
+										max={59}
+										min={0}
+										onChange={onChangeMinute}
+										onSpotlightDisappear={onSpotlightDisappear}
+										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+										onSpotlightRight={isRight ? onSpotlightRight : null}
+										padded
+										spotlightDisabled={spotlightDisabled}
+										value={minute}
+										width={2}
+										wrap
+									/>
+								);
+							case 'a':
+								return (
+									<DateComponentPicker
+										aria-label={meridiemAriaLabel}
+										aria-valuetext={meridiems ? meridiems[meridiem] : null}
+										className={css.meridiemComponent}
+										disabled={disabled}
+										data-webos-voice-disabled={voiceDisabled}
+										data-webos-voice-group-label={meridiemLabel}
+										key="meridiem-picker"
+										onChange={onChangeMeridiem}
+										onSpotlightDisappear={onSpotlightDisappear}
+										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+										onSpotlightRight={isRight ? onSpotlightRight : null}
+										reverse
+										spotlightDisabled={spotlightDisabled}
+										value={meridiem}
+										width={meridiemPickerWidth}
+										wrap
+									>
+										{meridiems}
+									</DateComponentPicker>
+								);
+						}
 
-							return null;
-						})}
-					</div>
+						return null;
+					})}
 				</div>
-			</ExpandableItemBase>
+			</div>
 		);
 	}
 });
