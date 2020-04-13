@@ -106,6 +106,32 @@
 		}
 	}
 
+	// Mini Header
+	&.mini {
+		margin: @sand-header-mini-margin;
+		padding: @sand-header-mini-padding;
+
+		.titlesRow {
+			padding: 0;
+		}
+
+		.titleCell {
+			width: auto;
+		}
+
+		.title {
+			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
+		}
+
+		.slotBefore >:first-child {
+			margin-inline-start: 0;
+		}
+
+		.slotAfter >:first-child {
+			margin-inline-end: 0;
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		&.compact {

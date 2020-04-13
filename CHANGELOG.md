@@ -6,7 +6,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
+
+### Added
+
+- `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
 
 ### Fixed
 

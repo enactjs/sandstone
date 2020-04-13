@@ -37,6 +37,7 @@
 		position: absolute;
 		.position(0);
 		overflow: hidden;
+		white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
 
 		&.transitioning::before {
 			content: "";
@@ -132,15 +133,31 @@
 	});
 }
 
-.panels.option {
-	width: @sand-panels-optionpanels-width;
+.panels.fixedPopup {
+	width: @sand-panels-fixedpopuppanels-width;
+
+	.body {
+		padding: 0;
+	}
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(@sand-panels-optionpanels-shadow);
+		filter: drop-shadow(@sand-panels-fixedpopuppanels-shadow);
+	});
+}
 
-		.body {
-			padding: 0;
-		}
+.panels.flexiblePopup {
+	width: @sand-panels-flexiblepopuppanels-width;
+	margin-top: @sand-panels-flexiblepopuppanels-margin-top;
+
+	.body {
+		position: relative;
+		pointer-events: none;
+		padding: 0;
+	}
+
+	// Skin colors
+	.applySkins({
+		background-color: transparent;
 	});
 }
