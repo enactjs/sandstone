@@ -51,7 +51,7 @@ storiesOf('Sandstone', module)
 					title={text('title', Config, 'The Matrix')}
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
-					backButtonAvailable={boolean('backButtonAvailable', Config)}
+					backButtonBackgroundOpacity={select('backButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					centered={boolean('centered', Config)}
 					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					headerInput={headerInput}

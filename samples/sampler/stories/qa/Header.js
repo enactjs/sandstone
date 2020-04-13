@@ -31,10 +31,10 @@ const prop = {
 	},
 	buttons: {
 		'no buttons': null,
-		'1 button': <Button icon="ellipsis" />,
+		'1 button': <Button size="small" icon="ellipsis" />,
 		'2 buttons': <React.Fragment>
-			<Button icon="search" />
-			<Button icon="ellipsis" />
+			<Button size="small" icon="search" />
+			<Button size="small" icon="ellipsis" />
 		</React.Fragment>
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
