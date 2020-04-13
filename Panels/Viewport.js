@@ -54,9 +54,7 @@ const ViewportBase = class extends React.Component {
 		/**
 		 * The background opacity of the application back button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 */
 		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
@@ -77,9 +75,7 @@ const ViewportBase = class extends React.Component {
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 */
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
@@ -99,6 +95,7 @@ const ViewportBase = class extends React.Component {
 		 */
 
 		noAnimation: PropTypes.bool,
+
 		/**
 		 * Omits the back button.
 		 *
