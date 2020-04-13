@@ -9,10 +9,6 @@ class FlexiblePopupPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForTransition (timeout = 1000, message = 'Timed out waiting for transitionend', callback, ignore = ['opacity', 'filter']) {
-		Page.waitTransitionEnd(timeout, message, callback, ignore);
-	}
-
 	waitForOpen (duration = 1000) {
 		this.self.waitForExist(duration);
 	}
