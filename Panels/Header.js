@@ -1,4 +1,4 @@
-import {forward, forProp, handle, not} from '@enact/core/handle/handle';
+import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
@@ -30,6 +30,8 @@ const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] 
 
 const isBackButton = (node) => node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
+const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
+const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
 
 const handleWindowKeyPress = handle(
 	forProp('backButtonAvailable', true),
@@ -38,7 +40,7 @@ const handleWindowKeyPress = handle(
 		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
 		return !(target && isBackButton(target));
 	},
-	forward('onMouseLeave')
+	forwardHideBack
 );
 
 /**
@@ -235,6 +237,22 @@ const HeaderBase = kind({
 		onClose: PropTypes.func,
 
 		/**
+		 * Called when the user leaves the header to hide the back button.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onHideBack: PropTypes.func,
+
+		/**
+		 * Called when the user enters the header to show the back button.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onShowBack: PropTypes.func,
+
+		/**
 		 * Sets the visibility of the input field
 		 *
 		 * This prop must be set to true for the input field to appear.
@@ -358,21 +376,23 @@ const HeaderBase = kind({
 	handlers: {
 		onBlur: (ev, props) => {
 			if (isBackButton(ev.target) && !Spotlight.getPointerMode()) {
-				forward('onMouseLeave', ev, props);
+				forwardHideBack(ev, props);
 			}
 		},
 		onMouseEnter: handle(
+			forward('onMouseEnter'),
 			Spotlight.getPointerMode,
-			forward('onMouseEnter')
+			forwardShowBack
 		),
 		onMouseLeave: handle(
+			forward('onMouseLeave'),
 			Spotlight.getPointerMode,
-			forward('onMouseLeave')
+			forwardHideBack
 		),
 		onMouseMove: handle(
 			forward('onMouseMove'),
 			isNewPointerPosition,
-			forward('onMouseEnter')
+			forwardShowBack
 		)
 	},
 
@@ -521,7 +541,7 @@ const HeaderBase = kind({
 const HeaderDecorator = compose(
 	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
-	Toggleable({prop: 'hover', activate: 'onMouseEnter', deactivate: 'onMouseLeave', toggle: null}),
+	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: document, onKeyDown: handleWindowKeyPress})
 );
 
