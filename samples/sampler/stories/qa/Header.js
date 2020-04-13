@@ -1,10 +1,9 @@
-import {boolean, text, select} from '@enact/storybook-utils/addons/knobs';
+import {text, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
 
@@ -287,15 +286,11 @@ storiesOf('Header.Input', module)
 		'tall-glyphs',
 		() => {
 			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
-			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
-			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
 					title={text('title', Config, inputData.tallText)}
-					headerInput={input}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
-					showInput={showInput}
 					slotAbove={slotAbove}
 					slotAfter={slotAfter}
 					slotBefore={slotBefore}
@@ -309,15 +304,11 @@ storiesOf('Header.Input', module)
 		'long text',
 		() => {
 			const {slotAbove, slotBefore, slotAfter, children} = headerComponents();
-			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
-			const showInput = boolean('showInput', Config, true);
 			return (
 				<Header
-					headerInput={input}
 					title={text('title', Config, inputData.longTitle)}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
-					showInput={showInput}
 					slotAbove={slotAbove}
 					slotAfter={slotAfter}
 					slotBefore={slotBefore}

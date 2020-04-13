@@ -5,7 +5,6 @@ import {storiesOf} from '@storybook/react';
 
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
 import Steps from '@enact/sandstone/Steps';
 
 Header.displayName = 'Header';
@@ -34,8 +33,6 @@ storiesOf('Sandstone', module)
 	.add(
 		'Panels.Header',
 		() => {
-			const headerInput = boolean('headerInput', Config, true) ? <Input placeholder="placeholder text" /> : null;
-			const showInput = boolean('showInput', Config);
 			const slotAboveSelection = select('slotAbove', ['none', 'steps'], Config);
 			const slotAbove = prop.above[slotAboveSelection];
 			const slotBeforeSelection = select('slotBefore', prop.buttonsSelection, Config);
@@ -51,8 +48,6 @@ storiesOf('Sandstone', module)
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
 					centered={boolean('centered', Config)}
-					headerInput={headerInput}
-					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 					slotAbove={slotAbove}
 					slotBefore={slotBefore}

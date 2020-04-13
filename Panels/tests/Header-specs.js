@@ -104,7 +104,8 @@ describe('Header Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should inject a custom component when headerInput is used', () => {
+	// Deprecated
+	test.skip('should inject a custom component when headerInput is used', () => {
 		// This just uses an <input> tag for easy discoverability. It should behave the same way
 		// as a sandstone/Input, the standard here, but that would require importing a diffenent
 		// component than what we're testing here.
