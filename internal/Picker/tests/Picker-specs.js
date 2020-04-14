@@ -233,25 +233,10 @@ describe('Picker Specs', () => {
 		}
 	);
 
+	// TODO: ui-tests for select keys for joined horizontal pickers
+	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
 	test(
-		'should allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
-		() => {
-			const handleChange = jest.fn();
-			const picker = mount(
-				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
-			);
-
-			const expected = -1;
-			picker.simulate('keyDown', {keyCode: 37});
-			picker.simulate('mousedown');
-			const actual = handleChange.mock.calls[0][0].value;
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'',
+		'should allow keyboard increment via enter key when \'joined\' and \'horizontal\'',
 		() => {
 			const handleChange = jest.fn();
 			const picker = mount(
@@ -259,9 +244,86 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = 1;
-			picker.simulate('keyDown', {keyCode: 39});
+			picker.simulate('keyDown', {keyCode: 13});
+			picker.simulate('mousedown');
+			const actual = handleChange.mock.calls.length;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should increment via mousedown when \'joined\' and \'horizontal\'',
+		() => {
+			const handleChange = jest.fn();
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+			);
+
+			const expected = 1;
 			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls[0][0].value;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test('should increment via mousedown when \'joined\' and \'horizontal\' and wrap successfully', () => {
+		const handleChange = jest.fn();
+		const picker = mount(
+			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
+		);
+
+		const expected = 0;
+		picker.simulate('mousedown');
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	// TODO: ui-tests for select keys for joined horizontal pickers
+	// Note: Because of the limitation of the unit test environment, simulating `keyCode: 13` or the select/enter key will not forward the mouse events that'll trigger `onChange` like it's supposed to
+	test('should increment keyboard select when \'joined\' and \'horizontal\' and wrap successfully', () => {
+		const handleChange = jest.fn();
+		const picker = mount(
+			<Picker index={2} joined max={3} min={0} onChange={handleChange} value={3} />
+		);
+
+		const expected = 0;
+		picker.simulate('keyDown', {keyCode: 13});
+		picker.simulate('mousedown');
+		const actual = handleChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test(
+		'should not allow keyboard decrement via left arrow keys when \'joined\' and \'horizontal\'',
+		() => {
+			const handleChange = jest.fn();
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+			);
+
+			const expected = 0;
+			picker.simulate('keyDown', {keyCode: 37});
+			const actual = handleChange.mock.calls.length;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should not allow keyboard increment via right arrow keys when \'joined\' and \'horizontal\'',
+		() => {
+			const handleChange = jest.fn();
+			const picker = mount(
+				<Picker index={0} joined max={1} min={-1} onChange={handleChange} value={0} />
+			);
+
+			const expected = 0;
+			picker.simulate('keyDown', {keyCode: 39});
+			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
 		}
@@ -345,7 +407,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 40});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
@@ -362,7 +423,6 @@ describe('Picker Specs', () => {
 
 			const expected = 0;
 			picker.simulate('keyDown', {keyCode: 38});
-			picker.simulate('mousedown');
 			const actual = handleChange.mock.calls.length;
 
 			expect(actual).toBe(expected);
@@ -470,7 +530,7 @@ describe('Picker Specs', () => {
 				);
 
 				const expected = '2';
-				const actual = picker.find(`.${css.valueWrapper}`).prop('aria-valuetext');
+				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-valuetext');
 
 				expect(actual).toBe(expected);
 			}
@@ -489,7 +549,7 @@ describe('Picker Specs', () => {
 				);
 
 				const expected = true;
-				const actual = picker.find(`.${css.valueWrapper}`).prop('aria-hidden');
+				const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
 
 				expect(actual).toBe(expected);
 			}
@@ -508,7 +568,7 @@ describe('Picker Specs', () => {
 			picker.simulate('focus');
 
 			const expected = false;
-			const actual = picker.find(`.${css.valueWrapper}`).prop('aria-hidden');
+			const actual = picker.find(`.${css.valueWrapper}`).first().prop('aria-hidden');
 
 			expect(actual).toBe(expected);
 		});
@@ -559,7 +619,7 @@ describe('Picker Specs', () => {
 			);
 
 			const expected = label;
-			const actual = picker.find(`.${css.valueWrapper}`).parent().prop('aria-label');
+			const actual = picker.find(`.${css.valueWrapper}`).first().parent().prop('aria-label');
 
 			expect(actual).toBe(expected);
 		});
