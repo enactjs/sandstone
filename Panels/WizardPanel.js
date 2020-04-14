@@ -171,7 +171,6 @@ const WizardPanelBase = kind({
 		return (
 			<Panel {...rest}>
 				<Header
-					centered
 					css={css}
 					subtitle={subtitle}
 					title={title}

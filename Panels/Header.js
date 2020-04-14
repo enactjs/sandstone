@@ -280,7 +280,7 @@ const HeaderBase = kind({
 							spacing="auto"
 							marqueeOn={marqueeOn}
 							forceDirection={direction}
-							alignment={centered ? 'center' : null}
+							alignment={centered || bothBeforeAndAfter ? 'center' : null}
 							className={css.subtitle}
 						>
 							{subtitle}
