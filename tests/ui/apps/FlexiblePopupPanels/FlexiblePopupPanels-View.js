@@ -60,7 +60,7 @@ const app = kind({
 					onClose={onToggleOpen}
 				>
 					<Panel id="panel1">
-						<Header title="Panel 1 - With Scroller" type="mini">
+						<Header title="Panel 1 - With Scroller">
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>
 
@@ -69,7 +69,7 @@ const app = kind({
 						</Scroller>
 					</Panel>
 					<Panel id="panel2">
-						<Header title="Panel 2 - With Big Scroller" type="mini">
+						<Header title="Panel 2 - With Big Scroller">
 							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>
@@ -79,7 +79,7 @@ const app = kind({
 						</Scroller>
 					</Panel>
 					<Panel id="panel3">
-						<Header title="Panel 3 - Medium Block" type="mini">
+						<Header title="Panel 3 - Medium Block">
 							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>
@@ -87,7 +87,7 @@ const app = kind({
 						{mediumBlock}
 					</Panel>
 					<Panel id="panel4">
-						<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior" type="mini">
+						<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior">
 							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>
@@ -95,7 +95,7 @@ const app = kind({
 						{smallBlock}
 					</Panel>
 					<Panel id="panel5">
-						<Header title="Panel 5 - Skinny Block" type="mini">
+						<Header title="Panel 5 - Skinny Block">
 							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>
@@ -103,7 +103,7 @@ const app = kind({
 						{skinnyBlock}
 					</Panel>
 					<Panel id="panel6">
-						<Header title="Panel 6 - Fat Block" type="mini">
+						<Header title="Panel 6 - Fat Block">
 							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
 						</Header>

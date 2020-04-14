@@ -91,7 +91,7 @@ describe('Header Specs', () => {
 		const expected = 'slot after';
 
 		const subject = mount(
-			<Header>
+			<Header noCloseButton>
 				<title>Slotted Header</title>
 				<slotAfter>
 					{expected}
