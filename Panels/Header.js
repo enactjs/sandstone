@@ -573,7 +573,7 @@ const HeaderDecorator = compose(
 	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
-	WindowEventable({globalNode: document, onKeyDown: handleWindowKeyPress})
+	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );
 
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
