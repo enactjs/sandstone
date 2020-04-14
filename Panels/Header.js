@@ -40,9 +40,18 @@ const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShow
 const handleWindowKeyPress = handle(
 	Spotlight.getPointerMode,
 	forProp('backButtonAvailable', true),
-	not(Spotlight.getCurrent),
 	({keyCode}) => {
+		const current = Spotlight.getCurrent();
 		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
+
+		// when in pointer mode and back button is visible but focused, if 5-way would blur the back
+		// button, it should hide the back button.
+		if (isBackButton({target: current})) {
+			return target !== current;
+		}
+
+		// when in pointer mode and back button is visible but not focused, if 5-way would not focus
+		// the back button, it should hide the back button
 		return !isBackButton({target});
 	},
 	forwardHideBack
