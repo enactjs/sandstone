@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {shallow} from 'enzyme';
 
 import {CheckboxBase} from '../Checkbox';
 import css from '../Checkbox.module.less';
@@ -11,7 +11,7 @@ describe('CheckboxItem Specs', () => {
 		);
 
 		const expected = css.selected;
-		const actual = subject.first().prop('className');
+		const actual = subject.prop('className');
 
 		expect(actual).not.toContain(expected);
 	});
@@ -22,7 +22,7 @@ describe('CheckboxItem Specs', () => {
 		);
 
 		const expected = css.selected;
-		const actual = subject.first().prop('className');
+		const actual = subject.prop('className');
 
 		expect(actual).toContain(expected);
 	});
@@ -33,7 +33,7 @@ describe('CheckboxItem Specs', () => {
 		);
 
 		const expected = css.indeterminate;
-		const actual = subject.first().prop('className');
+		const actual = subject.prop('className');
 
 		expect(actual).not.toContain(expected);
 	});
@@ -44,18 +44,18 @@ describe('CheckboxItem Specs', () => {
 		);
 
 		const expected = css.indeterminate;
-		const actual = subject.first().prop('className');
+		const actual = subject.prop('className');
 
 		expect(actual).toContain(expected);
 	});
 
 	test('should prioritize indeterminate over selected', () => {
-		const subject = mount(
+		const subject = shallow(
 			<CheckboxBase indeterminate selected indeterminateIcon="Ind">Sel</CheckboxBase>
 		);
 
 		const expected = 'Ind';
-		const actual = subject.first().text();
+		const actual = subject.prop('children');
 
 		expect(actual).toBe(expected);
 	});
