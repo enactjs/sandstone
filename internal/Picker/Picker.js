@@ -4,6 +4,7 @@ import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
+import Layout, {Cell} from '@enact/ui/Layout';
 import Touchable from '@enact/ui/Touchable';
 import {SlideLeftArranger, SlideTopArranger, ViewManager} from '@enact/ui/ViewManager';
 import Spotlight, {getDirection} from '@enact/spotlight';
@@ -31,6 +32,7 @@ const holdConfig = {
 };
 
 const isDown = is('down');
+const isEnter = is('enter');
 const isLeft = is('left');
 const isRight = is('right');
 const isUp = is('up');
@@ -65,6 +67,7 @@ const selectDecIcon = selectIcon('decrementIcon', 'arrowlargedown', 'arrowlargel
 const forwardBlur = forward('onBlur'),
 	forwardFocus = forward('onFocus'),
 	forwardKeyDown = forward('onKeyDown'),
+	forwardMouseDown = forward('onMouseDown'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
@@ -454,8 +457,18 @@ const PickerBase = class extends React.Component {
 	}
 
 	computeNextValue = (delta) => {
-		const {min, max, value, wrap} = this.props;
-		return wrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
+		const {
+			joined,
+			min,
+			max,
+			orientation,
+			value,
+			wrap
+		} = this.props;
+		const horizontalJoined = orientation === 'horizontal' && joined;
+		const shouldWrap = horizontalJoined || wrap;
+
+		return shouldWrap ? wrapRange(min, max, value + delta) : clamp(min, max, value + delta);
 	}
 
 	adjustDirection = (dir) => this.props.reverse ? -dir : dir
@@ -526,6 +539,15 @@ const PickerBase = class extends React.Component {
 
 	emulateMouseUp = new Job(this.clearPressedState, 175)
 
+	handleMouseDown = (ev) => {
+		const {joined, orientation} = this.props;
+		forwardMouseDown(ev, this.props);
+
+		if (joined && orientation === 'horizontal') {
+			this.setIncPickerButtonPressed();
+		}
+	}
+
 	handleUp = () => {
 		if (this.props.joined && (this.pickerButtonPressed !== 0 || this.state.pressed !== 0)) {
 			this.emulateMouseUp.start();
@@ -533,11 +555,14 @@ const PickerBase = class extends React.Component {
 	}
 
 	handleDown = () => {
-		const {joined} = this.props;
+		const {joined, orientation} = this.props;
 
 		if (joined && this.pickerButtonPressed === 1) {
 			this.handleIncrement();
-			this.emulateMouseUp.start();
+
+			if (orientation === 'vertical') {
+				this.emulateMouseUp.start();
+			}
 		} else if (joined && this.pickerButtonPressed === -1) {
 			this.handleDecrement();
 			this.emulateMouseUp.start();
@@ -616,16 +641,16 @@ const PickerBase = class extends React.Component {
 
 			const directions = {
 				up: this.setIncPickerButtonPressed,
-				down: this.setDecPickerButtonPressed,
-				right: this.setIncPickerButtonPressed,
-				left: this.setDecPickerButtonPressed
+				down: this.setDecPickerButtonPressed
 			};
 
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && isEnter(keyCode);
 
-			if (isVertical || isHorizontal) {
+			if (isVertical) {
 				directions[direction]();
+			} else if (isHorizontal) {
+				this.setIncPickerButtonPressed();
 			} else if (orientation === 'horizontal' && isDown(keyCode) && onSpotlightDown) {
 				onSpotlightDown(ev);
 			} else if (orientation === 'horizontal' && isUp(keyCode) && onSpotlightUp) {
@@ -648,7 +673,7 @@ const PickerBase = class extends React.Component {
 
 		if (joined && !this.props.disabled) {
 			const isVertical = orientation === 'vertical' && (isUp(keyCode) || isDown(keyCode));
-			const isHorizontal = orientation === 'horizontal' && (isRight(keyCode) || isLeft(keyCode));
+			const isHorizontal = orientation === 'horizontal' && (isEnter(keyCode));
 
 			if (isVertical || isHorizontal) {
 				this.pickerButtonPressed = 0;
@@ -856,6 +881,7 @@ const PickerBase = class extends React.Component {
 		const decrementIcon = selectDecIcon(this.props);
 
 		const horizontal = orientation === 'horizontal';
+		const isHorizontalJoined = horizontal && joined;
 
 		const reachedStart = this.hasReachedBound(step * -1);
 		const decrementerDisabled = disabled || reachedStart;
@@ -882,24 +908,27 @@ const PickerBase = class extends React.Component {
 		if (joined) {
 			Component = SpottableDiv;
 			spottablePickerProps.onSpotlightDisappear = onSpotlightDisappear;
-			spottablePickerProps.orientation = orientation;
+			spottablePickerProps.pickerOrientation = orientation;
 			spottablePickerProps.spotlightDisabled = spotlightDisabled;
 		} else {
 			Component = Div;
 		}
 
 		return (
-			<Component
+			<Layout
 				{...voiceProps}
 				{...rest}
+				align="center space-around"
 				aria-controls={joined ? id : null}
 				aria-disabled={disabled}
 				aria-label={this.calcAriaLabel(valueText)}
 				className={className}
+				component={Component}
 				data-webos-voice-intent="Select"
 				data-webos-voice-labels-ext={voiceLabelsExt}
 				disabled={disabled}
 				holdConfig={holdConfig}
+				inline
 				onBlur={this.handleBlur}
 				onDown={this.handleDown}
 				onFocus={this.handleFocus}
@@ -907,34 +936,42 @@ const PickerBase = class extends React.Component {
 				onKeyDown={this.handleKeyDown}
 				onKeyUp={this.handleKeyUp}
 				onUp={this.handleUp}
+				onMouseDown={this.handleMouseDown}
 				onMouseLeave={this.clearPressedState}
+				orientation={orientation}
 				ref={this.initContainerRef}
 				{...spottablePickerProps}
 			>
-				<PickerButton
-					{...voiceProps}
-					aria-controls={!joined ? incrementerAriaControls : null}
-					aria-label={this.calcIncrementLabel(valueText)}
-					className={css.incrementer}
-					data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
-					disabled={incrementerDisabled}
-					hidden={reachedEnd}
-					holdConfig={holdConfig}
-					icon={incrementIcon}
-					joined={joined}
-					onDown={this.handleIncrement}
-					onHoldPulse={this.handleIncrement}
-					onKeyDown={this.handleIncKeyDown}
-					onSpotlightDisappear={onSpotlightDisappear}
-					spotlightDisabled={spotlightDisabled}
-				/>
-				<div
+				{isHorizontalJoined ?
+					null :
+					<Cell
+						{...voiceProps}
+						aria-controls={!joined ? incrementerAriaControls : null}
+						aria-label={this.calcIncrementLabel(valueText)}
+						className={css.incrementer}
+						component={PickerButton}
+						data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
+						disabled={incrementerDisabled}
+						hidden={reachedEnd}
+						holdConfig={holdConfig}
+						icon={incrementIcon}
+						joined={joined}
+						onDown={this.handleIncrement}
+						onHoldPulse={this.handleIncrement}
+						onKeyDown={this.handleIncKeyDown}
+						onSpotlightDisappear={onSpotlightDisappear}
+						shrink
+						spotlightDisabled={spotlightDisabled}
+					/>
+				}
+				<Cell
 					aria-disabled={disabled}
 					aria-hidden={!active}
 					aria-valuetext={valueText}
 					className={css.valueWrapper}
 					id={id}
 					role="spinbutton"
+					shrink
 				>
 					{sizingPlaceholder}
 					<PickerViewManager
@@ -957,25 +994,30 @@ const PickerBase = class extends React.Component {
 							))}
 						</div>
 					)}
-				</div>
-				<PickerButton
-					{...voiceProps}
-					aria-controls={!joined ? decrementerAriaControls : null}
-					aria-label={this.calcDecrementLabel(valueText)}
-					className={css.decrementer}
-					data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
-					disabled={decrementerDisabled}
-					hidden={reachedStart}
-					holdConfig={holdConfig}
-					icon={decrementIcon}
-					joined={joined}
-					onDown={this.handleDecrement}
-					onHoldPulse={this.handleDecrement}
-					onKeyDown={this.handleDecKeyDown}
-					onSpotlightDisappear={onSpotlightDisappear}
-					spotlightDisabled={spotlightDisabled}
-				/>
-			</Component>
+				</Cell>
+				{isHorizontalJoined ?
+					null :
+					<Cell
+						{...voiceProps}
+						aria-controls={!joined ? decrementerAriaControls : null}
+						aria-label={this.calcDecrementLabel(valueText)}
+						className={css.decrementer}
+						component={PickerButton}
+						data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
+						disabled={decrementerDisabled}
+						hidden={reachedStart}
+						holdConfig={holdConfig}
+						icon={decrementIcon}
+						joined={joined}
+						onDown={this.handleDecrement}
+						onHoldPulse={this.handleDecrement}
+						onKeyDown={this.handleDecKeyDown}
+						onSpotlightDisappear={onSpotlightDisappear}
+						shrink
+						spotlightDisabled={spotlightDisabled}
+					/>
+				}
+			</Layout>
 		);
 	}
 };
