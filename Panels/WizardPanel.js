@@ -300,7 +300,7 @@ const WizardPanelDecorator = (Wrapped) => {
 		/**
 		* The "default" subtitle for WizardPanel if subtitle isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
 		*
-		* @example
+		* Example:
 		* 	<WizardPanel subtitle="Subtitle">
 		*		<WizardPanel.View>
 		*			lorem ipsum ...
@@ -315,7 +315,7 @@ const WizardPanelDecorator = (Wrapped) => {
 		/**
 		* The "default" title for WizardPanel if title isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
 		*
-		* @example
+		* Example:
 		* 	<WizardPanel title="Title">
 		*		<WizardPanel.View>
 		*			lorem ipsum ...
