@@ -26,7 +26,9 @@ import componentCss from './Header.module.less';
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-const preferPropOverContext = (prop) => (props, context) => (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
+const preferPropOverContext = (prop) => (props, context) => {
+	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
+};
 
 const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
@@ -38,12 +40,11 @@ const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShow
 const handleWindowKeyPress = handle(
 	Spotlight.getPointerMode,
 	forProp('backButtonAvailable', true),
-	adaptEvent(
-		({keyCode}) => ({
-			target: getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition())
-		}),
-		not(isBackButton)
-	),
+	not(Spotlight.getCurrent),
+	({keyCode}) => {
+		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
+		return !isBackButton({target});
+	},
 	forwardHideBack
 );
 
@@ -522,7 +523,9 @@ const HeaderBase = kind({
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
-					{(bothBeforeAndAfter || slotBefore || backButton) ? <Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell> : null}
+					{(bothBeforeAndAfter || slotBefore || backButton) ? (
+						<Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell>
+					) : null}
 					<Cell className={css.titleCell}>
 						{titleOrInput}
 						<Heading
@@ -536,7 +539,9 @@ const HeaderBase = kind({
 							{subtitle}
 						</Heading>
 					</Cell>
-					{(bothBeforeAndAfter || slotAfter || closeButton) ? <Cell shrink className={css.slotAfter}>{slotAfter}{closeButton}</Cell> : null}
+					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
+						<Cell shrink className={css.slotAfter}>{slotAfter}{closeButton}</Cell>
+					) : null}
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
 				{line}
