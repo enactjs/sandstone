@@ -6,7 +6,6 @@ import {storiesOf} from '@storybook/react';
 
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
 import Steps from '@enact/sandstone/Steps';
 
 Header.displayName = 'Header';
@@ -35,8 +34,6 @@ storiesOf('Sandstone', module)
 	.add(
 		'Panels.Header',
 		() => {
-			const headerInput = boolean('headerInput', Config, true) ? <Input placeholder="placeholder text" /> : null;
-			const showInput = boolean('showInput', Config);
 			const slotAboveSelection = select('slotAbove', ['none', 'steps'], Config);
 			const slotAbove = prop.above[slotAboveSelection];
 			const slotBeforeSelection = select('slotBefore', prop.buttonsSelection, Config);
@@ -54,8 +51,6 @@ storiesOf('Sandstone', module)
 					backButtonBackgroundOpacity={select('backButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					centered={boolean('centered', Config)}
 					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
-					headerInput={headerInput}
-					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
 					noCloseButton={boolean('noCloseButton', Config)}
 					onClose={action('onClose')}

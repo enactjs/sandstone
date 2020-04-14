@@ -1,3 +1,4 @@
+import deprecate from '@enact/core/internal/deprecate';
 import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
@@ -193,6 +194,7 @@ const HeaderBase = kind({
 		 * ```
 		 *
 		 * @type {Node}
+		 * @deprecated To be removed in 1.0.0-beta.1
 		 */
 		headerInput: PropTypes.node,
 
@@ -272,6 +274,7 @@ const HeaderBase = kind({
 		 * This prop must be set to true for the input field to appear.
 		 *
 		 * @type {Boolean}
+		 * @deprecated To be removed in 1.0.0-beta.1
 		 * @public
 		 */
 		showInput: PropTypes.bool,
@@ -510,6 +513,10 @@ const HeaderBase = kind({
 
 		// If there's a headerInput defined, inject the necessary Input pieces and save that as the titleOrInput variable to be used below.
 		if (headerInput) {
+			deprecate({
+				name: 'sandstone/Panels.Header.headerInput and sandstone/Panels.Header.showInput',
+				until: '1.0.0-beta.1'
+			});
 			titleOrInput = (
 				<div className={css.headerInput}>
 					<Transition duration="short" visible={!!showInput} className={css.inputTransition}>

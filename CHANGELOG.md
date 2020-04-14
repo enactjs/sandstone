@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/Panels.Header` props `headerInput` and `showInput`, to be removed in 1.0.0-beta.1
+
 ### Changed
 
 - `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`

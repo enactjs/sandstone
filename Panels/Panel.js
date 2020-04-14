@@ -203,13 +203,16 @@ const PanelBase = kind({
 	}) => {
 		delete rest.autoFocus;
 
+		const headerProps = {};
+		if (headerType != null) headerProps.type = headerType;
+		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
+
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						type={headerType}
-						backButtonAvailable={backButtonAvailable}
+						{...headerProps}
 						entering={hideChildren && Spotlight.getPointerMode()}
 					/>
 				</div>
