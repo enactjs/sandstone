@@ -1,7 +1,7 @@
 const Page = require('./DatePickerPage');
 const {daysInMonth, extractValues, validateTitle} = require('./DatePicker-utils.js');
 
-describe('DatePicker', function () {
+describe.skip('DatePicker', function () {
 	Page.open();
 
 	describe('LTR locale', function () {

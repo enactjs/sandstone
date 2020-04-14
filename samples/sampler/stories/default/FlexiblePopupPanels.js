@@ -5,6 +5,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import compose from 'ramda/src/compose';
 
 import {FlexiblePopupPanels, Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
@@ -22,11 +23,16 @@ storiesOf('Sandstone', module)
 			const defaultOpen = false;
 			const [open, setOpenState] = React.useState(defaultOpen);
 			const toggleOpen = () => setOpenState(!open);
+			const handleClose = compose(toggleOpen, action('onClose'));
 
 			const defaultIndex = 0;
 			const [index, setPanelIndexState] = React.useState(defaultIndex);
+
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
-			const prevPanel = () => setPanelIndexState(Math.max(index - 1, 0));
+			const prevPanel = compose(
+				() => setPanelIndexState(Math.max(index - 1, 0)),
+				action('onBack')
+			);
 
 			return (<div>
 				<FlexiblePopupPanels
@@ -34,22 +40,17 @@ storiesOf('Sandstone', module)
 					open={open}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
-					onBack={action('onBack')}
-					onClose={toggleOpen}
+					noBackButton={boolean('noBackButton', Config)}
+					noCloseButton={boolean('noCloseButton', Config)}
+					onBack={prevPanel}
+					onClose={handleClose}
 					onHide={action('onHide')}
 					onShow={action('onShow')}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
 					<Panel>
-						<Header title="List of options" type="mini">
-							{boolean('include close button', Config) ?
-								<slotBefore>
-									<Button icon="closex" onClick={toggleOpen} size="small" />
-								</slotBefore> :
-								null
-							}
-						</Header>
+						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
 							<Item onClick={nextPanel}>Item 1</Item>
 							<Item onClick={nextPanel}>Item 2</Item>
@@ -58,11 +59,7 @@ storiesOf('Sandstone', module)
 						</Scroller>
 					</Panel>
 					<Panel>
-						<Header title="Vertical Slider" type="mini">
-							<slotBefore>
-								<Button icon="arrowhookleft" onClick={prevPanel} size="small" />
-							</slotBefore>
-						</Header>
+						<Header title="Vertical Slider" />
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
 					</Panel>
 				</FlexiblePopupPanels>

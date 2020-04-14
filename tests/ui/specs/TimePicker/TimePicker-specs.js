@@ -1,7 +1,7 @@
 const Page = require('./TimePickerPage');
 const {extractValues, validateTitle} = require('./TimePicker-utils.js');
 
-describe('TimePicker', function () {
+describe.skip('TimePicker', function () {
 	Page.open();
 
 	describe('LTR locale', function () {

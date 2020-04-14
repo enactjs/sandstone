@@ -13,7 +13,7 @@ import CancelDecorator from './CancelDecorator';
 import css from './Panels.module.less';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
-const popupPropList = ['noAutoDismiss', 'onClose', 'onHide', 'onKeyDown', 'onShow', 'open',
+const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
 
 // TODO: Figure out how to document private sub-module members
@@ -120,6 +120,14 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			onBack: PropTypes.func,
 
 			/**
+			 * Called when closing this Panels instance.
+			 *
+			 * @type {Function}
+			 * @public
+			 */
+			onClose: PropTypes.func,
+
+			/**
 			 * Position of the Popup on the screen.
 			 *
 			 * @type {('left'|'right')}
@@ -141,9 +149,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			className: cfgClassName
 		},
 
-		render: ({children, className, generateId, id, index, noAnimation, ...rest}) => {
-			delete rest.onBack;
-
+		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
 			const count = React.Children.count(children);
 			invariant(
 				index === 0 && count === 0 || index < count,
@@ -160,7 +166,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation}>
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
 					<Wrapped
 						{...rest}
 						arranger={panelArranger}
@@ -168,6 +174,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						id={`${id}_panels`}
 						index={index}
 						noAnimation={noAnimation}
+						onBack={onBack}
+						onClose={onClose}
 						type={panelType}
 					>
 						{children}

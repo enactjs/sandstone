@@ -1,3 +1,4 @@
+import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
@@ -19,10 +20,10 @@ const prop = {
 	},
 	buttons: {
 		'no buttons': null,
-		'1 button': <Button icon="ellipsis" />,
+		'1 button': <Button size="small" icon="ellipsis" />,
 		'2 buttons': <React.Fragment>
-			<Button icon="search" />
-			<Button icon="ellipsis" />
+			<Button size="small" icon="search" />
+			<Button size="small" icon="ellipsis" />
 		</React.Fragment>
 	},
 	buttonsSelection: ['no buttons', '1 button', '2 buttons'],
@@ -50,10 +51,14 @@ storiesOf('Sandstone', module)
 					title={text('title', Config, 'The Matrix')}
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					type={select('type', prop.type, Config)}
+					backButtonBackgroundOpacity={select('backButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					centered={boolean('centered', Config)}
+					closeButtonBackgroundOpacity={select('closeButtonBackgroundOpacity', ['opaque', 'transparent'], Config, 'transparent')}
 					headerInput={headerInput}
 					showInput={showInput}
 					marqueeOn={select('marqueeOn', prop.marqueeOn, Config)}
+					noCloseButton={boolean('noCloseButton', Config)}
+					onClose={action('onClose')}
 					slotAbove={slotAbove}
 					slotBefore={slotBefore}
 					slotAfter={slotAfter}
