@@ -93,7 +93,6 @@ const ViewportBase = class extends React.Component {
 		 * @type {Boolean}
 		 * @default false
 		 */
-
 		noAnimation: PropTypes.bool,
 
 		/**

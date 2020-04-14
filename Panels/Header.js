@@ -1,4 +1,4 @@
-import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle/handle';
+import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
