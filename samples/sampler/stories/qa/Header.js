@@ -5,7 +5,6 @@ import {storiesOf} from '@storybook/react';
 import clone from 'ramda/src/clone';
 
 import Button from '@enact/sandstone/Button';
-import Input from '@enact/sandstone/Input';
 import {Header, HeaderBase} from '@enact/sandstone/Panels';
 import Steps from '@enact/sandstone/Steps';
 
@@ -296,14 +295,10 @@ storiesOf('Header.Input', module)
 	.add(
 		'tall-glyphs',
 		() => {
-			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
-			const showInput = boolean('showInput', Config, true);
 			return (<React.Fragment>
 				<Header
 					title={text('title', Config, inputData.tallText)}
-					headerInput={input}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
-					showInput={showInput}
 					{...commonProps()}
 				/>
 			</React.Fragment>);
@@ -312,14 +307,10 @@ storiesOf('Header.Input', module)
 	.add(
 		'long text',
 		() => {
-			const input = boolean('Input Mode', Config, true) ? <Input placeholder={text('placeholder', Config, inputData.longTitle)} dismissOnEnter={boolean('Input dismissOnEnter', Config, true)} /> : null;
-			const showInput = boolean('showInput', Config, true);
 			return (<React.Fragment>
 				<Header
-					headerInput={input}
 					title={text('title', Config, inputData.longTitle)}
 					subtitle={text('subtitle', Config, inputData.longSubtitle)}
-					showInput={showInput}
 					{...commonProps()}
 				/>
 			</React.Fragment>);
