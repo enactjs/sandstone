@@ -199,11 +199,12 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
+					backButtonAriaLabel={backButtonAriaLabel}
 					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
 					closeButtonAriaLabel={closeButtonAriaLabel}
 					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
