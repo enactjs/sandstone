@@ -183,13 +183,13 @@ describe('TimePicker', function () {
 
 			describe('pointer', function () {
 				it('should not update hour on click', function () {
-				timePicker.hour.click();
-				expect(timePicker.hour.isFocused()).to.be.true();
+					timePicker.hour.click();
+					expect(timePicker.hour.isFocused()).to.be.true();
 
-				timePicker.incrementer(timePicker.hour).click();
-				browser.pause(500);
-				const {hour: value} = extractValues(timePicker);
-				expect(value).to.equal(12);
+					timePicker.incrementer(timePicker.hour).click();
+					browser.pause(500);
+					const {hour: value} = extractValues(timePicker);
+					expect(value).to.equal(12);
 				});
 			});
 		});
@@ -198,7 +198,7 @@ describe('TimePicker', function () {
 			const timePicker = Page.components.timePickerDisabledWithDefaultValue;
 			it('should not update \'defaultValue\' on click', function () {
 				const {hour, minute, meridiem} = extractValues(timePicker);
-				
+
 				timePicker.minute.click();
 				expect(timePicker.minute.isFocused()).to.be.true();
 				timePicker.decrementer(timePicker.minute).click();
