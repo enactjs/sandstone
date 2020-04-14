@@ -433,6 +433,7 @@ const HeaderBase = kind({
 	},
 
 	render: ({
+		backButtonAriaLabel,
 		backButtonAvailable,
 		backButtonBackgroundOpacity,
 		centered,
@@ -466,6 +467,7 @@ const HeaderBase = kind({
 		const backButton = (backButtonAvailable && !noBackButton ? (
 			<div className={css.backContainer}>
 				<Button
+					aria-label={backButtonAriaLabel == null ? $L('Go to previous') : backButtonAriaLabel}
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
