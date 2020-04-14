@@ -5,7 +5,7 @@ import React from 'react';
 class CallbackScroller extends React.Component {
 
 	componentDidMount () {
-		this.scrollTo({position: {y: 2000}});
+		setTimeout(() => this.scrollTo({position: {y: 2000}}), 10);
 	}
 
 	cbScrollTo = (fn) => {
