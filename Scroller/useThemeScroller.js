@@ -1,5 +1,5 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
-import {add, is} from '@enact/core/keymap';
+import {is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
@@ -14,10 +14,8 @@ import {useEventKey} from './useEvent';
 import css from './Scroller.module.less';
 import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
 
-add('esc', 27);
-
 const
-	isEsc = is('esc'),
+	isCancel = is('cancel'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
@@ -45,7 +43,8 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 		} else if (type === 'keydown') {
 			filterTarget =
 				isEnter(keyCode) && isBody(target) && 'body' ||
-				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				isEnter(keyCode) && !isBody(target) && 'thumb' ||
+				isCancel(keyCode) && !isBody(target) && 'thumb' ||
 				null;
 		}
 
@@ -71,7 +70,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 				nextTarget = (verticalThumb && verticalThumb.classList.contains(scrollbarTrackCss.thumb)) ? verticalThumb : nextTarget;
 			}
 		} else {
-			// Esc key on scroll thumb.
+			// Enter or Esc key on scroll thumb.
 			// Scroll body get focus.
 			nextTarget = target.closest(`.${css.focusableBody}`);
 		}
