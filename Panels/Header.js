@@ -264,9 +264,9 @@ const HeaderBase = kind({
 			);
 		}
 
-		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
+		// For centered title and in wizard type, if one slot is filled, automatically include the other to keep the title balanced.
 		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
-		const bothBeforeAndAfter = (type === 'wizard' && (Boolean(slotAfter) || Boolean(slotBefore)));
+		const bothBeforeAndAfter = (centered || (type === 'wizard' && (Boolean(slotAfter) || Boolean(slotBefore))));
 
 		return (
 			<header {...rest}>
@@ -280,7 +280,7 @@ const HeaderBase = kind({
 							spacing="auto"
 							marqueeOn={marqueeOn}
 							forceDirection={direction}
-							alignment={centered || bothBeforeAndAfter ? 'center' : null}
+							alignment={centered ? 'center' : null}
 							className={css.subtitle}
 						>
 							{subtitle}
