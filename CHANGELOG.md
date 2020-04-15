@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
+
 ## [1.0.0-alpha.8] - 2020-04-14
 
 ### Deprecated
@@ -12,10 +18,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
 - `sandstone/Panels` and `sandstone/Panels.Header` props `backButtonAriaLabel`, `backButtonBackgroundOpacity`, `closeButtonAriaLabel`, `closeButtonBackgroundOpacity`, `noBackButton`, `noCloseButton`, `onBack`, and `onClose`
-
-### Added
-
-- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 
 ### Changed
 
