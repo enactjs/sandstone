@@ -23,7 +23,8 @@ describe('EditableIntegerPicker', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should increase by step amount on increment press', () => {
+	// Picker update: PickerButtons are removed in joined horizontal Picker. Values are changed with 5-way select or clicking anywhere on joined horizontal Picker.
+	test.skip('should increase by step amount on increment press', () => {
 		const picker = mount(
 			<EditableIntegerPicker min={0} max={100} defaultValue={10} step={10} noAnimation />
 		);
@@ -33,7 +34,8 @@ describe('EditableIntegerPicker', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should decrease by step amount on decrement press', () => {
+	// Picker update: PickerButtons are removed in joined horizontal Picker. Values are changed with 5-way select or clicking anywhere on joined horizontal Picker.
+	test.skip('should decrease by step amount on decrement press', () => {
 		const picker = mount(
 			<EditableIntegerPicker min={0} max={100} defaultValue={10} step={10} noAnimation />
 		);
@@ -162,7 +164,8 @@ describe('EditableIntegerPicker', () => {
 		}
 	);
 
-	test(
+	// Picker update: PickerButtons are removed in joined horizontal Picker. Values are changed with 5-way select or clicking anywhere on joined horizontal Picker.
+	test.skip(
 		'should not send two change event when incrementing from edit mode',
 		() => {
 			const handleChange = jest.fn();

@@ -205,7 +205,7 @@ const WizardPanelBase = kind({
 					<Cell className={css.content}>
 						{/* This should probably use portals */}
 						{/* skip creating ViewManager when there aren't children to avoid animating
-						    the first view into the viewport */}
+							the first view into the viewport */}
 						{children ? (
 							<ViewManager
 								arranger={SlideLeftArranger}
