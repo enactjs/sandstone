@@ -92,18 +92,15 @@ const ProgressBarBase = kind({
 		progress: PropTypes.number,
 
 		/**
-		 * Sets the point, as a proportion between 0 and 1, from which the progress bar is filled.
+		 * The point, as a proportion between 0 and 1, from which the progress bar is filled.
 		 *
 		 * @type {Number}
-		 * @default 0
 		 * @public
 		 */
 		progressAnchor: PropTypes.number,
 
 		/**
-		 * Display anchor.
-		 *
-		 * The anchor is positioned by `progressAnchor` value.
+		 * Displays an anchor at `progressAnchor`.
 		 *
 		 * @type {Boolean}
 		 * @public
