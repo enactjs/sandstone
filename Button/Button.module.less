@@ -4,6 +4,13 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
+// Add button-specific rules to the shared resting-colors mixin
+.sand-button-spotlight-resting-colors() {
+	.sand-spotlight-resting-colors();
+	will-change+: transform;
+	transition+: transform @sand-button-focus-duration ease-out;
+}
+
 .button {
 	// default is size="large"
 	.sand-large-button-text();
@@ -241,9 +248,7 @@
 
 		.bg {
 			border-color: transparent;
-			.sand-spotlight-resting-colors();
-			will-change+: transform;
-			transition+: transform @sand-button-focus-duration ease-out;
+			.sand-button-spotlight-resting-colors();
 		}
 
 		&.opaque {
@@ -277,6 +282,27 @@
 			background-color: @sand-remote-button-blue-color;
 		}
 
+		&.selected {
+			.bg {
+				.sand-button-spotlight-resting-colors();
+				filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+			}
+
+			&.opaque {
+				.bg {
+					background-color: @sand-button-bg-color;
+					opacity: @sand-button-bg-opacity;
+				}
+			}
+
+			&.transparent {
+				.bg {
+					background-color: @sand-button-bg-color;
+					opacity: @sand-button-transparent-selected-bg-opacity;
+				}
+			}
+		}
+
 		.focus({
 			color: @sand-button-focus-text-color;
 
@@ -292,7 +318,8 @@
 			// adjusting it to become the focus-bg-color. If either color value changes, these
 			// adjustments must be recalculated. This is not automatic. It may be possible to
 			// autonomously calculate this in the future...
-			&.opaque {
+			&.opaque,
+			&.selected.transparent {
 				.bg {
 					.sand-spotlight-focus-colors();
 					background-color: @sand-button-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
@@ -300,17 +327,6 @@
 				}
 			}
 		});
-
-		&.selected {
-			.bg {
-				background-color: @sand-button-selected-bg-color;
-			}
-			&.transparent {
-				.bg {
-					opacity: @sand-button-transparent-selected-bg-opacity;
-				}
-			}
-		}
 
 		// Button-non-disabled rules
 		&:not([disabled]) {
