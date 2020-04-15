@@ -4,19 +4,30 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Changed
+### Added
 
-- `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
-- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
+- `sandstone/Button` styles for `selected`
+
+## [1.0.0-alpha.8] - 2020-04-14
+
+### Deprecated
+
+- `sandstone/Panels.Header` props `headerInput` and `showInput`, to be removed in 1.0.0-beta.1
 
 ### Added
 
 - `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
+- `sandstone/Panels` and `sandstone/Panels.Header` props `backButtonAriaLabel`, `backButtonBackgroundOpacity`, `closeButtonAriaLabel`, `closeButtonBackgroundOpacity`, `noBackButton`, `noCloseButton`, `onBack`, and `onClose`
+
+### Changed
+
+- `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
+- `sandstone/Picker` horizontal joined behavior and style for updated GUI
 
 ### Fixed
 
-- `sandstone/TabLayout` selecting a previously focused tab after switching from 5-way to pointer mode
-- `sandstone/Button` to add styling for selected
+- `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
 
 ## [1.0.0-alpha.7] - 2020-04-06
 
@@ -26,7 +37,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Picker`, `sandstone/ProgressBar.ProgressBarTooltip`, and `standstone/Steps` to use a number font for numeric content
+- `sandstone/Picker`, `sandstone/ProgressBar.ProgressBarTooltip`, and `sandstone/Steps` to use a number font for numeric content
 
 ### Fixed
 
