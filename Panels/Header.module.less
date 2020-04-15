@@ -39,6 +39,27 @@
 		}
 	}
 
+	.backContainer {
+		display: inline-block;
+		width: 0;
+		opacity: 0.3;
+		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
+		transform: scale(0);
+		transform-origin: center left;
+		will-change: width, transform, opacity;
+	}
+
+	.back {
+		margin-inline-start: 0;
+	}
+
+	&.showBack {
+		.backContainer {
+			opacity: 1;
+			width: (@sand-button-height + @sand-component-spacing);
+			transform: scale(1);
+		}
+	}
 
 	///
 	/// Begin child node rules configuration, shared across multiple types
@@ -56,6 +77,10 @@
 	.title,
 	.subtitle {
 		margin: 0;
+	}
+
+	.title {
+		will-change: width; // Preparation for the back button transition
 	}
 
 	.slotAbove {
@@ -103,6 +128,32 @@
 
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
+		}
+	}
+
+	// Mini Header
+	&.mini {
+		margin: @sand-header-mini-margin;
+		padding: @sand-header-mini-padding;
+
+		.titlesRow {
+			padding: 0;
+		}
+
+		.titleCell {
+			width: auto;
+		}
+
+		.title {
+			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
+		}
+
+		.slotBefore >:first-child {
+			margin-inline-start: 0;
+		}
+
+		.slotAfter >:first-child {
+			margin-inline-end: 0;
 		}
 	}
 

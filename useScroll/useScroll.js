@@ -15,7 +15,7 @@ import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
-import {assignPropertiesOf, useScrollBase} from '@enact/ui/useScroll';
+import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useContext, useRef} from 'react';
@@ -28,14 +28,15 @@ import {
 	useEventTouch, useEventVoice, useEventWheel
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
-import useScrollbar from './useScrollbar';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
 import css from './useScroll.module.less';
 
 const
+	arrowKeyMultiplier = 0.2,
 	fadeOutSize = ri.scale(48),
+	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
 		up: 'down'
@@ -77,11 +78,6 @@ const useThemeScroll = (props, instances) => {
 
 	// Hooks
 
-	const {
-		alertThumb,
-		scrollbarProps
-	} = useScrollbar(props, instances);
-
 	useSpotlightRestore(props, instances);
 
 	const {
@@ -92,7 +88,7 @@ const useThemeScroll = (props, instances) => {
 
 	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertThumb, isWheeling});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertScrollbarTrack, isWheeling});
 
 	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
@@ -107,6 +103,11 @@ const useThemeScroll = (props, instances) => {
 		removeVoiceEventListener,
 		stopVoice
 	} = useEventVoice(props, instances);
+
+	const scrollbarProps = {
+		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		onInteractionForScroll
+	};
 
 	// Functions
 
@@ -138,6 +139,37 @@ const useThemeScroll = (props, instances) => {
 
 	function scrollStopOnScroll () {
 		stop();
+	}
+
+	function onInteractionForScroll ({inputType, isForward, isPagination, isVerticalScrollBar}) {
+		const
+			{wheelDirection} = scrollContainerHandle.current,
+			bounds = scrollContainerHandle.current.getScrollBounds(),
+			direction = isForward ? 1 : -1,
+			pageSize = isVerticalScrollBar ? bounds.clientHeight : bounds.clientWidth,
+			distance = pageSize * (isPagination ? paginationPageMultiplier : arrowKeyMultiplier);
+
+		scrollContainerHandle.current.lastInputType = inputType;
+
+		if (direction !== wheelDirection) {
+			scrollContainerHandle.current.isScrollAnimationTargetAccumulated = false;
+			scrollContainerHandle.current.wheelDirection = direction;
+		}
+
+		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn[inputType]);
+	}
+
+	function alertScrollbarTrack () {
+		const bounds = scrollContainerHandle.current.getScrollBounds();
+
+		scrollContainerHandle.current.showScrollbarTrack(bounds);
+		scrollContainerHandle.current.startHidingScrollbarTrack();
+	}
+
+	function alertScrollbarTrackAfterRendered () {
+		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
+			alertScrollbarTrack();
+		}
 	}
 
 	function focusOnItem () {
@@ -280,10 +312,10 @@ const useScroll = (props) => {
 	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
 
-	const horizontalScrollbarRef = useRef();
-	const verticalScrollbarRef = useRef();
+	const horizontalScrollbarHandle = useRef();
+	const verticalScrollbarHandle = useRef();
 
-	// Adapters
+	// Handles
 
 	const [themeScrollContentHandle, setThemeScrollContentHandle] = useThemeScrollContentHandle();
 
@@ -298,7 +330,7 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollThumb: null,
+		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
@@ -311,9 +343,9 @@ const useScroll = (props) => {
 		scrollToInfo: null,
 		scrollTop: null,
 		setOverscrollStatus: null,
-		showThumb: null,
+		showScrollbarTrack: null,
 		start: null,
-		startHidingThumb: null,
+		startHidingScrollbarTrack: null,
 		stop: null,
 		wheelDirection: null
 	});
@@ -383,7 +415,7 @@ const useScroll = (props) => {
 		applyOverscrollEffect,
 		clearOverscrollEffect,
 		handleResizeWindow,
-		horizontalScrollbarRef,
+		horizontalScrollbarHandle,
 		onFlick: handleFlick,
 		onKeyDown: handleKeyDown,
 		onMouseDown: handleMouseDown,
@@ -396,7 +428,7 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
-		verticalScrollbarRef
+		verticalScrollbarHandle
 	});
 
 	assignProperties('scrollContainerProps', {
@@ -446,14 +478,14 @@ const useScroll = (props) => {
 		...scrollbarProps,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
-		ref: verticalScrollbarRef
+		scrollbarHandle: verticalScrollbarHandle
 	});
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
-		ref: horizontalScrollbarRef
+		scrollbarHandle: horizontalScrollbarHandle
 	});
 
 	return {
