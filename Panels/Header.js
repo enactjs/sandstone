@@ -545,9 +545,9 @@ const HeaderBase = kind({
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center">
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell>
+						<Cell className={css.slotBefore} shrink={!bothBeforeAndAfter}>{backButton}{slotBefore}</Cell>
 					) : null}
-					<Cell className={css.titleCell}>
+					<Cell className={css.titleCell} shrink={bothBeforeAndAfter}>
 						{titleOrInput}
 						<Heading
 							size="subtitle"
@@ -561,7 +561,7 @@ const HeaderBase = kind({
 						</Heading>
 					</Cell>
 					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell shrink className={css.slotAfter}>{slotAfter}{closeButton}</Cell>
+						<Cell className={css.slotAfter} shrink={!bothBeforeAndAfter}>{slotAfter}{closeButton}</Cell>
 					) : null}
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
