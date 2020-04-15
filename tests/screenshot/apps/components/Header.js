@@ -1,7 +1,6 @@
 import {Header} from '../../../../Panels';
 import Button from '../../../../Button';
 import Steps from '../../../../Steps';
-import Input from '../../../../Input';
 import React from 'react';
 
 import {withConfig, withProps} from './utils';
@@ -17,7 +16,6 @@ const dropIn = {
 	steps: <Steps current={3} total={5} />,
 	backButton: <Button icon="arrowlargeleft" />,
 	nextButton: <Button icon="arrowlargeright" />,
-	input: <Input />,
 	singleButton: <Button icon="ellipsis" />,
 	doubleButtons: (
 		<React.Fragment>
@@ -37,11 +35,6 @@ const LtrTests = [
 	// Centered
 	...withProps({type: 'standard', centered: true}, baseTests),
 	...withProps({type: 'compact', centered: true}, baseTests),
-
-	// with Input
-	...withProps({type: 'standard', showInput: true, headerInput: dropIn.input}, baseTests),
-	...withProps({type: 'compact', showInput: true, headerInput: dropIn.input}, baseTests),
-	...withProps({type: 'wizard', centered: true, showInput: true, headerInput: dropIn.input}, baseTests),
 
 	// Standard Type Slots
 	...withProps({type: 'standard', slotAfter: dropIn.singleButton}, baseTests),

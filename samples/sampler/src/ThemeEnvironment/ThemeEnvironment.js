@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import Button from '@enact/sandstone/Button';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 
@@ -37,12 +36,10 @@ const PanelsBase = kind({
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
-		!noPanels ? <Panels {...rest}>
+		!noPanels ? <Panels {...rest} onClose={reloadPage}>
 			{!noPanel ? <Panel className={css.panel}>
 				{!noHeader ? (
-					<Header title={title} subtitle={description}>
-						<Button icon="closex" onClick={reloadPage} slot="slotAfter" />
-					</Header>
+					<Header title={title} subtitle={description} />
 				) : null}
 				{children}
 			</Panel> : children}

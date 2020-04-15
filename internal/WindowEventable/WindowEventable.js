@@ -23,7 +23,7 @@ import React from 'react';
  * Use the `globalNode` key in the config to change which node the relevant events are attached to.
  */
 const defaultConfig = {
-	globalNode: null
+	globalNode: 'window'
 };
 
 // In config, extract all of the config stuff we know about. Everything else is an event.
@@ -32,10 +32,15 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 
 		static displayName = 'WindowEventable';
 
-		constructor (props) {
-			super(props);
-
-			if (globalNode == null && typeof window !== 'undefined') globalNode = window;
+		componentDidMount () {
+			switch (globalNode) {
+				case 'window':
+					globalNode = window;
+					break;
+				case 'document':
+					globalNode = document;
+					break;
+			}
 
 			this.events = {};
 			for (let [evName, fn] of Object.entries(events)) {
@@ -44,10 +49,10 @@ const WindowEventable = hoc(defaultConfig, ({globalNode, ...events}, Wrapped) =>
 
 				if (typeof fn === 'function') {
 					// Support functions passed directly into the config
-					this.events[evName] = handle(eventPayload => fn(eventPayload, props));
+					this.events[evName] = handle(eventPayload => fn(eventPayload, this.props));
 				} else if (typeof fn === 'string') {
 					// Support strings, representing a callback in the props list
-					this.events[evName] = handle(forward(fn, props));
+					this.events[evName] = handle(forward(fn, this.props));
 				}
 			}
 

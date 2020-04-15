@@ -12,7 +12,7 @@ import SharedStateDecorator, {SharedState} from '../internal/SharedStateDecorato
 
 import css from './Panels.module.less';
 
-const PanelTypeContext = React.createContext(null);
+const PanelsStateContext = React.createContext(null);
 
 /**
  * The container for a set of Panels
@@ -45,11 +45,39 @@ const ViewportBase = class extends React.Component {
 		arranger: shape,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * The background opacity of the application back button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
 		 * Panels to be rendered
 		 *
 		 * @type {Panel}
 		 */
 		children: PropTypes.node,
+
+		/**
+		 * Sets the hint string read when focusing the application close button.
+		 *
+		 * @type {String}
+		 */
+		closeButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * The background opacity of the application close button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 */
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
 		 * Index of the active panel
@@ -66,6 +94,34 @@ const ViewportBase = class extends React.Component {
 		 * @default false
 		 */
 		noAnimation: PropTypes.bool,
+
+		/**
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 */
+		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
+		 * Called with cancel/back key events.
+		 *
+		 * @type {Function}
+		 */
+		onBack: PropTypes.func,
+
+		/**
+		 * Called when the app close button is clicked.
+		 *
+		 * @type {Function}
+		 */
+		onClose: PropTypes.func,
 
 		type: PropTypes.string
 	}
@@ -162,7 +218,38 @@ const ViewportBase = class extends React.Component {
 	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
 
 	render () {
-		const {arranger, children, generateId, index, noAnimation, type, ...rest} = this.props;
+		const {
+			arranger,
+			children,
+			generateId,
+			index,
+			noAnimation,
+			onBack,
+			type,
+			backButtonAriaLabel,
+			backButtonBackgroundOpacity,
+			closeButtonAriaLabel,
+			closeButtonBackgroundOpacity,
+			noBackButton,
+			noCloseButton,
+			onClose,
+			...rest
+		} = this.props;
+
+		// Relay each of the state-specific props to the context
+		const panelsContext = {
+			type,
+			index,
+			onBack,
+			backButtonAriaLabel,
+			backButtonBackgroundOpacity,
+			closeButtonAriaLabel,
+			closeButtonBackgroundOpacity,
+			noBackButton,
+			noCloseButton,
+			onClose
+		};
+
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -174,7 +261,7 @@ const ViewportBase = class extends React.Component {
 		);
 
 		return (
-			<PanelTypeContext.Provider value={type}>
+			<PanelsStateContext.Provider value={panelsContext}>
 				<ViewManager
 					{...rest}
 					arranger={arranger}
@@ -190,7 +277,7 @@ const ViewportBase = class extends React.Component {
 				>
 					{mappedChildren}
 				</ViewManager>
-			</PanelTypeContext.Provider>
+			</PanelsStateContext.Provider>
 		);
 	}
 };
@@ -199,7 +286,7 @@ const Viewport = SharedStateDecorator(ViewportBase);
 
 export default Viewport;
 export {
-	PanelTypeContext,
+	PanelsStateContext,
 	Viewport,
 	ViewportBase
 };
