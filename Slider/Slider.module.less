@@ -46,11 +46,14 @@
 
 	&.showAnchor {
 		.progressBar {
+			.knob {
+				z-index: 1;
+			}
+
 			&::after {
 				content: "";
 				position: absolute;
-				transform: translate(-50%, -50%);
-				z-index: -1;
+				transform: @sand-translate-center;
 			}
 
 			&.horizontal {
@@ -58,7 +61,7 @@
 					width: @sand-progressbar-anchor-width;
 					height: @sand-progressbar-anchor-height;
 					top: 50%;
-					left: ~"calc(var(--progress-anchor) * 100%)";
+					left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 				}
 			}
 
@@ -66,8 +69,9 @@
 				&::after {
 					width: @sand-progressbar-anchor-height;
 					height: @sand-progressbar-anchor-width;
-					top: ~"calc(var(--progress-anchor) * 100%)";
+					bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 					left: 50%;
+					transform: translate(-50%, 50%);
 				}
 			}
 		}

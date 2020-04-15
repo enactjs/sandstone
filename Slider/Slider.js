@@ -166,14 +166,6 @@ const SliderBase = kind({
 		onKeyUp: PropTypes.func,
 
 		/**
-		 * The point, as a proportion between 0 and 1, from which the progress bar is filled.
-		 *
-		 * @type {Number}
-		 * @public
-		 */
-		progressAnchor: PropTypes.number,
-
-		/**
 		 * Displays an anchor at `progressAnchor`.
 		 *
 		 * @type {Boolean}
@@ -292,13 +284,7 @@ const SliderBase = kind({
 			component: 'Slider',
 			valueName: 'max'
 		}),
-		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip,
-		style: ({progressAnchor, style}) => {
-			return {
-				...style,
-				'--progress-anchor': progressAnchor
-			};
-		}
+		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
 	render: ({css, focused, tooltip, ...rest}) => {

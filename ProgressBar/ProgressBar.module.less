@@ -17,13 +17,12 @@
 .progressBar {
 	height: @sand-progressbar-bar-thickness;
 	margin: @sand-progressbar-margin;
-	--progress-anchor: 0;
 
 	&.showAnchor {
 		&::after {
 			content: "";
 			position: absolute;
-			transform: translate(-50%, -50%);
+			transform: @sand-translate-center;
 		}
 	}
 
@@ -38,7 +37,7 @@
 				width: @sand-progressbar-anchor-width;
 				height: @sand-progressbar-anchor-height;
 				top: 50%;
-				left: ~"calc(var(--progress-anchor) * 100%)";
+				left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 			}
 		}
 	}
@@ -51,8 +50,9 @@
 			&::after {
 				width: @sand-progressbar-anchor-height;
 				height: @sand-progressbar-anchor-width;
-				top: ~"calc((1 - var(--progress-anchor)) * 100%)";
+				bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 				left: 50%;
+				transform: translate(-50%, 50%);
 			}
 		}
 	}

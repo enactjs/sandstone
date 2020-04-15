@@ -92,14 +92,6 @@ const ProgressBarBase = kind({
 		progress: PropTypes.number,
 
 		/**
-		 * The point, as a proportion between 0 and 1, from which the progress bar is filled.
-		 *
-		 * @type {Number}
-		 * @public
-		 */
-		progressAnchor: PropTypes.number,
-
-		/**
 		 * Displays an anchor at `progressAnchor`.
 		 *
 		 * @type {Boolean}
@@ -166,13 +158,7 @@ const ProgressBarBase = kind({
 			loadOverHalf: (backgroundProgress > 0.5),
 			showAnchor
 		}),
-		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip,
-		style: ({progressAnchor, style}) => {
-			return {
-				...style,
-				'--progress-anchor': progressAnchor
-			};
-		}
+		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
