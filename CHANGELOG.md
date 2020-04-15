@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor base on `progressAnchor` value
+- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 
 ### Changed
 
