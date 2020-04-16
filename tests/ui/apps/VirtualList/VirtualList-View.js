@@ -21,13 +21,13 @@ const fullHeightStyle = {
 spotlight.setPointerMode(false);
 
 const items = [],
-	listSize = ri.scaleToRem(468),
-	itemSize = ri.scale(156),
+	itemSize = 156,
+	listSize = itemSize * 11,
 	itemStyle = {margin: 0},
 	numItems = 100;
 
 const renderItem = (size) => ({index, ...rest}) => {
-	const style = {height: ri.unit(size, 'rem'), ...itemStyle};
+	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
 		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
 			{items[index].item}
@@ -146,12 +146,12 @@ class app extends React.Component {
 										<VirtualList
 											dataSize={numItems}
 											itemRenderer={renderItem(itemSize)}
-											itemSize={itemSize}
+											itemSize={ri.scale(itemSize)}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											spacing={0}
-											style={{height: listSize}}
+											style={{height: ri.scaleToRem(listSize)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
