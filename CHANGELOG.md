@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Switch` sizing and positioning in large text mode
+
 ## [1.0.0-alpha.8] - 2020-04-14
 
 ### Deprecated
@@ -26,9 +32,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
-
-### Fixed
-
 - `sandstone/Header` centering
 
 ## [1.0.0-alpha.7] - 2020-04-06
