@@ -8,10 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 
-### Fixed
-
-- `sandstone/Switch` sizing and positioning in large text mode
-
 ## [1.0.0-alpha.8] - 2020-04-14
 
 ### Deprecated
