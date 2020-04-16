@@ -25,7 +25,7 @@ const CollapsingHeaderPanelDecorator = (Wrapped) => {
 
 				const enhancedStyle = {
 					...style,
-					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || 'auto'
+					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || '0px'
 				};
 
 				const enhancedClassName = classnames(

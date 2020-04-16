@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import classnames from 'classnames';
+import classnames from 'classnames/bind';
 import React, {useMemo, useState} from 'react';
 
 import Button from '../Button';
