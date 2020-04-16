@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
+import DateTime from '../internal/DateTime';
 
 import css from './TimePicker.module.less';
 
@@ -295,98 +296,93 @@ const TimePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div {...rest}>
-				<div className={css.pickerLabel}>
-					{rest.label}
-				</div>
-				<div className={css.timeComponents}>
-					{order.map((picker, index) => {
-						// although we create a component array based on the provided
-						// order, we ultimately force order in CSS for RTL
-						const isFirst = index === 0;
-						const isLast = index === order.length - 1;
-						// meridiem will always be the left-most control in RTL, regardless of the provided order
-						const isLeft = rtl && picker === 'a' || isFirst && !rtl;
-						// minute will always be the right-most control in RTL, regardless of the provided order
-						const isRight = rtl && picker === 'm' || isLast && !rtl;
+			<DateTime {...rest}>
+				{order.map((picker, index) => {
+					// although we create a component array based on the provided
+					// order, we ultimately force order in CSS for RTL
+					const isFirst = index === 0;
+					const isLast = index === order.length - 1;
+					// meridiem will always be the left-most control in RTL, regardless of the provided order
+					const isLeft = rtl && picker === 'a' || isFirst && !rtl;
+					// minute will always be the right-most control in RTL, regardless of the provided order
+					const isRight = rtl && picker === 'm' || isLast && !rtl;
 
-						switch (picker) {
-							case 'h':
-							case 'k':
-								return (
-									<React.Fragment key="hour-picker">
-										<HourPicker
-											accessibilityHint={hourAriaLabel}
-											aria-label={hourAriaLabel}
-											className={css.hourComponents}
-											disabled={disabled}
-											data-webos-voice-disabled={voiceDisabled}
-											data-webos-voice-group-label={hourAriaLabel}
-											hasMeridiem={hasMeridiem}
-											onChange={onChangeHour}
-											onSpotlightDisappear={onSpotlightDisappear}
-											onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-											onSpotlightRight={isRight ? onSpotlightRight : null}
-											spotlightDisabled={spotlightDisabled}
-											value={hour}
-											width={2}
-											wrap
-										/>
-										<span className={css.colonMark}>:</span>
-									</React.Fragment>
-								);
-							case 'm':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={minuteAriaLabel}
-										aria-label={minuteAriaLabel}
-										className={css.minutesComponents}
+					switch (picker) {
+						case 'h':
+						case 'k':
+							return (
+								<React.Fragment key="hour-picker">
+									<HourPicker
+										accessibilityHint={hourAriaLabel}
+										aria-label={hourAriaLabel}
+										className={css.hourComponents}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={minuteAriaLabel}
-										key="minute-picker"
-										max={59}
-										min={0}
-										onChange={onChangeMinute}
+										data-webos-voice-group-label={hourAriaLabel}
+										hasMeridiem={hasMeridiem}
+										onChange={onChangeHour}
 										onSpotlightDisappear={onSpotlightDisappear}
 										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
 										onSpotlightRight={isRight ? onSpotlightRight : null}
-										padded
 										spotlightDisabled={spotlightDisabled}
-										value={minute}
-										width={2}
+										value={hour}
+										width={4}
 										wrap
 									/>
-								);
-							case 'a':
-								return (
-									<DateComponentPicker
-										aria-label={meridiemAriaLabel}
-										aria-valuetext={meridiems ? meridiems[meridiem] : null}
-										className={css.meridiemComponent}
-										disabled={disabled}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={meridiemLabel}
-										key="meridiem-picker"
-										onChange={onChangeMeridiem}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										reverse
-										spotlightDisabled={spotlightDisabled}
-										value={meridiem}
-										width={meridiemPickerWidth}
-										wrap
-									>
-										{meridiems}
-									</DateComponentPicker>
-								);
-						}
+									<span className={css.colonMark}>:</span>
+								</React.Fragment>
+							);
+						case 'm':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={minuteAriaLabel}
+									aria-label={minuteAriaLabel}
+									className={css.minutesComponents}
+									disabled={disabled}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={minuteAriaLabel}
+									key="minute-picker"
+									max={59}
+									min={0}
+									onChange={onChangeMinute}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									padded
+									spotlightDisabled={spotlightDisabled}
+									value={minute}
+									width={4}
+									wrap
+								/>
+							);
+						case 'a':
+							return (
+								<DateComponentPicker
+									aria-label={meridiemAriaLabel}
+									aria-valuetext={meridiems ? meridiems[meridiem] : null}
+									className={css.meridiemComponent}
+									disabled={disabled}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={meridiemLabel}
+									key="meridiem-picker"
+									onChange={onChangeMeridiem}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									reverse
+									spotlightDisabled={spotlightDisabled}
+									value={meridiem}
+									width={meridiemPickerWidth}
+									wrap
+								>
+									{meridiems}
+								</DateComponentPicker>
+							);
+					}
 
-						return null;
-					})}
-				</div>
-			</div>
+					return null;
+				})}
+			</DateTime>
 		);
 	}
 });

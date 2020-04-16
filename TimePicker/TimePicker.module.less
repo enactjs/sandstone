@@ -1,40 +1,11 @@
 // TimePicker.module.less
 //
-@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .timePicker {
-	.padding-start-end(@sand-timepicker-padding, inherit);
-	display: inline-block;
-
-	// hour and minute should always be left-to-right
-	.timeComponents {
-		direction: ltr;
+	.colonMark {
+		vertical-align: inherit;
 		display: inline-block;
-
-		.colonMark {
-			line-height: @sand-timepicker-colon-line-height;
-		}
-
-		:global(.enact-locale-right-to-left) & {
-			display: flex;
-
-			.hourComponents {
-				order: 2;
-			}
-			.colonMark {
-				order: 2;
-			}
-			.minutesComponents {
-				order: 3;
-			}
-			.meridiemComponent{
-				order: 1;
-			}
-		}
-	}
-
-	.pickerLabel {
-		padding: @sand-date-time-picker-label-padding
+		margin: 0 6px;
 	}
 }
