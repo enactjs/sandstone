@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Heading from '../../Heading';
 
-import css from './DateTime.module.less';
+import componentCss from './DateTime.module.less';
 
 /**
  * {@link sandstone/internal/DateTime.DateTime} provides the surrounding
@@ -20,6 +20,8 @@ const DateTimeBase = kind({
 	name: 'DateTime',
 
 	propTypes:  /** @lends sandstone/internal/DateTime.DateTime.prototype */ {
+		css: PropTypes.object,
+
 		/**
 		 * The label to display below the picker
 		 *
@@ -29,11 +31,12 @@ const DateTimeBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'dateTime'
+		css: componentCss,
+		className: 'dateTime',
+		publicClassNames: ['dateTime', 'pickers']
 	},
 
-	render: ({children, label, ...rest}) => (
+	render: ({children, css, label, ...rest}) => (
 		<div {...rest}>
 			<Heading className={css.heading}>{label}</Heading>
 			<div className={css.pickers}>

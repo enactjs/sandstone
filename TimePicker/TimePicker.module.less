@@ -3,15 +3,32 @@
 @import "../styles/variables.less";
 
 .timePicker {
-	.hourPicker,
-	.minutePicker,
-	.meridiemPicker {
-		/* Available for export - Necessary for UI test component selection */
-	}
-
-	.colonMark {
+	.timeSeparator {
 		vertical-align: inherit;
 		display: inline-block;
 		margin: 0 6px;
+	}
+
+	// hour and minute should always be left-to-right
+	.pickers {
+		direction: ltr;
+
+		:global(.enact-locale-right-to-left) & {
+			display: flex;
+			align-items: center;
+
+			.hourPicker {
+				order: 2;
+			}
+			.timeSeparator {
+				order: 2;
+			}
+			.minutePicker {
+				order: 3;
+			}
+			.meridiemPicker{
+				order: 1;
+			}
+		}
 	}
 }

@@ -296,7 +296,7 @@ const TimePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<DateTime {...rest}>
+			<DateTime {...rest} css={css}>
 				{order.map((picker, index) => {
 					// although we create a component array based on the provided
 					// order, we ultimately force order in CSS for RTL
@@ -329,7 +329,7 @@ const TimePickerBase = kind({
 										width={4}
 										wrap
 									/>
-									<span className={css.colonMark}>:</span>
+									<span className={css.timeSeparator}>:</span>
 								</React.Fragment>
 							);
 						case 'm':
