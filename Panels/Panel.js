@@ -3,7 +3,6 @@ import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import ComponentOverride from '@enact/ui/ComponentOverride';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -221,15 +220,11 @@ const PanelBase = kind({
 		...rest
 	}) => {
 		delete rest.autoFocus;
-<<<<<<< HEAD
-		delete rest.hideChildren;
 		delete rest.titleRef;
-=======
 
 		const headerProps = {};
 		if (headerType != null) headerProps.type = headerType;
 		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
->>>>>>> develop
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>

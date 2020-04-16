@@ -486,6 +486,7 @@ const HeaderBase = kind({
 		slotBefore,
 		subtitle,
 		title,
+		titleRef,
 		type,
 		...rest
 	}) => {
