@@ -34,7 +34,7 @@ const ScrollPositionDecorator = hoc(defaultConfig, (configHoc, Wrapped) => {
 
 	// eslint-disable-next-line no-shadow
 	function ScrollPositionDecorator (props) {
-		const [state, setState] = useState(false);
+		const [state, setState] = useState();
 		return (
 			<ScrollPositionContext.Provider
 				value={{

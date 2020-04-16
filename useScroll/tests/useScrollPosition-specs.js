@@ -6,19 +6,21 @@ import {useScrollPosition, ScrollPositionDecorator} from '../useScrollPosition';
 
 describe('useScrollPosition', () => {
 
+	const scrollPayload = {y: 500};
+
 	const Component = () => {
-		const {collapsed, custom, onScroll} = useScrollPosition();
+		const {value, custom, onScroll} = useScrollPosition();
 
 		// eslint-disable-next-line no-undefined
-		return <div onClick={() => onScroll({y: 500})}>{custom !== undefined ? 'custom' : collapsed.toString()}</div>;
+		return <div onClick={() => onScroll(scrollPayload)}>{custom !== undefined ? 'custom' : JSON.stringify(value)}</div>;
 	};
 
-	test('Initially collapsed with default decorator', () => {
+	test('Initial value with default decorator', () => {
 		const WrappedComponent = ScrollPositionDecorator(Component);
 
 		const subject = mount(<WrappedComponent />);
 
-		const expected = 'false';
+		const expected = '';
 		const actual = subject.find('div').text();
 
 		expect(actual).toEqual(expected);
@@ -31,7 +33,7 @@ describe('useScrollPosition', () => {
 
 		subject.find('div').simulate('click');
 
-		const expected = 'true';
+		const expected = JSON.stringify(scrollPayload);
 		const actual = subject.find('div').text();
 
 		expect(actual).toEqual(expected);
@@ -55,6 +57,8 @@ describe('useScrollPosition', () => {
 		const WrappedComponent = ScrollPositionDecorator({valueProp: 'custom'}, Component);
 
 		const subject = mount(<WrappedComponent />);
+
+		subject.find('div').simulate('click');
 
 		const expected = 'custom';
 		const actual = subject.find('div').text();
