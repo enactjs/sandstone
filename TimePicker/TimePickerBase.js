@@ -315,7 +315,7 @@ const TimePickerBase = kind({
 									<HourPicker
 										accessibilityHint={hourAriaLabel}
 										aria-label={hourAriaLabel}
-										className={css.hourComponents}
+										className={css.hourPicker}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
 										data-webos-voice-group-label={hourAriaLabel}
@@ -337,7 +337,7 @@ const TimePickerBase = kind({
 								<DateComponentRangePicker
 									accessibilityHint={minuteAriaLabel}
 									aria-label={minuteAriaLabel}
-									className={css.minutesComponents}
+									className={css.minutePicker}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={minuteAriaLabel}
@@ -360,7 +360,7 @@ const TimePickerBase = kind({
 								<DateComponentPicker
 									aria-label={meridiemAriaLabel}
 									aria-valuetext={meridiems ? meridiems[meridiem] : null}
-									className={css.meridiemComponent}
+									className={css.meridiemPicker}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
 									data-webos-voice-group-label={meridiemLabel}
