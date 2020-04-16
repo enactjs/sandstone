@@ -1,46 +1,46 @@
 import React from 'react';
 
 import Button from '../../../../Button';
-import {TabLayoutItem} from '../../../../TabLayout';
+import {Tab} from '../../../../TabLayout';
 
 export const tabs = [
-	<TabLayoutItem title="One">
+	<Tab title="One">
 		<div id="view1">View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two">
+	</Tab>,
+	<Tab title="Two">
 		<div id="view2"><Button id="button2">Button Two</Button></div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three">
+	</Tab>,
+	<Tab title="Three">
 		<div id="view3">View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four">
+	</Tab>,
+	<Tab title="Four">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five">
+	</Tab>,
+	<Tab title="Five">
 		<div id="view5">View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six">
+	</Tab>,
+	<Tab title="Six">
 		<div id="view6"><Button id="button6">Button Six</Button></div>
-	</TabLayoutItem>
+	</Tab>
 ];
 
 export const tabsWithIcons = [
-	<TabLayoutItem title="One" icon="star">
+	<Tab title="One" icon="star">
 		<div id="view1">View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two" icon="home">
+	</Tab>,
+	<Tab title="Two" icon="home">
 		<div id="view2"><Button id="button2">Button Two</Button></div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three" icon="plug">
+	</Tab>,
+	<Tab title="Three" icon="plug">
 		<div id="view3">View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four" icon="lock">
+	</Tab>,
+	<Tab title="Four" icon="lock">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five" icon="picture">
+	</Tab>,
+	<Tab title="Five" icon="picture">
 		<div id="view5">View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six" icon="search">
+	</Tab>,
+	<Tab title="Six" icon="search">
 		<div id="view6"><Button id="button6">Button Six</Button></div>
-	</TabLayoutItem>
+	</Tab>
 ];

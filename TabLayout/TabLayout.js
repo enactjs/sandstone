@@ -3,6 +3,7 @@
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
+ * @exports Tab
  */
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
@@ -17,7 +18,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import TabGroup from './TabGroup';
-import TabLayoutItem from './TabLayoutItem';
+import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
 
@@ -28,12 +29,12 @@ import componentCss from './TabLayout.module.less';
  *
  * ```jsx
  * 	<TabLayout>
- * 		<TabLayoutItem title="Tab One">
+ * 		<Tab title="Tab One">
  * 			<Item>Hello</Item>
- * 		</TabLayoutItem>
- * 		<TabLayoutItem title="Tab Two">
+ * 		</Tab>
+ * 		<Tab title="Tab Two">
  * 			<Item>Goodbye</Item>
- * 		</TabLayoutItem>
+ * 		</Tab>
  * 	</TabLayout>
  * ```
  *
@@ -47,7 +48,7 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
-		 * Collection of [TabLayoutItems]{@link sandstone/TabLayout.TabLayoutItem} to render.
+		 * Collection of [Tabs]{@link sandstone/TabLayout.Tab} to render.
 		 *
 		 * @type {Node}
 		 * @public
@@ -129,7 +130,7 @@ const TabLayoutBase = kind({
 		 *
 		 * @type {Object[]}
 		 * @deprecated To be removed in 1.0.0-beta.1. Use
-		 *	[TabLayoutItem.title]{@link sandstone/TabLayout.TabLayoutItem.title} instead.
+		 *	[Tab.title]{@link sandstone/TabLayout.Tab.title} instead.
 		 * @public
 		 */
 		tabs: PropTypes.array
@@ -218,9 +219,18 @@ const TabLayoutDecorator = compose(
 // Currently not documenting the base output since it's not exported
 const TabLayout = TabLayoutDecorator(TabLayoutBase);
 
+/**
+ * A shortcut to access {@link sandstone/TabLayout.Tab}
+ *
+ * @name Tab
+ * @static
+ * @memberof sandstone/TabLayout.TabLayout
+ */
+TabLayout.Tab = Tab;
+
 export default TabLayout;
 export {
 	TabLayout,
 	TabLayoutBase,
-	TabLayoutItem
+	Tab
 };

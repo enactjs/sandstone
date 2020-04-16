@@ -7,7 +7,7 @@ import {storiesOf} from '@storybook/react';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {scale} from '@enact/ui/resolution';
 import {CollapsingHeaderPanel} from '@enact/sandstone/Panels';
-import TabLayout, {TabLayoutItem} from '@enact/sandstone/TabLayout';
+import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Button from '@enact/sandstone/Button';
 import {Header} from '@enact/sandstone/Panels';
@@ -16,8 +16,8 @@ import iconNames from './icons';
 
 CollapsingHeaderPanel.displayName = 'CollapsingHeaderPanel';
 const Config = mergeComponentMetadata('CollapsingHeaderPanel', CollapsingHeaderPanel);
-TabLayoutItem.displayName = 'TabLayoutItem';
-const ItemConfig = mergeComponentMetadata('TabLayoutItem', TabLayoutItem);
+Tab.displayName = 'Tab';
+const ItemConfig = mergeComponentMetadata('Tab', Tab);
 VirtualGridList.displayName = 'VirtualGridList';
 const VGLConfig = mergeComponentMetadata('VirtualGridList', VirtualGridList);
 
@@ -98,7 +98,7 @@ storiesOf('Sandstone', module)
 						// leaving this knob out for now until we build out horizontal tabs
 						// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
 					>
-						<TabLayoutItem
+						<Tab
 							icon={select('First View icon', iconNames, ItemConfig, 'circle')}
 							title={text('First View title', ItemConfig, 'List one')}
 						>
@@ -111,8 +111,8 @@ storiesOf('Sandstone', module)
 									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
-						</TabLayoutItem>
-						<TabLayoutItem
+						</Tab>
+						<Tab
 							icon={select('Second View icon', iconNames, ItemConfig, 'star')}
 							title={text('Second View title', ItemConfig, 'List two')}
 						>
@@ -125,7 +125,7 @@ storiesOf('Sandstone', module)
 									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
-						</TabLayoutItem>
+						</Tab>
 					</TabLayout>
 				</CollapsingHeaderPanel>
 			);

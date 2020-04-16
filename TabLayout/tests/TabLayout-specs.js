@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {TabLayoutBase, TabLayoutItem} from '../TabLayout';
+import {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
 	it('should be collapsed when collapsed is true', () => {
@@ -9,15 +9,15 @@ describe('TabLayout specs', () => {
 			<TabLayoutBase
 				collapsed
 			>
-				<TabLayoutItem title="Home" icon="home">
+				<Tab title="Home" icon="home">
 					<div>Home</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Button" icon="image">
+				</Tab>
+				<Tab title="Button" icon="image">
 					<div>Button</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Item" icon="resumeplay">
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
 					<div>Item</div>
-				</TabLayoutItem>
+				</Tab>
 			</TabLayoutBase>
 		);
 
@@ -27,15 +27,15 @@ describe('TabLayout specs', () => {
 	it('should have default orientation of vertical', () => {
 		const subject = shallow(
 			<TabLayoutBase>
-				<TabLayoutItem title="Home" icon="home">
+				<Tab title="Home" icon="home">
 					<div>Home</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Button" icon="image">
+				</Tab>
+				<Tab title="Button" icon="image">
 					<div>Button</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Item" icon="resumeplay">
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
 					<div>Item</div>
-				</TabLayoutItem>
+				</Tab>
 			</TabLayoutBase>
 		);
 
@@ -47,15 +47,15 @@ describe('TabLayout specs', () => {
 			<TabLayoutBase
 				orientation="horizontal"
 			>
-				<TabLayoutItem title="Home" icon="home">
+				<Tab title="Home" icon="home">
 					<div>Home</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Button" icon="image">
+				</Tab>
+				<Tab title="Button" icon="image">
 					<div>Button</div>
-				</TabLayoutItem>
-				<TabLayoutItem title="Item" icon="resumeplay">
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
 					<div>Item</div>
-				</TabLayoutItem>
+				</Tab>
 			</TabLayoutBase>
 		);
 

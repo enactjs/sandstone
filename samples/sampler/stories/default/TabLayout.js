@@ -10,7 +10,7 @@ import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
-import {TabLayout, TabLayoutItem} from '@enact/sandstone/TabLayout';
+import {TabLayout, Tab} from '@enact/sandstone/TabLayout';
 
 TabLayout.displayName = 'TabLayout';
 
@@ -47,7 +47,7 @@ storiesOf('Sandstone', module)
 						// leaving this knob out for now until we build out horizontal tabs
 						// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					>
-						<TabLayoutItem
+						<Tab
 							title={tabs[0].title}
 							icon={tabs[0].icon}
 						>
@@ -84,8 +84,8 @@ storiesOf('Sandstone', module)
 									style={{marginTop: '24px'}}
 								/>
 							</Scroller>
-						</TabLayoutItem>
-						<TabLayoutItem
+						</Tab>
+						<Tab
 							title={tabs[1].title}
 							icon={tabs[1].icon}
 						>
@@ -93,13 +93,13 @@ storiesOf('Sandstone', module)
 							<Button icon="image">Button!</Button>
 							<Button icon="image">Button!</Button>
 							<Button icon="image">Button!</Button>
-						</TabLayoutItem>
-						<TabLayoutItem
+						</Tab>
+						<Tab
 							title={tabs[2].title}
 							icon={tabs[2].icon}
 						>
 							<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
-						</TabLayoutItem>
+						</Tab>
 					</TabLayout>
 				</Panel>
 			);

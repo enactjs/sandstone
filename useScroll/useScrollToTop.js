@@ -6,13 +6,15 @@ import Button from '../Button';
 
 import css from './ScrollToTopButton.module.less';
 
+const cx = classnames.bind(css);
+
 const useScrollToTop = (scrollContainerHandleCurrent, showScrollToTopButton) => {
 	const [state, setState] = useState(false);
 	const ScrollTopButton = useMemo(() => {
-		const classes = classnames(
-			css.scrollToTopButton,
-			showScrollToTopButton && state ? css.showing : false
-		);
+		const classes = cx({
+			scrollToTopButton: true,
+			showing: showScrollToTopButton && state
+		});
 
 		// TODO: This embedded button may be a bit too :yuck:
 		// TODO: RTL & scrollbars are not accounted for

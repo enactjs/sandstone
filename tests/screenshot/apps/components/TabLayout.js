@@ -1,89 +1,89 @@
-import {TabLayout, TabLayoutItem} from '../../../../TabLayout';
+import {TabLayout, Tab} from '../../../../TabLayout';
 import React from 'react';
 
 const tabs = [
-	<TabLayoutItem title="One">
+	<Tab title="One">
 		<div>View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two">
+	</Tab>,
+	<Tab title="Two">
 		<div>View Two</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three">
+	</Tab>,
+	<Tab title="Three">
 		<div>View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four">
+	</Tab>,
+	<Tab title="Four">
 		<div>View Four</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five">
+	</Tab>,
+	<Tab title="Five">
 		<div>View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six">
+	</Tab>,
+	<Tab title="Six">
 		<div>View Six</div>
-	</TabLayoutItem>
+	</Tab>
 
 ];
 
 const tabsWithIcons = [
-	<TabLayoutItem title="One" icon="star">
+	<Tab title="One" icon="star">
 		<div>View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two" icon="home">
+	</Tab>,
+	<Tab title="Two" icon="home">
 		<div>View Two</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three" icon="plug">
+	</Tab>,
+	<Tab title="Three" icon="plug">
 		<div>View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four" icon="lock">
+	</Tab>,
+	<Tab title="Four" icon="lock">
 		<div>View Four</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five" icon="info">
+	</Tab>,
+	<Tab title="Five" icon="info">
 		<div>View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six" icon="picture">
+	</Tab>,
+	<Tab title="Six" icon="picture">
 		<div>View Six</div>
-	</TabLayoutItem>
+	</Tab>
 ];
 
 const oneTabWithIcons = [
-	<TabLayoutItem title="One" icon="star">
+	<Tab title="One" icon="star">
 		<div>View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two">
+	</Tab>,
+	<Tab title="Two">
 		<div>View Two</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three">
+	</Tab>,
+	<Tab title="Three">
 		<div>View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four">
+	</Tab>,
+	<Tab title="Four">
 		<div>View Four</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five">
+	</Tab>,
+	<Tab title="Five">
 		<div>View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six">
+	</Tab>,
+	<Tab title="Six">
 		<div>View Six</div>
-	</TabLayoutItem>
+	</Tab>
 ];
 
 const someTabsWithIcons = [
-	<TabLayoutItem title="One" icon="star">
+	<Tab title="One" icon="star">
 		<div>View One</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Two">
+	</Tab>,
+	<Tab title="Two">
 		<div>View Two</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Three" icon="plug">
+	</Tab>,
+	<Tab title="Three" icon="plug">
 		<div>View Three</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Four" icon="lock">
+	</Tab>,
+	<Tab title="Four" icon="lock">
 		<div>View Four</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Five">
+	</Tab>,
+	<Tab title="Five">
 		<div>View Five</div>
-	</TabLayoutItem>,
-	<TabLayoutItem title="Six" icon="picture">
+	</Tab>,
+	<Tab title="Six" icon="picture">
 		<div>View Six</div>
-	</TabLayoutItem>
+	</Tab>
 ];
 
 const TabLayoutTests = [
