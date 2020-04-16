@@ -7,16 +7,21 @@ const defaultConfig = {
 	/**
 	 * The name of the prop in the context that will be filled with the result of the
 	 * transform function.
+	 *
+	 * @type {string}
+	 * @default 'value'
 	 * @private
 	 */
-	valueProp: 'collapsed',
+	valueProp: 'value',
 
 	/**
-	 * A function that takes the scroll position and ID of a scroller and produces a value
-	 * to be set into `valueProp`.
+	 * A function that takes the scroll position and ID of a scroller and produces a value to be set
+	 * into `valueProp`. By default, returns the scroll position object received as a parameter.
+	 *
+	 * @type {Function}
 	 * @private
 	 */
-	transform: ({y}) => (y > 184)
+	transform: obj => (obj)
 };
 
 /**
@@ -27,7 +32,8 @@ const defaultConfig = {
 const ScrollPositionDecorator = hoc(defaultConfig, (configHoc, Wrapped) => {
 	const valueProp = configHoc.valueProp;
 
-	const ScrollPositionProvider = (props) => {
+	// eslint-disable-next-line no-shadow
+	function ScrollPositionDecorator (props) {
 		const [state, setState] = useState(false);
 		return (
 			<ScrollPositionContext.Provider
@@ -39,9 +45,8 @@ const ScrollPositionDecorator = hoc(defaultConfig, (configHoc, Wrapped) => {
 				<Wrapped {...props} />
 			</ScrollPositionContext.Provider>
 		);
-	};
-	ScrollPositionProvider.displayName = 'ScrollPositionDecorator';
-	return ScrollPositionProvider;
+	}
+	return ScrollPositionDecorator;
 });
 
 /**

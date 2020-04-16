@@ -122,7 +122,7 @@ const useThemeScroll = (props, instances) => {
 
 	const {
 		ScrollToTopButton,
-		setScrollButtonVisible
+		updateScrollToTop
 	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
 
 	// Functions
@@ -227,7 +227,7 @@ const useThemeScroll = (props, instances) => {
 
 		forward('onScroll', ev, props);
 
-		setScrollButtonVisible({id, x, y});
+		updateScrollToTop({id, x, y});
 
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);

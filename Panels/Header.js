@@ -56,7 +56,7 @@ const HeaderBase = kind({
 		 * automatically collapse unless overridden by this prop.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @private
 		 */
 		collapsed: PropTypes.bool,
 

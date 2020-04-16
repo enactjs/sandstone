@@ -34,7 +34,7 @@ const useScrollToTop = (scrollContainerHandleCurrent, showScrollToTopButton) => 
 	return {
 		ScrollToTopButton: ScrollTopButton,
 		// TODO: Better check on when to show back to top?
-		setScrollButtonVisible: ({y}) => setState(y > 0)
+		updateScrollToTop: ({y}) => setState(y > 0)
 	};
 };
 

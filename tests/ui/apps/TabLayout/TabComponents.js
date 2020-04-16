@@ -4,22 +4,22 @@ import Button from '../../../../Button';
 import {TabLayoutItem} from '../../../../TabLayout';
 
 export const tabs = [
-	<TabLayoutItem title="One" icon="">
+	<TabLayoutItem title="One">
 		<div id="view1">View One</div>
 	</TabLayoutItem>,
-	<TabLayoutItem title="Two" icon="">
+	<TabLayoutItem title="Two">
 		<div id="view2"><Button id="button2">Button Two</Button></div>
 	</TabLayoutItem>,
-	<TabLayoutItem title="Three" icon="">
+	<TabLayoutItem title="Three">
 		<div id="view3">View Three</div>
 	</TabLayoutItem>,
-	<TabLayoutItem title="Four" icon="">
+	<TabLayoutItem title="Four">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
 	</TabLayoutItem>,
-	<TabLayoutItem title="Five" icon="">
+	<TabLayoutItem title="Five">
 		<div id="view5">View Five</div>
 	</TabLayoutItem>,
-	<TabLayoutItem title="Six" icon="">
+	<TabLayoutItem title="Six">
 		<div id="view6"><Button id="button6">Button Six</Button></div>
 	</TabLayoutItem>
 ];

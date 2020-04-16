@@ -3,7 +3,7 @@
 @import '../styles/variables.less';
 
 .scrollToTopButton {
-	transition: opacity @sand-scrolltotop-animation-duration;
+	transition: opacity @sand-scroll-scrolltotop-animation-duration;
 	opacity: 0;
 	position: absolute;
 	right: 0;
@@ -14,11 +14,11 @@
 	}
 
 	&.horizontalScrollbar {
-		bottom: @sand-scrolltotop-scrollbar-offset;
+		bottom: @sand-scroll-scrolltotop-scrollbar-offset;
 	}
 
 	&.verticalScrollbar {
-		right: @sand-scrolltotop-scrollbar-offset;
+		right: @sand-scroll-scrolltotop-scrollbar-offset;
 	}
 
 	&.rtl {
@@ -26,7 +26,7 @@
 		right: auto;
 
 		&.verticalScrollbar {
-			left: @sand-scrolltotop-scrollbar-offset;
+			left: @sand-scroll-scrolltotop-scrollbar-offset;
 		}
 	}
 }

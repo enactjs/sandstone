@@ -1,9 +1,10 @@
 // CollapsingHeaderPanel.module.less
 //
+@import "../styles/variables.less";
 
 .panel {
 	height: calc(100% + var(--sand-panels-header-title-height));
-	transition: 700ms transform ease-in-out;
+	transition: @sand-collapsingheaderpanel-animation-duration transform ease-in-out;
 	will-change: transform;
 
 	&.collapsed {

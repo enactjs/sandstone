@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import Measurable from '@enact/ui/Measurable';
+import {scale} from '@enact/ui/resolution';
 import React from 'react';
 
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
@@ -17,7 +18,7 @@ import css from './CollapsingHeaderPanel.module.less';
  */
 const CollapsingHeaderPanelDecorator = (Wrapped) => {
 	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
-		ScrollPositionDecorator(
+		ScrollPositionDecorator({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))},
 			({style, className, titleMeasurements, ...rest}) => {
 				// eslint-disable-next-line react-hooks/rules-of-hooks
 				const {collapsed} = useScrollPosition();
