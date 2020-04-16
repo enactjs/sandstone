@@ -7,7 +7,6 @@
 .slider {
 	@knob-transform-resting: @sand-translate-center scale(@sand-slider-knob-resting-state-scale);
 	@knob-transform-active: @sand-translate-center scale(1);
-	--progress-anchor: 0;
 
 	position: relative;
 	margin: 0 @sand-spotlight-outset;
@@ -45,12 +44,15 @@
 	}
 
 	&.showAnchor {
+		.knob {
+			z-index: 1;
+		}
+
 		.progressBar {
 			&::after {
 				content: "";
 				position: absolute;
-				transform: translate(-50%, -50%);
-				z-index: -1;
+				transform: @sand-translate-center;
 			}
 
 			&.horizontal {
@@ -58,7 +60,7 @@
 					width: @sand-progressbar-anchor-width;
 					height: @sand-progressbar-anchor-height;
 					top: 50%;
-					left: ~"calc(var(--progress-anchor) * 100%)";
+					left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 				}
 			}
 
@@ -66,8 +68,9 @@
 				&::after {
 					width: @sand-progressbar-anchor-height;
 					height: @sand-progressbar-anchor-width;
-					top: ~"calc(var(--progress-anchor) * 100%)";
+					bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
 					left: 50%;
+					transform: translate(-50%, 50%);
 				}
 			}
 		}
