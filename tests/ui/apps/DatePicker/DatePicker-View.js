@@ -10,64 +10,20 @@ spotlight.setPointerMode(false);
 const app = (props) => <div {...props}>
 	<div>
 		<DatePicker
-			id="datePickerDefaultClosedWithoutNoneText"
-			title="Date Picker Default"
-		/>
-		<DatePicker
-			id="datePickerDefaultClosedWithNoneText"
-			noneText="Nothing Selected"
-			title="Date Picker Default With noneText"
-		/>
-		<DatePicker
-			id="datePickerDefaultOpenWithNoneText"
-			defaultOpen
-			noneText="Nothing Selected"
-			title="Date Picker Default Open"
+			id="datePickerDefault"
 		/>
 		<DatePicker
 			id="datePickerWithDefaultValue"
 			defaultValue={new Date(2009, 5, 6)}
-			title="Date Picker With Default Value"
 		/>
 		<DatePicker
-			id="datePickerNoLabels"
-			noLabels
-			title="Date Picker noLabels"
-		/>
-		<DatePicker
-			id="datePickerDisabledWithNoneText"
+			id="datePickerDisabled"
 			disabled
-			noneText="Nothing Selected"
-			title="Date Picker Disabled"
-		/>
-		<DatePicker
-			id="datePickerDisabledOpenWithNoneText"
-			defaultOpen
-			disabled
-			noneText="Nothing Selected"
-			title="Date Picker Disabled Open"
-		/>
-		<DatePicker
-			id="datePickerDisabledOpenWithDefaultValue"
-			defaultOpen
-			defaultValue={new Date(2009, 5, 6)}
-			disabled
-			noneText="Nothing Selected"
-			title="Date Picker Disabled Open With Default Value"
 		/>
 		<DatePicker
 			id="datePickerDisabledWithDefaultValue"
 			defaultValue={new Date(2009, 5, 6)}
 			disabled
-			noneText="Nothing Selected"
-			title="Date Picker Disabled With Default Value"
-		/>
-		<DatePicker
-			id="datePickerDefaultOpenWithDefaultValue"
-			defaultOpen
-			defaultValue={new Date(2009, 5, 6)}
-			noneText="Nothing Selected"
-			title="Date Picker Default Open With Default Value"
 		/>
 	</div>
 </div>;

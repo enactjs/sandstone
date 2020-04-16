@@ -15,23 +15,23 @@ const RangePickerTests = [
 	<RangePicker min={0} max={100} value={5} />,
 
 	// Width: 'small' is default
-	// 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large' - [GT-21540]
+	// Start of [GT-28598] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
 	<RangePicker width="medium" min={0} max={100} value={0} />,
 	<RangePicker width="large" min={0} max={100} value={0} />,
-	// end GT test
+	// End of [GT-28598]
 
 	<RangePicker orientation="vertical" min={0} max={100} />,
 	<RangePicker width="medium" min={0} max={100} value={5} />,
 	<RangePicker width="large" min={0} max={100} value={5} />,
 	<RangePicker orientation="vertical" min={-10} max={10} value={0} />,
 
-	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [GT-21882]
+	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [GT-28599]
 	<RangePicker orientation="vertical" min={0} max={100} value={0} />,
+	<RangePicker orientation="vertical" width="medium" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="large" min={0} max={100} value={0} />,
 	// end GT test
 
 	<RangePicker orientation="vertical" min={0} max={100} value={5} />,
-	<RangePicker orientation="vertical" width="medium" min={0} max={100} value={0} />,
 	<RangePicker orientation="vertical" width="large" min={0} max={100} value={5} />,
 	<RangePicker min={0} max={5} value={5} width={1} />,
 	<RangePicker min={0} max={5} value={5} width={6} />,
@@ -144,7 +144,7 @@ const RangePickerTests = [
 	},
 
 	// Width: 'small' is default
-	// 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large' - [GT-21540]
+	// Start of [GT-28598] - 'orientation' is 'horizontal' and 'width' changed to 'medium', 'large'
 	{
 		locale: 'ar-SA',
 		component: <RangePicker width="medium" min={0} max={100} value={0} />
@@ -153,7 +153,7 @@ const RangePickerTests = [
 		locale: 'ar-SA',
 		component: <RangePicker width="large" min={0} max={100} value={0} />
 	},
-	// end GT test
+	// End of [GT-28598]
 
 	{
 		locale: 'ar-SA',
@@ -172,7 +172,7 @@ const RangePickerTests = [
 		component: <RangePicker orientation="vertical" min={-10} max={10} value={0} />
 	},
 
-	// 'orientation" changed to 'vertical' and 'width' changed to 'large' - [GT-21882]
+	// Start of [GT-28599] - 'orientation" changed to 'vertical' and 'width' changed to 'large'
 	{
 		locale: 'ar-SA',
 		component: <RangePicker orientation="vertical" min={0} max={100} value={0} />
@@ -181,7 +181,7 @@ const RangePickerTests = [
 		locale: 'ar-SA',
 		component: <RangePicker orientation="vertical" width="large" min={0} max={100} value={0} />
 	},
-	// end GT test
+	// End of [GT-28599]
 
 	{
 		locale: 'ar-SA',

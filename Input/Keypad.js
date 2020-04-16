@@ -11,7 +11,7 @@ import React from 'react';
 
 import Button from '../Button';
 
-import WindowEventable from './WindowEventable';
+import WindowEventable from '../internal/WindowEventable';
 
 import css from './Input.module.less';
 
