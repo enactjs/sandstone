@@ -32,7 +32,7 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(8, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
+			expectFocusedItem(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -45,32 +45,32 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			Page.spotlightDown();
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			expectFocusedItem(18, 'step 5 focus');
+			waitForScrollStartStop();
+			expectFocusedItem(17, 'step 5 focus');
 			// Step 6. Press Channel Down.
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
-			expectFocusedItem(25, 'step 6 focus');
+			expectFocusedItem(23, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(18, 'step 7 focus');
+			expectFocusedItem(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
-			Page.delay(40); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+			waitForScrollStartStop();
 			// Verify Step 8: Spotlight is on the first visible item.
-			expectFocusedItem(8, 'step 8 focus');
+			expectFocusedItem(7, 'step 8 focus');
 			// Step 9. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();

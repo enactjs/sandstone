@@ -12,9 +12,6 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
-const fullHeightStyle = {
-	height: '100%'
-};
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -22,7 +19,7 @@ spotlight.setPointerMode(false);
 
 const items = [],
 	itemSize = 156,
-	listSize = itemSize * 11,
+	listSize = itemSize * 9,
 	itemStyle = {margin: 0},
 	numItems = 100;
 
@@ -125,7 +122,7 @@ class app extends React.Component {
 	render () {
 		const {hideScrollbar, wrap} = this.state;
 		return (
-			<div {...this.props} id="list" style={fullHeightStyle} ref={this.rootRef}>
+			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
 						<ToggleButton id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</ToggleButton>
@@ -133,12 +130,12 @@ class app extends React.Component {
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
-						<Row align="center" style={fullHeightStyle}>
+						<Row align="center">
 							<Cell component={Button} shrink id="left">
 								Left
 							</Cell>
 							<Cell align="stretch">
-								<Column align="center" style={fullHeightStyle}>
+								<Column align="center">
 									<Cell component={Button} shrink id="top">
 										Top
 									</Cell>
