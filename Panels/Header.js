@@ -596,8 +596,8 @@ const HeaderBase = kind({
 
 const CollapsingHeaderDecorator = (Wrapped) => {
 	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
-		const {collapsed} = useScrollPosition() || {};
-		return <Wrapped featureContent={collapsed} {...props} />;
+		const {shouldFeatureContent} = useScrollPosition() || {};
+		return <Wrapped featureContent={shouldFeatureContent} {...props} />;
 	};
 };
 

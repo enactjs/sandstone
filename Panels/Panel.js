@@ -273,7 +273,7 @@ const RootPanel = SharedStateDecorator(
 );
 
 /**
- * Applies collapsing Header behaviors to [Panel]{@link sandstone/Panels.Panel}.
+ * Applies behaviors to [Panel]{@link sandstone/Panels.Panel} to support `featureContent`
  *
  * @class FeatureContentDecorator
  * @hoc
@@ -282,9 +282,9 @@ const RootPanel = SharedStateDecorator(
  */
 const FeatureContentDecorator = (Wrapped) => {
 	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
-		ScrollPositionDecorator({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))},
+		ScrollPositionDecorator({valueProp: 'shouldFeatureContent', transform: ({y}) => (y > scale(360))},
 			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
-				const {collapsed} = useScrollPosition();
+				const {shouldFeatureContent} = useScrollPosition();
 
 				const enhancedStyle = {
 					...style,
@@ -293,7 +293,7 @@ const FeatureContentDecorator = (Wrapped) => {
 
 				const enhancedClassName = classnames(
 					className,
-					collapsed ? css.collapsed : '',
+					shouldFeatureContent ? css.shouldFeatureContent : '',
 					css.featureContent
 				);
 				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
@@ -302,51 +302,27 @@ const FeatureContentDecorator = (Wrapped) => {
 	);
 };
 
-const CollapsingPanel = FeatureContentDecorator(RootPanel);
+const FeatureContentPanel = FeatureContentDecorator(RootPanel);
 
 // This is a work around until we could implement a hook-based solution
 function Panel ({featureContent, ...rest}) {
 	if (featureContent) {
-		return <CollapsingPanel {...rest} />;
+		return <FeatureContentPanel {...rest} />;
 	}
 
 	return <RootPanel {...rest} />;
 }
 
 Panel.propTypes = {
+	/**
+	 * Features the content of the panel by minimizing the `Header` when scrolling down.
+	 *
+	 * @memberof sandstone/Panels.Panel.prototype
+	 * @type {Boolean}
+	 * @public
+	 */
 	featureContent: PropTypes.bool
 };
-
-/*
-// =====
-// Illustrating how the hook version might look
-// =====
-const PanelDecorator = hoc((config, Wrapped) => {
-	function PanelDecorator (props) { // eslint-disable-line no-shadow
-		const sharedState = useSharedState({idProp: 'data-index'});
-		const spotlightContainer = useSpotlightContainer({
-			// prefer any spottable within the panel body for first render
-			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${css.body} *`],
-			enterTo: 'last-focused',
-			preserveId: true
-		});
-		const slots = useSlots({slots: ['header']});
-		const skins = useSkins();
-
-		const measure = useMeasurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'});
-		const scrollPosition = useScrollPosition({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))});
-
-		if (props.collapse) {
-			// apply measure and scrollPosition
-		}
-
-		// apply sharedState, spotlightContainer, slots, and skins (not necessarily in that order)
-
-		return <Wrapped />;
-	}
-});
-*/
 
 export default Panel;
 export {Panel, PanelBase};

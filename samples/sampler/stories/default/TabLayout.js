@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -40,7 +40,7 @@ storiesOf('Sandstone', module)
 			const tabs = select('tabs', tabSelections, TabLayout, tabSelections['with icons']);
 
 			return (
-				<Panel>
+				<Panel featureContent={boolean('featureContent', {displayName: 'Panel'}, false)}>
 					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 					<TabLayout
 						onSelect={action('onSelect')}
