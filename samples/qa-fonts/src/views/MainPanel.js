@@ -12,9 +12,9 @@ const
 
 const fonts = {
 	standard: [
-		'300 1em "Sandstone Condensed"',
-		'1em "Sandstone Condensed"',
-		'bold 1em "Sandstone Condensed"',
+		'300 condensed 1em "Sandstone"',
+		'condensed 1em "Sandstone"',
+		'bold condensed 1em "Sandstone"',
 		'100 1em "Sandstone"',
 		'300 1em "Sandstone"',
 		'1em "Sandstone"',
