@@ -275,12 +275,12 @@ const RootPanel = SharedStateDecorator(
 /**
  * Applies collapsing Header behaviors to [Panel]{@link sandstone/Panels.Panel}.
  *
- * @class CollapseDecorator
+ * @class FeatureContentDecorator
  * @hoc
  * @memberof sandstone/Panels
  * @private
  */
-const CollapseDecorator = (Wrapped) => {
+const FeatureContentDecorator = (Wrapped) => {
 	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
 		ScrollPositionDecorator({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))},
 			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
@@ -302,7 +302,7 @@ const CollapseDecorator = (Wrapped) => {
 	);
 };
 
-const CollapsingPanel = CollapseDecorator(RootPanel);
+const CollapsingPanel = FeatureContentDecorator(RootPanel);
 
 // This is a work around until we could implement a hook-based solution
 function Panel ({featureContent, ...rest}) {
