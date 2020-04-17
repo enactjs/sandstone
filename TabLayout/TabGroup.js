@@ -127,7 +127,7 @@ const TabGroupBase = kind({
 
 const TabGroupDecorator = compose(
 	SpotlightContainerDecorator({enterTo: 'last-focused'}),
-	DebounceDecorator({debounce: 'onFocusTab', delay: 300})
+	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is
