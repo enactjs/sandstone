@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/Picker` horizontal joined height in large text mode
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
