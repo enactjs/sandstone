@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/Dropdown` to focus on selected option
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
