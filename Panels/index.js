@@ -18,7 +18,6 @@ import Routable, {Route} from '@enact/ui/Routable';
 import ActivityPanels from './ActivityPanels';
 import AlwaysViewingPanels from './AlwaysViewingPanels';
 import Breadcrumb from './Breadcrumb';
-import CollapsingHeaderPanel from './CollapsingHeaderPanel';
 import Header, {HeaderBase} from './Header';
 import FlexiblePopupPanels from './FlexiblePopupPanels';
 import FixedPopupPanels from './FixedPopupPanels';
@@ -31,7 +30,6 @@ export {
 	ActivityPanels,
 	AlwaysViewingPanels,
 	Breadcrumb,
-	CollapsingHeaderPanel,
 	Header,
 	HeaderBase,
 	FlexiblePopupPanels,

@@ -1,14 +1,18 @@
+import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
+import Measurable from '@enact/ui/Measurable';
+import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
+import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
 import {PanelsStateContext} from './Viewport';
 
@@ -249,7 +253,7 @@ const PanelBase = kind({
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const Panel = SharedStateDecorator(
+const RootPanel = SharedStateDecorator(
 	{idProp: 'data-index'},
 	SpotlightContainerDecorator(
 		{
@@ -267,6 +271,82 @@ const Panel = SharedStateDecorator(
 		)
 	)
 );
+
+/**
+ * Applies collapsing Header behaviors to [Panel]{@link sandstone/Panels.Panel}.
+ *
+ * @class CollapseDecorator
+ * @hoc
+ * @memberof sandstone/Panels
+ * @private
+ */
+const CollapseDecorator = (Wrapped) => {
+	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
+		ScrollPositionDecorator({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))},
+			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
+				const {collapsed} = useScrollPosition();
+
+				const enhancedStyle = {
+					...style,
+					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || '0px'
+				};
+
+				const enhancedClassName = classnames(
+					className,
+					collapsed ? css.collapsed : '',
+					css.collapsing
+				);
+				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
+			}
+		)
+	);
+};
+
+const CollapsingPanel = CollapseDecorator(RootPanel);
+
+// This is a work around until we could implement a hook-based solution
+function Panel ({collapse, ...rest}) {
+	if (collapse) {
+		return <CollapsingPanel {...rest} />;
+	}
+
+	return <RootPanel {...rest} />;
+}
+
+Panel.propTypes = {
+	collapse: PropTypes.bool
+};
+
+/*
+// =====
+// Illustrating how the hook version might look
+// =====
+const PanelDecorator = hoc((config, Wrapped) => {
+	function PanelDecorator (props) { // eslint-disable-line no-shadow
+		const sharedState = useSharedState({idProp: 'data-index'});
+		const spotlightContainer = useSpotlightContainer({
+			// prefer any spottable within the panel body for first render
+			continue5WayHold: true,
+			defaultElement: [`.${spotlightDefaultClass}`, `.${css.body} *`],
+			enterTo: 'last-focused',
+			preserveId: true
+		});
+		const slots = useSlots({slots: ['header']});
+		const skins = useSkins();
+
+		const measure = useMeasurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'});
+		const scrollPosition = useScrollPosition({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))});
+
+		if (props.collapse) {
+			// apply measure and scrollPosition
+		}
+
+		// apply sharedState, spotlightContainer, slots, and skins (not necessarily in that order)
+
+		return <Wrapped />;
+	}
+});
+*/
 
 export default Panel;
 export {Panel, PanelBase};

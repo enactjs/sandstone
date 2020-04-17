@@ -1,4 +1,4 @@
-import Panels, {CollapsingHeaderPanel, Header} from '../../../../Panels';
+import Panels, {Panel, Header} from '../../../../Panels';
 import Scroller from '../../../../Scroller';
 import React from 'react';
 
@@ -24,17 +24,17 @@ class CallbackScroller extends React.Component {
 }
 // Panel components to show in the Panels
 const uncollapsed =
-	<CollapsingHeaderPanel>
+	<Panel collapse>
 		<Header title="Title" subtitle="Sub Title" />
-	</CollapsingHeaderPanel>;
+	</Panel>;
 
 const collapsed =
-	<CollapsingHeaderPanel>
+	<Panel collapse>
 		<Header title="Title" subtitle="Sub Title" />
 		<CallbackScroller />
-	</CollapsingHeaderPanel>;
+	</Panel>;
 
-const PanelsTests = [
+const PanelTests = [
 	{
 		title: 'with uncollapsed header',
 		component: <Panels>{uncollapsed}</Panels>,
@@ -47,4 +47,4 @@ const PanelsTests = [
 	}
 ];
 
-export default PanelsTests;
+export default PanelTests;

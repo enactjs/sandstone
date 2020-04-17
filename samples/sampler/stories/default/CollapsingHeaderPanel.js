@@ -6,7 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import ImageItem from '@enact/sandstone/ImageItem';
 import {scale} from '@enact/ui/resolution';
-import {CollapsingHeaderPanel} from '@enact/sandstone/Panels';
+import {Panel} from '@enact/sandstone/Panels';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Button from '@enact/sandstone/Button';
@@ -14,8 +14,8 @@ import {Header} from '@enact/sandstone/Panels';
 
 import iconNames from './icons';
 
-CollapsingHeaderPanel.displayName = 'CollapsingHeaderPanel';
-const Config = mergeComponentMetadata('CollapsingHeaderPanel', CollapsingHeaderPanel);
+Panel.displayName = 'Panel';
+const Config = mergeComponentMetadata('Panel', Panel);
 Tab.displayName = 'Tab';
 const ItemConfig = mergeComponentMetadata('Tab', Tab);
 VirtualGridList.displayName = 'VirtualGridList';
@@ -86,7 +86,7 @@ storiesOf('Sandstone', module)
 			const children = prop.buttons[childrenSelection];
 
 			return (
-				<CollapsingHeaderPanel>
+				<Panel collapse>
 					<Header
 						title={text('title', Config, 'The Matrix')}
 						subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
@@ -127,7 +127,7 @@ storiesOf('Sandstone', module)
 							/>
 						</Tab>
 					</TabLayout>
-				</CollapsingHeaderPanel>
+				</Panel>
 			);
 		},
 		{

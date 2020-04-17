@@ -151,7 +151,7 @@ const HeaderBase = kind({
 		 * Collapses the Header to only show the header-components.
 		 *
 		 * Has no effect on `type="compact"`. When a `Header` is used inside a
-		 * [`CollapsingHeaderPanel`]{@link sandstone/Panels.CollapsingHeaderPanel} it will
+		 * [`Panel`]{@link sandstone/Panels.Panel} with `collapse` set it will
 		 * automatically collapse unless overridden by this prop.
 		 *
 		 * @type {Boolean}

@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Panels.CollapsingHeaderPanel`
+- `sandstone/Panels.Panel` prop `collapse`
 - `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
 
 ### Fixed

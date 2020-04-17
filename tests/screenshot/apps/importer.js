@@ -4,7 +4,6 @@ import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
 import CheckboxItem from '../../../CheckboxItem';
-import {CollapsingHeaderPanel} from '../../../Panels';
 import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
@@ -23,7 +22,7 @@ import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
-import Panels, {Header} from '../../../Panels';
+import Panels, {Panel, Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
 import ProgressBar from '../../../ProgressBar';
@@ -48,7 +47,6 @@ const components = {
 	Button,
 	Checkbox,
 	CheckboxItem,
-	CollapsingHeaderPanel,
 	ContextualMenuDecorator,
 	ContextualPopupDecorator,
 	DatePicker,
@@ -69,6 +67,7 @@ const components = {
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
+	Panel,
 	Panels,
 	Picker,
 	Popup,

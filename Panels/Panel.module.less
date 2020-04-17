@@ -82,6 +82,16 @@
 		direction: rtl;
 	}
 
+	&.collapsing {
+		height: calc(100% + var(--sand-panels-header-title-height));
+		transition: @sand-panel-collapse-animation-duration transform ease-in-out;
+		will-change: transform;
+	
+		&.collapsed {
+			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
+		}
+	}
+
 	.applySkins({
 		&.flexiblePopupType {
 			.body {
