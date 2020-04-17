@@ -140,7 +140,6 @@ const CheckboxItemBase = kind({
 				indeterminate={indeterminate}
 				indeterminateIcon={indeterminateIcon}
 				slot="slotBefore"
-				css={css}
 			>
 				{icon}
 			</Checkbox>

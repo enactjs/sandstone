@@ -125,7 +125,6 @@ const FormCheckboxItemBase = kind({
 				indeterminateIcon={indeterminateIcon}
 				slot="slotBefore"
 				selected={selected}
-				css={css}
 			>
 				{icon}
 			</Checkbox>

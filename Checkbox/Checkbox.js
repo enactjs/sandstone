@@ -67,7 +67,6 @@ const CheckboxBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `checkbox` - The root class name
-		 * * `icon` - Applied to the icon
 		 * * `selected` - Applied when the `selected` prop is true
 		 *
 		 * @type {Object}
@@ -126,7 +125,7 @@ const CheckboxBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'checkbox',
-		publicClassNames: ['checkbox', 'icon', 'selected']
+		publicClassNames: ['checkbox', 'selected']
 	},
 
 	computed: {
