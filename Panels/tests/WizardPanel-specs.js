@@ -166,7 +166,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have disabled `.nextButton` on the last view',
+		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={2} total={3} />
@@ -174,15 +174,15 @@ describe('WizardPanel Specs', () => {
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
-			const expected = {disabled: true};
-			const actual = nextButton.props();
+			const expected = false;
+			const actual = nextButton.exists();
 
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
-		'should have disabled `.prevButton` on the first view',
+		'should replace previous button with exit button on the first view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={0} total={3} />
@@ -190,7 +190,7 @@ describe('WizardPanel Specs', () => {
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 
-			const expected = {disabled: true};
+			const expected = {['aria-label']: 'Exit'};
 			const actual = prevButton.props();
 
 			expect(actual).toMatchObject(expected);

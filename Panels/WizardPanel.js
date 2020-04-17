@@ -6,6 +6,7 @@ import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button/Button';
 import Steps from '../Steps/Steps';
 
@@ -180,6 +181,7 @@ const WizardPanelBase = kind({
 					<Steps current={index + 1} slot="slotAbove" total={total} />
 					{index !== (total - 1) ? (
 						<Button
+							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
 							disabled={index === (total - 1)}
 							icon="arrowlargeright"
@@ -193,6 +195,7 @@ const WizardPanelBase = kind({
 					) : null}
 					{index !== 0 ? (
 						<Button
+							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
 							disabled={index === 0}
 							icon="arrowlargeleft"
@@ -204,6 +207,7 @@ const WizardPanelBase = kind({
 						</Button>
 					) : (
 						<Button
+							aria-label={$L('Exit')}
 							backgroundOpacity="transparent"
 							icon="arrowhookleft"
 							minWidth={false}
