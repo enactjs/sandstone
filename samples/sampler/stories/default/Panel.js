@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -16,8 +16,10 @@ import iconNames from './icons';
 
 Panel.displayName = 'Panel';
 const Config = mergeComponentMetadata('Panel', Panel);
+Header.displayName = 'Header';
+const HeaderConfig = mergeComponentMetadata('Header', Header);
 Tab.displayName = 'Tab';
-const ItemConfig = mergeComponentMetadata('Tab', Tab);
+const TabConfig = mergeComponentMetadata('Tab', Tab);
 VirtualGridList.displayName = 'VirtualGridList';
 const VGLConfig = mergeComponentMetadata('VirtualGridList', VirtualGridList);
 
@@ -80,18 +82,15 @@ updateDataSize(defaultDataSize);
 
 storiesOf('Sandstone', module)
 	.add(
-		'Panels.CollapsingHeaderPanel',
+		'Panels.Panel',
 		() => {
-			const childrenSelection = select('children', prop.buttonsSelection, Config);
-			const children = prop.buttons[childrenSelection];
-
 			return (
-				<Panel collapse>
+				<Panel featureContent={boolean('featureContent', Config, false)}>
 					<Header
-						title={text('title', Config, 'The Matrix')}
-						subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
+						title={text('title', HeaderConfig, 'The Matrix')}
+						subtitle={text('subtitle', HeaderConfig, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
 					>
-						{children}
+						{prop.buttons[select('children', prop.buttonsSelection, HeaderConfig)]}
 					</Header>
 					<TabLayout
 						onSelect={action('onSelect')}
@@ -99,8 +98,8 @@ storiesOf('Sandstone', module)
 						// orientation={select('orientation', ['vertical', 'horizontal'], TabGridListLayout, 'vertical')}
 					>
 						<Tab
-							icon={select('First View icon', iconNames, ItemConfig, 'circle')}
-							title={text('First View title', ItemConfig, 'List one')}
+							icon={select('First View icon', iconNames, TabConfig, 'circle')}
+							title={text('First View title', TabConfig, 'List one')}
 						>
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
@@ -113,8 +112,8 @@ storiesOf('Sandstone', module)
 							/>
 						</Tab>
 						<Tab
-							icon={select('Second View icon', iconNames, ItemConfig, 'star')}
-							title={text('Second View title', ItemConfig, 'List two')}
+							icon={select('Second View icon', iconNames, TabConfig, 'star')}
+							title={text('Second View title', TabConfig, 'List two')}
 						>
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}

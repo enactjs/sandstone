@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Panels.Panel` prop `collapse`
+- `sandstone/Panels.Panel` prop `featureContent` to minimize the panel visuals to feature the content more prominently
 - `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
 
 ### Fixed

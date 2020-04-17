@@ -24,12 +24,12 @@ class CallbackScroller extends React.Component {
 }
 // Panel components to show in the Panels
 const uncollapsed =
-	<Panel collapse>
+	<Panel featureContent>
 		<Header title="Title" subtitle="Sub Title" />
 	</Panel>;
 
 const collapsed =
-	<Panel collapse>
+	<Panel featureContent>
 		<Header title="Title" subtitle="Sub Title" />
 		<CallbackScroller />
 	</Panel>;

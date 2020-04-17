@@ -294,7 +294,7 @@ const CollapseDecorator = (Wrapped) => {
 				const enhancedClassName = classnames(
 					className,
 					collapsed ? css.collapsed : '',
-					css.collapsing
+					css.featureContent
 				);
 				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
 			}
@@ -305,8 +305,8 @@ const CollapseDecorator = (Wrapped) => {
 const CollapsingPanel = CollapseDecorator(RootPanel);
 
 // This is a work around until we could implement a hook-based solution
-function Panel ({collapse, ...rest}) {
-	if (collapse) {
+function Panel ({featureContent, ...rest}) {
+	if (featureContent) {
 		return <CollapsingPanel {...rest} />;
 	}
 
@@ -314,7 +314,7 @@ function Panel ({collapse, ...rest}) {
 }
 
 Panel.propTypes = {
-	collapse: PropTypes.bool
+	featureContent: PropTypes.bool
 };
 
 /*
