@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Switch` sizing and positioning in large text mode
 
+### Changed
+
+- `sandstone/Panels.Wizardpanel` to hide previous and next buttons appropriately
+
 ## [1.0.0-alpha.8] - 2020-04-14
 
 ### Deprecated
