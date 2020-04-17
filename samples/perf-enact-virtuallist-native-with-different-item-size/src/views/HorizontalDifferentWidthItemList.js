@@ -1,4 +1,5 @@
 import Item from '@enact/sandstone/Item';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import {VirtualList} from '@enact/sandstone/VirtualList';
@@ -23,6 +24,11 @@ const
 	spacing = 50;
 
 class DifferenctWidthItem extends Component {
+	static propTypes = {
+		index: PropTypes.number,
+		items: PropTypes.array
+	}
+
 	itemStyleDefault = {
 		position: 'absolute',
 		height: '100%',

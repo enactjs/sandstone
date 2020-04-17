@@ -1,11 +1,18 @@
 import Button from '@enact/sandstone/Button';
 import kind from '@enact/core/kind';
+import PropTypes from 'prop-types';
 import React from 'react';
 import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
 
 import componentCss from './MainPanel.module.less';
 
 const SelectableVideoPlayer = class extends React.Component {
+
+	static displayName = 'SelectableVideoPlayer'
+
+	static propTypes = {
+		css: PropTypes.object
+	}
 
 	state = {
 		selection: null
@@ -92,7 +99,7 @@ const SelectableVideoPlayer = class extends React.Component {
 			</VideoPlayer>
 		);
 	}
-}
+};
 
 const MainPanel = kind({
 	name: 'MainPanel',

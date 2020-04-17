@@ -1,5 +1,6 @@
 import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import ri from '@enact/ui/resolution';
@@ -25,6 +26,13 @@ const
 	spacing = 40;
 
 class ExpandableDifferenctHeightItem extends Component {
+	static propTypes = {
+		'data-index': PropTypes.number,
+		index: PropTypes.number,
+		items: PropTypes.array,
+		updateItemStatus: PropTypes.func
+	}
+
 	itemStyleDefault = {
 		position: 'absolute',
 		width: '100%',
@@ -102,6 +110,10 @@ class ExpandableDifferenctHeightItem extends Component {
 }
 
 class ResizableItem extends Component {
+	static propTypes = {
+		updateItemSize: PropTypes.func
+	}
+
 	constructor (props) {
 		super(props);
 		this.itemRef = React.createRef();
