@@ -22,14 +22,26 @@
 		text-align: center;
 	}
 
-	// Spottable version of the Checkbox
-	.spottable({
-		.bg {
-			position: absolute;
-			.position(@sand-checkbox-container-position);
-			border-radius: @sand-checkbox-container-border-radius;
-		}
-	});
+	//
+	// Checkbox supports several states, each of which has a different set of colors.
+	// All supported states are as follows:
+	//
+	// standalone
+	// standalone selected
+	// standalone indeterminate
+	// standalone disabled
+	// standalone disabled selected
+	// standalone disabled indeterminate
+	// asChild
+	// asChild selected
+	// asChild indeterminate
+	// asChild disabled
+	// asChild disabled selected
+	// asChild disabled indeterminate
+	//
+	// Standalone is represented below as .spottable(). This handles focus and disabled states.
+	// asChild depends on the status of the parent for focus and disabled states.
+	//
 
 	.applySkins({
 		.icon {
@@ -40,6 +52,15 @@
 			);
 		}
 
+		&.selected {
+			.icon {
+				.checkboxColors(
+					@sand-checkbox-selected-color,
+					@sand-checkbox-selected-bg-color,
+					@sand-checkbox-selected-border-color
+				);
+			}
+		}
 
 		&.indeterminate {
 			.icon {
@@ -51,42 +72,41 @@
 			}
 		}
 
-		&.selected {
-			&:not(.indeterminate) {
-				.icon {
-					.checkboxColors(
-						@sand-checkbox-selected-color,
-						@sand-checkbox-selected-bg-color,
-						@sand-checkbox-selected-border-color
-					);
-				}
-
-			}
-		}
-
-		.disabled({
-			&.selected {
-				&:not(.indeterminate) {
-					.icon {
-						.checkboxColors(
-							@sand-checkbox-disabled-selected-color,
-							@sand-checkbox-disabled-selected-bg-color,
-							@sand-checkbox-disabled-selected-border-color
-						);
-					}
-
-				}
-			}
-		});
-
 		// Spottable version of the Checkbox
 		.spottable({
 			.bg {
+				position: absolute;
+				.position(@sand-checkbox-container-position);
+				border-radius: @sand-checkbox-container-border-radius;
 				.sand-spotlight-resting-colors();
 			}
 		});
+	});
+}
 
-		.focus({
+// When standalone or asChild is disabled
+.disabled({
+	& .checkbox,
+	&.checkbox {
+		.applySkins({
+			&.selected {
+				.icon {
+					.checkboxColors(
+						@sand-checkbox-disabled-selected-color,
+						@sand-checkbox-disabled-selected-bg-color,
+						@sand-checkbox-disabled-selected-border-color
+					);
+				}
+			}
+		});
+	}
+});
+
+// When standalone or asChild is focused
+.focus({
+	& .checkbox,
+	&.checkbox {
+		.applySkins({
 			.bg {
 				.sand-spotlight-focus-colors();
 			}
@@ -99,140 +119,58 @@
 				);
 			}
 
-			&.indeterminate {
+			&.selected {
 				.icon {
 					.checkboxColors(
-						@sand-checkbox-indeterminate-selected-focus-color,
-						@sand-checkbox-indeterminate-selected-focus-bg-color,
-						@sand-checkbox-indeterminate-selected-focus-border-color
+						@sand-checkbox-selected-focus-color,
+						@sand-checkbox-selected-focus-bg-color,
+						@sand-checkbox-selected-focus-border-color
 					);
 				}
 			}
 
-			&.selected {
-				&:not(.indeterminate) {
-					.icon {
-						.checkboxColors(
-							@sand-checkbox-selected-focus-color,
-							@sand-checkbox-selected-focus-bg-color,
-							@sand-checkbox-selected-focus-border-color
-						);
-					}
-				}
-			}
-
-			.disabled({
-				&.selected {
-					&:not(.indeterminate) {
-						.icon {
-							.checkboxColors(
-								@sand-checkbox-focus-disabled-selected-color,
-								@sand-checkbox-focus-disabled-selected-bg-color,
-								@sand-checkbox-focus-disabled-selected-border-color
-							);
-						}
-
-					}
-				}
-			});
-		});
-
-		.sand-disabled({
-			.icon {
-				.sand-disabled-colors();
-			}
-
-			.focus({
-				.bg {
-					.sand-disabled-focus-bg-colors();
-				}
-				.icon {
-					.sand-disabled-focus-content-colors();
-				}
-			});
-		});
-	});
-}
-
-.disabled({
-	.checkbox {
-		.applySkins({
-			&.selected {
-				&:not(.indeterminate) {
-					.icon {
-						.checkboxColors(
-							@sand-checkbox-disabled-selected-color,
-							@sand-checkbox-disabled-selected-bg-color,
-							@sand-checkbox-disabled-selected-border-color
-						);
-					}
-
-				}
-			}
-		});
-	}
-});
-
-// When the parent is focused
-.focus({
-	.checkbox {
-		.applySkins({
-			.icon {
-				.checkboxColors(
-					@sand-checkbox-focus-color,
-					@sand-checkbox-focus-bg-color,
-					@sand-checkbox-focus-border-color
-				);
-			}
-
-
 			&.indeterminate {
 				.icon {
 					.checkboxColors(
-						@sand-checkbox-indeterminate-selected-focus-color,
-						@sand-checkbox-indeterminate-selected-focus-bg-color,
-						@sand-checkbox-indeterminate-selected-focus-border-color
+						@sand-checkbox-indeterminate-focus-color,
+						@sand-checkbox-indeterminate-focus-bg-color,
+						@sand-checkbox-indeterminate-focus-border-color
 					);
 				}
 			}
-
-			&.selected {
-				&:not(.indeterminate) {
-					.icon {
-						.checkboxColors(
-							@sand-checkbox-selected-focus-color,
-							@sand-checkbox-selected-focus-bg-color,
-							@sand-checkbox-selected-focus-border-color
-						);
-					}
-				}
-			}
-
-			// Spottable version of the Checkbox
-			.spottable({
-				.bg {
-					.sand-spotlight-focus-colors();
-				}
-			});
 		});
 	}
 
+	// When standalone or asChild is focused & disabled
 	.disabled({
-		.checkbox {
+		& .checkbox,
+		&.checkbox {
 			.applySkins({
 				&.selected {
-					&:not(.indeterminate) {
-						.icon {
-							.checkboxColors(
-								@sand-checkbox-focus-disabled-selected-color,
-								@sand-checkbox-focus-disabled-selected-bg-color,
-								@sand-checkbox-focus-disabled-selected-border-color
-							);
-						}
-
+					.icon {
+						.checkboxColors(
+							@sand-checkbox-focus-disabled-selected-color,
+							@sand-checkbox-focus-disabled-selected-bg-color,
+							@sand-checkbox-focus-disabled-selected-border-color
+						);
 					}
 				}
+
+				.sand-disabled({
+					.icon {
+						.sand-disabled-colors();
+					}
+
+					.focus({
+						.bg {
+							.sand-disabled-focus-bg-colors();
+						}
+						.icon {
+							.sand-disabled-focus-content-colors();
+						}
+					});
+				});
 			});
 		}
 	});
-}, parent);
+});
