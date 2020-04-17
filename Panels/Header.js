@@ -148,18 +148,6 @@ const HeaderBase = kind({
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
-		 * Collapses the Header to only show the header-components.
-		 *
-		 * Has no effect on `type="compact"`. When a `Header` is used inside a
-		 * [`CollapsingHeaderPanel`]{@link sandstone/Panels.CollapsingHeaderPanel} it will
-		 * automatically collapse unless overridden by this prop.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		collapsed: PropTypes.bool,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -182,6 +170,19 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		entering: PropTypes.bool,
+
+		/**
+		 * Minimizes the Header to only show the header components in order to feature the panel
+		 * content more prominately.
+		 *
+		 * Has no effect on `type="compact"`. When a `Header` is used inside a
+		 * [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set it will automatically
+		 * collapse unless overridden by this prop.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		featureContent: PropTypes.bool,
 
 		/**
 		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
@@ -437,9 +438,9 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, collapsed, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
-				collapsed,
+				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
@@ -486,7 +487,7 @@ const HeaderBase = kind({
 		type,
 		...rest
 	}) => {
-		delete rest.collapsed;
+		delete rest.featureContent;
 		delete rest.entering;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
@@ -595,8 +596,8 @@ const HeaderBase = kind({
 
 const CollapsingHeaderDecorator = (Wrapped) => {
 	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
-		const {collapsed} = useScrollPosition() || {};
-		return <Wrapped collapsed={collapsed} {...props} />;
+		const {shouldFeatureContent} = useScrollPosition() || {};
+		return <Wrapped featureContent={shouldFeatureContent} {...props} />;
 	};
 };
 
