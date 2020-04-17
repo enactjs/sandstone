@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
+
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode
