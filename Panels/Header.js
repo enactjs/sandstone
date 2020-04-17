@@ -594,8 +594,7 @@ const HeaderBase = kind({
 });
 
 const CollapsingHeaderDecorator = (Wrapped) => {
-	return (props) => {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
+	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
 		const {collapsed} = useScrollPosition() || {};
 		return <Wrapped collapsed={collapsed} {...props} />;
 	};
