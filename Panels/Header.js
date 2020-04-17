@@ -98,11 +98,9 @@ const HeaderBase = kind({
 		backButtonAvailable: PropTypes.bool,
 
 		/**
-		 * The background opacity of the application back button.
+		 * Background opacity of the application back button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
@@ -131,8 +129,8 @@ const HeaderBase = kind({
 			PropTypes.arrayOf(PropTypes.element)
 		]),
 
-		/*
-		 * Sets the hint string read when focusing the application close button.
+		/**
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 * @default 'Exit app'
@@ -143,9 +141,7 @@ const HeaderBase = kind({
 		/**
 		 * The background opacity of the application close button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */

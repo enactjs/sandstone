@@ -19,8 +19,7 @@ import css from './CollapsingHeaderPanel.module.less';
 const CollapsingHeaderPanelDecorator = (Wrapped) => {
 	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
 		ScrollPositionDecorator({valueProp: 'collapsed', transform: ({y}) => (y > scale(360))},
-			({style, className, titleMeasurements, ...rest}) => {
-				// eslint-disable-next-line react-hooks/rules-of-hooks
+			function CollapsingHeaderPanelWrapper ({style, className, titleMeasurements, ...rest}) {
 				const {collapsed} = useScrollPosition();
 
 				const enhancedStyle = {
