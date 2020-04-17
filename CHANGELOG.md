@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Panels` props `onTransition` and `onWillTransition`
+
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode
