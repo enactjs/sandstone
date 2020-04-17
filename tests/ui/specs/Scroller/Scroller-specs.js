@@ -13,8 +13,7 @@ describe('Scroller', function () {
 	});
 
 	it('should set correct focus after Page Up [ENYO-6281]', function () {
-		// 5-way focus to "page 1 button" (the button is in the center of the screen)
-		ScrollerPage.spotlightRight();
+		// Button 1 has focus initially
 		// expect focus on 'Page 1 Button'
 		expect(ScrollerPage.button1.isFocused(), 'button 1 has focus').to.be.true();
 		// 5-way "down" to set focus to "page 2 button" (the button is on the bottom edge of the screen)
