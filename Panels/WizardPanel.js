@@ -92,6 +92,15 @@ const WizardPanelBase = kind({
 		onChange: PropTypes.func,
 
 		/**
+		* Called when closing WizardPanels.
+		*
+		* @type {Function}
+		* @param {Object} event
+		* @public
+		*/
+		onClose: PropTypes.func,
+
+		/**
 		* The text for previous button.
 		*
 		* @type {String}
@@ -158,37 +167,52 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, nextButtonText, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
 					centered
+					noCloseButton
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
 				>
 					<Steps current={index + 1} slot="slotAbove" total={total} />
-					<Button
-						backgroundOpacity="transparent"
-						disabled={index === (total - 1)}
-						icon="arrowlargeright"
-						iconPosition="after"
-						minWidth={false}
-						onClick={onIncrementStep}
-						slot="slotAfter"
-					>
-						{nextButtonText}
-					</Button>
-					<Button
-						backgroundOpacity="transparent"
-						disabled={index === 0}
-						icon="arrowlargeleft"
-						minWidth={false}
-						onClick={onDecrementStep}
-						slot="slotBefore"
-					>
-						{prevButtonText}
-					</Button>
+					{index !== (total - 1) ? (
+						<Button
+							backgroundOpacity="transparent"
+							disabled={index === (total - 1)}
+							icon="arrowlargeright"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onIncrementStep}
+							slot="slotAfter"
+						>
+							{nextButtonText}
+						</Button>
+					) : null}
+					{index !== 0 ? (
+						<Button
+							backgroundOpacity="transparent"
+							disabled={index === 0}
+							icon="arrowlargeleft"
+							minWidth={false}
+							onClick={onDecrementStep}
+							slot="slotBefore"
+						>
+							{prevButtonText}
+						</Button>
+					) : (
+						<Button
+							backgroundOpacity="transparent"
+							icon="arrowhookleft"
+							minWidth={false}
+							onClick={onClose ? onClose : null}
+							slot="slotBefore"
+						>
+							{prevButtonText}
+						</Button>
+					)}
 				</Header>
 				<Column>
 					<Cell className={css.content}>
