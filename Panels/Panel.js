@@ -184,12 +184,6 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
-		header: ({header, titleRef}) => (!titleRef ? header : (
-			<ComponentOverride
-				component={header}
-				titleRef={titleRef}
-			/>
-		)),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
@@ -217,10 +211,10 @@ const PanelBase = kind({
 		headerType,
 		hideChildren,
 		spotOnRender,
+		titleRef,
 		...rest
 	}) => {
 		delete rest.autoFocus;
-		delete rest.titleRef;
 
 		const headerProps = {};
 		if (headerType != null) headerProps.type = headerType;
@@ -233,6 +227,7 @@ const PanelBase = kind({
 						component={header}
 						{...headerProps}
 						entering={hideChildren && Spotlight.getPointerMode()}
+						titleRef={titleRef}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
