@@ -12,6 +12,7 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
+import Touchable from '@enact/ui/Touchable';
 import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -164,8 +165,9 @@ const CheckboxBase = kind({
  */
 const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Skinnable,
-	Spottable
+	Touchable,
+	Spottable,
+	Skinnable
 );
 
 /**

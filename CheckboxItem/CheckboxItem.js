@@ -21,10 +21,12 @@ import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
 import Item from '../Item';
+import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
 
 const Checkbox = Skinnable(CheckboxBase);
+Checkbox.displayName = 'Checkbox';
 
 /**
  * A Sandstone-styled item with a checkbox component.
