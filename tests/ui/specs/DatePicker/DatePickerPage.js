@@ -2,7 +2,6 @@
 const {element, getComponent, getText, Page} = require('@enact/ui-test-utils/utils');
 
 const getIcon = getComponent({component: 'Icon'});
-const getPickerChild = (child, picker) => getComponent({internal: true, component: 'Picker', child}, picker);
 
 class PickerInterface {
 	constructor (id) {
@@ -21,7 +20,7 @@ class PickerInterface {
 	get month () { return element('.DatePicker_DatePicker_month', this.self); }
 
 	get year () { return element('.DatePicker_DatePicker_year', this.self); }
-	get dateLabel () { return getComponent({internal: true, component: 'Picker'}, getComponent({component: 'DatePicker', child: 'dateLabel'}, this.self));}
+	get dateLabel () { return element('.internal_DateTime_DateTime_heading', this.self); }
 
 	decrementer (picker) { return element('.internal_Picker_Picker_decrementer', picker); }
 	incrementer (picker) { return element('.internal_Picker_Picker_incrementer', picker); }
