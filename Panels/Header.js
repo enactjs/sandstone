@@ -139,7 +139,7 @@ const HeaderBase = kind({
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
