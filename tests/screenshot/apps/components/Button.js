@@ -10,6 +10,12 @@ const ButtonTests = [
 	},
 	<Button disabled>click me</Button>,
 
+	// Selected buttons
+	<Button selected>click me</Button>,
+	<Button selected icon="plus" />,
+	<Button selected backgroundOpacity="transparent">click me</Button>,
+	<Button selected backgroundOpacity="transparent" icon="plus" />,
+
 	// {GT-28189]
 	<Button> ฟิ้  ไั  ஒ  து</Button>,
 	<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
