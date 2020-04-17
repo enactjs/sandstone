@@ -58,12 +58,17 @@
 		font-style: @sand-heading-medium-font-style;
 		font-size: @sand-heading-medium-font-size;
 	}
-	&.small,
-	&.tiny {
+	&.small {
 		font-family: @sand-heading-small-font-family;
 		font-weight: @sand-heading-small-font-weight;
 		font-style: @sand-heading-small-font-style;
 		font-size: @sand-heading-small-font-size;
+	}
+	&.tiny {
+		font-family: @sand-heading-tiny-font-family;
+		font-weight: @sand-heading-tiny-font-weight;
+		font-style: @sand-heading-tiny-font-style;
+		font-size: @sand-heading-tiny-font-size;
 	}
 
 	// Margin-bottom is set up this way so the presence of the line does not affect the height of the Heading.
@@ -89,6 +94,10 @@
 	&.noneSpacing {
 		margin-bottom: 0;
 		min-height: 0;
+	}
+
+	&.oblique {
+		.sand-heading-oblique-text();
 	}
 
 	// Skin colors

@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Heading` prop `oblique` and `tiny` styling
+
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode

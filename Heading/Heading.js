@@ -46,6 +46,15 @@ const HeadingBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Applies italic font style
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		oblique: PropTypes.bool,
+
+		/**
 		 * Adds a horizontal-rule (line) under the component
 		 *
 		 * @type {Boolean}
@@ -71,6 +80,7 @@ const HeadingBase = kind({
 	},
 
 	defaultProps: {
+		oblique: false,
 		spacing: 'small'
 	},
 
@@ -80,10 +90,11 @@ const HeadingBase = kind({
 	},
 
 	computed: {
-		className: ({showLine, styler}) => styler.append({showLine})
+		className: ({oblique, showLine, styler}) => styler.append({oblique, showLine})
 	},
 
 	render: ({css, ...rest}) => {
+		delete rest.oblique;
 		delete rest.showLine;
 		return UiHeading.inline({css, ...rest});
 	}
