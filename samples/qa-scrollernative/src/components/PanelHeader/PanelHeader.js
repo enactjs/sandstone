@@ -1,6 +1,5 @@
 import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import Heading from '@enact/sandstone/Heading';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
@@ -23,8 +22,7 @@ class PanelHeader extends React.Component {
 			inputWidth = {width: '5em'};
 
 		return (
-			<div>
-				<Header {...rest} />
+			<Header {...rest}>
 				<Row style={{direction: 'ltr'}}>
 					<Cell>
 						<label>height:</label>
@@ -44,8 +42,8 @@ class PanelHeader extends React.Component {
 						<LocaleSwitch />
 					</Cell>
 				</Row>
-				<Heading showLine />
-			</div>
+				<hr />
+			</Header>
 		);
 	}
 }

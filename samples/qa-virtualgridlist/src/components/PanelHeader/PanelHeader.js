@@ -2,7 +2,6 @@ import Button from '@enact/sandstone/Button';
 import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
-import Heading from '@enact/sandstone/Heading';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
@@ -178,8 +177,7 @@ const PanelHeader = kind({
 		delete rest.showSelectionOverlayHandler;
 
 		return (
-			<div>
-				<Header {...rest} />
+			<Header {...rest}>
 				<Row>
 					<Cell shrink>
 						{addButton}
@@ -207,8 +205,8 @@ const PanelHeader = kind({
 					</Cell>
 				</Row>
 				{changeListProps}
-				<Heading showLine />
-			</div>
+				<hr />
+			</Header>
 		);
 	}
 });

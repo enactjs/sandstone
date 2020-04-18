@@ -2,7 +2,6 @@ import Button from '@enact/sandstone/Button';
 import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
-import Heading from '@enact/sandstone/Heading';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import LocaleSwitch from '../components/LocaleSwitch';
@@ -13,8 +12,6 @@ import VirtualList from '@enact/sandstone/VirtualList';
 
 import {setData} from '../actions';
 import ListItem from '../components/ListItem';
-
-import css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 
@@ -73,13 +70,10 @@ const MainPanel = class extends Component {
 				<Header
 					title="VirtualList Native"
 					type="mini"
-				/>
-				<div className={css.header}>
+				>
 					<Row>
 						<Cell shrink>
-							<label>
-								DataSize:
-							</label>
+							<label>DataSize:</label>
 							<Input
 								onChange={this.handleChange}
 								placeholder={`${listItems.length}`}
@@ -102,18 +96,15 @@ const MainPanel = class extends Component {
 							<LocaleSwitch />
 						</Cell>
 					</Row>
-					<Heading showLine />
-					<div className={css.list}>
-						<VirtualList
-							childProps={this.state.hasChildProps ? childProps : null}
-							dataSize={listItems.length}
-							focusableScrollbar
-							itemRenderer={this.renderItem}
-							itemSize={ri.scale(60 + 3)}
-							scrollMode="translate"
-						/>
-					</div>
-				</div>
+					<hr />
+				</Header>
+				<VirtualList
+					childProps={this.state.hasChildProps ? childProps : null}
+					dataSize={listItems.length}
+					focusableScrollbar
+					itemRenderer={this.renderItem}
+					itemSize={ri.scale(60 + 3)}
+				/>
 			</Panel>
 		);
 	}
