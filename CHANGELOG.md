@@ -17,6 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
@@ -38,7 +39,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
-
 
 ## [1.0.0-alpha.7] - 2020-04-06
 
