@@ -357,6 +357,10 @@
 @sand-header-slotabove-margin: 0 0 30px 0;
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
+@sand-header-animation-duration: 300ms;
+@sand-header-featurecontent-transform: translateY(-12px);
+@sand-header-featurecontent-title-opacity: 0.3;
+@sand-header-featurecontent-title-transform: translateY(-50%);
 @sand-header-standard-margin: 0;
 @sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
@@ -553,6 +557,7 @@
 @sand-panel-body-wizard-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
 @sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
 @sand-panel-body-fixedpopup-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
 // ----------------------------------------
@@ -633,6 +638,8 @@
 @sand-scroll-overscroll-thickness: 12px;
 @sand-scroll-overscroll-duration: 300ms;
 @sand-scroll-scrollbar-size: @sand-button-small-height;
+@sand-scroll-scrolltotop-animation-duration: 0.5s;
+@sand-scroll-scrolltotop-scrollbar-offset: (@sand-scrollbar-track-margin * 2 + @sand-scrollbar-track-width);
 
 // SelectableItem
 // ---------------------------------------

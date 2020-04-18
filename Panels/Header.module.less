@@ -10,6 +10,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
@@ -74,6 +75,10 @@
 		z-index: 1;
 	}
 
+	.titlesRow {
+		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
+	}
+
 	.title,
 	.subtitle {
 		margin: 0;
@@ -84,17 +89,27 @@
 	}
 
 	.slotAbove {
-		margin-bottom: @sand-header-slotabove-margin;
+		margin: @sand-header-slotabove-margin;
 	}
 
 	.slotBelow {
-		margin-top: @sand-header-slotbelow-margin;
+		margin: @sand-header-slotbelow-margin;
 	}
 
 	.line {
 		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
 		margin: 0;
 	}
+
+	&.featureContent {
+		transform: @sand-header-featurecontent-transform;;
+
+		.titlesRow {
+			transform: @sand-header-featurecontent-title-transform;
+			opacity: @sand-header-featurecontent-title-opacity;
+		}
+	}
+
 
 	///
 	/// Begin "types" rules configuration

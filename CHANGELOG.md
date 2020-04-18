@@ -4,6 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/TabLayout` prop `tabs`, to be removed in beta.1. Use `sandstone/TabLayout.Tab` instead.
+
+### Added
+
+- `sandstone/Panels.Panel` prop `featureContent` to minimize the panel visuals to feature the content more prominently
+- `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
+
 ### Fixed
 
 - `sandstone/Button` styles for `selected`
