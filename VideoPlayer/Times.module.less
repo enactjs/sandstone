@@ -1,0 +1,20 @@
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.times {
+	.sand-text-base(@sand-video-player-indicator-text-size);
+	white-space: nowrap;
+	flex: 0 1 auto;
+
+	> * {
+		display: inline-block;
+	}
+
+	.separator {
+		padding: 0 1ex;
+	}
+
+	:global(.enact-locale-right-to-left) & {
+		direction: ltr;
+	}
+}
