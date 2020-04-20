@@ -182,7 +182,39 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should replace previous button with exit button on the first view',
+		'should hide next button with `noNextButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={2} noNextButton total={4} />
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button with `noPrevButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={2} noPrevButton total={4} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should replace previous button with back button on the first view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={0} total={3} />
@@ -196,6 +228,22 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toMatchObject(expected);
 		}
 	);
+
+	test('should call onClose when the exit button is clicked and there is a prop onClose', () => {
+		const handleClose = jest.fn();
+
+		const wizardPanel = shallow(
+			<WizardPanelBase onClose={handleClose} />
+		);
+
+		const backButton = wizardPanel.find({slot: 'slotBefore'});
+
+		backButton.simulate('click');
+		const expected = 1;
+		const actual = handleClose.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
 
 	// [GT-28312]
 	test(

@@ -84,15 +84,6 @@ const WizardPanelBase = kind({
 		nextButtonText: PropTypes.string,
 
 		/**
-		 * Omits the close button.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		noCloseButton: PropTypes.bool,
-
-		/**
 		* Omits the next button component.
 		*
 		* @type {Boolean}
@@ -201,12 +192,12 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, nextButtonText, noCloseButton, noNextButton, noPrevButton, noSteps, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
+	render: ({buttons, children, footer, index, nextButtonText, noNextButton, noPrevButton, noSteps, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
 					centered
-					noCloseButton={noCloseButton}
+					noCloseButton
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
@@ -240,7 +231,8 @@ const WizardPanelBase = kind({
 						>
 							{prevButtonText}
 						</Button>
-					) : (
+					) : null}
+					{index === 0 ? (
 						<Button
 							aria-label={$L('Exit')}
 							backgroundOpacity="transparent"
@@ -251,7 +243,7 @@ const WizardPanelBase = kind({
 						>
 							{prevButtonText}
 						</Button>
-					)}
+					) : null}
 				</Header>
 				<Column>
 					<Cell className={css.content}>
