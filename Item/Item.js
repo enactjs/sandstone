@@ -96,6 +96,7 @@ const ItemBase = kind({
 		 * Centers the slots and content.
 		 *
 		 * @type {Boolean}
+		 * @default false
 		 * @public
 		 */
 		centered: PropTypes.bool,
@@ -198,6 +199,7 @@ const ItemBase = kind({
 	},
 
 	defaultProps: {
+		centered: false,
 		labelPosition: 'below'
 	},
 
