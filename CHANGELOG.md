@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Panels.Wizardpanel`'s props `noCloseButton`, `noNextButton`, `noPrevButton`, `noSteps`, and `onClose`
+- `sandstone/Panels.Wizardpanel`'s props `noNextButton`, `noPrevButton`, `noSteps`, and `onClose`
 
 ### Fixed
 
