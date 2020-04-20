@@ -65,36 +65,24 @@ let Scroller = (props) => {
 
 	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
 
+	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
+	const SpottableDiv = Spottable('div');
+	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+
 	// Render
-	if (props.focusableScrollbar === 'byEnter')  {
-		// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-		const SpottableDiv = Spottable('div');
-		return (
-			<ResizeContext.Provider {...resizeContextProps}>
-				<div {...scrollContainerProps}>
-					<SpottableDiv {...focusableBodyProps}>
-						<ScrollContentWrapper {...scrollContentWrapperProps}>
-							<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-						</ScrollContentWrapper>
-						{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-						{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-					</SpottableDiv>
-				</div>
-			</ResizeContext.Provider>
-		);
-	} else {
-		return (
-			<ResizeContext.Provider {...resizeContextProps}>
-				<div {...scrollContainerProps}>
+	return (
+		<ResizeContext.Provider {...resizeContextProps}>
+			<div {...scrollContainerProps}>
+				<ScrollBody {...focusableBodyProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				</div>
-			</ResizeContext.Provider>
-		);
-	}
+				</ScrollBody>
+			</div>
+		</ResizeContext.Provider>
+	);
 };
 
 Scroller.displayName = 'Scroller';

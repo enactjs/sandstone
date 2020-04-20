@@ -433,14 +433,14 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContainerProps', {
 		className: [
-			(focusableScrollbar !== 'byEnter') ? className : null,
+			className,
 			css.scroll,
 			overscrollCss.scroll,
 			props.rtl ? css.rtl : null,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
-		style: (focusableScrollbar !== 'byEnter') ? style : null,
+		style,
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
