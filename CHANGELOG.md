@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Item` prop `centered`
+
 ### Fixed
 
 - `sandstone/Button` styles for `selected`
