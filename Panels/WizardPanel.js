@@ -84,6 +84,39 @@ const WizardPanelBase = kind({
 		nextButtonText: PropTypes.string,
 
 		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
+		* Omits the next button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noNextButton: PropTypes.bool,
+
+		/**
+		* Omits the previous button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noPrevButton: PropTypes.bool,
+
+		/**
+		* Omits the steps component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noSteps: PropTypes.bool,
+
+		/**
 		* Called when the index value is changed.
 		*
 		* @type {Function}
@@ -168,18 +201,20 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, nextButtonText, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
+	render: ({buttons, children, footer, index, nextButtonText, noCloseButton, noNextButton, noPrevButton, noSteps, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
 					centered
-					noCloseButton
+					noCloseButton={noCloseButton}
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
 				>
-					<Steps current={index + 1} slot="slotAbove" total={total} />
-					{index !== (total - 1) ? (
+					{!noSteps ? (
+						<Steps current={index + 1} slot="slotAbove" total={total} />
+					) : null}
+					{index !== (total - 1) && !noNextButton ? (
 						<Button
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
@@ -193,7 +228,7 @@ const WizardPanelBase = kind({
 							{nextButtonText}
 						</Button>
 					) : null}
-					{index !== 0 ? (
+					{index !== 0 && !noPrevButton ? (
 						<Button
 							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
