@@ -36,7 +36,7 @@ const threeWayBoolean = (value) => {
 storiesOf('Sandstone', module)
 	.add(
 		'Button',
-		() => (
+		() => (<React.Fragment>
 			<Button
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
@@ -50,7 +50,7 @@ storiesOf('Sandstone', module)
 			>
 				{text('children', Config, 'click me')}
 			</Button>
-		),
+		</React.Fragment>),
 		{
 			info: {
 				text: 'The basic Button'
