@@ -71,7 +71,7 @@ const ImageItemBase = kind({
 		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `selectionIcon` - The icon component class for default selection component
-		 * * `subCaption` - The subCaption component class
+		 * * `label` - The secondary caption component class
 		 *
 		 * @type {Object}
 		 * @public
