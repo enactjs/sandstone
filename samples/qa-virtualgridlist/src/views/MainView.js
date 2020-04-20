@@ -26,11 +26,16 @@ class MainView extends React.Component {
 		this.setState((state) => ({horizontal: !state.horizontal}));
 	}
 
+	onChangeScrollMode = ({selected: nativeScroll}) => {
+		this.setState({nativeScroll});
+	}
+
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
 	}
 
 	render = () => {
+		const {focusableScrollbar, horizontal, nativeScroll} = this.state;
 		return (
 			<div className={css.mainView}>
 				<PanelHeader
@@ -38,14 +43,15 @@ class MainView extends React.Component {
 					type="mini"
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
+					onChangeScrollMode={this.onChangeScrollMode}
 				/>
 				<div className={css.content}>
 					<ImageList
 						cbScrollTo={this.getScrollTo}
 						className={css.list}
-						focusableScrollbar={this.state.focusableScrollbar}
-						direction={this.state.horizontal ? 'horizontal' : 'vertical'}
-						scrollMode="translate"
+						focusableScrollbar={focusableScrollbar}
+						direction={horizontal ? 'horizontal' : 'vertical'}
+						scrollMode={nativeScroll ? 'native' : 'translate'}
 					/>
 				</div>
 			</div>

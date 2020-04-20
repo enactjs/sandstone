@@ -5,9 +5,11 @@ import {connect} from 'react-redux';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
-import LocaleSwitch from '../LocaleSwitch';
 import PropTypes from 'prop-types';
 import React from 'react';
+
+import LocaleSwitch from '../LocaleSwitch';
+import ScrollModeSwitch from '../ScrollModeSwitch';
 
 import {
 	addItem as addAction,
@@ -54,6 +56,7 @@ const PanelHeader = kind({
 		deleteSelectedItem: PropTypes.func,
 		onChangeDirection: PropTypes.func,
 		onChangeFocusableScrollbar: PropTypes.func,
+		onChangeScrollMode: PropTypes.func,
 		selectAll: PropTypes.func,
 		selectionEnable: PropTypes.func,
 		setData: PropTypes.func
@@ -134,6 +137,11 @@ const PanelHeader = kind({
 				);
 			}
 		},
+		changeScrollMode: ({onChangeScrollMode, showOverlay}) => {
+			if (!showOverlay) {
+				return (<ScrollModeSwitch onToggle={onChangeScrollMode} />);
+			}
+		},
 		deleteButton: ({deleteItem, showOverlay}) => {
 			if (!showOverlay) {
 				return (<Button icon="minus" onClick={deleteItem} size="small" tooltipText="Delete Item" />);
@@ -158,7 +166,7 @@ const PanelHeader = kind({
 		}
 	},
 
-	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeListProps, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
+	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
 		delete rest.addItem;
 		delete rest.addMockItem;
 		delete rest.changeDataSize;
@@ -170,6 +178,7 @@ const PanelHeader = kind({
 		delete rest.deleteSelectedItem;
 		delete rest.onChangeDirection;
 		delete rest.onChangeFocusableScrollbar;
+		delete rest.onChangeScrollMode;
 		delete rest.selectAll;
 		delete rest.selectionEnable;
 		delete rest.setData;
@@ -199,6 +208,9 @@ const PanelHeader = kind({
 					</Cell>
 					<Cell>
 						{changeDirectionButton}
+					</Cell>
+					<Cell>
+						{changeScrollMode}
 					</Cell>
 					<Cell>
 						<LocaleSwitch />
