@@ -22,8 +22,6 @@ storiesOf('Sandstone', module)
 			const tooltip = boolean('tooltip', ProgressBarTooltipConfig);
 			const position = select('position', ['', 'above', 'above left', 'above center', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below center', 'below right', 'below before', 'below after'], ProgressBarTooltipConfig, '');
 
-			const showAnchor = boolean('showAnchor', ProgressBarConfig);
-
 			return (
 				<ProgressBar
 					backgroundProgress={number('backgroundProgress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.5)}
@@ -31,8 +29,8 @@ storiesOf('Sandstone', module)
 					highlighted={boolean('highlighted', ProgressBarConfig)}
 					orientation={select('orientation', ['horizontal', 'vertical', 'radial'], ProgressBarConfig, 'horizontal')}
 					progress={number('progress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.4)}
-					showAnchor={showAnchor}
 					progressAnchor={number('progressAnchor', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
+					showAnchor={boolean('showAnchor', ProgressBarConfig)}
 				>
 					{tooltip ? (
 						<ProgressBarTooltip

@@ -24,8 +24,6 @@ storiesOf('Sandstone', module)
 			const percent = boolean('percent', SliderTooltipConfig);
 			const position = select('position', ['', 'above', 'above left', 'above center', 'above right', 'above before', 'above after', 'before', 'left', 'right', 'after', 'below', 'below left', 'below center', 'below right', 'below before', 'below after'], SliderTooltipConfig, '');
 
-			const showAnchor = boolean('showAnchor', SliderConfig);
-
 			return (
 				<Slider
 					activateOnSelect={boolean('activateOnSelect', SliderConfig) || false}
@@ -38,9 +36,9 @@ storiesOf('Sandstone', module)
 					onActivate={action('onActivate')}
 					onChange={action('onChange')}
 					orientation={select('orientation', ['horizontal', 'vertical'], SliderConfig, 'horizontal')}
-					showAnchor={showAnchor}
-					step={number('step', SliderConfig, 1)}
 					progressAnchor={number('progressAnchor', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
+					showAnchor={boolean('showAnchor', SliderConfig)}
+					step={number('step', SliderConfig, 1)}
 				>
 					{tooltip ? (
 						<SliderTooltip
