@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -19,7 +19,10 @@ storiesOf('Sandstone', module)
 		() => (
 			<WizardPanel
 				nextButtonText={text('nextButtonText', WizardPanel, '')}
-				onSelect={action('onSelect')}
+				noNextButton={boolean('noNextButton', WizardPanel)}
+				noPrevButton={boolean('noPrevButton', WizardPanel)}
+				noSteps={boolean('noSteps', WizardPanel)}
+				onClose={action('onClose')}
 				prevButtonText={text('prevButtonText', WizardPanel, '')}
 			>
 				<View footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">
