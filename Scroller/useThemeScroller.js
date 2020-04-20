@@ -336,12 +336,11 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = (props, scrollContentProps) => {
-	const {scrollContainerRef, ...rest} = scrollContentProps;
+const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
+	const {className, scrollContainerRef, noFadeOut, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
-	delete rest.noFadeOut;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -363,6 +362,12 @@ const useThemeScroller = (props, scrollContentProps) => {
 	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
+
+	rest.className = classNames(
+		className,
+		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
+		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
+	);
 
 	rest.children = (
 		<div className={css.contentWrapper}>

@@ -120,7 +120,7 @@ const DropdownListBase = kind({
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
 				itemSize={itemSize}
-				noFadeOut
+				noAffordance
 				role="group"
 				style={{height: itemSize * dataSize}}
 			/>

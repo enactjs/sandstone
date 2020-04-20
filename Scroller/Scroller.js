@@ -63,7 +63,7 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
+	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// Render
 	const scrollContainer = (

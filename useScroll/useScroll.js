@@ -298,6 +298,7 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
+			noAffordance,
 			noFadeOut,
 			scrollMode,
 			style,
@@ -457,14 +458,11 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs} : {}),
+		...(props.itemRenderer ? {itemRefs, noAffordance} : {noFadeOut}),
 		className: [
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
 			overscrollCss.vertical,
 			css.scrollContent
 		],
-		noFadeOut,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,
