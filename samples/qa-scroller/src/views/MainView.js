@@ -49,16 +49,21 @@ class MainView extends React.Component {
 
 	handleHeight = ({value}) => this.setState({height: value})
 
+	handleScrollMode = ({selected: isNative}) => {
+		this.setState({isNative});
+	}
+
 	handleWidth = ({value}) => this.setState({width: value})
 
 	render () {
-		const {height, width} = this.state;
+		const {focusableScrollbar, height, isNative, width} = this.state;
 
 		return (
 			<div className={css.mainView}>
 				<PanelHeader
 					handleFocusableScrollbar={this.handleFocusableScrollbar}
 					handleHeight={this.handleHeight}
+					handleScrollMode={this.handleScrollMode}
 					handleWidth={this.handleWidth}
 					height={height}
 					title="Scroller"
@@ -67,8 +72,8 @@ class MainView extends React.Component {
 				/>
 				<div className={css.content}>
 					<Scroller
-						focusableScrollbar={this.state.focusableScrollbar}
-						scrollMode="translate"
+						focusableScrollbar={focusableScrollbar}
+						scrollMode={isNative ? 'native' : 'translate'}
 					>
 						<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
 							<Input

@@ -6,11 +6,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import LocaleSwitch from '../LocaleSwitch';
+import ScrollModeSwitch from '../ScrollModeSwitch';
 
 class PanelHeader extends React.Component {
 	static propTypes = {
 		handleFocusableScrollbar: PropTypes.func,
 		handleHeight: PropTypes.func,
+		handleScrollMode: PropTypes.func,
 		handleWidth: PropTypes.func,
 		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
@@ -18,7 +20,7 @@ class PanelHeader extends React.Component {
 
 	render () {
 		const
-			{handleFocusableScrollbar, handleHeight, handleWidth, height, width, ...rest} = this.props,
+			{handleFocusableScrollbar, handleHeight, handleScrollMode, handleWidth, height, width, ...rest} = this.props,
 			inputWidth = {width: '5em'};
 
 		return (
@@ -37,6 +39,9 @@ class PanelHeader extends React.Component {
 						onClick={handleFocusableScrollbar}
 					>
 						Focusable Scrollbar
+					</Cell>
+					<Cell>
+						<ScrollModeSwitch onToggle={handleScrollMode} />
 					</Cell>
 					<Cell>
 						<LocaleSwitch />
