@@ -114,12 +114,28 @@ const WizardPanelBase = kind({
 		prevButtonText: PropTypes.string,
 
 		/**
+		* The previously selected step.
+		*
+		* @type {Number}
+		* @private
+		*/
+		prevIndex: PropTypes.number,
+
+		/**
 		 * Explicitly sets the ViewManager transition direction.
 		 *
 		 * @type {Boolean}
 		 * @private
 		 */
 		reverseTransition: PropTypes.bool,
+
+		/**
+		* Function to be called to set previous index after a transition completes
+		*
+		* @type {Function}
+		* @private
+		*/
+		setPrevIndex: PropTypes.func,
 
 		/**
 		* The subtitle to display.
@@ -170,19 +186,25 @@ const WizardPanelBase = kind({
 				onChange({index: prevIndex});
 			}
 		},
-		onTransition: (ev, {index, onTransition}) => {
+		onTransition: (ev, {index, onTransition, prevIndex, setPrevIndex}) => {
 			if (onTransition) {
-				onTransition({index});
+				onTransition({index, prevIndex});
+				if (prevIndex != index) {
+					setPrevIndex(index);
+				}
 			}
 		},
-		onWillTransition: (ev, {index, onWillTransition}) => {
+		onWillTransition: (ev, {index, onWillTransition, prevIndex}) => {
 			if (onWillTransition) {
-				onWillTransition({index});
+				onWillTransition({index, prevIndex});
 			}
 		}
 	},
 
 	render: ({buttons, children, footer, index, total, nextButtonText, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+		delete rest.prevIndex;
+		delete rest.setPrevIndex;
+
 		return (
 			<Panel {...rest}>
 				<Header
@@ -246,21 +268,6 @@ const WizardPanelBase = kind({
 	}
 });
 
-// single-index ViewManagers need some help knowing when the transition direction needs to change
-// because the index is always 0 from its perspective.
-function useReverseTransition (index = -1) {
-	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(false);
-
-	if (prevIndex !== index) {
-		reverse = index < prevIndex;
-		setReverse(reverse);
-		setPrevIndex(index);
-	}
-
-	return reverse;
-}
-
 /**
  * WizardPanelDecorator passes the buttons, children, footer,
  * subtitle, and title from [View]{@link sandstone/Panels.WizardPanel.View} to [WizardPanelBase]{@link sandstone/Panels.WizardPanel.WizardPanelBase}.
@@ -272,7 +279,8 @@ function useReverseTransition (index = -1) {
 const WizardPanelDecorator = (Wrapped) => {
 	const WizardPanelProvider = ({children, index, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
-		const reverseTransition = useReverseTransition(index);
+		const [prevIndex, setPrevIndex] = React.useState(-1);
+		const reverseTransition = index < prevIndex;
 		const totalViews = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
 
@@ -283,6 +291,8 @@ const WizardPanelDecorator = (Wrapped) => {
 					{...rest}
 					{...view}
 					index={index}
+					prevIndex={prevIndex}
+					setPrevIndex={setPrevIndex}
 					title={currentTitle}
 					total={totalViews}
 					reverseTransition={reverseTransition}
