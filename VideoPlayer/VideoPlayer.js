@@ -52,6 +52,7 @@ import Video from './Video';
 
 import css from './VideoPlayer.module.less';
 
+const controlsHandleAboveId = 'controlsHandleAbove';
 const SpottableDiv = Touchable(Spottable('div'));
 const RootContainer = SpotlightContainerDecorator(
 	{
@@ -759,7 +760,7 @@ const VideoPlayerBase = class extends React.Component {
 
 				// Set focus to the hidden spottable control - maintaining focus on available spottable
 				// controls, which prevents an additional 5-way attempt in order to re-show media controls
-				Spotlight.focus(`.${css.controlsHandleAbove}`);
+				Spotlight.focus(controlsHandleAboveId);
 			}
 		} else if (this.state.mediaControlsVisible && !prevState.mediaControlsVisible) {
 			forwardControlsAvailable({available: true}, this.props);
@@ -1914,6 +1915,7 @@ const VideoPlayerBase = class extends React.Component {
 								</div>
 							}
 							<ComponentOverride
+								activatorSpotlightId={controlsHandleAboveId}
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
 								onBackwardButtonClick={this.handleRewind}
@@ -1943,6 +1945,7 @@ const VideoPlayerBase = class extends React.Component {
 					onClick={this.showControls}
 					onSpotlightDown={this.showControls}
 					spotlightDisabled={this.state.mediaControlsVisible || spotlightDisabled}
+					spotlightId={controlsHandleAboveId}
 				/>
 				<Announce ref={this.setAnnounceRef} />
 			</RootContainer>
