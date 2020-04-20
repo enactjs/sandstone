@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
 
 ### Changed
