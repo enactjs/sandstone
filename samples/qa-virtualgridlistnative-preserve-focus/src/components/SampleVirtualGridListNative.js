@@ -14,7 +14,9 @@ class SampleVirtualGridListNative extends Component {
 
 	renderItem = ({index, ...rest}) => (
 		<Item {...rest} onClick={this.props.onClick}>
-			{items[index]}
+			<h6>
+				{items[index]}
+			</h6>
 		</Item>
 	);
 
@@ -36,7 +38,7 @@ class SampleVirtualGridListNative extends Component {
 				id={id}
 				itemRenderer={this.renderItem}
 				itemSize={{
-					minWidth: ri.scale(180),
+					minWidth: ri.scale(360),
 					minHeight: ri.scale(270)
 				}}
 			/>
