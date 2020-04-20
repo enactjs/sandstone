@@ -234,7 +234,7 @@ storiesOf('Scroller', module)
 				>
 					{[...Array(10)].map((y, j) => <div key={j + 1}>{(
 						[...Array(10)].map((x, i) => (
-							<Button key={i + 1} style={{width: ri.scaleToRem(402) , height: ri.scaleToRem(102), margin: ri.scaleToRem(51)}}>
+							<Button key={i + 1} style={{width: ri.scaleToRem(402), height: ri.scaleToRem(102), margin: ri.scaleToRem(51)}}>
 								Button {j * 10 + i + 1}
 							</Button>
 						))

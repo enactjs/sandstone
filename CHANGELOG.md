@@ -6,9 +6,46 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` styles for `selected`
+- `sandstone/Switch` sizing and positioning in large text mode
+
+## [1.0.0-alpha.8] - 2020-04-14
+
+### Deprecated
+
+- `sandstone/Panels.Header` props `headerInput` and `showInput`, to be removed in 1.0.0-beta.1
+
+### Added
+
+- `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
+- `sandstone/Panels` and `sandstone/Panels.Header` props `backButtonAriaLabel`, `backButtonBackgroundOpacity`, `closeButtonAriaLabel`, `closeButtonBackgroundOpacity`, `noBackButton`, `noCloseButton`, `onBack`, and `onClose`
+
+### Changed
+
+- `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to bounce
+- `sandstone/Picker` horizontal joined behavior and style for updated GUI
+
+### Fixed
+
+- `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
+
+
+## [1.0.0-alpha.7] - 2020-04-06
+
+### Added
+
+- `sandstone/Tooltip` public class names `tooltip` and `tooltipLabel`
+
+### Changed
+
+- `sandstone/Picker`, `sandstone/ProgressBar.ProgressBarTooltip`, and `sandstone/Steps` to use a number font for numeric content
+
+### Fixed
+
 - `sandstone/Panels.Header` to always vertically center the input field
-- `sandstone/ImageItem` not to have truncated label in RTL
-- `sandstone/VirtualList.VirtualGridList` to make item stick to the bottom when scroll via down key
+- `sandstone/ImageItem` to not have a truncated label in RTL locales
+- `sandstone/VirtualList.VirtualGridList` to position items correctly at the bottom when scrolling via down key
 - `sandstone/Switch` styling when disabled and focused
 
 ## [1.0.0-alpha.6] - 2020-03-30
