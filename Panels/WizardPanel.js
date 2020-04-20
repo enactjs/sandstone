@@ -169,6 +169,16 @@ const WizardPanelBase = kind({
 
 				onChange({index: prevIndex});
 			}
+		},
+		onTransition: (ev, {index, onTransition}) => {
+			if (onTransition) {
+				onTransition({index})
+			}
+		},
+		onWillTransition: (ev, {index, onWillTransition}) => {
+			if (onWillTransition) {
+				onWillTransition({index})
+			}
 		}
 	},
 
