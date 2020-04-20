@@ -2,6 +2,7 @@ import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -9,7 +10,7 @@ import React from 'react';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
-import {PanelTypeContext} from './Viewport';
+import {PanelsStateContext} from './Viewport';
 
 import css from './Panel.module.less';
 
@@ -31,7 +32,7 @@ const PanelBase = kind({
 
 	name: 'Panel',
 
-	contextType: PanelTypeContext,
+	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -148,7 +149,13 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		className: ({className, styler}, type) => type ? styler.append(type + 'Type') : className,
+		backButtonAvailable: (props, context) => {
+			if (!context) {
+				return;
+			}
+			return context.index > 0 && context.type !== 'wizard';
+		},
+		className: ({className, styler}, context) => context && context.type ? styler.append([context.type] + 'Type') : className,
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -168,16 +175,47 @@ const PanelBase = kind({
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
+		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
+		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
+		headerType: (props, context) => {
+			if (!context) {
+				return;
+			}
+
+			switch (context.type) {
+				case 'fixedPopup': return 'compact';
+				case 'flexiblePopup': return 'mini';
+				case 'wizard': return 'wizard';
+			}
+		}
 	},
 
-	render: ({bodyClassName, children, header, headerId, spotOnRender, ...rest}) => {
+	render: ({
+		backButtonAvailable,
+		bodyClassName,
+		children,
+		header,
+		headerId,
+		headerType,
+		hideChildren,
+		spotOnRender,
+		...rest
+	}) => {
 		delete rest.autoFocus;
-		delete rest.hideChildren;
+
+		const headerProps = {};
+		if (headerType != null) headerProps.type = headerType;
+		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
-				<div className={css.header} id={headerId}>{header}</div>
+				<div className={css.header} id={headerId}>
+					<ComponentOverride
+						component={header}
+						{...headerProps}
+						entering={hideChildren && Spotlight.getPointerMode()}
+					/>
+				</div>
 				<section className={bodyClassName}>{children}</section>
 			</article>
 		);

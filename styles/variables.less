@@ -67,7 +67,11 @@
 @sand-mediaoverlay-title-font-size:   60px;
 @sand-notification-font-size:       60px;
 @sand-panels-breadcrumb-text-size:  @sand-body-font-size;
+@sand-picker-font-size:             54px;
+@sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
+@sand-switch-icon-font-size:        180px;
+@sand-switch-icon-font-size-large:  288px;
 @sand-tooltip-label-font-size:      54px;
 
 @sand-non-latin-base-font-size:         66px;
@@ -214,6 +218,7 @@
 @sand-button-border-width: 6px;
 @sand-button-bg-opacity: 1;
 @sand-button-transparent-bg-opacity: 0;
+@sand-button-transparent-selected-bg-opacity: 1;
 @sand-button-h-margin: @sand-component-spacing;
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
@@ -556,7 +561,9 @@
 @sand-picker-value-height: @sand-button-small-height;
 @sand-picker-joined-horizontal-border-radius: 960px;
 @sand-picker-joined-horizontal-height: 210px;
+@sand-picker-joined-horizontal-padding: 0 @sand-icon-small-size;
 @sand-picker-joined-horizontal-value-line-height: (@sand-picker-joined-horizontal-height - 30px);
+@sand-picker-joined-vertical-height: 362px;
 @sand-picker-medium-value-width: 360px;
 @sand-picker-large-value-width: 696px;
 @sand-picker-indicator-width: 24px;
@@ -670,8 +677,13 @@
 @sand-switch-border-radius: 960px;
 @sand-switch-height: 60px;
 @sand-switch-width: 114px;
-@sand-switch-height-large: 84px;
-@sand-switch-width-large: 168px;
+@sand-switch-icon-height: @sand-switch-height;
+@sand-switch-icon-line-height: 63px;
+@sand-switch-height-large: @sand-icon-small-size-large;
+@sand-switch-width-large: 162px;
+@sand-switch-icon-height-large: @sand-icon-small-size-large;
+@sand-switch-icon-width-large: @sand-icon-small-size-large;
+@sand-switch-icon-line-height-large: 96px;
 @sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
 @sand-switch-spottable-border-radius: @sand-item-border-radius;
 @sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
