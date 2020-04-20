@@ -351,7 +351,7 @@ const HeaderBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'header',
-		publicClassNames: ['header', 'input']
+		publicClassNames: ['header']
 	},
 
 	handlers: {
