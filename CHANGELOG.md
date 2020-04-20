@@ -9,6 +9,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
 
+### Removed
+
+- `sandstone/Panels.Header` props `headerInput` and `showInput`
+
 ## [1.0.0-alpha.8] - 2020-04-14
 
 ### Deprecated
