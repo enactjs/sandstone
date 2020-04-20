@@ -13,6 +13,18 @@
 	height: 100%;
 	position: relative;
 
+	&.verticalPadding {
+		margin-left: calc(var(--scroll-scrollbar-size)*(-1));
+			&.rtl {
+				margin-right: calc(var(--scroll-scrollbar-size)*(-1));
+				margin-left: 0;
+		}
+	}
+
+    padding-left: inherit;
+    padding-right: inherit;
+	padding-bottom: inherit;
+
 	&::before {
 		content: '';
 		position: absolute;

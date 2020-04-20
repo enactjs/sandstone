@@ -66,27 +66,34 @@ let Scroller = (props) => {
 	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
 
 	// Render
-	const scrollContainer = (
-		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</div>
-		</ResizeContext.Provider>
-	);
-
-	if (props.focusableScrollbar === 'byEnter') {
+	if (props.focusableScrollbar === 'byEnter')  {
+		// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 		const SpottableDiv = Spottable('div');
 		return (
-			<SpottableDiv {...focusableBodyProps}>
-				{scrollContainer}
-			</SpottableDiv>
+			<ResizeContext.Provider {...resizeContextProps}>
+				<div {...scrollContainerProps}>
+					<SpottableDiv {...focusableBodyProps}>
+						<ScrollContentWrapper {...scrollContentWrapperProps}>
+							<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+						</ScrollContentWrapper>
+						{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+						{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					</SpottableDiv>
+				</div>
+			</ResizeContext.Provider>
 		);
 	} else {
-		return scrollContainer;
+		return (
+			<ResizeContext.Provider {...resizeContextProps}>
+				<div {...scrollContainerProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
+						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+					</ScrollContentWrapper>
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				</div>
+			</ResizeContext.Provider>
+		);
 	}
 };
 

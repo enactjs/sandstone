@@ -19,7 +19,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
+const getFocusableBodyProps = ({className, direction, rtl, style, verticalScrollbar}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -81,9 +81,12 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 			ev.nativeEvent.stopImmediatePropagation();
 		}
 	};
-
 	return {
-		className: classNames(className, css.focusableBody),
+		className: classNames(className, css.focusableBody,
+			{
+				[css.rtl]: rtl,
+				[css.verticalPadding]: (direction === 'vertical' || direction === 'both') && (verticalScrollbar !== 'hidden')
+			}),
 		onFocus: handle(
 			forward('onFocus'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
