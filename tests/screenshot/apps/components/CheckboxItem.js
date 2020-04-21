@@ -8,10 +8,19 @@ const CheckboxItemTests = [
 	<CheckboxItem disabled>CheckboxItem</CheckboxItem>,	// not selected
 	<CheckboxItem inline>CheckboxItem</CheckboxItem>,		// not selected
 	<CheckboxItem disabled inline>CheckboxItem</CheckboxItem>,	// not selected
-	<CheckboxItem defaultSelected>CheckboxItem Checked</CheckboxItem>,
-	<CheckboxItem defaultSelected disabled>CheckboxItem Checked</CheckboxItem>,
-	<CheckboxItem defaultSelected inline>CheckboxItem Checked</CheckboxItem>,
-	<CheckboxItem defaultSelected disabled inline>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem selected>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem selected disabled>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem selected inline>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem selected disabled inline>CheckboxItem Checked</CheckboxItem>,
+
+	<CheckboxItem indeterminate>CheckboxItem</CheckboxItem>, 					// not selected
+	<CheckboxItem disabled indeterminate>CheckboxItem</CheckboxItem>,	// not selected
+	<CheckboxItem inline indeterminate>CheckboxItem</CheckboxItem>,		// not selected
+	<CheckboxItem disabled inline indeterminate>CheckboxItem</CheckboxItem>, // not selected
+	<CheckboxItem selected indeterminate>CheckboxItem</CheckboxItem>,
+	<CheckboxItem selected disabled indeterminate>CheckboxItem</CheckboxItem>,
+	<CheckboxItem selected inline indeterminate>CheckboxItem</CheckboxItem>,
+	<CheckboxItem selected disabled inline indeterminate>CheckboxItem</CheckboxItem>,
 	// Removed until itemIcon, itemIconPosition, and iconPosition support is resolved
 	// // itemIcon
 	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>}>CheckboxItem</CheckboxItem>,
@@ -67,19 +76,52 @@ const CheckboxItemTests = [
 	},
 	{
 		locale: 'ar-SA',
-		component: <CheckboxItem defaultSelected>CheckboxItem Checked</CheckboxItem>
+		component: <CheckboxItem selected>CheckboxItem Checked</CheckboxItem>
 	},
 	{
 		locale: 'ar-SA',
-		component: <CheckboxItem defaultSelected disabled>CheckboxItem Checked</CheckboxItem>
+		component: <CheckboxItem selected disabled>CheckboxItem Checked</CheckboxItem>
 	},
 	{
 		locale: 'ar-SA',
-		component: <CheckboxItem defaultSelected inline>CheckboxItem Checked</CheckboxItem>
+		component: <CheckboxItem selected inline>CheckboxItem Checked</CheckboxItem>
 	},
 	{
 		locale: 'ar-SA',
-		component: <CheckboxItem defaultSelected disabled inline>CheckboxItem Checked</CheckboxItem>
+		component: <CheckboxItem selected disabled inline>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem disabled indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem inline indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem disabled inline indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem selected indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem selected disabled indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem selected inline indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem selected disabled inline indeterminate>CheckboxItem Checked</CheckboxItem>
 	}
 	// {
 	// 	locale: 'ar-SA',
