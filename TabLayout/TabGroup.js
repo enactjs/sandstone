@@ -104,27 +104,34 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
+	render: ({children, noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
 		delete rest.collapsed;
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus}>
+			<Scroller
+				{...rest}
+				onBlur={onBlur}
+				onFocus={onFocus}
+				horizontalScrollbar="hidden"
+				verticalScrollbar="hidden"
+			>
 				{noIcons ? (
 					<Item>
 						<Icon slot="slotBefore" className={componentCss.icon}>list</Icon>
 					</Item>
 				) : (
 					<Group
-						{...rest}
 						childComponent={Tab}
 						component="div"
 						indexProp="index"
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
-					/>
+					>
+						{children}
+					</Group>
 				)}
 			</Scroller>
 		);
