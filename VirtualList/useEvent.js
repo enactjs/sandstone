@@ -119,9 +119,8 @@ const useEventKey = (props, instances, context) => {
 				if (spotlightAcceleratorProcessKey(ev)) {
 					ev.stopPropagation();
 				} else {
-					const {repeat} = ev;
-					const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, spotlightId} = props;
-					const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
+					const {spotlightId} = props;
+					const possibleTarget = getTargetByDirectionFromElement(direction, target);
 					const targetIndex = target.dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -130,57 +129,60 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
-					const directions = {};
-					let isLeaving = false;
-					let isScrollbarVisible;
+					const possibleTargetIndex = possibleTarget && possibleTarget.dataset && getNumberValue(possibleTarget.dataset.index);
 
-					if (isPrimaryDirectionVertical) {
-						directions.left = isLeftMovement;
-						directions.right = isRightMovement;
-						directions.up = isUpKey;
-						directions.down = isDownKey;
-						isScrollbarVisible = isVerticalScrollbarVisible;
-					} else {
-						directions.left = isUpKey;
-						directions.right = isDownKey;
-						directions.up = isLeftMovement;
-						directions.down = isRightMovement;
-						isScrollbarVisible = isHorizontalScrollbarVisible;
-					}
+					if (isNotItem || possibleTargetIndex !== index) { // if not moving inside an item
+						const {repeat} = ev;
+						const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
+						const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
+						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
+						const directions = {};
+						let isLeaving = false;
+						let isScrollbarVisible;
 
-					if (!isNotItem) {
-						if (nextIndex >= 0) {
-							ev.preventDefault();
-							ev.stopPropagation();
-							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
+						if (isPrimaryDirectionVertical) {
+							directions.left = isLeftMovement;
+							directions.right = isRightMovement;
+							directions.up = isUpKey;
+							directions.down = isDownKey;
+							isScrollbarVisible = isVerticalScrollbarVisible;
 						} else {
-							const {dataSize} = props;
-							const column = index % dimensionToExtent;
-							const row = (index - column) % dataSize / dimensionToExtent;
+							directions.left = isUpKey;
+							directions.right = isDownKey;
+							directions.up = isLeftMovement;
+							directions.down = isRightMovement;
+							isScrollbarVisible = isHorizontalScrollbarVisible;
+						}
 
-							isLeaving = directions.up && row === 0 ||
-								directions.down && row === Math.floor((dataSize - 1) % dataSize / dimensionToExtent) ||
-								directions.left && column === 0 ||
-								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
-
-							if (repeat && isLeaving) {
+						if (!isNotItem) {
+							if (nextIndex >= 0) {
 								ev.preventDefault();
 								ev.stopPropagation();
-							} else if (!isLeaving) {
-								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
-							}
-						}
-					} else {
-						const possibleTarget = getTargetByDirectionFromElement(direction, target);
+								handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
+							} else {
+								const {dataSize} = props;
+								const column = index % dimensionToExtent;
+								const row = (index - column) % dataSize / dimensionToExtent;
 
-						if (!utilDOM.containsDangerously(ev.currentTarget, possibleTarget)) {
+								isLeaving = directions.up && row === 0 ||
+									directions.down && row === Math.floor((dataSize - 1) % dataSize / dimensionToExtent) ||
+									directions.left && column === 0 ||
+									directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
+
+								if (repeat && isLeaving) {
+									ev.preventDefault();
+									ev.stopPropagation();
+								} else if (!isLeaving) {
+									handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
+								}
+							}
+						} else if (!utilDOM.containsDangerously(ev.currentTarget, possibleTarget)) {
 							isLeaving = true;
 						}
-					}
 
-					if (isLeaving) {
-						handleDirectionKeyDown(ev, 'keyLeave');
+						if (isLeaving) {
+							handleDirectionKeyDown(ev, 'keyLeave');
+						}
 					}
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
