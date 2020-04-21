@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 

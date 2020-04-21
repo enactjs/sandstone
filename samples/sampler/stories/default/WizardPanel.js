@@ -21,6 +21,8 @@ storiesOf('Sandstone', module)
 				nextButtonText={text('nextButtonText', WizardPanel, '')}
 				noAnimation={boolean('noAnimation', WizardPanel, false)}
 				onSelect={action('onSelect')}
+				onTransition={action('onTransition')}
+				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanel, '')}
 			>
 				<View footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">

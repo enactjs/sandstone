@@ -170,7 +170,21 @@ const PanelsBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClose: PropTypes.func
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
@@ -199,7 +213,7 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, onTransition, onWillTransition, viewportId, ...rest}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
@@ -217,6 +231,8 @@ const PanelsBase = kind({
 					noSharedState={noSharedState}
 					onBack={onBack}
 					onClose={onClose}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>
