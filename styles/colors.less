@@ -213,7 +213,10 @@
 // Panels
 // ---------------------------------------
 @sand-panels-scrim-always-viewing-bg-color: fade(@sand-bg-color, 75%);
-@sand-panels-optionpanels-shadow: @sand-spotlight-focus-shadow;
+@sand-panels-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
+@sand-panel-flexiblepopup-bg-color: fade(@sand-bg-color, 90%);
+@sand-panel-flexiblepopup-border-radius: @sand-popup-border-radius;
+@sand-panel-flexiblepopup-shadow: @sand-panels-fixedpopuppanels-shadow;
 
 // Picker
 // ---------------------------------------
@@ -225,6 +228,11 @@
 @sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
 @sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
+@sand-picker-joined-focus-disabled-bg-color: #adafb3;
+@sand-picker-joined-focus-disabled-text-color: @sand-picker-indicators-active-focus-bg-color;
+@sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicators-active-focus-bg-color;
+@sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
+@sand-picker-joined-focus-disabled-indicator-active-opacity: 1;
 @sand-picker-joined-fingernail-border-color: fade(@sand-black, 20%);
 
 // Popup
@@ -264,16 +272,15 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollthumb-bg-color: #7E848C;
-@sand-scrolltrack-bg-color: #41454B;
-@sand-scrollthumb-focus-bg-color: @sand-light-gray;
-@sand-scrollthumb-focus-direction-indicator-color: #9A9A9A;
-@sand-scrollthumb-focus-box-shadow-color: fade(@sand-black, 30%);
+@sand-scrollbar-track-bg-color: #41454B;
+@sand-scrollbar-thumb-bg-color: #7E848C;
+@sand-scrollbar-thumb-focus-bg-color: @sand-light-gray;
+@sand-scrollbar-thumb-focus-direction-indicator-color: #9A9A9A;
+@sand-scrollbar-thumb-focus-box-shadow-color: fade(@sand-black, 30%);
 
 // Scroller
 // ---------------------------------------
 @sand-scroll-focusablebody-focus-bg-color: fade(@sand-white, 10%);
-@sand-scroll-overscroll-color: @sand-light-gray;
 
 // Slider
 // ---------------------------------------
