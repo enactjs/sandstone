@@ -11,7 +11,7 @@ import Skinnable from '../Skinnable';
 import CancelDecorator from './CancelDecorator';
 import Viewport from './Viewport';
 
-import css from './Panels.module.less';
+import componentCss from './Panels.module.less';
 
 /**
  * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
@@ -182,8 +182,9 @@ const PanelsBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'panels enact-fit'
+		css: componentCss,
+		className: 'panels enact-fit',
+		publicClassNames: ['panels', 'viewport']
 	},
 
 	computed: {
@@ -199,7 +200,7 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({css, arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
@@ -217,6 +218,7 @@ const PanelsBase = kind({
 					noSharedState={noSharedState}
 					onBack={onBack}
 					onClose={onClose}
+					className={css.viewport}
 				>
 					{children}
 				</Viewport>

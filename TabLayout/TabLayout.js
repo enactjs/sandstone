@@ -143,7 +143,8 @@ const TabLayoutBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tabLayout enact-fit'
+		className: 'tabLayout enact-fit',
+		publicClassNames: ['tabLayout', 'tabs', 'content']
 	},
 
 	handlers: {
@@ -232,5 +233,6 @@ export default TabLayout;
 export {
 	TabLayout,
 	TabLayoutBase,
+	TabLayoutDecorator,
 	Tab
 };

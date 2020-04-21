@@ -16,7 +16,7 @@ import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScroll
 
 import {PanelsStateContext} from './Viewport';
 
-import css from './Panel.module.less';
+import componentCss from './Panel.module.less';
 
 let panelId = 0;
 
@@ -33,7 +33,6 @@ let panelId = 0;
  * @public
  */
 const PanelBase = kind({
-
 	name: 'Panel',
 
 	contextType: PanelsStateContext,
@@ -131,8 +130,9 @@ const PanelBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'panel'
+		css: componentCss,
+		className: 'panel',
+		publicClassNames: ['panel', 'body']
 	},
 
 	handlers: {
@@ -183,8 +183,7 @@ const PanelBase = kind({
 			return spotOnRender;
 		},
 		children: ({children, hideChildren}) => hideChildren ? null : children,
-		bodyClassName: ({header, hideChildren, styler}) => styler.join({
-			body: true,
+		bodyClassName: ({css, header, hideChildren, styler}) => styler.join(css.body, {
 			noHeader: !header,
 			visible: !hideChildren
 		}),
@@ -210,6 +209,7 @@ const PanelBase = kind({
 		backButtonAvailable,
 		bodyClassName,
 		children,
+		css,
 		header,
 		headerId,
 		headerType,
@@ -259,7 +259,7 @@ const RootPanel = SharedStateDecorator(
 		{
 			// prefer any spottable within the panel body for first render
 			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${css.body} *`],
+			defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
 			enterTo: 'last-focused',
 			preserveId: true
 		},

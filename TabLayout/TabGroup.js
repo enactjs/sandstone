@@ -52,7 +52,7 @@ const TabBase = kind({
 				css={css}
 			>
 				{icon ? (
-					<Icon slot="slotBefore">{icon}</Icon>
+					<Icon slot="slotBefore" className={componentCss.icon}>{icon}</Icon>
 				) : null}
 				{children}
 			</Item>
@@ -85,6 +85,11 @@ const TabGroupBase = kind({
 		selectedIndex: PropTypes.number
 	},
 
+	styles: {
+		css: componentCss,
+		className: 'tabGroup'
+	},
+
 	computed: {
 		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
@@ -94,6 +99,7 @@ const TabGroupBase = kind({
 				...rest
 			};
 		}),
+		className: ({collapsed, styler}) => styler.append({collapsed}),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
@@ -107,7 +113,7 @@ const TabGroupBase = kind({
 			<Scroller onBlur={onBlur} onFocus={onFocus}>
 				{noIcons ? (
 					<Item>
-						<Icon slot="slotBefore">list</Icon>
+						<Icon slot="slotBefore" className={componentCss.icon}>list</Icon>
 					</Item>
 				) : (
 					<Group
