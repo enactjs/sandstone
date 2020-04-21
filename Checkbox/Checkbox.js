@@ -12,11 +12,13 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import Spottable from '@enact/spotlight/Spottable';
+import Touchable from '@enact/ui/Touchable';
 import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
 import compose from 'ramda/src/compose';
 
 import Icon from '../Icon';
+import Skinnable from '../Skinnable';
 
 import componentCss from './Checkbox.module.less';
 
@@ -136,13 +138,15 @@ const CheckboxBase = kind({
 		delete rest.indeterminateIcon;
 		delete rest.selected;
 		return (
-			<Icon
-				size="tiny"
-				{...rest}
-				css={css}
-			>
-				{children}
-			</Icon>
+			<div {...rest}>
+				<div className={css.bg} />
+				<Icon
+					size="tiny"
+					className={css.icon}
+				>
+					{children}
+				</Icon>
+			</div>
 		);
 	}
 });
@@ -153,13 +157,16 @@ const CheckboxBase = kind({
  * @class CheckboxDecorator
  * @memberof sandstone/Checkbox
  * @mixes ui/Toggleable.Toggleable
+ * @mixes sandstone/Skinnable.Skinnable
  * @mixes spotlight/Spottable.Spottable
  * @hoc
  * @public
  */
 const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Spottable
+	Touchable,
+	Spottable,
+	Skinnable
 );
 
 /**

@@ -24,6 +24,7 @@ import {SwitchBase} from '../Switch';
 import componentCss from './SwitchItem.module.less';
 
 const Switch = Skinnable(SwitchBase);
+Switch.displayName = 'Switch';
 
 /**
  * Renders an item with a [Switch]{@link sandstone/Switch}.

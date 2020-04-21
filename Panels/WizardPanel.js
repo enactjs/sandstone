@@ -83,6 +83,14 @@ const WizardPanelBase = kind({
 		nextButtonText: PropTypes.string,
 
 		/**
+		 * Disables panel transitions.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAnimation: PropTypes.bool,
+
+		/**
 		* Called when the index value is changed.
 		*
 		* @type {Function}
@@ -158,7 +166,7 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
@@ -199,6 +207,7 @@ const WizardPanelBase = kind({
 							<ViewManager
 								arranger={SlideLeftArranger}
 								duration={400}
+								noAnimation={noAnimation}
 								reverseTransition={reverseTransition}
 							>
 								{children}

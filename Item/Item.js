@@ -247,7 +247,6 @@ const ItemBase = kind({
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes sandstone/Skinnable.Skinnable
- * @ui
  * @public
  */
 const ItemDecorator = compose(

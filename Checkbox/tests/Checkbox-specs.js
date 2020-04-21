@@ -55,7 +55,7 @@ describe('CheckboxItem Specs', () => {
 		);
 
 		const expected = 'Ind';
-		const actual = subject.prop('children');
+		const actual = subject.find('.icon').prop('children');
 
 		expect(actual).toBe(expected);
 	});
