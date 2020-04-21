@@ -84,6 +84,22 @@ const WizardPanelBase = kind({
 		nextButtonText: PropTypes.string,
 
 		/**
+		 * Disables panel transitions.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAnimation: PropTypes.bool,
+
+		/**
+		 * Omits the close button in header.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
 		* Omits the next button component.
 		*
 		* @type {Boolean}
@@ -108,14 +124,6 @@ const WizardPanelBase = kind({
 		noSteps: PropTypes.bool,
 
 		/**
-		 * Disables panel transitions.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noAnimation: PropTypes.bool,
-
-		/**
 		* Called when the index value is changed.
 		*
 		* @type {Function}
@@ -125,7 +133,7 @@ const WizardPanelBase = kind({
 		onChange: PropTypes.func,
 
 		/**
-		* Called when closing WizardPanels.
+		* Called when closing WizardPanel.
 		*
 		* @type {Function}
 		* @param {Object} event
