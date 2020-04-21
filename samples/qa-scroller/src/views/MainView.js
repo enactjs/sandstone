@@ -50,14 +50,14 @@ class MainView extends React.Component {
 
 	handleHeight = ({value}) => this.setState({height: value})
 
-	handleScrollMode = ({selected: isNative}) => {
-		this.setState({isNative});
+	handleScrollMode = ({selected: nativeScroll}) => {
+		this.setState({nativeScroll});
 	}
 
 	handleWidth = ({value}) => this.setState({width: value})
 
 	render () {
-		const {focusableScrollbar, height, isNative, width} = this.state;
+		const {focusableScrollbar, height, nativeScroll, width} = this.state;
 
 		return (
 			<div className={css.mainView}>
@@ -74,7 +74,7 @@ class MainView extends React.Component {
 				<div className={css.content}>
 					<Scroller
 						focusableScrollbar={focusableScrollbar}
-						scrollMode={isNative ? 'native' : 'translate'}
+						scrollMode={nativeScroll ? 'native' : 'translate'}
 					>
 						<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
 							<Input
