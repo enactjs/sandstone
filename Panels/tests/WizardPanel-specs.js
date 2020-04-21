@@ -233,4 +233,25 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toMatchObject(expected);
 		}
 	);
+
+	test(
+		'should support noAnimation',
+		() => {
+			// FIXME: Temporary selector until our components have corrected display names
+			const viewManager = '.content > *';
+			const wizardPanel = shallow(
+				<WizardPanelBase>
+					<View />
+				</WizardPanelBase>
+			);
+
+			let actual = wizardPanel.find(viewManager).prop('noAnimation');
+			expect(actual).toBeFalsy();
+
+			wizardPanel.setProps({noAnimation: true});
+
+			actual = wizardPanel.find(viewManager).prop('noAnimation');
+			expect(actual).toBe(true);
+		}
+	);
 });

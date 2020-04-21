@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
 import Spottable from '@enact/spotlight/Spottable';
+import Touchable from '@enact/ui/Touchable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import Icon from '../Icon';
@@ -109,6 +110,7 @@ const SwitchBase = kind({
  */
 const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
+	Touchable,
 	Spottable,
 	Skinnable
 );
