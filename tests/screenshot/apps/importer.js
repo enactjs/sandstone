@@ -22,7 +22,7 @@ import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
-import Panels, {Header} from '../../../Panels';
+import Panels, {Panel, Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
 import ProgressBar from '../../../ProgressBar';
@@ -67,6 +67,7 @@ const components = {
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
+	Panel,
 	Panels,
 	Picker,
 	Popup,
