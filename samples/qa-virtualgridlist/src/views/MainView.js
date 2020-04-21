@@ -42,6 +42,7 @@ class MainView extends React.Component {
 				<PanelHeader
 					title="VirtualGridList"
 					type="mini"
+					nativeScroll={nativeScroll}
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
 					onChangeScrollMode={this.onChangeScrollMode}

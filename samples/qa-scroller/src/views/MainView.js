@@ -37,7 +37,7 @@ class MainView extends React.Component {
 		this.state = {
 			focusableScrollbar: false,
 			height: 4000,
-			isNative: true,
+			nativeScroll: true,
 			width: 1000
 		};
 	}
@@ -67,6 +67,7 @@ class MainView extends React.Component {
 					handleScrollMode={this.handleScrollMode}
 					handleWidth={this.handleWidth}
 					height={height}
+					nativeScroll={nativeScroll}
 					title="Scroller"
 					type="mini"
 					width={width}

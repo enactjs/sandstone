@@ -69,6 +69,7 @@ const MainPanel = class extends Component {
 
 	render () {
 		const {listItems, ...rest} = this.props;
+		const {nativeScroll} = this.state;
 
 		delete rest.changeData;
 
@@ -100,7 +101,7 @@ const MainPanel = class extends Component {
 							<CheckboxItem onClick={this.onToggleChildProps}>Child Props</CheckboxItem>
 						</Cell>
 						<Cell>
-							<ScrollModeSwitch onToggle={this.onChangeScrollMode} />
+							<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={this.onChangeScrollMode} />
 						</Cell>
 						<Cell>
 							<LocaleSwitch />
@@ -114,7 +115,7 @@ const MainPanel = class extends Component {
 					focusableScrollbar
 					itemRenderer={this.renderItem}
 					itemSize={ri.scale(60 + 3)}
-					scrollMode={this.state.nativeScroll ? 'native' : 'translate'}
+					scrollMode={nativeScroll ? 'native' : 'translate'}
 				/>
 			</Panel>
 		);

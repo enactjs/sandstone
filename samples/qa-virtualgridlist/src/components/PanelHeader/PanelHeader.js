@@ -54,6 +54,7 @@ const PanelHeader = kind({
 		dataSize: PropTypes.number,
 		deleteItem: PropTypes.func,
 		deleteSelectedItem: PropTypes.func,
+		nativeScroll: PropTypes.bool,
 		onChangeDirection: PropTypes.func,
 		onChangeFocusableScrollbar: PropTypes.func,
 		onChangeScrollMode: PropTypes.func,
@@ -137,9 +138,9 @@ const PanelHeader = kind({
 				);
 			}
 		},
-		changeScrollMode: ({onChangeScrollMode, showOverlay}) => {
+		changeScrollMode: ({nativeScroll, onChangeScrollMode, showOverlay}) => {
 			if (!showOverlay) {
-				return (<ScrollModeSwitch onToggle={onChangeScrollMode} />);
+				return (<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={onChangeScrollMode} />);
 			}
 		},
 		deleteButton: ({deleteItem, showOverlay}) => {

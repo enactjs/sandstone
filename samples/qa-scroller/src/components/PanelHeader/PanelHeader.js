@@ -20,7 +20,7 @@ class PanelHeader extends React.Component {
 
 	render () {
 		const
-			{handleFocusableScrollbar, handleHeight, handleScrollMode, handleWidth, height, width, ...rest} = this.props,
+			{handleFocusableScrollbar, handleHeight, handleScrollMode, handleWidth, height, nativeScroll, width, ...rest} = this.props,
 			inputWidth = {width: '5em'};
 
 		return (
@@ -41,7 +41,7 @@ class PanelHeader extends React.Component {
 						Focusable Scrollbar
 					</Cell>
 					<Cell>
-						<ScrollModeSwitch onToggle={handleScrollMode} />
+						<ScrollModeSwitch defaultSelected={nativeScroll} onToggle={handleScrollMode} />
 					</Cell>
 					<Cell>
 						<LocaleSwitch />
