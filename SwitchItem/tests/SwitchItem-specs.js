@@ -1,36 +1,33 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import SwitchItem from '../SwitchItem';
-
+import {shallow} from 'enzyme';
+import {SwitchItemBase} from '../SwitchItem';
 
 describe('SwitchItem Specs', () => {
 
 	test('should contain a Switch', () => {
 
-		const switchItem = mount(
-			<SwitchItem>
+		const subject = shallow(
+			<SwitchItemBase>
 				SwitchItem
-			</SwitchItem>
+			</SwitchItemBase>
 		);
 
 		const expected = 1;
-		const actual = switchItem.find('Switch').length;
+		const actual = subject.find('Switch').length;
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should pass selected to Switch element', () => {
 
-		const switchItem = mount(
-			<SwitchItem selected>
+		const subject = shallow(
+			<SwitchItemBase selected>
 				SwitchItem
-			</SwitchItem>
+			</SwitchItemBase>
 		);
 
-		const SwitchComponent = switchItem.find('Switch');
-
 		const expected = true;
-		const actual = SwitchComponent.prop('selected');
+		const actual = subject.find('Switch').prop('selected');
 
 		expect(actual).toBe(expected);
 	});
