@@ -31,6 +31,7 @@ import Skinnable from '../Skinnable';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
+const SpottableDiv = Spottable('div');
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -66,7 +67,6 @@ let Scroller = (props) => {
 	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const SpottableDiv = Spottable('div');
 	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render

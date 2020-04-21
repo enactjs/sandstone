@@ -14,10 +14,11 @@
 	position: relative;
 
 	&.verticalPadding {
-		margin-left: calc(var(--scroll-scrollbar-size)*(-1));
-			&.rtl {
-				margin-right: calc(var(--scroll-scrollbar-size)*(-1));
-				margin-left: 0;
+		&:not(.rtl) {
+			margin-left: calc(var(--scroll-scrollbar-size) * (-1));
+		}
+		&.rtl {
+			margin-right: calc(var(--scroll-scrollbar-size) * (-1));
 		}
 	}
 
