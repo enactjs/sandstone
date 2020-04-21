@@ -2,13 +2,23 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-alpha.9] - 2020-04-20
+
+### Deprecated
+
+- `sandstone/TabLayout` prop `tabs`, to be removed in beta.1. Use `sandstone/TabLayout.Tab` instead.
+
+### Added
+
+- `sandstone/Panels.Panel` prop `featureContent` to minimize the panel visuals to feature the content more prominently
+- `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
 
 ### Fixed
 
+- `sandstone/Scroller` defocus condition of scroll thumb
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
-- `sandstone/Scroller` defocus condition of scroll thumb
+- `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
@@ -30,7 +40,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
-
 
 ## [1.0.0-alpha.7] - 2020-04-06
 

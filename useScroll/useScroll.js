@@ -18,7 +18,7 @@ import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import {useContext, useRef} from 'react';
+import {useContext, useEffect, useRef} from 'react';
 
 import {SharedState} from '../internal/SharedStateDecorator';
 
@@ -28,6 +28,8 @@ import {
 	useEventTouch, useEventVoice, useEventWheel
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
+import {useScrollPosition} from './useScrollPosition';
+import useScrollToTop from './useScrollToTop';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -65,6 +67,7 @@ const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
+	const scrollPositionContext = useScrollPosition();
 
 	// Mutable value
 
@@ -77,6 +80,14 @@ const useThemeScroll = (props, instances) => {
 	});
 
 	// Hooks
+
+	// Before restoring spotlight position, alert useScrollPosition
+	useEffect(() => {
+		// On mount, send initial position, empty dependency to prevent re-running
+		if (scrollPositionContext && scrollPositionContext.onScroll) {
+			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useSpotlightRestore(props, instances);
 
@@ -108,6 +119,11 @@ const useThemeScroll = (props, instances) => {
 		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
 		onInteractionForScroll
 	};
+
+	const {
+		ScrollToTopButton,
+		updateScrollToTop
+	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
 
 	// Functions
 
@@ -211,9 +227,15 @@ const useThemeScroll = (props, instances) => {
 
 		forward('onScroll', ev, props);
 
+		updateScrollToTop({id, x, y});
+
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
+		}
+
+		if (scrollPositionContext && scrollPositionContext.onScroll) {
+			scrollPositionContext.onScroll({id, x, y});
 		}
 	}
 
@@ -277,6 +299,7 @@ const useThemeScroll = (props, instances) => {
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
+		ScrollToTopButton,
 		start,
 		stop
 	};
@@ -389,6 +412,7 @@ const useScroll = (props) => {
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
 		scrollTo,
+		ScrollToTopButton,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
 	} = useThemeScroll(props, instance);
@@ -401,6 +425,8 @@ const useScroll = (props) => {
 		scrollProps.scrollStopOnScroll = scrollStopOnScroll;
 		scrollProps.start = start;
 	}
+
+	delete rest.showScrollToTopButton;
 
 	const {
 		scrollContentWrapper,
@@ -493,7 +519,8 @@ const useScroll = (props) => {
 		scrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible
+		isVerticalScrollbarVisible,
+		ScrollToTopButton
 	};
 };
 

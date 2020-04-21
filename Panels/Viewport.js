@@ -66,14 +66,14 @@ const ViewportBase = class extends React.Component {
 		children: PropTypes.node,
 
 		/**
-		 * Sets the hint string read when focusing the application close button.
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 */
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 */
