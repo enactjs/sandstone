@@ -300,7 +300,6 @@ const InputBase = kind({
  * @mixes ui/Toggleable.Toggleable
  * @mixes ui/Changeable.Changeable
  * @mixes sandstone/Skinnable.Skinnable
- * @ui
  * @public
  */
 const InputDecorator = compose(
