@@ -209,7 +209,7 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
+		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: Boolean(label)})
 	},
 
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
@@ -234,7 +234,7 @@ const ItemBase = kind({
 					label={label}
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
-					shrink={inline || centered}
+					shrink={inline}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
