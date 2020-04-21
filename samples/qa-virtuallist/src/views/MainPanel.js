@@ -30,6 +30,7 @@ const MainPanel = class extends Component {
 		this.state = {
 			hasChildProps: false,
 			isDisabled: false,
+			nativeScroll: true,
 			value: ''
 		};
 

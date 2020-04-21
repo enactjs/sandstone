@@ -10,7 +10,8 @@ class MainView extends React.Component {
 		super(props);
 		this.state = {
 			focusableScrollbar: false,
-			horizontal: false
+			horizontal: false,
+			nativeScroll: true
 		};
 	}
 

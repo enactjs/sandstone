@@ -37,6 +37,7 @@ class MainView extends React.Component {
 		this.state = {
 			focusableScrollbar: false,
 			height: 4000,
+			isNative: true,
 			width: 1000
 		};
 	}
