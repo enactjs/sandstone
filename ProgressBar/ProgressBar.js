@@ -92,6 +92,14 @@ const ProgressBarBase = kind({
 		progress: PropTypes.number,
 
 		/**
+		 * Displays an anchor at `progressAnchor`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
+
+		/**
 		 * Enables the built-in tooltip.
 		 *
 		 * To customize the tooltip, pass either a custom tooltip component or an instance of
@@ -143,11 +151,12 @@ const ProgressBarBase = kind({
 	},
 
 	computed: {
-		className: ({highlighted, orientation, progress, backgroundProgress, styler}) => styler.append({
+		className: ({highlighted, orientation, progress, backgroundProgress, showAnchor, styler}) => styler.append({
 			highlighted,
 			radial: (orientation === 'radial'),
 			fillOverHalf: (progress > 0.5),
-			loadOverHalf: (backgroundProgress > 0.5)
+			loadOverHalf: (backgroundProgress > 0.5),
+			showAnchor
 		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
@@ -155,6 +164,7 @@ const ProgressBarBase = kind({
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
+		delete rest.showAnchor;
 
 		return (
 			<UiProgressBar

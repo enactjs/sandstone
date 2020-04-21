@@ -71,7 +71,7 @@ const ImageItemBase = kind({
 		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `selectionIcon` - The icon component class for default selection component
-		 * * `subCaption` - The subCaption component class
+		 * * `label` - The secondary caption component class
 		 *
 		 * @type {Object}
 		 * @public
@@ -281,10 +281,11 @@ const ImageItemDecorator = compose(
  * Usage:
  * ```
  * <ImageItem
- * 	caption="image0"
- * 	src="http://placehold.it/300x300/9037ab/ffffff&text=Image0"
- * 	subCaption="sub-image0"
- * />
+ *   src="http://placehold.it/100x100/9037ab/ffffff&text=Image0"
+ *   label="A secondary caption"
+ * >
+ * 	The primary caption for the image
+ * </ImageItem>
  * ```
  *
  * @class ImageItem

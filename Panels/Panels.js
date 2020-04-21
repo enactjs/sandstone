@@ -46,7 +46,7 @@ const PanelsBase = kind({
 		arranger: shape,
 
 		/**
-		 * Sets the hint string read when focusing the back button.
+		 * Hint string read when focusing the back button.
 		 *
 		 * @type {String}
 		 * @default 'Go to previous'
@@ -55,7 +55,7 @@ const PanelsBase = kind({
 		backButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application back button.
+		 * Background opacity of the application back button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
@@ -72,7 +72,7 @@ const PanelsBase = kind({
 		children: PropTypes.node,
 
 		/**
-		 * Sets the hint string read when focusing the application close button.
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 * @default 'Exit app'
@@ -81,7 +81,7 @@ const PanelsBase = kind({
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'

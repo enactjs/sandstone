@@ -29,6 +29,8 @@ storiesOf('Sandstone', module)
 					highlighted={boolean('highlighted', ProgressBarConfig)}
 					orientation={select('orientation', ['horizontal', 'vertical', 'radial'], ProgressBarConfig, 'horizontal')}
 					progress={number('progress', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0.4)}
+					progressAnchor={number('progressAnchor', ProgressBarConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
+					showAnchor={boolean('showAnchor', ProgressBarConfig)}
 				>
 					{tooltip ? (
 						<ProgressBarTooltip
