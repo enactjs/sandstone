@@ -206,6 +206,7 @@ const WizardPanelBase = kind({
 				<Header
 					centered
 					noCloseButton={noCloseButton}
+					onClose={onClose}
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
