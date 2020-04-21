@@ -19,6 +19,8 @@ storiesOf('Sandstone', module)
 		() => (
 			<WizardPanel
 				nextButtonText={text('nextButtonText', WizardPanel, '')}
+				noAnimation={boolean('noAnimation', WizardPanel, false)}
+				noCloseButton={boolean('noCloseButton', WizardPanel)}
 				noNextButton={boolean('noNextButton', WizardPanel)}
 				noPrevButton={boolean('noPrevButton', WizardPanel)}
 				noSteps={boolean('noSteps', WizardPanel)}
