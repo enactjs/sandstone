@@ -4,14 +4,15 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
-import LocaleSwitch from '../components/LocaleSwitch';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import VirtualList from '@enact/sandstone/VirtualList';
 
-import {setData} from '../actions';
 import ListItem from '../components/ListItem';
+import LocaleSwitch from '../components/LocaleSwitch';
+import ScrollModeSwitch from '../components/ScrollModeSwitch';
+import {setData} from '../actions';
 
 const childProps = {text: ' child props'};
 
@@ -20,7 +21,8 @@ const MainPanel = class extends Component {
 
 	static propTypes = {
 		changeData: PropTypes.func.isRequired,
-		listItems: PropTypes.array.isRequired
+		listItems: PropTypes.array.isRequired,
+		nativeScroll: PropTypes.bool
 	}
 
 	constructor (props) {
@@ -39,6 +41,10 @@ const MainPanel = class extends Component {
 	onChangeDataSize = () => {
 		const dataSize = parseInt(this.state.value) || 0;
 		this.props.changeData(dataSize, this.state.isDisabled);
+	}
+
+	onChangeScrollMode = ({selected: nativeScroll}) => {
+		this.setState({nativeScroll});
 	}
 
 	onToggleChildProps = () => {
@@ -93,6 +99,9 @@ const MainPanel = class extends Component {
 							<CheckboxItem onClick={this.onToggleChildProps}>Child Props</CheckboxItem>
 						</Cell>
 						<Cell>
+							<ScrollModeSwitch onToggle={this.onChangeScrollMode} />
+						</Cell>
+						<Cell>
 							<LocaleSwitch />
 						</Cell>
 					</Row>
@@ -104,7 +113,7 @@ const MainPanel = class extends Component {
 					focusableScrollbar
 					itemRenderer={this.renderItem}
 					itemSize={ri.scale(60 + 3)}
-					scrollMode="translate"
+					scrollMode={this.state.nativeScroll ? 'native' : 'translate'}
 				/>
 			</Panel>
 		);
