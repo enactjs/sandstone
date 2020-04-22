@@ -56,10 +56,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
 
-### Fixed
-
-- `sandstone/Input.InputField` disabled colors
-
 ## [1.0.0-alpha.7] - 2020-04-06
 
 ### Added
