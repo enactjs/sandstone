@@ -205,34 +205,28 @@
 			}
 		}
 
-		.disabled({
-			.vendor-opacity(1);
 
+
+		.sand-disabled({
 			.bg {
 				background-color: @sand-inputfield-disabled-bg-color;
 			}
 
 			.input {
-				.vendor-opacity(@sand-inputfield-disabled-opacity);
+				.sand-disabled-colors();
 				color: @sand-inputfield-disabled-text-color;
-
-				.input-placeholder({
-					.vendor-opacity(1);
-					color: @sand-inputfield-placeholder-disabled-color;
-				});
 			}
 
 			.focus({
-				.vendor-opacity(@sand-inputfield-disabled-focus-opacity);
-				background-color: @sand-inputfield-disabled-focus-bg-color;
+				.sand-disabled-focus-bg-colors();
 
 				.bg {
+					.sand-disabled-focus-bg-colors();
 					.sand-spotlight-focus-colors();
 				}
 
 				.input {
-					.vendor-opacity(1);
-					color: @sand-inputfield-disabled-focus-text-color;
+					.sand-disabled-focus-content-colors();
 				}
 			});
 		});
