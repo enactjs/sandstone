@@ -18,7 +18,7 @@ describe('TabGroup specs', () => {
 		);
 
 		const expected = 1;
-		const actual = subject.find('Button').length;
+		const actual = subject.find('Tab').length;
 
 		expect(actual).toEqual(expected);
 	});
@@ -36,7 +36,7 @@ describe('TabGroup specs', () => {
 		);
 
 		const expected = 3;
-		const actual = subject.find('Button').length;
+		const actual = subject.find('Tab').length;
 
 		expect(actual).toEqual(expected);
 	});

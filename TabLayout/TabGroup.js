@@ -8,7 +8,6 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
-import Icon from '../Icon';
 import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
