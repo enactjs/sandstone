@@ -96,7 +96,6 @@ const ItemBase = kind({
 		 * Centers the slots and content.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		centered: PropTypes.bool,
@@ -166,7 +165,7 @@ const ItemBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Applies a selected style to the component
+		 * Applies a selected style to the component.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -174,7 +173,7 @@ const ItemBase = kind({
 		selected: PropTypes.bool,
 
 		/**
-		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 * Nodes to be inserted after `children`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
 		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
@@ -199,7 +198,6 @@ const ItemBase = kind({
 	},
 
 	defaultProps: {
-		centered: false,
 		labelPosition: 'below'
 	},
 
@@ -265,7 +263,7 @@ const ItemDecorator = compose(
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
 	Spottable,
-	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
+	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
 );
 
