@@ -1,16 +1,11 @@
 /* eslint-disable react/jsx-no-bind */
 
 import {action} from '@enact/storybook-utils/addons/actions';
-// import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
-// import PropTypes from 'prop-types';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
-// import kind from '@enact/core/kind';
-// import {adaptEvent, handle, forward} from '@enact/core/handle';
 import Group from '@enact/ui/Group';
-// import Changeable from '@enact/ui/Changeable';
 
 import PopupTabLayout, {PopupTabLayoutBase, Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import {Header} from '@enact/sandstone/Panels';
@@ -19,7 +14,6 @@ import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 
 PopupTabLayout.displayName = 'PopupTabLayout';
-const Config = mergeComponentMetadata('PopupTabLayout', PopupTabLayoutBase, PopupTabLayout);
 
 const navPrev = (callback, value, actionName) => () => {
 	action(actionName);
@@ -54,7 +48,7 @@ storiesOf('Sandstone', module)
 			const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
 
 			return (<div>
-				<Button onClick={toggleOpen} icon={open ? 'circle' : 'gear'}>Open PopupTabLayout</Button>
+				<Button onClick={toggleOpen}>Open PopupTabLayout</Button>
 
 				<PopupTabLayout
 					open={open}
