@@ -76,8 +76,7 @@ const HeadingBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'heading',
-		publicClassNames: ['heading', 'large', 'medium', 'small', 'tiny']
+		className: 'heading'
 	},
 
 	computed: {
