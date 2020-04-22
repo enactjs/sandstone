@@ -20,8 +20,8 @@ describe('VirtualList', function () {
 			expectFocusedItem(0);
 		});
 
-		// Failing on Jenkins and locally, with different error conditions
-		it.skip('should focus and Scroll with Up/Down and 5-way [GT-24451]', function () {
+		// TODO: Failing on Jenkins
+		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 			Page.spotlightDown(); // is on Left button
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 3. 5-way Spot the second item 'Item 001'.
@@ -32,7 +32,7 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(9, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
+			expectFocusedItem(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -45,32 +45,34 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			Page.spotlightDown();
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			expectFocusedItem(19, 'step 5 focus');
+			waitForScrollStartStop();
+			Page.delay(100);
+			expectFocusedItem(17, 'step 5 focus');
 			// Step 6. Press Channel Down.
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
-			expectFocusedItem(27, 'step 6 focus');
+			expectFocusedItem(23, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(19, 'step 7 focus');
+			expectFocusedItem(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
 			Page.spotlightUp();
-			Page.delay(150); // TODO: This is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
+			waitForScrollStartStop();
+			Page.delay(100);
 			// Verify Step 8: Spotlight is on the first visible item.
-			expectFocusedItem(9, 'step 8 focus');
+			expectFocusedItem(7, 'step 8 focus');
 			// Step 9. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();

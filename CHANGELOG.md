@@ -4,10 +4,36 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Panels.Header` props `headerInput` and `showInput`
+
+### Added
+
+- `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
+- `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
+- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
+
 ### Fixed
 
-- `sandstone/Switch` sizing and positioning in large text mode
 - `sandstone/Dropdown` to focus on selected option
+
+## [1.0.0-alpha.9] - 2020-04-20
+
+### Deprecated
+
+- `sandstone/TabLayout` prop `tabs`, to be removed in beta.1. Use `sandstone/TabLayout.Tab` instead.
+
+### Added
+
+- `sandstone/Panels.Panel` prop `featureContent` to minimize the panel visuals to feature the content more prominently
+- `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
+
+### Fixed
+
+- `sandstone/Button` styles for `selected`
+- `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
@@ -29,7 +55,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
-
 
 ## [1.0.0-alpha.7] - 2020-04-06
 
