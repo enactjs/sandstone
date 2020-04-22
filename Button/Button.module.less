@@ -110,11 +110,12 @@
 		flex-grow: 1;
 	}
 
-	// Only center the text if there is no icon. Otherwise, the default is to just leave its
-	// alignment alone, since we don't want to try to override marquee's directionality alignment.
+	// Only center the text if there is no icon and no color. We'll explicitly override Marquee's
+	// alignment for this case, relying on the parent node's alignment preference (inherit).
+	// Otherwise, the default is to just leave alignment to Marquee to handle.
 	&:not(.hasIcon):not(.hasColor) {
 		.marquee {
-			text-align: center;
+			text-align: inherit;
 		}
 	}
 
