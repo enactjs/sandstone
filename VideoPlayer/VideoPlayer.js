@@ -265,7 +265,7 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `visible` - `true` when the media controls should be displayed
 		 *
 		 * @type {Component|Element}
-		 * @default `sandstone/VideoPlayer.MediaControls`
+		 * @default sandstone/VideoPlayer.MediaControls
 		 * @public
 		 */
 		mediaControlsComponent: EnactPropTypes.componentOverride,

@@ -36,40 +36,38 @@ const PickerTests = [
 	<Picker>{pickerList.vegetables}</Picker>,
 	<Picker value={1}>{pickerList.vegetables}</Picker>,
 
-	// oneItem: Change 'orientation', 'joined', 'disabled' dynamically - [GT-21643]
-	// Step 2 Picker is disabled (since it only has one item).
+	// Picker is disabled (since it only has one item)
 	<Picker>{pickerList.oneAirport}</Picker>,
-	// end of [GT-21643]
 
-	// Locale Font Displays on Picker - [GT-21467]
+	// Locale Font Displays on Picker - [GT-28678]
 	<Picker value={0}>{pickerList.tall}</Picker>,
 	{
 		locale: 'th-TH',
 		component: <Picker value={0}>{pickerList.tall}</Picker>
 	},
-	// end of [GT-21467]
+	// end of [GT-28678]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-28679]
 	// Marked part automated due to Marquee and Click actions
-	// Step 3: Tall characters display fully and are not truncated.
+	// Step 2: Tall characters display fully and are not truncated.
 	<Picker width="large">{pickerList.tall}</Picker>,
-	// Step 4: 3 ellipsis display on the right of the Picker text.
+	// Step 3: Picker width is reduced.
 	<Picker value={2} width="medium">{pickerList.tall}</Picker>,
-	// Step 5: 3 ellipsis display on the right of the Picker text.
+	// Step 4: 3 ellipsis display on the right of the Picker text.
 	<Picker value={2} width="small">{pickerList.tall}</Picker>,
-	// Step 6: Both Right (＞) and Left (＜) arrows buttons are enabled.
+	// Step 5: Both Right (＞) and Left (＜) arrows buttons are enabled.
 	<Picker value={2} width="large" wrap>{pickerList.tall}</Picker>,
-	// Step 7: Only Left (＜) arrow button is enabled. Right (＞) arrow button is disabled.
+	// Step 6: The arrow buttons disappear.
 	<Picker value={2} width="large" joined>{pickerList.tall}</Picker>,
-	// Cannot verify here that Picker text transitions very quickly from one to the other without animation.
+	// Step 7: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	<Picker value={2} width="large" noAnimation>{pickerList.tall}</Picker>,
-	// Step 9:  Picker is disabled.
+	// Step 8:  Picker is disabled.
 	<Picker value={2} width="large" disabled>{pickerList.tall}</Picker>,
-	// Step 10: 'minus' symbol displays on the Right (＞) of the Picker text.
+	// Step 9: 'minus' symbol displays on the Right (＞) of the Picker text.
 	<Picker value={2} width="large" incrementIcon="minus">{pickerList.tall}</Picker>,
-	// Step 11: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
+	// Step 10: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
 	<Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>,
-	// end of [GT-21636]
+	// end of [GT-28679]
 
 	<Picker value={2} width="medium">{pickerList.vegetables}</Picker>,
 	<Picker value={2} width="small">{pickerList.vegetables}</Picker>,
@@ -88,12 +86,12 @@ const PickerTests = [
 	<Picker width="medium" wrap joined noAnimation disabled incrementIcon="minus">{pickerList.vegetables}</Picker>,
 	<Picker width="medium" wrap joined noAnimation disabled decrementIcon="play">{pickerList.vegetables}</Picker>,
 
-	// Ellipsis Displays with RTL Text in LTR Locale - [GT-21559]
+	// Ellipsis Displays with RTL Text in LTR Locale - [GT-28663]
 	// Marked part automated as cannnot check for marquee (step 4 - part 2)
 	// Step 3 - part 1: The RTL text displays. The Right arrow button is disabled.
 	// Step 4 - part 1: Ellipsis display on the left side of the text.
 	<Picker value={3} width="medium">{pickerList.airports}</Picker>,
-	// end of [GT-21559]
+	// end of [GT-28663]
 
 	// *************************************************************
 	// vertical
@@ -107,33 +105,38 @@ const PickerTests = [
 	<Picker orientation="vertical">{pickerList.vegetables}</Picker>,
 	<Picker value={1} orientation="vertical">{pickerList.vegetables}</Picker>,
 
-	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [GT-23461]
+	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [GT-28680]
 	// Marked part auotomated due to one click required
 	<Picker value={0} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>,
-	// end of [GT-23461]
+	// end of [GT-28680]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-21642]
+	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [GT-28676]
+	// Step 2 Picker is disabled (since it only has one item).
+	<Picker orientation="vertical">{pickerList.oneAirport}</Picker>,
+	// end of [GT-28676]
+
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-28677]
 	<Picker orientation="vertical" />,
-	// step 3,4:  Picker displays vertically.
+	// step 3:  Picker displays vertically.
 	<Picker value={2} width="medium" orientation="vertical">{pickerList.vegetables}</Picker>,
-	// step 5: Label text of picker reduces and shows 3 ellipsis.
+	// step 4: Text of picker reduces and shows 3 ellipsis.
 	<Picker value={2} width="small" orientation="vertical">{pickerList.vegetables}</Picker>,
-	// step 6:  Label text of picker displays.
+	// step 5:  Text of picker displays.
 	<Picker value={2} width="large" orientation="vertical">{pickerList.vegetables}</Picker>,
-	// step 8: Up and Down arrow buttons are enabled.
+	// step 7: Up and Down arrow buttons are enabled.
 	<Picker value={2} width="medium" orientation="vertical" wrap>{pickerList.vegetables}</Picker>,
-	// step 9: The size of the arrows buttons reduces.
+	// step 8: The arrows buttons disappear.
 	<Picker value={2} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>,
-	// step 10: Item transition effect in picker is disabled.
+	// step 9: Item transition effect in picker is disabled.
 	<Picker value={2} width="medium" orientation="vertical" noAnimation>{pickerList.vegetables}</Picker>,
-	// step 11: Picker is disabled.
+	// step 10: Picker is disabled.
 	<Picker value={2} width="medium" orientation="vertical" disabled>{pickerList.vegetables}</Picker>,
-	// step 12: *minus* displays above the label.
+	// step 11: *minus* displays above the label.
 	<Picker value={2} width="medium" orientation="vertical" incrementIcon="minus">{pickerList.vegetables}</Picker>,
-	// step 13: *play* displays below the label.
+	// step 12: *play* displays below the label.
 	<Picker value={2} width="medium" orientation="vertical" decrementIcon="play">{pickerList.vegetables}</Picker>,
-	// end of [GT-21642]
+	// end of [GT-28677]
 
 	<Picker value={1} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>,
 	<Picker width="medium" orientation="vertical" wrap joined>{pickerList.vegetables}</Picker>,
@@ -146,7 +149,7 @@ const PickerTests = [
 	// locale = 'ar-SA'
 	// *************************************************************
 
-	// Ellipses displays for RTL Text in RTL Locale - [GT-22055]
+	// Ellipses displays for RTL Text in RTL Locale - [GT-28662]
 	// Marked part automated as cannnot check for marquee (step 4 - part 3)
 	// Step 4 - part 1: the RTL text displays with the ellipsis displaying on the left side of the text.
 	// Step 4 - part 2: the Right arrow button is disabled.
@@ -154,7 +157,7 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={3} width="medium">{pickerList.airports}</Picker>
 	},
-	// end of [GT-22055]
+	// end of [GT-28662]
 
 	{
 		locale: 'ar-SA',
@@ -185,62 +188,60 @@ const PickerTests = [
 		component: <Picker value={1}>{pickerList.vegetables}</Picker>
 	},
 
-	// oneItem: Change 'orientation', 'joined', 'disabled' dynamically - [GT-21643]
-	// Step 2 Picker is disabled (since it only has one item).
+	// Picker is disabled (since it only has one item)
 	{
 		locale: 'ar-SA',
 		component: <Picker>{pickerList.oneAirport}</Picker>
 	},
-	// end of [GT-21643]
 
-	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-21636]
+	// tallCharacters: Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - [GT-28679]
 	// Marked part automated due to Marquee and Click actions
-	// Step 3: Tall characters display fully and are not truncated.
+	// Step 2: Tall characters display fully and are not truncated.
 	{
 		locale: 'ar-SA',
 		component: <Picker width="large">{pickerList.tall}</Picker>
 	},
-	// Step 4: 3 ellipsis display on the right of the Picker text.
+	// Step 3: Picker width is reduced.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium">{pickerList.tall}</Picker>
 	},
-	// Step 5: 3 ellipsis display on the right of the Picker text.
+	// Step 4: 3 ellipsis display on the right of the Picker text.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="small">{pickerList.tall}</Picker>
 	},
-	// Step 6: Both Right (＞) and Left (＜) arrows buttons are enabled.
+	// Step 5: Both Right (＞) and Left (＜) arrows buttons are enabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" wrap>{pickerList.tall}</Picker>
 	},
-	// Step 7: Only Left (＜) arrow button is enabled. Right (＞) arrow button is disabled.
+	// Step 6: The arrow buttons disappear.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" joined>{pickerList.tall}</Picker>
 	},
-	// Cannot verify here that Picker text transitions very quickly from one to the other without animation.
+	// Step 7: Cannot verify here that Picker text transitions very quickly from one to the other without animation.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" noAnimation>{pickerList.tall}</Picker>
 	},
-	// Step 9:  Picker is disabled.
+	// Step 8:  Picker is disabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" disabled>{pickerList.tall}</Picker>
 	},
-	// Step 10: 'minus' symbol displays on the Right (＞) of the Picker text.
+	// Step 9: 'minus' symbol displays on the Right (＞) of the Picker text.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" incrementIcon="minus">{pickerList.tall}</Picker>
 	},
-	// Step 11: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
+	// Step 10: 'backward' symbol displays on the Left (＜) of the Picker text. 'plus' symbol displays on the Right (＞) of the Picker text.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" decrementIcon="backward" incrementIcon="plus">{pickerList.tall}</Picker>
 	},
-	// end of [GT-21636]
+	// end of [GT-28679]
 
 	{
 		locale: 'ar-SA',
@@ -337,7 +338,7 @@ const PickerTests = [
 		component: <Picker value={1} orientation="vertical">{pickerList.vegetables}</Picker>
 	},
 
-	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [GT-23461]
+	// tallCharacters: are not truncated when 'orientation' is changed to 'Vertical' - [GT-28680]
 	// Marked part auotomated due to one click required
 	{
 		locale: 'ar-SA',
@@ -347,59 +348,67 @@ const PickerTests = [
 		locale: 'ar-SA',
 		component: <Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>
 	},
-	// end of [GT-23461]
+	// end of [GT-28680]
 
-	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-21642]
+	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [GT-28676]
+	// Step 2 Picker is disabled (since it only has one item).
+	{
+		locale: 'ar-SA',
+		component: <Picker orientation="vertical">{pickerList.oneAirport}</Picker>
+	},
+	// end of [GT-28676]
+
+	// Change 'width', 'wrap', 'joined', 'noAnimation', 'disabled', 'incrementIcon', decrementIcon' dynamically - Vertical Picker - [GT-28677]
 	{
 		locale: 'ar-SA',
 		component: <Picker orientation="vertical" />
 	},
-	// step 3,4:  Picker displays vertically.
+	// step 3:  Picker displays vertically.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical">{pickerList.vegetables}</Picker>
 	},
-	// step 5: Label text of picker reduces and shows 3 ellipsis.
+	// step 4: Text of picker reduces and shows 3 ellipsis.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="small" orientation="vertical">{pickerList.vegetables}</Picker>
 	},
-	// step 6:  Label text of picker displays.
+	// step 5: Text of picker displays.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="large" orientation="vertical">{pickerList.vegetables}</Picker>
 	},
-	// step 8: Up and Down arrow buttons are enabled.
+	// step 7: Up and Down arrow buttons are enabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" wrap>{pickerList.vegetables}</Picker>
 	},
-	// step 9: The size of the arrows buttons reduces.
+	// step 8: The arrows buttons disappear.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" joined>{pickerList.vegetables}</Picker>
 	},
-	// step 10: Item transition effect in picker is disabled.
+	// step 9: Item transition effect in picker is disabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" noAnimation>{pickerList.vegetables}</Picker>
 	},
-	// step 11: Picker is disabled.
+	// step 10: Picker is disabled.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" disabled>{pickerList.vegetables}</Picker>
 	},
-	// step 12: *minus* displays above the label.
+	// step 11: *minus* displays above the label.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" incrementIcon="minus">{pickerList.vegetables}</Picker>
 	},
-	// step 13: *play* displays below the label.
+	// step 12: *play* displays below the label.
 	{
 		locale: 'ar-SA',
 		component: <Picker value={2} width="medium" orientation="vertical" decrementIcon="play">{pickerList.vegetables}</Picker>
 	},
-	// end of [GT-21642]
+	// end of [GT-28677]
 
 	{
 		locale: 'ar-SA',
