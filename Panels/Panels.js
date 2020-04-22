@@ -46,7 +46,7 @@ const PanelsBase = kind({
 		arranger: shape,
 
 		/**
-		 * Sets the hint string read when focusing the back button.
+		 * Hint string read when focusing the back button.
 		 *
 		 * @type {String}
 		 * @default 'Go to previous'
@@ -55,7 +55,7 @@ const PanelsBase = kind({
 		backButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application back button.
+		 * Background opacity of the application back button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
@@ -72,7 +72,7 @@ const PanelsBase = kind({
 		children: PropTypes.node,
 
 		/**
-		 * Sets the hint string read when focusing the application close button.
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 * @default 'Exit app'
@@ -81,7 +81,7 @@ const PanelsBase = kind({
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
 		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
@@ -170,7 +170,21 @@ const PanelsBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClose: PropTypes.func
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
@@ -199,7 +213,7 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, onTransition, onWillTransition, viewportId, ...rest}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
@@ -217,6 +231,8 @@ const PanelsBase = kind({
 					noSharedState={noSharedState}
 					onBack={onBack}
 					onClose={onClose}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>

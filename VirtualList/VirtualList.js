@@ -61,7 +61,8 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		ScrollToTopButton
 	} = useScroll({...rest, ...props});
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -79,6 +80,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -488,7 +490,8 @@ let VirtualGridList = ({role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		ScrollToTopButton
 	} = useScroll(rest);
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -504,6 +507,7 @@ let VirtualGridList = ({role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
