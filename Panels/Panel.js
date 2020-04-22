@@ -293,8 +293,8 @@ const FeatureContentDecorator = (Wrapped) => {
 
 				const enhancedClassName = classnames(
 					className,
-					shouldFeatureContent ? css.shouldFeatureContent : '',
-					css.featureContent
+					shouldFeatureContent ? componentCss.shouldFeatureContent : '',
+					componentCss.featureContent
 				);
 				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
 			}
