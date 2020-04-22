@@ -166,7 +166,6 @@ const SpinnerBase = kind({
  *
  * @hoc
  * @memberof sandstone/Spinner
- * @ui
  * @private
  */
 const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {

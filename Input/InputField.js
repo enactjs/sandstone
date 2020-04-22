@@ -289,7 +289,6 @@ const InputFieldBase = kind({
  * @memberof sandstone/Input
  * @mixes ui/Changeable.Changeable
  * @mixes sandstone/Skinnable.Skinnable
- * @ui
  * @public
  */
 const InputFieldDecorator = compose(

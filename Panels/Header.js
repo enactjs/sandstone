@@ -15,6 +15,7 @@ import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
+import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from './Viewport';
@@ -94,11 +95,9 @@ const HeaderBase = kind({
 		backButtonAvailable: PropTypes.bool,
 
 		/**
-		 * The background opacity of the application back button.
+		 * Background opacity of the application back button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
@@ -128,7 +127,7 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Sets the hint string read when focusing the application close button.
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 * @default 'Exit app'
@@ -137,11 +136,9 @@ const HeaderBase = kind({
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
-		 * * Values: `'opaque'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
@@ -169,6 +166,19 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		entering: PropTypes.bool,
+
+		/**
+		 * Minimizes the Header to only show the header components in order to feature the panel
+		 * content more prominately.
+		 *
+		 * Has no effect on `type="compact"`. When a `Header` is used inside a
+		 * [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set it will automatically
+		 * collapse unless overridden by this prop.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		featureContent: PropTypes.bool,
 
 		/**
 		 * Sets the "hover" state.
@@ -331,6 +341,18 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * The method which receives the reference node to the title element, used to determine
+		 * the `titleMeasurements`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		titleRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
 		 * Set the type of header to be used.
 		 *
 		 * @type {('compact'|'dense'|'mini'|'standard')}
@@ -377,8 +399,9 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
 			{
+				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
@@ -419,9 +442,11 @@ const HeaderBase = kind({
 		slotBefore,
 		subtitle,
 		title,
+		titleRef,
 		type,
 		...rest
 	}) => {
+		delete rest.featureContent;
 		delete rest.entering;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
@@ -460,7 +485,7 @@ const HeaderBase = kind({
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={css.titlesRow} align="center">
+				<Row className={css.titlesRow} align="center" ref={titleRef}>
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
 						<Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell>
 					) : null}
@@ -498,9 +523,17 @@ const HeaderBase = kind({
 	}
 });
 
+const CollapsingHeaderDecorator = (Wrapped) => {
+	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
+		const {shouldFeatureContent} = useScrollPosition() || {};
+		return <Wrapped featureContent={shouldFeatureContent} {...props} />;
+	};
+};
+
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
+	CollapsingHeaderDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );

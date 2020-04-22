@@ -79,6 +79,8 @@ storiesOf('Sandstone', module)
 					noCloseButton={boolean('noCloseButton', Panels, false)}
 					onBack={handleBack}
 					onClose={action('onClose')}
+					onTransition={action('onTransition')}
+					onWillTransition={action('onWillTransition')}
 				>
 					<Panel>
 						<Header title="Panel with Items">
