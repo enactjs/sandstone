@@ -1,6 +1,8 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {memo} from 'react';
+import React, {memo, useRef} from 'react';
+import ReactDOM from 'react-dom';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
@@ -8,10 +10,13 @@ import Skinnable from '../Skinnable';
 import componentCss from './Scrollbar.module.less';
 
 const useThemeScrollbar = (props) => {
+	const mutableRef = useRef({prevScrollPosition: -1, scale: 1});
+	const thumbRef = useRef(null);
 	const {
 		restProps,
 		scrollbarProps,
-		scrollbarTrackProps
+		scrollbarTrackProps,
+		update
 	} = useScrollbarBase(props);
 
 	const {
@@ -22,14 +27,43 @@ const useThemeScrollbar = (props) => {
 		...rest
 	} = restProps;
 
+	const scrollbarContainerRef = scrollbarProps.ref;
+
+	props.scrollbarHandle.current = {
+		...props.scrollbarHandle.current,
+		syncHeight: (initialHiddenHeight, scrollPosition) => {
+			if (scrollbarContainerRef.current && typeof window !== 'undefined' && mutableRef.current.prevScrollPosition !== scrollPosition) {
+				const
+					scrollbarNode = scrollbarContainerRef.current,
+					thumbNode = ReactDOM.findDOMNode(thumbRef.current), // eslint-disable-line react/no-find-dom-node
+					height = parseInt(window.getComputedStyle(scrollbarNode).getPropertyValue('height')),
+					scale = (height - initialHiddenHeight + scrollPosition) / (height);
+
+				// To scale the scrollbar height depending on the VirtualList position
+				scrollbarNode.style.transform = 'scale3d(1, ' + scale + ', 1)';
+				thumbNode.style.transform = 'scale3d(1, ' + 1 / scale + ', 1)';
+
+				mutableRef.current.scale = scale;
+			}
+			mutableRef.current.prevScrollPosition = scrollPosition;
+		},
+		update: (bounds) => {
+			update(bounds, mutableRef.current.scale);
+		}
+	};
+
 	return {
 		restProps: rest,
-		scrollbarProps,
+		scrollbarProps: {
+			...scrollbarProps,
+			className: classNames(scrollbarProps.className, componentCss.initialHiddenHeight)
+		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
 			cbAlertScrollbarTrack,
 			focusableScrollbar,
 			onInteractionForScroll,
+			thumbRef,
 			rtl
 		}
 	};

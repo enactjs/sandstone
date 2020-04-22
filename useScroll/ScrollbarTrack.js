@@ -28,7 +28,7 @@ const SpotlightAccelerator = new Accelerator();
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, thumbRef, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div';
 
@@ -97,7 +97,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
-			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown}>
+			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown} ref={thumbRef}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
