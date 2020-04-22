@@ -21,13 +21,13 @@ import Item from '@enact/sandstone/Item';
 PopupTabLayout.displayName = 'PopupTabLayout';
 const Config = mergeComponentMetadata('PopupTabLayout', PopupTabLayoutBase, PopupTabLayout);
 
-const navPrev = (callback, value, callbackName) => {
-	callback(Math.max(value - 1, 0));
-	action(callbackName);
+const navPrev = (callback, value, actionName) => () => {
+	action(actionName);
+	return callback(Math.max(value - 1, 0));
 };
-const navNext = (callback, value, callbackName) => {
-	callback(Math.min(value + 1, 5));
-	action(callbackName);
+const navNext = (callback, value, actionName) => () => {
+	action(actionName);
+	return callback(Math.min(value + 1, 5));
 };
 
 storiesOf('Sandstone', module)
