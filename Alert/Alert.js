@@ -183,7 +183,7 @@ const AlertBase = kind({
 		const fullscreen = (type === 'fullscreen');
 		const Container = fullscreen ? Column : Row;
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={type} skinVariants="light">
+			<Popup {...rest} skin="light" noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={type}>
 				<Container align="center center">
 					<Cell shrink>
 						<Container align="center">
