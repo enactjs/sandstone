@@ -16,7 +16,7 @@ const app = (props) => <div {...props}>
 		open
 	>
 		<Tab icon="brightness" title="Display">
-			<TabPanels id="brightness">
+			<TabPanels id="display">
 				<TabPanel>
 					<Header title="Display Settings" type="compact" />
 					<Item>Picture Modes</Item>

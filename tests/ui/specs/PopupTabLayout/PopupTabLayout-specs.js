@@ -17,7 +17,7 @@ describe('PopupTabLayout', function () {
 			describe('5-way interaction', function () {
 
 				it('shound render the first tab by default', function () {
-					const expected = 'brightness';
+					const expected = 'display';
 					const actual = popupTabLayout.currentView.getAttribute('id');
 
 					expect(actual).to.equal(expected);
