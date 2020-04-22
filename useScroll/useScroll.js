@@ -2,7 +2,7 @@
  * Sandstone-themed scrollable hook and behaviors.
  *
  * @module sandstone/useScroll
- * @exports fadeOutSize
+ * @exports affordanceSize
  * @exports dataIndexAttribute
  * @exports useScroll
  * @private
@@ -37,7 +37,7 @@ import css from './useScroll.module.less';
 
 const
 	arrowKeyMultiplier = 0.2,
-	fadeOutSize = ri.scale(48),
+	affordanceSize = ri.scale(48),
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
@@ -322,7 +322,7 @@ const useScroll = (props) => {
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
 			noAffordance,
-			noFadeOut,
+			fadeOut,
 			scrollMode,
 			style,
 			...rest
@@ -484,7 +484,7 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs, noAffordance} : {noFadeOut}),
+		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
 		className: [
 			overscrollCss.vertical,
 			css.scrollContent
@@ -525,6 +525,6 @@ const useScroll = (props) => {
 export default useScroll;
 export {
 	dataIndexAttribute,
-	fadeOutSize,
+	affordanceSize,
 	useScroll
 };

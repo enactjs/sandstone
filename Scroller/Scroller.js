@@ -168,6 +168,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	direction: PropTypes.string,
 
 	/**
+	 * Adds fade-out effect on the scroller.
+	 * Set this `true` only if the content has no spottable but text.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	fadeOut: PropTypes.bool,
+
+	/**
 	 * Allows 5-way navigation to the scroll thumb.
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
@@ -206,14 +216,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 */
 	id: PropTypes.string,
 
-	/**
-	 * Removes fade-out effect on the scroller.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	noFadeOut: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.
@@ -371,9 +373,9 @@ Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'both',
+	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

@@ -7,7 +7,7 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
-import {fadeOutSize} from '../useScroll';
+import {affordanceSize} from '../useScroll';
 
 import {useEventKey} from './useEvent';
 
@@ -104,7 +104,6 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 };
 
 const useSpottable = (props, instances) => {
-	const {noFadeOut} = props;
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
@@ -183,13 +182,13 @@ const useSpottable = (props, instances) => {
 			// round to start
 			if (st < threshold) return 0;
 
-			return st - (noFadeOut ? 0 : fadeOutSize);
+			return st;
 		};
 		const roundToEnd = (sb, st, sh) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st + (noFadeOut ? 0 : fadeOutSize);
+			return st + affordanceSize;
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -301,7 +300,6 @@ const useSpottable = (props, instances) => {
 		const containerNode = scrollContentRef.current;
 		const horizontal = scrollContentHandle.current.isHorizontal();
 		const vertical = scrollContentHandle.current.isVertical();
-		const fadeOutOffset = noFadeOut ? 0 : fadeOutSize;
 
 		if (!vertical && !horizontal || !item || !utilDOM.containsDangerously(containerNode, item)) {
 			return;
@@ -310,11 +308,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= (containerRect.left + fadeOutOffset) && itemRect.right <= (containerRect.right - fadeOutOffset))) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + affordanceSize) && itemRect.right <= (containerRect.right - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= (containerRect.top + fadeOutOffset) && itemRect.bottom <= (containerRect.bottom - fadeOutOffset))) {
+		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= (containerRect.bottom - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
@@ -337,7 +335,7 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
-	const {className, scrollContainerRef, noFadeOut, ...rest} = scrollContentProps;
+	const {className, scrollContainerRef, fadeOut, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
@@ -365,8 +363,8 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 
 	rest.className = classNames(
 		className,
-		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
-		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
+		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
+		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
 	);
 
 	rest.children = (

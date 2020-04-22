@@ -2,16 +2,13 @@ import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
-import classNames from 'classnames';
 import React, {useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute, fadeOutSize} from '../useScroll';
+import {dataIndexAttribute, affordanceSize} from '../useScroll';
 
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
-
-import componentCss from './VirtualList.module.less';
 
 const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
@@ -139,7 +136,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : fadeOutSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -172,7 +169,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? fadeOutSize * 2 : 0,
+					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -229,7 +226,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : fadeOutSize * 2),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -357,11 +354,12 @@ const useThemeVirtualList = (props) => {
 	// Render
 
 	const
-		{className, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, itemRenderer, noAffordance, role, ...rest} = props,
+		{itemRenderer, role, ...rest} = props,
 		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
+	delete rest.noAffordance;
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -372,11 +370,6 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
-		className: classNames(
-			className,
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noAffordance ? componentCss.verticalAffordance : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noAffordance ? componentCss.horizontalAffordance : null
-		),
 		getComponentProps,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({

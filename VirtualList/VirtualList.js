@@ -67,8 +67,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({
 		...scrollContentProps,
-		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
 		role
 	});
 
@@ -653,8 +651,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * Removes affordance area on the list.
 	 *
 	 * @type {Boolean}
-	 * @default true
-	 * @private
+	 * @default false
+	 * @public
 	 */
 	noAffordance: PropTypes.bool,
 
@@ -869,7 +867,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noAffordance: true,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

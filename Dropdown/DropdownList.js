@@ -120,7 +120,6 @@ const DropdownListBase = kind({
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
 				itemSize={itemSize}
-				noAffordance
 				role="group"
 				style={{height: itemSize * dataSize}}
 			/>
