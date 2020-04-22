@@ -2,6 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Scroller` defocus condition of scroll thumb
+
+
 ## [1.0.0-alpha.9] - 2020-04-20
 
 ### Deprecated
@@ -15,7 +22,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` defocus condition of scroll thumb
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
 - `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
