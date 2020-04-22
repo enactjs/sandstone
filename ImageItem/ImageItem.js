@@ -223,7 +223,10 @@ const ImageItemBase = kind({
 					</Cell>
 				</Row>
 			);
-		}
+		},
+		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
+			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+		})
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {

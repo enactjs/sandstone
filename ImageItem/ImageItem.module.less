@@ -50,18 +50,37 @@
 		}
 	}
 
-	&.vertical {
-		padding: @sand-imageitem-vertical-padding;
+	&:not(.fullImage) {
+		&::before {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-radius: @sand-imageitem-border-radius;
+		}
+	}
 
-		.image {
-			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
-			will-change: filter, transform;
+	&.vertical {
+		&:not(.fullImage) {
+			padding: @sand-imageitem-vertical-padding;
+			margin: @sand-imageitem-margin;
+		}
+
+		&.fullImage {
+			padding: @sand-imageitem-vertical-full-image-padding;
+
+			.image {
+				transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+				will-change: filter, transform;
+
+				.selectionIcon {
+					transition: transform 200ms ease-in-out;
+				}
+			}
 		}
 
 		.captions {
 			margin-top: @sand-imageitem-vertical-captions-margin-top;
 			height: @sand-imageitem-vertical-captions-height;
-			transition: transform 200ms ease-in-out;
 		}
 	
 		.imageIcon {
@@ -74,20 +93,12 @@
 			width: @sand-imageitem-vertical-selection-icon-size;
 			height: @sand-imageitem-vertical-selection-icon-size;
 			line-height: @sand-imageitem-vertical-selection-icon-size;
-			transition: transform 200ms ease-in-out;
 		}
 	}
 
 	&.horizontal {
-		.sand-spotlight-padding(@sand-item-vertical-padding);
-		margin: @sand-imageitem-horizontal-margin;
-
-		&::before {
-			content: '';
-			position: absolute;
-			.position(0);
-			border-radius: @sand-imageitem-horizontal-border-radius;
-		}
+		.sand-spotlight-padding(@sand-imageitem-horizontal-padding);
+		margin: @sand-imageitem-margin;
 
 		.image {
 			width: @sand-imageitem-horizontal-image-width;
@@ -136,10 +147,8 @@
 			}
 		}
 
-		&.horizontal {
-			&::before {
-				.sand-spotlight-resting-colors();
-			}
+		&::before {
+			.sand-spotlight-resting-colors();
 		}
 
 		.focus({
@@ -147,30 +156,24 @@
 				.vendor-opacity(@sand-disabled-opacity);
 			});
 
+			&::before {
+				.sand-spotlight-focus-colors();
+			}
+
+			.caption,
+			.label {
+				color: @sand-imageitem-horizontal-focus-caption-color;
+			}
+
 			.selectionIcon {
 				background-color: @sand-imageitem-focus-selection-icon-bg-color;
 				color: @sand-imageitem-focus-selection-icon-color;
 			}
 
 			&.vertical {
-				.image {
+				&.fullImage .image {
 					transform: @sand-imageitem-vertical-focus-image-transform;
 					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
-				}
-
-				.captions {
-					transform: @sand-imageitem-vertical-focus-captions-transform;
-				}
-			}
-
-			&.horizontal {
-				&::before {
-					.sand-spotlight-focus-colors();
-				}
-
-				.caption,
-				.label {
-					color: @sand-imageitem-horizontal-focus-caption-color;
 				}
 			}
 
