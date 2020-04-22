@@ -88,6 +88,8 @@ const PanelBase = kind({
 		 */
 		autoFocus: PropTypes.string,
 
+		css: PropTypes.object,
+
 		/**
 		 * Header for the panel.
 		 *

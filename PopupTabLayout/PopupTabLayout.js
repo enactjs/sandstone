@@ -1,4 +1,3 @@
-// import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 // import Cancelable from '@enact/ui/Cancelable';
 import PropTypes from 'prop-types';
