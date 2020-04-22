@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/VideoPlayer` to seek when pressing 5way left or right keys while media controls are hidden
 
 ## [1.0.0-alpha.8] - 2020-04-14
 

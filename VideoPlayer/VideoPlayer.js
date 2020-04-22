@@ -52,7 +52,11 @@ import Video from './Video';
 
 import css from './VideoPlayer.module.less';
 
-const controlsHandleAboveId = 'controlsHandleAbove';
+const jumpBackKeyCode = 37;
+const jumpForwardKeyCode = 39;
+const controlsHandleAboveSelectionKeys = [13, 16777221, jumpBackKeyCode, jumpForwardKeyCode];
+const isLeft = is('left');
+const isRight = is('right');
 const SpottableDiv = Touchable(Spottable('div'));
 const RootContainer = SpotlightContainerDecorator(
 	{
@@ -654,6 +658,7 @@ const VideoPlayerBase = class extends React.Component {
 		this.selectPlaybackRates('fastForward');
 		this.sliderKnobProportion = 0;
 		this.mediaControlsSpotlightId = props.spotlightId + '_mediaControls';
+		this.jumpButtonPressed = 0;
 
 		// Re-render-necessary State
 		this.state = {
@@ -760,7 +765,7 @@ const VideoPlayerBase = class extends React.Component {
 
 				// Set focus to the hidden spottable control - maintaining focus on available spottable
 				// controls, which prevents an additional 5-way attempt in order to re-show media controls
-				Spotlight.focus(controlsHandleAboveId);
+				Spotlight.focus(`.${css.controlsHandleAbove}`);
 			}
 		} else if (this.state.mediaControlsVisible && !prevState.mediaControlsVisible) {
 			forwardControlsAvailable({available: true}, this.props);
@@ -888,9 +893,10 @@ const VideoPlayerBase = class extends React.Component {
 	 * @public
 	 */
 	showControls = () => {
-		if (this.props.disabled) {
+		if (this.props.disabled || this.jumpButtonPressed !== 0) {
 			return;
 		}
+
 		this.startDelayedFeedbackHide();
 		this.startDelayedTitleHide();
 
@@ -1137,6 +1143,40 @@ const VideoPlayerBase = class extends React.Component {
 		stopImmediate,
 		this.showControlsFromPointer
 	)
+
+	handleControlsHandleAboveHoldPulse = () => {
+		if (this.jumpButtonPressed !== 0) {
+			this.handleJump({keyCode: this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode});
+		}
+	}
+
+	handleControlsHandleAboveKeyDown = ({keyCode}) => {
+		if (isLeft(keyCode)) {
+			this.jumpButtonPressed = -1;
+		} else if (isRight(keyCode)) {
+			this.jumpButtonPressed = 1;
+		}
+	}
+
+	handleControlsHandleAboveKeyUp = ({keyCode}) => {
+		if (isLeft(keyCode) || isRight(keyCode)) {
+			this.jumpButtonPressed = 0;
+		}
+	}
+
+	handleControlsHandleAboveDown = (ev) => {
+		switch (this.jumpButtonPressed) {
+			case 0:
+				this.showControls();
+				break;
+			case 1:
+				this.handleJump(ev);
+				break;
+			case -1:
+				this.handleJump(ev);
+				break;
+		}
+	}
 
 	//
 	// Media Interaction Methods
@@ -1915,7 +1955,6 @@ const VideoPlayerBase = class extends React.Component {
 								</div>
 							}
 							<ComponentOverride
-								activatorSpotlightId={controlsHandleAboveId}
 								component={mediaControlsComponent}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
 								onBackwardButtonClick={this.handleRewind}
@@ -1942,10 +1981,13 @@ const VideoPlayerBase = class extends React.Component {
 					// This captures spotlight focus for use with 5-way.
 					// It's non-visible but lives at the top of the VideoPlayer.
 					className={css.controlsHandleAbove}
-					onClick={this.showControls}
+					onDown={this.handleControlsHandleAboveDown}
+					onHoldPulse={this.handleControlsHandleAboveHoldPulse}
+					onKeyDown={this.handleControlsHandleAboveKeyDown}
+					onKeyUp={this.handleControlsHandleAboveKeyUp}
 					onSpotlightDown={this.showControls}
+					selectionKeys={controlsHandleAboveSelectionKeys}
 					spotlightDisabled={this.state.mediaControlsVisible || spotlightDisabled}
-					spotlightId={controlsHandleAboveId}
 				/>
 				<Announce ref={this.setAnnounceRef} />
 			</RootContainer>

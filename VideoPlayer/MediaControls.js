@@ -417,15 +417,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			actionGuideLabel: PropTypes.string,
 
 			/**
-			 * The spotlight ID of the component that activates the media controls container. This is generally
-			 * used to allow certain behaviors, such as 5way jumping, when the activator has focus.
-			 *
-			 * @type {String}
-			 * @public
-			 */
-			activatorSpotlightId: PropTypes.string,
-
-			/**
 			 * These components are placed below the children. Typically these will be media playlist items.
 			 *
 			 * @type {Node}
@@ -674,7 +665,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		handleKeyDown = (ev) => {
 			const {
-				activatorSpotlightId,
 				mediaDisabled,
 				no5WayJump,
 				visible
@@ -685,7 +675,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (!no5WayJump &&
 					!visible &&
 					!mediaDisabled &&
-					(!current || activatorSpotlightId === current.dataset.spotlightId) &&
+					!current &&
 					(is('left', ev.keyCode) || is('right', ev.keyCode))) {
 				this.paused.pause();
 				this.startListeningForPulses(ev.keyCode);
@@ -819,7 +809,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		render () {
 			const props = Object.assign({}, this.props);
-			delete props.activatorSpotlightId;
 			delete props.initialJumpDelay;
 			delete props.jumpDelay;
 			delete props.moreActionDisabled;
