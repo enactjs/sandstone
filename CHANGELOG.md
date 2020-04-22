@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Changed
-
-- `sandstone/VideoPlayer.MediaSlider` and `sandstone/VideoPlayer.Times` to separate styles from `VideoPlayer.module.less`
-
 ### Fixed
 
 - `sandstone/Button` styles for `selected`
