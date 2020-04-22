@@ -20,6 +20,7 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem selected disabled indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -88,6 +89,10 @@ const FormCheckboxItemTests = [
 	{
 		locale: 'ar-SA',
 		component: <FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem Checked</FormCheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem Checked</FormCheckboxItem>
 	}
 ];
 export default FormCheckboxItemTests;

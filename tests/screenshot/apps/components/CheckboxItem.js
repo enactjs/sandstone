@@ -13,7 +13,7 @@ const CheckboxItemTests = [
 	<CheckboxItem selected inline>CheckboxItem Checked</CheckboxItem>,
 	<CheckboxItem selected disabled inline>CheckboxItem Checked</CheckboxItem>,
 
-	<CheckboxItem indeterminate>CheckboxItem</CheckboxItem>, 					// not selected
+	<CheckboxItem indeterminate>CheckboxItem</CheckboxItem>, 			// not selected
 	<CheckboxItem disabled indeterminate>CheckboxItem</CheckboxItem>,	// not selected
 	<CheckboxItem inline indeterminate>CheckboxItem</CheckboxItem>,		// not selected
 	<CheckboxItem disabled inline indeterminate>CheckboxItem</CheckboxItem>, // not selected
@@ -21,6 +21,7 @@ const CheckboxItemTests = [
 	<CheckboxItem selected disabled indeterminate>CheckboxItem</CheckboxItem>,
 	<CheckboxItem selected inline indeterminate>CheckboxItem</CheckboxItem>,
 	<CheckboxItem selected disabled inline indeterminate>CheckboxItem</CheckboxItem>,
+	<CheckboxItem indeterminate indeterminateIcon="lock">CheckboxItem</CheckboxItem>, 	// not selected
 	// Removed until itemIcon, itemIconPosition, and iconPosition support is resolved
 	// // itemIcon
 	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>}>CheckboxItem</CheckboxItem>,
@@ -122,6 +123,10 @@ const CheckboxItemTests = [
 	{
 		locale: 'ar-SA',
 		component: <CheckboxItem selected disabled inline indeterminate>CheckboxItem Checked</CheckboxItem>
+	},
+	{
+		locale: 'ar-SA',
+		component: <CheckboxItem indeterminate indeterminateIcon="lock">CheckboxItem Checked</CheckboxItem>
 	}
 	// {
 	// 	locale: 'ar-SA',
