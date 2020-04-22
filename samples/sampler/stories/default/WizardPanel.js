@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -15,11 +15,14 @@ WizardPanel.displayName = 'WizardPanel';
 
 storiesOf('Sandstone', module)
 	.add(
-		'WizardPanel',
+		'Panels.WizardPanel',
 		() => (
 			<WizardPanel
 				nextButtonText={text('nextButtonText', WizardPanel, '')}
+				noAnimation={boolean('noAnimation', WizardPanel, false)}
 				onSelect={action('onSelect')}
+				onTransition={action('onTransition')}
+				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanel, '')}
 			>
 				<View footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">

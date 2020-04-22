@@ -7,14 +7,14 @@ import React from 'react';
 // TO DO: add RTL tests
 
 const DropdownTests = [
-	// Change 'size' dynamically [GT-27486]
-	<Dropdown />,  // default size is 'small'
-	// Change 'size' dynamically [GT-27486]
+	<Dropdown />,  // default size is 'large'
+	// Change 'size' dynamically [GT-28629]
 	<Dropdown size="large" />,
 	<Dropdown title="Dropdown" />,
-	<Dropdown title="Dropdown" size="large" />,
+	<Dropdown size="small" />,
+	<Dropdown title="Dropdown" size="small" />,
 
-	// Change 'width' dynamically [GT-27549]
+	// Change 'width' dynamically [GT-28630]
 	// width - 'medium' is default
 	<Dropdown title="Dropdown" width="tiny" />,
 	<Dropdown title="Dropdown" width="small" />,
@@ -24,11 +24,11 @@ const DropdownTests = [
 
 	<Dropdown title="Dropdown" width="tiny" disabled />,
 
-	<Dropdown title="Dropdown" width="tiny" size="large" />,
-	<Dropdown title="Dropdown" width="small" size="large" />,
-	<Dropdown title="Dropdown" width="large" size="large" />,
-	<Dropdown title="Dropdown" width="x-large" size="large" />,
-	<Dropdown title="Dropdown" width="huge" size="large" />
+	<Dropdown title="Dropdown" width="tiny" size="small" />,
+	<Dropdown title="Dropdown" width="small" size="small" />,
+	<Dropdown title="Dropdown" width="large" size="small" />,
+	<Dropdown title="Dropdown" width="x-large" size="small" />,
+	<Dropdown title="Dropdown" width="huge" size="small" />
 
 ];
 export default DropdownTests;

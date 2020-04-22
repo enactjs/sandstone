@@ -10,6 +10,7 @@ import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import Dropdown from './components/Dropdown';
+import FlexiblePopupPanels from './components/FlexiblePopupPanels';
 import FormCheckbox from './components/FormCheckbox';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import Header from './components/Header';
@@ -24,6 +25,7 @@ import LabeledIcon from './components/LabeledIcon';
 import LabeledIconButton from './components/LabeledIconButton';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
+import Panel from './components/Panel';
 import Panels from './components/Panels';
 import Picker from './components/Picker';
 import Popup from './components/Popup';
@@ -50,6 +52,7 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
+	FlexiblePopupPanels,
 	FormCheckbox,
 	FormCheckboxItem,
 	Header,
@@ -64,6 +67,7 @@ const components = {
 	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
+	Panel,
 	Panels,
 	Picker,
 	Popup,

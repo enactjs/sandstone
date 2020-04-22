@@ -58,11 +58,11 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		ScrollToTopButton
 	} = useScroll({...rest, ...props});
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -73,13 +73,12 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -486,11 +485,11 @@ let VirtualGridList = ({role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps
+		horizontalScrollbarProps,
+		ScrollToTopButton
 	} = useScroll(rest);
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -501,13 +500,12 @@ let VirtualGridList = ({role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
