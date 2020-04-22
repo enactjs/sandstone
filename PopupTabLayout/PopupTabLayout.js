@@ -14,7 +14,8 @@ import css from './PopupTabLayout.module.less';
 
 // List all of the props from PopupTabLayout that we want to move from this component's root onto PopupTabLayout.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
-	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
+	'position', 'scrimType', 'spotlightId', 'spotlightRestrict', 'id', 'className',
+	'style', 'noAnimation', 'onClose'];
 
 
 const TabPanels = (props) => <Panels {...props} css={css} />;
@@ -91,7 +92,7 @@ const PopupTabLayoutBase = kind({
 		 * Position of the PopupTabLayout on the screen.
 		 *
 		 * @type {('left'|'right')}
-		 * @default 'right'
+		 * @default 'left'
 		 * @public
 		 */
 		// Intentionally excluded 'bottom', 'center', 'fullscreen', and 'top' as those aren't configured for this component at this time.
@@ -107,8 +108,8 @@ const PopupTabLayoutBase = kind({
 		className: 'popupTabLayout'
 	},
 
-	render: ({children, className, id, noAnimation, onBack, onClose, ...rest}) => {
-		// Extract all popup props
+	render: ({children, ...rest}) => {
+		// Extract all relevant popup props
 		const popupProps = {};
 		for (const prop in rest) {
 			if (popupPropList.indexOf(prop) >= 0) {
@@ -118,7 +119,7 @@ const PopupTabLayoutBase = kind({
 		}
 
 		return (
-			<Popup {...popupProps} className={className} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
+			<Popup {...popupProps} css={css}>
 				<TabLayout
 					{...rest}
 					css={css}
