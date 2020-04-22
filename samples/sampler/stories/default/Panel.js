@@ -105,11 +105,11 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
-								initialHiddenHeight={ri.scale(211)}
+								initialHiddenHeight={boolean('featureContent', Config, false) ? ri.scale(211) : 0}
 								itemRenderer={renderItem}
 								itemSize={{
-									minWidth: scale(number('minWidth', VGLConfig, ri.scale(640))),
-									minHeight: scale(number('minHeight', VGLConfig, ri.scale(540)))
+									minWidth: scale(number('minWidth', VGLConfig, 640)),
+									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
 						</Tab>
@@ -120,11 +120,11 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
-								initialHiddenHeight={ri.scale(211)}
+								initialHiddenHeight={boolean('featureContent', Config, false) ? ri.scale(211) : 0}
 								itemRenderer={renderItem}
 								itemSize={{
-									minWidth: scale(number('minWidth', VGLConfig, ri.scale(640))),
-									minHeight: scale(number('minHeight', VGLConfig, ri.scale(540)))
+									minWidth: scale(number('minWidth', VGLConfig, 640)),
+									minHeight: scale(number('minHeight', VGLConfig, 540))
 								}}
 							/>
 						</Tab>
