@@ -1,8 +1,6 @@
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 import React from 'react';
 
-import CheckboxItem from '../../../../CheckboxItem';
-
 const FormCheckboxItemTests = [
 	<FormCheckboxItem />,
 	<FormCheckboxItem>FormCheckboxItem</FormCheckboxItem>, 					// not selected
