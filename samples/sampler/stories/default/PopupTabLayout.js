@@ -1,13 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 
 import {action} from '@enact/storybook-utils/addons/actions';
-import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
 import Group from '@enact/ui/Group';
 
-import PopupTabLayout, {PopupTabLayoutBase, Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
+import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
