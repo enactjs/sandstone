@@ -1,9 +1,12 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {memo} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
+
+import panelCss from '../Panels/Panel.module.less';
 
 import componentCss from './Scrollbar.module.less';
 
@@ -22,9 +25,14 @@ const useThemeScrollbar = (props) => {
 		...rest
 	} = restProps;
 
+	const {className} = scrollbarProps;
+
 	return {
 		restProps: rest,
-		scrollbarProps,
+		scrollbarProps: {
+			...scrollbarProps,
+			className: classNames(className, panelCss.scrollbar)
+		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
 			cbAlertScrollbarTrack,

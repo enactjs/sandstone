@@ -86,9 +86,26 @@
 		height: calc(100% + var(--sand-panels-header-title-height));
 		transition: @sand-panel-featurecontent-animation-duration transform ease-in-out;
 		will-change: transform;
-	
+
 		&.shouldFeatureContent {
 			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
+		}
+
+		.scrollbar {
+			will-change: transform;
+			transition: @sand-panel-featurecontent-animation-duration transform ease-in-out;
+			transform-origin: center top;
+		}
+
+		&.shouldFeatureContent {
+			.scrollbar {
+				transform: scale(1);
+			}
+		}
+		&:not(.shouldFeatureContent) {
+			.scrollbar {
+				transform: scaleY(0.5);
+			}
 		}
 	}
 
