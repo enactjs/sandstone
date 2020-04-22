@@ -1,0 +1,56 @@
+{
+	"name": "perf-puppeteer",
+	"version": "1.0.0",
+	"description": "A test suite for Enact Sandstone components.",
+	"author": "",
+	"main": "src/index.js",
+	"scripts": {
+		"serve": "enact serve",
+		"pack": "enact pack",
+		"pack-p": "enact pack -p",
+		"watch": "enact pack --watch",
+		"clean": "enact clean",
+		"lint": "enact lint .",
+		"license": "enact license",
+		"test": "jest --detectOpenHandles",
+		"stop": "pkill -f 'enact serve'",
+		"test-all": "$(npm bin)/concurrently 'npm run serve' '$(npm bin)/wait-on http://localhost:8080/ && npm test && npm stop'"
+	},
+	"license": "UNLICENSED",
+	"private": true,
+	"repository": "",
+	"enact": {
+		"theme": "sandstone"
+	},
+	"eslintIgnore": [
+		"node_modules/*",
+		"build/*",
+		"dist/*"
+	],
+	"dependencies": {
+		"@enact/core": "^3.3.0-alpha.6",
+		"@enact/i18n": "^3.3.0-alpha.6",
+		"@enact/sandstone": "../../",
+		"@enact/spotlight": "^3.3.0-alpha.6",
+		"@enact/ui": "^3.3.0-alpha.6",
+		"dotenv": "^6.2.0",
+		"ilib": "^14.4.0",
+		"node-fetch": "^2.3.0",
+		"prop-types": "^15.6.2",
+		"qs": "^6.6.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-router-dom": "^4.3.1",
+		"yargs": "^12.0.5"
+	},
+	"devDependencies": {
+		"chalk": "^2.4.2",
+		"concurrently": "^4.1.0",
+		"devtools-timeline-model": "git@github.com:paulirish/devtools-timeline-model.git#latestbump",
+		"jest": "^24.1.0",
+		"prettier": "^1.15.3",
+		"puppeteer": "^1.11.0",
+		"rimraf": "^2.6.3",
+		"wait-on": "^3.2.0"
+	}
+}
