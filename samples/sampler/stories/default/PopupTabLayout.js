@@ -28,17 +28,13 @@ storiesOf('Sandstone', module)
 	.add(
 		'PopupTabLayout',
 		() => {
-			const defaultOpen = false;
-			const [open, setOpenState] = React.useState(defaultOpen);
+			const [open, setOpenState] = React.useState(false);
 			const toggleOpen = () => setOpenState(!open);
 			const handleClose = compose(toggleOpen, action('onClose'));
 
-			const defaultIndexDisplay = 0;
-			const defaultIndexNetwork = 0;
-			const defaultIndexSound = 0;
-			const [indexDisplay, setIndexDisplay] = React.useState(defaultIndexDisplay);
-			const [indexNetwork, setIndexNetwork] = React.useState(defaultIndexNetwork);
-			const [indexSound, setIndexSound] = React.useState(defaultIndexSound);
+			const [indexDisplay, setIndexDisplay] = React.useState(0);
+			const [indexNetwork, setIndexNetwork] = React.useState(0);
+			const [indexSound, setIndexSound] = React.useState(0);
 
 			const handleDisplayNext = navNext(setIndexDisplay, indexDisplay, 'onNext');
 			const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');
