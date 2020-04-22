@@ -9,7 +9,7 @@ import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
 import Icon from '../Icon';
-import Item from '../Item';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 
@@ -19,6 +19,7 @@ const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
+		collapsed: PropTypes.bool,
 		css: PropTypes.object,
 		icon: PropTypes.string,
 		index: PropTypes.number,
@@ -42,20 +43,20 @@ const TabBase = kind({
 		)
 	},
 
-	render: ({children, css, icon, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
 
 		return (
-			<Item
+			<Button
 				{...rest}
+				collapsable
+				minWidth={false}
+				backgroundOpacity="transparent"
 				css={css}
 			>
-				{icon ? (
-					<Icon slot="slotBefore" className={componentCss.icon}>{icon}</Icon>
-				) : null}
 				{children}
-			</Item>
+			</Button>
 		);
 	}
 });
@@ -104,8 +105,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
-		delete rest.collapsed;
+	render: ({children, collapsed, noIcons, onBlur, onFocus, onSelect, selectedIndex, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
@@ -118,14 +118,14 @@ const TabGroupBase = kind({
 				verticalScrollbar="hidden"
 			>
 				{noIcons ? (
-					<Item>
-						<Icon slot="slotBefore" className={componentCss.icon}>list</Icon>
-					</Item>
+					<TabBase icon="list" collapsed />
 				) : (
 					<Group
 						childComponent={Tab}
 						component="div"
 						indexProp="index"
+						itemProps={{collapsed}}
+						onSelect={onSelect}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"

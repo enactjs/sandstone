@@ -183,7 +183,15 @@ const TabLayoutBase = kind({
 	},
 
 	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		const tabSize = collapsed ? 450 : 855;
+		//
+		// NOTE: Temporary, this is not a finalized pattern.
+		//
+		// const tabSizes = [855, 450];
+		// const contentSizes = [null, null];
+		const tabSizes = [660, 236];
+		const contentSizes = [1320, 1320];
+		const tabSize = (collapsed ? tabSizes[1] : tabSizes[0]);
+		const contentSize = (collapsed ? contentSizes[1] : contentSizes[0]);
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
@@ -198,6 +206,7 @@ const TabLayoutBase = kind({
 					/>
 				</Cell>
 				<Cell
+					size={contentSize}
 					className={css.content}
 					component={ViewManager}
 					index={index}
