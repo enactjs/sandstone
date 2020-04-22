@@ -16,12 +16,14 @@ import Item from '@enact/sandstone/Item';
 PopupTabLayout.displayName = 'PopupTabLayout';
 
 const navPrev = (callback, value, actionName) => () => {
-	action(actionName);
-	return callback(Math.max(value - 1, 0));
+	const index = Math.max(value - 1, 0);
+	action(actionName)({index});
+	callback(index);
 };
-const navNext = (callback, value, actionName) => () => {
-	action(actionName);
-	return callback(Math.min(value + 1, 5));
+const navNext = (callback, value) => () => {
+	const index = Math.min(value + 1, 5);
+	// action(actionName)({index});
+	callback(index);
 };
 
 storiesOf('Sandstone', module)
