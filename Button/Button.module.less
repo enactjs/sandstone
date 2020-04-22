@@ -239,6 +239,28 @@
 		}
 	}
 
+	// Collapsable only has an effect if there is both an icon and text.
+	&.collapsable.hasIcon:not(.iconOnly) {
+		padding-left: 0;
+		padding-right: 0;
+
+		.icon {
+			margin: 0 24px;
+		}
+		.marquee {
+			margin: 0;
+			opacity: 1;
+			transition: opacity 300ms ease-out;
+			will-change: opacity;
+		}
+
+		&.collapsed {
+			.marquee {
+				opacity: 0;
+			}
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		&,

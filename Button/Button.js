@@ -60,6 +60,9 @@ const ButtonBase = kind({
 		 */
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
+		collapsable: PropTypes.bool,
+		collapsed: PropTypes.bool,
+
 		/**
 		 * The color of the underline beneath button's content.
 		 *
@@ -131,20 +134,24 @@ const ButtonBase = kind({
 
 	defaultProps: {
 		backgroundOpacity: null,
+		collapsable: false,
+		collapsed: false,
 		iconPosition: 'before',
 		size: 'large'
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
+		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small', 'transparent', 'opaque', 'marquee', 'icon']
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, iconOnly, iconPosition, size, styler}) => styler.append(
 			{
 				hasColor: color,
-				iconOnly
+				iconOnly,
+				collapsable,
+				collapsed
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
@@ -157,6 +164,8 @@ const ButtonBase = kind({
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.collapsable;
+		delete rest.collapsed;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 
