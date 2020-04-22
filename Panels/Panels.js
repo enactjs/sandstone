@@ -89,6 +89,8 @@ const PanelsBase = kind({
 		 */
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
+		css: PropTypes.object,
+
 		/**
 		 * Unique identifier for the Panels instance.
 		 *
@@ -170,7 +172,21 @@ const PanelsBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClose: PropTypes.func
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
@@ -200,13 +216,35 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({css, arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({
+		arranger,
+		backButtonAriaLabel,
+		backButtonBackgroundOpacity,
+		children,
+		closeButtonAriaLabel,
+		closeButtonBackgroundOpacity,
+		css,
+		generateId,
+		id,
+		index,
+		noAnimation,
+		noBackButton,
+		noCloseButton,
+		noSharedState,
+		onClose,
+		onBack,
+		onTransition,
+		onWillTransition,
+		viewportId,
+		...rest
+	}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
 					backButtonAriaLabel={backButtonAriaLabel}
 					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
+					className={css.viewport}
 					closeButtonAriaLabel={closeButtonAriaLabel}
 					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}
@@ -218,7 +256,8 @@ const PanelsBase = kind({
 					noSharedState={noSharedState}
 					onBack={onBack}
 					onClose={onClose}
-					className={css.viewport}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>
