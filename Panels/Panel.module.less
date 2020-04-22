@@ -1,6 +1,7 @@
 // Panel.module.less
 //
 @import "../styles/variables.less";
+@import "../styles/skin.less";
 
 .panel {
 	position: absolute;
@@ -11,6 +12,7 @@
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
+	vertical-align: top;
 
 	.body {
 		position: relative;
@@ -38,11 +40,29 @@
 		}
 	}
 
-	&.optionType {
-		padding: @sand-panel-option-padding;
+	&.fixedPopupType {
+		padding: @sand-panel-fixedpopup-padding;
+		display: inline-block;
 
 		.body {
-			padding: @sand-panel-body-option-padding;
+			padding: @sand-panel-body-fixedpopup-padding;
+		}
+	}
+
+	&.flexiblePopupType {
+		padding: 0;
+		display: inline-flex;
+		pointer-events: none;
+
+		> * {
+			pointer-events: auto;
+		}
+
+		.body {
+			margin: @sand-panel-flexiblepopup-margin;
+			padding: @sand-panel-flexiblepopup-padding;
+			align-self: start;  // Allow this node to horizontally shrink to fit the content.
+			flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
 		}
 	}
 
@@ -61,4 +81,24 @@
 	:global(.enact-locale-right-to-left) & {
 		direction: rtl;
 	}
+
+	&.featureContent {
+		height: calc(100% + var(--sand-panels-header-title-height));
+		transition: @sand-panel-featurecontent-animation-duration transform ease-in-out;
+		will-change: transform;
+	
+		&.shouldFeatureContent {
+			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
+		}
+	}
+
+	.applySkins({
+		&.flexiblePopupType {
+			.body {
+				background-color: @sand-panel-flexiblepopup-bg-color;
+				border-radius: @sand-panel-flexiblepopup-border-radius;
+				filter: drop-shadow(@sand-panel-flexiblepopup-shadow);
+			}
+		}
+	});
 }

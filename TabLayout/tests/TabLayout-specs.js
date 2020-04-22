@@ -1,22 +1,23 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {TabLayoutBase} from '../TabLayout';
+import {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
 	it('should be collapsed when collapsed is true', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				collapsed
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
 			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 
@@ -25,16 +26,16 @@ describe('TabLayout specs', () => {
 
 	it('should have default orientation of vertical', () => {
 		const subject = shallow(
-			<TabLayoutBase
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
-			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+			<TabLayoutBase>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 
@@ -45,15 +46,16 @@ describe('TabLayout specs', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				orientation="horizontal"
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
 			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 

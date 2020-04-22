@@ -5,7 +5,7 @@ import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import React, {forwardRef, useCallback, useEffect} from 'react';
 
-import css from './ScrollThumb.module.less';
+import css from './ScrollbarTrack.module.less';
 
 const nop = () => {};
 const
@@ -19,21 +19,21 @@ const
 const SpotlightAccelerator = new Accelerator();
 
 /**
- * A Sandstone-styled scroll thumb with sandstone behavior
+ * A Sandstone-styled scrollbar track with sandstone behavior
  *
- * @class ScrollThumb
+ * @class ScrollbarTrack
  * @memberof sandstone/useScroll
  * @ui
  * @private
  */
-let ScrollThumb = forwardRef((props, ref) => {
+const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{cbAlertThumb, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
-		className = classNames(css.scrollTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
-		ScrollThumbDiv = focusableScrollbar ? Spottable('div') : 'div';
+		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
+		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
-		cbAlertThumb();
+		cbAlertScrollbarTrack();
 	});
 
 	useEffect (() => {
@@ -97,24 +97,24 @@ let ScrollThumb = forwardRef((props, ref) => {
 
 	return (
 		<div {...rest} className={className} onClick={onClick} ref={ref}>
-			<ScrollThumbDiv className={css.thumb} onKeyDown={onKeyDown}>
+			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
-			</ScrollThumbDiv>
+			</ScrollbarThumb>
 		</div>
 	);
 });
 
-ScrollThumb.displayName = 'ScrollThumb';
+ScrollbarTrack.displayName = 'ScrollbarTrack';
 
-ScrollThumb.propTypes = /** @lends sandstone/useScroll.ScrollThumb.prototype */ {
+ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
 	/**
-	 * Called when [ScrollThumb]{@link sandstone/useScroll.ScrollThumb} is updated.
+	 * Called when [ScrollbarTrack]{@link sandstone/useScroll.ScrollbarTrack} is updated.
 	 *
 	 * @type {Function}
 	 * @private
 	 */
-	cbAlertThumb: PropTypes.func,
+	cbAlertScrollbarTrack: PropTypes.func,
 
 	/**
 	 * `true` if scroll thumb is spottable.
@@ -149,16 +149,16 @@ ScrollThumb.propTypes = /** @lends sandstone/useScroll.ScrollThumb.prototype */ 
 	vertical: PropTypes.bool
 };
 
-ScrollThumb.defaultProps = {
-	cbAlertThumb: nop,
+ScrollbarTrack.defaultProps = {
+	cbAlertScrollbarTrack: nop,
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,
 	vertical: true
 };
 
-export default ScrollThumb;
+export default ScrollbarTrack;
 export {
-	ScrollThumb,
-	ScrollThumb as ScrollThumbBase
+	ScrollbarTrack,
+	ScrollbarTrack as ScrollbarTrackBase
 };
