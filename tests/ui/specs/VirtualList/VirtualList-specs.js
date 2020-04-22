@@ -622,5 +622,45 @@ describe('VirtualList', function () {
 			});
 		});
 		*/
+		describe('onScrollStart/Stop Events behavior [GT-28470] ', function() {
+			it('Scroll Events Display in Actions with 5-way Down and Up', function(){
+
+					//Verify Step 3 : Spotlight displays on the Item 006 or 007.
+					Page.item(7).moveTo();
+					//Page.spotlightRight();
+					expectFocusedItem(7,'step 3 focus');
+					//Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
+					for(let i = 0; i<10; i++){
+							Page.spotlightDown();
+							//Verify Step 4.1: Displays 'onScrollStart'
+							//Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
+							waitForScrollStartStop();
+					}
+					//Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
+					for(let j = 0; j < 10; j++){
+							Page.spotlightUp();
+							//Verify Step 5.1: Displays 'onScrollStart'
+							//Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
+							if(j>6){
+									waitForScrollStartStop();
+							}
+					}
+
+				});
+		});		
+		describe('Item Animates',function(){
+			it('Items Animate via Channel Down [GT-28464]',function(){
+				//Step 3: Position the pointer on the first item('Item 000)
+				Page.showPointerByKeycode();
+				Page.item(0).moveTo();
+				expectFocusedItem(0);
+				//Step 4: Press Channel Down
+				Page.pageDown();
+				waitForScrollStartStop();	
+				//Step 5: Press Channel Down again.
+				Page.pageDown();
+				waitForScrollStartStop();
+			});
+		});		
 	});
 });
