@@ -18,6 +18,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ImageItem` focus effect of vertical image item with labels
 
+### Fixed
+
+- `sandstone/Picker` horizontal joined height in large text mode
+
 ## [1.0.0-alpha.9] - 2020-04-20
 
 ### Deprecated
