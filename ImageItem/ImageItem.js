@@ -219,7 +219,7 @@ const ImageItemBase = kind({
 					) : null}
 					<Cell>
 						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						<Marquee className={css.label} marqueeOn="hover">{label}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
