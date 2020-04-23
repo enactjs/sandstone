@@ -13,18 +13,16 @@
 	height: 100%;
 	position: relative;
 
-	&.verticalPadding {
-		&:not(.rtl) {
+	&.verticalExpand {
+		:not(:global(.enact-locale-right-to-left)) & {
 			margin-left: calc(var(--scroll-scrollbar-size) * (-1));
 		}
-		&.rtl {
+		:global(.enact-locale-right-to-left) & {
 			margin-right: calc(var(--scroll-scrollbar-size) * (-1));
 		}
 	}
 
-	padding-left: inherit;
-	padding-right: inherit;
-	padding-bottom: inherit;
+	padding: inherit;
 
 	&::before {
 		content: '';

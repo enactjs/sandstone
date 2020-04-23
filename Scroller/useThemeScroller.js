@@ -85,8 +85,7 @@ const getFocusableBodyProps = ({direction, rtl, verticalScrollbar}, scrollContai
 		className: classNames(
 			css.focusableBody,
 			{
-				[css.rtl]: rtl,
-				[css.verticalPadding]: (direction === 'vertical' || direction === 'both') && (verticalScrollbar !== 'hidden')
+				[css.verticalExpand]: (direction === 'vertical' || direction === 'both') && (verticalScrollbar !== 'hidden')
 			}),
 		onFocus: handle(
 			forward('onFocus'),
