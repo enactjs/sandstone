@@ -203,6 +203,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	id: PropTypes.string,
 
 	/**
+	 * Initial height of the hidden part of the vertical scroll bar.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	initialHiddenHeight: PropTypes.number,
+
+	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
 	 *
 	 * @type {Boolean}
@@ -630,6 +638,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	id: PropTypes.string,
+
+	/**
+	 * Initial height of the hidden part of the vertical scroll bar.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
