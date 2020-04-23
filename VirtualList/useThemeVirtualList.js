@@ -35,7 +35,6 @@ const useSpottable = (props, instances) => {
 		isScrolledByJump: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
-		nodeToBeFocused: {index: null, direction: null},
 		pause: new Pause('VirtualListBasic')
 	});
 
@@ -184,8 +183,8 @@ const useSpottable = (props, instances) => {
 			setPreservedIndex(index, direction);
 		} else {
 			const
-				currentSpottedNode = Spotlight.getCurrent(),
-				possibleTarget = currentSpottedNode ? getTargetByDirectionFromElement(direction, currentSpottedNode) : itemNode;
+				current = Spotlight.getCurrent(),
+				candidate = current ? getTargetByDirectionFromElement(direction, current) : itemNode;
 
 			if (mutableRef.current.isWrappedBy5way) {
 				SpotlightAccelerator.reset();
@@ -193,8 +192,8 @@ const useSpottable = (props, instances) => {
 			}
 
 			pause.resume();
-			if (utilDOM.containsDangerously(itemNode, possibleTarget)) {
-				returnVal = focusOnNode(possibleTarget);
+			if (utilDOM.containsDangerously(itemNode, candidate)) {
+				returnVal = focusOnNode(candidate);
 			} else {
 				returnVal = focusOnNode(itemNode);
 			}

@@ -120,7 +120,7 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const possibleTarget = getTargetByDirectionFromElement(direction, target);
+					const candidate = getTargetByDirectionFromElement(direction, target);
 					const targetIndex = target.dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -129,9 +129,13 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const possibleTargetIndex = possibleTarget && possibleTarget.dataset && getNumberValue(possibleTarget.dataset.index);
+					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 
-					if (isNotItem || possibleTargetIndex !== index) { // if not moving inside an item
+					// To handle virtualized items, a list should handle spotlight navigation between items.
+					// If the focused node is not an item (truthy `isNotItem`) or
+					// focus is not moving between items (`candidateIndex` === `index`),
+					// the case should be handled by Spotlight.
+					if (isNotItem || candidateIndex !== index) {
 						const {repeat} = ev;
 						const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
 						const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
@@ -176,7 +180,7 @@ const useEventKey = (props, instances, context) => {
 									handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 								}
 							}
-						} else if (!utilDOM.containsDangerously(ev.currentTarget, possibleTarget)) {
+						} else if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) {
 							isLeaving = true;
 						}
 
