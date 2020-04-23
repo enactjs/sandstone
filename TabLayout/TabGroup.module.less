@@ -4,26 +4,18 @@
 @import "../styles/variables.less";
 
 .tab {
-	display: block;
+	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
 	font-weight: normal;
-	margin-bottom: 24px;
-
-	.icon {
-		margin: 0;
-	}
+	margin-bottom: @sand-tablayout-tab-margin-bottom;
 
 	.client {
 		text-align: start;
 	}
 
 	.applySkins({
-		padding: 0 18px; // Cheating, to get higher precedence
-
 		&.button.selected {
-			// color: @sand-tablayout-tab-selected-text-color;
-
-			// The coloration here is imperfect during transition. A more elaborate solution is necessary.
 			.bg {
+				.sand-button-spotlight-resting-colors();
 				background-color: @sand-tablayout-tab-selected-bg-color;
 				opacity: @sand-tablayout-tab-selected-opacity;
 			}

@@ -98,12 +98,12 @@ const TabLayoutBase = kind({
 		 */
 		dimensions: PropTypes.shape({
 			content: PropTypes.shape({
-				expanded: PropTypes.number.isRequired,
-				normal: PropTypes.number.isRequired
+				expanded: PropTypes.number,
+				normal: PropTypes.number
 			}).isRequired,
 			tabs: PropTypes.shape({
-				collapsed: PropTypes.number.isRequired,
-				normal: PropTypes.number.isRequired
+				collapsed: PropTypes.number,
+				normal: PropTypes.number
 			}).isRequired
 		}),
 
@@ -183,7 +183,7 @@ const TabLayoutBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'tabLayout enact-fit',
+		className: 'tabLayout',
 		publicClassNames: ['tabLayout', 'tabs', 'content']
 	},
 

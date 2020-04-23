@@ -5,18 +5,17 @@
 @import "../styles/skin.less";
 
 .popupTabLayout {
-	margin: 120px 60px;
+	margin: @sand-popuptablayout-margin;
 
 	.tabs {
-		padding: 48px 0; // Can likely use component-spacing
-		margin-inline-end: 36px;
+		padding: @sand-popuptablayout-tabs-padding;
+		margin-inline-end: @sand-popuptablayout-tabs-content-spacing;
 	}
 
 	.content {
-		margin-top: 0; // Overrides a TabLayout style which may need to get refactored
+		margin-top: @sand-popuptablayout-content-margin; // Overrides a TabLayout style
 		height: 100%;
 	}
-
 
 	// Skin colors
 	.applySkins({
@@ -24,8 +23,8 @@
 
 		.tabs,
 		.content .panels {
-			border-radius: 24px;
-			background-color: fade(@sand-popup-bg-color, 90%);
+			border-radius: @sand-popuptablayout-tabs-content-border-radius;
+			background-color: @sand-popuptablayout-bg-color;
 		}
 
 	});
