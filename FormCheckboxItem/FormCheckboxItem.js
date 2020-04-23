@@ -17,12 +17,13 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import Skinnable from '../Skinnable';
 import {CheckboxBase} from '../Checkbox';
 import Item from '../Item';
 
 import componentCss from './FormCheckboxItem.module.less';
 
-const Checkbox = Spottable(CheckboxBase);
+const Checkbox = Spottable(Skinnable(CheckboxBase));
 
 /**
  * A Sandstone-styled form item with a checkbox component.
@@ -124,7 +125,6 @@ const FormCheckboxItemBase = kind({
 				indeterminateIcon={indeterminateIcon}
 				slot="slotBefore"
 				selected={selected}
-				css={css}
 			>
 				{icon}
 			</Checkbox>
