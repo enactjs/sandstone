@@ -1,10 +1,15 @@
 import kind from '@enact/core/kind';
+import PropTypes from 'prop-types';
 import React from 'react';
 import Marquee from '@enact/sandstone/Marquee';
 import qs from 'qs';
 
 const MarqueeMultiple = kind({
 	name: 'MarqueeMultiple',
+
+	propTypes: {
+		location: PropTypes.object
+	},
 
 	render: ({location}) => {
 		const arr = [];

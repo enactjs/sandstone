@@ -1,10 +1,12 @@
+/* global page */
+
 const {FPS, Mount, Update} = require('../TraceModel');
 const {getFileName} = require('../utils');
 const TestResults = require('../TestResults');
 
 describe('Picker', () => {
 	describe('click', () => {
-		it('increment', async () => {
+		it.skip('increment', async () => {
 			const filename = getFileName('Picker');
 			const incrementer = '[class^="Picker_incrementer"]';
 			await page.goto('http://localhost:8080/picker');

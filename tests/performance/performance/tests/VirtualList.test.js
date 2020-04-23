@@ -1,10 +1,12 @@
+/* global page */
+
 const {FPS, Mount, Update} = require('../TraceModel');
 const {getFileName, scrollAtPoint} = require('../utils');
 const TestResults = require('../TestResults');
 
 describe('VirtualList', () => {
 	describe('ScrollButton', () => {
-		it('scrolls down', async () => {
+		it.skip('scrolls down', async () => {
 			const filename = getFileName('VirtualList');
 			await page.goto('http://localhost:8080/virtualList');
 			await page.tracing.start({path: filename, screenshots: false});

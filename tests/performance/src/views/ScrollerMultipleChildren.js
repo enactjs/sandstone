@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MultipleComponents from '../components/MultipleComponents';
 import SandstoneScroller from '@enact/sandstone/Scroller';
@@ -20,6 +21,10 @@ const ScrollerMultipleChildren = ({location}) => {
 			<MultipleComponents location={location} />
 		</Scroller>
 	);
+};
+
+ScrollerMultipleChildren.propTypes = {
+	location: PropTypes.object
 };
 
 export default ScrollerMultipleChildren;

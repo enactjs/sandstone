@@ -1,9 +1,11 @@
+/* global page */
+
 const {FPS, Mount, Update} = require('../TraceModel');
 const {getFileName} = require('../utils');
 const TestResults = require('../TestResults');
 
 describe('Marquee', () => {
-	it('should start marquee on hover', async () => {
+	it.skip('should start marquee on hover', async () => {
 		const filename = getFileName('Marquee');
 		const MarqueeText = '[class^="Marquee"]';
 
