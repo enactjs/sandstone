@@ -19,6 +19,7 @@ import MarqueeMultiple from '../views/MarqueeMultiple';
 import ViewManager from '../views/ViewManager';
 import ScrollerMultipleChildren from '../views/ScrollerMultipleChildren';
 import TransitionVsCSSAnimation from '../views/TransitionVsCSSAnimation';
+import Toss from '../views/Toss';
 
 import css from './App.less';
 
@@ -52,6 +53,7 @@ const App = kind({
 				<Route path="/viewManager" component={ViewManager} />
 				<Route path="/scrollerMultipleChildren" component={ScrollerMultipleChildren} />
 				<Route path="/transitionVsCSSAnimation" component={TransitionVsCSSAnimation} />
+				<Route path="/toss" component={Toss} />
 			</div>
 		</Router>
 	)
