@@ -78,7 +78,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
+				{rest.showScrollToTopButton ? <ScrollToTopButton /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -384,6 +384,14 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	scrollMode: PropTypes.string,
 
 	/**
+	 * Shows a 'scroll to top' indicator when scrolled.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	showScrollToTopButton: PropTypes.bool,
+
+	/**
 	 * Spotlight Id.
 	 *
 	 * @type {String}
@@ -505,7 +513,7 @@ let VirtualGridList = ({role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
+				{rest.showScrollToTopButton ? <ScrollToTopButton /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -803,6 +811,14 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	scrollMode: PropTypes.string,
+
+	/**
+	 * Shows a 'scroll to top' indicator when scrolled.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	showScrollToTopButton: PropTypes.bool,
 
 	/**
 	 * Spotlight Id.

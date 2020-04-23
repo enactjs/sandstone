@@ -78,7 +78,7 @@ let Scroller = (props) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
+				{props.showScrollToTopButton ? <ScrollToTopButton /> : null}
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -337,6 +337,14 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	scrollMode: PropTypes.string,
+
+	/**
+	 * Shows a 'scroll to top' indicator when scrolled.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	showScrollToTopButton: PropTypes.bool,
 
 	/**
 	 * Specifies how to show vertical scrollbar.
