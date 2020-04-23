@@ -5,27 +5,51 @@
 @import "../styles/skin.less";
 
 .radial-bar-styles() {
-	height: 100%;
-	width: 100%;
 	border-color: inherit;
-	border-radius: 50%;
-	border-style: solid;
 	border-width: @sand-progressbar-radial-thickness;
-	box-sizing: border-box;
 }
 
 .progressBar {
 	height: @sand-progressbar-bar-thickness;
 	margin: @sand-progressbar-margin;
 
+	&.showAnchor {
+		&::after {
+			content: "";
+			position: absolute;
+			transform: @sand-translate-center;
+		}
+	}
+
 	.bar {
 		border-radius: @sand-progressbar-bar-border-radius;
 		overflow: hidden;
 	}
 
+	&.horizontal {
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-width;
+				height: @sand-progressbar-anchor-height;
+				top: 50%;
+				left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+			}
+		}
+	}
+
 	&.vertical {
 		min-height: @sand-progressbar-vertical-min-height;
 		width: @sand-progressbar-bar-thickness;
+
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-height;
+				height: @sand-progressbar-anchor-width;
+				bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+				left: 50%;
+				transform: translate(-50%, 50%);
+			}
+		}
 	}
 
 	&.radial {
@@ -40,39 +64,10 @@
 		.fill,
 		.load {
 			.position(-@sand-progressbar-radial-thickness);
-			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
 
 			&::before,
 			&::after {
 				.radial-bar-styles();
-				position: absolute;
-				content: "";
-			}
-
-			&::before {
-				clip-path: inset(0 0 0 50%);  // Clip off the left half
-				display: none;
-			}
-
-			&::after {
-				clip-path: inset(0 50% 0 0);  // Clip off the right half
-			}
-		}
-
-		.fill::after {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
-		}
-
-		.load::after {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
-		}
-
-		&.fillOverHalf .fill,
-		&.loadOverHalf .load {
-			clip-path: initial;
-
-			&::before {
-				display: block;  // Enable the right-half of the progress circle
 			}
 		}
 	}
@@ -121,6 +116,12 @@
 					background-color: transparent;
 					border-color: @sand-progressbar-highlighted-fill-bg-color;
 				}
+			}
+		}
+
+		&.showAnchor {
+			&::after {
+				background-color: @sand-progressbar-bar-bg-color;
 			}
 		}
 	});

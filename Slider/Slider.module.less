@@ -43,6 +43,39 @@
 		}
 	}
 
+	&.showAnchor {
+		.knob {
+			z-index: 1;
+		}
+
+		.progressBar {
+			&::after {
+				content: "";
+				position: absolute;
+				transform: @sand-translate-center;
+			}
+
+			&.horizontal {
+				&::after {
+					width: @sand-progressbar-anchor-width;
+					height: @sand-progressbar-anchor-height;
+					top: 50%;
+					left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+				}
+			}
+
+			&.vertical {
+				&::after {
+					width: @sand-progressbar-anchor-height;
+					height: @sand-progressbar-anchor-width;
+					bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+					left: 50%;
+					transform: translate(-50%, 50%);
+				}
+			}
+		}
+	}
+
 	.disabled({
 		touch-action: auto;
 	});
@@ -196,6 +229,14 @@
 				background-color: @sand-slider-disabled-knob-bg-color;
 				border-color: @sand-slider-knob-border-color;
 			}
+
+			&.showAnchor {
+				.progressBar {
+					&::after {
+						opacity: @sand-slider-disabled-bar-opacity;
+					}
+				}
+			}
 		});
 
 		&.noFill {
@@ -212,6 +253,14 @@
 					}
 				}
 			});
+		}
+
+		&.showAnchor {
+			.progressBar {
+				&::after {
+					background-color: @sand-progressbar-bar-bg-color;
+				}
+			}
 		}
 	});
 }

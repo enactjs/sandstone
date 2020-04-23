@@ -36,6 +36,18 @@
 			}
 		}
 
+		.disabled({
+			&.selected {
+				.icon {
+					.radioIconColors(
+						@sand-radioitem-disabled-selected-color,
+						@sand-radioitem-disabled-selected-bg-color,
+						@sand-radioitem-disabled-selected-border-color
+					);
+				}
+			}
+		});
+
 		.focus({
 			.icon {
 				.radioIconColors(
@@ -54,6 +66,18 @@
 					);
 				}
 			}
+
+			.disabled({
+				&.selected {
+					.icon {
+						.radioIconColors(
+							@sand-radioitem-focus-disabled-selected-color,
+							@sand-radioitem-focus-disabled-selected-bg-color,
+							@sand-radioitem-focus-disabled-selected-border-color
+						);
+					}
+				}
+			});
 		});
 	});
 }
