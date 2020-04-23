@@ -60,7 +60,32 @@ const ButtonBase = kind({
 		 */
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
+		/**
+		 * Enables the `collapsed` feature of this button down to just its icon.
+		 *
+		 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+		 * defined.
+		 *
+		 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @selected {@link sandstone/Button.Button#collapsed}
+		 * @public
+		 */
 		collapsable: PropTypes.bool,
+
+		/**
+		 * Toggles the collapsed state of this button, down to just its icon.
+		 *
+		 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
+		 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @selected {@link sandstone/Button.Button#collapsable}
+		 * @public
+		 */
 		collapsed: PropTypes.bool,
 
 		/**
