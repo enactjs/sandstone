@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Changed
-
-- `sandstone/ImageItem` focus effect of vertical image item with labels
-
 ### Removed
 
 - `sandstone/Panels.Header` props `headerInput` and `showInput`
@@ -17,6 +13,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
+
+### Changed
+
+- `sandstone/ImageItem` focus effect of vertical image item with labels
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
