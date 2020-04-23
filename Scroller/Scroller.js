@@ -169,7 +169,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 
 	/**
 	 * Adds fade-out effect on the scroller.
-	 * Set this `true` only if the content has no spottable but text.
+	 * Set this to `true` only if the content has no spottable but text.
 	 *
 	 * @type {Boolean}
 	 * @default false

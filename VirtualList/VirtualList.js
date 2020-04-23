@@ -649,6 +649,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 
 	/**
 	 * Removes affordance area on the list.
+	 * Set this to `true` only if the item needs to stick to the bottom for vertical direction,
+	 * to the right for horizontal direction, when scrolling by keys.
 	 *
 	 * @type {Boolean}
 	 * @default false
