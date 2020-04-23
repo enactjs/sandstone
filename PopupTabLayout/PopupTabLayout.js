@@ -99,6 +99,16 @@ const PopupTabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		dimensions: {
+			tabs: {
+				collapsed: 236,
+				normal: 660
+			},
+			content: {
+				expanded: 1320,
+				normal: 1320
+			}
+		},
 		position: 'left'
 	},
 

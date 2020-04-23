@@ -78,6 +78,36 @@ const TabLayoutBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Specify dimensions for the layout areas.
+		 *
+		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * collapsed and expanded state.
+		 *
+		 * @type {Object}
+		 * @default {
+		 * 	tabs: {
+		 * 		collapsed: 450,
+		 * 		normal: 855
+		 * 	},
+		 * 	content: {
+		 * 		expanded: null,
+		 * 		normal: null
+		 * 	}
+		 * }
+		 * @private
+		 */
+		dimensions: PropTypes.shape({
+			content: PropTypes.shape({
+				expanded: PropTypes.number.isRequired,
+				normal: PropTypes.number.isRequired
+			}).isRequired,
+			tabs: PropTypes.shape({
+				collapsed: PropTypes.number.isRequired,
+				normal: PropTypes.number.isRequired
+			}).isRequired
+		}),
+
+		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -137,6 +167,16 @@ const TabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		dimensions: {
+			tabs: {
+				collapsed: 450,
+				normal: 855
+			},
+			content: {
+				expanded: null,
+				normal: null
+			}
+		},
 		index: 0,
 		orientation: 'vertical'
 	},
@@ -182,16 +222,9 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		//
-		// NOTE: Temporary, this is not a finalized pattern.
-		//
-		// const tabSizes = [855, 450];
-		// const contentSizes = [null, null];
-		const tabSizes = [660, 236];
-		const contentSizes = [1320, 1320];
-		const tabSize = (collapsed ? tabSizes[1] : tabSizes[0]);
-		const contentSize = (collapsed ? contentSizes[1] : contentSizes[0]);
+	render: ({children, collapsed, css, dimensions, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		const tabSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
+		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
