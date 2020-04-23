@@ -26,7 +26,7 @@ class VirtualListPage extends Page {
 	get scrollBar () { return $(`${scrollbarSelector}`); }
 	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
 	get scrollThumb () { return $(`${scrollThumbSelector}`); }
-	get ScrollThumbPosition () {
+	getScrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelector(_scrollbarSelector);
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
