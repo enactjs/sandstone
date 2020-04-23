@@ -14,7 +14,7 @@ describe('Toss', () => {
 
 		await page.tracing.stop();
 
-		const actualMount = Mount(filename, 'Toss');
+		const actualMount = Mount(filename, 'Tossable');
 		TestResults.addResult({component: 'Toss', type: 'Mount', actualValue: actualMount});
 	});
 });
