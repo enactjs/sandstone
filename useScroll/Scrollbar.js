@@ -36,7 +36,7 @@ const useThemeScrollbar = (props) => {
 				height = parseInt(window.getComputedStyle(scrollbarNode).getPropertyValue('height')),
 				scale = (height - initialHiddenHeight) / (height);
 
-			ReactDOM.findDOMNode(scrollbarNode).style.setProperty('--scrollbar-scale', scale);
+			ReactDOM.findDOMNode(scrollbarNode).style.setProperty('--scrollbar-scale', scale); // eslint-disable-line react/no-find-dom-node
 		}
 	});
 
