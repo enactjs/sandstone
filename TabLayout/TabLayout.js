@@ -83,7 +83,7 @@ const TabLayoutBase = kind({
 		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
 		 * collapsed and expanded state.
 		 *
-		 * @type {Object}
+		 * @type {@type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}}
 		 * @default {
 		 * 	tabs: {
 		 * 		collapsed: 450,

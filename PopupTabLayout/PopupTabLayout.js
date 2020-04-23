@@ -1,3 +1,13 @@
+/**
+ * Provides a floating component suitable for grouping collections of managed views.
+ *
+ * @module sandstone/PopupTabLayout
+ * @exports PopupTabLayout
+ * @exports Tab
+ * @exports TabPanels
+ * @exports TabPanel
+ */
+
 import kind from '@enact/core/kind';
 // import Cancelable from '@enact/ui/Cancelable';
 import PropTypes from 'prop-types';
@@ -16,55 +26,112 @@ const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict', 'id', 'className',
 	'style', 'noAnimation', 'onClose'];
 
-
-const TabPanels = (props) => <Panels {...props} css={css} />;
-const TabPanel = (props) => <Panel {...props} css={css} />;
-
 /**
- * @class PopupTabLayoutBase
- * @type {Function}
- * @hoc
- * @private
- * @memberof sandstone/PopupTabLayoutBase
+ * Tabbed Layout component in a floating Popup.
+ *
+ * Example:
+ *
+ * ```jsx
+ * 	<PopupTabLayout>
+ * 		<Tab title="Tab One">
+ * 			<TabPanels>
+ * 				<TabPanel>
+ * 					<Header title="First Panel" type="compact" />
+ * 					<Item>Item 1 in Panel 1</Item>
+ * 					<Item>Item 2 in Panel 1</Item>
+ * 				</TabPanel>
+ * 				<TabPanel>
+ * 					<Header title="Second Panel" type="compact" />
+ * 					<Item>Item 1 in Panel 2</Item>
+ * 					<Item>Item 2 in Panel 2</Item>
+ * 				</TabPanel>
+ * 			</TabPanels
+ * 		</Tab>
+ * 		<Tab title="Tab Two">
+ * 			<Item>Goodbye</Item>
+ * 		</Tab>
+ * 	</PopupTabLayout>
+ * ```
+ *
+ * @class PopupTabLayout
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/Popup.Popup
+ * @extends sandstone/TabLayout.TabLayout
+ * @ui
+ * @public
  */
 const PopupTabLayoutBase = kind({
 	name: 'PopupTabLayout',
 
-	propTypes: /** @lends sandstone/PopupTabLayout.PopupTabLayoutBase.prototype */ {
+	propTypes: /** @lends sandstone/PopupTabLayout.PopupTabLayout.prototype */ {
 		/**
-		 * An object containing properties to be passed to each child.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		childProps: PropTypes.object,
-
-		/**
-		 * PopupTabLayout to be rendered
+		 * Collection of [Tabs]{@link sandstone/PopupTabLayout.Tab} to render.
 		 *
 		 * @type {Node}
+		 * @public
 		 */
 		children: PropTypes.node,
 
 		/**
-		 * Unique identifier for the PopupTabLayout instance
+		 * Collapses the vertical tab list into icons only.
 		 *
-		 * @type {String}
+		 * Only applies to `orientation="vertical"`.  If the tabs do not include icons, a single
+		 * collapsed icon will be shown.
+		 *
+		 * @type {Boolean}
 		 * @public
 		 */
-		id: PropTypes.string,
+		collapsed: PropTypes.bool,
 
 		/**
-		 * Index of the active panel
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * @type {Object}
+		 * @private
+		 */
+		css: PropTypes.object,
+
+		/**
+		 * Specify dimensions for the layout areas.
+		 *
+		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * collapsed and expanded state.
+		 *
+		 * @type {@type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}}
+		 * @default {
+		 * 	tabs: {
+		 * 		collapsed: 236,
+		 * 		normal: 660
+		 * 	},
+		 * 	content: {
+		 * 		expanded: 1320,
+		 * 		normal: 1320
+		 * 	}
+		 * }
+		 * @private
+		 */
+		dimensions: PropTypes.shape({
+			content: PropTypes.shape({
+				expanded: PropTypes.number.isRequired,
+				normal: PropTypes.number.isRequired
+			}).isRequired,
+			tabs: PropTypes.shape({
+				collapsed: PropTypes.number.isRequired,
+				normal: PropTypes.number.isRequired
+			}).isRequired
+		}),
+
+		/**
+		 * The currently selected tab.
 		 *
 		 * @type {Number}
-		 * @default 0
 		 * @public
 		 */
 		index: PropTypes.number,
 
 		/**
-		 * Disable transitions.
+		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -72,30 +139,108 @@ const PopupTabLayoutBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Called with cancel/back key events.
+		 * Called when the tabs are collapsed.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
-		onBack: PropTypes.func,
+		onCollapse: PropTypes.func,
 
 		/**
-		 * Called when closing this PopupTabLayout instance.
+		 * Called when the tabs are expanded.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
-		onClose: PropTypes.func,
+		onExpand: PropTypes.func,
 
 		/**
-		 * Position of the PopupTabLayout on the screen.
+		 * Called after the popup's "hide" transition finishes.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onHide: PropTypes.func,
+
+		/**
+		 * Called when a tab is selected
+		 *
+		 * @type {Function}
+		 * @public
+		*/
+		onSelect: PropTypes.func,
+
+		/**
+		 * Called after the popup's "show" transition finishes.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onShow: PropTypes.func,
+
+		/**
+		 * Controls the visibility of the Popup.
+		 *
+		 * By default, the Popup and its contents are not rendered until `open`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		open: PropTypes.bool,
+
+		/**
+		 * Orientation of the tabs.
+		 *
+		 * Horizontal tabs support a maximum of five tabs.
+		 *
+		 * @type {('horizontal'|'vertical')}
+		 * @public
+		 */
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * Position of the Popup on the screen.
 		 *
 		 * @type {('left'|'right')}
 		 * @default 'left'
 		 * @public
 		 */
-		// Intentionally excluded 'bottom', 'center', 'fullscreen', and 'top' as those aren't configured for this component at this time.
-		position: PropTypes.oneOf(['left', 'right'])
+		position: PropTypes.oneOf(['left', 'right']),
+
+		/**
+		 * The container id for {@link spotlight/Spotlight}.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		spotlightId: PropTypes.string,
+
+		/**
+		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
+		 *
+		 * It can be either `'none'`, `'self-first'`, or `'self-only'`.
+		 *
+		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
+		 * `'self-first'` and `'self-only'`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only']),
+
+		/**
+		 * List of tabs to display.
+		 *
+		 * Each object in the array of tabs should include a `title` property and, optionally, an
+		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
+		 * supplied for any tabs, no icons will be displayed when collapsed.
+		 *
+		 * @type {Object[]}
+		 * @deprecated To be removed in 1.0.0-beta.1. Use
+		 *	[Tab.title]{@link sandstone/PopupTabLayout.Tab.title} instead.
+		 * @public
+		 */
+		tabs: PropTypes.array
 	},
 
 	defaultProps: {
@@ -141,12 +286,61 @@ const PopupTabLayoutBase = kind({
 	}
 });
 
+
+/**
+ * Add behaviors to PopupTabLayout.
+ *
+ * @hoc
+ * @memberof sandstone/PopupTabLayout
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
 const PopupTabLayoutDecorator = compose(
 	// Cancelable({modal: true, onCancel: handleCancel}),
 	Skinnable
 );
 
+
+/**
+ * An instance of [`Popup`]{@link sandstone/Popup.Popup} which restricts the `TabLayout` content to
+ * the left or right side of the screen. The content of TabLayout can flex vertically, but not
+ * horizontally (fixed width). This is typically used to switch between several collections of
+ * managed views (TabPanels and TabPanel, also exported from this module).
+ *
+ * @class PopupTabLayout
+ * @memberof sandstone/PopupTabLayout
+ * @ui
+ * @public
+ */
 const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
+
+
+/**
+ * A shortcut to access {@link sandstone/PopupTabLayout.Tab}
+ *
+ * @name Tab
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/TabLayout.Tab
+ */
+
+
+/**
+ * A customized version of Panels for use inside this component.
+ *
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/Panels.Panels
+ */
+const TabPanels = (props) => <Panels {...props} css={css} />;
+
+
+/**
+ * A customized version of Panel for use inside this component.
+ *
+ * @memberof sandstone/PopupTabLayout
+ * @extends sandstone/Panels.Panel
+ */
+const TabPanel = (props) => <Panel {...props} css={css} />;
+
 
 export default PopupTabLayout;
 export {
