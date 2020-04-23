@@ -1,10 +1,12 @@
+/* global page */
+
 const {FPS, Mount} = require('../TraceModel');
 const {getFileName, scrollAtPoint} = require('../utils');
 const TestResults = require('../TestResults');
 
 describe( 'Scroller', () => {
 	describe('ScrollButton', () => {
-		it('scrolls down', async () => {
+		it.skip('scrolls down', async () => {
 			const filename = getFileName('Scroller');
 			await page.goto('http://localhost:8080/scroller');
 			await page.tracing.start({path: filename, screenshots: false});
@@ -64,8 +66,9 @@ describe( 'Scroller', () => {
 		const counts = [10, 40, 70, 100];
 		let results = [];
 		const types = [
-			'ScrollerJS',
-			'ScrollerNative',
+			// 'ScrollerJS',
+			// 'ScrollerNative',
+			'Scroller',
 			'UiScrollerJS',
 			'UiScrollerNative'
 		];
@@ -91,7 +94,7 @@ describe( 'Scroller', () => {
 	});
 
 
-	it('scroll down with 5-way with Scroller Native', async () => {
+	it.skip('scroll down with 5-way with Scroller Native', async () => {
 		const filename = getFileName('ScrollerNative');
 
 		await page.tracing.start({path: filename, screenshots: false});

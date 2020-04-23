@@ -21,17 +21,10 @@ import ScrollerMultipleChildren from '../views/ScrollerMultipleChildren';
 import TransitionVsCSSAnimation from '../views/TransitionVsCSSAnimation';
 import Toss from '../views/Toss';
 
-import css from './App.less';
-
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 const App = kind({
 	name: 'App',
-
-	styles: {
-		css,
-		className: 'app'
-	},
 
 	render: (props) => (
 		<Router>

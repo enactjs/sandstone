@@ -1,3 +1,5 @@
+/* global page */
+
 const {getFileName} = require('../utils');
 
 describe('TransitionVsCSSAnimation', () => {

@@ -1,3 +1,5 @@
+/* global page */
+
 const {FPS, Mount, Update} = require('../TraceModel');
 const {getFileName} = require('../utils');
 const TestResults = require('../TestResults');

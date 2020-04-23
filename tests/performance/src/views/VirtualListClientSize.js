@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import kind from '@enact/core/kind';
 import UiVirtualListJS, {VirtualListNative as UiVirtualListNative} from '@enact/ui/VirtualList';
@@ -31,9 +32,13 @@ const types = {
 const VirtualListClientSizeView = kind({
 	name: 'VirtualListClientSizeView',
 
+	propTypes: {
+		location: PropTypes.object
+	},
+
 	render: ({location}) => {
 		const search = qs.parse(location.search, {ignoreQueryPrefix: true});
-		const clientSize = search.clientSize ? {clientWidth: 1280, clientHeight: 720} : undefined;
+		const clientSize = search.clientSize ? {clientWidth: 1280, clientHeight: 720} : null;
 		const VirtualList = types[search.type] || SandstoneVirtualList;
 
 		return (

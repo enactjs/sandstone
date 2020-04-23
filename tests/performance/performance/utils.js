@@ -1,3 +1,10 @@
+/* global page */
+
+function log (message) {
+	// eslint-disable-next-line no-console
+	console.log(message);
+}
+
 function pad2 (n) {
 	return n < 10 ? '0' + n : n;
 }
@@ -10,8 +17,8 @@ function getFileName (testName) {
 	return filename;
 }
 
-async function scrollAtPoint (page, selector, amount) {
-	await page.evaluate((scrollerSelector, scrollAmount) => {
+async function scrollAtPoint (elem, selector, amount) {
+	await elem.evaluate((scrollerSelector, scrollAmount) => {
 		let evt = document.createEvent('MouseEvents');
 		evt.initEvent('wheel', true, true);
 		evt.deltaY = scrollAmount;
@@ -57,5 +64,6 @@ const getAveragePaintTimeFor = async (waitFor, count = 1) => {
 module.exports = {
 	getAveragePaintTimeFor,
 	getFileName,
+	log,
 	scrollAtPoint
 };
