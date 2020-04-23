@@ -5,16 +5,25 @@ const {getFileName} = require('../utils');
 const TestResults = require('../TestResults');
 
 describe('Toss', () => {
-	it('should mount Toss', async () => {
-		const filename = getFileName('Toss');
+	const count = 10;
+	let total = 0;
 
-		await page.tracing.start({path: filename, screenshots: false});
-		await page.goto('http://localhost:8080/toss');
-		await page.waitForSelector('#toss');
+	it(`should average the mount times of ${count} Toss components`, async () => {
+		for (let index = 0; index < count; index++) {
+			const filename = getFileName('Toss');
 
-		await page.tracing.stop();
+			await page.tracing.start({path: filename, screenshots: false});
+			await page.goto('http://localhost:8080/toss');
+			await page.waitForSelector('#toss');
 
-		const actualMount = Mount(filename, 'Tossable');
-		TestResults.addResult({component: 'Toss', type: 'Mount', actualValue: actualMount});
+			await page.tracing.stop();
+
+			const actualMount = Mount(filename, 'Tossable');
+			total += actualMount;
+
+			if (index === (count - 1)) {
+				TestResults.addResult({component: 'Toss', type: 'Mount', actualValue: (total / count)});
+			}
+		}
 	});
 });
