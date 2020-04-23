@@ -250,7 +250,7 @@ const ImageItemBase = kind({
 								{SelectionComponent ? (
 									<SelectionComponent />
 								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
+									<Icon className={css.selectionIcon}>checkselection</Icon>
 								)}
 							</div>
 						) : null}
