@@ -36,6 +36,8 @@ storiesOf('Sandstone', module)
 					onActivate={action('onActivate')}
 					onChange={action('onChange')}
 					orientation={select('orientation', ['horizontal', 'vertical'], SliderConfig, 'horizontal')}
+					progressAnchor={number('progressAnchor', SliderConfig, {range: true, min: 0, max: 1, step: 0.01}, 0)}
+					showAnchor={boolean('showAnchor', SliderConfig)}
 					step={number('step', SliderConfig, 1)}
 				>
 					{tooltip ? (
