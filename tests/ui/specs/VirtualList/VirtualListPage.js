@@ -1,8 +1,9 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollableSelector = '.enact_ui_Scrollable_Scrollable_scroll';
-const scrollbarSelector = '.Scrollable_Scrollbar_scrollbar';
+const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
+const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
+const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 
 class VirtualListPage extends Page {
 
@@ -22,7 +23,15 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
+	get scrollBar () { return $(`${scrollbarSelector}`); }
 	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
+	get scrollThumb () { return $(`${scrollThumbSelector}`); }
+	get ScrollThumbPosition () {
+		return browser.execute(function (_scrollbarSelector) {
+			const scrollbar = document.querySelector(_scrollbarSelector);
+			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
+		}, scrollbarSelector);
+	}
 	get list () { return element('#list', browser); }
 	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
 

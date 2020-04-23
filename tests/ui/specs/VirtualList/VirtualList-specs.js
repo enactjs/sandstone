@@ -622,8 +622,11 @@ describe('VirtualList', function () {
 			});
 		});
 		*/
-		describe('onScrollStart/Stop Events behavior [GT-28470] ', function() {
-			it('Scroll Events Display in Actions with 5-way Down and Up', function(){
+		describe('onScrollStart/Stop Events behavior ', function() {
+			beforeEach(function () {
+				Page.open();
+			});			
+			it('Scroll Events Display in Actions with 5-way Down and Up [GT-28470]', function(){
 
 					//Verify Step 3 : Spotlight displays on the Item 006 or 007.
 					Page.item(7).moveTo();
@@ -649,6 +652,9 @@ describe('VirtualList', function () {
 				});
 		});		
 		describe('Item Animates',function(){
+			beforeEach(function () {
+				Page.open();
+			});						
 			it('Items Animate via Channel Down [GT-28464]',function(){
 				//Step 3: Position the pointer on the first item('Item 000)
 				Page.showPointerByKeycode();
