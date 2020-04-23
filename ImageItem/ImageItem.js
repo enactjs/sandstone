@@ -219,11 +219,14 @@ const ImageItemBase = kind({
 					) : null}
 					<Cell>
 						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						<Marquee className={css.label} marqueeOn="hover">{label}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
-		}
+		},
+		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
+			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+		})
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
@@ -247,7 +250,7 @@ const ImageItemBase = kind({
 								{SelectionComponent ? (
 									<SelectionComponent />
 								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
+									<Icon className={css.selectionIcon}>checkselection</Icon>
 								)}
 							</div>
 						) : null}
