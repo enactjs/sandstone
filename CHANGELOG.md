@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Item` prop `centered`
 - `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
@@ -21,6 +22,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/ImageItem` focus effect of vertical image item with labels
+
+### Fixed
+
+- `sandstone/Picker` horizontal joined height in large text mode
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
