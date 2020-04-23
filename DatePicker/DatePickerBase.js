@@ -284,7 +284,7 @@ const DatePickerBase = kind({
 									onSpotlightRight={isRight ? onSpotlightRight : null}
 									spotlightDisabled={spotlightDisabled}
 									value={day}
-									width={2}
+									width={4}
 									wrap
 								/>
 							);
@@ -306,7 +306,7 @@ const DatePickerBase = kind({
 									onSpotlightRight={isRight ? onSpotlightRight : null}
 									spotlightDisabled={spotlightDisabled}
 									value={month}
-									width={2}
+									width={4}
 									wrap
 								/>
 							);
