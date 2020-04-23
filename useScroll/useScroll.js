@@ -321,6 +321,7 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
+			initialHiddenHeight,
 			noFadeOut,
 			scrollMode,
 			style,
@@ -504,6 +505,7 @@ const useScroll = (props) => {
 		...scrollbarProps,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
+		initialHiddenHeight,
 		scrollbarHandle: verticalScrollbarHandle
 	});
 

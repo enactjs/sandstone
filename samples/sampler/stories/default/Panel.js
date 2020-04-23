@@ -1,6 +1,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
+import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -104,6 +105,7 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
+								initialHiddenHeight={ri.scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),
@@ -118,6 +120,7 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
+								initialHiddenHeight={ri.scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),
