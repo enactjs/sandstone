@@ -98,7 +98,7 @@ const PopupTabLayoutBase = kind({
 		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
 		 * collapsed and expanded state.
 		 *
-		 * @type {@type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}}
+		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
 		 * @default {
 		 * 	tabs: {
 		 * 		collapsed: 236,
@@ -223,24 +223,10 @@ const PopupTabLayoutBase = kind({
 		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
-		 * @type {String}
+		 * @type {('none'|'self-first'|'self-only')}
 		 * @public
 		 */
-		spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only']),
-
-		/**
-		 * List of tabs to display.
-		 *
-		 * Each object in the array of tabs should include a `title` property and, optionally, an
-		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for any tabs, no icons will be displayed when collapsed.
-		 *
-		 * @type {Object[]}
-		 * @deprecated To be removed in 1.0.0-beta.1. Use
-		 *	[Tab.title]{@link sandstone/PopupTabLayout.Tab.title} instead.
-		 * @public
-		 */
-		tabs: PropTypes.array
+		spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
 	},
 
 	defaultProps: {

@@ -18,7 +18,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/ImageItem` focus effect of vertical image item with labels
-- `sandstone/TabLayout` to use `sandstone/Button` instead of `sandstone/Item`
 
 ### Fixed
 
