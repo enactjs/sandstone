@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
@@ -69,7 +69,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, VirtualGridList);
 
 storiesOf('Sandstone', module)
 	.add(

@@ -2,7 +2,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
+import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList/VirtualListBase';
 import React from 'react';
 
 import Button from '@enact/sandstone/Button';
@@ -13,7 +13,7 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
+const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, VirtualGridList);
 
 const
 	defaultDataSize = 1000,

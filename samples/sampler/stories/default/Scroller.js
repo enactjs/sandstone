@@ -3,7 +3,7 @@ import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import {ScrollerBase as UiScrollerBase} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
 import Scroller from '@enact/sandstone/Scroller';
@@ -20,7 +20,7 @@ const
 		scrollModeOption: ['native', 'translate']
 	};
 
-const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
+const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBase, Scroller);
 
 storiesOf('Sandstone', module)
 	.add(

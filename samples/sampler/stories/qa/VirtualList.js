@@ -3,7 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
-import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,7 @@ import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
+const Config = mergeComponentMetadata('VirtualList', UiVirtualListBase, VirtualList);
 
 const
 	listStyle = {
