@@ -1,0 +1,37 @@
+// FormCheckboxItem.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/skin.less";
+
+.formCheckboxItem {
+	/* Available for customization */
+
+	// FormCheckboxItem should not increase in size when in `largeText` mode
+	.sand-custom-text({
+		font-size: @sand-item-font-size;
+		line-height: @sand-item-line-height;
+
+		.sand-locale-non-latin({
+			line-height: @sand-item-line-height;
+		});
+	});
+}
+
+.item {
+	.applySkins({
+		.focus({
+			color: @sand-formcheckboxitem-focus-text-color;
+
+			.bg {
+				background-color: transparent;
+				opacity: 0;
+			}
+
+			.disabled({
+				.bg {
+					opacity: 0;
+				}
+			});
+		});
+	});
+}

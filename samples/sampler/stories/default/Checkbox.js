@@ -28,7 +28,7 @@ storiesOf('Sandstone', module)
 		},
 		{
 			info: {
-				text: 'Standalone Checkbox component, for simple toggles. The component used in CheckboxItem.'
+				text: 'Standalone Checkbox component, for simple toggles. The component used in CheckboxItem and FormCheckboxItem.'
 			}
 		}
 	);
