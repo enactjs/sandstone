@@ -7,7 +7,7 @@ import React from 'react';
 import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import {Scroller as UiScroller, ScrollerBase as UiScrollerBase} from '@enact/ui/Scroller';
 
 import {storiesOf} from '@storybook/react';
 
@@ -17,7 +17,7 @@ import Scroller from '@enact/sandstone/Scroller';
 
 const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, ...style}} />);
 
-const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
+const Config = mergeComponentMetadata('Scroller', UiScrollerBase, Scroller);
 
 const itemData = [];
 for (let i = 0; i < 100; i++) {
