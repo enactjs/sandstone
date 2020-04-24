@@ -6,7 +6,7 @@ import {Spottable} from '@enact/spotlight/Spottable';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import React, {useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute, fadeOutSize} from '../useScroll';
+import {affordanceSize, dataIndexAttribute} from '../useScroll';
 
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
@@ -21,7 +21,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances) => {
-	const {noFadeOut, scrollMode} = props;
+	const {noAffordance, scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
@@ -133,7 +133,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noFadeOut ? 0 : fadeOutSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -159,7 +159,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noFadeOut && index < nextIndex) ? fadeOutSize * 2 : 0,
+					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -210,7 +210,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noFadeOut ? 0 : fadeOutSize * 2),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -328,7 +328,7 @@ const useThemeVirtualList = (props) => {
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
-	delete rest.noFadeOut;
+	delete rest.noAffordance;
 	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;

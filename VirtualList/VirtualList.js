@@ -227,13 +227,13 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSizes: PropTypes.arrayOf(PropTypes.number),
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
 	 *
 	 * @type {Boolean}
 	 * @default false
 	 * @private
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -445,7 +445,7 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
@@ -648,13 +648,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	isVerticalScrollbarVisible: PropTypes.bool,
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
+	 * Set this to `true` only if the item needs to stick to the bottom for vertical direction,
+	 * to the right for horizontal direction, when scrolling by keys.
 	 *
 	 * @type {Boolean}
-	 * @default true
-	 * @private
+	 * @default false
+	 * @public
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -867,7 +869,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: true,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
