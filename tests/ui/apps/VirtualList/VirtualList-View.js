@@ -2,7 +2,6 @@ import {Button} from '../../../../Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import SwitchItem from '../../../../SwitchItem';
-import ToggleButton from '../../../../ToggleButton';
 import VirtualList from '../../../../VirtualList';
 import ThemeDecorator from '../../../../ThemeDecorator';
 import React from 'react';
@@ -125,8 +124,6 @@ class app extends React.Component {
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<ToggleButton id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</ToggleButton>
-						<ToggleButton id="wrap" onClick={this.onToggle} selected={wrap}>wrap</ToggleButton>
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>

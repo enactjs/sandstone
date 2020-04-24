@@ -21,7 +21,6 @@ import Popup from '@enact/sandstone/Popup';
 import RadioItem from '@enact/sandstone/RadioItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import TimePicker from '@enact/sandstone/TimePicker';
-import ToggleButton from '@enact/sandstone/ToggleButton';
 import Scroller from '@enact/sandstone/Scroller';
 import Slider from '@enact/sandstone/Slider';
 
@@ -175,12 +174,6 @@ class DisableTest extends React.Component {
 				<Button disabled={this.state.disabled}>
 					Timed Button
 				</Button>
-				<ToggleButton
-					defaultSelected
-					toggleOnLabel="Active"
-					toggleOffLabel="Paused"
-					onToggle={this.handleToggle}
-				/>
 			</div>
 		);
 	}
@@ -490,15 +483,6 @@ storiesOf('Spotlight', module)
 										>
 											Transparent
 										</Button>
-										<ToggleButton
-											onSpotlightDown={action('onSpotlightDown')}
-											onSpotlightLeft={action('onSpotlightLeft')}
-											onSpotlightRight={action('onSpotlightRight')}
-											onSpotlightUp={action('onSpotlightUp')}
-											spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-										>
-											ToggleButton
-										</ToggleButton>
 									</div>
 									<div>
 										<Button
