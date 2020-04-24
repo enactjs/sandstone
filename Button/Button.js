@@ -61,6 +61,34 @@ const ButtonBase = kind({
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
+		 * Enables the `collapsed` feature.
+		 *
+		 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+		 * defined.
+		 *
+		 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsed}
+		 * @private
+		 */
+		collapsable: PropTypes.bool,
+
+		/**
+		 * Toggles the collapsed state of this button, down to just its icon.
+		 *
+		 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
+		 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsable}
+		 * @private
+		 */
+		collapsed: PropTypes.bool,
+
+		/**
 		 * The color of the underline beneath button's content.
 		 *
 		 * Accepts one of the following color names, which correspond with the colored buttons on a
@@ -131,6 +159,8 @@ const ButtonBase = kind({
 
 	defaultProps: {
 		backgroundOpacity: null,
+		collapsable: false,
+		collapsed: false,
 		iconPosition: 'before',
 		size: 'large'
 	},
@@ -141,10 +171,12 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, iconOnly, iconPosition, size, styler}) => styler.append(
 			{
 				hasColor: color,
-				iconOnly
+				iconOnly,
+				collapsable,
+				collapsed
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
@@ -157,6 +189,8 @@ const ButtonBase = kind({
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.collapsable;
+		delete rest.collapsed;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
 

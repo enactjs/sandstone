@@ -78,6 +78,36 @@ const TabLayoutBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Specify dimensions for the layout areas.
+		 *
+		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * collapsed and expanded state.
+		 *
+		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
+		 * @default {
+		 * 	tabs: {
+		 * 		collapsed: 450,
+		 * 		normal: 855
+		 * 	},
+		 * 	content: {
+		 * 		expanded: null,
+		 * 		normal: null
+		 * 	}
+		 * }
+		 * @private
+		 */
+		dimensions: PropTypes.shape({
+			content: PropTypes.shape({
+				expanded: PropTypes.number,
+				normal: PropTypes.number
+			}).isRequired,
+			tabs: PropTypes.shape({
+				collapsed: PropTypes.number,
+				normal: PropTypes.number
+			}).isRequired
+		}),
+
+		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -137,13 +167,24 @@ const TabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		dimensions: {
+			tabs: {
+				collapsed: 450,
+				normal: 855
+			},
+			content: {
+				expanded: null,
+				normal: null
+			}
+		},
 		index: 0,
 		orientation: 'vertical'
 	},
 
 	styles: {
 		css: componentCss,
-		className: 'tabLayout enact-fit'
+		className: 'tabLayout',
+		publicClassNames: ['tabLayout', 'tabs', 'content']
 	},
 
 	handlers: {
@@ -181,8 +222,9 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		const tabSize = collapsed ? 450 : 855;
+	render: ({children, collapsed, css, dimensions, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		const tabSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
+		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
@@ -197,6 +239,7 @@ const TabLayoutBase = kind({
 					/>
 				</Cell>
 				<Cell
+					size={contentSize}
 					className={css.content}
 					component={ViewManager}
 					index={index}
@@ -232,5 +275,6 @@ export default TabLayout;
 export {
 	TabLayout,
 	TabLayoutBase,
+	TabLayoutDecorator,
 	Tab
 };
