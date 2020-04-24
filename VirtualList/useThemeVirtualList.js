@@ -50,7 +50,8 @@ const useSpottable = (props, instances) => {
 		},
 		handleDirectionKeyDown: (ev, eventType, param) => {
 			switch (eventType) {
-				case 'acceleratedKeyDown': onAcceleratedKeyDown(param);
+				case 'acceleratedKeyDown':
+					onAcceleratedKeyDown(param);
 					break;
 				case 'keyDown':
 					if (Spotlight.move(param.direction)) {
@@ -64,7 +65,8 @@ const useSpottable = (props, instances) => {
 						}
 					}
 					break;
-				case 'keyLeave': SpotlightAccelerator.reset();
+				case 'keyLeave':
+					SpotlightAccelerator.reset();
 					break;
 			}
 		},

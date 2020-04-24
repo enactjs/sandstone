@@ -120,7 +120,6 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const candidate = getTargetByDirectionFromElement(direction, target);
 					const targetIndex = target.dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -129,64 +128,61 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
+					const candidate = getTargetByDirectionFromElement(direction, target);
 					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					let isLeaving = false;
 
-					// To handle virtualized items, a list should handle spotlight navigation between items.
-					// If the focused node is not an item (truthy `isNotItem`) or
-					// focus is not moving between items (`candidateIndex` === `index`),
-					// the case should be handled by Spotlight.
-					if (isNotItem || candidateIndex !== index) {
-						const {repeat} = ev;
-						const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
-						const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
-						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
-						const directions = {};
-						let isLeaving = false;
-						let isScrollbarVisible;
-
-						if (isPrimaryDirectionVertical) {
-							directions.left = isLeftMovement;
-							directions.right = isRightMovement;
-							directions.up = isUpKey;
-							directions.down = isDownKey;
-							isScrollbarVisible = isVerticalScrollbarVisible;
-						} else {
-							directions.left = isUpKey;
-							directions.right = isDownKey;
-							directions.up = isLeftMovement;
-							directions.down = isRightMovement;
-							isScrollbarVisible = isHorizontalScrollbarVisible;
-						}
-
-						if (!isNotItem) {
-							if (nextIndex >= 0) {
-								ev.preventDefault();
-								ev.stopPropagation();
-								handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
-							} else {
-								const {dataSize} = props;
-								const column = index % dimensionToExtent;
-								const row = (index - column) % dataSize / dimensionToExtent;
-
-								isLeaving = directions.up && row === 0 ||
-									directions.down && row === Math.floor((dataSize - 1) % dataSize / dimensionToExtent) ||
-									directions.left && column === 0 ||
-									directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
-
-								if (repeat && isLeaving) {
-									ev.preventDefault();
-									ev.stopPropagation();
-								} else if (!isLeaving) {
-									handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
-								}
-							}
-						} else if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) {
+					if (isNotItem) { // the focused node is an item or an item's control
+						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
 							isLeaving = true;
 						}
+					} else if (candidateIndex !== index) { // the focused node is an item or an item's control and the candidate is not inside the same item
+						const {repeat} = ev;
+						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
 
-						if (isLeaving) {
-							handleDirectionKeyDown(ev, 'keyLeave');
+						if (nextIndex >= 0) { // if the candidate is another item
+							ev.preventDefault();
+							ev.stopPropagation();
+							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
+						} else { // if the candidate is not found; note that it's possible also when moving focus to the last extent that is not full
+							const {dataSize, focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
+							const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
+							const column = index % dimensionToExtent;
+							const row = (index - column) % dataSize / dimensionToExtent;
+							const directions = {};
+							let isScrollbarVisible;
+
+							if (isPrimaryDirectionVertical) {
+								directions.left = isLeftMovement;
+								directions.right = isRightMovement;
+								directions.up = isUpKey;
+								directions.down = isDownKey;
+								isScrollbarVisible = isVerticalScrollbarVisible;
+							} else {
+								directions.left = isUpKey;
+								directions.right = isDownKey;
+								directions.up = isLeftMovement;
+								directions.down = isRightMovement;
+								isScrollbarVisible = isHorizontalScrollbarVisible;
+							}
+
+							isLeaving =
+								directions.up && row === 0 ||
+								directions.down && row === Math.floor((dataSize - 1) % dataSize / dimensionToExtent) ||
+								directions.left && column === 0 ||
+								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
+
+							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
+								ev.preventDefault();
+								ev.stopPropagation();
+							} else if (!isLeaving) { // if focus is not leaving, a list should handle focus; the case for moving toward the last extent
+								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
+							}
 						}
+					}
+
+					if (isLeaving) {
+						handleDirectionKeyDown(ev, 'keyLeave');
 					}
 				}
 			} else if (isPageUp(keyCode) || isPageDown(keyCode)) {
