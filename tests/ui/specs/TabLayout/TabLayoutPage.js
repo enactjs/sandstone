@@ -23,8 +23,8 @@ class TabLayoutInterface {
 	get currentView () {return this.content.$('div');}
 	get isCollapsed () {return hasClass('collapsed', this.self);}
 	get self () {return browser.$(this.selector);}
-	get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
-	get tabItems () {return this.tabs.$$('.Item_Item_item');}
+	// get tabIcons () {return this.tabs.$$('.TabLayout_TabGroup_tab');}
+	get tabItems () {return this.tabs.$$('.TabLayout_TabGroup_tab');}
 	get tabs () {return getTabs(this.self);}
 	get tabsScroller () {return getScroller(this.self);}
 }
