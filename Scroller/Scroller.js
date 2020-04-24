@@ -219,19 +219,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Initial height of the hidden part of the vertical scroll bar.
 	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set
+	 * the `Header` will automatically collapse and the vertical `Scroller`'s scroll bar will
+	 * enlarge.
+	 *
 	 * @type {Number}
 	 * @public
 	 */
 	initialHiddenHeight: PropTypes.number,
-
-	/**
-	 * Removes fade-out effect on the scroller.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	noFadeOut: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.

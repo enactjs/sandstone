@@ -2,7 +2,6 @@ import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, {memo, useEffect} from 'react';
-import ReactDOM from 'react-dom';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
@@ -36,9 +35,9 @@ const useThemeScrollbar = (props) => {
 				height = parseInt(window.getComputedStyle(scrollbarNode).getPropertyValue('height')),
 				scale = (height - initialHiddenHeight) / (height);
 
-			ReactDOM.findDOMNode(scrollbarNode).style.setProperty('--scrollbar-scale', scale); // eslint-disable-line react/no-find-dom-node
+			scrollbarNode.style.setProperty('--scrollbar-scale', scale);
 		}
-	});
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return {
 		restProps: rest,
