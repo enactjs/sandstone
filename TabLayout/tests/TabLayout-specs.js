@@ -2,7 +2,6 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import {TabLayoutBase, Tab} from '../TabLayout';
-import css from '../TabLayout.module.less';
 
 describe('TabLayout specs', () => {
 	it('should be collapsed when collapsed is true', () => {
@@ -22,7 +21,7 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		const expected = css.collapsed;
+		const expected = 'collapsed';
 		const actual = subject.prop('className');
 
 		expect(actual).toContain(expected);
@@ -43,7 +42,7 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		const expected = css.vertical;
+		const expected = 'vertical';
 		const actual = subject.prop('className');
 
 		expect(actual).toContain(expected);
@@ -66,7 +65,7 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		const expected = css.horizontal;
+		const expected = 'horizontal';
 		const actual = subject.prop('className');
 
 		expect(actual).toContain(expected);
