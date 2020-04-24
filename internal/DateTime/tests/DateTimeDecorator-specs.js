@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import DateTimeDecorator from '../';
+import {DateTimeDecorator} from '../';
 
 describe('DateTimeDecorator', () => {
 	test(

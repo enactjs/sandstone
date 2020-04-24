@@ -25,8 +25,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` to match current designs
 - `sandstone/Scroller` defocus condition of scroll thumb
 - `sandstone/Picker` horizontal joined height in large text mode
+
+### Fixed
+
+- `sandstone/Dropdown` to focus on selected option
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
