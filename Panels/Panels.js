@@ -89,6 +89,18 @@ const PanelsBase = kind({
 		 */
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panels` - The root class name
+		 * * `viewport` - The node containing the panel instances
+		 *
+		 * @type {Object}
+		 * @public
+		 */
 		css: PropTypes.object,
 
 		/**
