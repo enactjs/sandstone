@@ -23,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` defocus condition of scroll thumb
 - `sandstone/Picker` horizontal joined height in large text mode
 
 ## [1.0.0-alpha.9] - 2020-04-20
