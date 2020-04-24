@@ -10,10 +10,10 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {Image} from '@enact/sandstone/Image';
 import Icon from '@enact/sandstone/Icon';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import {scale} from '@enact/ui/resolution';
 import {Scroller} from '@enact/sandstone/Scroller';
 import {TabLayout} from '@enact/sandstone/TabLayout';
@@ -28,12 +28,9 @@ const renderItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-typ
 		caption = 'Sample list';
 
 	return (
-		<GridListImageItem
-			{...rest}
-			caption={text}
-			source={source}
-			subCaption={caption}
-		/>
+		<ImageItem {...rest} src={source} label={caption}>
+			{text}
+		</ImageItem>
 	);
 };
 
