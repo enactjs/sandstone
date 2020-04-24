@@ -8,8 +8,6 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
-import FormCheckbox from '../../../FormCheckbox';
-import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
 import IconButton from '../../../IconButton';
@@ -51,8 +49,6 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
-	FormCheckbox,
-	FormCheckboxItem,
 	Header,
 	Heading,
 	Icon,

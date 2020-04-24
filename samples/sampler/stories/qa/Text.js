@@ -6,7 +6,6 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
-import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
@@ -68,7 +67,6 @@ storiesOf('Text', module)
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
-					<FormCheckboxItem>{children}</FormCheckboxItem>
 					<RadioItem>{children}</RadioItem>
 					<SwitchItem>{children}</SwitchItem>
 

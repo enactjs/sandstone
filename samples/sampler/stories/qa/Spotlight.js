@@ -13,7 +13,6 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import DatePicker from '@enact/sandstone/DatePicker';
 import Heading from '@enact/sandstone/Heading';
-import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import IncrementSlider from '@enact/sandstone/IncrementSlider';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
@@ -581,15 +580,6 @@ storiesOf('Spotlight', module)
 									>
 										CheckboxItem
 									</CheckboxItem>
-									<FormCheckboxItem
-										onSpotlightDown={action('onSpotlightDown')}
-										onSpotlightLeft={action('onSpotlightLeft')}
-										onSpotlightRight={action('onSpotlightRight')}
-										onSpotlightUp={action('onSpotlightUp')}
-										spotlightDisabled={boolean('Spottable spotlightDisabled', Container, false)}
-									>
-										FormCheckboxItem
-									</FormCheckboxItem>
 									<RadioItem
 										onSpotlightDown={action('onSpotlightDown')}
 										onSpotlightLeft={action('onSpotlightLeft')}

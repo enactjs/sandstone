@@ -23,7 +23,6 @@ const airports = [
 	'נמל התעופה בן גוריון טרמינל הבינלאומי'
 ];
 
-// const Config = mergeComponentMetadata('FormCheckboxItem', FormCheckboxItem);
 Picker.displayName = 'Picker';
 
 storiesOf('Sandstone', module)
