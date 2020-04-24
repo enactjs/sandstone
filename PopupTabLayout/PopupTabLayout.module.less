@@ -1,0 +1,82 @@
+// Popup.module.less
+//
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.popupTabLayout {
+	margin: @sand-popuptablayout-margin;
+
+	.tabs {
+		padding: @sand-popuptablayout-tabs-padding;
+		margin-inline-end: @sand-popuptablayout-tabs-content-spacing;
+	}
+
+	.content {
+		margin-top: @sand-popuptablayout-content-margin; // Overrides a TabLayout style
+		height: 100%;
+	}
+
+	// Skin colors
+	.applySkins({
+		background-color: transparent;
+
+		.tabs,
+		.content .panels {
+			border-radius: @sand-popuptablayout-tabs-content-border-radius;
+			background-color: @sand-popuptablayout-bg-color;
+		}
+
+	});
+}
+
+// Overrides for Popup
+.popupTransitionContainer {
+	width: 100%;
+}
+
+.popup {
+	> .body {
+		padding: 0;
+		position: relative;
+	}
+}
+
+// Overrides for Panels
+.panels {
+	position: relative;
+	max-height: 100%;
+
+	> .viewport {
+		position: static;
+		.position(auto);
+
+		> :nth-child(2) {
+			// the second element in the ViewManager should be offset by the container width
+			// so the transition can position two static views next to each other safely,
+			// since transform is not available (to offset by its own width).
+			left: -100%;
+		}
+	}
+}
+
+// Overrides for Panel
+.panel {
+	position: relative;
+	display: inline-flex;
+	padding: 0;
+
+	> .body {
+		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
+	}
+}
+
+// Supporting concave click area
+.popup > .body {
+	pointer-events: none;
+
+	.tabs,
+	.content > .panels {
+		pointer-events: auto;
+	}
+}

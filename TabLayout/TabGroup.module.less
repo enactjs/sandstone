@@ -4,11 +4,18 @@
 @import "../styles/variables.less";
 
 .tab {
-	.applySkins({
-		&.selected {
-			color: @sand-tablayout-tab-selected-text-color;
+	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
+	font-weight: normal;
+	margin-bottom: @sand-tablayout-tab-margin-bottom;
 
+	.client {
+		text-align: start;
+	}
+
+	.applySkins({
+		&.button.selected {
 			.bg {
+				.sand-button-spotlight-resting-colors();
 				background-color: @sand-tablayout-tab-selected-bg-color;
 				opacity: @sand-tablayout-tab-selected-opacity;
 			}

@@ -256,6 +256,8 @@
 @sand-button-small-colordot-padding-start: 30px;
 @sand-button-icon-only-colordot-width: 66px;
 @sand-button-icon-only-colordot-height: 9px;
+@sand-button-collapse-duration: 300ms;
+@sand-button-collapsable-icon-margin: 0 24px;
 
 // Checkbox
 // ---------------------------------------
@@ -345,7 +347,7 @@
 @sand-header-standard-margin: 0;
 @sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px 108px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
+@sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-compact-border-width: 6px;
 @sand-header-compact-line-margin: 54px 0 0 0;
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
@@ -574,6 +576,15 @@
 @sand-popup-position-bottom-margin: 0 120px 150px 120px;
 @sand-popup-position-left-margin: 120px @sand-component-spacing 120px 60px;
 
+// PopupTabLayout
+// ---------------------------------------
+@sand-popuptablayout-margin: 120px 60px;
+@sand-popuptablayout-tabs-padding: @sand-component-spacing 0;
+@sand-popuptablayout-tabs-content-spacing: 36px;
+@sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
+@sand-popuptablayout-content-margin: 0;
+@sand-popuptablayout-tab-selected-opacity: 0.6;
+
 // ProgressBar
 // ---------------------------------------
 @sand-progressbar-bar-thickness: 12px;
@@ -684,8 +695,10 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-panels-margin-top: 78px;
-@sand-tablayout-tab-selected-opacity: 0.3;
+@sand-tablayout-collapse-duration: 1s;
+@sand-tablayout-content-margin-top: 78px;
+@sand-tablayout-tab-margin-bottom: 24px;
+@sand-tablayout-tab-selected-opacity: 0.6;
 
 // ToggleButton
 // ---------------------------------------
