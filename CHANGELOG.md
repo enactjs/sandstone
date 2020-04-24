@@ -17,6 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 - `sandstone/Heading` size="tiny" option
+- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to determine if pressing 5way left or right keys will allow media jumping
 
 ### Changed
 
@@ -31,10 +32,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Dropdown` to focus on selected option
-
-### Fixed
-
-- `sandstone/VideoPlayer` to seek when pressing 5way left or right keys while media controls are hidden
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
