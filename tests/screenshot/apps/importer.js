@@ -12,7 +12,6 @@ import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
-import IconButton from '../../../IconButton';
 import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
@@ -56,7 +55,6 @@ const components = {
 	Header,
 	Heading,
 	Icon,
-	IconButton,
 	Image,
 	ImageItem,
 	Input,
