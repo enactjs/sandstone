@@ -29,6 +29,7 @@ import Panel from './components/Panel';
 import Panels from './components/Panels';
 import Picker from './components/Picker';
 import Popup from './components/Popup';
+import PopupTabLayout from './components/PopupTabLayout';
 import ProgressBar from './components/ProgressBar';
 import RadioItem from './components/RadioItem';
 import RangePicker from './components/RangePicker';
@@ -71,6 +72,7 @@ const components = {
 	Panels,
 	Picker,
 	Popup,
+	PopupTabLayout,
 	ProgressBar,
 	RadioItem,
 	RangePicker,

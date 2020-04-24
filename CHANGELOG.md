@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/PopupTabLayout` component
 - `sandstone/Scroller` prop `fadeOut` to show fade-out effect
 - `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove affordance when scrolling by keys
 - `sandstone/Item` prop `centered`
