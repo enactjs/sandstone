@@ -151,9 +151,12 @@ storiesOf('Sandstone', module)
 						autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
 						disabled={boolean('disabled', Config)}
 						feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
+						initialJumpDelay={number('initialJumpDelay', Config, 400)}
+						jumpDelay={number('jumpDelay', Config, 200)}
 						loop={boolean('loop', Config, true)}
 						miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
 						muted={boolean('muted', Config, true)}
+						no5WayJump={boolean('no5WayJump', Config)}
 						noAutoPlay={boolean('noAutoPlay', Config)}
 						noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
 						noMediaSliderFeedback={boolean('noMediaSliderFeedback', Config, false)}
