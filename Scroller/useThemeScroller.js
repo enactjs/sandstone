@@ -19,7 +19,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({direction, rtl, verticalScrollbar}, scrollContainerRef) => {
+const getFocusableBodyProps = ({direction, verticalScrollbar}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
