@@ -206,7 +206,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * Initial height of the hidden part of the vertical scroll bar.
 	 *
 	 * @type {Number}
-	 * @private
+	 * @public
 	 */
 	initialHiddenHeight: PropTypes.number,
 
@@ -643,7 +643,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * Initial height of the hidden part of the vertical scroll bar.
 	 *
 	 * @type {Number}
-	 * @private
+	 * @public
 	 */
 	initialHiddenHeight: PropTypes.number,
 

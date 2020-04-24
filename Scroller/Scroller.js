@@ -220,7 +220,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Initial height of the hidden part of the vertical scroll bar.
 	 *
 	 * @type {Number}
-	 * @private
+	 * @public
 	 */
 	initialHiddenHeight: PropTypes.number,
 
