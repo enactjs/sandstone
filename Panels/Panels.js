@@ -14,7 +14,7 @@ import Viewport from './Viewport';
 import css from './Panels.module.less';
 
 /**
- * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
