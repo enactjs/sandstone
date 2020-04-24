@@ -2,7 +2,7 @@
  * Sandstone-themed scrollable hook and behaviors.
  *
  * @module sandstone/useScroll
- * @exports fadeOutSize
+ * @exports affordanceSize
  * @exports dataIndexAttribute
  * @exports useScroll
  * @private
@@ -37,7 +37,7 @@ import css from './useScroll.module.less';
 
 const
 	arrowKeyMultiplier = 0.2,
-	fadeOutSize = ri.scale(48),
+	affordanceSize = ri.scale(48),
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
@@ -321,7 +321,8 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			noFadeOut,
+			fadeOut,
+			noAffordance,
 			scrollMode,
 			style,
 			...rest
@@ -459,14 +460,14 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContainerProps', {
 		className: [
-			(focusableScrollbar !== 'byEnter') ? className : null,
+			className,
 			css.scroll,
 			overscrollCss.scroll,
 			props.rtl ? css.rtl : null,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
-		style: (focusableScrollbar !== 'byEnter') ? style : null,
+		style,
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -483,14 +484,11 @@ const useScroll = (props) => {
 	});
 
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs} : {}),
+		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
 		className: [
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
 			overscrollCss.vertical,
 			css.scrollContent
 		],
-		noFadeOut,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,
@@ -526,7 +524,7 @@ const useScroll = (props) => {
 
 export default useScroll;
 export {
+	affordanceSize,
 	dataIndexAttribute,
-	fadeOutSize,
 	useScroll
 };
