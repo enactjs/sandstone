@@ -9,7 +9,6 @@
  */
 
 import kind from '@enact/core/kind';
-// import Cancelable from '@enact/ui/Cancelable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -282,7 +281,6 @@ const PopupTabLayoutBase = kind({
  * @public
  */
 const PopupTabLayoutDecorator = compose(
-	// Cancelable({modal: true, onCancel: handleCancel}),
 	Skinnable
 );
 
