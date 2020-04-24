@@ -4,7 +4,7 @@ import Pause from '@enact/spotlight/Pause';
 import {Spottable} from '@enact/spotlight/Spottable';
 import React, {useCallback, useEffect, useRef} from 'react';
 
-import {dataIndexAttribute, affordanceSize} from '../useScroll';
+import {affordanceSize, dataIndexAttribute} from '../useScroll';
 
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';

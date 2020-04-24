@@ -321,8 +321,8 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			noAffordance,
 			fadeOut,
+			noAffordance,
 			scrollMode,
 			style,
 			...rest
@@ -524,7 +524,7 @@ const useScroll = (props) => {
 
 export default useScroll;
 export {
-	dataIndexAttribute,
 	affordanceSize,
+	dataIndexAttribute,
 	useScroll
 };

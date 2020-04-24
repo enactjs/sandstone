@@ -335,7 +335,7 @@ const useSpottable = (props, instances) => {
 };
 
 const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
-	const {className, scrollContainerRef, fadeOut, ...rest} = scrollContentProps;
+	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
