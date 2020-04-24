@@ -198,11 +198,11 @@ const PopupTabLayoutBase = kind({
 		/**
 		 * Position of the Popup on the screen.
 		 *
-		 * @type {('left'|'right')}
+		 * @type {'left'}
 		 * @default 'left'
 		 * @private
 		 */
-		position: PropTypes.oneOf(['left', 'right']),
+		position: PropTypes.oneOf(['left']),
 
 		/**
 		 * The container id for {@link spotlight/Spotlight}.
@@ -285,9 +285,9 @@ const PopupTabLayoutDecorator = compose(
 
 /**
  * An instance of [`Popup`]{@link sandstone/Popup.Popup} which restricts the `TabLayout` content to
- * the left or right side of the screen. The content of TabLayout can flex vertically, but not
- * horizontally (fixed width). This is typically used to switch between several collections of
- * managed views (TabPanels and TabPanel, also exported from this module).
+ * the left side of the screen. The content of TabLayout can flex vertically, but not horizontally
+ * (fixed width). This is typically used to switch between several collections of managed views
+ * (TabPanels and TabPanel, also exported from this module).
  *
  * @class PopupTabLayout
  * @memberof sandstone/PopupTabLayout
