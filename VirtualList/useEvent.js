@@ -132,11 +132,11 @@ const useEventKey = (props, instances, context) => {
 					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
-					if (isNotItem) { // the focused node is an item or an item's control
+					if (isNotItem) { // if the focused node is not an item
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
 							isLeaving = true;
 						}
-					} else if (candidateIndex !== index) { // the focused node is an item or an item's control and the candidate is not inside the same item
+					} else if (candidateIndex !== index) { // the focused node is an item and focus will move out of the item
 						const {repeat} = ev;
 						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
 
@@ -144,7 +144,7 @@ const useEventKey = (props, instances, context) => {
 							ev.preventDefault();
 							ev.stopPropagation();
 							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
-						} else { // if the candidate is not found; note that it's possible also when moving focus to the last extent that is not full
+						} else { // if the candidate is not found
 							const {dataSize, focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
 							const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
 							const column = index % dimensionToExtent;
@@ -175,7 +175,7 @@ const useEventKey = (props, instances, context) => {
 							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
 								ev.preventDefault();
 								ev.stopPropagation();
-							} else if (!isLeaving) { // if focus is not leaving, a list should handle focus; the case for moving toward the last extent
+							} else if (!isLeaving) {
 								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 							}
 						}
