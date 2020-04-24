@@ -169,7 +169,7 @@ const ExpandableSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				let containerIds = getContainersForNode(label);
 
 				// when focus is not within the expandable (due to a cancel event or the close
-				// on blur from ExpandableInput, or some quick key presses), we need to fix the last
+				// on some quick key presses), we need to fix the last
 				// focused element config so that focus can be restored to the label rather than
 				// spotlight getting lost.
 				//
