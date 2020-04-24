@@ -16,7 +16,7 @@ describe('PopupTabLayout', function () {
 
 			describe('5-way interaction', function () {
 
-				it('shound render the first tab by default', function () {
+				it('should render the first tab by default', function () {
 					const expected = 'display';
 					const actual = popupTabLayout.currentView.getAttribute('id');
 
@@ -36,7 +36,9 @@ describe('PopupTabLayout', function () {
 				});
 
 				it('should collapse the tabs when focus enters the content', function () {
-					Page.spotlightRight();
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightRight();
+					});
 
 					// Example of getting the DOM from the browser to debug. browser.execute()
 					// accepts additional args after the function which are passed to the function.
@@ -54,8 +56,12 @@ describe('PopupTabLayout', function () {
 				});
 
 				it('should expand the tabs when focus returns to the tabs', function () {
-					Page.spotlightRight();
-					Page.spotlightLeft();
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightRight();
+					});
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightLeft();
+					});
 
 					const expected = false;
 					const actual = popupTabLayout.isCollapsed;
