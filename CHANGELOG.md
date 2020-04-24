@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
+- `sandstone/Item` prop `selected`
 - `sandstone/Panels.Header` props `headerInput` and `showInput`
 
 ### Added
@@ -21,7 +22,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/ImageItem` focus effect of vertical image item with labels
-- `sandstone/Item` prop `selected` to be private
 
 ### Fixed
 
