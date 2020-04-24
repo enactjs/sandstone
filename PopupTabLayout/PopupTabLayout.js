@@ -190,19 +190,17 @@ const PopupTabLayoutBase = kind({
 		/**
 		 * Orientation of the tabs.
 		 *
-		 * Horizontal tabs support a maximum of five tabs.
-		 *
-		 * @type {('horizontal'|'vertical')}
-		 * @public
+		 * @type {('vertical')}
+		 * @private
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		orientation: PropTypes.oneOf(['vertical']),
 
 		/**
 		 * Position of the Popup on the screen.
 		 *
 		 * @type {('left'|'right')}
 		 * @default 'left'
-		 * @public
+		 * @private
 		 */
 		position: PropTypes.oneOf(['left', 'right']),
 
