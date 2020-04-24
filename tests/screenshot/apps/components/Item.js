@@ -1,5 +1,8 @@
 import Item from '../../../../Item';
+import Icon from '../../../../Icon';
 import React from 'react';
+
+import {withConfig} from './utils';
 
 const ItemTests = [
 	<Item>Hello Item</Item>,
@@ -10,6 +13,19 @@ const ItemTests = [
 	<Item> ฟิ้  ไั  ஒ  து</Item>,
 	<Item>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	<Item>صباح الخير</Item>,
+
+	// Centered
+	<Item centered>Hello Item</Item>,
+	<Item centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</Item>,
+	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Hello Item</Item>,
+	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</Item>,
+	...withConfig({
+		locale: 'ar-SA'
+	}, [
+		<Item centered>Hello Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Hello Item</Item>
+	]),
+
 	// With tall characters and disabled [GT-28165]
 	<Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	{

@@ -5,7 +5,6 @@
 
 .scroll {
 	--scroll-scrollbar-size: 60px;
-	--scroll-fadeout-size: 48px;
 	// To override margin of thumb in dropdown list
 	--scrollbar-thumb-margin: @sand-scrollbar-track-margin;
 
@@ -19,9 +18,9 @@
 		.verticalScrollbar {
 			position: absolute;
 			width: var(--scroll-scrollbar-size);
-			height: calc(100% - 2 * var(--scroll-fadeout-size));
+			height: calc(100% - 2 * @sand-scroll-affordance-size);
 			right: 0;
-			top: var(--scroll-fadeout-size);
+			top: @sand-scroll-affordance-size;
 		}
 
 		&.rtl {
@@ -37,21 +36,21 @@
 
 		.horizontalScrollbar {
 			position: absolute;
-			width: calc(100% - 2 * var(--scroll-fadeout-size));
+			width: calc(100% - 2 * @sand-scroll-affordance-size);
 			height: var(--scroll-scrollbar-size);
-			left: var(--scroll-fadeout-size);
+			left: @sand-scroll-affordance-size;
 			bottom: 0;
 		}
 	}
 
 	&.verticalPadding.horizontalPadding {
 		.verticalScrollbar {
-			height: calc(100% - 2 * var(--scroll-fadeout-size) - var(--scroll-scrollbar-size));
+			height: calc(100% - 2 * @sand-scroll-affordance-size - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * var(--scroll-fadeout-size) - 2 * var(--scroll-scrollbar-size));
-			left: calc(var(--scroll-fadeout-size) + var(--scroll-scrollbar-size));
+			width: calc(100% - 2 * @sand-scroll-affordance-size - 2 * var(--scroll-scrollbar-size));
+			left: calc(@sand-scroll-affordance-size + var(--scroll-scrollbar-size));
 		}
 	}
 
@@ -62,17 +61,5 @@
 
 	.scrollContent {
 		box-sizing: border-box;
-
-		&.verticalFadeout {
-			padding: var(--scroll-fadeout-size) 0;
-			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-		}
-
-		&.horizontalFadeout {
-			padding: 0 var(--scroll-fadeout-size);
-			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-		}
 	}
 }

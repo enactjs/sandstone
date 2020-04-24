@@ -10,9 +10,27 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Scroller` prop `fadeOut` to show fade-out effect
+- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove affordance when scrolling by keys
+- `sandstone/Item` prop `centered`
 - `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
+- `sandstone/Heading` size="tiny" option
+
+### Changed
+
+- `sandstone/ImageItem` focus effect of vertical image item with labels
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to match current designs
+- `sandstone/Scroller` defocus condition of scroll thumb
+- `sandstone/Picker` horizontal joined height in large text mode
+
+### Fixed
+
+- `sandstone/Dropdown` to focus on selected option
 
 ### Fixed
 

@@ -47,6 +47,7 @@
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
+@sand-heading-tiny-font-size:       48px;
 @sand-heading-subtitle-font-size:   60px; // 70px;
 @sand-heading-title-font-size:      144px; // 127px;
 @sand-imageitem-caption-font-size:  60px;
@@ -128,11 +129,8 @@
 @sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
 
 // Date and Time Picker
-@sand-date-time-picker-min-width: 240px;
-@sand-date-time-picker-label-padding: 42px 21px;
-@sand-datepicker-padding: @sand-component-spacing;
-@sand-timepicker-padding: @sand-datepicker-padding;
-@sand-timepicker-colon-line-height: 6em;
+@sand-datecomponentpicker-margin: 24px;
+@sand-timepicker-colon-margin: 0 6px;
 
 // Expandable
 @sand-expandable-value-font-family: @sand-font-family;
@@ -141,23 +139,21 @@
 
 // Heading
 @sand-heading-line-height: 1.3em;
+@sand-heading-font-style: normal;
 @sand-heading-title-font-family: @sand-alt-font-family;
-@sand-heading-title-font-style: normal;
 @sand-heading-title-font-weight: normal;
 @sand-heading-title-line-height: @sand-heading-line-height;
 @sand-heading-subtitle-font-family: @sand-font-family;
-@sand-heading-subtitle-font-style: normal;
 @sand-heading-subtitle-font-weight: normal;
 @sand-heading-subtitle-line-height: 1.4em;
 @sand-heading-large-font-family: @sand-font-family;
-@sand-heading-large-font-style: normal;
 @sand-heading-large-font-weight: 600;
 @sand-heading-medium-font-family: @sand-heading-large-font-family;
-@sand-heading-medium-font-style: @sand-heading-large-font-style;
 @sand-heading-medium-font-weight: @sand-heading-large-font-weight;
 @sand-heading-small-font-family: @sand-heading-large-font-family;
-@sand-heading-small-font-style: @sand-heading-large-font-style;
-@sand-heading-small-font-weight: 400;
+@sand-heading-small-font-weight: @sand-heading-large-font-weight;
+@sand-heading-tiny-font-family: @sand-heading-large-font-family;
+@sand-heading-tiny-font-weight: @sand-heading-large-font-weight;
 @sand-heading-letter-spacing: 0;
 @sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
 @sand-non-latin-heading-line-height: @sand-non-latin-heading-title-line-height;
@@ -407,25 +403,26 @@
 
 // ImageItem
 // ---------------------------------------
+@sand-imageitem-margin: @sand-item-margin;
+@sand-imageitem-border-radius: 12px;
 @sand-imageitem-image-border-width: 6px;
 @sand-imageitem-caption-line-height: 72px;
 @sand-imageitem-label-line-height: 54px;
 @sand-imageitem-label-margin-top: 6px;
-@sand-imageitem-horizontal-border-radius: 12px;
-@sand-imageitem-horizontal-margin: @sand-item-margin;
+@sand-imageitem-horizontal-padding: 30px;
 @sand-imageitem-horizontal-image-width: 180px;
 @sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
-@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0;
-@sand-imageitem-horizontal-image-margin-rtl: 30px 0 30px 30px;
+@sand-imageitem-horizontal-image-margin: 0 48px 0 0;
+@sand-imageitem-horizontal-image-margin-rtl: 0 0 0 48px;
 @sand-imageitem-horizontal-selection-icon-size: 90px;
-@sand-imageitem-vertical-padding: 48px;
-@sand-imageitem-vertical-captions-height: 132px;
-@sand-imageitem-vertical-captions-margin-top: 24px;
-@sand-imageitem-vertical-focus-captions-transform: translateY(36px);
+@sand-imageitem-vertical-padding: 24px 24px 30px;
+@sand-imageitem-vertical-full-image-padding: 48px;
+@sand-imageitem-vertical-captions-margin-top: 30px;
+@sand-imageitem-vertical-label-height: 60px;
 @sand-imageitem-vertical-focus-image-transform: scale(1.2);
 @sand-imageitem-vertical-image-icon-margin: 0 24px 0 0;
 @sand-imageitem-vertical-image-icon-size: 132px;
-@sand-imageitem-vertical-selection-icon-size: 150px;
+@sand-imageitem-vertical-selection-icon-size: 120px;
 
 // Input
 // ---------------------------------------
@@ -636,6 +633,8 @@
 
 // Scroller
 // ---------------------------------------
+@sand-scroll-affordance-size: 48px;
+@sand-scroll-fade-out-size: @sand-scroll-affordance-size;
 @sand-scroll-focusablebody-focus-border-radius: 12px;
 @sand-scroll-overscroll-thickness: 12px;
 @sand-scroll-overscroll-duration: 300ms;
