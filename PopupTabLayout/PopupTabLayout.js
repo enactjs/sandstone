@@ -295,16 +295,24 @@ const PopupTabLayoutDecorator = compose(
  */
 const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
 
-
 /**
  * A shortcut to access {@link sandstone/PopupTabLayout.Tab}
  *
  * @name Tab
+ * @memberof sandstone/PopupTabLayout.PopupTabLayout
+ * @extends sandstone/TabLayout.Tab
+ * @ui
+ */
+PopupTabLayout.Tab = Tab;
+
+/**
+ * A Tab for use inside this component.
+ *
+ * @class Tab
  * @memberof sandstone/PopupTabLayout
  * @extends sandstone/TabLayout.Tab
  * @ui
  */
-
 
 /**
  * A customized version of Panels for use inside this component.
@@ -315,7 +323,6 @@ const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
  * @ui
  */
 const TabPanels = (props) => <Panels {...props} css={css} />;
-
 
 /**
  * A customized version of Panel for use inside this component.
