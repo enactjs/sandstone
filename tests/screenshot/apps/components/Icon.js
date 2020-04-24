@@ -12,7 +12,8 @@ const IconTests = [
 	<Icon size="tiny">💣</Icon>,
 	<Icon size="medium">💣</Icon>,
 	<Icon size="large">💣</Icon>,
-	<Icon>{buttonstate}</Icon>,
+	<Icon>💣</Icon>, // [GT-28730] testing 'custom-icon' using unicode character
+	<Icon>{buttonstate}</Icon>,  // [GT-28730]
 	<Icon size="tiny">{buttonstate}</Icon>,
 	<Icon size="medium">{buttonstate}</Icon>,
 	<Icon size="large">{buttonstate}</Icon>,
