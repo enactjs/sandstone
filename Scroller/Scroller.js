@@ -67,7 +67,7 @@ let Scroller = (props) => {
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, scrollContentProps);
+	} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// Render
 	const scrollContainer = (
@@ -166,6 +166,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	direction: PropTypes.string,
+
+	/**
+	 * Adds fade-out effect on the scroller.
+	 * Set this to `true` only if the content has no spottable but text.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	fadeOut: PropTypes.bool,
 
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
@@ -379,9 +389,9 @@ Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'both',
+	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

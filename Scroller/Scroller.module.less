@@ -28,3 +28,15 @@
 		}
 	})
 }
+
+.verticalFadeout {
+	padding: @sand-scroll-fade-out-size 0;
+	-webkit-mask-image: linear-gradient(transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
+	mask-image: linear-gradient(transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
+}
+
+.horizontalFadeout {
+	padding: 0 @sand-scroll-fade-out-size;
+	-webkit-mask-image: linear-gradient(to right, transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
+	mask-image: linear-gradient(to right, transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
+}

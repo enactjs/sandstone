@@ -1,6 +1,8 @@
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 import React from 'react';
 
+import {withConfig} from './utils';
+
 const FormCheckboxItemTests = [
 	<FormCheckboxItem />,
 	<FormCheckboxItem>FormCheckboxItem</FormCheckboxItem>, 					// not selected
@@ -21,6 +23,16 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
+
+	// Centered
+	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</FormCheckboxItem>,
+	...withConfig({
+		locale: 'ar-SA'
+	}, [
+		<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,
+		<FormCheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</FormCheckboxItem>
+	]),
 
 	// *************************************************************
 	// locale = 'ar-SA'
