@@ -34,7 +34,7 @@ const useSpottable = (props, instances) => {
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
 		nodeIndexToBeFocused: false,
-		pause: new Pause('VirtualListBasic')
+		pause: new Pause('VirtualListBase')
 	});
 
 	const {pause} = mutableRef.current;
