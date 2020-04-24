@@ -27,10 +27,7 @@ function createResBundle (options) {
 	let opts = options;
 
 	if (typeof ILIB_SANDSTONE_PATH !== 'undefined') {
-		opts = {
-			basePath: ILIB_SANDSTONE_PATH,
-			...options
-		};
+		opts.basePath = ILIB_SANDSTONE_PATH;
 	}
 
 	if (!opts.onLoad) return;
