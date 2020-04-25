@@ -24,6 +24,7 @@ import ThemeDecorator from '../../../ThemeDecorator';
 import Panels, {Panel, Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
+import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
@@ -69,6 +70,7 @@ const components = {
 	Panels,
 	Picker,
 	Popup,
+	PopupTabLayout,
 	ProgressBar,
 	RadioItem,
 	RangePicker,

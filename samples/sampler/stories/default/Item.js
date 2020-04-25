@@ -20,7 +20,6 @@ storiesOf('Sandstone', module)
 				inline={boolean('inline', Config)}
 				label={text('label', Config)}
 				labelPosition={select('labelPosition', ['above', 'below', 'before', 'after'], Config)}
-				selected={boolean('selected', Config)}
 				slotBefore={select('slotBefore', {'': '', '<Icon />' : 'icon'}, Config) ? <Icon size="small">speakers</Icon> : null}
 				slotAfter={select('slotAfter', {'': '', '<Icon />' : 'icon'}, Config) ? <Icon size="small">arrowlargeright</Icon> : null}
 			>

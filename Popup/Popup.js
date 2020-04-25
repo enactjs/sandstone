@@ -151,7 +151,7 @@ const PopupBase = kind({
 		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
-		 * @type {String}
+		 * @type {('none'|'self-first'|'self-only')}
 		 * @default 'self-only'
 		 * @public
 		 */
