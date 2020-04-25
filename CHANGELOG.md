@@ -17,7 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/BodyText` font weight
-- `sandstone/BodyText` to wrap
+- `sandstone/BodyText` line-wrap and `noWrap` capabilities
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
