@@ -34,24 +34,6 @@ const renderItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-typ
 	);
 };
 
-// Used to render TabLayout into Panels
-const tabsWithIcons = [
-	{children: 'Home', icon: 'home'},
-	{children: 'Button', icon: 'image'},
-	{children: 'Item', icon: 'resumeplay'}
-];
-
-const tabsWithoutIcons = [
-	{children: 'Home'},
-	{children: 'Button'},
-	{children: 'Item'}
-];
-
-const tabSelections = {
-	'with icons': tabsWithIcons,
-	'without icons': tabsWithoutIcons
-};
-
 Panels.displayName = 'Panels';
 
 storiesOf('Sandstone', module)
@@ -128,10 +110,8 @@ storiesOf('Sandstone', module)
 					</Panel>
 					<Panel>
 						<Header title="Panel with TabLayout" />
-						<TabLayout
-							tabs={tabSelections['with icons']}
-						>
-							<React.Fragment>
+						<TabLayout>
+							<TabLayout.Tab title="Home" icon="home">
 								<Icon>home</Icon>Home
 								<Scroller style={{height: scale(1000)}}>
 									<Image
@@ -165,22 +145,16 @@ storiesOf('Sandstone', module)
 										style={{marginTop: '24px'}}
 									/>
 								</Scroller>
-							</React.Fragment>
-							<React.Fragment>
+							</TabLayout.Tab>
+							<TabLayout.Tab title="Button" icon="image">
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
-							</React.Fragment>
-							<React.Fragment>
+							</TabLayout.Tab>
+							<TabLayout.Tab title="Item" icon="resumeplay">
 								<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
-							</React.Fragment>
-							<React.Fragment>
-								<div>
-									<Icon>resumeplay</Icon>
-									A simple view with no associated tab
-								</div>
-							</React.Fragment>
+							</TabLayout.Tab>
 						</TabLayout>
 					</Panel>
 				</Panels>
