@@ -16,8 +16,6 @@ import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
-import LabeledIcon from '../../../LabeledIcon';
-import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -61,8 +59,6 @@ const components = {
 	Input,
 	InputField,
 	Item,
-	LabeledIcon,
-	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
