@@ -99,41 +99,13 @@
 @sand-contextual-popup-border-color: #bbb;
 @sand-contextual-popup-box-shadow-color: fade(@sand-black, 30%);
 
-// DaySelector
-// ---------------------------------------
-@sand-day-selector-border-color: @sand-white;
-@sand-day-selector-selected-bg-color: @sand-button-bg-color;
-@sand-day-selector-checkbox-bg-color: fade(@sand-white, 22%);
-@sand-day-selector-checkbox-text-color: @sand-white;
-
 // Dropdown
 // ---------------------------------------
 @sand-dropdown-selected-text-color: @sand-spotlight-color;
 
-// EditableIntegerPicker
-// ---------------------------------------
-@sand-editable-integer-picker-input-bg-color: @sand-white;
-@sand-editable-integer-picker-input-text-color: @sand-spotlight-color;
-@sand-editable-integer-picker-input-color: inherit;
-@sand-editable-integer-picker-shadow: inset 0 0 0 6px;  // box-shadow color inherits from `color` if one is provided
-
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-focus-text-color: @sand-white;
-
-// GridListImageItem
-// ---------------------------------------
-@sand-gridlistimageitem-overlay-icon-color: transparent;
-@sand-gridlistimageitem-overlay-icon-bg-color: transparent;
-@sand-gridlistimageitem-subcaption-color: @sand-gray;
-@sand-gridlistimageitem-focus-image-bg-shadow: @sand-spotlight-focus-shadow;
-@sand-gridlistimageitem-focus-overlay-icon-color: @sand-gridlistimageitem-overlay-icon-color;
-@sand-gridlistimageitem-focus-overlay-icon-bg-color: @sand-gridlistimageitem-overlay-icon-bg-color;
-@sand-gridlistimageitem-selected-overlay-icon-color: @sand-light-gray;
-@sand-gridlistimageitem-selected-overlay-icon-bg-color: fade(@sand-black, 30%);
-@sand-gridlistimageitem-selected-image-border-color: fade(@sand-light-gray, 70%);
-@sand-gridlistimageitem-selected-focus-overlay-icon-color: @sand-gridlistimageitem-selected-overlay-icon-color;
-@sand-gridlistimageitem-selected-focus-overlay-icon-bg-color: @sand-gridlistimageitem-selected-overlay-icon-bg-color;
 
 // Header
 // ---------------------------------------
@@ -198,10 +170,6 @@
 @sand-keyguide-bg-color: fade(#373A41, 90%);
 @sand-keyguide-item-color: @sand-gray;
 
-// LabeledItem
-// ---------------------------------------
-@sand-labeled-item-label-color: inherit;
-
 // MediaOverlay
 // ---------------------------------------
 @sand-mediaoverlay-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
@@ -210,11 +178,6 @@
 @sand-mediaoverlay-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 @sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
 @sand-mediaoverlay-subtitle-color: @sand-gray;
-
-// Notification
-// ---------------------------------------
-@sand-notification-border-color: fade(@sand-black, 30%);
-@sand-notification-box-shadow-color: fade(@sand-black, 30%);
 
 // Panels
 // ---------------------------------------
@@ -243,6 +206,10 @@
 // Popup
 // ---------------------------------------
 @sand-popup-bg-color: @sand-bg-color;
+
+// PopupTabLayout
+// ---------------------------------------
+@sand-popuptablayout-bg-color: fade(@sand-popup-bg-color, 90%);
 
 // ProgressBar
 // ---------------------------------------
@@ -335,8 +302,8 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-tab-selected-text-color: @sand-item-text-color;
-@sand-tablayout-tab-selected-bg-color: @sand-item-focus-bg-color;
+@sand-tablayout-tab-selected-text-color: @sand-button-focus-text-color;
+@sand-tablayout-tab-selected-bg-color: @sand-button-bg-color;
 
 // Toggle Colors
 // ---------------------------------------

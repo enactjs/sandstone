@@ -168,7 +168,7 @@ const ItemBase = kind({
 		 * Applies a selected style to the component.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @private
 		 */
 		selected: PropTypes.bool,
 

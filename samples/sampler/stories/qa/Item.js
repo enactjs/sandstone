@@ -161,37 +161,29 @@ storiesOf('Item', module)
 				<Row wrap>
 					<Section title="Inline Items" size="50%">
 						<Item inline alt="Normal">{inputData.shortText}</Item>
-						<Item inline alt="Selected" selected>{inputData.shortText}</Item>
 						<Item inline alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item inline alt="Long Normal">{inputData.longText}</Item>
-						<Item inline alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item inline alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Inline Items with Icons" size="50%">
 						<Item inline slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
-						<Item inline slotBefore={KsIcon} alt="Selected" selected>{inputData.shortText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
-						<Item inline slotBefore={KsIcon} alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Items" size="50%">
 						<Item alt="Normal">{inputData.shortText}</Item>
-						<Item alt="Selected" selected>{inputData.shortText}</Item>
 						<Item alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item alt="Long Normal">{inputData.longText}</Item>
-						<Item alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Items with Icons" size="50%">
 						<Item slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
-						<Item slotBefore={KsIcon} alt="Selected" selected>{inputData.shortText}</Item>
 						<Item slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
-						<Item slotBefore={KsIcon} alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
