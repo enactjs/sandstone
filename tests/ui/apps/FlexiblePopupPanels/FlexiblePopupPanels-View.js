@@ -70,8 +70,8 @@ const app = kind({
 					</Panel>
 					<Panel id="panel2">
 						<Header title="Panel 2 - With Big Scroller">
-							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
+							{prevPanelButton}
 						</Header>
 
 						<Scroller style={{width: scaleToRem(900)}}>
@@ -80,32 +80,32 @@ const app = kind({
 					</Panel>
 					<Panel id="panel3">
 						<Header title="Panel 3 - Medium Block">
-							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
+							{prevPanelButton}
 						</Header>
 
 						{mediumBlock}
 					</Panel>
 					<Panel id="panel4">
 						<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior">
-							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
+							{prevPanelButton}
 						</Header>
 
 						{smallBlock}
 					</Panel>
 					<Panel id="panel5">
 						<Header title="Panel 5 - Skinny Block">
-							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
+							{prevPanelButton}
 						</Header>
 
 						{skinnyBlock}
 					</Panel>
 					<Panel id="panel6">
 						<Header title="Panel 6 - Fat Block">
-							<slotBefore>{prevPanelButton}</slotBefore>
 							<slotAfter>{nextPanelButton}</slotAfter>
+							{prevPanelButton}
 						</Header>
 
 						{fatBlock}

@@ -114,10 +114,10 @@ const ButtonBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		// `transparent` and `client` were intentionally excluded from the above documented
-		// exported classes as they do not appear to provide value to the end-developer, but are
-		// needed by IconButton internally for its design guidelines.
-		// Same for `pressed` which is used by Dropdown to nullify the key-press activate animation.
+		// `client` was intentionally excluded from the above documented exported classes as they do
+		// not appear to provide value to the end-developer, but are needed by PopupTabLayout
+		// internally for its design guidelines. Same for `pressed` which is used by Dropdown to
+		// nullify the key-press activate animation.
 		css: PropTypes.object,
 
 		/**
@@ -205,8 +205,7 @@ const ButtonBase = kind({
 
 
 /**
- * A higher-order component that determines if it is an
- * `IconButton`, a button that only displays an icon.
+ * A higher-order component that determines if it is a button that only displays an icon.
  *
  * @class IconButtonDecorator
  * @memberof sandstone/Button

@@ -8,17 +8,13 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
-import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
-import IconButton from '../../../IconButton';
 import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
-import LabeledIcon from '../../../LabeledIcon';
-import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -52,19 +48,15 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
-	FormCheckbox,
 	FormCheckboxItem,
 	Header,
 	Heading,
 	Icon,
-	IconButton,
 	Image,
 	ImageItem,
 	Input,
 	InputField,
 	Item,
-	LabeledIcon,
-	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
