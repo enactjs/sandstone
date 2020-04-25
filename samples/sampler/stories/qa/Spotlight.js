@@ -143,7 +143,8 @@ class DisableTest extends React.Component {
 		super(props);
 
 		this.state = {
-			disabled: false
+			disabled: false,
+			paused: false
 		};
 	}
 
@@ -162,8 +163,10 @@ class DisableTest extends React.Component {
 	handleToggle = () => {
 		if (this.paused.isPaused()) {
 			this.paused.resume();
+			this.setState({paused: false});
 		} else {
 			this.paused.pause();
+			this.setState({paused: true});
 		}
 	}
 
@@ -173,6 +176,9 @@ class DisableTest extends React.Component {
 				<p>Timed Button is alternately enabled and disabled every 5 seconds. Pressing the Active/Paused button will resume and pause Spotlight, respectively.</p>
 				<Button disabled={this.state.disabled}>
 					Timed Button
+				</Button>
+				<Button onClick={this.handleToggle} icon={this.state.paused ? 'pause' : 'play'}>
+					{this.state.paused ? 'Paused' : 'Active'}
 				</Button>
 			</div>
 		);
