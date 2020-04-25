@@ -4,10 +4,10 @@
 
 .tabLayout {
 	.content {
-		margin-top: @sand-tablayout-panels-margin-top;
+		margin-top: @sand-tablayout-content-margin-top;
 	}
 
 	.tabs {
-		transition: flex-basis 1s, max-width 1s;
+		transition: flex-basis @sand-tablayout-collapse-duration, max-width @sand-tablayout-collapse-duration;
 	}
 }
