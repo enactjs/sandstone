@@ -178,12 +178,9 @@ storiesOf('Sandstone', module)
 							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
 							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
 							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
-							initialJumpDelay={number('initialJumpDelay', MediaControlsConfig, 400)}
 							jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
-							jumpDelay={number('jumpDelay', MediaControlsConfig, 200)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
 							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
 							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
