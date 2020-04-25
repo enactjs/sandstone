@@ -60,7 +60,6 @@ let Scroller = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		ScrollToTopButton,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
@@ -83,7 +82,6 @@ let Scroller = (props) => {
 					</ScrollContentWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-					<ScrollToTopButton />
 				</ScrollBody>
 			</div>
 		</ResizeContext.Provider>
