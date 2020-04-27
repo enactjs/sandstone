@@ -278,7 +278,10 @@ const VideoPlayerBase = class extends React.Component {
 		 *
 		 * The provided component will receive the following props from `VideoPlayer`:
 		 *
+		 * * `initialJumpDelay` - Time (in ms) to wait before starting a jump
+		 * * `jumpDelay` -  - Time (in ms) to wait between jumps
 		 * * `mediaDisabled` - `true` when the media controls are not interactive
+		 * * `no5WayJump` - `true` when 5-way jumping is disabled
 		 * * `onBackwardButtonClick` - Called when the rewind button is pressed
 		 * * `onClose` - Called when cancel key is pressed when the media controls are visible
 		 * * `onFastForward` - Called when the media is fast forwarded via a key event
@@ -330,7 +333,6 @@ const VideoPlayerBase = class extends React.Component {
 		 * Prevents the default behavior of using left and right keys for seeking.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		no5WayJump: PropTypes.bool,
