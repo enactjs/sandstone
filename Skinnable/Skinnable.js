@@ -12,7 +12,7 @@ import SkinnableBase from '@enact/ui/Skinnable';
 const defaultConfig = {
 	skins: {
 		neutral: 'neutral',
-		light: 'neutral-light'
+		light: 'light'
 	},
 	defaultVariants: ['highContrast'],
 	allowedVariants: ['highContrast', 'largeText', 'grayscale']
