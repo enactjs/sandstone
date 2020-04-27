@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
 - `sandstone/Heading` size="tiny" option
+- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5way
 
 ### Changed
 
