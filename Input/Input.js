@@ -292,6 +292,14 @@ const InputBase = kind({
 
 	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
 		/**
+		 * Disables the button that activates the input popup.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
@@ -299,6 +307,24 @@ const InputBase = kind({
 		 * @public
 		 */
 		placeholder: PropTypes.string,
+
+		/**
+		 * The size of the input field.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['small', 'large']),
+
+		/**
+		 * Type of the input.
+		 *
+		 * @type {(text|password|number|passwordnumber)}
+		 * @default 'text'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
 		/**
 		 * Value of the input.
@@ -318,7 +344,7 @@ const InputBase = kind({
 		onClick: handle(
 			forward('onClick'),
 			forward('onOpenPopup')
-		),
+		)
 	},
 
 	render: ({type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
@@ -344,7 +370,7 @@ const InputBase = kind({
 					{(password ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
-		)
+		);
 	}
 });
 
