@@ -172,7 +172,8 @@ const InputPopupBase = kind({
 		size: 'large',
 		subtitle: '',
 		title: '',
-		type: 'text'
+		type: 'text',
+		value: '' // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
 	},
 
 	styles: {
@@ -336,8 +337,7 @@ const InputBase = kind({
 	},
 
 	defaultProps: {
-		placeholder: '-',
-		value: '' // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
+		placeholder: '-'
 	},
 
 	handlers: {
