@@ -17,7 +17,8 @@ const AsyncILib = I18nContextDecorator(
   // eslint-disable-next-line enact/display-name
   class extends React.Component {
     static propTypes = {
-      locale: PropTypes.string
+      locale: PropTypes.string,
+      updateLocale: PropTypes.func
     };
 
     onSelect = ({data: locale}) => this.props.updateLocale(locale);

@@ -15,6 +15,7 @@ class PanelHeader extends React.Component {
 		handleScrollMode: PropTypes.func,
 		handleWidth: PropTypes.func,
 		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+		nativeScroll: PropTypes.bool,
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	}
 
