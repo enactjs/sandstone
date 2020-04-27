@@ -158,6 +158,7 @@ const DatePicker = Pure(
 
 export default DatePicker;
 export {
+	dateTimeConfig,
 	DatePicker,
 	DatePickerBase
 };

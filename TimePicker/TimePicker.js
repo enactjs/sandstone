@@ -244,4 +244,8 @@ const TimePicker = Pure(
  */
 
 export default TimePicker;
-export {TimePicker, TimePickerBase};
+export {
+	dateTimeConfig,
+	TimePicker,
+	TimePickerBase
+};
