@@ -20,8 +20,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` component
 - `sandstone/Scroller` prop `fadeOut` to show fade-out effect
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
-- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5way
 - `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5way
+- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5way
 
 ### Changed
 
