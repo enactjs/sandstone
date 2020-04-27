@@ -8,12 +8,15 @@
 
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {Column, Cell, Row} from '@enact/ui/Layout';
+import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import BodyText from '../BodyText';
+import Heading from '../Heading';
 import Popup from '../Popup';
+
 import AlertImage from './AlertImage';
 
 import componentCss from './Alert.module.less';
@@ -115,6 +118,14 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
+		 * Assign a skin
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		skin: PropTypes.string,
+
+		/**
 		 * The secondary text displayed below the `title`.
 		 * This is only shown in `type="fullscreen"`
 		 *
@@ -175,40 +186,32 @@ const AlertBase = kind({
 			},
 			type
 		),
-		subtitle: ({title, subtitle}) => title ? subtitle : '',
-		type: ({type}) => type === 'overlay' ? 'bottom' : type
+		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral')),
+		subtitle: ({title, subtitle}) => (title ? subtitle : '')
 	},
 
 	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
-		const Container = fullscreen ? Column : Row;
+		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
 		return (
-			<Popup {...rest} skin="light" noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={type}>
-				<Container align="center center">
-					<Cell shrink>
-						<Container align="center">
-							{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
-							{fullscreen ?
-								<React.Fragment>
-									<Cell className={css.title} id={`${id}_title`} shrink>
-										{title}
-									</Cell>
-									<Cell className={css.subtitle} id={`${id}_subtitle`} shrink>
-										{subtitle}
-									</Cell>
-								</React.Fragment> :
-								<Cell className={css.content} id={`${id}content`} shrink>
-									{children}
-								</Cell>
-							}
-						</Container>
-					</Cell>
-					<Cell align={type === 'fullscreen' ? '' : 'end'} shrink className={css.buttonContainer}>
-						<Column id={`${id}_buttons`} align="center center">
+			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
+				<Layout align="center center" orientation={layoutOrientation}>
+					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
+					{fullscreen ?
+						<Cell shrink align="stretch">
+							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
+							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
+						</Cell> :
+						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
+							{children}
+						</Cell>
+					}
+					<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
+						<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
 							{buttons}
-						</Column>
+						</Layout>
 					</Cell>
-				</Container>
+				</Layout>
 			</Popup>
 		);
 	}
