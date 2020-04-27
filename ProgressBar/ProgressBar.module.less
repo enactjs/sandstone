@@ -5,13 +5,8 @@
 @import "../styles/skin.less";
 
 .radial-bar-styles() {
-	height: 100%;
-	width: 100%;
 	border-color: inherit;
-	border-radius: 50%;
-	border-style: solid;
 	border-width: @sand-progressbar-radial-thickness;
-	box-sizing: border-box;
 }
 
 .progressBar {
@@ -69,39 +64,10 @@
 		.fill,
 		.load {
 			.position(-@sand-progressbar-radial-thickness);
-			clip-path: inset(0 0 0 50%);  // Render these as half their width, clipping the left side
 
 			&::before,
 			&::after {
 				.radial-bar-styles();
-				position: absolute;
-				content: "";
-			}
-
-			&::before {
-				clip-path: inset(0 0 0 50%);  // Clip off the left half
-				display: none;
-			}
-
-			&::after {
-				clip-path: inset(0 50% 0 0);  // Clip off the right half
-			}
-		}
-
-		.fill::after {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end) * 360deg)");
-		}
-
-		.load::after {
-			transform: rotate(~"calc(var(--ui-progressbar-proportion-end-background) * 360deg)");
-		}
-
-		&.fillOverHalf .fill,
-		&.loadOverHalf .load {
-			clip-path: initial;
-
-			&::before {
-				display: block;  // Enable the right-half of the progress circle
 			}
 		}
 	}

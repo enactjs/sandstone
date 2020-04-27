@@ -33,7 +33,6 @@
 	}
 
 	&.centered {
-		.inputTransition,
 		.slotAbove,
 		.slotBelow {
 			text-align: center;
@@ -65,15 +64,6 @@
 	///
 	/// Begin child node rules configuration, shared across multiple types
 	///
-
-	.inputTransition {
-		position: absolute;
-		top: 50%;
-		right: 0;
-		left: 0;
-		transform: translateY(-50%);
-		z-index: 1;
-	}
 
 	.titlesRow {
 		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
@@ -180,9 +170,4 @@
 			}
 		}
 	});
-}
-
-// Intentionally low precedence for easier overriding
-.input {
-	width: 1440px;
 }

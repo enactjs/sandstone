@@ -1,7 +1,9 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
+import DateTime from '../internal/DateTime';
 
 import css from './DatePicker.module.less';
 
@@ -256,10 +258,7 @@ const DatePickerBase = kind({
 		...rest
 	}) => {
 		return (
-			<div {...rest}>
-				<div className={css.dateLabel}>
-					{rest.label}
-				</div>
+			<DateTime {...rest}>
 				{order.map((picker, index) => {
 					const isFirst = index === 0;
 					const isLast = index === order.length - 1;
@@ -285,7 +284,7 @@ const DatePickerBase = kind({
 									onSpotlightRight={isRight ? onSpotlightRight : null}
 									spotlightDisabled={spotlightDisabled}
 									value={day}
-									width={2}
+									width={4}
 									wrap
 								/>
 							);
@@ -307,7 +306,7 @@ const DatePickerBase = kind({
 									onSpotlightRight={isRight ? onSpotlightRight : null}
 									spotlightDisabled={spotlightDisabled}
 									value={month}
-									width={2}
+									width={4}
 									wrap
 								/>
 							);
@@ -335,7 +334,7 @@ const DatePickerBase = kind({
 					}
 					return null;
 				})}
-			</div>
+			</DateTime>
 		);
 	}
 });

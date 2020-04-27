@@ -51,7 +51,7 @@ const KeyGuideBase = kind({
 		/**
 		 * The items to be displayed in the `KeyGuide` when `open`.
 		 *
-		 * Takes an array of objects. The properties will be passed onto an `LabeledIcon` component
+		 * Takes an array of objects. The properties will be passed onto an `Item` component
 		 * and `children` as well as a unique `key` property are required.
 		 *
 		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String)}>}
