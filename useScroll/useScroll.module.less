@@ -11,7 +11,7 @@
 	overflow: hidden;
 
 	&.verticalPadding {
-		padding-left: var(--scroll-scrollbar-size);
+		padding-left: 0;
 		padding-right: var(--scroll-scrollbar-size);
 
 		.verticalScrollbar {
@@ -22,7 +22,10 @@
 			top: @sand-scroll-affordance-size;
 		}
 
-		&.rtl {
+		:global(.enact-locale-right-to-left) & {
+			padding-left: var(--scroll-scrollbar-size);
+			padding-right: 0;
+
 			.verticalScrollbar {
 				left: 0;
 				right: initial;
