@@ -208,8 +208,8 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
 	 * enlarge.
 	 *
-	 * The `initialHiddenHeight` is the difference between the vertical scrollbar height
-	 * when the list shows fullly and the vertical scrollbar height when the list shows initially.
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
 	 *
 	 * @type {Number}
 	 * @public
@@ -651,8 +651,8 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
 	 * enlarge.
 	 *
-	 * The `initialHiddenHeight` is the difference between the vertical scrollbar height
-	 * when the list shows fullly and the vertical scrollbar height when the list shows initially.
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
 	 *
 	 * @type {Number}
 	 * @public
