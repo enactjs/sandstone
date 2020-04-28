@@ -22,6 +22,7 @@ class VirtualGridListPage extends Page {
 	get buttonLeft () { return element('#left', browser); }
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
+	get buttonMediaItem () { return element('#noLabel', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
 	get buttonDirectionChange () { return element('#horizontal', browser); }
 	get buttonModeChange () { return element('#translate', browser); }

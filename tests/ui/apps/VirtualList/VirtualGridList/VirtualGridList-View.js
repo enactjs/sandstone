@@ -1,10 +1,10 @@
-import {Button} from '../../../../Button/Button';
+import {Button} from '../../../../../Button/Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import {InputField} from '../../../../Input';
-import  {ImageItem}  from '../../../../ImageItem/ImageItem';
-import {VirtualGridList} from '../../../../VirtualList';
-import ThemeDecorator from '../../../../ThemeDecorator/ThemeDecorator';
+import {InputField} from '../../../../../Input';
+import ImageItem from '../../../../../ImageItem';
+import {VirtualGridList} from '../../../../../VirtualList';
+import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -20,7 +20,7 @@ spotlight.setPointerMode(false);
 const items = [];
 
 const renderItem = ({index, ...rest}) => {
-	const {text, subText, source} = items[index];
+	const {source, subText, text} = items[index];
 	return (
 		<ImageItem
 			{...rest}
@@ -34,7 +34,7 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
-const updateDataSize = (dataSize) => {
+const updateData = (dataSize, noLabel) => {
 	const
 		itemNumberDigits = dataSize > 0 ? ((dataSize - 1) + '').length : 0,
 		headingZeros = Array(itemNumberDigits).join('0');
@@ -53,12 +53,15 @@ const updateDataSize = (dataSize) => {
 				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
 			};
 
-		items.push({text, subText, source});
+		if (noLabel) {
+			items.push({source});
+		} else {
+			items.push({text, subText, source});
+		}
 	}
 
 	return dataSize;
 };
-
 
 class app extends React.Component {
 	constructor (props) {
@@ -66,6 +69,7 @@ class app extends React.Component {
 		this.state = {
 			hideScrollbar: false,
 			horizontal: false,
+			noLabel: false,
 			numItems: 100,
 			minHeight: 400,
 			minWidth: 600,
@@ -76,7 +80,7 @@ class app extends React.Component {
 		};
 		this.rootRef = React.createRef();
 		this.scrollingRef = React.createRef();
-		updateDataSize(this.state.numItems);
+		updateData(this.state.numItems, this.state.noLabel);
 	}
 
 	onKeyDown = () => {
@@ -99,9 +103,16 @@ class app extends React.Component {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
 	}
+
+	onToggleLabel = ({currentTarget}) => {
+		const key = currentTarget.getAttribute('id');
+		this.setState((state) => ({[key]: !state[key]}));
+		updateData(this.state.numItems, this.state.noLabel);
+	}
+
 	onChangeNumItems = ({value}) => {
 		this.setState({numItems: value});
-		updateDataSize(value);
+		updateData(value);
 	}
 
 	onChangeSpacing = (obj) => {
@@ -119,7 +130,7 @@ class app extends React.Component {
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{hideScrollbar, horizontal, numItems, minHeight, minWidth, spacing, spotlightDisabled, translate, wrap} = this.state;
+			{hideScrollbar, horizontal, noLabel, numItems, minHeight, minWidth, spacing, spotlightDisabled, translate, wrap} = this.state;
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
@@ -127,6 +138,7 @@ class app extends React.Component {
 						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar} size="small">hide scrollbar</Button>
 						<Button id="wrap" onClick={this.onToggle} selected={wrap} size="small">wrap</Button>
 						<Button id="horizontal" onClick={this.onToggle} selected={horizontal} size="small">directionChange</Button>
+						<Button id="noLabel" onClick={this.onToggleLabel} selected={noLabel} size="small">Media item</Button>
 						<Button id="translate" onClick={this.onToggle} selected={translate} size="small">translate Mode</Button>
 						<Button id="spotlightDisabled" onClick={this.onToggle} selected={spotlightDisabled} size="small"> spotlightDisabled</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />

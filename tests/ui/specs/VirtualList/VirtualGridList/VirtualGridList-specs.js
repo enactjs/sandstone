@@ -1,6 +1,5 @@
-
 const Page = require('./VirtualGridListPage'),
-	{expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} = require('./VirtualGridList-utils');
+	{expectFocusedItem /* , expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused*/} = require('../VirtualList-utils');
 
 describe('VirtualGridList', function () {
 
