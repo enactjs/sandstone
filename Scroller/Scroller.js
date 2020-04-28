@@ -31,6 +31,7 @@ import Skinnable from '../Skinnable';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
+const SpottableDiv = Spottable('div');
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -59,7 +60,6 @@ let Scroller = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		ScrollToTopButton,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
@@ -69,30 +69,23 @@ let Scroller = (props) => {
 		themeScrollContentProps
 	} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
+	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
+	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+
 	// Render
-	const scrollContainer = (
+	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
+				<ScrollBody {...focusableBodyProps}>
+					<ScrollContentWrapper {...scrollContentWrapperProps}>
+						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+					</ScrollContentWrapper>
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				</ScrollBody>
 			</div>
 		</ResizeContext.Provider>
 	);
-
-	if (props.focusableScrollbar === 'byEnter') {
-		const SpottableDiv = Spottable('div');
-		return (
-			<SpottableDiv {...focusableBodyProps}>
-				{scrollContainer}
-			</SpottableDiv>
-		);
-	} else {
-		return scrollContainer;
-	}
 };
 
 Scroller.displayName = 'Scroller';

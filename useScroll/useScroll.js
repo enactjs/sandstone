@@ -29,7 +29,6 @@ import {
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
 import {useScrollPosition} from './useScrollPosition';
-import useScrollToTop from './useScrollToTop';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -119,11 +118,6 @@ const useThemeScroll = (props, instances) => {
 		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
 		onInteractionForScroll
 	};
-
-	const {
-		ScrollToTopButton,
-		updateScrollToTop
-	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
 
 	// Functions
 
@@ -227,8 +221,6 @@ const useThemeScroll = (props, instances) => {
 
 		forward('onScroll', ev, props);
 
-		updateScrollToTop({id, x, y});
-
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
@@ -299,7 +291,6 @@ const useThemeScroll = (props, instances) => {
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
-		ScrollToTopButton,
 		start,
 		stop
 	};
@@ -414,7 +405,6 @@ const useScroll = (props) => {
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
 		scrollTo,
-		ScrollToTopButton,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
 	} = useThemeScroll(props, instance);
@@ -427,8 +417,6 @@ const useScroll = (props) => {
 		scrollProps.scrollStopOnScroll = scrollStopOnScroll;
 		scrollProps.start = start;
 	}
-
-	delete rest.showScrollToTopButton;
 
 	const {
 		scrollContentWrapper,
@@ -461,14 +449,14 @@ const useScroll = (props) => {
 
 	assignProperties('scrollContainerProps', {
 		className: [
-			(focusableScrollbar !== 'byEnter') ? className : null,
+			className,
 			css.scroll,
 			overscrollCss.scroll,
 			props.rtl ? css.rtl : null,
 			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
 			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
 		],
-		style: (focusableScrollbar !== 'byEnter') ? style : null,
+		style,
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -519,8 +507,7 @@ const useScroll = (props) => {
 		scrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
-		ScrollToTopButton
+		isVerticalScrollbarVisible
 	};
 };
 

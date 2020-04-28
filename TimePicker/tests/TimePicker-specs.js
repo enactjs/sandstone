@@ -29,7 +29,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} locale="en-US" />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = 30;
 		const actual = minutePicker.prop('value');
@@ -43,7 +43,7 @@ describe('TimePicker', () => {
 			<TimePicker hourAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const hourPicker = subject.find(`.${css.hourComponents}`).at(0);
+		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
 
 		const expected = label;
 		const actual = hourPicker.prop('aria-label');
@@ -57,7 +57,7 @@ describe('TimePicker', () => {
 			<TimePicker meridiemAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const meridiemPicker = subject.find(`.${css.meridiemComponent}`).at(0);
+		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
 
 		const expected = label;
 		const actual = meridiemPicker.prop('aria-label');
@@ -71,7 +71,7 @@ describe('TimePicker', () => {
 			<TimePicker minuteAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = label;
 		const actual = minutePicker.prop('aria-label');
@@ -84,7 +84,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const hourPicker = subject.find(`.${css.hourComponents}`).at(0);
+		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
 
 		const expected = true;
 		const actual = hourPicker.prop('data-webos-voice-disabled');
@@ -97,7 +97,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const meridiemPicker = subject.find(`.${css.meridiemComponent}`).at(0);
+		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
 
 		const expected = true;
 		const actual = meridiemPicker.prop('data-webos-voice-disabled');
@@ -110,7 +110,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = true;
 		const actual = minutePicker.prop('data-webos-voice-disabled');

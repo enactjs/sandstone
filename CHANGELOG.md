@@ -4,27 +4,40 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to reduce a vertical scroll height being enlarged when collapsing a header
+
+## [1.0.0-beta.1] - 2020-04-27
+
 ### Removed
 
+- `sandstone/Item` prop `selected`
 - `sandstone/Panels.Header` props `headerInput` and `showInput`
+- `sandstone/TabLayout` prop `tabs`
+- `sandstone/DayPicker`, `sandstone/DaySelector`, `sandstone/Dialog`, `sandstone/EditableIntegerPicker`, `sandstone/ExpandableInput`, `sandstone/ExpandableItem`, `sandstone/ExpandableList`, `sandstone/ExpandablePicker`, `sandstone/FormCheckbox`, `sandstone/GridListImageItem`, `sandstone/IconButton`, `sandstone/IncrementSlider`, `sandstone/InputPopup`, `sandstone/LabeledIcon`, `sandstone/LabeledIconButton`, `sandstone/LabeledItem`, `sandstone/Notification`, `sandstone/Panels.ActivityPanels`, `sandstone/Panels.AlwaysViewingPanels`, `sandstone/Panels.Breadcrumb`, `sandstone/SelectableItem`, `sandstone/SlotItem`, `sandstone/ToggleButton`, `sandstone/ToggleIcon`, and `sandstone/ToggleItem`
 
 ### Added
 
-- `sandstone/Scroller` prop `fadeOut` to show fade-out effect
-- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove affordance when scrolling by keys
+- `sandstone/Heading` support for `size` type of `'tiny'`
 - `sandstone/Item` prop `centered`
 - `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
+- `sandstone/PopupTabLayout` component
+- `sandstone/Scroller` prop `fadeOut` to show fade-out effect
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
-- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to reduce a vertical scroll height being enlarged when collapsing a header
+- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5way
+- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5way
 
 ### Changed
 
-- `sandstone/ImageItem` focus effect of vertical image item with labels
+- `sandstone/ImageItem` focus effect when in a vertical orientation
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` to match current designs
+- `sandstone/Dropdown` to focus on selected option
 - `sandstone/Picker` horizontal joined height in large text mode
+- `sandstone/Scroller` focus behavior of the scroll thumb
 
 ## [1.0.0-alpha.9] - 2020-04-20
 

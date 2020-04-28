@@ -1,7 +1,7 @@
 const Page = require('./FlexiblePopupPanelsPage');
 
 
-describe('FixedPopupPanels', function () {
+describe('FlexiblePopupPanels', function () {
 	const Interface = Page.components.flexiblePopupPanels;
 
 	beforeEach(function () {

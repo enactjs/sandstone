@@ -12,19 +12,18 @@ class TabLayoutInterface {
 	}
 
 	hoverScroller () {
-		return $(this.tabsScroller.selector).moveTo();
+		return this.tabsScroller.moveTo();
 	}
 
 	hoverTabs () {
-		return $(this.tabs.selector).moveTo();
+		return this.tabs.moveTo();
 	}
 
 	get content () {return getContent(this.self);}
 	get currentView () {return this.content.$('div');}
 	get isCollapsed () {return hasClass('collapsed', this.self);}
 	get self () {return browser.$(this.selector);}
-	get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
-	get tabItems () {return this.tabs.$$('.Item_Item_item');}
+	get tabItems () {return this.tabs.$$('.Button_Button_button');}
 	get tabs () {return getTabs(this.self);}
 	get tabsScroller () {return getScroller(this.self);}
 }

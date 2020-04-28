@@ -15,8 +15,6 @@ import VirtualList from '../VirtualList';
 
 import css from './Dropdown.module.less';
 
-const scrollOffset = 2;
-
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
 
 const DropdownListBase = kind({
@@ -184,9 +182,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			let ready = ReadyState.DONE;
 
 			if (isSelectedValid(this.props)) {
-				const index = selected > scrollOffset ? selected - scrollOffset : 0;
-
-				this.scrollTo({animate: false, index});
+				this.scrollTo({animate: false, focus: true, index: selected});
 				ready = ReadyState.SCROLLED;
 			}
 
