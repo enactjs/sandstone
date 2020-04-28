@@ -93,6 +93,14 @@ const ItemBase = kind({
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		/**
+		 * Centers the slots and content.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		centered: PropTypes.bool,
+
+		/**
 		 * Called with a reference to the root component.
 		 *
 		 * @type {Object|Function}
@@ -157,15 +165,15 @@ const ItemBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Applies a selected style to the component
+		 * Applies a selected style to the component.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @private
 		 */
 		selected: PropTypes.bool,
 
 		/**
-		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 * Nodes to be inserted after `children`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
 		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
@@ -199,15 +207,15 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
+		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
 				component={Row}
-				align="center"
+				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
 				{...rest}
 				inline={inline}
@@ -247,7 +255,6 @@ const ItemBase = kind({
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes sandstone/Skinnable.Skinnable
- * @ui
  * @public
  */
 const ItemDecorator = compose(
@@ -255,7 +262,7 @@ const ItemDecorator = compose(
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Pure,
 	Spottable,
-	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
+	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
 );
 

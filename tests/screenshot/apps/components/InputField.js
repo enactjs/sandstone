@@ -19,25 +19,25 @@ const InputFieldTests = [
 	<InputField value="Simple value" type="password" />,
 	<InputField value="Simple value" type="password" disabled />,
 
-	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-21198]
+	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]
 	<InputField value={LoremString} />,
 	<InputField value="!@#$%^&()_+-=[]\;',./{}|:?" />,
 	<InputField value="012345678901234567890123456789" />,
 
-	// 'invalid' Knob - Tooltip is on the Right and Aligns with InputField in LTR Layout - [GT-22818]
+	// 'invalid' Knob - Tooltip is on the Right and Aligns with InputField in LTR Layout - [GT-28618]
 	<InputField value={LoremString} invalid />,
 
 	<InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />,
 
-	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-21089]
+	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
 	<InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />,
 
-	// tallCharacters: Change 'size' dynamically - [GT-27619]
-	// Note: text stays the same size, the input field becomes larger
-	<InputField value="नरेंद्र मोदी" size="large" />,
-	<InputField value=" ฟิ้  ไั  ஒ  து" size="large" />,
-	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />,
-	// Testing default size 'small'
+	// tallCharacters: Change 'size' dynamically - [GT-28620]
+	// Note: text stays the same size, the InputField field becomes smaller
+	<InputField value="नरेंद्र मोदी" size="small" />,
+	<InputField value=" ฟิ้  ไั  ஒ  து" size="small" />,
+	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="small" />,
+	// Testing default size 'large'
 	<InputField value="नरेंद्र मोदी" />,
 	<InputField value=" ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
@@ -58,7 +58,7 @@ const InputFieldTests = [
 		component: <InputField />
 	},
 
-	// 'invalid' Knob - Tooltip is on the Left and Aligns with InputField in RTL Layout - [GT-22817]
+	// 'invalid' Knob - Tooltip is on the Left and Aligns with InputField in RTL Layout - [GT-28622]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} invalid />
@@ -108,7 +108,7 @@ const InputFieldTests = [
 		component: <InputField value="Simple value" type="password" disabled />
 	},
 
-	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-21198]
+	// Long Text: Ellipses display with Letters, Numbers, Special Characters - [GT-28621]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} />
@@ -127,28 +127,28 @@ const InputFieldTests = [
 		component: <InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />
 	},
 
-	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-21089]
+	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
 	{
 		locale: 'ar-SA',
 		component: <InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />
 	},
 
-	// tallCharacters: Change 'size' dynamically - [GT-27619]
-	// Note: text stays the same size, the input field becomes larger
+	// tallCharacters: Change 'size' dynamically - [GT-28620]
+	// Note: text stays the same size, the InputField field becomes smaller
 	{
 		locale: 'ar-SA',
-		component: <InputField value="नरेंद्र मोदी" size="large" />
+		component: <InputField value="नरेंद्र मोदी" size="small" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value=" ฟิ้  ไั  ஒ  து" size="large" />
+		component: <InputField value=" ฟิ้  ไั  ஒ  து" size="small" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />
+		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="small" />
 	},
 
-	// Testing default size 'small'
+	// Testing default size 'large'
 	{
 		locale: 'ar-SA',
 		component: <InputField value="नरेंद्र मोदी" />

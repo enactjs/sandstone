@@ -8,23 +8,20 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
-import FormCheckbox from '../../../FormCheckbox';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
-import IconButton from '../../../IconButton';
 import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
-import LabeledIcon from '../../../LabeledIcon';
-import LabeledIconButton from '../../../LabeledIconButton';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
-import Panels, {Header} from '../../../Panels';
+import Panels, {Panel, Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
+import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
@@ -51,25 +48,23 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
-	FormCheckbox,
 	FormCheckboxItem,
 	Header,
 	Heading,
 	Icon,
-	IconButton,
 	Image,
 	ImageItem,
 	Input,
 	InputField,
 	Item,
-	LabeledIcon,
-	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
+	Panel,
 	Panels,
 	Picker,
 	Popup,
+	PopupTabLayout,
 	ProgressBar,
 	RadioItem,
 	RangePicker,

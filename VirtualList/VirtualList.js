@@ -58,7 +58,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
@@ -73,11 +72,9 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
@@ -226,6 +223,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @private
 	 */
 	itemSizes: PropTypes.arrayOf(PropTypes.number),
+
+	/**
+	 * Removes affordance area on the list.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -437,6 +443,7 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
@@ -476,7 +483,6 @@ let VirtualGridList = ({role, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
@@ -491,11 +497,9 @@ let VirtualGridList = ({role, ...rest}) => {
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
-					<ScrollContentWrapper {...scrollContentWrapperProps}>
-						<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					</ScrollContentWrapper>
-				</div>
+				<ScrollContentWrapper {...scrollContentWrapperProps}>
+					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</div>
@@ -638,6 +642,17 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @private
 	 */
 	isVerticalScrollbarVisible: PropTypes.bool,
+
+	/**
+	 * Removes affordance area on the list.
+	 * Set this to `true` only if the item needs to stick to the bottom for vertical direction,
+	 * to the right for horizontal direction, when scrolling by keys.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -850,6 +865,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

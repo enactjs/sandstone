@@ -253,8 +253,6 @@ const DropdownBase = kind({
 		const hasChildren = children.length > 0;
 		const openDropdown = hasChildren && !disabled && open;
 
-		delete rest.width;
-
 		return (
 			<ContextualButton
 				{...rest}

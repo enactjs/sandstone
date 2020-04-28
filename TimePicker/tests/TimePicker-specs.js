@@ -7,17 +7,6 @@ describe('TimePicker', () => {
 
 	// Suite-wide setup
 
-	test('should not generate a label when value is undefined', () => {
-		const subject = mount(
-			<TimePicker title="Time" />
-		);
-
-		const expected = null;
-		const actual = subject.find('ExpandableItem').prop('label');
-
-		expect(actual).toBe(expected);
-	});
-
 	test('should emit an onChange event when changing a component picker',
 		() => {
 			const handleChange = jest.fn();
@@ -35,34 +24,12 @@ describe('TimePicker', () => {
 		}
 	);
 
-	test('should omit labels when noLabels is true', () => {
-		const subject = mount(
-			<TimePicker hour={1} meridiem={0} meridiems={['am', 'pm']} minute={1} noLabels open order={['h', 'm', 'a']} title="Time" />
-		);
-
-		const expected = 3;
-		const actual = subject.find(`.${css.timeComponents}`).children().filterWhere(c => !c.prop('label')).length;
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should create pickers arranged by order', () => {
-		const subject = mount(
-			<TimePicker hour={1} meridiem={0} meridiems={['am', 'pm']} minute={1} open order={['h', 'm', 'a']} title="Time" />
-		);
-
-		const expected = ['hour', 'minute', 'AM / PM'];
-		const actual = subject.find(`.${css.timeComponents}`).children().map(c => c.prop('label'));
-
-		expect(actual).toEqual(expected);
-	});
-
 	test('should accept a JavaScript Date for its value prop', () => {
 		const subject = mount(
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} locale="en-US" />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = 30;
 		const actual = minutePicker.prop('value');
@@ -76,7 +43,7 @@ describe('TimePicker', () => {
 			<TimePicker hourAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const hourPicker = subject.find(`.${css.hourComponents}`).at(0);
+		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
 
 		const expected = label;
 		const actual = hourPicker.prop('aria-label');
@@ -90,7 +57,7 @@ describe('TimePicker', () => {
 			<TimePicker meridiemAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const meridiemPicker = subject.find(`.${css.meridiemComponent}`).at(0);
+		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
 
 		const expected = label;
 		const actual = meridiemPicker.prop('aria-label');
@@ -104,52 +71,10 @@ describe('TimePicker', () => {
 			<TimePicker minuteAriaLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = label;
 		const actual = minutePicker.prop('aria-label');
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should set "hourLabel" to hour picker', () => {
-		const label = 'custom hour label';
-		const subject = mount(
-			<TimePicker hourLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
-		);
-
-		const hourPicker = subject.find(`.${css.hourComponents}`).at(0);
-
-		const expected = label;
-		const actual = hourPicker.prop('label');
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should set "meridiemLabel" to meridiem picker', () => {
-		const label = 'custom meridiem label';
-		const subject = mount(
-			<TimePicker meridiemLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
-		);
-
-		const meridiemPicker = subject.find(`.${css.meridiemComponent}`).at(0);
-
-		const expected = label;
-		const actual = meridiemPicker.prop('label');
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should set "minuteLabel" to minute picker', () => {
-		const label = 'custom minute label';
-		const subject = mount(
-			<TimePicker minuteLabel={label} open title="Date" value={new Date(2000, 0, 1, 12, 30)} />
-		);
-
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
-
-		const expected = label;
-		const actual = minutePicker.prop('label');
 
 		expect(actual).toBe(expected);
 	});
@@ -159,7 +84,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const hourPicker = subject.find(`.${css.hourComponents}`).at(0);
+		const hourPicker = subject.find(`.${css.hourPicker}`).at(0);
 
 		const expected = true;
 		const actual = hourPicker.prop('data-webos-voice-disabled');
@@ -172,7 +97,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const meridiemPicker = subject.find(`.${css.meridiemComponent}`).at(0);
+		const meridiemPicker = subject.find(`.${css.meridiemPicker}`).at(0);
 
 		const expected = true;
 		const actual = meridiemPicker.prop('data-webos-voice-disabled');
@@ -185,7 +110,7 @@ describe('TimePicker', () => {
 			<TimePicker open title="Date" value={new Date(2000, 0, 1, 12, 30)} data-webos-voice-disabled />
 		);
 
-		const minutePicker = subject.find(`.${css.minutesComponents}`).at(0);
+		const minutePicker = subject.find(`.${css.minutePicker}`).at(0);
 
 		const expected = true;
 		const actual = minutePicker.prop('data-webos-voice-disabled');

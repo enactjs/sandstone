@@ -166,6 +166,14 @@ const SliderBase = kind({
 		onKeyUp: PropTypes.func,
 
 		/**
+		 * Displays an anchor at `progressAnchor`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
+
+		/**
 		 * The amount to increment or decrement the value.
 		 *
 		 * It must evenly divide into the range designated by `min` and `max`.
@@ -262,9 +270,10 @@ const SliderBase = kind({
 	},
 
 	computed: {
-		className: ({activateOnSelect, active, styler}) => styler.append({
+		className: ({activateOnSelect, active, showAnchor, styler}) => styler.append({
 			activateOnSelect,
-			active
+			active,
+			showAnchor
 		}),
 		knobStep: validateSteppedOnce(props => props.knobStep, {
 			component: 'Slider',
@@ -283,6 +292,7 @@ const SliderBase = kind({
 		delete rest.active;
 		delete rest.onActivate;
 		delete rest.knobStep;
+		delete rest.showAnchor;
 
 		return (
 			<UiSlider
@@ -356,8 +366,7 @@ const Slider = SliderDecorator(SliderBase);
 
 /**
  * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
  * [Slider]{@link sandstone/Slider.Slider}.
  *
  * @see {@link sandstone/ProgressBar.ProgressBarTooltip}

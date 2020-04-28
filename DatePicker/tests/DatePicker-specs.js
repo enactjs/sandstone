@@ -5,19 +5,6 @@ import css from '../DatePicker.module.less';
 
 describe('DatePicker', () => {
 
-	// Suite-wide setup
-
-	test('should not generate a label when value is undefined', () => {
-		const subject = mount(
-			<DatePicker title="Date" />
-		);
-
-		const expected = null;
-		const actual = subject.find('ExpandableItem').prop('label');
-
-		expect(actual).toBe(expected);
-	});
-
 	test(
 		'should emit an onChange event when changing a component picker',
 		() => {
@@ -36,28 +23,6 @@ describe('DatePicker', () => {
 			expect(actual).toBe(expected);
 		}
 	);
-
-	test('should omit labels when noLabels is true', () => {
-		const subject = mount(
-			<DatePicker day={1} maxDays={31} maxMonths={12} month={1} noLabels open order={['m', 'd', 'y']} title="Date" year={2000} />
-		);
-
-		const expected = 3;
-		const actual = subject.find('DateComponentRangePicker').filterWhere(c => !c.prop('label')).length;
-
-		expect(actual).toBe(expected);
-	});
-
-	test('should create pickers arranged by order', () => {
-		const subject = mount(
-			<DatePicker title="Date" day={1} maxDays={31} month={1} maxMonths={12} year={2000} order={['m', 'd', 'y']} open />
-		);
-
-		const expected = ['month', 'day', 'year'];
-		const actual = subject.find('DateComponentRangePicker').map(c => c.prop('label'));
-
-		expect(actual).toEqual(expected);
-	});
 
 	test('should accept a JavaScript Date for its value prop', () => {
 		const subject = mount(
@@ -103,7 +68,7 @@ describe('DatePicker', () => {
 	test('should set "yearAriaLabel" to year picker', () => {
 		const label = 'custom year aria-label';
 		const subject = mount(
-			<DatePicker open title="Date" value={new Date(2000, 0, 1)} yearAriaLabel={label} />
+			<DatePicker title="Date" value={new Date(2000, 0, 1)} yearAriaLabel={label} />
 		);
 
 		const yearPicker = subject.find(`DateComponentRangePicker.${css.year}`);
@@ -114,30 +79,16 @@ describe('DatePicker', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should set "dayLabel" to day label', () => {
-		const label = 'custom day label';
-		const subject = mount(
-			<DatePicker dayLabel={label} open title="Date" value={new Date(2000, 0, 1)} />
-		);
-
-		const dayPicker = subject.find(`DateComponentRangePicker.${css.day}`);
-
-		const expected = label;
-		const actual = dayPicker.prop('label');
-
-		expect(actual).toBe(expected);
-	});
-
 	test('should set "monthAriaLabel" to month picker', () => {
 		const label = 'custom month label';
 		const subject = mount(
-			<DatePicker monthLabel={label} open title="Date" value={new Date(2000, 0, 1)} />
+			<DatePicker monthAriaLabel={label} open title="Date" value={new Date(2000, 0, 1)} />
 		);
 
 		const monthPicker = subject.find(`DateComponentRangePicker.${css.month}`);
 
 		const expected = label;
-		const actual = monthPicker.prop('label');
+		const actual = monthPicker.prop('aria-label');
 
 		expect(actual).toBe(expected);
 	});
@@ -145,20 +96,20 @@ describe('DatePicker', () => {
 	test('should set "yearAriaLabel" to year picker', () => {
 		const label = 'custom year label';
 		const subject = mount(
-			<DatePicker open title="Date" value={new Date(2000, 0, 1)} yearLabel={label} />
+			<DatePicker title="Date" value={new Date(2000, 0, 1)} yearAriaLabel={label} />
 		);
 
 		const yearPicker = subject.find(`DateComponentRangePicker.${css.year}`);
 
 		const expected = label;
-		const actual = yearPicker.prop('label');
+		const actual = yearPicker.prop('aria-label');
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should set "data-webos-voice-disabled" to day picker when voice control is disabled', () => {
 		const subject = mount(
-			<DatePicker open title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
+			<DatePicker title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
 		);
 
 		const dayPicker = subject.find(`DateComponentRangePicker.${css.day}`);
@@ -171,7 +122,7 @@ describe('DatePicker', () => {
 
 	test('should set "data-webos-voice-disabled" to month picker when voice control is disabled', () => {
 		const subject = mount(
-			<DatePicker open title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
+			<DatePicker title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
 		);
 
 		const monthPicker = subject.find(`DateComponentRangePicker.${css.month}`);
@@ -184,7 +135,7 @@ describe('DatePicker', () => {
 
 	test('should set "data-webos-voice-disabled" to year picker when voice control is disabled', () => {
 		const subject = mount(
-			<DatePicker open title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
+			<DatePicker title="Date" value={new Date(2000, 0, 1)} data-webos-voice-disabled />
 		);
 
 		const yearPicker = subject.find(`DateComponentRangePicker.${css.year}`);

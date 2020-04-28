@@ -1,4 +1,5 @@
 import kind from '@enact/core/kind';
+import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -8,14 +9,12 @@ import React from 'react';
 import Skinnable from '../Skinnable';
 
 import CancelDecorator from './CancelDecorator';
-
 import Viewport from './Viewport';
 
-import css from './Panels.module.less';
-
+import componentCss from './Panels.module.less';
 
 /**
- * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
@@ -47,12 +46,62 @@ const PanelsBase = kind({
 		arranger: shape,
 
 		/**
+		 * Hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'Go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Background opacity of the application back button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'transparent'
+		 * @public
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
 		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
 		 */
 		children: PropTypes.node,
+
+		/**
+		 * Hint string read when focusing the application close button.
+		 *
+		 * @type {String}
+		 * @default 'Exit app'
+		 * @public
+		 */
+		closeButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Background opacity of the application close button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'transparent'
+		 * @public
+		 */
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panels` - The root class name
+		 * * `viewport` - The node containing the panel instances
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -86,6 +135,24 @@ const PanelsBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
 		 * Prevents maintaining shared state for framework components within this `Panels` instance.
 		 *
 		 * When `false`, each `Panel` will track the state of some framework components in order to
@@ -109,37 +176,100 @@ const PanelsBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onBack: PropTypes.func
+		onBack: PropTypes.func,
+
+		/**
+		 * Called when the app close button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
 		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false,
+		noCloseButton: false,
 		noSharedState: false
 	},
 
 	styles: {
-		css,
-		className: 'panels enact-fit'
+		css: componentCss,
+		className: 'panels enact-fit',
+		publicClassNames: ['panels', 'viewport']
 	},
 
 	computed: {
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, children,  generateId, id, index, noAnimation, noSharedState, viewportId, ...rest}) => {
-		delete rest.onBack;
+	handlers: {
+		onBack: handle(
+			adaptEvent(
+				(ev, {index}) => ({index: Math.max(index - 1, 0)}),
+				forwardWithPrevent('onBack')
+			)
+		)
+	},
 
+	render: ({
+		arranger,
+		backButtonAriaLabel,
+		backButtonBackgroundOpacity,
+		children,
+		closeButtonAriaLabel,
+		closeButtonBackgroundOpacity,
+		css,
+		generateId,
+		id,
+		index,
+		noAnimation,
+		noBackButton,
+		noCloseButton,
+		noSharedState,
+		onClose,
+		onBack,
+		onTransition,
+		onWillTransition,
+		viewportId,
+		...rest
+	}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
+					backButtonAriaLabel={backButtonAriaLabel}
+					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
+					className={css.viewport}
+					closeButtonAriaLabel={closeButtonAriaLabel}
+					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
 					noAnimation={noAnimation}
+					noBackButton={noBackButton}
+					noCloseButton={noCloseButton}
 					noSharedState={noSharedState}
+					onBack={onBack}
+					onClose={onClose}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>

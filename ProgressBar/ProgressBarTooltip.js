@@ -107,8 +107,7 @@ const getSide = (orientation, position) => {
 
 /**
  * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
  * [Slider]{@link sandstone/Slider.Slider}.
  *
  * @class ProgressBarTooltip
@@ -324,7 +323,7 @@ const ProgressBarTooltipBase = kind({
 		delete rest.rtl;
 
 		return (
-			<Tooltip {...rest}>
+			<Tooltip {...rest} css={css}>
 				{children}
 			</Tooltip>
 		);

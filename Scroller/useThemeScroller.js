@@ -1,5 +1,5 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
-import {add, is} from '@enact/core/keymap';
+import {is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
@@ -7,25 +7,24 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
+import {affordanceSize} from '../useScroll';
+
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
-import thumbCss from '../useScroll/ScrollThumb.module.less';
-
-add('esc', 27);
+import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
 
 const
-	fadeoutSize = 48,
-	isEsc = is('esc'),
+	isCancel = is('cancel'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
+const getFocusableBodyProps = ({direction, verticalScrollbar}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
 		if (spotlightId && filterTarget) {
-			const targetClassName = (filterTarget === 'body') ? css.focusableBody : thumbCss.thumb;
+			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
 			});
@@ -44,7 +43,8 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 		} else if (type === 'keydown') {
 			filterTarget =
 				isEnter(keyCode) && isBody(target) && 'body' ||
-				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				isEnter(keyCode) && !isBody(target) && 'thumb' ||
+				isCancel(keyCode) && !isBody(target) && 'thumb' ||
 				null;
 		}
 
@@ -67,10 +67,10 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 
 				// If there are both thumbs, vertical thumb is the next target
 				const verticalThumb = spottableDescendants.pop();
-				nextTarget = (verticalThumb && verticalThumb.classList.contains(thumbCss.thumb)) ? verticalThumb : nextTarget;
+				nextTarget = (verticalThumb && verticalThumb.classList.contains(scrollbarTrackCss.thumb)) ? verticalThumb : nextTarget;
 			}
 		} else {
-			// Esc key on scroll thumb.
+			// Enter or Cancel key on scroll thumb.
 			// Scroll body get focus.
 			nextTarget = target.closest(`.${css.focusableBody}`);
 		}
@@ -81,9 +81,12 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 			ev.nativeEvent.stopImmediatePropagation();
 		}
 	};
-
 	return {
-		className: classNames(className, css.focusableBody),
+		className: classNames(
+			css.focusableBody,
+			{
+				[css.verticalExpand]: (direction === 'vertical' || direction === 'both') && (verticalScrollbar !== 'hidden')
+			}),
 		onFocus: handle(
 			forward('onFocus'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
@@ -97,8 +100,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 			forward('onKeyDown'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
 			consumeEventWithFocus
-		),
-		style
+		)
 	};
 };
 
@@ -137,13 +139,6 @@ const useSpottable = (props, instances) => {
 
 	// Functions
 
-	function getContentSize ({clientWidth, clientHeight}) {
-		return {
-			clientWidth: Math.max(clientWidth - 2 * ri.scale(fadeoutSize), 0),
-			clientHeight: Math.max(clientHeight - 2 * ri.scale(fadeoutSize), 0)
-		};
-	}
-
 	/**
 	 * Returns the first spotlight container between `node` and the scroller
 	 *
@@ -177,12 +172,7 @@ const useSpottable = (props, instances) => {
 	/**
 	 * Calculates the new `scrollTop`.
 	 *
-	 * @param {Node} focusedItem node
-	 * @param {Number} itemTop of the focusedItem / focusedContainer
-	 * @param {Number} itemHeight of focusedItem / focusedContainer
-	 * @param {Object} scrollInfo position info. Uses `scrollInfo.previousScrollHeight`
-	 * and `scrollInfo.scrollTop`
-	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
+	 * @param {Node} item Focused item node
 	 *
 	 * @returns {Number} Calculated `scrollTop`
 	 * @private
@@ -199,7 +189,7 @@ const useSpottable = (props, instances) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st;
+			return st + affordanceSize;
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -221,12 +211,6 @@ const useSpottable = (props, instances) => {
 		const container = getSpotlightContainerForNode(item);
 		const scrollerBounds = scrollContentRef.current.getBoundingClientRect();
 		let {scrollHeight, scrollTop} = scrollContentRef.current;
-
-		const scrollerContentBounds = {
-			top: scrollerBounds.top + ri.scale(fadeoutSize),
-			height: Math.max(scrollerBounds.height - 2 * ri.scale(fadeoutSize), 0)
-		};
-
 		let scrollTopDelta = 0;
 
 		const adjustScrollTop = (v) => {
@@ -238,20 +222,20 @@ const useSpottable = (props, instances) => {
 			const containerBounds = container.getBoundingClientRect();
 
 			// if the entire container fits in the scroller, scroll it into view
-			if (canItemFit(containerBounds, scrollerContentBounds)) {
-				return calcItemInView(containerBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
+			if (canItemFit(containerBounds, scrollerBounds)) {
+				return calcItemInView(containerBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
 			}
 
 			// if the container doesn't fit, adjust the scroll top ...
-			if (containerBounds.top > scrollerContentBounds.top) {
+			if (containerBounds.top > scrollerBounds.top) {
 				// ... to the top of the container if the top is below the top of the scroller
-				adjustScrollTop(calcItemAtStart(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
+				adjustScrollTop(calcItemAtStart(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
 			}
 			// removing support for "snap to bottom" for 2.2.8
-			// } else if (containerBounds.top + containerBounds.height < scrollerContentBounds.top + scrollerContentBounds.height) {
+			// } else if (containerBounds.top + containerBounds.height < scrollerBounds.top + scrollerBounds.height) {
 			// 	// ... to the bottom of the container if the bottom is above the bottom of the
 			// 	// scroller
-			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerContentBounds, scrollTop, scrollTopDelta));
+			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
 			// }
 
 			// N.B. if the container covers the scrollable area (its top is above the top of the
@@ -261,7 +245,7 @@ const useSpottable = (props, instances) => {
 
 		const itemBounds = item.getBoundingClientRect();
 
-		return calcItemInView(itemBounds, scrollerContentBounds, scrollTop, scrollHeight, scrollTopDelta);
+		return calcItemInView(itemBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
 	}
 
 	/**
@@ -288,7 +272,7 @@ const useSpottable = (props, instances) => {
 			scrollLastPosition = scrollPosition ? scrollPosition : scrollContentHandle.current.scrollPos.left,
 			currentScrollLeft = rtl ? (scrollContentHandle.current.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
 			// calculation based on client position
-			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft - ri.scale(fadeoutSize));
+			newItemLeft = scrollContentNode.scrollLeft + (itemLeft - containerLeft);
 		let nextScrollLeft = scrollContentHandle.current.scrollPos.left;
 
 		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
@@ -308,8 +292,6 @@ const useSpottable = (props, instances) => {
 	 * Calculates the new top and left position for scroller based on focusedItem.
 	 *
 	 * @param {Node} item node
-	 * @param {Object} scrollInfo position info. `calculateScrollTop` uses
-	 * `scrollInfo.previousScrollHeight` and `scrollInfo.scrollTop`
 	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
 	 *
 	 * @returns {Object} with keys {top, left} containing calculated top and left positions for scroll.
@@ -327,11 +309,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + affordanceSize) && itemRect.right <= (containerRect.right - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
+		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= (containerRect.bottom - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
@@ -349,13 +331,12 @@ const useSpottable = (props, instances) => {
 	return {
 		calculatePositionOnFocus,
 		focusOnNode,
-		getContentSize,
 		setContainerDisabled
 	};
 };
 
-const useThemeScroller = (props, scrollContentProps) => {
-	const {scrollContainerRef, ...rest} = scrollContentProps;
+const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
+	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
@@ -368,7 +349,7 @@ const useThemeScroller = (props, scrollContentProps) => {
 
 	// Hooks
 
-	const {calculatePositionOnFocus, focusOnNode, getContentSize, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
+	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(props, scrollContainerRef) : {};
 
 	useEffect(() => {
@@ -381,12 +362,17 @@ const useThemeScroller = (props, scrollContentProps) => {
 
 	// Render
 
+	rest.className = classNames(
+		className,
+		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
+		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
+	);
+
 	rest.children = (
 		<div className={css.contentWrapper}>
 			{scrollContentProps.children}
 		</div>
 	);
-	rest.getContentSize = getContentSize;
 
 	return {focusableBodyProps, themeScrollContentProps: rest};
 };

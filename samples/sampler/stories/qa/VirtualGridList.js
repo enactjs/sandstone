@@ -34,10 +34,12 @@ const
 		return (
 			<ImageItem
 				{...rest}
-				caption={text}
+				label={subText}
 				src={source}
-				subCaption={subText}
-			/>
+				style={{margin: 0}}
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
@@ -171,8 +173,8 @@ storiesOf('VirtualGridList', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 640)),
-					minHeight: ri.scale(number('minHeight', Config, 540))
+					minWidth: ri.scale(number('minWidth', Config, 688)),
+					minHeight: ri.scale(number('minHeight', Config, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -180,7 +182,7 @@ storiesOf('VirtualGridList', module)
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, 48))}
+				spacing={ri.scale(number('spacing', Config, 24))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

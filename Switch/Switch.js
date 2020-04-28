@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
 import Spottable from '@enact/spotlight/Spottable';
+import Touchable from '@enact/ui/Touchable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import Icon from '../Icon';
@@ -27,7 +28,7 @@ import componentCss from './Switch.module.less';
  *
  * @class SwitchBase
  * @memberof sandstone/Switch
- * @extends sandstone/ToggleIcon.ToggleIcon
+ * @extends sandstone/Icon.Icon
  * @ui
  * @public
  */
@@ -67,7 +68,7 @@ const SwitchBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'switch',
-		publicClassNames: ['switch', 'selected']
+		publicClassNames: ['switch', 'selected', 'client']
 	},
 
 	computed: {
@@ -83,12 +84,15 @@ const SwitchBase = kind({
 
 		return (
 			<div {...rest}>
-				<Icon
-					size="small"
-					className={css.icon}
-				>
-					{children}
-				</Icon>
+				<div className={css.bg} />
+				<div className={css.client}>
+					<Icon
+						size="small"
+						className={css.icon}
+					>
+						{children}
+					</Icon>
+				</div>
 			</div>
 		);
 	}
@@ -106,6 +110,7 @@ const SwitchBase = kind({
  */
 const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
+	Touchable,
 	Spottable,
 	Skinnable
 );

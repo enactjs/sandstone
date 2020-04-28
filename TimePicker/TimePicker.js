@@ -2,7 +2,7 @@
  * Provides a Sandstone-themed time selection component.
  *
  * @example
- * <TimePicker title="Open me" value={new Date()}></TimePicker>
+ * <TimePicker value={new Date()} />
  *
  * @module sandstone/TimePicker
  * @exports TimePicker
@@ -14,8 +14,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 
-
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import TimePickerBase from './TimePickerBase';
@@ -207,10 +206,6 @@ const dateTimeConfig = {
  * to the component, supply a value to `value` at creation time and update it in response to
  * `onChange` events.
  *
- * It is expandable and it maintains its open/closed state by default. `defaultOpen` can be used to
- * set the initial state. For the direct control of its open/closed state, supply a value for
- * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
- *
  * @class TimePicker
  * @memberof sandstone/TimePicker
  * @mixes ui/Toggleable.Toggleable
@@ -237,37 +232,6 @@ const TimePicker = Pure(
 		)
 	)
 );
-
-/**
- * The primary text of the item.
- *
- * @name title
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {String}
- * @required
- * @public
- */
-
-/**
- * Omits the labels below the pickers.
- *
- * @name noLabels
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {Boolean}
- * @public
- */
-
-/**
- * Called when a condition occurs which should cause the expandable to close.
- *
- * @name onClose
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {Function}
- * @public
- */
 
 /**
  * The selected date.

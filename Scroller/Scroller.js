@@ -31,6 +31,7 @@ import Skinnable from '../Skinnable';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
+const SpottableDiv = Spottable('div');
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -57,40 +58,34 @@ let Scroller = (props) => {
 
 		resizeContextProps,
 		scrollContainerProps,
-		scrollInnerContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const {focusableBodyProps, themeScrollContentProps} = useThemeScroller(props, scrollContentProps);
+	const {
+		focusableBodyProps,
+		themeScrollContentProps
+	} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+
+	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
+	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render
-	const scrollContainer = (
+	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<div {...scrollContainerProps}>
-				<div {...scrollInnerContainerProps}>
+				<ScrollBody {...focusableBodyProps}>
 					<ScrollContentWrapper {...scrollContentWrapperProps}>
 						<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					</ScrollContentWrapper>
-				</div>
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				</ScrollBody>
 			</div>
 		</ResizeContext.Provider>
 	);
-
-	if (props.focusableScrollbar === 'byEnter') {
-		const SpottableDiv = Spottable('div');
-		return (
-			<SpottableDiv {...focusableBodyProps}>
-				{scrollContainer}
-			</SpottableDiv>
-		);
-	} else {
-		return scrollContainer;
-	}
 };
 
 Scroller.displayName = 'Scroller';
@@ -166,6 +161,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	direction: PropTypes.string,
 
 	/**
+	 * Adds fade-out effect on the scroller.
+	 * Set this to `true` only if the content has no spottable but text.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	fadeOut: PropTypes.bool,
+
+	/**
 	 * Allows 5-way navigation to the scroll thumb.
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
@@ -203,6 +208,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	id: PropTypes.string,
+
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.
@@ -360,6 +366,7 @@ Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'both',
+	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
 	noScrollByDrag: false,

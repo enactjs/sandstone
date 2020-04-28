@@ -28,6 +28,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, ScrollerConfig)}
+				fadeOut
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 				key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
@@ -40,15 +41,15 @@ storiesOf('Sandstone', module)
 			>
 				<div
 					style={{
-						height: ri.unit(2004, 'rem'),
-						width: ri.unit(4002, 'rem')
+						height: ri.scaleToRem(2004),
+						width: ri.scaleToRem(4002)
 					}}
 				>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
 					Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
 					<div
 						style={{
-							marginTop: ri.unit(1602, 'rem')
+							marginTop: ri.scaleToRem(1602)
 						}}
 					>
 						Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.

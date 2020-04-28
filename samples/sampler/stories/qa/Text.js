@@ -64,7 +64,7 @@ storiesOf('Text', module)
 					<Heading showLine>Simple Items (Item, ImageItem)</Heading>
 					<Item>{children}</Item>
 					<Item label={children}>{children}</Item>
-					<ImageItem caption={children} style={{height: 200}} />
+					<ImageItem style={{height: 200}}>{children}</ImageItem>
 
 					<Heading showLine>ToggleItems</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
@@ -72,14 +72,10 @@ storiesOf('Text', module)
 					<RadioItem>{children}</RadioItem>
 					<SwitchItem>{children}</SwitchItem>
 
-					<Heading showLine>Headers (Standard, Compact, Input)</Heading>
+					<Heading showLine>Headers (Standard, Compact)</Heading>
 					<Header type="standard" title={children} subtitle={children} subTitleBelow={children} />
 					<br />
 					<Header type="compact" title={children} subtitle={children} subTitleBelow={children} />
-					<br />
-					<Header title={children} subtitle={children} subTitleBelow={children}>
-						<Input value={children} slot="headerInput" />
-					</Header>
 				</Scroller>
 			);
 		}

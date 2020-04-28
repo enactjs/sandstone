@@ -1,62 +1,73 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import {TabLayoutBase} from '../TabLayout';
+import {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
 	it('should be collapsed when collapsed is true', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				collapsed
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
 			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('collapsed');
+		const expected = 'collapsed';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have default orientation of vertical', () => {
 		const subject = shallow(
-			<TabLayoutBase
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
-			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+			<TabLayoutBase>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('vertical');
+		const expected = 'vertical';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have orientation of horizontal when orientation is set to horizontal', () => {
 		const subject = shallow(
 			<TabLayoutBase
 				orientation="horizontal"
-				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
-				]}
 			>
-				<div>Home</div>
-				<div>Button</div>
-				<div>Item</div>
+				<Tab title="Home" icon="home">
+					<div>Home</div>
+				</Tab>
+				<Tab title="Button" icon="image">
+					<div>Button</div>
+				</Tab>
+				<Tab title="Item" icon="resumeplay">
+					<div>Item</div>
+				</Tab>
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('horizontal');
+		const expected = 'horizontal';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 });
