@@ -29,10 +29,10 @@ const useThemeScrollbar = (props) => {
 	const {className, ref: scrollbarContainerRef} = scrollbarProps;
 
 	useEffect(() => {
-		if (initialHiddenHeight && scrollbarContainerRef.current && typeof window !== 'undefined') {
+		if (initialHiddenHeight && scrollbarContainerRef.current) {
 			const
 				scrollbarNode = scrollbarContainerRef.current,
-				height = parseInt(window.getComputedStyle(scrollbarNode).getPropertyValue('height')),
+				height = scrollbarNode.getBoundingClientRect().height,
 				scale = (height - initialHiddenHeight) / (height);
 
 			scrollbarNode.style.setProperty('--scrollbar-scale', scale);
