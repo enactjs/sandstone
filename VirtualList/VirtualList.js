@@ -203,9 +203,9 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * The initially hidden height of the vertical scrollbar.
 	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualList` are used inside
 	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
-	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
+	 * the `Header` will automatically collapse and the `VirtualList`'s vertical scrollbar will
 	 * enlarge.
 	 *
 	 * This value would be the vertical scrollbar height difference between when the header collapses
@@ -646,9 +646,9 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * The initially hidden height of the vertical scrollbar.
 	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualGridList` are used inside
 	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
-	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
+	 * the `Header` will automatically collapse and the `VirtualGridList`'s vertical scrollbar will
 	 * enlarge.
 	 *
 	 * This value would be the vertical scrollbar height difference between when the header collapses
