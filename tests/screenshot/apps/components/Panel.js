@@ -1,3 +1,7 @@
+/*
+Disabling for now because screenshot is unreliable because of PLAT-106368.
+Correct fix should be to disable vertical scrollbar but doesn't work correctly with resize bug.
+
 import Panels, {Panel, Header} from '../../../../Panels';
 import Scroller from '../../../../Scroller';
 import React from 'react';
@@ -5,7 +9,7 @@ import React from 'react';
 class CallbackScroller extends React.Component {
 
 	componentDidMount () {
-		this.scrollTo({position: {y: 2000}, animate: false});
+		this.scrollTo({position: {y: 2000}});
 	}
 
 	cbScrollTo = (fn) => {
@@ -14,7 +18,7 @@ class CallbackScroller extends React.Component {
 
 	render () {
 		return (
-			<Scroller cbScrollTo={this.cbScrollTo}>
+			<Scroller cbScrollTo={this.cbScrollTo} verticalScrollbar="hidden">
 				<div style={{height: 4000}}>
 					Some content
 				</div>
@@ -33,8 +37,10 @@ const collapsed =
 		<Header title="Title" subtitle="Sub Title" />
 		<CallbackScroller />
 	</Panel>;
+*/
 
 const PanelTests = [
+	/*
 	{
 		title: 'with uncollapsed header',
 		component: <Panels>{uncollapsed}</Panels>,
@@ -45,6 +51,7 @@ const PanelTests = [
 		component: <Panels>{collapsed}</Panels>,
 		wrapper: {full: true}
 	}
+	*/
 ];
 
 export default PanelTests;
