@@ -13,7 +13,7 @@ import Pure from '@enact/ui/internal/Pure';
 import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';

@@ -101,6 +101,20 @@ const WizardPanelBase = kind({
 		onChange: PropTypes.func,
 
 		/**
+		 * Called when a transition completes.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called before a transition begins.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func,
+
+		/**
 		* The text for previous button.
 		*
 		* @type {String}
@@ -172,10 +186,20 @@ const WizardPanelBase = kind({
 
 				onChange({index: prevIndex});
 			}
+		},
+		onTransition: (ev, {index, onTransition}) => {
+			if (onTransition) {
+				onTransition({index});
+			}
+		},
+		onWillTransition: (ev, {index, onWillTransition}) => {
+			if (onWillTransition) {
+				onWillTransition({index});
+			}
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, rtl, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, rtl, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
@@ -219,6 +243,8 @@ const WizardPanelBase = kind({
 							<ViewManager
 								arranger={SlideLeftArranger}
 								duration={400}
+								onTransition={onTransition}
+								onWillTransition={onWillTransition}
 								noAnimation={noAnimation}
 								reverseTransition={reverseTransition}
 							>

@@ -1,15 +1,12 @@
-import deprecate from '@enact/core/internal/deprecate';
 import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
 import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
-import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Row, Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
-import Transition from '@enact/ui/Transition';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -154,9 +151,6 @@ const HeaderBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `header` - The root class name
-		 * * `input` - Applied to the `headerInput` element
-		 * * `subtitle` - Applied to the `subtitle` element
-		 * * `title` - Applied to the `title` element
 		 *
 		 * @type {Object}
 		 * @public
@@ -185,30 +179,6 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		featureContent: PropTypes.bool,
-
-		/**
-		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
-		 *
-		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
-		 * to as if it were JSX.
-		 *
-		 * Note: Only applies to `type="standard"` headers.
-		 *
-		 * Example
-		 * ```
-		 *  <Header>
-		 *  	<title>Example Header Title</title>
-		 *  	<headerInput>
-		 *  		<Input dismissOnEnter />
-		 *  	</headerInput>
-		 *  	<subtitle>The Adventure Continues</subtitle>
-		 *  </Header>
-		 * ```
-		 *
-		 * @type {Node}
-		 * @deprecated To be removed in 1.0.0-beta.1
-		 */
-		headerInput: PropTypes.node,
 
 		/**
 		 * Sets the "hover" state.
@@ -279,17 +249,6 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		onShowBack: PropTypes.func,
-
-		/**
-		 * Sets the visibility of the input field
-		 *
-		 * This prop must be set to true for the input field to appear.
-		 *
-		 * @type {Boolean}
-		 * @deprecated To be removed in 1.0.0-beta.1
-		 * @public
-		 */
-		showInput: PropTypes.bool,
 
 		/**
 		 * A location for arbitrary elements to be placed above the title
@@ -411,7 +370,7 @@ const HeaderBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'header',
-		publicClassNames: ['header', 'input', 'subtitle', 'title']
+		publicClassNames: ['header']
 	},
 
 	handlers: {
@@ -471,7 +430,6 @@ const HeaderBase = kind({
 		closeButtonBackgroundOpacity,
 		css,
 		direction,
-		headerInput,
 		hover,
 		line,
 		marqueeOn,
@@ -479,7 +437,6 @@ const HeaderBase = kind({
 		noCloseButton,
 		onBack,
 		onClose,
-		showInput,
 		slotAbove,
 		slotAfter,
 		slotBefore,
@@ -521,47 +478,7 @@ const HeaderBase = kind({
 			/>
 		) : null);
 
-		// Create the Title component
-		const titleComponent = (
-			<Heading
-				aria-label={title}
-				size="title"
-				spacing="auto"
-				marqueeOn={marqueeOn}
-				forceDirection={direction}
-				alignment={centered ? 'center' : null}
-				className={css.title}
-			>
-				{title}
-			</Heading>
-		);
-
-		let titleOrInput = titleComponent;
-
-		// If there's a headerInput defined, inject the necessary Input pieces and save that as the titleOrInput variable to be used below.
-		if (headerInput) {
-			deprecate({
-				name: 'sandstone/Panels.Header.headerInput and sandstone/Panels.Header.showInput',
-				until: '1.0.0-beta.1'
-			});
-			titleOrInput = (
-				<div className={css.headerInput}>
-					<Transition duration="short" visible={!!showInput} className={css.inputTransition}>
-						<ComponentOverride
-							component={headerInput}
-							className={css.input}
-							css={css}
-							size="large"
-						/>
-					</Transition>
-					<Transition duration="short" direction="down" visible={!showInput}>
-						{titleComponent}
-					</Transition>
-				</div>
-			);
-		}
-
-		// For centered and in wizard type, if one slot is filled, automatically include the other to keep the title balanced.
+		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
 		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
 		const bothBeforeAndAfter = (centered || (type === 'wizard' && (Boolean(slotAfter) || Boolean(slotBefore))));
 
@@ -572,8 +489,18 @@ const HeaderBase = kind({
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
 						<Cell className={css.slotBefore} shrink={!bothBeforeAndAfter}>{backButton}{slotBefore}</Cell>
 					) : null}
-					<Cell className={css.titleCell} shrink={bothBeforeAndAfter}>
-						{titleOrInput}
+					<Cell className={css.titleCell}>
+						<Heading
+							aria-label={title}
+							size="title"
+							spacing="auto"
+							marqueeOn={marqueeOn}
+							forceDirection={direction}
+							alignment={centered ? 'center' : null}
+							className={css.title}
+						>
+							{title}
+						</Heading>
 						<Heading
 							size="subtitle"
 							spacing="auto"
@@ -604,7 +531,7 @@ const CollapsingHeaderDecorator = (Wrapped) => {
 };
 
 const HeaderDecorator = compose(
-	Slottable({slots: ['headerInput', 'title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
 	CollapsingHeaderDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),

@@ -151,9 +151,12 @@ storiesOf('Sandstone', module)
 						autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
 						disabled={boolean('disabled', Config)}
 						feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
+						initialJumpDelay={number('initialJumpDelay', Config, 400)}
+						jumpDelay={number('jumpDelay', Config, 200)}
 						loop={boolean('loop', Config, true)}
 						miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
 						muted={boolean('muted', Config, true)}
+						no5WayJump={boolean('no5WayJump', Config)}
 						noAutoPlay={boolean('noAutoPlay', Config)}
 						noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
 						noMediaSliderFeedback={boolean('noMediaSliderFeedback', Config, false)}
@@ -175,12 +178,9 @@ storiesOf('Sandstone', module)
 							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
 							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
 							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
-							initialJumpDelay={number('initialJumpDelay', MediaControlsConfig, 400)}
 							jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
-							jumpDelay={number('jumpDelay', MediaControlsConfig, 200)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
 							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
 							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}

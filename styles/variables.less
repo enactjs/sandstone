@@ -35,18 +35,13 @@
 @sand-button-font-size:             78px;
 @sand-button-small-font-size-large: 72px;
 @sand-button-small-font-size:       60px;
-@sand-expandable-client-item-font-size-large: 66px;
-@sand-expandable-client-item-font-size: 54px;
-@sand-expandable-value-font-size-large: 60px;
-@sand-expandable-value-font-size:   @sand-item-label-font-size;
-@sand-gridlistimageitem-caption-font-size: 60px;
-@sand-gridlistimageitem-subcaption-font-size: 48px;
 @sand-header-compact-title-font-size: 90px;
 @sand-header-mini-title-font-size:  84px;
 @sand-header-wizard-title-font-size: @sand-heading-title-font-size;
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
+@sand-heading-tiny-font-size:       48px;
 @sand-heading-subtitle-font-size:   60px; // 70px;
 @sand-heading-title-font-size:      144px; // 127px;
 @sand-imageitem-caption-font-size:  60px;
@@ -61,12 +56,9 @@
 @sand-item-font-size:               66px;
 @sand-item-label-font-size:         54px;
 @sand-keyguide-font-size:           60px;
-@sand-labeledicon-font-size:        48px;
 @sand-mediaoverlay-caption-font-size: 48px;
 @sand-mediaoverlay-font-size:         48px;
 @sand-mediaoverlay-title-font-size:   60px;
-@sand-notification-font-size:       60px;
-@sand-panels-breadcrumb-text-size:  @sand-body-font-size;
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
@@ -107,8 +99,6 @@
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
 @sand-body-font-weight: 300;
-// Body text line heights must be speified in px, since sand.ExpandableText requires precise line measurement
-@sand-body-line-height-large: @sand-body-line-height + 6; // The fact that this 6 is the same number as the above 6 is coincidental. LargeText is typically 12px larger than normal.
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
@@ -128,36 +118,26 @@
 @sand-non-latin-button-small-font-weight: @sand-non-latin-font-weight-bold;
 
 // Date and Time Picker
-@sand-date-time-picker-min-width: 240px;
-@sand-date-time-picker-label-padding: 42px 21px;
-@sand-datepicker-padding: @sand-component-spacing;
-@sand-timepicker-padding: @sand-datepicker-padding;
-@sand-timepicker-colon-line-height: 6em;
-
-// Expandable
-@sand-expandable-value-font-family: @sand-font-family;
-@sand-expandable-value-font-style: normal;
-@sand-expandable-value-font-weight: 300;
+@sand-datecomponentpicker-margin: 24px;
+@sand-timepicker-colon-margin: 0 6px;
 
 // Heading
 @sand-heading-line-height: 1.3em;
+@sand-heading-font-style: normal;
 @sand-heading-title-font-family: @sand-alt-font-family;
-@sand-heading-title-font-style: normal;
 @sand-heading-title-font-weight: normal;
 @sand-heading-title-line-height: @sand-heading-line-height;
 @sand-heading-subtitle-font-family: @sand-font-family;
-@sand-heading-subtitle-font-style: normal;
 @sand-heading-subtitle-font-weight: normal;
 @sand-heading-subtitle-line-height: 1.4em;
 @sand-heading-large-font-family: @sand-font-family;
-@sand-heading-large-font-style: normal;
 @sand-heading-large-font-weight: 600;
 @sand-heading-medium-font-family: @sand-heading-large-font-family;
-@sand-heading-medium-font-style: @sand-heading-large-font-style;
 @sand-heading-medium-font-weight: @sand-heading-large-font-weight;
 @sand-heading-small-font-family: @sand-heading-large-font-family;
-@sand-heading-small-font-style: @sand-heading-large-font-style;
-@sand-heading-small-font-weight: 400;
+@sand-heading-small-font-weight: @sand-heading-large-font-weight;
+@sand-heading-tiny-font-family: @sand-heading-large-font-family;
+@sand-heading-tiny-font-weight: @sand-heading-large-font-weight;
 @sand-heading-letter-spacing: 0;
 @sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
 @sand-non-latin-heading-line-height: @sand-non-latin-heading-title-line-height;
@@ -170,9 +150,6 @@
 
 // InputNumber
 @sand-input-number-font-family: @sand-body-font-family;
-
-// Panels
-@sand-panels-breadcrumb-font-family: @sand-alt-font-family;
 
 
 // ---------------------------------------
@@ -260,6 +237,8 @@
 @sand-button-small-colordot-padding-start: 30px;
 @sand-button-icon-only-colordot-width: 66px;
 @sand-button-icon-only-colordot-height: 9px;
+@sand-button-collapse-duration: 300ms;
+@sand-button-collapsable-icon-margin: 0 24px;
 
 // Checkbox
 // ---------------------------------------
@@ -272,38 +251,8 @@
 // ---------------------------------------
 @sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
 @sand-contextual-popup-padding: @sand-spotlight-outset 0;
-@sand-contextual-popup-with-reserveclose-padding: (@sand-button-small-height + @sand-spotlight-outset);
-@sand-contextual-popup-with-reserveclose-padding-large: (@sand-button-small-height-large + @sand-spotlight-outset);
 @sand-contextual-popup-arrow-height: 60px;
 @sand-contextual-popup-arrow-width: 60px;
-
-// Date/Time Pickers
-// ---------------------------------------
-@sand-date-component-pickers-padding: 96px;
-
-// DaySelector
-// ---------------------------------------
-@sand-day-selector-vertical-margin: 6px;
-@sand-day-selector-horizontal-margin: 12px;
-@sand-day-selector-padding: 12px;
-@sand-day-selector-item-padding: (@sand-formcheckbox-size / 2);
-@sand-day-selector-border-width: @sand-button-border-width;
-@sand-day-selector-border-radius: @sand-button-border-radius;
-@sand-day-selector-checkbox-size: @sand-formcheckbox-size;
-@sand-day-selector-checkbox-size-large: @sand-formcheckbox-size-large;
-@sand-day-selector-checkbox-check-icon-size: @sand-formcheckbox-check-icon-size;
-@sand-day-selector-checkbox-check-icon-size-large: 144px;
-@sand-day-selector-checkbox-check-border-radius: @sand-common-circular-corners;
-@sand-day-selector-checkbox-check-border-radius-large: @sand-day-selector-checkbox-check-border-radius;
-
-// Dialog
-// ---------------------------------------
-@sand-dialog-padding-top: 84px;
-@sand-dialog-padding-right: 84px;
-@sand-dialog-padding-bottom: 48px;
-@sand-dialog-padding-left: @sand-dialog-padding-right;
-@sand-dialog-closecontainer-separation: 36px;
-@sand-dialog-title-padding-right: @sand-button-h-margin;
 
 // Dropdown
 // ---------------------------------------
@@ -325,35 +274,8 @@
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
 
-// EditableInput
-// ---------------------------------------
-@sand-expandableinput-input-margin: 12px @sand-spotlight-outset;
-
-// EditableIntegerPicker
-// ---------------------------------------
-@sand-editable-integer-picker-border-size: 12px;
-
-// FormCheckbox
-// ---------------------------------------
-@sand-formcheckbox-size: (@sand-item-height * 0.65);	// Relative to `Item` height
-@sand-formcheckbox-size-large: (@sand-item-height-large * 0.625);	// Relative to `Item` height
-@sand-formcheckbox-check-icon-size: 120px;
-
-// GridListImageItem
-// ---------------------------------------
-@sand-gridlistimageitem-focus-image-transform: scale(1.2);
-@sand-gridlistimageitem-focus-subcomponents-transform: translateY(36px);
-@sand-gridlistimageitem-overlay-icon-size: 150px;
-@sand-gridlistimageitem-image-border-width: 6px;
-@sand-gridlistimageitem-image-margin-bottom: 24px;
-@sand-gridlistimageitem-image-icon-size: 132px;
-@sand-gridlistimageitem-image-icon-margin-right: 24px;
-@sand-gridlistimageitem-subcomponents-height: 132px;
-
 // Header
 // ---------------------------------------
-// @sand-header-controls-border-width: 1px;
-// @sand-header-components-separation: (@sand-spotlight-outset * 2);
 @sand-header-slotabove-margin: 0 0 30px 0;
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
@@ -366,7 +288,7 @@
 @sand-header-standard-margin: 0;
 @sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px 108px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
+@sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-compact-border-width: 6px;
 @sand-header-compact-line-margin: 54px 0 0 0;
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
@@ -409,25 +331,26 @@
 
 // ImageItem
 // ---------------------------------------
+@sand-imageitem-margin: @sand-item-margin;
+@sand-imageitem-border-radius: 12px;
 @sand-imageitem-image-border-width: 6px;
 @sand-imageitem-caption-line-height: 72px;
 @sand-imageitem-label-line-height: 54px;
 @sand-imageitem-label-margin-top: 6px;
-@sand-imageitem-horizontal-border-radius: 12px;
-@sand-imageitem-horizontal-margin: @sand-item-margin;
+@sand-imageitem-horizontal-padding: 30px;
 @sand-imageitem-horizontal-image-width: 180px;
 @sand-imageitem-horizontal-image-height: @sand-imageitem-horizontal-image-width;
-@sand-imageitem-horizontal-image-margin: 30px 30px 30px 0;
-@sand-imageitem-horizontal-image-margin-rtl: 30px 0 30px 30px;
+@sand-imageitem-horizontal-image-margin: 0 48px 0 0;
+@sand-imageitem-horizontal-image-margin-rtl: 0 0 0 48px;
 @sand-imageitem-horizontal-selection-icon-size: 90px;
-@sand-imageitem-vertical-padding: 48px;
-@sand-imageitem-vertical-captions-height: 132px;
-@sand-imageitem-vertical-captions-margin-top: 24px;
-@sand-imageitem-vertical-focus-captions-transform: translateY(36px);
+@sand-imageitem-vertical-padding: 24px 24px 30px;
+@sand-imageitem-vertical-full-image-padding: 48px;
+@sand-imageitem-vertical-captions-margin-top: 30px;
+@sand-imageitem-vertical-label-height: 60px;
 @sand-imageitem-vertical-focus-image-transform: scale(1.2);
 @sand-imageitem-vertical-image-icon-margin: 0 24px 0 0;
 @sand-imageitem-vertical-image-icon-size: 132px;
-@sand-imageitem-vertical-selection-icon-size: 150px;
+@sand-imageitem-vertical-selection-icon-size: 120px;
 
 // Input
 // ---------------------------------------
@@ -478,10 +401,6 @@
 @sand-inputfield-highlight-small-max-width: 714px;
 @sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
-// IntegerPicker
-// ---------------------------------------
-@sand-integer-picker-shadow-width: 12px;
-
 // Item
 // ---------------------------------------
 @sand-item-height: 156px;
@@ -525,26 +444,8 @@
 @sand-mediaoverlay-textlayout-margin: 24px 60px;
 @sand-mediaoverlay-width: 642px;
 
-// Notification
-// ---------------------------------------
-@sand-notification-font-family: @sand-font-family;
-@sand-notification-font-weight: 500;
-@sand-notification-font-style: normal;
-@sand-notification-border-width: 1px;
-@sand-notification-border-radius: 6px;
-@sand-notification-margin-bottom: 648px;
-@sand-notification-padding-left-right: 78px;
-@sand-notification-padding-top-bottom: 48px;
-@sand-notification-min-width: 600px;
-@sand-notification-max-width: ((@sand-notification-border-width * 2) + (@sand-notification-padding-left-right * 2) + (2 * ((@sand-button-small-h-margin * 2) + @sand-button-small-max-width)) + 24px);  // Attempt to calculate the width of all of the buttons and the pieces of Notification that influence the width to get the maximum size
-@sand-notification-wide-width: ((@sand-notification-border-width * 2) + (@sand-notification-padding-left-right * 2) + (3 * ((@sand-button-small-h-margin * 2) + @sand-button-small-max-width)) + 24px);
-
 // Panels
 // ---------------------------------------
-@sand-panels-breadcrumb-width: 192px;
-@sand-panels-controls-right: extract(@sand-panel-padding, 2) + 108px;
-@sand-panels-controls-spacing: 36px;
-@sand-panels-controls-top: (@sand-app-keepout + @sand-spotlight-outset);
 @sand-panels-fixedpopuppanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
 @sand-panels-flexiblepopuppanels-width: 50vw;
 @sand-panels-flexiblepopuppanels-margin-top: 108px;
@@ -594,6 +495,14 @@
 @sand-popup-position-bottom-margin: 0 120px 150px 120px;
 @sand-popup-position-left-margin: 120px @sand-component-spacing 120px 60px;
 
+// PopupTabLayout
+// ---------------------------------------
+@sand-popuptablayout-margin: 120px 60px;
+@sand-popuptablayout-tabs-padding: @sand-component-spacing 0;
+@sand-popuptablayout-tabs-content-spacing: 36px;
+@sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
+@sand-popuptablayout-content-margin: 0;
+
 // ProgressBar
 // ---------------------------------------
 @sand-progressbar-bar-thickness: 12px;
@@ -638,19 +547,9 @@
 
 // Scroller
 // ---------------------------------------
+@sand-scroll-affordance-size: 48px;
+@sand-scroll-fade-out-size: @sand-scroll-affordance-size;
 @sand-scroll-focusablebody-focus-border-radius: 12px;
-@sand-scroll-overscroll-thickness: 12px;
-@sand-scroll-overscroll-duration: 300ms;
-@sand-scroll-scrollbar-size: @sand-button-small-height;
-@sand-scroll-scrolltotop-animation-duration: 0.5s;
-@sand-scroll-scrolltotop-scrollbar-offset: (@sand-scrollbar-track-margin * 2 + @sand-scrollbar-track-width);
-
-// SelectableItem
-// ---------------------------------------
-@sand-selectable-item-indicator-size: @sand-item-height;
-@sand-selectable-item-indicator-size-large: @sand-item-height-large;
-@sand-selectable-item-indicator-width: (@sand-icon-large-size / 2 - 6px);
-@sand-selectable-item-indicator-width-large: (@sand-selectable-item-indicator-width + 12px);
 
 // Slider
 // ---------------------------------------
@@ -702,20 +601,10 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-panels-margin-top: 78px;
-@sand-tablayout-tab-selected-opacity: 0.3;
-
-// ToggleButton
-// ---------------------------------------
-@sand-toggle-button-switch-border-width: 6px;
-@sand-toggle-button-switch-border-radius: @sand-common-circular-corners;
-@sand-toggle-button-switch-width: 30px;
-@sand-toggle-button-text-switch-gutter: 36px;
-@sand-toggle-button-small-text-switch-gutter: 24px;
-@sand-toggle-button-switch-icon-line-height: @sand-toggle-button-switch-width;
-@sand-toggle-button-switch-icon-font-size: 60px;
-@sand-toggle-button-switch-icon-font-family: @sand-icon-font-family;
-@sand-toggle-button-selected-glyph-highcontrast: "\0EFFDB";
+@sand-tablayout-collapse-duration: 1s;
+@sand-tablayout-content-margin-top: 78px;
+@sand-tablayout-tab-margin-bottom: 24px;
+@sand-tablayout-tab-selected-opacity: 0.6;
 
 // Tooltip
 // ---------------------------------------

@@ -4,13 +4,6 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Add button-specific rules to the shared resting-colors mixin
-.sand-button-spotlight-resting-colors() {
-	.sand-spotlight-resting-colors();
-	will-change+: transform;
-	transition+: transform @sand-button-focus-duration ease-out;
-}
-
 .button {
 	// default is size="large"
 	.sand-large-button-text();
@@ -110,11 +103,12 @@
 		flex-grow: 1;
 	}
 
-	// Only center the text if there is no icon. Otherwise, the default is to just leave its
-	// alignment alone, since we don't want to try to override marquee's directionality alignment.
+	// Only center the text if there is no icon and no color. We'll explicitly override Marquee's
+	// alignment for this case, relying on the parent node's alignment preference (inherit).
+	// Otherwise, the default is to just leave alignment to Marquee to handle.
 	&:not(.hasIcon):not(.hasColor) {
 		.marquee {
-			text-align: center;
+			text-align: inherit;
 		}
 	}
 
@@ -235,6 +229,30 @@
 			.client::before {
 				width: @sand-button-icon-only-colordot-width;
 				height: @sand-button-icon-only-colordot-height;
+			}
+		}
+	}
+
+	// Collapsable only has an effect if there is both an icon and text.
+	&.collapsable.hasIcon:not(.iconOnly) {
+		padding-left: 0;
+		padding-right: 0;
+		transition: min-width @sand-button-collapse-duration ease-out;
+
+		.icon {
+			margin: @sand-button-collapsable-icon-margin;
+		}
+
+		.marquee {
+			margin: 0;
+			opacity: 1;
+			transition: opacity @sand-button-collapse-duration ease-out;
+			will-change: opacity;
+		}
+
+		&.collapsed {
+			.marquee {
+				opacity: 0;
 			}
 		}
 	}

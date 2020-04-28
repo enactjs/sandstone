@@ -10,10 +10,10 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {Image} from '@enact/sandstone/Image';
 import Icon from '@enact/sandstone/Icon';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
 import {scale} from '@enact/ui/resolution';
 import {Scroller} from '@enact/sandstone/Scroller';
 import {TabLayout} from '@enact/sandstone/TabLayout';
@@ -28,31 +28,10 @@ const renderItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-typ
 		caption = 'Sample list';
 
 	return (
-		<GridListImageItem
-			{...rest}
-			caption={text}
-			source={source}
-			subCaption={caption}
-		/>
+		<ImageItem {...rest} src={source} label={caption}>
+			{text}
+		</ImageItem>
 	);
-};
-
-// Used to render TabLayout into Panels
-const tabsWithIcons = [
-	{children: 'Home', icon: 'home'},
-	{children: 'Button', icon: 'image'},
-	{children: 'Item', icon: 'resumeplay'}
-];
-
-const tabsWithoutIcons = [
-	{children: 'Home'},
-	{children: 'Button'},
-	{children: 'Item'}
-];
-
-const tabSelections = {
-	'with icons': tabsWithIcons,
-	'without icons': tabsWithoutIcons
 };
 
 Panels.displayName = 'Panels';
@@ -79,6 +58,8 @@ storiesOf('Sandstone', module)
 					noCloseButton={boolean('noCloseButton', Panels, false)}
 					onBack={handleBack}
 					onClose={action('onClose')}
+					onTransition={action('onTransition')}
+					onWillTransition={action('onWillTransition')}
 				>
 					<Panel>
 						<Header title="Panel with Items">
@@ -129,10 +110,8 @@ storiesOf('Sandstone', module)
 					</Panel>
 					<Panel>
 						<Header title="Panel with TabLayout" />
-						<TabLayout
-							tabs={tabSelections['with icons']}
-						>
-							<React.Fragment>
+						<TabLayout>
+							<TabLayout.Tab title="Home" icon="home">
 								<Icon>home</Icon>Home
 								<Scroller style={{height: scale(1000)}}>
 									<Image
@@ -166,22 +145,16 @@ storiesOf('Sandstone', module)
 										style={{marginTop: '24px'}}
 									/>
 								</Scroller>
-							</React.Fragment>
-							<React.Fragment>
+							</TabLayout.Tab>
+							<TabLayout.Tab title="Button" icon="image">
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
 								<Button icon="image">Button!</Button>
-							</React.Fragment>
-							<React.Fragment>
+							</TabLayout.Tab>
+							<TabLayout.Tab title="Item" icon="resumeplay">
 								<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
-							</React.Fragment>
-							<React.Fragment>
-								<div>
-									<Icon>resumeplay</Icon>
-									A simple view with no associated tab
-								</div>
-							</React.Fragment>
+							</TabLayout.Tab>
 						</TabLayout>
 					</Panel>
 				</Panels>
