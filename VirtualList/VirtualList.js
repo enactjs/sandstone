@@ -201,12 +201,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	id: PropTypes.string,
 
 	/**
-	 * Initial height of the hidden part of the vertical scroll bar.
+	 * The initially hidden height of the vertical scrollbar.
 	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualList` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set
-	 * the `Header` will automatically collapse and the vertical `VirtualList`'s scroll bar will
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
 	 * enlarge.
+	 *
+	 * The `initialHiddenHeight` is the difference between the vertical scrollbar height
+	 * when the list shows fullly and the vertical scrollbar height when the list shows initially.
 	 *
 	 * @type {Number}
 	 * @public
@@ -641,12 +644,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	id: PropTypes.string,
 
 	/**
-	 * Initial height of the hidden part of the vertical scroll bar.
+	 * The initially hidden height of the vertical scrollbar.
 	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualGridList` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set
-	 * the `Header` will automatically collapse and the vertical `VirtualGridList`'s scroll bar will
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
 	 * enlarge.
+	 *
+	 * The `initialHiddenHeight` is the difference between the vertical scrollbar height
+	 * when the list shows fullly and the vertical scrollbar height when the list shows initially.
 	 *
 	 * @type {Number}
 	 * @public

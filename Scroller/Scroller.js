@@ -210,12 +210,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	id: PropTypes.string,
 
 	/**
-	 * Initial height of the hidden part of the vertical scroll bar.
+	 * The initially hidden height of the vertical scrollbar.
 	 *
 	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set
-	 * the `Header` will automatically collapse and the vertical `Scroller`'s scroll bar will
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
 	 * enlarge.
+	 *
+	 * The `initialHiddenHeight` is the difference between the vertical scrollbar height
+	 * when the list shows fullly and the vertical scrollbar height when the list shows initially.
 	 *
 	 * @type {Number}
 	 * @public

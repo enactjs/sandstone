@@ -5,7 +5,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [unreleased]
 
 ### Added
-- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to reduce a vertical scroll height being enlarged when collapsing a header
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the initially hidden height of the vertical scrollbar when `featureContent` prop in the panel set to true.
 
 ## [1.0.0-beta.1] - 2020-04-27
 
