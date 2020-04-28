@@ -33,7 +33,7 @@ const useThemeScrollbar = (props) => {
 			const
 				scrollbarNode = scrollbarContainerRef.current,
 				{height} = scrollbarNode.getBoundingClientRect(),
-				scale = (height - initialHiddenHeight) / (height);
+				scale = (height - initialHiddenHeight) / height;
 
 			scrollbarNode.style.setProperty('--scrollbar-scale', scale);
 		}
