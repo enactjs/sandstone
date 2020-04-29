@@ -34,6 +34,8 @@ const JoinedPickerButton = Touchable(JoinedPickerButtonBase);
 const PickerButtonBase = kind({
 	name: 'PickerButton',
 
+	contextType: MarqueeControllerContext,
+
 	propTypes: {
 		disabled: PropTypes.bool,
 		hidden: PropTypes.bool,
@@ -98,9 +100,6 @@ const PickerButtonBase = kind({
 		}
 	}
 });
-
-// This can be replaced with the kind config contextType when it's supported
-PickerButtonBase.contextType = MarqueeControllerContext;
 
 const PickerButton = Pure(
 	PickerButtonBase
