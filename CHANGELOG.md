@@ -39,6 +39,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Picker` horizontal joined height in large text mode
 - `sandstone/Scroller` focus behavior of the scroll thumb
 
+### Fixed
+
+- `sandstone/BodyText` font weight
+- `sandstone/BodyText` line-wrap and `noWrap` capabilities
+
 ## [1.0.0-alpha.9] - 2020-04-20
 
 ### Deprecated
