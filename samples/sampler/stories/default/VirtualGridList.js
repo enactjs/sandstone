@@ -35,7 +35,6 @@ const
 				{...rest}
 				label={subText}
 				src={source}
-				style={{margin: 0}}
 			>
 				{text}
 			</ImageItem>
@@ -89,7 +88,7 @@ storiesOf('Sandstone', module)
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', 24))}
+				spacing={ri.scale(number('spacing', 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}
