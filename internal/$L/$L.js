@@ -2,7 +2,6 @@
 
 import {getIStringFromBundle} from '@enact/i18n/src/resBundle';
 import ResBundle from 'ilib/lib/ResBundle';
-import ilib from 'ilib';
 
 // The ilib.ResBundle for the active locale used by $L
 let resBundle;
