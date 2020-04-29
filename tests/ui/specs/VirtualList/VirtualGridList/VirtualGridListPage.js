@@ -39,7 +39,7 @@ class VirtualGridListPage extends Page {
 	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
 
 	get scrollThumb () { return $(`${scrollThumbSelector}`); }
-	getScrollThumbPosition () {
+	scrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelector(_scrollbarSelector);
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
