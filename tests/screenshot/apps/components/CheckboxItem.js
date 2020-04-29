@@ -2,6 +2,8 @@ import CheckboxItem from '../../../../CheckboxItem';
 // import Icon from '../../../../Icon';
 import React from 'react';
 
+import {withConfig} from './utils';
+
 const CheckboxItemTests = [
 	<CheckboxItem />,
 	<CheckboxItem>CheckboxItem</CheckboxItem>, 					// not selected
@@ -22,6 +24,17 @@ const CheckboxItemTests = [
 	<CheckboxItem selected inline indeterminate>CheckboxItem</CheckboxItem>,
 	<CheckboxItem selected disabled inline indeterminate>CheckboxItem</CheckboxItem>,
 	<CheckboxItem indeterminate indeterminateIcon="lock">CheckboxItem</CheckboxItem>, 	// not selected
+
+	// Centered
+	<CheckboxItem centered>Hello CheckboxItem</CheckboxItem>,
+	<CheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</CheckboxItem>,
+	...withConfig({
+		locale: 'ar-SA'
+	}, [
+		<CheckboxItem centered>Hello CheckboxItem</CheckboxItem>,
+		<CheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</CheckboxItem>
+	]),
+
 	// Removed until itemIcon, itemIconPosition, and iconPosition support is resolved
 	// // itemIcon
 	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>}>CheckboxItem</CheckboxItem>,

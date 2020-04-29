@@ -1,89 +1,46 @@
 import {TabLayout, Tab} from '../../../../TabLayout';
 import React from 'react';
 
-const tabs = [
-	<Tab title="One">
-		<div>View One</div>
-	</Tab>,
-	<Tab title="Two">
-		<div>View Two</div>
-	</Tab>,
-	<Tab title="Three">
-		<div>View Three</div>
-	</Tab>,
-	<Tab title="Four">
-		<div>View Four</div>
-	</Tab>,
-	<Tab title="Five">
-		<div>View Five</div>
-	</Tab>,
-	<Tab title="Six">
-		<div>View Six</div>
+const SimpleTab = ({title, icon}) => (
+	<Tab title={title} icon={icon}>
+		<div>{`View ${title}`}</div>
 	</Tab>
+);
 
+const tabs = [
+	SimpleTab({title: 'One'}),
+	SimpleTab({title: 'Two'}),
+	SimpleTab({title: 'Three'}),
+	SimpleTab({title: 'Four'}),
+	SimpleTab({title: 'Five'}),
+	SimpleTab({title: 'Six'})
 ];
 
 const tabsWithIcons = [
-	<Tab title="One" icon="star">
-		<div>View One</div>
-	</Tab>,
-	<Tab title="Two" icon="home">
-		<div>View Two</div>
-	</Tab>,
-	<Tab title="Three" icon="plug">
-		<div>View Three</div>
-	</Tab>,
-	<Tab title="Four" icon="lock">
-		<div>View Four</div>
-	</Tab>,
-	<Tab title="Five" icon="info">
-		<div>View Five</div>
-	</Tab>,
-	<Tab title="Six" icon="picture">
-		<div>View Six</div>
-	</Tab>
+	SimpleTab({title: 'One', icon: 'star'}),
+	SimpleTab({title: 'Two', icon: 'home'}),
+	SimpleTab({title: 'Three', icon: 'plug'}),
+	SimpleTab({title: 'Four', icon: 'lock'}),
+	SimpleTab({title: 'Five', icon: 'info'}),
+	SimpleTab({title: 'Six', icon: 'picture'})
 ];
 
 const oneTabWithIcons = [
-	<Tab title="One" icon="star">
-		<div>View One</div>
-	</Tab>,
-	<Tab title="Two">
-		<div>View Two</div>
-	</Tab>,
-	<Tab title="Three">
-		<div>View Three</div>
-	</Tab>,
-	<Tab title="Four">
-		<div>View Four</div>
-	</Tab>,
-	<Tab title="Five">
-		<div>View Five</div>
-	</Tab>,
-	<Tab title="Six">
-		<div>View Six</div>
-	</Tab>
+	SimpleTab({title: 'One', icon: 'star'}),
+	SimpleTab({title: 'Two'}),
+	SimpleTab({title: 'Three'}),
+	SimpleTab({title: 'Four'}),
+	SimpleTab({title: 'Five'}),
+	SimpleTab({title: 'Six'})
 ];
 
 const someTabsWithIcons = [
-	<Tab title="One" icon="star">
-		<div>View One</div>
-	</Tab>,
-	<Tab title="Two">
-		<div>View Two</div>
-	</Tab>,
-	<Tab title="Three" icon="plug">
-		<div>View Three</div>
-	</Tab>,
-	<Tab title="Four" icon="lock">
-		<div>View Four</div>
-	</Tab>,
-	<Tab title="Five">
-		<div>View Five</div>
-	</Tab>,
-	<Tab title="Six" icon="picture">
-		<div>View Six</div>
-	</Tab>
+	SimpleTab({title: 'One', icon: 'star'}),
+	SimpleTab({title: 'Two'}),
+	SimpleTab({title: 'Three', icon: 'plug'}),
+	SimpleTab({title: 'Four', icon: 'lock'}),
+	SimpleTab({title: 'Five'}),
+	SimpleTab({title: 'Six', icon: 'picture'})
 ];
 
 const TabLayoutTests = [
