@@ -51,7 +51,7 @@ class VirtualGridListPage extends Page {
 	}
 
 	/* global document */
-	topVisibleItemId () {
+	topLeftVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{top, left} = scroller.getBoundingClientRect();
@@ -73,7 +73,7 @@ class VirtualGridListPage extends Page {
 	}
 
 	/* global document */
-	bottomVisibleItemId () {
+	bottomRightVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, left, width} = scroller.getBoundingClientRect();

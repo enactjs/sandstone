@@ -1,10 +1,10 @@
-import {Button} from '../../../../../Button/Button';
+import {Button} from '../../../../../Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import {InputField} from '../../../../../Input';
 import ImageItem from '../../../../../ImageItem';
 import {VirtualGridList} from '../../../../../VirtualList';
-import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
+import ThemeDecorator from '../../../../../ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -104,10 +104,9 @@ class app extends React.Component {
 		this.setState((state) => ({[key]: !state[key]}));
 	}
 
-	onToggleLabel = ({currentTarget}) => {
-		const key = currentTarget.getAttribute('id');
-		this.setState((state) => ({[key]: !state[key]}));
-		updateData(this.state.numItems, this.state.noLabel);
+	onToggleLabel = () => {
+		updateData(this.state.numItems, !this.state.noLabel);
+		this.setState((state) => ({noLabel: !state.noLabel}));
 	}
 
 	onChangeNumItems = ({value}) => {
