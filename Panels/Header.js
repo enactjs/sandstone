@@ -5,6 +5,7 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -444,6 +445,11 @@ const HeaderBase = kind({
 		title,
 		titleRef,
 		type,
+
+		slotBeforeRef,
+		slotBeforeMeasurement,
+		slotAfterRef,
+		slotAfterMeasurement,
 		...rest
 	}) => {
 		delete rest.featureContent;
@@ -478,6 +484,21 @@ const HeaderBase = kind({
 			/>
 		) : null);
 
+		// Calculate title max width based on these two cases for centering title:
+		// 1. `slotBefore` is bigger than `slotAfter`
+		// 2. `slotAfter` is bigger than `slotBefore`
+		let slotSize;
+		const {width: slotBeforeWidth} = slotBeforeMeasurement || {};
+		const {width: slotAfterWidth} = slotAfterMeasurement || {};
+
+		if (slotBeforeWidth > slotAfterWidth) {
+			slotSize = `${slotBeforeWidth}px`;
+		} else if (slotAfterWidth > slotBeforeWidth) {
+			slotSize = `${slotAfterWidth}px`;
+		} else {
+			slotSize = `${slotAfterWidth}px` || `${slotBeforeWidth}px`;
+		}
+
 		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
 		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
 		const bothBeforeAndAfter = (centered || (type === 'wizard' && (Boolean(slotAfter) || Boolean(slotBefore))));
@@ -487,7 +508,8 @@ const HeaderBase = kind({
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center" ref={titleRef}>
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell className={css.slotBefore} shrink={!bothBeforeAndAfter}>{backButton}{slotBefore}</Cell>
+						<Cell className={css.slotBefore} ref={slotBeforeRef} shrink size={slotSize}>{backButton}{slotBefore}
+						</Cell>
 					) : null}
 					<Cell className={css.titleCell}>
 						<Heading
@@ -513,7 +535,8 @@ const HeaderBase = kind({
 						</Heading>
 					</Cell>
 					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell className={css.slotAfter} shrink={!bothBeforeAndAfter}>{slotAfter}{closeButton}</Cell>
+						<Cell className={css.slotAfter} shrink size={slotSize} ref={slotAfterRef}>{slotAfter}{closeButton}
+						</Cell>
 					) : null}
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
@@ -530,10 +553,26 @@ const CollapsingHeaderDecorator = (Wrapped) => {
 	};
 };
 
+const HeaderMeasurementDecorator = (Wrapped) => {
+	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: slotBeforeRef, measurement: slotBeforeMeasurement} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: slotAfterMeasurement} = useMeasurable() || {};
+
+		const measurableProps = {
+			slotBeforeRef,
+			slotBeforeMeasurement,
+			slotAfterRef,
+			slotAfterMeasurement
+		};
+		return <Wrapped {...measurableProps} {...props} />;
+	};
+}
+
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
 	Skinnable,
 	CollapsingHeaderDecorator,
+	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );
