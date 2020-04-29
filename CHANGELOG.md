@@ -7,8 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
-- `sandstone/Panels.Wizardpanel`'s props `noCloseButton`, `noNextButton`, `noPrevButton`, `noSteps`, and `onClose`
+- `sandstone/Panels.WizardPanel` props `noCloseButton`, `noNextButton`, `noPrevButton`, `noSteps`, and `onClose`
 
+### Fixed
+
+- `sandstone/Panels.WizardPanel` to hide previous and next buttons appropriately
+- 
 ## [1.0.0-alpha.9] - 2020-04-20
 
 ### Deprecated
@@ -25,10 +29,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
 - `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
-
-### Changed
-
-- `sandstone/Panels.Wizardpanel` to hide previous and next buttons appropriately
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
