@@ -1,6 +1,5 @@
-
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused} = require('./VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused} = require('../VirtualList-utils');
 
 describe('VirtualList', function () {
 
