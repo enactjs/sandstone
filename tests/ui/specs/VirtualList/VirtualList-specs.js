@@ -89,43 +89,8 @@ describe('VirtualList', function () {
 			expectNoFocusedItem();  // Check that Spotlight hides only.
 		});
 
-		/* TBD: Should be revisited after Spottable thumb is implemented ,  Unnessary TC Check
-		it('should focus back to Paging Controls with 5-way Right [GT-24811]', function () {
-			// Step 3. focusableScrollbar > Check
-			Page.spotlightSelect();
-			Page.spotlightDown();  // is on Left button
-			Page.spotlightRight(); // is on 'Item 000'
-			// Step 4. Position the pointer on 'Item 001'.
-			Page.showPointerByKeycode();
-			Page.item(1).moveTo();
-			// Verify Step 4: Spotlight displays on 'Item 001'.
-			expectFocusedItem(1, 'focus Item 1');
-			// Step 5. 5-way Down and 5-way Right.
-			Page.spotlightDown();
-			Page.spotlightRight();
-			// Verify Step 3: Spotlight displays on the Disabled Up Paging Control (∧).
-			expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
-			expect(Page.buttonScrollUp.isFocused(), 'step 5 focus').to.be.true();
-			// Step 6.1. 5-way Left to go back to the list.
-			Page.spotlightLeft();
-			expectFocusedItem(0, 'step 6.1 focus');
-			// Step 6.2. 5-way Down to item 005.
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			// Page.spotlightDown();	// TODO: Should remove 1 when focus returns right
-			// Step 6.3. 5-way Right.
-			Page.spotlightRight();
-			// Verify Step 6: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.isFocused(), 'step 6.3 focus').to.be.true();
-		});
-		*/
-
 		// Partly automated - need wheeling at Step 7
-		it('should not scroll when leaving list with 5-way up/down [GT-25987]', function () {
+		it('should not scroll when leaving list with 5-way up/down [GT-28473]', function () {
 			// Step 3. Set dataSize to 100. Step 4: change to 5-way mode
 			Page.spotlightDown();
 			// Step 5: 5-way Spot the first item.
@@ -162,89 +127,6 @@ describe('VirtualList', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
-		
-
-		 TBD: Should be revisited after Spottable thumb is implemented Unnessary TC
-
-		it('should retain focus on Paging Controls via 5-way [GT-23899]', function () {
-			// Step 3. focusableScrollbar > Check
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightRight();
-			// Step 4. 1. 5-way Spot 'Item 004'.
-			// Need to spot item 006 in ui-tests to spot Down Paging Control (∨).
-			Page.spotlightDown();
-			// expectFocusedItem(1);
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			expectFocusedItem(6, 'step 4.1 focus');
-			// Step 4. 2. 5-way Right.
-			Page.spotlightRight();
-			// Verify Item 4: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.isFocused(), 'step 4.2 focus').to.be.true();
-			// Step 5. 5-way Select *two times* while the Down Paging Control (∨) remains spotted.
-			Page.spotlightSelect();
-			Page.delay(1500);
-			Page.spotlightSelect();
-			Page.delay(1500);
-			// Verify Step 5: Up Paging Control (∧) becomes Enabled.
-			expect(Page.buttonScrollDown.getAttribute('disabled'), 'Down disabled').to.be.null();
-			// Step 6. 5-way Up.
-			Page.spotlightUp();
-			Page.delay(1500);
-			// Verify Step 6: Spotlight moves to the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
-			// Step 7. 5-way Select and Hold until you reach the Top of the list.
-			Page.spotlightSelect();
-			Page.delay(1500);
-			Page.spotlightSelect();
-			Page.delay(1500);
-			// Verify Step 7: 1.Spotlight stays on the Up Paging Control (∧) 2.The Up Paging Control (∧) becomes Disabled.
-			expect(Page.buttonScrollUp.isFocused()).to.be.true();
-			expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
-		});
-		Unnessary TC	
-		it('should retain focus on Paging Controls via Channel Up / Down [GT-23845]', function () { 
-			// Step 3. focusableScrollbar > Check
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightRight();
-			// Step 4. 5-way Spot 'Item 004'.
-			// Need to spot item 006 in ui-tests to spot Down Paging Control (∨).
-			Page.spotlightDown();
-			// expectFocusedItem(1);
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			expectFocusedItem(6);  // Check that Spotlight is on an item
-			Page.spotlightRight();
-			expect(Page.buttonScrollDown.isFocused(), 'step 4 focus').to.be.true();
-			// Step 5. Press Channel Down two times.
-			Page.pageDown();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
-			Page.pageDown();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
-			// Verify Step 5: Spotlight remains on the Down Paging Control (∨) as the list Scrolls.
-			expect(Page.buttonScrollDown.isFocused(), 'step 5 focus').to.be.true();
-			// Step 6. Press Channel Up once.
-			Page.pageUp();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
-			// Verify Step 6: Spotlight navigates to the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
-			// Step 7. Press Channel Up *two times*.
-			Page.pageUp();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
-			Page.pageUp();
-			Page.delay(1500);  // TODO: Need better way to detect scroll end
-			// Verify Step 7: Spotlight remains on the Up Paging Control (∧) as the list Scrolls.
-			expect(Page.buttonScrollUp.isFocused(), 'step 7 focus').to.be.true();
-		});
-		
 		it('should position Paging Controls on right side in LTR [GT-21271]', function () { //LTR 확인위한 테스트, 나중에 다시 확인
 			Page.spotlightSelect();
 			Page.spotlightDown();
@@ -255,80 +137,14 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
 		});
-		
-		it('should navigate inside and outside of the Paging Controls via 5-way Up, Down, and Right [GT-22761]', function () { // Unnessary Test
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightRight();
-			// Step 4.1. 5-way Spot the item below the last item on a current page.
-			for (let i = 0; i < 12; ++i) {
-				Page.spotlightDown();
-				Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			}
-			expectFocusedItem(12);
-			// Step 4.2. 5-way Right.
-			Page.spotlightRight();
-			// Verify Step 4: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.isFocused(), 'step 4.2 focus').to.be.true();
-			// Step 5. 5-way Down while the Down Paging Control (∨) remains spotted.
-			Page.spotlightDown();
-			// Verify Step 5: Spotlight retains on the Down Paging Control (∨).
-			// In ui-tests, only check Spotlight goes to the Bottom button
-			expect(Page.buttonBottom.isFocused()).to.be.true();
-			// Step 5. 5-way Up.
-			Page.spotlightUp();
-			// Verify Step 5: Spotlight displays on the Down Paging Control (∨).
-			expect(Page.buttonScrollDown.isFocused(), 'step 5 focus').to.be.true();
-			// Step 6. 5-way Up.
-			Page.spotlightUp();
-			// Verify Step 6: Spotlight displays on the Up Paging Control (∧).
-			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
-			// Step 7. 5-way Up again while the Up Paging Control (∧) remains spotted.
-			Page.spotlightUp();
-			// Verify Step 7: Spotlight displays on the close button ('*x*') above.
-			expect(Page.buttonTop.isFocused(), 'step 7 focus').to.be.true();
-		});
-
-		it('should navigate between items and Paging Controls via 5-way Right [GT-21163]', function () { // Unnessary Test
-			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			// Step 5. Move focus to the first item ('Item 00').
-			Page.spotlightRight();
-			// Verify Step 5: 1. Spotlight displays on the first item. 2. Up Paging Control (∧) is Disabled.
-			expectFocusedItem(0, 'step 5.1 focus');
-			expect(Page.buttonScrollUp.getAttribute('disabled'), ' Step 5 Up disabled').to.be.equal('true');
-			// Step 6. 5-way Right.
-			Page.spotlightRight();
-			// Verify Step 6: Spotlight displays on the Disabled Up Paging Control (^)
-			expect(Page.buttonScrollUp.isFocused(), 'step 6 focus').to.be.true();
-			expect(Page.buttonScrollUp.getAttribute('disabled'), ' Step 5 Up disabled').to.be.equal('true');
-			// Step 7. 5-way Spot the last item in the list.
-			Page.spotlightLeft(); // to spot item 0 at the top of the list
-			expectFocusedItem(0);
-			for (let i = 0; i < 99; ++i) {
-				Page.spotlightDown();
-				Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-			}
-			// Verify Step 7: 1. Spotlight displays on the last item.
-			expectFocusedItem(99, 'step 7.1 focus');
-			Page.delay(1500); // needed to validate the buttonScrollDown is disabled
-			// Verify Step 7: 2. Down Paging Control (∨) is Disabled.
-			expect(Page.buttonScrollDown.getAttribute('disabled'), ' Step 7 Down disabled').to.be.equal('true');
-			// Step 8. 5-way Right.
-			Page.spotlightRight();
-			// Verify Step 8: Spotlight displays on the Disabled Down Paging Control (v).
-			expect(Page.buttonScrollDown.isFocused(), 'step 8 focus').to.be.true();
-			expect(Page.buttonScrollDown.getAttribute('disabled'), ' Step 7 Down disabled').to.be.equal('true');
-		});
-		*/	
+		*/
 		// Need mochaOpts - timeout set to 60000 to pass
-		it('Scroll thumb`s position is bottom or top of Vertical scrollbar track when reaching to the edge with 5-way and Channel Down keys [GT-28564]', function () {
+		it('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
-			Page.spotlightSelect();
 			Page.spotlightDown();
+			Page.spotlightRight();
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
@@ -337,7 +153,7 @@ describe('VirtualList', function () {
 			// Verify Step 6: 1. Spotlight hides.
 			expectNoFocusedItem();
 			Page.delay(1000);
-			expectFocusedItem(8, 'focus Item 8');
+			expectFocusedItem(6, 'focus Item 6');
 			// Step 7. Press Channel Down.
 			Page.pageDown();
 			// Verify Step 7: 1. Spotlight hides.
@@ -345,9 +161,9 @@ describe('VirtualList', function () {
 			// Verify Step 6: 2. The list Scrolls Up by page with animation.
 			// Verify Step 6: 5. Spotlight is on the item below the pointer when the list stops.
 			Page.delay(1000);
-			expectFocusedItem(16, 'focus Item 16');
+			expectFocusedItem(12, 'focus Item 12');
 			// Step 7. 5-way Down several times to scroll down the list.
-			for (let i = 16; i <= 29; ++i) {
+			for (let i = 12; i <= 29; ++i) {
 				Page.spotlightDown();
 				Page.delay(80);
 			}
@@ -375,11 +191,11 @@ describe('VirtualList', function () {
 			Page.delay(1000);
 			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
 		});
-		/*	
-		it('Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-21437]', function () {
+		it.skip('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
 			let bottomId;
 			Page.spotlightSelect();
 			Page.spotlightDown();
+			Page.spotlightRight(); // needed to focus Item 00 and get into that container
 			// Step 3. 1. Position the pointer on the last item in a current page.
 			bottomId = Page.bottomVisibleItemId();
 			Page.showPointerByKeycode();
@@ -407,37 +223,20 @@ describe('VirtualList', function () {
 			// Verify Step 6:  1. The list Scroll Down. 2. The Spotted item is placed on the Top.
 			expectFocusedItem(Number((Page.topVisibleItemId().slice(4))), 'focus Item 00');
 			expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
-		});
-		
-		//VirtualGridList Test
-		describe('onKeyDown event behavior [GT-27663]', function () {
-			it('should prevent bubbling while navigating within a list', function () {
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 1');
-				Page.spotlightDown();
-				expectFocusedItem(1, 'focus 2');
-				Page.spotlightUp();
-				expectFocusedItem(0, 'focus 3');
-				Page.spotlightRight();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 4').to.be.true();
-				Page.spotlightDown();
-				expect(Page.buttonScrollDown.isFocused(), 'focus 5').to.be.true();
-				Page.spotlightUp();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 6').to.be.true();
-				Page.spotlightLeft();
-				expectFocusedItem(0, 'focus 7');
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
-			});
 
-			it('should prevent bubbling when wrapping', function () {
-				Page.spotlightRight();
+		});
+		/*
+		describe('Change `wrap` dynamically' , function () {
+			it('should prevent bubbling when wrapping[GT-28463]', function () {
+				// Wrap knobs Setting
 				Page.spotlightRight();
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 1');
+				// TODO: expectFocusedItem is not working in case of wrap
+				expectFocusedItem(0, 'focus');
+
+				Page.spotlightUp();
 				Page.spotlightUp();
 				Page.delay(1500);  // TODO: Need better way to detect scroll end
 				expectFocusedItem(99, 'focus 2');
@@ -446,99 +245,8 @@ describe('VirtualList', function () {
 				expectFocusedItem(0, 'focus 3');
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 			});
-
-			it('should allow bubbling while navigating out of a focusableScrollbar list via scroll buttons', function () {
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				Page.spotlightRight();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 1').to.be.true();
-				Page.spotlightRight();
-				Page.spotlightLeft();
-				Page.spotlightUp();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				Page.spotlightLeft();
-				Page.spotlightDown();
-				expect(Page.list.getAttribute('data-keydown-events'), 'step 8').to.equal('4');
-			});
-
-			it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 1');
-				Page.spotlightUp();
-				Page.spotlightDown();
-				Page.spotlightLeft();
-				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 2');
-				for (let i = 0; i < 99; ++i) {
-					Page.spotlightDown();
-					Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-				}
-				expectFocusedItem(99, 'focus 3');
-				Page.spotlightDown();
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('3');
-			});
-
-			// Need mochaOpts - timeout set to 60000 to pass
-			it('should allow bubbling while navigating out of a list using hidden focusableScrollbar via items', function () {
-				Page.spotlightSelect();
-				Page.spotlightRight();
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 1');
-				Page.spotlightUp();
-				expect(Page.buttonTop.isFocused(), 'focus 2').to.be.true();
-				Page.spotlightDown();
-				Page.spotlightLeft();
-				expect(Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
-				Page.spotlightRight();
-				Page.spotlightRight();
-				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
-				Page.spotlightLeft();
-				expectFocusedItem(0, 'focus 5');
-				for (let i = 0; i < 99; ++i) {
-					Page.spotlightDown();
-					Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-				}
-				expectFocusedItem(99, 'focus 6');
-				Page.delay(1500);
-				Page.spotlightDown();
-				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
-			});
-
-			// Need mochaOpts - timeout set to 60000 to pass
-			it('should allow bubbling while navigating out of a list using non-focusableScrollbar via items', function () {
-				Page.spotlightDown();
-				Page.spotlightRight();
-				expectFocusedItem(0, 'focus 1');
-				Page.spotlightUp();
-				expect(Page.buttonTop.isFocused(), 'focus 2').to.be.true();
-				Page.spotlightDown();
-				Page.spotlightLeft();
-				expect(Page.buttonLeft.isFocused(), 'focus 3').to.be.true();
-				Page.spotlightRight();
-				Page.spotlightRight();
-				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
-				Page.spotlightLeft();
-				expectFocusedItem(0, 'focus 5');
-				for (let i = 0; i < 99; ++i) {
-					Page.spotlightDown();
-					Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
-				}
-				expectFocusedItem(99, 'focus 6');
-				Page.delay(1500);
-				Page.spotlightDown();
-				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
-			});
 		});
-		
+
 		describe('VirtualList with Wheeling', function () {
 
 			it('Items Animate via Clicking on Page Controls [GT-21571]', function () {
@@ -576,7 +284,7 @@ describe('VirtualList', function () {
 				expect(Math.round(travelDistance)).to.equal(scrollDistance);
 			});
 		});
-		
+
 		describe('RTL locale', function () {
 
 			beforeEach(function () {
@@ -601,51 +309,52 @@ describe('VirtualList', function () {
 			});
 		});
 		*/
-		describe('onScrollStart/Stop Events behavior ', function() {
+		describe('onScrollStart/Stop Events behavior ', function () {
 			beforeEach(function () {
 				Page.open();
-			});			
-			it('Scroll Events Display in Actions with 5-way Down and Up [GT-28470]', function(){
+			});
+			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function (){
 
-					//Verify Step 3 : Spotlight displays on the Item 006 or 007.
-					Page.item(7).moveTo();
-					//Page.spotlightRight();
-					expectFocusedItem(7,'step 3 focus');
-					//Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
-					for(let i = 0; i<10; i++){
-							Page.spotlightDown();
-							//Verify Step 4.1: Displays 'onScrollStart'
-							//Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
-							waitForScrollStartStop();
-					}
-					//Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
-					for(let j = 0; j < 10; j++){
-							Page.spotlightUp();
-							//Verify Step 5.1: Displays 'onScrollStart'
-							//Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
-							if(j>6){
-									waitForScrollStartStop();
-							}
-					}
+				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
+				Page.item(7).moveTo();
+				// Page.spotlightRight();
+				expectFocusedItem(7, 'step 3 focus');
+				// Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
+				for(let i = 0; i<10; i++){
+					Page.spotlightDown();
+					// Verify Step 4.1: Displays 'onScrollStart'
+					// Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
+					waitForScrollStartStop();
+				}
+				// Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
+				for(let j = 0; j < 10; j++){
+					Page.spotlightUp();
 
-				});
-		});		
-		describe('Item Animates',function(){
+					if(j>6){
+					// Verify Step 5.1: Displays 'onScrollStart'
+					// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
+						waitForScrollStartStop();
+					}
+				}
+
+			});
+		});
+		describe('Item Animates', function () {
 			beforeEach(function () {
 				Page.open();
-			});						
-			it('Items Animate via Channel Down [GT-28464]',function(){
-				//Step 3: Position the pointer on the first item('Item 000)
+			});
+			it('should animate Items via Channel Down [GT-28464]', function (){
+				// Step 3: Position the pointer on the first item('Item 000)
 				Page.showPointerByKeycode();
 				Page.item(0).moveTo();
 				expectFocusedItem(0);
-				//Step 4: Press Channel Down
+				// Step 4: Press Channel Down
 				Page.pageDown();
-				waitForScrollStartStop();	
-				//Step 5: Press Channel Down again.
+				waitForScrollStartStop();
+				// Step 5: Press Channel Down again.
 				Page.pageDown();
 				waitForScrollStartStop();
 			});
-		});		
+		});
 	});
 });
