@@ -64,13 +64,15 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
+	const {focusableScrollbar} = props;
+
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+	} = useThemeScroller(focusableScrollbar, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render
 	return (

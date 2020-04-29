@@ -4,11 +4,14 @@
 @import "../styles/variables.less";
 
 .scroll {
-	--scroll-scrollbar-size: 60px;
-	--scrollbar-track-margin: @sand-scrollbar-track-margin;
+	--scroll-scrollbar-size: @sand-scrollbar-size;
 
 	box-sizing: border-box;
 	overflow: hidden;
+
+	&.focusableScrollbar {
+		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
+	}
 
 	&.verticalPadding {
 		padding-left: 0;
