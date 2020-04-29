@@ -90,9 +90,13 @@
 
 	&.featureContent {
 		height: calc(100% + var(--sand-panels-header-title-height));
-		.featureContentTransition();
 
-		&.shouldFeatureContent {
+		// ViewManager blocks transition on the Panel element, so we must move all the children
+		& > * {
+			.featureContentTransition();
+		}
+
+		&.shouldFeatureContent > * {
 			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
 		}
 
