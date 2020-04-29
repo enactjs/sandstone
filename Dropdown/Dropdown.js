@@ -42,7 +42,7 @@ const DropdownButton = kind({
 
 	propTypes: {
 		forwardRef: PropTypes.oneOfType([
-			PropTypes.func, 
+			PropTypes.func,
 			PropTypes.shape({current: PropTypes.object})
 		])
 	},
