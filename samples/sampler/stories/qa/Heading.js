@@ -17,6 +17,15 @@ const
 
 storiesOf('Heading', module)
 	.add(
+		'with italics',
+		() => (
+			<Heading style={{fontStyle: 'italic'}}>
+				Lorem ipsum dolor sit amet
+			</Heading>
+		)
+	)
+
+	.add(
 		'with long text',
 		() => (
 			<Heading
