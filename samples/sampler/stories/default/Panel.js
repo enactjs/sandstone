@@ -104,6 +104,7 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
+								initialHiddenHeight={scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),
@@ -118,6 +119,7 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
+								initialHiddenHeight={scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),

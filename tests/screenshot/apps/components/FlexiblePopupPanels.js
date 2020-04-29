@@ -43,7 +43,7 @@ function FlexPopupPanels (props) {
 					{blocks.medium}
 				</Panel>,
 				<Panel key="panelIndex3">
-					<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior" type="mini" />
+					<Header title="Panel 4 - Small Block" type="mini" />
 					{blocks.small}
 				</Panel>,
 				<Panel key="panelIndex4">
