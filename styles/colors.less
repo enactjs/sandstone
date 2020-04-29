@@ -51,15 +51,12 @@
 // Alert
 // ---------------------------------------
 @sand-alert-bg-color: #373a41;
-@sand-alert-overlay-bg-color: fade(#cacbcc, 95%);
-@sand-alert-title-color: @sand-light-gray;
-@sand-alert-subtitle-color: @sand-gray;
-@sand-alert-overlay-text-color: @sand-black;
+@sand-alert-overlay-bg-color: fade(@sand-alert-bg-color, 95%);
 @sand-alert-overlay-shadow: @sand-spotlight-focus-shadow;
 
 // Button
 // ---------------------------------------
-@sand-button-text-color: @sand-text-color;
+@sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
 @sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
 @sand-button-focus-text-color: @sand-spotlight-text-color;
@@ -78,7 +75,7 @@
 @sand-checkbox-focus-color: @sand-checkbox-color;
 @sand-checkbox-focus-bg-color: @sand-checkbox-bg-color;
 @sand-checkbox-focus-border-color: @sand-spotlight-text-color;
-@sand-checkbox-selected-color: @sand-text-color;
+@sand-checkbox-selected-color: @sand-light-gray;
 @sand-checkbox-selected-bg-color: @sand-feature-color;
 @sand-checkbox-selected-border-color: @sand-checkbox-selected-bg-color;
 @sand-checkbox-selected-focus-color: @sand-checkbox-selected-color;
@@ -226,7 +223,7 @@
 @sand-radioitem-focus-indicator-color: transparent;
 @sand-radioitem-focus-indicator-bg-color: transparent;
 @sand-radioitem-focus-indicator-border-color: @sand-spotlight-text-color;
-@sand-radioitem-selected-indicator-color: @sand-text-color;
+@sand-radioitem-selected-indicator-color: @sand-light-gray;
 @sand-radioitem-selected-indicator-bg-color: @sand-feature-color;
 @sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
 @sand-radioitem-selected-focus-indicator-color: @sand-radioitem-selected-indicator-color;

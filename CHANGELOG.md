@@ -7,6 +7,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the initially hidden height of the vertical scrollbar when `featureContent` prop in the panel set to true.
 
+### Fixed
+
+- `sandstone/Header` centering
+
 ## [1.0.0-beta.1] - 2020-04-27
 
 ### Removed
@@ -41,7 +45,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Header` centering
+- `sandstone/BodyText` font weight
+- `sandstone/BodyText` line-wrap and `noWrap` capabilities
 
 ## [1.0.0-alpha.9] - 2020-04-20
 
