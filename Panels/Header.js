@@ -290,6 +290,18 @@ const HeaderBase = kind({
 		slotAfter: PropTypes.node,
 
 		/**
+		 * The method which receives the reference node to the slotAfter element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotAfterRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
 		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
 		 * to the right in RTL locales
 		 *
@@ -307,6 +319,27 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		slotBefore: PropTypes.node,
+
+		/**
+		 * The method which receives the reference node to the slotBefore element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotBeforeRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
+		 * The size for slotBefore and slotAfter.
+		 * This size is set by HeaderMeasurementDecorator for consistent title centering.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotSize: PropTypes.string,
 
 		/**
 		 * Text displayed below the title.
@@ -441,15 +474,14 @@ const HeaderBase = kind({
 		onClose,
 		slotAbove,
 		slotAfter,
+		slotAfterRef,
 		slotBefore,
+		slotBeforeRef,
+		slotSize,
 		subtitle,
 		title,
 		titleRef,
 		type,
-
-		slotBeforeRef,
-		slotAfterRef,
-		slotSize,
 		...rest
 	}) => {
 		delete rest.featureContent;
