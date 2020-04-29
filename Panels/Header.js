@@ -446,7 +446,7 @@ const HeaderBase = kind({
 		titleRef,
 		type,
 
-		measurements,
+		slotSize,
 		slotBeforeRef,
 		slotAfterRef,
 		...rest
@@ -482,22 +482,6 @@ const HeaderBase = kind({
 				size="small"
 			/>
 		) : null);
-
-		// Calculate title max width based on these two cases for centering title:
-		// 1. `slotBefore` is bigger than `slotAfter`
-		// 2. `slotAfter` is bigger than `slotBefore`
-		let slotSize;
-		const {slotBeforeMeasurement, slotAfterMeasurement} = measurements || {};
-		const {width: slotBeforeWidth} = slotBeforeMeasurement || {};
-		const {width: slotAfterWidth} = slotAfterMeasurement || {};
-
-		if (slotBeforeWidth > slotAfterWidth) {
-			slotSize = slotBeforeWidth;
-		} else if (slotAfterWidth > slotBeforeWidth) {
-			slotSize = slotAfterWidth;
-		} else {
-			slotSize = slotAfterWidth || slotBeforeWidth;
-		}
 
 		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
 		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
@@ -559,15 +543,27 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 		const {ref: slotAfterRef, measurement: slotAfterMeasurement} = useMeasurable() || {};
 		const [measurements, setMeasurements] = React.useState(null);
 
-		if (!measurements && slotBeforeMeasurement && slotAfterMeasurement) {
-			setMeasurements({slotBeforeMeasurement, slotAfterMeasurement});
+		if (!measurements && slotBeforeMeasurement != null && slotAfterMeasurement != null) {
+			const {width: slotBeforeWidth} = slotBeforeMeasurement;
+			const {width: slotAfterWidth} = slotAfterMeasurement;
+
+			setMeasurements({slotBeforeWidth, slotAfterWidth});
+		}
+
+		let slotSize;
+
+		if (measurements) {
+			const {slotBeforeWidth, slotAfterWidth} = measurements || {};
+
+			slotSize = ((slotAfterWidth > slotBeforeWidth) ? slotAfterWidth : slotBeforeWidth) || 0;
 		}
 
 		const measurableProps = {
 			slotBeforeRef,
 			slotAfterRef,
-			measurements
+			slotSize
 		};
+
 		return <Wrapped {...measurableProps} {...props} />;
 	};
 }
