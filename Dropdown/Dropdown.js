@@ -21,6 +21,7 @@ import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -39,16 +40,29 @@ import css from './Dropdown.module.less';
 const DropdownButton = kind({
 	name: 'DropdownButton',
 
-	render: (props) => (
+	propTypes: {
+		forwardRef: PropTypes.oneOfType([
+			PropTypes.func, 
+			PropTypes.shape({current: PropTypes.object})
+		])
+	},
+
+	render: ({forwardRef, ...props}) => (
 		<Button
 			{...props}
 			css={css}
+			ref={forwardRef}
 			iconPosition="after"
 		/>
 	)
 });
 
-const ContextualButton = ContextualPopupDecorator({noArrow: true}, DropdownButton);
+const ContextualButton = ContextualPopupDecorator(
+	{noArrow: true},
+	ForwardRef(
+		DropdownButton
+	)
+);
 
 /**
  * A stateless Dropdown component.
