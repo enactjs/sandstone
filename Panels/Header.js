@@ -8,6 +8,7 @@ import {Row, Cell} from '@enact/ui/Layout';
 import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
+import {unit} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -446,9 +447,9 @@ const HeaderBase = kind({
 		titleRef,
 		type,
 
-		slotSize,
 		slotBeforeRef,
 		slotAfterRef,
+		slotSize,
 		...rest
 	}) => {
 		delete rest.featureContent;
@@ -492,7 +493,8 @@ const HeaderBase = kind({
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center" ref={titleRef}>
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell className={css.slotBefore} ref={slotBeforeRef} shrink={!slotSize} size={slotSize}>{backButton}{slotBefore}
+						<Cell className={css.slotBefore} shrink={!slotSize} size={slotSize}>
+							<span ref={slotBeforeRef} className={css.slotSizer}>{backButton}{slotBefore}</span>
 						</Cell>
 					) : null}
 					<Cell className={css.titleCell}>
@@ -519,7 +521,8 @@ const HeaderBase = kind({
 						</Heading>
 					</Cell>
 					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell className={css.slotAfter} shrink={!slotSize} size={slotSize} ref={slotAfterRef}>{slotAfter}{closeButton}
+						<Cell className={css.slotAfter} shrink={!slotSize} size={slotSize}>
+							<span ref={slotAfterRef} className={css.slotSizer}>{slotAfter}{closeButton}</span>
 						</Cell>
 					) : null}
 				</Row>
@@ -539,34 +542,33 @@ const CollapsingHeaderDecorator = (Wrapped) => {
 
 const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
-		const {ref: slotBeforeRef, measurement: slotBeforeMeasurement} = useMeasurable() || {};
-		const {ref: slotAfterRef, measurement: slotAfterMeasurement} = useMeasurable() || {};
-		const [measurements, setMeasurements] = React.useState(null);
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth} = {}} = useMeasurable() || {};
+		const [{slotSize, savedSlotBeforeWidth, savedSlotAfterWidth}, setSlotSize] = React.useState({});
 
-		if (!measurements && slotBeforeMeasurement != null && slotAfterMeasurement != null) {
-			const {width: slotBeforeWidth} = slotBeforeMeasurement;
-			const {width: slotAfterWidth} = slotAfterMeasurement;
+		// If the slot width has changed, re-run this.
+		if (slotBeforeWidth !== savedSlotBeforeWidth || slotAfterWidth !== savedSlotAfterWidth) {
+			const largestSlotSize = (((slotBeforeWidth || 0) > (slotAfterWidth || 0)) ? slotBeforeWidth : slotAfterWidth) || 0;
 
-			setMeasurements({slotBeforeWidth, slotAfterWidth});
-		}
-
-		let slotSize;
-
-		if (measurements) {
-			const {slotBeforeWidth, slotAfterWidth} = measurements || {};
-
-			slotSize = ((slotAfterWidth > slotBeforeWidth) ? slotAfterWidth : slotBeforeWidth) || 0;
+			// And only do this the largest slot is a different value this time around.
+			if (slotSize !== largestSlotSize) {
+				setSlotSize({
+					slotSize: largestSlotSize,
+					savedSlotBeforeWidth: slotBeforeWidth,
+					savedSlotAfterWidth: slotAfterWidth
+				});
+			}
 		}
 
 		const measurableProps = {
 			slotBeforeRef,
 			slotAfterRef,
-			slotSize
+			slotSize: unit(slotSize, 'rem')
 		};
 
 		return <Wrapped {...measurableProps} {...props} />;
 	};
-}
+};
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
