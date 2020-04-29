@@ -1,13 +1,13 @@
 'use strict';
-const {getSubComponent, getText, componentSelector, hasClass, Page} = require('@enact/ui-test-utils/utils');
+const {Page} = require('@enact/ui-test-utils/utils');
 
 class PanelInterface {
 	constructor (id) {
 		this.id = id;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), $(`#${this.id}`));
+	getHeaderTop () {
+		return browser.execute((el) => el.getBoundingClientRect().top, this.header);
 	}
 
 	get self () { return $(`#${this.id}`); }
