@@ -60,7 +60,6 @@ let Scroller = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		ScrollToTopButton,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
@@ -83,7 +82,6 @@ let Scroller = (props) => {
 					</ScrollContentWrapper>
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-					<ScrollToTopButton />
 				</ScrollBody>
 			</div>
 		</ResizeContext.Provider>
@@ -211,6 +209,21 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 */
 	id: PropTypes.string,
 
+	/**
+	 * The initially hidden height of the vertical scrollbar.
+	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
+	 * enlarge.
+	 *
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
+	 *
+	 * @type {Number}
+	 * @public
+	 */
+	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.

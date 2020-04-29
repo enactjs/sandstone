@@ -33,6 +33,13 @@ const HeadingTests = [
 	{
 		locale: 'ar-SA',
 		component: <Heading>Heading</Heading>
-	}
+	},
+	// With Italic (PLAT-103068)
+	<Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	<Heading size="subtitle" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	<Heading size="large" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	<Heading size="medium" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	<Heading size="small" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	<Heading size="tiny" style={{fontStyle: 'italic'}}>Heading</Heading>
 ];
 export default HeadingTests;

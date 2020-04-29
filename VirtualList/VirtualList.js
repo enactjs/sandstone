@@ -61,8 +61,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps,
-		ScrollToTopButton
+		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -78,7 +77,6 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -201,6 +199,22 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	id: PropTypes.string,
+
+	/**
+	 * The initially hidden height of the vertical scrollbar.
+	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualList` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `VirtualList`'s vertical scrollbar will
+	 * enlarge.
+	 *
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
+	 *
+	 * @type {Number}
+	 * @public
+	 */
+	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
@@ -488,8 +502,7 @@ let VirtualGridList = ({role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps,
-		ScrollToTopButton
+		horizontalScrollbarProps
 	} = useScroll(rest);
 
 	const themeScrollContentProps = useThemeVirtualList({
@@ -505,7 +518,6 @@ let VirtualGridList = ({role, ...rest}) => {
 				</ScrollContentWrapper>
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
 			</div>
 		</ResizeContext.Provider>
 	);
@@ -630,6 +642,22 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	id: PropTypes.string,
+
+	/**
+	 * The initially hidden height of the vertical scrollbar.
+	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualGridList` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `VirtualGridList`'s vertical scrollbar will
+	 * enlarge.
+	 *
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
+	 *
+	 * @type {Number}
+	 * @public
+	 */
+	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prop to check if horizontal Scrollbar exists or not.

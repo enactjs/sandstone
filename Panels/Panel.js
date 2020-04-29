@@ -16,7 +16,7 @@ import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScroll
 
 import {PanelsStateContext} from './Viewport';
 
-import css from './Panel.module.less';
+import componentCss from './Panel.module.less';
 
 let panelId = 0;
 
@@ -33,7 +33,6 @@ let panelId = 0;
  * @public
  */
 const PanelBase = kind({
-
 	name: 'Panel',
 
 	contextType: PanelsStateContext,
@@ -90,6 +89,20 @@ const PanelBase = kind({
 		autoFocus: PropTypes.string,
 
 		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panel` - The root class name
+		 * * `body` - The node containing the panel's children
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
 		 * Header for the panel.
 		 *
 		 * This is usually passed by the [Slottable]{@link ui/Slottable.Slottable} API by using a
@@ -131,8 +144,9 @@ const PanelBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'panel'
+		css: componentCss,
+		className: 'panel',
+		publicClassNames: ['panel', 'body']
 	},
 
 	handlers: {
@@ -183,8 +197,7 @@ const PanelBase = kind({
 			return spotOnRender;
 		},
 		children: ({children, hideChildren}) => hideChildren ? null : children,
-		bodyClassName: ({header, hideChildren, styler}) => styler.join({
-			body: true,
+		bodyClassName: ({css, header, hideChildren, styler}) => styler.join(css.body, {
 			noHeader: !header,
 			visible: !hideChildren
 		}),
@@ -210,6 +223,7 @@ const PanelBase = kind({
 		backButtonAvailable,
 		bodyClassName,
 		children,
+		css,
 		header,
 		headerId,
 		headerType,
@@ -259,7 +273,7 @@ const RootPanel = SharedStateDecorator(
 		{
 			// prefer any spottable within the panel body for first render
 			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${css.body} *`],
+			defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
 			enterTo: 'last-focused',
 			preserveId: true
 		},
@@ -293,8 +307,8 @@ const FeatureContentDecorator = (Wrapped) => {
 
 				const enhancedClassName = classnames(
 					className,
-					shouldFeatureContent ? css.shouldFeatureContent : '',
-					css.featureContent
+					shouldFeatureContent ? componentCss.shouldFeatureContent : '',
+					componentCss.featureContent
 				);
 				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
 			}

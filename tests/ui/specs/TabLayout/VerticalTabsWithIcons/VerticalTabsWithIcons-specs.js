@@ -15,24 +15,33 @@ describe('TabLayout', function () {
 
 				// this covers GT-28257 step 3
 				it('should collapse tabs when focus is moved to a Spottable component in the content container', function () {
-					// focus the layout's tabs
-					tabLayout.hoverTabs();
-					Page.spotlightSelect();
 					// 5-way down to second tab
 					Page.spotlightDown();
 					// select it
 					Page.spotlightSelect();
 					// 5-way right to Spottable component
-					Page.spotlightRight();
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightRight();
+					});
 					// check that layout is collapsed
 					expect(tabLayout.isCollapsed).to.be.true();
 				});
 
 				// this covers GT-28257 step 4
 				it('should expand tabs when focus is moved to a Spottable component in the tabs container', function () {
-					// focus the layout's tabs
-					tabLayout.hoverTabs();
+					// 5-way down to second tab
+					Page.spotlightDown();
+					// select it
 					Page.spotlightSelect();
+					// focus the contents
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightRight();
+					});
+					expect(tabLayout.isCollapsed).to.be.true();
+					// Back to the tabs
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightLeft();
+					});
 					expect(tabLayout.isCollapsed).to.be.false();
 				});
 			});

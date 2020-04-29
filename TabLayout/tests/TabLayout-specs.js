@@ -21,7 +21,10 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('collapsed');
+		const expected = 'collapsed';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have default orientation of vertical', () => {
@@ -39,7 +42,10 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('vertical');
+		const expected = 'vertical';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 
 	it('should have orientation of horizontal when orientation is set to horizontal', () => {
@@ -59,6 +65,9 @@ describe('TabLayout specs', () => {
 			</TabLayoutBase>
 		);
 
-		expect(subject.prop('className').split(' ')).toContain('horizontal');
+		const expected = 'horizontal';
+		const actual = subject.prop('className');
+
+		expect(actual).toContain(expected);
 	});
 });
