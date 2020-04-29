@@ -6,6 +6,8 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
+import {getNumberValue, getIndex} from './util';
+
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
@@ -13,8 +15,7 @@ const
 	isPageUp = is('pageUp'),
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
-	isUp = is('up'),
-	getNumberValue = (index) => index | 0;
+	isUp = is('up');
 
 const useEventKey = (props, instances, context) => {
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
@@ -122,10 +123,10 @@ const useEventKey = (props, instances, context) => {
 					const {repeat} = ev;
 					const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, spotlightId} = props;
 					const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
-					const targetIndex = target.dataset.index;
+					const targetIndex = getIndex(target);
 					const isNotItem = (
 						// if target has an index, it must be an item
-						!targetIndex &&
+						typeof targetIndex !== 'number' &&
 						// if it lacks an index and is inside the scroller, we need to handle this
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);

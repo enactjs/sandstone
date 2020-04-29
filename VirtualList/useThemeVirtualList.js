@@ -1,11 +1,12 @@
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
-import {Spottable} from '@enact/spotlight/Spottable';
+import {Spottable, spottableClass} from '@enact/spotlight/Spottable';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {affordanceSize, dataIndexAttribute} from '../useScroll';
 
+import {getNumberValue, getIndex} from './util';
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
@@ -15,15 +16,16 @@ const SpotlightPlaceholder = Spottable('div');
 
 const
 	nop = () => {},
-	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-	getNumberValue = (index) => index | 0;
+	shouldFocusByDirection = ({index, nextIndex, target}) => (
+		nextIndex > index ? nextIndex - index : index - nextIndex === 1 && target && target.querySelector(`.${spottableClass}`)
+	);
 
 const useSpottable = (props, instances) => {
 	const {noAffordance, scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
 		const itemNode = itemRefs.current[index % scrollContentHandle.current.state.numOfItems];
-		return (itemNode && parseInt(itemNode.dataset.index) === index) ? itemNode : null;
+		return (itemNode && getNumberValue(itemNode.dataset.index) === index) ? itemNode : null;
 	};
 
 	// Mutable value
@@ -53,7 +55,7 @@ const useSpottable = (props, instances) => {
 					break;
 				case 'keyDown':
 					if (Spotlight.move(param.direction)) {
-						const nextTargetIndex = Spotlight.getCurrent().dataset.index;
+						const nextTargetIndex = getIndex(Spotlight.getCurrent());
 
 						ev.preventDefault();
 						ev.stopPropagation();
@@ -124,7 +126,7 @@ const useSpottable = (props, instances) => {
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
-		const index = getNumberValue(target.dataset.index);
+		const index = getIndex(target);
 
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;
@@ -143,7 +145,13 @@ const useSpottable = (props, instances) => {
 			if (start >= startBoundary && end <= endBoundary) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
 				mutableRef.current.isScrolledBy5way = true;
-				focusByIndex(nextIndex);
+
+				if (shouldFocusByDirection({index, nextIndex, target: getItemNode(nextIndex)})) {
+					Spotlight.move(getDirection(keyCode));
+				} else {
+					focusByIndex(nextIndex);
+				}
+
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
 				focusByIndex(nextIndex);
@@ -162,6 +170,8 @@ const useSpottable = (props, instances) => {
 					}
 
 					setNodeIndexToBeFocused(nextIndex);
+				} else if (shouldFocusByDirection({index, nextIndex, target: itemNode})) {
+					Spotlight.move(getDirection(keyCode));
 				} else {
 					focusByIndex(nextIndex);
 				}
@@ -227,7 +237,7 @@ const useSpottable = (props, instances) => {
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
-			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+			focusedIndex = getIndex(item);
 
 		if (!isNaN(focusedIndex)) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
@@ -276,7 +286,7 @@ const useSpottable = (props, instances) => {
 	}
 
 	function setLastFocusedNode (node) {
-		mutableRef.current.lastFocusedIndex = node.dataset && getNumberValue(node.dataset.index);
+		mutableRef.current.lastFocusedIndex = getIndex(node);
 	}
 
 	function getScrollBounds () {

@@ -7,6 +7,7 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
@@ -108,6 +109,20 @@ class StatefulSwitchItem extends React.Component {
 		);
 	}
 }
+
+const SlotItem = ({children, ...rest}) => (
+	<Item {...rest}>
+		<slotBefore>
+			<Button icon="list" />
+		</slotBefore>
+		{children}
+		<slotAfter>
+			<Button icon="list" />
+			<Button icon="star" />
+			<Button icon="edit" />
+		</slotAfter>
+	</Item>
+);
 
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
@@ -332,6 +347,30 @@ storiesOf('VirtualList', module)
 					<Cell shrink component={Item} style={{margin: 0}}>extra item2</Cell>
 					<Cell shrink component={Item} style={{margin: 0}}>extra item3</Cell>
 				</Column>
+			);
+		},
+		{propTables: [Config]}
+	)
+	.add(
+		'items containing spottable controls',
+		() => {
+			return (
+				<VirtualList
+					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+					itemRenderer={renderItem(SlotItem, ri.scale(number('itemSize', Config, 156)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					noScrollByWheel={boolean('noScrollByWheel', Config)}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					spacing={ri.scale(number('spacing', Config))}
+					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+				/>
 			);
 		},
 		{propTables: [Config]}
