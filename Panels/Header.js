@@ -446,10 +446,9 @@ const HeaderBase = kind({
 		titleRef,
 		type,
 
+		measurements,
 		slotBeforeRef,
-		slotBeforeMeasurement,
 		slotAfterRef,
-		slotAfterMeasurement,
 		...rest
 	}) => {
 		delete rest.featureContent;
@@ -488,15 +487,16 @@ const HeaderBase = kind({
 		// 1. `slotBefore` is bigger than `slotAfter`
 		// 2. `slotAfter` is bigger than `slotBefore`
 		let slotSize;
+		const {slotBeforeMeasurement, slotAfterMeasurement} = measurements || {};
 		const {width: slotBeforeWidth} = slotBeforeMeasurement || {};
 		const {width: slotAfterWidth} = slotAfterMeasurement || {};
 
 		if (slotBeforeWidth > slotAfterWidth) {
-			slotSize = `${slotBeforeWidth}px`;
+			slotSize = slotBeforeWidth;
 		} else if (slotAfterWidth > slotBeforeWidth) {
-			slotSize = `${slotAfterWidth}px`;
+			slotSize = slotAfterWidth;
 		} else {
-			slotSize = `${slotAfterWidth}px` || `${slotBeforeWidth}px`;
+			slotSize = slotAfterWidth || slotBeforeWidth;
 		}
 
 		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
@@ -508,7 +508,7 @@ const HeaderBase = kind({
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center" ref={titleRef}>
 					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell className={css.slotBefore} ref={slotBeforeRef} shrink size={slotSize}>{backButton}{slotBefore}
+						<Cell className={css.slotBefore} ref={slotBeforeRef} shrink={!slotSize} size={slotSize}>{backButton}{slotBefore}
 						</Cell>
 					) : null}
 					<Cell className={css.titleCell}>
@@ -535,7 +535,7 @@ const HeaderBase = kind({
 						</Heading>
 					</Cell>
 					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell className={css.slotAfter} shrink size={slotSize} ref={slotAfterRef}>{slotAfter}{closeButton}
+						<Cell className={css.slotAfter} shrink={!slotSize} size={slotSize} ref={slotAfterRef}>{slotAfter}{closeButton}
 						</Cell>
 					) : null}
 				</Row>
@@ -557,12 +557,16 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
 		const {ref: slotBeforeRef, measurement: slotBeforeMeasurement} = useMeasurable() || {};
 		const {ref: slotAfterRef, measurement: slotAfterMeasurement} = useMeasurable() || {};
+		const [measurements, setMeasurements] = React.useState(null);
+
+		if (!measurements && slotBeforeMeasurement && slotAfterMeasurement) {
+			setMeasurements({slotBeforeMeasurement, slotAfterMeasurement});
+		}
 
 		const measurableProps = {
 			slotBeforeRef,
-			slotBeforeMeasurement,
 			slotAfterRef,
-			slotAfterMeasurement
+			measurements
 		};
 		return <Wrapped {...measurableProps} {...props} />;
 	};
