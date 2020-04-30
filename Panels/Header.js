@@ -574,8 +574,8 @@ const CollapsingHeaderDecorator = (Wrapped) => {
 
 const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
-		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth} = {}} = useMeasurable() || {};
-		const {ref: slotAfterRef, measurement: {width: slotAfterWidth} = {}} = useMeasurable() || {};
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
 		const [{slotSize, savedSlotBeforeWidth, savedSlotAfterWidth}, setSlotSize] = React.useState({});
 
 		// If the slot width has changed, re-run this.
