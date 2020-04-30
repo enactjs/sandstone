@@ -142,7 +142,7 @@
 		color: @sand-inputfield-text-color;
 
 		.bg {
-			background-color: @sand-inputfield-bg-color;
+			.sand-spotlight-resting-colors(@sand-inputfield-bg-opacity);
 		}
 
 		.input {
@@ -174,12 +174,12 @@
 			// background-color: @sand-spotlight-color;
 		}
 
+		// For when the field container has spotlight focus
 		.focus({
 			color: @sand-inputfield-focus-text-color;
 
 			.bg {
-				background-color: @sand-inputfield-focus-bg-color;
-				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
+				.sand-spotlight-focus-colors();
 			}
 
 			.input {
@@ -195,18 +195,20 @@
 			// }
 		});
 
+		// For when the HTML input field has focus (someone is typing)
 		&:focus-within {
 			color: @sand-inputfield-focus-text-color;
 
 			.bg {
-				background-color: @sand-inputfield-active-bg-color;
-				filter: drop-shadow(@sand-inputfield-focus-bg-shadow);
+				.sand-spotlight-focus-colors();
 			}
 		}
 
 		.sand-disabled({
 			.bg {
-				background-color: @sand-inputfield-disabled-bg-color;
+				.sand-spotlight-resting-colors();
+				filter+_: brightness(0.28);  // Adjusting the background color to match the gui designs. Filter-shift the color.
+				.sand-disabled-focus-bg-colors(); // Apply a proper opacity to the disabled background, according to the designs.
 			}
 
 			.input {
@@ -215,11 +217,8 @@
 			}
 
 			.focus({
-				.sand-disabled-focus-bg-colors();
-
 				.bg {
 					.sand-disabled-focus-bg-colors();
-					.sand-spotlight-focus-colors();
 				}
 
 				.input {
