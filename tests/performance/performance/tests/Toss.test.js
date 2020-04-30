@@ -26,4 +26,27 @@ describe('Toss', () => {
 			}
 		}
 	});
+
+	it('should mount Toss', async () => {
+		const filename = getFileName('Toss');
+
+		await page.tracing.start({path: filename, screenshots: false});
+		await page.goto('http://localhost:8080/toss');
+		await page.waitForSelector('#toss');
+
+		await page.tracing.stop();
+
+		// Executes Navigation API within the page context
+		const metrics = await page.evaluate(() => JSON.stringify(window.performance));
+
+		// Parses the result to JSON - loading timeline
+		console.info(JSON.parse(metrics));
+
+		// Analyzing runtime through metrics
+	 	const metrics_data = await page.metrics();
+  		console.info(metrics_data);
+
+		const actualMount = Mount(filename, 'Tossable');
+		TestResults.addResult({component: 'Toss', type: 'Mount', actualValue: actualMount});
+	});
 });
