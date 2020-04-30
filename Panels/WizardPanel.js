@@ -92,14 +92,6 @@ const WizardPanelBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Omits the close button in header.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noCloseButton: PropTypes.bool,
-
-		/**
 		* Omits the next button component.
 		*
 		* @type {Boolean}
@@ -131,15 +123,6 @@ const WizardPanelBase = kind({
 		* @public
 		*/
 		onChange: PropTypes.func,
-
-		/**
-		* Called when closing WizardPanel.
-		*
-		* @type {Function}
-		* @param {Object} event
-		* @public
-		*/
-		onClose: PropTypes.func,
 
 		/**
 		* The text for previous button.
@@ -208,13 +191,12 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, nextButtonText, noAnimation, noCloseButton, noNextButton, noPrevButton, noSteps, onClose, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
+	render: ({buttons, children, footer, index, nextButtonText, noAnimation, noNextButton, noPrevButton, noSteps, onIncrementStep, onDecrementStep, prevButtonText, reverseTransition, subtitle, title, total, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
 					centered
-					noCloseButton={noCloseButton}
-					onClose={onClose}
+					noCloseButton
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
@@ -222,7 +204,7 @@ const WizardPanelBase = kind({
 					{!noSteps ? (
 						<Steps current={index + 1} slot="slotAbove" total={total} />
 					) : null}
-					{index !== (total - 1) && !noNextButton ? (
+					{index < total - 1 && !noNextButton ? (
 						<Button
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
@@ -244,18 +226,6 @@ const WizardPanelBase = kind({
 							icon="arrowlargeleft"
 							minWidth={false}
 							onClick={onDecrementStep}
-							slot="slotBefore"
-						>
-							{prevButtonText}
-						</Button>
-					) : null}
-					{index === 0 ? (
-						<Button
-							aria-label={$L('Exit')}
-							backgroundOpacity="transparent"
-							icon="arrowhookleft"
-							minWidth={false}
-							onClick={onClose ? onClose : null}
 							slot="slotBefore"
 						>
 							{prevButtonText}
