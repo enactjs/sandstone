@@ -580,7 +580,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 		// If the slot width has changed, re-run this.
 		if (slotBeforeWidth !== savedSlotBeforeWidth || slotAfterWidth !== savedSlotAfterWidth) {
-			const largestSlotSize = (((slotBeforeWidth || 0) > (slotAfterWidth || 0)) ? slotBeforeWidth : slotAfterWidth) || 0;
+			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
 
 			// And only do this the largest slot is a different value this time around.
 			if (slotSize !== largestSlotSize) {
@@ -598,7 +598,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 			slotSize: unit(slotSize, 'rem')
 		};
 
-		return <Wrapped {...measurableProps} {...props} />;
+		return <Wrapped {...props} {...measurableProps} />;
 	};
 };
 
