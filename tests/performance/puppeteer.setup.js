@@ -20,7 +20,7 @@ global.beforeEach(async () => {
 });
 
 global.afterEach(async () => {
-	await page.close();
+	await global.page.close();
 });
 
 global.afterAll(async () => {

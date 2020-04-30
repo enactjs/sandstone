@@ -43,8 +43,8 @@ describe('Toss', () => {
 		console.info(JSON.parse(metrics));
 
 		// Analyzing runtime through metrics
-	 	const metrics_data = await page.metrics();
-  		console.info(metrics_data);
+		const metrics_data = await page.metrics();
+		console.info(metrics_data);
 
 		const actualMount = Mount(filename, 'Tossable');
 		TestResults.addResult({component: 'Toss', type: 'Mount', actualValue: actualMount});
