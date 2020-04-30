@@ -35,7 +35,7 @@ import componentCss from './Checkbox.module.less';
  *
  * @class CheckboxBase
  * @memberof sandstone/Checkbox
- * @extends sandstone/ToggleIcon.ToggleIcon
+ * @extends sandstone/Icon.Icon
  * @ui
  * @public
  */

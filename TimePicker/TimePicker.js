@@ -14,8 +14,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 
-
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import TimePickerBase from './TimePickerBase';

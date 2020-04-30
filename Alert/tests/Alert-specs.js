@@ -6,7 +6,7 @@ import Button from '../../Button';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
-describe('Alert specs', () => {
+describe('Alert', () => {
 	test('should be rendered opened if open is set to true', () => {
 		const alert = mount(
 			<FloatingLayerController>
@@ -37,10 +37,11 @@ describe('Alert specs', () => {
 		const alert = shallow(
 			<AlertBase open id="test" title="alert title" />
 		);
-		const expected = 'alert title';
-		const actual = alert.find('#test_title');
 
-		expect(actual.text()).toBe(expected);
+		const expected = 'alert title';
+		const actual = alert.find('#test_title').prop('children');
+
+		expect(actual).toBe(expected);
 	});
 
 	test('should render subtitle', () => {
@@ -48,19 +49,18 @@ describe('Alert specs', () => {
 			<AlertBase open id="test" title="alert title" subtitle="alert title below" />
 		);
 		const expected = 'alert title below';
-		const actual = alert.find('#test_subtitle');
+		const actual = alert.find('#test_subtitle').prop('children');
 
-		expect(actual.text()).toBe(expected);
+		expect(actual).toBe(expected);
 	});
 
 	test('should render to empty string if subtitle is not set', () => {
 		const alert = shallow(
 			<AlertBase open id="test" title="alert title" />
 		);
-		const expected = '';
-		const actual = alert.find('#test_subtitle');
+		const actual = alert.find('#test_subtitle').prop('children');
 
-		expect(actual.text()).toBe(expected);
+		expect(actual).toBeFalsy();
 	});
 
 	test('should render icon type of image if `image` prop is set to `icon`', () => {

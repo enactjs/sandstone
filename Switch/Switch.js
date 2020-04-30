@@ -28,7 +28,7 @@ import componentCss from './Switch.module.less';
  *
  * @class SwitchBase
  * @memberof sandstone/Switch
- * @extends sandstone/ToggleIcon.ToggleIcon
+ * @extends sandstone/Icon.Icon
  * @ui
  * @public
  */

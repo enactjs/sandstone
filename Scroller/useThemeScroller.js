@@ -1,5 +1,5 @@
 import {adaptEvent, forward, handle} from '@enact/core/handle';
-import {add, is} from '@enact/core/keymap';
+import {is} from '@enact/core/keymap';
 import Spotlight from '@enact/spotlight';
 import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
@@ -7,21 +7,19 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
 import React, {useCallback, useEffect} from 'react';
 
-import {fadeOutSize} from '../useScroll';
+import {affordanceSize} from '../useScroll';
 
 import {useEventKey} from './useEvent';
 
 import css from './Scroller.module.less';
 import scrollbarTrackCss from '../useScroll/ScrollbarTrack.module.less';
 
-add('esc', 27);
-
 const
-	isEsc = is('esc'),
+	isCancel = is('cancel'),
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
+const getFocusableBodyProps = ({direction, verticalScrollbar}, scrollContainerRef) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -45,7 +43,8 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 		} else if (type === 'keydown') {
 			filterTarget =
 				isEnter(keyCode) && isBody(target) && 'body' ||
-				isEsc(keyCode) && !isBody(target) && 'thumb' ||
+				isEnter(keyCode) && !isBody(target) && 'thumb' ||
+				isCancel(keyCode) && !isBody(target) && 'thumb' ||
 				null;
 		}
 
@@ -71,7 +70,7 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 				nextTarget = (verticalThumb && verticalThumb.classList.contains(scrollbarTrackCss.thumb)) ? verticalThumb : nextTarget;
 			}
 		} else {
-			// Esc key on scroll thumb.
+			// Enter or Cancel key on scroll thumb.
 			// Scroll body get focus.
 			nextTarget = target.closest(`.${css.focusableBody}`);
 		}
@@ -82,9 +81,12 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 			ev.nativeEvent.stopImmediatePropagation();
 		}
 	};
-
 	return {
-		className: classNames(className, css.focusableBody),
+		className: classNames(
+			css.focusableBody,
+			{
+				[css.verticalExpand]: (direction === 'vertical' || direction === 'both') && (verticalScrollbar !== 'hidden')
+			}),
 		onFocus: handle(
 			forward('onFocus'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
@@ -98,13 +100,11 @@ const getFocusableBodyProps = ({className, style}, scrollContainerRef) => {
 			forward('onKeyDown'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
 			consumeEventWithFocus
-		),
-		style
+		)
 	};
 };
 
 const useSpottable = (props, instances) => {
-	const {noFadeOut} = props;
 	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
 
 	// Hooks
@@ -183,13 +183,13 @@ const useSpottable = (props, instances) => {
 			// round to start
 			if (st < threshold) return 0;
 
-			return st - (noFadeOut ? 0 : fadeOutSize);
+			return st;
 		};
 		const roundToEnd = (sb, st, sh) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st + (noFadeOut ? 0 : fadeOutSize);
+			return st + affordanceSize;
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -301,7 +301,6 @@ const useSpottable = (props, instances) => {
 		const containerNode = scrollContentRef.current;
 		const horizontal = scrollContentHandle.current.isHorizontal();
 		const vertical = scrollContentHandle.current.isVertical();
-		const fadeOutOffset = noFadeOut ? 0 : fadeOutSize;
 
 		if (!vertical && !horizontal || !item || !utilDOM.containsDangerously(containerNode, item)) {
 			return;
@@ -310,11 +309,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= (containerRect.left + fadeOutOffset) && itemRect.right <= (containerRect.right - fadeOutOffset))) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + affordanceSize) && itemRect.right <= (containerRect.right - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= (containerRect.top + fadeOutOffset) && itemRect.bottom <= (containerRect.bottom - fadeOutOffset))) {
+		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= (containerRect.bottom - affordanceSize))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
@@ -336,12 +335,11 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = (props, scrollContentProps) => {
-	const {scrollContainerRef, ...rest} = scrollContentProps;
+const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
+	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
 	delete rest.children;
-	delete rest.noFadeOut;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -363,6 +361,12 @@ const useThemeScroller = (props, scrollContentProps) => {
 	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
 
 	// Render
+
+	rest.className = classNames(
+		className,
+		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
+		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
+	);
 
 	rest.children = (
 		<div className={css.contentWrapper}>

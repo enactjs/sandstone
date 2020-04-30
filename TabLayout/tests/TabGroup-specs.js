@@ -17,7 +17,10 @@ describe('TabGroup specs', () => {
 			/>
 		);
 
-		expect(subject.find('Item').length).toEqual(1);
+		const expected = 1;
+		const actual = subject.find('Tab').length;
+
+		expect(actual).toEqual(expected);
 	});
 
 
@@ -32,6 +35,9 @@ describe('TabGroup specs', () => {
 			/>
 		);
 
-		expect(subject.find('Item').length).toEqual(3);
+		const expected = 3;
+		const actual = subject.find('Tab').length;
+
+		expect(actual).toEqual(expected);
 	});
 });

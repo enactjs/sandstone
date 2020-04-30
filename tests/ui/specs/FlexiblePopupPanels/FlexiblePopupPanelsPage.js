@@ -17,6 +17,10 @@ class FlexiblePopupPanelsInterface {
 		this['panel' + panel].waitForExist(duration);
 	}
 
+	waitForPanelBody (panel, duration = 2500) {
+		$(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist(duration);
+	}
+
 	waitForLeave (panel, duration = 1000) {
 		this['panel' + panel].waitForExist(duration, true);
 	}

@@ -11,10 +11,10 @@ import Skinnable from '../Skinnable';
 import CancelDecorator from './CancelDecorator';
 import Viewport from './Viewport';
 
-import css from './Panels.module.less';
+import componentCss from './Panels.module.less';
 
 /**
- * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
@@ -88,6 +88,20 @@ const PanelsBase = kind({
 		 * @public
 		 */
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panels` - The root class name
+		 * * `viewport` - The node containing the panel instances
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -170,7 +184,21 @@ const PanelsBase = kind({
 		 * @type {Function}
 		 * @public
 		 */
-		onClose: PropTypes.func
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
@@ -182,8 +210,9 @@ const PanelsBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'panels enact-fit'
+		css: componentCss,
+		className: 'panels enact-fit',
+		publicClassNames: ['panels', 'viewport']
 	},
 
 	computed: {
@@ -199,13 +228,35 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, viewportId, ...rest}) => {
+	render: ({
+		arranger,
+		backButtonAriaLabel,
+		backButtonBackgroundOpacity,
+		children,
+		closeButtonAriaLabel,
+		closeButtonBackgroundOpacity,
+		css,
+		generateId,
+		id,
+		index,
+		noAnimation,
+		noBackButton,
+		noCloseButton,
+		noSharedState,
+		onClose,
+		onBack,
+		onTransition,
+		onWillTransition,
+		viewportId,
+		...rest
+	}) => {
 		return (
 			<div {...rest} id={id}>
 				<Viewport
 					arranger={arranger}
 					backButtonAriaLabel={backButtonAriaLabel}
 					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
+					className={css.viewport}
 					closeButtonAriaLabel={closeButtonAriaLabel}
 					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}
@@ -217,6 +268,8 @@ const PanelsBase = kind({
 					noSharedState={noSharedState}
 					onBack={onBack}
 					onClose={onClose}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>

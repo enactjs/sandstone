@@ -1,9 +1,12 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
+
+import panelCss from '../Panels/Panel.module.less';
 
 import componentCss from './Scrollbar.module.less';
 
@@ -17,14 +20,31 @@ const useThemeScrollbar = (props) => {
 	const {
 		cbAlertScrollbarTrack,
 		focusableScrollbar,
+		initialHiddenHeight,
 		onInteractionForScroll,
 		rtl,
 		...rest
 	} = restProps;
 
+	const {className, ref: scrollbarContainerRef} = scrollbarProps;
+
+	useEffect(() => {
+		if (initialHiddenHeight && scrollbarContainerRef.current) {
+			const
+				scrollbarNode = scrollbarContainerRef.current,
+				{height} = scrollbarNode.getBoundingClientRect(),
+				scale = (height - initialHiddenHeight) / height;
+
+			scrollbarNode.style.setProperty('--scrollbar-scale', scale);
+		}
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
 	return {
 		restProps: rest,
-		scrollbarProps,
+		scrollbarProps: {
+			...scrollbarProps,
+			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight})
+		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
 			cbAlertScrollbarTrack,
