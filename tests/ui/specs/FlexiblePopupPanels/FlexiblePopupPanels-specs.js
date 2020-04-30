@@ -10,25 +10,19 @@ describe('FlexiblePopupPanels', function () {
 
 	describe('5-way', function () {
 		it('should open FlexiblePopupPanels and navigate to Panel', function () {
-			Interface.focusOpenButton();
-
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
 				Page.spotlightSelect();
 			});
-			Interface.focusNextButton();
+			Page.spotlightRight();
 
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
 			Page.spotlightSelect();
-			Interface.focusPrevButton();
+			Interface.waitForPanelBody(2);
 
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
-
-			Page.spotlightSelect();
-			Interface.waitForEnter(2);
-			Interface.focusPrevButton();
+			Page.spotlightUp();
 
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 

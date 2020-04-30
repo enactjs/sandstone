@@ -1,9 +1,9 @@
-import {Button} from '../../../../Button';
+import {Button} from '../../../../../Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import SwitchItem from '../../../../SwitchItem';
-import VirtualList from '../../../../VirtualList';
-import ThemeDecorator from '../../../../ThemeDecorator';
+import SwitchItem from '../../../../../SwitchItem';
+import VirtualList from '../../../../../VirtualList';
+import ThemeDecorator from '../../../../../ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
