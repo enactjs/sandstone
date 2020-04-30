@@ -12,11 +12,15 @@ class TabLayoutInterface {
 	}
 
 	hoverScroller () {
-		return this.tabsScroller.moveTo();
+		return this.tabsScroller.moveTo(100, 100);
 	}
 
 	hoverTabs () {
-		return this.tabs.moveTo();
+		return this.tabs.moveTo(100, 100);	// Moving to center could be off tab buttons
+	}
+
+	view (number) {
+		return $(`#view${number}`);
 	}
 
 	get content () {return getContent(this.self);}
@@ -32,11 +36,7 @@ class TabLayoutPage extends Page {
 	constructor () {
 		super();
 		this.title = 'TabLayout Test';
-		const tabLayout = new TabLayoutInterface('tabLayout');
-
-		this.components = {
-			tabLayout
-		};
+		this.tabLayout = new TabLayoutInterface('tabLayout');
 	}
 
 	open (layout = '', urlExtra) {
