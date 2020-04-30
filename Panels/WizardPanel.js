@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import Slottable from '@enact/ui/Slottable';
@@ -131,14 +130,6 @@ const WizardPanelBase = kind({
 		reverseTransition: PropTypes.bool,
 
 		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
 		* The subtitle to display.
 		*
 		* @type {String}
@@ -199,7 +190,7 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, rtl, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
@@ -214,7 +205,6 @@ const WizardPanelBase = kind({
 						backgroundOpacity="transparent"
 						disabled={index === (total - 1)}
 						icon="arrowlargeright"
-						iconFlip={rtl ? 'horizontal' : null}
 						iconPosition="after"
 						minWidth={false}
 						onClick={onIncrementStep}
@@ -226,7 +216,6 @@ const WizardPanelBase = kind({
 						backgroundOpacity="transparent"
 						disabled={index === 0}
 						icon="arrowlargeleft"
-						iconFlip={rtl ? 'horizontal' : null}
 						minWidth={false}
 						onClick={onDecrementStep}
 						slot="slotBefore"
@@ -384,10 +373,8 @@ const WizardPanelDecorator = (Wrapped) => {
  */
 const WizardPanel = Changeable(
 	{prop: 'index'},
-	I18nContextDecorator({rtlProp: 'rtl'},
-		WizardPanelDecorator(
-			WizardPanelBase
-		)
+	WizardPanelDecorator(
+		WizardPanelBase
 	)
 );
 

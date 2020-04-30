@@ -76,10 +76,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.FlexiblePopupPanels` for a flexible size pop-up Panels experience
 - `sandstone/Panels` and `sandstone/Panels.Header` props `backButtonAriaLabel`, `backButtonBackgroundOpacity`, `closeButtonAriaLabel`, `closeButtonBackgroundOpacity`, `noBackButton`, `noCloseButton`, `onBack`, and `onClose`
 
-### Added
-
-- `sandstone/Button` `iconFlip` prop
-
 ### Changed
 
 - `sandstone/Panels.OptionPanels` to `sandstone/Panels.FixedPopupPanels`
