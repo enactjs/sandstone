@@ -174,20 +174,20 @@ const WizardPanelBase = kind({
 		reverseTransition: PropTypes.bool,
 
 		/**
-		* The subtitle to display.
+		* The subtitles to display.
 		*
-		* @type {String}
+		* @type {String[]}
 		* @public
 		*/
-		subtitle: PropTypes.string,
+		subtitle: PropTypes.arrayOf(PropTypes.string),
 
 		/**
-		* The title to display.
+		* The titles to display.
 		*
-		* @type {String}
+		* @type {String[]}
 		* @public
 		*/
-		title: PropTypes.string,
+		title: PropTypes.arrayOf(PropTypes.string),
 
 		/**
 		* The total views in WizardPanel.

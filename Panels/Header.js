@@ -542,11 +542,9 @@ const HeaderBase = kind({
 			}
 
 			return isTitleArray || isSubtitleArray ? (
-				<div style={{position: 'relative', height: '100px'}}>
-					<ViewManager arranger={arranger} duration={1000} index={index}>
+					<ViewManager arranger={arranger} className={css.titleViewManager} duration={1000} index={index} >
 						{titles}
 					</ViewManager>
-				</div>
 			) : titleAndSubtitleHeading({currentTitle: title, currentSubtitle: subtitle});
 		},
 		// This unruly looking pile of props allows these props to override their context equivalents
