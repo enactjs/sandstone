@@ -76,6 +76,15 @@ const WizardPanelBase = kind({
 		index: PropTypes.number,
 
 		/**
+		 * Hint string read when focusing the next button.
+		 *
+		 * @type {String}
+		 * @default 'Next'
+		 * @public
+		 */
+		nextButtonAriaLabel: PropTypes.string,
+
+		/**
 		* The text for next button.
 		*
 		* @type {String}
@@ -139,6 +148,15 @@ const WizardPanelBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'Previous'
+		 * @public
+		 */
+		prevButtonAriaLabel: PropTypes.string,
+
+		/**
 		* The text for previous button.
 		*
 		* @type {String}
@@ -180,7 +198,9 @@ const WizardPanelBase = kind({
 	},
 
 	defaultProps: {
-		index: 0
+		index: 0,
+		nextButtonAriaLabel: $L('Next'),
+		prevButtonAriaLabel: $L('Previous')
 	},
 
 	styles: {
@@ -215,7 +235,7 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, noNextButton, noPrevButton, noSteps, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonAriaLabel, nextButtonText, noNextButton, noPrevButton, noSteps, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonAriaLabel, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
@@ -230,9 +250,8 @@ const WizardPanelBase = kind({
 					) : null}
 					{index < total - 1 && !noNextButton ? (
 						<Button
-							aria-label={$L('Next')}
+							aria-label={nextButtonAriaLabel}
 							backgroundOpacity="transparent"
-							disabled={index === (total - 1)}
 							icon="arrowlargeright"
 							iconPosition="after"
 							minWidth={false}
@@ -244,9 +263,8 @@ const WizardPanelBase = kind({
 					) : null}
 					{index !== 0 && !noPrevButton ? (
 						<Button
-							aria-label={$L('Previous')}
+							aria-label={prevButtonAriaLabel}
 							backgroundOpacity="transparent"
-							disabled={index === 0}
 							icon="arrowlargeleft"
 							minWidth={false}
 							onClick={onDecrementStep}
