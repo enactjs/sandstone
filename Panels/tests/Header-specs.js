@@ -17,6 +17,90 @@ describe('Header Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should render the first title in title array', () => {
+		const titles = ['title 1', 'title 2', 'title 3'];
+
+		const subject = mount(
+			<Header title={titles} />
+		);
+
+		const expected = titles[0];
+		const actual = subject.find('h1').text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render the first subtitle in subtitle array', () => {
+		const subtitles = ['subtitle 1', 'subtitle 2', 'subtitle 3'];
+
+		const subject = mount(
+			<Header subtitle={subtitles} />
+		);
+
+		const expected = subtitles[0];
+		const actual = subject.find('h2').text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render the index title', () => {
+		const titles = ['title 1', 'title 2', 'title 3'];
+
+		const subject = mount(
+			<Header index={1} title={titles} />
+		);
+
+		const expected = titles[1];
+		const actual = subject.find('h1').text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render the index subtitle', () => {
+		const subtitles = ['subtitle 1', 'subtitle 2', 'subtitle 3'];
+
+		const subject = mount(
+			<Header index={1} subtitle={subtitles} />
+		);
+
+		const expected = subtitles[1];
+		const actual = subject.find('h2').text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render title with the index subtitle', () => {
+		const title = 'title';
+		const subtitles = ['subtitle 1', 'subtitle 2', 'subtitle 3'];
+
+		const subject = mount(
+			<Header index={1} subtitle={subtitles} title={title} />
+		);
+
+		const expected = `${title} ${subtitles[1]}`;
+		const actualTitle = subject.find('h1').text();
+		const actualSubtitle = subject.find('h2').text();
+		const actual = `${actualTitle} ${actualSubtitle}`;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render the index title with subtitle', () => {
+		const titles = ['title 1', 'title 2', 'title 3'];
+		const subtitle = 'subtitle';
+
+		const subject = mount(
+			<Header index={1} subtitle={subtitle} title={titles} />
+		);
+
+		const expected = `${titles[1]} ${subtitle}`;
+		const actualTitle = subject.find('h1').text();
+		const actualSubtitle = subject.find('h2').text();
+		const actual = `${actualTitle} ${actualSubtitle}`;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should support "wizard" type', () => {
 		const subject = mount(
 			<Header type="wizard"><title>Wizard Header</title></Header>
