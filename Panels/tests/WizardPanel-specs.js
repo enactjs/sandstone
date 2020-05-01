@@ -182,6 +182,22 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should hide previous button on the last view',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={0} total={3} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
