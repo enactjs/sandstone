@@ -10,6 +10,7 @@ import $L from '../internal/$L';
 import Button from '../Button/Button';
 import Steps from '../Steps/Steps';
 
+import {CrossFadeArranger} from './Arrangers';
 import Header from './Header';
 import Panel from './Panel';
 
@@ -239,12 +240,14 @@ const WizardPanelBase = kind({
 		return (
 			<Panel {...rest}>
 				<Header
+					arranger={CrossFadeArranger}
 					centered
 					css={css}
 					noCloseButton
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
+					index={index}
 				>
 					{!noSteps ? (
 						<Steps current={index + 1} slot="slotAbove" total={total} />
@@ -337,9 +340,17 @@ const WizardPanelDecorator = (Wrapped) => {
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
 
-		// If `subtitle` and `title` is not provided by `view`, fallback to the `subtitle` and `title` from `WizardPanel`
-		const currentSubtitle = view && (typeof view.subtitle !== 'undefined') ? view.subtitle : subtitle;
-		const currentTitle = view && (typeof view.title !== 'undefined') ? view.title : title;
+		// If `subtitle` and/or `title` is not provided by `view`, fallback to the `subtitle` and `title` from `WizardPanel`
+		const fallbackSubtitle = subtitle ? subtitle : '';
+		const fallbackTitle = title ? title : '';
+		const subtitles = [];
+		const titles = [];
+
+		// Extract titles and subtitles into arrays for Header crossfade animation
+		React.Children.forEach(children, (child) => {
+			subtitles.push(child.props && child.props.subtitle ? child.props.subtitle : fallbackSubtitle);
+			titles.push(child.props && child.props.title ? child.props.title : fallbackTitle);
+		});
 
 		return (
 			<WizardPanelContext.Provider value={setView}>
@@ -349,8 +360,8 @@ const WizardPanelDecorator = (Wrapped) => {
 					{...view}
 					index={index}
 					reverseTransition={reverseTransition}
-					subtitle={currentSubtitle}
-					title={currentTitle}
+					subtitle={subtitles}
+					title={titles}
 					total={totalViews}
 				>
 					{view && view.children ? (
@@ -442,14 +453,14 @@ const WizardPanel = Changeable(
  * @memberof sandstone/Panels.WizardPanel
  * @ui
  */
-function ViewBase ({buttons, children, footer, subtitle, title}) {
+function ViewBase ({buttons, children, footer}) {
 	const set = React.useContext(WizardPanelContext);
 
 	React.useEffect(() => {
 		if (set) {
-			set({buttons, children, footer, subtitle, title});
+			set({buttons, children, footer});
 		}
-	}, [buttons, children, footer, subtitle, set, title]);
+	}, [buttons, children, footer, set]);
 
 	return null;
 }

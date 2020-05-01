@@ -9,6 +9,7 @@ import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import {unit} from '@enact/ui/resolution';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -23,6 +24,24 @@ import WindowEventable from '../internal/WindowEventable';
 import {PanelsStateContext} from './Viewport';
 
 import componentCss from './Header.module.less';
+
+/**
+ * A container  with special styles for animating between titles
+ *
+ * @class Header
+ * @memberof sandstone/Panels.Header
+ * @ui
+ * @private
+ */
+const TitleContainer = kind({
+	name: 'TitleContainer',
+	styles: {
+		style: {position: 'absolute', left: '50%', transform: 'translateX(-50%)', width: '100%'}
+	},
+	render (props) {
+		return <div {...props} />;
+	}
+})
 
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
@@ -73,6 +92,17 @@ const HeaderBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
+		/**
+		 * Set of functions that control how the titles are transitioned between each other.
+		 * Requires an array of titles to be passed to `title` (likewise for `subtitle`),
+		 * and the given arranger transition will occur when changing the index.
+		 *
+		 * @type {ui/ViewManager.Arranger}
+		 * @default ui/ViewManager.SlideLeftArranger
+		 * @public
+		 */
+		arranger: shape,
+
 		/**
 		 * Sets the hint string read when focusing the back button.
 		 *
@@ -192,6 +222,15 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		hover: PropTypes.bool,
+
+		/**
+		* The index of titles and subtitles to show when an array of titles and an array of subtitles are given.
+		*
+		* @type {Number}
+		* @default 0
+		* @private
+		*/
+		index: PropTypes.number,
 
 		/**
 		 * Determines what triggers the header content to start its animation.
@@ -343,6 +382,9 @@ const HeaderBase = kind({
 
 		/**
 		 * Text displayed below the title.
+		 * Accepts an array of subtitles for transitions between subtitles.
+		 * Supply an `arranger` to control which transition to use.
+		 * Use `index` to control which subtitle to show.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
@@ -356,6 +398,9 @@ const HeaderBase = kind({
 
 		/**
 		 * Title of the header.
+		 * Accepts an array of titles for transitions between titles.
+		 * Supply an `arranger` to control which transition to use.
+		 * Use `index` to control which title to show.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
@@ -398,6 +443,7 @@ const HeaderBase = kind({
 
 	defaultProps: {
 		backButtonAvailable: false,
+		index: 0,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -444,15 +490,72 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		// This unruly looking pile of props allows these props to override their context equivelents
+		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
+		titleComponent: ({arranger, css, centered, index, marqueeOn, subtitle, title}) => {
+			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
+
+			// Getting an array of titles/subtitles for title animation
+			const isTitleArray = Array.isArray(title);
+			const isSubtitleArray = Array.isArray(subtitle);
+			let titles = [];
+
+			// Helper function for setting title and subtitle Headings
+			const titleAndSubtitleHeading = ({currentTitle, currentSubtitle}) => (
+				<>
+					<Heading
+						aria-label={currentTitle}
+						size="title"
+						spacing="auto"
+						marqueeOn={marqueeOn}
+						forceDirection={direction}
+						alignment={centered ? 'center' : null}
+						className={css.title}
+					>
+						{currentTitle}
+					</Heading>
+					<Heading
+						size="subtitle"
+						spacing="auto"
+						marqueeOn={marqueeOn}
+						forceDirection={direction}
+						alignment={centered ? 'center' : null}
+						className={css.subtitle}
+					>
+						{currentSubtitle}
+					</Heading>
+				</>
+			);
+
+			if (isTitleArray) {
+				titles = title.map((currentTitle, index) => (
+					<TitleContainer key={currentTitle}>
+						{titleAndSubtitleHeading({currentTitle, currentSubtitle: isSubtitleArray ? subtitle[index] : subtitle})}
+					</TitleContainer>
+				));
+			} else if (isSubtitleArray) {
+				// If subtitle is an array, but title is not. We could still transition the subtitles with but with the same title.
+				titles = subtitle.map((currentSubtitle) => (
+					<TitleContainer key={currentSubtitle}>
+						{titleAndSubtitleHeading({currentTitle: title, currentSubtitle})}
+					</TitleContainer>
+				));
+			}
+
+			return isTitleArray || isSubtitleArray ? (
+				<div style={{position: 'relative', height: '100px'}}>
+					<ViewManager arranger={arranger} duration={1000} index={index}>
+						{titles}
+					</ViewManager>
+				</div>
+			) : titleAndSubtitleHeading({currentTitle: title, currentSubtitle: subtitle});
+		},
+		// This unruly looking pile of props allows these props to override their context equivalents
 		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
 		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
 		noBackButton: preferPropOverContext('noBackButton'),
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
 	},
 
 	render: ({
@@ -464,10 +567,8 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		direction,
 		hover,
 		line,
-		marqueeOn,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -478,15 +579,20 @@ const HeaderBase = kind({
 		slotBefore,
 		slotBeforeRef,
 		slotSize,
-		subtitle,
-		title,
+		titleComponent,
 		titleRef,
 		...rest
 	}) => {
+		delete rest.arranger;
+		delete rest.centered;
 		delete rest.entering;
 		delete rest.featureContent;
+		delete rest.index;
+		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
+		delete rest.subtitle;
+		delete rest.title;
 		delete rest.type;
 
 		// Set up the back button
@@ -531,27 +637,7 @@ const HeaderBase = kind({
 						</span>
 					</Cell>
 					<Cell className={css.titleCell}>
-						<Heading
-							aria-label={title}
-							size="title"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.title}
-						>
-							{title}
-						</Heading>
-						<Heading
-							size="subtitle"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.subtitle}
-						>
-							{subtitle}
-						</Heading>
+						{titleComponent}
 					</Cell>
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
