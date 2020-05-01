@@ -182,7 +182,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide previous button on the last view',
+		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={0} total={3} />

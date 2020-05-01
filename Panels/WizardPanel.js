@@ -148,7 +148,7 @@ const WizardPanelBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Sets the hint string read when focusing the back button.
+		 * Hint string read when focusing the previous button.
 		 *
 		 * @type {String}
 		 * @default 'Previous'
