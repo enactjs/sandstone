@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 
-import {View, WizardPanel, WizardPanelBase} from '../WizardPanel';
+import {WizardPanel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -10,7 +10,7 @@ describe('WizardPanel Specs', () => {
 			const title = 'WizardPanel title';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase title={title} />
+				<WizardPanelsBase title={title} />
 			);
 
 			const headerTitle = wizardPanel.find({type: 'wizard'}).prop('title');
@@ -29,9 +29,9 @@ describe('WizardPanel Specs', () => {
 			const viewTitle = 'View title';
 
 			const wizardPanel = mount(
-				<WizardPanel title={wizardTitle}>
-					<View title={viewTitle} />
-				</WizardPanel>
+				<WizardPanels title={wizardTitle}>
+					<WizardPanel title={viewTitle} />
+				</WizardPanels>
 			);
 
 			const headerTitle = wizardPanel.find('Header').prop('title');
@@ -49,9 +49,9 @@ describe('WizardPanel Specs', () => {
 			const viewSubtitle = 'View subtitle';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View subtitle={viewSubtitle} />
-				</WizardPanel>
+				<WizardPanels>
+					<WizardPanel subtitle={viewSubtitle} />
+				</WizardPanels>
 			);
 
 			const headerSubtitle = wizardPanel.find('Cell.titleCell .text').last().text();
@@ -69,9 +69,9 @@ describe('WizardPanel Specs', () => {
 			const viewFooter = 'View footer';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View footer={viewFooter} />
-				</WizardPanel>
+				<WizardPanels>
+					<WizardPanel footer={viewFooter} />
+				</WizardPanels>
 			);
 
 			const footerText = wizardPanel.find('.footer').text();
@@ -87,14 +87,14 @@ describe('WizardPanel Specs', () => {
 		'should have View buttons rendered in `.buttonContainer`',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View>
+				<WizardPanels>
+					<WizardPanel>
 						<buttons>
 							<button>Button 1</button>
 							<button>Button 2</button>
 						</buttons>
-					</View>
-				</WizardPanel>
+					</WizardPanel>
+				</WizardPanels>
 			);
 
 			const buttons = wizardPanel.find('.buttonContainer').find('button').length;
@@ -112,11 +112,11 @@ describe('WizardPanel Specs', () => {
 			const contentText = 'content';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View>
+				<WizardPanels>
+					<WizardPanel>
 						{contentText}
-					</View>
-				</WizardPanel>
+					</WizardPanel>
+				</WizardPanels>
 			);
 
 			const content = wizardPanel.find('.content').find('.enact-fit').text();
@@ -134,7 +134,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase nextButtonText={nextButtonText} />
+				<WizardPanelsBase nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -153,7 +153,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase prevButtonText={prevButtonText} />
+				<WizardPanelsBase prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -169,7 +169,7 @@ describe('WizardPanel Specs', () => {
 		'should have disabled `.nextButton` on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelBase index={2} total={3} />
+				<WizardPanelsBase index={2} total={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -185,7 +185,7 @@ describe('WizardPanel Specs', () => {
 		'should have disabled `.prevButton` on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelBase index={0} total={3} />
+				<WizardPanelsBase index={0} total={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -203,7 +203,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
-				<WizardPanelBase index={index} total={5} />
+				<WizardPanelsBase index={index} total={5} />
 			);
 
 			const expected = {current: index + 1};
@@ -219,9 +219,9 @@ describe('WizardPanel Specs', () => {
 			// FIXME: Temporary selector until our components have corrected display names
 			const viewManager = '.content > *';
 			const wizardPanel = shallow(
-				<WizardPanelBase>
-					<View />
-				</WizardPanelBase>
+				<WizardPanelsBase>
+					<WizardPanel />
+				</WizardPanelsBase>
 			);
 
 			let actual = wizardPanel.find(viewManager).prop('noAnimation');

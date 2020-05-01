@@ -5,7 +5,7 @@ const elements = (selector) => (el) => el.$$(selector);
 const getButtons = elements(componentSelector({component: 'Button'}));
 const viewSelector = view => `#view${view}`;
 
-class WizardPanelInterface {
+class WizardPanelsInterface {
 	constructor (id) {
 		this.id = id;
 		this.selector = `#${this.id}`;
@@ -38,17 +38,17 @@ class WizardPanelInterface {
 	get view4 () { return this.self.$(viewSelector(4)); }
 }
 
-class WizardPanelPage extends Page {
+class WizardPanelsPage extends Page {
 	constructor () {
 		super();
 		this.title = 'WizardPanel Test';
 		this.components = {};
-		this.components.wizardPanel = new WizardPanelInterface('wizardpanel');
+		this.components.wizardPanels = new WizardPanelsInterface('wizardpanels');
 	}
 
 	open (urlExtra) {
-		super.open('WizardPanel-View', urlExtra);
+		super.open('WizardPanels-View', urlExtra);
 	}
 }
 
-module.exports = new WizardPanelPage();
+module.exports = new WizardPanelsPage();
