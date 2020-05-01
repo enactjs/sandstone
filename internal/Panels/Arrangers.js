@@ -36,7 +36,6 @@ const BasicArranger = {
 	}
 };
 
-
 /**
  * Arranger that slides panels in from the right and out to the left.
  *

@@ -1,5 +1,5 @@
 /**
- * TBD
+ * Provides a Sandstone styled panels component for stepping through a process.
  *
  * @module sandstone/WizardPanels
  * @exports WizardPanel
