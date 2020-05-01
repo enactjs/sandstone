@@ -7,40 +7,12 @@
  * @exports Header
  */
 
-import {arrange} from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
 
-import {animationOptions, getHorizontalTranslation, PopupDecorator, Viewport} from '../internal/Panels';
+import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';
 import {Panel, Header} from '../Panels';
 
 import css from './FixedPopupPanels.module.less';
-
-/**
- * Arranger that slides panels in from the right and out to the left.
- *
- * @type {Arranger}
- * @private
- */
-export const BasicArranger = {
-	enter: (config) => {
-		const {node} = config;
-		const transform = getHorizontalTranslation(node);
-
-		return arrange(config, [
-			{transform, offset: 0},
-			{transform: 'none', offset: 1}
-		], animationOptions);
-	},
-	leave: (config) => {
-		const {node} = config;
-		const transform = getHorizontalTranslation(node, -1);
-
-		return arrange(config, [
-			{transform: 'none', offset: 0},
-			{transform, offset: 1}
-		], animationOptions);
-	}
-};
 
 const FixedPopupPanelsDecorator = compose(
 	PopupDecorator({
@@ -63,7 +35,44 @@ const FixedPopupPanelsDecorator = compose(
  */
 const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
 
+/**
+ * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FixedPopupPanels.FixedPopupPanels} view
+ * manager instance.
+ *
+ * @class Panel
+ * @extends sandstone/Panels.Panel
+ * @memberof sandstone/FixedPopupPanels
+ * @ui
+ * @public
+ */
+
+/**
+ * A shortcut to access {@link sandstone/FixedPopupPanels.Panel}
+ *
+ * @name Panel
+ * @static
+ * @memberof sandstone/FixedPopupPanels.FixedPopupPanels
+ */
 FixedPopupPanels.Panel = Panel;
+
+/**
+ * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
+ * [`slots`]{@link ui/Slottable.Slottable} for components.
+ *
+ * @class Header
+ * @extends sandstone/Panels.Header
+ * @memberof sandstone/FixedPopupPanels
+ * @ui
+ * @public
+ */
+
+/**
+ * A shortcut to access {@link sandstone/FixedPopupPanels.Header}
+ *
+ * @name Header
+ * @static
+ * @memberof sandstone/FixedPopupPanels.FixedPopupPanels
+ */
 FixedPopupPanels.Header = Header;
 
 export default FixedPopupPanels;

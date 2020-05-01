@@ -7,42 +7,12 @@
  * @exports Header
  */
 
-import {arrange} from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
 
-import {animationOptions, getHorizontalTranslation, PopupDecorator, Viewport} from '../internal/Panels';
+import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
 import {Panel, Header} from '../Panels';
 
 import css from './FlexiblePopupPanels.module.less';
-
-/**
- * Arranger that slides panels in from the right and out to the left.
- *
- * @type {Arranger}
- * @private
- */
-const FadeAndSlideArranger = {
-	enter: (config) => {
-		const {node} = config;
-		const transform = getHorizontalTranslation(node);
-
-		return arrange(config, [
-			{transform, opacity: 0, offset: 0},
-			{opacity: 0, offset: 0.5},
-			{transform: 'none', opacity: 1, offset: 1}
-		], animationOptions);
-	},
-	leave: (config) => {
-		const {node} = config;
-		const transform = getHorizontalTranslation(node, -1);
-
-		return arrange(config, [
-			{transform: 'none', opacity: 1, offset: 0},
-			{opacity: 0, offset: 0.5},
-			{transform, opacity: 0, offset: 1}
-		], animationOptions);
-	}
-};
 
 const FlexiblePopupPanelsDecorator = compose(
 	PopupDecorator({
@@ -66,7 +36,44 @@ const FlexiblePopupPanelsDecorator = compose(
  */
 const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
 
+/**
+ * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels} view
+ * manager instance.
+ *
+ * @class Panel
+ * @extends sandstone/Panels.Panel
+ * @memberof sandstone/FlexiblePopupPanels
+ * @ui
+ * @public
+ */
+
+/**
+ * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}
+ *
+ * @name Panel
+ * @static
+ * @memberof sandstone/FlexiblePopupPanels.FlexiblePopupPanels
+ */
 FlexiblePopupPanels.Panel = Panel;
+
+/**
+ * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
+ * [`slots`]{@link ui/Slottable.Slottable} for components.
+ *
+ * @class Header
+ * @extends sandstone/Panels.Header
+ * @memberof sandstone/FlexiblePopupPanels
+ * @ui
+ * @public
+ */
+
+/**
+ * A shortcut to access {@link sandstone/FlexiblePopupPanels.Header}
+ *
+ * @name Header
+ * @static
+ * @memberof sandstone/FlexiblePopupPanels.FlexiblePopupPanels
+ */
 FlexiblePopupPanels.Header = Header;
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct
