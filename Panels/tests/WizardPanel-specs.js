@@ -7,7 +7,7 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should have title in `Header`',
 		() => {
-			const title = 'WizardPanel title';
+			const title = ['WizardPanel title'];
 
 			const wizardPanel = shallow(
 				<WizardPanelBase title={title} />
@@ -37,7 +37,7 @@ describe('WizardPanel Specs', () => {
 			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
 
 			const expected = viewSubtitle;
-			const actual = headerSubtitle;
+			const actual = headerSubtitle[0];
 
 			expect(actual).toBe(expected);
 		}
@@ -58,7 +58,7 @@ describe('WizardPanel Specs', () => {
 			const headerTitle = wizardPanel.find('Header').prop('title');
 
 			const expected = viewTitle;
-			const actual = headerTitle;
+			const actual = headerTitle[0];
 
 			expect(actual).toBe(expected);
 		}

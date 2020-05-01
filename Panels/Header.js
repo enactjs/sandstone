@@ -41,7 +41,7 @@ const TitleContainer = kind({
 	render (props) {
 		return <div {...props} />;
 	}
-})
+});
 
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
@@ -527,9 +527,9 @@ const HeaderBase = kind({
 			);
 
 			if (isTitleArray) {
-				titles = title.map((currentTitle, index) => (
+				titles = title.map((currentTitle, titleIndex) => (
 					<TitleContainer key={currentTitle}>
-						{titleAndSubtitleHeading({currentTitle, currentSubtitle: isSubtitleArray ? subtitle[index] : subtitle})}
+						{titleAndSubtitleHeading({currentTitle, currentSubtitle: isSubtitleArray ? subtitle[titleIndex] : subtitle})}
 					</TitleContainer>
 				));
 			} else if (isSubtitleArray) {
@@ -542,9 +542,9 @@ const HeaderBase = kind({
 			}
 
 			return isTitleArray || isSubtitleArray ? (
-					<ViewManager arranger={arranger} className={css.titleViewManager} duration={1000} index={index} >
-						{titles}
-					</ViewManager>
+				<ViewManager arranger={arranger} className={css.titleViewManager} duration={1000} index={index} >
+					{titles}
+				</ViewManager>
 			) : titleAndSubtitleHeading({currentTitle: title, currentSubtitle: subtitle});
 		},
 		// This unruly looking pile of props allows these props to override their context equivalents
@@ -553,7 +553,7 @@ const HeaderBase = kind({
 		noBackButton: preferPropOverContext('noBackButton'),
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
-		onClose: preferPropOverContext('onClose'),
+		onClose: preferPropOverContext('onClose')
 	},
 
 	render: ({

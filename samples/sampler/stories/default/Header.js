@@ -55,9 +55,6 @@ storiesOf('Sandstone', module)
 			const title = text('title', Config, '');
 			const subtitle = text('subtitle', Config, '');
 
-			console.log('arrangerSelection', arrangerSelection);
-
-
 			const story = (
 				<Header
 					arranger={arranger}
