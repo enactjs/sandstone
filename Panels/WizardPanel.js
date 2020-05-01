@@ -240,6 +240,7 @@ const WizardPanelBase = kind({
 			<Panel {...rest}>
 				<Header
 					centered
+					css={css}
 					noCloseButton
 					subtitle={subtitle}
 					title={title}
@@ -331,11 +332,14 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelDecorator = (Wrapped) => {
-	const WizardPanelProvider = ({children, index, title, ...rest}) => {
+	const WizardPanelProvider = ({children, index, subtitle, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
-		const currentTitle = view && view.title ? view.title : title;
+
+		// If `subtitle` and `title` is not provided by `view`, fallback to the `subtitle` and `title` from `WizardPanel`
+		const currentSubtitle = view && (typeof view.subtitle !== 'undefined') ? view.subtitle : subtitle;
+		const currentTitle = view && (typeof view.title !== 'undefined') ? view.title : title;
 
 		return (
 			<WizardPanelContext.Provider value={setView}>
@@ -344,9 +348,10 @@ const WizardPanelDecorator = (Wrapped) => {
 					{...rest}
 					{...view}
 					index={index}
+					reverseTransition={reverseTransition}
+					subtitle={currentSubtitle}
 					title={currentTitle}
 					total={totalViews}
-					reverseTransition={reverseTransition}
 				>
 					{view && view.children ? (
 						<div className="enact-fit" key={`view${index}`}>
@@ -369,15 +374,35 @@ const WizardPanelDecorator = (Wrapped) => {
 		index: PropTypes.number,
 
 		/**
+		* The "default" subtitle for WizardPanel if subtitle isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
+		*
+		* Example:
+		* ```
+		* 	<WizardPanel subtitle="Subtitle">
+		*		<WizardPanel.View>
+		*			lorem ipsum ...
+		*		</WizardPanel.View>
+		*	</WizardPanel>
+		* ```
+		*
+		* @type {String}
+		* @private
+		*/
+		subtitle: PropTypes.string,
+
+		/**
 		* The "default" title for WizardPanel if title isn't explicitly set in [View]{@link sandstone/Panels.WizardPanel.View}.
-		* @example
+		*
+		* Example:
+		* ```
 		* 	<WizardPanel title="Title">
 		*		<WizardPanel.View>
 		*			lorem ipsum ...
 		*		</WizardPanel.View>
 		*	</WizardPanel>
+		* ```
 		*
-		* @type {Number}
+		* @type {String}
 		* @private
 		*/
 		title: PropTypes.string
