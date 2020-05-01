@@ -10,7 +10,8 @@
 import compose from 'ramda/src/compose';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
-import {Panel, Header} from '../Panels';
+import Panel from '../Panels/Panel';
+import Header from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
 
