@@ -516,19 +516,20 @@ const HeaderBase = kind({
 			/>
 		) : null);
 
-		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
-		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
-		const bothBeforeAndAfter = (centered || (type === 'wizard' && (Boolean(slotAfter) || Boolean(slotBefore))));
+		// Only provide the synced cell size if the title should be centered, beyond that case,
+		// the cell sizes don't need to be synced.
+		const syncCellSize = (centered ? slotSize : null);
 
+		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center" ref={titleRef}>
-					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell className={css.slotBefore} shrink={!slotSize} size={slotSize}>
-							<span ref={slotBeforeRef} className={css.slotSizer}>{backButton}{slotBefore}</span>
-						</Cell>
-					) : null}
+					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotBeforeRef} className={css.slotSizer}>
+							{backButton}{slotBefore}
+						</span>
+					</Cell>
 					<Cell className={css.titleCell}>
 						<Heading
 							aria-label={title}
@@ -552,11 +553,11 @@ const HeaderBase = kind({
 							{subtitle}
 						</Heading>
 					</Cell>
-					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell className={css.slotAfter} shrink={!slotSize} size={slotSize}>
-							<span ref={slotAfterRef} className={css.slotSizer}>{slotAfter}{closeButton}</span>
-						</Cell>
-					) : null}
+					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotAfterRef} className={css.slotSizer}>
+							{slotAfter}{closeButton}
+						</span>
+					</Cell>
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
 				{line}
@@ -576,18 +577,18 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
 		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
 		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
-		const [{slotSize, savedSlotBeforeWidth, savedSlotAfterWidth}, setSlotSize] = React.useState({});
+		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
 
 		// If the slot width has changed, re-run this.
-		if (slotBeforeWidth !== savedSlotBeforeWidth || slotAfterWidth !== savedSlotAfterWidth) {
+		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {
 			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
 
 			// And only do this the largest slot is a different value this time around.
 			if (slotSize !== largestSlotSize) {
 				setSlotSize({
 					slotSize: largestSlotSize,
-					savedSlotBeforeWidth: slotBeforeWidth,
-					savedSlotAfterWidth: slotAfterWidth
+					prevSlotBeforeWidth: slotBeforeWidth,
+					prevSlotAfterWidth: slotAfterWidth
 				});
 			}
 		}
