@@ -30,7 +30,6 @@
 // Disabled Opacity
 // ---------------------------------------
 @sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
-@sand-disabled-opacity-percentage: (@sand-disabled-opacity * 100%);
 @sand-disabled-focus-content-opacity: 0.4;
 @sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
 
@@ -142,17 +141,10 @@
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
 @sand-inputfield-placeholder-color: fade(@sand-light-gray, 20%);
-@sand-inputfield-placeholder-focus-color: fade(@sand-gray, 20%);
-@sand-inputfield-placeholder-active-color: @sand-inputfield-placeholder-focus-color;
-@sand-inputfield-placeholder-disabled-color: @sand-white;
+@sand-inputfield-placeholder-active-color: fade(#4c5059, 40%);
 @sand-inputfield-focus-text-color: @sand-spotlight-text-color;
-@sand-inputfield-disabled-focus-text-color: fade(@sand-inputfield-text-color, @sand-disabled-opacity-percentage);
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
-@sand-inputfield-focus-bg-color: @sand-spotlight-bg-color;
-@sand-inputfield-focus-bg-shadow: @sand-spotlight-focus-shadow;
-@sand-inputfield-active-bg-color: @sand-inputfield-focus-bg-color;
-@sand-inputfield-disabled-focus-bg-color: fade(@sand-inputfield-focus-bg-color, @sand-disabled-opacity-percentage);
 
 // KeyGuide
 // ---------------------------------------
