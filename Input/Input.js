@@ -107,7 +107,6 @@ const InputPopupBase = kind({
 		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
-		 * @default '-'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
