@@ -20,6 +20,9 @@ storiesOf('Sandstone', module)
 			<WizardPanel
 				nextButtonText={text('nextButtonText', WizardPanel, '')}
 				noAnimation={boolean('noAnimation', WizardPanel, false)}
+				noNextButton={boolean('noNextButton', WizardPanel)}
+				noPrevButton={boolean('noPrevButton', WizardPanel)}
+				noSteps={boolean('noSteps', WizardPanel)}
 				onSelect={action('onSelect')}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
