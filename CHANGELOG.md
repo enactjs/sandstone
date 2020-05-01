@@ -5,12 +5,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [unreleased]
 
 ### Added
+
+- `sandstone/Panels.WizardPanel` props `nextButtonAriaLabel`, `prevButtonAriaLabel`, `noNextButton`, `noPrevButton`, and `noSteps`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the initially hidden height of the vertical scrollbar when `featureContent` prop in the panel set to true.
 
 ### Fixed
 
-- `sandstone/Input.InputField` disabled colors
 - `sandstone/Header` centering
+- `sandstone/Input.InputField` disabled colors
+- `sandstone/Panels.WizardPanel` to hide previous and next buttons appropriately
 
 ## [1.0.0-beta.1] - 2020-04-27
 

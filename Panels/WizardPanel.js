@@ -6,6 +6,7 @@ import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button/Button';
 import Steps from '../Steps/Steps';
 
@@ -75,6 +76,15 @@ const WizardPanelBase = kind({
 		index: PropTypes.number,
 
 		/**
+		 * Hint string read when focusing the next button.
+		 *
+		 * @type {String}
+		 * @default 'Next'
+		 * @public
+		 */
+		nextButtonAriaLabel: PropTypes.string,
+
+		/**
 		* The text for next button.
 		*
 		* @type {String}
@@ -89,6 +99,30 @@ const WizardPanelBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
+
+		/**
+		* Omits the next button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noNextButton: PropTypes.bool,
+
+		/**
+		* Omits the previous button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noPrevButton: PropTypes.bool,
+
+		/**
+		* Omits the steps component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noSteps: PropTypes.bool,
 
 		/**
 		* Called when the index value is changed.
@@ -112,6 +146,15 @@ const WizardPanelBase = kind({
 		 * @type {Function}
 		 */
 		onWillTransition: PropTypes.func,
+
+		/**
+		 * Hint string read when focusing the previous button.
+		 *
+		 * @type {String}
+		 * @default 'Previous'
+		 * @public
+		 */
+		prevButtonAriaLabel: PropTypes.string,
 
 		/**
 		* The text for previous button.
@@ -155,7 +198,9 @@ const WizardPanelBase = kind({
 	},
 
 	defaultProps: {
-		index: 0
+		index: 0,
+		nextButtonAriaLabel: $L('Next'),
+		prevButtonAriaLabel: $L('Previous')
 	},
 
 	styles: {
@@ -190,38 +235,45 @@ const WizardPanelBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	render: ({buttons, children, footer, index, total, nextButtonAriaLabel, nextButtonText, noNextButton, noPrevButton, noSteps, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonAriaLabel, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
 			<Panel {...rest}>
 				<Header
 					centered
 					css={css}
+					noCloseButton
 					subtitle={subtitle}
 					title={title}
 					type="wizard"
 				>
-					<Steps current={index + 1} slot="slotAbove" total={total} />
-					<Button
-						backgroundOpacity="transparent"
-						disabled={index === (total - 1)}
-						icon="arrowlargeright"
-						iconPosition="after"
-						minWidth={false}
-						onClick={onIncrementStep}
-						slot="slotAfter"
-					>
-						{nextButtonText}
-					</Button>
-					<Button
-						backgroundOpacity="transparent"
-						disabled={index === 0}
-						icon="arrowlargeleft"
-						minWidth={false}
-						onClick={onDecrementStep}
-						slot="slotBefore"
-					>
-						{prevButtonText}
-					</Button>
+					{!noSteps ? (
+						<Steps current={index + 1} slot="slotAbove" total={total} />
+					) : null}
+					{index < total - 1 && !noNextButton ? (
+						<Button
+							aria-label={nextButtonAriaLabel}
+							backgroundOpacity="transparent"
+							icon="arrowlargeright"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onIncrementStep}
+							slot="slotAfter"
+						>
+							{nextButtonText}
+						</Button>
+					) : null}
+					{index !== 0 && !noPrevButton ? (
+						<Button
+							aria-label={prevButtonAriaLabel}
+							backgroundOpacity="transparent"
+							icon="arrowlargeleft"
+							minWidth={false}
+							onClick={onDecrementStep}
+							slot="slotBefore"
+						>
+							{prevButtonText}
+						</Button>
+					) : null}
 				</Header>
 				<Column>
 					<Cell className={css.content}>
