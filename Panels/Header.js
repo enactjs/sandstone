@@ -481,13 +481,13 @@ const HeaderBase = kind({
 		subtitle,
 		title,
 		titleRef,
-		type,
 		...rest
 	}) => {
-		delete rest.featureContent;
 		delete rest.entering;
+		delete rest.featureContent;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
+		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
