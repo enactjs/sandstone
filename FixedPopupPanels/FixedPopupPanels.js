@@ -1,3 +1,12 @@
+/**
+ * Provides Sandstone styled fixed-width, popup-styled Panels component.
+ *
+ * @module sandstone/FixedPopupPanels
+ * @exports FixedPopupPanels
+ * @exports Panel
+ * @exports Header
+ */
+
 import {arrange} from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
 
@@ -48,11 +57,14 @@ const FixedPopupPanelsDecorator = compose(
  * content.
  *
  * @class FixedPopupPanels
- * @memberof sandstone/Panels
+ * @memberof sandstone/FixedPopupPanels
  * @ui
  * @public
  */
 const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
+
+FixedPopupPanels.Panel = Panel;
+FixedPopupPanels.Header = Header;
 
 export default FixedPopupPanels;
 export {

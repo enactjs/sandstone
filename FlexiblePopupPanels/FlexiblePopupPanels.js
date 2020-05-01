@@ -1,3 +1,12 @@
+/**
+ * Provides Sandstone styled flexible-width, popup-styled Panels component.
+ *
+ * @module sandstone/FlexiblePopupPanels
+ * @exports FlexiblePopupPanels
+ * @exports Panel
+ * @exports Header
+ */
+
 import {arrange} from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
 
@@ -51,11 +60,14 @@ const FlexiblePopupPanelsDecorator = compose(
  * setting or control at a time, for maximum background area viewing.
  *
  * @class FlexiblePopupPanels
- * @memberof sandstone/Panels
+ * @memberof sandstone/FlexiblePopupPanels
  * @ui
  * @public
  */
 const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
+
+FlexiblePopupPanels.Panel = Panel;
+FlexiblePopupPanels.Header = Header;
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct
 // side. The real default is assigned in PopupDecorator, but should still be overridable by an app.

@@ -342,7 +342,7 @@ const WizardPanelsDecorator = (Wrapped) => {
  *
  * @class WizardPanels
  * @memberof sandstone/WizardPanels
- * @extends sandstone/WizardPanelsBase
+ * @extends sandstone/WizardPanels.WizardPanelsBase
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public

@@ -5,10 +5,10 @@ import {WizardPanelsContext} from './WizardPanels';
 
 /**
  * WizardPanelBase that sets the buttons, children, footer,
- * subtitle, and title for [WizardPanelsBase]{@link sandstone/Panels.WizardPanels.WizardPanelsBase}.
+ * subtitle, and title for [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
  * @class WizardPanelBase
- * @memberof sandstone/Panels.WizardPanels
+ * @memberof sandstone/WizardPanels
  * @ui
  */
 function WizardPanelBase ({buttons, children, footer, subtitle, title}) {
@@ -24,10 +24,10 @@ function WizardPanelBase ({buttons, children, footer, subtitle, title}) {
 }
 
 /**
- * WizardPanel for [WizardPanels]{@link sandstone/Panels.WizardPanels}.
+ * WizardPanel for [WizardPanels]{@link sandstone/WizardPanels}.
  *
  * @class WizardPanel
- * @memberof sandstone/Panels.WizardPanels
+ * @memberof sandstone/WizardPanels
  * @ui
  * @public
  */
