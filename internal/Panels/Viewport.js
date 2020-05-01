@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SharedStateDecorator, {SharedState} from '../internal/SharedStateDecorator';
+import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 
-import css from './Panels.module.less';
+import css from './Viewport.module.less';
 
 const PanelsStateContext = React.createContext(null);
 

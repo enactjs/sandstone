@@ -3,8 +3,7 @@ import {scaleToRem} from '@enact/ui/resolution';
 
 import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
-import {FlexiblePopupPanels, Panel, Header} from '../../../../Panels';
-
+import {FlexiblePopupPanels, Panel, Header} from '../../../../FlexiblePopupPanels';
 
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 

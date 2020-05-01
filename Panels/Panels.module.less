@@ -12,49 +12,10 @@
 	}
 
 	.viewport {
-		position: absolute;
-		.position(0);
-		overflow: hidden;
-		white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
-
-		&.transitioning::before {
-			content: "";
-			position: absolute;
-			.position(0);
-			z-index: 10000;
-		}
+		/* CSS Overrides */
 	}
 
 	:global(.enact-locale-right-to-left) & {
 		direction: ltr;
 	}
-}
-
-.panels.fixedPopup {
-	width: @sand-panels-fixedpopuppanels-width;
-
-	.body {
-		padding: 0;
-	}
-
-	// Skin colors
-	.applySkins({
-		filter: drop-shadow(@sand-panels-fixedpopuppanels-shadow);
-	});
-}
-
-.panels.flexiblePopup {
-	width: @sand-panels-flexiblepopuppanels-width;
-	margin-top: @sand-panels-flexiblepopuppanels-margin-top;
-
-	.body {
-		position: relative;
-		pointer-events: none;
-		padding: 0;
-	}
-
-	// Skin colors
-	.applySkins({
-		background-color: transparent;
-	});
 }

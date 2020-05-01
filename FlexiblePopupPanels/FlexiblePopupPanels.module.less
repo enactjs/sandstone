@@ -1,0 +1,18 @@
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.flexiblePopupPanels {
+	width: @sand-flexiblepopuppanels-width;
+	margin-top: @sand-flexiblepopuppanels-margin-top;
+
+	.body {
+		position: relative;
+		pointer-events: none;
+		padding: 0;
+	}
+
+	// Skin colors
+	.applySkins({
+		background-color: transparent;
+	});
+}

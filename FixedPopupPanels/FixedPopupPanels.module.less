@@ -1,0 +1,15 @@
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.fixedPopupPanels {
+	width: @sand-fixedpopuppanels-width;
+
+	.body {
+		padding: 0;
+	}
+
+	// Skin colors
+	.applySkins({
+		filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+	});
+}

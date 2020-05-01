@@ -1,0 +1,15 @@
+@import "../../styles/mixins.less";
+
+.viewport {
+	position: absolute;
+	.position(0);
+	overflow: hidden;
+	white-space: nowrap;  // Avoid awkward positioning when using non-positioned panels
+
+	&.transitioning::before {
+		content: "";
+		position: absolute;
+		.position(0);
+		z-index: 10000;
+	}
+}
