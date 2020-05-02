@@ -38,48 +38,6 @@
 		}
 	}
 
-	&.listType {
-		padding: @sand-panel-list-padding;
-
-		.body {
-			padding: @sand-panel-body-list-padding;
-		}
-	}
-
-	&.fixedPopupType {
-		padding: @sand-panel-fixedpopup-padding;
-		display: inline-block;
-
-		.body {
-			padding: @sand-panel-body-fixedpopup-padding;
-		}
-	}
-
-	&.flexiblePopupType {
-		padding: 0;
-		display: inline-flex;
-		pointer-events: none;
-
-		> * {
-			pointer-events: auto;
-		}
-
-		.body {
-			margin: @sand-panel-flexiblepopup-margin;
-			padding: @sand-panel-flexiblepopup-padding;
-			align-self: start;  // Allow this node to horizontally shrink to fit the content.
-			flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
-		}
-	}
-
-	&.wizardType {
-		padding: @sand-panel-wizard-padding;
-
-		.body {
-			padding: @sand-panel-body-wizard-padding;
-		}
-	}
-
 	&:global(.enact-fit) {
 		height: auto;
 	}
@@ -107,14 +65,4 @@
 			}
 		}
 	}
-
-	.applySkins({
-		&.flexiblePopupType {
-			.body {
-				background-color: @sand-panel-flexiblepopup-bg-color;
-				border-radius: @sand-panel-flexiblepopup-border-radius;
-				filter: drop-shadow(@sand-panel-flexiblepopup-shadow);
-			}
-		}
-	});
 }

@@ -189,7 +189,7 @@ const WizardPanelsBase = kind({
 
 	render: ({buttons, children, footer, index, total, nextButtonText, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
-			<Panel {...rest}>
+			<Panel {...rest} css={css}>
 				<Header
 					centered
 					subtitle={subtitle}

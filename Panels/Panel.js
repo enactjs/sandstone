@@ -184,7 +184,6 @@ const PanelBase = kind({
 			}
 			return context.index > 0 && context.type !== 'wizard';
 		},
-		className: ({className, styler}, context) => context && context.type ? styler.append([context.type] + 'Type') : className,
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot

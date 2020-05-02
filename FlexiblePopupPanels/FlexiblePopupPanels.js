@@ -7,10 +7,11 @@
  * @exports Header
  */
 
+import React from 'react';
 import compose from 'ramda/src/compose';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
-import Panel from '../Panels/Panel';
+import PanelsPanel from '../Panels/Panel';
 import Header from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
@@ -47,6 +48,7 @@ const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
  * @ui
  * @public
  */
+const Panel = (props) => <PanelsPanel {...props} css={css} />;
 
 /**
  * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}

@@ -7,10 +7,11 @@
  * @exports Header
  */
 
+import React from 'react';
 import compose from 'ramda/src/compose';
 
 import {BasicArranger, PopupDecorator, Viewport} from '../internal/Panels';
-import Panel from '../Panels/Panel';
+import PanelsPanel from '../Panels/Panel';
 import Header from '../Panels/Header';
 
 import css from './FixedPopupPanels.module.less';
@@ -46,6 +47,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  * @ui
  * @public
  */
+const Panel = (props) => <PanelsPanel {...props} css={css} />;
 
 /**
  * A shortcut to access {@link sandstone/FixedPopupPanels.Panel}
