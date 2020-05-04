@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forward} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
 import Spotlight from '@enact/spotlight';
@@ -34,6 +34,7 @@ const TabBase = kind({
 	handlers: {
 		onFocus: handle(
 			forward('onFocus'),
+			not(forProp('disabled', true)),
 			() => !Spotlight.getPointerMode(),
 			adaptEvent(
 				(ev, {index}) => ({selected: index}),

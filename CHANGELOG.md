@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Header` centering
 - `sandstone/Input.InputField` disabled colors
 - `sandstone/Panels.WizardPanel` to hide previous and next buttons appropriately
+- `sandstone/TabLayout` to support disabled tabs
 
 ## [1.0.0-beta.1] - 2020-04-27
 
