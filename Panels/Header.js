@@ -440,7 +440,7 @@ const HeaderBase = kind({
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
-				withChildren: (Boolean(children) || Boolean(slotAbove))
+				withChildren: Boolean(children)
 			},
 			type
 		),
