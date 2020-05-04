@@ -1,8 +1,9 @@
 'use strict';
-const {componentSelector, Page} = require('@enact/ui-test-utils/utils');
+const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
-const elements = (selector) => (el) => el.$$(selector);
-const getButtons = elements(componentSelector({component: 'Button'}));
+const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
+const getNextButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotAfter', el));
+const getPrevButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotBefore', el));
 const viewSelector = view => `#view${view}`;
 
 class WizardPanelsInterface {
@@ -29,8 +30,8 @@ class WizardPanelsInterface {
 
 	get self () { return $(this.selector); }
 
-	get nextButton () { return getButtons(this.self)[1]; }
-	get prevButton () { return getButtons(this.self)[0]; }
+	get nextButton () { return getNextButton(this.self); }
+	get prevButton () { return getPrevButton(this.self); }
 
 	get view1 () { return this.self.$(viewSelector(1)); }
 	get view2 () { return this.self.$(viewSelector(2)); }
