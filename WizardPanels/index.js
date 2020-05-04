@@ -11,6 +11,13 @@
 import {WizardPanels, WizardPanelsBase, WizardPanelsDecorator} from './WizardPanels';
 import Panel from './Panel';
 
+/**
+ * A shortcut to access {@link sandstone/WizardPanels.Panel}
+ *
+ * @name Panel
+ * @static
+ * @memberof sandstone/WizardPanels.WizardPanels
+ */
 WizardPanels.Panel = Panel;
 
 export default WizardPanels;
