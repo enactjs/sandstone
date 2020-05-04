@@ -7,7 +7,7 @@ const FixedPopupPanels = deprecate(
 	(props) => <FixedPopupPanelsBase {...props} />,
 	{
 		name: 'Panels.FixedPopupPanels',
-		until: '1.0.0-beta.3',
+		until: '1.0.0-rc.1',
 		replacedBy: 'FixedPopupPanels'
 	}
 );

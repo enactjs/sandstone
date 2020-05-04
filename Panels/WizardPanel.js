@@ -11,7 +11,7 @@ const WizardPanel = deprecate(
 	(props) => <WizardPanels {...props} />,
 	{
 		name: 'Panels.WizardPanel',
-		until: '1.0.0-beta.3',
+		until: '1.0.0-rc.1',
 		replacedBy: 'WizardPanels'
 	}
 );
@@ -20,7 +20,7 @@ const View = deprecate(
 	(props) => <WizardPanelView {...props} />,
 	{
 		name: 'Panels.WizardPanel.View',
-		until: '1.0.0-beta.3',
+		until: '1.0.0-rc.1',
 		replacedBy: 'WizardPanels.Panel'
 	}
 );
