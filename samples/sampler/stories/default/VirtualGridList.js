@@ -81,8 +81,8 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', VirtualGridListConfig, 688)),
-					minHeight: ri.scale(number('minHeight', VirtualGridListConfig, 570))
+					minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
+					minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
