@@ -192,8 +192,8 @@ const TabLayoutBase = kind({
 		// limit to 5 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
 			const tabs = React.Children.map(children, (child) => {
-				const {icon, title} = child.props;
-				return {icon, title};
+				const {disabled, icon, title} = child.props;
+				return {disabled, icon, title};
 			});
 			return orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs;
 		}

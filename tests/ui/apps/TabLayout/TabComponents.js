@@ -13,7 +13,7 @@ export const tabs = [
 	<Tab title="Three">
 		<div id="view3">View Three</div>
 	</Tab>,
-	<Tab title="Four">
+	<Tab disabled title="Four">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
 	</Tab>,
 	<Tab title="Five">
@@ -34,7 +34,7 @@ export const tabsWithIcons = [
 	<Tab title="Three" icon="plug">
 		<div id="view3">View Three</div>
 	</Tab>,
-	<Tab title="Four" icon="lock">
+	<Tab disabled title="Four" icon="lock">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
 	</Tab>,
 	<Tab title="Five" icon="picture">

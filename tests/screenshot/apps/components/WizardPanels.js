@@ -1,60 +1,48 @@
-import WizardPanels from '../../../../WizardPanels';
+import {WizardPanels, WizardPanel} from '../../../../WizardPanels';
 import React from 'react';
 
-const WizardPanelsTests = [
-	{
-		component: (
-			<WizardPanels>
-				<WizardPanels.Panel>
-					View 1
-				</WizardPanels.Panel>
-				<WizardPanels.Panel>
-					View 2
-				</WizardPanels.Panel>
-			</WizardPanels>
-		),
-		wrapper: {
-			full: true
-		}
-	},
-	{
-		component: (
-			<WizardPanels index={1}>
-				<WizardPanels.Panel>
-					View 1
-				</WizardPanels.Panel>
-				<WizardPanels.Panel>
-					View 2
-				</WizardPanels.Panel>
-			</WizardPanels>
-		),
-		wrapper: {
-			full: true
-		}
-	},
-	// [GT-28274] - 'nextButtonText' and 'prevButtonText' to show properly
-	{
-		component: (
-			<WizardPanels
-				index={1}
-				nextButtonText="nextButtonText"
-				prevButtonText="prevButtonText"
-				title="WizardPanels"
-			>
-				<WizardPanels.Panel>
-					View 1
-				</WizardPanels.Panel>
-				<WizardPanels.Panel>
-					View 2
-				</WizardPanels.Panel>
-				<WizardPanels.Panel>
-					View 3
-				</WizardPanels.Panel>
-			</WizardPanels>
-		),
-		wrapper: {
-			full: true
-		}
+import {withConfig} from './utils';
+
+const WizardPanelTests = withConfig({
+	wrapper: {
+		full: true
 	}
-];
-export default WizardPanelsTests;
+}, [
+	<WizardPanels>
+		<WizardPanel>View 1</WizardPanel>
+		<WizardPanel>View 2</WizardPanel>
+	</WizardPanels>,
+	<WizardPanels index={1}>
+		<WizardPanel>View 1</WizardPanel>
+		<WizardPanel>View 2</WizardPanel>
+	</WizardPanels>,
+	// [GT-28274] - 'nextButtonText' and 'prevButtonText' to show properly
+	<WizardPanels index={1} nextButtonText="nextButtonText" prevButtonText="prevButtonText" title="WizardPanel">
+		<WizardPanel>View 1</WizardPanel>
+		<WizardPanel>View 2</WizardPanel>
+		<WizardPanel>View 3</WizardPanel>
+	</WizardPanels>,
+	{
+		component: (
+			<WizardPanels index={1} nextButtonText="nextButtonText" prevButtonText="prevButtonText" title="WizardPanel">
+				<WizardPanel>View 1</WizardPanel>
+				<WizardPanel>View 2</WizardPanel>
+				<WizardPanel>View 3</WizardPanel>
+			</WizardPanels>
+		),
+		locale: 'ar-SA'
+	},
+	// Test unbalanced next/prev button text
+	<WizardPanels index={0} prevButtonText="prevButtonText" title="WizardPanel">
+		<WizardPanel>View 1</WizardPanel>
+		<WizardPanel>View 2</WizardPanel>
+		<WizardPanel>View 3</WizardPanel>
+	</WizardPanels>,
+	<WizardPanels index={0} nextButtonText="nextButtonText" title="WizardPanel">
+		<WizardPanel>View 1</WizardPanel>
+		<WizardPanel>View 2</WizardPanel>
+		<WizardPanel>View 3</WizardPanel>
+	</WizardPanels>
+]);
+
+export default WizardPanelTests;

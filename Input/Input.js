@@ -23,17 +23,17 @@ import componentCss from './Input.module.less';
 const prepareInputEventPayload = ev => ({value: ev.target.value});
 
 /**
- * Base component for providing text input in the form of a popup.
+ * Base component for providing text input in the form of a popup without button.
  *
- * @class InputBase
+ * @class InputPopupBase
  * @memberof sandstone/Input
  * @ui
  * @public
  */
-const InputBase = kind({
-	name: 'Input',
+const InputPopupBase = kind({
+	name: 'InputPopup',
 
-	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
+	propTypes: /** @lends sandstone/Input.InputPopupBase.prototype */ {
 		/**
 		 * Customize component style
 		 *
@@ -107,7 +107,6 @@ const InputBase = kind({
 		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
-		 * @default '-'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -168,7 +167,6 @@ const InputBase = kind({
 
 	defaultProps: {
 		length: 4,
-		placeholder: '-',
 		popupType: 'fullscreen',
 		size: 'large',
 		subtitle: '',
@@ -183,10 +181,6 @@ const InputBase = kind({
 	},
 
 	handlers: {
-		onClick: handle(
-			forward('onClick'),
-			forward('onOpenPopup')
-		),
 		onShow: handle(
 			forward('onShow'),
 			() => Spotlight.setPointerMode(false)
@@ -238,52 +232,140 @@ const InputBase = kind({
 
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (type === 'number' || type === 'passwordnumber');
-		const password = (type === 'password' || type === 'passwordnumber');
 
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
 
 		return (
+			<Popup
+				onClose={onClose}
+				onShow={onShow}
+				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
+				className={popupClassName}
+				noAnimation
+				open={!disabled && open}
+			>
+				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
+					<Cell shrink className={css.titles}>
+						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+					</Cell>
+					<Cell shrink className={css.inputArea}>
+						{numberMode ?
+							<NumberField
+								defaultValue={value}
+								length={length}
+								onChange={onChange}
+								onComplete={onNumberComplete}
+								showKeypad
+								type={(type === 'passwordnumber') ? 'password' : 'number'}
+							/> :
+							<InputField
+								{...inputProps}
+								size={size}
+								autoFocus
+								type={type}
+								defaultValue={value}
+								placeholder={placeholder}
+								onChange={onChange}
+								onKeyDown={onInputKeyDown}
+							/>
+						}
+					</Cell>
+					<Cell shrink className={css.buttonArea}>{children}</Cell>
+				</Layout>
+			</Popup>
+		);
+	}
+});
+
+/**
+ * Base component for providing text input in the form of a popup.
+ *
+ * @class InputBase
+ * @memberof sandstone/Input
+ * @ui
+ * @public
+ */
+const InputBase = kind({
+	name: 'Input',
+
+	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
+		/**
+		 * Disables the button that activates the input popup.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * Text displayed when value is not set.
+		 *
+		 * @type {String}
+		 * @default '-'
+		 * @public
+		 */
+		placeholder: PropTypes.string,
+
+		/**
+		 * The size of the input field.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['small', 'large']),
+
+		/**
+		 * Type of the input.
+		 *
+		 * @type {(text|password|number|passwordnumber)}
+		 * @default 'text'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+
+		/**
+		 * Value of the input.
+		 *
+		 * @type {String|Number}
+		 * @public
+		 */
+		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	},
+
+	defaultProps: {
+		placeholder: '-'
+	},
+
+	handlers: {
+		onClick: handle(
+			forward('onClick'),
+			forward('onOpenPopup')
+		)
+	},
+
+	render: ({type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
+		const password = (type === 'password' || type === 'passwordnumber');
+
+		return (
 			<React.Fragment>
-				<Popup
-					onClose={onClose}
-					onShow={onShow}
-					position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
-					className={popupClassName}
-					noAnimation
-					open={!disabled && open}
+				<InputPopupBase
+					type={type}
+					size={size}
+					disabled={disabled}
+					value={value}
+					placeholder={placeholder}
+					{...rest}
+				/>
+				<Button
+					size={size}
+					disabled={disabled}
+					className={className}
+					style={style}
+					onClick={onClick}
 				>
-					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-						<Cell shrink className={css.titles}>
-							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
-							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
-						</Cell>
-						<Cell shrink className={css.inputArea}>
-							{numberMode ?
-								<NumberField
-									defaultValue={value}
-									length={length}
-									onChange={onChange}
-									onComplete={onNumberComplete}
-									showKeypad
-									type={(type === 'passwordnumber') ? 'password' : 'number'}
-								/> :
-								<InputField
-									{...inputProps}
-									size={size}
-									autoFocus
-									type={type}
-									defaultValue={value}
-									placeholder={placeholder}
-									onChange={onChange}
-									onKeyDown={onInputKeyDown}
-								/>
-							}
-						</Cell>
-						<Cell shrink className={css.buttonArea}>{children}</Cell>
-					</Layout>
-				</Popup>
-				<Button {...rest} size={size} disabled={disabled}>
 					{(password ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>
 			</React.Fragment>
@@ -331,9 +413,34 @@ const InputDecorator = compose(
  */
 const Input = InputDecorator(InputBase);
 
+/**
+ * Provides an input popup without button.
+ *
+ * Usage:
+ * ```
+ * <InputPopup
+ *   open={this.state.open}
+ *   onComplete={this.handleInputPopupComplete}
+ *   placeholder="Placeholder"
+ *   subtitle="Subtitle"
+ *   title="Title"
+ *   value={this.state.inputText}
+ * />
+ * ```
+ *
+ * @class InputPopup
+ * @memberof sandstone/Input
+ * @extends sandstone/Input.InputPopupBase
+ * @ui
+ * @public
+ */
+const InputPopup = InputDecorator(InputPopupBase);
+
 export default Input;
 export {
 	Input,
 	InputBase,
+	InputPopup,
+	InputPopupBase,
 	InputDecorator
 };
