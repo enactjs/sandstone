@@ -4,7 +4,7 @@ import React from 'react';
 import {
 	WizardPanels,
 	WizardPanelsBase as WizardPanelBase,
-	WizardPanel as WizardPanelView
+	Panel as WizardPanelView
 } from '../WizardPanels';
 
 const WizardPanel = deprecate(

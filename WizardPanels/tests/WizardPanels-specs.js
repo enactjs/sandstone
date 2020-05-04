@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 
-import {WizardPanel, WizardPanels, WizardPanelsBase} from '../';
+import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -30,7 +30,7 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels subtitle={wizardSubtitle}>
-					<WizardPanel subtitle={viewSubtitle} />
+					<Panel subtitle={viewSubtitle} />
 				</WizardPanels>
 			);
 
@@ -51,7 +51,7 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels title={wizardTitle}>
-					<WizardPanel title={viewTitle} />
+					<Panel title={viewTitle} />
 				</WizardPanels>
 			);
 
@@ -71,7 +71,7 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels>
-					<WizardPanel subtitle={viewSubtitle} />
+					<Panel subtitle={viewSubtitle} />
 				</WizardPanels>
 			);
 
@@ -91,7 +91,7 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels>
-					<WizardPanel footer={viewFooter} />
+					<Panel footer={viewFooter} />
 				</WizardPanels>
 			);
 
@@ -109,12 +109,12 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const wizardPanel = mount(
 				<WizardPanels>
-					<WizardPanel>
+					<Panel>
 						<buttons>
 							<button>Button 1</button>
 							<button>Button 2</button>
 						</buttons>
-					</WizardPanel>
+					</Panel>
 				</WizardPanels>
 			);
 
@@ -134,9 +134,9 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels>
-					<WizardPanel>
+					<Panel>
 						{contentText}
-					</WizardPanel>
+					</Panel>
 				</WizardPanels>
 			);
 
@@ -273,7 +273,7 @@ describe('WizardPanel Specs', () => {
 			const viewManager = '.content > *';
 			const wizardPanel = shallow(
 				<WizardPanelsBase>
-					<WizardPanel />
+					<Panel />
 				</WizardPanelsBase>
 			);
 

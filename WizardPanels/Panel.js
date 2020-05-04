@@ -4,14 +4,15 @@ import React from 'react';
 import {WizardPanelsContext} from './WizardPanels';
 
 /**
- * WizardPanelBase that sets the buttons, children, footer,
- * subtitle, and title for [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
+ * Panel that sets the buttons, children, footer, subtitle, and title for
+ * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
- * @class WizardPanelBase
+ * @class PanelBase
  * @memberof sandstone/WizardPanels
  * @ui
+ * @private
  */
-function WizardPanelBase ({buttons, children, footer, subtitle, title}) {
+function PanelBase ({buttons, children, footer, subtitle, title}) {
 	const set = React.useContext(WizardPanelsContext);
 
 	React.useEffect(() => {
@@ -24,19 +25,21 @@ function WizardPanelBase ({buttons, children, footer, subtitle, title}) {
 }
 
 /**
- * WizardPanel for [WizardPanels]{@link sandstone/WizardPanels}.
+ * Panel that sets the buttons, children, footer, subtitle, and title for
+ * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
- * @class WizardPanel
+ * @class Panel
  * @memberof sandstone/WizardPanels
  * @ui
  * @public
  */
-const WizardPanel = Slottable(
+const Panel = Slottable(
 	{slots: ['buttons', 'footer', 'subtitle', 'title']},
-	WizardPanelBase
+	PanelBase
 );
 
-export default WizardPanel;
+export default Panel;
 export {
-	WizardPanel
+	Panel,
+	PanelBase
 };
