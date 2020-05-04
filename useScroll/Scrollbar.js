@@ -1,7 +1,7 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {memo, useEffect} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
@@ -26,7 +26,9 @@ const useThemeScrollbar = (props) => {
 		...rest
 	} = restProps;
 
-	const {className, ref: scrollbarContainerRef} = scrollbarProps;
+	const
+		{className, ref: scrollbarContainerRef} = scrollbarProps,
+		{ref: scrollbarTrackRef} = scrollbarTrackProps;
 
 	useEffect(() => {
 		if (initialHiddenHeight && scrollbarContainerRef.current) {
@@ -39,10 +41,37 @@ const useThemeScrollbar = (props) => {
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const onClick = useCallback((ev) => {
+		// Click on bodyText scrollbar.
+		const {nativeEvent, target} = ev;
+
+		if (!focusableScrollbar || !scrollbarTrackRef || !scrollbarTrackRef.current) {
+			return;
+		}
+
+		// Click the scrollbar area. If user click the thumb, do nothing.
+		if ((scrollbarContainerRef && target === scrollbarContainerRef.current) ||
+			(target === scrollbarTrackRef.current)) {
+			const
+				vertical = props.vertical,
+				clickPoint = vertical ? nativeEvent.offsetY : nativeEvent.offsetX,
+				thumbPosition = vertical ? scrollbarTrackRef.current.children[0].offsetTop : scrollbarTrackRef.current.children[0].offsetLeft,
+				scrollParam = {
+					inputType: 'track',
+					isPagination: true,
+					isForward: clickPoint > thumbPosition,
+					isVerticalScrollBar: vertical
+				};
+
+			onInteractionForScroll(scrollParam);
+		}
+	}, [focusableScrollbar, onInteractionForScroll, props.vertical, scrollbarContainerRef, scrollbarTrackRef]);
+
 	return {
 		restProps: rest,
 		scrollbarProps: {
 			...scrollbarProps,
+			onClick,
 			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight})
 		},
 		scrollbarTrackProps: {
