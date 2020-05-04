@@ -23,6 +23,27 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should have subtitle overridden by subtitle set in `View`',
+		() => {
+			const wizardSubtitle = 'WizardPanel subtitle';
+			const viewSubtitle = 'View subtitle';
+
+			const wizardPanel = mount(
+				<WizardPanel subtitle={wizardSubtitle}>
+					<View subtitle={viewSubtitle} />
+				</WizardPanel>
+			);
+
+			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
+
+			const expected = viewSubtitle;
+			const actual = headerSubtitle;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should have title overridden by title set in `View`',
 		() => {
 			const wizardTitle = 'WizardPanel title';
@@ -134,7 +155,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase nextButtonText={nextButtonText} />
+				<WizardPanelBase total={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -153,7 +174,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase prevButtonText={prevButtonText} />
+				<WizardPanelBase index={1} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -166,7 +187,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have disabled `.nextButton` on the last view',
+		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={2} total={3} />
@@ -174,15 +195,15 @@ describe('WizardPanel Specs', () => {
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
-			const expected = {disabled: true};
-			const actual = nextButton.props();
+			const expected = false;
+			const actual = nextButton.exists();
 
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
-		'should have disabled `.prevButton` on the first view',
+		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanelBase index={0} total={3} />
@@ -190,10 +211,42 @@ describe('WizardPanel Specs', () => {
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 
-			const expected = {disabled: true};
-			const actual = prevButton.props();
+			const expected = false;
+			const actual = prevButton.exists();
 
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide next button with `noNextButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={2} noNextButton total={4} />
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button with `noPrevButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelBase index={2} noPrevButton total={4} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
 		}
 	);
 

@@ -18,18 +18,34 @@
 	///
 
 	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
+	&:not(.centered) {
+		&:not(.withChildren) {
+			.titlesRow {
+				// The following updates .subtitle to be removed from the measurement calculations for
+				// vertical centering in a "standard" header, so the title can vertically align with the
+				// side buttons. When *not* in "standard" type, the side buttons should be vertically
+				// aligned with both the title and subtitle.
+				.subtitle {
+					position: absolute;
+					right: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+
 	&:not(.withChildren) .titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
+	}
 
-		// The following updates .subtitle to be removed from the measurement calculations for
-		// vertical centering in a "standard" header, so the title can vertically align with the
-		// side buttons. When *not* in "standard" type, the side buttons should be vertically
-		// aligned with both the title and subtitle.
-		.subtitle {
-			position: absolute;
-			right: 0;
-			left: 0;
-		}
+	.slotBefore,
+	.slotAfter,
+	.slotSizer {
+		white-space: nowrap;
+	}
+
+	.slotSizer {
+		display: inline-block;
 	}
 
 	&.centered {
@@ -80,6 +96,16 @@
 
 	.slotAbove {
 		margin: @sand-header-slotabove-margin;
+	}
+
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		:global(.enact-locale-right-to-left) & {
+			text-align: left;
+		}
 	}
 
 	.slotBelow {
