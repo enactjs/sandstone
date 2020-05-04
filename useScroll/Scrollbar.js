@@ -28,7 +28,8 @@ const useThemeScrollbar = (props) => {
 
 	const
 		{className, ref: scrollbarContainerRef} = scrollbarProps,
-		{ref: scrollbarTrackRef} = scrollbarTrackProps;
+		{ref: scrollbarTrackRef} = scrollbarTrackProps,
+		{vertical} = props;
 
 	useEffect(() => {
 		if (initialHiddenHeight && scrollbarContainerRef.current) {
@@ -45,34 +46,33 @@ const useThemeScrollbar = (props) => {
 		// Click on bodyText scrollbar.
 		const {nativeEvent, target} = ev;
 
-		if (!focusableScrollbar || !scrollbarTrackRef || !scrollbarTrackRef.current) {
+		if (!focusableScrollbar || !scrollbarTrackRef.current) {
 			return;
 		}
 
 		// Click the scrollbar area. If user click the thumb, do nothing.
-		if ((scrollbarContainerRef && target === scrollbarContainerRef.current) ||
+		if ((target === scrollbarContainerRef.current) ||
 			(target === scrollbarTrackRef.current)) {
 			const
-				vertical = props.vertical,
-				clickPoint = vertical ? nativeEvent.offsetY : nativeEvent.offsetX,
-				thumbPosition = vertical ? scrollbarTrackRef.current.children[0].offsetTop : scrollbarTrackRef.current.children[0].offsetLeft,
+				clickPoint = nativeEvent[vertical ? 'offsetY' : 'offsetX'],
+				thumbPosition = scrollbarTrackRef.current.children[0][vertical ? 'offsetTop' : 'offsetLeft'],
 				scrollParam = {
 					inputType: 'track',
-					isPagination: true,
 					isForward: clickPoint > thumbPosition,
+					isPagination: true,
 					isVerticalScrollBar: vertical
 				};
 
 			onInteractionForScroll(scrollParam);
 		}
-	}, [focusableScrollbar, onInteractionForScroll, props.vertical, scrollbarContainerRef, scrollbarTrackRef]);
+	}, [focusableScrollbar, onInteractionForScroll, scrollbarContainerRef, scrollbarTrackRef, vertical]);
 
 	return {
 		restProps: rest,
 		scrollbarProps: {
 			...scrollbarProps,
-			onClick,
-			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight})
+			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight}),
+			onClick
 		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
