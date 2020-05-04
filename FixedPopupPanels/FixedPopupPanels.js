@@ -38,8 +38,8 @@ const FixedPopupPanelsDecorator = compose(
 const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
 
 /**
- * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FixedPopupPanels.FixedPopupPanels} view
- * manager instance.
+ * The standard view container used inside a
+ * [FixedPopupPanels]{@link sandstone/FixedPopupPanels.FixedPopupPanels} view manager instance.
  *
  * @class Panel
  * @extends sandstone/Panels.Panel
