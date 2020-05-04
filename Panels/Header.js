@@ -20,7 +20,7 @@ import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {PanelsStateContext} from './Viewport';
+import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
 

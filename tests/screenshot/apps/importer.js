@@ -36,7 +36,7 @@ import TimePicker from '../../../TimePicker';
 import TooltipDecorator from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
-import {WizardPanel} from '../../../Panels';
+import WizardPanels from '../../../WizardPanels';
 
 const components = {
 	ActionGuide,
@@ -79,7 +79,7 @@ const components = {
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,
-	WizardPanel
+	WizardPanels
 };
 
 export default components;

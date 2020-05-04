@@ -7,7 +7,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 import compose from 'ramda/src/compose';
 
-import {FlexiblePopupPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {FlexiblePopupPanels, Panel, Header} from '@enact/sandstone/FlexiblePopupPanels';
 import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 import Button from '@enact/sandstone/Button';
@@ -18,7 +18,7 @@ const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels
 
 storiesOf('Sandstone', module)
 	.add(
-		'Panels.FlexiblePopupPanels',
+		'FlexiblePopupPanels',
 		() => {
 			const defaultOpen = false;
 			const [open, setOpenState] = React.useState(defaultOpen);

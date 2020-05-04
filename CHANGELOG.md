@@ -4,9 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Deprecated
+
+- `sandstone/Panels.WizardPanel` and `sanstone/Panels.View`, replaced with `sandstone/WizardPanels` and `sandstone/WizardPanels.Panel` respectively
+- `sandstone/Panels.FlexiblePopupPanels`, replaced with `sandstone/FlexiblePopupPanels`
+- `sandstone/Panels.FixedPopupPanels`, replaced with `sandstone/FixedPopupPanels`
+
 ### Added
 
-- `sandstone/Panels.WizardPanel` props `nextButtonAriaLabel`, `prevButtonAriaLabel`, `noNextButton`, `noPrevButton`, and `noSteps`
+- `sandstone/WizardPanels` props `nextButtonAriaLabel`, `prevButtonAriaLabel`, `noNextButton`, `noPrevButton`, and `noSteps`
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the initially hidden height of the vertical scrollbar when `featureContent` prop in the panel set to true.
 - `sandstone/Input.InputPopup` component
 
@@ -14,7 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Header` centering
 - `sandstone/Input.InputField` disabled colors
-- `sandstone/Panels.WizardPanel` to hide previous and next buttons appropriately
+- `sandstone/WizardPanels` to hide previous and next buttons appropriately
 - `sandstone/TabLayout` to support disabled tabs
 
 ## [1.0.0-beta.1] - 2020-04-27
