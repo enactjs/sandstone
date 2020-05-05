@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount, shallow} from 'enzyme';
 
-import {View, WizardPanel, WizardPanelBase} from '../WizardPanel';
+import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -10,7 +10,7 @@ describe('WizardPanel Specs', () => {
 			const title = 'WizardPanel title';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase title={title} />
+				<WizardPanelsBase title={title} />
 			);
 
 			const headerTitle = wizardPanel.find({type: 'wizard'}).prop('title');
@@ -23,15 +23,36 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should have subtitle overridden by subtitle set in `View`',
+		() => {
+			const wizardSubtitle = 'WizardPanel subtitle';
+			const viewSubtitle = 'View subtitle';
+
+			const wizardPanel = mount(
+				<WizardPanels subtitle={wizardSubtitle}>
+					<Panel subtitle={viewSubtitle} />
+				</WizardPanels>
+			);
+
+			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
+
+			const expected = viewSubtitle;
+			const actual = headerSubtitle;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should have title overridden by title set in `View`',
 		() => {
 			const wizardTitle = 'WizardPanel title';
 			const viewTitle = 'View title';
 
 			const wizardPanel = mount(
-				<WizardPanel title={wizardTitle}>
-					<View title={viewTitle} />
-				</WizardPanel>
+				<WizardPanels title={wizardTitle}>
+					<Panel title={viewTitle} />
+				</WizardPanels>
 			);
 
 			const headerTitle = wizardPanel.find('Header').prop('title');
@@ -49,9 +70,9 @@ describe('WizardPanel Specs', () => {
 			const viewSubtitle = 'View subtitle';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View subtitle={viewSubtitle} />
-				</WizardPanel>
+				<WizardPanels>
+					<Panel subtitle={viewSubtitle} />
+				</WizardPanels>
 			);
 
 			const headerSubtitle = wizardPanel.find('Cell.titleCell .text').last().text();
@@ -69,9 +90,9 @@ describe('WizardPanel Specs', () => {
 			const viewFooter = 'View footer';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View footer={viewFooter} />
-				</WizardPanel>
+				<WizardPanels>
+					<Panel footer={viewFooter} />
+				</WizardPanels>
 			);
 
 			const footerText = wizardPanel.find('.footer').text();
@@ -87,14 +108,14 @@ describe('WizardPanel Specs', () => {
 		'should have View buttons rendered in `.buttonContainer`',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View>
+				<WizardPanels>
+					<Panel>
 						<buttons>
 							<button>Button 1</button>
 							<button>Button 2</button>
 						</buttons>
-					</View>
-				</WizardPanel>
+					</Panel>
+				</WizardPanels>
 			);
 
 			const buttons = wizardPanel.find('.buttonContainer').find('button').length;
@@ -112,11 +133,11 @@ describe('WizardPanel Specs', () => {
 			const contentText = 'content';
 
 			const wizardPanel = mount(
-				<WizardPanel>
-					<View>
+				<WizardPanels>
+					<Panel>
 						{contentText}
-					</View>
-				</WizardPanel>
+					</Panel>
+				</WizardPanels>
 			);
 
 			const content = wizardPanel.find('.content').find('.enact-fit').text();
@@ -134,7 +155,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase nextButtonText={nextButtonText} />
+				<WizardPanelsBase total={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -153,7 +174,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelBase prevButtonText={prevButtonText} />
+				<WizardPanelsBase index={1} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -166,34 +187,66 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have disabled `.nextButton` on the last view',
+		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelBase index={2} total={3} />
+				<WizardPanelsBase index={2} total={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
-			const expected = {disabled: true};
-			const actual = nextButton.props();
+			const expected = false;
+			const actual = nextButton.exists();
 
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
-		'should have disabled `.prevButton` on the first view',
+		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelBase index={0} total={3} />
+				<WizardPanelsBase index={0} total={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 
-			const expected = {disabled: true};
-			const actual = prevButton.props();
+			const expected = false;
+			const actual = prevButton.exists();
 
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide next button with `noNextButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={2} noNextButton total={4} />
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button with `noPrevButton`',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={2} noPrevButton total={4} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
 		}
 	);
 
@@ -203,7 +256,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
-				<WizardPanelBase index={index} total={5} />
+				<WizardPanelsBase index={index} total={5} />
 			);
 
 			const expected = {current: index + 1};
@@ -219,9 +272,9 @@ describe('WizardPanel Specs', () => {
 			// FIXME: Temporary selector until our components have corrected display names
 			const viewManager = '.content > *';
 			const wizardPanel = shallow(
-				<WizardPanelBase>
-					<View />
-				</WizardPanelBase>
+				<WizardPanelsBase>
+					<Panel />
+				</WizardPanelsBase>
 			);
 
 			let actual = wizardPanel.find(viewManager).prop('noAnimation');

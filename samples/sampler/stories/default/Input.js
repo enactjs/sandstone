@@ -22,7 +22,10 @@ storiesOf('Sandstone', module)
 			<div>
 				<Input
 					disabled={boolean('disabled', Config)}
+					onChange={action('onChange')}
+					onClose={action('onClose')}
 					onComplete={action('onComplete')}
+					onOpenPopup={action('onOpenPopup')}
 					length={number('length', Config, {range: true, min: 1, max: 10}, 4)}
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}

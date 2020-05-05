@@ -1,0 +1,27 @@
+// WizardPanels.module.less
+//
+@import "../styles/variables.less";
+
+.wizardPanels {
+	.content {
+		margin: @sand-wizardpanels-content-margin;
+	}
+
+	.buttonContainer {
+		margin: @sand-wizardpanels-button-container-margin;
+	}
+
+	.buttonContainer,
+	.footer {
+		text-align: center;
+	}
+}
+
+// Override for Panel
+.panel {
+	padding: @sand-wizardpanels-panel-padding;
+
+	> .body {
+		padding: @sand-wizardpanels-panel-body-padding;
+	}
+}

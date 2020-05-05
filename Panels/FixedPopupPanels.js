@@ -1,29 +1,18 @@
-import compose from 'ramda/src/compose';
+import deprecate from '@enact/core/internal/deprecate';
+import React from 'react';
 
-import {BasicArranger} from './Arrangers';
-import PopupDecorator from './PopupDecorator';
-import Viewport from './Viewport';
+import FixedPopupPanelsBase from '../FixedPopupPanels';
 
-
-const FixedPopupPanelsDecorator = compose(
-	PopupDecorator({
-		className: 'panels fixedPopup',
-		panelArranger: BasicArranger,
-		panelType: 'fixedPopup'
-	})
+const FixedPopupPanels = deprecate(
+	(props) => <FixedPopupPanelsBase {...props} />,
+	{
+		name: 'Panels.FixedPopupPanels',
+		until: '1.0.0-rc.1',
+		replacedBy: 'FixedPopupPanels'
+	}
 );
 
-/**
- * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the right
- * or left side of the screen inside a popup. Typically used for overlaying panels over other
- * content.
- *
- * @class FixedPopupPanels
- * @memberof sandstone/Panels
- * @ui
- * @public
- */
-const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
-
 export default FixedPopupPanels;
-export {FixedPopupPanels};
+export {
+	FixedPopupPanels
+};

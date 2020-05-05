@@ -1,11 +1,12 @@
 'use strict';
-const {componentSelector, Page} = require('@enact/ui-test-utils/utils');
+const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
-const elements = (selector) => (el) => el.$$(selector);
-const getButtons = elements(componentSelector({component: 'Button'}));
+const getHeaderSlot = (slot, el) => element(`.Panels_Header_${slot}`, el);
+const getNextButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotAfter', el));
+const getPrevButton = el => getComponent({component: 'Button'}, getHeaderSlot('slotBefore', el));
 const viewSelector = view => `#view${view}`;
 
-class WizardPanelInterface {
+class WizardPanelsInterface {
 	constructor (id) {
 		this.id = id;
 		this.selector = `#${this.id}`;
@@ -29,8 +30,8 @@ class WizardPanelInterface {
 
 	get self () { return $(this.selector); }
 
-	get nextButton () { return getButtons(this.self)[1]; }
-	get prevButton () { return getButtons(this.self)[0]; }
+	get nextButton () { return getNextButton(this.self); }
+	get prevButton () { return getPrevButton(this.self); }
 
 	get view1 () { return this.self.$(viewSelector(1)); }
 	get view2 () { return this.self.$(viewSelector(2)); }
@@ -38,17 +39,17 @@ class WizardPanelInterface {
 	get view4 () { return this.self.$(viewSelector(4)); }
 }
 
-class WizardPanelPage extends Page {
+class WizardPanelsPage extends Page {
 	constructor () {
 		super();
 		this.title = 'WizardPanel Test';
 		this.components = {};
-		this.components.wizardPanel = new WizardPanelInterface('wizardpanel');
+		this.components.wizardPanels = new WizardPanelsInterface('wizardpanels');
 	}
 
 	open (urlExtra) {
-		super.open('WizardPanel-View', urlExtra);
+		super.open('WizardPanels-View', urlExtra);
 	}
 }
 
-module.exports = new WizardPanelPage();
+module.exports = new WizardPanelsPage();

@@ -17,7 +17,6 @@
 	/// Begin states of header configuration
 	///
 
-	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
 	&:not(.withChildren) .titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
 
@@ -30,6 +29,16 @@
 			right: 0;
 			left: 0;
 		}
+	}
+
+	.slotBefore,
+	.slotAfter,
+	.slotSizer {
+		white-space: nowrap;
+	}
+
+	.slotSizer {
+		display: inline-block;
 	}
 
 	&.centered {
@@ -82,6 +91,16 @@
 		margin: @sand-header-slotabove-margin;
 	}
 
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		:global(.enact-locale-right-to-left) & {
+			text-align: left;
+		}
+	}
+
 	.slotBelow {
 		margin: @sand-header-slotbelow-margin;
 	}
@@ -92,7 +111,7 @@
 	}
 
 	&.featureContent {
-		transform: @sand-header-featurecontent-transform;;
+		transform: @sand-header-featurecontent-transform;
 
 		.titlesRow {
 			transform: @sand-header-featurecontent-title-transform;
@@ -153,11 +172,11 @@
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
 
-		.slotBefore >:first-child {
+		.slotBefore .slotSizer >:first-child {
 			margin-inline-start: 0;
 		}
 
-		.slotAfter >:first-child {
+		.slotAfter .slotSizer >:first-child {
 			margin-inline-end: 0;
 		}
 	}

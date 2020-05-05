@@ -1,4 +1,4 @@
-import {arrange} from '@enact/ui/ViewManager/Arranger';
+import {arrange} from '@enact/ui/ViewManager';
 
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
@@ -15,7 +15,7 @@ const getHorizontalTranslation = (node, factor = 1) => {
  * @type {Arranger}
  * @private
  */
-export const BasicArranger = {
+const BasicArranger = {
 	enter: (config) => {
 		const {node} = config;
 		const transform = getHorizontalTranslation(node);
@@ -42,7 +42,7 @@ export const BasicArranger = {
  * @type {Arranger}
  * @private
  */
-export const FadeAndSlideArranger = {
+const FadeAndSlideArranger = {
 	enter: (config) => {
 		const {node} = config;
 		const transform = getHorizontalTranslation(node);
@@ -63,4 +63,9 @@ export const FadeAndSlideArranger = {
 			{transform, opacity: 0, offset: 1}
 		], animationOptions);
 	}
+};
+
+export {
+	BasicArranger,
+	FadeAndSlideArranger
 };
