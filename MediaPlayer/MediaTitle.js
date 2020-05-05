@@ -4,7 +4,7 @@ import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Marquee from '../Marquee/Marquee';
+import Marquee from '../Marquee';
 
 import css from './MediaTitle.module.less';
 

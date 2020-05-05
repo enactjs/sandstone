@@ -2,9 +2,9 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Skinnable from '../Skinnable/Skinnable';
+import Skinnable from '../Skinnable';
 
-import Icon from '../Icon/Icon';
+import Icon from '../Icon';
 import iconMap from './FeedbackIcons.js';
 
 import css from './Feedback.module.less';

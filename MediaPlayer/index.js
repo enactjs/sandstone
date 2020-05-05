@@ -2,12 +2,14 @@
  * Media Player component for video and audio.
  *
  * @module sandstone/MediaPlayer
- * @exports Input
- * @exports InputBase
- * @exports InputDecorator
- * @exports InputField
- * @exports InputFieldBase
- * @exports InputFieldDecorator
+ * @exports calcNumberValueOfPlaybackRate
+ * @exports FeedbackContent
+ * @exports FeedbackTooltip
+ * @exports MediaControls
+ * @exports MediaTitle
+ * @exports MediaSlider
+ * @exports secondsToTime
+ * @exports Times
  */
 
 import {calcNumberValueOfPlaybackRate, secondsToTime} from './util';

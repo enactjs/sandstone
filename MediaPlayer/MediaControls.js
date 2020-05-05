@@ -15,10 +15,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import $L from '../internal/$L/$L';
-import {compareChildren} from '../internal/util/util';
-import ActionGuide from '../ActionGuide/ActionGuide';
-import Button from '../Button/Button';
+import $L from '../internal/$L';
+import {compareChildren} from '../internal/util';
+import ActionGuide from '../ActionGuide';
+import Button from '../Button';
 
 import {countReactChildren} from './util';
 
