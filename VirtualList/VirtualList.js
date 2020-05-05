@@ -201,6 +201,22 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	id: PropTypes.string,
 
 	/**
+	 * The initially hidden height of the vertical scrollbar.
+	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualList` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `VirtualList`'s vertical scrollbar will
+	 * enlarge.
+	 *
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
+	 *
+	 * @type {Number}
+	 * @public
+	 */
+	initialHiddenHeight: PropTypes.number,
+
+	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
 	 *
 	 * @type {Boolean}
@@ -225,13 +241,13 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSizes: PropTypes.arrayOf(PropTypes.number),
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
 	 *
 	 * @type {Boolean}
 	 * @default false
 	 * @private
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -443,7 +459,7 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
@@ -628,6 +644,22 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	id: PropTypes.string,
 
 	/**
+	 * The initially hidden height of the vertical scrollbar.
+	 *
+	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualGridList` are used inside
+	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
+	 * the `Header` will automatically collapse and the `VirtualGridList`'s vertical scrollbar will
+	 * enlarge.
+	 *
+	 * This value would be the vertical scrollbar height difference between when the header collapses
+	 * and when the header expands.
+	 *
+	 * @type {Number}
+	 * @public
+	 */
+	initialHiddenHeight: PropTypes.number,
+
+	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
 	 *
 	 * @type {Boolean}
@@ -644,13 +676,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	isVerticalScrollbarVisible: PropTypes.bool,
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
+	 * Set this to `true` only if the item needs to stick to the bottom for vertical direction,
+	 * to the right for horizontal direction, when scrolling by keys.
 	 *
 	 * @type {Boolean}
-	 * @default true
-	 * @private
+	 * @default false
+	 * @public
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -863,7 +897,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: true,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

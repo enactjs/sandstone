@@ -3,6 +3,7 @@
  *
  * @module sandstone/TabLayout
  * @exports TabLayout
+ * @exports Tab
  */
 
 import {adaptEvent, forward, handle} from '@enact/core/handle';
@@ -16,11 +17,25 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import TabGroup from './TabGroup';
+import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
 
 /**
  * Tabbed Layout component.
+ *
+ * Example:
+ *
+ * ```jsx
+ * 	<TabLayout>
+ * 		<Tab title="Tab One">
+ * 			<Item>Hello</Item>
+ * 		</Tab>
+ * 		<Tab title="Tab Two">
+ * 			<Item>Goodbye</Item>
+ * 		</Tab>
+ * 	</TabLayout>
+ * ```
  *
  * @class TabLayout
  * @memberof sandstone/TabLayout
@@ -32,27 +47,12 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
-		 * List of tabs to display.
+		 * Collection of [Tabs]{@link sandstone/TabLayout.Tab} to render.
 		 *
-		 * Each object in the array of tabs should include a `title` property and, optionally, an
-		 * `icon` property (see: {@link sandstone/Icon.IconBase.children}). If an icon is not
-		 * supplied for any tabs, no icons will be displayed when collapsed.
-		 *
-		 * @type {Object[]}
-		 * @required
+		 * @type {Node}
 		 * @public
 		 */
-		tabs: PropTypes.array.isRequired,
-
-		/**
-		 * List of content to be rendered for each tab.
-		 *
-		 * The number of children should match the number of tabs.
-		 *
-		 * @type {Node[]}
-		 * @public
-		 */
-		children: PropTypes.arrayOf(PropTypes.node),
+		children: PropTypes.node,
 
 		/**
 		 * Collapses the vertical tab list into icons only.
@@ -75,6 +75,36 @@ const TabLayoutBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Specify dimensions for the layout areas.
+		 *
+		 * All 4 combinations must me supplied: each of the elements, tabs and content in both
+		 * collapsed and expanded state.
+		 *
+		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
+		 * @default {
+		 * 	tabs: {
+		 * 		collapsed: 240,
+		 * 		normal: 855
+		 * 	},
+		 * 	content: {
+		 * 		expanded: null,
+		 * 		normal: null
+		 * 	}
+		 * }
+		 * @private
+		 */
+		dimensions: PropTypes.shape({
+			content: PropTypes.shape({
+				expanded: PropTypes.number,
+				normal: PropTypes.number
+			}).isRequired,
+			tabs: PropTypes.shape({
+				collapsed: PropTypes.number,
+				normal: PropTypes.number
+			}).isRequired
+		}),
 
 		/**
 		 * The currently selected tab.
@@ -122,13 +152,24 @@ const TabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		dimensions: {
+			tabs: {
+				collapsed: 240,
+				normal: 855
+			},
+			content: {
+				expanded: null,
+				normal: null
+			}
+		},
 		index: 0,
 		orientation: 'vertical'
 	},
 
 	styles: {
 		css: componentCss,
-		className: 'tabLayout enact-fit'
+		className: 'tabLayout',
+		publicClassNames: ['tabLayout', 'tabs', 'content']
 	},
 
 	handlers: {
@@ -138,19 +179,29 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
+		children: ({children}) => {
+			return React.Children.map(children, (child) => {
+				return <React.Fragment>{child.props.children}</React.Fragment>;
+			});
+		},
 		className: ({collapsed, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
 		),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 5 tabs for horizontal orientation
-		tabs: ({orientation, tabs}) => {
+		tabs: ({children, orientation}) => {
+			const tabs = React.Children.map(children, (child) => {
+				const {disabled, icon, title} = child.props;
+				return {disabled, icon, title};
+			});
 			return orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs;
 		}
 	},
 
-	render: ({children, collapsed, css, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		const tabSize = collapsed ? 450 : 855;
+	render: ({children, collapsed, css, dimensions, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		const tabSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
+		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
 				<Cell className={css.tabs} size={tabSize}>
@@ -165,6 +216,7 @@ const TabLayoutBase = kind({
 					/>
 				</Cell>
 				<Cell
+					size={contentSize}
 					className={css.content}
 					component={ViewManager}
 					index={index}
@@ -187,8 +239,19 @@ const TabLayoutDecorator = compose(
 // Currently not documenting the base output since it's not exported
 const TabLayout = TabLayoutDecorator(TabLayoutBase);
 
+/**
+ * A shortcut to access {@link sandstone/TabLayout.Tab}
+ *
+ * @name Tab
+ * @static
+ * @memberof sandstone/TabLayout.TabLayout
+ */
+TabLayout.Tab = Tab;
+
 export default TabLayout;
 export {
 	TabLayout,
-	TabLayoutBase
+	TabLayoutBase,
+	TabLayoutDecorator,
+	Tab
 };

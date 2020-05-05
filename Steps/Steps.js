@@ -103,7 +103,7 @@ const StepsBase = kind({
 		 * receive the `children` and `size` props.
 		 *
 		 * @type {Component}
-		 * @default `sandstone/Icon`
+		 * @default sandstone/Icon.Icon
 		 * @public
 		 */
 		iconComponent: EnactPropTypes.component,

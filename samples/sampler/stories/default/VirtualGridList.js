@@ -35,6 +35,7 @@ const
 				{...rest}
 				label={subText}
 				src={source}
+				style={{margin: 0}}
 			>
 				{text}
 			</ImageItem>
@@ -54,7 +55,11 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			subText = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
+			source = {
+				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
+				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
+			};
 
 		items.push({text, subText, source});
 	}
@@ -76,15 +81,15 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', 768)),
-					minHeight: ri.scale(number('minHeight', 588))
+					minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
+					minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', -48))}
+				spacing={ri.scale(number('spacing', VirtualGridListConfig, 24))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}

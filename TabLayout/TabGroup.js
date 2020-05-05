@@ -1,4 +1,4 @@
-import handle, {adaptEvent, forward} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Group from '@enact/ui/Group';
 import Spotlight from '@enact/spotlight';
@@ -8,8 +8,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
-import Icon from '../Icon';
-import Item from '../Item';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 
@@ -19,6 +18,7 @@ const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
+		collapsed: PropTypes.bool,
 		css: PropTypes.object,
 		icon: PropTypes.string,
 		index: PropTypes.number,
@@ -34,6 +34,7 @@ const TabBase = kind({
 	handlers: {
 		onFocus: handle(
 			forward('onFocus'),
+			not(forProp('disabled', true)),
 			() => !Spotlight.getPointerMode(),
 			adaptEvent(
 				(ev, {index}) => ({selected: index}),
@@ -42,20 +43,20 @@ const TabBase = kind({
 		)
 	},
 
-	render: ({children, css, icon, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
 
 		return (
-			<Item
+			<Button
 				{...rest}
+				collapsable
+				minWidth={false}
+				backgroundOpacity="transparent"
 				css={css}
 			>
-				{icon ? (
-					<Icon slot="slotBefore">{icon}</Icon>
-				) : null}
 				{children}
-			</Item>
+			</Button>
 		);
 	}
 });
@@ -85,6 +86,11 @@ const TabGroupBase = kind({
 		selectedIndex: PropTypes.number
 	},
 
+	styles: {
+		css: componentCss,
+		className: 'tabGroup'
+	},
+
 	computed: {
 		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
 			return {
@@ -94,31 +100,38 @@ const TabGroupBase = kind({
 				...rest
 			};
 		}),
+		className: ({collapsed, styler}) => styler.append({collapsed}),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
-		delete rest.collapsed;
+	render: ({children, collapsed, noIcons, onBlur, onFocus, onSelect, selectedIndex, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus}>
+			<Scroller
+				{...rest}
+				onBlur={onBlur}
+				onFocus={onFocus}
+				horizontalScrollbar="hidden"
+				verticalScrollbar="hidden"
+			>
 				{noIcons ? (
-					<Item>
-						<Icon slot="slotBefore">list</Icon>
-					</Item>
+					<TabBase icon="list" collapsed />
 				) : (
 					<Group
-						{...rest}
 						childComponent={Tab}
 						component="div"
 						indexProp="index"
+						itemProps={{collapsed}}
+						onSelect={onSelect}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
-					/>
+					>
+						{children}
+					</Group>
 				)}
 			</Scroller>
 		);

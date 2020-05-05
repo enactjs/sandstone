@@ -10,13 +10,13 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
+	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
 	/// Begin states of header configuration
 	///
 
-	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
 	&:not(.withChildren) .titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
 
@@ -31,8 +31,17 @@
 		}
 	}
 
+	.slotBefore,
+	.slotAfter,
+	.slotSizer {
+		white-space: nowrap;
+	}
+
+	.slotSizer {
+		display: inline-block;
+	}
+
 	&.centered {
-		.inputTransition,
 		.slotAbove,
 		.slotBelow {
 			text-align: center;
@@ -65,13 +74,8 @@
 	/// Begin child node rules configuration, shared across multiple types
 	///
 
-	.inputTransition {
-		position: absolute;
-		top: 50%;
-		right: 0;
-		left: 0;
-		transform: translateY(-50%);
-		z-index: 1;
+	.titlesRow {
+		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
 	}
 
 	.title,
@@ -84,17 +88,37 @@
 	}
 
 	.slotAbove {
-		margin-bottom: @sand-header-slotabove-margin;
+		margin: @sand-header-slotabove-margin;
+	}
+
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		:global(.enact-locale-right-to-left) & {
+			text-align: left;
+		}
 	}
 
 	.slotBelow {
-		margin-top: @sand-header-slotbelow-margin;
+		margin: @sand-header-slotbelow-margin;
 	}
 
 	.line {
 		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
 		margin: 0;
 	}
+
+	&.featureContent {
+		transform: @sand-header-featurecontent-transform;
+
+		.titlesRow {
+			transform: @sand-header-featurecontent-title-transform;
+			opacity: @sand-header-featurecontent-title-opacity;
+		}
+	}
+
 
 	///
 	/// Begin "types" rules configuration
@@ -148,11 +172,11 @@
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
 
-		.slotBefore >:first-child {
+		.slotBefore .slotSizer >:first-child {
 			margin-inline-start: 0;
 		}
 
-		.slotAfter >:first-child {
+		.slotAfter .slotSizer >:first-child {
 			margin-inline-end: 0;
 		}
 	}
@@ -165,9 +189,4 @@
 			}
 		}
 	});
-}
-
-// Intentionally low precedence for easier overriding
-.input {
-	width: 1440px;
 }

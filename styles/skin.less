@@ -1,4 +1,3 @@
-
 // skin.less
 //
 
@@ -7,15 +6,25 @@
 	// and updates dynamically based on which variable-set is loaded.
 	@import "./color-mixins.less";
 
+	// Neutral Skin
 	&:global(.neutral) {
 		// Load the sandstone neutral rules into this scope
-		@import "./colors.less";
+		@import (multiple) "./colors.less";
 
 		@componentRules();
+
+		// High Contrast Variant
+		:global(.enact-a11y-high-contrast) &:global(.highContrast) {
+			@import "./colors-highcontrast.less";
+
+			@componentRules();
+		}
 	}
 
-	:global(.enact-a11y-high-contrast) &:global(.neutral.highContrast) {
-		@import "./colors-highcontrast.less";
+	// Light Skin
+	&:global(.light) {
+		@import (multiple) "./colors.less";
+		@import "./colors-light.less";
 
 		@componentRules();
 	}

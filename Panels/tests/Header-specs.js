@@ -103,29 +103,4 @@ describe('Header Specs', () => {
 
 		expect(actual).toBe(expected);
 	});
-
-	// Deprecated
-	test.skip('should inject a custom component when headerInput is used', () => {
-		// This just uses an <input> tag for easy discoverability. It should behave the same way
-		// as a sandstone/Input, the standard here, but that would require importing a diffenent
-		// component than what we're testing here.
-		const Input = () => <input />;
-
-		// For the purpose of this test, we must also set the `showInput` prop, due to a rendering
-		// optimization in Transition, which doesn't render invisible content, which the Input
-		// initially is without this flag.
-		const subject = mount(
-			<Header showInput>
-				<title>Header</title>
-				<headerInput>
-					<Input />
-				</headerInput>
-			</Header>
-		);
-
-		const expected = 1;
-		const actual = subject.find(Input);
-
-		expect(actual).toHaveLength(expected);
-	});
 });

@@ -2,12 +2,77 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-beta.2] - 2020-05-04
+
+### Deprecated
+
+- `sandstone/Panels.WizardPanel` and `sandstone/Panels.View`, replaced with `sandstone/WizardPanels` and `sandstone/WizardPanels.Panel` respectively
+- `sandstone/Panels.FlexiblePopupPanels`, replaced with `sandstone/FlexiblePopupPanels`
+- `sandstone/Panels.FixedPopupPanels`, replaced with `sandstone/FixedPopupPanels`
+
+### Added
+
+- `sandstone/WizardPanels` props `nextButtonAriaLabel`, `prevButtonAriaLabel`, `noNextButton`, `noPrevButton`, and `noSteps`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the height of the vertical scrollbar when the `featureContent` prop in the panel is set to true
+- `sandstone/Input.InputPopup` component
+
+### Fixed
+
+- `sandstone/Header` centering
+- `sandstone/Input.InputField` disabled colors
+- `sandstone/WizardPanels` to hide previous and next buttons appropriately
+- `sandstone/TabLayout` to support disabled tabs
+
+## [1.0.0-beta.1] - 2020-04-27
+
+### Removed
+
+- `sandstone/Item` prop `selected`
+- `sandstone/Panels.Header` props `headerInput` and `showInput`
+- `sandstone/TabLayout` prop `tabs`
+- `sandstone/DayPicker`, `sandstone/DaySelector`, `sandstone/Dialog`, `sandstone/EditableIntegerPicker`, `sandstone/ExpandableInput`, `sandstone/ExpandableItem`, `sandstone/ExpandableList`, `sandstone/ExpandablePicker`, `sandstone/FormCheckbox`, `sandstone/GridListImageItem`, `sandstone/IconButton`, `sandstone/IncrementSlider`, `sandstone/InputPopup`, `sandstone/LabeledIcon`, `sandstone/LabeledIconButton`, `sandstone/LabeledItem`, `sandstone/Notification`, `sandstone/Panels.ActivityPanels`, `sandstone/Panels.AlwaysViewingPanels`, `sandstone/Panels.Breadcrumb`, `sandstone/SelectableItem`, `sandstone/SlotItem`, `sandstone/ToggleButton`, `sandstone/ToggleIcon`, and `sandstone/ToggleItem`
+
+### Added
+
+- `sandstone/Heading` support for `size` type of `'tiny'`
+- `sandstone/Item` prop `centered`
+- `sandstone/Panels` and `sandstone/Panels.WizardPanel` props `onTransition` and `onWillTransition`
+- `sandstone/Panels.WizardPanel` prop `noAnimation` to suppress view transition animation
+- `sandstone/PopupTabLayout` component
+- `sandstone/Scroller` prop `fadeOut` to show fade-out effect
+- `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
+- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5way
+- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5way
+
+### Changed
+
+- `sandstone/ImageItem` focus effect when in a vertical orientation
+
+### Fixed
+
+- `sandstone/BodyText` font weight
+- `sandstone/BodyText` line-wrap and `noWrap` capabilities
+- `sandstone/DatePicker` and `sandstone/TimePicker` to match current designs
+- `sandstone/Dropdown` to focus on selected option
+- `sandstone/Picker` horizontal joined height in large text mode
+- `sandstone/Scroller` focus behavior of the scroll thumb
+
+## [1.0.0-alpha.9] - 2020-04-20
+
+### Deprecated
+
+- `sandstone/TabLayout` prop `tabs`, to be removed in beta.1. Use `sandstone/TabLayout.Tab` instead.
+
+### Added
+
+- `sandstone/Panels.Panel` prop `featureContent` to minimize the panel visuals to feature the content more prominently
+- `sandstone/TabLayout.Tab` for configuring `TabLayout` tab contents
 
 ### Fixed
 
 - `sandstone/Button` styles for `selected`
 - `sandstone/Switch` sizing and positioning in large text mode
+- `sandstone/Checkbox` and `sandstone/RadioItem` styling when disabled and focused
 
 ## [1.0.0-alpha.8] - 2020-04-14
 
@@ -29,7 +94,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` to not select a previously focused tab after switching from 5-way to pointer mode
-
 
 ## [1.0.0-alpha.7] - 2020-04-06
 

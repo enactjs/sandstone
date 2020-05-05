@@ -71,7 +71,7 @@ const ImageItemBase = kind({
 		 * * `imageIcon` - The image icon component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `selectionIcon` - The icon component class for default selection component
-		 * * `subCaption` - The subCaption component class
+		 * * `label` - The secondary caption component class
 		 *
 		 * @type {Object}
 		 * @public
@@ -219,11 +219,14 @@ const ImageItemBase = kind({
 					) : null}
 					<Cell>
 						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						<Marquee className={css.label} marqueeOn="hover">{label}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
-		}
+		},
+		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
+			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+		})
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
@@ -247,7 +250,7 @@ const ImageItemBase = kind({
 								{SelectionComponent ? (
 									<SelectionComponent />
 								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
+									<Icon className={css.selectionIcon}>checkselection</Icon>
 								)}
 							</div>
 						) : null}
@@ -281,10 +284,11 @@ const ImageItemDecorator = compose(
  * Usage:
  * ```
  * <ImageItem
- * 	caption="image0"
- * 	src="http://placehold.it/300x300/9037ab/ffffff&text=Image0"
- * 	subCaption="sub-image0"
- * />
+ *   src="http://placehold.it/100x100/9037ab/ffffff&text=Image0"
+ *   label="A secondary caption"
+ * >
+ * 	The primary caption for the image
+ * </ImageItem>
  * ```
  *
  * @class ImageItem

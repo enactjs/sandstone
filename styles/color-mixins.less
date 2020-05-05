@@ -48,3 +48,10 @@
 .sand-disabled-focus-bg-colors () {
 	opacity: @sand-disabled-focus-bg-opacity;
 }
+
+// Add button-specific rules to the shared resting-colors mixin
+.sand-button-spotlight-resting-colors() {
+	.sand-spotlight-resting-colors();
+	will-change+: transform;
+	transition+: transform @sand-button-focus-duration ease-out;
+}

@@ -675,7 +675,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (!no5WayJump &&
 					!visible &&
 					!mediaDisabled &&
-					(!current || current.classList.contains(css.controlsHandleAbove)) &&
+					!current &&
 					(is('left', ev.keyCode) || is('right', ev.keyCode))) {
 				this.paused.pause();
 				this.startListeningForPulses(ev.keyCode);
