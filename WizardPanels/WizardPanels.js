@@ -7,6 +7,7 @@ import React from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
+import {CrossFadeArranger} from '../internal/Panels';
 import {Header, Panel} from '../Panels';
 import Steps from '../Steps';
 
@@ -236,6 +237,7 @@ const WizardPanelsBase = kind({
 		return (
 			<Panel {...rest}>
 				<Header
+					arranger={CrossFadeArranger}
 					centered
 					css={css}
 					noCloseButton

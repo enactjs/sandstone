@@ -9,6 +9,7 @@ import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import {unit} from '@enact/ui/resolution';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -23,6 +24,24 @@ import WindowEventable from '../internal/WindowEventable';
 import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
+
+/**
+ * A container  with special styles for animating between titles
+ *
+ * @class Header
+ * @memberof sandstone/Panels.Header
+ * @ui
+ * @private
+ */
+const TitleContainer = kind({
+	name: 'TitleContainer',
+	styles: {
+		style: {position: 'absolute', left: '50%', transform: 'translateX(-50%)', width: '100%'}
+	},
+	render (props) {
+		return <div {...props} />;
+	}
+});
 
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
@@ -73,6 +92,17 @@ const HeaderBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
+		/**
+		 * Set of functions that control how the titles are transitioned between each other.
+		 * Requires an array of titles to be passed to `title` (likewise for `subtitle`),
+		 * and the given arranger transition will occur when changing the index.
+		 *
+		 * @type {ui/ViewManager.Arranger}
+		 * @default ui/ViewManager.SlideLeftArranger
+		 * @public
+		 */
+		arranger: shape,
+
 		/**
 		 * Sets the hint string read when focusing the back button.
 		 *
@@ -456,6 +486,7 @@ const HeaderBase = kind({
 	},
 
 	render: ({
+		arranger,
 		backButtonAriaLabel,
 		backButtonAvailable,
 		backButtonBackgroundOpacity,
@@ -531,27 +562,31 @@ const HeaderBase = kind({
 						</span>
 					</Cell>
 					<Cell className={css.titleCell}>
-						<Heading
-							aria-label={title}
-							size="title"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.title}
-						>
-							{title}
-						</Heading>
-						<Heading
-							size="subtitle"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.subtitle}
-						>
-							{subtitle}
-						</Heading>
+						<ViewManager arranger={arranger} className={css.titleViewManager} duration={500} index={0}>
+							<TitleContainer key={title + subtitle}>
+								<Heading
+									aria-label={title}
+									size="title"
+									spacing="auto"
+									marqueeOn={marqueeOn}
+									forceDirection={direction}
+									alignment={centered ? 'center' : null}
+									className={css.title}
+								>
+									{title}
+								</Heading>
+								<Heading
+									size="subtitle"
+									spacing="auto"
+									marqueeOn={marqueeOn}
+									forceDirection={direction}
+									alignment={centered ? 'center' : null}
+									className={css.subtitle}
+								>
+									{subtitle}
+								</Heading>
+							</TitleContainer>
+						</ViewManager>
 					</Cell>
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
