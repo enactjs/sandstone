@@ -434,7 +434,7 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
 				featureContent,
 				centered,
