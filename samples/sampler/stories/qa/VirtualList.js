@@ -112,9 +112,6 @@ class StatefulSwitchItem extends React.Component {
 
 const SlotItem = ({children, ...rest}) => (
 	<Item {...rest}>
-		<slotBefore>
-			<Button icon="list" />
-		</slotBefore>
 		{children}
 		<slotAfter>
 			<Button icon="list" />
