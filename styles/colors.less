@@ -30,7 +30,6 @@
 // Disabled Opacity
 // ---------------------------------------
 @sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
-@sand-disabled-opacity-percentage: (@sand-disabled-opacity * 100%);
 @sand-disabled-focus-content-opacity: 0.4;
 @sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
 
@@ -51,15 +50,12 @@
 // Alert
 // ---------------------------------------
 @sand-alert-bg-color: #373a41;
-@sand-alert-overlay-bg-color: fade(#cacbcc, 95%);
-@sand-alert-title-color: @sand-light-gray;
-@sand-alert-subtitle-color: @sand-gray;
-@sand-alert-overlay-text-color: @sand-black;
+@sand-alert-overlay-bg-color: fade(@sand-alert-bg-color, 95%);
 @sand-alert-overlay-shadow: @sand-spotlight-focus-shadow;
 
 // Button
 // ---------------------------------------
-@sand-button-text-color: @sand-text-color;
+@sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
 @sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
 @sand-button-focus-text-color: @sand-spotlight-text-color;
@@ -78,7 +74,7 @@
 @sand-checkbox-focus-color: @sand-checkbox-color;
 @sand-checkbox-focus-bg-color: @sand-checkbox-bg-color;
 @sand-checkbox-focus-border-color: @sand-spotlight-text-color;
-@sand-checkbox-selected-color: @sand-text-color;
+@sand-checkbox-selected-color: @sand-light-gray;
 @sand-checkbox-selected-bg-color: @sand-feature-color;
 @sand-checkbox-selected-border-color: @sand-checkbox-selected-bg-color;
 @sand-checkbox-selected-focus-color: @sand-checkbox-selected-color;
@@ -100,6 +96,16 @@
 // Dropdown
 // ---------------------------------------
 @sand-dropdown-selected-text-color: @sand-spotlight-color;
+
+// FixedPopupPanels
+// ---------------------------------------
+@sand-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
+
+// FlexiblePopupPanels
+// ---------------------------------------
+@sand-flexiblepopuppanels-panel-bg-color: fade(@sand-bg-color, 90%);
+@sand-flexiblepopuppanels-panel-border-radius: @sand-popup-border-radius;
+@sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
@@ -145,17 +151,10 @@
 // ---------------------------------------
 @sand-inputfield-text-color: @sand-text-color;
 @sand-inputfield-placeholder-color: fade(@sand-light-gray, 20%);
-@sand-inputfield-placeholder-focus-color: fade(@sand-gray, 20%);
-@sand-inputfield-placeholder-active-color: @sand-inputfield-placeholder-focus-color;
-@sand-inputfield-placeholder-disabled-color: @sand-white;
+@sand-inputfield-placeholder-active-color: fade(#4c5059, 40%);
 @sand-inputfield-focus-text-color: @sand-spotlight-text-color;
-@sand-inputfield-disabled-focus-text-color: fade(@sand-inputfield-text-color, @sand-disabled-opacity-percentage);
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
-@sand-inputfield-focus-bg-color: @sand-spotlight-bg-color;
-@sand-inputfield-focus-bg-shadow: @sand-spotlight-focus-shadow;
-@sand-inputfield-active-bg-color: @sand-inputfield-focus-bg-color;
-@sand-inputfield-disabled-focus-bg-color: fade(@sand-inputfield-focus-bg-color, @sand-disabled-opacity-percentage);
 
 // KeyGuide
 // ---------------------------------------
@@ -170,13 +169,6 @@
 @sand-mediaoverlay-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
 @sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
 @sand-mediaoverlay-subtitle-color: @sand-gray;
-
-// Panels
-// ---------------------------------------
-@sand-panels-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
-@sand-panel-flexiblepopup-bg-color: fade(@sand-bg-color, 90%);
-@sand-panel-flexiblepopup-border-radius: @sand-popup-border-radius;
-@sand-panel-flexiblepopup-shadow: @sand-panels-fixedpopuppanels-shadow;
 
 // Picker
 // ---------------------------------------
@@ -226,7 +218,7 @@
 @sand-radioitem-focus-indicator-color: transparent;
 @sand-radioitem-focus-indicator-bg-color: transparent;
 @sand-radioitem-focus-indicator-border-color: @sand-spotlight-text-color;
-@sand-radioitem-selected-indicator-color: @sand-text-color;
+@sand-radioitem-selected-indicator-color: @sand-light-gray;
 @sand-radioitem-selected-indicator-bg-color: @sand-feature-color;
 @sand-radioitem-selected-indicator-border-color: @sand-radioitem-selected-indicator-bg-color;
 @sand-radioitem-selected-focus-indicator-color: @sand-radioitem-selected-indicator-color;

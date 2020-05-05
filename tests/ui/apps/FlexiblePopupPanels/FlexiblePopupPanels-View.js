@@ -10,7 +10,7 @@ import compose from 'ramda/src/compose';
 import Button from '../../../../Button';
 import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
-import {FlexiblePopupPanels, Panel, Header} from '../../../../Panels';
+import {FlexiblePopupPanels, Panel, Header} from '../../../../FlexiblePopupPanels';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app

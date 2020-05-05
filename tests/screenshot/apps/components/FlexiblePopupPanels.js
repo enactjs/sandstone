@@ -3,8 +3,7 @@ import {scaleToRem} from '@enact/ui/resolution';
 
 import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
-import {FlexiblePopupPanels, Panel, Header} from '../../../../Panels';
-
+import {FlexiblePopupPanels, Panel, Header} from '../../../../FlexiblePopupPanels';
 
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
@@ -43,7 +42,7 @@ function FlexPopupPanels (props) {
 					{blocks.medium}
 				</Panel>,
 				<Panel key="panelIndex3">
-					<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior" type="mini" />
+					<Header title="Panel 4 - Small Block" type="mini" />
 					{blocks.small}
 				</Panel>,
 				<Panel key="panelIndex4">
