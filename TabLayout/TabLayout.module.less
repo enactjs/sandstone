@@ -5,8 +5,16 @@
 .tabLayout {
 	height: 100%;
 
-	.content {
-		margin-top: @sand-tablayout-content-margin-top;
+	&.horizontal {
+		.content {
+			margin-top: @sand-tablayout-horizontal-content-margin-top;
+		}
+	}
+
+	&.vertical {
+		.content {
+			margin-top: @sand-tablayout-vertical-content-margin-top;
+		}
 	}
 
 	.tabs {

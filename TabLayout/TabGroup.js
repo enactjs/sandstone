@@ -1,6 +1,9 @@
 import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {Cell, Layout} from '@enact/ui/Layout';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import Group from '@enact/ui/Group';
+import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
@@ -9,6 +12,7 @@ import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
+import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 
@@ -23,6 +27,7 @@ const TabBase = kind({
 		icon: PropTypes.string,
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
+		orientation: PropTypes.string,
 		selected: PropTypes.bool
 	},
 
@@ -43,20 +48,28 @@ const TabBase = kind({
 		)
 	},
 
-	render: ({children, css, ...rest}) => {
+	computed: {
+		className: ({orientation, styler}) => styler.append(orientation)
+	},
+
+	render: ({children, css, orientation, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
 
 		return (
-			<Button
-				{...rest}
-				collapsable
-				minWidth={false}
-				backgroundOpacity="transparent"
-				css={css}
+			<Cell
+				size={orientation === 'horizontal' ? `${ri.scale(590)}px` : null}
 			>
-				{children}
-			</Button>
+				<Button
+					{...rest}
+					collapsable
+					minWidth={false}
+					backgroundOpacity="transparent"
+					css={css}
+				>
+					{children}
+				</Button>
+			</Cell>
 		);
 	}
 });
@@ -100,32 +113,40 @@ const TabGroupBase = kind({
 				...rest
 			};
 		}),
-		className: ({collapsed, styler}) => styler.append({collapsed}),
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onFocus, onSelect, selectedIndex, ...rest}) => {
+	render: ({children, collapsed, noIcons, onBlur, onFocus, onSelect, orientation, selectedIndex, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
+		const isHorizontal = orientation === 'horizontal';
+		const scrollerProps = isHorizontal ? {
+			horizontalScrollbar: 'hidden',
+			verticalScrollbar: 'hidden'
+		} : null;
+
 		return (
-			<Scroller
+			<ComponentOverride
 				{...rest}
+				component={isHorizontal ? 'div' : Scroller}
 				onBlur={onBlur}
 				onFocus={onFocus}
-				horizontalScrollbar="hidden"
-				verticalScrollbar="hidden"
+				{...scrollerProps}
 			>
 				{noIcons ? (
 					<TabBase icon="list" collapsed />
 				) : (
 					<Group
 						childComponent={Tab}
-						component="div"
+						className={componentCss.tabs}
+						component={Layout}
 						indexProp="index"
-						itemProps={{collapsed}}
+						itemProps={{collapsed, orientation}}
 						onSelect={onSelect}
+						orientation={orientation}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
@@ -133,7 +154,8 @@ const TabGroupBase = kind({
 						{children}
 					</Group>
 				)}
-			</Scroller>
+				{isHorizontal ? <Heading className={componentCss.horizontalLine} showLine /> : null}
+			</ComponentOverride>
 		);
 	}
 });

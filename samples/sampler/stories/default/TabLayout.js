@@ -44,8 +44,7 @@ storiesOf('Sandstone', module)
 					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 					<TabLayout
 						onSelect={action('onSelect')}
-						// leaving this knob out for now until we build out horizontal tabs
-						// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+						orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
 					>
 						<Tab
 							title={tabs[0].title}

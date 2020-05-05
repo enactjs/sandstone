@@ -154,7 +154,7 @@ const TabLayoutBase = kind({
 	defaultProps: {
 		dimensions: {
 			tabs: {
-				collapsed: 240,
+				collapsed: 360,
 				normal: 855
 			},
 			content: {
@@ -202,11 +202,13 @@ const TabLayoutBase = kind({
 	render: ({children, collapsed, css, dimensions, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		const tabSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
+		const isVertical = orientation === 'vertical';
+
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} size={tabSize}>
+				<Cell className={css.tabs} size={isVertical ? tabSize : null} shrink={!isVertical}>
 					<TabGroup
-						collapsed={collapsed}
+						collapsed={isVertical ? collapsed : false}
 						onFocus={onExpand}
 						onFocusTab={onSelect}
 						onSelect={onSelect}
@@ -216,7 +218,7 @@ const TabLayoutBase = kind({
 					/>
 				</Cell>
 				<Cell
-					size={contentSize}
+					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
 					index={index}

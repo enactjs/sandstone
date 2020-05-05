@@ -6,19 +6,67 @@
 .tab {
 	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
 	font-weight: normal;
-	margin-bottom: @sand-tablayout-tab-margin-bottom;
+
+	&.horizontal {
+		margin-bottom: 0;
+
+		&.button {
+			.client {
+				text-align: center;
+			}
+		}
+	}
+
+	&.vertical {
+		margin-bottom: @sand-tablayout-tab-margin-bottom;
+	}
 
 	.client {
 		text-align: start;
 	}
 
 	.applySkins({
-		&.button.selected {
-			.bg {
-				.sand-button-spotlight-resting-colors();
-				background-color: @sand-tablayout-tab-selected-bg-color;
-				opacity: @sand-tablayout-tab-selected-opacity;
+		&.horizontal {
+			&.button {
+				&.selected {
+					.bg {
+						.sand-spotlight-resting-colors(1);
+						background-color: transparent;
+						border-bottom: @sand-tablayout-tab-horizontal-selected-border-width solid @sand-tablayout-tab-horizontal-selected-border-color;
+						border-radius: 0px;
+						margin: @sand-tablayout-tab-horizontal-selected-bg-margin;
+					}
+				}
+
+				.focus({
+					.bg {
+						border-radius: @sand-button-border-radius;
+						margin: unset;
+						border-bottom: unset;
+					}
+				});
+			}
+		}
+
+		&.vertical {
+			&.button{
+				&.selected {
+					.bg {
+						.sand-button-spotlight-resting-colors();
+						background-color: @sand-tablayout-tab-selected-bg-color;
+						opacity: @sand-tablayout-tab-selected-opacity;
+					}
+				}
 			}
 		}
 	});
+}
+
+.tabGroup {
+	.horizontalLine {
+		overflow-y: visible;
+		min-height: 0;
+		padding: 0;
+		margin: 0;
+	}
 }
