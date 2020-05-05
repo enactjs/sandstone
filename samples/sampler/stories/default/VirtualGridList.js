@@ -80,15 +80,15 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', 688)),
-					minHeight: ri.scale(number('minHeight', 570))
+					minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
+					minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', 0))}
+				spacing={ri.scale(number('spacing', VirtualGridListConfig, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}

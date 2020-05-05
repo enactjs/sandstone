@@ -1,9 +1,9 @@
 import {TabLayout, Tab} from '../../../../TabLayout';
 import React from 'react';
 
-const SimpleTab = ({title, icon}) => (
-	<Tab title={title} icon={icon}>
-		<div>{`View ${title}`}</div>
+const SimpleTab = (props) => (
+	<Tab {...props}>
+		<div>{`View ${props.title}`}</div>
 	</Tab>
 );
 
@@ -43,6 +43,17 @@ const someTabsWithIcons = [
 	SimpleTab({title: 'Six', icon: 'picture'})
 ];
 
+const tabsWithIconsDisabled = [
+	SimpleTab({title: 'One', icon: 'star'}),
+	SimpleTab({disabled: true, title: 'Two', icon: 'home'}),
+	SimpleTab({title: 'Three', icon: 'plug'}),
+	SimpleTab({title: 'Four', icon: 'lock'}),
+	SimpleTab({title: 'Five', icon: 'info'}),
+	SimpleTab({title: 'Six', icon: 'picture'})
+];
+
+
+
 const TabLayoutTests = [
 	{
 		component: <TabLayout>{tabs}</TabLayout>,
@@ -74,6 +85,10 @@ const TabLayoutTests = [
 	},
 	{
 		component: <TabLayout collapsed>{oneTabWithIcons}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout collapsed>{tabsWithIconsDisabled}</TabLayout>,
 		wrapper: {full: true}
 	}
 ];

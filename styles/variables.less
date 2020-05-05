@@ -98,7 +98,7 @@
 // Body
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
-@sand-body-font-weight: 300;
+@sand-body-font-weight: 400;
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
@@ -164,14 +164,13 @@
 // ---------------------------------------
 @sand-alert-buttons-margin-top: 180px;
 @sand-alert-max-buttons-margin-top: 300px;
-@sand-alert-title-margin-top: 30px;
-@sand-alert-subtitle-margin-top: 12px;
-@sand-alert-overlay-border-radius: 24px;
-@sand-alert-overlay-button-margin: 30px;
+@sand-alert-fullscreen-button-spacing: 60px;
+@sand-alert-fullscreen-image-spacing: 30px;
+@sand-alert-overlay-border-radius: @sand-popup-border-radius;
+@sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: (202px - @sand-button-h-margin);
+@sand-alert-overlay-content-margin-right: (204px - @sand-button-h-margin);
 @sand-alert-overlay-content-width: 1200px;
-@sand-alert-fullscreen-button-margin: 60px;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left: 90px;
@@ -273,6 +272,19 @@
 @sand-dropdown-list-scrollbar-thumb-margin: 12px;
 @sand-dropdown-list-max-height: (5 * @sand-item-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+
+// FixedPopupPanels
+// ---------------------------------------
+@sand-fixedpopuppanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-fixedpopuppanels-panel-padding: 0;
+@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+
+// FlexiblePopupPanels
+// ---------------------------------------
+@sand-flexiblepopuppanels-width: 50vw;
+@sand-flexiblepopuppanels-margin-top: 108px;
+@sand-flexiblepopuppanels-panel-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 
 // Header
 // ---------------------------------------
@@ -386,8 +398,7 @@
 @sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
 @sand-inputfield-font-weight: 600;
 @sand-inputfield-text-indent: 0.2em;
-@sand-inputfield-disabled-opacity: 0.4;
-@sand-inputfield-placeholder-opacity: 0.5;
+@sand-inputfield-bg-opacity: 0.2;
 @sand-inputfield-border-radius: @sand-inputfield-border-width;
 @sand-inputfield-border-width: 12px;
 @sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
@@ -444,20 +455,9 @@
 
 // Panels
 // ---------------------------------------
-@sand-panels-fixedpopuppanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
-@sand-panels-flexiblepopuppanels-width: 50vw;
-@sand-panels-flexiblepopuppanels-margin-top: 108px;
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
-@sand-panel-wizard-padding: 0;
-@sand-panel-flexiblepopup-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
-@sand-panel-flexiblepopup-padding: 60px (60px - @sand-component-spacing);
-@sand-panel-list-padding: 0;
-@sand-panel-fixedpopup-padding: 0;
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
 @sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-spotlight-outset)) 0;
-@sand-panel-body-wizard-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
-@sand-panel-body-list-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing));
-@sand-panel-body-fixedpopup-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
 @sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
@@ -655,7 +655,9 @@
 @sand-video-player-slider-tap-area:                162px;
 @sand-video-player-title-size:                     96px;
 
-// WizardPanel
+// WizardPanels
 // ---------------------------------------
-@sand-wizard-panel-content-margin: 0 0 150px 0;
-@sand-wizard-panel-button-container-margin: 0 0 60px 0;
+@sand-wizardpanels-content-margin: 0 0 150px 0;
+@sand-wizardpanels-button-container-margin: 0 0 60px 0;
+@sand-wizardpanels-panel-padding: 0;
+@sand-wizardpanels-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));

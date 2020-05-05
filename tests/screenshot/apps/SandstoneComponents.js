@@ -37,7 +37,7 @@ import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
-import WizardPanel from './components/WizardPanel';
+import WizardPanels from './components/WizardPanels';
 
 const components = {
 	ActionGuide,
@@ -81,7 +81,7 @@ const components = {
 	// TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList,
-	WizardPanel
+	WizardPanels
 };
 
 const testMetadata = {};

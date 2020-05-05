@@ -6,10 +6,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import {CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
-
-import CancelDecorator from './CancelDecorator';
-import Viewport from './Viewport';
 
 import componentCss from './Panels.module.less';
 
