@@ -2,7 +2,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Slider from '../Slider';
+import Slider from '../Slider/Slider';
 
 import MediaKnob from './MediaKnob';
 import MediaSliderDecorator from './MediaSliderDecorator';

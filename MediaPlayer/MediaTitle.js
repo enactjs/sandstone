@@ -4,9 +4,9 @@ import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Marquee from '../Marquee';
+import Marquee from '../Marquee/Marquee';
 
-import css from './VideoPlayer.module.less';
+import css from './MediaTitle.module.less';
 
 /**
  * MediaTitle {@link sandstone/VideoPlayer}.
