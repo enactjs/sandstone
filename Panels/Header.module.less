@@ -17,25 +17,18 @@
 	/// Begin states of header configuration
 	///
 
-	// Titles-only layout when in minimal-mode (there are no children in the Nav area)
-	&:not(.centered) {
-		&:not(.withChildren) {
-			.titlesRow {
-				// The following updates .subtitle to be removed from the measurement calculations for
-				// vertical centering in a "standard" header, so the title can vertically align with the
-				// side buttons. When *not* in "standard" type, the side buttons should be vertically
-				// aligned with both the title and subtitle.
-				.subtitle {
-					position: absolute;
-					right: 0;
-					left: 0;
-				}
-			}
-		}
-	}
-
 	&:not(.withChildren) .titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
+
+		// The following updates .subtitle to be removed from the measurement calculations for
+		// vertical centering in a "standard" header, so the title can vertically align with the
+		// side buttons. When *not* in "standard" type, the side buttons should be vertically
+		// aligned with both the title and subtitle.
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
+		}
 	}
 
 	.slotBefore,
@@ -179,11 +172,11 @@
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
 
-		.slotBefore >:first-child {
+		.slotBefore .slotSizer >:first-child {
 			margin-inline-start: 0;
 		}
 
-		.slotAfter >:first-child {
+		.slotAfter .slotSizer >:first-child {
 			margin-inline-end: 0;
 		}
 	}
