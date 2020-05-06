@@ -121,13 +121,15 @@ describe('VirtualList', function () {
 			// Checking focus is on buttonBottom instead of last item since 5-way Down on last item using this app takes Spotlight to buttonBottom.
 			expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 		});
+
 		/*
 		 TBD: In sandstone GUI, the list height is different from the scrollbar height. Needs to be updated.
 		it('should have same height list and scrollbar [GT-22079]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
-		it('should position Paging Controls on right side in LTR [GT-21271]', function () { //LTR 확인위한 테스트, 나중에 다시 확인
+		// Need to Check LTR
+		it('should position Paging Controls on right side in LTR [GT-21271]', function () {
 			Page.spotlightSelect();
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -138,6 +140,7 @@ describe('VirtualList', function () {
 			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
 		});
 		*/
+
 		// Need mochaOpts - timeout set to 60000 to pass
 		it('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
@@ -191,6 +194,7 @@ describe('VirtualList', function () {
 			Page.delay(1000);
 			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
 		});
+
 		it.skip('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
 			let bottomId;
 			Page.spotlightSelect();
@@ -223,8 +227,8 @@ describe('VirtualList', function () {
 			// Verify Step 6:  1. The list Scroll Down. 2. The Spotted item is placed on the Top.
 			expectFocusedItem(Number((Page.topVisibleItemId().slice(4))), 'focus Item 00');
 			expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
-
 		});
+
 		/*
 		describe('Change `wrap` dynamically' , function () {
 			it('should prevent bubbling when wrapping[GT-28463]', function () {
@@ -310,9 +314,11 @@ describe('VirtualList', function () {
 		});
 		*/
 		describe('onScrollStart/Stop Events behavior ', function () {
+
 			beforeEach(function () {
 				Page.open();
 			});
+
 			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function (){
 
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
@@ -339,10 +345,13 @@ describe('VirtualList', function () {
 
 			});
 		});
+
 		describe('Item Animates', function () {
+
 			beforeEach(function () {
 				Page.open();
 			});
+
 			it('should animate Items via Channel Down [GT-28464]', function (){
 				// Step 3: Position the pointer on the first item('Item 000)
 				Page.showPointerByKeycode();
