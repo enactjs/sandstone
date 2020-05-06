@@ -451,8 +451,7 @@ const HeaderBase = kind({
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr'
 	},
 
 	render: ({
@@ -466,7 +465,6 @@ const HeaderBase = kind({
 		css,
 		direction,
 		hover,
-		line,
 		marqueeOn,
 		noBackButton,
 		noCloseButton,
@@ -560,7 +558,6 @@ const HeaderBase = kind({
 					</Cell>
 				</Row>
 				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
-				{line}
 			</header>
 		);
 	}
