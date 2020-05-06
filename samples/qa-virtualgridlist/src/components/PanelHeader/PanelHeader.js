@@ -177,6 +177,7 @@ const PanelHeader = kind({
 		delete rest.dataSize;
 		delete rest.deleteItem;
 		delete rest.deleteSelectedItem;
+		delete rest.nativeScroll;
 		delete rest.onChangeDirection;
 		delete rest.onChangeFocusableScrollbar;
 		delete rest.onChangeScrollMode;
