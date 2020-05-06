@@ -38,6 +38,16 @@ const FixedPopupPanelsDecorator = compose(
 const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
 
 /**
+ * Size of the popup.
+ *
+ * @memberof sandstone/FixedPopupPanels.FixedPopupPanels.prototype
+ * @name size
+ * @type {('thin'|'half')}
+ * @default 'thin'
+ * @public
+ */
+
+/**
  * The standard view container used inside a
  * [FixedPopupPanels]{@link sandstone/FixedPopupPanels.FixedPopupPanels} view manager instance.
  *

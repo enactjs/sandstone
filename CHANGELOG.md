@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/FixedPopupPanels` `size` prop, which now includes "half" to support larger content
+
 ## [1.0.0-beta.2] - 2020-05-04
 
 ### Deprecated
