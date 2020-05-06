@@ -1,16 +1,21 @@
 import kind from '@enact/core/kind';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
+import Skinnable from '@enact/ui/Skinnable';
 import ViewManager, {SlideLeftArranger} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
-import {Header, Panel} from '../Panels';
+import {Header} from '../Panels';
+import {PanelBase} from '../Panels/Panel';
 import Steps from '../Steps';
 
 import css from './WizardPanels.module.less';
+import Spotlight from '@enact/spotlight';
 
 const WizardPanelsContext = React.createContext(null);
 
@@ -220,12 +225,24 @@ const WizardPanelsBase = kind({
 				onChange({index: prevIndex});
 			}
 		},
-		onTransition: (ev, {index, onTransition}) => {
+		onTransition: (ev, {'data-spotlight-id': spotlightId, index, onTransition}) => {
+			// This should move to the decorator because it introduces side effects within kind. 
+			const current = Spotlight.getCurrent();
+			if (spotlightId && !current) {
+				Spotlight.focus(spotlightId);
+			}
+
 			if (onTransition) {
 				onTransition({index});
 			}
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
+			// This should move to the decorator because it introduces side effects within kind. 
+			const current = Spotlight.getCurrent();
+			if (!Spotlight.getPointerMode() && current) {
+				current.blur();
+			}
+
 			if (onWillTransition) {
 				onWillTransition({index});
 			}
@@ -234,44 +251,49 @@ const WizardPanelsBase = kind({
 
 	render: ({buttons, children, footer, index, total, nextButtonAriaLabel, nextButtonText, noNextButton, noPrevButton, noSteps, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonAriaLabel, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
 		return (
-			<Panel {...rest}>
-				<Header
-					centered
-					css={css}
-					noCloseButton
-					subtitle={subtitle}
-					title={title}
-					type="wizard"
-				>
-					{!noSteps ? (
-						<Steps current={index + 1} slot="slotAbove" total={total} />
-					) : null}
-					{index < total - 1 && !noNextButton ? (
-						<Button
-							aria-label={nextButtonAriaLabel}
-							backgroundOpacity="transparent"
-							icon="arrowlargeright"
-							iconPosition="after"
-							minWidth={false}
-							onClick={onIncrementStep}
-							slot="slotAfter"
-						>
-							{nextButtonText}
-						</Button>
-					) : null}
-					{index !== 0 && !noPrevButton ? (
-						<Button
-							aria-label={prevButtonAriaLabel}
-							backgroundOpacity="transparent"
-							icon="arrowlargeleft"
-							minWidth={false}
-							onClick={onDecrementStep}
-							slot="slotBefore"
-						>
-							{prevButtonText}
-						</Button>
-					) : null}
-				</Header>
+			<PanelBase
+				{...rest}
+				autoFocus="default-element"
+				header={
+					<Header
+						centered
+						css={css}
+						noCloseButton
+						subtitle={subtitle}
+						title={title}
+						type="wizard"
+					>
+						{!noSteps ? (
+							<Steps current={index + 1} slot="slotAbove" total={total} />
+						) : null}
+						{index < total - 1 && !noNextButton ? (
+							<Button
+								aria-label={nextButtonAriaLabel}
+								backgroundOpacity="transparent"
+								icon="arrowlargeright"
+								iconPosition="after"
+								minWidth={false}
+								onClick={onIncrementStep}
+								slot="slotAfter"
+							>
+								{nextButtonText}
+							</Button>
+						) : null}
+						{index !== 0 && !noPrevButton ? (
+							<Button
+								aria-label={prevButtonAriaLabel}
+								backgroundOpacity="transparent"
+								icon="arrowlargeleft"
+								minWidth={false}
+								onClick={onDecrementStep}
+								slot="slotBefore"
+							>
+								{prevButtonText}
+							</Button>
+						) : null}
+					</Header>
+				}
+			>
 				<Column>
 					<Cell className={css.content}>
 						{/* This should probably use portals */}
@@ -300,7 +322,7 @@ const WizardPanelsBase = kind({
 						</div>
 					</Cell>
 				</Column>
-			</Panel>
+			</PanelBase>
 		);
 	}
 });
@@ -324,11 +346,11 @@ function useReverseTransition (index = -1) {
  * WizardPanelsDecorator passes the buttons, children, footer,
  * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} to [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
- * @class WizardPanelsDecorator
+ * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
  * @ui
  */
-const WizardPanelsDecorator = (Wrapped) => {
+const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
@@ -389,6 +411,18 @@ const WizardPanelsDecorator = (Wrapped) => {
 	return WizardPanelsProvider;
 };
 
+const WizardPanelsDecorator = compose(
+	Changeable({prop: 'index'}),
+	SpotlightContainerDecorator({
+		continue5WayHold: true,
+		// prefer any spottable within the panel content or buttons
+		defaultElement: [`.${css.content} *`, `.${css.bottom} *`],
+		enterTo: 'default-element'
+	}),
+	WizardPanelsRouter,
+	Skinnable
+);
+
 /**
  * A WizardPanels that can step through different views.
  * Expects [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} as children.
@@ -400,12 +434,7 @@ const WizardPanelsDecorator = (Wrapped) => {
  * @ui
  * @public
  */
-const WizardPanels = Changeable(
-	{prop: 'index'},
-	WizardPanelsDecorator(
-		WizardPanelsBase
-	)
-);
+const WizardPanels = WizardPanelsDecorator(WizardPanelsBase);
 
 export default WizardPanels;
 export {
