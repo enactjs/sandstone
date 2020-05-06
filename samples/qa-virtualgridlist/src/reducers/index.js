@@ -8,8 +8,8 @@ const createRecords = () => {
 			data: {},
 			dataSize: 100,
 			dataOrder: [],
-			minHeight: 270,
-			minWidth: 180,
+			minHeight: 570,
+			minWidth: 688,
 			selectedItems: new Set(),
 			showOverlay: false,
 			spacing: 21
