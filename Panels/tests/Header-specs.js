@@ -3,6 +3,11 @@ import {mount} from 'enzyme';
 import Header from '../Header';
 import css from '../Header.module.less';
 
+const tap = (node) => {
+	node.simulate('mousedown');
+	node.simulate('mouseup');
+};
+
 describe('Header Specs', () => {
 
 	test('should render with title text without changing case', () => {
@@ -100,6 +105,68 @@ describe('Header Specs', () => {
 		);
 
 		const actual = subject.find(`.${css.slotAfter}`).first().text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not render back button', () => {
+		const subject = mount(
+			<Header />
+		);
+
+		const backButton = subject.find(`.${css.slotBefore}`).find('Button');
+		const expected = 0;
+		const actual = backButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render close button when \'noCloseButton\' is not specified', () => {
+		const subject = mount(
+			<Header />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 1;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not render close button when \'noCloseButton\' is set to true', () => {
+		const subject = mount(
+			<Header noCloseButton />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 0;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onClose when close button is clicked', () => {
+		const handleClose = jest.fn();
+		const subject = mount(
+			<Header onClose={handleClose} />
+		);
+
+		tap(subject.find(`.${css.slotAfter}`).find('Button'));
+
+		const expected = 1;
+		const actual = handleClose.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should set close button "aria-label" to closeButtonAriaLabel', () => {
+		const label = 'custom close button label';
+		const subject = mount(
+			<Header closeButtonAriaLabel={label} />
+		);
+
+		const expected = label;
+		const actual = subject.find(`.${css.slotAfter}`).find('Button').prop('aria-label');
 
 		expect(actual).toBe(expected);
 	});

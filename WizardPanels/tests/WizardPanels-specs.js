@@ -219,6 +219,36 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should set next button "aria-label" to nextButtonAriaLabel',
+		() => {
+			const label = 'custom next button label';
+			const wizardPanel = shallow(
+				<WizardPanelsBase total={2} nextButtonAriaLabel={label} />
+			);
+
+			const expected = label;
+			const actual = wizardPanel.find({slot: 'slotAfter'}).prop('aria-label');
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should set previous button "aria-label" to prevButtonAriaLabel',
+		() => {
+			const label = 'custom previous button label';
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={1} total={2} prevButtonAriaLabel={label} />
+			);
+
+			const expected = label;
+			const actual = wizardPanel.find({slot: 'slotBefore'}).prop('aria-label');
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
