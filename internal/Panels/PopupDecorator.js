@@ -142,18 +142,32 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @public
 			 */
 			// Intentionally excluded 'bottom', 'center', 'fullscreen', and 'top' as those aren't configured for this component at this time.
-			position: PropTypes.oneOf(['left', 'right'])
+			position: PropTypes.oneOf(['left', 'right']),
+
+			/**
+			 * Size of the popup.
+			 *
+			 * @type {('thin'|'half')}
+			 * @default 'thin'
+			 * @private
+			 */
+			size: PropTypes.oneOf(['thin', 'half'])
 		},
 
 		defaultProps: {
 			index: 0,
 			noAnimation: false,
-			position: 'right'
+			position: 'right',
+			size: 'thin'
 		},
 
 		styles: {
 			css,
 			className: cfgClassName
+		},
+
+		computed: {
+			className: ({size, styler}) => styler.append(size)
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
