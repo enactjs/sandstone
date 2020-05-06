@@ -17,17 +17,17 @@ const createRecords = () => {
 		caption, subCaption, color;
 
 	for (let idx = 0; idx < 100; ++idx) {
-		caption = (idx % 8 === 0) ? ' with long title' : '';
-		subCaption = (idx % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle';
+		caption = (idx % 8 === 0) ? 'This is the longest, most perfect caption' : '';
+		subCaption = (idx % 8 === 0) ? 'Many people are saying that they have never seen a subcaption longer than this one' : 'Subcaption';
 		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16);
 
 		records.dataOrder.push(idx);
 		records.data[idx] = {
-			caption: idx + caption,
+			caption: `${idx} ${caption}`,
 			selected: false,
 			selectionOverlayShowing: false,
-			source: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + idx,
-			subCaption: subCaption
+			source: `http://placehold.it/300x300/${color}/ffffff&text=Image${idx}`,
+			subCaption
 		};
 	}
 
@@ -76,7 +76,7 @@ const data = (state = initialState, action) => {
 			const
 				newData = {},
 				newDataOrder = [],
-				selectedItems	= new Set(state.selectedItems),
+				selectedItems = new Set(state.selectedItems),
 				filteredDataOrder = state.dataOrder.filter((item) => !selectedItems.has(item));
 
 			for (let i = 0; i < filteredDataOrder.length; i++) {

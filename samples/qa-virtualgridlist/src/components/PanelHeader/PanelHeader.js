@@ -27,16 +27,16 @@ import {
 const createMockItem = (dataSize, showOverlay) => {
 	const
 		dataLength = dataSize,
-		caption = (dataLength % 8 === 0) ? ' with long title' : '',
-		subCaption = (dataLength % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle',
+		caption = (dataLength % 8 === 0) ? 'This is the longest, most perfect caption' : '',
+		subCaption = (dataLength % 8 === 0) ? 'Many people are saying that they have never seen a subcaption longer than this one' : 'Subcaption',
 		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
 
 	return {
-		children: dataLength + caption,
+		children: `${dataLength} ${caption}`,
 		label: subCaption,
 		selected: false,
 		showSelection: showOverlay,
-		src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
+		src: `http://placehold.it/300x300/${color}/ffffff&text=Image${dataLength}`
 	};
 };
 
