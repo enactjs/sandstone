@@ -14,9 +14,6 @@
 	}
 
 	&.verticalPadding {
-		padding-left: 0;
-		padding-right: var(--scroll-scrollbar-size);
-
 		.verticalScrollbar {
 			position: absolute;
 			width: var(--scroll-scrollbar-size);
@@ -25,14 +22,9 @@
 			top: @sand-scroll-affordance-size;
 		}
 
-		:global(.enact-locale-right-to-left) & {
-			padding-left: var(--scroll-scrollbar-size);
-			padding-right: 0;
-
-			.verticalScrollbar {
-				left: 0;
-				right: initial;
-			}
+		:global(.enact-locale-right-to-left) & .verticalScrollbar {
+			left: 0;
+			right: initial;
 		}
 	}
 
