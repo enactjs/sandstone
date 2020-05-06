@@ -109,6 +109,8 @@ const WizardPanelsBase = kind({
 		/**
 		* Omits the previous button component.
 		*
+		* When set, the back key will be disabled.
+		*
 		* @type {Boolean}
 		* @public
 		*/
