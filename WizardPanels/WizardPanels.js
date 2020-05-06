@@ -11,6 +11,7 @@ import {Header, Panel} from '../Panels';
 import Steps from '../Steps';
 
 import css from './WizardPanels.module.less';
+import {CancelDecorator} from './CancelDecorator';
 
 const WizardPanelsContext = React.createContext(null);
 
@@ -402,8 +403,11 @@ const WizardPanelsDecorator = (Wrapped) => {
  */
 const WizardPanels = Changeable(
 	{prop: 'index'},
-	WizardPanelsDecorator(
-		WizardPanelsBase
+	CancelDecorator(
+		{cancel: 'onChange'},
+		WizardPanelsDecorator(
+			WizardPanelsBase
+		)
 	)
 );
 
