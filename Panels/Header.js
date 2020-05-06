@@ -25,24 +25,6 @@ import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
 
-/**
- * A container  with special styles for animating between titles
- *
- * @class Header
- * @memberof sandstone/Panels.Header
- * @ui
- * @private
- */
-const TitleContainer = kind({
-	name: 'TitleContainer',
-	styles: {
-		style: {position: 'absolute', left: '50%', transform: 'translateX(-50%)', width: '100%'}
-	},
-	render (props) {
-		return <div {...props} />;
-	}
-});
-
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
@@ -561,32 +543,30 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					<Cell className={css.titleCell}>
-						<ViewManager arranger={arranger} className={css.titleViewManager} duration={500} index={0}>
-							<TitleContainer key={title + subtitle}>
-								<Heading
-									aria-label={title}
-									size="title"
-									spacing="auto"
-									marqueeOn={marqueeOn}
-									forceDirection={direction}
-									alignment={centered ? 'center' : null}
-									className={css.title}
-								>
-									{title}
-								</Heading>
-								<Heading
-									size="subtitle"
-									spacing="auto"
-									marqueeOn={marqueeOn}
-									forceDirection={direction}
-									alignment={centered ? 'center' : null}
-									className={css.subtitle}
-								>
-									{subtitle}
-								</Heading>
-							</TitleContainer>
-						</ViewManager>
+					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
+						<div className={css.titleContainer} key={title + subtitle}>
+							<Heading
+								aria-label={title}
+								size="title"
+								spacing="auto"
+								marqueeOn={marqueeOn}
+								forceDirection={direction}
+								alignment={centered ? 'center' : null}
+								className={css.title}
+							>
+								{title}
+							</Heading>
+							<Heading
+								size="subtitle"
+								spacing="auto"
+								marqueeOn={marqueeOn}
+								forceDirection={direction}
+								alignment={centered ? 'center' : null}
+								className={css.subtitle}
+							>
+								{subtitle}
+							</Heading>
+						</div>
 					</Cell>
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
