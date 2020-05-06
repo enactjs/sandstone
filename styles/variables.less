@@ -7,7 +7,7 @@
 
 // Generic/Common/Shared
 // ---------------------------------------
-@sand-component-spacing: 42px;
+@sand-component-spacing: 36px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -309,7 +309,7 @@
 // Heading
 // ---------------------------------------
 @sand-heading-border-width: 1px;
-@sand-heading-margin: 0 @sand-spotlight-outset (1.5 * @sand-spotlight-outset) @sand-spotlight-outset;
+@sand-heading-margin: 0 @sand-component-spacing (1.5 * @sand-spotlight-outset) @sand-component-spacing;
 @sand-heading-padding: 0;
 @sand-heading-spacing-title: 0;
 @sand-heading-spacing-subtitle: 0;
@@ -394,7 +394,7 @@
 
 // InputField
 // ---------------------------------------
-@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-margin: 0 @sand-component-spacing;
 @sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
 @sand-inputfield-font-weight: 600;
 @sand-inputfield-text-indent: 0.2em;
@@ -455,9 +455,9 @@
 
 // Panels
 // ---------------------------------------
-@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
+@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
-@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-spotlight-outset)) 0;
+@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
 @sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
@@ -505,7 +505,7 @@
 // ---------------------------------------
 @sand-progressbar-bar-thickness: 12px;
 @sand-progressbar-bar-border-radius: (@sand-progressbar-bar-thickness / 2);
-@sand-progressbar-margin: @sand-spotlight-outset;
+@sand-progressbar-margin: @sand-component-spacing;
 @sand-progressbar-vertical-min-height: 240px;
 @sand-progressbar-radial-size: 72px;
 @sand-progressbar-radial-thickness: 9px;
