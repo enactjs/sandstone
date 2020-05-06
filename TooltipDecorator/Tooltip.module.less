@@ -7,11 +7,11 @@
 .tail (@edge, @point) {
 	background-image:
 		linear-gradient(to @edge, @sand-tooltip-border-color @sand-tooltip-border-width, transparent @sand-tooltip-border-width), // Edge line
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50% + 1px)", transparent ~"calc(50% + 1px)"); // Diagonal line + fill
+		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50%)", transparent ~"calc(50%)"); // Diagonal line + fill
 }
 .centerTail (@edge, @point) {
 	background-image:
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50% + 1px)", transparent ~"calc(50% + 1px)"); // Diagonal line + fill
+		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50%)", transparent ~"calc(50%)"); // Diagonal line + fill
 }
 
 .tooltip {
@@ -24,7 +24,7 @@
 
 	.tooltipArrow {
 		position: absolute;
-		width: @sand-tooltip-point-width;
+		width: @sand-tooltip-point-width + 1px;
 		height: @sand-tooltip-point-height;
 		z-index: 1;
 	}
@@ -32,7 +32,7 @@
 	&.leftArrow {
 		.tooltipArrow {
 			width: @sand-tooltip-point-height;
-			height: @sand-tooltip-point-width;
+			height: @sand-tooltip-point-width + 1px;
 		}
 	}
 	&.centerArrow,
@@ -45,21 +45,21 @@
 		}
 	}
 	&.centerArrow .tooltipArrow {
-		width: ((@sand-tooltip-point-height / 2) + 6px);
-		height: @sand-tooltip-point-width;
+		width: @sand-tooltip-point-height;
+		height: @sand-tooltip-point-width + 1px;
 		left: 50%;
 
 		&::after {
-			right: ((@sand-tooltip-point-height / 2) + 1px);
+			right: @sand-tooltip-point-height - 1px;
 		}
 	}
 	&.middleArrow .tooltipArrow {
-		width: @sand-tooltip-point-width;
-		height: ((@sand-tooltip-point-height / 2) + 4px);
+		width: @sand-tooltip-point-width + 1px;
+		height: @sand-tooltip-point-height;
 		top: 50%;
 
 		&::after {
-			bottom: 99%;
+			bottom: 93%;
 			left: 0;
 		}
 	}
@@ -86,11 +86,11 @@
 	// Positioning for the arrow and label
 	&.below {
 		.tooltipArrow {
-			top: (1px + @sand-tooltip-offset);
+			top: @sand-tooltip-offset + 6px;
 		}
 
 		.tooltipLabel {
-			margin-top: (@sand-tooltip-point-height + @sand-tooltip-offset);
+			margin-top: @sand-tooltip-margin-offset;
 		}
 
 		&.leftArrow {
@@ -123,11 +123,11 @@
 
 	&.above {
 		.tooltipArrow {
-			bottom: (1.5px + @sand-tooltip-offset);
+			bottom: @sand-tooltip-offset + 6px;
 		}
 
 		.tooltipLabel {
-			margin-bottom: (@sand-tooltip-point-height + @sand-tooltip-offset);
+			margin-bottom: @sand-tooltip-margin-offset;
 		}
 
 		&.leftArrow {
@@ -161,11 +161,11 @@
 
 	&.left {
 		.tooltipArrow {
-			right: (1px + @sand-tooltip-offset);
+			right: @sand-tooltip-offset + 6px;
 		}
 
 		.tooltipLabel {
-			margin-right: (@sand-tooltip-point-width + @sand-tooltip-offset);
+			margin-right: @sand-tooltip-margin-offset;
 		}
 
 		&.topArrow {
@@ -180,7 +180,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				right: (1.5px + @sand-tooltip-offset);
+				right: @sand-tooltip-offset + 6px;
 			}
 		}
 
@@ -193,11 +193,11 @@
 
 	&.right {
 		.tooltipArrow {
-			left: (1px + @sand-tooltip-offset);
+			left: @sand-tooltip-offset + 6px;
 		}
 
 		.tooltipLabel {
-			margin-left: (@sand-tooltip-point-width + @sand-tooltip-offset);
+			margin-left: @sand-tooltip-margin-offset;
 		}
 
 		&.topArrow {
@@ -212,7 +212,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				left: (1.5px + @sand-tooltip-offset);
+				left: @sand-tooltip-offset + 6px;
 			}
 		}
 
