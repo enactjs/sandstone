@@ -11,6 +11,7 @@ class MainView extends React.Component {
 		this.state = {
 			focusableScrollbar: false,
 			horizontal: false,
+			inputType: 'field',
 			nativeScroll: true
 		};
 	}
@@ -27,6 +28,10 @@ class MainView extends React.Component {
 		this.setState((state) => ({horizontal: !state.horizontal}));
 	}
 
+	onChangeInputType = ({selected}) => {
+		this.setState({inputType: (selected ? 'popup' : 'field')});
+	}
+
 	onChangeScrollMode = ({selected: nativeScroll}) => {
 		this.setState({nativeScroll});
 	}
@@ -36,16 +41,18 @@ class MainView extends React.Component {
 	}
 
 	render = () => {
-		const {focusableScrollbar, horizontal, nativeScroll} = this.state;
+		const {focusableScrollbar, horizontal, inputType, nativeScroll} = this.state;
 		return (
 			<div className={css.mainView}>
 				<PanelHeader
-					title="VirtualGridList"
-					type="mini"
+					inputType={inputType}
 					nativeScroll={nativeScroll}
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
+					onChangeInputType={this.onChangeInputType}
 					onChangeScrollMode={this.onChangeScrollMode}
+					title="VirtualGridList"
+					type="mini"
 				/>
 				<div className={css.content}>
 					<ImageList

@@ -3,7 +3,7 @@ import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
 import {Header} from '@enact/sandstone/Panels';
-import Input from '@enact/sandstone/Input';
+import {Input, InputField} from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -54,9 +54,11 @@ const PanelHeader = kind({
 		dataSize: PropTypes.number,
 		deleteItem: PropTypes.func,
 		deleteSelectedItem: PropTypes.func,
+		inputType: PropTypes.oneOf(['field', 'popup']),
 		nativeScroll: PropTypes.bool,
 		onChangeDirection: PropTypes.func,
 		onChangeFocusableScrollbar: PropTypes.func,
+		onChangeInputType: PropTypes.func,
 		onChangeScrollMode: PropTypes.func,
 		selectAll: PropTypes.func,
 		selectionEnable: PropTypes.func,
@@ -112,27 +114,33 @@ const PanelHeader = kind({
 				return (<CheckboxItem onClick={onChangeFocusableScrollbar}>Focusable Scrollbar</CheckboxItem>);
 			}
 		},
-		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
+		changeInputType: ({onChangeInputType, showOverlay}) => {
 			if (!showOverlay) {
+				return (<CheckboxItem onToggle={onChangeInputType}>Popup Inputs</CheckboxItem>);
+			}
+		},
+		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, inputType, data, setData, showOverlay}) => {
+			if (!showOverlay) {
+				const InputComponent = (inputType === 'field' ? InputField : Input);
 				const inputWidth = {width: '5em'};
 
 				return (
 					<Row style={{direction: 'ltr'}}>
 						<Cell>
 							<label>dataSize:</label>
-							<Input size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
+							<InputComponent size="small" onChange={setData} style={inputWidth} type="number" value={data.dataSize} />
 						</Cell>
 						<Cell>
 							<label>minHeightSize:</label>
-							<Input size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
+							<InputComponent size="small" onChange={changeMinHeight} style={inputWidth} type="number" value={data.minHeight} />
 						</Cell>
 						<Cell>
 							<label>minWidthSize:</label>
-							<Input size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
+							<InputComponent size="small" onChange={changeMinWidth} style={inputWidth} type="number" value={data.minWidth} />
 						</Cell>
 						<Cell>
 							<label>spacingSize:</label>
-							<Input size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
+							<InputComponent size="small" onChange={changeSpacing} style={inputWidth} type="number" value={data.spacing} />
 						</Cell>
 					</Row>
 				);
@@ -167,7 +175,7 @@ const PanelHeader = kind({
 		}
 	},
 
-	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
+	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeInputType, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
 		delete rest.addItem;
 		delete rest.addMockItem;
 		delete rest.changeDataSize;
@@ -177,9 +185,11 @@ const PanelHeader = kind({
 		delete rest.dataSize;
 		delete rest.deleteItem;
 		delete rest.deleteSelectedItem;
+		delete rest.inputType;
 		delete rest.nativeScroll;
 		delete rest.onChangeDirection;
 		delete rest.onChangeFocusableScrollbar;
+		delete rest.onChangeInputType;
 		delete rest.onChangeScrollMode;
 		delete rest.selectAll;
 		delete rest.selectionEnable;
@@ -216,6 +226,9 @@ const PanelHeader = kind({
 					</Cell>
 					<Cell>
 						<LocaleSwitch />
+					</Cell>
+					<Cell>
+						{changeInputType}
 					</Cell>
 				</Row>
 				{changeListProps}
