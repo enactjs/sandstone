@@ -16,7 +16,6 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
@@ -602,7 +601,6 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	Skinnable,
 	CollapsingHeaderDecorator,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
