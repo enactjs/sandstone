@@ -78,14 +78,11 @@
 		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
 	}
 
-	.titleCell {
-		height: 276px;
-
-		.titleContainer {
+	.titleContainer {
+		&:nth-child(2) {
+			top: 0;
 			position: absolute;
-			left: 50%;
 			width: 100%;
-			transform: translateX(-50%);
 		}
 	}
 
