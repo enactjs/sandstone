@@ -7,6 +7,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/TabLayout` support for `horizontal` orientation
+- `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
 
 ## [1.0.0-beta.2] - 2020-05-04
 
