@@ -1,7 +1,7 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollableSelector = '.enact_ui_Scrollable_Scrollable_scroll';
+const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 

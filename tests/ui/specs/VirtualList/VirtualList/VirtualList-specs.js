@@ -121,12 +121,14 @@ describe('VirtualList', function () {
 		});
 
 		/*
-			TBD: In sandstone GUI, the list height is different from the scrollbar height. Needs to be updated.
+		//	TODO: Need to api for Scrollbar and List size checking.
 		it('should have same height list and scrollbar [GT-22079]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
-			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
+			expect(Page.listSize).to.equal(0);
+			expect(0).to.equal(Page.scrollBarSize);
 		});
-		// Need to Check LTR
+
+		// TODO: Need to Check LTR
 		it('should position Paging Controls on right side in LTR [GT-21271]', function () {
 			Page.spotlightSelect();
 			Page.spotlightDown();
@@ -193,6 +195,7 @@ describe('VirtualList', function () {
 			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
 		});
 
+		// TODO : should Fix issue that bottomVisibleItem is not properly displaying.
 		it.skip('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
 			let bottomId;
 			Page.spotlightSelect();
@@ -214,7 +217,7 @@ describe('VirtualList', function () {
 			Page.spotlightUp();
 			// Verify Step 5: 1. The list *does not* Scroll Down.
 			// Check the bottomVisibleItem is still the same as the one before 5-way Up to check the list did not scroll Down
-			expect(Number(bottomId.slice(4)) === ((Number((Page.bottomVisibleItemId().slice(4)))))-1).to.be.true();
+			expect(Number(bottomId.slice(4)) === ((Number((Page.bottomVisibleItemId().slice(4))))) - 1).to.be.true();
 			// Verify Step 5: 2. The Spotted item is placed above the item on the Bottom.
 			expectFocusedItem(Number((bottomId.slice(4))), 'focus bottomId');
 			// Step 6: 5-way Up to the first item ('*Item 000*').
@@ -306,29 +309,27 @@ describe('VirtualList', function () {
 		});
 		*/
 		describe('onScrollStart/Stop Events behavior ', function () {
-
 			beforeEach(function () {
 				Page.open();
 			});
 
-			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function (){
+			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
 
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 				Page.item(7).moveTo();
 				// Page.spotlightRight();
 				expectFocusedItem(7, 'step 3 focus');
 				// Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
-				for(let i = 0; i<10; i++){
+				for (let i = 0; i < 10; i++) {
 					Page.spotlightDown();
 					// Verify Step 4.1: Displays 'onScrollStart'
 					// Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
 					waitForScrollStartStop();
 				}
 				// Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
-				for(let j = 0; j < 10; j++){
+				for (let j = 0; j < 10; j++) {
 					Page.spotlightUp();
-
-					if(j>6){
+					if (j > 6) {
 					// Verify Step 5.1: Displays 'onScrollStart'
 					// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
 						waitForScrollStartStop();
@@ -339,12 +340,11 @@ describe('VirtualList', function () {
 		});
 
 		describe('Item Animates', function () {
-
 			beforeEach(function () {
 				Page.open();
 			});
 
-			it('should animate Items via Channel Down [GT-28464]', function (){
+			it('should animate Items via Channel Down [GT-28464]', function () {
 				// Step 3: Position the pointer on the first item('Item 000)
 				Page.showPointerByKeycode();
 				Page.item(0).moveTo();
