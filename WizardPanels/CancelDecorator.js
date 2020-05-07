@@ -8,7 +8,7 @@ const defaultConfig = {
 };
 
 export const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const { cancel } = config;
+	const {cancel} = config;
 
 	function handleCancel (ev, props) {
 		const {index, [cancel]: handler, noPrevButton} = props;
@@ -26,5 +26,5 @@ export const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 	}
 
-	return Cancelable({ modal: true, onCancel: handleCancel }, Wrapped);
+	return Cancelable({modal: true, onCancel: handleCancel	}, Wrapped);
 });
