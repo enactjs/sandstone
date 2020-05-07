@@ -21,7 +21,7 @@ const WizardPanelsContext = React.createContext(null);
  *
  * @example
  * 	<WizardPanels>
- *		<WizardPanels.WizardPanel subtitle="Subtitle" title="Title">
+ *		<WizardPanels.Panel subtitle="Subtitle" title="Title">
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
@@ -32,7 +32,7 @@ const WizardPanelsContext = React.createContext(null);
  *			<footer>
  *				<CheckboxItem inline>Confirm</CheckboxItem>
  *			</footer>
- *		</WizardPanels.WizardPanel>
+ *		</WizardPanels.Panel>
  *	</WizardPanels>
  *
  * @class WizardPanelsBase
@@ -326,7 +326,8 @@ function useReverseTransition (index = -1) {
 
 /**
  * WizardPanelsDecorator passes the buttons, children, footer,
- * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} to [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
+ * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.Panel} to
+ * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
  * @class WizardPanelsDecorator
  * @memberof sandstone/WizardPanels
@@ -373,12 +374,13 @@ const WizardPanelsDecorator = (Wrapped) => {
 		index: PropTypes.number,
 
 		/**
-		* The "default" title for WizardPanels if title isn't explicitly set in [View]{@link sandstone/WizardPanels.WizardPanel}.
+		* The "default" title for WizardPanels if title isn't explicitly set in
+		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
 		* 	<WizardPanels title="Title">
-		*		<WizardPanels.WizardPanel>
+		*		<WizardPanels.Panel>
 		*			lorem ipsum ...
-		*		</WizardPanels.WizardPanel>
+		*		</WizardPanels.Panel>
 		*	</WizardPanels>
 		*
 		* @type {Number}
@@ -397,7 +399,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 
 /**
  * A WizardPanels that can step through different views.
- * Expects [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} as children.
+ * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
  *
  * @class WizardPanels
  * @memberof sandstone/WizardPanels
