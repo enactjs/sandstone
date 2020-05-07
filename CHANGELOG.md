@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/WizardPanels` prop `onBack` to allow developers to handle back button presses
+
 ### Changed
 
 - `sandstone/WizardPanels` to automatically handle back key when `noPrevButton` is not set
