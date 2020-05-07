@@ -42,7 +42,7 @@ const getFocusableBodyProps = ({direction, verticalScrollbar}, scrollContainerRe
 			filterTarget = 'thumb';
 		} else if (type === 'keydown') {
 			filterTarget =
-				isEnter(keyCode) && isBody(target) && 'body' ||
+				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
 				isEnter(keyCode) && !isBody(target) && 'thumb' ||
 				isCancel(keyCode) && !isBody(target) && 'thumb' ||
 				null;

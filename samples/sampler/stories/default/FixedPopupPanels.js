@@ -9,6 +9,10 @@ import BodyText from '@enact/sandstone/BodyText';
 import Item from '@enact/sandstone/Item';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
+Config.defaultProps.position = 'right';
+Config.defaultProps.scrimType = 'translucent';
+Config.defaultProps.spotlightRestrict = 'self-only';
+Config.defaultProps.width = 'narrow';
 
 storiesOf('Sandstone', module)
 	.add(
@@ -18,15 +22,16 @@ storiesOf('Sandstone', module)
 				<FixedPopupPanels
 					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 					open={boolean('open', Config)}
-					position={select('position', ['left', 'right'], Config, 'right')}
+					position={select('position', ['left', 'right'], Config)}
+					width={select('width', ['narrow', 'half'], Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onBack={action('onBack')}
 					onClose={action('onClose')}
 					onHide={action('onHide')}
 					onShow={action('onShow')}
-					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
-					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
+					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
 				>
 					<Panel>
 						<Header>
