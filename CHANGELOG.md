@@ -6,10 +6,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
 - `sandstone/WizardPanels` prop `onBack` to allow developers to handle back button presses
 
 ### Changed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
 - `sandstone/WizardPanels` to automatically handle back key when `noPrevButton` is not set
 
 ## [1.0.0-beta.2] - 2020-05-04
