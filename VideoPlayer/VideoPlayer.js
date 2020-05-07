@@ -5,7 +5,6 @@
  * @exports Video
  * @exports VideoPlayer
  * @exports VideoPlayerBase
- * @exports MediaControls
  */
 
 import ApiDecorator from '@enact/core/internal/ApiDecorator';
@@ -39,15 +38,17 @@ import shallowEqual from 'recompose/shallowEqual';
 import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
 import Spinner from '../Spinner';
+import {
+	MediaControls,
+	MediaSlider,
+	secondsToTime,
+	Times
+} from '../MediaPlayer';
 
-import {calcNumberValueOfPlaybackRate, secondsToTime} from './util';
 import Overlay from './Overlay';
-import MediaControls from './MediaControls';
 import MediaTitle from './MediaTitle';
-import MediaSlider from './MediaSlider';
 import FeedbackContent from './FeedbackContent';
 import FeedbackTooltip from './FeedbackTooltip';
-import Times from './Times';
 import Video from './Video';
 
 import css from './VideoPlayer.module.less';
@@ -68,6 +69,10 @@ const getControlsHandleAboveHoldConfig = ({frequency, time}) => ({
 const shouldJump = ({disabled, no5WayJump}, {mediaControlsVisible, sourceUnavailable}) => (
 	!no5WayJump && !mediaControlsVisible && !(disabled || sourceUnavailable)
 );
+const calcNumberValueOfPlaybackRate = (rate) => {
+	const pbArray = String(rate).split('/');
+	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
+};
 
 const SpottableDiv = Touchable(Spottable('div'));
 const RootContainer = SpotlightContainerDecorator(
@@ -300,7 +305,7 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `visible` - `true` when the media controls should be displayed
 		 *
 		 * @type {Component|Element}
-		 * @default sandstone/VideoPlayer.MediaControls
+		 * @default sandstone/MediaPlayer.MediaControls
 		 * @public
 		 */
 		mediaControlsComponent: EnactPropTypes.componentOverride,
@@ -773,7 +778,8 @@ const VideoPlayerBase = class extends React.Component {
 		if (this.titleRef && this.state.infoVisible &&
 			(!prevState.infoVisible || !equals(this.props.infoComponents, prevProps.infoComponents))
 		) {
-			this.titleRef.style.setProperty('--infoComponentsOffset', `${this.getHeightForElement('infoComponents')}px`);
+			const node = this.titleRef;
+			node.style.setProperty('--infoComponentsOffset', `${node.offsetHeight}px`);
 		}
 
 		if (
@@ -862,15 +868,6 @@ const VideoPlayerBase = class extends React.Component {
 
 	announce = (msg) => {
 		this.announceJob.start(msg);
-	}
-
-	getHeightForElement = (elementName) => {
-		const element = this.player.querySelector(`.${css[elementName]}`);
-		if (element) {
-			return element.offsetHeight;
-		} else {
-			return 0;
-		}
 	}
 
 	activityDetected = () => {
@@ -2130,7 +2127,6 @@ const VideoPlayer = ApiDecorator(
 
 export default VideoPlayer;
 export {
-	MediaControls,
 	Video,
 	VideoPlayer,
 	VideoPlayerBase
