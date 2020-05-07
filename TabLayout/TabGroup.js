@@ -1,9 +1,7 @@
 import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
-import ComponentOverride from '@enact/ui/ComponentOverride';
 import Group from '@enact/ui/Group';
-import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
@@ -12,7 +10,6 @@ import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
-import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 
