@@ -37,7 +37,7 @@ storiesOf('Sandstone', module)
 						<Button>Cancel</Button>
 					</buttons>
 				</WizardPanels.Panel>
-				<WizardPanels.Panel subtitle="A subtitle for View 2" title="A longer title for the second view that should marquee in typical circumstances">
+				<WizardPanels.Panel subtitle="A subtitle for View 2" title="WizardPanel View 2">
 					<BodyText>Several buttons!</BodyText>
 					<Button icon="list">Button A</Button>
 					<Button icon="gear">Button B</Button>
