@@ -5,12 +5,10 @@ import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Skinnable from '../Skinnable';
-import Popup from '../Popup';
+import Skinnable from '../../Skinnable';
+import Popup from '../../Popup';
 
 import CancelDecorator from './CancelDecorator';
-
-import css from './Panels.module.less';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
@@ -35,6 +33,15 @@ const defaultConfig = {
 	className: null,
 
 	/**
+	 * Class name module map
+	 *
+	 * @type {Object}
+	 * @default null
+	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
+	 */
+	css: null,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -55,7 +62,7 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, panelArranger, panelType} = config;
 
 	const Decorator = kind({
 		name: 'PopupDecorator',

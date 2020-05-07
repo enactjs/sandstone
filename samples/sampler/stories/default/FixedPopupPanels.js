@@ -4,7 +4,7 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/Panels';
+import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import BodyText from '@enact/sandstone/BodyText';
 import Item from '@enact/sandstone/Item';
 
@@ -12,7 +12,7 @@ const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 
 storiesOf('Sandstone', module)
 	.add(
-		'Panels.FixedPopupPanels',
+		'FixedPopupPanels',
 		() => (
 			<div>
 				<FixedPopupPanels

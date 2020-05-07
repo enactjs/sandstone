@@ -20,7 +20,7 @@ import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {PanelsStateContext} from './Viewport';
+import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
 
@@ -434,13 +434,13 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
 				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
-				withChildren: (Boolean(children) || Boolean(slotAbove))
+				withChildren: Boolean(children)
 			},
 			type
 		),

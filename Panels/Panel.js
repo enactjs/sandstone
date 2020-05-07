@@ -10,11 +10,10 @@ import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
-
-import {PanelsStateContext} from './Viewport';
 
 import componentCss from './Panel.module.less';
 
@@ -185,7 +184,6 @@ const PanelBase = kind({
 			}
 			return context.index > 0 && context.type !== 'wizard';
 		},
-		className: ({className, styler}, context) => context && context.type ? styler.append([context.type] + 'Type') : className,
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
