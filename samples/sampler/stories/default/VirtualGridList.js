@@ -90,6 +90,7 @@ storiesOf('Sandstone', module)
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				spacing={ri.scale(number('spacing', VirtualGridListConfig, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
+				style={{paddingRight: ri.unit(ri.scale(36) + 'px', 'rem')}}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}
 			/>
