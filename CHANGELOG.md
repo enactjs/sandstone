@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
+
 ## [1.0.0-beta.2] - 2020-05-04
 
 ### Deprecated
@@ -22,10 +28,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input.InputField` disabled colors
 - `sandstone/WizardPanels` to hide previous and next buttons appropriately
 - `sandstone/TabLayout` to support disabled tabs
-
-### Changed
-
-- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
 
 ## [1.0.0-beta.1] - 2020-04-27
 
