@@ -41,8 +41,8 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  * Size of the popup.
  *
  * @memberof sandstone/FixedPopupPanels.FixedPopupPanels.prototype
- * @name size
- * @type {('thin'|'half')}
+ * @name width
+ * @type {('narrow'|'half')}
  * @default 'thin'
  * @public
  */

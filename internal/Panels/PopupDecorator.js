@@ -147,18 +147,18 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Size of the popup.
 			 *
-			 * @type {('thin'|'half')}
-			 * @default 'thin'
+			 * @type {('narrow'|'half')}
+			 * @default 'narrow'
 			 * @private
 			 */
-			size: PropTypes.oneOf(['thin', 'half'])
+			width: PropTypes.oneOf(['narrow', 'half'])
 		},
 
 		defaultProps: {
 			index: 0,
 			noAnimation: false,
 			position: 'right',
-			size: 'thin'
+			width: 'narrow'
 		},
 
 		styles: {
@@ -167,7 +167,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({size, styler}) => styler.append(size)
+			className: ({width, styler}) => styler.append(width)
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {

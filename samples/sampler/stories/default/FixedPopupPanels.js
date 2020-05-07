@@ -11,8 +11,8 @@ import Item from '@enact/sandstone/Item';
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
 Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
-Config.defaultProps.size = 'thin';
 Config.defaultProps.spotlightRestrict = 'self-only';
+Config.defaultProps.width = 'narrow';
 
 storiesOf('Sandstone', module)
 	.add(
@@ -23,7 +23,7 @@ storiesOf('Sandstone', module)
 					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 					open={boolean('open', Config)}
 					position={select('position', ['left', 'right'], Config)}
-					size={select('size', ['thin', 'half'], Config)}
+					width={select('width', ['narrow', 'half'], Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					onBack={action('onBack')}
