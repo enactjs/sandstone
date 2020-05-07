@@ -75,12 +75,11 @@ const HeaderBase = kind({
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
-		 * Set of functions that control how the titles are transitioned between each other.
-		 * Requires an array of titles to be passed to `title` (likewise for `subtitle`),
-		 * and the given arranger transition will occur when changing the index.
+		 * The animation arranger used to transition title and subtitle changes.
+		 *
+		 * Only supported when `type="wizard"`.
 		 *
 		 * @type {ui/ViewManager.Arranger}
-		 * @default ui/ViewManager.SlideLeftArranger
 		 * @public
 		 */
 		arranger: shape,
@@ -463,12 +462,59 @@ const HeaderBase = kind({
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
+			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
+
+			const titleHeading = (
+				<Heading
+					aria-label={title}
+					size="title"
+					spacing="auto"
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.title}
+				>
+					{title}
+				</Heading>
+			);
+
+			const subtitleHeading = (
+				<Heading
+					size="subtitle"
+					spacing="auto"
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.subtitle}
+				>
+					{subtitle}
+				</Heading>
+			);
+
+			// WizardPanels uses an animated title but that isn't supported for other types
+			if (arranger && type === 'wizard') {
+				return (
+					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
+						<div className={css.titleContainer} key={title + subtitle}>
+							{titleHeading}
+							{subtitleHeading}
+						</div>
+					</Cell>
+				);
+			}
+
+			return (
+				<Cell className={css.titleCell}>
+					{titleHeading}
+					{subtitleHeading}
+				</Cell>
+			);
+		}
 	},
 
 	render: ({
-		arranger,
 		backButtonAriaLabel,
 		backButtonAvailable,
 		backButtonBackgroundOpacity,
@@ -477,10 +523,8 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		direction,
 		hover,
 		line,
-		marqueeOn,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -491,15 +535,18 @@ const HeaderBase = kind({
 		slotBefore,
 		slotBeforeRef,
 		slotSize,
-		subtitle,
-		title,
+		titleCell,
 		titleRef,
 		...rest
 	}) => {
+		delete rest.arranger;
 		delete rest.entering;
 		delete rest.featureContent;
+		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
+		delete rest.subtitle;
+		delete rest.title;
 		delete rest.type;
 
 		// Set up the back button
@@ -543,31 +590,7 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
-						<div className={css.titleContainer} key={title + subtitle}>
-							<Heading
-								aria-label={title}
-								size="title"
-								spacing="auto"
-								marqueeOn={marqueeOn}
-								forceDirection={direction}
-								alignment={centered ? 'center' : null}
-								className={css.title}
-							>
-								{title}
-							</Heading>
-							<Heading
-								size="subtitle"
-								spacing="auto"
-								marqueeOn={marqueeOn}
-								forceDirection={direction}
-								alignment={centered ? 'center' : null}
-								className={css.subtitle}
-							>
-								{subtitle}
-							</Heading>
-						</div>
-					</Cell>
+					{titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}

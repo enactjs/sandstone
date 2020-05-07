@@ -237,7 +237,7 @@ const WizardPanelsBase = kind({
 		return (
 			<Panel {...rest}>
 				<Header
-					arranger={CrossFadeArranger}
+					arranger={noAnimation ? null : CrossFadeArranger}
 					centered
 					css={css}
 					noCloseButton
