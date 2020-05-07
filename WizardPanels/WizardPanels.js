@@ -1,3 +1,4 @@
+import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -7,11 +8,11 @@ import React from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
+import {CancelDecorator} from '../internal/Panels';
 import {Header, Panel} from '../Panels';
 import Steps from '../Steps';
 
 import css from './WizardPanels.module.less';
-import {CancelDecorator} from './CancelDecorator';
 
 const WizardPanelsContext = React.createContext(null);
 
@@ -408,7 +409,10 @@ const WizardPanelsDecorator = (Wrapped) => {
 const WizardPanels = Changeable(
 	{prop: 'index'},
 	CancelDecorator(
-		{cancel: 'onChange'},
+		{cancel: 'onChange', shouldCancel: handle(
+			forwardWithPrevent('onBack'),
+			not(forProp('noPrevButton', true))
+		)},
 		WizardPanelsDecorator(
 			WizardPanelsBase
 		)
