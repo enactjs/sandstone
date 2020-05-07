@@ -8,19 +8,21 @@ import {secondsToPeriod, secondsToTime} from './util';
 import css from './Times.module.less';
 
 /**
- * Times {@link sandstone/VideoPlayer}.
+ * Sandstone-styled formatted time component
  *
  * @class Times
  * @memberof sandstone/MediaPlayer
  * @ui
- * @private
+ * @public
  */
 const TimesBase = kind({
 	name: 'Times',
 
 	propTypes: /** @lends sandstone/MediaPlayer.Times.prototype */ {
 		/**
-		 * An instance of a Duration Formatter from i18n. {@link i18n/ilib/lib/DurationFmt.DurationFmt}
+		 * An instance of a Duration Formatter from i18n.
+		 *
+		 * Must has a `format()` method that returns a string.
 		 *
 		 * @type {Object}
 		 * @required

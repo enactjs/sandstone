@@ -13,7 +13,6 @@ import MediaControls from './MediaControls';
 import MediaSlider from './MediaSlider';
 import Times from './Times';
 
-export default MediaControls;
 export {
 	MediaControls,
 	MediaSlider,

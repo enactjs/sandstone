@@ -6,7 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
 import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
-import MediaControls from '@enact/sandstone/MediaPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
 
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {ImageItem} from '@enact/sandstone/ImageItem';
