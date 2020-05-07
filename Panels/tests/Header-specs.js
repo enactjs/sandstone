@@ -103,4 +103,39 @@ describe('Header Specs', () => {
 
 		expect(actual).toBe(expected);
 	});
+
+	test('should use `ViewManager` for `type="wizard"`', () => {
+		const subject = mount(
+			<Header
+				type="wizard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = {
+			duration: 500,
+			index: 0
+		};
+		const actual = subject.find('ViewManager').props();
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not use `ViewManager` for other `type` values', () => {
+		const subject = mount(
+			<Header
+				type="standard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = 0;
+		const actual = subject.find('ViewManager').length;
+
+		expect(actual).toBe(expected);
+	});
 });
