@@ -55,7 +55,10 @@ const useThemeScrollbar = (props) => {
 			(target === scrollbarTrackRef.current)) {
 			const
 				clickPoint = nativeEvent[vertical ? 'offsetY' : 'offsetX'],
-				thumbPosition = scrollbarTrackRef.current.children[0][vertical ? 'offsetTop' : 'offsetLeft'],
+				thumb = scrollbarTrackRef.current.children[0],
+				thumbPosition = thumb[vertical ? 'offsetTop' : 'offsetLeft'],
+				thumbSize = thumb[vertical ? 'offsetHeight' : 'offsetWidth'],
+				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize,
 				scrollParam = {
 					inputType: 'track',
 					isForward: clickPoint > thumbPosition,
@@ -63,7 +66,9 @@ const useThemeScrollbar = (props) => {
 					isVerticalScrollBar: vertical
 				};
 
-			onInteractionForScroll(scrollParam);
+			if (!clickThumb) {
+				onInteractionForScroll(scrollParam);
+			}
 		}
 	}, [focusableScrollbar, onInteractionForScroll, scrollbarContainerRef, scrollbarTrackRef, vertical]);
 
