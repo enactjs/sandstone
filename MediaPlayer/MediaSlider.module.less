@@ -4,8 +4,8 @@
 @import "../styles/skin.less";
 
 .sliderFrame {
-	@slider-padding-v: ((@sand-video-player-slider-tap-area - @sand-video-player-slider-height) / 2);
-	@slider-padding-h: @sand-video-player-slider-knob-size;
+	@slider-padding-v: ((@sand-mediaplayer-slider-tap-area - @sand-mediaplayer-slider-height) / 2);
+	@slider-padding-h: @sand-mediaplayer-slider-knob-size;
 	flex: 1 0 auto;
 
 	&.hidden {
@@ -14,9 +14,9 @@
 	}
 
 	.mediaSlider {
-		margin: 0 @sand-video-player-slider-knob-size;
+		margin: 0 @slider-padding-h;
 		padding: @slider-padding-v 0;
-		height: @sand-video-player-slider-height;
+		height: @sand-mediaplayer-slider-height;
 
 		// Add a tap area that extends to the edges of the screen, to make the slider more accessible
 		&::before {
@@ -55,10 +55,10 @@
 		//transition:                 transform @slide-transition-function 0.2s;
 
 		&::before {
-			width: (@sand-video-player-slider-knob-size * 2);
-			height: (@sand-video-player-slider-knob-size * 2);
+			width: (@sand-mediaplayer-slider-knob-size * 2);
+			height: (@sand-mediaplayer-slider-knob-size * 2);
 			border-width: 0;
-			border-radius: @sand-video-player-slider-knob-size;
+			border-radius: @sand-mediaplayer-slider-knob-size;
 			-webkit-transform: @sand-translate-center scale(0.5);
 			transform:         @sand-translate-center scale(0.5);
 			opacity: 0;
@@ -73,17 +73,6 @@
 			display: block;
 		}
 	}
-
-	// Status Indicator
-	.status-indicator {
-		.sand-slider-popup-center {
-			font-family: @sand-font-family;
-			font-size: @sand-video-player-indicator-text-size;
-			line-height: 72px;
-			position: absolute;	// Allows flip-h to work
-			margin: 0 60px;
-		}
-	}
 }
 
 .applySkins({
@@ -91,19 +80,7 @@
 		.slider {
 			.knob {
 				&::before {
-					background-color: @sand-video-player-slider-knob-color;
-				}
-			}
-		}
-
-		// Status Indicator
-		.status-indicator {
-			.sand-slider-popup-center {
-				color: @sand-video-player-indicator-text-color;
-				text-shadow: @sand-video-player-title-text-shadow;
-
-				.sand-icon {
-					color: inherit;
+					background-color: @sand-mediaplayer-slider-knob-color;
 				}
 			}
 		}
