@@ -1,3 +1,4 @@
+import {forwardWithPrevent} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import Cancelable from '@enact/ui/Cancelable';
 import Spotlight from '@enact/spotlight';
@@ -13,16 +14,18 @@ export const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	function handleCancel (ev, props) {
 		const {index, [cancel]: handler, noPrevButton} = props;
 
-		if (index > 0 && handler && !noPrevButton && !document.querySelector(`.${css.transitioning}`)) {
-			// clear Spotlight focus
-			const current = Spotlight.getCurrent();
-			if (current) {
-				current.blur();
+		if (forwardWithPrevent('onBack', ev, props)) {
+			if (index > 0 && handler && !noPrevButton && !document.querySelector(`.${css.transitioning}`)) {
+				// clear Spotlight focus
+				const current = Spotlight.getCurrent();
+				if (current) {
+					current.blur();
+				}
+				handler({
+					index: index - 1
+				});
+				ev.stopPropagation();
 			}
-			handler({
-				index: index - 1
-			});
-			ev.stopPropagation();
 		}
 	}
 

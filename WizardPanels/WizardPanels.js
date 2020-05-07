@@ -337,6 +337,8 @@ const WizardPanelsDecorator = (Wrapped) => {
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
+		// eslint-disable-next-line enact/prop-types
+		delete rest.onBack;
 
 		return (
 			<WizardPanelsContext.Provider value={setView}>
@@ -412,6 +414,17 @@ const WizardPanels = Changeable(
 		)
 	)
 );
+
+/**
+ * Called when the back button is pressed.
+ *
+ * If `ev.preventDefault` is called, `WizardPanels` will not process the event further. If it is
+ * not called, the index of the panel will be decremented unless `noPrevButton` is set.
+ *
+ * @name onBack
+ * @memberof sandstone/WizardPanels.WizardPanels.prototype
+ * @type {Function}
+ */
 
 export default WizardPanels;
 export {

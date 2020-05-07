@@ -425,7 +425,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should not back on back key when noPrevButton set',
+		'should not go back on back key when noPrevButton set',
 		() => {
 			const map = {};
 
@@ -435,6 +435,64 @@ describe('WizardPanel Specs', () => {
 
 			const wizardPanel = mount(
 				<WizardPanels defaultIndex={1} noPrevButton>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key when onBack does not call preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn();
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not go back on back key when onBack calls preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn((ev) => ev.preventDefault());
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
 					<Panel />
 					<Panel />
 					<Panel />
