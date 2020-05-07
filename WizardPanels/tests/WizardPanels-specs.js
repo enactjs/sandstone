@@ -39,6 +39,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
+			wizardPanel.unmount();	// Need to unmount to remove modal cancel listener
 			expect(actual).toBe(expected);
 		}
 	);
@@ -60,6 +61,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewTitle;
 			const actual = headerTitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -80,6 +82,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -100,6 +103,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewFooter;
 			const actual = footerText;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -123,6 +127,7 @@ describe('WizardPanel Specs', () => {
 			const expected = 2;
 			const actual = buttons;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -145,6 +150,7 @@ describe('WizardPanel Specs', () => {
 			const expected = contentText;
 			const actual = content;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -292,6 +298,80 @@ describe('WizardPanel Specs', () => {
 			const expected = {current: index + 1};
 			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
 
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should advance on next click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find('Button[aria-label="Next"]');
+
+			nextButton.simulate('click');
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on prev click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find('Button[aria-label="Previous"]');
+
+			prevButton.simulate('click');
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
 			expect(actual).toMatchObject(expected);
 		}
 	);
