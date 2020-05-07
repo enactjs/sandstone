@@ -61,6 +61,8 @@ const useThemeScrollbar = (props) => {
 				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize;
 
 			if (!clickThumb) {
+				ev.preventDefault();
+				ev.nativeEvent.stopImmediatePropagation();
 				onInteractionForScroll({
 					inputType: 'track',
 					isForward: clickPoint > thumbPosition,
