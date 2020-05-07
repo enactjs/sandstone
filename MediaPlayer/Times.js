@@ -8,7 +8,7 @@ import {secondsToPeriod, secondsToTime} from './util';
 import css from './Times.module.less';
 
 /**
- * Sandstone-styled formatted time component
+ * Sandstone-styled formatted time component.
  *
  * @class Times
  * @memberof sandstone/MediaPlayer

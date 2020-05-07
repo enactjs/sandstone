@@ -3,7 +3,7 @@ import React from 'react';
 //
 
 /**
- * Create a time object (hour, minute, second) from an amount of seconds
+ * Create a time object (hour, minute, second) from an amount of seconds.
  *
  * @param  {Number|String} value A duration of time represented in seconds
  *
@@ -24,7 +24,7 @@ const parseTime = (value) => {
 };
 
 /**
- * Generate a time usable by <time datetime />
+ * Generate a time usable by <time datetime />.
  *
  * @param  {Number|String} seconds A duration of time represented in seconds
  *
@@ -36,7 +36,7 @@ const secondsToPeriod = (seconds) => {
 };
 
 /**
- * Formats a duration in seconds into a human-readable time
+ * Formats a duration in seconds into a human-readable time.
  *
  * @type {Function}
  * @param  {Number|String} seconds A duration of time represented in seconds
