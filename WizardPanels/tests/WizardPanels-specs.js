@@ -39,7 +39,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
-			wizardPanel.unmount();	// Need to unmount to remove modal cancel listener
+			wizardPanel.unmount();	// Need to unmount to remove modal cancel listenerx
 			expect(actual).toBe(expected);
 		}
 	);

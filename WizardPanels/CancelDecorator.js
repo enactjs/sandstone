@@ -26,5 +26,5 @@ export const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 	}
 
-	return Cancelable({modal: true, onCancel: handleCancel	}, Wrapped);
+	return Cancelable({modal: true, onCancel: handleCancel}, Wrapped);
 });
