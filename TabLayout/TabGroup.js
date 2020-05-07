@@ -123,7 +123,7 @@ const TabGroupBase = kind({
 		delete rest.tabs;
 
 		const isHorizontal = orientation === 'horizontal';
-		const scrollerProps = isHorizontal ? {
+		const scrollerProps = !isHorizontal ? {
 			horizontalScrollbar: 'hidden',
 			verticalScrollbar: 'hidden'
 		} : null;
