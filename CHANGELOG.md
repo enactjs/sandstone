@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
+
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
