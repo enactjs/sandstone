@@ -80,7 +80,7 @@ const HeaderBase = kind({
 		 * Only supported when `type="wizard"`.
 		 *
 		 * @type {ui/ViewManager.Arranger}
-		 * @public
+		 * @private
 		 */
 		arranger: shape,
 
