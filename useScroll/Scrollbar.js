@@ -58,16 +58,15 @@ const useThemeScrollbar = (props) => {
 				thumb = scrollbarTrackRef.current.children[0],
 				thumbPosition = thumb[vertical ? 'offsetTop' : 'offsetLeft'],
 				thumbSize = thumb[vertical ? 'offsetHeight' : 'offsetWidth'],
-				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize,
-				scrollParam = {
+				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize;
+
+			if (!clickThumb) {
+				onInteractionForScroll({
 					inputType: 'track',
 					isForward: clickPoint > thumbPosition,
 					isPagination: true,
 					isVerticalScrollBar: vertical
-				};
-
-			if (!clickThumb) {
-				onInteractionForScroll(scrollParam);
+				});
 			}
 		}
 	}, [focusableScrollbar, onInteractionForScroll, scrollbarContainerRef, scrollbarTrackRef, vertical]);
