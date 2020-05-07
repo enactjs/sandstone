@@ -36,16 +36,16 @@ const secondsToPeriod = (seconds) => {
 };
 
 /**
- * Make a human-readable time
+ * Formats a duration in seconds into a human-readable time
  *
  * @param  {Number|String} seconds A duration of time represented in seconds
- * @param {DurationFmt} durfmt An instance of a {@link i18n/ilib/lib/DurationFmt.DurationFmt} object
- *                             from iLib confugured to display time used by the {@Link VideoPlayer}
- *                             component.
- * @param  {Object} config Additional configuration object that includes `includeHour`.
+ * @param  {DurationFmt}   durfmt  An instance of a `ilib.DurationFmt` object from iLib confugured
+ *                                 to display time
+ * @param  {Object}        config  Additional configuration object that includes `includeHour`
  *
- * @returns {String}      Formatted duration string
- * @private
+ * @returns {String} Formatted duration string
+ * @memberof sandstone/MediaPlayer
+ * @public
  */
 const secondsToTime = (seconds, durfmt, config) => {
 	const includeHour = config && config.includeHour;
