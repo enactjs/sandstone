@@ -193,7 +193,7 @@ storiesOf('Sandstone', module)
 						>
 							<bottomComponents>
 								<VirtualGridList
-									style={{height: ri.scaleToRem(120)}}
+									style={{height: ri.scaleToRem(240)}}
 									horizontalScrollbar={'hidden'}
 									dataSize={size}
 									direction="horizontal"
