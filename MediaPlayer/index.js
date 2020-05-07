@@ -1,5 +1,5 @@
 /**
- * Media Player component for video and audio.
+ * Set of Sandstone-styled components to support a custom media player.
  *
  * @module sandstone/MediaPlayer
  * @exports MediaControls
