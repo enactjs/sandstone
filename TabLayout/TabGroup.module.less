@@ -8,21 +8,17 @@
 	font-weight: normal;
 
 	&.horizontal {
-		margin-bottom: 0;
-
 		&.button {
-			.client {
-				text-align: center;
-			}
+			width: @sand-tablayout-tab-horizontal-width;
 		}
 	}
 
 	&.vertical {
 		margin-bottom: @sand-tablayout-tab-margin-bottom;
-	}
 
-	.client {
-		text-align: start;
+		.client {
+			text-align: start;
+		}
 	}
 
 	.applySkins({
@@ -32,16 +28,16 @@
 					.bg {
 						.sand-spotlight-resting-colors(1);
 						background-color: transparent;
+					}
+
+					.client {
 						border-bottom: @sand-tablayout-tab-horizontal-selected-border-width solid @sand-tablayout-tab-horizontal-selected-border-color;
 						border-radius: 0px;
-						margin: @sand-tablayout-tab-horizontal-selected-bg-margin;
 					}
 				}
 
 				.focus({
-					.bg {
-						border-radius: @sand-button-border-radius;
-						margin: unset;
+					.client {
 						border-bottom: unset;
 					}
 				});
@@ -63,10 +59,9 @@
 }
 
 .tabGroup {
-	.horizontalLine {
-		overflow-y: visible;
-		min-height: 0;
-		padding: 0;
-		margin: 0;
-	}
+	.applySkins({
+		.horizontalLine {
+			border-top: @sand-tablayout-tab-horizontal-border-width solid @sand-tablayout-tab-horizontal-border-color;
+		}
+	});
 }

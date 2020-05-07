@@ -58,7 +58,7 @@ const TabBase = kind({
 
 		return (
 			<Cell
-				size={orientation === 'horizontal' ? `${ri.scale(590)}px` : null}
+				shrink={orientation === 'horizontal'}
 			>
 				<Button
 					{...rest}
@@ -127,11 +127,11 @@ const TabGroupBase = kind({
 			horizontalScrollbar: 'hidden',
 			verticalScrollbar: 'hidden'
 		} : null;
+		const Component = isHorizontal ? 'div' : Scroller;
 
 		return (
-			<ComponentOverride
+			<Component
 				{...rest}
-				component={isHorizontal ? 'div' : Scroller}
 				onBlur={onBlur}
 				onFocus={onFocus}
 				{...scrollerProps}
@@ -154,8 +154,8 @@ const TabGroupBase = kind({
 						{children}
 					</Group>
 				)}
-				{isHorizontal ? <Heading className={componentCss.horizontalLine} showLine /> : null}
-			</ComponentOverride>
+				{isHorizontal ? <div className={componentCss.horizontalLine} /> : null}
+			</Component>
 		);
 	}
 });
