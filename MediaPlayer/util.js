@@ -1,5 +1,5 @@
 import React from 'react';
-// VideoPlayer utils.js
+// MediaPlayer utils.js
 //
 
 /**
@@ -65,16 +65,6 @@ const secondsToTime = (seconds, durfmt, config) => {
 };
 
 /**
- * Calculates numeric value of playback rate (with support for fractions).
- *
- * @private
- */
-const calcNumberValueOfPlaybackRate = (rate) => {
-	const pbArray = String(rate).split('/');
-	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
-};
-
-/**
  * Safely count the children nodes and exclude null & undefined values for an accurate count of
  * real children
  *
@@ -85,7 +75,6 @@ const calcNumberValueOfPlaybackRate = (rate) => {
 const countReactChildren = (children) => React.Children.toArray(children).filter(n => n != null).length;
 
 export {
-	calcNumberValueOfPlaybackRate,
 	countReactChildren,
 	parseTime,
 	secondsToPeriod,

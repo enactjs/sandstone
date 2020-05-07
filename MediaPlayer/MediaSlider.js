@@ -14,14 +14,14 @@ import css from './MediaSlider.module.less';
  * [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
  *
  * @class MediaSliderBase
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @ui
  * @private
  */
 const MediaSliderBase = kind({
 	name: 'MediaSlider',
 
-	propTypes: /** @lends sandstone/VideoPlayer.MediaSliderBase.prototype */ {
+	propTypes: /** @lends sandstone/MediaPlayer.MediaSliderBase.prototype */ {
 
 		/**
 		 * When `true`, the knob will expand. Note that Slider is a controlled
@@ -106,7 +106,7 @@ const MediaSliderBase = kind({
  * [VideoPlayer]{@link sandstone/VideoPlayer.VideoPlayer}.
  *
  * @class MediaSlider
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @ui
  * @private
  */

@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 
-import Image from '../Image';
-import Skinnable from '../Skinnable';
+import Image from '../Image/Image';
+import Skinnable from '../Skinnable/Skinnable';
 
 import FeedbackContent from './FeedbackContent';
 import states from './FeedbackIcons.js';
-import {secondsToTime} from './util';
+import {secondsToTime} from '../MediaPlayer/';
 
 import css from './FeedbackTooltip.module.less';
 

@@ -11,14 +11,14 @@ import css from './Times.module.less';
  * Times {@link sandstone/VideoPlayer}.
  *
  * @class Times
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @ui
  * @private
  */
 const TimesBase = kind({
 	name: 'Times',
 
-	propTypes: /** @lends sandstone/VideoPlayer.Times.prototype */ {
+	propTypes: /** @lends sandstone/MediaPlayer.Times.prototype */ {
 		/**
 		 * An instance of a Duration Formatter from i18n. {@link i18n/ilib/lib/DurationFmt.DurationFmt}
 		 *

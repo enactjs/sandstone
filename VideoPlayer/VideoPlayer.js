@@ -39,17 +39,16 @@ import $L from '../internal/$L';
 import Skinnable from '../Skinnable';
 import Spinner from '../Spinner';
 import {
-	calcNumberValueOfPlaybackRate,
-	FeedbackContent,
-	FeedbackTooltip,
 	MediaControls,
-	MediaTitle,
 	MediaSlider,
 	secondsToTime,
 	Times
 } from '../MediaPlayer';
 
 import Overlay from './Overlay';
+import MediaTitle from './MediaTitle';
+import FeedbackContent from './FeedbackContent';
+import FeedbackTooltip from './FeedbackTooltip';
 import Video from './Video';
 
 import css from './VideoPlayer.module.less';
@@ -70,6 +69,10 @@ const getControlsHandleAboveHoldConfig = ({frequency, time}) => ({
 const shouldJump = ({disabled, no5WayJump}, {mediaControlsVisible, sourceUnavailable}) => (
 	!no5WayJump && !mediaControlsVisible && !(disabled || sourceUnavailable)
 );
+const calcNumberValueOfPlaybackRate = (rate) => {
+	const pbArray = String(rate).split('/');
+	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
+};
 
 const SpottableDiv = Touchable(Spottable('div'));
 const RootContainer = SpotlightContainerDecorator(
