@@ -20,6 +20,7 @@ import Heading from '../Heading';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
+import {deleteContextFromProps, filterEmpty} from '../internal/Panels/util';
 import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
@@ -27,9 +28,9 @@ import componentCss from './Header.module.less';
 // A conditional method that takes in a prop name (string) and returns a method that when executed
 // with props and context as arguments, chooses between the values, preferring the props version if
 // it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-const preferPropOverContext = (prop) => (props, context) => {
-	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
-};
+// const preferPropOverContext = (prop) => (props, context) => {
+// 	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
+// };
 
 const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
@@ -409,7 +410,7 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
-		backButtonAvailable: false,
+		// backButtonAvailable: false,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -444,8 +445,6 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
-		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
 		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
 				featureContent,
@@ -456,13 +455,6 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		// This unruly looking pile of props allows these props to override their context equivelents
-		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
-		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
-		noBackButton: preferPropOverContext('noBackButton'),
-		noCloseButton: preferPropOverContext('noCloseButton'),
-		onBack: preferPropOverContext('onBack'),
-		onClose: preferPropOverContext('onClose'),
 		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
@@ -538,7 +530,11 @@ const HeaderBase = kind({
 		titleCell,
 		titleRef,
 		...rest
-	}) => {
+	}, ctx) => {
+		console.log('Header rest:', Object.assign({}, rest), rest);
+
+		deleteContextFromProps(rest, ctx); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
+
 		delete rest.arranger;
 		delete rest.entering;
 		delete rest.featureContent;
@@ -603,6 +599,38 @@ const HeaderBase = kind({
 	}
 });
 
+
+const useContextAsDefaultProps = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function useContextAsDefaultProps (props) {
+		const ctx = filterEmpty(React.useContext(PanelsStateContext));
+		// if (props.type == null) ctx.type = ctx.headerType;
+		if (props.type == null) {
+
+			switch (ctx.panelsType) {
+				case 'fixedPopup': ctx.type = 'compact'; break;
+				case 'flexiblePopup': ctx.type = 'mini'; break;
+				case 'wizard': ctx.type = 'wizard'; break;
+				// default: return type;
+			}
+		}
+
+		ctx.backButtonAvailable = (ctx && ctx.index > 0 && ctx.panelsType !== 'wizard');
+
+		//
+		//
+		// Entering seems to be changing from some other criteria, that I can't determine at this time...
+		//
+		//
+		//
+
+		console.log('Header useContext', Object.assign({}, props), Object.assign({}, ctx));
+		return (
+			<Wrapped {...props} {...ctx} />
+		);
+	};
+};
+
 const CollapsingHeaderDecorator = (Wrapped) => {
 	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
 		const {shouldFeatureContent} = useScrollPosition() || {};
@@ -642,6 +670,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	useContextAsDefaultProps,
 	CollapsingHeaderDecorator,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),

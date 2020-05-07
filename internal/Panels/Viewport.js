@@ -238,7 +238,7 @@ const ViewportBase = class extends React.Component {
 
 		// Relay each of the state-specific props to the context
 		const panelsContext = {
-			type,
+			panelsType: type,
 			index,
 			onBack,
 			backButtonAriaLabel,
@@ -260,6 +260,7 @@ const ViewportBase = class extends React.Component {
 			`Panels index, ${index}, is invalid for number of children, ${count}`
 		);
 
+		delete rest.className;
 		return (
 			<PanelsStateContext.Provider value={panelsContext}>
 				<ViewManager

@@ -9,11 +9,14 @@ import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
 import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
+
+import {filterEmpty, deleteContextFromProps} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -178,12 +181,6 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		backButtonAvailable: (props, context) => {
-			if (!context) {
-				return;
-			}
-			return context.index > 0 && context.type !== 'wizard';
-		},
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -199,50 +196,39 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
-		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
-		headerType: (props, context) => {
-			if (!context) {
-				return;
-			}
-
-			switch (context.type) {
-				case 'fixedPopup': return 'compact';
-				case 'flexiblePopup': return 'mini';
-				case 'wizard': return 'wizard';
-			}
-		}
+		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
 	render: ({
-		backButtonAvailable,
 		bodyClassName,
 		children,
 		css,
+		entering,
 		header,
 		headerId,
-		headerType,
 		hideChildren,
 		spotOnRender,
 		titleRef,
 		...rest
-	}) => {
+	}, ctx) => {
 		delete rest.autoFocus;
+		delete rest.hideChildren;
 
-		const headerProps = {};
-		if (headerType != null) headerProps.type = headerType;
-		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
+		// console.log('Panel rest:', Object.assign({}, rest), rest);
+
+		deleteContextFromProps(rest, ctx); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
+
+		ctx.entering = entering;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						{...headerProps}
-						entering={hideChildren && Spotlight.getPointerMode()}
 						titleRef={titleRef}
 					/>
 				</div>
@@ -251,6 +237,33 @@ const PanelBase = kind({
 		);
 	}
 });
+
+
+
+const useContextAsDefaultProps = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function useContextAsDefaultProps (props) {
+		const ctx = filterEmpty(React.useContext(PanelsStateContext));
+		console.log('Panel useContext', Object.assign({}, props), Object.assign({}, ctx));
+		return (
+			<Wrapped {...props} {...ctx} />
+		);
+	};
+};
+
+const PanelDecorator = compose(
+	useContextAsDefaultProps,
+	SharedStateDecorator({idProp: 'data-index'}),
+	SpotlightContainerDecorator({
+		// prefer any spottable within the panel body for first render
+		continue5WayHold: true,
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
+		enterTo: 'last-focused',
+		preserveId: true
+	}),
+	Slottable({slots: ['header']}),
+	Skinnable
+);
 
 /**
  * Prevents the component from restoring any framework shared state.
@@ -264,25 +277,7 @@ const PanelBase = kind({
  * @default false
  * @memberof sandstone/Panels.Panel.prototype
  */
-
-const RootPanel = SharedStateDecorator(
-	{idProp: 'data-index'},
-	SpotlightContainerDecorator(
-		{
-			// prefer any spottable within the panel body for first render
-			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
-			enterTo: 'last-focused',
-			preserveId: true
-		},
-		Slottable(
-			{slots: ['header']},
-			Skinnable(
-				PanelBase
-			)
-		)
-	)
-);
+const RootPanel = PanelDecorator(PanelBase);
 
 /**
  * Applies behaviors to [Panel]{@link sandstone/Panels.Panel} to support `featureContent`
