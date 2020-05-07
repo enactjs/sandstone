@@ -303,6 +303,54 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should fire onWillTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should fire onTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
 		'should advance on next click',
 		() => {
 			const wizardPanel = mount(
@@ -369,6 +417,34 @@ describe('WizardPanel Specs', () => {
 			wizardPanel.update();
 
 			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not back on back key when noPrevButton set',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} noPrevButton>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
 			const actual = wizardPanel.find('Steps').props();
 
 			wizardPanel.unmount();
