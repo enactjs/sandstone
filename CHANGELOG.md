@@ -16,6 +16,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input.InputField` disabled colors
 - `sandstone/Panels.WizardPanel` to hide previous and next buttons appropriately
 
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
+
 ## [1.0.0-beta.1] - 2020-04-27
 
 ### Removed
