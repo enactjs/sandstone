@@ -38,9 +38,9 @@ const secondsToPeriod = (seconds) => {
 /**
  * Formats a duration in seconds into a human-readable time
  *
- * @type function
+ * @type {Function}
  * @param  {Number|String} seconds A duration of time represented in seconds
- * @param  {DurationFmt}   durfmt  An instance of a `ilib.DurationFmt` object from iLib confugured
+ * @param  {DurationFmt}   durfmt  An instance of a `ilib.DurationFmt` object from iLib configured
  *                                 to display time
  * @param  {Object}        config  Additional configuration object that includes `includeHour`
  *
