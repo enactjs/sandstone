@@ -5,26 +5,26 @@ import FixedPopupPanels from '../FixedPopupPanels';
 
 describe('FixedPopupPanels', () => {
 
-	it('should have the default size when nothing is assigned', function () {
+	it('should have the default width when nothing is assigned', function () {
 		const subject = mount(<FixedPopupPanels />);
 
-		const expected = 'thin';
+		const expected = 'narrow';
 		const actual = subject.find('Popup').prop('className');
 
 		expect(actual).toContain(expected);
 	});
 
-	it('should have thin size applied when size="thin"', function () {
-		const subject = mount(<FixedPopupPanels size="thin" />);
+	it('should have narrow width applied when width="narrow"', function () {
+		const subject = mount(<FixedPopupPanels width="narrow" />);
 
-		const expected = 'thin';
+		const expected = 'narrow';
 		const actual = subject.find('Popup').prop('className');
 
 		expect(actual).toContain(expected);
 	});
 
-	it('should have half size applied when size="half"', function () {
-		const subject = mount(<FixedPopupPanels size="half" />);
+	it('should have half width applied when width="half"', function () {
+		const subject = mount(<FixedPopupPanels width="half" />);
 
 		const expected = 'half';
 		const actual = subject.find('Popup').prop('className');
