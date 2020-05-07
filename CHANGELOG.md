@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
+- `sandstone/WizardPanels` support for animating changes to title and subtitle 
 
 ### Changed
 
