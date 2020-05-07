@@ -38,6 +38,27 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should call stopPropagation on event in onChange handler', () => {
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const evt = {
+			preventDefault: jest.fn(),
+			stopPropagation: jest.fn(),
+			target: {value: value}
+		};
+
+		const subject = mount(
+			<InputField onChange={handleChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = 1;
+		const actual = evt.stopPropagation.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const node = document.body.appendChild(document.createElement('div'));
 		const handleChange = jest.fn();
@@ -49,7 +70,7 @@ describe('InputField Specs', () => {
 		const input = subject.find('input');
 
 		input.simulate('mouseDown');
-		input.simulate('keyUp', {which: 13, keyCode: 13, code:13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
 		node.remove();
 
 		const expected = 1;

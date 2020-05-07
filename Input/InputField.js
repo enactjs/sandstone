@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forward, stop} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -220,6 +220,7 @@ const InputFieldBase = kind({
 
 	handlers: {
 		onChange: handle(
+			stop,
 			adaptEvent(
 				ev => ({value: ev.target.value}),
 				forward('onChange')
