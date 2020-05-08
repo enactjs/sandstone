@@ -4,10 +4,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/VideoPlayer.MediaControls` component. Use `sandstone/MediaPlayer.MediaControls` instead.
+
 ### Added
 
 - `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
-- `sandstone/WizardPanels` support for animating changes to title and subtitle 
+- `sandstone/MediaPlayer` submodule which provides `MediaControls`, `MediaSlider`, and `Times` components for use in custom media player components.
+- `sandstone/WizardPanels` support for animating changes to title and subtitle
 
 ### Changed
 
