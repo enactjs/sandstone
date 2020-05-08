@@ -25,13 +25,6 @@ import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
 
-// A conditional method that takes in a prop name (string) and returns a method that when executed
-// with props and context as arguments, chooses between the values, preferring the props version if
-// it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-// const preferPropOverContext = (prop) => (props, context) => {
-// 	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
-// };
-
 const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
@@ -410,7 +403,6 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
-		// backButtonAvailable: false,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -531,9 +523,7 @@ const HeaderBase = kind({
 		titleRef,
 		...rest
 	}) => {
-		// console.log('Header rest:', Object.assign({}, rest), rest);
-		//
-		deleteSharedProps(rest); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
+		deleteSharedProps(rest); // Delete (clean up) any remaining shared props from rest, to avoid prop-bleed on props we aren't interested in.
 
 		delete rest.arranger;
 		delete rest.entering;
