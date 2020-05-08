@@ -286,22 +286,6 @@ describe('WizardPanel Specs', () => {
 		}
 	);
 
-	// [GT-28312]
-	test(
-		'should reflect the current index in Steps',
-		() => {
-			const index = 1;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} totalViews={5} />
-			);
-
-			const expected = {current: index + 1};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
 	test(
 		'should fire onWillTransition with target index',
 		() => {
@@ -528,6 +512,22 @@ describe('WizardPanel Specs', () => {
 
 			actual = wizardPanel.find(viewManager).prop('noAnimation');
 			expect(actual).toBe(true);
+		}
+	);
+
+	// [GT-28312]
+	test(
+		'should reflect the current index in Steps',
+		() => {
+			const index = 1;
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={index} totalViews={5} />
+			);
+
+			const expected = {current: index + 1};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
 		}
 	);
 

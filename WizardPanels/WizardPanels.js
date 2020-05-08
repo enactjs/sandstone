@@ -60,7 +60,8 @@ const WizardPanelsBase = kind({
 		/**
 		 * The currently selected step.
 		 *
-		 * If omitted, this will equal the currently selected view.
+		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
+		 * the currently selected view.
 		 *
 		 * @type {Number}
 		 * @public
