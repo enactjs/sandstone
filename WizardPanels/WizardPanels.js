@@ -1,3 +1,4 @@
+import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -7,6 +8,7 @@ import React from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
+import {CancelDecorator} from '../internal/Panels';
 import {Header, Panel} from '../Panels';
 import Steps from '../Steps';
 
@@ -19,7 +21,7 @@ const WizardPanelsContext = React.createContext(null);
  *
  * @example
  * 	<WizardPanels>
- *		<WizardPanels.WizardPanel subtitle="Subtitle" title="Title">
+ *		<WizardPanels.Panel subtitle="Subtitle" title="Title">
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
@@ -30,7 +32,7 @@ const WizardPanelsContext = React.createContext(null);
  *			<footer>
  *				<CheckboxItem inline>Confirm</CheckboxItem>
  *			</footer>
- *		</WizardPanels.WizardPanel>
+ *		</WizardPanels.Panel>
  *	</WizardPanels>
  *
  * @class WizardPanelsBase
@@ -107,6 +109,8 @@ const WizardPanelsBase = kind({
 
 		/**
 		* Omits the previous button component.
+		*
+		* When set, the back key will be disabled.
 		*
 		* @type {Boolean}
 		* @public
@@ -322,7 +326,8 @@ function useReverseTransition (index = -1) {
 
 /**
  * WizardPanelsDecorator passes the buttons, children, footer,
- * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} to [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
+ * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.Panel} to
+ * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
  * @class WizardPanelsDecorator
  * @memberof sandstone/WizardPanels
@@ -334,6 +339,8 @@ const WizardPanelsDecorator = (Wrapped) => {
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
+		// eslint-disable-next-line enact/prop-types
+		delete rest.onBack;
 
 		return (
 			<WizardPanelsContext.Provider value={setView}>
@@ -367,12 +374,13 @@ const WizardPanelsDecorator = (Wrapped) => {
 		index: PropTypes.number,
 
 		/**
-		* The "default" title for WizardPanels if title isn't explicitly set in [View]{@link sandstone/WizardPanels.WizardPanel}.
+		* The "default" title for WizardPanels if title isn't explicitly set in
+		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
 		* 	<WizardPanels title="Title">
-		*		<WizardPanels.WizardPanel>
+		*		<WizardPanels.Panel>
 		*			lorem ipsum ...
-		*		</WizardPanels.WizardPanel>
+		*		</WizardPanels.Panel>
 		*	</WizardPanels>
 		*
 		* @type {Number}
@@ -391,7 +399,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 
 /**
  * A WizardPanels that can step through different views.
- * Expects [WizardPanel]{@link sandstone/WizardPanels.WizardPanel} as children.
+ * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
  *
  * @class WizardPanels
  * @memberof sandstone/WizardPanels
@@ -402,10 +410,27 @@ const WizardPanelsDecorator = (Wrapped) => {
  */
 const WizardPanels = Changeable(
 	{prop: 'index'},
-	WizardPanelsDecorator(
-		WizardPanelsBase
+	CancelDecorator(
+		{cancel: 'onChange', shouldCancel: handle(
+			forwardWithPrevent('onBack'),
+			not(forProp('noPrevButton', true))
+		)},
+		WizardPanelsDecorator(
+			WizardPanelsBase
+		)
 	)
 );
+
+/**
+ * Called when the back button is pressed.
+ *
+ * If `ev.preventDefault` is called, `WizardPanels` will not process the event further. If it is
+ * not called, the index of the panel will be decremented unless `noPrevButton` is set.
+ *
+ * @name onBack
+ * @memberof sandstone/WizardPanels.WizardPanels.prototype
+ * @type {Function}
+ */
 
 export default WizardPanels;
 export {
