@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 /**
- * Knob for the MediaSlider in {@link sandstone/VideoPlayer}.
+ * Knob for the MediaSlider in {@link sandstone/MediaPlayer}.
  *
  * @class MediaKnob
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @ui
  * @private
  */

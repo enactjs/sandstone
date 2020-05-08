@@ -2,6 +2,21 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Removed
+
+- `sandstone/VideoPlayer.MediaControls` component. Use `sandstone/MediaPlayer.MediaControls` instead.
+
+### Added
+
+- `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
+- `sandstone/MediaPlayer` submodule which provides `MediaControls`, `MediaSlider`, and `Times` components for use in custom media player components.
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
+
 ## [1.0.0-beta.2] - 2020-05-04
 
 ### Deprecated

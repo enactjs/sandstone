@@ -1,7 +1,7 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {memo, useEffect} from 'react';
+import React, {memo, useCallback, useEffect} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
@@ -26,7 +26,10 @@ const useThemeScrollbar = (props) => {
 		...rest
 	} = restProps;
 
-	const {className, ref: scrollbarContainerRef} = scrollbarProps;
+	const
+		{className, ref: scrollbarContainerRef} = scrollbarProps,
+		{ref: scrollbarTrackRef} = scrollbarTrackProps,
+		{vertical} = props;
 
 	useEffect(() => {
 		if (initialHiddenHeight && scrollbarContainerRef.current) {
@@ -39,11 +42,43 @@ const useThemeScrollbar = (props) => {
 		}
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+	const onClick = useCallback((ev) => {
+		// Click on bodyText scrollbar.
+		const {nativeEvent, target} = ev;
+
+		if (!focusableScrollbar || !scrollbarTrackRef.current) {
+			return;
+		}
+
+		// Click the scrollbar area. If user click the thumb, do nothing.
+		if ((target === scrollbarContainerRef.current) ||
+			(target === scrollbarTrackRef.current)) {
+			const
+				clickPoint = nativeEvent[vertical ? 'offsetY' : 'offsetX'],
+				thumb = scrollbarTrackRef.current.children[0],
+				thumbPosition = thumb[vertical ? 'offsetTop' : 'offsetLeft'],
+				thumbSize = thumb[vertical ? 'offsetHeight' : 'offsetWidth'],
+				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize;
+
+			if (!clickThumb) {
+				ev.preventDefault();
+				ev.nativeEvent.stopImmediatePropagation();
+				onInteractionForScroll({
+					inputType: 'track',
+					isForward: clickPoint > thumbPosition,
+					isPagination: true,
+					isVerticalScrollBar: vertical
+				});
+			}
+		}
+	}, [focusableScrollbar, onInteractionForScroll, scrollbarContainerRef, scrollbarTrackRef, vertical]);
+
 	return {
 		restProps: rest,
 		scrollbarProps: {
 			...scrollbarProps,
-			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight})
+			className: classNames(className, {[panelCss.scrollbar]: initialHiddenHeight}),
+			onClick
 		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
