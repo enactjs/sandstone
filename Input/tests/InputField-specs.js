@@ -56,6 +56,26 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should not bubble the native event when stopPropagation from onChange is called', () => {
+		const handleChange = jest.fn();
+		function stop (ev) {
+			ev.stopPropagation();
+		}
+
+		const subject = mount(
+			<div onChange={handleChange}>
+				<InputField onChange={stop} />
+			</div>
+		);
+
+		subject.find('input').simulate('change', {});
+
+		const expected = 0;
+		const actual = handleChange;
+
+		expect(actual).toHaveBeenCalledTimes(expected);
+	});
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const node = document.body.appendChild(document.createElement('div'));
 		const handleChange = jest.fn();
