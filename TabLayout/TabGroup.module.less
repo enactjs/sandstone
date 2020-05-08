@@ -1,5 +1,6 @@
 // TabGroup.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
 
@@ -10,6 +11,13 @@
 	&.horizontal {
 		&.button {
 			width: @sand-tablayout-tab-horizontal-width;
+
+			&.selected::after {
+				content: '';
+				position: absolute;
+				.position(auto, 0, 0, 0);
+				height: @sand-tablayout-tab-horizontal-selected-border-width;
+			}
 		}
 	}
 
@@ -29,24 +37,15 @@
 						.sand-spotlight-resting-colors(1);
 						background-color: transparent;
 					}
+				}
 
-					.client {
-						position: relative;
-						&::after {
-							content: '';
-							position: absolute;
-							bottom: 0;
-							width: 100%;
-							border-bottom: @sand-tablayout-tab-horizontal-selected-border-width solid @sand-tablayout-tab-horizontal-selected-border-color;
-						}
-					}
+				&::after {
+					background-color: @sand-tablayout-tab-horizontal-selected-border-color;
 				}
 
 				.focus({
-					.client {
-						&::after {
-							border-bottom: unset;
-						}
+					&::after {
+						background-color: unset;
 					}
 				});
 			}
