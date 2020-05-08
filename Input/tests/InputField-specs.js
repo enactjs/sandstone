@@ -40,11 +40,8 @@ describe('InputField Specs', () => {
 
 	test('should call stopPropagation on event in onChange handler', () => {
 		const handleChange = jest.fn();
-		const value = 'blah';
 		const evt = {
-			preventDefault: jest.fn(),
-			stopPropagation: jest.fn(),
-			target: {value: value}
+			stopPropagation: jest.fn()
 		};
 
 		const subject = mount(
