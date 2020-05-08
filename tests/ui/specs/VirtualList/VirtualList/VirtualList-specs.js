@@ -141,8 +141,7 @@ describe('VirtualList', function () {
 		*/
 
 		// Need mochaOpts - timeout set to 60000 to pass
-		// TODO: Failing on Jenkins
-		it.skip('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
+		it('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
@@ -180,7 +179,7 @@ describe('VirtualList', function () {
 			Page.delay(1000);
 			expectFocusedItem(99, 'focus Item 99');
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
-			Page.delay(1000);
+			Page.delay(2000);
 			expect(Page.getScrollThumbPosition(), 'Down disabled').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
 			for (let i = 0; i < 99; ++i) {
@@ -188,7 +187,7 @@ describe('VirtualList', function () {
 				Page.delay(80);
 			}
 			// Verify Step 11: 1. Spotlight displays on the first item.
-			Page.delay(1000);
+			Page.delay(2000);
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			Page.delay(1000);
@@ -299,6 +298,7 @@ describe('VirtualList', function () {
 					Page.spotlightDown();
 					Page.delay(80); // TODO: 80 is an arbitrary value to help provide expected behavior between rapidly repeating keydown events
 				}
+				Page.delay(1500);
 				expectFocusedItem(99, 'focus 3');
 				Page.spotlightDown();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('3');
