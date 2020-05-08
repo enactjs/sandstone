@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -27,6 +27,8 @@ storiesOf('Sandstone', module)
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanels, '')}
+				stepCurrent={number('stepCurrent', WizardPanels)}
+				stepTotal={number('stepTotal', WizardPanels)}
 			>
 				<WizardPanels.Panel footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">
 					<Scroller>

@@ -282,7 +282,7 @@ describe('WizardPanel Specs', () => {
 
 	// [GT-28312]
 	test(
-		'should reflect the current index in Steps',
+		'should reflect the current index in Steps when "stepCurrent" is not specified',
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
@@ -290,6 +290,51 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const expected = {current: index + 1};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the specified index in Steps when "stepCurrent" is set',
+		() => {
+			const stepCurrent = 3;
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={1} stepCurrent={stepCurrent} stepTotal={5} total={5} />
+			);
+
+			const expected = {current: stepCurrent};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the total views in Steps when "stepTotal" is not specified',
+		() => {
+			const total = 5;
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={1} total={5} />
+			);
+
+			const expected = {total: total};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the specified total in Steps when "stepTotal" is set',
+		() => {
+			const stepTotal = 3;
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={1} stepCurrent={1} stepTotal={stepTotal} total={5} />
+			);
+
+			const expected = {total: stepTotal};
 			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
 
 			expect(actual).toMatchObject(expected);

@@ -64,7 +64,7 @@ const WizardPanelsBase = kind({
 		footer: PropTypes.node,
 
 		/**
-		* The currently selected step.
+		* The currently selected view.
 		*
 		* @type {Number}
 		* @default 0
@@ -170,6 +170,27 @@ const WizardPanelsBase = kind({
 		reverseTransition: PropTypes.bool,
 
 		/**
+		 * The currently selected step.
+		 *
+		 * If omitted, this will equal the currently selected view.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		stepCurrent: PropTypes.number,
+
+		/**
+		 * The total steps in WizardPanels.
+		 *
+		 * If omitted, this will equal the total views.
+		 *
+		 * @type {Number}
+		 * @default 2
+		 * @public
+		 */
+		stepTotal: PropTypes.number,
+
+		/**
 		* The subtitle to display.
 		*
 		* @type {String}
@@ -232,7 +253,49 @@ const WizardPanelsBase = kind({
 		}
 	},
 
-	render: ({buttons, children, footer, index, total, nextButtonAriaLabel, nextButtonText, noNextButton, noPrevButton, noSteps, noAnimation, onIncrementStep, onDecrementStep, onTransition, onWillTransition, prevButtonAriaLabel, prevButtonText, reverseTransition, subtitle, title, ...rest}) => {
+	computed: {
+		steps: ({index, noSteps, stepCurrent, stepTotal, total}) => {
+			if (noSteps) {
+				return null;
+			}
+
+			return (
+				<Steps
+					current={typeof stepCurrent === 'number' ? stepCurrent : index + 1}
+					slot="slotAbove"
+					total={typeof stepTotal === 'number' ? stepTotal : total}
+				/>
+			);
+		}
+	},
+
+	render: ({
+		buttons,
+		children,
+		footer,
+		index,
+		total,
+		nextButtonAriaLabel,
+		nextButtonText,
+		noNextButton,
+		noPrevButton,
+		noAnimation,
+		onIncrementStep,
+		onDecrementStep,
+		onTransition,
+		onWillTransition,
+		prevButtonAriaLabel,
+		prevButtonText,
+		reverseTransition,
+		steps,
+		subtitle,
+		title,
+		...rest
+	}) => {
+		delete rest.noSteps;
+		delete rest.stepCurrent;
+		delete rest.stepTotal;
+
 		return (
 			<Panel {...rest}>
 				<Header
@@ -243,9 +306,7 @@ const WizardPanelsBase = kind({
 					title={title}
 					type="wizard"
 				>
-					{!noSteps ? (
-						<Steps current={index + 1} slot="slotAbove" total={total} />
-					) : null}
+					{steps}
 					{index < total - 1 && !noNextButton ? (
 						<Button
 							aria-label={nextButtonAriaLabel}
