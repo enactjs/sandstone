@@ -604,16 +604,6 @@ const useContextAsDefaultProps = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function useContextAsDefaultProps (props) {
 		const {type: panelsType, ...ctx} = filterEmpty(React.useContext(PanelsStateContext));
-		if (ctx.type == null) {
-
-			// Read the panels type and replace it with a header type (this is temporary and will be replaced with something else.)
-			switch (panelsType) {
-				case 'fixedPopup': ctx.type = 'compact'; break;
-				case 'flexiblePopup': ctx.type = 'mini'; break;
-				case 'wizard': ctx.type = 'wizard'; break;
-				// default: return type;
-			}
-		}
 
 		ctx.backButtonAvailable = (ctx && ctx.index > 0 && panelsType !== 'wizard');
 
