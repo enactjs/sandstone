@@ -142,7 +142,7 @@ const TabLayoutBase = kind({
 		/**
 		 * Orientation of the tabs.
 		 *
-		 * Horizontal tabs support a maximum of five tabs.
+		 * Horizontal tabs support a maximum of six tabs.
 		 *
 		 * @type {('horizontal'|'vertical')}
 		 * @default 'vertical'
@@ -189,13 +189,13 @@ const TabLayoutBase = kind({
 			orientation
 		),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
-		// limit to 5 tabs for horizontal orientation
+		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
 			const tabs = React.Children.map(children, (child) => {
 				const {disabled, icon, title} = child.props;
 				return {disabled, icon, title};
 			});
-			return orientation === 'horizontal' && tabs.length > 5 ? tabs.slice(0, 5) : tabs;
+			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
 		}
 	},
 
