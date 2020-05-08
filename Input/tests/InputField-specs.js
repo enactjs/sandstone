@@ -38,7 +38,7 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should call stopPropagation on event in onChange handler', () => {
+	test('should forward an event with a stopPropagation method from onChange handler', () => {
 		const handleChange = jest.fn();
 		const evt = {
 			stopPropagation: jest.fn()
@@ -50,8 +50,8 @@ describe('InputField Specs', () => {
 
 		subject.find('input').simulate('change', evt);
 
-		const expected = 1;
-		const actual = evt.stopPropagation.mock.calls.length;
+		const expected = true;
+		const actual = typeof handleChange.mock.calls[0][0].stopPropagation === 'function';
 
 		expect(actual).toBe(expected);
 	});
