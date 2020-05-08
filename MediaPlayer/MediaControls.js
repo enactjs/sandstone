@@ -47,7 +47,7 @@ const forwardToggleMore = forward('onToggleMore');
  * A set of components for controlling media playback and rendering additional components.
  *
  * @class MediaControlsBase
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @ui
  * @private
  */
@@ -55,7 +55,7 @@ const MediaControlsBase = kind({
 	name: 'MediaControls',
 
 	// intentionally assigning these props to MediaControls instead of Base (which is private)
-	propTypes: /** @lends sandstone/VideoPlayer.MediaControls.prototype */ {
+	propTypes: /** @lends sandstone/MediaPlayer.MediaControls.prototype */ {
 		/**
 		 * The label for the action guide.
 		 *
@@ -229,8 +229,8 @@ const MediaControlsBase = kind({
 		/**
 		 * A string which is sent to the `pause` icon of the player controls. This can be
 		 * anything that is accepted by [Icon]{@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [playIcon]{@link sandstone/VideoPlayer.MediaControls.playIcon} when the
-		 * [paused]{@link sandstone/VideoPlayer.MediaControls.paused} boolean is `false`.
+		 * the [playIcon]{@link sandstone/MediaPlayer.MediaControls.playIcon} when the
+		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `false`.
 		 *
 		 * @type {String}
 		 * @default 'pause'
@@ -241,8 +241,8 @@ const MediaControlsBase = kind({
 		/**
 		 * A string which is sent to the `play` icon of the player controls. This can be
 		 * anything that is accepted by {@link sandstone/Icon.Icon}. This will be temporarily replaced by
-		 * the [pauseIcon]{@link sandstone/VideoPlayer.MediaControls.pauseIcon} when the
-		 * [paused]{@link sandstone/VideoPlayer.MediaControls.paused} boolean is `true`.
+		 * the [pauseIcon]{@link sandstone/MediaPlayer.MediaControls.pauseIcon} when the
+		 * [paused]{@link sandstone/MediaPlayer.MediaControls.paused} boolean is `true`.
 		 *
 		 * @type {String}
 		 * @default 'play'
@@ -393,12 +393,12 @@ const MediaControlsBase = kind({
 });
 
 /**
- * Media control behaviors to apply to [MediaControlsBase]{@link sandstone/VideoPlayer.MediaControlsBase}.
+ * Media control behaviors to apply to [MediaControlsBase]{@link sandstone/MediaPlayer.MediaControlsBase}.
  * Provides built-in support for showing more components and key handling for basic playback
  * controls.
  *
  * @class MediaControlsDecorator
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @mixes ui/Slottable.Slottable
  * @hoc
  * @private
@@ -407,7 +407,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 	class MediaControlsDecoratorHOC extends React.Component {
 		static displayName = 'MediaControlsDecorator'
 
-		static propTypes = /** @lends sandstone/VideoPlayer.MediaControlsDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/MediaPlayer.MediaControlsDecorator.prototype */ {
 			/**
 			 * The label for the action guide.
 			 *
@@ -579,7 +579,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.keyLoop = null;
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
-			this.paused = new Pause('VideoPlayer');
+			this.paused = new Pause('MediaPlayer');
 			this.bottomComponentsHeight = 0;
 			this.actionGuideHeight = 0;
 
@@ -854,7 +854,7 @@ const handleCancel = (ev, {onClose}) => {
  * `MediaControls` when the user navigates down from the media buttons.
  *
  * @class MediaControls
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @mixes ui/Cancelable.Cancelable
  * @ui
  * @public

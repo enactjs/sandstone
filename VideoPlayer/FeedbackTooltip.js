@@ -10,7 +10,7 @@ import Skinnable from '../Skinnable';
 
 import FeedbackContent from './FeedbackContent';
 import states from './FeedbackIcons.js';
-import {secondsToTime} from './util';
+import {secondsToTime} from '../MediaPlayer/';
 
 import css from './FeedbackTooltip.module.less';
 
