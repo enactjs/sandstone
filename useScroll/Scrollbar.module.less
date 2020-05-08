@@ -7,14 +7,10 @@
 .scrollbar {
 	background: none;
 	border-color: transparent;
-	visibility: visible;
 	opacity: 1;
 
-	transform: translateZ(0);
-	-webkit-transform: translateZ(0);
-	transition: opacity 0.1s linear;
-	-moz-transition: opacity 0.1s linear;
-	-webkit-transition: opacity 0.1s linear;
+	transition: opacity 100ms ease-out;
+	will-change: opacity;
 
 	&.horizontal {
 		:global(.enact-locale-right-to-left) & {
