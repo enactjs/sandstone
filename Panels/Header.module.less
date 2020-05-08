@@ -153,7 +153,19 @@
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
 		}
+
+		.subtitle {
+			.sand-multi-line-ellipsis(2);
+			width: 100%;
+		}
+
+		&.centered {
+			.subtitle {
+				text-align: center;
+			}
+		}
 	}
+
 
 	// Mini Header
 	&.mini {

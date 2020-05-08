@@ -7,6 +7,7 @@ import ThemeDecorator from '../../../ThemeDecorator';
 
 import {components, testMetadata} from './SandstoneComponents';
 import imports from './importer';
+import {LoremString} from './components/utils';
 
 import css from './Sandstone-View.less';
 
@@ -14,9 +15,6 @@ const url = new URL(window.location.href);
 
 // Bind our classnames against css modules
 const cx = classnames.bind(css);
-
-const LoremString =
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat.';
 
 // NOTE: Forcing pointer mode on to prevent spotlight focusing of components, which leads to marquee
 spotlight.setPointerMode(true);

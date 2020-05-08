@@ -390,7 +390,7 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'dense'|'mini'|'standard')}
+		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
 		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
@@ -481,13 +481,13 @@ const HeaderBase = kind({
 		subtitle,
 		title,
 		titleRef,
+		type,
 		...rest
 	}) => {
 		delete rest.entering;
 		delete rest.featureContent;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
-		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -546,6 +546,7 @@ const HeaderBase = kind({
 							size="subtitle"
 							spacing="auto"
 							marqueeOn={marqueeOn}
+							marqueeDisabled={type === 'wizard'}
 							forceDirection={direction}
 							alignment={centered ? 'center' : null}
 							className={css.subtitle}
