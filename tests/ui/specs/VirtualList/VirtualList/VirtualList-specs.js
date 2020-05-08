@@ -124,8 +124,7 @@ describe('VirtualList', function () {
 		//	TODO: Need to api for Scrollbar and List size checking.
 		it('should have same height list and scrollbar [GT-22079]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
-			expect(Page.listSize).to.equal(0);
-			expect(0).to.equal(Page.scrollBarSize);
+			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
 
 		// TODO: Need to Check LTR
@@ -314,10 +313,8 @@ describe('VirtualList', function () {
 			});
 
 			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
-
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 				Page.item(7).moveTo();
-				// Page.spotlightRight();
 				expectFocusedItem(7, 'step 3 focus');
 				// Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
 				for (let i = 0; i < 10; i++) {
@@ -335,7 +332,6 @@ describe('VirtualList', function () {
 						waitForScrollStartStop();
 					}
 				}
-
 			});
 		});
 
