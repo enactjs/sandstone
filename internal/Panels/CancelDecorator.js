@@ -5,7 +5,8 @@ import Spotlight from '@enact/spotlight';
 import css from './Viewport.module.less';
 
 const defaultConfig = {
-	cancel: null
+	cancel: null,
+	shouldCancel: null
 };
 
 const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
