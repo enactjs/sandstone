@@ -23,7 +23,7 @@ const tabsWithIcons = [
 ];
 
 const tabsWithoutIcons = [
-	{title: 'Home Home Home Home'},
+	{title: 'Home'},
 	{title: 'Button'},
 	{title: 'Item'}
 ];
