@@ -27,6 +27,8 @@ storiesOf('Sandstone', module)
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanels, '')}
+				subtitle={text('subtitle', WizardPanels, '')}
+				title={text('title', WizardPanels, '')}
 			>
 				<WizardPanels.Panel footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">
 					<Scroller>

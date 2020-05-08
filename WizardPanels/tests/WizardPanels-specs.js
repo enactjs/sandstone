@@ -23,27 +23,6 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have subtitle overridden by subtitle set in `View`',
-		() => {
-			const wizardSubtitle = 'WizardPanel subtitle';
-			const viewSubtitle = 'View subtitle';
-
-			const wizardPanel = mount(
-				<WizardPanels subtitle={wizardSubtitle}>
-					<Panel subtitle={viewSubtitle} />
-				</WizardPanels>
-			);
-
-			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
-
-			const expected = viewSubtitle;
-			const actual = headerSubtitle;
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
 		'should have title overridden by title set in `View`',
 		() => {
 			const wizardTitle = 'WizardPanel title';
@@ -75,7 +54,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const headerSubtitle = wizardPanel.find('Cell.titleCell .text').last().text();
+			const headerSubtitle = wizardPanel.find('Heading.subtitle').text();
 
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
