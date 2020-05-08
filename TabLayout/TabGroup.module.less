@@ -31,14 +31,22 @@
 					}
 
 					.client {
-						border-bottom: @sand-tablayout-tab-horizontal-selected-border-width solid @sand-tablayout-tab-horizontal-selected-border-color;
-						border-radius: 0px;
+						position: relative;
+						&::after {
+							content: '';
+							position: absolute;
+							bottom: 0;
+							width: 100%;
+							border-bottom: @sand-tablayout-tab-horizontal-selected-border-width solid @sand-tablayout-tab-horizontal-selected-border-color;
+						}
 					}
 				}
 
 				.focus({
 					.client {
-						border-bottom: unset;
+						&::after {
+							border-bottom: unset;
+						}
 					}
 				});
 			}
