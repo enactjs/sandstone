@@ -10,19 +10,26 @@
 
 	&.horizontal {
 		&.button {
+			margin: @sand-tablayout-tab-horizontal-margin;
 			width: @sand-tablayout-tab-horizontal-width;
 
-			&.selected::after {
-				content: '';
-				position: absolute;
-				.position(auto, 0, 0, 0);
-				height: @sand-tablayout-tab-horizontal-selected-border-width;
+			.client {
+				.sand-spotlight-margin();
+			}
+
+			&.selected {
+				.client::after {
+					content: '';
+					position: absolute;
+					.position(auto, 0, 0, 0);
+					height: @sand-tablayout-tab-horizontal-selected-border-width;
+				}
 			}
 		}
 	}
 
 	&.vertical {
-		margin-bottom: @sand-tablayout-tab-margin-bottom;
+		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
 
 		.client {
 			text-align: start;
@@ -39,12 +46,12 @@
 					}
 				}
 
-				&::after {
+				.client::after {
 					background-color: @sand-tablayout-tab-horizontal-selected-border-color;
 				}
 
 				.focus({
-					&::after {
+					.client::after {
 						background-color: unset;
 					}
 				});
