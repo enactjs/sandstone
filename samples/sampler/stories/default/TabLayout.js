@@ -17,7 +17,7 @@ TabLayout.displayName = 'TabLayout';
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
 const tabsWithIcons = [
-	{title: 'Home Home Home Home', icon: 'home'},
+	{title: 'Home', icon: 'home'},
 	{title: 'Button', icon: 'image'},
 	{title: 'Item', icon: 'resumeplay'}
 ];
