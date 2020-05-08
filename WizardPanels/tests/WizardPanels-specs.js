@@ -39,6 +39,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
+			wizardPanel.unmount();	// Need to unmount to remove modal cancel listeners
 			expect(actual).toBe(expected);
 		}
 	);
@@ -60,6 +61,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewTitle;
 			const actual = headerTitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -80,6 +82,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -100,6 +103,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewFooter;
 			const actual = footerText;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -123,6 +127,7 @@ describe('WizardPanel Specs', () => {
 			const expected = 2;
 			const actual = buttons;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -145,6 +150,7 @@ describe('WizardPanel Specs', () => {
 			const expected = contentText;
 			const actual = content;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -155,7 +161,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewTotal={2} nextButtonText={nextButtonText} />
+				<WizardPanelsBase totalViews={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -174,7 +180,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={1} prevButtonText={prevButtonText} />
+				<WizardPanelsBase index={1} totalViews={2} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -190,7 +196,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={2} viewTotal={3} />
+				<WizardPanelsBase index={2} totalViews={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -206,7 +212,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={0} viewTotal={3} />
+				<WizardPanelsBase index={0} totalViews={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -223,7 +229,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom next button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewTotal={2} nextButtonAriaLabel={label} />
+				<WizardPanelsBase totalViews={2} nextButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -238,7 +244,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom previous button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={1} viewTotal={2} prevButtonAriaLabel={label} />
+				<WizardPanelsBase index={1} totalViews={2} prevButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -252,7 +258,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={2} noNextButton viewTotal={4} />
+				<WizardPanelsBase index={2} noNextButton totalViews={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -268,7 +274,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button with `noPrevButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={2} noPrevButton viewTotal={4} />
+				<WizardPanelsBase index={2} noPrevButton totalViews={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -277,6 +283,230 @@ describe('WizardPanel Specs', () => {
 			const actual = prevButton.exists();
 
 			expect(actual).toBe(expected);
+		}
+	);
+
+	// [GT-28312]
+	test(
+		'should reflect the current index in Steps',
+		() => {
+			const index = 1;
+			const wizardPanel = shallow(
+				<WizardPanelsBase index={index} totalViews={5} />
+			);
+
+			const expected = {current: index + 1};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should fire onWillTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should fire onTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should advance on next click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find('Button[aria-label="Next"]');
+
+			nextButton.simulate('click');
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on prev click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find('Button[aria-label="Previous"]');
+
+			prevButton.simulate('click');
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not go back on back key when noPrevButton set',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} noPrevButton>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key when onBack does not call preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn();
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not go back on back key when onBack calls preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn((ev) => ev.preventDefault());
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
 		}
 	);
 
@@ -307,7 +537,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={index} viewTotal={5} />
+				<WizardPanelsBase index={index} totalViews={5} />
 			);
 
 			const expected = {current: index + 1};
@@ -322,7 +552,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const current = 3;
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={1} current={current} total={5} viewTotal={5} />
+				<WizardPanelsBase index={1} current={current} total={5} totalViews={5} />
 			);
 
 			const expected = {current: current};
@@ -337,7 +567,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const total = 5;
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={1} viewTotal={5} />
+				<WizardPanelsBase index={1} totalViews={5} />
 			);
 
 			const expected = {total: total};
@@ -352,7 +582,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const total = 3;
 			const wizardPanel = shallow(
-				<WizardPanelsBase viewIndex={1} current={1} total={total} viewTotal={5} />
+				<WizardPanelsBase index={1} current={1} total={total} totalViews={5} />
 			);
 
 			const expected = {total};
