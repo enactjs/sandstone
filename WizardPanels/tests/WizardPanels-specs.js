@@ -155,7 +155,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase total={2} nextButtonText={nextButtonText} />
+				<WizardPanelsBase viewTotal={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -174,7 +174,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} prevButtonText={prevButtonText} />
+				<WizardPanelsBase viewIndex={1} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -190,7 +190,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} total={3} />
+				<WizardPanelsBase viewIndex={2} viewTotal={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -206,7 +206,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={0} total={3} />
+				<WizardPanelsBase viewIndex={0} viewTotal={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -223,7 +223,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom next button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase total={2} nextButtonAriaLabel={label} />
+				<WizardPanelsBase viewTotal={2} nextButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -238,7 +238,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom previous button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} total={2} prevButtonAriaLabel={label} />
+				<WizardPanelsBase viewIndex={1} viewTotal={2} prevButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -252,7 +252,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noNextButton total={4} />
+				<WizardPanelsBase viewIndex={2} noNextButton viewTotal={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -268,7 +268,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button with `noPrevButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noPrevButton total={4} />
+				<WizardPanelsBase viewIndex={2} noPrevButton viewTotal={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -277,67 +277,6 @@ describe('WizardPanel Specs', () => {
 			const actual = prevButton.exists();
 
 			expect(actual).toBe(expected);
-		}
-	);
-
-	// [GT-28312]
-	test(
-		'should reflect the current index in Steps when "stepCurrent" is not specified',
-		() => {
-			const index = 1;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} total={5} />
-			);
-
-			const expected = {current: index + 1};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
-		'should reflect the specified index in Steps when "stepCurrent" is set',
-		() => {
-			const stepCurrent = 3;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} stepCurrent={stepCurrent} stepTotal={5} total={5} />
-			);
-
-			const expected = {current: stepCurrent};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
-		'should reflect the total views in Steps when "stepTotal" is not specified',
-		() => {
-			const total = 5;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} total={5} />
-			);
-
-			const expected = {total: total};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
-		'should reflect the specified total in Steps when "stepTotal" is set',
-		() => {
-			const stepTotal = 3;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} stepCurrent={1} stepTotal={stepTotal} total={5} />
-			);
-
-			const expected = {total: stepTotal};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
 		}
 	);
 
@@ -359,6 +298,67 @@ describe('WizardPanel Specs', () => {
 
 			actual = wizardPanel.find(viewManager).prop('noAnimation');
 			expect(actual).toBe(true);
+		}
+	);
+
+	// [GT-28312]
+	test(
+		'should reflect the current index in Steps when "current" is not specified',
+		() => {
+			const index = 1;
+			const wizardPanel = shallow(
+				<WizardPanelsBase viewIndex={index} viewTotal={5} />
+			);
+
+			const expected = {current: index + 1};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the specified index in Steps when "current" is set',
+		() => {
+			const current = 3;
+			const wizardPanel = shallow(
+				<WizardPanelsBase viewIndex={1} current={current} total={5} viewTotal={5} />
+			);
+
+			const expected = {current: current};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the total views in Steps when "total" is not specified',
+		() => {
+			const total = 5;
+			const wizardPanel = shallow(
+				<WizardPanelsBase viewIndex={1} viewTotal={5} />
+			);
+
+			const expected = {total: total};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should reflect the specified total in Steps when "total" is set',
+		() => {
+			const total = 3;
+			const wizardPanel = shallow(
+				<WizardPanelsBase viewIndex={1} current={1} total={total} viewTotal={5} />
+			);
+
+			const expected = {total};
+			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+
+			expect(actual).toMatchObject(expected);
 		}
 	);
 });
