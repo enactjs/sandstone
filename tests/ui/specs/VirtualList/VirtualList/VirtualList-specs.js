@@ -149,7 +149,7 @@ describe('VirtualList', function () {
 			Page.spotlightRight();
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
+			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 			// Step 6. Press Channel Down.
 			Page.pageDown();
 			// Verify Step 6: 1. Spotlight hides.
@@ -160,17 +160,15 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			// Verify Step 7: 1. Spotlight hides.
 			expectNoFocusedItem();
-			// Verify Step 6: 2. The list Scrolls Up by page with animation.
-			// Verify Step 6: 5. Spotlight is on the item below the pointer when the list stops.
 			Page.delay(1000);
 			expectFocusedItem(12, 'focus Item 12');
-			// Step 7. 5-way Down several times to scroll down the list.
+			// Step 8. 5-way Down several times to scroll down the list.
 			for (let i = 12; i <= 29; ++i) {
 				Page.spotlightDown();
 				Page.delay(80);
 			}
 			expectFocusedItem(30, 'focus Item 30');
-			// Step 8. 5-way Spot the last item.
+			// Step 9. 5-way Spot the last item.
 			for (let i = 30; i < 99; ++i) {
 				Page.spotlightDown();
 				Page.delay(80);
@@ -180,21 +178,22 @@ describe('VirtualList', function () {
 			expectFocusedItem(99, 'focus Item 99');
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
 			Page.delay(2000);
-			expect(Page.getScrollThumbPosition(), 'Down disabled').to.be.equal('1');
+			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
 			for (let i = 0; i < 99; ++i) {
 				Page.spotlightUp();
 				Page.delay(80);
 			}
-			// Verify Step 11: 1. Spotlight displays on the first item.
+			// Verify Step 11: Spotlight displays on the first item.
 			Page.delay(2000);
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			Page.delay(1000);
-			expect(Page.getScrollThumbPosition(), 'Up disabled').to.be.equal('0');
+			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 		});
 
 		// TODO : should Fix issue that bottomVisibleItem is not properly displaying.
+		// TODO: Will need lots of comments update to match the TC in JIra
 		it.skip('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
 			let bottomId;
 			Page.spotlightSelect();
@@ -360,6 +359,7 @@ describe('VirtualList', function () {
 		});
 		/*
 		describe('Change `wrap` dynamically' , function () {
+		// TODO: this TC number is not matching the JIRA TC - remove number?
 			it('should prevent bubbling when wrapping[GT-28463]', function () {
 				// Wrap knobs Setting
 				Page.spotlightRight();
