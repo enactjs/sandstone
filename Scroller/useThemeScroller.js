@@ -82,7 +82,7 @@ const getFocusableBodyProps = (scrollContainerRef) => {
 		}
 	};
 	return {
-		className: classNames(css.focusableBody),
+		className: css.focusableBody,
 		onFocus: handle(
 			forward('onFocus'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
@@ -331,7 +331,7 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = (focusableScrollbar, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
+const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
 	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
@@ -346,7 +346,7 @@ const useThemeScroller = (focusableScrollbar, scrollContentProps, isHorizontalSc
 	// Hooks
 
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
 
 	useEffect(() => {
 		scrollContentProps.setThemeScrollContentHandle({

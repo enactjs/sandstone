@@ -9,6 +9,8 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import Item from '@enact/sandstone/Item';
 import VirtualList from '@enact/sandstone/VirtualList';
 
+import css from './VirtualList.module.less';
+
 const
 	wrapOption = {
 		false: false,
@@ -54,6 +56,7 @@ storiesOf('Sandstone', module)
 		() => {
 			return (
 				<VirtualList
+					className={css.verticalPadding}
 					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
 					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
@@ -65,7 +68,6 @@ storiesOf('Sandstone', module)
 					scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					spacing={ri.scale(number('spacing', VirtualListConfig))}
 					spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
-					style={{paddingRight: ri.unit(ri.scale(36) + 'px', 'rem')}}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
 				/>

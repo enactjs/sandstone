@@ -9,6 +9,8 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
+import css from './VirtualGridList.module.less';
+
 const
 	wrapOption = {
 		false: false,
@@ -75,6 +77,11 @@ storiesOf('Sandstone', module)
 		'VirtualList.VirtualGridList',
 		() => (
 			<VirtualGridList
+				className={
+					select('direction', prop.direction, VirtualGridListConfig) === 'vertical' ?
+						css.verticalPadding :
+						css.horizontalPadding
+				}
 				dataSize={updateDataSize(number('dataSize', VirtualGridListConfig, defaultDataSize))}
 				direction={select('direction', prop.direction, VirtualGridListConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
@@ -90,7 +97,6 @@ storiesOf('Sandstone', module)
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				spacing={ri.scale(number('spacing', VirtualGridListConfig, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
-				style={{paddingRight: ri.unit(ri.scale(36) + 'px', 'rem')}}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}
 			/>

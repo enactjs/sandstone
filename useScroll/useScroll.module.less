@@ -13,34 +13,28 @@
 		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
 	}
 
-	&.verticalPadding {
-		.verticalScrollbar {
-			position: absolute;
-			width: var(--scroll-scrollbar-size);
-			height: calc(100% - 2 * @sand-scroll-affordance-size);
-			right: 0;
-			top: @sand-scroll-affordance-size;
-		}
-
-		:global(.enact-locale-right-to-left) & .verticalScrollbar {
-			left: 0;
-			right: initial;
-		}
+	.verticalScrollbar {
+		position: absolute;
+		width: var(--scroll-scrollbar-size);
+		height: calc(100% - 2 * @sand-scroll-affordance-size);
+		right: 0;
+		top: @sand-scroll-affordance-size;
 	}
 
-	&.horizontalPadding {
-		padding-bottom: var(--scroll-scrollbar-size);
-
-		.horizontalScrollbar {
-			position: absolute;
-			width: calc(100% - 2 * @sand-scroll-affordance-size);
-			height: var(--scroll-scrollbar-size);
-			left: @sand-scroll-affordance-size;
-			bottom: 0;
-		}
+	:global(.enact-locale-right-to-left) & .verticalScrollbar {
+		left: 0;
+		right: initial;
 	}
 
-	&.verticalPadding.horizontalPadding {
+	.horizontalScrollbar {
+		position: absolute;
+		width: calc(100% - 2 * @sand-scroll-affordance-size);
+		height: var(--scroll-scrollbar-size);
+		left: @sand-scroll-affordance-size;
+		bottom: 0;
+	}
+
+	&.bidirectional {
 		.verticalScrollbar {
 			height: calc(100% - 2 * @sand-scroll-affordance-size - var(--scroll-scrollbar-size));
 		}
