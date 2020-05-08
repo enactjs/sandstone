@@ -37,6 +37,8 @@ const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, cl
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
 const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
 
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
+
 // Hides the back button when 5-way navigation when in pointer mode and the target would not be the
 // back button.
 const handleWindowKeyPress = handle(
@@ -451,7 +453,7 @@ const HeaderBase = kind({
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
-				withChildren: Boolean(children)
+				withChildren: hasChildren(children)
 			},
 			type
 		),
@@ -597,7 +599,7 @@ const HeaderBase = kind({
 						</span>
 					</Cell>
 				</Row>
-				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
+				{hasChildren(children) ? <nav className={css.slotBelow}>{children}</nav> : null}
 				{line}
 			</header>
 		);
