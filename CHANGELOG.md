@@ -18,6 +18,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to adjust padding area
 - `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
 
+### Fixed
+
+- `sandstone/Panels.Header` to match latest designs
+
 ## [1.0.0-beta.2] - 2020-05-04
 
 ### Deprecated

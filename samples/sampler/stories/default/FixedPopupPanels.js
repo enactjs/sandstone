@@ -34,7 +34,7 @@ storiesOf('Sandstone', module)
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
 				>
 					<Panel>
-						<Header type="compact">
+						<Header>
 							<title>
 								FixedPopupPanels Title
 							</title>
@@ -48,7 +48,7 @@ storiesOf('Sandstone', module)
 						<Item>Example Item 3</Item>
 					</Panel>
 					<Panel>
-						<Header type="compact">
+						<Header>
 							<title>
 								Another Panel
 							</title>
