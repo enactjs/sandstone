@@ -58,7 +58,7 @@ const WizardPanelsBase = kind({
 		]),
 
 		/**
-		 * The currently selected step.
+		 * The current step.
 		 *
 		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
 		 * the currently selected view.
@@ -201,9 +201,9 @@ const WizardPanelsBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * The total steps in WizardPanels.
+		 * The total number of steps.
 		 *
-		 * If omitted, this will equal the total views.
+		 * If omitted, this will equal the total number of Panels.
 		 *
 		 * @type {Number}
 		 * @public
@@ -247,18 +247,18 @@ const WizardPanelsBase = kind({
 		},
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
-				onTransition({index: index});
+				onTransition({index});
 			}
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
 			if (onWillTransition) {
-				onWillTransition({index: index});
+				onWillTransition({index});
 			}
 		}
 	},
 
 	computed: {
-		steps: ({current, noSteps, total, index, totalViews}) => {
+		steps: ({current, index, noSteps, total, totalViews}) => {
 			if (noSteps) {
 				return null;
 			}
@@ -396,7 +396,7 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelsDecorator = (Wrapped) => {
-	const WizardPanelsProvider = ({children, title, index, ...rest}) => {
+	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalViews = React.Children.count(children);
