@@ -77,7 +77,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const headerSubtitle = wizardPanel.find('Cell.titleCell .text').last().text();
+			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
 
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
