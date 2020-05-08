@@ -238,7 +238,7 @@ const ViewportBase = class extends React.Component {
 
 		// Relay each of the state-specific props to the context
 		const panelsContext = {
-			panelsType: type,
+			type,
 			index,
 			onBack,
 			backButtonAriaLabel,

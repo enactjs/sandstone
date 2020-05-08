@@ -9,7 +9,7 @@ import React from 'react';
 import {CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 
-import {extractContextProps} from '../internal/Panels/util';
+import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 
 import componentCss from './Panels.module.less';
 
@@ -230,28 +230,19 @@ const PanelsBase = kind({
 
 	render: ({
 		arranger,
-		// backButtonAriaLabel,
-		// backButtonBackgroundOpacity,
 		children,
-		// closeButtonAriaLabel,
-		// closeButtonBackgroundOpacity,
-		// css,
 		generateId,
 		id,
 		index,
 		noAnimation,
-		// noBackButton,
-		// noCloseButton,
 		noSharedState,
-		// onClose,
-		// onBack,
 		onTransition,
 		onWillTransition,
 		viewportId,
 		...rest
 	}) => {
-		const sharedProps = extractContextProps(rest);
-		console.log('Panels - extractContextProps:', sharedProps);
+		const sharedProps = getSharedProps(rest);
+		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
 				<Viewport

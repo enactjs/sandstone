@@ -16,7 +16,7 @@ import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {filterEmpty, deleteContextFromProps} from '../internal/Panels/util';
+import {filterEmpty, deleteSharedProps} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -214,21 +214,18 @@ const PanelBase = kind({
 		spotOnRender,
 		titleRef,
 		...rest
-	}, ctx) => {
+	}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
 
-		// console.log('Panel rest:', Object.assign({}, rest), rest);
-
-		deleteContextFromProps(rest, ctx); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
-
-		ctx.entering = entering;
+		deleteSharedProps(rest);
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
+						entering={entering}
 						titleRef={titleRef}
 					/>
 				</div>
@@ -244,7 +241,6 @@ const useContextAsDefaultProps = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function useContextAsDefaultProps (props) {
 		const ctx = filterEmpty(React.useContext(PanelsStateContext));
-		console.log('Panel useContext', Object.assign({}, props), Object.assign({}, ctx));
 		return (
 			<Wrapped {...props} {...ctx} />
 		);

@@ -20,7 +20,7 @@ import Heading from '../Heading';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {deleteContextFromProps, filterEmpty} from '../internal/Panels/util';
+import {deleteSharedProps, filterEmpty} from '../internal/Panels/util';
 import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
@@ -530,10 +530,10 @@ const HeaderBase = kind({
 		titleCell,
 		titleRef,
 		...rest
-	}, ctx) => {
-		console.log('Header rest:', Object.assign({}, rest), rest);
-
-		deleteContextFromProps(rest, ctx); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
+	}) => {
+		// console.log('Header rest:', Object.assign({}, rest), rest);
+		//
+		deleteSharedProps(rest); // Delete (clean up) any remaining context values from rest, to avoid prop-bleed on props we aren't interested in.
 
 		delete rest.arranger;
 		delete rest.entering;
@@ -603,11 +603,11 @@ const HeaderBase = kind({
 const useContextAsDefaultProps = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function useContextAsDefaultProps (props) {
-		const ctx = filterEmpty(React.useContext(PanelsStateContext));
-		// if (props.type == null) ctx.type = ctx.headerType;
-		if (props.type == null) {
+		const {type: panelsType, ...ctx} = filterEmpty(React.useContext(PanelsStateContext));
+		if (ctx.type == null) {
 
-			switch (ctx.panelsType) {
+			// Read the panels type and replace it with a header type (this is temporary and will be replaced with something else.)
+			switch (panelsType) {
 				case 'fixedPopup': ctx.type = 'compact'; break;
 				case 'flexiblePopup': ctx.type = 'mini'; break;
 				case 'wizard': ctx.type = 'wizard'; break;
@@ -615,16 +615,8 @@ const useContextAsDefaultProps = (Wrapped) => {
 			}
 		}
 
-		ctx.backButtonAvailable = (ctx && ctx.index > 0 && ctx.panelsType !== 'wizard');
+		ctx.backButtonAvailable = (ctx && ctx.index > 0 && panelsType !== 'wizard');
 
-		//
-		//
-		// Entering seems to be changing from some other criteria, that I can't determine at this time...
-		//
-		//
-		//
-
-		console.log('Header useContext', Object.assign({}, props), Object.assign({}, ctx));
 		return (
 			<Wrapped {...props} {...ctx} />
 		);

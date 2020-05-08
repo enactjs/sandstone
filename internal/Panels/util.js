@@ -17,8 +17,11 @@ const sharedContextProps = [
 const filterEmpty = (source) => {
 	return Object.keys(source).reduce(
 		(o, k) => {
-			// if (source[k] != null) {
 			if (typeof source[k] !== 'undefined') {
+				//
+				// An idea to sort of _privatize_ the props that come in from context, so they don't
+				// auto-spread down onto DOM nodes without being explicitly called out.
+				//
 				// addInternalProp(o, k, source[k]);
 				o[k] = source[k];
 			}
@@ -27,42 +30,20 @@ const filterEmpty = (source) => {
 	);
 };
 
-// Remove the context props off the props object, returning the removed elements.
-const extractContextProps = (props) => {
-	// Clone all of the shared props into a new object
-	const p = pick(sharedContextProps, props);
-	// Remove these shared props from the props object
+// Given a full collection of props, return just the props from the shared list.
+const getSharedProps = (props) => {
+	return pick(sharedContextProps, props);
+};
+
+// Remove these shared props from the props object
+const deleteSharedProps = (props) => {
 	sharedContextProps.forEach(key => {
 		delete props[key];
 	});
-	// for (const key in props) {
-	// 	if (sharedContextProps.includes(key)) {
-	// 		p[key] = props[key];
-	// 		delete props[key];
-	// 	}
-	// }
-	return p;
-};
-
-const deleteContextFromProps = (props, context) => {
-	// console.groupCollapsed('deleteContextFromProps');
-	// const removed = {};
-	// const p = Object.assign({}, props);
-	for (const key in context) {
-		if (props.hasOwnProperty(key)) {
-			// console.log('Deleting %s with value "%s" from props', key, props[key]);
-			// removed[key] = props[key];
-			delete props[key];
-			// delete p[key];
-		}
-	}
-	// console.table(removed);
-	// console.groupEnd();
-	// return p;
 };
 
 export {
-	extractContextProps,
-	deleteContextFromProps,
+	getSharedProps,
+	deleteSharedProps,
 	filterEmpty
 };
