@@ -5,14 +5,19 @@ import Spotlight from '@enact/spotlight';
 import css from './Viewport.module.less';
 
 const defaultConfig = {
-	cancel: null
+	cancel: null,
+	shouldCancel: null
 };
 
 const CancelDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {cancel} = config;
+	const {cancel, shouldCancel} = config;
 
 	function handleCancel (ev, props) {
 		const {index, [cancel]: handler} = props;
+
+		if (shouldCancel && !shouldCancel(ev, props)) {
+			return;
+		}
 
 		if (index > 0 && handler && !document.querySelector(`.${css.transitioning}`)) {
 			// clear Spotlight focus

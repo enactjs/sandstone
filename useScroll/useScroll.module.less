@@ -4,46 +4,37 @@
 @import "../styles/variables.less";
 
 .scroll {
-	--scroll-scrollbar-size: 60px;
-	// To override margin of thumb in dropdown list
-	--scrollbar-thumb-margin: @sand-scrollbar-track-margin;
+	--scroll-scrollbar-size: @sand-scrollbar-size;
 
 	box-sizing: border-box;
 	overflow: hidden;
 
-	&.verticalPadding {
-		padding-left: var(--scroll-scrollbar-size);
-		padding-right: var(--scroll-scrollbar-size);
-
-		.verticalScrollbar {
-			position: absolute;
-			width: var(--scroll-scrollbar-size);
-			height: calc(100% - 2 * @sand-scroll-affordance-size);
-			right: 0;
-			top: @sand-scroll-affordance-size;
-		}
-
-		&.rtl {
-			.verticalScrollbar {
-				left: 0;
-				right: initial;
-			}
-		}
+	&.focusableScrollbar {
+		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
 	}
 
-	&.horizontalPadding {
-		padding-bottom: var(--scroll-scrollbar-size);
-
-		.horizontalScrollbar {
-			position: absolute;
-			width: calc(100% - 2 * @sand-scroll-affordance-size);
-			height: var(--scroll-scrollbar-size);
-			left: @sand-scroll-affordance-size;
-			bottom: 0;
-		}
+	.verticalScrollbar {
+		position: absolute;
+		width: var(--scroll-scrollbar-size);
+		height: calc(100% - 2 * @sand-scroll-affordance-size);
+		right: 0;
+		top: @sand-scroll-affordance-size;
 	}
 
-	&.verticalPadding.horizontalPadding {
+	:global(.enact-locale-right-to-left) & .verticalScrollbar {
+		left: 0;
+		right: initial;
+	}
+
+	.horizontalScrollbar {
+		position: absolute;
+		width: calc(100% - 2 * @sand-scroll-affordance-size);
+		height: var(--scroll-scrollbar-size);
+		left: @sand-scroll-affordance-size;
+		bottom: 0;
+	}
+
+	&.bidirectional {
 		.verticalScrollbar {
 			height: calc(100% - 2 * @sand-scroll-affordance-size - var(--scroll-scrollbar-size));
 		}

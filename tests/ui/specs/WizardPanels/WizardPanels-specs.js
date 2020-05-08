@@ -22,6 +22,19 @@ describe('WizardPanels', function () {
 			wizardPanels.waitForLeave(2);
 			expect(wizardPanels.view1.isExisting()).to.be.true();
 		});
+
+		it('should navigate back with back key', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+
+			wizardPanels.waitForLeave(1);
+			expect(wizardPanels.view2.isExisting()).to.be.true();
+
+			Page.backKey();
+
+			wizardPanels.waitForLeave(2);
+			expect(wizardPanels.view1.isExisting()).to.be.true();
+		});
 	});
 
 	describe('Pointer', function () {

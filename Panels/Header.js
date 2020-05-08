@@ -17,7 +17,6 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
@@ -464,7 +463,6 @@ const HeaderBase = kind({
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />),
 		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
@@ -526,7 +524,6 @@ const HeaderBase = kind({
 		closeButtonBackgroundOpacity,
 		css,
 		hover,
-		line,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -600,7 +597,6 @@ const HeaderBase = kind({
 					</Cell>
 				</Row>
 				{hasChildren(children) ? <nav className={css.slotBelow}>{children}</nav> : null}
-				{line}
 			</header>
 		);
 	}
@@ -645,7 +641,6 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	Skinnable,
 	CollapsingHeaderDecorator,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
