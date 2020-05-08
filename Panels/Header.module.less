@@ -16,17 +16,25 @@
 	/// Begin states of header configuration
 	///
 
-	&:not(.withChildren) .titlesRow {
-		padding-bottom: @sand-header-subtitle-height;
+	&:not(.withChildren) {
+		.titlesRow {
+			padding-bottom: @sand-header-subtitle-height;
 
-		// The following updates .subtitle to be removed from the measurement calculations for
-		// vertical centering in a "standard" header, so the title can vertically align with the
-		// side buttons. When *not* in "standard" type, the side buttons should be vertically
-		// aligned with both the title and subtitle.
-		.subtitle {
-			position: absolute;
-			right: 0;
-			left: 0;
+			// The following updates .subtitle to be removed from the measurement calculations for
+			// vertical centering in a "standard" header, so the title can vertically align with the
+			// side buttons. When *not* in "standard" type, the side buttons should be vertically
+			// aligned with both the title and subtitle.
+			.subtitle {
+				position: absolute;
+				right: 0;
+				left: 0;
+			}
+		}
+
+		&.wizard {
+			.titlesRow {
+				padding-bottom: (@sand-header-subtitle-height * @sand-header-wizard-subtitle-lines);
+			}
 		}
 	}
 
@@ -153,7 +161,7 @@
 		}
 
 		.subtitle {
-			.sand-multi-line-ellipsis(2);
+			.sand-multi-line-ellipsis(@sand-header-wizard-subtitle-lines);
 		}
 
 		&.centered {
