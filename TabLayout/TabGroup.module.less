@@ -10,6 +10,9 @@
 	&.horizontal {
 		&.button {
 			width: @sand-tablayout-tab-horizontal-width;
+			// clear padding so that the client of buttons with and without icons is the same size
+			padding-left: 0;
+			padding-right: 0;
 		}
 	}
 
@@ -45,7 +48,7 @@
 		}
 
 		&.vertical {
-			&.button{
+			&.button {
 				&.selected {
 					.bg {
 						.sand-button-spotlight-resting-colors();
@@ -60,9 +63,12 @@
 
 .applySkins({
 	.tabGroup {
-			.horizontalLine {
-				margin: 0;
-				border: @sand-tablayout-tab-horizontal-border-width solid @sand-tablayout-tab-horizontal-border-color;
-			}
+		.horizontalLine {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			margin: 0;
+			border: @sand-tablayout-tab-horizontal-border-width solid @sand-tablayout-tab-horizontal-border-color;
+		}
 	}
 });
