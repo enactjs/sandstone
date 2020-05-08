@@ -18,6 +18,7 @@ storiesOf('Sandstone', module)
 		'WizardPanels',
 		() => (
 			<WizardPanels
+				current={number('current', WizardPanels, 0)}
 				nextButtonText={text('nextButtonText', WizardPanels, '')}
 				noAnimation={boolean('noAnimation', WizardPanels, false)}
 				noNextButton={boolean('noNextButton', WizardPanels)}
@@ -27,8 +28,7 @@ storiesOf('Sandstone', module)
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanels, '')}
-				stepCurrent={number('stepCurrent', WizardPanels)}
-				stepTotal={number('stepTotal', WizardPanels)}
+				total={number('total', WizardPanels, 0)}
 			>
 				<WizardPanels.Panel footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanel View 1">
 					<Scroller>

@@ -56,21 +56,22 @@ const WizardPanelsBase = kind({
 		]),
 
 		/**
+		 * The currently selected step.
+		 *
+		 * If omitted, this will equal the currently selected view.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		current: PropTypes.number,
+
+		/**
 		* The footer for WizardLayout.
 		*
 		* @type {Node}
 		* @public
 		*/
 		footer: PropTypes.node,
-
-		/**
-		* The currently selected view.
-		*
-		* @type {Number}
-		* @default 0
-		* @private
-		*/
-		index: PropTypes.number,
 
 		/**
 		 * Hint string read when focusing the next button.
@@ -170,26 +171,6 @@ const WizardPanelsBase = kind({
 		reverseTransition: PropTypes.bool,
 
 		/**
-		 * The currently selected step.
-		 *
-		 * If omitted, this will equal the currently selected view.
-		 *
-		 * @type {Number}
-		 * @public
-		 */
-		stepCurrent: PropTypes.number,
-
-		/**
-		 * The total steps in WizardPanels.
-		 *
-		 * If omitted, this will equal the total views.
-		 *
-		 * @type {Number}
-		 * @public
-		 */
-		stepTotal: PropTypes.number,
-
-		/**
 		* The subtitle to display.
 		*
 		* @type {String}
@@ -206,16 +187,35 @@ const WizardPanelsBase = kind({
 		title: PropTypes.string,
 
 		/**
+		 * The total steps in WizardPanels.
+		 *
+		 * If omitted, this will equal the total views.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		total: PropTypes.number,
+
+		/**
+		* The currently selected view.
+		*
+		* @type {Number}
+		* @default 0
+		* @private
+		*/
+		viewIndex: PropTypes.number,
+
+		/**
 		* The total views in WizardPanels.
 		*
 		* @type {Number}
 		* @private
 		*/
-		total: PropTypes.number
+		viewTotal: PropTypes.number
 	},
 
 	defaultProps: {
-		index: 0,
+		viewIndex: 0,
 		nextButtonAriaLabel: $L('Next'),
 		prevButtonAriaLabel: $L('Previous')
 	},
@@ -226,43 +226,43 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onIncrementStep: (ev, {index, onChange, total}) => {
-			if (onChange && index !== total) {
-				const nextIndex = index < (total - 1) ? (index + 1) : index;
+		onIncrementStep: (ev, {viewIndex, onChange, viewTotal}) => {
+			if (onChange && viewIndex !== viewTotal) {
+				const nextIndex = viewIndex < (viewTotal - 1) ? (viewIndex + 1) : viewIndex;
 
-				onChange({index: nextIndex});
+				onChange({viewIndex: nextIndex});
 			}
 		},
-		onDecrementStep: (ev, {index, onChange}) => {
-			if (onChange && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
+		onDecrementStep: (ev, {viewIndex, onChange}) => {
+			if (onChange && viewIndex !== 0) {
+				const prevIndex = viewIndex > 0 ? (viewIndex - 1) : viewIndex;
 
-				onChange({index: prevIndex});
+				onChange({viewIndex: prevIndex});
 			}
 		},
-		onTransition: (ev, {index, onTransition}) => {
+		onTransition: (ev, {viewIndex, onTransition}) => {
 			if (onTransition) {
-				onTransition({index});
+				onTransition({index: viewIndex});
 			}
 		},
-		onWillTransition: (ev, {index, onWillTransition}) => {
+		onWillTransition: (ev, {viewIndex, onWillTransition}) => {
 			if (onWillTransition) {
-				onWillTransition({index});
+				onWillTransition({index: viewIndex});
 			}
 		}
 	},
 
 	computed: {
-		steps: ({index, noSteps, stepCurrent, stepTotal, total}) => {
+		steps: ({current, noSteps, total, viewIndex, viewTotal}) => {
 			if (noSteps) {
 				return null;
 			}
 
 			return (
 				<Steps
-					current={typeof stepCurrent === 'number' ? stepCurrent : index + 1}
+					current={typeof current === 'number' && current > 0 ? current : viewIndex + 1}
 					slot="slotAbove"
-					total={typeof stepTotal === 'number' ? stepTotal : total}
+					total={typeof total === 'number' && total > 0 ? total : viewTotal}
 				/>
 			);
 		}
@@ -272,15 +272,13 @@ const WizardPanelsBase = kind({
 		buttons,
 		children,
 		footer,
-		index,
-		total,
 		nextButtonAriaLabel,
 		nextButtonText,
+		noAnimation,
 		noNextButton,
 		noPrevButton,
-		noAnimation,
-		onIncrementStep,
 		onDecrementStep,
+		onIncrementStep,
 		onTransition,
 		onWillTransition,
 		prevButtonAriaLabel,
@@ -289,11 +287,13 @@ const WizardPanelsBase = kind({
 		steps,
 		subtitle,
 		title,
+		viewIndex,
+		viewTotal,
 		...rest
 	}) => {
 		delete rest.noSteps;
-		delete rest.stepCurrent;
-		delete rest.stepTotal;
+		delete rest.current;
+		delete rest.total;
 
 		return (
 			<Panel {...rest}>
@@ -306,7 +306,7 @@ const WizardPanelsBase = kind({
 					type="wizard"
 				>
 					{steps}
-					{index < total - 1 && !noNextButton ? (
+					{viewIndex < viewTotal - 1 && !noNextButton ? (
 						<Button
 							aria-label={nextButtonAriaLabel}
 							backgroundOpacity="transparent"
@@ -319,7 +319,7 @@ const WizardPanelsBase = kind({
 							{nextButtonText}
 						</Button>
 					) : null}
-					{index !== 0 && !noPrevButton ? (
+					{viewIndex !== 0 && !noPrevButton ? (
 						<Button
 							aria-label={prevButtonAriaLabel}
 							backgroundOpacity="transparent"
@@ -389,25 +389,25 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelsDecorator = (Wrapped) => {
-	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
+	const WizardPanelsProvider = ({children, title, viewIndex, ...rest}) => {
 		const [view, setView] = React.useState(null);
-		const reverseTransition = useReverseTransition(index);
+		const reverseTransition = useReverseTransition(viewIndex);
 		const totalViews = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
 
 		return (
 			<WizardPanelsContext.Provider value={setView}>
-				{React.Children.toArray(children)[index]}
+				{React.Children.toArray(children)[viewIndex]}
 				<Wrapped
 					{...rest}
 					{...view}
-					index={index}
+					viewIndex={viewIndex}
 					title={currentTitle}
-					total={totalViews}
+					viewTotal={totalViews}
 					reverseTransition={reverseTransition}
 				>
 					{view && view.children ? (
-						<div className="enact-fit" key={`view${index}`}>
+						<div className="enact-fit" key={`view${viewIndex}`}>
 							{view.children}
 						</div>
 					) : null}
@@ -417,15 +417,6 @@ const WizardPanelsDecorator = (Wrapped) => {
 	};
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
-		/**
-		* The currently selected step.
-		*
-		* @type {Number}
-		* @default 0
-		* @private
-		*/
-		index: PropTypes.number,
-
 		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in [View]{@link sandstone/WizardPanels.WizardPanel}.
 		* @example
@@ -438,12 +429,21 @@ const WizardPanelsDecorator = (Wrapped) => {
 		* @type {Number}
 		* @private
 		*/
-		title: PropTypes.string
+		title: PropTypes.string,
+
+		/**
+		* The currently selected step.
+		*
+		* @type {Number}
+		* @default 0
+		* @private
+		*/
+		viewIndex: PropTypes.number
 	};
 
 	WizardPanelsProvider.defaultProps = {
-		index: 0,
-		title: ''
+		title: '',
+		viewIndex: 0
 	};
 
 	return WizardPanelsProvider;
@@ -461,7 +461,7 @@ const WizardPanelsDecorator = (Wrapped) => {
  * @public
  */
 const WizardPanels = Changeable(
-	{prop: 'index'},
+	{prop: 'viewIndex'},
 	WizardPanelsDecorator(
 		WizardPanelsBase
 	)
