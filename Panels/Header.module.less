@@ -2,7 +2,6 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 
 .header {
 	position: relative;
@@ -105,11 +104,6 @@
 		margin: @sand-header-slotbelow-margin;
 	}
 
-	.line {
-		border: 1px solid transparent; // Generic rule to set the size/positioning, but leave it invisible for later customization
-		margin: 0;
-	}
-
 	&.featureContent {
 		transform: @sand-header-featurecontent-transform;
 
@@ -138,17 +132,21 @@
 		.title {
 			.sand-font-size(@sand-header-compact-title-font-size, @sand-non-latin-header-compact-title-font-size);
 		}
-
-		.line {
-			border-bottom-width: @sand-header-compact-border-width;
-			margin: @sand-header-compact-line-margin;
-		}
 	}
 
 	// Wizard Header
 	&.wizard {
 		margin: @sand-header-wizard-margin;
 		padding: @sand-header-wizard-padding;
+
+		.titleContainer {
+			// absolutely position the incoming title
+			&:nth-child(2) {
+				top: 0;
+				position: absolute;
+				width: 100%;
+			}
+		}
 
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
@@ -165,7 +163,6 @@
 			}
 		}
 	}
-
 
 	// Mini Header
 	&.mini {
@@ -192,13 +189,4 @@
 			margin-inline-end: 0;
 		}
 	}
-
-	// Skin colors
-	.applySkins({
-		&.compact {
-			.line {
-				border-bottom-color: @sand-header-compact-border-color;
-			}
-		}
-	});
 }

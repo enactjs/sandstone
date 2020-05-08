@@ -9,6 +9,7 @@ import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import {unit} from '@enact/ui/resolution';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -16,7 +17,6 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
@@ -35,6 +35,8 @@ const isBackButton = ({target: node}) => node && node.classList.contains(compone
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
 const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
+
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
 
 // Hides the back button when 5-way navigation when in pointer mode and the target would not be the
 // back button.
@@ -73,6 +75,16 @@ const HeaderBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
+		/**
+		 * The animation arranger used to transition title and subtitle changes.
+		 *
+		 * Only supported when `type="wizard"`.
+		 *
+		 * @type {ui/ViewManager.Arranger}
+		 * @private
+		 */
+		arranger: shape,
+
 		/**
 		 * Sets the hint string read when focusing the back button.
 		 *
@@ -440,7 +452,7 @@ const HeaderBase = kind({
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
-				withChildren: Boolean(children)
+				withChildren: hasChildren(children)
 			},
 			type
 		),
@@ -451,8 +463,56 @@ const HeaderBase = kind({
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
+			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
+
+			const titleHeading = (
+				<Heading
+					aria-label={title}
+					size="title"
+					spacing="auto"
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.title}
+				>
+					{title}
+				</Heading>
+			);
+
+			const subtitleHeading = (
+				<Heading
+					size="subtitle"
+					spacing="auto"
+					marqueeDisabled={type === 'wizard'}
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.subtitle}
+				>
+					{subtitle}
+				</Heading>
+			);
+
+			// WizardPanels uses an animated title but that isn't supported for other types
+			if (arranger && type === 'wizard') {
+				return (
+					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
+						<div className={css.titleContainer} key={title + subtitle}>
+							{titleHeading}
+							{subtitleHeading}
+						</div>
+					</Cell>
+				);
+			}
+
+			return (
+				<Cell className={css.titleCell}>
+					{titleHeading}
+					{subtitleHeading}
+				</Cell>
+			);
+		}
 	},
 
 	render: ({
@@ -464,10 +524,7 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		direction,
 		hover,
-		line,
-		marqueeOn,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -478,16 +535,19 @@ const HeaderBase = kind({
 		slotBefore,
 		slotBeforeRef,
 		slotSize,
-		subtitle,
-		title,
+		titleCell,
 		titleRef,
-		type,
 		...rest
 	}) => {
+		delete rest.arranger;
 		delete rest.entering;
 		delete rest.featureContent;
+		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
+		delete rest.subtitle;
+		delete rest.title;
+		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -530,38 +590,14 @@ const HeaderBase = kind({
 							{backButton}{slotBefore}
 						</span>
 					</Cell>
-					<Cell className={css.titleCell}>
-						<Heading
-							aria-label={title}
-							size="title"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.title}
-						>
-							{title}
-						</Heading>
-						<Heading
-							size="subtitle"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							marqueeDisabled={type === 'wizard'}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.subtitle}
-						>
-							{subtitle}
-						</Heading>
-					</Cell>
+					{titleCell}
 					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotAfterRef} className={css.slotSizer}>
 							{slotAfter}{closeButton}
 						</span>
 					</Cell>
 				</Row>
-				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
-				{line}
+				{hasChildren(children) ? <nav className={css.slotBelow}>{children}</nav> : null}
 			</header>
 		);
 	}
@@ -606,7 +642,6 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	Skinnable,
 	CollapsingHeaderDecorator,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),

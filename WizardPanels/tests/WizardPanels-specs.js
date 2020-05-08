@@ -39,6 +39,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewTitle;
 			const actual = headerTitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -54,11 +55,12 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const headerSubtitle = wizardPanel.find('Heading.subtitle').text();
+			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
 
 			const expected = viewSubtitle;
 			const actual = headerSubtitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -79,6 +81,7 @@ describe('WizardPanel Specs', () => {
 			const expected = viewFooter;
 			const actual = footerText;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -102,6 +105,7 @@ describe('WizardPanel Specs', () => {
 			const expected = 2;
 			const actual = buttons;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -124,6 +128,7 @@ describe('WizardPanel Specs', () => {
 			const expected = contentText;
 			const actual = content;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -271,6 +276,214 @@ describe('WizardPanel Specs', () => {
 			const expected = {current: index + 1};
 			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
 
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should fire onWillTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onWillTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should fire onTransition with target index',
+		() => {
+			const spy = jest.fn();
+			let index = 0;
+			const wizardPanel = mount(
+				<WizardPanels index={index} onTransition={spy} noAnimation>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+				</WizardPanels>
+			);
+
+			spy.mockClear();
+			index++;
+			wizardPanel.setProps({index});
+
+			const expected = {index};
+			const actual = spy.mock.calls.length && spy.mock.calls[0][0];
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should advance on next click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find('Button[aria-label="Next"]');
+
+			nextButton.simulate('click');
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on prev click',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find('Button[aria-label="Previous"]');
+
+			prevButton.simulate('click');
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not go back on back key when noPrevButton set',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} noPrevButton>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should go back on back key when onBack does not call preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn();
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 1};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
+			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should not go back on back key when onBack calls preventDefault',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn((ev) => ev.preventDefault());
+
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1} onBack={spy}>
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+			wizardPanel.update();
+
+			const expected = {current: 2};
+			const actual = wizardPanel.find('Steps').props();
+
+			wizardPanel.unmount();
 			expect(actual).toMatchObject(expected);
 		}
 	);
