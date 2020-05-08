@@ -151,7 +151,7 @@ const TabGroupBase = kind({
 						{children}
 					</Group>
 				)}
-				{isHorizontal ? <div className={componentCss.horizontalLine} /> : null}
+				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
 			</Component>
 		);
 	}
