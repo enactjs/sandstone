@@ -476,9 +476,11 @@ describe('VirtualList', function () {
 				expectFocusedItem(0);
 				// Step 4: Press Channel Down
 				Page.pageDown();
+				// Verify no error on waitForScrollStartStop
 				waitForScrollStartStop();
 				// Step 5: Press Channel Down again.
 				Page.pageDown();
+				// Verify no error on waitForScrollStartStop
 				waitForScrollStartStop();
 			});
 		});
