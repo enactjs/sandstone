@@ -185,7 +185,6 @@ const WizardPanelsBase = kind({
 		 * If omitted, this will equal the total views.
 		 *
 		 * @type {Number}
-		 * @default 2
 		 * @public
 		 */
 		stepTotal: PropTypes.number,
