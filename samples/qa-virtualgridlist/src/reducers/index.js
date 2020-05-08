@@ -12,7 +12,7 @@ const createRecords = () => {
 			minWidth: 688,
 			selectedItems: new Set(),
 			showOverlay: false,
-			spacing: 21
+			spacing: 24
 		},
 		caption, subCaption, color;
 
