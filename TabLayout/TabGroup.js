@@ -33,6 +33,10 @@ const TabBase = kind({
 		size: PropTypes.number
 	},
 
+	defaultProps: {
+		orientation: 'vertical'
+	},
+
 	styles: {
 		css: componentCss,
 		className: 'tab'
