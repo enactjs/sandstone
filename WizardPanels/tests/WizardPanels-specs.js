@@ -161,7 +161,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase totalViews={2} nextButtonText={nextButtonText} />
+				<WizardPanelsBase totalPanels={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -180,7 +180,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalViews={2} prevButtonText={prevButtonText} />
+				<WizardPanelsBase index={1} totalPanels={2} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -196,7 +196,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} totalViews={3} />
+				<WizardPanelsBase index={2} totalPanels={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -212,7 +212,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={0} totalViews={3} />
+				<WizardPanelsBase index={0} totalPanels={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -229,7 +229,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom next button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase totalViews={2} nextButtonAriaLabel={label} />
+				<WizardPanelsBase totalPanels={2} nextButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -244,7 +244,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom previous button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalViews={2} prevButtonAriaLabel={label} />
+				<WizardPanelsBase index={1} totalPanels={2} prevButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -258,7 +258,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noNextButton totalViews={4} />
+				<WizardPanelsBase index={2} noNextButton totalPanels={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -274,7 +274,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button with `noPrevButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noPrevButton totalViews={4} />
+				<WizardPanelsBase index={2} noPrevButton totalPanels={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -521,7 +521,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} totalViews={5} />
+				<WizardPanelsBase index={index} totalPanels={5} />
 			);
 
 			const expected = {current: index + 1};
@@ -537,7 +537,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const index = 1;
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} totalViews={5} />
+				<WizardPanelsBase index={index} totalPanels={5} />
 			);
 
 			const expected = {current: index + 1};
@@ -552,7 +552,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const current = 3;
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} current={current} total={5} totalViews={5} />
+				<WizardPanelsBase index={1} current={current} total={5} totalPanels={5} />
 			);
 
 			const expected = {current: current};
@@ -567,7 +567,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const total = 5;
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalViews={5} />
+				<WizardPanelsBase index={1} totalPanels={5} />
 			);
 
 			const expected = {total: total};
@@ -582,7 +582,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const total = 3;
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} current={1} total={total} totalViews={5} />
+				<WizardPanelsBase index={1} current={1} total={total} totalPanels={5} />
 			);
 
 			const expected = {total};

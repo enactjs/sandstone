@@ -216,7 +216,7 @@ const WizardPanelsBase = kind({
 		* @type {Number}
 		* @private
 		*/
-		totalViews: PropTypes.number
+		totalPanels: PropTypes.number
 	},
 
 	defaultProps: {
@@ -231,9 +231,9 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onIncrementStep: (ev, {index, onChange, totalViews}) => {
-			if (onChange && index !== totalViews) {
-				const nextIndex = index < (totalViews - 1) ? (index + 1) : index;
+		onIncrementStep: (ev, {index, onChange, totalPanels}) => {
+			if (onChange && index !== totalPanels) {
+				const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
 				onChange({index: nextIndex});
 			}
@@ -258,7 +258,7 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		steps: ({current, index, noSteps, total, totalViews}) => {
+		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
 			}
@@ -267,7 +267,7 @@ const WizardPanelsBase = kind({
 				<Steps
 					current={typeof current === 'number' && current > 0 ? current : index + 1}
 					slot="slotAbove"
-					total={typeof total === 'number' && total > 0 ? total : totalViews}
+					total={typeof total === 'number' && total > 0 ? total : totalPanels}
 				/>
 			);
 		}
@@ -293,7 +293,7 @@ const WizardPanelsBase = kind({
 		steps,
 		subtitle,
 		title,
-		totalViews,
+		totalPanels,
 		...rest
 	}) => {
 		delete rest.noSteps;
@@ -312,7 +312,7 @@ const WizardPanelsBase = kind({
 					type="wizard"
 				>
 					{steps}
-					{index < totalViews - 1 && !noNextButton ? (
+					{index < totalPanels - 1 && !noNextButton ? (
 						<Button
 							aria-label={nextButtonAriaLabel}
 							backgroundOpacity="transparent"
@@ -399,7 +399,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
-		const totalViews = React.Children.count(children);
+		const totalPanels = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
@@ -412,7 +412,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 					{...view}
 					index={index}
 					title={currentTitle}
-					totalViews={totalViews}
+					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
 					{view && view.children ? (
