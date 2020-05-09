@@ -277,7 +277,7 @@ describe('VirtualList', () => {
 			'should render an added item named \'Password 0\' as the first item',
 			(done) => {
 				const itemArray = [{name: 'A'}, {name: 'B'}, {name: 'C'}];
-				const renderItemArray = ({index, ...rest}) => { // eslint-disable-line enact/display-name, enact/prop-types, react/jsx-no-bind
+				const renderItemArray = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
 					return (
 						<div {...rest} id={'item' + index}>
 							{itemArray[index].name}
