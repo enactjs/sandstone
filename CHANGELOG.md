@@ -13,10 +13,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` support for `horizontal` orientation
 - `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
 - `sandstone/MediaPlayer` submodule which provides `MediaControls`, `MediaSlider`, and `Times` components for use in custom media player components.
+- `sandstone/WizardPanels` props `current` and `total`
+- `sandstone/WizardPanels` prop `onBack` to allow developers to handle back button presses
+- `sandstone/WizardPanels` support for animating changes to title and subtitle
 
 ### Changed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` to adjust padding area
 - `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
+- `sandstone/WizardPanels` to automatically handle back key when `noPrevButton` is not set
+- `sandstone/WizardPanels` to support multi-line subtitles
+
+### Fixed
+
+- `sandstone/Panels.Header` to match latest designs
 
 ## [1.0.0-beta.2] - 2020-05-04
 

@@ -66,7 +66,7 @@ storiesOf('Sandstone', module)
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
 					<Tab icon={includeIcons ? 'brightness' : null} title="Display">
-						<TabPanels index={indexDisplay} onBack={handleDisplayPrev}>
+						<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Display Settings" type="compact" />
 								<Item onClick={handleDisplayNext}>Picture Modes</Item>
@@ -88,7 +88,7 @@ storiesOf('Sandstone', module)
 						</TabPanels>
 					</Tab>
 					<Tab icon={includeIcons ? 'speakers' : null} title="Sound">
-						<TabPanels index={indexSound} onBack={handleSoundPrev}>
+						<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Sound Settings" type="compact" />
 								<Item onClick={handleSoundNext}>Advanced Audio</Item>
@@ -107,7 +107,7 @@ storiesOf('Sandstone', module)
 						</TabPanels>
 					</Tab>
 					<Tab icon={includeIcons ? 'arrowupdown' : null} title="Network">
-						<TabPanels index={indexNetwork} onBack={handleNetworkPrev}>
+						<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Network Settings" type="compact" />
 								<Item onClick={handleNetworkNext}>Wired</Item>
