@@ -66,7 +66,7 @@ const handleKeyUp = handle(
  * MediaSlider for {@link sandstone/VideoPlayer}.
  *
  * @class MediaSliderDecorator
- * @memberof sandstone/VideoPlayer
+ * @memberof sandstone/MediaPlayer
  * @hoc
  * @private
  */

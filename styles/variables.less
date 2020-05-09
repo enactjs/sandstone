@@ -7,7 +7,7 @@
 
 // Generic/Common/Shared
 // ---------------------------------------
-@sand-component-spacing: 42px;
+@sand-component-spacing: 36px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -59,6 +59,7 @@
 @sand-mediaoverlay-caption-font-size: 48px;
 @sand-mediaoverlay-font-size:         48px;
 @sand-mediaoverlay-title-font-size:   60px;
+@sand-mediaplayer-times-text-size:    48px;
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
@@ -275,7 +276,8 @@
 
 // FixedPopupPanels
 // ---------------------------------------
-@sand-fixedpopuppanels-width: 60px + 1140px + 60px; // Account for the box-sizing (assigned to get the height right), and add the paddings to the width, since paddings are subtracted from width in box-sizing:border-box.
+@sand-fixedpopuppanels-width: 1140px;
+@sand-fixedpopuppanels-half-width: 1716px;
 @sand-fixedpopuppanels-panel-padding: 0;
 @sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
 
@@ -304,12 +306,13 @@
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
 @sand-header-mini-padding: 0;
 @sand-header-wizard-margin: 0;
-@sand-header-wizard-padding: 108px 150px 139px;
+@sand-header-wizard-padding: 108px 150px (66px - @sand-panel-body-padding-top); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+@sand-header-wizard-subtitle-lines: 2;
 
 // Heading
 // ---------------------------------------
 @sand-heading-border-width: 1px;
-@sand-heading-margin: 0 @sand-spotlight-outset (1.5 * @sand-spotlight-outset) @sand-spotlight-outset;
+@sand-heading-margin: 0 @sand-component-spacing (1.5 * @sand-spotlight-outset) @sand-component-spacing;
 @sand-heading-padding: 0;
 @sand-heading-spacing-title: 0;
 @sand-heading-spacing-subtitle: 0;
@@ -354,7 +357,7 @@
 @sand-imageitem-horizontal-image-margin-rtl: 0 0 0 48px;
 @sand-imageitem-horizontal-selection-icon-size: 90px;
 @sand-imageitem-vertical-padding: 24px 24px 30px;
-@sand-imageitem-vertical-full-image-padding: 48px;
+@sand-imageitem-vertical-full-image-padding: 84px; // 48px(for expanding) + 36px(for showing shadow)
 @sand-imageitem-vertical-captions-margin-top: 30px;
 @sand-imageitem-vertical-label-height: 60px;
 @sand-imageitem-vertical-focus-image-transform: scale(1.2);
@@ -394,7 +397,7 @@
 
 // InputField
 // ---------------------------------------
-@sand-inputfield-margin: 0 @sand-spotlight-outset;
+@sand-inputfield-margin: 0 @sand-component-spacing;
 @sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
 @sand-inputfield-font-weight: 600;
 @sand-inputfield-text-indent: 0.2em;
@@ -433,15 +436,6 @@
 @sand-keyguide-icon-margin-right: 48px;
 @sand-keyguide-padding: 6px 0;
 
-// MediaControls
-// ---------------------------------------
-@sand-mediacontrols-actionguide-padding-top: 78px;
-@sand-mediacontrols-actionguide-time: 0.2s;		// Length of the animation
-@sand-mediacontrols-button-margin-start: 108px;
-@sand-mediacontrols-morebuttons-margin-start: 228px;
-@sand-mediacontrols-moreComponents-time: 0.3s;		// Length of the animation
-@sand-mediacontrols-moreComponents-margin-top: 42px;
-
 // MediaOverlay
 // ---------------------------------------
 @sand-mediaoverlay-border-radius: 12px;
@@ -453,11 +447,23 @@
 @sand-mediaoverlay-textlayout-margin: 24px 60px;
 @sand-mediaoverlay-width: 642px;
 
+// MediaPlayer
+// ---------------------------------------
+@sand-mediaplayer-slider-height:                  18px;
+@sand-mediaplayer-slider-knob-size:               48px;
+@sand-mediaplayer-slider-tap-area:                162px;
+@sand-mediaplayer-controls-actionguide-padding-top: 78px;
+@sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
+@sand-mediaplayer-controls-button-margin-start: 108px;
+@sand-mediaplayer-controls-morebuttons-margin-start: 228px;
+@sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+@sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+
 // Panels
 // ---------------------------------------
-@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-spotlight-outset);
+@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
-@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-spotlight-outset)) 0;
+@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
 @sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
@@ -505,7 +511,7 @@
 // ---------------------------------------
 @sand-progressbar-bar-thickness: 12px;
 @sand-progressbar-bar-border-radius: (@sand-progressbar-bar-thickness / 2);
-@sand-progressbar-margin: @sand-spotlight-outset;
+@sand-progressbar-margin: @sand-component-spacing;
 @sand-progressbar-vertical-min-height: 240px;
 @sand-progressbar-radial-size: 72px;
 @sand-progressbar-radial-thickness: 9px;
@@ -535,23 +541,31 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollbar-track-margin: 24px;
+@sand-scrollbar-size: 36px;
+@sand-scrollbar-focusable-size: 60px;
+@sand-scrollbar-track-margin: 12px;
+@sand-scrollbar-track-focusable-margin: 24px;
 @sand-scrollbar-track-width: 12px;
 @sand-scrollbar-track-border-radius: 6px;
 @sand-scrollbar-thumb-border-radius: 6px;
 @sand-scrollbar-thumb-focus-width: 30px;
-@sand-scrollbar-thumb-focus-left: -9px; // TODO: Re-apply 4K GUI.
-@sand-scrollbar-thumb-focus-border-radius: 15px;
-@sand-scrollbar-thumb-focus-box-shadow: 0 40px 24px;
+@sand-scrollbar-thumb-focus-left: -12px;
+@sand-scrollbar-thumb-focus-border-radius: 12px;
+@sand-scrollbar-thumb-focus-box-shadow: 0 36px 18px;
 @sand-scrollbar-thumb-focus-direction-indicator-width: 18px;
 @sand-scrollbar-thumb-focus-direction-indicator-height: 12px;
-@sand-scrollbar-thumb-focus-direction-indicator-top: 9px; // TODO: Re-apply 4K GUI.
+@sand-scrollbar-thumb-focus-direction-indicator-top: 6px;
 @sand-scrollbar-thumb-focus-direction-indicator-left: 6px;
 
 // Scroller
 // ---------------------------------------
 @sand-scroll-affordance-size: 48px;
-@sand-scroll-fade-out-size: @sand-scroll-affordance-size;
+@sand-scroll-fade-out-size: 48px;
+@sand-scroll-fade-out-offset: 24px;
+@sand-scroll-vertical-fade-out-padding: @sand-scroll-affordance-size 0;
+@sand-scroll-horizontal-fade-out-padding: 0 @sand-scroll-affordance-size;
+@sand-scroll-focusablebody-padding: 72px 48px 72px 90px;
+@sand-scroll-focusablebody-padding-rtl: 72px 90px 72px 48px;
 @sand-scroll-focusablebody-focus-border-radius: 12px;
 
 // Slider
@@ -650,12 +664,8 @@
 @sand-video-feedback-mini-font-size:               78px;
 @sand-video-feedback-mini-line-height:             120px;
 @sand-video-player-badge-text-size:                48px;
-@sand-video-player-indicator-text-size:            48px;
 @sand-video-player-padding-bottom:                 60px;
 @sand-video-player-padding-side:                   120px;
-@sand-video-player-slider-height:                  18px;
-@sand-video-player-slider-knob-size:               48px;
-@sand-video-player-slider-tap-area:                162px;
 @sand-video-player-title-size:                     96px;
 
 // WizardPanels

@@ -76,27 +76,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 		}
 	}, [consumeEventWithScroll, rtl, vertical]);
 
-	const onClick = useCallback((ev) => {
-		// Click the track. If user click the thumb, do nothing.
-		if (ref && ev.target === ref.current) {
-			const
-				clickPoint = vertical ? ev.nativeEvent.offsetY : ev.nativeEvent.offsetX,
-				thumbPosition = vertical ? ev.target.children[0].offsetTop : ev.target.children[0].offsetLeft;
-
-			consumeEventWithScroll(
-				{
-					inputType: 'track',
-					isPagination: true,
-					isForward: clickPoint > thumbPosition,
-					isVerticalScrollBar: vertical
-				},
-				ev
-			);
-		}
-	}, [consumeEventWithScroll, ref, vertical]);
-
 	return (
-		<div {...rest} className={className} onClick={onClick} ref={ref}>
+		<div {...rest} className={className} ref={ref}>
 			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />

@@ -29,7 +29,14 @@ const withConfig = (config, tests) => {
 	});
 };
 
+const LoremString =
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat.';
+
+const LongerLoremString = `Longer ${LoremString} ${LoremString} ${LoremString} ${LoremString}`;
+
 export {
+	LongerLoremString,
+	LoremString,
 	withConfig,
 	withProps
 };
