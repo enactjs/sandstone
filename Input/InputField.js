@@ -123,6 +123,10 @@ const InputFieldBase = kind({
 		/**
 		 * Called when the input value is changed.
 		 *
+		 * The event payload includes the current `value` as well as a `stopPropagation()` method
+		 * which may be called to stop the original `onChange` event from the `<input>` from
+		 * bubbling.
+		 *
 		 * @type {Function}
 		 * @param {Object} event
 		 * @public
@@ -221,7 +225,10 @@ const InputFieldBase = kind({
 	handlers: {
 		onChange: handle(
 			adaptEvent(
-				ev => ({value: ev.target.value}),
+				ev => ({
+					stopPropagation: () => ev.stopPropagation(),
+					value: ev.target.value
+				}),
 				forward('onChange')
 			)
 		)
