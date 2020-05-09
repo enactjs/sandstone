@@ -148,7 +148,23 @@ const TabLayoutBase = kind({
 		 * @default 'vertical'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical'])
+		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * Assign a custom size to horizontal tabs.
+		 *
+		 * Tabs in the horizontal orientation automatically stretch to fill the available width.
+		 * Leave this prop blank to use the default auto-sizing behavior.
+		 * Tabs may also be set to a finite width using this property. This accepts numeric pixel
+		 * values. Be mindful of the value you provide as values that are too wide will run off the
+		 * edge of the screen.
+		 *
+		 * Only applies to `orientation="horizontal"` at this time.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		tabSize: PropTypes.number
 	},
 
 	defaultProps: {
@@ -199,16 +215,17 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
-		const tabSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
+	render: ({children, collapsed, css, dimensions, tabSize, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+		const tabsSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
 
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} size={isVertical ? tabSize : null} shrink={!isVertical}>
+				<Cell className={css.tabs} size={isVertical ? tabsSize : null} shrink={!isVertical}>
 					<TabGroup
 						collapsed={isVertical ? collapsed : false}
+						tabSize={tabSize}
 						onFocus={onExpand}
 						onFocusTab={onSelect}
 						onSelect={onSelect}
