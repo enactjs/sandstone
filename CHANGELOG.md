@@ -20,6 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to adjust padding area
 - `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area and condition
 - `sandstone/WizardPanels` to automatically handle back key when `noPrevButton` is not set
+- `sandstone/WizardPanels` to support multi-line subtitles
 
 ### Fixed
 

@@ -1,8 +1,7 @@
 import {InputField} from '../../../../Input';
 import React from 'react';
 
-const LoremString =
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat.';
+import {LoremString} from './utils';
 
 const InputFieldTests = [
 	<InputField />,

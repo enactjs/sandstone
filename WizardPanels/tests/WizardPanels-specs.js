@@ -23,28 +23,6 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have subtitle overridden by subtitle set in `View`',
-		() => {
-			const wizardSubtitle = 'WizardPanel subtitle';
-			const viewSubtitle = 'View subtitle';
-
-			const wizardPanel = mount(
-				<WizardPanels subtitle={wizardSubtitle}>
-					<Panel subtitle={viewSubtitle} />
-				</WizardPanels>
-			);
-
-			const headerSubtitle = wizardPanel.find('Header').prop('subtitle');
-
-			const expected = viewSubtitle;
-			const actual = headerSubtitle;
-
-			wizardPanel.unmount();	// Need to unmount to remove modal cancel listeners
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
 		'should have title overridden by title set in `View`',
 		() => {
 			const wizardTitle = 'WizardPanel title';

@@ -402,7 +402,7 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'dense'|'mini'|'standard')}
+		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
 		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
@@ -484,6 +484,7 @@ const HeaderBase = kind({
 				<Heading
 					size="subtitle"
 					spacing="auto"
+					marqueeDisabled={type === 'wizard'}
 					marqueeOn={marqueeOn}
 					forceDirection={direction}
 					alignment={centered ? 'center' : null}
