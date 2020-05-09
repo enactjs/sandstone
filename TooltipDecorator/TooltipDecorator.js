@@ -415,6 +415,13 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 */
 		renderTooltip () {
 			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth} = this.props;
+			const {top, left} = this.state.position;
+			const tooltipStyle = {
+				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
+				// Moving the position to CSS variables where there are additional offset calculations
+				['--tooltip-position-top']: tooltipRelative ? null : `${top}px`,
+				['--tooltip-position-left']: tooltipRelative ? null : `${left}px`
+			};
 
 			if (tooltipText) {
 				let renderedTooltip = (
@@ -425,9 +432,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
-						position={tooltipRelative ? null : this.state.position}
 						relative={tooltipRelative}
-						style={{display: ((tooltipRelative && !this.state.showing) ? 'none' : null)}}
+						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
 						width={tooltipWidth}
 					>

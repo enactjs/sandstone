@@ -35,7 +35,7 @@
 		left: var(--tooltip-progress-percent);
 
 		&.above {
-			top: 0;
+			bottom: @sand-progressbar-tooltip-above-offset;
 
 			&.center {
 				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
@@ -55,7 +55,7 @@
 		}
 
 		&.below {
-			bottom: 0;
+			top: @sand-progressbar-tooltip-below-offset;
 
 			&.center {
 				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
@@ -81,7 +81,7 @@
 
 		// Left side
 		.before({
-			right: 0;
+			right: @sand-progressbar-tooltip-before-offset;
 			transform: translate(~"calc(var(--tooltip-calculated-offset) * -1)", 50%);
 
 			.sand-custom-text({
@@ -91,7 +91,7 @@
 
 		// Right side
 		.after({
-			right: auto;
+			left: @sand-progressbar-tooltip-after-offset;
 			transform: translate(var(--tooltip-calculated-offset), 50%);
 
 			.sand-custom-text({

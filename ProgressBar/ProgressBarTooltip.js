@@ -40,7 +40,7 @@ const memoizedPercentFormatter = memoize((/* locale */) => new NumFmt({
 	useNative: false
 }));
 
-const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'before';
+const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'after';
 
 // Returns an array of keywords with horizontal first and vertical second
 const getSide = (orientation, position) => {
@@ -75,7 +75,7 @@ const getSide = (orientation, position) => {
 				return [position, 'above'];
 			default:
 				// invalid values for horizontal so use defaults
-				return ['before', 'auto'];
+				return ['after', 'auto'];
 		}
 	} else {
 		switch (position) {

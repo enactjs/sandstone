@@ -511,6 +511,10 @@
 @sand-progressbar-radial-thickness: 9px;
 @sand-progressbar-anchor-width: 6px;
 @sand-progressbar-anchor-height: 48px;
+@sand-progressbar-tooltip-above-offset: 30px;
+@sand-progressbar-tooltip-below-offset: (@sand-progressbar-tooltip-above-offset + @sand-progressbar-bar-thickness);
+@sand-progressbar-tooltip-before-offset: @sand-progressbar-tooltip-below-offset;
+@sand-progressbar-tooltip-after-offset: @sand-progressbar-tooltip-above-offset;
 
 // ProgressButton
 // ---------------------------------------
@@ -607,7 +611,8 @@
 // Tooltip
 // ---------------------------------------
 @sand-tooltip-font-weight: normal;
-@sand-tooltip-offset: 18px;
+@sand-tooltip-offset: 24px;
+@sand-tooltip-arrow-offset: 0px;
 @sand-tooltip-point-width: 18px;
 @sand-tooltip-point-height: 15px;
 @sand-tooltip-border-width: 1px;
@@ -615,7 +620,7 @@
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: 15px 48px;
 @sand-tooltip-margin-gap: 24px;
-@sand-tooltip-margin-offset: (@sand-tooltip-margin-gap + @sand-tooltip-offset);
+@sand-tooltip-margin-offset: @sand-tooltip-point-width;
 @sand-tooltip-below-padding: 15px 48px 18px;
 
 // Video
