@@ -30,7 +30,6 @@
 		}
 	}
 
-	&.radial,
 	&.horizontal {
 		left: var(--tooltip-progress-percent);
 
@@ -75,7 +74,6 @@
 		}
 	}
 
-	&.radial,
 	&.vertical {
 		bottom: var(--tooltip-progress-percent);
 
@@ -115,16 +113,40 @@
 			});
 
 			&.center {
-				left: 50%
+				left: 50%;
+			}
+		}
+
+		&.center {
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
 			}
 		}
 
 		.before({
-			left: 0;
+			left: -@sand-progressbar-tooltip-radial-offset;
+
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
 		});
 
 		.after({
-			left: 100%;
+			left: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
 		});
 	}
 }
