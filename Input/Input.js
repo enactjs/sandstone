@@ -154,7 +154,7 @@ const InputPopupBase = kind({
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'numbertext', 'password', 'number', 'passwordnumber']),
 
 		/**
 		 * Value of the input.
@@ -264,7 +264,7 @@ const InputPopupBase = kind({
 								{...inputProps}
 								size={size}
 								autoFocus
-								type={type}
+								type={(type === 'numbertext') ? 'number' : 'text'}
 								defaultValue={value}
 								placeholder={placeholder}
 								onChange={onChange}
@@ -324,7 +324,7 @@ const InputBase = kind({
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'numbertext', 'password', 'number', 'passwordnumber']),
 
 		/**
 		 * Value of the input.

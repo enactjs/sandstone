@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/WizardPanels` props `current` and `total`
 - `sandstone/WizardPanels` prop `onBack` to allow developers to handle back button presses
 - `sandstone/WizardPanels` support for animating changes to title and subtitle
+- `sandstone/Input` `numbertext` type for support number VKB
 
 ### Changed
 
