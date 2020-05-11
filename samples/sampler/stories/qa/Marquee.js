@@ -56,7 +56,6 @@ const MarqueeI18nSamples = I18nContextDecorator({updateLocaleProp: 'updateLocale
 	)
 }));
 
-// eslint-disable-next-line enact/prop-types
 const CustomItemBase = ({children, ...rest}) => (
 	<div {...rest} style={{display: 'flex', width: 300, alignItems: 'center'}}>
 		<Icon>flag</Icon>

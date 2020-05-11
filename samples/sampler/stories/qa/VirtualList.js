@@ -35,7 +35,7 @@ const
 		true: true,
 		'&quot;noAnimation&quot;': 'noAnimation'
 	},
-	// eslint-disable-next-line enact/prop-types, enact/display-name
+	// eslint-disable-next-line enact/prop-types
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
 		const style = vertical ?
 			{margin: 0} :
@@ -137,7 +137,6 @@ const InPanels = ({className, title, ...rest}) => {
 	);
 };
 
-// eslint-disable-next-line enact/prop-types
 class VirtualListWithCBScrollTo extends React.Component {
 	static propTypes = {
 		dataSize: PropTypes.number

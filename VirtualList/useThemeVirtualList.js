@@ -103,8 +103,7 @@ const useSpottable = (props, instances) => {
 
 	useEffect(() => {
 		return () => {
-			// TODO: Fix eslint
-			pause.resume(); // eslint-disable-line react-hooks/exhaustive
+			pause.resume();
 			SpotlightAccelerator.reset();
 
 			setContainerDisabled(false);
@@ -392,7 +391,6 @@ const useThemeVirtualList = (props) => {
 	};
 };
 
-/* eslint-disable enact/prop-types */
 function listItemsRenderer (props) {
 	const {
 		cc,
