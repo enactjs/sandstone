@@ -8,6 +8,7 @@ import {storiesOf} from '@storybook/react';
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
+import ri from '@enact/ui/resolution';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -109,7 +110,7 @@ storiesOf('Dropdown', module)
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
 					size={select('size', ['small', 'large'], Config)}
-					style={{position: 'absolute', bottom: '2rem'}}
+					style={{position: 'absolute', bottom: ri.scale(96)}}
 					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
