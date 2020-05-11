@@ -264,7 +264,7 @@ const InputPopupBase = kind({
 								{...inputProps}
 								size={size}
 								autoFocus
-								type={(type === 'numbertext') ? 'number' : 'text'}
+								type={(type === 'numbertext') ? 'number' : type}
 								defaultValue={value}
 								placeholder={placeholder}
 								onChange={onChange}
