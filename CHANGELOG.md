@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/TabLayout` support for `horizontal` orientation
 - `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
 - `sandstone/MediaPlayer` submodule which provides `MediaControls`, `MediaSlider`, and `Times` components for use in custom media player components.
 - `sandstone/WizardPanels` props `current` and `total`
