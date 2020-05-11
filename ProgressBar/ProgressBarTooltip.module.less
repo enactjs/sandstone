@@ -36,18 +36,6 @@
 		&.above {
 			bottom: @sand-progressbar-tooltip-above-offset;
 
-			&.center {
-				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			}
-
-			.before({
-				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			});
-
-			.after({
-				transform: translateX(-100%) translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			});
-
 			.sand-custom-text({
 				bottom: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
 			});
@@ -55,18 +43,6 @@
 
 		&.below {
 			top: @sand-progressbar-tooltip-below-offset;
-
-			&.center {
-				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			}
-
-			.before({
-				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			});
-
-			.after({
-				transform: translateX(-100%) translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			});
 
 			.sand-custom-text({
 				top: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
@@ -80,7 +56,6 @@
 		// Left side
 		.before({
 			right: @sand-progressbar-tooltip-before-offset;
-			transform: translate(~"calc(var(--tooltip-calculated-offset) * -1)", 50%);
 
 			.sand-custom-text({
 				transform: translate(~"calc(var(--tooltip-calculated-offset) * -1 - " @offset-large ~")", 50%);
@@ -90,7 +65,6 @@
 		// Right side
 		.after({
 			left: @sand-progressbar-tooltip-after-offset;
-			transform: translate(var(--tooltip-calculated-offset), 50%);
 
 			.sand-custom-text({
 				transform: translate(~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")", 50%);
