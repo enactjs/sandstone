@@ -109,8 +109,8 @@ storiesOf('Dropdown', module)
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
 					size={select('size', ['small', 'large'], Config)}
+					style={{position: 'absolute', bottom: '2rem'}}
 					title={text('title', Config, 'Dropdown')}
-					style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items(5)}
