@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import {mount} from 'enzyme';
+import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import {ContextualPopupDecorator} from '../ContextualPopupDecorator';
 import Button from '../../Button';
 
@@ -34,35 +36,43 @@ describe('ContextualPopupDecorator Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	// Sort of low-quality test, but otherwise we'd need to set up the FloatingLayerDecorator
-	test('should open FloatingLayer if open is set', () => {
-		const contextualButton = mount(
-			<ContextualButton
-				open
-				popupComponent={Button}
-			>
-				Hello
-			</ContextualButton>
+	test('should render component into FloatingLayer if open', () => {
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+
+		const subject = mount(
+			<Root>
+				<ContextualButton
+					open
+					popupComponent={() => <div>{message}</div>}
+				>
+					Hello
+				</ContextualButton>
+			</Root>
 		);
 
-		const expected = true;
-		const actual = contextualButton.find('FloatingLayer').prop('open');
+		const expected = message;
+		const actual = subject.find('FloatingLayer').text();
 
 		expect(actual).toBe(expected);
 	});
 
-	// Sort of low-quality test, but otherwise we'd need to set up the FloatingLayerDecorator
-	test('should not open FloatingLayer if open is not set', () => {
-		const contextualButton = mount(
-			<ContextualButton
-				popupComponent={Button}
-			>
-				Hello
-			</ContextualButton>
+	test('should not render into FloatingLayer if not open', () => {
+		const Root = FloatingLayerDecorator('div');
+		const message = 'goodbye';
+
+		const subject = mount(
+			<Root>
+				<ContextualButton
+					popupComponent={() => <div>{message}</div>}
+				>
+					Hello
+				</ContextualButton>
+			</Root>
 		);
 
-		const expected = false;
-		const actual = contextualButton.find('FloatingLayer').prop('open');
+		const expected = '';
+		const actual = subject.find('FloatingLayer').text();
 
 		expect(actual).toBe(expected);
 	});
