@@ -16,8 +16,9 @@ import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator} from '../internal/Panels';
 import Steps from '../Steps';
 
+import useFocusOnTransition from './useFocusOnTransition';
+
 import css from './WizardPanels.module.less';
-import Spotlight from '@enact/spotlight';
 
 const WizardPanelsContext = React.createContext(null);
 
@@ -250,24 +251,12 @@ const WizardPanelsBase = kind({
 				onChange({index: prevIndex});
 			}
 		},
-		onTransition: (ev, {'data-spotlight-id': spotlightId, index, onTransition}) => {
-			// This should move to the decorator because it introduces side effects within kind. 
-			const current = Spotlight.getCurrent();
-			if (spotlightId && !current) {
-				Spotlight.focus(spotlightId);
-			}
-
+		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
 				onTransition({index});
 			}
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
-			// This should move to the decorator because it introduces side effects within kind. 
-			const current = Spotlight.getCurrent();
-			if (!Spotlight.getPointerMode() && current) {
-				current.blur();
-			}
-
 			if (onWillTransition) {
 				onWillTransition({index});
 			}
@@ -321,6 +310,7 @@ const WizardPanelsBase = kind({
 			<PanelBase
 				{...rest}
 				autoFocus="default-element"
+				css={css}
 				header={
 					<Header
 						arranger={noAnimation ? null : CrossFadeArranger}
@@ -377,7 +367,7 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.bottom} component="footer" shrink>
+					<Cell component="footer" shrink>
 						<div className={css.buttonContainer}>
 							{/* This should probably use portals */}
 							{buttons}
@@ -417,9 +407,11 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelsRouter = (Wrapped) => {
-	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
+	const WizardPanelsProvider = ({children, 'data-spotlight-id': spotlightId, index, onTransition, onWillTransition, title, ...rest}) => {
 		const [view, setView] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
+		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+
 		const totalPanels = React.Children.count(children);
 		const currentTitle = view && view.title ? view.title : title;
 		// eslint-disable-next-line enact/prop-types
@@ -431,6 +423,8 @@ const WizardPanelsRouter = (Wrapped) => {
 				<Wrapped
 					{...rest}
 					{...view}
+					{...transition}
+					data-spotlight-id={spotlightId}
 					index={index}
 					title={currentTitle}
 					totalPanels={totalPanels}
@@ -448,6 +442,14 @@ const WizardPanelsRouter = (Wrapped) => {
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
 		/**
+		* The spotlight id for the panel
+		*
+		* @type {String}
+		* @private
+		*/
+		'data-spotlight-id': PropTypes.string,
+
+		/**
 		* The currently selected step.
 		*
 		* @type {Number}
@@ -455,6 +457,22 @@ const WizardPanelsRouter = (Wrapped) => {
 		* @private
 		*/
 		index: PropTypes.number,
+
+		/**
+		* Called when a transition completes
+		*
+		* @type {Function}
+		* @private
+		*/
+		onTransition: PropTypes.func,
+
+		/**
+		* Called when a transition begins
+		*
+		* @type {Function}
+		* @private
+		*/
+		onWillTransition: PropTypes.func,
 
 		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
@@ -492,7 +510,7 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel content or buttons
-		defaultElement: [`.${css.content} *`, `.${css.bottom} *`],
+		defaultElement: [`.${css.body} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
 	WizardPanelsRouter,
