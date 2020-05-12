@@ -33,8 +33,12 @@ function useFocusOnTransition (config) {
 
 	React.useEffect(() => {
 		if (complete) {
+			// FIXME: onTransition fires while the departing view still exists so focusing the Panel
+			// will generally result in focusing a component in the deparating view because it is
+			// first in DOM order.
+			//
+			// Deferring a tick allows that view to be removed but this is not an ideal solution.
 			timer.id = setTimeout(() => {
-				// This should move to the decorator because it introduces side effects within kind.
 				const current = Spotlight.getCurrent();
 				if (config.spotlightId && !current) {
 					Spotlight.focus(config.spotlightId);
