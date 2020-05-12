@@ -40,7 +40,7 @@
 @sand-spotlight-color:                @sand-accent;
 @sand-spotlight-shadow-color:         fade(@sand-black, 30%);
 @sand-spotlight-resting-shadow:       0 0 0 @sand-spotlight-shadow-color;
-@sand-spotlight-focus-shadow:         0 42px 24px @sand-spotlight-shadow-color;
+@sand-spotlight-focus-shadow:         0 36px 18px @sand-spotlight-shadow-color;
 
 
 // ---------------------------------------
@@ -111,10 +111,6 @@
 // ---------------------------------------
 @sand-formcheckboxitem-focus-text-color: @sand-white;
 
-// Header
-// ---------------------------------------
-@sand-header-compact-border-color: #8d9298;
-
 // Heading
 // ---------------------------------------
 @sand-heading-text-color: @sand-text-color;
@@ -166,9 +162,14 @@
 @sand-mediaoverlay-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-mediaoverlay-caption-color: @sand-light-gray;
 @sand-mediaoverlay-focus-bg-color: @sand-spotlight-bg-color;
-@sand-mediaoverlay-focus-bg-shadow: 0 42px 24px @sand-spotlight-shadow-color;
+@sand-mediaoverlay-focus-bg-shadow: 0 36px 18px @sand-spotlight-shadow-color;
 @sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
 @sand-mediaoverlay-subtitle-color: @sand-gray;
+
+// MediaPlayer
+// ---------------------------------------
+@sand-mediaplayer-slider-knob-color: @sand-white;
+@sand-mediaplayer-slider-tooltip-text-shadow: @sand-overlay-text-shadow;
 
 // Picker
 // ---------------------------------------
@@ -286,6 +287,8 @@
 // TabLayout
 // ---------------------------------------
 @sand-tablayout-tab-selected-bg-color: @sand-button-bg-color;
+@sand-tablayout-tab-horizontal-border-color: fade(@sand-light-gray, 50%);
+@sand-tablayout-tab-horizontal-selected-border-color: @sand-light-gray;
 
 // Tooltip
 // ---------------------------------------
@@ -299,11 +302,9 @@
 @sand-video-feedback-mini-bg-color: fade(#4b4b4b, 70%);
 @sand-video-feedback-mini-text-color: @sand-white;
 @sand-video-slider-tooltip-thumbnail-border-color: @sand-light-gray;
-@sand-video-player-indicator-text-color: @sand-white;
 @sand-video-player-bottom-bg-color: transparent;
 @sand-video-player-redicon-bg-color: transparent;
 @sand-video-player-redicon-text-color: #fe4a4b;
-@sand-video-player-slider-knob-color: @sand-white;
 @sand-video-player-title-color: @sand-white;
 @sand-video-player-title-text-shadow: @sand-overlay-text-shadow;
 @sand-video-player-high-contrast-scrim-gradient-color: initial;

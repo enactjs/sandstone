@@ -9,6 +9,8 @@ import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
+import css from './VirtualGridList.module.less';
+
 const
 	wrapOption = {
 		false: false,
@@ -35,7 +37,6 @@ const
 				{...rest}
 				label={subText}
 				src={source}
-				style={{margin: 0}}
 			>
 				{text}
 			</ImageItem>
@@ -76,20 +77,25 @@ storiesOf('Sandstone', module)
 		'VirtualList.VirtualGridList',
 		() => (
 			<VirtualGridList
+				className={
+					select('direction', prop.direction, VirtualGridListConfig) === 'vertical' ?
+						css.verticalPadding :
+						css.horizontalPadding
+				}
 				dataSize={updateDataSize(number('dataSize', VirtualGridListConfig, defaultDataSize))}
 				direction={select('direction', prop.direction, VirtualGridListConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', 688)),
-					minHeight: ri.scale(number('minHeight', 570))
+					minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
+					minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
-				spacing={ri.scale(number('spacing', 24))}
+				spacing={ri.scale(number('spacing', VirtualGridListConfig, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}

@@ -296,3 +296,11 @@
 	font-weight: @sand-button-small-font-weight;
 	.font-kerning;
 }
+
+// Uses Webkit specific styles to have multi-line ellipsis
+.sand-multi-line-ellipsis(@lines) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: @lines;
+	-webkit-box-orient: vertical;
+}

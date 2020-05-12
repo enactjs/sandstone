@@ -1,9 +1,9 @@
 import React from 'react';
-// VideoPlayer utils.js
+// MediaPlayer utils.js
 //
 
 /**
- * Create a time object (hour, minute, second) from an amount of seconds
+ * Create a time object (hour, minute, second) from an amount of seconds.
  *
  * @param  {Number|String} value A duration of time represented in seconds
  *
@@ -24,7 +24,7 @@ const parseTime = (value) => {
 };
 
 /**
- * Generate a time usable by <time datetime />
+ * Generate a time usable by <time datetime />.
  *
  * @param  {Number|String} seconds A duration of time represented in seconds
  *
@@ -36,16 +36,17 @@ const secondsToPeriod = (seconds) => {
 };
 
 /**
- * Make a human-readable time
+ * Formats a duration in seconds into a human-readable time.
  *
+ * @type {Function}
  * @param  {Number|String} seconds A duration of time represented in seconds
- * @param {DurationFmt} durfmt An instance of a {@link i18n/ilib/lib/DurationFmt.DurationFmt} object
- *                             from iLib confugured to display time used by the {@Link VideoPlayer}
- *                             component.
- * @param  {Object} config Additional configuration object that includes `includeHour`.
+ * @param  {DurationFmt}   durfmt  An instance of a `ilib.DurationFmt` object from iLib configured
+ *                                 to display time
+ * @param  {Object}        config  Additional configuration object that includes `includeHour`
  *
- * @returns {String}      Formatted duration string
- * @private
+ * @returns {String} Formatted duration string
+ * @memberof sandstone/MediaPlayer
+ * @public
  */
 const secondsToTime = (seconds, durfmt, config) => {
 	const includeHour = config && config.includeHour;
@@ -65,16 +66,6 @@ const secondsToTime = (seconds, durfmt, config) => {
 };
 
 /**
- * Calculates numeric value of playback rate (with support for fractions).
- *
- * @private
- */
-const calcNumberValueOfPlaybackRate = (rate) => {
-	const pbArray = String(rate).split('/');
-	return (pbArray.length > 1) ? parseInt(pbArray[0]) / parseInt(pbArray[1]) : parseInt(rate);
-};
-
-/**
  * Safely count the children nodes and exclude null & undefined values for an accurate count of
  * real children
  *
@@ -85,7 +76,6 @@ const calcNumberValueOfPlaybackRate = (rate) => {
 const countReactChildren = (children) => React.Children.toArray(children).filter(n => n != null).length;
 
 export {
-	calcNumberValueOfPlaybackRate,
 	countReactChildren,
 	parseTime,
 	secondsToPeriod,

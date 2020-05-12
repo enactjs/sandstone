@@ -36,7 +36,6 @@ const
 				{...rest}
 				label={subText}
 				src={source}
-				style={{margin: 0}}
 			>
 				{text}
 			</ImageItem>
@@ -92,7 +91,6 @@ class MyVirtualList extends React.Component {
 			<Item
 				{...rest}
 				onClick={() => this.closePopup(index)}
-				style={{margin: 0}}
 			>
 				{itemList[index]}
 			</Item>
@@ -182,7 +180,8 @@ storiesOf('VirtualGridList', module)
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, 24))}
+				spacing={ri.scale(number('spacing', Config, 0))}
+				style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
