@@ -6,10 +6,10 @@ import Button from '../../Button';
 const ContextualButton = ContextualPopupDecorator(Button);
 describe('ContextualPopupDecorator Specs', () => {
 	test('should bind callback to instance', () => {
-		const callback = jest.fn();
+		let called = false;
 		class CallbackInterceptor {
 			get containerNode () {
-				return callback();
+				called = true;
 			}
 		}
 
@@ -23,8 +23,8 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		Reflect.apply(subject.instance().positionContextualPopup, new CallbackInterceptor(), []);
 
-		const expected = 0;
-		const actual = callback.mock.calls.length;
+		const expected = false;
+		const actual = called;
 
 		expect(actual).toBe(expected);
 	});
