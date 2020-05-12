@@ -7,9 +7,12 @@ const ContextualButton = ContextualPopupDecorator(Button);
 describe('ContextualPopupDecorator Specs', () => {
 	test('should bind callback to instance', () => {
 		let called = false;
+		// Create a context with a prop on it we can use to detect access to this prop inside the
+		// instance method.
 		class CallbackInterceptor {
 			get containerNode () {
 				called = true;
+				return null;
 			}
 		}
 
@@ -21,6 +24,8 @@ describe('ContextualPopupDecorator Specs', () => {
 			</ContextualButton>
 		);
 
+		// Call `positionContextualPopup` setting `this` to our interceptor.  Bound function should
+		// ignore the value of `this` we pass in.  If not, it will access `containerNode` above.
 		Reflect.apply(subject.instance().positionContextualPopup, new CallbackInterceptor(), []);
 
 		const expected = false;
