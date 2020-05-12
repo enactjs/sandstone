@@ -57,7 +57,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  * @ui
  * @public
  */
-const Panel = (props) => <DefaultPanel {...props} css={css} />;
+const Panel = (props) => (<DefaultPanel {...props} css={css} />);
 
 /**
  * A shortcut to access {@link sandstone/FixedPopupPanels.Panel}
@@ -78,7 +78,7 @@ FixedPopupPanels.Panel = Panel;
  * @ui
  * @public
  */
-const Header = (props) => <DefaultHeader type="compact" {...props} css={css} />;
+const Header = (props) => (<DefaultHeader type="compact" {...props} css={css} />);
 // Relay the defaultSlot property to our version of Header
 Header.defaultSlot = DefaultHeader.defaultSlot;
 
