@@ -2,7 +2,13 @@
 @import "../styles/variables.less";
 
 .fixedPopupPanels {
-	width: @sand-fixedpopuppanels-width;
+	&.narrow {
+		width: @sand-fixedpopuppanels-width;
+	}
+
+	&.half {
+		width: @sand-fixedpopuppanels-half-width;
+	}
 
 	> .body {
 		padding: 0;

@@ -12,10 +12,8 @@ import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/u
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import {Item as ThemeItem} from '@enact/sandstone/Item';
+import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
-
-const Item = ({style, ...rest}) => (<ThemeItem {...rest} style={{margin: 0, ...style}} />);
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 

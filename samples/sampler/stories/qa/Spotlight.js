@@ -239,7 +239,12 @@ class PopupFocusTest extends React.Component {
 					scrimType={scrimType}
 					spotlightRestrict={spotlightRestrict}
 				>
-					<div>This is a Popup</div>
+					<Row>
+						<Cell align="center">This is a Popup</Cell>
+						<Cell shrink>
+							<Button icon="closex" onClick={this.handleClosePopup} size="small" />
+						</Cell>
+					</Row>
 				</Popup>
 			</div>
 		);

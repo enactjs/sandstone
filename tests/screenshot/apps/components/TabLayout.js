@@ -90,6 +90,14 @@ const TabLayoutTests = [
 	{
 		component: <TabLayout collapsed>{tabsWithIconsDisabled}</TabLayout>,
 		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout orientation="horizontal">{tabs}</TabLayout>,
+		wrapper: {full: true}
+	},
+	{
+		component: <TabLayout orientation="horizontal" selected={3}>{tabs}</TabLayout>,
+		wrapper: {full: true}
 	}
 ];
 export default TabLayoutTests;
