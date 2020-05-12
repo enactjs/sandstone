@@ -33,4 +33,37 @@ describe('ContextualPopupDecorator Specs', () => {
 
 		expect(actual).toBe(expected);
 	});
+
+	// Sort of low-quality test, but otherwise we'd need to set up the FloatingLayerDecorator
+	test('should open FloatingLayer if open is set', () => {
+		const contextualButton = mount(
+			<ContextualButton
+				open
+				popupComponent={Button}
+			>
+				Hello
+			</ContextualButton>
+		);
+
+		const expected = true;
+		const actual = contextualButton.find('FloatingLayer').prop('open');
+
+		expect(actual).toBe(expected);
+	});
+
+	// Sort of low-quality test, but otherwise we'd need to set up the FloatingLayerDecorator
+	test('should not open FloatingLayer if open is not set', () => {
+		const contextualButton = mount(
+			<ContextualButton
+				popupComponent={Button}
+			>
+				Hello
+			</ContextualButton>
+		);
+
+		const expected = false;
+		const actual = contextualButton.find('FloatingLayer').prop('open');
+
+		expect(actual).toBe(expected);
+	});
 });
