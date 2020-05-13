@@ -6,9 +6,6 @@
 .tooltip {
 	--tooltip-progress-proportion: 0;
 	--tooltip-progress-percent: ~"calc(var(--tooltip-progress-proportion) * 100%)";
-	--tooltip-calculated-offset: ~"var(--sand-tooltip-offset, 0px)";
-
-	@offset-large: 0;
 
 	.tooltipLabel {
 		.sand-font-number();
@@ -30,73 +27,29 @@
 		}
 	}
 
-	&.radial,
 	&.horizontal {
 		left: var(--tooltip-progress-percent);
 
 		&.above {
-			top: 0;
-
-			&.center {
-				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			}
-
-			.before({
-				transform: translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			});
-
-			.after({
-				transform: translateX(-100%) translateY(~"calc(-100% - var(--tooltip-calculated-offset))");
-			});
-
-			.sand-custom-text({
-				bottom: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
-			});
+			bottom: @sand-progressbar-tooltip-above-offset;
 		}
 
 		&.below {
-			bottom: 0;
-
-			&.center {
-				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			}
-
-			.before({
-				transform: translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			});
-
-			.after({
-				transform: translateX(-100%) translateY(~"calc(100% + var(--tooltip-calculated-offset))");
-			});
-
-			.sand-custom-text({
-				top: ~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")";
-			});
+			top: @sand-progressbar-tooltip-below-offset;
 		}
 	}
 
-	&.radial,
 	&.vertical {
 		bottom: var(--tooltip-progress-percent);
 
 		// Left side
 		.before({
-			right: 0;
-			transform: translate(~"calc(var(--tooltip-calculated-offset) * -1)", 50%);
-
-			.sand-custom-text({
-				transform: translate(~"calc(var(--tooltip-calculated-offset) * -1 - " @offset-large ~")", 50%);
-			});
+			right: @sand-progressbar-tooltip-before-offset;
 		});
 
 		// Right side
 		.after({
-			right: auto;
-			transform: translate(var(--tooltip-calculated-offset), 50%);
-
-			.sand-custom-text({
-				transform: translate(~"calc(var(--tooltip-calculated-offset) + " @offset-large ~")", 50%);
-			});
+			left: @sand-progressbar-tooltip-after-offset;
 		});
 	}
 
@@ -115,16 +68,40 @@
 			});
 
 			&.center {
-				left: 50%
+				left: 50%;
+			}
+		}
+
+		&.center {
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
 			}
 		}
 
 		.before({
-			left: 0;
+			left: -@sand-progressbar-tooltip-radial-offset;
+
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
 		});
 
 		.after({
-			left: 100%;
+			left: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+
+			&.above {
+				bottom: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
+
+			&.below {
+				top: ~"calc(100% + " @sand-progressbar-tooltip-radial-offset ~")";
+			}
 		});
 	}
 }

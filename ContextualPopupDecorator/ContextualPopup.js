@@ -1,3 +1,4 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -100,10 +101,10 @@ const ContextualPopupBase = kind({
 		/**
 		 * Called with the reference to the container node.
 		 *
-		 * @type {Function}
+		 * @type {Object|Function}
 		 * @public
 		 */
-		containerRef: PropTypes.func,
+		containerRef: EnactPropTypes.ref,
 
 		/**
 		 * Direction of ContextualPopup.
