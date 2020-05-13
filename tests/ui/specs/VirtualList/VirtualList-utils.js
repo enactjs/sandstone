@@ -20,6 +20,22 @@ function waitUntilFocused (itemNum) {
 	}, 1500, `timed out waiting to focus index ${itemNum}`);
 }
 
+function fiveWayToItem (Page, itemNum) {
+	const currentFocusMatch = focusedElement().match(/item(\d+)/);
+	expect(currentFocusMatch, 'Not focused to an item').to.exist();
+	const currentItem = Number.parseInt(currentFocusMatch[1]),
+		direction = currentItem < itemNum ? 1 : -1;
+
+	for (let i = currentItem; i !== itemNum; i = i + direction) {
+		if (direction > 0) {
+			Page.spotlightDown();
+		} else {
+			Page.spotlightUp();
+		}
+		waitUntilFocused(i + direction);
+	}
+}
+
 function isScrolling () {
 	return $('#scrolling').getText() === 'Scrolling';
 }
@@ -42,3 +58,4 @@ exports.expectFocusedItem = expectFocusedItem;
 exports.expectNoFocusedItem = expectNoFocusedItem;
 exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;
+exports.fiveWayToItem = fiveWayToItem;
