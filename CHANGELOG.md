@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
