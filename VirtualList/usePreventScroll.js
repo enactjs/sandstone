@@ -2,13 +2,11 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useEffect} from 'react';
 
 const usePreventScroll = (props, instances) => {
-	const {scrollMode} = props;
-	const {scrollContentRef} = instances;
-
 	// Hooks
 
 	useEffect(() => {
-		const {rtl} = props;
+		const {rtl, scrollMode} = props;
+		const {scrollContentRef} = instances;
 		const scrollContentNode = scrollContentRef.current;
 
 		if (scrollMode === 'translate' && scrollContentNode) {
@@ -24,7 +22,7 @@ const usePreventScroll = (props, instances) => {
 				utilEvent('scroll').removeEventListener(scrollContentNode, preventScroll);
 			};
 		}
-	}, [props, scrollMode]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [props, instances]);
 };
 
 export default usePreventScroll;
