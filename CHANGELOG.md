@@ -4,13 +4,56 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
-
-- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the initially hidden height of the vertical scrollbar when `featureContent` prop in the panel set to true
-
 ### Fixed
 
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
+
+## [1.0.0-beta.3] - 2020-05-11
+
+### Removed
+
+- `sandstone/VideoPlayer.MediaControls` component. Use `sandstone/MediaPlayer.MediaControls` instead.
+
+### Added
+
+- `sandstone/FixedPopupPanels` `width` prop, which now includes "half" to support larger content
+- `sandstone/MediaPlayer` submodule which provides `MediaControls`, `MediaSlider`, and `Times` components for use in custom media player components
+- `sandstone/TabLayout` support for `horizontal` orientation
+- `sandstone/WizardPanels` props `current` and `total` to configure the `Steps` component directly when the number of `Panel` instances do not match the number of steps
+- `sandstone/WizardPanels` prop `onBack` to allow developers to handle back button presses
+- `sandstone/WizardPanels` support for animating changes to title and subtitle
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to adjust padding area
+- `sandstone/Scroller` and `sandstone/VirtualList` clickable scrollbar area
+- `sandstone/WizardPanels` to automatically handle back key when `noPrevButton` is not set
+- `sandstone/WizardPanels` to support multi-line subtitles
+
+### Fixed
+
+- `sandstone/Panels.Header` to match latest designs
+
+## [1.0.0-beta.2] - 2020-05-04
+
+### Deprecated
+
+- `sandstone/Panels.WizardPanel` and `sandstone/Panels.View`, replaced with `sandstone/WizardPanels` and `sandstone/WizardPanels.Panel` respectively
+- `sandstone/Panels.FlexiblePopupPanels`, replaced with `sandstone/FlexiblePopupPanels`
+- `sandstone/Panels.FixedPopupPanels`, replaced with `sandstone/FixedPopupPanels`
+
+### Added
+
+- `sandstone/WizardPanels` props `nextButtonAriaLabel`, `prevButtonAriaLabel`, `noNextButton`, `noPrevButton`, and `noSteps`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight` to provide the height of the vertical scrollbar when the `featureContent` prop in the panel is set to true
+- `sandstone/Input.InputPopup` component
+
+### Fixed
+
+- `sandstone/Header` centering
+- `sandstone/Input.InputField` disabled colors
+- `sandstone/WizardPanels` to hide previous and next buttons appropriately
+- `sandstone/TabLayout` to support disabled tabs
 
 ## [1.0.0-beta.1] - 2020-04-27
 
@@ -39,6 +82,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/BodyText` font weight
+- `sandstone/BodyText` line-wrap and `noWrap` capabilities
 - `sandstone/DatePicker` and `sandstone/TimePicker` to match current designs
 - `sandstone/Dropdown` to focus on selected option
 - `sandstone/Picker` horizontal joined height in large text mode

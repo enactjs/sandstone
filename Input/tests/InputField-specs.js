@@ -38,6 +38,44 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should forward an event with a stopPropagation method from onChange handler', () => {
+		const handleChange = jest.fn();
+		const evt = {
+			stopPropagation: jest.fn()
+		};
+
+		const subject = mount(
+			<InputField onChange={handleChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = true;
+		const actual = typeof handleChange.mock.calls[0][0].stopPropagation === 'function';
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not bubble the native event when stopPropagation from onChange is called', () => {
+		const handleChange = jest.fn();
+		function stop (ev) {
+			ev.stopPropagation();
+		}
+
+		const subject = mount(
+			<div onChange={handleChange}>
+				<InputField onChange={stop} />
+			</div>
+		);
+
+		subject.find('input').simulate('change', {});
+
+		const expected = 0;
+		const actual = handleChange;
+
+		expect(actual).toHaveBeenCalledTimes(expected);
+	});
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const node = document.body.appendChild(document.createElement('div'));
 		const handleChange = jest.fn();
@@ -49,7 +87,7 @@ describe('InputField Specs', () => {
 		const input = subject.find('input');
 
 		input.simulate('mouseDown');
-		input.simulate('keyUp', {which: 13, keyCode: 13, code:13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
 		node.remove();
 
 		const expected = 1;

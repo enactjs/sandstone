@@ -5,8 +5,11 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
+import {unit} from '@enact/ui/resolution';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -14,11 +17,10 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import Skinnable from '../Skinnable';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {PanelsStateContext} from './Viewport';
+import {PanelsStateContext} from '../internal/Panels';
 
 import componentCss from './Header.module.less';
 
@@ -33,6 +35,8 @@ const isBackButton = ({target: node}) => node && node.classList.contains(compone
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
 const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
 const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
+
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
 
 // Hides the back button when 5-way navigation when in pointer mode and the target would not be the
 // back button.
@@ -71,6 +75,16 @@ const HeaderBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
+		/**
+		 * The animation arranger used to transition title and subtitle changes.
+		 *
+		 * Only supported when `type="wizard"`.
+		 *
+		 * @type {ui/ViewManager.Arranger}
+		 * @private
+		 */
+		arranger: shape,
+
 		/**
 		 * Sets the hint string read when focusing the back button.
 		 *
@@ -288,6 +302,18 @@ const HeaderBase = kind({
 		slotAfter: PropTypes.node,
 
 		/**
+		 * The method which receives the reference node to the slotAfter element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotAfterRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
 		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
 		 * to the right in RTL locales
 		 *
@@ -305,6 +331,27 @@ const HeaderBase = kind({
 		 * @public
 		 */
 		slotBefore: PropTypes.node,
+
+		/**
+		 * The method which receives the reference node to the slotBefore element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotBeforeRef: PropTypes.oneOfType([
+			PropTypes.func,
+			PropTypes.shape({current: PropTypes.any})
+		]),
+
+		/**
+		 * The size for slotBefore and slotAfter.
+		 * This size is set by HeaderMeasurementDecorator for consistent title centering.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotSize: PropTypes.string,
 
 		/**
 		 * Text displayed below the title.
@@ -355,7 +402,7 @@ const HeaderBase = kind({
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'dense'|'mini'|'standard')}
+		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
 		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
@@ -399,13 +446,13 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, slotAbove, type, styler}) => styler.append(
+		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
 				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
-				withChildren: (Boolean(children) || Boolean(slotAbove))
+				withChildren: hasChildren(children)
 			},
 			type
 		),
@@ -416,8 +463,56 @@ const HeaderBase = kind({
 		noCloseButton: preferPropOverContext('noCloseButton'),
 		onBack: preferPropOverContext('onBack'),
 		onClose: preferPropOverContext('onClose'),
-		direction: ({title, subtitle}) => isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr',
-		line: ({css, type}) => ((type === 'compact') && <Cell shrink component="hr" className={css.line} />)
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
+			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
+
+			const titleHeading = (
+				<Heading
+					aria-label={title}
+					size="title"
+					spacing="auto"
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.title}
+				>
+					{title}
+				</Heading>
+			);
+
+			const subtitleHeading = (
+				<Heading
+					size="subtitle"
+					spacing="auto"
+					marqueeDisabled={type === 'wizard'}
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.subtitle}
+				>
+					{subtitle}
+				</Heading>
+			);
+
+			// WizardPanels uses an animated title but that isn't supported for other types
+			if (arranger && type === 'wizard') {
+				return (
+					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
+						<div className={css.titleContainer} key={title + subtitle}>
+							{titleHeading}
+							{subtitleHeading}
+						</div>
+					</Cell>
+				);
+			}
+
+			return (
+				<Cell className={css.titleCell}>
+					{titleHeading}
+					{subtitleHeading}
+				</Cell>
+			);
+		}
 	},
 
 	render: ({
@@ -429,27 +524,30 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		direction,
 		hover,
-		line,
-		marqueeOn,
 		noBackButton,
 		noCloseButton,
 		onBack,
 		onClose,
 		slotAbove,
 		slotAfter,
+		slotAfterRef,
 		slotBefore,
-		subtitle,
-		title,
+		slotBeforeRef,
+		slotSize,
+		titleCell,
 		titleRef,
-		type,
 		...rest
 	}) => {
-		delete rest.featureContent;
+		delete rest.arranger;
 		delete rest.entering;
+		delete rest.featureContent;
+		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
+		delete rest.subtitle;
+		delete rest.title;
+		delete rest.type;
 
 		// Set up the back button
 		const backButton = (backButtonAvailable && !noBackButton ? (
@@ -478,46 +576,28 @@ const HeaderBase = kind({
 			/>
 		) : null);
 
-		// In wizard type, if one slot is filled, automatically include the other to keep the title balanced.
-		// DEV NOTE: Currently, the width of these is not synced, but can/should be in a future update.
-		const bothBeforeAndAfter = (type === 'wizard' && (slotAfter || slotBefore));
+		// Only provide the synced cell size if the title should be centered, beyond that case,
+		// the cell sizes don't need to be synced.
+		const syncCellSize = (centered ? slotSize : null);
 
+		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
 				<Row className={css.titlesRow} align="center" ref={titleRef}>
-					{(bothBeforeAndAfter || slotBefore || backButton) ? (
-						<Cell shrink className={css.slotBefore}>{backButton}{slotBefore}</Cell>
-					) : null}
-					<Cell className={css.titleCell}>
-						<Heading
-							aria-label={title}
-							size="title"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.title}
-						>
-							{title}
-						</Heading>
-						<Heading
-							size="subtitle"
-							spacing="auto"
-							marqueeOn={marqueeOn}
-							forceDirection={direction}
-							alignment={centered ? 'center' : null}
-							className={css.subtitle}
-						>
-							{subtitle}
-						</Heading>
+					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotBeforeRef} className={css.slotSizer}>
+							{backButton}{slotBefore}
+						</span>
 					</Cell>
-					{(bothBeforeAndAfter || slotAfter || closeButton) ? (
-						<Cell shrink className={css.slotAfter}>{slotAfter}{closeButton}</Cell>
-					) : null}
+					{titleCell}
+					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotAfterRef} className={css.slotSizer}>
+							{slotAfter}{closeButton}
+						</span>
+					</Cell>
 				</Row>
-				{children ? <nav className={css.slotBelow}>{children}</nav> : null}
-				{line}
+				{hasChildren(children) ? <nav className={css.slotBelow}>{children}</nav> : null}
 			</header>
 		);
 	}
@@ -530,10 +610,40 @@ const CollapsingHeaderDecorator = (Wrapped) => {
 	};
 };
 
+const HeaderMeasurementDecorator = (Wrapped) => {
+	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
+		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
+
+		// If the slot width has changed, re-run this.
+		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {
+			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
+
+			// And only do this the largest slot is a different value this time around.
+			if (slotSize !== largestSlotSize) {
+				setSlotSize({
+					slotSize: largestSlotSize,
+					prevSlotBeforeWidth: slotBeforeWidth,
+					prevSlotAfterWidth: slotAfterWidth
+				});
+			}
+		}
+
+		const measurableProps = {
+			slotBeforeRef,
+			slotAfterRef,
+			slotSize: unit(slotSize, 'rem')
+		};
+
+		return <Wrapped {...props} {...measurableProps} />;
+	};
+};
+
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	Skinnable,
 	CollapsingHeaderDecorator,
+	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );

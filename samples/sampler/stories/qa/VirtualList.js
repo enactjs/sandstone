@@ -17,6 +17,8 @@ import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
+import css from './VirtualList.module.less';
+
 const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 const
@@ -39,9 +41,7 @@ const
 	},
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
-		const style = vertical ?
-			{margin: 0} :
-			{margin: 0, height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
+		const style = vertical ? {} : {height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
 
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
@@ -189,6 +189,7 @@ storiesOf('VirtualList', module)
 		'horizontal scroll in Scroller',
 		() => {
 			const listProps = {
+				className: css.horizontalPadding,
 				dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 				direction: 'horizontal',
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
@@ -207,7 +208,7 @@ storiesOf('VirtualList', module)
 			};
 
 			return (
-				<Scroller >
+				<Scroller className={css.verticalPadding}>
 					<VirtualList {...listProps} key="1" />
 					<VirtualList {...listProps} key="2" />
 					<VirtualList {...listProps} key="3" />
@@ -347,9 +348,9 @@ storiesOf('VirtualList', module)
 						verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 						wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 					/>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item1</Cell>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item2</Cell>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item3</Cell>
+					<Cell shrink component={Item}>extra item1</Cell>
+					<Cell shrink component={Item}>extra item2</Cell>
+					<Cell shrink component={Item}>extra item3</Cell>
 				</Column>
 			);
 		},

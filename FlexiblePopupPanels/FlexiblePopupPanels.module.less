@@ -1,0 +1,44 @@
+@import "../styles/skin.less";
+@import "../styles/variables.less";
+
+.flexiblePopupPanels {
+	width: @sand-flexiblepopuppanels-width;
+	margin-top: @sand-flexiblepopuppanels-margin-top;
+
+	> .body {
+		position: relative;
+		pointer-events: none;
+		padding: 0;
+	}
+
+	// Skin colors
+	.applySkins({
+		background-color: transparent;
+	});
+}
+
+// Overrides for Panel
+.panel {
+	padding: 0;
+	display: inline-flex;
+	pointer-events: none;
+
+	> * {
+		pointer-events: auto;
+	}
+
+	> .body {
+		margin: @sand-flexiblepopuppanels-panel-margin;
+		padding: @sand-flexiblepopuppanels-panel-padding;
+		align-self: start;  // Allow this node to horizontally shrink to fit the content.
+		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
+	}
+
+	.applySkins({
+		> .body {
+			background-color: @sand-flexiblepopuppanels-panel-bg-color;
+			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
+			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
+		}
+	});
+}

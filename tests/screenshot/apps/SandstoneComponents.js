@@ -10,6 +10,7 @@ import ContextualMenuDecorator from './components/ContextualMenuDecorator';
 import ContextualPopupDecorator from './components/ContextualPopupDecorator';
 import DatePicker from './components/DatePicker';
 import Dropdown from './components/Dropdown';
+import FixedPopupPanels from './components/FixedPopupPanels';
 import FlexiblePopupPanels from './components/FlexiblePopupPanels';
 import FormCheckboxItem from './components/FormCheckboxItem';
 import Header from './components/Header';
@@ -37,7 +38,7 @@ import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
-import WizardPanel from './components/WizardPanel';
+import WizardPanels from './components/WizardPanels';
 
 const components = {
 	ActionGuide,
@@ -49,6 +50,7 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
+	FixedPopupPanels,
 	FlexiblePopupPanels,
 	FormCheckboxItem,
 	Header,
@@ -81,7 +83,7 @@ const components = {
 	// TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList,
-	WizardPanel
+	WizardPanels
 };
 
 const testMetadata = {};
