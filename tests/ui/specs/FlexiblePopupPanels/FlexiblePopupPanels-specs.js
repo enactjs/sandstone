@@ -37,9 +37,9 @@ describe('FlexiblePopupPanels', function () {
 				Interface.openButton.click();
 			});
 
-			Interface.waitForEnter(1);
+			Interface.waitForPanelBody(1);
 			Interface.nextButton.click();
-			Interface.waitForEnter(2);
+			Interface.waitForPanelBody(2);
 			Interface.prevButton.click();
 			Interface.waitForEnter(1);
 		});

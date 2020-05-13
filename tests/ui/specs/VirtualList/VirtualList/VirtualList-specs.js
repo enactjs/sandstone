@@ -1,5 +1,5 @@
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, fiveWayToItem, waitForScrollStartStop, waitUntilFocused} = require('../VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop} = require('../VirtualList-utils');
 
 describe('VirtualList', function () {
 
@@ -33,7 +33,7 @@ describe('VirtualList', function () {
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
-			fiveWayToItem(Page, 17);
+			Page.fiveWayToItem(17);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
 			waitForScrollStartStop();
 			Page.delay(100);
@@ -49,7 +49,7 @@ describe('VirtualList', function () {
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
 			expectFocusedItem(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
-			fiveWayToItem(Page, 7);
+			Page.fiveWayToItem(7);
 			waitForScrollStartStop();
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(7, 'step 8 focus');
@@ -84,7 +84,7 @@ describe('VirtualList', function () {
 			// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
 			Page.spotlightDown();
-			fiveWayToItem(Page, 99);
+			Page.fiveWayToItem(99);
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
 			// Verify Step 7: Spotlight is on the last item.
@@ -142,10 +142,10 @@ describe('VirtualList', function () {
 			Page.delay(1000);
 			expectFocusedItem(12, 'focus Item 12');
 			// Step 8. 5-way Down several times to scroll down the list.
-			fiveWayToItem(Page, 30);
+			Page.fiveWayToItem(30);
 			expectFocusedItem(30, 'focus Item 30');
 			// Step 9. 5-way Spot the last item.
-			fiveWayToItem(Page, 99);
+			Page.fiveWayToItem(99);
 			// Verify Step 9: 1. Spotlight displays on the last item.
 			Page.delay(1000);
 			expectFocusedItem(99, 'focus Item 99');
@@ -153,7 +153,7 @@ describe('VirtualList', function () {
 			Page.delay(2000);
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			fiveWayToItem(Page, 0);
+			Page.fiveWayToItem(0);
 			// Verify Step 11: Spotlight displays on the first item.
 			Page.delay(2000);
 			expectFocusedItem(0, 'focus Item 0');
@@ -189,7 +189,7 @@ describe('VirtualList', function () {
 			// Verify Step 5: 2. The Spotted item is placed above the item on the Bottom.
 			expectFocusedItem(Number((bottomId.slice(4))), 'focus bottomId');
 			// Step 6: 5-way Up to the first item ('*Item 000*').
-			fiveWayToItem(Page, 0);
+			Page.fiveWayToItem(0);
 			// Verify Step 6:  1. The list Scroll Down. 2. The Spotted item is placed on the Top.
 			expectFocusedItem(Number((Page.topVisibleItemId().slice(4))), 'focus Item 00');
 			expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
@@ -260,7 +260,7 @@ describe('VirtualList', function () {
 				Page.spotlightLeft();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 2');
-				fiveWayToItem(Page, 99);
+				Page.fiveWayToItem(99);
 				expectFocusedItem(99, 'focus 3');
 				Page.spotlightDown();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('3');
@@ -283,7 +283,7 @@ describe('VirtualList', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				fiveWayToItem(Page, 99);
+				Page.fiveWayToItem(99);
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
@@ -306,7 +306,7 @@ describe('VirtualList', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				fiveWayToItem(Page, 99);
+				Page.fiveWayToItem(99);
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
