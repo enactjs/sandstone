@@ -1,62 +1,64 @@
 import Alert, {AlertImage}  from '../../../../Alert';
 import Button from '../../../../Button';
 import React from 'react';
-import {withConfig, withProps} from './utils';
 
-const baseTests = [
-	<Alert open>Alert!</Alert>,
+import img from '../../images/300x300.png';
+
+import {withConfig, withProps, LoremString} from './utils';
+
+
+// Only type: 'fullscreen' supports title and subtitle props
+const fullscreenTests = [
 	<Alert open title="Title" />,
 	<Alert open title="Title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nunc dolor." />,
 	<Alert open title="Title" subtitle="Subtitle" />,
 	<Alert open title="Title Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nunc dolor." subtitle="Subtitle Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nunc dolor." />
 ];
 
+// Only type: 'overlay; supports children
+const overlayTests = [
+	<Alert open>Alert!</Alert>,
+	<Alert open>{LoremString}</Alert>
+];
+
 const dropIn = {
 	image: (
 		<AlertImage
-			src="https://via.placeholder.com/240.png?text=image"
+			src={img}
 			type="thumbnail"
 		/>
 	),
 	oneButton: (
-		<React.Fragment>
-			<buttons>
-				<Button>Yes</Button>
-			</buttons>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nunc dolor.
-		</React.Fragment>
+		<Button>Yes</Button>
 	),
-	twoButtons: (
-		<React.Fragment>
-			<buttons>
-				<Button>Yes</Button>
-				<Button>No</Button>
-			</buttons>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ut nunc dolor.
-		</React.Fragment>
-	)
+	// we need an array here rather than a fragment due to the impl of Alert that maps over the
+	// array of buttons and wraps them with Cell.
+	twoButtons: [
+		<Button key="yes">Yes</Button>,
+		<Button key="no">No</Button>
+	]
 };
 
 const LtrTests = [
 	// Initial
-	...withProps({type: 'fullscreen'}, baseTests),
-	...withProps({type: 'overlay'}, baseTests),
+	...withProps({type: 'fullscreen'}, fullscreenTests),
+	...withProps({type: 'overlay'}, overlayTests),
 
 	// With Buttons
-	...withProps({type: 'fullscreen', children: dropIn.oneButton}, baseTests),
-	...withProps({type: 'fullscreen', children: dropIn.twoButtons}, baseTests),
-	...withProps({type: 'overlay', children: dropIn.oneButton}, baseTests),
-	...withProps({type: 'overlay', children: dropIn.twoButtons}, baseTests),
+	...withProps({type: 'fullscreen', buttons: dropIn.oneButton}, fullscreenTests),
+	...withProps({type: 'fullscreen', buttons: dropIn.twoButtons}, fullscreenTests),
+	...withProps({type: 'overlay', buttons: dropIn.oneButton}, overlayTests),
+	...withProps({type: 'overlay', buttons: dropIn.twoButtons}, overlayTests),
 
 	// With image
-	...withProps({type: 'fullscreen', image: dropIn.image}, baseTests),
-	...withProps({type: 'overlay', image: dropIn.image}, baseTests),
+	...withProps({type: 'fullscreen', image: dropIn.image}, fullscreenTests),
+	...withProps({type: 'overlay', image: dropIn.image}, overlayTests),
 
 	// With image and button
-	...withProps({type: 'fullscreen', children: dropIn.oneButton, image: dropIn.image}, baseTests),
-	...withProps({type: 'fullscreen', children: dropIn.twoButtons, image: dropIn.image}, baseTests),
-	...withProps({type: 'overlay', children: dropIn.oneButton, image: dropIn.image}, baseTests),
-	...withProps({type: 'overlay', children: dropIn.twoButtons, image: dropIn.image}, baseTests)
+	...withProps({type: 'fullscreen', buttons: dropIn.oneButton, image: dropIn.image}, fullscreenTests),
+	...withProps({type: 'fullscreen', buttons: dropIn.twoButtons, image: dropIn.image}, fullscreenTests),
+	...withProps({type: 'overlay', buttons: dropIn.oneButton, image: dropIn.image}, overlayTests),
+	...withProps({type: 'overlay', buttons: dropIn.twoButtons, image: dropIn.image}, overlayTests)
 ];
 
 const AlertTests = [
