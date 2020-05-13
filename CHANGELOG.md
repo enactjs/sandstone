@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Tooltip` style to match latest designs
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
