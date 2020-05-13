@@ -383,11 +383,11 @@ const useThemeVirtualList = (props) => {
 				...itemsRendererProps,
 				handlePlaceholderFocus: handlePlaceholderFocus,
 				needsScrollingPlaceholder,
-				role,
 				SpotlightPlaceholder
-			});
+			})
 		},
 		onUpdateItems: handleRestoreLastFocus,
+		role,
 		updateStatesAndBounds: updateStatesAndBounds
 	};
 };
@@ -399,15 +399,12 @@ function listItemsRenderer (props) {
 		handlePlaceholderFocus,
 		needsScrollingPlaceholder,
 		primary,
-		role,
 		SpotlightPlaceholder // eslint-disable-line no-shadow
 	} = props;
 
 	return (
 		<>
-			{cc.length ? (
-				<div role={role}>{cc}</div>
-			) : null}
+			{cc.length ? cc : null}
 			{primary ? null : (
 				<SpotlightPlaceholder
 					data-index={0}
