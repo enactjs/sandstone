@@ -378,11 +378,11 @@ const useThemeVirtualList = (props) => {
 				index
 			})
 		),
-		itemsRenderer: (itemsRendererProps) => {
-			return listItemsRenderer({
-				...itemsRendererProps,
+		placeholderRenderer: (primary) => {
+			return placeholderRenderer({
 				handlePlaceholderFocus: handlePlaceholderFocus,
 				needsScrollingPlaceholder,
+				primary,
 				SpotlightPlaceholder
 			})
 		},
@@ -392,10 +392,8 @@ const useThemeVirtualList = (props) => {
 	};
 };
 
-/* eslint-disable enact/prop-types */
-function listItemsRenderer (props) {
+function placeholderRenderer (props) {
 	const {
-		cc,
 		handlePlaceholderFocus,
 		needsScrollingPlaceholder,
 		primary,
@@ -404,7 +402,6 @@ function listItemsRenderer (props) {
 
 	return (
 		<>
-			{cc.length ? cc : null}
 			{primary ? null : (
 				<SpotlightPlaceholder
 					data-index={0}
