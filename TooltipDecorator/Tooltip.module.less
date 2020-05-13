@@ -6,12 +6,10 @@
 
 .tail (@edge, @point) {
 	background-image:
-		linear-gradient(to @edge, @sand-tooltip-border-color @sand-tooltip-border-width, transparent @sand-tooltip-border-width), // Edge line
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50%)", transparent ~"calc(50%)"); // Diagonal line + fill
+		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
 }
 .centerTail (@edge, @point) {
-	background-image:
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50%)", transparent ~"calc(50%)"); // Diagonal line + fill
+	.tail (@edge, @point);
 }
 
 .tooltip {
@@ -24,7 +22,7 @@
 
 	.tooltipArrow {
 		position: absolute;
-		width: @sand-tooltip-point-width + 1px;
+		width: @sand-tooltip-point-width;
 		height: @sand-tooltip-point-height;
 		z-index: 1;
 	}
@@ -32,7 +30,7 @@
 	&.leftArrow {
 		.tooltipArrow {
 			width: @sand-tooltip-point-height;
-			height: @sand-tooltip-point-width + 1px;
+			height: @sand-tooltip-point-width;
 		}
 	}
 	&.centerArrow,
@@ -46,20 +44,20 @@
 	}
 	&.centerArrow .tooltipArrow {
 		width: @sand-tooltip-point-height;
-		height: @sand-tooltip-point-width + 1px;
+		height: @sand-tooltip-point-width;
 		left: 50%;
 
 		&::after {
-			right: @sand-tooltip-point-height - 1px;
+			right: ~"calc(" @sand-tooltip-point-height ~"- 0.5px)";
 		}
 	}
 	&.middleArrow .tooltipArrow {
-		width: @sand-tooltip-point-width + 1px;
+		width: @sand-tooltip-point-width;
 		height: @sand-tooltip-point-height;
 		top: 50%;
 
 		&::after {
-			bottom: 93%;
+			bottom: 100%;
 			left: 0;
 		}
 	}
@@ -165,7 +163,7 @@
 		}
 
 		.tooltipLabel {
-			margin-right: @sand-tooltip-margin-offset;
+			margin-right: ~"calc(" @sand-tooltip-margin-offset ~"- 1px)";
 		}
 
 		&.topArrow {
@@ -378,7 +376,6 @@
 		.tooltipLabel {
 			color: @sand-tooltip-text-color;
 			background-color: @sand-tooltip-bg-color;
-			border: @sand-tooltip-border-width solid @sand-tooltip-border-color;
 		}
 	});
 }
