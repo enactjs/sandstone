@@ -335,7 +335,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
-	delete rest.children;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -362,12 +361,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 		className,
 		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
-	);
-
-	rest.children = (
-		<div className={css.contentWrapper}>
-			{scrollContentProps.children}
-		</div>
 	);
 
 	return {focusableBodyProps, themeScrollContentProps: rest};
