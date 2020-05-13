@@ -228,6 +228,30 @@ describe('VirtualList', function () {
 			expectFocusedItem(0, 'focus Item 00');  // to double check it is really top item
 		});
 
+		it('should Spotlight with Pointer wave [GT-28476]', function () {
+			// Step 3-1: Position the pointer on 'item 004'.
+			// Step 3-2: 5-way Spot 'Item 004'(while leaving the pointer on 'item 004').
+			$('#item4').moveTo();
+			Page.spotlightSelect();
+			// Verify Step 3: Position the pointer on 'item 004'.
+			expectFocusedItem(4, 'focus Item 004');
+			// Step 4-1: 5-way Down to 'Item 007'.
+			Page.spotlightDown();
+			Page.spotlightDown();
+			Page.spotlightDown();
+			expectFocusedItem(7, 'focus Item 007');
+			// Step 4-2: Wave the pointer.
+			// Verify Step 4-1: Spotlight hides from 'Item 007'.
+			// Verify Step 4-2: Spotlight displays on the item at the pointer's location.
+			$('#item3').moveTo();
+			expectFocusedItem(3, 'focus Item 03');
+			$('#item1').moveTo();
+			expectFocusedItem(1, 'focus Item 01');
+			$('#item5').moveTo();
+			expectFocusedItem(5, 'focus Item 05');
+
+		});
+
 		describe('onKeyDown event behavior [GT-28490]', function () {
 			/*
 			it('should prevent bubbling while navigating within a list', function () {
