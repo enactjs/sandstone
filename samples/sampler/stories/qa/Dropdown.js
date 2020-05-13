@@ -110,7 +110,6 @@ storiesOf('Dropdown', module)
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
 					size={select('size', ['small', 'large'], Config)}
-					style={{position: 'absolute', bottom: ri.scaleToRem(96)}}
 					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
