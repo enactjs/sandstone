@@ -6,8 +6,11 @@ import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import Repeater from '@enact/ui/Repeater';
 import Layout, {Cell} from '@enact/ui/Layout';
+import Tooltip from '../TooltipDecorator/Tooltip';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 
 import Icon from '../Icon';
+import $L from '../internal/$L';
 
 import Keypad from './Keypad';
 import {convertToPasswordFormat} from './util';
@@ -60,6 +63,7 @@ const NumberFieldBase = kind({
 	propTypes: {
 		length: PropTypes.number,
 		onComplete: PropTypes.func,
+		rtl: PropTypes.bool,
 		showKeypad: PropTypes.bool,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -98,17 +102,30 @@ const NumberFieldBase = kind({
 	},
 
 	computed: {
-		className: ({length, type, styler}) => styler.append(type, (length <= SEPARATE_DIGITS_LIMIT ? 'separated' : 'combined')),
+		className: ({length, type, noSeparatedNumberField, styler}) => styler.append(type, noSeparatedNumberField ? 'combined' : (length <= SEPARATE_DIGITS_LIMIT ? 'separated' : 'combined')),
 		// Normalize the value, also prune out any non-digit characters
-		value: normalizeValueProp
+		value: normalizeValueProp,
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+			if (invalid && invalidMessage) {
+				const direction = rtl ? 'left' : 'right';
+				return (
+					<Tooltip arrowAnchor="top" className={css.invalidTooltip} direction={direction}>
+						{invalidMessage}
+					</Tooltip>
+				);
+			}
+		}
 	},
 
-	render: ({length, showKeypad, onAdd, onRemove, type, value, ...rest}) => {
+	render: ({length, showKeypad, onAdd, onRemove, type, value, noSeparatedNumberField, invalidTooltip, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.onComplete;
+		delete rest.invalid;
+		delete rest.invalidMessage;
+		delete rest.rtl;
 
 		let field;
-		if (length <= SEPARATE_DIGITS_LIMIT) {
+		if (!noSeparatedNumberField && length <= SEPARATE_DIGITS_LIMIT) {
 			const values = value.split('');
 			const items = new Array(length).fill('');
 			field = (
@@ -135,6 +152,7 @@ const NumberFieldBase = kind({
 		return (
 			<React.Fragment>
 				{field}
+				{invalidTooltip}
 				<br />
 				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
 			</React.Fragment>
@@ -143,7 +161,8 @@ const NumberFieldBase = kind({
 });
 
 const NumberFieldDecorator = compose(
-	Changeable
+	Changeable,
+	I18nContextDecorator({rtlProp: 'rtl'}),
 );
 
 const NumberField = NumberFieldDecorator(NumberFieldBase);

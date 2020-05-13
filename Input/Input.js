@@ -51,6 +51,23 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Indicates value is invalid and shows invalidMessage, if set.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		invalid: PropTypes.bool,
+
+		/**
+		 * The tooltip text to be displayed when the input is invalid.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		invalidMessage: PropTypes.string,
+
+		/**
 		 * Set the length of number input field.
 		 *
 		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
@@ -62,6 +79,14 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		length: PropTypes.number,
+
+		/**
+		 * Set the number input field in combined
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noSeparatedNumberField: PropTypes.bool,
 
 		/**
 		 * Called when the input value is changed.
@@ -154,7 +179,7 @@ const InputPopupBase = kind({
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'numbertext', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
 		/**
 		 * Value of the input.
@@ -166,6 +191,7 @@ const InputPopupBase = kind({
 	},
 
 	defaultProps: {
+		invalid: false,
 		length: 4,
 		popupType: 'fullscreen',
 		size: 'large',
@@ -212,7 +238,10 @@ const InputPopupBase = kind({
 		children,
 		css,
 		disabled,
+		invalid,
+		invalidMessage,
 		length,
+		noSeparatedNumberField,
 		onChange,
 		onClose,
 		onNumberComplete,
@@ -259,16 +288,21 @@ const InputPopupBase = kind({
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
+								noSeparatedNumberField={noSeparatedNumberField}
+								invalid={invalid}
+								invalidMessage={invalidMessage}
 							/> :
 							<InputField
 								{...inputProps}
 								size={size}
 								autoFocus
-								type={(type === 'numbertext') ? 'number' : type}
+								type={type}
 								defaultValue={value}
 								placeholder={placeholder}
 								onChange={onChange}
 								onKeyDown={onInputKeyDown}
+								invalid={invalid}
+								invalidMessage={invalidMessage}
 							/>
 						}
 					</Cell>
@@ -324,7 +358,7 @@ const InputBase = kind({
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.oneOf(['text', 'numbertext', 'password', 'number', 'passwordnumber']),
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
 		/**
 		 * Value of the input.

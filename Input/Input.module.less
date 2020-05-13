@@ -2,6 +2,7 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
+@import "../styles/variables.less";
 
 .popup {
 	.numberField,
@@ -35,6 +36,19 @@
 
 		&:not(.password) {
 			font-family: @sand-input-number-font-family;
+		}
+	}
+
+	.invalidTooltip {
+		left: 100%;
+		right: 0;
+		transform: translate(100%, -100%) translateX(@sand-inputfield-tooltip-offset);
+		pointer-events: none;
+
+		:global(.enact-locale-right-to-left) & {
+			left: 0;
+			right: auto;
+			transform: translate(-100%, -100%) translateX(-@sand-inputfield-tooltip-offset);
 		}
 	}
 
@@ -76,6 +90,15 @@
 		.inputArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
+		}
+
+		.invalidTooltip {
+			top: @sand-input-fullscreen-numberfield-height / 2;
+			transform: translate(100%, -100%) translateX(@sand-inputfield-tooltip-offset - @sand-input-fullscreen-numberfield-tooltip-margin);
+
+			:global(.enact-locale-right-to-left) & {
+				transform: translate(-100%, -100%) translateX(-@sand-inputfield-tooltip-offset + @sand-input-fullscreen-numberfield-tooltip-margin);
+			}
 		}
 	}
 
@@ -121,6 +144,10 @@
 		.inputArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
+		}
+
+		.invalidTooltip {
+			top: @sand-input-overlay-numberfield-height / 2;
 		}
 	}
 
