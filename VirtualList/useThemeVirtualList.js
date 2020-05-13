@@ -103,6 +103,7 @@ const useSpottable = (props, instances) => {
 
 	useEffect(() => {
 		return () => {
+			console.log('VirtualList: useThemeVirtualList: useEffect1: componentWillRecieveProps: pause, SpotlightAccelerator.reset');
 			// TODO: Fix eslint
 			pause.resume(); // eslint-disable-line react-hooks/exhaustive
 			SpotlightAccelerator.reset();
@@ -342,6 +343,7 @@ const useThemeVirtualList = (props) => {
 		shouldPreventScrollByFocus
 	};
 	useEffect(() => {
+		console.log('VirtualList: useThemeVirtualList: useEffect1: componentDidMount & componentDidUpdate : setThemeScrollContentHandle');
 		props.setThemeScrollContentHandle(handle);
 	}, [handle, props]);
 

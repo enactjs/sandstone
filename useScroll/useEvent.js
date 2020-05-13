@@ -338,6 +338,7 @@ const useEventMonitor = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log('useScroll: useEvent: useEffect1: componentDidUpdate : setMonitorEventTarget');
 		const setMonitorEventTarget = (target) => {
 			scrollers.set(mutableRef.current.pageKeyHandlerObj, target);
 		};
@@ -349,6 +350,7 @@ const useEventMonitor = (props, instances, context) => {
 		setMonitorEventTarget(scrollContainerRef.current);
 
 		return () => {
+			console.log('useScroll: useEvent: useEffect1: componentWillReceiveProps : deleteMonitorEventTarget');
 			// TODO: Replace `this` to something.
 			deleteMonitorEventTarget();
 		};

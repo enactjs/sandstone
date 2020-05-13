@@ -9,6 +9,7 @@ const useSpotlightRestore = (props, instances) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log('useScroll: useSpotlight: useEffect1: componentDidMount: restoreScrollPosition()');
 		// Only intended to be used within componentDidMount, this method will fetch the last stored
 		// scroll position from SharedState and scroll (without animation) to that position
 		function restoreScrollPosition () {

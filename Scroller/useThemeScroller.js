@@ -122,10 +122,14 @@ const useSpottable = (props, instances) => {
 	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	useEffect(() => {
-		return () => setContainerDisabled(false);
+		return () => {
+			console.log('useThemeScroller: useSpottable: useEffect1: componentWillReceiveProps: setContainerDisabled(false)');
+			return setContainerDisabled(false);
+		}
 	}, [setContainerDisabled]);
 
 	useEffect(() => {
+		console.log('useThemeScroller: useSpottable: useEffect2: componentDidMount & componentDidUpdate: onUpdate()');
 		const {onUpdate} = props;
 
 		if (onUpdate) {
@@ -349,6 +353,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
 
 	useEffect(() => {
+		console.log('useThemeScroller: useEffect1: componentDidUpdate: setThemeScrollContentHandle');
 		scrollContentProps.setThemeScrollContentHandle({
 			calculatePositionOnFocus,
 			focusOnNode,

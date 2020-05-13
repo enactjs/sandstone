@@ -33,12 +33,15 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div';
 
 	useEffect (() => {
+		console.log('ScrollbarTrack: useEffect1: componentDidMount & componentDidUpdate : cbAlertScrollbarTrack()');
 		cbAlertScrollbarTrack();
 	});
 
 	useEffect (() => {
+		console.log('ScrollbarTrack: useEffect2: componentDidMount : SpotlightAccelerator.reset');
 		SpotlightAccelerator.reset();
 		return () => {
+			console.log('ScrollbarTrack: useEffect2: componentWillUnMount : SpotlightAccelerator.reset');
 			SpotlightAccelerator.reset();
 		};
 	}, []);

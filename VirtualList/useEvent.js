@@ -102,6 +102,7 @@ const useEventKey = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log('VirtualList: useEvent: useEventKey: useEffect1: componentDidMount & componentDidUpdate : key addeventlisteners');
 		const {scrollContainerRef, scrollContentHandle} = instances;
 		const {
 			handle5WayKeyUp,
@@ -199,6 +200,7 @@ const useEventKey = (props, instances, context) => {
 		utilEvent('keyup').addEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 
 		return () => {
+			console.log('VirtualList: useEvent: useEventKey: useEffect1: componentWillReceiveProps : key removeeventlisteners');
 			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 		};
@@ -228,6 +230,7 @@ const useEventFocus = (props, instances) => {
 	const {scrollContainerRef, scrollContentHandle} = instances;
 
 	useEffect(() => {
+		console.log('VirtualList: useEvent: useEventFocus: useEffect1: componentDidMount & componentDidUpdate : focusin/out addeventlisteners');
 		function handleFocus (ev) {
 			// only for VirtualGridList
 			// To make the focused item cover other near items
@@ -249,6 +252,7 @@ const useEventFocus = (props, instances) => {
 		utilEvent('focusout').addEventListener(scrollContainerRef, handleBlur);
 
 		return () => {
+			console.log('VirtualList: useEvent: useEventFocus: useEffect1: componentWillReceiveProps : focusin/out removeeventlisteners');
 			utilEvent('focusin').removeEventListener(scrollContainerRef, handleFocus);
 			utilEvent('focusout').removeEventListener(scrollContainerRef, handleBlur);
 		};

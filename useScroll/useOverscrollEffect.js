@@ -47,6 +47,7 @@ const useOverscrollEffect = (props, instances) => {
 	}, [scrollContentRef, scrollContentWrapperRef]);
 
 	useEffect(() => {
+		console.log('useScroll: useOverscrollEffect: useEffect1: componentDidUpdate : createOverscrollJob');
 		function createOverscrollJob (orientation, edge) {
 			if (!mutableRef.current.overscrollJobs[orientation][edge]) {
 				mutableRef.current.overscrollJobs[orientation][edge] = new Job(applyOverscrollEffect, overscrollTimeout);
@@ -67,6 +68,7 @@ const useOverscrollEffect = (props, instances) => {
 		createOverscrollJob('vertical', 'after');
 
 		return () => {
+			console.log('useScroll: useOverscrollEffect: useEffect1: componentWillReceiveProps : stopOverscrollJob');
 			stopOverscrollJob('horizontal', 'before');
 			stopOverscrollJob('horizontal', 'after');
 			stopOverscrollJob('vertical', 'before');

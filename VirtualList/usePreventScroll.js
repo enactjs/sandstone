@@ -5,6 +5,7 @@ const usePreventScroll = (props, instances) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log('VirtualList: usePreventScroll: useEffect1: componentDidMount & componentDidUpdate : preventScroll addeventlistener');
 		const {rtl, scrollMode} = props;
 		const {scrollContentRef} = instances;
 		const scrollContentNode = scrollContentRef.current;
@@ -18,6 +19,7 @@ const usePreventScroll = (props, instances) => {
 			utilEvent('scroll').addEventListener(scrollContentNode, preventScroll);
 
 			return () => {
+				console.log('VirtualList: usePreventScroll: useEffect1: componentWillReceiveProps : preventScroll removeeventlistener');
 				// remove a function for preventing native scrolling by Spotlight
 				utilEvent('scroll').removeEventListener(scrollContentNode, preventScroll);
 			};

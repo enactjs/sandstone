@@ -6,6 +6,7 @@ const useSpotlightConfig = (props, instances) => {
 	// Hooks
 
 	useEffect(() => {
+		console.log('VirtualList: useSpotlight: useSpotlightConfig: useEffect1: componentDidMount & componentDidUpdate : configureSpotlight');
 		const {spottable: {current: {lastFocusedIndex}}} = instances;
 
 		const lastFocusedPersist = () => {
@@ -107,6 +108,7 @@ const useSpotlightRestore = (props, instances, context) => {
 	}
 
 	function restoreFocus () {
+		console.log('VirtualList: useSpotlightRestore: useEffect1: componentDidMount & componentDidUpdate : restoreFocus');
 		if (
 			mutableRef.current.restoreLastFocused &&
 			!isPlaceholderFocused()

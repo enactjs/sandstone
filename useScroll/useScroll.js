@@ -82,6 +82,7 @@ const useThemeScroll = (props, instances) => {
 
 	// Before restoring spotlight position, alert useScrollPosition
 	useEffect(() => {
+		console.log('useScroll: useThemeScroll: componentDidMount: scrollPositionContext.onScroll');
 		// On mount, send initial position, empty dependency to prevent re-running
 		if (scrollPositionContext && scrollPositionContext.onScroll) {
 			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
