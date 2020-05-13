@@ -1,14 +1,12 @@
 // VirtualGridList.module.less
 //
+
+@import '~@enact/sandstone/styles/mixins.less';
+
 .verticalPadding {
-    :not(:global(.enact-locale-right-to-left)) & {	
-        padding-right: 36px;
-    }	
-    :global(.enact-locale-right-to-left) & {	
-        padding-left: 36px;
-    }
+	.padding-start-end(0, 36px);
 }
 
 .horizontalPadding {
-    padding-bottom: 36px;
+	padding-bottom: 36px;
 }
