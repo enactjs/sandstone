@@ -106,7 +106,11 @@ const NumberFieldBase = kind({
 	},
 
 	computed: {
-		className: ({length, type, noSeparatedNumberField, styler}) => styler.append(type, noSeparatedNumberField ? 'combined' : (length <= SEPARATE_DIGITS_LIMIT ? 'separated' : 'combined')), /*eslint no-nested-ternary: "error"*/
+		className: ({length, type, noSeparatedNumberField, styler}) => {
+			let numberFieldStyle = 'separated';
+			if (noSeparatedNumberField || length > SEPARATE_DIGITS_LIMIT) numberFieldStyle = 'combined';
+			return styler.append(type, numberFieldStyle);
+		},
 		// Normalize the value, also prune out any non-digit characters
 		value: normalizeValueProp,
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
