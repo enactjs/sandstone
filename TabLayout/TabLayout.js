@@ -211,7 +211,7 @@ const TabLayoutBase = kind({
 			// transitions (max-width or flex-basis)
 			forEventProp('propertyName', 'max-width'),
 			adaptEvent(
-				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed}),
+				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
 		)
