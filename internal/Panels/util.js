@@ -22,7 +22,7 @@ const assignIfDefined = (k, target, source) => (defined(source[k]) && (target[k]
 
 // Accepts an object, returning only the keys that were defined
 const filterEmpty = (source) => {
-	return Object.keys(source).reduce(
+	return Object.keys(source || {}).reduce(
 		(o, k) => {
 			assignIfDefined(k, o, source);
 			return o;
@@ -50,14 +50,25 @@ const deleteSharedProps = (props) => {
 	});
 };
 
-function useContextAsDefaultProps (props) {
-	const ctx = React.useContext(PanelsStateContext);
+function useContextAsDefaults (props, extraContext) {
+	const ctx = filterEmpty(React.useContext(PanelsStateContext));
 
-	const incomingShared = filterEmpty(getSharedProps(props));
-	// Add shared props to context
-	Object.assign(ctx, incomingShared);
+	const incomingShared = filterEmpty({...getSharedProps(props), ...extraContext});
 
-	return filterEmpty(ctx);
+	const newCtx = {...ctx, ...incomingShared};
+
+	const provideContextAsDefaults = React.useCallback((children) => {
+		return (
+			<PanelsStateContext.Provider value={newCtx}>
+				{children}
+			</PanelsStateContext.Provider>
+		);
+	}, [newCtx]);
+
+	return {
+		props: {...newCtx, ...filterEmpty(props)},
+		provideContextAsDefaults
+	};
 }
 
 const defaultConfig = {
@@ -67,38 +78,26 @@ const defaultConfig = {
 	include: null
 };
 
-//
-//
-//
-// I need to relay a new context out through each usage, without hard coding hierarchic levels
-//
-//
-//
-
-
-
-
-const AddContext = hoc(defaultConfig, (config, Wrapped) => {
+const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function AddContext (props) {
-		const ctx = getSharedProps(props);
+	return function ContextAsDefaults (props) {
+		const sharedProps = getSharedProps(props);
 
 		if (config.include && config.include.forEach) {
-			config.include.forEach( p => assignIfDefined(p, ctx, props) );
+			config.include.forEach( p => assignIfDefined(p, sharedProps, props) );
 		}
 
-		// console.log('ContextAsDefaultProps ctx:', ctx);
-		return (
-			<PanelsStateContext.Provider value={ctx}>
-				<Wrapped {...props} />
-			</PanelsStateContext.Provider>
+		const {props: cdp, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
+
+		return provideContextAsDefaults(
+			<Wrapped {...cdp} />
 		);
 	};
 });
 
 export {
-	AddContext,
-	useContextAsDefaultProps,
+	ContextAsDefaults,
+	useContextAsDefaults,
 	PanelsStateContext,
 	getSharedProps,
 	deleteSharedProps,

@@ -20,7 +20,7 @@ import Heading from '../Heading';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {deleteSharedProps, useContextAsDefaultProps} from '../internal/Panels/util';
+import {deleteSharedProps, useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
 
@@ -589,15 +589,15 @@ const HeaderBase = kind({
 
 
 
-const ContextAsDefaultProps = (Wrapped) => {
+const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultProps (props) {
-		const {type: panelsType, ...ctx} = useContextAsDefaultProps(props);
+	return function ContextAsDefaultsHeader ({type: headerType, ...props}) {
+		const {props: {type: panelsType, ...rest}, provideContextAsDefaults} = useContextAsDefaults(props);
 
-		ctx.backButtonAvailable = (ctx && ctx.index > 0 && panelsType !== 'wizard');
+		rest.backButtonAvailable = (rest && rest.index > 0 && panelsType !== 'wizard');
 
-		return (
-			<Wrapped {...props} {...ctx} />
+		return provideContextAsDefaults(
+			<Wrapped {...rest} type={headerType} />
 		);
 	};
 };
@@ -641,7 +641,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	ContextAsDefaultProps,
+	ContextAsDefaultsHeader,
 	CollapsingHeaderDecorator,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),

@@ -15,7 +15,7 @@ import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {useContextAsDefaultProps, deleteSharedProps} from '../internal/Panels/util';
+import {ContextAsDefaults, deleteSharedProps} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -233,26 +233,8 @@ const PanelBase = kind({
 });
 
 
-
-const ContextAsDefaultProps = (Wrapped) => {
-	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultProps (props) {
-		const ctx = useContextAsDefaultProps(props);
-		// const ctx = filterEmpty(React.useContext(PanelsStateContext));
-		// const ctx = React.useContext(PanelsStateContext);
-		// deleteEmpty(ctx);
-		// const incomingShared = getSharedProps(props);
-		// Object.assign(ctx, incomingShared);
-		// console.log('incomingShared:', incomingShared, props);
-		console.log('ContextAsDefaultProps ctx:', ctx);
-		return (
-			<Wrapped {...props} {...ctx} />
-		);
-	};
-};
-
 const PanelDecorator = compose(
-	ContextAsDefaultProps,
+	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
 		// prefer any spottable within the panel body for first render
