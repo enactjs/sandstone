@@ -244,7 +244,7 @@ const TimePicker = Pure(
  * @public
  */
 
- /**
+/**
  * Converts a standard `Date` object into a locale-specific string.
  *
  * @type {Function}
