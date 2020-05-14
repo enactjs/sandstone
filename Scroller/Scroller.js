@@ -51,22 +51,28 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
-		scrollContentComp: ScrollContentComp,
+		scrollContentWrapper: ScrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
 
 		resizeContextProps,
 		scrollContainerProps,
+		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
+	const mergedProps = {
+		...scrollContentProps,
+		...scrollContentWrapperProps
+	};
+
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+	} = useThemeScroller(props, mergedProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
@@ -74,13 +80,13 @@ let Scroller = (props) => {
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentComp {...scrollContainerProps}>
+			<ScrollContentWrapper {...scrollContainerProps}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
-			</ScrollContentComp>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
 };

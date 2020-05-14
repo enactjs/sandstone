@@ -58,12 +58,20 @@ let VirtualList = ({itemSize, ...rest}) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
+		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const themeScrollContentProps = useThemeVirtualList(scrollContentProps);
+	const mergedProps = {
+		...scrollContentProps,
+		...scrollContentWrapperProps
+	};
+
+	const themeScrollContentProps = useThemeVirtualList(mergedProps);
+
+	debugger;
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -493,12 +501,18 @@ let VirtualGridList = (props) => {
 		// Child Props
 		resizeContextProps,
 		scrollContainerProps,
+		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeVirtualList(scrollContentProps);
+	const mergedProps = {
+		...scrollContentProps,
+		...scrollContentWrapperProps
+	};
+
+	const themeScrollContentProps = useThemeVirtualList(mergedProps);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
