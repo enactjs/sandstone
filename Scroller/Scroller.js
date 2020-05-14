@@ -51,6 +51,7 @@ let Scroller = (props) => {
 	// Hooks
 
 	const {
+		scrollContentComp: ScrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -73,13 +74,13 @@ let Scroller = (props) => {
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
+			<ScrollContentComp {...scrollContainerProps}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
-			</div>
+			</ScrollContentComp>
 		</ResizeContext.Provider>
 	);
 };

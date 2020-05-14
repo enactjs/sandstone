@@ -417,6 +417,7 @@ const useScroll = (props) => {
 	}
 
 	const {
+		scrollContentComp,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
 	} = useScrollBase({
@@ -496,6 +497,7 @@ const useScroll = (props) => {
 
 	return {
 		...collectionOfProperties,
+		scrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible
