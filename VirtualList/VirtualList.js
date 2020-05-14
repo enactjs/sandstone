@@ -50,7 +50,6 @@ let VirtualList = ({itemSize, ...rest}) => {
 
 	const {
 		// Variables
-		scrollContentComp: ScrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -67,11 +66,11 @@ let VirtualList = ({itemSize, ...rest}) => {
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentComp {...scrollContainerProps}>
+			<div {...scrollContainerProps}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</ScrollContentComp>
+			</div>
 		</ResizeContext.Provider>
 	);
 };
@@ -485,7 +484,6 @@ VirtualList.defaultProps = {
 let VirtualGridList = (props) => {
 	const {
 		// Variables
-		scrollContentComp: ScrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -502,11 +500,11 @@ let VirtualGridList = (props) => {
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentComp {...scrollContainerProps}>
+			<div {...scrollContainerProps}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</ScrollContentComp>
+			</div>
 		</ResizeContext.Provider>
 	);
 };
