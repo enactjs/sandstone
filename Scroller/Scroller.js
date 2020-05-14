@@ -64,11 +64,6 @@ let Scroller = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const mergedProps = {
-		...scrollContentProps,
-		...scrollContentWrapperProps
-	};
-
 	const {
 		className,
 		...scrollContentWrapperRest

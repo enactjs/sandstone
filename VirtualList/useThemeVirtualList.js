@@ -358,6 +358,7 @@ const useThemeVirtualList = (props) => {
 	};
 };
 
+/* eslint-disable enact/prop-types */
 function placeholderRenderer (props) {
 	const {
 		handlePlaceholderFocus,
@@ -365,20 +366,16 @@ function placeholderRenderer (props) {
 		SpotlightPlaceholder // eslint-disable-line no-shadow
 	} = props;
 
-	return (
-		<>
-			{primary ? null : (
-				<SpotlightPlaceholder
-					data-index={0}
-					data-vl-placeholder
-					// a zero width/height element can't be focused by spotlight so we're giving
-					// the placeholder a small size to ensure it is navigable
-					onFocus={handlePlaceholderFocus}
-					style={{width: 10}}
-				/>
-			)}
-		</>
-	);
+	return (primary ? null : (
+		<SpotlightPlaceholder
+			data-index={0}
+			data-vl-placeholder
+			// a zero width/height element can't be focused by spotlight so we're giving
+			// the placeholder a small size to ensure it is navigable
+			onFocus={handlePlaceholderFocus}
+			style={{width: 10}}
+		/>
+	));
 }
 /* eslint-enable enact/prop-types */
 
