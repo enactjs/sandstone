@@ -4,7 +4,6 @@ import {mount, shallow} from 'enzyme';
 import TabLayout, {TabLayoutBase, Tab} from '../TabLayout';
 
 describe('TabLayout specs', () => {
-
 	it('should be collapsed when collapsed is true', () => {
 		const subject = shallow(
 			<TabLayoutBase
