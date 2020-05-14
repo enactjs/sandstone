@@ -324,11 +324,11 @@ const WizardPanelsBase = kind({
 		steps,
 		subtitle,
 		title,
-		totalPanels,
 		...rest
 	}) => {
 		delete rest.noSteps;
 		delete rest.current;
+		delete rest.totalPanels;
 		delete rest.total;
 
 		return (
