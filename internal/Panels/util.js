@@ -88,7 +88,6 @@ const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
 export {
 	ContextAsDefaults,
 	useContextAsDefaults,
-	PanelsStateContext,
 	getSharedProps,
 	deleteSharedProps,
 	filterEmpty
