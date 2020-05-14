@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
+
 ### Fixed
 
 - `sandstone/Panels` to not fire transition events when initially rendered
