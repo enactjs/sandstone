@@ -187,7 +187,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 					animate: false,
 					focus: true,
 					index: selected,
-					offset: 150,
+					offset: 156,
 					stickTo: 'start'
 				});
 				ready = ReadyState.SCROLLED;
