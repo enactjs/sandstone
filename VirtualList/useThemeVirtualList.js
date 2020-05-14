@@ -354,7 +354,7 @@ const useThemeVirtualList = (props) => {
 	// Render
 
 	const
-		{itemRenderer, role, ...rest} = props,
+		{itemRenderer, ...rest} = props,
 		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
 
 	// not used by VirtualList
@@ -387,7 +387,6 @@ const useThemeVirtualList = (props) => {
 			})
 		},
 		onUpdateItems: handleRestoreLastFocus,
-		role,
 		updateStatesAndBounds: updateStatesAndBounds
 	};
 };

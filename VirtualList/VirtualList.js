@@ -31,7 +31,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, role, ...rest}) => {
+let VirtualList = ({itemSize, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -50,7 +50,7 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 
 	const {
 		// Variables
-		scrollContentComp,
+		scrollContentComp: ScrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -63,18 +63,15 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	const themeScrollContentProps = useThemeVirtualList(scrollContentProps);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<scrollContentComp {...scrollContainerProps}>
+			<ScrollContentComp {...scrollContainerProps}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</scrollContentComp>
+			</ScrollContentComp>
 		</ResizeContext.Provider>
 	);
 };
@@ -485,10 +482,10 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({role, ...rest}) => {
+let VirtualGridList = (props) => {
 	const {
 		// Variables
-		scrollContentComp,
+		scrollContentComp: ScrollContentComp,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
 		isVerticalScrollbarVisible,
@@ -499,20 +496,21 @@ let VirtualGridList = ({role, ...rest}) => {
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(rest);
+	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	console.log(scrollContentProps.role);
+
+	const themeScrollContentProps = useThemeVirtualList(scrollContentProps);
+
+	console.log(themeScrollContentProps.role);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<scrollContentComp {...scrollContainerProps}>
+			<ScrollContentComp {...scrollContainerProps}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</scrollContentComp>
+			</ScrollContentComp>
 		</ResizeContext.Provider>
 	);
 };
