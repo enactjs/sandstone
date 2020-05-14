@@ -9,11 +9,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
-import {AddContext, PanelsStateContext, deleteSharedProps} from './util';
+import {ContextAsDefaults, deleteSharedProps} from './util';
 
 import css from './Viewport.module.less';
-
-// const PanelsStateContext = React.createContext(null);
 
 /**
  * The container for a set of Panels
@@ -263,11 +261,10 @@ const ViewportBase = class extends React.Component {
 	}
 };
 
-const Viewport = AddContext({include: ['index']}, SharedStateDecorator(ViewportBase));
+const Viewport = ContextAsDefaults({include: ['index']}, SharedStateDecorator(ViewportBase));
 
 export default Viewport;
 export {
-	PanelsStateContext,
 	Viewport,
 	ViewportBase
 };
