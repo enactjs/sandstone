@@ -502,6 +502,7 @@
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;
+@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) 0;
 
 // ProgressBar
 // ---------------------------------------
@@ -513,6 +514,12 @@
 @sand-progressbar-radial-thickness: 9px;
 @sand-progressbar-anchor-width: 6px;
 @sand-progressbar-anchor-height: 48px;
+@sand-progressbar-tooltip-offset: 30px;
+@sand-progressbar-tooltip-above-offset: (@sand-progressbar-tooltip-offset + @sand-progressbar-bar-thickness);
+@sand-progressbar-tooltip-below-offset: @sand-progressbar-tooltip-above-offset;
+@sand-progressbar-tooltip-before-offset: @sand-progressbar-tooltip-below-offset;
+@sand-progressbar-tooltip-after-offset: @sand-progressbar-tooltip-above-offset;
+@sand-progressbar-tooltip-radial-offset: @sand-progressbar-tooltip-above-offset;
 
 // ProgressButton
 // ---------------------------------------
@@ -568,6 +575,10 @@
 @sand-slider-knob-height-large: @sand-slider-knob-height;
 @sand-slider-tooltip-offset: (@sand-slider-knob-height / 2);
 @sand-slider-knob-resting-state-scale: 0.75;
+@sand-slider-tooltip-above-offset: (@sand-progressbar-bar-thickness / 2);
+@sand-slider-tooltip-below-offset: (@sand-progressbar-bar-thickness / -2);
+@sand-slider-tooltip-before-offset: (@sand-progressbar-bar-thickness / 2);
+@sand-slider-tooltip-after-offset: (@sand-progressbar-bar-thickness / -2);
 
 // Spinner
 // ---------------------------------------
@@ -622,14 +633,15 @@
 
 // Tooltip
 // ---------------------------------------
-@sand-tooltip-font-weight: normal;
-@sand-tooltip-offset: 18px;
-@sand-tooltip-point-width: 24px;
-@sand-tooltip-point-height: 24px;
-@sand-tooltip-border-width: 1px;
-@sand-tooltip-border-radius: 6px;
+@sand-tooltip-font-weight: 600;
+@sand-tooltip-offset: 24px;
+@sand-tooltip-arrow-offset: 0px;
+@sand-tooltip-point-width: 18px;
+@sand-tooltip-point-height: 15px;
+@sand-tooltip-border-radius: 12px;
 @sand-tooltip-label-height: 1.5em;
-@sand-tooltip-padding: 6px 36px;
+@sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
+@sand-tooltip-margin-offset: @sand-tooltip-point-width;
 
 // Video
 // ---------------------------------------
