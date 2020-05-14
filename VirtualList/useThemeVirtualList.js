@@ -324,9 +324,7 @@ const useThemeVirtualList = (props) => {
 
 	// Render
 
-	const
-		{itemRenderer, ...rest} = props,
-		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
+	const {itemRenderer, ...rest} = props;
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
@@ -351,10 +349,9 @@ const useThemeVirtualList = (props) => {
 		placeholderRenderer: (primary) => {
 			return placeholderRenderer({
 				handlePlaceholderFocus: handlePlaceholderFocus,
-				needsScrollingPlaceholder,
 				primary,
 				SpotlightPlaceholder
-			})
+			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
 		updateStatesAndBounds: updateStatesAndBounds

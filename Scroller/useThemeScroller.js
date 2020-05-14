@@ -5,7 +5,7 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import React, {useCallback, useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {affordanceSize} from '../useScroll';
 
