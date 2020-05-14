@@ -19,6 +19,13 @@ import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
 
+const labelFormatter = new DateFmt({
+	date: 'dmwy',
+	length: 'full',
+	timezone: 'local',
+	useNative: false
+});
+
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
 		const values = {
@@ -59,14 +66,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const formatter = new DateFmt({
-			date: 'dmwy',
-			length: 'full',
-			timezone: 'local',
-			useNative: false
-		});
-
-		const order = formatter.getTemplate()
+		const order = labelFormatter.getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(/([mdy]+)/ig)
 			.map(s => s[0].toLowerCase());
@@ -91,7 +91,7 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter, order, toLocalYear};
+		return {formatter: labelFormatter, order, toLocalYear};
 	}
 };
 
@@ -160,7 +160,7 @@ const DatePicker = Pure(
 /**
  * Converts a standard `Date` object into a locale-specific string.
  *
- * @type {Function}
+ * @function
  * @memberof sandstone/DatePicker
  * @param {Date} date `Date` to convert
  * @returns {String?} Converted date or `null` if `date` is invalid
@@ -170,7 +170,7 @@ const dateToLocaleString = (date) => {
 		return null;
 	}
 
-	return dateTimeConfig.i18n().formatter.format(date);
+	return labelFormatter.format(date);
 };
 
 export default DatePicker;
