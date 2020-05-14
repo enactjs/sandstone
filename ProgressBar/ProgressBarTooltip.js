@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Tooltip from '../TooltipDecorator/Tooltip';
 
-import css from './ProgressBarTooltip.module.less';
+import componentCss from './ProgressBarTooltip.module.less';
 
 const verticalPositions = ['before', 'after', 'left', 'right'];
 const isVerticalModeRadial = (orientation, position) => orientation === 'radial' && verticalPositions.includes(position);
@@ -40,7 +40,7 @@ const memoizedPercentFormatter = memoize((/* locale */) => new NumFmt({
 	useNative: false
 }));
 
-const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'before';
+const getDefaultPosition = (orientation) => orientation === 'horizontal' ? 'above' : 'after';
 
 // Returns an array of keywords with horizontal first and vertical second
 const getSide = (orientation, position) => {
@@ -75,7 +75,7 @@ const getSide = (orientation, position) => {
 				return [position, 'above'];
 			default:
 				// invalid values for horizontal so use defaults
-				return ['before', 'auto'];
+				return ['after', 'auto'];
 		}
 	} else {
 		switch (position) {
@@ -119,6 +119,19 @@ const ProgressBarTooltipBase = kind({
 	name: 'ProgressBarTooltip',
 
 	propTypes: /** @lends sandstone/ProgressBar.ProgressBarTooltip.prototype */{
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `tooltip` - The root component class
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
 		/**
 		 * Sets the orientation of the tooltip based on the orientation of the bar.
 		 *
@@ -240,8 +253,9 @@ const ProgressBarTooltipBase = kind({
 	},
 
 	styles: {
-		css,
-		className: 'tooltip'
+		css: componentCss,
+		className: 'tooltip',
+		publicClassNames: true
 	},
 
 	computed: {
@@ -313,7 +327,7 @@ const ProgressBarTooltipBase = kind({
 		})
 	},
 
-	render: ({children, visible, ...rest}) => {
+	render: ({children, css, visible, ...rest}) => {
 		if (!visible) return null;
 
 		delete rest.orientation;

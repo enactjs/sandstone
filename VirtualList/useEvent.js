@@ -17,14 +17,6 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useEventKey = (props, instances, context) => {
-	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
-	const {
-		handle5WayKeyUp,
-		handleDirectionKeyDown,
-		handlePageUpDownKeyDown,
-		spotlightAcceleratorProcessKey
-	} = context;
-
 	// Mutable value
 
 	const mutableRef = useRef({
@@ -44,6 +36,7 @@ const useEventKey = (props, instances, context) => {
 
 	const getNextIndex = useCallback(({index, keyCode, repeat}) => {
 		const {dataSize, rtl, wrap} = props;
+		const {scrollContentHandle} = instances;
 		const {isPrimaryDirectionVertical, dimensionToExtent} = scrollContentHandle.current;
 		const column = index % dimensionToExtent;
 		const row = (index - column) % dataSize / dimensionToExtent;
@@ -104,11 +97,19 @@ const useEventKey = (props, instances, context) => {
 		}
 
 		return {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex};
-	}, [findSpottableItem, props, scrollContentHandle]);
+	}, [findSpottableItem, props, instances]);
 
 	// Hooks
 
 	useEffect(() => {
+		const {scrollContainerRef, scrollContentHandle} = instances;
+		const {
+			handle5WayKeyUp,
+			handleDirectionKeyDown,
+			handlePageUpDownKeyDown,
+			spotlightAcceleratorProcessKey
+		} = context;
+
 		function handleKeyDown (ev) {
 			const {keyCode, target} = ev;
 			const direction = getDirection(keyCode);
@@ -203,7 +204,7 @@ const useEventKey = (props, instances, context) => {
 			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 		};
-	}, [scrollContentRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, scrollContentHandle.current]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [getNextIndex, props, instances, context]);
 
 	// Functions
 
