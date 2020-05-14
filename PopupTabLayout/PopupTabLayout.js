@@ -154,6 +154,18 @@ const PopupTabLayoutBase = kind({
 		onShow: PropTypes.func,
 
 		/**
+		 * Called when the tab collapse or expand animation completes.
+		 *
+		 * Event payload includes:
+		 * * `type` - Always set to "onTabAnimationEnd"
+		 * * `collapsed` - `true` when the tabs are collapsed
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onTabAnimationEnd: PropTypes.func,
+
+		/**
 		 * Controls the visibility of the Popup.
 		 *
 		 * By default, the Popup and its contents are not rendered until `open`.
