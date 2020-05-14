@@ -7,6 +7,7 @@
  * @module sandstone/DatePicker
  * @exports DatePicker
  * @exports DatePickerBase
+ * @exports dateToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
@@ -156,8 +157,25 @@ const DatePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @type {Function}
+ * @memberof sandstone/DatePicker
+ * @param {Date} date `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const dateToLocaleString = (date) => {
+	if (!date) {
+		return null;
+	}
+
+	return dateTimeConfig.i18n().formatter.format(date);
+};
+
 export default DatePicker;
 export {
 	DatePicker,
-	DatePickerBase
+	DatePickerBase,
+	dateToLocaleString
 };
