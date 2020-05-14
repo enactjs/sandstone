@@ -20,7 +20,7 @@ import Heading from '../Heading';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {deleteSharedProps, useContextAsDefaults} from '../internal/Panels/util';
+import {deleteSharedProps, filterEmpty, useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
 
@@ -587,17 +587,21 @@ const HeaderBase = kind({
 	}
 });
 
-
-
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function ContextAsDefaultsHeader ({type: headerType, ...props}) {
-		const {props: {type: panelsType, ...rest}, provideContextAsDefaults} = useContextAsDefaults(props);
+		const {contextProps: {type: panelsType, ...contextProps}, provideContextAsDefaults} = useContextAsDefaults(props);
 
-		rest.backButtonAvailable = (rest && rest.index > 0 && panelsType !== 'wizard');
+		const backButtonAvailable = (contextProps && contextProps.index > 0 && panelsType !== 'wizard');
 
 		return provideContextAsDefaults(
-			<Wrapped {...rest} type={headerType} />
+			<Wrapped
+				{...filterEmpty(props)}
+				{...contextProps}
+				backButtonAvailable={backButtonAvailable}
+				type={headerType}
+			/>
 		);
 	};
 };

@@ -13,8 +13,6 @@ import {ContextAsDefaults, deleteSharedProps} from './util';
 
 import css from './Viewport.module.less';
 
-// const PanelsStateContext = React.createContext(null);
-
 /**
  * The container for a set of Panels
  *

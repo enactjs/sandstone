@@ -30,14 +30,6 @@ const filterEmpty = (source) => {
 	);
 };
 
-// const deleteEmpty = (source) => {
-// 	Object.keys(source).forEach(key => {
-// 		if (!defined(source[key])) {
-// 			delete source[key];
-// 		}
-// 	});
-// };
-
 // Given a full collection of props, return just the props from the shared list.
 const getSharedProps = (props) => {
 	return pick(sharedContextProps, props);
@@ -51,22 +43,20 @@ const deleteSharedProps = (props) => {
 };
 
 function useContextAsDefaults (props, extraContext) {
-	const ctx = filterEmpty(React.useContext(PanelsStateContext));
+	const ctx = React.useContext(PanelsStateContext);
 
-	const incomingShared = filterEmpty({...getSharedProps(props), ...extraContext});
+	const contextProps = {...ctx, ...getSharedProps(filterEmpty(props)), ...filterEmpty(extraContext)};
 
-	const newCtx = {...ctx, ...incomingShared};
-
-	const provideContextAsDefaults = React.useCallback((children) => {
+	const provideContextAsDefaults = (children) => {
 		return (
-			<PanelsStateContext.Provider value={newCtx}>
+			<PanelsStateContext.Provider value={contextProps}>
 				{children}
 			</PanelsStateContext.Provider>
 		);
-	}, [newCtx]);
+	};
 
 	return {
-		props: {...newCtx, ...filterEmpty(props)},
+		contextProps,
 		provideContextAsDefaults
 	};
 }
@@ -87,10 +77,10 @@ const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
 			config.include.forEach( p => assignIfDefined(p, sharedProps, props) );
 		}
 
-		const {props: cdp, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
 
 		return provideContextAsDefaults(
-			<Wrapped {...cdp} />
+			<Wrapped {...contextProps} {...filterEmpty(props)} />
 		);
 	};
 });
@@ -101,6 +91,5 @@ export {
 	PanelsStateContext,
 	getSharedProps,
 	deleteSharedProps,
-	// deleteEmpty,
 	filterEmpty
 };
