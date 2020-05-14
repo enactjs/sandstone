@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/ImageItem` public class names `horizontal` and `vertical`
+
 ### Fixed
 
 - `sandstone/Panels` to not fire transition events when initially rendered
