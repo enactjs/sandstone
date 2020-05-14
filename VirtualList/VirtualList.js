@@ -498,11 +498,7 @@ let VirtualGridList = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	console.log(scrollContentProps.role);
-
 	const themeScrollContentProps = useThemeVirtualList(scrollContentProps);
-
-	console.log(themeScrollContentProps.role);
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>

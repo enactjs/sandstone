@@ -468,8 +468,7 @@ const useScroll = (props) => {
 	assignProperties('scrollContentProps', {
 		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
 		className: [
-			overscrollCss.horizontal,
-			overscrollCss.vertical,
+			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,
