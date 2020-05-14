@@ -60,6 +60,7 @@ storiesOf('Sandstone', module)
 					onClose={handleClose}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
+					onTabAnimationEnd={action('onTabAnimationEnd')}
 					onHide={action('onHide')}
 					onShow={action('onShow')}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}

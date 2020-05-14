@@ -56,6 +56,7 @@ storiesOf('Sandstone', module)
 					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 					<TabLayout
 						onSelect={action('onSelect')}
+						onTabAnimationEnd={action('onTabAnimationEnd')}
 						orientation={select('orientation', ['vertical', 'horizontal'], Config)}
 						tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
 					>
