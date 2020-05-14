@@ -1,12 +1,12 @@
 import kind from '@enact/core/kind';
 import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
+import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {CancelDecorator, Viewport} from '../internal/Panels';
+import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 
 import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
@@ -202,7 +202,7 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
-		arranger: SlideLeftArranger,
+		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
 		noSharedState: false

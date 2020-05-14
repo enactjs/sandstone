@@ -1,3 +1,4 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
@@ -300,10 +301,7 @@ const HeaderBase = kind({
 		 * @type {Function|Object}
 		 * @private
 		 */
-		slotAfterRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
+		slotAfterRef: EnactPropTypes.ref,
 
 		/**
 		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
@@ -331,10 +329,7 @@ const HeaderBase = kind({
 		 * @type {Function|Object}
 		 * @private
 		 */
-		slotBeforeRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
+		slotBeforeRef: EnactPropTypes.ref,
 
 		/**
 		 * The size for slotBefore and slotAfter.
@@ -386,10 +381,7 @@ const HeaderBase = kind({
 		 * @type {Function|Object}
 		 * @private
 		 */
-		titleRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
+		titleRef: EnactPropTypes.ref,
 
 		/**
 		 * Set the type of header to be used.

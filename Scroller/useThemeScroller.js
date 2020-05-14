@@ -354,7 +354,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, setContainerDisabled]);
 
 	// Render
 
