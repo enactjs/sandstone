@@ -10,6 +10,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -69,7 +70,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 		...scrollContentWrapperRest
 	} = scrollContentWrapperProps;
 
-	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className});
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -510,7 +511,7 @@ let VirtualGridList = (props) => {
 		...scrollContentWrapperRest
 	} = scrollContentWrapperProps;
 
-	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className});
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
