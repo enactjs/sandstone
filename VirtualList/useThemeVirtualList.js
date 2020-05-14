@@ -320,7 +320,7 @@ const useThemeVirtualList = (props) => {
 	};
 	useEffect(() => {
 		props.setThemeScrollContentHandle(handle);
-	}, [handle, props, props.setThemeScrollContentHandle]);
+	}, [handle, props]);
 
 	// Render
 
