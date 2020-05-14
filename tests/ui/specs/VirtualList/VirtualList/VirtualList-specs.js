@@ -120,15 +120,15 @@ describe('VirtualList', function () {
 			expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 		});
 
-		/*
-		//	TODO: Need to api for Scrollbar and List size checking.
-		it('should have same height list and scrollbar [GT-22079]', function () {
+
+		//	TODO: Need to api for Scrollbar and List size checking in sandstone.
+		it.skip('should have same height list and scrollbar [GT-28930]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
 
-		// TODO: Need to Check LTR
-		it('should position Paging Controls on right side in LTR [GT-21271]', function () {
+		// TODO: Need to checking api LTR for sandstone.
+		it.skip('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
 			Page.spotlightSelect();
 			Page.spotlightDown();
 			Page.spotlightDown();
@@ -138,7 +138,7 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
 		});
-		*/
+
 
 		// Need mochaOpts - timeout set to 60000 to pass
 		it('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
@@ -243,6 +243,7 @@ describe('VirtualList', function () {
 			// Step 4-2: Wave the pointer.
 			// Verify Step 4-1: Spotlight hides from 'Item 007'.
 			// Verify Step 4-2: Spotlight displays on the item at the pointer's location.
+			Page.showPointerByKeycode();
 			$('#item3').moveTo();
 			expectFocusedItem(3, 'focus Item 03');
 			$('#item1').moveTo();
@@ -253,8 +254,9 @@ describe('VirtualList', function () {
 		});
 
 		describe('onKeyDown event behavior [GT-28490]', function () {
-			/*
-			it('should prevent bubbling while navigating within a list', function () {
+
+			// TODO: Need to check another way for PagingControl.
+			it.skip('should prevent bubbling while navigating within a list', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightRight();
@@ -274,7 +276,8 @@ describe('VirtualList', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 			});
 
-			it('should prevent bubbling when wrapping', function () {
+			// TODO: Fix to wrap bug [ENYO-6468]
+			it.skip('should prevent bubbling when wrapping', function () {
 				Page.spotlightRight();
 				Page.spotlightRight();
 				Page.spotlightSelect();
@@ -290,7 +293,8 @@ describe('VirtualList', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 			});
 
-			it('should allow bubbling while navigating out of a focusableScrollbar list via scroll buttons', function () {
+			// TODO: Need to check another way for PagingControl.
+			it.skip('should allow bubbling while navigating out of a focusableScrollbar list via scroll buttons', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightRight();
@@ -306,7 +310,7 @@ describe('VirtualList', function () {
 				Page.spotlightDown();
 				expect(Page.list.getAttribute('data-keydown-events'), 'step 8').to.equal('4');
 			});
-			*/
+
 			it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
@@ -381,10 +385,11 @@ describe('VirtualList', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
 			});
 		});
-		/*
-		describe('Change `wrap` dynamically' , function () {
+
+		// TODO: Fix to wrap bug [ENYO-6468]
+		describe('Change `wrap` dynamically', function () {
 		// TODO: this TC number is not matching the JIRA TC - remove number?
-			it('should prevent bubbling when wrapping[GT-28463]', function () {
+			it.skip('should prevent bubbling when wrapping[GT-28463]', function () {
 				// Wrap knobs Setting
 				Page.spotlightRight();
 				Page.spotlightSelect();
@@ -402,47 +407,13 @@ describe('VirtualList', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 			});
 		});
-		describe('VirtualList with Wheeling', function () {
-			it('Items Animate via Clicking on Page Controls [GT-21571]', function () {
-				const scrollDistance = Math.round(Page.listSize.height * 0.66);
-				let elementId, initialTop, newTop, travelDistance;
-				Page.spotlightDown();
-				Page.spotlightRight();
-				Page.spotlightRight();
-				// Step 3. Click on Down Paging Control (∨).
-				expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
-				elementId = Page.bottomVisibleItemId();
-				initialTop = Page.itemOffsetTopById(elementId);
-				Page.buttonScrollDown.click();
-				Page.delay(1500);
-				expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up is enabled').to.be.null();
-				// Verify Step 3: The list Scrolls 66% of the Scroller height Up.
-				newTop = Page.itemOffsetTopById(elementId);
-				travelDistance = Math.round(initialTop - newTop);
-				expect(travelDistance).to.equal(scrollDistance);
-				// scroll down to get a valid test for the next step
-				Page.buttonScrollDown.click();
-				Page.delay(1500);
-				// Step 4. Click on Up Paging Control (∧).
-				elementId = Page.topVisibleItemId();
-				initialTop = Page.itemOffsetTopById(elementId);
-				Page.buttonScrollUp.click();
-				Page.delay(1500);
-				// Verify Step 4: The list Scrolls 66% of the Scroller height Down.
-				newTop = Page.itemOffsetTopById(elementId);
-				if (initialTop < 0) {
-					travelDistance = Math.abs(initialTop) + newTop;
-				} else {
-					travelDistance = newTop - initialTop;
-				}
-				expect(Math.round(travelDistance)).to.equal(scrollDistance);
-			});
-		});
+
+		// TODO: Need to checking api LTR for sandstone.
 		describe('RTL locale', function () {
 			beforeEach(function () {
 				Page.open('?locale=ar-SA');
 			});
-			it('should position Paging Controls on left side in RTL [GT-21270]', function () {
+			it.skip('should position Paging Controls on left side in RTL [GT-28563]', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				// Step 3: The list is Right aligned so Spotlight needs to move to the left
@@ -459,7 +430,7 @@ describe('VirtualList', function () {
 				expect(Page.buttonScrollDown.getAttribute('disabled'), 'Down enabled').to.be.null();
 			});
 		});
-		*/
+
 		describe('onScrollStart/Stop Events behavior ', function () {
 			beforeEach(function () {
 				Page.open();
