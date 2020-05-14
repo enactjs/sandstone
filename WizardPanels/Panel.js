@@ -12,15 +12,57 @@ import {WizardPanelsContext} from './WizardPanels';
  * @ui
  * @private
  */
-function PanelBase ({buttons, children, footer, subtitle, title}) {
+function PanelBase ({
+	buttons,
+	children,
+	footer,
+	nextButtonAriaLabel,
+	nextButtonText,
+	nextButtonIcon,
+	prevButtonAriaLabel,
+	prevButtonText,
+	prevButtonIcon,
+	showNextButton,
+	showPrevButton,
+	subtitle,
+	title
+}) {
 	const set = React.useContext(WizardPanelsContext);
 
 	React.useEffect(() => {
 		if (set) {
-			set({buttons, children, footer, subtitle, title});
+			set({
+				buttons,
+				children,
+				footer,
+				nextButtonAriaLabel,
+				nextButtonIcon,
+				nextButtonText,
+				prevButtonAriaLabel,
+				prevButtonIcon,
+				prevButtonText,
+				showNextButton,
+				showPrevButton,
+				subtitle,
+				title
+			});
 		}
-	}, [buttons, children, footer, subtitle, set, title]);
-
+	}, [
+		buttons,
+		children,
+		footer,
+		nextButtonAriaLabel,
+		nextButtonIcon,
+		nextButtonText,
+		prevButtonIcon,
+		prevButtonAriaLabel,
+		prevButtonText,
+		showNextButton,
+		showPrevButton,
+		subtitle,
+		set,
+		title
+	]);
 	return null;
 }
 

@@ -1,4 +1,4 @@
-import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
+import handle, {forProp, forwardWithPrevent, not, adaptEvent, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -17,7 +17,7 @@ import css from './WizardPanels.module.less';
 const WizardPanelsContext = React.createContext(null);
 
 /**
- * A WizardPanels that has steps with corresponding views.
+ * A WizardPanels that has steps with corresponding panels.
  *
  * @example
  * 	<WizardPanels>
@@ -61,7 +61,7 @@ const WizardPanelsBase = kind({
 		 * The current step.
 		 *
 		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
-		 * the currently selected view.
+		 * the currently selected panel.
 		 *
 		 * @type {Number}
 		 * @public
@@ -77,7 +77,7 @@ const WizardPanelsBase = kind({
 		footer: PropTypes.node,
 
 		/**
-		* The currently selected view.
+		* The currently selected panel.
 		*
 		* @type {Number}
 		* @default 0
@@ -95,6 +95,14 @@ const WizardPanelsBase = kind({
 		nextButtonAriaLabel: PropTypes.string,
 
 		/**
+		* Icon for next button.
+		*
+		* @type {String}
+		* @public
+		*/
+		nextButtonIcon: PropTypes.string,
+
+		/**
 		* The text for next button.
 		*
 		* @type {String}
@@ -109,24 +117,6 @@ const WizardPanelsBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		* Omits the next button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noNextButton: PropTypes.bool,
-
-		/**
-		* Omits the previous button component.
-		*
-		* When set, the back key will be disabled.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noPrevButton: PropTypes.bool,
 
 		/**
 		* Omits the steps component.
@@ -169,6 +159,14 @@ const WizardPanelsBase = kind({
 		prevButtonAriaLabel: PropTypes.string,
 
 		/**
+		* Icon for Prev button.
+		*
+		* @type {String}
+		* @public
+		*/
+		prevButtonIcon: PropTypes.string,
+
+		/**
 		* The text for previous button.
 		*
 		* @type {String}
@@ -183,6 +181,24 @@ const WizardPanelsBase = kind({
 		 * @private
 		 */
 		reverseTransition: PropTypes.bool,
+
+		/**
+		* Omits the next button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		showNextButton: PropTypes.bool,
+
+		/**
+		* Omits the previous button component.
+		*
+		* When set, the back key will be disabled.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		showPrevButton: PropTypes.bool,
 
 		/**
 		* The subtitle to display.
@@ -211,7 +227,7 @@ const WizardPanelsBase = kind({
 		total: PropTypes.number,
 
 		/**
-		* The total views in WizardPanels.
+		* The total panels in WizardPanels.
 		*
 		* @type {Number}
 		* @private
@@ -222,7 +238,9 @@ const WizardPanelsBase = kind({
 	defaultProps: {
 		index: 0,
 		nextButtonAriaLabel: $L('Next'),
-		prevButtonAriaLabel: $L('Previous')
+		prevButtonAriaLabel: $L('Previous'),
+		prevButtonIcon: 'arrowlargeleft',
+		nextButtonIcon: 'arrowlargeright'
 	},
 
 	styles: {
@@ -231,20 +249,32 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onIncrementStep: (ev, {index, onChange, totalPanels}) => {
-			if (onChange && index !== totalPanels) {
-				const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
+		onNextClick: handle(
+			adaptEvent(
+				(ev, {index}) => ({index}),
+				forward('onNextClick')
+			),
+			(ev, {index, onChange, totalPanels}) => {
+				if (onChange && index !== totalPanels) {
+					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
-				onChange({index: nextIndex});
+					onChange({index: nextIndex});
+				}
 			}
-		},
-		onDecrementStep: (ev, {index, onChange}) => {
-			if (onChange && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
+		),
+		onPrevClick: handle(
+			adaptEvent(
+				(ev, {index}) => ({index}),
+				forward('onPrevClick')
+			),
+			(ev, {index, onChange}) => {
+				if (onChange && index !== 0) {
+					const prevIndex = index > 0 ? (index - 1) : index;
 
-				onChange({index: prevIndex});
+					onChange({index: prevIndex});
+				}
 			}
-		},
+		),
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
 				onTransition({index});
@@ -277,19 +307,20 @@ const WizardPanelsBase = kind({
 		buttons,
 		children,
 		footer,
-		index,
 		nextButtonAriaLabel,
 		nextButtonText,
+		nextButtonIcon,
 		noAnimation,
-		noNextButton,
-		noPrevButton,
-		onDecrementStep,
-		onIncrementStep,
+		onNextClick,
+		onPrevClick,
 		onTransition,
 		onWillTransition,
+		prevButtonIcon,
 		prevButtonAriaLabel,
 		prevButtonText,
 		reverseTransition,
+		showNextButton,
+		showPrevButton,
 		steps,
 		subtitle,
 		title,
@@ -312,26 +343,26 @@ const WizardPanelsBase = kind({
 					type="wizard"
 				>
 					{steps}
-					{index < totalPanels - 1 && !noNextButton ? (
+					{showNextButton ? (
 						<Button
 							aria-label={nextButtonAriaLabel}
 							backgroundOpacity="transparent"
-							icon="arrowlargeright"
+							icon={nextButtonIcon}
 							iconPosition="after"
 							minWidth={false}
-							onClick={onIncrementStep}
+							onClick={onNextClick}
 							slot="slotAfter"
 						>
 							{nextButtonText}
 						</Button>
 					) : null}
-					{index !== 0 && !noPrevButton ? (
+					{showPrevButton ? (
 						<Button
 							aria-label={prevButtonAriaLabel}
 							backgroundOpacity="transparent"
-							icon="arrowlargeleft"
+							icon={prevButtonIcon}
 							minWidth={false}
-							onClick={onDecrementStep}
+							onClick={onPrevClick}
 							slot="slotBefore"
 						>
 							{prevButtonText}
@@ -342,7 +373,7 @@ const WizardPanelsBase = kind({
 					<Cell className={css.content}>
 						{/* This should probably use portals */}
 						{/* skip creating ViewManager when there aren't children to avoid animating
-							the first view into the viewport */}
+							the first panel into the viewport */}
 						{children ? (
 							<ViewManager
 								arranger={BasicArranger}
@@ -396,28 +427,56 @@ function useReverseTransition (index = -1) {
  * @ui
  */
 const WizardPanelsDecorator = (Wrapped) => {
-	const WizardPanelsProvider = ({children, index, title, ...rest}) => {
-		const [view, setView] = React.useState(null);
+	const WizardPanelsProvider = ({
+		children,
+		index,
+		...rest
+	}) => {
+		const [panel, setPanel] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const totalPanels = React.Children.count(children);
-		const currentTitle = view && view.title ? view.title : title;
+
+		const sharedPropsList = [
+			'title',
+			'subtitle',
+			'onPrevClick',
+			'onNextClick',
+			'prevButtonIcon',
+			'prevButtonText',
+			'prevButtonAriaLabel',
+			'nextButtonAriaLabel',
+			'nextButtonIcon',
+			'nextButtonText',
+			'showNextButton',
+			'showPrevButton'
+		];
+		const sharedProps = {};
+		sharedPropsList.forEach( p => {
+			if (panel && typeof panel[p] !== 'undefined') {
+				sharedProps[p] = panel[p];
+			} else if (typeof rest[p] !== 'undefined') {
+				sharedProps[p] = rest[p];
+			}
+			delete rest[p];
+		});
+
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
 		return (
-			<WizardPanelsContext.Provider value={setView}>
+			<WizardPanelsContext.Provider value={setPanel}>
 				{React.Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
-					{...view}
+					{...panel}
 					index={index}
-					title={currentTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
+					{...sharedProps}
 				>
-					{view && view.children ? (
-						<div className="enact-fit" key={`view${index}`}>
-							{view.children}
+					{panel && panel.children ? (
+						<div className="enact-fit" key={`panel${index}`}>
+							{panel.children}
 						</div>
 					) : null}
 				</Wrapped>
@@ -460,7 +519,7 @@ const WizardPanelsDecorator = (Wrapped) => {
 };
 
 /**
- * A WizardPanels that can step through different views.
+ * A WizardPanels that can step through different panels.
  * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
  *
  * @class WizardPanels
