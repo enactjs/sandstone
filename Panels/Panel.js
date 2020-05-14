@@ -11,12 +11,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
 
-import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {filterEmpty, deleteSharedProps} from '../internal/Panels/util';
+import {ContextAsDefaults, deleteSharedProps} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -37,7 +36,6 @@ let panelId = 0;
 const PanelBase = kind({
 	name: 'Panel',
 
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -210,7 +208,6 @@ const PanelBase = kind({
 		entering,
 		header,
 		headerId,
-		hideChildren,
 		spotOnRender,
 		titleRef,
 		...rest
@@ -236,19 +233,8 @@ const PanelBase = kind({
 });
 
 
-
-const useContextAsDefaultProps = (Wrapped) => {
-	// eslint-disable-next-line no-shadow
-	return function useContextAsDefaultProps (props) {
-		const ctx = filterEmpty(React.useContext(PanelsStateContext));
-		return (
-			<Wrapped {...props} {...ctx} />
-		);
-	};
-};
-
 const PanelDecorator = compose(
-	useContextAsDefaultProps,
+	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
 		// prefer any spottable within the panel body for first render

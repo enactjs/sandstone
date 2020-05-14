@@ -1,5 +1,8 @@
-// import {addInternalProp} from '@enact/core/kind/util';
+import hoc from '@enact/core/hoc';
+import React from 'react';
 import pick from 'ramda/src/pick';
+
+const PanelsStateContext = React.createContext(null);
 
 const sharedContextProps = [
 	'backButtonAriaLabel',
@@ -13,18 +16,15 @@ const sharedContextProps = [
 	'type'
 ];
 
+const defined = (val) => (typeof val !== 'undefined');
+
+const assignIfDefined = (k, target, source) => (defined(source[k]) && (target[k] = source[k]));
+
 // Accepts an object, returning only the keys that were defined
 const filterEmpty = (source) => {
-	return Object.keys(source).reduce(
+	return Object.keys(source || {}).reduce(
 		(o, k) => {
-			if (typeof source[k] !== 'undefined') {
-				//
-				// An idea to sort of _privatize_ the props that come in from context, so they don't
-				// auto-spread down onto DOM nodes without being explicitly called out.
-				//
-				// addInternalProp(o, k, source[k]);
-				o[k] = source[k];
-			}
+			assignIfDefined(k, o, source);
 			return o;
 		}, {}
 	);
@@ -42,7 +42,53 @@ const deleteSharedProps = (props) => {
 	});
 };
 
+function useContextAsDefaults (props, extraContext) {
+	const ctx = React.useContext(PanelsStateContext);
+
+	const contextProps = {...ctx, ...getSharedProps(filterEmpty(props)), ...filterEmpty(extraContext)};
+
+	const provideContextAsDefaults = (children) => {
+		return (
+			<PanelsStateContext.Provider value={contextProps}>
+				{children}
+			</PanelsStateContext.Provider>
+		);
+	};
+
+	return {
+		contextProps,
+		provideContextAsDefaults
+	};
+}
+
+const defaultConfig = {
+	// Array of prop names to include into the context injection
+	// Used for props that aren't in the shared set, but should
+	// still be available for access in the context.
+	include: null
+};
+
+const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function ContextAsDefaults (props) {
+		const sharedProps = getSharedProps(props);
+
+		if (config.include && config.include.forEach) {
+			config.include.forEach( p => assignIfDefined(p, sharedProps, props) );
+		}
+
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
+
+		return provideContextAsDefaults(
+			<Wrapped {...contextProps} {...filterEmpty(props)} />
+		);
+	};
+});
+
 export {
+	ContextAsDefaults,
+	useContextAsDefaults,
+	PanelsStateContext,
 	getSharedProps,
 	deleteSharedProps,
 	filterEmpty

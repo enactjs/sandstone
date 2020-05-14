@@ -205,7 +205,6 @@ const PanelsBase = kind({
 		arranger: SlideLeftArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
