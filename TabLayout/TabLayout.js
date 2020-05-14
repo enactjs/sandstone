@@ -207,8 +207,9 @@ const TabLayoutBase = kind({
 		handleTabsTransitionEnd: handle(
 			forward('onTransitionEnd'),
 			forProp('orientation', 'vertical'),
-			// Validate the transition is from the root node and only fires for one of the
-			// transitions (max-width or flex-basis)
+			// Validate the transition is from the root node
+			(ev) => ev.target.classList.contains(componentCss.tabs),
+			// Only emit the event once (and not also for the flex-basis transition)
 			forEventProp('propertyName', 'max-width'),
 			adaptEvent(
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
