@@ -60,7 +60,7 @@ storiesOf('Sandstone', module)
 						Hello Item
 					</Item>
 				</WizardPanels.Panel>
-				<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanel View 4">
+				<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanel View 4" showNextButton={false}>
 					<Icon>resumeplay</Icon>
 					<BodyText>A simple view</BodyText>
 					<buttons>
