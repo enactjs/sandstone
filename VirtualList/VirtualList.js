@@ -64,18 +64,16 @@ let VirtualList = ({itemSize, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const mergedProps = {
-		...scrollContentProps,
-		...scrollContentWrapperProps
-	};
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
 
-	const themeScrollContentProps = useThemeVirtualList(mergedProps);
-
-	debugger;
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentWrapper {...scrollContainerProps}>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -507,16 +505,16 @@ let VirtualGridList = (props) => {
 		horizontalScrollbarProps
 	} = useScroll(props);
 
-	const mergedProps = {
-		...scrollContentProps,
-		...scrollContentWrapperProps
-	};
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
 
-	const themeScrollContentProps = useThemeVirtualList(mergedProps);
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<ScrollContentWrapper {...scrollContainerProps}>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
