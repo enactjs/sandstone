@@ -9,9 +9,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
-import {ContextAsDefaults, deleteSharedProps} from './util';
+import {ContextAsDefaults} from './util';
 
 import css from './Viewport.module.less';
+
+const PanelsStateContext = React.createContext(null);
 
 /**
  * The container for a set of Panels
@@ -223,12 +225,15 @@ const ViewportBase = class extends React.Component {
 			generateId,
 			index,
 			noAnimation,
+			type,
 			...rest
 		} = this.props;
 
 		// Relay each of the state-specific props to the context
-
-		deleteSharedProps(rest);
+		const panelsContext = {
+			type,
+			index
+		};
 
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
@@ -242,29 +247,32 @@ const ViewportBase = class extends React.Component {
 
 		delete rest.className;
 		return (
-			<ViewManager
-				{...rest}
-				arranger={arranger}
-				className={className}
-				component="main"
-				duration={250}
-				enteringDelay={100} // TODO: Can we remove this?
-				enteringProp={enteringProp}
-				index={index}
-				noAnimation={noAnimation}
-				onTransition={this.handleTransition}
-				onWillTransition={this.handleWillTransition}
-			>
-				{mappedChildren}
-			</ViewManager>
+			<PanelsStateContext.Provider value={panelsContext}>
+				<ViewManager
+					{...rest}
+					arranger={arranger}
+					className={className}
+					component="main"
+					duration={250}
+					enteringDelay={100} // TODO: Can we remove this?
+					enteringProp={enteringProp}
+					index={index}
+					noAnimation={noAnimation}
+					onTransition={this.handleTransition}
+					onWillTransition={this.handleWillTransition}
+				>
+					{mappedChildren}
+				</ViewManager>
+			</PanelsStateContext.Provider>
 		);
 	}
 };
 
-const Viewport = ContextAsDefaults({include: ['index']}, SharedStateDecorator(ViewportBase));
+const Viewport = ContextAsDefaults(SharedStateDecorator(ViewportBase));
 
 export default Viewport;
 export {
+	PanelsStateContext,
 	Viewport,
 	ViewportBase
 };

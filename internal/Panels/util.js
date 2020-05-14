@@ -1,6 +1,7 @@
 import hoc from '@enact/core/hoc';
 import React from 'react';
 import pick from 'ramda/src/pick';
+import omit from 'ramda/src/omit';
 
 const PanelsStateContext = React.createContext(null);
 
@@ -12,23 +13,8 @@ const sharedContextProps = [
 	'noBackButton',
 	'noCloseButton',
 	'onBack',
-	'onClose',
-	'type'
+	'onClose'
 ];
-
-const defined = (val) => (typeof val !== 'undefined');
-
-const assignIfDefined = (k, target, source) => (defined(source[k]) && (target[k] = source[k]));
-
-// Accepts an object, returning only the keys that were defined
-const filterEmpty = (source) => {
-	return Object.keys(source || {}).reduce(
-		(o, k) => {
-			assignIfDefined(k, o, source);
-			return o;
-		}, {}
-	);
-};
 
 // Given a full collection of props, return just the props from the shared list.
 const getSharedProps = (props) => {
@@ -42,10 +28,10 @@ const deleteSharedProps = (props) => {
 	});
 };
 
-function useContextAsDefaults (props, extraContext) {
+function useContextAsDefaults (props) {
 	const ctx = React.useContext(PanelsStateContext);
 
-	const contextProps = {...ctx, ...getSharedProps(filterEmpty(props)), ...filterEmpty(extraContext)};
+	const contextProps = {...ctx, ...getSharedProps(props)};
 
 	const provideContextAsDefaults = (children) => {
 		return (
@@ -62,10 +48,8 @@ function useContextAsDefaults (props, extraContext) {
 }
 
 const defaultConfig = {
-	// Array of prop names to include into the context injection
-	// Used for props that aren't in the shared set, but should
-	// still be available for access in the context.
-	include: null
+	// Array of prop names to add to the Wrapped component.
+	props: []
 };
 
 const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
@@ -73,14 +57,16 @@ const ContextAsDefaults = hoc(defaultConfig, (config, Wrapped) => {
 	return function ContextAsDefaults (props) {
 		const sharedProps = getSharedProps(props);
 
-		if (config.include && config.include.forEach) {
-			config.include.forEach( p => assignIfDefined(p, sharedProps, props) );
-		}
-
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props, sharedProps);
 
+		// The following generates a complete list of all of the props expected by Wrapped
+		// Using `pick`, add the specifically requested shared context props
+		// Using `omit`, exclude all of the shared props
 		return provideContextAsDefaults(
-			<Wrapped {...contextProps} {...filterEmpty(props)} />
+			<Wrapped
+				{...pick(config.props, contextProps)}
+				{...omit(sharedContextProps, props)}
+			/>
 		);
 	};
 });
@@ -89,6 +75,5 @@ export {
 	ContextAsDefaults,
 	useContextAsDefaults,
 	getSharedProps,
-	deleteSharedProps,
-	filterEmpty
+	deleteSharedProps
 };

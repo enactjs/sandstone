@@ -16,7 +16,7 @@ import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {ContextAsDefaults, deleteSharedProps} from '../internal/Panels/util';
+import {ContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -212,8 +212,6 @@ const PanelBase = kind({
 	}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
-
-		deleteSharedProps(rest);
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>

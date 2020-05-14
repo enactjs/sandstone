@@ -21,7 +21,8 @@ import Heading from '../Heading';
 import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
-import {deleteSharedProps, filterEmpty, useContextAsDefaults} from '../internal/Panels/util';
+import {PanelsStateContext} from '../internal/Panels';
+import {useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
 
@@ -513,8 +514,6 @@ const HeaderBase = kind({
 		titleRef,
 		...rest
 	}) => {
-		deleteSharedProps(rest); // Delete (clean up) any remaining shared props from rest, to avoid prop-bleed on props we aren't interested in.
-
 		delete rest.arranger;
 		delete rest.entering;
 		delete rest.featureContent;
@@ -582,17 +581,17 @@ const HeaderBase = kind({
 // Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsHeader ({type: headerType, ...props}) {
-		const {contextProps: {type: panelsType, ...contextProps}, provideContextAsDefaults} = useContextAsDefaults(props);
+	return function ContextAsDefaultsHeader (props) {
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
+		const {index, type: panelsType} = React.useContext(PanelsStateContext);
 
-		const backButtonAvailable = (contextProps && contextProps.index > 0 && panelsType !== 'wizard');
+		const backButtonAvailable = (index > 0 && panelsType !== 'wizard');
 
 		return provideContextAsDefaults(
 			<Wrapped
-				{...filterEmpty(props)}
 				{...contextProps}
+				{...props}
 				backButtonAvailable={backButtonAvailable}
-				type={headerType}
 			/>
 		);
 	};
