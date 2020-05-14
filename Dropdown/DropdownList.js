@@ -187,8 +187,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 					animate: false,
 					focus: true,
 					index: selected,
-					offset: 156,
-					stickTo: 'start'
+					offset: ri.scale(312), // @sand-item-height * 2
+					stickTo: 'start' // offset from the top of the dropdown
 				});
 				ready = ReadyState.SCROLLED;
 			}
