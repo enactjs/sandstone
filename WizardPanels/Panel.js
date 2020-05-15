@@ -4,7 +4,7 @@ import React from 'react';
 import {WizardPanelsContext} from './WizardPanels';
 
 /**
- * Panel that sets the children, subtitle, and title for
+ * Panel that sets the children, footer, subtitle, and title for
  * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
  * @class PanelBase
@@ -25,7 +25,7 @@ function PanelBase ({footer, children, subtitle, title}) {
 }
 
 /**
- * Panel that sets the children, subtitle, and title for
+ * Panel that sets the children, footer, subtitle, and title for
  * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
  * @class Panel
