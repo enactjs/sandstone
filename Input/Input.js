@@ -51,16 +51,15 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
-		 * Indicates value is invalid and shows invalidMessage, if set.
+		 * Indicates value is invalid and shows `invalidMessage`.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		invalid: PropTypes.bool,
 
 		/**
-		 * The tooltip text to be displayed when the input is invalid.
+		 * The tooltip text to be displayed when the input is `invalid`.
 		 *
 		 * @type {String}
 		 * @public
@@ -195,7 +194,6 @@ const InputPopupBase = kind({
 	},
 
 	defaultProps: {
-		invalid: false,
 		length: 4,
 		popupType: 'fullscreen',
 		separateDigitsLimit: 6,
