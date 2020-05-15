@@ -4,6 +4,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/WizardPanels` prop `footer`
+
+### Changed
+
+- `sandstone/WizardPanels` prop `buttons` to be `footer`
+
 ### Added
 
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
