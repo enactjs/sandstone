@@ -49,9 +49,6 @@ storiesOf('Sandstone', module)
 						<Button>OK</Button>
 						<Button>Cancel</Button>
 					</buttons>
-					<footer>
-						<CheckboxItem inline>Confirm</CheckboxItem>
-					</footer>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel footer="Footer in View 3" subtitle="A subtitle for View 3" title="WizardPanel View 3">
 					<Item>

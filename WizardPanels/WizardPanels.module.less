@@ -1,5 +1,6 @@
 // WizardPanels.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .wizardPanels {
@@ -7,21 +8,15 @@
 		margin: @sand-wizardpanels-content-margin;
 	}
 
-	.buttonContainer {
-		margin: @sand-wizardpanels-button-container-margin;
-	}
-
-	.buttonContainer,
-	.footer {
+	.bottom {
 		text-align: center;
-	}
-}
 
-// Override for Panel
-.panel {
-	padding: @sand-wizardpanels-panel-padding;
-
-	> .body {
-		padding: @sand-wizardpanels-panel-body-padding;
+		.buttonContainer {
+			margin-bottom: @sand-wizardpanels-button-container-margin;
+		}
+		
+		.footer {
+			height: @sand-wizardpanels-footer-height;
+		}
 	}
 }

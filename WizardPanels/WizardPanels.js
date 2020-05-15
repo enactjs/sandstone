@@ -310,7 +310,6 @@ const WizardPanelsBase = kind({
 			<PanelBase
 				{...rest}
 				autoFocus="default-element"
-				css={css}
 				header={
 					<Header
 						arranger={noAnimation ? null : CrossFadeArranger}
@@ -367,7 +366,7 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell component="footer" shrink>
+					<Cell className={css.bottom} component="footer" shrink>
 						<div className={css.buttonContainer}>
 							{/* This should probably use portals */}
 							{buttons}
