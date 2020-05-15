@@ -2,7 +2,7 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
-import ri, { unit } from '@enact/ui/resolution';
+import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
@@ -32,7 +32,7 @@ storiesOf('Sandstone', module)
 				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, 'byEnter'),
 				// Need to define the content size to reserve the scrollbar area and margin width (ri.scale(108)).
 				// or apply padding by RTL and direction.
-				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? '' : 'calc(100% - ' + ri.scale(108) + 'px)';
+				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? 'initial' : 'calc(100% - ' + ri.scale(108) + 'px)';
 			return (
 				<Scroller
 					direction={direction}
@@ -64,7 +64,8 @@ storiesOf('Sandstone', module)
 						</div>
 					</div>
 				</Scroller>
-			)},
+			);
+		},
 		{
 			info: {
 				text: 'Basic usage of Scroller'
