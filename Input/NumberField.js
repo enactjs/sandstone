@@ -17,8 +17,6 @@ import {convertToPasswordFormat} from './util';
 
 import componentCss from './Input.module.less';
 
-const SEPARATE_DIGITS_LIMIT = 6;
-
 const normalizeValue = (value, length) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, length) : '');
 const normalizeValueProp = ({value, length}) => normalizeValue(value, length);
 
@@ -65,9 +63,9 @@ const NumberFieldBase = kind({
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
 		length: PropTypes.number,
-		noSeparatedNumberField: PropTypes.bool,
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
+		separateDigitsLimit: PropTypes.number,
 		showKeypad: PropTypes.bool,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -75,6 +73,7 @@ const NumberFieldBase = kind({
 
 	defaultProps: {
 		length: 4,
+		separateDigitsLimit: 6,
 		type: 'number'
 	},
 
@@ -106,9 +105,9 @@ const NumberFieldBase = kind({
 	},
 
 	computed: {
-		className: ({length, type, noSeparatedNumberField, styler}) => {
+		className: ({length, type, separateDigitsLimit, styler}) => {
 			let numberFieldStyle = 'separated';
-			if (noSeparatedNumberField || length > SEPARATE_DIGITS_LIMIT) numberFieldStyle = 'combined';
+			if (length > separateDigitsLimit) numberFieldStyle = 'combined';
 			return styler.append(type, numberFieldStyle);
 		},
 		// Normalize the value, also prune out any non-digit characters
@@ -117,7 +116,7 @@ const NumberFieldBase = kind({
 			if (invalid && invalidMessage) {
 				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip arrowAnchor="top" className={css.invalidTooltip} direction={direction}>
+					<Tooltip arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -125,7 +124,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({length, showKeypad, onAdd, onRemove, type, value, noSeparatedNumberField, invalidTooltip, ...rest}) => {
+	render: ({length, showKeypad, onAdd, onRemove, type, value, separateDigitsLimit, invalidTooltip, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.onComplete;
 		delete rest.invalid;
@@ -133,7 +132,7 @@ const NumberFieldBase = kind({
 		delete rest.rtl;
 
 		let field;
-		if (!noSeparatedNumberField && length <= SEPARATE_DIGITS_LIMIT) {
+		if (length <= separateDigitsLimit) {
 			const values = value.split('');
 			const items = new Array(length).fill('');
 			field = (

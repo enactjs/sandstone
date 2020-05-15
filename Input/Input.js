@@ -81,14 +81,6 @@ const InputPopupBase = kind({
 		length: PropTypes.number,
 
 		/**
-		 * Set the number input field in combined
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noSeparatedNumberField: PropTypes.bool,
-
-		/**
 		 * Called when the input value is changed.
 		 *
 		 * @type {Function}
@@ -146,6 +138,18 @@ const InputPopupBase = kind({
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
 		/**
+		 * Maximum value for [length]{@link sandstone/Input.InputPopupBase.prototype#length} before
+		 * converting a number type input into a single field rather than separated blocks.
+		 *
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 *
+		 * @type {Number}
+		 * @default 6
+		 * @public
+		 */
+		separateDigitsLimit: PropTypes.number,
+
+		/**
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
@@ -194,6 +198,7 @@ const InputPopupBase = kind({
 		invalid: false,
 		length: 4,
 		popupType: 'fullscreen',
+		separateDigitsLimit: 6,
 		size: 'large',
 		subtitle: '',
 		title: '',
@@ -241,7 +246,7 @@ const InputPopupBase = kind({
 		invalid,
 		invalidMessage,
 		length,
-		noSeparatedNumberField,
+		separateDigitsLimit,
 		onChange,
 		onClose,
 		onNumberComplete,
@@ -288,7 +293,7 @@ const InputPopupBase = kind({
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								noSeparatedNumberField={noSeparatedNumberField}
+								separateDigitsLimit={separateDigitsLimit}
 								invalid={invalid}
 								invalidMessage={invalidMessage}
 							/> :

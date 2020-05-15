@@ -7,7 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
-- `sandstone/Input` prop `noSeparatedNumberField` to set number input field to combined
+- `sandstone/Input` prop `separateDigitsLimit` to support switching between separate and combined input field blocks
+- `sandstone/Input` props `invalid` and `invalidMessage` to mirror the API of `InputField`
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
 
