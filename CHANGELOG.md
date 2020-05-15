@@ -14,8 +14,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/ImageItem` public class names `horizontal` and `vertical`
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
+- `sandstone/ImageItem` public class names `horizontal` and `vertical`
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
 
 ### Fixed
