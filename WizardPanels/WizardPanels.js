@@ -98,6 +98,7 @@ const WizardPanelsBase = kind({
 		* Icon for next button.
 		*
 		* @type {String}
+		* @default 'arrowlargeright'
 		* @public
 		*/
 		nextButtonIcon: PropTypes.string,
@@ -180,6 +181,7 @@ const WizardPanelsBase = kind({
 		* Icon for Prev button.
 		*
 		* @type {String}
+		* @default 'arrowlargeleft'
 		* @public
 		*/
 		prevButtonIcon: PropTypes.string,
