@@ -12,7 +12,7 @@ import {WizardPanelsContext} from './WizardPanels';
  * @ui
  * @private
  */
-function PanelBase ({footer, children, subtitle, title}) {
+function PanelBase ({children, footer, subtitle, title}) {
 	const set = React.useContext(WizardPanelsContext);
 
 	React.useEffect(() => {
