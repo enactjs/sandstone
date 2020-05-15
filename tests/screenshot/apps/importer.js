@@ -1,5 +1,6 @@
 // Sandstone
 import ActionGuide from '../../../ActionGuide';
+import Alert from '../../../Alert';
 import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
@@ -40,6 +41,7 @@ import WizardPanels from '../../../WizardPanels';
 
 const components = {
 	ActionGuide,
+	Alert,
 	BodyText,
 	Button,
 	Checkbox,

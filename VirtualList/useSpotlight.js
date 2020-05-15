@@ -3,11 +3,11 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
 const useSpotlightConfig = (props, instances) => {
-	const {spottable: {current: {lastFocusedIndex}}} = instances;
-
 	// Hooks
 
 	useEffect(() => {
+		const {spottable: {current: {lastFocusedIndex}}} = instances;
+
 		const lastFocusedPersist = () => {
 			if (lastFocusedIndex != null) {
 				return {
@@ -41,7 +41,7 @@ const useSpotlightConfig = (props, instances) => {
 		}
 
 		configureSpotlight();
-	}, [lastFocusedIndex, props, props.spotlightId]);
+	}, [props, instances]);
 
 	// Functions
 
@@ -68,12 +68,13 @@ const getNumberValue = (index) => index | 0;
 
 const useSpotlightRestore = (props, instances, context) => {
 	const {scrollContentRef, spottable} = instances;
-	const {getItemNode} = context;
+	const {focusByIndex, getItemNode} = context;
 
 	// Mutable value
 
 	const mutableRef = useRef({
 		preservedIndex: false,
+		lastSpotlightDirection: null,
 		restoreLastFocused: false
 	});
 
@@ -91,6 +92,7 @@ const useSpotlightRestore = (props, instances, context) => {
 
 			if (index) {
 				mutableRef.current.preservedIndex = getNumberValue(index);
+				mutableRef.current.lastSpotlightDirection = null;
 				mutableRef.current.restoreLastFocused = true;
 			}
 		}
@@ -122,7 +124,7 @@ const useSpotlightRestore = (props, instances, context) => {
 
 				// try to focus the last focused item
 				spottable.current.isScrolledByJump = true;
-				const foundLastFocused = Spotlight.focus(itemNode);
+				const foundLastFocused = focusByIndex(mutableRef.current.preservedIndex, mutableRef.current.lastSpotlightDirection);
 				spottable.current.isScrolledByJump = false;
 
 				// but if that fails (because it isn't found or is disabled), focus the container so
@@ -147,8 +149,9 @@ const useSpotlightRestore = (props, instances, context) => {
 		));
 	}
 
-	function setPreservedIndex (index) {
+	function setPreservedIndex (index, direction = null) {
 		mutableRef.current.preservedIndex = index;
+		mutableRef.current.lastSpotlightDirection = direction;
 		mutableRef.current.restoreLastFocused = true;
 	}
 

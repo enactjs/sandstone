@@ -7,6 +7,7 @@
  * @module sandstone/TimePicker
  * @exports TimePicker
  * @exports TimePickerBase
+ * @exports timeToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
@@ -70,6 +71,15 @@ const indexOfMeridiem = (time, meridiems) => {
 
 	return -1;
 };
+
+// Label formatter
+const labelFormatter = new DateFmt({
+	type: 'time',
+	useNative: false,
+	timezone: 'local',
+	length: 'full',
+	date: 'dmwy'
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, {meridiemLabel}) {
@@ -155,15 +165,6 @@ const dateTimeConfig = {
 		const includeMeridiem = /([khma])(?!\1)/ig;
 		const excludeMeridiem = /([khm])(?!\1)/ig;
 
-		// Label formatter
-		const formatter = new DateFmt({
-			type: 'time',
-			useNative: false,
-			timezone: 'local',
-			length: 'full',
-			date: 'dmwy'
-		});
-
 		// Meridiem localization
 		const merFormatter = new DateFmt({
 			template: 'a',
@@ -180,13 +181,13 @@ const dateTimeConfig = {
 		const meridiemEnabled = clockPref === '12';
 
 		const filter = meridiemEnabled ? includeMeridiem : excludeMeridiem;
-		const order = formatter.getTemplate()
+		const order = labelFormatter.getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(filter)
 			.map(s => s[0].toLowerCase());
 
 		return {
-			formatter,
+			formatter: labelFormatter,
 			meridiemEnabled,
 			meridiemLabels,
 			meridiemRanges,
@@ -243,5 +244,21 @@ const TimePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @function
+ * @memberof sandstone/TimePicker
+ * @param {Date} time `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const timeToLocaleString = (time) => {
+	if (!time) {
+		return null;
+	}
+
+	return labelFormatter.format(time);
+};
+
 export default TimePicker;
-export {TimePicker, TimePickerBase};
+export {TimePicker, TimePickerBase, timeToLocaleString};

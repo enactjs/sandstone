@@ -5,7 +5,7 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import React, {useCallback, useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {affordanceSize} from '../useScroll';
 
@@ -335,7 +335,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
-	delete rest.children;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -354,7 +353,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, setContainerDisabled]);
 
 	// Render
 
@@ -362,12 +361,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 		className,
 		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
-	);
-
-	rest.children = (
-		<div className={css.contentWrapper}>
-			{scrollContentProps.children}
-		</div>
 	);
 
 	return {focusableBodyProps, themeScrollContentProps: rest};

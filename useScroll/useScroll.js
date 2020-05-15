@@ -325,7 +325,6 @@ const useScroll = (props) => {
 	const scrollContainerRef = useRef();
 	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
-	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
 
 	const horizontalScrollbarHandle = useRef();
@@ -376,7 +375,6 @@ const useScroll = (props) => {
 		// Ref
 		scrollContainerRef,
 		scrollContentRef,
-		scrollContentWrapperRef,
 
 		// Adapter
 		themeScrollContentHandle,
@@ -467,18 +465,10 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
-	assignProperties('scrollContentWrapperProps', {
-		className: [
-			css.scrollContentWrapper,
-			overscrollCss.horizontal
-		],
-		ref: scrollContentWrapperRef
-	});
-
 	assignProperties('scrollContentProps', {
 		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
 		className: [
-			overscrollCss.vertical,
+			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
 		],
 		onUpdate: handleScrollerUpdate,

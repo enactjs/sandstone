@@ -23,7 +23,7 @@ const DateTimeBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * The label to display below the picker
+		 * The label to display above the picker
 		 *
 		 * @type {String}
 		 */
