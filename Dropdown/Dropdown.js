@@ -16,9 +16,9 @@
  * @exports DropdownBaseDecorator
  */
 
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import {handle, forKey, forward, forProp} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
@@ -41,10 +41,7 @@ const DropdownButton = kind({
 	name: 'DropdownButton',
 
 	propTypes: {
-		forwardRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.object})
-		])
+		forwardRef: EnactPropTypes.ref
 	},
 
 	render: ({forwardRef, ...props}) => (

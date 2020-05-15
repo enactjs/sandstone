@@ -186,6 +186,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
+			delete rest.width;
+
 			return (
 				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
 					<Wrapped

@@ -25,38 +25,49 @@ const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scrol
 storiesOf('Sandstone', module)
 	.add(
 		'Scroller',
-		() => (
-			<Scroller
-				direction={select('direction', prop.direction, ScrollerConfig)}
-				fadeOut={boolean('fadeOut', ScrollerConfig, false)}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
-				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
-				key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
-				noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
-				onScrollStart={action('onScrollStart')}
-				onScrollStop={action('onScrollStop')}
-				scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
-				spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
-				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig)}
-			>
-				<div
-					style={{
-						height: ri.scaleToRem(2004),
-						width: ri.scaleToRem(4002)
-					}}
+		() => {
+			const
+				direction = select('direction', prop.direction, ScrollerConfig),
+				fadeOut = boolean('fadeOut', ScrollerConfig, true),
+				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, 'byEnter'),
+				// The scroller for body text is thick, but others have a thin scrollbar.
+				scrollbarArea = focusableScrollbar ? 108 : 36,
+				// Content size should be specified to reserve the scrollbar area.
+				// Or, there should be padding-right or padding-left according to the RTL.
+				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? 'initial' : 'calc(100% - ' + ri.scale(scrollbarArea) + 'px)';
+			return (
+				<Scroller
+					direction={direction}
+					fadeOut={fadeOut}
+					focusableScrollbar={focusableScrollbar}
+					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
+					key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
+					noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
+					spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
+					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 				>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
-					Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
 					<div
 						style={{
-							marginTop: ri.scaleToRem(1602)
+							height: ri.scaleToRem(2004),
+							width: contentWidth
 						}}
 					>
-						Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+						Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						<div
+							style={{
+								marginTop: ri.scaleToRem(1602)
+							}}
+						>
+							Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+						</div>
 					</div>
-				</div>
-			</Scroller>
-		),
+				</Scroller>
+			);
+		},
 		{
 			info: {
 				text: 'Basic usage of Scroller'
