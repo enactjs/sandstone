@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/ImageItem` public class names `horizontal` and `vertical`
+- `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
+- `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
+
 ### Fixed
 
 - `sandstone/Panels` to not fire transition events when initially rendered

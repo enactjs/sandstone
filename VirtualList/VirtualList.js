@@ -10,6 +10,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -31,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, role, ...rest}) => {
+let VirtualList = ({itemSize, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -64,20 +65,20 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</div>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
 };
@@ -488,7 +489,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({role, ...rest}) => {
+let VirtualGridList = (props) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -503,22 +504,22 @@ let VirtualGridList = ({role, ...rest}) => {
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(rest);
+	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-			</div>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
 };
