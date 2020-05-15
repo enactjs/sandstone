@@ -13,7 +13,7 @@ import {ContextAsDefaults} from './util';
 
 import css from './Viewport.module.less';
 
-const PanelsStateContext = React.createContext(null);
+const PanelsStateContext = React.createContext({});
 
 /**
  * The container for a set of Panels
