@@ -116,7 +116,7 @@ const NumberFieldBase = kind({
 			if (invalid && invalidMessage) {
 				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -124,7 +124,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({length, showKeypad, onAdd, onRemove, type, value, separateDigitsLimit, invalidTooltip, ...rest}) => {
+	render: ({css, length, showKeypad, onAdd, onRemove, type, value, separateDigitsLimit, invalidTooltip, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.onComplete;
 		delete rest.invalid;
@@ -158,8 +158,10 @@ const NumberFieldBase = kind({
 
 		return (
 			<React.Fragment>
-				{field}
-				{invalidTooltip}
+				<div className={css.fieldWrapper}>
+					{field}
+					{invalidTooltip}
+				</div>
 				<br />
 				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
 			</React.Fragment>
