@@ -279,7 +279,6 @@ const useSpottable = (props, instances) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder,
 		updateStatesAndBounds
 	};
 };
@@ -302,7 +301,6 @@ const useThemeVirtualList = (props) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
 	} = useSpottable(props, instance);
 
@@ -324,7 +322,7 @@ const useThemeVirtualList = (props) => {
 
 	// Render
 
-	const {itemRenderer, role, ...rest} = props;
+	const {itemRenderer, ...rest} = props;
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
@@ -346,12 +344,10 @@ const useThemeVirtualList = (props) => {
 				index
 			})
 		),
-		itemsRenderer: (itemsRendererProps) => {
-			return listItemsRenderer({
-				...itemsRendererProps,
-				handlePlaceholderFocus: handlePlaceholderFocus,
-				role,
-				SpotlightPlaceholder
+		placeholderRenderer: (primary) => {
+			return placeholderRenderer({
+				handlePlaceholderFocus,
+				primary
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
@@ -360,32 +356,21 @@ const useThemeVirtualList = (props) => {
 };
 
 /* eslint-disable enact/prop-types */
-function listItemsRenderer (props) {
-	const {
-		cc,
-		handlePlaceholderFocus,
-		primary,
-		role,
-		SpotlightPlaceholder // eslint-disable-line no-shadow
-	} = props;
-
-	return (
-		<>
-			{cc.length ? (
-				<div role={role}>{cc}</div>
-			) : null}
-			{primary ? null : (
-				<SpotlightPlaceholder
-					data-index={0}
-					data-vl-placeholder
-					// a zero width/height element can't be focused by spotlight so we're giving
-					// the placeholder a small size to ensure it is navigable
-					onFocus={handlePlaceholderFocus}
-					style={{width: 10}}
-				/>
-			)}
-		</>
-	);
+function placeholderRenderer ({
+	handlePlaceholderFocus,
+	primary
+}) {
+	return (primary ? null : (
+		<SpotlightPlaceholder
+			data-index={0}
+			data-vl-placeholder
+			key="placeholder"
+			// a zero width/height element can't be focused by spotlight so we're giving
+			// the placeholder a small size to ensure it is navigable
+			onFocus={handlePlaceholderFocus}
+			style={{width: 10}}
+		/>
+	));
 }
 /* eslint-enable enact/prop-types */
 
