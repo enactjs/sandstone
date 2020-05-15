@@ -61,7 +61,7 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
-		it('should select contents over buttons', function () {
+		it('should select contents over buttons - [GT-29594]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
@@ -72,7 +72,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select buttons over header', function () {
+		it('should select buttons over header - [GT-29595]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
@@ -87,7 +87,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select header when no other options are available', function () {
+		it('should select header when no other options are available - [GT-29596]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
