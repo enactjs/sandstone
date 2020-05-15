@@ -4,6 +4,11 @@ const Page = require('./WizardPanelsPage');
 describe('WizardPanels', function () {
 	const wizardPanels = Page.components.wizardPanels;
 
+	function getFocusedTextContent () {
+		// eslint-disable-next-line no-undef
+		return document.activeElement.textContent;
+	}
+
 	beforeEach(function () {
 		Page.open();
 	});
@@ -52,6 +57,50 @@ describe('WizardPanels', function () {
 
 			wizardPanels.waitForLeave(2);
 			expect(wizardPanels.view1.isExisting()).to.be.true();
+		});
+	});
+
+	describe.only('Focus Behavior', function () {
+		it('should select contents over buttons', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(1);
+
+			const expected = 'Button A';
+			const actual = browser.execute(getFocusedTextContent);
+
+			expect(actual).to.be.equal(expected);
+		});
+
+		it('should select buttons over header', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(1);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(2);
+
+			const expected = 'OK';
+			const actual = browser.execute(getFocusedTextContent);
+
+			expect(actual).to.be.equal(expected);
+		});
+
+		it('should select buttons over header', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(1);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(2);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(3);
+
+			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 		});
 	});
 });

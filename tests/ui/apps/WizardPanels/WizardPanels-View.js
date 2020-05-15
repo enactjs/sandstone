@@ -30,7 +30,7 @@ const app = (props) => <div {...props}>
 		<WizardPanels.Panel subtitle="A subtitle for View 2" title="WizardPanels View 2">
 			<div id="view2" />
 			<BodyText>Several buttons!</BodyText>
-			<Button icon="list">Button A</Button>
+			<Button>Button A</Button>
 			<Button icon="gear">Button B</Button>
 			<Button icon="search">Button C</Button>
 			<Button icon="lock">Button D</Button>
@@ -53,10 +53,6 @@ const app = (props) => <div {...props}>
 		<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanels View 4">
 			<div id="view4" />
 			<BodyText>A simple view</BodyText>
-			<buttons>
-				<Button>OK</Button>
-				<Button>Cancel</Button>
-			</buttons>
 		</WizardPanels.Panel>
 	</WizardPanels>
 </div>;
