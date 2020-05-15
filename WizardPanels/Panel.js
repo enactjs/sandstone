@@ -12,14 +12,14 @@ import {WizardPanelsContext} from './WizardPanels';
  * @ui
  * @private
  */
-function PanelBase ({buttons, children, subtitle, title}) {
+function PanelBase ({footer, children, subtitle, title}) {
 	const set = React.useContext(WizardPanelsContext);
 
 	React.useEffect(() => {
 		if (set) {
-			set({buttons, children, subtitle, title});
+			set({footer, children, subtitle, title});
 		}
-	}, [buttons, children, subtitle, set, title]);
+	}, [footer, children, subtitle, set, title]);
 
 	return null;
 }
@@ -34,7 +34,7 @@ function PanelBase ({buttons, children, subtitle, title}) {
  * @public
  */
 const Panel = Slottable(
-	{slots: ['buttons', 'subtitle', 'title']},
+	{slots: ['footer', 'subtitle', 'title']},
 	PanelBase
 );
 
