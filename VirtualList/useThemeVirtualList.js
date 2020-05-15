@@ -368,7 +368,7 @@ function placeholderRenderer ({
 		<SpotlightPlaceholder
 			data-index={0}
 			data-vl-placeholder
-			key='placeholder'
+			key="placeholder"
 			// a zero width/height element can't be focused by spotlight so we're giving
 			// the placeholder a small size to ensure it is navigable
 			onFocus={handlePlaceholderFocus}
