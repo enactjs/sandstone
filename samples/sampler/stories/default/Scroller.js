@@ -28,8 +28,8 @@ storiesOf('Sandstone', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, ScrollerConfig)}
-				fadeOut={boolean('fadeOut', ScrollerConfig, false)}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
+				fadeOut={boolean('fadeOut', ScrollerConfig, true)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, 'byEnter')}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
 				key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
@@ -42,7 +42,9 @@ storiesOf('Sandstone', module)
 				<div
 					style={{
 						height: ri.scaleToRem(2004),
-						width: ri.scaleToRem(4002)
+						// Need to define the content size to reserve the scrollbar area and margin width (ri.scale(108)).
+						// or apply padding by RTL and direction.
+						width: 'calc(100% - ' + ri.scale(108) + 'px)'
 					}}
 				>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />

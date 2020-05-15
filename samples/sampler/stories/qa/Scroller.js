@@ -156,6 +156,41 @@ class ScrollerWithLargeContainer extends React.Component {
 
 storiesOf('Scroller', module)
 	.add(
+		'Body Text',
+		() => (
+			<Scroller
+				direction={select('direction', prop.direction, Config)}
+				fadeOut={boolean('fadeOut', Config, false)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+			>
+				<div
+					style={{
+						height: ri.scaleToRem(2004),
+						width: ri.scaleToRem(4002)
+					}}
+				>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+					Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+					<div
+						style={{
+							marginTop: ri.scaleToRem(1602)
+						}}
+					>
+						Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+					</div>
+				</div>
+			</Scroller>
+		)
+	)
+	.add(
 		'List of things',
 		() => (
 			<Scroller
