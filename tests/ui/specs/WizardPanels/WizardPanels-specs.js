@@ -60,7 +60,7 @@ describe('WizardPanels', function () {
 		});
 	});
 
-	describe.only('Focus Behavior', function () {
+	describe('Focus Behavior', function () {
 		it('should select contents over buttons', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
