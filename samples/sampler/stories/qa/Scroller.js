@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -14,6 +15,8 @@ import {storiesOf} from '@storybook/react';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+
+import css from './Scroller.module.less';
 
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -159,6 +162,12 @@ storiesOf('Scroller', module)
 		'Body Text',
 		() => (
 			<Scroller
+				className={
+					classnames({
+						[css.verticalPadding]: select('direction', prop.direction, Config) !== 'horizontal',
+						[css.horizontalPadding]: select('direction', prop.direction, Config) !== 'vertical'
+					})
+				}
 				direction={select('direction', prop.direction, Config)}
 				fadeOut={boolean('fadeOut', Config, false)}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
