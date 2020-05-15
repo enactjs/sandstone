@@ -359,17 +359,16 @@ const useThemeVirtualList = (props) => {
 };
 
 /* eslint-disable enact/prop-types */
-function placeholderRenderer (props) {
-	const {
-		handlePlaceholderFocus,
-		primary,
-		SpotlightPlaceholder // eslint-disable-line no-shadow
-	} = props;
-
+function placeholderRenderer ({
+	handlePlaceholderFocus,
+	primary,
+	SpotlightPlaceholder // eslint-disable-line no-shadow
+}) {
 	return (primary ? null : (
 		<SpotlightPlaceholder
 			data-index={0}
 			data-vl-placeholder
+			key='placeholder'
 			// a zero width/height element can't be focused by spotlight so we're giving
 			// the placeholder a small size to ensure it is navigable
 			onFocus={handlePlaceholderFocus}
