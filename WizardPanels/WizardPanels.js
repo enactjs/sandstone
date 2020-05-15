@@ -59,9 +59,9 @@ const WizardPanelsBase = kind({
 		current: PropTypes.number,
 
 		/**
-		* .... to be included under the component.
+		* Components to be included under the primary content.
 		*
-		* Typically, up to 2 buttons are used.
+		* Typically, up to 2 buttons may be included.
 		*
 		* @type {Element|Element[]}
 		* @public
@@ -376,8 +376,8 @@ function useReverseTransition (index = -1) {
 }
 
 /**
- * WizardPanelsDecorator passes the buttons, children, footer,
- * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.Panel} to
+ * WizardPanelsDecorator passes the children, footer, subtitle, and title from
+ * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
  * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
  * @class WizardPanelsRouter

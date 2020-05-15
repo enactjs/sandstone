@@ -70,20 +70,20 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have View buttons rendered in `.buttonContainer`',
+		'should have View buttons rendered in footer',
 		() => {
 			const wizardPanel = mount(
 				<WizardPanels>
 					<Panel>
-						<buttons>
+						<footer>
 							<button>Button 1</button>
 							<button>Button 2</button>
-						</buttons>
+						</footer>
 					</Panel>
 				</WizardPanels>
 			);
 
-			const buttons = wizardPanel.find('.buttonContainer').find('button').length;
+			const buttons = wizardPanel.find('.footer').find('button').length;
 
 			const expected = 2;
 			const actual = buttons;
