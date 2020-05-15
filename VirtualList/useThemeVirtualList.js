@@ -279,7 +279,6 @@ const useSpottable = (props, instances) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder,
 		updateStatesAndBounds
 	};
 };
@@ -302,7 +301,6 @@ const useThemeVirtualList = (props) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
 	} = useSpottable(props, instance);
 
@@ -348,9 +346,8 @@ const useThemeVirtualList = (props) => {
 		),
 		placeholderRenderer: (primary) => {
 			return placeholderRenderer({
-				handlePlaceholderFocus: handlePlaceholderFocus,
-				primary,
-				SpotlightPlaceholder
+				handlePlaceholderFocus,
+				primary
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
@@ -361,8 +358,7 @@ const useThemeVirtualList = (props) => {
 /* eslint-disable enact/prop-types */
 function placeholderRenderer ({
 	handlePlaceholderFocus,
-	primary,
-	SpotlightPlaceholder // eslint-disable-line no-shadow
+	primary
 }) {
 	return (primary ? null : (
 		<SpotlightPlaceholder
