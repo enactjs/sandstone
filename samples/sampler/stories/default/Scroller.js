@@ -30,9 +30,11 @@ storiesOf('Sandstone', module)
 				direction = select('direction', prop.direction, ScrollerConfig),
 				fadeOut = boolean('fadeOut', ScrollerConfig, true),
 				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, 'byEnter'),
-				// Need to define the content size to reserve the scrollbar area and margin width (ri.scale(108)).
-				// or apply padding by RTL and direction.
-				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? 'initial' : 'calc(100% - ' + ri.scale(108) + 'px)';
+				// The scroller for body text is thick, but others have a thin scrollbar.
+				scrollbarArea = focusableScrollbar ? 108 : 36,
+				// Content size should be specified to reserve the scrollbar area.
+				// Or, there should be padding-right or padding-left according to the RTL.
+				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? 'initial' : 'calc(100% - ' + ri.scale(scrollbarArea) + 'px)';
 			return (
 				<Scroller
 					direction={direction}
