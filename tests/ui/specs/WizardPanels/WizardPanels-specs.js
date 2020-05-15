@@ -87,7 +87,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should select buttons over header', function () {
+		it('should select header when no other options are available', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);
