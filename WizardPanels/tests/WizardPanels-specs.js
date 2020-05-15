@@ -157,7 +157,7 @@ describe('WizardPanel Specs', () => {
 			const nextButtonText = 'next';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase totalPanels={2} nextButtonText={nextButtonText} showNextButton />
+				<WizardPanelsBase totalPanels={2} nextButtonText={nextButtonText} />
 			);
 
 			// Using slot as a proxy to find Button since it's name isn't set
@@ -176,7 +176,7 @@ describe('WizardPanel Specs', () => {
 			const prevButtonText = 'previous';
 
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalPanels={2} prevButtonText={prevButtonText} showPrevButton />
+				<WizardPanelsBase index={1} totalPanels={2} prevButtonText={prevButtonText} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -192,7 +192,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} totalPanels={3} />
+				<WizardPanelsBase index={2} noNextButton totalPanels={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -208,7 +208,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={0} totalPanels={3} />
+				<WizardPanelsBase index={0} noPrevButton totalPanels={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -225,7 +225,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom next button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase totalPanels={2} nextButtonAriaLabel={label} showNextButton />
+				<WizardPanelsBase totalPanels={2} nextButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -240,7 +240,7 @@ describe('WizardPanel Specs', () => {
 		() => {
 			const label = 'custom previous button label';
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalPanels={2} prevButtonAriaLabel={label} showPrevButton />
+				<WizardPanelsBase index={1} totalPanels={2} prevButtonAriaLabel={label} />
 			);
 
 			const expected = label;
@@ -251,10 +251,10 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide next button with no `showNextButton` set',
+		'should hide next button with `noNextButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} totalPanels={4} showNextButton={false} />
+				<WizardPanelsBase index={2} noNextButton totalPanels={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -267,10 +267,10 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide previous button with  no `showPrevButton` set',
+		'should hide previous button with `noPrevButton`',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} totalPanels={4} showPrevButton={false} />
+				<WizardPanelsBase index={2} noPrevButton totalPanels={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -334,7 +334,7 @@ describe('WizardPanel Specs', () => {
 		'should advance on next click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels showNextButton>
+				<WizardPanels>
 					<Panel />
 					<Panel />
 					<Panel />
@@ -357,7 +357,7 @@ describe('WizardPanel Specs', () => {
 		'should go back on prev click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} showPrevButton>
+				<WizardPanels defaultIndex={1}>
 					<Panel />
 					<Panel />
 					<Panel />
@@ -405,7 +405,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should not go back on back key when no Previous Button set',
+		'should not go back on back key when noPrevButton set',
 		() => {
 			const map = {};
 
@@ -414,7 +414,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} showPrevButton={false}>
+				<WizardPanels defaultIndex={1} noPrevButton>
 					<Panel />
 					<Panel />
 					<Panel />
@@ -424,7 +424,7 @@ describe('WizardPanel Specs', () => {
 			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
 			wizardPanel.update();
 
-			const expected = {current: 1};
+			const expected = {current: 2};
 			const actual = wizardPanel.find('Steps').props();
 
 			wizardPanel.unmount();

@@ -19,11 +19,11 @@ function PanelBase ({
 	nextButtonAriaLabel,
 	nextButtonText,
 	nextButtonIcon,
+	noNextButton,
+	noPrevButton,
 	prevButtonAriaLabel,
 	prevButtonText,
 	prevButtonIcon,
-	showNextButton,
-	showPrevButton,
 	subtitle,
 	title
 }) {
@@ -38,11 +38,11 @@ function PanelBase ({
 				nextButtonAriaLabel,
 				nextButtonIcon,
 				nextButtonText,
+			    noNextButton,
+			    noPrevButton,
 				prevButtonAriaLabel,
 				prevButtonIcon,
 				prevButtonText,
-				showNextButton,
-				showPrevButton,
 				subtitle,
 				title
 			});
@@ -54,11 +54,11 @@ function PanelBase ({
 		nextButtonAriaLabel,
 		nextButtonIcon,
 		nextButtonText,
+		noNextButton,
+		noPrevButton,
 		prevButtonIcon,
 		prevButtonAriaLabel,
 		prevButtonText,
-		showNextButton,
-		showPrevButton,
 		subtitle,
 		set,
 		title

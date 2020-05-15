@@ -119,6 +119,24 @@ const WizardPanelsBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
+		* Omits the next button component.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noNextButton: PropTypes.bool,
+
+		/**
+		* Omits the previous button component.
+		*
+		* When set, the back key will be disabled.
+		*
+		* @type {Boolean}
+		* @public
+		*/
+		noPrevButton: PropTypes.bool,
+
+		/**
 		* Omits the steps component.
 		*
 		* @type {Boolean}
@@ -181,24 +199,6 @@ const WizardPanelsBase = kind({
 		 * @private
 		 */
 		reverseTransition: PropTypes.bool,
-
-		/**
-		* Omits the next button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		showNextButton: PropTypes.bool,
-
-		/**
-		* Omits the previous button component.
-		*
-		* When set, the back key will be disabled.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		showPrevButton: PropTypes.bool,
 
 		/**
 		* The subtitle to display.
@@ -311,6 +311,8 @@ const WizardPanelsBase = kind({
 		nextButtonText,
 		nextButtonIcon,
 		noAnimation,
+		noNextButton,
+		noPrevButton,
 		onNextClick,
 		onPrevClick,
 		onTransition,
@@ -319,8 +321,6 @@ const WizardPanelsBase = kind({
 		prevButtonAriaLabel,
 		prevButtonText,
 		reverseTransition,
-		showNextButton,
-		showPrevButton,
 		steps,
 		subtitle,
 		title,
@@ -343,7 +343,7 @@ const WizardPanelsBase = kind({
 					type="wizard"
 				>
 					{steps}
-					{showNextButton ? (
+					{!noNextButton ? (
 						<Button
 							aria-label={nextButtonAriaLabel}
 							backgroundOpacity="transparent"
@@ -356,7 +356,7 @@ const WizardPanelsBase = kind({
 							{nextButtonText}
 						</Button>
 					) : null}
-					{showPrevButton ? (
+					{!noPrevButton ? (
 						<Button
 							aria-label={prevButtonAriaLabel}
 							backgroundOpacity="transparent"
@@ -447,8 +447,8 @@ const WizardPanelsDecorator = (Wrapped) => {
 			'nextButtonAriaLabel',
 			'nextButtonIcon',
 			'nextButtonText',
-			'showNextButton',
-			'showPrevButton'
+			'noNextButton',
+			'noPrevButton'
 		];
 		const sharedProps = {};
 		sharedPropsList.forEach( p => {
