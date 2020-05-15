@@ -376,7 +376,7 @@ function useReverseTransition (index = -1) {
 }
 
 /**
- * WizardPanelsDecorator passes the children, footer, subtitle, and title from
+ * WizardPanelsRouter passes the children, footer, subtitle, and title from
  * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
  * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *

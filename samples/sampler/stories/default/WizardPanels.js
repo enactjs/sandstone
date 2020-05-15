@@ -5,7 +5,6 @@ import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
@@ -24,7 +23,6 @@ storiesOf('Sandstone', module)
 				noNextButton={boolean('noNextButton', WizardPanels)}
 				noPrevButton={boolean('noPrevButton', WizardPanels)}
 				noSteps={boolean('noSteps', WizardPanels)}
-				onSelect={action('onSelect')}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
 				prevButtonText={text('prevButtonText', WizardPanels, '')}
