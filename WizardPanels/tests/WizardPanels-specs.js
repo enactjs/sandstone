@@ -8,20 +8,23 @@ describe('WizardPanel Specs', () => {
 	const findNextButton = subject => subject.find('.slotAfter').find('Pure');
 	const findPrevButton = subject => subject.find('.slotBefore').find('Pure');
 
-	test.skip(
+	test(
 		'should have title in `Header`',
 		() => {
 			const title = 'WizardPanel title';
 
-			const wizardPanel = shallow(
-				<WizardPanelsBase title={title} />
+			const wizardPanel = mount(
+				<WizardPanels title={title}>
+					<Panel />
+				</WizardPanels>
 			);
 
-			const headerTitle = wizardPanel.find({type: 'wizard'}).prop('title');
+			const headerTitle = wizardPanel.find('Header').prop('title');
 
 			const expected = title;
 			const actual = headerTitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
