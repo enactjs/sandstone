@@ -169,8 +169,8 @@ storiesOf('Scroller', module)
 					})
 				}
 				direction={select('direction', prop.direction, Config)}
-				fadeOut={boolean('fadeOut', Config, false)}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				fadeOut={boolean('fadeOut', Config, true)}
+				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config, 'byEnter')}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
