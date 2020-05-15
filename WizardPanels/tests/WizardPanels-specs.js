@@ -70,27 +70,6 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have footer from `View`',
-		() => {
-			const viewFooter = 'View footer';
-
-			const wizardPanel = mount(
-				<WizardPanels>
-					<Panel footer={viewFooter} />
-				</WizardPanels>
-			);
-
-			const footerText = wizardPanel.find('.footer').text();
-
-			const expected = viewFooter;
-			const actual = footerText;
-
-			wizardPanel.unmount();
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
 		'should have View buttons rendered in `.buttonContainer`',
 		() => {
 			const wizardPanel = mount(

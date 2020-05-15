@@ -31,12 +31,9 @@ const WizardPanelsContext = React.createContext(null);
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
- *			<buttons>
+ *			<footer>
  *				<Button>OK</Button>
  *				<Button>Cancel</Button>
- *			</buttons>
- *			<footer>
- *				<CheckboxItem inline>Confirm</CheckboxItem>
  *			</footer>
  *		</WizardPanels.Panel>
  *	</WizardPanels>
@@ -51,19 +48,6 @@ const WizardPanelsBase = kind({
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
 		/**
-		* Buttons to be included under the component.
-		*
-		* Typically, up to 2 buttons are used.
-		*
-		* @type {Element|Element[]}
-		* @public
-		*/
-		buttons: PropTypes.oneOfType([
-			PropTypes.element,
-			PropTypes.arrayOf(PropTypes.element)
-		]),
-
-		/**
 		 * The current step.
 		 *
 		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
@@ -75,9 +59,11 @@ const WizardPanelsBase = kind({
 		current: PropTypes.number,
 
 		/**
-		* The footer for WizardLayout.
+		* .... to be included under the component.
 		*
-		* @type {Node}
+		* Typically, up to 2 buttons are used.
+		*
+		* @type {Element|Element[]}
 		* @public
 		*/
 		footer: PropTypes.node,
@@ -280,7 +266,6 @@ const WizardPanelsBase = kind({
 	},
 
 	render: ({
-		buttons,
 		children,
 		footer,
 		index,
@@ -350,7 +335,6 @@ const WizardPanelsBase = kind({
 			>
 				<Column>
 					<Cell className={css.content}>
-						{/* This should probably use portals */}
 						{/* skip creating ViewManager when there aren't children to avoid animating
 							the first view into the viewport */}
 						{children ? (
@@ -366,14 +350,9 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.bottom} component="footer" shrink>
-						<div className={css.buttonContainer}>
-							{/* This should probably use portals */}
-							{buttons}
-						</div>
-						<div className={css.footer}>
-							{footer}
-						</div>
+					<Cell className={css.footer} component="footer" shrink>
+						{/* This should probably use portals */}
+						{footer}
 					</Cell>
 				</Column>
 			</PanelBase>
@@ -508,8 +487,8 @@ const WizardPanelsDecorator = compose(
 	}),
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
-		// prefer any spottable within the panel content or buttons
-		defaultElement: [`.${css.body} *`, 'header > *'],
+		// prefer any spottable within the panel body (content or footer) followed by header
+		defaultElement: [`.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
 	WizardPanelsRouter,

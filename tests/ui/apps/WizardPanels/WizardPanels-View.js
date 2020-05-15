@@ -17,15 +17,15 @@ const app = (props) => <div {...props}>
 		prevButtonText="previous"
 		title="WizardPanels"
 	>
-		<WizardPanels.Panel footer="Footer in View 1" subtitle="A subtitle for View 1" title="WizardPanels View 1">
+		<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanels View 1">
 			<Scroller>
 				<div id="view1" />
 				<BodyText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue i\nterdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus.</BodyText>
 			</Scroller>
-			<buttons>
+			<footer>
 				<Button>OK</Button>
 				<Button>Cancel</Button>
-			</buttons>
+			</footer>
 		</WizardPanels.Panel>
 		<WizardPanels.Panel subtitle="A subtitle for View 2" title="WizardPanels View 2">
 			<div id="view2" />
@@ -34,23 +34,20 @@ const app = (props) => <div {...props}>
 			<Button icon="gear">Button B</Button>
 			<Button icon="search">Button C</Button>
 			<Button icon="lock">Button D</Button>
-			<buttons>
+			<footer>
 				<Button>OK</Button>
 				<Button>Cancel</Button>
-			</buttons>
-			<footer>
-				<Button inline>Confirm</Button>
 			</footer>
 		</WizardPanels.Panel>
-		<WizardPanels.Panel ooter="Footer in View 3" subtitle="A subtitle for View 3" title="WizardPanels View 3">
+		<WizardPanels.Panel subtitle="A subtitle for View 3" title="WizardPanels View 3">
 			<div id="view3" />
 			<BodyText>A simple view</BodyText>
-			<buttons>
+			<footer>
 				<Button>OK</Button>
 				<Button>Cancel</Button>
-			</buttons>
+			</footer>
 		</WizardPanels.Panel>
-		<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanels View 4">
+		<WizardPanels.Panel subtitle="A subtitle for View 4" title="WizardPanels View 4">
 			<div id="view4" />
 			<BodyText>A simple view</BodyText>
 		</WizardPanels.Panel>
