@@ -1,6 +1,8 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import ComponentOverride from '@enact/ui/ComponentOverride';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import Skinnable from '@enact/ui/Skinnable';
@@ -78,21 +80,15 @@ const WizardPanelsBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Hint string read when focusing the next button.
-		 *
-		 * @type {String}
-		 * @default 'Next'
-		 * @public
-		 */
-		nextButtonAriaLabel: PropTypes.string,
-
-		/**
-		* The text for next button.
+		* Next button ... more docs to come
 		*
-		* @type {String}
+		* @type {String|Component|Node}
 		* @public
 		*/
-		nextButtonText: PropTypes.string,
+		nextButton: PropTypes.oneOfType([
+			PropTypes.string,
+			EnactPropTypes.componentOverride
+		]),
 
 		/**
 		 * Disables panel transitions.
@@ -101,14 +97,6 @@ const WizardPanelsBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		* Omits the next button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noNextButton: PropTypes.bool,
 
 		/**
 		* Omits the previous button component.
@@ -152,21 +140,15 @@ const WizardPanelsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Hint string read when focusing the previous button.
-		 *
-		 * @type {String}
-		 * @default 'Previous'
-		 * @public
-		 */
-		prevButtonAriaLabel: PropTypes.string,
-
-		/**
-		* The text for previous button.
+		* Previous button ... more docs to come
 		*
-		* @type {String}
+		* @type {String|Component|Node}
 		* @public
 		*/
-		prevButtonText: PropTypes.string,
+		prevButton: PropTypes.oneOfType([
+			PropTypes.string,
+			EnactPropTypes.componentOverride
+		]),
 
 		/**
 		 * Explicitly sets the ViewManager transition direction.
@@ -250,6 +232,60 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
+		nextButton: ({index, nextButton, onIncrementStep, totalPanels}) => {
+			if (nextButton === null || nextButton === false) return null;
+
+			const isString = typeof nextButton === 'string';
+
+			const props = {
+				backgroundOpacity: 'transparent',
+				icon: 'arrowlargeright',
+				iconPosition: 'after',
+				minWidth: false,
+				onClick: onIncrementStep,
+				slot: 'slotAfter',
+				children: isString ? nextButton : $L('Next')
+			};
+
+			if (nextButton && !isString) {
+				return (
+					<ComponentOverride component={nextButton} {...props} />
+				);
+			}
+
+			if (index < totalPanels - 1) {
+				return (
+					<Button {...props} />
+				);
+			}
+		},
+		prevButton: ({index, onDecrementStep, prevButton}) => {
+			if (prevButton === null || prevButton === false) return null;
+
+			const isString = typeof nextButton === 'string';
+
+			const props = {
+				backgroundOpacity: 'transparent',
+				icon: 'arrowlargeleft',
+				iconPosition: 'before',
+				minWidth: false,
+				onClick: onDecrementStep,
+				slot: 'slotBefore',
+				children: isString ? prevButton : $L('Previous')
+			};
+
+			if (prevButton && !isString) {
+				return (
+					<ComponentOverride component={prevButton} {...props} />
+				);
+			}
+
+			if (index !== 0) {
+				return (
+					<Button {...props} />
+				);
+			}
+		},
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
@@ -268,28 +304,25 @@ const WizardPanelsBase = kind({
 	render: ({
 		children,
 		footer,
-		index,
-		nextButtonAriaLabel,
-		nextButtonText,
+		nextButton,
 		noAnimation,
-		noNextButton,
-		noPrevButton,
-		onDecrementStep,
-		onIncrementStep,
 		onTransition,
 		onWillTransition,
-		prevButtonAriaLabel,
-		prevButtonText,
+		prevButton,
 		reverseTransition,
 		steps,
 		subtitle,
 		title,
-		totalPanels,
 		...rest
 	}) => {
-		delete rest.noSteps;
 		delete rest.current;
+		delete rest.index;
+		delete rest.noPrevButton;
+		delete rest.noSteps;
+		delete rest.onDecrementStep;
+		delete rest.onIncrementStep;
 		delete rest.total;
+		delete rest.totalPanels;
 
 		return (
 			<PanelBase
@@ -305,31 +338,8 @@ const WizardPanelsBase = kind({
 						type="wizard"
 					>
 						{steps}
-						{index < totalPanels - 1 && !noNextButton ? (
-							<Button
-								aria-label={nextButtonAriaLabel}
-								backgroundOpacity="transparent"
-								icon="arrowlargeright"
-								iconPosition="after"
-								minWidth={false}
-								onClick={onIncrementStep}
-								slot="slotAfter"
-							>
-								{nextButtonText}
-							</Button>
-						) : null}
-						{index !== 0 && !noPrevButton ? (
-							<Button
-								aria-label={prevButtonAriaLabel}
-								backgroundOpacity="transparent"
-								icon="arrowlargeleft"
-								minWidth={false}
-								onClick={onDecrementStep}
-								slot="slotBefore"
-							>
-								{prevButtonText}
-							</Button>
-						) : null}
+						{nextButton}
+						{prevButton}
 					</Header>
 				}
 			>

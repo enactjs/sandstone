@@ -1,11 +1,12 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, text} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
+import kind from '@enact/core/kind';
+
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
@@ -13,21 +14,37 @@ import WizardPanels from '@enact/sandstone/WizardPanels';
 
 WizardPanels.displayName = 'WizardPanels';
 
+const ExitButton = kind({
+	name: 'ExitButton',
+	handlers: {
+		onClick: (ev, {onClick, onExit}) => {
+			// custom behavior
+			onExit && onExit();
+			// forward on to allow default behavior. could be conditional
+			onClick(ev);
+		}
+	},
+	render: (props) => {
+		return (
+			<Button {...props} icon="closex">
+				Exit
+			</Button>
+		);
+	}
+});
+
 storiesOf('Sandstone', module)
 	.add(
 		'WizardPanels',
 		() => (
 			<WizardPanels
+				prevButton={<ExitButton onExit={() => console.log('exit')} />}
 				current={number('current', WizardPanels, 0)}
-				nextButtonText={text('nextButtonText', WizardPanels, '')}
 				noAnimation={boolean('noAnimation', WizardPanels, false)}
-				noNextButton={boolean('noNextButton', WizardPanels)}
-				noPrevButton={boolean('noPrevButton', WizardPanels)}
 				noSteps={boolean('noSteps', WizardPanels)}
 				onSelect={action('onSelect')}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
-				prevButtonText={text('prevButtonText', WizardPanels, '')}
 				total={number('total', WizardPanels, 0)}
 			>
 				<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanel View 1">
