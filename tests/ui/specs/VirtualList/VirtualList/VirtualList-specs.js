@@ -261,7 +261,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(1, 'focus 2');
 				Page.spotlightUp();
 				expectFocusedItem(0, 'focus 3');
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
+				expect(Page.list.getAttribute('data-keydown-events')).to.be.null();
 				Page.spotlightRight();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 7');
