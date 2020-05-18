@@ -120,7 +120,6 @@ describe('VirtualList', function () {
 			expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 		});
 
-
 		//	TODO: Need to api for Scrollbar and List size checking in sandstone.
 		it.skip('should have same height list and scrollbar [GT-28930]', function () {
 			// Verify: The scrollbar size fit to the size of the list.
@@ -138,7 +137,6 @@ describe('VirtualList', function () {
 			Page.spotlightDown();
 			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
 		});
-
 
 		// Need mochaOpts - timeout set to 60000 to pass
 		it('should position of Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
@@ -250,11 +248,9 @@ describe('VirtualList', function () {
 			expectFocusedItem(1, 'focus Item 01');
 			$('#item5').moveTo();
 			expectFocusedItem(5, 'focus Item 05');
-
 		});
 
 		describe('onKeyDown event behavior [GT-28490]', function () {
-
 			// TODO: Need to check another way for PagingControl.
 			it.skip('should prevent bubbling while navigating within a list', function () {
 				Page.spotlightSelect();
@@ -266,11 +262,6 @@ describe('VirtualList', function () {
 				Page.spotlightUp();
 				expectFocusedItem(0, 'focus 3');
 				Page.spotlightRight();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 4').to.be.true();
-				Page.spotlightDown();
-				expect(Page.buttonScrollDown.isFocused(), 'focus 5').to.be.true();
-				Page.spotlightUp();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 6').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 7');
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
