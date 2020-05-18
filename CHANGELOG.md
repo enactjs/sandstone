@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
+- `sandstone/VideoPlayer` to jump to left direction using left key via 5-way
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
