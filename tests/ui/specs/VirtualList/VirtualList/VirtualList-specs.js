@@ -261,10 +261,11 @@ describe('VirtualList', function () {
 				expectFocusedItem(1, 'focus 2');
 				Page.spotlightUp();
 				expectFocusedItem(0, 'focus 3');
+				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 				Page.spotlightRight();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 7');
-				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
+				expect(Page.list.getAttribute('data-keydown-events')).to.equal('1');
 			});
 
 			// TODO: Fix to wrap bug [ENYO-6468]
