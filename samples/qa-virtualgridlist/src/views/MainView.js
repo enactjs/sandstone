@@ -57,7 +57,6 @@ class MainView extends React.Component {
 				<div className={css.content}>
 					<ImageList
 						cbScrollTo={this.getScrollTo}
-						className={css.list}
 						focusableScrollbar={focusableScrollbar}
 						direction={horizontal ? 'horizontal' : 'vertical'}
 						scrollMode={nativeScroll ? 'native' : 'translate'}
