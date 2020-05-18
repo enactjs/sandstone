@@ -251,8 +251,8 @@ describe('VirtualList', function () {
 		});
 
 		describe('onKeyDown event behavior [GT-28490]', function () {
-			// TODO: Need to check another way for PagingControl.
-			it.skip('should prevent bubbling while navigating within a list', function () {
+
+			it('should prevent bubbling while navigating within a list', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
 				Page.spotlightRight();
