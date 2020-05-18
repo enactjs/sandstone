@@ -1,3 +1,4 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import ForwardRef from '@enact/ui/ForwardRef';
 import kind from '@enact/core/kind';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
@@ -42,10 +43,10 @@ const MediaTitleBase = kind({
 		/**
 		 * Forwards a reference to the MediaTitle component.
 		 *
-		 * @type {Function}
+		 * @type {Object|Function}
 		 * @private
 		 */
-		forwardRef: PropTypes.func,
+		forwardRef: EnactPropTypes.ref,
 
 		/**
 		 * Control whether the children (infoComponents) are displayed.

@@ -1,3 +1,4 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -107,10 +108,10 @@ const TooltipBase = kind({
 		/**
 		 * Called when the tooltip mounts/unmounts, giving a reference to the DOM.
 		 *
-		 * @type {Function}
+		 * @type {Object|Function}
 		 * @public
 		 */
-		tooltipRef: PropTypes.func,
+		tooltipRef: EnactPropTypes.ref,
 
 		/**
 		 * The width of tooltip content in pixels (px).

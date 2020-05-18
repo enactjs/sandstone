@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
@@ -131,10 +132,7 @@ const PanelBase = kind({
 		 * @type {Function|Object}
 		 * @private
 		 */
-		titleRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		])
+		titleRef: EnactPropTypes.ref
 	},
 
 	defaultProps: {

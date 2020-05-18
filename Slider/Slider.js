@@ -304,6 +304,7 @@ const SliderBase = kind({
 				tooltipComponent={
 					<ComponentOverride
 						component={tooltip}
+						css={css}
 						visible={focused}
 					/>
 				}
