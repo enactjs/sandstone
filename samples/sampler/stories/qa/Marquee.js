@@ -11,12 +11,15 @@ import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
+import Skinnable from '@enact/sandstone/Skinnable';
+
+import css from './Marquee.module.less';
 
 Marquee.displayName = 'Marquee';
 
-const SpottableMarquee = Spottable(Marquee);
+const SpottableMarquee = Spottable(Skinnable(Marquee));
 const Controller = MarqueeController('div');
-const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable('div'));
+const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable(Skinnable('div')));
 
 const LTR = [
 	'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.',
@@ -238,6 +241,7 @@ storiesOf('Marquee', module)
 					{LTR[0]}
 				</Item>
 				<SpottableMarquee
+					className={css.spotlight}
 					style={{width: ri.unit(798, 'rem')}}
 					marqueeOn="focus"
 				>
@@ -250,7 +254,7 @@ storiesOf('Marquee', module)
 	.add(
 		'Restart Marquee when Marquee completes',
 		() => (
-			<SpottableDiv>
+			<SpottableDiv className={css.spotlight}>
 				<Marquee
 					style={{width: ri.unit(798, 'rem')}}
 					disabled={false}
