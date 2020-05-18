@@ -16,14 +16,8 @@ function PanelBase ({
 	buttons,
 	children,
 	footer,
-	nextButtonAriaLabel,
-	nextButtonText,
-	nextButtonIcon,
-	noNextButton,
-	noPrevButton,
-	prevButtonAriaLabel,
-	prevButtonText,
-	prevButtonIcon,
+	nextButton,
+	prevButton,
 	subtitle,
 	title
 }) {
@@ -35,14 +29,8 @@ function PanelBase ({
 				buttons,
 				children,
 				footer,
-				nextButtonAriaLabel,
-				nextButtonIcon,
-				nextButtonText,
-				noNextButton,
-				noPrevButton,
-				prevButtonAriaLabel,
-				prevButtonIcon,
-				prevButtonText,
+				nextButton,
+				prevButton,
 				subtitle,
 				title
 			});
@@ -51,14 +39,8 @@ function PanelBase ({
 		buttons,
 		children,
 		footer,
-		nextButtonAriaLabel,
-		nextButtonIcon,
-		nextButtonText,
-		noNextButton,
-		noPrevButton,
-		prevButtonIcon,
-		prevButtonAriaLabel,
-		prevButtonText,
+		nextButton,
+		prevButton,
 		subtitle,
 		set,
 		title
@@ -79,6 +61,16 @@ const Panel = Slottable(
 	{slots: ['buttons', 'footer', 'subtitle', 'title']},
 	PanelBase
 );
+
+
+/**
+ * nextButton docs ...
+ *
+ * @name nextButton
+ * @memberof sandstone/WizardPanels.Panel.prototype
+ * @type {Boolean|Function|Element}
+ * @public
+ */
 
 export default Panel;
 export {
