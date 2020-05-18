@@ -231,7 +231,7 @@ describe('VirtualList', function () {
 			// Step 3-2: 5-way Spot 'Item 004'(while leaving the pointer on 'item 004').
 			$('#item4').moveTo();
 			Page.spotlightSelect();
-			// Verify Step 3: Position the pointer on 'item 004'.
+			// Verify Step 3: Spotlight displays on the '*Item 004*'.
 			expectFocusedItem(4, 'focus Item 004');
 			// Step 4-1: 5-way Down to 'Item 007'.
 			Page.spotlightDown();
