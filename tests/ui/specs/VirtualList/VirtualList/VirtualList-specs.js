@@ -400,11 +400,12 @@ describe('VirtualList', function () {
 			});
 		});
 
-		// TODO: Need to checking api LTR for sandstone.
+		// TODO : Need to check another way for RTL.
 		describe('RTL locale', function () {
 			beforeEach(function () {
 				Page.open('?locale=ar-SA');
 			});
+
 			it.skip('should position Paging Controls on left side in RTL [GT-28563]', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
