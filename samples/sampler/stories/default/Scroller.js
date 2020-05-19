@@ -33,8 +33,8 @@ storiesOf('Sandstone', module)
 				horizontalScrollbar = select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig),
 				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig),
 				className = {
-					[css.verticalPadding]: direction !== 'horizontal' && verticalScrollbar !== 'hidden',
-					[css.horizontalPadding]: direction !== 'vertical' && horizontalScrollbar !== 'hidden',
+					[css.verticalPadding]: (direction !== 'horizontal' && verticalScrollbar !== 'hidden') || verticalScrollbar === 'visible',
+					[css.horizontalPadding]: (direction !== 'vertical' && horizontalScrollbar !== 'hidden') || horizontalScrollbar === 'visible',
 					[css.bodyText]: focusableScrollbar || null
 				};
 			return (
