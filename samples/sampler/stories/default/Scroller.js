@@ -8,6 +8,8 @@ import {storiesOf} from '@storybook/react';
 
 import Scroller from '@enact/sandstone/Scroller';
 
+import css from './Scroller.module.less';
+
 const
 	prop = {
 		direction: ['both', 'horizontal', 'vertical'],
@@ -27,6 +29,12 @@ storiesOf('Sandstone', module)
 		'Scroller',
 		() => (
 			<Scroller
+				className={
+					{
+						[css.verticalPadding]: select('direction', prop.direction, ScrollerConfig) !== 'horizontal',
+						[css.horizontalPadding]: select('direction', prop.direction, ScrollerConfig) !== 'vertical'
+					}
+				}
 				direction={select('direction', prop.direction, ScrollerConfig)}
 				fadeOut={boolean('fadeOut', ScrollerConfig, false)}
 				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig)}
