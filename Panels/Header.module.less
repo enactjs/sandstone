@@ -69,6 +69,10 @@
 		margin-inline-start: 0;
 	}
 
+	.close {
+		margin-inline-end: 0;
+	}
+
 	&.showBack {
 		.backContainer {
 			opacity: 1;
@@ -130,6 +134,21 @@
 	&.standard {
 		margin: @sand-header-standard-margin;
 		padding: @sand-header-standard-padding;
+
+		.subtitle,
+		.title {
+			padding: @sand-header-standard-title-padding;
+		}
+
+		.subtitle {
+			top: ~"calc(100% - "@sand-header-standard-subtitle-offset ~")";
+		}
+
+		&.showBack {
+			.backContainer {
+				width: @sand-button-height;
+			}
+		}
 	}
 
 	// Compact Header

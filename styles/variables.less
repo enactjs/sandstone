@@ -212,7 +212,8 @@
 @sand-button-icon-small-h-margin: @sand-button-icon-h-margin;
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
-@sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
+@sand-button-icon-small-h-padding: ((@sand-button-small-height - @sand-icon-small-size) / 2);
+@sand-button-icon-small-padding: 0 @sand-button-icon-small-h-padding;
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
@@ -296,7 +297,12 @@
 @sand-header-featurecontent-title-opacity: 0.3;
 @sand-header-featurecontent-title-transform: translateY(-50%);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px 150px 72px;
+@sand-header-standard-top-padding: (132px - @sand-app-keepout - @sand-component-spacing - 12px);
+@sand-header-standard-h-padding: (144px - (@sand-app-keepout - @sand-component-spacing) - @sand-button-icon-small-h-padding); // 144px spec minus panel padding and button padding
+@sand-header-standard-padding: @sand-header-standard-top-padding @sand-header-standard-h-padding 72px;
+@sand-header-standard-title-left-padding: (150px - (144px - (@sand-app-keepout - @sand-component-spacing)) + 6px); // 150px spec minus panel padding and an offset
+@sand-header-standard-title-padding: 0 0 0 @sand-header-standard-title-left-padding;
+@sand-header-standard-subtitle-offset: 24px;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
