@@ -128,7 +128,7 @@ describe('VirtualList', function () {
 
 		it('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
 			let ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
-			// Verify 1-2: The Scrollbar track displays shortly right aligned.
+			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
 			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
 		});
 
@@ -400,7 +400,7 @@ describe('VirtualList', function () {
 			});
 
 			it('should position Scrollbar Track on left side in RTL [GT-28563]', function () {
-				// Vreify 3-2: The Scrollbar track displays shortly left aligned.
+				// Verify 3-2: The Scrollbar track displays shortly left aligned.
 				expect(Page.getScrollOffsetLeft()).to.equal(0);
 			});
 
