@@ -1,4 +1,4 @@
-import handle, {forProp, forwardWithPrevent, not, adaptEvent, forward} from '@enact/core/handle';
+import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -31,7 +31,7 @@ const NavigationButton = kind({
 
 	render: ({button, visible, ...rest}) => {
 
-		if (React.isValidElement(button)) {
+		if ((React.isValidElement(button)) && visible) {
 
 			Object.keys(button.props).forEach(key => {
 				// Using the provided prop values as defaults for any button.props value that is
@@ -50,8 +50,8 @@ const NavigationButton = kind({
 				<Type {...rest} />
 			);
 		} else if (
-			// Explicitly disabled via false/null
-			(button === false || button === null) ||
+			// Explicitly disabled via false/null or visible is set to false
+			(button === false || button === null || !visible) ||
 			// Using the default config and hidden at this time
 			// eslint-disable-next-line no-undefined
 			(button === undefined && !visible)
@@ -341,12 +341,8 @@ const WizardPanelsBase = kind({
 		delete rest.current;
 		delete rest.total;
 
-		const isPrevButtonVisibility = ((prevButtonVisibility !== 'never') && (index !== 0)) || (prevButtonVisibility === 'always') ?  true : false;
-		const isNextButtonVisibility =  ((nextButtonVisibility !== 'never') && (index < totalPanels - 1)) || (nextButtonVisibility === 'always') ? true : false;
-
-		console.log('prevButtonVisibility:', prevButtonVisibility, isPrevButtonVisibility);
-
-		console.log('nextButtonVisibility:', nextButtonVisibility, isNextButtonVisibility);
+		const isPrevButtonVisibility = ((prevButtonVisibility !== 'never') && (prevButtonVisibility !== 'always') && (index !== 0)) || (prevButtonVisibility === 'always');
+		const isNextButtonVisibility = ((nextButtonVisibility !== 'never') && (nextButtonVisibility !== 'always') && (index < totalPanels - 1)) || (nextButtonVisibility === 'always');
 
 		return (
 			<Panel {...rest}>

@@ -11,10 +11,9 @@ import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 
-const prop = {
+const visibilityProp = {
 	buttonVisibilityOption: ['auto', 'always', 'never']
-}
-
+};
 
 WizardPanels.displayName = 'WizardPanels';
 
@@ -26,10 +25,10 @@ storiesOf('Sandstone', module)
 				current={number('current', WizardPanels, 0)}
 				noAnimation={boolean('noAnimation', WizardPanels, false)}
 				noSteps={boolean('noSteps', WizardPanels)}
-				nextButtonVisibility={select('nextButtonVisibility', prop.buttonVisibilityOption, WizardPanels, 'auto')}
+				nextButtonVisibility={select('nextButtonVisibility', visibilityProp.buttonVisibilityOption, WizardPanels, 'auto')}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
-				prevButtonVisibility={select('prevButtonVisibility', prop.buttonVisibilityOption, WizardPanels, 'auto')}
+				prevButtonVisibility={select('prevButtonVisibility', visibilityProp.buttonVisibilityOption, WizardPanels, 'auto')}
 				total={number('total', WizardPanels, 0)}
 			>
 				<WizardPanels.Panel
@@ -71,7 +70,7 @@ storiesOf('Sandstone', module)
 						Hello Item
 					</Item>
 				</WizardPanels.Panel>
-				<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanel View 4" noNextButton>
+				<WizardPanels.Panel footer="Footer in View 4" subtitle="A subtitle for View 4" title="WizardPanel View 4">
 					<Icon>resumeplay</Icon>
 					<BodyText>A simple view</BodyText>
 					<buttons>
