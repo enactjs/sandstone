@@ -1,3 +1,4 @@
+import {Cell, Column} from '@enact/ui/Layout';
 import React from 'react';
 
 import ImageList from '../components/ImageList';
@@ -43,26 +44,28 @@ class MainView extends React.Component {
 	render = () => {
 		const {focusableScrollbar, horizontal, inputType, nativeScroll} = this.state;
 		return (
-			<div className={css.mainView}>
-				<PanelHeader
+			<Column>
+				<Cell
+					component={PanelHeader}
 					inputType={inputType}
 					nativeScroll={nativeScroll}
 					onChangeDirection={this.onChangeDirection}
 					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
 					onChangeInputType={this.onChangeInputType}
 					onChangeScrollMode={this.onChangeScrollMode}
+					shrink
 					title="VirtualGridList"
 					type="mini"
 				/>
-				<div className={css.content}>
+				<Cell className={css.content}>
 					<ImageList
 						cbScrollTo={this.getScrollTo}
 						focusableScrollbar={focusableScrollbar}
 						direction={horizontal ? 'horizontal' : 'vertical'}
 						scrollMode={nativeScroll ? 'native' : 'translate'}
 					/>
-				</div>
-			</div>
+				</Cell>
+			</Column>
 		);
 	}
 }
