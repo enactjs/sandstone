@@ -11,7 +11,7 @@ import ApiDecorator from '@enact/core/internal/ApiDecorator';
 import {on, off} from '@enact/core/dispatcher';
 import {memoize} from '@enact/core/util';
 
-import {adaptEvent, call, forKey, forward, forwardWithPrevent, handle, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
+import {adaptEvent, call, forKey, forProp, forward, forwardWithPrevent, handle, oneOf, preventDefault, stopImmediate, returnsTrue} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import {platform} from '@enact/core/platform';
 import EnactPropTypes from '@enact/core/internal/prop-types';
@@ -1159,20 +1159,20 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.fastForward()
 	)
 
-	handleJump = ({keyCode}) => {
-		if (this.props.seekDisabled) {
-			forward('onSeekFailed', {}, this.props);
-		} else {
-			const jumpBy = (is('left', keyCode) ? -1 : 1) * this.props.jumpBy;
+	handleJump = oneOf(
+		[forProp('seekDisabled', true), forward('onSeekFailed')],
+		[returnsTrue, (ev, props) => {
+			const keyCode =  this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode;
+			const jumpBy = (is('left', keyCode) ? -1 : 1) * props.jumpBy;
 			const time = Math.min(this.state.duration, Math.max(0, this.state.currentTime + jumpBy));
 
 			if (this.preventTimeChange(time)) return;
 
 			this.showMiniFeedback = true;
 			this.jump(jumpBy);
-			this.announceJob.startAfter(500, secondsToTime(this.video.currentTime, getDurFmt(this.props.locale), {includeHour: true}));
-		}
-	}
+			this.announceJob.startAfter(500, secondsToTime(this.video.currentTime, getDurFmt(props.locale), {includeHour: true}));
+		}]
+	).bind(this)
 
 	handleGlobalKeyDown = this.handle(
 		returnsTrue(this.activityDetected),
@@ -1190,7 +1190,7 @@ const VideoPlayerBase = class extends React.Component {
 
 	handleControlsHandleAboveHoldPulse = () => {
 		if (shouldJump(this.props, this.state)) {
-			this.handleJump({keyCode: this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode});
+			this.handleJump();
 		}
 	}
 
@@ -1215,7 +1215,7 @@ const VideoPlayerBase = class extends React.Component {
 			this.showControls();
 		} else if (this.jumpButtonPressed === -1 || this.jumpButtonPressed === 1) {
 			if (shouldJump(this.props, this.state)) {
-				this.handleJump(ev);
+				this.handleJump();
 			} else {
 				Spotlight.focus(getDirection(ev.keyCode));
 			}
