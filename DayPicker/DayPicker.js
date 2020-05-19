@@ -24,7 +24,7 @@ import React from 'react';
 import CheckboxItem from '../CheckboxItem';
 import Skinnable from '../Skinnable';
 
-import DaySelectorDecorator from './DaySelectorDecorator';
+import {DaySelectorDecorator, getSelectedDayString} from './DaySelectorDecorator';
 
 /**
  * A day of the week selection component.
@@ -152,5 +152,6 @@ const DayPicker = DayPickerDecorator(DayPickerBase);
 export default DayPicker;
 export {
 	DayPicker,
-	DayPickerBase
+	DayPickerBase,
+	getSelectedDayString
 };
