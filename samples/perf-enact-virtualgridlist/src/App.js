@@ -9,12 +9,10 @@ import css from './App.module.less';
 const items = [];
 
 for (let i = 0; i < 1000; i++) {
-	let color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-		count = ('00' + i).slice(-3);
+	const count = ('00' + i).slice(-3);
 	items.push({
 		text: 'Item ' + count,
-		subText: 'SubItem ' + count,
-		url: 'http://placehold.it/193x150/' + color + '/ffffff&text=Image ' + i
+		subText: 'SubItem ' + count
 	});
 }
 
@@ -32,7 +30,6 @@ class VirtualGridListSample extends Component {
 			<ImageItem
 				{...rest}
 				className={css.gridListItem}
-				src={items[index].url}
 				label={items[index].subText}
 			>
 				{items[index].text}
@@ -48,9 +45,8 @@ class VirtualGridListSample extends Component {
 					dataSize={items.length}
 					focusableScrollbar
 					itemRenderer={this.renderItem}
-					itemSize={{minWidth: ri.scale(316), minHeight: ri.scale(300)}}
+					itemSize={{minWidth: ri.scale(642), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
 					scrollMode="translate"
-					spacing={ri.scale(67)}
 				/>
 			</div>
 		);

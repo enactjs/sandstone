@@ -96,7 +96,6 @@ class VerticalDifferentHeightItemList extends Component {
 					items: this.state.items
 				}}
 				dataSize={this.state.items.length}
-				focusableScrollbar
 				itemRenderer={this.renderItem}
 				itemSize={{
 					minSize: oneLineSize,

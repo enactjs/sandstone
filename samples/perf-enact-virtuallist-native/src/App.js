@@ -4,8 +4,6 @@ import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 
-import css from './App.module.less';
-
 const
 	items = [],
 	languages = [
@@ -35,22 +33,20 @@ class VirtualListNativeSample extends Component {
 	}
 
 	renderItem = ({index, ...rest}) => (
-		<Item {...rest} className={css.item}>
+		<Item {...rest}>
 			{items[index].title}
 		</Item>
 	)
 
 	render () {
 		return (
-			<div {...this.props}>
-				<VirtualList
-					cbScrollTo={this.getScrollTo}
-					dataSize={items.length}
-					focusableScrollbar
-					itemRenderer={this.renderItem}
-					itemSize={ri.scale(62)}
-				/>
-			</div>
+			<VirtualList
+				{...this.props}
+				cbScrollTo={this.getScrollTo}
+				dataSize={items.length}
+				itemRenderer={this.renderItem}
+				itemSize={ri.scale(156)}
+			/>
 		);
 	}
 }

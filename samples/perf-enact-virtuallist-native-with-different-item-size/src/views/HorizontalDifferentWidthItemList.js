@@ -102,7 +102,6 @@ class HorizontalDifferenctWidthItemList extends Component {
 				}}
 				dataSize={this.state.items.length}
 				direction="horizontal"
-				focusableScrollbar
 				itemRenderer={this.renderItem}
 				itemSize={{
 					minSize: oneLineSize,
