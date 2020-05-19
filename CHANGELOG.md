@@ -4,10 +4,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/WizardPanels` prop `footer`
+
+### Changed
+
+- `sandstone/WizardPanels` prop `buttons` to be `footer`
+
 ### Added
 
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
-- `sandstone/DayPicker` component and `DaySelectorDecorator`
+- `sandstone/DayPicker` component
+- `sandstone/DaySelectorDecorator` component
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings

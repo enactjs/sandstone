@@ -70,14 +70,14 @@ function getLocaleState (dayNameLength, locale) {
 }
 
 /*
-		 * Determines which day type should be returned, based on the selected indices.
-		 *
-		 * @param {Number[]} [selected] Array of day indexes
-		 * @param {String[]} [dayNameLength] The format for names of days
-		 * @param {String[]} [locale]
-		 *
-		 * @returns {Number}
-		 */
+ * Determines which day type should be returned, based on the selected indices.
+ *
+ * @param {Number[]} [selected] Array of day indexes
+ * @param {String[]} [dayNameLength] The format for names of days
+ * @param {String[]} [locale]
+ *
+ * @returns {Number}
+ */
 function calcSelectedDayType (selected, dayNameLength, locale) {
 	if (selected == null) return SELECTED_DAY_TYPES.SELECTED_NONE;
 
@@ -110,18 +110,18 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
 }
 
 /*
-	* Determines whether it should return "Every Day", "Every Weekend", "Every Weekday" or list of
-	* days for a given selected day type.
-	*
-	* @param {Number} [selected] type of selected days
-	* @param {Number[]} [selected] Array of day indexes
-	* @param {String[]} [selected] Array of long or short day strings
-	* @param {String[]} [locale]
-	* @param {String[]} [noneText]
-	* @param {String[]} [dayNameLength] The format for names of days
-	*
-	* @returns {String} "Every Day", "Every Weekend", "Every Week" or list of days
-	*/
+ * Determines whether it should return "Every Day", "Every Weekend", "Every Weekday" or list of
+ * days for a given selected day type.
+ *
+ * @param {Number} [selected] type of selected days
+ * @param {Number[]} [selected] Array of day indexes
+ * @param {String[]} [selected] Array of long or short day strings
+ * @param {String[]} [locale] current locale
+ * @param {String[]} [noneText]
+ * @param {String[]} [dayNameLength] The format for names of days
+ *
+ * @returns {String} "Every Day", "Every Weekend", "Every Week" or list of days
+ */
 function getSelectedDayString (selected, locale = null, noneText = '', dayNameLength = 'long') {
 	const
 		everyDayText = $L('Every Day'),
@@ -157,27 +157,27 @@ function getSelectedDayString (selected, locale = null, noneText = '', dayNameLe
 
 /**
  * Applies Sandstone specific behaviors to
- * [DaySelector]{@link sandstone/DaySelector.DaySelectorBase}.
+ * [DayPicker]{@link sandstone/DayPicker.DayPicker}.
  *
  * @hoc
- * @memberof sandstone/DaySelector
+ * @memberof sandstone/DayPicker
  * @mixes ui/Changeable.Changeable
  * @mixes sandstone/Skinnable.Skinnable
  * @omit onChange
  * @omit value
  * @omit defaultValue
- * @public
+ * @private
  */
 const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	return class extends React.Component {
 
 		static displayName = 'DaySelectorDecorator'
 
-		static propTypes = /** @lends sandstone/DaySelector.DaySelectorDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
 			/**
 			 * The "aria-label" for the selector.
 			 *
-			 * @memberof sandstone/DaySelector.DaySelectorDecorator.prototype
+			 * @memberof sandstone/DayPicker.DaySelectorDecorator.prototype
 			 * @type {String}
 			 * @private
 			 */
@@ -202,32 +202,11 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			disabled: PropTypes.bool,
 
 			/**
-			 * The text displayed in the label when every day is selected.
+			 * Current locale.
 			 *
 			 * @type {String}
-			 * @default 'Every Day'
 			 * @public
 			 */
-			everyDayText: PropTypes.string,
-
-			/**
-			 * The text displayed in the label when every weekday is selected.
-			 *
-			 * @type {String}
-			 * @default 'Every Weekday'
-			 * @public
-			 */
-			everyWeekdayText: PropTypes.string,
-
-			/**
-			 * The text displayed in the label when every weekend day is selected.
-			 *
-			 * @type {String}
-			 * @default 'Every Weekend'
-			 * @public
-			 */
-			everyWeekendText: PropTypes.string,
-
 			locale: PropTypes.string,
 
 			/**
