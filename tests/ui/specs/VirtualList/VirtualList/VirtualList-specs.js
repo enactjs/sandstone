@@ -174,7 +174,7 @@ describe('VirtualList', function () {
 			// Step 11: 5-way Spot the first item.
 			for (let i = 0; i < 99; ++i) {
 				Page.spotlightUp();
-				Page.delay(80);
+				Page.delay(150);
 			}
 			// Verify Step 11: Spotlight displays on the first item.
 			Page.delay(2000);
