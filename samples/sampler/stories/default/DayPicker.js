@@ -14,9 +14,6 @@ storiesOf('Sandstone', module)
 			<DayPicker
 				aria-label={text('aria-label', DayPicker)}
 				disabled={boolean('disabled', DayPicker)}
-				everyDayText={text('everyDayText', DayPicker)}
-				everyWeekdayText={text('everyWeekdayText', DayPicker)}
-				everyWeekendText={text('everyWeekendText', DayPicker)}
 				onSelect={action('onSelect')}
 			/>
 		),
