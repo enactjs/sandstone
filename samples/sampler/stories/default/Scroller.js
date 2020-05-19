@@ -10,23 +10,23 @@ import Scroller from '@enact/sandstone/Scroller';
 
 import css from './Scroller.module.less';
 
-const
-	prop = {
-		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: {
-			'true': true,
-			'false': false,
-			'byEnter': 'byEnter'
-		},
-		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate']
-	};
+const prop = {
+	direction: ['both', 'horizontal', 'vertical'],
+	focusableScrollbarOption: {
+		'true': true,
+		'false': false,
+		'byEnter': 'byEnter'
+	},
+	scrollbarOption: ['auto', 'hidden', 'visible'],
+	scrollModeOption: ['native', 'translate']
+};
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 storiesOf('Sandstone', module)
 	.add(
-		'Scroller', () => {
+		'Scroller',
+		() => {
 			const
 				direction = select('direction', prop.direction, ScrollerConfig),
 				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig),
