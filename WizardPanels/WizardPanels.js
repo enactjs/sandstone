@@ -30,6 +30,7 @@ const NavigationButton = kind({
 	},
 
 	render: ({button, visible, ...rest}) => {
+
 		if (React.isValidElement(button)) {
 
 			Object.keys(button.props).forEach(key => {
@@ -136,11 +137,26 @@ const WizardPanelsBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Next button ... docs tbd
+		 * Add a nextButton to the Wizard Panel
 		 *
 		 * @private
 		 */
 		nextButton: PropTypes.any,
+
+		/**
+		 * Specifies when and how to show nextButton on Wizard Panel.
+		 *
+		 * Valid values are:
+		 * * `'auto'`,
+		 * * `'always'`, and
+		 * * `'never'`.
+		 *
+		 *
+		 * @type {String}
+		 * @default 'auto'
+		 * @public
+		 */
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		 * Disables panel transitions.
@@ -182,11 +198,26 @@ const WizardPanelsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Next button ... docs tbd
+		 * Add a prevButton to the Wizard Panel
 		 *
 		 * @private
 		 */
 		prevButton: PropTypes.any,
+
+		/**
+		 * Specifies when and how to show prevButton on Wizard Panel.
+		 *
+		 * Valid values are:
+		 * * `'auto'`,
+		 * * `'always'`, and
+		 * * `'never'`.
+		 *
+		 *
+		 * @type {String}
+		 * @default 'auto'
+		 * @public
+		 */
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		 * Explicitly sets the ViewManager transition direction.
@@ -233,10 +264,8 @@ const WizardPanelsBase = kind({
 
 	defaultProps: {
 		index: 0,
-		nextButtonAriaLabel: $L('Next'),
-		prevButtonAriaLabel: $L('Previous'),
-		prevButtonIcon: 'arrowlargeleft',
-		nextButtonIcon: 'arrowlargeright'
+		nextButtonVisibility: 'auto',
+		prevButtonVisibility: 'auto'
 	},
 
 	styles: {
@@ -293,12 +322,14 @@ const WizardPanelsBase = kind({
 		footer,
 		index,
 		nextButton,
+		nextButtonVisibility,
 		noAnimation,
 		onNextClick,
 		onPrevClick,
 		onTransition,
 		onWillTransition,
 		prevButton,
+		prevButtonVisibility,
 		reverseTransition,
 		steps,
 		subtitle,
@@ -309,6 +340,13 @@ const WizardPanelsBase = kind({
 		delete rest.noSteps;
 		delete rest.current;
 		delete rest.total;
+
+		const isPrevButtonVisibility = ((prevButtonVisibility !== 'never') && (index !== 0)) || (prevButtonVisibility === 'always') ?  true : false;
+		const isNextButtonVisibility =  ((nextButtonVisibility !== 'never') && (index < totalPanels - 1)) || (nextButtonVisibility === 'always') ? true : false;
+
+		console.log('prevButtonVisibility:', prevButtonVisibility, isPrevButtonVisibility);
+
+		console.log('nextButtonVisibility:', nextButtonVisibility, isNextButtonVisibility);
 
 		return (
 			<Panel {...rest}>
@@ -329,7 +367,7 @@ const WizardPanelsBase = kind({
 						minWidth={false}
 						onClick={onPrevClick}
 						slot="slotBefore"
-						visible={index !== 0}
+						visible={isPrevButtonVisibility}
 					>
 						{$L('Previous')}
 					</NavigationButton>
@@ -341,7 +379,7 @@ const WizardPanelsBase = kind({
 						minWidth={false}
 						onClick={onNextClick}
 						slot="slotAfter"
-						visible={index < totalPanels - 1}
+						visible={isNextButtonVisibility}
 					>
 						{$L('Next')}
 					</NavigationButton>

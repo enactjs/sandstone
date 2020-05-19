@@ -64,9 +64,30 @@ const Panel = Slottable(
 
 
 /**
- * nextButton docs ...
+ * Add a nextButton to the WizardPanel.Panels
+ *
+ * This prop accepts either a Component (e.g. `Button`} which will be instantiated with
+ * the above props or a component instance (e.g. `<Button icon="closex" aria-label="quit">Exit</Button>`) which
+ * will have its props merged with the above props.
+ *
+ *  @see {@link ui/ComponentOverride}
  *
  * @name nextButton
+ * @memberof sandstone/WizardPanels.Panel.prototype
+ * @type {Boolean|Function|Element}
+ * @public
+ */
+
+ /**
+ * Add a nextPrevButtonButton to the WizardPanel.Panels.
+ *
+ * This prop accepts either a Component (e.g. `Button`} which will be instantiated with
+ * the above props or a component instance (e.g. `<Button icon="closex" aria-label="quit">Exit</Button>`) which
+ * will have its props merged with the above props.
+ *
+ * @see {@link ui/ComponentOverride}
+ *
+ * @name PrevButton
  * @memberof sandstone/WizardPanels.Panel.prototype
  * @type {Boolean|Function|Element}
  * @public
