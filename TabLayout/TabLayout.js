@@ -8,6 +8,7 @@
 
 import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -277,6 +278,11 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
+	SpotlightContainerDecorator({
+		enterTo: 'default-element',
+		// favor the content when collapsed and the tabs otherwise
+		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabs} *`]
+	}),
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );

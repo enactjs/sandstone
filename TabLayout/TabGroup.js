@@ -2,6 +2,7 @@ import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
+import {useId} from '@enact/ui/internal/IdProvider';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
@@ -184,8 +185,44 @@ const TabGroupBase = kind({
 	}
 });
 
+const ConfigureSpotlightDecorator = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	function ConfigureSpotlightDecorator ({orientation, spotlightId, ...rest}) {
+		const id = useId({prefix: 'tabGroup-'});
+		const vertical = orientation === 'vertical';
+
+		// use or generate a spotlightId so we can configure it below
+		if (vertical) {
+			spotlightId = spotlightId || id.generateId();
+
+			// push spotlightId back onto props so it can be spread onto Wrapped only when vertical
+			rest.spotlightId = spotlightId;
+		}
+
+		// Configure Scroller's spotlight container immediately on mount to enforce focus rules
+		React.useLayoutEffect(() => {
+			if (vertical) {
+				Spotlight.set(spotlightId, {
+					// favor last focused when set but fall back to the selected tab
+					enterTo: 'last-focused',
+					defaultElement: `.${componentCss.selected}`
+				});
+			}
+		}, [vertical, spotlightId]);
+
+		return <Wrapped {...rest} orientation={orientation} />;
+	}
+
+	ConfigureSpotlightDecorator.propTypes = {
+		orientation: PropTypes.string,
+		spotlightId: PropTypes.string
+	};
+
+	return ConfigureSpotlightDecorator;
+};
+
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator({enterTo: 'last-focused'}),
+	ConfigureSpotlightDecorator,
 	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
 );
 
