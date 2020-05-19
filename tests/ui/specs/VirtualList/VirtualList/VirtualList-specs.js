@@ -126,16 +126,10 @@ describe('VirtualList', function () {
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
 
-		// TODO: Need to checking api LTR for sandstone.
-		it.skip('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			expectFocusedItem(1); // Check that Spotlight is on an item
-			Page.spotlightRight();
-			expect(Page.buttonScrollUp.isFocused(), 'step 2.2 focus').to.be.true();
-			Page.spotlightDown();
-			expect(Page.buttonScrollDown.isFocused(), 'step 2.2 focus').to.be.true();
+		it('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
+			let ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
+			// Verify 1-2: The Scrollbar track displays shortly right aligned.
+			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
 		});
 
 		// Need mochaOpts - timeout set to 60000 to pass
@@ -400,27 +394,48 @@ describe('VirtualList', function () {
 			});
 		});
 
-		// TODO : Need to check another way for RTL.
 		describe('RTL locale', function () {
 			beforeEach(function () {
 				Page.open('?locale=ar-SA');
 			});
 
-			it.skip('should position Paging Controls on left side in RTL [GT-28563]', function () {
-				Page.spotlightSelect();
+			it('should position Scrollbar Track on left side in RTL [GT-28563]', function () {
+				// Vreify 3-2: The Scrollbar track displays shortly left aligned.
+				expect(Page.getScrollOffsetLeft()).to.equal(0);
+			});
+
+			it('should Verify RTL functionality [GT-28480]', function () {
+				let ListwidthSize;
+				// Verify 3-1: VirtualList sample displays in RTL (Right to Left.)
+				// Check that the the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
 				Page.spotlightDown();
-				// Step 3: The list is Right aligned so Spotlight needs to move to the left
+				expect(Page.buttonLeft.isFocused(), 'focus left');
 				Page.spotlightLeft();
+				Page.spotlightLeft();
+				expect(Page.buttonRight.isFocused(), 'focus Right');
+				// Verify 3-2: Vertical Scrollbar displays on the left side.
+				expect(Page.getScrollOffsetLeft()).to.equal(0);
+				Page.open('?locale=en-US');
+				// Verify 4-1: VirtualList sample displays in LTR (Left to Right.)
+				// Check that the the button's position is Left-> Right.(in case LTR, button position is 'Left' - 'Right')
 				Page.spotlightDown();
-				// Verify Step 3.1:  The list displays Right aligned.
-				expectFocusedItem(1);
+				expect(Page.buttonLeft.isFocused(), 'focus left');
+				Page.spotlightRight();
+				Page.spotlightRight();
+				expect(Page.buttonRight.isFocused(), 'focus Right');
+				// Verify 4-2: Vertical Scrollbar displays on the right side.
+				ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
+				expect(Page.getListwidthSize()).to.equal(ListwidthSize);
+				Page.open('?locale=ur-PK');
+				// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
+				// Check that the the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
+				Page.spotlightDown();
+				expect(Page.buttonLeft.isFocused(), 'focus left');
 				Page.spotlightLeft();
-				// Verify Step 3.2: Paging Controls display left aligned.
-				expect(Page.buttonScrollUp.isFocused(), 'step 3 focus').to.be.true();
-				// Verify Up Paging Control (∧) is Disabled.
-				expect(Page.buttonScrollUp.getAttribute('disabled'), 'Up disabled').to.be.equal('true');
-				// Verify Step 9: 3. Down Paging Control (∨) is Enabled.
-				expect(Page.buttonScrollDown.getAttribute('disabled'), 'Down enabled').to.be.null();
+				Page.spotlightLeft();
+				expect(Page.buttonRight.isFocused(), 'focus Right');
+				// Verify 5-2: Vertical Scrollbar displays on the left side.
+				expect(Page.getScrollOffsetLeft()).to.equal(0);
 			});
 		});
 
