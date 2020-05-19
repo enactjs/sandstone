@@ -32,14 +32,12 @@ class VirtualListPage extends Page {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
 			return verticalscrollbar.offsetLeft;
 		}, verticalscrollbarSelector);
-
 	}
 	getScrollbarWidth () {
 		return browser.execute(function (_verticalscrollbarSelector){
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
 			return verticalscrollbar.clientWidth;
 		}, verticalscrollbarSelector);
-
 	}
 	get scrollThumb () { return $(`${scrollThumbSelector}`); }
 	getScrollThumbPosition () {
@@ -56,7 +54,6 @@ class VirtualListPage extends Page {
 			const scrollcontent = document.querySelector(_scrollContentSelector);
 			return scrollcontent.clientWidth;
 		}, scrollContentSelector);
-
 	}
 
 	item (id) {
