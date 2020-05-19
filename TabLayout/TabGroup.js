@@ -4,7 +4,6 @@ import {Cell, Layout} from '@enact/ui/Layout';
 import Group from '@enact/ui/Group';
 import {useId} from '@enact/ui/internal/IdProvider';
 import Spotlight from '@enact/spotlight';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
