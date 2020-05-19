@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Panels` to not fire transition events when initially rendered
+- `sandstone/TabLayout` default focus rules
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
