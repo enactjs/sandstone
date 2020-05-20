@@ -10,14 +10,16 @@ function UrlPropsDecorator (Wrapped) {
 		url.searchParams.forEach((value, key) => {
 			if (!value) {
 				value = true;
-			} else if (/(true|false)/ig.test(value)) {
+			} else if (/^(true|false)$/i.test(value)) {
 				value = Boolean(value);
-			} else if (/\d+/.test(value)) {
+			} else if (/^\d+$/.test(value)) {
 				value = Number.parseInt(value);
 			} else {
 				try {
 					value = JSON.parse(value);
 				} catch (e) {
+					// eslint-disable-next-line no-console
+					console.error(`Failed to handle URL parameter "${key}" with value "${value}"`);
 					return;
 				}
 			}
