@@ -64,16 +64,18 @@ const Panel = Slottable(
 
 
 /**
- * Add a nextButton to the WizardPanel.Panels
+ * The button to use in place of the standard next button.
  *
- * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
- * the above props or a component instance
- * @example
- * `nextButton={
- *		<Button icon="closex" aria-label="quit">close</Button>
- *	}`
+ * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
  *
- *  @see {@link ui/ComponentOverride}
+ * If `false`, the button will not show. If set to a component, or `true`, the button will
+ * show. This will override the setting of
+ * [`nextButtonVisibility`]{@link sandstone/WizardPanels.WizardPanels#nextButtonVisibility}.
+ *
+ * Example:
+ * ```
+ * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+ * ```
  *
  * @name nextButton
  * @memberof sandstone/WizardPanels.Panel.prototype
@@ -82,16 +84,18 @@ const Panel = Slottable(
  */
 
 /**
- * Add a prevButton to the WizardPanel.Panels.
+ * The button to use in place of the standard prev button.
  *
- * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
- * the above props or a component instance
- * @example
- * `prevButton={
- *		<Button icon="closex" aria-label="quit">Exit</Button>
- *	}`
+ * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
  *
- * @see {@link ui/ComponentOverride}
+ * If `false`, the button will not show. If set to a component, or `true`, the button will
+ * show. This will override the setting of
+ * [`prevButtonVisibility`]{@link sandstone/WizardPanels.WizardPanels#prevButtonVisibility}.
+ *
+ * Example:
+ * ```
+ * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+ * ```
  *
  * @name PrevButton
  * @memberof sandstone/WizardPanels.Panel.prototype

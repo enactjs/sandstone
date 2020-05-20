@@ -23,7 +23,7 @@ const NavigationButton = kind({
 		button: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.element,
-			PropTypes.arrayOf(PropTypes.element)
+			PropTypes.func
 		]),
 		onClick: PropTypes.func,
 		visible: PropTypes.bool
@@ -137,17 +137,18 @@ const WizardPanelsBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Add a nextButton to the WizardPanel
+		 * The button to use in place of the standard next button.
 		 *
-		 * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
- 		 * the above props or a component instance
- 		 * @example
- 		 * `nextButton={
- 		 *		<Button icon="closex" aria-label="quit">close</Button>
- 		 *	}`
- 		 *
-		 * @name nextButton
- 		 * @memberof sandstone/WizardPanels.Panel.prototype
+		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
+		 *
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of `nextButtonVisibility`.
+		 *
+ 		 * Example:
+ 		 * ```
+		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+		 * ```
+		 *
 		 * @type {Boolean|Function|Element}
 		 * @private
 		 */
@@ -160,8 +161,9 @@ const WizardPanelsBase = kind({
 		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
 		 * * `'never'` will always hide the `nextButton` on the every `WizardPanel.Panel`
 		 *
-		 * Note, children values will override the generalized parent visibility settings. In this case,
-		 * if user provides a customized `nextButton` on WizardPanel.Panel will take precedence over the `nextButtonVisibility` value.
+		 * Note, children values will override the generalized parent visibility settings. In this
+		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * `nextButtonVisibility` value.
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
@@ -209,17 +211,18 @@ const WizardPanelsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Add a prevButton to the WizardPanel
+		 * The button to use in place of the standard prev button.
 		 *
-		 * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
-		 * the above props or a component instance
-		 * @example
-		 * `prevButton={
-		 *		<Button icon="closex" aria-label="quit">Exit</Button>
-		 *	}`
+		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
 		 *
-		 * @name PrevButton
-		 * @memberof sandstone/WizardPanels.Panel.prototype
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of `prevButtonVisibility`.
+		 *
+ 		 * Example:
+ 		 * ```
+		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+		 * ```
+		 *
 		 * @type {Boolean|Function|Element}
 		 * @private
 		 */
@@ -228,7 +231,7 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the last,
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first,
 		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
 		 * * `'never'` will always hide the `prevButton` on the every `WizardPanel.Panel`
 		 *
