@@ -156,6 +156,8 @@ const PanelBase = kind({
 		),
 		spotOnRender: (node, {autoFocus}) => {
 			if (node) {
+				// FIXME: This is a candidate to move to the decorator once hooks have been fully
+				// adopted and we can configure SpotlightContainerDecorator with the current props
 				const {spotlightId} = node.dataset;
 				const config = {
 					enterTo: 'last-focused'
