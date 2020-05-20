@@ -27,6 +27,14 @@
 	}
 
 	> .body {
+		padding: 0;
+	}
+
+	.header {
+		margin-left: @sand-flexiblepopuppanels-header-padding;	
+	}
+
+	.viewport {
 		margin: @sand-flexiblepopuppanels-panel-margin;
 		padding: @sand-flexiblepopuppanels-panel-padding;
 		align-self: start;  // Allow this node to horizontally shrink to fit the content.
@@ -34,7 +42,7 @@
 	}
 
 	.applySkins({
-		> .body {
+		.viewport {
 			background-color: @sand-flexiblepopuppanels-panel-bg-color;
 			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
 			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
