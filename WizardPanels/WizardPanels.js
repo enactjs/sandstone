@@ -299,20 +299,26 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		handleNextClick: (ev, {index, onChange, totalPanels}) => {
-			if (onChange && index !== totalPanels) {
-				const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
+		handleNextClick: handle(
+			forwardWithPrevent('handleNextClick'),
+			(ev, {index, onChange, totalPanels}) => {
+				if (onChange && index !== totalPanels) {
+					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
-				onChange({index: nextIndex});
+					onChange({index: nextIndex});
+				}
 			}
-		},
-		handlePrevClick: (ev, {index, onChange}) => {
-			if (onChange && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
+		),
+		handlePrevClick: handle(
+			forwardWithPrevent('handlePrevClick'),
+			(ev, {index, onChange}) => {
+				if (onChange && index !== 0) {
+					const prevIndex = index > 0 ? (index - 1) : index;
 
-				onChange({index: prevIndex});
+					onChange({index: prevIndex});
+				}
 			}
-		},
+		),
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
 				onTransition({index});
