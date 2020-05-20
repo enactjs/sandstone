@@ -74,6 +74,7 @@ class MainView extends React.Component {
 				<Scroller
 					focusableScrollbar={focusableScrollbar}
 					scrollMode={nativeScroll ? 'native' : 'translate'}
+					key={nativeScroll ? 'native' : 'translate'}
 				>
 					<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
 						<Input
