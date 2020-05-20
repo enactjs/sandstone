@@ -112,9 +112,9 @@ const MainPanel = class extends Component {
 				<VirtualList
 					childProps={this.state.hasChildProps ? childProps : null}
 					dataSize={listItems.length}
-					focusableScrollbar
 					itemRenderer={this.renderItem}
-					itemSize={ri.scale(60 + 3)}
+					itemSize={ri.scale(156)}
+					key={nativeScroll ? 'native' : 'translate'}
 					scrollMode={nativeScroll ? 'native' : 'translate'}
 				/>
 			</Panel>
