@@ -1,4 +1,4 @@
-/* globals document */
+const {getFocusedText} = require('../utils');
 
 const Page = require('./TabLayoutPage');
 
@@ -50,7 +50,7 @@ describe('TabLayout', function () {
 			Page.open('');
 
 			const expected = 'One';
-			const actual = browser.execute(() => document.activeElement.textContent);
+			const actual = browser.execute(getFocusedText);
 
 			expect(actual).to.equal(expected);
 		});
@@ -59,7 +59,7 @@ describe('TabLayout', function () {
 			Page.open('', '?defaultCollapsed');
 
 			const expected = 'Button One';
-			const actual = browser.execute(() => document.activeElement.textContent);
+			const actual = browser.execute(getFocusedText);
 
 			expect(actual).to.equal(expected);
 		});
@@ -68,7 +68,7 @@ describe('TabLayout', function () {
 			Page.open('', '?defaultIndex=1');
 
 			const expected = 'Two';
-			const actual = browser.execute(() => document.activeElement.textContent);
+			const actual = browser.execute(getFocusedText);
 
 			expect(actual).to.equal(expected);
 		});
@@ -77,7 +77,7 @@ describe('TabLayout', function () {
 			Page.open('', '?defaultIndex=1&defaultCollapsed');
 
 			const expected = 'Button Two';
-			const actual = browser.execute(() => document.activeElement.textContent);
+			const actual = browser.execute(getFocusedText);
 
 			expect(actual).to.equal(expected);
 		});
