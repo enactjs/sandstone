@@ -1,12 +1,9 @@
-import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
-import Measurable from '@enact/ui/Measurable';
-import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -14,7 +11,6 @@ import React from 'react';
 import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
-import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
 import componentCss from './Panel.module.less';
 
@@ -263,7 +259,7 @@ const PanelBase = kind({
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const RootPanel = SharedStateDecorator(
+const Panel = SharedStateDecorator(
 	{idProp: 'data-index'},
 	SpotlightContainerDecorator(
 		{
@@ -281,58 +277,6 @@ const RootPanel = SharedStateDecorator(
 		)
 	)
 );
-
-/**
- * Applies behaviors to [Panel]{@link sandstone/Panels.Panel} to support `featureContent`
- *
- * @class FeatureContentDecorator
- * @hoc
- * @memberof sandstone/Panels
- * @private
- */
-const FeatureContentDecorator = (Wrapped) => {
-	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
-		ScrollPositionDecorator({valueProp: 'shouldFeatureContent', transform: ({y}) => (y > scale(360))},
-			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
-				const {shouldFeatureContent} = useScrollPosition();
-
-				const enhancedStyle = {
-					...style,
-					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || '0px'
-				};
-
-				const enhancedClassName = classnames(
-					className,
-					shouldFeatureContent ? componentCss.shouldFeatureContent : '',
-					componentCss.featureContent
-				);
-				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
-			}
-		)
-	);
-};
-
-const FeatureContentPanel = FeatureContentDecorator(RootPanel);
-
-// This is a work around until we could implement a hook-based solution
-function Panel ({featureContent, ...rest}) {
-	if (featureContent) {
-		return <FeatureContentPanel {...rest} />;
-	}
-
-	return <RootPanel {...rest} />;
-}
-
-Panel.propTypes = {
-	/**
-	 * Features the content of the panel by minimizing the `Header` when scrolling down.
-	 *
-	 * @memberof sandstone/Panels.Panel.prototype
-	 * @type {Boolean}
-	 * @public
-	 */
-	featureContent: PropTypes.bool
-};
 
 export default Panel;
 export {Panel, PanelBase};

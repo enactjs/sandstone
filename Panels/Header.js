@@ -6,10 +6,8 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
-import {useMeasurable} from '@enact/ui/Measurable';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
-import {unit} from '@enact/ui/resolution';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -18,7 +16,6 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from '../internal/Panels';
@@ -181,19 +178,6 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		entering: PropTypes.bool,
-
-		/**
-		 * Minimizes the Header to only show the header components in order to feature the panel
-		 * content more prominately.
-		 *
-		 * Has no effect on `type="compact"`. When a `Header` is used inside a
-		 * [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set it will automatically
-		 * collapse unless overridden by this prop.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		featureContent: PropTypes.bool,
 
 		/**
 		 * Sets the "hover" state.
@@ -438,9 +422,8 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
 		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
+		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
-				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
@@ -533,7 +516,6 @@ const HeaderBase = kind({
 	}) => {
 		delete rest.arranger;
 		delete rest.entering;
-		delete rest.featureContent;
 		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
@@ -595,47 +577,9 @@ const HeaderBase = kind({
 	}
 });
 
-const CollapsingHeaderDecorator = (Wrapped) => {
-	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
-		const {shouldFeatureContent} = useScrollPosition() || {};
-		return <Wrapped featureContent={shouldFeatureContent} {...props} />;
-	};
-};
-
-const HeaderMeasurementDecorator = (Wrapped) => {
-	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
-		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
-		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
-		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
-
-		// If the slot width has changed, re-run this.
-		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {
-			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
-
-			// And only do this the largest slot is a different value this time around.
-			if (slotSize !== largestSlotSize) {
-				setSlotSize({
-					slotSize: largestSlotSize,
-					prevSlotBeforeWidth: slotBeforeWidth,
-					prevSlotAfterWidth: slotAfterWidth
-				});
-			}
-		}
-
-		const measurableProps = {
-			slotBeforeRef,
-			slotAfterRef,
-			slotSize: unit(slotSize, 'rem')
-		};
-
-		return <Wrapped {...props} {...measurableProps} />;
-	};
-};
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	CollapsingHeaderDecorator,
-	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );
