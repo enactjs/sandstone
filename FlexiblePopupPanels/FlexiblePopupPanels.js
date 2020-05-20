@@ -112,70 +112,39 @@ const PanelBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/FlexiblePopupPanels.Panel.prototype */ {
-		backButton: PropTypes.any,
 		nextButton: PropTypes.any,
-
-		/**
-		* Omits the next button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noNextButton: PropTypes.bool,
-
-		/**
-		* Omits the previous button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noPrevButton: PropTypes.bool
-	},
-
-	handlers: {
-		handleNextClick: () => {
-			// go to next panel
-		}
+		onNextClick: PropTypes.func,
+		prevButton: PropTypes.any
 	},
 
 	computed: {
-		children: ({backButton, children, handleNextClick, nextButton, noNextButton, ...rest}) => {
+		children: ({children, nextButton, onNextClick, prevButton, ...rest}, {count, index}) => {
 			const sharedProps = getSharedProps(rest);
-			const {noBackButton, onBack} = sharedProps;
+			const {onBack} = sharedProps;
 
 			return (
 				<Row>
-					{!noBackButton ?
-						<Cell align="center" shrink>
-							<NavigationButton
-								backgroundOpacity="transparent"
-								button={backButton}
-								icon="arrowlargeleft"
-								iconPosition="after"
-								minWidth={false}
-								onClick={onBack}
-								size="small"
-								visible
-							/>
-						</Cell> :
-						null
-					}
-					<Cell className={css.viewport} shrink>{children}</Cell>
-					{!noNextButton ?
-						<Cell align="center" shrink>
-							<NavigationButton
-								backgroundOpacity="transparent"
-								button={nextButton}
-								icon="arrowlargeright"
-								iconPosition="after"
-								minWidth={false}
-								onClick={handleNextClick}
-								size="small"
-								visible
-							/>
-						</Cell> :
-						null
-					}
+					<Cell align="center" shrink>
+						<NavigationButton
+							backgroundOpacity="transparent"
+							button={prevButton}
+							icon="arrowlargeleft"
+							onClick={onBack}
+							size="small"
+							visible={index > 0}
+						/>
+					</Cell>
+					<Cell className={css.content} shrink>{children}</Cell>
+					<Cell align="center" shrink>
+						<NavigationButton
+							backgroundOpacity="transparent"
+							button={nextButton}
+							icon="arrowlargeright"
+							onClick={onNextClick}
+							size="small"
+							visible={index < (count - 1)}
+						/>
+					</Cell>
 				</Row>
 			);
 		}
@@ -183,7 +152,7 @@ const PanelBase = kind({
 
 	render: (props) => {
 		deleteSharedProps(props);
-		delete props.handleNextClick;
+		delete props.onNextClick;
 
 		return (<DefaultPanel {...props} css={css} />);
 	}
@@ -246,6 +215,8 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 const HeaderBase = kind({
 	name: 'Header',
 
+	contextType: PanelsStateContext,
+
 	propTypes: /** @lends sandstone/FlexiblePopupPanels.Header.prototype */ {
 		/**
 		 * Hint string read when focusing the application close button.
@@ -274,15 +245,20 @@ const HeaderBase = kind({
 		onClose: PropTypes.func
 	},
 
+	styles: {
+		css,
+		className: 'header'
+	},
+
 	computed: {
 		backButtonAriaLabel: ({closeButtonAriaLabel}) => closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel,
 		backButtonBackgroundOpacity: ({closeButtonBackgroundOpacity}) => closeButtonBackgroundOpacity,
+		className: ({styler}, {index}) => styler.append({'showBack': index > 0}),
 		onBack: ({onClose}) => onClose
 	},
 
 	render: (props) => (
 		<DefaultHeader
-			css={css}
 			type="mini"
 			{...props}
 			noCloseButton
