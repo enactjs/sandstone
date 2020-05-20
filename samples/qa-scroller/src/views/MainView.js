@@ -37,7 +37,7 @@ class MainView extends React.Component {
 			focusableScrollbar: false,
 			height: 4000,
 			nativeScroll: true,
-			width: 1000
+			width: 2000
 		};
 	}
 
@@ -80,15 +80,18 @@ class MainView extends React.Component {
 							defaultValue="Initial value"
 							title="Input with defaultValue"
 						/>
+						<br />
 						<Picker
 							orientation="vertical"
 							width="medium"
 						>
 							{airports}
 						</Picker>
+						<br />
 						<DatePicker
 							title="DatePicker"
 						/>
+						<br />
 						<RadioItem> FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace </RadioItem>
 						<RadioItem disabled> Default disabled Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text </RadioItem>
 						<Group childComponent={Item}>
