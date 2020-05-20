@@ -1215,7 +1215,8 @@ const VideoPlayerBase = class extends React.Component {
 			this.showControls();
 		} else if (this.jumpButtonPressed === -1 || this.jumpButtonPressed === 1) {
 			if (shouldJump(this.props, this.state)) {
-				this.handleJump({keyCode: this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode});
+				const keyCode = this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode;
+				this.handleJump({keyCode});
 			} else {
 				Spotlight.focus(getDirection(ev.keyCode));
 			}
