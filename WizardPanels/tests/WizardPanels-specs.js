@@ -2,6 +2,7 @@ import React from 'react';
 import {mount, shallow} from 'enzyme';
 
 import {Panel, WizardPanels, WizardPanelsBase} from '../';
+import Button from '../../Button';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -152,47 +153,10 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have nextButtonText in `.nextButton`',
-		() => {
-			const nextButtonText = 'next';
-
-			const wizardPanel = shallow(
-				<WizardPanelsBase totalPanels={2} nextButtonText={nextButtonText} />
-			);
-
-			// Using slot as a proxy to find Button since it's name isn't set
-			const nextButton = wizardPanel.find({slot: 'slotAfter'});
-
-			const expected = {children: nextButtonText};
-			const actual = nextButton.props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
-		'should have prevButtonText in `.prevButton`',
-		() => {
-			const prevButtonText = 'previous';
-
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalPanels={2} prevButtonText={prevButtonText} />
-			);
-
-			const prevButton = wizardPanel.find({slot: 'slotBefore'});
-
-			const expected = {children: prevButtonText};
-			const actual = prevButton.props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noNextButton totalPanels={3} />
+				<WizardPanels index={2} nextButtonVisibility={'auto'} totalPanels={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -208,7 +172,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={0} noPrevButton totalPanels={3} />
+				<WizardPanels index={0} prevButtonVisibility={'auto'} totalPanels={3} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -221,40 +185,10 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should set next button "aria-label" to nextButtonAriaLabel',
-		() => {
-			const label = 'custom next button label';
-			const wizardPanel = shallow(
-				<WizardPanelsBase totalPanels={2} nextButtonAriaLabel={label} />
-			);
-
-			const expected = label;
-			const actual = wizardPanel.find({slot: 'slotAfter'}).prop('aria-label');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should set previous button "aria-label" to prevButtonAriaLabel',
-		() => {
-			const label = 'custom previous button label';
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalPanels={2} prevButtonAriaLabel={label} />
-			);
-
-			const expected = label;
-			const actual = wizardPanel.find({slot: 'slotBefore'}).prop('aria-label');
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should hide next button with `noNextButton`',
+		'should hide next nextButton on all the panels with `nextButtonVisibility` set to never',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noNextButton totalPanels={4} />
+				<WizardPanels index={2} nextButtonVisibility={'never'} totalPanels={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -267,10 +201,10 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide previous button with `noPrevButton`',
+		'should hide previous button on all the panels with `prevButtonVisibility` set to never',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noPrevButton totalPanels={4} />
+				<WizardPanels index={2} prevButtonVisibility={'never'} totalPanels={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -334,14 +268,14 @@ describe('WizardPanel Specs', () => {
 		'should advance on next click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels>
+				<WizardPanels nextButtonVisibility={'auto'}>
 					<Panel />
 					<Panel />
 					<Panel />
 				</WizardPanels>
 			);
 
-			const nextButton = wizardPanel.find('Button[aria-label="Next"]');
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
 			nextButton.simulate('click');
 
@@ -357,14 +291,14 @@ describe('WizardPanel Specs', () => {
 		'should go back on prev click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1}>
+				<WizardPanels defaultIndex={1} prevButtonVisibility={'auto'}>
 					<Panel />
 					<Panel />
 					<Panel />
 				</WizardPanels>
 			);
 
-			const prevButton = wizardPanel.find('Button[aria-label="Previous"]');
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});;
 
 			prevButton.simulate('click');
 
@@ -386,7 +320,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1}>
+				<WizardPanels defaultIndex={1} prevButtonVisibility={'auto'}>
 					<Panel />
 					<Panel />
 					<Panel />
@@ -405,7 +339,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should not go back on back key when noPrevButton set',
+		'should not go back on back key when prevButtonVisibility set to show never',
 		() => {
 			const map = {};
 
@@ -414,7 +348,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} noPrevButton>
+				<WizardPanels defaultIndex={1} prevButtonVisibility={'never'}>
 					<Panel />
 					<Panel />
 					<Panel />

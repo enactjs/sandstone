@@ -31,7 +31,7 @@ const NavigationButton = kind({
 
 	render: ({button, visible, ...rest}) => {
 
-		if ((React.isValidElement(button)) && visible) {
+		if (React.isValidElement(button)) {
 
 			Object.keys(button.props).forEach(key => {
 				// Using the provided prop values as defaults for any button.props value that is
@@ -51,7 +51,7 @@ const NavigationButton = kind({
 			);
 		} else if (
 			// Explicitly disabled via false/null or visible is set to false
-			(button === false || button === null || !visible) ||
+			(button === false || button === null) ||
 			// Using the default config and hidden at this time
 			// eslint-disable-next-line no-undefined
 			(button === undefined && !visible)
@@ -137,22 +137,35 @@ const WizardPanelsBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Add a nextButton to the Wizard Panel
+		 * Add a nextButton to the WizardPanel
 		 *
+		 * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
+ 		 * the above props or a component instance
+ 		 * @example
+ 		 * `nextButton={
+ 		 *		<Button icon="closex" aria-label="quit">close</Button>
+ 		 *	}`
+ 		 *
+		 * @name nextButton
+ 		 * @memberof sandstone/WizardPanels.Panel.prototype
+		 * @type {Boolean|Function|Element}
 		 * @private
 		 */
 		nextButton: PropTypes.any,
 
 		/**
-		 * Specifies when and how to show nextButton on Wizard Panel.
-		 *
-		 * Valid values are:
-		 * * `'auto'`,
-		 * * `'always'`, and
-		 * * `'never'`.
+		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
 		 *
-		 * @type {String}
+		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last,
+		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
+		 * * `'never'` will always hide the `nextButton` on the every `WizardPanel.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `nextButton` on WizardPanel.Panel will take precedence over the `nextButtonVisibility` value.
+		 *
+		 *
+		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
 		 * @public
 		 */
@@ -198,22 +211,35 @@ const WizardPanelsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Add a prevButton to the Wizard Panel
+		 * Add a prevButton to the WizardPanel
 		 *
+		 * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
+		 * the above props or a component instance
+		 * @example
+		 * `prevButton={
+		 *		<Button icon="closex" aria-label="quit">Exit</Button>
+		 *	}`
+		 *
+		 * @name PrevButton
+		 * @memberof sandstone/WizardPanels.Panel.prototype
+		 * @type {Boolean|Function|Element}
 		 * @private
 		 */
 		prevButton: PropTypes.any,
 
 		/**
-		 * Specifies when and how to show prevButton on Wizard Panel.
-		 *
-		 * Valid values are:
-		 * * `'auto'`,
-		 * * `'always'`, and
-		 * * `'never'`.
+		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
 		 *
-		 * @type {String}
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the last,
+		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
+		 * * `'never'` will always hide the `prevButton` on the every `WizardPanel.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 *
+		 *
+		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
 		 * @public
 		 */
@@ -274,14 +300,14 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onNextClick: (ev, {index, onChange, totalPanels}) => {
+		handleNextClick: (ev, {index, onChange, totalPanels}) => {
 			if (onChange && index !== totalPanels) {
 				const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
 				onChange({index: nextIndex});
 			}
 		},
-		onPrevClick: (ev, {index, onChange}) => {
+		handlePrevClick: (ev, {index, onChange}) => {
 			if (onChange && index !== 0) {
 				const prevIndex = index > 0 ? (index - 1) : index;
 
@@ -324,8 +350,8 @@ const WizardPanelsBase = kind({
 		nextButton,
 		nextButtonVisibility,
 		noAnimation,
-		onNextClick,
-		onPrevClick,
+		handleNextClick,
+		handlePrevClick,
 		onTransition,
 		onWillTransition,
 		prevButton,
@@ -341,8 +367,8 @@ const WizardPanelsBase = kind({
 		delete rest.current;
 		delete rest.total;
 
-		const isPrevButtonVisibility = ((prevButtonVisibility !== 'never') && (prevButtonVisibility !== 'always') && (index !== 0)) || (prevButtonVisibility === 'always');
-		const isNextButtonVisibility = ((nextButtonVisibility !== 'never') && (nextButtonVisibility !== 'always') && (index < totalPanels - 1)) || (nextButtonVisibility === 'always');
+		const isPrevButtonVisibility =  prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+		const isNextButtonVisibility = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
 			<Panel {...rest}>
@@ -361,7 +387,7 @@ const WizardPanelsBase = kind({
 						button={prevButton}
 						icon="arrowlargeleft"
 						minWidth={false}
-						onClick={onPrevClick}
+						onClick={handlePrevClick}
 						slot="slotBefore"
 						visible={isPrevButtonVisibility}
 					>
@@ -373,7 +399,7 @@ const WizardPanelsBase = kind({
 						icon="arrowlargeright"
 						iconPosition="after"
 						minWidth={false}
-						onClick={onNextClick}
+						onClick={handleNextClick}
 						slot="slotAfter"
 						visible={isNextButtonVisibility}
 					>

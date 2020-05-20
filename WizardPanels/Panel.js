@@ -66,13 +66,12 @@ const Panel = Slottable(
 /**
  * Add a nextButton to the WizardPanel.Panels
  *
- * This prop accepts either a Component (e.g. `Button`} which will be instantiated with
+ * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
  * the above props or a component instance
  * @example
  * `nextButton={
- *		<Button icon="closex" aria-label="quit">Exit</Button>
+ *		<Button icon="closex" aria-label="quit">close</Button>
  *	}`
- * which will have its props merged with the above props.
  *
  *  @see {@link ui/ComponentOverride}
  *
@@ -83,15 +82,14 @@ const Panel = Slottable(
  */
 
 /**
- * Add a nextPrevButtonButton to the WizardPanel.Panels.
+ * Add a prevButton to the WizardPanel.Panels.
  *
- * This prop accepts either a Component (e.g. `Button`} which will be instantiated with
+ * This prop accepts either a Component (e.g. `Button`) which will be instantiated with
  * the above props or a component instance
  * @example
  * `prevButton={
  *		<Button icon="closex" aria-label="quit">Exit</Button>
  *	}`
- * which will have its props merged with the above props.
  *
  * @see {@link ui/ComponentOverride}
  *
