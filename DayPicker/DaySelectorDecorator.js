@@ -115,17 +115,17 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
  *
  * @memberof sandstone/DayPicker
  * @param {(Number|Number[])?} selected Selected day(s)
- * @param {String} [locale] current locale
  * @param {String} [noneText] String to be returned when no days are selected
  * @param {String} [dayNameLength] The format for names of days
  *
  * @returns {String} "Every Day", "Every Weekend", "Every Week", list of days or `noneText`
  */
-function getSelectedDayString (selected, locale = null, noneText = '', dayNameLength = 'long') {
+function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') {
 	const
 		everyDayText = $L('Every Day'),
 		everyWeekdayText = $L('Every Weekday'),
-		everyWeekendText = $L('Every Weekend');
+		everyWeekendText = $L('Every Weekend'),
+		locale = ilib.getLocale();
 
 	if (selected != null) {
 		selected = coerceArray(selected);
