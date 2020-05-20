@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` to read content when audio guidance on
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VirtualList` to support navigation with spottable children inside an item

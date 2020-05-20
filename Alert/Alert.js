@@ -193,8 +193,9 @@ const AlertBase = kind({
 	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
+		const ariaLabelledby = (fullscreen ? `${id}_title ${id}_subtitle ${id}_buttons` : `${id}_content ${id}_buttons`);
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
+			<Popup {...rest} noAnimation aria-labelledby={ariaLabelledby} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
 				<Layout align="center center" orientation={layoutOrientation}>
 					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
 					{fullscreen ?
@@ -202,7 +203,7 @@ const AlertBase = kind({
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
 							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
 						</Cell> :
-						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
+						<Cell shrink component={BodyText} className={css.content} id={`${id}_content`}>
 							{children}
 						</Cell>
 					}
