@@ -101,9 +101,11 @@ const Tab = Skinnable(TabBase);
 
 const SpotlightContainerGroup = SpotlightContainerDecorator(
 	{
+		// using default-element so we always land on the selected tab in order to avoid changing
+		// the view when re-entering the tab group
+		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused',
-		defaultElement: `.${componentCss.selected}`
+		enterTo: 'last-focused'
 	},
 	Group
 );

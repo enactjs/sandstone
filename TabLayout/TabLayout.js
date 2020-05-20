@@ -279,7 +279,9 @@ const TabLayoutBase = kind({
 
 const TabLayoutDecorator = compose(
 	SpotlightContainerDecorator({
-		enterTo: 'default-element',
+		// using last-focused so we return to the last focused if it exists but fall through to
+		// default element if no focus has ocurred yet (e.g. on mount)
+		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabs} *`]
 	}),
