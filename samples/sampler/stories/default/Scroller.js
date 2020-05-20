@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -31,15 +32,16 @@ storiesOf('Sandstone', module)
 				direction = select('direction', prop.direction, ScrollerConfig),
 				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig),
 				horizontalScrollbar = select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig),
-				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig),
-				className = {
-					[css.verticalPadding]: (direction !== 'horizontal' && verticalScrollbar !== 'hidden') || verticalScrollbar === 'visible',
-					[css.horizontalPadding]: (direction !== 'vertical' && horizontalScrollbar !== 'hidden') || horizontalScrollbar === 'visible',
-					[css.bodyText]: focusableScrollbar || null
-				};
+				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig);
 			return (
 				<Scroller
-					className={className}
+					className={
+						classnames({
+							[css.verticalPadding]: (direction !== 'horizontal' && verticalScrollbar !== 'hidden') || verticalScrollbar === 'visible',
+							[css.horizontalPadding]: (direction !== 'vertical' && horizontalScrollbar !== 'hidden') || horizontalScrollbar === 'visible',
+							[css.bodyText]: focusableScrollbar || null
+						})
+					}
 					direction={direction}
 					fadeOut={boolean('fadeOut', ScrollerConfig)}
 					focusableScrollbar={focusableScrollbar}
