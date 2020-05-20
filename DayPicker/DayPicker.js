@@ -10,6 +10,7 @@
  * @module sandstone/DayPicker
  * @exports DayPicker
  * @exports DayPickerBase
+ * @exports getSelectedDayString
  */
 
 import kind from '@enact/core/kind';

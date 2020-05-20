@@ -94,7 +94,7 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
 
 	if (length === 7) return SELECTED_DAY_TYPES.EVERY_DAY;
 
-	for (let i = 0; i < 7; i++) {
+	for (let i = 0; i < length; i++) {
 		index = selected[i];
 		weekendStart = weekendStart || state.weekendStart === index;
 		weekendEnd = weekendEnd || state.weekendEnd === index;
@@ -109,18 +109,17 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
 	}
 }
 
-/*
+/**
  * Determines whether it should return "Every Day", "Every Weekend", "Every Weekday" or list of
  * days for a given selected day type.
  *
- * @param {Number} [selected] type of selected days
- * @param {Number[]} [selected] Array of day indexes
- * @param {String[]} [selected] Array of long or short day strings
- * @param {String[]} [locale] current locale
- * @param {String[]} [noneText]
- * @param {String[]} [dayNameLength] The format for names of days
+ * @memberof sandstone/DayPicker
+ * @param {(Number|Number[])?} selected Selected day(s)
+ * @param {String} [locale] current locale
+ * @param {String} [noneText] String to be returned when no days are selected
+ * @param {String} [dayNameLength] The format for names of days
  *
- * @returns {String} "Every Day", "Every Weekend", "Every Week" or list of days
+ * @returns {String} "Every Day", "Every Weekend", "Every Week", list of days or `noneText`
  */
 function getSelectedDayString (selected, locale = null, noneText = '', dayNameLength = 'long') {
 	const
