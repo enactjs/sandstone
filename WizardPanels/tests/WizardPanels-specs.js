@@ -2,7 +2,6 @@ import React from 'react';
 import {mount, shallow} from 'enzyme';
 
 import {Panel, WizardPanels, WizardPanelsBase} from '../';
-import Button from '../../Button';
 
 describe('WizardPanel Specs', () => {
 	test(
@@ -298,8 +297,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const prevButton = wizardPanel.find({slot: 'slotBefore'});;
-
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 			prevButton.simulate('click');
 
 			const expected = {current: 1};
