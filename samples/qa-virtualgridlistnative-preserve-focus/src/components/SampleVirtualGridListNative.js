@@ -1,10 +1,10 @@
-import Item from '@enact/sandstone/Item';
+import ImageItem from '@enact/sandstone/ImageItem';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
-const items = Array.from(new Array(1000)).map((n, i) => `Item  ${('00' + i).slice(-3)}`);
+import css from './SampleVirtualGridListNative.module.less';
 
 class SampleVirtualGridListNative extends Component {
 	static propTypes = {
@@ -12,13 +12,19 @@ class SampleVirtualGridListNative extends Component {
 		onClick: PropTypes.func
 	}
 
-	renderItem = ({index, ...rest}) => (
-		<Item {...rest} onClick={this.props.onClick}>
-			<h6>
-				{items[index]}
-			</h6>
-		</Item>
-	);
+	renderItem = ({index, ...rest}) => {
+		const
+			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+			source = {
+				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${index}`,
+				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${index}`,
+				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${index}`
+			};
+
+		return (
+			<ImageItem {...rest} onClick={this.props.onClick} src={source} />
+		);
+	}
 
 	render () {
 		const {index, ...rest} = this.props;
@@ -33,14 +39,16 @@ class SampleVirtualGridListNative extends Component {
 			<VirtualGridList
 				{...rest}
 				cbScrollTo={this.getScrollTo}
-				spotlightId={id} // Set a unique ID to preserve last focus
-				dataSize={items.length}
+				className={css.verticalPadding}
+				dataSize={1000}
 				id={id}
 				itemRenderer={this.renderItem}
 				itemSize={{
-					minWidth: ri.scale(360),
-					minHeight: ri.scale(270)
+					minWidth: ri.scale(705),
+					minHeight: ri.scale(705)
 				}}
+				spacing={ri.scale(-120)}
+				spotlightId={id} // Set a unique ID to preserve last focus
 			/>
 		);
 	}
