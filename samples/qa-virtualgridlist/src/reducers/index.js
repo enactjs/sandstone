@@ -76,7 +76,7 @@ const data = (state = initialState, action) => {
 			const
 				newData = {},
 				newDataOrder = [],
-				selectedItems	= new Set(state.selectedItems),
+				selectedItems = new Set(state.selectedItems),
 				filteredDataOrder = state.dataOrder.filter((item) => !selectedItems.has(item));
 
 			for (let i = 0; i < filteredDataOrder.length; i++) {

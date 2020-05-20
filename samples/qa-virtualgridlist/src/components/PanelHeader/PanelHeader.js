@@ -24,7 +24,7 @@ import {
 	setData as setAction
 } from '../../actions';
 
-const createMockItem = (dataSize, showOverlay) => {
+const createMockItem = (dataSize, selectionOverlayShowing) => {
 	const
 		dataLength = dataSize,
 		caption = (dataLength % 8 === 0) ? ' with long title' : '',
@@ -32,11 +32,11 @@ const createMockItem = (dataSize, showOverlay) => {
 		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
 
 	return {
-		children: dataLength + caption,
-		label: subCaption,
+		caption: dataLength + caption,
+		subCaption,
 		selected: false,
-		showSelection: showOverlay,
-		src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
+		selectionOverlayShowing,
+		source: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
 	};
 };
 
