@@ -23,7 +23,7 @@ const NavigationButton = kind({
 		button: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.element,
-			PropTypes.function
+			PropTypes.arrayOf(PropTypes.element)
 		]),
 		onClick: PropTypes.func,
 		visible: PropTypes.bool
@@ -156,14 +156,12 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
-		 *
 		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last,
 		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
 		 * * `'never'` will always hide the `nextButton` on the every `WizardPanel.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `nextButton` on WizardPanel.Panel will take precedence over the `nextButtonVisibility` value.
-		 *
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
@@ -230,14 +228,12 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 *
 		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the last,
 		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
 		 * * `'never'` will always hide the `prevButton` on the every `WizardPanel.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
-		 *
 		 *
 		 * @type {('auto'|'always'|'never')}
 		 * @default 'auto'
