@@ -1,12 +1,14 @@
+/* globals document */
+
 const Page = require('./TabLayoutPage');
 
 describe('TabLayout', function () {
 
-	beforeEach(function () {
-		Page.open();
-	});
-
 	describe('default', function () {
+
+		beforeEach(function () {
+			Page.open();
+		});
 
 		describe('view navigation behavior', function () {
 
@@ -40,6 +42,44 @@ describe('TabLayout', function () {
 					expect(actual).to.equal(expected);
 				});
 			});
+		});
+	});
+
+	describe('auto focus behavior', function () {
+		it('should focus the first tab when expanded', function () {
+			Page.open('');
+
+			const expected = 'One';
+			const actual = browser.execute(() => document.activeElement.textContent);
+
+			expect(actual).to.equal(expected);
+		});
+
+		it('should focus the first tab content when collapsed', function () {
+			Page.open('', '?defaultCollapsed');
+
+			const expected = 'Button One';
+			const actual = browser.execute(() => document.activeElement.textContent);
+
+			expect(actual).to.equal(expected);
+		});
+
+		it('should focus the tab for the selected index when expanded', function () {
+			Page.open('', '?defaultIndex=1');
+
+			const expected = 'Two';
+			const actual = browser.execute(() => document.activeElement.textContent);
+
+			expect(actual).to.equal(expected);
+		});
+
+		it('should focus the content for the selected index when collapsed', function () {
+			Page.open('', '?defaultIndex=1&defaultCollapsed');
+
+			const expected = 'Button Two';
+			const actual = browser.execute(() => document.activeElement.textContent);
+
+			expect(actual).to.equal(expected);
 		});
 	});
 });
