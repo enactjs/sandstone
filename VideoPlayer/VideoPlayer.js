@@ -1210,15 +1210,16 @@ const VideoPlayerBase = class extends React.Component {
 		}
 	}
 
-	handleControlsHandleAboveDown = (ev) => {
+	handleControlsHandleAboveDown = () => {
 		if (this.jumpButtonPressed === 0) {
 			this.showControls();
 		} else if (this.jumpButtonPressed === -1 || this.jumpButtonPressed === 1) {
+			const keyCode = this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode;
+
 			if (shouldJump(this.props, this.state)) {
-				const keyCode = this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode;
 				this.handleJump({keyCode});
 			} else {
-				Spotlight.focus(getDirection(ev.keyCode));
+				Spotlight.focus(getDirection(keyCode));
 			}
 		}
 	}
