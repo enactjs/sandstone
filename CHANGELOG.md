@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Removed
 
 - `sandstone/WizardPanels` prop `footer`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.WizardPanels`
 
 ### Changed
 
