@@ -403,30 +403,15 @@ describe('VirtualList', function () {
 				// Verify 3-2: The Scrollbar track displays shortly left aligned.
 				expect(Page.getScrollOffsetLeft()).to.equal(0);
 			});
+		});
 
-			it('should Verify RTL functionality [GT-28480]', function () {
-				let ListwidthSize;
-				// Verify 3-1: VirtualList sample displays in RTL (Right to Left.)
-				// Check that the the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
-				Page.spotlightDown();
-				expect(Page.buttonLeft.isFocused(), 'focus left');
-				Page.spotlightLeft();
-				Page.spotlightLeft();
-				expect(Page.buttonRight.isFocused(), 'focus Right');
-				// Verify 3-2: Vertical Scrollbar displays on the left side.
-				expect(Page.getScrollOffsetLeft()).to.equal(0);
-				Page.open('?locale=en-US');
-				// Verify 4-1: VirtualList sample displays in LTR (Left to Right.)
-				// Check that the the button's position is Left-> Right.(in case LTR, button position is 'Left' - 'Right')
-				Page.spotlightDown();
-				expect(Page.buttonLeft.isFocused(), 'focus left');
-				Page.spotlightRight();
-				Page.spotlightRight();
-				expect(Page.buttonRight.isFocused(), 'focus Right');
-				// Verify 4-2: Vertical Scrollbar displays on the right side.
-				ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
-				expect(Page.getListwidthSize()).to.equal(ListwidthSize);
+		describe('Verify locale Change', function () {
+			beforeEach(function () {
 				Page.open('?locale=ur-PK');
+			});
+
+			// Since 'ar-sA' and 'en-US' have tests to check on the other side, this test only check 'ur-PK'.
+			it('should Verify RTL functionality [GT-28480]', function () {
 				// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
 				// Check that the the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
 				Page.spotlightDown();
