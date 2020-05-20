@@ -1,3 +1,5 @@
+/* global URL */
+
 import React from 'react';
 
 function UrlPropsDecorator (Wrapped) {
@@ -22,10 +24,10 @@ function UrlPropsDecorator (Wrapped) {
 
 			updated[key] = value;
 		});
-		
+
 		return <Wrapped {...updated} />;
 	};
-};
+}
 
 export default UrlPropsDecorator;
 export {
