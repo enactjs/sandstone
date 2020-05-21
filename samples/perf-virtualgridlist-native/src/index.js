@@ -4,7 +4,7 @@ import {render} from 'react-dom';
 
 import appPkg from '../package.json';
 
-import App from './App.js';
+import App from './App';
 
 let appElement = (<App />);
 
