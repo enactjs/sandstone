@@ -36,7 +36,7 @@ const createMockItem = (dataSize, showOverlay) => {
 		label: subCaption,
 		selected: false,
 		showSelection: showOverlay,
-		src: `http://placehold.it/300x300/${color}/ffffff&text=Image${dataLength}`
+		src: `http://placehold.it/300x300/${color}/ffffff&text=Image ${dataLength}`
 	};
 };
 
