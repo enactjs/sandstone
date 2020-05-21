@@ -195,7 +195,7 @@ describe('WizardPanel Specs', () => {
 		'should hide next nextButton on all the panels with `nextButtonVisibility` set to never',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanels index={2} nextButtonVisibility={'never'} totalPanels={4} />
+				<WizardPanels index={2} nextButtonVisibility="never" totalPanels={4} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -211,7 +211,7 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on all the panels with `prevButtonVisibility` set to never',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanels index={2} prevButtonVisibility={'never'} totalPanels={4} />
+				<WizardPanels index={2} prevButtonVisibility="never" totalPanels={4} />
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
@@ -351,7 +351,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} prevButtonVisibility={'never'}>
+				<WizardPanels defaultIndex={1} prevButtonVisibility="never">
 					<Panel />
 					<Panel />
 					<Panel />

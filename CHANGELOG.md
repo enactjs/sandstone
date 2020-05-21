@@ -7,17 +7,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Removed
 
 - `sandstone/WizardPanels` prop `footer`
-- `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton` `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`,
-`prevButtonText`
-
-### Changed
-
-- `sandstone/WizardPanels` prop `buttons` to be `footer`
-- `sandstone/WizardPanels` `buttons` to use `NavigationButton` to display `prevButton` and `nextButton` on the `sandstone/WizardPanels.Panels`
+- `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and
+`prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
+- `sandstone/WizardPanels` prop `buttons` and is now combined into `footer`
 
 ### Added
 
-- `prevButton`, `prevButtonVisibility`, `nextButton`, `nextButtonVisibility` prop on `sandstone/WizardPanels` and `sandstone/WizardPanels.Panels`
+- `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customizability of the navigational buttons on each `Panel`
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes

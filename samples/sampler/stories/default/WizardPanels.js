@@ -15,8 +15,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 WizardPanels.displayName = 'WizardPanels';
 const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
 
-const visibilityProp = {
-	buttonVisibilityOption: ['auto', 'always', 'never']
+const props = {
+	buttonVisibility: ['auto', 'always', 'never']
 };
 
 WizardPanels.displayName = 'WizardPanels';
@@ -27,12 +27,12 @@ storiesOf('Sandstone', module)
 		() => (
 			<WizardPanels
 				current={number('current', Config, 0)}
-				noAnimation={boolean('noAnimation', Config, false)}
+				noAnimation={boolean('noAnimation', Config)}
 				noSteps={boolean('noSteps', Config)}
-				nextButtonVisibility={select('nextButtonVisibility', visibilityProp.buttonVisibilityOption, Config)}
+				nextButtonVisibility={select('nextButtonVisibility', props.buttonVisibility, Config)}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
-				prevButtonVisibility={select('prevButtonVisibility', visibilityProp.buttonVisibilityOption, Config)}
+				prevButtonVisibility={select('prevButtonVisibility', props.buttonVisibility, Config)}
 				total={number('total', Config, 0)}
 			>
 				<WizardPanels.Panel
