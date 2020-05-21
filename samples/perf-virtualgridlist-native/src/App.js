@@ -4,8 +4,6 @@ import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
-import css from './App.module.less';
-
 const items = [];
 
 for (let i = 0; i < 1000; i++) {
@@ -29,7 +27,6 @@ class VirtualGridListNativeSample extends Component {
 		return (
 			<ImageItem
 				{...rest}
-				className={css.gridListItem}
 				label={items[index].subText}
 			>
 				{items[index].text}
@@ -39,15 +36,13 @@ class VirtualGridListNativeSample extends Component {
 
 	render () {
 		return (
-			<div {...this.props}>
-				<VirtualGridList
-					cbScrollTo={this.getScrollTo}
-					dataSize={items.length}
-					focusableScrollbar
-					itemRenderer={this.renderItem}
-					itemSize={{minWidth: ri.scale(642), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
-				/>
-			</div>
+			<VirtualGridList
+				{...this.props}
+				cbScrollTo={this.getScrollTo}
+				dataSize={items.length}
+				itemRenderer={this.renderItem}
+				itemSize={{minWidth: ri.scale(642), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
+			/>
 		);
 	}
 }
