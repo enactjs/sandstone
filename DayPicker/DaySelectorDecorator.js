@@ -79,7 +79,7 @@ function getLocaleState (dayNameLength, locale) {
  * @returns {Number}
  */
 function calcSelectedDayType (selected, dayNameLength, locale) {
-	if (selected == null) return SELECTED_DAY_TYPES.SELECTED_NONE;
+	if (selected == null || !Array.isArray(selected)) return SELECTED_DAY_TYPES.SELECTED_NONE;
 
 	const state = getLocaleState(dayNameLength, locale);
 
@@ -92,6 +92,7 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
 		length = selected.length,
 		weekendLength = state.weekendStart === state.weekendEnd ? 1 : 2;
 
+	if (length === 0) return SELECTED_DAY_TYPES.SELECTED_NONE;
 	if (length === 7) return SELECTED_DAY_TYPES.EVERY_DAY;
 
 	for (let i = 0; i < length; i++) {
