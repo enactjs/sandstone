@@ -9,7 +9,6 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
@@ -80,10 +79,6 @@
 	///
 	/// Begin child node rules configuration, shared across multiple types
 	///
-
-	.titlesRow {
-		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
-	}
 
 	.title,
 	.subtitle {

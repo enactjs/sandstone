@@ -6,6 +6,8 @@ import {getDirection, Spotlight} from '@enact/spotlight';
 import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
+import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
@@ -367,15 +369,6 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * The method which receives the reference node to the title element, used to determine
-		 * the `titleMeasurements`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		titleRef: EnactPropTypes.ref,
-
-		/**
 		 * Set the type of header to be used.
 		 *
 		 * @type {('compact'|'mini'|'standard'|'wizard')}
@@ -511,7 +504,6 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
-		titleRef,
 		...rest
 	}) => {
 		delete rest.arranger;
@@ -558,7 +550,7 @@ const HeaderBase = kind({
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={css.titlesRow} align="center" ref={titleRef}>
+				<Row className={css.titlesRow} align="center">
 					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
@@ -577,9 +569,39 @@ const HeaderBase = kind({
 	}
 });
 
+const HeaderMeasurementDecorator = (Wrapped) => {
+	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
+		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
+
+		// If the slot width has changed, re-run this.
+		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {
+			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
+
+			// And only do this the largest slot is a different value this time around.
+			if (slotSize !== largestSlotSize) {
+				setSlotSize({
+					slotSize: largestSlotSize,
+					prevSlotBeforeWidth: slotBeforeWidth,
+					prevSlotAfterWidth: slotAfterWidth
+				});
+			}
+		}
+
+		const measurableProps = {
+			slotBeforeRef,
+			slotAfterRef,
+			slotSize: unit(slotSize, 'rem')
+		};
+
+		return <Wrapped {...props} {...measurableProps} />;
+	};
+};
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
 );

@@ -1,4 +1,3 @@
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
@@ -119,16 +118,7 @@ const PanelBase = kind({
 		 * @default false
 		 * @public
 		 */
-		hideChildren: PropTypes.bool,
-
-		/**
-		 * The method which receives the reference node to the title element, used to determine
-		 * the `titleMeasurements` of the header.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		titleRef: EnactPropTypes.ref
+		hideChildren: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -221,7 +211,6 @@ const PanelBase = kind({
 		headerType,
 		hideChildren,
 		spotOnRender,
-		titleRef,
 		...rest
 	}) => {
 		delete rest.autoFocus;
@@ -237,7 +226,6 @@ const PanelBase = kind({
 						component={header}
 						{...headerProps}
 						entering={hideChildren && Spotlight.getPointerMode()}
-						titleRef={titleRef}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
