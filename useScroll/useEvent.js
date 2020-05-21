@@ -16,7 +16,7 @@ let lastPointer = {x: 0, y: 0};
 const useEventFocus = (props, instances, context) => {
 	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
-	const {alertScrollbarTrack, isWheeling} = context;
+	const {alertScrollbarTrack} = context;
 
 	// Functions
 
@@ -106,7 +106,7 @@ const useEventFocus = (props, instances, context) => {
 			themeScrollContentHandle.current.shouldPreventScrollByFocus() :
 			false;
 
-		if (scrollMode === 'translate' && isWheeling) {
+		if (scrollMode === 'translate' && spottable.current.isWheeling) {
 			scrollContainerHandle.current.stop();
 			spottable.current.animateOnFocus = false;
 		}
@@ -554,18 +554,14 @@ const useEventVoice = (props, instances) => {
 
 const useEventWheel = (props, instances) => {
 	const {scrollMode} = props;
-	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef} = instances;
-
-	// Mutable value
-
-	const mutableRef = useRef({isWheeling: false});
+	const {themeScrollContentHandle, scrollContainerHandle, scrollContentRef, spottable} = instances;
 
 	// Functions
 	function initializeWheeling () {
 		if (!props['data-spotlight-container-disabled']) {
 			themeScrollContentHandle.current.setContainerDisabled(true);
 		}
-		mutableRef.current.isWheeling = true;
+		spottable.current.isWheeling = true;
 	}
 
 	function handleWheel ({delta}) {
@@ -610,7 +606,7 @@ const useEventWheel = (props, instances) => {
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
 			if (negativeDelta && scrollTop > 0 || positiveDelta && scrollTop < bounds.maxTop) {
-				if (!mutableRef.current.isWheeling) {
+				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
 
@@ -634,7 +630,7 @@ const useEventWheel = (props, instances) => {
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
 			if (negativeDelta && scrollLeft > 0 || positiveDelta && scrollLeft < bounds.maxLeft) {
-				if (!mutableRef.current.isWheeling) {
+				if (!spottable.current.isWheeling) {
 					initializeWheeling();
 				}
 
@@ -675,8 +671,7 @@ const useEventWheel = (props, instances) => {
 	// Return
 
 	return {
-		handleWheel: scrollMode === 'translate' ? handleWheel : handleWheelNative,
-		isWheeling: mutableRef.current.isWheeling
+		handleWheel: scrollMode === 'translate' ? handleWheel : handleWheelNative
 	};
 };
 
