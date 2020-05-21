@@ -19,11 +19,11 @@ const ImageItem = kind({
 });
 
 const mapStateToProps = ({data}, {['data-index']: dataIndex}) => ({
-	children: data.data[dataIndex].caption,
-	label: data.data[dataIndex].subCaption,
+	children: data.data[dataIndex].children,
+	label: data.data[dataIndex].label,
 	selected: data.selectedItems.has(dataIndex),
-	showSelection: data.data[dataIndex].selectionOverlayShowing,
-	src: data.data[dataIndex].source
+	showSelection: data.data[dataIndex].showSelection,
+	src: data.data[dataIndex].src
 });
 
 const mapDispatchToProps = (dispatch, {['data-index']: dataIndex}) => {

@@ -8,26 +8,26 @@ const createRecords = () => {
 			data: {},
 			dataSize: 100,
 			dataOrder: [],
-			minHeight: 270,
-			minWidth: 180,
+			minHeight: 570,
+			minWidth: 688,
 			selectedItems: new Set(),
 			showOverlay: false,
-			spacing: 21
+			spacing: 0
 		},
-		caption, subCaption, color;
+		caption, label, color;
 
 	for (let idx = 0; idx < 100; ++idx) {
-		caption = (idx % 8 === 0) ? ' with long title' : '';
-		subCaption = (idx % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle';
+		caption = (idx % 8 === 0) ? ' with looooooooooong title' : '';
+		label = (idx % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle';
 		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16);
 
 		records.dataOrder.push(idx);
 		records.data[idx] = {
-			caption: idx + caption,
+			children: idx + caption,
 			selected: false,
-			selectionOverlayShowing: false,
-			source: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + idx,
-			subCaption: subCaption
+			showSelection: false,
+			src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + idx,
+			label
 		};
 	}
 
@@ -76,7 +76,7 @@ const data = (state = initialState, action) => {
 			const
 				newData = {},
 				newDataOrder = [],
-				selectedItems	= new Set(state.selectedItems),
+				selectedItems = new Set(state.selectedItems),
 				filteredDataOrder = state.dataOrder.filter((item) => !selectedItems.has(item));
 
 			for (let i = 0; i < filteredDataOrder.length; i++) {
@@ -85,7 +85,7 @@ const data = (state = initialState, action) => {
 				newDataOrder.push(i);
 			}
 
-			return Object.assign({}, state, {data: newData, dataOrder: newDataOrder, selectedItems: new Set()});
+			return Object.assign({}, state, {data: newData, dataOrder: newDataOrder, dataSize: newDataOrder.length, selectedItems: new Set()});
 		}
 		case SELECT_ALL: {
 			const selectedItems = new Set(state.selectedItems);
@@ -119,7 +119,7 @@ const data = (state = initialState, action) => {
 			const newdata = {};
 
 			Object.keys(state.data).forEach((id) => {
-				newdata[id] = Object.assign({}, state.data[id], {selectionOverlayShowing: !state.data[id].selectionOverlayShowing});
+				newdata[id] = Object.assign({}, state.data[id], {showSelection: !state.data[id].showSelection});
 			});
 
 			return Object.assign({}, state, {data: newdata, showOverlay: !state.showOverlay});

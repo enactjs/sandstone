@@ -2,8 +2,7 @@ import Button from '@enact/sandstone/Button';
 import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
-import {Header} from '@enact/sandstone/Panels';
-import Input from '@enact/sandstone/Input';
+import {InputField as Input} from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -27,7 +26,7 @@ import {
 const createMockItem = (dataSize, showOverlay) => {
 	const
 		dataLength = dataSize,
-		caption = (dataLength % 8 === 0) ? ' with long title' : '',
+		caption = (dataLength % 8 === 0) ? ' with looooooooooong title' : '',
 		subCaption = (dataLength % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle',
 		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
 
@@ -56,7 +55,6 @@ const PanelHeader = kind({
 		deleteSelectedItem: PropTypes.func,
 		nativeScroll: PropTypes.bool,
 		onChangeDirection: PropTypes.func,
-		onChangeFocusableScrollbar: PropTypes.func,
 		onChangeScrollMode: PropTypes.func,
 		selectAll: PropTypes.func,
 		selectionEnable: PropTypes.func,
@@ -107,11 +105,6 @@ const PanelHeader = kind({
 				return (<CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>);
 			}
 		},
-		changeFocusableScrollbarButton: ({onChangeFocusableScrollbar, showOverlay}) => {
-			if (!showOverlay) {
-				return (<CheckboxItem onClick={onChangeFocusableScrollbar}>Focusable Scrollbar</CheckboxItem>);
-			}
-		},
 		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
 			if (!showOverlay) {
 				const inputWidth = {width: '5em'};
@@ -155,7 +148,7 @@ const PanelHeader = kind({
 		},
 		selectAllButton: ({selectAll, showOverlay}) => {
 			if (showOverlay) {
-				return (<Button size="small" onClick={selectAll}>Select All</Button>);
+				return (<Button size="small" onClick={selectAll}>Select/DeSelect All</Button>);
 			}
 		},
 		selectionPreviousButton: ({showOverlay, showSelectionOverlayHandler}) => {
@@ -167,7 +160,7 @@ const PanelHeader = kind({
 		}
 	},
 
-	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
+	render: ({addButton, changeDirectionButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
 		delete rest.addItem;
 		delete rest.addMockItem;
 		delete rest.changeDataSize;
@@ -177,8 +170,8 @@ const PanelHeader = kind({
 		delete rest.dataSize;
 		delete rest.deleteItem;
 		delete rest.deleteSelectedItem;
+		delete rest.nativeScroll;
 		delete rest.onChangeDirection;
-		delete rest.onChangeFocusableScrollbar;
 		delete rest.onChangeScrollMode;
 		delete rest.selectAll;
 		delete rest.selectionEnable;
@@ -187,7 +180,7 @@ const PanelHeader = kind({
 		delete rest.showSelectionOverlayHandler;
 
 		return (
-			<Header {...rest}>
+			<>
 				<Row>
 					<Cell shrink>
 						{addButton}
@@ -205,9 +198,6 @@ const PanelHeader = kind({
 						{selectionPreviousButton}
 					</Cell>
 					<Cell>
-						{changeFocusableScrollbarButton}
-					</Cell>
-					<Cell>
 						{changeDirectionButton}
 					</Cell>
 					<Cell>
@@ -218,8 +208,7 @@ const PanelHeader = kind({
 					</Cell>
 				</Row>
 				{changeListProps}
-				<hr />
-			</Header>
+			</>
 		);
 	}
 });

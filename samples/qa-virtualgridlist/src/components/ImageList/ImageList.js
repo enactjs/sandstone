@@ -6,6 +6,8 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import ImageItem from '../ImageItem';
 
+import css from './ImageList.module.less';
+
 class ImageList extends React.Component {
 	static propTypes = {
 		dispatch: PropTypes.func,
@@ -21,18 +23,14 @@ class ImageList extends React.Component {
 
 	render = () => {
 		const
-			rest = Object.assign({}, this.props),
-			{imageitems, spacing, minHeight, minWidth} = this.props;
+			{imageitems, spacing, minHeight, minWidth, ...rest} = this.props;
 
 		delete rest.dispatch;
-		delete rest.imageitems;
-		delete rest.minHeight;
-		delete rest.minWidth;
-		delete rest.spacing;
 
 		return (
 			<VirtualGridList
 				{...rest}
+				className={rest.direction === 'horizontal' ? css.horizontalPadding : css.verticalPadding}
 				dataSize={imageitems.length}
 				itemRenderer={this.renderItem}
 				itemSize={{minHeight: this.calculateOfSize(minHeight), minWidth: this.calculateOfSize(minWidth)}}
