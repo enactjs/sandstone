@@ -30,24 +30,6 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have subtitle in `Header`',
-		() => {
-			const subtitle = 'WizardPanel subtitle';
-
-			const wizardPanel = shallow(
-				<WizardPanelsBase subtitle={subtitle} />
-			);
-
-			const headerSubTitle = wizardPanel.find({type: 'wizard'}).prop('subtitle');
-
-			const expected = subtitle;
-			const actual = headerSubTitle;
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
 		'should have title overridden by title set in `View`',
 		() => {
 			const wizardTitle = 'WizardPanel title';
@@ -293,16 +275,14 @@ describe('WizardPanel Specs', () => {
 		'should advance on next click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels nextButtonVisibility={'auto'}>
+				<WizardPanels>
 					<Panel />
 					<Panel />
 					<Panel />
 				</WizardPanels>
 			);
 
-			const nextButton = wizardPanel.find({slot: 'slotAfter'});
-
-			nextButton.simulate('click');
+			findNextButton(wizardPanel).simulate('click');
 
 			const expected = {current: 2};
 			const actual = wizardPanel.find('Steps').props();
@@ -316,15 +296,14 @@ describe('WizardPanel Specs', () => {
 		'should go back on prev click',
 		() => {
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} prevButtonVisibility={'auto'}>
+				<WizardPanels defaultIndex={1}>
 					<Panel />
 					<Panel />
 					<Panel />
 				</WizardPanels>
 			);
 
-			const prevButton = wizardPanel.find({slot: 'slotBefore'});
-			prevButton.simulate('click');
+			findPrevButton(wizardPanel).simulate('click');
 
 			const expected = {current: 1};
 			const actual = wizardPanel.find('Steps').props();
@@ -344,7 +323,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} prevButtonVisibility={'auto'}>
+				<WizardPanels defaultIndex={1}>
 					<Panel />
 					<Panel />
 					<Panel />
@@ -382,7 +361,7 @@ describe('WizardPanel Specs', () => {
 			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
 			wizardPanel.update();
 
-			const expected = {current: 2};
+			const expected = {current: 1};
 			const actual = wizardPanel.find('Steps').props();
 
 			wizardPanel.unmount();
