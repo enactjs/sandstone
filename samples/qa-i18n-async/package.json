@@ -1,6 +1,6 @@
 {
 	"name": "qa-i18n-async",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "A sample to test asynchronous i18n resource retrieval",
 	"author": "",
 	"main": "src/index.js",

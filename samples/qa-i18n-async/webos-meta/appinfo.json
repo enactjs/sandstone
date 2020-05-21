@@ -1,10 +1,10 @@
 {
-	"id": "qa-i18n",
+	"id": "qa-i18n-async",
 	"version": "0.1.0",
 	"vendor": "LGE-SVL",
 	"type": "web",
 	"main": "index.html",
-	"title": "Enact App Template",
+	"title": "QA i18n Async ",
 	"icon": "icon.png",
 	"miniicon": "icon-mini.png",
 	"largeIcon": "icon-large.png",

@@ -1,7 +1,7 @@
 {
 	"name": "qa-virtualgridlistnative-preserve-focus",
-	"version": "1.0.0",
-	"description": "A general template for an Enact Sandstone application.",
+	"version": "0.1.0",
+	"description": "A VirtualGridList Sample For Preserving Focus",
 	"author": "",
 	"main": "src/index.js",
 	"scripts": {

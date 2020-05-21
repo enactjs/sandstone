@@ -1,7 +1,7 @@
 {
-  "name": "qa-a11y",
+  "name": "perf-scroller-translate",
   "version": "0.1.0",
-  "description": "Enact A11y Test application.",
+  "description": "Perf Scroller Translate",
   "author": "",
   "main": "src/index.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "watch": "enact pack --watch",
     "clean": "enact clean",
     "lint": "enact lint --strict .",
+    "license": "enact license",
     "test": "enact test",
     "test-watch": "enact test --watch"
   },
@@ -18,7 +19,7 @@
   "private": true,
   "repository": "",
   "enact": {
-    "title": "QA A11y",
+    "title": "Perf Scroller Translate",
     "theme": "sandstone"
   },
   "eslintConfig": {
@@ -30,9 +31,8 @@
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^3.3.0-alpha.8",
     "@enact/ui": "^3.3.0-alpha.8",
-    "@enact/webos": "^3.3.0-alpha.8",
+    "classnames": "^2.2.6",
     "ilib": "^14.4.0",
-    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   }

@@ -1,6 +1,6 @@
 {
   "name": "qa-virtualgridlist",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A qa sample for testing VirtualGridList",
   "author": "",
   "main": "src/index.js",

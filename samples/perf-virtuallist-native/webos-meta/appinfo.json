@@ -1,12 +1,13 @@
 {
-  "id": "qa-virtuallist",
+  "id": "enact.perf.virtuallist.native",
   "version": "0.1.0",
   "vendor": "LGE-SWP",
   "type": "web",
   "main": "index.html",
-  "title": "QA VirtualList",
+  "title": "Perf VirtualList Native",
   "icon": "icon.png",
   "miniicon": "icon-mini.png",
   "largeIcon": "icon-large.png",
-  "uiRevision": 2
+  "uiRevision": 2,
+  "useNativeScroll": true
 }

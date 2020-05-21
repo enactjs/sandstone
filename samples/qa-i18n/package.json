@@ -1,6 +1,6 @@
 {
   "name": "qa-i18n",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A general template for an Enact Sandstone application for webOS TVs",
   "author": "",
   "main": "src/index.js",
