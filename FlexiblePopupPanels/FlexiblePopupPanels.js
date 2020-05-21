@@ -7,6 +7,7 @@
  * @exports Header
  */
 
+import handle, {adaptEvent, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
@@ -16,11 +17,25 @@ import compose from 'ramda/src/compose';
 import $L from '../internal/$L';
 import Button from '../Button';
 import {FadeAndSlideArranger, PanelsStateContext, PopupDecorator, Viewport} from '../internal/Panels';
-import {deleteSharedProps, getSharedProps, useContextAsDefaults} from '../internal/Panels/util';
-import {PanelBase as DefaultPanel, PanelDecorator as DefaultPanelDecorator} from '../Panels/Panel';
+import {useContextAsDefaults} from '../internal/Panels/util';
+import {PanelBase as DefaultPanel, PanelDecorator} from '../Panels/Panel';
 import DefaultHeader from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
+
+const ContextAsDefaults = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function ContextAsDefaults (props) {
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
+
+		return provideContextAsDefaults(
+			<Wrapped
+				{...contextProps}
+				{...props}
+			/>
+		);
+	};
+};
 
 const FlexiblePopupPanelsDecorator = compose(
 	PopupDecorator({
@@ -93,7 +108,43 @@ const NavigationButton = kind({
  * @ui
  * @public
  */
-const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
+const FlexiblePopupPanelsBase = kind({
+	name: 'FlexiblePopupPanels',
+
+	propTypes: {
+		/**
+		* Called when the index value is changed.
+		*
+		* @type {Function}
+		* @param {Object} event
+		* @public
+		*/
+		onChange: PropTypes.func
+	},
+
+	computed: {
+		children: ({children, onChange}) => React.Children.map(children, (child) => {
+			if (child) {
+				const props = {
+					onChange
+				};
+
+				return React.cloneElement(child, props);
+			} else {
+				return null;
+			}
+		}),
+		onBack: ({onChange}) => onChange
+	},
+
+	render: (props) => {
+		delete props.onChange;
+
+		return (<Viewport {...props} />);
+	}
+});
+
+const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(FlexiblePopupPanelsBase);
 
 /**
  * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels} view
@@ -113,14 +164,33 @@ const PanelBase = kind({
 
 	propTypes: /** @lends sandstone/FlexiblePopupPanels.Panel.prototype */ {
 		nextButton: PropTypes.any,
-		onNextClick: PropTypes.func,
+		onChange: PropTypes.func,
 		prevButton: PropTypes.any
 	},
 
+	handlers: {
+		handleDecrement: handle(
+			adaptEvent(
+				(ev, props, {index}) => {
+					const prevIndex = index > 0 ? (index - 1) : index;
+					return ({index: prevIndex});
+				},
+				forward('onChange')
+			)
+		),
+		handleIncrement: handle(
+			adaptEvent(
+				(ev, props, {count, index}) => {
+					const nextIndex = index < (count - 1) ? index + 1 : index;
+					return ({index: nextIndex});
+				},
+				forward('onChange')
+			)
+		)
+	},
+
 	computed: {
-		children: ({children, nextButton, onNextClick, prevButton, ...rest}, {count, index}) => {
-			const sharedProps = getSharedProps(rest);
-			const {onBack} = sharedProps;
+		children: ({children, handleDecrement, handleIncrement, nextButton, prevButton}, {count, index}) => {
 
 			return (
 				<Row>
@@ -129,7 +199,7 @@ const PanelBase = kind({
 							backgroundOpacity="transparent"
 							button={prevButton}
 							icon="arrowlargeleft"
-							onClick={onBack}
+							onClick={handleDecrement}
 							size="small"
 							visible={index > 0}
 						/>
@@ -140,7 +210,7 @@ const PanelBase = kind({
 							backgroundOpacity="transparent"
 							button={nextButton}
 							icon="arrowlargeright"
-							onClick={onNextClick}
+							onClick={handleIncrement}
 							size="small"
 							visible={index < (count - 1)}
 						/>
@@ -151,31 +221,15 @@ const PanelBase = kind({
 	},
 
 	render: (props) => {
-		deleteSharedProps(props);
-		delete props.onNextClick;
+		delete props.handleDecrement;
+		delete props.handleIncrement;
+		delete props.nextButton;
+		delete props.onChange;
+		delete props.prevButton;
 
 		return (<DefaultPanel {...props} css={css} />);
 	}
 });
-
-const ContextAsDefaultsPanel = (Wrapped) => {
-	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsPanel (props) {
-		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-
-		return provideContextAsDefaults(
-			<Wrapped
-				{...contextProps}
-				{...props}
-			/>
-		);
-	};
-};
-
-const PanelDecorator = compose(
-	DefaultPanelDecorator,
-	ContextAsDefaultsPanel
-);
 
 const Panel = PanelDecorator(PanelBase);
 
@@ -187,20 +241,6 @@ const Panel = PanelDecorator(PanelBase);
  * @memberof sandstone/FlexiblePopupPanels.FlexiblePopupPanels
  */
 FlexiblePopupPanels.Panel = Panel;
-
-const ContextAsDefaultsHeader = (Wrapped) => {
-	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsPanel (props) {
-		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-
-		return provideContextAsDefaults(
-			<Wrapped
-				{...contextProps}
-				{...props}
-			/>
-		);
-	};
-};
 
 /**
  * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
@@ -266,7 +306,7 @@ const HeaderBase = kind({
 	)
 });
 
-const Header = ContextAsDefaultsHeader(HeaderBase);
+const Header = ContextAsDefaults(HeaderBase);
 
 // Relay the defaultSlot property to our version of Header
 Header.defaultSlot = DefaultHeader.defaultSlot;

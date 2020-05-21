@@ -29,10 +29,10 @@ storiesOf('Sandstone', module)
 			const [index, setPanelIndexState] = React.useState(defaultIndex);
 
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
-			const prevPanel = compose(
-				() => setPanelIndexState(Math.max(index - 1, 0)),
-				action('onBack')
-			);
+			const handleChange = (ev) => {
+				setPanelIndexState(ev.index);
+				action('onChange')(ev);
+			};
 
 			return (<div>
 				<FlexiblePopupPanels
@@ -42,14 +42,14 @@ storiesOf('Sandstone', module)
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					noBackButton={boolean('noBackButton', Config)}
 					noCloseButton={boolean('noCloseButton', Config)}
-					onBack={prevPanel}
+					onChange={handleChange}
 					onClose={handleClose}
 					onHide={action('onHide')}
 					onShow={action('onShow')}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
-					<Panel onNextClick={nextPanel}>
+					<Panel>
 						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
 							<Item onClick={nextPanel}>Item 1</Item>
