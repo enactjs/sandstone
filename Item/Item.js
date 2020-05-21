@@ -208,7 +208,8 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: Boolean(label)})
+		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: Boolean(label)}),
+		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
