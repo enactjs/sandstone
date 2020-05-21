@@ -95,6 +95,16 @@ class VirtualListPage extends Page {
 			return _element.getBoundingClientRect().top;
 		}, this.item(id).value);
 	}
+
+	backSpace () {
+		return this.keyDelay('Backspace');
+	}
+
+	numPad (num) {
+		let Inputnum = 'numad' + String(num);
+		return this.keyDelay(Inputnum);
+	}
+
 }
 
 module.exports = new VirtualListPage();
