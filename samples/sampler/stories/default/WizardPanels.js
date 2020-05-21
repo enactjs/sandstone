@@ -8,7 +8,12 @@ import Button from '@enact/sandstone/Button';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Scroller} from '@enact/sandstone/Scroller';
-import WizardPanels from '@enact/sandstone/WizardPanels';
+import WizardPanels, {WizardPanelsBase} from '@enact/sandstone/WizardPanels';
+
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+
+WizardPanels.displayName = 'WizardPanels';
+const Config = mergeComponentMetadata('WizardPanels', WizardPanelsBase, WizardPanels);
 
 const visibilityProp = {
 	buttonVisibilityOption: ['auto', 'always', 'never']
@@ -21,21 +26,21 @@ storiesOf('Sandstone', module)
 		'WizardPanels',
 		() => (
 			<WizardPanels
-				current={number('current', WizardPanels, 0)}
-				noAnimation={boolean('noAnimation', WizardPanels, false)}
-				noSteps={boolean('noSteps', WizardPanels)}
-				nextButtonVisibility={select('nextButtonVisibility', visibilityProp.buttonVisibilityOption, WizardPanels, 'auto')}
+				current={number('current', Config, 0)}
+				noAnimation={boolean('noAnimation', Config, false)}
+				noSteps={boolean('noSteps', Config)}
+				nextButtonVisibility={select('nextButtonVisibility', visibilityProp.buttonVisibilityOption, Config)}
 				onTransition={action('onTransition')}
 				onWillTransition={action('onWillTransition')}
-				prevButtonVisibility={select('prevButtonVisibility', visibilityProp.buttonVisibilityOption, WizardPanels, 'auto')}
-				total={number('total', WizardPanels, 0)}
+				prevButtonVisibility={select('prevButtonVisibility', visibilityProp.buttonVisibilityOption, Config)}
+				total={number('total', Config, 0)}
 			>
 				<WizardPanels.Panel
 					footer="Footer in View 1"
 					subtitle="A subtitle for View 1"
 					title="WizardPanel View 1"
-					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : ''}
-					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : ''}
+					prevButton={boolean('custom first Panel prevButton', Config) ?  <Button icon="closex" aria-label="exit">Exit</Button> : void 0}
+					nextButton={boolean('custom first Panel nextButton', Config) ? <Button icon="closex" aria-label="quit">Close</Button> : void 0}
 
 				>
 					<Scroller>
@@ -68,8 +73,8 @@ storiesOf('Sandstone', module)
 					footer="Footer in View 4"
 					subtitle="A subtitle for View 4"
 					title="WizardPanel View 4"
-					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : ''}
-					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : ''}
+					prevButton={boolean('custom last Panel prevButton', Config) ?  <Button icon="closex" aria-label="exit">Exit</Button> : void 0}
+					nextButton={boolean('custom last Panel nextButton', Config) ? <Button icon="closex" aria-label="quit">Close</Button> : void 0}
 				>
 					<Icon>resumeplay</Icon>
 					<BodyText>A simple view</BodyText>
@@ -82,7 +87,7 @@ storiesOf('Sandstone', module)
 		),
 		{
 			props: {
-				noPanel: true
+				noPanels: true
 			}
 		}
 	);

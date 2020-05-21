@@ -26,7 +26,7 @@ const NavigationButton = kind({
 	name: 'NavigationButton',
 
 	propTypes: {
-		button: PropTypes.oneOfType([
+		component: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.element,
 			PropTypes.func
@@ -35,37 +35,34 @@ const NavigationButton = kind({
 		visible: PropTypes.bool
 	},
 
-	render: ({button, visible, ...rest}) => {
+	render: ({component, visible, ...rest}) => {
 
-		if (React.isValidElement(button)) {
+		if (React.isValidElement(component)) {
 
-			Object.keys(button.props).forEach(key => {
-				// Using the provided prop values as defaults for any button.props value that is
+			Object.keys(component.props).forEach(key => {
+				// Using the provided prop values as defaults for any component.props value that is
 				// strictly undefined. This follows React's convention for default props in which a
 				// default is used when a prop is either explicitly undefined or omitted and
 				// therefore implicitly undefined.
-				//
-				// eslint-disable-next-line no-undefined
-				if (button.props[key] !== undefined) {
-					rest[key] = button.props[key];
+				if (typeof component.props[key] !== 'undefined') {
+					rest[key] = component.props[key];
 				}
 			});
 
-			const Type = button.type;
+			const Type = component.type;
 			return (
 				<Type {...rest} />
 			);
 		} else if (
 			// Explicitly disabled via false/null or visible is set to false
-			(button === false || button === null) ||
+			(component === false || component === null) ||
 			// Using the default config and hidden at this time
-			// eslint-disable-next-line no-undefined
-			(button === undefined && !visible)
+			(typeof component === 'undefined' && !visible)
 		) {
 			return null;
 		}
 
-		const Component = typeof button === 'function' ? button : Button;
+		const Component = (typeof component === 'function') ? component : Button;
 
 		return (
 			<Component {...rest} />
@@ -331,9 +328,9 @@ const WizardPanelsBase = kind({
 
 			return (
 				<Steps
-					current={typeof current === 'number' && current > 0 ? current : index + 1}
+					current={(typeof current === 'number' && current > 0) ? current : (index + 1)}
 					slot="slotAbove"
-					total={typeof total === 'number' && total > 0 ? total : totalPanels}
+					total={(typeof total === 'number' && total > 0) ? total : totalPanels}
 				/>
 			);
 		}
@@ -363,8 +360,8 @@ const WizardPanelsBase = kind({
 		delete rest.current;
 		delete rest.total;
 
-		const isPrevButtonVisibility =  prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
-		const isNextButtonVisibility = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
 			<PanelBase {...rest} autoFocus="default-element">
@@ -379,28 +376,26 @@ const WizardPanelsBase = kind({
 				>
 					{steps}
 					<NavigationButton
+						aria-label={$L('Previous')}
 						backgroundOpacity="transparent"
-						button={prevButton}
+						component={prevButton}
 						icon="arrowlargeleft"
 						minWidth={false}
 						onClick={handlePrevClick}
 						slot="slotBefore"
-						visible={isPrevButtonVisibility}
-					>
-						{$L('Previous')}
-					</NavigationButton>
+						visible={isPrevButtonVisible}
+					/>
 					<NavigationButton
+						aria-label={$L('Next')}
 						backgroundOpacity="transparent"
-						button={nextButton}
+						component={nextButton}
 						icon="arrowlargeright"
 						iconPosition="after"
 						minWidth={false}
 						onClick={handleNextClick}
 						slot="slotAfter"
-						visible={isNextButtonVisibility}
-					>
-						{$L('Next')}
-					</NavigationButton>
+						visible={isNextButtonVisible}
+					/>
 				</Header>
 				<Column>
 					<Cell className={css.content}>
