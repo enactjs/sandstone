@@ -364,39 +364,44 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
-			<PanelBase {...rest} autoFocus="default-element">
-				<Header
-					arranger={noAnimation ? null : CrossFadeArranger}
-					centered
-					css={css}
-					noCloseButton
-					subtitle={subtitle}
-					title={title}
-					type="wizard"
-				>
-					{steps}
-					<NavigationButton
-						aria-label={$L('Previous')}
-						backgroundOpacity="transparent"
-						component={prevButton}
-						icon="arrowlargeleft"
-						minWidth={false}
-						onClick={handlePrevClick}
-						slot="slotBefore"
-						visible={isPrevButtonVisible}
-					/>
-					<NavigationButton
-						aria-label={$L('Next')}
-						backgroundOpacity="transparent"
-						component={nextButton}
-						icon="arrowlargeright"
-						iconPosition="after"
-						minWidth={false}
-						onClick={handleNextClick}
-						slot="slotAfter"
-						visible={isNextButtonVisible}
-					/>
-				</Header>
+			<PanelBase
+				{...rest}
+				autoFocus="default-element"
+				header={
+					<Header
+						arranger={noAnimation ? null : CrossFadeArranger}
+						centered
+						css={css}
+						noCloseButton
+						subtitle={subtitle}
+						title={title}
+						type="wizard"
+					>
+						{steps}
+						<NavigationButton
+							aria-label={$L('Previous')}
+							backgroundOpacity="transparent"
+							component={prevButton}
+							icon="arrowlargeleft"
+							minWidth={false}
+							onClick={handlePrevClick}
+							slot="slotBefore"
+							visible={isPrevButtonVisible}
+						/>
+						<NavigationButton
+							aria-label={$L('Next')}
+							backgroundOpacity="transparent"
+							component={nextButton}
+							icon="arrowlargeright"
+							iconPosition="after"
+							minWidth={false}
+							onClick={handleNextClick}
+							slot="slotAfter"
+							visible={isNextButtonVisible}
+						/>
+					</Header>
+				}
+			>
 				<Column>
 					<Cell className={css.content}>
 						{/* skip creating ViewManager when there aren't children to avoid animating
