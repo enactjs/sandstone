@@ -79,7 +79,7 @@ const Panel = Slottable(
  *
  * @name nextButton
  * @memberof sandstone/WizardPanels.Panel.prototype
- * @type {Boolean|Function|Element}
+ * @type {Boolean|Component}
  * @public
  */
 
@@ -99,7 +99,7 @@ const Panel = Slottable(
  *
  * @name PrevButton
  * @memberof sandstone/WizardPanels.Panel.prototype
- * @type {Boolean|Function|Element}
+ * @type {Boolean|Component}
  * @public
  */
 

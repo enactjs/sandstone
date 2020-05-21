@@ -1,5 +1,6 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -128,7 +129,7 @@ const WizardPanelsBase = kind({
 		/**
 		 * The button to use in place of the standard next button.
 		 *
-		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
+		 * This prop accepts a component (e.g. `Button`), a component instance, or a boolean value.
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of `nextButtonVisibility`.
@@ -138,10 +139,10 @@ const WizardPanelsBase = kind({
 		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
 		 * ```
 		 *
-		 * @type {Boolean|Function|Element}
+		 * @type {Boolean|Component}
 		 * @private
 		 */
-		nextButton: PropTypes.any,
+		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
@@ -202,7 +203,7 @@ const WizardPanelsBase = kind({
 		/**
 		 * The button to use in place of the standard prev button.
 		 *
-		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
+		 * This prop accepts a component (e.g. `Button`), a component instance, or a boolean value.
 		 *
 		 * If `false`, the button will not show. If set to a component, or `true`, the button will
 		 * show. This will override the setting of `prevButtonVisibility`.
@@ -212,10 +213,10 @@ const WizardPanelsBase = kind({
 		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
 		 * ```
 		 *
-		 * @type {Boolean|Function|Element}
+		 * @type {Boolean|Component}
 		 * @private
 		 */
-		prevButton: PropTypes.any,
+		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
