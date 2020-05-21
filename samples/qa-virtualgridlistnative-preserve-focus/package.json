@@ -15,7 +15,7 @@
 		"test": "enact test",
 		"test-watch": "enact test --watch"
 	},
-	"license": "UNLICENSED",
+	"license": "Apache-2.0",
 	"private": true,
 	"repository": "",
 	"enact": {
@@ -39,7 +39,7 @@
 		"prop-types": "^15.7.2",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
-		"react-redux": "^7.1.0",
-		"redux": "^4.0.1"
+		"react-redux": "^7.2.0",
+		"redux": "^4.0.5"
 	}
 }
