@@ -1,7 +1,7 @@
 {
-  "name": "perf-enact-scroller",
-  "version": "1.0.1",
-  "description": "Perf Enact Scroller",
+  "name": "perf-enact-virtualgridlist-translate",
+  "version": "1.0.2",
+  "description": "Perf Enact VirtualGridList Translate",
   "author": "",
   "main": "src/index.js",
   "scripts": {
@@ -11,7 +11,6 @@
     "watch": "enact pack --watch",
     "clean": "enact clean",
     "lint": "enact lint --strict .",
-    "license": "enact license",
     "test": "enact test",
     "test-watch": "enact test --watch"
   },
@@ -19,7 +18,7 @@
   "private": true,
   "repository": "",
   "enact": {
-    "title": "Perf Enact Scroller",
+    "title": "Perf Enact VirtualGridList Translate",
     "theme": "sandstone"
   },
   "eslintConfig": {
@@ -31,7 +30,6 @@
     "@enact/sandstone": "../../",
     "@enact/spotlight": "^3.3.0-alpha.8",
     "@enact/ui": "^3.3.0-alpha.8",
-    "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

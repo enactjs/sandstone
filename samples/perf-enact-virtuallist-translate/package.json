@@ -1,7 +1,7 @@
 {
-  "name": "perf-enact-virtuallist",
+  "name": "perf-enact-virtuallist-translate",
   "version": "1.0.2",
-  "description": "Perf Enact VirtualList",
+  "description": "Perf Enact VirtualList Translate",
   "author": "",
   "main": "src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "private": true,
   "repository": "",
   "enact": {
-    "title": "Perf Enact VirtualList",
+    "title": "Perf Enact VirtualList Translate",
     "theme": "sandstone"
   },
   "eslintConfig": {

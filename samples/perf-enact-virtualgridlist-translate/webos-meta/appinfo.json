@@ -1,10 +1,10 @@
 {
-  "id": "enact.perf.scroller",
-  "version": "1.0.1",
+  "id": "enact.perf.virtualgridlist.translate",
+  "version": "1.0.2",
   "vendor": "LGE-SWP",
   "type": "web",
   "main": "index.html",
-  "title": "Perf Enact Scroller",
+  "title": "Perf Enact VirtualGridList Translate",
   "icon": "icon.png",
   "miniicon": "icon-mini.png",
   "largeIcon": "icon-large.png",
