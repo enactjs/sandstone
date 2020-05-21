@@ -71,10 +71,10 @@ const PanelHeader = kind({
 		selectAll: (ev, {selectAll}) => {
 			selectAll();
 		},
-		setData: (ev, {changeDataSize, dataSize, showOverlay, setData}) => {
+		setData: (ev, {changeDataSize, dataSize, showOverlay: selectionOverlayShowing, setData}) => {
 			changeDataSize(ev.value);
 			for (let i = 0; i <= ev.value; i++) {
-				setData(ev.value, createRecord(dataSize + i, showOverlay));
+				setData(ev.value, createRecord({recordIndex: dataSize + i, selectionOverlayShowing}));
 			}
 		},
 		showSelectionOverlayHandler: (ev, {selectionEnable}) => {
