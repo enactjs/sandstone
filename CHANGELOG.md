@@ -4,8 +4,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/WizardPanels` prop `footer`
+- `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton` `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`,
+`prevButtonText`
+
+### Changed
+
+- `sandstone/WizardPanels` prop `buttons` to be `footer`
+- `sandstone/WizardPanels` `buttons` to use `NavigationButton` to display `prevButton` and `nextButton` on the `sandstone/WizardPanels.Panels`
+
 ### Added
 
+- `prevButton`, `prevButtonVisibility`, `nextButton`, `nextButtonVisibility` prop on `sandstone/WizardPanels` and `sandstone/WizardPanels.Panels`
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
@@ -13,6 +25,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
