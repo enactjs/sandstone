@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
@@ -29,10 +28,10 @@ for (let i = 0; i < 100; i++) {
 	);
 }
 
-const ScrollerSample = ({className}) => {
+const ScrollerSample = (props) => {
 	return (
 		<Scroller
-			className={classNames(className, css.scroller)}
+			{...props}
 			scrollMode="translate"
 		>
 			{items}
