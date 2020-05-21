@@ -4,20 +4,27 @@ import {mount, shallow} from 'enzyme';
 import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
+
+	const findNextButton = subject => subject.find('.slotAfter').find('Pure');
+	const findPrevButton = subject => subject.find('.slotBefore').find('Pure');
+
 	test(
 		'should have title in `Header`',
 		() => {
 			const title = 'WizardPanel title';
 
-			const wizardPanel = shallow(
-				<WizardPanelsBase title={title} />
+			const wizardPanel = mount(
+				<WizardPanels title={title}>
+					<Panel />
+				</WizardPanels>
 			);
 
-			const headerTitle = wizardPanel.find({type: 'wizard'}).prop('title');
+			const headerTitle = wizardPanel.find('Header').prop('title');
 
 			const expected = title;
 			const actual = headerTitle;
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -84,41 +91,20 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have footer from `View`',
-		() => {
-			const viewFooter = 'View footer';
-
-			const wizardPanel = mount(
-				<WizardPanels>
-					<Panel footer={viewFooter} />
-				</WizardPanels>
-			);
-
-			const footerText = wizardPanel.find('.footer').text();
-
-			const expected = viewFooter;
-			const actual = footerText;
-
-			wizardPanel.unmount();
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should have View buttons rendered in `.buttonContainer`',
+		'should have View buttons rendered in footer',
 		() => {
 			const wizardPanel = mount(
 				<WizardPanels>
 					<Panel>
-						<buttons>
+						<footer>
 							<button>Button 1</button>
 							<button>Button 2</button>
-						</buttons>
+						</footer>
 					</Panel>
 				</WizardPanels>
 			);
 
-			const buttons = wizardPanel.find('.buttonContainer').find('button').length;
+			const buttons = wizardPanel.find('.footer').find('button').length;
 
 			const expected = 2;
 			const actual = buttons;
@@ -445,31 +431,21 @@ describe('WizardPanel Specs', () => {
 
 	// [GT-28312]
 	test(
-		'should reflect the current index in Steps',
-		() => {
-			const index = 1;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} totalPanels={5} />
-			);
-
-			const expected = {current: index + 1};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
-
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	// [GT-28312]
-	test(
 		'should reflect the current index in Steps when "current" is not specified',
 		() => {
 			const index = 1;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={index} totalPanels={5} />
+			const wizardPanel = mount(
+				<WizardPanels index={index}>
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
 			);
 
 			const expected = {current: index + 1};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+			const actual = wizardPanel.find('Steps').props();
 
 			expect(actual).toMatchObject(expected);
 		}
@@ -479,12 +455,18 @@ describe('WizardPanel Specs', () => {
 		'should reflect the specified index in Steps when "current" is set',
 		() => {
 			const current = 3;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} current={current} total={5} totalPanels={5} />
+			const wizardPanel = mount(
+				<WizardPanels index={0} current={current}>
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
 			);
 
 			const expected = {current: current};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+			const actual = wizardPanel.find('Steps').props();
 
 			expect(actual).toMatchObject(expected);
 		}
@@ -493,13 +475,18 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should reflect the total views in Steps when "total" is not specified',
 		() => {
-			const total = 5;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} totalPanels={5} />
+			const wizardPanel = mount(
+				<WizardPanels index={1}>
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
 			);
 
-			const expected = {total: total};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+			const expected = {total: 5};
+			const actual = wizardPanel.find('Steps').props();
 
 			expect(actual).toMatchObject(expected);
 		}
@@ -509,12 +496,18 @@ describe('WizardPanel Specs', () => {
 		'should reflect the specified total in Steps when "total" is set',
 		() => {
 			const total = 3;
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={1} current={1} total={total} totalPanels={5} />
+			const wizardPanel =  mount(
+				<WizardPanels index={1} current={1} total={total}>
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+					<Panel />
+				</WizardPanels>
 			);
 
 			const expected = {total};
-			const actual = wizardPanel.find({slot: 'slotAbove'}).props();
+			const actual = wizardPanel.find('Steps').props();
 
 			expect(actual).toMatchObject(expected);
 		}

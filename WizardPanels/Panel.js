@@ -4,7 +4,7 @@ import React from 'react';
 import {WizardPanelsContext} from './WizardPanels';
 
 /**
- * Panel that sets the buttons, children, footer, subtitle, and title for
+ * Panel that sets the children, footer, subtitle, and title for
  * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
  * @class PanelBase
@@ -49,7 +49,7 @@ function PanelBase ({
 }
 
 /**
- * Panel that sets the buttons, children, footer, subtitle, and title for
+ * Panel that sets the children, footer, subtitle, and title for
  * [WizardPanels]{@link sandstone/WizardPanels.WizardPanels}.
  *
  * @class Panel
@@ -58,7 +58,7 @@ function PanelBase ({
  * @public
  */
 const Panel = Slottable(
-	{slots: ['buttons', 'footer', 'subtitle', 'title']},
+	{slots: ['footer', 'subtitle', 'title']},
 	PanelBase
 );
 

@@ -1,16 +1,22 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
+import Skinnable from '@enact/ui/Skinnable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
 
 import $L from '../internal/$L';
 import Button from '../Button';
+import {Header} from '../Panels';
+import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator} from '../internal/Panels';
-import {Header, Panel} from '../Panels';
 import Steps from '../Steps';
+
+import useFocusOnTransition from './useFocusOnTransition';
 
 import css from './WizardPanels.module.less';
 
@@ -76,12 +82,9 @@ const NavigationButton = kind({
  *			<Scroller>
  *				lorem ipsum ...
  *			</Scroller>
- *			<buttons>
+ *			<footer>
  *				<Button>OK</Button>
  *				<Button>Cancel</Button>
- *			</buttons>
- *			<footer>
- *				<CheckboxItem inline>Confirm</CheckboxItem>
  *			</footer>
  *		</WizardPanels.Panel>
  *	</WizardPanels>
@@ -96,19 +99,6 @@ const WizardPanelsBase = kind({
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
 		/**
-		* Buttons to be included under the component.
-		*
-		* Typically, up to 2 buttons are used.
-		*
-		* @type {Element|Element[]}
-		* @public
-		*/
-		buttons: PropTypes.oneOfType([
-			PropTypes.element,
-			PropTypes.arrayOf(PropTypes.element)
-		]),
-
-		/**
 		 * The current step.
 		 *
 		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
@@ -120,9 +110,11 @@ const WizardPanelsBase = kind({
 		current: PropTypes.number,
 
 		/**
-		* The footer for WizardLayout.
+		* Components to be included under the primary content.
 		*
-		* @type {Node}
+		* Typically, up to 2 buttons may be included.
+		*
+		* @type {Element|Element[]}
 		* @public
 		*/
 		footer: PropTypes.node,
@@ -348,7 +340,6 @@ const WizardPanelsBase = kind({
 	},
 
 	render: ({
-		buttons,
 		children,
 		footer,
 		index,
@@ -376,7 +367,7 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisibility = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
-			<Panel {...rest}>
+			<PanelBase {...rest} autoFocus="default-element">
 				<Header
 					arranger={noAnimation ? null : CrossFadeArranger}
 					centered
@@ -413,7 +404,6 @@ const WizardPanelsBase = kind({
 				</Header>
 				<Column>
 					<Cell className={css.content}>
-						{/* This should probably use portals */}
 						{/* skip creating ViewManager when there aren't children to avoid animating
 							the first panel into the viewport */}
 						{children ? (
@@ -429,17 +419,12 @@ const WizardPanelsBase = kind({
 							</ViewManager>
 						) : null}
 					</Cell>
-					<Cell className={css.bottom} component="footer" shrink>
-						<div className={css.buttonContainer}>
-							{/* This should probably use portals */}
-							{buttons}
-						</div>
-						<div className={css.footer}>
-							{footer}
-						</div>
+					<Cell className={css.footer} component="footer" shrink>
+						{/* This should probably use portals */}
+						{footer}
 					</Cell>
 				</Column>
-			</Panel>
+			</PanelBase>
 		);
 	}
 });
@@ -460,24 +445,30 @@ function useReverseTransition (index = -1) {
 }
 
 /**
- * WizardPanelsDecorator passes the buttons, children, footer,
- * subtitle, and title from [WizardPanel]{@link sandstone/WizardPanels.Panel} to
+ * WizardPanelsRouter passes the  buttons, children, footer, subtitle, and title from
+ * [WizardPanel]{@link sandstone/WizardPanels.Panel} to
  * [WizardPanelsBase]{@link sandstone/WizardPanels.WizardPanelsBase}.
  *
- * @class WizardPanelsDecorator
+ * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
  * @ui
  */
-const WizardPanelsDecorator = (Wrapped) => {
+const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({
 		children,
+		'data-spotlight-id': spotlightId,
 		index,
+		onTransition,
+		onWillTransition,
+		title,
 		...rest
 	}) => {
 		const [panel, setPanel] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
-		const totalPanels = React.Children.count(children);
+		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
 
+		const totalPanels = React.Children.count(children);
+		const currentTitle = panel && panel.title ? panel.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
@@ -487,7 +478,10 @@ const WizardPanelsDecorator = (Wrapped) => {
 				<Wrapped
 					{...rest}
 					{...panel}
+					{...transition}
+					data-spotlight-id={spotlightId}
 					index={index}
+					title={currentTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
@@ -503,6 +497,14 @@ const WizardPanelsDecorator = (Wrapped) => {
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
 		/**
+		* The spotlight id for the panel
+		*
+		* @type {String}
+		* @private
+		*/
+		'data-spotlight-id': PropTypes.string,
+
+		/**
 		* The currently selected step.
 		*
 		* @type {Number}
@@ -510,6 +512,22 @@ const WizardPanelsDecorator = (Wrapped) => {
 		* @private
 		*/
 		index: PropTypes.number,
+
+		/**
+		* Called when a transition completes
+		*
+		* @type {Function}
+		* @private
+		*/
+		onTransition: PropTypes.func,
+
+		/**
+		* Called when a transition begins
+		*
+		* @type {Function}
+		* @private
+		*/
+		onWillTransition: PropTypes.func,
 
 		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
@@ -535,6 +553,25 @@ const WizardPanelsDecorator = (Wrapped) => {
 	return WizardPanelsProvider;
 };
 
+const WizardPanelsDecorator = compose(
+	Changeable({prop: 'index'}),
+	CancelDecorator({
+		cancel: 'onChange',
+		shouldCancel: handle(
+			forwardWithPrevent('onBack'),
+			not(forProp('noPrevButton', true))
+		)
+	}),
+	SpotlightContainerDecorator({
+		continue5WayHold: true,
+		// prefer any spottable within the panel body (content or footer) followed by header
+		defaultElement: [`.${css.content} *, .${css.footer} *`, 'header > *'],
+		enterTo: 'default-element'
+	}),
+	WizardPanelsRouter,
+	Skinnable
+);
+
 /**
  * A WizardPanels that can step through different panels.
  * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
@@ -546,18 +583,7 @@ const WizardPanelsDecorator = (Wrapped) => {
  * @ui
  * @public
  */
-const WizardPanels = Changeable(
-	{prop: 'index'},
-	CancelDecorator(
-		{cancel: 'onChange', shouldCancel: handle(
-			forwardWithPrevent('onBack'),
-			not(forProp('noPrevButton', true))
-		)},
-		WizardPanelsDecorator(
-			WizardPanelsBase
-		)
-	)
-);
+const WizardPanels = WizardPanelsDecorator(WizardPanelsBase);
 
 /**
  * Called when the back button is pressed.
