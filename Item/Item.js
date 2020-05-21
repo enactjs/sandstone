@@ -211,9 +211,10 @@ const ItemBase = kind({
 		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: Boolean(label)})
 	},
 
-	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, selected, slotAfter, slotBefore, ...rest}) => {
 		return (
 			<UiItemBase
+				aria-checked={selected}
 				data-webos-voice-intent="Select"
 				component={Row}
 				align={centered ? 'center center' : 'center'}

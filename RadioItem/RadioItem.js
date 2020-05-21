@@ -73,6 +73,7 @@ const RadioItemBase = kind({
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
+				role="checkbox"
 				{...rest}
 				css={css}
 			>
