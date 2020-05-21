@@ -138,10 +138,30 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should not hide next button on the last view when `nextButton` prop is added on the last Panel',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={2} totalPanels={3}>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel nextButton />
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
 		'should hide next button on the last view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanels index={2} nextButtonVisibility={'auto'} totalPanels={3} />
+				<WizardPanels index={2} totalPanels={3} />
 			);
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
@@ -157,7 +177,27 @@ describe('WizardPanel Specs', () => {
 		'should hide previous button on the first view',
 		() => {
 			const wizardPanel = shallow(
-				<WizardPanels index={0} prevButtonVisibility={'auto'} totalPanels={3} />
+				<WizardPanels index={0} totalPanels={3} />
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should not hide previous button on the first view when `prevButton` prop is added on the first Panel',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={0} totalPanels={3}>
+					<Panel prevButton >Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
 			);
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});

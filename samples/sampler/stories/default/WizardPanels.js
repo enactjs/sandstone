@@ -34,8 +34,8 @@ storiesOf('Sandstone', module)
 					footer="Footer in View 1"
 					subtitle="A subtitle for View 1"
 					title="WizardPanel View 1"
-					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : undefined}
-					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : undefined}
+					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : ''}
+					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : ''}
 
 				>
 					<Scroller>
@@ -68,8 +68,8 @@ storiesOf('Sandstone', module)
 					footer="Footer in View 4"
 					subtitle="A subtitle for View 4"
 					title="WizardPanel View 4"
-					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : undefined}
-					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : undefined}
+					prevButton={boolean('custom prevButton', WizardPanels, false) ?  <Button icon="closex" aria-label="exit">Exit</Button> : ''}
+					nextButton={boolean('custom nextButton', WizardPanels, false) ? <Button icon="closex" aria-label="quit">Close</Button> : ''}
 				>
 					<Icon>resumeplay</Icon>
 					<BodyText>A simple view</BodyText>
