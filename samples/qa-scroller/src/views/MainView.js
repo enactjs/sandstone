@@ -1,6 +1,6 @@
 import DatePicker from '@enact/sandstone/DatePicker';
 import Group from '@enact/ui/Group';
-import Input from '@enact/sandstone/Input';
+import {InputField as Input} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';

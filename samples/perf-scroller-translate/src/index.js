@@ -6,7 +6,7 @@ import App from './App';
 
 import appPkg from '../package.json';
 
-let appElement = (<App />);
+const appElement = (<App />);
 
 if (typeof window !== 'undefined') {
 	render(

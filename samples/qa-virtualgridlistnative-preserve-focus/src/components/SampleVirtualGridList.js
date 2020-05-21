@@ -4,9 +4,9 @@ import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
-import css from './SampleVirtualGridListNative.module.less';
+import css from './SampleVirtualGridList.module.less';
 
-class SampleVirtualGridListNative extends Component {
+class SampleVirtualGridList extends Component {
 	static propTypes = {
 		index: PropTypes.number,
 		onClick: PropTypes.func
@@ -54,4 +54,4 @@ class SampleVirtualGridListNative extends Component {
 	}
 }
 
-export default SampleVirtualGridListNative;
+export default SampleVirtualGridList;

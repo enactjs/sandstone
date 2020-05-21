@@ -3,7 +3,7 @@ import {Cell, Row} from '@enact/ui/Layout';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {connect} from 'react-redux';
 import {Header, Panel} from '@enact/sandstone/Panels';
-import Input from '@enact/sandstone/Input';
+import {InputField as Input} from '@enact/sandstone/Input';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
@@ -13,6 +13,8 @@ import ListItem from '../components/ListItem';
 import LocaleSwitch from '../components/LocaleSwitch';
 import ScrollModeSwitch from '../components/ScrollModeSwitch';
 import {setData} from '../actions';
+
+import css from './MainPanel.module.less';
 
 const childProps = {text: ' child props'};
 
@@ -110,6 +112,7 @@ const MainPanel = class extends Component {
 					<hr />
 				</Header>
 				<VirtualList
+					className={css.verticalPadding}
 					childProps={this.state.hasChildProps ? childProps : null}
 					dataSize={listItems.length}
 					itemRenderer={this.renderItem}
