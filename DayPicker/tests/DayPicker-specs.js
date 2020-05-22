@@ -34,6 +34,22 @@ describe('DayPicker', () => {
 		expect(handleSelect).toHaveBeenCalled();
 	});
 
+	test('should include `content` in onSelect event payload which respects dayNameLength', () => {
+		const handleSelect = jest.fn();
+		const subject = mount(
+			<DayPicker onSelect={handleSelect} dayNameLength="short" />
+		);
+		const item = subject.find('CheckboxItem').find({'data-index': 1}).first();
+		item.simulate('click');
+
+		const expected = {
+			content: 'M'
+		};
+		const actual = handleSelect.mock.calls[0][0];
+
+		expect(actual).toMatchObject(expected);
+	});
+
 	test('should return `None` when selected is null', () => {
 		const label = getSelectedDayString(null, 'None');
 		const expected = 'None';
