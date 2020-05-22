@@ -3,11 +3,6 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-.featureContentTransition() {
-	transition: @sand-panel-featurecontent-animation-duration transform ease-in-out;
-	will-change: transform, height;
-}
-
 .panel {
 	position: relative;
 	height: 100%;
@@ -44,29 +39,5 @@
 
 	:global(.enact-locale-right-to-left) & {
 		direction: rtl;
-	}
-
-	&.featureContent {
-		height: calc(100% + var(--sand-panels-header-title-height));
-
-		// ViewManager blocks transition on the Panel element, so we must move all the children
-		& > * {
-			.featureContentTransition();
-		}
-
-		&.shouldFeatureContent > * {
-			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
-		}
-
-		.scrollbar {
-			.featureContentTransition();
-			transform-origin: center top;
-		}
-
-		&:not(.shouldFeatureContent) {
-			.scrollbar {
-				transform: scaleY(var(--scrollbar-scale));
-			}
-		}
 	}
 }

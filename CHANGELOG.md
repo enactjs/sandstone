@@ -6,6 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
+- `sandstone/Panels` prop `featureContent`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
 - `sandstone/WizardPanels` prop `footer`
 - `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View` and `sandstone/Panels.WizardPanels` aliases
 
