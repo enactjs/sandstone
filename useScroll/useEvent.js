@@ -106,9 +106,11 @@ const useEventFocus = (props, instances, context) => {
 			themeScrollContentHandle.current.shouldPreventScrollByFocus() :
 			false;
 
-		if (scrollMode === 'translate' && spottable.current.isWheeling) {
+		if (spottable.current.isWheeling) {
 			scrollContainerHandle.current.stop();
-			spottable.current.animateOnFocus = false;
+			if (scrollMode === 'translate') {
+				spottable.current.animateOnFocus = false;
+			}
 		}
 
 		if (!Spotlight.getPointerMode()) {
