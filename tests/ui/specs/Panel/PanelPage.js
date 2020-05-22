@@ -6,10 +6,6 @@ class PanelInterface {
 		this.id = id;
 	}
 
-	getHeaderTop () {
-		return browser.execute((el) => el.getBoundingClientRect().top, this.header);
-	}
-
 	get self () { return $(`#${this.id}`); }
 	get content () { return $('#content'); }
 	get header () { return $('#header'); }

@@ -1,6 +1,6 @@
 {
   "name": "qa-i18n",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A general template for an Enact Sandstone application for webOS TVs",
   "author": "",
   "main": "src/index.js",
@@ -15,7 +15,7 @@
     "test": "enact test",
     "test-watch": "enact test --watch"
   },
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "private": true,
   "repository": "",
   "enact": {

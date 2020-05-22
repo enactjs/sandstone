@@ -1,6 +1,6 @@
 {
-    "files": [
-        "en/US/strings.json",
-        "ko/KR/strings.json"
-    ]
+  "files": [
+    "en/US/strings.json",
+    "ko/KR/strings.json"
+  ]
 }
