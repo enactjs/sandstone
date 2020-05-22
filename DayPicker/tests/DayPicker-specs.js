@@ -39,10 +39,13 @@ describe('DayPicker', () => {
 		const subject = mount(
 			<DayPicker onSelect={handleSelect} dayNameLength="short" />
 		);
+
+		// select Monday
 		const item = subject.find('CheckboxItem').find({'data-index': 1}).first();
 		item.simulate('click');
 
 		const expected = {
+			// M is the "short" value from ilib for Monday
 			content: 'M'
 		};
 		const actual = handleSelect.mock.calls[0][0];
