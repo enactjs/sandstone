@@ -126,7 +126,7 @@ describe('VirtualList', function () {
 			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
 		});
 
-		it('should position Scrollbar Track on right side in LTR [GT-28562],[GT-28480]', function () {
+		it('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
 			let ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
 			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
 			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
@@ -413,7 +413,7 @@ describe('VirtualList', function () {
 			// Since 'ar-sA' and 'en-US' have tests to check on the other side, this test only check 'ur-PK'.
 			it('should Verify RTL functionality [GT-28480]', function () {
 				// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
-				// Check that the the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
+				// Check that the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
 				Page.spotlightDown();
 				expect(Page.buttonLeft.isFocused(), 'focus left');
 				Page.spotlightLeft();
