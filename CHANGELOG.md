@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
+- `sandstone/Switch` style to align circle icon vertically
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
