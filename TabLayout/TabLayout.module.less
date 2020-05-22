@@ -22,6 +22,11 @@
 	}
 
 	.tabs {
+		// === Important Note ===
+		//
+		// onTabAnimationEnd relies on the max-width property transition to operate correctly. If
+		// this transition changes in any way, verify that event is emitted only once when the
+		// transition completes.
 		transition: flex-basis @sand-tablayout-collapse-duration, max-width @sand-tablayout-collapse-duration;
 	}
 }
