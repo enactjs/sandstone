@@ -3,21 +3,21 @@ import ImageItem from '@enact/sandstone/ImageItem';
 
 import {selectItem} from '../../actions';
 
-const mapStateToProps = ({data: {data, selectedItems}}, {['data-index']: dataIndex}) => {
+const mapStateToProps = ({data: {data: allItems, selectedItems}}, {['data-index']: dataIndex}) => {
 	const {
 		caption: children,
 		subCaption: label,
 		showSelection,
 		src
-	} = data[dataIndex];
+	} = allItems[dataIndex];
 
-	return ({
+	return {
 		children,
 		label,
 		selected: selectedItems.has(dataIndex),
 		showSelection,
 		src
-	});
+	};
 };
 
 const mapDispatchToProps = (dispatch, {['data-index']: dataIndex}) => {
