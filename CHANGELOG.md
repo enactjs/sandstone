@@ -6,7 +6,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
+- `sandstone/Panels` prop `featureContent`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
 - `sandstone/WizardPanels` prop `footer`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View` and `sandstone/Panels.WizardPanels` aliases
+
+### Changed
+
 - `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and
 `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
 - `sandstone/WizardPanels` prop `buttons` and is now combined into `footer`
@@ -25,6 +31,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
+- `sandstone/VideoPlayer` to jump to left direction using left key via 5-way
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11

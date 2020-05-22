@@ -4,8 +4,6 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import css from './ListItem.module.less';
-
 const ListItem = kind({
 	name: 'ListItem',
 	propTypes: {
@@ -13,10 +11,6 @@ const ListItem = kind({
 		disabled: PropTypes.bool,
 		dispatch: PropTypes.func,
 		index: PropTypes.number
-	},
-	styles: {
-		css,
-		className: 'listItem'
 	},
 	render: ({disabled, children, ...rest}) => {
 		delete rest.index;
