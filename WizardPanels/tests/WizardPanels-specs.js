@@ -224,6 +224,47 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
+		'should hide previous button on the second Panel',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels defaultIndex={1} totalPanels={3}>
+					<Panel>Panel 1</Panel>
+					<Panel prevButton={false}>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button on the first view when `prevButtonVisibility` prop is set to always',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={0} prevButtonVisibility="always" totalPanels={3}>
+					<Panel prevButton={false} >Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+
+	test(
 		'should fire onWillTransition with target index',
 		() => {
 			const spy = jest.fn();

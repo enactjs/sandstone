@@ -187,6 +187,26 @@ const WizardPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
+		 * Called when nextButton is clicked in WizardPanel.
+		 *
+		 * Calling preventDefault on the passed event will prevent advancing to the next panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onNextClick: PropTypes.func,
+
+		/**
+		 * Called when prevButton is clicked in WizardPanel.
+		 *
+		 * Calling preventDefault on the passed event will prevent reverting to the previous panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onPrevClick: PropTypes.func,
+
+		/**
 		 * Called when a transition completes.
 		 *
 		 * @type {Function}
@@ -289,8 +309,8 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		handleNextClick: handle(
-			forwardWithPrevent('handleNextClick'),
+		onNextClick: handle(
+			forwardWithPrevent('onNextClick'),
 			(ev, {index, onChange, totalPanels}) => {
 				if (onChange && index !== totalPanels) {
 					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
@@ -299,8 +319,8 @@ const WizardPanelsBase = kind({
 				}
 			}
 		),
-		handlePrevClick: handle(
-			forwardWithPrevent('handlePrevClick'),
+		onPrevClick: handle(
+			forwardWithPrevent('onPrevClick'),
 			(ev, {index, onChange}) => {
 				if (onChange && index !== 0) {
 					const prevIndex = index > 0 ? (index - 1) : index;
@@ -344,8 +364,8 @@ const WizardPanelsBase = kind({
 		nextButton,
 		nextButtonVisibility,
 		noAnimation,
-		handleNextClick,
-		handlePrevClick,
+		onNextClick,
+		onPrevClick,
 		onTransition,
 		onWillTransition,
 		prevButton,
@@ -385,7 +405,7 @@ const WizardPanelsBase = kind({
 							component={prevButton}
 							icon="arrowlargeleft"
 							minWidth={false}
-							onClick={handlePrevClick}
+							onClick={onPrevClick}
 							slot="slotBefore"
 							visible={isPrevButtonVisible}
 						/>
@@ -396,7 +416,7 @@ const WizardPanelsBase = kind({
 							icon="arrowlargeright"
 							iconPosition="after"
 							minWidth={false}
-							onClick={handleNextClick}
+							onClick={onNextClick}
 							slot="slotAfter"
 							visible={isNextButtonVisible}
 						/>
