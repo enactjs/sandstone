@@ -1,3 +1,4 @@
+import ilib from '@enact/i18n';
 import React from 'react';
 import {mount} from 'enzyme';
 
@@ -64,5 +65,31 @@ describe('DayPicker', () => {
 		const label = getSelectedDayString(selected);
 		const expected = 'Every Day';
 		expect(label).toBe(expected);
+	});
+
+	// ilib isn't working correctly with unit tests so this block must be skipped
+	describe.skip('with alternate first day of week', () => {
+		test('should accept and emit a generalized selected array', () => {
+			ilib.setLocale('es-ES');
+
+			const handleSelect = jest.fn();
+			const subject = mount(
+				// select Sunday by default
+				<DayPicker onSelect={handleSelect} defaultSelected={[0]} />
+			);
+			// select Lunes (Monday) which is the first day of the week for es-ES
+			const item = subject.find('CheckboxItem').find({'data-index': 0}).first();
+			item.simulate('click');
+
+			const expected = {
+				// Expect Sunday (0) and Monday (1) to be selected
+				selected: [0, 1]
+			};
+			const actual = handleSelect.mock.calls[0][0];
+
+			// If ilib isn't loading correctly, actual will be null because we will have unselected
+			// Sunday instead of selecting Monday.
+			expect(actual).toMatchObject(expected);
+		});
 	});
 });
