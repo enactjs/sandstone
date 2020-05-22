@@ -173,7 +173,7 @@ const PanelBase = kind({
 
 				Spotlight.set(spotlightId, config);
 
-				if (!Spotlight.getCurrent()) {
+				if (!Spotlight.getCurrent() && !Spotlight.isPaused()) {
 					Spotlight.focus(spotlightId);
 				}
 			}
