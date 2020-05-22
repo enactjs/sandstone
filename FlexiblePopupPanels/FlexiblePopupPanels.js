@@ -17,25 +17,11 @@ import compose from 'ramda/src/compose';
 import $L from '../internal/$L';
 import Button from '../Button';
 import {FadeAndSlideArranger, PanelsStateContext, PopupDecorator, Viewport} from '../internal/Panels';
-import {useContextAsDefaults} from '../internal/Panels/util';
+import {ContextAsDefaults} from '../internal/Panels/util';
 import {PanelBase as DefaultPanel, PanelDecorator} from '../Panels/Panel';
 import DefaultHeader from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
-
-const ContextAsDefaults = (Wrapped) => {
-	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaults (props) {
-		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-
-		return provideContextAsDefaults(
-			<Wrapped
-				{...contextProps}
-				{...props}
-			/>
-		);
-	};
-};
 
 const FlexiblePopupPanelsDecorator = compose(
 	PopupDecorator({
@@ -440,7 +426,7 @@ const HeaderBase = kind({
 	)
 });
 
-const Header = ContextAsDefaults(HeaderBase);
+const Header = ContextAsDefaults({props: ['onClose']}, HeaderBase);
 
 // Relay the defaultSlot property to our version of Header
 Header.defaultSlot = DefaultHeader.defaultSlot;
