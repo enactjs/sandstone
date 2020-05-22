@@ -13,7 +13,6 @@ import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import BodyText from '../BodyText';
 import Heading from '../Heading';
 import Popup from '../Popup';
 
@@ -202,7 +201,7 @@ const AlertBase = kind({
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
 							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
 						</Cell> :
-						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
+						<Cell shrink className={css.content} id={`${id}content`}>
 							{children}
 						</Cell>
 					}
