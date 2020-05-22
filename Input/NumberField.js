@@ -9,6 +9,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import Tooltip from '../TooltipDecorator/Tooltip';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 
+import Button from '../Button';
 import Icon from '../Icon';
 import $L from '../internal/$L';
 
@@ -17,8 +18,8 @@ import {convertToPasswordFormat} from './util';
 
 import componentCss from './Input.module.less';
 
-const normalizeValue = (value, length) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, length) : '');
-const normalizeValueProp = ({value, length}) => normalizeValue(value, length);
+const normalizeValue = (value, length, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, length ? length : maxLength) : '');
+const normalizeValueProp = ({value, length, maxLength}) => normalizeValue(value, length, maxLength);
 
 const NumberCell = kind({
 	name: 'NumberCell',
@@ -63,9 +64,11 @@ const NumberFieldBase = kind({
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
 		length: PropTypes.number,
+		maxLength: PropTypes.number,
+		minLength: PropTypes.number,
+		numericInputKind: PropTypes.string,
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
-		separateDigitsLimit: PropTypes.number,
 		showKeypad: PropTypes.bool,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -73,7 +76,7 @@ const NumberFieldBase = kind({
 
 	defaultProps: {
 		length: 4,
-		separateDigitsLimit: 6,
+		numericInputKind: 'auto',
 		type: 'number'
 	},
 
@@ -85,29 +88,43 @@ const NumberFieldBase = kind({
 	handlers: {
 		onAdd: handle(
 			adaptEvent(
-				({key}, {length, value}) => ({value: normalizeValue(`${value}${key}`, length)}),
+				({key}, {length, maxLength, value}) => ({value: normalizeValue(`${value}${key}`, length, maxLength)}),
 				handle(
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
-					({value: updatedValue}, {value, length}) => (normalizeValue(updatedValue, length) !== normalizeValue(value, length)),
+					({value: updatedValue}, {value, length, maxLength}) => (normalizeValue(updatedValue, length, maxLength) !== normalizeValue(value, length, maxLength)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {length}) => (normalizeValue(updatedValue, length).length >= length),
+					({value: updatedValue}, {length, maxLength, minLength}) => {
+						const updatedLength = normalizeValue(updatedValue, length, maxLength).length,
+							max = length ? length : maxLength,
+							autoSubmit = length || minLength === maxLength;
+						return autoSubmit && updatedLength >= max;
+					},
 					forward('onComplete'),
 				)
 			),
 		),
 		onRemove: handle(
 			adaptEvent(
-				(ev, {value, length}) => ({value: normalizeValue(value, length).toString().slice(0, -1)}),
+				(ev, {value, length, maxLength}) => ({value: normalizeValue(value, length, maxLength).toString().slice(0, -1)}),
 				forward('onChange')
 			)
-		)
+		),
+		onSubmit: handle(
+			adaptEvent(
+				(ev, {length, maxLength, value}) => ({value: normalizeValue(value, length, maxLength)}),
+				forward('onComplete')
+			),
+		),
 	},
 
 	computed: {
-		className: ({length, type, separateDigitsLimit, styler}) => {
-			let numberFieldStyle = 'separated';
-			if (length > separateDigitsLimit) numberFieldStyle = 'combined';
+		className: ({length, maxLength, numericInputKind, type, styler}) => {
+			const max = length ? length : maxLength;
+			let numberFieldStyle = numericInputKind;
+			if (numericInputKind === 'auto') {
+				numberFieldStyle = (max > 6) ? 'joined' : 'separated';
+			}
 			return styler.append(type, numberFieldStyle);
 		},
 		// Normalize the value, also prune out any non-digit characters
@@ -121,20 +138,37 @@ const NumberFieldBase = kind({
 					</Tooltip>
 				);
 			}
+		},
+		submitButton: ({css, invalid, length, maxLength, minLength, onSubmit, value}) => {
+			const max = length ? length : maxLength,
+				min = length ? length : minLength,
+				disabled = invalid || (normalizeValue(value, length, maxLength).toString().length < min);
+
+			if (minLength && minLength !== max) {
+				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
+			} else {
+				return null;
+			}
 		}
 	},
 
-	render: ({css, length, showKeypad, onAdd, onRemove, type, value, separateDigitsLimit, invalidTooltip, ...rest}) => {
+	render: ({css, invalidTooltip, length, maxLength, numericInputKind, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
-		delete rest.onComplete;
 		delete rest.invalid;
 		delete rest.invalidMessage;
+		delete rest.minLength;
+		delete rest.onComplete;
+		delete rest.onSubmit;
 		delete rest.rtl;
 
+		const max = length ? length : maxLength,
+			separated = numericInputKind === 'separated' ||
+				(numericInputKind === 'auto' && (max <= 6));
+
 		let field;
-		if (length <= separateDigitsLimit) {
+		if (separated) {
 			const values = value.split('');
-			const items = new Array(length).fill('');
+			const items = new Array(max).fill('');
 			field = (
 				<Repeater
 					aria-label={!password ? values.join(' ') : null}
@@ -164,6 +198,7 @@ const NumberFieldBase = kind({
 				</div>
 				<br />
 				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{submitButton}
 			</React.Fragment>
 		);
 	}

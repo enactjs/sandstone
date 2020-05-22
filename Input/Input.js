@@ -71,13 +71,52 @@ const InputPopupBase = kind({
 		 *
 		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
 		 * (inclusive) will render individual number cells, greater than 6 will render a single box
-		 * with numbers in it. This only has an effect on "number" and "passwordnumber" `type`.
+		 * with numbers in it. This only has an effect on `'number'` and `'passwordnumber'` `type`
+		 * and when `numericInputKind` is `'auto'`.
+		 *
+		 * This value will override `minLength` and `maxLength`. Set it to `0` or `null` to enable
+		 * `minLength` and `maxLength`.
 		 *
 		 * @type {Number}
 		 * @default 4
 		 * @public
 		 */
 		length: PropTypes.number,
+
+		/**
+		 * The maximum length of number input fields.
+		 *
+		 * Has no effect if `length` is specified.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		maxLength: PropTypes.number,
+
+		/**
+		 * The minimum length of number input fields.
+		 *
+		 * If this number is smaller than `maxLength`, number type inputs will show a submit button
+		 * and will not auto-submit when the length reaches `maxLength`.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		minLength: PropTypes.number,
+
+		/**
+		 * The type of numeric input to use.
+		 *
+		 * The default is to display separated digits when `length` is less than `7`. If `field` is
+		 * set, a standard `InputField` will be used instead of the normal number input.
+		 *
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 *
+		 * @type {('auto'|'separated'|'joined'|'field')}
+		 * @default 'auto'
+		 * @public
+		 */
+		numericInputKind: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
 
 		/**
 		 * Called when the input value is changed.
@@ -137,18 +176,6 @@ const InputPopupBase = kind({
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
 		/**
-		 * Maximum value for [length]{@link sandstone/Input.InputPopupBase.prototype#length} before
-		 * converting a number type input into a single field rather than separated blocks.
-		 *
-		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
-		 *
-		 * @type {Number}
-		 * @default 6
-		 * @public
-		 */
-		separateDigitsLimit: PropTypes.number,
-
-		/**
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
@@ -196,7 +223,7 @@ const InputPopupBase = kind({
 	defaultProps: {
 		length: 4,
 		popupType: 'fullscreen',
-		separateDigitsLimit: 6,
+		numericInputKind: 'auto',
 		size: 'large',
 		subtitle: '',
 		title: '',
@@ -244,7 +271,7 @@ const InputPopupBase = kind({
 		invalid,
 		invalidMessage,
 		length,
-		separateDigitsLimit,
+		numericInputKind,
 		onChange,
 		onClose,
 		onNumberComplete,
@@ -263,7 +290,7 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const numberMode = (type === 'number' || type === 'passwordnumber');
+		const numberMode = (numericInputKind !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
@@ -285,13 +312,14 @@ const InputPopupBase = kind({
 					<Cell shrink className={css.inputArea}>
 						{numberMode ?
 							<NumberField
+								{...inputProps}
 								defaultValue={value}
 								length={length}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								separateDigitsLimit={separateDigitsLimit}
+								numericInputKind={numericInputKind}
 								invalid={invalid}
 								invalidMessage={invalidMessage}
 							/> :

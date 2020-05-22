@@ -10,6 +10,7 @@ Input.displayName = 'Input';
 const Config = mergeComponentMetadata('Input', InputPopupBase, InputPopup, InputBase, Input);
 
 const prop = {
+	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
 	type: ['text', 'password', 'number', 'passwordnumber']
@@ -28,11 +29,13 @@ storiesOf('Sandstone', module)
 					onOpenPopup={action('onOpenPopup')}
 					invalid={boolean('invalid', Config)}
 					invalidMessage={text('invalidMessage', Config, 'This is a bad value')}
-					length={number('length', Config, {range: true, min: 1, max: 10}, 4)}
+					length={number('length', Config, {range: true, min: 0, max: 10}, 4)}
+					maxLength={number('maxLength', Config, {range: true, min: 0, max: 10}, 4)}
+					minLength={number('minLength', Config, {range: true, min: 0, max: 10}, 0)}
 					placeholder={text('placeholder', Config, 'placeholder text')}
 					subtitle={text('subtitle', Config, 'Title Below Text')}
 					title={text('title', Config, 'Title Text')}
-					separateDigitsLimit={number('separateDigitsLimit', Config, {range: true, min: 1, max: 10}, 6)}
+					numericInputKind={select('numericInputKind', prop.numericKind, Config)}
 					size={select('size', prop.size, Config)}
 					type={select('type', prop.type, Config)}
 					popupType={select('popupType', prop.popupType, Config)}
