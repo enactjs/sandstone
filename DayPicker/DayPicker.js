@@ -27,6 +27,8 @@ import Skinnable from '../Skinnable';
 
 import {DaySelectorDecorator, getSelectedDayString} from './DaySelectorDecorator';
 
+import css from './DayPicker.module.less';
+
 /**
  * A day of the week selection component.
  *
@@ -67,6 +69,11 @@ const DayPickerBase = kind({
 		])
 	},
 
+	styles: {
+		css,
+		className: 'dayPicker'
+	},
+
 	computed: {
 		children: ({children}) => children.map(child => child['aria-label'])
 	},
@@ -75,7 +82,9 @@ const DayPickerBase = kind({
 		return (
 			<Group
 				{...rest}
+				component="div"
 				childComponent={CheckboxItem}
+				itemProps={{className: css.item}}
 				select="multiple"
 				selectedProp="selected"
 			/>
