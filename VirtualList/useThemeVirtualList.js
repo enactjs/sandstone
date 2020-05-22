@@ -3,6 +3,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import React, {useCallback, useEffect, useRef} from 'react';
 
@@ -133,7 +134,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -159,7 +160,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
+					offset: (!noAffordance && index < nextIndex) ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -210,7 +211,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -279,7 +280,6 @@ const useSpottable = (props, instances) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder,
 		updateStatesAndBounds
 	};
 };
@@ -302,7 +302,6 @@ const useThemeVirtualList = (props) => {
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
 	} = useSpottable(props, instance);
 
@@ -324,7 +323,7 @@ const useThemeVirtualList = (props) => {
 
 	// Render
 
-	const {itemRenderer, role, ...rest} = props;
+	const {itemRenderer, ...rest} = props;
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
@@ -346,12 +345,10 @@ const useThemeVirtualList = (props) => {
 				index
 			})
 		),
-		itemsRenderer: (itemsRendererProps) => {
-			return listItemsRenderer({
-				...itemsRendererProps,
-				handlePlaceholderFocus: handlePlaceholderFocus,
-				role,
-				SpotlightPlaceholder
+		placeholderRenderer: (primary) => {
+			return placeholderRenderer({
+				handlePlaceholderFocus,
+				primary
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
@@ -360,32 +357,21 @@ const useThemeVirtualList = (props) => {
 };
 
 /* eslint-disable enact/prop-types */
-function listItemsRenderer (props) {
-	const {
-		cc,
-		handlePlaceholderFocus,
-		primary,
-		role,
-		SpotlightPlaceholder // eslint-disable-line no-shadow
-	} = props;
-
-	return (
-		<>
-			{cc.length ? (
-				<div role={role}>{cc}</div>
-			) : null}
-			{primary ? null : (
-				<SpotlightPlaceholder
-					data-index={0}
-					data-vl-placeholder
-					// a zero width/height element can't be focused by spotlight so we're giving
-					// the placeholder a small size to ensure it is navigable
-					onFocus={handlePlaceholderFocus}
-					style={{width: 10}}
-				/>
-			)}
-		</>
-	);
+function placeholderRenderer ({
+	handlePlaceholderFocus,
+	primary
+}) {
+	return (primary ? null : (
+		<SpotlightPlaceholder
+			data-index={0}
+			data-vl-placeholder
+			key="placeholder"
+			// a zero width/height element can't be focused by spotlight so we're giving
+			// the placeholder a small size to ensure it is navigable
+			onFocus={handlePlaceholderFocus}
+			style={{width: 10}}
+		/>
+	));
 }
 /* eslint-enable enact/prop-types */
 
