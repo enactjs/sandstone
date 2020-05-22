@@ -21,15 +21,9 @@ import Heading from '../Heading';
 import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from '../internal/Panels';
+import {useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
-
-// A conditional method that takes in a prop name (string) and returns a method that when executed
-// with props and context as arguments, chooses between the values, preferring the props version if
-// it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-const preferPropOverContext = (prop) => (props, context) => {
-	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
-};
 
 const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
@@ -72,7 +66,6 @@ const handleWindowKeyPress = handle(
 const HeaderBase = kind({
 	name: 'Header',
 
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -378,7 +371,6 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
-		backButtonAvailable: false,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -413,8 +405,6 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
-		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
 		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
 				centered,
@@ -424,13 +414,6 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		// This unruly looking pile of props allows these props to override their context equivelents
-		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
-		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
-		noBackButton: preferPropOverContext('noBackButton'),
-		noCloseButton: preferPropOverContext('noCloseButton'),
-		onBack: preferPropOverContext('onBack'),
-		onClose: preferPropOverContext('onClose'),
 		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
@@ -569,6 +552,25 @@ const HeaderBase = kind({
 	}
 });
 
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
+const ContextAsDefaultsHeader = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function ContextAsDefaultsHeader (props) {
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
+		const {index, type: panelsType} = React.useContext(PanelsStateContext);
+
+		const backButtonAvailable = (index > 0 && panelsType !== 'wizard');
+
+		return provideContextAsDefaults(
+			<Wrapped
+				{...contextProps}
+				{...props}
+				backButtonAvailable={backButtonAvailable}
+			/>
+		);
+	};
+};
+
 const HeaderMeasurementDecorator = (Wrapped) => {
 	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
 		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
@@ -601,6 +603,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	ContextAsDefaultsHeader,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})

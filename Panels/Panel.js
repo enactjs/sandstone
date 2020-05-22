@@ -6,10 +6,12 @@ import ComponentOverride from '@enact/ui/ComponentOverride';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
-import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
+
+import {ContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -30,7 +32,6 @@ let panelId = 0;
 const PanelBase = kind({
 	name: 'Panel',
 
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -162,12 +163,6 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		backButtonAvailable: (props, context) => {
-			if (!context) {
-				return;
-			}
-			return context.index > 0 && context.type !== 'wizard';
-		},
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -183,49 +178,32 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
-		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
-		headerType: (props, context) => {
-			if (!context) {
-				return;
-			}
-
-			switch (context.type) {
-				case 'fixedPopup': return 'compact';
-				case 'flexiblePopup': return 'mini';
-				case 'wizard': return 'wizard';
-			}
-		}
+		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
 	render: ({
-		backButtonAvailable,
 		bodyClassName,
 		children,
 		css,
+		entering,
 		header,
 		headerId,
-		headerType,
-		hideChildren,
 		spotOnRender,
 		...rest
 	}) => {
 		delete rest.autoFocus;
-
-		const headerProps = {};
-		if (headerType != null) headerProps.type = headerType;
-		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
+		delete rest.hideChildren;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						{...headerProps}
-						entering={hideChildren && Spotlight.getPointerMode()}
+						entering={entering}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
@@ -233,6 +211,21 @@ const PanelBase = kind({
 		);
 	}
 });
+
+
+const PanelDecorator = compose(
+	ContextAsDefaults,
+	SharedStateDecorator({idProp: 'data-index'}),
+	SpotlightContainerDecorator({
+		// prefer any spottable within the panel body for first render
+		continue5WayHold: true,
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
+		enterTo: 'last-focused',
+		preserveId: true
+	}),
+	Slottable({slots: ['header']}),
+	Skinnable
+);
 
 /**
  * Prevents the component from restoring any framework shared state.
@@ -247,24 +240,7 @@ const PanelBase = kind({
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const Panel = SharedStateDecorator(
-	{idProp: 'data-index'},
-	SpotlightContainerDecorator(
-		{
-			// prefer any spottable within the panel body for first render
-			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
-			enterTo: 'last-focused',
-			preserveId: true
-		},
-		Slottable(
-			{slots: ['header']},
-			Skinnable(
-				PanelBase
-			)
-		)
-	)
-);
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
 export {Panel, PanelBase};

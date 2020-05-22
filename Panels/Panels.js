@@ -9,6 +9,8 @@ import React from 'react';
 import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 
+import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
+
 import componentCss from './Panels.module.less';
 
 /**
@@ -203,7 +205,6 @@ const PanelsBase = kind({
 		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
@@ -228,44 +229,31 @@ const PanelsBase = kind({
 
 	render: ({
 		arranger,
-		backButtonAriaLabel,
-		backButtonBackgroundOpacity,
 		children,
-		closeButtonAriaLabel,
-		closeButtonBackgroundOpacity,
 		css,
 		generateId,
 		id,
 		index,
 		noAnimation,
-		noBackButton,
-		noCloseButton,
 		noSharedState,
-		onClose,
-		onBack,
 		onTransition,
 		onWillTransition,
 		viewportId,
 		...rest
 	}) => {
+		const sharedProps = getSharedProps(rest);
+		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
 				<Viewport
+					{...sharedProps}
 					arranger={arranger}
-					backButtonAriaLabel={backButtonAriaLabel}
-					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
 					className={css.viewport}
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
 					noAnimation={noAnimation}
-					noBackButton={noBackButton}
-					noCloseButton={noCloseButton}
 					noSharedState={noSharedState}
-					onBack={onBack}
-					onClose={onClose}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}
 				>
