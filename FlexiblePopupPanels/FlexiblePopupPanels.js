@@ -113,20 +113,60 @@ const FlexiblePopupPanelsBase = kind({
 
 	propTypes: {
 		/**
+		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel` except the last,
+		 * * `'always'`will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'never'` will always hide the `nextButton` on the every `FlexiblePopupPanels.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this
+		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * `nextButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
+
+		/**
 		* Called when the index value is changed.
 		*
 		* @type {Function}
 		* @param {Object} event
 		* @public
 		*/
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
+
+		/**
+		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel` except the first,
+		 * * `'always'`will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'never'` will always hide the `prevButton` on the every `FlexiblePopupPanels.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
+	},
+
+	defaultProps: {
+		nextButtonVisibility: 'auto',
+		prevButtonVisibility: 'auto'
 	},
 
 	computed: {
-		children: ({children, onChange}) => React.Children.map(children, (child) => {
+		children: ({children, nextButtonVisibility, onChange, prevButtonVisibility}) => React.Children.map(children, (child) => {
 			if (child) {
 				const props = {
-					onChange
+					nextButtonVisibility,
+					onChange,
+					prevButtonVisibility
 				};
 
 				return React.cloneElement(child, props);
@@ -138,7 +178,9 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	render: (props) => {
+		delete props.nextButtonVisibility;
 		delete props.onChange;
+		delete props.prevButtonVisibility;
 
 		return (<Viewport {...props} />);
 	}
@@ -163,9 +205,89 @@ const PanelBase = kind({
 	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/FlexiblePopupPanels.Panel.prototype */ {
+
+		/**
+		 * The button to use in place of the standard next button.
+		 *
+		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
+		 *
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of
+		 * [`nextButtonVisibility`]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#nextButtonVisibility}.
+		 *
+		 * Example:
+		 * ```
+		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+		 * ```
+		 *
+		 * @name nextButton
+		 * @memberof sandstone/FlexiblePopupPanels.Panel.prototype
+		 * @type {Boolean|Component}
+		 * @public
+		 */
 		nextButton: PropTypes.any,
+
+		/**
+		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel` except the last,
+		 * * `'always'`will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'never'` will always hide the `nextButton` on the every `FlexiblePopupPanels.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this
+		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * `nextButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @private
+		 */
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
+
+		/**
+		 * Called when the index value is changed.
+		 *
+		 * @type {Function}
+		 * @private
+		 */
 		onChange: PropTypes.func,
-		prevButton: PropTypes.any
+
+		/**
+		 * The button to use in place of the standard prev button.
+		 *
+		 * This prop accepts a component (e.g. `Button`), a component instance or a boolean value.
+		 *
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of
+		 * [`prevButtonVisibility`]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels#prevButtonVisibility}.
+		 *
+		 * Example:
+		 * ```
+		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+		 * ```
+		 *
+		 * @name PrevButton
+		 * @memberof sandstone/FlexiblePopupPanels.Panel.prototype
+		 * @type {Boolean|Component}
+		 * @public
+		 */
+		prevButton: PropTypes.any,
+
+		/**
+		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel` except the first,
+		 * * `'always'`will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'never'` will always hide the `prevButton` on the every `FlexiblePopupPanels.Panel`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @private
+		 */
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
 	},
 
 	handlers: {
@@ -190,7 +312,17 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		children: ({children, handleDecrement, handleIncrement, nextButton, prevButton}, {count, index}) => {
+		children: ({
+			children,
+			handleDecrement,
+			handleIncrement,
+			nextButton,
+			nextButtonVisibility,
+			prevButton,
+			prevButtonVisibility
+		}, {count, index}) => {
+			const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < count - 1);
 
 			return (
 				<Row>
@@ -201,7 +333,7 @@ const PanelBase = kind({
 							icon="arrowlargeleft"
 							onClick={handleDecrement}
 							size="small"
-							visible={index > 0}
+							visible={isPrevButtonVisible}
 						/>
 					</Cell>
 					<Cell className={css.content} shrink>{children}</Cell>
@@ -212,7 +344,7 @@ const PanelBase = kind({
 							icon="arrowlargeright"
 							onClick={handleIncrement}
 							size="small"
-							visible={index < (count - 1)}
+							visible={isNextButtonVisible}
 						/>
 					</Cell>
 				</Row>
@@ -224,8 +356,10 @@ const PanelBase = kind({
 		delete props.handleDecrement;
 		delete props.handleIncrement;
 		delete props.nextButton;
+		delete props.nextButtonVisibility;
 		delete props.onChange;
 		delete props.prevButton;
+		delete props.prevButtonVisibility;
 
 		return (<DefaultPanel {...props} css={css} />);
 	}

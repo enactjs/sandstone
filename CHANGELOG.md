@@ -4,6 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/FlexiblePopupPanels` prop `onChange`
+- `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customizability of the navigational buttons on each `Panel`
+
+### Changed
+
+- `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+
 ### Fixed
 
 - `sandstone/Panels` to not fire transition events when initially rendered
