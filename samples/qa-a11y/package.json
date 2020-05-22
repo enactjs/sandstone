@@ -1,6 +1,6 @@
 {
-  "name": "A11yTest",
-  "version": "1.0.2",
+  "name": "qa-a11y",
+  "version": "0.1.0",
   "description": "Enact A11y Test application.",
   "author": "",
   "main": "src/index.js",

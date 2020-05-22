@@ -14,7 +14,6 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
@@ -36,7 +35,7 @@ import css from './useScroll.module.less';
 
 const
 	arrowKeyMultiplier = 0.2,
-	affordanceSize = ri.scale(48),
+	affordanceSize = 48,
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
