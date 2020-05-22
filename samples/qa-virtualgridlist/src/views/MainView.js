@@ -1,4 +1,4 @@
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Panel} from '@enact/sandstone/Panels';
 import React from 'react';
 
 import ImageList from '../components/ImageList';
@@ -33,13 +33,14 @@ class MainView extends React.Component {
 		const {horizontal, nativeScroll} = this.state;
 		return (
 			<Panel>
-				<Header title="VirtualGridList" type="mini">
-					<PanelHeader
-						nativeScroll={nativeScroll}
-						onChangeDirection={this.onChangeDirection}
-						onChangeScrollMode={this.onChangeScrollMode}
-					/>
-				</Header>
+				<PanelHeader
+					nativeScroll={nativeScroll}
+					onChangeDirection={this.onChangeDirection}
+					onChangeScrollMode={this.onChangeScrollMode}
+					slot="header"
+					title="VirtualGridList"
+					type="mini"
+				/>
 				<ImageList
 					cbScrollTo={this.getScrollTo}
 					direction={horizontal ? 'horizontal' : 'vertical'}

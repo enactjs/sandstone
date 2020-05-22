@@ -1,11 +1,12 @@
-import Button from '@enact/sandstone/Button';
-import {Cell, Row} from '@enact/ui/Layout';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import {connect} from 'react-redux';
-import {InputField as Input} from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
+import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import {Header} from '@enact/sandstone/Panels';
+import {InputField as Input} from '@enact/sandstone/Input';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {connect} from 'react-redux';
 
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
@@ -180,7 +181,7 @@ const PanelHeader = kind({
 		delete rest.showSelectionOverlayHandler;
 
 		return (
-			<>
+			<Header {...rest}>
 				<Row>
 					<Cell shrink>
 						{addButton}
@@ -208,7 +209,7 @@ const PanelHeader = kind({
 					</Cell>
 				</Row>
 				{changeListProps}
-			</>
+			</Header>
 		);
 	}
 });
