@@ -184,7 +184,6 @@ const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(FlexiblePopupPanelsBase
  * @ui
  * @public
  */
-
 const PanelBase = kind({
 	name: 'Panel',
 

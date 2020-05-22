@@ -230,6 +230,7 @@ const PanelsBase = kind({
 	render: ({
 		arranger,
 		children,
+		css,
 		generateId,
 		id,
 		index,
@@ -247,6 +248,7 @@ const PanelsBase = kind({
 				<Viewport
 					{...sharedProps}
 					arranger={arranger}
+					className={css.viewport}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
