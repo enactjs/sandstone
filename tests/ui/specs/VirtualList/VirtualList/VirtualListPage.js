@@ -1,6 +1,8 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
+const {focusedElement, waitUntilFocused} = require('../VirtualList-utils');
+
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
@@ -96,6 +98,22 @@ class VirtualListPage extends Page {
 		}, this.item(id).value);
 	}
 
+	fiveWayToItem (itemNum) {
+		const currentItem = Number(focusedElement().slice(4));
+		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
+
+		const direction = currentItem < itemNum ? 1 : -1;
+
+		for (let i = currentItem; i !== itemNum; i = i + direction) {
+			if (direction > 0) {
+				this.spotlightDown();
+			} else {
+				this.spotlightUp();
+			}
+			waitUntilFocused(i + direction);
+		}
+	}
+
 	backSpace () {
 		return this.keyDelay('Backspace');
 	}
@@ -104,7 +122,6 @@ class VirtualListPage extends Page {
 		let Inputnum = 'numad' + String(num);
 		return this.keyDelay(Inputnum);
 	}
-
 }
 
 module.exports = new VirtualListPage();
