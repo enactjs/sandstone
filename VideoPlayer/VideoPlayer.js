@@ -1219,7 +1219,7 @@ const VideoPlayerBase = class extends React.Component {
 			if (shouldJump(this.props, this.state)) {
 				this.handleJump({keyCode});
 			} else {
-				Spotlight.focus(getDirection(keyCode));
+				Spotlight.move(getDirection(keyCode));
 			}
 		}
 	}
