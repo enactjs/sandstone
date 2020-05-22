@@ -273,7 +273,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			// adjust the selected value beforehand so getSelectedDayString always operates on the
 			// standard, "Sunday as index 0" format
 			selected = generalizeSelected(selected, state);
-			const content = getSelectedDayString(selected, state);
+			const content = getSelectedDayString(selected, '', dayNameLength);
 
 			forwardSelect({selected, content}, this.props);
 		}
