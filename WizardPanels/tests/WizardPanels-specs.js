@@ -244,7 +244,27 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide previous button on the first view when `prevButtonVisibility` prop is set to always',
+		'should show previous button on the first view when `prevButtonVisibility` prop is set to always',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={0} prevButtonVisibility="always" totalPanels={3}>
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+
+			const expected = true;
+			const actual = prevButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button on the first view when `prevButtonVisibility` prop is set to always and panel overrides',
 		() => {
 			const wizardPanel = shallow(
 				<WizardPanels index={0} prevButtonVisibility="always" totalPanels={3}>
@@ -263,6 +283,45 @@ describe('WizardPanel Specs', () => {
 		}
 	);
 
+	test(
+		'should show next button on the last view when `nextButtonVisibility` prop is set to always',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={2} nextButtonVisibility="always" totalPanels={3}>
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should show next button on the last view when `nextButtonVisibility` prop is set to always and panel overrides',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={2} nextButtonVisibility="always" totalPanels={3}>
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel nextButton={false}>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			expect(actual).toBe(expected);
+		}
+	);
 
 	test(
 		'should fire onWillTransition with target index',
