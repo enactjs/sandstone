@@ -240,7 +240,7 @@ const PanelDecorator = compose(
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const RootPanel = PanelDecorator(PanelBase);
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
 export {Panel, PanelBase};
