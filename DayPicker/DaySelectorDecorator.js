@@ -18,8 +18,31 @@ const SELECTED_DAY_TYPES = {
 	SELECTED_NONE: 4
 };
 
-function adjustWeekends (firstDayOfWeek, day) {
+function localizeDay (day, firstDayOfWeek) {
 	return ((day - firstDayOfWeek + 7) % 7);
+}
+
+function generalizeDay (day, firstDayOfWeek) {
+	return ((day + firstDayOfWeek) % 7);
+}
+
+// Accepts a "Sunday at index 0" selected array and returns a localized array with "firstDayOfWeek
+// at index 0"
+function generalizeSelected (selected, state) {
+	if (state.firstDayOfWeek === 0 || !selected) {
+		return selected;
+	}
+
+	return selected.map(v => generalizeDay(v, state.firstDayOfWeek)).sort();
+}
+
+// Accepts a localized selected array and returns a "Sunday at index 0" array
+function localizeSelected (selected, state) {
+	if (state.firstDayOfWeek === 0 || !selected) {
+		return selected;
+	}
+
+	return selected.map(v => localizeDay(v, state.firstDayOfWeek));
 }
 
 const memoLocaleState = memoize((key, dayNameLength) => {
@@ -39,11 +62,11 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 	};
 
 	if (li.getWeekEndStart) {
-		state.weekendStart = adjustWeekends(firstDayOfWeek, li.getWeekEndStart());
+		state.weekendStart = localizeDay(li.getWeekEndStart(), firstDayOfWeek);
 	}
 
 	if (li.getWeekEndEnd) {
-		state.weekendEnd = adjustWeekends(firstDayOfWeek, li.getWeekEndEnd());
+		state.weekendEnd = localizeDay(li.getWeekEndEnd(), firstDayOfWeek);
 	}
 
 	return state;
@@ -53,7 +76,7 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 function orderDays (names, state) {
 	const result = [];
 	for (let i = 0; i < 7; i++) {
-		const index = (i + state.firstDayOfWeek) % 7;
+		const index = generalizeDay(i, state.firstDayOfWeek);
 		result[i] = names[index];
 	}
 
@@ -113,25 +136,6 @@ function calcSelectedDayType (selected, state) {
 	}
 }
 
-// Accepts a "Sunday at index 0" selected array and returns a localized array with "firstDayOfWeek
-// at index 0"
-function generalizeSelected (selected, state) {
-	if (state.firstDayOfWeek === 0 || !selected) {
-		return selected;
-	}
-
-	return selected.map(v => (v + state.firstDayOfWeek) % 7).sort();
-}
-
-// Accepts a localized selected array and returns a "Sunday at index 0" array
-function localizeSelected (selected, state) {
-	if (state.firstDayOfWeek === 0 || !selected) {
-		return selected;
-	}
-
-	return selected.map(v => (v - state.firstDayOfWeek + 7) % 7);
-}
-
 /**
  * Determines whether it should return "Every Day", "Every Weekend", "Every Weekday" or list of
  * days for a given selected day type.
@@ -160,13 +164,13 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 	const format = (list) => {
 		let separator = locale === 'fa-IR' ? '، ' : ', ';
 
-		return list.join(separator);
+		// sort the selected array with firstDayOfWeek first before mapping to text
+		return list
+			.slice()
+			.sort((a, b) => localizeDay(a, state.firstDayOfWeek) - localizeDay(b, state.firstDayOfWeek))
+			.map((dayIndex) => state.abbreviatedDayNames[dayIndex])
+			.join(separator);
 	};
-
-	// sort the selected array with firstDayOfWeek first before mapping to text
-	selected = selected.slice().sort((a, b) => {
-		return ((a - state.firstDayOfWeek + 7) % 7) - ((b - state.firstDayOfWeek + 7) % 7);
-	}).map((dayIndex) => state.abbreviatedDayNames[dayIndex]);
 
 	switch (type) {
 		case SELECTED_DAY_TYPES.EVERY_DAY :
