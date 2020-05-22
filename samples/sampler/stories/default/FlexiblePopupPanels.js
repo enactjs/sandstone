@@ -40,7 +40,6 @@ storiesOf('Sandstone', module)
 					open={open}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
-					noBackButton={boolean('noBackButton', Config)}
 					noCloseButton={boolean('noCloseButton', Config)}
 					onChange={handleChange}
 					onClose={handleClose}

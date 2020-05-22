@@ -396,6 +396,15 @@ const HeaderBase = kind({
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
 		 * Called when the app close button is clicked.
 		 *
 		 * @type {Function}
@@ -413,6 +422,7 @@ const HeaderBase = kind({
 		backButtonAriaLabel: ({closeButtonAriaLabel}) => closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel,
 		backButtonBackgroundOpacity: ({closeButtonBackgroundOpacity}) => closeButtonBackgroundOpacity,
 		className: ({styler}, {index}) => styler.append({'showBack': index > 0}),
+		noBackButton: ({noCloseButton}) => noCloseButton,
 		onBack: ({onClose}) => onClose
 	},
 
@@ -425,7 +435,9 @@ const HeaderBase = kind({
 	)
 });
 
-const Header = ContextAsDefaults({props: ['closeButtonAriaLabel', 'closeButtonBackgroundOpacity', 'onClose']}, HeaderBase);
+const Header = ContextAsDefaults({
+	props: ['closeButtonAriaLabel', 'closeButtonBackgroundOpacity', 'noCloseButton', 'onClose']
+}, HeaderBase);
 
 // Relay the defaultSlot property to our version of Header
 Header.defaultSlot = DefaultHeader.defaultSlot;
