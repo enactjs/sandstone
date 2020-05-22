@@ -44,10 +44,10 @@ class SampleVirtualGridList extends Component {
 				id={id}
 				itemRenderer={this.renderItem}
 				itemSize={{
-					minWidth: ri.scale(705),
-					minHeight: ri.scale(705)
+					minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+					minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
 				}}
-				spacing={ri.scale(-120)}
+				spacing={ri.scale(-132)} // -(ImageItem padding(48px(for expanding) + 36px(for shadow)) * 2 - 36px(for the gap between items))
 				spotlightId={id} // Set a unique ID to preserve last focus
 			/>
 		);
