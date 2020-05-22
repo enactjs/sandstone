@@ -115,7 +115,7 @@ const NumberFieldBase = kind({
 				(ev, {length, maxLength, value}) => ({value: normalizeValue(value, length, maxLength)}),
 				forward('onComplete')
 			),
-		),
+		)
 	},
 
 	computed: {
