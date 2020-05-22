@@ -31,9 +31,9 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 	const firstDayOfWeek = li.getFirstDayOfWeek();
 
 	const state = {
-		abbreviatedDayNames: [],
-		firstDayOfWeek: 0,
-		fullDayNames: [],
+		abbreviatedDayNames: days,
+		firstDayOfWeek,
+		fullDayNames: daysOfWeek,
 		weekendEnd: 0,
 		weekendStart: 6
 	};
@@ -46,14 +46,19 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 		state.weekendEnd = adjustWeekends(firstDayOfWeek, li.getWeekEndEnd());
 	}
 
-	for (let i = 0; i < 7; i++) {
-		const index = (i + firstDayOfWeek) % 7;
-		state.fullDayNames[i] = daysOfWeek[index];
-		state.abbreviatedDayNames[i] = days[index];
-	}
-
 	return state;
 });
+
+// Accepts an array of names in "sunday at index 0" and returns a localized array
+function orderDays (names, state) {
+	const result = [];
+	for (let i = 0; i < 7; i++) {
+		const index = (i + state.firstDayOfWeek) % 7;
+		result[i] = names[index];
+	}
+
+	return result;
+}
 
 function getLocaleState (dayNameLength, locale) {
 	if (typeof window === 'undefined') {
@@ -78,10 +83,8 @@ function getLocaleState (dayNameLength, locale) {
  *
  * @returns {Number}
  */
-function calcSelectedDayType (selected, dayNameLength, locale) {
+function calcSelectedDayType (selected, state) {
 	if (selected == null || !Array.isArray(selected)) return SELECTED_DAY_TYPES.SELECTED_NONE;
-
-	const state = getLocaleState(dayNameLength, locale);
 
 	let
 		weekendStart = false,
@@ -110,6 +113,25 @@ function calcSelectedDayType (selected, dayNameLength, locale) {
 	}
 }
 
+// Accepts a "Sunday at index 0" selected array and returns a localized array with "firstDayOfWeek
+// at index 0"
+function generalizeSelected (selected, state) {
+	if (state.firstDayOfWeek === 0 || !selected) {
+		return selected;
+	}
+
+	return selected.map(v => (v + state.firstDayOfWeek) % 7).sort();
+}
+
+// Accepts a localized selected array and returns a "Sunday at index 0" array
+function localizeSelected (selected, state) {
+	if (state.firstDayOfWeek === 0 || !selected) {
+		return selected;
+	}
+
+	return selected.map(v => (v - state.firstDayOfWeek + 7) % 7);
+}
+
 /**
  * Determines whether it should return "Every Day", "Every Weekend", "Every Weekday" or list of
  * days for a given selected day type.
@@ -128,18 +150,23 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 		everyWeekendText = $L('Every Weekend'),
 		locale = ilib.getLocale();
 
+	const state = getLocaleState(dayNameLength, locale);
+
 	if (selected != null) {
 		selected = coerceArray(selected);
 	}
 
-	const type = calcSelectedDayType(selected, dayNameLength, locale);
+	const type = calcSelectedDayType(selected, state);
 	const format = (list) => {
 		let separator = locale === 'fa-IR' ? '، ' : ', ';
 
 		return list.join(separator);
 	};
 
-	const {abbreviatedDayNames: selectDayStrings} = getLocaleState(dayNameLength, locale);
+	// sort the selected array with firstDayOfWeek first before mapping to text
+	selected = selected.slice().sort((a, b) => {
+		return ((a - state.firstDayOfWeek + 7) % 7) - ((b - state.firstDayOfWeek + 7) % 7);
+	}).map((dayIndex) => state.abbreviatedDayNames[dayIndex]);
 
 	switch (type) {
 		case SELECTED_DAY_TYPES.EVERY_DAY :
@@ -149,7 +176,7 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 		case SELECTED_DAY_TYPES.EVERY_WEEKDAY :
 			return everyWeekdayText;
 		case SELECTED_DAY_TYPES.SELECTED_DAYS :
-			return format(selected.sort().map((dayIndex) => selectDayStrings[dayIndex]));
+			return format(selected);
 		case SELECTED_DAY_TYPES.SELECTED_NONE :
 			return noneText;
 	}
@@ -237,24 +264,34 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 
 		handleSelect = ({selected}) => {
 			const {dayNameLength, locale} = this.props;
-			const content = getSelectedDayString(selected, locale, dayNameLength);
+			const state = getLocaleState(dayNameLength, locale);
+
+			// adjust the selected value beforehand so getSelectedDayString always operates on the
+			// standard, "Sunday as index 0" format
+			selected = generalizeSelected(selected, state);
+			const content = getSelectedDayString(selected, state);
 
 			forwardSelect({selected, content}, this.props);
 		}
 
 		render () {
 			const {dayNameLength, locale, selected, ...rest} = this.props;
-			const {abbreviatedDayNames, fullDayNames} = getLocaleState(dayNameLength, locale);
+			const state = getLocaleState(dayNameLength, locale);
+
+			const localSelected = localizeSelected(selected, state);
+			const abbreviatedDayNames = orderDays(state.abbreviatedDayNames, state);
+			const fullDayNames = orderDays(state.fullDayNames, state);
 
 			delete rest.everyDayText;
 			delete rest.everyWeekdayText;
 			delete rest.everyWeekendText;
+			delete rest.selected;
 
 			return (
 				<Wrapped
 					{...rest}
 					onSelect={this.handleSelect}
-					selected={selected}
+					selected={localSelected}
 				>
 					{abbreviatedDayNames.map((children, index) => ({
 						children,
