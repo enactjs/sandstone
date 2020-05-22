@@ -1,42 +1,10 @@
 import {combineReducers} from 'redux';
 
 import {ADD_ITEM, CHANGE_DATASIZE, CHANGE_MINHEIGHT, CHANGE_MINWIDTH, CHANGE_SPACING, DELETE_ITEM, DELETE_SELECTED_ITEM, SELECT_ALL, SELECT_ITEM, SELECTION_ENABLE, SET_DATA} from '../actions';
+import {initializeRecords} from '../utils';
 
-const createRecords = () => {
-	let
-		records = {
-			data: {},
-			dataSize: 100,
-			dataOrder: [],
-			minHeight: 570,
-			minWidth: 688,
-			selectedItems: new Set(),
-			showOverlay: false,
-			spacing: 0
-		},
-		caption, label, color;
 
-	for (let idx = 0; idx < 100; ++idx) {
-		caption = (idx % 8 === 0) ? ' with looooooooooong title' : '';
-		label = (idx % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle';
-		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16);
-
-		records.dataOrder.push(idx);
-		records.data[idx] = {
-			children: idx + caption,
-			selected: false,
-			showSelection: false,
-			src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + idx,
-			label
-		};
-	}
-
-	return records;
-};
-
-const initialState = createRecords();
-
-const data = (state = initialState, action) => {
+const data = (state = initializeRecords(), action) => {
 	switch (action.type) {
 		case ADD_ITEM: {
 			const

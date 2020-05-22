@@ -11,6 +11,8 @@ import {connect} from 'react-redux';
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
 
+import createRecord from '../../utils';
+
 import {
 	addItem as addAction,
 	changeDataSize as changeDataSizeAction,
@@ -23,22 +25,6 @@ import {
 	selectionEnable as selectionEnableAction,
 	setData as setAction
 } from '../../actions';
-
-const createMockItem = (dataSize, showOverlay) => {
-	const
-		dataLength = dataSize,
-		caption = (dataLength % 8 === 0) ? ' with looooooooooong title' : '',
-		subCaption = (dataLength % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle',
-		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
-
-	return {
-		children: dataLength + caption,
-		label: subCaption,
-		selected: false,
-		showSelection: showOverlay,
-		src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
-	};
-};
 
 const PanelHeader = kind({
 	name: 'PanelHeader',
@@ -63,8 +49,8 @@ const PanelHeader = kind({
 	},
 
 	handlers: {
-		addMockItem: (ev, {addItem, dataSize, showOverlay}) => {
-			addItem(createMockItem(dataSize, showOverlay));
+		addMockItem: (ev, {addItem, dataSize: recordIndex, showOverlay}) => {
+			addItem(createRecord({recordIndex, showOverlay}));
 		},
 		changeMinHeight: (ev, {changeMinHeight}) => {
 			changeMinHeight(ev.value);
@@ -87,7 +73,7 @@ const PanelHeader = kind({
 		setData: (ev, {changeDataSize, dataSize, showOverlay, setData}) => {
 			changeDataSize(ev.value);
 			for (let i = 0; i <= ev.value; i++) {
-				setData(ev.value, createMockItem(dataSize + i, showOverlay));
+				setData(ev.value, createRecord({recordIndex: dataSize + i, showOverlay}));
 			}
 		},
 		showSelectionOverlayHandler: (ev, {selectionEnable}) => {

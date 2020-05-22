@@ -18,13 +18,22 @@ const ImageItem = kind({
 	}
 });
 
-const mapStateToProps = ({data}, {['data-index']: dataIndex}) => ({
-	children: data.data[dataIndex].children,
-	label: data.data[dataIndex].label,
-	selected: data.selectedItems.has(dataIndex),
-	showSelection: data.data[dataIndex].showSelection,
-	src: data.data[dataIndex].src
-});
+const mapStateToProps = ({data: {data, selectedItems}}, {['data-index']: dataIndex}) => {
+	const {
+		caption: children,
+		subCaption: label,
+		showSelection,
+		src
+	} = data[dataIndex];
+
+	return ({
+		children,
+		label,
+		selected: selectedItems.has(dataIndex),
+		showSelection,
+		src
+	});
+};
 
 const mapDispatchToProps = (dispatch, {['data-index']: dataIndex}) => {
 	return {
