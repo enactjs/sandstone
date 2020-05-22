@@ -426,7 +426,7 @@ const HeaderBase = kind({
 	)
 });
 
-const Header = ContextAsDefaults({props: ['onClose']}, HeaderBase);
+const Header = ContextAsDefaults({props: ['closeButtonAriaLabel', 'closeButtonBackgroundOpacity', 'onClose']}, HeaderBase);
 
 // Relay the defaultSlot property to our version of Header
 Header.defaultSlot = DefaultHeader.defaultSlot;
