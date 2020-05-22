@@ -1,9 +1,9 @@
 {
-	"files": [
-		"en/strings.json",
-		"en/US/strings.json",
-		"es/ES/strings.json",
-		"es/MX/strings.json",
-		"es/strings.json"
-	]
+  "files": [
+    "en/strings.json",
+    "en/US/strings.json",
+    "es/ES/strings.json",
+    "es/MX/strings.json",
+    "es/strings.json"
+  ]
 }

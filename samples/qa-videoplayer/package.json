@@ -1,6 +1,6 @@
 {
 	"name": "qa-videoplayer",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "A sample with a VideoPlayer that supports timeline selection.",
 	"author": "",
 	"main": "src/index.js",

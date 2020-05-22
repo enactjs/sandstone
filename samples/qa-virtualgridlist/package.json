@@ -1,6 +1,6 @@
 {
   "name": "qa-virtualgridlist",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A qa sample for testing VirtualGridList",
   "author": "",
   "main": "src/index.js",
@@ -34,7 +34,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "redux": "^4.0.1"
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5"
   }
 }
