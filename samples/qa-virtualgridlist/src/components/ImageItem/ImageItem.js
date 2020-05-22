@@ -1,22 +1,7 @@
 import {connect} from 'react-redux';
-import kind from '@enact/core/kind';
-import {ImageItem as SandstoneImageItem} from '@enact/sandstone/ImageItem';
-import PropTypes from 'prop-types';
-import React from 'react';
+import ImageItem from '@enact/sandstone/ImageItem';
 
 import {selectItem} from '../../actions';
-
-const ImageItem = kind({
-	name: 'ImageItem',
-	propTypes: {
-		onSelectItem: PropTypes.func
-	},
-	render: ({onSelectItem, ...rest}) => {
-		return (
-			<SandstoneImageItem onClick={onSelectItem} {...rest} />
-		);
-	}
-});
 
 const mapStateToProps = ({data: {data, selectedItems}}, {['data-index']: dataIndex}) => {
 	const {
@@ -37,7 +22,7 @@ const mapStateToProps = ({data: {data, selectedItems}}, {['data-index']: dataInd
 
 const mapDispatchToProps = (dispatch, {['data-index']: dataIndex}) => {
 	return {
-		onSelectItem: () => dispatch(selectItem(dataIndex))
+		onClick: () => dispatch(selectItem(dataIndex))
 	};
 };
 
