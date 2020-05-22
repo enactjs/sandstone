@@ -3,6 +3,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import React, {useCallback, useEffect, useRef} from 'react';
 
@@ -133,7 +134,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -159,7 +160,7 @@ const useSpottable = (props, instances) => {
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
+					offset: (!noAffordance && index < nextIndex) ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -210,7 +211,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
