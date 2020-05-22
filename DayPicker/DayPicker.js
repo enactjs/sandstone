@@ -50,7 +50,8 @@ const DayPickerBase = kind({
 		 * Called when an day is selected or unselected.
 		 *
 		 * The event payload will be an object with the following members:
-		 * * `selected` - An array of numbers representing the selected days, 0 indexed
+		 * * `selected` - An array of numbers representing the selected days, 0 indexed where Sunday
+		 *   is represented by 0
 		 *
 		 * @type {Function}
 		 * @public
@@ -58,7 +59,8 @@ const DayPickerBase = kind({
 		onSelect: PropTypes.func,
 
 		/**
-		 * An array of numbers (0-indexed) representing the selected days of the week.
+		 * An array of numbers (0 indexed where Sunday is 0) representing the selected days of the
+		 * week.
 		 *
 		 * @type {Number|Number[]}
 		 * @public
