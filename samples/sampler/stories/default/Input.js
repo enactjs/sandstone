@@ -7,7 +7,8 @@ import {storiesOf} from '@storybook/react';
 import Input, {InputBase, InputPopup, InputPopupBase} from '@enact/sandstone/Input';
 
 Input.displayName = 'Input';
-const Config = mergeComponentMetadata('Input', InputPopupBase, InputPopup, InputBase, Input);
+const Config = mergeComponentMetadata('Input', InputBase, Input);
+const ConfigPopup = mergeComponentMetadata('InputPopup', InputPopupBase, InputPopup);
 
 const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
@@ -19,29 +20,43 @@ const prop = {
 storiesOf('Sandstone', module)
 	.add(
 		'Input',
-		() => (
-			<div>
-				<Input
-					disabled={boolean('disabled', Config)}
-					onChange={action('onChange')}
-					onClose={action('onClose')}
-					onComplete={action('onComplete')}
-					onOpenPopup={action('onOpenPopup')}
-					invalid={boolean('invalid', Config)}
-					invalidMessage={text('invalidMessage', Config, 'This is a bad value')}
-					length={number('length', Config, {range: true, min: 0, max: 10}, 4)}
-					maxLength={number('maxLength', Config, {range: true, min: 0, max: 10}, 4)}
-					minLength={number('minLength', Config, {range: true, min: 0, max: 10}, 0)}
-					placeholder={text('placeholder', Config, 'placeholder text')}
-					subtitle={text('subtitle', Config, 'Title Below Text')}
-					title={text('title', Config, 'Title Text')}
-					numericInputKind={select('numericInputKind', prop.numericKind, Config)}
-					size={select('size', prop.size, Config)}
-					type={select('type', prop.type, Config)}
-					popupType={select('popupType', prop.popupType, Config)}
-				/>
-			</div>
-		),
+		() => {
+			const props = {
+				// Actions
+				onChange: action('onChange'),
+				onClose: action('onClose'),
+				onComplete: action('onComplete'),
+				onOpenPopup: action('onOpenPopup'),
+
+				// Knobs
+				type: select('type', prop.type, ConfigPopup),
+				popupType: select('popupType', prop.popupType, ConfigPopup),
+				size: select('size', prop.size, Config),
+				invalid: boolean('invalid', ConfigPopup),
+				invalidMessage: text('invalidMessage', ConfigPopup, 'This is a bad value'),
+				placeholder: text('placeholder', Config, 'placeholder string'),
+				subtitle: text('subtitle', ConfigPopup, 'Title Below Text'),
+				title: text('title', ConfigPopup, 'Title Text'),
+				disabled: boolean('disabled', Config)
+			};
+
+			// Numeric specific props
+			if (props.type === 'number' || props.type === 'passwordnumber') {
+				props.numericInputKind = select('numericInputKind', prop.numericKind, ConfigPopup);
+
+				const minMax = boolean('customize min/max', ConfigPopup, false);
+				if (minMax) {
+					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 10}, 4);
+					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 10}, 0);
+				} else {
+					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 10}, 4);
+				}
+			}
+
+			return (<div>
+				<Input {...props} />
+			</div>);
+		},
 		{
 			info: {
 				text: 'Basic usage of Input'

@@ -221,7 +221,6 @@ const InputPopupBase = kind({
 	},
 
 	defaultProps: {
-		length: 4,
 		popupType: 'fullscreen',
 		numericInputKind: 'auto',
 		size: 'large',
