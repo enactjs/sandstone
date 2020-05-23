@@ -132,7 +132,7 @@ describe('WizardPanel Specs', () => {
 
 			const nextButton = wizardPanel.find({slot: 'slotAfter'});
 
-			const expected = false;
+			const expected = true;
 			const actual = nextButton.exists();
 
 			expect(actual).toBe(expected);
@@ -184,7 +184,7 @@ describe('WizardPanel Specs', () => {
 
 			const prevButton = wizardPanel.find({slot: 'slotBefore'});
 
-			const expected = false;
+			const expected = true;
 			const actual = prevButton.exists();
 
 			expect(actual).toBe(expected);
