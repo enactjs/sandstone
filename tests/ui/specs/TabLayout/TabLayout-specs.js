@@ -47,7 +47,7 @@ describe('TabLayout', function () {
 
 	describe('auto focus behavior', function () {
 		it('should focus the first tab when expanded', function () {
-			Page.open('');
+			Page.open();
 
 			const expected = 'One';
 			const actual = browser.execute(getFocusedText);
