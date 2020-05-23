@@ -86,10 +86,10 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = wizardPanel.find('.footer').find('button').length;
+			const buttons = wizardPanel.find('.footer').find('button');
 
 			const expected = 2;
-			const actual = buttons;
+			const actual = buttons.length;
 
 			wizardPanel.unmount();
 			expect(actual).toBe(expected);

@@ -13,7 +13,6 @@ import {WizardPanelsContext} from './WizardPanels';
  * @private
  */
 function PanelBase ({
-	buttons,
 	children,
 	footer,
 	nextButton,
@@ -26,7 +25,6 @@ function PanelBase ({
 	React.useEffect(() => {
 		if (set) {
 			set({
-				buttons,
 				children,
 				footer,
 				nextButton,
@@ -36,7 +34,6 @@ function PanelBase ({
 			});
 		}
 	}, [
-		buttons,
 		children,
 		footer,
 		nextButton,
