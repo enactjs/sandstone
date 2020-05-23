@@ -187,9 +187,9 @@ const WizardPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
-		 * Called when nextButton is clicked in WizardPanel.
+		 * Called when the next button is clicked in WizardPanel.
 		 *
-		 * Calling preventDefault on the passed event will prevent advancing to the next panel.
+		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
 		 * @type {Function}
 		 * @public
@@ -197,9 +197,9 @@ const WizardPanelsBase = kind({
 		onNextClick: PropTypes.func,
 
 		/**
-		 * Called when prevButton is clicked in WizardPanel.
+		 * Called when previous button is clicked in WizardPanel.
 		 *
-		 * Calling preventDefault on the passed event will prevent reverting to the previous panel.
+		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
 		 * @type {Function}
 		 * @public
