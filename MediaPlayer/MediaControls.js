@@ -470,8 +470,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			playPauseButtonDisabled: PropTypes.bool,
 
 			/**
-			 * Removes the "rate" buttons. The buttons that change the playback rate of the video.
-			 * Double speed, half speed, reverse 4x speed, etc.
+			 * Disables the media playback-rate control via rewind and fast forward keys
 			 *
 			 * @type {Boolean}
 			 * @public

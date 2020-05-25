@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View` and `sandstone/Panels.WizardPanels` aliases
 - `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
 - `sandstone/WizardPanels` prop `buttons`, put buttons inside `footer` instead
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
 
 ### Added
 
@@ -23,6 +24,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
 - `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
 - `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/MediaPlayer.MediaControls` props `rateDisabled` to prevent playback rate control via rewind and fast forward keys
 
 ### Fixed
 
