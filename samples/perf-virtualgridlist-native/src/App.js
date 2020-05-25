@@ -16,7 +16,25 @@ for (let i = 0; i < 1000; i++) {
 
 class VirtualGridListNativeSample extends Component {
 	componentDidMount () {
-		this.scrollTo({animate: false, focus: true, index: 19});
+		const scrollTo = this.scrollTo;
+		let timerCount = 0;
+
+		const setintervalId = setInterval(function () {
+			// Wait 3 sec
+			timerCount++;
+
+			if (timerCount >= 10 && (timerCount < 13)) {
+				scrollTo({animate: true, focus: true, index: 100 * timerCount});
+			}
+
+			if (timerCount > 33) {
+				// Wait 6 Sec
+				clearInterval(setintervalId);
+
+				console.log(window.performanceData);
+				console.log(window.performanceData.reduce((cur, sum) => sum += cur) / window.performanceData.length);
+			}
+		}, 300);
 	}
 
 	getScrollTo = (scrollTo) => {
