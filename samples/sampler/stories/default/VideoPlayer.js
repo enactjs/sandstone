@@ -178,18 +178,15 @@ storiesOf('Sandstone', module)
 						<infoComponents>A video about some things happening to and around some characters. Very exciting stuff.</infoComponents>
 						<MediaControls
 							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
-							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
-							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
 							jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
-							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
+							rateDisabled={boolean('rateDisabled', MediaControlsConfig)}
 							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
 							pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
 							playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
 							playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
-							rateButtonsDisabled={boolean('rateButtonsDisabled', MediaControlsConfig)}
 						>
 							<bottomComponents>
 								<VirtualGridList
