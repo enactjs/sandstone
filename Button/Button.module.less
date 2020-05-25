@@ -224,6 +224,14 @@
 			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
 		}
 
+		&.small {
+			&.iconAfter {
+				.icon {
+					margin: 0;
+				}
+			}
+		}
+
 		&.red,
 		&.green,
 		&.yellow,
