@@ -6,24 +6,30 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
+- `sandstone/Panels` prop `featureContent`
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
 - `sandstone/WizardPanels` prop `footer`
-
-### Changed
-
-- `sandstone/WizardPanels` prop `buttons` to be `footer`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View` and `sandstone/Panels.WizardPanels` aliases
+- `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
+- `sandstone/WizardPanels` prop `buttons`, put buttons inside `footer` instead
 
 ### Added
 
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
+- `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
+- `sandstone/DayPicker` component
 - `sandstone/ImageItem` public class names `horizontal` and `vertical`
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
+- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
 
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
+- `sandstone/VideoPlayer` to jump to left direction using left key via 5-way
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
