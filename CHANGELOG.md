@@ -26,6 +26,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` alignment for rtl locale
 - `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Tooltip` style to match latest designs
