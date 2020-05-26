@@ -139,7 +139,7 @@ storiesOf('ContextualPopupDecorator', module)
 				</div>
 				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.scaleToRem(48)}}>
 					<ContextualPopupWithActivator
-						direction="left"
+						direction="left middle"
 						popupComponent={renderSuperTallPopup}
 					>
 						Overflows Bottom
