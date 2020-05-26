@@ -66,12 +66,15 @@ const ImageItemBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `caption` - The caption component class
+		 * * `fullImage` - Applied when `orientation` prop is `vertical` without `label` and `children`
+		 * * `horizontal` - Applied when `orientation` prop is `horizontal`
 		 * * `image` - The image component class
-		 * * `imageItem` - The image item component class
 		 * * `imageIcon` - The image icon component class
+		 * * `imageItem` - The image item component class
+		 * * `label` - The secondary caption component class
 		 * * `selected` - Applied when `selected` prop is `true`
 		 * * `selectionIcon` - The icon component class for default selection component
-		 * * `label` - The secondary caption component class
+		 * * `vertical` - Applied when `orientation` prop is `vertical`
 		 *
 		 * @type {Object}
 		 * @public
@@ -198,7 +201,7 @@ const ImageItemBase = kind({
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['imageItem', 'caption', 'horizontal', 'image', 'label', 'selected', 'selectionIcon', 'vertical']
+		publicClassNames: ['imageItem', 'caption', 'fullImage', 'horizontal', 'image', 'label', 'selected', 'selectionIcon', 'vertical']
 	},
 
 	computed: {

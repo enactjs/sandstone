@@ -19,7 +19,7 @@ storiesOf('Sandstone', module)
 				style={{
 					outline: 'teal dashed 1px',
 					position: 'relative',
-					padding: ri.unit(180, 'rem'),
+					padding: ri.scaleToRem(180),
 					backgroundColor: 'rgba(0, 187, 187, 0.5)'
 				}}
 			>
@@ -37,7 +37,7 @@ storiesOf('Sandstone', module)
 					style={{
 						outline: 'teal dashed 1px',
 						position: 'relative',
-						height: ri.unit(360, 'rem')
+						height: ri.scaleToRem(360)
 					}}
 				>
 					<label
@@ -51,7 +51,7 @@ storiesOf('Sandstone', module)
 							padding: '0.1em 1em',
 							fontWeight: 100,
 							fontStyle: 'italic',
-							fontSize: ri.unit(30, 'rem')
+							fontSize: ri.scaleToRem(30)
 						}}
 					>Container</label>
 					<div
