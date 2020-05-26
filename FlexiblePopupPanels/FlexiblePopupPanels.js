@@ -51,7 +51,7 @@ const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
 const Panel = (props) => (<DefaultPanel {...props} css={css} />);
 
 /**
- * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}
+ * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}.
  *
  * @name Panel
  * @static
@@ -74,7 +74,7 @@ const Header = (props) => (<DefaultHeader type="mini" {...props} />);
 Header.defaultSlot = DefaultHeader.defaultSlot;
 
 /**
- * A shortcut to access {@link sandstone/FlexiblePopupPanels.Header}
+ * A shortcut to access {@link sandstone/FlexiblePopupPanels.Header}.
  *
  * @name Header
  * @static

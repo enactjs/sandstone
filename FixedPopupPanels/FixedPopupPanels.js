@@ -43,7 +43,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  * @memberof sandstone/FixedPopupPanels.FixedPopupPanels.prototype
  * @name width
  * @type {('narrow'|'half')}
- * @default 'thin'
+ * @default 'narrow'
  * @public
  */
 
@@ -53,7 +53,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  *
  * @class Panel
  * @extends sandstone/Panels.Panel
- * @memberof sandstone/FixedPopupPanels
+ * @memberof sandstone/FixedPopupPanels.Panel
  * @ui
  * @public
  */
@@ -74,7 +74,7 @@ FixedPopupPanels.Panel = Panel;
  *
  * @class Header
  * @extends sandstone/Panels.Header
- * @memberof sandstone/FixedPopupPanels
+ * @memberof sandstone/FixedPopupPanels.Header
  * @ui
  * @public
  */

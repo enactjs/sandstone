@@ -148,7 +148,7 @@ const WizardPanelsBase = kind({
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
 		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last,
-		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
+		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`, and
 		 * * `'never'` will always hide the `nextButton` on the every `WizardPanel.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
@@ -241,8 +241,8 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first,
-		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the last,
+		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`, and
 		 * * `'never'` will always hide the `prevButton` on the every `WizardPanel.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,

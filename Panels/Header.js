@@ -245,7 +245,7 @@ const HeaderBase = kind({
 		onShowBack: PropTypes.func,
 
 		/**
-		 * A location for arbitrary elements to be placed above the title
+		 * A location for arbitrary elements to be placed above the title.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
@@ -264,7 +264,7 @@ const HeaderBase = kind({
 
 		/**
 		 * A location for arbitrary elements to be placed to the right the title in LTR locales and
-		 * to the left in RTL locales
+		 * to the left in RTL locales.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
@@ -292,7 +292,7 @@ const HeaderBase = kind({
 
 		/**
 		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
-		 * to the right in RTL locales
+		 * to the right in RTL locales.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.

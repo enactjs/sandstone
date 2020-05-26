@@ -40,7 +40,7 @@ const PanelsBase = kind({
 		 *
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
-		 * @default ui/ViewManager.SlideLeftArranger
+		 * @default sandstone/Panels.BasicArranger
 		 * @public
 		 */
 		arranger: shape,
