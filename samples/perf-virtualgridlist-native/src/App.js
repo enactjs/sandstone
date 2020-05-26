@@ -20,21 +20,22 @@ class VirtualGridListNativeSample extends Component {
 		let timerCount = 0;
 
 		const setintervalId = setInterval(function () {
-			// Wait 3 sec
+			// Wait 5 seconds
 			timerCount++;
 
-			if (timerCount >= 10 && (timerCount < 13)) {
-				scrollTo({animate: true, focus: true, index: 100 * timerCount});
+			// Execute scrollto for 10 seconds
+			if (timerCount >= 5 && (timerCount < 10)) {
+				scrollTo({animate: true, focus: false, index: 200 * (timerCount - 2)});
 			}
 
-			if (timerCount > 33) {
-				// Wait 6 Sec
+			if (timerCount >= 15) {
+				// Wait 5 seconds
 				clearInterval(setintervalId);
 
 				console.log(window.performanceData);
-				console.log(window.performanceData.reduce((cur, sum) => sum += cur) / window.performanceData.length);
+				console.log('Average JS execution time: ' + window.performanceData.reduce((cur, sum) => sum += cur) / window.performanceData.length);
 			}
-		}, 300);
+		}, 1000);
 	}
 
 	getScrollTo = (scrollTo) => {
@@ -58,6 +59,8 @@ class VirtualGridListNativeSample extends Component {
 				{...this.props}
 				cbScrollTo={this.getScrollTo}
 				dataSize={items.length}
+				horizontalScrollbar="hidden"
+				verticalScrollbar="hidden"
 				itemRenderer={this.renderItem}
 				itemSize={{minWidth: ri.scale(642), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
 			/>
