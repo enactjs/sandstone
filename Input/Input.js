@@ -72,9 +72,9 @@ const InputPopupBase = kind({
 		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
 		 * (inclusive) will render individual number cells, greater than 6 will render a single box
 		 * with numbers in it. This only has an effect on `'number'` and `'passwordnumber'` `type`
-		 * and when `numericInputKind` is `'auto'`.
+		 * and when `numberInputField` is `'auto'`.
 		 *
-		 * This value will override `minLength` and `maxLength`, if set.
+		 * This value will override `minLength` and `maxLength`.
 		 *
 		 * @type {Number}
 		 * @public
@@ -84,7 +84,7 @@ const InputPopupBase = kind({
 		/**
 		 * The maximum length of number input fields.
 		 *
-		 * Has no effect if `length` is specified.
+		 * Overridden by `length` value.
 		 *
 		 * @type {Number}
 		 * @default 4
@@ -95,9 +95,10 @@ const InputPopupBase = kind({
 		/**
 		 * The minimum length of number input fields.
 		 *
-		 * If this number is smaller than `maxLength`, number type inputs will show a submit button
-		 * and will not auto-submit when the length reaches `maxLength`. If not specified, it will
-		 * default to `maxLength`.
+		 * Overridden by `length` value.
+		 *
+		 * When smaller than `maxLength`, number type inputs will show a submit button and will not
+		 * auto-submit when the length reaches `maxLength`. Defaults to the `maxLength` value.
 		 *
 		 * @type {Number}
 		 * @public
@@ -116,7 +117,7 @@ const InputPopupBase = kind({
 		 * @default 'auto'
 		 * @public
 		 */
-		numericInputKind: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
+		numberInputField: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
 
 		/**
 		 * Called when the input value is changed.
@@ -222,7 +223,7 @@ const InputPopupBase = kind({
 
 	defaultProps: {
 		popupType: 'fullscreen',
-		numericInputKind: 'auto',
+		numberInputField: 'auto',
 		size: 'large',
 		subtitle: '',
 		title: '',
@@ -274,7 +275,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		disabled,
-		numericInputKind,
+		numberInputField,
 		onChange,
 		onClose,
 		onNumberComplete,
@@ -293,7 +294,7 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const numberMode = (numericInputKind !== 'field') && (type === 'number' || type === 'passwordnumber');
+		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -322,7 +323,7 @@ const InputPopupBase = kind({
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								numericInputKind={numericInputKind}
+								numberInputField={numberInputField}
 							/> :
 							<InputField
 								{...inputProps}

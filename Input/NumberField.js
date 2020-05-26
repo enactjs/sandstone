@@ -67,7 +67,7 @@ const NumberFieldBase = kind({
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
-		numericInputKind: PropTypes.string,
+		numberInputField: PropTypes.string,
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
 		showKeypad: PropTypes.bool,
@@ -78,7 +78,7 @@ const NumberFieldBase = kind({
 	defaultProps: {
 		maxLength: DEFAULT_LENGTH,
 		minLength: 0,
-		numericInputKind: 'auto',
+		numberInputField: 'auto',
 		type: 'number'
 	},
 
@@ -121,8 +121,8 @@ const NumberFieldBase = kind({
 	},
 
 	computed: {
-		className: ({maxLength, numericInputKind, type, styler}) => {
-			const numberFieldStyle = getSeparated(numericInputKind, maxLength) ? 'separated' : 'joined';
+		className: ({maxLength, numberInputField, type, styler}) => {
+			const numberFieldStyle = getSeparated(numberInputField, maxLength) ? 'separated' : 'joined';
 			return styler.append(type, numberFieldStyle);
 		},
 		// Normalize the value, also prune out any non-digit characters
@@ -148,7 +148,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({css, invalidTooltip, maxLength, numericInputKind, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
+	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.invalid;
 		delete rest.invalidMessage;
@@ -157,7 +157,7 @@ const NumberFieldBase = kind({
 		delete rest.onSubmit;
 		delete rest.rtl;
 
-		const separated = getSeparated(numericInputKind, maxLength);
+		const separated = getSeparated(numberInputField, maxLength);
 
 		let field;
 		if (separated) {

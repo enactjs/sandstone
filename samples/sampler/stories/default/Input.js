@@ -42,7 +42,7 @@ storiesOf('Sandstone', module)
 
 			// Numeric specific props
 			if (props.type === 'number' || props.type === 'passwordnumber') {
-				props.numericInputKind = select('numericInputKind', prop.numericKind, ConfigPopup);
+				props.numberInputField = select('numberInputField', prop.numericKind, ConfigPopup);
 
 				const minMax = boolean('customize min/max', ConfigPopup, false);
 				if (minMax) {
