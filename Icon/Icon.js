@@ -14,6 +14,7 @@
 import kind from '@enact/core/kind';
 import UiIcon from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
+import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -56,11 +57,19 @@ const IconBase = kind({
 		/**
 		 * The size of the icon.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')}
+		 * A collection of preset sizes is available in addition to a numeric size option.
+		 * A number represents the design-time pixel dimensions of the icon. The final value will
+		 * automatically adapt to the screen resolutions, as defined in the `screenTypes` file of
+		 * this theme.
+		 *
+		 * @type {('large'|'medium'|'small'|'tiny')|Number}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny'])
+		size: PropTypes.oneOfType([
+			PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+			PropTypes.number
+		])
 	},
 
 	defaultProps: {
@@ -73,13 +82,18 @@ const IconBase = kind({
 
 	computed: {
 		className: ({size, styler}) => styler.append(
-			size
-		)
+			(typeof size === 'string' ? size : null)
+		),
+		style: ({size, style}) => ({
+			...style,
+			'--icon-size': (typeof size === 'number') ? scaleToRem(size) : null
+		})
 	},
 
-	render: (props) => UiIcon.inline({
-		...props,
-		css: props.css,
+	render: ({css, size, ...rest}) => UiIcon.inline({
+		...rest,
+		size: (typeof size === 'string' ? size : void 0),
+		css,
 		iconList
 	})
 });
