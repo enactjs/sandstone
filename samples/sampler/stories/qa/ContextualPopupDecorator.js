@@ -1,19 +1,16 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {Group} from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
-const ContextualPopup = ContextualPopupDecorator(Button);
 
 const buttonMargin = () => ({margin: ri.scaleToRem(24)});
 
