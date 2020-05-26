@@ -74,11 +74,9 @@ const InputPopupBase = kind({
 		 * with numbers in it. This only has an effect on `'number'` and `'passwordnumber'` `type`
 		 * and when `numericInputKind` is `'auto'`.
 		 *
-		 * This value will override `minLength` and `maxLength`. Set it to `0` or `null` to enable
-		 * `minLength` and `maxLength`.
+		 * This value will override `minLength` and `maxLength`, if set.
 		 *
 		 * @type {Number}
-		 * @default 4
 		 * @public
 		 */
 		length: PropTypes.number,
@@ -89,6 +87,7 @@ const InputPopupBase = kind({
 		 * Has no effect if `length` is specified.
 		 *
 		 * @type {Number}
+		 * @default 4
 		 * @public
 		 */
 		maxLength: PropTypes.number,
@@ -97,7 +96,8 @@ const InputPopupBase = kind({
 		 * The minimum length of number input fields.
 		 *
 		 * If this number is smaller than `maxLength`, number type inputs will show a submit button
-		 * and will not auto-submit when the length reaches `maxLength`.
+		 * and will not auto-submit when the length reaches `maxLength`. If not specified, it will
+		 * default to `maxLength`.
 		 *
 		 * @type {Number}
 		 * @public
@@ -274,8 +274,6 @@ const InputPopupBase = kind({
 		children,
 		css,
 		disabled,
-		invalid,
-		invalidMessage,
 		numericInputKind,
 		onChange,
 		onClose,
@@ -325,8 +323,6 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numericInputKind={numericInputKind}
-								invalid={invalid}
-								invalidMessage={invalidMessage}
 							/> :
 							<InputField
 								{...inputProps}
@@ -337,8 +333,6 @@ const InputPopupBase = kind({
 								placeholder={placeholder}
 								onChange={onChange}
 								onKeyDown={onInputKeyDown}
-								invalid={invalid}
-								invalidMessage={invalidMessage}
 							/>
 						}
 					</Cell>
