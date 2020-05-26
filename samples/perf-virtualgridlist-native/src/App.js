@@ -23,7 +23,7 @@ class VirtualGridListNativeSample extends Component {
 			// Wait 5 seconds
 			timerCount++;
 
-			// Execute scrollTo for 10 seconds
+			// Execute scrollTo for 5 seconds
 			if (timerCount >= 5 && (timerCount < 10)) {
 				scrollTo({animate: true, focus: false, index: 100 * (timerCount - 4)});
 			}
