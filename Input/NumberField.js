@@ -14,11 +14,9 @@ import Icon from '../Icon';
 import $L from '../internal/$L';
 
 import Keypad from './Keypad';
-import {convertToPasswordFormat} from './util';
+import {DEFAULT_LENGTH, SEPARATE_DIGITS_LIMIT, convertToPasswordFormat} from './util';
 
 import componentCss from './Input.module.less';
-
-const SEPARATE_DIGITS_LIMIT = 6;
 
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
@@ -78,7 +76,7 @@ const NumberFieldBase = kind({
 	},
 
 	defaultProps: {
-		maxLength: 4,
+		maxLength: DEFAULT_LENGTH,
 		minLength: 0,
 		numericInputKind: 'auto',
 		type: 'number'

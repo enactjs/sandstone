@@ -16,7 +16,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -261,7 +261,7 @@ const InputPopupBase = kind({
 
 	computed: {
 		maxLength: ({length, maxLength}) => (length || maxLength),
-		minLength: ({length, minLength}) => (length || minLength),
+		minLength: ({length, minLength}) => (length || minLength) || (typeof minLength === 'undefined' ? DEFAULT_LENGTH : minLength),
 		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
 	},
 
