@@ -16,7 +16,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -260,6 +260,13 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
+		maxLength: ({length, maxLength}) => (length || maxLength),
+		minLength: ({length, maxLength, minLength}) => {
+			if (length) return length;
+			if (minLength != null) return minLength;
+			if (maxLength != null) return maxLength;
+			return DEFAULT_LENGTH;
+		},
 		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
 	},
 
@@ -269,7 +276,6 @@ const InputPopupBase = kind({
 		disabled,
 		invalid,
 		invalidMessage,
-		length,
 		numericInputKind,
 		onChange,
 		onClose,
@@ -291,6 +297,7 @@ const InputPopupBase = kind({
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numericInputKind !== 'field') && (type === 'number' || type === 'passwordnumber');
 
+		delete rest.length;
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
 
@@ -313,7 +320,6 @@ const InputPopupBase = kind({
 							<NumberField
 								{...inputProps}
 								defaultValue={value}
-								length={length}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad

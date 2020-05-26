@@ -14,19 +14,14 @@ import Icon from '../Icon';
 import $L from '../internal/$L';
 
 import Keypad from './Keypad';
-import {convertToPasswordFormat} from './util';
+import {DEFAULT_LENGTH, SEPARATE_DIGITS_LIMIT, convertToPasswordFormat} from './util';
 
 import componentCss from './Input.module.less';
 
-const DEFAULT_LENGTH = 4;
-const SEPARATE_DIGITS_LIMIT = 6;
-
-const getMinLength = (length, minLength) => (length || minLength || 0);
-const getMaxLength = (length, maxLength) => (length || maxLength || DEFAULT_LENGTH);
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
-const normalizeValue = (value, length) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, length) : '');
-const normalizeValueProp = ({value, length, maxLength}) => normalizeValue(value, getMaxLength(length, maxLength));
+const normalizeValue = (value, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, maxLength) : '');
+const normalizeValueProp = ({value, maxLength}) => normalizeValue(value, maxLength);
 
 const NumberCell = kind({
 	name: 'NumberCell',
@@ -70,7 +65,6 @@ const NumberFieldBase = kind({
 		css: PropTypes.object,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
-		length: PropTypes.number,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
 		numericInputKind: PropTypes.string,
@@ -82,6 +76,8 @@ const NumberFieldBase = kind({
 	},
 
 	defaultProps: {
+		maxLength: DEFAULT_LENGTH,
+		minLength: 0,
 		numericInputKind: 'auto',
 		type: 'number'
 	},
@@ -94,19 +90,17 @@ const NumberFieldBase = kind({
 	handlers: {
 		onAdd: handle(
 			adaptEvent(
-				({key}, {length, maxLength, value}) => ({value: normalizeValue(`${value}${key}`, getMaxLength(length, maxLength))}),
+				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
-					({value: updatedValue}, {value, length, maxLength}) => (normalizeValue(updatedValue, getMaxLength(length, maxLength)) !== normalizeValue(value, getMaxLength(length, maxLength))),
+					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {length, maxLength, minLength}) => {
+					({value: updatedValue}, {maxLength, minLength}) => {
 						const
-							min = getMinLength(length, minLength),
-							max = getMaxLength(length, maxLength),
-							updatedLength = normalizeValue(updatedValue, max).length,
-							autoSubmit = min === max;
-						return autoSubmit && updatedLength >= max;
+							updatedLength = normalizeValue(updatedValue, maxLength).length,
+							autoSubmit = minLength === maxLength;
+						return autoSubmit && updatedLength >= maxLength;
 					},
 					forward('onComplete'),
 				)
@@ -114,23 +108,21 @@ const NumberFieldBase = kind({
 		),
 		onRemove: handle(
 			adaptEvent(
-				(ev, {value, length, maxLength}) => ({value: normalizeValue(value, getMaxLength(length, maxLength)).toString().slice(0, -1)}),
+				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				forward('onChange')
 			)
 		),
 		onSubmit: handle(
 			adaptEvent(
-				(ev, {length, maxLength, value}) => ({value: normalizeValue(value, getMaxLength(length, maxLength))}),
+				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
 				forward('onComplete')
 			),
 		)
 	},
 
 	computed: {
-		className: ({length, maxLength, minLength, numericInputKind, type, styler}) => {
-			const min = getMinLength(length, minLength);
-			const max = getMaxLength(length, maxLength);
-			const numberFieldStyle = getSeparated(numericInputKind, max) ? 'separated' : 'joined';
+		className: ({maxLength, numericInputKind, type, styler}) => {
+			const numberFieldStyle = getSeparated(numericInputKind, maxLength) ? 'separated' : 'joined';
 			return styler.append(type, numberFieldStyle);
 		},
 		// Normalize the value, also prune out any non-digit characters
@@ -145,12 +137,10 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, invalid, length, maxLength, minLength, onSubmit, value}) => {
-			const max = getMaxLength(length, maxLength),
-				min = getMinLength(length, minLength),
-				disabled = invalid || (normalizeValue(value, max).toString().length < min);
+		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
+			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (min !== max) {
+			if (minLength !== maxLength) {
 				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
@@ -158,7 +148,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({css, invalidTooltip, length, maxLength, numericInputKind, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
+	render: ({css, invalidTooltip, maxLength, numericInputKind, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.invalid;
 		delete rest.invalidMessage;
@@ -167,14 +157,12 @@ const NumberFieldBase = kind({
 		delete rest.onSubmit;
 		delete rest.rtl;
 
-		const
-			max = getMaxLength(length, maxLength),
-			separated = getSeparated(numericInputKind, max);
+		const separated = getSeparated(numericInputKind, maxLength);
 
 		let field;
 		if (separated) {
 			const values = value.split('');
-			const items = new Array(max).fill('');
+			const items = new Array(maxLength).fill('');
 			field = (
 				<Repeater
 					aria-label={!password ? values.join(' ') : null}
