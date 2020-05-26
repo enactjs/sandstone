@@ -261,7 +261,12 @@ const InputPopupBase = kind({
 
 	computed: {
 		maxLength: ({length, maxLength}) => (length || maxLength),
-		minLength: ({length, minLength}) => (length || minLength) || (typeof minLength === 'undefined' ? DEFAULT_LENGTH : minLength),
+		minLength: ({length, maxLength, minLength}) => {
+			if (length) return length;
+			if (minLength != null) return minLength;
+			if (maxLength != null) return maxLength;
+			return DEFAULT_LENGTH;
+		},
 		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
 	},
 
