@@ -36,46 +36,43 @@ const NavigationButton = kind({
 	name: 'NavigationButton',
 
 	propTypes: {
-		button: PropTypes.oneOfType([
+		component: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.element,
-			PropTypes.function
+			PropTypes.func
 		]),
 		onClick: PropTypes.func,
 		visible: PropTypes.bool
 	},
 
-	render: ({button, visible, ...rest}) => {
+	render: ({component, visible, ...rest}) => {
 
-		if ((React.isValidElement(button)) && visible) {
+		if (React.isValidElement(component)) {
 
-			Object.keys(button.props).forEach(key => {
-				// Using the provided prop values as defaults for any button.props value that is
+			Object.keys(component.props).forEach(key => {
+				// Using the provided prop values as defaults for any component.props value that is
 				// strictly undefined. This follows React's convention for default props in which a
 				// default is used when a prop is either explicitly undefined or omitted and
 				// therefore implicitly undefined.
-				//
-				// eslint-disable-next-line no-undefined
-				if (button.props[key] !== undefined) {
-					rest[key] = button.props[key];
+				if (typeof component.props[key] !== 'undefined') {
+					rest[key] = component.props[key];
 				}
 			});
 
-			const Type = button.type;
+			const Type = component.type;
 			return (
 				<Type {...rest} />
 			);
 		} else if (
 			// Explicitly disabled via false/null or visible is set to false
-			(button === false || button === null || !visible) ||
+			(component === false || component === null) ||
 			// Using the default config and hidden at this time
-			// eslint-disable-next-line no-undefined
-			(button === undefined && !visible)
+			(typeof component === 'undefined' && !visible)
 		) {
 			return null;
 		}
 
-		const Component = typeof button === 'function' ? button : Button;
+		const Component = (typeof component === 'function') ? component : Button;
 
 		return (
 			<Component {...rest} />
@@ -313,8 +310,9 @@ const PanelBase = kind({
 				<Row>
 					<Cell align="center" shrink>
 						<NavigationButton
+							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
-							button={prevButton}
+							component={prevButton}
 							icon="arrowlargeleft"
 							onClick={handleDecrement}
 							size="small"
@@ -324,8 +322,9 @@ const PanelBase = kind({
 					<Cell className={css.content} shrink>{children}</Cell>
 					<Cell align="center" shrink>
 						<NavigationButton
+							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
-							button={nextButton}
+							component={nextButton}
 							icon="arrowlargeright"
 							onClick={handleIncrement}
 							size="small"
