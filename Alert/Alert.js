@@ -186,8 +186,7 @@ const AlertBase = kind({
 			},
 			type
 		),
-		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral')),
-		subtitle: ({title, subtitle}) => (title ? subtitle : '')
+		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
 	},
 
 	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
@@ -200,7 +199,7 @@ const AlertBase = kind({
 					{fullscreen ?
 						<Cell shrink align="stretch">
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
-							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
+							<BodyText centered className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</BodyText>
 						</Cell> :
 						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
 							{children}
