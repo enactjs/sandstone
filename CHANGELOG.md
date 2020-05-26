@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/ImageItem` public class names `fullImage`
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
 - `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
 - `sandstone/DayPicker` component
