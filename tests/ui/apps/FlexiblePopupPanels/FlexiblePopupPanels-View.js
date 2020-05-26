@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import {adaptEvent, handle, forward} from '@enact/core/handle';
 import spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import Toggleable from '@enact/ui/Toggleable';
