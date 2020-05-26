@@ -23,17 +23,19 @@ class VirtualGridListNativeSample extends Component {
 			// Wait 5 seconds
 			timerCount++;
 
-			// Execute scrollto for 10 seconds
+			// Execute scrollTo for 10 seconds
 			if (timerCount >= 5 && (timerCount < 10)) {
-				scrollTo({animate: true, focus: false, index: 200 * (timerCount - 2)});
+				scrollTo({animate: true, focus: false, index: 100 * (timerCount - 4)});
 			}
 
-			if (timerCount >= 15) {
-				// Wait 5 seconds
+			// Wait for 10 Sec (10~19)
+
+			// Stop and show result
+			if (timerCount === 20) {
 				clearInterval(setintervalId);
 
 				console.log(window.performanceData);
-				console.log('Average JS execution time: ' + window.performanceData.reduce((cur, sum) => sum += cur) / window.performanceData.length);
+				console.log('Average JS execution time: ' + window.performanceData.reduce((cur, sum) => (sum += cur)) / window.performanceData.length);
 			}
 		}, 1000);
 	}
