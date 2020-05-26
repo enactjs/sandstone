@@ -66,79 +66,6 @@ class ContextualPopupWithActivator extends React.Component {
 	}
 }
 
-// PLAT-77119
-class ContextualPopupWithArrowFunction extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isOpen: false,
-			twoGroup: false
-		};
-	}
-
-	componentDidUpdate (prevProps, prevState) {
-		if (this.ref && this.state.twoGroup !== prevState.twoGroup) {
-			this.ref.positionContextualPopup();
-		}
-	}
-
-	handleOnClick = () => {
-		this.setState({isOpen: true});
-	}
-
-	handleItemClick = () => {
-		this.setState((state) => {
-			return {twoGroup: !state.twoGroup};
-		});
-	}
-
-	setRef = (node) => {
-		this.ref = node;
-	}
-
-	popupComponent = () => {
-		return (
-			<div style={{display: 'flex'}}>
-				<div style={{display: 'flex'}}>
-					<Group
-						childComponent={CheckboxItem}
-						select="multiple"
-						selectedProp="selected"
-						onClick={this.handleItemClick}
-					>
-						{['click to change layout']}
-					</Group>
-				</div>
-				{this.state.twoGroup ?
-					<div style={{display: 'flex'}}>
-						<Group
-							childComponent={CheckboxItem}
-							select="multiple"
-							selectedProp="selected"
-						>
-							{['dummy item']}
-						</Group>
-					</div> : null
-				}
-			</div>
-		);
-	};
-	render () {
-		const {...rest} = this.props;
-
-		return (
-			<div {...rest} style={{display: 'flex', justifyContent: 'flex-end'}}>
-				<ContextualPopup
-					ref={this.setRef}
-					popupComponent={this.popupComponent}
-					open={this.state.isOpen}
-					onClick={this.handleOnClick}
-				/>
-			</div>
-		);
-	}
-}
-
 storiesOf('ContextualPopupDecorator', module)
 	.add(
 		'with 5-way selectable activator',
@@ -249,11 +176,5 @@ storiesOf('ContextualPopupDecorator', module)
 					</ContextualPopupWithActivator>
 				</div>
 			</div>
-		)
-	)
-	.add(
-		'with arrow function',
-		() => (
-			<ContextualPopupWithArrowFunction />
 		)
 	);
