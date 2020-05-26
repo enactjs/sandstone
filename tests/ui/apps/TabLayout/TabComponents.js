@@ -5,7 +5,10 @@ import {Tab} from '../../../../TabLayout';
 
 export const tabs = [
 	<Tab title="One">
-		<div id="view1">View One</div>
+		<div id="view1">
+			View One
+			<Button id="button1">Button One</Button>
+		</div>
 	</Tab>,
 	<Tab title="Two">
 		<div id="view2"><Button id="button2">Button Two</Button></div>

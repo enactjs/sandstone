@@ -13,24 +13,16 @@
 import Routable, {Route} from '@enact/ui/Routable';
 
 import Header, {HeaderBase} from './Header';
-import FlexiblePopupPanels from './FlexiblePopupPanels';
-import FixedPopupPanels from './FixedPopupPanels';
 import Panel from './Panel';
 import Panels from './Panels';
-import WizardPanel, {View, WizardPanelBase} from './WizardPanel';
 
 export default Panels;
 export {
 	Header,
 	HeaderBase,
-	FlexiblePopupPanels,
-	FixedPopupPanels,
 	Panel,
 	Panels,
 	Panels as PanelsBase,
-	View,
-	WizardPanel,
-	WizardPanelBase,
 
 	/**
 	 * A higher-order component that provides support for mapping Routes as children of a component
