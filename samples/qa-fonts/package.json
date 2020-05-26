@@ -1,6 +1,6 @@
 {
   "name": "qa-fonts",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A way to verify and validate that fonts are loaded and defined.",
   "author": "",
   "main": "src/index.js",

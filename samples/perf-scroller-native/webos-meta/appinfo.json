@@ -1,0 +1,13 @@
+{
+  "id": "enact.perf.scroller.native",
+  "version": "0.1.0",
+  "vendor": "LGE-SWP",
+  "type": "web",
+  "main": "index.html",
+  "title": "Perf Scroller Native",
+  "icon": "icon.png",
+  "miniicon": "icon-mini.png",
+  "largeIcon": "icon-large.png",
+  "uiRevision": 1,
+  "useNativeScroll": true
+}
