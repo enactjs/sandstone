@@ -746,6 +746,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			delete props.onPlay;
 			delete props.onRewind;
 			delete props.onToggleMore;
+			delete props.rateDisabled;
 			delete props.setApiProvider;
 
 			return (
