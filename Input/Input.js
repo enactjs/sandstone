@@ -260,9 +260,9 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
-		popupClassName: ({popupType, styler}) => styler.join('popup', popupType),
 		maxLength: ({length, maxLength}) => (length || maxLength),
-		minLength: ({length, minLength}) => (length || minLength)
+		minLength: ({length, minLength}) => (length || minLength),
+		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
 	},
 
 	render: ({
