@@ -14,6 +14,7 @@ import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import BodyText from '../BodyText';
 import Heading from '../Heading';
 import Popup from '../Popup';
 
@@ -52,7 +53,8 @@ const AlertBase = kind({
 		/**
 		 * The contents of the body of the component.
 		 *
-		 * Only shown when `type="overlay"`
+		 * Only shown when `type="overlay"`. If `children` is text-only, it will be wrapped with
+		 * [BodyText]{@link sandstone/BodyText}.
 		 *
 		 * @type {Node}
 		 * @public
@@ -181,6 +183,13 @@ const AlertBase = kind({
 				return null;
 			}
 		},
+		cellComponent: ({children}) => {
+			if (typeof children === 'string' ||
+				Array.isArray(children) && children.every(child => (child == null || typeof child === 'string'))
+			) {
+				return BodyText;
+			}
+		},
 		className: ({buttons, image, type, styler}) => styler.append(
 			{
 				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
@@ -192,7 +201,7 @@ const AlertBase = kind({
 		subtitle: ({title, subtitle}) => (title ? subtitle : '')
 	},
 
-	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
+	render: ({buttons, cellComponent, children, css, id, image, title, subtitle, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
 		return (
@@ -204,7 +213,7 @@ const AlertBase = kind({
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
 							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
 						</Cell> :
-						<Cell shrink className={css.content} id={`${id}content`}>
+						<Cell component={cellComponent} shrink className={css.content} id={`${id}content`}>
 							{children}
 						</Cell>
 					}
