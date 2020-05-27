@@ -22,6 +22,11 @@ import DefaultHeader from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
 
+function clamp (val, total) {
+	// The extra two `total` values here accommodate negative values
+	return (((val % total) + total) % total);
+}
+
 const FlexiblePopupPanelsDecorator = compose(
 	PopupDecorator({
 		className: 'flexiblePopupPanels',
@@ -226,9 +231,8 @@ const PanelBase = kind({
 	handlers: {
 		handleDecrement: handle(
 			adaptEvent(
-				(ev, props, {index}) => {
-					const prevIndex = index > 0 ? (index - 1) : index;
-					return ({index: prevIndex});
+				(ev, props, {count, index}) => {
+					return ({index: clamp(index - 1, count)}); // wrap around
 				},
 				forward('onChange')
 			)
@@ -236,8 +240,7 @@ const PanelBase = kind({
 		handleIncrement: handle(
 			adaptEvent(
 				(ev, props, {count, index}) => {
-					const nextIndex = index < (count - 1) ? index + 1 : index;
-					return ({index: nextIndex});
+					return ({index: clamp(index + 1, count)}); // wrap around
 				},
 				forward('onChange')
 			)
@@ -253,9 +256,9 @@ const PanelBase = kind({
 			nextButtonVisibility,
 			prevButton,
 			prevButtonVisibility
-		}, {count, index}) => {
-			const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
-			const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < count - 1);
+		}, {count}) => {
+			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count));
+			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count));
 
 			return (
 				<Row>
@@ -371,7 +374,7 @@ const HeaderBase = kind({
 	computed: {
 		backButtonAriaLabel: ({closeButtonAriaLabel}) => closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel,
 		backButtonBackgroundOpacity: ({closeButtonBackgroundOpacity}) => closeButtonBackgroundOpacity,
-		className: ({styler}, {index}) => styler.append({'showBack': index > 0}),
+		className: ({noCloseButton, styler}, {count}) => styler.append({'showBack': (count > 1 && noCloseButton)}),
 		noBackButton: ({noCloseButton}) => noCloseButton,
 		onBack: ({onClose}) => onClose
 	},
