@@ -2,37 +2,36 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-beta.4] - 2020-05-26
 
 ### Removed
 
 - `sandstone/Panels` prop `featureContent`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View`, and `sandstone/Panels.WizardPanels` aliases
 - `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
-- `sandstone/WizardPanels` prop `footer`
-- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View` and `sandstone/Panels.WizardPanels` aliases
-- `sandstone/WizardPanels` prop `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
 - `sandstone/WizardPanels` prop `buttons`, put buttons inside `footer` instead
+- `sandstone/WizardPanels` props `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
 
 ### Added
 
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
-- `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
 - `sandstone/DayPicker` component
-- `sandstone/Input` props `maxLength`, `minLength`, and `numberInputField` to support arbitrary number lengths
+- `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
+- `sandstone/ImageItem` public class names `fullImage`, `horizontal`, and `vertical`
 - `sandstone/Input` props `invalid` and `invalidMessage` to mirror the API of `InputField`
-- `sandstone/ImageItem` public class names `fullImage`, `horizontal` and `vertical`
+- `sandstone/Input` props `maxLength`, `minLength`, and `numberInputField` to support arbitrary number lengths
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
-- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
 - `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
 
 ### Fixed
 
-- `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
+- `sandstone/Scroller` and `sandstone/VirtualList` to properly handle keydown events
 - `sandstone/TabLayout` default focus rules
 - `sandstone/Tooltip` style to match latest designs
-- `sandstone/VideoPlayer` to jump to left direction using left key via 5-way
+- `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
