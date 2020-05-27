@@ -99,6 +99,11 @@ const FlexiblePopupPanelsBase = kind({
 		prevButtonVisibility: 'auto'
 	},
 
+	styles: {
+		css,
+		className: 'viewport'
+	},
+
 	computed: {
 		children: ({children, nextButtonVisibility, onChange, prevButtonVisibility}) => React.Children.map(children, (child) => {
 			if (child) {
@@ -261,12 +266,13 @@ const PanelBase = kind({
 			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count));
 
 			return (
-				<Row>
-					<Cell align="center" shrink>
+				<Row className={css.bodyLayout}>
+					<Cell align="center" shrink className={css.navCellBefore}>
 						<NavigationButton
 							aria-label={$L('Previous')}
 							backgroundOpacity="transparent"
 							component={prevButton}
+							className={css.navButton}
 							icon="arrowlargeleft"
 							onClick={handleDecrement}
 							size="small"
@@ -274,11 +280,12 @@ const PanelBase = kind({
 						/>
 					</Cell>
 					<Cell className={css.content} shrink>{children}</Cell>
-					<Cell align="center" shrink>
+					<Cell align="center" shrink className={css.navCellAfter}>
 						<NavigationButton
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
 							component={nextButton}
+							className={css.navButton}
 							icon="arrowlargeright"
 							onClick={handleIncrement}
 							size="small"
