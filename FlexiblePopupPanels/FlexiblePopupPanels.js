@@ -262,8 +262,8 @@ const PanelBase = kind({
 			prevButton,
 			prevButtonVisibility
 		}, {count}) => {
-			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count));
-			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count));
+			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
+			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
 
 			return (
 				<Row className={css.bodyLayout}>
