@@ -27,7 +27,7 @@
 			content: "";
 			position: absolute;
 			.position(auto, 0, 0, 0);
-			height: 720px;
+			height: 1800px;
 			transform-origin: bottom;
 			// Fancier gradient for future reference. Keeping linear-gradient as specified from Enyo.
 			// background-image: radial-gradient(rgba(0, 0, 0, 0) 50%, #000000 100%);
@@ -114,8 +114,8 @@
 		}
 
 		.overlay {
-			&.high-contrast-scrim::after {
-				background: @sand-video-player-high-contrast-scrim-gradient-color
+			&.scrim::after {
+				background: @sand-video-player-scrim-gradient-color
 			}
 		}
 	});
