@@ -38,6 +38,14 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const ContextChildren = (property) => ({context: Context, children}) => {
+	const context = React.useContext(Context);
+
+	return context && context[property] || children;
+};
+const ContextText = ContextChildren('text');
+const ContextSubText = ContextChildren('subText');
+
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -202,7 +210,7 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({children, context, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
@@ -218,8 +226,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+						<Marquee className={css.caption} marqueeOn="hover"><ContextText context={context}>{children}</ContextText></Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover"><ContextSubText context={context}>{label}</ContextSubText></Marquee> : null}
 					</Cell>
 				</Row>
 			);
@@ -230,6 +238,7 @@ const ImageItemBase = kind({
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
+		delete rest.context;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.label;

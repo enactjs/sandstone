@@ -5,6 +5,7 @@ import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 const items = [];
+const ImageItemContext = React.createContext({text: '', subText: ''});
 
 for (let i = 0; i < 1000; i++) {
 	const count = ('00' + i).slice(-3);
@@ -12,6 +13,22 @@ for (let i = 0; i < 1000; i++) {
 		text: 'Item ' + count,
 		subText: 'SubItem ' + count
 	});
+}
+
+const ItemWrapper = ({item, rest}) => {
+	const element = React.useRef(null);
+
+	element.current = element.current || (
+		<ImageItem
+			{...rest}
+			context={ImageItemContext}
+			label={item.subText}
+		>
+			{item.text}
+		</ImageItem>
+	);
+
+	return element.current;
 }
 
 class VirtualGridListNativeSample extends Component {
@@ -46,12 +63,11 @@ class VirtualGridListNativeSample extends Component {
 
 	renderItem = ({index, ...rest}) => {
 		return (
-			<ImageItem
-				{...rest}
-				label={items[index].subText}
-			>
-				{items[index].text}
-			</ImageItem>
+			<ImageItemContext.Provider value={{
+				...items[index]
+			}}>
+				<ItemWrapper {...rest} item={items[index]} />
+			</ImageItemContext.Provider>
 		);
 	}
 
