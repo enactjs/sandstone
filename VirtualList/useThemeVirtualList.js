@@ -1,7 +1,10 @@
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
+import utilDOM from '@enact/ui/useScroll/utilDOM';
 import React, {useCallback, useEffect, useRef} from 'react';
 
 import {affordanceSize, dataIndexAttribute} from '../useScroll';
@@ -33,7 +36,6 @@ const useSpottable = (props, instances) => {
 		isScrolledByJump: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
-		nodeIndexToBeFocused: false,
 		pause: new Pause('VirtualListBasic')
 	});
 
@@ -49,7 +51,8 @@ const useSpottable = (props, instances) => {
 		},
 		handleDirectionKeyDown: (ev, eventType, param) => {
 			switch (eventType) {
-				case 'acceleratedKeyDown': onAcceleratedKeyDown(param);
+				case 'acceleratedKeyDown':
+					onAcceleratedKeyDown(param);
 					break;
 				case 'keyDown':
 					if (Spotlight.move(param.direction)) {
@@ -63,7 +66,8 @@ const useSpottable = (props, instances) => {
 						}
 					}
 					break;
-				case 'keyLeave': SpotlightAccelerator.reset();
+				case 'keyLeave':
+					SpotlightAccelerator.reset();
 					break;
 			}
 		},
@@ -82,7 +86,7 @@ const useSpottable = (props, instances) => {
 		handleRestoreLastFocus,
 		setPreservedIndex,
 		updateStatesAndBounds
-	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {getItemNode});
+	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {focusByIndex, getItemNode});
 
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
@@ -113,18 +117,12 @@ const useSpottable = (props, instances) => {
 
 	// Functions
 
-	function getNodeIndexToBeFocused () {
-		return mutableRef.current.nodeIndexToBeFocused;
-	}
-
-	function setNodeIndexToBeFocused (index) {
-		mutableRef.current.nodeIndexToBeFocused = index;
-	}
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
 		const index = getNumberValue(target.dataset.index);
+		const direction = getDirection(keyCode);
 
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;
@@ -136,89 +134,76 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
 			if (start >= startBoundary && end <= endBoundary) {
 				// The next item could be still out of viewport. So we need to prevent scrolling into view with `isScrolledBy5way` flag.
 				mutableRef.current.isScrolledBy5way = true;
-				focusByIndex(nextIndex);
+				focusByIndex(nextIndex, direction);
 				mutableRef.current.isScrolledBy5way = false;
 			} else if (row === nextRow) {
-				focusByIndex(nextIndex);
+				focusByIndex(nextIndex, direction);
 			} else {
 				const itemNode = getItemNode(nextIndex);
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
 
-				if (isWrapped && itemNode === null) {
-					if (wrap === true) {
-						pause.pause();
-						target.blur();
-					} else {
-						focusByIndex(nextIndex);
-					}
-
-					setNodeIndexToBeFocused(nextIndex);
-				} else {
-					focusByIndex(nextIndex);
+				if (isWrapped && wrap === true && itemNode === null) {
+					pause.pause();
+					target.blur();
 				}
+				focusByIndex(nextIndex, direction);
 
 				cbScrollTo({
 					index: nextIndex,
 					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
+					offset: (!noAffordance && index < nextIndex) ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
-		} else if (!repeat && Spotlight.move(getDirection(keyCode))) {
+		} else if (!repeat && Spotlight.move(direction)) {
 			SpotlightAccelerator.reset();
 		}
 	}
 
 	function focusOnNode (node) {
 		if (node) {
-			Spotlight.focus(node);
+			return Spotlight.focus(node);
 		}
+
+		return false;
 	}
 
-	function focusByIndex (index) {
+	function focusByIndex (index, direction) {
 		const itemNode = getItemNode(index);
+		let returnVal = false;
 
 		if (!itemNode && index >= 0 && index < props.dataSize) {
 			// Item is valid but since the the dom doesn't exist yet, we set the index to focus after the ongoing update
-			setPreservedIndex(index);
+			setPreservedIndex(index, direction);
 		} else {
+			const
+				current = Spotlight.getCurrent(),
+				candidate = current ? getTargetByDirectionFromElement(direction, current) : itemNode;
+
 			if (mutableRef.current.isWrappedBy5way) {
 				SpotlightAccelerator.reset();
 				mutableRef.current.isWrappedBy5way = false;
 			}
 
 			pause.resume();
-			focusOnNode(itemNode);
-			setNodeIndexToBeFocused(null);
+			if (utilDOM.containsDangerously(itemNode, candidate)) {
+				returnVal = focusOnNode(candidate);
+			} else {
+				returnVal = focusOnNode(itemNode);
+			}
 			mutableRef.current.isScrolledByJump = false;
 		}
-	}
 
-	function initItemRef (ref, index) {
-		if (ref) {
-			if (scrollMode === 'translate') {
-				focusByIndex(index);
-			} else {
-				// If focusing the item of VirtuallistNative, `onFocus` in Scrollable will be called.
-				// Then VirtualListNative tries to scroll again differently from VirtualList.
-				// So we would like to skip `focus` handling when focusing the item as a workaround.
-				mutableRef.current.isScrolledByJump = true;
-				focusByIndex(index);
-			}
-		}
-	}
-
-	function isNeededScrollingPlaceholder () {
-		return mutableRef.current.nodeIndexToBeFocused != null && Spotlight.isPaused();
+		return returnVal;
 	}
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
@@ -226,7 +211,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -240,7 +225,6 @@ const useSpottable = (props, instances) => {
 				}
 			}
 
-			setNodeIndexToBeFocused(null);
 			mutableRef.current.lastFocusedIndex = focusedIndex;
 
 			if (primary.clientSize >= primary.itemSize) {
@@ -289,17 +273,13 @@ const useSpottable = (props, instances) => {
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
-		getNodeIndexToBeFocused,
 		getScrollBounds,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
-		initItemRef,
-		isNeededScrollingPlaceholder,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder,
 		updateStatesAndBounds
 	};
 };
@@ -315,17 +295,13 @@ const useThemeVirtualList = (props) => {
 		calculatePositionOnFocus,
 		focusByIndex,
 		focusOnNode,
-		getNodeIndexToBeFocused,
 		getScrollBounds,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
-		initItemRef,
-		isNeededScrollingPlaceholder,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus,
-		SpotlightPlaceholder, // eslint-disable-line no-shadow
 		updateStatesAndBounds
 	} = useSpottable(props, instance);
 
@@ -343,19 +319,11 @@ const useThemeVirtualList = (props) => {
 	};
 	useEffect(() => {
 		props.setThemeScrollContentHandle(handle);
-	}, [handle, props, props.setThemeScrollContentHandle]);
-
-	// Functions
-
-	function getComponentProps (index) {
-		return (index === getNodeIndexToBeFocused()) ? {ref: (ref) => initItemRef(ref, index)} : {};
-	}
+	}, [handle, props]);
 
 	// Render
 
-	const
-		{itemRenderer, role, ...rest} = props,
-		needsScrollingPlaceholder = isNeededScrollingPlaceholder();
+	const {itemRenderer, ...rest} = props;
 
 	// not used by VirtualList
 	delete rest.focusableScrollbar;
@@ -370,7 +338,6 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
-		getComponentProps,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
 				...itemRest,
@@ -378,13 +345,10 @@ const useThemeVirtualList = (props) => {
 				index
 			})
 		),
-		itemsRenderer: (itemsRendererProps) => {
-			return listItemsRenderer({
-				...itemsRendererProps,
-				handlePlaceholderFocus: handlePlaceholderFocus,
-				needsScrollingPlaceholder,
-				role,
-				SpotlightPlaceholder
+		placeholderRenderer: (primary) => {
+			return placeholderRenderer({
+				handlePlaceholderFocus,
+				primary
 			});
 		},
 		onUpdateItems: handleRestoreLastFocus,
@@ -393,36 +357,21 @@ const useThemeVirtualList = (props) => {
 };
 
 /* eslint-disable enact/prop-types */
-function listItemsRenderer (props) {
-	const {
-		cc,
-		handlePlaceholderFocus,
-		needsScrollingPlaceholder,
-		primary,
-		role,
-		SpotlightPlaceholder // eslint-disable-line no-shadow
-	} = props;
-
-	return (
-		<>
-			{cc.length ? (
-				<div role={role}>{cc}</div>
-			) : null}
-			{primary ? null : (
-				<SpotlightPlaceholder
-					data-index={0}
-					data-vl-placeholder
-					// a zero width/height element can't be focused by spotlight so we're giving
-					// the placeholder a small size to ensure it is navigable
-					onFocus={handlePlaceholderFocus}
-					style={{width: 10}}
-				/>
-			)}
-			{needsScrollingPlaceholder ? (
-				<SpotlightPlaceholder />
-			) : null}
-		</>
-	);
+function placeholderRenderer ({
+	handlePlaceholderFocus,
+	primary
+}) {
+	return (primary ? null : (
+		<SpotlightPlaceholder
+			data-index={0}
+			data-vl-placeholder
+			key="placeholder"
+			// a zero width/height element can't be focused by spotlight so we're giving
+			// the placeholder a small size to ensure it is navigable
+			onFocus={handlePlaceholderFocus}
+			style={{width: 10}}
+		/>
+	));
 }
 /* eslint-enable enact/prop-types */
 

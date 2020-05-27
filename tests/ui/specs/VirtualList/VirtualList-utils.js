@@ -40,5 +40,6 @@ function waitForScrollStartStop (timeout = 3000) {
 
 exports.expectFocusedItem = expectFocusedItem;
 exports.expectNoFocusedItem = expectNoFocusedItem;
+exports.focusedElement = focusedElement;
 exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;

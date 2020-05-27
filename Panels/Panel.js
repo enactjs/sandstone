@@ -1,19 +1,17 @@
-import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
-import Measurable from '@enact/ui/Measurable';
-import {scale} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
-import {PanelsStateContext} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
-import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
+
+import {ContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
 
@@ -34,7 +32,6 @@ let panelId = 0;
 const PanelBase = kind({
 	name: 'Panel',
 
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -122,19 +119,7 @@ const PanelBase = kind({
 		 * @default false
 		 * @public
 		 */
-		hideChildren: PropTypes.bool,
-
-		/**
-		 * The method which receives the reference node to the title element, used to determine
-		 * the `titleMeasurements` of the header.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		titleRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		])
+		hideChildren: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -157,7 +142,9 @@ const PanelBase = kind({
 			}
 		),
 		spotOnRender: (node, {autoFocus}) => {
-			if (node && !Spotlight.getCurrent()) {
+			if (node) {
+				// FIXME: This is a candidate to move to the decorator once hooks have been fully
+				// adopted and we can configure SpotlightContainerDecorator with the current props
 				const {spotlightId} = node.dataset;
 				const config = {
 					enterTo: 'last-focused'
@@ -172,18 +159,15 @@ const PanelBase = kind({
 				}
 
 				Spotlight.set(spotlightId, config);
-				Spotlight.focus(spotlightId);
+
+				if (!Spotlight.getCurrent() && !Spotlight.isPaused()) {
+					Spotlight.focus(spotlightId);
+				}
 			}
 		}
 	},
 
 	computed: {
-		backButtonAvailable: (props, context) => {
-			if (!context) {
-				return;
-			}
-			return context.index > 0 && context.type !== 'wizard';
-		},
 		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
 			// In order to spot the body components, we defer spotting until !hideChildren. If the
 			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -199,51 +183,32 @@ const PanelBase = kind({
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
-		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
-		headerType: (props, context) => {
-			if (!context) {
-				return;
-			}
-
-			switch (context.type) {
-				case 'fixedPopup': return 'compact';
-				case 'flexiblePopup': return 'mini';
-				case 'wizard': return 'wizard';
-			}
-		}
+		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
 	},
 
 	render: ({
-		backButtonAvailable,
 		bodyClassName,
 		children,
 		css,
+		entering,
 		header,
 		headerId,
-		headerType,
-		hideChildren,
 		spotOnRender,
-		titleRef,
 		...rest
 	}) => {
 		delete rest.autoFocus;
-
-		const headerProps = {};
-		if (headerType != null) headerProps.type = headerType;
-		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
+		delete rest.hideChildren;
 
 		return (
 			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						{...headerProps}
-						entering={hideChildren && Spotlight.getPointerMode()}
-						titleRef={titleRef}
+						entering={entering}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
@@ -251,6 +216,21 @@ const PanelBase = kind({
 		);
 	}
 });
+
+
+const PanelDecorator = compose(
+	ContextAsDefaults,
+	SharedStateDecorator({idProp: 'data-index'}),
+	SpotlightContainerDecorator({
+		// prefer any spottable within the panel body for first render
+		continue5WayHold: true,
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
+		enterTo: 'last-focused',
+		preserveId: true
+	}),
+	Slottable({slots: ['header']}),
+	Skinnable
+);
 
 /**
  * Prevents the component from restoring any framework shared state.
@@ -265,76 +245,7 @@ const PanelBase = kind({
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const RootPanel = SharedStateDecorator(
-	{idProp: 'data-index'},
-	SpotlightContainerDecorator(
-		{
-			// prefer any spottable within the panel body for first render
-			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
-			enterTo: 'last-focused',
-			preserveId: true
-		},
-		Slottable(
-			{slots: ['header']},
-			Skinnable(
-				PanelBase
-			)
-		)
-	)
-);
-
-/**
- * Applies behaviors to [Panel]{@link sandstone/Panels.Panel} to support `featureContent`
- *
- * @class FeatureContentDecorator
- * @hoc
- * @memberof sandstone/Panels
- * @private
- */
-const FeatureContentDecorator = (Wrapped) => {
-	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
-		ScrollPositionDecorator({valueProp: 'shouldFeatureContent', transform: ({y}) => (y > scale(360))},
-			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
-				const {shouldFeatureContent} = useScrollPosition();
-
-				const enhancedStyle = {
-					...style,
-					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || '0px'
-				};
-
-				const enhancedClassName = classnames(
-					className,
-					shouldFeatureContent ? componentCss.shouldFeatureContent : '',
-					componentCss.featureContent
-				);
-				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
-			}
-		)
-	);
-};
-
-const FeatureContentPanel = FeatureContentDecorator(RootPanel);
-
-// This is a work around until we could implement a hook-based solution
-function Panel ({featureContent, ...rest}) {
-	if (featureContent) {
-		return <FeatureContentPanel {...rest} />;
-	}
-
-	return <RootPanel {...rest} />;
-}
-
-Panel.propTypes = {
-	/**
-	 * Features the content of the panel by minimizing the `Header` when scrolling down.
-	 *
-	 * @memberof sandstone/Panels.Panel.prototype
-	 * @type {Boolean}
-	 * @public
-	 */
-	featureContent: PropTypes.bool
-};
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
 export {Panel, PanelBase};

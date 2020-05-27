@@ -7,6 +7,7 @@
  * @module sandstone/DatePicker
  * @exports DatePicker
  * @exports DatePickerBase
+ * @exports dateToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
@@ -17,6 +18,13 @@ import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
+
+const labelFormatter = new DateFmt({
+	date: 'dmwy',
+	length: 'full',
+	timezone: 'local',
+	useNative: false
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
@@ -58,14 +66,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const formatter = new DateFmt({
-			date: 'dmwy',
-			length: 'full',
-			timezone: 'local',
-			useNative: false
-		});
-
-		const order = formatter.getTemplate()
+		const order = labelFormatter.getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(/([mdy]+)/ig)
 			.map(s => s[0].toLowerCase());
@@ -90,7 +91,7 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter, order, toLocalYear};
+		return {formatter: labelFormatter, order, toLocalYear};
 	}
 };
 
@@ -156,8 +157,25 @@ const DatePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @function
+ * @memberof sandstone/DatePicker
+ * @param {Date} date `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const dateToLocaleString = (date) => {
+	if (!date) {
+		return null;
+	}
+
+	return labelFormatter.format(date);
+};
+
 export default DatePicker;
 export {
 	DatePicker,
-	DatePickerBase
+	DatePickerBase,
+	dateToLocaleString
 };

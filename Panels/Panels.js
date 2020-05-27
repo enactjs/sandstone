@@ -1,13 +1,15 @@
 import kind from '@enact/core/kind';
 import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
+import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {CancelDecorator, Viewport} from '../internal/Panels';
+import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
+
+import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 
 import componentCss from './Panels.module.less';
 
@@ -200,10 +202,9 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
-		arranger: SlideLeftArranger,
+		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
@@ -228,44 +229,31 @@ const PanelsBase = kind({
 
 	render: ({
 		arranger,
-		backButtonAriaLabel,
-		backButtonBackgroundOpacity,
 		children,
-		closeButtonAriaLabel,
-		closeButtonBackgroundOpacity,
 		css,
 		generateId,
 		id,
 		index,
 		noAnimation,
-		noBackButton,
-		noCloseButton,
 		noSharedState,
-		onClose,
-		onBack,
 		onTransition,
 		onWillTransition,
 		viewportId,
 		...rest
 	}) => {
+		const sharedProps = getSharedProps(rest);
+		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
 				<Viewport
+					{...sharedProps}
 					arranger={arranger}
-					backButtonAriaLabel={backButtonAriaLabel}
-					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
 					className={css.viewport}
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
 					noAnimation={noAnimation}
-					noBackButton={noBackButton}
-					noCloseButton={noCloseButton}
 					noSharedState={noSharedState}
-					onBack={onBack}
-					onClose={onClose}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}
 				>

@@ -1,7 +1,8 @@
 import DatePicker from '@enact/sandstone/DatePicker';
 import Group from '@enact/ui/Group';
-import Input from '@enact/sandstone/Input';
+import {InputField as Input} from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import {Panel, Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
 import RadioItem from '@enact/sandstone/RadioItem';
 import React from 'react';
@@ -9,9 +10,7 @@ import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
 import TimePicker from '@enact/sandstone/TimePicker';
 
-import PanelHeader from '../components/PanelHeader';
-
-import css from './MainView.module.less';
+import Controls from '../components/Controls';
 
 const
 	airports = [
@@ -38,7 +37,7 @@ class MainView extends React.Component {
 			focusableScrollbar: false,
 			height: 4000,
 			nativeScroll: true,
-			width: 1000
+			width: 2000
 		};
 	}
 
@@ -60,49 +59,51 @@ class MainView extends React.Component {
 		const {focusableScrollbar, height, nativeScroll, width} = this.state;
 
 		return (
-			<div className={css.mainView}>
-				<PanelHeader
-					handleFocusableScrollbar={this.handleFocusableScrollbar}
-					handleHeight={this.handleHeight}
-					handleScrollMode={this.handleScrollMode}
-					handleWidth={this.handleWidth}
-					height={height}
-					nativeScroll={nativeScroll}
-					title="Scroller"
-					type="mini"
-					width={width}
-				/>
-				<div className={css.content}>
-					<Scroller
-						focusableScrollbar={focusableScrollbar}
-						scrollMode={nativeScroll ? 'native' : 'translate'}
-					>
-						<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
-							<Input
-								defaultValue="Initial value"
-								title="Input with defaultValue"
-							/>
-							<Picker
-								orientation="vertical"
-								width="medium"
-							>
-								{airports}
-							</Picker>
-							<DatePicker
-								title="DatePicker"
-							/>
-							<RadioItem> FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace </RadioItem>
-							<RadioItem disabled> Default disabled Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text </RadioItem>
-							<Group childComponent={Item}>
-								{itemData}
-							</Group>
-							<TimePicker
-								title="TimePicker"
-							/>
-						</div>
-					</Scroller>
-				</div>
-			</div>
+			<Panel>
+				<Header title="Scroller" type="mini">
+					<Controls
+						handleFocusableScrollbar={this.handleFocusableScrollbar}
+						handleHeight={this.handleHeight}
+						handleScrollMode={this.handleScrollMode}
+						handleWidth={this.handleWidth}
+						height={height}
+						nativeScroll={nativeScroll}
+						width={width}
+					/>
+				</Header>
+				<Scroller
+					focusableScrollbar={focusableScrollbar}
+					key={nativeScroll ? 'native' : 'translate'}
+					scrollMode={nativeScroll ? 'native' : 'translate'}
+				>
+					<div style={{height: `${this.getScaledSize(height)}px`, width: `${this.getScaledSize(width)}px`}}>
+						<Input
+							defaultValue="Initial value"
+							title="Input with defaultValue"
+						/>
+						<br />
+						<Picker
+							orientation="vertical"
+							width="medium"
+						>
+							{airports}
+						</Picker>
+						<br />
+						<DatePicker
+							title="DatePicker"
+						/>
+						<br />
+						<RadioItem> FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace FirstLongTextWithSpace </RadioItem>
+						<RadioItem disabled> Default disabled Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text </RadioItem>
+						<Group childComponent={Item}>
+							{itemData}
+						</Group>
+						<TimePicker
+							title="TimePicker"
+						/>
+					</div>
+				</Scroller>
+			</Panel>
 		);
 	}
 }

@@ -6,12 +6,10 @@
 
 .tail (@edge, @point) {
 	background-image:
-		linear-gradient(to @edge, @sand-tooltip-border-color @sand-tooltip-border-width, transparent @sand-tooltip-border-width), // Edge line
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50% + 1px)", transparent ~"calc(50% + 1px)"); // Diagonal line + fill
+		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
 }
 .centerTail (@edge, @point) {
-	background-image:
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 50%, @sand-tooltip-border-color 50%, @sand-tooltip-border-color ~"calc(50% + 1px)", transparent ~"calc(50% + 1px)"); // Diagonal line + fill
+	.tail (@edge, @point);
 }
 
 .tooltip {
@@ -45,21 +43,21 @@
 		}
 	}
 	&.centerArrow .tooltipArrow {
-		width: ((@sand-tooltip-point-height / 2) + 6px);
+		width: @sand-tooltip-point-height;
 		height: @sand-tooltip-point-width;
 		left: 50%;
 
 		&::after {
-			right: ((@sand-tooltip-point-height / 2) + 1px);
+			right: ~"calc(" @sand-tooltip-point-height ~"- 0.5px)";
 		}
 	}
 	&.middleArrow .tooltipArrow {
 		width: @sand-tooltip-point-width;
-		height: ((@sand-tooltip-point-height / 2) + 4px);
+		height: @sand-tooltip-point-height;
 		top: 50%;
 
 		&::after {
-			bottom: 99%;
+			bottom: 100%;
 			left: 0;
 		}
 	}
@@ -86,11 +84,11 @@
 	// Positioning for the arrow and label
 	&.below {
 		.tooltipArrow {
-			top: (1px + @sand-tooltip-offset);
+			top: @sand-tooltip-arrow-offset;
 		}
 
 		.tooltipLabel {
-			margin-top: (@sand-tooltip-point-height + @sand-tooltip-offset);
+			margin-top: @sand-tooltip-margin-offset;
 		}
 
 		&.leftArrow {
@@ -123,11 +121,11 @@
 
 	&.above {
 		.tooltipArrow {
-			bottom: (1.5px + @sand-tooltip-offset);
+			bottom: @sand-tooltip-arrow-offset;
 		}
 
 		.tooltipLabel {
-			margin-bottom: (@sand-tooltip-point-height + @sand-tooltip-offset);
+			margin-bottom: @sand-tooltip-margin-offset;
 		}
 
 		&.leftArrow {
@@ -161,11 +159,11 @@
 
 	&.left {
 		.tooltipArrow {
-			right: (1px + @sand-tooltip-offset);
+			right: @sand-tooltip-arrow-offset;
 		}
 
 		.tooltipLabel {
-			margin-right: (@sand-tooltip-point-width + @sand-tooltip-offset);
+			margin-right: ~"calc(" @sand-tooltip-margin-offset ~"- 1px)";
 		}
 
 		&.topArrow {
@@ -180,7 +178,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				right: (1.5px + @sand-tooltip-offset);
+				right: @sand-tooltip-arrow-offset;
 			}
 		}
 
@@ -193,11 +191,11 @@
 
 	&.right {
 		.tooltipArrow {
-			left: (1px + @sand-tooltip-offset);
+			left: @sand-tooltip-arrow-offset;
 		}
 
 		.tooltipLabel {
-			margin-left: (@sand-tooltip-point-width + @sand-tooltip-offset);
+			margin-left: @sand-tooltip-margin-offset;
 		}
 
 		&.topArrow {
@@ -212,7 +210,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				left: (1.5px + @sand-tooltip-offset);
+				left: @sand-tooltip-arrow-offset;
 			}
 		}
 
@@ -227,30 +225,40 @@
 	&.absolute {
 		width: 0;
 		height: 0;
+		top: var(--tooltip-position-top);
+		left: var(--tooltip-position-left);
 
 		.tooltipAnchor {
 			position: absolute;
 		}
 
 		&.below {
+			top: ~"calc(var(--tooltip-position-top) + " @sand-tooltip-offset ~")";
+
 			&.leftArrow .tooltipAnchor {	transform: translateX(-100%);	}
 			&.centerArrow .tooltipAnchor {	transform: translateX(-50%);	}
 			&.rightArrow .tooltipAnchor {	/* transform: translate(0, 0); */	}
 		}
 
 		&.above {
+			top: ~"calc(var(--tooltip-position-top) - " @sand-tooltip-offset ~")";
+
 			&.leftArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
 			&.centerArrow .tooltipAnchor {	transform: translate(-50%, -100%);	}
 			&.rightArrow .tooltipAnchor {	transform: translate(0, -100%);	}
 		}
 
 		&.left {
+			left: ~"calc(var(--tooltip-position-left) - " @sand-tooltip-offset ~")";
+
 			&.topArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
 			&.middleArrow .tooltipAnchor {	transform: translate(-100%, -50%);	}
 			&.bottomArrow .tooltipAnchor {	transform: translate(-100%, 0);	}
 		}
 
 		&.right {
+			left: ~"calc(var(--tooltip-position-left) + " @sand-tooltip-offset ~")";
+
 			&.topArrow .tooltipAnchor {	transform: translate(0, -100%);	}
 			&.middleArrow .tooltipAnchor {	transform: translate(0, -50%);	}
 			&.bottomArrow .tooltipAnchor {	/* transform: translate(0, 0); */	}
@@ -260,7 +268,7 @@
 	// Relative positioning mode - position rules
 	&.relative {
 		&.below {
-			top: 100%;
+			top: ~"calc(100% + " @sand-tooltip-offset ~")";
 
 			&.leftArrow {	right: 50%;	}
 			&.centerArrow,
@@ -270,7 +278,7 @@
 		}
 
 		&.above {
-			bottom: 100%;
+			bottom: ~"calc(100% + " @sand-tooltip-offset ~")";
 
 			&.leftArrow {	right: 50%;	}
 			&.centerArrow,
@@ -280,7 +288,7 @@
 		}
 
 		&.left {
-			right: 100%;
+			right: ~"calc(100% + " @sand-tooltip-offset ~")";
 
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
@@ -290,7 +298,7 @@
 		}
 
 		&.right {
-			left: 100%;
+			left: ~"calc(100% + " @sand-tooltip-offset ~")";
 
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
@@ -368,7 +376,6 @@
 		.tooltipLabel {
 			color: @sand-tooltip-text-color;
 			background-color: @sand-tooltip-bg-color;
-			border: @sand-tooltip-border-width solid @sand-tooltip-border-color;
 		}
 	});
 }

@@ -10,6 +10,7 @@
  * @exports ItemDecorator
  */
 
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import Slottable from '@enact/ui/Slottable';
@@ -106,7 +107,7 @@ const ItemBase = kind({
 		 * @type {Object|Function}
 		 * @public
 		 */
-		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+		componentRef: EnactPropTypes.ref,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the

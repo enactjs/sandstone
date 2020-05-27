@@ -245,7 +245,7 @@ const InputFieldBase = kind({
 			if (invalid && invalidMessage) {
 				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip arrowAnchor="top" className={css.invalidTooltip} direction={direction}>
+					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
 						{invalidMessage}
 					</Tooltip>
 				);

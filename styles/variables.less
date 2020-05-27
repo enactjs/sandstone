@@ -291,10 +291,6 @@
 @sand-header-slotabove-margin: 0 0 30px 0;
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
-@sand-header-animation-duration: 300ms;
-@sand-header-featurecontent-transform: translateY(-12px);
-@sand-header-featurecontent-title-opacity: 0.3;
-@sand-header-featurecontent-title-transform: translateY(-50%);
 @sand-header-standard-margin: 0;
 @sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
@@ -323,20 +319,9 @@
 @sand-icon-medium-size: 90px;
 @sand-icon-small-size: 78px;
 @sand-icon-tiny-size: 60px;
-@sand-icon-large-font-size: (@sand-icon-large-size * 2);
-@sand-icon-medium-font-size: (@sand-icon-medium-size * 2);
-@sand-icon-small-font-size: (@sand-icon-small-size * 2);
-@sand-icon-tiny-font-size: (@sand-icon-tiny-size * 2);
-@sand-icon-large-sprite-size: (@sand-button-height - (@sand-button-border-width * 2));
-@sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-margin: 24px;
-// Large-mode sizes - Note, may be deprecated.
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
-@sand-icon-large-font-size-large: (@sand-icon-large-font-size * 1.2);
-@sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
 
 // ImageItem
 // ---------------------------------------
@@ -372,6 +357,7 @@
 @sand-input-fullscreen-numberfield-width: 1200px;
 @sand-input-fullscreen-numberfield-height: 210px;
 @sand-input-fullscreen-numberfield-margin: auto;
+@sand-input-fullscreen-numberfield-tooltip-margin: 129px;
 @sand-input-fullscreen-numberfield-padding: 0 0.5em;
 @sand-input-fullscreen-numberfield-letter-spacing: 48px;
 @sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
@@ -460,7 +446,6 @@
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
 @sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
-@sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
 // ----------------------------------------
@@ -502,6 +487,7 @@
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;
+@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) 0;
 
 // ProgressBar
 // ---------------------------------------
@@ -513,6 +499,12 @@
 @sand-progressbar-radial-thickness: 9px;
 @sand-progressbar-anchor-width: 6px;
 @sand-progressbar-anchor-height: 48px;
+@sand-progressbar-tooltip-offset: 30px;
+@sand-progressbar-tooltip-above-offset: (@sand-progressbar-tooltip-offset + @sand-progressbar-bar-thickness);
+@sand-progressbar-tooltip-below-offset: @sand-progressbar-tooltip-above-offset;
+@sand-progressbar-tooltip-before-offset: @sand-progressbar-tooltip-below-offset;
+@sand-progressbar-tooltip-after-offset: @sand-progressbar-tooltip-above-offset;
+@sand-progressbar-tooltip-radial-offset: @sand-progressbar-tooltip-above-offset;
 
 // ProgressButton
 // ---------------------------------------
@@ -568,6 +560,10 @@
 @sand-slider-knob-height-large: @sand-slider-knob-height;
 @sand-slider-tooltip-offset: (@sand-slider-knob-height / 2);
 @sand-slider-knob-resting-state-scale: 0.75;
+@sand-slider-tooltip-above-offset: (@sand-progressbar-bar-thickness / 2);
+@sand-slider-tooltip-below-offset: (@sand-progressbar-bar-thickness / -2);
+@sand-slider-tooltip-before-offset: (@sand-progressbar-bar-thickness / 2);
+@sand-slider-tooltip-after-offset: (@sand-progressbar-bar-thickness / -2);
 
 // Spinner
 // ---------------------------------------
@@ -622,14 +618,15 @@
 
 // Tooltip
 // ---------------------------------------
-@sand-tooltip-font-weight: normal;
-@sand-tooltip-offset: 18px;
-@sand-tooltip-point-width: 24px;
-@sand-tooltip-point-height: 24px;
-@sand-tooltip-border-width: 1px;
-@sand-tooltip-border-radius: 6px;
+@sand-tooltip-font-weight: 600;
+@sand-tooltip-offset: 24px;
+@sand-tooltip-arrow-offset: 0px;
+@sand-tooltip-point-width: 18px;
+@sand-tooltip-point-height: 15px;
+@sand-tooltip-border-radius: 12px;
 @sand-tooltip-label-height: 1.5em;
-@sand-tooltip-padding: 6px 36px;
+@sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
+@sand-tooltip-margin-offset: @sand-tooltip-point-width;
 
 // Video
 // ---------------------------------------
@@ -664,6 +661,4 @@
 // WizardPanels
 // ---------------------------------------
 @sand-wizardpanels-content-margin: 0 0 150px 0;
-@sand-wizardpanels-button-container-margin: 0 0 60px 0;
-@sand-wizardpanels-panel-padding: 0;
-@sand-wizardpanels-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-wizardpanels-footer-margin: 0 0 (192px - @sand-app-keepout) 0;
