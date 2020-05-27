@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Slider` style to border radius
+
 ## [1.0.0-beta.4] - 2020-05-26
 
 ### Removed
