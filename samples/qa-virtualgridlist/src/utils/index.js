@@ -7,7 +7,7 @@ const createRecord = ({
 } = {}) => {
 	const
 		modify = (recordIndex % modifierFrequency === 0),
-		caption = `${recordIndex} ${(modify) ? ' This is the longest, most perfect caption' : ''}`,
+		caption = `${recordIndex}${(modify) ? ' This is the longest, most perfect caption' : ''}`,
 		subCaption = (modify) ? 'Many people are saying that they have never seen a subcaption longer than this one' : 'Subcaption',
 		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
 
