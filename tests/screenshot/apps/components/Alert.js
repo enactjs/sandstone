@@ -1,5 +1,4 @@
 import Alert, {AlertImage}  from '../../../../Alert';
-import BodyText from '../../../../BodyText';
 import Button from '../../../../Button';
 import React from 'react';
 
@@ -16,8 +15,8 @@ const fullscreenTests = [
 
 // Only type: 'overlay; supports children
 const overlayTests = [
-	<Alert open><BodyText>Alert!</BodyText></Alert>,
-	<Alert open><BodyText>{LoremString}</BodyText></Alert>
+	<Alert open>Alert!</Alert>,
+	<Alert open>{LoremString}</Alert>
 ];
 
 const dropIn = {

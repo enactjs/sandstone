@@ -5,7 +5,6 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Alert, {AlertBase, AlertImage} from '@enact/sandstone/Alert';
-import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 
 
@@ -22,8 +21,6 @@ storiesOf('Sandstone', module)
 			const image = boolean('image', ImageConfig);
 			const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
 			const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
-			const childText = text('children', Config, 'Additional text content for Alert');
-			const children = childText ? <BodyText>{childText}</BodyText> : null;
 
 			return (
 				<Alert
@@ -45,7 +42,7 @@ storiesOf('Sandstone', module)
 						<Button>Yes</Button>
 						<Button>No</Button>
 					</buttons>
-					{children}
+					{text('children', Config, 'Additional text content for Alert')}
 				</Alert>
 			);
 		},

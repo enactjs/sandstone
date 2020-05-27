@@ -85,8 +85,6 @@ const AlertBase = kind({
 		 *
 		 * It is recommended to use the `AlertImage` component.
 		 *
-		 * Will not display if `image` is not set.
-		 *
 		 * @type {Element}
 		 * @public
 		 */
@@ -130,7 +128,7 @@ const AlertBase = kind({
 		/**
 		 * The secondary text displayed below the `title`.
 		 *
-		 * This is only shown in `type="fullscreen"`.
+		 * This is only shown in `type="fullscreen"` and will not display if `title` is not set.
 		 *
 		 * @type {String}
 		 * @public
