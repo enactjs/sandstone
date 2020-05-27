@@ -4,6 +4,7 @@
  * @module sandstone/Alert
  * @exports Alert
  * @exports AlertBase
+ * @exports AlertImage
  */
 
 import kind from '@enact/core/kind';
@@ -50,7 +51,8 @@ const AlertBase = kind({
 
 		/**
 		 * The contents of the body of the component.
-		 * This is only shown in `type="overlay"`
+		 *
+		 * Only shown when `type="overlay"`
 		 *
 		 * @type {Node}
 		 * @public
@@ -71,7 +73,7 @@ const AlertBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * The id of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
+		 * The `id` of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
 		 *
 		 * @type {String}
 		 * @private
@@ -80,7 +82,8 @@ const AlertBase = kind({
 
 		/**
 		 * Image to be included in the Alert component.
-		 * It recommends to use `AlertImage` component.
+		 *
+		 * It is recommended to use the `AlertImage` component.
 		 *
 		 * Will not display if `image` is not set.
 		 *
@@ -92,7 +95,7 @@ const AlertBase = kind({
 		/**
 		 * Called when the user requests to close the Alert.
 		 *
-		 * These actions include pressing the cancel key.
+		 * This also includes pressing the cancel key.
 		 *
 		 * @type {Function}
 		 * @public
@@ -117,7 +120,7 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Assign a skin
+		 * Assign a skin.
 		 *
 		 * @type {String}
 		 * @private
@@ -126,9 +129,8 @@ const AlertBase = kind({
 
 		/**
 		 * The secondary text displayed below the `title`.
-		 * This is only shown in `type="fullscreen"`
 		 *
-		 * Will not display if `title` is not set.
+		 * This is only shown in `type="fullscreen"`.
 		 *
 		 * @type {String}
 		 * @public
@@ -136,8 +138,7 @@ const AlertBase = kind({
 		subtitle: PropTypes.string,
 
 		/**
-		 * The primary text displayed. This is only shown in
-		 * `type="fullscreen"`
+		 * The primary text displayed. Only shown when type="fullscreen"`.
 		 *
 		 * @type {String}
 		 * @public
@@ -145,11 +146,15 @@ const AlertBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * Type of popup to appear in the screen. There are two types.
+		 * Type of popup.
+		 *
+		 * There are two types:
 		 *
 		 * * `fullscreen` - Full screen popup
 		 * * `overlay` - Popup in the center of the screen
-		 * @type {String|Object}
+		 *
+		 * @type {('fullscreen'|'overlay')}
+		 * @default 'fullscreen'
 		 * @public
 		 */
 		type: PropTypes.oneOf(['fullscreen', 'overlay'])
@@ -219,7 +224,7 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialog
  * consists of a title, a subtitle, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
@@ -228,7 +233,7 @@ const AlertBase = kind({
  * <Alert
  *   open={this.state.open}
  *   title="An Important Alert"
- *   subtitle="Some important context to share about the purpose"
+ *   subtitle="Some important context to share about the alert"
  * >
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
