@@ -78,13 +78,13 @@ const SwitchBase = kind({
 		})
 	},
 
-	render: ({children, css, selected, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		delete rest.noAnimation;
+		delete rest.selected;
 
 		return (
 			<div
 				{...rest}
-				aria-checked={selected}
 				role="checkbox"
 			>
 				<div className={css.bg} />

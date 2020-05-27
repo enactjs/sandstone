@@ -133,14 +133,14 @@ const CheckboxBase = kind({
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
-	render: ({children, css, selected, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		delete rest.indeterminate;
 		delete rest.indeterminateIcon;
+		delete rest.selected;
 
 		return (
 			<div
 				{...rest}
-				aria-checked={selected}
 				role="checkbox"
 			>
 				<div className={css.bg} />
