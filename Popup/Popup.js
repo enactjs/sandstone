@@ -391,8 +391,13 @@ class Popup extends React.Component {
 
 	// Spot the content after it's mounted.
 	componentDidMount () {
-		if (this.props.open && getContainerNode(this.state.containerId)) {
-			this.spotPopupContent();
+		if (this.props.open) {
+			// If the popup is open on mount, we need to pause spotlight so nothing steals focus
+			// while the popup is rendering.
+			this.paused.pause();
+			if (getContainerNode(this.state.containerId)) {
+				this.spotPopupContent();
+			}
 		}
 	}
 
@@ -467,11 +472,7 @@ class Popup extends React.Component {
 		});
 
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
-			this.paused.resume();
-
-			if (!this.props.open) {
-				this.spotActivator(this.state.activator);
-			}
+			this.spotActivator(this.state.activator);
 		}
 	}
 
@@ -483,15 +484,16 @@ class Popup extends React.Component {
 		});
 
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
-			this.paused.resume();
-
-			if (this.props.open) {
-				this.spotPopupContent();
-			}
+			this.spotPopupContent();
 		}
 	}
 
 	spotActivator = (activator) => {
+		this.paused.resume();
+
+		// only spot the activator if the popup is closed
+		if (this.props.open) return;
+
 		const current = Spotlight.getCurrent();
 		const containerNode = getContainerNode(this.state.containerId);
 
@@ -508,6 +510,11 @@ class Popup extends React.Component {
 	}
 
 	spotPopupContent = () => {
+		this.paused.resume();
+
+		// only spot the activator if the popup is open
+		if (!this.props.open) return;
+
 		const {containerId} = this.state;
 
 		on('keydown', this.handleKeyDown);

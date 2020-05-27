@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
+import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -15,7 +15,6 @@ import {Header} from '@enact/sandstone/Panels';
 import iconNames from './icons';
 
 Panel.displayName = 'Panel';
-const Config = mergeComponentMetadata('Panel', Panel);
 Header.displayName = 'Header';
 const HeaderConfig = mergeComponentMetadata('Header', Header);
 Tab.displayName = 'Tab';
@@ -85,7 +84,7 @@ storiesOf('Sandstone', module)
 		'Panels.Panel',
 		() => {
 			return (
-				<Panel featureContent={boolean('featureContent', Config, false)}>
+				<Panel>
 					<Header
 						title={text('title', HeaderConfig, 'The Matrix')}
 						subtitle={text('subtitle', HeaderConfig, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
@@ -104,7 +103,6 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
-								initialHiddenHeight={scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),
@@ -119,7 +117,6 @@ storiesOf('Sandstone', module)
 							<VirtualGridList
 								dataSize={updateDataSize(number('dataSize', VGLConfig, defaultDataSize))}
 								direction={select('direction', prop.direction, VGLConfig)}
-								initialHiddenHeight={scale(211)}
 								itemRenderer={renderItem}
 								itemSize={{
 									minWidth: scale(number('minWidth', VGLConfig, 640)),

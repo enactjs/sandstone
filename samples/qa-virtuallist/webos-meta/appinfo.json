@@ -1,6 +1,6 @@
 {
   "id": "qa-virtuallist",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "vendor": "LGE-SWP",
   "type": "web",
   "main": "index.html",

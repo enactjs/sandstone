@@ -78,7 +78,7 @@ describe('TabLayout', function () {
 					expect(Page.tabLayout.isCollapsed).to.be.true();
 
 					// go back to hover the tabs
-					Page.tabLayout.hoverScroller();
+					Page.tabLayout.tabItems[0].moveTo();
 					// check that layout is not collapsed
 					expect(Page.tabLayout.isCollapsed).to.be.false();
 				});

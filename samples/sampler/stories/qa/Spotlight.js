@@ -33,15 +33,15 @@ const Container = SpotlightContainerDecorator(
 
 const style = {
 	container: () => ({
-		width: ri.unit(600, 'rem'),
+		width: ri.scaleToRem(600),
 		border: '1px dashed red',
-		margin: '0 ' + ri.unit(24, 'rem'),
-		padding: ri.unit(24, 'rem')
+		margin: '0 ' + ri.scaleToRem(24),
+		padding: ri.scaleToRem(24)
 	}),
 	fittedContainer: () => ({
 		border: '1px dashed blue',
-		margin: '0 ' + ri.unit(24, 'rem'),
-		padding: ri.unit(24, 'rem')
+		margin: '0 ' + ri.scaleToRem(24),
+		padding: ri.scaleToRem(24)
 	})
 };
 
