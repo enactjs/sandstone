@@ -1,7 +1,7 @@
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
 import React from 'react';
 import {mount} from 'enzyme';
-import {FlexiblePopupPanels, Panel} from '../FlexiblePopupPanels';
+import {FlexiblePopupPanels, Panel} from '../';
 
 const FloatingLayerController = FloatingLayerDecorator('div');
 
