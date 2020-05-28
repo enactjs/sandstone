@@ -21,6 +21,7 @@ import Image from './components/Image';
 import ImageItem from './components/ImageItem';
 import InputField from './components/InputField';
 import Item from './components/Item';
+import LabeledIconButton from './components/LabeledIconButton';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
 import Panel from './components/Panel';
@@ -62,6 +63,7 @@ const components = {
 	ImageItem,
 	InputField,
 	Item,
+	LabeledIconButton,
 	Marquee,
 	MediaOverlay,
 	Panel,
