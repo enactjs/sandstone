@@ -38,13 +38,43 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const ImageItemContext = React.createContext({text: '', subText: ''});
+
 const ContextChildren = (property) => ({context: Context, children}) => {
 	const context = React.useContext(Context);
 
 	return context && context[property] || children;
 };
-const ContextText = ContextChildren('text');
-const ContextSubText = ContextChildren('subText');
+const ContextCaption = ContextChildren('children');
+const ContextLabel = ContextChildren('label');
+
+const CachedContextImageItemBase = ({children, label, ...rest}) => {
+	const element = React.useRef(null);
+
+	element.current = element.current || (
+		<ImageItem
+			{...rest}
+			context={ImageItemContext}
+			label={label}
+		>
+			{children}
+		</ImageItem>
+	);
+
+	return element.current;
+};
+
+const CachedContextImageItem = (props) => {
+	const {label, children, ...rest} = props;
+
+	return (
+		<ImageItemContext.Provider value={{children, label}}>
+			<CachedContextImageItemBase {...rest} label={label}>
+				{children}
+			</CachedContextImageItemBase>
+		</ImageItemContext.Provider>
+	);
+};
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -226,8 +256,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover"><ContextText context={context}>{children}</ContextText></Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover"><ContextSubText context={context}>{label}</ContextSubText></Marquee> : null}
+						<Marquee className={css.caption} marqueeOn="hover"><ContextCaption context={context}>{children}</ContextCaption></Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover"><ContextLabel context={context}>{label}</ContextLabel></Marquee> : null}
 					</Cell>
 				</Row>
 			);
@@ -313,6 +343,7 @@ ImageItem.displayName = 'ImageItem';
 
 export default ImageItem;
 export {
+	CachedContextImageItem,
 	ImageItem,
 	ImageItemBase,
 	ImageItemDecorator
