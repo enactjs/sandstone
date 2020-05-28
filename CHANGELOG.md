@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Item` to properly accept numbers for `label`
+
 ## [1.0.0-beta.4] - 2020-05-26
 
 ### Removed
@@ -27,7 +33,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Item` to covert number type of prop `label` to string
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Scroller` and `sandstone/VirtualList` to properly handle keydown events
 - `sandstone/TabLayout` default focus rules

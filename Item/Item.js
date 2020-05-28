@@ -208,7 +208,7 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: (label !== null && typeof label !== 'undefined')}),
+		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: label != null}),
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
