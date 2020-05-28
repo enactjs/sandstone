@@ -1,4 +1,4 @@
-import {CachedContextImageItem} from '@enact/sandstone/ImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import React, {Component} from 'react';
 import ri from '@enact/ui/resolution';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -46,12 +46,12 @@ class VirtualGridListNativeSample extends Component {
 
 	renderItem = ({index, ...rest}) => {
 		return (
-			<CachedContextImageItem
+			<ImageItem
 				{...rest}
 				label={items[index].subText}
 			>
 				{items[index].text}
-			</CachedContextImageItem>
+			</ImageItem>
 		);
 	}
 
