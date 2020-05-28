@@ -2,6 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Removed
+
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
+
+### Added
+
+- `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+
 ## [1.0.0-beta.4] - 2020-05-26
 
 ### Removed
