@@ -72,17 +72,7 @@ const defaultConfig = {
 	 * @default false
 	 * @public
 	 */
-	filterChildren: [],
-
-	/**
-	 * The array includes the key strings of the context object
-	 * which will be passed as a prop in a React element.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @public
-	 */
-	filterProps: []
+	filterChildren: []
 };
 
 /**
