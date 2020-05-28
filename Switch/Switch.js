@@ -83,9 +83,7 @@ const SwitchBase = kind({
 		delete rest.selected;
 
 		return (
-			<div
-				{...rest}
-			>
+			<div {...rest}>
 				<div className={css.bg} />
 				<div className={css.client}>
 					<Icon

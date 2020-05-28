@@ -139,10 +139,7 @@ const CheckboxBase = kind({
 		delete rest.selected;
 
 		return (
-			<div
-				{...rest}
-				role="checkbox"
-			>
+			<div {...rest}>
 				<div className={css.bg} />
 				<Icon
 					size="tiny"
