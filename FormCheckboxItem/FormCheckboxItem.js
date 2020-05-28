@@ -114,6 +114,7 @@ const FormCheckboxItemBase = kind({
 
 	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
 		<Item
+			aria-checked={selected}
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
 			{...rest}

@@ -85,7 +85,6 @@ const SwitchBase = kind({
 		return (
 			<div
 				{...rest}
-				role="checkbox"
 			>
 				<div className={css.bg} />
 				<div className={css.client}>
@@ -115,7 +114,9 @@ const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Touchable,
 	Spottable,
-	Skinnable
+	Skinnable,
+	// eslint-disable-next-line enact/prop-types, enact/display-name
+	Wrapped => props => (<Wrapped aria-checked={props.selected} role="checkbox" {...props} />)
 );
 
 /**
