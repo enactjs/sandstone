@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Dropdown` to center scrolling to selected index
+
 ## [1.0.0-beta.4] - 2020-05-26
 
 ### Removed
@@ -33,7 +39,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
-- `sandstone/Dropdown` to center scrolling to selected index
 
 ## [1.0.0-beta.3] - 2020-05-11
 
