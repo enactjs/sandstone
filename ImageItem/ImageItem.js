@@ -18,13 +18,13 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
+import CacheReactElementDecorator from '@enact/ui//CacheReactElementDecorator';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {CacheReactElementWithPropContextDecorator, CacheReactElementDecorator} from '../CacheReactElementDecorator';
 import Icon from '../Icon';
 import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
@@ -38,8 +38,6 @@ const
 	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
-
-const CacheReactElementWithPropContext = CacheReactElementWithPropContextDecorator({filterProps: ['data-index', 'src']});
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -243,30 +241,23 @@ const ImageItemBase = kind({
 		}
 
 		return (
-			<CacheReactElementWithPropContext {...rest}>
-				{(props) => {
-					return (
-						<UiImageItem
-							{...rest}
-							{...props}
-							css={css}
-							imageComponent={
-								<Image>
-									{showSelection ? (
-										<div className={css.selectionContainer}>
-											{SelectionComponent ? (
-												<SelectionComponent />
-											) : (
-												<Icon className={css.selectionIcon}>checkselection</Icon>
-											)}
-										</div>
-									) : null}
-								</Image>
-							}
-						/>
-					);
-				}}
-			</CacheReactElementWithPropContext>
+			<UiImageItem
+				{...rest}
+				css={css}
+				imageComponent={
+					<Image>
+						{showSelection ? (
+							<div className={css.selectionContainer}>
+								{SelectionComponent ? (
+									<SelectionComponent />
+								) : (
+									<Icon className={css.selectionIcon}>checkselection</Icon>
+								)}
+							</div>
+						) : null}
+					</Image>
+				}
+			/>
 		);
 	}
 });
