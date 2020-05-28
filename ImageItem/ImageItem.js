@@ -29,8 +29,6 @@ import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import {CachedDecorator, CachedContextDecorator} from './CachedDecorator';
-
 import componentCss from './ImageItem.module.less';
 
 const
@@ -39,9 +37,6 @@ const
 	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
-
-const ContextCaption = CachedContextDecorator('children');
-const ContextLabel = CachedContextDecorator('label');
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -207,7 +202,7 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({children, context, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
@@ -223,8 +218,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover"><ContextCaption context={context}>{children}</ContextCaption></Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover"><ContextLabel context={context}>{label}</ContextLabel></Marquee> : null}
+						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
@@ -235,7 +230,6 @@ const ImageItemBase = kind({
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
-		delete rest.context;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.label;
@@ -308,6 +302,9 @@ const ImageItemDecorator = compose(
  */
 const ImageItem = ImageItemDecorator(ImageItemBase);
 ImageItem.displayName = 'ImageItem';
+ImageItem.defaultProps = {
+	cached: true
+};
 
 export default ImageItem;
 export {

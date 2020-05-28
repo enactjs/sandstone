@@ -1,28 +1,42 @@
 import hoc from '@enact/core/hoc';
 import React from 'react';
 
-const ImageItemContext = React.createContext({text: '', subText: ''});
+const CachedContext = React.createContext();
 
-const CachedContextDecorator = (property) => ({context: Context, children}) => {
-	const context = React.useContext(Context);
+const CachedContextDecorator = (property) => ({children}) => {
+	const context = React.useContext(CachedContext);
 
 	return context && context[property] || children;
 };
 
 const CachedDecorator = hoc((config, Wrapped) => {
-	return ({cache, ...rest}) => {
+	return ({cached, ...rest}) => {
 		const element = React.useRef(null);
 
-		return cache ?
-			<ImageItemContext.Provider value={rest}>
-				{(element.current = element.current || (
-					<Wrapped
-						{...rest}
-						context={ImageItemContext}
-					/>
-				))}
-			</ImageItemContext.Provider> :
-			<Wrapped {...rest} context={ImageItemContext} />;
+		if (!cached) {
+			return <Wrapped {...rest} />;
+		}
+
+		const updated = {};
+
+		for (const key in rest) {
+			const CachedContextProp = CachedContextDecorator(key);
+			updated[key] = <CachedContextProp>{rest[key]}</CachedContextProp>;
+			console.log(key)
+		}
+
+		element.current = element.current || (
+			<Wrapped
+				{...updated}
+				context={CachedContext}
+			/>
+		);
+
+		return (
+			<CachedContext.Provider value={rest}>
+				{element.current}
+			</CachedContext.Provider>
+		);
 	};
 });
 
