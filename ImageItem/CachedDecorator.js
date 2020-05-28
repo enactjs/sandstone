@@ -15,36 +15,46 @@ const CachedChildrenContextDecorator = (property) => {
 	return CachedChildrenContextDecorator;
 };
 
-const CachedPropContextDecorator = ({cached, children}) => {
-	if (cached) {
-		return (
-			<CachedContext.Consumer>
-				{({'data-index': dataIndex, src}) => {
-					return children ? children({
-						'data-index': dataIndex,
-						src
-					}) : null;
-				}}
-			</CachedContext.Consumer>
-		);
-	} else {
-		return children && typeof children === 'function' ? children({}) : null;
+const CachedPropContextDecorator = ({filterProps}) => {
+	// eslint-disable-next-line no-shadow
+	function CachedPropContextDecorator ({cached, children}) {
+		if (cached) {
+			return (
+				<CachedContext.Consumer>
+					{(props) => {
+						const cachedProps = {};
+
+						for (const key in props) {
+							if (filterProps.indexOf(key) >= 0) {
+								cachedProps[key] = props[key];
+							}
+						}
+
+						return children ? children(cachedProps) : null;
+					}}
+				</CachedContext.Consumer>
+			);
+		} else {
+			return children && typeof children === 'function' ? children({}) : null;
+		}
 	}
-};
 
-CachedPropContextDecorator.propTypes = /** @lends sandstone/ImageItem.CachedPropContextDecorator.prototype */ {
-	/**
-	 * Cache React elements.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @public
-	 */
-	cached: PropTypes.bool
-};
+	CachedPropContextDecorator.propTypes = /** @lends sandstone/ImageItem.CachedPropContextDecorator.prototype */ {
+		/**
+		 * Cache React elements.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		cached: PropTypes.bool
+	};
 
-CachedPropContextDecorator.defaultProps = {
-	cached: true
+	CachedPropContextDecorator.defaultProps = {
+		cached: true
+	};
+
+	return CachedPropContextDecorator;
 };
 
 /**

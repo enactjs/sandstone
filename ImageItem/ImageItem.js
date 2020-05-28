@@ -40,6 +40,8 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const CachedPropContext = CachedPropContextDecorator({filterProps: ['data-index', 'src']});
+
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -242,7 +244,7 @@ const ImageItemBase = kind({
 		}
 
 		return (
-			<CachedPropContextDecorator {...rest}>
+			<CachedPropContext {...rest}>
 				{(props) => {
 					return (
 						<UiImageItem
@@ -265,7 +267,7 @@ const ImageItemBase = kind({
 						/>
 					);
 				}}
-			</CachedPropContextDecorator>
+			</CachedPropContext>
 		);
 	}
 });
