@@ -46,8 +46,6 @@ const PanelBase = kind({
 		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
 		 * ```
 		 *
-		 * @name nextButton
-		 * @memberof sandstone/FlexiblePopupPanels.Panel.prototype
 		 * @type {Boolean|Component}
 		 * @public
 		 */
@@ -112,8 +110,6 @@ const PanelBase = kind({
 		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
 		 * ```
 		 *
-		 * @name PrevButton
-		 * @memberof sandstone/FlexiblePopupPanels.Panel.prototype
 		 * @type {Boolean|Component}
 		 * @public
 		 */

@@ -20,7 +20,7 @@ import css from './FlexiblePopupPanels.module.less';
 const FlexiblePopupPanelsBase = kind({
 	name: 'FlexiblePopupPanels',
 
-	propTypes: {
+	propTypes: /** @lends sandstone/FlexiblePopupPanels.FlexiblePopupPanels.prototype */ {
 		/**
 		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
 		 *
