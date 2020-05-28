@@ -1,4 +1,5 @@
 import hoc from '@enact/core/hoc';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const CachedContext = React.createContext();
@@ -10,7 +11,8 @@ const CachedContextDecorator = (property) => ({children}) => {
 };
 
 const CachedDecorator = hoc((config, Wrapped) => {
-	return ({cached, ...rest}) => {
+	// eslint-disable-next-line no-shadow
+	function CachedDecorator ({cached, ...rest}) {
 		const element = React.useRef(null);
 
 		if (!cached) {
@@ -22,7 +24,6 @@ const CachedDecorator = hoc((config, Wrapped) => {
 		for (const key in rest) {
 			const CachedContextProp = CachedContextDecorator(key);
 			updated[key] = <CachedContextProp>{rest[key]}</CachedContextProp>;
-			console.log(key)
 		}
 
 		element.current = element.current || (
@@ -38,10 +39,27 @@ const CachedDecorator = hoc((config, Wrapped) => {
 			</CachedContext.Provider>
 		);
 	};
+
+	CachedDecorator.propTypes = /** @lends sandstone/ImageItem.CachedDecorator.prototype */ {
+		/**
+		 * Cache React elements.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		cached: PropTypes.bool
+	};
+
+	CachedDecorator.defaultProps = {
+		cached: true
+	};
+
+	return CachedDecorator;
 });
 
 export default CachedDecorator;
 export {
-    CachedDecorator,
-    CachedContextDecorator
-}
+	CachedDecorator,
+	CachedContextDecorator
+};
