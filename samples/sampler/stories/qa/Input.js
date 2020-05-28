@@ -16,7 +16,7 @@ const FieldConfig = mergeComponentMetadata('InputField', InputFieldBase, InputFi
 
 const iconNames = ['', ...icons];
 
-const divMargin = {margin: ri.unit(24, 'rem')};
+const divMargin = {margin: ri.scaleToRem(24)};
 
 // Work around a storybook knob rendering issue.
 const buttons = {

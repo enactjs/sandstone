@@ -13,8 +13,6 @@ spotlight.setPointerMode(false);
 const app = (props) => <div {...props}>
 	<WizardPanels
 		id="wizardpanels"
-		nextButtonText="next"
-		prevButtonText="previous"
 		title="WizardPanels"
 	>
 		<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanels View 1">
