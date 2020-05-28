@@ -24,12 +24,11 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import {CacheReactElementWithPropContextDecorator, CacheReactElementDecorator} from '../CacheReactElementDecorator';
 import Icon from '../Icon';
 import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
-
-import {CachedPropContextDecorator, CachedDecorator} from './CachedDecorator';
 
 import componentCss from './ImageItem.module.less';
 
@@ -40,7 +39,7 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
-const CachedPropContext = CachedPropContextDecorator({filterProps: ['data-index', 'src']});
+const CacheReactElementWithPropContext = CacheReactElementWithPropContextDecorator({filterProps: ['data-index', 'src']});
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -244,7 +243,7 @@ const ImageItemBase = kind({
 		}
 
 		return (
-			<CachedPropContext {...rest}>
+			<CacheReactElementWithPropContext {...rest}>
 				{(props) => {
 					return (
 						<UiImageItem
@@ -267,7 +266,7 @@ const ImageItemBase = kind({
 						/>
 					);
 				}}
-			</CachedPropContext>
+			</CacheReactElementWithPropContext>
 		);
 	}
 });
@@ -284,7 +283,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
-	CachedDecorator({filterChildren: ['children', 'label']}),
+	CacheReactElementDecorator({filterChildren: ['children', 'label']}),
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
