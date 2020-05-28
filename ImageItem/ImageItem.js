@@ -29,7 +29,7 @@ import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
-import CachedDecorator from './CachedDecorator';
+import {CachedPropContextDecorator, CachedDecorator} from './CachedDecorator';
 
 import componentCss from './ImageItem.module.less';
 
@@ -242,23 +242,30 @@ const ImageItemBase = kind({
 		}
 
 		return (
-			<UiImageItem
-				{...rest}
-				css={css}
-				imageComponent={
-					<Image>
-						{showSelection ? (
-							<div className={css.selectionContainer}>
-								{SelectionComponent ? (
-									<SelectionComponent />
-								) : (
-									<Icon className={css.selectionIcon}>checkselection</Icon>
-								)}
-							</div>
-						) : null}
-					</Image>
-				}
-			/>
+			<CachedPropContextDecorator {...rest}>
+				{(props) => {
+					return (
+						<UiImageItem
+							{...rest}
+							{...props}
+							css={css}
+							imageComponent={
+								<Image>
+									{showSelection ? (
+										<div className={css.selectionContainer}>
+											{SelectionComponent ? (
+												<SelectionComponent />
+											) : (
+												<Icon className={css.selectionIcon}>checkselection</Icon>
+											)}
+										</div>
+									) : null}
+								</Image>
+							}
+						/>
+					);
+				}}
+			</CachedPropContextDecorator>
 		);
 	}
 });
@@ -275,7 +282,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
-	CachedDecorator,
+	CachedDecorator({filterChildren: ['children', 'label']}),
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable

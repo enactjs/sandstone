@@ -4,13 +4,99 @@ import React from 'react';
 
 const CachedContext = React.createContext();
 
-const CachedContextDecorator = (property) => ({children}) => {
-	const context = React.useContext(CachedContext);
+const CachedChildrenContextDecorator = (property) => {
+	// eslint-disable-next-line no-shadow
+	function CachedChildrenContextDecorator ({children}) {
+		const context = React.useContext(CachedContext);
 
-	return context && context[property] || children;
+		return context && context[property] || children;
+	}
+
+	return CachedChildrenContextDecorator;
 };
 
-const CachedDecorator = hoc((config, Wrapped) => {
+const CachedPropContextDecorator = ({cached, children}) => {
+	if (cached) {
+		return (
+			<CachedContext.Consumer>
+				{({'data-index': dataIndex, src}) => {
+					return children ? children({
+						'data-index': dataIndex,
+						src
+					}) : null;
+				}}
+			</CachedContext.Consumer>
+		);
+	} else {
+		return children && typeof children === 'function' ? children({}) : null;
+	}
+};
+
+CachedPropContextDecorator.propTypes = /** @lends sandstone/ImageItem.CachedPropContextDecorator.prototype */ {
+	/**
+	 * Cache React elements.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	cached: PropTypes.bool
+};
+
+CachedPropContextDecorator.defaultProps = {
+	cached: true
+};
+
+/**
+ * Default config for `CachedDecorator`.
+ *
+ * @memberof ui/ImageItem.CachedDecorator
+ * @hocconfig
+ * @private
+ */
+const defaultConfig = {
+	/**
+	 * The array includes the key strings of the context object
+	 * which will be used as children prop.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	filterChildren: [],
+
+	/**
+	 * The array includes the key strings of the context object
+	 * which will be passed as a prop in a React element.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	filterProps: []
+};
+
+/**
+ * A higher-order component that caches React elements, but allows context values to re-render.
+ *
+ * Example:
+ * ```
+ * const ImageItemDecorator = compose(
+ * 	CachedDecorator({filterChildren: ['children', 'label']}),
+ * 	MarqueeController({marqueeOnFocus: true}),
+ * 	Spottable,
+ * 	Skinnable
+ * );
+ * ```
+ *
+ * @class CachedDecorator
+ * @memberof ui/ImageItem
+ * @hoc
+ * @private
+ */
+const CachedDecorator = hoc(defaultConfig, (config, Wrapped) => {
+	const {filterChildren} = config;
+
 	// eslint-disable-next-line no-shadow
 	function CachedDecorator ({cached, ...rest}) {
 		const element = React.useRef(null);
@@ -19,17 +105,22 @@ const CachedDecorator = hoc((config, Wrapped) => {
 			return <Wrapped {...rest} />;
 		}
 
-		const updated = {};
+		const cachedProps = {};
+		const updatedProps = {};
 
 		for (const key in rest) {
-			const CachedContextProp = CachedContextDecorator(key);
-			updated[key] = <CachedContextProp>{rest[key]}</CachedContextProp>;
+			if (filterChildren.indexOf(key) >= 0) {
+				const CachedContextProp = CachedChildrenContextDecorator(key);
+				cachedProps[key] = <CachedContextProp>{rest[key]}</CachedContextProp>;
+			} else {
+				updatedProps[key] = rest[key];
+			}
 		}
 
 		element.current = element.current || (
 			<Wrapped
-				{...updated}
-				context={CachedContext}
+				{...cachedProps}
+				{...updatedProps}
 			/>
 		);
 
@@ -38,7 +129,7 @@ const CachedDecorator = hoc((config, Wrapped) => {
 				{element.current}
 			</CachedContext.Provider>
 		);
-	};
+	}
 
 	CachedDecorator.propTypes = /** @lends sandstone/ImageItem.CachedDecorator.prototype */ {
 		/**
@@ -60,6 +151,8 @@ const CachedDecorator = hoc((config, Wrapped) => {
 
 export default CachedDecorator;
 export {
+	CachedContext,
+	CachedPropContextDecorator,
 	CachedDecorator,
-	CachedContextDecorator
+	CachedChildrenContextDecorator
 };
