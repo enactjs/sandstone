@@ -48,8 +48,8 @@ class VirtualGridListNativeSample extends Component {
 		return (
 			<CachedContextImageItem
 				{...rest}
-				label={items[index].subText
-			}>
+				label={items[index].subText}
+			>
 				{items[index].text}
 			</CachedContextImageItem>
 		);
