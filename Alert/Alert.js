@@ -197,7 +197,7 @@ const AlertBase = kind({
 				<Layout align="center center" orientation={layoutOrientation}>
 					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
 					{fullscreen ?
-						<Cell shrink align="stretch">
+						<Cell shrink align="center" className={css.titleContainer}>
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
 							<BodyText centered className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</BodyText>
 						</Cell> :
