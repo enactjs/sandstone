@@ -10,7 +10,7 @@ import DefaultHeader from '../Panels/Header';
 import css from './FlexiblePopupPanels.module.less';
 
 /**
- * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
+ * A header component for `FlexiblePopupPanels.Panel` with a `title` and `subtitle`, supporting several configurable
  * [`slots`]{@link ui/Slottable.Slottable} for components.
  *
  * @class Header

@@ -423,7 +423,7 @@ function useReverseTransition (index = -1) {
  *
  * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
- * @ui
+ * @private
  */
 const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({

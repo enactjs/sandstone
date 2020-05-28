@@ -3,13 +3,11 @@
  *
  * @module sandstone/FlexiblePopupPanels
  * @exports FlexiblePopupPanels
- * @exports FlexiblePopupPanelsBase
- * @exports FlexiblePopupPanelsDecorator
  * @exports Header
  * @exports Panel
  */
 
-import {FlexiblePopupPanels, FlexiblePopupPanelsBase, FlexiblePopupPanelsDecorator} from './FlexiblePopupPanels';
+import {FlexiblePopupPanels, FlexiblePopupPanelsBase} from './FlexiblePopupPanels';
 import Header from './Header';
 import Panel from './Panel';
 
@@ -35,7 +33,6 @@ export default FlexiblePopupPanels;
 export {
 	FlexiblePopupPanels,
 	FlexiblePopupPanelsBase,
-	FlexiblePopupPanelsDecorator,
 	Header,
 	Panel
 };
