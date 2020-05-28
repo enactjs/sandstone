@@ -475,7 +475,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @type {Boolean}
 			 * @public
 			 */
-			rateDisabled: PropTypes.bool,
+			rateChangeDisabled: PropTypes.bool,
 
 			/**
 			 * Registers the MediaControls component with an
@@ -614,7 +614,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			const {
 				mediaDisabled,
 				no5WayJump,
-				rateDisabled,
+				rateChangeDisabled,
 				playPauseButtonDisabled
 			} = this.props;
 
@@ -633,7 +633,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.paused.resume();
 			}
 
-			if (!rateDisabled) {
+			if (!rateChangeDisabled) {
 				if (is('rewind', ev.keyCode)) {
 					forward('onRewind', ev, this.props);
 				} else if (is('fastForward', ev.keyCode)) {
@@ -746,7 +746,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			delete props.onPlay;
 			delete props.onRewind;
 			delete props.onToggleMore;
-			delete props.rateDisabled;
+			delete props.rateChangeDisabled;
 			delete props.setApiProvider;
 
 			return (

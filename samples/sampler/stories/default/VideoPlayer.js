@@ -182,7 +182,7 @@ storiesOf('Sandstone', module)
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
-							rateDisabled={boolean('rateDisabled', MediaControlsConfig)}
+							rateChangeDisabled={boolean('rateChangeDisabled', MediaControlsConfig)}
 							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
 							pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
 							playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
