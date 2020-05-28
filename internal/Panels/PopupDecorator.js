@@ -193,6 +193,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					<Wrapped
 						{...rest}
 						arranger={panelArranger}
+						className={css.viewport}
 						generateId={generateId}
 						id={`${id}_panels`}
 						index={index}

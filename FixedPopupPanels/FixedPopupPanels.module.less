@@ -2,6 +2,8 @@
 @import "../styles/variables.less";
 
 .fixedPopupPanels {
+	border-radius: 0;
+
 	&.narrow {
 		width: @sand-fixedpopuppanels-width;
 	}
@@ -16,15 +18,48 @@
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+		background-color: transparent;
+
+		.viewport {
+			filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+			// DEVNOTE: Change These to appropriate component-named variables
+			border-radius: @sand-popuptablayout-tabs-content-border-radius;
+			background-color: @sand-popuptablayout-bg-color;
+			transition: height 1s ease-in-out;
+		}
 	});
+}
+
+.popup {
+	> .body {
+		padding: 0;
+		position: relative;
+	}
+}
+
+.viewport {
+	bottom: auto;
+	max-height: 100%;
 }
 
 // Overrides for Panel
 .panel {
 	padding: @sand-fixedpopuppanels-panel-padding;
+	max-height: -webkit-fill-available;
+	border: 1px solid red;
 
 	> .body {
 		padding: @sand-fixedpopuppanels-panel-body-padding;
+
+		/* flex: 0 1; */
+		/* flex-basis: 100%; */
+		/* max-height: -webkit-fill-available; */
+		max-height: initial;
+
+		flex-shrink: initial;
+		flex-grow: initial;
+		border: 1px dotted yellow;
+
+		overflow: hidden;
 	}
 }
