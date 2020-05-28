@@ -33,7 +33,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
-- `sandstone/Item` to read out as selected value
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
 
 ## [1.0.0-beta.3] - 2020-05-11
 
