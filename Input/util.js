@@ -1,5 +1,11 @@
 import $L from '../internal/$L';
 
+// A default value for the numeric field length. Used by maxLength and minLength.
+const DEFAULT_LENGTH = 4;
+
+// The cutoff length, at which point the numeric field switches from separated boxes to one box
+const SEPARATE_DIGITS_LIMIT = 6;
+
 /**
  * Determines the `aria-label` for an Input
  *
@@ -100,6 +106,8 @@ const extractInputProps = function (props) {
 };
 
 export {
+	DEFAULT_LENGTH,
+	SEPARATE_DIGITS_LIMIT,
 	calcAriaLabel,
 	convertToPasswordFormat,
 	extractInputProps,

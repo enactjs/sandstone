@@ -3,11 +3,11 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
 const useSpotlightConfig = (props, instances) => {
-	const {spottable: {current: {lastFocusedIndex}}} = instances;
-
 	// Hooks
 
 	useEffect(() => {
+		const {spottable: {current: {lastFocusedIndex}}} = instances;
+
 		const lastFocusedPersist = () => {
 			if (lastFocusedIndex != null) {
 				return {
@@ -41,7 +41,7 @@ const useSpotlightConfig = (props, instances) => {
 		}
 
 		configureSpotlight();
-	}, [lastFocusedIndex, props, props.spotlightId]);
+	}, [props, instances]);
 
 	// Functions
 

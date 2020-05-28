@@ -88,10 +88,6 @@
 		}
 	});
 
-	.tooltip {
-		display: none;
-	}
-
 	&.horizontal {
 		@h-gap: (@sand-slider-knob-width / 2);
 		@v-gap: (@sand-slider-knob-height - @sand-slider-bar-height) / 2;
@@ -136,15 +132,6 @@
 			padding: @v-gap-large ((@sand-slider-knob-height-large - @sand-slider-bar-height) / 2);
 		});
 	}
-
-	.spottable({
-		&.pressed,
-		&:focus {
-			.tooltip {
-				display: block;
-			}
-		}
-	});
 
 	.applySkins({
 		.bar {
@@ -276,3 +263,31 @@
 		});
 	}
 }, parent);
+
+
+.tooltip {
+	// Offset tooltip origin because `.knob` centered tooltip within the progressbar (when tooltip original origin is at the edge of `.progressbar`).
+	&.horizontal {
+		&.above {
+			transform: translateY(@sand-slider-tooltip-above-offset);
+		}
+
+		&.below {
+			transform: translateY(@sand-slider-tooltip-below-offset);
+		}
+	}
+
+	&.vertical {
+		&.left,
+		&.before,
+		:global(.enact-locale-right-to-left) &.after {
+			transform: translateX(@sand-slider-tooltip-before-offset);
+		}
+
+		&.right,
+		&.after,
+		:global(.enact-locale-right-to-left) &.before {
+			transform: translateX(@sand-slider-tooltip-after-offset);
+		}
+	}
+}

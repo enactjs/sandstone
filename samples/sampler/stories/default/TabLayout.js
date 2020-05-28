@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -16,7 +16,6 @@ import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 TabLayout.displayName = 'TabLayout';
 const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 
-const ConfigPanel = {displayName: 'Panel'};
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
 const tabsWithIcons = [
@@ -52,10 +51,11 @@ storiesOf('Sandstone', module)
 			);
 
 			return (
-				<Panel featureContent={boolean('featureContent', ConfigPanel)}>
+				<Panel>
 					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 					<TabLayout
 						onSelect={action('onSelect')}
+						onTabAnimationEnd={action('onTabAnimationEnd')}
 						orientation={select('orientation', ['vertical', 'horizontal'], Config)}
 						tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
 					>

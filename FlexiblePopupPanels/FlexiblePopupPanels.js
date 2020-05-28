@@ -11,8 +11,8 @@ import React from 'react';
 import compose from 'ramda/src/compose';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
-import PanelsPanel from '../Panels/Panel';
-import Header from '../Panels/Header';
+import DefaultPanel from '../Panels/Panel';
+import DefaultHeader from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
 
@@ -48,7 +48,7 @@ const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
  * @ui
  * @public
  */
-const Panel = (props) => <PanelsPanel {...props} css={css} />;
+const Panel = (props) => (<DefaultPanel {...props} css={css} />);
 
 /**
  * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}
@@ -69,6 +69,9 @@ FlexiblePopupPanels.Panel = Panel;
  * @ui
  * @public
  */
+const Header = (props) => (<DefaultHeader type="mini" {...props} />);
+// Relay the defaultSlot property to our version of Header
+Header.defaultSlot = DefaultHeader.defaultSlot;
 
 /**
  * A shortcut to access {@link sandstone/FlexiblePopupPanels.Header}

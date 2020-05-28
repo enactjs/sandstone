@@ -5,7 +5,7 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import React, {useCallback, useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 
 import {affordanceSize} from '../useScroll';
 
@@ -185,7 +185,7 @@ const useSpottable = (props, instances) => {
 			// round to end
 			if (sh - (st + sb.height) < threshold) return sh - sb.height;
 
-			return st + affordanceSize;
+			return st + ri.scale(affordanceSize);
 		};
 		// adding threshold into these determinations ensures that items that are within that are
 		// near the bounds of the scroller cause the edge to be scrolled into view even when the
@@ -305,11 +305,11 @@ const useSpottable = (props, instances) => {
 		const containerRect = getRect(containerNode);
 		const itemRect = getRect(item);
 
-		if (horizontal && !(itemRect.left >= (containerRect.left + affordanceSize) && itemRect.right <= (containerRect.right - affordanceSize))) {
+		if (horizontal && !(itemRect.left >= (containerRect.left + ri.scale(affordanceSize)) && itemRect.right <= (containerRect.right - ri.scale(affordanceSize)))) {
 			scrollContentHandle.current.scrollPos.left = calculateScrollLeft(item, scrollPosition);
 		}
 
-		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= (containerRect.bottom - affordanceSize))) {
+		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= (containerRect.bottom - ri.scale(affordanceSize)))) {
 			scrollContentHandle.current.scrollPos.top = calculateScrollTop(item);
 		}
 
@@ -335,7 +335,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
-	delete rest.children;
 	delete rest.onUpdate;
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
@@ -354,7 +353,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 			focusOnNode,
 			setContainerDisabled
 		});
-	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, scrollContentProps.setThemeScrollContentHandle, setContainerDisabled]);
+	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, setContainerDisabled]);
 
 	// Render
 
@@ -362,12 +361,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 		className,
 		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
-	);
-
-	rest.children = (
-		<div className={css.contentWrapper}>
-			{scrollContentProps.children}
-		</div>
 	);
 
 	return {focusableBodyProps, themeScrollContentProps: rest};

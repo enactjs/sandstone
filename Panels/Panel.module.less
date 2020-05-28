@@ -3,19 +3,14 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-.featureContentTransition() {
-	transition: @sand-panel-featurecontent-animation-duration transform ease-in-out;
-	will-change: transform, height;
-}
-
 .panel {
-	position: absolute;
+	position: relative;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
 	padding: @sand-panel-padding;
 	box-sizing: border-box;
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	vertical-align: top;
 	white-space: initial;  // Restore the viewport-inherited white-space property
@@ -44,29 +39,5 @@
 
 	:global(.enact-locale-right-to-left) & {
 		direction: rtl;
-	}
-
-	&.featureContent {
-		height: calc(100% + var(--sand-panels-header-title-height));
-
-		// ViewManager blocks transition on the Panel element, so we must move all the children
-		& > * {
-			.featureContentTransition();
-		}
-
-		&.shouldFeatureContent > * {
-			transform: translateY(calc(var(--sand-panels-header-title-height) * -1));
-		}
-
-		.scrollbar {
-			.featureContentTransition();
-			transform-origin: center top;
-		}
-
-		&:not(.shouldFeatureContent) {
-			.scrollbar {
-				transform: scaleY(var(--scrollbar-scale));
-			}
-		}
 	}
 }

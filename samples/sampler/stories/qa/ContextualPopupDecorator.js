@@ -1,21 +1,18 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {Group} from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
-const ContextualPopup = ContextualPopupDecorator(Button);
 
-const buttonMargin = () => ({margin: ri.unit(24, 'rem')});
+const buttonMargin = () => ({margin: ri.scaleToRem(24)});
 
 const renderPopup = () => (
 	<div>
@@ -25,19 +22,19 @@ const renderPopup = () => (
 );
 
 const renderWidePopup = () => (
-	<div style={{width: ri.unit(1002, 'rem')}}>
+	<div style={{width: ri.scaleToRem(1002)}}>
 		This is a wide popup
 	</div>
 );
 
 const renderTallPopup = () => (
-	<div style={{height: ri.unit(402, 'rem')}}>
+	<div style={{height: ri.scaleToRem(402)}}>
 		This is a tall popup
 	</div>
 );
 
 const renderSuperTallPopup = () => (
-	<div style={{height: ri.unit(1140, 'rem')}}>
+	<div style={{height: ri.scaleToRem(1140)}}>
 		This is a super tall popup.
 		Note: this popup does not overflow in full screen mode.
 	</div>
@@ -66,84 +63,11 @@ class ContextualPopupWithActivator extends React.Component {
 	}
 }
 
-// PLAT-77119
-class ContextualPopupWithArrowFunction extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isOpen: false,
-			twoGroup: false
-		};
-	}
-
-	componentDidUpdate (prevProps, prevState) {
-		if (this.ref && this.state.twoGroup !== prevState.twoGroup) {
-			this.ref.positionContextualPopup();
-		}
-	}
-
-	handleOnClick = () => {
-		this.setState({isOpen: true});
-	}
-
-	handleItemClick = () => {
-		this.setState((state) => {
-			return {twoGroup: !state.twoGroup};
-		});
-	}
-
-	setRef = (node) => {
-		this.ref = node;
-	}
-
-	popupComponent = () => {
-		return (
-			<div style={{display: 'flex'}}>
-				<div style={{display: 'flex'}}>
-					<Group
-						childComponent={CheckboxItem}
-						select="multiple"
-						selectedProp="selected"
-						onClick={this.handleItemClick}
-					>
-						{['click to change layout']}
-					</Group>
-				</div>
-				{this.state.twoGroup ?
-					<div style={{display: 'flex'}}>
-						<Group
-							childComponent={CheckboxItem}
-							select="multiple"
-							selectedProp="selected"
-						>
-							{['dummy item']}
-						</Group>
-					</div> : null
-				}
-			</div>
-		);
-	};
-	render () {
-		const {...rest} = this.props;
-
-		return (
-			<div {...rest} style={{display: 'flex', justifyContent: 'flex-end'}}>
-				<ContextualPopup
-					ref={this.setRef}
-					popupComponent={this.popupComponent}
-					open={this.state.isOpen}
-					onClick={this.handleOnClick}
-				/>
-			</div>
-		);
-	}
-}
-
 storiesOf('ContextualPopupDecorator', module)
 	.add(
 		'with 5-way selectable activator',
 		() => (
-			<div style={{textAlign: 'center', marginTop: ri.unit(260, 'rem')}}>
+			<div style={{textAlign: 'center', marginTop: ri.scaleToRem(260)}}>
 				<ContextualPopupWithActivator
 					direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config, 'below')}
 					popupComponent={renderPopup}
@@ -159,7 +83,7 @@ storiesOf('ContextualPopupDecorator', module)
 		() => (
 			<div style={{position: 'relative', width: '100%', height: '100%'}}>
 				<Heading showLine>direction Up</Heading>
-				<div style={{display: 'flex', justifyContent: 'space-between', marginBottom: ri.unit(24, 'rem')}}>
+				<div style={{display: 'flex', justifyContent: 'space-between', marginBottom: ri.scaleToRem(24)}}>
 					<ContextualPopupWithActivator
 						direction="above"
 						popupComponent={renderWidePopup}
@@ -183,7 +107,7 @@ storiesOf('ContextualPopupDecorator', module)
 					<Heading showLine style={{flexGrow: '1'}}>direction left </Heading>
 					<Heading showLine style={{flexGrow: '1'}}>direction right</Heading>
 				</div>
-				<div style={{display: 'flex', marginBottom: ri.unit(48, 'rem')}}>
+				<div style={{display: 'flex', marginBottom: ri.scaleToRem(48)}}>
 					<div style={{flexGrow: '1', display: 'flex', justifyContent: 'space-between'}}>
 						<ContextualPopupWithActivator
 							direction="left middle"
@@ -213,9 +137,9 @@ storiesOf('ContextualPopupDecorator', module)
 						</ContextualPopupWithActivator>
 					</div>
 				</div>
-				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.unit(48, 'rem')}}>
+				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.scaleToRem(48)}}>
 					<ContextualPopupWithActivator
-						direction="left"
+						direction="left middle"
 						popupComponent={renderSuperTallPopup}
 					>
 						Overflows Bottom
@@ -249,11 +173,5 @@ storiesOf('ContextualPopupDecorator', module)
 					</ContextualPopupWithActivator>
 				</div>
 			</div>
-		)
-	)
-	.add(
-		'with arrow function',
-		() => (
-			<ContextualPopupWithArrowFunction />
 		)
 	);

@@ -118,7 +118,7 @@ class ChangeableTooltip extends React.Component {
 		const {left, top} = this.state.position;
 		const style = {
 			position: 'absolute',
-			width: ri.unit(780, 'rem'),
+			width: ri.scaleToRem(780),
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
