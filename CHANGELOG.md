@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VirtualList` ignoring scroll position given by `scrollTo`
+- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 
 ## [1.0.0-beta.4] - 2020-05-26
 
