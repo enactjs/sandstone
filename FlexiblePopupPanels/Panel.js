@@ -54,18 +54,19 @@ const PanelBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'always'`will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel`, enabling `nextButton` to be overridden on each Panel
+		 * * `'always'` will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `nextButton` on the every `FlexiblePopupPanels.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
 		 * case, a customized `nextButton` on `FlexiblePopupPanels.Panel` will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
-		 * @type {('always'|'never')}
-		 * @default 'always'
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
 		 * @private
 		 */
-		nextButtonVisibility: PropTypes.oneOf(['always', 'never']),
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		 * Called when the index value is changed.
@@ -81,7 +82,7 @@ const PanelBase = kind({
 		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
 		 *
 		 * @type {Function}
-		 * @public
+		 * @private
 		 */
 		onNextClick: PropTypes.func,
 
@@ -91,7 +92,7 @@ const PanelBase = kind({
 		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
 		 *
 		 * @type {Function}
-		 * @public
+		 * @private
 		 */
 		onPrevClick: PropTypes.func,
 
@@ -117,17 +118,18 @@ const PanelBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'always'`will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel`, enabling `prevButton` to be overridden on each Panel
+		 * * `'always'` will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `prevButton` on the every `FlexiblePopupPanels.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on `FlexiblePopupPanels.Panel` will take precedence over the `prevButtonVisibility` value.
 		 *
-		 * @type {('always'|'never')}
-		 * @default 'always'
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
 		 * @private
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['always', 'never'])
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
 	},
 
 	handlers: {

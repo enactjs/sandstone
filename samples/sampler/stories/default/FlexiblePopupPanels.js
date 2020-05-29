@@ -49,6 +49,8 @@ storiesOf('Sandstone', module)
 					onChange={handleChange}
 					onClose={handleClose}
 					onHide={action('onHide')}
+					onNextClick={action('onNextClick')}
+					onPrevClick={action('onPrevClick')}
 					onShow={action('onShow')}
 					prevButtonVisibility={select('prevButtonVisibility', props.buttonVisibility, Config)}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}

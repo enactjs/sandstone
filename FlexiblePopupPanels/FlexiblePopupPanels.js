@@ -24,18 +24,19 @@ const FlexiblePopupPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'always'`will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel`, enabling `nextButton` to be overridden on each Panel
+		 * * `'always'` will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `nextButton` on the every `FlexiblePopupPanels.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
 		 * case, a customized `nextButton` on `FlexiblePopupPanels.Panel` will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
-		 * @type {('always'|'never')}
-		 * @default 'always'
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
 		 * @public
 		 */
-		nextButtonVisibility: PropTypes.oneOf(['always', 'never']),
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		* Called when the index value is changed.
@@ -47,24 +48,45 @@ const FlexiblePopupPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
+		 * Called when the next button is clicked in `FlexiblePopupPanels.Panel`.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onNextClick: PropTypes.func,
+
+		/**
+		 * Called when the previous button is clicked in `FlexiblePopupPanels.Panel`.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onPrevClick: PropTypes.func,
+
+		/**
 		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'always'`will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel`, enabling `prevButton` to be overridden on each Panel
+		 * * `'always'` will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `prevButton` on the every `FlexiblePopupPanels.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on `FlexiblePopupPanels.Panel` will take precedence over the `prevButtonVisibility` value.
 		 *
-		 * @type {('always'|'never')}
-		 * @default 'always'
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
 		 * @public
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['always', 'never'])
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
 	},
 
 	defaultProps: {
-		nextButtonVisibility: 'always',
-		prevButtonVisibility: 'always'
+		nextButtonVisibility: 'auto',
+		prevButtonVisibility: 'auto'
 	},
 
 	styles: {
@@ -73,11 +95,13 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, prevButtonVisibility}) => React.Children.map(children, (child) => {
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
 			if (child) {
 				const props = {
 					nextButtonVisibility,
 					onChange,
+					onNextClick,
+					onPrevClick,
 					prevButtonVisibility
 				};
 
@@ -92,6 +116,8 @@ const FlexiblePopupPanelsBase = kind({
 	render: (props) => {
 		delete props.nextButtonVisibility;
 		delete props.onChange;
+		delete props.onNextClick;
+		delete props.onPrevClick;
 		delete props.prevButtonVisibility;
 
 		return (<Viewport {...props} />);
