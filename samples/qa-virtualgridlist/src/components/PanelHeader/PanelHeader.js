@@ -1,15 +1,17 @@
-import Button from '@enact/sandstone/Button';
-import {Cell, Row} from '@enact/ui/Layout';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
-import {connect} from 'react-redux';
-import {Header} from '@enact/sandstone/Panels';
-import Input from '@enact/sandstone/Input';
 import kind from '@enact/core/kind';
+import Button from '@enact/sandstone/Button';
+import CheckboxItem from '@enact/sandstone/CheckboxItem';
+import {Header} from '@enact/sandstone/Panels';
+import {InputField as Input} from '@enact/sandstone/Input';
+import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {connect} from 'react-redux';
 
 import LocaleSwitch from '../LocaleSwitch';
 import ScrollModeSwitch from '../ScrollModeSwitch';
+
+import createRecord from '../../utils';
 
 import {
 	addItem as addAction,
@@ -23,22 +25,6 @@ import {
 	selectionEnable as selectionEnableAction,
 	setData as setAction
 } from '../../actions';
-
-const createMockItem = (dataSize, showOverlay) => {
-	const
-		dataLength = dataSize,
-		caption = (dataLength % 8 === 0) ? ' with long title' : '',
-		subCaption = (dataLength % 8 === 0) ? 'Lorem ipsum dolor sit amet' : 'Subtitle',
-		color = Math.floor((Math.random() * 0xEFEFF0) + 0x101010).toString(16);
-
-	return {
-		children: dataLength + caption,
-		label: subCaption,
-		selected: false,
-		showSelection: showOverlay,
-		src: 'http://placehold.it/300x300/' + color + '/ffffff&text=Image ' + dataLength
-	};
-};
 
 const PanelHeader = kind({
 	name: 'PanelHeader',
@@ -56,7 +42,6 @@ const PanelHeader = kind({
 		deleteSelectedItem: PropTypes.func,
 		nativeScroll: PropTypes.bool,
 		onChangeDirection: PropTypes.func,
-		onChangeFocusableScrollbar: PropTypes.func,
 		onChangeScrollMode: PropTypes.func,
 		selectAll: PropTypes.func,
 		selectionEnable: PropTypes.func,
@@ -64,8 +49,8 @@ const PanelHeader = kind({
 	},
 
 	handlers: {
-		addMockItem: (ev, {addItem, dataSize, showOverlay}) => {
-			addItem(createMockItem(dataSize, showOverlay));
+		addMockItem: (ev, {addItem, dataSize: recordIndex, showOverlay}) => {
+			addItem(createRecord({recordIndex, showOverlay}));
 		},
 		changeMinHeight: (ev, {changeMinHeight}) => {
 			changeMinHeight(ev.value);
@@ -88,7 +73,7 @@ const PanelHeader = kind({
 		setData: (ev, {changeDataSize, dataSize, showOverlay, setData}) => {
 			changeDataSize(ev.value);
 			for (let i = 0; i <= ev.value; i++) {
-				setData(ev.value, createMockItem(dataSize + i, showOverlay));
+				setData(ev.value, createRecord({recordIndex: dataSize + i, showOverlay}));
 			}
 		},
 		showSelectionOverlayHandler: (ev, {selectionEnable}) => {
@@ -105,11 +90,6 @@ const PanelHeader = kind({
 		changeDirectionButton: ({onChangeDirection, showOverlay}) => {
 			if (!showOverlay) {
 				return (<CheckboxItem onClick={onChangeDirection}>Horizontal</CheckboxItem>);
-			}
-		},
-		changeFocusableScrollbarButton: ({onChangeFocusableScrollbar, showOverlay}) => {
-			if (!showOverlay) {
-				return (<CheckboxItem onClick={onChangeFocusableScrollbar}>Focusable Scrollbar</CheckboxItem>);
 			}
 		},
 		changeListProps: ({changeMinHeight, changeMinWidth, changeSpacing, data, setData, showOverlay}) => {
@@ -155,7 +135,7 @@ const PanelHeader = kind({
 		},
 		selectAllButton: ({selectAll, showOverlay}) => {
 			if (showOverlay) {
-				return (<Button size="small" onClick={selectAll}>Select All</Button>);
+				return (<Button size="small" onClick={selectAll}>Select/DeSelect All</Button>);
 			}
 		},
 		selectionPreviousButton: ({showOverlay, showSelectionOverlayHandler}) => {
@@ -167,7 +147,7 @@ const PanelHeader = kind({
 		}
 	},
 
-	render: ({addButton, changeDirectionButton, changeFocusableScrollbarButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
+	render: ({addButton, changeDirectionButton, changeListProps, changeScrollMode, deleteButton, deleteSelectedButton, selectAllButton, selectionPreviousButton, ...rest}) => {
 		delete rest.addItem;
 		delete rest.addMockItem;
 		delete rest.changeDataSize;
@@ -177,8 +157,8 @@ const PanelHeader = kind({
 		delete rest.dataSize;
 		delete rest.deleteItem;
 		delete rest.deleteSelectedItem;
+		delete rest.nativeScroll;
 		delete rest.onChangeDirection;
-		delete rest.onChangeFocusableScrollbar;
 		delete rest.onChangeScrollMode;
 		delete rest.selectAll;
 		delete rest.selectionEnable;
@@ -205,9 +185,6 @@ const PanelHeader = kind({
 						{selectionPreviousButton}
 					</Cell>
 					<Cell>
-						{changeFocusableScrollbarButton}
-					</Cell>
-					<Cell>
 						{changeDirectionButton}
 					</Cell>
 					<Cell>
@@ -218,7 +195,6 @@ const PanelHeader = kind({
 					</Cell>
 				</Row>
 				{changeListProps}
-				<hr />
 			</Header>
 		);
 	}
