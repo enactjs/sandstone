@@ -15,17 +15,18 @@
 		position: relative;
 	}
 
-	.navCellBefore,
-	.navCellAfter {
+	.navButton {
 		position: absolute;
 	}
 
-	.navCellBefore {
-		left: @sand-flexiblepopuppanels-navcell-width * -1;
+	.navCellBefore .navButton {
+		left: 0;
+		transform: translate(-100%, -50%);
 	}
 
-	.navCellAfter {
-		right: @sand-flexiblepopuppanels-navcell-width * -1;
+	.navCellAfter .navButton {
+		right: 0;
+		transform: translate(100%, -50%);
 	}
 
 	.navButton {

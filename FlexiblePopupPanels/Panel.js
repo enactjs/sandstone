@@ -167,7 +167,7 @@ const PanelBase = kind({
 			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
 
 			return (
-				<Row className={css.bodyLayout}>
+				<Row className={css.bodyLayout} inline>
 					<Cell align="center" shrink className={css.navCellBefore}>
 						<NavigationButton
 							aria-label={$L('Previous')}
@@ -181,7 +181,7 @@ const PanelBase = kind({
 						/>
 					</Cell>
 					<Cell className={css.content} shrink>{children}</Cell>
-					<Cell align="center" shrink>
+					<Cell align="center" shrink className={css.navCellAfter}>
 						<NavigationButton
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"
