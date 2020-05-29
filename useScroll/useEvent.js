@@ -115,7 +115,7 @@ const useEventFocus = (props, instances, context) => {
 			alertScrollbarTrack();
 		}
 
-		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging)) {
+		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
 			const
 				item = ev.target,
 				spotItem = Spotlight.getCurrent();
