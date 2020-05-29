@@ -1,15 +1,13 @@
+import {Panel} from '@enact/sandstone/Panels';
 import React from 'react';
 
 import ImageList from '../components/ImageList';
 import PanelHeader from '../components/PanelHeader';
 
-import css from './MainView.module.less';
-
 class MainView extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			focusableScrollbar: false,
 			horizontal: false,
 			nativeScroll: true
 		};
@@ -17,10 +15,6 @@ class MainView extends React.Component {
 
 	componentDidUpdate () {
 		this.scrollTo({index: 0, animate: false, focus: true});
-	}
-
-	onChangeFocusableScrollbar = () => {
-		this.setState((state) => ({focusableScrollbar: !state.focusableScrollbar}));
 	}
 
 	onChangeDirection = () => {
@@ -36,27 +30,24 @@ class MainView extends React.Component {
 	}
 
 	render = () => {
-		const {focusableScrollbar, horizontal, nativeScroll} = this.state;
+		const {horizontal, nativeScroll} = this.state;
 		return (
-			<div className={css.mainView}>
+			<Panel>
 				<PanelHeader
-					title="VirtualGridList"
-					type="mini"
 					nativeScroll={nativeScroll}
 					onChangeDirection={this.onChangeDirection}
-					onChangeFocusableScrollbar={this.onChangeFocusableScrollbar}
 					onChangeScrollMode={this.onChangeScrollMode}
+					slot="header"
+					title="VirtualGridList"
+					type="mini"
 				/>
-				<div className={css.content}>
-					<ImageList
-						cbScrollTo={this.getScrollTo}
-						className={css.list}
-						focusableScrollbar={focusableScrollbar}
-						direction={horizontal ? 'horizontal' : 'vertical'}
-						scrollMode={nativeScroll ? 'native' : 'translate'}
-					/>
-				</div>
-			</div>
+				<ImageList
+					cbScrollTo={this.getScrollTo}
+					direction={horizontal ? 'horizontal' : 'vertical'}
+					key={nativeScroll ? 'native' : 'translate'}
+					scrollMode={nativeScroll ? 'native' : 'translate'}
+				/>
+			</Panel>
 		);
 	}
 }
