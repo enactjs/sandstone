@@ -4,15 +4,26 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
+
 ### Added
 
-- `sandstone/FlexiblePopupPanels` prop `onChange` to notify consumers when the panel index is updated
-- `sandstone/FlexiblePopupPanels.Panel` props `onNextClick`, `onPrevClick`, `prevButton`, and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/FlexiblePopupPanels` props `onChange`, `onNextClick`, and `onPrevClick` to notify consumers of navigational events
 - `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
 
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+
+### Fixed
+
+- `sandstone/Item` to properly accept numbers for `label`
+- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 
 ## [1.0.0-beta.4] - 2020-05-26
 
