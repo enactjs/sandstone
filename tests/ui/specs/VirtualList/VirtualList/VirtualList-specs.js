@@ -145,7 +145,7 @@ describe('VirtualList', function () {
 			Page.delay(2000);
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			Page.fiveWayToItem(0);
+			Page.fiveWayToItemAsync(0);
 			// Verify Step 11: Spotlight displays on the first item.
 			Page.delay(2000);
 			expectFocusedItem(0, 'focus Item 0');

@@ -20,6 +20,18 @@ function waitUntilFocused (itemNum) {
 	}, 1500, `timed out waiting to focus index ${itemNum}`);
 }
 
+async function waitUntilFocusedAsync (itemNum) {
+	let focusedId = null;
+	const target = `item${itemNum}`;
+	await browser.waitUntil(() => {
+		browser.call(async () => {
+			focusedId = focusedElement();
+		});
+
+		return target === focusedId;
+	}, 300, `timed out waiting to focus index ${itemNum}`);
+}
+
 function isScrolling () {
 	return $('#scrolling').getText() === 'Scrolling';
 }
@@ -43,3 +55,4 @@ exports.expectNoFocusedItem = expectNoFocusedItem;
 exports.focusedElement = focusedElement;
 exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;
+exports.waitUntilFocusedAsync = waitUntilFocusedAsync;

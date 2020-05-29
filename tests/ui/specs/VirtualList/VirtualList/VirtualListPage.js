@@ -1,7 +1,7 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const {focusedElement, waitUntilFocused} = require('../VirtualList-utils');
+const {focusedElement, waitUntilFocused, waitUntilFocusedAsync} = require('../VirtualList-utils');
 
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
@@ -118,7 +118,7 @@ class VirtualListPage extends Page {
 		}, this.item(id).value);
 	}
 
-	fiveWayToItem (itemNum) {
+	moveAndWait (itemNum, async) {
 		const currentItem = Number(focusedElement().slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
 
@@ -130,8 +130,21 @@ class VirtualListPage extends Page {
 			} else {
 				this.spotlightUp();
 			}
-			waitUntilFocused(i + direction);
+
+			if (async) {
+				waitUntilFocusedAsync(i + direction);
+			} else {
+				waitUntilFocused(i + direction);
+			}
 		}
+	}
+
+	fiveWayToItem (itemNum) {
+		this.moveAndWait(itemNum, false);
+	}
+
+	fiveWayToItemAsync (itemNum) {
+		this.moveAndWait(itemNum, true);
 	}
 }
 
