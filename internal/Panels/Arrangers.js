@@ -1,7 +1,14 @@
 import {arrange} from '@enact/ui/ViewManager';
+import ri from '@enact/ui/resolution';
 
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
+
+function setHeightVariable (node, height) {
+	if (height) height = ri.unit(height, 'rem');
+	node.parentNode.parentNode.style.setProperty('--sand-panels-measured-height', height);
+	node.style.setProperty('--sand-panel-measured-height', height);
+}
 
 /**
  * Arranger that slides panels in from the right and out to the left.
@@ -10,13 +17,37 @@ const animationOptions = {easing: quadInOut};
  * @private
  */
 const BasicArranger = {
+	stay: (config) => {
+		const {node} = config;
+		const height = node.getBoundingClientRect().height;
+		setHeightVariable(node, height);
+
+		return arrange(config, [
+			{transform: 'none'},
+			{transform: 'none'}
+		], animationOptions);
+	},
 	enter: (config) => {
+		const {node, reverse} = config;
+		// Only assign values for the view entering the screen
+		if (!reverse) {
+			const height = node.getBoundingClientRect().height;
+			setHeightVariable(node, height);
+		}
+
 		return arrange(config, [
 			{transform: 'translateX(100%)', offset: 0},
 			{transform: 'none', offset: 1}
 		], animationOptions);
 	},
 	leave: (config) => {
+		const {node, reverse} = config;
+		// Only assign values for the view entering the screen
+		if (reverse) {
+			const height = node.getBoundingClientRect().height;
+			setHeightVariable(node, height);
+		}
+
 		return arrange(config, [
 			{transform: 'none', offset: 0},
 			{transform: 'translateX(-100%)', offset: 1}
