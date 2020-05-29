@@ -119,7 +119,6 @@ const DropdownListBase = kind({
 				dataSize={dataSize}
 				itemSize={itemSize}
 				role="group"
-				scrollMode="translate" // VirtualList native scroll mode ignores the offset, so we are using `translate`. This issue be fixed in PLAT-107461
 				style={{height: itemSize * dataSize}}
 			/>
 		);
