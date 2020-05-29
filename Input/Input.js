@@ -16,7 +16,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -51,17 +51,73 @@ const InputPopupBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * Indicates value is invalid and shows `invalidMessage`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		invalid: PropTypes.bool,
+
+		/**
+		 * The tooltip text to be displayed when the input is `invalid`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		invalidMessage: PropTypes.string,
+
+		/**
 		 * Set the length of number input field.
 		 *
 		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
 		 * (inclusive) will render individual number cells, greater than 6 will render a single box
-		 * with numbers in it. This only has an effect on "number" and "passwordnumber" `type`.
+		 * with numbers in it. This only has an effect on `'number'` and `'passwordnumber'` `type`
+		 * and when `numberInputField` is `'auto'`.
+		 *
+		 * This value will override `minLength` and `maxLength`.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		length: PropTypes.number,
+
+		/**
+		 * The maximum length of number input fields.
+		 *
+		 * Overridden by `length` value.
 		 *
 		 * @type {Number}
 		 * @default 4
 		 * @public
 		 */
-		length: PropTypes.number,
+		maxLength: PropTypes.number,
+
+		/**
+		 * The minimum length of number input fields.
+		 *
+		 * Overridden by `length` value.
+		 *
+		 * When smaller than `maxLength`, number type inputs will show a submit button and will not
+		 * auto-submit when the length reaches `maxLength`. Defaults to the `maxLength` value.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		minLength: PropTypes.number,
+
+		/**
+		 * The type of numeric input to use.
+		 *
+		 * The default is to display separated digits when `length` is less than `7`. If `field` is
+		 * set, a standard `InputField` will be used instead of the normal number input.
+		 *
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 *
+		 * @type {('auto'|'separated'|'joined'|'field')}
+		 * @default 'auto'
+		 * @public
+		 */
+		numberInputField: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
 
 		/**
 		 * Called when the input value is changed.
@@ -166,8 +222,8 @@ const InputPopupBase = kind({
 	},
 
 	defaultProps: {
-		length: 4,
 		popupType: 'fullscreen',
+		numberInputField: 'auto',
 		size: 'large',
 		subtitle: '',
 		title: '',
@@ -205,6 +261,13 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
+		maxLength: ({length, maxLength}) => (length || maxLength),
+		minLength: ({length, maxLength, minLength}) => {
+			if (length) return length;
+			if (minLength != null) return minLength;
+			if (maxLength != null) return maxLength;
+			return DEFAULT_LENGTH;
+		},
 		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
 	},
 
@@ -212,7 +275,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		disabled,
-		length,
+		numberInputField,
 		onChange,
 		onClose,
 		onNumberComplete,
@@ -231,8 +294,9 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const numberMode = (type === 'number' || type === 'passwordnumber');
+		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
+		delete rest.length;
 		delete rest.onComplete;
 		delete rest.onOpenPopup;
 
@@ -253,12 +317,13 @@ const InputPopupBase = kind({
 					<Cell shrink className={css.inputArea}>
 						{numberMode ?
 							<NumberField
+								{...inputProps}
 								defaultValue={value}
-								length={length}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
+								numberInputField={numberInputField}
 							/> :
 							<InputField
 								{...inputProps}
