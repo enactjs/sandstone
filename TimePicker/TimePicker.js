@@ -72,15 +72,13 @@ const indexOfMeridiem = (time, meridiems) => {
 	return -1;
 };
 
-// Label formatter
-let formatter;
-const labelFormatter = () => formatter || (formatter =  new DateFmt({
+const getLabelFormatter = () => new DateFmt({
 	type: 'time',
 	useNative: false,
 	timezone: 'local',
 	length: 'full',
 	date: 'dmwy'
-}));
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, {meridiemLabel}) {
@@ -182,13 +180,13 @@ const dateTimeConfig = {
 		const meridiemEnabled = clockPref === '12';
 
 		const filter = meridiemEnabled ? includeMeridiem : excludeMeridiem;
-		const order = labelFormatter().getTemplate()
+		const order = getLabelFormatter().getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(filter)
 			.map(s => s[0].toLowerCase());
 
 		return {
-			formatter: labelFormatter(),
+			formatter: getLabelFormatter(),
 			meridiemEnabled,
 			meridiemLabels,
 			meridiemRanges,
@@ -258,7 +256,7 @@ const timeToLocaleString = (time) => {
 		return null;
 	}
 
-	return labelFormatter().format(time);
+	return getLabelFormatter().format(time);
 };
 
 export default TimePicker;

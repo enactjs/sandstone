@@ -19,14 +19,12 @@ import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
 
-// Label formatter
-let formatter;
-const labelFormatter = () => formatter || (formatter = new DateFmt({
+const getLabelFormatter = () => new DateFmt({
 	date: 'dmwy',
 	length: 'full',
 	timezone: 'local',
 	useNative: false
-}));
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
@@ -68,7 +66,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const order = labelFormatter().getTemplate()
+		const order = getLabelFormatter().getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(/([mdy]+)/ig)
 			.map(s => s[0].toLowerCase());
@@ -93,7 +91,7 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter: labelFormatter(), order, toLocalYear};
+		return {formatter: getLabelFormatter(), order, toLocalYear};
 	}
 };
 
@@ -172,7 +170,7 @@ const dateToLocaleString = (date) => {
 		return null;
 	}
 
-	return labelFormatter().format(date);
+	return getLabelFormatter().format(date);
 };
 
 export default DatePicker;
