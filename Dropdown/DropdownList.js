@@ -14,6 +14,7 @@ import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
 
 import css from './Dropdown.module.less';
+import {compareChildren} from '../internal/util/util';
 
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
 
@@ -151,6 +152,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			super(props);
 
 			this.state = {
+				prevSelected: props.selected,
 				ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
 			};
 		}
@@ -170,11 +172,24 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.scrollIntoView();
 			} else if (this.state.ready === ReadyState.SCROLLED) {
 				this.focusSelected();
+			} else if (
+				this.state.prevSelected !== this.props.selected ||
+				!compareChildren(this.state.prevChildren, this.props.children)
+			) {
+				this.resetFocus();
 			}
 		}
 
 		setScrollTo = (scrollTo) => {
 			this.scrollTo = scrollTo;
+		}
+
+		resetFocus () {
+			this.setState({
+				prevChildren: this.props.children,
+				prevSelected: this.props.selected,
+				ready: ReadyState.INIT
+			});
 		}
 
 		scrollIntoView = () => {
@@ -190,7 +205,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		focusSelected () {
-			if (Spotlight.focus(this.node.dataset.spotlightId)) {
+			if (Spotlight.focus(this.node.dataset.spotlightId) || Spotlight.getPointerMode()) {
 				this.setState({ready: ReadyState.DONE});
 			}
 		}
