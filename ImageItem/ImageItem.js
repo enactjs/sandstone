@@ -18,6 +18,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
+import CacheReactElementDecorator from '@enact/ui//CacheReactElementDecorator';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
@@ -54,10 +55,10 @@ const ImageItemBase = kind({
 		/**
 		 * The primary caption displayed with the image.
 		 *
-		 * @type {String}
+		 * @type {String | Node}
 		 * @public
 		 */
-		children: PropTypes.string,
+		children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -114,10 +115,10 @@ const ImageItemBase = kind({
 		/**
 		 * A secondary caption displayed with the image.
 		 *
-		 * @type {String}
+		 * @type {String | Node}
 		 * @public
 		 */
-		label: PropTypes.string,
+		label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 
 		/**
 		 * The layout orientation of the component.
@@ -276,6 +277,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
+	CacheReactElementDecorator({filterChildren: ['children', 'label']}),
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
