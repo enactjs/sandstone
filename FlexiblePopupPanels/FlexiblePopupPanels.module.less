@@ -13,6 +13,14 @@
 
 	.viewport {
 		position: relative;
+
+		.panel {
+			padding: @sand-flexiblepopuppanels-padding;
+			// The next line is very long, but it calculates the maximum height by adding up all
+			// of the paddings between this node and the edge of the screen, top and bottom.
+			// If the margin or padding configuration changes, this will likely need to be updated.
+			height: ~"calc(100vh -" ((extract(@sand-flexiblepopuppanels-margin, 1) * 2) + extract(@sand-flexiblepopuppanels-padding, 1) + extract(@sand-flexiblepopuppanels-padding, 1)) ~")";
+		}
 	}
 
 	.navButton {
@@ -47,12 +55,7 @@
 
 // Overrides for Panel
 .panel {
-	padding: @sand-flexiblepopuppanels-padding;
 	pointer-events: none;
-	// The next line is very long, but it calculates the maximum height by adding up all
-	// of the paddings between this node and the edge of the screen, top and bottom.
-	// If the margin or padding configuration changes, this will likely need to be updated.
-	height: ~"calc(100vh -" ((extract(@sand-flexiblepopuppanels-margin, 1) * 2) + extract(@sand-flexiblepopuppanels-padding, 1) + extract(@sand-flexiblepopuppanels-padding, 1)) ~")";
 
 	> * {
 		pointer-events: auto;
