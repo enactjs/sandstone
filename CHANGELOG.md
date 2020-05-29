@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
 - `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
+- `sandstone/Dropdown` to center scrolling to selected index
 - `sandstone/Item` to properly accept numbers for `label`
 - `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
 - `sandstone/VideoPlayer` to show a scrim with controls
