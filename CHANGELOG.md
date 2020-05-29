@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Dropdown` to center scrolling to selected index
 - `sandstone/Item` to properly accept numbers for `label`
 - `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/Slider` style to border radius
 - `sandstone/VideoPlayer` to show a scrim with controls
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 
