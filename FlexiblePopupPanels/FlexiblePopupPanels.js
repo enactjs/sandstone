@@ -24,7 +24,6 @@ const FlexiblePopupPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel` except the last,
 		 * * `'always'`will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `nextButton` on the every `FlexiblePopupPanels.Panel`
 		 *
@@ -32,11 +31,11 @@ const FlexiblePopupPanelsBase = kind({
 		 * case, a customized `nextButton` on `FlexiblePopupPanels.Panel` will take precedence over the
 		 * `nextButtonVisibility` value.
 		 *
-		 * @type {('auto'|'always'|'never')}
-		 * @default 'auto'
+		 * @type {('always'|'never')}
+		 * @default 'always'
 		 * @public
 		 */
-		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
+		nextButtonVisibility: PropTypes.oneOf(['always', 'never']),
 
 		/**
 		* Called when the index value is changed.
@@ -50,23 +49,22 @@ const FlexiblePopupPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel` except the first,
 		 * * `'always'`will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
 		 * * `'never'` will always hide the `prevButton` on the every `FlexiblePopupPanels.Panel`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on `FlexiblePopupPanels.Panel` will take precedence over the `prevButtonVisibility` value.
 		 *
-		 * @type {('auto'|'always'|'never')}
-		 * @default 'auto'
+		 * @type {('always'|'never')}
+		 * @default 'always'
 		 * @public
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
+		prevButtonVisibility: PropTypes.oneOf(['always', 'never'])
 	},
 
 	defaultProps: {
-		nextButtonVisibility: 'auto',
-		prevButtonVisibility: 'auto'
+		nextButtonVisibility: 'always',
+		prevButtonVisibility: 'always'
 	},
 
 	styles: {
