@@ -11,6 +11,7 @@
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
@@ -344,7 +345,16 @@ const TabPanels = (props) => <Panels {...props} css={css} />;
  * @extends sandstone/Panels.Panel
  * @ui
  */
-const TabPanel = (props) => <Panel {...props} css={css} />;
+class TabPanel extends React.Component {
+	componentDidMount () {
+		const node = ReactDOM.findDOMNode(this);
+		node.style.setProperty('--sand-panel-calc-height', `${node.getBoundingClientRect().height}px`);
+	}
+
+	render () {
+		return <Panel {...this.props} css={css} hideChildren={false} />;
+	}
+}
 
 
 export default PopupTabLayout;

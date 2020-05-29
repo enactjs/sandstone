@@ -56,6 +56,7 @@
 // Overrides for Panel
 .panel {
 	padding: 0;
+	height: ~'min(var(--sand-panel-calc-height), calc(100vh - 2.5rem * 2))';
 
 	> .body {
 		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
