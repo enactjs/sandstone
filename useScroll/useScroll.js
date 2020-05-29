@@ -435,11 +435,7 @@ const useScroll = (props) => {
 			css.scroll,
 			overscrollCss.scroll,
 			focusableScrollbar ? css.focusableScrollbar : null,
-			(
-				props.direction === 'both' &&
-				props.verticalScrollbar !== 'hidden' &&
-				props.horizontalScrollbar !== 'hidden'
-			) ? css.bidirectional : null
+			isVerticalScrollbarVisible && isHorizontalScrollbarVisible ? css.bidirectional : null
 		],
 		style,
 		'data-spotlight-container': spotlightContainer,
