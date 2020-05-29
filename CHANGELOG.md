@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility.
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 - `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
 
