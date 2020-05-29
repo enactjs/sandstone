@@ -181,7 +181,7 @@ const PanelBase = kind({
 						/>
 					</Cell>
 					<Cell className={css.content} shrink>{children}</Cell>
-					<Cell align="center" shrink className={css.navCellAfter}>
+					<Cell align="center" shrink>
 						<NavigationButton
 							aria-label={$L('Next')}
 							backgroundOpacity="transparent"

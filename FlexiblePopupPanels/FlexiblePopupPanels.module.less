@@ -7,6 +7,7 @@
 		padding: @sand-flexiblepopuppanels-margin; // redirect this to padding for simpler size calculation
 		margin: 0;
 		max-height: 100vh;
+		min-width: @sand-flexiblepopuppanels-min-width;
 		box-sizing: border-box;
 	}
 
@@ -14,17 +15,9 @@
 		position: relative;
 	}
 
-	.navCellBefore,
-	.navCellAfter {
-		position: absolute;
-	}
-
 	.navCellBefore {
+		position: absolute;
 		left: @sand-flexiblepopuppanels-navcell-width * -1;
-	}
-
-	.navCellAfter {
-		right: @sand-flexiblepopuppanels-navcell-width * -1;
 	}
 
 	.navButton {
