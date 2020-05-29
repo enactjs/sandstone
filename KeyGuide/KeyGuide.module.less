@@ -10,15 +10,40 @@
     bottom: @sand-keyguide-position-bottom;
     padding: @sand-keyguide-padding;
 
+	.red,
+	.green,
+	.yellow,
+	.blue {
+		display: flex;
+		align-items: center;
+
+		.color {
+			width: @sand-keyguide-colorbot-width;
+			height: @sand-keyguide-colorbot-height;
+			margin: @sand-keyguide-colorbot-margin;
+			border-radius: @sand-keyguide-colordot-border-radius;
+		}
+	}
+
     .item {
         .sand-font({
             font-size: @sand-keyguide-font-size;
         });
         font-size: @sand-keyguide-font-size;
 
-        .icon {
-            margin: 0;
-        }
+		.icon {
+			margin: 0;
+		}
+
+		.red,
+		.green,
+		.yellow,
+		.blue {
+			.icon {
+				margin: 0;
+				.margin-start-end(@sand-keyguide-icon-margin-start, 0)
+			}
+		}
 
         .slotBefore {
             margin-inline-end: @sand-keyguide-icon-margin-right;
@@ -27,6 +52,19 @@
 
     .applySkins({
         background: @sand-keyguide-bg-color;
+
+		.red .color {
+			background-color: @sand-remote-button-red-color;
+		}
+		.green .color {
+			background-color: @sand-remote-button-green-color;
+		}
+		.yellow .color {
+			background-color: @sand-remote-button-yellow-color;
+		}
+		.blue .color {
+			background-color: @sand-remote-button-blue-color;
+		}
 
         .item {
             color: @sand-keyguide-item-color;

@@ -64,6 +64,17 @@ const KeyGuideBase = kind({
 		})),
 
 		/**
+		 * The color of the underline
+		 *
+		 * Accepts one of the following color names, which correspond with the colored items on a
+		 * standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
+		 *
+		 * @type {('red'|'green'|'yellow'|'blue')}
+		 * @public
+		 */
+		color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -91,10 +102,19 @@ const KeyGuideBase = kind({
 
 	computed: {
 		children: ({children, css}) => (
-			children.map(({icon, ...child}) => {
+			children.map(({icon, color, ...child}) => {
 				return {
 					...child,
-					slotBefore: <Icon className={css.icon}>{icon}</Icon>
+					slotBefore: (
+						<div className={css[color]}>
+							{color ? (
+								<div className={css.color} />
+							) : null}
+							{icon ? (
+								<Icon className={css.icon}>{icon}</Icon>
+							) : null}
+						</div>
+					)
 				};
 			})
 		),
