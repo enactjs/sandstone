@@ -15,7 +15,7 @@ import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 
 const props = {
-	buttonVisibility: ['always', 'never']
+	buttonVisibility: ['auto', 'always', 'never']
 };
 
 const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels);
