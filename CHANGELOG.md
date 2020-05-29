@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
+- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
 
 ## [1.0.0-beta.4] - 2020-05-26
 
