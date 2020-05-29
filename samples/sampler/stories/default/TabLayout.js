@@ -20,8 +20,8 @@ const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
-	{title: 'Button', icon: 'image'},
-	{title: 'Item', icon: 'resumeplay'}
+	{title: 'Button', icon: 'gear'},
+	{title: 'Item', icon: 'trash'}
 ];
 
 const tabsWithoutIcons = [
