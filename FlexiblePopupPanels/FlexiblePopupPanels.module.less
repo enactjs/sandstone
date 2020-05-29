@@ -15,9 +15,17 @@
 		position: relative;
 	}
 
-	.navCellBefore {
+	.navCellBefore,
+	.navCellAfter {
 		position: absolute;
+	}
+
+	.navCellBefore {
 		left: @sand-flexiblepopuppanels-navcell-width * -1;
+	}
+
+	.navCellAfter {
+		right: @sand-flexiblepopuppanels-navcell-width * -1;
 	}
 
 	.navButton {
