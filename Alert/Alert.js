@@ -72,7 +72,7 @@ const AlertBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * The id of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
+		 * The id of Alert referred to when generating ids for `'title'` and `'buttons'`.
 		 *
 		 * @type {String}
 		 * @private
@@ -124,17 +124,6 @@ const AlertBase = kind({
 		 * @private
 		 */
 		skin: PropTypes.string,
-
-		/**
-		 * The secondary text displayed below the `title`.
-		 * This is only shown in `type="fullscreen"`
-		 *
-		 * Will not display if `title` is not set.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		subtitle: PropTypes.string,
 
 		/**
 		 * The primary text displayed. This is only shown in
@@ -189,22 +178,19 @@ const AlertBase = kind({
 		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
 	},
 
-	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
+	render: ({buttons, children, css, id, image, title, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
+			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_content ${id}_buttons`} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
 				<Layout align="center center" orientation={layoutOrientation}>
 					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
 					{fullscreen ?
-						<Cell shrink align="center" className={css.titleContainer}>
-							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
-							<BodyText centered className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</BodyText>
-						</Cell> :
-						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
-							{children}
-						</Cell>
+						<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading> : null
 					}
+					<Cell shrink align={fullscreen ? 'center' : ''} component={BodyText} className={css.content} id={`${id}_content`}>
+						{children}
+					</Cell>
 					<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
 						<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
 							{buttons}
@@ -220,7 +206,7 @@ const AlertBase = kind({
  * A modal Alert component, ready to use in Sandstone applications.
  *
  * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
- * consists of a title, a subtitle, a message, and an area for additional
+ * consists of a title, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
  * Usage:
@@ -228,7 +214,6 @@ const AlertBase = kind({
  * <Alert
  *   open={this.state.open}
  *   title="An Important Alert"
- *   subtitle="Some important context to share about the purpose"
  * >
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
@@ -237,6 +222,7 @@ const AlertBase = kind({
  *     <Button>Button 1</Button>
  *     <Button>Button 2</Button>
  *   </buttons>
+ *   <span>This is message</span>
  * </Alert>
  * ```
  *
@@ -250,7 +236,7 @@ const AlertBase = kind({
 const Alert = IdProvider(
 	{generateProp: null, prefix: 'a_'},
 	Slottable(
-		{slots: ['title', 'subtitle', 'buttons', 'image']},
+		{slots: ['title', 'buttons', 'image']},
 		AlertBase
 	)
 );
