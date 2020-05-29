@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VideoPlayer` to show a scrim with controls
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 - `sandstone/PopupTabLayout` tall-content scrolling capability
+- `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
 
 ## [1.0.0-beta.4] - 2020-05-26
 

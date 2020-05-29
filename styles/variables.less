@@ -8,6 +8,7 @@
 // Generic/Common/Shared
 // ---------------------------------------
 @sand-component-spacing: 36px;
+@sand-component-spacing-bottom: 30px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -277,7 +278,7 @@
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
 @sand-fixedpopuppanels-panel-padding: 0;
-@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
 // FlexiblePopupPanels
 // ---------------------------------------
@@ -408,7 +409,7 @@
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: 54px;
 @sand-item-slotbefore-spacing: 54px;
-@sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
+@sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 
 // Keyguide
 // ---------------------------------------
@@ -487,7 +488,7 @@
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;
-@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) 0;
+@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) (78px - @sand-component-spacing-bottom);
 
 // ProgressBar
 // ---------------------------------------
