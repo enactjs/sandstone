@@ -4,9 +4,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
+
+### Added
+
+- `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+
 ### Fixed
 
-- `sandstone/VideoPlayer` to show scrim always
+- `sandstone/Item` to properly accept numbers for `label`
+- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/VideoPlayer` to show a scrim with controls
+- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 
 ## [1.0.0-beta.4] - 2020-05-26
 
