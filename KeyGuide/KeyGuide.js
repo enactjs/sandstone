@@ -54,25 +54,15 @@ const KeyGuideBase = kind({
 		 * Takes an array of objects. The properties will be passed onto an `Item` component
 		 * and `children` as well as a unique `key` property are required.
 		 *
-		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String)}>}
+		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String), color: ('red'|'green'|'yellow'|'blue')}>}
 		 * @public
 		 */
 		children: PropTypes.arrayOf(PropTypes.shape({
 			children: EnactPropTypes.renderable.isRequired,
 			key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+			color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
 			icon: PropTypes.string
 		})),
-
-		/**
-		 * The color of the underline
-		 *
-		 * Accepts one of the following color names, which correspond with the colored items on a
-		 * standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
-		 *
-		 * @type {('red'|'green'|'yellow'|'blue')}
-		 * @public
-		 */
-		color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the

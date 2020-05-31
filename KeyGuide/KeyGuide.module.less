@@ -3,12 +3,12 @@
 @import "../styles/variables.less";
 
 .keyGuide {
-    .position-start-end(auto, @sand-keyguide-position-right);
+	.position-start-end(auto, @sand-keyguide-position-right);
 
-    position: absolute;
-    width: @sand-keyguide-width;
-    bottom: @sand-keyguide-position-bottom;
-    padding: @sand-keyguide-padding;
+	position: absolute;
+	width: @sand-keyguide-width;
+	bottom: @sand-keyguide-position-bottom;
+	padding: @sand-keyguide-padding;
 
 	.red,
 	.green,
@@ -18,18 +18,18 @@
 		align-items: center;
 
 		.color {
-			width: @sand-keyguide-colorbot-width;
-			height: @sand-keyguide-colorbot-height;
-			margin: @sand-keyguide-colorbot-margin;
+			width: @sand-keyguide-colordot-width;
+			height: @sand-keyguide-colordot-height;
+			margin: @sand-keyguide-colordot-margin;
 			border-radius: @sand-keyguide-colordot-border-radius;
 		}
 	}
 
-    .item {
-        .sand-font({
-            font-size: @sand-keyguide-font-size;
-        });
-        font-size: @sand-keyguide-font-size;
+	.item {
+		.sand-font({
+			font-size: @sand-keyguide-font-size;
+		});
+		font-size: @sand-keyguide-font-size;
 
 		.icon {
 			margin: 0;
@@ -45,13 +45,13 @@
 			}
 		}
 
-        .slotBefore {
-            margin-inline-end: @sand-keyguide-icon-margin-right;
-        }
-    }
+		.slotBefore {
+			margin-inline-end: @sand-keyguide-icon-margin-right;
+		}
+	}
 
-    .applySkins({
-        background: @sand-keyguide-bg-color;
+	.applySkins({
+		background: @sand-keyguide-bg-color;
 
 		.red .color {
 			background-color: @sand-remote-button-red-color;
@@ -66,8 +66,8 @@
 			background-color: @sand-remote-button-blue-color;
 		}
 
-        .item {
-            color: @sand-keyguide-item-color;
-        }
-    })
+		.item {
+			color: @sand-keyguide-item-color;
+		}
+	})
 }
