@@ -8,6 +8,7 @@
 // Generic/Common/Shared
 // ---------------------------------------
 @sand-component-spacing: 36px;
+@sand-component-spacing-bottom: 30px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -277,14 +278,17 @@
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
 @sand-fixedpopuppanels-panel-padding: 0;
-@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
 // FlexiblePopupPanels
 // ---------------------------------------
-@sand-flexiblepopuppanels-width: 50vw;
-@sand-flexiblepopuppanels-margin-top: 108px;
-@sand-flexiblepopuppanels-panel-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-min-width: 1140px;
+@sand-flexiblepopuppanels-margin: 108px 0;
+@sand-flexiblepopuppanels-padding: 0 (@sand-component-spacing + @sand-button-small-height) (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-margin: 0 12px;
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
+@sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
+@sand-flexiblepopuppanels-navbutton-margin: 0;
 
 // Header
 // ---------------------------------------
@@ -408,7 +412,7 @@
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: 54px;
 @sand-item-slotbefore-spacing: 54px;
-@sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
+@sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 
 // Keyguide
 // ---------------------------------------
@@ -487,7 +491,7 @@
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;
-@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) 0;
+@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) (78px - @sand-component-spacing-bottom);
 
 // ProgressBar
 // ---------------------------------------
