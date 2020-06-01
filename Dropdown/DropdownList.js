@@ -186,20 +186,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		resetFocus () {
-			const canFocusSelected = isSelectedValid(this.props);
-
 			this.setState({
 				prevChildren: this.props.children,
 				prevSelected: this.props.selected,
-				ready: canFocusSelected ? ReadyState.INIT : ReadyState.DONE
+				// Resetting to SCROLLED when the selection is invalid so we focusSelected on the
+				// next update
+				ready: isSelectedValid(this.props) ? ReadyState.INIT : ReadyState.SCROLLED
 			});
-
-			if (!canFocusSelected) {
-				// If we can't focus the selected item (either because selected is unset or because
-				// the selected value isn't valid) we need to focus something so focus the container
-				// and let spotlight take it from there.
-				Spotlight.focus(this.node.dataset.spotlightId);
-			}
 		}
 
 		scrollIntoView = () => {
