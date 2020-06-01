@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/PopupTabLayout` panel transition animation
 
 ### Fixed
 
@@ -22,6 +23,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Slider` style to border radius
 - `sandstone/VideoPlayer` to show a scrim with controls
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
+- `sandstone/PopupTabLayout` tall-content scrolling capability
+- `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
 
 ## [1.0.0-beta.4] - 2020-05-26
 
