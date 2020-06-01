@@ -15,7 +15,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'KeyGuide',
 		() => {
-			const itemCount = number('items', Config, {range: true, min: 0, max: 4}, 4);
+			const itemCount = number('items', Config, {range: true, min: 0, max: 4}, 3);
 			const icon = select('first item icon', prop.icon, Config, prop.icon[0]);
 			const items = [
 				{icon, children: 'This is long name item', key: 1},
