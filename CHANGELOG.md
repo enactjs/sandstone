@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` to support the use of any component in the children area
 - `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
 - `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
 - `sandstone/Dropdown` to center scrolling to selected index
