@@ -12,6 +12,10 @@ module.exports = {
 	},
 	root: true,
 	extends: ['eslint:recommended'],
+	parserOptions: {
+		ecmaVersion: 2018,
+		sourceType: 'module'
+	},
 	rules: {
 		'comma-dangle': 2,
 		'no-console': 0,
