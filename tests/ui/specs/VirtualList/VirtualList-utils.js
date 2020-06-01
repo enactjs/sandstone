@@ -24,7 +24,7 @@ async function waitUntilFocusedAsync (itemNum) {
 	let focusedId = null;
 	const target = `item${itemNum}`;
 	await browser.waitUntil(() => {
-		browser.call(async () => {
+		browser.call(() => {
 			focusedId = focusedElement();
 		});
 
