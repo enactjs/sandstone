@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 - `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respond properly to back button presses
 
 ## [1.0.0-beta.4] - 2020-05-26
 
