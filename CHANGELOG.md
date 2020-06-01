@@ -6,25 +6,64 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
-- `sandstone/WizardPanels` prop `footer`
-
-### Changed
-
-- `sandstone/WizardPanels` prop `buttons` to be `footer`
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
 
 ### Added
 
-- `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
-- `sandstone/ImageItem` public class names `horizontal` and `vertical`
-- `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
-- `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
+- `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/FlexiblePopupPanels` props `onChange`, `onNextClick`, and `onPrevClick` to notify consumers of navigational events
+- `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/PopupTabLayout` panel transition animation
+
+### Changed
+
+- `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
 
 ### Fixed
 
 - `sandstone/Alert` to support the use of any component in the children area
-- `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
+- `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
+- `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
+- `sandstone/Dropdown` to center scrolling to selected index
+- `sandstone/Item` to properly accept numbers for `label`
+- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/Slider` style to border radius
+- `sandstone/VideoPlayer` to show a scrim with controls
+- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
+- `sandstone/PopupTabLayout` tall-content scrolling capability
+- `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
+
+## [1.0.0-beta.4] - 2020-05-26
+
+### Removed
+
+- `sandstone/Panels` prop `featureContent`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View`, and `sandstone/Panels.WizardPanels` aliases
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
+- `sandstone/WizardPanels` prop `buttons`, put buttons inside `footer` instead
+- `sandstone/WizardPanels` props `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
+
+### Added
+
+- `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
+- `sandstone/DayPicker` component
+- `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
+- `sandstone/ImageItem` public class names `fullImage`, `horizontal`, and `vertical`
+- `sandstone/Input` props `invalid` and `invalidMessage` to mirror the API of `InputField`
+- `sandstone/Input` props `maxLength`, `minLength`, and `numberInputField` to support arbitrary number lengths
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
+- `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
+- `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+
+### Fixed
+
 - `sandstone/Panels` to not fire transition events when initially rendered
+- `sandstone/Scroller` and `sandstone/VirtualList` to properly handle keydown events
+- `sandstone/TabLayout` default focus rules
 - `sandstone/Tooltip` style to match latest designs
+- `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11

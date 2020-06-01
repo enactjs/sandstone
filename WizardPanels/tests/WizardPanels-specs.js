@@ -86,10 +86,10 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const buttons = wizardPanel.find('.footer').find('button').length;
+			const buttons = wizardPanel.find('.footer').find('button');
 
 			const expected = 2;
-			const actual = buttons;
+			const actual = buttons.length;
 
 			wizardPanel.unmount();
 			expect(actual).toBe(expected);
@@ -120,61 +120,43 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should have nextButtonText in `.nextButton`',
+		'should not hide next button on the last view when `nextButton` prop is added on the last Panel',
 		() => {
-			const nextButtonText = 'next';
-
 			const wizardPanel = mount(
-				<WizardPanels index={0} nextButtonText={nextButtonText}>
-					<Panel />
-					<Panel />
+				<WizardPanels index={2}>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel nextButton>Last</Panel>
 				</WizardPanels>
 			);
 
 			const nextButton = findNextButton(wizardPanel);
 
-			const expected = {children: nextButtonText};
-			const actual = nextButton.props();
+			const expected = true;
+			const actual = nextButton.exists();
 
 			wizardPanel.unmount();
-			expect(actual).toMatchObject(expected);
-		}
-	);
-
-	test(
-		'should have prevButtonText in `.prevButton`',
-		() => {
-			const prevButtonText = 'previous';
-
-			const wizardPanel = mount(
-				<WizardPanels index={1} prevButtonText={prevButtonText}>
-					<Panel />
-					<Panel />
-				</WizardPanels>
-			);
-
-			const prevButton = findPrevButton(wizardPanel);
-
-			const expected = {children: prevButtonText};
-			const actual = prevButton.props();
-
-			wizardPanel.unmount();
-			expect(actual).toMatchObject(expected);
+			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
 		'should hide next button on the last view',
 		() => {
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} totalPanels={3} />
+			const wizardPanel = mount(
+				<WizardPanels index={2}>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>Last!</Panel>
+				</WizardPanels>
 			);
 
-			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+			const nextButton = findNextButton(wizardPanel);
 
 			const expected = false;
 			const actual = nextButton.exists();
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -182,57 +164,18 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should hide previous button on the first view',
 		() => {
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={0} totalPanels={3} />
-			);
-
-			const prevButton = wizardPanel.find({slot: 'slotBefore'});
-
-			const expected = false;
-			const actual = prevButton.exists();
-
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should set next button "aria-label" to nextButtonAriaLabel',
-		() => {
-			const label = 'custom next button label';
-
 			const wizardPanel = mount(
-				<WizardPanels index={0} nextButtonAriaLabel={label}>
-					<Panel />
-					<Panel />
-				</WizardPanels>
-			);
-
-			const nextButton = findNextButton(wizardPanel);
-
-			const expected = label;
-			const actual = nextButton.prop('aria-label');
-
-			wizardPanel.unmount();
-			expect(actual).toBe(expected);
-		}
-	);
-
-	test(
-		'should set previous button "aria-label" to prevButtonAriaLabel',
-		() => {
-			const label = 'custom previous button label';
-
-			const wizardPanel = mount(
-				<WizardPanels index={1} prevButtonAriaLabel={label}>
-					<Panel />
-					<Panel />
+				<WizardPanels index={0}>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>Last!</Panel>
 				</WizardPanels>
 			);
 
 			const prevButton = findPrevButton(wizardPanel);
 
-			const expected = label;
-			const actual = prevButton.prop('aria-label');
+			const expected = false;
+			const actual = prevButton.exists();
 
 			wizardPanel.unmount();
 			expect(actual).toBe(expected);
@@ -240,33 +183,186 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should hide next button with `noNextButton`',
+		'should show next button on the first view',
 		() => {
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noNextButton totalPanels={4} />
+			const wizardPanel = mount(
+				<WizardPanels index={0}>
+					<Panel>I gots contents</Panel>
+					<Panel>I gots contents2</Panel>
+					<Panel>Last!</Panel>
+				</WizardPanels>
 			);
 
-			const nextButton = wizardPanel.find({slot: 'slotAfter'});
+			const nextButton = findNextButton(wizardPanel);
 
-			const expected = false;
+			const expected = true;
 			const actual = nextButton.exists();
 
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
-		'should hide previous button with `noPrevButton`',
+		'should not hide previous button on the first view when `prevButton` prop is added on the first Panel',
 		() => {
-			const wizardPanel = shallow(
-				<WizardPanelsBase index={2} noPrevButton totalPanels={4} />
+			const wizardPanel = mount(
+				<WizardPanels index={0}>
+					<Panel prevButton >Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
 			);
 
-			const prevButton = wizardPanel.find({slot: 'slotBefore'});
+			const prevButton = findPrevButton(wizardPanel);
+
+			const expected = true;
+			const actual = prevButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide next nextButton on all the panels with `nextButtonVisibility` set to never',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels nextButtonVisibility="never" index={1}>
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const nextButton = findNextButton(wizardPanel);
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button on all the panels with `prevButtonVisibility` set to never',
+		() => {
+			const wizardPanel = shallow(
+				<WizardPanels index={2} prevButtonVisibility="never" totalPanels={4} />
+			);
+
+			const prevButton = findPrevButton(wizardPanel);
 
 			const expected = false;
 			const actual = prevButton.exists();
 
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button on the second Panel when panel overrides',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels defaultIndex={1}>
+					<Panel>Panel 1</Panel>
+					<Panel prevButton={false}>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = findPrevButton(wizardPanel);
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should show previous button on the first view when `prevButtonVisibility` prop is set to always',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={0} prevButtonVisibility="always">
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = findPrevButton(wizardPanel);
+
+			const expected = true;
+			const actual = prevButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should hide previous button on the first view when `prevButtonVisibility` prop is set to always and panel overrides',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={0} prevButtonVisibility="always">
+					<Panel prevButton={false} >Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const prevButton = findPrevButton(wizardPanel);
+
+			const expected = false;
+			const actual = prevButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should show next button on the last view when `nextButtonVisibility` prop is set to always',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={2} nextButtonVisibility="always">
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const nextButton = findNextButton(wizardPanel);
+
+			const expected = true;
+			const actual = nextButton.exists();
+
+			wizardPanel.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should show next button on the last view when `nextButtonVisibility` prop is set to always and panel overrides',
+		() => {
+			const wizardPanel = mount(
+				<WizardPanels index={2} nextButtonVisibility="always">
+					<Panel>Panel 1</Panel>
+					<Panel>Panel 2</Panel>
+					<Panel nextButton={false}>Panel 3</Panel>
+				</WizardPanels>
+			);
+
+			const nextButton = findNextButton(wizardPanel);
+
+			const expected = false;
+			const actual = nextButton.exists();
+
+			wizardPanel.unmount();
 			expect(actual).toBe(expected);
 		}
 	);
@@ -330,9 +426,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const nextButton = findNextButton(wizardPanel);
-
-			nextButton.simulate('click');
+			findNextButton(wizardPanel).simulate('click');
 
 			const expected = {current: 2};
 			const actual = wizardPanel.find('Steps').props();
@@ -353,9 +447,7 @@ describe('WizardPanel Specs', () => {
 				</WizardPanels>
 			);
 
-			const prevButton = findPrevButton(wizardPanel);
-
-			prevButton.simulate('click');
+			findPrevButton(wizardPanel).simulate('click');
 
 			const expected = {current: 1};
 			const actual = wizardPanel.find('Steps').props();
@@ -394,7 +486,7 @@ describe('WizardPanel Specs', () => {
 	);
 
 	test(
-		'should not go back on back key when noPrevButton set',
+		'should not go back on back key when prevButtonVisibility set to show never',
 		() => {
 			const map = {};
 
@@ -403,7 +495,7 @@ describe('WizardPanel Specs', () => {
 			});
 
 			const wizardPanel = mount(
-				<WizardPanels defaultIndex={1} noPrevButton>
+				<WizardPanels defaultIndex={1} prevButtonVisibility="never">
 					<Panel />
 					<Panel />
 					<Panel />
@@ -413,7 +505,7 @@ describe('WizardPanel Specs', () => {
 			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
 			wizardPanel.update();
 
-			const expected = {current: 2};
+			const expected = {current: 1};
 			const actual = wizardPanel.find('Steps').props();
 
 			wizardPanel.unmount();

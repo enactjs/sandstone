@@ -64,7 +64,7 @@ storiesOf('Resizable', module)
 	.add(
 		'should recalculate long marquee when scrollbar is rendered',
 		() => (
-			<Scroller style={{height: ri.unit(798, 'rem'), width: ri.unit(1002, 'rem')}}>
+			<Scroller style={{height: ri.scaleToRem(798), width: ri.scaleToRem(1002)}}>
 				<NoUpdate>
 					<Item marqueeOn="render">MARQUEEONRENDER ABCDE</Item>
 					<Item>ABCDEFGHIJKLMNOPQRST</Item>

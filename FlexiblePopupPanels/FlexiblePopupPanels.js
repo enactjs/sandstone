@@ -1,29 +1,10 @@
-/**
- * Provides Sandstone styled flexible-width, popup-styled Panels component.
- *
- * @module sandstone/FlexiblePopupPanels
- * @exports FlexiblePopupPanels
- * @exports Panel
- * @exports Header
- */
-
+import kind from '@enact/core/kind';
+import PropTypes from 'prop-types';
 import React from 'react';
-import compose from 'ramda/src/compose';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
-import PanelsPanel from '../Panels/Panel';
-import Header from '../Panels/Header';
 
 import css from './FlexiblePopupPanels.module.less';
-
-const FlexiblePopupPanelsDecorator = compose(
-	PopupDecorator({
-		className: 'flexiblePopupPanels',
-		css,
-		panelArranger: FadeAndSlideArranger,
-		panelType: 'flexiblePopup'
-	})
-);
 
 /**
  * An instance of [`Panels`]{@link sandstone/Panels.Panels} which restricts the `Panel` to the left
@@ -36,48 +17,122 @@ const FlexiblePopupPanelsDecorator = compose(
  * @ui
  * @public
  */
-const FlexiblePopupPanels = FlexiblePopupPanelsDecorator(Viewport);
+const FlexiblePopupPanelsBase = kind({
+	name: 'FlexiblePopupPanels',
 
-/**
- * The standard view container used inside a [FlexiblePopupPanels]{@link sandstone/FlexiblePopupPanels.FlexiblePopupPanels} view
- * manager instance.
- *
- * @class Panel
- * @extends sandstone/Panels.Panel
- * @memberof sandstone/FlexiblePopupPanels
- * @ui
- * @public
- */
-const Panel = (props) => <PanelsPanel {...props} css={css} />;
+	propTypes: /** @lends sandstone/FlexiblePopupPanels.FlexiblePopupPanels.prototype */ {
+		/**
+		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `nextButton` if more than one `FlexiblePopupPanels.Panel` exists
+		 * * `'always'` will always display the `nextButton`
+		 * * `'never'` will always hide the `nextButton`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this
+		 * case, a customized `nextButton` on `FlexiblePopupPanels.Panel` will take precedence over the
+		 * `nextButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
-/**
- * A shortcut to access {@link sandstone/FlexiblePopupPanels.Panel}
- *
- * @name Panel
- * @static
- * @memberof sandstone/FlexiblePopupPanels.FlexiblePopupPanels
- */
-FlexiblePopupPanels.Panel = Panel;
+		/**
+		* Called when the index value is changed.
+		*
+		* @type {Function}
+		* @param {Object} event
+		* @public
+		*/
+		onChange: PropTypes.func,
 
-/**
- * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
- * [`slots`]{@link ui/Slottable.Slottable} for components.
- *
- * @class Header
- * @extends sandstone/Panels.Header
- * @memberof sandstone/FlexiblePopupPanels
- * @ui
- * @public
- */
+		/**
+		 * Called when the next button is clicked in `FlexiblePopupPanels.Panel`.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onNextClick: PropTypes.func,
 
-/**
- * A shortcut to access {@link sandstone/FlexiblePopupPanels.Header}
- *
- * @name Header
- * @static
- * @memberof sandstone/FlexiblePopupPanels.FlexiblePopupPanels
- */
-FlexiblePopupPanels.Header = Header;
+		/**
+		 * Called when the previous button is clicked in `FlexiblePopupPanels.Panel`.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onPrevClick: PropTypes.func,
+
+		/**
+		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
+		 *
+		 * * `'auto'` will display the `prevButton` if more than one `FlexiblePopupPanels.Panel` exists
+		 * * `'always'` will always display the `prevButton`
+		 * * `'never'` will always hide the `prevButton`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `prevButton` on `FlexiblePopupPanels.Panel` will take precedence over the `prevButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
+	},
+
+	defaultProps: {
+		nextButtonVisibility: 'auto',
+		prevButtonVisibility: 'auto'
+	},
+
+	styles: {
+		css,
+		className: 'viewport'
+	},
+
+	computed: {
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
+			if (child) {
+				const props = {
+					nextButtonVisibility,
+					onChange,
+					onNextClick,
+					onPrevClick,
+					prevButtonVisibility
+				};
+
+				return React.cloneElement(child, props);
+			} else {
+				return null;
+			}
+		}),
+		onBack: ({onChange}) => onChange
+	},
+
+	render: (props) => {
+		delete props.nextButtonVisibility;
+		delete props.onChange;
+		delete props.onNextClick;
+		delete props.onPrevClick;
+		delete props.prevButtonVisibility;
+
+		return (<Viewport {...props} />);
+	}
+});
+
+const FlexiblePopupPanels = PopupDecorator(
+	{
+		className: 'flexiblePopupPanels',
+		css,
+		panelArranger: FadeAndSlideArranger,
+		panelType: 'flexiblePopup'
+	},
+	FlexiblePopupPanelsBase
+);
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct
 // side. The real default is assigned in PopupDecorator, but should still be overridable by an app.
@@ -89,6 +144,5 @@ FlexiblePopupPanels.defaultProps = {
 export default FlexiblePopupPanels;
 export {
 	FlexiblePopupPanels,
-	Header,
-	Panel
+	FlexiblePopupPanelsBase
 };
