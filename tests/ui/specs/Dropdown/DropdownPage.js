@@ -1,3 +1,5 @@
+/* global document */
+
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
@@ -11,7 +13,7 @@ class DropdownInterface {
 	}
 
 	get focusedItemText () {
-		return browser.execute((el) => {
+		return browser.execute(() => {
 			const focused = document.activeElement;
 			// naive test that the focused element is a dropdown item
 			if (focused.dataset.index) {
@@ -19,7 +21,7 @@ class DropdownInterface {
 			}
 
 			return null;
-		}, this.self);
+		});
 	}
 
 	get self () { return element(`#${this.id}`, browser); }
