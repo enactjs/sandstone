@@ -11,7 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
-- `sandstone/KeyGuide` props `color` to show the color key
+- `sandstone/KeyGuide` support for color keys
 
 ## [1.0.0-beta.4] - 2020-05-26
 
