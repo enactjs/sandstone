@@ -287,10 +287,8 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `jumpDelay` -  - Time (in ms) to wait between jumps
 		 * * `mediaDisabled` - `true` when the media controls are not interactive
 		 * * `no5WayJump` - `true` when 5-way jumping is disabled
-		 * * `onBackwardButtonClick` - Called when the rewind button is pressed
 		 * * `onClose` - Called when cancel key is pressed when the media controls are visible
 		 * * `onFastForward` - Called when the media is fast forwarded via a key event
-		 * * `onForwardButtonClick` - Called when the fast forward button is pressed
 		 * * `onJump` - Called when the media jumps either forward or backward
 		 * * `onJumpBackwardButtonClick` - Called when the jump backward button is pressed
 		 * * `onJumpForwardButtonClick` - Called when the jump forward button is pressed
@@ -2010,10 +2008,8 @@ const VideoPlayerBase = class extends React.Component {
 								jumpDelay={jumpDelay}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
 								no5WayJump={no5WayJump}
-								onBackwardButtonClick={this.handleRewind}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}
-								onForwardButtonClick={this.handleFastForward}
 								onJump={this.handleJump}
 								onJumpBackwardButtonClick={this.onJumpBackward}
 								onJumpForwardButtonClick={this.onJumpForward}
