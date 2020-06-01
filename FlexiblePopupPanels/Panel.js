@@ -54,9 +54,9 @@ const PanelBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `FlexiblePopupPanels.Panel`, enabling `nextButton` to be overridden on each Panel
-		 * * `'always'` will display `nextButton` button on every Panel in the `FlexiblePopupPanels.Panel`
-		 * * `'never'` will hide the `nextButton` on all `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `nextButton` if more than one `FlexiblePopupPanels.Panel` exists
+		 * * `'always'` will always display the `nextButton`
+		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
 		 * case, a customized `nextButton` on `FlexiblePopupPanels.Panel` will take precedence over the
@@ -118,9 +118,9 @@ const PanelBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on `FlexiblePopupPanels.Panel`.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `FlexiblePopupPanels.Panel`, enabling `prevButton` to be overridden on each Panel
-		 * * `'always'` will display `prevButton` button on every Panel in the `FlexiblePopupPanels.Panel`
-		 * * `'never'` will hide the `prevButton` on all `FlexiblePopupPanels.Panel`
+		 * * `'auto'` will display the `prevButton` if more than one `FlexiblePopupPanels.Panel` exists
+		 * * `'always'` will always display the `prevButton`
+		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on `FlexiblePopupPanels.Panel` will take precedence over the `prevButtonVisibility` value.

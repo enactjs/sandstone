@@ -98,9 +98,9 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last,
-		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
-		 * * `'never'` will hide the `nextButton` on all `WizardPanel.Panel`
+		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last
+		 * * `'always'` will always display the `nextButton`
+		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
 		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
@@ -192,9 +192,9 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first,
-		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
-		 * * `'never'` will hide the `prevButton` on all `WizardPanel.Panel`
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first
+		 * * `'always'` will always display the `prevButton`
+		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
