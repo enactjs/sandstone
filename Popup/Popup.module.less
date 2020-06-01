@@ -25,6 +25,7 @@
 			max-width: 100%;
 		}
 	}
+
 	&.left,
 	&.right {
 		.body {
@@ -35,16 +36,19 @@
 	&.top {
 		margin: @sand-popup-position-top-margin;
 	}
+
 	&.right {
 		margin: @sand-popup-position-right-margin;
-		max-height: calc(100% - extract(@sand-popup-position-right-margin, 1) * 2);
+		max-height: ~"calc(100% -" (extract(@sand-popup-position-right-margin, 1) * 2) ~")";
 	}
+
 	&.bottom {
 		margin: @sand-popup-position-bottom-margin;
 	}
+
 	&.left {
 		margin: @sand-popup-position-left-margin;
-		max-height: calc(100% - extract(@sand-popup-position-left-margin, 1) * 2);
+		max-height: ~"calc(100% -" (extract(@sand-popup-position-left-margin, 1) * 2) ~")";
 	}
 
 	&.center {

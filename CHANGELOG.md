@@ -11,7 +11,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/FlexiblePopupPanels` props `onChange`, `onNextClick`, and `onPrevClick` to notify consumers of navigational events
+- `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
 - `sandstone/PopupTabLayout` panel transition animation
+
+### Changed
+
+- `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
 
 ### Fixed
 
