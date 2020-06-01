@@ -1,3 +1,5 @@
+// KeyGuide.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
@@ -10,21 +12,13 @@
 	bottom: @sand-keyguide-position-bottom;
 	padding: @sand-keyguide-padding;
 
-	.red,
-	.green,
-	.yellow,
-	.blue {
-		width: @sand-keyguide-colordot-width;
-		height: @sand-keyguide-colordot-height;
-		margin: @sand-keyguide-colordot-margin;
-		border-radius: @sand-keyguide-colordot-border-radius;
-	}
-
 	.item {
 		.sand-font({
 			font-size: @sand-keyguide-font-size;
 		});
 		font-size: @sand-keyguide-font-size;
+		height: @sand-keyguide-item-height;
+		margin: 0;
 
 		.icon {
 			margin: 0;
@@ -35,20 +29,30 @@
 		}
 	}
 
+	.red,
+	.green,
+	.yellow,
+	.blue {
+		width: @sand-keyguide-colordot-width;
+		height: @sand-keyguide-colordot-height;
+		margin: @sand-keyguide-colordot-margin;
+		border-radius: @sand-keyguide-colordot-border-radius;
+	}
+
 	.applySkins({
 		background: @sand-keyguide-bg-color;
 
 		.red {
-			background-color: @sand-remote-button-red-color;
+			background-color: @sand-keyguide-colordot-red-color;
 		}
 		.green {
-			background-color: @sand-remote-button-green-color;
+			background-color: @sand-keyguide-colordot-green-color;
 		}
 		.yellow {
-			background-color: @sand-remote-button-yellow-color;
+			background-color: @sand-keyguide-colordot-yellow-color;
 		}
 		.blue {
-			background-color: @sand-remote-button-blue-color;
+			background-color: @sand-keyguide-colordot-blue-color;
 		}
 
 		.item {

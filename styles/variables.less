@@ -413,14 +413,15 @@
 // Keyguide
 // ---------------------------------------
 @sand-keyguide-colordot-height: 12px;
-@sand-keyguide-colordot-margin: 0 6px;
-@sand-keyguide-colordot-width: 66px;
+@sand-keyguide-colordot-margin: 0 ((@sand-icon-small-size - @sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+@sand-keyguide-colordot-width: 60px;
 @sand-keyguide-colordot-border-radius: 6px;
 @sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding: 6px 0;
+@sand-keyguide-padding: 24px 0;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
 @sand-keyguide-width: 750px;
+@sand-keyguide-item-height: 120px;
 
 // MediaOverlay
 // ---------------------------------------

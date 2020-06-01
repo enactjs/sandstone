@@ -118,6 +118,7 @@ const KeyGuideBase = kind({
 			>
 				<Repeater
 					{...rest}
+					component="div"
 					childComponent={ItemBase}
 					itemProps={{css, marqueeOn: 'render'}}
 				/>
