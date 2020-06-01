@@ -8,6 +8,7 @@ const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
 const scrollContentSelector = '.useScroll_useScroll_scrollContent';
+const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
 class VirtualListPage extends Page {
 
@@ -118,6 +119,15 @@ class VirtualListPage extends Page {
 		}, this.item(id).value);
 	}
 
+	itemspacing (){
+		return browser.execute(function (_listItemSelector){
+			const itemcontent = document.querySelector(_listItemSelector);
+			let FirstItem = itemcontent.getBoundingClientRect().top;
+			let SecondItem = itemcontent.nextElementSibling.getBoundingClientRect().top;
+			return SecondItem - FirstItem;
+		}, listItemSelector);
+	}
+
 	fiveWayToItem (itemNum) {
 		const currentItem = Number(focusedElement().slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
@@ -132,6 +142,19 @@ class VirtualListPage extends Page {
 			}
 			waitUntilFocused(i + direction);
 		}
+	}
+
+	backSpace () {
+		return this.keyDelay('Backspace');
+	}
+
+	numPad (num) {
+		let Inputnum = 'numad' + String(num);
+		return this.keyDelay(Inputnum);
+	}
+
+	spotlightsize () {
+		return browser.execute(function () { return document.activeElement.clientHeight; });
 	}
 }
 

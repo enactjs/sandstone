@@ -112,7 +112,7 @@ describe('VirtualList', function () {
 		});
 
 		// Need mochaOpts - timeout set to 60000 to pass
-		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
+		it.skip('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
@@ -428,6 +428,67 @@ describe('VirtualList', function () {
 				Page.pageDown();
 				// Verify no error on waitForScrollStartStop
 				waitForScrollStartStop();
+			});
+		});
+
+		describe('spotlight size compare', function () {
+			beforeEach(function () {
+				Page.open();
+			});
+
+			// The spacing setting was set once, and we couldn't go back and set it again, so we tested it each 100,50.
+			it('should maintain spotlight size when spacing 100[GT-28462]', function () {
+				let beforeSpacing;
+				let afterSpacing;
+				beforeSpacing = Page.itemspacing();
+				// Step 4: Knobs > VirtualList > spacing > 100
+				Page.spotlightRight();
+				Page.spotlightRight();
+				Page.spotlightRight();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.numPad(1);
+				Page.numPad(0);
+				Page.numPad(0);
+				// 100 spacing value is 50 for 4k and 25 for FHD.
+				afterSpacing = Page.itemspacing() - beforeSpacing;
+				expect(afterSpacing).to.equal(50);
+				// Step5-1: Hover an item.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				Page.showPointerByKeycode();
+				$('#item5').moveTo();
+				expectFocusedItem(5);
+				// Step5 Verify: The spotlight size does not change.
+				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				expect(Page.spotlightsize()).to.equal(78);
+			});
+
+			// The spacing setting was set once, and we couldn't go back and set it again, so we tested it each 100,50.
+			it('should maintain spotlight size when spacing 50[GT-28462]', function () {
+				let beforeSpacing;
+				let afterSpacing;
+				beforeSpacing = Page.itemspacing();
+				// Step 4: Knobs > VirtualList > spacing > 50
+				Page.spotlightRight();
+				Page.spotlightRight();
+				Page.spotlightRight();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.numPad(5);
+				Page.numPad(0);
+				// 50 spacing value is 50 for 4k and 25 for FHD.
+				afterSpacing = Page.itemspacing() - beforeSpacing;
+				expect(afterSpacing).to.equal(25);
+				// Step5-1: Hover an item.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				Page.showPointerByKeycode();
+				$('#item3').moveTo();
+				expectFocusedItem(3);
+				// Step5 Verify: The spotlight size does not change.
+				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				expect(Page.spotlightsize()).to.equal(78);
 			});
 		});
 	});
