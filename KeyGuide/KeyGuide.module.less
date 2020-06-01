@@ -14,15 +14,10 @@
 	.green,
 	.yellow,
 	.blue {
-		display: flex;
-		align-items: center;
-
-		.color {
-			width: @sand-keyguide-colordot-width;
-			height: @sand-keyguide-colordot-height;
-			margin: @sand-keyguide-colordot-margin;
-			border-radius: @sand-keyguide-colordot-border-radius;
-		}
+		width: @sand-keyguide-colordot-width;
+		height: @sand-keyguide-colordot-height;
+		margin: @sand-keyguide-colordot-margin;
+		border-radius: @sand-keyguide-colordot-border-radius;
 	}
 
 	.item {
@@ -53,16 +48,16 @@
 	.applySkins({
 		background: @sand-keyguide-bg-color;
 
-		.red .color {
+		.red {
 			background-color: @sand-remote-button-red-color;
 		}
-		.green .color {
+		.green {
 			background-color: @sand-remote-button-green-color;
 		}
-		.yellow .color {
+		.yellow {
 			background-color: @sand-remote-button-yellow-color;
 		}
-		.blue .color {
+		.blue {
 			background-color: @sand-remote-button-blue-color;
 		}
 

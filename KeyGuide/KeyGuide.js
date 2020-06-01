@@ -53,14 +53,14 @@ const KeyGuideBase = kind({
 		 *
 		 * Takes an array of objects. The properties will be passed onto an `Item` component
 		 * and `children` as well as a unique `key` property are required.
+		 * If `icon` property has one of the four colors listed below, its color bar is shown.
 		 *
-		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String), color: ('red'|'green'|'yellow'|'blue')}>}
+		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String|'red'|'green'|'yellow'|'blue')}>}
 		 * @public
 		 */
 		children: PropTypes.arrayOf(PropTypes.shape({
 			children: EnactPropTypes.renderable.isRequired,
 			key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-			color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
 			icon: PropTypes.string
 		})),
 
@@ -92,19 +92,13 @@ const KeyGuideBase = kind({
 
 	computed: {
 		children: ({children, css}) => (
-			children.map(({icon, color, ...child}) => {
+			children.map(({icon, ...child}) => {
+				const color = ['red', 'green', 'yellow', 'blue'].find(elem => elem === icon);
 				return {
 					...child,
-					slotBefore: (
-						<div className={css[color]}>
-							{color ? (
-								<div className={css.color} />
-							) : null}
-							{icon ? (
-								<Icon className={css.icon}>{icon}</Icon>
-							) : null}
-						</div>
-					)
+					slotBefore: color ? (
+						<div className={css[color]} />
+					) : <Icon className={css.icon}>{icon}</Icon>
 				};
 			})
 		),
