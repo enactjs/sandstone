@@ -1,7 +1,7 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import Skinnable from '@enact/ui/Skinnable';
@@ -586,7 +586,7 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel body (content or footer) followed by header
-		defaultElement: [`.${css.content} *, .${css.footer} *`, 'header > *'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
 	WizardPanelsRouter,

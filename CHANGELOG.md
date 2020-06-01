@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Slider` style to border radius
 - `sandstone/VideoPlayer` to show a scrim with controls
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
+- `sandstone/WizardPanels` to set `defaultElement` using with `spotlightDefaultClass`
 
 ## [1.0.0-beta.4] - 2020-05-26
 
