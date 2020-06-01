@@ -11,12 +11,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/PopupTabLayout` panel transition animation
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
+- `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
+- `sandstone/Dropdown` to center scrolling to selected index
 - `sandstone/Item` to properly accept numbers for `label`
 - `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/Slider` style to border radius
+- `sandstone/VideoPlayer` to show a scrim with controls
 - `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
+- `sandstone/PopupTabLayout` tall-content scrolling capability
+- `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
 
 ## [1.0.0-beta.4] - 2020-05-26
 

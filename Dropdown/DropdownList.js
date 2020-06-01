@@ -200,7 +200,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			let ready = ReadyState.DONE;
 
 			if (isSelectedValid(this.props)) {
-				this.scrollTo({animate: false, focus: true, index: selected});
+				this.scrollTo({
+					animate: false,
+					focus: true,
+					index: selected,
+					offset: ri.scale(312), // @sand-item-height * 2
+					stickTo: 'start' // offset from the top of the dropdown
+				});
 				ready = ReadyState.SCROLLED;
 			}
 
