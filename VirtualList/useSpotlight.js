@@ -68,13 +68,12 @@ const getNumberValue = (index) => index | 0;
 
 const useSpotlightRestore = (props, instances, context) => {
 	const {scrollContentRef, spottable} = instances;
-	const {focusByIndex, getItemNode} = context;
+	const {getItemNode} = context;
 
 	// Mutable value
 
 	const mutableRef = useRef({
 		preservedIndex: false,
-		lastSpotlightDirection: null,
 		restoreLastFocused: false
 	});
 
@@ -92,7 +91,6 @@ const useSpotlightRestore = (props, instances, context) => {
 
 			if (index) {
 				mutableRef.current.preservedIndex = getNumberValue(index);
-				mutableRef.current.lastSpotlightDirection = null;
 				mutableRef.current.restoreLastFocused = true;
 			}
 		}
@@ -124,7 +122,7 @@ const useSpotlightRestore = (props, instances, context) => {
 
 				// try to focus the last focused item
 				spottable.current.isScrolledByJump = true;
-				const foundLastFocused = focusByIndex(mutableRef.current.preservedIndex, mutableRef.current.lastSpotlightDirection);
+				const foundLastFocused = Spotlight.focus(itemNode);
 				spottable.current.isScrolledByJump = false;
 
 				// but if that fails (because it isn't found or is disabled), focus the container so
@@ -149,9 +147,8 @@ const useSpotlightRestore = (props, instances, context) => {
 		));
 	}
 
-	function setPreservedIndex (index, direction = null) {
+	function setPreservedIndex (index) {
 		mutableRef.current.preservedIndex = index;
-		mutableRef.current.lastSpotlightDirection = direction;
 		mutableRef.current.restoreLastFocused = true;
 	}
 
