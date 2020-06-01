@@ -14,9 +14,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
-- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
+- `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
+- `sandstone/Dropdown` to center scrolling to selected index
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respond properly to back button presses
+- `sandstone/Item` to properly accept numbers for `label`
+- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
+- `sandstone/Slider` style to border radius
+- `sandstone/VideoPlayer` to show a scrim with controls
+- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 
 ## [1.0.0-beta.4] - 2020-05-26
 
