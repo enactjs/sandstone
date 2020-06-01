@@ -18,7 +18,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import CacheReactElementDecorator from '@enact/ui//CacheReactElementDecorator';
+import CacheReactElementDecorator from '@enact/ui/CacheReactElementDecorator';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
