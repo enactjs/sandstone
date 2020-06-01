@@ -147,6 +147,7 @@ const useSpottable = (props, instances) => {
 				focusByIndex(nextIndex, direction);
 			} else {
 				const itemNode = getItemNode(nextIndex);
+				const stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
@@ -159,8 +160,8 @@ const useSpottable = (props, instances) => {
 
 				cbScrollTo({
 					index: nextIndex,
-					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? ri.scale(affordanceSize) : 0,
+					stickTo,
+					offset: (!noAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -188,6 +189,9 @@ const useSpottable = (props, instances) => {
 			const
 				current = Spotlight.getCurrent(),
 				candidate = current ? getTargetByDirectionFromElement(direction, current) : itemNode;
+
+			// Remove any preservedIndex
+			setPreservedIndex(-1);
 
 			if (mutableRef.current.isWrappedBy5way) {
 				SpotlightAccelerator.reset();
