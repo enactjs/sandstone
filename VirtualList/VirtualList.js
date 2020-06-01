@@ -853,7 +853,8 @@ VirtualGridList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
