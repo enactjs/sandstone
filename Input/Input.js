@@ -8,6 +8,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
+import {extractAriaProps} from '@enact/core/util';
 
 import Button from '../Button';
 import Popup from '../Popup';
@@ -292,8 +293,8 @@ const InputPopupBase = kind({
 		value,
 		...rest
 	}) => {
-
 		const inputProps = extractInputFieldProps(rest);
+		const ariaProps = extractAriaProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.length;
@@ -308,6 +309,7 @@ const InputPopupBase = kind({
 				className={popupClassName}
 				noAnimation
 				open={!disabled && open}
+				{...ariaProps}
 			>
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>

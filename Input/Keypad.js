@@ -80,6 +80,7 @@ const Keypad = kind({
 							component={Key}
 							key={`key${rowIndex}-${keyText}`}
 							onKeyButtonClick={keyText === 'backspace' ? onRemove : onAdd}
+							aria-label={keyText}
 						>
 							{keyText}
 						</Cell>

@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
+- `sandstone/Input` forwarding accessibility props to `Popup`
 
 ### Fixed
 
