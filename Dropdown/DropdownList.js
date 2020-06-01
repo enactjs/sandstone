@@ -14,7 +14,7 @@ import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
 
 import css from './Dropdown.module.less';
-import {compareChildren} from '../internal/util/util';
+import {compareChildren} from '../internal/util';
 
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
 
@@ -152,6 +152,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			super(props);
 
 			this.state = {
+				prevChildren: props.children,
 				prevSelected: props.selected,
 				ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
 			};
