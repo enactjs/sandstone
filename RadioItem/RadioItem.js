@@ -80,12 +80,12 @@ const RadioItemBase = kind({
 	render: ({children, css, icon, selected, ...rest}) => {
 		return (
 			<Item
-				aria-checked={selected}
 				data-webos-voice-intent="SelectRadioItem"
 				role="checkbox"
-				selected={selected}
 				{...rest}
+				aria-checked={selected}
 				css={css}
+				selected={selected}
 			>
 				<Icon slot="slotBefore" className={css.icon} size="tiny">{icon}</Icon>
 				{children}
