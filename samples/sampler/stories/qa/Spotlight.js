@@ -454,7 +454,7 @@ storiesOf('Spotlight', module)
 					Use the knobs to test the available behaviors for the spottable components
 					below.
 				</Cell>
-				<Cell component={Container} spotlightMuted={boolean('spotlightMuted', Container, false)} spotlightDisabled={boolean('Container spotlightDisabled', Container, false)}>
+				<Cell component={Container} spotlightDisabled={boolean('Container spotlightDisabled', Container, false)}>
 					<Row style={{height: '100%'}}>
 						<Cell>
 							<Column>
