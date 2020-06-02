@@ -14,7 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Alert` to use multiline of content in fullscreen type
+- `sandstone/Alert` to use multi-line of content in "fullscreen" type
 
 ## [1.0.0-beta.5] - 2020-06-01
 
@@ -47,10 +47,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Slider` bar style to match latest designs
 - `sandstone/VideoPlayer` to show a scrim behind the media controls
 - `sandstone/VirtualList` to properly set the scroll position after focus changes
-
-### Fixed
-
-- `sandstone/Alert` to use multiline of content in fullscreen type
 
 ## [1.0.0-beta.4] - 2020-05-26
 
