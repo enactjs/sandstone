@@ -3,6 +3,7 @@
 
 export default {
 	plus              : 0x0002B,  // plus
+	minus             : 0x0002D,  // hyphen
 	arrowhookleft     : 0x021A9,  // LeftArrowHook
 	arrowhookright    : 0x021AA,  // RightArrowHook
 	ellipsis          : 0x022EF,  // ellipsis
@@ -47,7 +48,8 @@ export default {
 	repeatone         : 0x0F00DF,  // repeat_one
 	repeatall         : 0x0F00E0,  // repeat_all
 	repeatnone        : 0x0F00E1,  // repeat_none
-	zoom              : 0x0F00EF,  // zoom_in
+	zoomin            : 0x0F00EF,  // zoom_in
+	zoomout	          : 0x0F00F0,  // zoom_out
 	download          : 0x0F00FA,  // download
 	shuffle           : 0x0F0103,  // shuffle
 	notification      : 0x0F0105,  // notification.001
