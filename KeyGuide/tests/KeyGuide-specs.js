@@ -50,6 +50,21 @@ describe('KeyGuide Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should not render open floating layer if open with children', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<KeyGuide open>
+					{[{icon: 'red', children: 'a', key: 'a'}]}
+				</KeyGuide>
+			</FloatingLayerController>
+		);
+
+		const expected = true;
+		const actual = subject.find('FloatingLayer').prop('open');
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should apply color class if a color key is in the icon slot', () => {
 		const subject = mount(
 			<FloatingLayerController>
