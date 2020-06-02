@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/KeyGuide` support for color keys
 
+### Fixed
+
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+
 ## [1.0.0-beta.5] - 2020-06-01
 
 ### Removed
@@ -32,7 +36,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
 - `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
 - `sandstone/Dropdown` to center scrolling to selected index
-- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respond properly to back button presses
 - `sandstone/Item` to properly accept numbers for `label`
 - `sandstone/PopupTabLayout` tall-content scrolling capability
 - `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding

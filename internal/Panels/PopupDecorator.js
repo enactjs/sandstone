@@ -1,4 +1,3 @@
-import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import IdProvider from '@enact/ui/internal/IdProvider';
@@ -9,7 +8,7 @@ import React from 'react';
 import Skinnable from '../../Skinnable';
 import Popup from '../../Popup';
 
-import css from './Viewport.module.less';
+import CancelDecorator from './CancelDecorator';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
@@ -63,7 +62,8 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css: componentCss, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, panelArranger, panelType} = config;
+	const Panels = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
 		name: 'PopupDecorator',
@@ -163,27 +163,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		styles: {
-			css: componentCss,
+			css,
 			className: cfgClassName
-		},
-
-		handlers: {
-			onPopupClose: (ev, props) => {
-				if (!document.querySelector(`.${css.transitioning}`)) {
-					if (props.index > 0) {
-						forward('onBack', ev, props);
-					} else {
-						forward('onClose', ev, props);
-					}
-				}
-			}
 		},
 
 		computed: {
 			className: ({width, styler}) => styler.append(width)
 		},
 
-		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, onPopupClose, ...rest}) => {
+		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
 			const count = React.Children.count(children);
 			invariant(
 				index === 0 && count === 0 || index < count,
@@ -202,8 +190,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={componentCss} noAnimation={noAnimation} onClose={onPopupClose}>
-					<Wrapped
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
+					<Panels
 						{...rest}
 						arranger={panelArranger}
 						generateId={generateId}
@@ -215,7 +203,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						type={panelType}
 					>
 						{children}
-					</Wrapped>
+					</Panels>
 				</Popup>
 			);
 		}
