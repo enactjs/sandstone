@@ -28,6 +28,7 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
+	get inputfieldSpacing () { return element('#spacing', browser); }
 	get scrollbar () { return $(`${scrollbarSelector}`); }
 	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
 	getScrollOffsetLeft () {
@@ -119,12 +120,12 @@ class VirtualListPage extends Page {
 		}, this.item(id).value);
 	}
 
-	itemspacing (){
+	itemSpacing () {
 		return browser.execute(function (_listItemSelector){
-			const itemcontent = document.querySelector(_listItemSelector);
-			let FirstItem = itemcontent.getBoundingClientRect().top;
-			let SecondItem = itemcontent.nextElementSibling.getBoundingClientRect().top;
-			return SecondItem - FirstItem;
+			const itemContent = document.querySelectorAll(_listItemSelector);
+			const FirstItemRect = itemContent[0].getBoundingClientRect();
+			const SecondItemRect = itemContent[1].getBoundingClientRect();
+			return Math.round(SecondItemRect.top - FirstItemRect.top - FirstItemRect.height);
 		}, listItemSelector);
 	}
 
@@ -153,7 +154,7 @@ class VirtualListPage extends Page {
 		return this.keyDelay(Inputnum);
 	}
 
-	spotlightsize () {
+	spotlightSize () {
 		return browser.execute(function () { return document.activeElement.clientHeight; });
 	}
 }
