@@ -324,12 +324,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (target === this.downTarget) {
 				this.downTarget = null;
 
-				if (this.state.focused === 'input' && dismissOnEnter && is('enter', keyCode)) {
-					this.focusDecorator(currentTarget);
-					// prevent Enter onKeyPress which triggers an onMouseDown via Spotlight
-					preventDefault();
-				} else if (this.state.focused !== 'input' && is('enter', keyCode)) {
-					this.focusInput(currentTarget);
+				if (!this.props.disabled) {
+					if (this.state.focused === 'input' && dismissOnEnter && is('enter', keyCode)) {
+						this.focusDecorator(currentTarget);
+						// prevent Enter onKeyPress which triggers an onMouseDown via Spotlight
+						preventDefault();
+					} else if (this.state.focused !== 'input' && is('enter', keyCode)) {
+						this.focusInput(currentTarget);
+					}
 				}
 			}
 
