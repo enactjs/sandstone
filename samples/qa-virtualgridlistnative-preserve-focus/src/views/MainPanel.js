@@ -4,7 +4,7 @@ import {Panel, Header} from '@enact/sandstone/Panels';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import SampleVirtualGridListNative from '../components/SampleVirtualGridListNative';
+import SampleVirtualGridList from '../components/SampleVirtualGridList';
 
 const MainPanel = kind({
 	name: 'MainPanel',
@@ -28,7 +28,7 @@ const MainPanel = kind({
 			<Header title={title}>
 				<Button onClick={onClick}>Click me</Button>
 			</Header>
-			<SampleVirtualGridListNative index={rest['data-index']} onClick={onClick} />
+			<SampleVirtualGridList index={rest['data-index']} onClick={onClick} />
 		</Panel>
 	)
 });

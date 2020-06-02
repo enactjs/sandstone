@@ -2,6 +2,7 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
+@import "../styles/variables.less";
 
 .popup {
 	.numberField,
@@ -19,7 +20,12 @@
 		max-width: 100%;
 	}
 
-	.combined,
+	.fieldWrapper {
+		display: inline-block;
+		position: relative;
+	}
+
+	.joined,
 	.numberCell {
 		border-radius: @sand-input-numbercell-border-radius;
 	}
@@ -38,6 +44,9 @@
 		}
 	}
 
+	.submitButton {
+	}
+
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
@@ -50,7 +59,7 @@
 			margin: @sand-input-fullscreen-numbercell-margin;
 		}
 
-		.combined {
+		.joined {
 			width: @sand-input-fullscreen-numberfield-width;
 			height: @sand-input-fullscreen-numberfield-height;
 			line-height: @sand-input-fullscreen-numberfield-height;
@@ -95,7 +104,7 @@
 			margin: @sand-input-overlay-numbercell-margin;
 		}
 
-		.combined {
+		.joined {
 			width: @sand-input-overlay-numberfield-width;
 			height: @sand-input-overlay-numberfield-height;
 			line-height: @sand-input-overlay-numberfield-height;
@@ -126,7 +135,7 @@
 
 	.applySkins({
 		.numberCell,
-		.combined {
+		.joined {
 			background-color: @sand-input-numbercell-background-color;
 		}
 

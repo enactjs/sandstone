@@ -56,7 +56,15 @@ const RadioItemBase = kind({
 		 * @default 'circle'
 		 * @see {@link sandstone/Icon.Icon}
 		 */
-		icon: PropTypes.string
+		icon: PropTypes.string,
+
+		/**
+		 * If true it will be selected.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		selected: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -69,12 +77,15 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	render: ({children, css, icon, ...rest}) => {
+	render: ({children, css, icon, selected, ...rest}) => {
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
+				role="checkbox"
 				{...rest}
+				aria-checked={selected}
 				css={css}
+				selected={selected}
 			>
 				<Icon slot="slotBefore" className={css.icon} size="tiny">{icon}</Icon>
 				{children}
@@ -92,7 +103,7 @@ const RadioItemBase = kind({
  * @public
  */
 const RadioItemDecorator = compose(
-	Toggleable({toggleProp: 'onTap'}),
+	Toggleable({toggleProp: 'onTap'})
 );
 
 /**

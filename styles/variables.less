@@ -8,6 +8,7 @@
 // Generic/Common/Shared
 // ---------------------------------------
 @sand-component-spacing: 36px;
+@sand-component-spacing-bottom: 30px;
 @sand-smallest-tappable-size: 168px;
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
@@ -277,24 +278,23 @@
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
 @sand-fixedpopuppanels-panel-padding: 0;
-@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset));
+@sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
 // FlexiblePopupPanels
 // ---------------------------------------
-@sand-flexiblepopuppanels-width: 50vw;
-@sand-flexiblepopuppanels-margin-top: 108px;
-@sand-flexiblepopuppanels-panel-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-min-width: 1140px;
+@sand-flexiblepopuppanels-margin: 108px 0;
+@sand-flexiblepopuppanels-padding: 0 (@sand-component-spacing + @sand-button-small-height) (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-margin: 0 12px;
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
+@sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
+@sand-flexiblepopuppanels-navbutton-margin: 0;
 
 // Header
 // ---------------------------------------
 @sand-header-slotabove-margin: 0 0 30px 0;
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
-@sand-header-animation-duration: 300ms;
-@sand-header-featurecontent-transform: translateY(-12px);
-@sand-header-featurecontent-title-opacity: 0.3;
-@sand-header-featurecontent-title-transform: translateY(-50%);
 @sand-header-standard-margin: 0;
 @sand-header-standard-padding: 108px 150px 72px;
 @sand-header-compact-margin: 0;
@@ -323,20 +323,9 @@
 @sand-icon-medium-size: 90px;
 @sand-icon-small-size: 78px;
 @sand-icon-tiny-size: 60px;
-@sand-icon-large-font-size: (@sand-icon-large-size * 2);
-@sand-icon-medium-font-size: (@sand-icon-medium-size * 2);
-@sand-icon-small-font-size: (@sand-icon-small-size * 2);
-@sand-icon-tiny-font-size: (@sand-icon-tiny-size * 2);
-@sand-icon-large-sprite-size: (@sand-button-height - (@sand-button-border-width * 2));
-@sand-icon-medium-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-small-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
-@sand-icon-tiny-sprite-size: (@sand-button-small-height - (@sand-button-border-width * 2));
 @sand-icon-margin: 24px;
-// Large-mode sizes - Note, may be deprecated.
 @sand-icon-large-size-large: (@sand-icon-large-size * 1.2);
 @sand-icon-small-size-large: (@sand-icon-small-size * 1.2);
-@sand-icon-large-font-size-large: (@sand-icon-large-font-size * 1.2);
-@sand-icon-small-font-size-large: (@sand-icon-small-font-size * 1.2);
 
 // ImageItem
 // ---------------------------------------
@@ -372,6 +361,7 @@
 @sand-input-fullscreen-numberfield-width: 1200px;
 @sand-input-fullscreen-numberfield-height: 210px;
 @sand-input-fullscreen-numberfield-margin: auto;
+@sand-input-fullscreen-numberfield-tooltip-margin: 129px;
 @sand-input-fullscreen-numberfield-padding: 0 0.5em;
 @sand-input-fullscreen-numberfield-letter-spacing: 48px;
 @sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
@@ -422,15 +412,20 @@
 @sand-item-border-radius: 12px;
 @sand-item-slotafter-spacing: 54px;
 @sand-item-slotbefore-spacing: 54px;
-@sand-item-margin: 0 @sand-component-spacing 30px @sand-component-spacing;
+@sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 
 // Keyguide
 // ---------------------------------------
-@sand-keyguide-width: 750px;
+@sand-keyguide-colordot-height: 12px;
+@sand-keyguide-colordot-margin: 0 ((@sand-icon-small-size - @sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+@sand-keyguide-colordot-width: 60px;
+@sand-keyguide-colordot-border-radius: 6px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 24px 0;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
-@sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding: 6px 0;
+@sand-keyguide-width: 750px;
+@sand-keyguide-item-height: 120px;
 
 // MediaOverlay
 // ---------------------------------------
@@ -460,7 +455,6 @@
 @sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
 @sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
 @sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
-@sand-panel-featurecontent-animation-duration: 700ms;
 
 // Picker
 // ----------------------------------------
@@ -502,7 +496,7 @@
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;
-@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) 0;
+@sand-popuptablayout-panel-body-padding: @sand-panel-body-padding-top (108px - @sand-component-spacing - @sand-spotlight-outset) (78px - @sand-component-spacing-bottom);
 
 // ProgressBar
 // ---------------------------------------
@@ -539,6 +533,7 @@
 
 // Scrollbar
 // ---------------------------------------
+@sand-scrollbar-padding: 30px;
 @sand-scrollbar-size: 36px;
 @sand-scrollbar-focusable-size: 60px;
 @sand-scrollbar-track-margin: 12px;
@@ -547,7 +542,7 @@
 @sand-scrollbar-track-border-radius: 6px;
 @sand-scrollbar-thumb-border-radius: 6px;
 @sand-scrollbar-thumb-focus-width: 30px;
-@sand-scrollbar-thumb-focus-left: -12px;
+@sand-scrollbar-thumb-focus-left: -9px;
 @sand-scrollbar-thumb-focus-border-radius: 12px;
 @sand-scrollbar-thumb-focus-box-shadow: 0 36px 18px;
 @sand-scrollbar-thumb-focus-direction-indicator-width: 18px;
@@ -557,11 +552,10 @@
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-affordance-size: 48px;
 @sand-scroll-fade-out-size: 48px;
 @sand-scroll-fade-out-offset: 24px;
-@sand-scroll-vertical-fade-out-padding: @sand-scroll-affordance-size 0;
-@sand-scroll-horizontal-fade-out-padding: 0 @sand-scroll-affordance-size;
+@sand-scroll-vertical-fade-out-padding: @sand-scroll-fade-out-size 0;
+@sand-scroll-horizontal-fade-out-padding: 0 @sand-scroll-fade-out-size;
 @sand-scroll-focusablebody-padding: 72px 48px 72px 90px;
 @sand-scroll-focusablebody-padding-rtl: 72px 90px 72px 48px;
 @sand-scroll-focusablebody-focus-border-radius: 12px;

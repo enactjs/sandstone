@@ -344,7 +344,7 @@ const TabPanels = (props) => <Panels {...props} css={css} />;
  * @extends sandstone/Panels.Panel
  * @ui
  */
-const TabPanel = (props) => <Panel {...props} css={css} />;
+const TabPanel = (props) => <Panel {...props} css={css} hideChildren={false} />;
 
 
 export default PopupTabLayout;

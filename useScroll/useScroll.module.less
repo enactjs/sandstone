@@ -16,9 +16,10 @@
 	.verticalScrollbar {
 		position: absolute;
 		width: var(--scroll-scrollbar-size);
-		height: calc(100% - 2 * @sand-scroll-affordance-size);
+		height: calc(100% - 2 * @sand-scrollbar-padding);
 		right: 0;
-		top: @sand-scroll-affordance-size;
+		top: 0;
+		padding: @sand-scrollbar-padding 0;
 	}
 
 	:global(.enact-locale-right-to-left) & .verticalScrollbar {
@@ -28,20 +29,25 @@
 
 	.horizontalScrollbar {
 		position: absolute;
-		width: calc(100% - 2 * @sand-scroll-affordance-size);
+		width: calc(100% - 2 * @sand-scrollbar-padding);
 		height: var(--scroll-scrollbar-size);
-		left: @sand-scroll-affordance-size;
+		left: 0;
 		bottom: 0;
+		padding: 0 @sand-scrollbar-padding;
 	}
 
 	&.bidirectional {
 		.verticalScrollbar {
-			height: calc(100% - 2 * @sand-scroll-affordance-size - var(--scroll-scrollbar-size));
+			height: calc(100% - 2 * @sand-scrollbar-padding - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * @sand-scroll-affordance-size - 2 * var(--scroll-scrollbar-size));
-			left: calc(@sand-scroll-affordance-size + var(--scroll-scrollbar-size));
+			width: calc(100% - 2 * @sand-scrollbar-padding -  var(--scroll-scrollbar-size));
+			left: 0;
+		}
+
+		:global(.enact-locale-right-to-left)  & .horizontalScrollbar{
+			left: var(--scroll-scrollbar-size);
 		}
 	}
 
