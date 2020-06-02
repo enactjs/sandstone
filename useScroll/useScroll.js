@@ -184,7 +184,7 @@ const useThemeScroll = (props, instances) => {
 
 		if (mutableRef.current.pointToFocus !== null) {
 			// no need to focus on pointer mode
-			if (!Spotlight.getPointerMode()) {
+			if (!Spotlight.getPointerMode() && !Spotlight.getCurrent()) {
 				const
 					{direction, x, y} = mutableRef.current.pointToFocus,
 					position = {x, y},

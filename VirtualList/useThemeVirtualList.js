@@ -210,7 +210,7 @@ const useSpottable = (props, instances) => {
 		return returnVal;
 	}
 
-	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
+	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPositionTarget}) {
 		const
 
 			{pageScroll} = props,
@@ -329,10 +329,7 @@ const useThemeVirtualList = (props) => {
 
 	const {itemRenderer, ...rest} = props;
 
-	// not used by VirtualList
-	delete rest.focusableScrollbar;
 	delete rest.noAffordance;
-	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
