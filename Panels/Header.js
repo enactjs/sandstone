@@ -559,7 +559,7 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
 		const {index, type: panelsType} = React.useContext(PanelsStateContext);
 
-		const backButtonAvailable = (index > 0 && panelsType !== 'wizard');
+		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
 
 		return provideContextAsDefaults(
 			<Wrapped

@@ -16,6 +16,7 @@ import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
+import KeyGuide from '../../../KeyGuide';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -59,6 +60,7 @@ const components = {
 	Input,
 	InputField,
 	Item,
+	KeyGuide,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,

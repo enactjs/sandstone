@@ -11,10 +11,9 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import $L from '../internal/$L';
-import Button from '../Button';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
@@ -22,54 +21,6 @@ import useFocusOnTransition from './useFocusOnTransition';
 import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
-
-const NavigationButton = kind({
-	name: 'NavigationButton',
-
-	propTypes: {
-		component: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.element,
-			PropTypes.func
-		]),
-		onClick: PropTypes.func,
-		visible: PropTypes.bool
-	},
-
-	render: ({component, visible, ...rest}) => {
-
-		if (React.isValidElement(component)) {
-
-			Object.keys(component.props).forEach(key => {
-				// Using the provided prop values as defaults for any component.props value that is
-				// strictly undefined. This follows React's convention for default props in which a
-				// default is used when a prop is either explicitly undefined or omitted and
-				// therefore implicitly undefined.
-				if (typeof component.props[key] !== 'undefined') {
-					rest[key] = component.props[key];
-				}
-			});
-
-			const Type = component.type;
-			return (
-				<Type {...rest} />
-			);
-		} else if (
-			// Explicitly disabled via false/null or visible is set to false
-			(component === false || component === null) ||
-			// Using the default config and hidden at this time
-			(typeof component === 'undefined' && !visible)
-		) {
-			return null;
-		}
-
-		const Component = (typeof component === 'function') ? component : Button;
-
-		return (
-			<Component {...rest} />
-		);
-	}
-});
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -147,9 +98,9 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `nextButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last,
-		 * * `'always'`will display `nextButton` button on every Panel in the `WizardPanel.Panel`
-		 * * `'never'` will always hide the `nextButton` on the every `WizardPanel.Panel`
+		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last
+		 * * `'always'` will always display the `nextButton`
+		 * * `'never'` will always hide the `nextButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this
 		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
@@ -241,9 +192,9 @@ const WizardPanelsBase = kind({
 		/**
 		 * Specifies when and how to show `prevButton` on WizardPanel.
 		 *
-		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first,
-		 * * `'always'`will display `prevButton` button on every Panel in the `WizardPanel.Panel`
-		 * * `'never'` will always hide the `prevButton` on the every `WizardPanel.Panel`
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first
+		 * * `'always'` will always display the `prevButton`
+		 * * `'never'` will always hide the `prevButton`
 		 *
 		 * Note, children values will override the generalized parent visibility settings. In this case,
 		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
@@ -472,7 +423,7 @@ function useReverseTransition (index = -1) {
  *
  * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
- * @ui
+ * @private
  */
 const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({
