@@ -131,6 +131,7 @@ class VirtualListPage extends Page {
 				this.spotlightUp();
 			}
 			waitUntilFocused(i + direction);
+			this.delay(50); // Wait for scroll into view
 		}
 	}
 }
