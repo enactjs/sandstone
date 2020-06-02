@@ -248,4 +248,4 @@ const PanelDecorator = compose(
 const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
-export {Panel, PanelBase};
+export {Panel, PanelBase, PanelDecorator};

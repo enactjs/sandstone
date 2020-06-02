@@ -4,8 +4,6 @@
  * @module sandstone/WizardPanels
  * @exports Panel
  * @exports WizardPanels
- * @exports WizardPanelsBase
- * @exports WizardPanelsDecorator
  */
 
 import {WizardPanels, WizardPanelsBase, WizardPanelsDecorator} from './WizardPanels';

@@ -4,6 +4,7 @@
  * @module sandstone/Alert
  * @exports Alert
  * @exports AlertBase
+ * @exports AlertImage
  */
 
 import kind from '@enact/core/kind';
@@ -19,7 +20,7 @@ import Popup from '../Popup';
 
 import AlertImage from './AlertImage';
 
-import componentCss from './Alert.module.less';
+import css from './Alert.module.less';
 
 /**
  * A modal Alert component.
@@ -51,7 +52,9 @@ const AlertBase = kind({
 
 		/**
 		 * The contents of the body of the component.
-		 * This is only shown in `type="overlay"`
+		 *
+		 * Only shown when `type="overlay"`. If `children` is text-only, it will be wrapped with
+		 * [BodyText]{@link sandstone/BodyText}.
 		 *
 		 * @type {Node}
 		 * @public
@@ -59,20 +62,7 @@ const AlertBase = kind({
 		children: PropTypes.node,
 
 		/**
-		 * Customizes the component by mapping the supplied collection of CSS class names to the
-		 * corresponding internal elements and states of this component.
-		 *
-		 * The following classes are supported:
-		 *
-		 * * `alert` - The root class name
-		 *
-		 * @type {Object}
-		 * @private
-		 */
-		css: PropTypes.object,
-
-		/**
-		 * The id of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
+		 * The `id` of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
 		 *
 		 * @type {String}
 		 * @private
@@ -81,9 +71,8 @@ const AlertBase = kind({
 
 		/**
 		 * Image to be included in the Alert component.
-		 * It recommends to use `AlertImage` component.
 		 *
-		 * Will not display if `image` is not set.
+		 * It is recommended to use the `AlertImage` component.
 		 *
 		 * @type {Element}
 		 * @public
@@ -93,7 +82,7 @@ const AlertBase = kind({
 		/**
 		 * Called when the user requests to close the Alert.
 		 *
-		 * These actions include pressing the cancel key.
+		 * This also includes pressing the cancel key.
 		 *
 		 * @type {Function}
 		 * @public
@@ -118,7 +107,7 @@ const AlertBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Assign a skin
+		 * Assign a skin.
 		 *
 		 * @type {String}
 		 * @private
@@ -127,9 +116,8 @@ const AlertBase = kind({
 
 		/**
 		 * The secondary text displayed below the `title`.
-		 * This is only shown in `type="fullscreen"`
 		 *
-		 * Will not display if `title` is not set.
+		 * This is only shown in `type="fullscreen"` and will not display if `title` is not set.
 		 *
 		 * @type {String}
 		 * @public
@@ -137,8 +125,7 @@ const AlertBase = kind({
 		subtitle: PropTypes.string,
 
 		/**
-		 * The primary text displayed. This is only shown in
-		 * `type="fullscreen"`
+		 * The primary text displayed. Only shown when type="fullscreen"`.
 		 *
 		 * @type {String}
 		 * @public
@@ -146,11 +133,15 @@ const AlertBase = kind({
 		title: PropTypes.string,
 
 		/**
-		 * Type of popup to appear in the screen. There are two types.
+		 * Type of popup.
+		 *
+		 * There are two types:
 		 *
 		 * * `fullscreen` - Full screen popup
 		 * * `overlay` - Popup in the center of the screen
-		 * @type {String|Object}
+		 *
+		 * @type {('fullscreen'|'overlay')}
+		 * @default 'fullscreen'
 		 * @public
 		 */
 		type: PropTypes.oneOf(['fullscreen', 'overlay'])
@@ -162,13 +153,12 @@ const AlertBase = kind({
 	},
 
 	styles: {
-		css: componentCss,
-		className: 'alert',
-		publicClassNames: ['alert']
+		css,
+		className: 'alert'
 	},
 
 	computed: {
-		buttons: ({buttons, css}) => {
+		buttons: ({buttons}) => {
 			if (buttons) {
 				return React.Children.map(buttons, (button, index) => (
 					<Cell className={css.buttonCell} key={`button${index}`} shrink>
@@ -177,6 +167,13 @@ const AlertBase = kind({
 				));
 			} else {
 				return null;
+			}
+		},
+		contentComponent: ({children}) => {
+			if (typeof children === 'string' ||
+				Array.isArray(children) && children.every(child => (child == null || typeof child === 'string'))
+			) {
+				return BodyText;
 			}
 		},
 		className: ({buttons, image, type, styler}) => styler.append(
@@ -190,11 +187,19 @@ const AlertBase = kind({
 		subtitle: ({title, subtitle}) => (title ? subtitle : '')
 	},
 
-	render: ({buttons, children, css, id, image, title, subtitle, type, ...rest}) => {
+	render: ({buttons, contentComponent, children, id, image, title, subtitle, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
+		const position = (type === 'overlay' ? 'bottom' : type);
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
+		const ariaLabelledBy = (fullscreen ? `${id}_title ${id}_subtitle ${id}_buttons` : `${id}_content ${id}_buttons`);
 		return (
-			<Popup {...rest} noAnimation aria-labelledby={`${id}_title ${id}_subtitle ${id}_buttons`} css={css} position={(type === 'overlay' ? 'bottom' : type)}>
+			<Popup
+				{...rest}
+				noAnimation
+				aria-labelledby={ariaLabelledBy}
+				css={css}
+				position={position}
+			>
 				<Layout align="center center" orientation={layoutOrientation}>
 					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
 					{fullscreen ?
@@ -202,7 +207,7 @@ const AlertBase = kind({
 							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
 							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
 						</Cell> :
-						<Cell shrink component={BodyText} className={css.content} id={`${id}content`}>
+						<Cell component={contentComponent} shrink className={css.content} id={`${id}_content`}>
 							{children}
 						</Cell>
 					}
@@ -220,7 +225,7 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialog
  * consists of a title, a subtitle, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
@@ -229,7 +234,7 @@ const AlertBase = kind({
  * <Alert
  *   open={this.state.open}
  *   title="An Important Alert"
- *   subtitle="Some important context to share about the purpose"
+ *   subtitle="Some important context to share about the alert"
  * >
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
