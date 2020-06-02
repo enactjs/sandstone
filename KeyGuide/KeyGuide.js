@@ -100,7 +100,7 @@ const KeyGuideBase = kind({
 				};
 			}) : []
 		),
-		open: ({children, open}) => (children.length > 0 && open)
+		open: ({children, open}) => (children && children.length > 0 && open)
 	},
 
 	styles: {
