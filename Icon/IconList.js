@@ -8,7 +8,9 @@ export default {
 	arrowhookright    : 0x021AA,  // RightArrowHook
 	ellipsis          : 0x022EF,  // ellipsis
 	check             : 0x02713,  // checkmark
+	record            : 0x0EFFDB, // record
 	circle            : 0x0EFFDB, // record
+	stop              : 0x0EFFDC, // stop
 	square            : 0x0EFFDC, // stop
 	play              : 0x0EFFDD, // play
 	pause             : 0x0EFFDE, // pause
