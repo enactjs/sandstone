@@ -10,9 +10,15 @@
 			margin-bottom: @sand-alert-fullscreen-image-spacing;
 		}
 
+		.title,
 		.content {
-			max-width: @sand-alert-fullscreen-title-max-width;
+			max-width: @sand-alert-fullscreen-max-width;
+		}
+
+		.content {
 			margin: 0;
+			overflow: hidden;
+			max-height: 60%; // Set a reasonable cutoff for a maximum bound
 		}
 
 		&.maxButtons {

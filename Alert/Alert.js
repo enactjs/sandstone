@@ -193,8 +193,8 @@ const AlertBase = kind({
 				position={position}
 			>
 				<Layout align="center center" orientation={layoutOrientation}>
-					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
-					{showTitle ? <Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading> : null}
+					{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
+					{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
 					<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
 						{children}
 					</Cell>
@@ -212,8 +212,8 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialong
- * consists of a title, a message, and an area for additional
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user.
+ * The dialog consists of a title, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
  * Usage:
