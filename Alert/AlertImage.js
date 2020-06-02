@@ -17,20 +17,23 @@ const AlertImage = kind({
 	name: 'AlertImage',
 	propTypes: /** @lends sandstone/Alert.AlertImage */ {
 		/**
-		 * String value or Object of values used to determine which image will appear on
+		 * String value or Object of values used to determine which image will appear for
 		 * a specific component size.
 		 *
 		 * @type {String|Object}
+		 * @required
 		 * @public
 		 */
-		src: PropTypes.string.isRequired,
+		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
 
 		/**
-		 * Type of image to appear in the alert component. There are two types.
+		 * Type of image to appear in the alert component. There are two types:
 		 *
 		 * * `icon` - A small square sized image type
 		 * * `thumbnail` - A common image type
-		 * @type {String|Object}
+		 *
+		 * @type {('icon'|'thumbnail')}
+		 * @required
 		 * @public
 		 */
 		type: PropTypes.oneOf(['icon', 'thumbnail']).isRequired,

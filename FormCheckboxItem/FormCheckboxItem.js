@@ -117,8 +117,9 @@ const FormCheckboxItemBase = kind({
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
 			{...rest}
-			selected={selected}
+			aria-checked={selected}
 			css={css}
+			selected={selected}
 		>
 			<Checkbox
 				indeterminate={indeterminate}

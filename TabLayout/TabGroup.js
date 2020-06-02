@@ -85,7 +85,7 @@ const TabBase = kind({
 			case 'vertical': {
 				// Vertical sizing depends on Button establishing the dimensions of the Cell.
 				return (
-					<Cell>
+					<Cell shrink>
 						<Button
 							{...rest}
 							{...commonProps}
