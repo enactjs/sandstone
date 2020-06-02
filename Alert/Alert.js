@@ -115,7 +115,9 @@ const AlertBase = kind({
 		skin: PropTypes.string,
 
 		/**
-		 * The primary text displayed. Only shown when type="fullscreen"`.
+		 * The primary text displayed.
+		 *
+		 * Only shown when `type="fullscreen"`.
 		 *
 		 * @type {String}
 		 * @public
@@ -180,7 +182,8 @@ const AlertBase = kind({
 		const fullscreen = (type === 'fullscreen');
 		const position = (type === 'overlay' ? 'bottom' : type);
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
-		const ariaLabelledBy = (fullscreen ? `${id}_title ${id}_buttons` : `${id}_content ${id}_buttons`);
+		const showTitle = (fullscreen && title);
+		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
 		return (
 			<Popup
 				{...rest}
@@ -191,7 +194,7 @@ const AlertBase = kind({
 			>
 				<Layout align="center center" orientation={layoutOrientation}>
 					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
-					{fullscreen ? <Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading> : null}
+					{showTitle ? <Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading> : null}
 					<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
 						{children}
 					</Cell>
@@ -222,11 +225,13 @@ const AlertBase = kind({
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
  *   </image>
+ *
+ *   Body text for alert. Components may also be used here for greater customizability.
+ *
  *   <buttons>
  *     <Button>Button 1</Button>
  *     <Button>Button 2</Button>
  *   </buttons>
- *   <span>This is message</span>
  * </Alert>
  * ```
  *
