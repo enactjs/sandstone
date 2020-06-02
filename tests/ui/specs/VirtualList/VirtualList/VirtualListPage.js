@@ -123,9 +123,9 @@ class VirtualListPage extends Page {
 	itemSpacing () {
 		return browser.execute(function (_listItemSelector){
 			const itemContent = document.querySelectorAll(_listItemSelector);
-			const FirstItemRect = itemContent[0].getBoundingClientRect();
-			const SecondItemRect = itemContent[1].getBoundingClientRect();
-			return Math.round(SecondItemRect.top - FirstItemRect.top - FirstItemRect.height);
+			const firstItemRect = itemContent[0].getBoundingClientRect();
+			const secondItemRect = itemContent[1].getBoundingClientRect();
+			return Math.round(secondItemRect.top - firstItemRect.top - firstItemRect.height);
 		}, listItemSelector);
 	}
 

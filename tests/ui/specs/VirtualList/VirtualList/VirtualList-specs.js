@@ -437,18 +437,14 @@ describe('VirtualList', function () {
 			});
 
 			it('should maintain spotlight size when spacing 100[GT-28462]', function () {
-				let defaultSpacing;
-				let changeSpacing;
-				let defaultSpotlightSize;
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
 				Page.spotlightDown();
 				Page.spotlightRight();
-				defaultSpotlightSize = Page.spotlightSize();
+				const defaultSpotlightSize = Page.spotlightSize();
 				// Step 3 Verify: The default value for the 'spacing' knob is 0.
-				defaultSpacing = Page.itemSpacing();
+				const defaultSpacing = Page.itemSpacing();
 				expect(defaultSpacing).to.equal(0);
 				// Step 4: Knobs > VirtualList > spacing > 100
-				Page.showPointerByKeycode();
 				Page.inputfieldSpacing.moveTo();
 				Page.spotlightSelect();
 				Page.backSpace();
@@ -457,12 +453,11 @@ describe('VirtualList', function () {
 				Page.numPad(0);
 				// 100 spacing value is 50 for 4k and 25 for FHD.
 				// Step 4 Verify: The gap between items grows bigger.
-				changeSpacing = Page.itemSpacing();
-				expect(changeSpacing).to.equal(50);
+				const changedSpacing = Page.itemSpacing();
+				expect(changedSpacing).to.equal(50);
 				// Step5-1: Hover an item.
 				Page.spotlightDown();
 				Page.spotlightRight();
-				Page.showPointerByKeycode();
 				$('#item5').moveTo();
 				expectFocusedItem(5);
 				// Step5 Verify: The spotlight size does not change.
@@ -476,8 +471,8 @@ describe('VirtualList', function () {
 				Page.numPad(5);
 				Page.numPad(0);
 				// 50 spacing value is 50 for 4k and 25 for FHD.
-				changeSpacing = Page.itemSpacing();
-				expect(changeSpacing).to.equal(25);
+				const newSpacing = Page.itemSpacing();
+				expect(newSpacing).to.equal(25);
 				// Step7-1: Hover an item.
 				Page.spotlightDown();
 				Page.spotlightRight();
