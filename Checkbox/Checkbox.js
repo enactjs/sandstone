@@ -133,13 +133,16 @@ const CheckboxBase = kind({
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({children, css, selected, ...rest}) => {
 		delete rest.indeterminate;
 		delete rest.indeterminateIcon;
-		delete rest.selected;
 
 		return (
-			<div {...rest}>
+			<div
+				{...rest}
+				aria-checked={selected}
+				role="checkbox"
+			>
 				<div className={css.bg} />
 				<Icon
 					size="tiny"
@@ -167,9 +170,7 @@ const CheckboxDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Touchable,
 	Spottable,
-	Skinnable,
-	// eslint-disable-next-line enact/prop-types, enact/display-name
-	Wrapped => props => (<Wrapped aria-checked={props.selected} role="checkbox" {...props} />)
+	Skinnable
 );
 
 /**

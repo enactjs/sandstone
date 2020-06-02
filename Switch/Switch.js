@@ -78,12 +78,15 @@ const SwitchBase = kind({
 		})
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({children, css, selected, ...rest}) => {
 		delete rest.noAnimation;
-		delete rest.selected;
 
 		return (
-			<div {...rest}>
+			<div
+				{...rest}
+				aria-checked={selected}
+				role="checkbox"
+			>
 				<div className={css.bg} />
 				<div className={css.client}>
 					<Icon
@@ -112,9 +115,7 @@ const SwitchDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
 	Touchable,
 	Spottable,
-	Skinnable,
-	// eslint-disable-next-line enact/prop-types, enact/display-name
-	Wrapped => props => (<Wrapped aria-checked={props.selected} role="checkbox" {...props} />)
+	Skinnable
 );
 
 /**
