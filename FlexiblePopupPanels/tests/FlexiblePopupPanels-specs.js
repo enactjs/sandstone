@@ -19,6 +19,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 0;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -36,6 +37,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 2;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -51,6 +53,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -66,6 +69,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -82,6 +86,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -98,6 +103,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -113,6 +119,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -128,6 +135,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -144,6 +152,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -160,6 +169,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -176,6 +186,7 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
 
@@ -192,6 +203,64 @@ describe('FlexiblePopupPanels Specs', () => {
 		const expected = 1;
 		const actual = subject.find('Button').length;
 
+		subject.unmount();
 		expect(actual).toBe(expected);
 	});
+
+	test(
+		'should close on back key when on first panel',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn();
+
+			const subject = mount(
+				<FloatingLayerController>
+					<FlexiblePopupPanels index={0} onClose={spy} open>
+						<Panel />
+					</FlexiblePopupPanels>
+				</FloatingLayerController>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+
+			const expected = 1;
+			const actual = spy.mock.calls.length;
+
+			subject.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should go back on back key when not on first panel',
+		() => {
+			const map = {};
+
+			window.addEventListener = jest.fn((event, cb) => {
+				map[event] = cb;
+			});
+			const spy = jest.fn();
+
+			const subject = mount(
+				<FloatingLayerController>
+					<FlexiblePopupPanels index={1} onBack={spy} open>
+						<Panel />
+						<Panel />
+					</FlexiblePopupPanels>
+				</FloatingLayerController>
+			);
+
+			map.keyup({type: 'keyup', currentTarget: window, keyCode: 27});
+
+			const expected = 1;
+			const actual = spy.mock.calls.length;
+
+			subject.unmount();
+			expect(actual).toBe(expected);
+		}
+	);
 });
