@@ -1,5 +1,7 @@
+import {forward, handle, preventDefault, stopImmediate} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -13,6 +15,15 @@ import CancelDecorator from './CancelDecorator';
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
 	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
+
+const getPopupId = ({id, spotlightId}) => spotlightId || `${id}-popup`;
+const move = ({keyCode}, props) => {
+	const popupId = getPopupId(props);
+
+	Spotlight.set(popupId, {restrict: props.spotlightRestrict});
+	Spotlight.setPointerMode(false);
+	Spotlight.move(getDirection(keyCode));
+};
 
 // TODO: Figure out how to document private sub-module members
 
@@ -145,6 +156,26 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			position: PropTypes.oneOf(['left', 'right']),
 
 			/**
+			 * The container id of the Popup.
+			 *
+			 * @type {String}
+			 * @default null
+			 * @public
+			 */
+			spotlightId: PropTypes.string,
+
+			/**
+			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
+			 *
+			 * * Values: `'self-first'`, or `'self-only'`.
+			 *
+			 * @type {String}
+			 * @default 'self-first'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only']),
+
+			/**
 			 * Size of the popup.
 			 *
 			 * @type {('narrow'|'half')}
@@ -158,6 +189,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			index: 0,
 			noAnimation: false,
 			position: 'right',
+			spotlightRestrict: 'self-first',
 			width: 'narrow'
 		},
 
@@ -166,8 +198,19 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			className: cfgClassName
 		},
 
+		handlers: {
+			onKeyDown: handle(
+				forward('onKeyDown'),
+				({keyCode}) => getDirection(keyCode),
+				preventDefault,
+				stopImmediate,
+				move
+			)
+		},
+
 		computed: {
-			className: ({width, styler}) => styler.append(width)
+			className: ({width, styler}) => styler.append(width),
+			spotlightId: getPopupId
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {

@@ -333,6 +333,15 @@ class Popup extends React.Component {
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
+		 * The container id of the Popup.
+		 *
+		 * @type {String}
+		 * @default null
+		 * @public
+		 */
+		spotlightId: PropTypes.string,
+
+		/**
 		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
 		 *
 		 * * Values: `'self-first'`, or `'self-only'`.
@@ -362,16 +371,22 @@ class Popup extends React.Component {
 					popupOpen: props.noAnimation || state.floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED,
 					floatLayerOpen: true,
 					activator: Spotlight.getCurrent(),
-					prevOpen: props.open
+					prevOpen: props.open,
+					containerId: props.spotlightId || state.containerId
 				};
 			} else {
 				return {
 					popupOpen: OpenState.CLOSED,
 					floatLayerOpen: state.popupOpen !== OpenState.CLOSED ? !props.noAnimation : false,
 					activator: props.noAnimation ? null : state.activator,
-					prevOpen: props.open
+					prevOpen: props.open,
+					containerId: props.spotlightId || state.containerId
 				};
 			}
+		} else if (props.spotlightId !== state.containerId) {
+			return {
+				containerId: props.spotlightId
+			};
 		}
 		return null;
 	}
@@ -383,7 +398,7 @@ class Popup extends React.Component {
 			floatLayerOpen: this.props.open,
 			popupOpen: this.props.open ? OpenState.OPEN : OpenState.CLOSED,
 			prevOpen: this.props.open,
-			containerId: Spotlight.add(),
+			containerId: this.props.spotlightId || Spotlight.add(),
 			activator: null
 		};
 		checkScrimNone(this.props);
