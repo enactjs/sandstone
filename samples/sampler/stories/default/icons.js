@@ -5,94 +5,72 @@
 
 import {icons} from '@enact/sandstone/Icon';
 
-const decrementIcons = [
+export const decrementIcons = [
+	'backward',
+	'jumpbackward',
 	'minus',
-	'backward',
-	'jumpbackward'
+	'triangledown',
+	'triangleleft',
+	'zoomout'
 ].sort();
 
-const incrementIcons = [
+export const incrementIcons = [
+	'forward',
+	'jumpforward',
 	'plus',
-	'forward',
-	'jumpforward'
+	'triangleright',
+	'triangleup',
+	'zoomin'
 ].sort();
 
-const listIcons = [
-	'list'
+export const listIcons = [
+	'ellipsis',
+	'list',
+	'verticalellipsis'
 ].sort();
 
-const mediaIcons = [
-	'circle',
-	'stop',
-	'play',
-	'pause',
-	'forward',
+export const mediaIcons = [
 	'backward',
-	'music',
-	'view360',
-	'info',
-	'verticalellipsis',
-	'picture',
+	'circle',
+	'demooptions',
+	'download',
+	'forward',
 	'home',
-	'liverecord',
+	'info',
 	'liveplay',
-	'record',
-	'trashlock',
+	'liverecord',
+	'lyrics',
 	'movecursor',
-	'repeatone',
+	'music',
+	'notification',
+	'pause',
+	'pausecircle',
+	'picture',
+	'play',
+	'playcircle',
+	'playspeed',
 	'repeatall',
 	'repeatnone',
-	'speaker',
-	'zoomin',
-	'zoomout',
-	'download',
+	'repeatone',
 	'shuffle',
-	'notification',
-	'voice',
-	'soundmute',
-	'checker',
-	'transponder',
-	'bgm',
-	'bgmoff',
-	'playcircle',
-	'pausecircle',
-	'lockcircle',
-	'unlockcircle',
-	'powercircle',
-	'dashboard1',
-	'dashboard2',
-	'dashboard3',
-	'subtitle',
-	'lyrics',
-	'screenpower',
-	'miniplayer',
-	'nowplaying',
-	'playspeed',
-	'folder',
-	'folderupper',
-	'soundout',
-	'mobile',
-	'keyboard',
-	'mouse',
-	'controller',
-	'btspeaker',
-	'headset',
-	'speaker',
-	'speakersurround',
-	'speakercenter',
-	'speakerbass'
+	'stop',
+	'view360',
+	'zoomin',
+	'zoomout'
 ].sort();
 
-const arrowIcons = [
+export const arrowIcons = [
+	'arrowcurveright',
+	'arrowhookleft',
+	'arrowhookright',
 	'arrowlargedown',
-	'arrowlargeup',
 	'arrowlargeleft',
 	'arrowlargeright',
-	'arrowsmallup',
+	'arrowlargeup',
 	'arrowsmalldown',
 	'arrowsmallleft',
 	'arrowsmallright',
-	'arrowcurveright',
+	'arrowsmallup',
 	'arrowupdown',
 	'triangleup',
 	'triangleright',
@@ -100,10 +78,55 @@ const arrowIcons = [
 	'triangleleft'
 ].sort();
 
-const starIcons = [
+export const starIcons = [
 	'star',
 	'stargroup'
 ].sort();
 
+export const wifiIcons = [
+	'wifi1',
+	'wifi2',
+	'wifi3',
+	'wifi4',
+	'wifilock1',
+	'wifilock2',
+	'wifilock3',
+	'wifilock4'
+].sort();
+
+export const speakerIcons = [
+	'speaker',
+	'speakersurround',
+	'speakercenter',
+	'speakerbass'
+].sort();
+
+export const deviceIcons = [
+	'btspeaker',
+	'controller',
+	'headset',
+	'keyboard',
+	'mobile',
+	'mouse',
+	'router',
+	'transponder',
+	'voice'
+].sort();
+
+export const settingsIcons = [
+	'checker',
+	'demosync',
+	'dns',
+	'gear',
+	'home',
+	'miniplayer',
+	'newfeature',
+	'picture',
+	'plug',
+	'powercircle',
+	'screenpower',
+	'subtitle',
+	'support'
+].sort();
+
 export default Object.keys(icons).sort();
-export {decrementIcons, incrementIcons, listIcons, mediaIcons, arrowIcons, starIcons};
