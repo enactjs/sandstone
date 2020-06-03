@@ -168,6 +168,7 @@
 @sand-alert-max-buttons-margin-top: 300px;
 @sand-alert-fullscreen-button-spacing: 60px;
 @sand-alert-fullscreen-image-spacing: 30px;
+@sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
@@ -416,11 +417,16 @@
 
 // Keyguide
 // ---------------------------------------
-@sand-keyguide-width: 750px;
+@sand-keyguide-colordot-height: 12px;
+@sand-keyguide-colordot-margin: 0 ((@sand-icon-small-size - @sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+@sand-keyguide-colordot-width: 60px;
+@sand-keyguide-colordot-border-radius: 6px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 24px 0;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
-@sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding: 6px 0;
+@sand-keyguide-width: 750px;
+@sand-keyguide-item-height: 120px;
 
 // MediaOverlay
 // ---------------------------------------
