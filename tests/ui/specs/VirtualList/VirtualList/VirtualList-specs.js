@@ -431,45 +431,45 @@ describe('VirtualList', function () {
 				waitForScrollStartStop();
 			});
 		});
-    describe('Datasize change', function () {
-      beforeEach(function () {
-              Page.open();
-      });
+		describe('Datasize change', function () {
+			beforeEach(function () {
+				Page.open();
+			});
 
-      it('should spotlight displays on item after up quickly [GT-28417]', function () {
-        // Step3 : datasize Knobs setting '4'
-        Page.spotlightRight();
-        Page.spotlightRight();
-        Page.spotlightSelect();
-        Page.backSpace();
-        Page.backSpace();
-        Page.backSpace();
-        Page.numPad(4);
-        Page.spotlightDown();
-        Page.spotlightRight();
-        // Check First item
-        expectFocusedItem(0, 'focus item0');
-        Page.spotlightDown();
-        Page.spotlightDown();
-        Page.spotlightDown();
-        expectFocusedItem(3, 'focus item3');
-        Page.spotlightDown();
-        expect(Page.buttonLeft.isFocused(), 'lastitem verify').to.be.true();
-        // Step 4-1: Place the mouse cursor/pointer underneath the last item.
-        // TODO: Need to Flick event handling api.
-        Page.showPointerByKeycode();
-        $('#item3').moveTo();
-        expectFocusedItem(3, 'focus Item 03');
-        // Step 4-3: Move the pointer over any of the items.
-        // Verify 4: Spotlight displays on any of the items.
-        $('#item1').moveTo();
-        expectFocusedItem(1, 'focus Item 01');
-        $('#item0').moveTo();
-        expectFocusedItem(0, 'focus Item 00');
-      });
-    });
+			it('should spotlight displays on item after up quickly [GT-28417]', function () {
+				// Step3 : datasize Knobs setting '4'
+				Page.spotlightRight();
+				Page.spotlightRight();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(4);
+				Page.spotlightDown();
+				Page.spotlightRight();
+				// Check First item
+				expectFocusedItem(0, 'focus item0');
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				expectFocusedItem(3, 'focus item3');
+				Page.spotlightDown();
+				expect(Page.buttonLeft.isFocused(), 'lastitem verify').to.be.true();
+				// Step 4-1: Place the mouse cursor/pointer underneath the last item.
+				// TODO: Need to Flick event handling api.
+				Page.showPointerByKeycode();
+				$('#item3').moveTo();
+				expectFocusedItem(3, 'focus Item 03');
+				// Step 4-3: Move the pointer over any of the items.
+				// Verify 4: Spotlight displays on any of the items.
+				$('#item1').moveTo();
+				expectFocusedItem(1, 'focus Item 01');
+				$('#item0').moveTo();
+				expectFocusedItem(0, 'focus Item 00');
+			});
+		});
 
-    describe('spotlight size compare', function () {
+		describe('spotlight size compare', function () {
 			beforeEach(function () {
 				Page.open();
 			});
