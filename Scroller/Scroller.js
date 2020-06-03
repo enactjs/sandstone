@@ -167,6 +167,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Adds fade-out effect on the scroller.
 	 * Set this to `true` only if the content has no spottable but text.
+	 * > Note: Fade-out effect will not show if the `direction` is set to `both`.
 	 *
 	 * @type {Boolean}
 	 * @default false
@@ -212,22 +213,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	id: PropTypes.string,
-
-	/**
-	 * The initially hidden height of the vertical scrollbar.
-	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `Scroller` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
-	 * the `Header` will automatically collapse and the `Scroller`'s vertical scrollbar will
-	 * enlarge.
-	 *
-	 * This value would be the vertical scrollbar height difference between when the header collapses
-	 * and when the header expands.
-	 *
-	 * @type {Number}
-	 * @public
-	 */
-	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.

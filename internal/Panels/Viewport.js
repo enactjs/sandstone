@@ -9,10 +9,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
+import {ContextAsDefaults} from './util';
 
 import css from './Viewport.module.less';
 
-const PanelsStateContext = React.createContext(null);
+const PanelsStateContext = React.createContext({});
 
 /**
  * The container for a set of Panels
@@ -224,31 +225,9 @@ const ViewportBase = class extends React.Component {
 			generateId,
 			index,
 			noAnimation,
-			onBack,
 			type,
-			backButtonAriaLabel,
-			backButtonBackgroundOpacity,
-			closeButtonAriaLabel,
-			closeButtonBackgroundOpacity,
-			noBackButton,
-			noCloseButton,
-			onClose,
 			...rest
 		} = this.props;
-
-		// Relay each of the state-specific props to the context
-		const panelsContext = {
-			type,
-			index,
-			onBack,
-			backButtonAriaLabel,
-			backButtonBackgroundOpacity,
-			closeButtonAriaLabel,
-			closeButtonBackgroundOpacity,
-			noBackButton,
-			noCloseButton,
-			onClose
-		};
 
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
@@ -260,6 +239,14 @@ const ViewportBase = class extends React.Component {
 			`Panels index, ${index}, is invalid for number of children, ${count}`
 		);
 
+		// Relay each of the state-specific props to the context
+		const panelsContext = {
+			type,
+			index,
+			count
+		};
+
+		delete rest.className;
 		return (
 			<PanelsStateContext.Provider value={panelsContext}>
 				<ViewManager
@@ -282,7 +269,7 @@ const ViewportBase = class extends React.Component {
 	}
 };
 
-const Viewport = SharedStateDecorator(ViewportBase);
+const Viewport = ContextAsDefaults(SharedStateDecorator(ViewportBase));
 
 export default Viewport;
 export {

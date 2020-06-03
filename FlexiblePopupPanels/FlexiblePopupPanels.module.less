@@ -2,8 +2,44 @@
 @import "../styles/variables.less";
 
 .flexiblePopupPanels {
-	width: @sand-flexiblepopuppanels-width;
-	margin-top: @sand-flexiblepopuppanels-margin-top;
+	// Override for Popup
+	&.popup {
+		padding: @sand-flexiblepopuppanels-margin; // redirect this to padding for simpler size calculation
+		margin: 0;
+		max-height: 100vh;
+		min-width: @sand-flexiblepopuppanels-min-width;
+		box-sizing: border-box;
+	}
+
+	.viewport {
+		position: relative;
+
+		.panel {
+			padding: @sand-flexiblepopuppanels-padding;
+			// The next line is very long, but it calculates the maximum height by adding up all
+			// of the paddings between this node and the edge of the screen, top and bottom.
+			// If the margin or padding configuration changes, this will likely need to be updated.
+			height: ~"calc(100vh -" ((extract(@sand-flexiblepopuppanels-margin, 1) * 2) + extract(@sand-flexiblepopuppanels-padding, 1) + extract(@sand-flexiblepopuppanels-padding, 1)) ~")";
+		}
+	}
+
+	.navButton {
+		position: absolute;
+	}
+
+	.navCellBefore .navButton {
+		left: 0;
+		transform: translate(-100%, -50%);
+	}
+
+	.navCellAfter .navButton {
+		right: 0;
+		transform: translate(100%, -50%);
+	}
+
+	.navButton {
+		margin: @sand-flexiblepopuppanels-navbutton-margin;
+	}
 
 	> .body {
 		position: relative;
@@ -19,7 +55,6 @@
 
 // Overrides for Panel
 .panel {
-	padding: 0;
 	pointer-events: none;
 
 	> * {
@@ -27,14 +62,32 @@
 	}
 
 	> .body {
+		padding: 0;
+	}
+
+	.bodyLayout {
+		// This `-webkit-fill-available` value is a bit funny. It only updates
+		// after a "hard" layout recalculation, not all the time, so the content
+		// dimensions could change, but it won't update until something triggers
+		// it, like a height, width, or some other related prop also changes.
+		// This value, however, does do exactly what we need. Fill up to a point
+		// and not expand beyond that.
+		max-height: -webkit-fill-available; // Expand to the bounds, then stop.
+	}
+
+	.header {
+		&.showBack {
+			margin-left: @sand-flexiblepopuppanels-header-padding;
+		}
+	}
+
+	.content {
 		margin: @sand-flexiblepopuppanels-panel-margin;
 		padding: @sand-flexiblepopuppanels-panel-padding;
-		align-self: start;  // Allow this node to horizontally shrink to fit the content.
-		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
 	}
 
 	.applySkins({
-		> .body {
+		.content {
 			background-color: @sand-flexiblepopuppanels-panel-bg-color;
 			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
 			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);

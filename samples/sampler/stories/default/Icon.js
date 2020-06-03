@@ -1,4 +1,4 @@
-import {select, text} from '@enact/storybook-utils/addons/knobs';
+import {number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UiIcon from '@enact/ui/Icon';
 import React from 'react';
@@ -23,7 +23,12 @@ storiesOf('Sandstone', module)
 		'Icon',
 		() => {
 			const flip = select('flip', ['', 'both', 'horizontal', 'vertical'], Config, '');
-			const size = select('size', ['tiny', 'small', 'medium', 'large'], Config);
+
+			let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
+			if (size === 'custom number') {
+				size = number('size (number)', Config, {range: true, min: 24, max: 480, step: 6}, 60);
+			}
+
 			const iconType = select('icon type', ['glyph', 'url src', 'custom'], Config, 'glyph');
 			let children;
 			switch (iconType) {

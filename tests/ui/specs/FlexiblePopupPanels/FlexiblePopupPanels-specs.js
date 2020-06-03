@@ -16,13 +16,12 @@ describe('FlexiblePopupPanels', function () {
 				Page.spotlightSelect();
 			});
 			Page.spotlightRight();
+			Page.spotlightRight();
 
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
-
-			Page.spotlightUp();
 
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 
@@ -37,9 +36,9 @@ describe('FlexiblePopupPanels', function () {
 				Interface.openButton.click();
 			});
 
-			Interface.waitForEnter(1);
+			Interface.waitForPanelBody(1);
 			Interface.nextButton.click();
-			Interface.waitForEnter(2);
+			Interface.waitForPanelBody(2);
 			Interface.prevButton.click();
 			Interface.waitForEnter(1);
 		});
