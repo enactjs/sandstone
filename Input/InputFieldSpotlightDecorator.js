@@ -275,7 +275,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				// move spotlight
 				const shouldSpotlightMove = (
 					// No value exists! (Can happen when disabled)
-					target.vale == null ||
+					target.value == null ||
 					// on left + at beginning of selection
 					(isLeft && isSelectionAtLocation(target, 0)) ||
 					// on right + at end of selection (note: fails on non-selectable types usually)
