@@ -47,6 +47,30 @@ class AutoDismissDropdown extends React.Component {
 	}
 }
 
+class DisabledDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isDisabled: true
+		};
+	}
+
+	handleClick = () => {
+		this.setState({isDisabled: false});
+	}
+
+	render () {
+		return (
+			<div>
+				<Button onClick={this.handleClick}>enable dropdown</Button>
+				<Dropdown title="hello" disabled={this.state.isDisabled} onFocus={this.handleFocus}>
+					{['a', 'b', 'c']}
+				</Dropdown>
+			</div>
+		);
+	}
+}
+
 storiesOf('Dropdown', module)
 	.add(
 		'with 2 options for testing direction',
@@ -151,5 +175,10 @@ storiesOf('Dropdown', module)
 		'with auto dismiss',
 		() => (
 			<AutoDismissDropdown />
+		)
+	).add(
+		'with disabled',
+		() => (
+			<DisabledDropdown />
 		)
 	);
