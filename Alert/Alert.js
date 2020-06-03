@@ -62,7 +62,7 @@ const AlertBase = kind({
 		children: PropTypes.node,
 
 		/**
-		 * The `id` of Alert referred to when generating ids for `'title'`, `'subtitle'` and `'buttons'`.
+		 * The `id` of Alert referred to when generating ids for `'title'` and `'buttons'`.
 		 *
 		 * @type {String}
 		 * @private
@@ -115,17 +115,9 @@ const AlertBase = kind({
 		skin: PropTypes.string,
 
 		/**
-		 * The secondary text displayed below the `title`.
+		 * The primary text displayed.
 		 *
-		 * This is only shown in `type="fullscreen"` and will not display if `title` is not set.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		subtitle: PropTypes.string,
-
-		/**
-		 * The primary text displayed. Only shown when type="fullscreen"`.
+		 * Only shown when `type="fullscreen"`.
 		 *
 		 * @type {String}
 		 * @public
@@ -183,15 +175,15 @@ const AlertBase = kind({
 			},
 			type
 		),
-		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral')),
-		subtitle: ({title, subtitle}) => (title ? subtitle : '')
+		skin: ({skin, type}) => (skin || (type === 'overlay' ? 'light' : 'neutral'))
 	},
 
-	render: ({buttons, contentComponent, children, id, image, title, subtitle, type, ...rest}) => {
+	render: ({buttons, contentComponent, children, id, image, title, type, ...rest}) => {
 		const fullscreen = (type === 'fullscreen');
 		const position = (type === 'overlay' ? 'bottom' : type);
 		const layoutOrientation = (fullscreen ? 'vertical' : 'horizontal');
-		const ariaLabelledBy = (fullscreen ? `${id}_title ${id}_subtitle ${id}_buttons` : `${id}_content ${id}_buttons`);
+		const showTitle = (fullscreen && title);
+		const ariaLabelledBy = (showTitle ? `${id}_title ` : '') + `${id}_content ${id}_buttons`;
 		return (
 			<Popup
 				{...rest}
@@ -201,16 +193,11 @@ const AlertBase = kind({
 				position={position}
 			>
 				<Layout align="center center" orientation={layoutOrientation}>
-					{image ? <Cell className={css.alertImage} shrink>{image}</Cell> : null}
-					{fullscreen ?
-						<Cell shrink align="stretch">
-							<Heading size="title" alignment="center" className={css.title} id={`${id}_title`} >{title}</Heading>
-							<Heading size="subtitle" alignment="center" className={css.subtitle} id={`${id}_subtitle`}>{subtitle}</Heading>
-						</Cell> :
-						<Cell component={contentComponent} shrink className={css.content} id={`${id}_content`}>
-							{children}
-						</Cell>
-					}
+					{image ? <Cell shrink className={css.alertImage}>{image}</Cell> : null}
+					{showTitle ? <Cell shrink><Heading size="title" alignment="center" className={css.title} id={`${id}_title`}>{title}</Heading></Cell> : null}
+					<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
+						{children}
+					</Cell>
 					<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
 						<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
 							{buttons}
@@ -225,8 +212,8 @@ const AlertBase = kind({
 /**
  * A modal Alert component, ready to use in Sandstone applications.
  *
- * `Alert` may be used to interrupt a workflow to receive feedback from the user. The dialog
- * consists of a title, a subtitle, a message, and an area for additional
+ * `Alert` may be used to interrupt a workflow to receive feedback from the user.
+ * The dialog consists of a title, a message, and an area for additional
  * [buttons]{@link sandstone/Alert.Alert.buttons}.
  *
  * Usage:
@@ -234,11 +221,13 @@ const AlertBase = kind({
  * <Alert
  *   open={this.state.open}
  *   title="An Important Alert"
- *   subtitle="Some important context to share about the alert"
  * >
  *   <image>
  *     <AlertImage src={this.state.src} type="thumbnail" />
  *   </image>
+ *
+ *   Body text for alert. Components may also be used here for greater customizability.
+ *
  *   <buttons>
  *     <Button>Button 1</Button>
  *     <Button>Button 2</Button>
@@ -256,7 +245,7 @@ const AlertBase = kind({
 const Alert = IdProvider(
 	{generateProp: null, prefix: 'a_'},
 	Slottable(
-		{slots: ['title', 'subtitle', 'buttons', 'image']},
+		{slots: ['title', 'buttons', 'image']},
 		AlertBase
 	)
 );

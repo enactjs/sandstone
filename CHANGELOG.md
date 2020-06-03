@@ -4,9 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Alert` prop `subtitle`
+
 ### Added
 
 - `sandstone/KeyGuide` support for color keys
+
+### Fixed
+
+- `sandstone/Alert` to use multi-line content when `"fullscreen"`
 
 ## [1.0.0-beta.5] - 2020-06-01
 
