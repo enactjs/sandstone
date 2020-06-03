@@ -13,6 +13,7 @@ import compose from 'ramda/src/compose';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
+import {AutoFocusDecorator} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
@@ -33,7 +34,6 @@ let panelId = 0;
  */
 const PanelBase = kind({
 	name: 'Panel',
-
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -133,7 +133,6 @@ const PanelBase = kind({
 		headerId,
 		...rest
 	}) => {
-		delete rest.autoFocus;
 		delete rest.hideChildren;
 
 		return (
@@ -149,62 +148,6 @@ const PanelBase = kind({
 		);
 	}
 });
-
-function useAutoFocus ({autoFocus, hideChildren}) {
-	return React.useCallback((node) => {
-		if (!node) return;
-
-		// FIXME: This is a candidate to move to the decorator once hooks have been fully
-		// adopted and we can configure SpotlightContainerDecorator with the current props
-		const {spotlightId} = node.dataset;
-		const config = {
-			enterTo: 'last-focused'
-		};
-
-		if (autoFocus !== 'last-focused') {
-			config.enterTo = 'default-element';
-
-			if (autoFocus !== 'default-element') {
-				config.defaultElement = autoFocus;
-			}
-		}
-
-		Spotlight.set(spotlightId, config);
-
-		// In order to spot the body components, we defer spotting until !hideChildren. If the
-		// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
-		// on first render.
-		if (!hideChildren && autoFocus !== 'none' && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
-			Spotlight.focus(spotlightId);
-		}
-	}, [autoFocus, hideChildren]);
-}
-
-function updateRef (ref, node) {
-	if (ref) {
-		if (typeof ref === 'function') {
-			ref(node);
-		} else if (ref.hasOwnProperty('current')) {
-			ref.current = node;
-		}
-	}
-}
-function useChainRefs (ref1, ref2, ref3, ref4) {
-	return React.useCallback((node) => {
-		updateRef(ref1, node);
-		updateRef(ref2, node);
-		updateRef(ref3, node);
-		updateRef(ref4, node);
-	}, [ref1, ref2, ref3, ref4]);
-}
-
-const AutoFocusDecorator = Wrapped => function AFD ({autoFocus, componentRef, hideChildren, ...rest}) {
-	const hook = useAutoFocus({autoFocus, hideChildren});
-	const ref = useChainRefs(componentRef, hook);
-
-	return <Wrapped {...rest} componentRef={ref} />;
-};
-
 
 /**
  * Sets the strategy used to automatically focus an element within the panel upon render.
