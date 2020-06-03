@@ -45,7 +45,7 @@ const Key = kind({
 	},
 
 	render: ({children, ...rest}) => {
-		const content = (children === 'backspace') ? 'arrowhookleft' : children; // TBD: arrowleftprevious should be replaced to correct one base on GUI
+		const content = (children === 'backspace') ? 'arrowhookleft' : children;
 		delete rest.onKeyButtonClick;
 		return (
 			<Button

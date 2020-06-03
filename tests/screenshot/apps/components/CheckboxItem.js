@@ -37,11 +37,11 @@ const CheckboxItemTests = [
 
 	// Removed until itemIcon, itemIconPosition, and iconPosition support is resolved
 	// // itemIcon
-	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>}>CheckboxItem</CheckboxItem>,
+	// <CheckboxItem itemIcon={<Icon>rotate</Icon>}>CheckboxItem</CheckboxItem>,
 	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'before'
 	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>,
 	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'beforeChildren'
-	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>,
+	// <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>,
 	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'after'
 	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="after">CheckboxItem</CheckboxItem>,
 	// // iconPosition = before (Default) + itemIcon + inline = true
@@ -51,7 +51,7 @@ const CheckboxItemTests = [
 	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'beforeChildren' + inline = true
 	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>,
 	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'after' + inline = true
-	// <CheckboxItem itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>,
+	// <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>,
 	// // iconPosition = 'after'
 	// <CheckboxItem iconPosition="after">CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" disabled>CheckboxItem</CheckboxItem>,
@@ -63,12 +63,12 @@ const CheckboxItemTests = [
 	// <CheckboxItem iconPosition="after" defaultSelected disabled inline>CheckboxItem Checked</CheckboxItem>,
 	// // itemPosition = 'after' + itemIcon
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>}>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>,
+	// <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="after">CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} inline>CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="before" inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>,
+	// <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>,
 	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>,
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -143,7 +143,7 @@ const CheckboxItemTests = [
 	}
 	// {
 	// 	locale: 'ar-SA',
-	// 	component: <CheckboxItem itemIcon={<Icon>bulletlist</Icon>}>CheckboxItem</CheckboxItem>
+	// 	component: <CheckboxItem itemIcon={<Icon>rotate</Icon>}>CheckboxItem</CheckboxItem>
 	// },
 	// {
 	// 	locale: 'ar-SA',
@@ -151,7 +151,7 @@ const CheckboxItemTests = [
 	// },
 	// {
 	// 	locale: 'ar-SA',
-	// 	component: <CheckboxItem itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>
+	// 	component: <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>
 	// },
 	// {
 	// 	locale: 'ar-SA',
@@ -171,7 +171,7 @@ const CheckboxItemTests = [
 	// },
 	// {
 	// 	locale: 'ar-SA',
-	// 	component: <CheckboxItem itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>
+	// 	component: <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>
 	// },
 	// {
 	// 	locale: 'ar-SA',
@@ -211,7 +211,7 @@ const CheckboxItemTests = [
 	// },
 	// {
 	// 	locale: 'ar-SA',
-	// 	component: <CheckboxItem iconPosition="after" itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>
+	// 	component: <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>
 	// },
 	// {
 	// 	locale: 'ar-SA',
@@ -231,7 +231,7 @@ const CheckboxItemTests = [
 	// },
 	// {
 	// 	locale: 'ar-SA',
-	// 	component: <CheckboxItem iconPosition="after" itemIcon={<Icon>bulletlist</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>
+	// 	component: <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>
 	// },
 	// {
 	// 	locale: 'ar-SA',
