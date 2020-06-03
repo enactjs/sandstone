@@ -150,13 +150,14 @@ class VirtualListPage extends Page {
 	}
 
 	numPad (num) {
-		let Inputnum = 'numad' + String(num);
+		let Inputnum = 'numpad' + String(num);
 		return this.keyDelay(Inputnum);
 	}
 
 	spotlightSize () {
 		return browser.execute(function () { return document.activeElement.clientHeight; });
 	}
+
 }
 
 module.exports = new VirtualListPage();
