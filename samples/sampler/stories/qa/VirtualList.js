@@ -123,7 +123,7 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 			</div>
 			<Button icon="list" data-index={index} style={switchStyle} />
 			<Button icon="star" data-index={index} style={switchStyle} />
-			<Button icon="edit" data-index={index} style={switchStyle} />
+			<Button icon="home" data-index={index} style={switchStyle} />
 		</div>
 	);
 });

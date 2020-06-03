@@ -5,137 +5,128 @@
 
 import {icons} from '@enact/sandstone/Icon';
 
-const decrementIcons = [
-	'minus',
+export const decrementIcons = [
 	'backward',
-	'skipbackward',
-	'pausebackward',
-	'pausejumpbackward',
 	'jumpbackward',
-	'rollbackward',
-	'arrowshrink',
-	'back15'
+	'minus',
+	'triangledown',
+	'triangleleft',
+	'zoomout'
 ].sort();
 
-const incrementIcons = [
-	'plus',
+export const incrementIcons = [
 	'forward',
-	'skipforward',
-	'pauseforward',
-	'pausejumpforward',
 	'jumpforward',
-	'rollforward',
-	'arrowextend',
-	'forward15'
+	'plus',
+	'triangleright',
+	'triangleup',
+	'zoomin'
 ].sort();
 
-const listIcons = [
-	'denselist',
-	'bulletlist',
+export const listIcons = [
+	'ellipsis',
 	'list',
-	'drawer',
-	'playlist'
+	'verticalellipsis'
 ].sort();
 
-const mediaIcons = [
-	'circle',
-	'stop',
-	'play',
-	'pause',
-	'forward',
+export const mediaIcons = [
 	'backward',
-	'skipforward',
-	'skipbackward',
-	'pauseforward',
-	'pausebackward',
-	'pausejumpforward',
-	'pausejumpbackward',
-	'resumeplay',
-	'image',
-	'audio',
-	'music',
-	'languages',
-	'cc',
-	'ccon',
-	'ccoff',
-	'sub',
-	'recordings',
-	'livezoom',
-	'liveplayback',
-	'liveplaybackoff',
-	'repeat',
-	'repeatoff',
-	'series',
-	'repeatdownload',
-	'view360',
-	'view360off',
-	'info',
-	'repeattrack',
-	'bluetoothoff',
-	'verticalellipsis',
-	'picture',
+	'circle',
+	'demooptions',
+	'download',
+	'forward',
 	'home',
-	'warning',
-	'scroll',
-	'densedrawer',
-	'liverecord',
+	'info',
 	'liveplay',
-	'contrast',
-	'edit',
-	'trashlock',
-	'volumecycle',
+	'liverecord',
+	'lyrics',
 	'movecursor',
-	'refresh',
-	'question',
-	'questionreversed',
-	's',
-	'repeatone',
+	'music',
+	'notification',
+	'pause',
+	'pausecircle',
+	'picture',
+	'play',
+	'playcircle',
+	'playspeed',
 	'repeatall',
 	'repeatnone',
-	'speakers',
-	'koreansubtitles',
-	'chinesesubtitles',
-	'searchfilled',
-	'zoomin',
-	'zoomout',
-	'playlistadd',
-	'files',
-	'brightness',
-	'download',
-	'playlistedit',
-	'font',
-	'musicon',
-	'musicoff',
-	'liverecordone',
-	'liveflagone',
+	'repeatone',
 	'shuffle',
-	'sleep',
-	'notification',
-	'notificationoff',
-	'checkselection'
+	'stop',
+	'view360',
+	'zoomin',
+	'zoomout'
 ].sort();
 
-const arrowIcons = [
+export const arrowIcons = [
+	'arrowcurveright',
+	'arrowhookleft',
+	'arrowhookright',
 	'arrowlargedown',
-	'arrowlargeup',
 	'arrowlargeleft',
 	'arrowlargeright',
-	'arrowsmallup',
+	'arrowlargeup',
 	'arrowsmalldown',
 	'arrowsmallleft',
 	'arrowsmallright',
-	'arrowcurveright',
-	'arrowrightskip',
-	'arrowleftprevious',
-	'arrowupdown'
+	'arrowsmallup',
+	'arrowupdown',
+	'triangleup',
+	'triangleright',
+	'triangledown',
+	'triangleleft'
 ].sort();
 
-const starIcons = [
+export const starIcons = [
 	'star',
-	'hollowstar',
-	'halfstar',
-	'starminus'
+	'stargroup'
+].sort();
+
+export const wifiIcons = [
+	'wifi1',
+	'wifi2',
+	'wifi3',
+	'wifi4',
+	'wifilock1',
+	'wifilock2',
+	'wifilock3',
+	'wifilock4'
+].sort();
+
+export const speakerIcons = [
+	'speaker',
+	'speakersurround',
+	'speakercenter',
+	'speakerbass'
+].sort();
+
+export const deviceIcons = [
+	'btspeaker',
+	'controller',
+	'headset',
+	'keyboard',
+	'mobile',
+	'mouse',
+	'router',
+	'transponder',
+	'voice'
+].sort();
+
+export const settingsIcons = [
+	'checker',
+	'demosync',
+	'dns',
+	'gear',
+	'home',
+	'miniplayer',
+	'newfeature',
+	'picture',
+	'plug',
+	'powercircle',
+	'screenpower',
+	'subtitle',
+	'support'
 ].sort();
 
 export default Object.keys(icons).sort();
-export {decrementIcons, incrementIcons, listIcons, mediaIcons, arrowIcons, starIcons};

@@ -20,7 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Removed
 
-- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, and `rateButtonsDisabled`
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
 
 ### Added
 
@@ -33,6 +33,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
 
 ### Fixed
 
