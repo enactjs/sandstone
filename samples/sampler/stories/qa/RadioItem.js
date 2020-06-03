@@ -1,7 +1,6 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/ToggleItem';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
@@ -9,7 +8,7 @@ import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem from '@enact/sandstone/RadioItem';
 
 RadioItem.displayName = 'RaditoItem';
-const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, RadioItem);
+const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItem);
 
 const radioData = {
 	longTextWithSpace : ['FirstLongTextWithSpace Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. FirstLongTextWithSpace End.', 'SecondLongTextWithSpace Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac tellus in velit ornare commodo. Nam dignissim fringilla nulla, sit amet hendrerit sapien laoreet quis. Praesent quis tellus non diam viverra feugiat. SecondLongTextWithSpace End'],
