@@ -437,22 +437,6 @@ describe('VirtualList', function () {
 				Page.open();
 			});
 
-			it('should Change datasize dynamically [GT-28457]', function () {
-				// Step 3: datasize Knobs setting '1001'
-				Page.spotlightRight();
-				Page.spotlightRight();
-				Page.spotlightSelect();
-				Page.numPad(1);
-				Page.spotlightDown();
-				Page.spotlightRight();
-				for (let i = 0; i < 1000; ++i) {
-					Page.spotlightDown();
-					Page.delay(80);
-				}
-				// Verify 3-1: 'Item 1000' displays row below 'Item 999' in VirtualList.
-				expectFocusedItem(1000, 'focus item 1000');
-			});
-
 			it('should spotlight displays on item after up quickly [GT-28417]', function () {
 				// Step3 : datasize Knobs setting '4'
 				Page.spotlightRight();
