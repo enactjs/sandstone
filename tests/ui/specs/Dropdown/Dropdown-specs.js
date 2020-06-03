@@ -8,7 +8,7 @@ describe('Dropdown', function () {
 			Page.open();
 		});
 
-		it('should focus the first item when `selected` changes to `null`', function () {
+		it('should focus the first item when `selected` changes to `null` - [GT-30183]', function () {
 			const dropdown = Page.components.dropdownChangeSelected;
 
 			Page.openDropdown(dropdown);
@@ -20,7 +20,7 @@ describe('Dropdown', function () {
 			expect(dropdown.focusedItemText).to.equal('one');
 		});
 
-		it('should focus the first item when `children` changes', function () {
+		it('should focus the first item when `children` changes - [GT-30184]', function () {
 			const dropdown = Page.components.dropdownChangeChildren;
 
 			Page.openDropdown(dropdown);
