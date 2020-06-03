@@ -73,6 +73,10 @@
 			padding: @sand-input-fullscreen-padding;
 		}
 
+		.title {
+			.sand-font-size(@sand-input-fullscreen-title-font-size, @sand-non-latin-input-fullscreen-title-font-size);
+		}
+
 		.numberCell {
 			width: @sand-input-fullscreen-numbercell-width;
 			height: @sand-input-fullscreen-numbercell-height;
@@ -123,7 +127,7 @@
 		}
 
 		.title {
-			font-size: @sand-input-overlay-title-font-size;
+			.sand-font-size(@sand-non-latin-input-overlay-title-font-size, @sand-input-overlay-title-font-size);
 		}
 
 		.inputArea {
