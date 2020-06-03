@@ -8,10 +8,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/KeyGuide` support for color keys
 
-### Fixed
-
-- `sandstone/Alert` accessibility read out when `type="overlay"`
-
 ## [1.0.0-beta.5] - 2020-06-01
 
 ### Removed
