@@ -10,7 +10,7 @@ const VideoPlayerView = () => (
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
 			<MediaControls>
 				<Button backgroundOpacity="transparent" icon="star" />
-				<Button backgroundOpacity="transparent" icon="flag" />
+				<Button backgroundOpacity="transparent" icon="home" />
 				<Button backgroundOpacity="transparent">Add To Favorites</Button>
 				<Button icon="search" backgroundOpacity="transparent" />
 			</MediaControls>

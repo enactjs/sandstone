@@ -71,16 +71,16 @@ storiesOf('Sandstone', module)
 							title={tabs[1].title}
 							icon={tabs[1].icon}
 						>
-							<Button icon="image">Button 1</Button>
-							<Button icon="image">Button 2</Button>
-							<Button icon="image">Button 3</Button>
-							<Button icon="image">Button 4</Button>
+							<Button icon="demosync">Button 1</Button>
+							<Button icon="demosync">Button 2</Button>
+							<Button icon="demosync">Button 3</Button>
+							<Button icon="demosync">Button 4</Button>
 						</Tab>
 						<Tab
 							title={tabs[2].title}
 							icon={tabs[2].icon}
 						>
-							<Item slotBefore={<Icon>resumeplay</Icon>}>Single Item</Item>
+							<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 						</Tab>
 					</TabLayout>
 				</Panel>

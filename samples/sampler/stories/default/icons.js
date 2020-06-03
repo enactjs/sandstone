@@ -8,33 +8,17 @@ import {icons} from '@enact/sandstone/Icon';
 const decrementIcons = [
 	'minus',
 	'backward',
-	'skipbackward',
-	'pausebackward',
-	'pausejumpbackward',
-	'jumpbackward',
-	'rollbackward',
-	'arrowshrink',
-	'back15'
+	'jumpbackward'
 ].sort();
 
 const incrementIcons = [
 	'plus',
 	'forward',
-	'skipforward',
-	'pauseforward',
-	'pausejumpforward',
-	'jumpforward',
-	'rollforward',
-	'arrowextend',
-	'forward15'
+	'jumpforward'
 ].sort();
 
 const listIcons = [
-	'denselist',
-	'bulletlist',
-	'list',
-	'drawer',
-	'playlist'
+	'list'
 ].sort();
 
 const mediaIcons = [
@@ -44,75 +28,59 @@ const mediaIcons = [
 	'pause',
 	'forward',
 	'backward',
-	'skipforward',
-	'skipbackward',
-	'pauseforward',
-	'pausebackward',
-	'pausejumpforward',
-	'pausejumpbackward',
-	'resumeplay',
-	'image',
-	'audio',
 	'music',
-	'languages',
-	'cc',
-	'ccon',
-	'ccoff',
-	'sub',
-	'recordings',
-	'livezoom',
-	'liveplayback',
-	'liveplaybackoff',
-	'repeat',
-	'repeatoff',
-	'series',
-	'repeatdownload',
 	'view360',
-	'view360off',
 	'info',
-	'repeattrack',
-	'bluetoothoff',
 	'verticalellipsis',
 	'picture',
 	'home',
-	'warning',
-	'scroll',
-	'densedrawer',
 	'liverecord',
 	'liveplay',
-	'contrast',
-	'edit',
+	'record',
 	'trashlock',
-	'volumecycle',
 	'movecursor',
-	'refresh',
-	'question',
-	'questionreversed',
-	's',
 	'repeatone',
 	'repeatall',
 	'repeatnone',
-	'speakers',
-	'koreansubtitles',
-	'chinesesubtitles',
-	'searchfilled',
+	'speaker',
 	'zoomin',
 	'zoomout',
-	'playlistadd',
-	'files',
-	'brightness',
 	'download',
-	'playlistedit',
-	'font',
-	'musicon',
-	'musicoff',
-	'liverecordone',
-	'liveflagone',
 	'shuffle',
-	'sleep',
 	'notification',
-	'notificationoff',
-	'checkselection'
+	'voice',
+	'soundmute',
+	'checker',
+	'transponder',
+	'bgm',
+	'bgmoff',
+	'playcircle',
+	'pausecircle',
+	'lockcircle',
+	'unlockcircle',
+	'powercircle',
+	'dashboard1',
+	'dashboard2',
+	'dashboard3',
+	'subtitle',
+	'lyrics',
+	'screenpower',
+	'miniplayer',
+	'nowplaying',
+	'playspeed',
+	'folder',
+	'folderupper',
+	'soundout',
+	'mobile',
+	'keyboard',
+	'mouse',
+	'controller',
+	'btspeaker',
+	'headset',
+	'speaker',
+	'speakersurround',
+	'speakercenter',
+	'speakerbass'
 ].sort();
 
 const arrowIcons = [
@@ -125,16 +93,16 @@ const arrowIcons = [
 	'arrowsmallleft',
 	'arrowsmallright',
 	'arrowcurveright',
-	'arrowrightskip',
-	'arrowleftprevious',
-	'arrowupdown'
+	'arrowupdown',
+	'triangleup',
+	'triangleright',
+	'triangledown',
+	'triangleleft'
 ].sort();
 
 const starIcons = [
 	'star',
-	'hollowstar',
-	'halfstar',
-	'starminus'
+	'stargroup'
 ].sort();
 
 export default Object.keys(icons).sort();
