@@ -73,9 +73,11 @@ class AlertView extends React.Component {
 					onClose={this.handleClose2}
 					title="good morning"
 				>
-					<span>{`Not to worry, this message isn't going to be very long.
-					It just has to be long enough to show what a long message looks like.
-					That's all; have a nice day.`}</span>
+					<span>
+						Not to worry, this message isn&apos;t going to be very long.
+						It just has to be long enough to show what a long message looks like.
+						That&apos;s all; have a nice day.
+					</span>
 					<buttons>
 						<Button size="small" onClick={this.handleClose2}>First Button!</Button>
 						<Button size="small" onClick={this.handleClose2}>Oh My Yes, Kitten</Button>
@@ -102,9 +104,11 @@ class AlertView extends React.Component {
 					open={open4}
 					onClose={this.handleClose4}
 				>
-					<span>{`Not to worry, this message isn't going to be very long.
-					It just has to be long enough to show what a long message looks like.
-					That's all; have a nice day.`}</span>
+					<span>
+						Not to worry, this message isn&apos;t going to be very long.
+						It just has to be long enough to show what a long message looks like.
+						That&apos;s all; have a nice day.
+					</span>
 					<buttons>
 						<Button size="small" onClick={this.handleClose4}>First Button!</Button>
 						<Button size="small" onClick={this.handleClose4}>Oh My Yes, Kitten</Button>
@@ -128,9 +132,11 @@ class AlertView extends React.Component {
 					onClose={this.handleClose6}
 					type="overlay"
 				>
-					<span>{`Not to worry, this message isn't going to be very long.
-					It just has to be long enough to show what a long message looks like.
-					That's all; have a nice day.`}</span>
+					<span>
+						Not to worry, this message isn&apos;t going to be very long.
+						It just has to be long enough to show what a long message looks like.
+						That&apos;s all; have a nice day.
+					</span>
 					<buttons>
 						<Button size="small" onClick={this.handleClose6}>First Button!</Button>
 						<Button size="small" onClick={this.handleClose6}>Oh My Yes, Kitten</Button>
@@ -142,9 +148,11 @@ class AlertView extends React.Component {
 					onClose={this.handleClose7}
 					type="overlay"
 				>
-					<span>{`Not to worry, this message isn't going to be very long.
-					It just has to be long enough to show what a long message looks like.
-					That's all; have a nice day.`}</span>
+					<span>
+						Not to worry, this message isn&apos;t going to be very long.
+						It just has to be long enough to show what a long message looks like.
+						That&apos;s all; have a nice day.
+					</span>
 					<buttons>
 						<Button size="small" onClick={this.handleClose7}>First Button!</Button>
 						<Button size="small" onClick={this.handleClose7}>Oh My Yes, Kitten</Button>
@@ -160,9 +168,11 @@ class AlertView extends React.Component {
 					<image>
 						<AlertImage src={'https://via.placeholder.com/250.png?text=image'} type="thumbnail" />
 					</image>
-					<span>{`Not to worry, this message isn't going to be very long.
-					It just has to be long enough to show what a long message looks like.
-					That's all; have a nice day.`}</span>
+					<span>
+						Not to worry, this message isn&apos;t going to be very long.
+						It just has to be long enough to show what a long message looks like.
+						That&apos;s all; have a nice day.
+					</span>
 					<buttons>
 						<Button size="small" onClick={this.handleClose8}>First Button!</Button>
 						<Button size="small" onClick={this.handleClose8}>Oh My Yes, Kitten</Button>
