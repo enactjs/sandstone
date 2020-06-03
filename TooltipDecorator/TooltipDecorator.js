@@ -185,6 +185,20 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 
 			/**
+			 * Type of tooltip.
+			 *
+			 * | *Value* | *Tooltip Direction* |
+			 * |---|---|
+			 * | `'balloon'` | Will have the arrow to the tooltip |
+			 * | `'transparent'` | Will not have the arrow to the tooltip |
+			 *
+			 * @type {('balloon'|'transparent')}
+			 * @default 'balloon'
+			 * @public
+			 */
+			tooltipType: PropTypes.oneOf(['balloon', 'transparent']),
+
+			/**
 			 * The interval (in milliseconds) to recheck the math for a currently showing tooltip's
 			 * positioning and orientation. Useful if your anchor element moves.
 			 *
@@ -203,21 +217,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Number|null}
 			 * @public
 			 */
-			tooltipWidth: PropTypes.number,
-
-			/**
-			 * Type of tooltip.
-			 *
-			 * | *Value* | *Tooltip Direction* |
-			 * |---|---|
-			 * | `'balloon'` | Will have the arrow to the tooltip |
-			 * | `'transparent'` | Will not have the arrow to the tooltip |
-			 *
-			 * @type {('balloon'|'transparent')}
-			 * @default 'balloon'
-			 * @public
-			 */
-			tooltipType: PropTypes.oneOf(['balloon','transparent'])
+			tooltipWidth: PropTypes.number
 		}
 
 		static defaultProps = {
@@ -288,15 +288,15 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			let tooltipDirection = null;
 			let arrowAnchor = null;
 
-				if (arr.length === 2) {
-					[tooltipDirection, arrowAnchor] = arr;
-				} else if (position === 'above' || position === 'below') {
-					tooltipDirection = position;
-					arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
-				} else {
-					tooltipDirection = 'above';
-					arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
-				}
+			if (arr.length === 2) {
+				[tooltipDirection, arrowAnchor] = arr;
+			} else if (position === 'above' || position === 'below') {
+				tooltipDirection = position;
+				arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+			} else {
+				tooltipDirection = 'above';
+				arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+			}
 
 			const tooltipNode = this.tooltipRef.getBoundingClientRect(); // label bound
 			const clientNode = this.clientRef.getBoundingClientRect(); // client bound
@@ -311,18 +311,18 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {top, left} = this.state.position;
 
 			if (
-					(tooltipPosition.top !== top) ||
-					(tooltipPosition.left !== left) ||
-					(labelOffset !== this.state.labelOffset) ||
-					(arrowAnchor !== this.state.arrowAnchor)
-				) {
-					this.setState({
-						tooltipDirection,
-						arrowAnchor,
-						labelOffset,
-						position: tooltipPosition
-					});
-				}
+				(tooltipPosition.top !== top) ||
+				(tooltipPosition.left !== left) ||
+				(labelOffset !== this.state.labelOffset) ||
+				(arrowAnchor !== this.state.arrowAnchor)
+			) {
+				this.setState({
+					tooltipDirection,
+					arrowAnchor,
+					labelOffset,
+					position: tooltipPosition
+				});
+			}
 		}
 
 		showTooltipJob = new Job(() => {

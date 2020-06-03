@@ -125,8 +125,7 @@ const TooltipBase = kind({
 		 * @default 'balloon'
 		 * @public
 		 */
-
-		type: PropTypes.oneOf(['balloon','transparent']),
+		type: PropTypes.oneOf(['balloon', 'transparent']),
 
 		/**
 		 * The width of tooltip content in pixels (px).
