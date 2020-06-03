@@ -4,6 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/KeyGuide` support for color keys
+
+## [1.0.0-beta.5] - 2020-06-01
+
 ### Removed
 
 - `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
@@ -11,10 +17,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/MediaPlayer.MediaControls` props `rateChangeDisabled` to prevent playback rate control via rewind and fast forward keys
 - `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
 - `sandstone/FlexiblePopupPanels` props `onChange`, `onNextClick`, and `onPrevClick` to notify consumers of navigational events
 - `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/MediaPlayer.MediaControls` prop `rateChangeDisabled` to prevent playback rate control via rewind and fast-forward keys
 - `sandstone/PopupTabLayout` panel transition animation
 - new icons to `sandstone/Icon`
 
@@ -29,12 +35,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
 - `sandstone/Dropdown` to center scrolling to selected index
 - `sandstone/Item` to properly accept numbers for `label`
-- `sandstone/Scroller` and `sandstone/VirtualList` to display scrollbar with proper height
-- `sandstone/Slider` style to border radius
-- `sandstone/VideoPlayer` to show a scrim with controls
-- `sandstone/VirtualList` not to ignore scroll position given by `scrollTo`
 - `sandstone/PopupTabLayout` tall-content scrolling capability
 - `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar height
+- `sandstone/Slider` bar style to match latest designs
+- `sandstone/VideoPlayer` to show a scrim behind the media controls
+- `sandstone/VirtualList` to properly set the scroll position after focus changes
 
 ## [1.0.0-beta.4] - 2020-05-26
 
@@ -67,6 +73,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
 
 ## [1.0.0-beta.3] - 2020-05-11
 
