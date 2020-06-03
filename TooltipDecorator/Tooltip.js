@@ -114,6 +114,21 @@ const TooltipBase = kind({
 		tooltipRef: EnactPropTypes.ref,
 
 		/**
+		 * Type of tooltip.
+		 *
+		 * | *Value* | *Tooltip Direction* |
+		 * |---|---|
+		 * | `'balloon'` | Will have the arrow to the tooltip |
+		 * | `'transparent'` | Will not have the arrow to the tooltip |
+		 *
+		 * @type {('balloon'|'transparent')}
+		 * @default 'balloon'
+		 * @public
+		 */
+
+		type: PropTypes.oneOf(['balloon','transparent']),
+
+		/**
 		 * The width of tooltip content in pixels (px).
 		 *
 		 * If the content goes over the given width, then it will automatically wrap. When `null`,
@@ -126,6 +141,7 @@ const TooltipBase = kind({
 	},
 
 	defaultProps: {
+		type: 'balloon',
 		arrowAnchor: 'right',
 		direction: 'above',
 		labelOffset: 0
@@ -144,7 +160,7 @@ const TooltipBase = kind({
 				return {transform: `translateX(${cappedPosition * 100}%)`};
 			}
 		},
-		className: ({direction, arrowAnchor, relative, styler}) => styler.append(direction, `${arrowAnchor}Arrow`, {relative, absolute: !relative}),
+		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(direction, `${arrowAnchor}Arrow`, {relative, absolute: !relative}, type),
 		style: ({position, style}) => {
 			return {
 				...style,
@@ -159,6 +175,7 @@ const TooltipBase = kind({
 		delete rest.direction;
 		delete rest.position;
 		delete rest.relative;
+		delete rest.type;
 
 		return (
 			<div {...rest}>

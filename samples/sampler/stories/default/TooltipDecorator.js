@@ -4,12 +4,18 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
+import iconNames from './icons';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
+
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
-const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
+const TooltipButton = TooltipDecorator(
+	{tooltipDestinationProp: 'decoration'},
+	Button
+);
 
 const prop = {
+	icons: ['', ...iconNames],
 	tooltipPosition: [
 		'above',
 		'above center',
@@ -26,6 +32,10 @@ const prop = {
 		'right middle',
 		'right top'
 	],
+	tooltipType: [
+		'balloon',
+		'transparent'
+	],
 	ariaObject: {
 		'aria-hidden': false,
 		'aria-label': 'Tooltip Label',
@@ -41,12 +51,14 @@ storiesOf('Sandstone', module)
 				<TooltipButton
 					tooltipDelay={number('tooltipDelay', Config, 500)}
 					tooltipText={text('tooltipText', Config, 'tooltip!')}
-					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
+					tooltipType={select('tooltipType', prop.tooltipType, Config, 'balloon')}
+					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'below')}
 					tooltipRelative={boolean('tooltipRelative', Config)}
 					tooltipWidth={number('tooltipWidth', Config)}
 					tooltipProps={object('tooltipProps', Config, prop.ariaObject)}
+					icon={select('icon', prop.icons, Config)}
 				>
-					hello
+					{text('children', Config, 'click me')}
 				</TooltipButton>
 			</div>
 		),

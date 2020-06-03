@@ -203,13 +203,28 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Number|null}
 			 * @public
 			 */
-			tooltipWidth: PropTypes.number
+			tooltipWidth: PropTypes.number,
+
+			/**
+			 * Type of tooltip.
+			 *
+			 * | *Value* | *Tooltip Direction* |
+			 * |---|---|
+			 * | `'balloon'` | Will have the arrow to the tooltip |
+			 * | `'transparent'` | Will not have the arrow to the tooltip |
+			 *
+			 * @type {('balloon'|'transparent')}
+			 * @default 'balloon'
+			 * @public
+			 */
+			tooltipType: PropTypes.oneOf(['balloon','transparent'])
 		}
 
 		static defaultProps = {
 			disabled: false,
 			tooltipDelay: 500,
 			tooltipPosition: 'above',
+			tooltipType: 'balloon',
 			tooltipUpdateDelay: 400
 		}
 
@@ -238,6 +253,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (this.state.showing && (
 				prevProps.tooltipText !== this.props.tooltipText ||
 				prevProps.tooltipPosition !== this.props.tooltipPosition ||
+				prevProps.tooltipType !== this.props.tooltipType ||
 				prevState.showing !== this.state.showing
 			)) {
 				this.setTooltipLayout();
@@ -262,6 +278,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		setTooltipLayout () {
+			const tooltipType = this.props.tooltipType;
+
 			if (!this.tooltipRef || !this.clientRef) return;
 
 			const screenEdgeKeepout = ri.scale(config.screenEdgeKeepout);
@@ -270,15 +288,15 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			let tooltipDirection = null;
 			let arrowAnchor = null;
 
-			if (arr.length === 2) {
-				[tooltipDirection, arrowAnchor] = arr;
-			} else if (position === 'above' || position === 'below') {
-				tooltipDirection = position;
-				arrowAnchor = 'right';
-			} else {
-				tooltipDirection = 'above';
-				arrowAnchor = 'right';
-			}
+				if (arr.length === 2) {
+					[tooltipDirection, arrowAnchor] = arr;
+				} else if (position === 'above' || position === 'below') {
+					tooltipDirection = position;
+					arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+				} else {
+					tooltipDirection = 'above';
+					arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+				}
 
 			const tooltipNode = this.tooltipRef.getBoundingClientRect(); // label bound
 			const clientNode = this.clientRef.getBoundingClientRect(); // client bound
@@ -287,23 +305,24 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipDirection = adjustDirection(tooltipDirection, overflow, this.props.rtl);
 			arrowAnchor = adjustAnchor(arrowAnchor, tooltipDirection, overflow, this.props.rtl);
 
+
 			const tooltipPosition = getPosition(clientNode, tooltipDirection);
 			const labelOffset = arrowAnchor === 'center' ? getLabelOffset(tooltipNode, tooltipDirection, tooltipPosition, overflow) : null;
 			const {top, left} = this.state.position;
 
 			if (
-				(tooltipPosition.top !== top) ||
-				(tooltipPosition.left !== left) ||
-				(labelOffset !== this.state.labelOffset) ||
-				(arrowAnchor !== this.state.arrowAnchor)
-			) {
-				this.setState({
-					tooltipDirection,
-					arrowAnchor,
-					labelOffset,
-					position: tooltipPosition
-				});
-			}
+					(tooltipPosition.top !== top) ||
+					(tooltipPosition.left !== left) ||
+					(labelOffset !== this.state.labelOffset) ||
+					(arrowAnchor !== this.state.arrowAnchor)
+				) {
+					this.setState({
+						tooltipDirection,
+						arrowAnchor,
+						labelOffset,
+						position: tooltipPosition
+					});
+				}
 		}
 
 		showTooltipJob = new Job(() => {
@@ -414,7 +433,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @private
 		 */
 		renderTooltip () {
-			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth} = this.props;
+			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
 				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
@@ -432,6 +451,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
+						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
@@ -486,6 +506,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete props.tooltipProps;
 			delete props.tooltipRelative;
 			delete props.tooltipText;
+			delete props.tooltipType;
 			delete props.tooltipUpdateDelay;
 			delete props.tooltipWidth;
 

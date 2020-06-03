@@ -81,6 +81,57 @@
 		}
 	}
 
+	&.transparent {
+		.tooltipArrow {
+			visibility: hidden;
+		}
+		&.below {
+			.tooltipLabel {
+				transform: translate(-50%, 0%);
+			}
+			&.centerArrow {
+				.tooltipLabel {
+					transform: translate(0%, 50%);
+				}
+			}
+			&.rightArrow {
+				.tooltipLabel {
+					transform: translate(50%, 0%);
+				}
+			}
+			&.leftArrow {
+				.tooltipLabel {
+					transform: translate(-50%, 0%);
+				}
+			}
+		}
+		&.above {
+			.tooltipLabel {
+				transform: translate(-50%, -100%);
+			}
+			&.centerArrow {
+				.tooltipLabel {
+					transform: translate(0%, 0%);
+				}
+			}
+			&.rightArrow {
+				.tooltipLabel {
+					transform: translate(50%, 0%);
+				}
+			}
+			&.leftArrow {
+				.tooltipLabel {
+					transform: translate(-50%, 0%);
+				}
+			}
+		}
+		&.left, &.right {
+			.tooltipLabel {
+				transform: translate(0%, 0%);
+			}
+		}
+	}
+
 	// Positioning for the arrow and label
 	&.below {
 		.tooltipArrow {
@@ -319,6 +370,14 @@
 	// Skin colors
 	.applySkins({
 		filter: drop-shadow(@sand-tooltip-shadow);
+
+		&.transparent {
+			filter: none;
+			.tooltipLabel {
+				color: #fff;
+				background-color: transparent;
+			}
+		}
 
 		// Drawing the arc/arrow shape using the mixin from above
 		&.below {
