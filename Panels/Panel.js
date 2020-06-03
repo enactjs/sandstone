@@ -1,8 +1,10 @@
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -46,6 +48,8 @@ const PanelBase = kind({
 		 * @public
 		 */
 		'aria-label': PropTypes.string,
+
+		componentRef: EnactPropTypes.ref,
 
 		/**
 		 * Sets the strategy used to automatically focus an element within the panel upon render.
@@ -140,44 +144,10 @@ const PanelBase = kind({
 				currentTarget.scrollTop = 0;
 				currentTarget.scrollLeft = 0;
 			}
-		),
-		spotOnRender: (node, {autoFocus}) => {
-			if (node) {
-				// FIXME: This is a candidate to move to the decorator once hooks have been fully
-				// adopted and we can configure SpotlightContainerDecorator with the current props
-				const {spotlightId} = node.dataset;
-				const config = {
-					enterTo: 'last-focused'
-				};
-
-				if (autoFocus !== 'last-focused') {
-					config.enterTo = 'default-element';
-
-					if (autoFocus !== 'default-element') {
-						config.defaultElement = autoFocus;
-					}
-				}
-
-				Spotlight.set(spotlightId, config);
-
-				if (!Spotlight.getCurrent() && !Spotlight.isPaused()) {
-					Spotlight.focus(spotlightId);
-				}
-			}
-		}
+		)
 	},
 
 	computed: {
-		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
-			// In order to spot the body components, we defer spotting until !hideChildren. If the
-			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
-			// on first render.
-			if (hideChildren || autoFocus === 'none') {
-				return null;
-			}
-
-			return spotOnRender;
-		},
 		children: ({children, hideChildren}) => hideChildren ? null : children,
 		bodyClassName: ({css, header, hideChildren, styler}) => styler.join(css.body, {
 			noHeader: !header,
@@ -193,18 +163,18 @@ const PanelBase = kind({
 	render: ({
 		bodyClassName,
 		children,
+		componentRef,
 		css,
 		entering,
 		header,
 		headerId,
-		spotOnRender,
 		...rest
 	}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
+			<article role="region" {...rest} aria-labelledby={headerId} ref={componentRef}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
@@ -217,8 +187,53 @@ const PanelBase = kind({
 	}
 });
 
+function updateRef (ref, node) {
+	if (ref) {
+		if (typeof ref === 'function') {
+			ref(node);
+		} else if (ref.hasOwnProperty('current')) {
+			ref.current = node;
+		}
+	}
+}
+
+const AutoFocusDecorator = Wrapped => function AFD ({autoFocus, componentRef, hideChildren, ...rest}) {
+
+	const ref = React.useCallback((node) => {
+		updateRef(componentRef, node);
+
+		if (!node) return;
+
+		// FIXME: This is a candidate to move to the decorator once hooks have been fully
+		// adopted and we can configure SpotlightContainerDecorator with the current props
+		const {spotlightId} = node.dataset;
+		const config = {
+			enterTo: 'last-focused'
+		};
+
+		if (autoFocus !== 'last-focused') {
+			config.enterTo = 'default-element';
+
+			if (autoFocus !== 'default-element') {
+				config.defaultElement = autoFocus;
+			}
+		}
+
+		Spotlight.set(spotlightId, config);
+
+		// In order to spot the body components, we defer spotting until !hideChildren. If the
+		// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
+		// on first render.
+		if (!hideChildren && autoFocus !== 'none' && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
+			Spotlight.focus(spotlightId);
+		}
+	}, [autoFocus, componentRef, hideChildren]);
+
+	return <Wrapped {...rest} componentRef={ref} />;
+};
 
 const PanelDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
@@ -229,6 +244,7 @@ const PanelDecorator = compose(
 		preserveId: true
 	}),
 	Slottable({slots: ['header']}),
+	AutoFocusDecorator,
 	Skinnable
 );
 
