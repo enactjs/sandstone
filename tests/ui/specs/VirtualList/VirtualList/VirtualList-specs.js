@@ -445,6 +445,8 @@ describe('VirtualList', function () {
 				Page.backSpace();
 				Page.backSpace();
 				Page.numPad(4);
+				// In case of TV, VKB is opend when inputfield clicking. So add escape key for VKB closing.
+				Page.backKey();
 				Page.spotlightDown();
 				Page.spotlightRight();
 				// Check First item
@@ -489,6 +491,8 @@ describe('VirtualList', function () {
 				Page.numPad(1);
 				Page.numPad(0);
 				Page.numPad(0);
+				// In case of TV, VKB is opend when inputfield clicking. So add escape key for VKB closing.
+				Page.backKey();
 				// 100 spacing value is 50 for 4k and 25 for FHD.
 				// Step 4 Verify: The gap between items grows bigger.
 				const changedSpacing = Page.itemSpacing();
@@ -508,13 +512,13 @@ describe('VirtualList', function () {
 				Page.backSpace();
 				Page.numPad(5);
 				Page.numPad(0);
+				Page.backKey();
 				// 50 spacing value is 50 for 4k and 25 for FHD.
 				const newSpacing = Page.itemSpacing();
 				expect(newSpacing).to.equal(25);
 				// Step7-1: Hover an item.
 				Page.spotlightDown();
 				Page.spotlightRight();
-				Page.showPointerByKeycode();
 				$('#item3').moveTo();
 				expectFocusedItem(3);
 				// Step7 Verify: The spotlight size does not change.
