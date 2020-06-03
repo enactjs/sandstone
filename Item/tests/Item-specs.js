@@ -33,6 +33,19 @@ describe('Item Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should support label with 0', () => {
+		const subject = mount(
+			<ItemBase label={0}>
+				Hello Item
+			</ItemBase>
+		);
+
+		const expected = '0';
+		const actual = subject.find(`.${css.label}`).first().text();
+
+		expect(actual).toContain(expected);
+	});
+
 	test('should support adding text as a child when a label is also set', () => {
 		const expected = 'Hello Item';
 

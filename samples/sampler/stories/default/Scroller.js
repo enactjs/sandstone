@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -8,17 +9,18 @@ import {storiesOf} from '@storybook/react';
 
 import Scroller from '@enact/sandstone/Scroller';
 
-const
-	prop = {
-		direction: ['both', 'horizontal', 'vertical'],
-		focusableScrollbarOption: {
-			'true': true,
-			'false': false,
-			'byEnter': 'byEnter'
-		},
-		scrollbarOption: ['auto', 'hidden', 'visible'],
-		scrollModeOption: ['native', 'translate']
-	};
+import css from './Scroller.module.less';
+
+const prop = {
+	direction: ['both', 'horizontal', 'vertical'],
+	focusableScrollbarOption: {
+		'true': true,
+		'false': false,
+		'byEnter': 'byEnter'
+	},
+	scrollbarOption: ['auto', 'hidden', 'visible'],
+	scrollModeOption: ['native', 'translate']
+};
 
 const ScrollerConfig = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
@@ -28,31 +30,34 @@ storiesOf('Sandstone', module)
 		() => {
 			const
 				direction = select('direction', prop.direction, ScrollerConfig),
-				fadeOut = boolean('fadeOut', ScrollerConfig, true),
-				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig, 'byEnter'),
-				// The scroller for body text is thick, but others have a thin scrollbar.
-				scrollbarArea = focusableScrollbar ? 108 : 36,
-				// Content size should be specified to reserve the scrollbar area.
-				// Or, there should be padding-right or padding-left according to the RTL.
-				contentWidth = (fadeOut && focusableScrollbar === 'byEnter') || direction === 'horizontal' ? 'initial' : 'calc(100% - ' + ri.scale(scrollbarArea) + 'px)';
+				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig),
+				horizontalScrollbar = select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig),
+				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig);
 			return (
 				<Scroller
+					className={
+						classnames({
+							[css.verticalPadding]: (direction !== 'horizontal' && verticalScrollbar !== 'hidden') || verticalScrollbar === 'visible',
+							[css.horizontalPadding]: (direction !== 'vertical' && horizontalScrollbar !== 'hidden') || horizontalScrollbar === 'visible',
+							[css.bodyText]: focusableScrollbar || null
+						})
+					}
 					direction={direction}
-					fadeOut={fadeOut}
+					fadeOut={boolean('fadeOut', ScrollerConfig)}
 					focusableScrollbar={focusableScrollbar}
-					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig)}
+					horizontalScrollbar={horizontalScrollbar}
 					key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 					noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 					spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}
-					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig)}
+					verticalScrollbar={verticalScrollbar}
 				>
 					<div
 						style={{
 							height: ri.scaleToRem(2004),
-							width: contentWidth
+							width: ri.scaleToRem(4002)
 						}}
 					>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />

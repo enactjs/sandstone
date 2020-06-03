@@ -9,7 +9,6 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
@@ -84,10 +83,6 @@
 	/// Begin child node rules configuration, shared across multiple types
 	///
 
-	.titlesRow {
-		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
-	}
-
 	.title,
 	.subtitle {
 		margin: 0;
@@ -114,16 +109,6 @@
 	.slotBelow {
 		margin: @sand-header-slotbelow-margin;
 	}
-
-	&.featureContent {
-		transform: @sand-header-featurecontent-transform;
-
-		.titlesRow {
-			transform: @sand-header-featurecontent-title-transform;
-			opacity: @sand-header-featurecontent-title-opacity;
-		}
-	}
-
 
 	///
 	/// Begin "types" rules configuration

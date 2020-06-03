@@ -1,7 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
+import VideoPlayer from '@enact/sandstone/VideoPlayer';
 
 const VideoPlayerView = () => (
 	<div style={{width: ri.scale(1280) + 'px', height: ri.scale(800) + 'px'}}>

@@ -1,16 +1,18 @@
+const {getFocusedText} = require('../utils');
+
 const Page = require('./PopupTabLayoutPage');
 
 describe('PopupTabLayout', function () {
-
-	beforeEach(function () {
-		Page.open();
-	});
 
 	const {
 		popupTabLayout
 	} = Page.components;
 
 	describe('default', function () {
+
+		beforeEach(function () {
+			Page.open();
+		});
 
 		describe('view navigation behavior', function () {
 
@@ -85,6 +87,35 @@ describe('PopupTabLayout', function () {
 			// 		expect(actual).to.equal(expected);
 			// 	});
 			// });
+		});
+
+		describe('auto focus behavior', function () {
+			it('should focus the first tab when expanded', function () {
+				Page.open();
+
+				const expected = 'Display';
+				const actual = browser.execute(getFocusedText);
+
+				expect(actual).to.equal(expected);
+			});
+
+			it('should focus the second tab when expanded', function () {
+				Page.open('?defaultIndex=1');
+
+				const expected = 'Sound';
+				const actual = browser.execute(getFocusedText);
+
+				expect(actual).to.equal(expected);
+			});
+
+			it('should respect the `autoFocus` prop on `TabPanel` when collapsed', function () {
+				Page.open('?defaultCollapsed');
+
+				const expected = 'Color Adjust';
+				const actual = browser.execute(getFocusedText);
+
+				expect(actual).to.equal(expected);
+			});
 		});
 	});
 });

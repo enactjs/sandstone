@@ -7,6 +7,7 @@ import ThemeDecorator from '../../../../../ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {InputField} from '../../../../../Input';
 
 const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
@@ -19,8 +20,7 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemSize = 156,
 	listSize = itemSize * 9,
-	itemStyle = {margin: 0},
-	numItems = 100;
+	itemStyle = {margin: 0};
 
 const renderItem = (size) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
@@ -44,8 +44,6 @@ const updateDataSize = (dataSize) => {
 
 	return dataSize;
 };
-
-updateDataSize(numItems);
 
 class StatefulSwitchItem extends React.Component {
 	constructor (props) {
@@ -91,10 +89,12 @@ class app extends React.Component {
 		super(props);
 		this.state = {
 			hideScrollbar: false,
+			numItems: 100,
 			wrap: false
 		};
 		this.rootRef = React.createRef();
 		this.scrollingRef = React.createRef();
+		updateDataSize(this.state.numItems);
 	}
 
 	onKeyDown = () => {
@@ -118,14 +118,22 @@ class app extends React.Component {
 		this.setState((state) => ({[key]: !state[key]}));
 	}
 
+	onChangeNumItems = ({value}) => {
+		this.setState({numItems: value});
+		updateDataSize(value);
+	}
+
 	render () {
-		const {hideScrollbar, wrap} = this.state;
+		const
+			inputStyle = {width: ri.scaleToRem(300)},
+			{hideScrollbar, numItems, wrap} = this.state;
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
 						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>

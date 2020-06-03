@@ -115,7 +115,7 @@ const useEventFocus = (props, instances, context) => {
 			alertScrollbarTrack();
 		}
 
-		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging)) {
+		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
 			const
 				item = ev.target,
 				spotItem = Spotlight.getCurrent();
@@ -131,8 +131,8 @@ const useEventFocus = (props, instances, context) => {
 	function hasFocus () {
 		const current = Spotlight.getCurrent();
 
-		if (current) {
-			return utilDOM.containsDangerously(scrollContainerRef.current, current);
+		if (current && scrollContainerRef.current) {
+			return utilDOM.containsDangerously(scrollContainerRef, current);
 		}
 	}
 
