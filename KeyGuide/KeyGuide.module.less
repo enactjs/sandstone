@@ -1,35 +1,62 @@
+// KeyGuide.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .keyGuide {
-    .position-start-end(auto, @sand-keyguide-position-right);
+	.position-start-end(auto, @sand-keyguide-position-right);
 
-    position: absolute;
-    width: @sand-keyguide-width;
-    bottom: @sand-keyguide-position-bottom;
-    padding: @sand-keyguide-padding;
+	position: absolute;
+	width: @sand-keyguide-width;
+	bottom: @sand-keyguide-position-bottom;
+	padding: @sand-keyguide-padding;
 
-    .item {
-        .sand-font({
-            font-size: @sand-keyguide-font-size;
-        });
-        font-size: @sand-keyguide-font-size;
+	.item {
+		.sand-font({
+			font-size: @sand-keyguide-font-size;
+		});
+		font-size: @sand-keyguide-font-size;
+		height: @sand-keyguide-item-height;
+		margin: 0;
 
-        .icon {
-            margin: 0;
-        }
+		.icon {
+			margin: 0;
+		}
 
-        .slotBefore {
-            margin-inline-end: @sand-keyguide-icon-margin-right;
-        }
-    }
+		.slotBefore {
+			margin-inline-end: @sand-keyguide-icon-margin-right;
+		}
+	}
 
-    .applySkins({
-        background: @sand-keyguide-bg-color;
+	.red,
+	.green,
+	.yellow,
+	.blue {
+		width: @sand-keyguide-colordot-width;
+		height: @sand-keyguide-colordot-height;
+		margin: @sand-keyguide-colordot-margin;
+		border-radius: @sand-keyguide-colordot-border-radius;
+	}
 
-        .item {
-            color: @sand-keyguide-item-color;
-        }
-    })
+	.applySkins({
+		background: @sand-keyguide-bg-color;
+
+		.red {
+			background-color: @sand-keyguide-colordot-red-color;
+		}
+		.green {
+			background-color: @sand-keyguide-colordot-green-color;
+		}
+		.yellow {
+			background-color: @sand-keyguide-colordot-yellow-color;
+		}
+		.blue {
+			background-color: @sand-keyguide-colordot-blue-color;
+		}
+
+		.item {
+			color: @sand-keyguide-item-color;
+		}
+	})
 }

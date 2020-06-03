@@ -16,13 +16,12 @@ describe('FlexiblePopupPanels', function () {
 				Page.spotlightSelect();
 			});
 			Page.spotlightRight();
+			Page.spotlightRight();
 
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
-
-			Page.spotlightUp();
 
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 
