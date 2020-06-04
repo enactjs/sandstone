@@ -72,7 +72,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
 
-				if (announceRef.current.announce) {
+				if (!ev.repeat && announceRef.current.announce) {
 					announceRef.current.announce(
 						(isDown(keyCode) || isPageDown(keyCode)) && $L('DOWN') ||
 						(isUp(keyCode) || isPageUp(keyCode)) && $L('UP') ||
