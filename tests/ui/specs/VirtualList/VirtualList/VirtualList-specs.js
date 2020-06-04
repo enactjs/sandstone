@@ -527,7 +527,7 @@ describe('VirtualList', function () {
 
 			it('should change spotlight size when item`s size changing [GT-28459]', function () {
 				// Step 3 Verify: The default value for the 'itemSize' knob is itemSizeValue(default size is 156 for 4k) or half of 4k(78 for 2k).
-				const defaultItemSize = Page.checkItemSize();
+				const defaultItemSize = Page.getItemSize();
 				expect(defaultItemSize.height).to.equal(78);
 				expect(defaultItemSize.width).to.equal(1200);
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
@@ -544,10 +544,9 @@ describe('VirtualList', function () {
 				Page.numPad(3);
 				Page.numPad(0);
 				Page.numPad(0);
+				Page.backKey();
 				// Verify item size
-				Page.spotlightDown();
-				Page.spotlightRight();
-				const curItemSize = Page.checkItemSize();
+				const curItemSize = Page.getItemSize();
 				expect(curItemSize.height).to.equal(150);
 				expect(curItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();
@@ -564,8 +563,9 @@ describe('VirtualList', function () {
 				Page.backSpace();
 				Page.numPad(5);
 				Page.numPad(0);
+				Page.backKey();
 				// Verify item size
-				const newItemSize = Page.checkItemSize();
+				const newItemSize = Page.getItemSize();
 				expect(newItemSize.height).to.equal(25);
 				expect(newItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();

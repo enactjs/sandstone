@@ -129,7 +129,7 @@ class VirtualListPage extends Page {
 			return Math.round(secondItemRect.top - firstItemRect.top - firstItemRect.height);
 		}, listItemSelector);
 	}
-	checkItemSize () {
+	getItemSize () {
 		return browser.execute(function (_listItemSelector){
 			const itemContent = document.querySelectorAll(_listItemSelector);
 			const itemHeight = itemContent[0].getBoundingClientRect().height;
