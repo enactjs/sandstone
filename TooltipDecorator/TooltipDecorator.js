@@ -436,8 +436,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const tooltipStyle = {
 				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
 				// Moving the position to CSS variables where there are additional offset calculations
-				['--tooltip-position-top']: tooltipRelative ? null : `${top}px`,
-				['--tooltip-position-left']: tooltipRelative ? null : `${left}px`
+				'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
+				'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
 			};
 
 			if (tooltipText) {
