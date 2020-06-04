@@ -445,7 +445,7 @@ describe('VirtualList', function () {
 				Page.backSpace();
 				Page.backSpace();
 				Page.numPad(4);
-				// In case of TV, VKB is opend when inputfield clicking. So add escape key for VKB closing.
+				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
 				Page.backKey();
 				Page.spotlightDown();
 				Page.spotlightRight();
@@ -491,7 +491,7 @@ describe('VirtualList', function () {
 				Page.numPad(1);
 				Page.numPad(0);
 				Page.numPad(0);
-				// In case of TV, VKB is opend when inputfield clicking. So add escape key for VKB closing.
+				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
 				Page.backKey();
 				// 100 spacing value is 50 for 4k and 25 for FHD.
 				// Step 4 Verify: The gap between items grows bigger.
