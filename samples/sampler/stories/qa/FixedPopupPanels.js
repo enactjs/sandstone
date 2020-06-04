@@ -19,7 +19,7 @@ Config.defaultProps.width = 'narrow';
 // eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
 	return (
-		<Item {...rest} style={{height: ri.scaleToRem(50)}}>
+		<Item {...rest} style={{height: ri.scaleToRem(54)}}>
 			{index}
 		</Item>
 	);
@@ -55,7 +55,7 @@ storiesOf('FixedPopupPanels', module)
 						</Header>
 						<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
 						<VirtualList
-							itemSize={ri.scale(100)}
+							itemSize={ri.scale(102)}
 							itemRenderer={itemRenderer}
 							dataSize={20}
 						/>
@@ -71,7 +71,7 @@ storiesOf('FixedPopupPanels', module)
 						</Header>
 						<BodyText>Woo woo</BodyText>
 						<VirtualList
-							itemSize={ri.scale(100)}
+							itemSize={ri.scale(102)}
 							itemRenderer={itemRenderer}
 							dataSize={20}
 						/>
