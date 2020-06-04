@@ -44,21 +44,23 @@ describe('Alert', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should render subtitle', () => {
+	test('should render content', () => {
 		const alert = shallow(
-			<AlertBase open id="test" title="alert title" subtitle="alert title below" />
+			<AlertBase open id="test" title="alert title">
+				{'alert message'}
+			</AlertBase>
 		);
-		const expected = 'alert title below';
-		const actual = alert.find('#test_subtitle').prop('children');
+		const expected = 'alert message';
+		const actual = alert.find('#test_content').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should render to empty string if subtitle is not set', () => {
+	test('should render to empty string if children is not set', () => {
 		const alert = shallow(
 			<AlertBase open id="test" title="alert title" />
 		);
-		const actual = alert.find('#test_subtitle').prop('children');
+		const actual = alert.find('#test_content').prop('children');
 
 		expect(actual).toBeFalsy();
 	});
