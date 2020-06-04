@@ -3,6 +3,16 @@ function focusedElement () {
 	return browser.execute(function () { return document.activeElement.id; });
 }
 
+function hitTest (__selector) {
+	return  browser.execute(function (selector) {
+		const target = document.querySelector(selector),
+			targetRect = target.getBoundingClientRect(),
+			targetDown = [targetRect.x + (targetRect.width / 2), targetRect.y + targetRect.height -2],
+			targetTop = [targetRect.x + (targetRect.width / 2), targetRect.y + 2];
+		return target.contains(document.elementFromPoint(...targetDown)) || target.contains(document.elementFromPoint(...targetTop));
+	}, __selector);
+}
+
 function expectFocusedItem (itemNum, comment = 'focused item') {
 	const focusedId = focusedElement();
 	expect(focusedId, comment).to.equal(`item${itemNum}`);
@@ -18,6 +28,12 @@ function waitUntilFocused (itemNum) {
 		const focusedId = focusedElement();
 		return target === focusedId;
 	}, 1500, `timed out waiting to focus index ${itemNum}`);
+}
+
+function waitUntilVisible (itemNum) {
+	browser.waitUntil(function () {
+		return hitTest(`#item${itemNum}`);
+	}, 1500, `timed out waiting until visible index ${itemNum}`);
 }
 
 function isScrolling () {
@@ -43,3 +59,4 @@ exports.expectNoFocusedItem = expectNoFocusedItem;
 exports.focusedElement = focusedElement;
 exports.waitForScrollStartStop = waitForScrollStartStop;
 exports.waitUntilFocused = waitUntilFocused;
+exports.waitUntilVisible = waitUntilVisible;

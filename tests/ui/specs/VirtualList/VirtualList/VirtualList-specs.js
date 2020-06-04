@@ -19,8 +19,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(0);
 		});
 
-		// TODO: Failing on Jenkins
-		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
+		it('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 			Page.spotlightDown(); // is on Left button
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 3. 5-way Spot the second item 'Item 001'.
@@ -35,7 +34,6 @@ describe('VirtualList', function () {
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.fiveWayToItem(17);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			waitForScrollStartStop();
 			Page.delay(100);
 			expectFocusedItem(17, 'step 5 focus');
 			// Step 6. Press Channel Down.
@@ -50,7 +48,6 @@ describe('VirtualList', function () {
 			expectFocusedItem(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.fiveWayToItem(7);
-			waitForScrollStartStop();
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(7, 'step 8 focus');
 			// Step 9. Press Channel Up.
@@ -111,9 +108,7 @@ describe('VirtualList', function () {
 			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
 		});
 
-		// Need mochaOpts - timeout set to 60000 to pass
-		// TODO: Failing on Jenkins
-		it.skip('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
+		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.

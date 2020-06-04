@@ -1,7 +1,7 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const {focusedElement, waitUntilFocused} = require('../VirtualList-utils');
+const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../VirtualList-utils');
 
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
@@ -142,7 +142,7 @@ class VirtualListPage extends Page {
 				this.spotlightUp();
 			}
 			waitUntilFocused(i + direction);
-			this.delay(50); // Wait for scroll into view
+			waitUntilVisible(i + direction);
 		}
 	}
 
