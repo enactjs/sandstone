@@ -33,9 +33,9 @@ storiesOf('Sandstone', module)
 			const [index, setPanelIndexState] = React.useState(defaultIndex);
 
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
-			const handleChange = (ev) => {
+			const handleNavigation = (type) => (ev) => {
 				setPanelIndexState(ev.index);
-				action('onChange')(ev);
+				action(type)(ev);
 			};
 
 			return (<div>
@@ -46,7 +46,8 @@ storiesOf('Sandstone', module)
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
 					noCloseButton={boolean('noCloseButton', Config)}
-					onChange={handleChange}
+					onBack={handleNavigation('onBack')}
+					onChange={handleNavigation('onChange')}
 					onClose={handleClose}
 					onHide={action('onHide')}
 					onNextClick={action('onNextClick')}
