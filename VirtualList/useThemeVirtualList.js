@@ -271,6 +271,10 @@ const useSpottable = (props, instances) => {
 		return scrollContentHandle.current.getScrollBounds();
 	}
 
+	function getScrollPositionTarget () {
+		return scrollContentHandle.current.scrollPositionTarget;
+	}
+
 	// Return
 
 	return {
@@ -278,6 +282,7 @@ const useSpottable = (props, instances) => {
 		focusByIndex,
 		focusOnNode,
 		getScrollBounds,
+		getScrollPositionTarget,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		setContainerDisabled,
@@ -300,6 +305,7 @@ const useThemeVirtualList = (props) => {
 		focusByIndex,
 		focusOnNode,
 		getScrollBounds,
+		getScrollPositionTarget,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
 		setContainerDisabled,
@@ -316,6 +322,7 @@ const useThemeVirtualList = (props) => {
 		focusByIndex,
 		focusOnNode,
 		getScrollBounds,
+		getScrollPositionTarget,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,

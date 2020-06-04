@@ -8,11 +8,11 @@ const useThemeScrollContentHandle = () => {
 		focusByIndex: null,
 		focusOnNode: null,
 		getScrollBounds: null,
+		getScrollPositionTarget: null,
 		setContainerDisabled: null,
 		setLastFocusedNode: null,
 		shouldPreventOverscrollEffect: null,
-		shouldPreventScrollByFocus: null,
-		scrollMode: null
+		shouldPreventScrollByFocus: null
 	});
 
 	// Functions
