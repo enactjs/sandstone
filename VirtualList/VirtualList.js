@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
 
+import $L from '../internal/$L';
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
@@ -72,12 +73,17 @@ let VirtualList = ({itemSize, ...rest}) => {
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
+	const
+		{ariaLabelScrollHorizontally, ariaLabelScrollVertically} = props,
+		ariaLabelVerticalScrollbar = ariaLabelScrollVertically == null ? $L('scroll up down with up down button') : ariaLabelScrollVertically,
+		ariaLabelHorizontalScrollbar = ariaLabelScrollHorizontally == null ? $L('scroll left right with left right button') : ariaLabelScrollHorizontally;
+
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -103,6 +109,24 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	itemSize: PropTypes.oneOfType([PropTypes.number, itemSizesShape]).isRequired,
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	ariaLabelScrollHorizontally: PropTypes.string,
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	ariaLabelScrollVertically: PropTypes.string,
 
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
@@ -497,12 +521,17 @@ let VirtualGridList = (props) => {
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
+	const
+		{ariaLabelScrollHorizontally, ariaLabelScrollVertically} = props,
+		ariaLabelVerticalScrollbar = ariaLabelScrollVertically == null ? $L('scroll up down with up down button') : ariaLabelScrollVertically,
+		ariaLabelHorizontalScrollbar = ariaLabelScrollHorizontally == null ? $L('scroll left right with left right button') : ariaLabelScrollHorizontally;
+
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -530,6 +559,24 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	itemSize: gridListItemSizeShape.isRequired,
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	ariaLabelScrollHorizontally: PropTypes.string,
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	ariaLabelScrollVertically: PropTypes.string,
 
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.

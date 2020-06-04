@@ -25,6 +25,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import $L from '../internal/$L';
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
@@ -75,6 +76,11 @@ let Scroller = (props) => {
 		themeScrollContentProps
 	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
+	const
+		{ariaLabelScrollHorizontally, ariaLabelScrollVertically} = props,
+		ariaLabelVerticalScrollbar = ariaLabelScrollVertically == null ? $L('scroll up down with up down button') : ariaLabelScrollVertically,
+		ariaLabelHorizontalScrollbar = ariaLabelScrollHorizontally == null ? $L('scroll left right with left right button') : ariaLabelScrollHorizontally;
+
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
@@ -84,8 +90,8 @@ let Scroller = (props) => {
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
@@ -95,6 +101,24 @@ let Scroller = (props) => {
 Scroller.displayName = 'Scroller';
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	ariaLabelScrollHorizontally: PropTypes.string,
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	ariaLabelScrollVertically: PropTypes.string,
+
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
