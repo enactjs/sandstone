@@ -16,9 +16,10 @@ Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
 
+// eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
 	return (
-		<Item {...rest} style={{height: ri.unit(50, 'rem')}}>
+		<Item {...rest} style={{height: ri.scaleToRem(50)}}>
 			{index}
 		</Item>
 	);
