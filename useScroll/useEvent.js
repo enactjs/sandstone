@@ -88,6 +88,10 @@ const useEventFocus = (props, instances, context) => {
 				}
 
 				pos = positionFn({item: spotItem, scrollPosition});
+			} else if (scrollMode === 'native' && scrollContainerHandle.current.scrolling) {
+				const {scrollPositionTarget} = themeScrollContentHandle.current;
+
+				pos = positionFn({item: spotItem, scrollPositionTarget});
 			} else {
 				pos = positionFn({item: spotItem});
 			}

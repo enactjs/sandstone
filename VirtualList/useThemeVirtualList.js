@@ -210,7 +210,7 @@ const useSpottable = (props, instances) => {
 		return returnVal;
 	}
 
-	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPositionTarget}) {
+	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
 
 			{pageScroll} = props,
