@@ -90,6 +90,7 @@ class app extends React.Component {
 		this.state = {
 			hideScrollbar: false,
 			numItems: 100,
+			spacing: 0,
 			wrap: false
 		};
 		this.rootRef = React.createRef();
@@ -123,10 +124,14 @@ class app extends React.Component {
 		updateDataSize(value);
 	}
 
+	onChangeSpacing = (obj) => {
+		this.setState({spacing: obj.value});
+	}
+
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{hideScrollbar, numItems, wrap} = this.state;
+			{hideScrollbar, numItems, spacing, wrap} = this.state;
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
@@ -134,6 +139,7 @@ class app extends React.Component {
 						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
+						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
@@ -154,7 +160,7 @@ class app extends React.Component {
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
-											spacing={0}
+											spacing={ri.scale(spacing)}
 											style={{height: ri.scaleToRem(listSize)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
