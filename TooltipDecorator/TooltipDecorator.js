@@ -279,7 +279,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		setTooltipLayout () {
 			const tooltipType = this.props.tooltipType;
-
 			if (!this.tooltipRef || !this.clientRef) return;
 
 			const screenEdgeKeepout = ri.scale(config.screenEdgeKeepout);
@@ -292,10 +291,10 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				[tooltipDirection, arrowAnchor] = arr;
 			} else if (position === 'above' || position === 'below') {
 				tooltipDirection = position;
-				arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+				arrowAnchor = 'right';
 			} else {
 				tooltipDirection = 'above';
-				arrowAnchor = tooltipType !== 'transparent' ?  'right' : 'transparent';
+				arrowAnchor = 'right';
 			}
 
 			const tooltipNode = this.tooltipRef.getBoundingClientRect(); // label bound
@@ -304,7 +303,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			tooltipDirection = adjustDirection(tooltipDirection, overflow, this.props.rtl);
 			arrowAnchor = adjustAnchor(arrowAnchor, tooltipDirection, overflow, this.props.rtl);
-
 
 			const tooltipPosition = getPosition(clientNode, tooltipDirection);
 			const labelOffset = arrowAnchor === 'center' ? getLabelOffset(tooltipNode, tooltipDirection, tooltipPosition, overflow) : null;

@@ -51,8 +51,8 @@ storiesOf('Sandstone', module)
 				<TooltipButton
 					tooltipDelay={number('tooltipDelay', Config, 500)}
 					tooltipText={text('tooltipText', Config, 'tooltip!')}
-					tooltipType={select('tooltipType', prop.tooltipType, Config, 'balloon')}
-					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'below')}
+					tooltipType={select('tooltipType', prop.tooltipType, Config)}
+					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config)}
 					tooltipRelative={boolean('tooltipRelative', Config)}
 					tooltipWidth={number('tooltipWidth', Config)}
 					tooltipProps={object('tooltipProps', Config, prop.ariaObject)}

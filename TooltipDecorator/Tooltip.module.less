@@ -82,52 +82,31 @@
 	}
 
 	&.transparent {
+		.tooltipLabel {
+			font-weight: @sand-tooltip-transparent-font-weight;
+			font-size: 36px;
+		}
 		.tooltipArrow {
-			visibility: hidden;
+			display: none;
 		}
 		&.below {
 			.tooltipLabel {
-				transform: translate(-50%, 0%);
-			}
-			&.centerArrow {
-				.tooltipLabel {
-					transform: translate(0%, 50%);
-				}
-			}
-			&.rightArrow {
-				.tooltipLabel {
-					transform: translate(50%, 0%);
-				}
-			}
-			&.leftArrow {
-				.tooltipLabel {
-					transform: translate(-50%, 0%);
-				}
+				margin-top: @sand-tooltip-transparent-label-offset;
 			}
 		}
 		&.above {
 			.tooltipLabel {
-				transform: translate(-50%, -100%);
-			}
-			&.centerArrow {
-				.tooltipLabel {
-					transform: translate(0%, 0%);
-				}
-			}
-			&.rightArrow {
-				.tooltipLabel {
-					transform: translate(50%, 0%);
-				}
-			}
-			&.leftArrow {
-				.tooltipLabel {
-					transform: translate(-50%, 0%);
-				}
+				margin-bottom: @sand-tooltip-transparent-label-offset;
 			}
 		}
-		&.left, &.right {
+		&.left {
 			.tooltipLabel {
-				transform: translate(0%, 0%);
+				margin-right: @sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.right {
+			.tooltipLabel {
+				margin-left: @sand-tooltip-transparent-label-offset;
 			}
 		}
 	}
