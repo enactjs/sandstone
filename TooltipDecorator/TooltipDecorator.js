@@ -278,7 +278,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		setTooltipLayout () {
-			const tooltipType = this.props.tooltipType;
 			if (!this.tooltipRef || !this.clientRef) return;
 
 			const screenEdgeKeepout = ri.scale(config.screenEdgeKeepout);
