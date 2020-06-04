@@ -285,7 +285,7 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<>
+			<React.Fragment>
 				{title}
 				<ContextualButton
 					{...rest}
@@ -298,7 +298,7 @@ const DropdownBase = kind({
 				>
 					{placeholder}
 				</ContextualButton>
-			</>
+			<React.Fragment />
 		);
 	}
 });
