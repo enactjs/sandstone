@@ -298,7 +298,7 @@ const DropdownBase = kind({
 				>
 					{placeholder}
 				</ContextualButton>
-			<React.Fragment />
+			</React.Fragment>
 		);
 	}
 });
