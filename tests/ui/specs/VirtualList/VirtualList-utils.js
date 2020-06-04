@@ -3,14 +3,15 @@ function focusedElement () {
 	return browser.execute(function () { return document.activeElement.id; });
 }
 
-function hitTest (__selector) {
+function hitTest (_selector) {
 	return  browser.execute(function (selector) {
-		const target = document.querySelector(selector),
+		const
+			target = document.querySelector(selector),
 			targetRect = target.getBoundingClientRect(),
 			targetDown = [targetRect.x + (targetRect.width / 2), targetRect.y + targetRect.height -2],
 			targetTop = [targetRect.x + (targetRect.width / 2), targetRect.y + 2];
 		return target.contains(document.elementFromPoint(...targetDown)) || target.contains(document.elementFromPoint(...targetTop));
-	}, __selector);
+	}, _selector);
 }
 
 function expectFocusedItem (itemNum, comment = 'focused item') {
