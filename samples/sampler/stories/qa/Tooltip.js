@@ -133,7 +133,7 @@ class ChangeableTooltip extends React.Component {
 					<Button onClick={this.changeTooltipText}>Change Text</Button>
 				</div>
 				<Button
-					icon="drawer"
+					icon="list"
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
 					tooltipText={this.state.text}
 					onClick={this.changeTooltipText}
