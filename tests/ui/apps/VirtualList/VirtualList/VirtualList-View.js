@@ -165,7 +165,7 @@ class app extends React.Component {
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											spacing={ri.scale(spacing)}
-											style={{height: ri.scaleToRem(itemSize * 9)}}
+											style={{height: ri.scaleToRem(156 * 9)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>

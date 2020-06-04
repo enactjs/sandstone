@@ -556,7 +556,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(2);
 				const curSpotlightSize = Page.spotlightSize();
 				expect(curSpotlightSize).to.equal(150);
-				// Step 4: Knobs > VirtualList > itemSize > 300
+				// Step 4: Knobs > VirtualList > itemSize > 50
 				Page.inputfieldItemSize.moveTo();
 				Page.spotlightSelect();
 				Page.backSpace();
