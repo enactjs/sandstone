@@ -55,3 +55,12 @@
 	will-change+: transform;
 	transition+: transform @sand-button-focus-duration ease-out;
 }
+
+.sand-popup-fullscreen-bg-colors() {
+	background-color: @sand-popup-bg-color;
+}
+
+.sand-popup-overlay-bg-colors() {
+	.sand-popup-fullscreen-bg-colors();
+	border-radius: @sand-popup-border-radius;
+}
