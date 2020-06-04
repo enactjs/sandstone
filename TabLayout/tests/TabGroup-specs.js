@@ -12,7 +12,7 @@ describe('TabGroup specs', () => {
 				tabs={[
 					{children: 'Home', icon: 'home'},
 					{children: 'Button'},
-					{children: 'Item', icon: 'resumeplay'}
+					{children: 'Item', icon: 'playcircle'}
 				]}
 			/>
 		);
@@ -29,8 +29,8 @@ describe('TabGroup specs', () => {
 			<TabGroup
 				tabs={[
 					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'image'},
-					{children: 'Item', icon: 'resumeplay'}
+					{children: 'Button', icon: 'demosync'},
+					{children: 'Item', icon: 'playcircle'}
 				]}
 			/>
 		);

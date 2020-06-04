@@ -6,6 +6,9 @@ const {focusedElement, waitUntilFocused} = require('../VirtualList-utils');
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+const scrollContentSelector = '.useScroll_useScroll_scrollContent';
+const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
 class VirtualListPage extends Page {
 
@@ -25,8 +28,21 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
+	get inputfieldSpacing () { return element('#spacing', browser); }
 	get scrollbar () { return $(`${scrollbarSelector}`); }
 	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
+	getScrollOffsetLeft () {
+		return browser.execute(function (_verticalscrollbarSelector){
+			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
+			return verticalscrollbar.offsetLeft;
+		}, verticalscrollbarSelector);
+	}
+	getScrollbarWidth () {
+		return browser.execute(function (_verticalscrollbarSelector){
+			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
+			return verticalscrollbar.clientWidth;
+		}, verticalscrollbarSelector);
+	}
 	get scrollThumb () { return $(`${scrollThumbSelector}`); }
 	getScrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector){
@@ -37,6 +53,12 @@ class VirtualListPage extends Page {
 	}
 	get list () { return element('#list', browser); }
 	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
+	getListwidthSize () {
+		return browser.execute(function (_scrollContentSelector){
+			const scrollcontent = document.querySelector(_scrollContentSelector);
+			return scrollcontent.clientWidth;
+		}, scrollContentSelector);
+	}
 
 	item (id) {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
@@ -98,6 +120,15 @@ class VirtualListPage extends Page {
 		}, this.item(id).value);
 	}
 
+	itemSpacing () {
+		return browser.execute(function (_listItemSelector){
+			const itemContent = document.querySelectorAll(_listItemSelector);
+			const firstItemRect = itemContent[0].getBoundingClientRect();
+			const secondItemRect = itemContent[1].getBoundingClientRect();
+			return Math.round(secondItemRect.top - firstItemRect.top - firstItemRect.height);
+		}, listItemSelector);
+	}
+
 	fiveWayToItem (itemNum) {
 		const currentItem = Number(focusedElement().slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
@@ -113,6 +144,20 @@ class VirtualListPage extends Page {
 			waitUntilFocused(i + direction);
 		}
 	}
+
+	backSpace () {
+		return this.keyDelay('Backspace');
+	}
+
+	numPad (num) {
+		let Inputnum = 'numpad' + String(num);
+		return this.keyDelay(Inputnum);
+	}
+
+	spotlightSize () {
+		return browser.execute(function () { return document.activeElement.clientHeight; });
+	}
+
 }
 
 module.exports = new VirtualListPage();

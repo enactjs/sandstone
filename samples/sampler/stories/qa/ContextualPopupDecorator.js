@@ -1,19 +1,16 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import {Group} from '@enact/ui/Group';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import {ContextualPopupDecorator} from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 
 const ContextualButton = ContextualPopupDecorator(Button);
 const Config = mergeComponentMetadata('ContextualButton', ContextualButton);
 ContextualButton.displayName = 'ContextualButton';
-const ContextualPopup = ContextualPopupDecorator(Button);
 
 const buttonMargin = () => ({margin: ri.scaleToRem(24)});
 
@@ -62,79 +59,6 @@ class ContextualPopupWithActivator extends React.Component {
 				onClick={this.handleOpenToggle}
 				open={this.state.open}
 			/>
-		);
-	}
-}
-
-// PLAT-77119
-class ContextualPopupWithArrowFunction extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isOpen: false,
-			twoGroup: false
-		};
-	}
-
-	componentDidUpdate (prevProps, prevState) {
-		if (this.ref && this.state.twoGroup !== prevState.twoGroup) {
-			this.ref.positionContextualPopup();
-		}
-	}
-
-	handleOnClick = () => {
-		this.setState({isOpen: true});
-	}
-
-	handleItemClick = () => {
-		this.setState((state) => {
-			return {twoGroup: !state.twoGroup};
-		});
-	}
-
-	setRef = (node) => {
-		this.ref = node;
-	}
-
-	popupComponent = () => {
-		return (
-			<div style={{display: 'flex'}}>
-				<div style={{display: 'flex'}}>
-					<Group
-						childComponent={CheckboxItem}
-						select="multiple"
-						selectedProp="selected"
-						onClick={this.handleItemClick}
-					>
-						{['click to change layout']}
-					</Group>
-				</div>
-				{this.state.twoGroup ?
-					<div style={{display: 'flex'}}>
-						<Group
-							childComponent={CheckboxItem}
-							select="multiple"
-							selectedProp="selected"
-						>
-							{['dummy item']}
-						</Group>
-					</div> : null
-				}
-			</div>
-		);
-	};
-	render () {
-		const {...rest} = this.props;
-
-		return (
-			<div {...rest} style={{display: 'flex', justifyContent: 'flex-end'}}>
-				<ContextualPopup
-					ref={this.setRef}
-					popupComponent={this.popupComponent}
-					open={this.state.isOpen}
-					onClick={this.handleOnClick}
-				/>
-			</div>
 		);
 	}
 }
@@ -215,7 +139,7 @@ storiesOf('ContextualPopupDecorator', module)
 				</div>
 				<div style={{display: 'flex', justifyContent: 'center', marginBottom: ri.scaleToRem(48)}}>
 					<ContextualPopupWithActivator
-						direction="left"
+						direction="left middle"
 						popupComponent={renderSuperTallPopup}
 					>
 						Overflows Bottom
@@ -249,11 +173,5 @@ storiesOf('ContextualPopupDecorator', module)
 					</ContextualPopupWithActivator>
 				</div>
 			</div>
-		)
-	)
-	.add(
-		'with arrow function',
-		() => (
-			<ContextualPopupWithArrowFunction />
 		)
 	);
