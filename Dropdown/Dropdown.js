@@ -5,7 +5,7 @@
  * <Dropdown
  * 		defaultSelected={2}
  *		inline
- *		title="Dropdown"
+ *		title="Options"
  * >
  *   {['Option 1', 'Option 2', 'Option 3', 'Option 4']}
  * </Dropdown>
@@ -32,6 +32,7 @@ import warning from 'warning';
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import {compareChildren} from '../internal/util';
+import Heading from '../Heading';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
@@ -150,6 +151,17 @@ const DropdownBase = kind({
 		open: PropTypes.bool,
 
 		/**
+		 * Text displayed in the Dropdown when nothing is selected.
+		 *
+		 * The placeholder will be replaced by the selected item.
+		 *
+		 * @type {String}
+		 * @default 'No selection'
+		 * @public
+		 */
+		placeholder: PropTypes.string,
+
+		/**
 		 * Index of the selected item.
 		 *
 		 * @type {Number}
@@ -158,9 +170,7 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
-		 * Primary title text of Dropdown.
-		 *
-		 * The title will be replaced by the selected item, if any.
+		 * Primary title text of the Dropdown.
 		 *
 		 * @type {String}
 		 * @public
@@ -180,6 +190,7 @@ const DropdownBase = kind({
 	defaultProps: {
 		direction: 'below',
 		open: false,
+		placeholder: 'No selection',
 		width: 'medium'
 	},
 
@@ -247,17 +258,25 @@ const DropdownBase = kind({
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
 		direction: ({direction}) => `${direction} center`,
-		title: ({children, selected, title}) => {
+		placeholder: ({children, placeholder, selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
 			}
 
-			return title;
-		}
+			return placeholder;
+		},
+		title: ({title}) => (title &&
+			<Heading
+				className={css.title}
+				size="tiny"
+			>
+				{title}
+			</Heading>
+		)
 	},
 
-	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, selected, width, title, ...rest}) => {
+	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, placeholder, selected, title, width, ...rest}) => {
 		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
@@ -266,17 +285,20 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<ContextualButton
-				{...rest}
-				disabled={hasChildren ? disabled : true}
-				icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
-				popupProps={popupProps}
-				popupComponent={DropdownList}
-				onClick={onOpen}
-				open={openDropdown}
-			>
+			<>
 				{title}
-			</ContextualButton>
+				<ContextualButton
+					{...rest}
+					disabled={hasChildren ? disabled : true}
+					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
+					popupProps={popupProps}
+					popupComponent={DropdownList}
+					onClick={onOpen}
+					open={openDropdown}
+				>
+					{placeholder}
+				</ContextualButton>
+			</>
 		);
 	}
 });
