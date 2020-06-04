@@ -56,7 +56,7 @@ const FeedbackTooltipBase = kind({
 		 * If the current `playbackState` allows this component's visibility to be changed,
 		 * this component will be hidden. If not, setting this property will have no effect.
 		 * All `playbackState`s respond to this property except the following:
-		 * `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`.
+		 * `'rewind'`, `'fastForward'`.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -83,7 +83,7 @@ const FeedbackTooltipBase = kind({
 
 		/**
 		 * Refers to one of the following possible media playback states.
-		 * `'play'`, `'pause'`, `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`,
+		 * `'play'`, `'pause'`, `'rewind'`, `'fastForward'` ,
 		 * `'jumpBackward'`, `'jumpForward'`, `'jumpToStart'`, `'jumpToEnd'`, `'stop'`.
 		 *
 		 * Each state understands where its related icon should be positioned, and whether it should
