@@ -278,7 +278,7 @@
 // ---------------------------------------
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
-@sand-fixedpopuppanels-margin: 120px @sand-component-spacing;
+@sand-fixedpopuppanels-margin: extract(@sand-popup-position-left-margin, 1) extract(@sand-popup-position-left-margin, 2);
 @sand-fixedpopuppanels-panel-padding: 0;
 @sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
