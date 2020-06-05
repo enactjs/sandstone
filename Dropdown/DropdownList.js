@@ -232,7 +232,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				prevSelectedKey: getKey(this.props),
 				// Resetting to SCROLLED when the selection is invalid so we focusSelected on the
 				// next update
-				ready: isSelectedValid(this.props) ? ReadyState.INIT : ReadyState.SCROLLED
+				ready: (isSelectedValid(this.props) || adjustedFocusIndex != null) ? ReadyState.INIT : ReadyState.SCROLLED
 			});
 		}
 
@@ -240,7 +240,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			let {selected} = this.props;
 			let ready = ReadyState.DONE;
 
-			if (isSelectedValid(this.props)) {
+			if (this.state.prevFocused != null || isSelectedValid(this.props)) {
 				if (this.state.prevFocused != null) {
 					selected = this.state.prevFocused;
 				}
