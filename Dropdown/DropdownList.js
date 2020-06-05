@@ -118,7 +118,9 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		// Note: Retaining this in case we need to support different item sizes for large text mode:
+		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		itemSize: () => 156
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
@@ -133,9 +135,9 @@ const DropdownListBase = kind({
 				{...rest}
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
-				itemSize={itemSize}
+				itemSize={ri.scale(itemSize)}
 				role="group"
-				style={{height: itemSize * dataSize + ri.scale(36)}}
+				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
 			/>
 		);
 	}
