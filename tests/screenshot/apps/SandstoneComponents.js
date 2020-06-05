@@ -40,6 +40,7 @@ import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
+import TooltipDecorator from './components/TooltipDecorator';
 import WizardPanels from './components/WizardPanels';
 
 const components = {
@@ -84,7 +85,7 @@ const components = {
 	SwitchItem,
 	TabLayout,
 	TimePicker,
-	// TooltipDecorator,
+	TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList,
 	WizardPanels
