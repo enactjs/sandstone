@@ -164,6 +164,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		static propTypes = {
 			/*
+			 * Called when an item receives focus.
+			 *
+			 * @type {Function}
+			 */
+			onFocus: PropTypes.func,
+
+			/*
 			 * Index of the selected item.
 			 *
 			 * @type {Number}
@@ -261,10 +268,11 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		handleFocus = (ev) => {
 			const current = ev.target;
 			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
-				current.dataset['index'] != null && this.node.contains(current)) {
-					const focusedIndex = Number(current.dataset['index']);
-					const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
-					this.setState({lastFocusedKey});
+				current.dataset['index'] != null && this.node.contains(current)
+			) {
+				const focusedIndex = Number(current.dataset['index']);
+				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
+				this.setState({lastFocusedKey});
 			}
 
 			if (this.props.onFocus) {
