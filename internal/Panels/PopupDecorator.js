@@ -63,6 +63,7 @@ const defaultConfig = {
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {className: cfgClassName, css, panelArranger, panelType} = config;
+	const Panels = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
 		name: 'PopupDecorator',
@@ -190,7 +191,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			return (
 				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
-					<Wrapped
+					<Panels
 						{...rest}
 						arranger={panelArranger}
 						generateId={generateId}
@@ -202,18 +203,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						type={panelType}
 					>
 						{children}
-					</Wrapped>
+					</Panels>
 				</Popup>
 			);
 		}
 	});
 
-	return CancelDecorator(
-		{cancel: 'onBack'},
-		IdProvider(
-			Skinnable(
-				Decorator
-			)
+	return IdProvider(
+		Skinnable(
+			Decorator
 		)
 	);
 });

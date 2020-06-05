@@ -27,7 +27,6 @@ storiesOf('Sandstone', module)
 					open={open}
 					onClose={action('onClose')}
 					title={text('title', Config, 'Fullscreen Alert Title')}
-					subtitle={text('subtitle', Config, 'This is a fullscreen Alert subtitle')}
 					type={select('type', ['fullscreen', 'overlay'], Config)}
 				>
 					{image ?

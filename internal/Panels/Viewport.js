@@ -229,12 +229,6 @@ const ViewportBase = class extends React.Component {
 			...rest
 		} = this.props;
 
-		// Relay each of the state-specific props to the context
-		const panelsContext = {
-			type,
-			index
-		};
-
 		const enteringProp = this.getEnteringProp(noAnimation);
 		const mappedChildren = this.mapChildren(children, generateId);
 		const className = classnames(css.viewport, rest.className);
@@ -244,6 +238,13 @@ const ViewportBase = class extends React.Component {
 			index === 0 && count === 0 || index < count,
 			`Panels index, ${index}, is invalid for number of children, ${count}`
 		);
+
+		// Relay each of the state-specific props to the context
+		const panelsContext = {
+			type,
+			index,
+			count
+		};
 
 		delete rest.className;
 		return (

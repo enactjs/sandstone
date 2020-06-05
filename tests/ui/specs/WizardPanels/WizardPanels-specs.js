@@ -102,5 +102,28 @@ describe('WizardPanels', function () {
 
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 		});
+
+		it('should select `.spottable-default` when it exists', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(1);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(2);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(3);
+
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+			wizardPanels.waitForLeave(4);
+
+			const expected = 'Second';
+			const actual = browser.execute(getFocusedTextContent);
+
+			expect(actual).to.be.equal(expected);
+		});
 	});
 });
