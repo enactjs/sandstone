@@ -8,8 +8,8 @@ function hitTest (_selector) {
 		const
 			target = document.querySelector(selector),
 			targetRect = target.getBoundingClientRect(),
-			targetDown = [targetRect.x + (targetRect.width / 2), targetRect.y + targetRect.height -2],
-			targetTop = [targetRect.x + (targetRect.width / 2), targetRect.y + 2];
+			targetDown = [targetRect.x + (targetRect.width / 2), targetRect.y + targetRect.height - 1],
+			targetTop = [targetRect.x + (targetRect.width / 2), targetRect.y + 1];
 		return target.contains(document.elementFromPoint(...targetDown)) || target.contains(document.elementFromPoint(...targetTop));
 	}, _selector);
 }
