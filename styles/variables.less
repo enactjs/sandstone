@@ -214,8 +214,7 @@
 @sand-button-icon-small-h-margin: @sand-button-icon-h-margin;
 @sand-button-icon-small-margin-end: @sand-button-icon-small-h-margin;
 @sand-button-icon-small-margin-start: 0;
-@sand-button-icon-small-h-padding: ((@sand-button-small-height - @sand-icon-small-size) / 2);
-@sand-button-icon-small-padding: 0 @sand-button-icon-small-h-padding;
+@sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
 @sand-button-focus-bg-transform: scale(1.05);
@@ -298,8 +297,8 @@
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 36px 117px 60px;
-@sand-header-standard-title-padding: 0 0 0 24px;
+@sand-header-standard-padding: (132px - extract(@sand-panel-padding, 1) - @sand-component-spacing) (144px - extract(@sand-panel-padding, 2)) 60px;
+@sand-header-standard-title-padding: 0 0 0 6px;
 @sand-header-standard-subtitle-margin: -24px 0 0 0;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
