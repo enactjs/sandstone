@@ -66,7 +66,7 @@ storiesOf('Text', module)
 					<Item label={children}>{children}</Item>
 					<ImageItem style={{height: 200}}>{children}</ImageItem>
 
-					<Heading showLine>ToggleItems</Heading>
+					<Heading showLine>Toggle Items</Heading>
 					<CheckboxItem>{children}</CheckboxItem>
 					<FormCheckboxItem>{children}</FormCheckboxItem>
 					<RadioItem>{children}</RadioItem>
