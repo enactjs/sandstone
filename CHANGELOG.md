@@ -10,8 +10,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Dropdown` prop `title` to optionally display a heading above the component
 - `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
 - `sandstone/KeyGuide` support for color keys
+
+### Changed
+
+- `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
 
 ### Fixed
 
