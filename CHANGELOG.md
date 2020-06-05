@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
 - `sandstone/Popup` to always remove scrim on close
+- `sandstone/TabLayout` button sizes to match the latest design
 - `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
 
 ## [1.0.0-beta.5] - 2020-06-01
