@@ -199,6 +199,8 @@ const ImageItemBase = kind({
 		showSelection: false
 	},
 
+	functional: true,
+
 	styles: {
 		css: componentCss,
 		publicClassNames: ['imageItem', 'caption', 'fullImage', 'horizontal', 'image', 'label', 'selected', 'selectionIcon', 'vertical']
@@ -206,30 +208,41 @@ const ImageItemBase = kind({
 
 	computed: {
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
-			const hasImageIcon = imageIconSrc && orientation === 'vertical';
+			return React.useMemo(() => {
 
-			if (!hasImageIcon && !children && !label) return;
+				console.log('sandstone children');
+				const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
-			return (
-				<Row className={css.captions}>
-					{hasImageIcon ? (
-						<Cell
-							className={css.imageIcon}
-							component={imageIconComponent}
-							src={imageIconSrc}
-							shrink
-						/>
-					) : null}
-					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-					</Cell>
-				</Row>
-			);
+				if (!hasImageIcon && !children && !label) return;
+
+				return (
+					<Row className={css.captions}>
+						{hasImageIcon ? (
+							<Cell
+								className={css.imageIcon}
+								component={imageIconComponent}
+								src={imageIconSrc}
+								shrink
+							/>
+						) : null}
+						<Cell>
+							<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
+							{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+						</Cell>
+					</Row>
+				);
+			}, [css, imageIconComponent, imageIconSrc, label !== 'undefined', orientation])
 		},
-		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
-			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
-		})
+		className: ({children, imageIconSrc, label, orientation, styler}) => {
+			return styler.append(
+				React.useMemo(() => {
+					console.log('sandstone className');
+					return {
+						fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+					};
+				}, [!!children, !!imageIconSrc, !!label, orientation])
+			)
+		}
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
