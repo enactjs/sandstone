@@ -279,6 +279,7 @@
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
 @sand-fixedpopuppanels-margin: extract(@sand-popup-position-left-margin, 1) extract(@sand-popup-position-left-margin, 2);
+@sand-fixedpopuppanels-border-radius: @sand-popup-border-radius;
 @sand-fixedpopuppanels-panel-padding: 0;
 @sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
@@ -287,6 +288,7 @@
 @sand-flexiblepopuppanels-min-width: 1140px;
 @sand-flexiblepopuppanels-margin: 108px 0;
 @sand-flexiblepopuppanels-padding: 0 (@sand-component-spacing + @sand-button-small-height) (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-border-radius: @sand-popup-border-radius;
 @sand-flexiblepopuppanels-panel-margin: 0 12px;
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
