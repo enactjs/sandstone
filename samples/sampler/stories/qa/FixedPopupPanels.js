@@ -3,6 +3,7 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {Column, Cell} from '@enact/ui/Layout';
 
 import BodyText from '@enact/sandstone/BodyText';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
@@ -19,8 +20,8 @@ Config.defaultProps.width = 'narrow';
 // eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
 	return (
-		<Item {...rest} style={{height: ri.scaleToRem(54)}}>
-			{index}
+		<Item {...rest}>
+			Item {index + 1}
 		</Item>
 	);
 };
@@ -32,7 +33,7 @@ storiesOf('FixedPopupPanels', module)
 			<div>
 				<FixedPopupPanels
 					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
-					open={boolean('open', Config)}
+					open={boolean('open', Config, true)}
 					position={select('position', ['left', 'right'], Config)}
 					width={select('width', ['narrow', 'half'], Config)}
 					noAnimation={boolean('noAnimation', Config)}
@@ -53,12 +54,18 @@ storiesOf('FixedPopupPanels', module)
 								A panel type for options views
 							</subtitle>
 						</Header>
-						<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
-						<VirtualList
-							itemSize={ri.scale(102)}
-							itemRenderer={itemRenderer}
-							dataSize={20}
-						/>
+						<Column>
+							<Cell shrink>
+								<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
+							</Cell>
+							<Cell>
+								<VirtualList
+									itemSize={ri.scale(156)}
+									itemRenderer={itemRenderer}
+									dataSize={20}
+								/>
+							</Cell>
+						</Column>
 					</Panel>
 					<Panel>
 						<Header>
@@ -69,9 +76,8 @@ storiesOf('FixedPopupPanels', module)
 								This is the second page
 							</subtitle>
 						</Header>
-						<BodyText>Woo woo</BodyText>
 						<VirtualList
-							itemSize={ri.scale(102)}
+							itemSize={ri.scale(156)}
 							itemRenderer={itemRenderer}
 							dataSize={20}
 						/>
