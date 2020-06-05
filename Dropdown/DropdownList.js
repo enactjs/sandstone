@@ -230,21 +230,19 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				prevFocused: adjustedFocusIndex,
 				prevSelected: this.props.selected,
 				prevSelectedKey: getKey(this.props),
-				// Resetting to SCROLLED when the selection is invalid so we focusSelected on the
-				// next update
 				ready: ReadyState.INIT
 			});
 		}
 
 		scrollIntoView = () => {
 			let {selected} = this.props;
-			let ready = ReadyState.DONE;
 
 			if (this.state.prevFocused == null && !isSelectedValid(this.props)) {
 				selected = 0;
 			} else if (this.state.prevFocused != null) {
-					selected = this.state.prevFocused;
+				selected = this.state.prevFocused;
 			}
+
 			this.scrollTo({
 				animate: false,
 				focus: true,
@@ -252,15 +250,12 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				offset: ri.scale(312), // @sand-item-height * 2
 				stickTo: 'start' // offset from the top of the dropdown
 			});
-			ready = ReadyState.SCROLLED;
 
-			this.setState({ready});
+			this.setState({ready: ReadyState.SCROLLED});
 		}
 
 		focusSelected () {
-//			if (Spotlight.focus(this.node.dataset.spotlightId) || Spotlight.getPointerMode()) {
-				this.setState({ready: ReadyState.DONE});
-//			}
+			this.setState({ready: ReadyState.DONE});
 		}
 
 		handleFocus = (ev) => {
