@@ -271,8 +271,8 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -405,6 +405,7 @@
 // ---------------------------------------
 @sand-item-height: 156px;
 @sand-item-height-large: @sand-item-height;
+@sand-item-shadow-height: 36px;
 @sand-item-withlabel-height: 240px;
 @sand-item-vertical-padding: 6px;
 @sand-item-line-height: 1.3em;
