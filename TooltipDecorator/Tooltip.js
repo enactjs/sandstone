@@ -9,12 +9,12 @@ import TooltipLabel from './TooltipLabel';
 import componentCss from './Tooltip.module.less';
 
 
-//Set the default Arrow Anchor value based on the type of tooltip
+// Set the default Arrow Anchor value based on the type of tooltip
 function defaultArrowAnchor (type) {
 	return (type === 'transparent' ? 'center' : 'right');
 }
 
-//Set the default Direction of tooltip based on the type of tooltip
+// Set the default Direction of tooltip based on the type of tooltip
 function defaultDirection (type) {
 	return (type === 'transparent' ? 'below' : 'above');
 }
