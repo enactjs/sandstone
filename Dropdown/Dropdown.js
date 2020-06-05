@@ -246,7 +246,7 @@ const DropdownBase = kind({
 					return {
 						...aria,
 						children: child,
-						key: `item${i}`
+						key: `item_${child}`
 					};
 				}
 
