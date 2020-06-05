@@ -29,7 +29,7 @@ const getKey = ({children, selected}) => {
 };
 
 const indexFromKey = (children, key) => {
-	let index = 0;
+	let index = -1;
 	if (children) {
 		if (typeof children[0] === 'object') {
 			index = children.findIndex(child => child.key === key);
@@ -39,7 +39,7 @@ const indexFromKey = (children, key) => {
 		}
 	}
 
-	return index < 0 ? 0 : index;
+	return index;
 }
 
 const DropdownListBase = kind({
@@ -219,11 +219,10 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		resetFocus (keysDiffer) {
 			let adjustedFocusIndex;
 
-			if (!keysDiffer && !Spotlight.getPointerMode()) {
-				const current = Spotlight.getCurrent();
-				if (this.node.contains(current) && current.dataset['index'] != null) {
-					const focusedIndex = Number(current.dataset['index']);
-					adjustedFocusIndex = indexFromKey(this.props.children, getKey({children: this.state.prevChildren, selected: focusedIndex}));
+			if (!keysDiffer && this.state.lastFocusedKey) {
+				const targetIndex = indexFromKey(this.props.children, this.state.lastFocusedKey);
+				if (targetIndex >= 0) {
+					adjustedFocusIndex = targetIndex;
 				}
 			}
 
@@ -260,14 +259,28 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		focusSelected () {
-			if (Spotlight.focus(this.node.dataset.spotlightId) || Spotlight.getPointerMode()) {
+//			if (Spotlight.focus(this.node.dataset.spotlightId) || Spotlight.getPointerMode()) {
 				this.setState({ready: ReadyState.DONE});
+//			}
+		}
+
+		handleFocus = (ev) => {
+			const current = ev.target;
+			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode()
+				&& current.dataset['index'] != null && this.node.contains(current)) {
+					const focusedIndex = Number(current.dataset['index']);
+					const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
+					this.setState({lastFocusedKey});
+			}
+
+			if (this.props.onFocus) {
+				this.props.onFocus(ev);
 			}
 		}
 
 		render () {
 			return (
-				<Wrapped {...this.props} scrollTo={this.setScrollTo} />
+				<Wrapped {...this.props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
 			);
 		}
 	};
