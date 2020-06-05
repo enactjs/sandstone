@@ -90,7 +90,7 @@ const DropdownListBase = kind({
 
 	styles: {
 		css,
-		className: 'dropDownList'
+		className: 'dropdownList'
 	},
 
 	handlers: {
