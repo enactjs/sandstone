@@ -9,27 +9,27 @@ const title = 'Options';
 
 describe('Dropdown', () => {
 	test('should have default `placeholder` when a value is not provided', () => {
-		const dropDown = mount(
+		const dropDown = shallow(
 			<DropdownBase>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = '󯿭No selection';
-		const actual = dropDown.find('.button').text();
+		const expected = 'No selection';
+		const actual = dropDown.find('.dropdown').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should have `placeholder` when a value is provided', () => {
-		const dropDown = mount(
+		const dropDown = shallow(
 			<DropdownBase placeholder={placeholder}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = `󯿭${placeholder}`;
-		const actual = dropDown.find('.button').text();
+		const expected = placeholder;
+		const actual = dropDown.find('.dropdown').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -48,14 +48,14 @@ describe('Dropdown', () => {
 	});
 
 	test('should have `placeholder` when `children` is invalid', () => {
-		const dropDown = mount(
+		const dropDown = shallow(
 			<DropdownBase placeholder={placeholder}>
 				{null}
 			</DropdownBase>
 		);
 
-		const expected = `󯿭${placeholder}`;
-		const actual = dropDown.find('.button').text();
+		const expected = placeholder;
+		const actual = dropDown.find('.dropdown').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -63,27 +63,27 @@ describe('Dropdown', () => {
 	test('should have `placeholder` that reflects `selected` option', () => {
 		const selectedIndex = 1;
 
-		const dropDown = mount(
+		const dropDown = shallow(
 			<DropdownBase selected={selectedIndex}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = `󯿭${children[selectedIndex]}`;
-		const actual = dropDown.find('.button').text();
+		const expected = children[selectedIndex];
+		const actual = dropDown.find('.dropdown').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
 	test('should have `placeholder` when `selected` is invalid', () => {
-		const dropDown = mount(
+		const dropDown = shallow(
 			<DropdownBase placeholder={placeholder} selected={-1}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = `󯿭${placeholder}`;
-		const actual = dropDown.find('.button').text();
+		const expected = placeholder;
+		const actual = dropDown.find('.dropdown').prop('children');
 
 		expect(actual).toBe(expected);
 	});
