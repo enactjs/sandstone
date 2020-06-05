@@ -104,7 +104,7 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		cbAlertScrollbarTrack: alertScrollbarTrack,
 		onInteractionForScroll
 	};
 
@@ -160,15 +160,8 @@ const useThemeScroll = (props, instances) => {
 
 	function alertScrollbarTrack () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
-
 		scrollContainerHandle.current.showScrollbarTrack(bounds);
 		scrollContainerHandle.current.startHidingScrollbarTrack();
-	}
-
-	function alertScrollbarTrackAfterRendered () {
-		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
-			alertScrollbarTrack();
-		}
 	}
 
 	function focusOnItem () {
@@ -329,7 +322,6 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
