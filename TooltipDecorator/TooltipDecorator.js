@@ -18,7 +18,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ri from '@enact/ui/resolution';
 
-import {Tooltip, TooltipBase} from './Tooltip';
+import {Tooltip, TooltipBase, defaultArrowAnchor, defaultDirection} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
 
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
@@ -223,7 +223,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		static defaultProps = {
 			disabled: false,
 			tooltipDelay: 500,
-			tooltipPosition: 'above',
 			tooltipType: 'balloon',
 			tooltipUpdateDelay: 400
 		}
@@ -278,10 +277,11 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		setTooltipLayout () {
+			const tooltipType = this.props.tooltipType;
 			if (!this.tooltipRef || !this.clientRef) return;
 
 			const screenEdgeKeepout = ri.scale(config.screenEdgeKeepout);
-			const position = this.props.tooltipPosition;
+			const position = this.props.tooltipPosition || (defaultDirection(tooltipType) + ' ' + defaultArrowAnchor(tooltipType));
 			const arr = position.split(' ');
 			let tooltipDirection = null;
 			let arrowAnchor = null;

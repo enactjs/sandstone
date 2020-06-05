@@ -8,6 +8,17 @@ import Skinnable from '../Skinnable';
 import TooltipLabel from './TooltipLabel';
 import componentCss from './Tooltip.module.less';
 
+
+//Set the default Arrow Anchor value based on the type of tooltip
+function defaultArrowAnchor (type) {
+	return (type === 'transparent' ? 'center' : 'right');
+}
+
+//Set the default Direction of tooltip based on the type of tooltip
+function defaultDirection (type) {
+	return (type === 'transparent' ? 'below' : 'above');
+}
+
 /**
  * A stateless tooltip component with Sandstone styling applied.
  *
@@ -141,8 +152,6 @@ const TooltipBase = kind({
 
 	defaultProps: {
 		type: 'balloon',
-		arrowAnchor: 'right',
-		direction: 'above',
 		labelOffset: 0
 	},
 
@@ -159,7 +168,7 @@ const TooltipBase = kind({
 				return {transform: `translateX(${cappedPosition * 100}%)`};
 			}
 		},
-		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(direction, `${arrowAnchor}Arrow`, {relative, absolute: !relative}, type),
+		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(direction || defaultDirection(type), `${arrowAnchor || defaultArrowAnchor(type)}Arrow`, {relative, absolute: !relative}, type),
 		style: ({position, style}) => {
 			return {
 				...style,
@@ -200,4 +209,4 @@ const TooltipBase = kind({
 const Tooltip = Skinnable(TooltipBase);
 
 export default Tooltip;
-export {Tooltip, TooltipBase};
+export {Tooltip, TooltipBase, defaultArrowAnchor, defaultDirection};
