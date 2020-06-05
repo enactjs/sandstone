@@ -33,7 +33,7 @@ const inputData = {
 Item.displayName = 'Item';
 Icon.displayName = 'Icon';
 
-const KsIcon = <Icon size="small">flag</Icon>;
+const KsIcon = <Icon size="small">notification</Icon>;
 
 storiesOf('Item', module)
 	.add(
@@ -93,14 +93,14 @@ storiesOf('Item', module)
 				<Item>
 					{text('Text with iconAfter', Item, 'Item with text that is spottable with an icon(at the end of the string)')}
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>
-						{select('iconAfter', iconNames, Item, 'pauseforward')}
+						{select('iconAfter', iconNames, Item, 'arrowhookright')}
 					</Icon>
 				</Item>
 				<Item>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>gear</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>minus</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>trash</Icon>
-					<Icon size={select('size', ['small', 'large'], Item, 'large')}>flag</Icon>
+					<Icon size={select('size', ['small', 'large'], Item, 'large')}>notification</Icon>
 				</Item>
 			</div>
 		)
