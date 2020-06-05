@@ -208,7 +208,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
 	 *
 	 * @type {String}
 	 * @default $L('scroll up down with up down button')
@@ -366,7 +366,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
 	 *
 	 * @type {String}
 	 * @default $L('scroll left right with left right button')

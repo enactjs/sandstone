@@ -195,7 +195,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
 	 *
 	 * @type {String}
 	 * @default $L('scroll up down with up down button')
@@ -419,7 +419,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
 	 *
 	 * @type {String}
 	 * @default $L('scroll left right with left right button')
@@ -644,6 +644,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
 	 * Unique identifier for the component.
 	 *
 	 * When defined and when the `VirtualGridList` is within a [Panel]{@link sandstone/Panels.Panel},
@@ -831,24 +840,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	scrollMode: PropTypes.string,
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll up down with up down button')
-	 * @public
-	 */
-	horizontalScrollThumbAriaLabel: PropTypes.string,
-
-	/**
-	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll left right with left right button')
-	 * @public
-	 */
-	verticalScrollThumbAriaLabel: PropTypes.string,
-
-	/**
 	 * Spotlight Id.
 	 *
 	 * @type {String}
@@ -869,6 +860,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
