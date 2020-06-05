@@ -33,14 +33,13 @@ const indexFromKey = (children, key) => {
 	if (children) {
 		if (typeof children[0] === 'object') {
 			index = children.findIndex(child => child.key === key);
-		}
-		else {
+		} else {
 			index = children.findIndex(child => child === key);
 		}
 	}
 
 	return index;
-}
+};
 
 const DropdownListBase = kind({
 	name: 'DropdownListBase',
@@ -203,9 +202,9 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				const key = getKey(this.props);
 				const keysDiffer = key && this.state.prevSelectedKey && key !== this.state.prevSelectedKey;
 
-				if (keysDiffer
-					|| ((!key || !this.state.prevSelectedKey) && this.state.prevSelected !== this.props.selected)
-					|| !compareChildren(this.state.prevChildren, this.props.children)
+				if (keysDiffer ||
+					((!key || !this.state.prevSelectedKey) && this.state.prevSelected !== this.props.selected) ||
+					!compareChildren(this.state.prevChildren, this.props.children)
 				) {
 					this.resetFocus(keysDiffer);
 				}
@@ -266,8 +265,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		handleFocus = (ev) => {
 			const current = ev.target;
-			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode()
-				&& current.dataset['index'] != null && this.node.contains(current)) {
+			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
+				current.dataset['index'] != null && this.node.contains(current)) {
 					const focusedIndex = Number(current.dataset['index']);
 					const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
 					this.setState({lastFocusedKey});
