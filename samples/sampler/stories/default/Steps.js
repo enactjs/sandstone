@@ -5,13 +5,13 @@ import {storiesOf} from '@storybook/react';
 
 import Steps, {StepsBase} from '@enact/sandstone/Steps';
 
-import iconNames, {starIcons} from './icons';
+import iconNames from './icons';
 
 Steps.displayName = 'Steps';
 const Config = mergeComponentMetadata('Steps', StepsBase, Steps);
 
 const prop = {
-	icons: [null, 'numbers', ...starIcons, ...iconNames],
+	icons: [null, 'numbers', ...iconNames],
 	sizes: ['tiny', 'small', 'medium', 'large'],
 	skip: {
 		'null (Default, skip nothing)': null,

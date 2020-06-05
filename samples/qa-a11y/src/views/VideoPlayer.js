@@ -1,7 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import VideoPlayer, {MediaControls} from '@enact/sandstone/VideoPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
+import VideoPlayer from '@enact/sandstone/VideoPlayer';
 
 const VideoPlayerView = () => (
 	<div style={{width: ri.scale(1280) + 'px', height: ri.scale(800) + 'px'}}>
@@ -10,7 +11,7 @@ const VideoPlayerView = () => (
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
 			<MediaControls>
 				<Button backgroundOpacity="transparent" icon="star" />
-				<Button backgroundOpacity="transparent" icon="flag" />
+				<Button backgroundOpacity="transparent" icon="home" />
 				<Button backgroundOpacity="transparent">Add To Favorites</Button>
 				<Button icon="search" backgroundOpacity="transparent" />
 			</MediaControls>

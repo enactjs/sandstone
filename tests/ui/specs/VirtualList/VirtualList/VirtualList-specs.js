@@ -19,8 +19,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(0);
 		});
 
-		// TODO: Failing on Jenkins
-		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
+		it('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 			Page.spotlightDown(); // is on Left button
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 3. 5-way Spot the second item 'Item 001'.
@@ -35,7 +34,6 @@ describe('VirtualList', function () {
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.fiveWayToItem(17);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			waitForScrollStartStop();
 			Page.delay(100);
 			expectFocusedItem(17, 'step 5 focus');
 			// Step 6. Press Channel Down.
@@ -50,7 +48,6 @@ describe('VirtualList', function () {
 			expectFocusedItem(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.fiveWayToItem(7);
-			waitForScrollStartStop();
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(7, 'step 8 focus');
 			// Step 9. Press Channel Up.
@@ -111,9 +108,7 @@ describe('VirtualList', function () {
 			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
 		});
 
-		// Need mochaOpts - timeout set to 60000 to pass
-		// TODO: Failing on Jenkins
-		it.skip('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
+		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
@@ -431,7 +426,6 @@ describe('VirtualList', function () {
 				waitForScrollStartStop();
 			});
 		});
-
 		describe('Datasize change', function () {
 			beforeEach(function () {
 				Page.open();
@@ -446,6 +440,8 @@ describe('VirtualList', function () {
 				Page.backSpace();
 				Page.backSpace();
 				Page.numPad(4);
+				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
+				Page.backKey();
 				Page.spotlightDown();
 				Page.spotlightRight();
 				// Check First item
@@ -467,6 +463,112 @@ describe('VirtualList', function () {
 				expectFocusedItem(1, 'focus Item 01');
 				$('#item0').moveTo();
 				expectFocusedItem(0, 'focus Item 00');
+			});
+		});
+
+		describe('spotlight size compare', function () {
+			beforeEach(function () {
+				Page.open();
+			});
+
+			it('should maintain spotlight size when spacing 100[GT-28462]', function () {
+				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				const defaultSpotlightSize = Page.spotlightSize();
+				// Step 3 Verify: The default value for the 'spacing' knob is 0.
+				const defaultSpacing = Page.itemSpacing();
+				expect(defaultSpacing).to.equal(0);
+				// Step 4: Knobs > VirtualList > spacing > 100
+				Page.inputfieldSpacing.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.numPad(1);
+				Page.numPad(0);
+				Page.numPad(0);
+				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
+				Page.backKey();
+				// 100 spacing value is 50 for 4k and 25 for FHD.
+				// Step 4 Verify: The gap between items grows bigger.
+				const changedSpacing = Page.itemSpacing();
+				expect(changedSpacing).to.equal(50);
+				// Step5-1: Hover an item.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item5').moveTo();
+				expectFocusedItem(5);
+				// Step5 Verify: The spotlight size does not change.
+				expect(Page.spotlightSize()).to.equal(defaultSpotlightSize);
+				// Step 6: Knobs > VirtualList > spacing > 50
+				Page.inputfieldSpacing.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(5);
+				Page.numPad(0);
+				Page.backKey();
+				// 50 spacing value is 50 for 4k and 25 for FHD.
+				const newSpacing = Page.itemSpacing();
+				expect(newSpacing).to.equal(25);
+				// Step7-1: Hover an item.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item3').moveTo();
+				expectFocusedItem(3);
+				// Step7 Verify: The spotlight size does not change.
+				expect(Page.spotlightSize()).to.equal(defaultSpotlightSize);
+			});
+
+			it('should change spotlight size when item`s size changing [GT-28459]', function () {
+				// Step 3 Verify: The default value for the 'itemSize' knob is itemSizeValue(default size is 156 for 4k) or half of 4k(78 for 2k).
+				const defaultItemSize = Page.getItemSize();
+				expect(defaultItemSize.height).to.equal(78);
+				expect(defaultItemSize.width).to.equal(1200);
+				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				const defaultSpotlightSize = Page.spotlightSize();
+				expect(defaultSpotlightSize).to.equal(78);
+				// Step 4: Knobs > VirtualList > itemSize > 300
+				Page.inputfieldItemSize.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(3);
+				Page.numPad(0);
+				Page.numPad(0);
+				Page.backKey();
+				// Verify item size
+				const curItemSize = Page.getItemSize();
+				expect(curItemSize.height).to.equal(150);
+				expect(curItemSize.width).to.equal(defaultItemSize.width);
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item2').moveTo();
+				expectFocusedItem(2);
+				const curSpotlightSize = Page.spotlightSize();
+				expect(curSpotlightSize).to.equal(150);
+				// Step 4: Knobs > VirtualList > itemSize > 50
+				Page.inputfieldItemSize.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(5);
+				Page.numPad(0);
+				Page.backKey();
+				// Verify item size
+				const newItemSize = Page.getItemSize();
+				expect(newItemSize.height).to.equal(25);
+				expect(newItemSize.width).to.equal(defaultItemSize.width);
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item4').moveTo();
+				expectFocusedItem(4);
+				const newSpotlightSize = Page.spotlightSize();
+				expect(newSpotlightSize).to.equal(25);
 			});
 		});
 	});

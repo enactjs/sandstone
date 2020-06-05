@@ -18,7 +18,7 @@ const app = (props) => (
 		id="tabLayout"
 		open
 	>
-		<Tab icon="brightness" title="Display">
+		<Tab icon="picture" title="Display">
 			<TabPanels id="display">
 				<TabPanel autoFocus="#colorAdjust">
 					<Header title="Display Settings" type="compact" />
@@ -27,7 +27,7 @@ const app = (props) => (
 				</TabPanel>
 			</TabPanels>
 		</Tab>
-		<Tab icon="speakers" title="Sound">
+		<Tab icon="speaker" title="Sound">
 			<TabPanels id="sound">
 				<TabPanel>
 					<Header title="Sound Settings" type="compact" />
