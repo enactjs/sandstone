@@ -81,7 +81,7 @@ const ButtonTests = [
 	<Button icon="info">click me</Button>,
 
 	// [GT-28183]
-	<Button icon="repeatoff">click me</Button>,
+	<Button icon="rotate">click me</Button>,
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************

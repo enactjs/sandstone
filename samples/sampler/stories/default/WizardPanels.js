@@ -64,7 +64,7 @@ storiesOf('Sandstone', module)
 				<WizardPanels.Panel subtitle="A subtitle for View 3" title="WizardPanel View 3">
 					<Item>
 						<slotBefore>
-							<Icon>resumeplay</Icon>
+							<Icon>notification</Icon>
 						</slotBefore>
 						Hello Item
 					</Item>
@@ -75,7 +75,7 @@ storiesOf('Sandstone', module)
 					title="WizardPanel View 4"
 					nextButton={boolean('custom last Panel nextButton', Config) ? <Button icon="closex" aria-label="quit">Close</Button> : void 0}
 				>
-					<Icon>resumeplay</Icon>
+					<Icon>support</Icon>
 					<BodyText>A simple view</BodyText>
 					<footer>
 						<Button>OK</Button>

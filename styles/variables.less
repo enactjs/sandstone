@@ -168,6 +168,7 @@
 @sand-alert-max-buttons-margin-top: 300px;
 @sand-alert-fullscreen-button-spacing: 60px;
 @sand-alert-fullscreen-image-spacing: 30px;
+@sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
@@ -270,8 +271,8 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
 
 // FixedPopupPanels
 // ---------------------------------------
@@ -282,10 +283,13 @@
 
 // FlexiblePopupPanels
 // ---------------------------------------
-@sand-flexiblepopuppanels-width: 50vw;
-@sand-flexiblepopuppanels-margin-top: 108px;
-@sand-flexiblepopuppanels-panel-margin: 0 @sand-component-spacing (42px + (24px * 1.75)) @sand-component-spacing;  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-min-width: 1140px;
+@sand-flexiblepopuppanels-margin: 108px 0;
+@sand-flexiblepopuppanels-padding: 0 (@sand-component-spacing + @sand-button-small-height) (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-margin: 0 12px;
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
+@sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
+@sand-flexiblepopuppanels-navbutton-margin: 0;
 
 // Header
 // ---------------------------------------
@@ -400,6 +404,7 @@
 // ---------------------------------------
 @sand-item-height: 156px;
 @sand-item-height-large: @sand-item-height;
+@sand-item-shadow-height: 36px;
 @sand-item-withlabel-height: 240px;
 @sand-item-vertical-padding: 6px;
 @sand-item-line-height: 1.3em;
@@ -413,11 +418,16 @@
 
 // Keyguide
 // ---------------------------------------
-@sand-keyguide-width: 750px;
+@sand-keyguide-colordot-height: 12px;
+@sand-keyguide-colordot-margin: 0 ((@sand-icon-small-size - @sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+@sand-keyguide-colordot-width: 60px;
+@sand-keyguide-colordot-border-radius: 6px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 24px 0;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
-@sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding: 6px 0;
+@sand-keyguide-width: 750px;
+@sand-keyguide-item-height: 120px;
 
 // MediaOverlay
 // ---------------------------------------

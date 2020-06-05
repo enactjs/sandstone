@@ -146,14 +146,14 @@ storiesOf('Sandstone', module)
 									/>
 								</Scroller>
 							</TabLayout.Tab>
-							<TabLayout.Tab title="Button" icon="image">
-								<Button icon="image">Button!</Button>
-								<Button icon="image">Button!</Button>
-								<Button icon="image">Button!</Button>
-								<Button icon="image">Button!</Button>
+							<TabLayout.Tab title="Button" icon="demosync">
+								<Button icon="demosync">Button!</Button>
+								<Button icon="demosync">Button!</Button>
+								<Button icon="demosync">Button!</Button>
+								<Button icon="demosync">Button!</Button>
 							</TabLayout.Tab>
-							<TabLayout.Tab title="Item" icon="resumeplay">
-								<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
+							<TabLayout.Tab title="Item" icon="playcircle">
+								<Item slotBefore={<Icon>playcircle</Icon>}>Hello Item</Item>
 							</TabLayout.Tab>
 						</TabLayout>
 					</Panel>

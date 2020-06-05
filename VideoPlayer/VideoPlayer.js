@@ -2058,7 +2058,7 @@ const VideoPlayerBase = class extends React.Component {
  *		<infoComponents>A video about my cat Boots, wearing boots.</infoComponents>
  *		<MediaControls>
  *			<leftComponents><Button backgroundOpacity="translucent" icon="star" /></leftComponents>
- *			<rightComponents><Button backgroundOpacity="translucent" icon="flag" /></rightComponents>
+ *			<rightComponents><Button backgroundOpacity="translucent" icon="notification" /></rightComponents>
  *
  *			<Button backgroundOpacity="translucent">Add To Favorites</Button>
  *			<Button backgroundOpacity="translucent" icon="search" />

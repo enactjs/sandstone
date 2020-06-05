@@ -103,7 +103,7 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 144 : 120)
+		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
@@ -120,7 +120,7 @@ const DropdownListBase = kind({
 				dataSize={dataSize}
 				itemSize={itemSize}
 				role="group"
-				style={{height: itemSize * dataSize}}
+				style={{height: itemSize * dataSize + ri.scale(36)}}
 			/>
 		);
 	}
