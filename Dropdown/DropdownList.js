@@ -18,6 +18,30 @@ import {compareChildren} from '../internal/util';
 
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
 
+const getKey = ({children, selected}) => {
+	if (isSelectedValid({children, selected})) {
+		if (typeof children[selected] === 'object') {
+			return children[selected].key;
+		} else {
+			return children[selected];
+		}
+	}
+};
+
+const indexFromKey = (children, key) => {
+	let index = 0;
+	if (children) {
+		if (typeof children[0] === 'object') {
+			index = children.findIndex(child => child.key === key);
+		}
+		else {
+			index = children.findIndex(child => child === key);
+		}
+	}
+
+	return index < 0 ? 0 : index;
+}
+
 const DropdownListBase = kind({
 	name: 'DropdownListBase',
 
@@ -153,7 +177,9 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 			this.state = {
 				prevChildren: props.children,
-				prevSelected: props.selected,
+				prevFocused: null,
+				prevSelected: this.props.selected,
+				prevSelectedKey: getKey(props),
 				ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
 			};
 		}
@@ -173,11 +199,16 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.scrollIntoView();
 			} else if (this.state.ready === ReadyState.SCROLLED) {
 				this.focusSelected();
-			} else if (
-				this.state.prevSelected !== this.props.selected ||
-				!compareChildren(this.state.prevChildren, this.props.children)
-			) {
-				this.resetFocus();
+			} else {
+				const key = getKey(this.props);
+				const keysDiffer = key && this.state.prevSelectedKey && key !== this.state.prevSelectedKey;
+
+				if (keysDiffer
+					|| ((!key || !this.state.prevSelectedKey) && this.state.prevSelected !== this.props.selected)
+					|| !compareChildren(this.state.prevChildren, this.props.children)
+				) {
+					this.resetFocus(keysDiffer);
+				}
 			}
 		}
 
@@ -185,10 +216,22 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			this.scrollTo = scrollTo;
 		}
 
-		resetFocus () {
+		resetFocus (keysDiffer) {
+			let adjustedFocusIndex;
+
+			if (!keysDiffer && !Spotlight.getPointerMode()) {
+				const current = Spotlight.getCurrent();
+				if (this.node.contains(current) && current.dataset['index'] != null) {
+					const focusedIndex = Number(current.dataset['index']);
+					adjustedFocusIndex = indexFromKey(this.props.children, getKey({children: this.state.prevChildren, selected: focusedIndex}));
+				}
+			}
+
 			this.setState({
 				prevChildren: this.props.children,
+				prevFocused: adjustedFocusIndex,
 				prevSelected: this.props.selected,
+				prevSelectedKey: getKey(this.props),
 				// Resetting to SCROLLED when the selection is invalid so we focusSelected on the
 				// next update
 				ready: isSelectedValid(this.props) ? ReadyState.INIT : ReadyState.SCROLLED
@@ -196,10 +239,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		}
 
 		scrollIntoView = () => {
-			const {selected} = this.props;
+			let {selected} = this.props;
 			let ready = ReadyState.DONE;
 
 			if (isSelectedValid(this.props)) {
+				if (this.state.prevFocused != null) {
+					selected = this.state.prevFocused;
+				}
 				this.scrollTo({
 					animate: false,
 					focus: true,
