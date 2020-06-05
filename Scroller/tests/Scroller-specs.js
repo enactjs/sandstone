@@ -86,7 +86,7 @@ describe('Scroller', () => {
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollThumbAriaLabelHorizontal={label}
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -107,7 +107,7 @@ describe('Scroller', () => {
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollThumbAriaLabelVertical={label}
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -128,7 +128,7 @@ describe('Scroller', () => {
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollThumbAriaLabelHorizontal={label}
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -149,7 +149,7 @@ describe('Scroller', () => {
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollThumbAriaLabelVertical={label}
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}

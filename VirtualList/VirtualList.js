@@ -33,7 +33,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, scrollThumbAriaLabelHorizontal, scrollThumbAriaLabelVertical, ...rest}) => {
+let VirtualList = ({itemSize, horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -74,8 +74,8 @@ let VirtualList = ({itemSize, scrollThumbAriaLabelHorizontal, scrollThumbAriaLab
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	const
-		ariaLabelVerticalScrollbar = scrollThumbAriaLabelVertical == null ? $L('scroll up down with up down button') : scrollThumbAriaLabelVertical,
-		ariaLabelHorizontalScrollbar = scrollThumbAriaLabelHorizontal == null ? $L('scroll left right with left right button') : scrollThumbAriaLabelHorizontal;
+		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
+		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -193,6 +193,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -388,24 +397,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	scrollMode: PropTypes.string,
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll up down with up down button')
-	 * @public
-	 */
-	scrollThumbAriaLabelHorizontal: PropTypes.string,
-
-	/**
-	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll left right with left right button')
-	 * @public
-	 */
-	scrollThumbAriaLabelVertical: PropTypes.string,
-
-	/**
 	 * Spotlight Id.
 	 *
 	 * @type {String}
@@ -426,6 +417,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -496,7 +496,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({scrollThumbAriaLabelHorizontal, scrollThumbAriaLabelVertical, ...rest}) => {
+let VirtualGridList = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -521,8 +521,8 @@ let VirtualGridList = ({scrollThumbAriaLabelHorizontal, scrollThumbAriaLabelVert
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	const
-		ariaLabelVerticalScrollbar = scrollThumbAriaLabelVertical == null ? $L('scroll up down with up down button') : scrollThumbAriaLabelVertical,
-		ariaLabelHorizontalScrollbar = scrollThumbAriaLabelHorizontal == null ? $L('scroll left right with left right button') : scrollThumbAriaLabelHorizontal;
+		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
+		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
@@ -837,7 +837,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @default $L('scroll up down with up down button')
 	 * @public
 	 */
-	scrollThumbAriaLabelHorizontal: PropTypes.string,
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
@@ -846,7 +846,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @default $L('scroll left right with left right button')
 	 * @public
 	 */
-	scrollThumbAriaLabelVertical: PropTypes.string,
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Spotlight Id.

@@ -49,7 +49,7 @@ const SpottableDiv = Spottable('div');
  * @ui
  * @public
  */
-let Scroller = ({scrollThumbAriaLabelHorizontal, scrollThumbAriaLabelVertical, ...rest}) => {
+let Scroller = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
 	// Hooks
 
 	const {
@@ -77,8 +77,8 @@ let Scroller = ({scrollThumbAriaLabelHorizontal, scrollThumbAriaLabelVertical, .
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	const
-		ariaLabelVerticalScrollbar = scrollThumbAriaLabelVertical == null ? $L('scroll up down with up down button') : scrollThumbAriaLabelVertical,
-		ariaLabelHorizontalScrollbar = scrollThumbAriaLabelHorizontal == null ? $L('scroll left right with left right button') : scrollThumbAriaLabelHorizontal;
+		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
+		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
@@ -206,6 +206,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -343,24 +352,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	scrollMode: PropTypes.string,
 
 	/**
-	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll up down with up down button')
-	 * @public
-	 */
-	scrollThumbAriaLabelHorizontal: PropTypes.string,
-
-	/**
-	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
-	 *
-	 * @type {String}
-	 * @default $L('scroll left right with left right button')
-	 * @public
-	 */
-	scrollThumbAriaLabelVertical: PropTypes.string,
-
-	/**
 	 * Specifies how to show vertical scrollbar.
 	 *
 	 * Valid values are:
@@ -372,7 +363,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string
 };
 
 Scroller = Skinnable(
