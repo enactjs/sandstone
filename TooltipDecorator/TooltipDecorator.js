@@ -132,10 +132,11 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * requirements. Left and right directions will reverse for RTL languages. Additionally,
 			 * the tooltip will reverse direction if it will prevent overflowing off the viewport
 			 *
+			 * `defaultDirection` function from Tooltip will calculate the default direction based on tooltip type.
+			 *
 			 * @type {('above'|'above center'|'above left'|'above right'|'below'|
 			 *  'below center'|'below left'|'below right'|'left bottom'|'left middle'|'left top'|
 			 * 	'right bottom'|'right middle'|'right top')}
-			 * @default 'above'
 			 * @public
 			 */
 			tooltipPosition: PropTypes.oneOf([
@@ -187,10 +188,10 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Type of tooltip.
 			 *
-			 * | *Value* | *Tooltip Direction* |
+			 * | *Value* | *Tooltip Appearance* |
 			 * |---|---|
-			 * | `'balloon'` | Will have the arrow to the tooltip |
-			 * | `'transparent'` | Will not have the arrow to the tooltip |
+			 * | `'balloon'` | Will have the arrow on the tooltip |
+			 * | `'transparent'` | Will not have the arrow on the tooltip |
 			 *
 			 * @type {('balloon'|'transparent')}
 			 * @default 'balloon'
