@@ -18,8 +18,6 @@ const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
 spotlight.setPointerMode(false);
 
 const items = [],
-	itemSize = 156,
-	listSize = itemSize * 9,
 	itemStyle = {margin: 0};
 
 const renderItem = (size) => ({index, ...rest}) => {
@@ -91,6 +89,7 @@ class app extends React.Component {
 			hideScrollbar: false,
 			numItems: 100,
 			spacing: 0,
+			itemSize: 156,
 			wrap: false
 		};
 		this.rootRef = React.createRef();
@@ -128,10 +127,14 @@ class app extends React.Component {
 		this.setState({spacing: obj.value});
 	}
 
+	onChangeitemSize = ({value}) => {
+		this.setState({itemSize: value});
+	}
+
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{hideScrollbar, numItems, spacing, wrap} = this.state;
+			{hideScrollbar, numItems, itemSize, spacing, wrap} = this.state;
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
@@ -140,6 +143,7 @@ class app extends React.Component {
 						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
+						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
@@ -161,7 +165,7 @@ class app extends React.Component {
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											spacing={ri.scale(spacing)}
-											style={{height: ri.scaleToRem(listSize)}}
+											style={{height: ri.scaleToRem(156 * 9)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
