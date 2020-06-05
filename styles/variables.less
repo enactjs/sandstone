@@ -17,7 +17,7 @@
 // ---------------------------------------
 @sand-spotlight-outset: 48px;
 @sand-spotlight-focus-animation-duration: 200ms;
-@sand-spotlight-focus-shadow-height: 36px;
+@sand-spotlight-focus-shadow-height: (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
 
 
 // ---------------------------------------
@@ -272,8 +272,9 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-list-max-height: (5 * @sand-item-height + 36px); // 36px comes from the GUI guide, as the distance between the bottom edge of the last visible item and the bottom edge of the dropdownList.
+@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + 36px); // 36px comes from the GUI guide, as the distance between the bottom edge of the last visible item and the bottom edge of the dropdownList.
+@sand-dropdown-list-padding: 36px 0 0 0;
 
 // FixedPopupPanels
 // ---------------------------------------

@@ -271,6 +271,7 @@ const DropdownBase = kind({
 				disabled={hasChildren ? disabled : true}
 				icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
 				popupProps={popupProps}
+				popupClassName={css.popupContainer + ' ' + css.popupContainerCustomized}
 				popupComponent={DropdownList}
 				onClick={onOpen}
 				open={openDropdown}

@@ -47,6 +47,8 @@
 .dropDownList {
 	border-radius: @sand-dropdown-border-radius;
 	max-height: @sand-dropdown-list-max-height;
+	padding: @sand-dropdown-list-padding;
+	box-sizing: initial;
 
 	&.tiny {
 		width: @sand-dropdown-list-tiny-width;
@@ -84,4 +86,8 @@
 			}
 		}
 	});
+}
+
+.popupContainer.popupContainerCustomized {
+	padding: 0;
 }
