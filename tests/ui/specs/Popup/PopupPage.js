@@ -12,6 +12,7 @@ class PopupCommon {
 	get buttonPopup7 () { return element('#buttonPopup7', browser); }
 	get buttonPopup8 () { return element('#buttonPopup8', browser); }
 	get buttonPopup9 () { return element('#buttonPopup9', browser); }
+	get buttonPopup10 () { return element('#buttonPopup10', browser); }
 	get   popupLayer () { return element('#floatLayer', browser); }
 	get isPopupExist () { return this.popupLayer.$('.Popup_Popup_popup').isExisting(); }
 	get isScrimExist () { return this.popupLayer.$('.enact_ui_FloatingLayer_Scrim_scrim').isExisting(); }
@@ -49,6 +50,7 @@ class PopupPage extends Page {
 		this.components.popup7 = new PopupInterface('popup7');
 		this.components.popup8 = new PopupInterface('popup8');
 		this.components.popup9 = new PopupInterface('popup9');
+		this.components.popup10 = new PopupInterface('popup10');
 	}
 
 	open (urlExtra) {
