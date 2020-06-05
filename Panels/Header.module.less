@@ -18,10 +18,8 @@
 	.titlesRow {
 		padding-bottom: @sand-header-subtitle-height;
 
-		// The following updates .subtitle to be removed from the measurement calculations for
-		// vertical centering in a "standard" header, so the title can vertically align with the
-		// side buttons. When *not* in "standard" type, the side buttons should be vertically
-		// aligned with both the title and subtitle.
+		// The following alters .subtitle to be removed from the measurement calculations for so the
+		// title can vertically align with the side buttons (ignoring the dimensions of subtitle).
 		.subtitle {
 			position: absolute;
 			right: 0;
@@ -74,8 +72,8 @@
 	&.showBack {
 		.backContainer {
 			opacity: 1;
-			width: (@sand-button-height + @sand-component-spacing);
 			transform: scale(1);
+			width: @sand-header-back-container-width;
 		}
 	}
 
@@ -114,6 +112,19 @@
 	/// Begin "types" rules configuration
 	///
 
+	// Most types intend for the first and last buttons on the left and right
+	// butt right up against the edge, for alignment with the content.
+	.standard,
+	.compact,
+	.mini {
+		.slotBefore > *:first-child {
+			margin-inline-start: 0;
+		}
+		.slotAfter > *:last-child {
+			margin-inline-end: 0;
+		}
+	}
+
 	// Standard Header
 	&.standard {
 		margin: @sand-header-standard-margin;
@@ -125,21 +136,7 @@
 		}
 
 		.subtitle {
-			top: @sand-header-standard-subtitle-top;
-		}
-
-		&.showBack {
-			.backContainer {
-				width: @sand-header-back-container-width;
-			}
-		}
-
-		.slotBefore >:first-child {
-			margin-inline-start: 0;
-		}
-
-		.slotAfter >:last-child {
-			margin-inline-end: 0;
+			margin: @sand-header-standard-subtitle-margin;
 		}
 	}
 
@@ -197,14 +194,6 @@
 
 		.title {
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
-		}
-
-		.slotBefore .slotSizer >:first-child {
-			margin-inline-start: 0;
-		}
-
-		.slotAfter .slotSizer >:first-child {
-			margin-inline-end: 0;
 		}
 	}
 }
