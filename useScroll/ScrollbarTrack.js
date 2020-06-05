@@ -31,7 +31,7 @@ const SpotlightAccelerator = new Accelerator();
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{['aria-label']: ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div',
 		announceRef = useRef({});
