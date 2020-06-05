@@ -20,22 +20,14 @@ const isSelectedValid = ({children, selected}) => Array.isArray(children) && chi
 
 const getKey = ({children, selected}) => {
 	if (isSelectedValid({children, selected})) {
-		if (typeof children[selected] === 'object') {
-			return children[selected].key;
-		} else {
-			return children[selected];
-		}
+		return children[selected].key;
 	}
 };
 
 const indexFromKey = (children, key) => {
 	let index = -1;
 	if (children) {
-		if (typeof children[0] === 'object') {
-			index = children.findIndex(child => child.key === key);
-		} else {
-			index = children.findIndex(child => child === key);
-		}
+		index = children.findIndex(child => child.key === key);
 	}
 
 	return index;
