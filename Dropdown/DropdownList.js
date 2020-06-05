@@ -119,7 +119,7 @@ const DropdownListBase = kind({
 				dataSize={dataSize}
 				itemSize={itemSize}
 				role="group"
-				style={{height: itemSize * dataSize + ri.scale(30)}}
+				style={{height: itemSize * dataSize + ri.scale(36)}}
 			/>
 		);
 	}
