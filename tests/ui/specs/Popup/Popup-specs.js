@@ -1245,4 +1245,17 @@ describe('Popup', function () {
 
 		});
 	});
+
+	describe('toggling open', function () {
+		// [GT-28264]
+		it('should allow spotlight navigation', function () {
+			popupCommon.buttonPopup10.click();
+
+			Page.delay(500);
+
+			Page.spotlightUp();
+
+			expect(popupCommon.buttonPopup7.isFocused()).to.be.true();
+		});
+	});
 });

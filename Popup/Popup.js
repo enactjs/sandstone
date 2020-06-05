@@ -367,7 +367,7 @@ class Popup extends React.Component {
 			} else {
 				return {
 					popupOpen: OpenState.CLOSED,
-					floatLayerOpen: state.popupOpen !== OpenState.CLOSED ? !props.noAnimation : false,
+					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,
 					activator: props.noAnimation ? null : state.activator,
 					prevOpen: props.open
 				};
@@ -404,7 +404,15 @@ class Popup extends React.Component {
 	componentDidUpdate (prevProps, prevState) {
 		if (this.props.open !== prevProps.open) {
 			if (!this.props.noAnimation) {
-				this.paused.pause();
+				if (!this.props.open && this.state.popupOpen === OpenState.CLOSED) {
+					// If the popup is supposed to be closed (!this.props.open) and is actually
+					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
+					// can occur when quickly toggling a Popup open and closed.
+					this.paused.resume();
+				} else {
+					// Otherwise, we pause spotlight so it is locked until the popup is ready
+					this.paused.pause();
+				}
 			} else if (this.props.open) {
 				forwardShow({}, this.props);
 				this.spotPopupContent();

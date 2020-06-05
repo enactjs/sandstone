@@ -39,6 +39,19 @@ class app extends Component {
 
 	clickHandler = (st) =>  this.setState(st);
 
+	togglePopup = () => {
+		this.setState({
+			open10: true
+		});
+
+
+		setTimeout(() => {
+			this.setState({
+				open10: false
+			});
+		}, 200);
+	}
+
 	render () {
 		return (
 			<div id="popupMain" {...this.props}>
@@ -56,6 +69,7 @@ class app extends Component {
 					<Button id="buttonPopup7" onClick={() => this.clickHandler({open7: true})}>spotlightRestrict self-first</Button>
 					<Button id="buttonPopup8" onClick={() => this.clickHandler({open8: true})}>scrimType transparent</Button>
 					<Button id="buttonPopup9" onClick={() => this.clickHandler({open9: true})}>scrimType none</Button>
+					<Button id="buttonPopup10" onClick={this.togglePopup}>Toggle Open</Button>
 				</div>
 				<AnnotatedPopup
 					id="popup1"
@@ -188,6 +202,12 @@ class app extends Component {
 						<Button id="buttonOK" onClick={() => this.clickHandler({open9: false})}>OK</Button>
 						<Button id="buttonCancel" onClick={() => this.clickHandler({open9: false})}>Cancel</Button>
 					</Container>
+				</AnnotatedPopup>
+				<AnnotatedPopup
+					id="popup10"
+					open={this.state.open10}
+				>
+					<Button>close</Button>
 				</AnnotatedPopup>
 			</div>
 		);
