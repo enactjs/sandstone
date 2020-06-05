@@ -29,6 +29,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import warning from 'warning';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import {compareChildren} from '../internal/util';
@@ -190,7 +191,6 @@ const DropdownBase = kind({
 	defaultProps: {
 		direction: 'below',
 		open: false,
-		placeholder: 'No selection',
 		width: 'medium'
 	},
 
@@ -258,7 +258,7 @@ const DropdownBase = kind({
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
 		direction: ({direction}) => `${direction} center`,
-		placeholder: ({children, placeholder, selected}) => {
+		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
