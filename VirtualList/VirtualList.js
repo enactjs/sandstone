@@ -15,7 +15,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
 
-import $L from '../internal/$L';
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
@@ -33,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
+let VirtualList = ({itemSize, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -73,16 +72,12 @@ let VirtualList = ({itemSize, horizontalScrollThumbAriaLabel, verticalScrollThum
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
-	const
-		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
-		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
@@ -496,7 +491,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
+let VirtualGridList = (props) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -511,7 +506,7 @@ let VirtualGridList = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaL
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(rest);
+	} = useScroll(props);
 
 	const {
 		className,
@@ -520,16 +515,12 @@ let VirtualGridList = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaL
 
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
-	const
-		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
-		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
-
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
+				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);

@@ -25,7 +25,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import $L from '../internal/$L';
 import useScroll from '../useScroll';
 import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
@@ -49,7 +48,7 @@ const SpottableDiv = Spottable('div');
  * @ui
  * @public
  */
-let Scroller = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, ...rest}) => {
+let Scroller = (props) => {
 	// Hooks
 
 	const {
@@ -64,7 +63,7 @@ let Scroller = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, .
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(rest);
+	} = useScroll(props);
 
 	const {
 		className,
@@ -74,14 +73,10 @@ let Scroller = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, .
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
-
-	const
-		ariaLabelVerticalScrollbar = verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
-		ariaLabelHorizontalScrollbar = horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel;
+	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render
 	return (
@@ -89,8 +84,8 @@ let Scroller = ({horizontalScrollThumbAriaLabel, verticalScrollThumbAriaLabel, .
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} ariaLabel={ariaLabelVerticalScrollbar} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} ariaLabel={ariaLabelHorizontalScrollbar} /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>

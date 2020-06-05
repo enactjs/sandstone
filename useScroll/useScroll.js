@@ -19,6 +19,7 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useContext, useRef} from 'react';
 
+import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
@@ -298,9 +299,11 @@ const useScroll = (props) => {
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
 			fadeOut,
+			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
 			style,
+			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
 
@@ -462,6 +465,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle
@@ -469,6 +473,7 @@ const useScroll = (props) => {
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle
