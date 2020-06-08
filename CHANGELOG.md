@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## unreleased
+
+### Fixed
+
+- `sandstone/TabLayout` to not trigger re-render on every focus event
+
 ## [1.0.0-beta.6] - 2020-06-08
 
 ### Removed
