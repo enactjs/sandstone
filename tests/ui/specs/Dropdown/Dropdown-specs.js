@@ -1,5 +1,11 @@
 const Page = require('./DropdownPage');
 
+function waitForFocusedText (dropdown, text, timeout, message = `timed out waiting for ${text}`, delay = 250) {
+	browser.waitUntil(function () {
+		return dropdown.focusedItemText === text;
+	}, timeout, message, delay);
+}
+
 describe('Dropdown', function () {
 	Page.open();
 
@@ -13,15 +19,9 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
-			browser.waitUntil(function () {
-				return dropdown.focusedItemText === 'four';
-			}, 500, `timed out waiting to focus 4`, 100);
+			waitForFocusedText(dropdown, 'four', 500, undefined, 100);
 
-			expect(dropdown.focusedItemText).to.equal('four');
-
-			browser.waitUntil(function () {
-				return dropdown.focusedItemText === 'one';
-			}, 750, `timed out waiting to focus 1`, 250);
+			waitForFocusedText(dropdown, 'one', 750);
 		});
 
 		it('should focus the first item when `children` changes - [GT-30184]', function () {
@@ -29,13 +29,9 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
-			browser.waitUntil(function () {
-				return dropdown.focusedItemText === 'one';
-			}, 500, `timed out waiting to focus 1`, 100);
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
-			browser.waitUntil(function () {
-				return dropdown.focusedItemText === 'three';
-			}, 1000, `timed out waiting to focus 3`, 250);
+			waitForFocusedText(dropdown, 'three', 750);
 		});
 	});
 
