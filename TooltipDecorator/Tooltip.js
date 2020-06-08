@@ -46,7 +46,8 @@ const TooltipBase = kind({
 		 * orientation (i.e. `'above'`, `'below'`), and `'top'`, `'middle'`, and `'bottom'` are
 		 * applicable when direction is in horizontal orientation (i.e. `'left'`, `'right'`)
 		 *
-		 * `defaultArrowAnchor` function will calculate the default arrow position based on tooltip type.
+		 * For `type="balloon"`, the default is `"right"`
+		 * For `type="transparent"`, the default is `"center"`
 		 *
 		 * @type {('left'|'center'|'right'|'top'|'middle'|'bottom')}
 		 * @public
@@ -70,7 +71,8 @@ const TooltipBase = kind({
 		/**
 		 * Direction of label in relation to the activator.
 		 *
-		 * `defaultDirection` function will calculate the default direction based on tooltip type.
+		 * For `type="balloon"`, the default is `"above"`
+		 * For `type="transparent"`, the default is `"below"`
 		 *
 		 * @type {('above'|'below'|'left'|'right')}
 		 * @public

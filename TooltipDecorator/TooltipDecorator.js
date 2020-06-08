@@ -132,7 +132,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * requirements. Left and right directions will reverse for RTL languages. Additionally,
 			 * the tooltip will reverse direction if it will prevent overflowing off the viewport
 			 *
-			 * `defaultDirection` function from Tooltip will calculate the default direction based on tooltip type.
+			 * For `type="balloon"`, the default is `"top right"`
+			 * For `type="transparent"`, the default is `"bottom center"`
 			 *
 			 * @type {('above'|'above center'|'above left'|'above right'|'below'|
 			 *  'below center'|'below left'|'below right'|'left bottom'|'left middle'|'left top'|
