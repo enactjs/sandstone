@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scrollbar initially
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Panels.Header` style to match latest designs
 - `sandstone/Popup` to always remove scrim on close
 - `sandstone/TabLayout` button sizes to match the latest design
 - `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
