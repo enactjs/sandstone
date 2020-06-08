@@ -84,6 +84,7 @@ const useOverscrollEffect = (props, instances) => {
 			orientation = (direction === 'up' || direction === 'down') ? 'vertical' : 'horizontal',
 			bounds = scrollContainerHandle.current.getScrollBounds(),
 			scrollability = orientation === 'vertical' ? scrollContainerHandle.current.canScrollVertically(bounds) : scrollContainerHandle.current.canScrollHorizontally(bounds);
+
 		if (scrollability) {
 			const
 				isRtl = scrollContainerHandle.current.rtl,
