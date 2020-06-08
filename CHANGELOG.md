@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
 - `sandstone/Dropdown` to show an item fully when the item gets focus
 - `sandstone/Scroller` and `sandstone/VirtualList` to show scrollbar initially
