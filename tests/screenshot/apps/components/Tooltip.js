@@ -1,4 +1,4 @@
-import {Tooltip} from '../../../../TooltipDecorator';
+import {Tooltip} from '../../../../TooltipDecorator/TooltipDecorator';
 import React from 'react';
 
 import {withConfig} from './utils';
