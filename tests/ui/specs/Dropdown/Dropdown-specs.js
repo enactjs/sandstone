@@ -13,11 +13,15 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
+			browser.waitUntil(function () {
+				return dropdown.focusedItemText === 'four';
+			}, 500, `timed out waiting to focus 4`, 100);
+
 			expect(dropdown.focusedItemText).to.equal('four');
 
-			Page.delay(750);
-
-			expect(dropdown.focusedItemText).to.equal('one');
+			browser.waitUntil(function () {
+				return dropdown.focusedItemText === 'one';
+			}, 750, `timed out waiting to focus 1`, 250);
 		});
 
 		it('should focus the first item when `children` changes - [GT-30184]', function () {
@@ -25,11 +29,13 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
-			expect(dropdown.focusedItemText).to.equal('one');
+			browser.waitUntil(function () {
+				return dropdown.focusedItemText === 'one';
+			}, 500, `timed out waiting to focus 1`, 100);
 
-			Page.delay(750);
-
-			expect(dropdown.focusedItemText).to.equal('three');
+			browser.waitUntil(function () {
+				return dropdown.focusedItemText === 'three';
+			}, 1000, `timed out waiting to focus 3`, 250);
 		});
 	});
 
