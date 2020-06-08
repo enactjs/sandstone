@@ -687,9 +687,15 @@ describe('WizardPanel Specs', () => {
 			);
 
 			const expected = 'ARTICLE';
+<<<<<<< HEAD
 			const actual = ref.mock.calls[0][0].nodeName;
 
 			expect(actual).toBe(expected);
+=======
+			const actual = jest.mock.calls[0][0].nodeName;
+
+			expect(actual).toMatchObject(expected);
+>>>>>>> 2fe33fa9554ea20079e938dc933255afb88b7920
 		}
 	);
 });
