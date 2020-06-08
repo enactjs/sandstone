@@ -202,11 +202,11 @@ storiesOf('Sandstone', module)
 									spacing={ri.scale(12)}
 								/>
 							</bottomComponents>
-							<Button size="large" icon="list" />
-							<Button size="large" icon="playspeed" />
-							<Button size="large" icon="speakercenter" />
-							<Button size="large" icon="miniplayer" />
-							<Button size="large" icon="subtitle" />
+							<Button size="small" icon="list" />
+							<Button size="small" icon="playspeed" />
+							<Button size="small" icon="speakercenter" />
+							<Button size="small" icon="miniplayer" />
+							<Button size="small" icon="subtitle" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>
