@@ -146,6 +146,14 @@ const PopupBase = kind({
 		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
 		/**
+		 * The ARIA role for the Popup.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		role: PropTypes.string,
+
+		/**
 		 * The container id for {@link spotlight/Spotlight}.
 		 *
 		 * @type {String}
@@ -187,7 +195,7 @@ const PopupBase = kind({
 		'aria-live': ({noAccessible}) => (!noAccessible && 'off' || null),
 		className: ({position, styler}) => styler.append(position),
 		direction: ({position}) => transitionDirection[position],
-		role: ({noAccessible}) => (!noAccessible && 'alert' || null),
+		role: ({noAccessible, role}) => (role || !noAccessible && 'alert' || null),
 		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
