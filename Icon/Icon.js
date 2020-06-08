@@ -2,7 +2,7 @@
  * Provides Sandstone styled icon components and behaviors.
  *
  * @example
- * <Icon>flag</Icon>
+ * <Icon>plus</Icon>
  *
  * @module sandstone/Icon
  * @exports Icon
@@ -111,24 +111,17 @@ const IconBase = kind({
  * arrowhookright
  * ellipsis
  * check
+ * record
  * circle
  * stop
+ * square
  * play
  * pause
  * forward
  * backward
- * skipforward
- * skipbackward
- * pauseforward
- * pausebackward
- * pausejumpforward
- * pausejumpbackward
  * jumpforward
  * jumpbackward
- * denselist
- * bulletlist
  * list
- * drawer
  * arrowlargedown
  * arrowlargeup
  * arrowlargeleft
@@ -139,95 +132,90 @@ const IconBase = kind({
  * arrowsmallright
  * closex
  * search
- * rollforward
- * rollbackward
  * exitfullscreen
  * fullscreen
- * arrowshrinkleft
- * arrowshrinkright
- * arrowextend
- * arrowshrink
- * flag
- * funnel
  * trash
  * star
- * hollowstar
- * halfstar
  * gear
  * plug
  * lock
- * forward15
- * back15
- * continousplay
- * playlist
- * resumeplay
- * image
- * audio
  * music
- * languages
- * cc
- * ccon
- * ccoff
- * sub
- * recordings
- * livezoom
- * liveplayback
- * liveplaybackoff
- * repeat
- * repeatoff
- * series
- * repeatdownload
  * view360
- * view360off
  * info
- * repeattrack
- * bluetoothoff
  * verticalellipsis
  * arrowcurveright
  * picture
  * home
- * warning
- * scroll
- * densedrawer
- * starminus
  * liverecord
  * liveplay
- * contrast
- * edit
  * trashlock
- * arrowrightskip
- * volumecycle
  * movecursor
- * refresh
- * question
- * questionreversed
- * s
  * repeatone
  * repeatall
  * repeatnone
- * speakers
- * koreansubtitles
- * chinesesubtitles
- * arrowleftprevious
- * searchfilled
  * zoomin
  * zoomout
- * playlistadd
- * files
- * arrowupdown
- * brightness
  * download
- * playlistedit
- * font
- * musicon
- * musicoff
- * liverecordone
- * liveflagone
  * shuffle
- * sleep
  * notification
- * notificationoff
- * checkselection
+ * voice
+ * soundmute
+ * stargroup
+ * checker
+ * transponder
+ * selected
+ * bgm
+ * bgmoff
+ * playcircle
+ * pausecircle
+ * lockcircle
+ * unlockcircle
+ * powercircle
+ * wifi1
+ * wifi2
+ * wifi3
+ * wifi4
+ * wifilock1
+ * wifilock2
+ * wifilock3
+ * wifilock4
+ * dashboard1
+ * dashboard2
+ * dashboard3
+ * subtitle
+ * rotate
+ * lyrics
+ * screenpower
+ * miniplayer
+ * nowplaying
+ * playspeed
+ * folder
+ * folderupper
+ * support
+ * soundout
+ * mobile
+ * keyboard
+ * mouse
+ * controller
+ * btspeaker
+ * headset
+ * dns
+ * speaker
+ * speakersurround
+ * speakercenter
+ * speakerbass
+ * router
+ * demosync
+ * browser
+ * sound
+ * wisa
+ * demooptions
+ * newfeature
+ * triangleup
+ * triangleright
+ * triangledown
+ * triangleleft
+ * arrowupdown
  * ```
  *
  * @name iconList

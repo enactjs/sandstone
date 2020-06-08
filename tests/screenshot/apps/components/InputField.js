@@ -29,7 +29,7 @@ const InputFieldTests = [
 	<InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />,
 
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
-	<InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />,
+	<InputField value={LoremString} iconBefore="check" iconAfter="home" />,
 
 	// tallCharacters: Change 'size' dynamically - [GT-28620]
 	// Note: text stays the same size, the InputField field becomes smaller
@@ -129,7 +129,7 @@ const InputFieldTests = [
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
 	{
 		locale: 'ar-SA',
-		component: <InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />
+		component: <InputField value={LoremString} iconBefore="check" iconAfter="home" />
 	},
 
 	// tallCharacters: Change 'size' dynamically - [GT-28620]

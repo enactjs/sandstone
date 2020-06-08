@@ -5,7 +5,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 const prop = {
-	icon: ['red', 'green', 'yellow', 'blue', 'playlist', 'trash', 'search']
+	icon: ['red', 'green', 'yellow', 'blue', 'gear', 'trash', 'search']
 };
 
 const Config = mergeComponentMetadata('KeyGuide', KeyGuide);

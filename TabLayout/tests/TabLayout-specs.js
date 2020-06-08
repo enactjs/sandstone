@@ -12,10 +12,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -33,10 +33,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -56,10 +56,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>

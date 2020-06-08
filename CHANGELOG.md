@@ -4,15 +4,31 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone/Alert` prop `subtitle`
+
 ### Added
 
+- `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
 - `sandstone/KeyGuide` support for color keys
+
+### Fixed
+
+- `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
+- `sandstone/Dropdown` to show an item fully when the item gets focus
+- `sandstone/Scroller` and `sandstone/VirtualList` to show scrollbar initially
+- `sandstone/Alert` to use multi-line content when `"fullscreen"`
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Popup` to always remove scrim on close
+- `sandstone/TabLayout` button sizes to match the latest design
+- `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
 
 ## [1.0.0-beta.5] - 2020-06-01
 
 ### Removed
 
-- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, and `rateButtonsDisabled`
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
 
 ### Added
 
@@ -26,7 +42,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+<<<<<<< HEAD
 - `sandstone/Input` to change the color when activated
+=======
+- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
+>>>>>>> develop
 
 ### Fixed
 
@@ -73,6 +93,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
 
 ## [1.0.0-beta.3] - 2020-05-11
 

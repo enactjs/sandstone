@@ -20,7 +20,7 @@ describe('Scroller', () => {
 	});
 
 	describe('Scrollbar visibility', () => {
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
+		test(
 			'should render both horizontal and vertical scrollbars when \'horizontalScrollbar\' and \'verticalScrollbar\' are "visible"',
 			() => {
 				const subject = mount(
@@ -33,13 +33,13 @@ describe('Scroller', () => {
 				);
 
 				const expected = 2;
-				const actual = subject.find('ScrollButtons').length;
+				const actual = subject.find('Scrollbar').length;
 
 				expect(actual).toBe(expected);
 			}
 		);
 
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
+		test(
 			'should render only vertical scrollbar when \'verticalScrollbar\' is "visible" and \'horizontalScrollbar\' is "hidden"',
 			() => {
 				const subject = mount(
@@ -52,13 +52,13 @@ describe('Scroller', () => {
 				);
 
 				const expected = 1;
-				const actual = subject.find('ScrollButtons').length;
+				const actual = subject.find('Scrollbar').length;
 
 				expect(actual).toBe(expected);
 			}
 		);
 
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
+		test(
 			'should not render any scrollbar when when \'horizontalScrollbar\' and \'verticalScrollbar\' are "hidden"',
 			() => {
 				const subject = mount(
@@ -71,7 +71,7 @@ describe('Scroller', () => {
 				);
 
 				const expected = 0;
-				const actual = subject.find('ScrollButtons').length;
+				const actual = subject.find('Scrollbar').length;
 
 				expect(actual).toBe(expected);
 			}
@@ -79,14 +79,14 @@ describe('Scroller', () => {
 	});
 
 	describe('Scrollbar accessibility', () => {
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to previous scroll button in the horizontal scroll bar',
+		test(
+			'should set a custom "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
 				const label = 'custom button aria label';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollLeftAriaLabel={label}
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -94,20 +94,20 @@ describe('Scroller', () => {
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(2).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to next scroll button in the horizontal scroll bar',
+		test(
+			'should set a custom "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
 				const label = 'custom button aria label';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollRightAriaLabel={label}
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -115,49 +115,49 @@ describe('Scroller', () => {
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(3).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to previous scroll button in the vertical scroll bar',
+		test(
+			'should set a null string "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
-				const label = 'custom button aria label';
+				const label = '';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
-						scrollUpAriaLabel={label}
 					>
 						{contents}
 					</Scroller>
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to next scroll button in the vertical scroll bar',
+		test(
+			'should set a null string "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
-				const label = 'custom button aria label';
+				const label = '';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
-						scrollDownAriaLabel={label}
 					>
 						{contents}
 					</Scroller>
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
