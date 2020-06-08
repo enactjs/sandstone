@@ -1,6 +1,7 @@
 import hoc from '@enact/core/hoc';
 import Registry from '@enact/core/internal/Registry';
 import {ResizeContext} from '@enact/ui/Resizable';
+import {objectify} from '@enact/ui/Skinnable';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -67,10 +68,10 @@ const AccessibilityDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		resizeRegistry = Registry.create();
 
 		render () {
-			const {className, highContrast, textSize, ...props} = this.props;
+			const {className, highContrast, skinVariants, textSize, ...props} = this.props;
 			const accessibilityClassName = highContrast ? `enact-a11y-high-contrast enact-text-${textSize}` : `enact-text-${textSize}`;
 			const combinedClassName = className ? `${className} ${accessibilityClassName}` : accessibilityClassName;
-			const variants = {};
+			const variants = objectify(skinVariants);
 			if (highContrast) variants.highContrast = true;
 			if (textSize === 'large') variants.largeText = true;
 
