@@ -96,7 +96,7 @@ const PopupBase = kind({
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @public
+		 * @private
 		 */
 		noAccessible: PropTypes.bool,
 
