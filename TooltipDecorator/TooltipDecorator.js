@@ -191,8 +191,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *
 			 * | *Value* | *Tooltip Appearance* |
 			 * |---|---|
-			 * | `'balloon'` | Will have the arrow on the tooltip |
-			 * | `'transparent'` | Will not have the arrow on the tooltip |
+			 * | `'balloon'` | Tooltip with a border, background and arrow to the activator |
+			 * | `'transparent'` | Text only without any of the decorations above |
 			 *
 			 * @type {('balloon'|'transparent')}
 			 * @default 'balloon'

@@ -47,7 +47,7 @@ const TooltipBase = kind({
 		 * applicable when direction is in horizontal orientation (i.e. `'left'`, `'right'`)
 		 *
 		 * For `type="balloon"`, the default is `"right"`
-		 * For `type="transparent"`, the default is `"center"`
+		 * For `type="transparent"`, the default is `"center"` (The arrow will not be visible)
 		 *
 		 * @type {('left'|'center'|'right'|'top'|'middle'|'bottom')}
 		 * @public
@@ -133,8 +133,8 @@ const TooltipBase = kind({
 		 *
 		 * | *Value* | *Tooltip Appearance* |
 		 * |---|---|
-		 * | `'balloon'` | Will have the arrow to the tooltip |
-		 * | `'transparent'` | Will not have the arrow to the tooltip |
+		 * | `'balloon'` | Tooltip with a border, background and arrow to the activator |
+		 * | `'transparent'` | Text only without any of the decorations above |
 		 *
 		 * @type {('balloon'|'transparent')}
 		 * @default 'balloon'
