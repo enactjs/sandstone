@@ -50,7 +50,7 @@ const defaultConfig = {
 	 * @default false
 	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
 	 */
-	noAccessible: PropTypes.bool,
+	noAccessible: false,
 
 	/**
 	 * Arranger for Panels
