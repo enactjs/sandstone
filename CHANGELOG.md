@@ -21,10 +21,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
 - `sandstone/MediaPlayer.MediaControls` prop `rateChangeDisabled` to prevent playback rate control via rewind and fast-forward keys
 - `sandstone/PopupTabLayout` panel transition animation
+- `sandstone/Input` props `submitLabel` to customize submit button label
 
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+- `sandstone/Input` to change the color when activated
 
 ### Fixed
 

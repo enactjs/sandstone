@@ -75,6 +75,7 @@ const NumberFieldBase = kind({
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
 		showKeypad: PropTypes.bool,
+		submitLabel: PropTypes.string,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	},
