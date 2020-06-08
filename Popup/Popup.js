@@ -90,6 +90,17 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Support accessibility options.
+		 *
+		 * If false, the Popup will support aria-live="off" and role="alert".
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noAccessible: PropTypes.bool,
+
+		/**
 		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
@@ -159,6 +170,7 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
+		noAccessible: false,
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
@@ -172,12 +184,15 @@ const PopupBase = kind({
 	},
 
 	computed: {
+		'aria-live': ({noAccessible}) => (!noAccessible && 'off' || null),
 		className: ({position, styler}) => styler.append(position),
-		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
-		direction: ({position}) => transitionDirection[position]
+		direction: ({position}) => transitionDirection[position],
+		role: ({noAccessible}) => (!noAccessible && 'alert' || null),
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
+		delete rest.noAccessible;
 
 		return (
 			<TransitionContainer
@@ -194,11 +209,7 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<div
-					aria-live="off"
-					role="alert"
-					{...rest}
-				>
+				<div {...rest}>
 					<div className={css.body}>
 						{children}
 					</div>

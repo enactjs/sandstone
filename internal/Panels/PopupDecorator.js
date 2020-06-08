@@ -42,6 +42,17 @@ const defaultConfig = {
 	css: null,
 
 	/**
+	 * Support accessibility options.
+	 *
+	 * If false, the Popup will support aria-live="off" and role="alert".
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
+	 */
+	noAccessible: PropTypes.bool,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -62,7 +73,7 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, noAccessible, panelArranger, panelType} = config;
 	const Panels = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
@@ -190,7 +201,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAccessible={noAccessible} noAnimation={noAnimation} onClose={onClose}>
 					<Panels
 						{...rest}
 						arranger={panelArranger}

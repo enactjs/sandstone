@@ -119,7 +119,14 @@ const PanelBase = kind({
 		 * @default false
 		 * @public
 		 */
-		hideChildren: PropTypes.bool
+		hideChildren: PropTypes.bool,
+
+		/**
+		 * Set the type of panel to be used.
+		 *
+		 * @type {('fixedPopup')}
+		 */
+		panelType: PropTypes.oneOf(['fixedPopup'])
 	},
 
 	defaultProps: {
@@ -187,7 +194,35 @@ const PanelBase = kind({
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`
+		ids: ({'aria-label': label, panelType}) => {
+			if (label) {
+				return {
+					panelId: null,
+					headerId: null,
+					titleId: null,
+					subtitleId: null
+				};
+			} else if (panelType === 'fixedPopup') {
+				const id = `panel_${++panelId}_title panel_${panelId}_subtitle`;
+				const [titleId, subtitleId] = id.split(' ');
+
+				return {
+					panelId: id,
+					headerId: null,
+					titleId,
+					subtitleId
+				};
+			} else {
+				const id = `panel_${++panelId}_header`;
+
+				return {
+					panelId: id,
+					headerId: id,
+					titleId: null,
+					subtitleId: null
+				};
+			}
+		}
 	},
 
 	render: ({
@@ -196,19 +231,22 @@ const PanelBase = kind({
 		css,
 		entering,
 		header,
-		headerId,
+		ids,
 		spotOnRender,
 		...rest
 	}) => {
 		delete rest.autoFocus;
 		delete rest.hideChildren;
+		delete rest.panelType;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
-				<div className={css.header} id={headerId}>
+			<article role="region" {...rest} aria-labelledby={ids.panelId} ref={spotOnRender}>
+				<div className={css.header} id={ids.headerId}>
 					<ComponentOverride
 						component={header}
 						entering={entering}
+						subtitleId={ids.subtitleId}
+						titleId={ids.titleId}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
