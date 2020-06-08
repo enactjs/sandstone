@@ -26,12 +26,12 @@ const useOverscrollEffect = (props, instances) => {
 
 	// Hooks
 
-	const applyOverscrollEffect = useCallback((orientation, edge, type, ratio) => {
+	const applyOverscrollEffect = useCallback((orientation, edge, type, ratio, rtl) => {
 		const isHorizontal = orientation === 'horizontal';
 
 		if (scrollContentRef.current) {
 			const
-				effectSize = ratio * (edge === 'before' ? 1 : -1) * overscrollMaxTranslate,
+				effectSize = ratio * (edge === 'before' ? 1 : -1) * (isHorizontal && rtl ? -1 : 1) * overscrollMaxTranslate,
 				translation = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
 				easing = ratio !== 0 ? overscrollEaseStart : overscrollEaseEnd;
 
@@ -84,7 +84,6 @@ const useOverscrollEffect = (props, instances) => {
 			orientation = (direction === 'up' || direction === 'down') ? 'vertical' : 'horizontal',
 			bounds = scrollContainerHandle.current.getScrollBounds(),
 			scrollability = orientation === 'vertical' ? scrollContainerHandle.current.canScrollVertically(bounds) : scrollContainerHandle.current.canScrollHorizontally(bounds);
-
 		if (scrollability) {
 			const
 				isRtl = scrollContainerHandle.current.rtl,
