@@ -5,7 +5,7 @@ import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function useAutoFocus ({autoFocus, hideChildren}) {
+function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 	return React.useCallback((node) => {
 		if (!node) return;
 
@@ -48,6 +48,10 @@ const AutoFocusDecorator = hoc((config, Wrapped) => {
 		autoFocus: PropTypes.string,
 		componentRef: EnactPropTypes.ref,
 		hideChildren: PropTypes.bool
+	};
+
+	AutoFocusDecorator.defaultProps = {
+		autoFocus: 'last-focused'
 	};
 
 	return AutoFocusDecorator;

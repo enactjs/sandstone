@@ -90,7 +90,6 @@ const PanelBase = kind({
 	},
 
 	defaultProps: {
-		autoFocus: 'last-focused',
 		hideChildren: false
 	},
 
