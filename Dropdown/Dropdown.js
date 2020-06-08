@@ -180,6 +180,15 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
+		 * The size of the Dropdown's [Button]{@link sandstone/Button.Button} component.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
 		 * Primary title text of the Dropdown.
 		 *
 		 * @type {String}
