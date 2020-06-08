@@ -221,9 +221,7 @@ const DropdownBase = kind({
 			return children.map((child, i) => {
 				const aria = {
 					role: 'checkbox',
-					'aria-checked': selected === i,
-					'aria-posinset': i + 1,
-					'aria-setsize': children.length
+					'aria-checked': selected === i
 				};
 
 				warning(
@@ -258,7 +256,7 @@ const DropdownBase = kind({
 	},
 
 	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, selected, width, title, ...rest}) => {
-		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
+		const popupProps = {'aria-live': null, children, onKeyDown, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
