@@ -110,7 +110,7 @@ describe('VirtualList', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test.skip( // TBD: Should be revisited after Spottable thumb is implemented
+	test(
 		'should render only one scrollbar',
 		() => {
 			const subject = mount(
@@ -124,7 +124,7 @@ describe('VirtualList', () => {
 			);
 
 			const expected = 1;
-			const actual = subject.find('ScrollButtons').length;
+			const actual = subject.find('Scrollbar').length;
 
 			expect(actual).toBe(expected);
 		}
@@ -304,96 +304,6 @@ describe('VirtualList', () => {
 					expect(actual).toBe(expected);
 					done();
 				}, 0);
-			}
-		);
-	});
-
-	describe('Scrollbar accessibility', () => {
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to previous scroll button in the horizontal scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="horizontal"
-						scrollLeftAriaLabel={label}
-						itemRenderer={renderItem}
-						itemSize={60}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to next scroll button in the horizontal scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="horizontal"
-						scrollRightAriaLabel={label}
-						itemRenderer={renderItem}
-						itemSize={60}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to previous scroll button in the vertical scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="vertical"
-						itemRenderer={renderItem}
-						itemSize={60}
-						scrollUpAriaLabel={label}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test.skip( // TBD: Should be revisited after Spottable thumb is implemented
-			'should set "aria-label" to next scroll button in the vertical scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="vertical"
-						itemRenderer={renderItem}
-						itemSize={60}
-						scrollDownAriaLabel={label}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
-
-				expect(actual).toBe(expected);
 			}
 		);
 	});

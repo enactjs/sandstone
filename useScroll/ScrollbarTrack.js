@@ -2,8 +2,11 @@ import classNames from 'classnames';
 import {is} from '@enact/core/keymap';
 import Accelerator from '@enact/spotlight/Accelerator';
 import Spottable from '@enact/spotlight/Spottable';
+import {Announce} from '@enact/ui/AnnounceDecorator';
 import PropTypes from 'prop-types';
-import React, {forwardRef, useCallback, useEffect} from 'react';
+import React, {forwardRef, useCallback, useEffect, useRef} from 'react';
+
+import $L from '../internal/$L';
 
 import css from './ScrollbarTrack.module.less';
 
@@ -28,9 +31,10 @@ const SpotlightAccelerator = new Accelerator();
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
-		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div';
+		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div',
+		announceRef = useRef({});
 
 	useEffect (() => {
 		cbAlertScrollbarTrack();
@@ -67,6 +71,16 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 			if ((vertical && (isUpDown || isPageKey)) || (!vertical && (isLeftRight))) {
 				// Do nothing when (!vertical && pageKey)
+
+				if (!ev.repeat && announceRef.current.announce) {
+					announceRef.current.announce(
+						(isDown(keyCode) || isPageDown(keyCode)) && $L('DOWN') ||
+						(isUp(keyCode) || isPageUp(keyCode)) && $L('UP') ||
+						isLeft(keyCode) && $L('LEFT') ||
+						$L('RIGHT') // the case that isRight(keyCode) is true
+					);
+				}
+
 				consumeEventWithScroll(scrollParam, ev);
 			}
 
@@ -78,10 +92,14 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 	return (
 		<div {...rest} className={className} ref={ref}>
-			<ScrollbarThumb className={css.thumb} onKeyDown={onKeyDown}>
+			<ScrollbarThumb aria-label={ariaLabel} className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />
 			</ScrollbarThumb>
+			<Announce
+				key="announce"
+				ref={announceRef}
+			/>
 		</div>
 	);
 });

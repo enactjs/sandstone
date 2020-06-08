@@ -10,11 +10,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
 - `sandstone/KeyGuide` support for color keys
 
 ### Fixed
 
+- `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
+- `sandstone/Dropdown` to show an item fully when the item gets focus
+- `sandstone/Scroller` and `sandstone/VirtualList` to show scrollbar initially
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Popup` to always remove scrim on close
+- `sandstone/TabLayout` button sizes to match the latest design
+- `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
 
 ## [1.0.0-beta.5] - 2020-06-01
 

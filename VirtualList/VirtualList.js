@@ -190,6 +190,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
 	 * Unique identifier for the component.
 	 *
 	 * When defined and when the `VirtualList` is within a [Panel]{@link sandstone/Panels.Panel},
@@ -405,6 +414,15 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
 	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
 	 *
@@ -430,7 +448,8 @@ VirtualList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
@@ -615,6 +634,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -826,6 +854,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
 
 	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
 	 * a list is scrolled with an animation to the other side and the spotlight focus moves in wraparound manner.
 	 *
@@ -852,7 +889,8 @@ VirtualGridList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},

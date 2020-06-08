@@ -96,6 +96,46 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should activate input on enter', () => {
+		const node = document.body.appendChild(document.createElement('div'));
+		const handleChange = jest.fn();
+
+		const subject = mount(
+			<InputField onActivate={handleChange} />,
+			{attachTo: node}
+		);
+		const input = subject.find('input');
+
+		input.simulate('keyDown', {which: 13, keyCode: 13, code: 13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
+		node.remove();
+
+		const expected = 1;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not activate input on enter when disabled', () => {
+		const node = document.body.appendChild(document.createElement('div'));
+		const handleChange = jest.fn();
+
+		const subject = mount(
+			<InputField disabled onActivate={handleChange} />,
+			{attachTo: node}
+		);
+		const input = subject.find('input');
+
+		input.simulate('keyDown', {which: 13, keyCode: 13, code: 13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
+		node.remove();
+
+		const expected = 0;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should be able to be disabled', () => {
 		const subject = mount(
 			<InputField disabled />
