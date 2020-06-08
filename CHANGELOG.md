@@ -23,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Popup` to always remove scrim on close
 - `sandstone/TabLayout` button sizes to match the latest design
 - `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
+- `sandstone/ContextualMenuDecorator` to not read as alert when rendered on the screen
 
 ## [1.0.0-beta.5] - 2020-06-01
 
