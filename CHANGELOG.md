@@ -13,10 +13,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
 - `sandstone/KeyGuide` support for color keys
 
-### Changed
-
-- `sandstone/DropdownList` className from `"dropDownList"` to `"dropdownList"` for naming consistency
-
 ### Fixed
 
 - `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
