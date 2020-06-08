@@ -18,7 +18,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoChildrenDecorator} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -209,8 +209,8 @@ const ImageItemBase = kind({
 	computed: {
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			return React.useMemo(() => {
+				console.log('sandstone:children');
 
-				console.log('sandstone children');
 				const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 				if (!hasImageIcon && !children && !label) return;
@@ -236,9 +236,10 @@ const ImageItemBase = kind({
 		className: ({children, imageIconSrc, label, orientation, styler}) => {
 			return styler.append(
 				React.useMemo(() => {
-					console.log('sandstone className');
+					console.log('sandstone:className');
+
 					return {
-						fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+						fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
 					};
 				}, [!!children, !!imageIconSrc, !!label, orientation])
 			)
@@ -289,6 +290,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
+	MemoChildrenDecorator,
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
