@@ -16,7 +16,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = 'No selection';
-		const actual = dropDown.find('.dropdown').prop('children');
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -29,7 +29,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = placeholder;
-		const actual = dropDown.find('.dropdown').prop('children');
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -55,7 +55,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = placeholder;
-		const actual = dropDown.find('.dropdown').prop('children');
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -70,7 +70,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = children[selectedIndex];
-		const actual = dropDown.find('.dropdown').prop('children');
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -83,7 +83,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = placeholder;
-		const actual = dropDown.find('.dropdown').prop('children');
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -136,7 +136,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = 'checkbox';
-		const actual = dropDown.find('.dropdown').prop('popupProps').children[0].role;
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].role;
 
 		expect(actual).toBe(expected);
 	});
@@ -149,7 +149,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = true;
-		const actual = dropDown.find('.dropdown').prop('popupProps').children[0]['aria-checked'];
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0]['aria-checked'];
 
 		expect(actual).toBe(expected);
 	});
@@ -166,7 +166,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = true;
-		const actual = dropDown.find('.dropdown').prop('popupProps').children[0].disabled;
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].disabled;
 
 		expect(actual).toBe(expected);
 	});
@@ -188,7 +188,7 @@ describe('Dropdown', () => {
 			role: 'button',
 			'aria-checked': false
 		};
-		const actual = dropDown.find('.dropdown').prop('popupProps').children[0];
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0];
 
 		expect(actual).toMatchObject(expected);
 	});

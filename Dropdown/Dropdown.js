@@ -39,8 +39,8 @@ import DropdownList, {isSelectedValid} from './DropdownList';
 
 import css from './Dropdown.module.less';
 
-const DropdownButton = kind({
-	name: 'DropdownButton',
+const DropdownButtonBase = kind({
+	name: 'DropdownButtonBase',
 
 	propTypes: {
 		forwardRef: EnactPropTypes.ref
@@ -56,12 +56,13 @@ const DropdownButton = kind({
 	)
 });
 
-const ContextualButton = ContextualPopupDecorator(
+const DropdownButton = ContextualPopupDecorator(
 	{noArrow: true},
 	ForwardRef(
-		DropdownButton
+		DropdownButtonBase
 	)
 );
+DropdownButton.displayName = 'DropdownButton';
 
 /**
  * A stateless Dropdown component.
@@ -297,7 +298,7 @@ const DropdownBase = kind({
 		return (
 			<div {...rest}>
 				{title}
-				<ContextualButton
+				<DropdownButton
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
@@ -309,7 +310,7 @@ const DropdownBase = kind({
 					size={size}
 				>
 					{placeholder}
-				</ContextualButton>
+				</DropdownButton>
 			</div>
 		);
 	}
