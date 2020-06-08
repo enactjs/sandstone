@@ -2,6 +2,65 @@
 //
 @import "./internal/utils.less";
 
+//
+// GUI Guide definition library
+//
+// These values come directly from the design guide file. Any changes to that file should be set
+// here first, with measurement adjustments to be preformed on the component value definition lines
+// below.
+//
+// Usage:
+//   * These values should be the most basic literal values. Do not use math in this library;
+//     those belong in the component definitions.
+//   * Always use the full 4-value format for margin and padding defined here for predictability.
+//   * Keep the mixins and their rules alphabetized.
+//   * Spacing for readability is OK.
+//   * Each mixin represents a top-level component.
+//
+#guide() {
+	// Common sizes
+	// 60px - tiny
+	// 78px - small
+	// 90px - medium
+	// 108px - large
+	// 150px - huge
+
+	// Standard Mixins
+
+	// .get-edge-size-difference
+	//
+	// Given the GUI guide line-height and the Enact framework line-height, calculate the difference
+	// in one of the edges.
+	// Results returned in `@results`
+	.get-edge-size-difference(@guide-size, @size) {
+		@result: ((@size - @guide-size) / 2);
+	}
+
+
+	// Component Definition Mixins
+	.header() {
+		compact-padding: 60px 60px 66px 60px;
+		compact-title-font-size: 90px;
+		compact-title-line-height: 72px;
+
+		mini-padding: 108px 150px 84px 150px;
+		mini-title-font-size: 108px;
+		mini-title-line-height: 80px;
+
+		standard-padding: 108px 150px 73px 150px;
+		standard-title-font-size: 108px;
+		standard-title-line-height: 127px;
+
+		wizard-padding: 108px 210px 66px 210px;
+		wizard-title-font-size: 144;
+		wizard-title-line-height: 169px;
+	}
+
+	.panel() {
+		body-padding: 0 150px 0 150px;
+	}
+}
+
 // App
 // ---------------------------------------
 @sand-app-keepout: 48px;
@@ -343,19 +402,32 @@
 
 // Header
 // ---------------------------------------
-@sand-header-slotabove-margin: 0 0 30px 0;
-@sand-header-slotbelow-margin: 84px 0 0 0;
+@sand-header-slotabove-margin: 0 -@sand-component-spacing 30px -@sand-component-spacing; // Negative margins accomodate the component-spacing
+@sand-header-slotbelow-margin: 84px -@sand-component-spacing 0 -@sand-component-spacing; // Negative margins accomodate the component-spacing
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
+// STOP! READ THE FOLLOWING BEFORE EDITING.
+//
+// Panel imposes no padding so Header is fully responsible for its own positioning. The code below
+// reads values out of the guide definition library and uses them as the basis for calculations when
+// determining the correct padding (positioning) for Header. The GUI guide differs in its
+// line-height vs the framework's line-height due to the framework accounting for tall-glyphs during
+// localization. The visual result of the below calculations is expected to be a match with the
+// guide. Inspecting the Header's padding will result in intentional different values than the
+// values in the guide.
+@sand-header-standard-title-height: (@sand-heading-title-font-size * @sand-heading-title-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: (132px - extract(@sand-panel-padding, 1) - @sand-app-keepout) (144px - extract(@sand-panel-padding, 2)) 60px;
-@sand-header-standard-title-padding: 0 0 0 6px;
+@sand-header-standard-padding: (extract(#guide.header[standard-padding], 1) - #guide.get-edge-size-difference(#guide.header[standard-title-line-height], @sand-header-standard-title-height)[@result]) extract(#guide.header[standard-padding], 2) extract(#guide.header[standard-padding], 3) extract(#guide.header[standard-padding], 4);
+@sand-header-standard-title-padding: 0;
 @sand-header-standard-subtitle-margin: -24px 0 0 0;
+@sand-header-compact-title-height: (@sand-header-compact-title-font-size * @sand-heading-title-line-height);
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
-@sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
+@sand-header-compact-padding: (extract(#guide.header[compact-padding], 1) - #guide.get-edge-size-difference(#guide.header[compact-title-line-height], @sand-header-compact-title-height)[@result]) extract(#guide.header[compact-padding], 2) 0 extract(#guide.header[compact-padding], 4);
+@sand-header-mini-title-height: (@sand-header-mini-title-font-size * @sand-heading-title-line-height);
+@sand-header-mini-margin: 6px @sand-component-spacing extract(#guide.header[wizard-padding], 3) @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
 @sand-header-mini-padding: 0;
+@sand-header-wizard-title-height: (@sand-header-wizard-title-font-size * @sand-heading-title-line-height);
 @sand-header-wizard-margin: 0;
-@sand-header-wizard-padding: 108px 150px (66px - @sand-panel-body-padding-top); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+@sand-header-wizard-padding: (extract(#guide.header[wizard-padding], 1) - #guide.get-edge-size-difference(#guide.header[wizard-title-line-height], @sand-header-wizard-title-height)[@result]) extract(#guide.header[wizard-padding], 2) extract(#guide.header[wizard-padding], 3)  extract(#guide.header[wizard-padding], 4); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
 @sand-header-wizard-subtitle-lines: 2;
 @sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
@@ -509,9 +581,9 @@
 
 // Panels
 // ---------------------------------------
-@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
-@sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
-@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
+@sand-panel-padding: 0;
+@sand-panel-body-padding-top: extract(#guide.panel[body-padding], 1); // Used in this file only, for consistency
+@sand-panel-body-padding: @sand-panel-body-padding-top (extract(#guide.panel[body-padding], 2) - @sand-component-spacing);
 
 // Picker
 // ----------------------------------------
