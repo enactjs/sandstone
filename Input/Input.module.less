@@ -45,6 +45,9 @@
 	}
 
 	.submitButton {
+		display: block;
+		margin: @sand-input-submit-button-margin;
+		width: @sand-input-submit-button-width;
 	}
 
 	&.fullscreen {
@@ -137,6 +140,12 @@
 		.numberCell,
 		.joined {
 			background-color: @sand-input-numbercell-background-color;
+		}
+
+		.numberCell {
+			&.active {
+				background-color: @sand-input-numbercell-active-background-color;
+			}
 		}
 
 		&.overlay {

@@ -27,7 +27,9 @@ const NumberCell = kind({
 	name: 'NumberCell',
 
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
+		activeIndex: PropTypes.number,
 		children: PropTypes.string,
+		'data-index': PropTypes.number,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -43,10 +45,12 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({password, styler}) => styler.append({password})
+		className: ({'data-index': index, activeIndex, password, styler}) => styler.append({password, active: index === activeIndex})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
+		delete rest.activeIndex;
+
 		return (
 			<Icon
 				size="large"
@@ -137,11 +141,11 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
+		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value, submitLabel}) => {
 			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
 			if (minLength !== maxLength) {
-				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
+				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{submitLabel ? submitLabel : $L('Submit')}</Button>;
 			} else {
 				return null;
 			}
@@ -156,6 +160,7 @@ const NumberFieldBase = kind({
 		delete rest.onComplete;
 		delete rest.onSubmit;
 		delete rest.rtl;
+		delete rest.submitLabel;
 
 		const separated = getSeparated(numberInputField, maxLength);
 
@@ -170,7 +175,7 @@ const NumberFieldBase = kind({
 					{...rest}
 					component={Layout}
 					childComponent={Cell}
-					itemProps={{password, shrink: true, component: NumberCell}}
+					itemProps={{password, shrink: true, component: NumberCell, activeIndex: value.length}}
 					inline
 				>
 					{items.map((_, index) => (values[index]))}

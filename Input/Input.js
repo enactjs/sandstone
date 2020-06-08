@@ -186,6 +186,15 @@ const InputPopupBase = kind({
 		size: PropTypes.oneOf(['small', 'large']),
 
 		/**
+		 * Label of submit button used in number type.
+		 *
+		 * @type {String}
+		 *
+		 * @public
+		 */
+		submitLabel: PropTypes.string,
+
+		/**
 		 * Subtitle below the title of popup.
 		 *
 		 * @type {String}
@@ -285,6 +294,7 @@ const InputPopupBase = kind({
 		placeholder,
 		popupClassName,
 		popupType,
+		submitLabel,
 		size,
 		subtitle,
 		title,
@@ -322,6 +332,7 @@ const InputPopupBase = kind({
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
+								submitLabel={submitLabel}
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
 							/> :
