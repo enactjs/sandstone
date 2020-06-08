@@ -2,11 +2,40 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.0.0-beta.6] - 2020-06-08
+
+### Removed
+
+- `sandstone/Alert` prop `subtitle`
+
+### Added
+
+- `sandstone/KeyGuide` support for color keys
+- `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
+
+### Fixed
+
+- `sandstone/Alert` to use multi-line content when `"fullscreen"`
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
+- `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
+- `sandstone/Dropdown` to show an item fully when the item gets focus
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Panels.Header` style to match latest designs
+- `sandstone/Popup` to always remove the scrim when closed
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the scrollbar initially
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the horizontal overscroll effect properly in RTL locales
+- `sandstone/TabLayout` button sizes to match the latest designs
+- `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
+
 ## [1.0.0-beta.5] - 2020-06-01
 
 ### Removed
 
-- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, and `rateButtonsDisabled`
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
 
 ### Added
 

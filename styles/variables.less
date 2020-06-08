@@ -17,6 +17,7 @@
 // ---------------------------------------
 @sand-spotlight-outset: 48px;
 @sand-spotlight-focus-animation-duration: 200ms;
+@sand-spotlight-focus-shadow-height: 36px;
 
 
 // ---------------------------------------
@@ -64,8 +65,8 @@
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
-@sand-switch-icon-font-size:        180px;
-@sand-switch-icon-font-size-large:  288px;
+@sand-switch-icon-font-size:        90px;
+@sand-switch-icon-font-size-large:  144px;
 @sand-tooltip-label-font-size:      54px;
 
 @sand-non-latin-base-font-size:         66px;
@@ -168,6 +169,7 @@
 @sand-alert-max-buttons-margin-top: 300px;
 @sand-alert-fullscreen-button-spacing: 60px;
 @sand-alert-fullscreen-image-spacing: 30px;
+@sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
@@ -270,8 +272,8 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large);
+@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
 
 // FixedPopupPanels
 // ---------------------------------------
@@ -296,7 +298,9 @@
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px 150px 72px;
+@sand-header-standard-padding: (132px - extract(@sand-panel-padding, 1) - @sand-app-keepout) (144px - extract(@sand-panel-padding, 2)) 60px;
+@sand-header-standard-title-padding: 0 0 0 6px;
+@sand-header-standard-subtitle-margin: -24px 0 0 0;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
@@ -304,6 +308,7 @@
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding: 108px 150px (66px - @sand-panel-body-padding-top); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
 @sand-header-wizard-subtitle-lines: 2;
+@sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
 // Heading
 // ---------------------------------------
@@ -403,6 +408,7 @@
 // ---------------------------------------
 @sand-item-height: 156px;
 @sand-item-height-large: @sand-item-height;
+@sand-item-shadow-height: @sand-spotlight-focus-shadow-height;
 @sand-item-withlabel-height: 240px;
 @sand-item-vertical-padding: 6px;
 @sand-item-line-height: 1.3em;
@@ -416,11 +422,16 @@
 
 // Keyguide
 // ---------------------------------------
-@sand-keyguide-width: 750px;
+@sand-keyguide-colordot-height: 12px;
+@sand-keyguide-colordot-margin: 0 ((@sand-icon-small-size - @sand-keyguide-colordot-width) / 2); // Keep this centered by adapting its margins
+@sand-keyguide-colordot-width: 60px;
+@sand-keyguide-colordot-border-radius: 6px;
+@sand-keyguide-icon-margin-right: 48px;
+@sand-keyguide-padding: 24px 0;
 @sand-keyguide-position-bottom: 120px;
 @sand-keyguide-position-right: 150px;
-@sand-keyguide-icon-margin-right: 48px;
-@sand-keyguide-padding: 6px 0;
+@sand-keyguide-width: 750px;
+@sand-keyguide-item-height: 120px;
 
 // MediaOverlay
 // ---------------------------------------
@@ -596,12 +607,11 @@
 @sand-switch-height: 60px;
 @sand-switch-width: 114px;
 @sand-switch-icon-height: @sand-switch-height;
-@sand-switch-icon-line-height: 63px;
+@sand-switch-icon-line-height: @sand-switch-height;
 @sand-switch-height-large: @sand-icon-small-size-large;
 @sand-switch-width-large: 162px;
 @sand-switch-icon-height-large: @sand-icon-small-size-large;
-@sand-switch-icon-width-large: @sand-icon-small-size-large;
-@sand-switch-icon-line-height-large: 96px;
+@sand-switch-icon-line-height-large: @sand-switch-icon-height-large;
 @sand-switch-spottable-margin: 18px (@sand-component-spacing + 30px);
 @sand-switch-spottable-border-radius: @sand-item-border-radius;
 @sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
@@ -613,8 +623,10 @@
 @sand-tablayout-vertical-content-margin-top: 0;
 @sand-tablayout-horizontal-content-margin-top: 96px;
 @sand-tablayout-horizontal-tabs-margin: 0 @sand-component-spacing;
+@sand-tablayout-tab-vertical-button-height: 156px;
 @sand-tablayout-tab-vertical-margin-bottom: 24px;
 @sand-tablayout-tab-selected-opacity: 0.6;
+@sand-tablayout-tab-horizontal-button-height: 132px;
 @sand-tablayout-tab-horizontal-margin: 0;
 @sand-tablayout-tab-horizontal-padding: 0;
 @sand-tablayout-tab-horizontal-border-width: ~"calc(" 6px ~"/ 3)"; // foolishness to get a correctly scalable 2px at 4k
@@ -648,7 +660,7 @@
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
-@sand-video-feedback-icon-font-size:               2em;
+@sand-video-feedback-icon-font-size:               1.25em;
 @sand-video-feedback-mini-font-family:             @sand-alt-font-family;
 @sand-video-feedback-mini-font-weight:             bold;
 @sand-video-feedback-mini-font-style:              normal;

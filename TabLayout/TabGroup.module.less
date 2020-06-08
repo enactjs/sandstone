@@ -12,6 +12,7 @@
 		&.button {
 			margin: @sand-tablayout-tab-horizontal-margin;
 			padding: @sand-tablayout-tab-horizontal-padding;
+			height: @sand-tablayout-tab-horizontal-button-height;
 
 			.client {
 				.sand-spotlight-margin();
@@ -30,6 +31,10 @@
 
 	&.vertical {
 		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
+
+		&.button {
+			height: @sand-tablayout-tab-vertical-button-height;
+		}
 
 		.client {
 			text-align: start;
@@ -75,8 +80,6 @@
 .applySkins({
 	.tabGroup {
 		.horizontalLine {
-			position: absolute;
-			bottom: 0;
 			width: 100%;
 			margin: 0;
 			border: 0 none transparent;
