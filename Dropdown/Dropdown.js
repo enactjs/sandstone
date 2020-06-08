@@ -163,6 +163,14 @@ const DropdownBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
+		 * Indicates the locale's text direction is right-to-left.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		 * Index of the selected item.
 		 *
 		 * @type {Number}
@@ -276,7 +284,9 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, placeholder, selected, title, width, ...rest}) => {
+	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+		delete rest.rtl;
+
 		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
@@ -285,20 +295,22 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<React.Fragment>
+			<div {...rest}>
 				{title}
 				<ContextualButton
-					{...rest}
+					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
 					popupProps={popupProps}
 					popupComponent={DropdownList}
 					onClick={onOpen}
+					onClose={onClose}
 					open={openDropdown}
+					size={size}
 				>
 					{placeholder}
 				</ContextualButton>
-			</React.Fragment>
+			</div>
 		);
 	}
 });
@@ -322,9 +334,9 @@ const DropdownDecorator = compose(
 	Pure({propComparators: {
 		children: compareChildren
 	}}),
-	I18nContextDecorator(
-		{rtlProp: 'rtl'}
-	),
+	I18nContextDecorator({
+		rtlProp: 'rtl'
+	}),
 	Changeable({
 		change: 'onSelect',
 		prop: 'selected'
