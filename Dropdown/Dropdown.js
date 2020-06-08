@@ -268,13 +268,13 @@ const DropdownBase = kind({
 		return (
 			<ContextualButton
 				{...rest}
-				spotlightRestrict="self-only"
 				disabled={hasChildren ? disabled : true}
 				icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
 				popupProps={popupProps}
 				popupComponent={DropdownList}
 				onClick={onOpen}
 				open={openDropdown}
+				spotlightRestrict="self-only"
 			>
 				{title}
 			</ContextualButton>
