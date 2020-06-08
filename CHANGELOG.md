@@ -42,11 +42,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
-<<<<<<< HEAD
 - `sandstone/Input` to change the color when activated
-=======
 - `sandstone/Icon` supported icon list, adding new icons and removing unused ones
->>>>>>> develop
 
 ### Fixed
 
