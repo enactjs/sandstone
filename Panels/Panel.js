@@ -49,6 +49,12 @@ const PanelBase = kind({
 		 */
 		'aria-label': PropTypes.string,
 
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @public
+		 */
 		componentRef: EnactPropTypes.ref,
 
 		/**
@@ -90,7 +96,6 @@ const PanelBase = kind({
 	},
 
 	defaultProps: {
-		autoFocus: 'last-focused',
 		hideChildren: false
 	},
 
