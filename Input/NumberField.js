@@ -45,7 +45,7 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({'data-index': index, activeIndex, password, styler}) => styler.append({password, active: index === activeIndex})
+		className: ({'data-index': index, activeIndex, password, styler}) => styler.append({password, active: index <= activeIndex})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {

@@ -137,14 +137,17 @@
 	}
 
 	.applySkins({
-		.numberCell,
 		.joined {
-			background-color: @sand-input-numbercell-background-color;
+			color: @sand-inputfield-focus-text-color;
+			background-color: @sand-input-number-active-background-color;
 		}
 
 		.numberCell {
+			background-color: @sand-input-numbercell-background-color;
+
 			&.active {
-				background-color: @sand-input-numbercell-active-background-color;
+				color: @sand-inputfield-focus-text-color;
+				background-color: @sand-input-number-active-background-color;
 			}
 		}
 
