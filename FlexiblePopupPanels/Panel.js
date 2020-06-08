@@ -1,6 +1,9 @@
 import handle, {adaptEvent, forward, forwardWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import useChainRefs from '@enact/core/useChainRefs';
 import {Cell, Row} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
+import ri from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -207,11 +210,44 @@ const PanelBase = kind({
 		delete props.prevButton;
 		delete props.prevButtonVisibility;
 
-		return (<DefaultPanel {...props} css={css} />);
+		return (
+			<DefaultPanel {...props} css={css} />
+		);
 	}
 });
 
-const Panel = PanelDecorator(PanelBase);
+// eslint-disable-next-line no-shadow
+const MeasureDecorator = Wrapped => function MeasureDecorator ({componentRef, ...rest}) {
+	const {ref: measureRef, measurement} = useMeasurable();
+	const ref = useChainRefs(measureRef, componentRef);
+	const height = measurement && measurement.height || 0;
+
+	React.useLayoutEffect(() => {
+		// If height is exists (and isn't 0) convert it to a REM for safe screen scaling.
+		const remHeight = ri.unit(height, 'rem');
+
+		if (measureRef.current) {
+			// Relay the height value up to the Panels instance (parent of ViewManager, grand-parent of the
+			// Panel) so the background element can animate without "blanking out" (resetting to null)
+			// between panel measurement. Panel must be measured at "native" layout size, then set to fixed
+			// to allow a transition to work as expected, since transitions to/from "auto" are impossible
+			// at this time.
+			measureRef.current.parentNode.parentNode.style.setProperty('--sand-panels-measured-height', remHeight);
+
+			// Re-assign the measure height back to the panel as a fixed value, to enable proper DOM
+			// bounding rectangle clipping, to support native scrollable region detection.
+			measureRef.current.style.setProperty('--sand-panel-measured-height', remHeight);
+		}
+	}, [measureRef, height]);
+
+	return <Wrapped {...rest} componentRef={ref} />;
+}
+
+const Panel = PanelDecorator(
+	MeasureDecorator(
+		PanelBase
+	)
+);
 
 export default Panel;
 export {
