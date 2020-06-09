@@ -192,10 +192,10 @@ const PopupBase = kind({
 	},
 
 	computed: {
-		'aria-live': ({noAccessible}) => (!noAccessible && 'off' || null),
+		'aria-live': ({'aria-live': live, noAccessible}) => ((typeof live !== 'undefined') ? live : (!noAccessible && 'off' || null)),
 		className: ({position, styler}) => styler.append(position),
 		direction: ({position}) => transitionDirection[position],
-		role: ({noAccessible, role}) => (role || !noAccessible && 'alert' || null),
+		role: ({noAccessible, role}) => ((typeof role !== 'undefined') ? role : (!noAccessible && 'alert' || null)),
 		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
