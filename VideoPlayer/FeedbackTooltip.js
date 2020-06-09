@@ -30,13 +30,13 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Invoke action to display or hide tooltip.
 		 *
-		 * @type {String}
+		 * @type {('focus'|'blur'|'idle')}
 		 * @default 'idle'
 		 */
 		action: PropTypes.oneOf(['focus', 'blur', 'idle']),
 
 		/**
-		 * Duration of the curent media in seconds
+		 * Duration of the current media in seconds
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -47,7 +47,7 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Instance of `NumFmt` to format the time
 		 *
-		 * @type {Objct}
+		 * @type {Object}
 		 * @public
 		 */
 		formatter: PropTypes.object,

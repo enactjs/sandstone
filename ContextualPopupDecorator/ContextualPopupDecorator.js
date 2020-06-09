@@ -217,7 +217,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *   components beyond the popup, or
 			 * * `'self-only'` - Spotlight can only be set within the popup
 			 *
-			 * @type {String}
+			 * @type {('none'|'self-first'|'self-only')}
 			 * @default 'self-first'
 			 * @public
 			 */

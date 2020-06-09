@@ -148,9 +148,7 @@ const PickerBase = kind({
 		 *
 		 * Controls whether the buttons are arranged horizontally or vertically around the value.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical')}
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
