@@ -2,11 +2,15 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## unreleased
+## [unreleased]
+
+### Added
+
+- `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 
 ### Fixed
 
-- `sandstone/TabLayout` to not trigger re-render on every focus event
+- `sandstone/TabLayout` performance when focusing items in the layout
 
 ## [1.0.0-beta.6] - 2020-06-08
 
