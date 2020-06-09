@@ -30,13 +30,8 @@ class DifferenctHeightItem extends Component {
 	}
 
 	itemStyleDefault = {
-		position: 'absolute',
-		width: '100%',
-		borderBottom: 'solid 10px gray',
-		boxSizing: 'border-box',
 		fontSize,
-		lineHeight,
-		whiteSpace: 'pre'
+		lineHeight
 	}
 
 	render () {

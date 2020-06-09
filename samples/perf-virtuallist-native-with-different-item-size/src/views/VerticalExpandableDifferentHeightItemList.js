@@ -23,6 +23,7 @@ const
 	fontSize = ri.scale(31),
 	oneLineSize = ri.scale(50),
 	lineHeight = `${oneLineSize}px`,
+	padding = `0 ${ri.scale(50)}px`,
 	spacing = 40;
 
 class ExpandableDifferenctHeightItem extends Component {
@@ -36,7 +37,7 @@ class ExpandableDifferenctHeightItem extends Component {
 	itemStyleDefault = {
 		position: 'absolute',
 		width: '100%',
-		borderBottom: 'solid 10px gray',
+		padding: padding,
 		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,

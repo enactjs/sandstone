@@ -19,8 +19,8 @@ const
 	],
 	numOfItems = 100,
 	fontSize = ri.scale(20),
-	oneLineSize = ri.scale(50),
-	lineHeight = `${fontSize}px`,
+	oneLineSize = ri.scale(20),
+	lineHeight = `${oneLineSize}px`,
 	spacing = 50;
 
 class DifferenctWidthItem extends Component {
@@ -30,13 +30,10 @@ class DifferenctWidthItem extends Component {
 	}
 
 	itemStyleDefault = {
-		position: 'absolute',
+		overflow: 'hidden',
 		height: '100%',
-		borderRight: 'solid 10px gray',
-		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,
-		whiteSpace: 'pre',
 		writingMode: 'vertical-rl'
 	}
 
@@ -69,7 +66,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 				width = numOfLines * oneLineSize;
 
 			items.push({
-				title: (`${('00' + i).slice(-3)} | ${position}px | ${numOfLines}lines |${languages[i % 10]}\n`),
+				title: (`${('00' + i).slice(-3)} | ${position}px | width:${width}px |${languages[i % 10]}\n`),
 				width
 			});
 			itemSize.push(width);
