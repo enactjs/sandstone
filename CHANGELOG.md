@@ -4,6 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
+
+### Fixed
+
+- `sandstone/TabLayout` performance when focusing items in the layout
+
+## [1.0.0-beta.6] - 2020-06-08
+
 ### Removed
 
 - `sandstone/Alert` prop `subtitle`
@@ -11,10 +21,25 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/KeyGuide` support for color keys
+- `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
 
 ### Fixed
 
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
+- `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
+- `sandstone/Dropdown` to show an item fully when the item gets focus
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Panels.Header` style to match latest designs
+- `sandstone/Popup` to always remove the scrim when closed
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the scrollbar initially
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the horizontal overscroll effect properly in RTL locales
+- `sandstone/TabLayout` button sizes to match the latest designs
+- `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
 
 ## [1.0.0-beta.5] - 2020-06-01
 
@@ -33,7 +58,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
-- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
 
 ### Fixed
 
@@ -80,7 +104,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Tooltip` style to match latest designs
 - `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
-- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
 
 ## [1.0.0-beta.3] - 2020-05-11
 
