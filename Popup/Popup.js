@@ -103,7 +103,7 @@ const PopupBase = kind({
 		/**
 		 * Support accessibility options.
 		 *
-		 * If false, the Popup will support aria-live="off" and role="alert".
+		 * If true, the accessibility feature in the Popup will be disabled.
 		 *
 		 * @type {Boolean}
 		 * @default false
