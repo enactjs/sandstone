@@ -197,30 +197,22 @@ const PanelBase = kind({
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
 		ids: ({'aria-label': label, panelType}) => {
 			if (label) {
-				return {
-					panelId: null,
-					headerId: null,
-					titleId: null,
-					subtitleId: null
-				};
+				return {};
 			} else if (panelType === 'fixedPopup') {
-				const id = `panel_${++panelId}_title panel_${panelId}_subtitle`;
-				const [titleId, subtitleId] = id.split(' ');
+				const labelledby = `panel_${++panelId}_title panel_${panelId}_subtitle`;
+				const [titleId, subtitleId] = labelledby.split(' ');
 
 				return {
-					panelId: id,
-					headerId: null,
-					titleId,
-					subtitleId
+					labelledby,
+					subtitleId,
+					titleId
 				};
 			} else {
 				const id = `panel_${++panelId}_header`;
 
 				return {
-					panelId: id,
 					headerId: id,
-					titleId: null,
-					subtitleId: null
+					labelledby: id
 				};
 			}
 		}
@@ -232,7 +224,7 @@ const PanelBase = kind({
 		css,
 		entering,
 		header,
-		ids,
+		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
 		spotOnRender,
 		...rest
 	}) => {
@@ -241,13 +233,13 @@ const PanelBase = kind({
 		delete rest.panelType;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={ids.panelId} ref={spotOnRender}>
-				<div className={css.header} id={ids.headerId}>
+			<article role="region" {...rest} aria-labelledby={labelledby} ref={spotOnRender}>
+				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
 						entering={entering}
-						subtitleId={ids.subtitleId}
-						titleId={ids.titleId}
+						subtitleId={subtitleId}
+						titleId={titleId}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>

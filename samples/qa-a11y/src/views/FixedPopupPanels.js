@@ -11,69 +11,90 @@ for (let i = 0; i < 6; i++) {
 	itemData.push(`Item ${i}`);
 }
 
-const FixedPopupPanelsView = () => {
-	const [openPopupOfSettings, setOpenPopupOfSettings] = React.useState(false);
-	const [openOfOptionDetail, setOpenOfOptionDetail] = React.useState(false);
-	const [index, setIndex] = React.useState(0);
-	const goNext = () => setIndex(1);
-	const goPrevious = () => setIndex(0);
+class FixedPopupPanelsView extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			open1: false,
+			open2: false,
+			open3: false,
+			open4: false,
+			panelIndex: 0
+		};
 
-	return (
-		<>
-			<Button size="small" onClick={() => setOpenPopupOfSettings(true)}>Settings Popup</Button>
-			<Button size="small" onClick={() => setOpenOfOptionDetail(true)}>Option detail Popup</Button>
-			<FixedPopupPanels
-				index={index}
-				onClose={() => setOpenPopupOfSettings(false)}
-				open={openPopupOfSettings}
-			>
-				<Panel>
-					<Header>
-						<title>Header Title</title>
-						<subtitle>Subtitle</subtitle>
-					</Header>
-					<Scroller direction="vertical" style={{height: ri.scaleToRem(780)}}>
-						{itemData.map((item, i) => <Item key={i} onClick={goNext}>{item}</Item>)}
-					</Scroller>
-					<Button onClick={goNext}>Button 1</Button>
-					<Button onClick={goNext}>Button 2</Button>
-				</Panel>
-				<Panel>
-					<Header>
-						<title>Header Title</title>
-						<subtitle>Subtitle</subtitle>
-					</Header>
-					<Scroller direction="vertical" style={{height: ri.scaleToRem(408)}}>
-						{itemData.map((item, i) => <Item key={i} onClick={goPrevious}>{item}</Item>)}
-					</Scroller>
-					<Button onClick={goPrevious}>Button 1</Button>
-					<Button onClick={goPrevious}>Button 2</Button>
-				</Panel>
-			</FixedPopupPanels>
-			<FixedPopupPanels
-				index={index}
-				onClose={() => setOpenOfOptionDetail(false)}
-				open={openOfOptionDetail}
-			>
-				<Panel>
-					<Header>
-						<title>Option</title>
-					</Header>
-					<Item onClick={goNext}>Example Item 1</Item>
-					<Item onClick={goNext}>Example Item 2</Item>
-					<Item onClick={goNext}>Example Item 3</Item>
-				</Panel>
-				<Panel>
-					<Header>
-						<title>Option</title>
-					</Header>
-					<Item onClick={goPrevious}>Example Item 1</Item>
-					<Item onClick={goPrevious}>Example Item 2</Item>
-					<Item onClick={goPrevious}>Example Item 3</Item>
-				</Panel>
-			</FixedPopupPanels>
-		</>
-	);
-};
+		this.handleOpen1 = this.handleOpen(1);
+		this.handleOpen2 = this.handleOpen(2);
+
+		this.handleClose1 = this.handleClose(1);
+		this.handleClose2 = this.handleClose(2);
+	}
+
+	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
+
+	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
+
+	nextPanel = () => this.setState({panelIndex: 1})
+
+	prevPanel = () => this.setState({panelIndex: 0})
+
+	render () {
+		return (
+			<>
+				<Button size="small" onClick={this.handleOpen1}>Settings Popup</Button>
+				<Button size="small" onClick={this.handleOpen2}>Option detail Popup</Button>
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose1}
+					open={this.state.open1}
+				>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+							<subtitle>Subtitle</subtitle>
+						</Header>
+						<Scroller direction="vertical" style={{height: ri.scaleToRem(780)}}>
+							{itemData.map((item, i) => <Item key={i} onClick={this.nextPanel}>{item}</Item>)}
+						</Scroller>
+						<Button onClick={this.nextPanel}>Button 1</Button>
+						<Button onClick={this.nextPanel}>Button 2</Button>
+					</Panel>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+							<subtitle>Subtitle</subtitle>
+						</Header>
+						<Scroller direction="vertical" style={{height: ri.scaleToRem(408)}}>
+							{itemData.map((item, i) => <Item key={i} onClick={this.prevPanel}>{item}</Item>)}
+						</Scroller>
+						<Button onClick={this.prevPanel}>Button 1</Button>
+						<Button onClick={this.prevPanel}>Button 2</Button>
+					</Panel>
+				</FixedPopupPanels>
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose2}
+					open={this.state.open2}
+				>
+					<Panel>
+						<Header>
+							<title>Option</title>
+						</Header>
+						<Item onClick={this.nextPanel}>Example Item 1</Item>
+						<Item onClick={this.nextPanel}>Example Item 2</Item>
+						<Item onClick={this.nextPanel}>Example Item 3</Item>
+					</Panel>
+					<Panel>
+						<Header>
+							<title>Option</title>
+						</Header>
+						<Item onClick={this.prevPanel}>Example Item 1</Item>
+						<Item onClick={this.prevPanel}>Example Item 2</Item>
+						<Item onClick={this.prevPanel}>Example Item 3</Item>
+					</Panel>
+				</FixedPopupPanels>
+			</>
+		);
+	}
+}
 
 export default FixedPopupPanelsView;

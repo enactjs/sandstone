@@ -435,7 +435,6 @@ const HeaderBase = kind({
 
 			const titleHeading = (
 				<Heading
-					aria-label={title}
 					id={titleId}
 					size="title"
 					spacing="auto"
