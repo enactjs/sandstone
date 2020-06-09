@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 
+### Fixed
+
+- `sandstone/Input` to update `invalidTooltip` to the latest design
+
 ## [1.0.0-beta.6] - 2020-06-08
 
 ### Removed
