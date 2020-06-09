@@ -1,5 +1,5 @@
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop} = require('../VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused} = require('../VirtualList-utils');
 
 describe('VirtualList', function () {
 
@@ -30,7 +30,7 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
+			waitUntilFocused(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.fiveWayToItem(17);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
@@ -40,12 +40,12 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
-			expectFocusedItem(23, 'step 6 focus');
+			waitUntilFocused(23, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(17, 'step 7 focus');
+			waitUntilFocused(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.fiveWayToItem(7);
 			// Verify Step 8: Spotlight is on the first visible item.
@@ -54,7 +54,7 @@ describe('VirtualList', function () {
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(1, 'step 9 focus');
+			waitUntilFocused(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
 			$('#item3').moveTo(302, 50);
 			// Verify Step 10, Step 11: Spotlight is on 'Item 003'
@@ -121,14 +121,12 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			// Verify Step 6: 1. Spotlight hides.
 			expectNoFocusedItem();
-			Page.delay(1000);
-			expectFocusedItem(6, 'focus Item 6');
+			waitUntilFocused(6, 'focus Item 6');
 			// Step 7. Press Channel Down.
 			Page.pageDown();
 			// Verify Step 7: 1. Spotlight hides.
 			expectNoFocusedItem();
-			Page.delay(1000);
-			expectFocusedItem(12, 'focus Item 12');
+			waitUntilFocused(12, 'focus Item 12');
 			// Step 8. 5-way Down several times to scroll down the list.
 			Page.fiveWayToItem(30);
 			expectFocusedItem(30, 'focus Item 30');

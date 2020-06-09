@@ -81,6 +81,36 @@
 		}
 	}
 
+	&.transparent {
+		.tooltipLabel {
+			font-weight: @sand-tooltip-transparent-font-weight;
+			font-size: 36px;
+		}
+		.tooltipArrow {
+			display: none;
+		}
+		&.below {
+			.tooltipLabel {
+				margin-top: @sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.above {
+			.tooltipLabel {
+				margin-bottom: @sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.left {
+			.tooltipLabel {
+				margin-right: @sand-tooltip-transparent-label-offset;
+			}
+		}
+		&.right {
+			.tooltipLabel {
+				margin-left: @sand-tooltip-transparent-label-offset;
+			}
+		}
+	}
+
 	// Positioning for the arrow and label
 	&.below {
 		.tooltipArrow {
@@ -235,6 +265,10 @@
 		&.below {
 			top: ~"calc(var(--tooltip-position-top) + " @sand-tooltip-offset ~")";
 
+			&.transparent {
+				top: ~"calc(var(--tooltip-position-top) + " @sand-tooltip-transparent-label-offset ~")";
+			}
+
 			&.leftArrow .tooltipAnchor {	transform: translateX(-100%);	}
 			&.centerArrow .tooltipAnchor {	transform: translateX(-50%);	}
 			&.rightArrow .tooltipAnchor {	/* transform: translate(0, 0); */	}
@@ -242,6 +276,10 @@
 
 		&.above {
 			top: ~"calc(var(--tooltip-position-top) - " @sand-tooltip-offset ~")";
+
+			&.transparent {
+				top: ~"calc(var(--tooltip-position-top) - " @sand-tooltip-transparent-label-offset ~")";
+			}
 
 			&.leftArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
 			&.centerArrow .tooltipAnchor {	transform: translate(-50%, -100%);	}
@@ -251,6 +289,10 @@
 		&.left {
 			left: ~"calc(var(--tooltip-position-left) - " @sand-tooltip-offset ~")";
 
+			&.transparent {
+				left: ~"calc(var(--tooltip-position-left) - " @sand-tooltip-transparent-label-offset ~")";
+			}
+
 			&.topArrow .tooltipAnchor {	transform: translate(-100%, -100%);	}
 			&.middleArrow .tooltipAnchor {	transform: translate(-100%, -50%);	}
 			&.bottomArrow .tooltipAnchor {	transform: translate(-100%, 0);	}
@@ -258,6 +300,10 @@
 
 		&.right {
 			left: ~"calc(var(--tooltip-position-left) + " @sand-tooltip-offset ~")";
+
+			&.transparent {
+				left: ~"calc(var(--tooltip-position-left) + " @sand-tooltip-transparent-label-offset ~")";
+			}
 
 			&.topArrow .tooltipAnchor {	transform: translate(0, -100%);	}
 			&.middleArrow .tooltipAnchor {	transform: translate(0, -50%);	}
@@ -270,6 +316,10 @@
 		&.below {
 			top: ~"calc(100% + " @sand-tooltip-offset ~")";
 
+			&.transparent {
+				top: ~"calc(100% + " @sand-tooltip-transparent-label-offset ~")";
+			}
+
 			&.leftArrow {	right: 50%;	}
 			&.centerArrow,
 			&.rightArrow {	left: 50%;	}
@@ -279,6 +329,10 @@
 
 		&.above {
 			bottom: ~"calc(100% + " @sand-tooltip-offset ~")";
+
+			&.transparent {
+				bottom: ~"calc(100% + " @sand-tooltip-transparent-label-offset ~")";
+			}
 
 			&.leftArrow {	right: 50%;	}
 			&.centerArrow,
@@ -290,6 +344,10 @@
 		&.left {
 			right: ~"calc(100% + " @sand-tooltip-offset ~")";
 
+			&.transparent {
+				right: ~"calc(100% + " @sand-tooltip-transparent-label-offset ~")";
+			}
+
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
 			&.bottomArrow {	top: 50%;	}
@@ -299,6 +357,10 @@
 
 		&.right {
 			left: ~"calc(100% + " @sand-tooltip-offset ~")";
+
+			&.transparent {
+				left: ~"calc(100% + " @sand-tooltip-transparent-label-offset ~")";
+			}
 
 			&.topArrow {	bottom: 50%;	}
 			&.middleArrow,
@@ -319,6 +381,14 @@
 	// Skin colors
 	.applySkins({
 		filter: drop-shadow(@sand-tooltip-shadow);
+
+		&.transparent {
+			filter: none;
+			.tooltipLabel {
+				color: #fff;
+				background-color: transparent;
+			}
+		}
 
 		// Drawing the arc/arrow shape using the mixin from above
 		&.below {
