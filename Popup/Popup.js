@@ -333,14 +333,6 @@ class Popup extends React.Component {
 		open: PropTypes.bool,
 
 		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
 		 * Scrim type.
 		 *
 		 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
