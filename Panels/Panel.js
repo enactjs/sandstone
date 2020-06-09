@@ -12,6 +12,7 @@ import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
 import {ContextAsDefaults} from '../internal/Panels/util';
+import {FloatingLayerIdProvider} from '../internal/Panels';
 
 import componentCss from './Panel.module.less';
 
@@ -97,6 +98,14 @@ const PanelBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * The floating layer id
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		floatingLayerId: PropTypes.string,
 
 		/**
 		 * Header for the panel.
@@ -194,6 +203,7 @@ const PanelBase = kind({
 		bodyClassName,
 		children,
 		css,
+		floatingLayerId,
 		entering,
 		header,
 		headerId,
@@ -204,7 +214,7 @@ const PanelBase = kind({
 		delete rest.hideChildren;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
+			<article role="region" {...rest} aria-owns={floatingLayerId} aria-labelledby={headerId} ref={spotOnRender}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
@@ -219,6 +229,7 @@ const PanelBase = kind({
 
 
 const PanelDecorator = compose(
+	FloatingLayerIdProvider,
 	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
