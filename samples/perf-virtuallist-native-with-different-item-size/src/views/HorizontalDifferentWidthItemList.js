@@ -20,7 +20,7 @@ const
 	numOfItems = 100,
 	fontSize = ri.scale(20),
 	oneLineSize = ri.scale(50),
-	lineHeight = `${oneLineSize - 10}px`,
+	lineHeight = `${fontSize}px`,
 	spacing = 50;
 
 class DifferenctWidthItem extends Component {
@@ -36,13 +36,9 @@ class DifferenctWidthItem extends Component {
 		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,
-		whiteSpace: 'pre'
-	}
-
-	innerItemStyleDefault = {
-		height: '100%',
+		whiteSpace: 'pre',
 		writingMode: 'vertical-rl'
-	};
+	}
 
 	render () {
 		const
@@ -50,12 +46,9 @@ class DifferenctWidthItem extends Component {
 			{title: children, width} = items[index],
 			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, width: width + 'px'};
 
-
 		return (
 			<Item {...rest} style={itemStyle}>
-				<div style={this.innerItemStyleDefault}>
-					{children}
-				</div>
+				{children}
 			</Item>
 		);
 	}
@@ -76,7 +69,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 				width = numOfLines * oneLineSize;
 
 			items.push({
-				title: (`${('00' + i).slice(-3)} | ${position}px | ${languages[i % 10]}\n`).repeat(numOfLines),
+				title: (`${('00' + i).slice(-3)} | ${position}px | ${numOfLines}lines |${languages[i % 10]}\n`),
 				width
 			});
 			itemSize.push(width);

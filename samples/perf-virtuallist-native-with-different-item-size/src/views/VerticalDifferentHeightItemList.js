@@ -43,14 +43,10 @@ class DifferenctHeightItem extends Component {
 		const
 			{index, items, style: itemStyleFromList, ...rest} = this.props,
 			{title: children, height} = items[index],
-			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList};
-
-
+			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, height};
 		return (
 			<Item {...rest} style={itemStyle}>
-				<div style={{height}}>
-					{children}
-				</div>
+				{children}
 			</Item>
 		);
 	}
