@@ -9,17 +9,18 @@
  * @exports PopupBase
  */
 
-import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
-import FloatingLayer from '@enact/ui/FloatingLayer';
+import {forward} from '@enact/core/handle';
+import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import FloatingLayer from '@enact/ui/FloatingLayer';
 import Transition from '@enact/ui/Transition';
-import {forward} from '@enact/core/handle';
+import PropTypes from 'prop-types';
+import React from 'react';
 import warning from 'warning';
 
 import Skinnable from '../Skinnable';
@@ -45,6 +46,15 @@ const transitionDirection = {
 	fullscreen: 'down',
 	left: 'left',
 	right: 'right',
+	top: 'up'
+};
+
+const transitionReverseDirection = {
+	bottom: 'down',
+	center: 'down',
+	fullscreen: 'down',
+	left: 'right',
+	right: 'left',
 	top: 'up'
 };
 
@@ -174,7 +184,7 @@ const PopupBase = kind({
 	computed: {
 		className: ({position, styler}) => styler.append(position),
 		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
-		direction: ({position}) => transitionDirection[position]
+		direction: ({position, rtl}) => ((rtl ? transitionReverseDirection : transitionDirection)[position])
 	},
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
@@ -208,9 +218,9 @@ const PopupBase = kind({
 	}
 });
 
-const SkinnedPopupBase = Skinnable(
+const SkinnedPopupBase = I18nContextDecorator({rtlProp: 'rtl'})(Skinnable(
 	PopupBase
-);
+));
 
 // Deprecate using scrimType 'none' with spotlightRestrict of 'self-only'
 const checkScrimNone = (props) => {
