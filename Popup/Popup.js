@@ -20,6 +20,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import Transition from '@enact/ui/Transition';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
 import warning from 'warning';
 
@@ -218,9 +219,12 @@ const PopupBase = kind({
 	}
 });
 
-const SkinnedPopupBase = I18nContextDecorator({rtlProp: 'rtl'})(Skinnable(
-	PopupBase
-));
+const PopupDecorator = compose(
+	I18nContextDecorator({rtlProp: 'rtl'}),
+	Skinnable
+);
+
+const SkinnedPopupBase = PopupDecorator(PopupBase);
 
 // Deprecate using scrimType 'none' with spotlightRestrict of 'self-only'
 const checkScrimNone = (props) => {
