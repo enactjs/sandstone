@@ -137,6 +137,15 @@
 		pointer-events: none;
 	}
 
+	.tooltip {
+		margin-top: 30px;//@sand-inputfield-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: @sand-inputfield-invalid-tooltip-font-size;
+			font-weight: @sand-inputfield-invalid-tooltip-font-weight;
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		color: @sand-inputfield-text-color;
@@ -172,6 +181,12 @@
 			// Set `.inputHighlight` background color to make it appear that the text is highlighted
 			// when `.input` has transparent background and when `.inputField` has focus, but not `.input`.
 			// background-color: @sand-spotlight-color;
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				color: @sand-inputfield-invalid-tooltip-text-color;
+			}
 		}
 
 		// For when the field container has spotlight focus
