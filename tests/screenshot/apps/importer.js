@@ -35,7 +35,7 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import TooltipDecorator from '../../../TooltipDecorator';
+import TooltipDecorator, {Tooltip} from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
 import WizardPanels from '../../../WizardPanels';
@@ -80,6 +80,7 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
+	Tooltip,
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,
