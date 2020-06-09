@@ -70,6 +70,17 @@ const PopupBase = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
+		 * Set the priority with which screen reader should treat updates to live regions for the Popup.
+		 *
+		 * @type {String|Object}
+		 * @public
+		 */
+		'aria-live': PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -148,10 +159,13 @@ const PopupBase = kind({
 		/**
 		 * The ARIA role for the Popup.
 		 *
-		 * @type {String}
+		 * @type {String|Object}
 		 * @public
 		 */
-		role: PropTypes.string,
+		role: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
 
 		/**
 		 * The container id for {@link spotlight/Spotlight}.
