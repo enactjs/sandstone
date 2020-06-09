@@ -68,14 +68,15 @@ const useEventFocus = (props, instances, context) => {
 
 		if (spotItem && positionFn && utilDOM.containsDangerously(scrollContentNode, spotItem)) {
 			const lastPos = spottable.current.lastScrollPositionOnFocus;
+			const isScrolling = (
+				scrollMode === 'translate' && scrollContainerHandle.current.animator.isAnimating() ||
+				scrollMode === 'native' && scrollContainerHandle.current.scrolling
+			);
 			let pos;
 
 			// If scroll animation is ongoing, we need to pass last target position to
 			// determine correct scroll position.
-			if (lastPos & (
-				scrollMode === 'translate' && scrollContainerHandle.current.animator.isAnimating() ||
-				scrollMode === 'native' && scrollContainerHandle.current.scrolling
-			)) {
+			if (lastPos & isScrolling) {
 				const
 					contentRect = getRect(scrollContentNode),
 					itemRect = getRect(spotItem);
@@ -88,7 +89,7 @@ const useEventFocus = (props, instances, context) => {
 				}
 
 				pos = positionFn({item: spotItem, scrollPosition});
-			} else if (scrollMode === 'native' && scrollContainerHandle.current.scrolling) {
+			} else if (isScrolling) {
 				const scrollPositionTarget = themeScrollContentHandle.current.getScrollPositionTarget();
 
 				pos = positionFn({item: spotItem, scrollPosition: scrollPositionTarget});
