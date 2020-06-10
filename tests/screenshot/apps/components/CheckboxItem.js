@@ -1,5 +1,5 @@
 import CheckboxItem from '../../../../CheckboxItem';
-// import Icon from '../../../../Icon';
+import Icon from '../../../../Icon';
 import React from 'react';
 
 import {withConfig} from './utils';
@@ -25,6 +25,13 @@ const CheckboxItemTests = [
 	<CheckboxItem selected disabled inline indeterminate>CheckboxItem</CheckboxItem>,
 	<CheckboxItem indeterminate indeterminateIcon="lock">CheckboxItem</CheckboxItem>, 	// not selected
 
+	// Icon slotBefore
+	<CheckboxItem><Icon slot="slotBefore">home</Icon>CheckboxItem</CheckboxItem>,
+	<CheckboxItem inline><Icon slot="slotBefore">home</Icon>CheckboxItem</CheckboxItem>,
+	<CheckboxItem selected><Icon slot="slotBefore">home</Icon>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem selected inline><Icon slot="slotBefore">home</Icon>CheckboxItem Checked</CheckboxItem>,
+	<CheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>CheckboxItem</CheckboxItem>,
+
 	// Centered
 	<CheckboxItem centered>Hello CheckboxItem</CheckboxItem>,
 	<CheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</CheckboxItem>,
@@ -35,41 +42,7 @@ const CheckboxItemTests = [
 		<CheckboxItem centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</CheckboxItem>
 	]),
 
-	// Removed until itemIcon, itemIconPosition, and iconPosition support is resolved
-	// // itemIcon
-	// <CheckboxItem itemIcon={<Icon>rotate</Icon>}>CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'before'
-	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'beforeChildren'
-	// <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'after'
-	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="after">CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + inline = true
-	// <CheckboxItem itemIcon={<Icon>list</Icon>} inline>CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'before' + inline = true
-	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="before" inline>CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'beforeChildren' + inline = true
-	// <CheckboxItem itemIcon={<Icon>list</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>,
-	// // iconPosition = before (Default) + itemIcon + itemIconPosition = 'after' + inline = true
-	// <CheckboxItem itemIcon={<Icon>rotate</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>,
-	// // iconPosition = 'after'
-	// <CheckboxItem iconPosition="after">CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" disabled>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" disabled inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" defaultSelected>CheckboxItem Checked</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" defaultSelected disabled>CheckboxItem Checked</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" defaultSelected inline>CheckboxItem Checked</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" defaultSelected disabled inline>CheckboxItem Checked</CheckboxItem>,
-	// // itemPosition = 'after' + itemIcon
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>}>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="before">CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="beforeChildren">CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="after">CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="before" inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>rotate</Icon>} itemIconPosition="beforeChildren" inline>CheckboxItem</CheckboxItem>,
-	// <CheckboxItem iconPosition="after" itemIcon={<Icon>list</Icon>} itemIconPosition="after" inline>CheckboxItem</CheckboxItem>,
+
 	// *************************************************************
 	// locale = 'ar-SA'
 	{
