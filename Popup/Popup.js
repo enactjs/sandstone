@@ -103,13 +103,13 @@ const PopupBase = kind({
 		/**
 		 * Support accessibility options.
 		 *
-		 * If true, the accessibility feature in the Popup will be disabled.
+		 * If true, the aria-live and role in Popup are `null`.
 		 *
 		 * @type {Boolean}
 		 * @default false
 		 * @private
 		 */
-		noAccessible: PropTypes.bool,
+		noAlertRole: PropTypes.bool,
 
 		/**
 		 * Disables transition animation.
@@ -192,7 +192,7 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
-		noAccessible: false,
+		noAlertRole: false,
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
@@ -207,20 +207,20 @@ const PopupBase = kind({
 
 	computed: {
 		// When passing `aria-live` prop to the Popup, the prop should work first.
-		// If `noAccessible` is equal to true, accessibility feature will be disabled.
+		// If `noAlertRole` is equal to true, accessibility feature will be disabled.
 		// Otherwise, `aria-live` will be usually `off`.
-		'aria-live': ({'aria-live': live, noAccessible}) => ((typeof live !== 'undefined') ? live : (!noAccessible && 'off' || null)),
+		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
 		className: ({position, styler}) => styler.append(position),
 		direction: ({position}) => transitionDirection[position],
 		// When passing `role` prop to the Popup, the prop should work first.
-		// If `noAccessible` is equal to true, accessibility feature will be disabled.
+		// If `noAlertRole` is equal to true, accessibility feature will be disabled.
 		// Otherwise, `role` will be usually `alert`.
-		role: ({noAccessible, role}) => ((typeof role !== 'undefined') ? role : (!noAccessible && 'alert' || null)),
+		role: ({noAlertRole, role}) => ((typeof role !== 'undefined') ? role : (!noAlertRole && 'alert' || null)),
 		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
-		delete rest.noAccessible;
+		delete rest.noAlertRole;
 
 		return (
 			<TransitionContainer

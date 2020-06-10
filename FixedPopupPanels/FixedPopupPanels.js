@@ -20,7 +20,7 @@ const FixedPopupPanelsDecorator = compose(
 	PopupDecorator({
 		className: 'fixedPopupPanels',
 		css,
-		noAccessible: true,
+		noAlertRole: true,
 		panelArranger: BasicArranger,
 		panelType: 'fixedPopup'
 	})
