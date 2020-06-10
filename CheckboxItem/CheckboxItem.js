@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
 
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
@@ -127,7 +128,7 @@ const CheckboxItemBase = kind({
 		publicClassNames: ['checkboxItem']
 	},
 
-	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -136,14 +137,17 @@ const CheckboxItemBase = kind({
 			css={css}
 			selected={selected}
 		>
-			<Checkbox
-				selected={selected}
-				indeterminate={indeterminate}
-				indeterminateIcon={indeterminateIcon}
-				slot="slotBefore"
-			>
-				{icon}
-			</Checkbox>
+			<slotBefore>
+				<Checkbox
+					className={slotBefore ? css.checkbox : null}
+					selected={selected}
+					indeterminate={indeterminate}
+					indeterminateIcon={indeterminateIcon}
+				>
+					{icon}
+				</Checkbox>
+				{slotBefore}
+			</slotBefore>
 			{children}
 		</Item>
 	)
@@ -159,7 +163,8 @@ const CheckboxItemBase = kind({
  * @public
  */
 const CheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['slotBefore']})
 );
 
 /**

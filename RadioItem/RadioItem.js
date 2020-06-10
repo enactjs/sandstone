@@ -10,6 +10,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -77,7 +78,7 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	render: ({children, css, icon, selected, ...rest}) => {
+	render: ({children, css, icon, selected, slotBefore, styler, ...rest}) => {
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
@@ -87,7 +88,10 @@ const RadioItemBase = kind({
 				css={css}
 				selected={selected}
 			>
-				<Icon slot="slotBefore" className={css.icon} size="tiny">{icon}</Icon>
+				<slotBefore>
+					<Icon className={styler.join(css.icon, slotBefore ? css.iconBefore : null)} size="tiny">{icon}</Icon>
+					{slotBefore}
+				</slotBefore>
 				{children}
 			</Item>
 		);
@@ -103,7 +107,8 @@ const RadioItemBase = kind({
  * @public
  */
 const RadioItemDecorator = compose(
-	Toggleable({toggleProp: 'onTap'})
+	Toggleable({toggleProp: 'onTap'}),
+	Slottable({slots: ['slotBefore']})
 );
 
 /**
