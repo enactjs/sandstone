@@ -8,6 +8,7 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
+import warning from 'warning';
 
 import Button from '../Button';
 import Popup from '../Popup';
@@ -16,7 +17,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps, OVERLAY_JOINED_DIGITS_LIMIT, FULLSCREEN_JOINED_DIGITS_LIMIT} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -186,15 +187,6 @@ const InputPopupBase = kind({
 		size: PropTypes.oneOf(['small', 'large']),
 
 		/**
-		 * Label of submit button used in number type.
-		 *
-		 * @type {String}
-		 *
-		 * @public
-		 */
-		submitLabel: PropTypes.string,
-
-		/**
 		 * Subtitle below the title of popup.
 		 *
 		 * @type {String}
@@ -270,7 +262,17 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
-		maxLength: ({length, maxLength}) => (length || maxLength),
+		maxLength: ({length, maxLength, popupType, type}) => {
+			const limit = (length || maxLength);
+			if (type === 'number' || type === 'passwordnumber') {
+				if (popupType === 'fullscreen') {
+					warning(!(limit > FULLSCREEN_JOINED_DIGITS_LIMIT), `When entering a number in overlay type, it must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
+				} else if (popupType === 'overlay') {
+					warning(!(limit > OVERLAY_JOINED_DIGITS_LIMIT), `When entering a number in overlay type, it must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
+				}
+			}
+			return limit;
+		},
 		minLength: ({length, maxLength, minLength}) => {
 			if (length) return length;
 			if (minLength != null) return minLength;
@@ -281,7 +283,7 @@ const InputPopupBase = kind({
 		style: ({length, maxLength, style}) => {
 			return {
 				...style,
-				'--input-number-length': (length || maxLength)
+				'--input-max-number-length': (length || maxLength)
 			};
 		}
 	},
@@ -300,7 +302,6 @@ const InputPopupBase = kind({
 		placeholder,
 		popupClassName,
 		popupType,
-		submitLabel,
 		size,
 		subtitle,
 		title,
@@ -340,7 +341,6 @@ const InputPopupBase = kind({
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
-								submitLabel={submitLabel}
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
 							/> :

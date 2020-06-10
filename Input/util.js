@@ -6,6 +6,9 @@ const DEFAULT_LENGTH = 4;
 // The cutoff length, at which point the numeric field switches from separated boxes to one box
 const SEPARATE_DIGITS_LIMIT = 6;
 
+const OVERLAY_JOINED_DIGITS_LIMIT = 12;
+const FULLSCREEN_JOINED_DIGITS_LIMIT = 24;
+
 /**
  * Determines the `aria-label` for an Input
  *
@@ -107,6 +110,8 @@ const extractInputProps = function (props) {
 
 export {
 	DEFAULT_LENGTH,
+	FULLSCREEN_JOINED_DIGITS_LIMIT,
+	OVERLAY_JOINED_DIGITS_LIMIT,
 	SEPARATE_DIGITS_LIMIT,
 	calcAriaLabel,
 	convertToPasswordFormat,
