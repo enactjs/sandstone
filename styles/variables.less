@@ -68,6 +68,7 @@
 @sand-switch-icon-font-size:        90px;
 @sand-switch-icon-font-size-large:  144px;
 @sand-tooltip-label-font-size:      54px;
+@sand-tooltip-transparent-label-font-size: 36px;
 
 @sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
@@ -298,7 +299,9 @@
 @sand-header-slotbelow-margin: 84px 0 0 0;
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: 108px 150px 72px;
+@sand-header-standard-padding: (132px - extract(@sand-panel-padding, 1) - @sand-app-keepout) (144px - extract(@sand-panel-padding, 2)) 60px;
+@sand-header-standard-title-padding: 0 0 0 6px;
+@sand-header-standard-subtitle-margin: -24px 0 0 0;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
 @sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
@@ -306,6 +309,7 @@
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding: 108px 150px (66px - @sand-panel-body-padding-top); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
 @sand-header-wizard-subtitle-lines: 2;
+@sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
 // Heading
 // ---------------------------------------
@@ -632,7 +636,9 @@
 // Tooltip
 // ---------------------------------------
 @sand-tooltip-font-weight: 600;
+@sand-tooltip-transparent-font-weight: normal;
 @sand-tooltip-offset: 24px;
+@sand-tooltip-transparent-label-offset: 0px;
 @sand-tooltip-arrow-offset: 0px;
 @sand-tooltip-point-width: 18px;
 @sand-tooltip-point-height: 15px;

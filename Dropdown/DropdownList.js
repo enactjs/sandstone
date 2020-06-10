@@ -90,7 +90,7 @@ const DropdownListBase = kind({
 
 	styles: {
 		css,
-		className: 'dropDownList'
+		className: 'dropdownList'
 	},
 
 	handlers: {
@@ -218,8 +218,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		resetFocus (keysDiffer) {
 			let adjustedFocusIndex;
 
-			if (!keysDiffer && this.state.lastFocusedKey) {
-				const targetIndex = indexFromKey(this.props.children, this.state.lastFocusedKey);
+			if (!keysDiffer && this.lastFocusedKey) {
+				const targetIndex = indexFromKey(this.props.children, this.lastFocusedKey);
 				if (targetIndex >= 0) {
 					adjustedFocusIndex = targetIndex;
 				}
@@ -265,7 +265,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			) {
 				const focusedIndex = Number(current.dataset['index']);
 				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
-				this.setState({lastFocusedKey});
+				this.lastFocusedKey = lastFocusedKey;
 			}
 
 			if (this.props.onFocus) {
