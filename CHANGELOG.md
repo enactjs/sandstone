@@ -102,7 +102,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
 - `sandstone/Scroller` and `sandstone/VirtualList` to properly handle keydown events
 - `sandstone/TabLayout` default focus rules
