@@ -14,8 +14,24 @@ import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
 
 import css from './Dropdown.module.less';
+import {compareChildren} from '../internal/util';
 
 const isSelectedValid = ({children, selected}) => Array.isArray(children) && children[selected] != null;
+
+const getKey = ({children, selected}) => {
+	if (isSelectedValid({children, selected})) {
+		return children[selected].key;
+	}
+};
+
+const indexFromKey = (children, key) => {
+	let index = -1;
+	if (children) {
+		index = children.findIndex(child => child.key === key);
+	}
+
+	return index;
+};
 
 const DropdownListBase = kind({
 	name: 'DropdownListBase',
@@ -74,7 +90,7 @@ const DropdownListBase = kind({
 
 	styles: {
 		css,
-		className: 'dropDownList'
+		className: 'dropdownList'
 	},
 
 	handlers: {
@@ -102,7 +118,9 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 144 : 120)
+		// Note: Retaining this in case we need to support different item sizes for large text mode:
+		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		itemSize: () => 156
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
@@ -117,9 +135,9 @@ const DropdownListBase = kind({
 				{...rest}
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
-				itemSize={itemSize}
+				itemSize={ri.scale(itemSize)}
 				role="group"
-				style={{height: itemSize * dataSize}}
+				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
 			/>
 		);
 	}
@@ -140,6 +158,13 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		static propTypes = {
 			/*
+			 * Called when an item receives focus.
+			 *
+			 * @type {Function}
+			 */
+			onFocus: PropTypes.func,
+
+			/*
 			 * Index of the selected item.
 			 *
 			 * @type {Number}
@@ -151,6 +176,10 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			super(props);
 
 			this.state = {
+				prevChildren: props.children,
+				prevFocused: null,
+				prevSelected: this.props.selected,
+				prevSelectedKey: getKey(props),
 				ready: isSelectedValid(props) ? ReadyState.INIT : ReadyState.DONE
 			};
 		}
@@ -170,6 +199,16 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				this.scrollIntoView();
 			} else if (this.state.ready === ReadyState.SCROLLED) {
 				this.focusSelected();
+			} else {
+				const key = getKey(this.props);
+				const keysDiffer = key && this.state.prevSelectedKey && key !== this.state.prevSelectedKey;
+
+				if (keysDiffer ||
+					((!key || !this.state.prevSelectedKey) && this.state.prevSelected !== this.props.selected) ||
+					!compareChildren(this.state.prevChildren, this.props.children)
+				) {
+					this.resetFocus(keysDiffer);
+				}
 			}
 		}
 
@@ -177,27 +216,67 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			this.scrollTo = scrollTo;
 		}
 
-		scrollIntoView = () => {
-			const {selected} = this.props;
-			let ready = ReadyState.DONE;
+		resetFocus (keysDiffer) {
+			let adjustedFocusIndex;
 
-			if (isSelectedValid(this.props)) {
-				this.scrollTo({animate: false, focus: true, index: selected});
-				ready = ReadyState.SCROLLED;
+			if (!keysDiffer && this.lastFocusedKey) {
+				const targetIndex = indexFromKey(this.props.children, this.lastFocusedKey);
+				if (targetIndex >= 0) {
+					adjustedFocusIndex = targetIndex;
+				}
 			}
 
-			this.setState({ready});
+			this.setState({
+				prevChildren: this.props.children,
+				prevFocused: adjustedFocusIndex,
+				prevSelected: this.props.selected,
+				prevSelectedKey: getKey(this.props),
+				ready: ReadyState.INIT
+			});
+		}
+
+		scrollIntoView = () => {
+			let {selected} = this.props;
+
+			if (this.state.prevFocused == null && !isSelectedValid(this.props)) {
+				selected = 0;
+			} else if (this.state.prevFocused != null) {
+				selected = this.state.prevFocused;
+			}
+
+			this.scrollTo({
+				animate: false,
+				focus: true,
+				index: selected,
+				offset: ri.scale(312), // @sand-item-height * 2
+				stickTo: 'start' // offset from the top of the dropdown
+			});
+
+			this.setState({ready: ReadyState.SCROLLED});
 		}
 
 		focusSelected () {
-			if (Spotlight.focus(this.node.dataset.spotlightId)) {
-				this.setState({ready: ReadyState.DONE});
+			this.setState({ready: ReadyState.DONE});
+		}
+
+		handleFocus = (ev) => {
+			const current = ev.target;
+			if (this.state.ready === ReadyState.DONE && !Spotlight.getPointerMode() &&
+				current.dataset['index'] != null && this.node.contains(current)
+			) {
+				const focusedIndex = Number(current.dataset['index']);
+				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
+				this.lastFocusedKey = lastFocusedKey;
+			}
+
+			if (this.props.onFocus) {
+				this.props.onFocus(ev);
 			}
 		}
 
 		render () {
 			return (
-				<Wrapped {...this.props} scrollTo={this.setScrollTo} />
+				<Wrapped {...this.props} onFocus={this.handleFocus} scrollTo={this.setScrollTo} />
 			);
 		}
 	};

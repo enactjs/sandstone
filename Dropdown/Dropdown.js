@@ -17,7 +17,7 @@
  */
 
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {handle, forKey, forward, forProp} from '@enact/core/handle';
+import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -77,11 +77,11 @@ const DropdownBase = kind({
 
 	propTypes: /** @lends sandstone/Dropdown.DropdownBase.prototype */ {
 		/**
-		 * The selection items to be displayed in the `Dropdown` when `open`.
+		 * Items to be displayed in the `Dropdown` when `open`.
 		 *
 		 * Takes either an array of strings or an array of objects. When strings, the values will be
 		 * used in the generated components as the readable text. When objects, the properties will
-		 * be passed onto an `Item` component and `children` as well as a unique `key` property are
+		 * be passed onto an `Item` component; `children` as well as a unique `key` properties are
 		 * required.
 		 *
 		 * @type {String[]|Array.<{key: (Number|String), children: (String|Component)}>}
@@ -96,7 +96,7 @@ const DropdownBase = kind({
 		]),
 
 		/**
-		 * The placement of the Dropdown.
+		 * Placement of the Dropdown.
 		 *
 		 * @type {('above'|'below')}
 		 * @default 'below'
@@ -105,7 +105,7 @@ const DropdownBase = kind({
 		direction: PropTypes.oneOf(['above', 'below']),
 
 		/**
-		 * Disables Dropdown and becomes non-interactive.
+		 * Disables Dropdown, making it non-interactive.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -158,17 +158,17 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
-		 * The primary title text of Dropdown.
-		 * The title will be replaced if an item is selected.
+		 * Primary title text of Dropdown.
+		 *
+		 * The title will be replaced by the selected item, if any.
 		 *
 		 * @type {String}
-		 * @required
 		 * @public
 		 */
 		title: PropTypes.string,
 
 		/**
-		 * The width of Dropdown.
+		 * Width of the Dropdown.
 		 *
 		 * @type {('huge'|'large'|'x-large'|'medium'|'small'|'tiny')}
 		 * @default 'medium'
@@ -203,7 +203,8 @@ const DropdownBase = kind({
 		),
 		onOpen: handle(
 			forward('onClick'),
-			forProp('open', false),
+			not(forProp('disabled', true)),
+			not(forProp('open', true)),
 			forward('onOpen')
 		)
 	},
@@ -234,7 +235,7 @@ const DropdownBase = kind({
 					return {
 						...aria,
 						children: child,
-						key: `item${i}`
+						key: `item_${child}`
 					};
 				}
 

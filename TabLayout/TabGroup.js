@@ -85,7 +85,7 @@ const TabBase = kind({
 			case 'vertical': {
 				// Vertical sizing depends on Button establishing the dimensions of the Cell.
 				return (
-					<Cell>
+					<Cell shrink>
 						<Button
 							{...rest}
 							{...commonProps}
@@ -98,6 +98,17 @@ const TabBase = kind({
 });
 
 const Tab = Skinnable(TabBase);
+
+const SpotlightContainerGroup = SpotlightContainerDecorator(
+	{
+		// using default-element so we always land on the selected tab in order to avoid changing
+		// the view when re-entering the tab group
+		defaultElement: `.${componentCss.selected}`,
+		// favor last focused when set but fall back to the selected tab
+		enterTo: 'last-focused'
+	},
+	Group
+);
 
 /**
  * A group of tabs
@@ -163,7 +174,7 @@ const TabGroupBase = kind({
 				{noIcons ? (
 					<TabBase icon="list" collapsed />
 				) : (
-					<Group
+					<SpotlightContainerGroup
 						childComponent={Tab}
 						className={componentCss.tabs}
 						component={Layout}
@@ -176,7 +187,7 @@ const TabGroupBase = kind({
 						selectedProp="selected"
 					>
 						{children}
-					</Group>
+					</SpotlightContainerGroup>
 				)}
 				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
 			</Component>
@@ -185,7 +196,6 @@ const TabGroupBase = kind({
 });
 
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator({enterTo: 'last-focused'}),
 	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
 );
 

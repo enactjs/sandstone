@@ -4,8 +4,17 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
+// Module level variables, for use only in this file
+@popupTabLayout-max-height: ~"calc(100vh -" (extract(@sand-popuptablayout-margin, 1) * 2) ~")";
+@panels-height-calc: ~"min(var(--sand-panels-measured-height), " @popupTabLayout-max-height ~")";
+@panel-height-calc: ~"min(var(--sand-panel-measured-height), " @popupTabLayout-max-height ~")";
+
 .popupTabLayout {
-	margin: @sand-popuptablayout-margin;
+	// Override for Popup (more precedence)
+	&.popup {
+		margin: @sand-popuptablayout-margin;
+		max-height: @popupTabLayout-max-height;
+	}
 
 	.tabs {
 		padding: @sand-popuptablayout-tabs-padding;
@@ -17,12 +26,21 @@
 		height: 100%;
 	}
 
+	.panels::before {
+		content: "";
+		position: absolute;
+		.position(0, 0, auto, 0);
+		height: @panels-height-calc;
+		transition: height 200ms ease-out;
+		will-change: height;
+	}
+
 	// Skin colors
 	.applySkins({
 		background-color: transparent;
 
 		.tabs,
-		.content .panels {
+		.content .panels::before {
 			border-radius: @sand-popuptablayout-tabs-content-border-radius;
 			background-color: @sand-popuptablayout-bg-color;
 		}
@@ -45,6 +63,7 @@
 // Overrides for Panels
 .panels {
 	position: relative;
+	.position(auto);
 	max-height: 100%;
 
 	> .viewport {
@@ -56,6 +75,7 @@
 // Overrides for Panel
 .panel {
 	padding: 0;
+	height: @panel-height-calc;
 
 	> .body {
 		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.

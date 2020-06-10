@@ -8,6 +8,7 @@
 
 import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import Toggleable from '@enact/ui/Toggleable';
@@ -252,7 +253,7 @@ const TabLayoutBase = kind({
 					<TabGroup
 						collapsed={isVertical ? collapsed : false}
 						tabSize={tabSize}
-						onFocus={onExpand}
+						onFocus={collapsed ? onExpand : null}
 						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
@@ -266,7 +267,7 @@ const TabLayoutBase = kind({
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFocus={onCollapse}
+					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
@@ -277,6 +278,13 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
+	SpotlightContainerDecorator({
+		// using last-focused so we return to the last focused if it exists but fall through to
+		// default element if no focus has ocurred yet (e.g. on mount)
+		enterTo: 'last-focused',
+		// favor the content when collapsed and the tabs otherwise
+		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabs} *`]
+	}),
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
