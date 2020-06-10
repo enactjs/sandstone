@@ -274,12 +274,18 @@
 @sand-checkbox-container-position: ((@sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 @sand-checkbox-container-border-radius: @sand-item-border-radius;
 
+// ContextualMenu
+// ---------------------------------------
+@sand-contextualmenu-container-padding: 36px 0 36px 0;
+@sand-contextualmenu-container-margin-top: 18px;
+@sand-contextualmenu-max-height: calc(5 * @sand-item-height + extract(@sand-contextualmenu-container-padding, 1) + extract(@sand-contextualmenu-container-padding, 3));
+
 // ContextualPopup
 // ---------------------------------------
-@sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
-@sand-contextual-popup-padding: @sand-spotlight-outset 0;
-@sand-contextual-popup-arrow-height: 60px;
-@sand-contextual-popup-arrow-width: 60px;
+@sand-contextualpopup-border-radius: @sand-button-border-radius * 2;
+@sand-contextualpopup-padding: @sand-spotlight-outset 0;
+@sand-contextualpopup-arrow-height: 60px;
+@sand-contextualpopup-arrow-width: 60px;
 
 // Dropdown
 // ---------------------------------------

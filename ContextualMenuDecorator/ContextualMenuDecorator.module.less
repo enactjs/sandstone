@@ -18,13 +18,20 @@
 */
 
 .popup {
-	max-height: calc(5 * @sand-item-height);
+	max-height: @sand-contextualmenu-max-height;
 
 	/*
 	// in order to override the default ContextualPopupDecorator's container padding style, we
 	// need to use an arbitrary additional CSS rule for precedence
 	*/
 	&.container {
-		padding: 0;
+		padding: @sand-contextualmenu-container-padding;
+		margin-top: @sand-contextualmenu-container-margin-top;
+
+		// Passed as itemProps css to Item to remove inter-item spacing
+		.item {
+			margin-bottom: 0;
+		}
 	}
+
 }
