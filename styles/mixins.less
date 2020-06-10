@@ -15,6 +15,9 @@
 // .normalize-shorthand(11px 21px 31px)[]       -->  11px 21px 31px 21px
 // .normalize-shorthand(11px 21px)[]            -->  11px 21px 11px 21px
 // .normalize-shorthand(11px)[]                 -->  11px 11px 11px 11px
+//
+// NOTE: The [] is required at the end of the method call, which instructs LESS to return a value.
+// For details see: http://lesscss.org/features/#mixins-feature-unnamed-lookups
 .normalize-shorthand(@trbl) when ((length(@trbl) >= 1) and (length(@trbl) <= 4)) {
 	@result:
 		extract(@trbl, 1)
@@ -31,6 +34,9 @@
 // padding-left: .extract(11px 21px, left)[]            -->  21px
 // padding-left: .extract(11px, left)[]                 -->  11px
 // padding: .extract(11px 21px 31px 41px)[]             -->  11px 21px 31px 41px
+//
+// NOTE: The [] is required at the end of the method call, which instructs LESS to return a value.
+// For details see: http://lesscss.org/features/#mixins-feature-unnamed-lookups
 .extract(@trbl; @position) when (@position = top) {
 	@result: extract(.normalize-shorthand(@trbl)[], 1);
 }
@@ -54,6 +60,9 @@
 // padding-left: .extract(11px 21px 31px, 4)[]       -->  21px
 // padding-left: .extract(11px 21px, 4)[]            -->  21px
 // padding-left: .extract(11px, 4)[]                 -->  11px
+//
+// NOTE: The [] is required at the end of the method call, which instructs LESS to return a value.
+// For details see: http://lesscss.org/features/#mixins-feature-unnamed-lookups
 .extract(@trbl; @position) when ((@position >= 1) and (@position <= 4)) {
 	@result: extract(.normalize-shorthand(@trbl)[], @position);
 }
