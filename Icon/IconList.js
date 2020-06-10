@@ -17,9 +17,8 @@ export default {
 	arrowupwhite      : 0x021E7,  // arrowupwhite
 	backspace         : 0x02408,  // backspace
 	space             : 0x02420,  // space
-	space             : 0x02420,  // space
-	trianglerightwhite: 0x02408,  // triaglerightwhite
-	triangleleftwhite : 0x02420,  // triagleleftwhite
+	trianglerightwhite: 0x025B7,  // triaglerightwhite
+	triangleleftwhite : 0x025C1,  // triagleleftwhite
 	heart             : 0x02665,  // triaglerightwhite
 	heartblack        : 0x02661,  // triagleleftwhite
 	record            : 0x0EFFDB, // record
