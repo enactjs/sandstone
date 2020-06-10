@@ -42,6 +42,7 @@ storiesOf('Sandstone', module)
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
+					fullHeight={boolean('fullHeight', Config)}
 					nextButtonVisibility={select('nextButtonVisibility', props.buttonVisibility, Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}

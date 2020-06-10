@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
+- `sandstone/FixedPopupPanels` and `sandstone/FixedPopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
 
 ### Changed
 
