@@ -53,6 +53,7 @@
 @sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
 @sand-input-overlay-numbercell-font-size:     108px;
 @sand-input-overlay-numberfield-font-size:    126px;
+@sand-input-invalid-tooltip-font-size:        @sand-inputfield-invalid-tooltip-font-size;
 @sand-inputfield-invalid-tooltip-font-size:   48px;
 @sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
@@ -152,6 +153,13 @@
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-other-font-family: "LG Icons";
+
+// Input
+@sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
+
+// InputField
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 
 // InputNumber
 @sand-input-number-font-family: @sand-body-font-family;
@@ -387,14 +395,12 @@
 @sand-input-overlay-keypad-margin: 102px auto 0 auto;
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
-@sand-input-overlay-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
+@sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
 // ---------------------------------------
 @sand-inputfield-margin: 0 @sand-component-spacing;
 @sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
-@sand-inputfield-font-weight: 600;
-@sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 @sand-inputfield-text-indent: 0.2em;
 @sand-inputfield-bg-opacity: 0.2;
 @sand-inputfield-border-radius: @sand-inputfield-border-width;
