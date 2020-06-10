@@ -44,6 +44,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to show the horizontal overscroll effect properly in RTL locales
 - `sandstone/TabLayout` button sizes to match the latest designs
 - `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
+- `sandstone/ContextualMenuDecorator` to not read as alert when rendered on the screen
 
 ## [1.0.0-beta.5] - 2020-06-01
 

@@ -158,7 +158,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 				'container',
 				popupClassName
 			),
-			popupProps: ({menuItems, popupProps}) => ({children: menuItems, childComponent: Item, component: 'div', ...popupProps})
+			popupProps: ({menuItems, popupProps}) => ({'aria-live': null, children: menuItems, childComponent: Item, component: 'div', role: null, ...popupProps})
 		},
 
 		render: ({onOpen, popupProps, ...rest}) => {
