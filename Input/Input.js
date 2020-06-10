@@ -266,9 +266,9 @@ const InputPopupBase = kind({
 			const limit = (length || maxLength);
 			if (type === 'number' || type === 'passwordnumber') {
 				if (popupType === 'fullscreen') {
-					warning(!(limit > FULLSCREEN_JOINED_DIGITS_LIMIT), `When entering a number in overlay type, it must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
+					warning(!(limit > FULLSCREEN_JOINED_DIGITS_LIMIT), `Max length of fullscreen type input must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
 				} else if (popupType === 'overlay') {
-					warning(!(limit > OVERLAY_JOINED_DIGITS_LIMIT), `When entering a number in overlay type, it must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
+					warning(!(limit > OVERLAY_JOINED_DIGITS_LIMIT), `Max length of overlay type input must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
 				}
 			}
 			return limit;
@@ -279,7 +279,7 @@ const InputPopupBase = kind({
 			if (maxLength != null) return maxLength;
 			return DEFAULT_LENGTH;
 		},
-		popupClassName: ({popupType, styler}) => styler.join('popup', popupType),
+		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type),
 		style: ({length, maxLength, style}) => {
 			return {
 				...style,

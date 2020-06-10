@@ -46,8 +46,7 @@
 
 	.submitButton {
 		display: block;
-		margin: @sand-input-submit-button-margin;
-		width: @sand-input-submit-button-width;
+		margin: @sand-input-overlay-buttonarea-margin;
 	}
 
 	&.fullscreen {
@@ -97,6 +96,13 @@
 		.inputArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
+		}
+
+		&.text,
+		&.password {
+			.inputArea {
+				margin: @sand-input-fullscreen-inputarea-margin;
+			}
 		}
 	}
 
