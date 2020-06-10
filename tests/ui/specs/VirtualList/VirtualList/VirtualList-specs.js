@@ -431,9 +431,7 @@ describe('VirtualList', function () {
 
 			it('should spotlight displays on item after up quickly [GT-28417]', function () {
 				// Step3 : datasize Knobs setting '4'
-				Page.spotlightRight();
-				Page.spotlightRight();
-				Page.spotlightRight();
+				Page.inputfieldNumItems.moveTo();
 				Page.spotlightSelect();
 				Page.backSpace();
 				Page.backSpace();
