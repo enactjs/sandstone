@@ -1,5 +1,6 @@
 import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
@@ -16,7 +17,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -168,6 +169,14 @@ const InputPopupBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
+		 * The "aria-label" for the popup.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		popupAriaLabel: PropTypes.string,
+
+		/**
 		 * Set the type of popup.
 		 *
 		 * @type {(fullscreen|overlay)}
@@ -283,6 +292,7 @@ const InputPopupBase = kind({
 		onShow,
 		open,
 		placeholder,
+		popupAriaLabel,
 		popupClassName,
 		popupType,
 		size,
@@ -302,6 +312,7 @@ const InputPopupBase = kind({
 
 		return (
 			<Popup
+				aria-label={popupAriaLabel}
 				onClose={onClose}
 				onShow={onShow}
 				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
@@ -412,7 +423,14 @@ const InputBase = kind({
 	},
 
 	render: ({type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
+		const ariaProps = extractAriaProps(rest);
 		const password = (type === 'password' || type === 'passwordnumber');
+		let buttonAriaLabel = null;
+		if (value) {
+			buttonAriaLabel = calcAriaLabel('', password ? 'password' : null, (type === 'number') ? value.split('') : value);
+		} else {
+			buttonAriaLabel = calcAriaLabel('', null, placeholder);
+		}
 
 		return (
 			<React.Fragment>
@@ -430,6 +448,8 @@ const InputBase = kind({
 					className={className}
 					style={style}
 					onClick={onClick}
+					aria-label={buttonAriaLabel}
+					{...ariaProps}
 				>
 					{(password ? convertToPasswordFormat(value) : value) || placeholder}
 				</Button>

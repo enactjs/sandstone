@@ -165,7 +165,7 @@ const NumberFieldBase = kind({
 			const items = new Array(maxLength).fill('');
 			field = (
 				<Repeater
-					aria-label={!password ? values.join(' ') : null}
+					aria-label={!password ? values.join(' ') : new Array(values.length).fill($L('hidden')).join(' ')}
 					aria-live="polite"
 					{...rest}
 					component={Layout}
@@ -191,7 +191,7 @@ const NumberFieldBase = kind({
 					{invalidTooltip}
 				</div>
 				<br />
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad aria-label=" " onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
 			</React.Fragment>
 		);

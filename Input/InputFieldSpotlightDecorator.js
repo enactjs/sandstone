@@ -138,12 +138,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				node: null
 			};
 
+			this.ariaHidden = true;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
 		}
 
 		componentDidUpdate (_, prevState) {
 			this.updateFocus(prevState);
+			this.ariaHidden = false;
 		}
 
 		componentWillUnmount () {
@@ -357,6 +359,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			return (
 				<Component
 					{...props}
+					aria-hidden={this.ariaHidden}
 					onBlur={this.onBlur}
 					onMouseDown={this.onMouseDown}
 					onFocus={this.onFocus}

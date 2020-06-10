@@ -76,6 +76,7 @@ const Keypad = kind({
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
+							aria-label={keyText}
 							shrink
 							component={Key}
 							key={`key${rowIndex}-${keyText}`}
