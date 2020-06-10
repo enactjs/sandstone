@@ -349,6 +349,15 @@ class Popup extends React.Component {
 		 *
 		 * * Values: `'self-first'`, or `'self-only'`.
 		 *
+		 * When using `self-first`, attempts to leave the popup via 5-way will fire `onClose` based
+		 * on the following values of `position`:
+		 *
+		 * * `'bottom'` - When leaving via 5-way up
+		 * * `'top'` - When leaving via 5-way down
+		 * * `'left'` - When leaving via 5-way right
+		 * * `'right'` - When leaving via 5-way left
+		 * * `'center'` - When leaving via any 5-way direction
+		 *
 		 * Note: If `onClose` is not set, then this has no effect on 5-way navigation. If the popup
 		 * has no spottable children, 5-way navigation will cause the Popup to fire `onClose`.
 		 *

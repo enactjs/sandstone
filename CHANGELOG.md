@@ -15,6 +15,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabLayout` performance when focusing items in the layout
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect using `spotlightRestrict`
+- `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
 
 ## [1.0.0-beta.6] - 2020-06-08
 
