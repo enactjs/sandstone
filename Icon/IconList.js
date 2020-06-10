@@ -8,6 +8,20 @@ export default {
 	arrowhookright    : 0x021AA,  // RightArrowHook
 	ellipsis          : 0x022EF,  // ellipsis
 	check             : 0x02713,  // checkmark
+	triangleup        : 0x025B2,  // triagup
+	triangleright     : 0x025B6,  // triagright
+	triangledown      : 0x025BC,  // triagdown
+	triangleleft      : 0x025C0,  // triagleft
+	arrowupdown       : 0x021C5,  // arrowupdown
+	arrowup           : 0x02191,  // arrowup
+	arrowupwhite      : 0x021E7,  // arrowupwhite
+	backspace         : 0x02408,  // backspace
+	space             : 0x02420,  // space
+	space             : 0x02420,  // space
+	trianglerightwhite: 0x02408,  // triaglerightwhite
+	triangleleftwhite : 0x02420,  // triagleleftwhite
+	heart             : 0x02665,  // triaglerightwhite
+	heartblack        : 0x02661,  // triagleleftwhite
 	record            : 0x0EFFDB, // record
 	circle            : 0x0EFFDB, // record
 	stop              : 0x0EFFDC, // stop
@@ -108,9 +122,36 @@ export default {
 	wisa              : 0x0F013E,  // wisa
 	demooptions       : 0x0F013F,  // demo_options
 	newfeature        : 0x0F0140,  // new_feature
-	triangleup        : 0x025B2,  // triagup
-	triangleright     : 0x025B6,  // triagright
-	triangledown      : 0x025BC,  // triagdown
-	triangleleft      : 0x025C0,  // triagleft
-	arrowupdown       : 0x021C5  // arrowupdown
+	youtube           : 0x0F0141,  // youtube
+	ostsearch         : 0x0F0142,  // ostsearch
+	shopping          : 0x0F0143,  // shopping
+	bookmark          : 0x0F0144,  // bookmark
+	eject             : 0x0F0145,  // eject
+	power             : 0x0F0146,  // power
+	timer             : 0x0F0147,  // timer
+	network           : 0x0F0148,  // network
+	edit              : 0x0F0149,  // edit
+	aspectratio       : 0x0F014A,  // aspectratio
+	link              : 0x0F014B,  // link
+	light             : 0x0F014C,  // light
+	pointersize       : 0x0F014D,  // pointersize
+	pointerspeed      : 0x0F014E,  // pointerspeed
+	soundmode         : 0x0F0150,  // soundmode
+	contrast          : 0x0F0151,  // contrast
+	picturemode       : 0x0F0152,  // picturemode
+	basketball        : 0x0F0153,  // basketball
+	soccer            : 0x0F0154,  // soccer
+	baseball          : 0x0F0155,  // baseball
+	golf              : 0x0F0156,  // golf
+	football          : 0x0F0157,  // football
+	hockey            : 0x0F0158,  // hockey
+	volleyball        : 0x0F0159,  // volleyball
+	cricket           : 0x0F015A,  // cricket
+	heartadd          : 0x0F015B,  // heartadd
+	heartlist         : 0x0F015C,  // heartlist
+	refresh           : 0x0F015D,  // refresh
+	help              : 0x0F015E,  // help
+	share             : 0x0F015F,  // share
+	files             : 0x0F0160,  // files
+	quickstart        : 0x0F0161  // quickstart
 };
