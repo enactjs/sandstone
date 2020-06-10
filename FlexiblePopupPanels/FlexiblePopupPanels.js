@@ -1,4 +1,7 @@
 import kind from '@enact/core/kind';
+import useClass from '@enact/core/useClass';
+import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -124,6 +127,62 @@ const FlexiblePopupPanelsBase = kind({
 	}
 });
 
+class RestoreButtonFocus {
+	constructor () {
+		this.pause = new Pause('RestoreButtonFocus');
+		this.props = {};
+		this.restoreFocus = false;
+	}
+
+	setProps (props) {
+		this.props = props;
+	}
+
+	onTransition = () => {
+		if (this.restoreFocus) {
+			this.pause.resume();
+			const selector = `.${css.panel}[data-index="${this.props.index}"]`;
+			const panel = document.querySelector(selector);
+			if (panel) {
+				const spotlightId = panel.dataset.spotlightId;
+				if (spotlightId) {
+					Spotlight.set(spotlightId, {
+						lastFocusedKey: {
+							navButton: this.restoreFocus
+						}
+					});
+				}
+			}
+		}
+		this.restoreFocus = false;
+	}
+
+	onWillTransition = () => {
+		const current = Spotlight.getCurrent();
+		if (current && current.classList.contains(css.navButton)) {
+			this.pause.pause();
+			const prevButtonFocused = current.matches(`.${css.navCellBefore} .${css.navButton}`);
+			this.restoreFocus = prevButtonFocused ? 'prev' : 'next';
+		} else {
+			this.restoreFocus = false;
+		}
+	}
+}
+
+const ButtonFocusDecorator = Wrapped => function BFD ({index, onTransition, onWillTransition, ...rest}) {
+	const restoreButtonFocus = useClass(RestoreButtonFocus);
+	restoreButtonFocus.setProps({index, onTransition, onWillTransition});
+
+	return (
+		<Wrapped
+			{...rest}
+			index={index}
+			onTransition={restoreButtonFocus.onTransition}
+			onWillTransition={restoreButtonFocus.onWillTransition}
+		/>
+	);
+};
+
 const FlexiblePopupPanels = PopupDecorator(
 	{
 		className: 'flexiblePopupPanels',
@@ -132,7 +191,9 @@ const FlexiblePopupPanels = PopupDecorator(
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},
-	FlexiblePopupPanelsBase
+	ButtonFocusDecorator(
+		FlexiblePopupPanelsBase
+	)
 );
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct
