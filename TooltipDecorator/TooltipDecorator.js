@@ -109,6 +109,14 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipDelay: PropTypes.number,
 
 			/**
+			 * Apply marquee flow. To use this, `tooltipWidth` must be specified together.
+			 *
+			 * @type {Boolean}
+			 * @public
+			 */
+			tooltipMarquee: PropTypes.bool,
+
+			/**
 			 * Position of the tooltip with respect to the wrapped component.
 			 *
 			 * | *Value* | *Tooltip Direction* |
@@ -432,7 +440,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @private
 		 */
 		renderTooltip () {
-			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
+			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
 				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
@@ -450,6 +458,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
+						marquee={tooltipMarquee}
 						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}

@@ -3,6 +3,8 @@ import {isRtlText} from '@enact/i18n/util';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Marquee from '../Marquee';
+
 import css from './Tooltip.module.less';
 
 /**
@@ -27,6 +29,14 @@ const TooltipLabel = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
+		 * Apply marquee flow. To use this, `width` must be specified together.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		marquee: PropTypes.bool,
+
+		/**
 		 * The width of tooltip content in pixels (px). If the content goes over the given width,
 		 * then it will automatically wrap. When `null`, content does not wrap.
 		 *
@@ -41,7 +51,7 @@ const TooltipLabel = kind({
 	},
 
 	computed: {
-		className: ({width, styler}) => styler.append({multi: !!width}),
+		className: ({marquee, width, styler}) => styler.append({multi: (!marquee && !!width)}),
 		style: ({children, width, style}) => {
 			return {
 				...style,
@@ -51,14 +61,20 @@ const TooltipLabel = kind({
 		}
 	},
 
-	render: ({children, ...rest}) => {
-		delete rest.width;
-
-		return (
-			<div {...rest}>
-				{children}
-			</div>
-		);
+	render: ({children, marquee, width, ...rest}) => {
+		if (marquee && !!width) {
+			return (
+				<Marquee {...rest} marqueeOn="render">
+					{children}
+				</Marquee>
+			);
+		} else {
+			return (
+				<div {...rest}>
+					{children}
+				</div>
+			);
+		}
 	}
 });
 

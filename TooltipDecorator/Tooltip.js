@@ -96,6 +96,14 @@ const TooltipBase = kind({
 		labelOffset: PropTypes.number,
 
 		/**
+		 * Apply marquee flow. To use this, `width` must be specified together.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		marquee: PropTypes.bool,
+
+		/**
 		 * Style object for tooltip position.
 		 *
 		 * @type {Object}
@@ -156,7 +164,8 @@ const TooltipBase = kind({
 
 	defaultProps: {
 		type: 'balloon',
-		labelOffset: 0
+		labelOffset: 0,
+		marquee: false
 	},
 
 	styles: {
@@ -181,7 +190,7 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, css, tooltipRef, width, labelOffset, ...rest}) => {
+	render: ({children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
 		delete rest.arrowAnchor;
 		delete rest.labelOffset;
 		delete rest.direction;
@@ -193,7 +202,7 @@ const TooltipBase = kind({
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel className={css.tooltipLabel} width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} marquee={marquee} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>
