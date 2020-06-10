@@ -62,7 +62,7 @@ const TooltipLabel = kind({
 	},
 
 	render: ({children, marquee, width, ...rest}) => {
-		if (marquee && !!width) {
+		if (marquee && width) {
 			return (
 				<Marquee {...rest} marqueeOn="render">
 					{children}

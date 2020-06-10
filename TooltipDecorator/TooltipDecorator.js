@@ -109,7 +109,11 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipDelay: PropTypes.number,
 
 			/**
-			 * Apply marquee flow. To use this, `tooltipWidth` must be specified together.
+			 * Allows the tooltip to marquee.
+			 *
+			 * Requires a
+			 * [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth} to
+			 * marquee.
 			 *
 			 * @type {Boolean}
 			 * @public
@@ -221,8 +225,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * The width of tooltip content in pixels (px).
 			 *
-			 * If the content goes over the given width, it will automatically wrap. When `null`,
-			 * content does not wrap.
+			 * If the content goes over the given width, then it will automatically wrap or marquee,
+			 * depending on `tooltipMarquee`. When `null`, content does not wrap or marquee.
 			 *
 			 * @type {Number|null}
 			 * @public

@@ -96,7 +96,9 @@ const TooltipBase = kind({
 		labelOffset: PropTypes.number,
 
 		/**
-		 * Apply marquee flow. To use this, `width` must be specified together.
+		 * Allows the tooltip to marquee.
+		 *
+		 * Requires a [`width`]{@link sandstone/TooltipDecorator.TooltipBase#width} to marquee.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -153,8 +155,8 @@ const TooltipBase = kind({
 		/**
 		 * The width of tooltip content in pixels (px).
 		 *
-		 * If the content goes over the given width, then it will automatically wrap. When `null`,
-		 * content does not wrap.
+		 * If the content goes over the given width, then it will automatically wrap or marquee,
+		 * depending on `marquee`. When `null`, content does not wrap or marquee.
 		 *
 		 * @type {Number|null}
 		 * @public
@@ -164,8 +166,7 @@ const TooltipBase = kind({
 
 	defaultProps: {
 		type: 'balloon',
-		labelOffset: 0,
-		marquee: false
+		labelOffset: 0
 	},
 
 	styles: {
