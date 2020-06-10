@@ -90,7 +90,7 @@ const DropdownListBase = kind({
 
 	styles: {
 		css,
-		className: 'dropDownList'
+		className: 'dropdownList'
 	},
 
 	handlers: {
@@ -118,7 +118,9 @@ const DropdownListBase = kind({
 	computed: {
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
-		itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		// Note: Retaining this in case we need to support different item sizes for large text mode:
+		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		itemSize: () => 156
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
@@ -133,9 +135,9 @@ const DropdownListBase = kind({
 				{...rest}
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
-				itemSize={itemSize}
+				itemSize={ri.scale(itemSize)}
 				role="group"
-				style={{height: itemSize * dataSize + ri.scale(36)}}
+				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
 			/>
 		);
 	}
@@ -217,8 +219,8 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 		resetFocus (keysDiffer) {
 			let adjustedFocusIndex;
 
-			if (!keysDiffer && this.state.lastFocusedKey) {
-				const targetIndex = indexFromKey(this.props.children, this.state.lastFocusedKey);
+			if (!keysDiffer && this.lastFocusedKey) {
+				const targetIndex = indexFromKey(this.props.children, this.lastFocusedKey);
 				if (targetIndex >= 0) {
 					adjustedFocusIndex = targetIndex;
 				}
@@ -264,7 +266,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			) {
 				const focusedIndex = Number(current.dataset['index']);
 				const lastFocusedKey = getKey({children: this.props.children, selected: focusedIndex});
-				this.setState({lastFocusedKey});
+				this.lastFocusedKey = lastFocusedKey;
 			}
 
 			if (this.props.onFocus) {
