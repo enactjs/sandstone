@@ -1,5 +1,7 @@
+import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -165,6 +167,20 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		styles: {
 			css,
 			className: cfgClassName
+		},
+
+		handlers: {
+			onKeyDown: (ev, props) => {
+				forward('onKeyDown', ev, props);
+				const direction = getDirection(ev.keyCode);
+
+				if (direction) {
+					ev.preventDefault();
+					ev.nativeEvent.stopImmediatePropagation();
+					Spotlight.setPointerMode(false);
+					Spotlight.move(direction);
+				}
+			}
 		},
 
 		computed: {

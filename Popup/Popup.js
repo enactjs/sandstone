@@ -26,6 +26,9 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './Popup.module.less';
 
+const isDown = is('down');
+const isLeft = is('left');
+const isRight = is('right');
 const isUp = is('up');
 const TransitionContainer = SpotlightContainerDecorator(
 	{enterTo: 'default-element', preserveId: true},
@@ -319,6 +322,15 @@ class Popup extends React.Component {
 		open: PropTypes.bool,
 
 		/**
+		 * Position of the Popup on the screen.
+		 *
+		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
+		 * @default 'bottom'
+		 * @public
+		 */
+		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
+
+		/**
 		 * Scrim type.
 		 *
 		 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
@@ -443,30 +455,44 @@ class Popup extends React.Component {
 	}
 
 	handleKeyDown = (ev) => {
-		const {onClose, spotlightRestrict} = this.props;
+		const {onClose, position, spotlightRestrict} = this.props;
+		const {containerId} = this.state;
 		const keyCode = ev.keyCode;
 		const direction = getDirection(keyCode);
-		const spottables = Spotlight.getSpottableDescendants(this.state.containerId).length;
+		const spottables = Spotlight.getSpottableDescendants(containerId).length;
+		const current = Spotlight.getCurrent();
 
-		if (direction && onClose) {
-			let focusChanged;
+		if (direction && (!spottables || current && getContainerNode(containerId).contains(current))) {
+			// explicitly restrict navigation in order to manage focus state when attempting to leave the popup
+			Spotlight.set(containerId, {restrict: 'self-only'});
 
-			if (spottables && Spotlight.getCurrent() && spotlightRestrict !== 'self-only') {
-				focusChanged = Spotlight.move(direction);
-				if (focusChanged) {
+			if (onClose) {
+				let focusChanged;
+
+				if (spottables && current && spotlightRestrict !== 'self-only') {
+					focusChanged = Spotlight.move(direction);
+
+					if (focusChanged) {
+						// stop propagation to prevent default spotlight behavior
+						ev.stopPropagation();
+					}
+				}
+
+				if (!spottables || (focusChanged === false && (
+					position === 'center' ||
+					isUp(keyCode) && position === 'bottom' ||
+					isDown(keyCode) && position === 'top' ||
+					isRight(keyCode) && position === 'left' ||
+					isLeft(keyCode) && position === 'right'
+				))) {
+					// prevent default page scrolling
+					ev.preventDefault();
 					// stop propagation to prevent default spotlight behavior
 					ev.stopPropagation();
+					// set the pointer mode to false on keydown
+					Spotlight.setPointerMode(false);
+					onClose(ev);
 				}
-			}
-
-			if (!spottables || (focusChanged === false && isUp(keyCode))) {
-				// prevent default page scrolling
-				ev.preventDefault();
-				// stop propagation to prevent default spotlight behavior
-				ev.stopPropagation();
-				// set the pointer mode to false on keydown
-				Spotlight.setPointerMode(false);
-				onClose(ev);
 			}
 		}
 	}
@@ -542,7 +568,6 @@ class Popup extends React.Component {
 
 	render () {
 		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
-		delete rest.spotlightRestrict;
 
 		return (
 			<FloatingLayer
@@ -559,7 +584,6 @@ class Popup extends React.Component {
 					onShow={this.handlePopupShow}
 					open={this.state.popupOpen >= OpenState.OPENING}
 					spotlightId={this.state.containerId}
-					spotlightRestrict="self-only"
 				/>
 			</FloatingLayer>
 		);
