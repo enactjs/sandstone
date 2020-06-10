@@ -22,6 +22,7 @@ import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
+import IdProvider from '@enact/ui/internal/IdProvider';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -114,6 +115,14 @@ const DropdownBase = kind({
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * The `id` of Dropdown referred to when generating id for `'title'`.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		id: PropTypes.string,
 
 		/**
 		 * Called when the Dropdown is closing.
@@ -284,9 +293,10 @@ const DropdownBase = kind({
 
 			return placeholder;
 		},
-		title: ({title}) => (title &&
+		title: ({id, title}) => (title &&
 			<Heading
 				className={css.title}
+				id={`${id}_title`}
 				size="tiny"
 			>
 				{title}
@@ -294,7 +304,7 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({children, direction, disabled, id, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
@@ -305,7 +315,7 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div {...rest}>
+			<div role="region" aria-labelledby={`${id}_title`} {...rest}>
 				{title}
 				<DropdownButton
 					direction={direction}
@@ -346,6 +356,10 @@ const DropdownDecorator = compose(
 	}}),
 	I18nContextDecorator({
 		rtlProp: 'rtl'
+	}),
+	IdProvider({
+		generateProp: null,
+		prefix: 'd_'
 	}),
 	Changeable({
 		change: 'onSelect',
