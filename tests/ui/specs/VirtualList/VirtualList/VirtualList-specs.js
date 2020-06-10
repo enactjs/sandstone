@@ -19,7 +19,7 @@ describe('VirtualList', function () {
 			expectFocusedItem(0);
 		});
 
-		it('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
+		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 			Page.spotlightDown(); // is on Left button
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 3. 5-way Spot the second item 'Item 001'.
@@ -380,7 +380,7 @@ describe('VirtualList', function () {
 				Page.open();
 			});
 
-			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
+			it.skip('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 				Page.item(7).moveTo();
 				expectFocusedItem(7, 'step 3 focus');
