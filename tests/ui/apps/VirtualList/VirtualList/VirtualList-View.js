@@ -149,7 +149,7 @@ class app extends React.Component {
 					<Cell component={OptionsContainer} shrink>
 						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
-						<Button id="cbScrollTo" onClick={this.oncbScrollTo} selected={cbScrollTo}>cbScrollTo</Button>
+						<Button id="cbScrollTo" onClick={this.oncbScrollTo} selected={cbScrollTo}>skipToItem10</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />

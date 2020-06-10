@@ -579,8 +579,7 @@ describe('VirtualList', function () {
 			it('should Jump to item when press cbScrollTo button [GT-28936]', function () {
 				// Step2-1: 5-way Spot the '010 - 한국어 - 한국'(item10 for this test) item.
 				// Check if item10 is located at the top of the list.
-				Page.spotlightRight();
-				Page.spotlightRight();
+				Page.buttonSkipToItem.moveTo();
 				Page.spotlightSelect();
 				const topId = Page.topVisibleItemId();
 				expect(topId).to.equal('item10');
