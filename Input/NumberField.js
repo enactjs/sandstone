@@ -75,7 +75,6 @@ const NumberFieldBase = kind({
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
 		showKeypad: PropTypes.bool,
-		submitLabel: PropTypes.string,
 		type: PropTypes.oneOf(['number', 'password']),
 		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	},
@@ -142,11 +141,11 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value, submitLabel}) => {
+		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
 			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
 			if (minLength !== maxLength) {
-				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{submitLabel ? submitLabel : $L('Submit')}</Button>;
+				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
 			}
@@ -161,7 +160,6 @@ const NumberFieldBase = kind({
 		delete rest.onComplete;
 		delete rest.onSubmit;
 		delete rest.rtl;
-		delete rest.submitLabel;
 
 		const separated = getSeparated(numberInputField, maxLength);
 
