@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
+- `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
 - `sandstone/Picker` to support updated accessibility string on `joined`
 
 ### Fixed

@@ -1,8 +1,10 @@
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,6 +13,7 @@ import compose from 'ramda/src/compose';
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
 
+import {AutoFocusDecorator} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Panel.module.less';
@@ -32,7 +35,6 @@ let panelId = 0;
 const PanelBase = kind({
 	name: 'Panel',
 
-
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
  		 * The "aria-label" for the Panel.
@@ -48,41 +50,12 @@ const PanelBase = kind({
 		'aria-label': PropTypes.string,
 
 		/**
-		 * Sets the strategy used to automatically focus an element within the panel upon render.
+		 * Obtains a reference to the root node.
 		 *
-		 * * "none" - Automatic focus is disabled
-		 * * "last-focused" - The element last focused in the panel with be restored
-		 * * "default-element" - The first spottable component within the body will be focused
-		 * * Custom Selector - A custom CSS selector may also be provided which will be used to find
-		 *   the target within the Panel
-		 *
-		 * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by
-		 * `Panels` to "default-element" when navigating "forward" to a higher index. This behavior
-		 * may be overridden by setting `autoFocus` on the `Panel` instance as a child of `Panels`
-		 * or by wrapping `Panel` with a custom component and overriding the value passed by
-		 * `Panels`.
-		 *
-		 * ```
-		 * // Panel within CustomPanel will always receive "last-focused"
-		 * const CustomPanel = (props) => <Panel {...props} autoFocus="last-focused" />;
-		 *
-		 * // The first panel will always receive "last-focused". The second panel will receive
-		 * // "default-element" when navigating from the first panel but `autoFocus` will be unset
-		 * // when navigating from the third panel and as a result will default to "last-focused".
-		 * const MyPanels = () => (
-		 *   <Panels>
-		 *     <Panel autoFocus="last-focused" />
-		 *     <Panel />
-		 *     <Panel />
-		 *   </Panels>
-		 * );
-		 * ```
-		 *
-		 * @type {String}
-		 * @default 'last-focused'
+		 * @type {Function|Object}
 		 * @public
 		 */
-		autoFocus: PropTypes.string,
+		componentRef: EnactPropTypes.ref,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -131,7 +104,6 @@ const PanelBase = kind({
 	},
 
 	defaultProps: {
-		autoFocus: 'last-focused',
 		hideChildren: false
 	},
 
@@ -148,44 +120,10 @@ const PanelBase = kind({
 				currentTarget.scrollTop = 0;
 				currentTarget.scrollLeft = 0;
 			}
-		),
-		spotOnRender: (node, {autoFocus}) => {
-			if (node) {
-				// FIXME: This is a candidate to move to the decorator once hooks have been fully
-				// adopted and we can configure SpotlightContainerDecorator with the current props
-				const {spotlightId} = node.dataset;
-				const config = {
-					enterTo: 'last-focused'
-				};
-
-				if (autoFocus !== 'last-focused') {
-					config.enterTo = 'default-element';
-
-					if (autoFocus !== 'default-element') {
-						config.defaultElement = autoFocus;
-					}
-				}
-
-				Spotlight.set(spotlightId, config);
-
-				if (!Spotlight.getCurrent() && !Spotlight.isPaused()) {
-					Spotlight.focus(spotlightId);
-				}
-			}
-		}
+		)
 	},
 
 	computed: {
-		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
-			// In order to spot the body components, we defer spotting until !hideChildren. If the
-			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
-			// on first render.
-			if (hideChildren || autoFocus === 'none') {
-				return null;
-			}
-
-			return spotOnRender;
-		},
 		children: ({children, hideChildren}) => hideChildren ? null : children,
 		bodyClassName: ({css, header, hideChildren, styler}) => styler.join(css.body, {
 			noHeader: !header,
@@ -221,19 +159,18 @@ const PanelBase = kind({
 	render: ({
 		bodyClassName,
 		children,
+		componentRef,
 		css,
 		entering,
 		header,
 		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
-		spotOnRender,
 		...rest
 	}) => {
-		delete rest.autoFocus;
 		delete rest.hideChildren;
 		delete rest.panelType;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={labelledby} ref={spotOnRender}>
+			<article role="region" {...rest} aria-labelledby={labelledby} ref={componentRef}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
@@ -248,8 +185,45 @@ const PanelBase = kind({
 	}
 });
 
+/**
+ * Sets the strategy used to automatically focus an element within the panel upon render.
+ *
+ * * "none" - Automatic focus is disabled
+ * * "last-focused" - The element last focused in the panel with be restored
+ * * "default-element" - The first spottable component within the body will be focused
+ * * Custom Selector - A custom CSS selector may also be provided which will be used to find
+ *   the target within the Panel
+ *
+ * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by
+ * `Panels` to "default-element" when navigating "forward" to a higher index. This behavior
+ * may be overridden by setting `autoFocus` on the `Panel` instance as a child of `Panels`
+ * or by wrapping `Panel` with a custom component and overriding the value passed by
+ * `Panels`.
+ *
+ * ```
+ * // Panel within CustomPanel will always receive "last-focused"
+ * const CustomPanel = (props) => <Panel {...props} autoFocus="last-focused" />;
+ *
+ * // The first panel will always receive "last-focused". The second panel will receive
+ * // "default-element" when navigating from the first panel but `autoFocus` will be unset
+ * // when navigating from the third panel and as a result will default to "last-focused".
+ * const MyPanels = () => (
+ *   <Panels>
+ *     <Panel autoFocus="last-focused" />
+ *     <Panel />
+ *     <Panel />
+ *   </Panels>
+ * );
+ * ```
+ *
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/Panels.Panel.prototype
+ * @default 'last-focused'
+ * @public
+ */
 
 const PanelDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
@@ -260,6 +234,7 @@ const PanelDecorator = compose(
 		preserveId: true
 	}),
 	Slottable({slots: ['header']}),
+	AutoFocusDecorator,
 	Skinnable
 );
 
