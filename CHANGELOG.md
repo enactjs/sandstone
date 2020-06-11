@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/Input` to update `invalidTooltip` to the latest design

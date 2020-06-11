@@ -262,24 +262,27 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
+			const snapshot = {
+				containerWidth: this.getContainerNodeWidth()
+			};
+
 			if (prevProps.open && !this.props.open) {
 				const current = Spotlight.getCurrent();
-				return {
-					shouldSpotActivator: (
-						// isn't set
-						!current ||
-						// is on the activator and we want to re-spot it so a11y read out can occur
-						current === prevState.activator ||
-						// is within the popup
-						this.containerNode.contains(current)
-					)
-				};
+				snapshot.shouldSpotActivator = (
+					// isn't set
+					!current ||
+					// is on the activator and we want to re-spot it so a11y read out can occur
+					current === prevState.activator ||
+					// is within the popup
+					this.containerNode.contains(current)
+				);
 			}
-			return null;
+
+			return snapshot;
 		}
 
 		componentDidUpdate (prevProps, prevState, snapshot) {
-			if (prevProps.direction !== this.props.direction) {
+			if (prevProps.direction !== this.props.direction || snapshot.containerWidth !== this.getContainerNodeWidth()) {
 				this.adjustedDirection = this.props.direction;
 				// NOTE: `setState` is called and will cause re-render
 				this.positionContextualPopup();
@@ -303,6 +306,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+		}
+
+		getContainerNodeWidth () {
+			return this.containerNode && this.containerNode.getBoundingClientRect().width || 0;
 		}
 
 		updateLeaveFor (activator) {
