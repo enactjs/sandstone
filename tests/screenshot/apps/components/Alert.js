@@ -10,7 +10,8 @@ import {withConfig, withProps, LoremString} from './utils';
 // Only type: 'fullscreen' supports title and subtitle props
 const fullscreenTests = [
 	<Alert open title="Title" />,
-	<Alert open title="Title" subtitle="Subtitle" />
+	<Alert open>Alert!</Alert>,
+	<Alert open>{LoremString}</Alert>
 ];
 
 // Only type: 'overlay; supports children
