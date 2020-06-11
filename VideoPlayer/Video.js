@@ -92,7 +92,7 @@ const VideoBase = class extends React.Component {
 		 *
 		 * See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source
 		 *
-		 * @type {Node}
+		 * @type {String|Node}
 		 * @public
 		 */
 		source: PropTypes.oneOfType([PropTypes.string, PropTypes.node])

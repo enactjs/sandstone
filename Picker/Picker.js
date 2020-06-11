@@ -176,7 +176,7 @@ const PickerBase = kind({
 		 *
 		 * By default, the picker will size according to the longest valid value.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([

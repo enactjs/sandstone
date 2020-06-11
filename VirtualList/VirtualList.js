@@ -398,7 +398,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
@@ -424,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `false`,
 	 * * `true`, and
 	 * * `'noAnimation'`
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -829,7 +829,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
@@ -856,7 +856,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `true`, and
 	 * * `'noAnimation'`
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
