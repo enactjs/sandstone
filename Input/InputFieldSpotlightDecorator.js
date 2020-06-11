@@ -100,7 +100,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @default false
 			 * @private
 			 */
-			noReadoutOnFoucs: PropTypes.bool,
+			noReadoutOnFocus: PropTypes.bool,
 
 			/**
 			 * Called when the internal <input> is focused.
@@ -147,7 +147,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				node: null
 			};
 
-			this.ariaHidden = props.noReadoutOnFoucs || null;
+			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
 		}
@@ -362,7 +362,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		render () {
 			const props = Object.assign({}, this.props);
 			delete props.autoFocus;
-			delete props.noReadoutOnFoucs;
+			delete props.noReadoutOnFocus;
 			delete props.onActivate;
 			delete props.onDeactivate;
 

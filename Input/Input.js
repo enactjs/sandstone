@@ -355,7 +355,7 @@ const InputPopupBase = kind({
 									type={type}
 									defaultValue={value}
 									placeholder={placeholder}
-									noReadoutOnFoucs
+									noReadoutOnFocus
 									onChange={onChange}
 									onKeyDown={onInputKeyDown}
 								/>
