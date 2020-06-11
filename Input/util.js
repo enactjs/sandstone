@@ -1,4 +1,5 @@
 import $L from '../internal/$L';
+import warning from 'warning';
 
 // A default value for the numeric field length. Used by maxLength and minLength.
 const DEFAULT_LENGTH = 4;
@@ -108,6 +109,22 @@ const extractInputProps = function (props) {
 	return inputProps;
 };
 
+const limitNumberLength = (popupType, length) => {
+	let limitedLength = length;
+	if (popupType === 'fullscreen') {
+		if (length > FULLSCREEN_JOINED_DIGITS_LIMIT) {
+			limitedLength = FULLSCREEN_JOINED_DIGITS_LIMIT;
+			warning(false, `Max length of fullscreen type input must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
+		}
+	} else if (popupType === 'overlay') {
+		if (length > OVERLAY_JOINED_DIGITS_LIMIT) {
+			limitedLength = OVERLAY_JOINED_DIGITS_LIMIT;
+			warning(false, `Max length of overlay type input must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
+		}
+	}
+	return limitedLength;
+};
+
 export {
 	DEFAULT_LENGTH,
 	FULLSCREEN_JOINED_DIGITS_LIMIT,
@@ -116,5 +133,6 @@ export {
 	calcAriaLabel,
 	convertToPasswordFormat,
 	extractInputProps,
-	extractInputFieldProps
+	extractInputFieldProps,
+	limitNumberLength
 };

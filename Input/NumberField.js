@@ -21,6 +21,7 @@ import componentCss from './Input.module.less';
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
 const normalizeValue = (value, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, maxLength) : '');
+
 const normalizeValueProp = ({value, maxLength}) => normalizeValue(value, maxLength);
 
 const NumberCell = kind({

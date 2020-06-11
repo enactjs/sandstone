@@ -8,7 +8,6 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
-import warning from 'warning';
 
 import Button from '../Button';
 import Popup from '../Popup';
@@ -17,7 +16,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps, OVERLAY_JOINED_DIGITS_LIMIT, FULLSCREEN_JOINED_DIGITS_LIMIT} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -262,16 +261,8 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
-		maxLength: ({length, maxLength, popupType, type}) => {
-			const limit = (length || maxLength);
-			if (type === 'number' || type === 'passwordnumber') {
-				if (popupType === 'fullscreen') {
-					warning(!(limit > FULLSCREEN_JOINED_DIGITS_LIMIT), `Max length of fullscreen type input must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
-				} else if (popupType === 'overlay') {
-					warning(!(limit > OVERLAY_JOINED_DIGITS_LIMIT), `Max length of overlay type input must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
-				}
-			}
-			return limit;
+		maxLength: ({length, maxLength}) => {
+			return (length || maxLength);
 		},
 		minLength: ({length, maxLength, minLength}) => {
 			if (length) return length;
@@ -301,6 +292,8 @@ const InputPopupBase = kind({
 		title,
 		type,
 		value,
+		maxLength,
+		minLength,
 		...rest
 	}) => {
 
@@ -329,6 +322,8 @@ const InputPopupBase = kind({
 						{numberMode ?
 							<NumberField
 								{...inputProps}
+								maxLength={limitNumberLength(popupType, maxLength)}
+								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
 								onChange={onChange}
 								onComplete={onNumberComplete}
@@ -338,6 +333,8 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								maxLength={maxLength}
+								minLength={minLength}
 								size={size}
 								autoFocus
 								type={type}
