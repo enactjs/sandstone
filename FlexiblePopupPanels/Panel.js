@@ -162,8 +162,7 @@ const PanelBase = kind({
 			onNextClick,
 			onPrevClick,
 			prevButton,
-			prevButtonVisibility,
-			rtl
+			prevButtonVisibility
 		}, {count}) => {
 			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
 			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
@@ -208,13 +207,12 @@ const PanelBase = kind({
 		delete props.onPrevClick;
 		delete props.prevButton;
 		delete props.prevButtonVisibility;
-		delete props.rtl;
 
 		return (<DefaultPanel {...props} css={css} />);
 	}
 });
 
-const Panel = PanelDecorator(I18nContextDecorator({rtlProp: 'rtl'})(PanelBase));
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
 export {
