@@ -23,29 +23,17 @@
 		}
 	}
 
+	.navCellBefore {
+		direction: rtl;
+
+		:global(.enact-locale-right-to-left) & {
+			direction: ltr;
+		}
+	}
+
 	.navButton {
 		position: absolute;
-	}
-
-	.navCellBefore .navButton {
-		left: 0;
-		transform: translate(-100%, -50%);
-
-		:global(.enact-locale-right-to-left) & {
-			transform: translate(0, -50%);
-		}
-	}
-
-	.navCellAfter .navButton {
-		right: 0;
-		transform: translate(100%, -50%);
-
-		:global(.enact-locale-right-to-left) & {
-			transform: translate(0, -50%);
-		}
-	}
-
-	.navButton {
+		transform: translate(0, -50%);
 		margin: @sand-flexiblepopuppanels-navbutton-margin;
 	}
 
