@@ -7,13 +7,14 @@ import img from '../../images/300x300.png';
 import {withConfig, withProps, LoremString} from './utils';
 
 
-// Only type: 'fullscreen' supports title and subtitle props
+// Only type: 'fullscreen' supports title prop
 const fullscreenTests = [
 	<Alert open title="Title" />,
-	<Alert open title="Title" subtitle="Subtitle" />
+	<Alert open>Alert!</Alert>,
+	<Alert open>{LoremString}</Alert>
 ];
 
-// Only type: 'overlay; supports children
+// Only type: 'overlay' supports children
 const overlayTests = [
 	<Alert open>Alert!</Alert>,
 	<Alert open>{LoremString}</Alert>
