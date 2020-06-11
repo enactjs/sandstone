@@ -17,12 +17,12 @@ const Widths = [
 ];
 
 const DropdownTests = [
-	<Dropdown />,  // default size is 'large'
+	<Dropdown />,  // default size is 'small'
 	// Change 'size' dynamically [GT-28629]
-	<Dropdown size="large" />,
-	<Dropdown placeholder="Dropdown" />,
 	<Dropdown size="small" />,
-	<Dropdown placeholder="Dropdown" size="small" />,
+	<Dropdown placeholder="Dropdown" />,
+	<Dropdown size="large" />,
+	<Dropdown placeholder="Dropdown" size="large" />,
 	<Dropdown placeholder="Dropdown" width="tiny" disabled />,
 
 	// With title
@@ -34,9 +34,9 @@ const DropdownTests = [
 	// width - 'medium' is default
 	...Widths,
 
-	// size="small"
+	// size="large"
 	...withProps({
-		size: 'small'
+		size: 'large'
 	}, Widths)
 
 ];
