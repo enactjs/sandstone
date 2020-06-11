@@ -149,6 +149,12 @@ const NumberFieldBase = kind({
 			} else {
 				return null;
 			}
+		},
+		style: ({maxLength, style}) => {
+			return {
+				...style,
+				'--input-max-number-length': maxLength
+			};
 		}
 	},
 

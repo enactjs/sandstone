@@ -279,13 +279,7 @@ const InputPopupBase = kind({
 			if (maxLength != null) return maxLength;
 			return DEFAULT_LENGTH;
 		},
-		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type),
-		style: ({length, maxLength, style}) => {
-			return {
-				...style,
-				'--input-max-number-length': (length || maxLength)
-			};
-		}
+		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type)
 	},
 
 	render: ({
@@ -307,7 +301,6 @@ const InputPopupBase = kind({
 		title,
 		type,
 		value,
-		style,
 		...rest
 	}) => {
 
@@ -326,7 +319,6 @@ const InputPopupBase = kind({
 				className={popupClassName}
 				noAnimation
 				open={!disabled && open}
-				style={style}
 			>
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
