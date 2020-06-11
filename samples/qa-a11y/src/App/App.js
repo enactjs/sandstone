@@ -11,6 +11,7 @@ import Alert from '../views/Alert';
 import Button from '../views/Button';
 import ContextualPopupDecorator from '../views/ContextualPopupDecorator';
 import Dropdown from '../views/Dropdown';
+import FixedPopupPanels from '../views/FixedPopupPanels';
 import GroupItem from '../views/GroupItem';
 import Input from '../views/Input';
 import ItemView from '../views/Item';
@@ -40,6 +41,7 @@ const views = [
 	{title: 'Button', view: Button},
 	{title: 'ContextualPopupDecorator', view: ContextualPopupDecorator},
 	{title: 'Dropdown', view: Dropdown},
+	{title: 'FixedPopupPanels', view: FixedPopupPanels},
 	{title: 'GroupItem', view: GroupItem},
 	{title: 'Input', view: Input},
 	{title: 'Item', view: ItemView},

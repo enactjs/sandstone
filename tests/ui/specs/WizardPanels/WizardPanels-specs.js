@@ -103,7 +103,7 @@ describe('WizardPanels', function () {
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 		});
 
-		it('should select `.spottable-default` when it exists', function () {
+		it('should select `.spottable-default` when it exists - [GT-30541]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 			wizardPanels.waitForLeave(1);

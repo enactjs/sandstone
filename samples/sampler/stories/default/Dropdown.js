@@ -25,8 +25,9 @@ storiesOf('Sandstone', module)
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config)}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
+					title={text('title', Config, 'Options')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items}

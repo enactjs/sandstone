@@ -28,6 +28,8 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
+	get buttonJumpToItem () { return element('#jumpTo', browser); }
+	get inputfieldNumItems () { return element('#numItems', browser); }
 	get inputfieldSpacing () { return element('#spacing', browser); }
 	get inputfieldItemSize () { return element('#itemSize', browser); }
 	get scrollbar () { return $(`${scrollbarSelector}`); }
