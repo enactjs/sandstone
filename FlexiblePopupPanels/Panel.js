@@ -214,6 +214,7 @@ const PanelBase = kind({
 	render: (props) => {
 		delete props.nextButton;
 		delete props.nextButtonVisibility;
+		delete props.iconProps;
 		delete props.onChange;
 		delete props.onNextClick;
 		delete props.onPrevClick;
