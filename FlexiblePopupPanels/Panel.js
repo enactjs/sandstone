@@ -216,7 +216,7 @@ const PanelBase = kind({
 		delete props.prevButton;
 		delete props.prevButtonVisibility;
 
-		return (<DefaultPanel {...props} css={css} autoFocus="last-focused" />);
+		return (<DefaultPanel {...props} css={css} />);
 	}
 });
 
@@ -260,7 +260,7 @@ const PanelDecorator = compose(
 		}
 	}),
 	Slottable({slots: ['header']}),
-	AutoFocusDecorator,
+	AutoFocusDecorator({focusMode: 'container'}),
 	Skinnable
 );
 
