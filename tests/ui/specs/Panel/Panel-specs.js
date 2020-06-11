@@ -6,6 +6,12 @@ describe('Panel', function () {
 		Page.open();
 	});
 
+	function waitForFocused (node, timeout, message = 'timed out waiting for focus', delay = 250) {
+		browser.waitUntil(function () {
+			return node.isFocused();
+		}, timeout, message, delay);
+	}
+
 	describe('focus management', () => {
 		it('should focus header buttons when no focusable content exists', () => {
 			expect(Page.panel1.nextButton.isFocused()).to.be.true();
@@ -26,7 +32,7 @@ describe('Panel', function () {
 
 		// this test passed manually but fails in automation because the 'last-focused' element
 		// isn't preserved.
-		it.skip('should restore focus when navigating backward and `autoFocus="last-focused"` ', () => {
+		it.skip('should restore focus when navigating backward and `autoFocus="last-focused"`', () => {
 			Page.focus(Page.panel1.nextButton);
 			Page.spotlightSelect();
 
@@ -42,7 +48,7 @@ describe('Panel', function () {
 
 			Page.panel2.waitForEnter();
 
-			expect(Page.panel2.nextButton.isFocused()).to.be.true();
+			waitForFocused(Page.panel2.nextButton);
 		});
 
 		it('should focus `.spottable-default` within body when `autoFocus="default-element"` ', () => {

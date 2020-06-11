@@ -216,7 +216,7 @@ const PanelBase = kind({
  * );
  * ```
  *
- * @type {String}
+ * @type {('default-element'|'last-focused'|'none'|String)}
  * @memberof sandstone/Panels.Panel.prototype
  * @default 'last-focused'
  * @public
