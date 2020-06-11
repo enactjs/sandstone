@@ -6,10 +6,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Dropdown` prop `title` to optionally display a heading above the component
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 
 ### Changed
 
+- `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
 - `sandstone/Picker` to support updated accessibility string on `joined`
 
 ### Fixed
