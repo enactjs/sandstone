@@ -29,6 +29,7 @@ class VirtualListPage extends Page {
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
 	get buttonJumpToItem () { return element('#jumpTo', browser); }
+	get buttonDisabledItem () { return element('#disabled', browser); }
 	get inputfieldNumItems () { return element('#numItems', browser); }
 	get inputfieldSpacing () { return element('#spacing', browser); }
 	get inputfieldItemSize () { return element('#itemSize', browser); }
@@ -141,6 +142,14 @@ class VirtualListPage extends Page {
 				width: itemWidth
 			};
 		}, listItemSelector);
+	}
+
+	itemDisabled (itemNum) {
+		const itemId = 'item' + String(itemNum);
+		return browser.execute(function (_itemId) {
+			const disableStatus = document.getElementById(_itemId).ariaDisabled;
+			return disableStatus;
+		}, itemId);
 	}
 
 	fiveWayToItem (itemNum) {

@@ -15,12 +15,14 @@ describe('VirtualList', function () {
 
 		it('should focus first item on first focus', function () {
 			Page.spotlightDown();
+			Page.spotlightDown();
 			Page.spotlightRight();
 			expectFocusedItem(0);
 		});
 
 		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
-			Page.spotlightDown(); // is on Left button
+			Page.spotlightDown();
+			Page.spotlightDown();
 			Page.spotlightRight(); // is on 'Item 000'
 			// Step 3. 5-way Spot the second item 'Item 001'.
 			Page.spotlightDown();
@@ -69,6 +71,7 @@ describe('VirtualList', function () {
 		it('should not scroll when leaving list with 5-way up/down [GT-28473]', function () {
 			// Step 3. Set dataSize to 100. Step 4: change to 5-way mode
 			Page.spotlightDown();
+			Page.spotlightDown();
 			// Step 5: 5-way Spot the first item.
 			Page.spotlightRight();
 			// Verify Step 5: Spotlight displays on the first item.
@@ -112,6 +115,7 @@ describe('VirtualList', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
+			Page.spotlightDown();
 			Page.spotlightDown();
 			Page.spotlightRight();
 			expectFocusedItem(0, 'focus Item 0');
@@ -210,6 +214,7 @@ describe('VirtualList', function () {
 			it('should prevent bubbling while navigating within a list', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
+				Page.spotlightDown();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
 				Page.spotlightDown();
@@ -261,6 +266,7 @@ describe('VirtualList', function () {
 			it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
 				Page.spotlightSelect();
 				Page.spotlightDown();
+				Page.spotlightDown();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
 				Page.spotlightUp();
@@ -278,6 +284,7 @@ describe('VirtualList', function () {
 			it('should allow bubbling while navigating out of a list using hidden focusableScrollbar via items', function () {
 				Page.spotlightSelect();
 				Page.spotlightRight();
+				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
@@ -301,6 +308,7 @@ describe('VirtualList', function () {
 
 			// Need mochaOpts - timeout set to 60000 to pass
 			it('should allow bubbling while navigating out of a list using non-focusableScrollbar via items', function () {
+				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
@@ -365,6 +373,7 @@ describe('VirtualList', function () {
 			it('should Verify RTL functionality [GT-28480]', function () {
 				// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
 				// Check that the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
+				Page.spotlightDown();
 				Page.spotlightDown();
 				expect(Page.buttonLeft.isFocused(), 'focus left');
 				Page.spotlightLeft();
@@ -440,7 +449,7 @@ describe('VirtualList', function () {
 				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
 				Page.backKey();
 				Page.spotlightDown();
-				Page.spotlightRight();
+				Page.item(0).moveTo();
 				// Check First item
 				expectFocusedItem(0, 'focus item0');
 				Page.spotlightDown();
@@ -471,6 +480,7 @@ describe('VirtualList', function () {
 			it('should maintain spotlight size when spacing 100[GT-28462]', function () {
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
 				Page.spotlightDown();
+				Page.spotlightDown();
 				Page.spotlightRight();
 				const defaultSpotlightSize = Page.spotlightSize();
 				// Step 3 Verify: The default value for the 'spacing' knob is 0.
@@ -491,7 +501,6 @@ describe('VirtualList', function () {
 				expect(changedSpacing).to.equal(50);
 				// Step5-1: Hover an item.
 				Page.spotlightDown();
-				Page.spotlightRight();
 				$('#item5').moveTo();
 				expectFocusedItem(5);
 				// Step5 Verify: The spotlight size does not change.
@@ -510,7 +519,6 @@ describe('VirtualList', function () {
 				expect(newSpacing).to.equal(25);
 				// Step7-1: Hover an item.
 				Page.spotlightDown();
-				Page.spotlightRight();
 				$('#item3').moveTo();
 				expectFocusedItem(3);
 				// Step7 Verify: The spotlight size does not change.
@@ -523,6 +531,7 @@ describe('VirtualList', function () {
 				expect(defaultItemSize.height).to.equal(78);
 				expect(defaultItemSize.width).to.equal(1200);
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				Page.spotlightDown();
 				Page.spotlightDown();
 				Page.spotlightRight();
 				const defaultSpotlightSize = Page.spotlightSize();
@@ -542,7 +551,6 @@ describe('VirtualList', function () {
 				expect(curItemSize.height).to.equal(150);
 				expect(curItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();
-				Page.spotlightRight();
 				$('#item2').moveTo();
 				expectFocusedItem(2);
 				const curSpotlightSize = Page.spotlightSize();
@@ -561,13 +569,13 @@ describe('VirtualList', function () {
 				expect(newItemSize.height).to.equal(25);
 				expect(newItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();
-				Page.spotlightRight();
 				$('#item4').moveTo();
 				expectFocusedItem(4);
 				const newSpotlightSize = Page.spotlightSize();
 				expect(newSpotlightSize).to.equal(25);
 			});
 		});
+
 		describe('cbScrollTo VirtualList Samples', function () {
 			beforeEach(function () {
 				Page.open();
@@ -591,6 +599,49 @@ describe('VirtualList', function () {
 				// Step3-2: 5-way Up until Spotlight displays on the '000 - 한국어 - 한국'(item0 for this test) item.
 				Page.fiveWayToItem(0);
 				expectFocusedItem(0);
+			});
+		});
+
+		describe('disabled Item', function () {
+			beforeEach(function () {
+				Page.open();
+			});
+
+			it('should Navigate Disabled and Enabled items [GT-29029]', function () {
+				// Step 3: Click on DisabledItems CheckboxItem.
+				Page.buttonDisabledItem.moveTo();
+				Page.spotlightSelect();
+				// Step 4: 5-way Spot the first item ('Item 000').
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightRight();
+				expectFocusedItem(0);
+				// Step 5: 5-way Down several times to the next enabled item.
+				// Step 5-2 Verify: Spotlight displays on each Item (Disabled and Enabled) as the list scrolls up.
+				// Page.fiveWayToItem and Page.checkItemDisabled function included Step 5's Verify(5-2).
+				for (let i = 1; i !== 16; i++) {
+					Page.fiveWayToItem(i);
+					if(Page.itemDisabled(i) === 'false') {
+						break;
+					} else {
+						continue;
+					}
+				}
+				// Step 5-3: Spotlight displays on the next Enabled item.
+				expectFocusedItem(15);
+				Page.fiveWayToItem(30);
+				// Step 6: 5-way Up several times to the previous enabled item.
+				// Step 6-2: Spotlight displays on each Item (Disabled and Enabled) as the list scrolls down.
+				for (let i = 29; i >= 14; i-- ){
+					Page.fiveWayToItem(i);
+					if(Page.itemDisabled(i) === 'false') {
+						break;
+					} else {
+						continue;
+					}
+				}
+				// Step 6-3: Spotlight displays on the previous Enabled item.
+				expectFocusedItem(15);
 			});
 		});
 	});
