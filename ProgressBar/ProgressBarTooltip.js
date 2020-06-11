@@ -135,10 +135,10 @@ const ProgressBarTooltipBase = kind({
 		/**
 		 * Sets the orientation of the tooltip based on the orientation of the bar.
 		 *
-		 * 'vertical' sends the tooltip to one of the sides, 'horizontal' positions it above the bar, 'radial' can position it on all sides.
-		 * * Values: `'horizontal'`, `'vertical'`
+		 * 'vertical' sends the tooltip to one of the sides, 'horizontal' positions it above the
+		 * bar, 'radial' can position it on all sides.
 		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical'|'radial')}
 		 * @default 'horizontal'
 		 * @public
 		 */
