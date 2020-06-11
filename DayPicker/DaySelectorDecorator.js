@@ -217,7 +217,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			/**
 			 * The format for names of days.
 			 *
-			 * @type {String}
+			 * @type {('short'|'medium'|'long'|'full')}
 			 * @default 'long'
 			 * @public
 			 */

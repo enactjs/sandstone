@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
 
 ### Changed
 
@@ -18,7 +19,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/FixedPopupPanels` to position the NavigationButtons properly in FixedPopupPanels in RTL
 - `sandstone/FixedPopupPanels` to support accessibility properly
+- `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
 - `sandstone/TabLayout` performance when focusing items in the layout
+- `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
+- `sandstone/Input` to update `invalidTooltip` to the latest design
 
 ## [1.0.0-beta.6] - 2020-06-08
 
