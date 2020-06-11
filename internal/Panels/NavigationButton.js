@@ -21,7 +21,7 @@ const NavigationIconBase = kind({
 	},
 
 	render: ({rtl, ...rest}) => {
-		return <IconBase {...rest} flip={rtl ? "horizontal" : null} />;
+		return <IconBase {...rest} flip={rtl ? 'horizontal' : null} />;
 	}
 });
 
