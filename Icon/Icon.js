@@ -62,7 +62,7 @@ const IconBase = kind({
 		 * automatically adapt to the screen resolutions, as defined in the `screenTypes` file of
 		 * this theme.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')|Number}
+		 * @type {('large'|'medium'|'small'|'tiny'|Number)}
 		 * @default 'small'
 		 * @public
 		 */

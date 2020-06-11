@@ -102,9 +102,9 @@ const NumberFieldBase = kind({
 							autoSubmit = minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
-					forward('onComplete'),
+					forward('onComplete')
 				)
-			),
+			)
 		),
 		onRemove: handle(
 			adaptEvent(
@@ -116,7 +116,7 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
 				forward('onComplete')
-			),
+			)
 		)
 	},
 
@@ -199,7 +199,7 @@ const NumberFieldBase = kind({
 
 const NumberFieldDecorator = compose(
 	Changeable,
-	I18nContextDecorator({rtlProp: 'rtl'}),
+	I18nContextDecorator({rtlProp: 'rtl'})
 );
 
 const NumberField = NumberFieldDecorator(NumberFieldBase);

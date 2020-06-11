@@ -365,7 +365,7 @@ class Popup extends React.Component {
 		 * `'none'` is not compatible with `spotlightRestrict` of `'self-only'`, use a transparent scrim
 		 * to prevent mouse focus when using popup.
 		 *
-		 * @type {String}
+		 * @type {('transparent'|'translucent'|'none')}
 		 * @default 'translucent'
 		 * @public
 		 */
@@ -379,7 +379,7 @@ class Popup extends React.Component {
 		 * Note: If `onClose` is not set, then this has no effect on 5-way navigation. If the popup
 		 * has no spottable children, 5-way navigation will cause the Popup to fire `onClose`.
 		 *
-		 * @type {String}
+		 * @type {('self-first'|'self-only')}
 		 * @default 'self-only'
 		 * @public
 		 */

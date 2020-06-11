@@ -33,7 +33,7 @@ const FeedbackBase = kind({
 		 *
 		 * This string feeds directly into {@link sandstone/FeedbackIcon.FeedbackIcon}.
 		 *
-		 * @type {String}
+		 * @type {('play'|'pause'|'rewind'|'fastForward'|'jumpBackward'|'jumpForward'|'jumpToStart'|'jumpToEnd'|'stop')}
 		 * @public
 		 */
 		playbackState: PropTypes.oneOf(Object.keys(states)),
