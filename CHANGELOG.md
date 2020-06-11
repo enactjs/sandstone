@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to keep current location in LTR and RTL
 - `sandstone/TabLayout` performance when focusing items in the layout
 
 ## [1.0.0-beta.6] - 2020-06-08
