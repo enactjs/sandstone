@@ -130,15 +130,7 @@ const PanelBase = kind({
 		 * @default 'auto'
 		 * @private
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
-
-		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
 	},
 
 	handlers: {
@@ -175,7 +167,6 @@ const PanelBase = kind({
 		}, {count}) => {
 			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
 			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
-			const iconProps = rtl ? {flip: 'horizontal'} : null;
 
 			return (
 				<Row className={css.bodyLayout} inline>
@@ -186,7 +177,6 @@ const PanelBase = kind({
 							component={prevButton}
 							className={css.navButton}
 							icon="arrowlargeleft"
-							iconProps={iconProps}
 							onClick={onPrevClick}
 							size="small"
 							visible={isPrevButtonVisible}
@@ -200,7 +190,6 @@ const PanelBase = kind({
 							component={nextButton}
 							className={css.navButton}
 							icon="arrowlargeright"
-							iconProps={iconProps}
 							onClick={onNextClick}
 							size="small"
 							visible={isNextButtonVisible}

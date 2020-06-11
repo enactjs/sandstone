@@ -11,6 +11,7 @@
  */
 
 import hoc from '@enact/core/hoc';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
@@ -121,6 +122,21 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * The component used to render the [icon]{@link ui/Button.ButtonBase.icon}.
+		 *
+		 * This component will receive the `icon` class to customize its styling.
+		 * If [icon]{@link ui/Button.ButtonBase.icon} is not assigned or is false, this component
+		 * will not be rendered.
+		 *
+		 * If this is a component rather than an HTML element string, this component will also
+		 * receive the `size` property and should be configured to handle it.
+		 *
+		 * @type {Component|Node}
+		 * @public
+		 */
+		iconComponent: EnactPropTypes.componentOverride,
+
+		/**
 		 * True if button is an icon only button.
 		 *
 		 * @type {Boolean}
@@ -137,14 +153,6 @@ const ButtonBase = kind({
 		 * @public
 		 */
 		iconPosition: PropTypes.oneOf(['before', 'after']),
-
-		/**
-		 * The icon component props passed to the icon component as props.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		iconProps: PropTypes.object,
 
 		/**
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
@@ -194,7 +202,7 @@ const ButtonBase = kind({
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
-	render: ({css, ...rest}) => {
+	render: ({css, iconComponent, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
 		delete rest.collapsable;
@@ -206,7 +214,7 @@ const ButtonBase = kind({
 			'data-webos-voice-intent': 'Select',
 			...rest,
 			css,
-			iconComponent: Icon
+			iconComponent:  iconComponent || Icon
 		});
 	}
 });
