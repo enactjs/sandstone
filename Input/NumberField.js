@@ -62,6 +62,7 @@ const NumberFieldBase = kind({
 	name: 'NumberField',
 
 	propTypes: {
+		announce: PropTypes.func,
 		css: PropTypes.object,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
@@ -92,6 +93,12 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
+					({value}, {announce, type}) => {
+						const password = (type === 'password');
+						const string = value.toString();
+						announce(password ? $L('hidden') : string.charAt(string.length - 1));
+						return true;
+					},
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
@@ -109,7 +116,13 @@ const NumberFieldBase = kind({
 		onRemove: handle(
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
-				forward('onChange')
+				handle(
+					(_, {announce, type}) => {
+						announce($L('Back Space'));
+						return true;
+					},
+					forward('onChange')
+				)
 			)
 		),
 		onSubmit: handle(
@@ -150,6 +163,7 @@ const NumberFieldBase = kind({
 
 	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
+		delete rest.announce;
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
@@ -165,8 +179,6 @@ const NumberFieldBase = kind({
 			const items = new Array(maxLength).fill('');
 			field = (
 				<Repeater
-					aria-label={!password ? values.join(' ') : new Array(values.length).fill($L('hidden')).join(' ')}
-					aria-live="polite"
 					{...rest}
 					component={Layout}
 					childComponent={Cell}

@@ -94,6 +94,15 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			dismissOnEnter: PropTypes.bool,
 
 			/**
+			 * Blurs the input when the "enter" key is pressed.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @private
+			 */
+			noReadoutOnFoucs: PropTypes.bool,
+
+			/**
 			 * Called when the internal <input> is focused.
 			 *
 			 * @type {Function}
@@ -138,14 +147,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				node: null
 			};
 
-			this.ariaHidden = true;
+			this.ariaHidden = props.noReadoutOnFoucs || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
 		}
 
 		componentDidUpdate (_, prevState) {
+			this.ariaHidden = null;
 			this.updateFocus(prevState);
-			this.ariaHidden = false;
 		}
 
 		componentWillUnmount () {
@@ -353,13 +362,14 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		render () {
 			const props = Object.assign({}, this.props);
 			delete props.autoFocus;
+			delete props.noReadoutOnFoucs;
 			delete props.onActivate;
 			delete props.onDeactivate;
 
 			return (
 				<Component
-					{...props}
 					aria-hidden={this.ariaHidden}
+					{...props}
 					onBlur={this.onBlur}
 					onMouseDown={this.onMouseDown}
 					onFocus={this.onFocus}

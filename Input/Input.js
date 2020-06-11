@@ -2,6 +2,7 @@ import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import AnnounceDecorator from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
@@ -281,6 +282,7 @@ const InputPopupBase = kind({
 	},
 
 	render: ({
+		announce,
 		children,
 		css,
 		disabled,
@@ -311,46 +313,51 @@ const InputPopupBase = kind({
 		delete rest.onOpenPopup;
 
 		return (
-			<Popup
-				aria-label={popupAriaLabel}
-				onClose={onClose}
-				onShow={onShow}
-				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
-				className={popupClassName}
-				noAnimation
-				open={!disabled && open}
-			>
-				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-					<Cell shrink className={css.titles}>
-						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
-						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
-					</Cell>
-					<Cell shrink className={css.inputArea}>
-						{numberMode ?
-							<NumberField
-								{...inputProps}
-								defaultValue={value}
-								onChange={onChange}
-								onComplete={onNumberComplete}
-								showKeypad
-								type={(type === 'passwordnumber') ? 'password' : 'number'}
-								numberInputField={numberInputField}
-							/> :
-							<InputField
-								{...inputProps}
-								size={size}
-								autoFocus
-								type={type}
-								defaultValue={value}
-								placeholder={placeholder}
-								onChange={onChange}
-								onKeyDown={onInputKeyDown}
-							/>
-						}
-					</Cell>
-					<Cell shrink className={css.buttonArea}>{children}</Cell>
-				</Layout>
-			</Popup>
+			<React.Fragment>
+				<Popup
+					aria-label={popupAriaLabel}
+					onClose={onClose}
+					onShow={onShow}
+					position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
+					className={popupClassName}
+					noAnimation
+					open={!disabled && open}
+				>
+					<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
+						<Cell shrink className={css.titles}>
+							<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+							<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+						</Cell>
+						<Cell shrink className={css.inputArea}>
+							{numberMode ?
+								<NumberField
+									{...inputProps}
+									announce={announce}
+									defaultValue={value}
+									onChange={onChange}
+									onComplete={onNumberComplete}
+									showKeypad
+									type={(type === 'passwordnumber') ? 'password' : 'number'}
+									numberInputField={numberInputField}
+								/> :
+								<InputField
+									{...inputProps}
+									size={size}
+									autoFocus
+									type={type}
+									defaultValue={value}
+									placeholder={placeholder}
+									noReadoutOnFoucs
+									onChange={onChange}
+									onKeyDown={onInputKeyDown}
+								/>
+							}
+						</Cell>
+						<Cell shrink className={css.buttonArea}>{children}</Cell>
+					</Layout>
+				</Popup>
+				{children}
+			</React.Fragment>
 		);
 	}
 });
@@ -473,6 +480,7 @@ const InputDecorator = compose(
 	Pure,
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
+	AnnounceDecorator,
 	Skinnable
 );
 
