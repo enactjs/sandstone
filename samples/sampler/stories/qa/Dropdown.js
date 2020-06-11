@@ -81,9 +81,10 @@ storiesOf('Dropdown', module)
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
-				title={text('title', Config, 'Dropdown')}
 				style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
+				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 			>
 				{['Option 1', 'Option 2']}
@@ -99,6 +100,7 @@ storiesOf('Dropdown', module)
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
 				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -115,6 +117,7 @@ storiesOf('Dropdown', module)
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
 				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -132,6 +135,7 @@ storiesOf('Dropdown', module)
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
 					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -144,6 +148,7 @@ storiesOf('Dropdown', module)
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
 					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -162,9 +167,10 @@ storiesOf('Dropdown', module)
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
 					style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
+					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{list}
