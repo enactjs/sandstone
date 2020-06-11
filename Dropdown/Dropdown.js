@@ -192,7 +192,7 @@ const DropdownBase = kind({
 		 * The size of the Dropdown's [Button]{@link sandstone/Button.Button} component.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['large', 'small']),
@@ -218,6 +218,7 @@ const DropdownBase = kind({
 	defaultProps: {
 		direction: 'below',
 		open: false,
+		size: 'small',
 		width: 'medium'
 	},
 
