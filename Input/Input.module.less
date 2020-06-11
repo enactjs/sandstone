@@ -47,6 +47,15 @@
 	.submitButton {
 	}
 
+	.tooltip {
+		margin-top: @sand-input-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: @sand-input-invalid-tooltip-font-size;
+			font-weight: @sand-input-invalid-tooltip-font-weight;
+		}
+	}
+
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
@@ -137,6 +146,12 @@
 		.numberCell,
 		.joined {
 			background-color: @sand-input-numbercell-background-color;
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				color: @sand-input-invalid-tooltip-color;
+			}
 		}
 
 		&.overlay {

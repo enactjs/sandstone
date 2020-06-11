@@ -127,11 +127,10 @@ const NumberFieldBase = kind({
 		},
 		// Normalize the value, also prune out any non-digit characters
 		value: normalizeValueProp,
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
