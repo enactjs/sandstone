@@ -84,8 +84,8 @@ const SwitchBase = kind({
 		return (
 			<div
 				{...rest}
-				aria-checked={selected}
-				role="checkbox"
+				aria-pressed={selected ? 'true' : 'false'}
+				role="button"
 			>
 				<div className={css.bg} />
 				<div className={css.client}>
