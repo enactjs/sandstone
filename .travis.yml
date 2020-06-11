@@ -7,7 +7,7 @@ install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#develop
     - npm install -g codecov
-    - git clone --branch=feature/PLAT-109159-yb --depth 1 https://github.com/enactjs/enact ../enact
+    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
     - pushd ../enact
     - npm install
     - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
