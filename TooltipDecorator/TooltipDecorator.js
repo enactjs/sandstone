@@ -181,7 +181,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Tooltip content.
 			 *
-			 * @type {Node}
+			 * @type {String|Node}
 			 * @public
 			 */
 			tooltipText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

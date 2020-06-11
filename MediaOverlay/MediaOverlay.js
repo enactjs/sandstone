@@ -177,8 +177,8 @@ const MediaOverlayBase = kind({
 		 * Aligns the `text` vertically within the component.
 		 *
 		 * @type {('center'|'end'|'start')}
+		 * @default 'end'
 		 * @public
-		 * @default "end"
 		 */
 		textAlign: PropTypes.oneOf(['center', 'end', 'start']),
 

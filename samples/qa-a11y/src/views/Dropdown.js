@@ -1,4 +1,3 @@
-import Heading from '@enact/sandstone/Heading';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
@@ -13,14 +12,12 @@ const list = [
 const DropdownView = () => (
 	<Layout orientation="vertical">
 		<Cell component={Scroller} focusableScrollbar>
-			<Heading showLine>String Array children</Heading>
-			<Dropdown title="Dropdown">
+			<Dropdown placeholder="Dropdown" title="String Array children">
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
 			<br />
 			<br />
-			<Heading showLine>Object Array children with aria-label</Heading>
-			<Dropdown title="Dropdown">
+			<Dropdown placeholder="Dropdown" title="Object Array children with aria-label">
 				{list}
 			</Dropdown>
 		</Cell>

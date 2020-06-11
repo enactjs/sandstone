@@ -42,6 +42,17 @@ const defaultConfig = {
 	css: null,
 
 	/**
+	 * Support accessibility options.
+	 *
+	 * If true, the aria-live and role in Popup are `null`.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
+	 */
+	noAlertRole: false,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -62,7 +73,7 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, noAlertRole, panelArranger, panelType} = config;
 	const CancelableWrapped = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
@@ -204,7 +215,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
 					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}

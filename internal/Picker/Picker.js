@@ -329,7 +329,7 @@ const PickerBase = class extends React.Component {
 		 * Sets the orientation of the picker, whether the buttons are above and below or on the
 		 * sides of the value. Must be either `'horizontal'` or `'vertical'`.
 		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical')}
 		 * @default 'horizontal'
 		 * @public
 		 */
@@ -381,11 +381,11 @@ const PickerBase = class extends React.Component {
 		 * assume auto-sizing. `'small'` is good for numeric pickers, `'medium'` for single or short
 		 * word pickers, `'large'` for maximum-sized pickers.
 		 *
-		 * You may also supply a number. This number will determine the minumum size of the Picker.
+		 * You may also supply a number. This number will determine the minimum size of the Picker.
 		 * Setting a number to less than the number of characters in your longest value may produce
 		 * unexpected results.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([
