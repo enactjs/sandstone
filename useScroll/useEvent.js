@@ -241,7 +241,8 @@ const useEventKey = (props, instances, context) => {
 
 					if (themeScrollContentHandle.current.pauseSpotlight) {
 						themeScrollContentHandle.current.pauseSpotlight(true);
-					} else if (!props['data-spotlight-container-disabled']) {
+					}
+					if (!props['data-spotlight-container-disabled']) {
 						themeScrollContentHandle.current.setContainerDisabled(true);
 					}
 

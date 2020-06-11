@@ -109,7 +109,13 @@ const useSpottable = (props, instances) => {
 	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	function handleGlobalKeyDown () {
+	function handleGlobalKeyDown (ev) {
+		// To prevent scrolling by native scroller
+		if (scrollMode === 'native') {
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+
 		setContainerDisabled(false);
 	}
 
@@ -124,7 +130,6 @@ const useSpottable = (props, instances) => {
 	}, [pause, setContainerDisabled]);
 
 	// Functions
-
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
