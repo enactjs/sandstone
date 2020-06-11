@@ -58,7 +58,7 @@ const FixedPopupPanels = FixedPopupPanelsDecorator(Viewport);
  * @ui
  * @public
  */
-const Panel = (props) => (<DefaultPanel {...props} css={css} panelType="fixedPopup" />);
+const Panel = (props) => (<DefaultPanel {...props} css={css} panelType="fixedPopup" hideChildren={false} />);
 
 /**
  * A shortcut to access {@link sandstone/FixedPopupPanels.Panel}

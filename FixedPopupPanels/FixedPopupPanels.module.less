@@ -1,7 +1,30 @@
+@import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
 
+// Module level variables, for use only in this file
+@fixedpopuppanels-max-height: ~"calc(100vh -" (extract(@sand-fixedpopuppanels-margin, 1) * 2) ~")";
+@panel-height-calc: ~"min(var(--sand-panel-measured-height), " @fixedpopuppanels-max-height ~")";
+
 .fixedPopupPanels {
+	// Overrides for Panels - the & just refers to this element. Using a block here to visually compartmentalize the overrides apart from the general styles.
+	& {
+		position: relative;
+		.position(auto);
+		max-height: 100%;
+
+		.viewport {
+			position: static;
+			.position(auto);
+		}
+	}
+
+	&.fullHeight {
+		.viewport {
+			height: 100%;
+		}
+	}
+
 	&.narrow {
 		width: @sand-fixedpopuppanels-width;
 	}
@@ -16,15 +39,24 @@
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+		background-color: transparent;
+
+		// Overrides for Viewport
+		.viewport {
+			background-color: @sand-fixedpopuppanels-bg-color;
+			border-radius: @sand-fixedpopuppanels-border-radius;
+			filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+		}
 	});
 }
 
 // Overrides for Panel
 .panel {
 	padding: @sand-fixedpopuppanels-panel-padding;
+	height: @panel-height-calc;
 
 	> .body {
 		padding: @sand-fixedpopuppanels-panel-body-padding;
+		flex: 0 1 auto;
 	}
 }
