@@ -53,6 +53,8 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
+	FixedPopupPanels,
+	FlexiblePopupPanels,
 	FormCheckboxItem,
 	Header,
 	Heading,

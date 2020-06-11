@@ -65,8 +65,7 @@ const EachPanel = withConfig(
 	[
 		{
 			title: 'with standard Panel Components',
-			component: <FlexPopupPanels open />,
-			
+			component: <FlexPopupPanels open />
 		},
 		{
 			title: 'with standard Panel Components index 1',
