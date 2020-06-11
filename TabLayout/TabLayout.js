@@ -253,7 +253,7 @@ const TabLayoutBase = kind({
 					<TabGroup
 						collapsed={isVertical ? collapsed : false}
 						tabSize={tabSize}
-						onFocus={onExpand}
+						onFocus={collapsed ? onExpand : null}
 						onFocusTab={onSelect}
 						onSelect={onSelect}
 						orientation={orientation}
@@ -267,7 +267,7 @@ const TabLayoutBase = kind({
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFocus={onCollapse}
+					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
