@@ -37,6 +37,14 @@ const InputPopupBase = kind({
 
 	propTypes: /** @lends sandstone/Input.InputPopupBase.prototype */ {
 		/**
+		 * Passed by AnnounceDecorator for accessibility.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		announce: PropTypes.func,
+
+		/**
 		 * Customize component style
 		 *
 		 * @type {Object}
