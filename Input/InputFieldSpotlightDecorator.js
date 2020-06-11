@@ -94,7 +94,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			dismissOnEnter: PropTypes.bool,
 
 			/**
-			 * Blurs the input when the "enter" key is pressed.
+			 * Prevent reading on the first focus.
 			 *
 			 * @type {Boolean}
 			 * @default false
