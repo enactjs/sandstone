@@ -11,6 +11,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
@@ -103,7 +104,15 @@ const FormCheckboxItemBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after the checkbox and before `children`.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	styles: {
@@ -112,7 +121,7 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
+	render: ({checkboxClassName, children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -121,14 +130,17 @@ const FormCheckboxItemBase = kind({
 			css={css}
 			selected={selected}
 		>
-			<Checkbox
-				indeterminate={indeterminate}
-				indeterminateIcon={indeterminateIcon}
-				slot="slotBefore"
-				selected={selected}
-			>
-				{icon}
-			</Checkbox>
+			<slotBefore>
+				<Checkbox
+					className={slotBefore ? css.checkbox : null}
+					indeterminate={indeterminate}
+					indeterminateIcon={indeterminateIcon}
+					selected={selected}
+				>
+					{icon}
+				</Checkbox>
+				{slotBefore}
+			</slotBefore>
 			{children}
 		</Item>
 	)
@@ -144,7 +156,8 @@ const FormCheckboxItemBase = kind({
  * @public
  */
 const FormCheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['slotBefore']})
 );
 
 /**
