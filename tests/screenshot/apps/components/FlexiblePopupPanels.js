@@ -116,7 +116,4 @@ const FlexiblePopupPanelsTests = [
 	)
 ];
 
-
-console.log(FlexiblePopupPanelsTests)
-
 export default FlexiblePopupPanelsTests;
