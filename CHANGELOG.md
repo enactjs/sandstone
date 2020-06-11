@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
+- `sandstone/Input` to change number cell background color when activated
 
 ### Changed
 
