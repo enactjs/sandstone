@@ -65,7 +65,15 @@ const RadioItemBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after the radio button and before `children`.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	defaultProps: {
@@ -78,7 +86,11 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	render: ({children, css, icon, selected, slotBefore, styler, ...rest}) => {
+	computed: {
+		radioIconClassName: ({css, slotBefore, styler}) => styler.join(css.icon, slotBefore ? css.iconBefore : null)
+	},
+
+	render: ({children, css, icon, radioIconClassName, selected, slotBefore, ...rest}) => {
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
@@ -89,7 +101,7 @@ const RadioItemBase = kind({
 				selected={selected}
 			>
 				<slotBefore>
-					<Icon className={styler.join(css.icon, slotBefore ? css.iconBefore : null)} size="tiny">{icon}</Icon>
+					<Icon className={radioIconClassName} size="tiny">{icon}</Icon>
 					{slotBefore}
 				</slotBefore>
 				{children}
