@@ -18,7 +18,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoChildrenDecorator} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoChildrenDecorator, MemoChildrenContext} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -207,9 +207,58 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
+		className: ({children, imageIconSrc, label, orientation, styler}) => {
+			return styler.append(
+				React.useMemo(() => {
+					console.log('sandstone:ImageItem.className');
+
+					return {
+						fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
+					};
+				}, [!!children, !!imageIconSrc, !!label, orientation])
+			)
+		},
+		ariaProps: ({selected, selectionComponent}) => {
+			return React.useMemo(() => {
+				console.log('sandstone:ImageItem.ariaProps');
+
+				return selectionComponent ? {
+					'aria-checked': selected,
+					role: 'checkbox'
+				} : null;
+			}, [selected, selectionComponent]);
+		},
+		imageComponent: ({css, selectionComponent: SelectionComponent, showSelection}) => {
+			return React.useMemo(() => {
+				return (
+					<Image>
+						{showSelection ? (
+							<div className={css.selectionContainer}>
+								{SelectionComponent ? (
+									<SelectionComponent />
+								) : (
+									<Icon className={css.selectionIcon}>check</Icon>
+								)}
+							</div>
+						) : null}
+					</Image>
+				)
+			}, css, SelectionComponent, showSelection);
+		},
+		label: ({label}) => {
+			return React.useMemo(() => {
+				console.log('sandstone:ImageItem.label');
+
+				return (
+					<MemoChildrenContext.Consumer>
+							{({label}) => (label)}
+					</MemoChildrenContext.Consumer>
+				);
+			}, [])
+		},
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			return React.useMemo(() => {
-				console.log('sandstone:children');
+				console.log('sandstone:ImageItem.children');
 
 				const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
@@ -232,49 +281,32 @@ const ImageItemBase = kind({
 					</Row>
 				);
 			}, [css, imageIconComponent, imageIconSrc, label !== 'undefined', orientation])
-		},
-		className: ({children, imageIconSrc, label, orientation, styler}) => {
-			return styler.append(
-				React.useMemo(() => {
-					console.log('sandstone:className');
-
-					return {
-						fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
-					};
-				}, [!!children, !!imageIconSrc, !!label, orientation])
-			)
 		}
 	},
 
-	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
+	render: ({ariaProps, css, imageComponent, ...rest}) => {
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.label;
+		delete rest.selectionComponent;
+		delete rest.showSelection;
 
-		if (SelectionComponent) {
-			rest['role'] = 'checkbox';
-			rest['aria-checked'] = rest.selected;
-		}
+		console.log('sandstone:ImageItem.render');
 
-		return (
-			<UiImageItem
-				{...rest}
-				css={css}
-				imageComponent={
-					<Image>
-						{showSelection ? (
-							<div className={css.selectionContainer}>
-								{SelectionComponent ? (
-									<SelectionComponent />
-								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
-								)}
-							</div>
-						) : null}
-					</Image>
-				}
-			/>
-		);
+		const item =  React.useMemo(() => {
+			console.log('sandstone:ImageItem.render.item');
+
+			return (
+				<UiImageItem
+					{...rest}
+					{...ariaProps}
+					css={css}
+					imageComponent={imageComponent}
+				/>
+			);
+		}, [ariaProps, css, imageComponent]);
+
+		return React.cloneElement(item, {...rest});
 	}
 });
 
