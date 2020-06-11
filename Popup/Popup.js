@@ -207,13 +207,13 @@ const PopupBase = kind({
 
 	computed: {
 		// When passing `aria-live` prop to the Popup, the prop should work first.
-		// If `noAlertRole` is equal to true, accessibility feature will be disabled.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `aria-live` will be usually `off`.
 		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
 		className: ({position, styler}) => styler.append(position),
 		direction: ({position}) => transitionDirection[position],
 		// When passing `role` prop to the Popup, the prop should work first.
-		// If `noAlertRole` is equal to true, accessibility feature will be disabled.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
 		// Otherwise, `role` will be usually `alert`.
 		role: ({noAlertRole, role}) => ((typeof role !== 'undefined') ? role : (!noAlertRole && 'alert' || null)),
 		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
