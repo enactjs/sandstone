@@ -1,5 +1,6 @@
 import handle, {adaptEvent, forward, forwardWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -129,7 +130,15 @@ const PanelBase = kind({
 		 * @default 'auto'
 		 * @private
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
+
+		/**
+		 * Indicates the content's text direction is right-to-left.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool
 	},
 
 	handlers: {
@@ -161,10 +170,12 @@ const PanelBase = kind({
 			onNextClick,
 			onPrevClick,
 			prevButton,
-			prevButtonVisibility
+			prevButtonVisibility,
+			rtl
 		}, {count}) => {
 			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
 			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
+			const iconProps = rtl ? {flip: 'horizontal'} : null;
 
 			return (
 				<Row className={css.bodyLayout} inline>
@@ -175,6 +186,7 @@ const PanelBase = kind({
 							component={prevButton}
 							className={css.navButton}
 							icon="arrowlargeleft"
+							iconProps={iconProps}
 							onClick={onPrevClick}
 							size="small"
 							visible={isPrevButtonVisible}
@@ -188,6 +200,7 @@ const PanelBase = kind({
 							component={nextButton}
 							className={css.navButton}
 							icon="arrowlargeright"
+							iconProps={iconProps}
 							onClick={onNextClick}
 							size="small"
 							visible={isNextButtonVisible}
@@ -206,12 +219,13 @@ const PanelBase = kind({
 		delete props.onPrevClick;
 		delete props.prevButton;
 		delete props.prevButtonVisibility;
+		delete props.rtl;
 
 		return (<DefaultPanel {...props} css={css} />);
 	}
 });
 
-const Panel = PanelDecorator(PanelBase);
+const Panel = PanelDecorator(I18nContextDecorator({rtlProp: 'rtl'})(PanelBase));
 
 export default Panel;
 export {

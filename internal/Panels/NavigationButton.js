@@ -13,11 +13,20 @@ const NavigationButton = kind({
 			PropTypes.element,
 			PropTypes.func
 		]),
+
+		/**
+		 * The icon component props passed to the icon component as props.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		iconProps: PropTypes.object,
+
 		onClick: PropTypes.func,
 		visible: PropTypes.bool
 	},
 
-	render: ({component, visible, ...rest}) => {
+	render: ({component, iconProps, visible, ...rest}) => {
 
 		if (React.isValidElement(component)) {
 
@@ -44,10 +53,10 @@ const NavigationButton = kind({
 			return null;
 		}
 
-		const Component = (typeof component === 'function') ? component : Button;
+		const [Component, props] = (typeof component === 'function') ? [component, null] : [Button, {iconProps}];
 
 		return (
-			<Component {...rest} />
+			<Component {...rest} {...props} />
 		);
 	}
 });

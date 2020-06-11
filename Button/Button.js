@@ -139,6 +139,14 @@ const ButtonBase = kind({
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
+		 * The icon component props passed to the icon component as props.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		iconProps: PropTypes.object,
+
+		/**
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
 		 *
 		 * @type {Boolean}
