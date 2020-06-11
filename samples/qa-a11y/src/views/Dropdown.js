@@ -10,31 +10,6 @@ const list = [
 	{children: 'Option3', key: 'item3', 'aria-label': 'arai label 3'}
 ];
 
-class A11yDropdown extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			ariaLabel: null
-		};
-	}
-
-	onSelect = ({selected}) => {
-		this.setState({ariaLabel: list[selected]['aria-label']});
-	}
-
-	render () {
-		return (
-			<Dropdown
-				aria-label={this.state.ariaLabel}
-				onSelect={this.onSelect}
-				title="Dropdown"
-			>
-				{list}
-			</Dropdown>
-		);
-	}
-}
-
 const DropdownView = () => (
 	<Layout orientation="vertical">
 		<Cell component={Scroller} focusableScrollbar>
@@ -45,7 +20,9 @@ const DropdownView = () => (
 			<br />
 			<br />
 			<Heading showLine>Object Array children with aria-label</Heading>
-			<A11yDropdown />
+			<Dropdown title="Dropdown">
+				{list}
+			</Dropdown>
 		</Cell>
 	</Layout>
 );
