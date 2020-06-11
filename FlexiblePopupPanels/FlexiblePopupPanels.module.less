@@ -30,11 +30,19 @@
 	.navCellBefore .navButton {
 		left: 0;
 		transform: translate(-100%, -50%);
+
+		:global(.enact-locale-right-to-left) & {
+			transform: translate(0, -50%);
+		}
 	}
 
 	.navCellAfter .navButton {
 		right: 0;
 		transform: translate(100%, -50%);
+
+		:global(.enact-locale-right-to-left) & {
+			transform: translate(0, -50%);
+		}
 	}
 
 	.navButton {
@@ -84,6 +92,10 @@
 	.content {
 		margin: @sand-flexiblepopuppanels-panel-margin;
 		padding: @sand-flexiblepopuppanels-panel-padding;
+
+		:global(.enact-locale-right-to-left) & {
+			direction: ltr;
+		}
 	}
 
 	.applySkins({
