@@ -169,7 +169,7 @@ const InputPopupBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * The "aria-label" for the popup.
+		 * The "aria-label" for the popup when opened.
 		 *
 		 * @type {String}
 		 * @public
