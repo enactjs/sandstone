@@ -48,10 +48,10 @@ storiesOf('Sandstone', module)
 
 				const minMax = boolean('customize min/max', ConfigPopup, false);
 				if (minMax) {
-					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 10}, 4);
-					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 10}, 0);
+					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
+					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
 				} else {
-					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 10}, 4);
+					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
 				}
 			}
 

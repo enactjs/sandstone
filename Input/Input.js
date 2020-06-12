@@ -18,7 +18,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -286,7 +286,7 @@ const InputPopupBase = kind({
 			if (maxLength != null) return maxLength;
 			return DEFAULT_LENGTH;
 		},
-		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
+		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type)
 	},
 
 	render: ({
@@ -310,6 +310,8 @@ const InputPopupBase = kind({
 		title,
 		type,
 		value,
+		maxLength,
+		minLength,
 		...rest
 	}) => {
 
@@ -341,6 +343,8 @@ const InputPopupBase = kind({
 								<NumberField
 									{...inputProps}
 									announce={announce}
+									maxLength={limitNumberLength(popupType, maxLength)}
+									minLength={limitNumberLength(popupType, minLength)}
 									defaultValue={value}
 									onChange={onChange}
 									onComplete={onNumberComplete}
@@ -350,12 +354,14 @@ const InputPopupBase = kind({
 								/> :
 								<InputField
 									{...inputProps}
+									maxLength={maxLength}
+									minLength={minLength}
 									size={size}
 									autoFocus
 									type={type}
 									defaultValue={value}
-									placeholder={placeholder}
 									noReadoutOnFocus
+									placeholder={placeholder}
 									onChange={onChange}
 									onKeyDown={onInputKeyDown}
 								/>

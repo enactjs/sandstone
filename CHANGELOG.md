@@ -7,26 +7,32 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
+- `sandstone/Icon` prop `flip` value `"auto"` to automatically flip the icon horizontally for RTL locales.
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
 
 ### Changed
 
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
+- `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
 - `sandstone/Picker` to support updated accessibility string on `joined`
 
 ### Fixed
 
-- `sandstone/Input` to support accessibility features
+- `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/VirtualList` jumping focus when keys pressed in a row
 - `sandstone/Dropdown` to not read x of y feature when focusing on an item
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
+- `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
+- `sandstone/Input` to support accessibility features
+- `sandstone/TabLayout` to restore focus to selected tab when expanding without icons
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
 - `sandstone/Input` to update `invalidTooltip` to the latest design
+- `sandstone/WizardPanels` to use `sandstone/Skinnable`
 
 ## [1.0.0-beta.6] - 2020-06-08
 
