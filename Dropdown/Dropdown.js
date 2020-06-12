@@ -19,6 +19,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
@@ -261,9 +262,7 @@ const DropdownBase = kind({
 			return children.map((child, i) => {
 				const aria = {
 					role: 'checkbox',
-					'aria-checked': selected === i,
-					'aria-posinset': i + 1,
-					'aria-setsize': children.length
+					'aria-checked': selected === i
 				};
 
 				warning(
@@ -309,7 +308,8 @@ const DropdownBase = kind({
 	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
-		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
+		const ariaProps = extractAriaProps(rest);
+		const popupProps = {'aria-live': null, children, onKeyDown, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
@@ -329,6 +329,7 @@ const DropdownBase = kind({
 					onClose={onClose}
 					open={openDropdown}
 					size={size}
+					{...ariaProps}
 				>
 					{placeholder}
 				</DropdownButton>
