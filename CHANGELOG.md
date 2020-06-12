@@ -18,6 +18,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` flashing when switching `selected` on and off
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
@@ -44,7 +45,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
 - `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
-- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday 
+- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday
 - `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
 - `sandstone/Dropdown` to show an item fully when the item gets focus
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses

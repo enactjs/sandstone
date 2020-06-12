@@ -11,21 +11,37 @@
 // ---------------------------------------
 
 // Establish rules assignment for before focus has happened
-.sand-spotlight-resting-colors (@opacity: 0) {
+.sand-spotlight-resting-no-shadow-colors (@opacity: 0) {
 	background-color: @sand-spotlight-bg-color;
-	filter+_: drop-shadow(@sand-spotlight-resting-shadow);
 	opacity: @opacity;
 	transition+:
 		filter @sand-spotlight-focus-animation-duration ease-out,
 		opacity @sand-spotlight-focus-animation-duration ease-out;
 	will-change+: filter, opacity;
 }
+.sand-spotlight-resting-colors (@opacity: 0) {
+	.sand-spotlight-resting-no-shadow-colors(@opacity);
+	.sand-spotlight-resting-shadow-colors();
+}
+.sand-spotlight-resting-shadow-colors () {
+	filter+_: drop-shadow(@sand-spotlight-resting-shadow);
+	will-change+: filter;
+	transition+: filter @sand-spotlight-focus-animation-duration ease-out;
+}
 
 // Establish rules assignment for after focus has happened
-.sand-spotlight-focus-colors (@opacity: 1) {
+.sand-spotlight-focus-no-shadow-colors () {
 	background-color: @sand-spotlight-bg-color;
+	opacity: 1;
+}
+
+.sand-spotlight-focus-colors () {
+	.sand-spotlight-focus-no-shadow-colors();
+	.sand-spotlight-focus-shadow-colors();
+}
+
+.sand-spotlight-focus-shadow-colors () {
 	filter+_: drop-shadow(@sand-spotlight-focus-shadow);
-	opacity: @opacity;
 }
 
 //
@@ -50,8 +66,27 @@
 }
 
 // Add button-specific rules to the shared resting-colors mixin
-.sand-button-spotlight-resting-colors() {
-	.sand-spotlight-resting-colors();
+.sand-button-spotlight-resting-colors () {
+	.sand-spotlight-resting-no-shadow-colors();
 	will-change+: transform;
 	transition+: transform @sand-button-focus-duration ease-out;
+	background-color: @sand-button-bg-color;
+}
+// The technique below is special handling for opaque buttons, which have an opaque
+// color defined for the initial background-color. This means we can't use the
+// traditional opacity change to animate the difference. Instead, this smoothly applies
+// (via transition) a series of filters that match the spotlight-focus bg color. The
+// values were manually calculated to perfectly match, taking the resting bg-color and
+// adjusting it to become the focus-bg-color. If either color value changes, these
+// adjustments must be recalculated. This is not automatic. It may be possible to
+// autonomously calculate this in the future...
+.sand-button-spotlight-selected-colors () {
+	.sand-button-spotlight-resting-colors();
+	background-color: @sand-button-bg-color;
+	filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+}
+.sand-button-spotlight-focus-colors () {
+	.sand-spotlight-focus-no-shadow-colors();
+	background-color: @sand-button-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+	filter+_: saturate(0) brightness(1.89);
 }
