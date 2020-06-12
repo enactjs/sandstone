@@ -21,7 +21,6 @@ const
 	fontSize = `${ri.scale(30)}px`,
 	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	scrollbarSize = `${ri.scale(36)}px`,
 	spacing = 60;
 
 class DifferenctWidthItem extends Component {
@@ -32,16 +31,16 @@ class DifferenctWidthItem extends Component {
 
 	itemStyleDefault = {
 		overflow: 'hidden',
-		height: `calc(100% - ${scrollbarSize})`,
+		height: '100%',
 		fontSize,
 		lineHeight,
 		padding: 0,
 		whiteSpace: 'pre'
-	};
+	}
 
 	innerItemStyleDefault = {
 		writingMode: 'vertical-rl'
-	};
+	}
 
 	render () {
 		const
@@ -106,6 +105,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 					size: this.state.itemSize
 				}}
 				spacing={spacing}
+				style={{height: '600px', paddingBottom: `${ri.scale(72)}px`}}
 			/>
 		);
 	}

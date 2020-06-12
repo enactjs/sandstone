@@ -218,6 +218,7 @@ class VerticalExpandableDifferentHeightItemList extends Component {
 					size: this.state.itemSize
 				}}
 				spacing={spacing}
+				style={{height: '600px', paddingRight: `${ri.scale(36)}px`}}
 			/>
 		);
 	}
