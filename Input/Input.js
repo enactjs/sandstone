@@ -261,9 +261,7 @@ const InputPopupBase = kind({
 	},
 
 	computed: {
-		maxLength: ({length, maxLength}) => {
-			return (length || maxLength);
-		},
+		maxLength: ({length, maxLength}) => (length || maxLength),
 		minLength: ({length, maxLength, minLength}) => {
 			if (length) return length;
 			if (minLength != null) return minLength;

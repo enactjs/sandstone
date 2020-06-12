@@ -8,12 +8,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
-- `sandstone/Input` to change number cell background color when activated
 
 ### Changed
 
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
 - `sandstone/Picker` to support updated accessibility string on `joined`
+- `sandstone/Input` to highlight activated number cells
 
 ### Fixed
 
@@ -62,7 +62,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
 - `sandstone/MediaPlayer.MediaControls` prop `rateChangeDisabled` to prevent playback rate control via rewind and fast-forward keys
 - `sandstone/PopupTabLayout` panel transition animation
-- `sandstone/Input` to change number cell color when activated
 
 ### Changed
 
