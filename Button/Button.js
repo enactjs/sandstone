@@ -11,7 +11,6 @@
  */
 
 import hoc from '@enact/core/hoc';
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
@@ -184,7 +183,7 @@ const ButtonBase = kind({
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
-	render: ({css, iconComponent, ...rest}) => {
+	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
 		delete rest.collapsable;
@@ -196,7 +195,7 @@ const ButtonBase = kind({
 			'data-webos-voice-intent': 'Select',
 			...rest,
 			css,
-			iconComponent:  Icon
+			iconComponent: Icon
 		});
 	}
 });
