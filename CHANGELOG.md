@@ -26,6 +26,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
+- `sandstone/TabLayout` to restore focus to selected tab when expanding without icons
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
 - `sandstone/Input` to update `invalidTooltip` to the latest design
