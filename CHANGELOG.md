@@ -27,6 +27,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
+- `sandstone/Panel` and `sandstone/WizardPanels` to not read out the Panel title after closing a dropdown
 - `sandstone/TabLayout` to restore focus to selected tab when expanding without icons
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
@@ -52,7 +53,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
 - `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
-- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday 
+- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday
 - `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
 - `sandstone/Dropdown` to show an item fully when the item gets focus
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses

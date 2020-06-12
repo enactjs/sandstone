@@ -15,6 +15,7 @@ import SharedStateDecorator from '../internal/SharedStateDecorator';
 
 import {AutoFocusDecorator} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
+import {FloatingLayerIdProvider} from '../internal/Panels';
 
 import componentCss from './Panel.module.less';
 
@@ -70,6 +71,14 @@ const PanelBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * The floating layer id
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		floatingLayerId: PropTypes.string,
 
 		/**
 		 * Header for the panel.
@@ -161,6 +170,7 @@ const PanelBase = kind({
 		children,
 		componentRef,
 		css,
+		floatingLayerId,
 		entering,
 		header,
 		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
@@ -170,7 +180,7 @@ const PanelBase = kind({
 		delete rest.panelType;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={labelledby} ref={componentRef}>
+			<article role="region" {...rest} aria-owns={floatingLayerId} aria-labelledby={labelledby} ref={componentRef}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
@@ -224,6 +234,7 @@ const PanelBase = kind({
 
 const PanelDecorator = compose(
 	ForwardRef({prop: 'componentRef'}),
+	FloatingLayerIdProvider,
 	ContextAsDefaults,
 	SharedStateDecorator({idProp: 'data-index'}),
 	SpotlightContainerDecorator({
