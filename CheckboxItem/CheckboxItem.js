@@ -172,7 +172,7 @@ const CheckboxItemBase = kind({
  */
 const CheckboxItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Slottable({slots: ['slotBefore']})
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**

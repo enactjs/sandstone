@@ -111,7 +111,7 @@ const SwitchItemBase = kind({
  */
 const SwitchItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Slottable({slots: ['slotAfter']})
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**

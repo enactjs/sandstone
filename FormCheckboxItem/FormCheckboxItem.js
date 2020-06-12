@@ -157,7 +157,7 @@ const FormCheckboxItemBase = kind({
  */
 const FormCheckboxItemDecorator = compose(
 	Toggleable({toggleProp: 'onClick'}),
-	Slottable({slots: ['slotBefore']})
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**

@@ -120,7 +120,7 @@ const RadioItemBase = kind({
  */
 const RadioItemDecorator = compose(
 	Toggleable({toggleProp: 'onTap'}),
-	Slottable({slots: ['slotBefore']})
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**
