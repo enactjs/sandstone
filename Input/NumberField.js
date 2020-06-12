@@ -185,6 +185,7 @@ const NumberFieldBase = kind({
 						active: index <= value.length,
 						children: values[index],
 						component: NumberCell,
+						key: `key-${index}`,
 						password,
 						shrink: true
 					}))}
