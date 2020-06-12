@@ -30,7 +30,6 @@ const NumberCell = kind({
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
 		active: PropTypes.bool,
 		children: PropTypes.string,
-		'data-index': PropTypes.number,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
