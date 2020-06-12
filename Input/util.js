@@ -114,7 +114,7 @@ const limitNumberLength = (popupType, length) => {
 
 	warning(length <= max, `Max length of ${popupType} type input must not exceed ${max} digits.`);
 
-	return Math.min(length, max)
+	return Math.min(length, max);
 };
 
 export {
