@@ -65,10 +65,6 @@
 
 	> .body {
 		padding: 0;
-
-		:global(.enact-locale-right-to-left) & {
-			direction: ltr;
-		}
 	}
 
 	.bodyLayout {
@@ -79,10 +75,6 @@
 		// This value, however, does do exactly what we need. Fill up to a point
 		// and not expand beyond that.
 		max-height: -webkit-fill-available; // Expand to the bounds, then stop.
-
-		:global(.enact-locale-right-to-left) & {
-			direction: rtl;
-		}
 	}
 
 	.header {

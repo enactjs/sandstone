@@ -1,31 +1,8 @@
 import kind from '@enact/core/kind';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import Button from '../../Button';
-import {IconBase} from '../../Icon';
-import Skinnable from '../../Skinnable';
-
-const NavigationIconBase = kind({
-	name: 'NavigationIcon',
-
-	propTypes: {
-		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool
-	},
-
-	render: ({rtl, ...rest}) => {
-		return <IconBase {...rest} flip={rtl ? 'horizontal' : null} />;
-	}
-});
-
-const NavigationIcon = Skinnable(I18nContextDecorator({rtlProp: 'rtl'})(NavigationIconBase));
 
 const NavigationButton = kind({
 	name: 'NavigationButton',
@@ -67,10 +44,10 @@ const NavigationButton = kind({
 			return null;
 		}
 
-		const [Component, props] = (typeof component === 'function') ? [component, null] : [Button, {iconComponent: NavigationIcon}];
+		const Component = (typeof component === 'function') ? component : Button;
 
 		return (
-			<Component {...rest} {...props} />
+			<Component {...rest} />
 		);
 	}
 });
