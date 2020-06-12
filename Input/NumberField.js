@@ -49,7 +49,7 @@ const NumberCell = kind({
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
-		delete rest.activeIndex;
+		delete rest.active;
 
 		return (
 			<Icon
