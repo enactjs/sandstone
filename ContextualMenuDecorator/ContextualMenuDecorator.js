@@ -69,7 +69,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * Direction of popup with respect to the wrapped component.
 			 *
 			 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
-			 * @default 'below left'
+			 * @default 'below right'
 			 * @public
 			 */
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
@@ -134,7 +134,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		defaultProps: {
-			direction: 'below'
+			direction: 'below right'
 		},
 
 		handlers: {
@@ -167,6 +167,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 
 			return (
 				<Component
+					margin={-36}
 					{...rest}
 					onClick={onOpen}
 					popupComponent={Repeater}
