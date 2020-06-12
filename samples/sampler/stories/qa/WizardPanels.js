@@ -65,7 +65,7 @@ storiesOf('WizardPanels', module)
 						<slotBefore>
 							<Icon>notification</Icon>
 						</slotBefore>
-            A Long title, Previous button has long text, and Next button has short text.
+						A Long title, Previous button has long text, and Next button has short text.
 					</Item>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
@@ -77,7 +77,7 @@ storiesOf('WizardPanels', module)
 						<slotBefore>
 							<Icon>notification</Icon>
 						</slotBefore>
-            A Long title, Previous button has long text, and Next button has long text.
+						A Long title, Previous button has long text, and Next button has long text.
 					</Item>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
@@ -88,7 +88,7 @@ storiesOf('WizardPanels', module)
 						<slotBefore>
 							<Icon>notification</Icon>
 						</slotBefore>
-            A Long title, Previous button has short text, and Next button has long text.
+						A Long title, Previous button has short text, and Next button has long text.
 					</Item>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
