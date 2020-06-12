@@ -58,13 +58,22 @@ const IconBase = kind({
 		/**
 		 * Flips the icon
 		 *
-		 * When `'auto'` and `rtl`, the icon is flipped horizontally for locales that use
-		 * right-to-left text direction.
+		 * When `'auto'` and `rtl`, the icon is flipped horizontally.
 		 *
 		 * @type {('auto'|'both'|'horizontal'|'vertical')}
 		 * @public
 		 */
 		flip: PropTypes.oneOf(['auto', 'both', 'horizontal', 'vertical']),
+
+		/**
+		 * Indicates the content's text direction is right-to-left.
+		 *
+		 * This is set automatically when using {@link ui/Icon.Icon}.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		rtl: PropTypes.bool,
 
 		/**
 		 * The size of the icon.
@@ -100,7 +109,7 @@ const IconBase = kind({
 			if (flip === 'auto') {
 				return rtl ? 'horizontal' : null;
 			}
-			
+
 			return flip;
 		},
 		style: ({size, style}) => ({
@@ -111,7 +120,7 @@ const IconBase = kind({
 
 	render: ({css, size, ...rest}) => {
 		delete rest.rtl;
-		
+
 		return UiIcon.inline({
 			...rest,
 			size: (typeof size === 'string' ? size : void 0),
