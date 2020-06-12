@@ -119,21 +119,6 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * The component used to render the [icon]{@link ui/Button.ButtonBase.icon}.
-		 *
-		 * This component will receive the `icon` class to customize its styling.
-		 * If [icon]{@link ui/Button.ButtonBase.icon} is not assigned or is false, this component
-		 * will not be rendered.
-		 *
-		 * If this is a component rather than an HTML element string, this component will also
-		 * receive the `size` property and should be configured to handle it.
-		 *
-		 * @type {Component|Node}
-		 * @public
-		 */
-		iconComponent: EnactPropTypes.componentOverride,
-
-		/**
 		 * True if button is an icon only button.
 		 *
 		 * @type {Boolean}
@@ -211,7 +196,7 @@ const ButtonBase = kind({
 			'data-webos-voice-intent': 'Select',
 			...rest,
 			css,
-			iconComponent:  iconComponent || Icon
+			iconComponent:  Icon
 		});
 	}
 });
