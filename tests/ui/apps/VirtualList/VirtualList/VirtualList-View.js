@@ -113,6 +113,14 @@ class app extends React.Component {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
 	}
 
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	}
+
+	jumpTo = () => {
+		this.scrollTo({animate: false, focus: true, index: 10});
+	}
+
 	onToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
@@ -141,6 +149,7 @@ class app extends React.Component {
 					<Cell component={OptionsContainer} shrink>
 						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
@@ -158,6 +167,7 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
+											cbScrollTo={this.getScrollTo}
 											dataSize={numItems}
 											itemRenderer={renderItem(itemSize)}
 											itemSize={ri.scale(itemSize)}
