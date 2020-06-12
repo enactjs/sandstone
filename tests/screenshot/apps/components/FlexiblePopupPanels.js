@@ -5,6 +5,8 @@ import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
 import {FlexiblePopupPanels, Panel, Header} from '../../../../FlexiblePopupPanels';
 
+import {withConfig, withProps} from './utils';
+
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
 // Wrapping the real component so `scaleToRem` is called within render rather than in module scope
@@ -58,90 +60,59 @@ function FlexPopupPanels (props) {
 	);
 }
 
+const EachPanel = withConfig(
+	{wrapper: {full: true}},
+	[
+		{
+			title: 'with standard Panel Components',
+			component: <FlexPopupPanels open />
+		},
+		{
+			title: 'with standard Panel Components index 1',
+			component: <FlexPopupPanels open index={1} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 3'
+		{
+			title: 'with standard Panel Components index 2',
+			component: <FlexPopupPanels open index={2} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 4'
+		{
+			title: 'with standard Panel Components index 3',
+			component: <FlexPopupPanels open index={3} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 5'
+		{
+			title: 'with standard Panel Components index 4',
+			component: <FlexPopupPanels open index={4} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 6'
+		{
+			title: 'with standard Panel Components index 5',
+			component: <FlexPopupPanels open index={5} />,
+			wrapper: {full: true}
+		}
+	]
+);
+
 const FlexiblePopupPanelsTests = [
 	{
 		component: <FlexPopupPanels open>{null}</FlexPopupPanels>,
 		wrapper: {full: true}
 	},
-	{
-		title: 'with standard Panel Components',
-		component: <FlexPopupPanels open />,
-		wrapper: {full: true}
-	},
-	{
-		title: 'with standard Panel Components index 1',
-		component: <FlexPopupPanels open index={1} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 3'
-	{
-		title: 'with standard Panel Components index 2',
-		component: <FlexPopupPanels open index={2} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 4'
-	{
-		title: 'with standard Panel Components index 3',
-		component: <FlexPopupPanels open index={3} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 5'
-	{
-		title: 'with standard Panel Components index 4',
-		component: <FlexPopupPanels open index={4} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 6'
-	{
-		title: 'with standard Panel Components index 5',
-		component: <FlexPopupPanels open index={5} />,
-		wrapper: {full: true}
-	},
-	// RTL
-	{
-		locale: 'ar-SA',
-		component: <FlexPopupPanels open />,
-		wrapper: {full: true}
-	},
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components',
-		component: <FlexPopupPanels open />,
-		wrapper: {full: true}
-	},
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 1',
-		component: <FlexPopupPanels open index={1} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 3'
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 2',
-		component: <FlexPopupPanels open index={2} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 4'
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 3',
-		component: <FlexPopupPanels open index={3} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 5'
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 4',
-		component: <FlexPopupPanels open index={4} />,
-		wrapper: {full: true}
-	},
-	// Display 'Panel 6'
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 5',
-		component: <FlexPopupPanels open index={5} />,
-		wrapper: {full: true}
-	}
+	...EachPanel,
+	...withProps(
+		{fullHeight: true},
+		EachPanel.map(o => ({...o, title: `${o.title} fullHeight`}))
+	),
+	...withConfig(
+		{locale: 'ar-SA'},
+		EachPanel.map(o => ({...o, title: `locale = ar-SA, ${o.title}`}))
+	)
 ];
+
 export default FlexiblePopupPanelsTests;

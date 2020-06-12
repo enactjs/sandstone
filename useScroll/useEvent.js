@@ -243,6 +243,10 @@ const useEventKey = (props, instances, context) => {
 						themeScrollContentHandle.current.setContainerDisabled(true);
 					}
 
+					if (themeScrollContentHandle.current.pauseSpotlight) {
+						themeScrollContentHandle.current.pauseSpotlight(true);
+					}
+
 					spottable.current.pointToFocus = {direction, x, y};
 				}
 			} else {
