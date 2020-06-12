@@ -110,19 +110,11 @@ const extractInputProps = function (props) {
 };
 
 const limitNumberLength = (popupType, length) => {
-	let limitedLength = length;
-	if (popupType === 'fullscreen') {
-		if (length > FULLSCREEN_JOINED_DIGITS_LIMIT) {
-			limitedLength = FULLSCREEN_JOINED_DIGITS_LIMIT;
-			warning(false, `Max length of fullscreen type input must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
-		}
-	} else if (popupType === 'overlay') {
-		if (length > OVERLAY_JOINED_DIGITS_LIMIT) {
-			limitedLength = OVERLAY_JOINED_DIGITS_LIMIT;
-			warning(false, `Max length of overlay type input must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
-		}
-	}
-	return limitedLength;
+	const max = popupType === 'fullscreen' ? FULLSCREEN_JOINED_DIGITS_LIMIT : OVERLAY_JOINED_DIGITS_LIMIT;
+
+	warning(length <= max, `Max length of ${popupType} type input must not exceed ${max} digits.`);
+
+	return Math.min(length, max)
 };
 
 export {
