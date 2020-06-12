@@ -17,7 +17,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/FixedPopupPanels` to position the NavigationButtons properly in FixedPopupPanels in RTL
+- `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
+- `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
 - `sandstone/TabLayout` performance when focusing items in the layout
