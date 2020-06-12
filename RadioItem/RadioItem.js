@@ -86,11 +86,7 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	computed: {
-		radioIconClassName: ({css, slotBefore, styler}) => styler.join(css.icon, slotBefore ? css.iconBefore : null)
-	},
-
-	render: ({children, css, icon, radioIconClassName, selected, slotBefore, ...rest}) => {
+	render: ({children, css, icon, selected, slotBefore, ...rest}) => {
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
@@ -101,7 +97,7 @@ const RadioItemBase = kind({
 				selected={selected}
 			>
 				<slotBefore>
-					<Icon className={radioIconClassName} size="tiny">{icon}</Icon>
+					<Icon className={css.icon} size="tiny">{icon}</Icon>
 					{slotBefore}
 				</slotBefore>
 				{children}
