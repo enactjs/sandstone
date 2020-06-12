@@ -154,6 +154,18 @@ const ViewportBase = class extends React.Component {
 		this.node = ReactDOM.findDOMNode(this);
 	}
 
+	shouldComponentUpdate ({index: nextIndex}) {
+		if (nextIndex !== this.props.index) {
+			const current = Spotlight.getCurrent();
+
+			if (current && this.node.querySelector(`[data-index='${this.props.index}']`).contains(current)) {
+				current.blur();
+			}
+		}
+
+		return true;
+	}
+
 	componentDidUpdate (prevProps) {
 		for (let i = prevProps.index; this.context && i > this.props.index; i--) {
 			this.context.delete(i);
