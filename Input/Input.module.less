@@ -49,6 +49,15 @@
 		margin: @sand-input-overlay-buttonarea-margin;
 	}
 
+	.tooltip {
+		margin-top: @sand-input-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: @sand-input-invalid-tooltip-font-size;
+			font-weight: @sand-input-invalid-tooltip-font-weight;
+		}
+	}
+
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
@@ -167,6 +176,12 @@
 			&.active {
 				color: @sand-inputfield-focus-text-color;
 				background-color: @sand-input-number-active-background-color;
+			}
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				color: @sand-input-invalid-tooltip-color;
 			}
 		}
 

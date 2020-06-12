@@ -1,9 +1,11 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
+import useChainRefs from '@enact/core/useChainRefs';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Skinnable from '@enact/ui/Skinnable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -13,7 +15,7 @@ import React from 'react';
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, NavigationButton, useAutoFocus} from '../internal/Panels';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
@@ -47,6 +49,14 @@ const WizardPanelsBase = kind({
 	name: 'WizardPanels',
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		 * The current step.
 		 *
@@ -338,7 +348,6 @@ const WizardPanelsBase = kind({
 		return (
 			<PanelBase
 				{...rest}
-				autoFocus="default-element"
 				header={
 					<Header
 						arranger={noAnimation ? null : CrossFadeArranger}
@@ -428,6 +437,7 @@ function useReverseTransition (index = -1) {
 const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({
 		children,
+		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
 		onTransition,
@@ -435,6 +445,8 @@ const WizardPanelsRouter = (Wrapped) => {
 		title,
 		...rest
 	}) => {
+		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
+		const ref = useChainRefs(autoFocus, componentRef);
 		const [panel, setPanel] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
@@ -451,6 +463,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					{...rest}
 					{...panel}
 					{...transition}
+					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
 					title={currentTitle}
@@ -468,6 +481,14 @@ const WizardPanelsRouter = (Wrapped) => {
 	};
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		* The spotlight id for the panel
 		*
@@ -526,6 +547,7 @@ const WizardPanelsRouter = (Wrapped) => {
 };
 
 const WizardPanelsDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Changeable({prop: 'index'}),
 	CancelDecorator({
 		cancel: 'onChange',
