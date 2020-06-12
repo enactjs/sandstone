@@ -1,4 +1,3 @@
-
 import hoc from '@enact/core/hoc';
 import {useFloatingLayer} from '@enact/ui/FloatingLayer';
 import React from 'react';
