@@ -21,7 +21,8 @@ const
 	fontSize = `${ri.scale(30)}px`,
 	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	spacing = 60;
+	spacing = 60,
+	paddingSize = ri.scale(48);
 
 class DifferenctWidthItem extends Component {
 	static propTypes = {
@@ -30,11 +31,9 @@ class DifferenctWidthItem extends Component {
 	}
 
 	itemStyleDefault = {
-		overflow: 'hidden',
 		height: '100%',
 		fontSize,
 		lineHeight,
-		padding: 0,
 		whiteSpace: 'pre'
 	}
 
@@ -70,7 +69,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 		for (let i = 0; i < numOfItems; i++) {
 			const
 				numOfLines = Math.ceil(Math.random() * 6),
-				width = numOfLines * oneLineSize;
+				width = numOfLines * oneLineSize + paddingSize;
 
 			items.push({
 				title: (`${('00' + i).slice(-3)} | ${position}px | ${languages[i % 10]}\n`).repeat(numOfLines),
