@@ -26,21 +26,8 @@
 	});
 
 	.bg {
-		// .bg's responsibility is to apply the shadow and shadow transition effects.
-		position: absolute;
-		.position(0);
-
-		&::before {
-			// .bg::before's responsibility is to present the visual background color of the Button
-			// This is done separately from the .bg parent element so the transition effect can be
-			// handled for the focus shadow and the filter that manipulates the color indepenedtly,
-			// without indroducing a visual conflict.
-			content: "";
-			position: absolute;
-			.position(0);
-			border-radius: @sand-button-border-radius;
-			border-width: @sand-button-border-width;
-		}
+		border-width: @sand-button-border-width;
+		border-radius: @sand-button-border-radius;
 	}
 
 	.client {
@@ -278,21 +265,15 @@
 		}
 
 		.bg {
-			.sand-spotlight-resting-shadow-colors();
-
-			&::before {
-				border-color: transparent;
-				.sand-button-spotlight-resting-colors();
-			}
+			.sand-button-resting-bg-colors();
+			border-color: transparent;
 		}
 
 		&.opaque {
 			color: @sand-button-text-color;
 
 			.bg {
-				&::before {
-					opacity: @sand-button-bg-opacity;
-				}
+				opacity: @sand-button-bg-opacity;
 			}
 		}
 
@@ -300,9 +281,8 @@
 			color: @sand-button-transparent-text-color;
 
 			.bg {
-				&::before {
-					opacity: @sand-button-transparent-bg-opacity;
-				}
+				.sand-button-selected-colors();
+				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
 
@@ -321,24 +301,18 @@
 
 		&.selected {
 			.bg {
-				&::before {
-					.sand-button-spotlight-selected-colors();
-				}
+				.sand-button-selected-colors();
 			}
 
 			&.opaque {
 				.bg {
-					&::before {
-						opacity: @sand-button-bg-opacity;
-					}
+					opacity: @sand-button-bg-opacity;
 				}
 			}
 
 			&.transparent {
 				.bg {
-					&::before {
-						opacity: @sand-button-transparent-selected-bg-opacity;
-					}
+					opacity: @sand-button-transparent-selected-bg-opacity;
 				}
 			}
 		}
@@ -347,11 +321,7 @@
 			color: @sand-button-focus-text-color;
 
 			.bg {
-				.sand-spotlight-focus-shadow-colors();
-
-				&::before {
-					.sand-button-spotlight-focus-colors();
-				}
+				.sand-button-focus-bg-colors();
 			}
 		});
 
@@ -361,30 +331,22 @@
 				z-index: 1;
 
 				.bg {
-					&::before {
-						transform: @sand-button-focus-bg-transform;
-					}
+					transform: @sand-button-focus-bg-transform;
 				}
 
 				&.small .bg {
-					&::before {
-						transform: @sand-button-small-focus-bg-transform;
-					}
+					transform: @sand-button-small-focus-bg-transform;
 				}
 
 				&.pressed,
 				&:active {
 					.bg {
-						&::before {
-							transform: @sand-button-pressed-bg-transform;
-						}
+						transform: @sand-button-pressed-bg-transform;
 					}
 
 					&.small {
 						.bg {
-							&::before {
-								transform: @sand-button-small-pressed-bg-transform;
-							}
+							transform: @sand-button-small-pressed-bg-transform;
 						}
 					}
 				}
@@ -398,9 +360,7 @@
 
 			.focus({
 				.bg {
-					&::before {
-						.sand-disabled-focus-bg-colors();
-					}
+					.sand-disabled-focus-bg-colors();
 				}
 
 				.client {
