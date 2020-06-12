@@ -13,9 +13,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
+- `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
 - `sandstone/Picker` to support updated accessibility string on `joined`
-- `sandstone/Input` to highlight activated number cells
 
 ### Fixed
 
@@ -25,9 +25,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
-- `sandstone/Input` to update `invalidTooltip` to the latest design
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
+- `sandstone/Input` to update `invalidTooltip` to the latest design
 
 ## [1.0.0-beta.6] - 2020-06-08
 
