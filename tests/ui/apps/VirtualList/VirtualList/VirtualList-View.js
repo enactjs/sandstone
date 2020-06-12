@@ -22,19 +22,11 @@ const items = [],
 
 const renderItem = (size, disabled) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
-	if ((index % 15) === 0 && disabled === true) {
-		return (
-			<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={false}>
-				{items[index].item}
-			</StatefulSwitchItem>
-		);
-	} else {
-		return (
-			<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={disabled}>
-				{items[index].item}
-			</StatefulSwitchItem>
-		);
-	}
+	return (
+		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={disabled && (index % 15) !== 0}>
+			{items[index].item}
+		</StatefulSwitchItem>
+	);
 };
 
 const updateDataSize = (dataSize) => {
@@ -151,15 +143,16 @@ class app extends React.Component {
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{disabled, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state;
+			{disabled, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
-						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
-						<Button id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
-						<Button id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
+						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
+						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
