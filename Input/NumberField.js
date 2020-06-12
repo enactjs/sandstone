@@ -28,7 +28,7 @@ const NumberCell = kind({
 	name: 'NumberCell',
 
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
-		activeIndex: PropTypes.number,
+		active: PropTypes.bool,
 		children: PropTypes.string,
 		'data-index': PropTypes.number,
 		password: PropTypes.bool,
@@ -46,7 +46,7 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({'data-index': index, activeIndex, password, styler}) => styler.append({password, active: index <= activeIndex})
+		className: ({active, password, styler}) => styler.append({active, password})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
@@ -180,10 +180,15 @@ const NumberFieldBase = kind({
 					{...rest}
 					component={Layout}
 					childComponent={Cell}
-					itemProps={{password, shrink: true, component: NumberCell, activeIndex: value.length}}
 					inline
 				>
-					{items.map((_, index) => (values[index]))}
+					{items.map((_, index) => ({
+						active: index <= value.length,
+						children: values[index],
+						component: NumberCell,
+						password,
+						shrink: true
+					}))}
 				</Repeater>
 			);
 		} else {
