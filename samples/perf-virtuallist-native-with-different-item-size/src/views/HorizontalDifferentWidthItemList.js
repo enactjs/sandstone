@@ -18,10 +18,11 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(20),
-	oneLineSize = ri.scale(20),
+	fontSize = `${ri.scale(30)}px`,
+	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	spacing = 50;
+	scrollbarSize = `${ri.scale(36)}px`,
+	spacing = 60;
 
 class DifferenctWidthItem extends Component {
 	static propTypes = {
@@ -31,11 +32,16 @@ class DifferenctWidthItem extends Component {
 
 	itemStyleDefault = {
 		overflow: 'hidden',
-		height: '100%',
+		height: `calc(100% - ${scrollbarSize})`,
 		fontSize,
 		lineHeight,
+		padding: 0,
+		whiteSpace: 'pre'
+	};
+
+	innerItemStyleDefault = {
 		writingMode: 'vertical-rl'
-	}
+	};
 
 	render () {
 		const
@@ -45,7 +51,9 @@ class DifferenctWidthItem extends Component {
 
 		return (
 			<Item {...rest} style={itemStyle}>
-				{children}
+				<div style={this.innerItemStyleDefault}>
+					{children}
+				</div>
 			</Item>
 		);
 	}
@@ -66,7 +74,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 				width = numOfLines * oneLineSize;
 
 			items.push({
-				title: (`${('00' + i).slice(-3)} | ${position}px | width:${width}px |${languages[i % 10]}\n`),
+				title: (`${('00' + i).slice(-3)} | ${position}px | ${languages[i % 10]}\n`).repeat(numOfLines),
 				width
 			});
 			itemSize.push(width);

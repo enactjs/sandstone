@@ -18,10 +18,10 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(31),
-	oneLineSize = ri.scale(50),
+	fontSize = ri.scale(30),
+	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	spacing = 40;
+	spacing = 60;
 
 class DifferenctHeightItem extends Component {
 	static propTypes = {

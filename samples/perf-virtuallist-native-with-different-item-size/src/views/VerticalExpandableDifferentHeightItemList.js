@@ -20,11 +20,11 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(31),
-	oneLineSize = ri.scale(50),
+	fontSize = ri.scale(30),
+	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	padding = `0 ${ri.scale(50)}px`,
-	spacing = 40;
+	padding = `0 ${ri.scale(60)}px`,
+	spacing = 60;
 
 class ExpandableDifferenctHeightItem extends Component {
 	static propTypes = {
@@ -37,7 +37,7 @@ class ExpandableDifferenctHeightItem extends Component {
 	itemStyleDefault = {
 		position: 'absolute',
 		width: '100%',
-		padding: padding,
+		padding,
 		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,
