@@ -168,16 +168,16 @@ const InputPopupBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Set the type of popup.
+		 * Type of popup.
 		 *
-		 * @type {(fullscreen|overlay)}
+		 * @type {('fullscreen'|'overlay')}
 		 * @default 'fullscreen'
 		 * @public
 		 */
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
 		/**
-		 * The size of the input field.
+		 * Size of the input field.
 		 *
 		 * @type {('large'|'small')}
 		 * @default 'large'
@@ -206,7 +206,7 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {(text|password|number|passwordnumber)}
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
 		 * @default 'text'
 		 * @public
 		 */
@@ -385,7 +385,7 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {(text|password|number|passwordnumber)}
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
 		 * @default 'text'
 		 * @public
 		 */

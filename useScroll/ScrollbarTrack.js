@@ -118,7 +118,7 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 	/**
 	 * `true` if scroll thumb is spottable.
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'byEnter'}
 	 * @private
 	 */
 	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),

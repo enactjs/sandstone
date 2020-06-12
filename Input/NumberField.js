@@ -102,9 +102,9 @@ const NumberFieldBase = kind({
 							autoSubmit = minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
-					forward('onComplete'),
+					forward('onComplete')
 				)
-			),
+			)
 		),
 		onRemove: handle(
 			adaptEvent(
@@ -116,7 +116,7 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
 				forward('onComplete')
-			),
+			)
 		)
 	},
 
@@ -127,11 +127,10 @@ const NumberFieldBase = kind({
 		},
 		// Normalize the value, also prune out any non-digit characters
 		value: normalizeValueProp,
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -200,7 +199,7 @@ const NumberFieldBase = kind({
 
 const NumberFieldDecorator = compose(
 	Changeable,
-	I18nContextDecorator({rtlProp: 'rtl'}),
+	I18nContextDecorator({rtlProp: 'rtl'})
 );
 
 const NumberField = NumberFieldDecorator(NumberFieldBase);

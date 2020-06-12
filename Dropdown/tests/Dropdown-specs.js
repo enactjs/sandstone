@@ -47,6 +47,60 @@ describe('Dropdown', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should apply id to dropdown', () => {
+		const dropDown = mount(
+			<DropdownBase id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = 'drop';
+		// NOTE: Using `#id` as a find will pass because Enzyme will find the id prop and use that
+		// instead of what is rendered into the DOM.
+		const actual = dropDown.getDOMNode().id;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should apply aria label id to `title`', () => {
+		const dropDown = mount(
+			<DropdownBase title={title} id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = true;
+		const actual = dropDown.find('#drop_title').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should apply aria-labeled-by to dropdown with title', () => {
+		const dropDown = mount(
+			<DropdownBase title={title} id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = true;
+		const actual = dropDown.find('[aria-labelledby="drop_title"]').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not apply aria-labeled-by when no title exists', () => {
+		const dropDown = mount(
+			<DropdownBase id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = false;
+		const actual = dropDown.find('[aria-labelledby]').exists();
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should have `placeholder` when `children` is invalid', () => {
 		const dropDown = shallow(
 			<DropdownBase placeholder={placeholder}>

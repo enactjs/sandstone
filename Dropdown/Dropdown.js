@@ -255,6 +255,7 @@ const DropdownBase = kind({
 	},
 
 	computed: {
+		'aria-labelledby': ({id, title}) => (title ? `${id}_title` : void 0),
 		children: ({children, selected}) => {
 			if (!Array.isArray(children)) return [];
 
@@ -304,7 +305,7 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, direction, disabled, id, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
@@ -316,7 +317,7 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div role="region" aria-labelledby={`${id}_title`} {...rest}>
+			<div role="region" {...rest}>
 				{title}
 				<DropdownButton
 					direction={direction}
