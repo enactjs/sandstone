@@ -27,7 +27,7 @@ const FeedbackIconBase = kind({
 		 * `'play'`, `'pause'`, `'rewind'`, `'fastForward'` ,
 		 * `'jumpBackward'`, `'jumpForward'`, `'jumpToStart'`, `'jumpToEnd'`, `'stop'`.
 		 *
-		 * @type {String}
+		 * @type {('play'|'pause'|'rewind'|'fastForward'|'jumpBackward'|'jumpForward'|'jumpToStart'|'jumpToEnd'|'stop')}
 		 * @public
 		 */
 		children: PropTypes.oneOf(Object.keys(iconMap))

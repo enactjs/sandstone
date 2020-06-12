@@ -263,4 +263,20 @@ describe('FlexiblePopupPanels Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+	it('should correctly assign the fullHeight class', function () {
+		const subject = mount(
+			<FloatingLayerController>
+				<FlexiblePopupPanels fullHeight open>
+					<Panel />
+				</FlexiblePopupPanels>
+			</FloatingLayerController>
+		);
+
+		const expected = 'fullHeight';
+		const actual = subject.find('Popup').prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
 });
