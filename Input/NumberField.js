@@ -21,12 +21,14 @@ import componentCss from './Input.module.less';
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
 const normalizeValue = (value, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, maxLength) : '');
+
 const normalizeValueProp = ({value, maxLength}) => normalizeValue(value, maxLength);
 
 const NumberCell = kind({
 	name: 'NumberCell',
 
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
+		active: PropTypes.bool,
 		children: PropTypes.string,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
@@ -43,10 +45,12 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({password, styler}) => styler.append({password})
+		className: ({active, password, styler}) => styler.append({active, password})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
+		delete rest.active;
+
 		return (
 			<Icon
 				size="large"
@@ -144,6 +148,12 @@ const NumberFieldBase = kind({
 			} else {
 				return null;
 			}
+		},
+		style: ({maxLength, style}) => {
+			return {
+				...style,
+				'--input-max-number-length': maxLength
+			};
 		}
 	},
 
@@ -169,10 +179,16 @@ const NumberFieldBase = kind({
 					{...rest}
 					component={Layout}
 					childComponent={Cell}
-					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
 				>
-					{items.map((_, index) => (values[index]))}
+					{items.map((_, index) => ({
+						active: index <= value.length,
+						children: values[index],
+						component: NumberCell,
+						key: `key-${index}`,
+						password,
+						shrink: true
+					}))}
 				</Repeater>
 			);
 		} else {

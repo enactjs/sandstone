@@ -7,25 +7,32 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
+- `sandstone/Icon` prop `flip` value `"auto"` to automatically flip the icon horizontally for RTL locales.
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
 
 ### Changed
 
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
+- `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
 - `sandstone/Picker` to support updated accessibility string on `joined`
 
 ### Fixed
 
-- `sandstone/Panel` and `sandstone/WizardPanels` to not readout the Panel title after closing dropdown
+- `sandstone/Alert` to center its content when `type="fullscreen"`
+- `sandstone/VirtualList` jumping focus when keys pressed in a row
 - `sandstone/Dropdown` to not read x of y feature when focusing on an item
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
+- `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
+- `sandstone/Panel` and `sandstone/WizardPanels` to not read out the Panel title after closing a dropdown
+- `sandstone/TabLayout` to restore focus to selected tab when expanding without icons
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
 - `sandstone/Input` to update `invalidTooltip` to the latest design
+- `sandstone/WizardPanels` to use `sandstone/Skinnable`
 
 ## [1.0.0-beta.6] - 2020-06-08
 
@@ -46,7 +53,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Alert` to use multi-line content when `"fullscreen"`
 - `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
-- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday 
+- `sandstone/DayPicker` handling of locales with calendars that do not start the week with Sunday
 - `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
 - `sandstone/Dropdown` to show an item fully when the item gets focus
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses

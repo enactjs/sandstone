@@ -6,7 +6,6 @@ import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlig
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
-import Skinnable from '@enact/ui/Skinnable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -16,6 +15,7 @@ import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
 import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
+import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';

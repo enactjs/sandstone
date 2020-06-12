@@ -12,6 +12,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import UiIcon from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
 import {scaleToRem} from '@enact/ui/resolution';
@@ -55,6 +56,26 @@ const IconBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Flips the icon
+		 *
+		 * When `'auto'` and `rtl`, the icon is flipped horizontally.
+		 *
+		 * @type {('auto'|'both'|'horizontal'|'vertical')}
+		 * @public
+		 */
+		flip: PropTypes.oneOf(['auto', 'both', 'horizontal', 'vertical']),
+
+		/**
+		 * Indicates the content's text direction is right-to-left.
+		 *
+		 * This is set automatically when using {@link ui/Icon.Icon}.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		 * The size of the icon.
 		 *
 		 * A collection of preset sizes is available in addition to a numeric size option.
@@ -84,18 +105,29 @@ const IconBase = kind({
 		className: ({size, styler}) => styler.append(
 			(typeof size === 'string' ? size : null)
 		),
+		flip: ({flip, rtl}) => {
+			if (flip === 'auto') {
+				return rtl ? 'horizontal' : null;
+			}
+
+			return flip;
+		},
 		style: ({size, style}) => ({
 			...style,
 			'--icon-size': (typeof size === 'number') ? scaleToRem(size) : null
 		})
 	},
 
-	render: ({css, size, ...rest}) => UiIcon.inline({
-		...rest,
-		size: (typeof size === 'string' ? size : void 0),
-		css,
-		iconList
-	})
+	render: ({css, size, ...rest}) => {
+		delete rest.rtl;
+
+		return UiIcon.inline({
+			...rest,
+			size: (typeof size === 'string' ? size : void 0),
+			css,
+			iconList
+		});
+	}
 });
 
 // Let's find a way to import this list directly, and bonus feature, render our icons in the docs
@@ -235,7 +267,8 @@ const IconBase = kind({
  */
 const IconDecorator = compose(
 	Pure,
-	Skinnable
+	Skinnable,
+	I18nContextDecorator({rtlProp: 'rtl'})
 );
 
 /**
