@@ -30,7 +30,7 @@ WizardPanels.displayName = 'WizardPanels';
 
 storiesOf('WizardPanels', module)
 	.add(
-		'long prev button',
+		'long prev next buttons',
 		() => (
 			<WizardPanels
 				current={number('current', Config, 0)}
