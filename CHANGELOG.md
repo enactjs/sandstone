@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Dropdown` prop `title` to optionally display a heading above the component
+- `sandstone/Icon` prop `flip` value `"auto"` to automatically flip the icon horizontally for RTL locales.
 - `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
 
@@ -22,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VirtualList` jumping focus when keys pressed in a row
 - `sandstone/Dropdown` to not read x of y feature when focusing on an item
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
+- `sandstone/FixedPopupPanels` layout in RTL locales
 - `sandstone/FixedPopupPanels` to support accessibility properly
 - `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
 - `sandstone/TabLayout` performance when focusing items in the layout

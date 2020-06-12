@@ -5,8 +5,8 @@ import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 
-	const findNextButton = subject => subject.find('.slotAfter').find('Pure');
-	const findPrevButton = subject => subject.find('.slotBefore').find('Pure');
+	const findNextButton = subject => subject.find('.slotAfter').find('Pure').first();
+	const findPrevButton = subject => subject.find('.slotBefore').find('Pure').first();
 
 	test(
 		'should have title in `Header`',

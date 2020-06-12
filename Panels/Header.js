@@ -525,6 +525,7 @@ const HeaderBase = kind({
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
+					iconFlip="auto"
 					onClick={onBack}
 					size="small"
 					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
