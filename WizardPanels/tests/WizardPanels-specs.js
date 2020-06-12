@@ -675,4 +675,21 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toMatchObject(expected);
 		}
 	);
+
+	test(
+		'should return a ref to the root Panel node',
+		() => {
+			const ref = jest.fn();
+			mount(
+				<WizardPanels ref={ref}>
+					<Panel />
+				</WizardPanels>
+			);
+
+			const expected = 'ARTICLE';
+			const actual = ref.mock.calls[0][0].nodeName;
+
+			expect(actual).toBe(expected);
+		}
+	);
 });
