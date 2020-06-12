@@ -92,10 +92,10 @@ const SwitchItemBase = kind({
 			selected={selected}
 		>
 			{children}
-			<div slot="slotAfter" className={css.slotAfter}>
+			<slotAfter>
 				{slotAfter}
 				<Switch selected={selected} css={css} />
-			</div>
+			</slotAfter>
 		</Item>
 	)
 });

@@ -4,9 +4,10 @@
 @import "../styles/skin.less";
 
 .formCheckboxItem {
-	/* Available for customization */
-	.checkbox {
-		.margin-start-end(@sand-formcheckboxitem-checkbox-margin-start, @sand-formcheckboxitem-checkbox-margin-end);
+	&.hasSlotBefore {
+		.checkbox {
+			margin-inline-end: @sand-formcheckboxitem-checkbox-margin-end;
+		}
 	}
 
 	// FormCheckboxItem should not increase in size when in `largeText` mode

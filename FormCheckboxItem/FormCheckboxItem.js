@@ -26,6 +26,8 @@ import componentCss from './FormCheckboxItem.module.less';
 
 const Checkbox = Spottable(Skinnable(CheckboxBase));
 
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
+
 /**
  * A Sandstone-styled form item with a checkbox component.
  *
@@ -121,6 +123,10 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
+	computed: {
+		className: ({slotBefore, styler}) => styler.append({hasSlotBefore: hasChildren(slotBefore)})
+	},
+
 	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
@@ -132,7 +138,7 @@ const FormCheckboxItemBase = kind({
 		>
 			<slotBefore>
 				<Checkbox
-					className={slotBefore ? css.checkbox : null}
+					className={css.checkbox}
 					indeterminate={indeterminate}
 					indeterminateIcon={indeterminateIcon}
 					selected={selected}

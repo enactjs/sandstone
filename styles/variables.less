@@ -1,5 +1,6 @@
 // Variables
 //
+@import "./internal/mixins.less";
 
 // App
 // ---------------------------------------
@@ -261,11 +262,6 @@
 @sand-checkbox-container-position: ((@sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 @sand-checkbox-container-border-radius: @sand-item-border-radius;
 
-// CheckboxItem
-// ---------------------------------------
-@sand-checkboxitem-checkbox-margin-start: 0;
-@sand-checkboxitem-checkbox-margin-end: 60px;
-
 // ContextualPopup
 // ---------------------------------------
 @sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
@@ -314,7 +310,6 @@
 
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-checkbox-margin-start: 0;
 @sand-formcheckboxitem-checkbox-margin-end: 60px;
 
 // Header
@@ -558,8 +553,6 @@
 	// this value must be specifically considered as to not impose layout issues related to, for
 	// example a width of 39.9996px, which can be treated by 38px or 40px, depending on the case.
 @sand-radioitem-indicator-border-radius: @sand-common-circular-corners;
-@sand-radioitem-iconBefore-margin-start: 0;
-@sand-radioitem-iconBefore-margin-end: 60px;
 
 // Scrim
 // ---------------------------------------
@@ -644,11 +637,6 @@
 @sand-switch-spottable-border-radius: @sand-item-border-radius;
 @sand-switch-spottable-position-top-bottom: -18px; // These correlate with the numbers from 'margin" above
 @sand-switch-spottable-position-left-right: -30px; // These correlate with the numbers from 'margin" above
-
-// SwitchItem
-// ---------------------------------------
-@sand-switchitem-checkbox-margin-start: 60px;
-@sand-switchitem-checkbox-margin-end: 0;
 
 // TabLayout
 // ---------------------------------------
