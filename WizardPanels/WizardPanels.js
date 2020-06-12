@@ -15,7 +15,7 @@ import React from 'react';
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, NavigationButton, useAutoFocus} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
@@ -23,6 +23,7 @@ import useFocusOnTransition from './useFocusOnTransition';
 import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
+const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -346,7 +347,7 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
-			<PanelBase
+			<DecoratedPanelBase
 				{...rest}
 				header={
 					<Header
@@ -405,7 +406,7 @@ const WizardPanelsBase = kind({
 						{footer}
 					</Cell>
 				</Column>
-			</PanelBase>
+			</DecoratedPanelBase>
 		);
 	}
 });
