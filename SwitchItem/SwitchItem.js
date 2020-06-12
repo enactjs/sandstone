@@ -15,6 +15,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import Item from '../Item';
@@ -60,7 +61,15 @@ const SwitchItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after `children` and before the switch.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node
 	},
 
 	defaultProps: {
@@ -73,7 +82,7 @@ const SwitchItemBase = kind({
 		publicClassNames: ['switchItem']
 	},
 
-	render: ({children, css, selected, ...rest}) => (
+	render: ({children, css, selected, slotAfter, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SetToggleItem"
 			role="checkbox"
@@ -83,7 +92,10 @@ const SwitchItemBase = kind({
 			selected={selected}
 		>
 			{children}
-			<Switch selected={selected} slot="slotAfter" css={css} />
+			<div slot="slotAfter" className={css.slotAfter}>
+				{slotAfter}
+				<Switch selected={selected} css={css} />
+			</div>
 		</Item>
 	)
 });
@@ -98,7 +110,8 @@ const SwitchItemBase = kind({
  * @public
  */
 const SwitchItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['slotAfter']})
 );
 
 /**

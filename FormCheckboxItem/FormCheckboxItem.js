@@ -121,7 +121,7 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({checkboxClassName, children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"

@@ -1,3 +1,4 @@
+import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 import React from 'react';
 

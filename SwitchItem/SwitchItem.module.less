@@ -1,2 +1,15 @@
 // SwitchItem.module.less
 //
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+
+.switchItem{
+	.slotAfter {
+		display: flex;
+		align-items: center;
+	}
+
+	.switch {
+		.margin-start-end(@sand-switchitem-checkbox-margin-start, @sand-switchitem-checkbox-margin-end);
+	}
+}
