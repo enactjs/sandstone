@@ -24,6 +24,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
 - `sandstone/Input` to update `invalidTooltip` to the latest design
+- `sandstone/WizardPanels` to use `sandstone/Skinnable`
 
 ## [1.0.0-beta.6] - 2020-06-08
 
