@@ -71,6 +71,12 @@ storiesOf('Sandstone', module)
 						<Header title="Vertical Slider" />
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
 					</Panel>
+					<Panel>
+						<Header title="Third panel" />
+						<Scroller style={{width: ri.scaleToRem(900)}}>
+							<Item onClick={nextPanel}>Item 1</Item>
+						</Scroller>
+					</Panel>
 				</FlexiblePopupPanels>
 				<Button onClick={toggleOpen}>Open FlexiblePopupPanels</Button>
 			</div>);
