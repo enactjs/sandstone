@@ -38,6 +38,10 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const useMemo = (...args) => {
+	return React.useMemo(...args);
+};
+
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -209,27 +213,20 @@ const ImageItemBase = kind({
 	computed: {
 		className: ({children, imageIconSrc, label, orientation, styler}) => {
 			return styler.append(
-				React.useMemo(() => {
-					console.log('sandstone:ImageItem.className');
-
-					return {
-						fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
-					};
-				}, [!!children, !!imageIconSrc, !!label, orientation])
-			)
+				useMemo(
+					() => ({fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label}),
+					[children, imageIconSrc, label, orientation]
+				)
+			);
 		},
 		ariaProps: ({selected, selectionComponent}) => {
-			return React.useMemo(() => {
-				console.log('sandstone:ImageItem.ariaProps');
-
-				return selectionComponent ? {
-					'aria-checked': selected,
-					role: 'checkbox'
-				} : null;
-			}, [selected, selectionComponent]);
+			return useMemo(
+				() => (selectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null),
+				[selected, selectionComponent]
+			);
 		},
 		imageComponent: ({css, selectionComponent: SelectionComponent, showSelection}) => {
-			return React.useMemo(() => {
+			return useMemo(() => {
 				return (
 					<Image>
 						{showSelection ? (
@@ -242,24 +239,22 @@ const ImageItemBase = kind({
 							</div>
 						) : null}
 					</Image>
-				)
-			}, css, SelectionComponent, showSelection);
+				);
+			}, [css, SelectionComponent, showSelection]);
 		},
-		label: ({label}) => {
-			return React.useMemo(() => {
-				console.log('sandstone:ImageItem.label');
-
+		label: () => {
+			return useMemo(() => {
 				return (
 					<MemoChildrenContext.Consumer>
-							{({label}) => (label)}
+						{({label}) => (label)}
 					</MemoChildrenContext.Consumer>
 				);
-			}, [])
+			}, []);
 		},
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
-			return React.useMemo(() => {
-				console.log('sandstone:ImageItem.children');
+			const hasLabel = typeof label !== 'undefined';
 
+			return useMemo(() => {
 				const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 				if (!hasImageIcon && !children && !label) return;
@@ -276,37 +271,41 @@ const ImageItemBase = kind({
 						) : null}
 						<Cell>
 							<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-							{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+							{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 						</Cell>
 					</Row>
 				);
-			}, [css, imageIconComponent, imageIconSrc, label !== 'undefined', orientation])
+				// We don't need the dependency of the `chilren` and the `label`
+				// because it will be passed through a context.
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			}, [css, imageIconComponent, imageIconSrc, hasLabel, orientation]);
+		},
+		imageItem: ({ariaProps, css, imageComponent, ...rest}) => {
+			delete rest.imageIconComponent;
+			delete rest.imageIconSrc;
+			delete rest.label;
+			delete rest.selectionComponent;
+			delete rest.showSelection;
+
+			const item =  useMemo(() => {
+				return (
+					<UiImageItem
+						{...rest}
+						{...ariaProps}
+						css={css}
+						imageComponent={imageComponent}
+					/>
+				);
+				// We don't need the dependency of the `rest` because it will be passed when cloing an element.
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			}, [ariaProps, css, imageComponent]);
+
+			return React.cloneElement(item, {...rest});
 		}
 	},
 
-	render: ({ariaProps, css, imageComponent, ...rest}) => {
-		delete rest.imageIconComponent;
-		delete rest.imageIconSrc;
-		delete rest.label;
-		delete rest.selectionComponent;
-		delete rest.showSelection;
-
-		console.log('sandstone:ImageItem.render');
-
-		const item =  React.useMemo(() => {
-			console.log('sandstone:ImageItem.render.item');
-
-			return (
-				<UiImageItem
-					{...rest}
-					{...ariaProps}
-					css={css}
-					imageComponent={imageComponent}
-				/>
-			);
-		}, [ariaProps, css, imageComponent]);
-
-		return React.cloneElement(item, {...rest});
+	render: ({imageItem}) => {
+		return imageItem;
 	}
 });
 

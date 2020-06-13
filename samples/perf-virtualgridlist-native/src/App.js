@@ -34,8 +34,8 @@ class VirtualGridListNativeSample extends Component {
 			if (timerCount === 20) {
 				clearInterval(setintervalId);
 
-				console.log(window.performanceData);
-				console.log('Average JS execution time: ' + window.performanceData.reduce((cur, sum) => (sum += cur)) / window.performanceData.length);
+				console.log(window.performanceData); // eslint-disable-line no-console
+				console.log('Average JS execution time: ' + window.performanceData.reduce((cur, sum) => (sum += cur)) / window.performanceData.length); // eslint-disable-line no-console
 			}
 		}, 1000);
 	}
