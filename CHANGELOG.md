@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/Button` flashing when switching `selected` on and off
+- `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
 - `sandstone/VirtualList` jumping focus when keys pressed in a row
 - `sandstone/Dropdown` to not read x of y feature when focusing on an item
 - `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed

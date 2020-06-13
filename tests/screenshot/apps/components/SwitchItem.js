@@ -1,3 +1,4 @@
+import Icon from '../../../../Icon';
 import SwitchItem from '../../../../SwitchItem';
 import React from 'react';
 
@@ -5,6 +6,9 @@ import {withConfig} from './utils';
 
 const SwitchItemTests = [
 	<SwitchItem />,
+
+	// Icon slotAfter
+	<SwitchItem>SwitchItem<Icon slot="slotAfter">home</Icon></SwitchItem>,
 
 	// Centered
 	<SwitchItem centered>Hello SwitchItem</SwitchItem>,
