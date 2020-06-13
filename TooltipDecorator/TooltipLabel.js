@@ -1,11 +1,15 @@
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
+import {scaleToRem} from '@enact/ui/resolution';
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';
 
 import css from './Tooltip.module.less';
+
+// The width to use if marquee was specified with no width
+const DEFAULT_MARQUEE_WIDTH = 600;
 
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
@@ -29,7 +33,10 @@ const TooltipLabel = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
-		 * Apply marquee flow. To use this, `width` must be specified together.
+		 * Apply a marquee to support long text.
+		 *
+		 * It is recommended that you specify a `width` also. If none is specified, a default width
+		 * of 600px will be used.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -52,17 +59,19 @@ const TooltipLabel = kind({
 
 	computed: {
 		className: ({marquee, width, styler}) => styler.append({multi: (!marquee && !!width)}),
-		style: ({children, width, style}) => {
+		style: ({children, marquee, width, style}) => {
 			return {
 				...style,
 				direction: isRtlText(children) ? 'rtl' : 'ltr',
-				width
+				width: (width || (marquee && scaleToRem(DEFAULT_MARQUEE_WIDTH)))
 			};
 		}
 	},
 
-	render: ({children, marquee, width, ...rest}) => {
-		if (marquee && width) {
+	render: ({children, marquee, ...rest}) => {
+		delete rest.width;
+
+		if (marquee) {
 			return (
 				<Marquee {...rest} marqueeOn="render">
 					{children}
