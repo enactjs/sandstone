@@ -17,7 +17,7 @@
  */
 
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
+import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
@@ -184,19 +184,6 @@ const DropdownBase = kind({
 	},
 
 	handlers: {
-		onKeyDown: handle(
-			forward('onKeyDown'),
-			(ev, props) => {
-				const {rtl} = props;
-				const isLeft = forKey('left', ev, props);
-				const isRight = forKey('right', ev, props);
-				const isLeftMovement = !rtl && isLeft || rtl && isRight;
-				const isRightMovement = !rtl && isRight || rtl && isLeft;
-
-				return isLeftMovement && typeof ev.target.dataset.index !== 'undefined' || isRightMovement;
-			},
-			forward('onClose')
-		),
 		onSelect: handle(
 			forward('onSelect'),
 			forward('onClose')
@@ -257,8 +244,8 @@ const DropdownBase = kind({
 		}
 	},
 
-	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, selected, width, title, ...rest}) => {
-		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
+	render: ({children, disabled, onOpen, onSelect, open, selected, width, title, ...rest}) => {
+		const popupProps = {children, onSelect, selected, width, role: ''};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
