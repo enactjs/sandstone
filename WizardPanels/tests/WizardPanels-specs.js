@@ -5,8 +5,8 @@ import {Panel, WizardPanels, WizardPanelsBase} from '../';
 
 describe('WizardPanel Specs', () => {
 
-	const findNextButton = subject => subject.find('.slotAfter').find('Pure');
-	const findPrevButton = subject => subject.find('.slotBefore').find('Pure');
+	const findNextButton = subject => subject.find('.slotAfter').find('Pure').first();
+	const findPrevButton = subject => subject.find('.slotBefore').find('Pure').first();
 
 	test(
 		'should have title in `Header`',
@@ -673,6 +673,23 @@ describe('WizardPanel Specs', () => {
 			const actual = wizardPanel.find('Steps').props();
 
 			expect(actual).toMatchObject(expected);
+		}
+	);
+
+	test(
+		'should return a ref to the root Panel node',
+		() => {
+			const ref = jest.fn();
+			mount(
+				<WizardPanels ref={ref}>
+					<Panel />
+				</WizardPanels>
+			);
+
+			const expected = 'ARTICLE';
+			const actual = ref.mock.calls[0][0].nodeName;
+
+			expect(actual).toBe(expected);
 		}
 	);
 });

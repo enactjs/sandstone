@@ -6,6 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import FormCheckboxItem, {FormCheckboxItemBase} from '@enact/sandstone/FormCheckboxItem';
+import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 
 import iconNames from './icons';
@@ -18,6 +19,9 @@ storiesOf('Sandstone', module)
 	.add(
 		'FormCheckboxItem',
 		() => {
+			const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+			const slotBefore = slotBeforeSelection ? (<Icon slot="slotBefore">{slotBeforeSelection}</Icon>) : null;
+
 			return (
 				<FormCheckboxItem
 					disabled={boolean('disabled', Config)}
@@ -29,6 +33,7 @@ storiesOf('Sandstone', module)
 					labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
 					onToggle={action('onToggle')}
 				>
+					{slotBefore}
 					{text('children', Config, 'A Checkbox for a form')}
 				</FormCheckboxItem>
 			);

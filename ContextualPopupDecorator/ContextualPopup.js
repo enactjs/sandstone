@@ -109,9 +109,7 @@ const ContextualPopupBase = kind({
 		/**
 		 * Direction of ContextualPopup.
 		 *
-		 * Can be one of: `'above'`, `'above center'`, `'above left'`, `'above right'`, `'below'`, `'below center'`, `'below left'`, `'below right'`, `'left middle'`, `'left top'`, `'left bottom'`, `'right middle'`, `'right top'`, or `'right bottom'`.
-		 *
-		 * @type {('above'|'below'|'left'|'right')}
+		 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
 		 * @default 'below'
 		 * @public
 		 */

@@ -8,8 +8,8 @@ class DropdownInterface {
 		this.id = id;
 	}
 
-	focus () {
-		return browser.execute((el) => el.focus(), this.self);
+	focusActivator () {
+		return browser.execute((el) => el.focus(), this.self.$('[role="button"]'));
 	}
 
 	get focusedItemText () {
@@ -41,7 +41,7 @@ class DropdownPage extends Page {
 	}
 
 	openDropdown (component) {
-		component.focus();
+		component.focusActivator();
 		this.spotlightSelect();
 	}
 

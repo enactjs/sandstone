@@ -62,11 +62,11 @@ const memoLocaleState = memoize((key, dayNameLength) => {
 	};
 
 	if (li.getWeekEndStart) {
-		state.weekendStart = localizeDay(li.getWeekEndStart(), firstDayOfWeek);
+		state.weekendStart = li.getWeekEndStart();
 	}
 
 	if (li.getWeekEndEnd) {
-		state.weekendEnd = localizeDay(li.getWeekEndEnd(), firstDayOfWeek);
+		state.weekendEnd = li.getWeekEndEnd();
 	}
 
 	return state;
@@ -217,7 +217,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			/**
 			 * The format for names of days.
 			 *
-			 * @type {String}
+			 * @type {('short'|'medium'|'long'|'full')}
 			 * @default 'long'
 			 * @public
 			 */

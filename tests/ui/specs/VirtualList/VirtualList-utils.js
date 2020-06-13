@@ -23,12 +23,15 @@ function expectNoFocusedItem () {
 	expect(browser.execute(function () { return document.activeElement === document.body; })).to.be.true();
 }
 
-function waitUntilFocused (itemNum) {
+function waitUntilFocused (itemNum, comment = '') {
 	const target = `item${itemNum}`;
+	if (comment) {
+		comment = ': ' + comment;
+	}
 	browser.waitUntil(function () {
 		const focusedId = focusedElement();
 		return target === focusedId;
-	}, 1500, `timed out waiting to focus index ${itemNum}`);
+	}, 1500, `timed out waiting to focus index ${itemNum}${comment}`);
 }
 
 function waitUntilVisible (itemNum) {

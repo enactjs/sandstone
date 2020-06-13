@@ -23,21 +23,19 @@
 		}
 	}
 
+	// this block is "tricks" the layout so the following .navButton rules position the before
+	// button correctly in LTR and RTL locales
+	.navCellBefore {
+		direction: rtl;
+
+		:global(.enact-locale-right-to-left) & {
+			direction: ltr;
+		}
+	}
+
 	.navButton {
 		position: absolute;
-	}
-
-	.navCellBefore .navButton {
-		left: 0;
-		transform: translate(-100%, -50%);
-	}
-
-	.navCellAfter .navButton {
-		right: 0;
-		transform: translate(100%, -50%);
-	}
-
-	.navButton {
+		transform: translate(0, -50%);
 		margin: @sand-flexiblepopuppanels-navbutton-margin;
 	}
 
@@ -45,6 +43,12 @@
 		position: relative;
 		pointer-events: none;
 		padding: 0;
+	}
+
+	&.fullHeight {
+		.bodyLayout {
+			height: 100%;
+		}
 	}
 
 	// Skin colors
@@ -84,6 +88,18 @@
 	.content {
 		margin: @sand-flexiblepopuppanels-panel-margin;
 		padding: @sand-flexiblepopuppanels-panel-padding;
+	}
+
+	:global(.enact-locale-right-to-left) & {
+		// force the body to LTR maintain left alignment of panel contents
+		> .body {
+			direction: ltr;
+
+			// but reset direction for content
+			.bodyLayout {
+				direction: rtl;
+			}
+		}
 	}
 
 	.applySkins({
