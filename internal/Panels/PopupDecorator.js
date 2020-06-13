@@ -42,6 +42,17 @@ const defaultConfig = {
 	css: null,
 
 	/**
+	 * Support accessibility options.
+	 *
+	 * If true, the aria-live and role in Popup are `null`.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
+	 */
+	noAlertRole: false,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -62,8 +73,8 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css, panelArranger, panelType} = config;
-	const Panels = CancelDecorator({cancel: 'onBack'}, Wrapped);
+	const {className: cfgClassName, css, noAlertRole, panelArranger, panelType} = config;
+	const CancelableWrapped = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
 		name: 'PopupDecorator',
@@ -83,6 +94,18 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Node}
 			 */
 			children: PropTypes.node,
+
+			/**
+			 * Instructs the Popup to fill the entire height of the screen.
+			 *
+			 * Normally, the popup will flex in height to match the size of the content until the
+			 * screen bounds are met. Use this if you require a full-height popup but don't have
+			 * enough content to fill the space or you want a component to stretch to the edges.
+			 *
+			 * @type {Boolean}
+			 * @public
+			 */
+			fullHeight: PropTypes.bool,
 
 			/**
 			 * Function that generates unique identifiers for Panel instances
@@ -156,6 +179,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		defaultProps: {
+			fullHeight: false,
 			index: 0,
 			noAnimation: false,
 			position: 'right',
@@ -168,7 +192,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({width, styler}) => styler.append(width)
+			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight})
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
@@ -187,13 +211,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
+			delete rest.fullHeight;
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
-					<Panels
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
+					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}
+						className={css.viewport}
 						generateId={generateId}
 						id={`${id}_panels`}
 						index={index}
@@ -203,7 +229,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						type={panelType}
 					>
 						{children}
-					</Panels>
+					</CancelableWrapped>
 				</Popup>
 			);
 		}

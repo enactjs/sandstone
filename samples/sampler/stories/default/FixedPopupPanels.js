@@ -23,6 +23,7 @@ storiesOf('Sandstone', module)
 					index={number('index', Config, {range: true, min: 0, max: 1}, 0)}
 					open={boolean('open', Config)}
 					position={select('position', ['left', 'right'], Config)}
+					fullHeight={boolean('fullHeight', Config)}
 					width={select('width', ['narrow', 'half'], Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}

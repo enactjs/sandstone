@@ -241,11 +241,10 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);

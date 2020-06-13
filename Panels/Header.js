@@ -341,6 +341,14 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * Subtitle id of the headder.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		subtitleId: PropTypes.string,
+
+		/**
 		 * Title of the header.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
@@ -360,6 +368,14 @@ const HeaderBase = kind({
 			PropTypes.string,
 			PropTypes.arrayOf(PropTypes.string)
 		]),
+
+		/**
+		 * Title id of the headder.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		titleId: PropTypes.string,
 
 		/**
 		 * Set the type of header to be used.
@@ -414,12 +430,12 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
 				<Heading
-					aria-label={title}
+					id={titleId}
 					size="title"
 					spacing="auto"
 					marqueeOn={marqueeOn}
@@ -433,6 +449,7 @@ const HeaderBase = kind({
 
 			const subtitleHeading = (
 				<Heading
+					id={subtitleId}
 					size="subtitle"
 					spacing="auto"
 					marqueeDisabled={type === 'wizard'}
@@ -495,7 +512,9 @@ const HeaderBase = kind({
 		delete rest.onHideBack;
 		delete rest.onShowBack;
 		delete rest.subtitle;
+		delete rest.subtitleId;
 		delete rest.title;
+		delete rest.titleId;
 		delete rest.type;
 
 		// Set up the back button
@@ -506,6 +525,7 @@ const HeaderBase = kind({
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
+					iconFlip="auto"
 					onClick={onBack}
 					size="small"
 					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
