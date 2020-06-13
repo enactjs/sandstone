@@ -36,7 +36,7 @@
 // Spotlight and State
 // ---------------------------------------
 @sand-spotlight-text-color:           @sand-dark-gray;
-@sand-spotlight-bg-color:             @sand-accent;
+@sand-spotlight-bg-color:             @sand-accent;	// If this changes, update Button bg-color mixins in color-mixins.less
 @sand-spotlight-color:                @sand-accent;
 @sand-spotlight-shadow-color:         fade(@sand-black, 30%);
 @sand-spotlight-resting-shadow:       0 0 0 @sand-spotlight-shadow-color;
@@ -57,6 +57,7 @@
 // ---------------------------------------
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
+@sand-button-transparent-text-color: @sand-text-color;
 @sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
 @sand-button-focus-text-color: @sand-spotlight-text-color;
 
