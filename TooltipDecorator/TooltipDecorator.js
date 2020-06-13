@@ -109,6 +109,17 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipDelay: PropTypes.number,
 
 			/**
+			 * Allows the tooltip to marquee.
+			 *
+			 * Specifying a [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth}
+			 * restrects the marquee to that size.
+			 *
+			 * @type {Boolean}
+			 * @public
+			 */
+			tooltipMarquee: PropTypes.bool,
+
+			/**
 			 * Position of the tooltip with respect to the wrapped component.
 			 *
 			 * | *Value* | *Tooltip Direction* |
@@ -213,8 +224,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * The width of tooltip content in pixels (px).
 			 *
-			 * If the content goes over the given width, it will automatically wrap. When `null`,
-			 * content does not wrap.
+			 * If the content goes over the given width, then it will automatically wrap or marquee,
+			 * depending on `tooltipMarquee`. When `null`, content does not wrap or marquee.
 			 *
 			 * @type {Number|null}
 			 * @public
@@ -432,7 +443,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @private
 		 */
 		renderTooltip () {
-			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
+			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
 				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
@@ -450,6 +461,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
+						marquee={tooltipMarquee}
 						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}
