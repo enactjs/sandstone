@@ -1,3 +1,4 @@
+import Icon from '../../../../Icon';
 import RadioItem from '../../../../RadioItem';
 import React from 'react';
 
@@ -33,6 +34,12 @@ const RadioItemTests = [
 	<RadioItem selected>RadioItem Checked</RadioItem>,
 	// Long text selected - LTR [GT-28204]
 	<RadioItem selected>-Lorem</RadioItem>,
+
+	// Icon slotBefore
+	<RadioItem><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
+	<RadioItem inline><Icon slot="slotBefore">home</Icon>RadioItem</RadioItem>,
+	<RadioItem selected><Icon slot="slotBefore">home</Icon>RadioItem Checked</RadioItem>,
+	<RadioItem selected inline><Icon slot="slotBefore">home</Icon>RadioItem Checked</RadioItem>,
 	// *************************************************************
 	// locale = 'ar-SA'
 
