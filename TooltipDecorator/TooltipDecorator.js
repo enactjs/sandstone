@@ -111,9 +111,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Allows the tooltip to marquee.
 			 *
-			 * Requires a
-			 * [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth} to
-			 * marquee.
+			 * Specifying a [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth}
+			 * restrects the marquee to that size.
 			 *
 			 * @type {Boolean}
 			 * @public
