@@ -23,7 +23,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoChildrenDecorator, MemoChildrenContext, reducedComputed} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext, reducedComputed} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -260,9 +260,9 @@ const ImageItemBase = kind({
 
 					return hasLabel && useMemo(() => {
 						return (
-							<MemoChildrenContext.Consumer>
+							<MemoPropsContext.Consumer>
 								{context => (context && context.label || label)}
-							</MemoChildrenContext.Consumer>
+							</MemoPropsContext.Consumer>
 						);
 					}, []);
 				},
@@ -335,7 +335,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
-	MemoChildrenDecorator,
+	MemoPropsDecorator,
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
