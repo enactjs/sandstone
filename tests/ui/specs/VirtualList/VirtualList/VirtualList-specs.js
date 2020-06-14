@@ -563,7 +563,7 @@ describe('VirtualList', function () {
 			});
 		});
 
-		describe('cbScrollTo VirtualList Samples', function () {
+		describe('VirtualList Samples', function () {
 			beforeEach(function () {
 				Page.open();
 			});
@@ -586,12 +586,6 @@ describe('VirtualList', function () {
 				// Step3-2: 5-way Up until Spotlight displays on the '000 - 한국어 - 한국'(item0 for this test) item.
 				Page.fiveWayToItem(0);
 				expectFocusedItem(0);
-			});
-		});
-
-		describe('disabled Item', function () {
-			beforeEach(function () {
-				Page.open();
 			});
 
 			it('should Navigate Disabled and Enabled items [GT-29029]', function () {
