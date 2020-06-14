@@ -1,3 +1,8 @@
+/*  eslint-disable react-hooks/rules-of-hooks */
+//
+// React Hook "useMemo" is called in the function of the "computed" object properly,
+// which is neither a React function component or a custom React Hook function
+
 /**
  * Provides Sandstone styled image item components and behaviors.
  *
@@ -18,7 +23,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoChildrenDecorator, MemoChildrenContext} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoChildrenDecorator, MemoChildrenContext, reducedComputed} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -219,88 +224,97 @@ const ImageItemBase = kind({
 				)
 			);
 		},
-		ariaProps: ({selected, selectionComponent}) => {
-			return useMemo(
-				() => (selectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null),
-				[selected, selectionComponent]
-			);
-		},
-		imageComponent: ({css, selectionComponent: SelectionComponent, showSelection}) => {
-			return useMemo(() => {
-				return (
-					<Image>
-						{showSelection ? (
-							<div className={css.selectionContainer}>
-								{SelectionComponent ? (
-									<SelectionComponent />
-								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
-								)}
-							</div>
-						) : null}
-					</Image>
-				);
-			}, [css, SelectionComponent, showSelection]);
-		},
-		label: () => {
-			return useMemo(() => {
-				return (
-					<MemoChildrenContext.Consumer>
-						{({label}) => (label)}
-					</MemoChildrenContext.Consumer>
-				);
-			}, []);
-		},
-		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
-			const hasLabel = typeof label !== 'undefined';
+		imageItem: ({
+			children, css,
+			imageIconComponent, imageIconSrc,
+			label, orientation,
+			selected, selectionComponent: SelectionComponent, showSelection,
+			...rest
+		}) => {
+			const computedProps = reducedComputed({
+				ariaProps: () => {
+					return useMemo(
+						() => (SelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null),
+						[selected, SelectionComponent]
+					);
+				},
+				imageComponent: () => {
+					return useMemo(() => {
+						return (
+							<Image>
+								{showSelection ? (
+									<div className={css.selectionContainer}>
+										{SelectionComponent ? (
+											<SelectionComponent />
+										) : (
+											<Icon className={css.selectionIcon}>check</Icon>
+										)}
+									</div>
+								) : null}
+							</Image>
+						);
+					}, [css, SelectionComponent, showSelection]);
+				},
+				memoLabel: () => {
+					const hasLabel = typeof label !== 'undefined';
 
-			return useMemo(() => {
-				const hasImageIcon = imageIconSrc && orientation === 'vertical';
+					return hasLabel && useMemo(() => {
+						return (
+							<MemoChildrenContext.Consumer>
+								{({label: memoLabel}) => (memoLabel)}
+							</MemoChildrenContext.Consumer>
+						);
+					}, []);
+				},
+				children: ({label}) => { // eslint-disable-line no-shadow
+					const hasLabel = typeof label !== 'undefined';
 
-				if (!hasImageIcon && !children && !label) return;
+					return useMemo(() => {
+						const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
-				return (
-					<Row className={css.captions}>
-						{hasImageIcon ? (
-							<Cell
-								className={css.imageIcon}
-								component={imageIconComponent}
-								src={imageIconSrc}
-								shrink
+						if (!hasImageIcon && !children && !label) return;
+
+						return (
+							<Row className={css.captions}>
+								{hasImageIcon ? (
+									<Cell
+										className={css.imageIcon}
+										component={imageIconComponent}
+										src={imageIconSrc}
+										shrink
+									/>
+								) : null}
+								<Cell>
+									<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
+									{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+								</Cell>
+							</Row>
+						);
+						// We don't need the dependency of the `chilren` and the `label`
+						// because it will be passed through a context.
+						// eslint-disable-next-line react-hooks/exhaustive-deps
+					}, [css, imageIconComponent, imageIconSrc, hasLabel, orientation]);
+				},
+				imageItem: ({ariaProps, children, imageComponent}) => { // eslint-disable-line no-shadow
+
+					const item =  useMemo(() => {
+						return (
+							<UiImageItem
+								{...rest}
+								{...ariaProps}
+								css={css}
+								imageComponent={imageComponent}
 							/>
-						) : null}
-						<Cell>
-							<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-							{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-						</Cell>
-					</Row>
-				);
-				// We don't need the dependency of the `chilren` and the `label`
-				// because it will be passed through a context.
-				// eslint-disable-next-line react-hooks/exhaustive-deps
-			}, [css, imageIconComponent, imageIconSrc, hasLabel, orientation]);
-		},
-		imageItem: ({ariaProps, css, imageComponent, ...rest}) => {
-			delete rest.imageIconComponent;
-			delete rest.imageIconSrc;
-			delete rest.label;
-			delete rest.selectionComponent;
-			delete rest.showSelection;
+						);
+						// We don't need the dependency of the `rest` because it will be passed when cloing an element.
+						// eslint-disable-next-line react-hooks/exhaustive-deps
+					}, [ariaProps, css, imageComponent]);
 
-			const item =  useMemo(() => {
-				return (
-					<UiImageItem
-						{...rest}
-						{...ariaProps}
-						css={css}
-						imageComponent={imageComponent}
-					/>
-				);
-				// We don't need the dependency of the `rest` because it will be passed when cloing an element.
-				// eslint-disable-next-line react-hooks/exhaustive-deps
-			}, [ariaProps, css, imageComponent]);
+					return React.cloneElement(item, {...rest, children});
+				}
+			});
 
-			return React.cloneElement(item, {...rest});
+			return computedProps.imageItem;
 		}
 	},
 
