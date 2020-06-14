@@ -96,8 +96,9 @@ class VirtualListPage extends Page {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, left, width} = scroller.getBoundingClientRect();
-
-			let currentY = bottom - 1,
+			// affordance space to draw the bottom shadow. affordanceSize is 48 for 4k and 24 for FHD.
+			const affordanceSize = 24;
+			let currentY = bottom - affordanceSize - 1,
 				middle = left + Math.floor((left + width) / 2);
 
 			for (let i = 0; i < 10; i++) {

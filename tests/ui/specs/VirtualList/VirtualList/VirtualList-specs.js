@@ -148,11 +148,9 @@ describe('VirtualList', function () {
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 		});
 
-		// TODO : should Fix issue that bottomVisibleItem is not properly displaying.
 		// TODO: Will need lots of comments update to match the TC in JIra
-		it.skip('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
+		it('should Items Animate via 5-way Up and Down on Last Item on the page - vertical [GT-28481]', function () {
 			let bottomId;
-			Page.spotlightSelect();
 			Page.buttonLeft.moveTo();
 			Page.spotlightRight(); // needed to focus Item 00 and get into that container
 			// Step 3. 1. Position the pointer on the last item in a current page.
