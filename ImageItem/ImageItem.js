@@ -261,7 +261,7 @@ const ImageItemBase = kind({
 					return hasLabel && useMemo(() => {
 						return (
 							<MemoChildrenContext.Consumer>
-								{({label: memoLabel}) => (memoLabel)}
+								{context => (context && context.label || label)}
 							</MemoChildrenContext.Consumer>
 						);
 					}, []);
