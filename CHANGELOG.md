@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ImageItem` text to be bold when focused
 - `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/Button` flashing when switching `selected` on and off
 - `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
