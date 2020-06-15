@@ -225,7 +225,7 @@ const ImageItemBase = kind({
 				)
 			);
 		},
-		imageItem: ({
+		computedProps: ({
 			children, css,
 			imageIconComponent, imageIconSrc,
 			label, orientation,
@@ -326,24 +326,23 @@ const ImageItemBase = kind({
 						// eslint-disable-next-line react-hooks/exhaustive-deps
 					}, [css.captions]);
 				},
-				imageItem: ({memoAriaProps, memoChildren, memoImage}) => { // eslint-disable-line no-shadow
-					return (
-						<UiImageItem
-							{...rest}
-							{...memoAriaProps}
-							children={memoChildren}
-							css={css}
-							imageComponent={memoImage}
-						/>
-					);
-				}
+				computedProps: ({memoAriaProps, memoChildren, memoImage, rest}) => ({memoAriaProps, memoChildren, memoImage, rest})
 			});
 		}
 	},
 
-	render: ({imageItem}) => {
+	render: ({className, computedProps: {memoAriaProps, memoChildren, memoImage, rest}, css}) => {
 		// console.log('render');
-		return imageItem;
+		return (
+			<UiImageItem
+				{...rest}
+				{...memoAriaProps}
+				children={memoChildren}
+				className={className}
+				css={css}
+				imageComponent={memoImage}
+			/>
+		);
 	}
 });
 
