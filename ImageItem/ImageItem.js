@@ -230,7 +230,7 @@ const ImageItemBase = kind({
 			selected, selectionComponent: SelectionComponent, showSelection,
 			...rest
 		}) => {
-			const computedProps = reducedComputed({
+			return reducedComputed({
 				ariaProps: () => {
 					return React.useMemo(
 						() => {
@@ -324,8 +324,6 @@ const ImageItemBase = kind({
 					return React.cloneElement(item, {...rest, children});
 				}
 			});
-
-			return computedProps.imageItem;
 		}
 	},
 
