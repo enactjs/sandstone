@@ -212,19 +212,10 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		className: ({children, imageIconSrc, label, orientation, selected, styler}) => {
-			const fullImage = orientation === 'vertical' && !children && !imageIconSrc && !label;
-
-			return styler.append(
-				React.useMemo(
-					() => {
-						// console.log('className');
-						return {fullImage, selected}
-					},
-					[fullImage, selected]
-				)
-			);
-		},
+		className: ({children, imageIconSrc, label, orientation, selected, styler}) => styler.append({
+			fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label,
+			selected
+		}),
 		computedProps: ({
 			children, css,
 			imageIconComponent, imageIconSrc,
@@ -325,7 +316,7 @@ const ImageItemBase = kind({
 					// eslint-disable-next-line react-hooks/exhaustive-deps
 				}, [css.captions]);
 			},
-			computedProps: ({memoAriaProps, memoChildren, memoImage, rest}) => ({memoAriaProps, memoChildren, memoImage, rest})
+			computedProps: ({memoAriaProps, memoChildren, memoImage}) => ({memoAriaProps, memoChildren, memoImage, rest})
 		}))
 	},
 
