@@ -213,13 +213,15 @@ const ImageItemBase = kind({
 
 	computed: {
 		className: ({children, imageIconSrc, label, orientation, selected, styler}) => {
+			const fullImage = orientation === 'vertical' && !children && !imageIconSrc && !label;
+
 			return styler.append(
 				React.useMemo(
 					() => {
-						console.log('className');
-						return {fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label, selected}
+						// console.log('className');
+						return {fullImage, selected}
 					},
-					[!!children, !!imageIconSrc, !!label, orientation, selected]
+					[fullImage, selected]
 				)
 			);
 		},
@@ -231,18 +233,21 @@ const ImageItemBase = kind({
 			...rest
 		}) => {
 			return reducedComputed({
-				ariaProps: () => {
+				hasImageIcon: () => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'),
+				hasLabel: () => (typeof label !== 'undefined'),
+				hasSelectionComponent: () => (typeof SelectionComponent !== 'undefined'),
+				memoAriaProps: ({hasSelectionComponent}) => {
 					return React.useMemo(
 						() => {
-							console.log('ariaProps');
-							return SelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
+							// console.log('ariaProps');
+							return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
 						},
-						[selected, SelectionComponent]
+						[selected, hasSelectionComponent]
 					);
 				},
-				imageComponent: () => {
+				memoImage: ({hasSelectionComponent}) => {
 					return React.useMemo(() => {
-						console.log('imageComponent');
+						// console.log('memoImage');
 						return (
 							<Image>
 								{showSelection ? (
@@ -256,79 +261,88 @@ const ImageItemBase = kind({
 								) : null}
 							</Image>
 						);
-					}, [css, SelectionComponent, showSelection]);
+					}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]);
 				},
-				memoLabel: () => {
-					const hasLabel = typeof label !== 'undefined';
-
-					return hasLabel && React.useMemo(() => {
-						console.log('memoLabel');
+				memoSubcaption: ({hasLabel}) => {
+					return hasLabel ? React.useMemo(() => {
+						// console.log('memoSubcaption');
+						return (
+							<Marquee className={css.label} marqueeOn="hover">
+								<MemoPropsContext.Consumer>
+									{context => {
+										const hasLabel = typeof label !== 'undefined';
+										return hasLabel ? (context && context.label || label) : null;
+									}}
+								</MemoPropsContext.Consumer>
+							</Marquee>
+						);
+					}, []) : null;
+				},
+				memoCaption: () => {
+					return React.useMemo(() => {
+						// console.log('memoChildren');
+						return (
+							<Marquee className={css.caption} marqueeOn="hover">
+								<MemoPropsContext.Consumer>
+									{context => (context && context.children || children)}
+								</MemoPropsContext.Consumer>
+							</Marquee>
+						);
+					}, []);
+				},
+				memoImageIcon: ({hasImageIcon}) => {
+					return hasImageIcon && React.useMemo(() => {
+						// console.log('memoImageIcon');
 						return (
 							<MemoPropsContext.Consumer>
-								{context => (context && context.label || label)}
+								{context => {
+									return (
+										<Cell
+											className={css.imageIcon}
+											component={context && context.imageIconComponent || imageIconComponent}
+											src={context && context.imageIconSrc || imageIconSrc}
+											shrink
+										/>
+									);
+								}}
 							</MemoPropsContext.Consumer>
 						);
 					}, []);
 				},
-				children: ({memoLabel}) => { // eslint-disable-line no-shadow
-					const hasLabel = typeof label !== 'undefined';
-
-					return React.useMemo(() => {
-						console.log('children');
-						const hasImageIcon = imageIconSrc && orientation === 'vertical';
-
-						if (!hasImageIcon && !children && !label) return;
-
-						console.log('children - return');
+				memoChildren: ({memoCaption, memoImageIcon, memoSubcaption}) => { // eslint-disable-line no-shadow
+					return !(!memoCaption && !memoImageIcon && !memoSubcaption) && React.useMemo(() => {
+						// console.log('children');
 						return (
 							<Row className={css.captions}>
-								{hasImageIcon ? (
-									<Cell
-										className={css.imageIcon}
-										component={imageIconComponent}
-										src={imageIconSrc}
-										shrink
-									/>
-								) : null}
+								{memoImageIcon}
 								<Cell>
-									<Marquee className={css.caption} marqueeOn="hover">
-										<MemoPropsContext.Consumer>
-											{context => (context && context.children || children)}
-										</MemoPropsContext.Consumer>
-									</Marquee>
-									{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{memoLabel}</Marquee> : null}
+									{memoCaption}
+									{memoSubcaption}
 								</Cell>
 							</Row>
 						);
 						// We don't need the dependency of the `chilren` and the `label`
 						// because it will be passed through a context.
 						// eslint-disable-next-line react-hooks/exhaustive-deps
-					}, [css, imageIconComponent, imageIconSrc, hasLabel, orientation]);
+					}, [css.captions]);
 				},
-				imageItem: ({ariaProps, children, imageComponent}) => { // eslint-disable-line no-shadow
-
-					const item =  React.useMemo(() => {
-						console.log('imageItem');
-						return (
-							<UiImageItem
-								{...rest}
-								{...ariaProps}
-								css={css}
-								imageComponent={imageComponent}
-							/>
-						);
-						// We don't need the dependency of the `rest` because it will be passed when cloing an element.
-						// eslint-disable-next-line react-hooks/exhaustive-deps
-					}, [ariaProps, css, imageComponent, selected]);
-
-					return React.cloneElement(item, {...rest, children});
+				imageItem: ({memoAriaProps, memoChildren, memoImage}) => { // eslint-disable-line no-shadow
+					return (
+						<UiImageItem
+							{...rest}
+							{...memoAriaProps}
+							children={memoChildren}
+							css={css}
+							imageComponent={memoImage}
+						/>
+					);
 				}
 			});
 		}
 	},
 
 	render: ({imageItem}) => {
-		console.log('render');
+		// console.log('render');
 		return imageItem;
 	}
 });

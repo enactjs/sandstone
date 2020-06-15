@@ -46,7 +46,7 @@ const
 	renderSelectionItem = ({index, ...rest}) => {
 		const {selected, source, subText, text} = items[index];
 
-		console.log(index, selected);
+		// console.log(index, selected);
 
 		return (
 			<ImageItem
