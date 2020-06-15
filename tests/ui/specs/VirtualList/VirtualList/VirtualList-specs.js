@@ -56,7 +56,7 @@ describe('VirtualList', function () {
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
 			waitUntilFocused(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
-			$('#item3').moveTo(302, 50);
+			Page.item(3).moveTo();
 			// Verify Step 10, Step 11: Spotlight is on 'Item 003'
 			expectFocusedItem(3, 'step 11 focus');
 			// Step 12. Press Channel Down.
@@ -182,7 +182,7 @@ describe('VirtualList', function () {
 		it('should Spotlight with Pointer wave [GT-28476]', function () {
 			// Step 3-1: Position the pointer on 'item 004'.
 			// Step 3-2: 5-way Spot 'Item 004'(while leaving the pointer on 'item 004').
-			$('#item4').moveTo();
+			Page.item(4).moveTo();
 			Page.spotlightSelect();
 			// Verify Step 3: Spotlight displays on the '*Item 004*'.
 			expectFocusedItem(4, 'focus Item 004');
@@ -195,11 +195,11 @@ describe('VirtualList', function () {
 			// Verify Step 4-1: Spotlight hides from 'Item 007'.
 			// Verify Step 4-2: Spotlight displays on the item at the pointer's location.
 			Page.showPointerByKeycode();
-			$('#item3').moveTo();
+			Page.item(3).moveTo();
 			expectFocusedItem(3, 'focus Item 03');
-			$('#item1').moveTo();
+			Page.item(1).moveTo();
 			expectFocusedItem(1, 'focus Item 01');
-			$('#item5').moveTo();
+			Page.item(5).moveTo();
 			expectFocusedItem(5, 'focus Item 05');
 		});
 
@@ -446,17 +446,18 @@ describe('VirtualList', function () {
 				Page.spotlightDown();
 				expectFocusedItem(3, 'focus item3');
 				Page.spotlightDown();
+				// Check to go out of the list.
 				expect(Page.buttonLeft.isFocused(), 'lastitem verify').to.be.true();
 				// Step 4-1: Place the mouse cursor/pointer underneath the last item.
 				// TODO: Need to Flick event handling api.
 				Page.showPointerByKeycode();
-				$('#item3').moveTo();
+				Page.item(3).moveTo();
 				expectFocusedItem(3, 'focus Item 03');
 				// Step 4-3: Move the pointer over any of the items.
 				// Verify 4: Spotlight displays on any of the items.
-				$('#item1').moveTo();
+				Page.item(1).moveTo();
 				expectFocusedItem(1, 'focus Item 01');
-				$('#item0').moveTo();
+				Page.item(0).moveTo();
 				expectFocusedItem(0, 'focus Item 00');
 			});
 		});
@@ -489,7 +490,7 @@ describe('VirtualList', function () {
 				expect(changedSpacing).to.equal(50);
 				// Step5-1: Hover an item.
 				Page.spotlightDown();
-				$('#item5').moveTo();
+				Page.item(5).moveTo();
 				expectFocusedItem(5);
 				// Step5 Verify: The spotlight size does not change.
 				expect(Page.spotlightSize()).to.equal(defaultSpotlightSize);
@@ -507,7 +508,7 @@ describe('VirtualList', function () {
 				expect(newSpacing).to.equal(25);
 				// Step7-1: Hover an item.
 				Page.spotlightDown();
-				$('#item3').moveTo();
+				Page.item(3).moveTo();
 				expectFocusedItem(3);
 				// Step7 Verify: The spotlight size does not change.
 				expect(Page.spotlightSize()).to.equal(defaultSpotlightSize);
@@ -538,7 +539,7 @@ describe('VirtualList', function () {
 				expect(curItemSize.height).to.equal(150);
 				expect(curItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();
-				$('#item2').moveTo();
+				Page.item(2).moveTo();
 				expectFocusedItem(2);
 				const curSpotlightSize = Page.spotlightSize();
 				expect(curSpotlightSize).to.equal(150);
@@ -556,7 +557,7 @@ describe('VirtualList', function () {
 				expect(newItemSize.height).to.equal(25);
 				expect(newItemSize.width).to.equal(defaultItemSize.width);
 				Page.spotlightDown();
-				$('#item4').moveTo();
+				Page.item(4).moveTo();
 				expectFocusedItem(4);
 				const newSpotlightSize = Page.spotlightSize();
 				expect(newSpotlightSize).to.equal(25);
@@ -602,21 +603,20 @@ describe('VirtualList', function () {
 				let index = 1;
 				for (; index < 15; index++) {
 					Page.fiveWayToItem(index);
-					expect(Page.itemDisabled(index)).to.equal('true');
+					expect(Page.itemDisabled()).to.be.true();
 				}
 				Page.fiveWayToItem(index);
-				expect(Page.itemDisabled(index)).to.equal('false');
+				expect(Page.itemDisabled()).to.be.false();
 				// Step 5-3: Spotlight displays on the next Enabled item.
 				expectFocusedItem(15);
 				// Step 6: 5-way Up several times to the previous enabled item.
 				// Step 6-2: Spotlight displays on each Item (Disabled and Enabled) as the list scrolls down.
 				for (index = 14; index > 0; index--){
 					Page.fiveWayToItem(index);
-					console.log(index);
-					expect(Page.itemDisabled(index)).to.equal('true');
+					expect(Page.itemDisabled()).to.be.true();
 				}
 				Page.fiveWayToItem(index);
-				expect(Page.itemDisabled(index)).to.equal('false');
+				expect(Page.itemDisabled()).to.be.false();
 				// Step 6-3: Spotlight displays on the previous Enabled item.
 				expectFocusedItem(0);
 			});
