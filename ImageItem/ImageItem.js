@@ -231,104 +231,102 @@ const ImageItemBase = kind({
 			label, orientation,
 			selected, selectionComponent: SelectionComponent, showSelection,
 			...rest
-		}) => {
-			return reducedComputed({
-				hasImageIcon: () => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'),
-				hasLabel: () => (typeof label !== 'undefined'),
-				hasSelectionComponent: () => (typeof SelectionComponent !== 'undefined'),
-				memoAriaProps: ({hasSelectionComponent}) => {
-					return React.useMemo(
-						() => {
-							// console.log('ariaProps');
-							return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
-						},
-						[selected, hasSelectionComponent]
+		}) => (reducedComputed({
+			hasImageIcon: () => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'),
+			hasLabel: () => (typeof label !== 'undefined'),
+			hasSelectionComponent: () => (typeof SelectionComponent !== 'undefined'),
+			memoAriaProps: ({hasSelectionComponent}) => {
+				return React.useMemo(
+					() => {
+						// console.log('ariaProps');
+						return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
+					},
+					[selected, hasSelectionComponent]
+				);
+			},
+			memoImage: ({hasSelectionComponent}) => {
+				return React.useMemo(() => {
+					// console.log('memoImage');
+					return (
+						<Image>
+							{showSelection ? (
+								<div className={css.selectionContainer}>
+									{SelectionComponent ? (
+										<SelectionComponent />
+									) : (
+										<Icon className={css.selectionIcon}>check</Icon>
+									)}
+								</div>
+							) : null}
+						</Image>
 					);
-				},
-				memoImage: ({hasSelectionComponent}) => {
-					return React.useMemo(() => {
-						// console.log('memoImage');
-						return (
-							<Image>
-								{showSelection ? (
-									<div className={css.selectionContainer}>
-										{SelectionComponent ? (
-											<SelectionComponent />
-										) : (
-											<Icon className={css.selectionIcon}>check</Icon>
-										)}
-									</div>
-								) : null}
-							</Image>
-						);
-					}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]);
-				},
-				memoSubcaption: ({hasLabel}) => {
-					return hasLabel ? React.useMemo(() => {
-						// console.log('memoSubcaption');
-						return (
-							<Marquee className={css.label} marqueeOn="hover">
-								<MemoPropsContext.Consumer>
-									{context => {
-										const hasLabel = typeof label !== 'undefined';
-										return hasLabel ? (context && context.label || label) : null;
-									}}
-								</MemoPropsContext.Consumer>
-							</Marquee>
-						);
-					}, []) : null;
-				},
-				memoCaption: () => {
-					return React.useMemo(() => {
-						// console.log('memoChildren');
-						return (
-							<Marquee className={css.caption} marqueeOn="hover">
-								<MemoPropsContext.Consumer>
-									{context => (context && context.children || children)}
-								</MemoPropsContext.Consumer>
-							</Marquee>
-						);
-					}, []);
-				},
-				memoImageIcon: ({hasImageIcon}) => {
-					return hasImageIcon && React.useMemo(() => {
-						// console.log('memoImageIcon');
-						return (
+				}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]);
+			},
+			memoSubcaption: ({hasLabel}) => {
+				return hasLabel ? React.useMemo(() => {
+					// console.log('memoSubcaption');
+					return (
+						<Marquee className={css.label} marqueeOn="hover">
 							<MemoPropsContext.Consumer>
 								{context => {
-									return (
-										<Cell
-											className={css.imageIcon}
-											component={context && context.imageIconComponent || imageIconComponent}
-											src={context && context.imageIconSrc || imageIconSrc}
-											shrink
-										/>
-									);
+									const hasLabel = typeof label !== 'undefined';
+									return hasLabel ? (context && context.label || label) : null;
 								}}
 							</MemoPropsContext.Consumer>
-						);
-					}, []);
-				},
-				memoChildren: ({memoCaption, memoImageIcon, memoSubcaption}) => { // eslint-disable-line no-shadow
-					return !(!memoCaption && !memoImageIcon && !memoSubcaption) && React.useMemo(() => {
-						// console.log('children');
-						return (
-							<Row className={css.captions}>
-								{memoImageIcon}
-								<Cell>
-									{memoCaption}
-									{memoSubcaption}
-								</Cell>
-							</Row>
-						);
-						// We don't need the dependency of the `chilren` and the `label`
-						// because it will be passed through a context.
-						// eslint-disable-next-line react-hooks/exhaustive-deps
-					}, [css.captions]);
-				},
-				computedProps: ({memoAriaProps, memoChildren, memoImage, rest}) => ({memoAriaProps, memoChildren, memoImage, rest})
-			});
-		}
+						</Marquee>
+					);
+				}, []) : null;
+			},
+			memoCaption: () => {
+				return React.useMemo(() => {
+					// console.log('memoChildren');
+					return (
+						<Marquee className={css.caption} marqueeOn="hover">
+							<MemoPropsContext.Consumer>
+								{context => (context && context.children || children)}
+							</MemoPropsContext.Consumer>
+						</Marquee>
+					);
+				}, []);
+			},
+			memoImageIcon: ({hasImageIcon}) => {
+				return hasImageIcon && React.useMemo(() => {
+					// console.log('memoImageIcon');
+					return (
+						<MemoPropsContext.Consumer>
+							{context => {
+								return (
+									<Cell
+										className={css.imageIcon}
+										component={context && context.imageIconComponent || imageIconComponent}
+										src={context && context.imageIconSrc || imageIconSrc}
+										shrink
+									/>
+								);
+							}}
+						</MemoPropsContext.Consumer>
+					);
+				}, []);
+			},
+			memoChildren: ({memoCaption, memoImageIcon, memoSubcaption}) => { // eslint-disable-line no-shadow
+				return !(!memoCaption && !memoImageIcon && !memoSubcaption) && React.useMemo(() => {
+					// console.log('children');
+					return (
+						<Row className={css.captions}>
+							{memoImageIcon}
+							<Cell>
+								{memoCaption}
+								{memoSubcaption}
+							</Cell>
+						</Row>
+					);
+					// We don't need the dependency of the `chilren` and the `label`
+					// because it will be passed through a context.
+					// eslint-disable-next-line react-hooks/exhaustive-deps
+				}, [css.captions]);
+			},
+			computedProps: ({memoAriaProps, memoChildren, memoImage, rest}) => ({memoAriaProps, memoChildren, memoImage, rest})
+		}))
 	},
 
 	render: ({className, computedProps: {memoAriaProps, memoChildren, memoImage, rest}, css}) => {
