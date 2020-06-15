@@ -23,6 +23,7 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 import componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
+const isPasswordType = type => type === 'password' || type === 'passwordnumber';
 
 /**
  * Base component for providing text input in the form of a popup without button.
@@ -448,15 +449,22 @@ const InputBase = kind({
 		)
 	},
 
-	render: ({announce, type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
-		const ariaProps = extractAriaProps(rest);
-		const password = (type === 'password' || type === 'passwordnumber');
-		let buttonAriaLabel = null;
-		if (value) {
-			buttonAriaLabel = calcAriaLabel('', password ? 'password' : null, (type === 'number') ? value.split('') : value);
-		} else {
-			buttonAriaLabel = calcAriaLabel('', null, placeholder);
+	computed: {
+		buttonAriaLabel: ({placeholder, type, value}) => {
+			if (value) {
+				type = isPasswordType(type) ? 'password' : null;
+				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
+			}
+
+			return calcAriaLabel('', null, placeholder);
+		},
+		buttonLabel: ({placeholder, type, value}) => {
+			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
 		}
+	},
+
+	render: ({announce, buttonAriaLabel, buttonLabel, type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
+		const ariaProps = extractAriaProps(rest);
 
 		return (
 			<React.Fragment>
@@ -478,13 +486,14 @@ const InputBase = kind({
 					aria-label={buttonAriaLabel}
 					{...ariaProps}
 				>
-					{(password ? convertToPasswordFormat(value) : value) || placeholder}
+					{buttonLabel}
 				</Button>
 			</React.Fragment>
 		);
 	}
 });
 
+// eslint-disable-next-line no-shadow
 const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
 	const {announce, children} = useAnnounce();
 
