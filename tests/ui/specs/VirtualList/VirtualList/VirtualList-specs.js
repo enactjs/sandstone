@@ -602,10 +602,10 @@ describe('VirtualList', function () {
 				let index = 1;
 				for (; index < 15; index++) {
 					Page.fiveWayToItem(index);
-					expect(Page.itemDisabled()).to.equal('true');
+					expect(Page.itemDisabled(index)).to.equal('true');
 				}
 				Page.fiveWayToItem(index);
-				expect(Page.itemDisabled()).to.equal('false');
+				expect(Page.itemDisabled(index)).to.equal('false');
 				// Step 5-3: Spotlight displays on the next Enabled item.
 				expectFocusedItem(15);
 				// Step 6: 5-way Up several times to the previous enabled item.
@@ -613,10 +613,10 @@ describe('VirtualList', function () {
 				for (index = 14; index > 0; index--){
 					Page.fiveWayToItem(index);
 					console.log(index);
-					expect(Page.itemDisabled()).to.equal('true');
+					expect(Page.itemDisabled(index)).to.equal('true');
 				}
 				Page.fiveWayToItem(index);
-				expect(Page.itemDisabled()).to.equal('false');
+				expect(Page.itemDisabled(index)).to.equal('false');
 				// Step 6-3: Spotlight displays on the previous Enabled item.
 				expectFocusedItem(0);
 			});

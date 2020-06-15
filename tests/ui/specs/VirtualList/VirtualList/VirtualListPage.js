@@ -145,10 +145,11 @@ class VirtualListPage extends Page {
 		}, listItemSelector);
 	}
 
-	itemDisabled () {
-		return browser.execute(function () {
-			return document.activeElement.ariaDisabled;
-		});
+	itemDisabled (itemNum) {
+		const itemId = 'item' + itemNum;
+		return browser.execute(function (_itemId) {
+			return document.getElementById(_itemId).ariaDisabled;
+		}, itemId);
 	}
 
 	fiveWayToItem (itemNum) {
