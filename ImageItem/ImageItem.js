@@ -43,10 +43,6 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
-const useMemo = (...args) => {
-	return React.useMemo(...args);
-};
-
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -216,11 +212,14 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		className: ({children, imageIconSrc, label, orientation, styler}) => {
+		className: ({children, imageIconSrc, label, orientation, selected, styler}) => {
 			return styler.append(
-				useMemo(
-					() => ({fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label}),
-					[children, imageIconSrc, label, orientation]
+				React.useMemo(
+					() => {
+						console.log('className');
+						return {fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label, selected}
+					},
+					[!!children, !!imageIconSrc, !!label, orientation, selected]
 				)
 			);
 		},
@@ -233,13 +232,17 @@ const ImageItemBase = kind({
 		}) => {
 			const computedProps = reducedComputed({
 				ariaProps: () => {
-					return useMemo(
-						() => (SelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null),
+					return React.useMemo(
+						() => {
+							console.log('ariaProps');
+							return SelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
+						},
 						[selected, SelectionComponent]
 					);
 				},
 				imageComponent: () => {
-					return useMemo(() => {
+					return React.useMemo(() => {
+						console.log('imageComponent');
 						return (
 							<Image>
 								{showSelection ? (
@@ -258,7 +261,8 @@ const ImageItemBase = kind({
 				memoLabel: () => {
 					const hasLabel = typeof label !== 'undefined';
 
-					return hasLabel && useMemo(() => {
+					return hasLabel && React.useMemo(() => {
+						console.log('memoLabel');
 						return (
 							<MemoPropsContext.Consumer>
 								{context => (context && context.label || label)}
@@ -269,11 +273,13 @@ const ImageItemBase = kind({
 				children: ({label}) => { // eslint-disable-line no-shadow
 					const hasLabel = typeof label !== 'undefined';
 
-					return useMemo(() => {
+					return React.useMemo(() => {
+						console.log('children');
 						const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 						if (!hasImageIcon && !children && !label) return;
 
+						console.log('children - return');
 						return (
 							<Row className={css.captions}>
 								{hasImageIcon ? (
@@ -297,7 +303,8 @@ const ImageItemBase = kind({
 				},
 				imageItem: ({ariaProps, children, imageComponent}) => { // eslint-disable-line no-shadow
 
-					const item =  useMemo(() => {
+					const item =  React.useMemo(() => {
+						console.log('imageItem');
 						return (
 							<UiImageItem
 								{...rest}
@@ -308,7 +315,7 @@ const ImageItemBase = kind({
 						);
 						// We don't need the dependency of the `rest` because it will be passed when cloing an element.
 						// eslint-disable-next-line react-hooks/exhaustive-deps
-					}, [ariaProps, css, imageComponent]);
+					}, [ariaProps, css, imageComponent, selected]);
 
 					return React.cloneElement(item, {...rest, children});
 				}
