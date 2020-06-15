@@ -270,7 +270,7 @@ const ImageItemBase = kind({
 						);
 					}, []);
 				},
-				children: ({label}) => { // eslint-disable-line no-shadow
+				children: ({memoLabel}) => { // eslint-disable-line no-shadow
 					const hasLabel = typeof label !== 'undefined';
 
 					return React.useMemo(() => {
@@ -291,8 +291,12 @@ const ImageItemBase = kind({
 									/>
 								) : null}
 								<Cell>
-									<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-									{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+									<Marquee className={css.caption} marqueeOn="hover">
+										<MemoPropsContext.Consumer>
+											{context => (context && context.children || children)}
+										</MemoPropsContext.Consumer>
+									</Marquee>
+									{hasLabel ? <Marquee className={css.label} marqueeOn="hover">{memoLabel}</Marquee> : null}
 								</Cell>
 							</Row>
 						);
@@ -326,6 +330,7 @@ const ImageItemBase = kind({
 	},
 
 	render: ({imageItem}) => {
+		console.log('render');
 		return imageItem;
 	}
 });
