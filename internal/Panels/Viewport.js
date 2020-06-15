@@ -154,8 +154,8 @@ const ViewportBase = class extends React.Component {
 		this.node = ReactDOM.findDOMNode(this);
 	}
 
-	shouldComponentUpdate ({index: nextIndex}) {
-		if (nextIndex !== this.props.index) {
+	shouldComponentUpdate ({index}) {
+		if (index !== this.props.index) {
 			const current = Spotlight.getCurrent();
 
 			if (current && this.node.querySelector(`[data-index='${this.props.index}']`).contains(current)) {
