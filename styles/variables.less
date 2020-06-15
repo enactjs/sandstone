@@ -1,5 +1,6 @@
 // Variables
 //
+@import "./internal/utils.less";
 
 // App
 // ---------------------------------------
@@ -68,8 +69,8 @@
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
-@sand-switch-icon-font-size:        90px;
-@sand-switch-icon-font-size-large:  144px;
+@sand-switch-icon-font-size:        84px;
+@sand-switch-icon-font-size-large:  138px;
 @sand-tooltip-label-font-size:      54px;
 @sand-tooltip-transparent-label-font-size: 36px;
 
@@ -306,6 +307,10 @@
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
 @sand-flexiblepopuppanels-navbutton-margin: 0;
+
+// FormCheckboxItem
+// ---------------------------------------
+@sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
 
 // Header
 // ---------------------------------------

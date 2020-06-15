@@ -50,6 +50,7 @@ storiesOf('Sandstone', module)
 			<div style={{textAlign: 'center'}}>
 				<TooltipButton
 					tooltipDelay={number('tooltipDelay', Config, 500)}
+					tooltipMarquee={boolean('tooltipMarquee', Config)}
 					tooltipText={text('tooltipText', Config, 'tooltip!')}
 					tooltipType={select('tooltipType', prop.tooltipType, Config)}
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config)}
