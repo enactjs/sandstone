@@ -611,7 +611,7 @@ describe('VirtualList', function () {
 				expectFocusedItem(15);
 				// Step 6: 5-way Up several times to the previous enabled item.
 				// Step 6-2: Spotlight displays on each Item (Disabled and Enabled) as the list scrolls down.
-				for (index = 14; index > 0; index--){
+				for (index = 14; index > 0; index--) {
 					Page.fiveWayToItem(index);
 					expect(Page.itemDisabled()).to.be.true();
 				}
