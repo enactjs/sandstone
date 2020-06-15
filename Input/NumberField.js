@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forward, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -97,12 +97,9 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
-					({value}, {announce, type}) => {
-						const password = (type === 'password');
-						const string = value.toString();
-						announce(password ? $L('hidden') : string.charAt(string.length - 1));
-						return true;
-					},
+					returnsTrue(({value}, {announce, type}) => {
+						announce(type === 'password' ? $L('hidden') : String(value).substr(-1));
+					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
@@ -118,15 +115,10 @@ const NumberFieldBase = kind({
 			)
 		),
 		onRemove: handle(
+			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
-				handle(
-					(_, {announce}) => {
-						announce($L('Back Space'));
-						return true;
-					},
-					forward('onChange')
-				)
+				forward('onChange')
 			)
 		),
 		onSubmit: handle(
