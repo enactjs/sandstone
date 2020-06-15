@@ -46,6 +46,7 @@ class VirtualListPage extends Page {
 	get buttonChildProps () {
 		return element('#hasChildProps', browser);
 	}
+
 	get inputfieldNumItems () {
 		return element('#numItems', browser);
 	}
@@ -55,6 +56,7 @@ class VirtualListPage extends Page {
 	get inputfieldItemSize () {
 		return element('#itemSize', browser);
 	}
+
 	get scrollbar () {
 		return $(`${scrollbarSelector}`);
 	}
@@ -83,6 +85,7 @@ class VirtualListPage extends Page {
 		}, scrollbarSelector);
 
 	}
+
 	get list () {
 		return element('#list', browser);
 	}
@@ -99,7 +102,6 @@ class VirtualListPage extends Page {
 	item (id) {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
-
 	/* global document */
 	topVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
@@ -122,7 +124,6 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-
 	/* global document */
 	bottomVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
@@ -148,14 +149,12 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-
 	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;
 		}, this.item(id).value);
 	}
-
 	itemSpacing () {
 		return browser.execute(function (_listItemSelector) {
 			const itemContent = document.querySelectorAll(_listItemSelector);
@@ -175,12 +174,11 @@ class VirtualListPage extends Page {
 			};
 		}, listItemSelector);
 	}
-	itemInnerText () {
+	textContent () {
 		return browser.execute(function () {
-			return document.activeElement.innerText;
+			return document.activeElement.innerText.split('\n');
 		});
 	}
-
 	fiveWayToItem (itemNum) {
 		const currentItem = Number(focusedElement().slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
@@ -197,6 +195,11 @@ class VirtualListPage extends Page {
 			waitUntilVisible(i + direction);
 		}
 	}
+	spotlightSize () {
+		return browser.execute(function () {
+			return document.activeElement.clientHeight;
+		});
+	}
 
 	backSpace () {
 		return this.keyDelay('Backspace');
@@ -205,12 +208,6 @@ class VirtualListPage extends Page {
 	numPad (num) {
 		let Inputnum = 'numpad' + String(num);
 		return this.keyDelay(Inputnum);
-	}
-
-	spotlightSize () {
-		return browser.execute(function () {
-			return document.activeElement.clientHeight;
-		});
 	}
 }
 
