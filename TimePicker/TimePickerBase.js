@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import $L from '../internal/$L';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
@@ -295,6 +296,10 @@ const TimePickerBase = kind({
 		spotlightDisabled,
 		...rest
 	}) => {
+		const
+			hourAccessibilityHint = $L('hour'),
+			minuteAccessibilityHint = $L('minute');
+
 		return (
 			<DateTime {...rest} css={css}>
 				{order.map((picker, index) => {
@@ -313,12 +318,12 @@ const TimePickerBase = kind({
 							return (
 								<React.Fragment key="hour-picker">
 									<HourPicker
-										accessibilityHint={hourAriaLabel}
+										accessibilityHint={hourAccessibilityHint}
 										aria-label={hourAriaLabel}
 										className={css.hourPicker}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={hourAriaLabel}
+										data-webos-voice-group-label={hourAccessibilityHint}
 										hasMeridiem={hasMeridiem}
 										onChange={onChangeHour}
 										onSpotlightDisappear={onSpotlightDisappear}
@@ -335,12 +340,12 @@ const TimePickerBase = kind({
 						case 'm':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={minuteAriaLabel}
+									accessibilityHint={minuteAccessibilityHint}
 									aria-label={minuteAriaLabel}
 									className={css.minutePicker}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={minuteAriaLabel}
+									data-webos-voice-group-label={minuteAccessibilityHint}
 									key="minute-picker"
 									max={59}
 									min={0}
