@@ -148,7 +148,7 @@ class VirtualListPage extends Page {
 	itemDisabled (itemNum) {
 		const itemId = 'item' + itemNum;
 		return browser.execute(function (_itemId) {
-			return document.getElementById(_itemId).ariaDisabled;
+			return document.getElementById(_itemId).getAttribute('aria-disabled');
 		}, itemId);
 	}
 
