@@ -36,10 +36,10 @@
     "extends": "enact/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.3.0-alpha.11",
-    "@enact/i18n": "^3.3.0-alpha.11",
-    "@enact/spotlight": "^3.3.0-alpha.11",
-    "@enact/ui": "^3.3.0-alpha.11",
+    "@enact/core": "^3.3.0-alpha.12",
+    "@enact/i18n": "^3.3.0-alpha.12",
+    "@enact/spotlight": "^3.3.0-alpha.12",
+    "@enact/ui": "^3.3.0-alpha.12",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
