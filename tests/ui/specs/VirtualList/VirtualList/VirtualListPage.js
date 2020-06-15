@@ -22,42 +22,75 @@ class VirtualListPage extends Page {
 		super.open('VirtualList-View', urlExtra);
 	}
 
-	get buttonHideScrollbar () { return element('#hideScrollbar', browser); }
-	get buttonTop () { return element('#top', browser); }
-	get buttonLeft () { return element('#left', browser); }
-	get buttonRight () { return element('#right', browser); }
-	get buttonBottom () { return element('#bottom', browser); }
-	get buttonWrap () { return element('#wrap', browser); }
-	get buttonJumpToItem () { return element('#jumpTo', browser); }
-	get inputfieldNumItems () { return element('#numItems', browser); }
-	get inputfieldSpacing () { return element('#spacing', browser); }
-	get inputfieldItemSize () { return element('#itemSize', browser); }
-	get scrollbar () { return $(`${scrollbarSelector}`); }
-	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
+	get buttonHideScrollbar () {
+		return element('#hideScrollbar', browser);
+	}
+	get buttonTop () {
+		return element('#top', browser);
+	}
+	get buttonLeft () {
+		return element('#left', browser);
+	}
+	get buttonRight () {
+		return element('#right', browser);
+	}
+	get buttonBottom () {
+		return element('#bottom', browser);
+	}
+	get buttonWrap () {
+		return element('#wrap', browser);
+	}
+	get buttonJumpToItem () {
+		return element('#jumpTo', browser);
+	}
+	get buttonChildProps () {
+		return element('#hasChildProps', browser);
+	}
+	get inputfieldNumItems () {
+		return element('#numItems', browser);
+	}
+	get inputfieldSpacing () {
+		return element('#spacing', browser);
+	}
+	get inputfieldItemSize () {
+		return element('#itemSize', browser);
+	}
+	get scrollbar () {
+		return $(`${scrollbarSelector}`);
+	}
+	get scrollBarSize () {
+		return $(`${scrollbarSelector}`).getElementSize();
+	}
 	getScrollOffsetLeft () {
-		return browser.execute(function (_verticalscrollbarSelector){
+		return browser.execute(function (_verticalscrollbarSelector) {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
 			return verticalscrollbar.offsetLeft;
 		}, verticalscrollbarSelector);
 	}
 	getScrollbarWidth () {
-		return browser.execute(function (_verticalscrollbarSelector){
+		return browser.execute(function (_verticalscrollbarSelector) {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
 			return verticalscrollbar.clientWidth;
 		}, verticalscrollbarSelector);
 	}
-	get scrollThumb () { return $(`${scrollThumbSelector}`); }
+	get scrollThumb () {
+		return $(`${scrollThumbSelector}`);
+	}
 	getScrollThumbPosition () {
-		return browser.execute(function (_scrollbarSelector){
+		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelector(_scrollbarSelector);
 			return scrollbar.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
 		}, scrollbarSelector);
 
 	}
-	get list () { return element('#list', browser); }
-	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
+	get list () {
+		return element('#list', browser);
+	}
+	get listSize () {
+		return $(`${scrollableSelector}`).getElementSize();
+	}
 	getListwidthSize () {
-		return browser.execute(function (_scrollContentSelector){
+		return browser.execute(function (_scrollContentSelector) {
 			const scrollcontent = document.querySelector(_scrollContentSelector);
 			return scrollcontent.clientWidth;
 		}, scrollContentSelector);
@@ -124,7 +157,7 @@ class VirtualListPage extends Page {
 	}
 
 	itemSpacing () {
-		return browser.execute(function (_listItemSelector){
+		return browser.execute(function (_listItemSelector) {
 			const itemContent = document.querySelectorAll(_listItemSelector);
 			const firstItemRect = itemContent[0].getBoundingClientRect();
 			const secondItemRect = itemContent[1].getBoundingClientRect();
@@ -132,7 +165,7 @@ class VirtualListPage extends Page {
 		}, listItemSelector);
 	}
 	getItemSize () {
-		return browser.execute(function (_listItemSelector){
+		return browser.execute(function (_listItemSelector) {
 			const itemContent = document.querySelector(_listItemSelector);
 			const itemHeight = itemContent.getBoundingClientRect().height;
 			const itemWidth = itemContent.getBoundingClientRect().width;
@@ -141,6 +174,11 @@ class VirtualListPage extends Page {
 				width: itemWidth
 			};
 		}, listItemSelector);
+	}
+	itemInnerText () {
+		return browser.execute(function () {
+			return document.activeElement.innerText;
+		});
 	}
 
 	fiveWayToItem (itemNum) {
@@ -170,7 +208,9 @@ class VirtualListPage extends Page {
 	}
 
 	spotlightSize () {
-		return browser.execute(function () { return document.activeElement.clientHeight; });
+		return browser.execute(function () {
+			return document.activeElement.clientHeight;
+		});
 	}
 }
 
