@@ -12,23 +12,23 @@ class DayPickerWithItem extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			selectdDayString: 'None selected'
+			selectedDayString: 'None selected'
 		};
 	}
 
 	handleSelect = (ev) => {
-		this.setState({selectdDayString: getSelectedDayString(ev.selected, 'None selected')});
+		this.setState({selectedDayString: getSelectedDayString(ev.selected, 'None selected')});
 	}
 
 	render () {
-		const {selectdDayString} = this.state;
+		const {selectedDayString} = this.state;
 
 		return (
 			<Scroller>
-				<Heading size="small">Select several day, every day, every weekday and weekend.<br />
-				Change locale to *es-ES* starting on Monday.
+				<Heading size="small">Select several days, every day, every weekday and weekend.<br />
+					Change locale to *es-ES* starting on Monday.
 				</Heading>
-				<Item label={selectdDayString}>{'Selected Day'}</Item>
+				<Item label={selectedDayString}>{'Selected Day'}</Item>
 				<DayPicker onSelect={this.handleSelect} />
 			</Scroller>
 		);
