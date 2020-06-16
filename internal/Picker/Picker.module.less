@@ -272,7 +272,10 @@
 			}
 
 			.focus({
-				color: @sand-picker-focus-text-color;
+				&,
+				.valueWrapper {
+					.sand-spotlight-focus-text-colors();
+				}
 
 				&.horizontal {
 					&::before {
