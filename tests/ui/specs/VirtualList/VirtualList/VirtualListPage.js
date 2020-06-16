@@ -212,7 +212,6 @@ class VirtualListPage extends Page {
 	backSpace () {
 		return this.keyDelay('Backspace');
 	}
-
 	numPad (num) {
 		let Inputnum = 'numpad' + String(num);
 		return this.keyDelay(Inputnum);
