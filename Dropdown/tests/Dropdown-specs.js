@@ -3,10 +3,37 @@ import {mount, shallow} from 'enzyme';
 import {Dropdown, DropdownBase} from '../Dropdown';
 import DropdownList from '../DropdownList';
 
-const title = 'Dropdown select';
 const children = ['option1', 'option2', 'option3'];
+const placeholder = 'Dropdown select';
+const title = 'Options';
 
 describe('Dropdown', () => {
+	test('should have default `placeholder` when a value is not provided', () => {
+		const dropDown = shallow(
+			<DropdownBase>
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = 'No selection';
+		const actual = dropDown.find('DropdownButton').prop('children');
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should have `placeholder` when a value is provided', () => {
+		const dropDown = shallow(
+			<DropdownBase placeholder={placeholder}>
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = placeholder;
+		const actual = dropDown.find('DropdownButton').prop('children');
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should have `title`', () => {
 		const dropDown = mount(
 			<DropdownBase title={title}>
@@ -15,48 +42,102 @@ describe('Dropdown', () => {
 		);
 
 		const expected = title;
-		const actual = dropDown.find('.text').text();
+		const actual = dropDown.find('.heading').text();
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should have `title` when `children` is invalid', () => {
+	test('should apply id to dropdown', () => {
 		const dropDown = mount(
-			<DropdownBase title={title}>
+			<DropdownBase id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = 'drop';
+		// NOTE: Using `#id` as a find will pass because Enzyme will find the id prop and use that
+		// instead of what is rendered into the DOM.
+		const actual = dropDown.getDOMNode().id;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should apply aria label id to `title`', () => {
+		const dropDown = mount(
+			<DropdownBase title={title} id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = true;
+		const actual = dropDown.find('#drop_title').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should apply aria-labeled-by to dropdown with title', () => {
+		const dropDown = mount(
+			<DropdownBase title={title} id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = true;
+		const actual = dropDown.find('[aria-labelledby="drop_title"]').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not apply aria-labeled-by when no title exists', () => {
+		const dropDown = mount(
+			<DropdownBase id="drop">
+				{children}
+			</DropdownBase>
+		);
+
+		const expected = false;
+		const actual = dropDown.find('[aria-labelledby]').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should have `placeholder` when `children` is invalid', () => {
+		const dropDown = shallow(
+			<DropdownBase placeholder={placeholder}>
 				{null}
 			</DropdownBase>
 		);
 
-		const expected = title;
-		const actual = dropDown.find('.text').text();
+		const expected = placeholder;
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should have `title` that reflects `selected` option', () => {
+	test('should have `placeholder` that reflects `selected` option', () => {
 		const selectedIndex = 1;
 
-		const dropDown = mount(
-			<DropdownBase selected={selectedIndex} title={title}>
+		const dropDown = shallow(
+			<DropdownBase selected={selectedIndex}>
 				{children}
 			</DropdownBase>
 		);
 
 		const expected = children[selectedIndex];
-		const actual = dropDown.find('.text').text();
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should have `title` when `selected` is invalid', () => {
-		const dropDown = mount(
-			<DropdownBase title={title} selected={-1}>
+	test('should have `placeholder` when `selected` is invalid', () => {
+		const dropDown = shallow(
+			<DropdownBase placeholder={placeholder} selected={-1}>
 				{children}
 			</DropdownBase>
 		);
 
-		const expected = title;
-		const actual = dropDown.find('.text').text();
+		const expected = placeholder;
+		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);
 	});
@@ -109,7 +190,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = 'checkbox';
-		const actual = dropDown.prop('popupProps').children[0].role;
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].role;
 
 		expect(actual).toBe(expected);
 	});
@@ -122,7 +203,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = true;
-		const actual = dropDown.prop('popupProps').children[0]['aria-checked'];
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0]['aria-checked'];
 
 		expect(actual).toBe(expected);
 	});
@@ -139,7 +220,7 @@ describe('Dropdown', () => {
 		);
 
 		const expected = true;
-		const actual = dropDown.prop('popupProps').children[0].disabled;
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0].disabled;
 
 		expect(actual).toBe(expected);
 	});
@@ -161,7 +242,7 @@ describe('Dropdown', () => {
 			role: 'button',
 			'aria-checked': false
 		};
-		const actual = dropDown.prop('popupProps').children[0];
+		const actual = dropDown.find('DropdownButton').prop('popupProps').children[0];
 
 		expect(actual).toMatchObject(expected);
 	});

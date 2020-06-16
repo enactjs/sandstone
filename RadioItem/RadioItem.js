@@ -10,6 +10,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -64,7 +65,15 @@ const RadioItemBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after the radio button and before `children`.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	defaultProps: {
@@ -77,7 +86,7 @@ const RadioItemBase = kind({
 		publicClassNames: ['radioItem']
 	},
 
-	render: ({children, css, icon, selected, ...rest}) => {
+	render: ({children, css, icon, selected, slotBefore, ...rest}) => {
 		return (
 			<Item
 				data-webos-voice-intent="SelectRadioItem"
@@ -87,7 +96,10 @@ const RadioItemBase = kind({
 				css={css}
 				selected={selected}
 			>
-				<Icon slot="slotBefore" className={css.icon} size="tiny">{icon}</Icon>
+				<slotBefore>
+					<Icon className={css.icon} size="tiny">{icon}</Icon>
+					{slotBefore}
+				</slotBefore>
 				{children}
 			</Item>
 		);
@@ -103,7 +115,8 @@ const RadioItemBase = kind({
  * @public
  */
 const RadioItemDecorator = compose(
-	Toggleable({toggleProp: 'onTap'})
+	Toggleable({toggleProp: 'onTap'}),
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**
