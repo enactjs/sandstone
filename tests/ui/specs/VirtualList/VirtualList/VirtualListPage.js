@@ -22,6 +22,7 @@ class VirtualListPage extends Page {
 		super.open('VirtualList-View', urlExtra);
 	}
 
+	// button api
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
@@ -47,6 +48,7 @@ class VirtualListPage extends Page {
 		return element('#hasChildProps', browser);
 	}
 
+	// inputField api
 	get inputfieldNumItems () {
 		return element('#numItems', browser);
 	}
@@ -57,11 +59,12 @@ class VirtualListPage extends Page {
 		return element('#itemSize', browser);
 	}
 
+	// scrollBar api
 	get scrollbar () {
-		return $(`${scrollbarSelector}`);
+		return $(`${verticalscrollbarSelector}`);
 	}
 	get scrollBarSize () {
-		return $(`${scrollbarSelector}`).getElementSize();
+		return $(`${verticalscrollbarSelector}`).getElementSize();
 	}
 	getScrollOffsetLeft () {
 		return browser.execute(function (_verticalscrollbarSelector) {
@@ -75,6 +78,8 @@ class VirtualListPage extends Page {
 			return verticalscrollbar.clientWidth;
 		}, verticalscrollbarSelector);
 	}
+
+	// scrollThumb api
 	get scrollThumb () {
 		return $(`${scrollThumbSelector}`);
 	}
@@ -86,6 +91,7 @@ class VirtualListPage extends Page {
 
 	}
 
+	// list api
 	get list () {
 		return element('#list', browser);
 	}
@@ -99,6 +105,7 @@ class VirtualListPage extends Page {
 		}, scrollContentSelector);
 	}
 
+	// item api
 	item (id) {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
@@ -176,9 +183,16 @@ class VirtualListPage extends Page {
 	}
 	textContent () {
 		return browser.execute(function () {
-			return document.activeElement.innerText.split('\n');
+			return document.activeElement.innerText.split('\n')[0];
 		});
 	}
+	spotlightSize () {
+		return browser.execute(function () {
+			return document.activeElement.clientHeight;
+		});
+	}
+
+	// key input api
 	fiveWayToItem (itemNum) {
 		const currentItem = Number(focusedElement().slice(4));
 		expect(Number.isNaN(currentItem), 'Not focused to an item').to.be.false();
@@ -195,12 +209,6 @@ class VirtualListPage extends Page {
 			waitUntilVisible(i + direction);
 		}
 	}
-	spotlightSize () {
-		return browser.execute(function () {
-			return document.activeElement.clientHeight;
-		});
-	}
-
 	backSpace () {
 		return this.keyDelay('Backspace');
 	}

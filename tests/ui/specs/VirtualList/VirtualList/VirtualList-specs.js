@@ -598,26 +598,21 @@ describe('VirtualList', function () {
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
 				expectFocusedItem(0);
-				const firstItemPrevText = Page.textContent();
-				expect(firstItemPrevText[0]).to.equal('Item 00');
+				expect(Page.textContent()).to.equal('Item 00');
 				// Verify 1-3: The second item shows 'Item 001'.
 				Page.spotlightDown();
 				expectFocusedItem(1);
-				const secondItemPrevText = Page.textContent();
-				expect(secondItemPrevText[0]).to.equal('Item 01');
+				expect(Page.textContent()).to.equal('Item 01');
 				// Step 3: 5-way Spot and Select 'Chid Props' toggle button.
-				Page.buttonChildProps.moveTo();
-				Page.spotlightSelect();
+				Page.buttonChildProps.click();
 				// Verify 3-1: The first item shows 'Item 000 child props'.
 				Page.item(0).moveTo();
 				expectFocusedItem(0);
-				const firstItemAfterText = Page.textContent();
-				expect(firstItemAfterText[0]).to.equal('Item 00 child props');
+				expect(Page.textContent()).to.equal('Item 00 child props');
 				// Verify 3-2: The second item shows 'Item 001 child props'.
 				Page.spotlightDown();
 				expectFocusedItem(1);
-				const secondItemAfterText = Page.textContent();
-				expect(secondItemAfterText[0]).to.equal('Item 01 child props');
+				expect(Page.textContent()).to.equal('Item 01 child props');
 			});
 		});
 	});
