@@ -155,8 +155,13 @@ const ViewportBase = class extends React.Component {
 	}
 
 	shouldComponentUpdate ({index}) {
+		// FIXME: This is non-standard but is the only API in the current architecture to do this
+		// work. It should be refactored in the future in order to not overload this method with
+		// side effects.
 		if (index !== this.props.index) {
 			const current = Spotlight.getCurrent();
+			// :scope refers to the current node and allows us to use the direct descendant '>'
+			// selector to limit the results to views (and not other components with [data-index])
 			const panel = this.node.querySelector(`:scope > [data-index='${this.props.index}']`);
 
 			if (current && panel && panel.contains(current)) {
