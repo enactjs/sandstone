@@ -139,8 +139,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the hour picker
 		 *
+		 * If not specified, the "aria-label" for the hour picker will be
+		 * a combination of the current value and 'hour change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		hourAriaLabel: PropTypes.string,
@@ -182,8 +184,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the minute picker.
 		 *
+		 * If not specified, the "aria-label" for the minute picker will be
+		 * a combination of the current value and 'minute change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		minuteAriaLabel: PropTypes.string,
