@@ -157,8 +157,9 @@ const ViewportBase = class extends React.Component {
 	shouldComponentUpdate ({index}) {
 		if (index !== this.props.index) {
 			const current = Spotlight.getCurrent();
+			const panel = this.node.querySelector(`:scope > [data-index='${this.props.index}']`);
 
-			if (current && this.node.querySelector(`[data-index='${this.props.index}']`).contains(current)) {
+			if (current && panel && panel.contains(current)) {
 				current.blur();
 			}
 		}

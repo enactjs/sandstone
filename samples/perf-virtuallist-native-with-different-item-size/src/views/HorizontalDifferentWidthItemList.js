@@ -18,10 +18,11 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(20),
-	oneLineSize = ri.scale(50),
-	lineHeight = `${oneLineSize - 10}px`,
-	spacing = 50;
+	fontSize = `${ri.scale(30)}px`,
+	oneLineSize = ri.scale(60),
+	lineHeight = `${oneLineSize}px`,
+	spacing = 60,
+	paddingSize = ri.scale(48);
 
 class DifferenctWidthItem extends Component {
 	static propTypes = {
@@ -30,26 +31,21 @@ class DifferenctWidthItem extends Component {
 	}
 
 	itemStyleDefault = {
-		position: 'absolute',
 		height: '100%',
-		borderRight: 'solid 10px gray',
-		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,
 		whiteSpace: 'pre'
 	}
 
 	innerItemStyleDefault = {
-		height: '100%',
 		writingMode: 'vertical-rl'
-	};
+	}
 
 	render () {
 		const
 			{index, items, style: itemStyleFromList, ...rest} = this.props,
 			{title: children, width} = items[index],
 			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, width: width + 'px'};
-
 
 		return (
 			<Item {...rest} style={itemStyle}>
@@ -73,7 +69,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 		for (let i = 0; i < numOfItems; i++) {
 			const
 				numOfLines = Math.ceil(Math.random() * 6),
-				width = numOfLines * oneLineSize;
+				width = numOfLines * oneLineSize + paddingSize;
 
 			items.push({
 				title: (`${('00' + i).slice(-3)} | ${position}px | ${languages[i % 10]}\n`).repeat(numOfLines),
@@ -108,6 +104,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 					size: this.state.itemSize
 				}}
 				spacing={spacing}
+				style={{height: '600px', paddingBottom: `${ri.scale(72)}px`}}
 			/>
 		);
 	}
