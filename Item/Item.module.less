@@ -117,7 +117,10 @@
 		}
 
 		.focus({
-			color: @sand-item-focus-text-color;
+			&,
+			.label {
+				.sand-spotlight-focus-text-colors();
+			}
 
 			.bg {
 				.sand-spotlight-focus-colors();
