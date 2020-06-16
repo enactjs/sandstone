@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Input` `disabled` prop to not close an open input.
+
 ## [1.0.0-beta.7] - 2020-06-16
 
 ### Added
