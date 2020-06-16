@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` to update the a11y string read when a scroll thumb is focused
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
 - `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
