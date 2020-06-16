@@ -8,6 +8,17 @@ import Skinnable from '../Skinnable';
 import TooltipLabel from './TooltipLabel';
 import componentCss from './Tooltip.module.less';
 
+
+// Set the default Arrow Anchor value based on the type of tooltip
+function defaultArrowAnchor (type) {
+	return (type === 'transparent' ? 'center' : 'right');
+}
+
+// Set the default Direction of tooltip based on the type of tooltip
+function defaultDirection (type) {
+	return (type === 'transparent' ? 'below' : 'above');
+}
+
 /**
  * A stateless tooltip component with Sandstone styling applied.
  *
@@ -35,8 +46,10 @@ const TooltipBase = kind({
 		 * orientation (i.e. `'above'`, `'below'`), and `'top'`, `'middle'`, and `'bottom'` are
 		 * applicable when direction is in horizontal orientation (i.e. `'left'`, `'right'`)
 		 *
+		 * For `type="balloon"`, the default is `"right"`
+		 * For `type="transparent"`, the default is `"center"` (The arrow will not be visible)
+		 *
 		 * @type {('left'|'center'|'right'|'top'|'middle'|'bottom')}
-		 * @default 'right'
 		 * @public
 		 */
 		arrowAnchor: PropTypes.oneOf(['left', 'center', 'right', 'top', 'middle', 'bottom']),
@@ -58,8 +71,10 @@ const TooltipBase = kind({
 		/**
 		 * Direction of label in relation to the activator.
 		 *
+		 * For `type="balloon"`, the default is `"above"`
+		 * For `type="transparent"`, the default is `"below"`
+		 *
 		 * @type {('above'|'below'|'left'|'right')}
-		 * @default 'above'
 		 * @public
 		 */
 		direction: PropTypes.oneOf(['above', 'below', 'left', 'right']),
@@ -79,6 +94,17 @@ const TooltipBase = kind({
 		 * @public
 		 */
 		labelOffset: PropTypes.number,
+
+		/**
+		 * Allows the tooltip to marquee.
+		 *
+		 * Specifying a [`width`]{@link sandstone/TooltipDecorator.TooltipBase#width} restrects
+		 * the marquee to that size.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		marquee: PropTypes.bool,
 
 		/**
 		 * Style object for tooltip position.
@@ -114,10 +140,24 @@ const TooltipBase = kind({
 		tooltipRef: EnactPropTypes.ref,
 
 		/**
+		 * Type of tooltip.
+		 *
+		 * | *Value* | *Tooltip Appearance* |
+		 * |---|---|
+		 * | `'balloon'` | Tooltip with a border, background and arrow to the activator |
+		 * | `'transparent'` | Text only without any of the decorations above |
+		 *
+		 * @type {('balloon'|'transparent')}
+		 * @default 'balloon'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['balloon', 'transparent']),
+
+		/**
 		 * The width of tooltip content in pixels (px).
 		 *
-		 * If the content goes over the given width, then it will automatically wrap. When `null`,
-		 * content does not wrap.
+		 * If the content goes over the given width, then it will automatically wrap or marquee,
+		 * depending on `marquee`. When `null`, content does not wrap or marquee.
 		 *
 		 * @type {Number|null}
 		 * @public
@@ -126,8 +166,7 @@ const TooltipBase = kind({
 	},
 
 	defaultProps: {
-		arrowAnchor: 'right',
-		direction: 'above',
+		type: 'balloon',
 		labelOffset: 0
 	},
 
@@ -144,7 +183,7 @@ const TooltipBase = kind({
 				return {transform: `translateX(${cappedPosition * 100}%)`};
 			}
 		},
-		className: ({direction, arrowAnchor, relative, styler}) => styler.append(direction, `${arrowAnchor}Arrow`, {relative, absolute: !relative}),
+		className: ({direction, arrowAnchor, relative, type, styler}) => styler.append(direction || defaultDirection(type), `${arrowAnchor || defaultArrowAnchor(type)}Arrow`, {relative, absolute: !relative}, type),
 		style: ({position, style}) => {
 			return {
 				...style,
@@ -153,18 +192,19 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, css, tooltipRef, width, labelOffset, ...rest}) => {
+	render: ({children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
 		delete rest.arrowAnchor;
 		delete rest.labelOffset;
 		delete rest.direction;
 		delete rest.position;
 		delete rest.relative;
+		delete rest.type;
 
 		return (
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel className={css.tooltipLabel} width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} marquee={marquee} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>
@@ -184,4 +224,4 @@ const TooltipBase = kind({
 const Tooltip = Skinnable(TooltipBase);
 
 export default Tooltip;
-export {Tooltip, TooltipBase};
+export {Tooltip, TooltipBase, defaultArrowAnchor, defaultDirection};

@@ -42,8 +42,8 @@ class VirtualListSample extends Component {
 					direction="below"
 					onSelect={this.onSelect}
 					size="large"
-					title={viewNames[defaultViewIndex]}
-					width="large"
+					placeholder={viewNames[defaultViewIndex]}
+					width="huge"
 				>
 					{viewNames}
 				</Dropdown>

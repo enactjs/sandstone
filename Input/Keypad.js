@@ -45,13 +45,12 @@ const Key = kind({
 	},
 
 	render: ({children, ...rest}) => {
-		const content = (children === 'backspace') ? 'arrowhookleft' : children;
 		delete rest.onKeyButtonClick;
 		return (
 			<Button
 				{...rest}
 				size="large"
-				icon={content}
+				icon={children}
 			/>
 		);
 	}

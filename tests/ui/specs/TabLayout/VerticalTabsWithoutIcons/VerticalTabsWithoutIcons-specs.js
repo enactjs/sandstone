@@ -39,6 +39,7 @@ describe('TabLayout', function () {
 						Page.spotlightLeft();
 					});
 					expect(Page.tabLayout.isCollapsed).to.be.false();
+					expect(Page.tabLayout.tabItems[1].isFocused()).to.be.true();
 				});
 			});
 			describe('pointer interaction', function () {

@@ -16,7 +16,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps} from './util';
+import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -168,16 +168,16 @@ const InputPopupBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Set the type of popup.
+		 * Type of popup.
 		 *
-		 * @type {(fullscreen|overlay)}
+		 * @type {('fullscreen'|'overlay')}
 		 * @default 'fullscreen'
 		 * @public
 		 */
 		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
 
 		/**
-		 * The size of the input field.
+		 * Size of the input field.
 		 *
 		 * @type {('large'|'small')}
 		 * @default 'large'
@@ -206,7 +206,7 @@ const InputPopupBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {(text|password|number|passwordnumber)}
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
 		 * @default 'text'
 		 * @public
 		 */
@@ -268,7 +268,7 @@ const InputPopupBase = kind({
 			if (maxLength != null) return maxLength;
 			return DEFAULT_LENGTH;
 		},
-		popupClassName: ({popupType, styler}) => styler.join('popup', popupType)
+		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type)
 	},
 
 	render: ({
@@ -290,6 +290,8 @@ const InputPopupBase = kind({
 		title,
 		type,
 		value,
+		maxLength,
+		minLength,
 		...rest
 	}) => {
 
@@ -318,6 +320,8 @@ const InputPopupBase = kind({
 						{numberMode ?
 							<NumberField
 								{...inputProps}
+								maxLength={limitNumberLength(popupType, maxLength)}
+								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
 								onChange={onChange}
 								onComplete={onNumberComplete}
@@ -327,6 +331,8 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								maxLength={maxLength}
+								minLength={minLength}
 								size={size}
 								autoFocus
 								type={type}
@@ -385,7 +391,7 @@ const InputBase = kind({
 		/**
 		 * Type of the input.
 		 *
-		 * @type {(text|password|number|passwordnumber)}
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
 		 * @default 'text'
 		 * @public
 		 */

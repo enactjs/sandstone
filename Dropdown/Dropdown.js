@@ -5,7 +5,7 @@
  * <Dropdown
  * 		defaultSelected={2}
  *		inline
- *		title="Dropdown"
+ *		title="Options"
  * >
  *   {['Option 1', 'Option 2', 'Option 3', 'Option 4']}
  * </Dropdown>
@@ -19,9 +19,11 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
+import IdProvider from '@enact/ui/internal/IdProvider';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -29,16 +31,18 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import warning from 'warning';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import {compareChildren} from '../internal/util';
+import Heading from '../Heading';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
 import css from './Dropdown.module.less';
 
-const DropdownButton = kind({
-	name: 'DropdownButton',
+const DropdownButtonBase = kind({
+	name: 'DropdownButtonBase',
 
 	propTypes: {
 		forwardRef: EnactPropTypes.ref
@@ -54,12 +58,13 @@ const DropdownButton = kind({
 	)
 });
 
-const ContextualButton = ContextualPopupDecorator(
+const DropdownButton = ContextualPopupDecorator(
 	{noArrow: true},
 	ForwardRef(
-		DropdownButton
+		DropdownButtonBase
 	)
 );
+DropdownButton.displayName = 'DropdownButton';
 
 /**
  * A stateless Dropdown component.
@@ -113,6 +118,14 @@ const DropdownBase = kind({
 		disabled: PropTypes.bool,
 
 		/**
+		 * The `id` of Dropdown referred to when generating id for `'title'`.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		id: PropTypes.string,
+
+		/**
 		 * Called when the Dropdown is closing.
 		 *
 		 * @type {Function}
@@ -150,6 +163,25 @@ const DropdownBase = kind({
 		open: PropTypes.bool,
 
 		/**
+		 * Text displayed in the Dropdown when nothing is selected.
+		 *
+		 * The placeholder will be replaced by the selected item.
+		 *
+		 * @type {String}
+		 * @default 'No selection'
+		 * @public
+		 */
+		placeholder: PropTypes.string,
+
+		/**
+		 * Indicates the locale's text direction is right-to-left.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		 * Index of the selected item.
 		 *
 		 * @type {Number}
@@ -158,9 +190,16 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
-		 * Primary title text of Dropdown.
+		 * The size of the Dropdown's [Button]{@link sandstone/Button.Button} component.
 		 *
-		 * The title will be replaced by the selected item, if any.
+		 * @type {('large'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
+		 * Primary title text of the Dropdown.
 		 *
 		 * @type {String}
 		 * @public
@@ -180,6 +219,7 @@ const DropdownBase = kind({
 	defaultProps: {
 		direction: 'below',
 		open: false,
+		size: 'small',
 		width: 'medium'
 	},
 
@@ -215,15 +255,14 @@ const DropdownBase = kind({
 	},
 
 	computed: {
+		'aria-labelledby': ({id, title}) => (title ? `${id}_title` : void 0),
 		children: ({children, selected}) => {
 			if (!Array.isArray(children)) return [];
 
 			return children.map((child, i) => {
 				const aria = {
 					role: 'checkbox',
-					'aria-checked': selected === i,
-					'aria-posinset': i + 1,
-					'aria-setsize': children.length
+					'aria-checked': selected === i
 				};
 
 				warning(
@@ -247,18 +286,30 @@ const DropdownBase = kind({
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
 		direction: ({direction}) => `${direction} center`,
-		title: ({children, selected, title}) => {
+		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
 			}
 
-			return title;
-		}
+			return placeholder;
+		},
+		title: ({id, title}) => (title &&
+			<Heading
+				className={css.title}
+				id={`${id}_title`}
+				size="tiny"
+			>
+				{title}
+			</Heading>
+		)
 	},
 
-	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, selected, width, title, ...rest}) => {
-		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
+	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+		delete rest.rtl;
+
+		const ariaProps = extractAriaProps(rest);
+		const popupProps = {'aria-live': null, children, onKeyDown, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
@@ -266,17 +317,23 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<ContextualButton
-				{...rest}
-				disabled={hasChildren ? disabled : true}
-				icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
-				popupProps={popupProps}
-				popupComponent={DropdownList}
-				onClick={onOpen}
-				open={openDropdown}
-			>
+			<div role="region" {...rest}>
 				{title}
-			</ContextualButton>
+				<DropdownButton
+					direction={direction}
+					disabled={hasChildren ? disabled : true}
+					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
+					popupProps={popupProps}
+					popupComponent={DropdownList}
+					onClick={onOpen}
+					onClose={onClose}
+					open={openDropdown}
+					size={size}
+					{...ariaProps}
+				>
+					{placeholder}
+				</DropdownButton>
+			</div>
 		);
 	}
 });
@@ -300,9 +357,13 @@ const DropdownDecorator = compose(
 	Pure({propComparators: {
 		children: compareChildren
 	}}),
-	I18nContextDecorator(
-		{rtlProp: 'rtl'}
-	),
+	I18nContextDecorator({
+		rtlProp: 'rtl'
+	}),
+	IdProvider({
+		generateProp: null,
+		prefix: 'd_'
+	}),
 	Changeable({
 		change: 'onSelect',
 		prop: 'selected'

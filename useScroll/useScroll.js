@@ -131,6 +131,10 @@ const useThemeScroll = (props, instances) => {
 			themeScrollContentHandle.current.setContainerDisabled(false);
 		}
 
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
+		}
+
 		focusOnItem();
 		mutableRef.current.lastScrollPositionOnFocus = null;
 		mutableRef.current.isWheeling = false;
@@ -457,7 +461,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle
@@ -465,7 +469,7 @@ const useScroll = (props) => {
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle

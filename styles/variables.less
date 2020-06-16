@@ -1,5 +1,6 @@
 // Variables
 //
+@import "./internal/utils.less";
 
 // App
 // ---------------------------------------
@@ -51,8 +52,11 @@
 @sand-input-font-size:              78px;
 @sand-input-fullscreen-numbercell-font-size:  126px;
 @sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
+@sand-input-overlay-title-font-size:          @sand-header-compact-title-font-size;
 @sand-input-overlay-numbercell-font-size:     108px;
-@sand-input-overlay-numberfield-font-size:    126px;
+@sand-input-overlay-numberfield-font-size:    @sand-input-overlay-numbercell-font-size;
+@sand-input-invalid-tooltip-font-size:        @sand-inputfield-invalid-tooltip-font-size;
+@sand-inputfield-invalid-tooltip-font-size:   48px;
 @sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
 @sand-item-font-size:               66px;
@@ -65,9 +69,10 @@
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
 @sand-steps-step-number-font-size:  54px;
-@sand-switch-icon-font-size:        90px;
-@sand-switch-icon-font-size-large:  144px;
+@sand-switch-icon-font-size:        84px;
+@sand-switch-icon-font-size-large:  138px;
 @sand-tooltip-label-font-size:      54px;
+@sand-tooltip-transparent-label-font-size: 36px;
 
 @sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
@@ -150,6 +155,13 @@
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-other-font-family: "LG Icons";
+
+// Input
+@sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
+
+// InputField
+@sand-inputfield-font-weight: 600;
+@sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 
 // InputNumber
 @sand-input-number-font-family: @sand-body-font-family;
@@ -274,11 +286,14 @@
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
 @sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
 // ---------------------------------------
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
+@sand-fixedpopuppanels-margin: extract(@sand-popup-position-left-margin, 1) extract(@sand-popup-position-left-margin, 2);
+@sand-fixedpopuppanels-border-radius: @sand-popup-border-radius;
 @sand-fixedpopuppanels-panel-padding: 0;
 @sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
 
@@ -287,10 +302,15 @@
 @sand-flexiblepopuppanels-min-width: 1140px;
 @sand-flexiblepopuppanels-margin: 108px 0;
 @sand-flexiblepopuppanels-padding: 0 (@sand-component-spacing + @sand-button-small-height) (36px + (18px * 1.75));  // Math in an attempt to use the shadow values to calculate the proper margin size so no shadow clipping occurs.
+@sand-flexiblepopuppanels-panel-border-radius: @sand-popup-border-radius;
 @sand-flexiblepopuppanels-panel-margin: 0 12px;
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
 @sand-flexiblepopuppanels-navbutton-margin: 0;
+
+// FormCheckboxItem
+// ---------------------------------------
+@sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
 
 // Header
 // ---------------------------------------
@@ -363,40 +383,41 @@
 @sand-input-fullscreen-numbercell-width: 246px;
 @sand-input-fullscreen-numbercell-height: 300px;
 @sand-input-fullscreen-numbercell-margin: 0 18px;
-@sand-input-fullscreen-numberfield-width: 1200px;
-@sand-input-fullscreen-numberfield-height: 210px;
+@sand-input-fullscreen-numberfield-width: 1164px;
+@sand-input-fullscreen-numberfield-height: 168px;
 @sand-input-fullscreen-numberfield-margin: auto;
-@sand-input-fullscreen-numberfield-tooltip-margin: 129px;
 @sand-input-fullscreen-numberfield-padding: 0 0.5em;
 @sand-input-fullscreen-numberfield-letter-spacing: 48px;
 @sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
 @sand-input-fullscreen-keypad-key-margin: 0;
 @sand-input-fullscreen-buttonarea-margin: 0;
+@sand-input-fullscreen-inputarea-margin: 222px 0 0 0;
 @sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
-@sand-input-overlay-inputarea-margin: 0;
+@sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
 @sand-input-overlay-numbercell-height: 210px;
-@sand-input-overlay-numbercell-margin: 0 6px;
-@sand-input-overlay-numberfield-width: 800px;
-@sand-input-overlay-numberfield-height: @sand-input-fullscreen-numberfield-height;
+@sand-input-overlay-numbercell-margin: 0 12px;
+@sand-input-overlay-numberfield-width: 738px;
+@sand-input-overlay-numberfield-height: 132px;
 @sand-input-overlay-numberfield-margin: @sand-input-fullscreen-numberfield-margin;
 @sand-input-overlay-numberfield-padding: @sand-input-fullscreen-numberfield-padding;
-@sand-input-overlay-numberfield-letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
-@sand-input-overlay-keypad-margin: 84px auto 0 auto;
+@sand-input-overlay-numberfield-letter-spacing: 36px;
+@sand-input-overlay-keypad-margin: 132px auto 0 auto;
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
+@sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
 // ---------------------------------------
 @sand-inputfield-margin: 0 @sand-component-spacing;
 @sand-inputfield-padding: 0 @sand-inputfield-icon-spacing;
-@sand-inputfield-font-weight: 600;
 @sand-inputfield-text-indent: 0.2em;
 @sand-inputfield-bg-opacity: 0.2;
 @sand-inputfield-border-radius: @sand-inputfield-border-width;
 @sand-inputfield-border-width: 12px;
 @sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
 @sand-inputfield-icon-spacing: 30px;
+@sand-inputfield-invalid-tooltip-margin-top: 30px;
 @sand-inputfield-height: @sand-button-height;
 @sand-inputfield-small-height: @sand-button-small-height;
 @sand-inputfield-highlight-height: 100%;
@@ -635,7 +656,9 @@
 // Tooltip
 // ---------------------------------------
 @sand-tooltip-font-weight: 600;
+@sand-tooltip-transparent-font-weight: normal;
 @sand-tooltip-offset: 24px;
+@sand-tooltip-transparent-label-offset: 0px;
 @sand-tooltip-arrow-offset: 0px;
 @sand-tooltip-point-width: 18px;
 @sand-tooltip-point-height: 15px;

@@ -153,19 +153,15 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Direction of the scroller.
 	 *
-	 * Valid values are:
-	 * * `'both'`,
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('both'|'horizontal'|'vertical')}
 	 * @default 'both'
 	 * @public
 	 */
-	direction: PropTypes.string,
+	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
 
 	/**
 	 * Adds fade-out effect on the scroller.
+	 *
 	 * Set this to `true` only if the content has no spottable but text.
 	 * > Note: Fade-out effect will not show if the `direction` is set to `both`.
 	 *
@@ -177,12 +173,13 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
+	 *
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
 	 * If `'byEnter'`, scroll body will get focus first by directional keys,
 	 * then the scroll thumb will get focus by enter key pressed on scroll body.
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'byEnter'}
 	 * @default false
 	 * @public
 	 */
@@ -191,12 +188,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
@@ -206,7 +198,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
 	 *
 	 * @type {String}
-	 * @default $L('scroll up down with up down button')
+	 * @default $L('scroll up or down with up down button')
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
@@ -336,25 +328,16 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Specifies how to scroll.
 	 *
-	 * Valid values are:
-	 * * `'translate'`,
-	 * * `'native'`.
-	 *
-	 * @type {String}
+	 * @type {('native'|'translate')}
 	 * @default 'native'
 	 * @public
 	 */
-	scrollMode: PropTypes.string,
+	scrollMode: PropTypes.oneOf(['native', 'translate']),
 
 	/**
 	 * Specifies how to show vertical scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
@@ -364,7 +347,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
 	 *
 	 * @type {String}
-	 * @default $L('scroll left right with left right button')
+	 * @default $L('scroll left or right with left right button')
 	 * @public
 	 */
 	verticalScrollThumbAriaLabel: PropTypes.string
