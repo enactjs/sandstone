@@ -23,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Item` font size to 60px and label font size to 48px
+- `sandstone/DatePicker` to read out 'day', 'month', or 'year' when it is focused or its value is changed
 - `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/Button` flashing when switching `selected` on and off
 - `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
