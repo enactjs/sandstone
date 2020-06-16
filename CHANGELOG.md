@@ -37,6 +37,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite the `skinVariants` prop in it
 - `sandstone/Input` to update `invalidTooltip` to the latest design
 - `sandstone/WizardPanels` to use `sandstone/Skinnable`
+- `sandstone/FormCheckboxItem` to not move focus in an item
 
 ## [1.0.0-beta.6] - 2020-06-08
 
