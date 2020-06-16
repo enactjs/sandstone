@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` to update the a11y string read when a scroll thumb is focused
 - `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
 - `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
@@ -22,6 +23,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TimePicker` to read out 'hour' or 'minute' when it is focused or its value is changed
+- `sandstone/DatePicker` to read out 'day', 'month', or 'year' when it is focused or its value is changed
 - `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/Button` flashing when switching `selected` on and off
 - `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
