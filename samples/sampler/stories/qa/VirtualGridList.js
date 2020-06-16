@@ -183,7 +183,7 @@ class ButtonAndVirtualGridList extends React.Component {
 
 storiesOf('VirtualGridList', module)
 	.add(
-		'with show Selection ImageItem',
+		'with showSelection ImageItem',
 		() => (
 			<VirtualGridList
 				className={
