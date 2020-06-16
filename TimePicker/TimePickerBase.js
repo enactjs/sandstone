@@ -158,8 +158,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the meridiem picker.
 		 *
+		 * If not specified, the "aria-label" for the meridiem picker will be
+		 * a combination of the current value and 'change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		meridiemAriaLabel: PropTypes.string,
