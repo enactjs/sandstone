@@ -17,10 +17,11 @@ storiesOf('Sandstone', module)
 		() => (
 			<DatePicker
 				disabled={boolean('disabled', Config)}
-				onChange={action('onChange')}
-				monthAriaLabel={text('monthAriaLabel', Config)}
+				spotlightDisabled={boolean('spotlightDisabled', Config)}
 				dayAriaLabel={text('dayAriaLabel', Config)}
+				monthAriaLabel={text('monthAriaLabel', Config)}
 				yearAriaLabel={text('yearAriaLabel', Config)}
+				onChange={action('onChange')}
 			/>
 		),
 		{

@@ -95,8 +95,11 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the day picker.
 		 *
+		 * If not specified, the "aria-label" for the day picker will be
+		 * a combination of the current value and 'day change a value with up down button'.
+		 * If specified, its value will override a whole aria-label.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		dayAriaLabel: PropTypes.string,
@@ -138,8 +141,11 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the month picker.
 		 *
+		 * If not specified, the "aria-label" for the month picker will be
+		 * a combination of the current value and 'month change a value with up down button'.
+		 * If specified, its value will override a whole aria-label.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
@@ -215,8 +221,11 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the year picker.
 		 *
+		 * If not specified, the "aria-label" for the year picker will be
+		 * a combination of the current value and 'year change a value with up down button'.
+		 * If specified, its value will override a whole aria-label.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		yearAriaLabel: PropTypes.string
