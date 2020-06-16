@@ -11,7 +11,7 @@
 // ---------------------------------------
 
 // Establish rules assignment for before focus has happened
-.sand-spotlight-resting-colors (@opacity: 0) {
+.sand-spotlight-resting-bg-colors (@opacity: 0) {
 	background-color: @sand-spotlight-bg-color;
 	opacity: @opacity;
 	filter+_: drop-shadow(@sand-spotlight-resting-shadow);
@@ -22,7 +22,7 @@
 }
 
 // Establish rules assignment for after focus has happened
-.sand-spotlight-focus-colors () {
+.sand-spotlight-focus-bg-colors () {
 	background-color: @sand-spotlight-bg-color;
 	opacity: 1;
 	.sand-spotlight-focus-shadow-colors();
@@ -34,7 +34,7 @@
 }
 
 .sand-spotlight-focus-text-colors () {
-	font-weight: 600;
+	font-weight: @sand-spotlight-font-weight;
 	color: @sand-spotlight-text-color;
 }
 
@@ -82,7 +82,7 @@
 
 // Button state mixins
 .sand-button-resting-bg-colors () {
-	.sand-spotlight-resting-colors();
+	.sand-spotlight-resting-bg-colors();
 	.sand-button-resting-bg-color();
 	will-change+: transform;
 	transition+: transform @sand-button-focus-duration ease-out;
