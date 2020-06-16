@@ -90,7 +90,7 @@
 
 	.applySkins({
 		.bg {
-			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
+			.sand-spotlight-resting-bg-colors();
 		}
 
 		.caption,
@@ -106,13 +106,11 @@
 			.caption,
 			.title,
 			.subtitle {
-				color: @sand-mediaoverlay-focus-caption-color;
+				.sand-spotlight-focus-text-colors();
 			}
 
 			.bg {
-				background-color: @sand-mediaoverlay-focus-bg-color;
-				opacity: 1;
-				filter: drop-shadow(@sand-mediaoverlay-focus-bg-shadow);
+				.sand-spotlight-focus-bg-colors();
 			}
 		});
 	});
