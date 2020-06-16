@@ -43,7 +43,7 @@ const
 			</ImageItem>
 		);
 	},
-	renderSelectionItem = ({index, ...rest}) => {
+	renderSelectionItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
 		const {selected, source, subText, text} = items[index];
 
 		// console.log(index, selected);
@@ -59,9 +59,7 @@ const
 				{text}
 			</ImageItem>
 		);
-	};;
-
-
+	};
 
 const updateDataSize = (dataSize) => {
 	const
@@ -185,7 +183,7 @@ class ButtonAndVirtualGridList extends React.Component {
 
 storiesOf('VirtualGridList', module)
 	.add(
-		'with show Selection ImageItem',
+		'with showSelection ImageItem',
 		() => (
 			<VirtualGridList
 				className={

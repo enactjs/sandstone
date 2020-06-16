@@ -1,4 +1,5 @@
 /*  eslint-disable react-hooks/rules-of-hooks */
+/*  eslint-disable react-hooks/exhaustive-deps */
 //
 // React Hook "useMemo" is called in the function of the "computed" object properly,
 // which is neither a React function component or a custom React Hook function
@@ -223,8 +224,8 @@ const ImageItemBase = kind({
 			selected, selectionComponent: SelectionComponent, showSelection,
 			...rest
 		}) => (reducedComputed({
-			hasImageIcon: () => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'),
-			hasLabel: () => (typeof label !== 'undefined'),
+			hasImageIcon: () => ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'), // eslint-disable-line no-shadow
+			hasLabel: () => ({label}) => (typeof label !== 'undefined'), // eslint-disable-line no-shadow
 			hasSelectionComponent: () => (typeof SelectionComponent !== 'undefined'),
 			memoAriaProps: ({hasSelectionComponent}) => {
 				return React.useMemo(
@@ -254,14 +255,13 @@ const ImageItemBase = kind({
 				}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]);
 			},
 			memoSubcaption: ({hasLabel}) => {
-				return hasLabel ? React.useMemo(() => {
+				return hasLabel({label}) ? React.useMemo(() => {
 					// console.log('memoSubcaption');
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
 							<MemoPropsContext.Consumer>
 								{context => {
-									const hasLabel = typeof label !== 'undefined';
-									return hasLabel ? (context && context.label || label) : null;
+									return hasLabel(context) ? (context && context.label || label) : null;
 								}}
 							</MemoPropsContext.Consumer>
 						</Marquee>
@@ -281,19 +281,19 @@ const ImageItemBase = kind({
 				}, []);
 			},
 			memoImageIcon: ({hasImageIcon}) => {
-				return hasImageIcon && React.useMemo(() => {
+				return hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
 					// console.log('memoImageIcon');
 					return (
 						<MemoPropsContext.Consumer>
 							{context => {
-								return (
+								return hasImageIcon(context) ? (
 									<Cell
 										className={css.imageIcon}
 										component={context && context.imageIconComponent || imageIconComponent}
 										src={context && context.imageIconSrc || imageIconSrc}
 										shrink
 									/>
-								);
+								) : null;
 							}}
 						</MemoPropsContext.Consumer>
 					);
@@ -326,11 +326,10 @@ const ImageItemBase = kind({
 			<UiImageItem
 				{...rest}
 				{...memoAriaProps}
-				children={memoChildren}
 				className={className}
 				css={css}
 				imageComponent={memoImage}
-			/>
+			>{memoChildren}</UiImageItem>
 		);
 	}
 });
