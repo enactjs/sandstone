@@ -56,7 +56,7 @@ describe('VirtualList', function () {
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
 			waitUntilFocused(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
-			$('#item3').moveTo(302, 50);
+			$('#item3').moveTo({xOffset: 302, yOffset: 50});
 			// Verify Step 10, Step 11: Spotlight is on 'Item 003'
 			expectFocusedItem(3, 'step 11 focus');
 			// Step 12. Press Channel Down.
