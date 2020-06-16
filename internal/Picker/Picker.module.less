@@ -4,10 +4,25 @@
 @import "../../styles/mixins.less";
 @import "../../styles/skin.less";
 
+// Math to calculate the difference in GUI guide spec for the item and the DOM size for the item.
+// Divide by 2 to get the difference of just one edge from the corrosponding edge,
+// since the two are center aligned vertically.
+@_picker-joined-horizontal-vedge-gap: ((@sand-picker-joined-horizontal-height - @sand-picker-joined-horizontal-value-line-height) / 2);
+
+// Determine the height of the item given the font size and relative (em) line height.
+@_picker-value-height: (@sand-picker-joined-font-size * @sand-picker-line-height); // 99px
+// Math to find the margin-bottom of the item given the height of the item and the
+// desired distance from the top.
+@sand-picker-joined-horizontal-value-offset: ((
+	(48px - @_picker-joined-horizontal-vedge-gap) - // 48px - 15px = 33px
+	((@_picker-value-height - 78px) / 2) // (78px - 99px / 2) = 10.5px
+)* 2);
+
+// Calculate the offset of the indicators with respect to the bottom of Picker given that the
+// item (value wrapper) doesn't sit directly on the bottom edge.
+@sand-picker-indicator-bottom: (30px - (@_picker-joined-horizontal-vedge-gap));
+
 .picker {
-	.sand-text-base(@sand-picker-font-size);
-	.sand-locale-non-latin({line-height: @sand-button-small-height;});
-	display: inline-block;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
@@ -16,6 +31,8 @@
 
 	.sizingPlaceholder,
 	.valueWrapper {
+		.sand-text-base(@sand-picker-font-size);
+		.sand-locale-non-latin({line-height: @sand-button-small-height;});
 		max-width: 960px;
 
 		.item {
@@ -25,18 +42,38 @@
 		}
 	}
 
+	.sizingPlaceholder,
+	.item {
+		padding: 0 @sand-spotlight-outset;
+	}
+
 	.sizingPlaceholder {
 		height: 0;
 		visibility: hidden;
 	}
 
 	.valueWrapper {
-		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		vertical-align: bottom;
 		height: @sand-picker-value-height;
 		line-height: @sand-picker-value-height;
+		position: relative;
+	}
+
+	.viewManager {
+		overflow: hidden;
+		height: 100%;
+
+		> .item:nth-child(2) {
+			// the second element in the ViewManager should be offset by the container width
+			// so the transition can position two static views next to each other safely,
+			// since transform is not available (to offset by its own width).
+			top: -100%;
+		}
+	}
+
+	.item {
+		position: relative;
 	}
 
 	.incrementer,
@@ -52,77 +89,30 @@
 	}
 
 	&.horizontal {
-		display: inline-flex;
-
 		:global(.enact-locale-right-to-left) & {
 			flex-direction: row-reverse;
 		}
 
 		.incrementer {
 			order: 3;
-			flex-shrink: 0;
-			margin-left: @sand-spotlight-outset;
 		}
 		.decrementer {
 			order: 1;
-			flex-shrink: 0;
-			margin-right: @sand-spotlight-outset;
 		}
 		.valueWrapper {
 			order: 2;
-			position: relative;
-
-			.item {
-				transform: translateX(100%);
-			}
-		}
-
-		&.small,
-		&.medium,
-		&.large {
-			.valueWrapper {
-				.item {
-					position: absolute;
-					.position(0);
-					transform: translateX(100%);
-				}
-			}
 		}
 	}
 
 	&.vertical {
 		height: @sand-picker-joined-vertical-height;
-
-		.valueWrapper {
-			display: block;
-			position: relative;
-
-			.sizingPlaceholder,
-			.item {
-				margin: 0 @sand-spotlight-outset;
-			}
-
-			.item {
-				position: absolute;
-				.position(0);
-				transform: translateY(100%);
-			}
-		}
 	}
 
 	&.joined {
-		&::before,
-		&::after {
+		&::before {
 			content: "";
 			position: absolute;
 			.position(0);
-		}
-
-		&::after {
-			border-width: 0;
-			border-style: solid;
-			border-radius: inherit;
-			pointer-events: none;
 		}
 
 		.icon {
@@ -148,8 +138,7 @@
 			height: @sand-picker-joined-horizontal-height;
 			padding: @sand-picker-joined-horizontal-padding;
 
-			&::before,
-			&::after {
+			&::before {
 				border-radius: @sand-picker-joined-horizontal-border-radius;
 			}
 
@@ -159,8 +148,11 @@
 			}
 
 			.valueWrapper {
-				height: @sand-picker-joined-horizontal-value-line-height;
-				line-height: @sand-picker-joined-horizontal-value-line-height;
+				// height: @sand-picker-joined-horizontal-value-line-height;
+				// line-height: @sand-picker-joined-horizontal-value-line-height;
+				height: @sand-picker-line-height;
+				line-height: @sand-picker-line-height;
+				margin-bottom: @sand-picker-joined-horizontal-value-offset;
 			}
 
 			.incrementer,
@@ -175,13 +167,10 @@
 			}
 
 			.indicatorContainer {
-				position: absolute;
-				bottom: @sand-picker-indicator-bottom;
-				left: 50%;
-				transform: translateX(-50%);
 				margin: 0 auto;
 				line-height: 0;
 				white-space: nowrap;
+				margin-top: 21px; // Math for reconciling GUI Guide line height with our own (1.5em)
 
 				.indicator {
 					display: inline-block;
@@ -202,8 +191,7 @@
 		}
 
 		&.vertical {
-			&::before,
-			&::after {
+			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 
@@ -237,10 +225,6 @@
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-
-			&::after {
-				border-color: @sand-picker-joined-fingernail-border-color;
-			}
 
 			&.horizontal {
 				&::before {

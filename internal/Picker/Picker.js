@@ -977,6 +977,7 @@ const PickerBase = class extends React.Component {
 					<PickerViewManager
 						aria-hidden
 						arranger={arranger}
+						className={css.viewManager}
 						duration={100}
 						index={index}
 						noAnimation={noAnimation}
