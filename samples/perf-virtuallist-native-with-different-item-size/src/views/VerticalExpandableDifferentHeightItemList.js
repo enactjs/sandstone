@@ -20,7 +20,7 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(30),
+	fontSize = `${ri.scale(30)}px`,
 	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
 	padding = `0 ${ri.scale(60)}px`,

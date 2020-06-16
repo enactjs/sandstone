@@ -18,7 +18,7 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(30),
+	fontSize = `${ri.scale(30)}px`,
 	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
 	spacing = 60;
@@ -39,6 +39,7 @@ class DifferenctHeightItem extends Component {
 			{index, items, style: itemStyleFromList, ...rest} = this.props,
 			{title: children, height} = items[index],
 			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, height};
+
 		return (
 			<Item {...rest} style={itemStyle}>
 				{children}
