@@ -34,7 +34,7 @@ storiesOf('FixedPopupPanels', module)
 	.add(
 		'with VirtualList',
 		() => {
-			const defaultOpen = false;
+			const defaultOpen = true;
 			const [open, setOpenState] = React.useState(defaultOpen);
 			const toggleOpen = () => setOpenState(!open);
 			const handleClose = compose(toggleOpen, action('onClose'));
