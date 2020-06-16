@@ -30,6 +30,7 @@ const NumberCell = kind({
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
 		active: PropTypes.bool,
 		children: PropTypes.string,
+		disabled: PropTypes.bool,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -67,6 +68,7 @@ const NumberFieldBase = kind({
 
 	propTypes: {
 		css: PropTypes.object,
+		disabled: PropTypes.bool,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
@@ -140,11 +142,11 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
-			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
+		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value}) => {
+			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
 			if (minLength !== maxLength) {
-				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
+				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
 			}
@@ -157,7 +159,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
+	render: ({css, disabled, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.invalid;
 		delete rest.invalidMessage;
@@ -185,6 +187,7 @@ const NumberFieldBase = kind({
 						active: index <= value.length,
 						children: values[index],
 						component: NumberCell,
+						disabled,
 						key: `key-${index}`,
 						password,
 						shrink: true
@@ -206,7 +209,7 @@ const NumberFieldBase = kind({
 					{invalidTooltip}
 				</div>
 				<br />
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad disabled={disabled} onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
 			</React.Fragment>
 		);

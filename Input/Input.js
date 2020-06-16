@@ -43,7 +43,7 @@ const InputPopupBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Disables the button that activates the input popup.
+		 * Disables the input popup.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -274,7 +274,6 @@ const InputPopupBase = kind({
 	render: ({
 		children,
 		css,
-		disabled,
 		numberInputField,
 		onChange,
 		onClose,
@@ -309,7 +308,7 @@ const InputPopupBase = kind({
 				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
 				className={popupClassName}
 				noAnimation
-				open={!disabled && open}
+				open={open}
 			>
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
