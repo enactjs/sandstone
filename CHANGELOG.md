@@ -19,6 +19,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to highlight activated number cells
 - `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
 - `sandstone/Picker` to support updated accessibility string on `joined`
+- `sandstone/Input` to display submit button when number input field used
 
 ### Fixed
 
