@@ -38,7 +38,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 	useEffect (() => {
 		cbAlertScrollbarTrack();
-	});
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect (() => {
 		SpotlightAccelerator.reset();
