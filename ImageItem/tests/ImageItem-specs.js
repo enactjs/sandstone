@@ -1,20 +1,20 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import {ImageItemBase} from '../ImageItem';
 
 function SelectionComponent () {
 	return null;
 }
 
-describe('ImageItem', () => {
+describe('ImageItemBase', () => {
 	test('should support `children` prop', () => {
 		const children = 'caption';
-		const subject = shallow(
+		const subject = mount(
 			<ImageItemBase>{children}</ImageItemBase>
 		);
 
 		const expected = children;
-		const actual = subject.find('.caption').prop('children');
+		const actual = subject.find('.caption').first().text();
 
 		expect(actual).toBe(expected);
 	});
