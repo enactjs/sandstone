@@ -7,7 +7,7 @@ import {storiesOf} from '@storybook/react';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import RadioItem from '@enact/sandstone/RadioItem';
 
-RadioItem.displayName = 'RaditoItem';
+RadioItem.displayName = 'RadioItem';
 const Config = mergeComponentMetadata('RadioItem', ItemBase, Item, RadioItem);
 
 const radioData = {

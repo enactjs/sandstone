@@ -15,9 +15,10 @@ storiesOf('Sandstone', module)
 		() => (
 			<TimePicker
 				disabled={boolean('disabled', Config)}
+				spotlightDisabled={boolean('spotlightDisabled', Config)}
 				hourAriaLabel={text('hourAriaLabel', Config, '')}
-				meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
 				minuteAriaLabel={text('minuteAriaLabel', Config, '')}
+				meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
 				onChange={action('onChange')}
 			/>
 		),
