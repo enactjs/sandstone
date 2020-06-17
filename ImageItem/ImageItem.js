@@ -230,7 +230,6 @@ const ImageItemBase = kind({
 			memoAriaProps: ({hasSelectionComponent}) => {
 				return React.useMemo(
 					() => {
-						// console.log('ariaProps');
 						return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
 					},
 					[selected, hasSelectionComponent]
@@ -238,7 +237,6 @@ const ImageItemBase = kind({
 			},
 			memoImage: ({hasSelectionComponent}) => {
 				return React.useMemo(() => {
-					// console.log('memoImage');
 					return (
 						<Image>
 							{showSelection ? (
@@ -256,7 +254,6 @@ const ImageItemBase = kind({
 			},
 			memoSubcaption: ({hasLabel}) => {
 				return hasLabel({label}) ? React.useMemo(() => {
-					// console.log('memoSubcaption');
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
 							{
@@ -282,7 +279,6 @@ const ImageItemBase = kind({
 				return (describe && test) ?
 					children :
 					React.useMemo(() => {
-						// console.log('memoChildren');
 						return (
 							<Marquee className={css.caption} marqueeOn="hover">
 								<MemoPropsContext.Consumer>
@@ -294,7 +290,6 @@ const ImageItemBase = kind({
 			},
 			memoImageIcon: ({hasImageIcon}) => {
 				return hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
-					// console.log('memoImageIcon');
 					return (
 						<MemoPropsContext.Consumer>
 							{
@@ -325,7 +320,6 @@ const ImageItemBase = kind({
 			},
 			memoChildren: ({memoCaption, memoImageIcon, memoSubcaption}) => { // eslint-disable-line no-shadow
 				return !(!memoCaption && !memoImageIcon && !memoSubcaption) && React.useMemo(() => {
-					// console.log('memoChildren');
 					return (
 						<Row className={css.captions}>
 							{memoImageIcon}
@@ -345,7 +339,6 @@ const ImageItemBase = kind({
 	},
 
 	render: ({className, computedProps: {memoAriaProps, memoChildren, memoImage, rest}, css, orientation}) => {
-		// console.log('render');
 		return (
 			<UiImageItem
 				{...rest}
