@@ -22,7 +22,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext, useContext} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsThemeContext, useContext} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -35,7 +35,7 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './ImageItem.module.less';
 
-const useMemoPropsContext = useContext(MemoPropsContext);
+const useMemoPropsThemeContext = useContext(MemoPropsThemeContext);
 
 const
 	defaultPlaceholder =
@@ -220,7 +220,7 @@ const ImageItemBase = kind({
 
 			const
 				memoizedImageIcon = React.useMemo(() => {
-					return useMemoPropsContext(context => { // eslint-disable-line enact/display-name
+					return useMemoPropsThemeContext(context => { // eslint-disable-line enact/display-name
 						return hasImageIcon(context) ?
 							<Cell
 								className={css.imageIcon}
@@ -234,7 +234,7 @@ const ImageItemBase = kind({
 				memoizedChildren = React.useMemo(() => {
 					return (
 						<Marquee className={css.caption} marqueeOn="hover">
-							{useMemoPropsContext(context => {
+							{useMemoPropsThemeContext(context => {
 								return context.children;
 							})}
 						</Marquee>
@@ -243,7 +243,7 @@ const ImageItemBase = kind({
 				memoizedLabel = React.useMemo(() => {
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
-							{useMemoPropsContext(context => {
+							{useMemoPropsThemeContext(context => {
 								return hasLabel(context) && context.label || null;
 							})}
 						</Marquee>
@@ -279,7 +279,7 @@ const ImageItemBase = kind({
 		return (
 			<UiImageItem
 				{...rest}
-				context={MemoPropsContext}
+				context={MemoPropsThemeContext}
 				css={css}
 				imageComponent={
 					React.useMemo(() => {
