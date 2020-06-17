@@ -230,7 +230,7 @@ const ImageItemBase = kind({
 							/> :
 							null;
 					});
-				}, []),
+				}, [css.imageIcon]),
 				memoizedChildren = React.useMemo(() => {
 					return (
 						<Marquee className={css.caption} marqueeOn="hover">
@@ -239,7 +239,7 @@ const ImageItemBase = kind({
 							})}
 						</Marquee>
 					);
-				}, []),
+				}, [css.caption]),
 				memoizedLabel = React.useMemo(() => {
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
@@ -248,7 +248,7 @@ const ImageItemBase = kind({
 							})}
 						</Marquee>
 					);
-				}, []);
+				}, [css.label]);
 
 			return React.useMemo(() => {
 				return (
