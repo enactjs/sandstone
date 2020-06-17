@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 
