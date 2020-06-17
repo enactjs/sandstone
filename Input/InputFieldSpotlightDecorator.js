@@ -94,6 +94,15 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			dismissOnEnter: PropTypes.bool,
 
 			/**
+			 * Prevent reading on the first focus.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @private
+			 */
+			noReadoutOnFocus: PropTypes.bool,
+
+			/**
 			 * Called when the internal <input> is focused.
 			 *
 			 * @type {Function}
@@ -138,11 +147,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				node: null
 			};
 
+			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
 		}
 
 		componentDidUpdate (_, prevState) {
+			this.ariaHidden = null;
 			this.updateFocus(prevState);
 		}
 
@@ -351,11 +362,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		render () {
 			const props = Object.assign({}, this.props);
 			delete props.autoFocus;
+			delete props.noReadoutOnFocus;
 			delete props.onActivate;
 			delete props.onDeactivate;
 
 			return (
 				<Component
+					aria-hidden={this.ariaHidden}
 					{...props}
 					onBlur={this.onBlur}
 					onMouseDown={this.onMouseDown}
