@@ -4,8 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone` LESS mixins `.sand-spotlight-focus-text-colors` to support focused font style
+
+### Changed
+
+- `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
+
 ### Fixed
 
+- `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 
