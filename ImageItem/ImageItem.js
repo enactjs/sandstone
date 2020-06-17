@@ -22,7 +22,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext, useContext} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -34,6 +34,8 @@ import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './ImageItem.module.less';
+
+const useMemoPropsContext = useContext(MemoPropsContext);
 
 const
 	defaultPlaceholder =
@@ -122,7 +124,7 @@ const ImageItemBase = kind({
 		 * @public
 		 */
 		label: PropTypes.string,
-		
+
 		/**
 		 * The layout orientation of the component.
 		 *
@@ -218,40 +220,32 @@ const ImageItemBase = kind({
 
 			const
 				memoizedImageIcon = React.useMemo(() => {
-					return (
-						<MemoPropsContext.Consumer>
-							{context => { // eslint-disable-line enact/display-name
-								return hasImageIcon(context) ?
-									<Cell
-										className={css.imageIcon}
-										component={context.imageIconComponent || Image}
-										shrink
-										src={context.imageIconSrc}
-									/> :
-									null;
-							}}
-						</MemoPropsContext.Consumer>
-					);
+					return useMemoPropsContext(context => { // eslint-disable-line enact/display-name
+						return hasImageIcon(context) ?
+							<Cell
+								className={css.imageIcon}
+								component={context.imageIconComponent || Image}
+								shrink
+								src={context.imageIconSrc}
+							/> :
+							null;
+					});
 				}, []),
 				memoizedChildren = React.useMemo(() => {
 					return (
 						<Marquee className={css.caption} marqueeOn="hover">
-							<MemoPropsContext.Consumer>
-								{context => {
-									return context.children;
-								}}
-							</MemoPropsContext.Consumer>
+							{useMemoPropsContext(context => {
+								return context.children;
+							})}
 						</Marquee>
 					);
 				}, []),
 				memoizedLabel = React.useMemo(() => {
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
-							<MemoPropsContext.Consumer>
-								{context => {
-									return hasLabel(context) && context.label || null;
-								}}
-							</MemoPropsContext.Consumer>
+							{useMemoPropsContext(context => {
+								return hasLabel(context) && context.label || null;
+							})}
 						</Marquee>
 					);
 				}, []);
