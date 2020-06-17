@@ -74,7 +74,7 @@ const indexOfMeridiem = (time, meridiems) => {
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, {meridiemLabel}) {
-		let values = {
+		const values = {
 			// i18n props
 			meridiems: i18n.meridiemLabels,
 			meridiemLabel,
