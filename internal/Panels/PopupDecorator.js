@@ -148,6 +148,28 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			position: PropTypes.oneOf(['left', 'right']),
 
 			/**
+			 * Scrim type.
+			 *
+			 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
+			 *
+			 * @type {String}
+			 * @default 'translucent'
+			 * @public
+			 */
+			scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+
+			/**
+			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
+			 *
+			 * * Values: `'self-first'`, or `'self-only'`.
+			 *
+			 * @type {String}
+			 * @default 'self-only'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only']),
+
+			/**
 			 * Size of the popup.
 			 *
 			 * @type {('narrow'|'half')}
@@ -161,6 +183,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			index: 0,
 			noAnimation: false,
 			position: 'right',
+			scrimType: 'translucent',
+			spotlightRestrict: 'self-only',
 			width: 'narrow'
 		},
 
@@ -184,7 +208,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({width, styler}) => styler.append(width)
+			className: ({width, styler}) => styler.append(width),
+			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
