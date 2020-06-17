@@ -233,7 +233,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		computed: {
 			className: ({width, styler}) => styler.append(width),
-			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict,
+			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
