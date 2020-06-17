@@ -224,8 +224,11 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 				if (value) {
 					formatter = i18nConfig.formatter || formatter;
 					label = formatter.format(value);
+					order = formatter.getTemplate()
+						.replace(/'.*?'/g, '')
+						.match(i18nConfig.orderMatchFilter)
+						.map(s => s[0].toLowerCase());
 				}
-				order = i18nConfig.order;
 				props = customProps(Object.assign({}, i18nConfig, {formatter}), pickerValue, this.props);
 			}
 

@@ -18,13 +18,6 @@ import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
 
-const getLabelFormatter = () => new DateFmt({
-	date: 'dmwy',
-	length: 'full',
-	timezone: 'local',
-	useNative: false
-});
-
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
 		const values = {
@@ -65,10 +58,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const order = getLabelFormatter().getTemplate()
-			.replace(/'.*?'/g, '')
-			.match(/([mdy]+)/ig)
-			.map(s => s[0].toLowerCase());
+		const orderMatchFilter = /([mdy]+)/ig;
 
 		/*
 		 * Converts a gregorian year to local year
@@ -91,7 +81,7 @@ const dateTimeConfig = {
 		};
 
 		return {
-			order,
+			orderMatchFilter,
 			toLocalYear
 		};
 	}

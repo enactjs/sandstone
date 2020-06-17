@@ -72,14 +72,6 @@ const indexOfMeridiem = (time, meridiems) => {
 	return -1;
 };
 
-const getLabelFormatter = () => new DateFmt({
-	type: 'time',
-	useNative: false,
-	timezone: 'local',
-	length: 'full',
-	date: 'dmwy'
-});
-
 const dateTimeConfig = {
 	customProps: function (i18n, value, {meridiemLabel}) {
 		let values = {
@@ -179,17 +171,13 @@ const dateTimeConfig = {
 		const clockPref = li.getClock();
 		const meridiemEnabled = clockPref === '12';
 
-		const filter = meridiemEnabled ? includeMeridiem : excludeMeridiem;
-		const order = getLabelFormatter().getTemplate()
-			.replace(/'.*?'/g, '')
-			.match(filter)
-			.map(s => s[0].toLowerCase());
+		const orderMatchFilter = meridiemEnabled ? includeMeridiem : excludeMeridiem;
 
 		return {
 			meridiemEnabled,
 			meridiemLabels,
 			meridiemRanges,
-			order
+			orderMatchFilter
 		};
 	}
 };
