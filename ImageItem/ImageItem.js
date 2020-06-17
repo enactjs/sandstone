@@ -276,28 +276,28 @@ const ImageItemBase = kind({
 			rest['aria-checked'] = rest.selected;
 		}
 
-		const memoizedImage = React.useMemo(() => {
-			return (
-				<Image>
-					{showSelection ? (
-						<div className={css.selectionContainer}>
-							{SelectionComponent ? (
-								<SelectionComponent />
-							) : (
-								<Icon className={css.selectionIcon}>check</Icon>
-							)}
-						</div>
-					) : null}
-				</Image>
-			);
-		}, [css.selectionContainer, css.selectionIcon, SelectionComponent, showSelection]);
-
 		return (
 			<UiImageItem
 				{...rest}
 				context={MemoPropsContext}
 				css={css}
-				imageComponent={memoizedImage}
+				imageComponent={
+					React.useMemo(() => {
+						return (
+							<Image>
+								{showSelection ? (
+									<div className={css.selectionContainer}>
+										{SelectionComponent ? (
+											<SelectionComponent />
+										) : (
+											<Icon className={css.selectionIcon}>check</Icon>
+										)}
+									</div>
+								) : null}
+							</Image>
+						);
+					}, [css.selectionContainer, css.selectionIcon, SelectionComponent, showSelection])
+				}
 			/>
 		);
 	}
