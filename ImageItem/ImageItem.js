@@ -224,7 +224,7 @@ const ImageItemBase = kind({
 					return (
 						<MemoPropsContext.Consumer>
 							{context => { // eslint-disable-line enact/display-name
-								const imageIcon = null;
+								let imageIcon = null;
 
 								if (context && hasImageIcon(context)) {
 									imageIcon = <Cell
