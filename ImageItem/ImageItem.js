@@ -22,7 +22,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -32,8 +32,6 @@ import Icon from '../Icon';
 import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
-
-import  {MemoPropsContext, MemoPropsDecorator} from './MemoPropsDecorator';
 
 import componentCss from './ImageItem.module.less';
 
@@ -321,7 +319,6 @@ const ImageItemBase = kind({
 				{...rest}
 				css={css}
 				imageComponent={memoizedImage}
-				memoizedContext={MemoPropsContext}
 			/>
 		);
 	}
