@@ -14,6 +14,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import dateTimeLabelFormatter from './dateTimeLabelFormatter';
 
 /*
  * Converts a JavaScript Date to unix time
@@ -213,17 +214,19 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			// picker values before closing.
 			const pickerValue = this.state.pickerValue ? this.toIDate(this.state.pickerValue) : value;
 
+			let formatter = dateTimeLabelFormatter({type: defaultOrder.includes('h') ? 'time' : 'date'});
 			let label = null;
-			let props = null;
 			let order = defaultOrder;
+			let props = null;
 
 			const i18nConfig = memoizedI18nConfig(this.props.locale);
 			if (i18nConfig) {
 				if (value) {
-					label = i18nConfig.formatter.format(value);
+					formatter = i18nConfig.formatter || formatter;
+					label = formatter.format(value);
 				}
-				props = customProps(i18nConfig, pickerValue, this.props);
 				order = i18nConfig.order;
+				props = customProps(Object.assign({}, i18nConfig, {formatter}), pickerValue, this.props);
 			}
 
 			return (

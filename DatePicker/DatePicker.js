@@ -12,9 +12,8 @@
 
 import Pure from '@enact/ui/internal/Pure';
 import DateFactory from 'ilib/lib/DateFactory';
-import DateFmt from 'ilib/lib/DateFmt';
 
-import {DateTimeDecorator} from '../internal/DateTime';
+import {DateTimeDecorator, dateTimeLabelFormatter} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
@@ -91,7 +90,10 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter: getLabelFormatter(), order, toLocalYear};
+		return {
+			order,
+			toLocalYear
+		};
 	}
 };
 
@@ -170,7 +172,7 @@ const dateToLocaleString = (date) => {
 		return null;
 	}
 
-	return getLabelFormatter().format(date);
+	return dateTimeLabelFormatter().format(date);
 };
 
 export default DatePicker;

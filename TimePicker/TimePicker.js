@@ -15,7 +15,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 
-import {DateTimeDecorator} from '../internal/DateTime';
+import {DateTimeDecorator, dateTimeLabelFormatter} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import TimePickerBase from './TimePickerBase';
@@ -186,7 +186,6 @@ const dateTimeConfig = {
 			.map(s => s[0].toLowerCase());
 
 		return {
-			formatter: getLabelFormatter(),
 			meridiemEnabled,
 			meridiemLabels,
 			meridiemRanges,
@@ -256,7 +255,7 @@ const timeToLocaleString = (time) => {
 		return null;
 	}
 
-	return getLabelFormatter().format(time);
+	return dateTimeLabelFormatter({type: 'time'}).format(time);
 };
 
 export default TimePicker;
