@@ -25,7 +25,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext, reducedComputed} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsContext} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -214,120 +214,102 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		className: ({children, imageIconSrc, label, orientation, selected, styler}) => styler.append({
-			fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label,
-			selected
-		}),
-		computedProps: ({
-			children, css,
-			imageIconComponent, imageIconSrc,
-			label, orientation,
-			selected, selectionComponent: SelectionComponent, showSelection,
-			...rest
-		}) => (reducedComputed({
-			hasImageIcon: () => ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'), // eslint-disable-line no-shadow
-			hasLabel: () => ({label}) => (typeof label !== 'undefined'), // eslint-disable-line no-shadow
-			hasSelectionComponent: () => (typeof SelectionComponent !== 'undefined'),
-			memoAriaProps: ({hasSelectionComponent}) => {
-				return React.useMemo(
-					() => {
-						return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
-					},
-					[selected, hasSelectionComponent]
-				);
-			},
-			memoImage: ({hasSelectionComponent}) => {
-				return React.useMemo(() => {
-					return (
-						<Image>
-							{showSelection ? (
-								<div className={css.selectionContainer}>
-									{SelectionComponent ? (
-										<SelectionComponent />
-									) : (
-										<Icon className={css.selectionIcon}>check</Icon>
-									)}
-								</div>
-							) : null}
-						</Image>
-					);
-				}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]);
-			},
-			memoSubcaption: ({hasLabel}) => {
-				return hasLabel({label}) ? React.useMemo(() => {
-					return (
-						<Marquee className={css.label} marqueeOn="hover">
-							<MemoPropsContext.Consumer>
-								{context => {
-									return hasLabel(context) ? (context && context.label || label) : null;
-								}}
-							</MemoPropsContext.Consumer>
-						</Marquee>
-					);
-				}, []) : null;
-			},
-			memoCaption: () => {
-				// FIXME: `(describe && test)` condition was added to run unit tests properly.
-				// enzyme doesn't support a new context consumer yet.
-				// Unit tests will be updated based on testing-library.
-				// Then the `(describe && test)` condition will be removed.
-				return React.useMemo(() => {
-					return (
-						<Marquee className={css.caption} marqueeOn="hover">
-							<MemoPropsContext.Consumer>
-								{context => (context && context.children || children)}
-							</MemoPropsContext.Consumer>
-						</Marquee>
-					);
-				}, []);
-			},
-			memoImageIcon: ({hasImageIcon}) => {
-				return hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
-					return (
-						<MemoPropsContext.Consumer>
-							{context => { // eslint-disable-line enact/display-name
-								return hasImageIcon(context) ? (
-									<Cell
-										className={css.imageIcon}
-										component={context && context.imageIconComponent || imageIconComponent}
-										shrink
-										src={context && context.imageIconSrc || imageIconSrc}
-									/>
-								) : null;
-							}}
-						</MemoPropsContext.Consumer>
-					);
-				}, []);
-			},
-			memoChildren: ({memoCaption, memoImageIcon, memoSubcaption}) => { // eslint-disable-line no-shadow
-				return !(!memoCaption && !memoImageIcon && !memoSubcaption) && React.useMemo(() => {
-					return (
-						<Row className={css.captions}>
-							{memoImageIcon}
-							<Cell>
-								{memoCaption}
-								{memoSubcaption}
-							</Cell>
-						</Row>
-					);
-					// We don't need the dependency of the `memoCaption` and the `memoSubcaption`
-					// because it will be passed through a context.
-					// eslint-disable-next-line react-hooks/exhaustive-deps
-				}, [css.captions]);
-			},
-			computedProps: ({memoAriaProps, memoChildren, memoImage}) => ({memoAriaProps, memoChildren, memoImage, rest})
-		}))
+		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
+			fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
+		})
 	},
 
-	render: ({className, computedProps: {memoAriaProps, memoChildren, memoImage, rest}, css, orientation}) => {
+	render: ({
+		children, className, css,
+		imageIconComponent, imageIconSrc,
+		label, orientation,
+		selected, selectionComponent: SelectionComponent, showSelection,
+		...rest
+	}) => {
+		const
+			hasImageIcon = ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'), // eslint-disable-line no-shadow
+			hasLabel = ({label}) => (typeof label !== 'undefined'), // eslint-disable-line no-shadow
+			hasSelectionComponent = typeof SelectionComponent !== 'undefined';
+
+		const
+			memoizedAriaProps = React.useMemo(() => {
+				return hasSelectionComponent ? {'aria-checked': selected, role: 'checkbox'} : null;
+			}, [selected, hasSelectionComponent]),
+			memoizedImage = React.useMemo(() => {
+				return (
+					<Image>
+						{showSelection ? (
+							<div className={css.selectionContainer}>
+								{SelectionComponent ? (
+									<SelectionComponent />
+								) : (
+									<Icon className={css.selectionIcon}>check</Icon>
+								)}
+							</div>
+						) : null}
+					</Image>
+				);
+			}, [css.selectionContainer, css.selectionIcon, hasSelectionComponent, showSelection]),
+			memoizedLabel = hasLabel({label}) ? React.useMemo(() => {
+				return (
+					<Marquee className={css.label} marqueeOn="hover">
+						<MemoPropsContext.Consumer>
+							{context => {
+								return hasLabel(context) ? (context && context.label || label) : null;
+							}}
+						</MemoPropsContext.Consumer>
+					</Marquee>
+				);
+			}, []) : null,
+			memoizedChildren = React.useMemo(() => {
+				return (
+					<Marquee className={css.caption} marqueeOn="hover">
+						<MemoPropsContext.Consumer>
+							{context => (context && context.children || children)}
+						</MemoPropsContext.Consumer>
+					</Marquee>
+				);
+			}, []),
+			memoizedImageIcon = hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
+				return (
+					<MemoPropsContext.Consumer>
+						{context => { // eslint-disable-line enact/display-name
+							return hasImageIcon(context) ? (
+								<Cell
+									className={css.imageIcon}
+									component={context && context.imageIconComponent || imageIconComponent}
+									shrink
+									src={context && context.imageIconSrc || imageIconSrc}
+								/>
+							) : null;
+						}}
+					</MemoPropsContext.Consumer>
+				);
+			}, []),
+			memoChildren = !(!memoizedChildren && !memoizedImageIcon && !memoizedLabel) && React.useMemo(() => {
+				return (
+					<Row className={css.captions}>
+						{memoizedImageIcon}
+						<Cell>
+							{memoizedChildren}
+							{memoizedLabel}
+						</Cell>
+					</Row>
+				);
+				// We don't need the dependency of the `memoizedChildren` and the `memoizedLabel`
+				// because it will be passed through a context.
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			}, [css.captions]);
+
 		return (
 			<UiImageItem
 				{...rest}
-				{...memoAriaProps}
+				{...memoizedAriaProps}
 				className={className}
 				css={css}
-				imageComponent={memoImage}
+				imageComponent={memoizedImage}
 				orientation={orientation}
+				selected={selected}
 			>{memoChildren}</UiImageItem>
 		);
 	}
