@@ -37,7 +37,9 @@ storiesOf('Sandstone', module)
 				placeholder: text('placeholder', Config, 'placeholder string'),
 				subtitle: text('subtitle', ConfigPopup, 'Title Below Text'),
 				title: text('title', ConfigPopup, 'Title Text'),
-				disabled: boolean('disabled', Config)
+				disabled: boolean('disabled', Config),
+				'aria-label': text('aria-label', ConfigPopup, ''),
+				popupAriaLabel: text('popupAriaLabel', ConfigPopup, '')
 			};
 
 			// Numeric specific props
@@ -51,6 +53,13 @@ storiesOf('Sandstone', module)
 				} else {
 					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
 				}
+			}
+
+			// Modify a11y null strings
+			if (!props['aria-label']) {
+				delete props['aria-label'];
+			} else if (!props.popupAriaLabel) {
+				delete props.popupAriaLabel;
 			}
 
 			return (<div>

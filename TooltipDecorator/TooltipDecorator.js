@@ -513,6 +513,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			delete props.rtl;
 			delete props.tooltipDelay;
+			delete props.tooltipMarquee;
 			delete props.tooltipPosition;
 			delete props.tooltipProps;
 			delete props.tooltipRelative;
