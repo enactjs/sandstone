@@ -174,6 +174,15 @@ const ItemBase = kind({
 		selected: PropTypes.bool,
 
 		/**
+		 * The size of the item.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
 		 * Nodes to be inserted after `children`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
@@ -199,7 +208,8 @@ const ItemBase = kind({
 	},
 
 	defaultProps: {
-		labelPosition: 'below'
+		labelPosition: 'below',
+		size: 'large'
 	},
 
 	styles: {
@@ -208,7 +218,7 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({centered, label, selected, styler}) => styler.append({centered, selected, hasLabel: label != null}),
+		className: ({centered, label, selected, size, styler}) => styler.append({centered, selected, hasLabel: label != null}, size),
 		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
