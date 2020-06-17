@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/ProgressButton` to update to the latest design
 
 ## [1.0.0-beta.7] - 2020-06-16
 

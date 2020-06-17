@@ -77,6 +77,7 @@ const ProgressButtonBase = kind({
 	render: ({css, children, icon, progress, showProgress, ...rest}) => {
 		return (
 			<ButtonBase
+				size="small"
 				{...rest}
 				css={css}
 			>
