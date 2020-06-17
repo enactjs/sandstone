@@ -119,7 +119,7 @@ const CheckboxBase = kind({
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @public
+		 * @private
 		 */
 		standalone: PropTypes.bool
 	},
@@ -128,7 +128,8 @@ const CheckboxBase = kind({
 		children: 'check',
 		indeterminate: false,
 		indeterminateIcon: 'minus',
-		selected: false
+		selected: false,
+		standalone: false
 	},
 
 	styles: {
