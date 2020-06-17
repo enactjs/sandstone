@@ -13,8 +13,6 @@ import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-import css from '../default/VirtualGridList.module.less';
-
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 const
@@ -42,23 +40,6 @@ const
 				{text}
 			</ImageItem>
 		);
-	},
-	renderSelectionItem = ({index, ...rest}) => { // eslint-disable-line enact/prop-types
-		const {selected, source, subText, text} = items[index];
-
-		// console.log(index, selected);
-
-		return (
-			<ImageItem
-				{...rest}
-				label={subText}
-				selected={selected}
-				showSelection
-				src={source}
-			>
-				{text}
-			</ImageItem>
-		);
 	};
 
 const updateDataSize = (dataSize) => {
@@ -74,10 +55,9 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}`,
 			subText = `SubItem ${count}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`,
-			selected = !Math.round((Math.random()));
+			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
 
-		items.push({text, selected, subText, source});
+		items.push({text, subText, source});
 	}
 
 	return dataSize;
@@ -182,40 +162,6 @@ class ButtonAndVirtualGridList extends React.Component {
 }
 
 storiesOf('VirtualGridList', module)
-	.add(
-		'with showSelection ImageItem',
-		() => (
-			<VirtualGridList
-				className={
-					select('direction', prop.direction, Config) === 'vertical' ?
-						css.verticalPadding :
-						css.horizontalPadding
-				}
-				dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
-				direction={select('direction', prop.direction, Config)}
-				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
-				itemRenderer={renderSelectionItem}
-				itemSize={{
-					minWidth: ri.scale(number('itemSize.minWidth', Config, 688)),
-					minHeight: ri.scale(number('itemSize.minHeight', Config, 570))
-				}}
-				key={select('scrollMode', prop.scrollModeOption, Config)}
-				noScrollByWheel={boolean('noScrollByWheel', Config)}
-				onScrollStart={action('onScrollStart')}
-				onScrollStop={action('onScrollStop')}
-				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, 0))}
-				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
-				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
-				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-			/>
-		),
-		{
-			info: {
-				text: 'Basic usage of VirtualGridList'
-			}
-		}
-	)
 	.add(
 		'Horizontal VirtualGridList',
 		() => (
