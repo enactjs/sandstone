@@ -22,7 +22,7 @@ const HeaderView = () => (
 			</Cell>
 			<Cell style={{border: '3px solid red'}}>
 				<Panel>
-					<Header title="Header" subtitle="with closeButtonAriaLabel" closeButtonAriaLabel="application close"/>
+					<Header title="Header" subtitle="with closeButtonAriaLabel" closeButtonAriaLabel="application close" />
 					<Button>Button in Panel 03</Button>
 				</Panel>
 			</Cell>
