@@ -46,7 +46,6 @@
 			&.button {
 				&.selected {
 					.bg {
-						.sand-button-spotlight-resting-colors();
 						opacity: 0;
 					}
 				}
@@ -56,22 +55,14 @@
 				}
 
 				.focus({
+					.bg {
+						opacity: 1;
+					}
+
 					.client::after {
 						background-color: unset;
 					}
 				});
-			}
-		}
-
-		&.vertical {
-			&.button {
-				&.selected {
-					.bg {
-						.sand-button-spotlight-resting-colors();
-						background-color: @sand-tablayout-tab-selected-bg-color;
-						opacity: @sand-tablayout-tab-selected-opacity;
-					}
-				}
 			}
 		}
 	});

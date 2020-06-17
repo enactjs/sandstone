@@ -71,6 +71,21 @@ describe('Panels Specs', () => {
 		}
 	);
 
+	test(
+		'should return a ref to the root Panel node',
+		() => {
+			const ref = jest.fn();
+			mount(
+				<Panel ref={ref} />
+			);
+
+			const expected = 'ARTICLE';
+			const actual = ref.mock.calls[0][0].nodeName;
+
+			expect(actual).toBe(expected);
+		}
+	);
+
 	describe('with Panel and Header', () => {
 		test(
 			'should not render back button on the first panel',

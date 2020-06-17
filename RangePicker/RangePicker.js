@@ -171,7 +171,7 @@ const RangePickerBase = kind({
 		 *
 		 * * Values: `'horizontal'`, `'vertical'`
 		 *
-		 * @type {String}
+		 * @type {'horizontal'|'vertical'}
 		 * @default 'horizontal'
 		 * @public
 		 */
@@ -213,7 +213,7 @@ const RangePickerBase = kind({
 		 *
 		 * By default, the picker will size according to the longest valid value.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([

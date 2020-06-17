@@ -42,6 +42,7 @@ storiesOf('Sandstone', module)
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
+					fullHeight={boolean('fullHeight', Config)}
 					nextButtonVisibility={select('nextButtonVisibility', props.buttonVisibility, Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
@@ -69,6 +70,12 @@ storiesOf('Sandstone', module)
 					<Panel nextButton={boolean('custom last Panel nextButton', Config) ? <Button icon="closex" aria-label="quit" /> : void 0}>
 						<Header title="Vertical Slider" />
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
+					</Panel>
+					<Panel>
+						<Header title="Third panel" />
+						<Scroller style={{width: ri.scaleToRem(900)}}>
+							<Item onClick={nextPanel}>Item 1</Item>
+						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>
 				<Button onClick={toggleOpen}>Open FlexiblePopupPanels</Button>
