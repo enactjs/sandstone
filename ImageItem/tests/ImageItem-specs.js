@@ -6,11 +6,6 @@ function SelectionComponent () {
 	return null;
 }
 
-// FIXME: `(describe && test)` condition was added to run unit tests properly.
-// enzyme doesn't support a new context consumer yet.
-// Unit tests will be updated based on testing-library.
-// Then the `(describe && test)` condition will be removed.
-
 describe('ImageItemBase', () => {
 	test('should support `children` prop', () => {
 		const children = 'caption';

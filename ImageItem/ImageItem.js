@@ -1,9 +1,6 @@
 /*  eslint-disable react-hooks/rules-of-hooks */
 /*  eslint-disable react-hooks/exhaustive-deps */
-//
-// React Hook "useMemo" is called in the function of the "computed" object properly,
-// which is neither a React function component or a custom React Hook function.
-// We might support `useComputed` or something like that later.
+// To use `React.useMemo` in a kind, the eslint rules above has benn blocked.
 
 /**
  * Provides Sandstone styled image item components and behaviors.
@@ -214,14 +211,12 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({
-			children, css,
-			imageIconComponent, imageIconSrc,
-			label, orientation
-		}) => {
+		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const
 				hasImageIcon = ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'), // eslint-disable-line no-shadow
 				hasLabel = ({label}) => (typeof label !== 'undefined'); // eslint-disable-line no-shadow
+
+			if (!hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && !children && !label) return;
 
 			const
 				memoizedLabel = hasLabel({label}) ? React.useMemo(() => {
@@ -261,7 +256,7 @@ const ImageItemBase = kind({
 					);
 				}, []);
 
-			return !(!memoizedChildren && !memoizedImageIcon && !memoizedLabel) && React.useMemo(() => {
+			return React.useMemo(() => {
 				return (
 					<Row className={css.captions}>
 						{memoizedImageIcon}
