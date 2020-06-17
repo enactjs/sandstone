@@ -47,6 +47,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite its `skinVariants` prop
 - `sandstone/VirtualList` focus when 5way directional keys are quickly and consecutively pressed
 - `sandstone/WizardPanels` to use `sandstone/Skinnable`
+- `sandstone/FormCheckboxItem` to not move focus in an item
 
 ## [1.0.0-beta.6] - 2020-06-08
 
