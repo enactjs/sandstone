@@ -73,7 +73,7 @@ const TooltipLabel = kind({
 
 		if (marquee) {
 			return (
-				<Marquee {...rest} marqueeOn="render">
+				<Marquee {...rest} alignment="center" marqueeOn="render">
 					{children}
 				</Marquee>
 			);
