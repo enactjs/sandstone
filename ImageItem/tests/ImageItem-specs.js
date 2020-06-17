@@ -7,7 +7,11 @@ function SelectionComponent () {
 }
 
 describe('ImageItemBase', () => {
-	test('should support `children` prop', () => {
+	// FIXME:
+	// enzyme doesn't support a new context consumer yet.
+	// `children`, `label` `imageIconComponent` and `imageIconSrc` is updated throught a context.
+	// It will be fixed based on testing-library later.
+	test.skip('should support `children` prop', () => {
 		const children = 'caption';
 		const subject = mount(
 			<ImageItemBase>{children}</ImageItemBase>
@@ -21,7 +25,7 @@ describe('ImageItemBase', () => {
 
 	// FIXME:
 	// enzyme doesn't support a new context consumer yet.
-	// `label` and `imageIconSrc` is updated throught a context.
+	// `children`, `label` `imageIconComponent` and `imageIconSrc` is updated throught a context.
 	// It will be fixed based on testing-library later.
 	test.skip('should support `label` prop', () => {
 		const label = 'label';
@@ -37,7 +41,7 @@ describe('ImageItemBase', () => {
 
 	// FIXME:
 	// enzyme doesn't support a new context consumer yet.
-	// `label` and `imageIconSrc` is updated throught a context.
+	// `children`, `label` `imageIconComponent` and `imageIconSrc` is updated throught a context.
 	// It will be fixed based on testing-library later.
 	test.skip('should support `imageIconSrc` prop when `orientation="vertical"`', () => {
 		const imageIconSrc = 'imageIconSrc';
