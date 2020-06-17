@@ -223,6 +223,8 @@ const ItemBase = kind({
 	},
 
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+		delete rest.size;
+
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
