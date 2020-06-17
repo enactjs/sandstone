@@ -56,14 +56,6 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
-		 * The primary caption displayed with the image.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		children: PropTypes.string,
-
-		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -94,34 +86,6 @@ const ImageItemBase = kind({
 		 * @public
 		 */
 		'data-webos-voice-intent': PropTypes.string,
-
-		/**
-		 * The component used to render the image icon component.
-		 *
-		 * @type {Component}
-		 * @default sandstone/Image.Image
-		 * @private
-		 */
-		imageIconComponent: EnactPropTypes.component,
-
-		/**
-		 * Source for the image icon.
-		 * String value or Object of values used to determine which image will appear on
-		 * a specific screenSize.
-		 * This feature is only valid when `orientation` is `'vertical'.
-		 *
-		 * @type {String|Object}
-		 * @private
-		 */
-		imageIconSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-
-		/**
-		 * A secondary caption displayed with the image.
-		 *
-		 * @type {String}
-		 * @public
-		 */
-		label: PropTypes.string,
 
 		/**
 		 * The layout orientation of the component.
@@ -196,7 +160,6 @@ const ImageItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
-		imageIconComponent: Image,
 		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
 		selected: false,
@@ -227,7 +190,7 @@ const ImageItemBase = kind({
 								if (context && hasImageIcon(context)) {
 									imageIcon = <Cell
 										className={css.imageIcon}
-										component={context.imageIconComponent}
+										component={context.imageIconComponent || Image}
 										shrink
 										src={context.imageIconSrc}
 									/>;
@@ -289,10 +252,6 @@ const ImageItemBase = kind({
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
-		delete rest.imageIconComponent;
-		delete rest.imageIconSrc;
-		delete rest.label;
-
 		if (SelectionComponent) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
@@ -317,6 +276,7 @@ const ImageItemBase = kind({
 		return (
 			<UiImageItem
 				{...rest}
+				context={MemoPropsContext}
 				css={css}
 				imageComponent={memoizedImage}
 			/>
@@ -365,6 +325,46 @@ const ImageItemDecorator = compose(
  */
 const ImageItem = ImageItemDecorator(ImageItemBase);
 ImageItem.displayName = 'ImageItem';
+
+/**
+ * The primary caption displayed with the image.
+ *
+ * @name children
+ * @memberof sandstone/ImageItem.ImageItemBase.prototype
+ * @type {String}
+ * @public
+ */
+
+/**
+ * The component used to render the image icon component.
+ *
+ * @name imageIconComponent
+ * @memberof sandstone/ImageItem.ImageItemBase.prototype
+ * @type {Component}
+ * @default sandstone/Image.Image
+ * @private
+ */
+
+/**
+ * Source for the image icon.
+ * String value or Object of values used to determine which image will appear on
+ * a specific screenSize.
+ * This feature is only valid when `orientation` is `'vertical'.
+ *
+ * @name imageIconSrc
+ * @memberof sandstone/ImageItem.ImageItemBase.prototype
+ * @type {String|Object}
+ * @private
+ */
+
+/**
+ * A secondary caption displayed with the image.
+ *
+ * @name label
+ * @memberof sandstone/ImageItem.ImageItemBase.prototype
+ * @type {String}
+ * @public
+ */
 
 export default ImageItem;
 export {
