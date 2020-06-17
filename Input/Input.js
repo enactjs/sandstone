@@ -1,6 +1,8 @@
 import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
@@ -16,11 +18,12 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
+import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
 import componentCss from './Input.module.less';
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
+const isPasswordType = type => type === 'password' || type === 'passwordnumber';
 
 /**
  * Base component for providing text input in the form of a popup without button.
@@ -34,6 +37,14 @@ const InputPopupBase = kind({
 	name: 'InputPopup',
 
 	propTypes: /** @lends sandstone/Input.InputPopupBase.prototype */ {
+		/**
+		 * Passed by AnnounceDecorator for accessibility.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		announce: PropTypes.func,
+
 		/**
 		 * Customize component style
 		 *
@@ -168,6 +179,14 @@ const InputPopupBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
+		 * The "aria-label" for the popup when opened.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		popupAriaLabel: PropTypes.string,
+
+		/**
 		 * Type of popup.
 		 *
 		 * @type {('fullscreen'|'overlay')}
@@ -272,6 +291,7 @@ const InputPopupBase = kind({
 	},
 
 	render: ({
+		announce,
 		children,
 		css,
 		disabled,
@@ -283,6 +303,7 @@ const InputPopupBase = kind({
 		onShow,
 		open,
 		placeholder,
+		popupAriaLabel,
 		popupClassName,
 		popupType,
 		size,
@@ -304,6 +325,7 @@ const InputPopupBase = kind({
 
 		return (
 			<Popup
+				aria-label={popupAriaLabel}
 				onClose={onClose}
 				onShow={onShow}
 				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
@@ -320,6 +342,7 @@ const InputPopupBase = kind({
 						{numberMode ?
 							<NumberField
 								{...inputProps}
+								announce={announce}
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
@@ -337,6 +360,7 @@ const InputPopupBase = kind({
 								autoFocus
 								type={type}
 								defaultValue={value}
+								noReadoutOnFocus
 								placeholder={placeholder}
 								onChange={onChange}
 								onKeyDown={onInputKeyDown}
@@ -362,6 +386,14 @@ const InputBase = kind({
 	name: 'Input',
 
 	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
+		/**
+		 * Disables the button that activates the input popup.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		announce: PropTypes.func,
+
 		/**
 		 * Disables the button that activates the input popup.
 		 *
@@ -417,12 +449,27 @@ const InputBase = kind({
 		)
 	},
 
-	render: ({type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
-		const password = (type === 'password' || type === 'passwordnumber');
+	computed: {
+		buttonAriaLabel: ({placeholder, type, value}) => {
+			if (value) {
+				type = isPasswordType(type) ? 'password' : null;
+				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
+			}
+
+			return calcAriaLabel('', null, placeholder);
+		},
+		buttonLabel: ({placeholder, type, value}) => {
+			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
+		}
+	},
+
+	render: ({announce, buttonAriaLabel, buttonLabel, type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
+		const ariaProps = extractAriaProps(rest);
 
 		return (
 			<React.Fragment>
 				<InputPopupBase
+					announce={announce}
 					type={type}
 					size={size}
 					disabled={disabled}
@@ -436,13 +483,27 @@ const InputBase = kind({
 					className={className}
 					style={style}
 					onClick={onClick}
+					aria-label={buttonAriaLabel}
+					{...ariaProps}
 				>
-					{(password ? convertToPasswordFormat(value) : value) || placeholder}
+					{buttonLabel}
 				</Button>
 			</React.Fragment>
 		);
 	}
 });
+
+// eslint-disable-next-line no-shadow
+const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
+	const {announce, children} = useAnnounce();
+
+	return (
+		<React.Fragment>
+			<Wrapped {...props} announce={announce} />
+			{children}
+		</React.Fragment>
+	);
+};
 
 /**
  * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.
@@ -459,6 +520,7 @@ const InputDecorator = compose(
 	Pure,
 	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
 	Changeable({change: 'onComplete'}),
+	AnnounceDecorator,
 	Skinnable
 );
 
