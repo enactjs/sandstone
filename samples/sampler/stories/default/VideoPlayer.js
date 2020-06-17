@@ -190,23 +190,23 @@ storiesOf('Sandstone', module)
 						>
 							<bottomComponents>
 								<VirtualGridList
-									style={{height: ri.scaleToRem(240)}}
+									style={{height: ri.scale(240), marginTop: ri.scale(60)}}
 									horizontalScrollbar={'hidden'}
 									dataSize={size}
 									direction="horizontal"
 									itemSize={{
-										minWidth: ri.scale(640),
-										minHeight: ri.scale(540)
+										minWidth: ri.scale(320),
+										minHeight: ri.scale(270)
 									}}
 									itemRenderer={renderItem}
 									spacing={ri.scale(12)}
 								/>
 							</bottomComponents>
-							<Button size="large" icon="list" />
-							<Button size="large" icon="playspeed" />
-							<Button size="large" icon="speakercenter" />
-							<Button size="large" icon="miniplayer" />
-							<Button size="large" icon="subtitle" />
+							<Button size="small" icon="list" />
+							<Button size="small" icon="playspeed" />
+							<Button size="small" icon="speakercenter" />
+							<Button size="small" icon="miniplayer" />
+							<Button size="small" icon="subtitle" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>
