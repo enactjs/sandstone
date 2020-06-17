@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Dropdown` to prevent focus on outer area
+
 ### Fixed
 
 - `sandstone/Checkbox` to center the icon
@@ -63,10 +67,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Icon` supported icon list, adding new icons and removing unused ones
-
-### Changed
-
-- `sandstone/Dropdown` to prevent focus on outer area
 
 ### Fixed
 
