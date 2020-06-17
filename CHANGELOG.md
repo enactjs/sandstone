@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Checkbox` to center the icon
+- `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 
@@ -47,7 +48,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite its `skinVariants` prop
 - `sandstone/VirtualList` focus when 5way directional keys are quickly and consecutively pressed
 - `sandstone/WizardPanels` to use `sandstone/Skinnable`
-- `sandstone/FormCheckboxItem` to not move focus in an item
 
 ## [1.0.0-beta.6] - 2020-06-08
 
