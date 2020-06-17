@@ -3,12 +3,11 @@
 @import "../styles/skin.less";
 
 .mediaOverlay {
-	.sand-spotlight-padding(@sand-mediaoverlay-padding-top-bottom);
-
 	display: block;
 	position: relative;
 	width: @sand-mediaoverlay-width;
 	height: auto;
+	padding: @sand-mediaoverlay-padding;
 
 	.bg {
 		position: absolute;
@@ -66,6 +65,10 @@
 	.captionContainer {
 		> :first-child {
 			margin-top: @sand-mediaoverlay-caption-margin-top;
+		}
+
+		> :last-child {
+			margin-bottom: @sand-mediaoverlay-caption-margin-top - @sand-mediaoverlay-padding;
 		}
     }
 
