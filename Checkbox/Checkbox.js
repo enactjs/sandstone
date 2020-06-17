@@ -118,7 +118,6 @@ const CheckboxBase = kind({
 		 * Sets standalone rules to show spotlight background color.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @private
 		 */
 		standalone: PropTypes.bool
@@ -128,8 +127,7 @@ const CheckboxBase = kind({
 		children: 'check',
 		indeterminate: false,
 		indeterminateIcon: 'minus',
-		selected: false,
-		standalone: false
+		selected: false
 	},
 
 	styles: {
