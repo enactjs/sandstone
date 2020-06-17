@@ -10,10 +10,12 @@
 
 import DateTime, {DateTimeBase} from './DateTime';
 import {DateTimeDecorator} from './DateTimeDecorator';
+import dateTimeLabelFormatter from './dateTimeLabelFormatter';
 
 export default DateTime;
 export {
 	DateTime,
 	DateTimeBase,
-	DateTimeDecorator
+	DateTimeDecorator,
+	dateTimeLabelFormatter
 };
