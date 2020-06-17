@@ -232,7 +232,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({width, styler}) => styler.append(width),
+			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
