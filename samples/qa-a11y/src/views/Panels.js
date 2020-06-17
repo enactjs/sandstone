@@ -44,7 +44,6 @@ class PanelsView extends React.Component {
 						spotlightId={'virtualList_$' + this.state.panelIndex}
 						dataSize={itemList.length}
 						direction="vertical"
-						focusableScrollbar
 						itemRenderer={this.customItem}
 						itemSize={ri.scale(72)}
 					/>

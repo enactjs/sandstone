@@ -79,7 +79,6 @@ class VirtualGridListView extends React.Component {
 					<VirtualGridList
 						dataSize={items.length}
 						direction={isHorizontalList ? 'horizontal' : 'vertical'}
-						focusableScrollbar
 						itemRenderer={renderItem}
 						itemSize={{
 							minWidth: ri.scale(200),

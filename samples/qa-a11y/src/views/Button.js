@@ -1,12 +1,12 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
+import React from 'react';
 
 const ButtonView = () => (
 	<Layout orientation="vertical">
-		<Cell component={Scroller} focusableScrollbar>
+		<Cell component={Scroller}>
 			<Heading showLine>Default</Heading>
 			<Button size="small" />
 			<Button size="small">Button</Button>

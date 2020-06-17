@@ -37,7 +37,12 @@ class A11yDropdown extends React.Component {
 
 const DropdownView = () => (
 	<Layout orientation="vertical">
-		<Cell component={Scroller} focusableScrollbar>
+		<Cell component={Scroller}>
+			<Dropdown placeholder="Dropdown">
+				{['Option1', 'Option2', 'Option3']}
+			</Dropdown>
+			<br />
+			<br />
 			<Dropdown placeholder="Dropdown" title="String Array children">
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>

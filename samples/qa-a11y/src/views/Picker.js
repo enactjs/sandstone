@@ -39,7 +39,7 @@ class CustomPicker extends React.Component {
 }
 
 const PickerView = () => (
-	<Scroller focusableScrollbar>
+	<Scroller>
 		<h2>Default</h2>
 		<Heading showLine>Picker</Heading>
 		<Picker
