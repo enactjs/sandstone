@@ -257,19 +257,11 @@ const ImageItemBase = kind({
 				return hasLabel({label}) ? React.useMemo(() => {
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
-							{
-								// FIXME: `(describe && test)` condition was added to run unit tests properly.
-								// enzyme doesn't support a new context consumer yet.
-								// Unit tests will be updated based on testing-library.
-								// Then the `(describe && test)` condition will be removed.
-								(describe && test) ?
-									label :
-									<MemoPropsContext.Consumer>
-										{context => {
-											return hasLabel(context) ? (context && context.label || label) : null;
-										}}
-									</MemoPropsContext.Consumer>
-							}
+							<MemoPropsContext.Consumer>
+								{context => {
+									return hasLabel(context) ? (context && context.label || label) : null;
+								}}
+							</MemoPropsContext.Consumer>
 						</Marquee>
 					);
 				}, []) : null;
@@ -279,45 +271,30 @@ const ImageItemBase = kind({
 				// enzyme doesn't support a new context consumer yet.
 				// Unit tests will be updated based on testing-library.
 				// Then the `(describe && test)` condition will be removed.
-				return (describe && test) ?
-					children :
-					React.useMemo(() => {
-						return (
-							<Marquee className={css.caption} marqueeOn="hover">
-								<MemoPropsContext.Consumer>
-									{context => (context && context.children || children)}
-								</MemoPropsContext.Consumer>
-							</Marquee>
-						);
-					}, []);
+				return React.useMemo(() => {
+					return (
+						<Marquee className={css.caption} marqueeOn="hover">
+							<MemoPropsContext.Consumer>
+								{context => (context && context.children || children)}
+							</MemoPropsContext.Consumer>
+						</Marquee>
+					);
+				}, []);
 			},
 			memoImageIcon: ({hasImageIcon}) => {
 				return hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
 					return (
 						<MemoPropsContext.Consumer>
-							{
-								// FIXME: `(describe && test)` condition was added to run unit tests properly.
-								// enzyme doesn't support a new context consumer yet.
-								// Unit tests will be updated based on testing-library.
-								// Then the `(describe && test)` condition will be removed.
-								(describe && test) ?
+							{context => { // eslint-disable-line enact/display-name
+								return hasImageIcon(context) ? (
 									<Cell
 										className={css.imageIcon}
-										component={imageIconComponent}
+										component={context && context.imageIconComponent || imageIconComponent}
 										shrink
-										src={imageIconSrc}
-									/> :
-									context => { // eslint-disable-line enact/display-name
-										return hasImageIcon(context) ? (
-											<Cell
-												className={css.imageIcon}
-												component={context && context.imageIconComponent || imageIconComponent}
-												shrink
-												src={context && context.imageIconSrc || imageIconSrc}
-											/>
-										) : null;
-									}
-							}
+										src={context && context.imageIconSrc || imageIconSrc}
+									/>
+								) : null;
+							}}
 						</MemoPropsContext.Consumer>
 					);
 				}, []);
