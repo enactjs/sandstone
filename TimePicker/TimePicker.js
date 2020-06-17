@@ -73,10 +73,10 @@ const indexOfMeridiem = (time, meridiems) => {
 };
 
 const dateTimeConfig = {
-	customProps: function (i18n, value, {meridiemLabel}) {
+	customProps: function ({meridiemEnabled, meridiemLabels, meridiemRanges}, value, {meridiemLabel}) {
 		const values = {
 			// i18n props
-			meridiems: i18n.meridiemLabels,
+			meridiems: meridiemLabels,
 			meridiemLabel,
 
 			// date components
@@ -85,7 +85,7 @@ const dateTimeConfig = {
 			meridiem: 0
 		};
 
-		if (i18n.meridiemEnabled && meridiemLabel == null) {
+		if (meridiemEnabled && meridiemLabel == null) {
 			if (values.meridiems.length > 2) {
 				values.meridiemLabel = `${values.meridiems[0]} / ${values.meridiems[1]} ...`;
 			} else {
@@ -94,8 +94,8 @@ const dateTimeConfig = {
 		}
 
 		if (value) {
-			if (i18n.meridiemEnabled) {
-				values.meridiem = indexOfMeridiem(value, i18n.meridiemRanges);
+			if (meridiemEnabled) {
+				values.meridiem = indexOfMeridiem(value, meridiemRanges);
 			}
 			values.hour = value.getHours();
 			values.minute = value.getMinutes();
