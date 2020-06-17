@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
-
-- `sandstone/Item` prop `size` to support small items
-
 ### Fixed
 
 - `sandstone/Input` to support accessibility features

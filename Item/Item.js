@@ -178,7 +178,7 @@ const ItemBase = kind({
 		 *
 		 * @type {('large'|'small')}
 		 * @default 'large'
-		 * @public
+		 * @private
 		 */
 		size: PropTypes.oneOf(['large', 'small']),
 
