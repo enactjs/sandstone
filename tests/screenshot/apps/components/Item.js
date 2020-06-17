@@ -35,6 +35,19 @@ const ItemTests = [
 	<Item size="small"> ฟิ้  ไั  ஒ  து</Item>,
 	<Item size="small">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	<Item size="small">صباح الخير</Item>,
+	{
+		textSize: 'large',
+		component: <Item size="small">Hello Item</Item>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Item size="small">Hello Item</Item>
+	},
+	{
+		textSize: 'large',
+		locale: 'ar-SA',
+		component: <Item size="small">Hello Item</Item>
+	},
 
 	// With tall characters and disabled [GT-28165]
 	<Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
