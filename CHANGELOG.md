@@ -11,12 +11,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
+- `sandstone/Dropdown` to prevent focus on outer area
 
 ### Fixed
 
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
+- `sandstone/Checkbox` to center the icon
+- `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/TabLayout` to center tab icons when collapsed
 
 ## [1.0.0-beta.7] - 2020-06-16
 

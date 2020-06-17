@@ -4,6 +4,16 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
+// Standalone version of the Checkbox (Also used when Checkbox has been wrapped with Spottable)
+@checkbox-standalone-rules: {
+	.bg {
+		position: absolute;
+		.position(@sand-checkbox-container-position);
+		border-radius: @sand-checkbox-container-border-radius;
+		.sand-spotlight-resting-bg-colors();
+	}
+}
+
 // Local mixin to make rule application more consistent.
 .checkboxColors (@color, @bg, @border) {
 	color: @color;
@@ -14,6 +24,7 @@
 .checkbox {
 	display: inline-block;
 	position: relative;
+	line-height: 0;
 
 	.icon {
 		margin: 0;	// Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
@@ -39,7 +50,7 @@
 	// asChild disabled selected
 	// asChild disabled indeterminate
 	//
-	// Standalone is represented below as .spottable(). This handles focus and disabled states.
+	// Standalone is represented below as .standalone. This handles focus and disabled states.
 	// asChild depends on the status of the parent for focus and disabled states.
 	//
 
@@ -72,15 +83,11 @@
 			}
 		}
 
+		&.standalone {
+			@checkbox-standalone-rules();
+		}
 		// Spottable version of the Checkbox
-		.spottable({
-			.bg {
-				position: absolute;
-				.position(@sand-checkbox-container-position);
-				border-radius: @sand-checkbox-container-border-radius;
-				.sand-spotlight-resting-bg-colors();
-			}
-		});
+		.spottable(@checkbox-standalone-rules);
 	});
 }
 
