@@ -47,7 +47,7 @@ class VirtualListSample extends Component {
 				>
 					{viewNames}
 				</Dropdown>
-				<View style={{height: '600px'}} />
+				<View />
 			</div>
 		);
 	}
