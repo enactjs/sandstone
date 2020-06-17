@@ -2,7 +2,8 @@
 /*  eslint-disable react-hooks/exhaustive-deps */
 //
 // React Hook "useMemo" is called in the function of the "computed" object properly,
-// which is neither a React function component or a custom React Hook function
+// which is neither a React function component or a custom React Hook function.
+// We might support `useComputed` or something like that later.
 
 /**
  * Provides Sandstone styled image item components and behaviors.
@@ -257,9 +258,10 @@ const ImageItemBase = kind({
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
 							{
-								// FIXME: for unit test temparary.
+								// FIXME: `(describe && test)` condition was added to run unit tests properly.
 								// enzyme doesn't support a new context consumer yet.
 								// Unit tests will be updated based on testing-library.
+								// Then the `(describe && test)` condition will be removed.
 								(describe && test) ?
 									label :
 									<MemoPropsContext.Consumer>
@@ -273,9 +275,10 @@ const ImageItemBase = kind({
 				}, []) : null;
 			},
 			memoCaption: () => {
-				// FIXME: for unit test temparary.
+				// FIXME: `(describe && test)` condition was added to run unit tests properly.
 				// enzyme doesn't support a new context consumer yet.
 				// Unit tests will be updated based on testing-library.
+				// Then the `(describe && test)` condition will be removed.
 				return (describe && test) ?
 					children :
 					React.useMemo(() => {
@@ -293,9 +296,10 @@ const ImageItemBase = kind({
 					return (
 						<MemoPropsContext.Consumer>
 							{
-								// FIXME: for unit test temparary.
+								// FIXME: `(describe && test)` condition was added to run unit tests properly.
 								// enzyme doesn't support a new context consumer yet.
 								// Unit tests will be updated based on testing-library.
+								// Then the `(describe && test)` condition will be removed.
 								(describe && test) ?
 									<Cell
 										className={css.imageIcon}
@@ -329,7 +333,7 @@ const ImageItemBase = kind({
 							</Cell>
 						</Row>
 					);
-					// We don't need the dependency of the `chilren` and the `label`
+					// We don't need the dependency of the `memoCaption` and the `memoSubcaption`
 					// because it will be passed through a context.
 					// eslint-disable-next-line react-hooks/exhaustive-deps
 				}, [css.captions]);
