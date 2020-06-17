@@ -112,7 +112,16 @@ const CheckboxBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Sets standalone rules to show spotlight background color.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		standalone: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -125,17 +134,18 @@ const CheckboxBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'checkbox',
-		publicClassNames: ['checkbox', 'bg', 'selected']
+		publicClassNames: ['checkbox', 'selected']
 	},
 
 	computed: {
-		className: ({indeterminate, selected, styler}) => styler.append({selected, indeterminate}),
+		className: ({indeterminate, selected, standalone, styler}) => styler.append({selected, standalone, indeterminate}),
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
 	render: ({children, css, selected, ...rest}) => {
 		delete rest.indeterminate;
 		delete rest.indeterminateIcon;
+		delete rest.standalone;
 
 		return (
 			<div

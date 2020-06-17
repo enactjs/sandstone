@@ -4,6 +4,16 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
+// Spottable version of the Checkbox
+@checkbox-standalone-rules: {
+	.bg {
+		position: absolute;
+		.position(@sand-checkbox-container-position);
+		border-radius: @sand-checkbox-container-border-radius;
+		.sand-spotlight-resting-colors();
+	}
+}
+
 // Local mixin to make rule application more consistent.
 .checkboxColors (@color, @bg, @border) {
 	color: @color;
@@ -72,15 +82,11 @@
 			}
 		}
 
+		&.standalone {
+			@checkbox-standalone-rules();
+		}
 		// Spottable version of the Checkbox
-		.spottable({
-			.bg {
-				position: absolute;
-				.position(@sand-checkbox-container-position);
-				border-radius: @sand-checkbox-container-border-radius;
-				.sand-spotlight-resting-colors();
-			}
-		});
+		.spottable(@checkbox-standalone-rules);
 	});
 }
 
