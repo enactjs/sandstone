@@ -18,7 +18,7 @@
 
 	.tabs {
 		padding: @sand-popuptablayout-tabs-padding;
-		margin-inline-end: @sand-popuptablayout-tabs-content-spacing;
+		margin-right: @sand-popuptablayout-tabs-content-spacing;
 	}
 
 	.content {
@@ -80,6 +80,13 @@
 	> .body {
 		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
 		padding: @sand-popuptablayout-panel-body-padding;
+	}
+}
+
+// Overrides for TabLayout
+.tabLayout {
+	:global(.enact-locale-right-to-left) & {
+		flex-direction: row-reverse;
 	}
 }
 

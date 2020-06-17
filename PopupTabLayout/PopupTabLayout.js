@@ -247,6 +247,7 @@ const PopupTabLayoutBase = kind({
 			<Popup {...popupProps} css={css}>
 				<TabLayout
 					{...rest}
+					className={css.tabLayout}
 					css={css}
 					align="start"
 				>
