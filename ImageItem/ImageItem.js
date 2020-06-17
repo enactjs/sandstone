@@ -212,49 +212,61 @@ const ImageItemBase = kind({
 
 	computed: {
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
-			const
-				hasImageIcon = ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'), // eslint-disable-line no-shadow
-				hasLabel = ({label}) => (typeof label !== 'undefined'); // eslint-disable-line no-shadow
+			const hasImageIcon = ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'); // eslint-disable-line no-shadow
+			const hasLabel = ({label}) => (typeof label !== 'undefined'); // eslint-disable-line no-shadow
 
 			if (!hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && !children && !label) return;
 
 			const
+				memoizedImageIcon = hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
+					return (
+						<MemoPropsContext.Consumer>
+							{context => { // eslint-disable-line enact/display-name
+								const imageIcon = null;
+
+								if (context && hasImageIcon(context)) {
+									imageIcon = <Cell
+										className={css.imageIcon}
+										component={context.imageIconComponent}
+										shrink
+										src={context.imageIconSrc}
+									/>;
+								} else if (!context && hasImageIcon({imageIconComponent, imageIconSrc, orientation})) {
+									imageIcon = <Cell
+										className={css.imageIcon}
+										component={imageIconComponent}
+										shrink
+										src={imageIconSrc}
+									/>;
+								}
+
+								return imageIcon;
+							}}
+						</MemoPropsContext.Consumer>
+					);
+				}, []),
+				memoizedChildren = React.useMemo(() => {
+					return (
+						<Marquee className={css.caption} marqueeOn="hover">
+							<MemoPropsContext.Consumer>
+								{context => {
+									return context ? context.children : children;
+								}}
+							</MemoPropsContext.Consumer>
+						</Marquee>
+					);
+				}, []),
 				memoizedLabel = hasLabel({label}) ? React.useMemo(() => {
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
 							<MemoPropsContext.Consumer>
 								{context => {
-									return hasLabel(context) ? (context && context.label || label) : null;
+									return context ? (hasLabel(context) && context.label || null) : label;
 								}}
 							</MemoPropsContext.Consumer>
 						</Marquee>
 					);
-				}, []) : null,
-				memoizedChildren = React.useMemo(() => {
-					return (
-						<Marquee className={css.caption} marqueeOn="hover">
-							<MemoPropsContext.Consumer>
-								{context => (context && context.children || children)}
-							</MemoPropsContext.Consumer>
-						</Marquee>
-					);
-				}, []),
-				memoizedImageIcon = hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && React.useMemo(() => {
-					return (
-						<MemoPropsContext.Consumer>
-							{context => { // eslint-disable-line enact/display-name
-								return hasImageIcon(context) ? (
-									<Cell
-										className={css.imageIcon}
-										component={context && context.imageIconComponent || imageIconComponent}
-										shrink
-										src={context && context.imageIconSrc || imageIconSrc}
-									/>
-								) : null;
-							}}
-						</MemoPropsContext.Consumer>
-					);
-				}, []);
+				}, []) : null;
 
 			return React.useMemo(() => {
 				return (
@@ -266,8 +278,8 @@ const ImageItemBase = kind({
 						</Cell>
 					</Row>
 				);
-				// We don't need the dependency of the `memoizedChildren` and the `memoizedLabel`
-				// because it will be passed through a context.
+				// We don't need the dependency of the `memoizedImageIcon`, `memoizedChildren` and the `memoizedLabel`
+				// because it will be updated through a context.
 				// eslint-disable-next-line react-hooks/exhaustive-deps
 			}, [css.captions]);
 		},
