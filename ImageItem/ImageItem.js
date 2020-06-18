@@ -283,7 +283,6 @@ const ImageItemBase = kind({
 		return (
 			<UiImageItem
 				{...rest}
-				context={MemoPropsThemeContext}
 				css={css}
 				imageComponent={
 					React.useMemo(() => {
@@ -302,6 +301,7 @@ const ImageItemBase = kind({
 						);
 					}, [css.selectionContainer, css.selectionIcon, SelectionComponent, showSelection])
 				}
+				isMemoPropsContext
 			/>
 		);
 	}
