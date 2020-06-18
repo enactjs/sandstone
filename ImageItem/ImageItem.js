@@ -310,6 +310,7 @@ const ImageItemBase = kind({
  *
  * @hoc
  * @memberof sandstone/ImageItem
+ * @mixes ui/ImageItem.MemoPropsThemeDecorator
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
