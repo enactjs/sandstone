@@ -301,7 +301,6 @@ const ImageItemBase = kind({
 						);
 					}, [css.selectionContainer, css.selectionIcon, SelectionComponent, showSelection])
 				}
-				isMemoPropsContext
 			/>
 		);
 	}
