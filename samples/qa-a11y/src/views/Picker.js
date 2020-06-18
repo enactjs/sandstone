@@ -1,10 +1,12 @@
-import DatePicker from '@enact/sandstone/DatePicker';
+import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
+import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Heading from '@enact/sandstone/Heading';
+import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import RangePicker from '@enact/sandstone/RangePicker';
 import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
-import TimePicker from '@enact/sandstone/TimePicker';
+import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 
 const
 	airports = [
@@ -34,6 +36,82 @@ class CustomPicker extends React.Component {
 
 		return (
 			<Picker aria-valuetext={valueText} onChange={this.handleChange} {...this.props}>{children}</Picker>
+		);
+	}
+}
+
+class DatePickerItem extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			open: false,
+			value: null
+		};
+	}
+
+	handleClose = () => this.setState({open: false})
+	handleOpen = () => this.setState({open: true})
+	handleChange = ({value}) => this.setState({value: dateToLocaleString(value)})
+
+	render () {
+		return (
+			<>
+				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Date</Item>
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose}
+					open={this.state.open}
+				>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+							<subtitle>Subtitle</subtitle>
+						</Header>
+						<DatePicker
+							onChange={this.handleChange}
+							{...this.props}
+						/>
+					</Panel>
+				</FixedPopupPanels>
+			</>
+		);
+	}
+}
+
+class TimePickerItem extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			open: false,
+			value: null
+		};
+	}
+
+	handleClose = () => this.setState({open: false})
+	handleOpen = () => this.setState({open: true})
+	handleChange = ({value}) => this.setState({value: timeToLocaleString(value)})
+
+	render () {
+		return (
+			<>
+				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Time</Item>
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose}
+					open={this.state.open}
+				>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+							<subtitle>Subtitle</subtitle>
+						</Header>
+						<TimePicker
+							onChange={this.handleChange}
+							{...this.props}
+						/>
+					</Panel>
+				</FixedPopupPanels>
+			</>
 		);
 	}
 }
@@ -122,12 +200,12 @@ const PickerView = () => (
 		/>
 
 		<Heading showLine>DatePicker</Heading>
-		<DatePicker
+		<DatePickerItem
 			title="Date"
 		/>
 
 		<Heading showLine>TimePicker</Heading>
-		<TimePicker
+		<TimePickerItem
 			title="Time"
 		/>
 
@@ -227,7 +305,7 @@ const PickerView = () => (
 		/>
 
 		<Heading showLine>DatePicker</Heading>
-		<DatePicker
+		<DatePickerItem
 			dayAriaLabel="Day picker"
 			monthAriaLabel="Month picker"
 			title="Date"
@@ -235,7 +313,7 @@ const PickerView = () => (
 		/>
 
 		<Heading showLine>TimePicker</Heading>
-		<TimePicker
+		<TimePickerItem
 			hourAriaLabel="Hour picker"
 			meridiemAriaLabel="Meridiem picker"
 			minuteAriaLabel="Minute picker"
