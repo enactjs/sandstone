@@ -35,8 +35,6 @@ import Skinnable from '../Skinnable';
 
 import componentCss from './ImageItem.module.less';
 
-
-
 const
 	defaultPlaceholder =
 	'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
