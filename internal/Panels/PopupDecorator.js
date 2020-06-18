@@ -173,9 +173,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Scrim type.
 			 *
-			 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
-			 *
-			 * @type {String}
+			 * @type {('transparent'|'translucent'|'none')}
 			 * @default 'translucent'
 			 * @public
 			 */
@@ -184,9 +182,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
 			 *
-			 * * Values: `'self-first'`, or `'self-only'`.
-			 *
-			 * @type {String}
+			 * @type {('self-first'|'self-only')}
 			 * @default 'self-only'
 			 * @public
 			 */
