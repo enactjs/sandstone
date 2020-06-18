@@ -44,9 +44,9 @@ class VirtualListPage extends Page {
 	get buttonJumpToItem () {
 		return element('#jumpTo', browser);
 	}
-  get buttonDisabledItem () {
-    return element('#disabled', browser);
-  }
+	get buttonDisabledItem () {
+		return element('#disabled', browser);
+	}
 	get buttonChildProps () {
 		return element('#hasChildProps', browser);
 	}
@@ -189,7 +189,7 @@ class VirtualListPage extends Page {
 		return browser.execute(function () {
 			return document.activeElement.getAttribute('aria-disabled') === 'true';
 		});
-	}  
+	}
 	textContent () {
 		return browser.execute(function () {
 			return document.activeElement.innerText.split('\n')[0];

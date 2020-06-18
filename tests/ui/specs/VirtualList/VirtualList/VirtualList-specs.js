@@ -609,7 +609,7 @@ describe('VirtualList', function () {
 				Page.spotlightDown();
 				expectFocusedItem(1);
 				expect(Page.textContent()).to.equal('Item 01 child props');
-      });        
+			});
 
 			it('should Navigate Disabled and Enabled items [GT-29029]', function () {
 				// Step 3: Click on DisabledItems CheckboxItem.(DisabledItem Button for this test.)
