@@ -22,7 +22,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem, MemoPropsDecorator, MemoPropsThemeContextConsumer} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsThemeContextConsumer, MemoPropsThemeDecorator} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -318,7 +318,7 @@ const ImageItemBase = kind({
  * @public
  */
 const ImageItemDecorator = compose(
-	MemoPropsDecorator,
+	MemoPropsThemeDecorator,
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
