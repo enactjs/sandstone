@@ -6,8 +6,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Dropdown` to prevent focus on outer area
 - `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
+- `sandstone/Dropdown` to prevent focus on outer area
+- `sandstone/Input` `disabled` prop to not close an open input.
 
 ### Fixed
 
@@ -19,6 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/TabLayout` to center tab icons when collapsed
+- `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 
 ## [1.0.0-beta.7] - 2020-06-16
 
