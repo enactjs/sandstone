@@ -1,32 +1,34 @@
 import Button from '@enact/sandstone/Button';
-import Layout, {Cell} from '@enact/ui/Layout';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Steps from '@enact/sandstone/Steps';
+import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
+
+const cellStyle = {border: '3px solid red'};
 
 const HeaderView = () => (
 	<Layout orientation="vertical">
 		<Cell component={Scroller}>
-			<Cell style={{border: '3px solid red'}}>
+			<Cell style={cellStyle}>
 				<Panel>
 					<Header title="Header with title" />
 					<Button>Button in Panel 01</Button>
 				</Panel>
 			</Cell>
-			<Cell style={{border: '3px solid red'}}>
+			<Cell style={cellStyle}>
 				<Panel>
 					<Header title="Header" subtitle="with title and subtitle" />
 					<Button>Button in Panel 02</Button>
 				</Panel>
 			</Cell>
-			<Cell style={{border: '3px solid red'}}>
+			<Cell style={cellStyle}>
 				<Panel>
 					<Header title="Header" subtitle="with closeButtonAriaLabel" closeButtonAriaLabel="application close" />
 					<Button>Button in Panel 03</Button>
 				</Panel>
 			</Cell>
-			<Cell style={{border: '3px solid red'}}>
+			<Cell style={cellStyle}>
 				<Panel>
 					<Header
 						type="wizard"

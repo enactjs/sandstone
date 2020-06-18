@@ -1,10 +1,10 @@
-import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
-import Spotlight from '@enact/spotlight';
 import VirtualList from '@enact/sandstone/VirtualList';
+import Spotlight from '@enact/spotlight';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 const itemList = [];
 for (let i = 0; i < 50; i++) {

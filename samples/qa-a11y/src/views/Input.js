@@ -1,8 +1,8 @@
 import Heading from '@enact/sandstone/Heading';
 import Input, {InputField} from '@enact/sandstone/Input';
+import Scroller from '@enact/sandstone/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '@enact/sandstone/Scroller';
 
 const InputView = () => (
 	<Layout orientation="vertical">

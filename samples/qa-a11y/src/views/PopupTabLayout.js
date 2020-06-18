@@ -1,8 +1,8 @@
-import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
-import {Header} from '@enact/sandstone/Panels';
-import Scroller from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
+import PopupTabLayout, {Tab, TabPanel, TabPanels} from '@enact/sandstone/PopupTabLayout';
+import Scroller from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
 

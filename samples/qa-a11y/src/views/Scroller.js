@@ -1,8 +1,8 @@
-import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
 import ToggleButton from '@enact/sandstone/SwitchItem';
+import Layout, {Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 class ScrollerView extends React.Component {
 	constructor () {

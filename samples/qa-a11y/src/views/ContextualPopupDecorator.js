@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import Group from '@enact/ui/Group';
 import RadioItem from '@enact/sandstone/RadioItem';
-import React from 'react';
+import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
+import React from 'react';
 
 const ContextualButton = Toggleable(
 	{prop: 'open', toggle: 'onClick', deactivate: 'onClose'},
@@ -72,7 +72,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				<div style={{position: 'absolute', right: '0'}}>
 					<ContextualButton
 						size="small"
-						direction="left"
+						direction="left middle"
 						popupComponent={this.renderPopup3}
 					>
 						Nested Radio

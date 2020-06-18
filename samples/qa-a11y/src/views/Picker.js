@@ -1,12 +1,12 @@
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
-import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
+import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
 import RangePicker from '@enact/sandstone/RangePicker';
-import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
 import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
+import React from 'react';
 
 const
 	airports = [

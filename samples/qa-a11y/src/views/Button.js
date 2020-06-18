@@ -1,7 +1,7 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
-import Layout, {Cell} from '@enact/ui/Layout';
 import Scroller from '@enact/sandstone/Scroller';
+import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
 
 const ButtonView = () => (

@@ -2,11 +2,11 @@ import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import Layout, {Cell} from '@enact/ui/Layout';
 import RadioItem from '@enact/sandstone/RadioItem';
-import React from 'react';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import Layout, {Cell} from '@enact/ui/Layout';
+import React from 'react';
 
 const ItemView = () => (
 	<Layout orientation="vertical">
