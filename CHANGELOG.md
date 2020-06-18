@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
 - `sandstone/FormCheckboxItem` to not move focus in an item
