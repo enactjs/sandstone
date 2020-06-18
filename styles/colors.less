@@ -145,16 +145,8 @@
 @sand-input-overlay-background-color: fade(@sand-bg-color, 90%);
 @sand-input-number-active-background-color: @sand-light-gray;
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
-// this manually mixes the colors of the text color, focus background color, and popup background
-// colors to derive the color value that nearly matches the browsers generated color for <input>
-// under similar circumstances.
-@sand-input-numberfield-disabled-color: mix(
-	@sand-inputfield-placeholder-active-color,
-	mix(
-		fadeout(@sand-input-number-active-background-color, @sand-disabled-focus-bg-opacity),
-		@sand-popup-bg-color
-	)
-);
+@sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
 // ---------------------------------------

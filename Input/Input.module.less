@@ -27,7 +27,17 @@
 
 	.joined,
 	.numberCell {
-		border-radius: @sand-input-numbercell-border-radius;
+		position: relative;
+		z-index: 0;
+
+		&::before {
+			position: absolute;
+			.position(0);
+			content: '';
+			z-index: -1;
+
+			border-radius: @sand-input-numbercell-border-radius;
+		}
 	}
 
 	.inputArea {
@@ -155,23 +165,33 @@
 	.applySkins({
 		.joined {
 			color: @sand-inputfield-focus-text-color;
-			background-color: @sand-input-number-active-background-color;
 		}
 
 		.numberCell {
-			background-color: @sand-input-numbercell-background-color;
+			&::before {
+				background-color: @sand-input-numbercell-background-color;
+			}
 
 			&.active {
 				color: @sand-inputfield-focus-text-color;
-				background-color: @sand-input-number-active-background-color;
 			}
 		}
 
+		// Style joined numeric inputs and active cells like a focused input
 		.joined,
-		.numberCell {
+		.numberCell.active {
+			&::before {
+				.sand-spotlight-focus-colors();
+				// Remove drop shadow for this input-like field
+				filter: none;
+			}
+
 			.sand-disabled({
-				.sand-disabled-focus-bg-colors();
 				color: @sand-input-numberfield-disabled-color;
+
+				&::before {
+					opacity: @sand-input-numberfield-disabled-opacity;
+				}
 			});
 		}
 
