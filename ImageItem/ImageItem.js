@@ -1,3 +1,7 @@
+/*  eslint-disable react-hooks/rules-of-hooks */
+/*  eslint-disable react-hooks/exhaustive-deps */
+// To use `React.useMemo` in a kind, the above eslint rules have been disabled.
+
 /**
  * Provides Sandstone styled image item components and behaviors.
  *
@@ -18,7 +22,7 @@
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
-import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
+import {ImageItem as UiImageItem, MemoPropsThemeContextConsumer, MemoPropsThemeDecorator} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -192,12 +196,13 @@ const ImageItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
-		imageIconComponent: Image,
 		orientation: 'vertical',
 		placeholder: defaultPlaceholder,
 		selected: false,
 		showSelection: false
 	},
+
+	functional: true,
 
 	styles: {
 		css: componentCss,
@@ -206,29 +211,60 @@ const ImageItemBase = kind({
 
 	computed: {
 		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
-			const hasImageIcon = imageIconSrc && orientation === 'vertical';
+			const hasImageIcon = ({imageIconComponent, imageIconSrc, orientation}) => (orientation === 'vertical' && typeof imageIconComponent !== 'undefined' && typeof imageIconSrc !== 'undefined'); // eslint-disable-line no-shadow
+			const hasLabel = ({label}) => (typeof label !== 'undefined'); // eslint-disable-line no-shadow
 
-			if (!hasImageIcon && !children && !label) return;
+			if (!hasImageIcon({imageIconComponent, imageIconSrc, orientation}) && !children && !label) return;
 
-			return (
-				<Row className={css.captions}>
-					{hasImageIcon ? (
-						<Cell
-							className={css.imageIcon}
-							component={imageIconComponent}
-							src={imageIconSrc}
-							shrink
-						/>
-					) : null}
-					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-					</Cell>
-				</Row>
-			);
+			const
+				memoizedImageIcon = React.useMemo(() => {
+					return MemoPropsThemeContextConsumer(context => { // eslint-disable-line enact/display-name
+						return hasImageIcon(context) ?
+							<Cell
+								className={css.imageIcon}
+								component={context.imageIconComponent || Image}
+								shrink
+								src={context.imageIconSrc}
+							/> :
+							null;
+					});
+				}, [css.imageIcon]),
+				memoizedChildren = React.useMemo(() => {
+					return (
+						<Marquee className={css.caption} marqueeOn="hover">
+							{MemoPropsThemeContextConsumer(context => {
+								return context.children;
+							})}
+						</Marquee>
+					);
+				}, [css.caption]),
+				memoizedLabel = React.useMemo(() => {
+					return (
+						<Marquee className={css.label} marqueeOn="hover">
+							{MemoPropsThemeContextConsumer(context => {
+								return hasLabel(context) && context.label || null;
+							})}
+						</Marquee>
+					);
+				}, [css.label]);
+
+			return React.useMemo(() => {
+				return (
+					<Row className={css.captions}>
+						{memoizedImageIcon}
+						<Cell>
+							{memoizedChildren}
+							{memoizedLabel}
+						</Cell>
+					</Row>
+				);
+				// We don't need the dependency of the `memoizedImageIcon`, `memoizedChildren` and the `memoizedLabel`
+				// because it will be updated through a context.
+				// eslint-disable-next-line react-hooks/exhaustive-deps
+			}, [css.captions]);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
-			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+			fullImage: orientation === 'vertical' && !children && !imageIconSrc && !label
 		})
 	},
 
@@ -247,17 +283,21 @@ const ImageItemBase = kind({
 				{...rest}
 				css={css}
 				imageComponent={
-					<Image>
-						{showSelection ? (
-							<div className={css.selectionContainer}>
-								{SelectionComponent ? (
-									<SelectionComponent />
-								) : (
-									<Icon className={css.selectionIcon}>check</Icon>
-								)}
-							</div>
-						) : null}
-					</Image>
+					React.useMemo(() => {
+						return (
+							<Image>
+								{showSelection ? (
+									<div className={css.selectionContainer}>
+										{SelectionComponent ? (
+											<SelectionComponent />
+										) : (
+											<Icon className={css.selectionIcon}>check</Icon>
+										)}
+									</div>
+								) : null}
+							</Image>
+						);
+					}, [css.selectionContainer, css.selectionIcon, SelectionComponent, showSelection])
 				}
 			/>
 		);
@@ -270,12 +310,14 @@ const ImageItemBase = kind({
  *
  * @hoc
  * @memberof sandstone/ImageItem
+ * @mixes ui/ImageItem.MemoPropsThemeDecorator
  * @mixes sandstone/Marquee.MarqueeController
  * @mixes spotlight/Spottable.Spottable
  * @mixes sandstone/Skinnable.Skinnable
  * @public
  */
 const ImageItemDecorator = compose(
+	MemoPropsThemeDecorator,
 	MarqueeController({marqueeOnFocus: true}),
 	Spottable,
 	Skinnable
