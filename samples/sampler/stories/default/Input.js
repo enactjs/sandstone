@@ -37,7 +37,9 @@ storiesOf('Sandstone', module)
 				placeholder: text('placeholder', Config, 'placeholder string'),
 				subtitle: text('subtitle', ConfigPopup, 'Title Below Text'),
 				title: text('title', ConfigPopup, 'Title Text'),
-				disabled: boolean('disabled', Config)
+				disabled: boolean('disabled', Config),
+				'aria-label': text('aria-label', ConfigPopup, ''),
+				popupAriaLabel: text('popupAriaLabel', ConfigPopup, '')
 			};
 
 			// Numeric specific props
@@ -46,11 +48,18 @@ storiesOf('Sandstone', module)
 
 				const minMax = boolean('customize min/max', ConfigPopup, false);
 				if (minMax) {
-					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 10}, 4);
-					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 10}, 0);
+					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
+					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
 				} else {
-					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 10}, 4);
+					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
 				}
+			}
+
+			// Modify a11y null strings
+			if (!props['aria-label']) {
+				delete props['aria-label'];
+			} else if (!props.popupAriaLabel) {
+				delete props.popupAriaLabel;
 			}
 
 			return (<div>

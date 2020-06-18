@@ -198,7 +198,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
 	 *
 	 * @type {String}
-	 * @default $L('scroll up down with up down button')
+	 * @default $L('scroll up or down with up down button')
 	 * @public
 	 */
 	horizontalScrollThumbAriaLabel: PropTypes.string,
@@ -347,7 +347,7 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
 	 *
 	 * @type {String}
-	 * @default $L('scroll left right with left right button')
+	 * @default $L('scroll left or right with left right button')
 	 * @public
 	 */
 	verticalScrollThumbAriaLabel: PropTypes.string

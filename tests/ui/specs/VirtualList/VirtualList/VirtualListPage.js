@@ -44,6 +44,9 @@ class VirtualListPage extends Page {
 	get buttonJumpToItem () {
 		return element('#jumpTo', browser);
 	}
+  get buttonDisabledItem () {
+    return element('#disabled', browser);
+  }
 	get buttonChildProps () {
 		return element('#hasChildProps', browser);
 	}
@@ -136,8 +139,9 @@ class VirtualListPage extends Page {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
 				{bottom, left, width} = scroller.getBoundingClientRect();
-
-			let currentY = bottom - 1,
+			// affordance space to draw the bottom shadow. affordanceSize is 48 for 4k and 24 for FHD.
+			const affordanceSize = 24;
+			let currentY = bottom - affordanceSize - 1,
 				middle = left + Math.floor((left + width) / 2);
 
 			for (let i = 0; i < 10; i++) {
@@ -181,6 +185,11 @@ class VirtualListPage extends Page {
 			};
 		}, listItemSelector);
 	}
+	itemDisabled () {
+		return browser.execute(function () {
+			return document.activeElement.getAttribute('aria-disabled') === 'true';
+		});
+	}  
 	textContent () {
 		return browser.execute(function () {
 			return document.activeElement.innerText.split('\n')[0];

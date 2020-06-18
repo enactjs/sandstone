@@ -126,4 +126,13 @@ describe('Item Specs', () => {
 
 		expect(actual).toContain(expected);
 	});
+
+	it('should have apply small class when small', function () {
+		const subject = shallow(<ItemBase size="small" />);
+
+		const expected = 'small';
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
+	});
 });

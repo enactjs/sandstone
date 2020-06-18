@@ -11,6 +11,7 @@ import React from 'react';
 
 import Button from '../Button';
 
+import $L from '../internal/$L';
 import WindowEventable from '../internal/WindowEventable';
 
 import css from './Input.module.less';
@@ -45,13 +46,12 @@ const Key = kind({
 	},
 
 	render: ({children, ...rest}) => {
-		const content = (children === 'backspace') ? 'arrowhookleft' : children;
 		delete rest.onKeyButtonClick;
 		return (
 			<Button
 				{...rest}
 				size="large"
-				icon={content}
+				icon={children}
 			/>
 		);
 	}
@@ -76,6 +76,7 @@ const Keypad = kind({
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
+							aria-label={keyText === 'backspace' ? $L('Back Space') : keyText}
 							shrink
 							component={Key}
 							key={`key${rowIndex}-${keyText}`}

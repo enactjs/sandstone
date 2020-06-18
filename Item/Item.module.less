@@ -29,6 +29,20 @@
 	.slotAfter,
 	.slotBefore {
 		line-height: 0;  // Attempt to get the children of this to always vertically-align their middles with the text
+
+		> * {
+			// vertically align all direct children
+			vertical-align: middle;
+
+			// Remove the specific edge margin on direct children so the slot can define the proper
+			// spacing for itself.
+			&:first-child {
+				margin-inline-start: 0;
+			}
+			&:last-child {
+				margin-inline-end: 0;
+			}
+		}
 	}
 
 	.slotAfter {
@@ -93,6 +107,36 @@
 			line-height: @sand-item-line-height-large;
 		});
 	});
+
+	&.small {
+		.sand-text-base(@sand-item-small-font-size);
+
+		line-height: @sand-item-small-line-height;
+		height: @sand-item-small-height;
+
+		&.hasLabel {
+			height: @sand-item-small-withlabel-height;
+		}
+
+		.label {
+			.sand-text-base(@sand-item-small-label-font-size);
+			line-height: @sand-item-small-label-line-height;
+		}
+
+		.sand-locale-non-latin({
+			font-size: @sand-item-small-font-size;
+			line-height: @sand-item-small-line-height;
+		});
+
+		.sand-custom-text({
+			font-size: @sand-item-small-font-size-large;
+			line-height: @sand-item-small-line-height-large;
+
+			.sand-locale-non-latin({
+				line-height: @sand-item-small-line-height-large;
+			});
+		});
+	}
 
 	.locale-japanese-line-break();
 

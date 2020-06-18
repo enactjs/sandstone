@@ -18,10 +18,10 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(31),
-	oneLineSize = ri.scale(50),
+	fontSize = `${ri.scale(30)}px`,
+	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	spacing = 40;
+	spacing = 60;
 
 class DifferenctHeightItem extends Component {
 	static propTypes = {
@@ -30,27 +30,19 @@ class DifferenctHeightItem extends Component {
 	}
 
 	itemStyleDefault = {
-		position: 'absolute',
-		width: '100%',
-		borderBottom: 'solid 10px gray',
-		boxSizing: 'border-box',
 		fontSize,
-		lineHeight,
-		whiteSpace: 'pre'
+		lineHeight
 	}
 
 	render () {
 		const
 			{index, items, style: itemStyleFromList, ...rest} = this.props,
 			{title: children, height} = items[index],
-			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList};
-
+			itemStyle = {...this.itemStyleDefault, ...itemStyleFromList, height};
 
 		return (
 			<Item {...rest} style={itemStyle}>
-				<div style={{height}}>
-					{children}
-				</div>
+				{children}
 			</Item>
 		);
 	}
@@ -102,6 +94,7 @@ class VerticalDifferentHeightItemList extends Component {
 					size: this.state.itemSize
 				}}
 				spacing={spacing}
+				style={{height: '600px', paddingRight: `${ri.scale(36)}px`}}
 			/>
 		);
 	}

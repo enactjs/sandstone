@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forward, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -21,12 +21,14 @@ import componentCss from './Input.module.less';
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
 const normalizeValue = (value, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, maxLength) : '');
+
 const normalizeValueProp = ({value, maxLength}) => normalizeValue(value, maxLength);
 
 const NumberCell = kind({
 	name: 'NumberCell',
 
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
+		active: PropTypes.bool,
 		children: PropTypes.string,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
@@ -43,10 +45,12 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({password, styler}) => styler.append({password})
+		className: ({active, password, styler}) => styler.append({active, password})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
+		delete rest.active;
+
 		return (
 			<Icon
 				size="large"
@@ -62,6 +66,7 @@ const NumberFieldBase = kind({
 	name: 'NumberField',
 
 	propTypes: {
+		announce: PropTypes.func,
 		css: PropTypes.object,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
@@ -92,6 +97,9 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
+					returnsTrue(({value}, {announce, type}) => {
+						announce(type === 'password' ? $L('hidden') : String(value).substr(-1));
+					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
@@ -107,6 +115,7 @@ const NumberFieldBase = kind({
 			)
 		),
 		onRemove: handle(
+			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				forward('onChange')
@@ -144,11 +153,18 @@ const NumberFieldBase = kind({
 			} else {
 				return null;
 			}
+		},
+		style: ({maxLength, style}) => {
+			return {
+				...style,
+				'--input-max-number-length': maxLength
+			};
 		}
 	},
 
 	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
+		delete rest.announce;
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
@@ -164,15 +180,19 @@ const NumberFieldBase = kind({
 			const items = new Array(maxLength).fill('');
 			field = (
 				<Repeater
-					aria-label={!password ? values.join(' ') : null}
-					aria-live="polite"
 					{...rest}
 					component={Layout}
 					childComponent={Cell}
-					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
 				>
-					{items.map((_, index) => (values[index]))}
+					{items.map((_, index) => ({
+						active: index <= value.length,
+						children: values[index],
+						component: NumberCell,
+						key: `key-${index}`,
+						password,
+						shrink: true
+					}))}
 				</Repeater>
 			);
 		} else {
@@ -190,7 +210,7 @@ const NumberFieldBase = kind({
 					{invalidTooltip}
 				</div>
 				<br />
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad aria-label=" " onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
 			</React.Fragment>
 		);
