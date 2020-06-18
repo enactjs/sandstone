@@ -1,5 +1,5 @@
 import React from 'react';
-import {shallow} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import {ImageItemBase} from '../ImageItem';
 
 function SelectionComponent () {
@@ -7,6 +7,18 @@ function SelectionComponent () {
 }
 
 describe('ImageItem', () => {
+	test('should support `centered` prop', () => {
+		const children = 'caption';
+		const subject = mount(
+			<ImageItemBase centered>{children}</ImageItemBase>
+		);
+
+		const expected = 'center';
+		const actual = subject.find('.text').prop('style');
+
+		expect(actual).toHaveProperty('textAlign', expected);
+	});
+
 	test('should support `children` prop', () => {
 		const children = 'caption';
 		const subject = shallow(
@@ -44,8 +56,9 @@ describe('ImageItem', () => {
 	});
 
 	test('should omit `.imageIcon` when `imageIconSrc` is unset and `caption` is set', () => {
+		const children = 'caption';
 		const subject = shallow(
-			<ImageItemBase caption="caption" />
+			<ImageItemBase>{children}</ImageItemBase>
 		);
 
 		const actual = subject.find('.imageIcon');
@@ -53,9 +66,9 @@ describe('ImageItem', () => {
 		expect(actual).toHaveLength(0);
 	});
 
-	test('should omit `.imageIcon` when `imageIconSrc` is unset and `subCaption` is set', () => {
+	test('should omit `.imageIcon` when `imageIconSrc` is unset and `label` is set', () => {
 		const subject = shallow(
-			<ImageItemBase subCaption="subCaption" />
+			<ImageItemBase label="label" />
 		);
 
 		const actual = subject.find('.imageIcon');
@@ -63,12 +76,12 @@ describe('ImageItem', () => {
 		expect(actual).toHaveLength(0);
 	});
 
-	test('should omit caption when `imageIconSrc`, `caption`, and `subCaption` are unset', () => {
+	test('should omit children when `imageIconSrc`, `children`, and `label` are unset', () => {
 		const subject = shallow(
 			<ImageItemBase />
 		);
 
-		const actual = subject.prop('caption');
+		const actual = subject.prop('children');
 
 		expect(actual).toBeUndefined();
 	});
