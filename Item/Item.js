@@ -272,9 +272,9 @@ const ItemBase = kind({
  * @public
  */
 const ItemDecorator = compose(
+	Pure,
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
-	Pure,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
