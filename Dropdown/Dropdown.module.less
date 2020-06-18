@@ -59,19 +59,19 @@
 
 		&:not([disabled]) {
 			.focus({
-				&.pressed,
-				&:active {
-					.bg {
-						animation-name: none;
-					}
-				}
-
 				.bg {
 					transform: unset;
 				}
 
 				&.small .bg {
 					transform: unset;
+				}
+
+				&.pressed,
+				&:active {
+					.bg {
+						animation-name: none;
+					}
 				}
 			});
 		}
