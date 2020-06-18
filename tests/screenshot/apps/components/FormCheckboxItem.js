@@ -1,3 +1,4 @@
+import Icon from '../../../../Icon';
 import FormCheckboxItem from '../../../../FormCheckboxItem';
 import React from 'react';
 
@@ -23,6 +24,13 @@ const FormCheckboxItemTests = [
 	<FormCheckboxItem selected inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem selected disabled inline indeterminate>FormCheckboxItem</FormCheckboxItem>,
 	<FormCheckboxItem indeterminate indeterminateIcon="lock">FormCheckboxItem</FormCheckboxItem>, 					// not selected
+
+	// Icon slotBefore
+	<FormCheckboxItem><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
+	<FormCheckboxItem selected><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem selected inline><Icon slot="slotBefore">home</Icon>FormCheckboxItem Checked</FormCheckboxItem>,
+	<FormCheckboxItem indeterminate><Icon slot="slotBefore">home</Icon>FormCheckboxItem</FormCheckboxItem>,
 
 	// Centered
 	<FormCheckboxItem centered>Hello FormCheckboxItem</FormCheckboxItem>,

@@ -70,6 +70,17 @@ const PopupBase = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
+		 * Set the priority with which screen reader should treat updates to live regions for the Popup.
+		 *
+		 * @type {String|Object}
+		 * @public
+		 */
+		'aria-live': PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -88,6 +99,17 @@ const PopupBase = kind({
 		 * @private
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Support accessibility options.
+		 *
+		 * If true, the aria-live and role in Popup are `null`.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		noAlertRole: PropTypes.bool,
 
 		/**
 		 * Disables transition animation.
@@ -135,6 +157,17 @@ const PopupBase = kind({
 		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
 		/**
+		 * The ARIA role for the Popup.
+		 *
+		 * @type {String|Object}
+		 * @public
+		 */
+		role: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
+
+		/**
 		 * The container id for {@link spotlight/Spotlight}.
 		 *
 		 * @type {String}
@@ -159,6 +192,7 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
+		noAlertRole: false,
 		noAnimation: false,
 		open: false,
 		position: 'bottom',
@@ -172,12 +206,21 @@ const PopupBase = kind({
 	},
 
 	computed: {
+		// When passing `aria-live` prop to the Popup, the prop should work first.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
+		// Otherwise, `aria-live` will be usually `off`.
+		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
 		className: ({position, styler}) => styler.append(position),
-		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position),
-		direction: ({position}) => transitionDirection[position]
+		direction: ({position}) => transitionDirection[position],
+		// When passing `role` prop to the Popup, the prop should work first.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
+		// Otherwise, `role` will be usually `alert`.
+		role: ({noAlertRole, role}) => ((typeof role !== 'undefined') ? role : (!noAlertRole && 'alert' || null)),
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
 	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
+		delete rest.noAlertRole;
 
 		return (
 			<TransitionContainer
@@ -194,11 +237,7 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<div
-					aria-live="off"
-					role="alert"
-					{...rest}
-				>
+				<div {...rest}>
 					<div className={css.body}>
 						{children}
 					</div>
@@ -326,7 +365,7 @@ class Popup extends React.Component {
 		 * `'none'` is not compatible with `spotlightRestrict` of `'self-only'`, use a transparent scrim
 		 * to prevent mouse focus when using popup.
 		 *
-		 * @type {String}
+		 * @type {('transparent'|'translucent'|'none')}
 		 * @default 'translucent'
 		 * @public
 		 */
@@ -340,7 +379,7 @@ class Popup extends React.Component {
 		 * Note: If `onClose` is not set, then this has no effect on 5-way navigation. If the popup
 		 * has no spottable children, 5-way navigation will cause the Popup to fire `onClose`.
 		 *
-		 * @type {String}
+		 * @type {('self-first'|'self-only')}
 		 * @default 'self-only'
 		 * @public
 		 */
@@ -367,7 +406,7 @@ class Popup extends React.Component {
 			} else {
 				return {
 					popupOpen: OpenState.CLOSED,
-					floatLayerOpen: state.popupOpen !== OpenState.CLOSED ? !props.noAnimation : false,
+					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,
 					activator: props.noAnimation ? null : state.activator,
 					prevOpen: props.open
 				};
@@ -404,7 +443,15 @@ class Popup extends React.Component {
 	componentDidUpdate (prevProps, prevState) {
 		if (this.props.open !== prevProps.open) {
 			if (!this.props.noAnimation) {
-				this.paused.pause();
+				if (!this.props.open && this.state.popupOpen === OpenState.CLOSED) {
+					// If the popup is supposed to be closed (!this.props.open) and is actually
+					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
+					// can occur when quickly toggling a Popup open and closed.
+					this.paused.resume();
+				} else {
+					// Otherwise, we pause spotlight so it is locked until the popup is ready
+					this.paused.pause();
+				}
 			} else if (this.props.open) {
 				forwardShow({}, this.props);
 				this.spotPopupContent();

@@ -1,5 +1,5 @@
 const Page = require('./VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop} = require('../VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitForScrollStartStop, waitUntilFocused} = require('../VirtualList-utils');
 
 describe('VirtualList', function () {
 
@@ -19,7 +19,6 @@ describe('VirtualList', function () {
 			expectFocusedItem(0);
 		});
 
-		// TODO: Failing on Jenkins
 		it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 			Page.spotlightDown(); // is on Left button
 			Page.spotlightRight(); // is on 'Item 000'
@@ -31,33 +30,31 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 4: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
+			waitUntilFocused(7, 'step 4 focus'); // this works in headless + tv  - must comment to run in debug
 			// Step 5. 5-way Down several times to the last visible item on the current viewport.
 			Page.fiveWayToItem(17);
 			// Verify Step 5: Spotlight is on the last visible item. *** it is not
-			waitForScrollStartStop();
 			Page.delay(100);
 			expectFocusedItem(17, 'step 5 focus');
 			// Step 6. Press Channel Down.
 			Page.pageDown();
 			waitForScrollStartStop();
 			// Verify Step 6: Spotlight is on the *Item* closest to the previously focused Item's location  ?
-			expectFocusedItem(23, 'step 6 focus');
+			waitUntilFocused(23, 'step 6 focus');
 			// Step 7. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 7: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(17, 'step 7 focus');
+			waitUntilFocused(17, 'step 7 focus');
 			// Step 8. 5-way Up several times to the first visible item on the current viewport.
 			Page.fiveWayToItem(7);
-			waitForScrollStartStop();
 			// Verify Step 8: Spotlight is on the first visible item.
 			expectFocusedItem(7, 'step 8 focus');
 			// Step 9. Press Channel Up.
 			Page.pageUp();
 			waitForScrollStartStop();
 			// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
-			expectFocusedItem(1, 'step 9 focus');
+			waitUntilFocused(1, 'step 9 focus');
 			// Step 10. Wave the pointer. Step 11. Hover on an item.
 			$('#item3').moveTo(302, 50);
 			// Verify Step 10, Step 11: Spotlight is on 'Item 003'
@@ -111,9 +108,7 @@ describe('VirtualList', function () {
 			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
 		});
 
-		// Need mochaOpts - timeout set to 60000 to pass
-		// TODO: Failing on Jenkins
-		it.skip('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
+		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
 			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
 			// Step 4. Move focus to the first item ('Item 00').
 			// Verify Step 4: 1. Spotlight displays on the first item.
@@ -126,14 +121,12 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			// Verify Step 6: 1. Spotlight hides.
 			expectNoFocusedItem();
-			Page.delay(1000);
-			expectFocusedItem(6, 'focus Item 6');
+			waitUntilFocused(6, 'focus Item 6');
 			// Step 7. Press Channel Down.
 			Page.pageDown();
 			// Verify Step 7: 1. Spotlight hides.
 			expectNoFocusedItem();
-			Page.delay(1000);
-			expectFocusedItem(12, 'focus Item 12');
+			waitUntilFocused(12, 'focus Item 12');
 			// Step 8. 5-way Down several times to scroll down the list.
 			Page.fiveWayToItem(30);
 			expectFocusedItem(30, 'focus Item 30');
@@ -387,7 +380,7 @@ describe('VirtualList', function () {
 				Page.open();
 			});
 
-			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
+			it.skip('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 				Page.item(7).moveTo();
 				expectFocusedItem(7, 'step 3 focus');
@@ -438,8 +431,7 @@ describe('VirtualList', function () {
 
 			it('should spotlight displays on item after up quickly [GT-28417]', function () {
 				// Step3 : datasize Knobs setting '4'
-				Page.spotlightRight();
-				Page.spotlightRight();
+				Page.inputfieldNumItems.moveTo();
 				Page.spotlightSelect();
 				Page.backSpace();
 				Page.backSpace();
@@ -523,6 +515,82 @@ describe('VirtualList', function () {
 				expectFocusedItem(3);
 				// Step7 Verify: The spotlight size does not change.
 				expect(Page.spotlightSize()).to.equal(defaultSpotlightSize);
+			});
+
+			it('should change spotlight size when item`s size changing [GT-28459]', function () {
+				// Step 3 Verify: The default value for the 'itemSize' knob is itemSizeValue(default size is 156 for 4k) or half of 4k(78 for 2k).
+				const defaultItemSize = Page.getItemSize();
+				expect(defaultItemSize.height).to.equal(78);
+				expect(defaultItemSize.width).to.equal(1200);
+				// The default size of Spotlight is 156 for 4k and 78 for FHD.
+				Page.spotlightDown();
+				Page.spotlightRight();
+				const defaultSpotlightSize = Page.spotlightSize();
+				expect(defaultSpotlightSize).to.equal(78);
+				// Step 4: Knobs > VirtualList > itemSize > 300
+				Page.inputfieldItemSize.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(3);
+				Page.numPad(0);
+				Page.numPad(0);
+				Page.backKey();
+				// Verify item size
+				const curItemSize = Page.getItemSize();
+				expect(curItemSize.height).to.equal(150);
+				expect(curItemSize.width).to.equal(defaultItemSize.width);
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item2').moveTo();
+				expectFocusedItem(2);
+				const curSpotlightSize = Page.spotlightSize();
+				expect(curSpotlightSize).to.equal(150);
+				// Step 4: Knobs > VirtualList > itemSize > 50
+				Page.inputfieldItemSize.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(5);
+				Page.numPad(0);
+				Page.backKey();
+				// Verify item size
+				const newItemSize = Page.getItemSize();
+				expect(newItemSize.height).to.equal(25);
+				expect(newItemSize.width).to.equal(defaultItemSize.width);
+				Page.spotlightDown();
+				Page.spotlightRight();
+				$('#item4').moveTo();
+				expectFocusedItem(4);
+				const newSpotlightSize = Page.spotlightSize();
+				expect(newSpotlightSize).to.equal(25);
+			});
+		});
+		describe('cbScrollTo VirtualList Samples', function () {
+			beforeEach(function () {
+				Page.open();
+			});
+
+			// Since it is not the same as the view of samples, we made a button to go directly to the corresponding item.
+			it('should Jump to item when press cbScrollTo button [GT-28936]', function () {
+				// Step2-1: 5-way Spot the '010 - 한국어 - 한국'(item10 for this test) item.
+				// Check if item10 is located at the top of the list.
+				Page.buttonJumpToItem.moveTo();
+				Page.spotlightSelect();
+				const topId = Page.topVisibleItemId();
+				expect(topId).to.equal('item10');
+				expectFocusedItem(10);
+				// Step2-2: 5-way Spot the '035 - Čeština - Česká republika'(item35 for this test) item.
+				Page.fiveWayToItem(35);
+				expectFocusedItem(35);
+				// Step3-1: 5-way Spot the '034 - Čeština - Česká republika'(item34 for this test) item.
+				Page.spotlightUp();
+				expectFocusedItem(34);
+				// Step3-2: 5-way Up until Spotlight displays on the '000 - 한국어 - 한국'(item0 for this test) item.
+				Page.fiveWayToItem(0);
+				expectFocusedItem(0);
 			});
 		});
 	});

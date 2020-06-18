@@ -1,7 +1,7 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const {focusedElement, waitUntilFocused} = require('../VirtualList-utils');
+const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../VirtualList-utils');
 
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
@@ -28,7 +28,10 @@ class VirtualListPage extends Page {
 	get buttonRight () { return element('#right', browser); }
 	get buttonBottom () { return element('#bottom', browser); }
 	get buttonWrap () { return element('#wrap', browser); }
+	get buttonJumpToItem () { return element('#jumpTo', browser); }
+	get inputfieldNumItems () { return element('#numItems', browser); }
 	get inputfieldSpacing () { return element('#spacing', browser); }
+	get inputfieldItemSize () { return element('#itemSize', browser); }
 	get scrollbar () { return $(`${scrollbarSelector}`); }
 	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
 	getScrollOffsetLeft () {
@@ -128,6 +131,17 @@ class VirtualListPage extends Page {
 			return Math.round(secondItemRect.top - firstItemRect.top - firstItemRect.height);
 		}, listItemSelector);
 	}
+	getItemSize () {
+		return browser.execute(function (_listItemSelector){
+			const itemContent = document.querySelector(_listItemSelector);
+			const itemHeight = itemContent.getBoundingClientRect().height;
+			const itemWidth = itemContent.getBoundingClientRect().width;
+			return {
+				height: itemHeight,
+				width: itemWidth
+			};
+		}, listItemSelector);
+	}
 
 	fiveWayToItem (itemNum) {
 		const currentItem = Number(focusedElement().slice(4));
@@ -142,6 +156,7 @@ class VirtualListPage extends Page {
 				this.spotlightUp();
 			}
 			waitUntilFocused(i + direction);
+			waitUntilVisible(i + direction);
 		}
 	}
 
@@ -157,7 +172,6 @@ class VirtualListPage extends Page {
 	spotlightSize () {
 		return browser.execute(function () { return document.activeElement.clientHeight; });
 	}
-
 }
 
 module.exports = new VirtualListPage();

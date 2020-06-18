@@ -4,6 +4,8 @@ import Item from '../../../../Item';
 import Scroller from '../../../../Scroller';
 import {FixedPopupPanels, Panel, Header} from '../../../../FixedPopupPanels';
 
+import {withConfig, withProps} from './utils';
+
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
 // Wrapping the real component so `scaleToRem` is called within render rather than in module scope
@@ -26,47 +28,38 @@ function FixPopupPanels (props) {
 	);
 }
 
+const EachPanel = withConfig(
+	{wrapper: {full: true}},
+	[
+		{
+			title: 'with standard Panel Components',
+			component: <FixPopupPanels />
+		},
+		{
+			title: 'with standard Panel Components index 1',
+			component: <FixPopupPanels index={1} />
+		},
+		{
+			title: 'with half width',
+			component: <FixPopupPanels width="half" />
+		}
+	]
+);
+
 const FixedPopupPanelsTests = [
 	{
+		wrapper: {full: true},
 		component: <FixPopupPanels>{null}</FixPopupPanels>
 	},
-	{
-		title: 'with standard Panel Components',
-		component: <FixPopupPanels />
-	},
-	{
-		title: 'with standard Panel Components index 1',
-		component: <FixPopupPanels index={1} />
-	},
-	{
-		title: 'with half width',
-		component: <FixPopupPanels width="half" />
-	},
-	// RTL
-	{
-		locale: 'ar-SA',
-		component: <FixPopupPanels />
-	},
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components',
-		component: <FixPopupPanels />
-	},
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with standard Panel Components index 1',
-		component: <FixPopupPanels index={1} />
-	},
-	{
-		locale: 'ar-SA',
-		title: 'locale = ar-SA, with half width',
-		component: <FixPopupPanels width="half" />
-	}
+	...EachPanel,
+	...withProps(
+		{fullHeight: true},
+		EachPanel.map(o => ({...o, title: `${o.title} fullHeight`}))
+	),
+	...withConfig(
+		{locale: 'ar-SA'},
+		EachPanel.map(o => ({...o, title: `locale = ar-SA, ${o.title}`}))
+	)
 ];
-
-// Add `test.wrapper.full = true` to all tests.
-FixedPopupPanelsTests.forEach(t => {
-	t.wrapper = {full: true};
-});
 
 export default FixedPopupPanelsTests;

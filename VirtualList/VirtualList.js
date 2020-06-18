@@ -165,11 +165,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -178,16 +174,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -398,11 +398,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -415,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `false`,
 	 * * `true`, and
 	 * * `'noAnimation'`
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -430,7 +439,8 @@ VirtualList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
@@ -592,11 +602,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -605,16 +611,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -819,11 +829,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -837,7 +856,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `true`, and
 	 * * `'noAnimation'`
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -852,7 +871,8 @@ VirtualGridList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},

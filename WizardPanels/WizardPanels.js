@@ -1,10 +1,11 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import useChainRefs from '@enact/core/useChainRefs';
+import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
-import Skinnable from '@enact/ui/Skinnable';
+import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -13,7 +14,8 @@ import React from 'react';
 import $L from '../internal/$L';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator, NavigationButton} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
+import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
@@ -21,6 +23,7 @@ import useFocusOnTransition from './useFocusOnTransition';
 import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
+const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -47,6 +50,14 @@ const WizardPanelsBase = kind({
 	name: 'WizardPanels',
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		 * The current step.
 		 *
@@ -336,9 +347,8 @@ const WizardPanelsBase = kind({
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
 
 		return (
-			<PanelBase
+			<DecoratedPanelBase
 				{...rest}
-				autoFocus="default-element"
 				header={
 					<Header
 						arranger={noAnimation ? null : CrossFadeArranger}
@@ -396,7 +406,7 @@ const WizardPanelsBase = kind({
 						{footer}
 					</Cell>
 				</Column>
-			</PanelBase>
+			</DecoratedPanelBase>
 		);
 	}
 });
@@ -428,6 +438,7 @@ function useReverseTransition (index = -1) {
 const WizardPanelsRouter = (Wrapped) => {
 	const WizardPanelsProvider = ({
 		children,
+		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
 		onTransition,
@@ -435,6 +446,8 @@ const WizardPanelsRouter = (Wrapped) => {
 		title,
 		...rest
 	}) => {
+		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
+		const ref = useChainRefs(autoFocus, componentRef);
 		const [panel, setPanel] = React.useState(null);
 		const reverseTransition = useReverseTransition(index);
 		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
@@ -451,6 +464,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					{...rest}
 					{...panel}
 					{...transition}
+					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
 					title={currentTitle}
@@ -468,6 +482,14 @@ const WizardPanelsRouter = (Wrapped) => {
 	};
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		* The spotlight id for the panel
 		*
@@ -526,6 +548,7 @@ const WizardPanelsRouter = (Wrapped) => {
 };
 
 const WizardPanelsDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Changeable({prop: 'index'}),
 	CancelDecorator({
 		cancel: 'onChange',
@@ -537,7 +560,7 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel body (content or footer) followed by header
-		defaultElement: [`.${css.content} *, .${css.footer} *`, 'header > *'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
 	WizardPanelsRouter,

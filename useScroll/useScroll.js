@@ -19,6 +19,7 @@ import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
 import {useContext, useRef} from 'react';
 
+import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
@@ -104,7 +105,7 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		cbAlertScrollbarTrack: alertScrollbarTrack,
 		onInteractionForScroll
 	};
 
@@ -128,6 +129,10 @@ const useThemeScroll = (props, instances) => {
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
 			themeScrollContentHandle.current.setContainerDisabled(false);
+		}
+
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
 		}
 
 		focusOnItem();
@@ -160,15 +165,8 @@ const useThemeScroll = (props, instances) => {
 
 	function alertScrollbarTrack () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
-
 		scrollContainerHandle.current.showScrollbarTrack(bounds);
 		scrollContainerHandle.current.startHidingScrollbarTrack();
-	}
-
-	function alertScrollbarTrackAfterRendered () {
-		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
-			alertScrollbarTrack();
-		}
 	}
 
 	function focusOnItem () {
@@ -298,9 +296,11 @@ const useScroll = (props) => {
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
 			fadeOut,
+			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
 			style,
+			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
 
@@ -329,7 +329,6 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
@@ -462,6 +461,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle
@@ -469,6 +469,7 @@ const useScroll = (props) => {
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle

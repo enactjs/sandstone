@@ -22,7 +22,6 @@ const useSpotlightConfig = (props, instances) => {
 			const {spacing, spotlightId} = props;
 
 			Spotlight.set(spotlightId, {
-				enterTo: 'last-focused',
 				/*
 				 * Returns the data-index as the key for last focused
 				 */

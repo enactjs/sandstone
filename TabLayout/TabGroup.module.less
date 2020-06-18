@@ -12,6 +12,7 @@
 		&.button {
 			margin: @sand-tablayout-tab-horizontal-margin;
 			padding: @sand-tablayout-tab-horizontal-padding;
+			height: @sand-tablayout-tab-horizontal-button-height;
 
 			.client {
 				.sand-spotlight-margin();
@@ -31,6 +32,10 @@
 	&.vertical {
 		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
 
+		&.button {
+			height: @sand-tablayout-tab-vertical-button-height;
+		}
+
 		.client {
 			text-align: start;
 		}
@@ -41,7 +46,6 @@
 			&.button {
 				&.selected {
 					.bg {
-						.sand-button-spotlight-resting-colors();
 						opacity: 0;
 					}
 				}
@@ -51,22 +55,14 @@
 				}
 
 				.focus({
+					.bg {
+						opacity: 1;
+					}
+
 					.client::after {
 						background-color: unset;
 					}
 				});
-			}
-		}
-
-		&.vertical {
-			&.button {
-				&.selected {
-					.bg {
-						.sand-button-spotlight-resting-colors();
-						background-color: @sand-tablayout-tab-selected-bg-color;
-						opacity: @sand-tablayout-tab-selected-opacity;
-					}
-				}
 			}
 		}
 	});
@@ -75,8 +71,6 @@
 .applySkins({
 	.tabGroup {
 		.horizontalLine {
-			position: absolute;
-			bottom: 0;
 			width: 100%;
 			margin: 0;
 			border: 0 none transparent;

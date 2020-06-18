@@ -1,4 +1,3 @@
-import Heading from '@enact/sandstone/Heading';
 import Dropdown from '@enact/sandstone/Dropdown';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
@@ -10,19 +9,43 @@ const list = [
 	{children: 'Option3', key: 'item3', 'aria-label': 'arai label 3'}
 ];
 
+class A11yDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			ariaLabel: null
+		};
+	}
+
+	onSelect = ({selected}) => {
+		this.setState({ariaLabel: list[selected]['aria-label']});
+	}
+
+	render () {
+		return (
+			<Dropdown
+				aria-label={this.state.ariaLabel}
+				onSelect={this.onSelect}
+				title="Dropdown"
+				{...this.props}
+			>
+				{list}
+			</Dropdown>
+		);
+	}
+}
+
 const DropdownView = () => (
 	<Layout orientation="vertical">
 		<Cell component={Scroller} focusableScrollbar>
-			<Heading showLine>String Array children</Heading>
-			<Dropdown title="Dropdown">
+			<Dropdown placeholder="Dropdown" title="String Array children">
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
 			<br />
 			<br />
-			<Heading showLine>Object Array children with aria-label</Heading>
-			<Dropdown title="Dropdown">
+			<A11yDropdown placeholder="Dropdown" title="Object Array children with aria-label">
 				{list}
-			</Dropdown>
+			</A11yDropdown>
 		</Cell>
 	</Layout>
 );

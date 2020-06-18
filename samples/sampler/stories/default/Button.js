@@ -17,6 +17,7 @@ const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBa
 const prop = {
 	backgroundOpacity: {'undefined/null (automatic)': '', 'opaque (Default for text buttons)': 'opaque', 'transparent (Default for icon-only buttons)': 'transparent'},
 	color: ['', 'red', 'green', 'yellow', 'blue'],
+	iconFlip: ['', 'auto', 'both', 'horizontal', 'vertical'],
 	iconPosition: ['', 'before', 'after'],
 	icons: ['', ...iconNames],
 	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
@@ -43,6 +44,7 @@ storiesOf('Sandstone', module)
 				color={select('color', prop.color, Config)}
 				disabled={boolean('disabled', Config)}
 				icon={select('icon', prop.icons, Config)}
+				iconFlip={select('iconFlip', prop.iconFlip, Config)}
 				iconPosition={select('iconPosition', prop.iconPosition, Config)}
 				minWidth={threeWayBoolean(select('minWidth', prop.minWidth, Config))}
 				selected={boolean('selected', Config)}

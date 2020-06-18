@@ -179,7 +179,7 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 			 * It can be either `'screen'`, `'container'`, or `null`. `'screen'` pauses spotlight.
 			 * Changing this property to `'screen'` after creation is not supported.
 			 *
-			 * @type {String}
+			 * @type {('screen'|'container')}
 			 * @default null
 			 * @public
 			 */
