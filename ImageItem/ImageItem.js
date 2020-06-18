@@ -283,7 +283,7 @@ const ImageItemBase = kind({
 		return (
 			<UiImageItem
 				{...rest}
-				isMemoPropsContext
+				context={MemoPropsThemeContext}
 				css={css}
 				imageComponent={
 					React.useMemo(() => {
