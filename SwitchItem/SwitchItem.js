@@ -78,7 +78,7 @@ const SwitchItemBase = kind({
 			data-webos-voice-intent="SetToggleItem"
 			role="button"
 			{...rest}
-			aria-pressed={selected ? 'true' : 'false'}
+			aria-pressed={selected}
 			css={css}
 			selected={selected}
 		>
