@@ -16,6 +16,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
+- `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to support accessibility features
