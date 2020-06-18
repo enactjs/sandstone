@@ -292,7 +292,7 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({'aria-labelledby': ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
@@ -304,7 +304,7 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div role="region" {...rest}>
+			<div role="region" aria-labelledby={ariaLabelledBy} {...rest}>
 				{title}
 				<DropdownButton
 					direction={direction}
