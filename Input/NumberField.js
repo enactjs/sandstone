@@ -200,7 +200,7 @@ const NumberFieldBase = kind({
 			);
 		} else {
 			field = (
-				<div {...rest}>
+				<div {...rest} disabled={disabled}>
 					{password ? convertToPasswordFormat(value) : value}
 				</div>
 			);
