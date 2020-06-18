@@ -1,3 +1,5 @@
+// ActionGuide.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
@@ -6,15 +8,28 @@
     text-align: center;
     max-width: @sand-actionguide-max-width;
     margin: 0 auto;
+    line-height: 0;
 
     .label {
         .sand-font({
             font-size: @sand-actionguide-label-font-size;
         });
         font-size: @sand-actionguide-label-font-size;
+        height: @sand-actionguide-label-height;
+        line-height: @sand-actionguide-label-height;
     }
 
     .icon {
         margin: 0;
+        width: @sand-actionguide-icon-width;
+        height: @sand-actionguide-icon-height;
+        line-height: @sand-actionguide-icon-height;
+        vertical-align: top;
     }
+
+    .applySkins({
+        .label {
+            color: @sand-actionguide-label-color;
+        }
+    });
 }
