@@ -13,7 +13,6 @@
 import kind from '@enact/core/kind';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
-import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -24,7 +23,7 @@ import Item from '../Item';
 
 import componentCss from './FormCheckboxItem.module.less';
 
-const Checkbox = Spottable(Skinnable(CheckboxBase));
+const Checkbox = Skinnable(CheckboxBase);
 
 const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
 
@@ -142,6 +141,7 @@ const FormCheckboxItemBase = kind({
 					indeterminate={indeterminate}
 					indeterminateIcon={indeterminateIcon}
 					selected={selected}
+					standalone
 				>
 					{icon}
 				</Checkbox>

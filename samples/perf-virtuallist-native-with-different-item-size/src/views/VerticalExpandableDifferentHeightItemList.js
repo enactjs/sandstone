@@ -20,10 +20,11 @@ const
 		'Suomi - Suomi'
 	],
 	numOfItems = 100,
-	fontSize = ri.scale(31),
-	oneLineSize = ri.scale(50),
+	fontSize = `${ri.scale(30)}px`,
+	oneLineSize = ri.scale(60),
 	lineHeight = `${oneLineSize}px`,
-	spacing = 40;
+	padding = `0 ${ri.scale(60)}px`,
+	spacing = 60;
 
 class ExpandableDifferenctHeightItem extends Component {
 	static propTypes = {
@@ -36,7 +37,7 @@ class ExpandableDifferenctHeightItem extends Component {
 	itemStyleDefault = {
 		position: 'absolute',
 		width: '100%',
-		borderBottom: 'solid 10px gray',
+		padding,
 		boxSizing: 'border-box',
 		fontSize,
 		lineHeight,
@@ -217,6 +218,7 @@ class VerticalExpandableDifferentHeightItemList extends Component {
 					size: this.state.itemSize
 				}}
 				spacing={spacing}
+				style={{height: '600px', paddingRight: `${ri.scale(36)}px`}}
 			/>
 		);
 	}
