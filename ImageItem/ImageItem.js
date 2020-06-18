@@ -1,6 +1,6 @@
 /*  eslint-disable react-hooks/rules-of-hooks */
 /*  eslint-disable react-hooks/exhaustive-deps */
-// To use `React.useMemo` in a kind, the eslint rules above has benn blocked.
+// To use `React.useMemo` in a kind, the above eslint rules have been disabled.
 
 /**
  * Provides Sandstone styled image item components and behaviors.
