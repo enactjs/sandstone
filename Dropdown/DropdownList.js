@@ -9,7 +9,6 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Icon from '../Icon';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
@@ -97,8 +96,6 @@ const DropdownListBase = kind({
 	handlers: {
 		itemRenderer: ({index, ...rest}, props) => {
 			const {children, selected} = props;
-			const isSelected = index === selected;
-			const slotAfter = isSelected ? (<Icon>check</Icon>) : null;
 
 			let child = children[index];
 			if (typeof child === 'string') {
@@ -110,8 +107,7 @@ const DropdownListBase = kind({
 				<Item
 					{...rest}
 					{...child}
-					slotAfter={slotAfter}
-					data-selected={isSelected}
+					data-selected={index === selected}
 					// eslint-disable-next-line react/jsx-no-bind
 					onClick={() => forward('onSelect', {data, selected: index}, props)}
 				/>
