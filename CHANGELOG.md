@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to support readout placeholder string
 - `sandstone/Checkbox` to center the icon
 - `sandstone/Dropdown` to match gui specs
 - `sandstone/FormCheckboxItem` to not move focus in an item
