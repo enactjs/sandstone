@@ -32,7 +32,7 @@ class VirtualGridListNativeSample extends Component {
 				evt.deltaY = 2000;
 
 				// Send wheel event to Scroller div
-				document.querySelector('root div div').dispatchEvent(evt);
+				document.querySelector('#root div div').dispatchEvent(evt);
 			} else if (timerCount === 41) {
 				// Wait for 5 Sec (31~40)
 				// Stop and show result
