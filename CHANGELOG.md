@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Dropdown` to prevent focus on outer area
+- `sandstone/MediaControls` to show more components via wheel down
 
 ### Fixed
 
