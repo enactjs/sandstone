@@ -4,10 +4,18 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Dropdown` to prevent focus on outer area
+
 ### Fixed
 
+- `sandstone/KeyGuide` to position on the right in RTL
+- `sandstone/Checkbox` to center the icon
+- `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/TabLayout` to center tab icons when collapsed
 
 ## [1.0.0-beta.7] - 2020-06-16
 
