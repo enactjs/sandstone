@@ -21,7 +21,7 @@ class CustomSlider extends React.Component {
 		const valueText = `${this.props.customText} ${this.state.value}`;
 
 		return (
-			<Slider aria-valuetext={valueText} onChange={this.handleChange} value={this.state.value} />
+			<Slider aria-valuetext={valueText} onChange={this.handleChange} value={this.state.value} {...this.props} />
 		);
 	}
 }
@@ -29,9 +29,9 @@ class CustomSlider extends React.Component {
 const SliderView = () => (
 	<div>
 		<Heading showLine>Default</Heading>
-		<Slider />
+		<Slider activateOnSelect />
 		<Heading showLine>Slider using ValueText</Heading>
-		<CustomSlider customText="Volume" />
+		<CustomSlider activateOnSelect customText="Volume" />
 	</div>
 );
 

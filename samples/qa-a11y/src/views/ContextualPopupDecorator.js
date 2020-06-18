@@ -51,7 +51,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				<div style={{position: 'absolute', left: '0'}}>
 					<ContextualButton
 						size="small"
-						direction="right"
+						direction="right middle"
 						popupComponent={this.renderPopup1}
 					>
 						Average
@@ -60,9 +60,8 @@ class ContextualPopupDecoratorView extends React.Component {
 				<div style={{position: 'absolute', bottom: '0'}}>
 					<ContextualButton
 						size="small"
-						direction="up"
+						direction="above center"
 						popupComponent={this.renderPopup2}
-						showCloseButton
 						spotlightRestrict="self-only"
 					>
 						Spotlight Modal
@@ -72,7 +71,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				<div style={{position: 'absolute', right: '0'}}>
 					<ContextualButton
 						size="small"
-						direction="left"
+						direction="left middle"
 						popupComponent={this.renderPopup3}
 					>
 						Nested Radio

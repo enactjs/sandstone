@@ -36,7 +36,11 @@ for (let i = 0; i < 100; i++) {
 		caption = `Item ${count}`,
 		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
 		label = `SubItem ${count}`,
-		src = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+		src = {
+			'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
+			'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+			'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
+		};
 
 	items.push({caption, label, src});
 }
@@ -82,8 +86,8 @@ class VirtualGridListView extends React.Component {
 						focusableScrollbar
 						itemRenderer={renderItem}
 						itemSize={{
-							minWidth: ri.scale(200),
-							minHeight: ri.scale(200)
+							minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+							minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
 						}}
 						scrollMode={scrollMode}
 					/>

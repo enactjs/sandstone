@@ -13,7 +13,8 @@ class PopupView extends React.Component {
 			open1: false,
 			open2: false,
 			open3: false,
-			open4: false
+			open4: false,
+			open5: false
 		};
 
 		this.handleOpen1 = this.handleOpen(1);
@@ -34,7 +35,7 @@ class PopupView extends React.Component {
 	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
 
 	render () {
-		const {open1, open2, open3, open4} = this.state;
+		const {open1, open2, open3, open4, open5} = this.state;
 
 		return (
 			<div>
@@ -42,7 +43,7 @@ class PopupView extends React.Component {
 				<Button size="small" onClick={this.handleOpen2}>Long Popup</Button>
 				<Button size="small" onClick={this.handleOpen3}>Scroller Popup</Button>
 				<Button size="small" onClick={this.handleOpen4}>Button In Popup</Button>
-				<Button size="small" onClick={this.handleOpen5}>Customizable aria-label close button in popup</Button>
+				<Button size="small" onClick={this.handleOpen5}>Customizable aria-label popup</Button>
 
 				<Popup
 					open={open1}
@@ -98,6 +99,16 @@ class PopupView extends React.Component {
 				<Popup
 					open={open4}
 					onClose={this.handleClose4}
+				>
+					<Heading showLine>Buttons In Popup Example</Heading>
+					<Button size="small">Hello</Button>
+					<Button size="small">Goodbye</Button>
+				</Popup>
+
+				<Popup
+					aria-label="This is a popup"
+					open={open5}
+					onClose={this.handleClose5}
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
 					<Button size="small">Hello</Button>

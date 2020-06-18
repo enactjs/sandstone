@@ -9,19 +9,13 @@ import {VirtualList} from '@enact/sandstone/VirtualList';
 import css from './VirtualList.module.less';
 
 const
-	horizontalStyle = {
-		width: ri.scale(170),
-		height: ri.scale(660),
-		borderRight: ri.scale(2) + 'px solid #202328',
-		boxSizing: 'border-box'
-	},
 	items = [],
 	verticalStyle = {
 		borderBottom: ri.scale(2) + 'px solid #202328',
 		boxSizing: 'border-box'
 	},
 	// eslint-disable-next-line enact/prop-types, enact/display-name
-	renderItem = (isHorizontalList) => ({index, ...rest}) => {
+	renderItem = ({index, ...rest}) => {
 		const posinset = index + 1;
 
 		return (
@@ -30,7 +24,7 @@ const
 				aria-posinset={posinset}
 				aria-setsize={items.length}
 				role="listitem"
-				style={isHorizontalList ? horizontalStyle : verticalStyle}
+				style={verticalStyle}
 			>
 				{items[index]}
 			</Item>
@@ -45,29 +39,20 @@ class VirtualListView extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			isHorizontalList: false,
 			isNative: false
 		};
 	}
-
-	onToggleOrientation = () => this.setState((state) => ({isHorizontalList: !state.isHorizontalList}))
 
 	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}))
 
 	render () {
 		const
-			{isHorizontalList, isNative} = this.state,
+			{isNative} = this.state,
 			scrollMode = isNative ? 'native' : 'translate';
 
 		return (
 			<Layout orientation="vertical">
 				<Cell shrink>
-					<CheckboxItem
-						onClick={this.onToggleOrientation}
-						selected={isHorizontalList}
-					>
-						Horizontal
-					</CheckboxItem>
 					<CheckboxItem
 						onClick={this.onToggleScrollMode}
 						selected={isNative}
@@ -78,10 +63,10 @@ class VirtualListView extends React.Component {
 				<Cell className={css.region} component={Region} title="X of Y feature">
 					<VirtualList
 						dataSize={items.length}
-						direction={isHorizontalList ? 'horizontal' : 'vertical'}
+						direction="vertical"
 						focusableScrollbar
-						itemRenderer={renderItem(isHorizontalList)}
-						itemSize={ri.scale(isHorizontalList ? 170 : 72)}
+						itemRenderer={renderItem}
+						itemSize={ri.scale(156)}
 						scrollMode={scrollMode}
 					/>
 				</Cell>

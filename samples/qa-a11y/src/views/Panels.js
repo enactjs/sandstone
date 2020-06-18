@@ -46,7 +46,7 @@ class PanelsView extends React.Component {
 						direction="vertical"
 						focusableScrollbar
 						itemRenderer={this.customItem}
-						itemSize={ri.scale(72)}
+						itemSize={ri.scale(156)}
 					/>
 				</Panel>
 				<Panel>
