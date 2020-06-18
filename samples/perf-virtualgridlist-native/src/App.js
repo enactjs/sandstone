@@ -50,11 +50,14 @@ class VirtualGridListNativeSample extends Component {
 
 		function onRAF (timestamp) {
 			// During wheel
-			if (timestamp > 5000 && timestamp < 15000) {
-				if (!this.startTime) {
-					this.startTime = timestamp;
+			if (timestamp > 5000) {
+				if (!window.startTime) {
+					window.startTime = timestamp;
 				}
-				window.elapsedTimes.push(timestamp - this.startTime);
+				window.elapsedTimes.push(timestamp - window.startTime);
+			}
+
+			if (timestamp < 15000) {
 				window.requestAnimationFrame(onRAF);
 			}
 		}
