@@ -13,7 +13,7 @@
 	min-width: @sand-button-height;
 	max-width: @sand-button-max-width;
 	padding: 0 @sand-button-h-padding;
-	margin: 0 @sand-button-h-margin;
+	margin: @sand-button-margin;
 	text-align: center;
 	vertical-align: middle;
 	.sand-taparea(@sand-button-height);
@@ -24,6 +24,10 @@
 		min-width: @sand-button-height-large;
 		line-height: (@sand-button-height-large - (2 * @sand-button-border-width));
 	});
+
+	&.focusExpand {
+		margin: @sand-button-focusexpand-margin;
+	}
 
 	.bg {
 		border-width: @sand-button-border-width;
@@ -122,10 +126,14 @@
 		min-width: @sand-button-small-height;
 		max-width: @sand-button-small-max-width;
 		line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
-		margin: 0 @sand-button-small-h-margin;
+		margin: @sand-button-small-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
 		.sand-taparea(@sand-button-small-height);
+
+		&.focusExpand {
+			margin: @sand-button-small-focusexpand-margin;
+		}
 
 		// Standard Button Scenario
 		&.minWidth {
@@ -330,23 +338,40 @@
 			.focus({
 				z-index: 1;
 
-				.bg {
-					transform: @sand-button-focus-bg-transform;
-				}
-
-				&.small .bg {
-					transform: @sand-button-small-focus-bg-transform;
-				}
-
-				&.pressed,
-				&:active {
+				&.focusExpand {
 					.bg {
-						transform: @sand-button-pressed-bg-transform;
+						transform: @sand-button-focusexpand-focus-bg-transform;
 					}
 
-					&.small {
+					&.small .bg {
+						transform: @sand-button-small-focusexpand-focus-bg-transform;
+					}
+
+					&.pressed,
+					&:active {
 						.bg {
-							transform: @sand-button-small-pressed-bg-transform;
+							transform: @sand-button-focusexpand-pressed-bg-transform;
+						}
+
+						&.small {
+							.bg {
+								transform: @sand-button-small-focusexpand-pressed-bg-transform;
+							}
+						}
+					}
+				}
+				&:not(.focusExpand) {
+					// Non expandable buttons still support a pressed transform (scale)
+					&.pressed,
+					&:active {
+						.bg {
+							transform: @sand-button-pressed-bg-transform;
+						}
+
+						&.small {
+							.bg {
+								transform: @sand-button-small-pressed-bg-transform;
+							}
 						}
 					}
 				}
