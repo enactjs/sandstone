@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Checkbox` to center the icon
+- `sandstone/Dropdown` to match gui specs
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
