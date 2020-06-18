@@ -163,23 +163,17 @@
 	}
 
 	.applySkins({
-		.joined {
-			color: @sand-inputfield-focus-text-color;
-		}
-
 		.numberCell {
 			&::before {
 				background-color: @sand-input-numbercell-background-color;
-			}
-
-			&.active {
-				color: @sand-inputfield-focus-text-color;
 			}
 		}
 
 		// Style joined numeric inputs and active cells like a focused input
 		.joined,
 		.numberCell.active {
+			color: @sand-inputfield-focus-text-color;
+
 			&::before {
 				.sand-spotlight-focus-colors();
 				// Remove drop shadow for this input-like field
