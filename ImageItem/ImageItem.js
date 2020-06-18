@@ -270,13 +270,19 @@ const ImageItemBase = kind({
 		})
 	},
 
-	render: ({className, computedProps: {memoAriaProps, memoChildren, memoImage, rest}, css}) => {
-		// console.log('render');
+	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
+		delete rest.imageIconComponent;
+		delete rest.imageIconSrc;
+		delete rest.label;
+
+		if (SelectionComponent) {
+			rest['role'] = 'checkbox';
+			rest['aria-checked'] = rest.selected;
+		}
+
 		return (
 			<UiImageItem
 				{...rest}
-				{...memoAriaProps}
-				className={className}
 				css={css}
 				imageComponent={
 					React.useMemo(() => {
