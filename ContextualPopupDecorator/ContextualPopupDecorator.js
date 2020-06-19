@@ -114,7 +114,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Number}
 			 * @private
 			 */
-			margin: PropTypes.bool,
+			margin: PropTypes.number,
 
 			/**
 			 * Disables closing the popup when the user presses the cancel key or taps outside the
