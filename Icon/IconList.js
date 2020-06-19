@@ -29,6 +29,10 @@ export default {
 	pause             : 0x0EFFDE, // pause
 	forward           : 0x0EFFDF, // forward
 	backward          : 0x0EFFE0, // rewind
+	pauseforward      : 0x0EFFE1, // pauseforward
+	pausebackward     : 0x0EFFE2, // pausebackward
+	pausejumpforward  : 0x0EFFE3, // pausejumpforward
+	pausejumpbackward : 0x0EFFE4, // pausejumpbackward
 	jumpforward       : 0x0EFFE7, // indicator_end
 	jumpbackward      : 0x0EFFE8, // indicator_begin
 	list              : 0x0EFFEB, // list_simple
@@ -152,5 +156,21 @@ export default {
 	help              : 0x0F015E,  // help
 	share             : 0x0F015F,  // share
 	files             : 0x0F0160,  // files
-	quickstart        : 0x0F0161  // quickstart
+	quickstart        : 0x0F0161,  // quickstart
+	scheduler         : 0x0F0162,  // scheduler
+	recording         : 0x0F0163,  // recording
+	guide             : 0x0F0164,  // guide
+	channel           : 0x0F0165,  // channel
+	oneminplay        : 0x0F0166,  // oneminplay
+	oneminrecord      : 0x0F0167,  // oneminrecord
+	fifteenforward    : 0x0F0168,  // fifteenforward
+	fifteenbackward   : 0x0F0169,  // fifteenbackward
+	liveplayoff       : 0x0F016A,  // liveplayoff
+	liveplayon        : 0x0F016B,  // liveplayon
+	popupscale        : 0x0F016C,  // popupscale
+	arrowrightskip    : 0x0F016D,  // arrowrightskip
+	closedcaption     : 0x0F016E,  // closedcaption
+	subtitle          : 0x0F016F,  // subtitle
+	subtitlekr        : 0x0F0170,  // subtitlekr
+	subtitlecn        : 0x0F0171   // subtitlecn
 };
