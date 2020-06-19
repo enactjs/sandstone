@@ -32,7 +32,7 @@ storiesOf('Sandstone', module)
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
 						onClose={action('onClose')}
-						size={select('size', ['auto', 'small', 'large'], Config)}
+						popupSize={select('popupSize', ['auto', 'small', 'large'], Config)}
 						style={{width: ri.scaleToRem(1020)}}
 					>
 						{text('button string', Config, 'Contextual Button')}
