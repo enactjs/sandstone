@@ -29,6 +29,7 @@ import ReadOrder from '../views/ReadOrder';
 import Scroller from '../views/Scroller';
 import Slider from '../views/Slider';
 import Spinner from '../views/Spinner';
+import TabLayout from '../views/TabLayout';
 import TooltipDecorator from '../views/TooltipDecorator';
 import VideoPlayer from '../views/VideoPlayer';
 import VirtualGridList from '../views/VirtualGridList';
@@ -64,6 +65,7 @@ const views = [
 	{title: 'Scroller', view: Scroller},
 	{title: 'Slider', view: Slider},
 	{title: 'Spinner', view: Spinner},
+	{isHeader: false, title: 'TabLayout', view: TabLayout},
 	{title: 'TooltipDecorator', view: TooltipDecorator},
 	{isAriaHidden: true, title: 'VideoPlayer', view: VideoPlayer},
 	{title: 'VirtualGridList', view: VirtualGridList},

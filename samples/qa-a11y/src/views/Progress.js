@@ -43,8 +43,8 @@ class ProgressView extends React.Component {
 					progress={progressBarValue}
 				/>
 				<br />
-				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
 				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
+				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
 				<Heading showLine>Progress Button</Heading>
 				<ProgressButton
 					aria-live={progressButtonValue > 0 ? 'assertive' : null}
@@ -56,8 +56,8 @@ class ProgressView extends React.Component {
 				</ProgressButton>
 				<br />
 				<br />
-				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseButtonValue} />
 				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.handleDecreaseButtonValue} />
+				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseButtonValue} />
 			</div>
 		);
 	}

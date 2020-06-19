@@ -1,4 +1,5 @@
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
+import DayPicker from '@enact/sandstone/DayPicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
@@ -58,7 +59,6 @@ class DatePickerItem extends React.Component {
 			<>
 				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Date</Item>
 				<FixedPopupPanels
-					index={this.state.panelIndex}
 					onClose={this.handleClose}
 					open={this.state.open}
 				>
@@ -69,6 +69,43 @@ class DatePickerItem extends React.Component {
 						</Header>
 						<DatePicker
 							onChange={this.handleChange}
+							{...this.props}
+						/>
+					</Panel>
+				</FixedPopupPanels>
+			</>
+		);
+	}
+}
+
+class DayPickerItem extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			content: null,
+			open: false
+		};
+	}
+
+	handleClose = () => this.setState({open: false})
+	handleOpen = () => this.setState({open: true})
+	handleSelect = ({content}) => this.setState({content: content})
+
+	render () {
+		return (
+			<>
+				<Item label={this.state.content || 'Not selected'} onClick={this.handleOpen}>Day</Item>
+				<FixedPopupPanels
+					onClose={this.handleClose}
+					open={this.state.open}
+				>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+							<subtitle>Subtitle</subtitle>
+						</Header>
+						<DayPicker
+							onSelect={this.handleSelect}
 							{...this.props}
 						/>
 					</Panel>
@@ -96,7 +133,6 @@ class TimePickerItem extends React.Component {
 			<>
 				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Time</Item>
 				<FixedPopupPanels
-					index={this.state.panelIndex}
 					onClose={this.handleClose}
 					open={this.state.open}
 				>
@@ -202,6 +238,11 @@ const PickerView = () => (
 		<Heading showLine>DatePicker</Heading>
 		<DatePickerItem
 			title="Date"
+		/>
+
+		<Heading showLine>DayPicker</Heading>
+		<DayPickerItem
+			title="Day"
 		/>
 
 		<Heading showLine>TimePicker</Heading>
