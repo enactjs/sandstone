@@ -109,10 +109,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 			/**
-			 * Vertical offset to apply to the position of the popup.
+			 * Offset from the activator to apply to the position of the popup.
 			 *
 			 * @type {Number}
-			 * @default 0
 			 * @private
 			 */
 			margin: PropTypes.bool,
