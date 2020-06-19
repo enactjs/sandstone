@@ -310,7 +310,6 @@ const DropdownBase = kind({
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
-					offset="small"
 					popupProps={popupProps}
 					popupComponent={DropdownList}
 					onClick={onOpen}
