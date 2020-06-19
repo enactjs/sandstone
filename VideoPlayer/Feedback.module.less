@@ -1,5 +1,6 @@
 // Feedback.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
@@ -19,6 +20,13 @@
 		&:last-child {
 			-webkit-margin-end: 0;
 		}
+	}
+
+	.message {
+		.sand-font({
+			font-weight: @sand-video-feedback-message-weight;
+		});
+		font-weight: @sand-video-feedback-message-weight;
 	}
 
 	.icon {

@@ -77,11 +77,11 @@
 	.sliderFrame {
 		.slider {
 			.bar {
-				background-color: fade(@sand-light-gray, 30%);
+				background-color: @sand-mediaslider-bar-bg-color;
 			}
 
 			.fill {
-				background-color: @sand-light-gray;
+				background-color: @sand-mediaslider-fill-bg-color;
 			}
 
 			.knob {
@@ -92,11 +92,23 @@
 
 			.focus({
 				.bar {
-					background-color: fade(@sand-light-gray, 30%);
+					background-color: @sand-mediaslider-bar-bg-color;
 				}
 
 				.fill {
-					background-color: @sand-light-gray;
+					background-color: @sand-mediaslider-fill-bg-color;
+				}
+
+				.disabled({
+					.bar {
+						opacity: @sand-mediaslider-disabled-bar-opacity;
+					}
+				});
+			});
+
+			.disabled({
+				.bar {
+					opacity: @sand-mediaslider-disabled-bar-opacity;
 				}
 			});
 		}

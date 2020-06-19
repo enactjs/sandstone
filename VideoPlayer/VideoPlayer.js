@@ -1931,7 +1931,7 @@ const VideoPlayerBase = class extends React.Component {
 							className={css.miniFeedback}
 							playbackRate={this.pulsedPlaybackRate || this.selectPlaybackRate(this.speedIndex)}
 							playbackState={this.pulsedPlaybackState || this.prevCommand}
-							visible={this.state.miniFeedbackVisible && !noMiniFeedback}
+							visible={true || this.state.miniFeedbackVisible && !noMiniFeedback}
 						>
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
