@@ -36,7 +36,7 @@ class CustomPicker extends React.Component {
 			valueText = `${children[index]} ${subjectValue[index]}`;
 
 		return (
-			<Picker aria-valuetext={valueText} onChange={this.handleChange} {...this.props}>{children}</Picker>
+			<Picker {...this.props} aria-valuetext={valueText} onChange={this.handleChange}>{children}</Picker>
 		);
 	}
 }
@@ -68,8 +68,8 @@ class DatePickerItem extends React.Component {
 							<subtitle>Subtitle</subtitle>
 						</Header>
 						<DatePicker
-							onChange={this.handleChange}
 							{...this.props}
+							onChange={this.handleChange}
 						/>
 					</Panel>
 				</FixedPopupPanels>
@@ -105,8 +105,8 @@ class DayPickerItem extends React.Component {
 							<subtitle>Subtitle</subtitle>
 						</Header>
 						<DayPicker
-							onSelect={this.handleSelect}
 							{...this.props}
+							onSelect={this.handleSelect}
 						/>
 					</Panel>
 				</FixedPopupPanels>
@@ -142,8 +142,8 @@ class TimePickerItem extends React.Component {
 							<subtitle>Subtitle</subtitle>
 						</Header>
 						<TimePicker
-							onChange={this.handleChange}
 							{...this.props}
+							onChange={this.handleChange}
 						/>
 					</Panel>
 				</FixedPopupPanels>

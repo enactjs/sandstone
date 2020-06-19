@@ -48,36 +48,25 @@ class ContextualPopupDecoratorView extends React.Component {
 	render () {
 		return (
 			<div>
-				<div style={{position: 'absolute', left: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="right"
-						popupComponent={this.renderPopup1}
-					>
-						Average
-					</ContextualButton>
-				</div>
-				<div style={{position: 'absolute', bottom: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="up"
-						popupComponent={this.renderPopup2}
-						showCloseButton
-						spotlightRestrict="self-only"
-					>
-						Spotlight Modal
-					</ContextualButton>
-				</div>
-
-				<div style={{position: 'absolute', right: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="left middle"
-						popupComponent={this.renderPopup3}
-					>
-						Nested Radio
-					</ContextualButton>
-				</div>
+				<ContextualButton
+					popupComponent={this.renderPopup1}
+					size="small"
+				>
+					Average
+				</ContextualButton>
+				<ContextualButton
+					popupComponent={this.renderPopup2}
+					size="small"
+					spotlightRestrict="self-only"
+				>
+					Spotlight Modal
+				</ContextualButton>
+				<ContextualButton
+					popupComponent={this.renderPopup3}
+					size="small"
+				>
+					Nested Radio
+				</ContextualButton>
 			</div>
 		);
 	}

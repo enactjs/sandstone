@@ -13,9 +13,8 @@ class ScrollerView extends React.Component {
 		};
 	}
 
-	onClickChangeAriaLabelButton = () => this.setState((state) => ({customAriaLabel: !state.customAriaLabel}))
-
-	onClickChangeJSNativeButton = () => this.setState((state) => ({isNative: !state.isNative}))
+	handleChangeAriaLabelButton = () => this.setState((state) => ({customAriaLabel: !state.customAriaLabel}))
+	handleChangeJSNativeButton = () => this.setState((state) => ({isNative: !state.isNative}))
 
 	render () {
 		const {isNative, customAriaLabel} = this.state;
@@ -25,14 +24,14 @@ class ScrollerView extends React.Component {
 				<Cell shrink>
 					<ToggleButton
 						size="small"
-						onClick={this.onClickChangeAriaLabelButton}
+						onClick={this.handleChangeAriaLabelButton}
 						selected={customAriaLabel}
 					>
 						Customizable aria-labels on ScrollThumbs
 					</ToggleButton>
 					<ToggleButton
 						size="small"
-						onClick={this.onClickChangeJSNativeButton}
+						onClick={this.handleChangeJSNativeButton}
 						selected={isNative}
 					>
 						Native
