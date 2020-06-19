@@ -60,7 +60,7 @@ const MediaTitleBase = kind({
 		/**
 		 * A title string to identify the media's title.
 		 *
-		 * @type {Node}
+		 * @type {String|Node}
 		 * @public
 		 */
 		title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

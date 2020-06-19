@@ -27,7 +27,17 @@
 
 	.joined,
 	.numberCell {
-		border-radius: @sand-input-numbercell-border-radius;
+		position: relative;
+		z-index: 0;
+
+		&::before {
+			position: absolute;
+			.position(0);
+			content: '';
+			z-index: -1;
+
+			border-radius: @sand-input-numbercell-border-radius;
+		}
 	}
 
 	.inputArea {
@@ -45,6 +55,17 @@
 	}
 
 	.submitButton {
+		display: block;
+		margin: @sand-input-overlay-buttonarea-margin;
+	}
+
+	.tooltip {
+		margin-top: @sand-input-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: @sand-input-invalid-tooltip-font-size;
+			font-weight: @sand-input-invalid-tooltip-font-weight;
+		}
 	}
 
 	&.fullscreen {
@@ -60,7 +81,8 @@
 		}
 
 		.joined {
-			width: @sand-input-fullscreen-numberfield-width;
+			min-width: @sand-input-fullscreen-numberfield-width;
+			width: ~"calc(var(--input-max-number-length) * " @sand-input-fullscreen-numberfield-font-size ~")";
 			height: @sand-input-fullscreen-numberfield-height;
 			line-height: @sand-input-fullscreen-numberfield-height;
 			letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
@@ -86,11 +108,22 @@
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
 		}
+
+		&.text,
+		&.password {
+			.inputArea {
+				margin: @sand-input-fullscreen-inputarea-margin;
+			}
+		}
 	}
 
 	&.overlay {
 		.body {
 			padding: @sand-input-overlay-padding;
+		}
+
+		.title {
+			font-size: @sand-input-overlay-title-font-size;
 		}
 
 		.inputArea {
@@ -105,7 +138,8 @@
 		}
 
 		.joined {
-			width: @sand-input-overlay-numberfield-width;
+			min-width: @sand-input-overlay-numberfield-width;
+			width: ~"calc(var(--input-max-number-length) * " @sand-input-overlay-numberfield-font-size ~")";
 			height: @sand-input-overlay-numberfield-height;
 			line-height: @sand-input-overlay-numberfield-height;
 			letter-spacing: @sand-input-overlay-numberfield-letter-spacing;
@@ -126,17 +160,39 @@
 			justify-content: center;
 			margin: @sand-input-overlay-buttonarea-margin;
 		}
-
-		.inputArea,
-		.buttonArea {
-			margin-top: @sand-input-popup-component-v-spacing;
-		}
 	}
 
 	.applySkins({
-		.numberCell,
-		.joined {
-			background-color: @sand-input-numbercell-background-color;
+		.numberCell {
+			&::before {
+				background-color: @sand-input-numbercell-background-color;
+			}
+		}
+
+		// Style joined numeric inputs and active cells like a focused input
+		.joined,
+		.numberCell.active {
+			color: @sand-inputfield-focus-text-color;
+
+			&::before {
+				.sand-spotlight-focus-bg-colors();
+				// Remove drop shadow for this input-like field
+				filter: none;
+			}
+
+			.sand-disabled({
+				color: @sand-input-numberfield-disabled-color;
+
+				&::before {
+					opacity: @sand-input-numberfield-disabled-opacity;
+				}
+			});
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				color: @sand-input-invalid-tooltip-color;
+			}
 		}
 
 		&.overlay {

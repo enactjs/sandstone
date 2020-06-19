@@ -1,3 +1,5 @@
+// MediaOverlay.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 @import "../styles/skin.less";
@@ -23,74 +25,74 @@
 		position: relative;
 	}
 
-    .media {
-        display: block;
-        position: relative; // it is for z-index;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-    }
+	.media {
+		display: block;
+		position: relative; // it is for z-index;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
 
-    .image,
-    .textLayout {
-        position: absolute;
-        .position(0);
-    }
+	.image,
+	.textLayout {
+		position: absolute;
+		.position(0);
+	}
 
-    .textLayout {
-        margin: @sand-mediaoverlay-textlayout-margin;
-    }
+	.textLayout {
+		margin: @sand-mediaoverlay-textlayout-margin;
+	}
 
-    .image {
-        margin: 0;
-        height: auto;
-        width: auto;
-    }
+	.image {
+		margin: 0;
+		height: auto;
+		width: auto;
+	}
 
-    .text {
-        .sand-font({
-            font-size: @sand-mediaoverlay-font-size;
-            line-height: @sand-mediaoverlay-line-height;
-        });
-        font-size: @sand-mediaoverlay-font-size;
-        line-height: @sand-mediaoverlay-line-height;
-        font-weight: @sand-mediaoverlay-font-weight;
-    }
+	.text {
+		.sand-font({
+			font-size: @sand-mediaoverlay-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-font-size;
+		line-height: @sand-mediaoverlay-line-height;
+		font-weight: @sand-mediaoverlay-font-weight;
+	}
 
-    .progressBar {
-        position: absolute;
-        .position(auto, 0, 0);
-        margin: @sand-mediaoverlay-progressbar-margin;
-    }
+	.progressBar {
+		position: absolute;
+		.position(auto, 0, 0);
+		margin: @sand-mediaoverlay-progressbar-margin;
+	}
 
 	.captionContainer {
 		> :first-child {
 			margin-top: @sand-mediaoverlay-caption-margin-top;
 		}
-    }
+	}
 
-    .caption,
-    .subtitle {
-        .sand-font({
-            font-size: @sand-mediaoverlay-caption-font-size;
-            line-height: @sand-mediaoverlay-line-height;
-        });
-        font-size: @sand-mediaoverlay-caption-font-size;
-        line-height: @sand-mediaoverlay-line-height;
-    }
+	.caption,
+	.subtitle {
+		.sand-font({
+			font-size: @sand-mediaoverlay-caption-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-caption-font-size;
+		line-height: @sand-mediaoverlay-line-height;
+	}
 
-    .title {
-        .sand-font({
-            font-size: @sand-mediaoverlay-title-font-size;
-            line-height: @sand-mediaoverlay-line-height;
-        });
-        font-size: @sand-mediaoverlay-title-font-size;
-        line-height: @sand-mediaoverlay-line-height;
-    }
+	.title {
+		.sand-font({
+			font-size: @sand-mediaoverlay-title-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-title-font-size;
+		line-height: @sand-mediaoverlay-line-height;
+	}
 
 	.applySkins({
 		.bg {
-			filter: drop-shadow(@sand-mediaoverlay-bg-shadow);
+			.sand-spotlight-resting-bg-colors();
 		}
 
 		.caption,
@@ -103,16 +105,16 @@
 		}
 
 		.focus({
+			.sand-spotlight-focus-text-colors();
+
 			.caption,
 			.title,
 			.subtitle {
-				color: @sand-mediaoverlay-focus-caption-color;
+				color: inherit;
 			}
 
 			.bg {
-				background-color: @sand-mediaoverlay-focus-bg-color;
-				opacity: 1;
-				filter: drop-shadow(@sand-mediaoverlay-focus-bg-shadow);
+				.sand-spotlight-focus-bg-colors();
 			}
 		});
 	});

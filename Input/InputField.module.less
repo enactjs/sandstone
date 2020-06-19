@@ -137,12 +137,21 @@
 		pointer-events: none;
 	}
 
+	.tooltip {
+		margin-top: @sand-inputfield-invalid-tooltip-margin-top;
+
+		.tooltipLabel {
+			font-size: @sand-inputfield-invalid-tooltip-font-size;
+			font-weight: @sand-inputfield-invalid-tooltip-font-weight;
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		color: @sand-inputfield-text-color;
 
 		.bg {
-			.sand-spotlight-resting-colors(@sand-inputfield-bg-opacity);
+			.sand-spotlight-resting-bg-colors(@sand-inputfield-bg-opacity);
 		}
 
 		.input {
@@ -174,12 +183,18 @@
 			// background-color: @sand-spotlight-color;
 		}
 
+		.tooltip {
+			.tooltipLabel {
+				color: @sand-inputfield-invalid-tooltip-color;
+			}
+		}
+
 		// For when the field container has spotlight focus
 		.focus({
 			color: @sand-inputfield-focus-text-color;
 
 			.bg {
-				.sand-spotlight-focus-colors();
+				.sand-spotlight-focus-bg-colors();
 			}
 
 			.input {
@@ -200,13 +215,13 @@
 			color: @sand-inputfield-focus-text-color;
 
 			.bg {
-				.sand-spotlight-focus-colors();
+				.sand-spotlight-focus-bg-colors();
 			}
 		}
 
 		.sand-disabled({
 			.bg {
-				.sand-spotlight-resting-colors();
+				.sand-spotlight-resting-bg-colors();
 				filter+_: brightness(0.28);  // Adjusting the background color to match the gui designs. Filter-shift the color.
 				.sand-disabled-focus-bg-colors(); // Apply a proper opacity to the disabled background, according to the designs.
 			}

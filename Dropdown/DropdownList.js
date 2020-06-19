@@ -136,7 +136,6 @@ const DropdownListBase = kind({
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
 				itemSize={ri.scale(itemSize)}
-				role="group"
 				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
 			/>
 		);
@@ -189,8 +188,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			this.node = ReactDOM.findDOMNode(this);
 			Spotlight.set(this.node.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
-				enterTo: 'default-element',
-				leaveFor: {up: '', down: ''}
+				enterTo: 'default-element'
 			});
 		}
 

@@ -4,7 +4,11 @@
 @import "../styles/skin.less";
 
 .formCheckboxItem {
-	/* Available for customization */
+	&.hasSlotBefore {
+		.checkbox {
+			margin-inline-end: @sand-formcheckboxitem-checkbox-margin-end;
+		}
+	}
 
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
@@ -21,6 +25,7 @@
 	.applySkins({
 		.focus({
 			color: @sand-formcheckboxitem-focus-text-color;
+			font-weight: @sand-formcheckboxitem-focus-font-weight;
 
 			.bg {
 				background-color: transparent;

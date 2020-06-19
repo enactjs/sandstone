@@ -96,6 +96,17 @@ const TooltipBase = kind({
 		labelOffset: PropTypes.number,
 
 		/**
+		 * Allows the tooltip to marquee.
+		 *
+		 * Specifying a [`width`]{@link sandstone/TooltipDecorator.TooltipBase#width} restrects
+		 * the marquee to that size.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		marquee: PropTypes.bool,
+
+		/**
 		 * Style object for tooltip position.
 		 *
 		 * @type {Object}
@@ -145,8 +156,8 @@ const TooltipBase = kind({
 		/**
 		 * The width of tooltip content in pixels (px).
 		 *
-		 * If the content goes over the given width, then it will automatically wrap. When `null`,
-		 * content does not wrap.
+		 * If the content goes over the given width, then it will automatically wrap or marquee,
+		 * depending on `marquee`. When `null`, content does not wrap or marquee.
 		 *
 		 * @type {Number|null}
 		 * @public
@@ -181,8 +192,7 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, css, tooltipRef, width, labelOffset, ...rest}) => {
-		delete rest.arrowAnchor;
+	render: ({arrowAnchor, children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
 		delete rest.labelOffset;
 		delete rest.direction;
 		delete rest.position;
@@ -193,7 +203,7 @@ const TooltipBase = kind({
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel className={css.tooltipLabel} width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} marquee={marquee} centered={arrowAnchor === 'center'} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>

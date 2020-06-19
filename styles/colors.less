@@ -36,7 +36,7 @@
 // Spotlight and State
 // ---------------------------------------
 @sand-spotlight-text-color:           @sand-dark-gray;
-@sand-spotlight-bg-color:             @sand-accent;
+@sand-spotlight-bg-color:             @sand-accent;	// If this changes, update Button bg-color mixins in color-mixins.less
 @sand-spotlight-color:                @sand-accent;
 @sand-spotlight-shadow-color:         fade(@sand-black, 30%);
 @sand-spotlight-resting-shadow:       0 0 0 @sand-spotlight-shadow-color;
@@ -57,8 +57,8 @@
 // ---------------------------------------
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
+@sand-button-transparent-text-color: @sand-text-color;
 @sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
-@sand-button-focus-text-color: @sand-spotlight-text-color;
 
 // Checkbox
 // ---------------------------------------
@@ -99,12 +99,12 @@
 
 // FixedPopupPanels
 // ---------------------------------------
+@sand-fixedpopuppanels-bg-color: @sand-popup-bg-color;
 @sand-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
 
 // FlexiblePopupPanels
 // ---------------------------------------
 @sand-flexiblepopuppanels-panel-bg-color: fade(@sand-bg-color, 90%);
-@sand-flexiblepopuppanels-panel-border-radius: @sand-popup-border-radius;
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
 
 // FormCheckboxItem
@@ -124,7 +124,6 @@
 @sand-imageitem-image-border-color: transparent;
 @sand-imageitem-selection-icon-color: transparent;
 @sand-imageitem-selection-icon-bg-color: transparent;
-@sand-imageitem-horizontal-focus-caption-color: @sand-dark-gray;
 @sand-imageitem-focus-bg-shadow: @sand-spotlight-focus-shadow;
 @sand-imageitem-focus-selection-icon-color: @sand-imageitem-selection-icon-color;
 @sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
@@ -134,14 +133,13 @@
 @sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
 @sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
 
-// Item
-// ---------------------------------------
-@sand-item-focus-text-color: @sand-spotlight-text-color;
-
 // Input
 // ---------------------------------------
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
 @sand-input-overlay-background-color: fade(@sand-bg-color, 90%);
+@sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
+@sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
+@sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
 
 // InputField
 // ---------------------------------------
@@ -151,6 +149,7 @@
 @sand-inputfield-focus-text-color: @sand-spotlight-text-color;
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
+@sand-inputfield-invalid-tooltip-color: #FB5656;
 
 // KeyGuide
 // ---------------------------------------
@@ -163,11 +162,7 @@
 
 // MediaOverlay
 // ---------------------------------------
-@sand-mediaoverlay-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-mediaoverlay-caption-color: @sand-light-gray;
-@sand-mediaoverlay-focus-bg-color: @sand-spotlight-bg-color;
-@sand-mediaoverlay-focus-bg-shadow: 0 36px 18px @sand-spotlight-shadow-color;
-@sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
 @sand-mediaoverlay-subtitle-color: @sand-gray;
 
 // MediaPlayer
@@ -178,7 +173,6 @@
 // Picker
 // ---------------------------------------
 @sand-picker-text-color: @sand-text-color;
-@sand-picker-focus-text-color: @sand-spotlight-text-color;
 @sand-picker-indicators-active-bg-color: @sand-text-color;
 @sand-picker-indicators-active-focus-bg-color: #4c4f59;
 @sand-picker-indicators-inactive-bg-color: #9da2a7;
@@ -213,7 +207,7 @@
 // ---------------------------------------
 @sand-progressbutton-bar-color: @sand-gray;
 @sand-progressbutton-fill-color: @sand-button-text-color;
-@sand-progressbutton-focus-fill-color: @sand-button-focus-text-color;
+@sand-progressbutton-focus-fill-color: @sand-spotlight-text-color;
 
 // RadioItem
 // ---------------------------------------

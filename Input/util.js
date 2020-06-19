@@ -1,10 +1,14 @@
 import $L from '../internal/$L';
+import warning from 'warning';
 
 // A default value for the numeric field length. Used by maxLength and minLength.
 const DEFAULT_LENGTH = 4;
 
 // The cutoff length, at which point the numeric field switches from separated boxes to one box
 const SEPARATE_DIGITS_LIMIT = 6;
+
+const OVERLAY_JOINED_DIGITS_LIMIT = 10;
+const FULLSCREEN_JOINED_DIGITS_LIMIT = 25;
 
 /**
  * Determines the `aria-label` for an Input
@@ -52,6 +56,7 @@ const extractInputFieldProps = function (props) {
 			case 'data-webos-voice-group-label':
 			case 'data-webos-voice-intent':
 			case 'data-webos-voice-label':
+			case 'disabled':
 			case 'dismissOnEnter':
 			case 'iconAfter':
 			case 'iconBefore':
@@ -105,11 +110,30 @@ const extractInputProps = function (props) {
 	return inputProps;
 };
 
+const limitNumberLength = (popupType, length) => {
+	let limitedLength = length;
+	if (popupType === 'fullscreen') {
+		if (length > FULLSCREEN_JOINED_DIGITS_LIMIT) {
+			limitedLength = FULLSCREEN_JOINED_DIGITS_LIMIT;
+			warning(false, `Max length of fullscreen type input must not exceed ${FULLSCREEN_JOINED_DIGITS_LIMIT} digits.`);
+		}
+	} else if (popupType === 'overlay') {
+		if (length > OVERLAY_JOINED_DIGITS_LIMIT) {
+			limitedLength = OVERLAY_JOINED_DIGITS_LIMIT;
+			warning(false, `Max length of overlay type input must not exceed ${OVERLAY_JOINED_DIGITS_LIMIT} digits.`);
+		}
+	}
+	return limitedLength;
+};
+
 export {
 	DEFAULT_LENGTH,
+	FULLSCREEN_JOINED_DIGITS_LIMIT,
+	OVERLAY_JOINED_DIGITS_LIMIT,
 	SEPARATE_DIGITS_LIMIT,
 	calcAriaLabel,
 	convertToPasswordFormat,
 	extractInputProps,
-	extractInputFieldProps
+	extractInputFieldProps,
+	limitNumberLength
 };
