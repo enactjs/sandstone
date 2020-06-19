@@ -16,7 +16,7 @@ const Config = mergeComponentMetadata('ContextualMenuDecorator', Button, Context
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-	direction: 'below'
+	direction: 'below right'
 };
 
 storiesOf('Sandstone', module)
