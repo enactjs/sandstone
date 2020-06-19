@@ -122,6 +122,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * Offset from the activator to apply to the position of the popup.
 			 *
 			 * @type {('none'|'overlap'|'small')}
+			 * @default 'small'
 			 * @private
 			 */
 			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
@@ -235,8 +236,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		static defaultProps = {
 			'data-webos-voice-exclusive': true,
 			direction: 'below center',
-			margin: 0,
 			noAutoDismiss: false,
+			offset: 'small',
 			open: false,
 			spotlightRestrict: 'self-first'
 		}
@@ -253,6 +254,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 
+			this.MARGIN = ri.scale(noArrow ? 0 : 12);
 			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
 			this.ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
 			this.KEEPOUT = ri.scale(24); // keep out distance on the edge of the screen
@@ -349,20 +351,19 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getContainerPosition (containerNode, clientNode) {
 			const position = this.centerContainerPosition(containerNode, clientNode);
 			const {direction} = this.getContainerAdjustedPosition();
-			const margin = ri.scale(this.props.margin + (noArrow ? 0 : 12));
 
 			switch (direction) {
 				case 'above':
-					position.top = clientNode.top - this.ARROW_OFFSET - containerNode.height - margin;
+					position.top = clientNode.top - this.ARROW_OFFSET - containerNode.height - this.MARGIN;
 					break;
 				case 'below':
-					position.top = clientNode.bottom + this.ARROW_OFFSET + margin;
+					position.top = clientNode.bottom + this.ARROW_OFFSET + this.MARGIN;
 					break;
 				case 'right':
-					position.left = this.props.rtl ? clientNode.left - containerNode.width - this.ARROW_OFFSET - margin : clientNode.right + this.ARROW_OFFSET + margin;
+					position.left = this.props.rtl ? clientNode.left - containerNode.width - this.ARROW_OFFSET - this.MARGIN : clientNode.right + this.ARROW_OFFSET + this.MARGIN;
 					break;
 				case 'left':
-					position.left = this.props.rtl ? clientNode.right + this.ARROW_OFFSET + margin : clientNode.left - containerNode.width - this.ARROW_OFFSET - margin;
+					position.left = this.props.rtl ? clientNode.right + this.ARROW_OFFSET + this.MARGIN : clientNode.left - containerNode.width - this.ARROW_OFFSET - this.MARGIN;
 					break;
 			}
 
@@ -422,7 +423,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		getArrowPosition (containerNode, clientNode) {
 			const position = {};
 			const {anchor, direction} = this.getContainerAdjustedPosition();
-			const margin = ri.scale(this.props.margin + (noArrow ? 0 : 12));
 
 			if (direction === 'above' || direction === 'below') {
 				if (this.overflow.isOverRight && !this.overflow.isOverLeft) {
@@ -450,16 +450,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			switch (direction) {
 				case 'above':
-					position.top = clientNode.top - this.ARROW_WIDTH - margin;
+					position.top = clientNode.top - this.ARROW_WIDTH - this.MARGIN;
 					break;
 				case 'below':
-					position.top = clientNode.bottom + margin;
+					position.top = clientNode.bottom + this.MARGIN;
 					break;
 				case 'left':
-					position.left = this.props.rtl ? clientNode.left + clientNode.width + margin : clientNode.left - this.ARROW_WIDTH - margin;
+					position.left = this.props.rtl ? clientNode.left + clientNode.width + this.MARGIN : clientNode.left - this.ARROW_WIDTH - this.MARGIN;
 					break;
 				case 'right':
-					position.left = this.props.rtl ? clientNode.left - this.ARROW_WIDTH - margin : clientNode.left + clientNode.width + margin;
+					position.left = this.props.rtl ? clientNode.left - this.ARROW_WIDTH - this.MARGIN : clientNode.left + clientNode.width + this.MARGIN;
 					break;
 				default:
 					return {};
@@ -471,7 +471,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		calcOverflow (container, client) {
 			let containerHeight, containerWidth;
 			const {anchor, direction} = this.getContainerAdjustedPosition();
-			const margin = ri.scale(this.props.margin + (noArrow ? 0 : 12));
 
 			if (direction === 'above' || direction === 'below') {
 				containerHeight = container.height;
@@ -484,16 +483,16 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {
 				isOverTop: anchor === 'top' && (direction === 'left' || direction === 'right') ?
 					!(client.top > this.KEEPOUT) :
-					client.top - containerHeight - this.ARROW_OFFSET - margin - this.KEEPOUT < 0,
+					client.top - containerHeight - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
 				isOverBottom: anchor === 'bottom' && (direction === 'left' || direction === 'right') ?
 					client.bottom + this.KEEPOUT > window.innerHeight :
-					client.bottom + containerHeight + this.ARROW_OFFSET + margin + this.KEEPOUT > window.innerHeight,
+					client.bottom + containerHeight + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerHeight,
 				isOverLeft: anchor === 'left' && (direction === 'above' || direction === 'below') ?
 					!(client.left > this.KEEPOUT) :
-					client.left - containerWidth - this.ARROW_OFFSET - margin - this.KEEPOUT < 0,
+					client.left - containerWidth - this.ARROW_OFFSET - this.MARGIN - this.KEEPOUT < 0,
 				isOverRight: anchor === 'right' && (direction === 'above' || direction === 'below') ?
 					client.right + this.KEEPOUT > window.innerWidth :
-					client.right + containerWidth + this.ARROW_OFFSET + margin + this.KEEPOUT > window.innerWidth
+					client.right + containerWidth + this.ARROW_OFFSET + this.MARGIN + this.KEEPOUT > window.innerWidth
 			};
 		}
 
@@ -666,8 +665,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (!noSkin) {
 				rest.skin = skin;
 			}
-
-			delete rest.margin;
+;
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
