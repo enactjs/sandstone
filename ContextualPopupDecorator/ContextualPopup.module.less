@@ -19,6 +19,32 @@
 		-moz-background-clip: padding-box;
 		box-sizing: border-box;
 
+		&.above {
+			&.overlap {	margin-top: 36px; }
+			&.small { margin-top: -6px; }
+			&.none { /* Need one 'none' to prevent global class into the DOM */ }
+		}
+		&.below {
+			&.overlap {	margin-top: -36px; }
+			&.small { margin-top: 6px; }
+		}
+		&.right {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: -36px; }
+				&.small { margin-left: 6px; }
+			}
+		}
+		&.left  {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: 36px; }
+				&.small { margin-left: -6px; }
+			}
+		}
+
 		&.fixedSize {
 			overflow: hidden;
 		}

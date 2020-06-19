@@ -27,12 +27,12 @@ storiesOf('Sandstone', module)
 			const items = (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
 
 			return (
-				<div style={{marginTop: ri.scaleToRem(198)}}>
+				<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
 					<ContextualButton
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
 						onClose={action('onClose')}
-						popupSize={select('popupSize', ['auto', 'small', 'large'], Config)}
+						popupWidth={select('popupWidth', ['auto', 'small', 'large'], Config)}
 						style={{width: ri.scaleToRem(1020)}}
 					>
 						{text('button string', Config, 'Contextual Button')}

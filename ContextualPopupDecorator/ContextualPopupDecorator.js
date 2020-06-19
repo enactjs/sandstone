@@ -109,14 +109,6 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 			/**
-			 * Offset from the activator to apply to the position of the popup.
-			 *
-			 * @type {Number}
-			 * @private
-			 */
-			margin: PropTypes.number,
-
-			/**
 			 * Disables closing the popup when the user presses the cancel key or taps outside the
 			 * popup.
 			 *
@@ -125,6 +117,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @public
 			 */
 			noAutoDismiss: PropTypes.bool,
+
+			/**
+			 * Offset from the activator to apply to the position of the popup.
+			 *
+			 * @type {('none'|'overlap'|'small')}
+			 * @private
+			 */
+			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
 
 			/**
 			 * Called when the user has attempted to close the popup.
@@ -658,7 +658,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const scrimType = spotlightRestrict === 'self-only' ? 'transparent' : 'none';
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
@@ -694,6 +694,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							containerPosition={this.state.containerPosition}
 							containerRef={this.getContainerNode}
 							data-webos-voice-exclusive={voiceExclusive}
+							offset={offset}
 							showArrow={!noArrow}
 							skin={skin}
 							spotlightId={this.state.containerId}

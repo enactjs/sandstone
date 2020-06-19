@@ -94,6 +94,15 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			]),
 
 			/**
+			 * Offset from the activator to apply to the position of the popup.
+			 *
+			 * @type {('none'|'overlap'|'small')}
+			 * @default 'overlap'
+			 * @private
+			 */
+			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
+
+			/**
 			 * Called when the user has attempted to close the popup.
 			 *
 			 * This may occur either when the close button is clicked or when spotlight focus
@@ -133,21 +142,22 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			popupProps: PropTypes.object,
 
 			/**
-			 * Size (width) of the Popup component.
+			 * Width of the Popup component.
 			 *
-			 * When `'auto'` the size will match the activator's width when `direction` is
-			 * `'below'` or a width specified in `popupClassName`.
+			 * When `'auto'` the popup will match the activator's width when `direction` is
+			 * `'below'` or `'above'` or a width specified in `popupClassName`.
 			 *
 			 * @type {('auto'|'large'|'small')}
 			 * @default 'auto'
 			 * @private
 			 */
-			popupSize: PropTypes.oneOf(['auto', 'large', 'small'])
+			popupWidth: PropTypes.oneOf(['auto', 'large', 'small'])
 		},
 
 		defaultProps: {
 			direction: 'below right',
-			popupSize: 'auto'
+			offset: 'overlap',
+			popupWidth: 'auto'
 		},
 
 		handlers: {
@@ -166,8 +176,8 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			// expect we'll be able to drop this when we add the private popupComponent
 			// implementation with the Repeater for the items since the popup class could be set
 			// on the component by itself
-			popupClassName: ({popupSize, popupClassName, styler}) => {
-				const sizeClass = popupSize !== 'auto' && popupSize;
+			popupClassName: ({popupWidth, popupClassName, styler}) => {
+				const sizeClass = popupWidth !== 'auto' && popupWidth;
 				return styler.join(
 					'popup',
 					'container',
@@ -181,11 +191,10 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 		render: ({onOpen, popupProps, ...rest}) => {
 			delete rest.menuItems;
 			delete rest.onOpen;
-			delete rest.popupSize;
+			delete rest.popupWidth;
 
 			return (
 				<Component
-					margin={-36}
 					{...rest}
 					onClick={onOpen}
 					popupComponent={Repeater}
