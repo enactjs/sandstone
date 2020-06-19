@@ -27,7 +27,7 @@ storiesOf('Sandstone', module)
 			const items = (new Array(itemCount)).fill().map((i, index) => `Option ${index + 1}`);
 
 			return (
-				<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
+				<div style={{marginTop: ri.scaleToRem(198)}}>
 					<ContextualButton
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
