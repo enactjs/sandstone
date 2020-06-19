@@ -33,6 +33,14 @@ const TooltipLabel = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
+		 * Centers the text when `marquee` is also set.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		centered: PropTypes.bool,
+
+		/**
 		 * Apply a marquee to support long text.
 		 *
 		 * It is recommended that you specify a `width` also. If none is specified, a default width
@@ -68,12 +76,12 @@ const TooltipLabel = kind({
 		}
 	},
 
-	render: ({children, marquee, ...rest}) => {
+	render: ({centered, children, marquee, ...rest}) => {
 		delete rest.width;
 
 		if (marquee) {
 			return (
-				<Marquee {...rest} marqueeOn="render">
+				<Marquee {...rest} alignment={centered ? 'center' : null} marqueeOn="render">
 					{children}
 				</Marquee>
 			);

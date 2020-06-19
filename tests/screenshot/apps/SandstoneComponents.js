@@ -19,6 +19,7 @@ import Heading from './components/Heading';
 import Icon from './components/Icon';
 import Image from './components/Image';
 import ImageItem from './components/ImageItem';
+import Input from './components/Input';
 import InputField from './components/InputField';
 import Item from './components/Item';
 import KeyGuide from './components/KeyGuide';
@@ -62,6 +63,7 @@ const components = {
 	Icon,
 	Image,
 	ImageItem,
+	Input,
 	InputField,
 	Item,
 	KeyGuide,
