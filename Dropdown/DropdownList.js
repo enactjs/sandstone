@@ -114,6 +114,7 @@ const DropdownListBase = kind({
 					data-selected={isSelected}
 					// eslint-disable-next-line react/jsx-no-bind
 					onClick={() => forward('onSelect', {data, selected: index}, props)}
+					size="small"
 				/>
 			);
 		}
@@ -124,7 +125,7 @@ const DropdownListBase = kind({
 		dataSize: ({children}) => children ? children.length : 0,
 		// Note: Retaining this in case we need to support different item sizes for large text mode:
 		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
-		itemSize: () => 156
+		itemSize: () => 126
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
