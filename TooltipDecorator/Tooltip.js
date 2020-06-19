@@ -192,8 +192,7 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
-		delete rest.arrowAnchor;
+	render: ({arrowAnchor, children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
 		delete rest.labelOffset;
 		delete rest.direction;
 		delete rest.position;
@@ -204,7 +203,7 @@ const TooltipBase = kind({
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel className={css.tooltipLabel} marquee={marquee} width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} marquee={marquee} centered={arrowAnchor === 'center'} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>

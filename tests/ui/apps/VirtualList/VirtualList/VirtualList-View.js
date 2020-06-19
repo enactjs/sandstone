@@ -20,10 +20,10 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemStyle = {margin: 0};
 
-const renderItem = (size) => ({index, ...rest}) => {
+const renderItem = (size, disabled) => ({index, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
-		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
+		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={disabled && (index % 15) !== 0}>
 			{items[index].item}
 		</StatefulSwitchItem>
 	);
@@ -86,6 +86,7 @@ class app extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			disabled: false,
 			hideScrollbar: false,
 			numItems: 100,
 			spacing: 0,
@@ -142,14 +143,16 @@ class app extends React.Component {
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{hideScrollbar, numItems, itemSize, spacing, wrap} = this.state;
+			{disabled, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
-						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
-						<Button id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
+						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
@@ -169,7 +172,7 @@ class app extends React.Component {
 										<VirtualList
 											cbScrollTo={this.getScrollTo}
 											dataSize={numItems}
-											itemRenderer={renderItem(itemSize)}
+											itemRenderer={renderItem(itemSize, disabled)}
 											itemSize={ri.scale(itemSize)}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
