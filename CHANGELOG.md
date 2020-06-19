@@ -22,10 +22,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect using `spotlightRestrict`
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
 - `sandstone/TabLayout` to center tab icons when collapsed
 - `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 
