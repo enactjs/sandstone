@@ -17,7 +17,7 @@
  */
 
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {handle, forKey, forward, forProp, not} from '@enact/core/handle';
+import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -224,19 +224,6 @@ const DropdownBase = kind({
 	},
 
 	handlers: {
-		onKeyDown: handle(
-			forward('onKeyDown'),
-			(ev, props) => {
-				const {rtl} = props;
-				const isLeft = forKey('left', ev, props);
-				const isRight = forKey('right', ev, props);
-				const isLeftMovement = !rtl && isLeft || rtl && isRight;
-				const isRightMovement = !rtl && isRight || rtl && isLeft;
-
-				return isLeftMovement && typeof ev.target.dataset.index !== 'undefined' || isRightMovement;
-			},
-			forward('onClose')
-		),
 		onSelect: handle(
 			forward('onSelect'),
 			forward('onClose')
@@ -305,11 +292,11 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, direction, disabled, onClose, onKeyDown, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
-		const popupProps = {'aria-live': null, children, onKeyDown, onSelect, selected, width, role: null};
+		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
@@ -329,6 +316,7 @@ const DropdownBase = kind({
 					onClose={onClose}
 					open={openDropdown}
 					size={size}
+					spotlightRestrict="self-only"
 					{...ariaProps}
 				>
 					{placeholder}
