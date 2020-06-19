@@ -19,6 +19,18 @@ describe('ImageItem', () => {
 		expect(actual).toHaveProperty('textAlign', expected);
 	});
 
+	test('should support not apply `centered` with horizontal', () => {
+		const children = 'caption';
+		const subject = mount(
+			<ImageItemBase centered orientation="horizontal">{children}</ImageItemBase>
+		);
+
+		const unexpected = 'center';
+		const actual = subject.find('.text').prop('style');
+
+		expect(actual).not.toHaveProperty('textAlign', unexpected);
+	});
+
 	test('should support `children` prop', () => {
 		const children = 'caption';
 		const subject = shallow(
@@ -51,6 +63,18 @@ describe('ImageItem', () => {
 
 		const expected = imageIconSrc;
 		const actual = subject.find('.imageIcon').prop('src');
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not support `imageIconSrc` prop when `orientation="horizontal"`', () => {
+		const imageIconSrc = 'imageIconSrc';
+		const subject = shallow(
+			<ImageItemBase imageIconSrc={imageIconSrc} orientation="horizontal" />
+		);
+
+		const expected = false;
+		const actual = subject.find('.imageIcon').exists();
 
 		expect(actual).toBe(expected);
 	});

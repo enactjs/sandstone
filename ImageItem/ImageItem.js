@@ -55,7 +55,6 @@ const ImageItemBase = kind({
 		 * Centers the primary caption in vertical orientation.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		centered: PropTypes.bool,
@@ -111,9 +110,9 @@ const ImageItemBase = kind({
 
 		/**
 		 * Source for the image icon.
+		 *
 		 * String value or Object of values used to determine which image will appear on
-		 * a specific screenSize.
-		 * This feature is only valid when `orientation` is `'vertical'.
+		 * a specific screenSize. This feature is only valid when `orientation` is `'vertical'`.
 		 *
 		 * @type {String|Object}
 		 * @private
@@ -155,7 +154,6 @@ const ImageItemBase = kind({
 		 * is also `true`.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		selected: PropTypes.bool,
@@ -183,7 +181,6 @@ const ImageItemBase = kind({
 		 * Shows a selection component with a centered icon. When `selected` is true, a check mark is shown.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		showSelection: PropTypes.bool,
@@ -201,12 +198,9 @@ const ImageItemBase = kind({
 
 	defaultProps: {
 		'data-webos-voice-intent': 'Select',
-		centered: false,
 		imageIconComponent: Image,
 		orientation: 'vertical',
-		placeholder: defaultPlaceholder,
-		selected: false,
-		showSelection: false
+		placeholder: defaultPlaceholder
 	},
 
 	styles: {
