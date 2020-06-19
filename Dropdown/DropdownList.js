@@ -188,8 +188,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			this.node = ReactDOM.findDOMNode(this);
 			Spotlight.set(this.node.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
-				enterTo: 'default-element',
-				leaveFor: {up: '', down: ''}
+				enterTo: 'default-element'
 			});
 		}
 
