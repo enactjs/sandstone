@@ -42,6 +42,31 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const Async = ({children, log}) => {
+	const [c, setC] = React.useState(null);
+	const d = React.useRef();
+	const t = React.useRef(null);
+
+	d.current = children;
+	if (t.current) clearTimeout(t.current);
+
+	React.useEffect(() => {
+		const fn = () => {
+			if (window.isWheeling) {
+				t.current = setTimeout(fn, 500)
+			} else {
+				setC(d.current);
+			}
+		};
+
+		if (c !== d.current) {
+			t.current = setTimeout(fn, 500);
+		}
+	})
+
+	return (c !== d.current) ? '' : c;
+};
+
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -220,12 +245,14 @@ const ImageItemBase = kind({
 				memoizedImageIcon = React.useMemo(() => {
 					return MemoPropsThemeContextConsumer(context => { // eslint-disable-line enact/display-name
 						return hasImageIcon(context) ?
-							<Cell
-								className={css.imageIcon}
-								component={context.imageIconComponent || Image}
-								shrink
-								src={context.imageIconSrc}
-							/> :
+							<Async>
+								<Cell
+									className={css.imageIcon}
+									component={context.imageIconComponent || Image}
+									shrink
+									src={context.imageIconSrc}
+								/>
+							</Async> :
 							null;
 					});
 				}, [css.imageIcon]),
@@ -233,7 +260,7 @@ const ImageItemBase = kind({
 					return (
 						<Marquee className={css.caption} marqueeOn="hover">
 							{MemoPropsThemeContextConsumer(context => {
-								return context.children;
+								return <Async log={context.children}>{context.children}</Async>;
 							})}
 						</Marquee>
 					);
@@ -242,7 +269,7 @@ const ImageItemBase = kind({
 					return (
 						<Marquee className={css.label} marqueeOn="hover">
 							{MemoPropsThemeContextConsumer(context => {
-								return hasLabel(context) && context.label || null;
+								return <Async log={hasLabel(context) && context.label || null}>{hasLabel(context) && context.label || null}</Async>
 							})}
 						</Marquee>
 					);
