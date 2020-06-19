@@ -50,14 +50,14 @@ class VirtualGridListNativeSample extends Component {
 
 		function onRAF (timestamp) {
 			// During wheel
-			if (timestamp > 5000) {
+			if (timestamp > 7000) {
 				if (!window.startTime) {
 					window.startTime = timestamp;
 				}
 				window.elapsedTimes.push(timestamp - window.startTime);
 			}
 
-			if (timestamp < 15000) {
+			if (timestamp < 13000) {
 				window.requestAnimationFrame(onRAF);
 			}
 		}
@@ -69,11 +69,17 @@ class VirtualGridListNativeSample extends Component {
 		this.scrollTo = scrollTo;
 	}
 
+	placeHolderImg = 'data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC' +
+	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
+	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
+	'4NCg=='
+
 	renderItem = ({index, ...rest}) => {
 		return (
 			<ImageItem
 				{...rest}
-				label={items[index].subText}
+			//	label={items[index].subText}
+				src= {this.placeHolderImg}
 			>
 				{items[index].text}
 			</ImageItem>
