@@ -28,6 +28,7 @@ const Key = kind({
 	name: 'Key',
 
 	propTypes: {
+		disabled: PropTypes.bool,
 		// Event callback fired when this button is clicked. Includes the 'key' key in its event
 		// payload to let the clicker know what was clicked inside their callback.
 		onKeyButtonClick: PropTypes.func
@@ -61,6 +62,7 @@ const Keypad = kind({
 	name: 'Keypad',
 
 	propTypes: {
+		disabled: PropTypes.bool,
 		onAdd: PropTypes.func,
 		onRemove: PropTypes.func
 	},
@@ -70,7 +72,7 @@ const Keypad = kind({
 		className: 'keypad'
 	},
 
-	render: ({onAdd, onRemove, ...rest}) => {
+	render: ({disabled, onAdd, onRemove, ...rest}) => {
 		return (
 			<Layout align="center end" wrap {...rest} inline>
 				{KEY_LIST.map((keyText, rowIndex) => {
@@ -79,6 +81,7 @@ const Keypad = kind({
 							aria-label={keyText === 'backspace' ? $L('Back Space') : keyText}
 							shrink
 							component={Key}
+							disabled={disabled}
 							key={`key${rowIndex}-${keyText}`}
 							onKeyButtonClick={keyText === 'backspace' ? onRemove : onAdd}
 						>
