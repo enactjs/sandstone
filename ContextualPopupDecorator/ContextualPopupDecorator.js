@@ -109,6 +109,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 			/**
+			 * Vertical offset to apply to the position of the popup.
+			 *
+			 * @type {Number}
+			 * @default 0
+			 * @private
+			 */
+			margin: PropTypes.bool,
+
+			/**
 			 * Disables closing the popup when the user presses the cancel key or taps outside the
 			 * popup.
 			 *
@@ -227,8 +236,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		static defaultProps = {
 			'data-webos-voice-exclusive': true,
 			direction: 'below center',
-			noAutoDismiss: false,
 			margin: 0,
+			noAutoDismiss: false,
 			open: false,
 			spotlightRestrict: 'self-first'
 		}

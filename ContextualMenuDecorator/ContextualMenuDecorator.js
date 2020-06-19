@@ -167,7 +167,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			// implementation with the Repeater for the items since the popup class could be set
 			// on the component by itself
 			popupClassName: ({popupSize, popupClassName, styler}) => {
-				const sizeClass = size !== 'auto' && popupSize;
+				const sizeClass = popupSize !== 'auto' && popupSize;
 				return styler.join(
 					'popup',
 					'container',
