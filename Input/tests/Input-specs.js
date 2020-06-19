@@ -207,4 +207,68 @@ describe('Input specs', () => {
 		});
 	});
 
+	test('should include a submit button when `minLength` !== `maxLength` for number input', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" minLength={4} maxLength={6} open />
+			</FloatingLayerController>
+		);
+
+		const expected = 1;
+		const actual = subject.find('.submitButton').first().length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should include a submit button for implicit joined number input', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" length={10} open />
+			</FloatingLayerController>
+		);
+
+		const expected = 1;
+		const actual = subject.find('.submitButton').first().length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should include a submit button for explicit joined number input', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" length={4} open numberInputField="joined" />
+			</FloatingLayerController>
+		);
+
+		const expected = 1;
+		const actual = subject.find('.submitButton').first().length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should exclude a submit button when separated number input', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" length={4} open />
+			</FloatingLayerController>
+		);
+
+		const expected = 0;
+		const actual = subject.find('.submitButton').first().length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should exclude a submit button for explicit separated number input', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" length={10} open numberInputField="separated" />
+			</FloatingLayerController>
+		);
+
+		const expected = 0;
+		const actual = subject.find('.submitButton').first().length;
+
+		expect(actual).toBe(expected);
+	});
 });
