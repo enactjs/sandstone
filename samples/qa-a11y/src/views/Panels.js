@@ -2,7 +2,6 @@ import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 import VirtualList from '@enact/sandstone/VirtualList';
-import Spotlight from '@enact/spotlight';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
@@ -19,12 +18,7 @@ class PanelsView extends React.Component {
 		};
 	}
 
-	componentWillMount () {
-		Spotlight.setPointerMode(false);
-	}
-
 	nextPanel = () => this.setState({panelIndex: 1})
-
 	prevPanel = () => this.setState({panelIndex: 0})
 
 	customItem = ({index, ...rest}) => {

@@ -41,7 +41,7 @@ import Home from './Home';
 import View from './View';
 
 const views = [
-	{isHeader: false, title: 'About qa-a11y', view: Home},
+	{title: 'About qa-a11y', view: Home},
 	{debugProps: true, title: 'Option', view: Option},
 	{title: 'A11yDecorator', view: A11yDecorator},
 	{title: 'Alert', view: Alert},
