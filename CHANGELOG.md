@@ -29,6 +29,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
+- `sandstone/Switch` and `sandstone/SwitchItem` accessibility read out
 - `sandstone/TabLayout` to center tab icons when collapsed
 - `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 
