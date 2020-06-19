@@ -4,20 +4,30 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/ImageItem` prop `centered` to center the primary caption in vertical type
+- `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
+
 ### Changed
 
+- `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
 - `sandstone/Dropdown` to prevent focus on outer area
+- `sandstone/Input` `disabled` prop to not close an open input.
 
 ### Fixed
 
 - `sandstone/ActionGuide` to have the proper size and font color for the icon and the label
+- `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
 - `sandstone/FormCheckboxItem` to not move focus in an item
+- `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/TabLayout` to center tab icons when collapsed
+- `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 
 ## [1.0.0-beta.7] - 2020-06-16
 
