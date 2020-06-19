@@ -59,7 +59,6 @@
 @sand-button-bg-color: #7d848c;
 @sand-button-transparent-text-color: @sand-text-color;
 @sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
-@sand-button-focus-text-color: @sand-spotlight-text-color;
 
 // Checkbox
 // ---------------------------------------
@@ -125,7 +124,6 @@
 @sand-imageitem-image-border-color: transparent;
 @sand-imageitem-selection-icon-color: transparent;
 @sand-imageitem-selection-icon-bg-color: transparent;
-@sand-imageitem-horizontal-focus-caption-color: @sand-dark-gray;
 @sand-imageitem-focus-bg-shadow: @sand-spotlight-focus-shadow;
 @sand-imageitem-focus-selection-icon-color: @sand-imageitem-selection-icon-color;
 @sand-imageitem-focus-selection-icon-bg-color: @sand-imageitem-selection-icon-bg-color;
@@ -134,10 +132,6 @@
 @sand-imageitem-selected-image-border-color: fade(@sand-light-gray, 70%);
 @sand-imageitem-selected-focus-selection-icon-color: @sand-imageitem-selected-selection-icon-color;
 @sand-imageitem-selected-focus-selection-icon-bg-color: @sand-imageitem-selected-selection-icon-bg-color;
-
-// Item
-// ---------------------------------------
-@sand-item-focus-text-color: @sand-spotlight-text-color;
 
 // Input
 // ---------------------------------------
@@ -168,11 +162,7 @@
 
 // MediaOverlay
 // ---------------------------------------
-@sand-mediaoverlay-bg-shadow: 0 0 0 @sand-spotlight-shadow-color;
 @sand-mediaoverlay-caption-color: @sand-light-gray;
-@sand-mediaoverlay-focus-bg-color: @sand-spotlight-bg-color;
-@sand-mediaoverlay-focus-bg-shadow: 0 36px 18px @sand-spotlight-shadow-color;
-@sand-mediaoverlay-focus-caption-color: @sand-dark-gray;
 @sand-mediaoverlay-subtitle-color: @sand-gray;
 
 // MediaPlayer
@@ -183,7 +173,6 @@
 // Picker
 // ---------------------------------------
 @sand-picker-text-color: @sand-text-color;
-@sand-picker-focus-text-color: @sand-spotlight-text-color;
 @sand-picker-indicators-active-bg-color: @sand-text-color;
 @sand-picker-indicators-active-focus-bg-color: #4c4f59;
 @sand-picker-indicators-inactive-bg-color: #9da2a7;
@@ -218,7 +207,7 @@
 // ---------------------------------------
 @sand-progressbutton-bar-color: @sand-gray;
 @sand-progressbutton-fill-color: @sand-button-text-color;
-@sand-progressbutton-focus-fill-color: @sand-button-focus-text-color;
+@sand-progressbutton-focus-fill-color: @sand-spotlight-text-color;
 
 // RadioItem
 // ---------------------------------------

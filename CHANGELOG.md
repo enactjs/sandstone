@@ -4,13 +4,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
+
 ### Changed
 
+- `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
 - `sandstone/Dropdown` to prevent focus on outer area
 - `sandstone/Input` `disabled` prop to not close an open input.
 
 ### Fixed
 
+- `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
