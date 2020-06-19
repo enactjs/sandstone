@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
 - `sandstone/FormCheckboxItem` to not move focus in an item
+- `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/TabLayout` to center tab icons when collapsed

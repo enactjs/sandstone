@@ -106,10 +106,10 @@ const NumberFieldBase = kind({
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {maxLength, minLength}) => {
+					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
 						const
 							updatedLength = normalizeValue(updatedValue, maxLength).length,
-							autoSubmit = minLength === maxLength;
+							autoSubmit = getSeparated(numberInputField, maxLength) && minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
 					forward('onComplete')
@@ -147,10 +147,10 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value}) => {
+		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
 			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength) {
+			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
 				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
