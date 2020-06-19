@@ -130,11 +130,24 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Object}
 			 * @public
 			 */
-			popupProps: PropTypes.object
+			popupProps: PropTypes.object,
+
+			/**
+			 * Size of the Popup component.
+			 *
+			 * When `'auto'` the size will match the activator's width when `direction` is
+			 * `'below'` or a width specified in `popupClassName`.
+			 *
+			 * @type {('auto'|'large'|'small')}
+			 * @default 'auto'
+			 * @public
+			 */
+			size: PropTypes.oneOf(['auto', 'large', 'small'])
 		},
 
 		defaultProps: {
-			direction: 'below right'
+			direction: 'below right',
+			size: 'auto'
 		},
 
 		handlers: {
@@ -153,17 +166,22 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			// expect we'll be able to drop this when we add the private popupComponent
 			// implementation with the Repeater for the items since the popup class could be set
 			// on the component by itself
-			popupClassName: ({popupClassName, styler}) => styler.join(
-				'popup',
-				'container',
-				popupClassName
-			),
+			popupClassName: ({size, popupClassName, styler}) => {
+				const sizeClass = size !== 'auto' && size;
+				return styler.join(
+					'popup',
+					'container',
+					popupClassName,
+					sizeClass
+				);
+			},
 			popupProps: ({menuItems, popupProps}) => ({'aria-live': null, children: menuItems, childComponent: Item, itemProps: {className: css.item, size: 'small'}, component: 'div', role: null, ...popupProps})
 		},
 
 		render: ({onOpen, popupProps, ...rest}) => {
 			delete rest.menuItems;
 			delete rest.onOpen;
+			delete rest.size;
 
 			return (
 				<Component
