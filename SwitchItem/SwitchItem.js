@@ -85,9 +85,9 @@ const SwitchItemBase = kind({
 	render: ({children, css, selected, slotAfter, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SetToggleItem"
-			role="checkbox"
+			role="button"
 			{...rest}
-			aria-checked={selected}
+			aria-pressed={selected}
 			css={css}
 			selected={selected}
 		>

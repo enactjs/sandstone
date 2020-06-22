@@ -30,6 +30,7 @@ const NumberCell = kind({
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
 		active: PropTypes.bool,
 		children: PropTypes.string,
+		disabled: PropTypes.bool,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -68,6 +69,7 @@ const NumberFieldBase = kind({
 	propTypes: {
 		announce: PropTypes.func,
 		css: PropTypes.object,
+		disabled: PropTypes.bool,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
@@ -104,10 +106,10 @@ const NumberFieldBase = kind({
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {maxLength, minLength}) => {
+					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
 						const
 							updatedLength = normalizeValue(updatedValue, maxLength).length,
-							autoSubmit = minLength === maxLength;
+							autoSubmit = getSeparated(numberInputField, maxLength) && minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
 					forward('onComplete')
@@ -145,11 +147,11 @@ const NumberFieldBase = kind({
 				);
 			}
 		},
-		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
-			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
+		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
+			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength) {
-				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
+			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
+				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
 			}
@@ -162,7 +164,7 @@ const NumberFieldBase = kind({
 		}
 	},
 
-	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
+	render: ({css, disabled, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
 		delete rest.announce;
 		delete rest.invalid;
@@ -189,6 +191,7 @@ const NumberFieldBase = kind({
 						active: index <= value.length,
 						children: values[index],
 						component: NumberCell,
+						disabled,
 						key: `key-${index}`,
 						password,
 						shrink: true
@@ -197,7 +200,7 @@ const NumberFieldBase = kind({
 			);
 		} else {
 			field = (
-				<div {...rest}>
+				<div {...rest} disabled={disabled}>
 					{password ? convertToPasswordFormat(value) : value}
 				</div>
 			);
@@ -210,7 +213,7 @@ const NumberFieldBase = kind({
 					{invalidTooltip}
 				</div>
 				<br />
-				{showKeypad ? <Keypad aria-label=" " onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad aria-label=" " disabled={disabled} onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
 			</React.Fragment>
 		);

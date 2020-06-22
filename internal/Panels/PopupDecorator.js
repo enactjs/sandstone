@@ -1,5 +1,7 @@
+import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -169,6 +171,24 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			position: PropTypes.oneOf(['left', 'right']),
 
 			/**
+			 * Scrim type.
+			 *
+			 * @type {('transparent'|'translucent'|'none')}
+			 * @default 'translucent'
+			 * @public
+			 */
+			scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+
+			/**
+			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
+			 *
+			 * @type {('self-first'|'self-only')}
+			 * @default 'self-only'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only']),
+
+			/**
 			 * Size of the popup.
 			 *
 			 * @type {('narrow'|'half')}
@@ -183,6 +203,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			index: 0,
 			noAnimation: false,
 			position: 'right',
+			scrimType: 'translucent',
+			spotlightRestrict: 'self-only',
 			width: 'narrow'
 		},
 
@@ -191,8 +213,23 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			className: cfgClassName
 		},
 
+		handlers: {
+			onKeyDown: (ev, props) => {
+				forward('onKeyDown', ev, props);
+				const direction = getDirection(ev.keyCode);
+
+				if (direction) {
+					ev.preventDefault();
+					ev.nativeEvent.stopImmediatePropagation();
+					Spotlight.setPointerMode(false);
+					Spotlight.move(direction);
+				}
+			}
+		},
+
 		computed: {
-			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight})
+			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
+			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
