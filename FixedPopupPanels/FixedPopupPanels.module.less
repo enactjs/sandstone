@@ -60,3 +60,15 @@
 		flex: 0 1 auto;
 	}
 }
+
+
+div.popup {
+	> .body {
+		position: relative;
+		padding: 0;
+		// Overrides padding for Popup in RTL
+		:global(.enact-locale-right-to-left) & {
+			padding: 0;
+		}
+	}
+}
