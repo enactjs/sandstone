@@ -12,22 +12,22 @@ const Config = mergeComponentMetadata('ContextualMenuDecorator', ContextualMenuD
 const MenuButton = ContextualMenuDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
-	direction: {
-		'above': 'above',
-		'above center': 'above center',
-		'above left': 'above left',
-		'above right': 'above right',
-		'below': 'below',
-		'below center': 'below center',
-		'below left': 'below left',
-		'below right': 'below right',
-		'left bottom': 'left bottom',
-		'left middle': 'left middle',
-		'left top': 'left top',
-		'right bottom': 'right bottom',
-		'right middle': 'right middle',
-		'right top': 'right top'
-	},
+	direction: [
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left bottom',
+		'left middle',
+		'left top',
+		'right bottom',
+		'right middle',
+		'right top'
+	],
 	offset: ['none', 'overlap', 'small'],
 	popupWidth: ['auto', 'small', 'large']
 };
