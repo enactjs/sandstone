@@ -17,14 +17,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
 
+import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 const Checkbox = Skinnable(CheckboxBase);
 Checkbox.displayName = 'Checkbox';
@@ -188,7 +191,11 @@ const CheckboxItemDecorator = compose(
  * @ui
  * @public
  */
-const CheckboxItem = CheckboxItemDecorator(CheckboxItemBase);
+const CheckboxItem = Pure(
+	CheckboxItemDecorator(
+		CheckboxItemBase
+	)
+);
 
 export default CheckboxItem;
 export {

@@ -272,7 +272,6 @@ const ItemBase = kind({
  * @public
  */
 const ItemDecorator = compose(
-	Pure,
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Spottable,
@@ -295,7 +294,7 @@ const ItemDecorator = compose(
  * @ui
  * @public
  */
-const Item = ItemDecorator(ItemBase);
+const Item = Pure(ItemDecorator(ItemBase));
 
 export default Item;
 export {
