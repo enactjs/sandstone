@@ -20,28 +20,28 @@
 		box-sizing: border-box;
 
 		&.above {
-			&.overlap {	margin-top: 36px; }
-			&.small { margin-top: -6px; }
+			&.overlap {	margin-top: @sand-contextualpopup-offset-overlap; }
+			&.small { margin-top: -@sand-contextualpopup-offset-small; }
 			&.none { /* Need one 'none' to prevent global class into the DOM */ }
 		}
 		&.below {
-			&.overlap {	margin-top: -36px; }
-			&.small { margin-top: 6px; }
+			&.overlap {	margin-top: -@sand-contextualpopup-offset-overlap; }
+			&.small { margin-top: @sand-contextualpopup-offset-small; }
 		}
 		&.right {
 			&.top,
 			&.middle,
 			&.bottom {
-				&.overlap { margin-left: -36px; }
-				&.small { margin-left: 6px; }
+				&.overlap { margin-left: -@sand-contextualpopup-offset-overlap; }
+				&.small { margin-left: @sand-contextualpopup-offset-small; }
 			}
 		}
 		&.left  {
 			&.top,
 			&.middle,
 			&.bottom {
-				&.overlap { margin-left: 36px; }
-				&.small { margin-left: -6px; }
+				&.overlap { margin-left: @sand-contextualpopup-offset-overlap; }
+				&.small { margin-left: -@sand-contextualpopup-offset-small; }
 			}
 		}
 
