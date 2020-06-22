@@ -347,13 +347,12 @@
 // ---------------------------------------
 @sand-heading-border-width: 1px;
 @sand-heading-margin: 0 @sand-component-spacing (1.5 * @sand-spotlight-outset) @sand-component-spacing;
-@sand-heading-padding: 0;
+@sand-heading-padding: 0 0 18px 0;
 @sand-heading-spacing-title: 0;
 @sand-heading-spacing-subtitle: 0;
 @sand-heading-spacing-large: 78px;
 @sand-heading-spacing-medium: 42px;
 @sand-heading-spacing-small: 18px;
-@sand-heading-showline-padding: 0 0 18px 0;
 
 // Icon
 // ---------------------------------------
@@ -471,10 +470,11 @@
 // MediaOverlay
 // ---------------------------------------
 @sand-mediaoverlay-border-radius: 12px;
-@sand-mediaoverlay-caption-margin-top: 24px;
+@sand-mediaoverlay-caption-margin-top: 30px;
+@sand-mediaoverlay-caption-margin-bottom: @sand-mediaoverlay-caption-margin-top - @sand-mediaoverlay-padding;
 @sand-mediaoverlay-font-weight: 500;
 @sand-mediaoverlay-line-height: 1.3em;
-@sand-mediaoverlay-padding-top-bottom: 30px;
+@sand-mediaoverlay-padding: 24px;
 @sand-mediaoverlay-progressbar-margin: 0 6px 6px 6px;
 @sand-mediaoverlay-textlayout-margin: 24px 60px;
 @sand-mediaoverlay-width: 642px;
