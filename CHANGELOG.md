@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ImageItem` prop `centered` to center the primary caption in vertical type
 - `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
+- `sandstone/Icon` supported icons
 
 ### Changed
 
