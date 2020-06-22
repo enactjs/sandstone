@@ -143,19 +143,20 @@
 	// Skin colors
 	.applySkins({
 		.bg {
-			.sand-spotlight-resting-colors();
+			.sand-spotlight-resting-bg-colors();
 		}
 
 		.focus({
-			color: @sand-item-focus-text-color;
+			.sand-spotlight-focus-text-colors();
 
 			.bg {
-				.sand-spotlight-focus-colors();
+				.sand-spotlight-focus-bg-colors();
 			}
 
 			.text,
 			.label {
 				color: inherit;
+				font-weight: inherit;
 			}
 		});
 
