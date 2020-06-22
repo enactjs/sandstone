@@ -197,12 +197,12 @@
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
 @sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: (204px - @sand-button-h-margin);
+@sand-alert-overlay-content-margin-right: (204px - .extract(@sand-button-margin, right)[]);
 @sand-alert-overlay-content-width: 1200px;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left: 90px;
-@sand-alert-overlay-padding-right: (90px - @sand-button-h-margin);
+@sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
 // ---------------------------------------
@@ -223,7 +223,8 @@
 @sand-button-bg-opacity: 1;
 @sand-button-transparent-bg-opacity: 0;
 @sand-button-transparent-selected-bg-opacity: 1;
-@sand-button-h-margin: @sand-component-spacing;
+@sand-button-margin: 0 @sand-component-spacing;
+@sand-button-focusexpand-margin: 6px .extract(@sand-button-margin, right)[]; // 6px provides enough space for the expanded focus state
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
 @sand-button-height-large: 192px;
@@ -242,17 +243,20 @@
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 600px;
-@sand-button-focus-bg-transform: scale(1.05);
-@sand-button-pressed-bg-transform: scale(1.02);
+@sand-button-pressed-bg-transform: scale(0.98);
+@sand-button-focusexpand-focus-bg-transform: scale(1.05);
+@sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-button-small-h-margin: @sand-button-h-margin;
+@sand-button-small-margin: @sand-button-margin;
+@sand-button-small-focusexpand-margin: @sand-button-focusexpand-margin;
 @sand-button-small-h-padding: 48px;
 @sand-button-small-height-large: 144px;
 @sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
-@sand-button-small-focus-bg-transform: scale(1.1);
-@sand-button-small-pressed-bg-transform: scale(1.04);
+@sand-button-small-pressed-bg-transform: scale(0.97);
+@sand-button-small-focusexpand-focus-bg-transform: scale(1.1);
+@sand-button-small-focusexpand-pressed-bg-transform: scale(1.04);
 @sand-button-colordot-bottom: 18px;
 @sand-button-colordot-border-radius: 6px;
 @sand-button-colordot-width: 60px;
@@ -274,12 +278,23 @@
 @sand-checkbox-container-position: ((@sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 @sand-checkbox-container-border-radius: @sand-item-border-radius;
 
+// ContextualMenu
+// ---------------------------------------
+@sand-contextualmenu-container-padding: 36px 0;
+@sand-contextualmenu-max-items: 5;
+@sand-contextualmenu-innercontainer-max-height: @sand-contextualmenu-max-items * @sand-item-small-height;
+@sand-contextualmenu-max-height: (@sand-contextualmenu-innercontainer-max-height + .extract(@sand-contextualmenu-container-padding, top)[] + .extract(@sand-contextualmenu-container-padding, bottom)[]);
+@sand-contextualmenu-large-width: 960px;
+@sand-contextualmenu-small-width: 612px;
+
 // ContextualPopup
 // ---------------------------------------
-@sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
-@sand-contextual-popup-padding: @sand-spotlight-outset 0;
-@sand-contextual-popup-arrow-height: 60px;
-@sand-contextual-popup-arrow-width: 60px;
+@sand-contextualpopup-border-radius: (@sand-button-border-radius * 2);
+@sand-contextualpopup-padding: 36px 0;
+@sand-contextualpopup-arrow-height: 60px;
+@sand-contextualpopup-arrow-width: 60px;
+@sand-contextualpopup-offset-overlap: 36px;	// used as inverse of small to cause overlap
+@sand-contextualpopup-offset-small: 18px;
 
 // Dropdown
 // ---------------------------------------
@@ -296,8 +311,9 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-max-items: 5;
+@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -515,7 +531,7 @@
 @sand-picker-indicator-inactive-scale: 0.75;
 @sand-picker-indicator-active-scale: 1;
 @sand-picker-indicator-margin: 0 12px;
-@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it alows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
+@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
 
 // Popup
 // ---------------------------------------

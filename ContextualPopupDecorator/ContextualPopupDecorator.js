@@ -119,6 +119,17 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			noAutoDismiss: PropTypes.bool,
 
 			/**
+			 * Offset from the activator to apply to the position of the popup.
+			 *
+			 * Only applies when `noArrow` is `true`.
+			 *
+			 * @type {('none'|'overlap'|'small')}
+			 * @default 'small'
+			 * @public
+			 */
+			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
+
+			/**
 			 * Called when the user has attempted to close the popup.
 			 *
 			 * This may occur either when the close button is clicked or when spotlight focus
@@ -228,6 +239,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			'data-webos-voice-exclusive': true,
 			direction: 'below center',
 			noAutoDismiss: false,
+			offset: 'small',
 			open: false,
 			spotlightRestrict: 'self-first'
 		}
@@ -244,9 +256,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 
-			this.ARROW_WIDTH = ri.scale(60); // svg arrow width. used for arrow positioning
+			this.MARGIN = ri.scale(noArrow ? 0 : 12);
+			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
 			this.ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
-			this.MARGIN = noArrow ? ri.scale(6) : ri.scale(18); // margin from an activator to the contextual popup.
 			this.KEEPOUT = ri.scale(24); // keep out distance on the edge of the screen
 
 			if (props.setApiProvider) {
@@ -647,7 +659,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
 			const scrimType = spotlightRestrict === 'self-only' ? 'transparent' : 'none';
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
@@ -682,6 +694,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							containerPosition={this.state.containerPosition}
 							containerRef={this.getContainerNode}
 							data-webos-voice-exclusive={voiceExclusive}
+							offset={noArrow ? offset : 'none'}
 							showArrow={!noArrow}
 							skin={skin}
 							spotlightId={this.state.containerId}

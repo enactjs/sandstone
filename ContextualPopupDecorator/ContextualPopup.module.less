@@ -12,12 +12,39 @@
 		position: absolute;
 		min-height: 192px;
 		min-width: 192px;
-		border-radius: @sand-contextual-popup-border-radius;
-		padding: @sand-contextual-popup-padding;
+		border-radius: @sand-contextualpopup-border-radius;
+		padding: @sand-contextualpopup-padding;
 		background-clip: padding-box;
 		-webkit-background-clip: padding-box;
 		-moz-background-clip: padding-box;
 		box-sizing: border-box;
+
+		&.none { /* Needed to prevent global class being added in the DOM */ }
+
+		&.above {
+			&.overlap {	margin-top: @sand-contextualpopup-offset-overlap; }
+			&.small { margin-top: -@sand-contextualpopup-offset-small; }
+		}
+		&.below {
+			&.overlap {	margin-top: -@sand-contextualpopup-offset-overlap; }
+			&.small { margin-top: @sand-contextualpopup-offset-small; }
+		}
+		&.right {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: -@sand-contextualpopup-offset-overlap; }
+				&.small { margin-left: @sand-contextualpopup-offset-small; }
+			}
+		}
+		&.left  {
+			&.top,
+			&.middle,
+			&.bottom {
+				&.overlap { margin-left: @sand-contextualpopup-offset-overlap; }
+				&.small { margin-left: -@sand-contextualpopup-offset-small; }
+			}
+		}
 
 		&.fixedSize {
 			overflow: hidden;
@@ -32,8 +59,8 @@
 
 	.arrow {
 		position: absolute;
-		height: @sand-contextual-popup-arrow-height;
-		width: @sand-contextual-popup-arrow-width;
+		height: @sand-contextualpopup-arrow-height;
+		width: @sand-contextualpopup-arrow-width;
 
 		// PLAT-84596: Coax the arrow onto a GPU layer to work around a rendering issue in Chromium
 		will-change: transform;
@@ -51,16 +78,16 @@
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(0 24px 32px @sand-contextual-popup-box-shadow-color);
+		filter: drop-shadow(@sand-contextualpopup-shadow);
 
 		.container {
-			background-color: @sand-contextual-popup-bg-color;
-			border-color: @sand-contextual-popup-border-color;
+			background-color: @sand-contextualpopup-bg-color;
+			border-color: @sand-contextualpopup-border-color;
 		}
 
 		.arrow {
 			.arrowFill {
-				fill: @sand-contextual-popup-bg-color;
+				fill: @sand-contextualpopup-bg-color;
 			}
 		}
 	});
