@@ -30,6 +30,18 @@ import css from './ContextualMenuDecorator.module.less';
  */
 const defaultConfig = {
 	/**
+	 * The maimum number of visible items.
+	 *
+	 * More than this number invokes a scroller.
+	 *
+	 * @type {Number}
+	 * @default 5
+	 * @memberof sandstone/ContextualMenuDecorator.ContextualMenuDecorator.defaultConfig
+	 * @public
+	 */
+	maxVisibleItems: 5,
+
+	/**
 	 * Disables passing the `skin` prop to the wrapped component.
 	 *
 	 * @see {@link sandstone/Skinnable.Skinnable.skin}
@@ -192,7 +204,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					sizeClass
 				);
 			},
-			popupComponent: ({menuItems}) => (menuItems && menuItems.length > 5 ? ScrollingRepeater : Repeater),
+			popupComponent: ({menuItems}) => (menuItems && menuItems.length > config.maxVisibleItems ? ScrollingRepeater : Repeater),
 			popupProps: ({menuItems, popupProps}) => ({
 				'aria-live': null,
 				children: menuItems,
