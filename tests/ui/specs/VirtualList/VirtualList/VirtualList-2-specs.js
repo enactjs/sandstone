@@ -227,7 +227,7 @@ describe('VirtualList 2', function () {
 			});
 
 			// Since it is not the same as the view of samples, we made a button to go directly to the corresponding item.
-			it.skip('should Jump to item when press cbScrollTo button [GT-28936]', function () {
+			it.skip('should Jump to item when press JumpToItem10 button [GT-28936]', function () {
 				// Step2-1: 5-way Spot the '010 - 한국어 - 한국'(item10 for this test) item.
 				// Check if item10 is located at the top of the list.
 				Page.buttonJumpToItem.moveTo();
@@ -276,6 +276,28 @@ describe('VirtualList 2', function () {
 				expect(Page.itemDisabled()).to.be.false();
 				// Step 6-3: Spotlight displays on the previous Enabled item.
 				expectFocusedItem(0);
+			});
+
+			it('should  display childProps [GT-29028]', function () {
+				// Verify 1-2:The first item shows 'Item 000'.
+				Page.buttonLeft.moveTo();
+				Page.spotlightRight();
+				expectFocusedItem(0);
+				expect(Page.textContent()).to.equal('Item 00');
+				// Verify 1-3: The second item shows 'Item 001'.
+				Page.spotlightDown();
+				expectFocusedItem(1);
+				expect(Page.textContent()).to.equal('Item 01');
+				// Step 3: 5-way Spot and Select 'Chid Props' toggle button.
+				Page.buttonChildProps.click();
+				// Verify 3-1: The first item shows 'Item 000 child props'.
+				Page.item(0).moveTo();
+				expectFocusedItem(0);
+				expect(Page.textContent()).to.equal('Item 00 child props');
+				// Verify 3-2: The second item shows 'Item 001 child props'.
+				Page.spotlightDown();
+				expectFocusedItem(1);
+				expect(Page.textContent()).to.equal('Item 01 child props');
 			});
 		});
 	});

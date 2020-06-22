@@ -1,8 +1,8 @@
+import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import PropTypes from 'prop-types';
 import React, {useCallback} from 'react';
-import {useI18nContext} from '@enact/i18n/I18nDecorator';
 
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;
