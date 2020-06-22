@@ -17,6 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Heading` bottom padding
 - `sandstone/Item` font size to 60px and label font size to 48px
 - `sandstone/PopupTabLayout` to position on the left in RTL
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
