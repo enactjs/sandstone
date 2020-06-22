@@ -27,6 +27,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
+- `sandstone/MediaOverlay` style to match latest designs
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/ProgressButton` to match the latest design
 - `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
