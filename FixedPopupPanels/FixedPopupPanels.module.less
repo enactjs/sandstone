@@ -34,7 +34,10 @@
 	}
 
 	> .body {
-		padding: 0;
+		&,
+		:global(.enact-locale-right-to-left) & {
+			padding: 0;
+		}
 	}
 
 	// Skin colors
@@ -58,14 +61,5 @@
 	> .body {
 		padding: @sand-fixedpopuppanels-panel-body-padding;
 		flex: 0 1 auto;
-	}
-}
-
-// Overrides padding for Popup in RTL
-.popup {
-	> .body {
-		:global(.enact-locale-right-to-left) & {
-			padding: 0;
-		}
 	}
 }
