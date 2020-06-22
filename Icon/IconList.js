@@ -96,7 +96,6 @@ export default {
 	dashboard1        : 0x0F011E,  // dashboard.01
 	dashboard2        : 0x0F011F,  // dashboard.02
 	dashboard3        : 0x0F0120,  // dashboard.03
-	subtitle          : 0x0F0124,  // subtitle
 	rotate            : 0x0F0125,  // rotate
 	lyrics            : 0x0F0126,  // lyrics
 	screenpower       : 0x0F0127,  // screen_power
