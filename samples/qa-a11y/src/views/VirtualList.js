@@ -1,10 +1,10 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item from '@enact/sandstone/Item';
-import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
 import Region from '@enact/sandstone/Region';
-import ri from '@enact/ui/resolution';
 import {VirtualList} from '@enact/sandstone/VirtualList';
+import Layout, {Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 import css from './VirtualList.module.less';
 

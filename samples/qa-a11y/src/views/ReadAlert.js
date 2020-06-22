@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import LS2Request from '@enact/webos/LS2Request';
-import React from 'react';
 import {readAlert} from '@enact/webos/speech';
+import React from 'react';
 
 class ReadAlertView extends React.Component {
 	constructor () {
