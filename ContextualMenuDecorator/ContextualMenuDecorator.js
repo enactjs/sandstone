@@ -21,6 +21,10 @@ import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
 
+// The maimum number of visible items. More than this number invokes a scroller.
+// When updating this value, you must also set the max-items LESS variable.
+const MAX_VISIBLE_MENU_ITEMS = 5;
+
 /**
  * Default config for {@link sandstone/ContextualMenuDecorator.ContextualMenuDecorator}
  *
@@ -29,18 +33,6 @@ import css from './ContextualMenuDecorator.module.less';
  * @memberof sandstone/ContextualMenuDecorator.ContextualMenuDecorator
  */
 const defaultConfig = {
-	/**
-	 * The maimum number of visible items.
-	 *
-	 * More than this number invokes a scroller.
-	 *
-	 * @type {Number}
-	 * @default 5
-	 * @memberof sandstone/ContextualMenuDecorator.ContextualMenuDecorator.defaultConfig
-	 * @public
-	 */
-	maxVisibleItems: 5,
-
 	/**
 	 * Disables passing the `skin` prop to the wrapped component.
 	 *
@@ -204,7 +196,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					sizeClass
 				);
 			},
-			popupComponent: ({menuItems}) => (menuItems && menuItems.length > config.maxVisibleItems ? ScrollingRepeater : Repeater),
+			popupComponent: ({menuItems}) => (menuItems && menuItems.length > MAX_VISIBLE_MENU_ITEMS ? ScrollingRepeater : Repeater),
 			popupProps: ({menuItems, popupProps}) => ({
 				'aria-live': null,
 				children: menuItems,
