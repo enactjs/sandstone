@@ -16,6 +16,7 @@
 
 // Spotlight
 // ---------------------------------------
+@sand-spotlight-font-weight: 600;
 @sand-spotlight-outset: 48px;
 @sand-spotlight-focus-animation-duration: 200ms;
 @sand-spotlight-focus-shadow-height: 36px;
@@ -59,8 +60,8 @@
 @sand-inputfield-invalid-tooltip-font-size:   48px;
 @sand-inputfield-small-font-size:        72px;
 @sand-item-font-size-large:         78px;
-@sand-item-font-size:               66px;
-@sand-item-label-font-size:         54px;
+@sand-item-font-size:               60px;
+@sand-item-label-font-size:         48px;
 @sand-item-small-font-size-large:   72px;
 @sand-item-small-font-size:         60px;
 @sand-item-small-label-font-size:   48px;
@@ -118,7 +119,7 @@
 // Button
 @sand-button-font-family: @sand-alt-font-family;
 @sand-button-font-style: normal;
-@sand-button-font-weight: 600;
+@sand-button-font-weight: 400;
 @sand-button-small-font-family: @sand-button-font-family;
 @sand-button-small-font-style: @sand-button-font-style;
 @sand-button-small-font-weight: @sand-button-font-weight;
@@ -326,6 +327,7 @@
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
+@sand-formcheckboxitem-focus-font-weight: 400;
 
 // Header
 // ---------------------------------------
@@ -349,13 +351,12 @@
 // ---------------------------------------
 @sand-heading-border-width: 1px;
 @sand-heading-margin: 0 @sand-component-spacing (1.5 * @sand-spotlight-outset) @sand-component-spacing;
-@sand-heading-padding: 0;
+@sand-heading-padding: 0 0 18px 0;
 @sand-heading-spacing-title: 0;
 @sand-heading-spacing-subtitle: 0;
 @sand-heading-spacing-large: 78px;
 @sand-heading-spacing-medium: 42px;
 @sand-heading-spacing-small: 18px;
-@sand-heading-showline-padding: 0 0 18px 0;
 
 // Icon
 // ---------------------------------------
@@ -473,10 +474,11 @@
 // MediaOverlay
 // ---------------------------------------
 @sand-mediaoverlay-border-radius: 12px;
-@sand-mediaoverlay-caption-margin-top: 24px;
+@sand-mediaoverlay-caption-margin-top: 30px;
+@sand-mediaoverlay-caption-margin-bottom: @sand-mediaoverlay-caption-margin-top - @sand-mediaoverlay-padding;
 @sand-mediaoverlay-font-weight: 500;
 @sand-mediaoverlay-line-height: 1.3em;
-@sand-mediaoverlay-padding-top-bottom: 30px;
+@sand-mediaoverlay-padding: 24px;
 @sand-mediaoverlay-progressbar-margin: 0 6px 6px 6px;
 @sand-mediaoverlay-textlayout-margin: 24px 60px;
 @sand-mediaoverlay-width: 642px;

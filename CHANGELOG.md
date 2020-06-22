@@ -4,21 +4,38 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/ImageItem` prop `centered` to center the primary caption in vertical type
+- `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
+- `sandstone/Icon` supported icons
+
 ### Changed
 
 - `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
+- `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
 - `sandstone/Dropdown` to prevent focus on outer area
 - `sandstone/Input` `disabled` prop to not close an open input.
 
 ### Fixed
 
 - `sandstone/Dropdown` to not expand the button activator when focused
+- `sandstone/Item` font size to 60px and label font size to 48px
+- `sandstone/PopupTabLayout` to position on the left in RTL
+- `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
+- `sandstone/FixedPopupPanels` padding in RTL locales
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect using `spotlightRestrict`
 - `sandstone/FormCheckboxItem` to not move focus in an item
+- `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
+- `sandstone/MediaOverlay` style to match latest designs
 - `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/ProgressButton` to match the latest design
+- `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
+- `sandstone/Switch` and `sandstone/SwitchItem` accessibility read out
 - `sandstone/TabLayout` to center tab icons when collapsed
 - `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 
