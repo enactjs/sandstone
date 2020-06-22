@@ -25,6 +25,7 @@ storiesOf('Sandstone', module)
 		'ImageItem',
 		() => (
 			<ImageItem
+				centered={boolean('centered', Config)}
 				disabled={boolean('disabled', Config)}
 				label={text('label', Config, 'ImageItem label')}
 				orientation={select('orientation', prop.orientation, Config)}

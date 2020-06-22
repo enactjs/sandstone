@@ -647,8 +647,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.paused.resume();
 		}
 
-		handleWheel = () => {
-			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled) {
+		handleWheel = (ev) => {
+			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
 		}

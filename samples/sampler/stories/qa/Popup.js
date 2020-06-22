@@ -47,6 +47,8 @@ storiesOf('Popup', module)
 					noAnimation={boolean('noAnimation', Popup, false)}
 					noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
 					onClose={action('onClose')}
+					position={select('position', ['bottom', 'center', 'fullscreen', 'left', 'right', 'top'], Popup, 'bottom')}
+					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Popup, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Popup, 'self-only')}
 				>
 					<div>{text('children', Popup, 'Hello Popup')}</div>

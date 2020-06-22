@@ -1,7 +1,7 @@
 import Dropdown from '@enact/sandstone/Dropdown';
+import Scroller from '@enact/sandstone/Scroller';
 import Layout, {Cell} from '@enact/ui/Layout';
 import React from 'react';
-import Scroller from '@enact/sandstone/Scroller';
 
 const list = [
 	{children: 'Option1', key: 'item1', 'aria-label': 'aria label 1'},
@@ -37,7 +37,12 @@ class A11yDropdown extends React.Component {
 
 const DropdownView = () => (
 	<Layout orientation="vertical">
-		<Cell component={Scroller} focusableScrollbar>
+		<Cell component={Scroller}>
+			<Dropdown placeholder="Dropdown without title">
+				{['Option1', 'Option2', 'Option3']}
+			</Dropdown>
+			<br />
+			<br />
 			<Dropdown placeholder="Dropdown" title="String Array children">
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
