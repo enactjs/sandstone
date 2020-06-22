@@ -17,13 +17,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/FixedPopupPanels` to have proper paddings in RTL
 - `sandstone/Item` font size to 60px and label font size to 48px
 - `sandstone/PopupTabLayout` to position on the left in RTL
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
 - `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
+- `sandstone/FixedPopupPanels` to have proper paddings in RTL
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect using `spotlightRestrict`
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to display submit button when number input field used
