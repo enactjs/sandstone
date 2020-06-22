@@ -12,12 +12,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
 - `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
 - `sandstone/Dropdown` to prevent focus on outer area
 - `sandstone/Input` `disabled` prop to not close an open input.
 
 ### Fixed
 
+- `sandstone/Dropdown` to not expand the button activator when focused
 - `sandstone/Item` font size to 60px and label font size to 48px
 - `sandstone/PopupTabLayout` to position on the left in RTL
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
