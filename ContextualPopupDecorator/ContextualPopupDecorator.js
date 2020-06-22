@@ -123,7 +123,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *
 			 * @type {('none'|'overlap'|'small')}
 			 * @default 'small'
-			 * @private
+			 * @public
 			 */
 			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
 
@@ -665,7 +665,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (!noSkin) {
 				rest.skin = skin;
 			}
-;
+
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;

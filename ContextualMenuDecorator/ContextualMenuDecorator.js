@@ -98,7 +98,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 *
 			 * @type {('none'|'overlap'|'small')}
 			 * @default 'overlap'
-			 * @private
+			 * @public
 			 */
 			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
 

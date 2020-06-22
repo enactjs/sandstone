@@ -16,7 +16,8 @@ const Config = mergeComponentMetadata('ContextualMenuDecorator', Button, Context
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-	direction: 'below right'
+	direction: 'below right',
+	offset: 'overlap'
 };
 
 storiesOf('Sandstone', module)
@@ -31,6 +32,7 @@ storiesOf('Sandstone', module)
 					<ContextualButton
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
+						offset={select('offset', ['none', 'overlap', 'small'], Config)}
 						onClose={action('onClose')}
 						popupWidth={select('popupWidth', ['auto', 'small', 'large'], Config)}
 						style={{width: ri.scaleToRem(1020)}}

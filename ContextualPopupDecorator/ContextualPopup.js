@@ -19,15 +19,7 @@ const ContextualPopupArrow = kind({
 	name: 'ContextualPopupArrow',
 
 	propTypes: /** @lends sandstone/ContextualPopupDecorator.ContextualPopupArrow.prototype */ {
-		direction: PropTypes.oneOf(['above', 'below', 'left', 'right']),
-
-		/**
-		 * Offset from the activator to apply to the position of the popup.
-		 *
-		 * @type {('none'|'overlap'|'small')}
-		 * @private
-		 */
-		offset: PropTypes.oneOf(['none', 'overlap', 'small'])
+		direction: PropTypes.oneOf(['above', 'below', 'left', 'right'])
 	},
 
 	defaultProps: {
@@ -124,6 +116,15 @@ const ContextualPopupBase = kind({
 		direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
 
 		/**
+		 * Offset from the activator to apply to the position of the popup.
+		 *
+		 * @type {('none'|'overlap'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		offset: PropTypes.oneOf(['none', 'overlap', 'small']),
+
+		/**
 		 * Shows the arrow.
 		 *
 		 * @type {Boolean}
@@ -134,7 +135,8 @@ const ContextualPopupBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'below center'
+		direction: 'below center',
+		offset: 'small'
 	},
 
 	styles: {
