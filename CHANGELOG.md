@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
 - `sandstone/Dropdown` to prevent focus on outer area
 - `sandstone/Input` `disabled` prop to not close an open input.
+- `sandstone/MediaControls` to show more components via wheel down
 
 ### Fixed
 
