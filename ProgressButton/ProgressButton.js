@@ -59,13 +59,23 @@ const ProgressButtonBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		showProgress: PropTypes.bool
+		showProgress: PropTypes.bool,
+
+		/**
+		 * The size of the progress button.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		size: PropTypes.string
 	},
 
 	defaultProps: {
 		icon: 'stop',
 		progress: 0,
-		showProgress: false
+		showProgress: false,
+		size: 'small'
 	},
 
 	styles: {
