@@ -124,7 +124,7 @@ const DropdownListBase = kind({
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
 		// Note: Retaining this in case we need to support different item sizes for large text mode:
-		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
+		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 126 : 126)
 		itemSize: () => 126
 	},
 
