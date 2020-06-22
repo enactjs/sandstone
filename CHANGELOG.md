@@ -42,6 +42,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` to center tab icons when collapsed
 - `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
 - `sandstone/Dropdown` to match gui specs
+- `sandstone/Input` remove focus when user is typing inside input field and adjusted to match latest designs
 
 ## [1.0.0-beta.7] - 2020-06-16
 
