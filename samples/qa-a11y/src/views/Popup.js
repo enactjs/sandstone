@@ -2,9 +2,9 @@ import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Popup from '@enact/sandstone/Popup';
-import React from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 class PopupView extends React.Component {
 	constructor (props) {

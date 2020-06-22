@@ -17,7 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/MediaOverlay`styling to match updated GUI
+- `sandstone/Item` font size to 60px and label font size to 48px
 - `sandstone/PopupTabLayout` to position on the left in RTL
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
@@ -27,6 +27,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FormCheckboxItem` to not move focus in an item
 - `sandstone/Input` to display submit button when number input field used
 - `sandstone/Input` to support accessibility features
+- `sandstone/MediaOverlay` style to match latest designs
 - `sandstone/Panels` to properly restore focus after a transition
 - `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
 - `sandstone/Switch` and `sandstone/SwitchItem` accessibility read out
