@@ -278,12 +278,23 @@
 @sand-checkbox-container-position: ((@sand-icon-tiny-size - 120px) / 2);  // Container's total dimensions should be `120px` defined in the GUI spec
 @sand-checkbox-container-border-radius: @sand-item-border-radius;
 
+// ContextualMenu
+// ---------------------------------------
+@sand-contextualmenu-container-padding: 36px 0;
+@sand-contextualmenu-max-items: 5;
+@sand-contextualmenu-innercontainer-max-height: @sand-contextualmenu-max-items * @sand-item-small-height;
+@sand-contextualmenu-max-height: (@sand-contextualmenu-innercontainer-max-height + .extract(@sand-contextualmenu-container-padding, top)[] + .extract(@sand-contextualmenu-container-padding, bottom)[]);
+@sand-contextualmenu-large-width: 960px;
+@sand-contextualmenu-small-width: 612px;
+
 // ContextualPopup
 // ---------------------------------------
-@sand-contextual-popup-border-radius: @sand-button-border-radius * 2;
-@sand-contextual-popup-padding: 36px 0;
-@sand-contextual-popup-arrow-height: 60px;
-@sand-contextual-popup-arrow-width: 60px;
+@sand-contextualpopup-border-radius: (@sand-button-border-radius * 2);
+@sand-contextualpopup-padding: 36px 0;
+@sand-contextualpopup-arrow-height: 60px;
+@sand-contextualpopup-arrow-width: 60px;
+@sand-contextualpopup-offset-overlap: 36px;	// used as inverse of small to cause overlap
+@sand-contextualpopup-offset-small: 18px;
 
 // Dropdown
 // ---------------------------------------
@@ -300,8 +311,9 @@
 @sand-dropdown-list-large-width: (@sand-dropdown-large-width - @sand-button-border-width);
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
-@sand-dropdown-list-max-height: (5 * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (5 * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-max-items: 5;
+@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -519,7 +531,7 @@
 @sand-picker-indicator-inactive-scale: 0.75;
 @sand-picker-indicator-active-scale: 1;
 @sand-picker-indicator-margin: 0 12px;
-@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it alows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
+@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
 
 // Popup
 // ---------------------------------------
