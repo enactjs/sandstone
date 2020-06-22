@@ -16,6 +16,7 @@ import React from 'react';
 
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import Item from '../Item';
+import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
@@ -50,6 +51,12 @@ const defaultConfig = {
 	 */
 	openProp: 'selected'
 };
+
+const ScrollingRepeater = ({className, ...rest}) => (
+	<Scroller className={className}>
+		<Repeater {...rest} />
+	</Scroller>
+);
 
 const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 	// we might not need Skinnable at all here. If we want to skin the popup and it's defined as a
@@ -185,7 +192,17 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					sizeClass
 				);
 			},
-			popupProps: ({menuItems, popupProps}) => ({'aria-live': null, children: menuItems, childComponent: Item, itemProps: {className: css.item, size: 'small'}, component: 'div', role: null, ...popupProps})
+			popupComponent: ({menuItems}) => (menuItems && menuItems.length > 5 ? ScrollingRepeater : Repeater),
+			popupProps: ({menuItems, popupProps}) => ({
+				'aria-live': null,
+				children: menuItems,
+				childComponent: Item,
+				className: css.innerContainer,
+				itemProps: {className: css.item, size: 'small'},
+				component: 'div',
+				role: null,
+				...popupProps
+			})
 		},
 
 		render: ({onOpen, popupProps, ...rest}) => {
@@ -197,7 +214,6 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 				<Component
 					{...rest}
 					onClick={onOpen}
-					popupComponent={Repeater}
 					popupProps={popupProps}
 				/>
 			);

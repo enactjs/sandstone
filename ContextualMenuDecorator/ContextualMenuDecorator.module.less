@@ -19,14 +19,19 @@
 
 .popup {
 	max-height: @sand-contextualmenu-max-height;
+	overflow: hidden;
 
 	/*
 	// in order to override the default ContextualPopupDecorator's container padding style, we
 	// need to use an arbitrary additional CSS rule for precedence
 	*/
 	&.container {
-		padding: @sand-contextualmenu-container-padding;
 		min-width: @sand-contextualmenu-small-width;
+		padding: @sand-contextualmenu-container-padding;
+
+		.innerContainer {
+			max-height: @sand-contextualmenu-innercontainer-max-height;
+		}
 
 		&.small {
 			width: @sand-contextualmenu-small-width;
