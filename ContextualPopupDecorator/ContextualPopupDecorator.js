@@ -121,6 +121,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Offset from the activator to apply to the position of the popup.
 			 *
+			 * Only applies when `noArrow` is `true`.
+			 *
 			 * @type {('none'|'overlap'|'small')}
 			 * @default 'small'
 			 * @public
@@ -692,7 +694,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 							containerPosition={this.state.containerPosition}
 							containerRef={this.getContainerNode}
 							data-webos-voice-exclusive={voiceExclusive}
-							offset={offset}
+							offset={noArrow ? offset : 'none'}
 							showArrow={!noArrow}
 							skin={skin}
 							spotlightId={this.state.containerId}
