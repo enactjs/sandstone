@@ -19,10 +19,11 @@
 		-moz-background-clip: padding-box;
 		box-sizing: border-box;
 
+		&.none { /* Needed to prevent global class being added in the DOM */ }
+
 		&.above {
 			&.overlap {	margin-top: @sand-contextualpopup-offset-overlap; }
 			&.small { margin-top: -@sand-contextualpopup-offset-small; }
-			&.none { /* Need one 'none' to prevent global class into the DOM */ }
 		}
 		&.below {
 			&.overlap {	margin-top: -@sand-contextualpopup-offset-overlap; }
@@ -77,7 +78,7 @@
 
 	// Skin colors
 	.applySkins({
-		filter: drop-shadow(0 24px 32px @sand-contextualpopup-box-shadow-color);
+		filter: drop-shadow(@sand-contextualpopup-shadow);
 
 		.container {
 			background-color: @sand-contextualpopup-bg-color;
