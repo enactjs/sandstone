@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone` high-contrast support
+
 ### Fixed
 
 - `sandstone/FixedPopupPanels` to not read out a title twice
