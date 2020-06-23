@@ -9,6 +9,17 @@
 // ---------------------------------------
 // Focus Shadow and background setup
 // ---------------------------------------
+.sand-bg-colors (@bg) {
+	//// Relocate the bg styling to a pseudo-element
+	// &::after {
+		@bg();
+	// }
+}
+.sand-shadow-colors (@shadow) {
+	&::before {
+		@shadow();
+	}
+}
 
 // Establish rules assignment for before focus has happened
 .sand-spotlight-resting-bg-colors (@opacity: 0, @bg: {}, @shadow: {}) {
@@ -22,52 +33,63 @@
 	will-change+: opacity;
 
 	// Prep common aspects
-	@shared: {
+	@pseudo-element-setup: {
 		content: "";
 		position: absolute;
 		.position(0);
 		border-radius: inherit;
-		--spotlight-resting-bg-colors: 1;
 	};
 
 	// Shadow
-	&::before {
-		@shared();
+	.sand-shadow-colors({
+		@pseudo-element-setup();
 		background-color: @sand-spotlight-bg-color;
-		box-shadow: @sand-spotlight-focus-shadow;
-		transform+_: scale(0.9, 0.5); // Hard-coded values, not part of the design. This transform is responsible for tucking the shadow up inside the background so it can transition out.
 		opacity: 0;
-		transition+: @transition-opacity, @transition-transform;
-		will-change+: opacity, transition;
+
+		// filter+: drop-shadow(@sand-spotlight-focus-shadow);
+		box-shadow: @sand-spotlight-focus-shadow;
+
+		//// Include a transform on the shadow for a better effect
+		// transform+_: scale(0.9, 0.5); // Hard-coded values, not part of the design. This transform is responsible for tucking the shadow up inside the background so it can transition out.
+		// transition+: @transition-opacity, @transition-transform;
+		// will-change+: opacity, transition;
+
+		//// Simple opacity change to the shadow (fade-in)
+		transition+: @transition-opacity;
+		will-change+: opacity;
+
 		@shadow();
-	}
+	});
+
 	// Background coloration
-	&::after {
-		@shared();
+	.sand-bg-colors({
+		// @pseudo-element-setup();
+
 		background-color: @sand-spotlight-bg-color;
 		transition+: @transition-filter;
 		will-change+: filter;
+
 		@bg();
-	}
+	});
 }
 
 // Establish rules assignment for after focus has happened
 .sand-spotlight-focus-bg-colors (@bg: {}, @shadow: {}) {
 	opacity: 1;
-	&::after {
+	.sand-bg-colors({
 		background-color: @sand-spotlight-bg-color;
 		@bg();
-	}
+	});
 	.sand-spotlight-focus-shadow-colors(@shadow);
 }
 
 // Just the spotlight shadow (merge-safe)
 .sand-spotlight-focus-shadow-colors (@shadow: {}) {
-	&::before {
+	.sand-shadow-colors({
 		transform: scale(1);
 		opacity: 1;
 		@shadow();
-	}
+	});
 }
 
 .sand-spotlight-focus-text-colors () {
@@ -128,10 +150,10 @@
 }
 
 .sand-button-selected-colors (@bg: {}, @shadow: {}) {
-	&::after {
+	.sand-bg-colors({
 		.sand-button-selected-bg-color();
 		@bg();
-	}
+	});
 }
 
 .sand-button-focus-bg-colors (@bg: {}, @shadow: {}) {
