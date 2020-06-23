@@ -293,7 +293,6 @@
 			color: @sand-button-transparent-text-color;
 
 			.bg {
-				.sand-button-selected-colors();
 				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
@@ -344,22 +343,22 @@
 
 				&.focusExpand {
 					.bg {
-						transform: @sand-button-focusexpand-focus-bg-transform;
+						&::after { transform: @sand-button-focusexpand-focus-bg-transform; }
 					}
 
 					&.small .bg {
-						transform: @sand-button-small-focusexpand-focus-bg-transform;
+						&::after { transform: @sand-button-small-focusexpand-focus-bg-transform; }
 					}
 
 					&.pressed,
 					&:active {
 						.bg {
-							transform: @sand-button-focusexpand-pressed-bg-transform;
+							&::after { transform: @sand-button-focusexpand-pressed-bg-transform; }
 						}
 
 						&.small {
 							.bg {
-								transform: @sand-button-small-focusexpand-pressed-bg-transform;
+								&::after { transform: @sand-button-small-focusexpand-pressed-bg-transform; }
 							}
 						}
 					}
@@ -369,12 +368,12 @@
 					&.pressed,
 					&:active {
 						.bg {
-							transform: @sand-button-pressed-bg-transform;
+							&::after { transform: @sand-button-pressed-bg-transform; }
 						}
 
 						&.small {
 							.bg {
-								transform: @sand-button-small-pressed-bg-transform;
+								&::after { transform: @sand-button-small-pressed-bg-transform; }
 							}
 						}
 					}
