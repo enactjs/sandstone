@@ -1,6 +1,6 @@
 import Button from '@enact/sandstone/Button';
-import React from 'react';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
+import React from 'react';
 
 const
 	TooltipButton = TooltipDecorator(Button),
@@ -9,58 +9,43 @@ const
 const TooltipDecoratorView = () => (
 	<div>
 		<TooltipButton
+			aria-label="Below Right Tooltip"
 			size="small"
-			aria-label="I'm a left tooltip."
-			style={{position: 'absolute', left: '0'}}
 			tooltipPosition="below right"
 			tooltipProps={tooltipProps}
-			tooltipText="I'm a left tooltip."
+			tooltipText="Below Right Tooltip"
 		>
-			Left Tooltip
+			Below Right Tooltip
 		</TooltipButton>
 
 		<TooltipButton
+			aria-label="Below Left Tooltip"
 			size="small"
-			aria-label="I'm an aria-hidden tooltip."
-			style={{position: 'absolute', left: '40%'}}
-			tooltipPosition="below center"
-			tooltipProps={tooltipProps}
-			tooltipText="I'm an aria-hidden tooltip."
-		>
-			Center Tooltip
-		</TooltipButton>
-
-		<TooltipButton
-			size="small"
-			aria-label="I'm a right tooltip."
-			style={{position: 'absolute', right: '0'}}
 			tooltipPosition="below left"
 			tooltipProps={tooltipProps}
-			tooltipText="I'm a right tooltip."
+			tooltipText="Below Left Tooltip"
 		>
-			Right Tooltip
+			Below Left Tooltip
 		</TooltipButton>
 
 		<TooltipButton
+			aria-label="Above Right Tooltip"
 			size="small"
-			aria-label="I'm a left floating tooltip."
-			style={{position: 'absolute', bottom: '0', left: '0'}}
 			tooltipPosition="above right"
 			tooltipProps={tooltipProps}
-			tooltipText="I'm a left floating tooltip."
+			tooltipText="Above Right Tooltip"
 		>
-			Item With Left Floating Tooltip
+			Above Right Tooltip
 		</TooltipButton>
 
 		<TooltipButton
+			aria-label="Above Left Tooltip"
 			size="small"
-			aria-label="I'm a right floating tooltip."
-			style={{position: 'absolute', bottom: '0', right: '0'}}
 			tooltipPosition="above left"
 			tooltipProps={tooltipProps}
-			tooltipText="I'm a right floating tooltip."
+			tooltipText="Above Left Tooltip"
 		>
-			Item With Right Floating Tooltip
+			Above Left Tooltip
 		</TooltipButton>
 	</div>
 );
