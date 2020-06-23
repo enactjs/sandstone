@@ -3,7 +3,11 @@
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
 ## [unreleased]
-  
+
+### Removed
+
+- `sandstone/ActionGuide` prop `icon`
+
 ### Fixed
 
 - `sandstone/ActionGuide` to have the proper size and font color for the icon and the label
