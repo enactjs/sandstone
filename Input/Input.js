@@ -23,6 +23,9 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 
 import componentCss from './Input.module.less';
 
+const FULLSCREEN_MAX_WIDTH = 3240;
+const OVERLAY_MIN_WIDTH = 738;
+
 const prepareInputEventPayload = ev => ({value: ev.target.value});
 const isPasswordType = type => type === 'password' || type === 'passwordnumber';
 
@@ -317,7 +320,7 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const invalidTooltipWidth = popupType === 'fullscreen' ? scaleToRem(3240) : scaleToRem(738);
+		const invalidTooltipWidth = popupType === 'fullscreen' ? scaleToRem(FULLSCREEN_MAX_WIDTH) : scaleToRem(OVERLAY_MIN_WIDTH);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.length;
