@@ -13,7 +13,10 @@
 	.sizingPlaceholder,
 	.valueWrapper {
 		.sand-text-base(@sand-picker-font-size);
-		.sand-locale-non-latin({line-height: @sand-button-small-height;});
+		.sand-locale-non-latin({
+			height: @sand-non-latin-picker-line-height;
+			line-height: @sand-non-latin-picker-line-height;
+		});
 		max-width: 960px;
 
 		.item {
