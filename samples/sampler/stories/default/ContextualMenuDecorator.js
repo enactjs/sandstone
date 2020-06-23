@@ -11,16 +11,13 @@ import Button from '@enact/sandstone/Button';
 const ContextualButton = ContextualMenuDecorator(Button);
 ContextualButton.displayName = 'ContextualButton';
 
-const Config = mergeComponentMetadata('ContextualMenuDecorator', Button, ContextualButton);
+const Config = mergeComponentMetadata('ContextualMenuDecorator', Button, ContextualButton, ContextualMenuDecorator);
 
 // NOTE: Something about the HOC is inhibiting accessing its defaultProps, so we're adding them here
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
-	direction: 'below'
-};
-
-const popupProps = {
-	style: {width: '500px'}
+	direction: 'below right',
+	offset: 'overlap'
 };
 
 storiesOf('Sandstone', module)
@@ -35,8 +32,10 @@ storiesOf('Sandstone', module)
 					<ContextualButton
 						direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 						menuItems={items}
+						offset={select('offset', ['none', 'overlap', 'small'], Config)}
 						onClose={action('onClose')}
-						popupProps={popupProps}
+						popupWidth={select('popupWidth', ['auto', 'small', 'large'], Config)}
+						style={{width: ri.scaleToRem(1020)}}
 					>
 						{text('button string', Config, 'Contextual Button')}
 					</ContextualButton>
