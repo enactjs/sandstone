@@ -269,6 +269,7 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
+		delete rest.invalidTooltipWidth;
 		delete rest.rtl;
 
 		return (
