@@ -458,8 +458,7 @@
 @sand-header-mini-margin:
 	6px
 	@sand-component-spacing
-	// extract(#guide.header[mini][padding], 3)
-	extract(#guide.header[mini-padding], 3)
+	.extract(#guide.header[mini-padding], bottom)[]
 	@sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
 @sand-header-mini-padding: 0;
 @sand-header-wizard-margin: 0;
