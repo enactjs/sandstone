@@ -32,7 +32,9 @@ const app = kind({
 					open={open}
 					onBack={onNavigate}
 					onClose={onToggleOpen}
-					onTransition={(({index: panelIndex}) => { window.__index = panelIndex; } )}
+					onTransition={(({index: panelIndex}) => {
+						window.__index = panelIndex;
+					} )}
 				>
 					<Panel id="panel1">
 						<Header>
