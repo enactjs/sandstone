@@ -5,6 +5,8 @@
 @import "../../styles/skin.less";
 
 .picker {
+	.sand-text-base(@sand-picker-font-size);
+	.sand-locale-non-latin({line-height: @sand-button-small-height;});
 	display: inline-block;
 	vertical-align: bottom;
 	position: relative;
@@ -14,8 +16,6 @@
 
 	.sizingPlaceholder,
 	.valueWrapper {
-		.sand-text-base(@sand-picker-font-size);
-		.sand-locale-non-latin({line-height: @sand-button-small-height;});
 		max-width: 960px;
 
 		.item {
@@ -233,18 +233,10 @@
 
 	// Skin colors
 	.applySkins({
-		.sizingPlaceholder,
-		.valueWrapper {
-			color: @sand-picker-text-color;
-		}
-
-		.valueWrapper {
-			color: inherit;
-		}
+		color: @sand-picker-text-color;
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-
 
 			&::after {
 				border-color: @sand-picker-joined-fingernail-border-color;
@@ -252,7 +244,7 @@
 
 			&.horizontal {
 				&::before {
-					.sand-spotlight-resting-colors(1);
+					.sand-spotlight-resting-bg-colors(1);
 					background-color: @sand-picker-joined-horizontal-bg-color;
 				}
 
@@ -267,16 +259,16 @@
 
 			&.vertical {
 				&::before {
-					.sand-spotlight-resting-colors();
+					.sand-spotlight-resting-bg-colors();
 				}
 			}
 
 			.focus({
-				color: @sand-picker-focus-text-color;
+				.sand-spotlight-focus-text-colors();
 
 				&.horizontal {
 					&::before {
-						.sand-spotlight-focus-colors();
+						.sand-spotlight-focus-bg-colors();
 						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
 						filter+_: saturate(0) brightness(1.89);
 					}
@@ -284,7 +276,7 @@
 
 				&.vertical {
 					&::before {
-						.sand-spotlight-focus-colors();
+						.sand-spotlight-focus-bg-colors();
 					}
 				}
 

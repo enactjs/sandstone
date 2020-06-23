@@ -38,14 +38,12 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 	useEffect (() => {
 		cbAlertScrollbarTrack();
-	});
-
-	useEffect (() => {
 		SpotlightAccelerator.reset();
+
 		return () => {
 			SpotlightAccelerator.reset();
 		};
-	}, []);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();

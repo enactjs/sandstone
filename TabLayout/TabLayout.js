@@ -86,8 +86,8 @@ const TabLayoutBase = kind({
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
 		 * @default {
 		 * 	tabs: {
-		 * 		collapsed: 240,
-		 * 		normal: 855
+		 * 		collapsed: 228,
+		 * 		normal: 882
 		 * 	},
 		 * 	content: {
 		 * 		expanded: null,
@@ -183,8 +183,8 @@ const TabLayoutBase = kind({
 	defaultProps: {
 		dimensions: {
 			tabs: {
-				collapsed: 240,
-				normal: 855
+				collapsed: 228,
+				normal: 882
 			},
 			content: {
 				expanded: null,

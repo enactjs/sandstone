@@ -23,6 +23,7 @@ const Config = mergeComponentMetadata('Button', UIButtonBase, UIButton, ButtonBa
 const prop = {
 	backgroundOpacity: ['', 'translucent', 'lightTranslucent', 'transparent'],
 	color: ['', 'red', 'green', 'yellow', 'blue'],
+	focusEffect: ['expand', 'static'],
 	longText: {'A Loooooooooooooooooog Button': 'A Loooooooooooooooooog Button', 'BUTTON   WITH   EXTRA   SPACES': 'BUTTON   WITH   EXTRA   SPACES'},
 	tallText: {' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து', 'ÁÉÍÓÚÑÜ': 'ÁÉÍÓÚÑÜ', 'Bản văn': 'Bản văn'},
 	icons: ['', ...iconNames]
@@ -36,6 +37,7 @@ storiesOf('Button', module)
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 				disabled={boolean('disabled', Config)}
+				focusEffect={select('focusEffect', prop.focusEffect, Config)}
 				icon={select('icon', prop.icons, Config)}
 				minWidth={boolean('minWidth', Config, true) ? void 0 : false}
 				selected={boolean('selected', Config)}
@@ -52,6 +54,7 @@ storiesOf('Button', module)
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 				disabled={boolean('disabled', Config)}
+				focusEffect={select('focusEffect', prop.focusEffect, Config)}
 				icon={select('icon', prop.icons, Config)}
 				minWidth={boolean('minWidth', Config, true) ? void 0 : false}
 				selected={boolean('selected', Config)}
@@ -68,6 +71,7 @@ storiesOf('Button', module)
 				onClick={action('onClick')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 				disabled={boolean('disabled', Config)}
+				focusEffect={select('focusEffect', prop.focusEffect, Config)}
 				icon={select('icon', prop.icons, Config)}
 				minWidth={boolean('minWidth', Config, false) ? void 0 : false}
 				selected={boolean('selected', Config)}
@@ -85,6 +89,7 @@ storiesOf('Button', module)
 					onClick={action('onClick')}
 					backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 					disabled={boolean('disabled', Config)}
+					focusEffect={select('focusEffect', prop.focusEffect, Config)}
 					icon={select('icon', prop.icons, Config)}
 					minWidth={boolean('minWidth', Config, true) ? void 0 : false}
 					selected={boolean('selected', Config)}
@@ -181,6 +186,18 @@ storiesOf('Button', module)
 						<Button backgroundOpacity="transparent" size="large" alt="Disabled" disabled>Button</Button>
 						<Button backgroundOpacity="transparent" size="large" alt="Long Text">Super-duper long text string inside a button</Button>
 						<Button backgroundOpacity="transparent" size="large" alt="With Icon" icon="home">Button</Button>
+					</Section>
+
+					<Section title="Static Focus Effect Text" size="50%">
+						<Button focusEffect="static" size="small" alt="Small">Button</Button>
+						<Button focusEffect="static" size="large" alt="Large">Button</Button>
+						<Button focusEffect="static" backgroundOpacity="transparent" size="small" alt="Small Transparent">Button</Button>
+						<Button focusEffect="static" backgroundOpacity="transparent" size="large" alt="Large Transparent">Button</Button>
+					</Section>
+
+					<Section title="Static Focus Effect Icon" size="50%">
+						<Button focusEffect="static" size="small" icon="play" alt="Small" />
+						<Button focusEffect="static" size="large" icon="play" alt="Large" />
 					</Section>
 				</Row>
 			</Scroller>
