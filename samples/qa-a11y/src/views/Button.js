@@ -16,10 +16,6 @@ const ButtonView = () => (
 			<Heading showLine>Buttons with Icon</Heading>
 			<Button icon="play" size="small" />
 			<Button icon="+" size="small" />
-			<Heading showLine>Buttons with Tooltip</Heading>
-			<Button size="small" tooltipProps={{role: 'dialog'}} tooltipText="fruit">apple</Button>
-			<Button size="small" aria-label="greetings!" tooltipProps={{role: 'dialog'}} tooltipText="bye!">hello!</Button>
-			<Button icon="plus" size="small" aria-label="plus icon!" tooltipProps={{role: 'dialog'}} tooltipText="plus icon!" />
 			<Heading showLine>Aria-labeled Buttons</Heading>
 			<Button size="small" color="yellow" aria-label="color button">yellow Button</Button>
 			<Button size="small" aria-label="plug icon button">plug</Button>

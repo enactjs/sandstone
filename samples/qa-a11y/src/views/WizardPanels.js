@@ -6,7 +6,7 @@ import Scroller from '@enact/sandstone/Scroller';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 import React from 'react';
 
-class WizardPanelView extends React.Component {
+class WizardPanelsView extends React.Component {
 	render () {
 		return (
 			<WizardPanels>
@@ -60,4 +60,4 @@ class WizardPanelView extends React.Component {
 	}
 }
 
-export default WizardPanelView;
+export default WizardPanelsView;
