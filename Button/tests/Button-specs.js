@@ -29,6 +29,24 @@ describe('Button', () => {
 		expect(actual).toContain(expected);
 	});
 
+	it('should expand by default', function () {
+		const subject = shallow(<ButtonBase />);
+
+		const expected = 'focusExpand';
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
+	it('should be able to disable the expand focus effect', function () {
+		const subject = shallow(<ButtonBase focusEffect="static" />);
+
+		const expected = 'focusStatic';
+		const actual = subject.first().prop('className');
+
+		expect(actual).toContain(expected);
+	});
+
 	it('should have default minWidth', function () {
 		const subject = shallow(<ButtonBase />);
 

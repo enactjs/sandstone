@@ -1,10 +1,10 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import ImageItem from '@enact/sandstone/ImageItem';
-import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
 import Region from '@enact/sandstone/Region';
-import ri from '@enact/ui/resolution';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import Layout, {Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 import css from './VirtualGridList.module.less';
 
@@ -79,7 +79,6 @@ class VirtualGridListView extends React.Component {
 					<VirtualGridList
 						dataSize={items.length}
 						direction={isHorizontalList ? 'horizontal' : 'vertical'}
-						focusableScrollbar
 						itemRenderer={renderItem}
 						itemSize={{
 							minWidth: ri.scale(200),
