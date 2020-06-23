@@ -65,7 +65,7 @@ const ActionGuideBase = kind({
 		publicClassNames: ['actionGuide']
 	},
 
-	render: ({icon, children, css, ...rest}) => {
+	render: ({children, css, ...rest}) => {
 		return (
 			<div {...rest}>
 				<Icon size="small" className={css.icon}>arrowsmalldown</Icon>
