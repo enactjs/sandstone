@@ -8,7 +8,6 @@ import Scroller from '../../../../../Scroller/Scroller';
 import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
 import React from 'react';
 
-
 const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'auto';
