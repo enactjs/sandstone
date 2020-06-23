@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unrelease]
+
+### Fixed
+
+- `sandstone/WizardPanels` direction of buttons and transition in RTL locales
+
 ## [1.0.0-beta.8] - 2020-06-22
 
 ### Added
