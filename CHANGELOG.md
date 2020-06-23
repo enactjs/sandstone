@@ -2,45 +2,47 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-beta.8] - 2020-06-22
 
 ### Added
 
-- `sandstone/ImageItem` prop `centered` to center the primary caption in vertical type
 - `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
-- `sandstone/Icon` supported icons
+- `sandstone/ImageItem` prop `centered` to center the primary caption in vertical orientation
 
 ### Changed
 
-- `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
 - `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
-- `sandstone/Dropdown` to prevent focus on outer area
-- `sandstone/Input` `disabled` prop to not close an open input.
+- `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
+- `sandstone/Dropdown` to prevent focus on the outer area
+- `sandstone/Icon` supported icon list
+- `sandstone/Input` `disabled` prop to not close an open input
 - `sandstone/MediaControls` to show more components via wheel down
 
 ### Fixed
 
-- `sandstone/Dropdown` to not expand the button activator when focused
-- `sandstone/Item` font size to 60px and label font size to 48px
-- `sandstone/PopupTabLayout` to position on the left in RTL
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
-- `sandstone/ContextualMenuDecorator` to match latest style guide
-- `sandstone/Scroller` and `sandstone/VirtualList` to not show scrollbar on every re-render
-- `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/Checkbox` to center the icon
+- `sandstone/ContextualMenuDecorator` to match the latest style guide
+- `sandstone/DatePicker` to read out 'day', 'month', or 'year' when it is focused or its value is changed
+- `sandstone/Dropdown` to match the latest design
+- `sandstone/Dropdown` to not expand the button activator when focused
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect `spotlightRestrict`
 - `sandstone/FixedPopupPanels` padding in RTL locales
-- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect using `spotlightRestrict`
-- `sandstone/FormCheckboxItem` to not move focus in an item
-- `sandstone/Input` to display submit button when number input field used
+- `sandstone/FormCheckboxItem` to not have a focusable inner part
+- `sandstone/Input` to display the submit button when the number input field is used
 - `sandstone/Input` to support accessibility features
+- `sandstone/Item` style to match latest designs
+- `sandstone/KeyGuide` to position on the right in RTL
 - `sandstone/MediaOverlay` style to match latest designs
 - `sandstone/Panels` to properly restore focus after a transition
-- `sandstone/ProgressButton` to match the latest design
 - `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
+- `sandstone/PopupTabLayout` to position on the left in RTL
+- `sandstone/ProgressButton` to match the latest design
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show the scrollbar on every re-render
 - `sandstone/Switch` and `sandstone/SwitchItem` accessibility read out
 - `sandstone/TabLayout` to center tab icons when collapsed
+- `sandstone/TimePicker` to read out 'hour' or 'minute' when it is focused or its value is changed
 - `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
-- `sandstone/Dropdown` to match gui specs
 
 ## [1.0.0-beta.7] - 2020-06-16
 
@@ -60,8 +62,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/TimePicker` to read out 'hour' or 'minute' when it is focused or its value is changed
-- `sandstone/DatePicker` to read out 'day', 'month', or 'year' when it is focused or its value is changed
 - `sandstone/Alert` to center its content when `type="fullscreen"`
 - `sandstone/Button` flashing when switching `selected` on and off
 - `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
