@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to not read out a title twice
+
 ## [1.0.0-beta.8] - 2020-06-22
 
 ### Added
