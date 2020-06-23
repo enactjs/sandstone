@@ -309,6 +309,7 @@ const DropdownBase = kind({
 				<DropdownButton
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
+					focusEffect="static"
 					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
 					popupProps={popupProps}
 					popupComponent={DropdownList}
@@ -342,9 +343,11 @@ const DropdownBase = kind({
  * @public
  */
 const DropdownDecorator = compose(
-	Pure({propComparators: {
-		children: compareChildren
-	}}),
+	Pure({
+		propComparators: {
+			children: compareChildren
+		}
+	}),
 	I18nContextDecorator({
 		rtlProp: 'rtl'
 	}),
