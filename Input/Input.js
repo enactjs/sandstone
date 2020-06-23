@@ -7,6 +7,7 @@ import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Layout, {Cell} from '@enact/ui/Layout';
+import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -316,6 +317,7 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
+		const invalidTooltipWidth = popupType === 'fullscreen' ? scaleToRem(3240) : scaleToRem(738);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.length;
@@ -345,6 +347,7 @@ const InputPopupBase = kind({
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
+								invalidMessageWidth={invalidTooltipWidth}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
@@ -359,6 +362,7 @@ const InputPopupBase = kind({
 								autoFocus
 								type={type}
 								defaultValue={value}
+								invalidMessageWidth={invalidTooltipWidth}
 								noReadoutOnFocus
 								placeholder={placeholder}
 								onChange={onChange}

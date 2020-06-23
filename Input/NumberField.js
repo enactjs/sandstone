@@ -72,6 +72,7 @@ const NumberFieldBase = kind({
 		disabled: PropTypes.bool,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
+		invalidTooltipWidth: PropTypes.number,
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
 		numberInputField: PropTypes.string,
@@ -83,6 +84,7 @@ const NumberFieldBase = kind({
 	},
 
 	defaultProps: {
+		invalidTooltipWidth: null,
 		maxLength: DEFAULT_LENGTH,
 		minLength: 0,
 		numberInputField: 'auto',
@@ -138,10 +140,10 @@ const NumberFieldBase = kind({
 		},
 		// Normalize the value, also prune out any non-digit characters
 		value: normalizeValueProp,
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), invalidTooltipWidth}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} relative type="transparent">
+					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent" width={invalidTooltipWidth}>
 						{invalidMessage}
 					</Tooltip>
 				);

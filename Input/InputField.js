@@ -112,6 +112,14 @@ const InputFieldBase = kind({
 		invalidMessage: PropTypes.string,
 
 		/**
+		 * The width of invalidTooltip content in pixels (px).
+		 *
+		 * @type {Number|null}
+		 * @public
+		 */
+		invalidTooltipWidth: PropTypes.number,
+
+		/**
 		 * Called when blurred.
 		 *
 		 * @type {Function}
@@ -211,6 +219,7 @@ const InputFieldBase = kind({
 		disabled: false,
 		dismissOnEnter: false,
 		invalid: false,
+		invalidTooltipWidth: null,
 		placeholder: '',
 		size: 'large',
 		type: 'text'
@@ -241,10 +250,10 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), invalidTooltipWidth}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} relative type="transparent">
+					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent" width={invalidTooltipWidth}>
 						{invalidMessage}
 					</Tooltip>
 				);
