@@ -2,13 +2,14 @@ import {Row, Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import {Button} from '../../../../Button/Button';
-import Dropdown from '../../../../Dropdown/Dropdown';
-import Scroller from '../../../../Scroller/Scroller';
-import ThemeDecorator from '../../../../ThemeDecorator/ThemeDecorator';
+
+import {Button} from '../../../../Button';
+import Dropdown from '../../../../Dropdown';
+import Scroller from '../../../../Scroller';
+import ThemeDecorator from '../../../../ThemeDecorator';
 import React from 'react';
 
-const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
+const ScrollerContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'auto';
 
@@ -35,14 +36,20 @@ class app extends React.Component {
 		this.state = {
 			direction: 'both',
 			focusableScrollbar: false,
-			hideScrollbar: false,
-			spotlightDisabled: false
+			hideScrollbar: false
 		};
-		this.rootRef = React.createRef();
 		this.scrollingRef = React.createRef();
 	}
 
-	onToggle = ({currentTarget}) => {
+	onScrollStart = () => {
+		this.scrollingRef.current.innerHTML = 'Scrolling';
+	}
+
+	onScrollStop = () => {
+		this.scrollingRef.current.innerHTML = 'Not Scrolling';
+	}
+
+	handleToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
 	}
@@ -57,14 +64,13 @@ class app extends React.Component {
 
 	render () {
 		const
-			{hideScrollbar, spotlightDisabled} = this.state,
+			{hideScrollbar} = this.state,
 			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
-			<div {...this.props} id="list" ref={this.rootRef}>
+			<div {...this.props} id="scroller">
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
-						<Button {...buttonDefaultProps} id="spotlightDisabled" onClick={this.onToggle} selected={spotlightDisabled}>SpotlightDisabled</Button>
+						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.handleToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Dropdown
 							onSelect={this.onSelectFocusableScrollbar}
 							title="FocusableScrollbar"
@@ -79,7 +85,7 @@ class app extends React.Component {
 						</Dropdown>
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
-					<Cell component={ListContainer}>
+					<Cell component={ScrollerContainer}>
 						<Row align="center">
 							<Cell component={Button} shrink id="left">
 								Left
@@ -89,14 +95,15 @@ class app extends React.Component {
 									<Cell>
 										<Scroller
 											direction={this.state.direction}
+											focusableScrollbar={this.state.focusableScrollbar}
 											horizontalscrollbar={getScrollbarVisibility(hideScrollbar)}
+											onScrollStart={this.onScrollStart}
+											onScrollStop={this.onScrollStop}
 											style={{
 												height: ri.scaleToRem(1920),
 												width: ri.scaleToRem(2400)
 											}}
-											spotlightDisabled={spotlightDisabled}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
-											focusableScrollbar={this.state.focusableScrollbar}
 										>
 											<div
 												style={{
