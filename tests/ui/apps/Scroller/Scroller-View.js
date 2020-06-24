@@ -1,13 +1,13 @@
-import {Row, Column, Cell} from '@enact/ui/Layout';
-import ri from '@enact/ui/resolution';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {Row, Column, Cell} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 import {Button} from '../../../../Button';
 import Dropdown from '../../../../Dropdown';
 import Scroller from '../../../../Scroller';
 import ThemeDecorator from '../../../../ThemeDecorator';
-import React from 'react';
 
 const ScrollerContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');

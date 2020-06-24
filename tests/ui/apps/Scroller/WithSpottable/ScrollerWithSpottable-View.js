@@ -1,10 +1,11 @@
-import {Button} from '../../../../../Button/Button';
-import {Row, Column, Cell} from '@enact/ui/Layout';
-import ThemeDecorator from '../../../../../ThemeDecorator/ThemeDecorator';
-import React from 'react';
 import spotlight from '@enact/spotlight';
+import {Row, Column, Cell} from '@enact/ui/Layout';
+import React from 'react';
+
+import {Button} from '../../../../../Button';
 import {Panel, Header} from '../../../../../Panels';
-import Scroller from '../../../../../Scroller/Scroller';
+import Scroller from '../../../../../Scroller';
+import ThemeDecorator from '../../../../../ThemeDecorator';
 
 const fullHeightStyle = {
 	height: '100%'
