@@ -4,6 +4,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+- `sandstone/Input` prop `synchronous` to synchronize input value with onChange handler.
+
 ### Fixed
 
 - `sandstone/FixedPopupPanels` to not read out a title twice

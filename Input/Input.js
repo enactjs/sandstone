@@ -214,6 +214,14 @@ const InputPopupBase = kind({
 		subtitle: PropTypes.string,
 
 		/**
+		 * Synchronize input value.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		synchronous: PropTypes.bool,
+
+		/**
 		 * Title text of popup.
 		 *
 		 * @type {String}
@@ -307,6 +315,7 @@ const InputPopupBase = kind({
 		popupType,
 		size,
 		subtitle,
+		synchronous,
 		title,
 		type,
 		value,
@@ -317,6 +326,7 @@ const InputPopupBase = kind({
 
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
+		const valueProp = synchronous ? {value: value} : {defaultValue: value};
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -341,10 +351,10 @@ const InputPopupBase = kind({
 						{numberMode ?
 							<NumberField
 								{...inputProps}
+								{...valueProp}
 								announce={announce}
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
-								defaultValue={value}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
@@ -353,12 +363,12 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								{...valueProp}
 								maxLength={maxLength}
 								minLength={minLength}
 								size={size}
 								autoFocus
 								type={type}
-								defaultValue={value}
 								noReadoutOnFocus
 								placeholder={placeholder}
 								onChange={onChange}
