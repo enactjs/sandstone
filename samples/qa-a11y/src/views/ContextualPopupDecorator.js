@@ -27,9 +27,9 @@ class ContextualPopupDecoratorView extends React.Component {
 
 	renderPopup2 = () => (
 		<div>
-			<Button size="small">Button</Button>
-			<Button size="small">Button2</Button>
-			<Button size="small">Button3</Button>
+			<Button>Button</Button>
+			<Button>Button2</Button>
+			<Button>Button3</Button>
 		</div>
 	)
 
@@ -47,27 +47,17 @@ class ContextualPopupDecoratorView extends React.Component {
 
 	render () {
 		return (
-			<div>
-				<ContextualButton
-					popupComponent={this.renderPopup1}
-					size="small"
-				>
+			<>
+				<ContextualButton popupComponent={this.renderPopup1}>
 					Average
 				</ContextualButton>
-				<ContextualButton
-					popupComponent={this.renderPopup2}
-					size="small"
-					spotlightRestrict="self-only"
-				>
+				<ContextualButton popupComponent={this.renderPopup2} spotlightRestrict="self-only">
 					Spotlight Modal
 				</ContextualButton>
-				<ContextualButton
-					popupComponent={this.renderPopup3}
-					size="small"
-				>
+				<ContextualButton popupComponent={this.renderPopup3}>
 					Nested Radio
 				</ContextualButton>
-			</div>
+			</>
 		);
 	}
 }

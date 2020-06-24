@@ -1,10 +1,9 @@
 import Heading from '@enact/sandstone/Heading';
 import RangePicker from '@enact/sandstone/RangePicker';
-import Scroller from '@enact/sandstone/Scroller';
 import React from 'react';
 
 const RangePickerView = () => (
-	<Scroller>
+	<>
 		<Heading showLine>RangePicker</Heading>
 		<RangePicker
 			defaultValue={0}
@@ -91,7 +90,7 @@ const RangePickerView = () => (
 			step={5}
 			width="medium"
 		/>
-	</Scroller>
+	</>
 );
 
 export default RangePickerView;

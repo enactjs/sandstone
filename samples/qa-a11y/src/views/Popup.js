@@ -38,12 +38,12 @@ class PopupView extends React.Component {
 		const {open1, open2, open3, open4, open5} = this.state;
 
 		return (
-			<div>
-				<Button size="small" onClick={this.handleOpen1}>Basic Popup</Button>
-				<Button size="small" onClick={this.handleOpen2}>Long Popup</Button>
-				<Button size="small" onClick={this.handleOpen3}>Scroller Popup</Button>
-				<Button size="small" onClick={this.handleOpen4}>Button In Popup</Button>
-				<Button size="small" onClick={this.handleOpen5}>Customizable aria-label popup</Button>
+			<>
+				<Button onClick={this.handleOpen1}>Basic Popup</Button>
+				<Button onClick={this.handleOpen2}>Long Popup</Button>
+				<Button onClick={this.handleOpen3}>Scroller Popup</Button>
+				<Button onClick={this.handleOpen4}>Button In Popup</Button>
+				<Button onClick={this.handleOpen5}>Customizable aria-label popup</Button>
 
 				<Popup
 					open={open1}
@@ -81,7 +81,7 @@ class PopupView extends React.Component {
 					open={open3}
 					onClose={this.handleClose3}
 				>
-					<Button size="small">Button Outside Scroller</Button>
+					<Button>Button Outside Scroller</Button>
 					<Scroller style={{height: ri.scale(170) + 'px', marginTop: ri.scale(10) + 'px'}}>
 						<Item>Test Item 1</Item>
 						<Item>Test Item 2</Item>
@@ -101,8 +101,8 @@ class PopupView extends React.Component {
 					onClose={this.handleClose4}
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
-					<Button size="small">Hello</Button>
-					<Button size="small">Goodbye</Button>
+					<Button>Hello</Button>
+					<Button>Goodbye</Button>
 				</Popup>
 
 				<Popup
@@ -111,10 +111,10 @@ class PopupView extends React.Component {
 					onClose={this.handleClose5}
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
-					<Button size="small">Hello</Button>
-					<Button size="small">Goodbye</Button>
+					<Button>Hello</Button>
+					<Button>Goodbye</Button>
 				</Popup>
-			</div>
+			</>
 		);
 	}
 }

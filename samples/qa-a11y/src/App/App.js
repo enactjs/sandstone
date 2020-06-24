@@ -35,7 +35,7 @@ import ProgressButton from '../views/ProgressButton';
 import RadioItem from '../views/RadioItem';
 import RangePicker from '../views/RangePicker';
 import ReadAlert from '../views/ReadAlert';
-import ReadOrder from '../views/ReadOrder';
+import Region from '../views/Region';
 import Scroller from '../views/Scroller';
 import Slider from '../views/Slider';
 import Spinner from '../views/Spinner';
@@ -84,7 +84,7 @@ const views = [
 	{title: 'RadioItem', view: RadioItem},
 	{title: 'RangePicker', view: RangePicker},
 	{title: 'ReadAlert', view: ReadAlert},
-	{title: 'ReadOrder', view: ReadOrder},
+	{title: 'Region', view: Region},
 	{title: 'Scroller', view: Scroller},
 	{title: 'Slider', view: Slider},
 	{title: 'Spinner', view: Spinner},

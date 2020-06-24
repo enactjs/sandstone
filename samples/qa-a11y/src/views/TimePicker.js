@@ -1,7 +1,6 @@
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import Scroller from '@enact/sandstone/Scroller';
 import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 import React from 'react';
 
@@ -43,7 +42,7 @@ class TimePickerItem extends React.Component {
 }
 
 const TimePickerView = () => (
-	<Scroller>
+	<>
 		<Heading showLine>TimePicker</Heading>
 		<TimePickerItem
 			title="Time"
@@ -57,7 +56,7 @@ const TimePickerView = () => (
 			minuteAriaLabel="Minute picker"
 			title="Time"
 		/>
-	</Scroller>
+	</>
 );
 
 export default TimePickerView;

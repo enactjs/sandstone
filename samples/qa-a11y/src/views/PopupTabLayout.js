@@ -36,7 +36,7 @@ class PopupTabLayoutView extends React.Component {
 		} = this.state;
 
 		return (
-			<div>
+			<>
 				<Button onClick={this.handleOpen}>Open PopupTabLayout</Button>
 				<PopupTabLayout
 					open={open}
@@ -105,7 +105,7 @@ class PopupTabLayoutView extends React.Component {
 						</TabPanels>
 					</Tab>
 				</PopupTabLayout>
-			</div>
+			</>
 		);
 	}
 }

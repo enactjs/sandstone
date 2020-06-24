@@ -37,8 +37,8 @@ class ProgressButtonView extends React.Component {
 				</ProgressButton>
 				<br />
 				<br />
-				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.handleDecreaseButtonValue} />
-				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseButtonValue} />
+				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseButtonValue} />
+				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseButtonValue} />
 			</>
 		);
 	}

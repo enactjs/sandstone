@@ -33,8 +33,8 @@ class ProgressBarView extends React.Component {
 					progress={progressBarValue}
 				/>
 				<br />
-				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
-				<Button icon="plus" size="small" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
+				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
+				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
 			</>
 		);
 	}

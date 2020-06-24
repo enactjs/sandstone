@@ -1,6 +1,5 @@
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
-import Scroller from '@enact/sandstone/Scroller';
 import React from 'react';
 
 const
@@ -36,7 +35,7 @@ class CustomPicker extends React.Component {
 }
 
 const PickerView = () => (
-	<Scroller>
+	<>
 		<h2>Default</h2>
 		<Heading showLine>Picker</Heading>
 		<Picker
@@ -126,7 +125,7 @@ const PickerView = () => (
 		>
 			{airports}
 		</Picker>
-	</Scroller>
+	</>
 );
 
 export default PickerView;
