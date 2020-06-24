@@ -1,14 +1,14 @@
 
-const ScrollerPage = require('./ScrollerPage');
+const ScrollerPage = require('../ScrollerPage');
 
 describe('Scroller', function () {
 
 	beforeEach(function () {
-		ScrollerPage.open();
+		ScrollerPage.open('WithSpottable');
 	});
 
 	it('should meet initial conditions', function () {
-		ScrollerPage.open();
+		ScrollerPage.open('WithSpottable');
 		expect(ScrollerPage .button1.isFocused(), 'Button 1 has focus initially').to.be.true();
 	});
 
