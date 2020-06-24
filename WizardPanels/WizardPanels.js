@@ -24,6 +24,7 @@ import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
+let panelRef = null;
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -298,12 +299,21 @@ const WizardPanelsBase = kind({
 		},
 		onWillTransition: (ev, {index, onWillTransition}) => {
 			if (onWillTransition) {
+				// To workaround not reading title when panel transition ends
+				panelRef.setAttribute('role', null);
+				panelRef.setAttribute('role', 'region');
+
 				onWillTransition({index});
 			}
+		},
+		getRef: (ref, {componentRef}) => {
+			componentRef(ref);
+			panelRef = ref || null;
 		}
 	},
 
 	computed: {
+		ariaLabel: ({index, subtitle, title}) => ($L(`Step ${index + 1} ${title} ${subtitle}`)),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
@@ -320,8 +330,10 @@ const WizardPanelsBase = kind({
 	},
 
 	render: ({
+		ariaLabel,
 		children,
 		footer,
+		getRef,
 		index,
 		nextButton,
 		nextButtonVisibility,
@@ -349,8 +361,10 @@ const WizardPanelsBase = kind({
 		return (
 			<DecoratedPanelBase
 				{...rest}
+				componentRef={getRef}
 				header={
 					<Header
+						aria-label={ariaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
 						css={css}
