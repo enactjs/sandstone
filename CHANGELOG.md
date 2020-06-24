@@ -2,10 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [Unreleased]
+## [unreleased]
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/PopupTabLayout` to read out properly
 - `sandstone/Input` invalidTooltip to apply marquee
 
 ## [1.0.0-beta.8] - 2020-06-22
@@ -26,6 +28,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to support readout placeholder string
 - `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
 - `sandstone/Checkbox` to center the icon
 - `sandstone/ContextualMenuDecorator` to match the latest style guide
