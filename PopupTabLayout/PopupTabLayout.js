@@ -9,6 +9,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -344,7 +345,25 @@ const TabPanels = (props) => <Panels {...props} css={css} />;
  * @extends sandstone/Panels.Panel
  * @ui
  */
-const TabPanel = (props) => <Panel {...props} css={css} hideChildren={false} />;
+const TabPanel = ({spotlightId, ...rest}) => {
+	React.useEffect(() => {
+		Spotlight.set(spotlightId, {straightOnlyLeave: true});
+	}, [spotlightId]);
+
+	return (
+		<Panel {...rest} css={css} hideChildren={false} spotlightId={spotlightId} />
+	);
+};
+
+TabPanel.propTypes = {
+	/**
+	 * The container id for {@link spotlight/Spotlight}.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	spotlightId: PropTypes.string
+};
 
 
 export default PopupTabLayout;
