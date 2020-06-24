@@ -64,7 +64,12 @@
 	}
 
 	.button {
-		border-radius: @sand-mediaplayer-button-border-radius;
+		height: @sand-mediaplayer-button-height;
+		min-width: @sand-mediaplayer-button-height;
+
+		.client {
+			padding: 0 @sand-mediaplayer-button-client-left-right-padding;
+		}
 
 		.bg {
 			border-radius: @sand-mediaplayer-button-border-radius;
