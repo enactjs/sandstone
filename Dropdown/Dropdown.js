@@ -242,7 +242,7 @@ const DropdownBase = kind({
 	},
 
 	computed: {
-		'aria-labelledby': ({id, title}) => (title ? `${id}_title` : void 0),
+		ariaLabelledBy: ({id, title}) => (title ? `${id}_title` : void 0),
 		children: ({children, selected}) => {
 			if (!Array.isArray(children)) return [];
 
@@ -292,7 +292,7 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
@@ -304,11 +304,12 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div role="region" {...rest}>
+			<div role="region" aria-labelledby={ariaLabelledBy} {...rest}>
 				{title}
 				<DropdownButton
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
+					focusEffect="static"
 					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
 					popupProps={popupProps}
 					popupComponent={DropdownList}
@@ -342,9 +343,11 @@ const DropdownBase = kind({
  * @public
  */
 const DropdownDecorator = compose(
-	Pure({propComparators: {
-		children: compareChildren
-	}}),
+	Pure({
+		propComparators: {
+			children: compareChildren
+		}
+	}),
 	I18nContextDecorator({
 		rtlProp: 'rtl'
 	}),
