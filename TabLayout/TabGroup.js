@@ -123,6 +123,8 @@ const SpotlightContainerGroup = SpotlightContainerDecorator(
 const TabGroupBase = kind({
 	name: 'TabGroup',
 
+	functional: true,
+
 	propTypes: /** @lends sandstone/TabGroup.TabGroup.prototype */ {
 		tabs: PropTypes.array.isRequired,
 		collapsed: PropTypes.bool,
@@ -144,22 +146,25 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
+		// check if there's no tab icons
+		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
+	},
+
+	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, tabs, tabSize, tabsSpotlightId, ...rest}) => {
+		delete rest.children;
+
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const itemProps = React.useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
+		// eslint-disable-next-line react-hooks/rules-of-hooks, no-shadow
+		const children = React.useMemo(() => tabs.map(({children, title, ...rest}, i) => {
 			return {
 				key: `tabs${i}`,
 				children: title || children,
 				onFocusTab,
 				...rest
 			};
-		}),
-		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
-		// check if there's no tab icons
-		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
-	},
-
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, tabSize, tabsSpotlightId, ...rest}) => {
-		delete rest.onFocusTab;
-		delete rest.tabs;
+		}), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
 		const scrollerProps = !isHorizontal ? {
@@ -183,7 +188,7 @@ const TabGroupBase = kind({
 						className={componentCss.tabs}
 						component={Layout}
 						indexProp="index"
-						itemProps={{collapsed, orientation, size: tabSize}}
+						itemProps={itemProps}
 						onSelect={onSelect}
 						orientation={orientation}
 						select="radio"
