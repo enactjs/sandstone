@@ -244,7 +244,7 @@ const PopupTabLayoutBase = kind({
 		}
 
 		return (
-			<Popup {...popupProps} css={css}>
+			<Popup {...popupProps} css={css} noAlertRole>
 				<TabLayout
 					{...rest}
 					css={css}

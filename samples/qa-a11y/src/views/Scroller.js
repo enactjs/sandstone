@@ -23,14 +23,12 @@ class ScrollerView extends React.Component {
 			<Layout orientation="vertical">
 				<Cell shrink>
 					<ToggleButton
-						size="small"
 						onClick={this.handleChangeAriaLabelButton}
 						selected={customAriaLabel}
 					>
 						Customizable aria-labels on ScrollThumbs
 					</ToggleButton>
 					<ToggleButton
-						size="small"
 						onClick={this.handleChangeJSNativeButton}
 						selected={isNative}
 					>
