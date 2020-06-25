@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/TooltipDecorator` to show an arrow properly
 - `sandstone/FixedPopupPanels` to not read out a title twice
 - `sandstone/PopupTabLayout` to read out properly
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
