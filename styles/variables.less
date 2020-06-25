@@ -2,6 +2,78 @@
 //
 @import "./internal/utils.less";
 
+//
+// GUI Guide definition library
+//
+// These values come directly from the design guide file. Any changes to that file should be set
+// here first, with measurement adjustments to be preformed on the component value definition lines
+// below.
+//
+// Usage:
+//   * These values should be the most basic literal values. Do not use math in this library;
+//     those belong in the component definitions.
+//   * Always use the full 4-value format for margin and padding defined here for predictability.
+//   * Keep the mixins and their rules alphabetized.
+//   * Spacing for readability is OK.
+//   * Each mixin represents a top-level component.
+//
+#guide() {
+	// Common sizes
+	// 60px - tiny
+	// 78px - small
+	// 90px - medium
+	// 108px - large
+	// 150px - huge
+
+	// Standard Mixins
+
+	// .get-edge-size-difference
+	//
+	// Given the GUI guide line-height and the Enact framework line-height, calculate the difference
+	.get-size-difference(@guide-size, @font-size, @line-height) when ((isem(@line-height)) or (ispercentage(@line-height))) {
+		@result: #guide.get-size-difference(@guide-size, (@font-size * @line-height))[@result];
+	}
+	.get-size-difference(@guide-size, @size) {
+		@result: (@size - @guide-size);
+	}
+
+	// .get-edge-size-difference
+	//
+	// Given the GUI guide line-height and the Enact framework line-height, calculate the difference
+	// in one of the edges.
+	// Results returned in `@results`
+	.get-edge-size-difference(@guide-size, @font-size, @line-height) when ((isem(@line-height)) or (ispercentage(@line-height))) { // Repeating `when` clause here for slightly more descriptive error messages
+		@result: (#guide.get-size-difference(@guide-size, @font-size, @line-height)[@result] / 2);
+	}
+	.get-edge-size-difference(@guide-size, @size) {
+		@result: (#guide.get-size-difference(@guide-size, @size)[@result] / 2);
+	}
+
+
+	// Component Definition Mixins
+	.header() {
+		compact-padding: 60px;
+		compact-title-font-size: 90px;
+		compact-title-line-height: 72px;
+
+		mini-padding: 108px 150px 84px 150px;
+		mini-title-font-size: 108px;
+		mini-title-line-height: 80px;
+
+		standard-padding: 108px 150px 73px 150px;
+		standard-title-font-size: 108px;
+		standard-title-line-height: 127px;
+
+		wizard-padding: 108px 150px 66px 150px;
+		wizard-title-font-size: 144px;
+		wizard-title-line-height: 169px;
+	}
+
+	.panel() {
+		body-padding: 0 150px;
+	}
+}
+
 // App
 // ---------------------------------------
 @sand-app-keepout: 48px;
@@ -39,15 +111,15 @@
 @sand-button-font-size:             78px;
 @sand-button-small-font-size-large: 72px;
 @sand-button-small-font-size:       60px;
-@sand-header-compact-title-font-size: 90px;
-@sand-header-mini-title-font-size:  84px;
-@sand-header-wizard-title-font-size: @sand-heading-title-font-size;
+@sand-header-compact-title-font-size: #guide.header[compact-title-font-size];
+@sand-header-mini-title-font-size:  #guide.header[mini-title-font-size];
+@sand-header-wizard-title-font-size: #guide.header[wizard-title-font-size];
 @sand-heading-large-font-size:      72px;
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
 @sand-heading-tiny-font-size:       48px;
-@sand-heading-subtitle-font-size:   60px; // 70px;
-@sand-heading-title-font-size:      144px; // 127px;
+@sand-heading-subtitle-font-size:   60px;
+@sand-heading-title-font-size:      #guide.header[standard-title-font-size];
 @sand-imageitem-caption-font-size:  60px;
 @sand-imageitem-label-font-size:    48px;
 @sand-input-font-size:              78px;
@@ -321,7 +393,7 @@
 // ---------------------------------------
 @sand-fixedpopuppanels-width: 1140px;
 @sand-fixedpopuppanels-half-width: 1716px;
-@sand-fixedpopuppanels-margin: extract(@sand-popup-position-left-margin, 1) extract(@sand-popup-position-left-margin, 2);
+@sand-fixedpopuppanels-margin: .extract(@sand-popup-position-left-margin, top)[] .extract(@sand-popup-position-left-margin, right)[];
 @sand-fixedpopuppanels-border-radius: @sand-popup-border-radius;
 @sand-fixedpopuppanels-panel-padding: 0;
 @sand-fixedpopuppanels-panel-body-padding: @sand-panel-body-padding-top (108px - (@sand-component-spacing + @sand-spotlight-outset)) (78px - @sand-component-spacing-bottom);
@@ -344,19 +416,65 @@
 
 // Header
 // ---------------------------------------
-@sand-header-slotabove-margin: 0 0 30px 0;
-@sand-header-slotbelow-margin: 84px 0 0 0;
+@sand-header-slotabove-margin: 0 -@sand-component-spacing 30px -@sand-component-spacing; // Negative margins accomodate the component-spacing
+@sand-header-slotbelow-margin: 84px -@sand-component-spacing 0 -@sand-component-spacing; // Negative margins accomodate the component-spacing
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
+// STOP! READ THE FOLLOWING BEFORE EDITING.
+//
+// Panel imposes no padding so Header is fully responsible for its own positioning. The code below
+// reads values out of the guide definition library and uses them as the basis for calculations when
+// determining the correct padding (positioning) for Header. The GUI guide differs in its
+// line-height vs the framework's line-height due to the framework accounting for tall-glyphs during
+// localization. The visual result of the below calculations is expected to be a match with the
+// guide. Inspecting the Header's padding will result in intentional different values than the
+// values in the guide.
 @sand-header-standard-margin: 0;
-@sand-header-standard-padding: (132px - extract(@sand-panel-padding, 1) - @sand-app-keepout) (144px - extract(@sand-panel-padding, 2)) 60px;
-@sand-header-standard-title-padding: 0 0 0 6px;
+@sand-header-standard-padding:
+	(
+		.extract(#guide.header[standard-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[standard-title-line-height],
+			@sand-heading-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[standard-padding], right)[]
+	.extract(#guide.header[standard-padding], bottom)[]
+	.extract(#guide.header[standard-padding], left)[];
+@sand-header-standard-title-padding: 0;
 @sand-header-standard-subtitle-margin: -24px 0 0 0;
 @sand-header-compact-margin: 0;
-@sand-header-compact-padding: 60px 60px 0; // The static numbers here are from the design doc (the total size). We must subtract from those the margins added to the child components (Heading) so we end up with the correct value.
-@sand-header-mini-margin: 6px @sand-component-spacing 84px @sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
+@sand-header-compact-padding:
+	(
+		.extract(#guide.header[compact-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[compact-title-line-height],
+			@sand-header-compact-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[compact-padding], right)[]
+	0
+	.extract(#guide.header[compact-padding], left)[];
+@sand-header-mini-margin:
+	6px
+	@sand-component-spacing
+	.extract(#guide.header[mini-padding], bottom)[]
+	@sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
 @sand-header-mini-padding: 0;
 @sand-header-wizard-margin: 0;
-@sand-header-wizard-padding: 108px 150px (66px - @sand-panel-body-padding-top); // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+@sand-header-wizard-padding:
+	(
+		.extract(#guide.header[wizard-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[wizard-title-line-height],
+			@sand-header-wizard-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[wizard-padding], right)[]
+	.extract(#guide.header[wizard-padding], bottom)[]
+	.extract(#guide.header[wizard-padding], left)[]; // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
 @sand-header-wizard-subtitle-lines: 2;
 @sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
@@ -513,9 +631,9 @@
 
 // Panels
 // ---------------------------------------
-@sand-panel-padding: @sand-app-keepout (@sand-app-keepout - @sand-component-spacing);
-@sand-panel-body-padding-top: 24px; // Used in this file only, for consistency
-@sand-panel-body-padding: @sand-panel-body-padding-top (150px - (@sand-component-spacing)) 0;
+@sand-panel-padding: 0;
+@sand-panel-body-padding-top: .extract(#guide.panel[body-padding], top)[]; // Used in this file only, for consistency
+@sand-panel-body-padding: @sand-panel-body-padding-top (.extract(#guide.panel[body-padding], right)[] - @sand-component-spacing);
 
 // Picker
 // ----------------------------------------
