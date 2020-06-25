@@ -334,7 +334,7 @@ PopupTabLayout.Tab = Tab;
  * @extends sandstone/Panels.Panels
  * @ui
  */
-const TabPanels = (props) => <Panels {...props} css={css} />;
+const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
 
 /**
  * A customized version of Panel for use inside this component.
