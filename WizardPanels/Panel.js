@@ -13,6 +13,7 @@ import {WizardPanelsContext} from './WizardPanels';
  * @private
  */
 function PanelBase ({
+	'aria-label': ariaLabel,
 	children,
 	footer,
 	nextButton,
@@ -25,6 +26,7 @@ function PanelBase ({
 	React.useEffect(() => {
 		if (set) {
 			set({
+				'aria-label': ariaLabel,
 				children,
 				footer,
 				nextButton,
@@ -34,6 +36,7 @@ function PanelBase ({
 			});
 		}
 	}, [
+		ariaLabel,
 		children,
 		footer,
 		nextButton,

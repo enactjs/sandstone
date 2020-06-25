@@ -53,6 +53,18 @@ const WizardPanelsBase = kind({
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
 		/**
+		 * The "aria-label" for the Panel.
+		 *
+		 * By default, the panel will be labeled by its [Header]{@link sandstone/Panels.Header}.
+		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
+		 * the panel.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
 		 * Obtains a reference to the root node.
 		 *
 		 * @type {Function|Object}
