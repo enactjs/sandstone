@@ -15,14 +15,17 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 import {SwitchBase} from '../Switch';
 
 import componentCss from './SwitchItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 const Switch = Skinnable(SwitchBase);
 Switch.displayName = 'Switch';
@@ -127,7 +130,11 @@ const SwitchItemDecorator = compose(
  * @ui
  * @public
  */
-const SwitchItem = SwitchItemDecorator(SwitchItemBase);
+const SwitchItem = Pure(
+	SwitchItemDecorator(
+		SwitchItemBase
+	)
+);
 
 export default SwitchItem;
 export {
