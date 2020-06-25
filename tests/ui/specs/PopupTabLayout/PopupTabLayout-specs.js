@@ -81,7 +81,7 @@ describe('PopupTabLayout', function () {
 
 			// 		expect(originalView).to.equal('view1');
 			// 		popupTabLayout.tabItems[4].click();
-			// 		Page.waitForExist(`#${expected}`);
+			// 		$(`#${expected}`).waitForExist();
 			// 		const actual = popupTabLayout.currentView.getAttribute('id');
 
 			// 		expect(actual).to.equal(expected);

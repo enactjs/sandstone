@@ -9,24 +9,24 @@ class FlexiblePopupPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForOpen (duration = 1000) {
-		this.self.waitForExist(duration);
+	waitForOpen (timeout = 1000) {
+		this.self.waitForExist({timeout});
 	}
 
-	waitForClose (duration = 1000) {
-		this.self.waitForExist(duration, true);
+	waitForClose (timeout = 1000) {
+		this.self.waitForExist(timeout, true);
 	}
 
-	waitForEnter (panel, duration = 1000) {
-		this['panel' + panel].waitForExist(duration);
+	waitForEnter (panel, timeout = 1000) {
+		this['panel' + panel].waitForExist({timeout});
 	}
 
-	waitForPanelBody (panel, duration = 2500) {
-		$(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist(duration);
+	waitForPanelBody (panel, timeout = 2500) {
+		$(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist({timeout});
 	}
 
-	waitForLeave (panel, duration = 1000) {
-		this['panel' + panel].waitForExist(duration, true);
+	waitForLeave (panel, timeout = 1000) {
+		this['panel' + panel].waitForExist({timeout, reverse: true});
 	}
 
 	focusOpenButton () {

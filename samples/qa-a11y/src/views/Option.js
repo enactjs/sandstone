@@ -12,12 +12,12 @@ const Option = (props) => {
 	}, [rtl, updateLocale]);
 
 	return (
-		<div>
+		<>
 			<Heading showLine>Set a language direction</Heading>
 			<CheckboxItem onClick={onClick} selected={rtl}>RTL</CheckboxItem>
 			<Heading showLine>Set an aria debug mode</Heading>
 			<CheckboxItem onClick={handleDebug} selected={isDebugMode}>Debug aria</CheckboxItem>
-		</div>
+		</>
 	);
 };
 
