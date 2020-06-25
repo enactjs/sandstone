@@ -199,17 +199,17 @@ storiesOf('Item', module)
 					</Section>
 
 					<Section title="Small Inline Items" size="50%">
-						<Item inline small alt="Normal">{inputData.shortText}</Item>
-						<Item inline small alt="Disabled" disabled>{inputData.shortText}</Item>
-						<Item inline small alt="Long Normal">{inputData.longText}</Item>
-						<Item inline small alt="Long Disabled" disabled>{inputData.longText}</Item>
+						<Item inline size="small" alt="Normal">{inputData.shortText}</Item>
+						<Item inline size="small" alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline size="small" alt="Long Normal">{inputData.longText}</Item>
+						<Item inline size="small" alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Small Inline Items with Icons" size="50%">
-						<Item inline small slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
-						<Item inline small slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
-						<Item inline small slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
-						<Item inline small slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 				</Row>

@@ -55,12 +55,16 @@
 		// Prevent Android Chrome from highlighting tapped elements
 		-webkit-tap-highlight-color: transparent;
 	}
-
-	// Skin colors
-	.applySkins({
-		&.bg,
-		> .bg {
-			background-color: @sand-bg-color;
-		}
-	});
 }
+
+// Skin colors
+// This is outside the `.root` class above because high-contrast is applied to root
+// as well as skins. The high-contrast mixin (in skin.less) refers to high-contrast
+// and the skins node as descent, rather than on the same node. This allows the
+// styling to be applied without costly duplication of all rules in the skin mixin.
+.applySkins({
+	&.bg,
+	> .bg {
+		background-color: @sand-bg-color;
+	}
+});
