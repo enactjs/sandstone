@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/Item` to prevent unnecessary re-rendering
 - `sandstone/PopupTabLayout` to read out properly
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 

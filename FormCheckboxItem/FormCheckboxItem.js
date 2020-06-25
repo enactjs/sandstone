@@ -11,6 +11,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -19,9 +20,11 @@ import React from 'react';
 
 import Skinnable from '../Skinnable';
 import {CheckboxBase} from '../Checkbox';
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 
 import componentCss from './FormCheckboxItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 const Checkbox = Skinnable(CheckboxBase);
 
@@ -179,7 +182,11 @@ const FormCheckboxItemDecorator = compose(
  * @ui
  * @public
  */
-const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);
+const FormCheckboxItem = Pure(
+	FormCheckboxItemDecorator(
+		FormCheckboxItemBase
+	)
+);
 
 export default FormCheckboxItem;
 export {
