@@ -197,6 +197,21 @@ storiesOf('Item', module)
 						<Item slotAfter={KsIcon} alt="After">{inputData.longText}</Item>
 						<Item slotBefore={KsIcon} slotAfter={KsIcon} alt="Both">{inputData.longText}</Item>
 					</Section>
+
+					<Section title="Small Inline Items" size="50%">
+						<Item inline small alt="Normal">{inputData.shortText}</Item>
+						<Item inline small alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline small alt="Long Normal">{inputData.longText}</Item>
+						<Item inline small alt="Long Disabled" disabled>{inputData.longText}</Item>
+					</Section>
+
+					<Section title="Small Inline Items with Icons" size="50%">
+						<Item inline small slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
+						<Item inline small slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline small slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
+						<Item inline small slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
+					</Section>
+
 				</Row>
 			</Scroller>
 		)

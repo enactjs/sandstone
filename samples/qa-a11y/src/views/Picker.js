@@ -1,10 +1,6 @@
-import DatePicker from '@enact/sandstone/DatePicker';
 import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
-import RangePicker from '@enact/sandstone/RangePicker';
 import React from 'react';
-import Scroller from '@enact/sandstone/Scroller';
-import TimePicker from '@enact/sandstone/TimePicker';
 
 const
 	airports = [
@@ -33,13 +29,13 @@ class CustomPicker extends React.Component {
 			valueText = `${children[index]} ${subjectValue[index]}`;
 
 		return (
-			<Picker aria-valuetext={valueText} onChange={this.handleChange} {...this.props}>{children}</Picker>
+			<Picker {...this.props} aria-valuetext={valueText} onChange={this.handleChange}>{children}</Picker>
 		);
 	}
 }
 
 const PickerView = () => (
-	<Scroller focusableScrollbar>
+	<>
 		<h2>Default</h2>
 		<Heading showLine>Picker</Heading>
 		<Picker
@@ -80,56 +76,6 @@ const PickerView = () => (
 		>
 			{airports}
 		</Picker>
-
-		<Heading showLine>RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Joined RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Vertical RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-		<RangePicker
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>DatePicker</Heading>
-		<DatePicker
-			title="Date"
-		/>
-
-		<Heading showLine>TimePicker</Heading>
-		<TimePicker
-			title="Time"
-		/>
 
 		<h2>Customizable aria-labels</h2>
 		<Heading showLine>Picker</Heading>
@@ -179,69 +125,7 @@ const PickerView = () => (
 		>
 			{airports}
 		</Picker>
-
-		<Heading showLine>RangePicker</Heading>
-		<RangePicker
-			decrementAriaLabel="Decrement"
-			defaultValue={0}
-			incrementAriaLabel="Increment"
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Joined RangePicker</Heading>
-		<RangePicker
-			aria-label="Joined range Picker"
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Vertical RangePicker</Heading>
-		<RangePicker
-			decrementAriaLabel="Decrement"
-			defaultValue={0}
-			incrementAriaLabel="Increment"
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-		<RangePicker
-			aria-label="Joined range Picker"
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>DatePicker</Heading>
-		<DatePicker
-			dayAriaLabel="Day picker"
-			monthAriaLabel="Month picker"
-			title="Date"
-			yearAriaLabel="Year picker"
-		/>
-
-		<Heading showLine>TimePicker</Heading>
-		<TimePicker
-			hourAriaLabel="Hour picker"
-			meridiemAriaLabel="Meridiem picker"
-			minuteAriaLabel="Minute picker"
-			title="Time"
-		/>
-	</Scroller>
+	</>
 );
 
 export default PickerView;

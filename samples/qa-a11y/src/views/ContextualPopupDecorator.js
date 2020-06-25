@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import Group from '@enact/ui/Group';
 import RadioItem from '@enact/sandstone/RadioItem';
-import React from 'react';
+import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
+import React from 'react';
 
 const ContextualButton = Toggleable(
 	{prop: 'open', toggle: 'onClick', deactivate: 'onClose'},
@@ -27,9 +27,9 @@ class ContextualPopupDecoratorView extends React.Component {
 
 	renderPopup2 = () => (
 		<div>
-			<Button size="small">Button</Button>
-			<Button size="small">Button2</Button>
-			<Button size="small">Button3</Button>
+			<Button>Button</Button>
+			<Button>Button2</Button>
+			<Button>Button3</Button>
 		</div>
 	)
 
@@ -47,38 +47,17 @@ class ContextualPopupDecoratorView extends React.Component {
 
 	render () {
 		return (
-			<div>
-				<div style={{position: 'absolute', left: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="right"
-						popupComponent={this.renderPopup1}
-					>
-						Average
-					</ContextualButton>
-				</div>
-				<div style={{position: 'absolute', bottom: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="up"
-						popupComponent={this.renderPopup2}
-						showCloseButton
-						spotlightRestrict="self-only"
-					>
-						Spotlight Modal
-					</ContextualButton>
-				</div>
-
-				<div style={{position: 'absolute', right: '0'}}>
-					<ContextualButton
-						size="small"
-						direction="left"
-						popupComponent={this.renderPopup3}
-					>
-						Nested Radio
-					</ContextualButton>
-				</div>
-			</div>
+			<>
+				<ContextualButton popupComponent={this.renderPopup1}>
+					Average
+				</ContextualButton>
+				<ContextualButton popupComponent={this.renderPopup2} spotlightRestrict="self-only">
+					Spotlight Modal
+				</ContextualButton>
+				<ContextualButton direction="below" popupComponent={this.renderPopup3}>
+					Nested Radio
+				</ContextualButton>
+			</>
 		);
 	}
 }

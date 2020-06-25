@@ -56,6 +56,7 @@ const extractInputFieldProps = function (props) {
 			case 'data-webos-voice-group-label':
 			case 'data-webos-voice-intent':
 			case 'data-webos-voice-label':
+			case 'disabled':
 			case 'dismissOnEnter':
 			case 'iconAfter':
 			case 'iconBefore':

@@ -128,6 +128,7 @@ const FlexiblePopupPanels = PopupDecorator(
 	{
 		className: 'flexiblePopupPanels',
 		css,
+		noAlertRole: true,
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},

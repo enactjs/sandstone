@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import LS2Request from '@enact/webos/LS2Request';
-import React from 'react';
 import {readAlert} from '@enact/webos/speech';
+import React from 'react';
 
 class ReadAlertView extends React.Component {
 	constructor () {
@@ -57,7 +57,7 @@ class ReadAlertView extends React.Component {
 
 	render = () => {
 		return (
-			<div>
+			<>
 				<CheckboxItem
 					defaultSelected={this.state.audioGuidance}
 					disabled={this.state.toggleDisabled}
@@ -65,9 +65,9 @@ class ReadAlertView extends React.Component {
 				>
 					Audio guidance
 				</CheckboxItem>
-				<Button size="small" onClick={this.onClick1}>readAlert test(clear true)</Button>
-				<Button size="small" onClick={this.onClick2}>readAlert test(clear false)</Button>
-			</div>
+				<Button onClick={this.onClick1}>readAlert test(clear true)</Button>
+				<Button onClick={this.onClick2}>readAlert test(clear false)</Button>
+			</>
 		);
 	}
 }

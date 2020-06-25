@@ -1,8 +1,8 @@
+import {useI18nContext} from '@enact/i18n/I18nDecorator';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
 import PropTypes from 'prop-types';
 import React, {useCallback} from 'react';
-import {useI18nContext} from '@enact/i18n/I18nDecorator';
 
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;
@@ -12,12 +12,12 @@ const Option = (props) => {
 	}, [rtl, updateLocale]);
 
 	return (
-		<div>
+		<>
 			<Heading showLine>Set a language direction</Heading>
 			<CheckboxItem onClick={onClick} selected={rtl}>RTL</CheckboxItem>
 			<Heading showLine>Set an aria debug mode</Heading>
 			<CheckboxItem onClick={handleDebug} selected={isDebugMode}>Debug aria</CheckboxItem>
-		</div>
+		</>
 	);
 };
 
