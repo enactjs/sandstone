@@ -41,7 +41,7 @@ class VirtualGridListSample extends Component {
 				cbScrollTo={this.getScrollTo}
 				dataSize={items.length}
 				itemRenderer={this.renderItem}
-				itemSize={{minWidth: ri.scale(642), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
+				itemSize={{minWidth: ri.scale(624), minHeight: ri.scale(600)}} // FHD: 312 x 300, UHD: 624 x 600
 				scrollMode="translate"
 			/>
 		);
