@@ -544,11 +544,21 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.calcOverflow(containerNode, clientNode);
 				this.adjustDirection();
 
-				this.setState({
-					direction: this.adjustedDirection,
-					arrowPosition: this.getArrowPosition(containerNode, clientNode),
-					containerPosition: this.getContainerPosition(containerNode, clientNode)
-				});
+				const arrowPosition = this.getArrowPosition(containerNode, clientNode),
+					containerPosition = this.getContainerPosition(containerNode, clientNode);
+
+				if ((this.state.direction !== this.adjustedDirection) ||
+					(this.state.arrowPosition.left !== arrowPosition.left) ||
+					(this.state.arrowPosition.top !== arrowPosition.top) ||
+					(this.state.containerPosition.left !== containerPosition.left) ||
+					(this.state.containerPosition.top !== containerPosition.top)
+				) {
+					this.setState({
+						direction: this.adjustedDirection,
+						arrowPosition,
+						containerPosition
+					});
+				}
 			}
 		}
 

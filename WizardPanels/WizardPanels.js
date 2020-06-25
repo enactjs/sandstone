@@ -414,19 +414,27 @@ const WizardPanelsBase = kind({
 	}
 });
 
+// From https://usehooks.com/usePrevious/
+function usePrevious(value) {
+	// The ref object is a generic container whose current property is mutable ...
+	// ... and can hold any value, similar to an instance property on a class
+	const ref = React.useRef();
+
+	// Store current value in ref
+	React.useEffect(() => {
+	  ref.current = value;
+	}, [value]); // Only re-run if value changes
+
+	// Return previous value (happens before update in useEffect above)
+	return ref.current;
+}
+
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
 function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(rtl);
+	const prevIndex = usePrevious(index);
 
-	if (prevIndex !== index) {
-		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
-		setReverse(reverse);
-		setPrevIndex(index);
-	}
-
-	return reverse;
+	return rtl ? (index > prevIndex) : (index < prevIndex);
 }
 
 /**
