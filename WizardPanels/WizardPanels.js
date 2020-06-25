@@ -1,6 +1,5 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {extractAriaProps} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
@@ -326,7 +325,7 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		ariaLabel: ({index, subtitle, title}) => ($L(`Step ${index + 1} ${title} ${subtitle}`)),
+		defaultAriaLabel: ({index, subtitle, title}) => ($L(`Step ${index + 1} ${title} ${subtitle}`)),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
@@ -343,8 +342,9 @@ const WizardPanelsBase = kind({
 	},
 
 	render: ({
-		ariaLabel,
+		'aria-label': ariaLabel,
 		children,
+		defaultAriaLabel,
 		footer,
 		getRef,
 		index,
@@ -367,12 +367,9 @@ const WizardPanelsBase = kind({
 		delete rest.noSteps;
 		delete rest.current;
 		delete rest.total;
-		delete rest['aria-label'];
 
 		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
-
-		const ariaProps = extractAriaProps(rest);
 
 		return (
 			<DecoratedPanelBase
@@ -380,7 +377,7 @@ const WizardPanelsBase = kind({
 				componentRef={getRef}
 				header={
 					<Header
-						aria-label={ariaLabel}
+						aria-label={ariaLabel || defaultAriaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
 						css={css}
@@ -388,7 +385,6 @@ const WizardPanelsBase = kind({
 						subtitle={subtitle}
 						title={title}
 						type="wizard"
-						{...ariaProps}
 					>
 						{steps}
 						<NavigationButton
