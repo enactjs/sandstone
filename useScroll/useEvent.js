@@ -16,7 +16,7 @@ let lastPointer = {x: 0, y: 0};
 const useEventFocus = (props, instances, context) => {
 	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
-	const {alertScrollbarTrack, isWheeling} = context;
+	const {isWheeling} = context;
 
 	// Functions
 
