@@ -54,7 +54,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				<ContextualButton popupComponent={this.renderPopup2} spotlightRestrict="self-only">
 					Spotlight Modal
 				</ContextualButton>
-				<ContextualButton direction="above" popupComponent={this.renderPopup3}>
+				<ContextualButton direction="below" popupComponent={this.renderPopup3}>
 					Nested Radio
 				</ContextualButton>
 			</>
