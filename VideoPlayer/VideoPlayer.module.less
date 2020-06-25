@@ -38,17 +38,16 @@
 
 	.fullscreen {
 		.miniFeedback {
+			.sand-font-number();
 			position: absolute;
 			z-index: 50;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
 			top: @sand-video-feedback-mini-position-top;
 			left: @sand-video-feedback-mini-position-left;
-			font-family: @sand-video-feedback-mini-font-family;
 			font-weight: @sand-video-feedback-mini-font-weight;
 			font-style: @sand-video-feedback-mini-font-style;
 			font-size: @sand-video-feedback-mini-font-size;
 			padding: 0 @sand-video-feedback-mini-padding-side;
 			line-height: @sand-video-feedback-mini-line-height;
-			border-radius: (@sand-video-feedback-mini-line-height / 2);
 			bottom: auto;
 			pointer-events: none;
 		}
@@ -76,12 +75,16 @@
 
 			.infoFrame {
 				display: flex;
-				margin-bottom: @sand-spotlight-outset;
+				margin: @sand-video-player-info-margin;
 			}
 
 			.sliderContainer {
 				display: flex;
 				align-items: center;
+
+				> *:first-child {
+					text-align: right;
+				}
 
 				:global(.enact-locale-right-to-left) & {
 					direction: ltr;

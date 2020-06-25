@@ -69,6 +69,7 @@
 @sand-mediaoverlay-caption-font-size: 48px;
 @sand-mediaoverlay-font-size:         48px;
 @sand-mediaoverlay-title-font-size:   60px;
+@sand-mediaplayer-times-min-width:    186px;
 @sand-mediaplayer-times-text-size:    48px;
 @sand-picker-font-size:             54px;
 @sand-picker-joined-font-size:      66px;
@@ -497,15 +498,18 @@
 
 // MediaPlayer
 // ---------------------------------------
-@sand-mediaplayer-slider-height:                  18px;
-@sand-mediaplayer-slider-knob-size:               48px;
-@sand-mediaplayer-slider-tap-area:                162px;
+@sand-mediaplayer-button-client-padding: 0 18px;
+@sand-mediaplayer-button-border-radius: 96px;
+@sand-mediaplayer-button-height: 180px;
 @sand-mediaplayer-controls-actionguide-padding-top: 78px;
 @sand-mediaplayer-controls-actionguide-time: 0.2s;		// Length of the animation
-@sand-mediaplayer-controls-button-margin-start: 108px;
+@sand-mediaplayer-controls-button-margin-start: 90px;
 @sand-mediaplayer-controls-morebuttons-margin-start: 228px;
-@sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
 @sand-mediaplayer-controls-moreComponents-margin-top: 42px;
+@sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
+@sand-mediaplayer-slider-height: 12px;
+@sand-mediaplayer-slider-knob-size: 48px;
+@sand-mediaplayer-slider-tap-area: 162px;
 
 // Panels
 // ---------------------------------------
@@ -701,31 +705,32 @@
 // ---------------------------------------
 @sand-video-slider-tooltip-arrow-border-left-right: 18px;
 @sand-video-slider-tooltip-arrow-border-top:       24px;
-@sand-video-slider-tooltip-position-bottom:        @sand-spotlight-outset;
+@sand-video-slider-tooltip-position-bottom:        42px;
 @sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
 @sand-video-slider-tooltip-margin-bottom:          6px;
-@sand-video-slider-tooltip-font-size:              54px;
-@sand-video-slider-tooltip-font-weight:            700;
+@sand-video-slider-tooltip-font-size:              48px;
+@sand-video-slider-tooltip-font-weight:            400;
 @sand-video-slider-tooltip-line-height:            72px;
-@sand-video-slider-tooltip-gutter-width:           24px;
+@sand-video-slider-tooltip-gutter-width:           42px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
 @sand-video-slider-tooltip-thumbnail-width:  426px;
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
 @sand-video-feedback-icon-font-size:               1.25em;
-@sand-video-feedback-mini-font-family:             @sand-alt-font-family;
-@sand-video-feedback-mini-font-weight:             bold;
+@sand-video-feedback-mini-font-weight:             400;
 @sand-video-feedback-mini-font-style:              normal;
 @sand-video-feedback-mini-position-top:            60px;
 @sand-video-feedback-mini-position-left:           60px;
-@sand-video-feedback-mini-padding-side:            36px;
-@sand-video-feedback-mini-font-size:               78px;
+@sand-video-feedback-mini-padding-side:            66px;
+@sand-video-feedback-mini-font-size:               66px;
 @sand-video-feedback-mini-line-height:             120px;
+@sand-video-feedback-message-font-weight:          600;
 @sand-video-player-badge-text-size:                48px;
+@sand-video-player-info-margin:                    0 66px 84px;
 @sand-video-player-padding-bottom:                 60px;
-@sand-video-player-padding-side:                   120px;
-@sand-video-player-title-size:                     96px;
+@sand-video-player-padding-side:                   84px;
+@sand-video-player-title-size:                     78px;
 
 // WizardPanels
 // ---------------------------------------
