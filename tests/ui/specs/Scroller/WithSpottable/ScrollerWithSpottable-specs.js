@@ -24,7 +24,7 @@ describe('Scroller', function () {
 			ScrollerPage.pageUp();
 			ScrollerPage.delay(1500);
 			// expect focus to "page 1 button"
-			expect(ScrollerPage.button1.isFocused(), 'button 2 has focus again').to.be.true();
+			expect(ScrollerPage.button1.isFocused(), 'button 1 has focus again').to.be.true();
 		});
 	});
 });

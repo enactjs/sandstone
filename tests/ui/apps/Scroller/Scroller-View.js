@@ -54,11 +54,11 @@ class app extends React.Component {
 		this.setState((state) => ({[key]: !state[key]}));
 	}
 
-	onSelectFocusableScrollbar = (selectedOpt) => {
+	handleSelectFocusableScrollbar = (selectedOpt) => {
 		this.setState({focusableScrollbar: prop.focusableScrollbarOption[selectedOpt.data]});
 	};
 
-	onSelectDirection = (selectedOpt) => {
+	handleSelectDirection = (selectedOpt) => {
 		this.setState({direction: prop.directionOption[selectedOpt.data]});
 	};
 
@@ -72,13 +72,13 @@ class app extends React.Component {
 					<Cell component={OptionsContainer} shrink>
 						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.handleToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Dropdown
-							onSelect={this.onSelectFocusableScrollbar}
+							onSelect={this.handleSelectFocusableScrollbar}
 							title="FocusableScrollbar"
 						>
 							{Object.keys(prop.focusableScrollbarOption)}
 						</Dropdown>
 						<Dropdown
-							onSelect={this.onSelectDirection}
+							onSelect={this.handleSelectDirection}
 							title="Direction"
 						>
 							{Object.keys(prop.directionOption)}
