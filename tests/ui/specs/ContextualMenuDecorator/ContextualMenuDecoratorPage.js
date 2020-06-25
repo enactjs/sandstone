@@ -12,7 +12,7 @@ class ButtonInterface {
 	}
 
 	hover () {
-		return $(this.selector).moveTo(0, 0);
+		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
 	get self () { return $(this.selector); }
