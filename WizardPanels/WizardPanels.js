@@ -367,6 +367,7 @@ const WizardPanelsBase = kind({
 		delete rest.noSteps;
 		delete rest.current;
 		delete rest.total;
+		delete rest['aria-label'];
 
 		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
 		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
