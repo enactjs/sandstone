@@ -4,7 +4,7 @@ import Group from '@enact/ui/Group';
 import React from 'react';
 
 const GroupItemView = () => (
-	<div>
+	<>
 		<Heading showLine>Default</Heading>
 		<Group
 			childComponent={Button}
@@ -29,7 +29,7 @@ const GroupItemView = () => (
 				{'aria-label': 'third item', children: 'Item 3', key: 3}
 			]}
 		</Group>
-	</div>
+	</>
 );
 
 export default GroupItemView;

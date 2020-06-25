@@ -7,10 +7,9 @@ const
 	tooltipProps = {'aria-hidden': true};
 
 const TooltipDecoratorView = () => (
-	<div>
+	<>
 		<TooltipButton
 			aria-label="Below Right Tooltip"
-			size="small"
 			tooltipPosition="below right"
 			tooltipProps={tooltipProps}
 			tooltipText="Below Right Tooltip"
@@ -20,7 +19,6 @@ const TooltipDecoratorView = () => (
 
 		<TooltipButton
 			aria-label="Below Left Tooltip"
-			size="small"
 			tooltipPosition="below left"
 			tooltipProps={tooltipProps}
 			tooltipText="Below Left Tooltip"
@@ -30,7 +28,6 @@ const TooltipDecoratorView = () => (
 
 		<TooltipButton
 			aria-label="Above Right Tooltip"
-			size="small"
 			tooltipPosition="above right"
 			tooltipProps={tooltipProps}
 			tooltipText="Above Right Tooltip"
@@ -40,14 +37,13 @@ const TooltipDecoratorView = () => (
 
 		<TooltipButton
 			aria-label="Above Left Tooltip"
-			size="small"
 			tooltipPosition="above left"
 			tooltipProps={tooltipProps}
 			tooltipText="Above Left Tooltip"
 		>
 			Above Left Tooltip
 		</TooltipButton>
-	</div>
+	</>
 );
 
 export default TooltipDecoratorView;

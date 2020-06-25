@@ -40,8 +40,8 @@ class FixedPopupPanelsView extends React.Component {
 	render () {
 		return (
 			<>
-				<Button size="small" onClick={this.handleOpen1}>Settings Popup</Button>
-				<Button size="small" onClick={this.handleOpen2}>Option detail Popup</Button>
+				<Button onClick={this.handleOpen1}>Settings Popup</Button>
+				<Button onClick={this.handleOpen2}>Option detail Popup</Button>
 				<FixedPopupPanels
 					index={this.state.panelIndex}
 					onClose={this.handleClose1}

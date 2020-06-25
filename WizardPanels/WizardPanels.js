@@ -2,6 +2,7 @@ import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import useChainRefs from '@enact/core/useChainRefs';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
@@ -365,6 +366,7 @@ const WizardPanelsBase = kind({
 							backgroundOpacity="transparent"
 							component={prevButton}
 							icon="arrowlargeleft"
+							iconFlip="auto"
 							minWidth={false}
 							onClick={onPrevClick}
 							slot="slotBefore"
@@ -375,6 +377,7 @@ const WizardPanelsBase = kind({
 							backgroundOpacity="transparent"
 							component={nextButton}
 							icon="arrowlargeright"
+							iconFlip="auto"
 							iconPosition="after"
 							minWidth={false}
 							onClick={onNextClick}
@@ -413,12 +416,12 @@ const WizardPanelsBase = kind({
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
-function useReverseTransition (index = -1) {
+function useReverseTransition (index = -1, rtl) {
 	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(false);
+	let [reverse, setReverse] = React.useState(rtl);
 
 	if (prevIndex !== index) {
-		reverse = index < prevIndex;
+		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
 		setReverse(reverse);
 		setPrevIndex(index);
 	}
@@ -444,12 +447,13 @@ const WizardPanelsRouter = (Wrapped) => {
 		onTransition,
 		onWillTransition,
 		title,
+		rtl,
 		...rest
 	}) => {
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
 		const ref = useChainRefs(autoFocus, componentRef);
 		const [panel, setPanel] = React.useState(null);
-		const reverseTransition = useReverseTransition(index);
+		const reverseTransition = useReverseTransition(index, rtl);
 		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
 
 		const totalPanels = React.Children.count(children);
@@ -524,6 +528,14 @@ const WizardPanelsRouter = (Wrapped) => {
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Used to determine the transition direction
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
 		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
@@ -563,6 +575,7 @@ const WizardPanelsDecorator = compose(
 		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
+	I18nContextDecorator({rtlProp: 'rtl'}),
 	WizardPanelsRouter,
 	Skinnable
 );

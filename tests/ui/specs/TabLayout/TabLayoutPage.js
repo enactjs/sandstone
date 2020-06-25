@@ -12,11 +12,11 @@ class TabLayoutInterface {
 	}
 
 	hoverScroller () {
-		return this.tabsScroller.moveTo(100, 100);
+		return this.tabsScroller.moveTo({xOffset: 100, yOffset: 100});
 	}
 
 	hoverTabs () {
-		return this.tabs.moveTo(100, 100);	// Moving to center could be off tab buttons
+		return this.tabs.moveTo({xOffset: 100, yOffset: 100});	// Moving to center could be off tab buttons
 	}
 
 	view (number) {
@@ -43,8 +43,8 @@ class TabLayoutPage extends Page {
 		super.open(`TabLayout${layout}-View`, urlExtra);
 	}
 
-	waitForExist (selector, duration) {
-		$(selector).waitForExist(duration);
+	waitForExist (selector, timeout) {
+		$(selector).waitForExist({timeout});
 	}
 }
 

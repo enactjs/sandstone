@@ -695,7 +695,7 @@ describe('Popup', function () {
 
 				Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				$('#buttonCancel').moveTo(200, 200);
+				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
 				// 5-way to the Cancel button
 				Page.spotlightLeft();
 
@@ -727,7 +727,7 @@ describe('Popup', function () {
 				// Wave the pointer to change to cursor mode (step 5)
 				Page.showPointerByKeycode();
 				// Position the pointer on the right of the Cancel button inside popup
-				$('#buttonCancel').moveTo(200, 200);
+				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
 
 				// Spotlight on button in popup is blur (verify step 5)
 				expect(popup.buttonOK.isFocused()).to.be.false();
@@ -747,7 +747,7 @@ describe('Popup', function () {
 				expectOpen(popupCommon);
 
 				// Hover a button outside Popup (step 4)
-				$('#buttonPopup9').moveTo(200, 200);
+				$('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
 				// Test spotlight cannot leave popup (step 4)
 				Page.spotlightUp();
 
@@ -768,7 +768,7 @@ describe('Popup', function () {
 				expectOpen(popupCommon);
 
 				// Hover outside Popup (step 8)
-				$('#buttonPopup9').moveTo(200, 200);
+				$('#buttonPopup9').moveTo({xOffset: 200, yOffset: 200});
 				// Test spotlight cannot leave popup (step 8)
 				Page.spotlightUp();
 
@@ -906,7 +906,7 @@ describe('Popup', function () {
 
 				Page.showPointerByKeycode();
 				// Position the pointer inside popup to the right of the Cancel button (step 4)
-				$('#buttonCancel').moveTo(200, 200);
+				$('#buttonCancel').moveTo({xOffset: 200, yOffset: 200});
 				// 5-way to the OK button (step 5) (How to get it to spot Cancel button?)
 				Page.spotlightLeft();
 

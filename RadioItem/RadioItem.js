@@ -10,6 +10,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Pure from '@enact/ui/internal/Pure';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -17,9 +18,11 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 
 import Icon from '../Icon';
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 
 import componentCss from './RadioItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 /**
  * An item component with a radio toggle icon.
@@ -129,7 +132,11 @@ const RadioItemDecorator = compose(
  * @ui
  * @public
  */
-const RadioItem = RadioItemDecorator(RadioItemBase);
+const RadioItem = Pure(
+	RadioItemDecorator(
+		RadioItemBase
+	)
+);
 
 export default RadioItem;
 export {

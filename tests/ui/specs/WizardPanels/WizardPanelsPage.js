@@ -12,12 +12,12 @@ class WizardPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForEnter (view, duration = 1000) {
-		this['view' + view].waitForExist(duration);
+	waitForEnter (view, timeout = 1000) {
+		this['view' + view].waitForExist({timeout});
 	}
 
-	waitForLeave (view, duration = 1000) {
-		this['view' + view].waitForExist(duration, true);
+	waitForLeave (view, timeout = 1000) {
+		this['view' + view].waitForExist({timeout, reverse: true});
 	}
 
 	focusNextButton () {
