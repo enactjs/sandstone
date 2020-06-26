@@ -894,7 +894,7 @@ const PickerBase = class extends React.Component {
 
 		let sizingPlaceholder = null;
 		if (typeof width === 'number' && width > 0) {
-			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
+			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{'0'.repeat(width)}</div>;
 		}
 
 		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
