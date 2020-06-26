@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Input` prop `small` default value to small
+- `sandstone/Input` prop `size` default value to small
 
 ### Fixed
 
