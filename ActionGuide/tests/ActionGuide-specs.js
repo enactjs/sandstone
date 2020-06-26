@@ -8,10 +8,10 @@ describe('ActionGuide', () => {
 		'should render `icon`',
 		() => {
 			const subject = shallow(
-				<ActionGuideBase />
+				<ActionGuideBase icon="star" />
 			);
 
-			const expected = 'arrowsmalldown';
+			const expected = 'star';
 			const actual = subject.find('.icon').prop('children');
 
 			expect(actual).toBe(expected);
