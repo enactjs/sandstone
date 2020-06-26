@@ -14,7 +14,7 @@ describe('Dropdown', function () {
 			Page.open();
 		});
 
-		it('should focus the first item when `selected` changes to `null` - [GT-30183]', function () {
+		it.skip('should focus the first item when `selected` changes to `null` - [GT-30183]', function () {
 			const dropdown = Page.components.dropdownChangeSelected;
 
 			Page.openDropdown(dropdown);
