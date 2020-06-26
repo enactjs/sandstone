@@ -16,6 +16,7 @@
 		.viewport {
 			position: static;
 			.position(auto);
+			pointer-events: auto;
 		}
 	}
 
@@ -34,6 +35,8 @@
 	}
 
 	> .body {
+		pointer-events: inherit;
+
 		&,
 		:global(.enact-locale-right-to-left) & {
 			padding: 0;
