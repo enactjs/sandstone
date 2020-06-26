@@ -17,7 +17,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 - `sandstone/Input` submit button position to center
 
-
 ## [1.0.0-beta.8] - 2020-06-22
 
 ### Added
