@@ -4,10 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Removed
-
-- `sandstone/ActionGuide` prop `icon`
-
 ### Added
 
 - `sandstone` high-contrast support
