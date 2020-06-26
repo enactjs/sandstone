@@ -70,6 +70,23 @@ describe('PopupTabLayout', function () {
 
 					expect(actual).to.equal(expected);
 				});
+
+				it('should prevent focus from moving to the tabs while navigating vertically through the content when using noCloseButton', function () {
+					const soundId = 'sound';
+
+					Page.spotlightDown();
+					Page.waitForExist(`#${soundId}`);
+
+					Page.waitTransitionEnd(1500, 'waiting for Panel transition', () => {
+						Page.spotlightRight();
+					});
+					Page.spotlightUp();
+
+					const expected = 'Advanced Audio';
+					const actual = browser.execute(getFocusedText);
+
+					expect(actual).to.equal(expected);
+				});
 			});
 
 			// describe('pointer interaction', function () {
