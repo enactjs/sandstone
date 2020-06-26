@@ -360,7 +360,7 @@ TabPanel.propTypes = {
 	 * The container id for {@link spotlight/Spotlight}.
 	 *
 	 * @type {String}
-	 * @public
+	 * @private
 	 */
 	spotlightId: PropTypes.string
 };
