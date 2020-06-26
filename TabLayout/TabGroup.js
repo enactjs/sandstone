@@ -107,7 +107,8 @@ const SpotlightContainerGroup = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused'
+		enterTo: 'last-focused',
+		straightOnlyLeave: true
 	},
 	Group
 );
@@ -213,7 +214,6 @@ const RefocusDecorator = Wrapped => {
 		// after the single tab has been replaced by the list, focus the list (which will choose the
 		// selected item) and reset the refocus flag
 		React.useEffect(() => {
-			Spotlight.set(tabsSpotlightId, {straightOnlyLeave: true});
 			if (!refocus.selected) return;
 
 			// restrict the refocus to only 5-way and only when nothing else gained focus in the
