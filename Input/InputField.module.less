@@ -65,7 +65,7 @@
 	.input,
 	.inputHighlight {
 		z-index: 1;
-		font-size: @sand-inputfield-small-font-size;
+		font-size: @sand-input-font-size;
 		font-weight: @sand-inputfield-font-weight;
 	}
 
@@ -82,7 +82,7 @@
 		position: absolute;
 		top: 0;
 		height: @sand-inputfield-highlight-height;
-		max-width: @sand-inputfield-highlight-small-max-width;
+		max-width: @sand-inputfield-highlight-max-width;
 		overflow: hidden;
 		letter-spacing: 0.1px;
 		pointer-events: none;
@@ -90,24 +90,24 @@
 		z-index: -1;
 	}
 
-	&.large {
-		height: @sand-inputfield-large-height;
+	&.small {
+		height: @sand-inputfield-small-height;
 
 		.iconBefore,
 		.iconAfter {
-			line-height: @sand-inputfield-large-height;
-			height: @sand-inputfield-large-height;
+			line-height: @sand-inputfield-small-height;
+			height: @sand-inputfield-small-height;
 		}
 
 		.input {
-			font-size: @sand-input-font-size;
-			height: @sand-inputfield-large-height;
+			font-size: @sand-inputfield-small-font-size;
+			height: @sand-inputfield-small-height;
 		}
 
 		.inputHighlight {
-			line-height: @sand-inputfield-large-height;
-			height: @sand-inputfield-large-height;
-			max-width: @sand-inputfield-highlight-max-width;
+			line-height: @sand-inputfield-small-height;
+			height: @sand-inputfield-small-height;
+			max-width: @sand-inputfield-highlight-small-max-width;
 		}
 	}
 
