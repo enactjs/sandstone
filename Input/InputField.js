@@ -112,14 +112,6 @@ const InputFieldBase = kind({
 		invalidMessage: PropTypes.string,
 
 		/**
-		 * The width of invalidTooltip content in pixels (px).
-		 *
-		 * @type {Number|null}
-		 * @public
-		 */
-		invalidTooltipWidth: PropTypes.number,
-
-		/**
 		 * Called when blurred.
 		 *
 		 * @type {Function}
@@ -178,6 +170,14 @@ const InputFieldBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
+		 * Type of popup.
+		 *
+		 * @type {('fullscreen'|'overlay')}
+		 * @public
+		 */
+		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
+
+		/**
 		 * Indicates the content's text direction is right-to-left.
 		 *
 		 * @type {Boolean}
@@ -219,7 +219,6 @@ const InputFieldBase = kind({
 		disabled: false,
 		dismissOnEnter: false,
 		invalid: false,
-		invalidTooltipWidth: null,
 		placeholder: '',
 		size: 'large',
 		type: 'text'
@@ -248,12 +247,12 @@ const InputFieldBase = kind({
 			const title = (value == null || value === '') ? placeholder : '';
 			return calcAriaLabel(title, type, value);
 		},
-		className: ({invalid, size, styler}) => styler.append({invalid}, size),
+		className: ({invalid, popupType, size, styler}) => styler.append({invalid}, popupType, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), invalidTooltipWidth}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent" width={invalidTooltipWidth}>
+					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -269,7 +268,7 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
-		delete rest.invalidTooltipWidth;
+		delete rest.popupType;
 		delete rest.rtl;
 
 		return (
