@@ -46,8 +46,8 @@ class PopupTabLayoutPage extends Page {
 		super.open('PopupTabLayout-View', urlExtra);
 	}
 
-	waitForExist (selector, duration) {
-		$(selector).waitForExist(duration);
+	waitForExist (selector, timeout) {
+		$(selector).waitForExist({timeout});
 	}
 }
 

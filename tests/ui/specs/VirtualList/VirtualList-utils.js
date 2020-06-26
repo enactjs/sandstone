@@ -31,13 +31,13 @@ function waitUntilFocused (itemNum, comment = '') {
 	browser.waitUntil(function () {
 		const focusedId = focusedElement();
 		return target === focusedId;
-	}, 1500, `timed out waiting to focus index ${itemNum}${comment}`);
+	}, {timeout: 1500, timeoutMsg: `timed out waiting to focus index ${itemNum}${comment}`});
 }
 
 function waitUntilVisible (itemNum) {
 	browser.waitUntil(function () {
 		return hitTest(`#item${itemNum}`);
-	}, 1500, `timed out waiting until visible index ${itemNum}`);
+	},  {timeout: 1500, timeoutMsg: `timed out waiting until visible index ${itemNum}`});
 }
 
 function isScrolling () {
@@ -54,8 +54,8 @@ function isNotScrolling () {
  * @param {Number} [timeout=3000]
  */
 function waitForScrollStartStop (timeout = 3000) {
-	browser.waitUntil(isScrolling, timeout);
-	browser.waitUntil(isNotScrolling, timeout);
+	browser.waitUntil(isScrolling, {timeout});
+	browser.waitUntil(isNotScrolling, {timeout});
 }
 
 exports.expectFocusedItem = expectFocusedItem;

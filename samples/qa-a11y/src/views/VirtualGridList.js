@@ -1,27 +1,19 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import ImageItem from '@enact/sandstone/ImageItem';
-import Region from '@enact/sandstone/Region';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import css from './VirtualGridList.module.less';
-
 const
 	items = [],
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = ({index, ...rest}) => {
-		const
-			{caption, label, src} = items[index],
-			posinset = index + 1;
+		const {caption, label, src} = items[index];
 
 		return (
 			<ImageItem
 				{...rest}
-				aria-posinset={posinset}
-				aria-setsize={items.length}
-				role="listitem"
 				src={src}
 				label={label}
 			>
@@ -36,7 +28,11 @@ for (let i = 0; i < 100; i++) {
 		caption = `Item ${count}`,
 		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
 		label = `SubItem ${count}`,
-		src = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+		src = {
+			'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
+			'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+			'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
+		};
 
 	items.push({caption, label, src});
 }
@@ -46,7 +42,7 @@ class VirtualGridListView extends React.Component {
 		super();
 		this.state = {
 			isHorizontalList: false,
-			isNative: false
+			isNative: true
 		};
 	}
 
@@ -75,18 +71,16 @@ class VirtualGridListView extends React.Component {
 						Native
 					</CheckboxItem>
 				</Cell>
-				<Cell className={css.region} component={Region} title="X of Y feature">
-					<VirtualGridList
-						dataSize={items.length}
-						direction={isHorizontalList ? 'horizontal' : 'vertical'}
-						itemRenderer={renderItem}
-						itemSize={{
-							minWidth: ri.scale(200),
-							minHeight: ri.scale(200)
-						}}
-						scrollMode={scrollMode}
-					/>
-				</Cell>
+				<VirtualGridList
+					dataSize={items.length}
+					direction={isHorizontalList ? 'horizontal' : 'vertical'}
+					itemRenderer={renderItem}
+					itemSize={{
+						minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+						minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+					}}
+					scrollMode={scrollMode}
+				/>
 			</Layout>
 		);
 	}

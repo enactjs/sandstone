@@ -274,7 +274,6 @@ const ItemBase = kind({
 const ItemDecorator = compose(
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
-	Pure,
 	Spottable,
 	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
@@ -295,7 +294,7 @@ const ItemDecorator = compose(
  * @ui
  * @public
  */
-const Item = ItemDecorator(ItemBase);
+const Item = Pure(ItemDecorator(ItemBase));
 
 export default Item;
 export {
