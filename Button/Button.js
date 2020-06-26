@@ -187,7 +187,7 @@ const ButtonBase = kind({
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
-			`focus${cap(focusEffect)}`,
+			(!iconOnly ? `focus${cap(focusEffect)}` : null),
 			`icon${cap(iconPosition)}`,
 			size
 		),
