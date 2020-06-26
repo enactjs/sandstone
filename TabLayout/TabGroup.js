@@ -107,7 +107,8 @@ const SpotlightContainerGroup = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused'
+		enterTo: 'last-focused',
+		straightOnlyLeave: true
 	},
 	Group
 );
