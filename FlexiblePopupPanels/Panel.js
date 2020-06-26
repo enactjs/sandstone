@@ -1,19 +1,12 @@
 import handle, {adaptEvent, forward, forwardWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
-import ForwardRef from '@enact/ui/ForwardRef';
 import {Cell, Row} from '@enact/ui/Layout';
-import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
-import compose from 'ramda/src/compose';
 import React from 'react';
 
 import $L from '../internal/$L';
-import {NavigationButton, PanelsStateContext, AutoFocusDecorator} from '../internal/Panels';
-import {ContextAsDefaults} from '../internal/Panels/util';
-import {PanelBase as DefaultPanel} from '../Panels/Panel';
-import SharedStateDecorator from '../internal/SharedStateDecorator';
-import Skinnable from '../Skinnable';
+import {NavigationButton, PanelsStateContext} from '../internal/Panels';
+import {PanelBase as DefaultPanel, PanelDecorator} from '../Panels/Panel';
 
 import css from './FlexiblePopupPanels.module.less';
 
@@ -220,51 +213,7 @@ const PanelBase = kind({
 	}
 });
 
-const nextNavButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
-const prevNavButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
-
-const PanelDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
-	ContextAsDefaults,
-	SharedStateDecorator({idProp: 'data-index'}),
-	SpotlightContainerDecorator({
-		continue5WayHold: true,
-		// prefer any spottable within the content followed by the body (which includes the nav
-		// buttons) for first render
-		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *`, `.${css.body} *`].filter(Boolean),
-		enterTo: 'last-focused',
-		preserveId: true,
-		lastFocusedPersist: (node, all) => {
-			const container = typeof node === 'string';
-			let navButton = false;
-
-			if (node.matches(nextNavButtonSelector)) {
-				navButton = 'next';
-			} else if (node.matches(prevNavButtonSelector)) {
-				navButton = 'previous';
-			}
-
-			return {
-				container,
-				element: !container,
-				navButton,
-				key: container ? node : all.indexOf(node)
-			};
-		},
-		lastFocusedRestore: ({container, key, navButton}, all) => {
-			if (navButton) {
-				return all.find(e => e.matches(navButton === 'next' ? nextNavButtonSelector : prevNavButtonSelector));
-			}
-
-			return container ? key : all[key];
-		}
-	}),
-	Slottable({slots: ['header']}),
-	AutoFocusDecorator({focusMode: 'container'}),
-	Skinnable
-);
-
-const Panel = PanelDecorator({defaultElement: `.${css.content} *`}, PanelBase);
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
 export {

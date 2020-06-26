@@ -1,5 +1,8 @@
+import handle, {forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useClass from '@enact/core/useClass';
+import useHandlers from '@enact/core/useHandlers';
+import {Job} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
@@ -127,58 +130,83 @@ const FlexiblePopupPanelsBase = kind({
 	}
 });
 
+
+const prevButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
+const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
+
 class RestoreButtonFocus {
 	constructor () {
 		this.pause = new Pause('RestoreButtonFocus');
-		this.props = {};
-		this.restoreFocus = false;
+		this.target = false;
 	}
 
-	setProps (props) {
-		this.props = props;
-	}
-
-	onTransition = () => {
-		if (this.restoreFocus) {
-			this.pause.resume();
-			const selector = `.${css.panel}[data-index="${this.props.index}"]`;
-			const panel = document.querySelector(selector);
-			if (panel) {
-				const spotlightId = panel.dataset.spotlightId;
-				if (spotlightId) {
-					Spotlight.set(spotlightId, {
-						lastFocusedKey: {
-							navButton: this.restoreFocus
-						}
-					});
-				}
-			}
-		}
-		this.restoreFocus = false;
-	}
-
-	onWillTransition = () => {
+	captureTarget = () => {
 		const current = Spotlight.getCurrent();
 		if (current && current.classList.contains(css.navButton)) {
+			const prevButtonFocused = current.matches(prevButtonSelector);
+
 			this.pause.pause();
-			const prevButtonFocused = current.matches(`.${css.navCellBefore} .${css.navButton}`);
-			this.restoreFocus = prevButtonFocused ? 'prev' : 'next';
+			this.target = prevButtonFocused ? prevButtonSelector : nextButtonSelector;
 		} else {
-			this.restoreFocus = false;
+			this.target = false;
 		}
+	}
+
+	restoreFocus = (index) => {
+		if (this.shouldRestoreFocus()) {
+			this.pause.resume();
+			const selector = `.${css.panel}[data-index="${index}"] ${this.target}`;
+			const button = document.querySelector(selector);
+
+			button.focus();
+		}
+
+		this.target = false;
+	}
+
+	shouldRestoreFocus = () => {
+		return this.target !== false;
 	}
 }
 
-const ButtonFocusDecorator = Wrapped => function BFD ({index, onTransition, onWillTransition, ...rest}) {
+const transitionHandlers = {
+	onTransition: handle(
+		forward('onTransition'),
+		(ev, props, {restoreButtonFocus}) => restoreButtonFocus.shouldRestoreFocus(),
+		(ev, props, {index, job}) => job.start(index)
+	),
+	onWillTransition: handle(
+		forward('onWillTransition'),
+		(ev, props, {job}) => job.stop()
+	)
+};
+
+const ButtonFocusDecorator = Wrapped => function BFD ({index, ...rest}) {
 	const restoreButtonFocus = useClass(RestoreButtonFocus);
-	restoreButtonFocus.setProps({index, onTransition, onWillTransition});
+	const {current: ref} = React.useRef({
+		restoreButtonFocus,
+		index
+	});
+
+	if (!ref.job) {
+		ref.job = new Job(restoreButtonFocus.restoreFocus, 1000);
+	}
+
+	if (index !== ref.index) {
+		restoreButtonFocus.captureTarget();
+		ref.index = index;
+	}
+
+	const handlers = useHandlers(transitionHandlers, rest, ref);
+
+	// be sure the job is cleaned up on unmount
+	React.useEffect(() => ref.job.stop, [ref]);
 
 	return (
 		<Wrapped
 			{...rest}
+			{...handlers}
 			index={index}
-			onTransition={restoreButtonFocus.onTransition}
-			onWillTransition={restoreButtonFocus.onWillTransition}
 		/>
 	);
 };
