@@ -7,7 +7,6 @@ import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import Layout, {Cell} from '@enact/ui/Layout';
-import {scale} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -23,8 +22,8 @@ import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFiel
 
 import componentCss from './Input.module.less';
 
-const FULLSCREEN_MAX_WIDTH = 3240;
-const OVERLAY_MIN_WIDTH = 738;
+// const FULLSCREEN_MAX_WIDTH = 3240;
+// const OVERLAY_MIN_WIDTH = 738;
 
 const prepareInputEventPayload = ev => ({value: ev.target.value});
 const isPasswordType = type => type === 'password' || type === 'passwordnumber';
@@ -320,7 +319,6 @@ const InputPopupBase = kind({
 	}) => {
 
 		const inputProps = extractInputFieldProps(rest);
-		const invalidTooltipWidth = popupType === 'fullscreen' ? scale(FULLSCREEN_MAX_WIDTH) : scale(OVERLAY_MIN_WIDTH);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 
 		delete rest.length;
@@ -350,7 +348,6 @@ const InputPopupBase = kind({
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
-								invalidTooltipWidth={invalidTooltipWidth}
 								onChange={onChange}
 								onComplete={onNumberComplete}
 								showKeypad
@@ -365,9 +362,9 @@ const InputPopupBase = kind({
 								autoFocus
 								type={type}
 								defaultValue={value}
-								invalidTooltipWidth={invalidTooltipWidth}
 								noReadoutOnFocus
 								placeholder={placeholder}
+								popupType={popupType}
 								onChange={onChange}
 								onKeyDown={onInputKeyDown}
 							/>
