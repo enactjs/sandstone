@@ -19,11 +19,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to allow clicking near, but outside, the Panels to dismiss them
 - `sandstone/FixedPopupPanels` to not read out a title twice
 - `sandstone/Input` style to match latest designs
+- `sandstone/Input` submit button positioning
 - `sandstone/Item` to prevent unnecessary re-rendering
 - `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
 - `sandstone/PopupTabLayout` to read out properly
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
-- `sandstone/Input` submit button position to center
 
 ## [1.0.0-beta.8] - 2020-06-22
 
