@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/ActionGuide` to have the proper size and font color for the icon and the label
 - `sandstone/Tooltip` to not show a vertical gap
+- `sandstone/Dropdown` margins to correctly align with other components
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to allow clicking near, but outside, the Panels to dismiss them
 - `sandstone/FixedPopupPanels` to not read out a title twice
 - `sandstone/Input` style to match latest designs
