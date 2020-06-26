@@ -10,6 +10,19 @@
 		}
 	}
 
+	// Skin colors
+	.focus({
+		.applySkins({
+			.disabled({
+				.checkbox {
+					.bg {
+						background-color: @sand-formcheckboxitem-checkbox-disabled-focus-bg-color;
+					}
+				}
+			});
+		});
+	});
+
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
 		font-size: @sand-item-font-size;
@@ -27,13 +40,13 @@
 			color: @sand-formcheckboxitem-focus-text-color;
 			font-weight: @sand-formcheckboxitem-focus-font-weight;
 
-			.bg {
+			> .bg {
 				background-color: transparent;
 				opacity: 0;
 			}
 
 			.disabled({
-				.bg {
+				> .bg {
 					opacity: 0;
 				}
 			});
