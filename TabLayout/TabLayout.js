@@ -221,7 +221,9 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => safeChildMap(children, (child) => (<React.Fragment>{child.props.children}</React.Fragment>)),
+		children: ({children}) => safeChildMap(children, (child) => (
+			<React.Fragment>{child.props.children}</React.Fragment>
+		)),
 		className: ({collapsed, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
