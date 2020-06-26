@@ -47,7 +47,7 @@ class FlexiblePopupPanelsInterface {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
 			const {bottom, left: left2} = document.querySelector('#panel1 .FlexiblePopupPanels_FlexiblePopupPanels_bodyLayout').getBoundingClientRect();
 
-			return {x: left2 - left1 + 50, y: (bottom - top) + 50};
+			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
 		});
 
 		// Have to target open button because it does not allow for clicking outside the parents
