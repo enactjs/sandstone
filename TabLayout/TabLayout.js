@@ -8,7 +8,7 @@
 
 import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {safeChildMap} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -221,7 +221,7 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => safeChildMap(children, (child) => (
+		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<React.Fragment>{child.props.children}</React.Fragment>
 		)),
 		className: ({collapsed, orientation, styler}) => styler.append(
@@ -231,7 +231,7 @@ const TabLayoutBase = kind({
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
-			const tabs = safeChildMap(children, (child) => {
+			const tabs = mapAndFilterChildren(children, (child) => {
 				const {disabled, icon, title} = child.props;
 				return {disabled, icon, title};
 			});

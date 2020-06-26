@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {safeChildMap} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -96,7 +96,7 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => safeChildMap(children, (child) => {
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => mapAndFilterChildren(children, (child) => {
 			const props = {
 				nextButtonVisibility,
 				onChange,

@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {safeChildMap} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import Spottable from '@enact/spotlight/Spottable';
 import Changeable from '@enact/ui/Changeable';
 import React from 'react';
@@ -100,7 +100,7 @@ const DateComponentPickerBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => safeChildMap(children, (child) => (
+		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<PickerItem marqueeDisabled>{child}</PickerItem>
 		)),
 		max: ({children}) => React.Children.count(children) - 1,

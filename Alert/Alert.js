@@ -8,7 +8,7 @@
  */
 
 import kind from '@enact/core/kind';
-import {safeChildMap} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
@@ -155,7 +155,7 @@ const AlertBase = kind({
 
 	computed: {
 		buttons: ({buttons}) => {
-			return safeChildMap(buttons, (button, index) => (
+			return mapAndFilterChildren(buttons, (button, index) => (
 				<Cell className={css.buttonCell} key={`button${index}`} shrink>
 					{button}
 				</Cell>

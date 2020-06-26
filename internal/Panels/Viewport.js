@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
-import {safeChildMap} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
@@ -217,7 +217,7 @@ const ViewportBase = class extends React.Component {
 		this.pause
 	);
 
-	mapChildren = (children, generateId) => safeChildMap(children, (child, index) => {
+	mapChildren = (children, generateId) => mapAndFilterChildren(children, (child, index) => {
 		const {spotlightId = generateId(index, 'panel-container', Spotlight.remove)} = child.props;
 		const props = {
 			spotlightId,
