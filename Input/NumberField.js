@@ -191,7 +191,7 @@ const NumberFieldBase = kind({
 					inline
 				>
 					{items.map((_, index) => ({
-						active: index <= value.length,
+						active: index === value.length,
 						children: values[index],
 						component: NumberCell,
 						disabled,

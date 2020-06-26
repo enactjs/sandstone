@@ -4,11 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone` high-contrast support
+
 ### Fixed
 
 - `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/Item` to prevent unnecessary re-rendering
+- `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
 - `sandstone/PopupTabLayout` to read out properly
-- `sandstone/Input` invalidTooltip to apply marquee
+- `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 
 ## [1.0.0-beta.8] - 2020-06-22
 
