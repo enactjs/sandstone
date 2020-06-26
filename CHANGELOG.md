@@ -7,11 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone` high-contrast support
+- `sandstone/Input` LESS variable names for height
 
 ### Fixed
 
 - `sandstone/FixedPopupPanels` to not read out a title twice
-- `sandstone/Input` style to match latest designs
+- `sandstone/Input` style to match latest designs and default size to `small`
 - `sandstone/Item` to prevent unnecessary re-rendering
 - `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
 - `sandstone/PopupTabLayout` to read out properly
