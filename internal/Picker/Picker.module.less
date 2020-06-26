@@ -259,59 +259,6 @@
 			})
 		}
 	});
-
-	// Large-text mode rules
-	.sand-custom-text({
-		.sizingPlaceholder,
-		.valueWrapper {
-			font-size: @sand-item-font-size-large;
-		}
-		.valueWrapper {
-			line-height: @sand-button-small-height-large;
-			height: @sand-button-small-height-large;
-		}
-
-		&.joined {
-			&.horizontal {
-				font-size: @sand-item-font-size-large;
-				height: @sand-picker-joined-horizontal-height;
-				line-height: @sand-button-small-height-large;
-
-				.incrementer,
-				.decrementer {
-					&,
-					.icon {
-						height: @sand-button-small-height-large;
-						line-height: @sand-button-small-height-large;
-					}
-				}
-			}
-		}
-
-		&.small,
-		&.medium,
-		&.large {
-			&.vertical {
-				.valueWrapper {
-					.sizingPlaceholder,
-					.item {
-						margin: 0 @sand-spotlight-outset;
-					}
-				}
-			}
-		}
-
-		&.vertical {
-			.valueWrapper {
-				padding: 0 @sand-spotlight-outset;
-
-				.sizingPlaceholder,
-				.item {
-					margin: 0;
-				}
-			}
-		}
-	});
 }
 
 .muted({

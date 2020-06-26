@@ -59,9 +59,9 @@ const wrapRange = (min, max, value) => {
 
 const selectIcon = (icon, v, h) => (props) => (props[icon] || (props.orientation === 'vertical' ? v : h));
 
-const selectIncIcon = selectIcon('incrementIcon', 'arrowlargeup', 'arrowlargeright');
+const selectIncIcon = selectIcon('incrementIcon', 'triangleup', 'triangleright');
 
-const selectDecIcon = selectIcon('decrementIcon', 'arrowlargedown', 'arrowlargeleft');
+const selectDecIcon = selectIcon('decrementIcon', 'triangledown', 'triangleleft');
 
 // Set-up event forwarding
 const forwardBlur = forward('onBlur'),
@@ -946,6 +946,7 @@ const PickerBase = class extends React.Component {
 					null :
 					<Cell
 						{...voiceProps}
+						align={joined ? 'stretch' : null}
 						aria-controls={!joined ? incrementerAriaControls : null}
 						aria-label={this.calcIncrementLabel(valueText)}
 						className={css.incrementer}
@@ -999,6 +1000,7 @@ const PickerBase = class extends React.Component {
 					null :
 					<Cell
 						{...voiceProps}
+						align={joined ? 'stretch' : null}
 						aria-controls={!joined ? decrementerAriaControls : null}
 						aria-label={this.calcDecrementLabel(valueText)}
 						className={css.decrementer}
