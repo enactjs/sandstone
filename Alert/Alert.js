@@ -8,6 +8,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {safeChildMap} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
@@ -154,15 +155,11 @@ const AlertBase = kind({
 
 	computed: {
 		buttons: ({buttons}) => {
-			if (buttons) {
-				return React.Children.map(buttons, (button, index) => (
-					<Cell className={css.buttonCell} key={`button${index}`} shrink>
-						{button}
-					</Cell>
-				));
-			} else {
-				return null;
-			}
+			return safeChildMap(buttons, (button, index) => (
+				<Cell className={css.buttonCell} key={`button${index}`} shrink>
+					{button}
+				</Cell>
+			)) || null;
 		},
 		contentComponent: ({children, type}) => {
 			if (typeof children === 'string' ||

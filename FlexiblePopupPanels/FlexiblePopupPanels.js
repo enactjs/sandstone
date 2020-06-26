@@ -1,4 +1,5 @@
 import kind from '@enact/core/kind';
+import {safeChildMap} from '@enact/core/util';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -95,20 +96,16 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
-			if (child) {
-				const props = {
-					nextButtonVisibility,
-					onChange,
-					onNextClick,
-					onPrevClick,
-					prevButtonVisibility
-				};
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => safeChildMap(children, (child) => {
+			const props = {
+				nextButtonVisibility,
+				onChange,
+				onNextClick,
+				onPrevClick,
+				prevButtonVisibility
+			};
 
-				return React.cloneElement(child, props);
-			} else {
-				return null;
-			}
+			return React.cloneElement(child, props);
 		}),
 		onBack: ({onChange}) => onChange
 	},

@@ -144,14 +144,19 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
-			return {
-				key: `tabs${i}`,
-				children: title || children,
-				onFocusTab,
-				...rest
-			};
-		}),
+		children: ({onFocusTab, tabs}) => tabs.map(tab => {
+			if (tab) {
+				const {icon, title, ...rest} = tab;
+				return {
+					...rest,
+					key: `tabs_${title + (icon ? icon : '')}`,
+					children: title,
+					onFocusTab
+				};
+			} else {
+				return null;
+			}
+		}).filter(tab => tab != null),
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length

@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
+import {safeChildMap} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
@@ -23,9 +24,9 @@ const PanelsStateContext = React.createContext({});
  * @private
  */
 const ViewportBase = class extends React.Component {
-	static displayName = 'Viewport'
+	static displayName = 'Viewport';
 
-	static contextType = SharedState
+	static contextType = SharedState;
 
 	static propTypes = /** @lends sandstone/Panels.Viewport.prototype */ {
 
@@ -125,12 +126,12 @@ const ViewportBase = class extends React.Component {
 		onClose: PropTypes.func,
 
 		type: PropTypes.string
-	}
+	};
 
 	static defaultProps = {
 		index: 0,
 		noAnimation: false
-	}
+	};
 
 	constructor () {
 		super();
@@ -188,7 +189,7 @@ const ViewportBase = class extends React.Component {
 		}
 
 		return true;
-	}
+	};
 
 	removeTransitioningClass = () => {
 		if (this.node) {
@@ -196,45 +197,41 @@ const ViewportBase = class extends React.Component {
 		}
 
 		return true;
-	}
+	};
 
-	pause = () => this.paused.pause()
+	pause = () => this.paused.pause();
 
-	resume = () => this.paused.resume()
+	resume = () => this.paused.resume();
 
-	handle = handle.bind(this)
+	handle = handle.bind(this);
 
 	handleTransition = this.handle(
 		forward('onTransition'),
 		this.removeTransitioningClass,
 		this.resume
-	)
+	);
 
 	handleWillTransition = this.handle(
 		forward('onWillTransition'),
 		this.addTransitioningClass,
 		this.pause
-	)
+	);
 
-	mapChildren = (children, generateId) => React.Children.map(children, (child, index) => {
-		if (child) {
-			const {spotlightId = generateId(index, 'panel-container', Spotlight.remove)} = child.props;
-			const props = {
-				spotlightId,
-				'data-index': index
-			};
+	mapChildren = (children, generateId) => safeChildMap(children, (child, index) => {
+		const {spotlightId = generateId(index, 'panel-container', Spotlight.remove)} = child.props;
+		const props = {
+			spotlightId,
+			'data-index': index
+		};
 
-			if (child.props.autoFocus == null && this.state.direction === 'forward') {
-				props.autoFocus = 'default-element';
-			}
-
-			return React.cloneElement(child, props);
-		} else {
-			return null;
+		if (child.props.autoFocus == null && this.state.direction === 'forward') {
+			props.autoFocus = 'default-element';
 		}
-	})
 
-	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren'
+		return React.cloneElement(child, props);
+	});
+
+	getEnteringProp = (noAnimation) => noAnimation ? null : 'hideChildren';
 
 	render () {
 		const {
