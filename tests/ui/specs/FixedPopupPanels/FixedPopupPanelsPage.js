@@ -47,7 +47,7 @@ class FixedPopupPanelsInterface {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
 			const {bottom, left: left2} = document.querySelector('#panel1').getBoundingClientRect();
 
-			return {x: left2 - left1 + 50, y: (bottom - top) + 50};
+			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
 		});
 
 		$('#openButton').click(offset);
