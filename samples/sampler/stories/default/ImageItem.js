@@ -10,6 +10,11 @@ import {ImageItem, ImageItemBase} from '@enact/sandstone/ImageItem';
 const Config = mergeComponentMetadata('ImageItem', UiImageItem, ImageItemBase, ImageItem);
 ImageItem.displayName = 'ImageItem';
 
+const imageIconSrc = {
+	'hd':  'http://via.placeholder.com/44x44/ffffff/000000',
+	'fhd': 'http://via.placeholder.com/66x66/ffffff/000000',
+	'uhd': 'http://via.placeholder.com/132x132/ffffff/000000'
+};
 const src = {
 	'hd':  'http://via.placeholder.com/200x200/7ed31d/ffffff',
 	'fhd': 'http://via.placeholder.com/300x300/7ed31d/ffffff',
@@ -31,6 +36,7 @@ storiesOf('Sandstone', module)
 				orientation={select('orientation', prop.orientation, Config)}
 				selected={boolean('selected', Config)}
 				showSelection={boolean('showSelection', Config)}
+				imageIconSrc={boolean('imageIcon', Config) && object('imageIconSrc', Config, imageIconSrc)}
 				src={object('src', Config, src)}
 				style={{
 					position: 'absolute',

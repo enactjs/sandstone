@@ -19,7 +19,6 @@ import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
-import {Cell, Row} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -209,22 +208,20 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({centered, children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({centered, children, css, imageIconComponent: ImageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
 
 			return (
-				<Row className={css.captions}>
+				<div className={css.captions}>
 					{hasImageIcon ? (
-						<Cell
+						<ImageIconComponent
 							className={css.imageIcon}
-							component={imageIconComponent}
 							src={imageIconSrc}
-							shrink
 						/>
 					) : null}
-					<Cell>
+					<div>
 						<Marquee
 							className={css.caption}
 							// eslint-disable-next-line no-undefined
@@ -234,8 +231,8 @@ const ImageItemBase = kind({
 							{children}
 						</Marquee>
 						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-					</Cell>
-				</Row>
+					</div>
+				</div>
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
