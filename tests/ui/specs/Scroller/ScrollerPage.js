@@ -8,8 +8,8 @@ class ScrollerPage extends Page {
 		this.title = 'Scroller Test';
 	}
 
-	open (urlExtra) {
-		super.open('Scroller-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`Scroller${layout}-View`, urlExtra);
 	}
 
 	get button1 () { return element('#Page_1_Button', browser); }
