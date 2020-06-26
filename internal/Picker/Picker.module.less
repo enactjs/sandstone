@@ -131,6 +131,13 @@
 				margin-bottom: @sand-picker-joined-horizontal-value-offset;
 			}
 
+			.item {
+				// This "fixes" an issue with horizontal+joined+noAnimation which casuses
+				// a de-focus to happen on click. Here, we turn off pointer events, so that
+				// event can't be fired by item, and he Picker will not become de-focused.
+				pointer-events: none;
+			}
+
 			.indicatorContainer {
 				margin: 0 auto;
 				line-height: 0;
