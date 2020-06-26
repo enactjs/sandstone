@@ -29,7 +29,7 @@ class FlexiblePopupPanelsView extends React.Component {
 			nextButton = <Button icon="closex" aria-label="quit" onClick={this.handleClose} />;
 
 		return (
-			<div>
+			<>
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
@@ -58,7 +58,7 @@ class FlexiblePopupPanelsView extends React.Component {
 					</Panel>
 				</FlexiblePopupPanels>
 				<Button onClick={this.handleOpen}>Open FlexiblePopupPanels</Button>
-			</div>
+			</>
 		);
 	}
 }

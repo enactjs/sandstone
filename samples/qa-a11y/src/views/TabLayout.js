@@ -31,7 +31,7 @@ class TabLayoutView extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<>
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout>
 					<Tab
@@ -58,7 +58,7 @@ class TabLayoutView extends React.Component {
 						<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 					</Tab>
 				</TabLayout>
-			</div>
+			</>
 		);
 	}
 }

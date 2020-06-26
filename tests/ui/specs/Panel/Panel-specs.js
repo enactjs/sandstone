@@ -6,10 +6,10 @@ describe('Panel', function () {
 		Page.open();
 	});
 
-	function waitForFocused (node, timeout, message = 'timed out waiting for focus', delay = 250) {
+	function waitForFocused (node, timeout, timeoutMsg = 'timed out waiting for focus', interval = 250) {
 		browser.waitUntil(function () {
 			return node.isFocused();
-		}, timeout, message, delay);
+		}, {timeout, timeoutMsg, interval});
 	}
 
 	describe('focus management', () => {
