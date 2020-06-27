@@ -12,6 +12,49 @@ import icons from '../default/icons';
 
 TabLayout.displayName = 'TabLayout';
 
+class AddingTabSample extends React.Component {
+	constructor (props) {
+		super(props);
+
+		this.state = {
+			active: false,
+			index: 0
+		};
+	}
+
+	componentDidMount () {
+		this.id = setInterval(() => {
+			this.setState(state => ({
+				active: !state.active,
+				// modeling updating the index when the tabs change
+				index: state.active ? state.index - 1 : state.index + 1
+			}));
+		}, 3000);
+	}
+
+	componentWillUnmount () {
+		clearInterval(this.id);
+	}
+
+	handleSelect = ({index}) => this.setState({index})
+
+	render () {
+		return (
+			<TabLayout onSelect={this.handleSelect} index={this.state.index}>
+				{this.state.active ? (
+					<TabLayout.Tab title="added" icon="home">
+						<BodyText>If this button is focused when the tab is removed, spotlight will be lost.</BodyText>
+						<Button>Added button</Button>
+					</TabLayout.Tab>
+				) : null}
+				<TabLayout.Tab title="one" icon="star">
+					<Button>Button 1</Button>
+				</TabLayout.Tab>
+			</TabLayout>
+		);
+	}
+}
+
 storiesOf('TabLayout', module)
 	.add(
 		'With variable number of tabs',
@@ -135,6 +178,21 @@ storiesOf('TabLayout', module)
 							</TabLayout.Tab>
 						))}
 					</TabLayout>
+				</Panel>
+			);
+		},
+		{
+			props: {
+				noPanel: true
+			}
+		}
+	).add(
+		'With adding/removing a tab',
+		() => {
+			return (
+				<Panel>
+					<Header title="TabLayout" subtitle="With adding/removing a tab" />
+					<AddingTabSample />
 				</Panel>
 			);
 		},
