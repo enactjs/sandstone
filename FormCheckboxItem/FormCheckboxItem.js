@@ -59,14 +59,6 @@ const FormCheckboxItemBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Disables the form checkbox item.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		disabled: PropTypes.bool,
-
-		/**
 		 * The icon content.
 		 *
 		 * May be specified as either:
@@ -137,20 +129,18 @@ const FormCheckboxItemBase = kind({
 		className: ({slotBefore, styler}) => styler.append({hasSlotBefore: hasChildren(slotBefore)})
 	},
 
-	render: ({children, css, disabled, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
 			{...rest}
 			aria-checked={selected}
 			css={css}
-			disabled={disabled}
 			selected={selected}
 		>
 			<slotBefore>
 				<Checkbox
-					css={css}
-					disabled={disabled}
+					className={css.checkbox}
 					indeterminate={indeterminate}
 					indeterminateIcon={indeterminateIcon}
 					selected={selected}

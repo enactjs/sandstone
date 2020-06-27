@@ -4,6 +4,28 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
+// Assign the colors all in one place
+.checkbox-colors (@color, @bg, @border) {
+	.icon {
+		color: @color;
+		background-color: @bg;
+		box-shadow: 0 0 0 @sand-checkbox-border-width @border;
+	}
+}
+
+// Generate all states (and selectors) for the checkbox
+.checkbox-states (@resting, @selected, @indeterminate) {
+	@resting();
+
+	&.selected {
+		@selected();
+	}
+
+	&.indeterminate {
+		@indeterminate();
+	}
+}
+
 // Standalone version of the Checkbox (Also used when Checkbox has been wrapped with Spottable)
 @checkbox-standalone-rules: {
 	.bg {
@@ -14,12 +36,91 @@
 	}
 }
 
-// Local mixin to make rule application more consistent.
-.checkboxColors (@color, @bg, @border) {
-	color: @color;
-	background-color: @bg;
-	box-shadow: 0 0 0 @sand-checkbox-border-width @border;
-}
+// Resting States
+@checkbox-resting: {
+	.checkbox-states(
+		.checkbox-colors(
+			@sand-checkbox-color,
+			@sand-checkbox-bg-color,
+			@sand-checkbox-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-selected-color,
+			@sand-checkbox-selected-bg-color,
+			@sand-checkbox-selected-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-indeterminate-color,
+			@sand-checkbox-indeterminate-bg-color,
+			@sand-checkbox-indeterminate-border-color
+		);
+	);
+};
+
+// Focus States
+@checkbox-focus: {
+	.checkbox-states(
+		// Gathered rules into a rules-set to include the .bg selector in the resting block
+		{
+			.checkbox-colors(
+				@sand-checkbox-focus-color,
+				@sand-checkbox-focus-bg-color,
+				@sand-checkbox-focus-border-color
+			);
+			.bg {
+				.sand-spotlight-focus-bg-colors();
+			}
+		};
+		.checkbox-colors(
+			@sand-checkbox-selected-focus-color,
+			@sand-checkbox-selected-focus-bg-color,
+			@sand-checkbox-selected-focus-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-indeterminate-focus-color,
+			@sand-checkbox-indeterminate-focus-bg-color,
+			@sand-checkbox-indeterminate-focus-border-color
+		);
+	);
+};
+
+// Disabled
+@checkbox-disabled-resting: {
+	.checkbox-states(
+		{
+			// No custom rules for this state
+		};
+		.checkbox-colors(
+			@sand-checkbox-disabled-selected-color,
+			@sand-checkbox-disabled-selected-bg-color,
+			@sand-checkbox-disabled-selected-border-color
+		);
+		{
+			// No custom rules for this state
+		}
+	);
+};
+
+// Disabled + Focus States
+@checkbox-disabled-focus: {
+	.checkbox-states(
+		{
+			// No custom rules for this state
+			.bg {
+				background-color: @sand-checkbox-standalone-bg-disabled-focus-bg-color;
+			}
+		};
+		.checkbox-colors(
+			@sand-checkbox-focus-disabled-selected-color,
+			@sand-checkbox-focus-disabled-selected-bg-color,
+			@sand-checkbox-focus-disabled-selected-border-color
+		);
+		{
+			// No custom rules for this state
+		};
+	);
+};
+
 
 .checkbox {
 	display: inline-block;
@@ -55,129 +156,66 @@
 	//
 
 	.applySkins({
-		.icon {
-			.checkboxColors(
-				@sand-checkbox-color,
-				@sand-checkbox-bg-color,
-				@sand-checkbox-border-color
-			);
-		}
-
-		&.selected {
-			.icon {
-				.checkboxColors(
-					@sand-checkbox-selected-color,
-					@sand-checkbox-selected-bg-color,
-					@sand-checkbox-selected-border-color
-				);
-			}
-		}
-
-		&.indeterminate {
-			.icon {
-				.checkboxColors(
-					@sand-checkbox-indeterminate-color,
-					@sand-checkbox-indeterminate-bg-color,
-					@sand-checkbox-indeterminate-border-color
-				);
-			}
-		}
-
+		// Set up the background for standalone (and independently spottable) versions
 		&.standalone {
 			@checkbox-standalone-rules();
 		}
 		// Spottable version of the Checkbox
 		.spottable(@checkbox-standalone-rules);
+
+		// Resting
+		@checkbox-resting();
+
+		// Focus
+		.focus({
+			@checkbox-focus();
+		});
+
+		// Disabled
+		.sand-disabled({
+			.icon {
+				.sand-disabled-focus-content-colors();
+			}
+
+			@checkbox-disabled-resting();
+
+			// Disabled + Focus
+			.focus({
+				@checkbox-disabled-focus();
+			});
+		});
 	});
 }
 
-// When standalone or asChild is disabled
-.disabled({
-	& .checkbox,
-	&.checkbox {
+// The following target instances where the checkbox is inside another component and that
+// component is receiving the disabled/focused etc states, rather than checkbox directly.
+.focus({
+	& .checkbox {
 		.applySkins({
-			&.selected {
-				.icon {
-					.checkboxColors(
-						@sand-checkbox-disabled-selected-color,
-						@sand-checkbox-disabled-selected-bg-color,
-						@sand-checkbox-disabled-selected-border-color
-					);
-				}
-			}
+			@checkbox-focus();
 		});
 	}
 });
 
-// When standalone or asChild is focused
-.focus({
-	& .checkbox,
-	&.checkbox {
+.disabled({
+	& .checkbox {
 		.applySkins({
-			.bg {
-				.sand-spotlight-focus-bg-colors();
-			}
-
-			.icon {
-				.checkboxColors(
-					@sand-checkbox-focus-color,
-					@sand-checkbox-focus-bg-color,
-					@sand-checkbox-focus-border-color
-				);
-			}
-
-			&.selected {
-				.icon {
-					.checkboxColors(
-						@sand-checkbox-selected-focus-color,
-						@sand-checkbox-selected-focus-bg-color,
-						@sand-checkbox-selected-focus-border-color
-					);
-				}
-			}
-
-			&.indeterminate {
-				.icon {
-					.checkboxColors(
-						@sand-checkbox-indeterminate-focus-color,
-						@sand-checkbox-indeterminate-focus-bg-color,
-						@sand-checkbox-indeterminate-focus-border-color
-					);
-				}
-			}
+			@checkbox-disabled-resting();
 		});
 	}
+});
 
-	// When standalone or asChild is focused & disabled
+.focus({
 	.disabled({
-		& .checkbox,
-		&.checkbox {
+		& .checkbox {
 			.applySkins({
-				&.selected {
+				@checkbox-disabled-focus();
+
+				&.standalone {
 					.icon {
-						.checkboxColors(
-							@sand-checkbox-focus-disabled-selected-color,
-							@sand-checkbox-focus-disabled-selected-bg-color,
-							@sand-checkbox-focus-disabled-selected-border-color
-						);
+						.sand-disabled-focus-content-colors();
 					}
 				}
-
-				.sand-disabled({
-					.icon {
-						.sand-disabled-colors();
-					}
-
-					.bg {
-						.sand-disabled-focus-bg-colors(@sand-checkbox-disabled-focus-bg-color);
-					}
-
-					.focus({
-						.icon {
-							.sand-disabled-focus-content-colors();
-						}
-					});
-				});
 			});
 		}
 	});

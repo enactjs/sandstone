@@ -10,19 +10,6 @@
 		}
 	}
 
-	// Skin colors
-	.focus({
-		.applySkins({
-			.disabled({
-				.checkbox {
-					.bg {
-						background-color: @sand-formcheckboxitem-checkbox-disabled-focus-bg-color;
-					}
-				}
-			});
-		});
-	});
-
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
 		font-size: @sand-item-font-size;
@@ -40,16 +27,29 @@
 			color: @sand-formcheckboxitem-focus-text-color;
 			font-weight: @sand-formcheckboxitem-focus-font-weight;
 
-			> .bg {
+			.bg {
 				background-color: transparent;
 				opacity: 0;
 			}
 
 			.disabled({
-				> .bg {
+				color: @sand-formcheckboxitem-disabled-focus-text-color;
+
+				.bg {
 					opacity: 0;
+				}
+
+				.slotBefore {
+					// Overrides Item's rule, setting all content fields to the content opacity.
+					// Standalone Checkbox handles this coloration on its own, so that rule isn't
+					// needed, so we reset it back to default here.
+					opacity: initial;
 				}
 			});
 		});
+
+		.disabled({
+			color: @sand-formcheckboxitem-disabled-text-color;
+		})
 	});
 }

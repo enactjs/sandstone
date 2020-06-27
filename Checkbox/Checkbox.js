@@ -133,7 +133,7 @@ const CheckboxBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'checkbox',
-		publicClassNames: ['bg', 'checkbox', 'selected']
+		publicClassNames: ['checkbox', 'selected']
 	},
 
 	computed: {

@@ -72,7 +72,7 @@
 @sand-checkbox-disabled-focus-bg-color: @sand-spotlight-bg-color;
 @sand-checkbox-disabled-selected-color: @sand-spotlight-text-color;
 @sand-checkbox-disabled-selected-bg-color: @sand-spotlight-bg-color;
-@sand-checkbox-disabled-selected-border-color: @sand-spotlight-bg-color;
+@sand-checkbox-disabled-selected-border-color: @sand-checkbox-disabled-selected-bg-color;
 @sand-checkbox-focus-disabled-selected-color: @sand-spotlight-bg-color;
 @sand-checkbox-focus-disabled-selected-bg-color: @sand-spotlight-text-color;
 @sand-checkbox-focus-disabled-selected-border-color: @sand-spotlight-text-color;
@@ -91,6 +91,7 @@
 @sand-checkbox-indeterminate-focus-color: @sand-spotlight-text-color;
 @sand-checkbox-indeterminate-focus-bg-color: @sand-checkbox-focus-bg-color;
 @sand-checkbox-indeterminate-focus-border-color: @sand-checkbox-focus-border-color;
+@sand-checkbox-standalone-bg-disabled-focus-bg-color: @sand-gray;
 
 // ContextualPopup
 // ---------------------------------------
@@ -114,8 +115,9 @@
 
 // FormCheckboxItem
 // ---------------------------------------
-@sand-formcheckboxitem-checkbox-disabled-focus-bg-color: @sand-spotlight-bg-color;
 @sand-formcheckboxitem-focus-text-color: @sand-white;
+@sand-formcheckboxitem-disabled-text-color: inherit;
+@sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
 // Heading
 // ---------------------------------------
