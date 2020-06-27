@@ -33,10 +33,23 @@
 			}
 
 			.disabled({
+				color: @sand-formcheckboxitem-disabled-focus-text-color;
+
 				.bg {
 					opacity: 0;
 				}
+
+				.slotBefore {
+					// Overrides Item's rule, setting all content fields to the content opacity.
+					// Standalone Checkbox handles this coloration on its own, so that rule isn't
+					// needed, so we reset it back to default here.
+					opacity: initial;
+				}
 			});
 		});
+
+		.disabled({
+			color: @sand-formcheckboxitem-disabled-text-color;
+		})
 	});
 }
