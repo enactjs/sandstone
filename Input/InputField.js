@@ -189,7 +189,7 @@ const InputFieldBase = kind({
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
@@ -220,7 +220,7 @@ const InputFieldBase = kind({
 		dismissOnEnter: false,
 		invalid: false,
 		placeholder: '',
-		size: 'large',
+		size: 'small',
 		type: 'text'
 	},
 

@@ -263,6 +263,8 @@
 // ActionGuide
 // ---------------------------------------
 @sand-actionguide-max-width: 1500px;
+@sand-actionguide-label-height: 60px;
+@sand-actionguide-icon-margin: -24px 0 -18px 0;
 
 // Alert
 // ---------------------------------------
@@ -375,6 +377,7 @@
 
 // Dropdown
 // ---------------------------------------
+@sand-dropdown-margin: 0 @sand-spotlight-outset; // this extra margin used to align dropdown container with the outer element
 @sand-dropdown-border-radius: @sand-button-border-radius;
 @sand-dropdown-tiny-width: 480px;
 @sand-dropdown-small-width: @sand-button-min-width;
@@ -558,6 +561,7 @@
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 @sand-input-overlay-invalid-tooltip-width: 738px;
+@sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
 @sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
@@ -568,15 +572,13 @@
 @sand-inputfield-bg-opacity: 0.2;
 @sand-inputfield-border-radius: @sand-inputfield-border-width;
 @sand-inputfield-border-width: 12px;
-@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
 @sand-inputfield-icon-spacing: 30px;
 @sand-inputfield-invalid-tooltip-margin-top: 30px;
-@sand-inputfield-height: @sand-button-height;
-@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-height: 168px;
+@sand-inputfield-small-height: 132px;
 @sand-inputfield-highlight-height: 100%;
 @sand-inputfield-highlight-max-width: 756px;
 @sand-inputfield-highlight-small-max-width: 714px;
-@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // Item
 // ---------------------------------------
