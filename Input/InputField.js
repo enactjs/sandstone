@@ -42,6 +42,8 @@ const InputFieldBase = kind({
 		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
 		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
+		 * * `tooltip` - The "invalid" tooltip
+		 * * `tooltipLabel` - The "invalid" tooltip's label
 		 *
 		 * @type {Object}
 		 * @private
@@ -170,14 +172,6 @@ const InputFieldBase = kind({
 		placeholder: PropTypes.string,
 
 		/**
-		 * Type of popup.
-		 *
-		 * @type {('fullscreen'|'overlay')}
-		 * @public
-		 */
-		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
-
-		/**
 		 * Indicates the content's text direction is right-to-left.
 		 *
 		 * @type {Boolean}
@@ -227,7 +221,7 @@ const InputFieldBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'inputField',
-		publicClassNames: ['inputField', 'input', 'inputHighlight']
+		publicClassNames: ['inputField', 'input', 'inputHighlight', 'tooltip', 'tooltipLabel']
 	},
 
 	handlers: {
@@ -247,12 +241,12 @@ const InputFieldBase = kind({
 			const title = (value == null || value === '') ? placeholder : '';
 			return calcAriaLabel(title, type, value);
 		},
-		className: ({invalid, popupType, size, styler}) => styler.append({invalid}, popupType, size),
+		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent">
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -268,7 +262,6 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
-		delete rest.popupType;
 		delete rest.rtl;
 
 		return (
