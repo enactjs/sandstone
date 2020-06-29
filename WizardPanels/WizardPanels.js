@@ -8,6 +8,7 @@ import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -326,7 +327,7 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		defaultAriaLabel: ({index, subtitle, title}) => ($L(`Step ${index + 1} ${title} ${subtitle}`)),
+		defaultAriaLabel: ({index, subtitle, title}) => (new IString($L('Step {num}')).format({num: index + 1}) + `${title} ${subtitle}`),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
