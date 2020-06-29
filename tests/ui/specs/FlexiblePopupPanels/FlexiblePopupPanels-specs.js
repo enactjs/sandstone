@@ -2,7 +2,7 @@ const Page = require('./FlexiblePopupPanelsPage');
 
 
 describe('FlexiblePopupPanels', function () {
-	const Interface = Page.components.flexiblePopupPanels;
+	const Interface = Page.flexiblePopupPanels;
 
 	beforeEach(function () {
 		Page.open();
@@ -41,6 +41,17 @@ describe('FlexiblePopupPanels', function () {
 			Interface.waitForPanelBody(2);
 			Interface.prevButton.click();
 			Interface.waitForEnter(1);
+		});
+
+		it('should close when clicking below the panel', function () {
+			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
+				Interface.openButton.click();
+			});
+
+			Interface.waitForPanelBody(1);
+
+			Interface.clickBelowPopup();
+			Interface.waitForClose();
 		});
 	});
 });

@@ -5,8 +5,10 @@
 
 .times {
 	.sand-text-base(@sand-mediaplayer-times-text-size);
+	.sand-font-number();
+
 	white-space: nowrap;
-	flex: 0 1 auto;
+	min-width: @sand-mediaplayer-times-min-width;
 
 	> * {
 		display: inline-block;

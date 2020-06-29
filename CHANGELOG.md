@@ -4,9 +4,30 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone` focus animation
+
+### Added
+
+- `sandstone` high-contrast support
+
+### Changed
+
+- `sandstone/Input` prop `size` default value to small
+
 ### Fixed
 
+- `sandstone/ActionGuide` to have the proper size and font color for the icon and the label
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem` style to match latest designs
+- `sandstone/Tooltip` to not show a vertical gap
+- `sandstone/Dropdown` margins to correctly align with other components
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to allow clicking near, but outside, the Panels to dismiss them
 - `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/Input` style to match latest designs
+- `sandstone/Input` submit button positioning
+- `sandstone/Item` to prevent unnecessary re-rendering
+- `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
 - `sandstone/PopupTabLayout` to read out properly
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 

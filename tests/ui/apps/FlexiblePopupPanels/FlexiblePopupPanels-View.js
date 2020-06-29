@@ -25,7 +25,7 @@ const blockStyles = () => ({
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
 const app = kind({
-	name: 'FixedPopupPanelsPanel',
+	name: 'FlexiblePopupPanelsPanel',
 
 	defaultProps: {
 		index: 0
