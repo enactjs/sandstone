@@ -1,7 +1,7 @@
 const Page = require('./VirtualListPage');
-const {expectFocusedItem} = require('../VirtualList-utils');
+const {expectFocusedItem, waitForScrollStartStop} = require('../VirtualList-utils');
 
-describe('VirtualList 3', function () {
+describe('onKeyDown event', function () {
 	describe('LTR locale', function () {
 		beforeEach(function () {
 			Page.open();
@@ -42,24 +42,6 @@ describe('VirtualList 3', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
 			});
 
-			// TODO: Need to check another way for PagingControl.
-			it.skip('should allow bubbling while navigating out of a focusableScrollbar list via scroll buttons', function () {
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				Page.spotlightRight();
-				expect(Page.buttonScrollUp.isFocused(), 'focus 1').to.be.true();
-				Page.spotlightRight();
-				Page.spotlightLeft();
-				Page.spotlightUp();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightRight();
-				Page.spotlightLeft();
-				Page.spotlightDown();
-				expect(Page.list.getAttribute('data-keydown-events'), 'step 8').to.equal('4');
-			});
-
 			it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
 				Page.spotlightSelect();
 				Page.buttonLeft.moveTo();
@@ -70,7 +52,12 @@ describe('VirtualList 3', function () {
 				Page.spotlightLeft();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 2');
-				Page.fiveWayToItem(99);
+				Page.dropdownJumpToItem.moveTo();
+				Page.spotlightSelect();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightSelect();
 				expectFocusedItem(99, 'focus 3');
 				Page.spotlightDown();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('3');
@@ -93,7 +80,12 @@ describe('VirtualList 3', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				Page.fiveWayToItem(99);
+				Page.dropdownJumpToItem.moveTo();
+				Page.spotlightSelect();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightSelect();
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
@@ -116,7 +108,12 @@ describe('VirtualList 3', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				Page.fiveWayToItem(99);
+				Page.dropdownJumpToItem.moveTo();
+				Page.spotlightSelect();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightSelect();
 				expectFocusedItem(99, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
@@ -124,35 +121,32 @@ describe('VirtualList 3', function () {
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('4');
 			});
 		});
-	});
 
-	describe('RTL locale', function () {
-		beforeEach(function () {
-			Page.open('?locale=ar-SA');
-		});
+		describe('onScrollStart/Stop Events behavior ', function () {
 
-		it('should position Scrollbar Track on left side in RTL [GT-28563], [GT-28480]', function () {
-			// Verify 3-2: The Scrollbar track displays shortly left aligned.
-			expect(Page.getScrollOffsetLeft()).to.equal(0);
-		});
-	});
-
-	describe('Verify locale Change', function () {
-		beforeEach(function () {
-			Page.open('?locale=ur-PK');
-		});
-
-		// Since 'ar-sA' and 'en-US' have tests to check on the other side, this test only check 'ur-PK'.
-		it('should Verify RTL functionality [GT-28480]', function () {
-			// Verify 5-1: VirtualList sample displays in RTL (Right to Left.)
-			// Check that the button's position is Right-> Left.(in case RTL, button position is 'Right' - 'Left')
-			Page.buttonLeft.moveTo();
-			expect(Page.buttonLeft.isFocused(), 'focus left');
-			Page.spotlightLeft();
-			Page.spotlightLeft();
-			expect(Page.buttonRight.isFocused(), 'focus Right');
-			// Verify 5-2: Vertical Scrollbar displays on the left side.
-			expect(Page.getScrollOffsetLeft()).to.equal(0);
+			// TODO: Fix to jenkins fail
+			it.skip('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
+				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
+				Page.item(7).moveTo();
+				expectFocusedItem(7, 'step 3 focus');
+				// Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
+				for (let i = 0; i < 10; i++) {
+					Page.spotlightDown();
+					// Verify Step 4.1: Displays 'onScrollStart'
+					// Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
+					waitForScrollStartStop();
+				}
+				// Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
+				for (let j = 0; j < 10; j++) {
+					Page.spotlightUp();
+					if (j > 6) {
+					// Verify Step 5.1: Displays 'onScrollStart'
+					// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
+					// Verify no error on waitForScrollStartStop
+						waitForScrollStartStop();
+					}
+				}
+			});
 		});
 	});
 });
