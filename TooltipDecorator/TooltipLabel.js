@@ -65,7 +65,7 @@ const TooltipLabel = kind({
 	computed: {
 		className: ({marquee, width, styler}) => styler.append({
 			multi: (!marquee && !!width),
-			marquee: !width
+			marquee: marquee && !width
 		}),
 		style: ({children, width, style}) => {
 			return {
