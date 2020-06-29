@@ -141,7 +141,7 @@ const NumberFieldBase = kind({
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} arrowAnchor="center" marquee relative type="transparent">
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);

@@ -1,5 +1,6 @@
 import kind from '@enact/core/kind';
 import {isRtlText} from '@enact/i18n/util';
+import {scaleToRem} from '@enact/ui/resolution';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -49,10 +50,18 @@ const TooltipLabel = kind({
 		marquee: PropTypes.bool,
 
 		/**
-		 * The width of tooltip content in pixels (px). If the content goes over the given width,
-		 * then it will automatically wrap. When `null`, content does not wrap.
+		 * The width of tooltip content.
 		 *
-		 * @type {Number}
+		 * Value expects a number of pixels, which will be automatically scaled to the appropriate
+		 * size given the current screen resolution, or a string value containing a measurement and
+		 * a valid CSS unit included.
+		 * If the content goes over the given width, it will automatically wrap, or marquee if
+		 * `marquee` is enabled.
+		 *
+		 * When `null`, content will auto-size and not wrap. If `marquee` is also enabled,
+		 * marqueeing will begin when the width is greater than the default (theme specified) width.
+		 *
+		 * @type {Number|String}
 		 * @public
 		 */
 		width: PropTypes.number
@@ -65,13 +74,13 @@ const TooltipLabel = kind({
 	computed: {
 		className: ({marquee, width, styler}) => styler.append({
 			multi: (!marquee && !!width),
-			marquee: marquee && !width
+			marquee
 		}),
 		style: ({children, width, style}) => {
 			return {
 				...style,
 				direction: isRtlText(children) ? 'rtl' : 'ltr',
-				width
+				'--sand-tooltip-label-width': (typeof width === 'number' ? scaleToRem(width) : width)
 			};
 		}
 	},
