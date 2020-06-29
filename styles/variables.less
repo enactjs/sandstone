@@ -254,6 +254,9 @@
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
 
+// Picker
+@sand-picker-line-height: 1.5em;
+@sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
 
 // ---------------------------------------
 // Component Rules
@@ -640,14 +643,18 @@
 
 // Picker
 // ----------------------------------------
+@sand-picker-margin: 0 @sand-component-spacing;
+@sand-picker-item-padding: 0 @sand-spotlight-outset;
 @sand-picker-joined-vertical-border-radius: 24px;
 @sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-picker-value-height: @sand-button-small-height;
+@sand-picker-value-height: (@sand-picker-font-size * @sand-picker-line-height); // Determine the height of the item given the font size and relative (em) line height.
+@sand-picker-joined-value-height: (@sand-picker-joined-font-size * @sand-picker-line-height); // Determine the height of the item given the font size and relative (em) line height.
+@sand-picker-vertical-height: 362px;
 @sand-picker-joined-horizontal-border-radius: 960px;
 @sand-picker-joined-horizontal-height: 210px;
 @sand-picker-joined-horizontal-padding: 0 @sand-icon-small-size;
 @sand-picker-joined-horizontal-value-line-height: (@sand-picker-joined-horizontal-height - 30px);
-@sand-picker-joined-vertical-height: 362px;
+@sand-picker-small-value-width: (@sand-icon-large-size + (@sand-spotlight-outset * 3));
 @sand-picker-medium-value-width: 360px;
 @sand-picker-large-value-width: 696px;
 @sand-picker-indicator-width: 24px;
@@ -655,8 +662,19 @@
 @sand-picker-indicator-border-radius: @sand-picker-indicator-width;
 @sand-picker-indicator-inactive-scale: 0.75;
 @sand-picker-indicator-active-scale: 1;
-@sand-picker-indicator-margin: 0 12px;
-@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
+@sand-picker-indicator-margin: 21px 12px 0 12px;
+// Math to calculate the difference in GUI guide spec for the item and the DOM size for the item.
+// Divide by 2 to get the difference of just one edge from the corrosponding edge,
+// since the two are center aligned vertically.
+@sand-picker-joined-horizontal-vedge-gap: ((@sand-picker-joined-horizontal-height - @sand-picker-joined-horizontal-value-line-height) / 2);
+// Math to find the margin-bottom of the item given the height of the item and the
+// desired distance from the top.
+@sand-picker-joined-horizontal-value-offset: ((
+	(48px - @sand-picker-joined-horizontal-vedge-gap) - // 48px - 15px = 33px
+	((@sand-picker-joined-value-height - 78px) / 2) // (78px - 99px / 2) = 10.5px
+) * 2);
+
+// @sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
 
 // Popup
 // ---------------------------------------

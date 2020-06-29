@@ -30,6 +30,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` submit button positioning
 - `sandstone/Item` to prevent unnecessary re-rendering
 - `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
+- `sandstone/Picker` to match GUI designs
 - `sandstone/PopupTabLayout` to read out properly
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 - `sandstone/Alert` to center alignment of `AlertImage`
