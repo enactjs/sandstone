@@ -56,7 +56,7 @@
 
 	.submitButton {
 		display: block;
-		margin: @sand-input-overlay-buttonarea-margin;
+		margin: @sand-input-overlay-submitbutton-margin;
 	}
 
 	.tooltip {
@@ -71,6 +71,10 @@
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
+		}
+
+		.title {
+			.sand-font-size(@sand-input-fullscreen-title-font-size, @sand-non-latin-input-fullscreen-title-font-size);
 		}
 
 		.numberCell {
@@ -123,7 +127,7 @@
 		}
 
 		.title {
-			font-size: @sand-input-overlay-title-font-size;
+			.sand-font-size(@sand-input-overlay-title-font-size, @sand-non-latin-input-overlay-title-font-size);
 		}
 
 		.inputArea {

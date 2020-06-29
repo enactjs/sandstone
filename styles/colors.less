@@ -47,6 +47,10 @@
 // Component Colors
 // ---------------------------------------
 
+// ActionGuide
+// ---------------------------------------
+@sand-actionguide-label-color: @sand-gray;
+
 // Alert
 // ---------------------------------------
 @sand-alert-bg-color: #373a41;
@@ -65,9 +69,10 @@
 @sand-checkbox-color: transparent;
 @sand-checkbox-bg-color: transparent;
 @sand-checkbox-border-color: @sand-text-color;
+@sand-checkbox-disabled-focus-bg-color: @sand-spotlight-bg-color;
 @sand-checkbox-disabled-selected-color: @sand-spotlight-text-color;
 @sand-checkbox-disabled-selected-bg-color: @sand-spotlight-bg-color;
-@sand-checkbox-disabled-selected-border-color: @sand-spotlight-bg-color;
+@sand-checkbox-disabled-selected-border-color: @sand-checkbox-disabled-selected-bg-color;
 @sand-checkbox-focus-disabled-selected-color: @sand-spotlight-bg-color;
 @sand-checkbox-focus-disabled-selected-bg-color: @sand-spotlight-text-color;
 @sand-checkbox-focus-disabled-selected-border-color: @sand-spotlight-text-color;
@@ -86,10 +91,11 @@
 @sand-checkbox-indeterminate-focus-color: @sand-spotlight-text-color;
 @sand-checkbox-indeterminate-focus-bg-color: @sand-checkbox-focus-bg-color;
 @sand-checkbox-indeterminate-focus-border-color: @sand-checkbox-focus-border-color;
+@sand-checkbox-standalone-bg-disabled-focus-bg-color: @sand-gray;
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: @sand-bg-color;
+@sand-contextualpopup-bg-color: @sand-popup-bg-color;
 @sand-contextualpopup-border-color: #bbb;
 @sand-contextualpopup-shadow: 0 24px 32px @sand-spotlight-shadow-color;
 
@@ -104,12 +110,14 @@
 
 // FlexiblePopupPanels
 // ---------------------------------------
-@sand-flexiblepopuppanels-panel-bg-color: fade(@sand-bg-color, 90%);
+@sand-flexiblepopuppanels-panel-bg-color: fade(@sand-popup-bg-color, 90%);
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-focus-text-color: @sand-white;
+@sand-formcheckboxitem-disabled-text-color: inherit;
+@sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
 // Heading
 // ---------------------------------------
@@ -136,7 +144,7 @@
 // Input
 // ---------------------------------------
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
-@sand-input-overlay-background-color: fade(@sand-bg-color, 90%);
+@sand-input-overlay-background-color: fade(@sand-popup-bg-color, 90%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
 @sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
@@ -150,6 +158,10 @@
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
 @sand-inputfield-invalid-tooltip-color: #FB5656;
+
+// Item
+// ---------------------------------------
+@sand-item-disabled-focus-bg-color: @sand-spotlight-bg-color;
 
 // KeyGuide
 // ---------------------------------------
@@ -167,8 +179,14 @@
 
 // MediaPlayer
 // ---------------------------------------
-@sand-mediaplayer-slider-knob-color: @sand-white;
+@sand-mediaplayer-slider-knob-color: @sand-light-gray;
 @sand-mediaplayer-slider-tooltip-text-shadow: @sand-overlay-text-shadow;
+
+// MediaSlider
+// ---------------------------------------
+@sand-mediaslider-bar-bg-color: fade(@sand-light-gray, 30%);
+@sand-mediaslider-disabled-bar-opacity: 0.3;
+@sand-mediaslider-fill-bg-color: @sand-light-gray;
 
 // Picker
 // ---------------------------------------
@@ -297,7 +315,7 @@
 
 // VideoPlayer
 // ---------------------------------------
-@sand-video-feedback-mini-bg-color: fade(#4b4b4b, 70%);
+@sand-video-feedback-mini-bg-color: fade(#000000, 50%);
 @sand-video-feedback-mini-text-color: @sand-white;
 @sand-video-slider-tooltip-thumbnail-border-color: @sand-light-gray;
 @sand-video-player-bottom-bg-color: transparent;

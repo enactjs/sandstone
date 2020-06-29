@@ -1,12 +1,5 @@
-import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
-import DayPicker from '@enact/sandstone/DayPicker';
-import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Heading from '@enact/sandstone/Heading';
-import Item from '@enact/sandstone/Item';
 import Picker from '@enact/sandstone/Picker';
-import RangePicker from '@enact/sandstone/RangePicker';
-import Scroller from '@enact/sandstone/Scroller';
-import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 import React from 'react';
 
 const
@@ -41,119 +34,8 @@ class CustomPicker extends React.Component {
 	}
 }
 
-class DatePickerItem extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			open: false,
-			value: null
-		};
-	}
-
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleChange = ({value}) => this.setState({value: dateToLocaleString(value)})
-
-	render () {
-		return (
-			<>
-				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Date</Item>
-				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<DatePicker
-							{...this.props}
-							onChange={this.handleChange}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
-	}
-}
-
-class DayPickerItem extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			content: null,
-			open: false
-		};
-	}
-
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleSelect = ({content}) => this.setState({content: content})
-
-	render () {
-		return (
-			<>
-				<Item label={this.state.content || 'Not selected'} onClick={this.handleOpen}>Day</Item>
-				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<DayPicker
-							{...this.props}
-							onSelect={this.handleSelect}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
-	}
-}
-
-class TimePickerItem extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			open: false,
-			value: null
-		};
-	}
-
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleChange = ({value}) => this.setState({value: timeToLocaleString(value)})
-
-	render () {
-		return (
-			<>
-				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Time</Item>
-				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<TimePicker
-							{...this.props}
-							onChange={this.handleChange}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
-	}
-}
-
 const PickerView = () => (
-	<Scroller>
+	<>
 		<h2>Default</h2>
 		<Heading showLine>Picker</Heading>
 		<Picker
@@ -194,61 +76,6 @@ const PickerView = () => (
 		>
 			{airports}
 		</Picker>
-
-		<Heading showLine>RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Joined RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Vertical RangePicker</Heading>
-		<RangePicker
-			defaultValue={0}
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-		<RangePicker
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>DatePicker</Heading>
-		<DatePickerItem
-			title="Date"
-		/>
-
-		<Heading showLine>DayPicker</Heading>
-		<DayPickerItem
-			title="Day"
-		/>
-
-		<Heading showLine>TimePicker</Heading>
-		<TimePickerItem
-			title="Time"
-		/>
 
 		<h2>Customizable aria-labels</h2>
 		<Heading showLine>Picker</Heading>
@@ -298,69 +125,7 @@ const PickerView = () => (
 		>
 			{airports}
 		</Picker>
-
-		<Heading showLine>RangePicker</Heading>
-		<RangePicker
-			decrementAriaLabel="Decrement"
-			defaultValue={0}
-			incrementAriaLabel="Increment"
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Joined RangePicker</Heading>
-		<RangePicker
-			aria-label="Joined range Picker"
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="horizontal"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>Vertical RangePicker</Heading>
-		<RangePicker
-			decrementAriaLabel="Decrement"
-			defaultValue={0}
-			incrementAriaLabel="Increment"
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-		<RangePicker
-			aria-label="Joined range Picker"
-			defaultValue={0}
-			joined
-			max={100}
-			min={0}
-			orientation="vertical"
-			step={5}
-			width="medium"
-		/>
-
-		<Heading showLine>DatePicker</Heading>
-		<DatePickerItem
-			dayAriaLabel="Day picker"
-			monthAriaLabel="Month picker"
-			title="Date"
-			yearAriaLabel="Year picker"
-		/>
-
-		<Heading showLine>TimePicker</Heading>
-		<TimePickerItem
-			hourAriaLabel="Hour picker"
-			meridiemAriaLabel="Meridiem picker"
-			minuteAriaLabel="Minute picker"
-			title="Time"
-		/>
-	</Scroller>
+	</>
 );
 
 export default PickerView;
