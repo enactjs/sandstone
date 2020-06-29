@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
 - `sandstone/Input` prop `size` default value to small
 
 ### Fixed
