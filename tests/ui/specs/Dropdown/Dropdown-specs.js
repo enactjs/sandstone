@@ -2,7 +2,7 @@ const Page = require('./DropdownPage');
 
 function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out waiting for ${text}`, interval = 250) {
 	browser.waitUntil(function () {
-		return dropdown.focusedItemText === text;
+		return dropdown.focusedItemText.indexOf(text) === 0;
 	}, {timeout, timeoutMsg, interval});
 }
 
@@ -14,7 +14,7 @@ describe('Dropdown', function () {
 			Page.open();
 		});
 
-		it.skip('should focus the first item when `selected` changes to `null` - [GT-30183]', function () {
+		it('should focus the first item when `selected` changes to `null` - [GT-30183]', function () {
 			const dropdown = Page.components.dropdownChangeSelected;
 
 			Page.openDropdown(dropdown);
