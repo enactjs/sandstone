@@ -68,6 +68,7 @@
 		font-weight: @sand-tooltip-font-weight;
 		line-height: @sand-tooltip-label-height;
 		white-space: nowrap;
+		width: var(--sand-tooltip-label-width); // assign a width if necessary, but without a width, "auto" is just fine.
 		padding: @sand-tooltip-padding;
 		border-radius: @sand-tooltip-border-radius;
 
@@ -76,7 +77,7 @@
 		}
 
 		&.marquee {
-			width: @sand-tooltip-marquee-width;
+			max-width: var(--sand-tooltip-label-width, @sand-tooltip-marquee-width); // If using a marquee, use the preferred width, and if none is provided, fall back to our default variable.
 		}
 
 		&.multi {

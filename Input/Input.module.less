@@ -59,12 +59,14 @@
 		margin: @sand-input-overlay-submitbutton-margin;
 	}
 
-	.tooltip {
-		margin-top: @sand-input-invalid-tooltip-margin-top;
+	.inputArea {
+		.tooltip {
+			margin-top: @sand-input-invalid-tooltip-margin-top;
 
-		.tooltipLabel {
-			font-size: @sand-input-invalid-tooltip-font-size;
-			font-weight: @sand-input-invalid-tooltip-font-weight;
+			.tooltipLabel {
+				font-size: @sand-input-invalid-tooltip-font-size;
+				font-weight: @sand-input-invalid-tooltip-font-weight;
+			}
 		}
 	}
 
@@ -115,7 +117,7 @@
 
 		.tooltip {
 			.tooltipLabel {
-				width: @sand-input-fullscreen-invalid-tooltip-width;
+				max-width: @sand-input-fullscreen-invalid-tooltip-width;
 			}
 		}
 
@@ -173,7 +175,7 @@
 
 		.tooltip {
 			.tooltipLabel {
-				width: @sand-input-overlay-invalid-tooltip-width;
+				max-width: @sand-input-overlay-invalid-tooltip-width;
 			}
 		}
 	}
@@ -205,9 +207,11 @@
 			});
 		}
 
-		.tooltip {
-			.tooltipLabel {
-				color: @sand-input-invalid-tooltip-color;
+		.inputArea {
+			.tooltip {
+				.tooltipLabel {
+					color: @sand-input-invalid-tooltip-color;
+				}
 			}
 		}
 
