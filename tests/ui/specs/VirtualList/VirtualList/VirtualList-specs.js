@@ -81,6 +81,7 @@ describe('VirtualList', function () {
 			// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
 			Page.spotlightDown();
+			// Select 'item99' from JumpToItem dropdown, go to item99.
 			Page.dropdownJumpToItem.moveTo();
 			Page.spotlightSelect();
 			Page.spotlightDown();
@@ -132,6 +133,7 @@ describe('VirtualList', function () {
 			// Step 8. 5-way Down several times to scroll down the list.
 			Page.fiveWayToItem(20);
 			// Step 9. 5-way Spot the last item.
+			// Select 'item29' from JumpToItem dropdown, go to item29.
 			Page.dropdownJumpToItem.moveTo();
 			Page.spotlightSelect();
 			Page.spotlightDown();
@@ -142,8 +144,9 @@ describe('VirtualList', function () {
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			// Move to button tap to select dropdown again.
+			// TODO: Since It is a bug in which spotlight on items in a List cannot be moved to "moveTo()" by dropdown, so position moved button 'hideScrollbar'.
 			Page.buttonHideScrollbar.moveTo();
+			// Select 'item0' from JumpToItem dropdown, go to item0.
 			Page.dropdownJumpToItem.moveTo();
 			Page.spotlightSelect();
 			Page.spotlightUp();

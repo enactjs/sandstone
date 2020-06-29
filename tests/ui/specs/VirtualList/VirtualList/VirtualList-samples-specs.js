@@ -1,7 +1,7 @@
 const Page = require('./VirtualListPage');
 const {expectFocusedItem} = require('../VirtualList-utils');
 
-describe('VirtualList 2', function () {
+describe('VirtualList samples', function () {
 
 	describe('LTR locale', function () {
 		beforeEach(function () {

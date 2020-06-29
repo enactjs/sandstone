@@ -23,13 +23,11 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemStyle = {margin: 0};
 
-const prop = {
-	itemIndexOpt: {
-		'item0': 0,
-		'item10': 10,
-		'item29': 29,
-		'item99': 99
-	}
+const itemIndexOpt = {
+	'item0': 0,
+	'item10': 10,
+	'item29': 29,
+	'item99': 99
 };
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
@@ -137,7 +135,7 @@ class app extends React.Component {
 	}
 
 	jumpTo = (selectedOpt) => {
-		this.scrollTo({animate: false, focus: true, index: prop.itemIndexOpt[selectedOpt.data]});
+		this.scrollTo({animate: false, focus: true, index: itemIndexOpt[selectedOpt.data]});
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -179,7 +177,7 @@ class app extends React.Component {
 							title="JumpToItem"
 							id="jumpTo"
 						>
-							{Object.keys(prop.itemIndexOpt)}
+							{Object.keys(itemIndexOpt)}
 						</Dropdown>
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
