@@ -106,10 +106,10 @@ const PanelBase = kind({
 		/**
 		 * Set the type of panel to be used.
 		 *
-		 * @type {('fixedPopup')}
+		 * @type {('wizard')}
 		 * @private
 		 */
-		panelType: PropTypes.oneOf(['fixedPopup'])
+		panelType: PropTypes.oneOf(['wizard'])
 	},
 
 	defaultProps: {
@@ -145,7 +145,7 @@ const PanelBase = kind({
 		ids: ({'aria-label': label, panelType}) => {
 			if (label) {
 				return {};
-			} else if (panelType === 'fixedPopup') {
+			} else if (panelType !== 'wizard') {
 				const labelledby = `panel_${++panelId}_title panel_${panelId}_subtitle`;
 				const [titleId, subtitleId] = labelledby.split(' ');
 
