@@ -65,16 +65,16 @@ class PopupPage extends Page {
 		$('#popupMain').click();
 	}
 
-	waitForOpen (selector, duration) {
+	waitForOpen (selector, timeout) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		$(`${selector}[data-popup-open="true"]`).waitForExist(duration);
+		$(`${selector}[data-popup-open="true"]`).waitForExist({timeout});
 	}
 
-	waitForClose (selector, duration) {
+	waitForClose (selector, timeout) {
 		if (typeof selector !== 'string') selector = `#${selector.id}`;
 
-		$(`${selector}[data-popup-open="true"]`).waitForExist(duration, true);
+		$(`${selector}[data-popup-open="true"]`).waitForExist({timeout, reverse: true});
 	}
 }
 

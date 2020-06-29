@@ -17,18 +17,18 @@ describe('TimePicker', function () {
 			});
 
 			it('should have hour-minute-meridiem order', function () {
-				browser.waitUntil(() => timePicker.hour.isFocused(), 1500, 'hour focused');
+				browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  timeoutMsg: 'hour focused'});
 				Page.spotlightRight();
-				browser.waitUntil(() => timePicker.minute.isFocused(), 1500, 'minute focused');
+				browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  timeoutMsg: 'minute focused'});
 				Page.spotlightRight();
-				browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, 'meridiem focused');
+				browser.waitUntil(() => timePicker.meridiem.isFocused(), {timeout: 1500,  timeoutMsg: 'meridiem focused'});
 			});
 
 			describe('5-way', function () {
 				// Start of [GT-28551] - Hour, Minute, Meridiem pickers Animates with 5-way - LTR
 				it('should increase the hour when incrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
-					browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightUp();
 					const {hour: value} = extractValues(timePicker);
 					const expected = hour < 12 ? hour + 1 : 1;
@@ -37,7 +37,7 @@ describe('TimePicker', function () {
 
 				it('should decrease the hour when decrementing the picker', function () {
 					const {hour} = extractValues(timePicker);
-					browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightDown();
 					const {hour: value} = extractValues(timePicker);
 					const expected = hour > 1 ? hour - 1 : 12;
@@ -47,7 +47,7 @@ describe('TimePicker', function () {
 				it('should increase the minute when incrementing the picker', function () {
 					const {minute} = extractValues(timePicker);
 					Page.spotlightRight();
-					browser.waitUntil(() => timePicker.minute.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightUp();
 					const {minute: value} = extractValues(timePicker);
 					const expected = minute !== 59 ? minute + 1 : 0;
@@ -57,7 +57,7 @@ describe('TimePicker', function () {
 				it('should decrease the minute when decrementing the picker', function () {
 					const {minute} = extractValues(timePicker);
 					Page.spotlightRight();
-					browser.waitUntil(() => timePicker.minute.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightDown();
 					const {minute: value} = extractValues(timePicker);
 					const expected = minute !== 0 ? minute - 1 : 59;
@@ -68,7 +68,7 @@ describe('TimePicker', function () {
 					const time = timePicker.timeLabel;
 					Page.spotlightRight();
 					Page.spotlightRight();
-					browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.meridiem.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightUp();
 					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
@@ -79,7 +79,7 @@ describe('TimePicker', function () {
 					const time = timePicker.timeLabel;
 					Page.spotlightRight();
 					Page.spotlightRight();
-					browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.meridiem.isFocused(), {timeout: 1500,  interval: 100});
 					Page.spotlightDown();
 					const newTime = timePicker.timeLabel;
 					const value = time !== newTime;
@@ -101,7 +101,7 @@ describe('TimePicker', function () {
 
 				it('should select hour when opened', function () {
 					timePicker.hour.click();
-					browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 				});
 
 				// Start of [GT-28545] - Hour, Minute, Meridiem pickers Animate on Pointer Click and Hold
@@ -124,7 +124,7 @@ describe('TimePicker', function () {
 				it('should increase the minute when incrementing the picker]', function () {
 					const {minute} = extractValues(timePicker);
 					timePicker.minute.click();
-					browser.waitUntil(() => timePicker.minute.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
 					timePicker.incrementer(timePicker.minute).click();
 					const {minute: value} = extractValues(timePicker);
 					const expected = minute !== 59 ? minute + 1 : 0;
@@ -134,7 +134,7 @@ describe('TimePicker', function () {
 				it('should decrease the minute when decrementing the picker', function () {
 					const {minute} = extractValues(timePicker);
 					timePicker.minute.click();
-					browser.waitUntil(() => timePicker.minute.isFocused(), 1500, undefined, 100);
+					browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  interval: 100});
 					timePicker.decrementer(timePicker.minute).click();
 					const {minute: value} = extractValues(timePicker);
 					const expected = minute !== 0 ? minute - 1 : 59;
@@ -228,17 +228,17 @@ describe('TimePicker', function () {
 		});
 
 		it('should focus middle picker (hour) when selected', function () {
-			browser.waitUntil(() => timePicker.hour.isFocused(), 1500, undefined, 100);
+			browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  interval: 100});
 		});
 
 		it('should have minute-hour-meridiem order', function () {
-			browser.waitUntil(() => timePicker.hour.isFocused(), 1500, 'initial', 100);
+			browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  timeoutMsg: 'initial', interval: 100});
 			Page.spotlightRight();
-			browser.waitUntil(() => timePicker.minute.isFocused(), 1500, 'minute', 100);
+			browser.waitUntil(() => timePicker.minute.isFocused(), {timeout: 1500,  timeoutMsg: 'minute', interval: 100});
 			Page.spotlightLeft();
-			browser.waitUntil(() => timePicker.hour.isFocused(), 1500, 'hour', 100);
+			browser.waitUntil(() => timePicker.hour.isFocused(), {timeout: 1500,  timeoutMsg: 'hour', interval: 100});
 			Page.spotlightLeft();
-			browser.waitUntil(() => timePicker.meridiem.isFocused(), 1500, 'meridiem', 100);
+			browser.waitUntil(() => timePicker.meridiem.isFocused(), {timeout: 1500,  timeoutMsg: 'meridiem', interval: 100});
 		});
 	});
 

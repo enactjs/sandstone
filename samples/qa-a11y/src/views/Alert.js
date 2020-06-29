@@ -44,18 +44,18 @@ class AlertView extends React.Component {
 		const {open1, open2, open3, open4, open5, open6, open7, open8} = this.state;
 
 		return (
-			<div>
+			<>
 				<Heading showLine>Alert Fullscreen</Heading>
-				<Button size="small" onClick={this.handleOpen1}>Default</Button>
-				<Button size="small" onClick={this.handleOpen2}>With 3(max) buttons</Button>
-				<Button size="small" onClick={this.handleOpen3}>With thumbnail</Button>
-				<Button size="small" onClick={this.handleOpen4}>Without title</Button>
-				<Button size="small" onClick={this.handleOpen5}>Without content</Button>
+				<Button onClick={this.handleOpen1}>Default</Button>
+				<Button onClick={this.handleOpen2}>With 3(max) buttons</Button>
+				<Button onClick={this.handleOpen3}>With thumbnail</Button>
+				<Button onClick={this.handleOpen4}>Without title</Button>
+				<Button onClick={this.handleOpen5}>Without content</Button>
 
 				<Heading showLine>Alert Overlay</Heading>
-				<Button size="small" onClick={this.handleOpen6}>Default</Button>
-				<Button size="small" onClick={this.handleOpen7}>With 3(max) buttons</Button>
-				<Button size="small" onClick={this.handleOpen8}>With thumbnail</Button>
+				<Button onClick={this.handleOpen6}>Default</Button>
+				<Button onClick={this.handleOpen7}>With 3(max) buttons</Button>
+				<Button onClick={this.handleOpen8}>With thumbnail</Button>
 
 				<Alert
 					open={open1}
@@ -64,7 +64,7 @@ class AlertView extends React.Component {
 				>
 					<span>this is content</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose1}>Howdy</Button>
+						<Button onClick={this.handleClose1}>Howdy</Button>
 					</buttons>
 				</Alert>
 
@@ -79,9 +79,9 @@ class AlertView extends React.Component {
 						That&apos;s all; have a nice day.
 					</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose2}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose2}>Oh My Yes, Kitten</Button>
-						<Button size="small" onClick={this.handleClose2}>Hide And Show</Button>
+						<Button onClick={this.handleClose2}>First Button!</Button>
+						<Button onClick={this.handleClose2}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose2}>Hide And Show</Button>
 					</buttons>
 				</Alert>
 
@@ -95,8 +95,8 @@ class AlertView extends React.Component {
 					</image>
 					<span>this is content</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose3}>Howdy</Button>
-						<Button size="small" onClick={this.handleClose3}>Hide And Show</Button>
+						<Button onClick={this.handleClose3}>Howdy</Button>
+						<Button onClick={this.handleClose3}>Hide And Show</Button>
 					</buttons>
 				</Alert>
 
@@ -110,9 +110,9 @@ class AlertView extends React.Component {
 						That&apos;s all; have a nice day.
 					</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose4}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose4}>Oh My Yes, Kitten</Button>
-						<Button size="small" onClick={this.handleClose4}>Hide And Show</Button>
+						<Button onClick={this.handleClose4}>First Button!</Button>
+						<Button onClick={this.handleClose4}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose4}>Hide And Show</Button>
 					</buttons>
 				</Alert>
 
@@ -122,8 +122,8 @@ class AlertView extends React.Component {
 					title="good afternoon"
 				>
 					<buttons>
-						<Button size="small" onClick={this.handleClose5}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose5}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose5}>First Button!</Button>
+						<Button onClick={this.handleClose5}>Oh My Yes, Kitten</Button>
 					</buttons>
 				</Alert>
 
@@ -138,8 +138,8 @@ class AlertView extends React.Component {
 						That&apos;s all; have a nice day.
 					</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose6}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose6}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose6}>First Button!</Button>
+						<Button onClick={this.handleClose6}>Oh My Yes, Kitten</Button>
 					</buttons>
 				</Alert>
 
@@ -154,9 +154,9 @@ class AlertView extends React.Component {
 						That&apos;s all; have a nice day.
 					</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose7}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose7}>Oh My Yes, Kitten</Button>
-						<Button size="small" onClick={this.handleClose7}>Hide And Show</Button>
+						<Button onClick={this.handleClose7}>First Button!</Button>
+						<Button onClick={this.handleClose7}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose7}>Hide And Show</Button>
 					</buttons>
 				</Alert>
 
@@ -174,11 +174,11 @@ class AlertView extends React.Component {
 						That&apos;s all; have a nice day.
 					</span>
 					<buttons>
-						<Button size="small" onClick={this.handleClose8}>First Button!</Button>
-						<Button size="small" onClick={this.handleClose8}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose8}>First Button!</Button>
+						<Button onClick={this.handleClose8}>Oh My Yes, Kitten</Button>
 					</buttons>
 				</Alert>
-			</div>
+			</>
 		);
 	}
 }
