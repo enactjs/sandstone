@@ -41,9 +41,6 @@ class VirtualListPage extends Page {
 	get buttonWrap () {
 		return element('#wrap', browser);
 	}
-	get buttonJumpToItem () {
-		return element('#jumpTo', browser);
-	}
 	get buttonDisabledItem () {
 		return element('#disabled', browser);
 	}
@@ -60,6 +57,11 @@ class VirtualListPage extends Page {
 	}
 	get inputfieldItemSize () {
 		return element('#itemSize', browser);
+	}
+
+	// Dropdown api
+	get dropdownJumpToItem () {
+		return element('#jumpTo', browser);
 	}
 
 	// scrollBar api

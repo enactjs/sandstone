@@ -81,7 +81,12 @@ describe('VirtualList', function () {
 			// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
 			Page.spotlightDown();
-			Page.fiveWayToItem(99);
+			Page.dropdownJumpToItem.moveTo();
+			Page.spotlightSelect();
+			Page.spotlightDown();
+			Page.spotlightDown();
+			Page.spotlightDown();
+			Page.spotlightSelect();
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
 			// Verify Step 7: Spotlight is on the last item.
@@ -96,24 +101,21 @@ describe('VirtualList', function () {
 			expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 		});
 
-		//	TODO: Need to api for Scrollbar and List size checking in sandstone.
-		it.skip('should have same height list and scrollbar [GT-28930]', function () {
-			// Verify: The scrollbar size fit to the size of the list.
-			expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
-		});
-
-		it('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
-			let ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
-			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
-			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
-		});
-
 		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
-			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
+			// Step 3. Knobs > VirtualList > dataSize > 30
+			Page.inputfieldNumItems.moveTo();
+			Page.spotlightSelect();
+			Page.backSpace();
+			Page.backSpace();
+			Page.backSpace();
+			Page.numPad(3);
+			Page.numPad(0);
+			Page.backKey();
+			Page.spotlightDown();
 			// Step 4. Move focus to the first item ('Item 00').
-			// Verify Step 4: 1. Spotlight displays on the first item.
 			Page.buttonLeft.moveTo();
 			Page.spotlightRight();
+			// Verify Step 4: 1. Spotlight displays on the first item.
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
@@ -128,23 +130,28 @@ describe('VirtualList', function () {
 			expectNoFocusedItem();
 			waitUntilFocused(12, 'focus Item 12');
 			// Step 8. 5-way Down several times to scroll down the list.
-			Page.fiveWayToItem(30);
-			expectFocusedItem(30, 'focus Item 30');
+			Page.fiveWayToItem(20);
 			// Step 9. 5-way Spot the last item.
-			Page.fiveWayToItem(99);
+			Page.dropdownJumpToItem.moveTo();
+			Page.spotlightSelect();
+			Page.spotlightDown();
+			Page.spotlightDown();
+			Page.spotlightSelect();
 			// Verify Step 9: 1. Spotlight displays on the last item.
-			Page.delay(1000);
-			expectFocusedItem(99, 'focus Item 99');
+			expectFocusedItem(29, 'focus Item 29');
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
-			Page.delay(2000);
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			Page.fiveWayToItem(0);
+			// Move to button tap to select dropdown again.
+			Page.buttonHideScrollbar.moveTo();
+			Page.dropdownJumpToItem.moveTo();
+			Page.spotlightSelect();
+			Page.spotlightUp();
+			Page.spotlightUp();
+			Page.spotlightSelect();
 			// Verify Step 11: Spotlight displays on the first item.
-			Page.delay(2000);
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-			Page.delay(1000);
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 		});
 
@@ -201,6 +208,82 @@ describe('VirtualList', function () {
 			expectFocusedItem(1, 'focus Item 01');
 			Page.item(5).moveTo();
 			expectFocusedItem(5, 'focus Item 05');
+		});
+
+		// TODO: Fix to wrap bug [ENYO-6468]
+		describe('Change `wrap` dynamically', function () {
+		// TODO: this TC number is not matching the JIRA TC - remove number?
+			it.skip('should prevent bubbling when wrapping[GT-28463]', function () {
+				// Wrap knobs Setting
+				Page.spotlightRight();
+				Page.spotlightSelect();
+				Page.spotlightDown();
+				Page.spotlightRight();
+				// TODO: expectFocusedItem is not working in case of wrap
+				expectFocusedItem(0, 'focus');
+				Page.spotlightUp();
+				Page.spotlightUp();
+				Page.delay(1500);  // TODO: Need better way to detect scroll end
+				expectFocusedItem(99, 'focus 2');
+				Page.spotlightDown();
+				Page.delay(1500);  // TODO: Need better way to detect scroll end
+				expectFocusedItem(0, 'focus 3');
+				expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
+			});
+		});
+
+		describe('Item Animates', function () {
+
+			it('should animate Items via Channel Down [GT-28464]', function () {
+				// Step 3: Position the pointer on the first item('Item 000)
+				Page.showPointerByKeycode();
+				Page.item(0).moveTo();
+				expectFocusedItem(0);
+				// Step 4: Press Channel Down
+				Page.pageDown();
+				// Verify no error on waitForScrollStartStop
+				waitForScrollStartStop();
+				// Step 5: Press Channel Down again.
+				Page.pageDown();
+				// Verify no error on waitForScrollStartStop
+				waitForScrollStartStop();
+			});
+		});
+		describe('Datasize change', function () {
+
+			it('should spotlight displays on item after up quickly [GT-28417]', function () {
+				// Step3 : datasize Knobs setting '4'
+				Page.inputfieldNumItems.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backSpace();
+				Page.backSpace();
+				Page.numPad(4);
+				// In case of TV, VKB is opened when inputfield clicking. So add escape key for VKB closing.
+				Page.backKey();
+				Page.spotlightDown();
+				Page.item(0).moveTo();
+				// Check First item
+				expectFocusedItem(0, 'focus item0');
+				Page.spotlightDown();
+				Page.spotlightDown();
+				Page.spotlightDown();
+				expectFocusedItem(3, 'focus item3');
+				Page.spotlightDown();
+				// Check to go out of the list.
+				expect(Page.buttonLeft.isFocused(), 'lastitem verify').to.be.true();
+				// Step 4-1: Place the mouse cursor/pointer underneath the last item.
+				// TODO: Need to Flick event handling api.
+				Page.showPointerByKeycode();
+				Page.item(3).moveTo();
+				expectFocusedItem(3, 'focus Item 03');
+				// Step 4-3: Move the pointer over any of the items.
+				// Verify 4: Spotlight displays on any of the items.
+				Page.item(1).moveTo();
+				expectFocusedItem(1, 'focus Item 01');
+				Page.item(0).moveTo();
+				expectFocusedItem(0, 'focus Item 00');
+			});
 		});
 	});
 });
