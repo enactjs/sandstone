@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone` high-contrast support
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` shadow effects
 
 ### Changed
 
