@@ -1,4 +1,4 @@
-import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forKey, forward, forwardWithPrevent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
@@ -245,7 +245,16 @@ const InputPopupBase = kind({
 		 * @type {String|Number}
 		 * @public
 		 */
-		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+
+		/**
+		 * Key of the value.
+		 *
+		 * @type {('defaultValue'|'value'}
+		 * @default 'defaultValue'
+		 * @public
+		 */
+		valueKey: PropTypes.oneOf(['defaultValue', 'value'])
 	},
 
 	defaultProps: {
@@ -255,7 +264,8 @@ const InputPopupBase = kind({
 		subtitle: '',
 		title: '',
 		type: 'text',
-		value: '' // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
+		value: '', // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
+		valueKey: 'defaultValue'
 	},
 
 	styles: {
@@ -284,6 +294,9 @@ const InputPopupBase = kind({
 				forward('onComplete')
 			),
 			forward('onClose')
+		),
+		onChange: handle(
+			forwardWithPrevent('onChange')
 		)
 	},
 
@@ -315,10 +328,10 @@ const InputPopupBase = kind({
 		popupType,
 		size,
 		subtitle,
-		synchronous,
 		title,
 		type,
 		value,
+		valueKey,
 		maxLength,
 		minLength,
 		...rest
@@ -326,7 +339,7 @@ const InputPopupBase = kind({
 
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
-		const valueProp = synchronous ? {value: value} : {defaultValue: value};
+		const valueProp = {[valueKey]: value};
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -360,6 +373,8 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
+								defaultValue={value}
+
 							/> :
 							<InputField
 								{...inputProps}
