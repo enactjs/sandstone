@@ -107,7 +107,8 @@ const SpotlightContainerGroup = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused'
+		enterTo: 'last-focused',
+		straightOnlyLeave: true
 	},
 	Group
 );
@@ -144,14 +145,20 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
-			return {
-				key: `tabs${i}`,
-				children: title || children,
-				onFocusTab,
-				...rest
-			};
-		}),
+		children: ({onFocusTab, tabs}) => tabs.map(tab => {
+			if (tab) {
+				const {icon, title, ...rest} = tab;
+				return {
+					...rest,
+					key: `tabs_${title + (typeof icon === 'string' ? icon : '')}`,
+					children: title,
+					icon,
+					onFocusTab
+				};
+			} else {
+				return null;
+			}
+		}).filter(tab => tab != null),
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
