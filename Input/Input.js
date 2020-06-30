@@ -214,14 +214,6 @@ const InputPopupBase = kind({
 		subtitle: PropTypes.string,
 
 		/**
-		 * Synchronize input value.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		synchronous: PropTypes.bool,
-
-		/**
 		 * Title text of popup.
 		 *
 		 * @type {String}
