@@ -106,10 +106,10 @@ const PanelBase = kind({
 		/**
 		 * Set the type of panel to be used.
 		 *
-		 * @type {('wizard')}
+		 * @type {('fixedPopup', 'wizard')}
 		 * @private
 		 */
-		panelType: PropTypes.oneOf(['wizard'])
+		panelType: PropTypes.oneOf(['fixedPopup', 'wizard'])
 	},
 
 	defaultProps: {
