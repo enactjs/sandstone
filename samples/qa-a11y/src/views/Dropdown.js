@@ -4,7 +4,7 @@ import React from 'react';
 const list = [
 	{children: 'Option1', key: 'item1', 'aria-label': 'aria label 1'},
 	{children: 'Option2', key: 'item2', 'aria-label': 'aria label 2'},
-	{children: 'Option3', key: 'item3', 'aria-label': 'arai label 3'}
+	{children: 'Option3', key: 'item3', 'aria-label': 'aria label 3'}
 ];
 
 class A11yDropdown extends React.Component {
