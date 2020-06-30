@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone` support for `data-spotlight-container-muted`
+
 ### Changed
 
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
@@ -13,6 +17,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
+- `sandstone/Popup` to respect paused spotlight
 
 ## [1.0.0-rc.1] - 2020-06-29
 
