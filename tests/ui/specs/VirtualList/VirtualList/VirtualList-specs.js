@@ -67,7 +67,17 @@ describe('VirtualList', function () {
 		});
 
 		it('should not scroll when leaving list with 5-way up/down [GT-28473]', function () {
-			// Step 3. Set dataSize to 100. Step 4: change to 5-way mode
+			// Step 3 is 'Set dataSize to 100' but set dataSize to 20 for Speed up Test.
+			Page.inputfieldNumItems.moveTo();
+			Page.spotlightSelect();
+			Page.backSpace();
+			Page.backSpace();
+			Page.backSpace();
+			Page.numPad(2);
+			Page.numPad(0);
+			Page.backKey();
+			Page.spotlightDown();
+			// Step 4: change to 5-way mode
 			Page.buttonLeft.moveTo();
 			// Step 5: 5-way Spot the first item.
 			Page.spotlightRight();
@@ -81,18 +91,16 @@ describe('VirtualList', function () {
 			// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
 			Page.spotlightDown();
-			// Select 'item99' from JumpToItem dropdown, go to item99.
-			Page.dropdownJumpToItem.moveTo();
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightSelect();
+			expectFocusedItem(0);
+			Page.pageDown();
+			waitUntilFocused(6, 'focus Item 6');
+			Page.pageDown();
+			waitUntilFocused(19, 'focus Item 6');
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
 			// Verify Step 7: Spotlight is on the last item.
 			Page.delay(1000);
-			expectFocusedItem(99, 'step 7 focus');
+			expectFocusedItem(19, 'step 7 focus');
 			// Step 8: 5-way Down
 			Page.spotlightDown();
 			Page.spotlightDown(); // 1 extra 5-way down to check Spotlight does not pass buttonBottom when wrap is off.
@@ -133,27 +141,22 @@ describe('VirtualList', function () {
 			// Step 8. 5-way Down several times to scroll down the list.
 			Page.fiveWayToItem(20);
 			// Step 9. 5-way Spot the last item.
-			// Select 'item29' from JumpToItem dropdown, go to item29.
-			Page.dropdownJumpToItem.moveTo();
-			Page.spotlightSelect();
-			Page.spotlightDown();
-			Page.spotlightDown();
-			Page.spotlightSelect();
+			Page.fiveWayToItem(29);
 			// Verify Step 9: 1. Spotlight displays on the last item.
-			expectFocusedItem(29, 'focus Item 29');
+			waitUntilFocused(29, 'focus last Item');
+			Page.delay(1000);
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			// TODO: Since It is a bug in which spotlight on items in a List cannot be moved to "moveTo()" by dropdown, so position moved button 'hideScrollbar'.
-			Page.buttonHideScrollbar.moveTo();
-			// Select 'item0' from JumpToItem dropdown, go to item0.
-			Page.dropdownJumpToItem.moveTo();
-			Page.spotlightSelect();
-			Page.spotlightUp();
-			Page.spotlightUp();
-			Page.spotlightSelect();
+			Page.pageUp();
+			waitUntilFocused(23, 'focus Item 23');
+			Page.pageUp();
+			waitUntilFocused(17, 'focus Item 17');
+			Page.pageUp();
+			waitUntilFocused(11, 'focus Item 11');
+			Page.pageUp();
 			// Verify Step 11: Spotlight displays on the first item.
-			expectFocusedItem(0, 'focus Item 0');
+			waitUntilFocused(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 		});

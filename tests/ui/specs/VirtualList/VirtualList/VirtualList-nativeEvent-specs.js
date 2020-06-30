@@ -43,7 +43,11 @@ describe('onKeyDown event', function () {
 			});
 
 			it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
+				Page.inputfieldNumItems.moveTo();
 				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backKey();
+				Page.spotlightDown();
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
@@ -52,13 +56,8 @@ describe('onKeyDown event', function () {
 				Page.spotlightLeft();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 2');
-				Page.dropdownJumpToItem.moveTo();
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightSelect();
-				expectFocusedItem(99, 'focus 3');
+				Page.fiveWayToItem(9);
+				expectFocusedItem(9, 'focus 3');
 				Page.spotlightDown();
 				expect(Page.list.getAttribute('data-keydown-events')).to.equal('3');
 			});
@@ -67,6 +66,11 @@ describe('onKeyDown event', function () {
 			it('should allow bubbling while navigating out of a list using hidden focusableScrollbar via items', function () {
 				Page.spotlightSelect();
 				Page.spotlightRight();
+				Page.inputfieldNumItems.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backKey();
+				Page.spotlightDown();
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
@@ -80,13 +84,8 @@ describe('onKeyDown event', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				Page.dropdownJumpToItem.moveTo();
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightSelect();
-				expectFocusedItem(99, 'focus 6');
+				Page.fiveWayToItem(9);
+				expectFocusedItem(9, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
 				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();
@@ -95,6 +94,11 @@ describe('onKeyDown event', function () {
 
 			// Need mochaOpts - timeout set to 60000 to pass
 			it('should allow bubbling while navigating out of a list using non-focusableScrollbar via items', function () {
+				Page.inputfieldNumItems.moveTo();
+				Page.spotlightSelect();
+				Page.backSpace();
+				Page.backKey();
+				Page.spotlightDown();
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
 				expectFocusedItem(0, 'focus 1');
@@ -108,13 +112,8 @@ describe('onKeyDown event', function () {
 				expect(Page.buttonRight.isFocused(), 'focus 4').to.be.true();
 				Page.spotlightLeft();
 				expectFocusedItem(0, 'focus 5');
-				Page.dropdownJumpToItem.moveTo();
-				Page.spotlightSelect();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightDown();
-				Page.spotlightSelect();
-				expectFocusedItem(99, 'focus 6');
+				Page.fiveWayToItem(9);
+				expectFocusedItem(9, 'focus 6');
 				Page.delay(1500);
 				Page.spotlightDown();
 				expect(Page.buttonBottom.isFocused(), 'focus 7').to.be.true();

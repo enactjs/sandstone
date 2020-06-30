@@ -7,7 +7,6 @@ import React from 'react';
 
 import {Button} from '../../../../../Button';
 import {InputField} from '../../../../../Input';
-import Dropdown from '../../../../../Dropdown';
 import SwitchItem from '../../../../../SwitchItem';
 import ThemeDecorator from '../../../../../ThemeDecorator';
 import VirtualList from '../../../../../VirtualList';
@@ -22,13 +21,6 @@ spotlight.setPointerMode(false);
 
 const items = [],
 	itemStyle = {margin: 0};
-
-const itemIndexOpt = {
-	'item0': 0,
-	'item10': 10,
-	'item29': 29,
-	'item99': 99
-};
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, disabled) => ({index, text, ...rest}) => {
@@ -134,8 +126,8 @@ class app extends React.Component {
 		this.scrollTo = scrollTo;
 	}
 
-	jumpTo = (selectedOpt) => {
-		this.scrollTo({animate: false, focus: true, index: itemIndexOpt[selectedOpt.data]});
+	jumpTo = () => {
+		this.scrollTo({animate: false, focus: true, index: 10});
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -167,18 +159,12 @@ class app extends React.Component {
 					<Cell component={OptionsContainer} shrink>
 						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
 						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
-						<Dropdown
-							onSelect={this.jumpTo}
-							title="JumpToItem"
-							id="jumpTo"
-						>
-							{Object.keys(itemIndexOpt)}
-						</Dropdown>
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
