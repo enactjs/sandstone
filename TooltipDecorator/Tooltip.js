@@ -154,15 +154,21 @@ const TooltipBase = kind({
 		type: PropTypes.oneOf(['balloon', 'transparent']),
 
 		/**
-		 * The width of tooltip content in pixels (px).
+		 * The width of tooltip content.
 		 *
-		 * If the content goes over the given width, then it will automatically wrap or marquee,
-		 * depending on `marquee`. When `null`, content does not wrap or marquee.
+		 * Value expects a number of pixels, which will be automatically scaled to the appropriate
+		 * size given the current screen resolution, or a string value containing a measurement and
+		 * a valid CSS unit included.
+		 * If the content goes over the given width, it will automatically wrap, or marquee if
+		 * `marquee` is enabled.
 		 *
-		 * @type {Number|null}
+		 * When `null`, content will auto-size and not wrap. If `marquee` is also enabled,
+		 * marqueeing will begin when the width is greater than the default (theme specified) width.
+		 *
+		 * @type {Number|String}
 		 * @public
 		 */
-		width: PropTypes.number
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	},
 
 	defaultProps: {

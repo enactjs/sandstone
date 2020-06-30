@@ -64,7 +64,7 @@ const TooltipLabel = kind({
 		 * @type {Number|String}
 		 * @public
 		 */
-		width: PropTypes.number
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	},
 
 	styles: {
