@@ -16,7 +16,7 @@ let lastPointer = {x: 0, y: 0};
 const useEventFocus = (props, instances, context) => {
 	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
-	const {alertScrollbarTrack, isWheeling} = context;
+	const {isWheeling} = context;
 
 	// Functions
 
@@ -109,10 +109,6 @@ const useEventFocus = (props, instances, context) => {
 		if (scrollMode === 'translate' && isWheeling) {
 			scrollContainerHandle.current.stop();
 			spottable.current.animateOnFocus = false;
-		}
-
-		if (!Spotlight.getPointerMode()) {
-			alertScrollbarTrack();
 		}
 
 		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
