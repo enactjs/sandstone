@@ -71,6 +71,7 @@ export default {
 	zoomout	          : 0x0F00F0,  // zoom_out
 	download          : 0x0F00FA,  // download
 	shuffle           : 0x0F0103,  // shuffle
+	shuffleon         : 0x0F0104,  // shuffleon
 	notification      : 0x0F0105,  // notification.001
 	voice             : 0x0F0108,  // voice
 	soundmute         : 0x0F0109,  // mute
@@ -172,5 +173,9 @@ export default {
 	closedcaption     : 0x0F016E,  // closedcaption
 	subtitle          : 0x0F016F,  // subtitle
 	subtitlekr        : 0x0F0170,  // subtitlekr
-	subtitlecn        : 0x0F0171   // subtitlecn
+	subtitlecn        : 0x0F0171,  // subtitlecn
+	samples           : 0x0F0172,  // samples
+	googledrive       : 0x0F0173,  // googledrive
+	googlephotos      : 0x0F0174,  // googlephotos
+	dlna              : 0x0F0175   // dlna
 };
