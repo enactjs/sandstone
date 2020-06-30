@@ -1,10 +1,6 @@
-import handle, {forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import useClass from '@enact/core/useClass';
-import useHandlers from '@enact/core/useHandlers';
-import {Job, mapAndFilterChildren} from '@enact/core/util';
+import {mapAndFilterChildren} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
-import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
 import React from 'react';
 
