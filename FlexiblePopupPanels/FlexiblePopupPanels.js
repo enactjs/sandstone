@@ -1,4 +1,5 @@
 import kind from '@enact/core/kind';
+import {mapAndFilterChildren} from '@enact/core/util';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -95,20 +96,16 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
-			if (child) {
-				const props = {
-					nextButtonVisibility,
-					onChange,
-					onNextClick,
-					onPrevClick,
-					prevButtonVisibility
-				};
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => mapAndFilterChildren(children, (child) => {
+			const props = {
+				nextButtonVisibility,
+				onChange,
+				onNextClick,
+				onPrevClick,
+				prevButtonVisibility
+			};
 
-				return React.cloneElement(child, props);
-			} else {
-				return null;
-			}
+			return React.cloneElement(child, props);
 		}),
 		onBack: ({onChange}) => onChange
 	},
@@ -128,6 +125,7 @@ const FlexiblePopupPanels = PopupDecorator(
 	{
 		className: 'flexiblePopupPanels',
 		css,
+		noAlertRole: true,
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},

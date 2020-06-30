@@ -27,6 +27,10 @@
 			}
 		}
 
+		.title {
+			.sand-font-size(@sand-alert-title-font-size, @sand-non-latin-alert-title-font-size);
+		}
+
 		.buttonContainer {
 			margin-top: @sand-alert-buttons-margin-top;
 
@@ -38,10 +42,6 @@
 	}
 
 	&.overlay {
-		.alertImage {
-			align-self: baseline;
-		}
-
 		.buttonContainer {
 			box-sizing: border-box;
 			margin: 0;
