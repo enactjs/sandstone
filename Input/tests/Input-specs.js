@@ -271,4 +271,134 @@ describe('Input specs', () => {
 
 		expect(actual).toBe(expected);
 	});
+
+	test('should show an invalid tooltip if invalid and message supplied', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" open length={10} invalid invalidMessage="Invalid" />
+			</FloatingLayerController>
+		);
+
+		const expected = true;
+		const actual = subject.find('Tooltip').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not show invalid tooltip if not invalid but message supplied', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" open length={10} invalidMessage="Invalid" />
+			</FloatingLayerController>
+		);
+
+		const expected = false;
+		const actual = subject.find('Tooltip').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should show an invalid tooltip if invalid and no message supplied', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" open length={10} invalid />
+			</FloatingLayerController>
+		);
+
+		const expected = true;
+		const actual = subject.find('Tooltip').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not show an invalid tooltip if invalid and message is falsy', () => {
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" open length={10} invalid invalidMessage="" />
+			</FloatingLayerController>
+		);
+
+		const expected = false;
+		const actual = subject.find('Tooltip').exists();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onComplete when submit button clicked', (done) => {
+		const spy = jest.fn();
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" minLength={1} maxLength={4} open onComplete={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		// 250 ms. delay before it's called!
+		setTimeout(() => {
+			const expected = 1;
+			const actual = spy.mock.calls.length;
+			expect(actual).toBe(expected);
+			done();
+		}, 300);
+	});
+
+	test('should call onChange when submit button clicked', () => {
+		const spy = jest.fn();
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" minLength={1} maxLength={4} open onChange={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		const expected = '1';
+		const actual = spy.mock.calls[0][0].value;
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onBeforeChange once when input occurs', () => {
+		const spy = jest.fn();
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" open length={10} onBeforeChange={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		const expected = 1;
+		const actual = spy.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should prevent input when onBeforeChange calls preventDefault', () => {
+		const spy = jest.fn();
+		const mock = jest.fn((ev) => {
+			if (ev.value === '2') {
+				ev.preventDefault();
+			}
+		});
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" minLength={1} maxLength={4} open onBeforeChange={mock} onChange={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: '2'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		subject.find({children: '1'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		const expected = '1';
+		const actual = spy.mock.calls[0][0].value;
+		expect(actual).toBe(expected);
+	});
 });

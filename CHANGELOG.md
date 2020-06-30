@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Input` event `onBeforeChange`
+
 ### Fixed
 
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`

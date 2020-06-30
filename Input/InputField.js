@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -112,6 +112,16 @@ const InputFieldBase = kind({
 		invalidMessage: PropTypes.string,
 
 		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
+
+		/**
 		 * Called when blurred.
 		 *
 		 * @type {Function}
@@ -119,6 +129,7 @@ const InputFieldBase = kind({
 		 * @public
 		 */
 		onBlur: PropTypes.func,
+
 
 		/**
 		 * Called when the input value is changed.
@@ -226,11 +237,15 @@ const InputFieldBase = kind({
 		onChange: handle(
 			adaptEvent(
 				ev => ({
-					stopPropagation: () => ev.stopPropagation(),
+					type: 'onBeforeChange',
 					value: ev.target.value
 				}),
-				forward('onChange')
-			)
+				forwardWithPrevent('onBeforeChange')
+			),
+			forwardCustom('onChange', ev => ({
+				stopPropagation: () => ev.stopPropagation(),
+				value: ev.target.value
+			}))
 		)
 	},
 
@@ -260,6 +275,7 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
+		delete rest.onBeforeChange;
 		delete rest.rtl;
 
 		return (

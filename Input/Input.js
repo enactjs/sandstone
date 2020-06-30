@@ -131,6 +131,16 @@ const InputPopupBase = kind({
 		numberInputField: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
 
 		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
+
+		/**
 		 * Called when the input value is changed.
 		 *
 		 * @type {Function}
@@ -295,7 +305,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		numberInputField,
-		onChange,
+		onBeforeChange,
 		onClose,
 		onNumberComplete,
 		onInputKeyDown,
@@ -345,7 +355,7 @@ const InputPopupBase = kind({
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
-								onChange={onChange}
+								onBeforeChange={onBeforeChange}
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
@@ -361,7 +371,7 @@ const InputPopupBase = kind({
 								defaultValue={value}
 								noReadoutOnFocus
 								placeholder={placeholder}
-								onChange={onChange}
+								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
 							/>
 						}
