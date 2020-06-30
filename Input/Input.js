@@ -365,7 +365,6 @@ const InputPopupBase = kind({
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
 								numberInputField={numberInputField}
-								defaultValue={value}
 
 							/> :
 							<InputField
