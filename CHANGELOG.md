@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ImageItem` to read checked properly when existing `showSelection` prop
+
 ## [1.0.0-rc.1] - 2020-06-29
 
 ### Removed
