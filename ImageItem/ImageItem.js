@@ -248,11 +248,14 @@ const ImageItemBase = kind({
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.label;
+		debugger;
 
-		if (SelectionComponent) {
+
+		if (showSelection) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}
+
 
 		return (
 			<UiImageItem
