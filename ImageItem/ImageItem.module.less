@@ -76,6 +76,14 @@
 		&:not(.fullImage) {
 			padding: @sand-imageitem-vertical-padding;
 			margin: @sand-imageitem-margin;
+
+			&.twoLineContent .image {
+				height: ~"calc(100% -" (@sand-imageitem-caption-line-height + @sand-imageitem-label-line-height + @sand-imageitem-vertical-captions-margin-top + @sand-imageitem-label-margin-top) ~")";
+			}
+
+			&:not(.twoLineContent) .image {
+				height: ~"calc(100% -" (@sand-imageitem-caption-line-height + @sand-imageitem-vertical-captions-margin-top) ~")";
+			}
 		}
 
 		.selectionIcon {
@@ -90,6 +98,7 @@
 
 		.imageIcon {
 			display: inline-block;
+			position: relative;
 			vertical-align: top;
 			height: @sand-imageitem-vertical-image-icon-size;
 			width: @sand-imageitem-vertical-image-icon-size;
@@ -98,6 +107,7 @@
 
 		.imageIcon+div {
 			display: inline-block;
+			width: ~"calc(100% -" (@sand-imageitem-vertical-image-icon-size + extract(@sand-imageitem-vertical-image-icon-margin, 2)) ~")";
 		}
 
 		.label {

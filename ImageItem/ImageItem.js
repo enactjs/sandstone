@@ -236,7 +236,8 @@ const ImageItemBase = kind({
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
-			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc
+			fullImage: orientation === 'vertical' && !children && !label && !imageIconSrc,
+			twoLineContent: orientation === 'vertical' && children && label
 		})
 	},
 
