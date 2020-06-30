@@ -414,6 +414,7 @@ const WizardPanelsBase = kind({
 						/>
 					</Header>
 				}
+				panelType="wizard"
 			>
 				<Column>
 					<Cell className={css.content}>
