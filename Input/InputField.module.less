@@ -58,8 +58,6 @@
 		position: absolute;
 		.position(0);
 		border-radius: @sand-inputfield-border-radius;
-		transition: transform @sand-inputfield-focus-duration ease-out, filter @sand-inputfield-focus-duration ease-out;
-		will-change: transform, filter;
 	}
 
 	.input,
@@ -216,14 +214,15 @@
 
 			.bg {
 				.sand-spotlight-focus-bg-colors();
+				filter: unset;
 			}
 		}
 
 		.sand-disabled({
 			.bg {
-				.sand-spotlight-resting-bg-colors();
-				filter+_: brightness(0.28);  // Adjusting the background color to match the gui designs. Filter-shift the color.
-				.sand-disabled-focus-bg-colors(); // Apply a proper opacity to the disabled background, according to the designs.
+				.sand-disabled-focus-bg-colors(@bg: {
+					filter+_: brightness(0.28);  // Adjusting the background color to match the gui designs. Filter-shift the color.
+				}); // Apply a proper opacity to the disabled background, according to the designs.
 			}
 
 			.input {

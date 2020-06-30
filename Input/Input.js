@@ -199,7 +199,7 @@ const InputPopupBase = kind({
 		 * Size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
@@ -243,7 +243,7 @@ const InputPopupBase = kind({
 	defaultProps: {
 		popupType: 'fullscreen',
 		numberInputField: 'auto',
-		size: 'large',
+		size: 'small',
 		subtitle: '',
 		title: '',
 		type: 'text',
@@ -353,6 +353,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
 								size={size}
@@ -414,7 +415,7 @@ const InputBase = kind({
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),

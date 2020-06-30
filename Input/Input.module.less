@@ -56,15 +56,17 @@
 
 	.submitButton {
 		display: block;
-		margin: @sand-input-overlay-buttonarea-margin;
+		margin: @sand-input-overlay-submitbutton-margin;
 	}
 
-	.tooltip {
-		margin-top: @sand-input-invalid-tooltip-margin-top;
+	.inputArea {
+		.tooltip {
+			margin-top: @sand-input-invalid-tooltip-margin-top;
 
-		.tooltipLabel {
-			font-size: @sand-input-invalid-tooltip-font-size;
-			font-weight: @sand-input-invalid-tooltip-font-weight;
+			.tooltipLabel {
+				font-size: @sand-input-invalid-tooltip-font-size;
+				font-weight: @sand-input-invalid-tooltip-font-weight;
+			}
 		}
 	}
 
@@ -111,6 +113,12 @@
 		.inputArea,
 		.buttonArea {
 			margin-top: @sand-input-popup-component-v-spacing;
+		}
+
+		.tooltip {
+			.tooltipLabel {
+				max-width: @sand-input-fullscreen-invalid-tooltip-width;
+			}
 		}
 
 		&.text,
@@ -164,6 +172,12 @@
 			justify-content: center;
 			margin: @sand-input-overlay-buttonarea-margin;
 		}
+
+		.tooltip {
+			.tooltipLabel {
+				max-width: @sand-input-overlay-invalid-tooltip-width;
+			}
+		}
 	}
 
 	.applySkins({
@@ -193,9 +207,11 @@
 			});
 		}
 
-		.tooltip {
-			.tooltipLabel {
-				color: @sand-input-invalid-tooltip-color;
+		.inputArea {
+			.tooltip {
+				.tooltipLabel {
+					color: @sand-input-invalid-tooltip-color;
+				}
 			}
 		}
 

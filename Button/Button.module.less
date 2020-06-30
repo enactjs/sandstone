@@ -293,7 +293,6 @@
 			color: @sand-button-transparent-text-color;
 
 			.bg {
-				.sand-button-selected-colors();
 				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
@@ -335,6 +334,20 @@
 			.bg {
 				.sand-button-focus-bg-colors();
 			}
+
+			&.focusExpand {
+				.bg {
+					.sand-bg-colors({
+						transform: @sand-button-focusexpand-focus-bg-transform;
+					});
+				}
+
+				&.small .bg {
+					.sand-bg-colors({
+						transform: @sand-button-small-focusexpand-focus-bg-transform;
+					});
+				}
+			}
 		});
 
 		// Button-non-disabled rules
@@ -343,23 +356,19 @@
 				z-index: 1;
 
 				&.focusExpand {
-					.bg {
-						transform: @sand-button-focusexpand-focus-bg-transform;
-					}
-
-					&.small .bg {
-						transform: @sand-button-small-focusexpand-focus-bg-transform;
-					}
-
 					&.pressed,
 					&:active {
 						.bg {
-							transform: @sand-button-focusexpand-pressed-bg-transform;
+							.sand-bg-colors({
+								transform: @sand-button-focusexpand-pressed-bg-transform;
+							});
 						}
 
 						&.small {
 							.bg {
-								transform: @sand-button-small-focusexpand-pressed-bg-transform;
+								.sand-bg-colors({
+									transform: @sand-button-small-focusexpand-pressed-bg-transform;
+								});
 							}
 						}
 					}
@@ -369,12 +378,16 @@
 					&.pressed,
 					&:active {
 						.bg {
-							transform: @sand-button-pressed-bg-transform;
+							.sand-bg-colors({
+								transform: @sand-button-pressed-bg-transform;
+							});
 						}
 
 						&.small {
 							.bg {
-								transform: @sand-button-small-pressed-bg-transform;
+								.sand-bg-colors({
+									transform: @sand-button-small-pressed-bg-transform;
+								});
 							}
 						}
 					}

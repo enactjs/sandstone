@@ -65,10 +65,6 @@
 .panel {
 	pointer-events: none;
 
-	> * {
-		pointer-events: auto;
-	}
-
 	> .body {
 		padding: 0;
 	}
@@ -81,6 +77,12 @@
 		// This value, however, does do exactly what we need. Fill up to a point
 		// and not expand beyond that.
 		max-height: -webkit-fill-available; // Expand to the bounds, then stop.
+		pointer-events: auto;
+	}
+
+	// Target class-less Header container to capture pointer events that fall into the margin of header, outside its DOM box.
+	> *:first-child {
+		pointer-events: auto;
 	}
 
 	.header {
@@ -107,6 +109,10 @@
 	}
 
 	.applySkins({
+		.header {
+			filter: drop-shadow(@sand-flexiblepopuppanels-header-shadow);
+		}
+
 		.content {
 			background-color: @sand-flexiblepopuppanels-panel-bg-color;
 			border-radius: @sand-flexiblepopuppanels-panel-border-radius;

@@ -2,7 +2,7 @@ import handle, {forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import useClass from '@enact/core/useClass';
 import useHandlers from '@enact/core/useHandlers';
-import {Job} from '@enact/core/util';
+import {Job, mapAndFilterChildren} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import PropTypes from 'prop-types';
@@ -101,20 +101,16 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
-			if (child) {
-				const props = {
-					nextButtonVisibility,
-					onChange,
-					onNextClick,
-					onPrevClick,
-					prevButtonVisibility
-				};
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => mapAndFilterChildren(children, (child) => {
+			const props = {
+				nextButtonVisibility,
+				onChange,
+				onNextClick,
+				onPrevClick,
+				prevButtonVisibility
+			};
 
-				return React.cloneElement(child, props);
-			} else {
-				return null;
-			}
+			return React.cloneElement(child, props);
 		}),
 		onBack: ({onChange}) => onChange
 	},

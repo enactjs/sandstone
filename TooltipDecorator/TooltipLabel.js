@@ -8,8 +8,6 @@ import Marquee from '../Marquee';
 
 import css from './Tooltip.module.less';
 
-// The width to use if marquee was specified with no width
-const DEFAULT_MARQUEE_WIDTH = 600;
 
 /**
  * {@link sandstone/TooltipDecorator.TooltipLabel} is a stateless tooltip component with
@@ -52,13 +50,21 @@ const TooltipLabel = kind({
 		marquee: PropTypes.bool,
 
 		/**
-		 * The width of tooltip content in pixels (px). If the content goes over the given width,
-		 * then it will automatically wrap. When `null`, content does not wrap.
+		 * The width of tooltip content.
 		 *
-		 * @type {Number}
+		 * Value expects a number of pixels, which will be automatically scaled to the appropriate
+		 * size given the current screen resolution, or a string value containing a measurement and
+		 * a valid CSS unit included.
+		 * If the content goes over the given width, it will automatically wrap, or marquee if
+		 * `marquee` is enabled.
+		 *
+		 * When `null`, content will auto-size and not wrap. If `marquee` is also enabled,
+		 * marqueeing will begin when the width is greater than the default (theme specified) width.
+		 *
+		 * @type {Number|String}
 		 * @public
 		 */
-		width: PropTypes.number
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	},
 
 	styles: {
@@ -66,12 +72,15 @@ const TooltipLabel = kind({
 	},
 
 	computed: {
-		className: ({marquee, width, styler}) => styler.append({multi: (!marquee && !!width)}),
-		style: ({children, marquee, width, style}) => {
+		className: ({marquee, width, styler}) => styler.append({
+			multi: (!marquee && !!width),
+			marquee
+		}),
+		style: ({children, width, style}) => {
 			return {
 				...style,
 				direction: isRtlText(children) ? 'rtl' : 'ltr',
-				width: (width || (marquee && scaleToRem(DEFAULT_MARQUEE_WIDTH)))
+				'--sand-tooltip-label-width': (typeof width === 'number' ? scaleToRem(width) : width)
 			};
 		}
 	},
