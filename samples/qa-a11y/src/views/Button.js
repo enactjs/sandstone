@@ -13,7 +13,7 @@ const ButtonView = () => (
 		<Heading showLine>Buttons with Icon</Heading>
 		<Button icon="play" />
 		<Button icon="+" />
-		<Heading showLine>Aria-labeled Buttons</Heading>
+		<Heading showLine>Aria-labelled Buttons</Heading>
 		<Button color="yellow" aria-label="color button">yellow Button</Button>
 		<Button aria-label="plug icon button">plug</Button>
 	</>

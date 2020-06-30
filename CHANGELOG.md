@@ -4,16 +4,37 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Fixed
+
+- `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
+
+## [1.0.0-rc.1] - 2020-06-29
+
+### Removed
+
+- `sandstone` focus animation
+
 ### Added
 
 - `sandstone` high-contrast support
 
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
+- `sandstone/Input` prop `size` default value to small
+
 ### Fixed
 
+- `sandstone/ActionGuide`, `sandstone/Alert`, `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem`, `sandstone/Input`, `sandstone/MediaPlayer`, `sandstone/Picker`, and `sandstone/VideoPlayer` style to match latest designs
+- `sandstone/Dropdown` margins to correctly align with other components
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to allow clicking near, but outside, the Panels to dismiss them
 - `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` shadow effects
+- `sandstone/Input` submit button positioning
 - `sandstone/Item` to prevent unnecessary re-rendering
-- `sandstone/MediaPlayer` and `sandstone/VideoPlayer` style to match latest designs
 - `sandstone/PopupTabLayout` to read out properly
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
+- `sandstone/Tooltip` arrow rendering to eliminate a vertical gap
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
 
 ## [1.0.0-beta.8] - 2020-06-22
