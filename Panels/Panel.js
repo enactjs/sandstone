@@ -145,7 +145,14 @@ const PanelBase = kind({
 		ids: ({'aria-label': label, panelType}) => {
 			if (label) {
 				return {};
-			} else if (panelType !== 'wizard') {
+			} else if (panelType === 'wizard') {
+				const id = `panel_${++panelId}_header`;
+
+				return {
+					headerId: id,
+					labelledby: id
+				};
+			} else {
 				const labelledby = `panel_${++panelId}_title panel_${panelId}_subtitle`;
 				const [titleId, subtitleId] = labelledby.split(' ');
 
@@ -153,13 +160,6 @@ const PanelBase = kind({
 					labelledby,
 					subtitleId,
 					titleId
-				};
-			} else {
-				const id = `panel_${++panelId}_header`;
-
-				return {
-					headerId: id,
-					labelledby: id
 				};
 			}
 		}
