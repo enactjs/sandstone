@@ -122,7 +122,9 @@ const FlexiblePopupPanelsBase = kind({
 		delete props.onPrevClick;
 		delete props.prevButtonVisibility;
 
-		return (<Viewport {...props} />);
+		return (
+			<Viewport {...props} />
+		);
 	}
 });
 
@@ -130,78 +132,35 @@ const FlexiblePopupPanelsBase = kind({
 const prevButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
 const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
 
-class RestoreButtonFocus {
-	constructor () {
-		this.pause = new Pause('RestoreButtonFocus');
-		this.target = false;
-	}
+function useRestoreButtonFocus ({index}) {
+	let autoFocus;
 
-	captureTarget = () => {
+	const {current: ref} = React.useRef({
+		index
+	});
+
+	if (index !== ref.index) {
 		const current = Spotlight.getCurrent();
 		if (current && current.classList.contains(css.navButton)) {
 			const prevButtonFocused = current.matches(prevButtonSelector);
 
-			this.pause.pause();
-			this.target = prevButtonFocused ? prevButtonSelector : nextButtonSelector;
-		} else {
-			this.target = false;
+			autoFocus = prevButtonFocused ? prevButtonSelector : nextButtonSelector;
 		}
-	}
-
-	restoreFocus = (index) => {
-		if (this.shouldRestoreFocus()) {
-			this.pause.resume();
-			const selector = `.${css.panel}[data-index="${index}"] ${this.target}`;
-			const button = document.querySelector(selector);
-
-			button.focus();
-		}
-
-		this.target = false;
-	}
-
-	shouldRestoreFocus = () => {
-		return this.target !== false;
-	}
-}
-
-const transitionHandlers = {
-	onTransition: handle(
-		forward('onTransition'),
-		(ev, props, {restoreButtonFocus}) => restoreButtonFocus.shouldRestoreFocus(),
-		(ev, props, {index, job}) => job.start(index)
-	),
-	onWillTransition: handle(
-		forward('onWillTransition'),
-		(ev, props, {job}) => job.stop()
-	)
-};
-
-const ButtonFocusDecorator = Wrapped => function BFD ({index, ...rest}) {
-	const restoreButtonFocus = useClass(RestoreButtonFocus);
-	const {current: ref} = React.useRef({
-		restoreButtonFocus,
-		index
-	});
-
-	if (!ref.job) {
-		ref.job = new Job(restoreButtonFocus.restoreFocus, 1000);
-	}
-
-	if (index !== ref.index) {
-		restoreButtonFocus.captureTarget();
 		ref.index = index;
 	}
 
-	const handlers = useHandlers(transitionHandlers, rest, ref);
+	return {
+		autoFocus
+	};
+}
 
-	// be sure the job is cleaned up on unmount
-	React.useEffect(() => ref.job.stop, [ref]);
+const ButtonFocusDecorator = Wrapped => function BFD ({index, ...rest}) {
+	const autoFocus = useRestoreButtonFocus({index});
 
 	return (
 		<Wrapped
 			{...rest}
-			{...handlers}
+			{...autoFocus}
 			index={index}
 		/>
 	);

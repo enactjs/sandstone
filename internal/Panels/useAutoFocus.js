@@ -5,27 +5,26 @@ import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function useAutoFocus ({autoFocus = 'last-focused', focusMode = 'prop', hideChildren}) {
+function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 	return React.useCallback((node) => {
 		if (!node) return;
 
+		// FIXME: This is a candidate to move to the decorator once hooks have been fully
+		// adopted and we can configure SpotlightContainerDecorator with the current props
 		const {spotlightId} = node.dataset;
+		const config = {
+			enterTo: 'last-focused'
+		};
 
-		if (focusMode === 'prop') {
-			const config = {
-				enterTo: 'last-focused'
-			};
+		if (autoFocus !== 'last-focused') {
+			config.enterTo = 'default-element';
 
-			if (autoFocus !== 'last-focused') {
-				config.enterTo = 'default-element';
-
-				if (autoFocus !== 'default-element') {
-					config.defaultElement = autoFocus;
-				}
+			if (autoFocus !== 'default-element') {
+				config.defaultElement = autoFocus;
 			}
-
-			Spotlight.set(spotlightId, config);
 		}
+
+		Spotlight.set(spotlightId, config);
 
 		// In order to spot the body components, we defer spotting until !hideChildren. If the
 		// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -33,15 +32,13 @@ function useAutoFocus ({autoFocus = 'last-focused', focusMode = 'prop', hideChil
 		if (!hideChildren && autoFocus !== 'none' && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
 			Spotlight.focus(spotlightId);
 		}
-	}, [autoFocus, focusMode, hideChildren]);
+	}, [autoFocus, hideChildren]);
 }
 
-const AutoFocusDecorator = hoc({focusMode: 'prop'}, (config, Wrapped) => {
-	const {focusMode} = config;
-
+const AutoFocusDecorator = hoc((config, Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	function AutoFocusDecorator ({autoFocus, componentRef, hideChildren, ...rest}) {
-		const hook = useAutoFocus({autoFocus, focusMode, hideChildren});
+		const hook = useAutoFocus({autoFocus, hideChildren});
 		const ref = useChainRefs(componentRef, hook);
 
 		return <Wrapped {...rest} componentRef={ref} hideChildren={hideChildren} />;
