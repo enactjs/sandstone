@@ -27,7 +27,7 @@ const ImageItemView = () => (
 		>
 			ImageItem Caption
 		</SelectableImageItem>
-		<Heading showLine>Aria-labeled ImageItem</Heading>
+		<Heading showLine>Aria-labelled ImageItem</Heading>
 		<ImageItem
 			aria-label="This is an image item"
 			label="ImageItem label"
@@ -36,7 +36,7 @@ const ImageItemView = () => (
 		>
 			ImageItem Caption
 		</ImageItem>
-		<Heading showLine>Aria-labeled ImageItem with showSelection</Heading>
+		<Heading showLine>Aria-labelled ImageItem with showSelection</Heading>
 		<SelectableImageItem
 			aria-label="This is an image item"
 			label="ImageItem label"
