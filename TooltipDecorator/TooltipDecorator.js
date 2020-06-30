@@ -224,14 +224,14 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * The width of tooltip content.
 			 *
-			 * Value expects a number of pixels, which will be automatically scaled to the appropriate
-			 * size given the current screen resolution, or a string value containing a measurement and
-			 * a valid CSS unit included.
-			 * If the content goes over the given width, it will automatically wrap, or marquee if
-			 * `marquee` is enabled.
+			 * Value expects a number of pixels, which will be automatically scaled to the
+			 * appropriate size given the current screen resolution, or a string value containing a
+			 * measurement and a valid CSS unit included. If the content goes over the given width,
+			 * it will automatically wrap, or marquee if `marquee` is enabled.
 			 *
-			 * When `null`, content will auto-size and not wrap. If `marquee` is also enabled,
-			 * marqueeing will begin when the width is greater than the default (theme specified) width.
+			 * When `null`, content will auto-size and not wrap. If `tooltipMarquee` is also
+			 * enabled, marqueeing will begin when the width is greater than the default (theme
+			 * specified) width.
 			 *
 			 * @type {Number|String}
 			 * @public
