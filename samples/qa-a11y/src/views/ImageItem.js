@@ -2,7 +2,7 @@ import Heading from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import React from 'react';
 
-const SelectionImageItem = (props) => {
+const SelectableImageItem = (props) => {
 	const [checked, setChecked] = React.useState(false);
 	const handleClick = () => setChecked(!checked);
 
@@ -18,16 +18,16 @@ const ImageItemView = () => (
 		>
 			ImageItem Caption
 		</ImageItem>
-		<Heading showLine>showSelection Item</Heading>
-		<SelectionImageItem
+		<Heading showLine>ImageItem with showSelection</Heading>
+		<SelectableImageItem
 			label="ImageItem label"
 			orientation="horizontal"
 			showSelection
 			src="http://via.placeholder.com/200x200/7ed31d/ffffff"
 		>
 			ImageItem Caption
-		</SelectionImageItem>
-		<Heading showLine>Aria-labled Item</Heading>
+		</SelectableImageItem>
+		<Heading showLine>Aria-labeled ImageItem</Heading>
 		<ImageItem
 			aria-label="This is an image item"
 			label="ImageItem label"
@@ -36,8 +36,8 @@ const ImageItemView = () => (
 		>
 			ImageItem Caption
 		</ImageItem>
-		<Heading showLine>Aria-lable and showSelection Item</Heading>
-		<SelectionImageItem
+		<Heading showLine>Aria-labeled ImageItem with showSelection</Heading>
+		<SelectableImageItem
 			aria-label="This is an image item"
 			label="ImageItem label"
 			orientation="horizontal"
@@ -45,7 +45,7 @@ const ImageItemView = () => (
 			src="http://via.placeholder.com/200x200/7ed31d/ffffff"
 		>
 			ImageItem Caption
-		</SelectionImageItem>
+		</SelectableImageItem>
 	</>
 );
 
