@@ -37,6 +37,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
 - `sandstone/Tooltip` arrow rendering to eliminate a vertical gap
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
+- `sandstone/Button` style to match latest designs
 
 ## [1.0.0-beta.8] - 2020-06-22
 
