@@ -26,6 +26,7 @@
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
+@sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
 // Disabled Opacity
 // ---------------------------------------
@@ -62,7 +63,6 @@
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
 @sand-button-transparent-text-color: @sand-text-color;
-@sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
 
 // Checkbox
 // ---------------------------------------
@@ -112,6 +112,7 @@
 // ---------------------------------------
 @sand-flexiblepopuppanels-panel-bg-color: fade(@sand-popup-bg-color, 90%);
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
+@sand-flexiblepopuppanels-header-shadow: @sand-overlay-text-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
@@ -210,6 +211,7 @@
 // PopupTabLayout
 // ---------------------------------------
 @sand-popuptablayout-bg-color: fade(@sand-popup-bg-color, 90%);
+@sand-popuptablayout-shadow: @sand-overlay-bg-shadow;
 
 // ProgressBar
 // ---------------------------------------
@@ -309,7 +311,6 @@
 // ---------------------------------------
 @sand-tooltip-bg-color:               @sand-light-gray;
 @sand-tooltip-text-color:             @sand-dark-gray;
-@sand-tooltip-border-color:           @sand-light-gray;
 @sand-tooltip-shadow:                 0 18px 12px @sand-spotlight-shadow-color;
 
 // VideoPlayer
