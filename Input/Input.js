@@ -353,6 +353,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
 								size={size}

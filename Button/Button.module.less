@@ -334,6 +334,20 @@
 			.bg {
 				.sand-button-focus-bg-colors();
 			}
+
+			&.focusExpand {
+				.bg {
+					.sand-bg-colors({
+						transform: @sand-button-focusexpand-focus-bg-transform;
+					});
+				}
+
+				&.small .bg {
+					.sand-bg-colors({
+						transform: @sand-button-small-focusexpand-focus-bg-transform;
+					});
+				}
+			}
 		});
 
 		// Button-non-disabled rules
@@ -342,18 +356,6 @@
 				z-index: 1;
 
 				&.focusExpand {
-					.bg {
-						.sand-bg-colors({
-							transform: @sand-button-focusexpand-focus-bg-transform;
-						});
-					}
-
-					&.small .bg {
-						.sand-bg-colors({
-							transform: @sand-button-small-focusexpand-focus-bg-transform;
-						});
-					}
-
 					&.pressed,
 					&:active {
 						.bg {

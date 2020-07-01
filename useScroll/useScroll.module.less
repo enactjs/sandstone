@@ -2,6 +2,7 @@
 //
 @import "../styles/colors.less";
 @import "../styles/variables.less";
+@import "../styles/mixins.less";
 
 .scroll {
 	--scroll-scrollbar-size: @sand-scrollbar-size;
@@ -11,6 +12,10 @@
 
 	&.focusableScrollbar {
 		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
+
+		&.hasVerticalScrollbar {
+			.padding-start-end(0, 24px);
+		}
 	}
 
 	.verticalScrollbar {
