@@ -119,9 +119,7 @@ const FlexiblePopupPanelsBase = kind({
 		delete props.onPrevClick;
 		delete props.prevButtonVisibility;
 
-		return (
-			<Viewport {...props} />
-		);
+		return (<Viewport {...props} />);
 	}
 });
 
