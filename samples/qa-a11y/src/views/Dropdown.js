@@ -45,6 +45,11 @@ const DropdownView = () => (
 		</Dropdown>
 		<br />
 		<br />
+		<Dropdown aria-label="This is a dropdown" placeholder="Dropdown" title="String Array children with aria-label">
+			{['Option1', 'Option2', 'Option3']}
+		</Dropdown>
+		<br />
+		<br />
 		<A11yDropdown placeholder="Dropdown" title="Object Array children with aria-label">
 			{list}
 		</A11yDropdown>
