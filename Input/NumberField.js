@@ -122,7 +122,10 @@ const NumberFieldBase = kind({
 			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
-				forward('onChange')
+				handle(
+					forwardWithPrevent('onBeforeChange'),
+					forward('onChange')
+				)
 			)
 		),
 		onSubmit: handle(

@@ -401,4 +401,37 @@ describe('Input specs', () => {
 		const actual = spy.mock.calls[0][0].value;
 		expect(actual).toBe(expected);
 	});
+
+	test('should delete an input when delete button clicked', () => {
+		const spy = jest.fn();
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" value="12" minLength={1} maxLength={4} open onChange={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: 'backspace'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		subject.find('.submitButton').first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		const expected = '1';
+		const actual = spy.mock.calls[0][0].value;
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onBeforeChange when delete button clicked', () => {
+		const spy = jest.fn();
+
+		const subject = mount(
+			<FloatingLayerController>
+				<Input type="number" value="12" minLength={1} maxLength={4} open onBeforeChange={spy} />
+			</FloatingLayerController>
+		);
+
+		subject.find({children: 'backspace'}).first().simulate('click', {nativeEvent: {stopImmediatePropagation: () => {}}});
+
+		const expected = 1;
+		const actual = spy.mock.calls.length;
+		expect(actual).toBe(expected);
+	});
 });
