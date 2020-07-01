@@ -56,7 +56,7 @@ describe('VirtualList 2', function () {
 						// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
 						Page.delay(500);
 						// five-way Up 10 times to item17> item 7. Until the list wii be able to scrolled up, scroll event does not occur(7 times).
-						expect(Page.list.getAttribute('data-scrolling-events')).to.equal(String(index-7));
+						expect(Page.list.getAttribute('data-scrolling-events')).to.equal(String(index - 7));
 					}
 				}
 			});
