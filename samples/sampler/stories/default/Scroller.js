@@ -7,9 +7,8 @@ import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
+import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
-
-import css from './Scroller.module.less';
 
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],
@@ -35,13 +34,6 @@ storiesOf('Sandstone', module)
 				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig);
 			return (
 				<Scroller
-					className={
-						classnames({
-							[css.verticalPadding]: (direction !== 'horizontal' && verticalScrollbar !== 'hidden') || verticalScrollbar === 'visible',
-							[css.horizontalPadding]: (direction !== 'vertical' && horizontalScrollbar !== 'hidden') || horizontalScrollbar === 'visible',
-							[css.bodyText]: focusableScrollbar || null
-						})
-					}
 					direction={direction}
 					fadeOut={boolean('fadeOut', ScrollerConfig)}
 					focusableScrollbar={focusableScrollbar}
@@ -60,14 +52,18 @@ storiesOf('Sandstone', module)
 							width: ri.scaleToRem(4002)
 						}}
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
-						Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						<BodyText>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+							Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						</BodyText>
 						<div
 							style={{
 								marginTop: ri.scaleToRem(1602)
 							}}
 						>
-							Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+							<BodyText>
+								Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+							</BodyText>
 						</div>
 					</div>
 				</Scroller>
