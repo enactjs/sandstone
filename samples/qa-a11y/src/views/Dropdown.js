@@ -50,7 +50,12 @@ const DropdownView = () => (
 		</Dropdown>
 		<br />
 		<br />
-		<A11yDropdown placeholder="Dropdown" title="Object Array children with aria-label">
+		<A11yDropdown placeholder="Dropdown" title="Object Array children with item's aria-label">
+			{list}
+		</A11yDropdown>
+		<br />
+		<br />
+		<A11yDropdown aria-label="This is a dropdown" placeholder="Dropdown" title="Object Array children with aria-label and item's aria-label">
 			{list}
 		</A11yDropdown>
 	</>
