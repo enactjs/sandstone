@@ -65,11 +65,12 @@ const TabBase = kind({
 		delete rest.onFocusTab;
 
 		const commonProps = {
-			collapsable: true,
-			minWidth: false,
 			backgroundOpacity: 'transparent',
+			children,
+			collapsable: true,
 			css,
-			children
+			focusEffect: 'static',
+			minWidth: false
 		};
 
 		switch (orientation) {
@@ -189,7 +190,7 @@ const TabGroupBase = kind({
 						className={componentCss.tabs}
 						component={Layout}
 						indexProp="index"
-						itemProps={{collapsed, focusEffect: 'static', orientation, size: tabSize}}
+						itemProps={{collapsed, orientation, size: tabSize}}
 						onSelect={onSelect}
 						orientation={orientation}
 						select="radio"
