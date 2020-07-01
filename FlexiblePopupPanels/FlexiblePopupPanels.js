@@ -1,10 +1,11 @@
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
-import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
+
+import {NavButtonFocusDecorator} from './useNavButtonFocus';
 
 import css from './FlexiblePopupPanels.module.less';
 
@@ -123,53 +124,6 @@ const FlexiblePopupPanelsBase = kind({
 		);
 	}
 });
-
-
-const prevButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
-const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
-
-function useNavButtonFocus ({index}) {
-	let autoFocus;
-
-	const {current: ref} = React.useRef({
-		index
-	});
-
-	if (index !== ref.index) {
-		const current = Spotlight.getCurrent();
-		if (current && current.classList.contains(css.navButton)) {
-			const prevButtonFocused = current.matches(prevButtonSelector);
-
-			autoFocus = prevButtonFocused ? prevButtonSelector : nextButtonSelector;
-		}
-		ref.index = index;
-	}
-
-	return {
-		autoFocus
-	};
-}
-
-const NavButtonFocusDecorator = Wrapped => {
-	// eslint-disable-next-line no-shadow
-	function NavButtonFocusDecorator ({index, ...rest}) {
-		const nav = useNavButtonFocus({index});
-
-		return (
-			<Wrapped
-				{...rest}
-				{...nav}
-				index={index}
-			/>
-		);
-	}
-
-	NavButtonFocusDecorator.propTypes = {
-		index: PropTypes.number
-	};
-
-	return NavButtonFocusDecorator;
-};
 
 const FlexiblePopupPanels = PopupDecorator(
 	{
