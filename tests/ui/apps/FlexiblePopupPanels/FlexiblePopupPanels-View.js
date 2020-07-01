@@ -51,7 +51,7 @@ const app = kind({
 					onChange={onNavigate}
 					onClose={onToggleOpen}
 				>
-					<Panel id="panel1" nextButton={nextButton}>
+					<Panel id="panel1" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 1 - With Scroller" />
 
 						<Scroller style={{width: scaleToRem(900)}}>
@@ -80,7 +80,7 @@ const app = kind({
 
 						{skinnyBlock}
 					</Panel>
-					<Panel id="panel6" prevButton={prevButton}>
+					<Panel id="panel6" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 6 - Fat Block" />
 
 						{fatBlock}
