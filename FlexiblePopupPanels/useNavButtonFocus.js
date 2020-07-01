@@ -14,11 +14,14 @@ function useNavButtonFocus ({index}) {
 		index
 	});
 
+	// on index change
 	if (index !== ref.index) {
 		const current = Spotlight.getCurrent();
+		// if the currently focused component is a nav button
 		if (current && current.classList.contains(css.navButton)) {
 			const prevButtonFocused = current.matches(prevButtonSelector);
 
+			// set autoFocus to point to the selector for the appropriate button
 			autoFocus = prevButtonFocused ? prevButtonSelector : nextButtonSelector;
 		}
 		ref.index = index;
