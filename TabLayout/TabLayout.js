@@ -6,12 +6,14 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, handle} from '@enact/core/handle';
+// import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
+import {scaleToRem} from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
@@ -205,19 +207,20 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
-		),
-		handleTabsTransitionEnd: handle(
-			forward('onTransitionEnd'),
-			forProp('orientation', 'vertical'),
-			// Validate the transition is from the root node
-			(ev) => ev.target.classList.contains(componentCss.tabs),
-			// Only emit the event once (and not also for the flex-basis transition)
-			forEventProp('propertyName', 'max-width'),
-			adaptEvent(
-				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
-				forward('onTabAnimationEnd')
-			)
 		)
+		// NOTE: This might be needed for cleaner spotlight handling
+		// handleTabsTransitionEnd: handle(
+		// 	forward('onTransitionEnd'),
+		// 	forProp('orientation', 'vertical'),
+		// 	// Validate the transition is from the root node
+		// 	(ev) => ev.target.classList.contains(componentCss.tabs),
+		// 	// Only emit the event once (and not also for the flex-basis transition)
+		// 	forEventProp('propertyName', 'max-width'),
+		// 	adaptEvent(
+		// 		(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
+		// 		forward('onTabAnimationEnd')
+		// 	)
+		// )
 	},
 
 	computed: {
@@ -228,6 +231,10 @@ const TabLayoutBase = kind({
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
 		),
+		style: ({dimensions, orientation, style}) => ({
+			...style,
+			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
+		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
@@ -239,27 +246,44 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, tabSize, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, dimensions, tabSize, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		delete rest.onTabAnimationEnd;
 
-		const tabsSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
 
+		// Props that are shared between both of the rendered TabGroup components
+		const tabGroupProps = {
+			onFocus: (collapsed ? onExpand : null),
+			onFocusTab: onSelect,
+			onSelect,
+			orientation,
+			selectedIndex: index,
+			tabs
+		};
+
+		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} size={isVertical ? tabsSize : null} shrink={!isVertical} onTransitionEnd={handleTabsTransitionEnd}>
+				<Cell className={css.tabs} shrink>
 					<TabGroup
-						collapsed={isVertical ? collapsed : false}
-						tabSize={tabSize}
-						onFocus={collapsed ? onExpand : null}
-						onFocusTab={onSelect}
-						onSelect={onSelect}
-						orientation={orientation}
-						selectedIndex={index}
-						tabs={tabs}
+						{...tabGroupProps}
+						collapsed={isVertical}
+						spotlightDisabled={isVertical && !collapsed}
+						spotlightMuted={isVertical && !collapsed}
+						tabSize={!isVertical ? tabSize : null}
 					/>
 				</Cell>
+				{isVertical ? <Cell
+					className={css.tabs + ' ' + css.tabsExpanded}
+					size={dimensions.tabs.normal}
+				>
+					<TabGroup
+						{...tabGroupProps}
+						spotlightDisabled={collapsed}
+						spotlightMuted={collapsed}
+					/>
+				</Cell> : null}
 				<Cell
 					size={isVertical ? contentSize : null}
 					className={css.content}

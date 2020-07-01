@@ -60,12 +60,13 @@ const TabBase = kind({
 		className: ({orientation, styler}) => styler.append(orientation)
 	},
 
-	render: ({children, css, orientation, size, ...rest}) => {
+	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
 
+		if (collapsed) children = null;
+
 		const commonProps = {
-			collapsable: true,
 			minWidth: false,
 			backgroundOpacity: 'transparent',
 			css,
