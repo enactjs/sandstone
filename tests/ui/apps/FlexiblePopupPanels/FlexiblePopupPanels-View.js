@@ -67,6 +67,7 @@ const app = kind({
 					</Panel>
 					<Panel id="panel3" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 3 - Medium Block" />
+
 						{mediumBlock}
 					</Panel>
 					<Panel id="panel4" nextButton={nextButton} prevButton={prevButton}>
