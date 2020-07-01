@@ -18,6 +18,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
 - `sandstone/Popup` to respect paused spotlight
+- `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
 
 ## [1.0.0-rc.1] - 2020-06-29
 
