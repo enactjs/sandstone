@@ -37,6 +37,21 @@ describe('FlexiblePopupPanels', function () {
 			// should retain focus on navigation buttons
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 		});
+
+		it('should respect Panel autoFocus setting', function () {
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
+				Page.spotlightSelect();
+			});
+
+			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+
+			Page.spotlightSelect();
+			Interface.waitForPanelBody(7);
+
+			expect($('#item2').isFocused(), 'focus Item 2').to.be.true();
+		});
 	});
 
 	describe('Pointer', function () {

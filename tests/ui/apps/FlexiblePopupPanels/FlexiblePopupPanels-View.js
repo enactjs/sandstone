@@ -67,7 +67,6 @@ const app = kind({
 					</Panel>
 					<Panel id="panel3" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 3 - Medium Block" />
-
 						{mediumBlock}
 					</Panel>
 					<Panel id="panel4" nextButton={nextButton} prevButton={prevButton}>
@@ -84,6 +83,13 @@ const app = kind({
 						<Header title="Panel 6 - Fat Block" />
 
 						{fatBlock}
+					</Panel>
+					<Panel id="panel7" nextButton={nextButton} prevButton={prevButton} autoFocus="#item2">
+						<Header title="Panel 7 - autoFocus" />
+						<div style={{width: scaleToRem(800)}}>
+							<Item>Item 1</Item>
+							<Item id="item2">Item 2</Item>
+						</div>
 					</Panel>
 				</FlexiblePopupPanels>
 			</div>
