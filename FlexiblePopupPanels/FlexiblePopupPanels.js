@@ -128,7 +128,7 @@ const FlexiblePopupPanelsBase = kind({
 const prevButtonSelector = `.${css.navCellBefore} .${css.navButton}`;
 const nextButtonSelector = `.${css.navCellAfter} .${css.navButton}`;
 
-function useRestoreButtonFocus ({index}) {
+function useNavButtonFocus ({index}) {
 	let autoFocus;
 
 	const {current: ref} = React.useRef({
@@ -150,16 +150,25 @@ function useRestoreButtonFocus ({index}) {
 	};
 }
 
-const ButtonFocusDecorator = Wrapped => function BFD ({index, ...rest}) {
-	const autoFocus = useRestoreButtonFocus({index});
+const NavButtonFocusDecorator = Wrapped => {
+	// eslint-disable-next-line no-shadow
+	function NavButtonFocusDecorator ({index, ...rest}) {
+		const nav = useNavButtonFocus({index});
 
-	return (
-		<Wrapped
-			{...rest}
-			{...autoFocus}
-			index={index}
-		/>
-	);
+		return (
+			<Wrapped
+				{...rest}
+				{...nav}
+				index={index}
+			/>
+		);
+	}
+
+	NavButtonFocusDecorator.propTypes = {
+		index: PropTypes.number
+	};
+
+	return NavButtonFocusDecorator;
 };
 
 const FlexiblePopupPanels = PopupDecorator(
@@ -170,7 +179,7 @@ const FlexiblePopupPanels = PopupDecorator(
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},
-	ButtonFocusDecorator(
+	NavButtonFocusDecorator(
 		FlexiblePopupPanelsBase
 	)
 );
