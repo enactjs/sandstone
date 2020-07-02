@@ -34,14 +34,14 @@
 		.tabsExpanded {
 			position: absolute;
 			width: var(--cell-size); // References the cell-size, since flex-basis doesn't force-assicn a width, and cell-size normally just applies to max-width
-			transition: opacity @sand-tablayout-collapse-duration ease-out, transform @sand-tablayout-collapse-duration ease-out;
+			transition: opacity @sand-tablayout-collapse-duration ease-out, transform @sand-tablayout-collapse-duration ease-in-out;
 			will-change: opacity, transform;
 			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
 
 		.content {
 			margin-top: @sand-tablayout-vertical-content-margin-top;
-			transition: transform @sand-tablayout-collapse-duration ease-out;
+			transition: transform @sand-tablayout-collapse-duration ease-in-out;
 			will-change: transform;
 			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
