@@ -82,6 +82,14 @@ const DropdownBase = kind({
 
 	propTypes: /** @lends sandstone/Dropdown.DropdownBase.prototype */ {
 		/**
+		 * The "aria-label" for the Dropdown.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
 		 * Items to be displayed in the `Dropdown` when `open`.
 		 *
 		 * Takes either an array of strings or an array of objects. When strings, the values will be
@@ -292,10 +300,11 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({'aria-label': ariaLabel, ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
+		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
 		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
@@ -304,9 +313,10 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div role="region" aria-labelledby={ariaLabelledBy} {...rest}>
+			<div {...calcAriaProps} {...rest}>
 				{title}
 				<DropdownButton
+					aria-label={ariaLabel}
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					focusEffect="static"
