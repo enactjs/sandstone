@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
+- `sandstone/PopupTabLayout.TabPanels` prop `noCloseButton` to be `false` by default
 
 ### Fixed
 
