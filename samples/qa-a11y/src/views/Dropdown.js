@@ -22,7 +22,6 @@ class A11yDropdown extends React.Component {
 	render () {
 		return (
 			<Dropdown
-				aria-label={this.state.ariaLabel}
 				onSelect={this.onSelect}
 				title="Dropdown"
 				{...this.props}
@@ -55,7 +54,7 @@ const DropdownView = () => (
 		</A11yDropdown>
 		<br />
 		<br />
-		<A11yDropdown aria-label="This is a dropdown" placeholder="Dropdown" title="Object Array children with aria-label and item's aria-label">
+		<A11yDropdown aria-label="This is a dropdown" placeholder="Dropdown" title="Object Array children with component's aria-label and item's aria-label">
 			{list}
 		</A11yDropdown>
 	</>
