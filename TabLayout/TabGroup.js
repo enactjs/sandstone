@@ -162,12 +162,13 @@ const TabGroupBase = kind({
 				return null;
 			}
 		}).filter(tab => tab != null),
+		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, tabSize, tabsSpotlightId, spotlightDisabled, spotlightMuted, ...rest}) => {
+	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, tabSize, tabsDisabled, tabsSpotlightId, spotlightDisabled, spotlightMuted, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
@@ -186,7 +187,7 @@ const TabGroupBase = kind({
 				{...scrollerProps}
 			>
 				{noIcons ? (
-					<TabBase icon="list" collapsed onSpotlightDisappear={onBlurList} />
+					<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
 				) : (
 					<SpotlightContainerGroup
 						childComponent={Tab}
