@@ -67,10 +67,12 @@ const TabBase = kind({
 		if (collapsed) children = null;
 
 		const commonProps = {
-			minWidth: false,
 			backgroundOpacity: 'transparent',
+			children,
+			collapsable: true,
 			css,
-			children
+			focusEffect: 'static',
+			minWidth: false
 		};
 
 		switch (orientation) {

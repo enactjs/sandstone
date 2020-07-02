@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
+- `sandstone/PopupTabLayout.TabPanels` prop `noCloseButton` to be `false` by default
 
 ### Fixed
 
@@ -20,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
 - `sandstone/Popup` to respect paused spotlight
+- `sandstone/PopupTabLayout` style to match latest designs
 - `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
 - `sandstone/TabLayout` and `sandstone/PopupTabLayout` transition performance
 
