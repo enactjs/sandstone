@@ -6,7 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import {scaleToRem} from '@enact/ui/resolution';
 import Button from '@enact/sandstone/Button';
-import Image from '@enact/sandstone/Image';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
@@ -42,12 +42,18 @@ storiesOf('Sandstone', module)
 			const tabs = select('tabs', tabSelections, Config, tabSelections['with icons']);
 
 			const images = new Array(20).fill().map( (_, i) =>
-				<Image
+				<ImageItem
+					inline
 					key={`image${i}`}
-					caption="Image"
+					label="ImageItem label"
 					src="http://placehold.it/360x240/"
-					style={{marginBottom: scaleToRem(96)}}
-				/>
+					style={{
+						width: scaleToRem(768),
+						height: scaleToRem(588)
+					}}
+				>
+					{`ImageItem ${i + 1}`}
+				</ImageItem>
 			);
 
 			return (
