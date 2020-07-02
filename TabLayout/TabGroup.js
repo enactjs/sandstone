@@ -168,7 +168,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, tabSize, tabsDisabled, tabsSpotlightId, spotlightDisabled, spotlightMuted, ...rest}) => {
+	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, spotlightMuted, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
