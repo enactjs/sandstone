@@ -4,7 +4,74 @@ import ri from '@enact/ui/resolution';
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
 
-function setHeightVariable (node, height) {
+class Animate {
+	constructor (node, keyframes, {duration, reverse, ...options}) {
+		this.animation = null;
+
+		this._onfinish = null;
+		this._oncancel = null;
+		this._finish = false;
+		this._cancel = false;
+
+		this.raf = setTimeout(() => {
+			if (typeof keyframes === 'function') {
+				keyframes = keyframes(node);
+			}
+
+			this.animation = node.animate(keyframes, {
+				duration,
+				direction: reverse ? 'reverse' : 'normal',
+				fill: 'forwards',
+				...options
+			});
+
+			this.animation.onfinish = this._onfinish;
+			this.animation.oncancel = this._oncancel;
+
+			if (this._cancel) {
+				this.animation.cancel();
+			} else if (this._finish) {
+				this.animation.finish();
+			}
+		}, 32);
+	}
+
+	set onfinish (value) {
+		if (this.animation) {
+			this.animation.onfinish = value;
+		} else {
+			this._onfinish = value;
+		}
+	}
+
+	set oncancel (value) {
+		if (this.animation) {
+			this.animation.oncancel = value;
+		} else {
+			this._oncancel = value;
+		}
+	}
+
+	finish () {
+		if (this.animation) {
+			this.animation.finish();
+		} else {
+			this._finish = true;
+		}
+	}
+
+	cancel () {
+		if (this.animation) {
+			this.animation.cancel();
+		} else {
+			this._cancel = true;
+		}
+	}
+}
+
+function setHeightVariable (node) {
+	let height = node.getBoundingClientRect().height;
+
 	// If height is exists (and isn't 0) convert it to a REM for safe screen scaling.
 	if (height) height = ri.unit(height, 'rem');
 
@@ -20,6 +87,16 @@ function setHeightVariable (node, height) {
 	node.style.setProperty('--sand-panel-measured-height', height);
 }
 
+const deferArrange = (config, keyframes) => {
+	const {node, duration, reverse} = config;
+
+	return new Animate(node, keyframes, {
+		duration,
+		reverse,
+		...animationOptions
+	});
+};
+
 /**
  * Arranger that slides panels in from the right and out to the left.
  *
@@ -28,43 +105,34 @@ function setHeightVariable (node, height) {
  */
 const BasicArranger = {
 	stay: (config) => {
-		// Set the initial size of the panel, before any transitions take place
-		const {node} = config;
-		const height = node.getBoundingClientRect().height;
-		setHeightVariable(node, height);
+		return deferArrange(config, (node) => {
+			setHeightVariable(node);
 
-		return arrange(config, [
-			{transform: 'none'},
-			{transform: 'none'}
-		], animationOptions);
+			return [
+				{transform: 'none'},
+				{transform: 'none'}
+			];
+		});
 	},
 	enter: (config) => {
-		const {node, reverse} = config;
+		return deferArrange(config, (node) => {
+			if (!config.reverse) setHeightVariable(node);
 
-		// Only assign values for the view entering the screen
-		if (!reverse) {
-			const height = node.getBoundingClientRect().height;
-			setHeightVariable(node, height);
-		}
-
-		return arrange(config, [
-			{transform: 'translateX(100%)', offset: 0},
-			{transform: 'none', offset: 1}
-		], animationOptions);
+			return [
+				{transform: 'translateX(100%)', offset: 0},
+				{transform: 'none', offset: 1}
+			];
+		});
 	},
 	leave: (config) => {
-		const {node, reverse} = config;
+		return deferArrange(config, (node) => {
+			if (!config.reverse) setHeightVariable(node);
 
-		// Only assign values for the view entering the screen
-		if (reverse) {
-			const height = node.getBoundingClientRect().height;
-			setHeightVariable(node, height);
-		}
-
-		return arrange(config, [
-			{transform: 'none', offset: 0},
-			{transform: 'translateX(-100%)', offset: 1}
-		], animationOptions);
+			return [
+				{transform: 'none', offset: 0},
+				{transform: 'translateX(-100%)', offset: 1}
+			];
+		});
 	}
 };
 
