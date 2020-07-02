@@ -192,7 +192,7 @@ storiesOf('Dropdown', module)
 			<DisabledDropdown />
 		)
 	).add(
-		'with disabled',
+		'in Scroller',
 		() => (
 			<Scroller style={{height: '250px'}}>
 				<Dropdown
