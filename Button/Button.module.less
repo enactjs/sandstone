@@ -214,6 +214,7 @@
 		&.large,
 		&.small {
 			padding: @sand-button-icon-small-padding;
+			.padding-start-end(.extract(@sand-button-icon-small-padding, left)[], .extract(@sand-button-icon-small-padding, right)[]);
 
 			.icon {
 				margin: 0; // reset margins for `IconButton`
@@ -223,8 +224,6 @@
 			&.green,
 			&.yellow,
 			&.blue {
-				padding: @sand-button-icon-small-padding;
-
 				.client::before {
 					width: @sand-button-icon-only-colordot-width;
 					height: @sand-button-icon-only-colordot-height;
@@ -234,14 +233,6 @@
 
 		&.large {
 			padding: @sand-button-icon-padding; // adjust the padding to center the icon because of the existence of `Marquee` as a sibling even if there are no children in `Marquee`
-		}
-
-		&.small {
-			&.iconAfter {
-				.icon {
-					margin: 0;
-				}
-			}
 		}
 
 		&.red,
