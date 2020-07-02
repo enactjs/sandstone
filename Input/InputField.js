@@ -42,6 +42,8 @@ const InputFieldBase = kind({
 		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
 		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
+		 * * `tooltip` - The "invalid" tooltip
+		 * * `tooltipLabel` - The "invalid" tooltip's label
 		 *
 		 * @type {Object}
 		 * @private
@@ -230,7 +232,7 @@ const InputFieldBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'inputField',
-		publicClassNames: ['inputField', 'input', 'inputHighlight']
+		publicClassNames: ['inputField', 'input', 'inputHighlight', 'tooltip', 'tooltipLabel']
 	},
 
 	handlers: {
@@ -259,7 +261,7 @@ const InputFieldBase = kind({
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} relative type="transparent">
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);

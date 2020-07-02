@@ -13,6 +13,8 @@ import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
 import {VirtualList} from '@enact/sandstone/VirtualList';
+import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
 import ri from '@enact/ui/resolution';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
@@ -20,6 +22,49 @@ Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
+
+class FixedPopupPanelsWithPause extends React.Component {
+	constructor () {
+		super();
+		this.state = {
+			index: 0
+		};
+		this.pause = new Pause('SampleApp');
+		this.pause.pause();
+	}
+
+	componentDidMount () {
+		this.deferFocus();
+	}
+
+	deferFocus () {
+		// simulate a service call to defer focusing
+		setTimeout(() => {
+			// ensure we're in 5-way mode for the purposes of this sample
+			Spotlight.setPointerMode(false);
+			this.pause.resume();
+			Spotlight.focus('#panel1');
+		}, 1000);
+	}
+
+	render () {
+		return (
+			<div {...this.props}>
+				<FixedPopupPanels
+					open
+					index={this.state.index}
+				>
+					<Panel id="panel1" autoFocus="none">
+						<Header title="First Panel" noCloseButton />
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+					</Panel>
+				</FixedPopupPanels>
+			</div>
+		);
+	}
+}
 
 // eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
@@ -159,6 +204,18 @@ storiesOf('FixedPopupPanels', module)
 		{
 			info: {
 				text: 'QA -  Basic usage of FixedPopupPanels'
+			}
+		}
+	).add(
+		'with Pause and autoFocus="none"',
+		() => {
+			return (
+				<FixedPopupPanelsWithPause />
+			);
+		},
+		{
+			info: {
+				text: 'QA -  Manage focus with Pause in FixedPopupPanels'
 			}
 		}
 	);
