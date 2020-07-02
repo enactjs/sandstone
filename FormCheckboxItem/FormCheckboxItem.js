@@ -11,19 +11,24 @@
  */
 
 import kind from '@enact/core/kind';
+import Pure from '@enact/ui/internal/Pure';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
-import Spottable from '@enact/spotlight/Spottable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
 import Skinnable from '../Skinnable';
 import {CheckboxBase} from '../Checkbox';
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 
 import componentCss from './FormCheckboxItem.module.less';
 
-const Checkbox = Spottable(Skinnable(CheckboxBase));
+const Item = ItemDecorator(ItemBase);
+
+const Checkbox = Skinnable(CheckboxBase);
+
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
 
 /**
  * A Sandstone-styled form item with a checkbox component.
@@ -103,7 +108,15 @@ const FormCheckboxItemBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after the checkbox and before `children`.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	styles: {
@@ -112,7 +125,11 @@ const FormCheckboxItemBase = kind({
 		publicClassNames: ['formCheckboxItem']
 	},
 
-	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
+	computed: {
+		className: ({slotBefore, styler}) => styler.append({hasSlotBefore: hasChildren(slotBefore)})
+	},
+
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -121,14 +138,18 @@ const FormCheckboxItemBase = kind({
 			css={css}
 			selected={selected}
 		>
-			<Checkbox
-				indeterminate={indeterminate}
-				indeterminateIcon={indeterminateIcon}
-				slot="slotBefore"
-				selected={selected}
-			>
-				{icon}
-			</Checkbox>
+			<slotBefore>
+				<Checkbox
+					className={css.checkbox}
+					indeterminate={indeterminate}
+					indeterminateIcon={indeterminateIcon}
+					selected={selected}
+					standalone
+				>
+					{icon}
+				</Checkbox>
+				{slotBefore}
+			</slotBefore>
 			{children}
 		</Item>
 	)
@@ -144,7 +165,8 @@ const FormCheckboxItemBase = kind({
  * @public
  */
 const FormCheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**
@@ -160,7 +182,11 @@ const FormCheckboxItemDecorator = compose(
  * @ui
  * @public
  */
-const FormCheckboxItem = FormCheckboxItemDecorator(FormCheckboxItemBase);
+const FormCheckboxItem = Pure(
+	FormCheckboxItemDecorator(
+		FormCheckboxItemBase
+	)
+);
 
 export default FormCheckboxItem;
 export {

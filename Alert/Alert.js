@@ -8,6 +8,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {mapAndFilterChildren} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Slottable from '@enact/ui/Slottable';
@@ -21,6 +22,9 @@ import Popup from '../Popup';
 import AlertImage from './AlertImage';
 
 import css from './Alert.module.less';
+
+// when Alert type is "fullscreen", the body content for string children should be centered
+const CenteredBodyText = (props) => <BodyText {...props} centered />;
 
 /**
  * A modal Alert component.
@@ -151,21 +155,17 @@ const AlertBase = kind({
 
 	computed: {
 		buttons: ({buttons}) => {
-			if (buttons) {
-				return React.Children.map(buttons, (button, index) => (
-					<Cell className={css.buttonCell} key={`button${index}`} shrink>
-						{button}
-					</Cell>
-				));
-			} else {
-				return null;
-			}
+			return mapAndFilterChildren(buttons, (button, index) => (
+				<Cell className={css.buttonCell} key={`button${index}`} shrink>
+					{button}
+				</Cell>
+			)) || null;
 		},
-		contentComponent: ({children}) => {
+		contentComponent: ({children, type}) => {
 			if (typeof children === 'string' ||
 				Array.isArray(children) && children.every(child => (child == null || typeof child === 'string'))
 			) {
-				return BodyText;
+				return (type === 'fullscreen' ? CenteredBodyText : BodyText);
 			}
 		},
 		className: ({buttons, image, type, styler}) => styler.append(

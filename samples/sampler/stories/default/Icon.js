@@ -22,7 +22,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'Icon',
 		() => {
-			const flip = select('flip', ['', 'both', 'horizontal', 'vertical'], Config, '');
+			const flip = select('flip', ['', 'auto', 'both', 'horizontal', 'vertical'], Config, '');
 
 			let size = select('size', ['tiny', 'small', 'medium', 'large', 'custom number'], Config);
 			if (size === 'custom number') {

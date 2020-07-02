@@ -15,13 +15,17 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import Pure from '@enact/ui/internal/Pure';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 import {SwitchBase} from '../Switch';
 
 import componentCss from './SwitchItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 const Switch = Skinnable(SwitchBase);
 Switch.displayName = 'Switch';
@@ -60,7 +64,15 @@ const SwitchItemBase = kind({
 		 * @default false
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after `children` and before the switch.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node
 	},
 
 	defaultProps: {
@@ -73,17 +85,20 @@ const SwitchItemBase = kind({
 		publicClassNames: ['switchItem']
 	},
 
-	render: ({children, css, selected, ...rest}) => (
+	render: ({children, css, selected, slotAfter, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SetToggleItem"
-			role="checkbox"
+			role="button"
 			{...rest}
-			aria-checked={selected}
+			aria-pressed={selected}
 			css={css}
 			selected={selected}
 		>
 			{children}
-			<Switch selected={selected} slot="slotAfter" css={css} />
+			<slotAfter>
+				{slotAfter}
+				<Switch selected={selected} css={css} />
+			</slotAfter>
 		</Item>
 	)
 });
@@ -98,7 +113,8 @@ const SwitchItemBase = kind({
  * @public
  */
 const SwitchItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**
@@ -114,7 +130,11 @@ const SwitchItemDecorator = compose(
  * @ui
  * @public
  */
-const SwitchItem = SwitchItemDecorator(SwitchItemBase);
+const SwitchItem = Pure(
+	SwitchItemDecorator(
+		SwitchItemBase
+	)
+);
 
 export default SwitchItem;
 export {

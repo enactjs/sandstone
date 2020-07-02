@@ -618,7 +618,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Title for the video being played.
 		 *
-		 * @type {Node}
+		 * @type {String|Node}
 		 * @public
 		 */
 		title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

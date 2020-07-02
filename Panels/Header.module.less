@@ -25,6 +25,14 @@
 			right: 0;
 			left: 0;
 		}
+
+		.back {
+			margin-inline-start: 0;
+		}
+
+		.close {
+			margin-inline-end: 0;
+		}
 	}
 
 	&.wizard {
@@ -54,19 +62,11 @@
 	.backContainer {
 		display: inline-block;
 		width: 0;
-		opacity: 0.3;
+		opacity: 0;
 		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
-		transform: scale(0);
+		transform: scale(0.5);
 		transform-origin: center left;
 		will-change: width, transform, opacity;
-	}
-
-	.back {
-		margin-inline-start: 0;
-	}
-
-	.close {
-		margin-inline-end: 0;
 	}
 
 	&.showBack {

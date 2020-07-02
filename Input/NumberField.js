@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forward, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -21,13 +21,16 @@ import componentCss from './Input.module.less';
 const getSeparated = (prefer, max) => (prefer === 'separated' || (prefer === 'auto' && max <= SEPARATE_DIGITS_LIMIT));
 
 const normalizeValue = (value, maxLength) => ((value != null) ? value.toString().replace(/\D/g, '').substring(0, maxLength) : '');
+
 const normalizeValueProp = ({value, maxLength}) => normalizeValue(value, maxLength);
 
 const NumberCell = kind({
 	name: 'NumberCell',
 
 	propTypes: /** @lends sandstone/Input.NumberCell.prototype */ {
+		active: PropTypes.bool,
 		children: PropTypes.string,
+		disabled: PropTypes.bool,
 		password: PropTypes.bool,
 		passwordIcon: PropTypes.string
 	},
@@ -43,10 +46,12 @@ const NumberCell = kind({
 	},
 
 	computed: {
-		className: ({password, styler}) => styler.append({password})
+		className: ({active, password, styler}) => styler.append({active, password})
 	},
 
 	render: ({children, password, passwordIcon, ...rest}) => {
+		delete rest.active;
+
 		return (
 			<Icon
 				size="large"
@@ -62,7 +67,9 @@ const NumberFieldBase = kind({
 	name: 'NumberField',
 
 	propTypes: {
+		announce: PropTypes.func,
 		css: PropTypes.object,
+		disabled: PropTypes.bool,
 		invalid: PropTypes.bool,
 		invalidMessage: PropTypes.string,
 		maxLength: PropTypes.number,
@@ -92,21 +99,25 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				({key}, {maxLength, value}) => ({value: normalizeValue(`${value}${key}`, maxLength)}),
 				handle(
+					returnsTrue(({value}, {announce, type}) => {
+						announce(type === 'password' ? $L('hidden') : String(value).substr(-1));
+					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
-					({value: updatedValue}, {maxLength, minLength}) => {
+					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
 						const
 							updatedLength = normalizeValue(updatedValue, maxLength).length,
-							autoSubmit = minLength === maxLength;
+							autoSubmit = getSeparated(numberInputField, maxLength) && minLength === maxLength;
 						return autoSubmit && updatedLength >= maxLength;
 					},
-					forward('onComplete'),
+					forward('onComplete')
 				)
-			),
+			)
 		),
 		onRemove: handle(
+			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				forward('onChange')
@@ -116,7 +127,7 @@ const NumberFieldBase = kind({
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength)}),
 				forward('onComplete')
-			),
+			)
 		)
 	},
 
@@ -127,29 +138,35 @@ const NumberFieldBase = kind({
 		},
 		// Normalize the value, also prune out any non-digit characters
 		value: normalizeValueProp,
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
 			}
 		},
-		submitButton: ({css, invalid, maxLength, minLength, onSubmit, value}) => {
-			const disabled = invalid || (normalizeValue(value, maxLength).toString().length < minLength);
+		submitButton: ({css, disabled, invalid, maxLength, minLength, onSubmit, value, numberInputField}) => {
+			const isDisabled = disabled || invalid || (normalizeValue(value, maxLength).toString().length < minLength);
 
-			if (minLength !== maxLength) {
-				return <Button className={css.submitButton} disabled={disabled} onClick={onSubmit}>{$L('Submit')}</Button>;
+			if (minLength !== maxLength || !getSeparated(numberInputField, maxLength)) {
+				return <Button className={css.submitButton} disabled={isDisabled} onClick={onSubmit}>{$L('Submit')}</Button>;
 			} else {
 				return null;
 			}
+		},
+		style: ({maxLength, style}) => {
+			return {
+				...style,
+				'--input-max-number-length': maxLength
+			};
 		}
 	},
 
-	render: ({css, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
+	render: ({css, disabled, invalidTooltip, maxLength, numberInputField, onAdd, onRemove, showKeypad, submitButton, type, value, ...rest}) => {
 		const password = (type === 'password');
+		delete rest.announce;
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
@@ -165,20 +182,25 @@ const NumberFieldBase = kind({
 			const items = new Array(maxLength).fill('');
 			field = (
 				<Repeater
-					aria-label={!password ? values.join(' ') : null}
-					aria-live="polite"
 					{...rest}
 					component={Layout}
 					childComponent={Cell}
-					itemProps={{password, shrink: true, component: NumberCell}}
 					inline
 				>
-					{items.map((_, index) => (values[index]))}
+					{items.map((_, index) => ({
+						active: index === value.length,
+						children: values[index],
+						component: NumberCell,
+						disabled,
+						key: `key-${index}`,
+						password,
+						shrink: true
+					}))}
 				</Repeater>
 			);
 		} else {
 			field = (
-				<div {...rest}>
+				<div {...rest} disabled={disabled}>
 					{password ? convertToPasswordFormat(value) : value}
 				</div>
 			);
@@ -191,7 +213,7 @@ const NumberFieldBase = kind({
 					{invalidTooltip}
 				</div>
 				<br />
-				{showKeypad ? <Keypad onAdd={onAdd} onRemove={onRemove} /> : null}
+				{showKeypad ? <Keypad aria-label=" " disabled={disabled} onAdd={onAdd} onRemove={onRemove} /> : null}
 				{submitButton}
 			</React.Fragment>
 		);
@@ -200,7 +222,7 @@ const NumberFieldBase = kind({
 
 const NumberFieldDecorator = compose(
 	Changeable,
-	I18nContextDecorator({rtlProp: 'rtl'}),
+	I18nContextDecorator({rtlProp: 'rtl'})
 );
 
 const NumberField = NumberFieldDecorator(NumberFieldBase);

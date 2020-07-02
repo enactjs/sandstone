@@ -17,13 +17,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
 
+import Pure from '@enact/ui/internal/Pure';
+import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 
 import {CheckboxBase} from '../Checkbox';
-import Item from '../Item';
+import {ItemBase, ItemDecorator} from '../Item';
 import Skinnable from '../Skinnable';
 
 import componentCss from './CheckboxItem.module.less';
+
+const Item = ItemDecorator(ItemBase);
 
 const Checkbox = Skinnable(CheckboxBase);
 Checkbox.displayName = 'Checkbox';
@@ -118,7 +122,15 @@ const CheckboxItemBase = kind({
 		 * @type {Boolean}
 		 * @public
 		 */
-		selected: PropTypes.bool
+		selected: PropTypes.bool,
+
+		/**
+		 * Nodes to be inserted after the checkbox and before `children`.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
 	},
 
 	styles: {
@@ -127,7 +139,7 @@ const CheckboxItemBase = kind({
 		publicClassNames: ['checkboxItem']
 	},
 
-	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, ...rest}) => (
+	render: ({children, css, icon, indeterminate, indeterminateIcon, selected, slotBefore, ...rest}) => (
 		<Item
 			data-webos-voice-intent="SelectCheckItem"
 			role="checkbox"
@@ -136,14 +148,17 @@ const CheckboxItemBase = kind({
 			css={css}
 			selected={selected}
 		>
-			<Checkbox
-				selected={selected}
-				indeterminate={indeterminate}
-				indeterminateIcon={indeterminateIcon}
-				slot="slotBefore"
-			>
-				{icon}
-			</Checkbox>
+			<slotBefore>
+				<Checkbox
+					className={slotBefore ? css.checkbox : null}
+					selected={selected}
+					indeterminate={indeterminate}
+					indeterminateIcon={indeterminateIcon}
+				>
+					{icon}
+				</Checkbox>
+				{slotBefore}
+			</slotBefore>
 			{children}
 		</Item>
 	)
@@ -159,7 +174,8 @@ const CheckboxItemBase = kind({
  * @public
  */
 const CheckboxItemDecorator = compose(
-	Toggleable({toggleProp: 'onClick'})
+	Toggleable({toggleProp: 'onClick'}),
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']})
 );
 
 /**
@@ -175,7 +191,11 @@ const CheckboxItemDecorator = compose(
  * @ui
  * @public
  */
-const CheckboxItem = CheckboxItemDecorator(CheckboxItemBase);
+const CheckboxItem = Pure(
+	CheckboxItemDecorator(
+		CheckboxItemBase
+	)
+);
 
 export default CheckboxItem;
 export {

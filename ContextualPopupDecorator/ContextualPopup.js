@@ -109,13 +109,20 @@ const ContextualPopupBase = kind({
 		/**
 		 * Direction of ContextualPopup.
 		 *
-		 * Can be one of: `'above'`, `'above center'`, `'above left'`, `'above right'`, `'below'`, `'below center'`, `'below left'`, `'below right'`, `'left middle'`, `'left top'`, `'left bottom'`, `'right middle'`, `'right top'`, or `'right bottom'`.
-		 *
-		 * @type {('above'|'below'|'left'|'right')}
+		 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
 		 * @default 'below'
 		 * @public
 		 */
 		direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
+
+		/**
+		 * Offset from the activator to apply to the position of the popup.
+		 *
+		 * @type {('none'|'overlap'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		offset: PropTypes.oneOf(['none', 'overlap', 'small']),
 
 		/**
 		 * Shows the arrow.
@@ -128,7 +135,8 @@ const ContextualPopupBase = kind({
 	},
 
 	defaultProps: {
-		direction: 'below center'
+		direction: 'below center',
+		offset: 'small'
 	},
 
 	styles: {
@@ -141,9 +149,13 @@ const ContextualPopupBase = kind({
 			const [arrowDirection] = direction.split(' ');
 			return arrowDirection;
 		},
-		className: ({direction, styler}) => styler.append({
-			fixedSize: direction === 'above' || direction === 'below'
-		})
+		className: ({direction, offset, styler}) => styler.append(
+			{
+				fixedSize: direction === 'above' || direction === 'below'
+			},
+			direction.split(' '),
+			offset
+		)
 	},
 
 	render: ({arrowDirection, arrowPosition, className, containerPosition, containerRef, children, showArrow, ...rest}) => {

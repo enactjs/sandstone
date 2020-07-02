@@ -52,6 +52,14 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
+		 * Centers the primary caption in vertical orientation.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		centered: PropTypes.bool,
+
+		/**
 		 * The primary caption displayed with the image.
 		 *
 		 * @type {String}
@@ -102,9 +110,9 @@ const ImageItemBase = kind({
 
 		/**
 		 * Source for the image icon.
+		 *
 		 * String value or Object of values used to determine which image will appear on
-		 * a specific screenSize.
-		 * This feature is only valid when `orientation` is `'vertical'.
+		 * a specific screenSize. This feature is only valid when `orientation` is `'vertical'`.
 		 *
 		 * @type {String|Object}
 		 * @private
@@ -146,7 +154,6 @@ const ImageItemBase = kind({
 		 * is also `true`.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		selected: PropTypes.bool,
@@ -174,7 +181,6 @@ const ImageItemBase = kind({
 		 * Shows a selection component with a centered icon. When `selected` is true, a check mark is shown.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		showSelection: PropTypes.bool,
@@ -194,9 +200,7 @@ const ImageItemBase = kind({
 		'data-webos-voice-intent': 'Select',
 		imageIconComponent: Image,
 		orientation: 'vertical',
-		placeholder: defaultPlaceholder,
-		selected: false,
-		showSelection: false
+		placeholder: defaultPlaceholder
 	},
 
 	styles: {
@@ -205,7 +209,7 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({centered, children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
@@ -221,7 +225,14 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} marqueeOn="hover">{children}</Marquee>
+						<Marquee
+							className={css.caption}
+							// eslint-disable-next-line no-undefined
+							alignment={orientation === 'vertical' && centered ? 'center' : undefined}
+							marqueeOn="hover"
+						>
+							{children}
+						</Marquee>
 						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
@@ -233,11 +244,12 @@ const ImageItemBase = kind({
 	},
 
 	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
+		delete rest.centered;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
 		delete rest.label;
 
-		if (SelectionComponent) {
+		if (showSelection) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}

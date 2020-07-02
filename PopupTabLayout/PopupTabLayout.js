@@ -9,6 +9,7 @@
  */
 
 import kind from '@enact/core/kind';
+import Spotlight from '@enact/spotlight';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -244,7 +245,7 @@ const PopupTabLayoutBase = kind({
 		}
 
 		return (
-			<Popup {...popupProps} css={css}>
+			<Popup {...popupProps} css={css} noAlertRole>
 				<TabLayout
 					{...rest}
 					css={css}
@@ -334,7 +335,24 @@ PopupTabLayout.Tab = Tab;
  * @extends sandstone/Panels.Panels
  * @ui
  */
-const TabPanels = (props) => <Panels {...props} css={css} />;
+const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
+
+/**
+ * Omits the close button.
+ *
+ * Unlike most components, this prop defaults to `true`. To show the close button, the prop must
+ * explicitly set it to `false`:
+ *
+ * ```
+ * <TabPanels noCloseButton={false} />
+ * ```
+ *
+ * @name noCloseButton
+ * @memberof sandstone/PopupTabLayout.TabPanels.prototype
+ * @type {Boolean}
+ * @default true
+ * @public
+ */
 
 /**
  * A customized version of Panel for use inside this component.
@@ -344,7 +362,25 @@ const TabPanels = (props) => <Panels {...props} css={css} />;
  * @extends sandstone/Panels.Panel
  * @ui
  */
-const TabPanel = (props) => <Panel {...props} css={css} hideChildren={false} />;
+const TabPanel = ({spotlightId, ...rest}) => {
+	React.useEffect(() => {
+		Spotlight.set(spotlightId, {straightOnlyLeave: true});
+	}, [spotlightId]);
+
+	return (
+		<Panel {...rest} css={css} hideChildren={false} spotlightId={spotlightId} />
+	);
+};
+
+TabPanel.propTypes = {
+	/**
+	 * The container id for {@link spotlight/Spotlight}.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	spotlightId: PropTypes.string
+};
 
 
 export default PopupTabLayout;

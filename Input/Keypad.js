@@ -11,6 +11,7 @@ import React from 'react';
 
 import Button from '../Button';
 
+import $L from '../internal/$L';
 import WindowEventable from '../internal/WindowEventable';
 
 import css from './Input.module.less';
@@ -27,6 +28,7 @@ const Key = kind({
 	name: 'Key',
 
 	propTypes: {
+		disabled: PropTypes.bool,
 		// Event callback fired when this button is clicked. Includes the 'key' key in its event
 		// payload to let the clicker know what was clicked inside their callback.
 		onKeyButtonClick: PropTypes.func
@@ -45,13 +47,12 @@ const Key = kind({
 	},
 
 	render: ({children, ...rest}) => {
-		const content = (children === 'backspace') ? 'arrowhookleft' : children;
 		delete rest.onKeyButtonClick;
 		return (
 			<Button
 				{...rest}
 				size="large"
-				icon={content}
+				icon={children}
 			/>
 		);
 	}
@@ -61,6 +62,7 @@ const Keypad = kind({
 	name: 'Keypad',
 
 	propTypes: {
+		disabled: PropTypes.bool,
 		onAdd: PropTypes.func,
 		onRemove: PropTypes.func
 	},
@@ -70,14 +72,16 @@ const Keypad = kind({
 		className: 'keypad'
 	},
 
-	render: ({onAdd, onRemove, ...rest}) => {
+	render: ({disabled, onAdd, onRemove, ...rest}) => {
 		return (
 			<Layout align="center end" wrap {...rest} inline>
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
+							aria-label={keyText === 'backspace' ? $L('Back Space') : keyText}
 							shrink
 							component={Key}
+							disabled={disabled}
 							key={`key${rowIndex}-${keyText}`}
 							onKeyButtonClick={keyText === 'backspace' ? onRemove : onAdd}
 						>

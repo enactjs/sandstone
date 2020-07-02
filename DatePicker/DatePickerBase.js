@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
@@ -94,8 +95,10 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the day picker.
 		 *
+		 * If not specified, the "aria-label" for the day picker will be
+		 * a combination of the current value and 'day change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		dayAriaLabel: PropTypes.string,
@@ -137,8 +140,10 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the month picker.
 		 *
+		 * If not specified, the "aria-label" for the month picker will be
+		 * a combination of the current value and 'month change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
@@ -214,8 +219,10 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the year picker.
 		 *
+		 * If not specified, the "aria-label" for the year picker will be
+		 * a combination of the current value and 'year change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		yearAriaLabel: PropTypes.string
@@ -257,6 +264,11 @@ const DatePickerBase = kind({
 		yearAriaLabel,
 		...rest
 	}) => {
+		const
+			dayAccessibilityHint = $L('day'),
+			monthAccessibilityHint = $L('month'),
+			yearAccessibilityHint = $L('year');
+
 		return (
 			<DateTime {...rest}>
 				{order.map((picker, index) => {
@@ -269,12 +281,12 @@ const DatePickerBase = kind({
 						case 'd':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={dayAriaLabel}
+									accessibilityHint={dayAccessibilityHint}
 									aria-label={dayAriaLabel}
 									className={css.day}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={dayAriaLabel}
+									data-webos-voice-group-label={dayAccessibilityHint}
 									key="day-picker"
 									max={maxDays}
 									min={1}
@@ -291,12 +303,12 @@ const DatePickerBase = kind({
 						case 'm':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={monthAriaLabel}
+									accessibilityHint={monthAccessibilityHint}
 									aria-label={monthAriaLabel}
 									className={css.month}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={monthAriaLabel}
+									data-webos-voice-group-label={monthAccessibilityHint}
 									key="month-picker"
 									max={maxMonths}
 									min={1}
@@ -313,12 +325,12 @@ const DatePickerBase = kind({
 						case 'y':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={yearAriaLabel}
+									accessibilityHint={yearAccessibilityHint}
 									aria-label={yearAriaLabel}
 									className={css.year}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={yearAriaLabel}
+									data-webos-voice-group-label={yearAccessibilityHint}
 									key="year-picker"
 									max={maxYear}
 									min={minYear}

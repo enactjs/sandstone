@@ -1,10 +1,9 @@
-import {Panels, Panel, Header} from '@enact/sandstone/Panels';
+import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Item from '@enact/sandstone/Item';
-import React from 'react';
-import ri from '@enact/ui/resolution';
 import Scroller from '@enact/sandstone/Scroller';
-import Spotlight from '@enact/spotlight';
 import VirtualList from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
+import React from 'react';
 
 const itemList = [];
 for (let i = 0; i < 50; i++) {
@@ -19,12 +18,7 @@ class PanelsView extends React.Component {
 		};
 	}
 
-	componentWillMount () {
-		Spotlight.setPointerMode(false);
-	}
-
 	nextPanel = () => this.setState({panelIndex: 1})
-
 	prevPanel = () => this.setState({panelIndex: 0})
 
 	customItem = ({index, ...rest}) => {
@@ -44,9 +38,8 @@ class PanelsView extends React.Component {
 						spotlightId={'virtualList_$' + this.state.panelIndex}
 						dataSize={itemList.length}
 						direction="vertical"
-						focusableScrollbar
 						itemRenderer={this.customItem}
-						itemSize={ri.scale(72)}
+						itemSize={ri.scale(156)}
 					/>
 				</Panel>
 				<Panel>

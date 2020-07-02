@@ -88,7 +88,7 @@ const useThemeScroll = (props, instances) => {
 
 	const {handleWheel, isWheeling} = useEventWheel(props, instances);
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertScrollbarTrack, isWheeling});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {isWheeling});
 
 	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
@@ -129,6 +129,10 @@ const useThemeScroll = (props, instances) => {
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
 			themeScrollContentHandle.current.setContainerDisabled(false);
+		}
+
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
 		}
 
 		focusOnItem();
@@ -430,6 +434,7 @@ const useScroll = (props) => {
 			css.scroll,
 			overscrollCss.scroll,
 			focusableScrollbar ? css.focusableScrollbar : null,
+			focusableScrollbar && isVerticalScrollbarVisible ? css.verticalPadding : null,
 			isVerticalScrollbarVisible && isHorizontalScrollbarVisible ? css.bidirectional : null
 		],
 		style,
@@ -457,7 +462,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up down with up down button') : verticalScrollThumbAriaLabel,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle
@@ -465,7 +470,7 @@ const useScroll = (props) => {
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
-		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left right with left right button') : horizontalScrollThumbAriaLabel,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle

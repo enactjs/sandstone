@@ -42,6 +42,8 @@ const InputFieldBase = kind({
 		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
 		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
+		 * * `tooltip` - The "invalid" tooltip
+		 * * `tooltipLabel` - The "invalid" tooltip's label
 		 *
 		 * @type {Object}
 		 * @private
@@ -181,7 +183,7 @@ const InputFieldBase = kind({
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
@@ -212,14 +214,14 @@ const InputFieldBase = kind({
 		dismissOnEnter: false,
 		invalid: false,
 		placeholder: '',
-		size: 'large',
+		size: 'small',
 		type: 'text'
 	},
 
 	styles: {
 		css: componentCss,
 		className: 'inputField',
-		publicClassNames: ['inputField', 'input', 'inputHighlight']
+		publicClassNames: ['inputField', 'input', 'inputHighlight', 'tooltip', 'tooltipLabel']
 	},
 
 	handlers: {
@@ -241,11 +243,10 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip relative arrowAnchor="middle" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);

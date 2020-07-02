@@ -27,8 +27,8 @@ const app = (props) => (
 				</TabPanel>
 			</TabPanels>
 		</Tab>
-		<Tab icon="speaker" title="Sound">
-			<TabPanels id="sound">
+		<Tab title="Sound">
+			<TabPanels id="sound" noCloseButton>
 				<TabPanel>
 					<Header title="Sound Settings" type="compact" />
 					<Item>Advanced Audio</Item>

@@ -8,11 +8,12 @@ import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {InputField} from '../../../../../Input';
+import PropTypes from 'prop-types';
 
 const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
-
+const childProps = {text: ' child props'};
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
 spotlight.setPointerMode(false);
@@ -20,11 +21,13 @@ spotlight.setPointerMode(false);
 const items = [],
 	itemStyle = {margin: 0};
 
-const renderItem = (size) => ({index, ...rest}) => {
+
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderItem = (size, disabled) => ({index, text, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
-		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
-			{items[index].item}
+		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={disabled && (index % 15) !== 0}>
+			{items[index].item + (text || '')}
 		</StatefulSwitchItem>
 	);
 };
@@ -44,6 +47,10 @@ const updateDataSize = (dataSize) => {
 };
 
 class StatefulSwitchItem extends React.Component {
+	static displayName = 'StatefulSwitchItem';
+	static propTypes = {
+		index: PropTypes.number
+	}
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -86,6 +93,8 @@ class app extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			disabled: false,
+			hasChildProps: false,
 			hideScrollbar: false,
 			numItems: 100,
 			spacing: 0,
@@ -113,6 +122,14 @@ class app extends React.Component {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
 	}
 
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	}
+
+	jumpTo = () => {
+		this.scrollTo({animate: false, focus: true, index: 10});
+	}
+
 	onToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
@@ -134,13 +151,17 @@ class app extends React.Component {
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{hideScrollbar, numItems, itemSize, spacing, wrap} = this.state;
+			{disabled, hasChildProps, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
-						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
+						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
+						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
@@ -158,8 +179,10 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
+											cbScrollTo={this.getScrollTo}
+											childProps={this.state.hasChildProps ? childProps : null}
 											dataSize={numItems}
-											itemRenderer={renderItem(itemSize)}
+											itemRenderer={renderItem(itemSize, disabled)}
 											itemSize={ri.scale(itemSize)}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}

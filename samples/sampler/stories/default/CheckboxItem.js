@@ -6,6 +6,7 @@ import {storiesOf} from '@storybook/react';
 
 import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
 import CheckboxItem, {CheckboxItemBase} from '@enact/sandstone/CheckboxItem';
+import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 
 import iconNames from './icons';
@@ -18,6 +19,9 @@ storiesOf('Sandstone', module)
 	.add(
 		'CheckboxItem',
 		() => {
+			const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+			const slotBefore = slotBeforeSelection ? (<Icon slot="slotBefore">{slotBeforeSelection}</Icon>) : null;
+
 			return (
 				<CheckboxItem
 					// disabled and inline have problems when set to `null` from the internal nullify...
@@ -30,6 +34,7 @@ storiesOf('Sandstone', module)
 					labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
 					onToggle={action('onToggle')}
 				>
+					{slotBefore}
 					{text('children', Config, 'Hello CheckboxItem')}
 				</CheckboxItem>
 			);

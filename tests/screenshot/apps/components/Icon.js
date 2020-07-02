@@ -30,6 +30,11 @@ const IconTests = [
 	<Icon flip="both" size="tiny">rotate</Icon>,
 	<Icon flip="both" size="medium">rotate</Icon>,
 	<Icon flip="both" size="large">rotate</Icon>,
+	<Icon flip="auto">rotate</Icon>,
+	{
+		locale: 'ar-SA',
+		component: <Icon flip="auto">rotate</Icon>
+	},
 	{
 		textSize: 'large',
 		component: <Icon>plus</Icon>

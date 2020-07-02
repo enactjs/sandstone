@@ -2,6 +2,7 @@ import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import $L from '../internal/$L';
 import {DateComponentPicker, DateComponentRangePicker} from '../internal/DateComponentPicker';
 import DateTime from '../internal/DateTime';
 
@@ -138,8 +139,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the hour picker
 		 *
+		 * If not specified, the "aria-label" for the hour picker will be
+		 * a combination of the current value and 'hour change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		hourAriaLabel: PropTypes.string,
@@ -155,8 +158,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the meridiem picker.
 		 *
+		 * If not specified, the "aria-label" for the meridiem picker will be
+		 * a combination of the current value and 'change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		meridiemAriaLabel: PropTypes.string,
@@ -181,8 +186,10 @@ const TimePickerBase = kind({
 		/**
 		 * The "aria-label" for the minute picker.
 		 *
+		 * If not specified, the "aria-label" for the minute picker will be
+		 * a combination of the current value and 'minute change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		minuteAriaLabel: PropTypes.string,
@@ -295,6 +302,10 @@ const TimePickerBase = kind({
 		spotlightDisabled,
 		...rest
 	}) => {
+		const
+			hourAccessibilityHint = $L('hour'),
+			minuteAccessibilityHint = $L('minute');
+
 		return (
 			<DateTime {...rest} css={css}>
 				{order.map((picker, index) => {
@@ -313,12 +324,12 @@ const TimePickerBase = kind({
 							return (
 								<React.Fragment key="hour-picker">
 									<HourPicker
-										accessibilityHint={hourAriaLabel}
+										accessibilityHint={hourAccessibilityHint}
 										aria-label={hourAriaLabel}
 										className={css.hourPicker}
 										disabled={disabled}
 										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={hourAriaLabel}
+										data-webos-voice-group-label={hourAccessibilityHint}
 										hasMeridiem={hasMeridiem}
 										onChange={onChangeHour}
 										onSpotlightDisappear={onSpotlightDisappear}
@@ -335,12 +346,12 @@ const TimePickerBase = kind({
 						case 'm':
 							return (
 								<DateComponentRangePicker
-									accessibilityHint={minuteAriaLabel}
+									accessibilityHint={minuteAccessibilityHint}
 									aria-label={minuteAriaLabel}
 									className={css.minutePicker}
 									disabled={disabled}
 									data-webos-voice-disabled={voiceDisabled}
-									data-webos-voice-group-label={minuteAriaLabel}
+									data-webos-voice-group-label={minuteAccessibilityHint}
 									key="minute-picker"
 									max={59}
 									min={0}

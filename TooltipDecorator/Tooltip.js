@@ -96,6 +96,17 @@ const TooltipBase = kind({
 		labelOffset: PropTypes.number,
 
 		/**
+		 * Allows the tooltip to marquee.
+		 *
+		 * Specifying a [`width`]{@link sandstone/TooltipDecorator.TooltipBase#width} restrects
+		 * the marquee to that size.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		marquee: PropTypes.bool,
+
+		/**
 		 * Style object for tooltip position.
 		 *
 		 * @type {Object}
@@ -143,15 +154,21 @@ const TooltipBase = kind({
 		type: PropTypes.oneOf(['balloon', 'transparent']),
 
 		/**
-		 * The width of tooltip content in pixels (px).
+		 * The width of tooltip content.
 		 *
-		 * If the content goes over the given width, then it will automatically wrap. When `null`,
-		 * content does not wrap.
+		 * Value expects a number of pixels, which will be automatically scaled to the appropriate
+		 * size given the current screen resolution, or a string value containing a measurement and
+		 * a valid CSS unit included.
+		 * If the content goes over the given width, it will automatically wrap, or marquee if
+		 * `marquee` is enabled.
 		 *
-		 * @type {Number|null}
+		 * When `null`, content will auto-size and not wrap. If `marquee` is also enabled,
+		 * marqueeing will begin when the width is greater than the default (theme specified) width.
+		 *
+		 * @type {Number|String}
 		 * @public
 		 */
-		width: PropTypes.number
+		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 	},
 
 	defaultProps: {
@@ -181,8 +198,7 @@ const TooltipBase = kind({
 		}
 	},
 
-	render: ({children, css, tooltipRef, width, labelOffset, ...rest}) => {
-		delete rest.arrowAnchor;
+	render: ({arrowAnchor, children, css, tooltipRef, width, labelOffset, marquee, ...rest}) => {
 		delete rest.labelOffset;
 		delete rest.direction;
 		delete rest.position;
@@ -193,7 +209,7 @@ const TooltipBase = kind({
 			<div {...rest}>
 				<div className={css.tooltipAnchor} ref={tooltipRef} >
 					<div className={css.tooltipArrow} />
-					<TooltipLabel className={css.tooltipLabel} width={width} style={labelOffset}>
+					<TooltipLabel className={css.tooltipLabel} marquee={marquee} centered={arrowAnchor === 'center'} width={width} style={labelOffset}>
 						{children}
 					</TooltipLabel>
 				</div>

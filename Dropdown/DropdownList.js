@@ -9,6 +9,7 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Icon from '../Icon';
 import Item from '../Item';
 import Skinnable from '../Skinnable';
 import VirtualList from '../VirtualList';
@@ -96,6 +97,8 @@ const DropdownListBase = kind({
 	handlers: {
 		itemRenderer: ({index, ...rest}, props) => {
 			const {children, selected} = props;
+			const isSelected = index === selected;
+			const slotAfter = isSelected ? (<Icon>check</Icon>) : null;
 
 			let child = children[index];
 			if (typeof child === 'string') {
@@ -107,9 +110,11 @@ const DropdownListBase = kind({
 				<Item
 					{...rest}
 					{...child}
-					data-selected={index === selected}
+					slotAfter={slotAfter}
+					data-selected={isSelected}
 					// eslint-disable-next-line react/jsx-no-bind
 					onClick={() => forward('onSelect', {data, selected: index}, props)}
+					size="small"
 				/>
 			);
 		}
@@ -119,8 +124,8 @@ const DropdownListBase = kind({
 		className: ({width, styler}) => styler.append(width),
 		dataSize: ({children}) => children ? children.length : 0,
 		// Note: Retaining this in case we need to support different item sizes for large text mode:
-		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 156 : 156)
-		itemSize: () => 156
+		// itemSize: ({skinVariants}) => ri.scale(skinVariants && skinVariants.largeText ? 126 : 126)
+		itemSize: () => 126
 	},
 
 	render: ({dataSize, itemSize, scrollTo, ...rest}) => {
@@ -136,7 +141,6 @@ const DropdownListBase = kind({
 				cbScrollTo={scrollTo}
 				dataSize={dataSize}
 				itemSize={ri.scale(itemSize)}
-				role="group"
 				style={{height: ri.scaleToRem((itemSize * dataSize) + 36)}}
 			/>
 		);
@@ -189,8 +193,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			this.node = ReactDOM.findDOMNode(this);
 			Spotlight.set(this.node.dataset.spotlightId, {
 				defaultElement: '[data-selected="true"]',
-				enterTo: 'default-element',
-				leaveFor: {up: '', down: ''}
+				enterTo: 'default-element'
 			});
 		}
 

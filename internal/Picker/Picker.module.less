@@ -5,17 +5,18 @@
 @import "../../styles/skin.less";
 
 .picker {
-	display: inline-block;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
-	margin-left: @sand-spotlight-outset;
-	margin-right: @sand-spotlight-outset;
+	margin: @sand-picker-margin;
 
 	.sizingPlaceholder,
 	.valueWrapper {
 		.sand-text-base(@sand-picker-font-size);
-		.sand-locale-non-latin({line-height: @sand-button-small-height;});
+		.sand-locale-non-latin({
+			height: @sand-non-latin-picker-line-height;
+			line-height: @sand-non-latin-picker-line-height;
+		});
 		max-width: 960px;
 
 		.item {
@@ -25,18 +26,45 @@
 		}
 	}
 
+	.sizingPlaceholder,
+	.item {
+		padding: @sand-picker-item-padding;
+	}
+	// Special rules for small size for a more compact view
+	&.small {
+		.sizingPlaceholder,
+		.item {
+			padding-left: (.extract(@sand-picker-item-padding, left)[] / 2);
+			padding-right: (.extract(@sand-picker-item-padding, right)[] / 2);
+		}
+	}
+
 	.sizingPlaceholder {
 		height: 0;
 		visibility: hidden;
 	}
 
 	.valueWrapper {
-		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		vertical-align: bottom;
 		height: @sand-picker-value-height;
 		line-height: @sand-picker-value-height;
+		position: relative;
+	}
+
+	.viewManager {
+		overflow: hidden;
+		height: 100%;
+
+		> .item:nth-child(2) {
+			// the second element in the ViewManager should be offset by the container height
+			// so the transition can position two relative views next to each other safely.
+			top: -100%;
+		}
+	}
+
+	.item {
+		position: relative;
 	}
 
 	.incrementer,
@@ -44,7 +72,6 @@
 		cursor: pointer;
 		margin: 0;
 		position: relative;
-		transition: transform 100ms;
 
 		.disabled({
 			cursor: default;
@@ -52,104 +79,46 @@
 	}
 
 	&.horizontal {
-		display: inline-flex;
-
 		:global(.enact-locale-right-to-left) & {
 			flex-direction: row-reverse;
 		}
 
 		.incrementer {
 			order: 3;
-			flex-shrink: 0;
-			margin-left: @sand-spotlight-outset;
 		}
 		.decrementer {
 			order: 1;
-			flex-shrink: 0;
-			margin-right: @sand-spotlight-outset;
 		}
 		.valueWrapper {
 			order: 2;
-			position: relative;
-
-			.item {
-				transform: translateX(100%);
-			}
-		}
-
-		&.small,
-		&.medium,
-		&.large {
-			.valueWrapper {
-				.item {
-					position: absolute;
-					.position(0);
-					transform: translateX(100%);
-				}
-			}
 		}
 	}
 
 	&.vertical {
-		height: @sand-picker-joined-vertical-height;
-
-		.valueWrapper {
-			display: block;
-			position: relative;
-
-			.sizingPlaceholder,
-			.item {
-				margin: 0 @sand-spotlight-outset;
-			}
-
-			.item {
-				position: absolute;
-				.position(0);
-				transform: translateY(100%);
-			}
-		}
+		height: @sand-picker-vertical-height;
 	}
 
 	&.joined {
-		&::before,
-		&::after {
+		&::before {
 			content: "";
 			position: absolute;
 			.position(0);
 		}
 
-		&::after {
-			border-width: 0;
-			border-style: solid;
-			border-radius: inherit;
-			pointer-events: none;
+		.valueWrapper {
+			height: @sand-picker-joined-value-height;
+			line-height: @sand-picker-joined-value-height;
 		}
 
 		.icon {
-			vertical-align: top;
 			margin: 0;
-			width: @sand-button-small-height;
-			height: @sand-button-small-height;
-			line-height: @sand-button-small-height;
-		}
-
-		.valueWrapper {
-			height: @sand-picker-value-height;
-		}
-
-		.incrementer,
-		.decrementer {
-			&.hidden {
-				visibility: hidden;
-			}
 		}
 
 		&.horizontal {
 			height: @sand-picker-joined-horizontal-height;
 			padding: @sand-picker-joined-horizontal-padding;
 
-			&::before,
-			&::after {
+			&::before {
 				border-radius: @sand-picker-joined-horizontal-border-radius;
 			}
 
@@ -159,26 +128,17 @@
 			}
 
 			.valueWrapper {
-				height: @sand-picker-joined-horizontal-value-line-height;
-				line-height: @sand-picker-joined-horizontal-value-line-height;
+				margin-bottom: @sand-picker-joined-horizontal-value-offset;
 			}
 
-			.incrementer,
-			.decrementer {
-				margin: 0;
-				height: @sand-picker-joined-horizontal-height;
-				line-height: @sand-picker-joined-horizontal-height;
-
-				.icon {
-					visibility: hidden;
-				}
+			.item {
+				// This "fixes" an issue with horizontal+joined+noAnimation which casuses
+				// a de-focus to happen on click. Here, we turn off pointer events, so that
+				// event can't be fired by item, and he Picker will not become de-focused.
+				pointer-events: none;
 			}
 
 			.indicatorContainer {
-				position: absolute;
-				bottom: @sand-picker-indicator-bottom;
-				left: 50%;
-				transform: translateX(-50%);
 				margin: 0 auto;
 				line-height: 0;
 				white-space: nowrap;
@@ -202,8 +162,7 @@
 		}
 
 		&.vertical {
-			&::before,
-			&::after {
+			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 
@@ -222,7 +181,7 @@
 	}
 
 	&.small .valueWrapper {
-		width: (@sand-icon-large-size + @sand-spotlight-outset*3);
+		width: @sand-picker-small-value-width;
 	}
 	&.medium .valueWrapper {
 		width: @sand-picker-medium-value-width;
@@ -233,26 +192,14 @@
 
 	// Skin colors
 	.applySkins({
-		.sizingPlaceholder,
-		.valueWrapper {
-			color: @sand-picker-text-color;
-		}
-
-		.valueWrapper {
-			color: inherit;
-		}
+		color: @sand-picker-text-color;
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
 
-
-			&::after {
-				border-color: @sand-picker-joined-fingernail-border-color;
-			}
-
 			&.horizontal {
 				&::before {
-					.sand-spotlight-resting-colors(1);
+					.sand-spotlight-resting-bg-colors(1);
 					background-color: @sand-picker-joined-horizontal-bg-color;
 				}
 
@@ -267,16 +214,16 @@
 
 			&.vertical {
 				&::before {
-					.sand-spotlight-resting-colors();
+					.sand-spotlight-resting-bg-colors();
 				}
 			}
 
 			.focus({
-				color: @sand-picker-focus-text-color;
+				.sand-spotlight-focus-text-colors();
 
 				&.horizontal {
 					&::before {
-						.sand-spotlight-focus-colors();
+						.sand-spotlight-focus-bg-colors();
 						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
 						filter+_: saturate(0) brightness(1.89);
 					}
@@ -284,7 +231,7 @@
 
 				&.vertical {
 					&::before {
-						.sand-spotlight-focus-colors();
+						.sand-spotlight-focus-bg-colors();
 					}
 				}
 
@@ -319,75 +266,4 @@
 			})
 		}
 	});
-
-	// Large-text mode rules
-	.sand-custom-text({
-		.sizingPlaceholder,
-		.valueWrapper {
-			font-size: @sand-item-font-size-large;
-		}
-		.valueWrapper {
-			line-height: @sand-button-small-height-large;
-			height: @sand-button-small-height-large;
-		}
-
-		&.joined {
-			&.horizontal {
-				font-size: @sand-item-font-size-large;
-				height: @sand-picker-joined-horizontal-height;
-				line-height: @sand-button-small-height-large;
-
-				.incrementer,
-				.decrementer {
-					&,
-					.icon {
-						height: @sand-button-small-height-large;
-						line-height: @sand-button-small-height-large;
-					}
-				}
-			}
-		}
-
-		&.small,
-		&.medium,
-		&.large {
-			&.vertical {
-				.valueWrapper {
-					.sizingPlaceholder,
-					.item {
-						margin: 0 @sand-spotlight-outset;
-					}
-				}
-			}
-		}
-
-		&.vertical {
-			.valueWrapper {
-				padding: 0 @sand-spotlight-outset;
-
-				.sizingPlaceholder,
-				.item {
-					margin: 0;
-				}
-			}
-		}
-	});
 }
-
-.muted({
-	.picker {
-		.applySkins({
-			&.joined {
-				.focus({
-					color: @sand-picker-joined-text-color;
-
-					&.horizontal {
-						&::before {
-							background-color: @sand-picker-joined-horizontal-bg-color;
-						}
-					}
-				});
-			}
-		});
-	}
-});

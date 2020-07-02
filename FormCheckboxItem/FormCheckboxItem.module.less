@@ -4,7 +4,11 @@
 @import "../styles/skin.less";
 
 .formCheckboxItem {
-	/* Available for customization */
+	&.hasSlotBefore {
+		.checkbox {
+			margin-inline-end: @sand-formcheckboxitem-checkbox-margin-end;
+		}
+	}
 
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
@@ -21,6 +25,7 @@
 	.applySkins({
 		.focus({
 			color: @sand-formcheckboxitem-focus-text-color;
+			font-weight: @sand-formcheckboxitem-focus-font-weight;
 
 			.bg {
 				background-color: transparent;
@@ -28,10 +33,23 @@
 			}
 
 			.disabled({
+				color: @sand-formcheckboxitem-disabled-focus-text-color;
+
 				.bg {
 					opacity: 0;
 				}
+
+				.slotBefore {
+					// Overrides Item's rule, setting all content fields to the content opacity.
+					// Standalone Checkbox handles this coloration on its own, so that rule isn't
+					// needed, so we reset it back to default here.
+					opacity: initial;
+				}
 			});
 		});
+
+		.disabled({
+			color: @sand-formcheckboxitem-disabled-text-color;
+		})
 	});
 }

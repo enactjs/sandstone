@@ -20,15 +20,12 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {IconBase} from '../Icon';
+import Icon from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 import TooltipDecorator from '../TooltipDecorator';
 
 import componentCss from './Button.module.less';
-
-// Make a basic Icon in case we need it later. This cuts `Pure` out of icon for a small gain.
-const Icon = Skinnable(IconBase);
 
 /**
  * A button component.
@@ -121,6 +118,15 @@ const ButtonBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Set the visual effect applied to the button when focused.
+		 *
+		 * @type {('expand'|'static')}
+		 * @default 'expand'
+		 * @private
+		 */
+		focusEffect: PropTypes.oneOf(['expand', 'static']),
+
+		/**
 		 * True if button is an icon only button.
 		 *
 		 * @type {Boolean}
@@ -161,6 +167,7 @@ const ButtonBase = kind({
 		backgroundOpacity: null,
 		collapsable: false,
 		collapsed: false,
+		focusEffect: 'expand',
 		iconPosition: 'before',
 		size: 'large'
 	},
@@ -171,7 +178,7 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, collapsable, collapsed, color, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
 			{
 				hasColor: color,
 				iconOnly,
@@ -180,6 +187,7 @@ const ButtonBase = kind({
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
+			`focus${cap(focusEffect)}`,
 			`icon${cap(iconPosition)}`,
 			size
 		),
@@ -193,6 +201,7 @@ const ButtonBase = kind({
 		delete rest.collapsed;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
+		delete rest.focusEffect;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',

@@ -8,6 +8,7 @@
 
 import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -86,8 +87,8 @@ const TabLayoutBase = kind({
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
 		 * @default {
 		 * 	tabs: {
-		 * 		collapsed: 240,
-		 * 		normal: 855
+		 * 		collapsed: 228,
+		 * 		normal: 882
 		 * 	},
 		 * 	content: {
 		 * 		expanded: null,
@@ -183,8 +184,8 @@ const TabLayoutBase = kind({
 	defaultProps: {
 		dimensions: {
 			tabs: {
-				collapsed: 240,
-				normal: 855
+				collapsed: 228,
+				normal: 882
 			},
 			content: {
 				expanded: null,
@@ -220,11 +221,9 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => {
-			return React.Children.map(children, (child) => {
-				return <React.Fragment>{child.props.children}</React.Fragment>;
-			});
-		},
+		children: ({children}) => mapAndFilterChildren(children, (child) => (
+			<React.Fragment>{child.props.children}</React.Fragment>
+		)),
 		className: ({collapsed, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
@@ -232,7 +231,7 @@ const TabLayoutBase = kind({
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
-			const tabs = React.Children.map(children, (child) => {
+			const tabs = mapAndFilterChildren(children, (child) => {
 				const {disabled, icon, title} = child.props;
 				return {disabled, icon, title};
 			});

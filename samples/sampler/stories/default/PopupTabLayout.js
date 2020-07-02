@@ -53,7 +53,7 @@ storiesOf('Sandstone', module)
 			const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
 
 			return (<div>
-				<Button onClick={toggleOpen}>Open PopupTabLayout</Button>
+				<Button focusEffect="static" onClick={toggleOpen}>Open PopupTabLayout</Button>
 
 				<PopupTabLayout
 					open={open}

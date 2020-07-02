@@ -23,21 +23,19 @@
 		}
 	}
 
+	// this block is "tricks" the layout so the following .navButton rules position the before
+	// button correctly in LTR and RTL locales
+	.navCellBefore {
+		direction: rtl;
+
+		:global(.enact-locale-right-to-left) & {
+			direction: ltr;
+		}
+	}
+
 	.navButton {
 		position: absolute;
-	}
-
-	.navCellBefore .navButton {
-		left: 0;
-		transform: translate(-100%, -50%);
-	}
-
-	.navCellAfter .navButton {
-		right: 0;
-		transform: translate(100%, -50%);
-	}
-
-	.navButton {
+		transform: translate(0, -50%);
 		margin: @sand-flexiblepopuppanels-navbutton-margin;
 	}
 
@@ -45,6 +43,12 @@
 		position: relative;
 		pointer-events: none;
 		padding: 0;
+	}
+
+	&.fullHeight {
+		.bodyLayout {
+			height: 100%;
+		}
 	}
 
 	// Skin colors
@@ -56,10 +60,6 @@
 // Overrides for Panel
 .panel {
 	pointer-events: none;
-
-	> * {
-		pointer-events: auto;
-	}
 
 	> .body {
 		padding: 0;
@@ -73,6 +73,12 @@
 		// This value, however, does do exactly what we need. Fill up to a point
 		// and not expand beyond that.
 		max-height: -webkit-fill-available; // Expand to the bounds, then stop.
+		pointer-events: auto;
+	}
+
+	// Target class-less Header container to capture pointer events that fall into the margin of header, outside its DOM box.
+	> *:first-child {
+		pointer-events: auto;
 	}
 
 	.header {
@@ -86,7 +92,23 @@
 		padding: @sand-flexiblepopuppanels-panel-padding;
 	}
 
+	:global(.enact-locale-right-to-left) & {
+		// force the body to LTR maintain left alignment of panel contents
+		> .body {
+			direction: ltr;
+
+			// but reset direction for content
+			.bodyLayout {
+				direction: rtl;
+			}
+		}
+	}
+
 	.applySkins({
+		.header {
+			filter: drop-shadow(@sand-flexiblepopuppanels-header-shadow);
+		}
+
 		.content {
 			background-color: @sand-flexiblepopuppanels-panel-bg-color;
 			border-radius: @sand-flexiblepopuppanels-panel-border-radius;

@@ -16,9 +16,14 @@ import React from 'react';
 
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import Item from '../Item';
+import Scroller from '../Scroller';
 import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
+
+// The maimum number of visible items. More than this number invokes a scroller.
+// When updating this value, you must also set the max-items LESS variable.
+const MAX_VISIBLE_MENU_ITEMS = 5;
 
 /**
  * Default config for {@link sandstone/ContextualMenuDecorator.ContextualMenuDecorator}
@@ -51,6 +56,12 @@ const defaultConfig = {
 	openProp: 'selected'
 };
 
+const ScrollingRepeater = ({className, ...rest}) => (
+	<Scroller className={className}>
+		<Repeater {...rest} />
+	</Scroller>
+);
+
 const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 	// we might not need Skinnable at all here. If we want to skin the popup and it's defined as a
 	// private component in this module, we can wrap it with skinnable and style it as needed there.
@@ -69,7 +80,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * Direction of popup with respect to the wrapped component.
 			 *
 			 * @type {('above'|'above center'|'above left'|'above right'|'below'|'below center'|'below left'|'below right'|'left middle'|'left top'|'left bottom'|'right middle'|'right top'|'right bottom')}
-			 * @default 'below left'
+			 * @default 'below right'
 			 * @public
 			 */
 			direction: PropTypes.oneOf(['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom']),
@@ -92,6 +103,15 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 				}))
 			]),
+
+			/**
+			 * Offset from the activator to apply to the position of the popup.
+			 *
+			 * @type {('none'|'overlap'|'small')}
+			 * @default 'overlap'
+			 * @public
+			 */
+			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
 
 			/**
 			 * Called when the user has attempted to close the popup.
@@ -130,11 +150,25 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Object}
 			 * @public
 			 */
-			popupProps: PropTypes.object
+			popupProps: PropTypes.object,
+
+			/**
+			 * Width of the Popup component.
+			 *
+			 * When `'auto'` the popup will match the activator's width when `direction` is
+			 * `'below'` or `'above'` or a width specified in `popupClassName`.
+			 *
+			 * @type {('auto'|'large'|'small')}
+			 * @default 'auto'
+			 * @private
+			 */
+			popupWidth: PropTypes.oneOf(['auto', 'large', 'small'])
 		},
 
 		defaultProps: {
-			direction: 'below'
+			direction: 'below right',
+			offset: 'overlap',
+			popupWidth: 'auto'
 		},
 
 		handlers: {
@@ -153,23 +187,37 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			// expect we'll be able to drop this when we add the private popupComponent
 			// implementation with the Repeater for the items since the popup class could be set
 			// on the component by itself
-			popupClassName: ({popupClassName, styler}) => styler.join(
-				'popup',
-				'container',
-				popupClassName
-			),
-			popupProps: ({menuItems, popupProps}) => ({children: menuItems, childComponent: Item, component: 'div', ...popupProps})
+			popupClassName: ({popupWidth, popupClassName, styler}) => {
+				const sizeClass = popupWidth !== 'auto' && popupWidth;
+				return styler.join(
+					'popup',
+					'container',
+					popupClassName,
+					sizeClass
+				);
+			},
+			popupComponent: ({menuItems}) => (menuItems && menuItems.length > MAX_VISIBLE_MENU_ITEMS ? ScrollingRepeater : Repeater),
+			popupProps: ({menuItems, popupProps}) => ({
+				'aria-live': null,
+				children: menuItems,
+				childComponent: Item,
+				className: css.innerContainer,
+				itemProps: {className: css.item, size: 'small'},
+				component: 'div',
+				role: null,
+				...popupProps
+			})
 		},
 
 		render: ({onOpen, popupProps, ...rest}) => {
 			delete rest.menuItems;
 			delete rest.onOpen;
+			delete rest.popupWidth;
 
 			return (
 				<Component
 					{...rest}
 					onClick={onOpen}
-					popupComponent={Repeater}
 					popupProps={popupProps}
 				/>
 			);
