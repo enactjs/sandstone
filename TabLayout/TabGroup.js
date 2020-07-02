@@ -65,11 +65,12 @@ const TabBase = kind({
 		delete rest.onFocusTab;
 
 		const commonProps = {
-			collapsable: true,
-			minWidth: false,
 			backgroundOpacity: 'transparent',
+			children,
+			collapsable: true,
 			css,
-			children
+			focusEffect: 'static',
+			minWidth: false
 		};
 
 		switch (orientation) {
