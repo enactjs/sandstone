@@ -152,7 +152,7 @@ const InputFieldBase = kind({
 		 * @param {Object} event
 		 * @public
 		 */
-			onClick: PropTypes.func,
+		onClick: PropTypes.func,
 
 		/**
 		 * Called when focused.
