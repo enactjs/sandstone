@@ -204,7 +204,7 @@ storiesOf('Dropdown', module)
 					onSelect={action('onSelect')}
 					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
+					title="title1"
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items(3)}
@@ -219,7 +219,7 @@ storiesOf('Dropdown', module)
 					onSelect={action('onSelect')}
 					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
+					title="title2"
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items(3)}
@@ -235,7 +235,7 @@ storiesOf('Dropdown', module)
 						onSelect={action('onSelect')}
 						placeholder={text('placeholder', Config, 'Dropdown')}
 						size={select('size', ['small', 'large'], Config)}
-						title={text('title', Config, 'Dropdown')}
+						title="title3"
 						width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 					>
 						{items(3)}
