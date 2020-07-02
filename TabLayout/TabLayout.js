@@ -6,8 +6,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, handle} from '@enact/core/handle';
-// import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -207,20 +206,19 @@ const TabLayoutBase = kind({
 	handlers: {
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
+		),
+		handleTabsTransitionEnd: handle(
+			forward('onTransitionEnd'),
+			forProp('orientation', 'vertical'),
+			// Validate the transition is from the root node
+			(ev) => ev.target.classList.contains(componentCss.tabs),
+			// Only emit the event once (and not also for the flex-basis transition)
+			forEventProp('propertyName', 'opacity'),
+			adaptEvent(
+				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
+				forward('onTabAnimationEnd')
+			)
 		)
-		// NOTE: This might be needed for cleaner spotlight handling
-		// handleTabsTransitionEnd: handle(
-		// 	forward('onTransitionEnd'),
-		// 	forProp('orientation', 'vertical'),
-		// 	// Validate the transition is from the root node
-		// 	(ev) => ev.target.classList.contains(componentCss.tabs),
-		// 	// Only emit the event once (and not also for the flex-basis transition)
-		// 	forEventProp('propertyName', 'max-width'),
-		// 	adaptEvent(
-		// 		(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
-		// 		forward('onTabAnimationEnd')
-		// 	)
-		// )
 	},
 
 	computed: {
@@ -246,7 +244,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, tabSize, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, dimensions, tabSize, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -265,7 +263,7 @@ const TabLayoutBase = kind({
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} shrink>
+				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
 					<TabGroup
 						{...tabGroupProps}
 						collapsed={isVertical}

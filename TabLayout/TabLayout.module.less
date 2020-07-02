@@ -21,10 +21,16 @@
 
 	&.vertical {
 		.tabs {
+			// === Important Note ===
+			//
+			// onTabAnimationEnd relies on the opacity property transition to operate correctly. If
+			// this transition changes in any way, verify that event is emitted only once when the
+			// transition complete. If this breaks, you'll see unit test failures.
 			transition: opacity @sand-tablayout-collapse-duration ease-out;
 			will-change: opacity;
 			opacity: 1;
 		}
+
 		.tabsExpanded {
 			position: absolute;
 			width: var(--cell-size); // References the cell-size, since flex-basis doesn't force-assicn a width, and cell-size normally just applies to max-width
@@ -32,6 +38,7 @@
 			will-change: opacity, transform;
 			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
+
 		.content {
 			margin-top: @sand-tablayout-vertical-content-margin-top;
 			transition: transform @sand-tablayout-collapse-duration ease-out;
@@ -43,13 +50,16 @@
 			.tabs {
 				opacity: 0;
 			}
+
 			.tabsExpanded {
 				opacity: 1;
 			}
+
 			.content {
 				transform: translateX(var(--tablayout-expand-collapse-diff));
 			}
 		}
+
 		&.collapsed {
 			.tabsExpanded {
 				opacity: 0;
