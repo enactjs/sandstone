@@ -87,7 +87,7 @@ const app = kind({
 					</Panel>
 					<Panel id="panel7" nextButton={nextButton} prevButton={prevButton} autoFocus="#item2">
 						<Header title="Panel 7 - autoFocus" />
-						<div style={{width: scaleToRem(800)}}>
+						<div style={{width: scaleToRem(798)}}>
 							<Item>Item 1</Item>
 							<Item id="item2">Item 2</Item>
 						</div>
