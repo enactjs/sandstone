@@ -1,0 +1,16 @@
+// HolePunchScrim.module.less
+//
+@import "../styles/variables.less";
+
+@sand-holepunchscrim-border-radius: 12px;
+@sand-holepunchscrim-bg-color: rgba(0,0,0, 0.6);
+
+.holePunchScrim {
+	height: var(--hole-height);
+	width: var(--hole-width);
+	top: var(--hole-top);
+	left: var(--hole-left);
+	position: absolute;
+	box-shadow: 0 0 0 9999px @sand-holepunchscrim-bg-color;
+	border-radius: @sand-holepunchscrim-border-radius;
+}

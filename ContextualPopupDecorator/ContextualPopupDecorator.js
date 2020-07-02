@@ -23,6 +23,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {ContextualPopup} from './ContextualPopup';
+import HolePunchScrim from './HolePunchScrim';
 
 import css from './ContextualPopupDecorator.module.less';
 
@@ -678,22 +679,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				rest.skin = skin;
 			}
 
-			let knockoutStyle;
+			let holeBounds;
 			if (this.clientNode) {
-				const {top, left, width, height} = this.clientNode.getBoundingClientRect();
-				knockoutStyle = {
-					'--contextual-popup-activator-height': (height || 0) + 'px',
-					'--contextual-popup-activator-width': (width || 0) + 'px',
-					'--contextual-popup-activator-top': (top || 0) + 'px',
-					'--contextual-popup-activator-left': (left || 0) + 'px',
-					height: 'var(--contextual-popup-activator-height)',
-					width: 'var(--contextual-popup-activator-width)',
-					top: 'var(--contextual-popup-activator-top)',
-					left: 'var(--contextual-popup-activator-left)',
-					position: 'absolute',
-					boxShadow: '0 0 0 9999px rgba(0,0,0, 0.6)',
-					borderRadius: ri.scaleToRem(12)
-				};
+				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
 			delete rest.onOpen;
@@ -714,7 +702,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						scrimType={scrimType}
 					>
 						<React.Fragment>
-							<div style={knockoutStyle} />
+							<HolePunchScrim holeBounds={holeBounds} />
 							<ContextualPopupContainer
 								{...ariaProps}
 								className={popupClassName}
