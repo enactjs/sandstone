@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
 - `sandstone/Scroller.Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
