@@ -75,6 +75,7 @@ storiesOf('Sandstone', module)
 							<Button icon="demosync">Button 2</Button>
 							<Button icon="demosync">Button 3</Button>
 							<Button icon="demosync">Button 4</Button>
+							<Button icon="demosync">Button 5</Button>
 						</Tab>
 						<Tab
 							title={tabs[2].title}
