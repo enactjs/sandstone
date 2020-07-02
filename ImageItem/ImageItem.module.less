@@ -129,6 +129,10 @@
 			}
 		}
 
+		.image+div {
+			width: ~"calc(100% -" (@sand-imageitem-horizontal-image-width + extract(@sand-imageitem-horizontal-image-margin, 2)) ~")";
+		}
+
 		.selectionIcon {
 			width: @sand-imageitem-horizontal-selection-icon-size;
 			height: @sand-imageitem-horizontal-selection-icon-size;
