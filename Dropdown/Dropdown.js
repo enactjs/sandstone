@@ -21,6 +21,7 @@ import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
@@ -409,11 +410,13 @@ const DropdownDecorator = compose(
  * @ui
  * @public
  */
-const Dropdown = DropdownDecorator(DropdownBase);
+const DropdownWithoutContainer = DropdownDecorator(DropdownBase);
+const Dropdown = SpotlightContainerDecorator({}, DropdownDecorator(DropdownBase));
 
 export default Dropdown;
 export {
 	Dropdown,
 	DropdownBase,
-	DropdownDecorator
+	DropdownDecorator,
+	DropdownWithoutContainer
 };

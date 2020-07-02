@@ -1,3 +1,4 @@
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -6,9 +7,12 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
-import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
+import BodyText from '@enact/sandstone/BodyText';
+import Dropdown, {DropdownBase, DropdownWithoutContainer} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
+import Scroller from '@enact/sandstone/Scroller';
 
+const SpotlightContainer = SpotlightContainerDecorator({}, 'div');
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
 
@@ -186,5 +190,66 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
+		)
+	).add(
+		'with disabled',
+		() => (
+			<Scroller style={{height: '250px'}}>
+				<Dropdown
+					defaultSelected={10}
+					direction={select('direction', ['above', 'below'], Config)}
+					disabled={boolean('disabled', Config)}
+					onClose={action('onClose')}
+					onOpen={action('onOpen')}
+					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
+					size={select('size', ['small', 'large'], Config)}
+					title={text('title', Config, 'Dropdown')}
+					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+				>
+					{items(3)}
+				</Dropdown>
+				<br />
+				<Dropdown
+					defaultSelected={10}
+					direction={select('direction', ['above', 'below'], Config)}
+					disabled={boolean('disabled', Config)}
+					onClose={action('onClose')}
+					onOpen={action('onOpen')}
+					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
+					size={select('size', ['small', 'large'], Config)}
+					title={text('title', Config, 'Dropdown')}
+					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+				>
+					{items(3)}
+				</Dropdown>
+				<br />
+				<SpotlightContainer>
+					<DropdownWithoutContainer
+						defaultSelected={10}
+						direction={select('direction', ['above', 'below'], Config)}
+						disabled={boolean('disabled', Config)}
+						onClose={action('onClose')}
+						onOpen={action('onOpen')}
+						onSelect={action('onSelect')}
+						placeholder={text('placeholder', Config, 'Dropdown')}
+						size={select('size', ['small', 'large'], Config)}
+						title={text('title', Config, 'Dropdown')}
+						width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
+					>
+						{items(3)}
+					</DropdownWithoutContainer>
+					<BodyText>
+						Long Text
+						<br />
+						Long Text
+						<br />
+						Long Text
+						<br />
+						Long Text
+					</BodyText>
+				</SpotlightContainer>
+			</Scroller>
 		)
 	);
