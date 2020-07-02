@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
