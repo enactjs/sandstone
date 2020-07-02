@@ -678,6 +678,24 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				rest.skin = skin;
 			}
 
+			let knockoutStyle;
+			if (this.clientNode) {
+				const {top, left, width, height} = this.clientNode.getBoundingClientRect();
+				knockoutStyle = {
+					'--contextual-popup-activator-height': (height || 0) + 'px',
+					'--contextual-popup-activator-width': (width || 0) + 'px',
+					'--contextual-popup-activator-top': (top || 0) + 'px',
+					'--contextual-popup-activator-left': (left || 0) + 'px',
+					height: 'var(--contextual-popup-activator-height)',
+					width: 'var(--contextual-popup-activator-width)',
+					top: 'var(--contextual-popup-activator-top)',
+					left: 'var(--contextual-popup-activator-left)',
+					position: 'absolute',
+					boxShadow: '0 0 0 9999px rgba(0,0,0, 0.6)',
+					borderRadius: ri.scaleToRem(12)
+				};
+			}
+
 			delete rest.onOpen;
 			delete rest.popupSpotlightId;
 			delete rest.rtl;
@@ -695,23 +713,26 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<ContextualPopupContainer
-							{...ariaProps}
-							className={popupClassName}
-							onKeyDown={this.handleContainerKeyDown}
-							direction={this.state.direction}
-							arrowPosition={this.state.arrowPosition}
-							containerPosition={this.state.containerPosition}
-							containerRef={this.getContainerNode}
-							data-webos-voice-exclusive={voiceExclusive}
-							offset={noArrow ? offset : 'none'}
-							showArrow={!noArrow}
-							skin={skin}
-							spotlightId={this.state.containerId}
-							spotlightRestrict={spotlightRestrict}
-						>
-							<PopupComponent {...popupPropsRef} />
-						</ContextualPopupContainer>
+						<React.Fragment>
+							<div style={knockoutStyle} />
+							<ContextualPopupContainer
+								{...ariaProps}
+								className={popupClassName}
+								onKeyDown={this.handleContainerKeyDown}
+								direction={this.state.direction}
+								arrowPosition={this.state.arrowPosition}
+								containerPosition={this.state.containerPosition}
+								containerRef={this.getContainerNode}
+								data-webos-voice-exclusive={voiceExclusive}
+								offset={noArrow ? offset : 'none'}
+								showArrow={!noArrow}
+								skin={skin}
+								spotlightId={this.state.containerId}
+								spotlightRestrict={spotlightRestrict}
+							>
+								<PopupComponent {...popupPropsRef} />
+							</ContextualPopupContainer>
+						</React.Fragment>
 					</FloatingLayer>
 					<Wrapped ref={this.getClientNode} {...rest} />
 				</div>
