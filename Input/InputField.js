@@ -132,7 +132,6 @@ const InputFieldBase = kind({
 		 */
 		onBlur: PropTypes.func,
 
-
 		/**
 		 * Called when the input value is changed.
 		 *
@@ -153,7 +152,7 @@ const InputFieldBase = kind({
 		 * @param {Object} event
 		 * @public
 		 */
-		onClick: PropTypes.func,
+			onClick: PropTypes.func,
 
 		/**
 		 * Called when focused.
