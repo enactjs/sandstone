@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
 - `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/Scroller.Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
