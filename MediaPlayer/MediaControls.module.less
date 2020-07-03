@@ -18,14 +18,8 @@
 		direction: ltr;
 		white-space: nowrap;
 
-		> * {
-			margin: 0;
-			margin-inline-start: @sand-mediaplayer-controls-button-margin-start;
-			vertical-align: top;
-
-			&:first-child {
+		> *:first-child {
 				margin-inline-start: 0;
-			}
 		}
 	}
 
@@ -69,6 +63,8 @@
 	.button {
 		height: @sand-mediaplayer-button-height;
 		min-width: @sand-mediaplayer-button-height;
+		margin: 0;
+		margin-inline-start: @sand-mediaplayer-controls-button-margin-start;
 
 		.client {
 			padding: @sand-mediaplayer-button-client-padding;
