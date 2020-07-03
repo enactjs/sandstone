@@ -20,14 +20,12 @@
 
 		> * {
 			margin: 0;
-		}
-
-		> * + * {
-			-webkit-margin-start: @sand-mediaplayer-controls-button-margin-start;
-		}
-
-		> * {
+			margin-inline-start: @sand-mediaplayer-controls-button-margin-start;
 			vertical-align: top;
+
+			&:first-child {
+				margin-inline-start: 0;
+			}
 		}
 	}
 
@@ -49,10 +47,11 @@
 		.moreButtonsComponents {
 			> * {
 				margin: 0;
-			}
+				margin-inline-start: @sand-mediaplayer-controls-morebuttons-margin-start;
 
-			> * + * {
-				-webkit-margin-start: @sand-mediaplayer-controls-morebuttons-margin-start;
+				&:first-child {
+					margin-inline-start: 0;
+				}
 			}
 		}
 
