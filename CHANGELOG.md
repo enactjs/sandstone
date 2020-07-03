@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone` support for `data-spotlight-container-muted`
 
+### Added
+
+- `sandstone/Input` event `onBeforeChange`
+
 ### Changed
 
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
