@@ -8,7 +8,7 @@ import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import BodyText from '@enact/sandstone/BodyText';
-import Dropdown, {DropdownBase, DropdownWithoutContainer} from '@enact/sandstone/Dropdown';
+import Dropdown, {DropdownBase, DropdownWithoutSpotlightContainer} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
 import Scroller from '@enact/sandstone/Scroller';
 
@@ -226,7 +226,7 @@ storiesOf('Dropdown', module)
 				</Dropdown>
 				<br />
 				<SpotlightContainer>
-					<DropdownWithoutContainer
+					<DropdownWithoutSpotlightContainer
 						defaultSelected={10}
 						direction={select('direction', ['above', 'below'], Config)}
 						disabled={boolean('disabled', Config)}
@@ -239,7 +239,7 @@ storiesOf('Dropdown', module)
 						width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 					>
 						{items(3)}
-					</DropdownWithoutContainer>
+					</DropdownWithoutSpotlightContainer>
 					<BodyText>
 						Long Text
 						<br />

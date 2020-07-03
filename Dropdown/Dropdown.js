@@ -410,7 +410,7 @@ const DropdownDecorator = compose(
  * @ui
  * @public
  */
-const DropdownWithoutContainer = DropdownDecorator(DropdownBase);
+const DropdownWithoutSpotlightContainer = DropdownDecorator(DropdownBase);
 const Dropdown = SpotlightContainerDecorator({}, DropdownDecorator(DropdownBase));
 
 export default Dropdown;
@@ -418,5 +418,5 @@ export {
 	Dropdown,
 	DropdownBase,
 	DropdownDecorator,
-	DropdownWithoutContainer
+	DropdownWithoutSpotlightContainer
 };
