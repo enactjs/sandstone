@@ -177,9 +177,6 @@ describe('VirtualList 2', function () {
 			it('should change spotlight size when item`s size changing [GT-28459]', function () {
 				// Step 3 Verify: The default value for the 'itemSize' knob is itemSizeValue(default size is 156 for 4k) or half of 4k(78 for 2k).
 				const defaultItemSize = Page.getItemSize();
-				expect(defaultItemSize.height).to.equal(78);
-				// Since ButtonSize is change(PLAT-110673: Update Button #523), itemWidthSize is Changed 1200 > 1260.
-				expect(defaultItemSize.width).to.equal(1260);
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
