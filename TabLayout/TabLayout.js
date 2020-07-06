@@ -299,7 +299,7 @@ const TabLayoutDecorator = compose(
 		// default element if no focus has ocurred yet (e.g. on mount)
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
-		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabs} *`]
+		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
 	}),
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
