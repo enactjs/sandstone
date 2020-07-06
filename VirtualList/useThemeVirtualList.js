@@ -337,9 +337,8 @@ const useThemeVirtualList = (props) => {
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus
 	};
-	useEffect(() => {
-		props.setThemeScrollContentHandle(handle);
-	}, [handle, props]);
+
+	props.setThemeScrollContentHandle(handle);
 
 	// Render
 
