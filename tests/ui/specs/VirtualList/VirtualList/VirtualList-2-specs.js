@@ -35,25 +35,28 @@ describe('VirtualList 2', function () {
 				Page.open();
 			});
 
-			it.skip('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
+			it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
 				// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 				Page.item(7).moveTo();
 				expectFocusedItem(7, 'step 3 focus');
 				// Step 4:5-way Down se	veral times(approximately 10 times) until the entire list starts to scroll.
-				for (let i = 0; i < 10; i++) {
+				let index = 1;
+				for (; index < 11; index++) {
 					Page.spotlightDown();
 					// Verify Step 4.1: Displays 'onScrollStart'
 					// Verify Step 4.2: Displays 'onScrollStop' as soon as the list stops.
-					waitForScrollStartStop();
+					Page.delay(500);
+					expect(Page.list.getAttribute('data-scrolling-events')).to.equal(String(index));
 				}
 				// Step 5:5-way Up several times(approximately 10 times) until the entire list starts to scroll.
-				for (let j = 0; j < 10; j++) {
+				for (; index < 21; index++) {
 					Page.spotlightUp();
-					if (j > 6) {
-					// Verify Step 5.1: Displays 'onScrollStart'
-					// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
-					// Verify no error on waitForScrollStartStop
-						waitForScrollStartStop();
+					if (index > 17) {
+						// Verify Step 5.1: Displays 'onScrollStart'
+						// Verify Step 5.2: Displays 'onScrollStop' as soon as the list stops.
+						Page.delay(500);
+						// five-way Up 10 times to item17> item 7. Until the list wii be able to scrolled up, scroll event does not occur(7 times).
+						expect(Page.list.getAttribute('data-scrolling-events')).to.equal(String(index - 7));
 					}
 				}
 			});
@@ -174,8 +177,6 @@ describe('VirtualList 2', function () {
 			it('should change spotlight size when item`s size changing [GT-28459]', function () {
 				// Step 3 Verify: The default value for the 'itemSize' knob is itemSizeValue(default size is 156 for 4k) or half of 4k(78 for 2k).
 				const defaultItemSize = Page.getItemSize();
-				expect(defaultItemSize.height).to.equal(78);
-				expect(defaultItemSize.width).to.equal(1200);
 				// The default size of Spotlight is 156 for 4k and 78 for FHD.
 				Page.buttonLeft.moveTo();
 				Page.spotlightRight();
