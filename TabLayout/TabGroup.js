@@ -181,63 +181,51 @@ const TabGroupBase = kind({
 		} : null;
 		const Component = isHorizontal ? 'div' : Scroller;
 
+		const sharedTabGroupProps = {
+			...rest,
+			onBlur,
+			onFocus,
+			...scrollerProps
+		};
+		const sharedSpotlightContainerProps = {
+			childComponent: Tab,
+			className: css.tabs,
+			component: Layout,
+			indexProp: 'index',
+			itemProps: {collapsed, orientation, size: tabSize},
+			onSelect,
+			orientation,
+			select: 'radio',
+			selected: selectedIndex,
+			selectedProp: 'selected',
+			spotlightId: tabsSpotlightId,
+			spotlightDisabled,
+			children
+		};
+
 		return (
 			<React.Fragment>
-
-				<Component
-					{...rest}
-					onBlur={onBlur}
-					onFocus={onFocus}
-					{...scrollerProps}
-					// style={{width: scaleToRem(dimensions.tabs.collapsed)}}
-				>
+				<Component {...sharedTabGroupProps}>
 					{noIcons ? (
 						<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
 					) : (
 						<SpotlightContainerGroup
-							childComponent={Tab}
-							className={componentCss.tabs}
-							component={Layout}
-							indexProp="index"
-							itemProps={{collapsed, orientation, size: tabSize}}
-							onSelect={onSelect}
-							orientation={orientation}
-							select="radio"
-							selected={selectedIndex}
-							selectedProp="selected"
-							spotlightId={tabsSpotlightId}
-							spotlightDisabled={spotlightDisabled}
-						>
-							{children}
-						</SpotlightContainerGroup>
+							{...sharedSpotlightContainerProps}
+							itemProps={{collapsed: true, orientation, size: tabSize}}
+						/>
 					)}
-					{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
+					{isHorizontal ? <hr className={css.horizontalLine} /> : null}
 				</Component>
 
-				<Component
-					{...rest}
-					onBlur={onBlur}
-					onFocus={onFocus}
-					className={rest.className + ' ' + css.tabsExpanded}
-					{...scrollerProps}
+				{!isHorizontal ? <Component
+					{...sharedTabGroupProps}
+					className={sharedTabGroupProps.className + ' ' + css.tabsExpanded}
 				>
 					<SpotlightContainerGroup
-						childComponent={Tab}
-						className={componentCss.tabs}
-						component={Layout}
-						indexProp="index"
-						itemProps={{collapsed, orientation, size: tabSize}}
-						onSelect={onSelect}
-						orientation={orientation}
-						select="radio"
-						selected={selectedIndex}
-						selectedProp="selected"
-						spotlightId={tabsSpotlightId}
-						spotlightDisabled={spotlightDisabled}
-					>
-						{children}
-					</SpotlightContainerGroup>
-				</Component>
+						{...sharedSpotlightContainerProps}
+						itemProps={{collapsed: false, orientation, size: tabSize}}
+					/>
+				</Component> : null}
 			</React.Fragment>
 		);
 	}

@@ -227,13 +227,12 @@ const TabLayoutBase = kind({
 			{collapsed: orientation === 'vertical' && collapsed},
 			orientation
 		),
-		style: ({dimensions, orientation, style}) => ({
+		style: ({dimensions, style}) => ({
 			...style,
 			'--tablayout-tabs-collapsed': (dimensions.tabs.collapsed ? scaleToRem(dimensions.tabs.collapsed) : 'initial'),
 			'--tablayout-tabs-normal': (dimensions.tabs.normal ? scaleToRem(dimensions.tabs.normal) : 'initial'),
 			'--tablayout-content-expanded': (dimensions.content.expanded ? scaleToRem(dimensions.content.expanded) : 'initial'),
-			'--tablayout-content-normal': (dimensions.content.normal ? scaleToRem(dimensions.content.normal) : 'initial'),
-			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
+			'--tablayout-content-normal': (dimensions.content.normal ? scaleToRem(dimensions.content.normal) : 'initial')
 		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
@@ -246,7 +245,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, externallyCollapsed, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -299,8 +298,6 @@ const TabLayoutDecorator = compose(
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
 	}),
-	// eslint-disable-next-line enact/display-name, enact/prop-types
-	(Wrapped) => (props) => (<Wrapped {...props} externallyCollapsed={props.collapsed} />),
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );
