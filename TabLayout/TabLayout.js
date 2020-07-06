@@ -212,8 +212,6 @@ const TabLayoutBase = kind({
 			forProp('orientation', 'vertical'),
 			// Validate the transition is from the root node
 			(ev) => ev.target.classList.contains(componentCss.tabs),
-			// Only emit the event once (and not also for the flex-basis transition)
-			forEventProp('propertyName', 'opacity'),
 			adaptEvent(
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')

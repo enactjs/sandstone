@@ -23,9 +23,9 @@
 		.tabs {
 			// === Important Note ===
 			//
-			// onTabAnimationEnd relies on the opacity property transition to operate correctly. If
-			// this transition changes in any way, verify that event is emitted only once when the
-			// transition complete. If this breaks, you'll see unit test failures.
+			// onTabAnimationEnd unit test relies on the opacity property transition to operate
+			// correctly. If this transition changes to a different property you'll see unit test
+			// failures. To fix them, update the unit tests to match the transitioning property.
 			transition: opacity @sand-tablayout-collapse-duration ease-out;
 			will-change: opacity;
 			opacity: 1;
