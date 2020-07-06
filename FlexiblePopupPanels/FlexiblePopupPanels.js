@@ -5,6 +5,8 @@ import React from 'react';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
 
+import {NavButtonFocusDecorator} from './useNavButtonFocus';
+
 import css from './FlexiblePopupPanels.module.less';
 
 /**
@@ -129,7 +131,9 @@ const FlexiblePopupPanels = PopupDecorator(
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},
-	FlexiblePopupPanelsBase
+	NavButtonFocusDecorator(
+		FlexiblePopupPanelsBase
+	)
 );
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct

@@ -585,7 +585,7 @@ class Popup extends React.Component {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.focus(activator)) {
+			if (!Spotlight.isPaused() && !Spotlight.focus(activator)) {
 				Spotlight.focus();
 			}
 		}
@@ -601,7 +601,7 @@ class Popup extends React.Component {
 
 		on('keydown', this.handleKeyDown);
 
-		if (!Spotlight.focus(containerId)) {
+		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
 
 			// In cases where the container contains no spottable controls or we're in pointer-mode, focus
