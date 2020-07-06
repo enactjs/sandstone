@@ -4,6 +4,17 @@ import ri from '@enact/ui/resolution';
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
 
+const callbacks = [];
+const idle = (callback) => {
+	callbacks.push(callback);
+	if (callbacks.length === 1) {
+		window.requestIdleCallback(() => {
+			callbacks.forEach(fn => fn());
+			callbacks.length = 0;
+		});
+	}
+};
+
 class Animate {
 	constructor (node, keyframes, {duration, reverse, ...options}) {
 		this.animation = null;
@@ -13,7 +24,7 @@ class Animate {
 		this._finish = false;
 		this._cancel = false;
 
-		this.raf = setTimeout(() => {
+		idle(() => {
 			if (typeof keyframes === 'function') {
 				keyframes = keyframes(node);
 			}
@@ -33,7 +44,7 @@ class Animate {
 			} else if (this._finish) {
 				this.animation.finish();
 			}
-		}, 32);
+		});
 	}
 
 	set onfinish (value) {
