@@ -229,6 +229,10 @@ const TabLayoutBase = kind({
 		),
 		style: ({dimensions, orientation, style}) => ({
 			...style,
+			'--tablayout-tabs-collapsed': (dimensions.tabs.collapsed ? scaleToRem(dimensions.tabs.collapsed) : 'initial'),
+			'--tablayout-tabs-normal': (dimensions.tabs.normal ? scaleToRem(dimensions.tabs.normal) : 'initial'),
+			'--tablayout-content-expanded': (dimensions.content.expanded ? scaleToRem(dimensions.content.expanded) : 'initial'),
+			'--tablayout-content-normal': (dimensions.content.normal ? scaleToRem(dimensions.content.normal) : 'initial'),
 			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
 		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
@@ -242,7 +246,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, dimensions, externallyCollapsed, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -261,22 +265,16 @@ const TabLayoutBase = kind({
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
 			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
+				<Cell className={css.tabs} shrink size={isVertical && dimensions.tabs.collapsed} onTransitionEnd={handleTabsTransitionEnd}>
 					<TabGroup
 						{...tabGroupProps}
-						collapsed={isVertical}
-						spotlightDisabled={isVertical}
-						tabSize={!isVertical ? tabSize : null}
+						collapsed={isVertical && collapsed}
+						// spotlightDisabled={isVertical && !externallyCollapsed}
+						tabSize={!isVertical ? tabSize : dimensions.tabs.collapsed}
+						// tabSizeExpanded
+						// dimensions={dimensions}
 					/>
 				</Cell>
-				{isVertical ? <Cell
-					className={css.tabs + ' ' + css.tabsExpanded}
-					size={dimensions.tabs.normal}
-				>
-					<TabGroup
-						{...tabGroupProps}
-					/>
-				</Cell> : null}
 				<Cell
 					size={isVertical ? contentSize : null}
 					className={css.content}
@@ -301,6 +299,8 @@ const TabLayoutDecorator = compose(
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
 	}),
+	// eslint-disable-next-line enact/display-name, enact/prop-types
+	(Wrapped) => (props) => (<Wrapped {...props} externallyCollapsed={props.collapsed} />),
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
 	Changeable({prop: 'index', change: 'onSelect'})
 );

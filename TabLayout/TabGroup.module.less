@@ -68,13 +68,52 @@
 	});
 }
 
-.applySkins({
-	.tabGroup {
+.tabGroup {
+	// .tabs {
+		// === Important Note ===
+		//
+		// onTabAnimationEnd unit test relies on the opacity property transition to operate
+		// correctly. If this transition changes to a different property you'll see unit test
+		// failures. To fix them, update the unit tests to match the transitioning property.
+		transition: opacity @sand-tablayout-collapse-duration ease-out;
+		will-change: opacity;
+		opacity: 1;
+	// }
+
+	&.tabsExpanded {
+		position: absolute;
+		top: 0;
+		// width: var(--cell-size); // References the cell-size, since flex-basis doesn't force-assign a width, and cell-size normally just applies to max-width
+		width: var(--tablayout-tabs-normal);
+		transition: opacity @sand-tablayout-collapse-duration ease-out, transform @sand-tablayout-collapse-duration ease-in-out;
+		will-change: opacity, transform;
+		transform: translateX(0); // set an initial value to ensure a smooth transition
+	}
+
+	&:not(.collapsed) {
+		// .tabs {
+			opacity: 0;
+		// }
+
+		&.tabsExpanded {
+			opacity: 1;
+		}
+	}
+
+	&.collapsed {
+		&.tabsExpanded {
+			opacity: 0;
+			transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+			pointer-events: none;
+		}
+	}
+
+	.applySkins({
 		.horizontalLine {
 			width: 100%;
 			margin: 0;
 			border: 0 none transparent;
 			border-bottom: @sand-tablayout-tab-horizontal-border-width solid @sand-tablayout-tab-horizontal-border-color;
 		}
-	}
-});
+	});
+}

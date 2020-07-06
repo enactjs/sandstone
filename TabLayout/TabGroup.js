@@ -6,6 +6,7 @@ import Group from '@enact/ui/Group';
 import {useId} from '@enact/ui/internal/IdProvider';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {useToggle} from '@enact/ui/Toggleable';
+import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -169,7 +170,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
+	render: ({children, collapsed, css, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
@@ -181,15 +182,45 @@ const TabGroupBase = kind({
 		const Component = isHorizontal ? 'div' : Scroller;
 
 		return (
-			<Component
-				{...rest}
-				onBlur={onBlur}
-				onFocus={onFocus}
-				{...scrollerProps}
-			>
-				{noIcons ? (
-					<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
-				) : (
+			<React.Fragment>
+
+				<Component
+					{...rest}
+					onBlur={onBlur}
+					onFocus={onFocus}
+					{...scrollerProps}
+					// style={{width: scaleToRem(dimensions.tabs.collapsed)}}
+				>
+					{noIcons ? (
+						<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
+					) : (
+						<SpotlightContainerGroup
+							childComponent={Tab}
+							className={componentCss.tabs}
+							component={Layout}
+							indexProp="index"
+							itemProps={{collapsed, orientation, size: tabSize}}
+							onSelect={onSelect}
+							orientation={orientation}
+							select="radio"
+							selected={selectedIndex}
+							selectedProp="selected"
+							spotlightId={tabsSpotlightId}
+							spotlightDisabled={spotlightDisabled}
+						>
+							{children}
+						</SpotlightContainerGroup>
+					)}
+					{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
+				</Component>
+
+				<Component
+					{...rest}
+					onBlur={onBlur}
+					onFocus={onFocus}
+					className={rest.className + ' ' + css.tabsExpanded}
+					{...scrollerProps}
+				>
 					<SpotlightContainerGroup
 						childComponent={Tab}
 						className={componentCss.tabs}
@@ -206,9 +237,8 @@ const TabGroupBase = kind({
 					>
 						{children}
 					</SpotlightContainerGroup>
-				)}
-				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
-			</Component>
+				</Component>
+			</React.Fragment>
 		);
 	}
 });
