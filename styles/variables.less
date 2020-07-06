@@ -323,7 +323,7 @@
 @sand-button-icon-small-margin-start: 0;
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
-@sand-button-min-width: 600px;
+@sand-button-min-width: 540px;
 @sand-button-pressed-bg-transform: scale(0.98);
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
@@ -548,6 +548,7 @@
 @sand-input-fullscreen-keypad-key-margin: 0;
 @sand-input-fullscreen-buttonarea-margin: 0;
 @sand-input-fullscreen-inputarea-margin: 222px 0 0 0;
+@sand-input-fullscreen-invalid-tooltip-width: 3240px;
 @sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
@@ -562,6 +563,7 @@
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 @sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
+@sand-input-overlay-invalid-tooltip-width: 738px;
 @sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
@@ -776,14 +778,14 @@
 
 // Spinner
 // ---------------------------------------
-@sand-spinner-size: 102px;
-@sand-spinner-small-size: 72px;
+@sand-spinner-size: 96px;
+@sand-spinner-small-size: 48px;
 @sand-spinner-small-size-large: 84px;
 @sand-spinner-time: 1.25s;		// Length of the spinner animation
 @sand-spinner-line-width: 6px;
 @sand-spinner-small-line-width: 6px;
 @sand-spinner-line-margin: 24px;
-@sand-spinner-small-line-margin: 18px;
+@sand-spinner-small-line-margin: 12px;
 @sand-spinner-font-weight: bold;
 
 // Steps
@@ -838,6 +840,7 @@
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
 @sand-tooltip-margin-offset: @sand-tooltip-point-width;
+@sand-tooltip-marquee-width: 600px;
 
 // Video
 // ---------------------------------------

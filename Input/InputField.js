@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -42,6 +42,8 @@ const InputFieldBase = kind({
 		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
 		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
+		 * * `tooltip` - The "invalid" tooltip
+		 * * `tooltipLabel` - The "invalid" tooltip's label
 		 *
 		 * @type {Object}
 		 * @private
@@ -110,6 +112,16 @@ const InputFieldBase = kind({
 		 * @public
 		 */
 		invalidMessage: PropTypes.string,
+
+		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
 
 		/**
 		 * Called when blurred.
@@ -219,18 +231,22 @@ const InputFieldBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'inputField',
-		publicClassNames: ['inputField', 'input', 'inputHighlight']
+		publicClassNames: ['inputField', 'input', 'inputHighlight', 'tooltip', 'tooltipLabel']
 	},
 
 	handlers: {
 		onChange: handle(
 			adaptEvent(
 				ev => ({
-					stopPropagation: () => ev.stopPropagation(),
+					type: 'onBeforeChange',
 					value: ev.target.value
 				}),
-				forward('onChange')
-			)
+				forwardWithPrevent('onBeforeChange')
+			),
+			forwardCustom('onChange', ev => ({
+				stopPropagation: () => ev.stopPropagation(),
+				value: ev.target.value
+			}))
 		)
 	},
 
@@ -244,7 +260,7 @@ const InputFieldBase = kind({
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} relative type="transparent">
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -260,6 +276,7 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
+		delete rest.onBeforeChange;
 		delete rest.rtl;
 
 		return (

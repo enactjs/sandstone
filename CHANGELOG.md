@@ -4,10 +4,33 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Removed
+
+- `sandstone` support for `data-spotlight-container-muted`
+
+### Added
+
+- `sandstone/Input` event `onBeforeChange`
+
+### Changed
+
+- `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
+- `sandstone/PopupTabLayout.TabPanels` prop `noCloseButton` to be `false` by default
+
 ### Fixed
 
+- `sandstone/Scroller` to stop propagation of keydown event from a scroller thumb when it scrolls
+- `sandstone/Button` style when using small, icon-only buttons in non-latin locales
+- `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
+- `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
+- `sandstone/Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
+- `sandstone/Input` to marquee the invalid tooltip
+- `sandstone/Popup` to respect paused spotlight
+- `sandstone/PopupTabLayout` style to match latest designs
+- `sandstone/Spinner` to update to the latest design
+- `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
 - `sandstone/WizardPanels` read out properly
 
 ## [1.0.0-rc.1] - 2020-06-29
@@ -38,6 +61,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
 - `sandstone/Tooltip` arrow rendering to eliminate a vertical gap
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
+- `sandstone/Button` style to match latest designs
 
 ## [1.0.0-beta.8] - 2020-06-22
 
