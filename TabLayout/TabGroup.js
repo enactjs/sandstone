@@ -139,7 +139,6 @@ const TabGroupBase = kind({
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number,
 		spotlightDisabled: PropTypes.bool,
-		spotlightMuted: PropTypes.bool,
 		tabSize: PropTypes.number,
 		tabsSpotlightId: PropTypes.string
 	},
@@ -170,7 +169,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, spotlightMuted, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
+	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
@@ -204,7 +203,6 @@ const TabGroupBase = kind({
 						selectedProp="selected"
 						spotlightId={tabsSpotlightId}
 						spotlightDisabled={spotlightDisabled}
-						spotlightMuted={spotlightMuted}
 					>
 						{children}
 					</SpotlightContainerGroup>
