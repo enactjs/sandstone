@@ -185,7 +185,7 @@ const TabLayoutBase = kind({
 	defaultProps: {
 		dimensions: {
 			tabs: {
-				collapsed: 228,
+				collapsed: 216,
 				normal: 882
 			},
 			content: {
