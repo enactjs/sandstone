@@ -6,7 +6,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
