@@ -19,11 +19,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Scroller.Scroller` to stop propagation of keydown event from a scroller thumb when it scrolls
+- `sandstone/Scroller` to stop propagation of keydown event from a scroller thumb when it scrolls
 - `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
 - `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
-- `sandstone/Scroller.Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
+- `sandstone/Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
@@ -31,6 +31,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` style to match latest designs
 - `sandstone/Spinner` to update to the latest design
 - `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
+- `sandstone/WizardPanels` read out properly
 
 ## [1.0.0-rc.1] - 2020-06-29
 
