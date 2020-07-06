@@ -434,6 +434,7 @@ const useScroll = (props) => {
 			css.scroll,
 			overscrollCss.scroll,
 			focusableScrollbar ? css.focusableScrollbar : null,
+			focusableScrollbar && isVerticalScrollbarVisible ? css.verticalPadding : null,
 			isVerticalScrollbarVisible && isHorizontalScrollbarVisible ? css.bidirectional : null
 		],
 		style,
