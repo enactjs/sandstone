@@ -3,7 +3,7 @@ const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getScroller = getComponent({lib: 'ui', component: 'useScroll', child: 'scroll'});
-const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
+const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
 
 class TabLayoutInterface {
 	constructor (id) {
