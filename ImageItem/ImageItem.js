@@ -38,6 +38,27 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
+	const [children, setChildren] = React.useState(null);
+	const timerRef = React.useRef(null);
+
+	if (timerRef.current) {
+		clearTimeout(timerRef.current);
+		timerRef.current = null;
+	}
+
+	React.useEffect(() => {
+		if (children !== cachedChildren) {
+			timerRef.current = setTimeout(() => {
+				timerRef.current = null;
+				setChildren(cachedChildren);
+			}, 600);
+		}
+	});
+
+	return (children === cachedChildren) ? children : fallback;
+};
+
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
  *
@@ -215,27 +236,37 @@ const ImageItemBase = kind({
 			if (!hasImageIcon && !children && !label) return;
 
 			return (
-				<Row className={css.captions}>
-					{hasImageIcon ? (
-						<Cell
-							className={css.imageIcon}
-							component={imageIconComponent}
-							src={imageIconSrc}
-							shrink
-						/>
-					) : null}
-					<Cell>
-						<Marquee
-							className={css.caption}
-							// eslint-disable-next-line no-undefined
-							alignment={orientation === 'vertical' && centered ? 'center' : undefined}
-							marqueeOn="hover"
-						>
-							{children}
-						</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-					</Cell>
-				</Row>
+				<AsyncRenderChildren
+					fallback={<>
+						<div className={css.caption} key="caption" />
+						{typeof label !== 'undefined' ? <div className={css.label} key="label" /> : null}
+					</>}
+				>
+					<Row className={css.captions}>
+						{hasImageIcon ? (
+							<Cell
+								className={css.imageIcon}
+								component={imageIconComponent}
+								src={imageIconSrc}
+								shrink
+							/>
+						) : null}
+						<Cell>
+							<Marquee
+								// eslint-disable-next-line no-undefined
+								alignment={orientation === 'vertical' && centered ? 'center' : undefined}
+								className={css.caption}
+								key="caption"
+								marqueeOn="hover"
+							>
+								{children}
+							</Marquee>
+							{typeof label !== 'undefined' ? <Marquee className={css.label} key="label" marqueeOn="hover">
+								{label}
+							</Marquee> : null}
+						</Cell>
+					</Row>
+				</AsyncRenderChildren>
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
