@@ -20,7 +20,7 @@ const RefocusDecorator = Wrapped => {
 				onTabAnimationEnd(ev);
 			}
 
-			if (!collapsed) {
+			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				Spotlight.focus(getTabsSpotlightId(spotlightId, collapsed));
 			}
 
