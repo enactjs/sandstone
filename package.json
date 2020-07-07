@@ -50,7 +50,7 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.4.0-webostv1"
+    "ilib": "^14.4.0 || ^14.6.0-webos"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
