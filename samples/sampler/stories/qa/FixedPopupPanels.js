@@ -12,6 +12,7 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 import {VirtualList} from '@enact/sandstone/VirtualList';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
@@ -218,4 +219,42 @@ storiesOf('FixedPopupPanels', module)
 				text: 'QA -  Manage focus with Pause in FixedPopupPanels'
 			}
 		}
+	).add(
+		'with Scroller',
+		() => {
+			return (
+				<FixedPopupPanels
+					open
+					position={select('position', ['left', 'right'], Config)}
+					fullHeight={boolean('fullHeight', Config)}
+					width={select('width', ['narrow', 'half'], Config)}
+					noAnimation={boolean('noAnimation', Config)}
+					noAutoDismiss={boolean('noAutoDismiss', Config)}
+					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				>
+					<Panel>
+						<Header>
+							<title>
+								Press Enter to scroll
+							</title>
+						</Header>
+						<Cell>
+							<Scroller
+								focusableScrollbar="byEnter"
+								style={{height: ri.scaleToRem(333)}}
+							>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus, quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia mi.
+							</Scroller>
+						</Cell>
+					</Panel>
+				</FixedPopupPanels>
+			);
+		},
+		{
+			info: {
+				text: 'QA -  Scroller with text inside FixedPopupPanels'
+			}
+		}
 	);
+

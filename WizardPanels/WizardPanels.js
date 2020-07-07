@@ -8,6 +8,7 @@ import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -20,6 +21,7 @@ import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
+import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 
@@ -51,6 +53,18 @@ const WizardPanelsBase = kind({
 	name: 'WizardPanels',
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
+		/**
+		 * The "aria-label" for the Panel.
+		 *
+		 * By default, the panel will be labeled by its [Header]{@link sandstone/Panels.Header}.
+		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
+		 * the panel.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
 		/**
 		 * Obtains a reference to the root node.
 		 *
@@ -305,6 +319,13 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
+		'aria-label': ({'aria-label': label, index, subtitle, title}) => {
+			if (label) return label;
+
+			const step = new IString($L('Step {num}')).format({num: index + 1});
+
+			return `${step} ${title} ${subtitle}`;
+		},
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
 				return null;
@@ -321,6 +342,7 @@ const WizardPanelsBase = kind({
 	},
 
 	render: ({
+		'aria-label': ariaLabel,
 		children,
 		footer,
 		index,
@@ -352,6 +374,7 @@ const WizardPanelsBase = kind({
 				{...rest}
 				header={
 					<Header
+						aria-label={ariaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
 						css={css}
@@ -452,10 +475,19 @@ const WizardPanelsRouter = (Wrapped) => {
 		...rest
 	}) => {
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
-		const ref = useChainRefs(autoFocus, componentRef);
+		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
+		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
 		const [panel, setPanel] = React.useState(null);
 		const reverseTransition = useReverseTransition(index, rtl);
-		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+		const {
+			onWillTransition: focusOnWillTransition,
+			...transition
+		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+
+		const handleWillTransition = React.useCallback((ev) => {
+			focusOnWillTransition(ev);
+			a11yOnWillTransition(ev);
+		}, [a11yOnWillTransition, focusOnWillTransition]);
 
 		const totalPanels = React.Children.count(children);
 		const currentTitle = panel && panel.title ? panel.title : title;
@@ -472,6 +504,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
+					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
