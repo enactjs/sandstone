@@ -76,6 +76,39 @@ describe('InputField Specs', () => {
 		expect(actual).toHaveBeenCalledTimes(expected);
 	});
 
+	test('should callback onBeforeChange before the text changes', () => {
+		const handleBeforeChange = jest.fn();
+		const value = 'blah';
+		const evt = {target: {value: value}};
+		const subject = mount(
+			<InputField onBeforeChange={handleBeforeChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = value;
+		const actual = handleBeforeChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should prevent onChange if onBeforeChange prevents', () => {
+		const handleBeforeChange = jest.fn(ev => ev.preventDefault());
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const evt = {target: {value: value}};
+		const subject = mount(
+			<InputField onBeforeChange={handleBeforeChange} onChange={handleChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = 0;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const node = document.body.appendChild(document.createElement('div'));
 		const handleChange = jest.fn();

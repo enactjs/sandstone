@@ -47,6 +47,18 @@ const ViewportBase = class extends React.Component {
 		arranger: shape,
 
 		/**
+		 * Forwarded as `autoFocus` to each panel.
+		 *
+		 * If the `Panel` already has an `autoFocus` prop, it is maintained.
+		 *
+		 * Otherwise, if `autoFocus` is set, the value of this prop is added to the props. If it is
+		 * unset, 'default-element' is passed when navigating to a higher index.
+		 *
+		 * @type {String}
+		 */
+		autoFocus: PropTypes.string,
+
+		/**
 		 * Sets the hint string read when focusing the back button.
 		 *
 		 * @type {String}
@@ -224,8 +236,15 @@ const ViewportBase = class extends React.Component {
 			'data-index': index
 		};
 
-		if (child.props.autoFocus == null && this.state.direction === 'forward') {
-			props.autoFocus = 'default-element';
+		// Respect Panel-configured autoFocus if it is set
+		if (child.props.autoFocus == null) {
+			if (this.props.autoFocus) {
+				// if not and Viewport-wide autoFocus is configured, use it
+				props.autoFocus = this.props.autoFocus;
+			} else if (this.state.direction === 'forward') {
+				// Otherwise, only set autofocus when moving forward
+				props.autoFocus = 'default-element';
+			}
 		}
 
 		return React.cloneElement(child, props);
