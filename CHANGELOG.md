@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to use an opaque background in high-contrast mode
+
 ## [1.0.0-rc.2] - 2020-07-07
 
 ### Removed
