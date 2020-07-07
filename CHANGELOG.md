@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to stop propagation of keydown event from a scroller thumb when it scrolls
 - `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
+- `sandstone/FixedPopupPanels` to use a translucent background
 - `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
@@ -469,7 +470,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Button` styling
 - `sandstone/Heading` styling
-
 
 ## [1.0.0-alpha.2] - 2020-03-03
 
