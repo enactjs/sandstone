@@ -4,12 +4,16 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {ImageItemBase as UiImageItemBase} from '@enact/ui/ImageItem';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
-import {ImageItem} from '@enact/sandstone/ImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import css from './VirtualGridList.module.less';
+
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
+const ImageItemConfig = mergeComponentMetadata('ImageItem', UiImageItemBase);
 
 const
 	wrapOption = {
@@ -35,6 +39,7 @@ const
 		return (
 			<ImageItem
 				{...rest}
+				cached={boolean('cached', ImageItemConfig, false)}
 				label={subText}
 				src={source}
 			>
@@ -69,8 +74,6 @@ const updateDataSize = (dataSize) => {
 };
 
 updateDataSize(defaultDataSize);
-
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 storiesOf('Sandstone', module)
 	.add(
