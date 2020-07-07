@@ -20,6 +20,7 @@ import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import {ImageItem as UiImageItem} from '@enact/ui/ImageItem';
 import {Cell, Row} from '@enact/ui/Layout';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -237,10 +238,12 @@ const ImageItemBase = kind({
 
 			return (
 				<AsyncRenderChildren
-					fallback={<>
-						<div className={css.caption} key="children" />
-						{typeof label !== 'undefined' ? <div className={css.label} key="label" /> : null}
-					</>}
+					fallback={
+						<div className={css.captions}>
+							<div className={classNames(css.caption, css.placeholder)} key="children" />
+							{typeof label !== 'undefined' ? <div className={classNames(css.label, css.placeholder)} key="label" /> : null}
+						</div>
+					}
 				>
 					<Row className={css.captions}>
 						{hasImageIcon ? (
