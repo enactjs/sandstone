@@ -10,11 +10,11 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Dropdown` to be wrapped with `spotlight/SpotlightContainerDecorator` by default
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
 
 ### Fixed
 
+- `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
 - `sandstone/Scroller.Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
 - `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
