@@ -23,6 +23,7 @@ storiesOf('Sandstone', module)
 		() => {
 			const props = {
 				// Actions
+				onBeforeChange: action('onBeforeChange'),
 				onChange: action('onChange'),
 				onClose: action('onClose'),
 				onComplete: action('onComplete'),

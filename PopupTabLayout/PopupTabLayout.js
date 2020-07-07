@@ -335,7 +335,24 @@ PopupTabLayout.Tab = Tab;
  * @extends sandstone/Panels.Panels
  * @ui
  */
-const TabPanels = (props) => <Panels {...props} css={css} />;
+const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
+
+/**
+ * Omits the close button.
+ *
+ * Unlike most components, this prop defaults to `true`. To show the close button, the prop must
+ * explicitly set it to `false`:
+ *
+ * ```
+ * <TabPanels noCloseButton={false} />
+ * ```
+ *
+ * @name noCloseButton
+ * @memberof sandstone/PopupTabLayout.TabPanels.prototype
+ * @type {Boolean}
+ * @default true
+ * @public
+ */
 
 /**
  * A customized version of Panel for use inside this component.

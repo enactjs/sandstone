@@ -66,6 +66,7 @@ const extractInputFieldProps = function (props) {
 			case 'maxLength':
 			case 'minLength':
 			case 'onActivate':
+			case 'onChange':
 			case 'onBlur':
 			case 'onDeactivate':
 			case 'pattern':
