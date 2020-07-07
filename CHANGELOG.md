@@ -33,6 +33,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` style to match latest designs
 - `sandstone/Spinner` to update to the latest design
 - `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
+- `sandstone/TabLayout` and `sandstone/PopupTabLayout` transition performance
 - `sandstone/TimePicker` spacing between pickers in RTL
 - `sandstone/WizardPanels` read out properly
 

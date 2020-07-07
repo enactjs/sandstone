@@ -218,7 +218,7 @@ const PopupTabLayoutBase = kind({
 	defaultProps: {
 		dimensions: {
 			tabs: {
-				collapsed: 236,
+				collapsed: 216,
 				normal: 660
 			},
 			content: {
