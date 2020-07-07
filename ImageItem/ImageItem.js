@@ -238,7 +238,7 @@ const ImageItemBase = kind({
 			return (
 				<AsyncRenderChildren
 					fallback={<>
-						<div className={css.caption} key="caption" />
+						<div className={css.caption} key="children" />
 						{typeof label !== 'undefined' ? <div className={css.label} key="label" /> : null}
 					</>}
 				>
@@ -247,8 +247,8 @@ const ImageItemBase = kind({
 							<Cell
 								className={css.imageIcon}
 								component={imageIconComponent}
-								src={imageIconSrc}
 								shrink
+								src={imageIconSrc}
 							/>
 						) : null}
 						<Cell>
@@ -256,14 +256,12 @@ const ImageItemBase = kind({
 								// eslint-disable-next-line no-undefined
 								alignment={orientation === 'vertical' && centered ? 'center' : undefined}
 								className={css.caption}
-								key="caption"
+								key="children"
 								marqueeOn="hover"
 							>
 								{children}
 							</Marquee>
-							{typeof label !== 'undefined' ? <Marquee className={css.label} key="label" marqueeOn="hover">
-								{label}
-							</Marquee> : null}
+							{typeof label !== 'undefined' ? <Marquee className={css.label} key="label" marqueeOn="hover">{label}</Marquee> : null}
 						</Cell>
 					</Row>
 				</AsyncRenderChildren>
