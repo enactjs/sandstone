@@ -149,6 +149,19 @@ const TabGroupBase = kind({
 		className: 'tabGroup'
 	},
 
+	handlers: {
+		onFocus: (ev, {onFocus, onBlurList, selectedIndex}) => {
+			if (onFocus) onFocus(ev);
+			if (ev.target.dataset.listTab) {
+				if (onBlurList) onBlurList({index: selectedIndex});
+			}
+		},
+		onFocusTab: (ev, {onFocusTab, onBlurList, selectedIndex}) => {
+			if (onFocusTab) onFocusTab(ev);
+			if (onBlurList) onBlurList({index: selectedIndex});
+		}
+	},
+
 	computed: {
 		children: ({onFocusTab, tabs}) => tabs.map(tab => {
 			if (tab) {
@@ -183,35 +196,33 @@ const TabGroupBase = kind({
 
 		const sharedTabGroupProps = {
 			...rest,
-			onBlur,
-			onFocus,
-			...scrollerProps
+			...scrollerProps,
+			onBlur
 		};
 		const sharedSpotlightContainerProps = {
 			childComponent: Tab,
 			className: css.tabs,
 			component: Layout,
 			indexProp: 'index',
-			itemProps: {collapsed, orientation, size: tabSize},
 			onSelect,
 			orientation,
 			select: 'radio',
 			selected: selectedIndex,
 			selectedProp: 'selected',
-			spotlightId: tabsSpotlightId,
-			spotlightDisabled,
 			children
 		};
 
 		return (
 			<React.Fragment>
-				<Component {...sharedTabGroupProps}>
+				<Component {...sharedTabGroupProps} data-is-collapsed>
 					{noIcons ? (
-						<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
+						<TabBase icon="list" collapsed disabled={tabsDisabled} data-list-tab spotlightDisabled={!collapsed} />
 					) : (
 						<SpotlightContainerGroup
 							{...sharedSpotlightContainerProps}
 							itemProps={{collapsed: true, orientation, size: tabSize}}
+							onFocus={onFocus}
+							spotlightDisabled={!collapsed}
 						/>
 					)}
 					{isHorizontal ? <hr className={css.horizontalLine} /> : null}
@@ -224,6 +235,8 @@ const TabGroupBase = kind({
 					<SpotlightContainerGroup
 						{...sharedSpotlightContainerProps}
 						itemProps={{collapsed: false, orientation, size: tabSize}}
+						spotlightId={tabsSpotlightId}
+						spotlightDisabled={collapsed}
 					/>
 				</Component> : null}
 			</React.Fragment>
@@ -233,9 +246,9 @@ const TabGroupBase = kind({
 
 const RefocusDecorator = Wrapped => {
 	// eslint-disable-next-line no-shadow
-	function RefocusDecorator ({id, ...rest}) {
+	function RefocusDecorator ({id, selectedIndex, ...rest}) {
 		const {generateId} = useId({prefix: 'sand-tablayout-'});
-		const refocus = useToggle();
+		const [selected, setSelected] = React.useState(false);
 
 		// generate an id for the component (and a derived id for the tabs) so we can refocus them
 		id = id || generateId('tabgroup-');
@@ -244,21 +257,23 @@ const RefocusDecorator = Wrapped => {
 		// after the single tab has been replaced by the list, focus the list (which will choose the
 		// selected item) and reset the refocus flag
 		React.useEffect(() => {
-			if (!refocus.selected) return;
+			if (!selected) return;
+
+			const current = Spotlight.getCurrent();
 
 			// restrict the refocus to only 5-way and only when nothing else gained focus in the
 			// interim and when Spotlight was not paused by something else.
-			if (!Spotlight.getCurrent() && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
+			if ((!current || current.matches('[data-is-collapsed] *')) && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				Spotlight.focus(tabsSpotlightId);
 			}
-			refocus.deactivate();
-		}, [refocus, tabsSpotlightId]);
+			setSelected(null);
+		}, [selected, setSelected, tabsSpotlightId]);
 
 		return (
 			<Wrapped
 				{...rest}
 				id={id}
-				onBlurList={refocus.activate}
+				onBlurList={setSelected}
 				tabsSpotlightId={tabsSpotlightId}
 			/>
 		);
