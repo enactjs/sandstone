@@ -307,7 +307,7 @@ const TabLayoutDecorator = compose(
 		// default element if no focus has ocurred yet (e.g. on mount)
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
-		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
+		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
 	})
 );
 
