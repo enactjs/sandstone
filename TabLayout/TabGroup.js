@@ -102,24 +102,11 @@ const TabBase = kind({
 
 const Tab = Skinnable(TabBase);
 
-const ExpandedGroup = SpotlightContainerDecorator(
+const GroupComponent = SpotlightContainerDecorator(
 	{
 		// using default-element so we always land on the selected tab in order to avoid changing
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
-		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused',
-		straightOnlyLeave: true
-	},
-	Group
-);
-
-const CollapsedGroup = SpotlightContainerDecorator(
-	{
-		// using default-element so we always land on the selected tab in order to avoid changing
-		// the view when re-entering the tab group
-		defaultElement: `.${componentCss.selected}`,
-		// always enter to selected when collapsed
 		enterTo: 'default-element',
 		straightOnlyLeave: true
 	},
@@ -174,7 +161,7 @@ const TabGroupBase = kind({
 			}
 		}).filter(tab => tab != null),
 		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
-		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
+		className: ({orientation, styler}) => styler.append(orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
@@ -189,7 +176,6 @@ const TabGroupBase = kind({
 			verticalScrollbar: 'hidden'
 		} : null;
 		const Component = isHorizontal ? 'div' : Scroller;
-		const GroupComponent = collapsed ? CollapsedGroup : ExpandedGroup;
 
 		return (
 			<Component
