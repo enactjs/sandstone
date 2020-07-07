@@ -9,25 +9,26 @@
 		margin: @sand-timepicker-colon-margin;
 	}
 
-	// hour and minute should always be left-to-right
 	.pickers {
-		direction: ltr;
+		display: flex;
+		align-items: center;
 
 		:global(.enact-locale-right-to-left) & {
-			display: flex;
-			align-items: center;
-
+			// RTL uses a special order:
+			// Reading from right to left, the sequence is "minute : hour meridiem"
 			.hourPicker {
-				order: 2;
+				order: 3;
+				margin-inline-start: .extract(@sand-datecomponentpicker-margin, left)[];
 			}
 			.timeSeparator {
 				order: 2;
 			}
 			.minutePicker {
-				order: 3;
-			}
-			.meridiemPicker{
 				order: 1;
+				margin-inline-start: 0;
+			}
+			.meridiemPicker {
+				order: 4;
 			}
 		}
 	}
