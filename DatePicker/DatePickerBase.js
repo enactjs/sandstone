@@ -16,6 +16,7 @@ import css from './DatePicker.module.less';
  *
  * @class DatePickerBase
  * @memberof sandstone/DatePicker
+ * @extends sandstone/DateTime
  * @ui
  * @public
  */
