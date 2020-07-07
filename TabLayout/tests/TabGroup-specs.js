@@ -10,9 +10,9 @@ describe('TabGroup specs', () => {
 				orientation="vertical"
 				collapsed
 				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button'},
-					{children: 'Item', icon: 'playcircle'}
+					{title: 'Home', icon: 'home'},
+					{title: 'Button'},
+					{title: 'Item', icon: 'playcircle'}
 				]}
 			/>
 		);
@@ -23,14 +23,13 @@ describe('TabGroup specs', () => {
 		expect(actual).toEqual(expected);
 	});
 
-
 	it('should only have 3 item tabs when 3 tabs were specified', () => {
 		const subject = mount(
 			<TabGroup
 				tabs={[
-					{children: 'Home', icon: 'home'},
-					{children: 'Button', icon: 'demosync'},
-					{children: 'Item', icon: 'playcircle'}
+					{title: 'Home', icon: 'home'},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
 				]}
 			/>
 		);
@@ -39,5 +38,60 @@ describe('TabGroup specs', () => {
 		const actual = subject.find('Tab').length;
 
 		expect(actual).toEqual(expected);
+	});
+
+	it('should render icons', () => {
+		const subject = mount(
+			<TabGroup
+				tabs={[
+					{title: 'Home', icon: 'home'},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
+				]}
+			/>
+		);
+
+		const expected = 3;
+		const actual = subject.find('Icon').length;
+
+		expect(actual).toEqual(expected);
+	});
+
+	it('should disable the list icon when collapsed and all tabs are disabled', () => {
+		const subject = mount(
+			<TabGroup
+				collapsed
+				orientation="vertical"
+				tabs={[
+					{title: 'Home', disabled: true},
+					{title: 'Button', disabled: true},
+					{title: 'Item', disabled: true}
+				]}
+			/>
+		);
+
+		const expected = true;
+		const actual = subject.find('Tab').prop('disabled');
+
+		expect(actual).toBe(expected);
+	});
+
+	it('should not disable the list icon when collapsed and all tabs are not disabled', () => {
+		const subject = mount(
+			<TabGroup
+				collapsed
+				orientation="vertical"
+				tabs={[
+					{title: 'Home', disabled: true},
+					{title: 'Button', disabled: false},
+					{title: 'Item', disabled: true}
+				]}
+			/>
+		);
+
+		const expected = false;
+		const actual = subject.find('Tab').prop('disabled');
+
+		expect(actual).toBe(expected);
 	});
 });

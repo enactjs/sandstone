@@ -38,7 +38,6 @@ const PickerButtonBase = kind({
 
 	propTypes: {
 		disabled: PropTypes.bool,
-		hidden: PropTypes.bool,
 		icon: PropTypes.oneOfType([
 			PropTypes.string,
 			PropTypes.object
@@ -71,15 +70,7 @@ const PickerButtonBase = kind({
 		)
 	},
 
-	computed: {
-		className: ({hidden, styler}) => styler.append({
-			hidden
-		})
-	},
-
 	render: ({disabled, icon, joined, ...rest}) => {
-		delete rest.hidden;
-
 		if (joined) {
 			delete rest.onSpotlightDisappear;
 			delete rest.spotlightDisabled;

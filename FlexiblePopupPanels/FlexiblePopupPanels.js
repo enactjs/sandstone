@@ -1,8 +1,11 @@
 import kind from '@enact/core/kind';
+import {mapAndFilterChildren} from '@enact/core/util';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import {FadeAndSlideArranger, PopupDecorator, Viewport} from '../internal/Panels';
+
+import {NavButtonFocusDecorator} from './useNavButtonFocus';
 
 import css from './FlexiblePopupPanels.module.less';
 
@@ -95,20 +98,16 @@ const FlexiblePopupPanelsBase = kind({
 	},
 
 	computed: {
-		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => React.Children.map(children, (child) => {
-			if (child) {
-				const props = {
-					nextButtonVisibility,
-					onChange,
-					onNextClick,
-					onPrevClick,
-					prevButtonVisibility
-				};
+		children: ({children, nextButtonVisibility, onChange, onNextClick, onPrevClick, prevButtonVisibility}) => mapAndFilterChildren(children, (child) => {
+			const props = {
+				nextButtonVisibility,
+				onChange,
+				onNextClick,
+				onPrevClick,
+				prevButtonVisibility
+			};
 
-				return React.cloneElement(child, props);
-			} else {
-				return null;
-			}
+			return React.cloneElement(child, props);
 		}),
 		onBack: ({onChange}) => onChange
 	},
@@ -132,7 +131,9 @@ const FlexiblePopupPanels = PopupDecorator(
 		panelArranger: FadeAndSlideArranger,
 		panelType: 'flexiblePopup'
 	},
-	FlexiblePopupPanelsBase
+	NavButtonFocusDecorator(
+		FlexiblePopupPanelsBase
+	)
 );
 
 // Directly set the defaultProps for position to the left side so it initially draws on the correct

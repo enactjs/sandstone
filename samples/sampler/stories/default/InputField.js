@@ -24,6 +24,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<InputField
 				autoFocus={boolean('autoFocus', Config)}
+				onBeforeChange={action('onBeforeChange')}
 				onChange={action('onChange')}
 				disabled={boolean('disabled', Config)}
 				dismissOnEnter={boolean('dismissOnEnter', Config)}

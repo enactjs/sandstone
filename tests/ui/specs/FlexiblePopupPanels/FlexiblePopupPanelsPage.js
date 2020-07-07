@@ -13,6 +13,10 @@ class FlexiblePopupPanelsInterface {
 		this.self.waitForExist({timeout});
 	}
 
+	waitForClose (timeout = 1000) {
+		this.self.waitForExist(timeout, true);
+	}
+
 	waitForEnter (panel, timeout = 1000) {
 		this['panel' + panel].waitForExist({timeout});
 	}
@@ -37,6 +41,20 @@ class FlexiblePopupPanelsInterface {
 		return browser.execute((el) => el.focus(), this.prevButton);
 	}
 
+	/* global document */
+	clickBelowPopup () {
+		const offset = browser.execute(function () {
+			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
+			const {bottom, left: left2} = document.querySelector('#panel1 .FlexiblePopupPanels_FlexiblePopupPanels_bodyLayout').getBoundingClientRect();
+
+			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
+		});
+
+		// Have to target open button because it does not allow for clicking outside the parents
+		// bounds, apparently.  Trying to offset from item1 or from panel1 does not work.
+		$('#openButton').click(offset);
+	}
+
 	get self () { return browser.$(this.selector); }
 
 	get openButton () { return browser.$('#openButton'); }
@@ -55,8 +73,7 @@ class FlexiblePopupPanelsPage extends Page {
 	constructor () {
 		super();
 		this.title = 'FlexiblePopupPanels Test';
-		this.components = {};
-		this.components.flexiblePopupPanels = new FlexiblePopupPanelsInterface('flexiblepopuppanels');
+		this.flexiblePopupPanels = new FlexiblePopupPanelsInterface('flexiblepopuppanels');
 	}
 
 	open (urlExtra) {

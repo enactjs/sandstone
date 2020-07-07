@@ -25,7 +25,7 @@ const blockStyles = () => ({
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
 const app = kind({
-	name: 'FixedPopupPanelsPanel',
+	name: 'FlexiblePopupPanelsPanel',
 
 	defaultProps: {
 		index: 0
@@ -51,7 +51,7 @@ const app = kind({
 					onChange={onNavigate}
 					onClose={onToggleOpen}
 				>
-					<Panel id="panel1" nextButton={nextButton}>
+					<Panel id="panel1" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 1 - With Scroller" />
 
 						<Scroller style={{width: scaleToRem(900)}}>
@@ -80,10 +80,17 @@ const app = kind({
 
 						{skinnyBlock}
 					</Panel>
-					<Panel id="panel6" prevButton={prevButton}>
+					<Panel id="panel6" nextButton={nextButton} prevButton={prevButton}>
 						<Header title="Panel 6 - Fat Block" />
 
 						{fatBlock}
+					</Panel>
+					<Panel id="panel7" nextButton={nextButton} prevButton={prevButton} autoFocus="#item2">
+						<Header title="Panel 7 - autoFocus" />
+						<div style={{width: scaleToRem(798)}}>
+							<Item>Item 1</Item>
+							<Item id="item2">Item 2</Item>
+						</div>
 					</Panel>
 				</FlexiblePopupPanels>
 			</div>

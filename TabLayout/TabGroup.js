@@ -65,11 +65,12 @@ const TabBase = kind({
 		delete rest.onFocusTab;
 
 		const commonProps = {
-			collapsable: true,
-			minWidth: false,
 			backgroundOpacity: 'transparent',
+			children,
+			collapsable: true,
 			css,
-			children
+			focusEffect: 'static',
+			minWidth: false
 		};
 
 		switch (orientation) {
@@ -107,7 +108,8 @@ const SpotlightContainerGroup = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
-		enterTo: 'last-focused'
+		enterTo: 'last-focused',
+		straightOnlyLeave: true
 	},
 	Group
 );
@@ -146,25 +148,33 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
+		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, tabs, tabSize, tabsSpotlightId, ...rest}) => {
+	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, tabs, tabsDisabled, tabSize, tabsSpotlightId, ...rest}) => {
 		delete rest.children;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const itemProps = React.useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
-		// eslint-disable-next-line react-hooks/rules-of-hooks, no-shadow
-		const children = React.useMemo(() => tabs.map(({children, title, ...rest}, i) => {
-			return {
-				key: `tabs${i}`,
-				children: title || children,
-				onFocusTab,
-				...rest
-			};
-		}), [onFocusTab, tabs]);
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const children = React.useMemo(() => tabs.map(tab => {
+			if (tab) {
+				// eslint-disable-next-line no-shadow
+				const {icon, title, ...rest} = tab;
+				return {
+					key: `tabs_${title + (typeof icon === 'string' ? icon : '')}`,
+					children: title,
+					icon,
+					onFocusTab,
+					...rest
+				};
+			} else {
+				return null;
+			}
+		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
 		const scrollerProps = !isHorizontal ? {
@@ -181,7 +191,7 @@ const TabGroupBase = kind({
 				{...scrollerProps}
 			>
 				{noIcons ? (
-					<TabBase icon="list" collapsed onSpotlightDisappear={onBlurList} />
+					<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
 				) : (
 					<SpotlightContainerGroup
 						childComponent={Tab}

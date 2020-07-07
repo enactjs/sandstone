@@ -103,7 +103,7 @@
 @sand-actionguide-label-font-size:  48px;
 @sand-alert-overlay-font-size:      60px;
 @sand-alert-subtitle-font-size:     @sand-heading-subtitle-font-size;
-@sand-alert-title-font-size:        @sand-heading-title-font-size;
+@sand-alert-title-font-size:        @sand-header-wizard-title-font-size;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -123,6 +123,7 @@
 @sand-imageitem-caption-font-size:  60px;
 @sand-imageitem-label-font-size:    48px;
 @sand-input-font-size:              78px;
+@sand-input-fullscreen-title-font-size: 144px;
 @sand-input-fullscreen-numbercell-font-size:  126px;
 @sand-input-fullscreen-numberfield-font-size: @sand-input-fullscreen-numbercell-font-size;
 @sand-input-overlay-title-font-size:          @sand-header-compact-title-font-size;
@@ -149,8 +150,8 @@
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
 @sand-tooltip-label-font-size:      54px;
-@sand-tooltip-transparent-label-font-size: 36px;
 
+@sand-non-latin-alert-title-font-size:  @sand-alert-title-font-size;
 @sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
 @sand-non-latin-body-small-font-size:   48px;
@@ -161,6 +162,8 @@
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
 @sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
 @sand-non-latin-heading-title-font-size: 114px;
+@sand-non-latin-input-fullscreen-title-font-size: @sand-input-fullscreen-title-font-size;
+@sand-non-latin-input-overlay-title-font-size: @sand-input-overlay-title-font-size;
 
 // Other Font Properties
 // ---------------------------------------
@@ -251,6 +254,9 @@
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
 
+// Picker
+@sand-picker-line-height: 1.5em;
+@sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
 
 // ---------------------------------------
 // Component Rules
@@ -259,6 +265,8 @@
 // ActionGuide
 // ---------------------------------------
 @sand-actionguide-max-width: 1500px;
+@sand-actionguide-label-height: 60px;
+@sand-actionguide-icon-margin: -24px 0 -18px 0;
 
 // Alert
 // ---------------------------------------
@@ -315,7 +323,7 @@
 @sand-button-icon-small-margin-start: 0;
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
-@sand-button-min-width: 600px;
+@sand-button-min-width: 540px;
 @sand-button-pressed-bg-transform: scale(0.98);
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
@@ -371,6 +379,7 @@
 
 // Dropdown
 // ---------------------------------------
+@sand-dropdown-margin: 0 @sand-spotlight-outset; // this extra margin used to align dropdown container with the outer element
 @sand-dropdown-border-radius: @sand-button-border-radius;
 @sand-dropdown-tiny-width: 480px;
 @sand-dropdown-small-width: @sand-button-min-width;
@@ -539,6 +548,7 @@
 @sand-input-fullscreen-keypad-key-margin: 0;
 @sand-input-fullscreen-buttonarea-margin: 0;
 @sand-input-fullscreen-inputarea-margin: 222px 0 0 0;
+@sand-input-fullscreen-invalid-tooltip-width: 3240px;
 @sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
@@ -552,6 +562,8 @@
 @sand-input-overlay-keypad-margin: 132px auto 0 auto;
 @sand-input-overlay-keypad-width: ((@sand-component-spacing + @sand-button-height + @sand-component-spacing) * 3);
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
+@sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
+@sand-input-overlay-invalid-tooltip-width: 738px;
 @sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
@@ -562,15 +574,13 @@
 @sand-inputfield-bg-opacity: 0.2;
 @sand-inputfield-border-radius: @sand-inputfield-border-width;
 @sand-inputfield-border-width: 12px;
-@sand-inputfield-tooltip-offset: @sand-inputfield-border-width;
 @sand-inputfield-icon-spacing: 30px;
 @sand-inputfield-invalid-tooltip-margin-top: 30px;
-@sand-inputfield-height: @sand-button-height;
-@sand-inputfield-small-height: @sand-button-small-height;
+@sand-inputfield-height: 168px;
+@sand-inputfield-small-height: 132px;
 @sand-inputfield-highlight-height: 100%;
 @sand-inputfield-highlight-max-width: 756px;
 @sand-inputfield-highlight-small-max-width: 714px;
-@sand-inputfield-focus-duration: @sand-spotlight-focus-animation-duration;
 
 // Item
 // ---------------------------------------
@@ -585,8 +595,6 @@
 @sand-item-slotbefore-spacing: 54px;
 @sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 @sand-item-small-height: 126px;
-@sand-item-small-height-large: @sand-item-small-height;
-@sand-item-small-shadow-height: @sand-spotlight-focus-shadow-height;
 @sand-item-small-withlabel-height: 210px;
 
 // Keyguide
@@ -637,14 +645,18 @@
 
 // Picker
 // ----------------------------------------
+@sand-picker-margin: 0 @sand-component-spacing;
+@sand-picker-item-padding: 0 @sand-spotlight-outset;
 @sand-picker-joined-vertical-border-radius: 24px;
 @sand-picker-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-picker-value-height: @sand-button-small-height;
+@sand-picker-value-height: (@sand-picker-font-size * @sand-picker-line-height); // Determine the height of the item given the font size and relative (em) line height.
+@sand-picker-joined-value-height: (@sand-picker-joined-font-size * @sand-picker-line-height); // Determine the height of the item given the font size and relative (em) line height.
+@sand-picker-vertical-height: 362px;
 @sand-picker-joined-horizontal-border-radius: 960px;
 @sand-picker-joined-horizontal-height: 210px;
 @sand-picker-joined-horizontal-padding: 0 @sand-icon-small-size;
 @sand-picker-joined-horizontal-value-line-height: (@sand-picker-joined-horizontal-height - 30px);
-@sand-picker-joined-vertical-height: 362px;
+@sand-picker-small-value-width: (@sand-icon-large-size + (@sand-spotlight-outset * 3));
 @sand-picker-medium-value-width: 360px;
 @sand-picker-large-value-width: 696px;
 @sand-picker-indicator-width: 24px;
@@ -652,8 +664,19 @@
 @sand-picker-indicator-border-radius: @sand-picker-indicator-width;
 @sand-picker-indicator-inactive-scale: 0.75;
 @sand-picker-indicator-active-scale: 1;
-@sand-picker-indicator-margin: 0 12px;
-@sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
+@sand-picker-indicator-margin: 21px 12px 0 12px;
+// Math to calculate the difference in GUI guide spec for the item and the DOM size for the item.
+// Divide by 2 to get the difference of just one edge from the corrosponding edge,
+// since the two are center aligned vertically.
+@sand-picker-joined-horizontal-vedge-gap: ((@sand-picker-joined-horizontal-height - @sand-picker-joined-horizontal-value-line-height) / 2);
+// Math to find the margin-bottom of the item given the height of the item and the
+// desired distance from the top.
+@sand-picker-joined-horizontal-value-offset: ((
+	(48px - @sand-picker-joined-horizontal-vedge-gap) - // 48px - 15px = 33px
+	((@sand-picker-joined-value-height - 78px) / 2) // (78px - 99px / 2) = 10.5px
+) * 2);
+
+// @sand-picker-indicator-bottom: -(@sand-picker-joined-horizontal-height - 30px - @sand-picker-joined-horizontal-value-line-height);  // Yes, this looks awkward, but it allows us to define how far from the bottom edge of the picker the dots should be, rather than needing to manually account for the hieight or vertical-centering of the text. Just set the number to a new value to update.
 
 // Popup
 // ---------------------------------------
@@ -755,14 +778,14 @@
 
 // Spinner
 // ---------------------------------------
-@sand-spinner-size: 102px;
-@sand-spinner-small-size: 72px;
+@sand-spinner-size: 96px;
+@sand-spinner-small-size: 48px;
 @sand-spinner-small-size-large: 84px;
 @sand-spinner-time: 1.25s;		// Length of the spinner animation
 @sand-spinner-line-width: 6px;
 @sand-spinner-small-line-width: 6px;
 @sand-spinner-line-margin: 24px;
-@sand-spinner-small-line-margin: 18px;
+@sand-spinner-small-line-margin: 12px;
 @sand-spinner-font-weight: bold;
 
 // Steps
@@ -798,7 +821,6 @@
 @sand-tablayout-horizontal-tabs-margin: 0 @sand-component-spacing;
 @sand-tablayout-tab-vertical-button-height: 156px;
 @sand-tablayout-tab-vertical-margin-bottom: 24px;
-@sand-tablayout-tab-selected-opacity: 0.6;
 @sand-tablayout-tab-horizontal-button-height: 132px;
 @sand-tablayout-tab-horizontal-margin: 0;
 @sand-tablayout-tab-horizontal-padding: 0;
@@ -818,6 +840,7 @@
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
 @sand-tooltip-margin-offset: @sand-tooltip-point-width;
+@sand-tooltip-marquee-width: 600px;
 
 // Video
 // ---------------------------------------
@@ -834,7 +857,6 @@
 @sand-video-slider-tooltip-thumbnail-width:  426px;
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
-@sand-video-feedback-icon-width:                   0.5em; // The width of the icon is half of its own font size
 @sand-video-feedback-icon-font-size:               1.25em;
 @sand-video-feedback-mini-font-weight:             400;
 @sand-video-feedback-mini-font-style:              normal;

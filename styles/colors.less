@@ -26,6 +26,7 @@
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
+@sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
 // Disabled Opacity
 // ---------------------------------------
@@ -47,6 +48,10 @@
 // Component Colors
 // ---------------------------------------
 
+// ActionGuide
+// ---------------------------------------
+@sand-actionguide-label-color: @sand-gray;
+
 // Alert
 // ---------------------------------------
 @sand-alert-bg-color: #373a41;
@@ -58,16 +63,16 @@
 @sand-button-text-color: @sand-light-gray;
 @sand-button-bg-color: #7d848c;
 @sand-button-transparent-text-color: @sand-text-color;
-@sand-button-transparent-bg-color: @sand-spotlight-bg-color; // This must match the focus color to avoid visual "jumps" when focused. We control the translucency through the opacity variable.
 
 // Checkbox
 // ---------------------------------------
 @sand-checkbox-color: transparent;
 @sand-checkbox-bg-color: transparent;
 @sand-checkbox-border-color: @sand-text-color;
+@sand-checkbox-disabled-focus-bg-color: @sand-spotlight-bg-color;
 @sand-checkbox-disabled-selected-color: @sand-spotlight-text-color;
 @sand-checkbox-disabled-selected-bg-color: @sand-spotlight-bg-color;
-@sand-checkbox-disabled-selected-border-color: @sand-spotlight-bg-color;
+@sand-checkbox-disabled-selected-border-color: @sand-checkbox-disabled-selected-bg-color;
 @sand-checkbox-focus-disabled-selected-color: @sand-spotlight-bg-color;
 @sand-checkbox-focus-disabled-selected-bg-color: @sand-spotlight-text-color;
 @sand-checkbox-focus-disabled-selected-border-color: @sand-spotlight-text-color;
@@ -86,10 +91,11 @@
 @sand-checkbox-indeterminate-focus-color: @sand-spotlight-text-color;
 @sand-checkbox-indeterminate-focus-bg-color: @sand-checkbox-focus-bg-color;
 @sand-checkbox-indeterminate-focus-border-color: @sand-checkbox-focus-border-color;
+@sand-checkbox-standalone-bg-disabled-focus-bg-color: @sand-gray;
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: @sand-bg-color;
+@sand-contextualpopup-bg-color: @sand-popup-bg-color;
 @sand-contextualpopup-border-color: #bbb;
 @sand-contextualpopup-shadow: 0 24px 32px @sand-spotlight-shadow-color;
 
@@ -104,12 +110,15 @@
 
 // FlexiblePopupPanels
 // ---------------------------------------
-@sand-flexiblepopuppanels-panel-bg-color: fade(@sand-bg-color, 90%);
+@sand-flexiblepopuppanels-panel-bg-color: fade(@sand-popup-bg-color, 90%);
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
+@sand-flexiblepopuppanels-header-shadow: @sand-overlay-text-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-focus-text-color: @sand-white;
+@sand-formcheckboxitem-disabled-text-color: inherit;
+@sand-formcheckboxitem-disabled-focus-text-color: @sand-formcheckboxitem-disabled-text-color;
 
 // Heading
 // ---------------------------------------
@@ -136,7 +145,7 @@
 // Input
 // ---------------------------------------
 @sand-input-numbercell-background-color: fade(@sand-light-gray, 20%);
-@sand-input-overlay-background-color: fade(@sand-bg-color, 90%);
+@sand-input-overlay-background-color: fade(@sand-popup-bg-color, 90%);
 @sand-input-invalid-tooltip-color: @sand-inputfield-invalid-tooltip-color;
 @sand-input-numberfield-disabled-color: fade(@sand-inputfield-focus-text-color, @sand-disabled-focus-content-opacity * 100%);
 @sand-input-numberfield-disabled-opacity: @sand-disabled-focus-bg-opacity;
@@ -150,6 +159,10 @@
 @sand-inputfield-disabled-text-color: inherit;
 @sand-inputfield-bg-color: fade(@sand-light-gray, 20%);
 @sand-inputfield-invalid-tooltip-color: #FB5656;
+
+// Item
+// ---------------------------------------
+@sand-item-disabled-focus-bg-color: @sand-spotlight-bg-color;
 
 // KeyGuide
 // ---------------------------------------
@@ -198,6 +211,7 @@
 // PopupTabLayout
 // ---------------------------------------
 @sand-popuptablayout-bg-color: fade(@sand-popup-bg-color, 90%);
+@sand-popuptablayout-shadow: @sand-overlay-bg-shadow;
 
 // ProgressBar
 // ---------------------------------------
@@ -290,7 +304,6 @@
 
 // TabLayout
 // ---------------------------------------
-@sand-tablayout-tab-selected-bg-color: @sand-button-bg-color;
 @sand-tablayout-tab-horizontal-border-color: fade(@sand-light-gray, 50%);
 @sand-tablayout-tab-horizontal-selected-border-color: @sand-light-gray;
 
@@ -298,7 +311,6 @@
 // ---------------------------------------
 @sand-tooltip-bg-color:               @sand-light-gray;
 @sand-tooltip-text-color:             @sand-dark-gray;
-@sand-tooltip-border-color:           @sand-light-gray;
 @sand-tooltip-shadow:                 0 18px 12px @sand-spotlight-shadow-color;
 
 // VideoPlayer

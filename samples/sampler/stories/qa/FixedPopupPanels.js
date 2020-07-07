@@ -12,7 +12,10 @@ import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 import {VirtualList} from '@enact/sandstone/VirtualList';
+import Spotlight from '@enact/spotlight';
+import Pause from '@enact/spotlight/Pause';
 import ri from '@enact/ui/resolution';
 
 const Config = mergeComponentMetadata('FixedPopupPanels', FixedPopupPanels);
@@ -20,6 +23,49 @@ Config.defaultProps.position = 'right';
 Config.defaultProps.scrimType = 'translucent';
 Config.defaultProps.spotlightRestrict = 'self-only';
 Config.defaultProps.width = 'narrow';
+
+class FixedPopupPanelsWithPause extends React.Component {
+	constructor () {
+		super();
+		this.state = {
+			index: 0
+		};
+		this.pause = new Pause('SampleApp');
+		this.pause.pause();
+	}
+
+	componentDidMount () {
+		this.deferFocus();
+	}
+
+	deferFocus () {
+		// simulate a service call to defer focusing
+		setTimeout(() => {
+			// ensure we're in 5-way mode for the purposes of this sample
+			Spotlight.setPointerMode(false);
+			this.pause.resume();
+			Spotlight.focus('#panel1');
+		}, 1000);
+	}
+
+	render () {
+		return (
+			<div {...this.props}>
+				<FixedPopupPanels
+					open
+					index={this.state.index}
+				>
+					<Panel id="panel1" autoFocus="none">
+						<Header title="First Panel" noCloseButton />
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+						<Item>Item 1 in Panel 2</Item>
+					</Panel>
+				</FixedPopupPanels>
+			</div>
+		);
+	}
+}
 
 // eslint-disable-next-line enact/prop-types
 const itemRenderer = ({index, ...rest}) => {
@@ -161,4 +207,54 @@ storiesOf('FixedPopupPanels', module)
 				text: 'QA -  Basic usage of FixedPopupPanels'
 			}
 		}
+	).add(
+		'with Pause and autoFocus="none"',
+		() => {
+			return (
+				<FixedPopupPanelsWithPause />
+			);
+		},
+		{
+			info: {
+				text: 'QA -  Manage focus with Pause in FixedPopupPanels'
+			}
+		}
+	).add(
+		'with Scroller',
+		() => {
+			return (
+				<FixedPopupPanels
+					open
+					position={select('position', ['left', 'right'], Config)}
+					fullHeight={boolean('fullHeight', Config)}
+					width={select('width', ['narrow', 'half'], Config)}
+					noAnimation={boolean('noAnimation', Config)}
+					noAutoDismiss={boolean('noAutoDismiss', Config)}
+					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config)}
+					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
+				>
+					<Panel>
+						<Header>
+							<title>
+								Press Enter to scroll
+							</title>
+						</Header>
+						<Cell>
+							<Scroller
+								focusableScrollbar="byEnter"
+								style={{height: ri.scaleToRem(333)}}
+							>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ante sit amet dui cursus tempus ut nec nisl. In scelerisque, nunc in interdum varius, dolor magna auctor tellus, quis mattis mauris lectus vel metus. Maecenas tempus quam ac dignissim gravida. Integer ut posuere sapien. Duis consequat vitae libero nec posuere. Curabitur sagittis mauris vel massa cursus, et mollis est malesuada. Vestibulum ante libero, gravida id purus eget, varius porttitor ipsum. Suspendisse quis consequat sem, eget gravida est. Morbi pulvinar diam vel mattis lacinia. Integer eget est quis augue tincidunt tincidunt quis at nisi. Duis at massa nunc. Cras malesuada, sem quis aliquet vulputate, ante ipsum congue ante, eu volutpat ipsum sem posuere ante. Suspendisse potenti. Nullam in lacinia mi.
+							</Scroller>
+						</Cell>
+					</Panel>
+				</FixedPopupPanels>
+			);
+		},
+		{
+			info: {
+				text: 'QA -  Scroller with text inside FixedPopupPanels'
+			}
+		}
 	);
+

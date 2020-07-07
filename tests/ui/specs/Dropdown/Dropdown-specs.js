@@ -2,7 +2,7 @@ const Page = require('./DropdownPage');
 
 function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out waiting for ${text}`, interval = 250) {
 	browser.waitUntil(function () {
-		return dropdown.focusedItemText === text;
+		return dropdown.focusedItemText.indexOf(text) === 0;
 	}, {timeout, timeoutMsg, interval});
 }
 

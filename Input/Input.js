@@ -131,6 +131,16 @@ const InputPopupBase = kind({
 		numberInputField: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
 
 		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
+
+		/**
 		 * Called when the input value is changed.
 		 *
 		 * @type {Function}
@@ -199,7 +209,7 @@ const InputPopupBase = kind({
 		 * Size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
@@ -243,7 +253,7 @@ const InputPopupBase = kind({
 	defaultProps: {
 		popupType: 'fullscreen',
 		numberInputField: 'auto',
-		size: 'large',
+		size: 'small',
 		subtitle: '',
 		title: '',
 		type: 'text',
@@ -295,7 +305,7 @@ const InputPopupBase = kind({
 		children,
 		css,
 		numberInputField,
-		onChange,
+		onBeforeChange,
 		onClose,
 		onNumberComplete,
 		onInputKeyDown,
@@ -345,7 +355,7 @@ const InputPopupBase = kind({
 								maxLength={limitNumberLength(popupType, maxLength)}
 								minLength={limitNumberLength(popupType, minLength)}
 								defaultValue={value}
-								onChange={onChange}
+								onBeforeChange={onBeforeChange}
 								onComplete={onNumberComplete}
 								showKeypad
 								type={(type === 'passwordnumber') ? 'password' : 'number'}
@@ -353,6 +363,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
 								size={size}
@@ -361,7 +372,7 @@ const InputPopupBase = kind({
 								defaultValue={value}
 								noReadoutOnFocus
 								placeholder={placeholder}
-								onChange={onChange}
+								onBeforeChange={onBeforeChange}
 								onKeyDown={onInputKeyDown}
 							/>
 						}
@@ -414,7 +425,7 @@ const InputBase = kind({
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
