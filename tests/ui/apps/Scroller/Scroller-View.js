@@ -74,6 +74,7 @@ class app extends React.Component {
 						<Dropdown
 							onSelect={this.handleSelectFocusableScrollbar}
 							title="FocusableScrollbar"
+							id="focusableScrollbar"
 						>
 							{Object.keys(prop.focusableScrollbarOption)}
 						</Dropdown>
@@ -92,6 +93,9 @@ class app extends React.Component {
 							</Cell>
 							<Cell align="stretch">
 								<Column align="center">
+									<Cell component={Button} shrink id="top">
+										Top
+									</Cell>
 									<Cell>
 										<Scroller
 											direction={this.state.direction}
