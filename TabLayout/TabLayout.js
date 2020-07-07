@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import RefocusDecorator, {getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
@@ -78,6 +79,8 @@ const TabLayoutBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		'data-spotlight-id': PropTypes.string,
 
 		/**
 		 * Specify dimensions for the layout areas.
@@ -242,7 +245,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
@@ -260,12 +263,12 @@ const TabLayoutBase = kind({
 
 		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
-			<Layout {...rest} orientation={tabOrientation}>
+			<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
 				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
 					<TabGroup
 						{...tabGroupProps}
 						collapsed={isVertical}
-						spotlightDisabled={isVertical && !collapsed}
+						spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
 						tabSize={!isVertical ? tabSize : null}
 					/>
 				</Cell>
@@ -275,6 +278,8 @@ const TabLayoutBase = kind({
 				>
 					<TabGroup
 						{...tabGroupProps}
+						spotlightId={getTabsSpotlightId(spotlightId, false)}
+						spotlightDisabled={collapsed}
 					/>
 				</Cell> : null}
 				<Cell
@@ -294,15 +299,16 @@ const TabLayoutBase = kind({
 });
 
 const TabLayoutDecorator = compose(
+	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
+	Changeable({prop: 'index', change: 'onSelect'}),
+	RefocusDecorator,
 	SpotlightContainerDecorator({
 		// using last-focused so we return to the last focused if it exists but fall through to
 		// default element if no focus has ocurred yet (e.g. on mount)
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
-	}),
-	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
-	Changeable({prop: 'index', change: 'onSelect'})
+	})
 );
 
 // Currently not documenting the base output since it's not exported

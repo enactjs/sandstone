@@ -3,9 +3,7 @@ import kind from '@enact/core/kind';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
-import {useId} from '@enact/ui/internal/IdProvider';
 import {Cell, Layout} from '@enact/ui/Layout';
-import {useToggle} from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -104,13 +102,25 @@ const TabBase = kind({
 
 const Tab = Skinnable(TabBase);
 
-const SpotlightContainerGroup = SpotlightContainerDecorator(
+const ExpandedGroup = SpotlightContainerDecorator(
 	{
 		// using default-element so we always land on the selected tab in order to avoid changing
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		// favor last focused when set but fall back to the selected tab
 		enterTo: 'last-focused',
+		straightOnlyLeave: true
+	},
+	Group
+);
+
+const CollapsedGroup = SpotlightContainerDecorator(
+	{
+		// using default-element so we always land on the selected tab in order to avoid changing
+		// the view when re-entering the tab group
+		defaultElement: `.${componentCss.selected}`,
+		// always enter to selected when collapsed
+		enterTo: 'default-element',
 		straightOnlyLeave: true
 	},
 	Group
@@ -139,8 +149,8 @@ const TabGroupBase = kind({
 		orientation: PropTypes.string,
 		selectedIndex: PropTypes.number,
 		spotlightDisabled: PropTypes.bool,
-		tabSize: PropTypes.number,
-		tabsSpotlightId: PropTypes.string
+		spotlightId: PropTypes.string,
+		tabSize: PropTypes.number
 	},
 
 	styles: {
@@ -169,7 +179,7 @@ const TabGroupBase = kind({
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightDisabled, tabSize, tabsDisabled, tabsSpotlightId, ...rest}) => {
+	render: ({children, collapsed, noIcons, onBlur, onBlurList, onFocus, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabSize, tabsDisabled, ...rest}) => {
 		delete rest.onFocusTab;
 		delete rest.tabs;
 
@@ -179,6 +189,7 @@ const TabGroupBase = kind({
 			verticalScrollbar: 'hidden'
 		} : null;
 		const Component = isHorizontal ? 'div' : Scroller;
+		const GroupComponent = collapsed ? CollapsedGroup : ExpandedGroup;
 
 		return (
 			<Component
@@ -190,7 +201,7 @@ const TabGroupBase = kind({
 				{noIcons ? (
 					<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
 				) : (
-					<SpotlightContainerGroup
+					<GroupComponent
 						childComponent={Tab}
 						className={componentCss.tabs}
 						component={Layout}
@@ -201,11 +212,11 @@ const TabGroupBase = kind({
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
-						spotlightId={tabsSpotlightId}
+						spotlightId={spotlightId}
 						spotlightDisabled={spotlightDisabled}
 					>
 						{children}
-					</SpotlightContainerGroup>
+					</GroupComponent>
 				)}
 				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
 			</Component>
@@ -213,49 +224,8 @@ const TabGroupBase = kind({
 	}
 });
 
-const RefocusDecorator = Wrapped => {
-	// eslint-disable-next-line no-shadow
-	function RefocusDecorator ({id, ...rest}) {
-		const {generateId} = useId({prefix: 'sand-tablayout-'});
-		const refocus = useToggle();
-
-		// generate an id for the component (and a derived id for the tabs) so we can refocus them
-		id = id || generateId('tabgroup-');
-		const tabsSpotlightId = `${id}-tabs`;
-
-		// after the single tab has been replaced by the list, focus the list (which will choose the
-		// selected item) and reset the refocus flag
-		React.useEffect(() => {
-			if (!refocus.selected) return;
-
-			// restrict the refocus to only 5-way and only when nothing else gained focus in the
-			// interim and when Spotlight was not paused by something else.
-			if (!Spotlight.getCurrent() && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
-				Spotlight.focus(tabsSpotlightId);
-			}
-			refocus.deactivate();
-		}, [refocus, tabsSpotlightId]);
-
-		return (
-			<Wrapped
-				{...rest}
-				id={id}
-				onBlurList={refocus.activate}
-				tabsSpotlightId={tabsSpotlightId}
-			/>
-		);
-	}
-
-	RefocusDecorator.propTypes = {
-		id: PropTypes.string
-	};
-
-	return RefocusDecorator;
-};
-
 const TabGroupDecorator = compose(
-	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300}),
-	RefocusDecorator
+	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
 );
 
 // Only documenting TabGroup since base is not useful for extension as-is
