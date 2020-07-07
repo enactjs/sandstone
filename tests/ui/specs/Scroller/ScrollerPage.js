@@ -33,7 +33,7 @@ class ScrollerPage extends Page {
 
 	// dropdown api
 	get dropdownFocusableScrollbar () {
-		return element('#focusableScrollbar', browser);
+		return element('#focusableScrollbarKnobs', browser);
 	}
 
 	// scrollable api
@@ -42,14 +42,14 @@ class ScrollerPage extends Page {
 	}
 
 	// active element api
-	getAriaLabel () {
+	getActiveElement () {
 		return browser.execute(function () {
-			return document.activeElement.getAttribute('aria-label');
-		});
-	}
-	getActiveElementClass () {
-		return browser.execute(function () {
-			return document.activeElement.className;
+			const activeElement = document.activeElement;
+			return {
+				ariaLabel:  activeElement.getAttribute('aria-label'),
+				id: activeElement.id,
+				isfocusableBody: activeElement.className === 'Scroller_Scroller_focusableBody spottable'
+			};
 		});
 	}
 }

@@ -74,7 +74,7 @@ class app extends React.Component {
 						<Dropdown
 							onSelect={this.handleSelectFocusableScrollbar}
 							title="FocusableScrollbar"
-							id="focusableScrollbar"
+							id="focusableScrollbarKnobs"
 						>
 							{Object.keys(prop.focusableScrollbarOption)}
 						</Dropdown>
@@ -104,7 +104,7 @@ class app extends React.Component {
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											style={{
-												height: ri.scaleToRem(1920),
+												height: ri.scaleToRem(1680),
 												width: ri.scaleToRem(2400)
 											}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
