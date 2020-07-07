@@ -104,7 +104,9 @@
 			vertical-align: top;
 			height: @sand-imageitem-vertical-image-icon-size;
 			width: @sand-imageitem-vertical-image-icon-size;
-			margin: @sand-imageitem-vertical-image-icon-margin;
+			:global(.enact-locale-right-to-left) & {
+				margin: @sand-imageitem-vertical-image-icon-margin-rtl;
+			}
 		}
 
 		.imageIcon+div {
