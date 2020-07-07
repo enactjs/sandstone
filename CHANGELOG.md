@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` style to match latest designs
 - `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
+- `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
 - `sandstone/FixedPopupPanels` to use a translucent background
 - `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
