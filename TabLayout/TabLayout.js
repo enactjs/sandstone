@@ -265,7 +265,7 @@ const TabLayoutBase = kind({
 					<TabGroup
 						{...tabGroupProps}
 						collapsed={isVertical}
-						spotlightDisabled={isVertical}
+						spotlightDisabled={isVertical && !collapsed}
 						tabSize={!isVertical ? tabSize : null}
 					/>
 				</Cell>
