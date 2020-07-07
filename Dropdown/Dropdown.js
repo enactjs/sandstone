@@ -336,6 +336,7 @@ const DropdownBase = kind({
  * @memberof sandstone/Dropdown
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator
  * @omit selected
  * @omit defaultSelected
  * @omit value
@@ -349,6 +350,7 @@ const DropdownDecorator = compose(
 			children: compareChildren
 		}
 	}),
+	SpotlightContainerDecorator,
 	I18nContextDecorator({
 		rtlProp: 'rtl'
 	}),
@@ -410,13 +412,11 @@ const DropdownDecorator = compose(
  * @ui
  * @public
  */
-const DropdownWithoutSpotlightContainer = DropdownDecorator(DropdownBase);
-const Dropdown = SpotlightContainerDecorator({}, DropdownDecorator(DropdownBase));
+const Dropdown = DropdownDecorator(DropdownBase);
 
 export default Dropdown;
 export {
 	Dropdown,
 	DropdownBase,
-	DropdownDecorator,
-	DropdownWithoutSpotlightContainer
+	DropdownDecorator
 };
