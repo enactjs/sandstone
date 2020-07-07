@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 import Icon from '../Icon';
 
-import css from './Input.module.less';
-
 /**
  * The stateless functional base component for {@link sandstone/Input.InputDecoratorIcon}.
  *
@@ -34,17 +32,6 @@ const InputDecoratorIconBase = kind({
 		 * @type {String|Object}
 		 */
 		children: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-	},
-
-	styles: {
-		css,
-		className: 'decoratorIcon'
-	},
-
-	computed: {
-		className: ({position, styler}) => {
-			return styler.append('icon' + (position === 'before' ? 'Before' : 'After'));
-		}
 	},
 
 	render: ({children, ...rest}) => {
