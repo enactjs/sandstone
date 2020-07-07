@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward, returnsTrue} from '@enact/core/handle';
+import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
 import React from 'react';
 import compose from 'ramda/src/compose';
@@ -75,6 +75,7 @@ const NumberFieldBase = kind({
 		maxLength: PropTypes.number,
 		minLength: PropTypes.number,
 		numberInputField: PropTypes.string,
+		onBeforeChange: PropTypes.func,
 		onComplete: PropTypes.func,
 		rtl: PropTypes.bool,
 		showKeypad: PropTypes.bool,
@@ -104,6 +105,7 @@ const NumberFieldBase = kind({
 					}),
 					// In case onAdd was run in the short period between the last onComplete and this invocation, just bail out
 					({value: updatedValue}, {maxLength, value}) => (normalizeValue(updatedValue, maxLength) !== normalizeValue(value, maxLength)),
+					forwardWithPrevent('onBeforeChange'),
 					forward('onChange'),
 					// Check the length of the new value and return true (pass/proceed) if it is at or above max-length
 					({value: updatedValue}, {maxLength, minLength, numberInputField}) => {
@@ -120,7 +122,10 @@ const NumberFieldBase = kind({
 			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
-				forward('onChange')
+				handle(
+					forwardWithPrevent('onBeforeChange'),
+					forward('onChange')
+				)
 			)
 		),
 		onSubmit: handle(
@@ -141,7 +146,7 @@ const NumberFieldBase = kind({
 		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
 				return (
-					<Tooltip css={css} relative type="transparent">
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -170,6 +175,7 @@ const NumberFieldBase = kind({
 		delete rest.invalid;
 		delete rest.invalidMessage;
 		delete rest.minLength;
+		delete rest.onBeforeChange;
 		delete rest.onComplete;
 		delete rest.onSubmit;
 		delete rest.rtl;

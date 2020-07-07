@@ -21,6 +21,7 @@ import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
@@ -81,6 +82,14 @@ const DropdownBase = kind({
 	name: 'Dropdown',
 
 	propTypes: /** @lends sandstone/Dropdown.DropdownBase.prototype */ {
+		/**
+		 * The "aria-label" for the Dropdown.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
 		/**
 		 * Items to be displayed in the `Dropdown` when `open`.
 		 *
@@ -292,10 +301,11 @@ const DropdownBase = kind({
 		)
 	},
 
-	render: ({ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+	render: ({'aria-label': ariaLabel, ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
 		delete rest.rtl;
 
 		const ariaProps = extractAriaProps(rest);
+		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
 		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
@@ -304,9 +314,10 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<div role="region" aria-labelledby={ariaLabelledBy} {...rest}>
+			<div {...calcAriaProps} {...rest}>
 				{title}
 				<DropdownButton
+					aria-label={ariaLabel}
 					direction={direction}
 					disabled={hasChildren ? disabled : true}
 					focusEffect="static"
@@ -335,6 +346,7 @@ const DropdownBase = kind({
  * @memberof sandstone/Dropdown
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator
  * @omit selected
  * @omit defaultSelected
  * @omit value
@@ -348,6 +360,7 @@ const DropdownDecorator = compose(
 			children: compareChildren
 		}
 	}),
+	SpotlightContainerDecorator,
 	I18nContextDecorator({
 		rtlProp: 'rtl'
 	}),
