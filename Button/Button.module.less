@@ -214,6 +214,7 @@
 		&.large,
 		&.small {
 			padding: @sand-button-icon-small-padding;
+			.padding-start-end(.extract(@sand-button-icon-small-padding, left)[], .extract(@sand-button-icon-small-padding, right)[]);
 
 			.icon {
 				margin: 0; // reset margins for `IconButton`

@@ -2,24 +2,42 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0-rc.2] - 2020-07-07
 
 ### Removed
 
 - `sandstone` support for `data-spotlight-container-muted`
 
+### Added
+
+- `sandstone/Input` event `onBeforeChange`
+
 ### Changed
 
+- `sandstone/PopupTabLayout.TabPanels` prop `noCloseButton` to be `false` by default
 - `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
 
 ### Fixed
 
+- `sandstone/Button` style to match latest designs
+- `sandstone/Button` style when using small, icon-only buttons in non-latin locales
+- `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
 - `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
-- `sandstone/Scroller.Scroller` to prevent overlapping with `sandstone/BodyText` when `focusableScrollbar` prop is `true` or `byEnter`
-- `sandstone/Panels.Panel` to read out only a title and a subtitle except a panel in `sandstone/WizardPanels`
+- `sandstone/FixedPopupPanels` to use a translucent background
+- `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
 - `sandstone/Input` to marquee the invalid tooltip
+- `sandstone/Panels.Panel` to read out the title and subtitle except when used in `sandstone/WizardPanels`
+- `sandstone/Picker` values position in RTL
 - `sandstone/Popup` to respect paused spotlight
+- `sandstone/PopupTabLayout` style to match latest designs
+- `sandstone/Scroller` to stop the propagation of keydown events from a scroller thumb when it scrolls
+- `sandstone/Scroller` vertical padding to prevent overlapping contained components
+- `sandstone/Spinner` style to match latest designs
+- `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
+- `sandstone/TabLayout` and `sandstone/PopupTabLayout` transition performance
+- `sandstone/TimePicker` spacing between pickers in RTL
+- `sandstone/WizardPanels` to read out properly
 
 ## [1.0.0-rc.1] - 2020-06-29
 
@@ -33,7 +51,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
 - `sandstone/Input` prop `size` default value to small
 
 ### Fixed
@@ -49,7 +66,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
 - `sandstone/Tooltip` arrow rendering to eliminate a vertical gap
 - `sandstone/WizardPanels` direction of buttons and transition in RTL locales
-- `sandstone/Button` style to match latest designs
 
 ## [1.0.0-beta.8] - 2020-06-22
 
@@ -455,7 +471,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Button` styling
 - `sandstone/Heading` styling
-
 
 ## [1.0.0-alpha.2] - 2020-03-03
 

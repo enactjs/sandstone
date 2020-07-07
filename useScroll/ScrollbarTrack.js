@@ -47,13 +47,15 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();
-		ev.nativeEvent.stopImmediatePropagation();
+		ev.stopPropagation(); // stop propagation of React synthetic event to other components like PopupDecorator
+		ev.nativeEvent.stopImmediatePropagation(); // stop propagation of browser native event to Spotlight
 		onInteractionForScroll(scrollParam);
 	}, [onInteractionForScroll]);
 
 	const onKeyDown = useCallback((ev) => {
 		if (SpotlightAccelerator.processKey(ev, nop)) {
-			ev.nativeEvent.stopImmediatePropagation();
+			ev.stopPropagation(); // stop propagation of React synthetic event to other components like PopupDecorator
+			ev.nativeEvent.stopImmediatePropagation(); // stop propagation of browser native event to Spotlight
 		} else {
 			const
 				{keyCode} = ev,
