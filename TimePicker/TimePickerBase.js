@@ -24,7 +24,6 @@ const hours12 = [
  *
  * @class HourPicker
  * @memberof sandstone/TimePicker/TimePickerBase
- * @extends sandstone/DateTime
  * @ui
  * @private
  */

@@ -209,9 +209,6 @@ const dateTimeConfig = {
  * @class TimePicker
  * @memberof sandstone/TimePicker
  * @mixes sandstone/DateTime.DateTimeDecorator
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
- * @mixes ui/Changeable.Changeable
  * @ui
  * @public
  */
