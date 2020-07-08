@@ -33,7 +33,7 @@
     "screenTypes": "ThemeDecorator/screenTypes.json"
   },
   "eslintConfig": {
-    "extends": "enact/strict"
+    "extends": "enact-proxy/strict"
   },
   "dependencies": {
     "@enact/core": "^3.3.0-alpha.14",
@@ -55,6 +55,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
     "@enact/ui-test-utils": "^0.4.0",
+    "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
 }
