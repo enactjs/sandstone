@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Input` to read out properly
+
 ## [1.0.0-rc.3] - 2020-07-07
 
 ### Fixed
