@@ -85,7 +85,7 @@ AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildr
 	 * @type {Boolean}
 	 * @private
 	 */
-	fallback: EnactPropTypes.component,
+	fallback: PropTypes.any,
 
 	/**
 	 * Render the `children` prop asynchronously when the `index` is defined and changes.
