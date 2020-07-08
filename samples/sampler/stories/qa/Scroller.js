@@ -321,7 +321,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(402)}}
+					style={{height: ri.scaleToRem(480)}}
 				>
 					<Item>1</Item>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
