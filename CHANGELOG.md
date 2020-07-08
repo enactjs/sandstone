@@ -32,6 +32,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` style to match latest designs
 - `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
 - `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
