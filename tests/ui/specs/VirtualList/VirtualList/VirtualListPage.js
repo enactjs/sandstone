@@ -112,7 +112,6 @@ class VirtualListPage extends Page {
 	item (id) {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
-	/* global document */
 	topVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -134,7 +133,6 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	/* global document */
 	bottomVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -160,7 +158,6 @@ class VirtualListPage extends Page {
 			return 'unknown';	// we didn't find it?!
 		}, scrollableSelector);
 	}
-	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;

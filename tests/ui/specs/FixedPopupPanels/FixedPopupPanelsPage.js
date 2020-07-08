@@ -17,7 +17,6 @@ class FixedPopupPanelsInterface {
 		this.self.waitForExist(duration, true);
 	}
 
-	/* global window */
 	waitTransitionToIndex (index, delay = 3000, msg = 'timed out waiting for transitionend', callback) {
 		browser.execute(
 			function () {
@@ -41,7 +40,6 @@ class FixedPopupPanelsInterface {
 		);
 	}
 
-	/* global document */
 	clickBelowPopup () {
 		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();

@@ -1,5 +1,3 @@
-/* global document */
-
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 

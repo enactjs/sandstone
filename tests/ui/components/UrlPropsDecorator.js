@@ -1,9 +1,7 @@
-/* global URL */
-
 import React from 'react';
 
 function UrlPropsDecorator (Wrapped) {
-	return (props) => {
+	const UrlDecorator = (props) => {
 		const updated = {...props};
 		const url = new URL(window.location.href);
 
@@ -29,6 +27,8 @@ function UrlPropsDecorator (Wrapped) {
 
 		return <Wrapped {...updated} />;
 	};
+	UrlDecorator.displayName = 'UrlDecorator';
+	return UrlDecorator;
 }
 
 export default UrlPropsDecorator;

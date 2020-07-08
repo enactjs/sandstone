@@ -88,7 +88,6 @@ class VirtualGridListPage extends Page {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
 
-	/* global document */
 	topLeftVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -110,7 +109,6 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	/* global document */
 	bottomRightVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -135,7 +133,6 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;

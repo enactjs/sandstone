@@ -41,7 +41,6 @@ class FlexiblePopupPanelsInterface {
 		return browser.execute((el) => el.focus(), this.prevButton);
 	}
 
-	/* global document */
 	clickBelowPopup () {
 		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();

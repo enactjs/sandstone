@@ -19,6 +19,7 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
+			// eslint-disable-next-line no-undefined
 			waitForFocusedText(dropdown, 'four', 500, undefined, 100);
 
 			waitForFocusedText(dropdown, 'one', 750);
@@ -29,6 +30,7 @@ describe('Dropdown', function () {
 
 			Page.openDropdown(dropdown);
 
+			// eslint-disable-next-line no-undefined
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
 			waitForFocusedText(dropdown, 'three', 750);
