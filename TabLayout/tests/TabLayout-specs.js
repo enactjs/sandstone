@@ -82,7 +82,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
@@ -98,7 +98,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		const expected = {
 			type: 'onTabAnimationEnd',
@@ -109,7 +109,7 @@ describe('TabLayout specs', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	it('should call not onTabAnimationEnd for horizontal tabs', () => {
+	it('should not call onTabAnimationEnd for horizontal tabs', () => {
 		const spy = jest.fn();
 		const subject = mount(
 			<TabLayout orientation="horizontal" onTabAnimationEnd={spy}>
@@ -120,7 +120,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		expect(spy).not.toHaveBeenCalled();
 	});
