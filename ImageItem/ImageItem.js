@@ -38,6 +38,10 @@ const
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
 
+// A delay that prevents children from being rendered to some extent
+// when the user continues to wheel through the list
+const delayToRenderChildren = 600;
+
 const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
 	const [children, setChildren] = React.useState(null);
 	const timerRef = React.useRef(null);
@@ -52,7 +56,7 @@ const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 				setChildren(cachedChildren);
-			}, 600);
+			}, delayToRenderChildren);
 		}
 	});
 
