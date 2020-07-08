@@ -46,17 +46,19 @@ const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
 	const [children, setChildren] = React.useState(null);
 	const timerRef = React.useRef(null);
 
-	if (timerRef.current) {
-		clearTimeout(timerRef.current);
-		timerRef.current = null;
-	}
-
 	React.useEffect(() => {
 		if (children !== cachedChildren) {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 				setChildren(cachedChildren);
 			}, delayToRenderChildren);
+		}
+
+		return () => {
+			if (timerRef.current) {
+				clearTimeout(timerRef.current);
+				timerRef.current = null;
+			}
 		}
 	});
 
