@@ -39,7 +39,7 @@ class PanelsView extends React.Component {
 						dataSize={itemList.length}
 						direction="vertical"
 						itemRenderer={this.customItem}
-						itemSize={ri.scaleToRem(156)}
+						itemSize={ri.scale(156)}
 					/>
 				</Panel>
 				<Panel>

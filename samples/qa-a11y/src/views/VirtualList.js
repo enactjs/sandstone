@@ -48,7 +48,7 @@ class VirtualListView extends React.Component {
 					direction="vertical"
 					focusableScrollbar
 					itemRenderer={renderItem}
-					itemSize={ri.scaleToRem(156)}
+					itemSize={ri.scale(156)}
 					scrollMode={scrollMode}
 				/>
 			</Layout>

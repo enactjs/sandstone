@@ -36,7 +36,7 @@ const VideoPlayerView = () => (
 			<MediaControls actionGuideLabel="Press Down Button to Scroll">
 				<bottomComponents>
 					<VirtualGridList
-						dataSize={size}
+						dataSize={20}
 						direction="horizontal"
 						horizontalScrollbar="hidden"
 						itemRenderer={renderItem}
