@@ -29,7 +29,7 @@ const renderItem = ({index, ...rest}) => {
 };
 
 const VideoPlayerView = () => (
-	<div style={{width: ri.scaleToRem(1280) + 'px', height: ri.scaleToRem(800) + 'px'}}>
+	<div style={{width: ri.scaleToRem(1280), height: ri.scaleToRem(800)}}>
 		<VideoPlayer poster="http://media.w3.org/2010/05/bunny/poster.png" title="Downton Abbey">
 			<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
@@ -41,10 +41,10 @@ const VideoPlayerView = () => (
 						horizontalScrollbar="hidden"
 						itemRenderer={renderItem}
 						itemSize={{
-							minWidth: ri.scaleToRem(320),
-							minHeight: ri.scaleToRem(270)
+							minWidth: ri.scale(320),
+							minHeight: ri.scale(270)
 						}}
-						spacing={ri.scaleToRem(12)}
+						spacing={ri.scale(12)}
 						style={{height: ri.scaleToRem(240), marginTop: ri.scaleToRem(60)}}
 					/>
 				</bottomComponents>
