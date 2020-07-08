@@ -199,6 +199,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			rtl: PropTypes.bool,
 
 			/**
+			 * Set the type of scrim to use
+			 *
+			 * @type {('holepunch'|'translucent'|'transparent'|'none')}
+			 * @private
+			 */
+			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
+
+			/**
 			 * Registers the ContextualPopupDecorator component with an [ApiDecorator]
 			 * {@link core/internal/ApiDecorator.ApiDecorator}.
 			 *
@@ -671,7 +679,14 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		render () {
 			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
-			const scrimType = spotlightRestrict === 'self-only' ? 'transparent' : 'none';
+			let scrimType = rest.scrimType;
+			delete rest.scrimType;
+
+			// 'holepunch' scrimType is specific to this component, not supported by floating layer
+			// so it must be swapped-out for one that FloatingLayer does support.
+			const holepunchScrim = (scrimType === 'holepunch');
+			scrimType = (spotlightRestrict === 'self-only' || holepunchScrim) ? 'transparent' : 'none';
+
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
 
@@ -680,7 +695,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 
 			let holeBounds;
-			if (this.clientNode) {
+			if (this.clientNode && holepunchScrim) {
 				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
@@ -702,7 +717,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						scrimType={scrimType}
 					>
 						<React.Fragment>
-							<HolePunchScrim holeBounds={holeBounds} />
+							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
 							<ContextualPopupContainer
 								{...ariaProps}
 								className={popupClassName}
