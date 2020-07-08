@@ -13,10 +13,6 @@
 	.sizingPlaceholder,
 	.valueWrapper {
 		.sand-text-base(@sand-picker-font-size);
-		.sand-locale-non-latin({
-			height: @sand-non-latin-picker-line-height;
-			line-height: @sand-non-latin-picker-line-height;
-		});
 		max-width: 960px;
 
 		.item {
@@ -25,11 +21,24 @@
 			}
 		}
 	}
+	.valueWrapper {
+		.sand-locale-non-latin({
+			height: @sand-non-latin-picker-line-height;
+			line-height: @sand-non-latin-picker-line-height;
+		});
+	}
 
-	.sizingPlaceholder,
+	.sizingPlaceholder {
+		// We'll set only the horizontal paddings on sizingPLaceholder to not affect the vertical layout
+		padding-left: .extract(@sand-picker-item-padding, left)[];
+		padding-right: .extract(@sand-picker-item-padding, right)[];
+		line-height: 0;
+	}
+
 	.item {
 		padding: @sand-picker-item-padding;
 	}
+
 	// Special rules for small size for a more compact view
 	&.small {
 		.sizingPlaceholder,
@@ -72,6 +81,7 @@
 		cursor: pointer;
 		margin: 0;
 		position: relative;
+		line-height: 1em; // Set the line height to the font size, whatever the font size is.
 
 		.disabled({
 			cursor: default;
