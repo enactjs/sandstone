@@ -6,8 +6,6 @@
 
 // Module level variables, for use only in this file
 @popupTabLayout-max-height: ~"calc(100vh -" (extract(@sand-popuptablayout-margin, 1) * 2) ~")";
-@panels-height-calc: ~"min(var(--sand-panels-measured-height), " @popupTabLayout-max-height ~")";
-@panel-height-calc: ~"min(var(--sand-panel-measured-height), " @popupTabLayout-max-height ~")";
 
 .popupTabLayout {
 	// Override for Popup (more precedence)
@@ -29,10 +27,7 @@
 	.panels::before {
 		content: "";
 		position: absolute;
-		.position(0, 0, auto, 0);
-		height: @panels-height-calc;
-		transition: height 200ms ease-out;
-		will-change: height;
+		.position(0, 0, 0, 0);
 	}
 
 	// Skin colors
@@ -79,7 +74,6 @@
 // Overrides for Panel
 .panel {
 	padding: 0;
-	height: @panel-height-calc;
 
 	> .body {
 		flex: 0 1 auto;  // Allow this node to vertically shrink to fit the content but not extend larger than the container.
