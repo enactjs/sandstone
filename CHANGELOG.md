@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Icon` additional icons
+
 ### Fixed
 
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
@@ -24,7 +28,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Input` event `onBeforeChange`
-- `sandstone/Icon` additional icons
 
 ### Changed
 
