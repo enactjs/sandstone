@@ -52,7 +52,7 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
-		 * Centers the primary caption in vertical orientation.
+		 * Centers the primary caption and label in vertical orientation.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -214,6 +214,9 @@ const ImageItemBase = kind({
 
 			if (!hasImageIcon && !children && !label) return;
 
+			// eslint-disable-next-line no-undefined
+			const alignment = orientation === 'vertical' && centered ? 'center' : undefined;
+
 			return (
 				<Row className={css.captions}>
 					{hasImageIcon ? (
@@ -225,15 +228,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee
-							className={css.caption}
-							// eslint-disable-next-line no-undefined
-							alignment={orientation === 'vertical' && centered ? 'center' : undefined}
-							marqueeOn="hover"
-						>
-							{children}
-						</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+						<Marquee className={css.caption} alignment={alignment} marqueeOn="hover">{children}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} alignment={alignment} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
