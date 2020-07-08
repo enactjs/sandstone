@@ -48,7 +48,7 @@ export default {
 	closex            : 0x0EFFF5, // close_x
 	search            : 0x0EFFF6, // magnify
 	chup              : 0x0EFFF7, // chup
-	chdown            : 0x0EFFF7, // chdown
+	chdown            : 0x0EFFF8, // chdown
 	exitfullscreen    : 0x0EFFF9, // minimize
 	fullscreen        : 0x0EFFFA, // maximize
 	trash             : 0x0F0025, // trash
