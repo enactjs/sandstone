@@ -7,7 +7,7 @@
     "bootstrap": "enact bootstrap",
     "clean": "enact clean",
     "cleanall": "enact clean --all",
-    "lint": "enact lint --local",
+    "lint": "enact lint  --strict",
     "sampler": "npm run --prefix samples/sampler serve",
     "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
