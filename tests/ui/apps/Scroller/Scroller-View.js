@@ -74,6 +74,7 @@ class app extends React.Component {
 						<Dropdown
 							onSelect={this.handleSelectFocusableScrollbar}
 							title="FocusableScrollbar"
+							id="focusableScrollbarKnobs"
 						>
 							{Object.keys(prop.focusableScrollbarOption)}
 						</Dropdown>
