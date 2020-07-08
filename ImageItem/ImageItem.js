@@ -214,8 +214,7 @@ const ImageItemBase = kind({
 
 			if (!hasImageIcon && !children && !label) return;
 
-			// eslint-disable-next-line no-undefined
-			const alignment = orientation === 'vertical' && centered ? 'center' : undefined;
+			const alignment = orientation === 'vertical' && centered ? {alignment: 'center'} : null;
 
 			return (
 				<Row className={css.captions}>
@@ -228,8 +227,8 @@ const ImageItemBase = kind({
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} alignment={alignment} marqueeOn="hover">{children}</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} alignment={alignment} marqueeOn="hover">{label}</Marquee> : null}
+						<Marquee className={css.caption} {...alignment} marqueeOn="hover">{children}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee className={css.label} {...alignment} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
 			);
