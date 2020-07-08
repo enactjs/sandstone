@@ -23,7 +23,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<span>Item 3</span>
 			<br />
 		</div>
-	)
+	);
 
 	renderPopup2 = () => (
 		<div>
@@ -31,7 +31,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<Button>Button2</Button>
 			<Button>Button3</Button>
 		</div>
-	)
+	);
 
 	renderPopup3 = () => (
 		<Group
@@ -43,7 +43,7 @@ class ContextualPopupDecoratorView extends React.Component {
 		>
 			{['Creek', 'River', 'Ocean']}
 		</Group>
-	)
+	);
 
 	render () {
 		return (

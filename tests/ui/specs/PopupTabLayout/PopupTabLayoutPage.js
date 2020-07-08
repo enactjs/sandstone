@@ -20,11 +20,21 @@ class PopupTabLayoutInterface {
 		return $(this.tabs.selector).moveTo();
 	}
 
-	get self () {return browser.$(this.selector);}
-	get content () {return getContent(this.self);}
-	get currentView () {return getTabPanels(this.content);}
-	get tabLayout () { return getTabLayout(this.self);}
-	get isCollapsed () {return hasClass('collapsed', this.tabLayout);}
+	get self () {
+		return browser.$(this.selector);
+	}
+	get content () {
+		return getContent(this.self);
+	}
+	get currentView () {
+		return getTabPanels(this.content);
+	}
+	get tabLayout () {
+		return getTabLayout(this.self);
+	}
+	get isCollapsed () {
+		return hasClass('collapsed', this.tabLayout);
+	}
 	// get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
 	// get tabItems () {return this.tabs.$$('.Item_Item_item');}
 	// get tabs () {return getTabs(this.self);}

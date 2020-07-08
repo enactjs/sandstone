@@ -27,7 +27,7 @@ class TabLayoutView extends React.Component {
 		);
 	}
 
-	images = []
+	images = [];
 
 	render () {
 		return (

@@ -33,7 +33,7 @@ class ReadAlertView extends React.Component {
 		this.onClick2 = this.onClick(false);
 	}
 
-	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear)
+	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear);
 
 	onToggle = ({selected: audioGuidance}) => {
 		if (window.PalmServiceBridge) {
@@ -53,7 +53,7 @@ class ReadAlertView extends React.Component {
 				}
 			);
 		}
-	}
+	};
 
 	render = () => {
 		return (
@@ -69,7 +69,7 @@ class ReadAlertView extends React.Component {
 				<Button onClick={this.onClick2}>readAlert test(clear false)</Button>
 			</>
 		);
-	}
+	};
 }
 
 export default ReadAlertView;

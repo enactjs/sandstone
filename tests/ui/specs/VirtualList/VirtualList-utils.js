@@ -1,6 +1,8 @@
 /* global document */
 function focusedElement () {
-	return browser.execute(function () { return document.activeElement.id; });
+	return browser.execute(function () {
+		return document.activeElement.id;
+	});
 }
 
 function hitTest (_selector) {
@@ -20,7 +22,9 @@ function expectFocusedItem (itemNum, comment = 'focused item') {
 }
 
 function expectNoFocusedItem () {
-	expect(browser.execute(function () { return document.activeElement === document.body; })).to.be.true();
+	expect(browser.execute(function () {
+		return document.activeElement === document.body;
+	})).to.be.true();
 }
 
 function waitUntilFocused (itemNum, comment = '') {

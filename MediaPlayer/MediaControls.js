@@ -342,7 +342,7 @@ const MediaControlsBase = kind({
  */
 const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	class MediaControlsDecoratorHOC extends React.Component {
-		static displayName = 'MediaControlsDecorator'
+		static displayName = 'MediaControlsDecorator';
 
 		static propTypes = /** @lends sandstone/MediaPlayer.MediaControlsDecorator.prototype */ {
 			/**
@@ -493,12 +493,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @public
 			 */
 			visible: PropTypes.bool
-		}
+		};
 
 		static defaultProps = {
 			initialJumpDelay: 400,
 			jumpDelay: 200
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -582,14 +582,14 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			const bottomElement = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
-		}
+		};
 
 		handleKeyDownFromMediaButtons = (ev) => {
 			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
 				this.showMoreComponents();
 				ev.stopPropagation();
 			}
-		}
+		};
 
 		handleKeyDown = (ev) => {
 			const {
@@ -608,7 +608,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.paused.pause();
 				this.startListeningForPulses(ev.keyCode);
 			}
-		}
+		};
 
 		handleKeyUp = (ev) => {
 			const {
@@ -640,18 +640,18 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 					forward('onFastForward', ev, this.props);
 				}
 			}
-		}
+		};
 
 		handleBlur = () => {
 			this.stopListeningForPulses();
 			this.paused.resume();
-		}
+		};
 
 		handleWheel = (ev) => {
 			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
-		}
+		};
 
 		startListeningForPulses = (keyCode) => {
 			// Ignore new pulse calls if key code is same, otherwise start new series if we're pulsing
@@ -664,12 +664,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.keyLoop = setTimeout(this.handlePulse, this.props.initialJumpDelay);
 				forward('onJump', {keyCode}, this.props);
 			}
-		}
+		};
 
 		handlePulse = () => {
 			forward('onJump', {keyCode: this.pulsingKeyCode}, this.props);
 			this.keyLoop = setTimeout(this.handlePulse, this.props.jumpDelay);
-		}
+		};
 
 		handlePlayButtonClick = (ev) => {
 			forward('onPlayButtonClick', ev, this.props);
@@ -678,7 +678,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			} else {
 				forward('onPause', ev, this.props);
 			}
-		}
+		};
 
 		stopListeningForPulses () {
 			this.pulsing = false;
@@ -698,19 +698,19 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			const guideElement = this.mediaControlsNode.querySelector(`.${css.actionGuide}`);
 			this.actionGuideHeight = guideElement ? guideElement.scrollHeight : 0;
 			this.mediaControlsNode.style.setProperty('--actionGuideComponentHeight', `${this.actionGuideHeight}px`);
-		}
+		};
 
 		areMoreComponentsAvailable = () => {
 			return this.state.showMoreComponents;
-		}
+		};
 
 		showMoreComponents = () => {
 			this.setState({showMoreComponents: true});
-		}
+		};
 
 		hideMoreComponents = () => {
 			this.setState({showMoreComponents: false});
-		}
+		};
 
 		toggleMoreComponents () {
 			this.setState((prevState) => {
@@ -724,7 +724,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (this.props.visible) {
 				forward('onClose', ev, this.props);
 			}
-		}
+		};
 
 		handleTransitionEnd = (ev) => {
 			if (ev.propertyName === 'transform' && ev.target.dataset.spotlightId === 'moreComponents') {
@@ -732,7 +732,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 					Spotlight.move('down');
 				}
 			}
-		}
+		};
 
 		render () {
 			const props = Object.assign({}, this.props);

@@ -11,8 +11,8 @@ class ProgressBarView extends React.Component {
 		};
 	}
 
-	handleDecreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.max((state.progressBarValue - 0.1).toFixed(1), 0)}))
-	handleIncreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.min((state.progressBarValue + 0.1).toFixed(1), 1)}))
+	handleDecreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.max((state.progressBarValue - 0.1).toFixed(1), 0)}));
+	handleIncreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.min((state.progressBarValue + 0.1).toFixed(1), 1)}));
 
 	render = () => {
 		const {progressBarValue} = this.state;
@@ -37,7 +37,7 @@ class ProgressBarView extends React.Component {
 				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
 			</>
 		);
-	}
+	};
 }
 
 export default ProgressBarView;

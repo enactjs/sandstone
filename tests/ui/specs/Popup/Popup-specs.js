@@ -687,7 +687,7 @@ describe('Popup', function () {
 
 		describe('using 5-way and Pointer', function () {
 
-			it('should retain spotlight on the Close button inside the popup [GT-28268]', function (){
+			it('should retain spotlight on the Close button inside the popup [GT-28268]', function () {
 				popupCommon.buttonPopup6.click();
 				Page.waitForOpen(popup);
 
@@ -739,7 +739,7 @@ describe('Popup', function () {
 				expect(popup.buttonCancel.isFocused()).to.be.true();
 			});
 
-			it.skip('should not spot Buttons Outside of Popup - [GT-28266]', function (){
+			it.skip('should not spot Buttons Outside of Popup - [GT-28266]', function () {
 				popupCommon.buttonPopup6.click();
 				Page.waitForOpen(popup);
 
@@ -898,7 +898,7 @@ describe('Popup', function () {
 
 		describe('using 5-way and Pointer', function () {
 
-			it('should navigate to nearest neighbor [GT-28267]', function (){
+			it('should navigate to nearest neighbor [GT-28267]', function () {
 				popupCommon.buttonPopup7.click();
 				Page.waitForOpen(popup);
 

@@ -257,7 +257,7 @@ describe('SharedStateDecorator Specs', () => {
 
 	test('should restore shared state from ancestor', () => {
 		class Base extends React.Component {
-			static contextType = SharedState
+			static contextType = SharedState;
 
 			render () {
 				// eslint-disable-next-line enact/prop-types

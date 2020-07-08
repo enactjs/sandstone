@@ -30,7 +30,7 @@ class AutoDismissDropdown extends React.Component {
 
 	handleClose = () => {
 		this.setState({open: false});
-	}
+	};
 
 	render () {
 		return (
@@ -57,7 +57,7 @@ class DisabledDropdown extends React.Component {
 
 	handleClick = () => {
 		this.setState({isDisabled: false});
-	}
+	};
 
 	render () {
 		return (

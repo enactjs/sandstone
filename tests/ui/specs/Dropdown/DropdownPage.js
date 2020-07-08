@@ -24,7 +24,9 @@ class DropdownInterface {
 		});
 	}
 
-	get self () { return element(`#${this.id}`, browser); }
+	get self () {
+		return element(`#${this.id}`, browser);
+	}
 
 }
 

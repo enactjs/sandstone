@@ -13,9 +13,9 @@ class DayPickerItem extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleSelect = ({content}) => this.setState({content: content})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
+	handleSelect = ({content}) => this.setState({content: content});
 
 	render () {
 		return (

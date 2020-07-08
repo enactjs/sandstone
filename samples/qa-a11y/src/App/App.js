@@ -108,9 +108,9 @@ class AppBase extends React.Component {
 		};
 	}
 
-	handleChangeView = (state) => this.setState(state)
+	handleChangeView = (state) => this.setState(state);
 
-	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
+	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}));
 
 	render () {
 		const

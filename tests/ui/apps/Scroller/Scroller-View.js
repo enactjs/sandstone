@@ -43,16 +43,16 @@ class app extends React.Component {
 
 	onScrollStart = () => {
 		this.scrollingRef.current.innerHTML = 'Scrolling';
-	}
+	};
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
-	}
+	};
 
 	handleToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
-	}
+	};
 
 	handleSelectFocusableScrollbar = (selectedOpt) => {
 		this.setState({focusableScrollbar: prop.focusableScrollbarOption[selectedOpt.data]});

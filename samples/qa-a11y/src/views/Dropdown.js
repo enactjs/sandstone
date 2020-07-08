@@ -17,7 +17,7 @@ class A11yDropdown extends React.Component {
 
 	onSelect = ({selected}) => {
 		this.setState({ariaLabel: list[selected]['aria-label']});
-	}
+	};
 
 	render () {
 		return (

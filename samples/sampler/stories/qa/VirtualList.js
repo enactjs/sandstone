@@ -71,7 +71,7 @@ const updateItemSize = ({minSize, dataSize, size}) => ({minSize, size: new Array
 class StatefulSwitchItem extends React.Component {
 	static propTypes = {
 		index: PropTypes.number
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -97,7 +97,7 @@ class StatefulSwitchItem extends React.Component {
 		this.setState(({selected}) => ({
 			selected: !selected
 		}));
-	}
+	};
 
 	render () {
 		const props = Object.assign({}, this.props);
@@ -160,7 +160,7 @@ const InPanels = ({className, title, ...rest}) => {
 class VirtualListWithCBScrollTo extends React.Component {
 	static propTypes = {
 		dataSize: PropTypes.number
-	}
+	};
 
 	componentDidUpdate (prevProps) {
 		if (this.props.dataSize !== prevProps.dataSize) {
@@ -168,11 +168,11 @@ class VirtualListWithCBScrollTo extends React.Component {
 		}
 	}
 
-	scrollTo = null
+	scrollTo = null;
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	render () {
 		return (

@@ -20,7 +20,7 @@ class CustomPicker extends React.Component {
 		};
 	}
 
-	handleChange = (ev) => this.setState({index: ev.value})
+	handleChange = (ev) => this.setState({index: ev.value});
 
 	render () {
 		const

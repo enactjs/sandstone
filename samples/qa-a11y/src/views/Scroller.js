@@ -13,8 +13,8 @@ class ScrollerView extends React.Component {
 		};
 	}
 
-	handleChangeAriaLabelButton = () => this.setState((state) => ({customAriaLabel: !state.customAriaLabel}))
-	handleChangeJSNativeButton = () => this.setState((state) => ({isNative: !state.isNative}))
+	handleChangeAriaLabelButton = () => this.setState((state) => ({customAriaLabel: !state.customAriaLabel}));
+	handleChangeJSNativeButton = () => this.setState((state) => ({isNative: !state.isNative}));
 
 	render () {
 		const {isNative, customAriaLabel} = this.state;
