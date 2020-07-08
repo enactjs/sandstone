@@ -3,7 +3,7 @@
 @import "../styles/variables.less";
 
 // Module level variables, for use only in this file
-@fixedpopuppanels-max-height: ~"calc(100vh -" (extract(@sand-fixedpopuppanels-margin, 1) * 2) ~")";
+@fixedpopuppanels-max-height: ~"calc(100vh -" (.extract(@sand-fixedpopuppanels-margin, top)[] + .extract(@sand-fixedpopuppanels-margin, bottom)[])~")";
 
 .fixedPopupPanels {
 	// Overrides for Panels - the & just refers to this element. Using a block here to visually compartmentalize the overrides apart from the general styles.

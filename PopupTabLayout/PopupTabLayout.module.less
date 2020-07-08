@@ -5,7 +5,7 @@
 @import "../styles/skin.less";
 
 // Module level variables, for use only in this file
-@popupTabLayout-max-height: ~"calc(100vh -" (extract(@sand-popuptablayout-margin, 1) * 2) ~")";
+@popupTabLayout-max-height: ~"calc(100vh -" (.extract(@sand-popuptablayout-margin, top)[] + .extract(@sand-popuptablayout-margin, bottom)[])~")";
 
 .popupTabLayout {
 	// Override for Popup (more precedence)
@@ -27,7 +27,7 @@
 	.panels::before {
 		content: "";
 		position: absolute;
-		.position(0, 0, 0, 0);
+		.position(0);
 	}
 
 	// Skin colors

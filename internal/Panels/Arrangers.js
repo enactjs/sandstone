@@ -10,12 +10,6 @@ const animationOptions = {easing: quadInOut};
  * @private
  */
 const BasicArranger = {
-	stay: (config) => {
-		return arrange(config, [
-			{transform: 'none'},
-			{transform: 'none'}
-		], animationOptions);
-	},
 	enter: (config) => {
 		return arrange(config, [
 			{transform: 'translateX(100%)', offset: 0},
