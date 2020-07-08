@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FixedPopupPanels` to use an opaque background in high-contrast mode
 - `sandstone/MediaControls` margins to correctly align in RTL
 
 ## [1.0.0-rc.2] - 2020-07-07
