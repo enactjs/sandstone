@@ -305,3 +305,11 @@
 	-webkit-line-clamp: @lines;
 	-webkit-box-orient: vertical;
 }
+
+//RTL
+.sand-ltr-rtl-rules(@ltr, @rtl) {
+	@ltr();
+	:global(.enact-locale-right-to-left) & {
+		@rtl();
+	}
+}
