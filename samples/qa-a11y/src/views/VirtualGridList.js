@@ -76,8 +76,8 @@ class VirtualGridListView extends React.Component {
 					direction={isHorizontalList ? 'horizontal' : 'vertical'}
 					itemRenderer={renderItem}
 					itemSize={{
-						minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
-						minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+						minWidth: ri.scaleToRem(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+						minHeight: ri.scaleToRem(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
 					}}
 					scrollMode={scrollMode}
 				/>

@@ -7,7 +7,15 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 const items = [];
-const size = 20;
+
+for (let i = 0; i < 20; i++) {
+	const
+		color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+		source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+
+	items.push({source});
+}
+
 // eslint-disable-next-line enact/prop-types
 const renderItem = ({index, ...rest}) => {
 	const {source} = items[index];
@@ -20,38 +28,24 @@ const renderItem = ({index, ...rest}) => {
 	);
 };
 
-const updateDataSize = (dataSize) => {
-	items.length = 0;
-
-	for (let i = 0; i < dataSize; i++) {
-		const
-			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
-
-		items.push({source});
-	}
-};
-
-updateDataSize(size);
-
 const VideoPlayerView = () => (
-	<div style={{width: ri.scale(1280) + 'px', height: ri.scale(800) + 'px'}}>
+	<div style={{width: ri.scaleToRem(1280) + 'px', height: ri.scaleToRem(800) + 'px'}}>
 		<VideoPlayer poster="http://media.w3.org/2010/05/bunny/poster.png" title="Downton Abbey">
 			<source src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4" type="video/mp4" />
 			<infoComponents>DTV REC 08:22 THX 16:9</infoComponents>
 			<MediaControls actionGuideLabel="Press Down Button to Scroll">
 				<bottomComponents>
 					<VirtualGridList
-						style={{height: ri.scale(240), marginTop: ri.scale(60)}}
-						horizontalScrollbar="hidden"
 						dataSize={size}
 						direction="horizontal"
-						itemSize={{
-							minWidth: ri.scale(320),
-							minHeight: ri.scale(270)
-						}}
+						horizontalScrollbar="hidden"
 						itemRenderer={renderItem}
-						spacing={ri.scale(12)}
+						itemSize={{
+							minWidth: ri.scaleToRem(320),
+							minHeight: ri.scaleToRem(270)
+						}}
+						spacing={ri.scaleToRem(12)}
+						style={{height: ri.scaleToRem(240), marginTop: ri.scaleToRem(60)}}
 					/>
 				</bottomComponents>
 				<Button aria-label="list" icon="list" size="small" />

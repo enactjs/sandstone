@@ -42,7 +42,7 @@ class ScrollerView extends React.Component {
 					verticalScrollThumbAriaLabel={customAriaLabel ? 'This is vertical scroll thumb' : null}
 					horizontalScrollThumbAriaLabel={customAriaLabel ? 'This is horizontal scroll thumb' : null}
 				>
-					<div style={{width: ri.scale(6000) + 'px'}}>
+					<div style={{width: ri.scaleToRem(6000) + 'px'}}>
 						Foo<br />Bar<br />Bar<br />Boom boom pow<br />Foo<br />Bar<br />Boom boom pow<br />Foo<br />Bar<br />Boom boom pow<br />
 						Foo<br />Bar<br />Boom boom pow<br />Foo<br />Bar<br />Boom boom pow<br />Foo<br />Bar<br />Boom boom pow. Boom boom pow.
 						Boom boom pow. Boom boom pow. Boom boom pow. Boom boom pow. Boom boom pow. Boom boom pow. Boom boom pow.
