@@ -43,7 +43,7 @@ const
 const delayToRenderChildren = 600;
 
 const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
-	const [children, setChildren] = React.useState(null);
+	const [children, setChildren] = React.useState(cachedChildren);
 	const timerRef = React.useRef(null);
 
 	React.useEffect(() => {
