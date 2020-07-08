@@ -42,12 +42,25 @@ const
 // when the user continues to wheel through the list
 const delayToRenderChildren = 600;
 
-const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
+/**
+ * Render the `children` prop asynchronously.
+ *
+ * @class AsyncRenderChildren
+ * @extends sandstone/ImageItem.AsyncRenderChildren
+ * @memberof sandstone/ImageItem
+ * @ui
+ * @private
+ */
+function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) {
 	const [children, setChildren] = React.useState(cachedChildren);
+	const indexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
+	const isAsync = (typeof index !== 'undefined' && index !== indexRef.current);
+
+	indexRef.current = index;
 
 	React.useEffect(() => {
-		if (children !== cachedChildren) {
+		if (children !== cachedChildren && isAsync) {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 				setChildren(cachedChildren);
@@ -55,14 +68,32 @@ const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
 		}
 
 		return () => {
-			if (timerRef.current) {
+			if (timerRef.current && isAsync) {
 				clearTimeout(timerRef.current);
 				timerRef.current = null;
 			}
 		};
 	});
 
-	return (children === cachedChildren) ? children : fallback;
+	return (children === cachedChildren || !isAsync) ? children : fallback;
+}
+
+AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildren.prototype */ {
+	/**
+	 * Render while waiting for the `children` prop to render. It could be any React elements.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	fallback: EnactPropTypes.component,
+
+	/**
+	 * Render the `children` prop asynchronously when the `index` is defined and changes.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	index: PropTypes.number
 };
 
 /**
@@ -115,6 +146,15 @@ const ImageItemBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * It is required for `Spotlight` 5-way navigation in [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
+		 * When `'data-index'` is defined and changes, the `children` prop will be diplayed asynchronously.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number,
 
 		/**
 		 * The voice control intent.
@@ -236,7 +276,7 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({centered, children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({centered, children, css, 'data-index': index, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
@@ -249,6 +289,7 @@ const ImageItemBase = kind({
 						<div className={css.placeholderCaption} key="children" />
 						{typeof label !== 'undefined' ? <div className={css.placeholderLabel} key="label" /> : null}
 					</>}
+					index={index}
 				>
 					<Row className={css.captions}>
 						{hasImageIcon ? (
