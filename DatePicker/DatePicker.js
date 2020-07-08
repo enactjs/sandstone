@@ -118,6 +118,7 @@ const dateTimeConfig = {
  * @class DatePicker
  * @memberof sandstone/DatePicker
  * @extends sandstone/DatePicker.DatePickerBase
+ * @mixes ui/Changeable.Changeable
  * @omit day
  * @omit maxDays
  * @omit maxMonths
