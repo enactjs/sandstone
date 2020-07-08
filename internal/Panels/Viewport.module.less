@@ -12,11 +12,4 @@
 		.position(0);
 		z-index: 10000;
 	}
-
-	> :nth-child(2) {
-		// the second element in the ViewManager should be offset by the container width
-		// so the transition can position two static views next to each other safely,
-		// since transform is not available (to offset by its own width).
-		left: -100%;
-	}
 }

@@ -9,13 +9,13 @@ const idle = (callback) => {
 	callbacks.push(callback);
 	if (callbacks.length === 1) {
 		window.requestIdleCallback(() => {
-			callbacks.forEach(fn => fn());
+			// callbacks.forEach(fn => fn());
 			callbacks.length = 0;
 		});
 	}
 };
 
-class Animate {
+class AnimateOnIdle {
 	constructor (node, keyframes, {duration, reverse, ...options}) {
 		this.animation = null;
 
@@ -23,6 +23,7 @@ class Animate {
 		this._oncancel = null;
 		this._finish = false;
 		this._cancel = false;
+		this._reverse = false;
 
 		idle(() => {
 			if (typeof keyframes === 'function') {
@@ -38,6 +39,10 @@ class Animate {
 
 			this.animation.onfinish = this._onfinish;
 			this.animation.oncancel = this._oncancel;
+
+			if (this._reverse) {
+				this.animation.reverse();
+			}
 
 			if (this._cancel) {
 				this.animation.cancel();
@@ -78,6 +83,15 @@ class Animate {
 			this._cancel = true;
 		}
 	}
+
+	reverse () {
+		if (this.animation) {
+			this.animation.reverse();
+		} else {
+			// do we need to account for re-reversing? seems unlikely but a possibility perhaps
+			this._reverse = true;
+		}
+	}
 }
 
 function setHeightVariable (node) {
@@ -101,7 +115,7 @@ function setHeightVariable (node) {
 const deferArrange = (config, keyframes) => {
 	const {node, duration, reverse} = config;
 
-	return new Animate(node, keyframes, {
+	return new AnimateOnIdle(node, keyframes, {
 		duration,
 		reverse,
 		...animationOptions
