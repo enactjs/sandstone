@@ -59,7 +59,7 @@ const AsyncRenderChildren = ({children: cachedChildren, fallback = ''}) => {
 				clearTimeout(timerRef.current);
 				timerRef.current = null;
 			}
-		}
+		};
 	});
 
 	return (children === cachedChildren) ? children : fallback;
