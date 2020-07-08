@@ -286,8 +286,8 @@ const ImageItemBase = kind({
 			return (
 				<AsyncRenderChildren
 					fallback={<>
-						<div className={css.placeholderCaption} key="children" />
-						{typeof label !== 'undefined' ? <div className={css.placeholderLabel} key="label" /> : null}
+						<div className={css.placeholderCaption} />
+						{typeof label !== 'undefined' ? <div className={css.placeholderLabel} /> : null}
 					</>}
 					index={index}
 				>
@@ -301,8 +301,8 @@ const ImageItemBase = kind({
 							/>
 						) : null}
 						<Cell>
-							<Marquee {...alignment} className={css.caption} key="children" marqueeOn="hover">{children}</Marquee>
-							{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} key="label" marqueeOn="hover">{label}</Marquee> : null}
+							<Marquee {...alignment} className={css.caption} marqueeOn="hover">{children}</Marquee>
+							{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 						</Cell>
 					</Row>
 				</AsyncRenderChildren>
