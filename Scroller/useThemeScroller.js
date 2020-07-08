@@ -347,13 +347,11 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
 	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
 
-	useEffect(() => {
-		scrollContentProps.setThemeScrollContentHandle({
-			calculatePositionOnFocus,
-			focusOnNode,
-			setContainerDisabled
-		});
-	}, [calculatePositionOnFocus, focusOnNode, scrollContentProps, setContainerDisabled]);
+	scrollContentProps.setThemeScrollContentHandle({
+		calculatePositionOnFocus,
+		focusOnNode,
+		setContainerDisabled
+	});
 
 	// Render
 
