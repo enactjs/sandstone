@@ -15,12 +15,16 @@ export default {
 	arrowupdown       : 0x021C5,  // arrowupdown
 	arrowup           : 0x02191,  // arrowup
 	arrowupwhite      : 0x021E7,  // arrowupwhite
+	arrowuphollow     : 0x021E7,  // arrowupwhite
 	backspace         : 0x02408,  // backspace
 	space             : 0x02420,  // space
 	trianglerightwhite: 0x025B7,  // triaglerightwhite
 	triangleleftwhite : 0x025C1,  // triagleleftwhite
+	trianglerighthollow: 0x025B7,  // triaglerightwhite
+	trianglelefthollow: 0x025C1,  // triagleleftwhite
 	heart             : 0x02665,  // black heart suit
-	heartwhite        : 0x02661,  // white heart suit
+	heartblack        : 0x02661,  // white heart suit
+	hearthollow       : 0x02661,  // white heart suit
 	record            : 0x0EFFDB, // record
 	circle            : 0x0EFFDB, // record
 	stop              : 0x0EFFDC, // stop
@@ -54,7 +58,7 @@ export default {
 	trash             : 0x0F0025, // trash
 	star              : 0x0F0028, // star_full
 	starhalf          : 0x0F0029, // star_half
-	starwhite         : 0x0F002A, // star_empty
+	starhollow        : 0x0F002A, // star_empty
 	gear              : 0x0F002B, // gear
 	plug              : 0x0F002C, // input
 	lock              : 0x0F002D, // lock
