@@ -4,6 +4,7 @@ import ri from '@enact/ui/resolution';
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
 
+// Batches animations together so that all views start/end at the same time
 const callbacks = [];
 const idle = (callback) => {
 	callbacks.push(callback);
