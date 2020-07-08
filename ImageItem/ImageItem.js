@@ -79,7 +79,7 @@ const ImageItemBase = kind({
 
 	propTypes: /** @lends sandstone/ImageItem.ImageItemBase.prototype */ {
 		/**
-		 * Centers the primary caption in vertical orientation.
+		 * Centers the primary caption and label in vertical orientation.
 		 *
 		 * @type {Boolean}
 		 * @public
@@ -241,6 +241,8 @@ const ImageItemBase = kind({
 
 			if (!hasImageIcon && !children && !label) return;
 
+			const alignment = orientation === 'vertical' && centered ? {alignment: 'center'} : null;
+
 			return (
 				<AsyncRenderChildren
 					fallback={<>
@@ -258,16 +260,8 @@ const ImageItemBase = kind({
 							/>
 						) : null}
 						<Cell>
-							<Marquee
-								// eslint-disable-next-line no-undefined
-								alignment={orientation === 'vertical' && centered ? 'center' : undefined}
-								className={css.caption}
-								key="children"
-								marqueeOn="hover"
-							>
-								{children}
-							</Marquee>
-							{typeof label !== 'undefined' ? <Marquee className={css.label} key="label" marqueeOn="hover">{label}</Marquee> : null}
+							<Marquee {...alignment} className={css.caption} key="children" marqueeOn="hover">{children}</Marquee>
+							{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} key="label" marqueeOn="hover">{label}</Marquee> : null}
 						</Cell>
 					</Row>
 				</AsyncRenderChildren>

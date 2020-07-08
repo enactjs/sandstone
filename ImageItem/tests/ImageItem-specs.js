@@ -19,6 +19,18 @@ describe('ImageItem', () => {
 		expect(actual).toHaveProperty('textAlign', expected);
 	});
 
+	test('should support `centered` prop to label', () => {
+		const label = 'label';
+		const subject = mount(
+			<ImageItemBase centered label={label} />
+		);
+
+		const expected = 'center';
+		const actual = subject.find('.label .text').prop('style');
+
+		expect(actual).toHaveProperty('textAlign', expected);
+	});
+
 	test('should support not apply `centered` with horizontal', () => {
 		const children = 'caption';
 		const subject = mount(
