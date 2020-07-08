@@ -10,7 +10,7 @@ const idle = (callback) => {
 	callbacks.push(callback);
 	if (callbacks.length === 1) {
 		window.requestIdleCallback(() => {
-			// callbacks.forEach(fn => fn());
+			callbacks.forEach(fn => fn());
 			callbacks.length = 0;
 		});
 	}
@@ -34,7 +34,7 @@ class AnimateOnIdle {
 			this.animation = node.animate(keyframes, {
 				duration,
 				direction: reverse ? 'reverse' : 'normal',
-				fill: 'forwards',
+				fill: 'none',
 				...options
 			});
 
