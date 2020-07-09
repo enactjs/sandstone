@@ -29,6 +29,8 @@ import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
+import AsyncRenderChildren from './AsyncRenderChildren';
+
 import componentCss from './ImageItem.module.less';
 
 const
@@ -37,64 +39,6 @@ const
 	'9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHN0cm9rZT0iIzU1NSIgZmlsbD0iI2FhYSIg' +
 	'ZmlsbC1vcGFjaXR5PSIwLjIiIHN0cm9rZS1vcGFjaXR5PSIwLjgiIHN0cm9rZS13aWR0aD0iNiIgLz48L3N2Zz' +
 	'4NCg==';
-
-// A delay that prevents children from being rendered to some extent
-// when the user continues to wheel through the list
-const delayToRenderChildren = 600;
-
-/**
- * Render the `children` prop asynchronously when the `index` prop is defined and changes.
- *
- * @class AsyncRenderChildren
- * @extends sandstone/ImageItem.AsyncRenderChildren
- * @memberof sandstone/ImageItem
- * @ui
- * @private
- */
-function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) {
-	const [children, setChildren] = React.useState(cachedChildren);
-	const prevIndexRef = React.useRef(index);
-	const timerRef = React.useRef(null);
-	const aync = (children !== cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
-
-	prevIndexRef.current = index;
-
-	React.useEffect(() => {
-		if (aync) {
-			timerRef.current = setTimeout(() => {
-				timerRef.current = null;
-				setChildren(cachedChildren);
-			}, delayToRenderChildren);
-		}
-
-		return () => {
-			if (timerRef.current) {
-				clearTimeout(timerRef.current);
-				timerRef.current = null;
-			}
-		};
-	});
-
-	return (!aync) ? children : fallback;
-}
-
-AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildren.prototype */ {
-	/**
-	 * Render while waiting for the `children` prop to render. It could be any React elements.
-	 *
-	 * @type {*}
-	 * @private
-	 */
-	fallback: PropTypes.any,
-
-	/**
-	 * Render the `children` prop asynchronously when the `index` is defined and changes.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	index: PropTypes.number
-};
 
 /**
  * A Sandstone styled base component for [ImageItem]{@link sandstone/ImageItem.ImageItem}.
@@ -148,8 +92,7 @@ const ImageItemBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * It is required for `Spotlight` 5-way navigation in [VirtualGridList]{@link sandstone/VirtualList.VirtualGridList}.
-		 * When `'data-index'` is defined and changes, the `children` prop will be diplayed asynchronously.
+		 * Used internally to render `children` asynchronously.
 		 *
 		 * @type {Number}
 		 * @private
