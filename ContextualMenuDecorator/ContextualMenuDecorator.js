@@ -168,6 +168,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * Set the type of scrim to use
 			 *
 			 * @type {('holepunch'|'translucent'|'transparent'|'none')}
+			 * @default 'holepunch'
 			 * @private
 			 */
 			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none'])
