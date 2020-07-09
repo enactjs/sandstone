@@ -542,6 +542,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			// Need to render `moreComponents` to show it. For performance, render `moreComponents` if it is actually shown.
 			if (!prevState.showMoreComponents && this.state.showMoreComponents && !this.state.moreComponentsRendered) {
 				this.moreComponentsRenderingJob.startRafAfter();
+			} else if (prevState.showMoreComponents && !this.state.showMoreComponents) {
+				this.moreComponentsRenderingJob.stop();
 			}
 
 			if (!prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
