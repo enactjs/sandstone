@@ -19,7 +19,9 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 	const [children, setChildren] = React.useState(cachedChildren);
 	const prevIndexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
-	const async = (children !== cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
+	const async = (children !== cachedChildren && index !== prevIndexRef.current);
+
+	prevIndexRef.current = index;
 
 	React.useEffect(() => {
 		if (async) {
@@ -36,14 +38,6 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 			}
 		};
 	});
-
-	// Always render synchronouly
-	if (typeof index === 'undefined') {
-		return cachedChildren;
-	}
-
-	// Render asynchronously
-	prevIndexRef.current = index;
 
 	return async ? fallback : children;
 }

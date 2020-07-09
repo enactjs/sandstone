@@ -225,30 +225,35 @@ const ImageItemBase = kind({
 			if (!hasImageIcon && !children && !label) return;
 
 			const alignment = orientation === 'vertical' && centered ? {alignment: 'center'} : null;
+			const captions = (
+				<Row className={css.captions}>
+					{hasImageIcon ? (
+						<Cell
+							className={css.imageIcon}
+							component={imageIconComponent}
+							shrink
+							src={imageIconSrc}
+						/>
+					) : null}
+					<Cell>
+						<Marquee {...alignment} className={css.caption} marqueeOn="hover">{children}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} marqueeOn="hover">{label}</Marquee> : null}
+					</Cell>
+				</Row>
+			);
 
 			return (
-				<AsyncRenderChildren
-					fallback={<>
-						<div className={css.placeholderCaption} />
-						{typeof label !== 'undefined' ? <div className={css.placeholderLabel} /> : null}
-					</>}
-					index={index}
-				>
-					<Row className={css.captions}>
-						{hasImageIcon ? (
-							<Cell
-								className={css.imageIcon}
-								component={imageIconComponent}
-								shrink
-								src={imageIconSrc}
-							/>
-						) : null}
-						<Cell>
-							<Marquee {...alignment} className={css.caption} marqueeOn="hover">{children}</Marquee>
-							{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} marqueeOn="hover">{label}</Marquee> : null}
-						</Cell>
-					</Row>
-				</AsyncRenderChildren>
+				typeof index !== 'undefined' ?
+					<AsyncRenderChildren
+						fallback={<>
+							<div className={css.placeholderCaption} />
+							{typeof label !== 'undefined' ? <div className={css.placeholderLabel} /> : null}
+						</>}
+						index={index}
+					>
+						{captions}
+					</AsyncRenderChildren> :
+					captions
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
