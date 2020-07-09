@@ -1,5 +1,6 @@
 // TabLayout.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .tabLayout {
@@ -58,9 +59,9 @@
 			.content {
 				transform: translateX(var(--tablayout-expand-collapse-diff));
 
-				:global(.enact-locale-right-to-left) & {
+				.enact-rtl-rules({
 					transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
-				}
+				});
 			}
 		}
 
@@ -70,9 +71,9 @@
 				transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
 				pointer-events: none;
 
-				:global(.enact-locale-right-to-left) & {
+				.enact-rtl-rules({
 					transform: translateX(var(--tablayout-expand-collapse-diff));
-				}
+				});
 			}
 		}
 	}

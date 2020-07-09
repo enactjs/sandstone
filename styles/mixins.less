@@ -306,10 +306,9 @@
 	-webkit-box-orient: vertical;
 }
 
-//RTL
-.sand-ltr-rtl-rules(@ltr, @rtl) {
-	@ltr();
+// Assign rules specifically to RTL locales
+.enact-rtl-rules(@rtlrules) {
 	:global(.enact-locale-right-to-left) & {
-		@rtl();
+		@rtlrules();
 	}
 }
