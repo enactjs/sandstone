@@ -82,22 +82,20 @@
 				}
 			}
 
-			&.end {
-				.enact-locale-rtl({
+			.enact-locale-rtl({
+				&.end {
 					.content {
 						transform: @transform-shift-right;
 					}
-				});
-			}
+				}
 
-			&.start,
-			&.right {
-				.enact-locale-rtl({
+				&.start,
+				&.right {
 					.content {
 						transform: @transform-shift-left;
 					}
-				});
-			}
+				}
+			});
 		}
 
 		&.collapsed {
@@ -114,22 +112,20 @@
 				}
 			}
 
-			&.end {
-				.enact-locale-rtl({
+			.enact-locale-rtl({
+				&.end {
 					.tabsExpanded {
 						transform: @transform-shift-left;
 					}
-				});
-			}
+				}
 
-			&.start,
-			&.right {
-				.enact-locale-rtl({
+				&.start,
+				&.right {
 					.tabsExpanded {
 						transform: @transform-shift-right;
 					}
-				});
-			}
+				}
+			});
 		}
 	}
 }
