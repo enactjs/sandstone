@@ -19,7 +19,7 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 	const [children, setChildren] = React.useState(cachedChildren);
 	const prevIndexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
-	const aync = (children != cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
+	const aync = (children !== cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
 
 	prevIndexRef.current = index;
 
