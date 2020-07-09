@@ -171,14 +171,30 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * @default 'holepunch'
 			 * @private
 			 */
-			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none'])
+			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
+
+			/**
+			 * Restricts or prioritizes spotlight navigation.
+			 *
+			 * Allowed values are:
+			 * * `'none'` - Spotlight can move freely within and beyond the popup
+			 * * `'self-first'` - Spotlight should prefer components within the popup over
+			 *   components beyond the popup, or
+			 * * `'self-only'` - Spotlight can only be set within the popup
+			 *
+			 * @type {('none'|'self-first'|'self-only')}
+			 * @default 'self-only'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
 		},
 
 		defaultProps: {
 			direction: 'below right',
 			offset: 'overlap',
 			popupWidth: 'auto',
-			scrimType: 'holepunch'
+			scrimType: 'holepunch',
+			spotlightRestrict: 'self-only'
 		},
 
 		handlers: {
@@ -229,7 +245,6 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					{...rest}
 					onClick={onOpen}
 					popupProps={popupProps}
-					spotlightRestrict="self-only"
 				/>
 			);
 		}
