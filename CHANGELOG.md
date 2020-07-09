@@ -7,7 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
-- `sandstone/Input` to read out properly
+- `sandstone/Input` to read out each number value with space when input button focused
+- `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
 
 ## [1.0.0-rc.3] - 2020-07-07
 
