@@ -2,6 +2,21 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
+- `sandstone/Slider` to readout `value` when knob is focused
+- `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+
+## [1.0.0-rc.3] - 2020-07-07
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to use an opaque background in high-contrast mode
+- `sandstone/MediaControls` margins to correctly align in RTL
+
 ## [1.0.0-rc.2] - 2020-07-07
 
 ### Removed
