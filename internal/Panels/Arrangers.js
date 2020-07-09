@@ -9,7 +9,8 @@ const callbacks = [];
 const idle = (callback) => {
 	callbacks.push(callback);
 	if (callbacks.length === 1) {
-		window.requestIdleCallback(() => {
+		const next = typeof window !== 'undefined' && window.requestAnimationFrame || setTimeout;
+		next(() => {
 			callbacks.forEach(fn => fn());
 			callbacks.length = 0;
 		});
