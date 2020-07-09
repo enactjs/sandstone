@@ -21,6 +21,7 @@ import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
 import IdProvider from '@enact/ui/internal/IdProvider';
@@ -345,6 +346,7 @@ const DropdownBase = kind({
  * @memberof sandstone/Dropdown
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator
  * @omit selected
  * @omit defaultSelected
  * @omit value
@@ -358,6 +360,7 @@ const DropdownDecorator = compose(
 			children: compareChildren
 		}
 	}),
+	SpotlightContainerDecorator,
 	I18nContextDecorator({
 		rtlProp: 'rtl'
 	}),
