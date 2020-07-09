@@ -21,7 +21,7 @@ import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
 
-// The maimum number of visible items. More than this number invokes a scroller.
+// The maximum number of visible items. More than this number invokes a scroller.
 // When updating this value, you must also set the max-items LESS variable.
 const MAX_VISIBLE_MENU_ITEMS = 5;
 
