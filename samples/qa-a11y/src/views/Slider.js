@@ -1,3 +1,4 @@
+import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Slider from '@enact/sandstone/Slider';
 import PropTypes from 'prop-types';
@@ -30,9 +31,14 @@ class CustomSlider extends React.Component {
 const SliderView = () => (
 	<>
 		<Heading showLine>Default</Heading>
-		<Slider activateOnSelect />
+		<Slider />
+		<br />
+		<br />
 		<Heading showLine>Slider using ValueText</Heading>
-		<CustomSlider activateOnSelect customText="Volume" />
+		<CustomSlider customText="Volume" />
+		<br />
+		<br />
+		<Button icon="eject" size="small" />
 	</>
 );
 
