@@ -229,6 +229,7 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 					{...rest}
 					onClick={onOpen}
 					popupProps={popupProps}
+					spotlightRestrict="self-only"
 				/>
 			);
 		}

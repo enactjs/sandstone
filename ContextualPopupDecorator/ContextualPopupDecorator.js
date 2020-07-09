@@ -239,7 +239,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * * `'self-only'` - Spotlight can only be set within the popup
 			 *
 			 * @type {('none'|'self-first'|'self-only')}
-			 * @default 'self-only'
+			 * @default 'self-first'
 			 * @public
 			 */
 			spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
@@ -252,7 +252,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			offset: 'small',
 			open: false,
 			scrimType: 'none',
-			spotlightRestrict: 'self-only'
+			spotlightRestrict: 'self-first'
 		}
 
 		constructor (props) {
