@@ -53,11 +53,11 @@ const delayToRenderChildren = 600;
  */
 function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) {
 	const [children, setChildren] = React.useState(cachedChildren);
-	const indexRef = React.useRef(index);
+	const prevIndexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
-	const isAsync = (typeof index !== 'undefined' && index !== indexRef.current);
+	const isAsync = (typeof index !== 'undefined' && index !== prevIndexRef.current);
 
-	indexRef.current = index;
+	prevIndexRef.current = index;
 
 	React.useEffect(() => {
 		if (children !== cachedChildren && isAsync) {
@@ -82,7 +82,7 @@ AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildr
 	/**
 	 * Render while waiting for the `children` prop to render. It could be any React elements.
 	 *
-	 * @type {Boolean}
+	 * @type {*}
 	 * @private
 	 */
 	fallback: PropTypes.any,
