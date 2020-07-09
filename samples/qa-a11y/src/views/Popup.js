@@ -82,7 +82,7 @@ class PopupView extends React.Component {
 					onClose={this.handleClose3}
 				>
 					<Button>Button Outside Scroller</Button>
-					<Scroller style={{height: ri.scale(170) + 'px', marginTop: ri.scale(10) + 'px'}}>
+					<Scroller style={{height: ri.scaleToRem(170), marginTop: ri.scaleToRem(10)}}>
 						<Item>Test Item 1</Item>
 						<Item>Test Item 2</Item>
 						<Item>Test Item 3</Item>
