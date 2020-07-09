@@ -50,7 +50,7 @@ class ScrollerPage extends Page {
 			const horizontalScrollThumb = document.querySelector(_scrollHorizontalThumbSelector);
 			return {
 				vertical: getComputedStyle(verticalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio'),
-				horizontal: getComputedStyle(horizontalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio'),
+				horizontal: getComputedStyle(horizontalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio')
 			};
 		}, scrollVirticalThumbSelector, scrollHorizontalThumbSelector);
 	}
