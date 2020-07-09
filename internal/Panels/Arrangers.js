@@ -62,7 +62,7 @@ class AnimateOnIdle {
 	}
 
 	fill (node, keyframe) {
-		// NOTE: this is naive atm to only address trasnform. We can extend it later.
+		// NOTE: this is naive atm to only address transform. We can extend it later.
 		node.style.transform = keyframe.transform;
 	}
 
