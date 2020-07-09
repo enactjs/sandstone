@@ -8,8 +8,9 @@ const InputView = () => (
 		<Input />
 		<Input placeholder="Disabled input" disabled />
 		<Input iconAfter="lock" />
-		<Input placeholder="Enter number" type="number" />
-		<Input placeholder="Enter password" type="password" />
+		<Input placeholder="Enter number" subtitle="Subtitle" title="Title" type="number" />
+		<Input placeholder="Enter passwordnumber" subtitle="Subtitle" title="Title" type="passwordnumber" />
+		<Input placeholder="Enter password" subtitle="Subtitle" title="Title" type="password" />
 		<Input placeholder="Dismiss on Enter" dismissOnEnter />
 		<Input defaultValue="Initial value" />
 		<Input placeholder="Placeholder" />

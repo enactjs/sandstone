@@ -39,7 +39,7 @@ storiesOf('Sandstone', module)
 	.add(
 		'TabLayout',
 		() => {
-			const tabs = select('tabs', tabSelections, Config, tabSelections['with icons']);
+			const tabs = select('tabs', ['with icons', 'without icons'], Config, 'with icons');
 
 			const images = new Array(20).fill().map( (_, i) =>
 				<ImageItem
@@ -66,16 +66,16 @@ storiesOf('Sandstone', module)
 						tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
 					>
 						<Tab
-							title={tabs[0].title}
-							icon={tabs[0].icon}
+							title={tabSelections[tabs][0].title}
+							icon={tabSelections[tabs][0].icon}
 						>
 							<Scroller>
 								{images}
 							</Scroller>
 						</Tab>
 						<Tab
-							title={tabs[1].title}
-							icon={tabs[1].icon}
+							title={tabSelections[tabs][1].title}
+							icon={tabSelections[tabs][1].icon}
 						>
 							<Button icon="demosync">Button 1</Button>
 							<Button icon="demosync">Button 2</Button>
@@ -84,8 +84,8 @@ storiesOf('Sandstone', module)
 							<Button icon="demosync">Button 5</Button>
 						</Tab>
 						<Tab
-							title={tabs[2].title}
-							icon={tabs[2].icon}
+							title={tabSelections[tabs][2].title}
+							icon={tabSelections[tabs][2].icon}
 						>
 							<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 						</Tab>

@@ -305,3 +305,10 @@
 	-webkit-line-clamp: @lines;
 	-webkit-box-orient: vertical;
 }
+
+// Assign rules specifically to RTL locales
+.enact-locale-rtl(@rtlrules) when (isruleset(@rtlrules)) {
+	:global(.enact-locale-right-to-left) & {
+		@rtlrules();
+	}
+}

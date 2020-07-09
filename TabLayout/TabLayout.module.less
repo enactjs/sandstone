@@ -1,5 +1,6 @@
 // TabLayout.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .tabLayout {
@@ -7,6 +8,23 @@
 
 	&.collapsed {
 		/* We need a placeholder for spotlight default focus rules */
+	}
+
+	&.anchorEnd,
+	&.anchorRight {
+		flex-direction: row-reverse;
+	}
+
+	&.anchorRight {
+		.enact-locale-rtl({
+			flex-direction: row;
+		})
+	}
+
+	&.anchorLeft {
+		.enact-locale-rtl({
+			flex-direction: row-reverse;
+		})
 	}
 
 	&.horizontal {
@@ -46,6 +64,9 @@
 			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
 
+		@transform-shift-left: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+		@transform-shift-right: translateX(var(--tablayout-expand-collapse-diff));
+
 		&:not(.collapsed) {
 			.tabs {
 				opacity: 0;
@@ -56,16 +77,60 @@
 			}
 
 			.content {
-				transform: translateX(var(--tablayout-expand-collapse-diff));
+				transform: @transform-shift-right;
 			}
+
+			&.anchorEnd,
+			&.anchorRight {
+				.content {
+					transform: @transform-shift-left;
+				}
+			}
+
+			.enact-locale-rtl({
+				&.anchorEnd {
+					.content {
+						transform: @transform-shift-right;
+					}
+				}
+
+				&.anchorStart,
+				&.anchorRight {
+					.content {
+						transform: @transform-shift-left;
+					}
+				}
+			});
 		}
 
 		&.collapsed {
 			.tabsExpanded {
 				opacity: 0;
-				transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+				transform: @transform-shift-left;
 				pointer-events: none;
 			}
+
+			&.anchorEnd,
+			&.anchorRight {
+				.tabsExpanded {
+					transform: @transform-shift-right;
+				}
+			}
+
+			.enact-locale-rtl({
+				&.anchorEnd {
+					.tabsExpanded {
+						transform: @transform-shift-left;
+					}
+				}
+
+				&.anchorStart,
+				&.anchorRight {
+					.tabsExpanded {
+						transform: @transform-shift-right;
+					}
+				}
+			});
 		}
 	}
 }

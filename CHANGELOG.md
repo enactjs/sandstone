@@ -6,7 +6,26 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
+- `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
+- `sandstone/Input` to read out each number value with space when input button focused
+- `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
+- `sandstone/Slider` to readout `value` when knob is focused
+- `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+
+## [1.0.0-rc.4] - 2020-07-09
+
+### Fixed
+
+- `sandstone/TabLayout` layout in RTL locales
+
+## [1.0.0-rc.3] - 2020-07-07
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to use an opaque background in high-contrast mode
+- `sandstone/MediaControls` margins to correctly align in RTL
 
 ## [1.0.0-rc.2] - 2020-07-07
 
