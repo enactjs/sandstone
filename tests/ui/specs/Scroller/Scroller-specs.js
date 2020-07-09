@@ -22,7 +22,7 @@ describe('Scroller', function () {
 			ScrollerPage.showPointerByKeycode();
 			ScrollerPage.verticalScrollThumb.moveTo();
 			// Step 4 Verify: Spotlight is on the Scroll thumb.
-			expect(ScrollerPage.getActiveElement()).to.deep.equal(ScrollerPage.scroll.verticalScrollThumb);
+			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 		});
 
 		it('should focus on scrollthumb with focusableScrollbar `byEnter`[GT-28588]', function () {
@@ -43,11 +43,11 @@ describe('Scroller', function () {
 			// Step 6: Press 5-Way Select.
 			ScrollerPage.spotlightSelect();
 			// Step 6 Verify: Spotlight is on the Scroll thumb in vertical scrollbar track.
-			expect(ScrollerPage.getActiveElement()).to.deep.equal(ScrollerPage.scroll.verticalScrollThumb);
+			expect(ScrollerPage.verticalScrollThumb.isFocused()).to.be.true();
 			// Step 7: Press 5-Way Left.
 			ScrollerPage.spotlightLeft();
 			// Step 7 Verify: Spotlight is on the Scroll thumb in horizontal scrollbar track.
-			expect(ScrollerPage.getActiveElement()).to.deep.equal(ScrollerPage.scroll.horizontalScrollThumb);
+			expect(ScrollerPage.horizontalScrollThumb.isFocused()).to.be.true();
 			// Step 8: Press Back key (or 'esc' with Chrome) or 5-way Select.
 			ScrollerPage.backKey();
 			// Step 8 Verify: Spolight is on the box surrounding the item and scrollbars.

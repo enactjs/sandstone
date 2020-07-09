@@ -1,8 +1,9 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 const focusableBodySelector = '.Scroller_Scroller_focusableBody';
+const scrollVirticalThumbSelector = '.useScroll_useScroll_verticalScrollbar .useScroll_ScrollbarTrack_thumb';
+const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
 
 class ScrollerPage extends Page {
 
@@ -42,22 +43,10 @@ class ScrollerPage extends Page {
 		return $(`${focusableBodySelector}`);
 	}
 	get verticalScrollThumb () {
-		return $(`${scrollThumbSelector}`);
+		return $(`${scrollVirticalThumbSelector}`);
 	}
-	get scroll () {
-		return browser.execute(function (_scrollThumbSelector) {
-			return {
-				verticalScrollThumb: document.querySelectorAll(_scrollThumbSelector)[0],
-				horizontalScrollThumb: document.querySelectorAll(_scrollThumbSelector)[1]
-			};
-		}, scrollThumbSelector);
-	}
-
-	// active element api
-	getActiveElement () {
-		return browser.execute(function () {
-			return document.activeElement;
-		});
+	get horizontalScrollThumb () {
+		return $(`${scrollHorizontalThumbSelector}`);
 	}
 }
 
