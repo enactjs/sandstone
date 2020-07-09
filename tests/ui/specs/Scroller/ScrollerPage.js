@@ -1,9 +1,8 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
-const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
-const horizontalscrollbarSelector = '.useScroll_useScroll_horizontalScrollbar';
+const scrollVirticalThumbSelector = '.useScroll_useScroll_verticalScrollbar .useScroll_ScrollbarTrack_thumb';
+const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
 
 class ScrollerPage extends Page {
 
@@ -39,34 +38,21 @@ class ScrollerPage extends Page {
 	}
 
 	// scrollable api
-	get scrollThumb () {
-		return $(`${scrollThumbSelector}`);
+	get verticalScrollThumb () {
+		return $(`${scrollVirticalThumbSelector}`);
 	}
-	getVerticalScrollThumbPosition () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const scrollbar = document.querySelector(_verticalscrollbarSelector);
-			return scrollbar.firstChild.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
-		}, verticalscrollbarSelector);
-
+	get horizontalScrollThumb () {
+		return $(`${scrollHorizontalThumbSelector}`);
 	}
-	getHorizontalScrollThumbPosition () {
-		return browser.execute(function (_horizontalscrollbarSelector) {
-			const scrollbar = document.querySelector(_horizontalscrollbarSelector);
-			return scrollbar.firstChild.style.getPropertyValue('--scrollbar-thumb-progress-ratio');
-		}, horizontalscrollbarSelector);
-
-	}
-
-	// active element api
-	getActiveElement () {
-		return browser.execute(function () {
-			const activeElement = document.activeElement;
+	getScrollThumbPosition () {
+		return browser.execute(function (_scrollVirticalThumbSelector, _scrollHorizontalThumbSelector) {
+			const verticalScrollThumb = document.querySelector(_scrollVirticalThumbSelector);
+			const horizontalScrollThumb = document.querySelector(_scrollHorizontalThumbSelector);
 			return {
-				ariaLabel:  activeElement.getAttribute('aria-label'),
-				id: activeElement.id,
-				isfocusableBody: activeElement.className === 'Scroller_Scroller_focusableBody spottable'
+				vertical: getComputedStyle(verticalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio'),
+				horizontal: getComputedStyle(horizontalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio'),
 			};
-		});
+		}, scrollVirticalThumbSelector, scrollHorizontalThumbSelector);
 	}
 }
 
