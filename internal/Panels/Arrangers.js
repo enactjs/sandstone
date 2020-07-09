@@ -124,13 +124,13 @@ function setHeightVariable (node, height) {
 	node.style.setProperty('--sand-panel-measured-height', height);
 }
 
-const deferArrange = (config, keyframes) => {
+const deferArrange = (config, keyframes, options) => {
 	const {node, duration, reverse} = config;
 
 	return new AnimateOnIdle(node, keyframes, {
 		duration,
 		reverse,
-		...animationOptions
+		...options
 	});
 };
 
@@ -150,7 +150,7 @@ const BasicArranger = {
 		return deferArrange(config, [
 			{transform: 'none'},
 			{transform: 'none'}
-		]);
+		], animationOptions);
 	},
 	enter: (config) => {
 		const {node, reverse} = config;
@@ -164,7 +164,7 @@ const BasicArranger = {
 		return deferArrange(config, [
 			{transform: 'translateX(100%)', offset: 0},
 			{transform: 'none', offset: 1}
-		]);
+		], animationOptions);
 	},
 	leave: (config) => {
 		const {node, reverse} = config;
@@ -178,7 +178,7 @@ const BasicArranger = {
 		return deferArrange(config, [
 			{transform: 'none', offset: 0},
 			{transform: 'translateX(-100%)', offset: 1}
-		]);
+		], animationOptions);
 	}
 };
 
