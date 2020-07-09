@@ -307,7 +307,7 @@
 }
 
 // Assign rules specifically to RTL locales
-.enact-locale-rtl(@rtlrules) {
+.enact-locale-rtl(@rtlrules) when (isruleset(@rtlrules)) {
 	:global(.enact-locale-right-to-left) & {
 		@rtlrules();
 	}
