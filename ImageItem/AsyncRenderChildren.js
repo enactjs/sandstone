@@ -7,7 +7,7 @@ const delayToRenderChildren = 600;
 
 /**
  * This component introduced to enhance scroll performance when `ImageItem` used in `VirtualGridList`.
- * Basically it renders `children` asynchronously when the `index` prop is defined and changes.
+ * Basically it renders `children` asynchronously when `children` and `index` changed.
  * When `ImageItem` used in other components, it will render immediately.
  *
  * @class AsyncRenderChildren
@@ -19,7 +19,7 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 	const [children, setChildren] = React.useState(cachedChildren);
 	const prevIndexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
-	const aync = (typeof index !== 'undefined' && index !== prevIndexRef.current);
+	const aync = (children != cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
 
 	prevIndexRef.current = index;
 
