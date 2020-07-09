@@ -1,7 +1,8 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollVirticalThumbSelector = '.useScroll_useScroll_verticalScrollbar .useScroll_ScrollbarTrack_thumb';
+const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
+const scrollVirticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
 const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
 
 class ScrollerPage extends Page {
@@ -44,15 +45,15 @@ class ScrollerPage extends Page {
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
+	/* global document */
 	getScrollThumbPosition () {
-		return browser.execute(function (_scrollVirticalThumbSelector, _scrollHorizontalThumbSelector) {
-			const verticalScrollThumb = document.querySelector(_scrollVirticalThumbSelector);
-			const horizontalScrollThumb = document.querySelector(_scrollHorizontalThumbSelector);
+		return browser.execute(function (_scrollbarSelector) {
+			const scrollbar = document.querySelectorAll(_scrollbarSelector);
 			return {
-				vertical: getComputedStyle(verticalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio'),
-				horizontal: getComputedStyle(horizontalScrollThumb).getPropertyValue('--scrollbar-thumb-progress-ratio')
+				vertical: scrollbar[0].style.getPropertyValue('--scrollbar-thumb-progress-ratio'),
+				horizontal: scrollbar[1].style.getPropertyValue('--scrollbar-thumb-progress-ratio')
 			};
-		}, scrollVirticalThumbSelector, scrollHorizontalThumbSelector);
+		}, scrollbarSelector);
 	}
 }
 
