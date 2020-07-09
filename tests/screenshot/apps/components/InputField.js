@@ -8,8 +8,8 @@ const SelectionInput = props => {
 		document.querySelector('input').focus();
 		document.querySelector('input').setSelectionRange(2, 7);
 	});
-	return <InputField {...props} />
-}
+	return <InputField {...props} />;
+};
 
 const InputFieldTests = [
 	<InputField />,
