@@ -43,7 +43,7 @@ const
 const delayToRenderChildren = 600;
 
 /**
- * Render the `children` prop asynchronously.
+ * Render the `children` prop asynchronously when the `index` prop is defined and changes.
  *
  * @class AsyncRenderChildren
  * @extends sandstone/ImageItem.AsyncRenderChildren
@@ -55,12 +55,12 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 	const [children, setChildren] = React.useState(cachedChildren);
 	const prevIndexRef = React.useRef(index);
 	const timerRef = React.useRef(null);
-	const isAsync = (typeof index !== 'undefined' && index !== prevIndexRef.current);
+	const aync = (children !== cachedChildren && typeof index !== 'undefined' && index !== prevIndexRef.current);
 
 	prevIndexRef.current = index;
 
 	React.useEffect(() => {
-		if (children !== cachedChildren && isAsync) {
+		if (aync) {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
 				setChildren(cachedChildren);
@@ -68,14 +68,14 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 		}
 
 		return () => {
-			if (timerRef.current && isAsync) {
+			if (timerRef.current) {
 				clearTimeout(timerRef.current);
 				timerRef.current = null;
 			}
 		};
 	});
 
-	return (children === cachedChildren || !isAsync) ? children : fallback;
+	return (!aync) ? children : fallback;
 }
 
 AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildren.prototype */ {
