@@ -20,7 +20,7 @@ export default {
 	space             : 0x02420,  // space
 	trianglerightwhite: 0x025B7,  // triaglerightwhite
 	triangleleftwhite : 0x025C1,  // triagleleftwhite
-	trianglerighthollow: 0x025B7,  // triaglerightwhite
+	trianglerighthollow: 0x025B7, // triaglerightwhite
 	trianglelefthollow: 0x025C1,  // triagleleftwhite
 	heart             : 0x02665,  // black heart suit
 	heartblack        : 0x02661,  // white heart suit
