@@ -69,9 +69,7 @@
 	}
 
 	.input,
-	.inputHighlight,
-	.iconBefore,
-	.iconAfter {
+	.inputHighlight {
 		line-height: @sand-inputfield-height;
 		height: @sand-inputfield-height;
 		vertical-align: middle;
@@ -96,12 +94,6 @@
 	&.small {
 		height: @sand-inputfield-small-height;
 
-		.iconBefore,
-		.iconAfter {
-			line-height: @sand-inputfield-small-height;
-			height: @sand-inputfield-small-height;
-		}
-
 		.input {
 			font-size: @sand-inputfield-small-font-size;
 			height: @sand-inputfield-small-height;
@@ -112,19 +104,6 @@
 			height: @sand-inputfield-small-height;
 			max-width: @sand-inputfield-highlight-small-max-width;
 		}
-	}
-
-	.iconBefore,
-	.iconAfter {
-		flex: 0 0;
-	}
-
-	.iconAfter {
-		.padding-start-end(@sand-inputfield-icon-spacing, 0);
-	}
-
-	.iconBefore {
-		.padding-start-end(0, @sand-inputfield-icon-spacing);
 	}
 
 	// RIGBY NOTE: multiline is a NOT YET IMPLEMENTED feature that combines <input> and <textarea>
