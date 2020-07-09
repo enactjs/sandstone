@@ -158,7 +158,6 @@ const IconBase = kind({
  * trianglerighthollow
  * trianglelefthollow
  * heart
- * heartblack
  * hearthollow
  * record
  * circle
