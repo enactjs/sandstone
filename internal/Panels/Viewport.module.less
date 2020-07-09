@@ -13,6 +13,15 @@
 		z-index: 10000;
 	}
 
+	// force directionality for relative positioning below
+	direction: ltr;
+	& > * {
+		// reset direction in views for RTL locales
+		:global(.enact-local-right-to-left) & {
+			direction: rtl;
+		}
+	}
+
 	> :nth-child(2) {
 		// the second element in the ViewManager should be offset by the container width
 		// so the transition can position two static views next to each other safely,
