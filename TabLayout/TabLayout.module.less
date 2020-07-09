@@ -10,12 +10,18 @@
 		/* We need a placeholder for spotlight default focus rules */
 	}
 
-	&.anchorEnd {
+	&.anchorEnd,
+	&.anchorRight {
 		flex-direction: row-reverse;
 	}
 
-	&.anchorLeft,
 	&.anchorRight {
+		.enact-locale-rtl({
+			flex-direction: row;
+		})
+	}
+
+	&.anchorLeft {
 		.enact-locale-rtl({
 			flex-direction: row-reverse;
 		})
