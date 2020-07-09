@@ -103,18 +103,15 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {'aria-valuetext': ariaValueText, min, orientation, value = min} = this.props;
 			const {useHintText} = this.state;
 
-			const verticalHint = $L('change a value with up down button');
-			const horizontalHint = $L('change a value with left right button');
+			const valueText = (ariaValueText != null) ? ariaValueText : value;
+			const verticalHint = `${valueText} ${$L('change a value with up down button')}`;
+			const horizontalHint = `${valueText} ${$L('change a value with left right button')}`;
 
 			if (useHintText) {
 				return orientation === 'horizontal' ? horizontalHint : verticalHint;
 			}
 
-			if (ariaValueText != null) {
-				return ariaValueText;
-			}
-
-			return value;
+			return valueText;
 		}
 
 		focusSlider () {

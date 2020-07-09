@@ -118,8 +118,6 @@ const dateTimeConfig = {
  * @class DatePicker
  * @memberof sandstone/DatePicker
  * @extends sandstone/DatePicker.DatePickerBase
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
  * @omit day
  * @omit maxDays

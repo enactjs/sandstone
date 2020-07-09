@@ -29,6 +29,8 @@ import {ImageBase as Image} from '../Image';
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
+import AsyncRenderChildren from './AsyncRenderChildren';
+
 import componentCss from './ImageItem.module.less';
 
 const
@@ -88,6 +90,14 @@ const ImageItemBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Used internally to render `children` asynchronously.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number,
 
 		/**
 		 * The voice control intent.
@@ -209,28 +219,41 @@ const ImageItemBase = kind({
 	},
 
 	computed: {
-		children: ({centered, children, css, imageIconComponent, imageIconSrc, label, orientation}) => {
+		children: ({centered, children, css, 'data-index': index, imageIconComponent, imageIconSrc, label, orientation}) => {
 			const hasImageIcon = imageIconSrc && orientation === 'vertical';
 
 			if (!hasImageIcon && !children && !label) return;
 
 			const alignment = orientation === 'vertical' && centered ? {alignment: 'center'} : null;
-
-			return (
+			const captions = (
 				<Row className={css.captions}>
 					{hasImageIcon ? (
 						<Cell
 							className={css.imageIcon}
 							component={imageIconComponent}
-							src={imageIconSrc}
 							shrink
+							src={imageIconSrc}
 						/>
 					) : null}
 					<Cell>
-						<Marquee className={css.caption} {...alignment} marqueeOn="hover">{children}</Marquee>
-						{typeof label !== 'undefined' ? <Marquee className={css.label} {...alignment} marqueeOn="hover">{label}</Marquee> : null}
+						<Marquee {...alignment} className={css.caption} marqueeOn="hover">{children}</Marquee>
+						{typeof label !== 'undefined' ? <Marquee {...alignment} className={css.label} marqueeOn="hover">{label}</Marquee> : null}
 					</Cell>
 				</Row>
+			);
+
+			return (
+				typeof index !== 'undefined' ?
+					<AsyncRenderChildren
+						fallback={<>
+							<div className={css.placeholderCaption} />
+							{typeof label !== 'undefined' ? <div className={css.placeholderLabel} /> : null}
+						</>}
+						index={index}
+					>
+						{captions}
+					</AsyncRenderChildren> :
+					captions
 			);
 		},
 		className: ({children, imageIconSrc, label, orientation, styler}) => styler.append({
