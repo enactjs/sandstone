@@ -20,17 +20,19 @@ class AnimateOnIdle {
 	constructor (node, keyframes, {duration, reverse, ...options}) {
 		this.animation = null;
 
+		// used to "fill" when the animation completes
+		const firstKeyframe = keyframes[reverse ? keyframes.length - 1 : 0];
+		const lastKeyframe = keyframes[reverse ? 0 : keyframes.length - 1];
+
 		this._onfinish = null;
 		this._oncancel = null;
 		this._finish = false;
 		this._cancel = false;
 		this._reverse = false;
 
-		idle(() => {
-			if (typeof keyframes === 'function') {
-				keyframes = keyframes(node);
-			}
+		this.fill(node, firstKeyframe);
 
+		idle(() => {
 			this.animation = node.animate(keyframes, {
 				duration,
 				direction: reverse ? 'reverse' : 'normal',
@@ -38,8 +40,14 @@ class AnimateOnIdle {
 				...options
 			});
 
-			this.animation.onfinish = this._onfinish;
-			this.animation.oncancel = this._oncancel;
+			this.animation.onfinish = () => {
+				this.fill(node, lastKeyframe);
+				if (this._onfinish) this._onfinish();
+			};
+			this.animation.oncancel = () => {
+				this.fill(node, firstKeyframe);
+				if (this._oncancel) this._oncancel();
+			};
 
 			if (this._reverse) {
 				this.animation.reverse();
@@ -51,6 +59,11 @@ class AnimateOnIdle {
 				this.animation.finish();
 			}
 		});
+	}
+
+	fill (node, keyframe) {
+		// NOTE: this is naive atm to only address trasnform. We can extend it later.
+		node.style.transform = keyframe.transform;
 	}
 
 	set onfinish (value) {
@@ -131,34 +144,28 @@ const deferArrange = (config, keyframes) => {
  */
 const BasicArranger = {
 	stay: (config) => {
-		return deferArrange(config, (node) => {
-			setHeightVariable(node);
+		setHeightVariable(config.node);
 
-			return [
-				{transform: 'none'},
-				{transform: 'none'}
-			];
-		});
+		return deferArrange(config, [
+			{transform: 'none'},
+			{transform: 'none'}
+		]);
 	},
 	enter: (config) => {
-		return deferArrange(config, (node) => {
-			if (!config.reverse) setHeightVariable(node);
+		if (!config.reverse) setHeightVariable(config.node);
 
-			return [
-				{transform: 'translateX(100%)', offset: 0},
-				{transform: 'none', offset: 1}
-			];
-		});
+		return deferArrange(config, [
+			{transform: 'translateX(100%)', offset: 0},
+			{transform: 'none', offset: 1}
+		]);
 	},
 	leave: (config) => {
-		return deferArrange(config, (node) => {
-			if (!config.reverse) setHeightVariable(node);
+		if (!config.reverse) setHeightVariable(config.node);
 
-			return [
-				{transform: 'none', offset: 0},
-				{transform: 'translateX(-100%)', offset: 1}
-			];
-		});
+		return deferArrange(config, [
+			{transform: 'none', offset: 0},
+			{transform: 'translateX(-100%)', offset: 1}
+		]);
 	}
 };
 
