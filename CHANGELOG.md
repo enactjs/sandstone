@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/FlexiblePopupPanels` `navButton` margins
+- `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
 - `sandstone/Input` to read out each number value with space when input button focused
 - `sandstone/Slider` to readout `value` when knob is focused
