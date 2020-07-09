@@ -202,6 +202,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * Set the type of scrim to use
 			 *
 			 * @type {('holepunch'|'translucent'|'transparent'|'none')}
+			 * @default 'none'
 			 * @private
 			 */
 			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
@@ -238,7 +239,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * * `'self-only'` - Spotlight can only be set within the popup
 			 *
 			 * @type {('none'|'self-first'|'self-only')}
-			 * @default 'self-first'
+			 * @default 'self-only'
 			 * @public
 			 */
 			spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
@@ -250,7 +251,8 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			noAutoDismiss: false,
 			offset: 'small',
 			open: false,
-			spotlightRestrict: 'self-first'
+			scrimType: 'none',
+			spotlightRestrict: 'self-only'
 		}
 
 		constructor (props) {
@@ -685,7 +687,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			// 'holepunch' scrimType is specific to this component, not supported by floating layer
 			// so it must be swapped-out for one that FloatingLayer does support.
 			const holepunchScrim = (scrimType === 'holepunch');
-			scrimType = (spotlightRestrict === 'self-only' || holepunchScrim) ? 'transparent' : 'none';
+			if ((spotlightRestrict === 'self-only' && scrimType === 'none') || holepunchScrim) {
+				scrimType = 'transparent';
+			}
 
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
