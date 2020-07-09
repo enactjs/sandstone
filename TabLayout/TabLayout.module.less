@@ -7,9 +7,12 @@
 	height: 100%;
 
 	&.start,
-	&.end,
 	&.collapsed {
 		/* We need a placeholder for spotlight default focus rules */
+	}
+
+	&.end {
+		flex-direction: row-reverse;
 	}
 
 	&.left,
@@ -56,6 +59,9 @@
 			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
 
+		@transform-shift-left: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+		@transform-shift-right: translateX(var(--tablayout-expand-collapse-diff));
+
 		&:not(.collapsed) {
 			.tabs {
 				opacity: 0;
@@ -66,14 +72,29 @@
 			}
 
 			.content {
-				transform: translateX(var(--tablayout-expand-collapse-diff));
+				transform: @transform-shift-right;
+			}
+
+			&.end,
+			&.right {
+				.content {
+					transform: @transform-shift-left;
+				}
+			}
+
+			&.end {
+				.enact-locale-rtl({
+					.content {
+						transform: @transform-shift-right;
+					}
+				});
 			}
 
 			&.start,
 			&.right {
 				.enact-locale-rtl({
 					.content {
-						transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+						transform: @transform-shift-left;
 					}
 				});
 			}
@@ -82,15 +103,30 @@
 		&.collapsed {
 			.tabsExpanded {
 				opacity: 0;
-				transform: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+				transform: @transform-shift-left;
 				pointer-events: none;
+			}
+
+			&.end,
+			&.right {
+				.tabsExpanded {
+					transform: @transform-shift-right;
+				}
+			}
+
+			&.end {
+				.enact-locale-rtl({
+					.tabsExpanded {
+						transform: @transform-shift-left;
+					}
+				});
 			}
 
 			&.start,
 			&.right {
 				.enact-locale-rtl({
 					.tabsExpanded {
-						transform: translateX(var(--tablayout-expand-collapse-diff));
+						transform: @transform-shift-right;
 					}
 				});
 			}
