@@ -2,6 +2,7 @@
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const focusableBodySelector = '.Scroller_Scroller_focusableBody';
 
 class ScrollerPage extends Page {
 
@@ -37,19 +38,25 @@ class ScrollerPage extends Page {
 	}
 
 	// scrollable api
-	get scrollThumb () {
+	get focusableBody () {
+		return $(`${focusableBodySelector}`);
+	}
+	get verticalScrollThumb () {
 		return $(`${scrollThumbSelector}`);
+	}
+	get scroll () {
+		return browser.execute(function (_scrollThumbSelector) {
+			return {
+				verticalScrollThumb: document.querySelectorAll(_scrollThumbSelector)[0],
+				horizontalScrollThumb: document.querySelectorAll(_scrollThumbSelector)[1]
+			};
+		}, scrollThumbSelector);
 	}
 
 	// active element api
 	getActiveElement () {
 		return browser.execute(function () {
-			const activeElement = document.activeElement;
-			return {
-				ariaLabel:  activeElement.getAttribute('aria-label'),
-				id: activeElement.id,
-				isfocusableBody: activeElement.className === 'Scroller_Scroller_focusableBody spottable'
-			};
+			return document.activeElement;
 		});
 	}
 }
