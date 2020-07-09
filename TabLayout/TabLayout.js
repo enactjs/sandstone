@@ -8,7 +8,7 @@
 
 import {adaptEvent, forward, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {mapAndFilterChildren} from '@enact/core/util';
+import {cap, mapAndFilterChildren} from '@enact/core/util';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -50,6 +50,19 @@ const TabLayoutBase = kind({
 	name: 'TabLayout',
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
+		/**
+		 * Sets where this component should attach its tabs and animations.
+		 *
+		 * "left" and "right" represent true screen left and screen right, while "start" represents
+		 * screen left in LTR and screen right in RTL. "end" is the reverse: screen right for LTR
+		 * and screen left for RTL.
+		 *
+		 * @type {('left'|'right'|'start'|'end')}
+		 * @default 'start'
+		 * @private
+		 */
+		anchorTo: PropTypes.oneOf(['left', 'right', 'start', 'end']),
+
 		/**
 		 * Collection of [Tabs]{@link sandstone/TabLayout.Tab} to render.
 		 *
@@ -111,19 +124,6 @@ const TabLayoutBase = kind({
 				normal: PropTypes.number
 			}).isRequired
 		}),
-
-		/**
-		 * Assign the direction to orient this layout.
-		 *
-		 * "left" and "right" represent true screen left and screen right, while "start" represents
-		 * screen left in LTR and screen right in RTL. "end" is the reverse: screen right for LTR
-		 * and screen left for RTL.
-		 *
-		 * @type {('left'|'right'|'start'|'end')}
-		 * @default 'start'
-		 * @private
-		 */
-		direction: PropTypes.oneOf(['left', 'right', 'start', 'end']),
 
 		/**
 		 * The currently selected tab.
@@ -199,6 +199,7 @@ const TabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		anchorTo: 'start',
 		dimensions: {
 			tabs: {
 				collapsed: 216,
@@ -209,7 +210,6 @@ const TabLayoutBase = kind({
 				normal: null
 			}
 		},
-		direction: 'start',
 		index: 0,
 		orientation: 'vertical'
 	},
@@ -240,9 +240,9 @@ const TabLayoutBase = kind({
 		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<React.Fragment>{child.props.children}</React.Fragment>
 		)),
-		className: ({collapsed, direction, orientation, styler}) => styler.append(
+		className: ({collapsed, anchorTo, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
-			direction,
+			`anchor${cap(anchorTo)}`,
 			orientation
 		),
 		style: ({dimensions, orientation, style}) => ({
@@ -261,7 +261,7 @@ const TabLayoutBase = kind({
 	},
 
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
-		delete rest.direction;
+		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);

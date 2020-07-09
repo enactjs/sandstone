@@ -250,7 +250,7 @@ const PopupTabLayoutBase = kind({
 					{...rest}
 					css={css}
 					align="start"
-					direction="left"
+					anchorTo="left"
 				>
 					{children}
 				</TabLayout>

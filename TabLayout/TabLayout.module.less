@@ -6,17 +6,16 @@
 .tabLayout {
 	height: 100%;
 
-	&.start,
 	&.collapsed {
 		/* We need a placeholder for spotlight default focus rules */
 	}
 
-	&.end {
+	&.anchorEnd {
 		flex-direction: row-reverse;
 	}
 
-	&.left,
-	&.right {
+	&.anchorLeft,
+	&.anchorRight {
 		.enact-locale-rtl({
 			flex-direction: row-reverse;
 		})
@@ -75,22 +74,22 @@
 				transform: @transform-shift-right;
 			}
 
-			&.end,
-			&.right {
+			&.anchorEnd,
+			&.anchorRight {
 				.content {
 					transform: @transform-shift-left;
 				}
 			}
 
 			.enact-locale-rtl({
-				&.end {
+				&.anchorEnd {
 					.content {
 						transform: @transform-shift-right;
 					}
 				}
 
-				&.start,
-				&.right {
+				&.anchorStart,
+				&.anchorRight {
 					.content {
 						transform: @transform-shift-left;
 					}
@@ -105,22 +104,22 @@
 				pointer-events: none;
 			}
 
-			&.end,
-			&.right {
+			&.anchorEnd,
+			&.anchorRight {
 				.tabsExpanded {
 					transform: @transform-shift-right;
 				}
 			}
 
 			.enact-locale-rtl({
-				&.end {
+				&.anchorEnd {
 					.tabsExpanded {
 						transform: @transform-shift-left;
 					}
 				}
 
-				&.start,
-				&.right {
+				&.anchorStart,
+				&.anchorRight {
 					.tabsExpanded {
 						transform: @transform-shift-right;
 					}
