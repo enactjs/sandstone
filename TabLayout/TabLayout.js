@@ -113,6 +113,19 @@ const TabLayoutBase = kind({
 		}),
 
 		/**
+		 * Assign the direction to orient this layout.
+		 *
+		 * "left" and "right" represent true screen left and screen right, while "start" represents
+		 * screen left in LTR and screen right in RTL. "end" is the reverse: screen right for LTR
+		 * and screen left for RTL.
+		 *
+		 * @type {('left'|'right'|'start'|'end')}
+		 * @default 'start'
+		 * @private
+		 */
+		direction: PropTypes.oneOf(['left', 'right', 'start', 'end']),
+
+		/**
 		 * The currently selected tab.
 		 *
 		 * @type {Number}
@@ -196,6 +209,7 @@ const TabLayoutBase = kind({
 				normal: null
 			}
 		},
+		direction: 'start',
 		index: 0,
 		orientation: 'vertical'
 	},
@@ -226,8 +240,9 @@ const TabLayoutBase = kind({
 		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<React.Fragment>{child.props.children}</React.Fragment>
 		)),
-		className: ({collapsed, orientation, styler}) => styler.append(
+		className: ({collapsed, direction, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
+			direction,
 			orientation
 		),
 		style: ({dimensions, orientation, style}) => ({
@@ -246,6 +261,7 @@ const TabLayoutBase = kind({
 	},
 
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+		delete rest.direction;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
