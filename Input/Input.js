@@ -281,6 +281,7 @@ const InputPopupBase = kind({
 		),
 		onInputKeyDown: handle(
 			forKey('enter'),
+			() => Spotlight.getCurrent().tagName === 'INPUT',
 			adaptEvent(
 				prepareInputEventPayload,
 				forward('onComplete')
