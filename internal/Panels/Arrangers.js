@@ -108,22 +108,6 @@ class AnimateOnIdle {
 	}
 }
 
-function setHeightVariable (node, height) {
-	// If height is exists (and isn't 0) convert it to a REM for safe screen scaling.
-	if (height) height = ri.unit(height, 'rem');
-
-	// Relay the height value up to the Panels instance (parent of ViewManager, grand-parent of the
-	// Panel) so the background element can animate without "blanking out" (resetting to null)
-	// between panel measurement. Panel must be measured at "native" layout size, then set to fixed
-	// to allow a transition to work as expected, since transitions to/from "auto" are impossible
-	// at this time.
-	node.parentNode.parentNode.style.setProperty('--sand-panels-measured-height', height);
-
-	// Re-assign the measured height back to the panel as a fixed value, to enable proper DOM
-	// bounding rectangle clipping, to support native scrollable region detection.
-	node.style.setProperty('--sand-panel-measured-height', height);
-}
-
 const deferArrange = (config, keyframes, options) => {
 	const {node, duration, reverse} = config;
 
