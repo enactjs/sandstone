@@ -108,9 +108,7 @@ class AnimateOnIdle {
 	}
 }
 
-function setHeightVariable (node) {
-	let height = node.getBoundingClientRect().height;
-
+function setHeightVariable (node, height) {
 	// If height is exists (and isn't 0) convert it to a REM for safe screen scaling.
 	if (height) height = ri.unit(height, 'rem');
 
@@ -144,7 +142,10 @@ const deferArrange = (config, keyframes) => {
  */
 const BasicArranger = {
 	stay: (config) => {
-		setHeightVariable(config.node);
+		// Set the initial size of the panel, before any transitions take place
+		const {node} = config;
+		const height = node.getBoundingClientRect().height;
+		setHeightVariable(node, height);
 
 		return deferArrange(config, [
 			{transform: 'none'},
@@ -152,7 +153,13 @@ const BasicArranger = {
 		]);
 	},
 	enter: (config) => {
-		if (!config.reverse) setHeightVariable(config.node);
+		const {node, reverse} = config;
+
+		// Only assign values for the view entering the screen
+		if (!reverse) {
+			const height = node.getBoundingClientRect().height;
+			setHeightVariable(node, height);
+		}
 
 		return deferArrange(config, [
 			{transform: 'translateX(100%)', offset: 0},
@@ -160,7 +167,13 @@ const BasicArranger = {
 		]);
 	},
 	leave: (config) => {
-		if (!config.reverse) setHeightVariable(config.node);
+		const {node, reverse} = config;
+
+		// Only assign values for the view entering the screen
+		if (reverse) {
+			const height = node.getBoundingClientRect().height;
+			setHeightVariable(node, height);
+		}
 
 		return deferArrange(config, [
 			{transform: 'none', offset: 0},

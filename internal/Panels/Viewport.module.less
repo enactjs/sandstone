@@ -13,10 +13,10 @@
 		z-index: 10000;
 	}
 
-	// force directionality for relative positioning
+	// force directionality for relative positioning below
 	direction: ltr;
 	& > * {
-		// reset 
+		// reset direction in views for RTL locales
 		:global(.enact-local-right-to-left) & {
 			direction: rtl;
 		}
