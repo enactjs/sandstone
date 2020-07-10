@@ -4,9 +4,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Added
+### Changed
 
-- `sandstone/Icon` additional icons
+- `sandstone/Icon` supported icon list, adding new icons
 
 ### Fixed
 
