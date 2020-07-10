@@ -47,14 +47,6 @@ const DayPickerBase = kind({
 
 	propTypes: /** @lends sandstone/DayPicker.DayPicker.prototype */ {
 		/**
-		 * Disables all days in this picker.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		disabled: PropTypes.bool,
-
-		/**
 		 * Called when an day is selected or unselected.
 		 *
 		 * The event payload will be an object with the following members:
@@ -88,13 +80,13 @@ const DayPickerBase = kind({
 		children: ({children}) => children.map(child => child['aria-label'])
 	},
 
-	render: ({disabled, ...rest}) => {
+	render: ({...rest}) => {
 		return (
 			<Group
 				{...rest}
 				component="div"
 				childComponent={CheckboxItem}
-				itemProps={{className: css.item, disabled}}
+				itemProps={{className: css.item}}
 				select="multiple"
 				selectedProp="selected"
 			/>
