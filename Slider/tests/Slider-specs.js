@@ -38,7 +38,7 @@ describe('Slider', () => {
 			slider.find('Slider').prop('onActivate')();
 			slider.update();
 
-			const expected = 'change a value with left right button';
+			const expected = '0 change a value with left right button';
 			const actual = slider.find('Slider').prop('aria-valuetext');
 
 			expect(actual).toBe(expected);
@@ -55,7 +55,7 @@ describe('Slider', () => {
 			slider.find('Slider').prop('onActivate')();
 			slider.update();
 
-			const expected = 'change a value with up down button';
+			const expected = '0 change a value with up down button';
 			const actual = slider.find('Slider').prop('aria-valuetext');
 
 			expect(actual).toBe(expected);
