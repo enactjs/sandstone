@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` to animate focus and press
 - `sandstone/ContextualMenu` style to match latest designs
+- `sandstone/DayPicker` disabled+focused item styling
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
 - `sandstone/Input` text selection color
