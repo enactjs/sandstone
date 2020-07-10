@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` to animate focus and press
 - `sandstone/ContextualMenu` style to match latest designs
 - `sandstone/DayPicker` disabled+focused item styling
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
 - `sandstone/Input` text selection color
@@ -21,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
 - `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
 - `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
