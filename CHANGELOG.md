@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to read out each number value with space when input button focused
 - `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
+- `sandstone/PopupTabLayout` padding so it's the same distance all the way around the tab buttons
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
 - `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate

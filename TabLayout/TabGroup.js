@@ -15,6 +15,8 @@ import Scroller from '../Scroller';
 
 import componentCss from './TabGroup.module.less';
 
+const MAX_TABS_BEFORE_SCROLLING = 7;
+
 // Since Button and Cell both have a `size` prop, TabButton is required to relay the Button.size to Button, rather than Cell.
 // eslint-disable-next-line enact/prop-types
 const TabButton = ({buttonSize, ...rest}) => (<Button size={buttonSize} {...rest} css={componentCss} />);
@@ -177,11 +179,13 @@ const TabGroupBase = kind({
 		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
-		const scrollerProps = !isHorizontal ? {
+		// Only vertical with more than MAX_TABS should use scroller
+		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
+		const scrollerProps = useScroller ? {
 			horizontalScrollbar: 'hidden',
 			verticalScrollbar: 'hidden'
 		} : null;
-		const Component = isHorizontal ? 'div' : Scroller;
+		const Component = useScroller ? Scroller : 'div';
 
 		return (
 			<Component
