@@ -3,8 +3,7 @@
 @import "../styles/variables.less";
 
 // Module level variables, for use only in this file
-@fixedpopuppanels-max-height: ~"calc(100vh -" (extract(@sand-fixedpopuppanels-margin, 1) * 2) ~")";
-@panel-height-calc: ~"min(var(--sand-panel-measured-height), " @fixedpopuppanels-max-height ~")";
+@fixedpopuppanels-max-height: ~"calc(100vh -" (.extract(@sand-fixedpopuppanels-margin, top)[] + .extract(@sand-fixedpopuppanels-margin, bottom)[])~")";
 
 .fixedPopupPanels {
 	// Overrides for Panels - the & just refers to this element. Using a block here to visually compartmentalize the overrides apart from the general styles.
@@ -59,9 +58,11 @@
 // Overrides for Panel
 .panel {
 	padding: @sand-fixedpopuppanels-panel-padding;
-	height: @panel-height-calc;
+	max-height: @fixedpopuppanels-max-height;
 
 	> .body {
+		display: flex;
+		flex-direction: column;
 		padding: @sand-fixedpopuppanels-panel-body-padding;
 		flex: 0 1 auto;
 	}
