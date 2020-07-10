@@ -191,7 +191,13 @@ const TabGroupBase = kind({
 				{...scrollerProps}
 			>
 				{noIcons ? (
-					<TabBase icon="list" collapsed disabled={tabsDisabled} onSpotlightDisappear={onBlurList} />
+					<TabBase
+						icon="list"
+						collapsed
+						disabled={tabsDisabled}
+						onSpotlightDisappear={onBlurList}
+						spotlightDisabled={spotlightDisabled}
+					/>
 				) : (
 					<GroupComponent
 						childComponent={Tab}

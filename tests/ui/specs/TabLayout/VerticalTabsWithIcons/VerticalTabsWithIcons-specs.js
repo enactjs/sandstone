@@ -59,8 +59,6 @@ describe('TabLayout', function () {
 					Page.spotlightDown();
 					Page.tabLayout.view(5).waitForExist();
 				});
-
-
 			});
 			describe('pointer interaction', function () {
 
