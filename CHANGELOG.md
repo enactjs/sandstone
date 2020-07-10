@@ -15,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
 - `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+- `sandstone/WizardPanels` style when using `noSteps`
 
 ## [1.0.0-rc.4] - 2020-07-09
 

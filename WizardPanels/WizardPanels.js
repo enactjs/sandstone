@@ -328,16 +328,22 @@ const WizardPanelsBase = kind({
 		},
 		steps: ({current, index, noSteps, total, totalPanels}) => {
 			if (noSteps) {
-				return null;
+				return (
+					<Steps
+						className={css.hidden}
+						slot="slotAbove"
+						total={1}
+					/>
+				);
+			} else {
+				return (
+					<Steps
+						current={(typeof current === 'number' && current > 0) ? current : (index + 1)}
+						slot="slotAbove"
+						total={(typeof total === 'number' && total > 0) ? total : totalPanels}
+					/>
+				);
 			}
-
-			return (
-				<Steps
-					current={(typeof current === 'number' && current > 0) ? current : (index + 1)}
-					slot="slotAbove"
-					total={(typeof total === 'number' && total > 0) ? total : totalPanels}
-				/>
-			);
 		}
 	},
 
