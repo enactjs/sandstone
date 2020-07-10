@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` to animate focus and press
 - `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
