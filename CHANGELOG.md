@@ -12,6 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` to animate focus and press
 - `sandstone/ContextualMenu` style to match latest designs
+- `sandstone/DayPicker` to pass `disabled` to each child instead of applying to its container
 - `sandstone/DropDown` title color
 - `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
