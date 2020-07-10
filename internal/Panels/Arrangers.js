@@ -73,19 +73,11 @@ class AnimateOnIdle {
 	}
 
 	set onfinish (value) {
-		if (this.animation) {
-			this.animation.onfinish = value;
-		} else {
-			this._onfinish = value;
-		}
+		this._onfinish = value;
 	}
 
 	set oncancel (value) {
-		if (this.animation) {
-			this.animation.oncancel = value;
-		} else {
-			this._oncancel = value;
-		}
+		this._oncancel = value;
 	}
 
 	finish () {
