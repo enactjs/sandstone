@@ -63,10 +63,14 @@
 		standard-padding: 108px 150px 73px 150px;
 		standard-title-font-size: 108px;
 		standard-title-line-height: 127px;
+		standard-titles-gap: 18px;
+		standard-subtitle-font-size: 60px;
+		standard-subtitle-line-height: 70px;
 
 		wizard-padding: 108px 150px 66px 150px;
 		wizard-title-font-size: 144px;
 		wizard-title-line-height: 169px;
+		wizard-titles-gap: 12px;
 	}
 
 	.panel() {
@@ -118,7 +122,7 @@
 @sand-heading-medium-font-size:     66px;
 @sand-heading-small-font-size:      54px;
 @sand-heading-tiny-font-size:       48px;
-@sand-heading-subtitle-font-size:   60px;
+@sand-heading-subtitle-font-size:   #guide.header[standard-subtitle-font-size];
 @sand-heading-title-font-size:      #guide.header[standard-title-font-size];
 @sand-imageitem-caption-font-size:  60px;
 @sand-imageitem-label-font-size:    48px;
@@ -426,7 +430,7 @@
 // Header
 // ---------------------------------------
 @sand-header-slotabove-margin: 0 -@sand-component-spacing 30px -@sand-component-spacing; // Negative margins accomodate the component-spacing
-@sand-header-slotbelow-margin: 84px -@sand-component-spacing 0 -@sand-component-spacing; // Negative margins accomodate the component-spacing
+@sand-header-slotbelow-margin: 18px -@sand-component-spacing 0 -@sand-component-spacing; // Negative margins accomodate the component-spacing
 @sand-header-subtitle-height: (@sand-heading-subtitle-font-size * @sand-heading-subtitle-line-height);
 // STOP! READ THE FOLLOWING BEFORE EDITING.
 //
@@ -451,7 +455,21 @@
 	.extract(#guide.header[standard-padding], bottom)[]
 	.extract(#guide.header[standard-padding], left)[];
 @sand-header-standard-title-padding: 0;
-@sand-header-standard-subtitle-margin: -24px 0 0 0;
+@sand-header-standard-subtitle-margin:
+	(
+		.extract(#guide.header[standard-titles-gap], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[standard-title-line-height],
+			@sand-heading-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+		- #guide.get-edge-size-difference(
+			#guide.header[standard-subtitle-line-height],
+			@sand-heading-subtitle-font-size,
+			@sand-heading-subtitle-line-height
+		)[@result]
+	)
+	0 0 0;
 @sand-header-compact-margin: 0;
 @sand-header-compact-padding:
 	(
