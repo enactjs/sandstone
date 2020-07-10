@@ -9,6 +9,7 @@ import Slottable from '@enact/ui/Slottable';
 import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
+import {Job} from '@enact/core/util';
 
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
@@ -540,10 +541,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		componentDidUpdate (prevProps, prevState) {
 			// Need to render `moreComponents` to show it. For performance, render `moreComponents` if it is actually shown.
 			if (!prevState.showMoreComponents && this.state.showMoreComponents && !this.state.moreComponentsRendered) {
-				// eslint-disable-next-line
-				this.setState({
-					moreComponentsRendered: true
-				});
+				this.moreComponentsRenderingJob.startRafAfter();
+			} else if (prevState.showMoreComponents && !this.state.showMoreComponents) {
+				this.moreComponentsRenderingJob.stop();
 			}
 
 			if (!prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
@@ -572,7 +572,14 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			off('blur', this.handleBlur, window);
 			off('wheel', this.handleWheel);
 			this.stopListeningForPulses();
+			this.moreComponentsRenderingJob.stop();
 		}
+
+		moreComponentsRenderingJob = new Job(() => {
+			this.setState({
+				moreComponentsRendered: true
+			});
+		})
 
 		calculateMoreComponentsHeight = () => {
 			if (!this.mediaControlsNode) {
