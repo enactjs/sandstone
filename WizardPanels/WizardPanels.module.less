@@ -4,6 +4,12 @@
 @import "../styles/variables.less";
 
 .wizardPanels {
+	&.noSteps {
+		.steps {
+			visibility: hidden;
+		}
+	}
+
 	.content {
 		margin: @sand-wizardpanels-content-margin;
 	}
@@ -11,9 +17,5 @@
 	.footer {
 		text-align: center;
 		margin: @sand-wizardpanels-footer-margin;
-	}
-
-	.hidden {
-		visibility: hidden;
 	}
 }
