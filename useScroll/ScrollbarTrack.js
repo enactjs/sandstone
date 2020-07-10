@@ -20,7 +20,7 @@ const
 	isUp = is('up');
 
 const SpotlightAccelerator = new Accelerator();
-
+const SpottableDiv = Spottable('div');
 /**
  * A Sandstone-styled scrollbar track with sandstone behavior
  *
@@ -33,7 +33,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 	const
 		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
-		ScrollbarThumb = focusableScrollbar ? Spottable('div') : 'div',
+		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
 
 	useEffect (() => {
