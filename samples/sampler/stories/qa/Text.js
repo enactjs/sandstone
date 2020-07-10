@@ -73,9 +73,9 @@ storiesOf('Text', module)
 					<SwitchItem>{children}</SwitchItem>
 
 					<Heading showLine>Headers (Standard, Compact)</Heading>
-					<Header type="standard" title={children} subtitle={children} subTitleBelow={children} />
+					<Header type="standard" title={children} subtitle={children} />
 					<br />
-					<Header type="compact" title={children} subtitle={children} subTitleBelow={children} />
+					<Header type="compact" title={children} subtitle={children} />
 				</Scroller>
 			);
 		}

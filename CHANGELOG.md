@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
 - `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
 - `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
