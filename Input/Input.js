@@ -281,6 +281,8 @@ const InputPopupBase = kind({
 		),
 		onInputKeyDown: handle(
 			forKey('enter'),
+			// Ensure that the source of the enter is the <input>
+			({target}) => target.nodeName === 'INPUT',
 			adaptEvent(
 				prepareInputEventPayload,
 				forward('onComplete')
