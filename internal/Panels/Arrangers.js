@@ -26,13 +26,27 @@ class AnimateOnIdle {
 
 		this._onfinish = null;
 		this._oncancel = null;
-		this._finish = false;
-		this._cancel = false;
 		this._reverse = false;
+		this._playState = 'idle';
 
 		this.fill(node, firstKeyframe);
 
+		this.handleFinish = () => {
+			this._playState = 'finished';
+			this.fill(node, lastKeyframe);
+			if (this._onfinish) this._onfinish();
+		};
+
+		this.handleCancel = () => {
+			this._playState = 'finished';
+			this.fill(node, firstKeyframe);
+			if (this._oncancel) this._oncancel();
+		};
+
 		idle(() => {
+			// if the animation was finsihed/cancelled before the idle callback occurs, bail out
+			if (this._playState === 'finished') return;
+
 			this.animation = node.animate(keyframes, {
 				duration,
 				direction: reverse ? 'reverse' : 'normal',
@@ -40,23 +54,11 @@ class AnimateOnIdle {
 				...options
 			});
 
-			this.animation.onfinish = () => {
-				this.fill(node, lastKeyframe);
-				if (this._onfinish) this._onfinish();
-			};
-			this.animation.oncancel = () => {
-				this.fill(node, firstKeyframe);
-				if (this._oncancel) this._oncancel();
-			};
+			this.animation.onfinish = this.handleFinish;
+			this.animation.oncancel = this.handleCancel;
 
 			if (this._reverse) {
 				this.animation.reverse();
-			}
-
-			if (this._cancel) {
-				this.animation.cancel();
-			} else if (this._finish) {
-				this.animation.finish();
 			}
 		});
 	}
@@ -64,6 +66,10 @@ class AnimateOnIdle {
 	fill (node, keyframe) {
 		// NOTE: this is naive atm to only address transform. We can extend it later.
 		node.style.transform = keyframe.transform;
+	}
+
+	get playState () {
+		return this.animation ? this.animation.playState : this._playState;
 	}
 
 	set onfinish (value) {
@@ -86,7 +92,7 @@ class AnimateOnIdle {
 		if (this.animation) {
 			this.animation.finish();
 		} else {
-			this._finish = true;
+			this.handleFinish();
 		}
 	}
 
@@ -94,7 +100,7 @@ class AnimateOnIdle {
 		if (this.animation) {
 			this.animation.cancel();
 		} else {
-			this._cancel = true;
+			this.handleCancel();
 		}
 	}
 
