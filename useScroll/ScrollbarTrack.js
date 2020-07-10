@@ -21,6 +21,7 @@ const
 
 const SpotlightAccelerator = new Accelerator();
 const SpottableDiv = Spottable('div');
+
 /**
  * A Sandstone-styled scrollbar track with sandstone behavior
  *
