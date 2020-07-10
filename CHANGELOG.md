@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
 - `sandstone/Input` text selection color
+- `sandstone/Input` to close the popup with the enter key only when the VKB is activated
 - `sandstone/Input` to read out each number value with space when input button focused
 - `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
