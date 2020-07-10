@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
 ### Fixed
 
 - `sandstone/Button` to animate focus and press
