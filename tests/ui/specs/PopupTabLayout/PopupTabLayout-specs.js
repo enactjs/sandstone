@@ -87,6 +87,13 @@ describe('PopupTabLayout', function () {
 
 					expect(actual).to.equal(expected);
 				});
+
+				it('should not lose focus with spotlight left', function () {
+					// Attempt to focus left
+					expect(popupTabLayout.tabItems[0].isFocused(), 'initial focus').to.be.true();
+					Page.spotlightLeft();
+					expect(popupTabLayout.tabItems[0].isFocused(), 'secondary focus').to.be.true();
+				});
 			});
 
 			// describe('pointer interaction', function () {

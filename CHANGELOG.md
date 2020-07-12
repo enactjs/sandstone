@@ -4,10 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
+
 ### Fixed
 
 - `sandstone/Button` to animate focus and press
 - `sandstone/ContextualMenu` style to match latest designs
+- `sandstone/DayPicker` to pass `disabled` to each child instead of applying to its container
+- `sandstone/DropDown` title color
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
 - `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
 - `sandstone/Input` text selection color
@@ -15,11 +22,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` to read out each number value with space when input button focused
 - `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
 - `sandstone/MediaControls` to start animation after more components are rendered
+- `sandstone/Panels.Header` spacing between title and subtitle
 - `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
 - `sandstone/PopupTabLayout` padding so it's the same distance all the way around the tab buttons
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
 - `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+- `sandstone/WizardPanels` style when using `noSteps`
 
 ## [1.0.0-rc.4] - 2020-07-09
 
