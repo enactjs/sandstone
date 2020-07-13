@@ -26,6 +26,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/MediaPlayer.MediaSlider` to update latest design
 - `sandstone/Panels.Header` spacing between title and subtitle
 - `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
+- `sandstone/PopupTabLayout` padding so it's the same distance all the way around the tab buttons
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
 - `sandstone/Scroller` to not losing focus on scrollbar when re-render
 - `sandstone/Slider` to readout `value` when knob is focused
