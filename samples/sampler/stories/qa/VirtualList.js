@@ -139,7 +139,7 @@ const InPanels = ({className, title, ...rest}) => {
 	return (
 		<Panels className={className} index={index}>
 			<Panel>
-				<Header type="compact" title={`${title} Panel 0`} key="header" noCloseButton />
+				<Header type="compact" title={`${title} Panel 0`} key="header" />
 				<VirtualList
 					id="spotlight-list"
 					// eslint-disable-next-line enact/prop-types
@@ -149,7 +149,7 @@ const InPanels = ({className, title, ...rest}) => {
 				/>
 			</Panel>
 			<Panel title={`${title} Panel 1`}>
-				<Header type="compact" title={`${title} Panel 1`} key="header" noCloseButton />
+				<Header type="compact" title={`${title} Panel 1`} key="header" />
 				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
 		</Panels>
@@ -265,8 +265,7 @@ storiesOf('VirtualList', module)
 	)
 	.add(
 		'in Panels',
-		context => {
-			context.noPanels = true;
+		(context) => {
 			const title = `${context.kind} ${context.story}`.trim();
 			return (
 				<InPanels
@@ -286,6 +285,11 @@ storiesOf('VirtualList', module)
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 				/>
 			);
+		},
+		{
+			props: {
+				noPanels: true
+			}
 		}
 	)
 	.add(
