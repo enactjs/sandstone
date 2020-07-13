@@ -110,7 +110,7 @@ const GroupComponent = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		enterTo: 'default-element',
-		straightOnlyLeave: true,
+		partition: true,
 		// When swapping from unscrolled to scrolled tab group, the container config is lost so this
 		// preserves it across unmounts / remounts
 		preserveId: true
