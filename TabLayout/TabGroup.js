@@ -108,7 +108,7 @@ const GroupComponent = SpotlightContainerDecorator(
 		// the view when re-entering the tab group
 		defaultElement: `.${componentCss.selected}`,
 		enterTo: 'default-element',
-		straightOnlyLeave: true
+		partition: true
 	},
 	Group
 );
