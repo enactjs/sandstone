@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/ActionGuide` to update latest design
 - `sandstone/Button` to animate focus and press
 - `sandstone/ContextualMenu` style to match latest designs
 - `sandstone/DayPicker` to pass `disabled` to each child instead of applying to its container
