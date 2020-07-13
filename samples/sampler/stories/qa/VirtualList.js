@@ -139,7 +139,7 @@ const InPanels = ({className, title, ...rest}) => {
 	return (
 		<Panels className={className} index={index}>
 			<Panel>
-				<Header type="compact" title={`${title} Panel 0`} key="header" />
+				<Header type="compact" title={`${title} Panel 0`} key="header" noCloseButton />
 				<VirtualList
 					id="spotlight-list"
 					// eslint-disable-next-line enact/prop-types
@@ -149,7 +149,7 @@ const InPanels = ({className, title, ...rest}) => {
 				/>
 			</Panel>
 			<Panel title={`${title} Panel 1`}>
-				<Header type="compact" title={`${title} Panel 1`} key="header" />
+				<Header type="compact" title={`${title} Panel 1`} key="header" noCloseButton />
 				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
 		</Panels>
