@@ -7,26 +7,27 @@ import ThemeDecorator from '../../../../../ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {InputField} from '../../../../../Input';
+import PropTypes from 'prop-types';
 
 const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
-
+const childProps = {text: ' child props'};
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
 spotlight.setPointerMode(false);
 
 const items = [],
-	itemSize = 156,
-	listSize = itemSize * 9,
-	itemStyle = {margin: 0},
-	numItems = 100;
+	itemStyle = {margin: 0};
 
-const renderItem = (size) => ({index, ...rest}) => {
+
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderItem = (size, disabled) => ({index, text, ...rest}) => {
 	const style = {height: ri.scaleToRem(size), ...itemStyle};
 	return (
-		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`}>
-			{items[index].item}
+		<StatefulSwitchItem index={index} style={style} {...rest} id={`item${index}`} disabled={disabled && (index % 15) !== 0}>
+			{items[index].item + (text || '')}
 		</StatefulSwitchItem>
 	);
 };
@@ -45,9 +46,11 @@ const updateDataSize = (dataSize) => {
 	return dataSize;
 };
 
-updateDataSize(numItems);
-
 class StatefulSwitchItem extends React.Component {
+	static displayName = 'StatefulSwitchItem';
+	static propTypes = {
+		index: PropTypes.number
+	}
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -90,11 +93,17 @@ class app extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			disabled: false,
+			hasChildProps: false,
 			hideScrollbar: false,
+			numItems: 100,
+			spacing: 0,
+			itemSize: 156,
 			wrap: false
 		};
 		this.rootRef = React.createRef();
 		this.scrollingRef = React.createRef();
+		updateDataSize(this.state.numItems);
 	}
 
 	onKeyDown = () => {
@@ -111,6 +120,15 @@ class app extends React.Component {
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
+		this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
+	}
+
+	getScrollTo = (scrollTo) => {
+		this.scrollTo = scrollTo;
+	}
+
+	jumpTo = () => {
+		this.scrollTo({animate: false, focus: true, index: 10});
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -118,14 +136,36 @@ class app extends React.Component {
 		this.setState((state) => ({[key]: !state[key]}));
 	}
 
+	onChangeNumItems = ({value}) => {
+		this.setState({numItems: value});
+		updateDataSize(value);
+	}
+
+	onChangeSpacing = (obj) => {
+		this.setState({spacing: obj.value});
+	}
+
+	onChangeitemSize = ({value}) => {
+		this.setState({itemSize: value});
+	}
+
 	render () {
-		const {hideScrollbar, wrap} = this.state;
+		const
+			inputStyle = {width: ri.scaleToRem(300)},
+			{disabled, hasChildProps, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
 				<Column>
 					<Cell component={OptionsContainer} shrink>
-						<Button id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
-						<Button id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
+						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
+						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
+						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
+						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
+						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
 						<span id="scrolling" ref={this.scrollingRef}>Not Scrolling</span>
 					</Cell>
 					<Cell component={ListContainer}>
@@ -140,14 +180,16 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
+											cbScrollTo={this.getScrollTo}
+											childProps={this.state.hasChildProps ? childProps : null}
 											dataSize={numItems}
-											itemRenderer={renderItem(itemSize)}
+											itemRenderer={renderItem(itemSize, disabled)}
 											itemSize={ri.scale(itemSize)}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
-											spacing={0}
-											style={{height: ri.scaleToRem(listSize)}}
+											spacing={ri.scale(spacing)}
+											style={{height: ri.scaleToRem(156 * 9)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>

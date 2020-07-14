@@ -3,6 +3,14 @@ import React from 'react';
 
 import {LoremString} from './utils';
 
+const SelectionInput = props => {
+	React.useLayoutEffect(() => {
+		document.querySelector('input').focus();
+		document.querySelector('input').setSelectionRange(2, 7);
+	});
+	return <InputField {...props} />;
+};
+
 const InputFieldTests = [
 	<InputField />,
 	<InputField placeholder="Placeholder InputField" />,
@@ -29,25 +37,28 @@ const InputFieldTests = [
 	<InputField value={LoremString} invalid invalidMessage="Changed invalid Message " />,
 
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
-	<InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />,
+	<InputField value={LoremString} iconBefore="check" iconAfter="home" />,
 
 	// tallCharacters: Change 'size' dynamically - [GT-28620]
 	// Note: text stays the same size, the InputField field becomes smaller
-	<InputField value="नरेंद्र मोदी" size="small" />,
-	<InputField value=" ฟิ้  ไั  ஒ  து" size="small" />,
-	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="small" />,
+	<InputField value="नरेंद्र मोदी" size="large" />,
+	<InputField value=" ฟิ้  ไั  ஒ  து" size="large" />,
+	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />,
 	// Testing default size 'large'
 	<InputField value="नरेंद्र मोदी" />,
 	<InputField value=" ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
 
 	// Change 'size' dynamically to 'small' - [GT-28357]
-	<InputField value="small InputField" size="small" />,
+	<InputField value="small InputField" size="large" />,
 
 	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
 	// This will also test: Transparent Disabled InputField Displays with Background - [GT-28351]
 	<InputField value="I am value" />,
 	<InputField value="I am a disabled value" disabled />,
+
+	// Selection color
+	<SelectionInput value="Selection value" />,
 
 	// *************************************************************
 	// locale = 'ar-SA'
@@ -129,22 +140,22 @@ const InputFieldTests = [
 	// Long Text is Not Truncated with IconBefore and IconAfter - [GT-28619]
 	{
 		locale: 'ar-SA',
-		component: <InputField value={LoremString} iconBefore="check" iconAfter="bluetoothoff" />
+		component: <InputField value={LoremString} iconBefore="check" iconAfter="home" />
 	},
 
 	// tallCharacters: Change 'size' dynamically - [GT-28620]
 	// Note: text stays the same size, the InputField field becomes smaller
 	{
 		locale: 'ar-SA',
-		component: <InputField value="नरेंद्र मोदी" size="small" />
+		component: <InputField value="नरेंद्र मोदी" size="large" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value=" ฟิ้  ไั  ஒ  து" size="small" />
+		component: <InputField value=" ฟิ้  ไั  ஒ  து" size="large" />
 	},
 	{
 		locale: 'ar-SA',
-		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="small" />
+		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />
 	},
 
 	// Testing default size 'large'
@@ -164,7 +175,7 @@ const InputFieldTests = [
 	// Change 'size' dynamically to 'small' - [GT-28357]
 	{
 		locale: 'ar-SA',
-		component: <InputField value="small InputField" size="small" />
+		component: <InputField value="small InputField" size="large" />
 	},
 
 	// Disabled Characters Displays in the Disabled InputField - [GT-28355]
@@ -176,7 +187,11 @@ const InputFieldTests = [
 	{
 		locale: 'ar-SA',
 		component: <InputField value="I am a disabled value" disabled />
+	},
+	// Selection color
+	{
+		locale: 'ar-SA',
+		component: <SelectionInput value="Selection value" />
 	}
-
 ];
 export default InputFieldTests;

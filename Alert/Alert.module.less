@@ -10,11 +10,25 @@
 			margin-bottom: @sand-alert-fullscreen-image-spacing;
 		}
 
-		&.noImage,
+		.title,
+		.content {
+			max-width: @sand-alert-fullscreen-max-width;
+		}
+
+		.content {
+			margin: 0;
+			overflow: hidden;
+			max-height: 60%; // Set a reasonable cutoff for a maximum bound
+		}
+
 		&.maxButtons {
 			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;
 			}
+		}
+
+		.title {
+			.sand-font-size(@sand-alert-title-font-size, @sand-non-latin-alert-title-font-size);
 		}
 
 		.buttonContainer {
@@ -28,10 +42,6 @@
 	}
 
 	&.overlay {
-		.alertImage {
-			align-self: baseline;
-		}
-
 		.buttonContainer {
 			box-sizing: border-box;
 			margin: 0;

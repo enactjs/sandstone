@@ -19,8 +19,10 @@ import Heading from './components/Heading';
 import Icon from './components/Icon';
 import Image from './components/Image';
 import ImageItem from './components/ImageItem';
+import Input from './components/Input';
 import InputField from './components/InputField';
 import Item from './components/Item';
+import KeyGuide from './components/KeyGuide';
 import Marquee from './components/Marquee';
 import MediaOverlay from './components/MediaOverlay';
 import Panel from './components/Panel';
@@ -39,6 +41,7 @@ import Switch from './components/Switch';
 import SwitchItem from './components/SwitchItem';
 import TabLayout from './components/TabLayout';
 import TimePicker from './components/TimePicker';
+import Tooltip from './components/Tooltip';
 import WizardPanels from './components/WizardPanels';
 
 const components = {
@@ -60,8 +63,10 @@ const components = {
 	Icon,
 	Image,
 	ImageItem,
+	Input,
 	InputField,
 	Item,
+	KeyGuide,
 	Marquee,
 	MediaOverlay,
 	Panel,
@@ -82,6 +87,7 @@ const components = {
 	SwitchItem,
 	TabLayout,
 	TimePicker,
+	Tooltip,
 	// TooltipDecorator,
 	// VideoPlayer,
 	// VirtualList,

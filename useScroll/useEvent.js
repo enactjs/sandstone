@@ -13,10 +13,9 @@ import {useEffect, useRef} from 'react';
 const {animationDuration, epsilon, isPageDown, isPageUp, overscrollTypeOnce, paginationPageMultiplier, scrollWheelPageMultiplierForMaxPixel} = constants;
 let lastPointer = {x: 0, y: 0};
 
-const useEventFocus = (props, instances, context) => {
+const useEventFocus = (props, instances) => {
 	const {scrollMode} = props;
 	const {scrollContainerHandle, scrollContainerRef, scrollContentRef, spottable, themeScrollContentHandle} = instances;
-	const {alertScrollbarTrack} = context;
 
 	// Functions
 
@@ -113,11 +112,7 @@ const useEventFocus = (props, instances, context) => {
 			}
 		}
 
-		if (!Spotlight.getPointerMode()) {
-			alertScrollbarTrack();
-		}
-
-		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging)) {
+		if (!(shouldPreventScrollByFocus || Spotlight.getPointerMode() || scrollContainerHandle.current.isDragging || spottable.current.indexToFocus)) {
 			const
 				item = ev.target,
 				spotItem = Spotlight.getCurrent();
@@ -243,6 +238,10 @@ const useEventKey = (props, instances, context) => {
 
 					if (!props['data-spotlight-container-disabled']) {
 						themeScrollContentHandle.current.setContainerDisabled(true);
+					}
+
+					if (themeScrollContentHandle.current.pauseSpotlight) {
+						themeScrollContentHandle.current.pauseSpotlight(true);
 					}
 
 					spottable.current.pointToFocus = {direction, x, y};

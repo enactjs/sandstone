@@ -12,6 +12,23 @@ Alert.displayName = 'Alert';
 AlertImage.displayName = 'AlertImage';
 const Config = mergeComponentMetadata('Alert', AlertBase, Alert);
 const ImageConfig = mergeComponentMetadata('AlertImage', AlertImage);
+const prop = {
+	buttons: {
+		'no buttons': null,
+		'1 button': <buttons>
+			<Button>Button Label</Button>
+		</buttons>,
+		'2 buttons': <buttons>
+			<Button>Button Label</Button>
+			<Button>Button Label</Button>
+		</buttons>,
+		'3 buttons': <buttons>
+			<Button>Button Label</Button>
+			<Button>Button Label</Button>
+			<Button>Button Label</Button>
+		</buttons>
+	}
+};
 
 storiesOf('Sandstone', module)
 	.add(
@@ -21,13 +38,14 @@ storiesOf('Sandstone', module)
 			const image = boolean('image', ImageConfig);
 			const type = select('type', ['icon', 'thumbnail'], ImageConfig, 'icon');
 			const src = text('src', ImageConfig, 'https://via.placeholder.com/240.png?text=image');
+			const buttonsSelection = select('buttons', ['no buttons', '1 button', '2 buttons', '3 buttons'], Config, '2 buttons');
+			const buttons = prop.buttons[buttonsSelection];
 
 			return (
 				<Alert
 					open={open}
 					onClose={action('onClose')}
 					title={text('title', Config, 'Fullscreen Alert Title')}
-					subtitle={text('subtitle', Config, 'This is a fullscreen Alert subtitle')}
 					type={select('type', ['fullscreen', 'overlay'], Config)}
 				>
 					{image ?
@@ -38,10 +56,7 @@ storiesOf('Sandstone', module)
 							/>
 						</image> : null
 					}
-					<buttons>
-						<Button>Yes</Button>
-						<Button>No</Button>
-					</buttons>
+					{buttons}
 					{text('children', Config, 'Additional text content for Alert')}
 				</Alert>
 			);

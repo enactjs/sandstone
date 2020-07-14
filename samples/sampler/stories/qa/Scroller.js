@@ -25,9 +25,9 @@ for (let i = 0; i < 100; i++) {
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],
 	focusableScrollbarOption: {
-		'true': true,
-		'false': false,
-		'byEnter': 'byEnter'
+		false: false,
+		true: true,
+		'&quot;byEnter&quot;': 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
@@ -73,7 +73,7 @@ class ScrollerWithLongItem extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -129,7 +129,7 @@ class ScrollerWithLargeContainer extends React.Component {
 	render () {
 		return (
 			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -159,7 +159,7 @@ storiesOf('Scroller', module)
 		'List of things',
 		() => (
 			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -181,7 +181,7 @@ storiesOf('Scroller', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, Config, 'horizontal')}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -212,7 +212,7 @@ storiesOf('Scroller', module)
 		() => (
 			<Scroller
 				direction={select('direction', prop.direction, Config)}
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -288,7 +288,7 @@ storiesOf('Scroller', module)
 			<div style={{display: 'flex'}}>
 				<Button>focus to me</Button>
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -321,7 +321,7 @@ storiesOf('Scroller', module)
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					style={{height: ri.scaleToRem(402)}}
+					style={{height: ri.scaleToRem(480)}}
 				>
 					<Item>1</Item>
 					<div style={{height: ri.scaleToRem(size), paddingLeft: ri.scaleToRem(80)}}>{size}px Spacer</div>
@@ -336,7 +336,7 @@ storiesOf('Scroller', module)
 			const size = number('Spacer size', Config, {max: 600, min: 0, range: true}, 402);
 			return (
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -358,7 +358,7 @@ storiesOf('Scroller', module)
 			<div>
 				<Button>hello</Button>
 				<Scroller
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 					key={select('scrollMode', prop.scrollModeOption, Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -383,7 +383,7 @@ storiesOf('Scroller', module)
 		'With One Long Height Item',
 		() => (
 			<Scroller
-				focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
@@ -403,7 +403,7 @@ storiesOf('Scroller', module)
 			return (
 				<Scroller
 					direction="vertical"
-					focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 					key={select('scrollMode', prop.scrollModeOption, Config) + '1'}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}
@@ -413,7 +413,7 @@ storiesOf('Scroller', module)
 				>
 					<Scroller
 						direction="horizontal"
-						focusableScrollbar={select('focusableScrollbar', prop.focusableScrollbarOption, Config)}
+						focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 						horizontalScrollbar="visible"
 						key={select('scrollMode', prop.scrollModeOption, Config) + '2'}
 						noScrollByWheel={noScrollByWheel}

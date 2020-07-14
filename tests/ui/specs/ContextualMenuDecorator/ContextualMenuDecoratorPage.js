@@ -12,7 +12,7 @@ class ButtonInterface {
 	}
 
 	hover () {
-		return $(this.selector).moveTo(0, 0);
+		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
 	get self () { return $(this.selector); }
@@ -36,11 +36,13 @@ class ContextualMenuDecoratorPage extends Page {
 		super();
 		this.title = 'ContextualMenuDecorator Test';
 		const button1 = new ButtonInterface('button1');
+		const button2 = new ButtonInterface('button2');
 		const menu1 = new MenuInterface('menu1');
 		const menu2 = new MenuInterface('menu2');
 
 		this.components = {
 			button1,
+			button2,
 			menu1,
 			menu2
 		};

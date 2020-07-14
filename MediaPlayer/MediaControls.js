@@ -9,6 +9,7 @@ import Slottable from '@enact/ui/Slottable';
 import Spotlight from '@enact/spotlight';
 import {SpotlightContainerDecorator, spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {forward} from '@enact/core/handle';
+import {Job} from '@enact/core/util';
 
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import PropTypes from 'prop-types';
@@ -65,32 +66,12 @@ const MediaControlsBase = kind({
 		actionGuideLabel: PropTypes.string,
 
 		/**
-		 * Reverse-playback [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
-		 *
-		 * @type {String}
-		 * @default 'backward'
-		 * @public
-		 */
-		backwardIcon: PropTypes.string,
-
-		/**
 		 * These components are placed below the action guide. Typically these will be media playlist controls.
 		 *
 		 * @type {Node}
 		 * @public
 		 */
 		bottomComponents: PropTypes.node,
-
-		/**
-		 * Forward [icon]{@link sandstone/Icon.Icon} name. Accepts any
-		 * [icon]{@link sandstone/Icon.Icon} component type.
-		 *
-		 * @type {String}
-		 * @default 'forward'
-		 * @public
-		 */
-		forwardIcon: PropTypes.string,
 
 		/**
 		 * Jump backward [icon]{@link sandstone/Icon.Icon} name. Accepts any
@@ -154,37 +135,12 @@ const MediaControlsBase = kind({
 		noJumpButtons: PropTypes.bool,
 
 		/**
-		 * Removes the "rate" buttons. The buttons that change the playback rate of the video.
-		 * Double speed, half speed, reverse 4x speed, etc.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noRateButtons: PropTypes.bool,
-
-		/**
-		 * Called when the user clicks the Backward button.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onBackwardButtonClick: PropTypes.func,
-
-		/**
 		 * Called when cancel/back key events are fired.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
 		onClose: PropTypes.func,
-
-		/**
-		 * Called when the user clicks the Forward button.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onForwardButtonClick: PropTypes.func,
 
 		/**
 		 * Called when the user clicks the JumpBackward button
@@ -259,14 +215,6 @@ const MediaControlsBase = kind({
 		playPauseButtonDisabled: PropTypes.bool,
 
 		/**
-		 * Disables the media playback-rate control buttons; the inner pair.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		rateButtonsDisabled: PropTypes.bool,
-
-		/**
 		 * When `true`, more components are visible.
 		 *
 		 * @type {Boolean}
@@ -302,8 +250,6 @@ const MediaControlsBase = kind({
 	},
 
 	defaultProps: {
-		backwardIcon: 'backward',
-		forwardIcon: 'forward',
 		jumpBackwardIcon: 'jumpbackward',
 		jumpForwardIcon: 'jumpforward',
 		moreComponentsSpotlightId: 'moreComponents',
@@ -330,9 +276,7 @@ const MediaControlsBase = kind({
 	render: ({
 		actionGuideLabel,
 		actionGuideShowing,
-		backwardIcon,
 		children,
-		forwardIcon,
 		jumpBackwardIcon,
 		jumpButtonsDisabled,
 		moreComponentsClassName,
@@ -341,9 +285,6 @@ const MediaControlsBase = kind({
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
-		noRateButtons,
-		onBackwardButtonClick,
-		onForwardButtonClick,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
 		onKeyDownFromMediaButtons,
@@ -352,7 +293,6 @@ const MediaControlsBase = kind({
 		pauseIcon,
 		playIcon,
 		playPauseButtonDisabled,
-		rateButtonsDisabled,
 		showMoreComponents,
 		moreComponentsRendered,
 		moreButtonsClassName,
@@ -366,11 +306,9 @@ const MediaControlsBase = kind({
 		return (
 			<OuterContainer {...rest} spotlightId={spotlightId}>
 				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
-					{noRateButtons ? null : <MediaButton aria-label={$L('Rewind')} backgroundOpacity="transparent" disabled={mediaDisabled || rateButtonsDisabled} icon={backwardIcon} onClick={onBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
-					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
-					{noRateButtons ? null : <MediaButton aria-label={$L('Fast Forward')} backgroundOpacity="transparent" disabled={mediaDisabled || rateButtonsDisabled} icon={forwardIcon} onClick={onForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
-					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
+					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
+					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
 					<ActionGuide css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
@@ -469,15 +407,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			no5WayJump: PropTypes.bool,
 
 			/**
-			 * Removes the "rate" buttons. The buttons that change the playback rate of the video.
-			 * Double speed, half speed, reverse 4x speed, etc.
-			 *
-			 * @type {Boolean}
-			 * @public
-			 */
-			noRateButtons: PropTypes.bool,
-
-			/**
 			 * Called when media fast forwards.
 			 *
 			 * @type {Function}
@@ -542,12 +471,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			playPauseButtonDisabled: PropTypes.bool,
 
 			/**
-			 * Disables the media playback-rate control buttons; the inner pair.
+			 * Disables the media playback-rate control via rewind and fast forward keys
 			 *
 			 * @type {Boolean}
 			 * @public
 			 */
-			rateButtonsDisabled: PropTypes.bool,
+			rateChangeDisabled: PropTypes.bool,
 
 			/**
 			 * Registers the MediaControls component with an
@@ -612,10 +541,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		componentDidUpdate (prevProps, prevState) {
 			// Need to render `moreComponents` to show it. For performance, render `moreComponents` if it is actually shown.
 			if (!prevState.showMoreComponents && this.state.showMoreComponents && !this.state.moreComponentsRendered) {
-				// eslint-disable-next-line
-				this.setState({
-					moreComponentsRendered: true
-				});
+				this.moreComponentsRenderingJob.startRafAfter();
+			} else if (prevState.showMoreComponents && !this.state.showMoreComponents) {
+				this.moreComponentsRenderingJob.stop();
 			}
 
 			if (!prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
@@ -644,7 +572,14 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			off('blur', this.handleBlur, window);
 			off('wheel', this.handleWheel);
 			this.stopListeningForPulses();
+			this.moreComponentsRenderingJob.stop();
 		}
+
+		moreComponentsRenderingJob = new Job(() => {
+			this.setState({
+				moreComponentsRendered: true
+			});
+		})
 
 		calculateMoreComponentsHeight = () => {
 			if (!this.mediaControlsNode) {
@@ -686,9 +621,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			const {
 				mediaDisabled,
 				no5WayJump,
-				noRateButtons,
-				playPauseButtonDisabled,
-				rateButtonsDisabled
+				rateChangeDisabled,
+				playPauseButtonDisabled
 			} = this.props;
 
 			if (mediaDisabled) return;
@@ -706,7 +640,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.paused.resume();
 			}
 
-			if (!noRateButtons && !rateButtonsDisabled) {
+			if (!rateChangeDisabled) {
 				if (is('rewind', ev.keyCode)) {
 					forward('onRewind', ev, this.props);
 				} else if (is('fastForward', ev.keyCode)) {
@@ -720,8 +654,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.paused.resume();
 		}
 
-		handleWheel = () => {
-			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled) {
+		handleWheel = (ev) => {
+			if (!this.state.showMoreComponents && this.props.visible && !this.props.moreActionDisabled && ev.deltaY > 0) {
 				this.showMoreComponents();
 			}
 		}
@@ -819,6 +753,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			delete props.onPlay;
 			delete props.onRewind;
 			delete props.onToggleMore;
+			delete props.rateChangeDisabled;
 			delete props.setApiProvider;
 
 			return (

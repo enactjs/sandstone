@@ -7,9 +7,9 @@ import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/poin
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {Row, Cell} from '@enact/ui/Layout';
 import {useMeasurable} from '@enact/ui/Measurable';
+import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
-import {unit} from '@enact/ui/resolution';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -18,19 +18,12 @@ import React from 'react';
 import $L from '../internal/$L';
 import Button from '../Button';
 import Heading from '../Heading';
-import {useScrollPosition} from '../useScroll/useScrollPosition';
 import WindowEventable from '../internal/WindowEventable';
 
 import {PanelsStateContext} from '../internal/Panels';
+import {useContextAsDefaults} from '../internal/Panels/util';
 
 import componentCss from './Header.module.less';
-
-// A conditional method that takes in a prop name (string) and returns a method that when executed
-// with props and context as arguments, chooses between the values, preferring the props version if
-// it is defined. `null` counts as defined here so it's possible to easily "erase" the context value.
-const preferPropOverContext = (prop) => (props, context) => {
-	return (typeof props[prop] !== 'undefined' ? props[prop] : context && context[prop]);
-};
 
 const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
 const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
@@ -73,7 +66,6 @@ const handleWindowKeyPress = handle(
 const HeaderBase = kind({
 	name: 'Header',
 
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
@@ -181,19 +173,6 @@ const HeaderBase = kind({
 		 * @private
 		 */
 		entering: PropTypes.bool,
-
-		/**
-		 * Minimizes the Header to only show the header components in order to feature the panel
-		 * content more prominately.
-		 *
-		 * Has no effect on `type="compact"`. When a `Header` is used inside a
-		 * [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` set it will automatically
-		 * collapse unless overridden by this prop.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		featureContent: PropTypes.bool,
 
 		/**
 		 * Sets the "hover" state.
@@ -362,6 +341,14 @@ const HeaderBase = kind({
 		]),
 
 		/**
+		 * Subtitle id of the headder.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		subtitleId: PropTypes.string,
+
+		/**
 		 * Title of the header.
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
@@ -383,13 +370,12 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * The method which receives the reference node to the title element, used to determine
-		 * the `titleMeasurements`.
+		 * Title id of the headder.
 		 *
-		 * @type {Function|Object}
+		 * @type {String}
 		 * @private
 		 */
-		titleRef: EnactPropTypes.ref,
+		titleId: PropTypes.string,
 
 		/**
 		 * Set the type of header to be used.
@@ -401,7 +387,6 @@ const HeaderBase = kind({
 	},
 
 	defaultProps: {
-		backButtonAvailable: false,
 		marqueeOn: 'render',
 		type: 'standard'
 	},
@@ -436,11 +421,8 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		backButtonAriaLabel: preferPropOverContext('backButtonAriaLabel'),
-		backButtonBackgroundOpacity: preferPropOverContext('backButtonBackgroundOpacity'),
-		className: ({backButtonAvailable, featureContent, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
+		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
 			{
-				featureContent,
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
 				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
@@ -448,19 +430,12 @@ const HeaderBase = kind({
 			},
 			type
 		),
-		// This unruly looking pile of props allows these props to override their context equivelents
-		closeButtonAriaLabel: preferPropOverContext('closeButtonAriaLabel'),
-		closeButtonBackgroundOpacity: preferPropOverContext('closeButtonBackgroundOpacity'),
-		noBackButton: preferPropOverContext('noBackButton'),
-		noCloseButton: preferPropOverContext('noCloseButton'),
-		onBack: preferPropOverContext('onBack'),
-		onClose: preferPropOverContext('onClose'),
-		titleCell: ({arranger, centered, css, marqueeOn, subtitle, title, type}) => {
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, subtitleId, title, titleId, type}) => {
 			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
 
 			const titleHeading = (
 				<Heading
-					aria-label={title}
+					id={titleId}
 					size="title"
 					spacing="auto"
 					marqueeOn={marqueeOn}
@@ -474,6 +449,7 @@ const HeaderBase = kind({
 
 			const subtitleHeading = (
 				<Heading
+					id={subtitleId}
 					size="subtitle"
 					spacing="auto"
 					marqueeDisabled={type === 'wizard'}
@@ -528,17 +504,17 @@ const HeaderBase = kind({
 		slotBeforeRef,
 		slotSize,
 		titleCell,
-		titleRef,
 		...rest
 	}) => {
 		delete rest.arranger;
 		delete rest.entering;
-		delete rest.featureContent;
 		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
 		delete rest.subtitle;
+		delete rest.subtitleId;
 		delete rest.title;
+		delete rest.titleId;
 		delete rest.type;
 
 		// Set up the back button
@@ -549,6 +525,7 @@ const HeaderBase = kind({
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
+					iconFlip="auto"
 					onClick={onBack}
 					size="small"
 					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
@@ -576,7 +553,7 @@ const HeaderBase = kind({
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={css.titlesRow} align="center" ref={titleRef}>
+				<Row className={css.titlesRow} align="center">
 					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
@@ -595,10 +572,22 @@ const HeaderBase = kind({
 	}
 });
 
-const CollapsingHeaderDecorator = (Wrapped) => {
-	return function CollapsingHeaderDecorator (props) { // eslint-disable-line no-shadow
-		const {shouldFeatureContent} = useScrollPosition() || {};
-		return <Wrapped featureContent={shouldFeatureContent} {...props} />;
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
+const ContextAsDefaultsHeader = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function ContextAsDefaultsHeader (props) {
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
+		const {index, type: panelsType} = React.useContext(PanelsStateContext);
+
+		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
+
+		return provideContextAsDefaults(
+			<Wrapped
+				{...contextProps}
+				{...props}
+				backButtonAvailable={backButtonAvailable}
+			/>
+		);
 	};
 };
 
@@ -634,7 +623,7 @@ const HeaderMeasurementDecorator = (Wrapped) => {
 
 const HeaderDecorator = compose(
 	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
-	CollapsingHeaderDecorator,
+	ContextAsDefaultsHeader,
 	HeaderMeasurementDecorator,
 	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
 	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})

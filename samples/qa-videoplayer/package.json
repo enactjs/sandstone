@@ -1,6 +1,6 @@
 {
 	"name": "qa-videoplayer",
-	"version": "1.0.0",
+	"version": "0.1.0",
 	"description": "A sample with a VideoPlayer that supports timeline selection.",
 	"author": "",
 	"main": "src/index.js",
@@ -30,11 +30,11 @@
 		"dist/*"
 	],
 	"dependencies": {
-		"@enact/core": "^3.3.0-alpha.8",
-		"@enact/i18n": "^3.3.0-alpha.8",
+		"@enact/core": "^3.3.0",
+		"@enact/i18n": "^3.3.0",
 		"@enact/sandstone": "../../",
-		"@enact/spotlight": "^3.3.0-alpha.8",
-		"@enact/ui": "^3.3.0-alpha.8",
+		"@enact/spotlight": "^3.3.0",
+		"@enact/ui": "^3.3.0",
 		"ilib": "^14.4.0",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.6",

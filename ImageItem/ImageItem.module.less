@@ -97,6 +97,14 @@
 		.label {
 			height: @sand-imageitem-vertical-label-height;
 		}
+
+		.placeholderCaption {
+			height: @sand-imageitem-placeholder-caption-height;
+		}
+
+		.placeholderLabel {
+			height: @sand-imageitem-placeholder-label-height;
+		}
 	}
 
 	&.horizontal {
@@ -123,7 +131,7 @@
 	// Skin colors
 	.applySkins({
 		&::before {
-			.sand-spotlight-resting-colors();
+			.sand-spotlight-resting-bg-colors();
 		}
 
 		.selectionContainer::after {
@@ -155,12 +163,14 @@
 		}
 
 		.focus({
+			.sand-spotlight-focus-text-colors();
+
 			.disabled ({
 				.vendor-opacity(@sand-disabled-opacity);
 			});
 
 			&::before {
-				.sand-spotlight-focus-colors();
+				.sand-spotlight-focus-bg-colors();
 			}
 
 			.selectionIcon {
@@ -170,7 +180,7 @@
 
 			.caption,
 			.label {
-				color: @sand-imageitem-horizontal-focus-caption-color;
+				color: inherit;
 			}
 
 			&.vertical {

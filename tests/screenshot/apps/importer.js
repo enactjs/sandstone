@@ -9,6 +9,8 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
+import FixedPopupPanels from '../../../FixedPopupPanels';
+import FlexiblePopupPanels from '../../../FlexiblePopupPanels';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
@@ -16,6 +18,7 @@ import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
+import KeyGuide from '../../../KeyGuide';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
@@ -34,7 +37,7 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import TooltipDecorator from '../../../TooltipDecorator';
+import TooltipDecorator, {Tooltip} from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
 import WizardPanels from '../../../WizardPanels';
@@ -50,6 +53,8 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
+	FixedPopupPanels,
+	FlexiblePopupPanels,
 	FormCheckboxItem,
 	Header,
 	Heading,
@@ -59,6 +64,7 @@ const components = {
 	Input,
 	InputField,
 	Item,
+	KeyGuide,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
@@ -78,6 +84,7 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
+	Tooltip,
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,

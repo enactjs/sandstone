@@ -32,8 +32,6 @@ const toTime = (date) => {
  *
  * @class DateTimeDecorator
  * @memberof sandstone/internal/DateTimeDecorator
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
  * @hoc
  * @private

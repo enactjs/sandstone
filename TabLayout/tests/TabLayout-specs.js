@@ -12,10 +12,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -33,10 +33,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -56,10 +56,10 @@ describe('TabLayout specs', () => {
 				<Tab title="Home" icon="home">
 					<div>Home</div>
 				</Tab>
-				<Tab title="Button" icon="image">
+				<Tab title="Button" icon="demosync">
 					<div>Button</div>
 				</Tab>
-				<Tab title="Item" icon="resumeplay">
+				<Tab title="Item" icon="playcircle">
 					<div>Item</div>
 				</Tab>
 			</TabLayoutBase>
@@ -82,7 +82,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		expect(spy).toHaveBeenCalledTimes(1);
 	});
@@ -98,7 +98,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		const expected = {
 			type: 'onTabAnimationEnd',
@@ -109,7 +109,7 @@ describe('TabLayout specs', () => {
 		expect(actual).toEqual(expected);
 	});
 
-	it('should call not onTabAnimationEnd for horizontal tabs', () => {
+	it('should not call onTabAnimationEnd for horizontal tabs', () => {
 		const spy = jest.fn();
 		const subject = mount(
 			<TabLayout orientation="horizontal" onTabAnimationEnd={spy}>
@@ -120,7 +120,7 @@ describe('TabLayout specs', () => {
 		);
 
 		const tabs = subject.find('Cell.tabs').first();
-		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'max-width'});
+		tabs.simulate('transitionend', {target: tabs.getDOMNode(), propertyName: 'opacity'});
 
 		expect(spy).not.toHaveBeenCalled();
 	});

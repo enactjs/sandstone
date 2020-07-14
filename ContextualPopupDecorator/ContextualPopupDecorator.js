@@ -23,6 +23,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {ContextualPopup} from './ContextualPopup';
+import HolePunchScrim from './HolePunchScrim';
 
 import css from './ContextualPopupDecorator.module.less';
 
@@ -119,6 +120,17 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			noAutoDismiss: PropTypes.bool,
 
 			/**
+			 * Offset from the activator to apply to the position of the popup.
+			 *
+			 * Only applies when `noArrow` is `true`.
+			 *
+			 * @type {('none'|'overlap'|'small')}
+			 * @default 'small'
+			 * @public
+			 */
+			offset: PropTypes.oneOf(['none', 'overlap', 'small']),
+
+			/**
 			 * Called when the user has attempted to close the popup.
 			 *
 			 * This may occur either when the close button is clicked or when spotlight focus
@@ -187,6 +199,15 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			rtl: PropTypes.bool,
 
 			/**
+			 * Set the type of scrim to use
+			 *
+			 * @type {('holepunch'|'translucent'|'transparent'|'none')}
+			 * @default 'none'
+			 * @private
+			 */
+			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
+
+			/**
 			 * Registers the ContextualPopupDecorator component with an [ApiDecorator]
 			 * {@link core/internal/ApiDecorator.ApiDecorator}.
 			 *
@@ -217,7 +238,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			 *   components beyond the popup, or
 			 * * `'self-only'` - Spotlight can only be set within the popup
 			 *
-			 * @type {String}
+			 * @type {('none'|'self-first'|'self-only')}
 			 * @default 'self-first'
 			 * @public
 			 */
@@ -228,7 +249,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			'data-webos-voice-exclusive': true,
 			direction: 'below center',
 			noAutoDismiss: false,
+			offset: 'small',
 			open: false,
+			scrimType: 'none',
 			spotlightRestrict: 'self-first'
 		}
 
@@ -244,9 +267,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
 
-			this.ARROW_WIDTH = ri.scale(60); // svg arrow width. used for arrow positioning
+			this.MARGIN = ri.scale(noArrow ? 0 : 12);
+			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
 			this.ARROW_OFFSET = noArrow ? 0 : ri.scale(36); // actual distance of the svg arrow displayed to offset overlaps with the container. Offset is when `noArrow` is false.
-			this.MARGIN = noArrow ? ri.scale(6) : ri.scale(18); // margin from an activator to the contextual popup.
 			this.KEEPOUT = ri.scale(24); // keep out distance on the edge of the screen
 
 			if (props.setApiProvider) {
@@ -262,24 +285,27 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		getSnapshotBeforeUpdate (prevProps, prevState) {
+			const snapshot = {
+				containerWidth: this.getContainerNodeWidth()
+			};
+
 			if (prevProps.open && !this.props.open) {
 				const current = Spotlight.getCurrent();
-				return {
-					shouldSpotActivator: (
-						// isn't set
-						!current ||
-						// is on the activator and we want to re-spot it so a11y read out can occur
-						current === prevState.activator ||
-						// is within the popup
-						this.containerNode.contains(current)
-					)
-				};
+				snapshot.shouldSpotActivator = (
+					// isn't set
+					!current ||
+					// is on the activator and we want to re-spot it so a11y read out can occur
+					current === prevState.activator ||
+					// is within the popup
+					this.containerNode.contains(current)
+				);
 			}
-			return null;
+
+			return snapshot;
 		}
 
 		componentDidUpdate (prevProps, prevState, snapshot) {
-			if (prevProps.direction !== this.props.direction) {
+			if (prevProps.direction !== this.props.direction || snapshot.containerWidth !== this.getContainerNodeWidth()) {
 				this.adjustedDirection = this.props.direction;
 				// NOTE: `setState` is called and will cause re-render
 				this.positionContextualPopup();
@@ -303,6 +329,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+		}
+
+		getContainerNodeWidth () {
+			return this.containerNode && this.containerNode.getBoundingClientRect().width || 0;
 		}
 
 		updateLeaveFor (activator) {
@@ -525,11 +555,21 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				this.calcOverflow(containerNode, clientNode);
 				this.adjustDirection();
 
-				this.setState({
-					direction: this.adjustedDirection,
-					arrowPosition: this.getArrowPosition(containerNode, clientNode),
-					containerPosition: this.getContainerPosition(containerNode, clientNode)
-				});
+				const arrowPosition = this.getArrowPosition(containerNode, clientNode),
+					containerPosition = this.getContainerPosition(containerNode, clientNode);
+
+				if ((this.state.direction !== this.adjustedDirection) ||
+					(this.state.arrowPosition.left !== arrowPosition.left) ||
+					(this.state.arrowPosition.top !== arrowPosition.top) ||
+					(this.state.containerPosition.left !== containerPosition.left) ||
+					(this.state.containerPosition.top !== containerPosition.top)
+				) {
+					this.setState({
+						direction: this.adjustedDirection,
+						arrowPosition,
+						containerPosition
+					});
+				}
 			}
 		}
 
@@ -640,13 +680,27 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		render () {
-			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, popupProps, skin, spotlightRestrict, ...rest} = this.props;
-			const scrimType = spotlightRestrict === 'self-only' ? 'transparent' : 'none';
+			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			let scrimType = rest.scrimType;
+			delete rest.scrimType;
+
+			// 'holepunch' scrimType is specific to this component, not supported by floating layer
+			// so it must be swapped-out for one that FloatingLayer does support.
+			const holepunchScrim = (scrimType === 'holepunch');
+			if ((spotlightRestrict === 'self-only' && scrimType === 'none') || holepunchScrim) {
+				scrimType = 'transparent';
+			}
+
 			const popupPropsRef = Object.assign({}, popupProps);
 			const ariaProps = extractAriaProps(popupPropsRef);
 
 			if (!noSkin) {
 				rest.skin = skin;
+			}
+
+			let holeBounds;
+			if (this.clientNode && holepunchScrim) {
+				holeBounds = this.clientNode.getBoundingClientRect();
 			}
 
 			delete rest.onOpen;
@@ -666,22 +720,26 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 						open={open}
 						scrimType={scrimType}
 					>
-						<ContextualPopupContainer
-							{...ariaProps}
-							className={popupClassName}
-							onKeyDown={this.handleContainerKeyDown}
-							direction={this.state.direction}
-							arrowPosition={this.state.arrowPosition}
-							containerPosition={this.state.containerPosition}
-							containerRef={this.getContainerNode}
-							data-webos-voice-exclusive={voiceExclusive}
-							showArrow={!noArrow}
-							skin={skin}
-							spotlightId={this.state.containerId}
-							spotlightRestrict={spotlightRestrict}
-						>
-							<PopupComponent {...popupPropsRef} />
-						</ContextualPopupContainer>
+						<React.Fragment>
+							{holepunchScrim ? <HolePunchScrim holeBounds={holeBounds} /> : null}
+							<ContextualPopupContainer
+								{...ariaProps}
+								className={popupClassName}
+								onKeyDown={this.handleContainerKeyDown}
+								direction={this.state.direction}
+								arrowPosition={this.state.arrowPosition}
+								containerPosition={this.state.containerPosition}
+								containerRef={this.getContainerNode}
+								data-webos-voice-exclusive={voiceExclusive}
+								offset={noArrow ? offset : 'none'}
+								showArrow={!noArrow}
+								skin={skin}
+								spotlightId={this.state.containerId}
+								spotlightRestrict={spotlightRestrict}
+							>
+								<PopupComponent {...popupPropsRef} />
+							</ContextualPopupContainer>
+						</React.Fragment>
 					</FloatingLayer>
 					<Wrapped ref={this.getClientNode} {...rest} />
 				</div>

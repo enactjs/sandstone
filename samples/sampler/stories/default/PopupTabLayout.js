@@ -53,7 +53,7 @@ storiesOf('Sandstone', module)
 			const handleSoundPrev = navPrev(setIndexSound, indexSound, 'onBack');
 
 			return (<div>
-				<Button onClick={toggleOpen}>Open PopupTabLayout</Button>
+				<Button focusEffect="static" onClick={toggleOpen}>Open PopupTabLayout</Button>
 
 				<PopupTabLayout
 					open={open}
@@ -66,7 +66,7 @@ storiesOf('Sandstone', module)
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
-					<Tab icon={includeIcons ? 'brightness' : null} title="Display">
+					<Tab icon={includeIcons ? 'picture' : null} title="Display">
 						<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Display Settings" type="compact" />
@@ -88,7 +88,7 @@ storiesOf('Sandstone', module)
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab icon={includeIcons ? 'speakers' : null} title="Sound">
+					<Tab icon={includeIcons ? 'speaker' : null} title="Sound">
 						<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Sound Settings" type="compact" />

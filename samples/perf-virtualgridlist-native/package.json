@@ -1,0 +1,37 @@
+{
+  "name": "perf-virtualgridlist-native",
+  "version": "0.1.0",
+  "description": "Perf VirtualGridList Native",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "Perf VirtualGridList Native",
+    "theme": "sandstone"
+  },
+  "eslintConfig": {
+    "extends": "enact/strict"
+  },
+  "dependencies": {
+    "@enact/core": "^3.3.0",
+    "@enact/i18n": "^3.3.0",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^3.3.0",
+    "@enact/ui": "^3.3.0",
+    "ilib": "^14.4.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

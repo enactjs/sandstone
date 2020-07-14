@@ -1,6 +1,6 @@
 {
-  "name": "A11yTest",
-  "version": "1.0.2",
+  "name": "qa-a11y",
+  "version": "0.1.0",
   "description": "Enact A11y Test application.",
   "author": "",
   "main": "src/index.js",
@@ -25,12 +25,12 @@
     "extends": "enact/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.3.0-alpha.8",
-    "@enact/i18n": "^3.3.0-alpha.8",
+    "@enact/core": "^3.3.0",
+    "@enact/i18n": "^3.3.0",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.3.0-alpha.8",
-    "@enact/ui": "^3.3.0-alpha.8",
-    "@enact/webos": "^3.3.0-alpha.8",
+    "@enact/spotlight": "^3.3.0",
+    "@enact/ui": "^3.3.0",
+    "@enact/webos": "^3.3.0",
     "ilib": "^14.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

@@ -6,26 +6,29 @@ import Item from '../../../../Item';
 import PopupTabLayout, {Tab, TabPanel, TabPanels} from '../../../../PopupTabLayout';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
+import UrlPropsDecorator from '../../components/UrlPropsDecorator';
+
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
 spotlight.setPointerMode(false);
 
-const app = (props) => <div {...props}>
+const app = (props) => (
 	<PopupTabLayout
+		{...props}
 		id="tabLayout"
 		open
 	>
-		<Tab icon="brightness" title="Display">
+		<Tab icon="picture" title="Display">
 			<TabPanels id="display">
-				<TabPanel>
+				<TabPanel autoFocus="#colorAdjust">
 					<Header title="Display Settings" type="compact" />
 					<Item>Picture Modes</Item>
-					<Item>Color Adjust</Item>
+					<Item id="colorAdjust">Color Adjust</Item>
 				</TabPanel>
 			</TabPanels>
 		</Tab>
-		<Tab icon="speakers" title="Sound">
-			<TabPanels id="sound">
+		<Tab title="Sound">
+			<TabPanels id="sound" noCloseButton>
 				<TabPanel>
 					<Header title="Sound Settings" type="compact" />
 					<Item>Advanced Audio</Item>
@@ -33,6 +36,6 @@ const app = (props) => <div {...props}>
 			</TabPanels>
 		</Tab>
 	</PopupTabLayout>
-</div>;
+);
 
-export default ThemeDecorator(app);
+export default UrlPropsDecorator(ThemeDecorator(app));

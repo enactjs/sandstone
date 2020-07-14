@@ -1,9 +1,31 @@
 // TabLayout.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .tabLayout {
 	height: 100%;
+
+	&.collapsed {
+		/* We need a placeholder for spotlight default focus rules */
+	}
+
+	&.anchorEnd,
+	&.anchorRight {
+		flex-direction: row-reverse;
+	}
+
+	&.anchorRight {
+		.enact-locale-rtl({
+			flex-direction: row;
+		})
+	}
+
+	&.anchorLeft {
+		.enact-locale-rtl({
+			flex-direction: row-reverse;
+		})
+	}
 
 	&.horizontal {
 		.tabs {
@@ -16,17 +38,99 @@
 	}
 
 	&.vertical {
+		.tabs {
+			// === Important Note ===
+			//
+			// onTabAnimationEnd unit test relies on the opacity property transition to operate
+			// correctly. If this transition changes to a different property you'll see unit test
+			// failures. To fix them, update the unit tests to match the transitioning property.
+			transition: opacity @sand-tablayout-collapse-duration ease-out;
+			will-change: opacity;
+			opacity: 1;
+		}
+
+		.tabsExpanded {
+			position: absolute;
+			width: var(--cell-size); // References the cell-size, since flex-basis doesn't force-assign a width, and cell-size normally just applies to max-width
+			transition: opacity @sand-tablayout-collapse-duration ease-out, transform @sand-tablayout-collapse-duration ease-in-out;
+			will-change: opacity, transform;
+			transform: translateX(0); // set an initial value to ensure a smooth transition
+		}
+
 		.content {
 			margin-top: @sand-tablayout-vertical-content-margin-top;
+			transition: transform @sand-tablayout-collapse-duration ease-in-out;
+			will-change: transform;
+			transform: translateX(0); // set an initial value to ensure a smooth transition
 		}
-	}
 
-	.tabs {
-		// === Important Note ===
-		//
-		// onTabAnimationEnd relies on the max-width property transition to operate correctly. If
-		// this transition changes in any way, verify that event is emitted only once when the
-		// transition completes.
-		transition: flex-basis @sand-tablayout-collapse-duration, max-width @sand-tablayout-collapse-duration;
+		@transform-shift-left: translateX(calc(var(--tablayout-expand-collapse-diff) * -1));
+		@transform-shift-right: translateX(var(--tablayout-expand-collapse-diff));
+
+		&:not(.collapsed) {
+			.tabs {
+				opacity: 0;
+			}
+
+			.tabsExpanded {
+				opacity: 1;
+			}
+
+			.content {
+				transform: @transform-shift-right;
+			}
+
+			&.anchorEnd,
+			&.anchorRight {
+				.content {
+					transform: @transform-shift-left;
+				}
+			}
+
+			.enact-locale-rtl({
+				&.anchorEnd {
+					.content {
+						transform: @transform-shift-right;
+					}
+				}
+
+				&.anchorStart,
+				&.anchorRight {
+					.content {
+						transform: @transform-shift-left;
+					}
+				}
+			});
+		}
+
+		&.collapsed {
+			.tabsExpanded {
+				opacity: 0;
+				transform: @transform-shift-left;
+				pointer-events: none;
+			}
+
+			&.anchorEnd,
+			&.anchorRight {
+				.tabsExpanded {
+					transform: @transform-shift-right;
+				}
+			}
+
+			.enact-locale-rtl({
+				&.anchorEnd {
+					.tabsExpanded {
+						transform: @transform-shift-left;
+					}
+				}
+
+				&.anchorStart,
+				&.anchorRight {
+					.tabsExpanded {
+						transform: @transform-shift-right;
+					}
+				}
+			});
+		}
 	}
 }

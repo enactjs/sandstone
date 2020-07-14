@@ -14,12 +14,12 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import {useContext, useEffect, useRef} from 'react';
+import {useContext, useRef} from 'react';
 
+import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
@@ -28,7 +28,6 @@ import {
 	useEventTouch, useEventVoice, useEventWheel
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
-import {useScrollPosition} from './useScrollPosition';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -36,7 +35,7 @@ import css from './useScroll.module.less';
 
 const
 	arrowKeyMultiplier = 0.2,
-	affordanceSize = ri.scale(48),
+	affordanceSize = 48,
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
@@ -66,7 +65,6 @@ const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
-	const scrollPositionContext = useScrollPosition();
 
 	// Mutable value
 
@@ -81,14 +79,6 @@ const useThemeScroll = (props, instances) => {
 
 	// Hooks
 
-	// Before restoring spotlight position, alert useScrollPosition
-	useEffect(() => {
-		// On mount, send initial position, empty dependency to prevent re-running
-		if (scrollPositionContext && scrollPositionContext.onScroll) {
-			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
-		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
-
 	useSpotlightRestore(props, instances);
 
 	const {
@@ -99,7 +89,7 @@ const useThemeScroll = (props, instances) => {
 
 	const {handleWheel} = useEventWheel(props, {...instances, spottable: mutableRef});
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertScrollbarTrack});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef});
 
 	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
@@ -116,7 +106,7 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		cbAlertScrollbarTrack: alertScrollbarTrack,
 		onInteractionForScroll
 	};
 
@@ -140,6 +130,10 @@ const useThemeScroll = (props, instances) => {
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
 			themeScrollContentHandle.current.setContainerDisabled(false);
+		}
+
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
 		}
 
 		focusOnItem();
@@ -172,15 +166,8 @@ const useThemeScroll = (props, instances) => {
 
 	function alertScrollbarTrack () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
-
 		scrollContainerHandle.current.showScrollbarTrack(bounds);
 		scrollContainerHandle.current.startHidingScrollbarTrack();
-	}
-
-	function alertScrollbarTrackAfterRendered () {
-		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
-			alertScrollbarTrack();
-		}
 	}
 
 	function focusOnItem () {
@@ -225,10 +212,6 @@ const useThemeScroll = (props, instances) => {
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
-		}
-
-		if (scrollPositionContext && scrollPositionContext.onScroll) {
-			scrollPositionContext.onScroll({id, x, y});
 		}
 	}
 
@@ -313,11 +296,12 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			initialHiddenHeight,
 			fadeOut,
+			horizontalScrollThumbAriaLabel,
 			noAffordance,
 			scrollMode,
 			style,
+			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
 
@@ -346,7 +330,6 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
@@ -452,11 +435,8 @@ const useScroll = (props) => {
 			css.scroll,
 			overscrollCss.scroll,
 			focusableScrollbar ? css.focusableScrollbar : null,
-			(
-				props.direction === 'both' &&
-				props.verticalScrollbar !== 'hidden' &&
-				props.horizontalScrollbar !== 'hidden'
-			) ? css.bidirectional : null
+			focusableScrollbar && isVerticalScrollbarVisible ? css.verticalPadding : null,
+			isVerticalScrollbarVisible && isHorizontalScrollbarVisible ? css.bidirectional : null
 		],
 		style,
 		'data-spotlight-container': spotlightContainer,
@@ -483,14 +463,15 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
-		initialHiddenHeight,
 		scrollbarHandle: verticalScrollbarHandle
 	});
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle

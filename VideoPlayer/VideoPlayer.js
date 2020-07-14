@@ -287,10 +287,8 @@ const VideoPlayerBase = class extends React.Component {
 		 * * `jumpDelay` -  - Time (in ms) to wait between jumps
 		 * * `mediaDisabled` - `true` when the media controls are not interactive
 		 * * `no5WayJump` - `true` when 5-way jumping is disabled
-		 * * `onBackwardButtonClick` - Called when the rewind button is pressed
 		 * * `onClose` - Called when cancel key is pressed when the media controls are visible
 		 * * `onFastForward` - Called when the media is fast forwarded via a key event
-		 * * `onForwardButtonClick` - Called when the fast forward button is pressed
 		 * * `onJump` - Called when the media jumps either forward or backward
 		 * * `onJumpBackwardButtonClick` - Called when the jump backward button is pressed
 		 * * `onJumpForwardButtonClick` - Called when the jump forward button is pressed
@@ -620,7 +618,7 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Title for the video being played.
 		 *
-		 * @type {Node}
+		 * @type {String|Node}
 		 * @public
 		 */
 		title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -1210,14 +1208,16 @@ const VideoPlayerBase = class extends React.Component {
 		}
 	}
 
-	handleControlsHandleAboveDown = (ev) => {
+	handleControlsHandleAboveDown = () => {
 		if (this.jumpButtonPressed === 0) {
 			this.showControls();
 		} else if (this.jumpButtonPressed === -1 || this.jumpButtonPressed === 1) {
+			const keyCode = this.jumpButtonPressed === -1 ? jumpBackKeyCode : jumpForwardKeyCode;
+
 			if (shouldJump(this.props, this.state)) {
-				this.handleJump(ev);
+				this.handleJump({keyCode});
 			} else {
-				Spotlight.focus(getDirection(ev.keyCode));
+				Spotlight.move(getDirection(keyCode));
 			}
 		}
 	}
@@ -2008,10 +2008,8 @@ const VideoPlayerBase = class extends React.Component {
 								jumpDelay={jumpDelay}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
 								no5WayJump={no5WayJump}
-								onBackwardButtonClick={this.handleRewind}
 								onClose={this.handleMediaControlsClose}
 								onFastForward={this.handleFastForward}
-								onForwardButtonClick={this.handleFastForward}
 								onJump={this.handleJump}
 								onJumpBackwardButtonClick={this.onJumpBackward}
 								onJumpForwardButtonClick={this.onJumpForward}
@@ -2060,7 +2058,7 @@ const VideoPlayerBase = class extends React.Component {
  *		<infoComponents>A video about my cat Boots, wearing boots.</infoComponents>
  *		<MediaControls>
  *			<leftComponents><Button backgroundOpacity="translucent" icon="star" /></leftComponents>
- *			<rightComponents><Button backgroundOpacity="translucent" icon="flag" /></rightComponents>
+ *			<rightComponents><Button backgroundOpacity="translucent" icon="notification" /></rightComponents>
  *
  *			<Button backgroundOpacity="translucent">Add To Favorites</Button>
  *			<Button backgroundOpacity="translucent" icon="search" />

@@ -7,6 +7,7 @@ import ri from '@enact/ui/resolution';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
 import {storiesOf} from '@storybook/react';
 
+import BodyText from '@enact/sandstone/BodyText';
 import Scroller from '@enact/sandstone/Scroller';
 
 import css from './Scroller.module.less';
@@ -14,9 +15,9 @@ import css from './Scroller.module.less';
 const prop = {
 	direction: ['both', 'horizontal', 'vertical'],
 	focusableScrollbarOption: {
-		'true': true,
-		'false': false,
-		'byEnter': 'byEnter'
+		false: false,
+		true: true,
+		'&quot;byEnter&quot;': 'byEnter'
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
@@ -30,7 +31,7 @@ storiesOf('Sandstone', module)
 		() => {
 			const
 				direction = select('direction', prop.direction, ScrollerConfig),
-				focusableScrollbar = select('focusableScrollbar', prop.focusableScrollbarOption, ScrollerConfig),
+				focusableScrollbar = prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], ScrollerConfig)],
 				horizontalScrollbar = select('horizontalScrollbar', prop.scrollbarOption, ScrollerConfig),
 				verticalScrollbar = select('verticalScrollbar', prop.scrollbarOption, ScrollerConfig);
 			return (
@@ -60,14 +61,18 @@ storiesOf('Sandstone', module)
 							width: ri.scaleToRem(4002)
 						}}
 					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
-						Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						<BodyText>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br />
+							Aenean id blandit nunc. Donec lacinia nisi vitae mi dictum, eget pulvinar nunc tincidunt. Integer vehicula tempus rutrum. Sed efficitur neque in arcu dignissim cursus.
+						</BodyText>
 						<div
 							style={{
 								marginTop: ri.scaleToRem(1602)
 							}}
 						>
-							Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+							<BodyText>
+								Mauris blandit sollicitudin mattis. Fusce commodo arcu vitae risus consectetur sollicitudin. Aliquam eget posuere orci. Cras pellentesque lobortis sapien non lacinia.
+							</BodyText>
 						</div>
 					</div>
 				</Scroller>

@@ -5,6 +5,7 @@
 
 @import "~@enact/spotlight/styles/mixins.less";
 @import "~@enact/ui/styles/mixins.less";
+@import "./internal/utils.less";
 @import "./variables.less";
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
@@ -303,4 +304,11 @@
 	display: -webkit-box;
 	-webkit-line-clamp: @lines;
 	-webkit-box-orient: vertical;
+}
+
+// Assign rules specifically to RTL locales
+.enact-locale-rtl(@rtlrules) when (isruleset(@rtlrules)) {
+	:global(.enact-locale-right-to-left) & {
+		@rtlrules();
+	}
 }

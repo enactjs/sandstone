@@ -1,7 +1,7 @@
 {
 	"name": "qa-virtualgridlistnative-preserve-focus",
-	"version": "1.0.0",
-	"description": "A general template for an Enact Sandstone application.",
+	"version": "0.1.0",
+	"description": "A VirtualGridList Sample For Preserving Focus",
 	"author": "",
 	"main": "src/index.js",
 	"scripts": {
@@ -15,7 +15,7 @@
 		"test": "enact test",
 		"test-watch": "enact test --watch"
 	},
-	"license": "UNLICENSED",
+	"license": "Apache-2.0",
 	"private": true,
 	"repository": "",
 	"enact": {
@@ -30,16 +30,16 @@
 		"dist/*"
 	],
 	"dependencies": {
-		"@enact/core": "^3.3.0-alpha.8",
-		"@enact/i18n": "^3.3.0-alpha.8",
+		"@enact/core": "^3.3.0",
+		"@enact/i18n": "^3.3.0",
 		"@enact/sandstone": "../../",
-		"@enact/spotlight": "^3.3.0-alpha.8",
-		"@enact/ui": "^3.3.0-alpha.8",
+		"@enact/spotlight": "^3.3.0",
+		"@enact/ui": "^3.3.0",
 		"ilib": "^14.4.0",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
-		"react-redux": "^7.1.0",
-		"redux": "^4.0.1"
+		"react-redux": "^7.2.0",
+		"redux": "^4.0.5"
 	}
 }

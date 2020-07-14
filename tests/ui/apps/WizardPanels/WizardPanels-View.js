@@ -5,6 +5,7 @@ import WizardPanels from '../../../../WizardPanels';
 import ThemeDecorator from '../../../../ThemeDecorator/ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
+import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
@@ -13,8 +14,6 @@ spotlight.setPointerMode(false);
 const app = (props) => <div {...props}>
 	<WizardPanels
 		id="wizardpanels"
-		nextButtonText="next"
-		prevButtonText="previous"
 		title="WizardPanels"
 	>
 		<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanels View 1">
@@ -50,6 +49,11 @@ const app = (props) => <div {...props}>
 		<WizardPanels.Panel subtitle="A subtitle for View 4" title="WizardPanels View 4">
 			<div id="view4" />
 			<BodyText>A simple view</BodyText>
+		</WizardPanels.Panel>
+		<WizardPanels.Panel subtitle="A subtitle for View 5" title="WizardPanels View 5 - spottable-default">
+			<div id="view5" />
+			<Button>First</Button>
+			<Button className={spotlightDefaultClass}>Second</Button>
 		</WizardPanels.Panel>
 	</WizardPanels>
 </div>;

@@ -3,63 +3,75 @@
 @import "../styles/skin.less";
 
 .controlsFrame {
-    --actionGuideComponentHeight: 0;
+	--actionGuideComponentHeight: 0;
 
-    position: relative;
-    display: block;
+	position: relative;
+	display: block;
 
-    &.hidden {
-        will-change: opacity;
-        opacity: 0;
-    }
+	&.hidden {
+		will-change: opacity;
+		opacity: 0;
+	}
 
-    .mediaControls {
-        text-align: center;
-        direction: ltr;
-        white-space: nowrap;
+	.mediaControls {
+		text-align: center;
+		direction: ltr;
+		white-space: nowrap;
 
-        > * {
-            margin: 0;
-        }
+		> *:first-child {
+			margin-inline-start: 0;
+		}
+	}
 
-        > * + * {
-            -webkit-margin-start: @sand-mediaplayer-controls-button-margin-start;
-        }
+	.actionGuide {
+		padding-top: @sand-mediaplayer-controls-actionguide-padding-top;
+		transition: opacity @sand-mediaplayer-controls-actionguide-time linear;
+		&.hidden {
+			opacity: 0;
+		}
+	}
 
-        > * {
-            vertical-align: top;
-        }
-    }
+	.moreComponents {
+		position: absolute;
+		left: 0;
+		right: 0;
+		height: 0px;
+		opacity: 0;
 
-    .actionGuide {
-        padding-top: @sand-mediaplayer-controls-actionguide-padding-top;
-        transition: opacity @sand-mediaplayer-controls-actionguide-time linear;
-        &.hidden {
-            opacity: 0;
-        }
-    }
+		.moreButtonsComponents {
+			> * {
+				margin: 0;
+				margin-inline-start: @sand-mediaplayer-controls-morebuttons-margin-start;
 
-    .moreButtonsComponents {
-        > * + * {
-            -webkit-margin-start: @sand-mediaplayer-controls-morebuttons-margin-start;
-        }
-    }
+				&:first-child {
+					margin-inline-start: 0;
+				}
+			}
+		}
 
-    .moreComponents {
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 0px;
-        opacity: 0;
+		&.lift {
+			opacity: 1;
+			transition: transform @sand-mediaplayer-controls-moreComponents-time linear;
+			transform: translateY(~"calc(var(--actionGuideComponentHeight) * -1)");
+		}
 
-        &.lift {
-            opacity: 1;
-            transition: transform @sand-mediaplayer-controls-moreComponents-time linear;
-            transform: translateY(~"calc(var(--actionGuideComponentHeight) * -1)");
-        }
+		> :first-child {
+			margin-top: @sand-mediaplayer-controls-moreComponents-margin-top;
+		}
+	}
 
-        > :first-child {
-            margin-top: @sand-mediaplayer-controls-moreComponents-margin-top;
-        }
-    }
+	.button {
+		height: @sand-mediaplayer-button-height;
+		min-width: @sand-mediaplayer-button-height;
+		margin: 0;
+		margin-inline-start: @sand-mediaplayer-controls-button-margin-start;
+
+		.client {
+			padding: @sand-mediaplayer-button-client-padding;
+		}
+
+		.bg {
+			border-radius: @sand-mediaplayer-button-border-radius;
+		}
+	}
 }

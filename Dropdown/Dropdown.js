@@ -5,7 +5,7 @@
  * <Dropdown
  * 		defaultSelected={2}
  *		inline
- *		title="Dropdown"
+ *		title="Options"
  * >
  *   {['Option 1', 'Option 2', 'Option 3', 'Option 4']}
  * </Dropdown>
@@ -17,11 +17,14 @@
  */
 
 import EnactPropTypes from '@enact/core/internal/prop-types';
-import {handle, forKey, forward, forProp} from '@enact/core/handle';
+import {handle, forward, forProp, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {extractAriaProps} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Changeable from '@enact/ui/Changeable';
 import ForwardRef from '@enact/ui/ForwardRef';
+import IdProvider from '@enact/ui/internal/IdProvider';
 import Pure from '@enact/ui/internal/Pure';
 import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
@@ -29,16 +32,19 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import warning from 'warning';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import {compareChildren} from '../internal/util';
+import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
 import css from './Dropdown.module.less';
 
-const DropdownButton = kind({
-	name: 'DropdownButton',
+const DropdownButtonBase = kind({
+	name: 'DropdownButtonBase',
 
 	propTypes: {
 		forwardRef: EnactPropTypes.ref
@@ -54,12 +60,13 @@ const DropdownButton = kind({
 	)
 });
 
-const ContextualButton = ContextualPopupDecorator(
+const DropdownButton = ContextualPopupDecorator(
 	{noArrow: true},
 	ForwardRef(
-		DropdownButton
+		DropdownButtonBase
 	)
 );
+DropdownButton.displayName = 'DropdownButton';
 
 /**
  * A stateless Dropdown component.
@@ -77,11 +84,19 @@ const DropdownBase = kind({
 
 	propTypes: /** @lends sandstone/Dropdown.DropdownBase.prototype */ {
 		/**
-		 * The selection items to be displayed in the `Dropdown` when `open`.
+		 * The "aria-label" for the Dropdown.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
+		 * Items to be displayed in the `Dropdown` when `open`.
 		 *
 		 * Takes either an array of strings or an array of objects. When strings, the values will be
 		 * used in the generated components as the readable text. When objects, the properties will
-		 * be passed onto an `Item` component and `children` as well as a unique `key` property are
+		 * be passed onto an `Item` component; `children` as well as a unique `key` properties are
 		 * required.
 		 *
 		 * @type {String[]|Array.<{key: (Number|String), children: (String|Component)}>}
@@ -96,7 +111,7 @@ const DropdownBase = kind({
 		]),
 
 		/**
-		 * The placement of the Dropdown.
+		 * Placement of the Dropdown.
 		 *
 		 * @type {('above'|'below')}
 		 * @default 'below'
@@ -105,12 +120,20 @@ const DropdownBase = kind({
 		direction: PropTypes.oneOf(['above', 'below']),
 
 		/**
-		 * Disables Dropdown and becomes non-interactive.
+		 * Disables Dropdown, making it non-interactive.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
 		disabled: PropTypes.bool,
+
+		/**
+		 * The `id` of Dropdown referred to when generating id for `'title'`.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		id: PropTypes.string,
 
 		/**
 		 * Called when the Dropdown is closing.
@@ -150,6 +173,25 @@ const DropdownBase = kind({
 		open: PropTypes.bool,
 
 		/**
+		 * Text displayed in the Dropdown when nothing is selected.
+		 *
+		 * The placeholder will be replaced by the selected item.
+		 *
+		 * @type {String}
+		 * @default 'No selection'
+		 * @public
+		 */
+		placeholder: PropTypes.string,
+
+		/**
+		 * Indicates the locale's text direction is right-to-left.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		 * Index of the selected item.
 		 *
 		 * @type {Number}
@@ -158,17 +200,24 @@ const DropdownBase = kind({
 		selected: PropTypes.number,
 
 		/**
-		 * The primary title text of Dropdown.
-		 * The title will be replaced if an item is selected.
+		 * The size of the Dropdown's [Button]{@link sandstone/Button.Button} component.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
+		 * Primary title text of the Dropdown.
 		 *
 		 * @type {String}
-		 * @required
 		 * @public
 		 */
 		title: PropTypes.string,
 
 		/**
-		 * The width of Dropdown.
+		 * Width of the Dropdown.
 		 *
 		 * @type {('huge'|'large'|'x-large'|'medium'|'small'|'tiny')}
 		 * @default 'medium'
@@ -180,30 +229,19 @@ const DropdownBase = kind({
 	defaultProps: {
 		direction: 'below',
 		open: false,
+		size: 'small',
 		width: 'medium'
 	},
 
 	handlers: {
-		onKeyDown: handle(
-			forward('onKeyDown'),
-			(ev, props) => {
-				const {rtl} = props;
-				const isLeft = forKey('left', ev, props);
-				const isRight = forKey('right', ev, props);
-				const isLeftMovement = !rtl && isLeft || rtl && isRight;
-				const isRightMovement = !rtl && isRight || rtl && isLeft;
-
-				return isLeftMovement && typeof ev.target.dataset.index !== 'undefined' || isRightMovement;
-			},
-			forward('onClose')
-		),
 		onSelect: handle(
 			forward('onSelect'),
 			forward('onClose')
 		),
 		onOpen: handle(
 			forward('onClick'),
-			forProp('open', false),
+			not(forProp('disabled', true)),
+			not(forProp('open', true)),
 			forward('onOpen')
 		)
 	},
@@ -214,15 +252,14 @@ const DropdownBase = kind({
 	},
 
 	computed: {
+		ariaLabelledBy: ({id, title}) => (title ? `${id}_title` : void 0),
 		children: ({children, selected}) => {
 			if (!Array.isArray(children)) return [];
 
 			return children.map((child, i) => {
 				const aria = {
 					role: 'checkbox',
-					'aria-checked': selected === i,
-					'aria-posinset': i + 1,
-					'aria-setsize': children.length
+					'aria-checked': selected === i
 				};
 
 				warning(
@@ -234,7 +271,7 @@ const DropdownBase = kind({
 					return {
 						...aria,
 						children: child,
-						key: `item${i}`
+						key: `item_${child}`
 					};
 				}
 
@@ -246,18 +283,31 @@ const DropdownBase = kind({
 		},
 		className: ({width, styler}) => styler.append(`${width}Width`),
 		direction: ({direction}) => `${direction} center`,
-		title: ({children, selected, title}) => {
+		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
 			}
 
-			return title;
-		}
+			return placeholder;
+		},
+		title: ({id, title}) => (title &&
+			<Heading
+				className={css.title}
+				id={`${id}_title`}
+				size="tiny"
+			>
+				{title}
+			</Heading>
+		)
 	},
 
-	render: ({children, disabled, onKeyDown, onOpen, onSelect, open, selected, width, title, ...rest}) => {
-		const popupProps = {children, onKeyDown, onSelect, selected, width, role: ''};
+	render: ({'aria-label': ariaLabel, ariaLabelledBy, children, direction, disabled, onClose, onOpen, onSelect, open, placeholder, selected, size, title, width, ...rest}) => {
+		delete rest.rtl;
+
+		const ariaProps = extractAriaProps(rest);
+		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
+		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
@@ -265,17 +315,26 @@ const DropdownBase = kind({
 		const openDropdown = hasChildren && !disabled && open;
 
 		return (
-			<ContextualButton
-				{...rest}
-				disabled={hasChildren ? disabled : true}
-				icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
-				popupProps={popupProps}
-				popupComponent={DropdownList}
-				onClick={onOpen}
-				open={openDropdown}
-			>
+			<div {...calcAriaProps} {...rest}>
 				{title}
-			</ContextualButton>
+				<DropdownButton
+					aria-label={ariaLabel}
+					direction={direction}
+					disabled={hasChildren ? disabled : true}
+					focusEffect="static"
+					icon={openDropdown ? 'arrowlargeup' : 'arrowlargedown'}
+					popupProps={popupProps}
+					popupComponent={DropdownList}
+					onClick={onOpen}
+					onClose={onClose}
+					open={openDropdown}
+					size={size}
+					spotlightRestrict="self-only"
+					{...ariaProps}
+				>
+					{placeholder}
+				</DropdownButton>
+			</div>
 		);
 	}
 });
@@ -288,6 +347,7 @@ const DropdownBase = kind({
  * @memberof sandstone/Dropdown
  * @mixes ui/Changeable.Changeable
  * @mixes ui/Toggleable.Toggleable
+ * @mixes spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator
  * @omit selected
  * @omit defaultSelected
  * @omit value
@@ -296,12 +356,19 @@ const DropdownBase = kind({
  * @public
  */
 const DropdownDecorator = compose(
-	Pure({propComparators: {
-		children: compareChildren
-	}}),
-	I18nContextDecorator(
-		{rtlProp: 'rtl'}
-	),
+	Pure({
+		propComparators: {
+			children: compareChildren
+		}
+	}),
+	SpotlightContainerDecorator,
+	I18nContextDecorator({
+		rtlProp: 'rtl'
+	}),
+	IdProvider({
+		generateProp: null,
+		prefix: 'd_'
+	}),
 	Changeable({
 		change: 'onSelect',
 		prop: 'selected'
@@ -311,7 +378,8 @@ const DropdownDecorator = compose(
 		deactivate: 'onClose',
 		prop: 'open',
 		toggle: null
-	})
+	}),
+	Skinnable
 );
 
 /**

@@ -6,16 +6,20 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forEventProp, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import {cap, mapAndFilterChildren} from '@enact/core/util';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
+import {scaleToRem} from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import RefocusDecorator, {getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
@@ -47,6 +51,19 @@ const TabLayoutBase = kind({
 
 	propTypes: /** @lends sandstone/TabLayout.TabLayout.prototype */ {
 		/**
+		 * Sets where this component should attach its tabs and animations.
+		 *
+		 * "left" and "right" represent true screen left and screen right, while "start" represents
+		 * screen left in LTR and screen right in RTL. "end" is the reverse: screen right for LTR
+		 * and screen left for RTL.
+		 *
+		 * @type {('left'|'right'|'start'|'end')}
+		 * @default 'start'
+		 * @private
+		 */
+		anchorTo: PropTypes.oneOf(['left', 'right', 'start', 'end']),
+
+		/**
 		 * Collection of [Tabs]{@link sandstone/TabLayout.Tab} to render.
 		 *
 		 * @type {Node}
@@ -76,6 +93,8 @@ const TabLayoutBase = kind({
 		 */
 		css: PropTypes.object,
 
+		'data-spotlight-id': PropTypes.string,
+
 		/**
 		 * Specify dimensions for the layout areas.
 		 *
@@ -85,8 +104,8 @@ const TabLayoutBase = kind({
 		 * @type {{tabs: {collapsed: Number, normal: Number}, content: {expanded: number, normal: number}}}
 		 * @default {
 		 * 	tabs: {
-		 * 		collapsed: 240,
-		 * 		normal: 855
+		 * 		collapsed: 228,
+		 * 		normal: 882
 		 * 	},
 		 * 	content: {
 		 * 		expanded: null,
@@ -180,10 +199,11 @@ const TabLayoutBase = kind({
 	},
 
 	defaultProps: {
+		anchorTo: 'start',
 		dimensions: {
 			tabs: {
-				collapsed: 240,
-				normal: 855
+				collapsed: 216,
+				normal: 882
 			},
 			content: {
 				expanded: null,
@@ -209,8 +229,6 @@ const TabLayoutBase = kind({
 			forProp('orientation', 'vertical'),
 			// Validate the transition is from the root node
 			(ev) => ev.target.classList.contains(componentCss.tabs),
-			// Only emit the event once (and not also for the flex-basis transition)
-			forEventProp('propertyName', 'max-width'),
 			adaptEvent(
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
@@ -219,19 +237,22 @@ const TabLayoutBase = kind({
 	},
 
 	computed: {
-		children: ({children}) => {
-			return React.Children.map(children, (child) => {
-				return <React.Fragment>{child.props.children}</React.Fragment>;
-			});
-		},
-		className: ({collapsed, orientation, styler}) => styler.append(
+		children: ({children}) => mapAndFilterChildren(children, (child) => (
+			<React.Fragment>{child.props.children}</React.Fragment>
+		)),
+		className: ({collapsed, anchorTo, orientation, styler}) => styler.append(
 			{collapsed: orientation === 'vertical' && collapsed},
+			`anchor${cap(anchorTo)}`,
 			orientation
 		),
+		style: ({dimensions, orientation, style}) => ({
+			...style,
+			'--tablayout-expand-collapse-diff': ((orientation === 'vertical') ? scaleToRem(dimensions.tabs.normal - dimensions.tabs.collapsed) : 0)
+		}),
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
-			const tabs = React.Children.map(children, (child) => {
+			const tabs = mapAndFilterChildren(children, (child) => {
 				const {disabled, icon, title} = child.props;
 				return {disabled, icon, title};
 			});
@@ -239,34 +260,52 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, dimensions, tabSize, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
-		const tabsSize = (collapsed ? dimensions.tabs.collapsed : dimensions.tabs.normal);
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
 
+		// Props that are shared between both of the rendered TabGroup components
+		const tabGroupProps = {
+			onFocus: (collapsed ? onExpand : null),
+			onFocusTab: onSelect,
+			onSelect,
+			orientation,
+			selectedIndex: index,
+			tabs
+		};
+
+		// In vertical orientation, render two sets of tabs, one just icons, one with icons and text.
 		return (
-			<Layout {...rest} orientation={tabOrientation}>
-				<Cell className={css.tabs} size={isVertical ? tabsSize : null} shrink={!isVertical} onTransitionEnd={handleTabsTransitionEnd}>
+			<Layout {...rest} orientation={tabOrientation} data-spotlight-id={spotlightId}>
+				<Cell className={css.tabs} shrink onTransitionEnd={handleTabsTransitionEnd}>
 					<TabGroup
-						collapsed={isVertical ? collapsed : false}
-						tabSize={tabSize}
-						onFocus={onExpand}
-						onFocusTab={onSelect}
-						onSelect={onSelect}
-						orientation={orientation}
-						selectedIndex={index}
-						tabs={tabs}
+						{...tabGroupProps}
+						collapsed={isVertical}
+						spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
+						tabSize={!isVertical ? tabSize : null}
+						spotlightDisabled={!collapsed && isVertical}
 					/>
 				</Cell>
+				{isVertical ? <Cell
+					className={css.tabs + ' ' + css.tabsExpanded}
+					size={dimensions.tabs.normal}
+				>
+					<TabGroup
+						{...tabGroupProps}
+						spotlightId={getTabsSpotlightId(spotlightId, false)}
+						spotlightDisabled={collapsed}
+					/>
+				</Cell> : null}
 				<Cell
 					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFocus={onCollapse}
+					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
@@ -278,7 +317,15 @@ const TabLayoutBase = kind({
 
 const TabLayoutDecorator = compose(
 	Toggleable({prop: 'collapsed', activate: 'onCollapse', deactivate: 'onExpand'}),
-	Changeable({prop: 'index', change: 'onSelect'})
+	Changeable({prop: 'index', change: 'onSelect'}),
+	RefocusDecorator,
+	SpotlightContainerDecorator({
+		// using last-focused so we return to the last focused if it exists but fall through to
+		// default element if no focus has ocurred yet (e.g. on mount)
+		enterTo: 'last-focused',
+		// favor the content when collapsed and the tabs otherwise
+		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
+	})
 );
 
 // Currently not documenting the base output since it's not exported

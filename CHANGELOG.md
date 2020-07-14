@@ -2,28 +2,285 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
-
-### Removed
-
-- `sandstone/WizardPanels` prop `footer`
+## [1.0.0] - 2020-07-13
 
 ### Changed
 
-- `sandstone/WizardPanels` prop `buttons` to be `footer`
+- `sandstone/Icon` supported icon list, adding new icons
+
+### Fixed
+
+- `sandstone/ActionGuide` style to match latest designs
+- `sandstone/Button` to animate when focused and pressed
+- `sandstone/ContextualMenu` style to match latest designs
+- `sandstone/DayPicker` to pass `disabled` to each child instead of applying to its container
+- `sandstone/DropDown` title color
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
+- `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
+- `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
+- `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
+- `sandstone/Input` text selection color
+- `sandstone/Input` to close the popup with the enter key only when the VKB is activated
+- `sandstone/Input` to properly read out number values
+- `sandstone/MediaPlayer.MediaControls` animation when more components are rendered
+- `sandstone/MediaPlayer.MediaSlider` style to match latest designs
+- `sandstone/Panels.Header` spacing between title and subtitle
+- `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
+- `sandstone/PopupTabLayout` padding so it's the same distance all the way around the tab buttons
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
+- `sandstone/Scroller` to not lose focus from scrollbar when re-rendered
+- `sandstone/Slider` to readout `value` when the knob is focused
+- `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+- `sandstone/WizardPanels` style when using `noSteps`
+
+## [1.0.0-rc.4] - 2020-07-09
+
+### Fixed
+
+- `sandstone/TabLayout` layout in RTL locales
+
+## [1.0.0-rc.3] - 2020-07-07
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` to use an opaque background in high-contrast mode
+- `sandstone/MediaControls` margins to correctly align in RTL
+
+## [1.0.0-rc.2] - 2020-07-07
+
+### Removed
+
+- `sandstone` support for `data-spotlight-container-muted`
+
+### Added
+
+- `sandstone/Input` event `onBeforeChange`
+
+### Changed
+
+- `sandstone/PopupTabLayout.TabPanels` prop `noCloseButton` to be `false` by default
+- `sandstone/TooltipDecorator` prop `tooltipWidth` and `sandstone/TooltipDecorator.Tooltip` prop `width` to support either an auto-scaled number of pixels or a string CSS measurement value
+
+### Fixed
+
+- `sandstone/Button` style to match latest designs
+- `sandstone/Button` style when using small, icon-only buttons in non-latin locales
+- `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
+- `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
+- `sandstone/FixedPopupPanels` to use a translucent background
+- `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
+- `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
+- `sandstone/Input` to marquee the invalid tooltip
+- `sandstone/Panels.Panel` to read out the title and subtitle except when used in `sandstone/WizardPanels`
+- `sandstone/Picker` values position in RTL
+- `sandstone/Popup` to respect paused spotlight
+- `sandstone/PopupTabLayout` style to match latest designs
+- `sandstone/Scroller` to stop the propagation of keydown events from a scroller thumb when it scrolls
+- `sandstone/Scroller` vertical padding to prevent overlapping contained components
+- `sandstone/Spinner` style to match latest designs
+- `sandstone/TabLayout` to disable the collapsed list icon button when all tabs are disabled
+- `sandstone/TabLayout` and `sandstone/PopupTabLayout` transition performance
+- `sandstone/TimePicker` spacing between pickers in RTL
+- `sandstone/WizardPanels` to read out properly
+
+## [1.0.0-rc.1] - 2020-06-29
+
+### Removed
+
+- `sandstone` focus animation
+
+### Added
+
+- `sandstone` high-contrast support
+
+### Changed
+
+- `sandstone/Input` prop `size` default value to small
+
+### Fixed
+
+- `sandstone/ActionGuide`, `sandstone/Alert`, `sandstone/Checkbox`, `sandstone/CheckboxItem`, and `sandstone/FormCheckboxItem`, `sandstone/Input`, `sandstone/MediaPlayer`, `sandstone/Picker`, and `sandstone/VideoPlayer` style to match latest designs
+- `sandstone/Dropdown` margins to correctly align with other components
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to allow clicking near, but outside, the Panels to dismiss them
+- `sandstone/FixedPopupPanels` to not read out a title twice
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` shadow effects
+- `sandstone/Input` submit button positioning
+- `sandstone/Item` to prevent unnecessary re-rendering
+- `sandstone/PopupTabLayout` to read out properly
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show a scroll thumb when focus is moving without scrolling
+- `sandstone/Tooltip` arrow rendering to eliminate a vertical gap
+- `sandstone/WizardPanels` direction of buttons and transition in RTL locales
+
+## [1.0.0-beta.8] - 2020-06-22
+
+### Added
+
+- `sandstone` LESS mixin `.sand-spotlight-focus-text-colors` to support focused font style
+- `sandstone/ImageItem` prop `centered` to center the primary caption in vertical orientation
+
+### Changed
+
+- `sandstone` LESS mixins `.sand-spotlight-resting-colors` and `.sand-spotlight-focus-colors` to `.sand-spotlight-resting-bg-colors` and `.sand-spotlight-focus-bg-colors` respectively
+- `sandstone/Button` to include a small top and bottom margin to avoid clipping the expanded focus state
+- `sandstone/Dropdown` to prevent focus on the outer area
+- `sandstone/Icon` supported icon list
+- `sandstone/Input` `disabled` prop to not close an open input
+- `sandstone/MediaControls` to show more components via wheel down
+
+### Fixed
+
+- `sandstone/Dropdown` to support readout placeholder string
+- `sandstone/Button`, `sandstone/DatePicker`, `sandstone/FormCheckboxItem`, `sandstone/ImageItem`, `sandstone/Item`, and `sandstone/MediaOverlay` font style when focused
+- `sandstone/Checkbox` to center the icon
+- `sandstone/ContextualMenuDecorator` to match the latest style guide
+- `sandstone/DatePicker` to read out 'day', 'month', or 'year' when it is focused or its value is changed
+- `sandstone/Dropdown` to match the latest design
+- `sandstone/Dropdown` to not expand the button activator when focused
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to respect `spotlightRestrict`
+- `sandstone/FixedPopupPanels` padding in RTL locales
+- `sandstone/FormCheckboxItem` to not have a focusable inner part
+- `sandstone/Input` to display the submit button when the number input field is used
+- `sandstone/Input` to support accessibility features
+- `sandstone/Item` style to match latest designs
+- `sandstone/KeyGuide` to position on the right in RTL
+- `sandstone/MediaOverlay` style to match latest designs
+- `sandstone/Panels` to properly restore focus after a transition
+- `sandstone/Popup` to correctly emit the `onClose` event when focus leaves the popup
+- `sandstone/PopupTabLayout` to position on the left in RTL
+- `sandstone/ProgressButton` to match the latest design
+- `sandstone/Scroller` and `sandstone/VirtualList` to not show the scrollbar on every re-render
+- `sandstone/Switch` and `sandstone/SwitchItem` accessibility read out
+- `sandstone/TabLayout` to center tab icons when collapsed
+- `sandstone/TimePicker` to read out 'hour' or 'minute' when it is focused or its value is changed
+- `sandstone/TooltipDecorator` to center text when `tooltipMarquee` is used with centered alignment
+
+## [1.0.0-beta.7] - 2020-06-16
+
+### Added
+
+- `sandstone/Dropdown` prop `title` to optionally display a heading above the component
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` prop `fullHeight` to force these components to always stretch to the screen edges
+- `sandstone/Icon` prop `flip` value `"auto"` to automatically flip the icon horizontally for RTL locales
+- `sandstone/TooltipDecorator` prop `tooltipType` to support new transparent label-style tooltips
+- `sandstone/TooltipDecorator` prop `tooltipMarquee` to support marquee
+
+### Changed
+
+- `sandstone/Dropdown` prop `title` to `placeholder` to display a value within the component when no selection has been made
+- `sandstone/Input` to highlight activated number cells
+- `sandstone/Panel` and `sandstone/WizardPanels` support for reference forwarding to obtain a reference to each component's root node
+
+### Fixed
+
+- `sandstone/Alert` to center its content when `type="fullscreen"`
+- `sandstone/Button` flashing when switching `selected` on and off
+- `sandstone/CheckboxItem`, `sandstone/FormCheckboxItem`, `sandstone/RadioItem`, and `sandstone/SwitchItem` slots margins
+- `sandstone/ContextualMenuDecorator` to not be read as an alert when rendered
+- `sandstone/ContextualPopupDecorator` to position itself correctly when `direction` is changed
+- `sandstone/DayPicker` format for locales that do not start the week on Sunday
+- `sandstone/Dropdown` to properly read the focused item
+- `sandstone/FixedPopupPanels` layout in RTL locales
+- `sandstone/FixedPopupPanels` to support accessibility properly
+- `sandstone/FixedPopupPanels` to flex to the content size and invoke scrolling (when using `sandstone/Scroller`) when the content is too big
+- `sandstone/Input` to update `invalidTooltip` to the latest design
+- `sandstone/Panel` and `sandstone/WizardPanels` to not read out the Panel title after closing a dropdown
+- `sandstone/TabLayout` to restore focus to the selected tab when expanding without icons
+- `sandstone/TabLayout` performance when focusing items in the layout
+- `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite its `skinVariants` prop
+- `sandstone/VirtualList` focus when 5way directional keys are quickly and consecutively pressed
+- `sandstone/WizardPanels` to use `sandstone/Skinnable`
+
+## [1.0.0-beta.6] - 2020-06-08
+
+### Removed
+
+- `sandstone/Alert` prop `subtitle`
+
+### Added
+
+- `sandstone/KeyGuide` support for color keys
+- `sandstone/Scroller` props `horizontalScrollThumbAriaLabel` and `verticalScrollThumbAriaLabel` to provide customization of the hint string read when a scroll thumb is focused
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons and removing unused ones
+
+### Fixed
+
+- `sandstone/Alert` to use multi-line content when `"fullscreen"`
+- `sandstone/Checkbox`, `sandstone/CheckboxItem`, `sandstone/Switch`, `sandstone/SwitchItem`, `sandstone/RadioItem` and `sandstone/FormCheckboxItem` to read out as selected value
+- `sandstone/Dropdown` to retain correct focus when `selected` or `children` change
+- `sandstone/Dropdown` to show an item fully when the item gets focus
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to properly respond to back button presses
+- `sandstone/Panels.Header` style to match latest designs
+- `sandstone/Popup` to always remove the scrim when closed
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the scrollbar initially
+- `sandstone/Scroller` and `sandstone/VirtualList` to show the horizontal overscroll effect properly in RTL locales
+- `sandstone/TabLayout` button sizes to match the latest designs
+- `sandstone/WizardPanels` to respect using `spotlight/SpotlightContainerDecorator.spotlightDefaultClass` to determine the default focus
+
+## [1.0.0-beta.5] - 2020-06-01
+
+### Removed
+
+- `sandstone/MediaPlayer.MediaControls` props `backwardIcon`, `forwardIcon`, `noRateButtons`, `onBackwardButtonClick`, `onForwardButtonClick`, `rateButtonsDisabled`
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
+- `sandstone/FlexiblePopupPanels` props `onChange`, `onNextClick`, and `onPrevClick` to notify consumers of navigational events
+- `sandstone/FlexiblePopupPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/MediaPlayer.MediaControls` prop `rateChangeDisabled` to prevent playback rate control via rewind and fast-forward keys
+- `sandstone/PopupTabLayout` panel transition animation
+
+### Changed
+
+- `sandstone/FlexiblePopupPanels` to provide a close button on the first panel and navigational buttons on each panel
+
+### Fixed
+
+- `sandstone/Alert` to support the use of any component in the children area
+- `sandstone/DatePicker` and `sandstone/TimePicker` to handle locale changes
+- `sandstone/DatePicker` and `sandstone/TimePicker` to format locale labels on-demand for v8 snapshot compatibility
+- `sandstone/Dropdown` to center scrolling to selected index
+- `sandstone/Item` to properly accept numbers for `label`
+- `sandstone/PopupTabLayout` tall-content scrolling capability
+- `sandstone/PopupTabLayout` and `sandstone/FixedPopupPanels` bottom padding
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar height
+- `sandstone/Slider` bar style to match latest designs
+- `sandstone/VideoPlayer` to show a scrim behind the media controls
+- `sandstone/VirtualList` to properly set the scroll position after focus changes
+
+## [1.0.0-beta.4] - 2020-05-26
+
+### Removed
+
+- `sandstone/Panels` prop `featureContent`
+- `sandstone/Panels.FixedPopupPanels`, `sandstone/Panels.FlexiblePopupPanels`, `sandstone/Panels.View`, and `sandstone/Panels.WizardPanels` aliases
+- `sandstone/Scroller` and `sandstone/VirtualList` prop `initialHiddenHeight`
+- `sandstone/WizardPanels` prop `buttons`, put buttons inside `footer` instead
+- `sandstone/WizardPanels` props `noPrevButton`,`noNextButton`, `nextButtonAriaLabel`, `nextButtonText`, `prevButtonAriaLabel`, and `prevButtonText`, replacing them with simpler `nextButton` and `prevButton` props
 
 ### Added
 
 - `sandstone/DatePicker` function `dateToLocaleString` to create locale-aware date strings
-- `sandstone/ImageItem` public class names `horizontal` and `vertical`
+- `sandstone/DayPicker` component
+- `sandstone/Icon` feature to support arbitrary icon sizes via the existing `size` prop
+- `sandstone/ImageItem` public class names `fullImage`, `horizontal`, and `vertical`
+- `sandstone/Input` props `invalid` and `invalidMessage` to mirror the API of `InputField`
+- `sandstone/Input` props `maxLength`, `minLength`, and `numberInputField` to support arbitrary number lengths
 - `sandstone/PopupTabLayout` and `sandstone/TabLayout` prop `onTabAnimationEnd` to notify consumers when the animation to collapse or expand the tabs completes
 - `sandstone/TimePicker` function `timeToLocaleString` to create locale-aware time strings
+- `sandstone/WizardPanels` props `prevButtonVisibility` and `nextButtonVisibility` for assigning the default visibility of the navigational buttons
+- `sandstone/WizardPanels.Panel` props `prevButton` and `nextButton` to provide customization of the navigational buttons on each `Panel`
 
 ### Fixed
 
-- `sandstone/Scroller` and `sandstone/VirtualList` to handle a keydown event without an error
 - `sandstone/Panels` to not fire transition events when initially rendered
+- `sandstone/Scroller` and `sandstone/VirtualList` to properly handle keydown events
+- `sandstone/TabLayout` default focus rules
 - `sandstone/Tooltip` style to match latest designs
+- `sandstone/VideoPlayer` to jump back when using the 5-way left key
 - `sandstone/VirtualList` to support navigation with spottable children inside an item
 
 ## [1.0.0-beta.3] - 2020-05-11
@@ -258,7 +515,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller.Scroller` to wheel normally when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Button` styling
 - `sandstone/Heading` styling
-
 
 ## [1.0.0-alpha.2] - 2020-03-03
 

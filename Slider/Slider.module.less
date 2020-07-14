@@ -21,6 +21,11 @@
 		position: relative;
 		height: 100%;
 		width: 100%;
+
+		.bar {
+			border-radius: @sand-progressbar-bar-border-radius;
+			overflow: hidden;
+		}
 	}
 
 	.knob {
@@ -251,19 +256,6 @@
 		}
 	});
 }
-
-.muted({
-	.slider {
-		.applySkins({
-			.focus({
-				.knob::before {
-					background-color: @sand-slider-knob-bg-color;
-				}
-			});
-		});
-	}
-}, parent);
-
 
 .tooltip {
 	// Offset tooltip origin because `.knob` centered tooltip within the progressbar (when tooltip original origin is at the edge of `.progressbar`).

@@ -14,7 +14,12 @@ const
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
 	isUp = is('up'),
-	getNumberValue = (index) => index | 0;
+	getNumberValue = (index) => {
+		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
+		let number = +index;
+		// should return -1 if index is not a number or a negative value
+		return number >= 0 ? number : -1;
+	};
 
 const useEventKey = (props, instances, context) => {
 	// Mutable value

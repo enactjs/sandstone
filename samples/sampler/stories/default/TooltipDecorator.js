@@ -4,28 +4,38 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
+import iconNames from './icons';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
+
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
-const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
+const TooltipButton = TooltipDecorator(
+	{tooltipDestinationProp: 'decoration'},
+	Button
+);
 
 const prop = {
-	tooltipPosition: {
-		'above': 'above',
-		'above center': 'above center',
-		'above left': 'above left',
-		'above right': 'above right',
-		'below': 'below',
-		'below center': 'below center',
-		'below left': 'below left',
-		'below right': 'below right',
-		'left bottom': 'left bottom',
-		'left middle': 'left middle',
-		'left top': 'left top',
-		'right bottom': 'right bottom',
-		'right middle': 'right middle',
-		'right top': 'right top'
-	},
+	icons: ['', ...iconNames],
+	tooltipPosition: [
+		'above',
+		'above center',
+		'above left',
+		'above right',
+		'below',
+		'below center',
+		'below left',
+		'below right',
+		'left bottom',
+		'left middle',
+		'left top',
+		'right bottom',
+		'right middle',
+		'right top'
+	],
+	tooltipType: [
+		'balloon',
+		'transparent'
+	],
 	ariaObject: {
 		'aria-hidden': false,
 		'aria-label': 'Tooltip Label',
@@ -40,13 +50,16 @@ storiesOf('Sandstone', module)
 			<div style={{textAlign: 'center'}}>
 				<TooltipButton
 					tooltipDelay={number('tooltipDelay', Config, 500)}
+					tooltipMarquee={boolean('tooltipMarquee', Config)}
 					tooltipText={text('tooltipText', Config, 'tooltip!')}
-					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
+					tooltipType={select('tooltipType', prop.tooltipType, Config)}
+					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config)}
 					tooltipRelative={boolean('tooltipRelative', Config)}
 					tooltipWidth={number('tooltipWidth', Config)}
 					tooltipProps={object('tooltipProps', Config, prop.ariaObject)}
+					icon={select('icon', prop.icons, Config)}
 				>
-					hello
+					{text('children', Config, 'click me')}
 				</TooltipButton>
 			</div>
 		),

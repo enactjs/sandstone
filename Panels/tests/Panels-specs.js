@@ -1,9 +1,9 @@
 import React from 'react';
 import {mount} from 'enzyme';
 
-import {Header} from '../Header';
-import {Panel as SandstonePanel} from '../Panel';
-import {Panels} from '../Panels';
+import Header from '../Header';
+import Panel from '../Panel';
+import Panels from '../Panels';
 
 describe('Panels Specs', () => {
 
@@ -11,15 +11,15 @@ describe('Panels Specs', () => {
 		'should set {autoFocus} on child to "default-element" on first render',
 		() => {
 			// eslint-disable-next-line enact/prop-types
-			const Panel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
+			const DivPanel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
 			const panels = mount(
 				<Panels index={0}>
-					<Panel id="p1" />
+					<DivPanel />
 				</Panels>
 			);
 
 			const expected = 'default-element';
-			const actual = panels.find('Panel').prop('autoFocus');
+			const actual = panels.find('DivPanel').prop('autoFocus');
 
 			expect(actual).toBe(expected);
 		}
@@ -29,11 +29,11 @@ describe('Panels Specs', () => {
 		'should set {autoFocus} on child to "default-element" when navigating to a higher index',
 		() => {
 			// eslint-disable-next-line enact/prop-types
-			const Panel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
+			const DivPanel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
 			const panels = mount(
 				<Panels index={0}>
-					<Panel id="p1" />
-					<Panel id="p2" />
+					<DivPanel />
+					<DivPanel id="p2" />
 				</Panels>
 			);
 
@@ -42,7 +42,7 @@ describe('Panels Specs', () => {
 			});
 
 			const expected = 'default-element';
-			const actual = panels.find('Panel#p2').prop('autoFocus');
+			const actual = panels.find('DivPanel#p2').prop('autoFocus');
 
 			expect(actual).toBe(expected);
 		}
@@ -52,11 +52,11 @@ describe('Panels Specs', () => {
 		'should not set {autoFocus} on child when navigating to a higher index when it has an autoFocus prop set',
 		() => {
 			// eslint-disable-next-line enact/prop-types
-			const Panel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
+			const DivPanel = ({autoFocus, id}) => <div id={id}>{autoFocus}</div>;
 			const panels = mount(
 				<Panels index={0}>
-					<Panel id="p1" />
-					<Panel id="p2" autoFocus="last-focused" />
+					<DivPanel />
+					<DivPanel id="p2" autoFocus="last-focused" />
 				</Panels>
 			);
 
@@ -65,7 +65,22 @@ describe('Panels Specs', () => {
 			});
 
 			const expected = 'last-focused';
-			const actual = panels.find('Panel#p2').prop('autoFocus');
+			const actual = panels.find('DivPanel#p2').prop('autoFocus');
+
+			expect(actual).toBe(expected);
+		}
+	);
+
+	test(
+		'should return a ref to the root Panel node',
+		() => {
+			const ref = jest.fn();
+			mount(
+				<Panel ref={ref} />
+			);
+
+			const expected = 'ARTICLE';
+			const actual = ref.mock.calls[0][0].nodeName;
 
 			expect(actual).toBe(expected);
 		}
@@ -77,9 +92,9 @@ describe('Panels Specs', () => {
 			() => {
 				const panels = mount(
 					<Panels index={0}>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 
@@ -96,12 +111,12 @@ describe('Panels Specs', () => {
 			() => {
 				const panels = mount(
 					<Panels index={1}>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
-						<SandstonePanel id="p1">
+						</Panel>
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 
@@ -118,12 +133,12 @@ describe('Panels Specs', () => {
 			() => {
 				const panels = mount(
 					<Panels index={1} noBackButton>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
-						<SandstonePanel id="p1">
+						</Panel>
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 
@@ -136,17 +151,86 @@ describe('Panels Specs', () => {
 		);
 
 		test(
+			'should not render back button when \'noBackButton\' is set on `Panel` 2',
+			() => {
+				const panels = mount(
+					<Panels index={1}>
+						<Panel>
+							<Header />
+						</Panel>
+						<Panel noBackButton>
+							<Header />
+						</Panel>
+					</Panels>
+				);
+
+				const backButton = panels.find('Header .slotBefore').find('Button');
+				const expected = 0;
+				const actual = backButton.length;
+
+				expect(actual).toBe(expected);
+			}
+		);
+
+		test(
+			'should render back button on panel 3 when \'noBackButton\' is set on panel 2',
+			() => {
+				const panels = mount(
+					<Panels index={2}>
+						<Panel>
+							<Header />
+						</Panel>
+						<Panel noBackButton>
+							<Header />
+						</Panel>
+						<Panel>
+							<Header />
+						</Panel>
+					</Panels>
+				);
+
+				const backButton = panels.find('Header .slotBefore').find('Button');
+				const expected = 1;
+				const actual = backButton.length;
+
+				expect(actual).toBe(expected);
+			}
+		);
+
+		test(
 			'should set back button "aria-label" to backButtonAriaLabel',
 			() => {
 				const label = 'custom back button label';
 				const panels = mount(
 					<Panels backButtonAriaLabel={label} index={1}>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
-						<SandstonePanel id="p1">
+						</Panel>
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
+					</Panels>
+				);
+
+				const expected = label;
+				const actual = panels.find('Header .slotBefore').find('Button').prop('aria-label');
+
+				expect(actual).toBe(expected);
+			}
+		);
+
+		test(
+			'should set back button "aria-label" to backButtonAriaLabel when defined only on a panel',
+			() => {
+				const label = 'custom back button label';
+				const panels = mount(
+					<Panels index={1}>
+						<Panel>
+							<Header />
+						</Panel>
+						<Panel backButtonAriaLabel={label}>
+							<Header />
+						</Panel>
 					</Panels>
 				);
 
@@ -162,9 +246,9 @@ describe('Panels Specs', () => {
 			() => {
 				const panels = mount(
 					<Panels index={0}>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 
@@ -181,9 +265,9 @@ describe('Panels Specs', () => {
 			() => {
 				const panels = mount(
 					<Panels index={0} noCloseButton>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 
@@ -201,9 +285,9 @@ describe('Panels Specs', () => {
 				const label = 'custom close button label';
 				const panels = mount(
 					<Panels closeButtonAriaLabel={label} index={0}>
-						<SandstonePanel id="p1">
+						<Panel>
 							<Header />
-						</SandstonePanel>
+						</Panel>
 					</Panels>
 				);
 

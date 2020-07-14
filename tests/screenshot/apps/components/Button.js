@@ -80,8 +80,30 @@ const ButtonTests = [
 	<Button icon="arrowlargeright">click me</Button>,
 	<Button icon="info">click me</Button>,
 
+	// iconFlip
+	<Button icon="arrowhookright" iconFlip="horizontal">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="vertical">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="both">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="auto">click me</Button>,
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="horizontal">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="vertical">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="both">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="auto">click me</Button>
+	},
+
 	// [GT-28183]
-	<Button icon="repeatoff">click me</Button>,
+	<Button icon="rotate">click me</Button>,
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************

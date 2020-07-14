@@ -33,15 +33,15 @@ const Container = SpotlightContainerDecorator(
 
 const style = {
 	container: () => ({
-		width: ri.unit(600, 'rem'),
+		width: ri.scaleToRem(600),
 		border: '1px dashed red',
-		margin: '0 ' + ri.unit(24, 'rem'),
-		padding: ri.unit(24, 'rem')
+		margin: '0 ' + ri.scaleToRem(24),
+		padding: ri.scaleToRem(24)
 	}),
 	fittedContainer: () => ({
 		border: '1px dashed blue',
-		margin: '0 ' + ri.unit(24, 'rem'),
-		padding: ri.unit(24, 'rem')
+		margin: '0 ' + ri.scaleToRem(24),
+		padding: ri.scaleToRem(24)
 	})
 };
 
@@ -454,7 +454,7 @@ storiesOf('Spotlight', module)
 					Use the knobs to test the available behaviors for the spottable components
 					below.
 				</Cell>
-				<Cell component={Container} spotlightMuted={boolean('spotlightMuted', Container, false)} spotlightDisabled={boolean('Container spotlightDisabled', Container, false)}>
+				<Cell component={Container} spotlightDisabled={boolean('Container spotlightDisabled', Container, false)}>
 					<Row style={{height: '100%'}}>
 						<Cell>
 							<Column>

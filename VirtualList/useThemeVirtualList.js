@@ -3,6 +3,7 @@ import Accelerator from '@enact/spotlight/Accelerator';
 import Pause from '@enact/spotlight/Pause';
 import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import {Spottable} from '@enact/spotlight/Spottable';
+import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import React, {useCallback, useEffect, useRef} from 'react';
 
@@ -87,6 +88,14 @@ const useSpottable = (props, instances) => {
 		updateStatesAndBounds
 	} = useSpotlightRestore(props, {...instances, spottable: mutableRef}, {focusByIndex, getItemNode});
 
+	function pauseSpotlight (bool) {
+		if (bool) {
+			pause.pause();
+		} else {
+			pause.resume();
+		}
+	}
+
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
 			scrollContainerRef.current.dataset.spotlightContainerDisabled = bool;
@@ -100,7 +109,13 @@ const useSpottable = (props, instances) => {
 	}, [addGlobalKeyDownEventListener, handleGlobalKeyDown, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	function handleGlobalKeyDown () {
+	function handleGlobalKeyDown (ev) {
+		// To prevent scrolling by native scroller
+		if (scrollMode === 'native') {
+			ev.preventDefault();
+			ev.stopPropagation();
+		}
+
 		setContainerDisabled(false);
 	}
 
@@ -115,7 +130,6 @@ const useSpottable = (props, instances) => {
 	}, [pause, setContainerDisabled]);
 
 	// Functions
-
 
 	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
@@ -133,7 +147,7 @@ const useSpottable = (props, instances) => {
 				start = scrollContentHandle.current.getGridPosition(nextIndex).primaryPosition,
 				end = props.itemSizes ? scrollContentHandle.current.getItemBottomPosition(nextIndex) : start + itemSize,
 				startBoundary = (scrollMode === 'native') ? scrollPosition : scrollPositionTarget,
-				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : affordanceSize);
+				endBoundary = startBoundary + clientSize - (noAffordance ? 0 : ri.scale(affordanceSize));
 
 			mutableRef.current.lastFocusedIndex = nextIndex;
 
@@ -146,6 +160,7 @@ const useSpottable = (props, instances) => {
 				focusByIndex(nextIndex, direction);
 			} else {
 				const itemNode = getItemNode(nextIndex);
+				const stickTo = Math.abs(endBoundary - end) < Math.abs(startBoundary - start) ? 'end' : 'start';
 
 				mutableRef.current.isScrolledBy5way = true;
 				mutableRef.current.isWrappedBy5way = isWrapped;
@@ -158,8 +173,8 @@ const useSpottable = (props, instances) => {
 
 				cbScrollTo({
 					index: nextIndex,
-					stickTo: index < nextIndex ? 'end' : 'start',
-					offset: (!noAffordance && index < nextIndex) ? affordanceSize : 0,
+					stickTo,
+					offset: (!noAffordance && stickTo === 'end') ? ri.scale(affordanceSize) : 0,
 					animate: !(isWrapped && wrap === 'noAnimation')
 				});
 			}
@@ -188,6 +203,9 @@ const useSpottable = (props, instances) => {
 				current = Spotlight.getCurrent(),
 				candidate = current ? getTargetByDirectionFromElement(direction, current) : itemNode;
 
+			// Remove any preservedIndex
+			setPreservedIndex(-1);
+
 			if (mutableRef.current.isWrappedBy5way) {
 				SpotlightAccelerator.reset();
 				mutableRef.current.isWrappedBy5way = false;
@@ -210,7 +228,7 @@ const useSpottable = (props, instances) => {
 
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : affordanceSize),
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
 		if (!isNaN(focusedIndex)) {
@@ -275,6 +293,7 @@ const useSpottable = (props, instances) => {
 		getScrollBounds,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
+		pauseSpotlight,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
@@ -297,6 +316,7 @@ const useThemeVirtualList = (props) => {
 		getScrollBounds,
 		handlePlaceholderFocus,
 		handleRestoreLastFocus,
+		pauseSpotlight,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
@@ -311,23 +331,26 @@ const useThemeVirtualList = (props) => {
 		focusByIndex,
 		focusOnNode,
 		getScrollBounds,
+		pauseSpotlight,
 		setContainerDisabled,
 		setLastFocusedNode,
 		shouldPreventOverscrollEffect,
 		shouldPreventScrollByFocus
 	};
-	useEffect(() => {
-		props.setThemeScrollContentHandle(handle);
-	}, [handle, props]);
+
+	props.setThemeScrollContentHandle(handle);
+
+
+	function getAffordance () {
+		// To add space for the last item margin bottom
+		return props.noAffordance ? 0 : ri.scale(30);
+	}
 
 	// Render
 
 	const {itemRenderer, ...rest} = props;
 
-	// not used by VirtualList
-	delete rest.focusableScrollbar;
 	delete rest.noAffordance;
-	// not used by VirtualList
 	delete rest.scrollContainerContainsDangerously;
 	delete rest.scrollContainerHandle;
 	delete rest.scrollContainerRef;
@@ -337,6 +360,7 @@ const useThemeVirtualList = (props) => {
 
 	return {
 		...rest,
+		getAffordance,
 		itemRenderer: ({index, ...itemRest}) => (
 			itemRenderer({
 				...itemRest,

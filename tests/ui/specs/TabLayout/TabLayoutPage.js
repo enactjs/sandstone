@@ -3,7 +3,8 @@ const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getScroller = getComponent({lib: 'ui', component: 'useScroll', child: 'scroll'});
-const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
+const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
+const getCollapsedTabs = getComponent({component: 'TabLayout', child: 'tabs'});
 
 class TabLayoutInterface {
 	constructor (id) {
@@ -12,11 +13,11 @@ class TabLayoutInterface {
 	}
 
 	hoverScroller () {
-		return this.tabsScroller.moveTo(100, 100);
+		return this.tabsScroller.moveTo({xOffset: 100, yOffset: 100});
 	}
 
 	hoverTabs () {
-		return this.tabs.moveTo(100, 100);	// Moving to center could be off tab buttons
+		return this.tabs.moveTo({xOffset: 100, yOffset: 100});	// Moving to center could be off tab buttons
 	}
 
 	view (number) {
@@ -28,7 +29,13 @@ class TabLayoutInterface {
 	get isCollapsed () {return hasClass('collapsed', this.self);}
 	get self () {return browser.$(this.selector);}
 	get tabItems () {return this.tabs.$$('.Button_Button_button');}
-	get tabs () {return getTabs(this.self);}
+	get tabs () {
+		if (this.isCollapsed) {
+			return getCollapsedTabs(this.self);
+		}
+
+		return getTabs(this.self);
+	}
 	get tabsScroller () {return getScroller(this.self);}
 }
 
@@ -43,8 +50,8 @@ class TabLayoutPage extends Page {
 		super.open(`TabLayout${layout}-View`, urlExtra);
 	}
 
-	waitForExist (selector, duration) {
-		$(selector).waitForExist(duration);
+	waitForExist (selector, timeout) {
+		$(selector).waitForExist({timeout});
 	}
 }
 

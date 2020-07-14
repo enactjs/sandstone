@@ -7,32 +7,35 @@ class ProgressBarView extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			progressVal: 0.3
+			progressBarValue: 0
 		};
 	}
 
-	onInc = () => this.setState((state) => ({progressVal: Math.min((state.progressVal + 0.1).toFixed(1), 1)}))
-
-	onDec = () => this.setState((state) => ({progressVal: Math.max((state.progressVal - 0.1).toFixed(1), 0)}))
+	handleDecreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.max((state.progressBarValue - 0.1).toFixed(1), 0)}))
+	handleIncreaseBarValue = () => this.setState((state) => ({progressBarValue: Math.min((state.progressBarValue + 0.1).toFixed(1), 1)}))
 
 	render = () => {
-		const {progressVal} = this.state;
-		let a11yValueText;
+		const {progressBarValue} = this.state;
+		let barAriaLabel;
 
-		if (progressVal === 0.5) {
-			a11yValueText = '50% progressing';
-		} else if (progressVal === 1) {
-			a11yValueText = 'Completed';
+		if (progressBarValue === 0.5) {
+			barAriaLabel = '50% progressing';
+		} else if (progressBarValue === 1) {
+			barAriaLabel = 'Completed';
 		}
 
 		return (
-			<div>
-				<Heading showLine>Default</Heading>
-				<ProgressBar aria-live="assertive" aria-label={a11yValueText} progress={progressVal} />
+			<>
+				<Heading showLine>Progress Bar</Heading>
+				<ProgressBar
+					aria-live="assertive"
+					aria-label={barAriaLabel}
+					progress={progressBarValue}
+				/>
 				<br />
-				<Button icon="plus" size="small" aria-label="Increase" onClick={this.onInc} />
-				<Button icon="minus" size="small" aria-label="Decrease" onClick={this.onDec} />
-			</div>
+				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
+				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
+			</>
 		);
 	}
 }

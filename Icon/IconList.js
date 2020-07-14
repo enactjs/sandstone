@@ -8,24 +8,39 @@ export default {
 	arrowhookright    : 0x021AA,  // RightArrowHook
 	ellipsis          : 0x022EF,  // ellipsis
 	check             : 0x02713,  // checkmark
+	triangleup        : 0x025B2,  // triagup
+	triangleright     : 0x025B6,  // triagright
+	triangledown      : 0x025BC,  // triagdown
+	triangleleft      : 0x025C0,  // triagleft
+	arrowupdown       : 0x021C5,  // arrowupdown
+	arrowup           : 0x02191,  // arrowup
+	arrowupwhite      : 0x021E7,  // arrowupwhite
+	arrowuphollow     : 0x021E7,  // arrowupwhite
+	backspace         : 0x02408,  // backspace
+	space             : 0x02420,  // space
+	trianglerightwhite: 0x025B7,  // triaglerightwhite
+	triangleleftwhite : 0x025C1,  // triagleleftwhite
+	trianglerighthollow: 0x025B7, // triaglerightwhite
+	trianglelefthollow: 0x025C1,  // triagleleftwhite
+	heart             : 0x02665,  // black heart suit
+	heartblack        : 0x02661,  // white heart suit
+	hearthollow       : 0x02661,  // white heart suit
+	record            : 0x0EFFDB, // record
 	circle            : 0x0EFFDB, // record
 	stop              : 0x0EFFDC, // stop
+	square            : 0x0EFFDC, // stop
 	play              : 0x0EFFDD, // play
 	pause             : 0x0EFFDE, // pause
 	forward           : 0x0EFFDF, // forward
 	backward          : 0x0EFFE0, // rewind
-	skipforward       : 0x0EFFE1, // skip_forward
-	skipbackward      : 0x0EFFE2, // skip_backwards
-	pauseforward      : 0x0EFFE3, // indicator_forward
-	pausebackward     : 0x0EFFE4, // indicator_backward
-	pausejumpforward  : 0x0EFFE5, // indicator_skip_forward
-	pausejumpbackward : 0x0EFFE6, // indicator_skip_backward
+	pauseforward      : 0x0EFFE1, // pauseforward
+	pausebackward     : 0x0EFFE2, // pausebackward
+	pausejumpforward  : 0x0EFFE3, // pausejumpforward
+	pausejumpbackward : 0x0EFFE4, // pausejumpbackward
 	jumpforward       : 0x0EFFE7, // indicator_end
 	jumpbackward      : 0x0EFFE8, // indicator_begin
-	denselist         : 0x0EFFE9, // list_big
-	bulletlist        : 0x0EFFEA, // list_bullets
+	skip              : 0x0EFFE9, // skip
 	list              : 0x0EFFEB, // list_simple
-	drawer            : 0x0EFFEC, // list_actions
 	arrowlargedown    : 0x0EFFED, // caret_down_large
 	arrowlargeup      : 0x0EFFEE, // caret_up_large
 	arrowlargeleft    : 0x0EFFEF, // caret_left_large
@@ -36,93 +51,145 @@ export default {
 	arrowsmallright   : 0x0EFFF4, // caret_right_small
 	closex            : 0x0EFFF5, // close_x
 	search            : 0x0EFFF6, // magnify
-	rollforward       : 0x0EFFF7, // redo
-	rollbackward      : 0x0EFFF8, // undo
+	chup              : 0x0EFFF7, // chup
+	chdown            : 0x0EFFF8, // chdown
 	exitfullscreen    : 0x0EFFF9, // minimize
 	fullscreen        : 0x0EFFFA, // maximize
-	arrowshrinkleft   : 0x0EFFFB, // shrink_panel_left
-	arrowshrinkright  : 0x0EFFFC, // shrink_panel_right
-	arrowextend       : 0x0F0021, // arrow_left
-	arrowshrink       : 0x0F0022, // arrow_right
-	flag              : 0x0F0023, // flag
-	funnel            : 0x0F0024, // filter
 	trash             : 0x0F0025, // trash
 	star              : 0x0F0028, // star_full
-	hollowstar        : 0x0F0029, // star_empty
-	halfstar          : 0x0F002A, // star_half
+	starhalf          : 0x0F0029, // star_half
+	starhollow        : 0x0F002A, // star_empty
 	gear              : 0x0F002B, // gear
 	plug              : 0x0F002C, // input
-	lock              : 0x0F002D,  // lock
-	forward15         : 0x0F0041,  // forward15
-	back15            : 0x0F0042,  // back15
-	continousplay     : 0x0F0043,  // continous_play
-	playlist          : 0x0F0044,  // playlist
-	resumeplay        : 0x0F0045,  // resume_play
-	image             : 0x0F0046,  // image
-	audio             : 0x0F0061,  // audio
-	music             : 0x0F0062,  // music
-	languages         : 0x0F0081,  // languages
-	cc                : 0x0F0082,  // cc
-	ccon              : 0x0F0083,  // cc_on
-	ccoff             : 0x0F0084,  // cc_off
-	sub               : 0x0F0085,  // sub
-	recordings        : 0x0F00A1,  // recordings
-	livezoom          : 0x0F00A2,  // live_zoom
-	liveplayback      : 0x0F00A3,  // live_playback
-	liveplaybackoff   : 0x0F00A4,  // live_playback_off
-	repeat            : 0x0F00A5,  // repeat
-	repeatoff         : 0x0F00A6,  // repeat_off
-	series            : 0x0F00A7,  // series
-	repeatdownload    : 0x0F00A8,  // repeat_download
-	view360           : 0x0F00A9,  // view_360
-	view360off        : 0x0F00AA,  // view_360_off
-	info              : 0x0F00AB,  // info
-	repeattrack       : 0x0F00B1,  // repeat_track
-	bluetoothoff      : 0x0F00B4,  // bluetooth_off
-	verticalellipsis  : 0x0F00B5,  // vertical_ellipsis
-	arrowcurveright   : 0x0F00B6,  // arrow_curve_right
-	picture           : 0x0F00BA,  // picture
-	home              : 0x0F00BB,  // home
-	warning           : 0x0F00BC,  // warning
-	scroll            : 0x0F00BD,  // scroll
-	densedrawer       : 0x0F00BE,  // dense_drawer
-	starminus         : 0x0F00BF,  // star_minus
-	liverecord        : 0x0F00C1,  // live_record
-	liveplay          : 0x0F00C2,  // live_play
-	contrast          : 0x0F00C3,  // contrast
-	edit              : 0x0F00C4,  // edit
-	trashlock         : 0x0F00C7,  // trash_lock
-	arrowrightskip    : 0x0F00CA,  // arrow_right_skip
-	volumecycle       : 0x0F00CB,  // volume_cycle
-	movecursor        : 0x0F00CC,  // move_cursor
-	refresh           : 0x0F00CE,  // refresh
-	question          : 0x0F00CF,  // question_mark
-	questionreversed  : 0x0F00D0,  // reversed_question_mark
-	s                 : 0x0F00D1,  // letter S
-	repeatone         : 0x0F00DF,  // repeat_one
-	repeatall         : 0x0F00E0,  // repeat_all
-	repeatnone        : 0x0F00E1,  // repeat_none
-	speakers          : 0x0F00E5,  // speakers
-	koreansubtitles   : 0x0F00E8,  // korean_subtitles
-	chinesesubtitles  : 0x0F00E9,  // chinese_subtitles
-	arrowleftprevious : 0x0F00EC,  // arrow_left_previous
-	searchfilled      : 0x0F00EE,  // search_filled
-	zoomin            : 0x0F00EF,  // zoom_in
-	zoomout           : 0x0F00F0,  // zoom_out
-	playlistadd       : 0x0F00F1,  // playlist_add
-	files             : 0x0F00F2,  // files
-	arrowupdown       : 0x0F00F4,  // arrow_updown
-	brightness        : 0x0F00F9,  // brightness
-	download          : 0x0F00FA,  // download
-	playlistedit      : 0x0F00FD,  // playlist_edit
-	font              : 0x0F00FE,  // font
-	musicon           : 0x0F00FF,  // music_on
-	musicoff          : 0x0F0100,  // music_off
-	liverecordone     : 0x0F0101,  // live_record_one
-	liveflagone       : 0x0F0102,  // live_flag_one
-	shuffle           : 0x0F0103,  // shuffle
-	sleep             : 0x0F0104,  // sleep
-	notification      : 0x0F0105,  // notification.001
-	notificationoff   : 0x0F0106,  // notification
-	checkselection    : 0x0F0107   // notification.002
+	lock              : 0x0F002D, // lock
+	music             : 0x0F0062, // music
+	view360           : 0x0F00A9, // view_360
+	info              : 0x0F00AB, // info
+	verticalellipsis  : 0x0F00B5, // vertical_ellipsis
+	arrowcurveright   : 0x0F00B6, // arrow_curve_right
+	picture           : 0x0F00BA, // picture
+	home              : 0x0F00BB, // home
+	liverecord        : 0x0F00C1, // live_record
+	liveplay          : 0x0F00C2, // live_play
+	trashlock         : 0x0F00C7, // trash_lock
+	movecursor        : 0x0F00CC, // move_cursor
+	repeatone         : 0x0F00DF, // repeat_one
+	repeatall         : 0x0F00E0, // repeat_all
+	repeatnone        : 0x0F00E1, // repeat_none
+	zoomin            : 0x0F00EF, // zoom_in
+	zoomout	          : 0x0F00F0, // zoom_out
+	download          : 0x0F00FA, // download
+	shuffle           : 0x0F0103, // shuffle
+	shuffleon         : 0x0F0104, // shuffleon
+	notification      : 0x0F0105, // notification.001
+	voice             : 0x0F0108, // voice
+	soundmute         : 0x0F0109, // mute
+	stargroup         : 0x0F010A, // star_group
+	checker           : 0x0F010B, // checker
+	transponder       : 0x0F010C, // transponder
+	selected          : 0x0F010D, // selected
+	bgm               : 0x0F010E, // bgm
+	bgmoff            : 0x0F010F, // bgmoff
+	playcircle        : 0x0F0110, // play_circle
+	pausecircle       : 0x0F0111, // pause_circle
+	lockcircle        : 0x0F0112, // lock_circle
+	unlockcircle      : 0x0F0113, // unlock_circle
+	powercircle       : 0x0F0114, // power_circle
+	wifi1             : 0x0F0116, // wifi.01
+	wifi2             : 0x0F0117, // wifi.02
+	wifi3             : 0x0F0118, // wifi.03
+	wifi4             : 0x0F0119, // wifi.04
+	wifilock1         : 0x0F011A, // wifilock.01
+	wifilock2         : 0x0F011B, // wifilock.02
+	wifilock3         : 0x0F011C, // wifilock.03
+	wifilock4         : 0x0F011D, // wifilock.04
+	dashboard1        : 0x0F011E, // dashboard.01
+	dashboard2        : 0x0F011F, // dashboard.02
+	dashboard3        : 0x0F0120, // dashboard.03
+	language          : 0x0F0124, // language
+	rotate            : 0x0F0125, // rotate
+	lyrics            : 0x0F0126, // lyrics
+	screenpower       : 0x0F0127, // screen_power
+	miniplayer        : 0x0F0128, // miniplayer
+	nowplaying        : 0x0F0129, // now_playing
+	playspeed         : 0x0F012A, // playspeed
+	folder            : 0x0F012B, // folder
+	folderupper       : 0x0F012C, // folder_upper
+	support           : 0x0F012D, // support
+	soundout          : 0x0F012E, // sound_out
+	mobile            : 0x0F012F, // mobile
+	keyboard          : 0x0F0130, // keyboard
+	mouse             : 0x0F0131, // mouse
+	controller        : 0x0F0132, // controller
+	btspeaker         : 0x0F0133, // btspeaker
+	headset           : 0x0F0134, // headset
+	dns               : 0x0F0135, // dns
+	speaker           : 0x0F0136, // speaker
+	speakersurround   : 0x0F0137, // speaker_surround
+	speakercenter     : 0x0F0138, // speaker_center
+	speakerbass       : 0x0F0139, // speaker_bassboost
+	router            : 0x0F013A, // router
+	demosync          : 0x0F013B, // sync_demo
+	browser           : 0x0F013C, // browser
+	sound             : 0x0F013D, // sound
+	wisa              : 0x0F013E, // wisa
+	demooptions       : 0x0F013F, // demo_options
+	newfeature        : 0x0F0140, // new_feature
+	youtube           : 0x0F0141, // youtube
+	ostsearch         : 0x0F0142, // ostsearch
+	shopping          : 0x0F0143, // shopping
+	bookmark          : 0x0F0144, // bookmark
+	eject             : 0x0F0145, // eject
+	power             : 0x0F0146, // power
+	timer             : 0x0F0147, // timer
+	network           : 0x0F0148, // network
+	edit              : 0x0F0149, // edit
+	aspectratio       : 0x0F014A, // aspectratio
+	link              : 0x0F014B, // link
+	light             : 0x0F014C, // light
+	pointersize       : 0x0F014D, // pointersize
+	pointerspeed      : 0x0F014E, // pointerspeed
+	soundmode         : 0x0F0150, // soundmode
+	contrast          : 0x0F0151, // contrast
+	picturemode       : 0x0F0152, // picturemode
+	basketball        : 0x0F0153, // basketball
+	soccer            : 0x0F0154, // soccer
+	baseball          : 0x0F0155, // baseball
+	golf              : 0x0F0156, // golf
+	football          : 0x0F0157, // football
+	hockey            : 0x0F0158, // hockey
+	volleyball        : 0x0F0159, // volleyball
+	cricket           : 0x0F015A, // cricket
+	heartadd          : 0x0F015B, // heartadd
+	heartlist         : 0x0F015C, // heartlist
+	refresh           : 0x0F015D, // refresh
+	help              : 0x0F015E, // help
+	share             : 0x0F015F, // share
+	files             : 0x0F0160, // files
+	quickstart        : 0x0F0161, // quickstart
+	scheduler         : 0x0F0162, // scheduler
+	recording         : 0x0F0163, // recording
+	guide             : 0x0F0164, // guide
+	channel           : 0x0F0165, // channel
+	oneminplay        : 0x0F0166, // oneminplay
+	oneminrecord      : 0x0F0167, // oneminrecord
+	fifteenforward    : 0x0F0168, // fifteenforward
+	fifteenbackward   : 0x0F0169, // fifteenbackward
+	liveplayoff       : 0x0F016A, // liveplayoff
+	liveplayon        : 0x0F016B, // liveplayon
+	popupscale        : 0x0F016C, // popupscale
+	arrowrightskip    : 0x0F016D, // arrowrightskip
+	closedcaption     : 0x0F016E, // closedcaption
+	subtitle          : 0x0F016F, // subtitle
+	subtitlekr        : 0x0F0170, // subtitlekr
+	subtitlecn        : 0x0F0171, // subtitlecn
+	samples           : 0x0F0172, // samples
+	googledrive       : 0x0F0173, // googledrive
+	googlephotos      : 0x0F0174, // googlephotos
+	dlna              : 0x0F0175, // dlna
+	replay            : 0x0F0176, // replay
+	usb               : 0x0F0177, // usb
+	ftp               : 0x0F0178, // ftp
+	profile           : 0x0F0179, // profile
+	profilecheck      : 0x0F017A  // profilecheck
 };

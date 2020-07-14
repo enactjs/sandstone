@@ -4,7 +4,7 @@ const {getComponent, hasClass, Page} = require('@enact/ui-test-utils/utils');
 const getContent = getComponent({component: 'TabLayout', child: 'content'});
 const getTabPanels = getComponent({component: 'PopupTabLayout', child: 'panels'});
 const getTabLayout = getComponent({component: 'TabLayout'});
-// const getTabs = getComponent({component: 'TabLayout', child: 'tabs'});
+const getTabs = getComponent({component: 'TabLayout', child: 'tabsExpanded'});
 
 class PopupTabLayoutInterface {
 	constructor (id) {
@@ -26,8 +26,8 @@ class PopupTabLayoutInterface {
 	get tabLayout () { return getTabLayout(this.self);}
 	get isCollapsed () {return hasClass('collapsed', this.tabLayout);}
 	// get tabIcons () {return this.tabs.$$('.Icon_Icon_icon');}
-	// get tabItems () {return this.tabs.$$('.Item_Item_item');}
-	// get tabs () {return getTabs(this.self);}
+	get tabItems () {return this.tabs.$$('.Button_Button_button');}
+	get tabs () {return getTabs(this.self);}
 	// get tabsScroller () {return getScroller(this.self);}
 }
 
@@ -46,8 +46,8 @@ class PopupTabLayoutPage extends Page {
 		super.open('PopupTabLayout-View', urlExtra);
 	}
 
-	waitForExist (selector, duration) {
-		$(selector).waitForExist(duration);
+	waitForExist (selector, timeout) {
+		$(selector).waitForExist({timeout});
 	}
 }
 

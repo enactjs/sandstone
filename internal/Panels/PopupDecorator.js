@@ -1,5 +1,7 @@
+import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -42,6 +44,17 @@ const defaultConfig = {
 	css: null,
 
 	/**
+	 * Support accessibility options.
+	 *
+	 * If true, the aria-live and role in Popup are `null`.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @memberof sandstone/Panels.PopupDecorator.defaultConfig
+	 */
+	noAlertRole: false,
+
+	/**
 	 * Arranger for Panels
 	 *
 	 * @type {Object}
@@ -62,7 +75,8 @@ const defaultConfig = {
  * @memberof sandstone/Panels
  */
 const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
-	const {className: cfgClassName, css, panelArranger, panelType} = config;
+	const {className: cfgClassName, css, noAlertRole, panelArranger, panelType} = config;
+	const CancelableWrapped = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
 	const Decorator = kind({
 		name: 'PopupDecorator',
@@ -82,6 +96,18 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @type {Node}
 			 */
 			children: PropTypes.node,
+
+			/**
+			 * Instructs the Popup to fill the entire height of the screen.
+			 *
+			 * Normally, the popup will flex in height to match the size of the content until the
+			 * screen bounds are met. Use this if you require a full-height popup but don't have
+			 * enough content to fill the space or you want a component to stretch to the edges.
+			 *
+			 * @type {Boolean}
+			 * @public
+			 */
+			fullHeight: PropTypes.bool,
 
 			/**
 			 * Function that generates unique identifiers for Panel instances
@@ -145,6 +171,24 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			position: PropTypes.oneOf(['left', 'right']),
 
 			/**
+			 * Scrim type.
+			 *
+			 * @type {('transparent'|'translucent'|'none')}
+			 * @default 'translucent'
+			 * @public
+			 */
+			scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
+
+			/**
+			 * Restricts or prioritizes navigation when focus attempts to leave the popup.
+			 *
+			 * @type {('self-first'|'self-only')}
+			 * @default 'self-only'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only']),
+
+			/**
 			 * Size of the popup.
 			 *
 			 * @type {('narrow'|'half')}
@@ -155,9 +199,12 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		defaultProps: {
+			fullHeight: false,
 			index: 0,
 			noAnimation: false,
 			position: 'right',
+			scrimType: 'translucent',
+			spotlightRestrict: 'self-only',
 			width: 'narrow'
 		},
 
@@ -166,8 +213,23 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			className: cfgClassName
 		},
 
+		handlers: {
+			onKeyDown: (ev, props) => {
+				forward('onKeyDown', ev, props);
+				const direction = getDirection(ev.keyCode);
+
+				if (direction) {
+					ev.preventDefault();
+					ev.nativeEvent.stopImmediatePropagation();
+					Spotlight.setPointerMode(false);
+					Spotlight.move(direction);
+				}
+			}
+		},
+
 		computed: {
-			className: ({width, styler}) => styler.append(width)
+			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
+			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
 		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
@@ -186,13 +248,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
+			delete rest.fullHeight;
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAnimation={noAnimation} onClose={onClose}>
-					<Wrapped
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
+					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}
+						className={css.viewport}
 						generateId={generateId}
 						id={`${id}_panels`}
 						index={index}
@@ -202,18 +266,15 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						type={panelType}
 					>
 						{children}
-					</Wrapped>
+					</CancelableWrapped>
 				</Popup>
 			);
 		}
 	});
 
-	return CancelDecorator(
-		{cancel: 'onBack'},
-		IdProvider(
-			Skinnable(
-				Decorator
-			)
+	return IdProvider(
+		Skinnable(
+			Decorator
 		)
 	);
 });

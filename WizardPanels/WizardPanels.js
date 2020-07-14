@@ -1,29 +1,35 @@
 import handle, {forProp, forwardWithPrevent, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import useChainRefs from '@enact/core/useChainRefs';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {Column, Cell} from '@enact/ui/Layout';
 import Changeable from '@enact/ui/Changeable';
-import Skinnable from '@enact/ui/Skinnable';
+import ForwardRef from '@enact/ui/ForwardRef';
 import ViewManager from '@enact/ui/ViewManager';
+import IString from 'ilib/lib/IString';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
 import $L from '../internal/$L';
-import Button from '../Button';
 import {Header} from '../Panels';
 import {PanelBase} from '../Panels/Panel';
-import {BasicArranger, CrossFadeArranger, CancelDecorator} from '../internal/Panels';
+import {BasicArranger, CrossFadeArranger, CancelDecorator, FloatingLayerIdProvider, NavigationButton, useAutoFocus} from '../internal/Panels';
+import Skinnable from '../Skinnable';
 import Steps from '../Steps';
 
 import useFocusOnTransition from './useFocusOnTransition';
+import useToggleRole from './useToggleRole';
 
 import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
+const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
 
 /**
- * A WizardPanels that has steps with corresponding views.
+ * A WizardPanels that has steps with corresponding panels.
  *
  * @example
  * 	<WizardPanels>
@@ -48,10 +54,30 @@ const WizardPanelsBase = kind({
 
 	propTypes: /** @lends sandstone/WizardPanels.WizardPanelsBase.prototype */ {
 		/**
+		 * The "aria-label" for the Panel.
+		 *
+		 * By default, the panel will be labeled by its [Header]{@link sandstone/Panels.Header}.
+		 * When `aria-label` is set, it will be used instead to provide an accessibility label for
+		 * the panel.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		'aria-label': PropTypes.string,
+
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
+		/**
 		 * The current step.
 		 *
 		 * This is 1-based, not 0-based; as in the first step is `1`. If omitted, this will equal
-		 * the currently selected view.
+		 * the currently selected panel.
 		 *
 		 * @type {Number}
 		 * @public
@@ -69,7 +95,7 @@ const WizardPanelsBase = kind({
 		footer: PropTypes.node,
 
 		/**
-		* The currently selected view.
+		* The currently selected panel.
 		*
 		* @type {Number}
 		* @default 0
@@ -78,21 +104,39 @@ const WizardPanelsBase = kind({
 		index: PropTypes.number,
 
 		/**
-		 * Hint string read when focusing the next button.
+		 * The button to use in place of the standard next button.
 		 *
-		 * @type {String}
-		 * @default 'Next'
-		 * @public
+		 * This prop accepts a component (e.g. `Button`), a component instance, or a boolean value.
+		 *
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of `nextButtonVisibility`.
+		 *
+ 		 * Example:
+ 		 * ```
+		 * nextButton={<Button icon="closex" aria-label="Quit">Close</Button>}
+		 * ```
+		 *
+		 * @type {Boolean|Component}
+		 * @private
 		 */
-		nextButtonAriaLabel: PropTypes.string,
+		nextButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		* The text for next button.
-		*
-		* @type {String}
-		* @public
-		*/
-		nextButtonText: PropTypes.string,
+		 * Specifies when and how to show `nextButton` on WizardPanel.
+		 *
+		 * * `'auto'` will display the `nextButton` on every `WizardPanel.Panel` except the last
+		 * * `'always'` will always display the `nextButton`
+		 * * `'never'` will always hide the `nextButton`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this
+		 * case, a customized `nextButton` on WizardPanel.Panel will take precedence over the
+		 * `nextButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		nextButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		 * Disables panel transitions.
@@ -101,24 +145,6 @@ const WizardPanelsBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		* Omits the next button component.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noNextButton: PropTypes.bool,
-
-		/**
-		* Omits the previous button component.
-		*
-		* When set, the back key will be disabled.
-		*
-		* @type {Boolean}
-		* @public
-		*/
-		noPrevButton: PropTypes.bool,
 
 		/**
 		* Omits the steps component.
@@ -138,6 +164,26 @@ const WizardPanelsBase = kind({
 		onChange: PropTypes.func,
 
 		/**
+		 * Called when the next button is clicked in WizardPanel.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent advancing to the next panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onNextClick: PropTypes.func,
+
+		/**
+		 * Called when previous button is clicked in WizardPanel.
+		 *
+		 * Calling `preventDefault` on the passed event will prevent navigation to the previous panel.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onPrevClick: PropTypes.func,
+
+		/**
 		 * Called when a transition completes.
 		 *
 		 * @type {Function}
@@ -152,21 +198,38 @@ const WizardPanelsBase = kind({
 		onWillTransition: PropTypes.func,
 
 		/**
-		 * Hint string read when focusing the previous button.
+		 * The button to use in place of the standard prev button.
 		 *
-		 * @type {String}
-		 * @default 'Previous'
-		 * @public
+		 * This prop accepts a component (e.g. `Button`), a component instance, or a boolean value.
+		 *
+		 * If `false`, the button will not show. If set to a component, or `true`, the button will
+		 * show. This will override the setting of `prevButtonVisibility`.
+		 *
+ 		 * Example:
+ 		 * ```
+		 * prevButton={<Button icon="closex" aria-label="Back">Back</Button>}
+		 * ```
+		 *
+		 * @type {Boolean|Component}
+		 * @private
 		 */
-		prevButtonAriaLabel: PropTypes.string,
+		prevButton: PropTypes.oneOfType([PropTypes.bool, EnactPropTypes.componentOverride]),
 
 		/**
-		* The text for previous button.
-		*
-		* @type {String}
-		* @public
-		*/
-		prevButtonText: PropTypes.string,
+		 * Specifies when and how to show `prevButton` on WizardPanel.
+		 *
+		 * * `'auto'` will display the `prevButton` on every `WizardPanel.Panel` except the first
+		 * * `'always'` will always display the `prevButton`
+		 * * `'never'` will always hide the `prevButton`
+		 *
+		 * Note, children values will override the generalized parent visibility settings. In this case,
+		 * if user provides a customized `prevButton` on WizardPanel.Panel will take precedence over the `prevButtonVisibility` value.
+		 *
+		 * @type {('auto'|'always'|'never')}
+		 * @default 'auto'
+		 * @public
+		 */
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
 		 * Explicitly sets the ViewManager transition direction.
@@ -203,7 +266,7 @@ const WizardPanelsBase = kind({
 		total: PropTypes.number,
 
 		/**
-		* The total views in WizardPanels.
+		* The total panels in WizardPanels.
 		*
 		* @type {Number}
 		* @private
@@ -213,8 +276,8 @@ const WizardPanelsBase = kind({
 
 	defaultProps: {
 		index: 0,
-		nextButtonAriaLabel: $L('Next'),
-		prevButtonAriaLabel: $L('Previous')
+		nextButtonVisibility: 'auto',
+		prevButtonVisibility: 'auto'
 	},
 
 	styles: {
@@ -223,20 +286,26 @@ const WizardPanelsBase = kind({
 	},
 
 	handlers: {
-		onIncrementStep: (ev, {index, onChange, totalPanels}) => {
-			if (onChange && index !== totalPanels) {
-				const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
+		onNextClick: handle(
+			forwardWithPrevent('onNextClick'),
+			(ev, {index, onChange, totalPanels}) => {
+				if (onChange && index !== totalPanels) {
+					const nextIndex = index < (totalPanels - 1) ? (index + 1) : index;
 
-				onChange({index: nextIndex});
+					onChange({index: nextIndex});
+				}
 			}
-		},
-		onDecrementStep: (ev, {index, onChange}) => {
-			if (onChange && index !== 0) {
-				const prevIndex = index > 0 ? (index - 1) : index;
+		),
+		onPrevClick: handle(
+			forwardWithPrevent('onPrevClick'),
+			(ev, {index, onChange}) => {
+				if (onChange && index !== 0) {
+					const prevIndex = index > 0 ? (index - 1) : index;
 
-				onChange({index: prevIndex});
+					onChange({index: prevIndex});
+				}
 			}
-		},
+		),
 		onTransition: (ev, {index, onTransition}) => {
 			if (onTransition) {
 				onTransition({index});
@@ -250,36 +319,43 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
+		'aria-label': ({'aria-label': label, index, subtitle, title}) => {
+			if (label) return label;
+
+			const step = new IString($L('Step {num}')).format({num: index + 1});
+
+			return `${step} ${title} ${subtitle}`;
+		},
+		className: ({noSteps, styler}) => styler.append({noSteps}),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
-			if (noSteps) {
-				return null;
-			}
+			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
+			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
 
 			return (
 				<Steps
-					current={typeof current === 'number' && current > 0 ? current : index + 1}
+					className={css.steps}
+					current={currentStep}
 					slot="slotAbove"
-					total={typeof total === 'number' && total > 0 ? total : totalPanels}
+					total={totalSteps}
 				/>
 			);
 		}
 	},
 
 	render: ({
+		'aria-label': ariaLabel,
 		children,
 		footer,
 		index,
-		nextButtonAriaLabel,
-		nextButtonText,
+		nextButton,
+		nextButtonVisibility,
 		noAnimation,
-		noNextButton,
-		noPrevButton,
-		onDecrementStep,
-		onIncrementStep,
+		onNextClick,
+		onPrevClick,
 		onTransition,
 		onWillTransition,
-		prevButtonAriaLabel,
-		prevButtonText,
+		prevButton,
+		prevButtonVisibility,
 		reverseTransition,
 		steps,
 		subtitle,
@@ -291,52 +367,55 @@ const WizardPanelsBase = kind({
 		delete rest.current;
 		delete rest.total;
 
+		const isPrevButtonVisible = prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && index !== 0);
+		const isNextButtonVisible = nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && index < totalPanels - 1);
+
 		return (
-			<PanelBase
+			<DecoratedPanelBase
 				{...rest}
-				autoFocus="default-element"
 				header={
 					<Header
+						aria-label={ariaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
+						css={css}
 						noCloseButton
 						subtitle={subtitle}
 						title={title}
 						type="wizard"
 					>
 						{steps}
-						{index < totalPanels - 1 && !noNextButton ? (
-							<Button
-								aria-label={nextButtonAriaLabel}
-								backgroundOpacity="transparent"
-								icon="arrowlargeright"
-								iconPosition="after"
-								minWidth={false}
-								onClick={onIncrementStep}
-								slot="slotAfter"
-							>
-								{nextButtonText}
-							</Button>
-						) : null}
-						{index !== 0 && !noPrevButton ? (
-							<Button
-								aria-label={prevButtonAriaLabel}
-								backgroundOpacity="transparent"
-								icon="arrowlargeleft"
-								minWidth={false}
-								onClick={onDecrementStep}
-								slot="slotBefore"
-							>
-								{prevButtonText}
-							</Button>
-						) : null}
+						<NavigationButton
+							aria-label={$L('Previous')}
+							backgroundOpacity="transparent"
+							component={prevButton}
+							icon="arrowlargeleft"
+							iconFlip="auto"
+							minWidth={false}
+							onClick={onPrevClick}
+							slot="slotBefore"
+							visible={isPrevButtonVisible}
+						/>
+						<NavigationButton
+							aria-label={$L('Next')}
+							backgroundOpacity="transparent"
+							component={nextButton}
+							icon="arrowlargeright"
+							iconFlip="auto"
+							iconPosition="after"
+							minWidth={false}
+							onClick={onNextClick}
+							slot="slotAfter"
+							visible={isNextButtonVisible}
+						/>
 					</Header>
 				}
+				panelType="wizard"
 			>
 				<Column>
 					<Cell className={css.content}>
 						{/* skip creating ViewManager when there aren't children to avoid animating
-							the first view into the viewport */}
+							the first panel into the viewport */}
 						{children ? (
 							<ViewManager
 								arranger={BasicArranger}
@@ -355,19 +434,19 @@ const WizardPanelsBase = kind({
 						{footer}
 					</Cell>
 				</Column>
-			</PanelBase>
+			</DecoratedPanelBase>
 		);
 	}
 });
 
 // single-index ViewManagers need some help knowing when the transition direction needs to change
 // because the index is always 0 from its perspective.
-function useReverseTransition (index = -1) {
+function useReverseTransition (index = -1, rtl) {
 	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(false);
+	let [reverse, setReverse] = React.useState(rtl);
 
 	if (prevIndex !== index) {
-		reverse = index < prevIndex;
+		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
 		setReverse(reverse);
 		setPrevIndex(index);
 	}
@@ -382,35 +461,58 @@ function useReverseTransition (index = -1) {
  *
  * @class WizardPanelsRouter
  * @memberof sandstone/WizardPanels
- * @ui
+ * @private
  */
 const WizardPanelsRouter = (Wrapped) => {
-	const WizardPanelsProvider = ({children, 'data-spotlight-id': spotlightId, index, onTransition, onWillTransition, title, ...rest}) => {
-		const [view, setView] = React.useState(null);
-		const reverseTransition = useReverseTransition(index);
-		const transition = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+	const WizardPanelsProvider = ({
+		children,
+		componentRef,
+		'data-spotlight-id': spotlightId,
+		index,
+		onTransition,
+		onWillTransition,
+		title,
+		rtl,
+		...rest
+	}) => {
+		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
+		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
+		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
+		const [panel, setPanel] = React.useState(null);
+		const reverseTransition = useReverseTransition(index, rtl);
+		const {
+			onWillTransition: focusOnWillTransition,
+			...transition
+		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+
+		const handleWillTransition = React.useCallback((ev) => {
+			focusOnWillTransition(ev);
+			a11yOnWillTransition(ev);
+		}, [a11yOnWillTransition, focusOnWillTransition]);
 
 		const totalPanels = React.Children.count(children);
-		const currentTitle = view && view.title ? view.title : title;
+		const currentTitle = panel && panel.title ? panel.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
 		return (
-			<WizardPanelsContext.Provider value={setView}>
+			<WizardPanelsContext.Provider value={setPanel}>
 				{React.Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
-					{...view}
+					{...panel}
 					{...transition}
+					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
+					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
-					{view && view.children ? (
-						<div className="enact-fit" key={`view${index}`}>
-							{view.children}
+					{panel && panel.children ? (
+						<div className="enact-fit" key={`panel${index}`}>
+							{panel.children}
 						</div>
 					) : null}
 				</Wrapped>
@@ -419,6 +521,14 @@ const WizardPanelsRouter = (Wrapped) => {
 	};
 
 	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
+		/**
+		 * Obtains a reference to the root node.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		* The spotlight id for the panel
 		*
@@ -453,6 +563,14 @@ const WizardPanelsRouter = (Wrapped) => {
 		onWillTransition: PropTypes.func,
 
 		/**
+		 * Used to determine the transition direction
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		* The "default" title for WizardPanels if title isn't explicitly set in
 		* [Panel]{@link sandstone/WizardPanels.Panel}.
 		* @example
@@ -477,6 +595,7 @@ const WizardPanelsRouter = (Wrapped) => {
 };
 
 const WizardPanelsDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Changeable({prop: 'index'}),
 	CancelDecorator({
 		cancel: 'onChange',
@@ -488,15 +607,16 @@ const WizardPanelsDecorator = compose(
 	SpotlightContainerDecorator({
 		continue5WayHold: true,
 		// prefer any spottable within the panel body (content or footer) followed by header
-		defaultElement: [`.${css.content} *, .${css.footer} *`, 'header > *'],
+		defaultElement: [`.${spotlightDefaultClass}`, `.${css.content} *, .${css.footer} *`, 'header > *'],
 		enterTo: 'default-element'
 	}),
+	I18nContextDecorator({rtlProp: 'rtl'}),
 	WizardPanelsRouter,
 	Skinnable
 );
 
 /**
- * A WizardPanels that can step through different views.
+ * A WizardPanels that can step through different panels.
  * Expects [WizardPanel]{@link sandstone/WizardPanels.Panel} as children.
  *
  * @class WizardPanels

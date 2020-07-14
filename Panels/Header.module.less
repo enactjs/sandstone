@@ -9,34 +9,38 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	transition: transform @sand-header-animation-duration ease-out; // to support collapsing header
 	.border-box();
 
 	///
 	/// Begin states of header configuration
 	///
 
-	&:not(.withChildren) {
-		.titlesRow {
-			padding-bottom: @sand-header-subtitle-height;
+	.titlesRow {
+		padding-bottom: @sand-header-subtitle-height;
 
-			// The following updates .subtitle to be removed from the measurement calculations for
-			// vertical centering in a "standard" header, so the title can vertically align with the
-			// side buttons. When *not* in "standard" type, the side buttons should be vertically
-			// aligned with both the title and subtitle.
-			.subtitle {
-				position: absolute;
-				right: 0;
-				left: 0;
-			}
+		// The following alters .subtitle to be removed from the measurement calculations for so the
+		// title can vertically align with the side buttons (ignoring the dimensions of subtitle).
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
 		}
 
-		&.wizard {
-			.titlesRow {
-				padding-bottom: (@sand-header-subtitle-height * @sand-header-wizard-subtitle-lines);
-			}
+		.back {
+			margin-inline-start: 0;
+		}
+
+		.close {
+			margin-inline-end: 0;
 		}
 	}
+
+	&.wizard {
+		.titlesRow {
+			padding-bottom: (@sand-header-subtitle-height * @sand-header-wizard-subtitle-lines);
+		}
+	}
+
 
 	.slotBefore,
 	.slotAfter,
@@ -58,32 +62,24 @@
 	.backContainer {
 		display: inline-block;
 		width: 0;
-		opacity: 0.3;
+		opacity: 0;
 		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
-		transform: scale(0);
+		transform: scale(0.5);
 		transform-origin: center left;
 		will-change: width, transform, opacity;
-	}
-
-	.back {
-		margin-inline-start: 0;
 	}
 
 	&.showBack {
 		.backContainer {
 			opacity: 1;
-			width: (@sand-button-height + @sand-component-spacing);
 			transform: scale(1);
+			width: @sand-header-back-container-width;
 		}
 	}
 
 	///
 	/// Begin child node rules configuration, shared across multiple types
 	///
-
-	.titlesRow {
-		transition: transform @sand-header-animation-duration ease-out, opacity @sand-header-animation-duration ease-out;
-	}
 
 	.title,
 	.subtitle {
@@ -112,24 +108,36 @@
 		margin: @sand-header-slotbelow-margin;
 	}
 
-	&.featureContent {
-		transform: @sand-header-featurecontent-transform;
-
-		.titlesRow {
-			transform: @sand-header-featurecontent-title-transform;
-			opacity: @sand-header-featurecontent-title-opacity;
-		}
-	}
-
-
 	///
 	/// Begin "types" rules configuration
 	///
+
+	// Most types intend for the first and last buttons on the left and right
+	// butt right up against the edge, for alignment with the content.
+	.standard,
+	.compact,
+	.mini {
+		.slotBefore > *:first-child {
+			margin-inline-start: 0;
+		}
+		.slotAfter > *:last-child {
+			margin-inline-end: 0;
+		}
+	}
 
 	// Standard Header
 	&.standard {
 		margin: @sand-header-standard-margin;
 		padding: @sand-header-standard-padding;
+
+		.subtitle,
+		.title {
+			padding: @sand-header-standard-title-padding;
+		}
+
+		.subtitle {
+			margin: @sand-header-standard-subtitle-margin;
+		}
 	}
 
 	// Compact Header
@@ -186,14 +194,6 @@
 
 		.title {
 			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
-		}
-
-		.slotBefore .slotSizer >:first-child {
-			margin-inline-start: 0;
-		}
-
-		.slotAfter .slotSizer >:first-child {
-			margin-inline-end: 0;
 		}
 	}
 }

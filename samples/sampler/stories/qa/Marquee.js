@@ -11,12 +11,15 @@ import Heading from '@enact/sandstone/Heading';
 import Icon from '@enact/sandstone/Icon';
 import Item, {ItemBase} from '@enact/sandstone/Item';
 import Marquee, {MarqueeController} from '@enact/sandstone/Marquee';
+import Skinnable from '@enact/sandstone/Skinnable';
+
+import css from './Marquee.module.less';
 
 Marquee.displayName = 'Marquee';
 
-const SpottableMarquee = Spottable(Marquee);
+const SpottableMarquee = Spottable(Skinnable(Marquee));
 const Controller = MarqueeController('div');
-const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable('div'));
+const SpottableDiv = MarqueeController({marqueeOnFocus: true}, Spottable(Skinnable('div')));
 
 const LTR = [
 	'The quick brown fox jumped over the lazy dog. The bean bird flies at sundown.',
@@ -59,16 +62,20 @@ const MarqueeI18nSamples = I18nContextDecorator({updateLocaleProp: 'updateLocale
 // eslint-disable-next-line enact/prop-types
 const CustomItemBase = ({children, ...rest}) => (
 	<div {...rest} style={{display: 'flex', width: 300, alignItems: 'center'}}>
-		<Icon>flag</Icon>
+		<Icon>notification</Icon>
 		<Marquee id="marqueeText" style={{flex: 1, overflow: 'hidden'}}>{children}</Marquee>
 		<Icon>trash</Icon>
 	</div>
 );
 
-const CustomItem = Spottable(MarqueeController(
-	{marqueeOnFocus: true},
-	CustomItemBase
-));
+const CustomItem = Spottable(
+	Skinnable(
+		MarqueeController(
+			{marqueeOnFocus: true},
+			CustomItemBase
+		)
+	)
+);
 
 const MarqueeItem = Spottable(
 	MarqueeController(
@@ -114,7 +121,7 @@ class MarqueeWithShortContent extends React.Component {
 		return (
 			<div>
 				scrollWidth: {this.state.scrollWidth} width: {this.state.width}
-				<CustomItem onClick={this.handleClick}>{this.state.long ? 'Very very very very very very very very very long text' : 'text'}</CustomItem>
+				<CustomItem className={css.spotlight} onClick={this.handleClick}>{this.state.long ? 'Very very very very very very very very very long text' : 'text'}</CustomItem>
 			</div>
 		);
 	}
@@ -157,7 +164,7 @@ storiesOf('Marquee', module)
 			return (
 				<section>
 					<Marquee
-						style={{width: ri.unit(798, 'rem')}}
+						style={{width: ri.scaleToRem(798)}}
 						disabled={disabled}
 						forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
 						marqueeDelay={number('marqueeDelay', Marquee, 1000)}
@@ -182,7 +189,7 @@ storiesOf('Marquee', module)
 			return (
 				<section>
 					<Marquee
-						style={{width: ri.unit(798, 'rem')}}
+						style={{width: ri.scaleToRem(798)}}
 						disabled={disabled}
 						forceDirection={select('forceDirection', ['', 'ltr', 'rtl'], Marquee, '')}
 						marqueeDelay={number('marqueeDelay', Marquee, 1000)}
@@ -205,7 +212,7 @@ storiesOf('Marquee', module)
 		() => {
 			const disabled = boolean('disabled', Marquee, false);
 			return (
-				<Controller style={{width: ri.unit(798, 'rem')}}>
+				<Controller style={{width: ri.scaleToRem(798)}}>
 					{LTR.map((children, index) => (
 						<Marquee
 							disabled={disabled}
@@ -232,13 +239,14 @@ storiesOf('Marquee', module)
 		() => (
 			<div>
 				<Item
-					style={{width: ri.unit(798, 'rem')}}
+					style={{width: ri.scaleToRem(798)}}
 					marqueeOn="focus"
 				>
 					{LTR[0]}
 				</Item>
 				<SpottableMarquee
-					style={{width: ri.unit(798, 'rem')}}
+					className={css.spotlight}
+					style={{width: ri.scaleToRem(798)}}
 					marqueeOn="focus"
 				>
 					{LTR[0]}
@@ -250,9 +258,9 @@ storiesOf('Marquee', module)
 	.add(
 		'Restart Marquee when Marquee completes',
 		() => (
-			<SpottableDiv>
+			<SpottableDiv className={css.spotlight}>
 				<Marquee
-					style={{width: ri.unit(798, 'rem')}}
+					style={{width: ri.scaleToRem(798)}}
 					disabled={false}
 					marqueeDelay={1000}
 					marqueeDisabled={false}
@@ -264,7 +272,7 @@ storiesOf('Marquee', module)
 					{'The quick brown fox.'}
 				</Marquee>
 				<Marquee
-					style={{width: ri.unit(798, 'rem')}}
+					style={{width: ri.scaleToRem(798)}}
 					disabled={false}
 					marqueeDelay={1000}
 					marqueeDisabled={false}

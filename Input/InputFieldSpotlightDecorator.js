@@ -94,6 +94,15 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			dismissOnEnter: PropTypes.bool,
 
 			/**
+			 * Prevent reading on the first focus.
+			 *
+			 * @type {Boolean}
+			 * @default false
+			 * @private
+			 */
+			noReadoutOnFocus: PropTypes.bool,
+
+			/**
 			 * Called when the internal <input> is focused.
 			 *
 			 * @type {Function}
@@ -138,11 +147,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				node: null
 			};
 
+			this.ariaHidden = props.noReadoutOnFocus || null;
 			this.paused = new Pause('InputSpotlightDecorator');
 			this.handleKeyDown = handleKeyDown.bind(this);
 		}
 
 		componentDidUpdate (_, prevState) {
+			this.ariaHidden = null;
 			this.updateFocus(prevState);
 		}
 
@@ -260,7 +271,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		onKeyDown (ev) {
-			const {currentTarget, keyCode, preventDefault, target} = ev;
+			const {currentTarget, keyCode, target} = ev;
 
 			// cache the target if this is the first keyDown event to ensure the component had focus
 			// when the key interaction started
@@ -274,6 +285,8 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 				// move spotlight
 				const shouldSpotlightMove = (
+					// No value exists! (Can happen when disabled)
+					target.value == null ||
 					// on left + at beginning of selection
 					(isLeft && isSelectionAtLocation(target, 0)) ||
 					// on right + at end of selection (note: fails on non-selectable types usually)
@@ -286,7 +299,7 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 				// prevent modifying the value via 5-way for numeric fields
 				if ((isUp || isDown) && target.type === 'number') {
-					preventDefault();
+					ev.preventDefault();
 				}
 
 				if (shouldSpotlightMove) {
@@ -317,19 +330,21 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		onKeyUp = (ev) => {
 			const {dismissOnEnter} = this.props;
-			const {currentTarget, keyCode, preventDefault, target} = ev;
+			const {currentTarget, keyCode, target} = ev;
 
 			// verify that we have a matching pair of key down/up events to avoid adjusting focus
 			// when the component received focus mid-press
 			if (target === this.downTarget) {
 				this.downTarget = null;
 
-				if (this.state.focused === 'input' && dismissOnEnter && is('enter', keyCode)) {
-					this.focusDecorator(currentTarget);
-					// prevent Enter onKeyPress which triggers an onMouseDown via Spotlight
-					preventDefault();
-				} else if (this.state.focused !== 'input' && is('enter', keyCode)) {
-					this.focusInput(currentTarget);
+				if (!this.props.disabled) {
+					if (this.state.focused === 'input' && dismissOnEnter && is('enter', keyCode)) {
+						this.focusDecorator(currentTarget);
+						// prevent Enter onKeyPress which triggers an onMouseDown via Spotlight
+						ev.preventDefault();
+					} else if (this.state.focused !== 'input' && is('enter', keyCode)) {
+						this.focusInput(currentTarget);
+					}
 				}
 			}
 
@@ -347,11 +362,13 @@ const InputSpotlightDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		render () {
 			const props = Object.assign({}, this.props);
 			delete props.autoFocus;
+			delete props.noReadoutOnFocus;
 			delete props.onActivate;
 			delete props.onDeactivate;
 
 			return (
 				<Component
+					aria-hidden={this.ariaHidden}
 					{...props}
 					onBlur={this.onBlur}
 					onMouseDown={this.onMouseDown}

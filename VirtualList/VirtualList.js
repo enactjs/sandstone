@@ -165,11 +165,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -178,16 +174,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -200,22 +200,6 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @public
 	 */
 	id: PropTypes.string,
-
-	/**
-	 * The initially hidden height of the vertical scrollbar.
-	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualList` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
-	 * the `Header` will automatically collapse and the `VirtualList`'s vertical scrollbar will
-	 * enlarge.
-	 *
-	 * This value would be the vertical scrollbar height difference between when the header collapses
-	 * and when the header expands.
-	 *
-	 * @type {Number}
-	 * @public
-	 */
-	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
@@ -414,11 +398,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -431,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `false`,
 	 * * `true`, and
 	 * * `'noAnimation'`
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -446,7 +439,8 @@ VirtualList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
@@ -608,11 +602,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -621,16 +611,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -643,22 +637,6 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @public
 	 */
 	id: PropTypes.string,
-
-	/**
-	 * The initially hidden height of the vertical scrollbar.
-	 *
-	 * If a [`Header`]{@link sandstone/Panels.Header} and a `VirtualGridList` are used inside
-	 * a [`Panel`]{@link sandstone/Panels.Panel} with `featureContent` prop set to true,
-	 * the `Header` will automatically collapse and the `VirtualGridList`'s vertical scrollbar will
-	 * enlarge.
-	 *
-	 * This value would be the vertical scrollbar height difference between when the header collapses
-	 * and when the header expands.
-	 *
-	 * @type {Number}
-	 * @public
-	 */
-	initialHiddenHeight: PropTypes.number,
 
 	/**
 	 * Prop to check if horizontal Scrollbar exists or not.
@@ -851,11 +829,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -869,7 +856,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `true`, and
 	 * * `'noAnimation'`
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -884,7 +871,8 @@ VirtualGridList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},

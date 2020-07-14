@@ -1,5 +1,4 @@
 import kind from '@enact/core/kind';
-import {adaptEvent, handle, forward} from '@enact/core/handle';
 import spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import Toggleable from '@enact/ui/Toggleable';
@@ -26,7 +25,7 @@ const blockStyles = () => ({
 const stamp = (howMany, fn) => (new Array(howMany)).fill().map(fn);
 
 const app = kind({
-	name: 'FixedPopupPanelsPanel',
+	name: 'FlexiblePopupPanelsPanel',
 
 	defaultProps: {
 		index: 0
@@ -35,21 +34,13 @@ const app = kind({
 	computed: {
 		fatBlock: () => (<div style={{...blockStyles(), height: scaleToRem(99), width: scaleToRem(900)}} />),
 		mediumBlock: () => (<div style={{...blockStyles(), height: scaleToRem(900), width: scaleToRem(900)}} />),
+		nextButton: () => (<Button id="nextButton" />),
+		prevButton: () => (<Button id="prevButton" />),
 		skinnyBlock: () => (<div style={{...blockStyles(), height: scaleToRem(600), width: scaleToRem(99)}} />),
 		smallBlock: () => (<div style={{...blockStyles(), height: scaleToRem(300), width: scaleToRem(300)}} />)
 	},
 
-	handlers: {
-		onNavPrevPanel: handle(adaptEvent((ev, {index}) => ({index: Math.max(index - 1, 0)}), forward('onNavigate'))),
-		onNavNextPanel: handle(adaptEvent((ev, {index}) => ({index: Math.min(index + 1, 5)}), forward('onNavigate')))
-	},
-
-	render: ({open, onToggleOpen, index, onNavPrevPanel, onNavNextPanel, fatBlock, mediumBlock, skinnyBlock, smallBlock, ...rest}) => {
-		delete rest.onNavigate;
-
-		const prevPanelButton = (<Button id="prevButton" icon="arrowhookleft" onClick={onNavPrevPanel} size="small" />);
-		const nextPanelButton = (<Button id="nextButton" icon="arrowlargeright" onClick={onNavNextPanel} size="small" />);
-
+	render: ({open, onToggleOpen, index, onNavigate, fatBlock, mediumBlock, nextButton, prevButton, skinnyBlock, smallBlock, ...rest}) => {
 		return (
 			<div {...rest}>
 				<Button id="openButton" onClick={onToggleOpen}>Open FlexiblePopupPanels</Button>
@@ -57,58 +48,49 @@ const app = kind({
 					id="flexiblepopuppanels"
 					index={index}
 					open={open}
+					onChange={onNavigate}
 					onClose={onToggleOpen}
 				>
-					<Panel id="panel1">
-						<Header title="Panel 1 - With Scroller">
-							<slotAfter>{nextPanelButton}</slotAfter>
-						</Header>
+					<Panel id="panel1" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 1 - With Scroller" />
 
 						<Scroller style={{width: scaleToRem(900)}}>
 							<Item>Single Item</Item>
 						</Scroller>
 					</Panel>
-					<Panel id="panel2">
-						<Header title="Panel 2 - With Big Scroller">
-							<slotAfter>{nextPanelButton}</slotAfter>
-							{prevPanelButton}
-						</Header>
+					<Panel id="panel2" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 2 - With Big Scroller" />
 
-						<Scroller style={{width: scaleToRem(900)}}>
+						<Scroller style={{height: scaleToRem(1500), width: scaleToRem(900)}}>
 							{stamp(20, (i, idx) => <Item key={`item${idx}`}>Item {idx + 1}</Item>)}
 						</Scroller>
 					</Panel>
-					<Panel id="panel3">
-						<Header title="Panel 3 - Medium Block">
-							<slotAfter>{nextPanelButton}</slotAfter>
-							{prevPanelButton}
-						</Header>
+					<Panel id="panel3" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 3 - Medium Block" />
 
 						{mediumBlock}
 					</Panel>
-					<Panel id="panel4">
-						<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior">
-							<slotAfter>{nextPanelButton}</slotAfter>
-							{prevPanelButton}
-						</Header>
+					<Panel id="panel4" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 4 - Small Block with extra long title for testing marquee behavior" />
 
 						{smallBlock}
 					</Panel>
-					<Panel id="panel5">
-						<Header title="Panel 5 - Skinny Block">
-							<slotAfter>{nextPanelButton}</slotAfter>
-							{prevPanelButton}
-						</Header>
+					<Panel id="panel5" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 5 - Skinny Block" />
 
 						{skinnyBlock}
 					</Panel>
-					<Panel id="panel6">
-						<Header title="Panel 6 - Fat Block">
-							<slotAfter>{nextPanelButton}</slotAfter>
-							{prevPanelButton}
-						</Header>
+					<Panel id="panel6" nextButton={nextButton} prevButton={prevButton}>
+						<Header title="Panel 6 - Fat Block" />
 
 						{fatBlock}
+					</Panel>
+					<Panel id="panel7" nextButton={nextButton} prevButton={prevButton} autoFocus="#item2">
+						<Header title="Panel 7 - autoFocus" />
+						<div style={{width: scaleToRem(798)}}>
+							<Item>Item 1</Item>
+							<Item id="item2">Item 2</Item>
+						</div>
 					</Panel>
 				</FlexiblePopupPanels>
 			</div>

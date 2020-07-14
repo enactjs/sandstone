@@ -14,6 +14,10 @@ import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 import Slider from '@enact/sandstone/Slider';
 
+const props = {
+	buttonVisibility: ['auto', 'always', 'never']
+};
+
 const Config = mergeComponentMetadata('FlexiblePopupPanels', FlexiblePopupPanels);
 
 storiesOf('Sandstone', module)
@@ -29,27 +33,32 @@ storiesOf('Sandstone', module)
 			const [index, setPanelIndexState] = React.useState(defaultIndex);
 
 			const nextPanel = () => setPanelIndexState(Math.min(index + 1, 1));
-			const prevPanel = compose(
-				() => setPanelIndexState(Math.max(index - 1, 0)),
-				action('onBack')
-			);
+			const handleNavigation = (type) => (ev) => {
+				setPanelIndexState(ev.index);
+				action(type)(ev);
+			};
 
 			return (<div>
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
+					fullHeight={boolean('fullHeight', Config)}
+					nextButtonVisibility={select('nextButtonVisibility', props.buttonVisibility, Config)}
 					noAnimation={boolean('noAnimation', Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
-					noBackButton={boolean('noBackButton', Config)}
 					noCloseButton={boolean('noCloseButton', Config)}
-					onBack={prevPanel}
+					onBack={handleNavigation('onBack')}
+					onChange={handleNavigation('onChange')}
 					onClose={handleClose}
 					onHide={action('onHide')}
+					onNextClick={action('onNextClick')}
+					onPrevClick={action('onPrevClick')}
 					onShow={action('onShow')}
+					prevButtonVisibility={select('prevButtonVisibility', props.buttonVisibility, Config)}
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
-					<Panel>
+					<Panel prevButton={boolean('custom first Panel prevButton', Config) ?  <Button icon="closex" aria-label="exit" /> : void 0}>
 						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
 							<Item onClick={nextPanel}>Item 1</Item>
@@ -58,9 +67,15 @@ storiesOf('Sandstone', module)
 							<Item onClick={nextPanel}>Item 4</Item>
 						</Scroller>
 					</Panel>
-					<Panel>
+					<Panel nextButton={boolean('custom last Panel nextButton', Config) ? <Button icon="closex" aria-label="quit" /> : void 0}>
 						<Header title="Vertical Slider" />
 						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
+					</Panel>
+					<Panel>
+						<Header title="Third panel" />
+						<Scroller style={{width: ri.scaleToRem(900)}}>
+							<Item onClick={nextPanel}>Item 1</Item>
+						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>
 				<Button onClick={toggleOpen}>Open FlexiblePopupPanels</Button>

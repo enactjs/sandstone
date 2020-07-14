@@ -59,9 +59,9 @@ const wrapRange = (min, max, value) => {
 
 const selectIcon = (icon, v, h) => (props) => (props[icon] || (props.orientation === 'vertical' ? v : h));
 
-const selectIncIcon = selectIcon('incrementIcon', 'arrowlargeup', 'arrowlargeright');
+const selectIncIcon = selectIcon('incrementIcon', 'triangleup', 'triangleright');
 
-const selectDecIcon = selectIcon('decrementIcon', 'arrowlargedown', 'arrowlargeleft');
+const selectDecIcon = selectIcon('decrementIcon', 'triangledown', 'triangleleft');
 
 // Set-up event forwarding
 const forwardBlur = forward('onBlur'),
@@ -71,7 +71,7 @@ const forwardBlur = forward('onBlur'),
 	forwardKeyUp = forward('onKeyUp'),
 	forwardWheel = forward('onWheel');
 
-const allowedClassNames = ['picker', 'valueWrapper'];
+const allowedClassNames = ['picker', 'valueWrapper', 'joined', 'horizontal', 'vertical'];
 
 /**
  * The base component for {@link sandstone/internal/Picker.Picker}.
@@ -329,7 +329,7 @@ const PickerBase = class extends React.Component {
 		 * Sets the orientation of the picker, whether the buttons are above and below or on the
 		 * sides of the value. Must be either `'horizontal'` or `'vertical'`.
 		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical')}
 		 * @default 'horizontal'
 		 * @public
 		 */
@@ -381,11 +381,11 @@ const PickerBase = class extends React.Component {
 		 * assume auto-sizing. `'small'` is good for numeric pickers, `'medium'` for single or short
 		 * word pickers, `'large'` for maximum-sized pickers.
 		 *
-		 * You may also supply a number. This number will determine the minumum size of the Picker.
+		 * You may also supply a number. This number will determine the minimum size of the Picker.
 		 * Setting a number to less than the number of characters in your longest value may produce
 		 * unexpected results.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([
@@ -810,7 +810,7 @@ const PickerBase = class extends React.Component {
 	calcAriaLabel (valueText) {
 		const
 			{'aria-label': ariaLabel, joined, orientation} = this.props,
-			hint = orientation === 'horizontal' ? $L('change a value with left right button') : $L('change a value with up down button');
+			hint = orientation === 'horizontal' ? $L('press ok button to change the value') : $L('change a value with up down button');
 
 		if (!joined || ariaLabel != null) {
 			return ariaLabel;
@@ -894,7 +894,7 @@ const PickerBase = class extends React.Component {
 
 		let sizingPlaceholder = null;
 		if (typeof width === 'number' && width > 0) {
-			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{ '0'.repeat(width) }</div>;
+			sizingPlaceholder = <div aria-hidden className={css.sizingPlaceholder}>{'0'.repeat(width)}</div>;
 		}
 
 		const showIndicators = horizontal && joined && Array.isArray(children) && children.length > 1;
@@ -946,13 +946,13 @@ const PickerBase = class extends React.Component {
 					null :
 					<Cell
 						{...voiceProps}
+						align={joined ? 'stretch' : null}
 						aria-controls={!joined ? incrementerAriaControls : null}
 						aria-label={this.calcIncrementLabel(valueText)}
 						className={css.incrementer}
 						component={PickerButton}
 						data-webos-voice-label={joined ? this.calcButtonLabel(!reverse, valueText) : null}
 						disabled={incrementerDisabled}
-						hidden={reachedEnd}
 						holdConfig={holdConfig}
 						icon={incrementIcon}
 						joined={joined}
@@ -977,6 +977,7 @@ const PickerBase = class extends React.Component {
 					<PickerViewManager
 						aria-hidden
 						arranger={arranger}
+						className={css.viewManager}
 						duration={100}
 						index={index}
 						noAnimation={noAnimation}
@@ -999,13 +1000,13 @@ const PickerBase = class extends React.Component {
 					null :
 					<Cell
 						{...voiceProps}
+						align={joined ? 'stretch' : null}
 						aria-controls={!joined ? decrementerAriaControls : null}
 						aria-label={this.calcDecrementLabel(valueText)}
 						className={css.decrementer}
 						component={PickerButton}
 						data-webos-voice-label={joined ? this.calcButtonLabel(reverse, valueText) : null}
 						disabled={decrementerDisabled}
-						hidden={reachedStart}
 						holdConfig={holdConfig}
 						icon={decrementIcon}
 						joined={joined}
