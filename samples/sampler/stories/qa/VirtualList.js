@@ -265,8 +265,7 @@ storiesOf('VirtualList', module)
 	)
 	.add(
 		'in Panels',
-		context => {
-			context.noPanels = true;
+		(context) => {
 			const title = `${context.kind} ${context.story}`.trim();
 			return (
 				<InPanels
@@ -286,6 +285,11 @@ storiesOf('VirtualList', module)
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 				/>
 			);
+		},
+		{
+			props: {
+				noPanels: true
+			}
 		}
 	)
 	.add(
