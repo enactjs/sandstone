@@ -37,6 +37,7 @@ import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
 import {compareChildren} from '../internal/util';
 import Heading from '../Heading';
+import Skinnable from '../Skinnable';
 
 import DropdownList, {isSelectedValid} from './DropdownList';
 
@@ -377,7 +378,8 @@ const DropdownDecorator = compose(
 		deactivate: 'onClose',
 		prop: 'open',
 		toggle: null
-	})
+	}),
+	Skinnable
 );
 
 /**

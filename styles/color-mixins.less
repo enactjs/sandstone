@@ -152,8 +152,8 @@
 .sand-button-resting-bg-colors (@bg: {}, @shadow: {}) {
 	.sand-spotlight-resting-bg-colors(@opacity: 0, @bg: {
 		.sand-button-resting-bg-color();
-		// will-change+: transform;
-		// transition+: transform @sand-button-focus-duration ease-out;
+		will-change+: transform;
+		transition+: transform @sand-button-focus-duration ease-out;
 		@bg();
 	}, @shadow);
 }

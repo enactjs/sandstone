@@ -21,7 +21,7 @@ import Skinnable from '../Skinnable';
 
 import css from './ContextualMenuDecorator.module.less';
 
-// The maimum number of visible items. More than this number invokes a scroller.
+// The maximum number of visible items. More than this number invokes a scroller.
 // When updating this value, you must also set the max-items LESS variable.
 const MAX_VISIBLE_MENU_ITEMS = 5;
 
@@ -162,13 +162,39 @@ const ContextualMenuDecoratorBase = hoc(defaultConfig, (config, Wrapped) => {
 			 * @default 'auto'
 			 * @private
 			 */
-			popupWidth: PropTypes.oneOf(['auto', 'large', 'small'])
+			popupWidth: PropTypes.oneOf(['auto', 'large', 'small']),
+
+			/**
+			 * Set the type of scrim to use
+			 *
+			 * @type {('holepunch'|'translucent'|'transparent'|'none')}
+			 * @default 'holepunch'
+			 * @private
+			 */
+			scrimType: PropTypes.oneOf(['holepunch', 'translucent', 'transparent', 'none']),
+
+			/**
+			 * Restricts or prioritizes spotlight navigation.
+			 *
+			 * Allowed values are:
+			 * * `'none'` - Spotlight can move freely within and beyond the popup
+			 * * `'self-first'` - Spotlight should prefer components within the popup over
+			 *   components beyond the popup, or
+			 * * `'self-only'` - Spotlight can only be set within the popup
+			 *
+			 * @type {('none'|'self-first'|'self-only')}
+			 * @default 'self-only'
+			 * @public
+			 */
+			spotlightRestrict: PropTypes.oneOf(['none', 'self-first', 'self-only'])
 		},
 
 		defaultProps: {
 			direction: 'below right',
 			offset: 'overlap',
-			popupWidth: 'auto'
+			popupWidth: 'auto',
+			scrimType: 'holepunch',
+			spotlightRestrict: 'self-only'
 		},
 
 		handlers: {

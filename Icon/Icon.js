@@ -143,6 +143,22 @@ const IconBase = kind({
  * arrowhookright
  * ellipsis
  * check
+ * triangleup
+ * triangleright
+ * triangledown
+ * triangleleft
+ * arrowupdown
+ * arrowup
+ * arrowupwhite
+ * arrowuphollow
+ * backspace
+ * space
+ * trianglerightwhite
+ * triangleleftwhite
+ * trianglerighthollow
+ * trianglelefthollow
+ * heart
+ * hearthollow
  * record
  * circle
  * stop
@@ -151,8 +167,13 @@ const IconBase = kind({
  * pause
  * forward
  * backward
+ * pauseforward
+ * pausebackward
+ * pausejumpforward
+ * pausejumpbackward
  * jumpforward
  * jumpbackward
+ * skip
  * list
  * arrowlargedown
  * arrowlargeup
@@ -164,10 +185,14 @@ const IconBase = kind({
  * arrowsmallright
  * closex
  * search
+ * chup
+ * chdown
  * exitfullscreen
  * fullscreen
  * trash
  * star
+ * starhalf
+ * starhollow
  * gear
  * plug
  * lock
@@ -189,6 +214,7 @@ const IconBase = kind({
  * zoomout
  * download
  * shuffle
+ * shuffleon
  * notification
  * voice
  * soundmute
@@ -214,7 +240,7 @@ const IconBase = kind({
  * dashboard1
  * dashboard2
  * dashboard3
- * subtitle
+ * language
  * rotate
  * lyrics
  * screenpower
@@ -243,11 +269,63 @@ const IconBase = kind({
  * wisa
  * demooptions
  * newfeature
- * triangleup
- * triangleright
- * triangledown
- * triangleleft
- * arrowupdown
+ * youtube
+ * ostsearch
+ * shopping
+ * bookmark
+ * eject
+ * power
+ * timer
+ * network
+ * edit
+ * aspectratio
+ * link
+ * light
+ * pointersize
+ * pointerspeed
+ * soundmode
+ * contrast
+ * picturemode
+ * basketball
+ * soccer
+ * baseball
+ * golf
+ * football
+ * hockey
+ * volleyball
+ * cricket
+ * heartadd
+ * heartlist
+ * refresh
+ * help
+ * share
+ * files
+ * quickstart
+ * scheduler
+ * recording
+ * guide
+ * channel
+ * oneminplay
+ * oneminrecord
+ * fifteenforward
+ * fifteenbackward
+ * liveplayoff
+ * liveplayon
+ * popupscale
+ * arrowrightskip
+ * closedcaption
+ * subtitle
+ * subtitlekr
+ * subtitlecn
+ * samples
+ * googledrive
+ * googlephotos
+ * dlna
+ * replay
+ * usb
+ * ftp
+ * profile
+ * profilecheck
  * ```
  *
  * @name iconList

@@ -411,6 +411,7 @@ class Popup extends React.Component {
 		noAnimation: false,
 		noAutoDismiss: false,
 		open: false,
+		position: 'bottom',
 		scrimType: 'translucent',
 		spotlightRestrict: 'self-only'
 	}
