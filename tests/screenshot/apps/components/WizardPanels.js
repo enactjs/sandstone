@@ -39,6 +39,22 @@ const WizardPanelTests = withConfig({
 		<Panel>View 2</Panel>
 		<Panel>View 3</Panel>
 	</WizardPanels>,
+
+	// Test to hide steps
+	<WizardPanels noSteps>
+		<Panel title="My Title" subtitle={LongerLoremString}>View 1</Panel>
+		<Panel>View 2</Panel>
+	</WizardPanels>,
+	{
+		locale: 'ar-SA',
+		component: (
+			<WizardPanels noSteps>
+				<Panel title="My Title" subtitle={LongerLoremString}>View 1</Panel>
+				<Panel>View 2</Panel>
+			</WizardPanels>
+		)
+	},
+
 	// RTL
 	{
 		component: (

@@ -2,11 +2,42 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.0] - 2020-07-13
+
+### Changed
+
+- `sandstone/Icon` supported icon list, adding new icons
 
 ### Fixed
 
+- `sandstone/ActionGuide` style to match latest designs
+- `sandstone/Button` to animate when focused and pressed
+- `sandstone/ContextualMenu` style to match latest designs
+- `sandstone/DayPicker` to pass `disabled` to each child instead of applying to its container
+- `sandstone/DropDown` title color
+- `sandstone/FixedPopupPanels` and `sandstone/PopupTabLayout` to change `Panel` height when the contents change
+- `sandstone/FixedPopupPanels`, `sandstone/Panels`, and `sandstone/PopupTabLayout` to avoid skipping panel animations when under system load
+- `sandstone/FlexiblePopupPanels` navigation buttons to not be clipped when focused
 - `sandstone/ImageItem` to center the label in vertical orientation when `centered` prop is true
+- `sandstone/Input` text selection color
+- `sandstone/Input` to close the popup with the enter key only when the VKB is activated
+- `sandstone/Input` to properly read out number values
+- `sandstone/MediaPlayer.MediaControls` animation when more components are rendered
+- `sandstone/MediaPlayer.MediaSlider` style to match latest designs
+- `sandstone/Panels.Header` spacing between title and subtitle
+- `sandstone/Popup` to correctly emit the `onClose` event when focus attempts to leave the popup
+- `sandstone/PopupTabLayout` padding so it's the same distance all the way around the tab buttons
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to not lose focus from tabs with 5-way
+- `sandstone/Scroller` to not lose focus from scrollbar when re-rendered
+- `sandstone/Slider` to readout `value` when the knob is focused
+- `sandstone/VirtualList` to not clip the shadow of the last item when `wrap` prop is true or `scrollMode` is translate
+- `sandstone/WizardPanels` style when using `noSteps`
+
+## [1.0.0-rc.4] - 2020-07-09
+
+### Fixed
+
+- `sandstone/TabLayout` layout in RTL locales
 
 ## [1.0.0-rc.3] - 2020-07-07
 

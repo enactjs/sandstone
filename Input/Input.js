@@ -281,6 +281,8 @@ const InputPopupBase = kind({
 		),
 		onInputKeyDown: handle(
 			forKey('enter'),
+			// Ensure that the source of the enter is the <input>
+			({target}) => target.nodeName === 'INPUT',
 			adaptEvent(
 				prepareInputEventPayload,
 				forward('onComplete')
@@ -462,7 +464,7 @@ const InputBase = kind({
 	computed: {
 		buttonAriaLabel: ({placeholder, type, value}) => {
 			if (value) {
-				type = isPasswordType(type) ? 'password' : null;
+				type = isPasswordType(type) ? 'password' : type;
 				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
 			}
 

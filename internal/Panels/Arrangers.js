@@ -1,24 +1,120 @@
 import {arrange} from '@enact/ui/ViewManager';
-import ri from '@enact/ui/resolution';
 
 const quadInOut = 'cubic-bezier(0.455, 0.030, 0.515, 0.955)';
 const animationOptions = {easing: quadInOut};
 
-function setHeightVariable (node, height) {
-	// If height is exists (and isn't 0) convert it to a REM for safe screen scaling.
-	if (height) height = ri.unit(height, 'rem');
+// Batches animations together so that all views start/end at the same time
+const callbacks = [];
+const idle = (callback) => {
+	callbacks.push(callback);
+	if (callbacks.length === 1) {
+		const next = typeof window !== 'undefined' && window.requestIdleCallback || setTimeout;
+		next(() => {
+			callbacks.forEach(fn => fn());
+			callbacks.length = 0;
+		});
+	}
+};
 
-	// Relay the height value up to the Panels instance (parent of ViewManager, grand-parent of the
-	// Panel) so the background element can animate without "blanking out" (resetting to null)
-	// between panel measurement. Panel must be measured at "native" layout size, then set to fixed
-	// to allow a transition to work as expected, since transitions to/from "auto" are impossible
-	// at this time.
-	node.parentNode.parentNode.style.setProperty('--sand-panels-measured-height', height);
+class AnimateOnIdle {
+	constructor (node, keyframes, {duration, reverse, ...options}) {
+		this.animation = null;
 
-	// Re-assign the measured height back to the panel as a fixed value, to enable proper DOM
-	// bounding rectangle clipping, to support native scrollable region detection.
-	node.style.setProperty('--sand-panel-measured-height', height);
+		// used to "fill" when the animation completes
+		const firstKeyframe = keyframes[reverse ? keyframes.length - 1 : 0];
+		const lastKeyframe = keyframes[reverse ? 0 : keyframes.length - 1];
+
+		this._onfinish = null;
+		this._oncancel = null;
+		this._reverse = false;
+		this._playState = 'idle';
+
+		this.fill(node, firstKeyframe);
+
+		this.handleFinish = () => {
+			this._playState = 'finished';
+			this.fill(node, lastKeyframe);
+			if (this._onfinish) this._onfinish();
+		};
+
+		this.handleCancel = () => {
+			this._playState = 'finished';
+			this.fill(node, firstKeyframe);
+			if (this._oncancel) this._oncancel();
+		};
+
+		idle(() => {
+			// if the animation was finsihed/cancelled before the idle callback occurs, bail out
+			if (this._playState === 'finished') return;
+
+			this.animation = node.animate(keyframes, {
+				duration,
+				direction: reverse ? 'reverse' : 'normal',
+				fill: 'none',
+				...options
+			});
+
+			this.animation.onfinish = this.handleFinish;
+			this.animation.oncancel = this.handleCancel;
+
+			if (this._reverse) {
+				this.animation.reverse();
+			}
+		});
+	}
+
+	fill (node, keyframe) {
+		// NOTE: this is naive atm to only address transform. We can extend it later.
+		node.style.transform = keyframe.transform;
+	}
+
+	get playState () {
+		return this.animation ? this.animation.playState : this._playState;
+	}
+
+	set onfinish (value) {
+		this._onfinish = value;
+	}
+
+	set oncancel (value) {
+		this._oncancel = value;
+	}
+
+	finish () {
+		if (this.animation) {
+			this.animation.finish();
+		} else {
+			this.handleFinish();
+		}
+	}
+
+	cancel () {
+		if (this.animation) {
+			this.animation.cancel();
+		} else {
+			this.handleCancel();
+		}
+	}
+
+	reverse () {
+		if (this.animation) {
+			this.animation.reverse();
+		} else {
+			// do we need to account for re-reversing? seems unlikely but a possibility perhaps
+			this._reverse = true;
+		}
+	}
 }
+
+const deferArrange = (config, keyframes, options) => {
+	const {node, duration, reverse} = config;
+
+	return new AnimateOnIdle(node, keyframes, {
+		duration,
+		reverse,
+		...options
+	});
+};
 
 /**
  * Arranger that slides panels in from the right and out to the left.
@@ -27,41 +123,14 @@ function setHeightVariable (node, height) {
  * @private
  */
 const BasicArranger = {
-	stay: (config) => {
-		// Set the initial size of the panel, before any transitions take place
-		const {node} = config;
-		const height = node.getBoundingClientRect().height;
-		setHeightVariable(node, height);
-
-		return arrange(config, [
-			{transform: 'none'},
-			{transform: 'none'}
-		], animationOptions);
-	},
 	enter: (config) => {
-		const {node, reverse} = config;
-
-		// Only assign values for the view entering the screen
-		if (!reverse) {
-			const height = node.getBoundingClientRect().height;
-			setHeightVariable(node, height);
-		}
-
-		return arrange(config, [
+		return deferArrange(config, [
 			{transform: 'translateX(100%)', offset: 0},
 			{transform: 'none', offset: 1}
 		], animationOptions);
 	},
 	leave: (config) => {
-		const {node, reverse} = config;
-
-		// Only assign values for the view entering the screen
-		if (reverse) {
-			const height = node.getBoundingClientRect().height;
-			setHeightVariable(node, height);
-		}
-
-		return arrange(config, [
+		return deferArrange(config, [
 			{transform: 'none', offset: 0},
 			{transform: 'translateX(-100%)', offset: 1}
 		], animationOptions);
