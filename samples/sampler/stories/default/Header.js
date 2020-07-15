@@ -5,6 +5,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
+import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Steps from '@enact/sandstone/Steps';
 
@@ -63,6 +64,7 @@ storiesOf('Sandstone', module)
 				>
 					{children}
 				</Header>
+				<BodyText>Example body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada felis egestas elit laoreet, at egestas justo ornare. Fusce vel diam porttitor, dapibus nisi in, lobortis ante. Sed quis gravida sapien, id convallis dui.</BodyText>
 			</Panel>);
 
 			return story;

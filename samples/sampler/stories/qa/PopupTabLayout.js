@@ -21,7 +21,7 @@ storiesOf('PopupTabLayout', module)
 					<PopupTabLayout
 						open
 					>
-						<Tab icon={'brightness'} title="Display">
+						<Tab icon="picture" title="Display">
 							<TabPanels index={0}>
 								<TabPanel>
 									<Header title="Display Settings" type="compact" />
@@ -33,7 +33,7 @@ storiesOf('PopupTabLayout', module)
 								</TabPanel>
 							</TabPanels>
 						</Tab>
-						<Tab icon={'speakers'} title="Sound">
+						<Tab icon="sound" title="Sound">
 							<TabPanels index={0}>
 								<TabPanel>
 									<Header title="Sound Settings" type="compact" />

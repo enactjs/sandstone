@@ -326,16 +326,17 @@ const WizardPanelsBase = kind({
 
 			return `${step} ${title} ${subtitle}`;
 		},
+		className: ({noSteps, styler}) => styler.append({noSteps}),
 		steps: ({current, index, noSteps, total, totalPanels}) => {
-			if (noSteps) {
-				return null;
-			}
+			const currentStep = (noSteps && 1) || ((typeof current === 'number' && current > 0) ? current : (index + 1));
+			const totalSteps = (noSteps && 1) || ((typeof total === 'number' && total > 0) ? total : totalPanels);
 
 			return (
 				<Steps
-					current={(typeof current === 'number' && current > 0) ? current : (index + 1)}
+					className={css.steps}
+					current={currentStep}
 					slot="slotAbove"
-					total={(typeof total === 'number' && total > 0) ? total : totalPanels}
+					total={totalSteps}
 				/>
 			);
 		}

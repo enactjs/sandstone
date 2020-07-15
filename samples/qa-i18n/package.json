@@ -30,12 +30,12 @@
     "dist/*"
   ],
   "dependencies": {
-    "@enact/core": "^3.3.0-alpha.15",
-    "@enact/i18n": "^3.3.0-alpha.15",
+    "@enact/core": "^3.3.0",
+    "@enact/i18n": "^3.3.0",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.3.0-alpha.15",
-    "@enact/ui": "^3.3.0-alpha.15",
-    "@enact/webos": "^3.3.0-alpha.15",
+    "@enact/spotlight": "^3.3.0",
+    "@enact/ui": "^3.3.0",
+    "@enact/webos": "^3.3.0",
     "ilib": "^14.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
