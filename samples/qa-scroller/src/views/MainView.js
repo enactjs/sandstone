@@ -37,7 +37,7 @@ class MainView extends React.Component {
 			focusableScrollbar: false,
 			height: 4000,
 			nativeScroll: true,
-			width: 2000
+			width: 1000
 		};
 	}
 
