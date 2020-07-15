@@ -40,9 +40,12 @@ describe('onKeyDown', function () {
 	});
 
 	it('should allow bubbling while navigating out of a list using visible focusableScrollbar via items', function () {
+		// Set dataSize to 10 for Speed up Test.
 		Page.inputfieldNumItems.moveTo();
 		Page.spotlightSelect();
+		// Since datasize's defaultSize is 100, pressing the Backspace key once will set it to 10.
 		Page.backSpace();
+		// For close VKB on TV.
 		Page.backKey();
 		Page.spotlightDown();
 		Page.buttonLeft.moveTo();
@@ -63,9 +66,12 @@ describe('onKeyDown', function () {
 	it('should allow bubbling while navigating out of a list using hidden focusableScrollbar via items', function () {
 		Page.spotlightSelect();
 		Page.spotlightRight();
+		// Set dataSize to 10 for Speed up Test.
 		Page.inputfieldNumItems.moveTo();
 		Page.spotlightSelect();
+		// Since datasize's defaultSize is 100, pressing the Backspace key once will set it to 10.
 		Page.backSpace();
+		// For close VKB on TV.
 		Page.backKey();
 		Page.spotlightDown();
 		Page.buttonLeft.moveTo();
@@ -91,9 +97,12 @@ describe('onKeyDown', function () {
 
 	// Need mochaOpts - timeout set to 60000 to pass
 	it('should allow bubbling while navigating out of a list using non-focusableScrollbar via items', function () {
+		// Set dataSize to 10 for Speed up Test.
 		Page.inputfieldNumItems.moveTo();
 		Page.spotlightSelect();
+		// Since datasize's defaultSize is 100, pressing the Backspace key once will set it to 10.
 		Page.backSpace();
+		// For close VKB on TV.
 		Page.backKey();
 		Page.spotlightDown();
 		Page.buttonLeft.moveTo();
