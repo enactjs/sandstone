@@ -7,5 +7,5 @@ runTest({
 	Page: Page,
 	skin: 'neutral',
 	highContrast: false,
-	concurrency: 1
+	concurrency: 4
 });
