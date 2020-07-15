@@ -81,6 +81,7 @@ describe('Scroller', function () {
 			// Step 6 Verify: Spotlight is on the Scroll thumb in the horizontalScrollbar track.
 			expect(ScrollerPage.horizontalScrollThumb.isFocused()).to.be.true();
 			const initialHorizontalScrollTumbPosition = ScrollerPage.getScrollThumbPosition().horizontal;
+			expect(initialHorizontalScrollTumbPosition).to.equal('0');
 			// Step 7: 5-Way Right.
 			ScrollerPage.spotlightRight();
 			ScrollerPage.delay(300);
