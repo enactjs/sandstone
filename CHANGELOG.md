@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/VirtualList` to preserve focus in panels
+
 ## [1.0.0] - 2020-07-13
 
 ### Changed

@@ -439,8 +439,7 @@ VirtualList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first',
-			enterTo: 'last-focused'
+			restrict: 'self-first'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
@@ -871,8 +870,7 @@ VirtualGridList = Skinnable(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first',
-			enterTo: 'last-focused'
+			restrict: 'self-first'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
