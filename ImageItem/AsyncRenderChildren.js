@@ -15,19 +15,16 @@ const delayToRenderChildren = 600;
  * @ui
  * @private
  */
-function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) {
-	const [children, setChildren] = React.useState(cachedChildren);
-	const prevIndexRef = React.useRef(index);
+function AsyncRenderChildren ({children, fallback = '', index}) {
+	const [prevIndex, setPrevIndex] = React.useState(index);
 	const timerRef = React.useRef(null);
-	const async = (children !== cachedChildren && index !== prevIndexRef.current);
-
-	prevIndexRef.current = index;
+	const async = (index !== prevIndex);
 
 	React.useEffect(() => {
 		if (async) {
 			timerRef.current = setTimeout(() => {
 				timerRef.current = null;
-				setChildren(cachedChildren);
+				setPrevIndex(index);
 			}, delayToRenderChildren);
 		}
 
@@ -39,11 +36,7 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 		};
 	});
 
-	if (index === prevIndexRef.current) {
-		return cachedChildren;
-	} else {
-		return async ? fallback : children;
-	}
+	return async ? fallback : children;
 }
 
 AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildren.prototype */ {
