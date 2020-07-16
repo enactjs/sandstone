@@ -16,7 +16,7 @@ const ContextualMenuDecoratorView = () => (
 	<Section title="Button wrapped with ContextualMenuDecorator">
 		<ContextualButton alt="With Menu Item" menuItems={MenuItems}>Text</ContextualButton>
 		<ContextualButton alt="With Disabled Menu Item" menuItems={MenuItemObject}>Text</ContextualButton>
-		<ContextualButton alt="Disabled" disabled menuItems={MenuItems}>Fruits</ContextualButton>
+		<ContextualButton alt="Disabled" disabled menuItems={MenuItems}>Text</ContextualButton>
 	</Section>
 );
 

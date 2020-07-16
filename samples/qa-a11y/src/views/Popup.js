@@ -8,8 +8,6 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
-
 class PopupView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -42,23 +40,23 @@ class PopupView extends React.Component {
 		const {open1, open2, open3, open4, open5} = this.state;
 
 		return (
-			<>
-				<Button onClick={this.handleOpen1}>Basic Popup</Button>
-				<Button onClick={this.handleOpen2}>Long Popup</Button>
-				<Button onClick={this.handleOpen3}>Scroller Popup</Button>
-				<Button onClick={this.handleOpen4}>Button In Popup</Button>
-				<Button onClick={this.handleOpen5}>Customizable aria-label popup</Button>
+			<Section>
+				<Button alt="Normal" onClick={this.handleOpen1}>Open 0</Button>
+				<Button alt="Long Text" onClick={this.handleOpen2}>Open 1</Button>
+				<Button alt="With Scroller" onClick={this.handleOpen3}>Open 2</Button>
+				<Button alt="With Buttons" onClick={this.handleOpen4}>Open 3</Button>
+				<Button alt="Aria-lablled with Buttons" onClick={this.handleOpen5}>Open 4</Button>
 
 				<Popup
-					open={open1}
 					onClose={this.handleClose1}
+					open={open1}
 				>
 					<span>Popup...</span>
 				</Popup>
 
 				<Popup
-					open={open2}
 					onClose={this.handleClose2}
+					open={open2}
 				>
 					<span>
 						Enact is a framework designed to be performant, customizable and well structured.
@@ -82,8 +80,8 @@ class PopupView extends React.Component {
 				</Popup>
 
 				<Popup
-					open={open3}
 					onClose={this.handleClose3}
+					open={open3}
 				>
 					<Button>Button Outside Scroller</Button>
 					<Scroller style={{height: ri.scaleToRem(170), marginTop: ri.scaleToRem(10)}}>
@@ -101,8 +99,8 @@ class PopupView extends React.Component {
 				</Popup>
 
 				<Popup
-					open={open4}
 					onClose={this.handleClose4}
+					open={open4}
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
 					<Button>Hello</Button>
@@ -110,15 +108,15 @@ class PopupView extends React.Component {
 				</Popup>
 
 				<Popup
-					aria-label="This is a popup"
-					open={open5}
+					aria-label="This is a Label."
 					onClose={this.handleClose5}
+					open={open5}
 				>
 					<Heading showLine>Buttons In Popup Example</Heading>
 					<Button>Hello</Button>
 					<Button>Goodbye</Button>
 				</Popup>
-			</>
+			</Section>
 		);
 	}
 }

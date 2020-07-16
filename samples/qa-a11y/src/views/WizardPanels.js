@@ -6,16 +6,12 @@ import Scroller from '@enact/sandstone/Scroller';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 import React from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 class WizardPanelsView extends React.Component {
 	render () {
 		return (
 			<WizardPanels>
 				<WizardPanels.Panel
-					prevButton={<Button icon="closex" aria-label="exit">Exit</Button>}
+					prevButton={<Button icon="closex" aria-label="This is Exit.">Exit</Button>}
 					subtitle="A subtitle for View 1"
 					title="WizardPanels View 1"
 				>
@@ -55,7 +51,7 @@ class WizardPanelsView extends React.Component {
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
 					footer="Footer in View 4"
-					nextButton={<Button icon="closex" aria-label="quit">Close</Button>}
+					nextButton={<Button icon="closex" aria-label="This is Quit.">Close</Button>}
 					subtitle="A subtitle for View 4"
 					title="WizardPanels View 4"
 				>

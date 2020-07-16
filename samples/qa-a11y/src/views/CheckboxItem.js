@@ -13,8 +13,8 @@ const CheckboxItemView = () => (
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<CheckboxItem alt="Aria-labelled" aria-label="This is a Text">Text</CheckboxItem>
-			<CheckboxItem alt="Aria-labelled and disabled" aria-label="This is a Text" disabled>Text</CheckboxItem>
+			<CheckboxItem alt="Aria-labelled" aria-label="This is a Label.">Text</CheckboxItem>
+			<CheckboxItem alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled>Text</CheckboxItem>
 		</Section>
 	</>
 );

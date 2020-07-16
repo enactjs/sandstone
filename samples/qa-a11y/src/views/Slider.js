@@ -4,10 +4,6 @@ import Slider from '@enact/sandstone/Slider';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 class CustomSlider extends React.Component {
 	static propTypes = {
 		customText: PropTypes.string

@@ -75,6 +75,7 @@ class FixedPopupPanelsView extends React.Component {
 						<Button onClick={this.prevPanel}>Button 2</Button>
 					</Panel>
 				</FixedPopupPanels>
+
 				<FixedPopupPanels
 					index={this.state.panelIndex}
 					onClose={this.handleClose2}
@@ -97,6 +98,7 @@ class FixedPopupPanelsView extends React.Component {
 						<Item onClick={this.prevPanel}>Example Item 3</Item>
 					</Panel>
 				</FixedPopupPanels>
+
 				<FixedPopupPanels
 					index={this.state.panelIndex}
 					onClose={this.handleClose3}

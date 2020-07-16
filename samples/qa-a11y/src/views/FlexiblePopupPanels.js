@@ -11,6 +11,7 @@ import Section from '../components/Section';
 class FlexiblePopupPanelsView extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			index: 0,
 			open: false
@@ -25,10 +26,8 @@ class FlexiblePopupPanelsView extends React.Component {
 
 	render () {
 		const {index, open} = this.state;
-
-		const
-			prevButton = <Button icon="closex" aria-label="exit" onClick={this.handleClose} />,
-			nextButton = <Button icon="closex" aria-label="quit" onClick={this.handleClose} />;
+		const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={this.handleClose} />;
+		const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={this.handleClose} />;
 
 		return (
 			<Section title="Default">

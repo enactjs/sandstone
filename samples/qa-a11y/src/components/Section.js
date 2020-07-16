@@ -22,7 +22,8 @@ const SectionBase = kind({
 	name: 'Section',
 
 	propTypes: {
-		title: PropTypes.string
+		title: PropTypes.string,
+		vertical: PropTypes.bool
 	},
 
 	styles: {
@@ -30,16 +31,28 @@ const SectionBase = kind({
 		className: 'section'
 	},
 
-	render: ({children, title, ...rest}) => (
-		<Cell size={1500} {...rest}>
-			<Heading showLine>{title}</Heading>
-			{React.Children.map(children, child => (
-				<Row className={css.componentDemo} align="center">
-					<Cell component="label" size="30%">{child.props.alt}</Cell>
-					<Cell>{child}</Cell>
+	render: ({children, title, vertical, ...rest}) => (
+		vertical ?
+			<Cell size={1500} {...rest}>
+				<Heading showLine>{title}</Heading>
+				<Row className={css.componentDemo}>
+					{React.Children.map(children, child => (
+						<Cell component="label" size="20%">
+							<div>{child.props.alt}</div>
+							{child}
+						</Cell>
+					))}
 				</Row>
-			))}
-		</Cell>
+			</Cell> :
+			<Cell size={1500} {...rest}>
+				<Heading showLine>{title}</Heading>
+				{React.Children.map(children, child => (
+					<Row className={css.componentDemo} align="center">
+						<Cell component="label" size="40%">{child.props.alt}</Cell>
+						<Cell>{child}</Cell>
+					</Row>
+				))}
+			</Cell>
 	)
 });
 

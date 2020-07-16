@@ -8,10 +8,6 @@ import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {scaleToRem} from '@enact/ui/resolution';
 import React from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
 	{title: 'Button', icon: 'gear'},

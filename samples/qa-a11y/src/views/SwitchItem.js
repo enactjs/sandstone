@@ -7,10 +7,15 @@ import css from '../App/App.module.less';
 
 const SwitchItemView = () => (
 	<>
-		<SwitchItem>Text</SwitchItem>
-		<SwitchItem disabled>Text</SwitchItem>
-		<SwitchItem aria-label="This is a SwitchItem">Text</SwitchItem>
-		<SwitchItem aria-label="This is a SwitchItem" disabled>Text</SwitchItem>
+		<Section title="Default">
+			<SwitchItem alt="Normal">Text</SwitchItem>
+			<SwitchItem alt="Disabled" disabled>Text</SwitchItem>
+		</Section>
+
+		<Section className={css.marginTop} title="Aria-labelled">
+			<SwitchItem alt="Aria-labelled" aria-label="This is a Label.">Text</SwitchItem>
+			<SwitchItem alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled>Text</SwitchItem>
+		</Section>
 	</>
 );
 

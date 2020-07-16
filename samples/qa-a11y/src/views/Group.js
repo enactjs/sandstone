@@ -1,5 +1,4 @@
 import Button from '@enact/sandstone/Button';
-import Heading from '@enact/sandstone/Heading';
 import Group from '@enact/ui/Group';
 import React from 'react';
 
@@ -34,11 +33,12 @@ const GroupView = () => (
 				{[
 					{'aria-label': 'This is an Item 1.', children: 'Item 1', key: 1},
 					{'aria-label': 'This is an Item 2.', children: 'Item 2', key: 2},
-					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3},
+					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3}
 				]}
 			</Group>
+
 			<Group
-				alt="Selected With aria-labelled and disabled Items"
+				alt="Selected With aria-labelled and Disabled Items"
 				childComponent={Button}
 				defaultSelected={0}
 				itemProps={{size: 'small'}}
@@ -47,8 +47,8 @@ const GroupView = () => (
 			>
 				{[
 					{'aria-label': 'This is an Item 1.', children: 'Item 1', disabled: true, key: 1},
-					{'aria-label': 'This is an Item 2.', children: 'Item 2', diabled: true, key: 2},
-					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3},
+					{'aria-label': 'This is an Item 2.', children: 'Item 2', disabled: true, key: 2},
+					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3}
 				]}
 			</Group>
 		</Section>

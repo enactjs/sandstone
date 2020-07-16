@@ -7,10 +7,15 @@ import css from '../App/App.module.less';
 
 const SwitchView = () => (
 	<>
-		<Switch />
-		<Switch disabled />
-		<Switch aria-label="This is a Switch" />
-		<Switch aria-label="This is a Switch" disabled />
+		<Section title="Default">
+			<Switch alt="Normal" />
+			<Switch alt="Disabled" disabled />
+		</Section>
+
+		<Section className={css.marginTop} title="Aria-labelled">
+			<Switch alt="Aria-labelled" aria-label="This is a Label." />
+			<Switch alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
+		</Section>
 	</>
 );
 

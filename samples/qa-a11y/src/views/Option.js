@@ -4,10 +4,6 @@ import Heading from '@enact/sandstone/Heading';
 import PropTypes from 'prop-types';
 import React, {useCallback} from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;
 	const {rtl, updateLocale} = useI18nContext();
@@ -19,6 +15,7 @@ const Option = (props) => {
 		<>
 			<Heading showLine>Set a language direction</Heading>
 			<CheckboxItem onClick={onClick} selected={rtl}>RTL</CheckboxItem>
+
 			<Heading showLine>Set an aria debug mode</Heading>
 			<CheckboxItem onClick={handleDebug} selected={isDebugMode}>Debug aria</CheckboxItem>
 		</>

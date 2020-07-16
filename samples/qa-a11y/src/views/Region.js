@@ -7,8 +7,6 @@ import React from 'react';
 
 import css from './Region.module.less';
 
-import Section from '../components/Section';
-
 import appCss from '../App/App.module.less';
 
 const RegionView = kind({
@@ -16,7 +14,7 @@ const RegionView = kind({
 
 	render: (props) => (
 		<div {...props}>
-			<h2>Single Level</h2>
+			<h2 className={appCss.headerMarginTop}>Single Level</h2>
 
 			<Region className={css.region} title="With aria-label">
 				<p>Focusing Button 1 should read "With aria-label, Button 1, button"</p>
@@ -42,7 +40,7 @@ const RegionView = kind({
 				<Button>Button 5</Button>
 			</Region>
 
-			<h2>Multi Level</h2>
+			<h2 className={appCss.headerMarginTop}>Multi Level</h2>
 
 			<Region className={css.region} title="With aria-label">
 				<p>Focusing Button 6 should read "With aria-label, Popup, Button 6, button"</p>
@@ -90,7 +88,7 @@ const RegionView = kind({
 				<Button>Button 12</Button>
 			</Region>
 
-			<h2>Region within a region</h2>
+			<h2 className={appCss.headerMarginTop}>Region within a region</h2>
 
 			<Region className={css.region} title="Outside region">
 				<Region title="Inside region">

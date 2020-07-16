@@ -1,6 +1,5 @@
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
-import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
 
@@ -48,8 +47,8 @@ class DatePickerItem extends React.Component {
 const DatePickerView = () => (
 	<>
 		<Section title="Default">
-			<DatePickerItem alt="Normal" title="Date"/>
-			<DatePickerItem alt="Disabled" disabled title="Date"/>
+			<DatePickerItem alt="Normal" title="Date" />
+			<DatePickerItem alt="Disabled" disabled title="Date" />
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">

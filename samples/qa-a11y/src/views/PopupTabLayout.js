@@ -6,10 +6,6 @@ import Scroller from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 class PopupTabLayoutView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -42,9 +38,10 @@ class PopupTabLayoutView extends React.Component {
 		return (
 			<>
 				<Button onClick={this.handleOpen}>Open PopupTabLayout</Button>
+
 				<PopupTabLayout
-					open={open}
 					onClose={this.handleClose}
+					open={open}
 					spotlightRestrict="self-only"
 				>
 					<Tab icon="picture" title="Display">
@@ -70,6 +67,7 @@ class PopupTabLayoutView extends React.Component {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
+
 					<Tab icon="speaker" title="Sound">
 						<TabPanels index={indexSound} onBack={this.handleSoundPrev} onClose={this.handleClose}>
 							<TabPanel>
@@ -89,6 +87,7 @@ class PopupTabLayoutView extends React.Component {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
+
 					<Tab icon="arrowupdown" title="Network">
 						<TabPanels index={indexNetwork} onBack={this.handleNetworkPrev} onClose={this.handleClose}>
 							<TabPanel>

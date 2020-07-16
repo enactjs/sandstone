@@ -6,9 +6,9 @@ import Section from '../components/Section';
 import css from '../App/App.module.less';
 
 const list = [
-	{children: 'Option1', key: 'item1', 'aria-label': 'aria label 1'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'aria label 2'},
-	{children: 'Option3', key: 'item3', 'aria-label': 'aria label 3'}
+	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
+	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'},
+	{children: 'Option3', key: 'item3', 'aria-label': 'This is an Option 3.'}
 ];
 
 const disabledList = list.map(item => ({...item, disabled: true}));
@@ -68,15 +68,15 @@ const DropdownView = () => (
 			</Dropdown>
 			<Dropdown
 				alt="Aria-lablelled with Placeholder and title"
-				aria-label="This is a Dropdown."
+				aria-label="This is a Label."
 				placeholder="Placeholder"
 				title="Title"
 			>
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
 			<Dropdown
-				alt="Aria-lablelled and disabled with Placeholder and title"
-				aria-label="This is a Dropdown."
+				alt="Aria-lablelled and Disabled with Placeholder and title"
+				aria-label="This is a Label."
 				disabled
 				placeholder="Placeholder"
 				title="Title"
@@ -104,7 +104,7 @@ const DropdownView = () => (
 
 		<Section className={css.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
 			<A11yDropdown
-				aria-label="This is a Dropdown."
+				aria-label="This is a Label."
 				placeholder="Placeholder"
 				title="Title"
 			>

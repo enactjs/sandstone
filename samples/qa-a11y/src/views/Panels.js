@@ -5,10 +5,6 @@ import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import Section from '../components/Section';
-
-import css from '../App/App.module.less';
-
 const itemList = [];
 for (let i = 0; i < 50; i++) {
 	itemList.push('item' + i);

@@ -71,7 +71,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				<ContextualButton alt="With Texts" popupComponent={this.renderPopup1}>Text</ContextualButton>
 				<ContextualButton alt="With Buttons" popupComponent={this.renderPopup2} spotlightRestrict="self-only">Text</ContextualButton>
 				<ContextualButton alt="With RadioItems in Group" direction="below" popupComponent={this.renderPopup3}>Text</ContextualButton>
-				<ContextualButton alt="With disabled RadioItems in Group" direction="below" popupComponent={this.renderPopup4}>Text</ContextualButton>
+				<ContextualButton alt="With Disabled RadioItems in Group" direction="below" popupComponent={this.renderPopup4}>Text</ContextualButton>
 				<ContextualButton alt="Disabled" disabled popupComponent={this.renderPopup1}>Text</ContextualButton>
 			</Section>
 		);

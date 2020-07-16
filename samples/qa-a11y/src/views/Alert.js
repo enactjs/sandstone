@@ -51,23 +51,23 @@ class AlertView extends React.Component {
 		return (
 			<Row wrap>
 				<Section className={css.marginTop} size="50%" title="Alert Fullscreen">
-					<Button onClick={this.handleOpen1} alt="Normal">Button</Button>
-					<Button onClick={this.handleOpen2} alt="With 3(max) Buttons">Button</Button>
-					<Button onClick={this.handleOpen3} alt="With Thumbnail">Button</Button>
-					<Button onClick={this.handleOpen4} alt="Without Title">Button</Button>
-					<Button onClick={this.handleOpen5} alt="Without Content">Button</Button>
+					<Button alt="Normal" onClick={this.handleOpen1}>Text</Button>
+					<Button alt="With 3(max) Buttons" onClick={this.handleOpen2}>Text</Button>
+					<Button alt="With Thumbnail" onClick={this.handleOpen3}>Text</Button>
+					<Button alt="Without Title" onClick={this.handleOpen4}>Text</Button>
+					<Button alt="Without Content" onClick={this.handleOpen5}>Text</Button>
 				</Section>
 
-				<Section className={css.marginTop} size="50%" title="Alert Overlay which has no title">
-					<Button onClick={this.handleOpen6} alt="Normal">Button</Button>
-					<Button onClick={this.handleOpen7} alt="With 3(max) Buttons">Button</Button>
-					<Button onClick={this.handleOpen8} alt="With Thumbnail">Button</Button>
+				<Section className={css.marginTop} size="50%" title="Alert Overlay which has No title">
+					<Button alt="Normal" onClick={this.handleOpen6}>Text</Button>
+					<Button alt="With 3(max) Buttons" onClick={this.handleOpen7}>Text</Button>
+					<Button alt="With Thumbnail" onClick={this.handleOpen8}>Text</Button>
 				</Section>
 
 				<Alert
-					open={open1}
 					onClose={this.handleClose1}
-					title="this is title"
+					open={open1}
+					title="Header Title"
 				>
 					<span>this is content</span>
 					<buttons>
@@ -76,8 +76,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open2}
 					onClose={this.handleClose2}
+					open={open2}
 					title="good morning"
 				>
 					<span>
@@ -93,8 +93,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open3}
 					onClose={this.handleClose3}
+					open={open3}
 					title="this is title"
 				>
 					<image>
@@ -108,8 +108,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open4}
 					onClose={this.handleClose4}
+					open={open4}
 				>
 					<span>
 						Not to worry, this message isn&apos;t going to be very long.
@@ -124,8 +124,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open5}
 					onClose={this.handleClose5}
+					open={open5}
 					title="good afternoon"
 				>
 					<buttons>
@@ -135,8 +135,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open6}
 					onClose={this.handleClose6}
+					open={open6}
 					type="overlay"
 				>
 					<span>
@@ -151,8 +151,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open7}
 					onClose={this.handleClose7}
+					open={open7}
 					type="overlay"
 				>
 					<span>
@@ -168,8 +168,8 @@ class AlertView extends React.Component {
 				</Alert>
 
 				<Alert
-					open={open8}
 					onClose={this.handleClose8}
+					open={open8}
 					type="overlay"
 				>
 					<image>

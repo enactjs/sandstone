@@ -1,4 +1,3 @@
-import Heading from '@enact/sandstone/Heading';
 import Input from '@enact/sandstone/Input';
 import React from 'react';
 
@@ -8,25 +7,38 @@ import css from '../App/App.module.less';
 
 const InputView = () => (
 	<>
-		<Heading showLine>Input</Heading>
-		<Input />
-		<Input placeholder="Disabled input" disabled />
-		<Input iconAfter="lock" />
-		<Input iconAfter="lock" disabled />
-		<Input placeholder="Enter number" subtitle="Subtitle" title="Title" type="number" />
-		<Input value="1234" subtitle="Subtitle" title="Title" type="number" disabled/>
-		<Input placeholder="Enter passwordnumber" subtitle="Subtitle" title="Title" type="passwordnumber" />
-		<Input value="1234"  subtitle="Subtitle" title="Title" type="passwordnumber"  disabled/>
-		<Input placeholder="Enter password" subtitle="Subtitle" title="Title" type="password" />
-		<Input value="1234"  subtitle="Subtitle" title="Title" type="password" disabled/>
-		<Input placeholder="Dismiss on Enter" dismissOnEnter />
-		<Input placeholder="Dismiss on Enter" dismissOnEnter disabled />
-		<Input defaultValue="Initial value" />
-		<Input placeholder="Placeholder" />
-		<Heading showLine>Customizable aria-labels</Heading>
-		<Input aria-label="add input" />
-		<Input aria-label="add input" disabled />
-		<Input popupAriaLabel="This is a input popup" />
+		<Section title="Default">
+			<Input alt="With No Placeholder" />
+			<Input alt="With defaultValue" defaultValue="Default" />
+			<Input alt="With Placeholder" placeholder="Placeholder" />
+			<Input alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
+		</Section>
+
+		<Section className={css.marginTop} title="Number, Passwordnumber, and Password">
+			<Input alt="Number Type With Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Disabled Number Type with Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="number" value="1234" />
+			<Input alt="Passwordnumber Type with Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="passwordnumber" />
+			<Input alt="Disabled Passwordnumber Type with Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="passwordnumber" value="1234" />
+			<Input alt="Password Type With Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="password" />
+			<Input alt="Disabled Password Type With Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="password" value="1234" />
+		</Section>
+
+		<Section className={css.marginTop} title="With iconAfter">
+			<Input alt="With iconAfter" iconAfter="lock" />
+			<Input alt="Disabled With iconAfter" disabled iconAfter="lock" />
+		</Section>
+
+		<Section className={css.marginTop} title="With dismissOnEnter">
+			<Input alt="With Placeholder and dismissOnEnter" dismissOnEnter placeholder="Placeholder" />
+			<Input alt="Disabled With Placeholder and dismissOnEnter" dismissOnEnter disabled placeholder="Placeholder" />
+		</Section>
+
+		<Section className={css.marginTop} title="Aria-labelled">
+			<Input alt="Aria-labelled" aria-label="This is a Label." />
+			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
+			<Input alt="With popupAriaLabel" popupAriaLabel="This is a input popup" />
+			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+		</Section>
 	</>
 );
 

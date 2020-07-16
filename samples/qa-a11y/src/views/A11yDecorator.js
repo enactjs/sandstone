@@ -15,8 +15,8 @@ const A11yDecoratorView = () => (
 		<Heading showLine className={css.marginTop}>accessibilityHint=This is a Hint.</Heading>
 		<A11yButton accessibilityHint="This is a Hint.">Medium</A11yButton>
 
-		<Heading showLine className={css.marginTop}>aria-label=This is a aria label.</Heading>
-		<A11yButton aria-label="This is a aria label.">Hard</A11yButton>
+		<Heading showLine className={css.marginTop}>aria-label=This is a Label.</Heading>
+		<A11yButton aria-label="This is a Label.">Hard</A11yButton>
 	</>
 );
 

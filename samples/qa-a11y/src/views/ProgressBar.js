@@ -32,13 +32,15 @@ class ProgressBarView extends React.Component {
 			<>
 				<Heading showLine>Progress Bar</Heading>
 				<ProgressBar
-					aria-live="assertive"
 					aria-label={barAriaLabel}
+					aria-live="assertive"
 					progress={progressBarValue}
 				/>
-				<br />
-				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
-				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
+
+				<Section className={css.marginTop} title="Controls" vertical>
+					<Button alt="Decrease" aria-label="Decrease" icon="minus" onClick={this.handleDecreaseBarValue} />
+					<Button alt="Increase" aria-label="Increase" icon="plus" onClick={this.handleIncreaseBarValue} />
+				</Section>
 			</>
 		);
 	}
