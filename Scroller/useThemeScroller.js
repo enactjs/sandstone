@@ -122,6 +122,10 @@ const useSpottable = (props, instances) => {
 	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	useEffect(() => {
+		return () => setContainerDisabled(false);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	useEffect(() => {
 		const {onUpdate} = props;
 
 		if (onUpdate) {
