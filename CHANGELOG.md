@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/ImageItem` to render properly when changing the `children` prop
+- `sandstone/ImageItem` to render properly when changing the `children` prop and not changing `data-index` prop
 
 ## [1.0.0] - 2020-07-13
 
