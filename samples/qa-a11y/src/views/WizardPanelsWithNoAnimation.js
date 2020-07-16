@@ -13,7 +13,7 @@ import css from '../App/App.module.less';
 class WizardPanelsView extends React.Component {
 	render () {
 		return (
-			<WizardPanels>
+			<WizardPanels noAnimation>
 				<WizardPanels.Panel
 					prevButton={<Button icon="closex" aria-label="exit">Exit</Button>}
 					subtitle="A subtitle for View 1"

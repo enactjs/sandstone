@@ -19,7 +19,7 @@ import Dropdown from '../views/Dropdown';
 import FixedPopupPanels from '../views/FixedPopupPanels';
 import FlexiblePopupPanels from '../views/FlexiblePopupPanels';
 import FormCheckboxItem from '../views/FormCheckboxItem';
-import GroupItem from '../views/GroupItem';
+import GroupView from '../views/Group';
 import Header from '../views/Header';
 import ImageItem from '../views/ImageItem';
 import Input from '../views/Input';
@@ -48,6 +48,7 @@ import VideoPlayer from '../views/VideoPlayer';
 import VirtualGridList from '../views/VirtualGridList';
 import VirtualList from '../views/VirtualList';
 import WizardPanels from '../views/WizardPanels';
+import WizardPanelsWithNoAnimation from '../views/WizardPanelsWithNoAnimation';
 
 import css from './App.module.less';
 import Home from './Home';
@@ -69,7 +70,7 @@ const views = [
 	{title: 'FixedPopupPanels', view: FixedPopupPanels},
 	{title: 'FlexiblePopupPanels', view: FlexiblePopupPanels},
 	{title: 'FormCheckboxItem', view: FormCheckboxItem},
-	{title: 'GroupItem', view: GroupItem},
+	{title: 'Group', view: GroupView},
 	{isHeader: false, title: 'Header', view: Header},
 	{title: 'ImageItem', view: ImageItem},
 	{title: 'Input', view: Input},
@@ -96,7 +97,8 @@ const views = [
 	{isAriaHidden: true, title: 'VideoPlayer', view: VideoPlayer},
 	{title: 'VirtualGridList', view: VirtualGridList},
 	{title: 'VirtualList', view: VirtualList},
-	{isHeader: false, title: 'WizardPanels', view: WizardPanels}
+	{isHeader: false, title: 'WizardPanels', view: WizardPanels},
+	{isHeader: false, title: 'WizardPanelsWithNoAnimation,', view: WizardPanelsWithNoAnimation}
 ];
 
 class AppBase extends React.Component {

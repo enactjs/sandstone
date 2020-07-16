@@ -4,6 +4,10 @@ import Steps from '@enact/sandstone/Steps';
 import {Cell} from '@enact/ui/Layout';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const cellStyle = {border: '3px solid red'};
 
 const HeaderView = () => (

@@ -8,6 +8,10 @@ import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {scaleToRem} from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
 	{title: 'Button', icon: 'gear'},
@@ -35,16 +39,16 @@ class TabLayoutView extends React.Component {
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 				<TabLayout>
 					<Tab
-						title={tabsWithIcons[0].title}
 						icon={tabsWithIcons[0].icon}
+						title={tabsWithIcons[0].title}
 					>
 						<Scroller>
 							{this.images}
 						</Scroller>
 					</Tab>
 					<Tab
-						title={tabsWithIcons[1].title}
 						icon={tabsWithIcons[1].icon}
+						title={tabsWithIcons[1].title}
 					>
 						<Button icon="demosync">Button 1</Button>
 						<Button icon="demosync">Button 2</Button>
@@ -52,6 +56,7 @@ class TabLayoutView extends React.Component {
 						<Button icon="demosync">Button 4</Button>
 					</Tab>
 					<Tab
+						disabled
 						title={tabsWithIcons[2].title}
 						icon={tabsWithIcons[2].icon}
 					>

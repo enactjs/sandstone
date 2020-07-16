@@ -2,6 +2,10 @@ import Heading from '@enact/sandstone/Heading';
 import {InputField} from '@enact/sandstone/Input';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const InputFieldView = () => (
 	<>
 		<Heading showLine>InputField</Heading>

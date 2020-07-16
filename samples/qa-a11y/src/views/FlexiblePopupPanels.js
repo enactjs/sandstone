@@ -6,6 +6,8 @@ import Slider from '@enact/sandstone/Slider';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
 class FlexiblePopupPanelsView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -29,7 +31,9 @@ class FlexiblePopupPanelsView extends React.Component {
 			nextButton = <Button icon="closex" aria-label="quit" onClick={this.handleClose} />;
 
 		return (
-			<>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpen}>Open</Button>
+
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
@@ -44,6 +48,7 @@ class FlexiblePopupPanelsView extends React.Component {
 							<Item onClick={this.onNextPanel}>Item 2</Item>
 							<Item onClick={this.onNextPanel}>Item 3</Item>
 							<Item onClick={this.onNextPanel}>Item 4</Item>
+							<Item onClick={this.onNextPanel} disabled>Item 5</Item>
 						</Scroller>
 					</Panel>
 					<Panel>
@@ -57,8 +62,7 @@ class FlexiblePopupPanelsView extends React.Component {
 						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>
-				<Button onClick={this.handleOpen}>Open FlexiblePopupPanels</Button>
-			</>
+			</Section>
 		);
 	}
 }

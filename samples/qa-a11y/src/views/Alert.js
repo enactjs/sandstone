@@ -1,11 +1,16 @@
 import Alert, {AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import Heading from '@enact/sandstone/Heading';
+import {Row} from '@enact/ui/Layout';
 import React from 'react';
+
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
 
 class AlertView extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			open1: false,
 			open2: false,
@@ -44,18 +49,20 @@ class AlertView extends React.Component {
 		const {open1, open2, open3, open4, open5, open6, open7, open8} = this.state;
 
 		return (
-			<>
-				<Heading showLine>Alert Fullscreen</Heading>
-				<Button onClick={this.handleOpen1}>Default</Button>
-				<Button onClick={this.handleOpen2}>With 3(max) buttons</Button>
-				<Button onClick={this.handleOpen3}>With thumbnail</Button>
-				<Button onClick={this.handleOpen4}>Without title</Button>
-				<Button onClick={this.handleOpen5}>Without content</Button>
+			<Row wrap>
+				<Section className={css.marginTop} size="50%" title="Alert Fullscreen">
+					<Button onClick={this.handleOpen1} alt="Normal">Button</Button>
+					<Button onClick={this.handleOpen2} alt="With 3(max) Buttons">Button</Button>
+					<Button onClick={this.handleOpen3} alt="With Thumbnail">Button</Button>
+					<Button onClick={this.handleOpen4} alt="Without Title">Button</Button>
+					<Button onClick={this.handleOpen5} alt="Without Content">Button</Button>
+				</Section>
 
-				<Heading showLine>Alert Overlay</Heading>
-				<Button onClick={this.handleOpen6}>Default</Button>
-				<Button onClick={this.handleOpen7}>With 3(max) buttons</Button>
-				<Button onClick={this.handleOpen8}>With thumbnail</Button>
+				<Section className={css.marginTop} size="50%" title="Alert Overlay which has no title">
+					<Button onClick={this.handleOpen6} alt="Normal">Button</Button>
+					<Button onClick={this.handleOpen7} alt="With 3(max) Buttons">Button</Button>
+					<Button onClick={this.handleOpen8} alt="With Thumbnail">Button</Button>
+				</Section>
 
 				<Alert
 					open={open1}
@@ -178,7 +185,7 @@ class AlertView extends React.Component {
 						<Button onClick={this.handleClose8}>Oh My Yes, Kitten</Button>
 					</buttons>
 				</Alert>
-			</>
+			</Row>
 		);
 	}
 }

@@ -6,6 +6,10 @@ import Scroller from '@enact/sandstone/Scroller';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class PopupView extends React.Component {
 	constructor (props) {
 		super(props);

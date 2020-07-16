@@ -3,6 +3,10 @@ import Heading from '@enact/sandstone/Heading';
 import ProgressButton from '@enact/sandstone/ProgressButton';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ProgressButtonView extends React.Component {
 	constructor () {
 		super();

@@ -2,11 +2,24 @@ import Heading from '@enact/sandstone/Heading';
 import RangePicker from '@enact/sandstone/RangePicker';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const RangePickerView = () => (
 	<>
 		<Heading showLine>RangePicker</Heading>
 		<RangePicker
 			defaultValue={0}
+			max={100}
+			min={0}
+			orientation="horizontal"
+			step={5}
+			width="medium"
+		/>
+		<RangePicker
+			defaultValue={0}
+			disabled
 			max={100}
 			min={0}
 			orientation="horizontal"
@@ -24,10 +37,29 @@ const RangePickerView = () => (
 			step={5}
 			width="medium"
 		/>
+		<RangePicker
+			defaultValue={0}
+			disabled
+			joined
+			max={100}
+			min={0}
+			orientation="horizontal"
+			step={5}
+			width="medium"
+		/>
 
 		<Heading showLine>Vertical RangePicker</Heading>
 		<RangePicker
 			defaultValue={0}
+			max={100}
+			min={0}
+			orientation="vertical"
+			step={5}
+			width="medium"
+		/>
+		<RangePicker
+			defaultValue={0}
+			disabled
 			max={100}
 			min={0}
 			orientation="vertical"

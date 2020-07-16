@@ -6,6 +6,8 @@ import {FixedPopupPanels, Panel, Header} from '@enact/sandstone/FixedPopupPanels
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
 const itemData = [];
 for (let i = 0; i < 6; i++) {
 	itemData.push(`Item ${i}`);
@@ -18,15 +20,16 @@ class FixedPopupPanelsView extends React.Component {
 			open1: false,
 			open2: false,
 			open3: false,
-			open4: false,
 			panelIndex: 0
 		};
 
 		this.handleOpen1 = this.handleOpen(1);
 		this.handleOpen2 = this.handleOpen(2);
+		this.handleOpen3 = this.handleOpen(3);
 
 		this.handleClose1 = this.handleClose(1);
 		this.handleClose2 = this.handleClose(2);
+		this.handleClose3 = this.handleClose(3);
 	}
 
 	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
@@ -39,9 +42,11 @@ class FixedPopupPanelsView extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Button onClick={this.handleOpen1}>Settings Popup</Button>
-				<Button onClick={this.handleOpen2}>Option detail Popup</Button>
+			<Section title="Default">
+				<Button alt="With Title and Subtitle" onClick={this.handleOpen1}>Open</Button>
+				<Button alt="With Title" onClick={this.handleOpen2}>Open</Button>
+				<Button alt="With Title and Disabled Items" onClick={this.handleOpen3}>Open</Button>
+
 				<FixedPopupPanels
 					index={this.state.panelIndex}
 					onClose={this.handleClose1}
@@ -92,7 +97,29 @@ class FixedPopupPanelsView extends React.Component {
 						<Item onClick={this.prevPanel}>Example Item 3</Item>
 					</Panel>
 				</FixedPopupPanels>
-			</>
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose3}
+					open={this.state.open3}
+				>
+					<Panel>
+						<Header>
+							<title>Option</title>
+						</Header>
+						<Item onClick={this.nextPanel} disabled>Example Item 1</Item>
+						<Item onClick={this.nextPanel} disabled>Example Item 2</Item>
+						<Item onClick={this.nextPanel}>Example Item 3</Item>
+					</Panel>
+					<Panel>
+						<Header>
+							<title>Option</title>
+						</Header>
+						<Item onClick={this.prevPanel} disabled>Example Item 1</Item>
+						<Item onClick={this.prevPanel} disabled>Example Item 2</Item>
+						<Item onClick={this.prevPanel}>Example Item 3</Item>
+					</Panel>
+				</FixedPopupPanels>
+			</Section>
 		);
 	}
 }

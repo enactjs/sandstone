@@ -2,6 +2,10 @@ import Heading from '@enact/sandstone/Heading';
 import Picker from '@enact/sandstone/Picker';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const
 	airports = [
 		'San Francisco Airport Terminal Gate 1',
@@ -45,8 +49,23 @@ const PickerView = () => (
 			{airports}
 		</Picker>
 
+		<Picker
+			disabled
+			orientation="horizontal"
+			width="medium"
+		>
+			{airports}
+		</Picker>
+
 		<Heading showLine>Picker With Accessibility Value</Heading>
 		<CustomPicker
+			orientation="horizontal"
+			width="medium"
+		>
+			{subjects}
+		</CustomPicker>
+		<CustomPicker
+			disabled
 			orientation="horizontal"
 			width="medium"
 		>
@@ -64,6 +83,13 @@ const PickerView = () => (
 
 		<Heading showLine>Vertical Picker</Heading>
 		<Picker
+			orientation="vertical"
+			width="medium"
+		>
+			{airports}
+		</Picker>
+		<Picker
+			disabled
 			orientation="vertical"
 			width="medium"
 		>

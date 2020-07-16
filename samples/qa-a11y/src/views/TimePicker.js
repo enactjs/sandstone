@@ -4,6 +4,10 @@ import Item from '@enact/sandstone/Item';
 import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class TimePickerItem extends React.Component {
 	constructor (props) {
 		super(props);

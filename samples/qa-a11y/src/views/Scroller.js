@@ -4,6 +4,10 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ScrollerView extends React.Component {
 	constructor () {
 		super();

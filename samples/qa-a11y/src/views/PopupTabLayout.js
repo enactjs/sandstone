@@ -6,6 +6,10 @@ import Scroller from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class PopupTabLayoutView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -49,6 +53,7 @@ class PopupTabLayoutView extends React.Component {
 								<Header title="Display Settings" type="compact" />
 								<Item onClick={this.handleDisplayNext}>Picture Modes</Item>
 								<Item onClick={this.handleDisplayNext}>Color Adjust</Item>
+								<Item onClick={this.handleDisplayNext} disabled>Energy saving</Item>
 							</TabPanel>
 							<TabPanel>
 								<Header title="Picture Modes" type="compact" />

@@ -7,6 +7,10 @@ import React from 'react';
 
 import css from './Region.module.less';
 
+import Section from '../components/Section';
+
+import appCss from '../App/App.module.less';
+
 const RegionView = kind({
 	name: 'RegionView',
 

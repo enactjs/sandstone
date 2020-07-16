@@ -3,6 +3,10 @@ import Heading from '@enact/sandstone/Heading';
 import ProgressBar from '@enact/sandstone/ProgressBar';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ProgressBarView extends React.Component {
 	constructor () {
 		super();

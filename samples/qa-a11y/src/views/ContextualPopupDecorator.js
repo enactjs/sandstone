@@ -5,6 +5,8 @@ import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
 
+import Section from '../components/Section';
+
 const ContextualButton = Toggleable(
 	{prop: 'open', toggle: 'onClick', deactivate: 'onClose'},
 	ContextualPopupDecorator(
@@ -13,23 +15,25 @@ const ContextualButton = Toggleable(
 );
 
 class ContextualPopupDecoratorView extends React.Component {
-
 	renderPopup1 = () => (
 		<div>
-			<span>Item 1</span>
+			<span>Item</span>
 			<br />
-			<span>Item 2</span>
+			<span>Item</span>
 			<br />
-			<span>Item 3</span>
+			<span>Item</span>
+			<br />
+			<span diabeld>Item</span>
 			<br />
 		</div>
 	)
 
 	renderPopup2 = () => (
 		<div>
-			<Button>Button</Button>
-			<Button>Button2</Button>
-			<Button>Button3</Button>
+			<Button>Text</Button>
+			<Button>Text</Button>
+			<Button>Text</Button>
+			<Button disabled>Text</Button>
 		</div>
 	)
 
@@ -41,23 +45,35 @@ class ContextualPopupDecoratorView extends React.Component {
 			select="radio"
 			selectedProp="selected"
 		>
-			{['Creek', 'River', 'Ocean']}
+			{['Item', 'Item', 'Item']}
+		</Group>
+	)
+
+	renderPopup4 = () => (
+		<Group
+			childComponent={RadioItem}
+			defaultSelected={0}
+			itemProps={{inline: false}}
+			select="radio"
+			selectedProp="selected"
+		>
+			{[
+				{children: 'Item', disabled: true, key: 0},
+				{children: 'Item', disabled: true, key: 1},
+				{children: 'Item', disabled: true, key: 2}
+			]}
 		</Group>
 	)
 
 	render () {
 		return (
-			<>
-				<ContextualButton popupComponent={this.renderPopup1}>
-					Average
-				</ContextualButton>
-				<ContextualButton popupComponent={this.renderPopup2} spotlightRestrict="self-only">
-					Spotlight Modal
-				</ContextualButton>
-				<ContextualButton direction="below" popupComponent={this.renderPopup3}>
-					Nested Radio
-				</ContextualButton>
-			</>
+			<Section title="Button wrapped with ContextualPopupDecorator">
+				<ContextualButton alt="With Texts" popupComponent={this.renderPopup1}>Text</ContextualButton>
+				<ContextualButton alt="With Buttons" popupComponent={this.renderPopup2} spotlightRestrict="self-only">Text</ContextualButton>
+				<ContextualButton alt="With RadioItems in Group" direction="below" popupComponent={this.renderPopup3}>Text</ContextualButton>
+				<ContextualButton alt="With disabled RadioItems in Group" direction="below" popupComponent={this.renderPopup4}>Text</ContextualButton>
+				<ContextualButton alt="Disabled" disabled popupComponent={this.renderPopup1}>Text</ContextualButton>
+			</Section>
 		);
 	}
 }
