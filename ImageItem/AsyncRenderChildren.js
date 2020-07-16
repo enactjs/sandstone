@@ -39,7 +39,11 @@ function AsyncRenderChildren ({children: cachedChildren, fallback = '', index}) 
 		};
 	});
 
-	return async ? fallback : children;
+	if (index === prevIndexRef.current) {
+		return cachedChildren;
+	} else {
+		return async ? fallback : children;
+	}
 }
 
 AsyncRenderChildren.propTypes = /** @lends sandstone/ImageItem.AsyncRenderChildren.prototype */ {
