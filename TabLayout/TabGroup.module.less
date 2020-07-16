@@ -10,6 +10,7 @@
 
 	&.horizontal {
 		&.button {
+			font-size: @sand-tablayout-tab-button-font-size;
 			margin: @sand-tablayout-tab-horizontal-margin;
 			padding: @sand-tablayout-tab-horizontal-padding;
 			height: @sand-tablayout-tab-horizontal-button-height;
@@ -19,6 +20,8 @@
 			}
 
 			&.selected {
+				font-weight: @sand-tablayout-tab-button-selected-font-weight;
+
 				.client::after {
 					content: "";
 					position: absolute;
@@ -33,7 +36,12 @@
 		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
 
 		&.button {
+			font-size: @sand-tablayout-tab-button-font-size;
 			height: @sand-tablayout-tab-vertical-button-height;
+
+			&.selected {
+				font-weight: @sand-tablayout-tab-button-selected-font-weight;
+			}
 		}
 
 		.client {
