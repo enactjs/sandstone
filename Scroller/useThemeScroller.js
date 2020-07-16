@@ -122,10 +122,6 @@ const useSpottable = (props, instances) => {
 	}, [addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener, scrollContainerRef]);
 
 	useEffect(() => {
-		return () => setContainerDisabled(false);
-	}, [setContainerDisabled]);
-
-	useEffect(() => {
 		const {onUpdate} = props;
 
 		if (onUpdate) {
