@@ -48,7 +48,7 @@ describe('VirtualList', function () {
 			Page.pageDown();
 			waitUntilFocused(6, 'focus Item 6');
 			Page.pageDown();
-			waitUntilFocused(19, 'focus Item 6');
+			waitUntilFocused(19, 'focus Item 19');
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
 			// Verify Step 7: Spotlight is on the last item.
