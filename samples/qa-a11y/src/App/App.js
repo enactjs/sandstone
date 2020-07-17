@@ -1,7 +1,6 @@
 import Item from '@enact/sandstone/Item';
 import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import Group from '@enact/ui/Group';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import React from 'react';
@@ -95,7 +94,7 @@ const views = [
 	{isAriaHidden: true, title: 'VideoPlayer', view: VideoPlayer},
 	{title: 'VirtualGridList', view: VirtualGridList},
 	{title: 'VirtualList', view: VirtualList},
-	{isHeader: false, title: 'WizardPanels', view: WizardPanels},
+	{isHeader: false, title: 'WizardPanels', view: WizardPanels}
 ];
 
 class AppBase extends React.Component {
