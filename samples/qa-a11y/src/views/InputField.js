@@ -10,7 +10,7 @@ const InputFieldView = () => (
 		<Section title="Default">
 			<InputField alt="With No Placeholder and value" />
 			<InputField alt="Disabled with No Placeholder and value" disabled />
-			<InputField alt="With defaultValue" defaultValue="Initial value" />
+			<InputField alt="With defaultValue" defaultValue="Default Value" />
 			<InputField alt="With Placeholder" placeholder="Placeholder" />
 			<InputField alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
 		</Section>

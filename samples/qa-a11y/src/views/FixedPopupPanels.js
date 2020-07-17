@@ -85,17 +85,17 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Option</title>
 						</Header>
-						<Item onClick={this.nextPanel}>Example Item 1</Item>
-						<Item onClick={this.nextPanel}>Example Item 2</Item>
-						<Item onClick={this.nextPanel}>Example Item 3</Item>
+						<Item onClick={this.nextPanel}>Item 1</Item>
+						<Item onClick={this.nextPanel}>Item 2</Item>
+						<Item onClick={this.nextPanel}>Item 3</Item>
 					</Panel>
 					<Panel>
 						<Header>
 							<title>Option</title>
 						</Header>
-						<Item onClick={this.prevPanel}>Example Item 1</Item>
-						<Item onClick={this.prevPanel}>Example Item 2</Item>
-						<Item onClick={this.prevPanel}>Example Item 3</Item>
+						<Item onClick={this.prevPanel}>Item 1</Item>
+						<Item onClick={this.prevPanel}>Item 2</Item>
+						<Item onClick={this.prevPanel}>Item 3</Item>
 					</Panel>
 				</FixedPopupPanels>
 
@@ -108,17 +108,17 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Option</title>
 						</Header>
-						<Item onClick={this.nextPanel} disabled>Example Item 1</Item>
-						<Item onClick={this.nextPanel} disabled>Example Item 2</Item>
-						<Item onClick={this.nextPanel}>Example Item 3</Item>
+						<Item onClick={this.nextPanel} disabled>Item 1</Item>
+						<Item onClick={this.nextPanel} disabled>Item 2</Item>
+						<Item onClick={this.nextPanel}>Item 3</Item>
 					</Panel>
 					<Panel>
 						<Header>
 							<title>Option</title>
 						</Header>
-						<Item onClick={this.prevPanel} disabled>Example Item 1</Item>
-						<Item onClick={this.prevPanel} disabled>Example Item 2</Item>
-						<Item onClick={this.prevPanel}>Example Item 3</Item>
+						<Item onClick={this.prevPanel} disabled>Item 1</Item>
+						<Item onClick={this.prevPanel} disabled>Item 2</Item>
+						<Item onClick={this.prevPanel}>Item 3</Item>
 					</Panel>
 				</FixedPopupPanels>
 			</Section>

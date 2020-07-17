@@ -23,7 +23,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<br />
 			<span>Item</span>
 			<br />
-			<span diabeld>Item</span>
+			<span disabled>Item</span>
 			<br />
 		</div>
 	)

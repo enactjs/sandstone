@@ -69,16 +69,16 @@ class AlertView extends React.Component {
 					open={open1}
 					title="Header Title"
 				>
-					<span>this is content</span>
+					<span>Body Text</span>
 					<buttons>
-						<Button onClick={this.handleClose1}>Howdy</Button>
+						<Button onClick={this.handleClose1}>Text</Button>
 					</buttons>
 				</Alert>
 
 				<Alert
 					onClose={this.handleClose2}
 					open={open2}
-					title="good morning"
+					title="Good morning"
 				>
 					<span>
 						Not to worry, this message isn&apos;t going to be very long.
@@ -95,15 +95,15 @@ class AlertView extends React.Component {
 				<Alert
 					onClose={this.handleClose3}
 					open={open3}
-					title="this is title"
+					title="Header Title"
 				>
 					<image>
 						<AlertImage src={'https://via.placeholder.com/250.png?text=image'} type="thumbnail" />
 					</image>
-					<span>this is content</span>
+					<span>Body Text</span>
 					<buttons>
-						<Button onClick={this.handleClose3}>Howdy</Button>
-						<Button onClick={this.handleClose3}>Hide And Show</Button>
+						<Button onClick={this.handleClose3}>Text</Button>
+						<Button onClick={this.handleClose3}>Text</Button>
 					</buttons>
 				</Alert>
 
@@ -126,7 +126,7 @@ class AlertView extends React.Component {
 				<Alert
 					onClose={this.handleClose5}
 					open={open5}
-					title="good afternoon"
+					title="Good afternoon"
 				>
 					<buttons>
 						<Button onClick={this.handleClose5}>First Button!</Button>

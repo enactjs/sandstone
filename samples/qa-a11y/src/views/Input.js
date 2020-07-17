@@ -9,7 +9,7 @@ const InputView = () => (
 	<>
 		<Section title="Default">
 			<Input alt="With No Placeholder" />
-			<Input alt="With defaultValue" defaultValue="Default" />
+			<Input alt="With defaultValue" defaultValue="Default Value" />
 			<Input alt="With Placeholder" placeholder="Placeholder" />
 			<Input alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
 		</Section>

@@ -57,7 +57,7 @@ class FlexiblePopupPanelsView extends React.Component {
 					<Panel nextButton={nextButton}>
 						<Header title="Third panel" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item onClick={this.onNextPanel}>Item 1</Item>
+							<Item>Item 1</Item>
 						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>
