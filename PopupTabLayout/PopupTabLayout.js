@@ -365,7 +365,7 @@ const TabPanels = (props) => <Panels noCloseButton {...props} css={css} />;
  */
 const TabPanel = ({spotlightId, ...rest}) => {
 	React.useEffect(() => {
-		Spotlight.set(spotlightId, {straightOnlyLeave: true});
+		Spotlight.set(spotlightId, {partition: true});
 	}, [spotlightId]);
 
 	return (

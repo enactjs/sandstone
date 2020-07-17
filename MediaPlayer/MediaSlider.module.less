@@ -4,6 +4,8 @@
 @import "../styles/skin.less";
 
 .sliderFrame {
+	@knob-transform-active: @sand-translate-center scale(1);
+	@knob-transform-resting: @sand-translate-center scale(@sand-mediaplayer-slider-knob-resting-state-scale);
 	@slider-padding-v: ((@sand-mediaplayer-slider-tap-area - @sand-mediaplayer-slider-height) / 2);
 	@slider-padding-h: @sand-mediaplayer-slider-knob-size;
 	flex: 1 0 auto;
@@ -30,7 +32,7 @@
 			&.active,
 			&.pressed {
 				.knob::before {
-					transform: @sand-translate-center scale(0.75);
+					transform: @knob-transform-active;
 					opacity: 1;
 				}
 			}
@@ -39,7 +41,7 @@
 		.spottable({
 			&.pressed {
 				.knob::before {
-					transform: @sand-translate-center scale(0.75);
+					transform: @knob-transform-active;
 					opacity: 1;
 				}
 			}
@@ -55,12 +57,11 @@
 		//transition:                 transform @slide-transition-function 0.2s;
 
 		&::before {
-			width: (@sand-mediaplayer-slider-knob-size * 2);
-			height: (@sand-mediaplayer-slider-knob-size * 2);
+			width: @sand-mediaplayer-slider-knob-size;
+			height: @sand-mediaplayer-slider-knob-size;
 			border-width: 0;
 			border-radius: @sand-mediaplayer-slider-knob-size;
-			-webkit-transform: @sand-translate-center scale(0.5);
-			transform:         @sand-translate-center scale(0.5);
+			transform: @knob-transform-resting;
 			opacity: 0;
 			will-change: transform, opacity;
 			-webkit-transition: -webkit-transform @activate-transition-function 0.2s, opacity ease 0.2s;

@@ -1,13 +1,18 @@
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
-const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
-const scrollVirticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
-const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
-const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+
+const focusableBodySelector = '.Scroller_Scroller_focusableBody';
 const horizontalscrollbarSelector = '.useScroll_useScroll_horizontalScrollbar';
-const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollContentSelector = '.enact_ui_Scroller_Scroller_scroller';
+const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
+const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const scrollVirticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
+const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+
+
+
 
 class ScrollerPage extends Page {
 
@@ -36,12 +41,6 @@ class ScrollerPage extends Page {
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
-	get buttonLeft () {
-		return element('#left', browser);
-	}
-	get buttonRight () {
-		return element('#right', browser);
-	}
 
 	// dropdown api
 	get dropdownFocusableScrollbar () {
@@ -49,6 +48,9 @@ class ScrollerPage extends Page {
 	}
 
 	// scrollable api
+	get focusableBody () {
+		return $(`${focusableBodySelector}`);
+	}
 	get verticalScrollThumb () {
 		return $(`${scrollVirticalThumbSelector}`);
 	}

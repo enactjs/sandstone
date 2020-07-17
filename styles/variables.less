@@ -262,6 +262,7 @@
 @sand-picker-line-height: 1.5em;
 @sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
 
+
 // ---------------------------------------
 // Component Rules
 // ---------------------------------------
@@ -658,6 +659,7 @@
 @sand-mediaplayer-controls-moreComponents-margin-top: 42px;
 @sand-mediaplayer-controls-moreComponents-time: 0.3s;		// Length of the animation
 @sand-mediaplayer-slider-height: 12px;
+@sand-mediaplayer-slider-knob-resting-state-scale: @sand-slider-knob-resting-state-scale;
 @sand-mediaplayer-slider-knob-size: 48px;
 @sand-mediaplayer-slider-tap-area: 162px;
 
@@ -718,7 +720,7 @@
 // PopupTabLayout
 // ---------------------------------------
 @sand-popuptablayout-margin: 120px 60px;
-@sand-popuptablayout-tabs-padding: @sand-component-spacing 0;
+@sand-popuptablayout-tabs-padding: @sand-component-spacing 0 (@sand-component-spacing - @sand-tablayout-tab-vertical-margin-bottom) 0;
 @sand-popuptablayout-tabs-content-spacing: 36px;
 @sand-popuptablayout-tabs-content-border-radius: @sand-popup-border-radius;
 @sand-popuptablayout-content-margin: 0;

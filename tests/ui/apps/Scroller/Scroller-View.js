@@ -93,6 +93,9 @@ class app extends React.Component {
 							</Cell>
 							<Cell align="stretch">
 								<Column align="center">
+									<Cell component={Button} shrink id="top">
+										Top
+									</Cell>
 									<Cell>
 										<Scroller
 											direction={this.state.direction}
@@ -101,7 +104,7 @@ class app extends React.Component {
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
 											style={{
-												height: ri.scaleToRem(1920),
+												height: ri.scaleToRem(1680),
 												width: ri.scaleToRem(2400)
 											}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}

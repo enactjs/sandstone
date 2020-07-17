@@ -286,7 +286,7 @@ const TabLayoutBase = kind({
 						collapsed={isVertical}
 						spotlightId={getTabsSpotlightId(spotlightId, isVertical)}
 						tabSize={!isVertical ? tabSize : null}
-						spotlightDisabled={!collapsed}
+						spotlightDisabled={!collapsed && isVertical}
 					/>
 				</Cell>
 				{isVertical ? <Cell
