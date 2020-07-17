@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to match latest designs
 - `sandstone/Scroller` and `sandstone/VirtualList` to properly support `spotlightDisabled` prop
 - `sandstone/VirtualList` to preserve focus in panels
 
