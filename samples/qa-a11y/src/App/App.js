@@ -7,7 +7,6 @@ import ViewManager from '@enact/ui/ViewManager';
 import React from 'react';
 import classnames from 'classnames';
 
-import A11yDecorator from '../views/A11yDecorator';
 import Alert from '../views/Alert';
 import Button from '../views/Button';
 import Checkbox from '../views/Checkbox';
@@ -58,7 +57,6 @@ import View from './View';
 const views = [
 	{title: 'About qa-a11y', view: Home},
 	{debugProps: true, title: 'Option', view: Option},
-	{title: 'A11yDecorator', view: A11yDecorator},
 	{title: 'Alert', view: Alert},
 	{title: 'Button', view: Button},
 	{title: 'Checkbox', view: Checkbox},
