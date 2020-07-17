@@ -60,7 +60,12 @@ const useSpotlightConfig = (props, instances) => {
 	}, [props, instances]);
 };
 
-const getNumberValue = (index) => index | 0;
+const getNumberValue = (index) => {
+	// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
+	let number = +index;
+	// should return -1 if index is not a number or a negative value
+	return number >= 0 ? number : -1;
+};
 
 const useSpotlightRestore = (props, instances, context) => {
 	const {scrollContentRef, spottable} = instances;
