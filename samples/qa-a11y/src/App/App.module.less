@@ -22,3 +22,95 @@ h2 {
 .headerMarginTop {
 	margin-top: 180px;
 }
+
+:global {
+	// To help visually tell what's going on
+	// `.debug.aria` Add in an Aria overlay to visualize what is assigned to the aria attributes
+	.debug.aria,
+	.debug.aria + div {
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]:after,
+		[aria-live]:after,
+		[aria-disabled]:after,
+		[role]::before {
+			position: absolute;
+			font-size: small;
+			font-weight: 100;
+
+			border-radius: 0.5em;
+			border-top-left-radius: 0;
+			bottom: 0;
+			padding: 0 1ex;
+			transform: translateY(calc(100% + 2em));
+			line-height: 1.3em;
+			z-index: 2;
+			pointer-events: none;
+			top: initial;
+			bottom: 0;
+			transform: translateY(100%);
+		}
+
+		[role]::before {
+			background-color: darkred;
+			color: white;
+			border: 1px solid red;
+			right: 50%;
+			left: initial;
+		}
+
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]:after,
+		[aria-live]:after,
+		[aria-disabled]:after {
+			background-color: #ffaa0099;
+			color: white;
+			border: 1px solid #ffaa00;
+			right: initial;
+			left: 50%;
+		}
+
+		[role]::before {
+			content: "Role:\0020" attr(role);
+		}
+
+		--aria-label: "";
+		[aria-label] {
+			--aria-label: "label:\0020'" attr(aria-label) "';";
+		}
+
+		--aria-valuetext: "";
+		[aria-valuetext] {
+			--aria-valuetext: "valuetext:\0020'" attr(aria-valuetext) "';";
+		}
+
+		--aria-checked: "";
+		[aria-checked] {
+			--aria-checked: "checked:\0020'" attr(aria-checked) "';";
+		}
+
+		--aria-live: "";
+		[aria-live] {
+			--aria-live: "live:\0020'" attr(aria-live) "';";
+		}
+
+		--aria-disabled: "";
+		[aria-disabled] {
+			--aria-disabled: "disabled:\0020'" attr(aria-disabled) "';";
+		}
+
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]:after,
+		[aria-live]:after,
+		[aria-disabled]:after {
+			content:
+				var(--aria-label)
+				var(--aria-valuetext)
+				var(--aria-checked)
+				var(--aria-live)
+				var(--aria-disabled)
+		}
+	}
+}

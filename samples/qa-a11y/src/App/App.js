@@ -1,10 +1,11 @@
-import Group from '@enact/ui/Group';
 import Item from '@enact/sandstone/Item';
-import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
 import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import Group from '@enact/ui/Group';
+import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
+import React from 'react';
+import classnames from 'classnames';
 
 import A11yDecorator from '../views/A11yDecorator';
 import Alert from '../views/Alert';
@@ -115,18 +116,18 @@ class AppBase extends React.Component {
 	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
 
 	render () {
-		const
-			{isDebugMode, selected} = this.state,
-			debugAriaClass = isDebugMode ? 'aria debug' : null;
+		const {className, ...rest} = this.props;
+		const {isDebugMode, selected} = this.state;
+		const debugAriaClass = isDebugMode ? 'aria debug' : null;
 
 		return (
-			<Layout {...this.props}>
+			<Layout {...rest} className={classnames(className, debugAriaClass)}>
 				<Cell component={ScrollerComponent} size="20%">
 					<Group childComponent={Item} itemProps={{className: css.navItem}} onSelect={this.handleChangeView} select="radio">
 						{views.map((view) => view.title)}
 					</Group>
 				</Cell>
-				<Cell className={debugAriaClass} component={ViewManager} index={selected}>
+				<Cell component={ViewManager} index={selected}>
 					{views.map((view, i) => (
 						<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
 					))}
