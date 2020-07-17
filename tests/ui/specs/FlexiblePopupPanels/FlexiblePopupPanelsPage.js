@@ -29,6 +29,13 @@ class FlexiblePopupPanelsInterface {
 		this['panel' + panel].waitForExist({timeout, reverse: true});
 	}
 
+	waitForFocused (target, timeout = 1000, timeoutMsg = 'wait for focus', interval = 250) {
+		browser.waitUntil(
+			() => target.isFocused(),
+			{timeout, timeoutMsg, interval}
+		);
+	}
+
 	focusOpenButton () {
 		return browser.execute((el) => el.focus(), this.openButton);
 	}

@@ -18,7 +18,7 @@ class FixedPopupPanelsInterface {
 	}
 
 	/* global window */
-	waitTransitionToIndex (index, delay = 3000, msg = 'timed out waiting for transitionend', callback) {
+	waitTransitionToIndex (index, timeout = 3000, timeoutMsg = 'timed out waiting for transitionend', callback, interval = 250) {
 		browser.execute(
 			function () {
 				window.__index = -1;
@@ -36,8 +36,7 @@ class FixedPopupPanelsInterface {
 					index
 				);
 			},
-			delay,
-			msg
+			{timeout, timeoutMsg, interval}
 		);
 	}
 
@@ -56,6 +55,13 @@ class FixedPopupPanelsInterface {
 	waitForEnter (panel, callback, duration = 1000, msg) {
 		// Panel index in transition end is 0 based!
 		this.waitTransitionToIndex(panel - 1, duration, msg, callback);
+	}
+
+	waitForFocused (target, timeout = 1000, timeoutMsg = 'wait for focus', interval = 250) {
+		browser.waitUntil(
+			() => target.isFocused(),
+			{timeout, timeoutMsg, interval}
+		);
 	}
 
 	focusOpenButton () {

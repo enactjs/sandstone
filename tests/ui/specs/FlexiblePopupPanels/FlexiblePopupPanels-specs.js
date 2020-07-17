@@ -15,27 +15,36 @@ describe('FlexiblePopupPanels', function () {
 			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
 				Page.spotlightSelect();
 			});
+
+			// Looks like the button doesn't get focus quick enough so sometimes one of the spotlight
+			// rights is lost.
+			Interface.waitForFocused(Interface.prevButton);
+
 			Page.spotlightRight();
 			Page.spotlightRight();
 
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
-			Page.spotlightSelect();
+			Page.waitTransitionEnd(1000, 'wait for second panel to open', () => {
+				Page.spotlightSelect();
+			});
 			Interface.waitForPanelBody(2);
 
 			// should retain focus on navigation buttons
-			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
+			expect(Interface.nextButton.isFocused(), 'focus Next button 2').to.be.true();
 
 			Page.spotlightLeft();
 			Page.spotlightLeft();
 
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 
-			Page.spotlightSelect();
+			Page.waitTransitionEnd(1000, 'wait for first panel to open', () => {
+				Page.spotlightSelect();
+			});
 			Interface.waitForPanelBody(1);
 
 			// should retain focus on navigation buttons
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			expect(Interface.prevButton.isFocused(), 'focus Prev button 2').to.be.true();
 		});
 
 		it('should respect Panel autoFocus setting', function () {
@@ -61,9 +70,14 @@ describe('FlexiblePopupPanels', function () {
 			});
 
 			Interface.waitForPanelBody(1);
-			Interface.nextButton.click();
+			Page.waitTransitionEnd(1000, 'wait for second panel to open', () => {
+				Interface.nextButton.click();
+			});
 			Interface.waitForPanelBody(2);
-			Interface.prevButton.click();
+
+			Page.waitTransitionEnd(1000, 'wait for first panel to open', () => {
+				Interface.prevButton.click();
+			});
 			Interface.waitForEnter(1);
 		});
 
