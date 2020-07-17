@@ -6,18 +6,16 @@ import Section from '../components/Section';
 
 import css from '../App/App.module.less';
 
-const style = {marginLeft: ri.scaleToRem(36), marginTop: ri.scaleToRem(36)};
-
 const CheckboxView = () => (
 	<>
 		<Section title="Default">
-			<Checkbox alt="Normal" style={style} />
-			<Checkbox alt="Disabled" disabled style={style} />
+			<Checkbox alt="Normal" />
+			<Checkbox alt="Disabled" disabled />
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<Checkbox alt="Aria-labelled" aria-label="This is a Label." style={style} />
-			<Checkbox alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled style={style} />
+			<Checkbox alt="Aria-labelled" aria-label="This is a Label." />
+			<Checkbox alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
 		</Section>
 	</>
 );

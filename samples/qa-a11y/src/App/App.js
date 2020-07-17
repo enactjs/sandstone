@@ -48,7 +48,6 @@ import VideoPlayer from '../views/VideoPlayer';
 import VirtualGridList from '../views/VirtualGridList';
 import VirtualList from '../views/VirtualList';
 import WizardPanels from '../views/WizardPanels';
-import WizardPanelsWithNoAnimation from '../views/WizardPanelsWithNoAnimation';
 
 import css from './App.module.less';
 import Home from './Home';
@@ -97,7 +96,6 @@ const views = [
 	{title: 'VirtualGridList', view: VirtualGridList},
 	{title: 'VirtualList', view: VirtualList},
 	{isHeader: false, title: 'WizardPanels', view: WizardPanels},
-	{isHeader: false, title: 'WizardPanelsWithNoAnimation,', view: WizardPanelsWithNoAnimation}
 ];
 
 class AppBase extends React.Component {
@@ -109,7 +107,7 @@ class AppBase extends React.Component {
 		};
 	}
 
-	handleChangeView = (state) => this.setState(state)
+	handleChangeView = (selected) => () => this.setState({selected})
 
 	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
 
@@ -121,9 +119,11 @@ class AppBase extends React.Component {
 		return (
 			<Layout {...rest} className={classnames(className, debugAriaClass)}>
 				<Cell component={ScrollerComponent} size="20%">
-					<Group childComponent={Item} itemProps={{className: css.navItem}} onSelect={this.handleChangeView} select="radio">
-						{views.map((view) => view.title)}
-					</Group>
+					{views.map((view, i) => (
+						<Item className={css.navItem} key={i} onClick={this.handleChangeView(i)}>
+							{view.title}
+						</Item>
+					))}
 				</Cell>
 				<Cell component={ViewManager} index={selected}>
 					{views.map((view, i) => (
