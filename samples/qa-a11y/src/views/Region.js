@@ -82,25 +82,23 @@ const RegionView = kind({
 					<p>Popup with aria-label="Popup"</p>
 					<Button>Button 11</Button>
 				</div>
-				<p>Focusing Button 12 should read "Moving up a Level, Button 12, button"</p>
-				<Button>Button 12</Button>
 			</Region>
 
 			<h2>Region within a region</h2>
 
 			<Region className={css.region} title="Outside region">
 				<Region title="Inside region">
-					<p>Focusing Button 13 should read "Outside region, Inside region, Button 13, button"</p>
-					<Button>Button 13</Button>
+					<p>Focusing Button 12 should read "Outside region, Inside region, Button 12, button"</p>
+					<Button>Button 12</Button>
 				</Region>
 			</Region>
 
 			<Region className={css.region} title="Outside region">
-				<p>Focusing Button 14 should read "Outside region, Button 14, button"</p>
-				<Button>Button 14</Button>
+				<p>Focusing Button 13 should read "Outside region, Button 13, button"</p>
+				<Button>Button 13</Button>
 				<Region title="Inside region">
-					<p>Focusing Button 15 should read "Inside region, Button 15, button"</p>
-					<Button>Button 15</Button>
+					<p>Focusing Button 14 should read "Inside region, Button 14, button"</p>
+					<Button>Button 14</Button>
 				</Region>
 			</Region>
 		</div>
