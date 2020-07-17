@@ -51,6 +51,7 @@ const DropdownView = () => (
 			>
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
+			<br />
 			<Dropdown
 				alt="With Placeholder and title"
 				placeholder="Placeholder"
@@ -58,6 +59,7 @@ const DropdownView = () => (
 			>
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
+			<br />
 			<Dropdown
 				alt="Disabled with Placeholder and title"
 				disabled
@@ -66,6 +68,7 @@ const DropdownView = () => (
 			>
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
+			<br />
 			<Dropdown
 				alt="Aria-lablelled with Placeholder and title"
 				aria-label="This is a Label."
@@ -74,6 +77,7 @@ const DropdownView = () => (
 			>
 				{['Option1', 'Option2', 'Option3']}
 			</Dropdown>
+			<br />
 			<Dropdown
 				alt="Aria-lablelled and Disabled with Placeholder and title"
 				aria-label="This is a Label."
@@ -93,6 +97,7 @@ const DropdownView = () => (
 			>
 				{list}
 			</Dropdown>
+			<br />
 			<Dropdown
 				alt="With Placeholder, Title, and Aria-labelled Disabled Options"
 				placeholder="Placeholder"
