@@ -32,6 +32,8 @@ h2 {
 		[aria-valuetext]::after,
 		[aria-checked]:after,
 		[aria-live]:after,
+		[aria-labelledby]:after,
+		[aria-owns]:after,
 		[aria-disabled]:after,
 		[role]::before {
 			position: absolute;
@@ -63,6 +65,8 @@ h2 {
 		[aria-valuetext]::after,
 		[aria-checked]:after,
 		[aria-live]:after,
+		[aria-labelledby]:after,
+		[aria-owns]:after,
 		[aria-disabled]:after {
 			background-color: #ffaa0099;
 			color: white;
@@ -75,28 +79,45 @@ h2 {
 			content: "Role:\0020" attr(role);
 		}
 
+		[aria-labelledby]::after,
+		[aria-owns]::after {
+			transform: initial;
+			top: 0;
+			bottom: initial;
+		}
+
 		--aria-label: "";
-		[aria-label] {
+		[aria-label]::after {
 			--aria-label: "label:\0020'" attr(aria-label) "';";
 		}
 
 		--aria-valuetext: "";
-		[aria-valuetext] {
+		[aria-valuetext]::after {
 			--aria-valuetext: "valuetext:\0020'" attr(aria-valuetext) "';";
 		}
 
 		--aria-checked: "";
-		[aria-checked] {
+		[aria-checked]::after {
 			--aria-checked: "checked:\0020'" attr(aria-checked) "';";
 		}
 
 		--aria-live: "";
-		[aria-live] {
+		[aria-live]::after {
 			--aria-live: "live:\0020'" attr(aria-live) "';";
 		}
 
+		--aria-labelledby: "";
+		[aria-labelledby]::after {
+			--aria-labelledby: "labelledby:\0020'" attr(aria-labelledby) "';";
+		}
+
+		--aria-owns: "";
+		[aria-owns]::after {
+			--aria-owns: "owns:\0020'" attr(aria-owns) "';";
+		}
+
 		--aria-disabled: "";
-		[aria-disabled] {
+		[aria-disabled]::after {
 			--aria-disabled: "disabled:\0020'" attr(aria-disabled) "';";
 		}
 
@@ -104,12 +125,15 @@ h2 {
 		[aria-valuetext]::after,
 		[aria-checked]:after,
 		[aria-live]:after,
+		[aria-labelledby]:after,
 		[aria-disabled]:after {
 			content:
 				var(--aria-label)
 				var(--aria-valuetext)
 				var(--aria-checked)
 				var(--aria-live)
+				var(--aria-labelledby)
+				var(--aria-owns)
 				var(--aria-disabled)
 		}
 	}
