@@ -7,6 +7,7 @@ const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar 
 const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
 const horizontalscrollbarSelector = '.useScroll_useScroll_horizontalScrollbar';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
+const scrollContentSelector = '.enact_ui_Scroller_Scroller_scroller';
 
 class ScrollerPage extends Page {
 
@@ -64,7 +65,13 @@ class ScrollerPage extends Page {
 			};
 		}, scrollbarSelector);
 	}
-	getScrollThumbLocation () {
+	getScrollerRect () {
+		return browser.execute(function (_scrollContentSelector) {
+			const scroller = document.querySelector(_scrollContentSelector);
+			return scroller.getBoundingClientRect();
+		}, scrollContentSelector);
+	}
+	getScrollThumbRect () {
 		return browser.execute(function (_scrollThumbSelector) {
 			const scrollThumb = document.querySelectorAll(_scrollThumbSelector);
 			return {
@@ -73,7 +80,7 @@ class ScrollerPage extends Page {
 			};
 		}, scrollThumbSelector);
 	}
-	getScrollBarLocation () {
+	getScrollBarRect () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);
 			return {
@@ -82,28 +89,28 @@ class ScrollerPage extends Page {
 			};
 		}, scrollbarSelector);
 	}
-	moveToAwayThumb (direction, rtl, way) {
+	moveToScrollTrack (direction, way) {
 		if (direction === 'vertical') {
-			const verticalScroll = way === 'Down' ? this.getScrollThumbLocation().vertical.bottom - this.getScrollBarLocation().vertical.top + 20 :
-				this.getScrollThumbLocation().vertical.top - this.getScrollBarLocation().vertical.top - 20;
+			const verticalScroll = way === 'Down' ? this.getScrollThumbRect().vertical.bottom - this.getScrollBarRect().vertical.top + 50 :
+				this.getScrollThumbRect().vertical.top - this.getScrollBarRect().vertical.top - 50;
 			$(`${verticalscrollbarSelector}`).moveTo({xOffset: 0, yOffset: Math.round(verticalScroll)});
 		} else if (direction === 'horizontal') {
-			if (rtl) {
-				const horizontalScroll = way === 'Left' ? this.getScrollThumbLocation().horizontal.right - this.getScrollThumbLocation().horizontal.left - this.getScrollBarLocation().horizontal.left - 20 :
-					this.getScrollThumbLocation().horizontal.right - this.getScrollBarLocation().horizontal.left + 20;
-				$(`${horizontalscrollbarSelector}`).moveTo({xOffset: Math.round(horizontalScroll), yOffset: 0});
-			} else {
-				const horizontalScroll = way === 'Right' ? this.getScrollThumbLocation().horizontal.right + 20 :
-					this.getScrollThumbLocation().horizontal.left - this.getScrollBarLocation().horizontal.left - 20;
-				$(`${horizontalscrollbarSelector}`).moveTo({xOffset: Math.round(horizontalScroll), yOffset: 0});
-			}
+			const horizontalScroll = way === 'Left' ? this.getScrollThumbRect().horizontal.left - this.getScrollBarRect().horizontal.left - 50 :
+				this.getScrollThumbRect().horizontal.right - this.getScrollBarRect().horizontal.left + 50;
+			$(`${horizontalscrollbarSelector}`).moveTo({xOffset: Math.round(horizontalScroll), yOffset: 0});
 		}
 	}
-	getScrollOffsetLeft () {
+	getVerticalScrollOffsetLeft () {
 		return browser.execute(function (_verticalscrollbarSelector) {
 			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.offsetLeft;
+			return verticalscrollbar.offsetLeft === 0 ? 0 : verticalscrollbar.offsetLeft + verticalscrollbar.clientWidth;
 		}, verticalscrollbarSelector);
+	}
+	getHorizontalScrollOffsetTop () {
+		return browser.execute(function (_horizontalscrollbarSelector) {
+			const horizontalscrollbar = document.querySelector(_horizontalscrollbarSelector);
+			return horizontalscrollbar.offsetTop + horizontalscrollbar.clientHeight;
+		}, horizontalscrollbarSelector);
 	}
 }
 
