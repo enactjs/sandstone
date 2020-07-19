@@ -6,7 +6,7 @@
 
 .tab {
 	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
-	font-weight: normal;
+	font-weight: @sand-tablayout-tab-button-font-weight;
 
 	&.horizontal {
 		&.button {
@@ -20,8 +20,6 @@
 			}
 
 			&.selected {
-				font-weight: @sand-tablayout-tab-button-selected-font-weight;
-
 				.client::after {
 					content: "";
 					position: absolute;
@@ -38,10 +36,6 @@
 		&.button {
 			font-size: @sand-tablayout-tab-button-font-size;
 			height: @sand-tablayout-tab-vertical-button-height;
-
-			&.selected {
-				font-weight: @sand-tablayout-tab-button-selected-font-weight;
-			}
 		}
 
 		.client {
