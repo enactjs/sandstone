@@ -17,7 +17,7 @@ const GroupView = () => (
 				select={'radio'}
 				selectedProp="selected"
 			>
-				{['Item 1', 'Item 2', 'Item 3']}
+				{['Item 0', 'Item 1', 'Item 2']}
 			</Group>
 		</Section>
 
@@ -31,9 +31,9 @@ const GroupView = () => (
 				selectedProp="selected"
 			>
 				{[
+					{'aria-label': 'This is an Item 0.', children: 'Item 0', key: 0},
 					{'aria-label': 'This is an Item 1.', children: 'Item 1', key: 1},
-					{'aria-label': 'This is an Item 2.', children: 'Item 2', key: 2},
-					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3}
+					{'aria-label': 'This is an Item 2.', children: 'Item 2', key: 2}
 				]}
 			</Group>
 
@@ -46,9 +46,9 @@ const GroupView = () => (
 				selectedProp="selected"
 			>
 				{[
+					{'aria-label': 'This is an Item 0.', children: 'Item 0', disabled: true, key: 0},
 					{'aria-label': 'This is an Item 1.', children: 'Item 1', disabled: true, key: 1},
-					{'aria-label': 'This is an Item 2.', children: 'Item 2', disabled: true, key: 2},
-					{'aria-label': 'This is an Item 3.', children: 'Item 3', key: 3}
+					{'aria-label': 'This is an Item 2.', children: 'Item 2', key: 2}
 				]}
 			</Group>
 		</Section>

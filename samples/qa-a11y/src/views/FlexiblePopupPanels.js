@@ -43,11 +43,11 @@ class FlexiblePopupPanelsView extends React.Component {
 					<Panel prevButton={prevButton}>
 						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
+							<Item onClick={this.onNextPanel}>Item 0</Item>
 							<Item onClick={this.onNextPanel}>Item 1</Item>
 							<Item onClick={this.onNextPanel}>Item 2</Item>
 							<Item onClick={this.onNextPanel}>Item 3</Item>
-							<Item onClick={this.onNextPanel}>Item 4</Item>
-							<Item onClick={this.onNextPanel} disabled>Item 5</Item>
+							<Item onClick={this.onNextPanel} disabled>Item 4</Item>
 						</Scroller>
 					</Panel>
 					<Panel>

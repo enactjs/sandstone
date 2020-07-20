@@ -43,9 +43,9 @@ class FixedPopupPanelsView extends React.Component {
 	render () {
 		return (
 			<Section title="Default">
-				<Button alt="With Title and Subtitle" onClick={this.handleOpen1}>Open</Button>
-				<Button alt="With Title" onClick={this.handleOpen2}>Open</Button>
-				<Button alt="With Title and Disabled Items" onClick={this.handleOpen3}>Open</Button>
+				<Button alt="With Title and Subtitle" onClick={this.handleOpen1}>Open 0</Button>
+				<Button alt="With Title" onClick={this.handleOpen2}>Open 1</Button>
+				<Button alt="With Title and Disabled Items" onClick={this.handleOpen3}>Open 2</Button>
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
@@ -60,8 +60,8 @@ class FixedPopupPanelsView extends React.Component {
 						<Scroller direction="vertical" style={{height: ri.scaleToRem(780)}}>
 							{itemData.map((item, i) => <Item key={i} onClick={this.nextPanel}>{item}</Item>)}
 						</Scroller>
+						<Button onClick={this.nextPanel}>Button 0</Button>
 						<Button onClick={this.nextPanel}>Button 1</Button>
-						<Button onClick={this.nextPanel}>Button 2</Button>
 					</Panel>
 					<Panel>
 						<Header>
@@ -71,8 +71,8 @@ class FixedPopupPanelsView extends React.Component {
 						<Scroller direction="vertical" style={{height: ri.scaleToRem(408)}}>
 							{itemData.map((item, i) => <Item key={i} onClick={this.prevPanel}>{item}</Item>)}
 						</Scroller>
+						<Button onClick={this.prevPanel}>Button 0</Button>
 						<Button onClick={this.prevPanel}>Button 1</Button>
-						<Button onClick={this.prevPanel}>Button 2</Button>
 					</Panel>
 				</FixedPopupPanels>
 
@@ -85,17 +85,17 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Option</title>
 						</Header>
+						<Item onClick={this.nextPanel}>Item 0</Item>
 						<Item onClick={this.nextPanel}>Item 1</Item>
 						<Item onClick={this.nextPanel}>Item 2</Item>
-						<Item onClick={this.nextPanel}>Item 3</Item>
 					</Panel>
 					<Panel>
 						<Header>
 							<title>Option</title>
 						</Header>
+						<Item onClick={this.prevPanel}>Item 0</Item>
 						<Item onClick={this.prevPanel}>Item 1</Item>
 						<Item onClick={this.prevPanel}>Item 2</Item>
-						<Item onClick={this.prevPanel}>Item 3</Item>
 					</Panel>
 				</FixedPopupPanels>
 
@@ -108,17 +108,17 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Option</title>
 						</Header>
+						<Item onClick={this.nextPanel} disabled>Item 0</Item>
 						<Item onClick={this.nextPanel} disabled>Item 1</Item>
-						<Item onClick={this.nextPanel} disabled>Item 2</Item>
-						<Item onClick={this.nextPanel}>Item 3</Item>
+						<Item onClick={this.nextPanel}>Item 2</Item>
 					</Panel>
 					<Panel>
 						<Header>
 							<title>Option</title>
 						</Header>
+						<Item onClick={this.prevPanel} disabled>Item 0</Item>
 						<Item onClick={this.prevPanel} disabled>Item 1</Item>
-						<Item onClick={this.prevPanel} disabled>Item 2</Item>
-						<Item onClick={this.prevPanel}>Item 3</Item>
+						<Item onClick={this.prevPanel}>Item 2</Item>
 					</Panel>
 				</FixedPopupPanels>
 			</Section>

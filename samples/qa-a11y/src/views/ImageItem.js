@@ -25,7 +25,7 @@ const ImageItemView = () => (
 				alt="With Children and Label"
 				orientation="horizontal"
 			>
-				Text
+				Text 0
 			</ImageItem>
 
 			<SelectableImageItem
@@ -34,7 +34,7 @@ const ImageItemView = () => (
 				orientation="horizontal"
 				showSelection
 			>
-				Text
+				Text 1
 			</SelectableImageItem>
 		</Section>
 
@@ -42,41 +42,41 @@ const ImageItemView = () => (
 			<ImageItem
 				{...labelAndSrc}
 				alt="Aria-labelled with with Children and Label"
-				aria-label="This is a Label."
+				aria-label="This is a Label 0."
 				orientation="horizontal"
 			>
-				Text
+				Text 0
 			</ImageItem>
 
 			<SelectableImageItem
 				{...labelAndSrc}
 				alt="Aria-labelled with with showSelection"
-				aria-label="This is a Label."
+				aria-label="This is a Label 1."
 				orientation="horizontal"
 				showSelection
 			>
-				Text
+				Text 1
 			</SelectableImageItem>
 
 			<ImageItem
 				{...labelAndSrc}
 				alt="Aria-labelled and Disabled with with Children and Label"
-				aria-label="This is a Label."
+				aria-label="This is a Label 2."
 				disabled
 				orientation="horizontal"
 			>
-				Text
+				Text 2
 			</ImageItem>
 
 			<SelectableImageItem
 				{...labelAndSrc}
 				alt="Aria-labelled and Disabled with with showSelection"
-				aria-label="This is a Label."
+				aria-label="This is a Label 3."
 				disabled
 				orientation="horizontal"
 				showSelection
 			>
-				Text
+				Text 3
 			</SelectableImageItem>
 		</Section>
 	</>

@@ -13,8 +13,8 @@ const SwitchView = () => (
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<Switch alt="Aria-labelled" aria-label="This is a Label." />
-			<Switch alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
+			<Switch alt="Aria-labelled" aria-label="This is a Label 0." />
+			<Switch alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
 		</Section>
 	</>
 );

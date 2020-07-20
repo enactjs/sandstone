@@ -25,8 +25,8 @@ class WizardPanelsView extends React.Component {
 			<WizardPanels key={noAnimation} noAnimation={noAnimation}>
 				<WizardPanels.Panel
 					prevButton={<Button icon="closex" aria-label="This is Exit.">Exit</Button>}
-					subtitle="A subtitle for View 1"
-					title="WizardPanels View 1"
+					subtitle="A subtitle for View 0"
+					title="WizardPanels View 0"
 				>
 					<div style={{textAlign: 'center', marginBottom: '10' + 'px'}}>
 						<Button>test</Button>
@@ -43,8 +43,8 @@ class WizardPanelsView extends React.Component {
 					</Scroller>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
-					subtitle="A subtitle for View 2 that is really, really way too long for its own good.  In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits.  That seems unlikely, though, unless you're in the year 2030 or something."
-					title="WizardPanels View 2"
+					subtitle="A subtitle for View 1 that is really, really way too long for its own good.  In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits.  That seems unlikely, though, unless you're in the year 2030 or something."
+					title="WizardPanels View 1"
 				>
 					<BodyText>Several buttons!</BodyText>
 					<Button icon="list">Button A</Button>
@@ -57,8 +57,8 @@ class WizardPanelsView extends React.Component {
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
 					disabled
-					subtitle="A subtitle for View 3"
-					title="WizardPanels View 3"
+					subtitle="A subtitle for View 2"
+					title="WizardPanels View 2"
 				>
 					<Item inline>
 						<slotBefore>
@@ -68,10 +68,10 @@ class WizardPanelsView extends React.Component {
 					</Item>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
-					footer="Footer in View 4"
+					footer="Footer in View 3"
 					nextButton={<Button icon="closex" aria-label="This is Quit.">Close</Button>}
-					subtitle="A subtitle for View 4"
-					title="WizardPanels View 4"
+					subtitle="A subtitle for View 3"
+					title="WizardPanels View 3"
 				>
 					<Icon>support</Icon>
 					<BodyText>A simple view</BodyText>

@@ -220,7 +220,7 @@ const PickerView = () => (
 		<Section className={css.marginTop} title="Horizontal">
 			<Picker
 				alt="Horizontal"
-				aria-label="This is a Label."
+				aria-label="This is a Label 0."
 				orientation="horizontal"
 				width="medium"
 			>
@@ -229,7 +229,7 @@ const PickerView = () => (
 
 			<Picker
 				alt="Horizontal and Disabled"
-				aria-label="This is a Label."
+				aria-label="This is a Label 1."
 				disabled
 				orientation="horizontal"
 				width="medium"
@@ -241,7 +241,7 @@ const PickerView = () => (
 		<Section className={css.marginTop} title="Horizontal and Joined">
 			<Picker
 				alt="Horizontal and Joined"
-				aria-label="This is a Label."
+				aria-label="This is a Label 2."
 				joined
 				orientation="horizontal"
 				width="medium"
@@ -251,7 +251,7 @@ const PickerView = () => (
 
 			<Picker
 				alt="Horizontal, Joined, and Disabled"
-				aria-label="This is a Label."
+				aria-label="This is a Label 3."
 				disabled
 				joined
 				orientation="horizontal"
@@ -264,7 +264,7 @@ const PickerView = () => (
 		<Section className={css.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
-				aria-label="This is a Label."
+				aria-label="This is a Label 4."
 				orientation="vertical"
 				width="medium"
 			>
@@ -273,7 +273,7 @@ const PickerView = () => (
 
 			<Picker
 				alt="Vertical and Joined"
-				aria-label="This is a Label."
+				aria-label="This is a Label 5."
 				joined
 				orientation="vertical"
 				width="medium"
@@ -283,7 +283,7 @@ const PickerView = () => (
 
 			<Picker
 				alt="Vertical and Disabled"
-				aria-label="This is a Label."
+				aria-label="This is a Label 6."
 				disabled
 				orientation="vertical"
 				width="medium"
@@ -293,7 +293,7 @@ const PickerView = () => (
 
 			<Picker
 				alt="Vertical, Joined, and Disabled"
-				aria-label="This is a Label."
+				aria-label="This is a Label 7."
 				disabled
 				joined
 				orientation="vertical"

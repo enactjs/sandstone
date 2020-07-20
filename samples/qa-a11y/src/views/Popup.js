@@ -51,7 +51,7 @@ class PopupView extends React.Component {
 					onClose={this.handleClose1}
 					open={open1}
 				>
-					<span>Popup...</span>
+					<span>Content</span>
 				</Popup>
 
 				<Popup
@@ -85,16 +85,16 @@ class PopupView extends React.Component {
 				>
 					<Button>Button Outside Scroller</Button>
 					<Scroller style={{height: ri.scaleToRem(170), marginTop: ri.scaleToRem(10)}}>
-						<Item>Test Item 1</Item>
-						<Item>Test Item 2</Item>
-						<Item>Test Item 3</Item>
-						<Item>Test Item 4</Item>
-						<Item>Test Item 5</Item>
-						<Item>Test Item 6</Item>
-						<Item>Test Item 7</Item>
-						<Item>Test Item 8</Item>
-						<Item>Test Item 9</Item>
-						<Item>Test Item 10</Item>
+						<Item>Item 0</Item>
+						<Item>Item 1</Item>
+						<Item>Item 2</Item>
+						<Item>Item 3</Item>
+						<Item>Item 4</Item>
+						<Item>Item 5</Item>
+						<Item>Item 6</Item>
+						<Item>Item 7</Item>
+						<Item>Item 8</Item>
+						<Item>Item 9</Item>
 					</Scroller>
 				</Popup>
 
@@ -102,9 +102,9 @@ class PopupView extends React.Component {
 					onClose={this.handleClose4}
 					open={open4}
 				>
-					<Heading showLine>Buttons In Popup Example</Heading>
-					<Button>Hello</Button>
-					<Button>Goodbye</Button>
+					<Heading showLine>Heading</Heading>
+					<Button>Text 0</Button>
+					<Button>Text 1</Button>
 				</Popup>
 
 				<Popup
@@ -112,9 +112,9 @@ class PopupView extends React.Component {
 					onClose={this.handleClose5}
 					open={open5}
 				>
-					<Heading showLine>Buttons In Popup Example</Heading>
-					<Button>Hello</Button>
-					<Button>Goodbye</Button>
+					<Heading showLine>Heading</Heading>
+					<Button>Text 0</Button>
+					<Button>Text 1</Button>
 				</Popup>
 			</Section>
 		);

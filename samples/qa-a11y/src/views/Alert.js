@@ -51,25 +51,25 @@ class AlertView extends React.Component {
 		return (
 			<Row wrap>
 				<Section className={css.marginTop} size="50%" title="Alert Fullscreen">
-					<Button alt="Normal" onClick={this.handleOpen1}>Text</Button>
-					<Button alt="With 3(max) Buttons" onClick={this.handleOpen2}>Text</Button>
-					<Button alt="With Thumbnail" onClick={this.handleOpen3}>Text</Button>
-					<Button alt="Without Title" onClick={this.handleOpen4}>Text</Button>
-					<Button alt="Without Content" onClick={this.handleOpen5}>Text</Button>
+					<Button alt="Normal" onClick={this.handleOpen1}>Text 0</Button>
+					<Button alt="With 3(max) Buttons" onClick={this.handleOpen2}>Text 1</Button>
+					<Button alt="With Thumbnail" onClick={this.handleOpen3}>Text 2</Button>
+					<Button alt="Without Title" onClick={this.handleOpen4}>Text 3</Button>
+					<Button alt="Without Content" onClick={this.handleOpen5}>Text 4</Button>
 				</Section>
 
 				<Section className={css.marginTop} size="50%" title="Alert Overlay which has No title">
-					<Button alt="Normal" onClick={this.handleOpen6}>Text</Button>
-					<Button alt="With 3(max) Buttons" onClick={this.handleOpen7}>Text</Button>
-					<Button alt="With Thumbnail" onClick={this.handleOpen8}>Text</Button>
+					<Button alt="Normal" onClick={this.handleOpen6}>Text 0</Button>
+					<Button alt="With 3(max) Buttons" onClick={this.handleOpen7}>Text 1</Button>
+					<Button alt="With Thumbnail" onClick={this.handleOpen8}>Text 2</Button>
 				</Section>
 
 				<Alert
 					onClose={this.handleClose1}
 					open={open1}
-					title="Header Title"
+					title="Heading Title"
 				>
-					<span>Body Text</span>
+					<span>Content</span>
 					<buttons>
 						<Button onClick={this.handleClose1}>Text</Button>
 					</buttons>
@@ -95,15 +95,15 @@ class AlertView extends React.Component {
 				<Alert
 					onClose={this.handleClose3}
 					open={open3}
-					title="Header Title"
+					title="Heading Title"
 				>
 					<image>
 						<AlertImage src={'https://via.placeholder.com/250.png?text=image'} type="thumbnail" />
 					</image>
-					<span>Body Text</span>
+					<span>Content</span>
 					<buttons>
-						<Button onClick={this.handleClose3}>Text</Button>
-						<Button onClick={this.handleClose3}>Text</Button>
+						<Button onClick={this.handleClose3}>Text 0</Button>
+						<Button onClick={this.handleClose3}>Text 1</Button>
 					</buttons>
 				</Alert>
 
@@ -111,26 +111,22 @@ class AlertView extends React.Component {
 					onClose={this.handleClose4}
 					open={open4}
 				>
-					<span>
-						Not to worry, this message isn&apos;t going to be very long.
-						It just has to be long enough to show what a long message looks like.
-						That&apos;s all; have a nice day.
-					</span>
+					<span>Content</span>
 					<buttons>
-						<Button onClick={this.handleClose4}>First Button!</Button>
-						<Button onClick={this.handleClose4}>Oh My Yes, Kitten</Button>
-						<Button onClick={this.handleClose4}>Hide And Show</Button>
+						<Button onClick={this.handleClose4}>Text 0</Button>
+						<Button onClick={this.handleClose4}>Text 1</Button>
+						<Button onClick={this.handleClose4}>Text 2</Button>
 					</buttons>
 				</Alert>
 
 				<Alert
 					onClose={this.handleClose5}
 					open={open5}
-					title="Good afternoon"
+					title="Heading Title"
 				>
 					<buttons>
-						<Button onClick={this.handleClose5}>First Button!</Button>
-						<Button onClick={this.handleClose5}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose5}>Text 0</Button>
+						<Button onClick={this.handleClose5}>Text 1</Button>
 					</buttons>
 				</Alert>
 
@@ -155,15 +151,11 @@ class AlertView extends React.Component {
 					open={open7}
 					type="overlay"
 				>
-					<span>
-						Not to worry, this message isn&apos;t going to be very long.
-						It just has to be long enough to show what a long message looks like.
-						That&apos;s all; have a nice day.
-					</span>
+					<span>Content</span>
 					<buttons>
-						<Button onClick={this.handleClose7}>First Button!</Button>
-						<Button onClick={this.handleClose7}>Oh My Yes, Kitten</Button>
-						<Button onClick={this.handleClose7}>Hide And Show</Button>
+						<Button onClick={this.handleClose7}>Text 0</Button>
+						<Button onClick={this.handleClose7}>Text 1</Button>
+						<Button onClick={this.handleClose7}>Text 2</Button>
 					</buttons>
 				</Alert>
 
@@ -176,13 +168,11 @@ class AlertView extends React.Component {
 						<AlertImage src={'https://via.placeholder.com/250.png?text=image'} type="thumbnail" />
 					</image>
 					<span>
-						Not to worry, this message isn&apos;t going to be very long.
-						It just has to be long enough to show what a long message looks like.
-						That&apos;s all; have a nice day.
+						Content
 					</span>
 					<buttons>
-						<Button onClick={this.handleClose8}>First Button!</Button>
-						<Button onClick={this.handleClose8}>Oh My Yes, Kitten</Button>
+						<Button onClick={this.handleClose8}>Text 0</Button>
+						<Button onClick={this.handleClose8}>Text 1</Button>
 					</buttons>
 				</Alert>
 			</Row>

@@ -8,13 +8,13 @@ import css from '../App/App.module.less';
 const RadioItemView = () => (
 	<>
 		<Section title="Default">
-			<RadioItem alt="Normal">Text</RadioItem>
-			<RadioItem alt="Disabled" disabled>Text</RadioItem>
+			<RadioItem alt="Normal">Text 0</RadioItem>
+			<RadioItem alt="Disabled" disabled>Text 1</RadioItem>
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<RadioItem alt="Aria-labelled" aria-label="This is a Label.">Text</RadioItem>
-			<RadioItem alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled>Text</RadioItem>
+			<RadioItem alt="Aria-labelled" aria-label="This is a Label 0.">Text 0</RadioItem>
+			<RadioItem alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled>Text 1</RadioItem>
 		</Section>
 	</>
 );

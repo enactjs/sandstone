@@ -13,8 +13,8 @@ const CheckboxView = () => (
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<Checkbox alt="Aria-labelled" aria-label="This is a Label." />
-			<Checkbox alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
+			<Checkbox alt="Aria-labelled" aria-label="This is a Label 0." />
+			<Checkbox alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
 		</Section>
 	</>
 );

@@ -102,7 +102,7 @@ const views = [
 
 class AppBase extends React.Component {
 	static propTypes = {
-		rtl: PropTypes.book,
+		rtl: PropTypes.bool,
 		updateLocale: PropTypes.func
 	}
 	constructor () {
@@ -137,7 +137,11 @@ class AppBase extends React.Component {
 			if (this.selectedByKey === -1) {
 				this.selectedByKey = num;
 			} else {
-				this.handleChangeView(this.selectedByKey * 10 + num)();
+				const selected = this.selectedByKey * 10 + num;
+
+				if (selected < views.length) {
+					this.handleChangeView(selected)();
+				}
 				this.selectedByKey = -1;
 			}
 		}
@@ -147,6 +151,9 @@ class AppBase extends React.Component {
 		const {className, ...rest} = this.props;
 		const {isDebugMode, selected} = this.state;
 		const debugAriaClass = isDebugMode ? 'aria debug' : null;
+
+		delete rest.rtl;
+		delete rest.updateLocale;
 
 		return (
 			<Layout {...rest} className={classnames(className, debugAriaClass)}>

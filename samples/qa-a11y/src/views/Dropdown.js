@@ -49,7 +49,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				selected={2}
 			>
-				{['Option1', 'Option2', 'Option3']}
+				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
 			<br />
 			<Dropdown
@@ -57,7 +57,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{['Option1', 'Option2', 'Option3']}
+				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
 			<br />
 			<Dropdown
@@ -66,7 +66,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{['Option1', 'Option2', 'Option3']}
+				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
 			<br />
 			<Dropdown
@@ -75,7 +75,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{['Option1', 'Option2', 'Option3']}
+				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
 			<br />
 			<Dropdown
@@ -85,7 +85,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{['Option1', 'Option2', 'Option3']}
+				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
 		</Section>
 

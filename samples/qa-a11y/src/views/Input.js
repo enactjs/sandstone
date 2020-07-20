@@ -34,10 +34,10 @@ const InputView = () => (
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<Input alt="Aria-labelled" aria-label="This is a Label." />
-			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label." disabled />
-			<Input alt="With popupAriaLabel" popupAriaLabel="This is a input popup" />
-			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Aria-labelled" aria-label="This is a Label 0." />
+			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
+			<Input alt="With popupAriaLabel" popupAriaLabel="This is a Label 2." />
+			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
 		</Section>
 	</>
 );

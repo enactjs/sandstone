@@ -46,10 +46,10 @@ class TabLayoutView extends React.Component {
 						icon={tabsWithIcons[1].icon}
 						title={tabsWithIcons[1].title}
 					>
+						<Button icon="demosync">Button 0</Button>
 						<Button icon="demosync">Button 1</Button>
 						<Button icon="demosync">Button 2</Button>
 						<Button icon="demosync">Button 3</Button>
-						<Button icon="demosync">Button 4</Button>
 					</Tab>
 					<Tab
 						disabled

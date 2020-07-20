@@ -38,8 +38,8 @@ class ProgressBarView extends React.Component {
 				/>
 
 				<Section className={css.marginTop} title="Controls" vertical>
-					<Button alt="Decrease" aria-label="This is Decrease" icon="minus" onClick={this.handleDecreaseBarValue} />
-					<Button alt="Increase" aria-label="This is Increase" icon="plus" onClick={this.handleIncreaseBarValue} />
+					<Button alt="Decrease" aria-label="This is Decrease." icon="minus" onClick={this.handleDecreaseBarValue} />
+					<Button alt="Increase" aria-label="This is Increase." icon="plus" onClick={this.handleIncreaseBarValue} />
 				</Section>
 			</>
 		);

@@ -9,10 +9,10 @@ const ButtonView = () => (
 	<>
 		<Section title="Default">
 			<Button alt="No content" />
-			<Button alt="Normal">Text</Button>
-			<Button alt="With color icon" color="red">Text</Button>
-			<Button alt="With color icon" color="blue">Text</Button>
-			<Button alt="Disabled" disabled>Text</Button>
+			<Button alt="Normal">Text 0</Button>
+			<Button alt="With color icon" color="red">Text 1</Button>
+			<Button alt="With color icon" color="blue">Text 2</Button>
+			<Button alt="Disabled" disabled>Text 3</Button>
 		</Section>
 
 		<Section className={css.marginTop} title="With only Icon">
@@ -22,15 +22,15 @@ const ButtonView = () => (
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled">
-			<Button alt="Aria-labelled" aria-label="This is a Label.">Text</Button>
-			<Button alt="Aria-labelled" aria-label="This is a Label." color="yellow">Text</Button>
-			<Button alt="Aria-labelled and Disabled" aria-label="This is a Label." color="yellow" disabled>Text</Button>
+			<Button alt="Aria-labelled" aria-label="This is a Label 0.">Text 0</Button>
+			<Button alt="Aria-labelled" aria-label="This is a Label 1." color="yellow">Text 1</Button>
+			<Button alt="Aria-labelled and Disabled" aria-label="This is a Label 2." color="yellow" disabled>Text 2</Button>
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled with only Icon">
-			<Button alt="Aria-labelled" aria-label="This is an icon." icon="play" />
-			<Button alt="Aria-labelled" aria-label="This is an icon." icon="+" />
-			<Button alt="Aria-labelled and Disabled" aria-label="This is an icon." disabled icon="+" />
+			<Button alt="Aria-labelled" aria-label="This is an icon 0." icon="play" />
+			<Button alt="Aria-labelled" aria-label="This is an icon 1." icon="+" />
+			<Button alt="Aria-labelled and Disabled" aria-label="This is an icon 2." disabled icon="+" />
 		</Section>
 	</>
 );

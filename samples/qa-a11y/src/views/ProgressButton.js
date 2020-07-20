@@ -41,8 +41,8 @@ class ProgressButtonView extends React.Component {
 				</ProgressButton>
 
 				<Section className={css.marginTop} title="Controls" vertical>
-					<Button alt="Decrease" aria-label="Decrease" icon="minus" onClick={this.handleDecreaseButtonValue} />
-					<Button alt="Increase" aria-label="Increase" icon="plus" onClick={this.handleIncreaseButtonValue} />
+					<Button alt="Decrease" aria-label="This is Decrease." icon="minus" onClick={this.handleDecreaseButtonValue} />
+					<Button alt="Increase" aria-label="This is Increase." icon="plus" onClick={this.handleIncreaseButtonValue} />
 				</Section>
 			</>
 		);
