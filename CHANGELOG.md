@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/VirtualList` to handle keydown properly when an item has a wrong index value
 - `sandstone/VirtualList` to preserve focus in panels
 
 ## [1.0.0] - 2020-07-13
