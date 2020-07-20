@@ -109,6 +109,7 @@ class AppBase extends React.Component {
 		super();
 		this.state = {
 			isDebugMode: false,
+			jumpToView: '',
 			selected: 0
 		};
 	}
@@ -117,7 +118,7 @@ class AppBase extends React.Component {
 		document.addEventListener('keydown', this.handleKeyDown);
 	}
 
-	selectedByKey = -1
+	cachedKey = -1
 
 	handleChangeView = (selected) => () => this.setState({selected})
 
@@ -134,42 +135,48 @@ class AppBase extends React.Component {
 		} else if (keyCode >= 48 && keyCode <= 57) {
 			const num = keyCode - 48;
 
-			if (this.selectedByKey === -1) {
-				this.selectedByKey = num;
+			if (this.cachedKey === -1) {
+				this.cachedKey = num;
+				this.setState({jumpToView: num});
 			} else {
-				const selected = this.selectedByKey * 10 + num;
+				const selected = this.cachedKey * 10 + num;
 
 				if (selected < views.length) {
 					this.handleChangeView(selected)();
 				}
-				this.selectedByKey = -1;
+
+				this.setState({jumpToView: '' + this.cachedKey + num});
+				this.cachedKey = -1;
 			}
 		}
 	}
 
 	render () {
 		const {className, ...rest} = this.props;
-		const {isDebugMode, selected} = this.state;
+		const {isDebugMode, jumpToView, selected} = this.state;
 		const debugAriaClass = isDebugMode ? 'aria debug' : null;
 
 		delete rest.rtl;
 		delete rest.updateLocale;
 
 		return (
-			<Layout {...rest} className={classnames(className, debugAriaClass)}>
-				<Cell component={ScrollerComponent} size="20%">
-					{views.map((view, i) => (
-						<Item className={css.navItem} key={i} slotBefore={'[' + ('00' + i).slice(-2) + ']'} onClick={this.handleChangeView(i)}>
-							{view.title}
-						</Item>
-					))}
-				</Cell>
-				<Cell component={ViewManager} index={selected}>
-					{views.map((view, i) => (
-						<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
-					))}
-				</Cell>
-			</Layout>
+			<div className={classnames(className, debugAriaClass)}>
+				<div>Jump To View: {jumpToView}</div>
+				<Layout {...rest}>
+					<Cell component={ScrollerComponent} size="20%">
+						{views.map((view, i) => (
+							<Item className={css.navItem} key={i} slotBefore={'[' + ('00' + i).slice(-2) + ']'} onClick={this.handleChangeView(i)}>
+								{view.title}
+							</Item>
+						))}
+					</Cell>
+					<Cell component={ViewManager} index={selected}>
+						{views.map((view, i) => (
+							<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
+						))}
+					</Cell>
+				</Layout>
+			</div>
 		);
 	}
 }
