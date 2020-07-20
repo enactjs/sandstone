@@ -9,7 +9,6 @@ import {Panel, Header} from '@enact/sandstone/Panels';
 import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
-import {boolean} from '@enact/storybook-utils/addons/knobs';
 
 import {storiesOf} from '@storybook/react';
 
@@ -54,7 +53,7 @@ storiesOf('PopupTabLayout', module)
 			return (
 				<Panel>
 					<PopupTabLayout
-						open={boolean('open', PopupTabLayout, false)}
+						open
 					>
 						<Tab icon="picture" title="Display">
 							<TabPanels index={0}>
@@ -68,7 +67,6 @@ storiesOf('PopupTabLayout', module)
 							</TabPanels>
 						</Tab>
 					</PopupTabLayout>
-					<BodyText centered>Use KNOBS to open PopupTabLayout.</BodyText>
 				</Panel>
 			);
 		});
