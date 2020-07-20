@@ -32,7 +32,7 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, bodySpotted, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
@@ -45,6 +45,8 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 			SpotlightAccelerator.reset();
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+	console.log('bodySpotted', bodySpotted)
 
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();
@@ -92,7 +94,7 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 	}, [consumeEventWithScroll, rtl, vertical]);
 
 	return (
-		<div {...rest} className={className} ref={ref}>
+		<div {...rest} aria-hidden={bodySpotted} className={className} ref={ref}>
 			<ScrollbarThumb aria-label={ariaLabel} className={css.thumb} onKeyDown={onKeyDown}>
 				<div className={classNames(css.directionIndicator, css.backward)} />
 				<div className={classNames(css.directionIndicator, css.forward)} />

@@ -16,6 +16,7 @@ const useThemeScrollbar = (props) => {
 
 	const {
 		'aria-label': ariaLabel,
+		bodySpotted,
 		cbAlertScrollbarTrack,
 		focusableScrollbar,
 		onInteractionForScroll,
@@ -68,6 +69,7 @@ const useThemeScrollbar = (props) => {
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
 			'aria-label': ariaLabel,
+			bodySpotted,
 			cbAlertScrollbarTrack,
 			focusableScrollbar,
 			onInteractionForScroll,
