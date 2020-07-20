@@ -362,8 +362,6 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 		setContainerDisabled
 	});
 
-	console.log('useThemeScroller render',bodySpotted )
-
 	// Render
 
 	rest.className = classNames(

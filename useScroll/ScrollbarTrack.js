@@ -46,8 +46,6 @@ const ScrollbarTrack = forwardRef((props, ref) => {
 		};
 	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-	console.log('bodySpotted', bodySpotted)
-
 	const consumeEventWithScroll = useCallback((scrollParam, ev) => {
 		ev.preventDefault();
 		ev.stopPropagation(); // stop propagation of React synthetic event to other components like PopupDecorator
