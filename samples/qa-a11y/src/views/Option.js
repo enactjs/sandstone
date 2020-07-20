@@ -7,14 +7,14 @@ import React, {useCallback} from 'react';
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;
 	const {rtl, updateLocale} = useI18nContext();
-	const onClick = useCallback(() => {
-		updateLocale(!rtl ? 'ar-SA' : 'en-US');
+	const handleClick = useCallback(() => {
+		updateLocale(rtl ? 'en-US' : 'ar-SA');
 	}, [rtl, updateLocale]);
 
 	return (
 		<>
 			<Heading showLine>Set a language direction</Heading>
-			<CheckboxItem onClick={onClick} selected={rtl}>RTL</CheckboxItem>
+			<CheckboxItem onClick={handleClick} selected={rtl}>RTL</CheckboxItem>
 
 			<Heading showLine>Set an aria debug mode</Heading>
 			<CheckboxItem onClick={handleDebug} selected={isDebugMode}>Debug aria</CheckboxItem>

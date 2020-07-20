@@ -1,8 +1,11 @@
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
 import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
+import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 
@@ -98,6 +101,10 @@ const views = [
 ];
 
 class AppBase extends React.Component {
+	static propTypes = {
+		rtl: PropTypes.book,
+		updateLocale: PropTypes.func
+	}
 	constructor () {
 		super();
 		this.state = {
@@ -106,9 +113,35 @@ class AppBase extends React.Component {
 		};
 	}
 
+	componentDidMount () {
+		document.addEventListener('keydown', this.handleKeyDown);
+	}
+
+	selectedByKey = -1
+
 	handleChangeView = (selected) => () => this.setState({selected})
 
 	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
+
+	handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+		const {rtl, updateLocale} = this.props;
+
+		if (keyCode === 403 || keyCode === 82) { // Red Key or `r` key
+			updateLocale(rtl ? 'en-US' : 'ar-SA');
+		} else if (keyCode === 404 || keyCode === 71) { // Green Key or `g` key
+			this.handleDebug();
+		} else if (keyCode >= 48 && keyCode <= 57) {
+			const num = keyCode - 48;
+
+			if (this.selectedByKey === -1) {
+				this.selectedByKey = num;
+			} else {
+				this.handleChangeView(this.selectedByKey * 10 + num)();
+				this.selectedByKey = -1;
+			}
+		}
+	}
 
 	render () {
 		const {className, ...rest} = this.props;
@@ -119,7 +152,7 @@ class AppBase extends React.Component {
 			<Layout {...rest} className={classnames(className, debugAriaClass)}>
 				<Cell component={ScrollerComponent} size="20%">
 					{views.map((view, i) => (
-						<Item className={css.navItem} key={i} onClick={this.handleChangeView(i)}>
+						<Item className={css.navItem} key={i} slotBefore={'[' + ('00' + i).slice(-2) + ']'} onClick={this.handleChangeView(i)}>
 							{view.title}
 						</Item>
 					))}
@@ -134,6 +167,11 @@ class AppBase extends React.Component {
 	}
 }
 
-const App = ThemeDecorator(AppBase);
+const AppDecorator = compose(
+	ThemeDecorator,
+	I18nContextDecorator({rtlProp: 'rtl', updateLocaleProp: 'updateLocale'})
+);
+
+const App = AppDecorator(AppBase);
 
 export default App;
