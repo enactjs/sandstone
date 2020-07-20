@@ -5,10 +5,11 @@
 @import "../styles/variables.less";
 
 .focusableBody {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	position: relative;
-	padding: inherit;
+	overflow: inherit;
 
 	&::before {
 		content: '';
