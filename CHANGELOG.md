@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/TabGroup` to read out contents without button `role`
 - `sandstone/Scroller` to set height correctly in `PopupTabLayout` when `focusableScrollbar` is byEnter
 - `sandstone/ImageItem` to render properly when `data-index` prop is the same
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to match latest designs
