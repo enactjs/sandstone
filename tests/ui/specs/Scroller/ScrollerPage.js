@@ -2,7 +2,8 @@
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
 const focusableBodySelector = '.Scroller_Scroller_focusableBody';
-const scrollVirticalThumbSelector = '.useScroll_useScroll_verticalScrollbar .useScroll_ScrollbarTrack_thumb';
+const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
+const scrollVirticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
 const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
 
 class ScrollerPage extends Page {
@@ -47,6 +48,16 @@ class ScrollerPage extends Page {
 	}
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
+	}
+	/* global document */
+	getScrollThumbPosition () {
+		return browser.execute(function (_scrollbarSelector) {
+			const scrollbar = document.querySelectorAll(_scrollbarSelector);
+			return {
+				vertical: scrollbar[0].style.getPropertyValue('--scrollbar-thumb-progress-ratio'),
+				horizontal: scrollbar[1].style.getPropertyValue('--scrollbar-thumb-progress-ratio')
+			};
+		}, scrollbarSelector);
 	}
 }
 

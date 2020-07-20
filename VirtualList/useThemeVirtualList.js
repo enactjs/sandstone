@@ -131,7 +131,7 @@ const useSpottable = (props, instances) => {
 
 			setContainerDisabled(false);
 		};
-	}, [pause, setContainerDisabled]);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 
