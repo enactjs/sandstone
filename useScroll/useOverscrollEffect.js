@@ -5,11 +5,11 @@ import {useCallback, useEffect, useRef} from 'react';
 
 const
 	{overscrollTypeDone, overscrollTypeNone, overscrollTypeOnce} = constants,
-	overscrollEasePrefix = '--scroll-overscroll-ease-',
+	overscrollTransitionPrefix = '--scroll-overscroll-transition-',
 	overscrollTranslatePrefix = '--scroll-overscroll-translate-',
-	overscrollEaseStart = 'cubic-bezier(0.1, 1, 0.1, 1)',
-	overscrollEaseEnd = 'cubic-bezier(0.1, 1, 0.1, 1)',
-	overscrollMaxTranslate = ri.scale(120),
+	overscrollTransitionStart = 'transform 300ms cubic-bezier(0.5, 1, 0.89, 1)',
+	overscrollTransitionEnd = 'transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+	overscrollMaxTranslate = ri.scale(180),
 	overscrollTimeout = 220;
 
 const useOverscrollEffect = (props, instances) => {
@@ -32,11 +32,11 @@ const useOverscrollEffect = (props, instances) => {
 		if (scrollContentRef.current) {
 			const
 				effectSize = ratio * (edge === 'before' ? 1 : -1) * (isHorizontal && scrollContainerHandle.current.rtl ? -1 : 1) * overscrollMaxTranslate,
-				translation = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
-				easing = ratio !== 0 ? overscrollEaseStart : overscrollEaseEnd;
+				translate = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
+				transition = ratio !== 0 ? overscrollTransitionStart : overscrollTransitionEnd;
 
-			scrollContentRef.current.style.setProperty(overscrollTranslatePrefix + orientation, translation);
-			scrollContentRef.current.style.setProperty(overscrollEasePrefix + orientation, easing);
+			scrollContentRef.current.style.setProperty(overscrollTranslatePrefix + orientation, translate);
+			scrollContentRef.current.style.setProperty(overscrollTransitionPrefix + orientation, transition);
 
 			if (type === overscrollTypeOnce) {
 				mutableRef.current.overscrollJobs[orientation][edge].start(orientation, edge, overscrollTypeDone, 0);

@@ -2,6 +2,15 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ImageItem` to render properly when `data-index` prop is the same
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to match latest designs
+- `sandstone/Scroller` and `sandstone/VirtualList` to properly support `spotlightDisabled` prop
+- `sandstone/VirtualList` to preserve focus in panels
+
 ## [1.0.0] - 2020-07-13
 
 ### Changed
