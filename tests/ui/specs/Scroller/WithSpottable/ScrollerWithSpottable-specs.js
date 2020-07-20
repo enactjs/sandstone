@@ -5,7 +5,7 @@ describe('Scroller', function () {
 	beforeEach(function () {
 		ScrollerPage.open('WithSpottable');
 	});
-	describe('with spottable', function (){
+	describe('with spottable', function () {
 
 		it('should meet initial conditions', function () {
 			ScrollerPage.open('WithSpottable');
