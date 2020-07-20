@@ -1,6 +1,5 @@
 import Alert, {AlertImage} from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import {Row} from '@enact/ui/Layout';
 import React from 'react';
 
 import Section from '../components/Section';
@@ -49,7 +48,7 @@ class AlertView extends React.Component {
 		const {open1, open2, open3, open4, open5, open6, open7, open8} = this.state;
 
 		return (
-			<Row wrap>
+			<>
 				<Section className={css.marginTop} size="50%" title="Alert Fullscreen">
 					<Button alt="Normal" onClick={this.handleOpen1}>Text 0</Button>
 					<Button alt="With 3(max) Buttons" onClick={this.handleOpen2}>Text 1</Button>
@@ -175,7 +174,7 @@ class AlertView extends React.Component {
 						<Button onClick={this.handleClose8}>Text 1</Button>
 					</buttons>
 				</Alert>
-			</Row>
+			</>
 		);
 	}
 }

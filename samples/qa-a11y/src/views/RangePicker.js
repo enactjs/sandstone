@@ -1,9 +1,12 @@
 import RangePicker from '@enact/sandstone/RangePicker';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import React from 'react';
 
 import Section from '../components/Section';
 
 import css from '../App/App.module.less';
+
+const SpotlightContainerSection = SpotlightContainerDecorator({enterTo: 'default-element', preserveId: true}, Section);
 
 const RangePickerView = () => (
 	<>
@@ -17,7 +20,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 
 			<RangePicker
@@ -28,7 +31,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
@@ -41,7 +44,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 			<RangePicker
 				alt="Horizontal, Joined, and Disabled"
@@ -52,11 +55,11 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				defaultValue={0}
@@ -100,7 +103,7 @@ const RangePickerView = () => (
 				step={5}
 				width="medium"
 			/>
-		</Section>
+		</SpotlightContainerSection>
 
 		<h2 className={css.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
 
@@ -114,7 +117,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 
 			<RangePicker
@@ -127,7 +130,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
@@ -142,7 +145,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 			<RangePicker
 				alt="Horizontal, Joined, and Disabled"
@@ -155,11 +158,11 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				decrementAriaLabel="This is a Label 9."
@@ -211,7 +214,7 @@ const RangePickerView = () => (
 				step={5}
 				width="medium"
 			/>
-		</Section>
+		</SpotlightContainerSection>
 
 		<h2 className={css.headerMarginTop}>Aria-labelled</h2>
 
@@ -224,7 +227,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 
 			<RangePicker
@@ -236,7 +239,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
@@ -250,7 +253,7 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 
 			<RangePicker
@@ -263,11 +266,11 @@ const RangePickerView = () => (
 				min={0}
 				orientation="horizontal"
 				step={5}
-				width="medium"
+				width="large"
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				aria-label="This is a Label 21."
@@ -323,7 +326,7 @@ const RangePickerView = () => (
 				step={5}
 				width="medium"
 			/>
-		</Section>
+		</SpotlightContainerSection>
 	</>
 );
 

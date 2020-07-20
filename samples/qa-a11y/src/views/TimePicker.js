@@ -59,7 +59,7 @@ const TimePickerView = () => (
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-Labelled">
+		<Section className={css.marginTop} title="Aria-labelled">
 			<TimePickerItem
 				alt="Normal"
 				hourAriaLabel="Hour picker"

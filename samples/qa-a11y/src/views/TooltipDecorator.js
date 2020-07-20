@@ -8,7 +8,7 @@ const TooltipButton = TooltipDecorator(Button);
 const tooltipProps = {'aria-hidden': true};
 
 const TooltipDecoratorView = () => (
-	<Section>
+	<Section title="Aria-labelled">
 		<TooltipButton
 			alt="Below Right"
 			aria-label="This is Below Right Tooltip."

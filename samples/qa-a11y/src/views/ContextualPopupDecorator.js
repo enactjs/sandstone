@@ -23,7 +23,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<br />
 			<span>Item 2</span>
 			<br />
-			<span disabled>Item 4</span>
+			<span disabled>Item 3</span>
 			<br />
 		</div>
 	)
@@ -33,7 +33,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<Button>Text 0</Button>
 			<Button>Text 1</Button>
 			<Button>Text 2</Button>
-			<Button disabled>Text</Button>
+			<Button disabled>Text 3</Button>
 		</div>
 	)
 

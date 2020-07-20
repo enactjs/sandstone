@@ -1,9 +1,12 @@
 import Picker from '@enact/sandstone/Picker';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import React from 'react';
 
 import Section from '../components/Section';
 
 import css from '../App/App.module.less';
+
+const SpotlightContainerSection = SpotlightContainerDecorator({enterTo: 'default-element', preserveId: true}, Section);
 
 const
 	airports = [
@@ -45,7 +48,7 @@ const PickerView = () => (
 			<Picker
 				alt="Horizontal"
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -54,7 +57,7 @@ const PickerView = () => (
 				alt="Horizontal and Disabled"
 				disabled
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -65,7 +68,7 @@ const PickerView = () => (
 				alt="Horizontal and Joined"
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -75,13 +78,13 @@ const PickerView = () => (
 				disabled
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				orientation="vertical"
@@ -117,7 +120,7 @@ const PickerView = () => (
 			>
 				{airports}
 			</Picker>
-		</Section>
+		</SpotlightContainerSection>
 
 		<h2 className={css.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
 
@@ -127,7 +130,7 @@ const PickerView = () => (
 				decrementAriaLabel="This is a Label 1."
 				incrementAriaLabel="This is a Label 2."
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -138,7 +141,7 @@ const PickerView = () => (
 				disabled
 				incrementAriaLabel="This is a Label 2."
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -151,7 +154,7 @@ const PickerView = () => (
 				incrementAriaLabel="This is a Label 2."
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -163,13 +166,13 @@ const PickerView = () => (
 				incrementAriaLabel="This is a Label 2."
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				decrementAriaLabel="Decrement"
@@ -213,7 +216,7 @@ const PickerView = () => (
 			>
 				{airports}
 			</Picker>
-		</Section>
+		</SpotlightContainerSection>
 
 		<h2 className={css.headerMarginTop}>Aria-labelled</h2>
 
@@ -222,7 +225,7 @@ const PickerView = () => (
 				alt="Horizontal"
 				aria-label="This is a Label 0."
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -232,7 +235,7 @@ const PickerView = () => (
 				aria-label="This is a Label 1."
 				disabled
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -244,7 +247,7 @@ const PickerView = () => (
 				aria-label="This is a Label 2."
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
@@ -255,13 +258,13 @@ const PickerView = () => (
 				disabled
 				joined
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{airports}
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				aria-label="This is a Label 4."
@@ -301,7 +304,7 @@ const PickerView = () => (
 			>
 				{airports}
 			</Picker>
-		</Section>
+		</SpotlightContainerSection>
 
 		<h2 className={css.headerMarginTop}>Aria-labelled based on selected Item</h2>
 
@@ -309,7 +312,7 @@ const PickerView = () => (
 			<CustomPicker
 				alt="Horizontal"
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{subjects}
 			</CustomPicker>
@@ -317,7 +320,7 @@ const PickerView = () => (
 				alt="Horizontal and Disabled"
 				disabled
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{subjects}
 			</CustomPicker>
@@ -329,7 +332,7 @@ const PickerView = () => (
 				decrementAriaLabel="Decrement"
 				incrementAriaLabel="Increment"
 				orientation="horizontal"
-				width="medium"
+				width="large"
 			>
 				{subjects}
 			</CustomPicker>
