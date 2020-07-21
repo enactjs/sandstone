@@ -2,7 +2,7 @@
  * Sandstone-themed scrollable hook and behaviors.
  *
  * @module sandstone/useScroll
- * @exports fadeOutSize
+ * @exports affordanceSize
  * @exports dataIndexAttribute
  * @exports useScroll
  * @private
@@ -14,12 +14,12 @@ import Spotlight from '@enact/spotlight';
 import {spottableClass} from '@enact/spotlight/Spottable';
 import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
 import {getRect, intersects} from '@enact/spotlight/src/utils';
-import ri from '@enact/ui/resolution';
 import {assignPropertiesOf, constants, useScrollBase} from '@enact/ui/useScroll';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import utilEvent from '@enact/ui/useScroll/utilEvent';
-import {useContext, useEffect, useRef} from 'react';
+import {useContext, useRef} from 'react';
 
+import $L from '../internal/$L';
 import {SharedState} from '../internal/SharedStateDecorator';
 
 import {useThemeScrollContentHandle} from './useThemeScrollContentHandle';
@@ -28,8 +28,6 @@ import {
 	useEventTouch, useEventVoice, useEventWheel
 } from './useEvent';
 import useOverscrollEffect from './useOverscrollEffect';
-import {useScrollPosition} from './useScrollPosition';
-import useScrollToTop from './useScrollToTop';
 import {useSpotlightRestore} from './useSpotlight';
 
 import overscrollCss from './OverscrollEffect.module.less';
@@ -37,7 +35,7 @@ import css from './useScroll.module.less';
 
 const
 	arrowKeyMultiplier = 0.2,
-	fadeOutSize = ri.scale(48),
+	affordanceSize = 48,
 	{paginationPageMultiplier} = constants,
 	reverseDirections = {
 		down: 'up',
@@ -67,27 +65,19 @@ const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
 	const {themeScrollContentHandle, scrollContentRef, scrollContainerHandle, scrollContainerRef} = instances;
 	const contextSharedState = useContext(SharedState);
-	const scrollPositionContext = useScrollPosition();
 
 	// Mutable value
 
 	const mutableRef = useRef({
 		animateOnFocus: false,
 		indexToFocus: null,
+		isWheeling: false,
 		lastScrollPositionOnFocus: null,
 		nodeToFocus: null,
 		pointToFocus: null
 	});
 
 	// Hooks
-
-	// Before restoring spotlight position, alert useScrollPosition
-	useEffect(() => {
-		// On mount, send initial position, empty dependency to prevent re-running
-		if (scrollPositionContext && scrollPositionContext.onScroll) {
-			scrollPositionContext.onScroll({id: props.id, x: 0, y: 0});
-		}
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useSpotlightRestore(props, instances);
 
@@ -97,9 +87,9 @@ const useThemeScroll = (props, instances) => {
 		clearOverscrollEffect
 	} = useOverscrollEffect({}, instances);
 
-	const {handleWheel, isWheeling} = useEventWheel(props, instances);
+	const {handleWheel} = useEventWheel(props, {...instances, spottable: mutableRef});
 
-	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef}, {alertScrollbarTrack, isWheeling});
+	const {calculateAndScrollTo, handleFocus, hasFocus} = useEventFocus(props, {...instances, spottable: mutableRef});
 
 	const {handleKeyDown, lastPointer, scrollByPageOnPointerMode} = useEventKey(props, {...instances, spottable: mutableRef}, {checkAndApplyOverscrollEffectByDirection, hasFocus, isContent});
 
@@ -116,14 +106,9 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrackAfterRendered,
+		cbAlertScrollbarTrack: alertScrollbarTrack,
 		onInteractionForScroll
 	};
-
-	const {
-		ScrollToTopButton,
-		updateScrollToTop
-	} = useScrollToTop(scrollContainerHandle.current, props.showScrollToTopButton);
 
 	// Functions
 
@@ -145,6 +130,10 @@ const useThemeScroll = (props, instances) => {
 	function stop () {
 		if (!props['data-spotlight-container-disabled']) {
 			themeScrollContentHandle.current.setContainerDisabled(false);
+		}
+
+		if (themeScrollContentHandle.current.pauseSpotlight) {
+			themeScrollContentHandle.current.pauseSpotlight(false);
 		}
 
 		focusOnItem();
@@ -177,15 +166,8 @@ const useThemeScroll = (props, instances) => {
 
 	function alertScrollbarTrack () {
 		const bounds = scrollContainerHandle.current.getScrollBounds();
-
 		scrollContainerHandle.current.showScrollbarTrack(bounds);
 		scrollContainerHandle.current.startHidingScrollbarTrack();
-	}
-
-	function alertScrollbarTrackAfterRendered () {
-		if (scrollContainerHandle.current.isUpdatedScrollbarTrack) {
-			alertScrollbarTrack();
-		}
 	}
 
 	function focusOnItem () {
@@ -227,15 +209,9 @@ const useThemeScroll = (props, instances) => {
 
 		forward('onScroll', ev, props);
 
-		updateScrollToTop({id, x, y});
-
 		if (id && contextSharedState && contextSharedState.set) {
 			contextSharedState.set(ev, props);
 			contextSharedState.set(`${id}.scrollPosition`, {x, y});
-		}
-
-		if (scrollPositionContext && scrollPositionContext.onScroll) {
-			scrollPositionContext.onScroll({id, x, y});
 		}
 	}
 
@@ -299,7 +275,6 @@ const useThemeScroll = (props, instances) => {
 		scrollbarProps,
 		scrollStopOnScroll,
 		scrollTo,
-		ScrollToTopButton,
 		start,
 		stop
 	};
@@ -321,9 +296,12 @@ const useScroll = (props) => {
 			'data-spotlight-container-disabled': spotlightContainerDisabled,
 			'data-spotlight-id': spotlightId,
 			focusableScrollbar,
-			noFadeOut,
+			fadeOut,
+			horizontalScrollThumbAriaLabel,
+			noAffordance,
 			scrollMode,
 			style,
+			verticalScrollThumbAriaLabel,
 			...rest
 		} = props;
 
@@ -332,7 +310,6 @@ const useScroll = (props) => {
 	const scrollContainerRef = useRef();
 	const scrollContentHandle = useRef();
 	const scrollContentRef = useRef();
-	const scrollContentWrapperRef = useRef();
 	const itemRefs = useRef([]);
 
 	const horizontalScrollbarHandle = useRef();
@@ -353,7 +330,6 @@ const useScroll = (props) => {
 		getScrollBounds: null,
 		isDragging: null,
 		isScrollAnimationTargetAccumulated: null,
-		isUpdatedScrollbarTrack: null,
 		lastInputType: null,
 		rtl: null,
 		scrollBounds: null,
@@ -383,7 +359,6 @@ const useScroll = (props) => {
 		// Ref
 		scrollContainerRef,
 		scrollContentRef,
-		scrollContentWrapperRef,
 
 		// Adapter
 		themeScrollContentHandle,
@@ -412,7 +387,6 @@ const useScroll = (props) => {
 		scrollbarProps,
 		scrollStopOnScroll, // scrollMode 'native'
 		scrollTo,
-		ScrollToTopButton,
 		start, // scrollMode 'native'
 		stop // scrollMode 'translate'
 	} = useThemeScroll(props, instance);
@@ -425,8 +399,6 @@ const useScroll = (props) => {
 		scrollProps.scrollStopOnScroll = scrollStopOnScroll;
 		scrollProps.start = start;
 	}
-
-	delete rest.showScrollToTopButton;
 
 	const {
 		scrollContentWrapper,
@@ -454,19 +426,20 @@ const useScroll = (props) => {
 		scrollContentHandle,
 		scrollContentRef,
 		scrollContainerRef,
+		spotlightContainerDisabled,
 		verticalScrollbarHandle
 	});
 
 	assignProperties('scrollContainerProps', {
 		className: [
-			(focusableScrollbar !== 'byEnter') ? className : null,
+			className,
 			css.scroll,
 			overscrollCss.scroll,
-			props.rtl ? css.rtl : null,
-			(props.direction === 'horizontal' || props.direction === 'both') && (props.horizontalScrollbar !== 'hidden') ? css.horizontalPadding : null,
-			(props.direction === 'vertical' || props.direction === 'both') && (props.verticalScrollbar !== 'hidden') ? css.verticalPadding : null
+			focusableScrollbar ? css.focusableScrollbar : null,
+			focusableScrollbar && isVerticalScrollbarVisible ? css.verticalPadding : null,
+			isVerticalScrollbarVisible && isHorizontalScrollbarVisible ? css.bidirectional : null
 		],
-		style: (focusableScrollbar !== 'byEnter') ? style : null,
+		style,
 		'data-spotlight-container': spotlightContainer,
 		'data-spotlight-container-disabled': spotlightContainerDisabled,
 		'data-spotlight-id': spotlightId,
@@ -474,23 +447,12 @@ const useScroll = (props) => {
 		ref: scrollContainerRef
 	});
 
-	assignProperties('scrollContentWrapperProps', {
-		className: [
-			css.scrollContentWrapper,
-			overscrollCss.horizontal
-		],
-		ref: scrollContentWrapperRef
-	});
-
 	assignProperties('scrollContentProps', {
-		...(props.itemRenderer ? {itemRefs} : {}),
+		...(props.itemRenderer ? {itemRefs, noAffordance} : {fadeOut}),
 		className: [
-			!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && !noFadeOut ? css.verticalFadeout : null,
-			isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && !noFadeOut ? css.horizontalFadeout : null,
-			overscrollCss.vertical,
+			(props.direction === 'both' || props.direction === 'vertical') ? overscrollCss.vertical : overscrollCss.horizontal,
 			css.scrollContent
 		],
-		noFadeOut,
 		onUpdate: handleScrollerUpdate,
 		scrollContainerRef,
 		setThemeScrollContentHandle,
@@ -502,6 +464,7 @@ const useScroll = (props) => {
 
 	assignProperties('verticalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': verticalScrollThumbAriaLabel == null ? $L('scroll up or down with up down button') : verticalScrollThumbAriaLabel,
 		className: [css.verticalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: verticalScrollbarHandle
@@ -509,6 +472,7 @@ const useScroll = (props) => {
 
 	assignProperties('horizontalScrollbarProps', {
 		...scrollbarProps,
+		'aria-label': horizontalScrollThumbAriaLabel == null ? $L('scroll left or right with left right button') : horizontalScrollThumbAriaLabel,
 		className: [css.horizontalScrollbar],
 		focusableScrollbar,
 		scrollbarHandle: horizontalScrollbarHandle
@@ -519,14 +483,13 @@ const useScroll = (props) => {
 		scrollContentWrapper,
 		scrollContentHandle,
 		isHorizontalScrollbarVisible,
-		isVerticalScrollbarVisible,
-		ScrollToTopButton
+		isVerticalScrollbarVisible
 	};
 };
 
 export default useScroll;
 export {
+	affordanceSize,
 	dataIndexAttribute,
-	fadeOutSize,
 	useScroll
 };

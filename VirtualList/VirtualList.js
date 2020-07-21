@@ -10,6 +10,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {gridListItemSizeShape, itemSizesShape, VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import warning from 'warning';
@@ -31,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, role, ...rest}) => {
+let VirtualList = ({itemSize, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -61,25 +62,23 @@ let VirtualList = ({itemSize, role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps,
-		ScrollToTopButton
+		horizontalScrollbarProps
 	} = useScroll({...rest, ...props});
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
-			</div>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
 };
@@ -166,11 +165,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -179,16 +174,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -227,13 +226,13 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	itemSizes: PropTypes.arrayOf(PropTypes.number),
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
 	 *
 	 * @type {Boolean}
 	 * @default false
 	 * @private
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -399,11 +398,20 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -416,7 +424,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * * `false`,
 	 * * `true`, and
 	 * * `'noAnimation'`
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -445,7 +453,7 @@ VirtualList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,
@@ -474,7 +482,7 @@ VirtualList.defaultProps = {
  * @ui
  * @public
  */
-let VirtualGridList = ({role, ...rest}) => {
+let VirtualGridList = (props) => {
 	const {
 		// Variables
 		scrollContentWrapper: ScrollContentWrapper,
@@ -488,25 +496,23 @@ let VirtualGridList = ({role, ...rest}) => {
 		scrollContentWrapperProps,
 		scrollContentProps,
 		verticalScrollbarProps,
-		horizontalScrollbarProps,
-		ScrollToTopButton
-	} = useScroll(rest);
+		horizontalScrollbarProps
+	} = useScroll(props);
 
-	const themeScrollContentProps = useThemeVirtualList({
-		...scrollContentProps,
-		role
-	});
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
-					<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
-			</div>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
 };
@@ -595,11 +601,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * The layout direction of the list.
 	 *
-	 * Valid values are:
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('horizontal'|'vertical')}
 	 * @default 'vertical'
 	 * @public
 	 */
@@ -608,16 +610,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -648,13 +654,15 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	isVerticalScrollbarVisible: PropTypes.bool,
 
 	/**
-	 * Removes fade-out effect on the list.
+	 * Removes affordance area on the list.
+	 * Set this to `true` only if the item needs to stick to the bottom for vertical direction,
+	 * to the right for horizontal direction, when scrolling by keys.
 	 *
 	 * @type {Boolean}
-	 * @default true
-	 * @private
+	 * @default false
+	 * @public
 	 */
-	noFadeOut: PropTypes.bool,
+	noAffordance: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the list.
@@ -820,11 +828,20 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `'visible'`, and
 	 * * `'hidden'`.
 	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * When it's `true` and the spotlight focus cannot move to the given direction anymore by 5-way keys,
@@ -838,7 +855,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * * `true`, and
 	 * * `'noAnimation'`
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'noAnimation'}
 	 * @default false
 	 * @public
 	 */
@@ -867,7 +884,7 @@ VirtualGridList.defaultProps = {
 	cbScrollTo: nop,
 	direction: 'vertical',
 	horizontalScrollbar: 'auto',
-	noFadeOut: true,
+	noAffordance: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

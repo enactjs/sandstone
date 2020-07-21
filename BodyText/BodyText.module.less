@@ -7,6 +7,7 @@
 	.sand-body-text();
 	margin: @sand-bodytext-margin;
 	padding: @sand-bodytext-padding;
+	white-space: normal;
 
 	&.small {
 		font-size: @sand-body-small-font-size;
@@ -24,8 +25,9 @@
 		}
 	}
 
-	.noWrap {
+	&.noWrap {
 		/* Support for single-line, provided for extensibility */
+		white-space: nowrap;
 	}
 
 	.locale-japanese-line-break();

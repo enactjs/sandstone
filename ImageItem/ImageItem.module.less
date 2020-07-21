@@ -13,15 +13,13 @@
 		margin: 0;
 	}
 
-	.caption {
-		font-size: @sand-imageitem-caption-font-size;
-		line-height: @sand-imageitem-caption-line-height;
-	}
-
-	.label {
-		font-size: @sand-imageitem-label-font-size;
-		line-height: @sand-imageitem-label-line-height;
-		margin-top: @sand-imageitem-label-margin-top;
+	&:not(.fullImage) {
+		&::before {
+			content: '';
+			position: absolute;
+			.position(0);
+			border-radius: @sand-imageitem-border-radius;
+		}
 	}
 
 	.selectionContainer {
@@ -50,44 +48,68 @@
 		}
 	}
 
-	&.vertical {
-		padding: @sand-imageitem-vertical-padding;
+	.caption {
+		font-size: @sand-imageitem-caption-font-size;
+		line-height: @sand-imageitem-caption-line-height;
+	}
 
-		.image {
-			transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
-			will-change: filter, transform;
+	.label {
+		font-size: @sand-imageitem-label-font-size;
+		line-height: @sand-imageitem-label-line-height;
+		margin-top: @sand-imageitem-label-margin-top;
+	}
+
+	&.vertical {
+		&.fullImage {
+			padding: @sand-imageitem-vertical-full-image-padding;
+
+			.image {
+				transition: transform 200ms ease-in-out, filter 200ms ease-in-out;
+				will-change: transform, filter;
+
+				.selectionIcon {
+					transition: transform 200ms ease-in-out;
+				}
+			}
+		}
+
+		&:not(.fullImage) {
+			padding: @sand-imageitem-vertical-padding;
+			margin: @sand-imageitem-margin;
+		}
+
+		.selectionIcon {
+			width: @sand-imageitem-vertical-selection-icon-size;
+			height: @sand-imageitem-vertical-selection-icon-size;
+			line-height: @sand-imageitem-vertical-selection-icon-size;
 		}
 
 		.captions {
 			margin-top: @sand-imageitem-vertical-captions-margin-top;
-			height: @sand-imageitem-vertical-captions-height;
-			transition: transform 200ms ease-in-out;
 		}
-	
+
 		.imageIcon {
 			height: @sand-imageitem-vertical-image-icon-size;
 			width: @sand-imageitem-vertical-image-icon-size;
 			margin: @sand-imageitem-vertical-image-icon-margin;
 		}
-	
-		.selectionIcon {
-			width: @sand-imageitem-vertical-selection-icon-size;
-			height: @sand-imageitem-vertical-selection-icon-size;
-			line-height: @sand-imageitem-vertical-selection-icon-size;
-			transition: transform 200ms ease-in-out;
+
+		.label {
+			height: @sand-imageitem-vertical-label-height;
+		}
+
+		.placeholderCaption {
+			height: @sand-imageitem-placeholder-caption-height;
+		}
+
+		.placeholderLabel {
+			height: @sand-imageitem-placeholder-label-height;
 		}
 	}
 
 	&.horizontal {
-		.sand-spotlight-padding(@sand-item-vertical-padding);
-		margin: @sand-imageitem-horizontal-margin;
-
-		&::before {
-			content: '';
-			position: absolute;
-			.position(0);
-			border-radius: @sand-imageitem-horizontal-border-radius;
-		}
+		.sand-spotlight-padding(@sand-imageitem-horizontal-padding);
+		margin: @sand-imageitem-margin;
 
 		.image {
 			width: @sand-imageitem-horizontal-image-width;
@@ -108,12 +130,8 @@
 
 	// Skin colors
 	.applySkins({
-		.caption {
-			color: @sand-imageitem-caption-color;
-		}
-
-		.label {
-			color: @sand-imageitem-label-color;
+		&::before {
+			.sand-spotlight-resting-bg-colors();
 		}
 
 		.selectionContainer::after {
@@ -123,6 +141,14 @@
 		.selectionIcon {
 			background-color: @sand-imageitem-selection-icon-bg-color;
 			color: @sand-imageitem-selection-icon-color;
+		}
+
+		.caption {
+			color: @sand-imageitem-caption-color;
+		}
+
+		.label {
+			color: @sand-imageitem-label-color;
 		}
 
 		&.selected {
@@ -136,41 +162,31 @@
 			}
 		}
 
-		&.horizontal {
-			&::before {
-				.sand-spotlight-resting-colors();
-			}
-		}
-
 		.focus({
+			.sand-spotlight-focus-text-colors();
+
 			.disabled ({
 				.vendor-opacity(@sand-disabled-opacity);
 			});
+
+			&::before {
+				.sand-spotlight-focus-bg-colors();
+			}
 
 			.selectionIcon {
 				background-color: @sand-imageitem-focus-selection-icon-bg-color;
 				color: @sand-imageitem-focus-selection-icon-color;
 			}
 
-			&.vertical {
-				.image {
-					transform: @sand-imageitem-vertical-focus-image-transform;
-					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
-				}
-
-				.captions {
-					transform: @sand-imageitem-vertical-focus-captions-transform;
-				}
+			.caption,
+			.label {
+				color: inherit;
 			}
 
-			&.horizontal {
-				&::before {
-					.sand-spotlight-focus-colors();
-				}
-
-				.caption,
-				.label {
-					color: @sand-imageitem-horizontal-focus-caption-color;
+			&.vertical {
+				&.fullImage .image {
+					transform: @sand-imageitem-vertical-focus-image-transform;
+					filter: drop-shadow(@sand-imageitem-focus-bg-shadow);
 				}
 			}
 

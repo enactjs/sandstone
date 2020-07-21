@@ -2,77 +2,61 @@
 //
 @import "../styles/colors.less";
 @import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.verticalPadding {
+	.padding-start-end(0, @sand-scrollbar-focusable-size - @sand-scrollbar-size);
+}
 
 .scroll {
-	--scroll-scrollbar-size: 60px;
-	--scroll-fadeout-size: 48px;
-	// To override margin of thumb in dropdown list
-	--scrollbar-thumb-margin: @sand-scrollbar-track-margin;
+	--scroll-scrollbar-size: @sand-scrollbar-size;
 
 	box-sizing: border-box;
 	overflow: hidden;
 
-	&.verticalPadding {
-		padding-left: var(--scroll-scrollbar-size);
-		padding-right: var(--scroll-scrollbar-size);
-
-		.verticalScrollbar {
-			position: absolute;
-			width: var(--scroll-scrollbar-size);
-			height: calc(100% - 2 * var(--scroll-fadeout-size));
-			right: 0;
-			top: var(--scroll-fadeout-size);
-		}
-
-		&.rtl {
-			.verticalScrollbar {
-				left: 0;
-				right: initial;
-			}
-		}
+	&.focusableScrollbar {
+		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
 	}
 
-	&.horizontalPadding {
-		padding-bottom: var(--scroll-scrollbar-size);
-
-		.horizontalScrollbar {
-			position: absolute;
-			width: calc(100% - 2 * var(--scroll-fadeout-size));
-			height: var(--scroll-scrollbar-size);
-			left: var(--scroll-fadeout-size);
-			bottom: 0;
-		}
+	.verticalScrollbar {
+		position: absolute;
+		width: var(--scroll-scrollbar-size);
+		height: calc(100% - 2 * @sand-scrollbar-padding);
+		right: 0;
+		top: 0;
+		padding: @sand-scrollbar-padding 0;
 	}
 
-	&.verticalPadding.horizontalPadding {
+	:global(.enact-locale-right-to-left) & .verticalScrollbar {
+		left: 0;
+		right: initial;
+	}
+
+	.horizontalScrollbar {
+		position: absolute;
+		width: calc(100% - 2 * @sand-scrollbar-padding);
+		height: var(--scroll-scrollbar-size);
+		left: 0;
+		bottom: 0;
+		padding: 0 @sand-scrollbar-padding;
+	}
+
+	&.bidirectional {
 		.verticalScrollbar {
-			height: calc(100% - 2 * var(--scroll-fadeout-size) - var(--scroll-scrollbar-size));
+			height: calc(100% - 2 * @sand-scrollbar-padding - var(--scroll-scrollbar-size));
 		}
 
 		.horizontalScrollbar {
-			width: calc(100% - 2 * var(--scroll-fadeout-size) - 2 * var(--scroll-scrollbar-size));
-			left: calc(var(--scroll-fadeout-size) + var(--scroll-scrollbar-size));
+			width: calc(100% - 2 * @sand-scrollbar-padding -  var(--scroll-scrollbar-size));
+			left: 0;
 		}
-	}
 
-	.scrollContentWrapper {
-		width: 100%;
-		height: 100%;
+		:global(.enact-locale-right-to-left)  & .horizontalScrollbar{
+			left: var(--scroll-scrollbar-size);
+		}
 	}
 
 	.scrollContent {
 		box-sizing: border-box;
-
-		&.verticalFadeout {
-			padding: var(--scroll-fadeout-size) 0;
-			-webkit-mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-		}
-
-		&.horizontalFadeout {
-			padding: 0 var(--scroll-fadeout-size);
-			-webkit-mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-			mask-image: linear-gradient(to right, transparent, @sand-black var(--scroll-fadeout-size), @sand-black calc(100% - var(--scroll-fadeout-size)), transparent 100%);
-		}
 	}
 }

@@ -1,0 +1,38 @@
+{
+  "name": "qa-fonts",
+  "version": "0.1.0",
+  "description": "A way to verify and validate that fonts are loaded and defined.",
+  "author": "",
+  "main": "src/index.js",
+  "scripts": {
+    "serve": "enact serve",
+    "pack": "enact pack",
+    "pack-p": "enact pack -p",
+    "watch": "enact pack --watch",
+    "clean": "enact clean",
+    "lint": "enact lint --strict .",
+    "test": "enact test",
+    "test-watch": "enact test --watch"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "repository": "",
+  "enact": {
+    "title": "Font Validation",
+    "theme": "sandstone"
+  },
+  "eslintConfig": {
+    "extends": "enact/strict"
+  },
+  "dependencies": {
+    "@enact/core": "^3.3.1",
+    "@enact/i18n": "^3.3.1",
+    "@enact/sandstone": "../../",
+    "@enact/spotlight": "^3.3.1",
+    "@enact/ui": "^3.3.1",
+    "ilib": "^14.4.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

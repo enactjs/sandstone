@@ -290,29 +290,3 @@ storiesOf('Header.Mini', module)
 			</React.Fragment>);
 		}, headerStoryConfig
 	);
-
-storiesOf('Header.Input', module)
-	.add(
-		'tall-glyphs',
-		() => {
-			return (<React.Fragment>
-				<Header
-					title={text('title', Config, inputData.tallText)}
-					subtitle={text('subtitle', Config, inputData.longSubtitle)}
-					{...commonProps()}
-				/>
-			</React.Fragment>);
-		}, headerStoryConfig
-	)
-	.add(
-		'long text',
-		() => {
-			return (<React.Fragment>
-				<Header
-					title={text('title', Config, inputData.longTitle)}
-					subtitle={text('subtitle', Config, inputData.longSubtitle)}
-					{...commonProps()}
-				/>
-			</React.Fragment>);
-		}, headerStoryConfig
-	);

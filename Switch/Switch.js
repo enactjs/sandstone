@@ -28,7 +28,7 @@ import componentCss from './Switch.module.less';
  *
  * @class SwitchBase
  * @memberof sandstone/Switch
- * @extends sandstone/ToggleIcon.ToggleIcon
+ * @extends sandstone/Icon.Icon
  * @ui
  * @public
  */
@@ -78,12 +78,15 @@ const SwitchBase = kind({
 		})
 	},
 
-	render: ({children, css, ...rest}) => {
+	render: ({children, css, selected, ...rest}) => {
 		delete rest.noAnimation;
-		delete rest.selected;
 
 		return (
-			<div {...rest}>
+			<div
+				{...rest}
+				aria-pressed={selected}
+				role="button"
+			>
 				<div className={css.bg} />
 				<div className={css.client}>
 					<Icon

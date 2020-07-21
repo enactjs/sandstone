@@ -5,6 +5,7 @@
 
 @import "~@enact/spotlight/styles/mixins.less";
 @import "~@enact/ui/styles/mixins.less";
+@import "./internal/utils.less";
 @import "./variables.less";
 
 // Allows a component to override the existing "disabled" rules and apply its own customized rules.
@@ -256,19 +257,6 @@
 	.locale-japanese-line-break();
 }
 
-.sand-notification-content() {
-	.sand-font(@sand-notification-font-family; @sand-non-latin-font-family-light; {
-		line-height: @sand-non-latin-body-line-height;
-	});
-	font-weight: @sand-notification-font-weight;
-	font-style: @sand-notification-font-style;
-	font-size: @sand-notification-font-size;
-	line-height: @sand-body-line-height;
-	text-align: initial;
-	.sand-word-break();
-	.locale-japanese-line-break();
-}
-
 .sand-body-text() {
 	.sand-font(@sand-body-font-family; @sand-non-latin-font-family-light; {
 		font-weight: @sand-non-latin-body-font-weight;
@@ -308,4 +296,19 @@
 	font-style: @sand-button-small-font-style;
 	font-weight: @sand-button-small-font-weight;
 	.font-kerning;
+}
+
+// Uses Webkit specific styles to have multi-line ellipsis
+.sand-multi-line-ellipsis(@lines) {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: @lines;
+	-webkit-box-orient: vertical;
+}
+
+// Assign rules specifically to RTL locales
+.enact-locale-rtl(@rtlrules) when (isruleset(@rtlrules)) {
+	:global(.enact-locale-right-to-left) & {
+		@rtlrules();
+	}
 }

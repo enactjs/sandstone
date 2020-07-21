@@ -91,7 +91,6 @@ class MyVirtualList extends React.Component {
 			<Item
 				{...rest}
 				onClick={() => this.closePopup(index)}
-				style={{margin: 0}}
 			>
 				{itemList[index]}
 			</Item>
@@ -172,8 +171,8 @@ storiesOf('VirtualGridList', module)
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 768)),
-					minHeight: ri.scale(number('minHeight', Config, 588))
+					minWidth: ri.scale(number('minWidth', Config, 688)),
+					minHeight: ri.scale(number('minHeight', Config, 570))
 				}}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -181,7 +180,8 @@ storiesOf('VirtualGridList', module)
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config, -48))}
+				spacing={ri.scale(number('spacing', Config, 0))}
+				style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

@@ -10,17 +10,20 @@
  * @exports InputFieldDecorator
  */
 
-import {Input, InputBase, InputDecorator} from './Input';
+import {Input, InputBase, InputPopup, InputPopupBase, InputDecorator} from './Input';
 import {InputField, InputFieldBase, InputFieldDecorator} from './InputField';
-import {calcAriaLabel, extractInputFieldProps} from './util';
+import {calcAriaLabel, extractInputFieldProps, convertToPasswordFormat} from './util';
 
 export default Input;
 export {
 	calcAriaLabel,
+	convertToPasswordFormat,
 	extractInputFieldProps,
 	Input,
 	InputBase,
 	InputDecorator,
+	InputPopup,
+	InputPopupBase,
 	InputField,
 	InputFieldBase,
 	InputFieldDecorator

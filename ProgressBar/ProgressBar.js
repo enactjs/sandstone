@@ -151,11 +151,8 @@ const ProgressBarBase = kind({
 	},
 
 	computed: {
-		className: ({highlighted, orientation, progress, backgroundProgress, showAnchor, styler}) => styler.append({
+		className: ({highlighted, showAnchor, styler}) => styler.append({
 			highlighted,
-			radial: (orientation === 'radial'),
-			fillOverHalf: (progress > 0.5),
-			loadOverHalf: (backgroundProgress > 0.5),
 			showAnchor
 		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip

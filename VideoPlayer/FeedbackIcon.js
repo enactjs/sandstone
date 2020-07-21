@@ -24,10 +24,10 @@ const FeedbackIconBase = kind({
 	propTypes: /** @lends sandstone/VideoPlayer.FeedbackIcon.prototype */ {
 		/**
 		 * Refers to one of the following possible media playback states.
-		 * `'play'`, `'pause'`, `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`,
+		 * `'play'`, `'pause'`, `'rewind'`, `'fastForward'` ,
 		 * `'jumpBackward'`, `'jumpForward'`, `'jumpToStart'`, `'jumpToEnd'`, `'stop'`.
 		 *
-		 * @type {String}
+		 * @type {('play'|'pause'|'rewind'|'fastForward'|'jumpBackward'|'jumpForward'|'jumpToStart'|'jumpToEnd'|'stop')}
 		 * @public
 		 */
 		children: PropTypes.oneOf(Object.keys(iconMap))

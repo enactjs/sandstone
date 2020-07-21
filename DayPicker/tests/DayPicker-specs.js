@@ -1,79 +1,114 @@
+import ilib from '@enact/i18n';
 import React from 'react';
 import {mount} from 'enzyme';
-import DayPicker from '../DayPicker';
+
+import DayPicker, {getSelectedDayString} from '../DayPicker';
+
 
 describe('DayPicker', () => {
-	describe('#aria-label', () => {
-		test(
-			'should use title, selected long string when day is single selected',
-			() => {
-				const subject = mount(
-					<DayPicker title="Day Picker" selected={0} />
-				);
 
-				const expected = 'Day Picker Sunday';
-				const actual = subject.find('DayPicker').prop('aria-label');
+	test('should not select any item when there is no passed prop `selected`', () => {
+		const subject = mount(
+			<DayPicker />
+		);
+		const selected = subject.find('CheckboxItem').find({'selected': true});
+		expect(selected.debug()).toBeFalsy();
+	});
 
-				expect(actual).toBe(expected);
-			}
+	test('should select day when passed prop `selected`', () => {
+		const subject = mount(
+			<DayPicker selected={[1]} />
+		);
+		const secondCheckboxItem = subject.find('CheckboxItem').find({'data-index': 1}).first();
+		const selected = secondCheckboxItem.props().selected;
+		expect(selected).toBe(true);
+	});
+
+	test('should emit an onSelect event when selecting days', () => {
+		const handleSelect = jest.fn();
+		const subject = mount(
+			<DayPicker onSelect={handleSelect} />
+		);
+		const item = subject.find('CheckboxItem').find({'data-index': 1}).first();
+		item.simulate('click');
+		expect(handleSelect).toHaveBeenCalled();
+	});
+
+	test('should include `content` in onSelect event payload which respects dayNameLength', () => {
+		const handleSelect = jest.fn();
+		const subject = mount(
+			<DayPicker onSelect={handleSelect} dayNameLength="short" />
 		);
 
-		test(
-			'should use title, selected long string when day is multi selected',
-			() => {
-				const subject = mount(
-					<DayPicker title="Day Picker" selected={[0, 1]} />
-				);
+		// select Monday
+		const item = subject.find('CheckboxItem').find({'data-index': 1}).first();
+		item.simulate('click');
 
-				const expected = 'Day Picker Sunday, Monday';
-				const actual = subject.find('DayPicker').prop('aria-label');
+		const expected = {
+			// M is the "short" value from ilib for Monday
+			content: 'M'
+		};
+		const actual = handleSelect.mock.calls[0][0];
 
-				expect(actual).toBe(expected);
-			}
-		);
+		expect(actual).toMatchObject(expected);
+	});
 
-		test('should be null when day is not selected', () => {
+	test('should return `None` when selected is null', () => {
+		const label = getSelectedDayString(null, 'None');
+		const expected = 'None';
+		expect(label).toBe(expected);
+	});
+
+	test('should return `None` when selected is empty', () => {
+		const label = getSelectedDayString([], 'None');
+		const expected = 'None';
+		expect(label).toBe(expected);
+	});
+
+	test('should return `Every Weekend` when all selected', () => {
+		const selected = [0, 6];
+		const label = getSelectedDayString(selected);
+		const expected = 'Every Weekend';
+		expect(label).toBe(expected);
+	});
+
+	test('should return `Every Weekday` when all selected', () => {
+		const selected = [1, 2, 3, 4, 5];
+		const label = getSelectedDayString(selected);
+		const expected = 'Every Weekday';
+		expect(label).toBe(expected);
+	});
+
+	test('should return `Every Day` when all selected', () => {
+		const selected = [0, 1, 2, 3, 4, 5, 6];
+		const label = getSelectedDayString(selected);
+		const expected = 'Every Day';
+		expect(label).toBe(expected);
+	});
+
+	// ilib isn't working correctly with unit tests so this block must be skipped
+	describe.skip('with alternate first day of week', () => {
+		test('should accept and emit a generalized selected array', () => {
+			ilib.setLocale('es-ES');
+
+			const handleSelect = jest.fn();
 			const subject = mount(
-				<DayPicker title="Day Picker" />
+				// select Sunday by default
+				<DayPicker onSelect={handleSelect} defaultSelected={[0]} />
 			);
+			// select Lunes (Monday) which is the first day of the week for es-ES
+			const item = subject.find('CheckboxItem').find({'data-index': 0}).first();
+			item.simulate('click');
 
-			const expected = undefined; // eslint-disable-line no-undefined
-			const actual = subject.find('DayPicker').prop('aria-label');
+			const expected = {
+				// Expect Sunday (0) and Monday (1) to be selected
+				selected: [0, 1]
+			};
+			const actual = handleSelect.mock.calls[0][0];
 
-			expect(actual).toBe(expected);
-		});
-
-		test('should be null when every day is selected', () => {
-			const subject = mount(
-				<DayPicker title="Day Picker" everyDayText="every" selected={[0, 1, 2, 3, 4, 5, 6]} />
-			);
-
-			const expected = 'Day Picker every';
-			const actual = subject.find('DayPicker').prop('aria-label');
-
-			expect(actual).toBe(expected);
-		});
-
-		test('should be null when every weekday is selected', () => {
-			const subject = mount(
-				<DayPicker title="Day Picker" everyWeekdayText="weekday" selected={[1, 2, 3, 4, 5]} />
-			);
-
-			const expected = 'Day Picker weekday';
-			const actual = subject.find('DayPicker').prop('aria-label');
-
-			expect(actual).toBe(expected);
-		});
-
-		test('should be null when every weekend is selected', () => {
-			const subject = mount(
-				<DayPicker title="Day Picker" everyWeekendText="weekend" selected={[0, 6]} />
-			);
-
-			const expected = 'Day Picker weekend';
-			const actual = subject.find('DayPicker').prop('aria-label');
-
-			expect(actual).toBe(expected);
+			// If ilib isn't loading correctly, actual will be null because we will have unselected
+			// Sunday instead of selecting Monday.
+			expect(actual).toMatchObject(expected);
 		});
 	});
 });

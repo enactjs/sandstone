@@ -10,6 +10,11 @@
 
 	&.shift {
 		bottom: @sand-video-slider-tooltip-shift-position-bottom;
+
+		.content {
+			position: absolute;
+			.position(auto, 0, 0, 0);
+		}
 	}
 
 	&.hidden {
@@ -52,10 +57,6 @@
 		font-weight: @sand-video-slider-tooltip-font-weight;
 		line-height: @sand-video-slider-tooltip-line-height;
 		white-space: nowrap;
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
 		text-align: center;
 		margin-bottom: @sand-video-slider-tooltip-margin-bottom;
 	}
@@ -97,7 +98,7 @@
 
 		.content {
 			color: @sand-light-gray;
-			text-shadow: @sand-video-player-title-text-shadow;
+			text-shadow: @sand-mediaplayer-slider-tooltip-text-shadow;
 		}
 	});
 }

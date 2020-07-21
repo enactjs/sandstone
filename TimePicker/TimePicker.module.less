@@ -1,40 +1,35 @@
 // TimePicker.module.less
 //
-@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .timePicker {
-	.padding-start-end(@sand-timepicker-padding, inherit);
-	display: inline-block;
-
-	// hour and minute should always be left-to-right
-	.timeComponents {
-		direction: ltr;
+	.timeSeparator {
+		vertical-align: inherit;
 		display: inline-block;
-
-		.colonMark {
-			line-height: @sand-timepicker-colon-line-height;
-		}
-
-		:global(.enact-locale-right-to-left) & {
-			display: flex;
-
-			.hourComponents {
-				order: 2;
-			}
-			.colonMark {
-				order: 2;
-			}
-			.minutesComponents {
-				order: 3;
-			}
-			.meridiemComponent{
-				order: 1;
-			}
-		}
+		margin: @sand-timepicker-colon-margin;
 	}
 
-	.pickerLabel {
-		padding: @sand-date-time-picker-label-padding
+	.pickers {
+		display: flex;
+		align-items: center;
+
+		:global(.enact-locale-right-to-left) & {
+			// RTL uses a special order:
+			// Reading from right to left, the sequence is "minute : hour meridiem"
+			.hourPicker {
+				order: 3;
+				margin-inline-start: .extract(@sand-datecomponentpicker-margin, left)[];
+			}
+			.timeSeparator {
+				order: 2;
+			}
+			.minutePicker {
+				order: 1;
+				margin-inline-start: 0;
+			}
+			.meridiemPicker {
+				order: 4;
+			}
+		}
 	}
 }

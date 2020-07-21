@@ -34,6 +34,10 @@ const LtrTests = [
 
 	// Centered
 	...withProps({type: 'standard', centered: true}, baseTests),
+	...withProps({type: 'standard', centered: true, slotAfter: dropIn.doubleButtons}, baseTests),
+	...withProps({type: 'standard', centered: true, slotBefore: dropIn.doubleButtons}, baseTests),
+	...withProps({type: 'standard', centered: true, slotAfter: dropIn.doubleButtons, slotBefore: dropIn.doubleButtons}, baseTests),
+	...withProps({type: 'standard', centered: true, slotAfter: dropIn.doubleButtons, slotBefore: dropIn.singleButton}, baseTests),
 	...withProps({type: 'compact', centered: true}, baseTests),
 
 	// Standard Type Slots

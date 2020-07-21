@@ -118,7 +118,7 @@ class ChangeableTooltip extends React.Component {
 		const {left, top} = this.state.position;
 		const style = {
 			position: 'absolute',
-			width: ri.unit(780, 'rem'),
+			width: ri.scaleToRem(780),
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
@@ -133,7 +133,7 @@ class ChangeableTooltip extends React.Component {
 					<Button onClick={this.changeTooltipText}>Change Text</Button>
 				</div>
 				<Button
-					icon="drawer"
+					icon="list"
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
 					tooltipText={this.state.text}
 					onClick={this.changeTooltipText}

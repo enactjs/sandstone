@@ -4,7 +4,8 @@ import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {Header, HeaderBase} from '@enact/sandstone/Panels';
+import {Panel, Header, HeaderBase} from '@enact/sandstone/Panels';
+import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Steps from '@enact/sandstone/Steps';
 
@@ -43,7 +44,10 @@ storiesOf('Sandstone', module)
 			const childrenSelection = select('children', prop.buttonsSelection, Config);
 			const children = prop.buttons[childrenSelection];
 
-			const story = (
+			// Panel is used here to circumvent a quirk of Storybook that inserts an unwanted DOM
+			// node between the story and the "Environment", which in this case, prevents Header
+			// from landing on the correct slot in Panel.
+			const story = (<Panel>
 				<Header
 					title={text('title', Config, 'The Matrix')}
 					subtitle={text('subtitle', Config, 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.')}
@@ -60,13 +64,14 @@ storiesOf('Sandstone', module)
 				>
 					{children}
 				</Header>
-			);
+				<BodyText>Example body text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada felis egestas elit laoreet, at egestas justo ornare. Fusce vel diam porttitor, dapibus nisi in, lobortis ante. Sed quis gravida sapien, id convallis dui.</BodyText>
+			</Panel>);
 
 			return story;
 		},
 		{
 			props: {
-				noHeader: true
+				noPanel: true
 			},
 			info: {
 				text: 'A block to use as a screen\'s title and description. Supports additional buttons and up to two subtitles.'

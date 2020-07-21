@@ -10,6 +10,7 @@
  * @exports ItemDecorator
  */
 
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
 import Slottable from '@enact/ui/Slottable';
@@ -93,12 +94,20 @@ const ItemBase = kind({
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		/**
+		 * Centers the slots and content.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		centered: PropTypes.bool,
+
+		/**
 		 * Called with a reference to the root component.
 		 *
 		 * @type {Object|Function}
 		 * @public
 		 */
-		componentRef: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+		componentRef: EnactPropTypes.ref,
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -157,15 +166,24 @@ const ItemBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Applies a selected style to the component
+		 * Applies a selected style to the component.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @private
 		 */
 		selected: PropTypes.bool,
 
 		/**
-		 * Nodes to be inserted after `children` and hidden using `autoHide`.
+		 * The size of the item.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @private
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
+		 * Nodes to be inserted after `children`.
 		 *
 		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
 		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
@@ -190,7 +208,8 @@ const ItemBase = kind({
 	},
 
 	defaultProps: {
-		labelPosition: 'below'
+		labelPosition: 'below',
+		size: 'large'
 	},
 
 	styles: {
@@ -199,15 +218,18 @@ const ItemBase = kind({
 	},
 
 	computed: {
-		className: ({label, selected, styler}) => styler.append({selected, hasLabel: Boolean(label)})
+		className: ({centered, label, selected, size, styler}) => styler.append({centered, selected, hasLabel: label != null}, size),
+		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
 	},
 
-	render: ({children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+		delete rest.size;
+
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
 				component={Row}
-				align="center"
+				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
 				{...rest}
 				inline={inline}
@@ -252,9 +274,8 @@ const ItemBase = kind({
 const ItemDecorator = compose(
 	UiItemDecorator,
 	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
-	Pure,
 	Spottable,
-	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline', 'autoHide']}),
+	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
 );
 
@@ -273,7 +294,7 @@ const ItemDecorator = compose(
  * @ui
  * @public
  */
-const Item = ItemDecorator(ItemBase);
+const Item = Pure(ItemDecorator(ItemBase));
 
 export default Item;
 export {

@@ -10,11 +10,12 @@ const ButtonTests = [
 	},
 	<Button disabled>click me</Button>,
 
-	// Selected buttons
-	<Button selected>click me</Button>,
-	<Button selected icon="plus" />,
-	<Button selected backgroundOpacity="transparent">click me</Button>,
-	<Button selected backgroundOpacity="transparent" icon="plus" />,
+	// [GT-28736] - Color Underbar displays Icon with 'minWidth' and with 'Disabled'
+	<Button color="red" icon="minus" iconPosition="after" minWidth={false} disabled />,
+	// [GT-28737] - Change 'disabled' dynamically - Icon is slightly visible with focus / Spotlight
+	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} disabled />,
+
+	<Button color="red" disabled>plus</Button>,
 
 	// {GT-28189]
 	<Button> ฟิ้  ไั  ஒ  து</Button>,
@@ -39,10 +40,15 @@ const ButtonTests = [
 	<Button icon="plus" iconPosition="before" size="large" />,
 
 	// iconPosition = before (Default) + backgroundOpacity
-	// Step 3 - [GT-28180]
 	<Button icon="plus" backgroundOpacity="transparent">click me</Button>,
-	// End of Step 3 - [GT-28180]
 	<Button backgroundOpacity="opaque">click me</Button>,
+
+	// Selected buttons
+	<Button selected>click me</Button>,
+	<Button selected icon="plus" />,
+	<Button selected backgroundOpacity="transparent">click me</Button>, 	// [GT-28180]
+	<Button selected backgroundOpacity="transparent" icon="plus" />, // Default for icon-only buttons
+	<Button selected backgroundOpacity="opaque">click me</Button>, // Default for text button
 
 	// iconPosition = before (Default) + children has 1 letter +	minWidth = false
 	<Button minWidth={false}>H</Button>,
@@ -59,13 +65,45 @@ const ButtonTests = [
 	<Button color="yellow" icon="plus" iconPosition="before" minWidth={false}>click me</Button>,
 	<Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>,
 
+	// [GT-28738] - Color Underbar displays on Button (LTR)
+	<Button color="red" icon="plus" iconPosition="before" minWidth={false} />,
+	<Button color="green" icon="plus" iconPosition="after" minWidth={false} />,
+	<Button color="yellow" icon="plus" iconPosition="after" minWidth={false} />,
+	<Button color="blue" icon="plus" iconPosition="after" minWidth={false} />,
+
+	// [GT-28740] - Color Underbar displays on Small / Large size in Selected state
+	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="large" />,
+	<Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="small" />,
+
 	// iconPosition = before (Default) + icon
 	<Button icon="plus">click me</Button>,
 	<Button icon="arrowlargeright">click me</Button>,
 	<Button icon="info">click me</Button>,
 
+	// iconFlip
+	<Button icon="arrowhookright" iconFlip="horizontal">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="vertical">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="both">click me</Button>,
+	<Button icon="arrowhookright" iconFlip="auto">click me</Button>,
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="horizontal">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="vertical">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="both">click me</Button>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button icon="arrowhookright" iconFlip="auto">click me</Button>
+	},
+
 	// [GT-28183]
-	<Button icon="repeatoff">click me</Button>,
+	<Button icon="rotate">click me</Button>,
 	// *************************************************************
 	// locale = 'ar-SA'
 	// *************************************************************
@@ -122,21 +160,40 @@ const ButtonTests = [
 	// iconPosition = before (Default) + backgroundOpacity
 	{
 		locale: 'ar-SA',
-		component: <Button backgroundOpacity="translucent">click me</Button>
+		component: <Button icon="plus" backgroundOpacity="transparent">click me</Button>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Button backgroundOpacity="lightTranslucent">click me</Button>
+		component: <Button backgroundOpacity="opaque">click me</Button>
+	},
+	// Selected buttons
+	{
+		locale: 'ar-SA',
+		component: <Button selected>click me</Button>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Button backgroundOpacity="transparent">click me</Button>
+		component: <Button selected icon="plus" />
 	},
+	{
+		locale: 'ar-SA',
+		component: <Button selected backgroundOpacity="transparent">click me</Button> 	// [GT-28180]
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button selected backgroundOpacity="transparent" icon="plus" /> // Default for icon-only buttons
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button selected backgroundOpacity="opaque">click me</Button> // Default for text button
+	},
+
 	// iconPosition = before (Default) + children has 1 letter +	minWidth = false
 	{
 		locale: 'ar-SA',
 		component: <Button minWidth={false}>H</Button>
 	},
+	// iconPosition = before (Default) + color
 	{
 		locale: 'ar-SA',
 		component: <Button color="red">click me</Button>
@@ -170,6 +227,33 @@ const ButtonTests = [
 	{
 		locale: 'ar-SA',
 		component: <Button color="blue" icon="minus" iconPosition="after" minWidth={false}>click me</Button>
+	},
+	// [GT-28739] - Color Underbar displays on Button (RTL)
+	{
+		locale: 'ar-SA',
+		component: <Button color="red" icon="plus" iconPosition="before" minWidth={false} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="green" icon="plus" iconPosition="after" minWidth={false} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="yellow" icon="plus" iconPosition="after" minWidth={false} />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button color="blue" icon="plus" iconPosition="after" minWidth={false} />
+	},
+
+	// [GT-28740] - Color Underbar displays on Small / Large size in Selected state
+	{
+		locale: 'ar-SA',
+		component: <Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="large" />
+	},
+	{
+		locale: 'ar-SA',
+		component: <Button selected color="red" icon="minus" iconPosition="after" minWidth={false} size="small" />
 	},
 	// iconPosition = before (Default) + icon
 	{

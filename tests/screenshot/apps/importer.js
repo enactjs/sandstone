@@ -1,5 +1,6 @@
 // Sandstone
 import ActionGuide from '../../../ActionGuide';
+import Alert from '../../../Alert';
 import BodyText from '../../../BodyText';
 import Button from '../../../Button';
 import Checkbox from '../../../Checkbox';
@@ -8,23 +9,23 @@ import ContextualMenuDecorator from '../../../ContextualMenuDecorator';
 import ContextualPopupDecorator from '../../../ContextualPopupDecorator';
 import DatePicker from '../../../DatePicker';
 import Dropdown from '../../../Dropdown';
-import FormCheckbox from '../../../FormCheckbox';
+import FixedPopupPanels from '../../../FixedPopupPanels';
+import FlexiblePopupPanels from '../../../FlexiblePopupPanels';
 import FormCheckboxItem from '../../../FormCheckboxItem';
 import Heading from '../../../Heading';
 import Icon from '../../../Icon';
-import IconButton from '../../../IconButton';
 import Image from '../../../Image';
 import ImageItem from '../../../ImageItem';
 import Input, {InputField} from '../../../Input';
 import Item from '../../../Item';
-import LabeledIcon from '../../../LabeledIcon';
-import LabeledIconButton from '../../../LabeledIconButton';
+import KeyGuide from '../../../KeyGuide';
 import Marquee from '../../../Marquee';
 import MediaOverlay from '../../../MediaOverlay';
 import ThemeDecorator from '../../../ThemeDecorator';
 import Panels, {Panel, Header} from '../../../Panels';
 import Picker from '../../../Picker';
 import Popup from '../../../Popup';
+import PopupTabLayout from '../../../PopupTabLayout';
 import ProgressBar from '../../../ProgressBar';
 import RadioItem from '../../../RadioItem';
 import RangePicker from '../../../RangePicker';
@@ -36,13 +37,14 @@ import Steps from '../../../Steps';
 import Switch from '../../../Switch';
 import SwitchItem from '../../../SwitchItem';
 import TimePicker from '../../../TimePicker';
-import TooltipDecorator from '../../../TooltipDecorator';
+import TooltipDecorator, {Tooltip} from '../../../TooltipDecorator';
 import VideoPlayer from '../../../VideoPlayer';
 import VirtualList from '../../../VirtualList';
-import {WizardPanel} from '../../../Panels';
+import WizardPanels from '../../../WizardPanels';
 
 const components = {
 	ActionGuide,
+	Alert,
 	BodyText,
 	Button,
 	Checkbox,
@@ -51,19 +53,18 @@ const components = {
 	ContextualPopupDecorator,
 	DatePicker,
 	Dropdown,
-	FormCheckbox,
+	FixedPopupPanels,
+	FlexiblePopupPanels,
 	FormCheckboxItem,
 	Header,
 	Heading,
 	Icon,
-	IconButton,
 	Image,
 	ImageItem,
 	Input,
 	InputField,
 	Item,
-	LabeledIcon,
-	LabeledIconButton,
+	KeyGuide,
 	Marquee,
 	MediaOverlay,
 	ThemeDecorator,
@@ -71,6 +72,7 @@ const components = {
 	Panels,
 	Picker,
 	Popup,
+	PopupTabLayout,
 	ProgressBar,
 	RadioItem,
 	RangePicker,
@@ -82,10 +84,11 @@ const components = {
 	Switch,
 	SwitchItem,
 	TimePicker,
+	Tooltip,
 	TooltipDecorator,
 	VideoPlayer,
 	VirtualList,
-	WizardPanel
+	WizardPanels
 };
 
 export default components;

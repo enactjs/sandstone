@@ -10,7 +10,7 @@ import Skinnable from '../Skinnable';
 
 import FeedbackContent from './FeedbackContent';
 import states from './FeedbackIcons.js';
-import {secondsToTime} from './util';
+import {secondsToTime} from '../MediaPlayer/';
 
 import css from './FeedbackTooltip.module.less';
 
@@ -30,13 +30,13 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Invoke action to display or hide tooltip.
 		 *
-		 * @type {String}
+		 * @type {('focus'|'blur'|'idle')}
 		 * @default 'idle'
 		 */
 		action: PropTypes.oneOf(['focus', 'blur', 'idle']),
 
 		/**
-		 * Duration of the curent media in seconds
+		 * Duration of the current media in seconds
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -47,7 +47,7 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Instance of `NumFmt` to format the time
 		 *
-		 * @type {Objct}
+		 * @type {Object}
 		 * @public
 		 */
 		formatter: PropTypes.object,
@@ -56,7 +56,7 @@ const FeedbackTooltipBase = kind({
 		 * If the current `playbackState` allows this component's visibility to be changed,
 		 * this component will be hidden. If not, setting this property will have no effect.
 		 * All `playbackState`s respond to this property except the following:
-		 * `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`.
+		 * `'rewind'`, `'fastForward'`.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -83,7 +83,7 @@ const FeedbackTooltipBase = kind({
 
 		/**
 		 * Refers to one of the following possible media playback states.
-		 * `'play'`, `'pause'`, `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`,
+		 * `'play'`, `'pause'`, `'rewind'`, `'fastForward'` ,
 		 * `'jumpBackward'`, `'jumpForward'`, `'jumpToStart'`, `'jumpToEnd'`, `'stop'`.
 		 *
 		 * Each state understands where its related icon should be positioned, and whether it should
@@ -91,7 +91,7 @@ const FeedbackTooltipBase = kind({
 		 *
 		 * This string feeds directly into {@link sandstone/FeedbackIcon.FeedbackIcon}.
 		 *
-		 * @type {String}
+		 * @type {('play'|'pause'|'rewind'|'fastForward'|'jumpBackward'|'jumpForward'|'jumpToStart'|'jumpToEnd'|'stop')}
 		 * @public
 		 */
 		playbackState: PropTypes.oneOf(Object.keys(states)),

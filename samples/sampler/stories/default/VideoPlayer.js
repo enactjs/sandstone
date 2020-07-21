@@ -5,7 +5,9 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
+
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import {ImageItem} from '@enact/sandstone/ImageItem';
 import ri from '@enact/ui/resolution';
@@ -22,9 +24,7 @@ const renderItem = ({index, ...rest}) => {
 		<ImageItem
 			{...rest}
 			src={source}
-		>
-			{`caption ${index}`}
-		</ImageItem>
+		/>
 	);
 };
 
@@ -151,9 +151,12 @@ storiesOf('Sandstone', module)
 						autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
 						disabled={boolean('disabled', Config)}
 						feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
+						initialJumpDelay={number('initialJumpDelay', Config, 400)}
+						jumpDelay={number('jumpDelay', Config, 200)}
 						loop={boolean('loop', Config, true)}
 						miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
 						muted={boolean('muted', Config, true)}
+						no5WayJump={boolean('no5WayJump', Config)}
 						noAutoPlay={boolean('noAutoPlay', Config)}
 						noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
 						noMediaSliderFeedback={boolean('noMediaSliderFeedback', Config, false)}
@@ -173,40 +176,35 @@ storiesOf('Sandstone', module)
 						<infoComponents>A video about some things happening to and around some characters. Very exciting stuff.</infoComponents>
 						<MediaControls
 							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
-							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
-							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
-							initialJumpDelay={number('initialJumpDelay', MediaControlsConfig, 400)}
 							jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
-							jumpDelay={number('jumpDelay', MediaControlsConfig, 200)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
-							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
+							rateChangeDisabled={boolean('rateChangeDisabled', MediaControlsConfig)}
 							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
 							pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
 							playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
 							playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
-							rateButtonsDisabled={boolean('rateButtonsDisabled', MediaControlsConfig)}
 						>
 							<bottomComponents>
 								<VirtualGridList
+									style={{height: ri.scale(240), marginTop: ri.scale(60)}}
 									horizontalScrollbar={'hidden'}
 									dataSize={size}
 									direction="horizontal"
 									itemSize={{
-										minWidth: ri.scale(640),
-										minHeight: ri.scale(540)
+										minWidth: ri.scale(320),
+										minHeight: ri.scale(270)
 									}}
 									itemRenderer={renderItem}
 									spacing={ri.scale(12)}
 								/>
 							</bottomComponents>
-							<Button size="large" icon="playlist" />
-							<Button size="large" icon="resumeplay" />
-							<Button size="large" icon="languages" />
-							<Button size="large" icon="cc" />
-							<Button size="large" icon="sub" />
+							<Button size="small" icon="list" />
+							<Button size="small" icon="playspeed" />
+							<Button size="small" icon="speakercenter" />
+							<Button size="small" icon="miniplayer" />
+							<Button size="small" icon="subtitle" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>

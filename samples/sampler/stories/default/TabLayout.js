@@ -1,25 +1,27 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, select} from '@enact/storybook-utils/addons/knobs';
+import {number, select} from '@enact/storybook-utils/addons/knobs';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import {scale} from '@enact/ui/resolution';
+import {scaleToRem} from '@enact/ui/resolution';
 import Button from '@enact/sandstone/Button';
-import {Image} from '@enact/sandstone/Image';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
-import {TabLayout, Tab} from '@enact/sandstone/TabLayout';
+import Scroller from '@enact/sandstone/Scroller';
+import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 
 TabLayout.displayName = 'TabLayout';
+const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 
 // `paddingBottom: '56.25%'` is a trick to impose 16:9 aspect ratio on the component, since padding percentage is based on the width, not the height.
 
 const tabsWithIcons = [
 	{title: 'Home', icon: 'home'},
-	{title: 'Button', icon: 'image'},
-	{title: 'Item', icon: 'resumeplay'}
+	{title: 'Button', icon: 'gear'},
+	{title: 'Item', icon: 'trash'}
 ];
 
 const tabsWithoutIcons = [
@@ -37,68 +39,55 @@ storiesOf('Sandstone', module)
 	.add(
 		'TabLayout',
 		() => {
-			const tabs = select('tabs', tabSelections, TabLayout, tabSelections['with icons']);
+			const tabs = select('tabs', ['with icons', 'without icons'], Config, 'with icons');
+
+			const images = new Array(20).fill().map( (_, i) =>
+				<ImageItem
+					inline
+					key={`image${i}`}
+					label="ImageItem label"
+					src="http://placehold.it/360x240/"
+					style={{
+						width: scaleToRem(768),
+						height: scaleToRem(588)
+					}}
+				>
+					{`ImageItem ${i + 1}`}
+				</ImageItem>
+			);
 
 			return (
-				<Panel featureContent={boolean('featureContent', {displayName: 'Panel'}, false)}>
+				<Panel>
 					<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
 					<TabLayout
 						onSelect={action('onSelect')}
-						// leaving this knob out for now until we build out horizontal tabs
-						// orientation={select('orientation', ['vertical', 'horizontal'], TabLayout, 'vertical')}
+						onTabAnimationEnd={action('onTabAnimationEnd')}
+						orientation={select('orientation', ['vertical', 'horizontal'], Config)}
+						tabSize={number('tabSize', Config, {range: true, min: 0, max: 960, step: 60}, 0) || null}
 					>
 						<Tab
-							title={tabs[0].title}
-							icon={tabs[0].icon}
+							title={tabSelections[tabs][0].title}
+							icon={tabSelections[tabs][0].icon}
 						>
-							<Icon>home</Icon>Home
-							<Scroller style={{height: scale(1000)}}>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
-								<Image
-									caption="Image"
-									src="http://placehold.it/360x240/"
-									style={{marginTop: '24px'}}
-								/>
+							<Scroller>
+								{images}
 							</Scroller>
 						</Tab>
 						<Tab
-							title={tabs[1].title}
-							icon={tabs[1].icon}
+							title={tabSelections[tabs][1].title}
+							icon={tabSelections[tabs][1].icon}
 						>
-							<Button icon="image">Button!</Button>
-							<Button icon="image">Button!</Button>
-							<Button icon="image">Button!</Button>
-							<Button icon="image">Button!</Button>
+							<Button icon="demosync">Button 1</Button>
+							<Button icon="demosync">Button 2</Button>
+							<Button icon="demosync">Button 3</Button>
+							<Button icon="demosync">Button 4</Button>
+							<Button icon="demosync">Button 5</Button>
 						</Tab>
 						<Tab
-							title={tabs[2].title}
-							icon={tabs[2].icon}
+							title={tabSelections[tabs][2].title}
+							icon={tabSelections[tabs][2].icon}
 						>
-							<Item slotBefore={<Icon>resumeplay</Icon>}>Hello Item</Item>
+							<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
 						</Tab>
 					</TabLayout>
 				</Panel>

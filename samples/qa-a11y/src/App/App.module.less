@@ -1,0 +1,180 @@
+body {
+	position: fixed;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+h2 {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.jumpToView {
+	height: 60px;
+	font-size: 36px;
+}
+
+.layout {
+	height: 100%;
+}
+
+.navItem {
+	height: 42px;
+	margin: 0;
+
+	& > div {
+		font-size: 36px;
+	}
+}
+
+.marginTop {
+	margin-top: 90px;
+}
+
+.headerMarginTop {
+	margin-top: 180px;
+}
+
+:global {
+	// To help visually tell what's going on
+	// `.debug.aria` Add in an Aria overlay to visualize what is assigned to the aria attributes
+	.debug.aria,
+	.debug.aria + div {
+		// If the position of the `div` element including the following aria attributes, is `static`.
+		// Then the before and after psudo element will position incorrectly.
+		[aria-label],
+		[aria-valuetext],
+		[aria-checked],
+		[aria-live],
+		[aria-labelledby],
+		[aria-owns],
+		[aria-disabled="true"],
+		[role] {
+			& [role="region"] {
+				position: relative;
+			}
+		}
+
+		// The before and after psudo element position and look
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]::after,
+		[aria-live]::after,
+		[aria-labelledby]::after,
+		[aria-owns]::after,
+		[aria-disabled="true"]::after,
+		[role]::before {
+			position: absolute;
+			padding: 0 1ex;
+			border-radius: 0.5em;
+			border-top-right-radius: 0;
+			border-top-left-radius: 0;
+			top: initial;
+			bottom: 0;
+			transform: translateY(100%);
+			z-index: 2;
+
+			color: white;
+			line-height: 1.3em;
+			font-size: small;
+			font-weight: 100;
+
+			pointer-events: none;
+		}
+
+		[role]::before {
+			background-color: darkred;
+			border: 1px solid red;
+			right: 50%;
+			left: initial;
+		}
+
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]::after,
+		[aria-live]::after,
+		[aria-labelledby]::after,
+		[aria-owns]::after,
+		[aria-disabled="true"]::after {
+			background-color: #ffaa0099;
+			border: 1px solid #ffaa00;
+			right: initial;
+			left: 50%;
+		}
+
+		[aria-live]::after,
+		[aria-labelledby]::after,
+		[aria-owns]::after,
+		[role][aria-live]::before,
+		[role][aria-labelledby]::before,
+		[role][aria-owns]::before {
+			border-radius: 0.5em;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			top: 0;
+			bottom: initial;
+			transform: translateY(-100%);
+
+			color: black;
+		}
+
+		// The before and after psudo element content
+
+		[role]::before {
+			content: "Role:\0020" attr(role);
+		}
+
+		--aria-label: "";
+		[aria-label]::after {
+			--aria-label: "label:\0020'" attr(aria-label) "'\0020/\0020";
+		}
+
+		--aria-valuetext: "";
+		[aria-valuetext]::after {
+			--aria-valuetext: "valuetext:\0020'" attr(aria-valuetext) "'\0020/\0020";
+		}
+
+		--aria-checked: "";
+		[aria-checked]::after {
+			--aria-checked: "checked:\0020'" attr(aria-checked) "'\0020/\0020";
+		}
+
+		--aria-live: "";
+		[aria-live]::after {
+			--aria-live: "live:\0020'" attr(aria-live) "'\0020/\0020";
+		}
+
+		--aria-labelledby: "";
+		[aria-labelledby]::after {
+			--aria-labelledby: "labelledby:\0020'" attr(aria-labelledby) "'\0020/\0020";
+		}
+
+		--aria-owns: "";
+		[aria-owns]::after {
+			--aria-owns: "owns:\0020'" attr(aria-owns) "'\0020/\0020";
+		}
+
+		--aria-disabled: "";
+		[aria-disabled="true"]::after {
+			--aria-disabled: "disabled:\0020'" attr(aria-disabled) "'\0020/\0020";
+		}
+
+		[aria-label]::after,
+		[aria-valuetext]::after,
+		[aria-checked]::after,
+		[aria-live]::after,
+		[aria-labelledby]::after,
+		[aria-disabled="true"]::after {
+			content:
+				var(--aria-label)
+				var(--aria-valuetext)
+				var(--aria-checked)
+				var(--aria-live)
+				var(--aria-labelledby)
+				var(--aria-owns)
+				var(--aria-disabled)
+		}
+	}
+}

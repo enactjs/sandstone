@@ -20,15 +20,12 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import {IconBase} from '../Icon';
+import Icon from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
 import TooltipDecorator from '../TooltipDecorator';
 
 import componentCss from './Button.module.less';
-
-// Make a basic Icon in case we need it later. This cuts `Pure` out of icon for a small gain.
-const Icon = Skinnable(IconBase);
 
 /**
  * A button component.
@@ -61,6 +58,34 @@ const ButtonBase = kind({
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
+		 * Enables the `collapsed` feature.
+		 *
+		 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+		 * defined.
+		 *
+		 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsed}
+		 * @private
+		 */
+		collapsable: PropTypes.bool,
+
+		/**
+		 * Toggles the collapsed state of this button, down to just its icon.
+		 *
+		 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
+		 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsable}
+		 * @private
+		 */
+		collapsed: PropTypes.bool,
+
+		/**
 		 * The color of the underline beneath button's content.
 		 *
 		 * Accepts one of the following color names, which correspond with the colored buttons on a
@@ -86,11 +111,20 @@ const ButtonBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		// `transparent` and `client` were intentionally excluded from the above documented
-		// exported classes as they do not appear to provide value to the end-developer, but are
-		// needed by IconButton internally for its design guidelines.
-		// Same for `pressed` which is used by Dropdown to nullify the key-press activate animation.
+		// `client` was intentionally excluded from the above documented exported classes as they do
+		// not appear to provide value to the end-developer, but are needed by PopupTabLayout
+		// internally for its design guidelines. Same for `pressed` which is used by Dropdown to
+		// nullify the key-press activate animation.
 		css: PropTypes.object,
+
+		/**
+		 * Set the visual effect applied to the button when focused.
+		 *
+		 * @type {('expand'|'static')}
+		 * @default 'expand'
+		 * @private
+		 */
+		focusEffect: PropTypes.oneOf(['expand', 'static']),
 
 		/**
 		 * True if button is an icon only button.
@@ -131,6 +165,9 @@ const ButtonBase = kind({
 
 	defaultProps: {
 		backgroundOpacity: null,
+		collapsable: false,
+		collapsed: false,
+		focusEffect: 'expand',
 		iconPosition: 'before',
 		size: 'large'
 	},
@@ -141,13 +178,16 @@ const ButtonBase = kind({
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconOnly, iconPosition, size, styler}) => styler.append(
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
 			{
 				hasColor: color,
-				iconOnly
+				iconOnly,
+				collapsable,
+				collapsed
 			},
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
+			`focus${cap(focusEffect)}`,
 			`icon${cap(iconPosition)}`,
 			size
 		),
@@ -157,8 +197,11 @@ const ButtonBase = kind({
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.collapsable;
+		delete rest.collapsed;
 		delete rest.iconOnly;
 		delete rest.iconPosition;
+		delete rest.focusEffect;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
@@ -171,8 +214,7 @@ const ButtonBase = kind({
 
 
 /**
- * A higher-order component that determines if it is an
- * `IconButton`, a button that only displays an icon.
+ * A higher-order component that determines if it is a button that only displays an icon.
  *
  * @class IconButtonDecorator
  * @memberof sandstone/Button

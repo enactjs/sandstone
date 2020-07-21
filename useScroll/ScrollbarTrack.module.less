@@ -5,6 +5,7 @@
 @import "../styles/variables.less";
 
 .scrollbarTrack {
+	--scrollbar-track-margin: @sand-scrollbar-track-margin;
 	--scrollbar-thumb-size-ratio: 1;
 	--scrollbar-thumb-progress-ratio: 0;
 	--scrollbar-thumb-size: ~"calc(100% * var(--scrollbar-thumb-size-ratio))";
@@ -16,8 +17,7 @@
 	background-color: @sand-scrollbar-track-bg-color;
 	border-radius: @sand-scrollbar-track-border-radius;
 	opacity: 0;
-	transition: opacity 100ms linear;
-	-webkit-transition: opacity 100ms linear;
+	transition: opacity 100ms ease-out;
 
 	&:hover {
 		opacity: 1;
@@ -26,6 +26,7 @@
 	&.focusableScrollbar {
 		// Always show the scrollbar
 		opacity: 1;
+		--scrollbar-track-margin: @sand-scrollbar-track-focusable-margin;
 	}
 
 	.thumb {

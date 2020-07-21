@@ -12,9 +12,9 @@ const Config = mergeComponentMetadata('Heading', UiHeading, HeadingBase, Heading
 
 // Set up some defaults for info and knobs
 const prop = {
-	marqueeOn: ['', 'hover', 'render'],
-	size: ['', 'large', 'medium', 'small'],
-	spacing: ['', 'auto', 'large', 'medium', 'small', 'none']
+	marqueeOn: ['hover', 'render'],
+	size: ['large', 'medium', 'small', 'tiny'],
+	spacing: ['auto', 'large', 'medium', 'small', 'none']
 };
 
 storiesOf('Sandstone', module)

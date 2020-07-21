@@ -1,20 +1,35 @@
+// ActionGuide.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .actionGuide {
-    text-align: center;
-    max-width: @sand-actionguide-max-width;
-    margin: 0 auto;
+	text-align: center;
+	max-width: @sand-actionguide-max-width;
+	margin: 0 auto;
+	line-height: 0;
 
-    .label {
-        .sand-font({
-            font-size: @sand-actionguide-label-font-size;
-        });
-        font-size: @sand-actionguide-label-font-size;
-    }
+	.label {
+		.sand-font({
+			font-size: @sand-actionguide-label-font-size;
+		});
+		font-size: @sand-actionguide-label-font-size;
+		height: @sand-actionguide-label-height;
+		line-height: @sand-actionguide-label-height;
+	}
 
-    .icon {
-        margin: 0;
-    }
+	.icon {
+		margin: @sand-actionguide-icon-margin;
+	}
+
+	.applySkins({
+		.icon {
+			color: @sand-actionguide-icon-color;
+		}
+
+		.label {
+			color: @sand-actionguide-label-color;
+		}
+	});
 }

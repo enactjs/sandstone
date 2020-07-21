@@ -4,14 +4,12 @@
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 
-.contentWrapper {
-	position: relative; // The content could be fittable to the Scroller without paddgins.
-}
-
 .focusableBody {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 	height: 100%;
-	position: relative;
+	overflow: inherit;
 
 	&::before {
 		content: '';
@@ -27,4 +25,22 @@
 			opacity: 1;
 		}
 	})
+}
+
+.verticalFadeout {
+	padding: @sand-scroll-vertical-fade-out-padding;
+	mask-image: linear-gradient(transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
+
+	.focusableBody & {
+		padding: @sand-scroll-focusablebody-padding;
+		:global(.enact-locale-right-to-left) & {
+			padding: @sand-scroll-focusablebody-padding-rtl;
+		}
+		mask-image: linear-gradient(transparent @sand-scroll-fade-out-offset, @sand-black calc(@sand-scroll-fade-out-offset + @sand-scroll-fade-out-size), @sand-black calc(100% - @sand-scroll-fade-out-size - @sand-scroll-fade-out-offset), transparent calc(100% - @sand-scroll-fade-out-offset));
+	}
+}
+
+.horizontalFadeout {
+	padding: @sand-scroll-horizontal-fade-out-padding;
+	mask-image: linear-gradient(to right, transparent, @sand-black @sand-scroll-fade-out-size, @sand-black calc(100% - @sand-scroll-fade-out-size), transparent 100%);
 }

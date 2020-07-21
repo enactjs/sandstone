@@ -1,0 +1,24 @@
+// Times.module.less
+//
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.times {
+	.sand-text-base(@sand-mediaplayer-times-text-size);
+	.sand-font-number();
+
+	white-space: nowrap;
+	min-width: @sand-mediaplayer-times-min-width;
+
+	> * {
+		display: inline-block;
+	}
+
+	.separator {
+		padding: 0 1ex;
+	}
+
+	:global(.enact-locale-right-to-left) & {
+		direction: ltr;
+	}
+}

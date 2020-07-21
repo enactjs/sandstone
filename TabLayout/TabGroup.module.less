@@ -1,17 +1,84 @@
 // TabGroup.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/skin.less";
 @import "../styles/variables.less";
 
 .tab {
-	.applySkins({
-		&.selected {
-			color: @sand-tablayout-tab-selected-text-color;
+	display: block; // Allow the button to fill the horizontal space and collapse as the parent Cell gets smaller.
+	font-weight: normal;
 
-			.bg {
-				background-color: @sand-tablayout-tab-selected-bg-color;
-				opacity: @sand-tablayout-tab-selected-opacity;
+	&.horizontal {
+		&.button {
+			margin: @sand-tablayout-tab-horizontal-margin;
+			padding: @sand-tablayout-tab-horizontal-padding;
+			height: @sand-tablayout-tab-horizontal-button-height;
+
+			.client {
+				.sand-spotlight-margin();
+			}
+
+			&.selected {
+				.client::after {
+					content: "";
+					position: absolute;
+					.position(auto, 0, 0, 0);
+					height: @sand-tablayout-tab-horizontal-selected-border-width;
+				}
+			}
+		}
+	}
+
+	&.vertical {
+		margin-bottom: @sand-tablayout-tab-vertical-margin-bottom;
+
+		&.button {
+			height: @sand-tablayout-tab-vertical-button-height;
+		}
+
+		.client {
+			text-align: left;
+
+			.enact-locale-rtl({
+				text-align: right;
+			});
+		}
+	}
+
+	.applySkins({
+		&.horizontal {
+			&.button {
+				&.selected {
+					.bg {
+						opacity: 0;
+					}
+				}
+
+				.client::after {
+					background-color: @sand-tablayout-tab-horizontal-selected-border-color;
+				}
+
+				.focus({
+					.bg {
+						opacity: 1;
+					}
+
+					.client::after {
+						background-color: unset;
+					}
+				});
 			}
 		}
 	});
 }
+
+.applySkins({
+	.tabGroup {
+		.horizontalLine {
+			width: 100%;
+			margin: 0;
+			border: 0 none transparent;
+			border-bottom: @sand-tablayout-tab-horizontal-border-width solid @sand-tablayout-tab-horizontal-border-color;
+		}
+	}
+});

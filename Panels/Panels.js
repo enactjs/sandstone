@@ -1,20 +1,20 @@
 import kind from '@enact/core/kind';
 import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
-import {shape, SlideLeftArranger} from '@enact/ui/ViewManager';
+import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 
-import CancelDecorator from './CancelDecorator';
-import Viewport from './Viewport';
+import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 
-import css from './Panels.module.less';
+import componentCss from './Panels.module.less';
 
 /**
- * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
@@ -88,6 +88,20 @@ const PanelsBase = kind({
 		 * @public
 		 */
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panels` - The root class name
+		 * * `viewport` - The node containing the panel instances
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -188,16 +202,16 @@ const PanelsBase = kind({
 	},
 
 	defaultProps: {
-		arranger: SlideLeftArranger,
+		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
 	styles: {
-		css,
-		className: 'panels enact-fit'
+		css: componentCss,
+		className: 'panels enact-fit',
+		publicClassNames: ['panels', 'viewport']
 	},
 
 	computed: {
@@ -213,24 +227,33 @@ const PanelsBase = kind({
 		)
 	},
 
-	render: ({arranger, backButtonAriaLabel, backButtonBackgroundOpacity, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, generateId, id, index, noAnimation, noBackButton, noCloseButton, noSharedState, onClose, onBack, onTransition, onWillTransition, viewportId, ...rest}) => {
+	render: ({
+		arranger,
+		children,
+		css,
+		generateId,
+		id,
+		index,
+		noAnimation,
+		noSharedState,
+		onTransition,
+		onWillTransition,
+		viewportId,
+		...rest
+	}) => {
+		const sharedProps = getSharedProps(rest);
+		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
 				<Viewport
+					{...sharedProps}
 					arranger={arranger}
-					backButtonAriaLabel={backButtonAriaLabel}
-					backButtonBackgroundOpacity={backButtonBackgroundOpacity}
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
+					className={css.viewport}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
 					noAnimation={noAnimation}
-					noBackButton={noBackButton}
-					noCloseButton={noCloseButton}
 					noSharedState={noSharedState}
-					onBack={onBack}
-					onClose={onClose}
 					onTransition={onTransition}
 					onWillTransition={onWillTransition}
 				>

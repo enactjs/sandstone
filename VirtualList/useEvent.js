@@ -14,17 +14,14 @@ const
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
 	isUp = is('up'),
-	getNumberValue = (index) => index | 0;
+	getNumberValue = (index) => {
+		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
+		let number = +index;
+		// should return -1 if index is not a number or a negative value
+		return number >= 0 ? number : -1;
+	};
 
 const useEventKey = (props, instances, context) => {
-	const {scrollContainerRef, scrollContentHandle, scrollContentRef} = instances;
-	const {
-		handle5WayKeyUp,
-		handleDirectionKeyDown,
-		handlePageUpDownKeyDown,
-		spotlightAcceleratorProcessKey
-	} = context;
-
 	// Mutable value
 
 	const mutableRef = useRef({
@@ -44,6 +41,7 @@ const useEventKey = (props, instances, context) => {
 
 	const getNextIndex = useCallback(({index, keyCode, repeat}) => {
 		const {dataSize, rtl, wrap} = props;
+		const {scrollContentHandle} = instances;
 		const {isPrimaryDirectionVertical, dimensionToExtent} = scrollContentHandle.current;
 		const column = index % dimensionToExtent;
 		const row = (index - column) % dataSize / dimensionToExtent;
@@ -104,11 +102,19 @@ const useEventKey = (props, instances, context) => {
 		}
 
 		return {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex};
-	}, [findSpottableItem, props, scrollContentHandle]);
+	}, [findSpottableItem, props, instances]);
 
 	// Hooks
 
 	useEffect(() => {
+		const {scrollContainerRef, scrollContentHandle} = instances;
+		const {
+			handle5WayKeyUp,
+			handleDirectionKeyDown,
+			handlePageUpDownKeyDown,
+			spotlightAcceleratorProcessKey
+		} = context;
+
 		function handleKeyDown (ev) {
 			const {keyCode, target} = ev;
 			const direction = getDirection(keyCode);
@@ -119,9 +125,7 @@ const useEventKey = (props, instances, context) => {
 				if (spotlightAcceleratorProcessKey(ev)) {
 					ev.stopPropagation();
 				} else {
-					const {repeat} = ev;
-					const {focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible, spotlightId} = props;
-					const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
+					const {spotlightId} = props;
 					const targetIndex = target.dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -130,52 +134,56 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
-					const directions = {};
+					const candidate = getTargetByDirectionFromElement(direction, target);
+					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
-					let isScrollbarVisible;
 
-					if (isPrimaryDirectionVertical) {
-						directions.left = isLeftMovement;
-						directions.right = isRightMovement;
-						directions.up = isUpKey;
-						directions.down = isDownKey;
-						isScrollbarVisible = isVerticalScrollbarVisible;
-					} else {
-						directions.left = isUpKey;
-						directions.right = isDownKey;
-						directions.up = isLeftMovement;
-						directions.down = isRightMovement;
-						isScrollbarVisible = isHorizontalScrollbarVisible;
-					}
+					if (isNotItem) { // if the focused node is not an item
+						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
+							isLeaving = true;
+						}
+					} else if (candidateIndex !== index) { // the focused node is an item and focus will move out of the item
+						const {repeat} = ev;
+						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
 
-					if (!isNotItem) {
-						if (nextIndex >= 0) {
+						if (nextIndex >= 0) { // if the candidate is another item
 							ev.preventDefault();
 							ev.stopPropagation();
 							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
-						} else {
-							const {dataSize} = props;
+						} else { // if the candidate is not found
+							const {dataSize, focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
+							const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
 							const column = index % dimensionToExtent;
 							const row = (index - column) % dataSize / dimensionToExtent;
+							const directions = {};
+							let isScrollbarVisible;
 
-							isLeaving = directions.up && row === 0 ||
+							if (isPrimaryDirectionVertical) {
+								directions.left = isLeftMovement;
+								directions.right = isRightMovement;
+								directions.up = isUpKey;
+								directions.down = isDownKey;
+								isScrollbarVisible = isVerticalScrollbarVisible;
+							} else {
+								directions.left = isUpKey;
+								directions.right = isDownKey;
+								directions.up = isLeftMovement;
+								directions.down = isRightMovement;
+								isScrollbarVisible = isHorizontalScrollbarVisible;
+							}
+
+							isLeaving =
+								directions.up && row === 0 ||
 								directions.down && row === Math.floor((dataSize - 1) % dataSize / dimensionToExtent) ||
 								directions.left && column === 0 ||
 								directions.right && (!focusableScrollbar || !isScrollbarVisible) && (column === dimensionToExtent - 1 || index === dataSize - 1 && row === 0);
 
-							if (repeat && isLeaving) {
+							if (repeat && isLeaving) { // if focus is about to leave items by holding down an arrowy key
 								ev.preventDefault();
 								ev.stopPropagation();
 							} else if (!isLeaving) {
 								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
 							}
-						}
-					} else {
-						const possibleTarget = getTargetByDirectionFromElement(direction, target);
-
-						if (!utilDOM.containsDangerously(ev.currentTarget, possibleTarget)) {
-							isLeaving = true;
 						}
 					}
 
@@ -201,7 +209,7 @@ const useEventKey = (props, instances, context) => {
 			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
 			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
 		};
-	}, [scrollContentRef, getNextIndex, handle5WayKeyUp, handleDirectionKeyDown, handlePageUpDownKeyDown, props, spotlightAcceleratorProcessKey, scrollContentHandle.current]); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [getNextIndex, props, instances, context]);
 
 	// Functions
 

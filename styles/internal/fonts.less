@@ -12,13 +12,15 @@
 
 @font-system-src-sandstone-100:    local("LG Smart UI Light"), local("LGSmartUI-Light"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Thin.ttf") format("truetype");
 @font-system-src-sandstone-300:    local("LG Smart UI Light"), local("LGSmartUI-Light"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Light.ttf") format("truetype");
+@font-system-src-sandstone-300-i:  local("LG Smart UI Oblique Light"), local("LGSmartUIOblique-Light"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Light.ttf") format("truetype");
 @font-system-src-sandstone-400:    local("LG Smart UI Regular"), local("LGSmartUI-Regular"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Medium.ttf") format("truetype");
-@font-system-src-sandstone-400-i:  local("LG Smart UI Regular"), local("LGSmartUI-Regular"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-MediumItalic.ttf") format("truetype");
+@font-system-src-sandstone-400-i:  local("LG Smart UI Oblique Regular"), local("LGSmartUIOblique-Regular"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-MediumItalic.ttf") format("truetype");
 @font-system-src-sandstone-600:    local("LG Smart UI SemiBold"), local("LGSmartUI-SemiBold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Bold.ttf") format("truetype");
+@font-system-src-sandstone-600-i:  local("LG Smart UI Oblique SemiBold"), local("LGSmartUIOblique-SemiBold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BoldItalic.ttf") format("truetype");
 @font-system-src-sandstone-700:    local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Bold.ttf") format("truetype");
-@font-system-src-sandstone-700-i:  local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BoldItalic.ttf") format("truetype");
+@font-system-src-sandstone-700-i:  local("LG Smart UI Oblique Bold"), local("LGSmartUIOblique-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BoldItalic.ttf") format("truetype");
 @font-system-src-sandstone-900:    local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-Black.ttf") format("truetype");
-@font-system-src-sandstone-900-i:  local("LG Smart UI Bold"), local("LGSmartUI-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BlackItalic.ttf") format("truetype");
+@font-system-src-sandstone-900-i:  local("LG Smart UI Oblique Bold"), local("LGSmartUIOblique-Bold"), local("Museo Sans"), url("../../fonts/MuseoSans/MuseoSans-BlackItalic.ttf") format("truetype");
 
 @font-system-src-sandstone-number-300:  local("LG Smart UI NUMBER Light"), local("LGSmartUINUMBER-Light");
 @font-system-src-sandstone-number-400:  local("LG Smart UI NUMBER"), local("LGSmartUINUMBER");
@@ -30,8 +32,8 @@
 @font-system-src-non-latin-600:  local("LG Smart UI AR HE TH SemiBold"), local("LGSmartUIARHETH-SemiBold");
 @font-system-src-non-latin-700:  local("LG Smart UI AR HE TH SemiBold"), local("LGSmartUIARHETH-SemiBold");
 
-@font-system-src-sandstone-icons:  local("Sandstone"), url("../../fonts/Sandstone.ttf") format("truetype");
-@font-system-src-lg-icons:         @font-system-src-sandstone-400, local("LG Smart UI Dingbat");
+@font-system-src-sandstone-icons:  local("Sandstone Icons"), local("SandstoneIcons"), url("../../fonts/Sandstone_Icons.ttf") format("truetype");
+@font-system-src-lg-icons:         @font-system-src-sandstone-400, local("LG Smart UI Dingbat"), local("LGSmartUIDingbat");
 
 // Localized fonts
 // Order correlates with load and priority order. Later fonts are stacked on top of earlier fonts.
@@ -127,9 +129,11 @@
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-400;   ""; italic);
 // .buildFontFace(@font-family-base-name; @font-system-src-sandstone-100;   100);
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-300;   300);
-// .buildFontFace(@font-family-base-name; @font-system-src-sandstone-400;   400);
-// .buildFontFace(@font-family-base-name; @font-system-src-sandstone-400-i; 400; italic);
+.buildFontFace(@font-family-base-name; @font-system-src-sandstone-300-i; 300; italic);
+.buildFontFace(@font-family-base-name; @font-system-src-sandstone-400;   400);
+.buildFontFace(@font-family-base-name; @font-system-src-sandstone-400-i; 400; italic);
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-600;   600);
+.buildFontFace(@font-family-base-name; @font-system-src-sandstone-600-i; 600; italic);
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-700;   700);
 .buildFontFace(@font-family-base-name; @font-system-src-sandstone-700-i; 700; italic);
 // .buildFontFace(@font-family-base-name; @font-system-src-sandstone-900;   900);

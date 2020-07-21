@@ -1,22 +1,23 @@
-import classnames from 'classnames';
 import {forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator, {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import ComponentOverride from '@enact/ui/ComponentOverride';
-import Measurable from '@enact/ui/Measurable';
-import {scale} from '@enact/ui/resolution';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Slottable from '@enact/ui/Slottable';
 import PropTypes from 'prop-types';
 import React from 'react';
+import compose from 'ramda/src/compose';
 
 import Skinnable from '../Skinnable';
 import SharedStateDecorator from '../internal/SharedStateDecorator';
-import {ScrollPositionDecorator, useScrollPosition} from '../useScroll/useScrollPosition';
 
-import {PanelsStateContext} from './Viewport';
+import {AutoFocusDecorator} from '../internal/Panels';
+import {ContextAsDefaults} from '../internal/Panels/util';
+import {FloatingLayerIdProvider} from '../internal/Panels';
 
-import css from './Panel.module.less';
+import componentCss from './Panel.module.less';
 
 let panelId = 0;
 
@@ -33,10 +34,7 @@ let panelId = 0;
  * @public
  */
 const PanelBase = kind({
-
 	name: 'Panel',
-
-	contextType: PanelsStateContext,
 
 	propTypes: /** @lends sandstone/Panels.Panel.prototype */ {
 		/**
@@ -53,41 +51,34 @@ const PanelBase = kind({
 		'aria-label': PropTypes.string,
 
 		/**
-		 * Sets the strategy used to automatically focus an element within the panel upon render.
+		 * Obtains a reference to the root node.
 		 *
-		 * * "none" - Automatic focus is disabled
-		 * * "last-focused" - The element last focused in the panel with be restored
-		 * * "default-element" - The first spottable component within the body will be focused
-		 * * Custom Selector - A custom CSS selector may also be provided which will be used to find
-		 *   the target within the Panel
-		 *
-		 * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by
-		 * `Panels` to "default-element" when navigating "forward" to a higher index. This behavior
-		 * may be overridden by setting `autoFocus` on the `Panel` instance as a child of `Panels`
-		 * or by wrapping `Panel` with a custom component and overriding the value passed by
-		 * `Panels`.
-		 *
-		 * ```
-		 * // Panel within CustomPanel will always receive "last-focused"
-		 * const CustomPanel = (props) => <Panel {...props} autoFocus="last-focused" />;
-		 *
-		 * // The first panel will always receive "last-focused". The second panel will receive
-		 * // "default-element" when navigating from the first panel but `autoFocus` will be unset
-		 * // when navigating from the third panel and as a result will default to "last-focused".
-		 * const MyPanels = () => (
-		 *   <Panels>
-		 *     <Panel autoFocus="last-focused" />
-		 *     <Panel />
-		 *     <Panel />
-		 *   </Panels>
-		 * );
-		 * ```
-		 *
-		 * @type {String}
-		 * @default 'last-focused'
+		 * @type {Function|Object}
 		 * @public
 		 */
-		autoFocus: PropTypes.string,
+		componentRef: EnactPropTypes.ref,
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `panel` - The root class name
+		 * * `body` - The node containing the panel's children
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
+		 * The floating layer id
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		floatingLayerId: PropTypes.string,
 
 		/**
 		 * Header for the panel.
@@ -113,26 +104,22 @@ const PanelBase = kind({
 		hideChildren: PropTypes.bool,
 
 		/**
-		 * The method which receives the reference node to the title element, used to determine
-		 * the `titleMeasurements` of the header.
+		 * Set the type of panel to be used.
 		 *
-		 * @type {Function|Object}
+		 * @type {('wizard')}
 		 * @private
 		 */
-		titleRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		])
+		panelType: PropTypes.oneOf(['wizard'])
 	},
 
 	defaultProps: {
-		autoFocus: 'last-focused',
 		hideChildren: false
 	},
 
 	styles: {
-		css,
-		className: 'panel'
+		css: componentCss,
+		className: 'panel',
+		publicClassNames: ['panel', 'body']
 	},
 
 	handlers: {
@@ -142,96 +129,64 @@ const PanelBase = kind({
 				currentTarget.scrollTop = 0;
 				currentTarget.scrollLeft = 0;
 			}
-		),
-		spotOnRender: (node, {autoFocus}) => {
-			if (node && !Spotlight.getCurrent()) {
-				const {spotlightId} = node.dataset;
-				const config = {
-					enterTo: 'last-focused'
-				};
-
-				if (autoFocus !== 'last-focused') {
-					config.enterTo = 'default-element';
-
-					if (autoFocus !== 'default-element') {
-						config.defaultElement = autoFocus;
-					}
-				}
-
-				Spotlight.set(spotlightId, config);
-				Spotlight.focus(spotlightId);
-			}
-		}
+		)
 	},
 
 	computed: {
-		backButtonAvailable: (props, context) => {
-			if (!context) {
-				return;
-			}
-			return context.index > 0 && context.type !== 'wizard';
-		},
-		className: ({className, styler}, context) => context && context.type ? styler.append([context.type] + 'Type') : className,
-		spotOnRender: ({autoFocus, hideChildren, spotOnRender}) => {
-			// In order to spot the body components, we defer spotting until !hideChildren. If the
-			// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
-			// on first render.
-			if (hideChildren || autoFocus === 'none') {
-				return null;
-			}
-
-			return spotOnRender;
-		},
 		children: ({children, hideChildren}) => hideChildren ? null : children,
-		bodyClassName: ({header, hideChildren, styler}) => styler.join({
-			body: true,
+		bodyClassName: ({css, header, hideChildren, styler}) => styler.join(css.body, {
 			noHeader: !header,
 			visible: !hideChildren
 		}),
+		entering: ({hideChildren}) => (hideChildren && Spotlight.getPointerMode()),
 		// nulling headerId prevents the aria-labelledby relationship which is necessary to allow
 		// aria-label to take precedence
 		// (see https://www.w3.org/TR/wai-aria/states_and_properties#aria-labelledby)
-		headerId: ({'aria-label': label}) => label ? null : `panel_${++panelId}_header`,
-		// Panel is aware of the panel type and can forward the corrosponding header type down to Header
-		headerType: (props, context) => {
-			if (!context) {
-				return;
-			}
+		ids: ({'aria-label': label, panelType}) => {
+			if (label) {
+				return {};
+			} else if (panelType === 'wizard') {
+				const id = `panel_${++panelId}_header`;
 
-			switch (context.type) {
-				case 'fixedPopup': return 'compact';
-				case 'flexiblePopup': return 'mini';
-				case 'wizard': return 'wizard';
+				return {
+					headerId: id,
+					labelledby: id
+				};
+			} else {
+				const labelledby = `panel_${++panelId}_title panel_${panelId}_subtitle`;
+				const [titleId, subtitleId] = labelledby.split(' ');
+
+				return {
+					labelledby,
+					subtitleId,
+					titleId
+				};
 			}
 		}
 	},
 
 	render: ({
-		backButtonAvailable,
 		bodyClassName,
 		children,
+		componentRef,
+		css,
+		floatingLayerId,
+		entering,
 		header,
-		headerId,
-		headerType,
-		hideChildren,
-		spotOnRender,
-		titleRef,
+		ids: {headerId = null, labelledby = null, subtitleId = null, titleId = null},
 		...rest
 	}) => {
-		delete rest.autoFocus;
-
-		const headerProps = {};
-		if (headerType != null) headerProps.type = headerType;
-		if (backButtonAvailable != null) headerProps.backButtonAvailable = backButtonAvailable;
+		delete rest.hideChildren;
+		delete rest.panelType;
 
 		return (
-			<article role="region" {...rest} aria-labelledby={headerId} ref={spotOnRender}>
+			<article role="region" {...rest} aria-owns={floatingLayerId} aria-labelledby={labelledby} ref={componentRef}>
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						{...headerProps}
-						entering={hideChildren && Spotlight.getPointerMode()}
-						titleRef={titleRef}
+						entering={entering}
+						subtitleId={subtitleId}
+						titleId={titleId}
 					/>
 				</div>
 				<section className={bodyClassName}>{children}</section>
@@ -239,6 +194,60 @@ const PanelBase = kind({
 		);
 	}
 });
+
+/**
+ * Sets the strategy used to automatically focus an element within the panel upon render.
+ *
+ * * "none" - Automatic focus is disabled
+ * * "last-focused" - The element last focused in the panel with be restored
+ * * "default-element" - The first spottable component within the body will be focused
+ * * Custom Selector - A custom CSS selector may also be provided which will be used to find
+ *   the target within the Panel
+ *
+ * When used within [Panels]{@link sandstone/Panels.Panels}, this prop may be set by
+ * `Panels` to "default-element" when navigating "forward" to a higher index. This behavior
+ * may be overridden by setting `autoFocus` on the `Panel` instance as a child of `Panels`
+ * or by wrapping `Panel` with a custom component and overriding the value passed by
+ * `Panels`.
+ *
+ * ```
+ * // Panel within CustomPanel will always receive "last-focused"
+ * const CustomPanel = (props) => <Panel {...props} autoFocus="last-focused" />;
+ *
+ * // The first panel will always receive "last-focused". The second panel will receive
+ * // "default-element" when navigating from the first panel but `autoFocus` will be unset
+ * // when navigating from the third panel and as a result will default to "last-focused".
+ * const MyPanels = () => (
+ *   <Panels>
+ *     <Panel autoFocus="last-focused" />
+ *     <Panel />
+ *     <Panel />
+ *   </Panels>
+ * );
+ * ```
+ *
+ * @type {('default-element'|'last-focused'|'none'|String)}
+ * @memberof sandstone/Panels.Panel.prototype
+ * @default 'last-focused'
+ * @public
+ */
+
+const PanelDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
+	FloatingLayerIdProvider,
+	ContextAsDefaults,
+	SharedStateDecorator({idProp: 'data-index'}),
+	SpotlightContainerDecorator({
+		// prefer any spottable within the panel body for first render
+		continue5WayHold: true,
+		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
+		enterTo: 'last-focused',
+		preserveId: true
+	}),
+	Slottable({slots: ['header']}),
+	AutoFocusDecorator,
+	Skinnable
+);
 
 /**
  * Prevents the component from restoring any framework shared state.
@@ -253,76 +262,7 @@ const PanelBase = kind({
  * @memberof sandstone/Panels.Panel.prototype
  */
 
-const RootPanel = SharedStateDecorator(
-	{idProp: 'data-index'},
-	SpotlightContainerDecorator(
-		{
-			// prefer any spottable within the panel body for first render
-			continue5WayHold: true,
-			defaultElement: [`.${spotlightDefaultClass}`, `.${css.body} *`],
-			enterTo: 'last-focused',
-			preserveId: true
-		},
-		Slottable(
-			{slots: ['header']},
-			Skinnable(
-				PanelBase
-			)
-		)
-	)
-);
-
-/**
- * Applies behaviors to [Panel]{@link sandstone/Panels.Panel} to support `featureContent`
- *
- * @class FeatureContentDecorator
- * @hoc
- * @memberof sandstone/Panels
- * @private
- */
-const FeatureContentDecorator = (Wrapped) => {
-	return Measurable({refProp: 'titleRef', measurementProp: 'titleMeasurements'},
-		ScrollPositionDecorator({valueProp: 'shouldFeatureContent', transform: ({y}) => (y > scale(360))},
-			function CollapseWrapper ({style, className, titleMeasurements, ...rest}) {
-				const {shouldFeatureContent} = useScrollPosition();
-
-				const enhancedStyle = {
-					...style,
-					'--sand-panels-header-title-height': titleMeasurements && titleMeasurements.height + 'px' || '0px'
-				};
-
-				const enhancedClassName = classnames(
-					className,
-					shouldFeatureContent ? css.shouldFeatureContent : '',
-					css.featureContent
-				);
-				return <Wrapped {...rest} className={enhancedClassName} style={enhancedStyle} />;
-			}
-		)
-	);
-};
-
-const FeatureContentPanel = FeatureContentDecorator(RootPanel);
-
-// This is a work around until we could implement a hook-based solution
-function Panel ({featureContent, ...rest}) {
-	if (featureContent) {
-		return <FeatureContentPanel {...rest} />;
-	}
-
-	return <RootPanel {...rest} />;
-}
-
-Panel.propTypes = {
-	/**
-	 * Features the content of the panel by minimizing the `Header` when scrolling down.
-	 *
-	 * @memberof sandstone/Panels.Panel.prototype
-	 * @type {Boolean}
-	 * @public
-	 */
-	featureContent: PropTypes.bool
-};
+const Panel = PanelDecorator(PanelBase);
 
 export default Panel;
-export {Panel, PanelBase};
+export {Panel, PanelBase, PanelDecorator};

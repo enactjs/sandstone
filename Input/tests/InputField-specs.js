@@ -38,6 +38,77 @@ describe('InputField Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
+	test('should forward an event with a stopPropagation method from onChange handler', () => {
+		const handleChange = jest.fn();
+		const evt = {
+			stopPropagation: jest.fn()
+		};
+
+		const subject = mount(
+			<InputField onChange={handleChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = true;
+		const actual = typeof handleChange.mock.calls[0][0].stopPropagation === 'function';
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not bubble the native event when stopPropagation from onChange is called', () => {
+		const handleChange = jest.fn();
+		function stop (ev) {
+			ev.stopPropagation();
+		}
+
+		const subject = mount(
+			<div onChange={handleChange}>
+				<InputField onChange={stop} />
+			</div>
+		);
+
+		subject.find('input').simulate('change', {});
+
+		const expected = 0;
+		const actual = handleChange;
+
+		expect(actual).toHaveBeenCalledTimes(expected);
+	});
+
+	test('should callback onBeforeChange before the text changes', () => {
+		const handleBeforeChange = jest.fn();
+		const value = 'blah';
+		const evt = {target: {value: value}};
+		const subject = mount(
+			<InputField onBeforeChange={handleBeforeChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = value;
+		const actual = handleBeforeChange.mock.calls[0][0].value;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should prevent onChange if onBeforeChange prevents', () => {
+		const handleBeforeChange = jest.fn(ev => ev.preventDefault());
+		const handleChange = jest.fn();
+		const value = 'blah';
+		const evt = {target: {value: value}};
+		const subject = mount(
+			<InputField onBeforeChange={handleBeforeChange} onChange={handleChange} />
+		);
+
+		subject.find('input').simulate('change', evt);
+
+		const expected = 0;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
 	test('should blur input on enter if dismissOnEnter', () => {
 		const node = document.body.appendChild(document.createElement('div'));
 		const handleChange = jest.fn();
@@ -49,10 +120,50 @@ describe('InputField Specs', () => {
 		const input = subject.find('input');
 
 		input.simulate('mouseDown');
-		input.simulate('keyUp', {which: 13, keyCode: 13, code:13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
 		node.remove();
 
 		const expected = 1;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should activate input on enter', () => {
+		const node = document.body.appendChild(document.createElement('div'));
+		const handleChange = jest.fn();
+
+		const subject = mount(
+			<InputField onActivate={handleChange} />,
+			{attachTo: node}
+		);
+		const input = subject.find('input');
+
+		input.simulate('keyDown', {which: 13, keyCode: 13, code: 13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
+		node.remove();
+
+		const expected = 1;
+		const actual = handleChange.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not activate input on enter when disabled', () => {
+		const node = document.body.appendChild(document.createElement('div'));
+		const handleChange = jest.fn();
+
+		const subject = mount(
+			<InputField disabled onActivate={handleChange} />,
+			{attachTo: node}
+		);
+		const input = subject.find('input');
+
+		input.simulate('keyDown', {which: 13, keyCode: 13, code: 13});
+		input.simulate('keyUp', {which: 13, keyCode: 13, code: 13});
+		node.remove();
+
+		const expected = 0;
 		const actual = handleChange.mock.calls.length;
 
 		expect(actual).toBe(expected);

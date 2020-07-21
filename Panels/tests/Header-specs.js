@@ -3,6 +3,11 @@ import {mount} from 'enzyme';
 import Header from '../Header';
 import css from '../Header.module.less';
 
+const tap = (node) => {
+	node.simulate('mousedown');
+	node.simulate('mouseup');
+};
+
 describe('Header Specs', () => {
 
 	test('should render with title text without changing case', () => {
@@ -104,28 +109,100 @@ describe('Header Specs', () => {
 		expect(actual).toBe(expected);
 	});
 
-	// Deprecated
-	test.skip('should inject a custom component when headerInput is used', () => {
-		// This just uses an <input> tag for easy discoverability. It should behave the same way
-		// as a sandstone/Input, the standard here, but that would require importing a diffenent
-		// component than what we're testing here.
-		const Input = () => <input />;
-
-		// For the purpose of this test, we must also set the `showInput` prop, due to a rendering
-		// optimization in Transition, which doesn't render invisible content, which the Input
-		// initially is without this flag.
+	test('should not render back button', () => {
 		const subject = mount(
-			<Header showInput>
-				<title>Header</title>
-				<headerInput>
-					<Input />
-				</headerInput>
-			</Header>
+			<Header />
 		);
 
-		const expected = 1;
-		const actual = subject.find(Input);
+		const backButton = subject.find(`.${css.slotBefore}`).find('Button');
+		const expected = 0;
+		const actual = backButton.length;
 
-		expect(actual).toHaveLength(expected);
+		expect(actual).toBe(expected);
+	});
+
+	test('should render close button when \'noCloseButton\' is not specified', () => {
+		const subject = mount(
+			<Header />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 1;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not render close button when \'noCloseButton\' is set to true', () => {
+		const subject = mount(
+			<Header noCloseButton />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 0;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onClose when close button is clicked', () => {
+		const handleClose = jest.fn();
+		const subject = mount(
+			<Header onClose={handleClose} />
+		);
+
+		tap(subject.find(`.${css.slotAfter}`).find('Button'));
+
+		const expected = 1;
+		const actual = handleClose.mock.calls.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should set close button "aria-label" to closeButtonAriaLabel', () => {
+		const label = 'custom close button label';
+		const subject = mount(
+			<Header closeButtonAriaLabel={label} />
+		);
+
+		const expected = label;
+		const actual = subject.find(`.${css.slotAfter}`).find('Button').prop('aria-label');
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should use `ViewManager` for `type="wizard"`', () => {
+		const subject = mount(
+			<Header
+				type="wizard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = {
+			duration: 500,
+			index: 0
+		};
+		const actual = subject.find('ViewManager').props();
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not use `ViewManager` for other `type` values', () => {
+		const subject = mount(
+			<Header
+				type="standard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = 0;
+		const actual = subject.find('ViewManager').length;
+
+		expect(actual).toBe(expected);
 	});
 });

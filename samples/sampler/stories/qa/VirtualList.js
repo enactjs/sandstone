@@ -1,3 +1,4 @@
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
@@ -10,10 +11,13 @@ import PropTypes from 'prop-types';
 import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
+import Button from '@enact/sandstone/Button';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
+
+import css from './VirtualList.module.less';
 
 const Config = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
@@ -37,9 +41,7 @@ const
 	},
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (ItemComponent, size, vertical, onClick) => ({index, ...rest}) => {
-		const style = vertical ?
-			{margin: 0} :
-			{margin: 0, height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
+		const style = vertical ? {} : {height: '100%', width: ri.unit(size, 'rem'), writingMode: 'vertical-lr'};
 
 		return (
 			<ItemComponent index={index} style={style} onClick={onClick} {...rest}>
@@ -109,6 +111,23 @@ class StatefulSwitchItem extends React.Component {
 	}
 }
 
+const ContainerItemWithControls = SpotlightContainerDecorator(({children, index, ...rest}) => {
+	const itemHeight = ri.scaleToRem(156);
+	const containerStyle = {display: 'flex', width: '100%', height: itemHeight};
+	const textStyle = {flex: '1 1 100%', lineHeight: itemHeight};
+	const switchStyle = {flex: '0 0 auto'};
+	return (
+		<div {...rest} style={containerStyle}>
+			<div style={textStyle}>
+				{children}
+			</div>
+			<Button icon="list" data-index={index} style={switchStyle} />
+			<Button icon="star" data-index={index} style={switchStyle} />
+			<Button icon="home" data-index={index} style={switchStyle} />
+		</div>
+	);
+});
+
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
@@ -170,6 +189,7 @@ storiesOf('VirtualList', module)
 		'horizontal scroll in Scroller',
 		() => {
 			const listProps = {
+				className: css.horizontalPadding,
 				dataSize: updateDataSize(number('dataSize', Config, defaultDataSize)),
 				direction: 'horizontal',
 				horizontalScrollbar: select('horizontalScrollbar', prop.scrollbarOption, Config),
@@ -188,7 +208,7 @@ storiesOf('VirtualList', module)
 			};
 
 			return (
-				<Scroller >
+				<Scroller className={css.verticalPadding}>
 					<VirtualList {...listProps} key="1" />
 					<VirtualList {...listProps} key="2" />
 					<VirtualList {...listProps} key="3" />
@@ -245,8 +265,7 @@ storiesOf('VirtualList', module)
 	)
 	.add(
 		'in Panels',
-		context => {
-			context.noPanels = true;
+		(context) => {
 			const title = `${context.kind} ${context.story}`.trim();
 			return (
 				<InPanels
@@ -266,6 +285,11 @@ storiesOf('VirtualList', module)
 					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 				/>
 			);
+		},
+		{
+			props: {
+				noPanels: true
+			}
 		}
 	)
 	.add(
@@ -328,10 +352,33 @@ storiesOf('VirtualList', module)
 						verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 						wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 					/>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item1</Cell>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item2</Cell>
-					<Cell shrink component={Item} style={{margin: 0}}>extra item3</Cell>
+					<Cell shrink component={Item}>extra item1</Cell>
+					<Cell shrink component={Item}>extra item2</Cell>
+					<Cell shrink component={Item}>extra item3</Cell>
 				</Column>
+			);
+		},
+		{propTables: [Config]}
+	)
+	.add(
+		'with container items have spottable controls',
+		() => {
+			return (
+				<VirtualList
+					overscrollEffectOn={{
+						arrowKey: false,
+						drag: false,
+						pageKey: true,
+						track: false,
+						wheel: false
+					}}
+					dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
+					itemRenderer={renderItem(ContainerItemWithControls, ri.scale(number('itemSize', Config, 156)), true)}
+					itemSize={ri.scale(number('itemSize', Config, 156))}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+				/>
 			);
 		},
 		{propTables: [Config]}

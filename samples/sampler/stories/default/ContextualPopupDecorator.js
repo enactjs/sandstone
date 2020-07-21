@@ -18,6 +18,7 @@ const Config = mergeComponentMetadata('ContextualPopupDecorator', Button, Contex
 // manually. This can (should) be revisited later to find out why and a solution.
 Config.defaultProps = {
 	direction: 'below center',
+	offset: 'small',
 	open: false,
 	spotlightRestrict: 'self-first'
 };
@@ -30,10 +31,11 @@ storiesOf('Sandstone', module)
 	.add(
 		'ContextualPopupDecorator',
 		() => (
-			<div style={{textAlign: 'center', marginTop: ri.unit(198, 'rem')}}>
+			<div style={{textAlign: 'center', marginTop: ri.scaleToRem(198)}}>
 				<ContextualButton
 					direction={select('direction', ['above', 'above center', 'above left', 'above right', 'below', 'below center', 'below left', 'below right', 'left middle', 'left top', 'left bottom', 'right middle', 'right top', 'right bottom'], Config)}
 					noAutoDismiss={boolean('noAutoDismiss', Config)}
+					offset={select('offset', ['none', 'overlap', 'small'], Config)}
 					onClose={action('onClose')}
 					open={boolean('open', Config)}
 					popupComponent={renderPopup}

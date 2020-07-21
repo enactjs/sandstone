@@ -7,16 +7,24 @@
  * @module sandstone/DatePicker
  * @exports DatePicker
  * @exports DatePickerBase
+ * @exports dateToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
 import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
+
+const getLabelFormatter = () => new DateFmt({
+	date: 'dmwy',
+	length: 'full',
+	timezone: 'local',
+	useNative: false
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
@@ -58,14 +66,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const formatter = new DateFmt({
-			date: 'dmwy',
-			length: 'full',
-			timezone: 'local',
-			useNative: false
-		});
-
-		const order = formatter.getTemplate()
+		const order = getLabelFormatter().getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(/([mdy]+)/ig)
 			.map(s => s[0].toLowerCase());
@@ -90,7 +91,7 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter, order, toLocalYear};
+		return {formatter: getLabelFormatter(), order, toLocalYear};
 	}
 };
 
@@ -117,8 +118,6 @@ const dateTimeConfig = {
  * @class DatePicker
  * @memberof sandstone/DatePicker
  * @extends sandstone/DatePicker.DatePickerBase
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
  * @omit day
  * @omit maxDays
@@ -156,8 +155,25 @@ const DatePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @function
+ * @memberof sandstone/DatePicker
+ * @param {Date} date `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const dateToLocaleString = (date) => {
+	if (!date) {
+		return null;
+	}
+
+	return getLabelFormatter().format(date);
+};
+
 export default DatePicker;
 export {
 	DatePicker,
-	DatePickerBase
+	DatePickerBase,
+	dateToLocaleString
 };

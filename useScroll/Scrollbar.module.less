@@ -6,21 +6,11 @@
 
 .scrollbar {
 	background: none;
-	display: flex;
 	border-color: transparent;
-	visibility: visible;
 	opacity: 1;
-	flex: none;
 
-	transform: translateZ(0);
-	-webkit-transform: translateZ(0);
-	transition: opacity 0.1s linear;
-	-moz-transition: opacity 0.1s linear;
-	-webkit-transition: opacity 0.1s linear;
-
-	&.vertical {
-		flex-direction: column;
-	}
+	transition: opacity 100ms ease-out;
+	will-change: opacity;
 
 	&.horizontal {
 		:global(.enact-locale-right-to-left) & {

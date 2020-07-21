@@ -18,7 +18,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ri from '@enact/ui/resolution';
 
-import {Tooltip, TooltipBase} from './Tooltip';
+import {Tooltip, TooltipBase, defaultArrowAnchor, defaultDirection} from './Tooltip';
 import {adjustDirection, adjustAnchor, calcOverflow, getLabelOffset, getPosition} from './util';
 
 let currentTooltip; // needed to know whether or not we should stop a showing job when unmounting
@@ -109,6 +109,17 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipDelay: PropTypes.number,
 
 			/**
+			 * Allows the tooltip to marquee.
+			 *
+			 * Specifying a [`tooltipWidth`]{@link sandstone/TooltipDecorator.TooltipDecorator#tooltipWidth}
+			 * restrects the marquee to that size.
+			 *
+			 * @type {Boolean}
+			 * @public
+			 */
+			tooltipMarquee: PropTypes.bool,
+
+			/**
 			 * Position of the tooltip with respect to the wrapped component.
 			 *
 			 * | *Value* | *Tooltip Direction* |
@@ -132,10 +143,12 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * requirements. Left and right directions will reverse for RTL languages. Additionally,
 			 * the tooltip will reverse direction if it will prevent overflowing off the viewport
 			 *
+			 * For `type="balloon"`, the default is `"top right"`
+			 * For `type="transparent"`, the default is `"bottom center"`
+			 *
 			 * @type {('above'|'above center'|'above left'|'above right'|'below'|
 			 *  'below center'|'below left'|'below right'|'left bottom'|'left middle'|'left top'|
 			 * 	'right bottom'|'right middle'|'right top')}
-			 * @default 'above'
 			 * @public
 			 */
 			tooltipPosition: PropTypes.oneOf([
@@ -179,10 +192,24 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			/**
 			 * Tooltip content.
 			 *
-			 * @type {Node}
+			 * @type {String|Node}
 			 * @public
 			 */
 			tooltipText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+
+			/**
+			 * Type of tooltip.
+			 *
+			 * | *Value* | *Tooltip Appearance* |
+			 * |---|---|
+			 * | `'balloon'` | Tooltip with a border, background and arrow to the activator |
+			 * | `'transparent'` | Text only without any of the decorations above |
+			 *
+			 * @type {('balloon'|'transparent')}
+			 * @default 'balloon'
+			 * @public
+			 */
+			tooltipType: PropTypes.oneOf(['balloon', 'transparent']),
 
 			/**
 			 * The interval (in milliseconds) to recheck the math for a currently showing tooltip's
@@ -195,21 +222,27 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			tooltipUpdateDelay: PropTypes.number,
 
 			/**
-			 * The width of tooltip content in pixels (px).
+			 * The width of tooltip content.
 			 *
-			 * If the content goes over the given width, it will automatically wrap. When `null`,
-			 * content does not wrap.
+			 * Value expects a number of pixels, which will be automatically scaled to the
+			 * appropriate size given the current screen resolution, or a string value containing a
+			 * measurement and a valid CSS unit included. If the content goes over the given width,
+			 * it will automatically wrap, or marquee if `marquee` is enabled.
 			 *
-			 * @type {Number|null}
+			 * When `null`, content will auto-size and not wrap. If `tooltipMarquee` is also
+			 * enabled, marqueeing will begin when the width is greater than the default (theme
+			 * specified) width.
+			 *
+			 * @type {Number|String}
 			 * @public
 			 */
-			tooltipWidth: PropTypes.number
+			tooltipWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 		}
 
 		static defaultProps = {
 			disabled: false,
 			tooltipDelay: 500,
-			tooltipPosition: 'above',
+			tooltipType: 'balloon',
 			tooltipUpdateDelay: 400
 		}
 
@@ -238,6 +271,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (this.state.showing && (
 				prevProps.tooltipText !== this.props.tooltipText ||
 				prevProps.tooltipPosition !== this.props.tooltipPosition ||
+				prevProps.tooltipType !== this.props.tooltipType ||
 				prevState.showing !== this.state.showing
 			)) {
 				this.setTooltipLayout();
@@ -262,10 +296,11 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 
 		setTooltipLayout () {
+			const tooltipType = this.props.tooltipType;
 			if (!this.tooltipRef || !this.clientRef) return;
 
 			const screenEdgeKeepout = ri.scale(config.screenEdgeKeepout);
-			const position = this.props.tooltipPosition;
+			const position = this.props.tooltipPosition || (defaultDirection(tooltipType) + ' ' + defaultArrowAnchor(tooltipType));
 			const arr = position.split(' ');
 			let tooltipDirection = null;
 			let arrowAnchor = null;
@@ -414,7 +449,14 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		 * @private
 		 */
 		renderTooltip () {
-			const {children, tooltipRelative, tooltipProps, tooltipText, tooltipWidth} = this.props;
+			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
+			const {top, left} = this.state.position;
+			const tooltipStyle = {
+				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
+				// Moving the position to CSS variables where there are additional offset calculations
+				'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
+				'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
+			};
 
 			if (tooltipText) {
 				let renderedTooltip = (
@@ -425,9 +467,10 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
-						position={tooltipRelative ? null : this.state.position}
+						marquee={tooltipMarquee}
+						type={tooltipType}
 						relative={tooltipRelative}
-						style={{display: ((tooltipRelative && !this.state.showing) ? 'none' : null)}}
+						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
 						width={tooltipWidth}
 					>
@@ -476,10 +519,12 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			delete props.rtl;
 			delete props.tooltipDelay;
+			delete props.tooltipMarquee;
 			delete props.tooltipPosition;
 			delete props.tooltipProps;
 			delete props.tooltipRelative;
 			delete props.tooltipText;
+			delete props.tooltipType;
 			delete props.tooltipUpdateDelay;
 			delete props.tooltipWidth;
 

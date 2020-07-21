@@ -1,0 +1,25 @@
+// DateTime.module.less
+//
+@import "../../styles/variables.less";
+
+.dateTime {
+	display: inline-block;
+
+	.heading {
+		font-weight: normal;
+	}
+
+	.pickers {
+		vertical-align: middle;
+		// direction: ltr;
+		margin: @sand-component-spacing;
+
+		> *:first-child {
+			margin-inline-start: 0
+		}
+
+		> *:last-child {
+			margin-inline-end: 0
+		}
+	}
+}

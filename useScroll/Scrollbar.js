@@ -1,6 +1,6 @@
 import {useScrollbar as useScrollbarBase} from '@enact/ui/useScroll/Scrollbar';
 import PropTypes from 'prop-types';
-import React, {memo} from 'react';
+import React, {memo, useCallback} from 'react';
 
 import ScrollbarTrack from './ScrollbarTrack';
 import Skinnable from '../Skinnable';
@@ -15,6 +15,7 @@ const useThemeScrollbar = (props) => {
 	} = useScrollbarBase(props);
 
 	const {
+		'aria-label': ariaLabel,
 		cbAlertScrollbarTrack,
 		focusableScrollbar,
 		onInteractionForScroll,
@@ -22,11 +23,51 @@ const useThemeScrollbar = (props) => {
 		...rest
 	} = restProps;
 
+	const
+		{ref: scrollbarContainerRef} = scrollbarProps,
+		{ref: scrollbarTrackRef} = scrollbarTrackProps,
+		{vertical} = props;
+
+	const onClick = useCallback((ev) => {
+		// Click on bodyText scrollbar.
+		const {nativeEvent, target} = ev;
+
+		if (!focusableScrollbar || !scrollbarTrackRef.current) {
+			return;
+		}
+
+		// Click the scrollbar area. If user click the thumb, do nothing.
+		if ((target === scrollbarContainerRef.current) ||
+			(target === scrollbarTrackRef.current)) {
+			const
+				clickPoint = nativeEvent[vertical ? 'offsetY' : 'offsetX'],
+				thumb = scrollbarTrackRef.current.children[0],
+				thumbPosition = thumb[vertical ? 'offsetTop' : 'offsetLeft'],
+				thumbSize = thumb[vertical ? 'offsetHeight' : 'offsetWidth'],
+				clickThumb = clickPoint > thumbPosition && clickPoint < thumbPosition + thumbSize;
+
+			if (!clickThumb) {
+				ev.preventDefault();
+				ev.nativeEvent.stopImmediatePropagation();
+				onInteractionForScroll({
+					inputType: 'track',
+					isForward: clickPoint > thumbPosition,
+					isPagination: true,
+					isVerticalScrollBar: vertical
+				});
+			}
+		}
+	}, [focusableScrollbar, onInteractionForScroll, scrollbarContainerRef, scrollbarTrackRef, vertical]);
+
 	return {
 		restProps: rest,
-		scrollbarProps,
+		scrollbarProps: {
+			...scrollbarProps,
+			onClick
+		},
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
+			'aria-label': ariaLabel,
 			cbAlertScrollbarTrack,
 			focusableScrollbar,
 			onInteractionForScroll,

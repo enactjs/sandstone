@@ -1,3 +1,4 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import ForwardRef from '@enact/ui/ForwardRef';
 import kind from '@enact/core/kind';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
@@ -6,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import Marquee from '../Marquee';
 
-import css from './VideoPlayer.module.less';
+import css from './MediaTitle.module.less';
 
 /**
  * MediaTitle {@link sandstone/VideoPlayer}.
@@ -42,10 +43,10 @@ const MediaTitleBase = kind({
 		/**
 		 * Forwards a reference to the MediaTitle component.
 		 *
-		 * @type {Function}
+		 * @type {Object|Function}
 		 * @private
 		 */
-		forwardRef: PropTypes.func,
+		forwardRef: EnactPropTypes.ref,
 
 		/**
 		 * Control whether the children (infoComponents) are displayed.
@@ -59,7 +60,7 @@ const MediaTitleBase = kind({
 		/**
 		 * A title string to identify the media's title.
 		 *
-		 * @type {Node}
+		 * @type {String|Node}
 		 * @public
 		 */
 		title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

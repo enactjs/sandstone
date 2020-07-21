@@ -304,6 +304,7 @@ const SliderBase = kind({
 				tooltipComponent={
 					<ComponentOverride
 						component={tooltip}
+						css={css}
 						visible={focused}
 					/>
 				}
@@ -366,8 +367,7 @@ const Slider = SliderDecorator(SliderBase);
 
 /**
  * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
  * [Slider]{@link sandstone/Slider.Slider}.
  *
  * @see {@link sandstone/ProgressBar.ProgressBarTooltip}

@@ -1,5 +1,5 @@
 import kind from '@enact/core/kind';
-import {handle, adaptEvent, forward} from '@enact/core/handle';
+import {handle, adaptEvent, forwardCustom, forwardWithPrevent} from '@enact/core/handle';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import {isRtlText} from '@enact/i18n/util';
 import Changeable from '@enact/ui/Changeable';
@@ -42,6 +42,8 @@ const InputFieldBase = kind({
 		 * * `inputField` - The root class name
 		 * * `input` - The <input> class name
 		 * * `inputHighlight` - The class used to make input text appear highlighted when `.inputField` has focus, but not `.input`
+		 * * `tooltip` - The "invalid" tooltip
+		 * * `tooltipLabel` - The "invalid" tooltip's label
 		 *
 		 * @type {Object}
 		 * @private
@@ -112,6 +114,16 @@ const InputFieldBase = kind({
 		invalidMessage: PropTypes.string,
 
 		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
+
+		/**
 		 * Called when blurred.
 		 *
 		 * @type {Function}
@@ -122,6 +134,10 @@ const InputFieldBase = kind({
 
 		/**
 		 * Called when the input value is changed.
+		 *
+		 * The event payload includes the current `value` as well as a `stopPropagation()` method
+		 * which may be called to stop the original `onChange` event from the `<input>` from
+		 * bubbling.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -177,7 +193,7 @@ const InputFieldBase = kind({
 		 * The size of the input field.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'large'
+		 * @default 'small'
 		 * @public
 		 */
 		size: PropTypes.oneOf(['small', 'large']),
@@ -208,22 +224,29 @@ const InputFieldBase = kind({
 		dismissOnEnter: false,
 		invalid: false,
 		placeholder: '',
-		size: 'large',
+		size: 'small',
 		type: 'text'
 	},
 
 	styles: {
 		css: componentCss,
 		className: 'inputField',
-		publicClassNames: ['inputField', 'input', 'inputHighlight']
+		publicClassNames: ['inputField', 'input', 'inputHighlight', 'tooltip', 'tooltipLabel']
 	},
 
 	handlers: {
 		onChange: handle(
 			adaptEvent(
-				ev => ({value: ev.target.value}),
-				forward('onChange')
-			)
+				ev => ({
+					type: 'onBeforeChange',
+					value: ev.target.value
+				}),
+				forwardWithPrevent('onBeforeChange')
+			),
+			forwardCustom('onChange', ev => ({
+				stopPropagation: () => ev.stopPropagation(),
+				value: ev.target.value
+			}))
 		)
 	},
 
@@ -234,11 +257,10 @@ const InputFieldBase = kind({
 		},
 		className: ({invalid, size, styler}) => styler.append({invalid}, size),
 		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
+		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.')}) => {
 			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
 				return (
-					<Tooltip arrowAnchor="top" className={css.invalidTooltip} direction={direction}>
+					<Tooltip css={css} marquee relative type="transparent">
 						{invalidMessage}
 					</Tooltip>
 				);
@@ -254,6 +276,7 @@ const InputFieldBase = kind({
 		delete rest.dismissOnEnter;
 		delete rest.invalid;
 		delete rest.invalidMessage;
+		delete rest.onBeforeChange;
 		delete rest.rtl;
 
 		return (

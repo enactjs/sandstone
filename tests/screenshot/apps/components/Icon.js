@@ -8,26 +8,33 @@ const IconTests = [
 	<Icon size="tiny">minus</Icon>,
 	<Icon size="medium">minus</Icon>,
 	<Icon size="large">minus</Icon>,
-	<Icon>💣</Icon>,  // testing 'custom-icon' using unicode character
+	<Icon size={120}>minus</Icon>,
+	<Icon>💣</Icon>, // [GT-28730] testing 'custom-icon' using unicode character
 	<Icon size="tiny">💣</Icon>,
 	<Icon size="medium">💣</Icon>,
 	<Icon size="large">💣</Icon>,
-	<Icon>{buttonstate}</Icon>,
+	<Icon size={120}>💣</Icon>,
+	<Icon>{buttonstate}</Icon>,  // [GT-28730]
 	<Icon size="tiny">{buttonstate}</Icon>,
 	<Icon size="medium">{buttonstate}</Icon>,
 	<Icon size="large">{buttonstate}</Icon>,
-	<Icon flip="vertical">question</Icon>,
-	<Icon flip="vertical" size="tiny">question</Icon>,
-	<Icon flip="vertical" size="medium">question</Icon>,
-	<Icon flip="vertical" size="large">question</Icon>,
-	<Icon flip="horizontal">question</Icon>,
-	<Icon flip="horizontal" size="tiny">question</Icon>,
-	<Icon flip="horizontal" size="medium">question</Icon>,
-	<Icon flip="horizontal" size="large">question</Icon>,
-	<Icon flip="both">repeat</Icon>,
-	<Icon flip="both" size="tiny">repeat</Icon>,
-	<Icon flip="both" size="medium">repeat</Icon>,
-	<Icon flip="both" size="large">repeat</Icon>,
+	<Icon flip="vertical">transponder</Icon>,
+	<Icon flip="vertical" size="tiny">transponder</Icon>,
+	<Icon flip="vertical" size="medium">transponder</Icon>,
+	<Icon flip="vertical" size="large">transponder</Icon>,
+	<Icon flip="horizontal">transponder</Icon>,
+	<Icon flip="horizontal" size="tiny">transponder</Icon>,
+	<Icon flip="horizontal" size="medium">transponder</Icon>,
+	<Icon flip="horizontal" size="large">transponder</Icon>,
+	<Icon flip="both">rotate</Icon>,
+	<Icon flip="both" size="tiny">rotate</Icon>,
+	<Icon flip="both" size="medium">rotate</Icon>,
+	<Icon flip="both" size="large">rotate</Icon>,
+	<Icon flip="auto">rotate</Icon>,
+	{
+		locale: 'ar-SA',
+		component: <Icon flip="auto">rotate</Icon>
+	},
 	{
 		textSize: 'large',
 		component: <Icon>plus</Icon>
@@ -103,51 +110,51 @@ const IconTests = [
 
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="vertical">question</Icon>
+		component: <Icon flip="vertical">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="vertical" size="tiny">question</Icon>
+		component: <Icon flip="vertical" size="tiny">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="vertical" size="medium">question</Icon>
+		component: <Icon flip="vertical" size="medium">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="vertical" size="large">question</Icon>
+		component: <Icon flip="vertical" size="large">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="horizontal">question</Icon>
+		component: <Icon flip="horizontal">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="horizontal" size="tiny">question</Icon>
+		component: <Icon flip="horizontal" size="tiny">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="horizontal" size="medium">question</Icon>
+		component: <Icon flip="horizontal" size="medium">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="horizontal" size="large">question</Icon>
+		component: <Icon flip="horizontal" size="large">transponder</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="both">repeat</Icon>
+		component: <Icon flip="both">rotate</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="both" size="tiny">repeat</Icon>
+		component: <Icon flip="both" size="tiny">rotate</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="both" size="medium">repeat</Icon>
+		component: <Icon flip="both" size="medium">rotate</Icon>
 	},
 	{
 		locale: 'ar-SA',
-		component: <Icon flip="both" size="large">repeat</Icon>
+		component: <Icon flip="both" size="large">rotate</Icon>
 	},
 	{
 		locale: 'ar-SA',

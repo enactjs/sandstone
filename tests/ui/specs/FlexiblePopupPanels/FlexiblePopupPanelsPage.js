@@ -9,16 +9,24 @@ class FlexiblePopupPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	waitForOpen (duration = 1000) {
-		this.self.waitForExist(duration);
+	waitForOpen (timeout = 1000) {
+		this.self.waitForExist({timeout});
 	}
 
-	waitForEnter (panel, duration = 1000) {
-		this['panel' + panel].waitForExist(duration);
+	waitForClose (timeout = 1000) {
+		this.self.waitForExist(timeout, true);
 	}
 
-	waitForLeave (panel, duration = 1000) {
-		this['panel' + panel].waitForExist(duration, true);
+	waitForEnter (panel, timeout = 1000) {
+		this['panel' + panel].waitForExist({timeout});
+	}
+
+	waitForPanelBody (panel, timeout = 2500) {
+		$(`${panelSelector(panel)} .Panels_Panel_visible`).waitForExist({timeout});
+	}
+
+	waitForLeave (panel, timeout = 1000) {
+		this['panel' + panel].waitForExist({timeout, reverse: true});
 	}
 
 	focusOpenButton () {
@@ -31,6 +39,20 @@ class FlexiblePopupPanelsInterface {
 
 	focusPrevButton () {
 		return browser.execute((el) => el.focus(), this.prevButton);
+	}
+
+	/* global document */
+	clickBelowPopup () {
+		const offset = browser.execute(function () {
+			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
+			const {bottom, left: left2} = document.querySelector('#panel1 .FlexiblePopupPanels_FlexiblePopupPanels_bodyLayout').getBoundingClientRect();
+
+			return {x: Math.ceil(left2 - left1) + 12, y: Math.ceil(bottom - top) + 12};
+		});
+
+		// Have to target open button because it does not allow for clicking outside the parents
+		// bounds, apparently.  Trying to offset from item1 or from panel1 does not work.
+		$('#openButton').click(offset);
 	}
 
 	get self () { return browser.$(this.selector); }
@@ -51,8 +73,7 @@ class FlexiblePopupPanelsPage extends Page {
 	constructor () {
 		super();
 		this.title = 'FlexiblePopupPanels Test';
-		this.components = {};
-		this.components.flexiblePopupPanels = new FlexiblePopupPanelsInterface('flexiblepopuppanels');
+		this.flexiblePopupPanels = new FlexiblePopupPanelsInterface('flexiblepopuppanels');
 	}
 
 	open (urlExtra) {

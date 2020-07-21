@@ -15,11 +15,11 @@ class PickerInterface {
 	get      self () { return element(`#${this.id}`, browser); }
 	get   chevron () { return getText(getIcon(this.self)); }
 
-	get hour () { return element('.TimePicker_TimePicker_hourComponents .internal_Picker_Picker_picker', this.self); }
-	get meridiem () { return element('.TimePicker_TimePicker_meridiemComponent .internal_Picker_Picker_picker', this.self); }
-	get minute () { return element('.TimePicker_TimePicker_minutesComponents .internal_Picker_Picker_picker', this.self); }
+	get hour () { return element('.TimePicker_TimePicker_hourPicker', this.self); }
+	get meridiem () { return element('.TimePicker_TimePicker_meridiemPicker', this.self); }
+	get minute () { return element('.TimePicker_TimePicker_minutePicker', this.self); }
 
-	get timeLabel () { return element('.TimePicker_TimePicker_pickerLabel', this.self);}
+	get timeLabel () { return element('.internal_DateTime_DateTime_heading', this.self);}
 
 	decrementer (picker) { return element('.internal_Picker_Picker_decrementer', picker); }
 	incrementer (picker) { return element('.internal_Picker_Picker_incrementer', picker); }

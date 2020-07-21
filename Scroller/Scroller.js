@@ -21,6 +21,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import Spottable from '@enact/spotlight/Spottable';
 import {ResizeContext} from '@enact/ui/Resizable';
 import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -31,6 +32,7 @@ import Skinnable from '../Skinnable';
 import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
+const SpottableDiv = Spottable('div');
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -59,40 +61,35 @@ let Scroller = (props) => {
 		scrollContainerProps,
 		scrollContentWrapperProps,
 		scrollContentProps,
-		ScrollToTopButton,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
 	} = useScroll(props);
 
 	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, scrollContentProps);
+	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+
+	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
+	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render
-	const scrollContainer = (
+	return (
 		<ResizeContext.Provider {...resizeContextProps}>
-			<div {...scrollContainerProps}>
-				<ScrollContentWrapper {...scrollContentWrapperProps}>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-				</ScrollContentWrapper>
-				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
-				{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
-				<ScrollToTopButton />
-			</div>
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				</ScrollBody>
+			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
-
-	if (props.focusableScrollbar === 'byEnter') {
-		const SpottableDiv = Spottable('div');
-		return (
-			<SpottableDiv {...focusableBodyProps}>
-				{scrollContainer}
-			</SpottableDiv>
-		);
-	} else {
-		return scrollContainer;
-	}
 };
 
 Scroller.displayName = 'Scroller';
@@ -156,25 +153,33 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Direction of the scroller.
 	 *
-	 * Valid values are:
-	 * * `'both'`,
-	 * * `'horizontal'`, and
-	 * * `'vertical'`.
-	 *
-	 * @type {String}
+	 * @type {('both'|'horizontal'|'vertical')}
 	 * @default 'both'
 	 * @public
 	 */
-	direction: PropTypes.string,
+	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * Adds fade-out effect on the scroller.
+	 *
+	 * Set this to `true` only if the content has no spottable but text.
+	 * > Note: Fade-out effect will not show if the `direction` is set to `both`.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	fadeOut: PropTypes.bool,
 
 	/**
 	 * Allows 5-way navigation to the scroll thumb.
+	 *
 	 * By default, 5-way will not move focus to the scroll thumb.
 	 * If `true`, the scroll thumb will get focus by directional keys.
 	 * If `'byEnter'`, scroll body will get focus first by directional keys,
 	 * then the scroll thumb will get focus by enter key pressed on scroll body.
 	 *
-	 * @type {Boolean|String}
+	 * @type {Boolean|'byEnter'}
 	 * @default false
 	 * @public
 	 */
@@ -183,16 +188,20 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Specifies how to show horizontal scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
 	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
 
 	/**
 	 * Unique identifier for the component.
@@ -205,15 +214,6 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	 * @public
 	 */
 	id: PropTypes.string,
-
-	/**
-	 * Removes fade-out effect on the scroller.
-	 *
-	 * @type {Boolean}
-	 * @default false
-	 * @private
-	 */
-	noFadeOut: PropTypes.bool,
 
 	/**
 	 * Prevents scroll by dragging or flicking on the scroller.
@@ -328,29 +328,29 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * Specifies how to scroll.
 	 *
-	 * Valid values are:
-	 * * `'translate'`,
-	 * * `'native'`.
-	 *
-	 * @type {String}
+	 * @type {('native'|'translate')}
 	 * @default 'native'
 	 * @public
 	 */
-	scrollMode: PropTypes.string,
+	scrollMode: PropTypes.oneOf(['native', 'translate']),
 
 	/**
 	 * Specifies how to show vertical scrollbar.
 	 *
-	 * Valid values are:
-	 * * `'auto'`,
-	 * * `'visible'`, and
-	 * * `'hidden'`.
-	 *
-	 * @type {String}
+	 * @type {('auto'|'visible'|'hidden')}
 	 * @default 'auto'
 	 * @public
 	 */
-	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden'])
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string
 };
 
 Scroller = Skinnable(
@@ -371,9 +371,9 @@ Scroller.defaultProps = {
 	'data-spotlight-container-disabled': false,
 	cbScrollTo: nop,
 	direction: 'both',
+	fadeOut: false,
 	focusableScrollbar: false,
 	horizontalScrollbar: 'auto',
-	noFadeOut: false,
 	noScrollByDrag: false,
 	noScrollByWheel: false,
 	onScroll: nop,

@@ -33,6 +33,8 @@ import {MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 import componentCss from './KeyGuide.module.less';
 
+const colorKeys = ['red', 'green', 'yellow', 'blue'];
+
 /**
  * A Key Guide component.
  *
@@ -51,16 +53,17 @@ const KeyGuideBase = kind({
 		/**
 		 * The items to be displayed in the `KeyGuide` when `open`.
 		 *
-		 * Takes an array of objects. The properties will be passed onto an `LabeledIcon` component
-		 * and `children` as well as a unique `key` property are required.
+		 * Takes an array of objects. The properties will be passed onto an `Item` component.
+		 * The object requires `children`, and a unique `key` property. If the `icon` property is one
+		 * of `'red'`, `'green'`, `'yellow'` or '`blue'`, a corresponding color bar is shown.
 		 *
-		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String)}>}
+		 * @type {Array.<{children: (String|Component), key: (Number|String), icon: (String|Object|'red'|'green'|'yellow'|'blue')}>}
 		 * @public
 		 */
 		children: PropTypes.arrayOf(PropTypes.shape({
 			children: EnactPropTypes.renderable.isRequired,
 			key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-			icon: PropTypes.string
+			icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 		})),
 
 		/**
@@ -85,20 +88,19 @@ const KeyGuideBase = kind({
 		open: PropTypes.bool
 	},
 
-	defaultProps: {
-		children: []
-	},
-
 	computed: {
 		children: ({children, css}) => (
-			children.map(({icon, ...child}) => {
+			children ? children.map(({icon, ...child}) => {
+				const isColorKey = colorKeys.includes(icon);
 				return {
 					...child,
-					slotBefore: <Icon className={css.icon}>{icon}</Icon>
+					slotBefore: isColorKey ? (
+						<div className={css[icon]} />
+					) : <Icon className={css.icon}>{icon}</Icon>
 				};
-			})
+			}) : []
 		),
-		open: ({children, open}) => (children.length > 0 && open)
+		open: ({children, open}) => (children && children.length > 0 && open)
 	},
 
 	styles: {
@@ -116,6 +118,7 @@ const KeyGuideBase = kind({
 			>
 				<Repeater
 					{...rest}
+					component="div"
 					childComponent={ItemBase}
 					itemProps={{css, marqueeOn: 'render'}}
 				/>

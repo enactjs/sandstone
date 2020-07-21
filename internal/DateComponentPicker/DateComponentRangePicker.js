@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 
 import RangePicker from '../../RangePicker';
 
-import DateComponentPickerChrome from './DateComponentPickerChrome';
-
+import css from './DateComponentPicker.module.less';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentRangePicker} allows the selection of
@@ -79,27 +78,30 @@ const DateComponentRangePickerBase = kind({
 		wrap: PropTypes.bool
 	},
 
+	styles: {
+		css,
+		className: 'dateComponentPicker'
+	},
+
 	computed: {
 		voiceLabel: ({min, max}) => {
 			return JSON.stringify([min, max]);
 		}
 	},
 
-	render: ({accessibilityHint, className, label, max, min, noAnimation, value, wrap, voiceLabel, ...rest}) => (
-		<DateComponentPickerChrome className={className} label={label}>
-			<RangePicker
-				{...rest}
-				accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
-				data-webos-voice-labels-ext={voiceLabel}
-				joined
-				max={max}
-				min={min}
-				noAnimation={noAnimation}
-				orientation="vertical"
-				value={value}
-				wrap={wrap}
-			/>
-		</DateComponentPickerChrome>
+	render: ({accessibilityHint, label, max, min, noAnimation, value, wrap, voiceLabel, ...rest}) => (
+		<RangePicker
+			{...rest}
+			accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
+			data-webos-voice-labels-ext={voiceLabel}
+			joined
+			max={max}
+			min={min}
+			noAnimation={noAnimation}
+			orientation="vertical"
+			value={value}
+			wrap={wrap}
+		/>
 	)
 });
 

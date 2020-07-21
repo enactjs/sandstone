@@ -4,13 +4,6 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
-// Add button-specific rules to the shared resting-colors mixin
-.sand-button-spotlight-resting-colors() {
-	.sand-spotlight-resting-colors();
-	will-change+: transform;
-	transition+: transform @sand-button-focus-duration ease-out;
-}
-
 .button {
 	// default is size="large"
 	.sand-large-button-text();
@@ -20,7 +13,7 @@
 	min-width: @sand-button-height;
 	max-width: @sand-button-max-width;
 	padding: 0 @sand-button-h-padding;
-	margin: 0 @sand-button-h-margin;
+	margin: @sand-button-margin;
 	text-align: center;
 	vertical-align: middle;
 	.sand-taparea(@sand-button-height);
@@ -31,6 +24,14 @@
 		min-width: @sand-button-height-large;
 		line-height: (@sand-button-height-large - (2 * @sand-button-border-width));
 	});
+
+	&.focusStatic {
+		/* Defined to prevent global export */
+	}
+
+	&.focusExpand {
+		margin: @sand-button-focusexpand-margin;
+	}
 
 	.bg {
 		border-width: @sand-button-border-width;
@@ -110,11 +111,12 @@
 		flex-grow: 1;
 	}
 
-	// Only center the text if there is no icon. Otherwise, the default is to just leave its
-	// alignment alone, since we don't want to try to override marquee's directionality alignment.
+	// Only center the text if there is no icon and no color. We'll explicitly override Marquee's
+	// alignment for this case, relying on the parent node's alignment preference (inherit).
+	// Otherwise, the default is to just leave alignment to Marquee to handle.
 	&:not(.hasIcon):not(.hasColor) {
 		.marquee {
-			text-align: center;
+			text-align: inherit;
 		}
 	}
 
@@ -128,10 +130,14 @@
 		min-width: @sand-button-small-height;
 		max-width: @sand-button-small-max-width;
 		line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
-		margin: 0 @sand-button-small-h-margin;
+		margin: @sand-button-small-margin;
 		padding-left: @sand-button-small-h-padding;
 		padding-right: @sand-button-small-h-padding;
 		.sand-taparea(@sand-button-small-height);
+
+		&.focusExpand {
+			margin: @sand-button-small-focusexpand-margin;
+		}
 
 		// Standard Button Scenario
 		&.minWidth {
@@ -208,6 +214,7 @@
 		&.large,
 		&.small {
 			padding: @sand-button-icon-small-padding;
+			.padding-start-end(.extract(@sand-button-icon-small-padding, left)[], .extract(@sand-button-icon-small-padding, right)[]);
 
 			.icon {
 				margin: 0; // reset margins for `IconButton`
@@ -239,6 +246,30 @@
 		}
 	}
 
+	// Collapsable only has an effect if there is both an icon and text.
+	&.collapsable.hasIcon:not(.iconOnly) {
+		padding-left: 0;
+		padding-right: 0;
+		transition: min-width @sand-button-collapse-duration ease-out;
+
+		.icon {
+			margin: @sand-button-collapsable-icon-margin;
+		}
+
+		.marquee {
+			margin: 0;
+			opacity: 1;
+			transition: opacity @sand-button-collapse-duration ease-out;
+			will-change: opacity;
+		}
+
+		&.collapsed {
+			.marquee {
+				opacity: 0;
+			}
+		}
+	}
+
 	// Skin colors
 	.applySkins({
 		&,
@@ -247,24 +278,22 @@
 		}
 
 		.bg {
+			.sand-button-resting-bg-colors();
 			border-color: transparent;
-			.sand-button-spotlight-resting-colors();
 		}
 
 		&.opaque {
 			color: @sand-button-text-color;
 
 			.bg {
-				background-color: @sand-button-bg-color;
 				opacity: @sand-button-bg-opacity;
 			}
 		}
 
 		&.transparent {
-			color: @sand-text-color;
+			color: @sand-button-transparent-text-color;
 
 			.bg {
-				background-color: @sand-button-transparent-bg-color;
 				opacity: @sand-button-transparent-bg-opacity;
 			}
 		}
@@ -284,46 +313,40 @@
 
 		&.selected {
 			.bg {
-				.sand-button-spotlight-resting-colors();
-				filter+_: saturate(1.5) brightness(0.5); // Simulates #3e454d, the spec color
+				.sand-button-selected-colors();
 			}
 
 			&.opaque {
 				.bg {
-					background-color: @sand-button-bg-color;
 					opacity: @sand-button-bg-opacity;
 				}
 			}
 
 			&.transparent {
 				.bg {
-					background-color: @sand-button-bg-color;
 					opacity: @sand-button-transparent-selected-bg-opacity;
 				}
 			}
 		}
 
 		.focus({
-			color: @sand-button-focus-text-color;
+			.sand-spotlight-focus-text-colors();
 
 			.bg {
-				.sand-spotlight-focus-colors();
+				.sand-button-focus-bg-colors();
 			}
 
-			// The technique below is special handling for opaque buttons, which have an opaque
-			// color defined for the initial background-color. This means we can't use the
-			// traditional opacity change to animate the difference. Instead, this smoothly applies
-			// (via transition) a series of filters that match the spotlight-focus bg color. The
-			// values were manually calculated to perfectly match, taking the resting bg-color and
-			// adjusting it to become the focus-bg-color. If either color value changes, these
-			// adjustments must be recalculated. This is not automatic. It may be possible to
-			// autonomously calculate this in the future...
-			&.opaque,
-			&.selected.transparent {
+			&.focusExpand {
 				.bg {
-					.sand-spotlight-focus-colors();
-					background-color: @sand-button-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
-					filter+_: saturate(0) brightness(1.89);
+					.sand-bg-colors({
+						transform: @sand-button-focusexpand-focus-bg-transform;
+					});
+				}
+
+				&.small .bg {
+					.sand-bg-colors({
+						transform: @sand-button-small-focusexpand-focus-bg-transform;
+					});
 				}
 			}
 		});
@@ -333,23 +356,40 @@
 			.focus({
 				z-index: 1;
 
-				.bg {
-					transform: @sand-button-focus-bg-transform;
-				}
-
-				&.small .bg {
-					transform: @sand-button-small-focus-bg-transform;
-				}
-
-				&.pressed,
-				&:active {
-					.bg {
-						transform: @sand-button-pressed-bg-transform;
-					}
-
-					&.small {
+				&.focusExpand {
+					&.pressed,
+					&:active {
 						.bg {
-							transform: @sand-button-small-pressed-bg-transform;
+							.sand-bg-colors({
+								transform: @sand-button-focusexpand-pressed-bg-transform;
+							});
+						}
+
+						&.small {
+							.bg {
+								.sand-bg-colors({
+									transform: @sand-button-small-focusexpand-pressed-bg-transform;
+								});
+							}
+						}
+					}
+				}
+				&:not(.focusExpand) {
+					// Non expandable buttons still support a pressed transform (scale)
+					&.pressed,
+					&:active {
+						.bg {
+							.sand-bg-colors({
+								transform: @sand-button-pressed-bg-transform;
+							});
+						}
+
+						&.small {
+							.bg {
+								.sand-bg-colors({
+									transform: @sand-button-small-pressed-bg-transform;
+								});
+							}
 						}
 					}
 				}

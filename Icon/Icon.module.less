@@ -4,78 +4,52 @@
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
+// Create a module-level LESS variable containing a our CSS variable with a default assigned.
+// Assign the default here, rather than assigning it on every usage of --icon-size.
+@icon-size: ~"var(--icon-size, " @sand-icon-small-size ~")";
+
 .icon {
 	background-repeat: no-repeat;
 	text-align: center;
 	position: relative;
 	font-family: @sand-icon-font-family;
 	margin: @sand-icon-margin;
+	overflow: hidden; // prevent drawing outside the icon DOM box. Glyph icons are scaled 2x larger, which means their inline dimensions fall outside the container. This prevents them from drawing and receiving pointer events.
 
 	&.large {
-		width: @sand-icon-large-size;
-		height: @sand-icon-large-size;
-		font-size: @sand-icon-large-font-size;
-		line-height: @sand-icon-large-size;
-		background-position: center -((@sand-icon-large-sprite-size - @sand-icon-large-size) / 2);
-		background-size: @sand-icon-large-sprite-size (@sand-icon-large-sprite-size * 2);
+		--icon-size: @sand-icon-large-size;
 
 		.sand-custom-text({
-			font-size: @sand-icon-large-font-size-large;
-			width: @sand-icon-large-size-large;
-			height: @sand-icon-large-size-large;
-			line-height: @sand-icon-large-size-large;
+			--icon-size: @sand-icon-large-size-large;
 		});
 	}
 
 	&.medium {
-		width: @sand-icon-medium-size;
-		height: @sand-icon-medium-size;
-		font-size: @sand-icon-medium-font-size;
-		line-height: @sand-icon-medium-size;
-		background-position: center -((@sand-icon-medium-sprite-size - @sand-icon-medium-size) / 2);
-		background-size: @sand-icon-medium-sprite-size (@sand-icon-medium-sprite-size * 2);
+		--icon-size: @sand-icon-medium-size;
 	}
 
 	&.small {
-		width: @sand-icon-small-size;
-		height: @sand-icon-small-size;
-		font-size: @sand-icon-small-font-size;
-		line-height: @sand-icon-small-size;
-		background-position: center -((@sand-icon-small-sprite-size - @sand-icon-small-size) / 2);
-		background-size: @sand-icon-small-sprite-size (@sand-icon-small-sprite-size * 2);
+		--icon-size: @sand-icon-small-size;
 
 		.sand-custom-text({
-			font-size: @sand-icon-small-font-size-large;
-			width: @sand-icon-small-size-large;
-			height: @sand-icon-small-size-large;
-			line-height: @sand-icon-small-size-large;
+			--icon-size: @sand-icon-small-size-large;
 		});
 	}
 
 	&.tiny {
-		width: @sand-icon-tiny-size;
-		height: @sand-icon-tiny-size;
-		font-size: @sand-icon-tiny-font-size;
-		line-height: @sand-icon-tiny-size;
-		background-position: center -((@sand-icon-tiny-sprite-size - @sand-icon-tiny-size) / 2);
-		background-size: @sand-icon-tiny-sprite-size (@sand-icon-tiny-sprite-size * 2);
+		--icon-size: @sand-icon-tiny-size;
 	}
+
+	// Icon size calculations
+	width: @icon-size;
+	height: @icon-size;
+	font-size: @icon-size;
+	line-height: @icon-size;
+	background-position: center 0;
+	background-size: @icon-size calc(@icon-size * 2);
 
 	&.dingbat {
 		font-family: @sand-icon-other-font-family;
-
-		&.large {
-			font-size: @sand-icon-large-size;
-		}
-		&.medium {
-			font-size: @sand-icon-medium-size;
-		}
-		&.small {
-			font-size: @sand-icon-small-size;
-		}
-		&.tiny {
-			font-size: @sand-icon-tiny-size;
-		}
 	}
 
 	// Skin colors
@@ -86,44 +60,10 @@
 
 .focus({
 	.icon {
-		&.large {
-			background-position: center -(@sand-icon-large-sprite-size + ((@sand-icon-large-sprite-size - @sand-icon-large-size) / 2));
-		}
-		&.medium {
-			background-position: center -(@sand-icon-medium-sprite-size + ((@sand-icon-medium-sprite-size - @sand-icon-large-size) / 2));
-		}
-		&.small {
-			background-position: center -(@sand-icon-small-sprite-size + ((@sand-icon-small-sprite-size - @sand-icon-small-size) / 2));
-		}
-		&.tiny {
-			background-position: center -(@sand-icon-tiny-sprite-size + ((@sand-icon-tiny-sprite-size - @sand-icon-small-size) / 2));
-		}
+		background-position: center 100%;
 
 		.applySkins({
 			color: inherit;
 		});
 	}
-}, parent);
-
-.muted({
-	.focus({
-		.icon {
-			&.large {
-				background-position: center -((@sand-icon-large-sprite-size - @sand-icon-large-size) / 2);
-			}
-			&.medium {
-				background-position: center -((@sand-icon-medium-sprite-size - @sand-icon-medium-size) / 2);
-			}
-			&.small {
-				background-position: center -((@sand-icon-small-sprite-size - @sand-icon-small-size) / 2);
-			}
-			&.tiny {
-				background-position: center -((@sand-icon-tiny-sprite-size - @sand-icon-tiny-size) / 2);
-			}
-
-			.applySkins({
-				color: inherit;
-			});
-		}
-	}, parent);
 }, parent);

@@ -96,7 +96,7 @@ This document describes VirtualList, VirtualGridList, and Scroller.
 
 ### Items for VirtualGridList
 
-*   `GridListImageItem` components can be used as items of `VirtualGridList`. They have Sandstone styling applied and have a placeholder image as a background.
+*   `ImageItem` components can be used as items of `VirtualGridList`. They have Sandstone styling applied and have a placeholder image as a background.
 
 *   `caption` and `subCaption` are supported.
 
@@ -111,7 +111,7 @@ This document describes VirtualList, VirtualGridList, and Scroller.
     renderItem = ({index, ...rest}) => {
         const {text, subText, source} = this.items[index];
         return (
-            <GridListImageItem
+            <ImageItem
                 {...rest}
                 caption={text}
                 className={css.item}

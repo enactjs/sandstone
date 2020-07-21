@@ -2,7 +2,7 @@
  * Provides Sandstone styled icon components and behaviors.
  *
  * @example
- * <Icon>flag</Icon>
+ * <Icon>plus</Icon>
  *
  * @module sandstone/Icon
  * @exports Icon
@@ -12,8 +12,10 @@
  */
 
 import kind from '@enact/core/kind';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import UiIcon from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
+import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 
@@ -54,13 +56,41 @@ const IconBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Flips the icon
+		 *
+		 * When `'auto'` and `rtl`, the icon is flipped horizontally.
+		 *
+		 * @type {('auto'|'both'|'horizontal'|'vertical')}
+		 * @public
+		 */
+		flip: PropTypes.oneOf(['auto', 'both', 'horizontal', 'vertical']),
+
+		/**
+		 * Indicates the content's text direction is right-to-left.
+		 *
+		 * This is set automatically when using {@link ui/Icon.Icon}.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		rtl: PropTypes.bool,
+
+		/**
 		 * The size of the icon.
 		 *
-		 * @type {('large'|'medium'|'small'|'tiny')}
+		 * A collection of preset sizes is available in addition to a numeric size option.
+		 * A number represents the design-time pixel dimensions of the icon. The final value will
+		 * automatically adapt to the screen resolutions, as defined in the `screenTypes` file of
+		 * this theme.
+		 *
+		 * @type {('large'|'medium'|'small'|'tiny'|Number)}
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.oneOf(['large', 'medium', 'small', 'tiny'])
+		size: PropTypes.oneOfType([
+			PropTypes.oneOf(['large', 'medium', 'small', 'tiny']),
+			PropTypes.number
+		])
 	},
 
 	defaultProps: {
@@ -73,15 +103,31 @@ const IconBase = kind({
 
 	computed: {
 		className: ({size, styler}) => styler.append(
-			size
-		)
+			(typeof size === 'string' ? size : null)
+		),
+		flip: ({flip, rtl}) => {
+			if (flip === 'auto') {
+				return rtl ? 'horizontal' : null;
+			}
+
+			return flip;
+		},
+		style: ({size, style}) => ({
+			...style,
+			'--icon-size': (typeof size === 'number') ? scaleToRem(size) : null
+		})
 	},
 
-	render: (props) => UiIcon.inline({
-		...props,
-		css: props.css,
-		iconList
-	})
+	render: ({css, size, ...rest}) => {
+		delete rest.rtl;
+
+		return UiIcon.inline({
+			...rest,
+			size: (typeof size === 'string' ? size : void 0),
+			css,
+			iconList
+		});
+	}
 });
 
 // Let's find a way to import this list directly, and bonus feature, render our icons in the docs
@@ -97,24 +143,38 @@ const IconBase = kind({
  * arrowhookright
  * ellipsis
  * check
+ * triangleup
+ * triangleright
+ * triangledown
+ * triangleleft
+ * arrowupdown
+ * arrowup
+ * arrowupwhite
+ * arrowuphollow
+ * backspace
+ * space
+ * trianglerightwhite
+ * triangleleftwhite
+ * trianglerighthollow
+ * trianglelefthollow
+ * heart
+ * hearthollow
+ * record
  * circle
  * stop
+ * square
  * play
  * pause
  * forward
  * backward
- * skipforward
- * skipbackward
  * pauseforward
  * pausebackward
  * pausejumpforward
  * pausejumpbackward
  * jumpforward
  * jumpbackward
- * denselist
- * bulletlist
+ * skip
  * list
- * drawer
  * arrowlargedown
  * arrowlargeup
  * arrowlargeleft
@@ -125,95 +185,147 @@ const IconBase = kind({
  * arrowsmallright
  * closex
  * search
- * rollforward
- * rollbackward
+ * chup
+ * chdown
  * exitfullscreen
  * fullscreen
- * arrowshrinkleft
- * arrowshrinkright
- * arrowextend
- * arrowshrink
- * flag
- * funnel
  * trash
  * star
- * hollowstar
- * halfstar
+ * starhalf
+ * starhollow
  * gear
  * plug
  * lock
- * forward15
- * back15
- * continousplay
- * playlist
- * resumeplay
- * image
- * audio
  * music
- * languages
- * cc
- * ccon
- * ccoff
- * sub
- * recordings
- * livezoom
- * liveplayback
- * liveplaybackoff
- * repeat
- * repeatoff
- * series
- * repeatdownload
  * view360
- * view360off
  * info
- * repeattrack
- * bluetoothoff
  * verticalellipsis
  * arrowcurveright
  * picture
  * home
- * warning
- * scroll
- * densedrawer
- * starminus
  * liverecord
  * liveplay
- * contrast
- * edit
  * trashlock
- * arrowrightskip
- * volumecycle
  * movecursor
- * refresh
- * question
- * questionreversed
- * s
  * repeatone
  * repeatall
  * repeatnone
- * speakers
- * koreansubtitles
- * chinesesubtitles
- * arrowleftprevious
- * searchfilled
  * zoomin
  * zoomout
- * playlistadd
- * files
- * arrowupdown
- * brightness
  * download
- * playlistedit
- * font
- * musicon
- * musicoff
- * liverecordone
- * liveflagone
  * shuffle
- * sleep
+ * shuffleon
  * notification
- * notificationoff
- * checkselection
+ * voice
+ * soundmute
+ * stargroup
+ * checker
+ * transponder
+ * selected
+ * bgm
+ * bgmoff
+ * playcircle
+ * pausecircle
+ * lockcircle
+ * unlockcircle
+ * powercircle
+ * wifi1
+ * wifi2
+ * wifi3
+ * wifi4
+ * wifilock1
+ * wifilock2
+ * wifilock3
+ * wifilock4
+ * dashboard1
+ * dashboard2
+ * dashboard3
+ * language
+ * rotate
+ * lyrics
+ * screenpower
+ * miniplayer
+ * nowplaying
+ * playspeed
+ * folder
+ * folderupper
+ * support
+ * soundout
+ * mobile
+ * keyboard
+ * mouse
+ * controller
+ * btspeaker
+ * headset
+ * dns
+ * speaker
+ * speakersurround
+ * speakercenter
+ * speakerbass
+ * router
+ * demosync
+ * browser
+ * sound
+ * wisa
+ * demooptions
+ * newfeature
+ * youtube
+ * ostsearch
+ * shopping
+ * bookmark
+ * eject
+ * power
+ * timer
+ * network
+ * edit
+ * aspectratio
+ * link
+ * light
+ * pointersize
+ * pointerspeed
+ * soundmode
+ * contrast
+ * picturemode
+ * basketball
+ * soccer
+ * baseball
+ * golf
+ * football
+ * hockey
+ * volleyball
+ * cricket
+ * heartadd
+ * heartlist
+ * refresh
+ * help
+ * share
+ * files
+ * quickstart
+ * scheduler
+ * recording
+ * guide
+ * channel
+ * oneminplay
+ * oneminrecord
+ * fifteenforward
+ * fifteenbackward
+ * liveplayoff
+ * liveplayon
+ * popupscale
+ * arrowrightskip
+ * closedcaption
+ * subtitle
+ * subtitlekr
+ * subtitlecn
+ * samples
+ * googledrive
+ * googlephotos
+ * dlna
+ * replay
+ * usb
+ * ftp
+ * profile
+ * profilecheck
  * ```
  *
  * @name iconList
@@ -233,7 +345,8 @@ const IconBase = kind({
  */
 const IconDecorator = compose(
 	Pure,
-	Skinnable
+	Skinnable,
+	I18nContextDecorator({rtlProp: 'rtl'})
 );
 
 /**

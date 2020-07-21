@@ -1,29 +1,42 @@
-import handle, {adaptEvent, forward} from '@enact/core/handle';
+import handle, {adaptEvent, forProp, forward, not} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import Group from '@enact/ui/Group';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Group from '@enact/ui/Group';
+import {Cell, Layout} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
 import DebounceDecorator from '../internal/DebounceDecorator';
-import Icon from '../Icon';
-import Item from '../Item';
+import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
 
 import componentCss from './TabGroup.module.less';
 
+const MAX_TABS_BEFORE_SCROLLING = 7;
+
+// Since Button and Cell both have a `size` prop, TabButton is required to relay the Button.size to Button, rather than Cell.
+// eslint-disable-next-line enact/prop-types
+const TabButton = ({buttonSize, ...rest}) => (<Button size={buttonSize} {...rest} css={componentCss} />);
+
 const TabBase = kind({
 	name: 'Tab',
 
 	propTypes: {
+		collapsed: PropTypes.bool,
 		css: PropTypes.object,
 		icon: PropTypes.string,
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
-		selected: PropTypes.bool
+		orientation: PropTypes.string,
+		selected: PropTypes.bool,
+		size: PropTypes.number
+	},
+
+	defaultProps: {
+		orientation: 'vertical'
 	},
 
 	styles: {
@@ -34,6 +47,7 @@ const TabBase = kind({
 	handlers: {
 		onFocus: handle(
 			forward('onFocus'),
+			not(forProp('disabled', true)),
 			() => !Spotlight.getPointerMode(),
 			adaptEvent(
 				(ev, {index}) => ({selected: index}),
@@ -42,25 +56,68 @@ const TabBase = kind({
 		)
 	},
 
-	render: ({children, css, icon, ...rest}) => {
+	computed: {
+		className: ({orientation, styler}) => styler.append(orientation)
+	},
+
+	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
 
-		return (
-			<Item
-				{...rest}
-				css={css}
-			>
-				{icon ? (
-					<Icon slot="slotBefore">{icon}</Icon>
-				) : null}
-				{children}
-			</Item>
-		);
+		if (collapsed) children = null;
+
+		const commonProps = {
+			backgroundOpacity: 'transparent',
+			children,
+			collapsable: true,
+			css,
+			focusEffect: 'static',
+			minWidth: false,
+			role: null
+		};
+
+		switch (orientation) {
+			// Horizontal Cell sizing can auto-size width or be set to a finite value, stretching the Button.
+			case 'horizontal': {
+				return (
+					<Cell
+						{...rest}
+						size={size}
+						component={TabButton}
+						{...commonProps}
+					/>
+				);
+			}
+			case 'vertical': {
+				// Vertical sizing depends on Button establishing the dimensions of the Cell.
+				return (
+					<Cell shrink>
+						<Button
+							{...rest}
+							{...commonProps}
+						/>
+					</Cell>
+				);
+			}
+		}
 	}
 });
 
 const Tab = Skinnable(TabBase);
+
+const GroupComponent = SpotlightContainerDecorator(
+	{
+		// using default-element so we always land on the selected tab in order to avoid changing
+		// the view when re-entering the tab group
+		defaultElement: `.${componentCss.selected}`,
+		enterTo: 'default-element',
+		partition: true,
+		// When swapping from unscrolled to scrolled tab group, the container config is lost so this
+		// preserves it across unmounts / remounts
+		preserveId: true
+	},
+	Group
+);
 
 /**
  * A group of tabs
@@ -73,60 +130,107 @@ const Tab = Skinnable(TabBase);
 const TabGroupBase = kind({
 	name: 'TabGroup',
 
+	functional: true,
+
 	propTypes: /** @lends sandstone/TabGroup.TabGroup.prototype */ {
 		tabs: PropTypes.array.isRequired,
 		collapsed: PropTypes.bool,
 		css: PropTypes.object,
 		onBlur: PropTypes.func,
+		onBlurList: PropTypes.func,
 		onFocus: PropTypes.func,
 		onFocusTab: PropTypes.func,
 		onSelect: PropTypes.func,
 		orientation: PropTypes.string,
-		selectedIndex: PropTypes.number
+		selectedIndex: PropTypes.number,
+		spotlightDisabled: PropTypes.bool,
+		spotlightId: PropTypes.string,
+		tabSize: PropTypes.number
+	},
+
+	styles: {
+		css: componentCss,
+		className: 'tabGroup'
 	},
 
 	computed: {
-		children: ({onFocusTab, tabs}) => tabs.map(({children, title, ...rest}, i) => {
-			return {
-				key: `tabs${i}`,
-				children: title || children,
-				onFocusTab,
-				...rest
-			};
-		}),
+		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
 		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
 	},
 
-	render: ({noIcons, onBlur, onFocus, selectedIndex, ...rest}) => {
-		delete rest.collapsed;
-		delete rest.onFocusTab;
-		delete rest.tabs;
+	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, ...rest}) => {
+		delete rest.children;
+
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const itemProps = React.useMemo(() => ({collapsed, orientation, size: tabSize}), [collapsed, orientation, tabSize]);
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const children = React.useMemo(() => tabs.map(tab => {
+			if (tab) {
+				// eslint-disable-next-line no-shadow
+				const {icon, title, ...rest} = tab;
+				return {
+					key: `tabs_${title + (typeof icon === 'string' ? icon : '')}`,
+					children: title,
+					icon,
+					onFocusTab,
+					...rest
+				};
+			} else {
+				return null;
+			}
+		}).filter(tab => tab != null), [onFocusTab, tabs]);
+
+		const isHorizontal = orientation === 'horizontal';
+		// Only vertical with more than MAX_TABS should use scroller
+		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
+		const scrollerProps = useScroller ? {
+			horizontalScrollbar: 'hidden',
+			verticalScrollbar: 'hidden'
+		} : null;
+		const Component = useScroller ? Scroller : 'div';
 
 		return (
-			<Scroller onBlur={onBlur} onFocus={onFocus}>
+			<Component
+				{...rest}
+				onBlur={onBlur}
+				onFocus={onFocus}
+				{...scrollerProps}
+			>
 				{noIcons ? (
-					<Item>
-						<Icon slot="slotBefore">list</Icon>
-					</Item>
+					<TabBase
+						icon="list"
+						collapsed
+						disabled={tabsDisabled}
+						onSpotlightDisappear={onBlurList}
+						spotlightDisabled={spotlightDisabled}
+					/>
 				) : (
-					<Group
-						{...rest}
+					<GroupComponent
 						childComponent={Tab}
-						component="div"
+						className={componentCss.tabs}
+						component={Layout}
 						indexProp="index"
+						itemProps={itemProps}
+						onSelect={onSelect}
+						orientation={orientation}
 						select="radio"
 						selected={selectedIndex}
 						selectedProp="selected"
-					/>
+						spotlightId={spotlightId}
+						spotlightDisabled={spotlightDisabled}
+					>
+						{children}
+					</GroupComponent>
 				)}
-			</Scroller>
+				{isHorizontal ? <hr className={componentCss.horizontalLine} /> : null}
+			</Component>
 		);
 	}
 });
 
 const TabGroupDecorator = compose(
-	SpotlightContainerDecorator({enterTo: 'last-focused'}),
 	DebounceDecorator({cancel: 'onBlur', debounce: 'onFocusTab', delay: 300})
 );
 

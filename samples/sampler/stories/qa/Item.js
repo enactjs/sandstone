@@ -33,7 +33,7 @@ const inputData = {
 Item.displayName = 'Item';
 Icon.displayName = 'Icon';
 
-const KsIcon = <Icon size="small">flag</Icon>;
+const KsIcon = <Icon size="small">notification</Icon>;
 
 storiesOf('Item', module)
 	.add(
@@ -93,14 +93,14 @@ storiesOf('Item', module)
 				<Item>
 					{text('Text with iconAfter', Item, 'Item with text that is spottable with an icon(at the end of the string)')}
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>
-						{select('iconAfter', iconNames, Item, 'pauseforward')}
+						{select('iconAfter', iconNames, Item, 'arrowhookright')}
 					</Icon>
 				</Item>
 				<Item>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>gear</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>minus</Icon>
 					<Icon size={select('size', ['small', 'large'], Item, 'large')}>trash</Icon>
-					<Icon size={select('size', ['small', 'large'], Item, 'large')}>flag</Icon>
+					<Icon size={select('size', ['small', 'large'], Item, 'large')}>notification</Icon>
 				</Item>
 			</div>
 		)
@@ -161,37 +161,29 @@ storiesOf('Item', module)
 				<Row wrap>
 					<Section title="Inline Items" size="50%">
 						<Item inline alt="Normal">{inputData.shortText}</Item>
-						<Item inline alt="Selected" selected>{inputData.shortText}</Item>
 						<Item inline alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item inline alt="Long Normal">{inputData.longText}</Item>
-						<Item inline alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item inline alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Inline Items with Icons" size="50%">
 						<Item inline slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
-						<Item inline slotBefore={KsIcon} alt="Selected" selected>{inputData.shortText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
-						<Item inline slotBefore={KsIcon} alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item inline slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Items" size="50%">
 						<Item alt="Normal">{inputData.shortText}</Item>
-						<Item alt="Selected" selected>{inputData.shortText}</Item>
 						<Item alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item alt="Long Normal">{inputData.longText}</Item>
-						<Item alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
 					<Section title="Items with Icons" size="50%">
 						<Item slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
-						<Item slotBefore={KsIcon} alt="Selected" selected>{inputData.shortText}</Item>
 						<Item slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
 						<Item slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
-						<Item slotBefore={KsIcon} alt="Long Selected" selected>{inputData.longText}</Item>
 						<Item slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
 					</Section>
 
@@ -205,6 +197,21 @@ storiesOf('Item', module)
 						<Item slotAfter={KsIcon} alt="After">{inputData.longText}</Item>
 						<Item slotBefore={KsIcon} slotAfter={KsIcon} alt="Both">{inputData.longText}</Item>
 					</Section>
+
+					<Section title="Small Inline Items" size="50%">
+						<Item inline size="small" alt="Normal">{inputData.shortText}</Item>
+						<Item inline size="small" alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline size="small" alt="Long Normal">{inputData.longText}</Item>
+						<Item inline size="small" alt="Long Disabled" disabled>{inputData.longText}</Item>
+					</Section>
+
+					<Section title="Small Inline Items with Icons" size="50%">
+						<Item inline size="small" slotBefore={KsIcon} alt="Normal">{inputData.shortText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Disabled" disabled>{inputData.shortText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Long Normal">{inputData.longText}</Item>
+						<Item inline size="small" slotBefore={KsIcon} alt="Long Disabled" disabled>{inputData.longText}</Item>
+					</Section>
+
 				</Row>
 			</Scroller>
 		)

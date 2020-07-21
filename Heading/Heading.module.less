@@ -9,13 +9,10 @@
 	padding: @sand-heading-padding;
 	letter-spacing: @sand-heading-letter-spacing;
 	line-height: @sand-heading-line-height;
+	font-style: @sand-heading-font-style;
 	.sand-font(@sand-heading-large-font-family, @sand-non-latin-heading-font-family, {
 		line-height: @sand-non-latin-heading-line-height;
 	});
-
-	&.showLine {
-		padding: @sand-heading-showline-padding;
-	}
 
 	// Only the following sizes get a bottom border
 	&.large,
@@ -31,7 +28,6 @@
 			line-height: @sand-non-latin-heading-title-line-height;
 		});
 		font-weight: @sand-heading-title-font-weight;
-		font-style: @sand-heading-title-font-style;
 		font-size: @sand-heading-title-font-size;
 		line-height: @sand-heading-title-line-height;
 		.font-kerning;
@@ -42,28 +38,28 @@
 			line-height: @sand-non-latin-heading-subtitle-line-height;
 		});
 		font-weight: @sand-heading-subtitle-font-weight;
-		font-style: @sand-heading-subtitle-font-style;
 		font-size: @sand-heading-subtitle-font-size;
 		line-height: @sand-heading-subtitle-line-height;
 	}
 	&.large {
 		font-family: @sand-heading-large-font-family;
 		font-weight: @sand-heading-large-font-weight;
-		font-style: @sand-heading-large-font-style;
 		font-size: @sand-heading-large-font-size;
 	}
 	&.medium {
 		font-family: @sand-heading-medium-font-family;
 		font-weight: @sand-heading-medium-font-weight;
-		font-style: @sand-heading-medium-font-style;
 		font-size: @sand-heading-medium-font-size;
 	}
-	&.small,
-	&.tiny {
+	&.small {
 		font-family: @sand-heading-small-font-family;
 		font-weight: @sand-heading-small-font-weight;
-		font-style: @sand-heading-small-font-style;
 		font-size: @sand-heading-small-font-size;
+	}
+	&.tiny {
+		font-family: @sand-heading-tiny-font-family;
+		font-weight: @sand-heading-tiny-font-weight;
+		font-size: @sand-heading-tiny-font-size;
 	}
 
 	// Margin-bottom is set up this way so the presence of the line does not affect the height of the Heading.

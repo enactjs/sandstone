@@ -5,22 +5,30 @@
 @import "../styles/skin.less";
 
 .alert {
-	.title {
-		.sand-alert-title();
-		margin-top: @sand-alert-title-margin-top;
-	}
-
-	.subtitle {
-		.sand-alert-subtitle();
-		margin-top: @sand-alert-subtitle-margin-top;
-	}
-
 	&.fullscreen {
-		&.noImage,
+		.alertImage {
+			margin-bottom: @sand-alert-fullscreen-image-spacing;
+		}
+
+		.title,
+		.content {
+			max-width: @sand-alert-fullscreen-max-width;
+		}
+
+		.content {
+			margin: 0;
+			overflow: hidden;
+			max-height: 60%; // Set a reasonable cutoff for a maximum bound
+		}
+
 		&.maxButtons {
 			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;
 			}
+		}
+
+		.title {
+			.sand-font-size(@sand-alert-title-font-size, @sand-non-latin-alert-title-font-size);
 		}
 
 		.buttonContainer {
@@ -28,23 +36,19 @@
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
-				margin-top: @sand-alert-fullscreen-button-margin;
+				margin-top: @sand-alert-fullscreen-button-spacing;
 			}
 		}
 	}
 
 	&.overlay {
-		.alertImage {
-			align-self: baseline;
-		}
-
 		.buttonContainer {
 			box-sizing: border-box;
 			margin: 0;
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
-				margin-top: @sand-alert-overlay-button-margin;
+				margin-top: @sand-alert-overlay-button-spacing;
 			}
 		}
 
@@ -52,6 +56,7 @@
 			.sand-alert-overlay-content();
 			width: @sand-alert-overlay-content-width;
 			.margin-start-end(@sand-alert-overlay-content-margin-left, @sand-alert-overlay-content-margin-right);
+			margin-bottom: 0;
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
@@ -60,17 +65,6 @@
 			}
 		}
 	}
-
-	// Skin colors
-	.applySkins({
-		.title {
-			color: @sand-alert-title-color;
-		}
-
-		.subtitle {
-			color: @sand-alert-subtitle-color;
-		}
-	});
 }
 
 .popup {
@@ -82,7 +76,8 @@
 
 		.body {
 			border-radius: @sand-alert-overlay-border-radius;
-			padding: @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-right @sand-alert-overlay-padding-top-bottom @sand-alert-overlay-padding-left;
+			padding-top: @sand-alert-overlay-padding-top-bottom;
+			padding-bottom: @sand-alert-overlay-padding-top-bottom;
 			.padding-start-end(@sand-alert-overlay-padding-left, @sand-alert-overlay-padding-right);
 		}
 	}
@@ -93,7 +88,6 @@
 		&.overlay {
 			background-color: @sand-alert-overlay-bg-color;
 			box-shadow: @sand-alert-overlay-shadow;
-			color: @sand-alert-overlay-text-color;
 		}
 	});
 }
