@@ -9,7 +9,7 @@ import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {VirtualList, VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
@@ -121,6 +121,53 @@ class MyVirtualList extends React.Component {
 	}
 }
 
+class VirtualGridListInVirtualList extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	listProps = {
+		dataSize: 5,
+		style:{paddingRight: ri.scaleToRem(36)},
+		itemSize: ri.scale(number('gridListHeight', Config, 688)),
+		key: select('scrollMode', prop.scrollModeOption, Config),
+		noScrollByWheel: boolean('noScrollByWheel', Config),
+		scrollMode: select('scrollMode', prop.scrollModeOption, Config),
+		spacing: ri.scale(number('spacing', Config)),
+		wrap: wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]
+	}
+
+	renderItem = ({index}) => {
+		return (
+			<VirtualGridList
+				style={{height: this.listProps.itemSize, paddingBottom: ri.scaleToRem(36)}}
+				dataSize={updateDataSize(number('dataSize', Config, 300))}
+				direction="horizontal"
+				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				itemRenderer={renderItem}
+				itemSize={{
+					minWidth: ri.scale(number('minWidth', Config, 688)),
+					minHeight: ri.scale(number('minHeight', Config, 570))
+				}}
+				key={select('scrollMode', prop.scrollModeOption, Config) + index}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spacing={ri.scale(number('spacing', Config, 0))}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+			/>
+		);
+	}
+
+	render = () => (
+		<VirtualList {...this.listProps} itemRenderer={this.renderItem} />
+	);
+}
+
 class ButtonAndVirtualGridList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -188,6 +235,12 @@ storiesOf('VirtualGridList', module)
 			/>
 		),
 		{propTables: [Config]}
+	)
+	.add(
+		'Horizontal VirtualGridList in VirtualList',
+		() => (
+			<VirtualGridListInVirtualList />
+		)
 	)
 	.add(
 		'with Button, Spotlight goes to correct target',
