@@ -2,6 +2,7 @@ import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
 import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import Spotlight from '@enact/spotlight';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
@@ -142,6 +143,8 @@ class AppBase extends React.Component {
 				const selected = this.cachedKey * 10 + num;
 
 				if (selected < views.length) {
+					const target = document.querySelector('[data-menu="' + selected + '"]');
+					Spotlight.focus(target);
 					this.handleChangeView(selected)();
 				}
 
@@ -161,11 +164,11 @@ class AppBase extends React.Component {
 
 		return (
 			<div className={classnames(className, debugAriaClass)}>
-				<div>Jump To View: {jumpToView}</div>
-				<Layout {...rest}>
+				<Layout {...rest} className={css.layout}>
 					<Cell component={ScrollerComponent} size="20%">
+						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
-							<Item className={css.navItem} key={i} slotBefore={'[' + ('00' + i).slice(-2) + ']'} onClick={this.handleChangeView(i)}>
+							<Item className={css.navItem} data-menu={i} key={i} slotBefore={('00' + i).slice(-2)} onClick={this.handleChangeView(i)}>
 								{view.title}
 							</Item>
 						))}
