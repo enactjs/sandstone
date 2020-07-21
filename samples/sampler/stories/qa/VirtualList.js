@@ -31,6 +31,11 @@ const
 	defaultItemSize = 1000,
 	defaultMinItemSize = 200,
 	prop = {
+		header: {
+			'no item': null,
+			'one item': <Item>Header Item</Item>
+		},
+		headerOption: ['no item', 'one item'],
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate']
 	},
@@ -139,7 +144,12 @@ const InPanels = ({className, title, ...rest}) => {
 	return (
 		<Panels className={className} index={index}>
 			<Panel>
-				<Header type="compact" title={`${title} Panel 0`} key="header" />
+				<Header
+					title={`${title} Panel 0`}
+					type="compact"
+				>
+					{prop.header[select('children', prop.headerOption)]}
+				</Header>
 				<VirtualList
 					id="spotlight-list"
 					// eslint-disable-next-line enact/prop-types
@@ -149,7 +159,7 @@ const InPanels = ({className, title, ...rest}) => {
 				/>
 			</Panel>
 			<Panel title={`${title} Panel 1`}>
-				<Header type="compact" title={`${title} Panel 1`} key="header" />
+				<Header title={`${title} Panel 1`} type="compact" />
 				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
 		</Panels>
