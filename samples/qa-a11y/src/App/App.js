@@ -4,6 +4,7 @@ import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
+import LS2Request from '@enact/webos/LS2Request';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -107,11 +108,33 @@ class AppBase extends React.Component {
 	}
 	constructor () {
 		super();
+
 		this.state = {
 			isDebugMode: false,
 			jumpToView: '',
-			selected: 0
+			selected: 0,
+			audioGuidance: false,
+			audioGuidanceDisabled: true
 		};
+
+		if (window.PalmServiceBridge) {
+			new LS2Request().send({
+				service: 'luna://com.webos.settingsservice/',
+				method: 'getSystemSettings',
+				parameters: {
+					category: 'option',
+					keys: ['audioGuidance']
+				},
+				onSuccess: (res) => {
+					debugger;
+
+					this.setState({
+						audioGuidance: res.settings.audioGuidance === 'on',
+						audioGuidanceDisabled: false
+					});
+				}
+			});
+		}
 	}
 
 	componentDidMount () {
@@ -132,6 +155,8 @@ class AppBase extends React.Component {
 			updateLocale(rtl ? 'en-US' : 'ar-SA');
 		} else if (keyCode === 404 || keyCode === 71) { // Green Key or `g` key
 			this.handleDebug();
+		} else if (keyCode === 406 || keyCode === 66) { // Blue Key or `b` key
+			this.handleAudioGuidanceToggle({selected: !this.state.audioGuidance});
 		} else if (keyCode >= 48 && keyCode <= 57) {
 			const num = keyCode - 48;
 
@@ -151,9 +176,29 @@ class AppBase extends React.Component {
 		}
 	}
 
+	handleAudioGuidanceToggle = ({selected: audioGuidance}) => {
+		if (window.PalmServiceBridge) {
+			this.setState(
+				() => ({audioGuidance}),
+				() => {
+					new LS2Request().send({
+						service: 'luna://com.webos.settingsservice/',
+						method: 'setSystemSettings',
+						parameters: {
+							category: 'option',
+							settings: {
+								audioGuidance: audioGuidance ? 'on' : 'off'
+							}
+						}
+					});
+				}
+			);
+		}
+	}
+
 	render () {
 		const {className, ...rest} = this.props;
-		const {isDebugMode, jumpToView, selected} = this.state;
+		const {audioGuidance, audioGuidanceDisabled, isDebugMode, jumpToView, selected} = this.state;
 		const debugAriaClass = isDebugMode ? 'aria debug' : null;
 
 		delete rest.rtl;
@@ -165,14 +210,14 @@ class AppBase extends React.Component {
 				<Layout {...rest}>
 					<Cell component={ScrollerComponent} size="20%">
 						{views.map((view, i) => (
-							<Item className={css.navItem} key={i} slotBefore={'[' + ('00' + i).slice(-2) + ']'} onClick={this.handleChangeView(i)}>
+							<Item className={css.navItem} key={i} slotBefore={('00' + i).slice(-2)} onClick={this.handleChangeView(i)}>
 								{view.title}
 							</Item>
 						))}
 					</Cell>
 					<Cell component={ViewManager} index={selected}>
 						{views.map((view, i) => (
-							<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
+							<View {...view} audioGuidance={audioGuidance} audioGuidanceDisabled={audioGuidanceDisabled} handleAudioGuidanceToggle={this.handleAudioGuidanceToggle} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
 						))}
 					</Cell>
 				</Layout>
