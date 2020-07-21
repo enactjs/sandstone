@@ -35,10 +35,10 @@ const SliderView = () => (
 		<br />
 		<br />
 		<Heading showLine>Slider using ValueText</Heading>
-		<CustomSlider customText="Volume" />
+		<CustomSlider customText="This is Volume" />
 		<br />
 		<br />
-		<Button icon="eject" size="small" />
+		<Button>To Escape to the Left via 5-way Left</Button>
 	</>
 );
 

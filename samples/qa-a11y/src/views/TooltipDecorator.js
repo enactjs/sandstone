@@ -2,14 +2,16 @@ import Button from '@enact/sandstone/Button';
 import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import React from 'react';
 
-const
-	TooltipButton = TooltipDecorator(Button),
-	tooltipProps = {'aria-hidden': true};
+import Section from '../components/Section';
+
+const TooltipButton = TooltipDecorator(Button);
+const tooltipProps = {'aria-hidden': true};
 
 const TooltipDecoratorView = () => (
-	<>
+	<Section title="Aria-labelled">
 		<TooltipButton
-			aria-label="Below Right Tooltip"
+			alt="Below Right"
+			aria-label="This is Below Right Tooltip."
 			tooltipPosition="below right"
 			tooltipProps={tooltipProps}
 			tooltipText="Below Right Tooltip"
@@ -18,7 +20,8 @@ const TooltipDecoratorView = () => (
 		</TooltipButton>
 
 		<TooltipButton
-			aria-label="Below Left Tooltip"
+			alt="Below Left"
+			aria-label="This is Below Left Tooltip."
 			tooltipPosition="below left"
 			tooltipProps={tooltipProps}
 			tooltipText="Below Left Tooltip"
@@ -27,7 +30,8 @@ const TooltipDecoratorView = () => (
 		</TooltipButton>
 
 		<TooltipButton
-			aria-label="Above Right Tooltip"
+			alt="Above Right"
+			aria-label="This is Above Right Tooltip."
 			tooltipPosition="above right"
 			tooltipProps={tooltipProps}
 			tooltipText="Above Right Tooltip"
@@ -36,14 +40,15 @@ const TooltipDecoratorView = () => (
 		</TooltipButton>
 
 		<TooltipButton
-			aria-label="Above Left Tooltip"
+			alt="Above Left"
+			aria-label="This is Above Left Tooltip."
 			tooltipPosition="above left"
 			tooltipProps={tooltipProps}
 			tooltipText="Above Left Tooltip"
 		>
 			Above Left Tooltip
 		</TooltipButton>
-	</>
+	</Section>
 );
 
 export default TooltipDecoratorView;
