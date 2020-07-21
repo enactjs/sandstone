@@ -4,6 +4,10 @@ import LS2Request from '@enact/webos/LS2Request';
 import {readAlert} from '@enact/webos/speech';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ReadAlertView extends React.Component {
 	constructor () {
 		super();
@@ -58,15 +62,21 @@ class ReadAlertView extends React.Component {
 	render = () => {
 		return (
 			<>
-				<CheckboxItem
-					defaultSelected={this.state.audioGuidance}
-					disabled={this.state.toggleDisabled}
-					onToggle={this.onToggle}
-				>
-					Audio guidance
-				</CheckboxItem>
-				<Button onClick={this.onClick1}>readAlert test(clear true)</Button>
-				<Button onClick={this.onClick2}>readAlert test(clear false)</Button>
+				<Section title="AudioGuidance On or Off">
+					<CheckboxItem
+						alt="Toggle"
+						defaultSelected={this.state.audioGuidance}
+						disabled={this.state.toggleDisabled}
+						onToggle={this.onToggle}
+					>
+						Audio guidance
+					</CheckboxItem>
+				</Section>
+
+				<Section className={css.marginTop} title="readAlert">
+					<Button alt="Clear of true" onClick={this.onClick1}>readAlert test(clear true)</Button>
+					<Button alt="Clear of false" onClick={this.onClick2}>readAlert test(clear false)</Button>
+				</Section>
 			</>
 		);
 	}
