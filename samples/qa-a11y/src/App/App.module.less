@@ -50,7 +50,7 @@ h2 {
 		[aria-live],
 		[aria-labelledby],
 		[aria-owns],
-		[aria-disabled],
+		[aria-disabled="true"],
 		[role] {
 			& [role="region"] {
 				position: relative;
@@ -64,7 +64,7 @@ h2 {
 		[aria-live]::after,
 		[aria-labelledby]::after,
 		[aria-owns]::after,
-		[aria-disabled]::after,
+		[aria-disabled="true"]::after,
 		[role]::before {
 			position: absolute;
 			padding: 0 1ex;
@@ -97,7 +97,7 @@ h2 {
 		[aria-live]::after,
 		[aria-labelledby]::after,
 		[aria-owns]::after,
-		[aria-disabled]::after {
+		[aria-disabled="true"]::after {
 			background-color: #ffaa0099;
 			border: 1px solid #ffaa00;
 			right: initial;
@@ -157,7 +157,7 @@ h2 {
 		}
 
 		--aria-disabled: "";
-		[aria-disabled]::after {
+		[aria-disabled="true"]::after {
 			--aria-disabled: "disabled:\0020'" attr(aria-disabled) "'\0020/\0020";
 		}
 
@@ -166,7 +166,7 @@ h2 {
 		[aria-checked]::after,
 		[aria-live]::after,
 		[aria-labelledby]::after,
-		[aria-disabled]::after {
+		[aria-disabled="true"]::after {
 			content:
 				var(--aria-label)
 				var(--aria-valuetext)
