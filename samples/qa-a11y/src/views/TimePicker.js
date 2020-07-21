@@ -1,8 +1,11 @@
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
-import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import TimePicker, {timeToLocaleString} from '@enact/sandstone/TimePicker';
 import React from 'react';
+
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
 
 class TimePickerItem extends React.Component {
 	constructor (props) {
@@ -43,19 +46,37 @@ class TimePickerItem extends React.Component {
 
 const TimePickerView = () => (
 	<>
-		<Heading showLine>TimePicker</Heading>
-		<TimePickerItem
-			title="Time"
-		/>
+		<Section title="Default">
+			<TimePickerItem
+				alt="Normal"
+				title="Time"
+			/>
 
-		<h2>Customizable aria-labels</h2>
-		<Heading showLine>TimePicker</Heading>
-		<TimePickerItem
-			hourAriaLabel="Hour picker"
-			meridiemAriaLabel="Meridiem picker"
-			minuteAriaLabel="Minute picker"
-			title="Time"
-		/>
+			<TimePickerItem
+				alt="Disabled"
+				disabled
+				title="Time"
+			/>
+		</Section>
+
+		<Section className={css.marginTop} title="Aria-labelled">
+			<TimePickerItem
+				alt="Normal"
+				hourAriaLabel="Hour picker"
+				meridiemAriaLabel="Meridiem picker"
+				minuteAriaLabel="Minute picker"
+				title="Time"
+			/>
+
+			<TimePickerItem
+				alt="Disabled"
+				disabled
+				hourAriaLabel="Hour picker"
+				meridiemAriaLabel="Meridiem picker"
+				minuteAriaLabel="Minute picker"
+				title="Time"
+			/>
+		</Section>
 	</>
 );
 
