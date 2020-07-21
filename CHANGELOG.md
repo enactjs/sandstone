@@ -2,13 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.0.1] - 2020-07-20
 
 ### Fixed
 
-- `sandstone/Scroller` to set height correctly in `PopupTabLayout` when `focusableScrollbar` is byEnter
-- `sandstone/ImageItem` to render properly when `data-index` prop is the same
-- `sandstone/Scroller` and `sandstone/VirtualList` overscroll effect to match latest designs
+- `sandstone/ImageItem` to re-render properly when `data-index` prop is the same
+- `sandstone/Scroller` to set its height correctly
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll style to match latest designs
 - `sandstone/Scroller` and `sandstone/VirtualList` to properly support `spotlightDisabled` prop
 - `sandstone/VirtualList` to preserve focus in panels
 
