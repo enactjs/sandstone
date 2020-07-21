@@ -17,16 +17,19 @@ class FixedPopupPanelsView extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			open0: false,
 			open1: false,
 			open2: false,
 			open3: false,
 			panelIndex: 0
 		};
 
+		this.handleOpen0 = this.handleOpen(0);
 		this.handleOpen1 = this.handleOpen(1);
 		this.handleOpen2 = this.handleOpen(2);
 		this.handleOpen3 = this.handleOpen(3);
 
+		this.handleClose0 = this.handleClose(0);
 		this.handleClose1 = this.handleClose(1);
 		this.handleClose2 = this.handleClose(2);
 		this.handleClose3 = this.handleClose(3);
@@ -41,16 +44,16 @@ class FixedPopupPanelsView extends React.Component {
 	prevPanel = () => this.setState({panelIndex: 0})
 
 	render () {
-		return (
+		return (<>
 			<Section title="Default">
-				<Button alt="With Title and Subtitle" onClick={this.handleOpen1}>Open 0</Button>
-				<Button alt="With Title" onClick={this.handleOpen2}>Open 1</Button>
-				<Button alt="With Title and Disabled Items" onClick={this.handleOpen3}>Open 2</Button>
+				<Button alt="With Title and Subtitle" onClick={this.handleOpen0}>Open 0</Button>
+				<Button alt="With Title" onClick={this.handleOpen1}>Open 1</Button>
+				<Button alt="With Title and Disabled Items" onClick={this.handleOpen2}>Open 2</Button>
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
-					onClose={this.handleClose1}
-					open={this.state.open1}
+					onClose={this.handleClose0}
+					open={this.state.open0}
 				>
 					<Panel>
 						<Header>
@@ -78,8 +81,8 @@ class FixedPopupPanelsView extends React.Component {
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
-					onClose={this.handleClose2}
-					open={this.state.open2}
+					onClose={this.handleClose1}
+					open={this.state.open1}
 				>
 					<Panel>
 						<Header>
@@ -101,8 +104,8 @@ class FixedPopupPanelsView extends React.Component {
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
-					onClose={this.handleClose3}
-					open={this.state.open3}
+					onClose={this.handleClose2}
+					open={this.state.open2}
 				>
 					<Panel>
 						<Header>
@@ -122,7 +125,56 @@ class FixedPopupPanelsView extends React.Component {
 					</Panel>
 				</FixedPopupPanels>
 			</Section>
-		);
+
+			<Section title="Combination">
+				<Button alt="With Scroller" onClick={this.handleOpen3}>Open 3</Button>
+
+				<FixedPopupPanels
+					index={this.state.panelIndex}
+					onClose={this.handleClose3}
+					open={this.state.open3}
+				>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+						</Header>
+						<Scroller direction='vertical' focusableScrollbar="byEnter" style={{height: 100}}>
+							<span>Text 0</span>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+						</Scroller>
+						<Item onClick={this.nextPanel}>Text 1</Item>
+					</Panel>
+					<Panel>
+						<Header>
+							<title>Header Title</title>
+						</Header>
+						<Scroller aria-label="This is Scroller." direction='vertical' focusableScrollbar="byEnter" style={{height: 100}}>
+							<span>Text 0</span>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+						</Scroller>
+						<Item onClick={this.prevPanel}>Text 1</Item>
+					</Panel>
+				</FixedPopupPanels>
+			</Section>
+		</>);
 	}
 }
 
