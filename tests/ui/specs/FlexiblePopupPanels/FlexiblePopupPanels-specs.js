@@ -23,7 +23,7 @@ describe('FlexiblePopupPanels', function () {
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
 
-			// should retain focus on navigation buttons
+			// should retain focus on navigation buttons - [GT-32184]
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
 			Page.spotlightLeft();
@@ -34,10 +34,11 @@ describe('FlexiblePopupPanels', function () {
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(1);
 
-			// should retain focus on navigation buttons
+			// should retain focus on navigation buttons - [GT-32184]
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 		});
 
+		// [GT-32185]
 		it('should respect Panel autoFocus setting', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
