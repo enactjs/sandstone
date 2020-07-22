@@ -107,7 +107,7 @@ const useEventKey = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
-		const {scrollContainerRef, scrollContentHandle} = instances;
+		const {scrollContentHandle} = instances;
 		const {
 			handle5WayKeyUp,
 			handleDirectionKeyDown,
@@ -202,12 +202,12 @@ const useEventKey = (props, instances, context) => {
 			}
 		}
 
-		utilEvent('keydown').addEventListener(scrollContainerRef, handleKeyDown, {capture: true});
-		utilEvent('keyup').addEventListener(scrollContainerRef, handleKeyUp, {capture: true});
+		utilEvent('keydown').addEventListener(scrollContentHandle.current.contentRef, handleKeyDown);
+		utilEvent('keyup').addEventListener(scrollContentHandle.current.contentRef, handleKeyUp);
 
 		return () => {
-			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
-			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
+			utilEvent('keydown').removeEventListener(scrollContentHandle.current.contentRef, handleKeyDown);
+			utilEvent('keyup').removeEventListener(scrollContentHandle.current.contentRef, handleKeyUp);
 		};
 	}, [getNextIndex, props, instances, context]);
 
