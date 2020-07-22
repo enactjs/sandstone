@@ -110,6 +110,15 @@ const ImageItemBase = kind({
 		'data-webos-voice-intent': PropTypes.string,
 
 		/**
+		 * Disables ImageItem and becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * The component used to render the image icon component.
 		 *
 		 * @type {Component}
@@ -261,7 +270,7 @@ const ImageItemBase = kind({
 		})
 	},
 
-	render: ({css, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
+	render: ({css, disabled, selectionComponent: SelectionComponent, showSelection, ...rest}) => {
 		delete rest.centered;
 		delete rest.imageIconComponent;
 		delete rest.imageIconSrc;
@@ -276,6 +285,8 @@ const ImageItemBase = kind({
 			<UiImageItem
 				{...rest}
 				css={css}
+				aria-disabled={disabled}
+				disabled={disabled}
 				imageComponent={
 					<Image>
 						{showSelection ? (
