@@ -1,12 +1,14 @@
 import DayPicker from '@enact/sandstone/DayPicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
-import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
+
+import Section from '../components/Section';
 
 class DayPickerItem extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			content: null,
 			open: false
@@ -14,7 +16,9 @@ class DayPickerItem extends React.Component {
 	}
 
 	handleClose = () => this.setState({open: false})
+
 	handleOpen = () => this.setState({open: true})
+
 	handleSelect = ({content}) => this.setState({content: content})
 
 	render () {
@@ -43,10 +47,10 @@ class DayPickerItem extends React.Component {
 
 const DayPickerView = () => (
 	<>
-		<Heading showLine>DayPicker</Heading>
-		<DayPickerItem
-			title="Day"
-		/>
+		<Section title="Default">
+			<DayPickerItem alt="Normal" title="Day" />
+			<DayPickerItem alt="Disabled" disabled title="Day" />
+		</Section>
 	</>
 );
 

@@ -1,15 +1,22 @@
 import Dropdown from '@enact/sandstone/Dropdown';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 const list = [
-	{children: 'Option1', key: 'item1', 'aria-label': 'aria label 1'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'aria label 2'},
-	{children: 'Option3', key: 'item3', 'aria-label': 'aria label 3'}
+	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
+	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'},
+	{children: 'Option3', key: 'item3', 'aria-label': 'This is an Option 3.'}
 ];
+
+const disabledList = list.map(item => ({...item, disabled: true}));
 
 class A11yDropdown extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			ariaLabel: null
 		};
@@ -20,13 +27,15 @@ class A11yDropdown extends React.Component {
 	}
 
 	render () {
+		const {children} = this.props;
+
 		return (
 			<Dropdown
 				onSelect={this.onSelect}
-				title="Dropdown"
-				{...this.props}
+				aria-label={this.state.ariaLabel}
+				{...this.props /* Can be overridden the aria-label with this.props['aria-label'] */}
 			>
-				{list}
+				{children}
 			</Dropdown>
 		);
 	}
@@ -34,29 +43,79 @@ class A11yDropdown extends React.Component {
 
 const DropdownView = () => (
 	<>
-		<Dropdown placeholder="Dropdown without title">
-			{['Option1', 'Option2', 'Option3']}
-		</Dropdown>
-		<br />
-		<br />
-		<Dropdown placeholder="Dropdown" title="String Array children">
-			{['Option1', 'Option2', 'Option3']}
-		</Dropdown>
-		<br />
-		<br />
-		<Dropdown aria-label="This is a dropdown" placeholder="Dropdown" title="String Array children with aria-label">
-			{['Option1', 'Option2', 'Option3']}
-		</Dropdown>
-		<br />
-		<br />
-		<A11yDropdown placeholder="Dropdown" title="Object Array children with item's aria-label">
-			{list}
-		</A11yDropdown>
-		<br />
-		<br />
-		<A11yDropdown aria-label="This is a dropdown" placeholder="Dropdown" title="Object Array children with component's aria-label and item's aria-label">
-			{list}
-		</A11yDropdown>
+		<Section title="String array as the children prop">
+			<Dropdown
+				alt="selected With Placeholder"
+				placeholder="Placeholder"
+				selected={2}
+			>
+				{['Option 0', 'Option 1', 'Option 2']}
+			</Dropdown>
+			<br />
+			<Dropdown
+				alt="With Placeholder and title"
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{['Option 0', 'Option 1', 'Option 2']}
+			</Dropdown>
+			<br />
+			<Dropdown
+				alt="Disabled with Placeholder and title"
+				disabled
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{['Option 0', 'Option 1', 'Option 2']}
+			</Dropdown>
+			<br />
+			<Dropdown
+				alt="Aria-lablelled with Placeholder and title"
+				aria-label="This is a Label."
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{['Option 0', 'Option 1', 'Option 2']}
+			</Dropdown>
+			<br />
+			<Dropdown
+				alt="Aria-lablelled and Disabled with Placeholder and title"
+				aria-label="This is a Label."
+				disabled
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{['Option 0', 'Option 1', 'Option 2']}
+			</Dropdown>
+		</Section>
+
+		<Section className={css.marginTop} title="Object array as the children prop">
+			<Dropdown
+				alt="With Placeholder and Title"
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{list}
+			</Dropdown>
+			<br />
+			<Dropdown
+				alt="With Placeholder, Title, and Aria-labelled Disabled Options"
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{disabledList}
+			</Dropdown>
+		</Section>
+
+		<Section className={css.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
+			<A11yDropdown
+				aria-label="This is a Label."
+				placeholder="Placeholder"
+				title="Title"
+			>
+				{list}
+			</A11yDropdown>
+		</Section>
 	</>
 );
 
