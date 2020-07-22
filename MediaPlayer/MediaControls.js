@@ -564,6 +564,11 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.stopListeningForPulses();
 				this.paused.resume();
 			}
+			if (!prevState.showMoreComponents && this.state.showMoreComponents) {
+				this.paused.pause();
+			} else if (prevState.showMoreComponents && !this.state.showMoreComponents) {
+				this.paused.resume();
+			}
 		}
 
 		componentWillUnmount () {
@@ -735,8 +740,11 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		handleTransitionEnd = (ev) => {
 			if (ev.propertyName === 'transform' && ev.target.dataset.spotlightId === 'moreComponents') {
-				if (this.state.showMoreComponents && !Spotlight.getPointerMode()) {
-					Spotlight.move('down');
+				if (this.state.showMoreComponents) {
+					this.paused.resume();
+					if (!Spotlight.getPointerMode()) {
+						Spotlight.move('down');
+					}
 				}
 			}
 		}

@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/MediaPlayer` to pause spotlight while transition animation
 - `sandstone/TabGroup` to read out contents without button `role`
 
 ## [1.0.1] - 2020-07-20
