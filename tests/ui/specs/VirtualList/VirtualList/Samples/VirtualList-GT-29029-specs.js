@@ -7,6 +7,10 @@ describe('VirtualList Samples', function () {
 	});
 
 	it('should Navigate Disabled and Enabled items [GT-29029]', function () {
+		// Step 2: Uncheck the "Native Scrolling" Checkbox item.
+		// Set translate ScrollMode.
+		Page.buttonNativeScroll.moveTo();
+		Page.spotlightSelect();
 		// Step 3: Click on DisabledItems CheckboxItem.(DisabledItem Button for this test.)
 		Page.buttonDisabledItem.moveTo();
 		Page.spotlightSelect();
