@@ -284,8 +284,8 @@ const ImageItemBase = kind({
 		return (
 			<UiImageItem
 				{...rest}
-				css={css}
 				aria-disabled={disabled}
+				css={css}
 				disabled={disabled}
 				imageComponent={
 					<Image>
