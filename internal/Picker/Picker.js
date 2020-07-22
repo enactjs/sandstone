@@ -701,6 +701,7 @@ const PickerBase = class extends React.Component {
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.incrementer}`));
+				ev.stopPropagation();
 			} else {
 				forward(`onSpotlight${cap(direction)}`, ev, this.props);
 			}
@@ -727,6 +728,7 @@ const PickerBase = class extends React.Component {
 				// set the pointer mode to false on keydown
 				Spotlight.setPointerMode(false);
 				Spotlight.focus(this.containerRef.querySelector(`.${componentCss.decrementer}`));
+				ev.stopPropagation();
 			} else {
 				forward(`onSpotlight${cap(direction)}`, ev, this.props);
 			}
