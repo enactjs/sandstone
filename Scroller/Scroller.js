@@ -48,7 +48,7 @@ const SpottableDiv = Spottable('div');
  * @ui
  * @public
  */
-let Scroller = (props) => {
+const ScrollerBase = (props) => {
 	// Hooks
 
 	const {
@@ -92,9 +92,9 @@ let Scroller = (props) => {
 	);
 };
 
-Scroller.displayName = 'Scroller';
+ScrollerBase.displayName = 'Scroller';
 
-Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
+ScrollerBase.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
@@ -353,16 +353,17 @@ Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	verticalScrollThumbAriaLabel: PropTypes.string
 };
 
-Scroller = Skinnable(
+const Scroller = Skinnable(
 	SpotlightContainerDecorator(
 		{
 			overflow: true,
 			preserveId: true,
-			restrict: 'self-first'
+			restrict: 'self-first',
+			enterTo: 'last-focused'
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
-			Scroller
+			ScrollerBase
 		)
 	)
 );
@@ -392,5 +393,6 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
-	Scroller
+	Scroller,
+	ScrollerBase
 };

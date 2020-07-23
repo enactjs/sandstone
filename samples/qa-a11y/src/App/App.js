@@ -1,8 +1,10 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import ScrollerComponent from '@enact/sandstone/Scroller';
+import {ScrollerBase} from '@enact/sandstone/Scroller';
+import Skinnable from '@enact/sandstone/Skinnable';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Spotlight from '@enact/spotlight';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
@@ -39,7 +41,7 @@ import RadioItem from '../views/RadioItem';
 import RangePicker from '../views/RangePicker';
 import ReadAlert from '../views/ReadAlert';
 import Region from '../views/Region';
-import Scroller from '../views/Scroller';
+import ScrollerView from '../views/Scroller';
 import Slider from '../views/Slider';
 import Spinner from '../views/Spinner';
 import Switch from '../views/Switch';
@@ -55,6 +57,21 @@ import WizardPanels from '../views/WizardPanels';
 import css from './App.module.less';
 import Home from './Home';
 import View from './View';
+
+const Scroller = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			enterTo: 'last-focused',
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			ScrollerBase
+		)
+	)
+);
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
@@ -87,7 +104,7 @@ const views = [
 	{title: 'RangePicker', view: RangePicker},
 	{title: 'ReadAlert', view: ReadAlert},
 	{title: 'Region', view: Region},
-	{title: 'Scroller', view: Scroller},
+	{title: 'Scroller', view: ScrollerView},
 	{title: 'Slider', view: Slider},
 	{title: 'Spinner', view: Spinner},
 	{title: 'Switch', view: Switch},
@@ -165,17 +182,17 @@ class AppBase extends React.Component {
 		return (
 			<div className={classnames(className, debugAriaClass)}>
 				<Layout {...rest} className={css.layout}>
-					<Cell component={ScrollerComponent} size="20%">
+					<Cell component={Scroller} id="scroller" size="20%" spotlightId="scroller">
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item
 								className={css.navItem}
 								data-menu={i}
 								key={i}
+								onClick={this.handleChangeView(i)}
 								slotBefore={
 									<div aria-hidden>{('00' + i).slice(-2)}</div>
 								}
-								onClick={this.handleChangeView(i)}
 							>
 								{view.title}
 							</Item>
