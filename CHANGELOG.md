@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` to incorporate a larger vertical margin to provide the same layout-height to `Button` as the tap-area occupies
 - `sandstone/TabGroup` to read out contents without button `role`
 
 ## [1.0.1] - 2020-07-20
