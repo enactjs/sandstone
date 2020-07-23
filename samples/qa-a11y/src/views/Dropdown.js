@@ -47,7 +47,6 @@ const DropdownView = () => (
 			<Dropdown
 				alt="selected With Placeholder"
 				placeholder="Placeholder"
-				selected={2}
 			>
 				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>

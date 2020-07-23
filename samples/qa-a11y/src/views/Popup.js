@@ -12,24 +12,24 @@ class PopupView extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
+			open0: false,
 			open1: false,
 			open2: false,
 			open3: false,
-			open4: false,
-			open5: false
+			open4: false
 		};
 
+		this.handleOpen0 = this.handleOpen(0);
 		this.handleOpen1 = this.handleOpen(1);
 		this.handleOpen2 = this.handleOpen(2);
 		this.handleOpen3 = this.handleOpen(3);
 		this.handleOpen4 = this.handleOpen(4);
-		this.handleOpen5 = this.handleOpen(5);
 
+		this.handleClose0 = this.handleClose(0);
 		this.handleClose1 = this.handleClose(1);
 		this.handleClose2 = this.handleClose(2);
 		this.handleClose3 = this.handleClose(3);
 		this.handleClose4 = this.handleClose(4);
-		this.handleClose5 = this.handleClose(5);
 	}
 
 	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
@@ -37,30 +37,30 @@ class PopupView extends React.Component {
 	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
 
 	render () {
-		const {open1, open2, open3, open4, open5} = this.state;
+		const {open0, open1, open2, open3, open4} = this.state;
 
 		return (
 			<>
 				<Section title="Default">
-					<Button alt="Normal" onClick={this.handleOpen1}>Open 0</Button>
-					<Button alt="Long Text" onClick={this.handleOpen2}>Open 1</Button>
-					<Button alt="With Scroller" onClick={this.handleOpen3}>Open 2</Button>
-					<Button alt="With Buttons" onClick={this.handleOpen4}>Open 3</Button>
+					<Button alt="Normal" onClick={this.handleOpen0}>Open 0</Button>
+					<Button alt="Long Text" onClick={this.handleOpen1}>Open 1</Button>
+					<Button alt="With Scroller" onClick={this.handleOpen2}>Open 2</Button>
+					<Button alt="With Buttons" onClick={this.handleOpen3}>Open 3</Button>
 				</Section>
 
 				<Section title="Aria-labelled">
-					<Button alt="Aria-lablled with Buttons" onClick={this.handleOpen5}>Open 4</Button>
+					<Button alt="Aria-lablled with Buttons" onClick={this.handleOpen4}>Open 4</Button>
 
 					<Popup
-						onClose={this.handleClose1}
-						open={open1}
+						onClose={this.handleClose0}
+						open={open0}
 					>
 						<span>Content</span>
 					</Popup>
 
 					<Popup
-						onClose={this.handleClose2}
-						open={open2}
+						onClose={this.handleClose1}
+						open={open1}
 					>
 						<span>
 							Enact is a framework designed to be performant, customizable and well structured.
@@ -84,8 +84,8 @@ class PopupView extends React.Component {
 					</Popup>
 
 					<Popup
-						onClose={this.handleClose3}
-						open={open3}
+						onClose={this.handleClose2}
+						open={open2}
 					>
 						<Button>Button Outside Scroller</Button>
 						<Scroller style={{height: ri.scaleToRem(170), marginTop: ri.scaleToRem(10)}}>
@@ -103,8 +103,8 @@ class PopupView extends React.Component {
 					</Popup>
 
 					<Popup
-						onClose={this.handleClose4}
-						open={open4}
+						onClose={this.handleClose3}
+						open={open3}
 					>
 						<Heading showLine>Heading</Heading>
 						<Button>Text 0</Button>
@@ -113,8 +113,8 @@ class PopupView extends React.Component {
 
 					<Popup
 						aria-label="This is a Label."
-						onClose={this.handleClose5}
-						open={open5}
+						onClose={this.handleClose4}
+						open={open4}
 					>
 						<Heading showLine>Heading</Heading>
 						<Button>Text 0</Button>
