@@ -77,14 +77,16 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 	const id = `scroller_${++scrollerId}_content`;
+	const [ScrollBody, scrollBodyProps] = rest.focusableScrollbar === 'byEnter' ?
+		[SpottableDiv, {'aria-labelledby': id}] :
+		[React.Fragment, null];
 
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<ScrollBody {...focusableBodyProps} aria-labelledby={id}>
+				<ScrollBody {...focusableBodyProps} {...scrollBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
