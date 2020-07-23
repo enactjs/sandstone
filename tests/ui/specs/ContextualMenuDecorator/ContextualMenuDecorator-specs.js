@@ -83,7 +83,7 @@ describe('ContextualMenuDecorator', function () {
 				button1.self.click();	// this will open menu1
 				expect(button1.self.isFocused()).to.be.false();  // (verify step 4)
 				expect(menu1.isMenuExist, 'menu1 open').to.be.true();  // (verify step 4)
-				expect(menu1.item(0).isFocused()).to.be.false();  // Spotlight is not on the fContextualirst item. (verify step 3)
+				expect(menu1.item(0).isFocused()).to.be.false();  // Spotlight is not on the first item. (verify step 3)
 
 				$('.ContextualPopupDecorator_HolePunchScrim_holePunchScrim').click({x: -100, y: 100});	// Click on scrim to close popup
 				// this will close menu1
