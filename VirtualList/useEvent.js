@@ -127,10 +127,11 @@ const useEventKey = (props, instances, context) => {
 				} else {
 					const {spotlightId} = props;
 					let targetIndex = -1;
-					let currentTarget = target;
-					while (this.contains(currentTarget)) {
-						targetIndex = currentTarget.dataset.index || targetIndex;
-						currentTarget = currentTarget.parentNode;
+					// To suport nested virtualList, need to get the current dataIndex.
+					let targetParentNode = target.parentNode;
+					while (this && targetParentNode && this !== targetParentNode) {
+						targetIndex = targetParentNode.dataset.index || targetIndex;
+						targetParentNode = targetParentNode.parentNode;
 					}
 					const isNotItem = (
 						// if target has an index, it must be an item
@@ -140,12 +141,19 @@ const useEventKey = (props, instances, context) => {
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const candidate = getTargetByDirectionFromElement(direction, target);
-					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					let candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
 					// To suport multiple virtualList, need to check the candidate is in the current VL or not.
-					if (!this.contains(candidate)) {
+					if (candidate.dataset.index && !this.contains(candidate)) {
 						return;
+					}
+
+					// To suport nested virtualList, need to get the current dataIndex.
+					let candidateParentNode = candidate.parentNode;
+					while (this && candidateParentNode && this !== candidateParentNode) {
+						candidateIndex = (candidateParentNode.dataset.index && getNumberValue(candidateParentNode.dataset.index)) || candidateIndex;
+						candidateParentNode = candidateParentNode.parentNode;
 					}
 
 					if (isNotItem) { // if the focused node is not an item

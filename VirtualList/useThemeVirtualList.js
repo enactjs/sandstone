@@ -229,11 +229,18 @@ const useSpottable = (props, instances) => {
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
-
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
-			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+			contentRef = scrollContentHandle.current.contentRef && scrollContentHandle.current.contentRef.current,
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize));
+		let focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+
+		// To suport nested virtualList, need to get the current dataIndex.
+		let itemParentNode = item.parentNode;
+		while (contentRef && itemParentNode && contentRef !== itemParentNode) {
+			focusedIndex = itemParentNode.getAttribute(dataIndexAttribute) || focusedIndex;
+			itemParentNode = itemParentNode.parentNode;
+		}
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
