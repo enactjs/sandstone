@@ -21,7 +21,6 @@ class FixedPopupPanelsView extends React.Component {
 			open1: false,
 			open2: false,
 			open3: false,
-			open4: false,
 			panelIndex: 0
 		};
 
@@ -29,13 +28,11 @@ class FixedPopupPanelsView extends React.Component {
 		this.handleOpen1 = this.handleOpen(1);
 		this.handleOpen2 = this.handleOpen(2);
 		this.handleOpen3 = this.handleOpen(3);
-		this.handleOpen4 = this.handleOpen(4);
 
 		this.handleClose0 = this.handleClose(0);
 		this.handleClose1 = this.handleClose(1);
 		this.handleClose2 = this.handleClose(2);
 		this.handleClose3 = this.handleClose(3);
-		this.handleClose4 = this.handleClose(4);
 	}
 
 	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
@@ -131,7 +128,6 @@ class FixedPopupPanelsView extends React.Component {
 
 			<Section title="Combination">
 				<Button alt="Scroller with focusableScrollbar of byEnter" onClick={this.handleOpen3}>Open 3</Button>
-				<Button alt="Scroller with focusableScrollbar of true" onClick={this.handleOpen4}>Open 4</Button>
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
@@ -162,51 +158,6 @@ class FixedPopupPanelsView extends React.Component {
 							<title>Header Title</title>
 						</Header>
 						<Scroller aria-label="This is Scroller." direction='vertical' focusableScrollbar="byEnter" style={{height: 100}}>
-							<span>Text 0</span>
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-						</Scroller>
-						<Item onClick={this.prevPanel}>Text 1</Item>
-					</Panel>
-				</FixedPopupPanels>
-
-				<FixedPopupPanels
-					index={this.state.panelIndex}
-					onClose={this.handleClose4}
-					open={this.state.open4}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-						</Header>
-						<Scroller direction='vertical' focusableScrollbar={true} style={{height: 100}}>
-							<span>Text 0</span>
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-						</Scroller>
-						<Item onClick={this.nextPanel}>Text 1</Item>
-					</Panel>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-						</Header>
-						<Scroller aria-label="This is Scroller." direction='vertical' focusableScrollbar={true} style={{height: 100}}>
 							<span>Text 0</span>
 							<br />
 							<br />
