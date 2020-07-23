@@ -49,7 +49,7 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-let Scroller = (props) => {
+let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	// Hooks
 
 	const {
@@ -64,7 +64,7 @@ let Scroller = (props) => {
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(props);
+	} = useScroll(rest);
 
 	const {
 		className,
@@ -74,17 +74,23 @@ let Scroller = (props) => {
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 	const id = `scroller_${++scrollerId}_content`;
+
+	if (ariaLabel) {
+		focusableBodyProps['aria-label'] = ariaLabel;
+	} else {
+		focusableBodyProps['aria-labelledby'] = id;
+	}
 
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<ScrollBody {...focusableBodyProps} aria-labelledby={id}>
+				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
@@ -97,6 +103,15 @@ let Scroller = (props) => {
 Scroller.displayName = 'Scroller';
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
+	/**
+	 * The "aria-label" for the Scroller.
+	 * When `aria-label` is set and `focusableScrollbar` is equal to `byEnter`, it will be used instead to read a body text.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	'aria-label': PropTypes.string,
+
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
