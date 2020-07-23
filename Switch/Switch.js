@@ -41,6 +41,15 @@ const SwitchBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables Switch and becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * Disables animation.
 		 *
 		 * @type {Boolean}
@@ -78,13 +87,15 @@ const SwitchBase = kind({
 		})
 	},
 
-	render: ({children, css, selected, ...rest}) => {
+	render: ({children, css, disabled, selected, ...rest}) => {
 		delete rest.noAnimation;
 
 		return (
 			<div
 				{...rest}
 				aria-pressed={selected}
+				aria-disabled={disabled}
+				disabled={disabled}
 				role="button"
 			>
 				<div className={css.bg} />
