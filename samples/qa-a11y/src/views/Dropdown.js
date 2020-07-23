@@ -6,9 +6,9 @@ import Section from '../components/Section';
 import css from '../App/App.module.less';
 
 const list = [
+	{children: 'Option0', key: 'item0', 'aria-label': 'This is an Option 0.'},
 	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'},
-	{children: 'Option3', key: 'item3', 'aria-label': 'This is an Option 3.'}
+	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'}
 ];
 
 const disabledList = list.map(item => ({...item, disabled: true}));
