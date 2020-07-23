@@ -80,18 +80,12 @@ let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 	const id = `scroller_${++scrollerId}_content`;
 
-	if (ariaLabel) {
-		focusableBodyProps['aria-label'] = ariaLabel;
-	} else {
-		focusableBodyProps['aria-labelledby'] = id;
-	}
-
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} id={id} ref={scrollContentHandle} />
+				<ScrollBody {...focusableBodyProps} aria-labelledby={id}>
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
