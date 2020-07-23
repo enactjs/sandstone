@@ -33,6 +33,7 @@ import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
+let scrollerId = 0;
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -77,13 +78,14 @@ let Scroller = (props) => {
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
 	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const id = `scroller_${++scrollerId}_content`;
 
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
-				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+				<ScrollBody {...focusableBodyProps} aria-labelledby={id}>
+					<UiScrollerBasic {...themeScrollContentProps} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
