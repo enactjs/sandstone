@@ -72,7 +72,6 @@ let Scroller = (props) => {
 
 	const {
 		focusableBodyProps,
-		scrollbarProps,
 		themeScrollContentProps
 	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
@@ -85,8 +84,8 @@ let Scroller = (props) => {
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
 					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
-					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} {...scrollbarProps} /> : null}
-					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} {...scrollbarProps} /> : null}
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>

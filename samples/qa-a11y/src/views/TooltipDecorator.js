@@ -16,7 +16,7 @@ const TooltipDecoratorView = () => (
 			tooltipProps={tooltipProps}
 			tooltipText="Below Right Tooltip"
 		>
-			Text 0
+			Below Right Tooltip
 		</TooltipButton>
 
 		<TooltipButton
@@ -26,7 +26,7 @@ const TooltipDecoratorView = () => (
 			tooltipProps={tooltipProps}
 			tooltipText="Below Left Tooltip"
 		>
-			Text 1
+			Below Left Tooltip
 		</TooltipButton>
 
 		<TooltipButton
@@ -36,7 +36,7 @@ const TooltipDecoratorView = () => (
 			tooltipProps={tooltipProps}
 			tooltipText="Above Right Tooltip"
 		>
-			Text 2
+			Above Right Tooltip
 		</TooltipButton>
 
 		<TooltipButton
@@ -46,7 +46,7 @@ const TooltipDecoratorView = () => (
 			tooltipProps={tooltipProps}
 			tooltipText="Above Left Tooltip"
 		>
-			Text 3
+			Above Left Tooltip
 		</TooltipButton>
 	</Section>
 );

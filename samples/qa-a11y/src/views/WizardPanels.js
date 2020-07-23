@@ -29,8 +29,8 @@ class WizardPanelsView extends React.Component {
 					title="WizardPanels View 0"
 				>
 					<div style={{textAlign: 'center', marginBottom: '10' + 'px'}}>
-						<Button>Text 0</Button>
-						<Button>Text 1</Button>
+						<Button>test</Button>
+						<Button>test</Button>
 					</div>
 					<CheckboxItem
 						onClick={this.onTogglenoAnimation}
