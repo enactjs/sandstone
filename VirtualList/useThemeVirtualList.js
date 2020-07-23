@@ -13,7 +13,6 @@ import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
 
-const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
 
 const
@@ -22,6 +21,7 @@ const
 	getNumberValue = (index) => index | 0;
 
 const useSpottable = (props, instances) => {
+	const SpotlightAccelerator = new Accelerator();
 	const {noAffordance, scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {

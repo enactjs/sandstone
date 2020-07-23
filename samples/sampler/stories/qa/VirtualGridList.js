@@ -129,7 +129,7 @@ class VirtualGridListInVirtualList extends React.Component {
 	listProps = {
 		dataSize: 5,
 		style:{paddingRight: ri.scaleToRem(36)},
-		itemSize: ri.scale(number('gridListHeight', Config, 688)),
+		itemSize:  ri.scale(number('minHeight', Config, 570)),
 		key: select('scrollMode', prop.scrollModeOption, Config),
 		noScrollByWheel: boolean('noScrollByWheel', Config),
 		scrollMode: select('scrollMode', prop.scrollModeOption, Config),
@@ -140,7 +140,8 @@ class VirtualGridListInVirtualList extends React.Component {
 	renderItem = ({index}) => {
 		return (
 			<VirtualGridList
-				style={{height: this.listProps.itemSize, paddingBottom: ri.scaleToRem(36)}}
+				data-index={index}
+				style={{height: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)}}
 				dataSize={updateDataSize(number('dataSize', Config, 300))}
 				direction="horizontal"
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}

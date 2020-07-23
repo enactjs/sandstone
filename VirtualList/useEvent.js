@@ -126,7 +126,12 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const targetIndex = target.dataset.index;
+					let targetIndex = -1;
+					let currentTarget = target;
+					while (this.contains(currentTarget)) {
+						targetIndex = currentTarget.dataset.index || targetIndex;
+						currentTarget = currentTarget.parentNode;
+					}
 					const isNotItem = (
 						// if target has an index, it must be an item
 						!targetIndex &&
@@ -137,6 +142,11 @@ const useEventKey = (props, instances, context) => {
 					const candidate = getTargetByDirectionFromElement(direction, target);
 					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
+
+					// To suport multiple virtualList, need to check the candidate is in the current VL or not.
+					if (!this.contains(candidate)) {
+						return;
+					}
 
 					if (isNotItem) { // if the focused node is not an item
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
