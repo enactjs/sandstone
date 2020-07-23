@@ -15,15 +15,15 @@ const app = (props) => (
 	<div {...props}>
 		<Scroller style={{height: scaleToRem(250)}} id="scroller">
 			<Dropdown title="Dropdown 1" id="dropdown1">
-				{[items(3)]}
+				{items(3)}
 			</Dropdown>
 			<br />
 			<Dropdown title="Dropdown 2" id="dropdown2">
-				{[items(5)]}
+				{items(5)}
 			</Dropdown>
 			<br />
 			<Dropdown title="Dropdown 3" id="dropdown3">
-				{[items(7)]}
+				{items(7)}
 			</Dropdown>
 		</Scroller>
 	</div>
