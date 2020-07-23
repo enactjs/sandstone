@@ -11,6 +11,8 @@ import Item from '../../../../Item';
 import {FixedPopupPanels, Panel, Header} from '../../../../FixedPopupPanels';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
+import UrlPropsDecorator from '../../components/UrlPropsDecorator';
+
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
 spotlight.setPointerMode(false);
@@ -22,11 +24,12 @@ const app = kind({
 		index: 0
 	},
 
-	render: ({open, onToggleOpen, index, onNavigate, ...rest}) => {
+	render: ({className, open, onToggleOpen, index, onNavigate, ...rest}) => {
 		return (
-			<div {...rest}>
+			<div className={className}>
 				<Button id="openButton" onClick={onToggleOpen}>Open FixedPopupPanels</Button>
 				<FixedPopupPanels
+					{...rest}
 					id="fixedpopuppanels"
 					index={index}
 					open={open}
@@ -72,6 +75,7 @@ const app = kind({
 
 const AppDecorator = compose(
 	ThemeDecorator,
+	UrlPropsDecorator,
 	Changeable({prop: 'index', change: 'onNavigate'}),
 	Toggleable({prop: 'open', toggle: 'onToggleOpen'})
 );
