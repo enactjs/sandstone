@@ -627,6 +627,8 @@ class Popup extends React.Component {
 	render () {
 		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
 
+		delete rest.no5WayClose;
+
 		return (
 			<FloatingLayer
 				noAutoDismiss={noAutoDismiss}
