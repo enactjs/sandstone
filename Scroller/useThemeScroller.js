@@ -123,7 +123,7 @@ const useSpottable = (props, instances) => {
 
 	useEffect(() => {
 		return () => setContainerDisabled(false);
-	}, [setContainerDisabled]);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		const {onUpdate} = props;

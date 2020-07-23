@@ -6,9 +6,9 @@ const useSpotlightConfig = (props, instances) => {
 	// Hooks
 
 	useEffect(() => {
-		const {spottable: {current: {lastFocusedIndex}}} = instances;
+		function lastFocusedPersist () {
+			const {spottable: {current: {lastFocusedIndex}}} = instances;
 
-		const lastFocusedPersist = () => {
 			if (lastFocusedIndex != null) {
 				return {
 					container: false,
@@ -16,21 +16,38 @@ const useSpotlightConfig = (props, instances) => {
 					key: lastFocusedIndex
 				};
 			}
-		};
+		}
+
+		function lastFocusedRestore ({key}, all) {
+			const placeholder = all.find(el => 'vlPlaceholder' in el.dataset);
+
+			if (placeholder) {
+				placeholder.dataset.index = key;
+
+				return placeholder;
+			}
+
+			return all.reduce((focused, node) => {
+				return focused || Number(node.dataset.index) === key && node;
+			}, null);
+		}
 
 		function configureSpotlight () {
 			const {spacing, spotlightId} = props;
 
 			Spotlight.set(spotlightId, {
+				enterTo: 'last-focused',
 				/*
 				 * Returns the data-index as the key for last focused
 				 */
 				lastFocusedPersist,
+
 				/*
 				 * Restores the data-index into the placeholder if its the only element. Tries to find a
 				 * matching child otherwise.
 				 */
 				lastFocusedRestore,
+
 				/*
 				 * Directs spotlight focus to favor straight elements that are within range of `spacing`
 				 * over oblique elements, like scroll buttons.
@@ -41,29 +58,14 @@ const useSpotlightConfig = (props, instances) => {
 
 		configureSpotlight();
 	}, [props, instances]);
-
-	// Functions
-
-	/*
-	 * Restores the data-index into the placeholder if it exists. Tries to find a matching child
-	 * otherwise.
-	 */
-	function lastFocusedRestore ({key}, all) {
-		const placeholder = all.find(el => 'vlPlaceholder' in el.dataset);
-
-		if (placeholder) {
-			placeholder.dataset.index = key;
-
-			return placeholder;
-		}
-
-		return all.reduce((focused, node) => {
-			return focused || Number(node.dataset.index) === key && node;
-		}, null);
-	}
 };
 
-const getNumberValue = (index) => index | 0;
+const getNumberValue = (index) => {
+	// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
+	let number = +index;
+	// should return -1 if index is not a number or a negative value
+	return number >= 0 ? number : -1;
+};
 
 const useSpotlightRestore = (props, instances, context) => {
 	const {scrollContentRef, spottable} = instances;

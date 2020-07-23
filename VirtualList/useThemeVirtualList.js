@@ -18,8 +18,12 @@ const SpotlightPlaceholder = Spottable('div');
 
 const
 	nop = () => {},
-	// using 'bitwise or' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-	getNumberValue = (index) => index | 0;
+	getNumberValue = (index) => {
+		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
+		let number = +index;
+		// should return -1 if index is not a number or a negative value
+		return number >= 0 ? number : -1;
+	};
 
 const useSpottable = (props, instances) => {
 	const {noAffordance, scrollMode} = props;
@@ -127,7 +131,7 @@ const useSpottable = (props, instances) => {
 
 			setContainerDisabled(false);
 		};
-	}, [pause, setContainerDisabled]);
+	}, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// Functions
 
@@ -140,7 +144,7 @@ const useSpottable = (props, instances) => {
 		mutableRef.current.isScrolledBy5way = false;
 		mutableRef.current.isScrolledByJump = false;
 
-		if (nextIndex >= 0) {
+		if (nextIndex >= 0 && index >= 0) {
 			const
 				row = Math.floor(index / dimensionToExtent),
 				nextRow = Math.floor(nextIndex / dimensionToExtent),
@@ -231,7 +235,7 @@ const useSpottable = (props, instances) => {
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
 
-		if (!isNaN(focusedIndex)) {
+		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
 
 			if (numOfItems > 0 && focusedIndex % numOfItems !== mutableRef.current.lastFocusedIndex % numOfItems) {

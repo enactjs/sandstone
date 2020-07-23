@@ -20,7 +20,17 @@ describe('VirtualList', function () {
 		});
 
 		it('should not scroll when leaving list with 5-way up/down [GT-28473]', function () {
-			// Step 3. Set dataSize to 100. Step 4: change to 5-way mode
+			// Step 3 is 'Set dataSize to 100' but set dataSize to 20 for Speed up Test.
+			Page.inputfieldNumItems.moveTo();
+			Page.spotlightSelect();
+			Page.backSpace();
+			Page.backSpace();
+			Page.backSpace();
+			Page.numPad(2);
+			Page.numPad(0);
+			Page.backKey();
+			Page.spotlightDown();
+			// Step 4: change to 5-way mode
 			Page.buttonLeft.moveTo();
 			// Step 5: 5-way Spot the first item.
 			Page.spotlightRight();
@@ -34,12 +44,16 @@ describe('VirtualList', function () {
 			// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
 			// Wheeling will not be implemented - see ENYO-6178
 			Page.spotlightDown();
-			Page.fiveWayToItem(99);
+			expectFocusedItem(0);
+			Page.pageDown();
+			waitUntilFocused(6, 'focus Item 6');
+			Page.pageDown();
+			waitUntilFocused(19, 'focus Item 19');
 			// Step 7: 2. Click the last item.
 			Page.spotlightSelect();
 			// Verify Step 7: Spotlight is on the last item.
 			Page.delay(1000);
-			expectFocusedItem(99, 'step 7 focus');
+			expectFocusedItem(19, 'step 7 focus');
 			// Step 8: 5-way Down
 			Page.spotlightDown();
 			Page.spotlightDown(); // 1 extra 5-way down to check Spotlight does not pass buttonBottom when wrap is off.
@@ -56,11 +70,20 @@ describe('VirtualList', function () {
 		});
 
 		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
-			// Test (Jira) calls for 30 items only. Test uses default of 100 items.
+			// Step 3. Knobs > VirtualList > dataSize > 30
+			Page.inputfieldNumItems.moveTo();
+			Page.spotlightSelect();
+			Page.backSpace();
+			Page.backSpace();
+			Page.backSpace();
+			Page.numPad(3);
+			Page.numPad(0);
+			Page.backKey();
+			Page.spotlightDown();
 			// Step 4. Move focus to the first item ('Item 00').
-			// Verify Step 4: 1. Spotlight displays on the first item.
 			Page.buttonLeft.moveTo();
 			Page.spotlightRight();
+			// Verify Step 4: 1. Spotlight displays on the first item.
 			expectFocusedItem(0, 'focus Item 0');
 			// Verify Step 5: Scroll thumb's position appears shortly at the top of the Scrollbar track.
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
@@ -75,23 +98,25 @@ describe('VirtualList', function () {
 			expectNoFocusedItem();
 			waitUntilFocused(12, 'focus Item 12');
 			// Step 8. 5-way Down several times to scroll down the list.
-			Page.fiveWayToItem(30);
-			expectFocusedItem(30, 'focus Item 30');
+			Page.fiveWayToItem(20);
 			// Step 9. 5-way Spot the last item.
-			Page.fiveWayToItem(99);
+			Page.fiveWayToItem(29);
 			// Verify Step 9: 1. Spotlight displays on the last item.
+			waitUntilFocused(29, 'focus last Item');
 			Page.delay(1000);
-			expectFocusedItem(99, 'focus Item 99');
 			// Verify Step 10: Scroll thumb's position appears shortly at the bottom of the Scrollbar track.
-			Page.delay(2000);
 			expect(Page.getScrollThumbPosition(), 'Down').to.be.equal('1');
 			// Step 11: 5-way Spot the first item.
-			Page.fiveWayToItem(0);
+			Page.pageUp();
+			waitUntilFocused(23, 'focus Item 23');
+			Page.pageUp();
+			waitUntilFocused(17, 'focus Item 17');
+			Page.pageUp();
+			waitUntilFocused(11, 'focus Item 11');
+			Page.pageUp();
 			// Verify Step 11: Spotlight displays on the first item.
-			Page.delay(2000);
-			expectFocusedItem(0, 'focus Item 0');
+			waitUntilFocused(0, 'focus Item 0');
 			// Verify Step 12: Scroll thumb's position appears shortly at the top of the Scrollbar track.
-			Page.delay(1000);
 			expect(Page.getScrollThumbPosition(), 'Up').to.be.equal('0');
 		});
 

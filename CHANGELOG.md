@@ -2,6 +2,22 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/TabGroup` to read out contents without button `role`
+
+## [1.0.1] - 2020-07-20
+
+### Fixed
+
+- `sandstone/ImageItem` to re-render properly when `data-index` prop is the same
+- `sandstone/Scroller` to set its height correctly
+- `sandstone/Scroller` and `sandstone/VirtualList` overscroll style to match latest designs
+- `sandstone/Scroller` and `sandstone/VirtualList` to properly support `spotlightDisabled` prop
+- `sandstone/VirtualList` to preserve focus in panels
+
 ## [1.0.0] - 2020-07-13
 
 ### Changed

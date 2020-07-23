@@ -1,8 +1,11 @@
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
-import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
+
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
 
 class DatePickerItem extends React.Component {
 	constructor (props) {
@@ -43,19 +46,28 @@ class DatePickerItem extends React.Component {
 
 const DatePickerView = () => (
 	<>
-		<Heading showLine>DatePicker</Heading>
-		<DatePickerItem
-			title="Date"
-		/>
+		<Section title="Default">
+			<DatePickerItem alt="Normal" title="Date" />
+			<DatePickerItem alt="Disabled" disabled title="Date" />
+		</Section>
 
-		<h2>Customizable aria-labels</h2>
-		<Heading showLine>DatePicker</Heading>
-		<DatePickerItem
-			dayAriaLabel="Day picker"
-			monthAriaLabel="Month picker"
-			title="Date"
-			yearAriaLabel="Year picker"
-		/>
+		<Section className={css.marginTop} title="Aria-labelled">
+			<DatePickerItem
+				alt="Aria-labelled"
+				dayAriaLabel="Day picker"
+				monthAriaLabel="Month picker"
+				title="Date"
+				yearAriaLabel="Year picker"
+			/>
+			<DatePickerItem
+				alt="Aria-labelled and Disabled"
+				dayAriaLabel="Day picker"
+				disabled
+				monthAriaLabel="Month picker"
+				title="Date"
+				yearAriaLabel="Year picker"
+			/>
+		</Section>
 	</>
 );
 

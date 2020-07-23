@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => (
 	<div>
 		<p>
-			Enact Component patterns for accessibility features.
+			Enact Component patterns for Accessibility Features.
 		</p>
 	</div>
 );
