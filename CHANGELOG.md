@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Button` background color opacity update for opaque and disabled
+- `sandstone/Button` to incorporate a larger vertical margin to provide the same layout-height to `Button` as the tap-area occupies
 
 ## [1.1.0] - 2020-07-29
 
