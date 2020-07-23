@@ -5,7 +5,7 @@ import {getRect} from '@enact/spotlight/src/utils';
 import ri from '@enact/ui/resolution';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import classNames from 'classnames';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {affordanceSize} from '../useScroll';
 
@@ -19,7 +19,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = (scrollContainerRef) => {
+const getFocusableBodyProps = (scrollContainerRef, setBodySpotted, ariaLabel) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -53,6 +53,10 @@ const getFocusableBodyProps = (scrollContainerRef) => {
 		};
 	};
 
+	const updateTarget = ({target}) => {
+		setBodySpotted(isBody(target));
+	};
+
 	const consumeEventWithFocus = (ev) => {
 		const {target} = ev;
 		let nextTarget;
@@ -82,15 +86,17 @@ const getFocusableBodyProps = (scrollContainerRef) => {
 		}
 	};
 	return {
+		'aria-label': ariaLabel,
 		className: css.focusableBody,
 		onFocus: handle(
 			forward('onFocus'),
 			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			updateTarget
 		),
 		onBlur: handle(
 			// Focus out to external element.
 			forward('onBlur'),
-			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter)
 		),
 		onKeyDown: handle(
 			forward('onKeyDown'),
@@ -344,8 +350,10 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 
 	// Hooks
 
+	const [bodySpotted, setBodySpotted] = useState(props.focusableScrollbar === 'byEnter');
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, setBodySpotted, props['aria-label']) : {};
+	const scrollbarProps = {bodySpotted};
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,
@@ -361,7 +369,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
 	);
 
-	return {focusableBodyProps, themeScrollContentProps: rest};
+	return {focusableBodyProps, scrollbarProps, themeScrollContentProps: rest};
 };
 
 export default useThemeScroller;

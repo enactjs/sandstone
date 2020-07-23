@@ -16,6 +16,7 @@ const useThemeScrollbar = (props) => {
 
 	const {
 		'aria-label': ariaLabel,
+		bodySpotted,
 		cbAlertScrollbarTrack,
 		focusableScrollbar,
 		onInteractionForScroll,
@@ -68,6 +69,7 @@ const useThemeScrollbar = (props) => {
 		scrollbarTrackProps: {
 			...scrollbarTrackProps,
 			'aria-label': ariaLabel,
+			bodySpotted,
 			cbAlertScrollbarTrack,
 			focusableScrollbar,
 			onInteractionForScroll,
@@ -101,6 +103,16 @@ const ScrollbarBase = memo((props) => {
 ScrollbarBase.displayName = 'ScrollbarBase';
 
 ScrollbarBase.propTypes = /** @lends sandstone/useScroll.Scrollbar.prototype */ {
+	/**
+	 * Check if Spotlight is on the Scroller body or not.
+	 * If true, the Scrollbar track should pass `aria-hidden` prop to the DOM element
+	 * not to read out its' audio guidance.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	bodySpotted: PropTypes.bool,
+
 	/**
 	 * Customizes the component by mapping the supplied collection of CSS class names to the
 	 * corresponding internal elements and states of this component.
