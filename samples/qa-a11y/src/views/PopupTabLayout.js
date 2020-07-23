@@ -37,10 +37,11 @@ class PopupTabLayoutView extends React.Component {
 
 		return (
 			<>
-				<Button onClick={this.handleOpen}>Open PopupTabLayout</Button>
+				<Button onClick={this.handleOpen}>Open</Button>
+
 				<PopupTabLayout
-					open={open}
 					onClose={this.handleClose}
+					open={open}
 					spotlightRestrict="self-only"
 				>
 					<Tab icon="picture" title="Display">
@@ -49,6 +50,7 @@ class PopupTabLayoutView extends React.Component {
 								<Header title="Display Settings" type="compact" />
 								<Item onClick={this.handleDisplayNext}>Picture Modes</Item>
 								<Item onClick={this.handleDisplayNext}>Color Adjust</Item>
+								<Item onClick={this.handleDisplayNext} disabled>Energy saving</Item>
 							</TabPanel>
 							<TabPanel>
 								<Header title="Picture Modes" type="compact" />
@@ -65,6 +67,7 @@ class PopupTabLayoutView extends React.Component {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
+
 					<Tab icon="speaker" title="Sound">
 						<TabPanels index={indexSound} onBack={this.handleSoundPrev} onClose={this.handleClose}>
 							<TabPanel>
@@ -84,6 +87,7 @@ class PopupTabLayoutView extends React.Component {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
+
 					<Tab icon="arrowupdown" title="Network">
 						<TabPanels index={indexNetwork} onBack={this.handleNetworkPrev} onClose={this.handleClose}>
 							<TabPanel>

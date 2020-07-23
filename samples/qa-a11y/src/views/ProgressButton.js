@@ -3,6 +3,10 @@ import Heading from '@enact/sandstone/Heading';
 import ProgressButton from '@enact/sandstone/ProgressButton';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ProgressButtonView extends React.Component {
 	constructor () {
 		super();
@@ -28,17 +32,18 @@ class ProgressButtonView extends React.Component {
 			<>
 				<Heading showLine>Progress Button</Heading>
 				<ProgressButton
-					aria-live={progressButtonValue > 0 ? 'assertive' : null}
 					aria-label={buttonAriaLabel}
+					aria-live={progressButtonValue > 0 ? 'assertive' : null}
 					showProgress={progressButtonValue > 0}
 					progress={progressButtonValue}
 				>
 					Update
 				</ProgressButton>
-				<br />
-				<br />
-				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseButtonValue} />
-				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseButtonValue} />
+
+				<Section className={css.marginTop} title="Controls" vertical>
+					<Button alt="Decrease" aria-label="This is Decrease." icon="minus" onClick={this.handleDecreaseButtonValue} />
+					<Button alt="Increase" aria-label="This is Increase." icon="plus" onClick={this.handleIncreaseButtonValue} />
+				</Section>
 			</>
 		);
 	}

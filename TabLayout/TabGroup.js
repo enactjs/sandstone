@@ -72,7 +72,8 @@ const TabBase = kind({
 			collapsable: true,
 			css,
 			focusEffect: 'static',
-			minWidth: false
+			minWidth: false,
+			role: null
 		};
 
 		switch (orientation) {
