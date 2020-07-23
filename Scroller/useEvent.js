@@ -12,11 +12,11 @@ const useEventKey = () => {
 
 	function addGlobalKeyDownEventListener (fn) {
 		mutableRef.current.fn = fn;
-		utilEvent('keydown').addEventListener(document, mutableRef.current.fn);
+		utilEvent('keydown').addEventListener(document, mutableRef.current.fn, {capture: true});
 	}
 
 	function removeGlobalKeyDownEventListener () {
-		utilEvent('keydown').removeEventListener(document, mutableRef.current.fn);
+		utilEvent('keydown').removeEventListener(document, mutableRef.current.fn, {capture: true});
 		mutableRef.current.fn = null;
 	}
 
