@@ -41,7 +41,7 @@ describe('Dropdown', function () {
 
 			waitForFocusedText(dropdown, '28', 500, undefined, 100);
 
-			waitForFocusedText(dropdown, '3', 3750);
+			waitForFocusedText(dropdown, '3', 2250);
 		});
 	});
 

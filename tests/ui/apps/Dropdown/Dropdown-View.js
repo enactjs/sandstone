@@ -38,7 +38,7 @@ const app = (props) => <div {...props}>
 		<DropdownChange id="dropdownChangeChildren" changeProp="children" changePropValue={['three', 'five', 'seven']}>
 			{['one', 'two', 'three', 'four', 'five']}
 		</DropdownChange>
-		<DropdownChange id="dropdownChangeLessChildren" changeProp="children" changePropValue={children.filter((v) => v.includes('3'))} selected={28} waiting={3000}>
+		<DropdownChange id="dropdownChangeLessChildren" changeProp="children" changePropValue={children.filter((v) => v.includes('3'))} selected={28} waiting={1500}>
 			{children}
 		</DropdownChange>
 	</div>
