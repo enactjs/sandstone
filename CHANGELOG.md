@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/ProgressButton` stop icon size
+- `sandstone/ProgressButton` icon size
 - `sandstone/TabGroup` to read out contents without button `role`
 
 ## [1.0.1] - 2020-07-20
