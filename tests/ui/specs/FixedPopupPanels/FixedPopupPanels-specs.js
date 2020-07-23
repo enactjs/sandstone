@@ -54,7 +54,7 @@ describe('FixedPopupPanels', function () {
 				$('[data-id="picker"]')
 			);
 
-			// Focus should remain in the picker 
+			// Focus should remain in the picker
 			expect(pickerContainsFocused, 'Picker is focused').to.be.true();
 		});
 

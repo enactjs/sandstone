@@ -1,7 +1,5 @@
-import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
-import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
