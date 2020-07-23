@@ -12,7 +12,6 @@ import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
-import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
 
@@ -137,7 +136,7 @@ const CustomHeader = (props) => {
 	}
 
 	return (
-		<Header {...props} slotAfter={<FormCheckboxItem style={{width: ri.scaleToRem(900)}} onToggle={handleToggle}>Show Header Children</FormCheckboxItem>}>
+		<Header {...props} slotAfter={<Button onClick={handleToggle} size="small">{`${children ? 'Hide' : 'Show'} Header Children`}</Button>}>
 			{children ? <Item>Header Item</Item> : null}
 		</Header>
 	);
