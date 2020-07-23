@@ -12,6 +12,7 @@ import Item from '@enact/sandstone/Item';
 import {Header, Panel, Panels} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
+import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import VirtualList from '@enact/sandstone/VirtualList';
 
@@ -131,12 +132,12 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
 
-	function handleChildren () {
+	function handleToggle () {
 		setChildren(!children);
 	}
 
 	return (
-		<Header {...props} slotAfter={<Button size="small" onClick={handleChildren}>Show header children</Button>}>
+		<Header {...props} slotAfter={<FormCheckboxItem style={{width: ri.scaleToRem(900)}} onToggle={handleToggle}>Show Header Children</FormCheckboxItem>}>
 			{children ? <Item>Header Item</Item> : null}
 		</Header>
 	);
