@@ -110,7 +110,7 @@ const ImageItemBase = kind({
 		'data-webos-voice-intent': PropTypes.string,
 
 		/**
-		 * Disables ImageItem and becomes non-interactive.
+		 * Disable ImageItem and becomes non-interactive.
 		 *
 		 * @type {Boolean}
 		 * @default false
