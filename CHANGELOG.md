@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
+- `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
 - `sandstone/TabGroup` to read out contents without button `role`
 
 ## [1.0.1] - 2020-07-20
