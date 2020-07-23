@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
 - `sandstone/ImageItem` to re-render properly when `data-index` prop is the same
 - `sandstone/Scroller` to set its height correctly
 - `sandstone/Scroller` and `sandstone/VirtualList` overscroll style to match latest designs
