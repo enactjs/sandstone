@@ -18,7 +18,7 @@ class AlertView extends React.Component {
 			open4: false,
 			open5: false,
 			open6: false,
-			open7: false,
+			open7: false
 		};
 
 		this.handleOpen0 = this.handleOpen(0);

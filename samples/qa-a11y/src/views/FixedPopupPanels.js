@@ -138,7 +138,7 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Header Title</title>
 						</Header>
-						<Scroller direction='vertical' focusableScrollbar="byEnter" style={{height: 100}}>
+						<Scroller direction="vertical" focusableScrollbar="byEnter" style={{height: 100}}>
 							<span>Text 0</span>
 							<br />
 							<br />
@@ -157,7 +157,7 @@ class FixedPopupPanelsView extends React.Component {
 						<Header>
 							<title>Header Title</title>
 						</Header>
-						<Scroller aria-label="This is Scroller." direction='vertical' focusableScrollbar="byEnter" style={{height: 100}}>
+						<Scroller aria-label="This is Scroller." direction="vertical" focusableScrollbar="byEnter" style={{height: 100}}>
 							<span>Text 0</span>
 							<br />
 							<br />
