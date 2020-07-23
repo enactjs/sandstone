@@ -168,7 +168,15 @@ class AppBase extends React.Component {
 					<Cell component={ScrollerComponent} size="20%">
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
-							<Item className={css.navItem} data-menu={i} key={i} slotBefore={('00' + i).slice(-2)} onClick={this.handleChangeView(i)}>
+							<Item
+								className={css.navItem}
+								data-menu={i}
+								key={i}
+								slotBefore={
+									<div aria-hidden>{('00' + i).slice(-2)}</div>
+								}
+								onClick={this.handleChangeView(i)}
+							>
 								{view.title}
 							</Item>
 						))}
