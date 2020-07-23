@@ -7,8 +7,6 @@ function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out wa
 }
 
 describe('Dropdown', function () {
-	Page.open();
-
 	describe('changing props', function () {
 		beforeEach(function () {
 			Page.open();
@@ -35,4 +33,30 @@ describe('Dropdown', function () {
 		});
 	});
 
+	describe('in scroller', function () {
+		beforeEach(function () {
+			Page.open('InScroller');
+		});
+
+		function getDropdownOffset (dropdown, scroller) {
+			return browser.execute((a, b) => {
+				return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+			}, dropdown, scroller);
+		}
+
+		it('should have title visible when focusing button via 5-way - [GT-31167]', function () {
+			Page.spotlightDown();
+			Page.delay(250);
+			Page.spotlightUp();
+			Page.delay(250);
+
+			const expected = 0;
+			const actual = getDropdownOffset(
+				Page.components.dropdown1.self,
+				$('#scroller')
+			);
+
+			expect(actual).to.equal(expected);
+		});
+	});
 });

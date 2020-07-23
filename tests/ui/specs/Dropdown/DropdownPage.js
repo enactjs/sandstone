@@ -32,12 +32,9 @@ class DropdownPage extends Page {
 	constructor () {
 		super();
 		this.title = 'Dropdown Test';
-		this.components = {
-			dropdownDefault: new DropdownInterface('dropdownDefault'),
-			dropdownSelected: new DropdownInterface('dropdownSelected'),
-			dropdownChangeSelected: new DropdownInterface('dropdownChangeSelected'),
-			dropdownChangeChildren: new DropdownInterface('dropdownChangeChildren')
-		};
+		this.components = new Proxy({}, {
+			get: (target, name) => new DropdownInterface(name)
+		});
 	}
 
 	openDropdown (component) {
@@ -45,8 +42,8 @@ class DropdownPage extends Page {
 		this.spotlightSelect();
 	}
 
-	open (urlExtra) {
-		super.open('Dropdown-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`Dropdown${layout}-View`, urlExtra);
 	}
 }
 
