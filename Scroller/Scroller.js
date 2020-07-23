@@ -99,7 +99,8 @@ Scroller.displayName = 'Scroller';
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * The "aria-label" for the Scroller.
-	 * When `aria-label` is set and `focusableScrollbar` is equal to `byEnter`, it will be used instead to read a body text.
+	 * When `aria-label` is set and `focusableScrollbar` is equal to `byEnter`, it will be used
+	 * instead to provide an accessibility label for the Scroller
 	 *
 	 * @type {String}
 	 * @public
