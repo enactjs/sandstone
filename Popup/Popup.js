@@ -104,6 +104,15 @@ const PopupBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Prevents closing the popup via 5-way navigation out of the content.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		no5WayClose: PropTypes.bool,
+
+		/**
 		 * Support accessibility options.
 		 *
 		 * If true, the aria-live and role in Popup are `null`.
@@ -504,7 +513,7 @@ class Popup extends React.Component {
 	}
 
 	handleKeyDown = (ev) => {
-		const {onClose, position, spotlightRestrict} = this.props;
+		const {onClose, no5WayClose, position, spotlightRestrict} = this.props;
 		const {containerId} = this.state;
 		const keyCode = ev.keyCode;
 		const direction = getDirection(keyCode);
@@ -515,7 +524,7 @@ class Popup extends React.Component {
 			// explicitly restrict navigation in order to manage focus state when attempting to leave the popup
 			Spotlight.set(containerId, {restrict: 'self-only'});
 
-			if (onClose) {
+			if (onClose && !no5WayClose) {
 				let focusChanged;
 
 				if (spottables && current && spotlightRestrict !== 'self-only') {
