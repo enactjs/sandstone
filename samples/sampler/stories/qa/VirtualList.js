@@ -131,12 +131,12 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 const CustomHeader = (props) => {
 	const [children, setChildren] = useState(false);
 
-	function handleToggle () {
+	function handleClick () {
 		setChildren(!children);
 	}
 
 	return (
-		<Header {...props} slotAfter={<Button onClick={handleToggle} size="small">{`${children ? 'Hide' : 'Show'} Header Children`}</Button>}>
+		<Header {...props} slotAfter={<Button onClick={handleClick} size="small">{`${children ? 'Hide' : 'Show'} Header Children`}</Button>}>
 			{children ? <Item>Header Item</Item> : null}
 		</Header>
 	);
