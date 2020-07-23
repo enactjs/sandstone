@@ -4,12 +4,10 @@ const Page = require('./FixedPopupPanelsPage');
 describe('FixedPopupPanels', function () {
 	const Interface = Page.fixedPopupPanels;
 
-	beforeEach(function () {
-		Page.open();
-	});
-
 	describe('5-way', function () {
 		it('should open FixedPopupPanels and navigate to Panel', function () {
+			Page.open();
+
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
 			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
@@ -29,9 +27,45 @@ describe('FixedPopupPanels', function () {
 			Page.backKey();
 			Interface.waitForClose();
 		});
+
+		it('should not allow 5-way navigation out and remain open when spotlightRestrict="self-only" and scrim="none"', function () {
+			Page.open('?scrimType="none"&spotlightRestrict="self-only"');
+
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
+				Page.spotlightSelect();
+			});
+
+			Page.spotlightLeft();
+
+			expect(Interface.item1.isFocused(), 'focus Item 1').to.be.true();
+		});
+
+		it('should allow 5-way navigation out and remain open when spotlightRestrict="self-first" and scrim="none"', function () {
+			Page.open('?scrimType="none"&spotlightRestrict="self-first"');
+
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
+				Page.spotlightSelect();
+			});
+
+			Page.spotlightLeft();
+
+			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+
+			// verify the popup remains open
+			Interface.waitForOpen();
+		});
 	});
 
 	describe('Pointer', function () {
+
+		beforeEach(function () {
+			Page.open();
+		});
+
 		it('should open FixedPopupPanels and navigate to Panel', function () {
 			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
 				Interface.openButton.click();
