@@ -7,7 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TabGroup` to read out contents without button `role`
-- `sandstone/Picker` to stop keydown propagation
+- `sandstone/Picker` to avoid duplicate 5-way events within `FlexiblePopupPanels` or `FixedPopupPanels`
 
 ## [1.0.1] - 2020-07-20
 
