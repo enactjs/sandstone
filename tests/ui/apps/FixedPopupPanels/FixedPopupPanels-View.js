@@ -9,6 +9,7 @@ import BodyText from '../../../../BodyText';
 import Button from '../../../../Button';
 import Item from '../../../../Item';
 import {FixedPopupPanels, Panel, Header} from '../../../../FixedPopupPanels';
+import RangePicker from '../../../../RangePicker';
 import ThemeDecorator from '../../../../ThemeDecorator';
 
 import UrlPropsDecorator from '../../components/UrlPropsDecorator';
@@ -52,6 +53,7 @@ const app = kind({
 						<Item onClick={() => onNavigate({index: 1})} id="item1">Example Item 1</Item>
 						<Item>Example Item 2</Item>
 						<Item>Example Item 3</Item>
+						<RangePicker orientation="horizontal" min={0} max={10} defaultValue={5} data-id="picker" />
 					</Panel>
 					<Panel id="panel2">
 						<Header>
