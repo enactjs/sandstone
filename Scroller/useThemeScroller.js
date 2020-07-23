@@ -96,8 +96,7 @@ const getFocusableBodyProps = (scrollContainerRef, setBodySpotted, ariaLabel) =>
 		onBlur: handle(
 			// Focus out to external element.
 			forward('onBlur'),
-			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
-			updateTarget
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter)
 		),
 		onKeyDown: handle(
 			forward('onKeyDown'),
