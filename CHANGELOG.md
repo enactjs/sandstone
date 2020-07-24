@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
 - `sandstone/DayPicker` to not read out current index and total numbers
 - `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
 - `sandstone/Input.InputField` to support `aria-disabled`
