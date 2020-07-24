@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/DayPicker` to not read out current index and total numbers
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
