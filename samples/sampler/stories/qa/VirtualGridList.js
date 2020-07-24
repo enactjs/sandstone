@@ -134,11 +134,10 @@ class VirtualGridListInVirtualList extends React.Component {
 	renderItem = ({index}) => {
 		const style = select('direction', prop.direction, Config) === 'vertical' ?
 			{height: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)} :
-			{width: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)};
+			{width: ri.scale(number('minHeight', Config, 570)), paddingRight: ri.scaleToRem(36)};
 		return (
 			<VirtualGridList
 				data-index={index}
-				style={style}
 				dataSize={updateDataSize(number('dataSize', Config, 300))}
 				direction={select('direction', prop.direction, Config) === 'vertical' ? 'horizontal' : 'vertical'}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -155,6 +154,7 @@ class VirtualGridListInVirtualList extends React.Component {
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				spacing={ri.scale(number('spacing', Config, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				style={style}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
 			/>
@@ -164,14 +164,14 @@ class VirtualGridListInVirtualList extends React.Component {
 	render = () => (
 		<VirtualList
 			dataSize={5}
-			style={{paddingRight: ri.scaleToRem(36)}}
+			direction={select('direction', prop.direction, Config)}
 			itemSize={ri.scale(number('minHeight', Config, 570))}
 			key={select('scrollMode', prop.scrollModeOption, Config)}
 			noScrollByWheel={boolean('noScrollByWheel', Config)}
 			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 			spacing={ri.scale(number('spacing', Config))}
+			style={select('direction', prop.direction, Config) === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
 			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-			direction={select('direction', prop.direction, Config)}
 			itemRenderer={this.renderItem}
 		/>
 	);

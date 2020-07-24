@@ -145,7 +145,7 @@ const useEventKey = (props, instances, context) => {
 					let isLeaving = false;
 
 					// To suport multiple virtualList, need to check the candidate is in the current VL or not.
-					if (candidate.dataset.index && !this.contains(candidate)) {
+					if (candidate && candidate.dataset.index && !this.contains(candidate)) {
 						return;
 					}
 
