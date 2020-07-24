@@ -33,6 +33,7 @@ import useThemeScroller from './useThemeScroller';
 
 const nop = () => {};
 const SpottableDiv = Spottable('div');
+let scrollerId = 0;
 
 /**
  * A Sandstone-styled Scroller, useScroll applied.
@@ -48,7 +49,9 @@ const SpottableDiv = Spottable('div');
  * @ui
  * @public
  */
-const ScrollerBase = (props) => {
+const ScrollerBase = ({'aria-label': ariaLabel, ...rest}) => {
+	const id = `scroller_${++scrollerId}_content`;
+
 	// Hooks
 
 	const {
@@ -63,7 +66,7 @@ const ScrollerBase = (props) => {
 		scrollContentProps,
 		verticalScrollbarProps,
 		horizontalScrollbarProps
-	} = useScroll(props);
+	} = useScroll(rest);
 
 	const {
 		className,
@@ -73,17 +76,17 @@ const ScrollerBase = (props) => {
 	const {
 		focusableBodyProps,
 		themeScrollContentProps
-	} = useThemeScroller(props, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
 
 	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
-	const ScrollBody = props.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
 
 	// Render
 	return (
 		<ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<ScrollBody {...focusableBodyProps}>
-					<UiScrollerBasic {...themeScrollContentProps} ref={scrollContentHandle} />
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
 					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
 					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
 				</ScrollBody>
@@ -95,6 +98,17 @@ const ScrollerBase = (props) => {
 ScrollerBase.displayName = 'Scroller';
 
 ScrollerBase.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
+	/**
+	 * The "aria-label" for the Scroller.
+	 *
+	 * When `aria-label` is set and `focusableScrollbar` is `byEnter`, it will be used
+	 * instead to provide an accessibility label for the Scroller.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	'aria-label': PropTypes.string,
+
 	/**
 	 * A callback function that receives a reference to the `scrollTo` feature.
 	 *
