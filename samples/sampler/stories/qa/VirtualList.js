@@ -128,6 +128,20 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, index,
 	);
 });
 
+const CustomHeader = (props) => {
+	const [children, setChildren] = useState(false);
+
+	function handleClick () {
+		setChildren(!children);
+	}
+
+	return (
+		<Header {...props} slotAfter={<Button onClick={handleClick} size="small">{`${children ? 'Hide' : 'Show'} Header Children`}</Button>}>
+			{children ? <Item>Header Item</Item> : null}
+		</Header>
+	);
+};
+
 // eslint-disable-next-line enact/prop-types
 const InPanels = ({className, title, ...rest}) => {
 	const [index, setIndex] = useState(0);
@@ -139,7 +153,11 @@ const InPanels = ({className, title, ...rest}) => {
 	return (
 		<Panels className={className} index={index}>
 			<Panel>
-				<Header type="compact" title={`${title} Panel 0`} key="header" />
+				<CustomHeader
+					slot="header"
+					title={`${title} Panel 0`}
+					type="compact"
+				/>
 				<VirtualList
 					id="spotlight-list"
 					// eslint-disable-next-line enact/prop-types
@@ -149,7 +167,7 @@ const InPanels = ({className, title, ...rest}) => {
 				/>
 			</Panel>
 			<Panel title={`${title} Panel 1`}>
-				<Header type="compact" title={`${title} Panel 1`} key="header" />
+				<Header title={`${title} Panel 1`} type="compact" />
 				<Item onClick={handleSelectItem}>Go Back</Item>
 			</Panel>
 		</Panels>
