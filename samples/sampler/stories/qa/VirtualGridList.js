@@ -127,24 +127,23 @@ class VirtualGridListInVirtualList extends React.Component {
 		super(props);
 	}
 
-	listProps = {
-
-	}
-
 	renderItem = ({index}) => {
-		const style = select('direction', prop.direction, Config) === 'vertical' ?
-			{height: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)} :
-			{width: ri.scale(number('minHeight', Config, 570)), paddingRight: ri.scaleToRem(36)};
+		const isVertical = select('direction', prop.direction, Config) === 'vertical';
+		const itemWidth = ri.scale(number('minWidth', Config, 688));
+		const itemHeight = ri.scale(number('minHeight', Config, 570));
+		const style = isVertical ?
+			{height:itemHeight, paddingBottom: ri.scaleToRem(36)} :
+			{width: itemWidth};
 		return (
 			<VirtualGridList
 				data-index={index}
 				dataSize={updateDataSize(number('dataSize', Config, 300))}
-				direction={select('direction', prop.direction, Config) === 'vertical' ? 'horizontal' : 'vertical'}
+				direction={isVertical ? 'horizontal' : 'vertical'}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 688)),
-					minHeight: ri.scale(number('minHeight', Config, 570))
+					minWidth:itemWidth,
+					minHeight: itemHeight
 				}}
 				key={select('scrollMode', prop.scrollModeOption, Config) + index}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
@@ -161,20 +160,23 @@ class VirtualGridListInVirtualList extends React.Component {
 		);
 	}
 
-	render = () => (
-		<VirtualList
-			dataSize={5}
-			direction={select('direction', prop.direction, Config)}
-			itemSize={ri.scale(number('minHeight', Config, 570))}
-			key={select('scrollMode', prop.scrollModeOption, Config)}
-			noScrollByWheel={boolean('noScrollByWheel', Config)}
-			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-			spacing={ri.scale(number('spacing', Config))}
-			style={select('direction', prop.direction, Config) === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
-			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-			itemRenderer={this.renderItem}
-		/>
-	);
+	render = () => {
+		const direction = select('direction', prop.direction, Config);
+		return (
+			<VirtualList
+				dataSize={5}
+				direction={direction}
+				itemSize={direction === 'vertical' ? ri.scale(number('minHeight', Config, 570)) : ri.scale(number('minWidth', Config, 688))}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spacing={ri.scale(number('spacing', Config))}
+				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
+				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+				itemRenderer={this.renderItem}
+			/>
+		);
+	}
 }
 
 class ButtonAndVirtualGridList extends React.Component {

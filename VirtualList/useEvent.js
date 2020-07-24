@@ -126,7 +126,7 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					let targetIndex = -1;
+					let targetIndex = target.dataset.index;
 					// To suport nested virtualList, need to get the current dataIndex.
 					let targetParentNode = target.parentNode;
 					while (this && targetParentNode && this !== targetParentNode) {
@@ -145,17 +145,18 @@ const useEventKey = (props, instances, context) => {
 					let isLeaving = false;
 
 					// To suport multiple virtualList, need to check the candidate is in the current VL or not.
-					if (candidate && candidate.dataset.index && !this.contains(candidate)) {
+					if (candidate && candidateIndex && !this.contains(candidate)) {
 						return;
 					}
 
-					// To suport nested virtualList, need to get the current dataIndex.
-					let candidateParentNode = candidate.parentNode;
-					while (this && candidateParentNode && this !== candidateParentNode) {
-						candidateIndex = (candidateParentNode.dataset.index && getNumberValue(candidateParentNode.dataset.index)) || candidateIndex;
-						candidateParentNode = candidateParentNode.parentNode;
+					if (candidate) {
+						// To suport nested virtualList, need to get the current dataIndex.
+						let candidateParentNode = candidate.parentNode;
+						while (this && candidateParentNode && this !== candidateParentNode) {
+							candidateIndex = (candidateParentNode.dataset && getNumberValue(candidateParentNode.dataset.index)) || candidateIndex;
+							candidateParentNode = candidateParentNode.parentNode;
+						}
 					}
-
 					if (isNotItem) { // if the focused node is not an item
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
 							isLeaving = true;

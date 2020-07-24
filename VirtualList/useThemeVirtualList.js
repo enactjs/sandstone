@@ -25,7 +25,6 @@ const
 	};
 
 const useSpottable = (props, instances) => {
-	const SpotlightAccelerator = new Accelerator();
 	const {noAffordance, scrollMode} = props;
 	const {itemRefs, scrollContainerRef, scrollContentHandle} = instances;
 	const getItemNode = (index) => {
@@ -40,7 +39,8 @@ const useSpottable = (props, instances) => {
 		isScrolledByJump: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
-		pause: new Pause('VirtualListBasic')
+		pause: new Pause('VirtualListBasic'),
+		spotlightAccelerator: new Accelerator()
 	});
 
 	const {pause} = mutableRef.current;
@@ -71,15 +71,15 @@ const useSpottable = (props, instances) => {
 					}
 					break;
 				case 'keyLeave':
-					SpotlightAccelerator.reset();
+					mutableRef.current.spotlightAccelerator.reset();
 					break;
 			}
 		},
 		handle5WayKeyUp: () => {
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset();
 		},
 		spotlightAcceleratorProcessKey: (ev) => {
-			return SpotlightAccelerator.processKey(ev, nop);
+			return mutableRef.current.spotlightAccelerator.processKey(ev, nop);
 		}
 	});
 
@@ -127,7 +127,7 @@ const useSpottable = (props, instances) => {
 		return () => {
 			// TODO: Fix eslint
 			pause.resume(); // eslint-disable-line react-hooks/exhaustive
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset(); // eslint-disable-line react-hooks/exhaustive-deps
 
 			setContainerDisabled(false);
 		};
@@ -183,7 +183,7 @@ const useSpottable = (props, instances) => {
 				});
 			}
 		} else if (!repeat && Spotlight.move(direction)) {
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset();
 		}
 	}
 
@@ -211,7 +211,7 @@ const useSpottable = (props, instances) => {
 			setPreservedIndex(-1);
 
 			if (mutableRef.current.isWrappedBy5way) {
-				SpotlightAccelerator.reset();
+				mutableRef.current.spotlightAccelerator.reset();
 				mutableRef.current.isWrappedBy5way = false;
 			}
 
