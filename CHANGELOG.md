@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/VideoPlayer` to read out action guide string after video title
+- `sandstone/DayPicker` to not read out current index and total numbers
 - `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
