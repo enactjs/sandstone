@@ -18,6 +18,7 @@ const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, Vir
 const
 	defaultDataSize = 1000,
 	prop = {
+		direction: {horizontal: 'horizontal', vertical: 'vertical'},
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate']
 	},
@@ -127,23 +128,19 @@ class VirtualGridListInVirtualList extends React.Component {
 	}
 
 	listProps = {
-		dataSize: 5,
-		style:{paddingRight: ri.scaleToRem(36)},
-		itemSize:  ri.scale(number('minHeight', Config, 570)),
-		key: select('scrollMode', prop.scrollModeOption, Config),
-		noScrollByWheel: boolean('noScrollByWheel', Config),
-		scrollMode: select('scrollMode', prop.scrollModeOption, Config),
-		spacing: ri.scale(number('spacing', Config)),
-		wrap: wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]
+
 	}
 
 	renderItem = ({index}) => {
+		const style = select('direction', prop.direction, Config) === 'vertical' ?
+			{height: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)} :
+			{width: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)};
 		return (
 			<VirtualGridList
 				data-index={index}
-				style={{height: ri.scale(number('minHeight', Config, 570)), paddingBottom: ri.scaleToRem(36)}}
+				style={style}
 				dataSize={updateDataSize(number('dataSize', Config, 300))}
-				direction="horizontal"
+				direction={select('direction', prop.direction, Config) === 'vertical' ? 'horizontal' : 'vertical'}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
@@ -165,7 +162,18 @@ class VirtualGridListInVirtualList extends React.Component {
 	}
 
 	render = () => (
-		<VirtualList {...this.listProps} itemRenderer={this.renderItem} />
+		<VirtualList
+			dataSize={5}
+			style={{paddingRight: ri.scaleToRem(36)}}
+			itemSize={ri.scale(number('minHeight', Config, 570))}
+			key={select('scrollMode', prop.scrollModeOption, Config)}
+			noScrollByWheel={boolean('noScrollByWheel', Config)}
+			scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+			spacing={ri.scale(number('spacing', Config))}
+			wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+			direction={select('direction', prop.direction, Config)}
+			itemRenderer={this.renderItem}
+		/>
 	);
 }
 
