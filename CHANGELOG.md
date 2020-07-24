@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
 - `sandstone/DayPicker` to not read out current index and total numbers
 - `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
+- `sandstone/FlexiblePopupPanels.Panel` to favor auto-focusing the content over the navigation buttons
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
