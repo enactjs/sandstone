@@ -95,6 +95,7 @@ const DayPickerBase = kind({
 				component="div"
 				childComponent={CheckboxItem}
 				itemProps={{className: css.item, disabled}}
+				role={null}
 				select="multiple"
 				selectedProp="selected"
 			/>
