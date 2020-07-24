@@ -75,6 +75,15 @@ const CheckboxBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables Checkbox and becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * Enables the "indeterminate" state.
 		 *
 		 * An indeterminate, mixed, or half-selected state is typically used in a hierarchy or group
@@ -141,7 +150,7 @@ const CheckboxBase = kind({
 		children: ({indeterminate, indeterminateIcon, children}) => (indeterminate ? indeterminateIcon : children) // This controls which icon to use, an not that icon's visual presence.
 	},
 
-	render: ({children, css, selected, ...rest}) => {
+	render: ({children, css, disabled, selected, ...rest}) => {
 		delete rest.indeterminate;
 		delete rest.indeterminateIcon;
 		delete rest.standalone;
@@ -150,6 +159,8 @@ const CheckboxBase = kind({
 			<div
 				{...rest}
 				aria-checked={selected}
+				aria-disabled={disabled}
+				disabled={disabled}
 				role="checkbox"
 			>
 				<div className={css.bg} />

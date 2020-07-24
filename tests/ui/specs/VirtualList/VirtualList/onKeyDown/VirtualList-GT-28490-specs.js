@@ -1,7 +1,7 @@
 const Page = require('../VirtualListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
-describe('onKeyDown', function () {
+describe('onKeyDown [GT-28490]', function () {
 	beforeEach(function () {
 		Page.open();
 	});
@@ -30,6 +30,24 @@ describe('onKeyDown', function () {
 		Page.buttonLeft.moveTo();
 		Page.spotlightRight();
 		expectFocusedItem(0, 'focus 1');
+		Page.spotlightUp();
+		Page.delay(1500);  // TODO: Need better way to detect scroll end
+		expectFocusedItem(99, 'focus 2');
+		Page.spotlightDown();
+		Page.delay(1500);  // TODO: Need better way to detect scroll end
+		expectFocusedItem(0, 'focus 3');
+		expect(Page.list.getAttribute('data-keydown-events')).to.equal('0');
+	});
+
+	it.skip('should prevent bubbling when wrapping', function () {
+		// Wrap knobs Setting
+		Page.spotlightRight();
+		Page.spotlightSelect();
+		Page.spotlightDown();
+		Page.spotlightRight();
+		// TODO: expectFocusedItem is not working in case of wrap
+		expectFocusedItem(0, 'focus');
+		Page.spotlightUp();
 		Page.spotlightUp();
 		Page.delay(1500);  // TODO: Need better way to detect scroll end
 		expectFocusedItem(99, 'focus 2');
