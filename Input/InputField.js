@@ -280,14 +280,17 @@ const InputFieldBase = kind({
 		delete rest.rtl;
 
 		return (
-			<div {...rest} disabled={disabled}>
+			<div
+				{...rest}
+				aria-disabled={disabled}
+				disabled={disabled}
+			>
 				<div className={css.bg} />
 				<InputFieldDecoratorIcon position="before" size={size}>{iconBefore}</InputFieldDecoratorIcon>
 				<span className={css.inputHighlight}>{value ? value : placeholder}</span>
 				<input
 					{...inputProps}
 					{...voiceProps}
-					aria-disabled={disabled}
 					className={css.input}
 					dir={dir}
 					disabled={disabled}
