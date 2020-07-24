@@ -68,6 +68,14 @@ const MediaControlsBase = kind({
 		id: PropTypes.string.isRequired,
 
 		/**
+		 * The `aria-label` for the action guide.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		actionGuideAriaLabel: PropTypes.string,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -284,6 +292,7 @@ const MediaControlsBase = kind({
 	},
 
 	render: ({
+		actionGuideAriaLabel,
 		actionGuideLabel,
 		actionGuideShowing,
 		children,
@@ -322,7 +331,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={id + '_actionGuide'} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={id + '_actionGuide'} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
