@@ -126,8 +126,8 @@ class FixedPopupPanelsView extends React.Component {
 				</FixedPopupPanels>
 			</Section>
 
-			<Section title="Combination">
-				<Button alt="Scroller with focusableScrollbar of byEnter" onClick={this.handleOpen3}>Open 3</Button>
+			<Section title="Variation">
+				<Button alt={'Scroller with focusableScrollbar="byEnter"'} onClick={this.handleOpen3}>Open 3</Button>
 
 				<FixedPopupPanels
 					index={this.state.panelIndex}
