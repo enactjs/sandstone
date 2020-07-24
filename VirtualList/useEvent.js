@@ -142,7 +142,7 @@ const useEventKey = (props, instances, context) => {
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
 							isLeaving = true;
 						}
-					} else if (candidateIndex !== index) { // the focused node is an item and focus will move out of the item
+					} else if (index >= 0 && candidateIndex !== index) { // the focused node is an item and focus will move out of the item
 						const {repeat} = ev;
 						const {isDownKey, isUpKey, isLeftMovement, isRightMovement, isWrapped, nextIndex} = getNextIndex({index, keyCode, repeat});
 
