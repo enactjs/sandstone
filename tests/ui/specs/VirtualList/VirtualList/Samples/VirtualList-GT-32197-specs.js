@@ -12,7 +12,7 @@ describe('VirtualList Samples', function () {
 		Page.spotlightRight();
 
 		// Step2. 5-way Down to the 19th item ('Item 20').
-		Page.fiveWayToItem(19);
+		Page.fiveWayToItem(20);
 
 		// Step3. Position the pointer on 'JumpToItem10WithoutFocus' button and select
 		Page.buttonJumpToItemWithoutFocus.moveTo();
@@ -23,6 +23,6 @@ describe('VirtualList Samples', function () {
 		Page.spotlightRight();
 
 		// Verify Spotlight displays on the 19th item ('Itme 20');
-		expectFocusedItem(19);
+		expectFocusedItem(Number((Page.bottomVisibleItemId().slice(4))));
 	});
 });
