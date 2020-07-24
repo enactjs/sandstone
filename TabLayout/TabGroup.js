@@ -91,12 +91,10 @@ const TabBase = kind({
 			case 'vertical': {
 				// Vertical sizing depends on Button establishing the dimensions of the Cell.
 				return (
-					<Cell shrink>
-						<Button
-							{...rest}
-							{...commonProps}
-						/>
-					</Cell>
+					<Button
+						{...rest}
+						{...commonProps}
+					/>
 				);
 			}
 		}
@@ -183,6 +181,7 @@ const TabGroupBase = kind({
 		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
+		const groupComponent = (isHorizontal ? Layout : 'div'); // Only horizontal needs the ararngement capabilities of `Layout`
 		// Only vertical with more than MAX_TABS should use scroller
 		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
 		const scrollerProps = useScroller ? {
@@ -210,7 +209,7 @@ const TabGroupBase = kind({
 					<GroupComponent
 						childComponent={Tab}
 						className={componentCss.tabs}
-						component={Layout}
+						component={groupComponent}
 						indexProp="index"
 						itemProps={itemProps}
 						onSelect={onSelect}
