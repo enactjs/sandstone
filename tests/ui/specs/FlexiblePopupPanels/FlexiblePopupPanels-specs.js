@@ -1,3 +1,5 @@
+/* global document */
+
 const Page = require('./FlexiblePopupPanelsPage');
 
 function getFocusedText () {
