@@ -18,6 +18,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
 - `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to avoid duplicate 5-way navigation when using `sandstone/Picker` or `sandstone/Input`
 - `sandstone/ProgressButton` icon size
 - `sandstone/TabGroup` to read out contents without button `role`
 
