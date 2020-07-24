@@ -14,7 +14,7 @@ const KeyLoggerBase = kind({
 		children: ({children}) => {
 			const keys = [];
 			children.forEach(({code, key: keyFromEvent, which}) => {
-				keys.push({code, key: `${code}-${which}`, keyFromEvent, which});
+				keys.push({code, key: `${code}-${keyFromEvent}`, keyFromEvent, which});
 			});
 
 			return keys;
