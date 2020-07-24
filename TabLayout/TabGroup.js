@@ -181,7 +181,7 @@ const TabGroupBase = kind({
 		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
-		const groupComponent = (isHorizontal ? Layout : 'div'); // Only horizontal needs the ararngement capabilities of `Layout`
+		const groupComponent = (isHorizontal ? Layout : 'div'); // Only horizontal needs the arrangement capabilities of `Layout`
 		// Only vertical with more than MAX_TABS should use scroller
 		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
 		const scrollerProps = useScroller ? {
