@@ -33,6 +33,16 @@ describe('Dropdown', function () {
 
 			waitForFocusedText(dropdown, 'three', 750);
 		});
+
+		it('should focus the first item when `children` changes to smaller size - [GT-32190]', function () {
+			const dropdown = Page.components.dropdownChangeLessChildren;
+
+			Page.openDropdown(dropdown);
+
+			waitForFocusedText(dropdown, '28', 500, undefined, 100);
+
+			waitForFocusedText(dropdown, '3', 2250);
+		});
 	});
 
 });
