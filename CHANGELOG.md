@@ -4,10 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
+
 ### Fixed
 
 - `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
+- `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
+- `sandstone/ProgressButton` icon size
 - `sandstone/TabGroup` to read out contents without button `role`
 
 ## [1.0.1] - 2020-07-20
