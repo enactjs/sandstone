@@ -44,6 +44,8 @@ const MediaButton = onlyUpdateForKeys([
 
 const forwardToggleMore = forward('onToggleMore');
 
+const animationDuration = 300;
+
 /**
  * A set of components for controlling media playback and rendering additional components.
  *
@@ -269,7 +271,6 @@ const MediaControlsBase = kind({
 		actionGuideShowing: ({bottomComponents, children}) => countReactChildren(children) || bottomComponents,
 		className: ({visible, styler}) => styler.append({hidden: !visible}),
 		moreButtonsClassName: ({styler}) => styler.join('mediaControls', 'moreButtonsComponents'),
-		moreComponentsClassName: ({styler, showMoreComponents, moreComponentsRendered}) => styler.join('moreComponents', {lift: showMoreComponents && moreComponentsRendered}),
 		moreComponentsRendered: ({showMoreComponents, moreComponentsRendered}) => showMoreComponents || moreComponentsRendered
 	},
 
@@ -279,7 +280,6 @@ const MediaControlsBase = kind({
 		children,
 		jumpBackwardIcon,
 		jumpButtonsDisabled,
-		moreComponentsClassName,
 		jumpForwardIcon,
 		bottomComponents,
 		mediaDisabled,
@@ -315,7 +315,7 @@ const MediaControlsBase = kind({
 					null
 				}
 				{moreComponentsRendered ?
-					<Container spotlightId={moreComponentsSpotlightId} className={moreComponentsClassName} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
+					<Container spotlightId={moreComponentsSpotlightId} className={css.moreComponents} spotlightDisabled={!showMoreComponents || spotlightDisabled}>
 						<Container className={moreButtonsClassName} >
 							{children}
 						</Container>
@@ -447,7 +447,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			onRewind: PropTypes.func,
 
 			/**
-			 * Called when the user clicks the More button.
+			 * Called when the visibility of more components is changed
 			 *
 			 * @type {Function}
 			 * @public
@@ -504,13 +504,15 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 		constructor (props) {
 			super(props);
 			this.mediaControlsNode = null;
+			this.moreComponentsNode = null;
 
+			this.actionGuideHeight = 0;
+			this.animation = null;
+			this.bottomComponentsHeight = 0;
 			this.keyLoop = null;
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
 			this.paused = new Pause('MediaPlayer');
-			this.bottomComponentsHeight = 0;
-			this.actionGuideHeight = 0;
 
 			this.state = {
 				showMoreComponents: false,
@@ -553,20 +555,33 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.calculateMoreComponentsHeight();
 			}
 
+			if (this.state.moreComponentsRendered && !prevState.moreComponentsRendered && this.mediaControlsNode) {
+				this.moreComponentsNode = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
+			}
+
 			if (this.state.showMoreComponents && !prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
 				this.state.moreComponentsRendered && prevState.showMoreComponents !== this.state.showMoreComponents
 			) {
 				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, liftDistance: this.bottomComponentsHeight - this.actionGuideHeight}, this.props);
+				if (this.state.showMoreComponents) {
+					this.paused.pause();
+					this.animation = this.moreComponentsNode.animate([
+						{transform: 'none', opacity: 0, offset: 0},
+						{transform: `translateY(${-this.actionGuideHeight}px)`, opacity: 1, offset: 1}
+					], {
+						duration: animationDuration,
+						fill: 'forwards'
+					});
+					this.animation.onfinish = this.handleFinish;
+					this.animation.oncancel = this.handleCancel;
+				} else {
+					this.animation.cancel();
+				}
 			}
 
 			// if media controls disabled, reset key loop
 			if (!prevProps.mediaDisabled && this.props.mediaDisabled) {
 				this.stopListeningForPulses();
-				this.paused.resume();
-			}
-			if (!prevState.showMoreComponents && this.state.showMoreComponents) {
-				this.paused.pause();
-			} else if (prevState.showMoreComponents && !this.state.showMoreComponents) {
 				this.paused.resume();
 			}
 		}
@@ -578,6 +593,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			off('wheel', this.handleWheel);
 			this.stopListeningForPulses();
 			this.moreComponentsRenderingJob.stop();
+			if (this.animation) {
+				this.animation.cancel();
+			}
 		}
 
 		moreComponentsRenderingJob = new Job(() => {
@@ -709,7 +727,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			const guideElement = this.mediaControlsNode.querySelector(`.${css.actionGuide}`);
 			this.actionGuideHeight = guideElement ? guideElement.scrollHeight : 0;
-			this.mediaControlsNode.style.setProperty('--actionGuideComponentHeight', `${this.actionGuideHeight}px`);
 		}
 
 		areMoreComponentsAvailable = () => {
@@ -738,15 +755,17 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			}
 		}
 
-		handleTransitionEnd = (ev) => {
-			if (ev.propertyName === 'transform' && ev.target.dataset.spotlightId === 'moreComponents') {
-				if (this.state.showMoreComponents) {
-					this.paused.resume();
-					if (!Spotlight.getPointerMode()) {
-						Spotlight.move('down');
-					}
+		handleFinish = () => {
+			if (this.state.showMoreComponents) {
+				this.paused.resume();
+				if (!Spotlight.getPointerMode()) {
+					Spotlight.move('down');
 				}
 			}
+		}
+
+		handleCancel = () => {
+			this.paused.resume();
 		}
 
 		render () {

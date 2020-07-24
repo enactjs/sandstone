@@ -103,6 +103,8 @@ const getDurFmt = (locale) => {
 
 const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
 
+const forwardToggleMore = forward('onToggleMore');
+
 // provide forwarding of events on media controls
 const forwardControlsAvailable = forward('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
@@ -487,6 +489,14 @@ const VideoPlayerBase = class extends React.Component {
 		 * @public
 		 */
 		onSeekOutsideSelection: PropTypes.func,
+
+		/**
+		 * Called when the visibility of more components is changed
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onToggleMore: PropTypes.func,
 
 		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
@@ -1784,6 +1794,8 @@ const VideoPlayerBase = class extends React.Component {
 			titleVisible: true,
 			announce: announce < AnnounceState.INFO ? AnnounceState.INFO : AnnounceState.DONE
 		}));
+
+		forwardToggleMore({showMoreComponents, liftDistance}, this.props);
 	}
 
 	handleMediaControlsClose = (ev) => {
@@ -1871,6 +1883,7 @@ const VideoPlayerBase = class extends React.Component {
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;
+		delete mediaProps.onToggleMore;
 		delete mediaProps.pauseAtEnd;
 		delete mediaProps.playbackRateHash;
 		delete mediaProps.seekDisabled;
