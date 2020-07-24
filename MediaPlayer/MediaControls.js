@@ -58,6 +58,16 @@ const MediaControlsBase = kind({
 	// intentionally assigning these props to MediaControls instead of Base (which is private)
 	propTypes: /** @lends sandstone/MediaPlayer.MediaControls.prototype */ {
 		/**
+		 * DOM id for the component. Also define id for the `actionGuide`
+		 * in the forms `${id}_actionGuide`.
+		 *
+		 * @type {String}
+		 * @required
+		 * @public
+		 */
+		id: PropTypes.string.isRequired,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -277,6 +287,7 @@ const MediaControlsBase = kind({
 		actionGuideLabel,
 		actionGuideShowing,
 		children,
+		id,
 		jumpBackwardIcon,
 		jumpButtonsDisabled,
 		moreComponentsClassName,
@@ -311,7 +322,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={id + '_actionGuide'} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?

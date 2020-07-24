@@ -1813,7 +1813,7 @@ const VideoPlayerBase = class extends React.Component {
 	getControlsAriaProps () {
 		if (this.state.announce === AnnounceState.TITLE) {
 			return {
-				'aria-labelledby': `${this.id}_title`,
+				'aria-labelledby': `${this.id}_title ${this.id}_actionGuide`,
 				'aria-live': 'off',
 				role: 'alert'
 			};
@@ -2004,6 +2004,7 @@ const VideoPlayerBase = class extends React.Component {
 							}
 							<ComponentOverride
 								component={mediaControlsComponent}
+								id={this.id}
 								initialJumpDelay={initialJumpDelay}
 								jumpDelay={jumpDelay}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
