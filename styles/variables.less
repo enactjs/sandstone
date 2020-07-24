@@ -311,8 +311,8 @@
 @sand-button-bg-opacity: 1;
 @sand-button-transparent-bg-opacity: 0;
 @sand-button-transparent-selected-bg-opacity: 1;
-@sand-button-margin: if(((@sand-smallest-tappable-size - @sand-button-height) > 0), ((@sand-smallest-tappable-size - @sand-button-height) / 2), 0) @sand-component-spacing;
-@sand-button-focusexpand-margin: if(((@sand-smallest-tappable-size - @sand-button-height) > 0), ((@sand-smallest-tappable-size - @sand-button-height) / 2), 6px) .extract(@sand-button-margin, right)[];
+@sand-button-margin: max(((@sand-smallest-tappable-size - @sand-button-height) / 2), 0) @sand-component-spacing;
+@sand-button-focusexpand-margin: max(((@sand-smallest-tappable-size - @sand-button-height) / 2), 6px) .extract(@sand-button-margin, right)[];
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
 @sand-button-height-large: 192px;
@@ -335,8 +335,8 @@
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-button-small-margin: if(((@sand-smallest-tappable-size - @sand-button-small-height) > 0), ((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 0) @sand-component-spacing;
-@sand-button-small-focusexpand-margin: if(((@sand-smallest-tappable-size - @sand-button-small-height) > 0), ((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 6px) .extract(@sand-button-margin, right)[];
+@sand-button-small-margin: max(((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 0) @sand-component-spacing;
+@sand-button-small-focusexpand-margin: max(((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 6px) .extract(@sand-button-margin, right)[];
 @sand-button-small-h-padding: 48px;
 @sand-button-small-height-large: 144px;
 @sand-button-small-height: 108px;
