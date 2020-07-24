@@ -36,7 +36,8 @@ class DropdownPage extends Page {
 			dropdownDefault: new DropdownInterface('dropdownDefault'),
 			dropdownSelected: new DropdownInterface('dropdownSelected'),
 			dropdownChangeSelected: new DropdownInterface('dropdownChangeSelected'),
-			dropdownChangeChildren: new DropdownInterface('dropdownChangeChildren')
+			dropdownChangeChildren: new DropdownInterface('dropdownChangeChildren'),
+			dropdownChangeLessChildren: new DropdownInterface('dropdownChangeLessChildren')
 		};
 	}
 
