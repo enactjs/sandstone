@@ -862,10 +862,10 @@ const VideoPlayerBase = class extends React.Component {
 	// Internal Methods
 	//
 
-	announceJob = new Job(msg => (this.announceRef && this.announceRef.announce(msg)), 200)
+	announceJob = new Job((msg, clear) => (this.announceRef && this.announceRef.announce(msg, clear)), 200)
 
-	announce = (msg) => {
-		this.announceJob.start(msg);
+	announce = (msg, clear) => {
+		this.announceJob.start(msg, clear);
 	}
 
 	activityDetected = () => {
@@ -1695,7 +1695,7 @@ const VideoPlayerBase = class extends React.Component {
 
 				forward('onScrub', {...ev, seconds}, this.props);
 
-				this.announce(`${$L('jump to')} ${knobTime}`);
+				this.announce(`${$L('jump to')} ${knobTime}`, true);
 			}
 		}
 	}
@@ -1720,7 +1720,7 @@ const VideoPlayerBase = class extends React.Component {
 				seconds},
 			this.props);
 
-			this.announce(`${$L('jump to')} ${knobTime}`);
+			this.announce(`${$L('jump to')} ${knobTime}`, true);
 		}
 	}
 
