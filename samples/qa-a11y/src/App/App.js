@@ -186,13 +186,12 @@ class AppBase extends React.Component {
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item
+								aria-label={view.title}
 								className={css.navItem}
 								data-menu={i}
 								key={i}
 								onClick={this.handleChangeView(i)}
-								slotBefore={
-									<div aria-hidden>{('00' + i).slice(-2)}</div>
-								}
+								slotBefore={('00' + i).slice(-2)}
 							>
 								{view.title}
 							</Item>
