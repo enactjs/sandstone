@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
 - `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
 - `sandstone/ProgressButton` icon size
