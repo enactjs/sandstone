@@ -213,7 +213,10 @@ const PanelBase = kind({
 	}
 });
 
-const Panel = PanelDecorator(PanelBase);
+const Panel = PanelDecorator({
+	// favor content but fall back to body if the content lacks spottable elements
+	defaultElement: [`.${css.content} *`, `.${css.body} *`]
+}, PanelBase);
 
 export default Panel;
 export {
