@@ -170,9 +170,9 @@ const TabGroupBase = kind({
 				const {icon, title, tabKey, ...rest} = tab,
 					key = tabKey && tabKey !== 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
 				return {
-					key,
 					children: title,
 					icon,
+					key,
 					onFocusTab,
 					...rest
 				};
