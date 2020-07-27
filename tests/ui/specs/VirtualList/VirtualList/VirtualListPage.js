@@ -44,6 +44,9 @@ class VirtualListPage extends Page {
 	get buttonJumpToItem () {
 		return element('#jumpTo', browser);
 	}
+	get buttonJumpToItemWithoutFocus () {
+		return element('#jumpToWithoutFocus', browser);
+	}
 	get buttonDisabledItem () {
 		return element('#disabled', browser);
 	}
