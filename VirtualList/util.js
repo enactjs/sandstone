@@ -12,7 +12,6 @@ const getItemNodeFromTarget = (contentRef, eventTarget) => {
 	return itemNode;
 };
 
-
 export {
 	getItemNodeFromTarget
 };
