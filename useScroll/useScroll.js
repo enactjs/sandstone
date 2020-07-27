@@ -56,6 +56,10 @@ const dataIndexAttribute = 'data-index';
 
 const isIntersecting = (elem, container) => elem && intersects(getRect(container), getRect(elem));
 const getIntersectingElement = (elem, container) => isIntersecting(elem, container) && elem;
+const getTargetInViewByDirectionFromPosition = (direction, position, container) => {
+	const target = getTargetByDirectionFromPosition(direction, position, container);
+	return getIntersectingElement(target, container);
+};
 
 const useThemeScroll = (props, instances) => {
 	const {scrollMode} = props;
@@ -186,8 +190,8 @@ const useThemeScroll = (props, instances) => {
 					elemFromPoint = document.elementFromPoint(x, y),
 					target =
 						elemFromPoint && elemFromPoint.closest && getIntersectingElement(elemFromPoint.closest(`.${spottableClass}`), scrollContainerRef.current) ||
-						getTargetByDirectionFromPosition(direction, position, scrollContainerRef.current) ||
-						getTargetByDirectionFromPosition(reverseDirections[direction], position, scrollContainerRef.current);
+						getTargetInViewByDirectionFromPosition(direction, position, scrollContainerRef.current) ||
+						getTargetInViewByDirectionFromPosition(reverseDirections[direction], position, scrollContainerRef.current);
 				if (target) {
 					Spotlight.focus(target);
 				}
