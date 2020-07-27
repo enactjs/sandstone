@@ -26,19 +26,19 @@ function DropdownChange ({changeProp, changePropValue, waiting = 500, ...rest}) 
 
 const app = (props) => <div {...props}>
 	<div>
-		<Dropdown id="dropdownDefault">
+		<Dropdown id="dropdownDefault" title="dropdownDefault">
 			{['one', 'two', 'three', 'four', 'five']}
 		</Dropdown>
-		<Dropdown id="dropdownSelected" defaultSelected={1}>
+		<Dropdown id="dropdownSelected" title="dropdownSelected" defaultSelected={1}>
 			{['one', 'two', 'three', 'four', 'five']}
 		</Dropdown>
-		<DropdownChange id="dropdownChangeSelected" changeProp="selected" changePropValue={null} selected={3}>
+		<DropdownChange id="dropdownChangeSelected" title="dropdownChangeSelected" changeProp="selected" changePropValue={null} selected={3}>
 			{['one', 'two', 'three', 'four', 'five']}
 		</DropdownChange>
-		<DropdownChange id="dropdownChangeChildren" changeProp="children" changePropValue={['three', 'five', 'seven']}>
+		<DropdownChange id="dropdownChangeChildren" title="dropdownChangeChildren" changeProp="children" changePropValue={['three', 'five', 'seven']}>
 			{['one', 'two', 'three', 'four', 'five']}
 		</DropdownChange>
-		<DropdownChange id="dropdownChangeLessChildren" changeProp="children" changePropValue={children.filter((v) => v.includes('3'))} selected={28} waiting={1500}>
+		<DropdownChange id="dropdownChangeLessChildren" title="dropdownChangeLessChildren" changeProp="children" changePropValue={children.filter((v) => v.includes('3'))} selected={28} waiting={1500}>
 			{children}
 		</DropdownChange>
 	</div>
