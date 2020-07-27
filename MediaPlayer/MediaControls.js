@@ -449,6 +449,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			/**
 			 * Called when the visibility of more components is changed
 			 *
+ 			 * Event payload includes:
+			 *
+			 * * `type` - Type of event, `'onToggleMore'`
+			 * * `showMoreComponents` - `true` when the components are visible`
+			 * * `liftDistance` - The distance, in pixels, the component animates
+			 *
 			 * @type {Function}
 			 * @public
 			 */
@@ -555,15 +561,17 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				this.calculateMoreComponentsHeight();
 			}
 
-			if (this.state.moreComponentsRendered && !prevState.moreComponentsRendered && this.mediaControlsNode) {
-				this.moreComponentsNode = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
-			}
-
 			if (this.state.showMoreComponents && !prevState.moreComponentsRendered && this.state.moreComponentsRendered ||
 				this.state.moreComponentsRendered && prevState.showMoreComponents !== this.state.showMoreComponents
 			) {
-				forwardToggleMore({showMoreComponents: this.state.showMoreComponents, liftDistance: this.bottomComponentsHeight - this.actionGuideHeight}, this.props);
+				forwardToggleMore({
+					type: 'onToggleMore',
+					showMoreComponents: this.state.showMoreComponents,
+					liftDistance: this.bottomComponentsHeight - this.actionGuideHeight
+				}, this.props);
+
 				if (this.state.showMoreComponents) {
+					this.moreComponentsNode = this.moreComponentsNode || this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
 					this.paused.pause();
 					this.animation = this.moreComponentsNode.animate([
 						{transform: 'none', opacity: 0, offset: 0},
@@ -574,7 +582,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 					});
 					this.animation.onfinish = this.handleFinish;
 					this.animation.oncancel = this.handleCancel;
-				} else {
+				} else if (this.animation != null) {
 					this.animation.cancel();
 				}
 			}
