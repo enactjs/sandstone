@@ -493,6 +493,12 @@ const VideoPlayerBase = class extends React.Component {
 		/**
 		 * Called when the visibility of more components is changed
 		 *
+		 * Event payload includes:
+		 *
+		 * * `type` - Type of event, `'onToggleMore'`
+		 * * `showMoreComponents` - `true` when the components are visible`
+		 * * `liftDistance` - The distance, in pixels, the component animates
+		 *`
 		 * @type {Function}
 		 * @public
 		 */
