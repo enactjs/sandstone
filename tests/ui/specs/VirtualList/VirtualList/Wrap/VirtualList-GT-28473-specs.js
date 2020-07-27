@@ -1,5 +1,5 @@
 const Page = require('../VirtualListPage');
-const {expectFocusedItem} = require('../../VirtualList-utils');
+const {expectFocusedItem, waitUntilFocused} = require('../../VirtualList-utils');
 
 describe('Wrap Knobs', function () {
 	beforeEach(function () {
@@ -7,36 +7,47 @@ describe('Wrap Knobs', function () {
 	});
 
 	// Since visual test(Animation, Pointer disappears) is not able to verify by UI Test, This TC is partialy automated.
-	it('should not Scroll list with wrap knob off[GT-28473]', function () {
-		// Knob > wrap > false, datasize 100, visible verticalScroller are default value.
-		// Step 3-3: Hover on the right side of the viewport. Since visual check cannot checked, Verify to Scroller's position.
-		expect(Page.getScrollOffsetLeft() + Page.getScrollbarWidth()).to.equal(Page.getListwidthSize());
-		// Step 5: 5-way Spot the first item.
+	it('should not scroll when leaving list with 5-way up/down [GT-28473]', function () {
+		// Step 3 is 'Set dataSize to 100' but set dataSize to 20 for Speed up Test.
+		Page.inputfieldNumItems.moveTo();
+		Page.spotlightSelect();
+		Page.backSpace();
+		Page.backSpace();
+		Page.backSpace();
+		Page.numPad(2);
+		Page.numPad(0);
+		Page.backKey();
+		Page.spotlightDown();
+		// Step 4: change to 5-way mode
 		Page.buttonLeft.moveTo();
+		// Step 5: 5-way Spot the first item.
 		Page.spotlightRight();
-		expectFocusedItem(0, 'focus');
-		// Step 6: 5-Way Up.
+		// Verify Step 5: Spotlight displays on the first item.
+		expectFocusedItem(0, 'step 5 focus');
+		// Step 6: 5-way Up.
 		Page.spotlightUp();
-		// If wrap bug occured, Scrolling event will be added. Delay to check if a scrolling event has occurred.
-		Page.delay(1500);
-		// Step 6-1 Verify: The list does not Scroll to the Bottom.
-		expect(Page.list.getAttribute('data-scrolling-events')).to.equal(null);
-		// Step 6-2 Verify: Spotlight is on the Close 'X' button. This case is replaced 'Top' button.
-		expect(Page.buttonTop.isFocused()).to.be.true();
-		// Step 7-1: Wheel Down on the list to the last item. Wheel func is replaced pageDown.
+		// Verify Step 6: 1. The list *does not* Scroll to the Bottom. 2. Spotlight is on the close button 'x'.
+		expect(Page.buttonTop.isFocused(), 'step 6 focus').to.be.true();  // buttonTop replaces the X button
+		// Step 7: 1. Wheel Down on the list to the last item.
+		// Page.mouseWheel(40, Page.item(6));   currently not working as expected so using 5-way Down temporary
+		// Wheeling will not be implemented - see ENYO-6178
 		Page.spotlightDown();
-		for (let i = 0; i < 16; i++) {
-			Page.pageDown();
-			// Wait for scrolling event.
-			Page.delay(700);
-		}
-		// Step 7 Verify: Spotlight displays on the last item.
-		expectFocusedItem(99, 'focus 3');
-		// Step 8: 5-way Down.
+		expectFocusedItem(0);
+		Page.pageDown();
+		waitUntilFocused(6, 'focus Item 6');
+		Page.pageDown();
+		waitUntilFocused(19, 'focus Item 19');
+		// Step 7: 2. Click the last item.
+		Page.spotlightSelect();
+		// Verify Step 7: Spotlight is on the last item.
+		Page.delay(1000);
+		expectFocusedItem(19, 'step 7 focus');
+		// Step 8: 5-way Down
 		Page.spotlightDown();
-		// Step 8-1 Verify: The list does not Scroll to the Top.
-		expect(Page.list.getAttribute('data-scrolling-events')).to.equal('16');
-		// Step 8-2 Verify: Spotlight stays on the last item. This view has 'Bottom' button at below the list.
-		expect(Page.buttonBottom.isFocused()).to.be.true();
+		Page.spotlightDown(); // 1 extra 5-way down to check Spotlight does not pass buttonBottom when wrap is off.
+		Page.delay(1000);
+		// Verify Step 8: 1. The list *does not* Scroll to the Top. 2. Spotlight stays on the last item.
+		// Checking focus is on buttonBottom instead of last item since 5-way Down on last item using this app takes Spotlight to buttonBottom.
+		expect(Page.buttonBottom.isFocused(), 'step 8 focus').to.be.true();
 	});
 });
