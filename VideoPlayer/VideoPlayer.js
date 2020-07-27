@@ -1784,7 +1784,11 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showMoreComponents, liftDistance}) => {
+	handleToggleMore = (ev) => {
+		const {showMoreComponents, liftDistance} = ev;
+
+		forwardToggleMore(ev, this.props);
+
 		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
@@ -1800,8 +1804,6 @@ const VideoPlayerBase = class extends React.Component {
 			titleVisible: true,
 			announce: announce < AnnounceState.INFO ? AnnounceState.INFO : AnnounceState.DONE
 		}));
-
-		forwardToggleMore({showMoreComponents, liftDistance}, this.props);
 	}
 
 	handleMediaControlsClose = (ev) => {
