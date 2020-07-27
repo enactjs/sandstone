@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 
 import Image from '../Image';
 
-import css from './IconSprite.module.less';
+import css from './Sprite.module.less';
 
 const createKeyframe = ({dimension, axis, vertical, offset}) => {
 	const x = scaleToRem(vertical ? axis : dimension);
@@ -39,8 +39,8 @@ const createKeyframe = ({dimension, axis, vertical, offset}) => {
  * @ui
  * @public
  */
-const IconSpriteBase = kind({
-	name: 'IconSprite',
+const SpriteBase = kind({
+	name: 'Sprite',
 
 	functional: true,
 
@@ -72,20 +72,20 @@ const IconSpriteBase = kind({
 
 	styles: {
 		css,
-		className: 'iconSprite'
+		className: 'sprite'
 	},
 
 	computed: {
 		className: ({orientation, paused, styler}) => styler.append(orientation, {paused}),
 		style: ({offsetTop, offsetLeft, rows, columns, duration, height, width, style}) => ({
 			...style,
-			'--sand-icon-sprite-offset-top': scaleToRem(offsetTop),
-			'--sand-icon-sprite-offset-left': scaleToRem(offsetLeft),
-			'--sand-icon-sprite-rows': rows,
-			'--sand-icon-sprite-columns': columns,
-			'--sand-icon-sprite-duration': duration,
-			'--sand-icon-sprite-height': scaleToRem(height),
-			'--sand-icon-sprite-width': scaleToRem(width)
+			'--sand-sprite-offset-top': scaleToRem(offsetTop),
+			'--sand-sprite-offset-left': scaleToRem(offsetLeft),
+			'--sand-sprite-rows': rows,
+			'--sand-sprite-columns': columns,
+			'--sand-sprite-duration': duration,
+			'--sand-sprite-height': scaleToRem(height),
+			'--sand-sprite-width': scaleToRem(width)
 		})
 	},
 
@@ -173,8 +173,8 @@ const IconSpriteBase = kind({
 });
 
 
-export default IconSpriteBase;
+export default SpriteBase;
 export {
-	IconSpriteBase as IconSprite,
-	IconSpriteBase
+	SpriteBase as Sprite,
+	SpriteBase
 };
