@@ -221,6 +221,7 @@ const useSpottable = (props, instances) => {
 			} else {
 				returnVal = focusOnNode(itemNode);
 			}
+			mutableRef.current.isScrolledBy5way = false;
 			mutableRef.current.isScrolledByJump = false;
 		}
 
