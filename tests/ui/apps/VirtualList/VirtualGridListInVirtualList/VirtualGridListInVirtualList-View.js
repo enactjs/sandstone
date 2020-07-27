@@ -3,7 +3,7 @@ import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
 import {InputField} from '../../../../../Input';
 import ImageItem from '../../../../../ImageItem';
-import {VirtualGridList} from '../../../../../VirtualList';
+import {VirtualList, VirtualGridList} from '../../../../../VirtualList';
 import ThemeDecorator from '../../../../../ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
@@ -126,6 +126,31 @@ class app extends React.Component {
 		this.setState({minHeight: value});
 	}
 
+	renderGridList = ({index}) => {
+		return (
+			<VirtualGridList
+				data-index={index}
+				dataSize={this.state.numItems}
+				direction="horizontal"
+				itemRenderer={renderItem}
+				itemSize={{
+					minHeight: ri.scale(this.state.minHeight),
+					minWidth: ri.scale(this.state.minWidth)
+				}}
+				key={(this.state.translate ? 'translate' : 'native')}
+				onKeyDown={this.onKeyDown}
+				onScrollStart={this.onScrollStart}
+				onScrollStop={this.onScrollStop}
+				scrollMode={(this.state.translate ? 'translate' : 'native')}
+				spacing={ri.scale(this.state.spacing)}
+				spotlightDisabled={this.state.spotlightDisabled}
+				style={{height: ri.scaleToRem(this.state.minHeight), paddingBottom: ri.scaleToRem(36)}}
+				verticalScrollbar={getScrollbarVisibility(this.state.hideScrollbar)}
+				wrap={this.state.wrap}
+			/>
+		);
+	};
+
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
@@ -157,15 +182,10 @@ class app extends React.Component {
 										Top
 									</Cell>
 									<Cell>
-										<VirtualGridList
-											dataSize={numItems}
-											direction={(horizontal ? 'horizontal' : 'vertical')}
-											horizontalScrollbar={getScrollbarVisibility(hideScrollbar)}
-											itemRenderer={renderItem}
-											itemSize={{
-												minHeight: ri.scale(minHeight),
-												minWidth: ri.scale(minWidth)
-											}}
+										<VirtualList
+											dataSize={5}
+											itemRenderer={this.renderGridList}
+											itemSize={ri.scale(minHeight)}
 											key={(translate ? 'translate' : 'native')}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
@@ -173,7 +193,7 @@ class app extends React.Component {
 											scrollMode={(translate ? 'translate' : 'native')}
 											spacing={ri.scale(spacing)}
 											spotlightDisabled={spotlightDisabled}
-											style={{height: ri.scaleToRem(minHeight * 3)}}
+											style={{height: ri.scaleToRem(minHeight * 3), paddingRight: ri.scaleToRem(36)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>
