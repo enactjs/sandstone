@@ -99,6 +99,7 @@ const prop = {
 		'onSeeking',
 		'onStalled',
 		'onSuspend',
+		'onToggleMore',
 		// 'onTimeUpdate',	// Disabled due to Storybook Actions-reporting having an adverse effect on VideoPlayer performance. Uncomment to view this event.
 		'onVolumeChange',
 		'onWaiting'
