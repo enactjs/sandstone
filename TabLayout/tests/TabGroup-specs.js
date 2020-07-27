@@ -107,7 +107,7 @@ describe('TabGroup specs', () => {
 		);
 
 		const expected = 'tabs_Homehome';
-		const actual = subject.find('GroupItem').at(0).key();
+		const actual = subject.find('GroupItem').first().key();
 
 		expect(actual).toEqual(expected);
 	});
@@ -124,7 +124,7 @@ describe('TabGroup specs', () => {
 		);
 
 		const expected = 'myCustomKey';
-		const actual = subject.find('GroupItem').at(0).key();
+		const actual = subject.find('GroupItem').first().key();
 
 		expect(actual).toEqual(expected);
 	});
