@@ -5,7 +5,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [unreleased]
 
 ### Added
-- `sandstone/VideoPlayer` props `onToggleMore` to notify consumers when more components are shown
+
+- `sandstone/VideoPlayer` prop `onToggleMore` to notify consumers when more components are shown
 - `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
 
 ### Fixed
