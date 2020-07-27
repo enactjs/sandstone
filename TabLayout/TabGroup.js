@@ -167,8 +167,9 @@ const TabGroupBase = kind({
 		const children = React.useMemo(() => tabs.map(tab => {
 			if (tab) {
 				// eslint-disable-next-line no-shadow
-				const {icon, title, tabKey, ...rest} = tab,
-					key = tabKey && tabKey !== 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
+				const {icon, title, tabKey, ...rest} = tab;
+				const key = tabKey || tabKey === 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
+
 				return {
 					children: title,
 					icon,
