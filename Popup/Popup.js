@@ -290,6 +290,15 @@ class Popup extends React.Component {
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
+		 * Prevents closing the popup via 5-way navigation out of the content.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		no5WayClose: PropTypes.bool,
+
+		/**
 		 * Disables transition animation.
 		 *
 		 * @type {Boolean}
@@ -504,7 +513,10 @@ class Popup extends React.Component {
 	}
 
 	handleKeyDown = (ev) => {
-		const {onClose, position, spotlightRestrict} = this.props;
+		const {onClose, no5WayClose, position, spotlightRestrict} = this.props;
+
+		if (no5WayClose) return;
+
 		const {containerId} = this.state;
 		const keyCode = ev.keyCode;
 		const direction = getDirection(keyCode);
@@ -617,6 +629,8 @@ class Popup extends React.Component {
 
 	render () {
 		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
+
+		delete rest.no5WayClose;
 
 		return (
 			<FloatingLayer

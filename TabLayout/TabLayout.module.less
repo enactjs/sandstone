@@ -5,6 +5,7 @@
 
 .tabLayout {
 	height: 100%;
+	position: relative;
 
 	&.collapsed {
 		/* We need a placeholder for spotlight default focus rules */
@@ -51,6 +52,8 @@
 
 		.tabsExpanded {
 			position: absolute;
+			top: 0;
+			bottom: 0;
 			width: var(--cell-size); // References the cell-size, since flex-basis doesn't force-assign a width, and cell-size normally just applies to max-width
 			transition: opacity @sand-tablayout-collapse-duration ease-out, transform @sand-tablayout-collapse-duration ease-in-out;
 			will-change: opacity, transform;
