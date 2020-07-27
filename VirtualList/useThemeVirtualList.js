@@ -12,6 +12,7 @@ import {affordanceSize, dataIndexAttribute} from '../useScroll';
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
+import {getItemNodeFromTarget} from './util';
 
 const SpotlightPlaceholder = Spottable('div');
 
@@ -233,15 +234,9 @@ const useSpottable = (props, instances) => {
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			contentRef = scrollContentHandle.current.contentRef && scrollContentHandle.current.contentRef.current,
-			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize));
-		let focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
-
-		// To suport nested virtualList, need to get the current dataIndex.
-		let itemParentNode = item.parentNode;
-		while (contentRef && itemParentNode && contentRef !== itemParentNode) {
-			focusedIndex = itemParentNode.getAttribute(dataIndexAttribute) || focusedIndex;
-			itemParentNode = itemParentNode.parentNode;
-		}
+			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
+			focusedTarget = getItemNodeFromTarget(contentRef, item),
+			focusedIndex = focusedTarget ? getNumberValue(focusedTarget.getAttribute(dataIndexAttribute)) : -1;
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);

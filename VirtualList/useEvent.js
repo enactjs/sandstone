@@ -6,6 +6,8 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
+import {getItemNodeFromTarget} from './util';
+
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
@@ -126,13 +128,7 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					let targetIndex = target.dataset.index;
-					// To suport nested virtualList, need to get the current dataIndex.
-					let targetParentNode = target.parentNode;
-					while (this && targetParentNode && this !== targetParentNode) {
-						targetIndex = targetParentNode.dataset.index || targetIndex;
-						targetParentNode = targetParentNode.parentNode;
-					}
+					const targetIndex = getItemNodeFromTarget(this, target).dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
 						!targetIndex &&
@@ -140,23 +136,15 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const candidate = getTargetByDirectionFromElement(direction, target);
+					const candidate = getItemNodeFromTarget(this, getTargetByDirectionFromElement(direction, target));
 					let candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 					let isLeaving = false;
 
-					// To suport multiple virtualList, need to check the candidate is in the current VL or not.
+					// To support multiple VirtualList, need to check the candidate is in the current VirtualList or not.
 					if (candidate && candidateIndex && !this.contains(candidate)) {
 						return;
 					}
 
-					if (candidate) {
-						// To suport nested virtualList, need to get the current dataIndex.
-						let candidateParentNode = candidate.parentNode;
-						while (this && candidateParentNode && this !== candidateParentNode) {
-							candidateIndex = (candidateParentNode.dataset && getNumberValue(candidateParentNode.dataset.index)) || candidateIndex;
-							candidateParentNode = candidateParentNode.parentNode;
-						}
-					}
 					if (isNotItem) { // if the focused node is not an item
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
 							isLeaving = true;
