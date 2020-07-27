@@ -192,6 +192,7 @@ const useThemeScroll = (props, instances) => {
 						elemFromPoint && elemFromPoint.closest && getIntersectingElement(elemFromPoint.closest(`.${spottableClass}`), scrollContainerRef.current) ||
 						getTargetInViewByDirectionFromPosition(direction, position, scrollContainerRef.current) ||
 						getTargetInViewByDirectionFromPosition(reverseDirections[direction], position, scrollContainerRef.current);
+
 				if (target) {
 					Spotlight.focus(target);
 				}
