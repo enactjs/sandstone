@@ -13,6 +13,7 @@ import {VirtualList, VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
+const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 const
@@ -127,7 +128,7 @@ class VirtualGridListInVirtualList extends React.Component {
 		super(props);
 	}
 
-	renderItem = ({index}) => {
+	renderGridList = ({index}) => {
 		const isVertical = select('direction', prop.direction, Config) === 'vertical';
 		const itemWidth = ri.scale(number('minWidth', Config, 688));
 		const itemHeight = ri.scale(number('minHeight', Config, 570));
@@ -164,16 +165,16 @@ class VirtualGridListInVirtualList extends React.Component {
 		const direction = select('direction', prop.direction, Config);
 		return (
 			<VirtualList
-				dataSize={5}
+				dataSize={number('dataSize', VirtualListConfig, 5)}
 				direction={direction}
 				itemSize={direction === 'vertical' ? ri.scale(number('minHeight', Config, 570)) : ri.scale(number('minWidth', Config, 688))}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-				spacing={ri.scale(number('spacing', Config))}
+				spacing={ri.scale(number('spacing', VirtualListConfig))}
 				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
-				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
-				itemRenderer={this.renderItem}
+				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
+				itemRenderer={this.renderGridList}
 			/>
 		);
 	}

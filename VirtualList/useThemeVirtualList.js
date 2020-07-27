@@ -236,7 +236,7 @@ const useSpottable = (props, instances) => {
 			contentRef = scrollContentHandle.current.contentRef && scrollContentHandle.current.contentRef.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
 			focusedTarget = getItemNodeFromTarget(contentRef, item),
-			focusedIndex = focusedTarget ? getNumberValue(focusedTarget.getAttribute(dataIndexAttribute)) : -1;
+			focusedIndex = focusedTarget ? getNumberValue(focusedTarget.dataset.index) : -1;
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);
