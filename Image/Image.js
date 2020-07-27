@@ -12,7 +12,9 @@
 
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
-import UiImage from '@enact/ui/Image';
+import {ImageBase as UiImageBase} from '@enact/ui/Image';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -47,7 +49,9 @@ const ImageBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		forwardRef: EnactPropTypes.ref
 	},
 
 	styles: {
@@ -55,13 +59,14 @@ const ImageBase = kind({
 		publicClassNames: ['image']
 	},
 
-	render: ({css, ...rest}) => {
+	render: ({css, forwardRef, ...rest}) => {
 		return (
-			<UiImage
-				draggable="false"
-				{...rest}
-				css={css}
-			/>
+			UiImageBase.inline({
+				draggable: 'false',
+				...rest,
+				css,
+				ref: forwardRef
+			})
 		);
 	}
 });
@@ -126,6 +131,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
  * @public
  */
 const ImageDecorator = compose(
+	ForwardRef,
 	Pure,
 	ResponsiveImageDecorator,
 	Skinnable
