@@ -79,11 +79,11 @@ storiesOf('PopupTabLayout', module)
 					<PopupTabLayout
 						open
 					>
-						<Tab data-tab icon="picture" title="Display">
-							<TabPanels index={0} onClose={() => this.setState({open: false})}>
+						<Tab icon="picture" title="Display">
+							<TabPanels index={0}>
 								<TabPanel>
-									<Header title="Display 0" type="compact" />
-									<Input>input</Input>
+									<Header title="Display" type="compact" />
+									<Input value="Input" />
 								</TabPanel>
 							</TabPanels>
 						</Tab>
