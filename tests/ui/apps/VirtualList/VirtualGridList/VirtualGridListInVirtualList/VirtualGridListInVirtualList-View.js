@@ -70,7 +70,7 @@ class app extends React.Component {
 			hideScrollbar: false,
 			horizontal: false,
 			noLabel: false,
-			numItems:10,
+			numItems: 10,
 			minHeight: 400,
 			minWidth: 600,
 			spacing: 24,

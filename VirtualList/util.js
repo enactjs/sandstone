@@ -39,14 +39,6 @@ const getNumberValue = (index) => {
 	return number >= 0 ? number : -1;
 };
 
-/**
- * Convert index value from string to number
- *
- * @function
- *
- * @returns {Number} Function that do nothing.
- * @private
- */
 const nop = () => {};
 
 export {

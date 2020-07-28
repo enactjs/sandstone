@@ -168,7 +168,7 @@ class VirtualGridListInVirtualList extends React.Component {
 		const direction = select('direction', prop.direction, VirtualListConfig);
 		return (
 			<VirtualList
-				dataSize={number('dataSize', VirtualListConfig, 5)}
+				dataSize={number('dataSize', VirtualListConfig, 100)}
 				direction={direction}
 				itemSize={direction === 'vertical' ? ri.scale(number('minHeight', Config, 570) + 120) : ri.scale(number('minWidth', Config, 688))}
 				key={select('scrollMode', prop.scrollModeOption, Config)}
