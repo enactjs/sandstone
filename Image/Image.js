@@ -38,6 +38,8 @@ const ImageBase = kind({
 	name: 'Image',
 
 	propTypes: /** @lends sandstone/Image.ImageBase.prototype */ {
+		componentRef: EnactPropTypes.ref,
+
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
@@ -49,9 +51,7 @@ const ImageBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object,
-
-		componentRef: EnactPropTypes.ref
+		css: PropTypes.object
 	},
 
 	styles: {
