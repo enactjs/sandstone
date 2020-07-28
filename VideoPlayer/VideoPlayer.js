@@ -1833,13 +1833,13 @@ const VideoPlayerBase = class extends React.Component {
 	getControlsAriaProps () {
 		if (this.state.announce === AnnounceState.TITLE) {
 			return {
-				'aria-labelledby': `${this.id}_title`,
+				'aria-labelledby': `${this.id}_mediaTitle_title ${this.id}_mediaControls_actionGuide`,
 				'aria-live': 'off',
 				role: 'alert'
 			};
 		} else if (this.state.announce === AnnounceState.INFO) {
 			return {
-				'aria-labelledby': `${this.id}_info`,
+				'aria-labelledby': `${this.id}_mediaTitle_info`,
 				role: 'region'
 			};
 		}
@@ -1968,7 +1968,7 @@ const VideoPlayerBase = class extends React.Component {
 							{this.state.mediaSliderVisible ?
 								<div className={css.infoFrame}>
 									<MediaTitle
-										id={this.id}
+										id={`${this.id}_mediaTitle`}
 										infoVisible={this.state.infoVisible}
 										ref={this.setTitleRef}
 										title={title}
@@ -2025,6 +2025,7 @@ const VideoPlayerBase = class extends React.Component {
 							}
 							<ComponentOverride
 								component={mediaControlsComponent}
+								id={`${this.id}_mediaControls`}
 								initialJumpDelay={initialJumpDelay}
 								jumpDelay={jumpDelay}
 								mediaDisabled={disabled || this.state.sourceUnavailable}
