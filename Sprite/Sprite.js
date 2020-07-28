@@ -1,10 +1,16 @@
 /**
- * Provides Sandstone styled Sprite components and behaviors.
+ * A "sprite" is an animated sequence of cells.
+ *
+ * Cells, like a film-strip are pre-arranged in one or more rows and one or more columns.
+ * This component steps through those cells to create an animation.
  *
  * @example
  * <Sprite
  * 	src="images/sprite-sheet.png"
  * 	height={60}
+ *  width={60}
+ * 	rows={5}
+ * 	columns={10}
  * />
  *
  * @module sandstone/Sprite
@@ -34,7 +40,7 @@ const createKeyframe = ({dimension, axis, vertical, offset}) => {
 };
 
 /**
- * Renders a sandstone-styled Sprite without any behavior.
+ * Renders a Sprite animation.
  *
  * @class SpriteBase
  * @memberof sandstone/Sprite
@@ -48,15 +54,119 @@ const SpriteBase = kind({
 	functional: true,
 
 	propTypes: /** @lends sandstone/Sprite.SpriteBase.prototype */ {
+		/**
+		 * The amount of animation cells spread across the X (horizontal) axis
+		 *
+		 * @type {Number}
+		 * @default 1
+		 * @public
+		 */
 		columns: PropTypes.number,
+
+		/**
+		 * The length of the animation
+		 *
+		 * @type {Number}
+		 * @default 1
+		 * @public
+		 */
 		duration: PropTypes.number,
+
+		/**
+		 * The height of a single cell in pixels
+		 *
+		 * @type {Number}
+		 * @default 1
+		 * @public
+		 */
 		height: PropTypes.number,
+
+		/**
+		 * The number of times the animation should repeat
+		 *
+		 * Changing this value sets future animation loops to this number of repeats, so if it was
+		 * previously set to 3 and it is changed shortly after to 1, it will complete the 3, then
+		 * complete 1 last loop, then stop. Changing from `Infinity` to something else requires
+		 * pausing and unpausing to break out of the infinite loop.
+		 *
+		 * The JavaScript reserved word `Infinity` is a valid option here (set by default) that
+		 * means "repeat indefinitely".
+		 *
+		 * @type {Number}
+		 * @default Infinity
+		 * @public
+		 */
 		iterations: PropTypes.number,
+
+		/**
+		 * Sets the left distance that the first cell is from the top left corner
+		 *
+		 * This can be useful if you have several sprite animations in one image file.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
 		offsetLeft: PropTypes.number,
+
+		/**
+		 * Sets the top distance that the first cell is from the top left corner
+		 *
+		 * This can be useful if you have several sprite animations in one image file.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
 		offsetTop: PropTypes.number,
+
+		/**
+		 * Sets the orientation of the frames on the sprite sheet (`src`)
+		 *
+		 * A horizontal setting would indicate that the cells are arranged left to right with the
+		 * next row starting below the first row.
+		 * A vertical setting would indicate that the cells are arranged top to bottom with the
+		 * next row starting to the right of the first row.
+		 *
+		 * @type {('horizontal'|'vertical')}
+		 * @default 'horizontal'
+		 * @public
+		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+
+		/**
+		 * Stops the animation from playing
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
 		paused: PropTypes.bool,
+
+		/**
+		 * The amount of animation cells spread across the Y (vertical) axis
+		 *
+		 * @type {Number}
+		 * @default 1
+		 * @public
+		 */
 		rows: PropTypes.number,
+
+		/**
+		 * The sprite-sheet image with all of the cells on it
+		 *
+		 * @see {@link ui/Image.Image.src}
+		 * @type {String|Object}
+		 * @public
+		 */
+		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+
+		/**
+		 * The width of a single cell in pixels
+		 *
+		 * @type {Number}
+		 * @default 120
+		 * @public
+		 */
 		width: PropTypes.number
 	},
 
