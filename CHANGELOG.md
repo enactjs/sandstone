@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
+- `sandstone/Sprite` component for animating images
 
 ### Fixed
 
