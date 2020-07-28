@@ -8,7 +8,7 @@
  * <Sprite
  * 	src="images/sprite-sheet.png"
  * 	height={60}
- *  width={60}
+ *	width={60}
  * 	rows={5}
  * 	columns={10}
  * />
