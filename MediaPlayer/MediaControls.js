@@ -59,7 +59,7 @@ const MediaControlsBase = kind({
 	propTypes: /** @lends sandstone/MediaPlayer.MediaControls.prototype */ {
 		/**
 		 * DOM id for the component. Also define id for the `actionGuide`
-		 * in the forms `${id}_actionGuide`.
+		 * in the forms `${id}_mediaControls_actionGuide`.
 		 *
 		 * @type {String}
 		 * @required
