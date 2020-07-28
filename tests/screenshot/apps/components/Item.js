@@ -110,7 +110,7 @@ const ItemTests = [
 		component: <Item disabled inline>Hello disabled very very long Item RTL</Item>
 	},
 
-	// textSize: 'large
+	// textSize: 'large'
 	...withConfig({
 		textSize: 'large'
 	}, [
@@ -124,11 +124,11 @@ const ItemTests = [
 		},
 		{
 			locale: 'ar-SA',
-			component: <Item size="small">Hello Item</Item>
+			component: <Item label="With Label">Hello Item</Item>
 		},
 		{
 			locale: 'ar-SA',
-			component: <Item label="With Label">Hello Item</Item>
+			component: <Item size="small">Hello Item</Item>
 		},
 		{
 			locale: 'ar-SA',
