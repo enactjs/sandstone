@@ -1,7 +1,7 @@
 /**
  * A "sprite" is an animated sequence of cells.
  *
- * Cells, like a film-strip are pre-arranged in one or more rows and one or more columns.
+ * Cells, like a film-strip, are pre-arranged in one or more rows and one or more columns.
  * This component steps through those cells to create an animation.
  *
  * @example
