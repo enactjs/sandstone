@@ -20,8 +20,8 @@
 
 import kind from '@enact/core/kind';
 import {scaleToRem} from '@enact/ui/resolution';
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 import Image from '../Image';
 
