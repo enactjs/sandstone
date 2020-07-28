@@ -36,15 +36,6 @@ const ItemTests = [
 	<Item size="small">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
 	<Item size="small">صباح الخير</Item>,
 	{
-		textSize: 'large',
-		component: <Item size="small">Hello Item</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item size="small">Hello Item</Item>
-	},
-	{
-		textSize: 'large',
 		locale: 'ar-SA',
 		component: <Item size="small">Hello Item</Item>
 	},
@@ -117,7 +108,32 @@ const ItemTests = [
 		locale: 'ar-SA',
 		textSize: 'large',
 		component: <Item disabled inline>Hello disabled very very long Item RTL</Item>
-	}
+	},
 
+	// textSize: 'large'
+	...withConfig({
+		textSize: 'large'
+	}, [
+		<Item>Hello Item</Item>,
+		<Item label="With Label">Hello Item</Item>,
+		<Item size="small">Hello Item</Item>,
+		<Item size="small" label="With Label">Hello Item</Item>,
+		{
+			locale: 'ar-SA',
+			component: <Item>Hello Item</Item>
+		},
+		{
+			locale: 'ar-SA',
+			component: <Item label="With Label">Hello Item</Item>
+		},
+		{
+			locale: 'ar-SA',
+			component: <Item size="small">Hello Item</Item>
+		},
+		{
+			locale: 'ar-SA',
+			component: <Item size="small" label="With Label">Hello Item</Item>
+		}
+	])
 ];
 export default ItemTests;
