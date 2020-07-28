@@ -51,7 +51,7 @@ const ImageBase = kind({
 		 */
 		css: PropTypes.object,
 
-		forwardRef: EnactPropTypes.ref
+		componentRef: EnactPropTypes.ref
 	},
 
 	styles: {
@@ -59,13 +59,13 @@ const ImageBase = kind({
 		publicClassNames: ['image']
 	},
 
-	render: ({css, forwardRef, ...rest}) => {
+	render: ({css, componentRef, ...rest}) => {
 		return (
 			UiImageBase.inline({
 				draggable: 'false',
 				...rest,
 				css,
-				ref: forwardRef
+				ref: componentRef
 			})
 		);
 	}
@@ -131,7 +131,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
  * @public
  */
 const ImageDecorator = compose(
-	ForwardRef,
+	ForwardRef({prop: 'componentRef'}),
 	Pure,
 	ResponsiveImageDecorator,
 	Skinnable

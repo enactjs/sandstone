@@ -8,7 +8,7 @@
  * <Sprite
  * 	src="images/sprite-sheet.png"
  * 	height={60}
- *	width={60}
+ * 	width={60}
  * 	rows={5}
  * 	columns={10}
  * />
@@ -82,11 +82,6 @@ const SpriteBase = kind({
 
 		/**
 		 * The number of times the animation should repeat
-		 *
-		 * Changing this value sets future animation loops to this number of repeats, so if it was
-		 * previously set to 3 and it is changed shortly after to 1, it will complete the 3, then
-		 * complete 1 last loop, then stop. Changing from `Infinity` to something else requires
-		 * pausing and unpausing to break out of the infinite loop.
 		 *
 		 * The JavaScript reserved word `Infinity` is a valid option here (set by default) that
 		 * means "repeat indefinitely".
@@ -218,6 +213,8 @@ const SpriteBase = kind({
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const imageRef = React.useRef();
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const animation = React.useRef();
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		React.useLayoutEffect(
@@ -254,7 +251,11 @@ const SpriteBase = kind({
 						);
 					}
 
-					const spriteAnimation = node.animate(
+					if (animation.current) {
+						animation.current.cancel();
+					}
+
+					animation.current = node.animate(
 						keyframes,
 						{
 							easing: `steps(${frameCount}, end)`,
@@ -264,9 +265,9 @@ const SpriteBase = kind({
 					);
 
 					if (paused) {
-						spriteAnimation.pause();
+						animation.current.pause();
 					} else {
-						spriteAnimation.play();
+						animation.current.play();
 					}
 				}
 			},
