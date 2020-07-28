@@ -44,7 +44,6 @@ const createKeyframe = ({dimension, axis, vertical, offset}) => {
  *
  * @class SpriteBase
  * @memberof sandstone/Sprite
- * @extends ui/Sprite.Sprite
  * @ui
  * @public
  */
@@ -64,10 +63,10 @@ const SpriteBase = kind({
 		columns: PropTypes.number,
 
 		/**
-		 * The length of the animation
+		 * The length of the animation in milliseconds
 		 *
 		 * @type {Number}
-		 * @default 1
+		 * @default 1000
 		 * @public
 		 */
 		duration: PropTypes.number,
@@ -76,7 +75,7 @@ const SpriteBase = kind({
 		 * The height of a single cell in pixels
 		 *
 		 * @type {Number}
-		 * @default 1
+		 * @default 120
 		 * @public
 		 */
 		height: PropTypes.number,
@@ -126,7 +125,7 @@ const SpriteBase = kind({
 		 * A horizontal setting would indicate that the cells are arranged left to right with the
 		 * next row starting below the first row.
 		 * A vertical setting would indicate that the cells are arranged top to bottom with the
-		 * next row starting to the right of the first row.
+		 * next column starting to the right of the first column.
 		 *
 		 * @type {('horizontal'|'vertical')}
 		 * @default 'horizontal'
