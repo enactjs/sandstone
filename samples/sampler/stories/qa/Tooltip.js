@@ -9,11 +9,11 @@ import {Row} from '@enact/ui/Layout';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-// import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
-import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
+import Heading from '@enact/sandstone/Heading';
 import Input from '@enact/sandstone/Input';
 import Scroller from '@enact/sandstone/Scroller';
 import Section from './components/KitchenSinkSection';
+import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
@@ -48,7 +48,8 @@ const prop = {
 
 const inputData = {
 	longText : 'An extremely long Tooltip text to test marquee. It will very useful to test different types of Tooltip.',
-	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.'
+	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
+	longestText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 };
 
 class TooltipTest extends React.Component {
@@ -407,9 +408,15 @@ storiesOf('Tooltip', module)
 			);
 		}
 	)	.add(
-		'Long tooltip with marquee',
+		'Long tooltip marquees',
 		() => (
 			<Scroller>
+				<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator.</Heading>
+				<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator.</Heading>
+
+				<Heading spacing="large" size="large" />
+				<Heading spacing="large" size="large" showLine>Without tooltipRelative</Heading>
+
 				<Row wrap>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
@@ -417,6 +424,83 @@ storiesOf('Tooltip', module)
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque unchecked"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque unchecked"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked and long width"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={inputData.longestText}
+							tooltipWidth={100000}
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked and long width"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={inputData.longestText}
+							tooltipWidth={100000}
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+				</Row>
+
+				<Heading spacing="large" size="large" />
+				<Heading spacing="large" size="large" showLine>With tooltipRelative</Heading>
+
+				<Row wrap>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
 							tooltipRelative
 							tooltipMarquee
 						>
@@ -429,6 +513,7 @@ storiesOf('Tooltip', module)
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
 							tooltipRelative
 							tooltipMarquee
 						>
@@ -441,6 +526,7 @@ storiesOf('Tooltip', module)
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
 							tooltipRelative
 						>
 						Hover
@@ -452,6 +538,7 @@ storiesOf('Tooltip', module)
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipWidth={1000}
 							tooltipRelative
 						>
 						Hover
@@ -459,11 +546,11 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked with set width"
+							alt="Marque checked and long width"
 							tooltipType="transparent"
 							tooltipDelay={500}
-							tooltipText={inputData.longerText}
-							tooltipWidth={1000}
+							tooltipText={inputData.longestText}
+							tooltipWidth={100000}
 							tooltipRelative
 							tooltipMarquee
 						>
@@ -472,17 +559,18 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked with set width"
+							alt="Marque checked and long width"
 							tooltipType="balloon"
 							tooltipDelay={500}
-							tooltipText={inputData.longerText}
-							tooltipWidth={1000}
+							tooltipText={inputData.longestTText}
+							tooltipWidth={100000}
 							tooltipRelative
 							tooltipMarquee
 						>
 						Hover
 						</TooltipButton>
 					</Section>
+					<Heading spacing="large" size="large" showLine />
 				</Row>
 			</Scroller>
 		)
