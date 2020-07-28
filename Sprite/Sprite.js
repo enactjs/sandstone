@@ -16,8 +16,6 @@
  * @module sandstone/Sprite
  * @exports Sprite
  * @exports SpriteBase
- * @exports SpriteDecorator
- * @exports Sprites
  */
 
 import kind from '@enact/core/kind';
@@ -183,13 +181,12 @@ const SpriteBase = kind({
 	},
 
 	computed: {
-		style: ({offsetTop, offsetLeft, rows, columns, duration, height, width, style}) => ({
+		style: ({offsetTop, offsetLeft, rows, columns, height, width, style}) => ({
 			...style,
 			'--sand-sprite-offset-top': scaleToRem(offsetTop),
 			'--sand-sprite-offset-left': scaleToRem(offsetLeft),
 			'--sand-sprite-rows': rows,
 			'--sand-sprite-columns': columns,
-			'--sand-sprite-duration': duration,
 			'--sand-sprite-height': scaleToRem(height),
 			'--sand-sprite-width': scaleToRem(width)
 		})
