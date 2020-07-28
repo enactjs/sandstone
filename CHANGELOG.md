@@ -8,9 +8,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
 - `sandstone/Sprite` component for animating images
+- `sandstone/TabLayout.Tab` prop `tabKey` to specify a unique key when the `title` and `icon` combination is not unique
+- `sandstone/VideoPlayer` prop `onToggleMore` to notify consumers when more components are shown
 
 ### Fixed
 
+- `sandstone/VideoPlayer` to read out action guide string after video title
 - `sandstone/Item` to support RTL text
 - `sandstone/Button` to incorporate a larger vertical margin to provide the same layout-height to `Button` as the tap-area occupies
 - `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
@@ -19,6 +22,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels.Panel` to favor auto-focusing the content over the navigation buttons
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
+- `sandstone/MediaPlayer` to pause spotlight during animations
+- `sandstone/Item` font-size for large text mode
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
 - `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
@@ -26,6 +31,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ProgressButton` icon size
 - `sandstone/TabGroup` to read out contents without button `role`
 - `sandstone/TabLayout` to properly support scrolling the tabs
+- `sandstone/Dropdown` to delegate voice props to the dropdown button
 
 ## [1.0.1] - 2020-07-20
 

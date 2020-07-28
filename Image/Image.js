@@ -38,6 +38,15 @@ const ImageBase = kind({
 	name: 'Image',
 
 	propTypes: /** @lends sandstone/Image.ImageBase.prototype */ {
+		/**
+		 * Called with a reference to the root component.
+		 *
+		 * When using {@link sandstone/Image.Image}, the `ref` prop is forwarded to this component
+		 * as `componentRef`.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
 		componentRef: EnactPropTypes.ref,
 
 		/**
