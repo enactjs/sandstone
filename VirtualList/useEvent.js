@@ -6,7 +6,7 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
-import {getItemNodeFromTarget} from './util';
+import {getTargetItemNode, getNumberValue} from './util';
 
 const
 	isDown = is('down'),
@@ -15,13 +15,7 @@ const
 	isPageUp = is('pageUp'),
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
-	isUp = is('up'),
-	getNumberValue = (index) => {
-		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-		let number = +index;
-		// should return -1 if index is not a number or a negative value
-		return number >= 0 ? number : -1;
-	};
+	isUp = is('up');
 
 const useEventKey = (props, instances, context) => {
 	// Mutable value
@@ -128,7 +122,7 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const targetIndex = getItemNodeFromTarget(this, target).dataset.index;
+					const targetIndex = getTargetItemNode(this, target).dataset.index;
 					const isNotItem = (
 						// if target has an index, it must be an item
 						targetIndex < 0 &&
@@ -136,7 +130,7 @@ const useEventKey = (props, instances, context) => {
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
 					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const candidate = getItemNodeFromTarget(this, getTargetByDirectionFromElement(direction, target));
+					const candidate = getTargetItemNode(this, getTargetByDirectionFromElement(direction, target));
 					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
 
 					let isLeaving = false;

@@ -20,8 +20,7 @@ import Scrollbar from '../useScroll/Scrollbar';
 import Skinnable from '../Skinnable';
 
 import {useThemeVirtualList} from './useThemeVirtualList';
-
-const nop = () => {};
+import {nop} from './util';
 
 /**
  * A Sandstone-styled scrollable and spottable virtual list component.

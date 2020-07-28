@@ -70,7 +70,7 @@ class app extends React.Component {
 			hideScrollbar: false,
 			horizontal: false,
 			noLabel: false,
-			numItems: 100,
+			numItems:10,
 			minHeight: 400,
 			minWidth: 600,
 			spacing: 24,
@@ -130,7 +130,7 @@ class app extends React.Component {
 		return (
 			<VirtualGridList
 				data-index={index}
-				dataSize={this.state.numItems}
+				dataSize={50}
 				direction="horizontal"
 				itemRenderer={renderItem}
 				itemSize={{
@@ -145,6 +145,7 @@ class app extends React.Component {
 				spacing={ri.scale(this.state.spacing)}
 				spotlightDisabled={this.state.spotlightDisabled}
 				style={{height: ri.scaleToRem(this.state.minHeight), paddingBottom: ri.scaleToRem(36)}}
+				horizontalScrollbar={getScrollbarVisibility(this.state.hideScrollbar)}
 				verticalScrollbar={getScrollbarVisibility(this.state.hideScrollbar)}
 				wrap={this.state.wrap}
 			/>
@@ -183,7 +184,7 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
-											dataSize={5}
+											dataSize={numItems}
 											itemRenderer={this.renderGridList}
 											itemSize={ri.scale(minHeight)}
 											key={(translate ? 'translate' : 'native')}
@@ -194,6 +195,7 @@ class app extends React.Component {
 											spacing={ri.scale(spacing)}
 											spotlightDisabled={spotlightDisabled}
 											style={{height: ri.scaleToRem(minHeight * 3), paddingRight: ri.scaleToRem(36)}}
+											horizontalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											wrap={wrap}
 										/>

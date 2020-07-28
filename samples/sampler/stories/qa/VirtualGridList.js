@@ -129,7 +129,7 @@ class VirtualGridListInVirtualList extends React.Component {
 	}
 
 	renderGridList = ({index}) => {
-		const isVertical = select('direction', prop.direction, Config) === 'vertical';
+		const isVertical = select('direction', prop.direction, VirtualListConfig) === 'vertical';
 		const itemWidth = ri.scale(number('minWidth', Config, 688));
 		const itemHeight = ri.scale(number('minHeight', Config, 570));
 		const style = isVertical ?
@@ -162,7 +162,7 @@ class VirtualGridListInVirtualList extends React.Component {
 	}
 
 	render = () => {
-		const direction = select('direction', prop.direction, Config);
+		const direction = select('direction', prop.direction, VirtualListConfig);
 		return (
 			<VirtualList
 				dataSize={number('dataSize', VirtualListConfig, 5)}

@@ -12,18 +12,9 @@ import {affordanceSize, dataIndexAttribute} from '../useScroll';
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
-import {getItemNodeFromTarget} from './util';
+import {getTargetItemNode, getNumberValue, nop} from './util';
 
 const SpotlightPlaceholder = Spottable('div');
-
-const
-	nop = () => {},
-	getNumberValue = (index) => {
-		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-		let number = +index;
-		// should return -1 if index is not a number or a negative value
-		return number >= 0 ? number : -1;
-	};
 
 const useSpottable = (props, instances) => {
 	const {noAffordance, scrollMode} = props;
@@ -235,7 +226,7 @@ const useSpottable = (props, instances) => {
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
 			contentRef = scrollContentHandle.current.contentRef && scrollContentHandle.current.contentRef.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
-			focusedTarget = getItemNodeFromTarget(contentRef, item),
+			focusedTarget = getTargetItemNode(contentRef, item),
 			focusedIndex = focusedTarget ? getNumberValue(focusedTarget.dataset.index) : -1;
 
 		if (focusedIndex >= 0) {
