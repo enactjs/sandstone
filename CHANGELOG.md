@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/VideoPlayer` to read out action guide string after video title
+- `sandstone/Item` to support RTL text
 - `sandstone/Button` to incorporate a larger vertical margin to provide the same layout-height to `Button` as the tap-area occupies
 - `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
 - `sandstone/DayPicker` to not read out current index and total numbers
