@@ -5,14 +5,17 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {Row} from '@enact/ui/Layout';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
-import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
+// import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
+import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import Input from '@enact/sandstone/Input';
 import Scroller from '@enact/sandstone/Scroller';
+import Section from './components/KitchenSinkSection';
 
-const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator);
+const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
@@ -32,11 +35,20 @@ const prop = {
 		'right middle': 'right middle',
 		'right top': 'right top'
 	},
+	tooltipType: [
+		'balloon',
+		'transparent'
+	],
 	ariaObject: {
 		'aria-hidden': false,
 		'aria-label': 'Tooltip Label',
 		'role': 'alert'
 	}
+};
+
+const inputData = {
+	longText : 'An extremely long Tooltip text to test marquee. It will very useful to test different types of Tooltip.',
+	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.'
 };
 
 class TooltipTest extends React.Component {
@@ -394,4 +406,84 @@ storiesOf('Tooltip', module)
 				</Layout>
 			);
 		}
+	)	.add(
+		'Long tooltip with marquee',
+		() => (
+			<Scroller>
+				<Row wrap>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipRelative
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipRelative
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque unchecked"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipRelative
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque unchecked"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={text('', TooltipButton, inputData.longerText)}
+							tooltipRelative
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Transparent Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked with set width"
+							tooltipType="transparent"
+							tooltipDelay={500}
+							tooltipText={inputData.longerText}
+							tooltipWidth={1000}
+							tooltipRelative
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+					<Section title="Balloon Tooltip" size="50%">
+						<TooltipButton
+							alt="Marque checked with set width"
+							tooltipType="balloon"
+							tooltipDelay={500}
+							tooltipText={inputData.longerText}
+							tooltipWidth={1000}
+							tooltipRelative
+							tooltipMarquee
+						>
+						Hover
+						</TooltipButton>
+					</Section>
+				</Row>
+			</Scroller>
+		)
 	);
