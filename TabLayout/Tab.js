@@ -5,7 +5,7 @@ import React from 'react';
 /**
  * An item for the TabLayout.
  *
- * Configures the tab title and VirtualGridList settings.
+ * Configures the tab title and icon.
  *
  * @class Tab
  * @memberof sandstone/TabLayout
@@ -40,8 +40,20 @@ const Tab = kind({
 		 * @type {String|Object}
 		 * @public
 		 */
-		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
+		/**
+		 * Key for the tab.
+		 *
+		 * Note: `TabLayout` automatically generates a key based on the title and icon combination.
+		 * If this combination is not unique for all items, `tabKey` must be specified to make each
+		 * tab have a unique (and persistent) key.
+		 *
+		 * @type {String|Number}
+		 * @required
+		 * @public
+		 */
+		tabKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 	},
 
 	render: () => <div>Tab is only to be used in TabLayout!</div>

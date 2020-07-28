@@ -94,4 +94,55 @@ describe('TabGroup specs', () => {
 
 		expect(actual).toBe(expected);
 	});
+
+	it('should generate keys automatically', () => {
+		const subject = mount(
+			<TabGroup
+				tabs={[
+					{title: 'Home', icon: 'home'},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
+				]}
+			/>
+		);
+
+		const expected = 'tabs_Homehome';
+		const actual = subject.find('GroupItem').first().key();
+
+		expect(actual).toEqual(expected);
+	});
+
+	it('should use a custom key if supplied', () => {
+		const subject = mount(
+			<TabGroup
+				tabs={[
+					{title: 'Home', icon: 'home', tabKey: 'myCustomKey'},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
+				]}
+			/>
+		);
+
+		const expected = 'myCustomKey';
+		const actual = subject.find('GroupItem').first().key();
+
+		expect(actual).toEqual(expected);
+	});
+
+	it('should support zero as a custom key', () => {
+		const subject = mount(
+			<TabGroup
+				tabs={[
+					{title: 'Home', icon: 'home', tabKey: 0},
+					{title: 'Button', icon: 'demosync'},
+					{title: 'Item', icon: 'playcircle'}
+				]}
+			/>
+		);
+
+		const expected = '0';
+		const actual = subject.find('GroupItem').first().key();
+
+		expect(actual).toEqual(expected);
+	});
 });
