@@ -1,10 +1,10 @@
-import {Button} from '../../../../../Button';
+import {Button} from '../../../../../../Button/Button';
 import ri from '@enact/ui/resolution';
 import {Row, Column, Cell} from '@enact/ui/Layout';
-import {InputField} from '../../../../../Input';
-import ImageItem from '../../../../../ImageItem';
-import {VirtualList, VirtualGridList} from '../../../../../VirtualList';
-import ThemeDecorator from '../../../../../ThemeDecorator';
+import {InputField} from '../../../../../../Input';
+import ImageItem from '../../../../../../ImageItem/ImageItem';
+import {VirtualList, VirtualGridList} from '../../../../../../VirtualList/VirtualList';
+import ThemeDecorator from '../../../../../../ThemeDecorator/ThemeDecorator';
 import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
