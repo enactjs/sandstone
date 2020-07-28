@@ -1,14 +1,17 @@
 /**
- * Provides Sandstone styled icon components and behaviors.
+ * Provides Sandstone styled Sprite components and behaviors.
  *
  * @example
- * <Icon>flag</Icon>
+ * <Sprite
+ * 	src="images/sprite-sheet.png"
+ * 	height={60}
+ * />
  *
- * @module sandstone/Icon
- * @exports Icon
- * @exports IconBase
- * @exports IconDecorator
- * @exports icons
+ * @module sandstone/Sprite
+ * @exports Sprite
+ * @exports SpriteBase
+ * @exports SpriteDecorator
+ * @exports Sprites
  */
 
 import kind from '@enact/core/kind';
@@ -31,11 +34,11 @@ const createKeyframe = ({dimension, axis, vertical, offset}) => {
 };
 
 /**
- * Renders a sandstone-styled icon without any behavior.
+ * Renders a sandstone-styled Sprite without any behavior.
  *
- * @class IconBase
- * @memberof sandstone/Icon
- * @extends ui/Icon.Icon
+ * @class SpriteBase
+ * @memberof sandstone/Sprite
+ * @extends ui/Sprite.Sprite
  * @ui
  * @public
  */
@@ -44,7 +47,7 @@ const SpriteBase = kind({
 
 	functional: true,
 
-	propTypes: /** @lends sandstone/Icon.IconBase.prototype */ {
+	propTypes: /** @lends sandstone/Sprite.SpriteBase.prototype */ {
 		columns: PropTypes.number,
 		duration: PropTypes.number,
 		height: PropTypes.number,
@@ -76,7 +79,6 @@ const SpriteBase = kind({
 	},
 
 	computed: {
-		className: ({orientation, paused, styler}) => styler.append(orientation, {paused}),
 		style: ({offsetTop, offsetLeft, rows, columns, duration, height, width, style}) => ({
 			...style,
 			'--sand-sprite-offset-top': scaleToRem(offsetTop),
@@ -143,11 +145,9 @@ const SpriteBase = kind({
 						);
 					}
 
-					// console.log('keyframes:', keyframes);
 					const spriteAnimation = node.animate(
 						keyframes,
 						{
-							// fill: 'forwards',
 							easing: `steps(${frameCount}, end)`,
 							duration,
 							iterations
@@ -161,7 +161,17 @@ const SpriteBase = kind({
 					}
 				}
 			},
-			[] // disconnect on unmount
+			[
+				// Only update if these change
+				columns,
+				duration,
+				height,
+				iterations,
+				orientation,
+				paused,
+				rows,
+				width
+			]
 		);
 
 		return (

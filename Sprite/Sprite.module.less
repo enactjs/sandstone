@@ -12,20 +12,20 @@
 	width: var(--sand-sprite-width);
 
 	.image {
+		// This calculation is used in 2 places, so for maintainability, it has been split out into LESS variables
+		@image-height: ~"calc(var(--sand-sprite-height) * var(--sand-sprite-rows))";
+		@image-width: ~"calc(var(--sand-sprite-width) * var(--sand-sprite-columns))";
+
 		margin: 0;
 		position: absolute;
 		top: calc(var(--sand-sprite-offset-top, 0) * -1);
 		left: calc(var(--sand-sprite-offset-left, 0) * -1);
 		background-position: top left;
-		background-size: auto;
 		transition: transform var(--sand-sprite-duration) steps(calc(var(--sand-sprite-rows) * var(--sand-sprite-columns)));
-		height: calc((var(--sand-sprite-height) * var(--sand-sprite-rows)) + var(--sand-sprite-offset-top, 0));
-		width: calc((var(--sand-sprite-width) * var(--sand-sprite-columns)) + var(--sand-sprite-offset-left, 0));
-	}
-
-	&.running {
-		background-position: center 100%;
-		transform: translate;
+		height: calc(@image-height + var(--sand-sprite-offset-top, 0));
+		width: calc(@image-width + var(--sand-sprite-offset-left, 0));
+		background-size: @image-width @image-height;
+		will-change: transform;
 	}
 
 	// Code to help debug sprites
@@ -38,26 +38,3 @@
 		}
 	}
 }
-
-// .focus({
-// 	.icon {
-// 		background-position: center 100%;
-
-// 		.applySkins({
-// 			color: inherit;
-// 		});
-// 	}
-// }, parent);
-
-// .muted({
-// 	.focus({
-// 		.icon {
-// 			// Repeat the same rules from the resting rules
-// 			background-position: center 0;
-
-// 			.applySkins({
-// 				color: inherit;
-// 			});
-// 		}
-// 	}, parent);
-// }, parent);
