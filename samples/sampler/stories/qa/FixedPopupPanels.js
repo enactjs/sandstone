@@ -45,7 +45,7 @@ class FixedPopupPanelsWithPause extends React.Component {
 			Spotlight.setPointerMode(false);
 			this.pause.resume();
 			Spotlight.focus('#panel1');
-		}, 1000);
+		}, 5000);
 	}
 
 	render () {
@@ -257,4 +257,3 @@ storiesOf('FixedPopupPanels', module)
 			}
 		}
 	);
-
