@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Added
 
 - `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
+- `sandstone/TabLayout.Tab` prop `tabKey` to specify a unique key when the `title` and `icon` combination is not unique
 
 ### Fixed
 
