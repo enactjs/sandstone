@@ -103,6 +103,8 @@ const getDurFmt = (locale) => {
 
 const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
 
+const forwardToggleMore = forward('onToggleMore');
+
 // provide forwarding of events on media controls
 const forwardControlsAvailable = forward('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
@@ -487,6 +489,20 @@ const VideoPlayerBase = class extends React.Component {
 		 * @public
 		 */
 		onSeekOutsideSelection: PropTypes.func,
+
+		/**
+		 * Called when the visibility of more components is changed
+		 *
+		 * Event payload includes:
+		 *
+		 * * `type` - Type of event, `'onToggleMore'`
+		 * * `showMoreComponents` - `true` when the components are visible`
+		 * * `liftDistance` - The distance, in pixels, the component animates
+		 *`
+		 * @type {Function}
+		 * @public
+		 */
+		onToggleMore: PropTypes.func,
 
 		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
@@ -1768,7 +1784,11 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showMoreComponents, liftDistance}) => {
+	handleToggleMore = (ev) => {
+		const {showMoreComponents, liftDistance} = ev;
+
+		forwardToggleMore(ev, this.props);
+
 		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
@@ -1871,6 +1891,7 @@ const VideoPlayerBase = class extends React.Component {
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;
+		delete mediaProps.onToggleMore;
 		delete mediaProps.pauseAtEnd;
 		delete mediaProps.playbackRateHash;
 		delete mediaProps.seekDisabled;

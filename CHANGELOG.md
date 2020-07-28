@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
 - `sandstone/TabLayout.Tab` prop `tabKey` to specify a unique key when the `title` and `icon` combination is not unique
+- `sandstone/VideoPlayer` prop `onToggleMore` to notify consumers when more components are shown
 
 ### Fixed
 
@@ -19,6 +20,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels.Panel` to favor auto-focusing the content over the navigation buttons
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
+- `sandstone/MediaPlayer` to pause spotlight during animations
 - `sandstone/Item` font-size for large text mode
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
 - `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
