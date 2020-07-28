@@ -25,6 +25,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/ProgressButton` icon size
 - `sandstone/TabGroup` to read out contents without button `role`
 - `sandstone/TabLayout` to properly support scrolling the tabs
+- `sandstone/Dropdown` delegate voice props to dropdown button
 
 ## [1.0.1] - 2020-07-20
 
