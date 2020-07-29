@@ -5,6 +5,7 @@ import {SharedState} from '../internal/SharedStateDecorator/SharedStateDecorator
 const useSpotlightRestore = (props, instances) => {
 	const {scrollContainerHandle} = instances;
 	const context = useContext(SharedState);
+	// context왜 null이지!!!
 
 	// Hooks
 
@@ -31,7 +32,7 @@ const useSpotlightRestore = (props, instances) => {
 		}
 
 		restoreScrollPosition();
-	}, [props.id]);
+	}, [props.id]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 export {
