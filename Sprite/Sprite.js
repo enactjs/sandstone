@@ -287,39 +287,35 @@ const SpriteBase = kind({
 						playing: false
 					};
 
-					const eventProps = {
-						columns,
-						keyframes,
-						duration,
-						iterations,
-						onSpriteAnimation,
-						paused,
-						rows
-					};
-
 					if (paused) {
 						animation.current.pause();
-						forward('onSpriteAnimation', {
-							...eventPayload,
-							paused: true,
-							playing: true
-						}, eventProps);
+
+						if (typeof onSpriteAnimation === 'function') {
+							onSpriteAnimation({
+								...eventPayload,
+								paused: true,
+								playing: true
+							});
+						}
 					} else {
 						animation.current.play();
-						forward('onSpriteAnimation', {
-							...eventPayload,
-							playing: true
-						}, eventProps);
+
+						if (typeof onSpriteAnimation === 'function') {
+							onSpriteAnimation({
+								...eventPayload,
+								playing: true
+							});
+						}
 					}
 				}
 			},
 			[
 				// Only update if these change
 				columns,
-				keyframes,
 				duration,
-				onSpriteAnimation,
 				iterations,
+				keyframes,
+				onSpriteAnimation,
 				paused,
 				rows
 			]
