@@ -183,10 +183,10 @@ const TabGroupBase = kind({
 
 				return {
 					children: title,
+					defaultStopped: Boolean(sprite),
 					icon,
 					key,
 					onFocusTab,
-					defaultStopped: Boolean(sprite),
 					sprite,
 					...rest
 				};
