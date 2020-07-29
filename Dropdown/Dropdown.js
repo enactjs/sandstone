@@ -281,7 +281,7 @@ const DropdownBase = kind({
 				};
 			});
 		},
-		className: ({width, styler}) => styler.append(`${width}Width`),
+		className: ({width, title, styler}) => styler.append(`${width}Width`, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
 		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
