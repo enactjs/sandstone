@@ -193,16 +193,15 @@ const SpriteBase = kind({
 	},
 
 	render: ({
-		className,
-		style,
-		orientation,
 		columns,
-		rows,
-		height,
-		width,
 		duration,
+		height,
 		iterations,
+		orientation,
 		paused,
+		rows,
+		src,
+		width,
 		...rest
 	}) => {
 		delete rest.offsetTop;
@@ -214,39 +213,51 @@ const SpriteBase = kind({
 		const animation = React.useRef();
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const keyframes = React.useMemo(() => {
+			const framesets = [];
+
+			const vertical = (orientation === 'vertical');
+
+			// Orientation agnostic terms to generate keyframes
+			const steps = (vertical ? rows : columns);
+			const sets = (vertical ? columns : rows);
+			const dimension = (vertical ? height : width);
+			const axis = (vertical ? width : height);
+
+			for (let i = 0; i < sets; i++) {
+				const axisValue = (i * axis * -1);
+				const dimentionValue = ((steps - 0) * dimension * -1);
+				framesets.push(
+					createKeyframe({
+						offset: (i / sets),
+						vertical,
+						dimension: 0,
+						axis: axisValue
+					}),
+					createKeyframe({
+						offset: ((i + 1) / sets),
+						vertical,
+						dimension: dimentionValue,
+						axis: axisValue
+					})
+				);
+			}
+			return framesets;
+		}, [
+			// Only update if these change
+			columns,
+			height,
+			orientation,
+			rows,
+			width
+		]);
+
+		// eslint-disable-next-line react-hooks/rules-of-hooks
 		React.useLayoutEffect(
 			() => {
 				if (imageRef && imageRef.current) {
 					const node = imageRef.current;
-
-					const vertical = (orientation === 'vertical');
-					const keyframes = [];
 					const frameCount = (columns * rows);
-
-					// Orientation agnostic terms to generate keyframes
-					const steps = (vertical ? rows : columns);
-					const sets = (vertical ? columns : rows);
-					const dimension = (vertical ? height : width);
-					const axis = (vertical ? width : height);
-
-					for (let i = 0; i < sets; i++) {
-						const axisValue = (i * axis * -1);
-						const dimentionValue = ((steps - 0) * dimension * -1);
-						keyframes.push(
-							createKeyframe({
-								offset: (i / sets),
-								vertical,
-								dimension: 0,
-								axis: axisValue
-							}),
-							createKeyframe({
-								offset: ((i + 1) / sets),
-								vertical,
-								dimension: dimentionValue,
-								axis: axisValue
-							})
-						);
-					}
 
 					if (animation.current) {
 						animation.current.cancel();
@@ -271,19 +282,17 @@ const SpriteBase = kind({
 			[
 				// Only update if these change
 				columns,
+				keyframes,
 				duration,
-				height,
 				iterations,
-				orientation,
 				paused,
-				rows,
-				width
+				rows
 			]
 		);
 
 		return (
-			<div className={className} style={style}>
-				<Image {...rest} ref={imageRef} className={css.image} />
+			<div {...rest}>
+				<Image src={src} ref={imageRef} className={css.image} />
 			</div>
 		);
 	}
