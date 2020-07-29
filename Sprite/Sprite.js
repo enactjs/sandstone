@@ -312,14 +312,14 @@ const SpriteBase = kind({
 					};
 
 					if (stopped) {
-						animation.current.pause();
+						if (animation.current.pause) animation.current.pause();
 					} else if (paused) {
-						animation.current.pause();
+						if (animation.current.pause) animation.current.pause();
 
 						eventPayload.paused = true;
 						eventPayload.playing = true;
 					} else {
-						animation.current.play();
+						if (animation.current.play) animation.current.play();
 
 						eventPayload.playing = true;
 					}
