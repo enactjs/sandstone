@@ -46,7 +46,7 @@ const Tab = kind({
 		 * Configuration props for a [Sprite]{@link sandstone/Sprite.SpriteBase} icon.
 		 *
 		 * All props on [Sprite]{@link sandstone/Sprite.SpriteBase} are supported here.
-		 * The `stopped` set automatically by the focus state of this tab, but can be overridden
+		 * The `stopped` prop is set automatically when this tab is focused, but can be overridden
 		 * manually.
 		 *
 		 * @see {@link sandstone/Sprite.SpriteBase}
