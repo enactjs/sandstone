@@ -12,6 +12,7 @@ import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
+import Sprite from '../Sprite';
 
 import componentCss from './TabGroup.module.less';
 
@@ -155,7 +156,7 @@ const TabGroupBase = kind({
 		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
-		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
+		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => (!tab.icon && !tab.sprite)).length
 	},
 
 	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, ...rest}) => {
@@ -167,8 +168,15 @@ const TabGroupBase = kind({
 		const children = React.useMemo(() => tabs.map(tab => {
 			if (tab) {
 				// eslint-disable-next-line no-shadow
-				const {icon, title, tabKey, ...rest} = tab;
+				const {icon, title, tabKey, sprite, ...rest} = tab;
 				const key = tabKey || tabKey === 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
+
+				if (sprite) {
+					// eslint-disable-next-line enact/prop-types
+					rest.iconComponent = (
+						<Sprite {...sprite} />
+					);
+				}
 
 				return {
 					children: title,

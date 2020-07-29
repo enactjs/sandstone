@@ -13,6 +13,7 @@
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '@enact/ui/Button';
 import Pure from '@enact/ui/internal/Pure';
@@ -127,6 +128,16 @@ const ButtonBase = kind({
 		focusEffect: PropTypes.oneOf(['expand', 'static']),
 
 		/**
+		 * The component used to render the [icon]{@link sandstone/Button.ButtonBase.icon}.
+		 *
+		 * This component will receive the `icon` class to customize its styling.
+		 *
+		 * @type {Component|Node}
+		 * @private
+		 */
+		iconComponent: EnactPropTypes.componentOverride,
+
+		/**
 		 * True if button is an icon only button.
 		 *
 		 * @type {Boolean}
@@ -168,6 +179,7 @@ const ButtonBase = kind({
 		collapsable: false,
 		collapsed: false,
 		focusEffect: 'expand',
+		iconComponent: Icon,
 		iconPosition: 'before',
 		size: 'large'
 	},
@@ -206,8 +218,7 @@ const ButtonBase = kind({
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
 			...rest,
-			css,
-			iconComponent: Icon
+			css
 		});
 	}
 });

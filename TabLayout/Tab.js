@@ -43,6 +43,14 @@ const Tab = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Configuration props for a [Sprite]{@link sandstone/Sprite.SpriteBase} icon.
+		 *
+		 * @see {@link sandstone/Sprite.SpriteBase}
+		 * @public
+		 */
+		sprite: PropTypes.object,
+
+		/**
 		 * Key for the tab.
 		 *
 		 * Note: `TabLayout` automatically generates a key based on the title and icon combination.
