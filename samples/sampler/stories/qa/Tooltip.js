@@ -48,8 +48,7 @@ const prop = {
 
 const inputData = {
 	longText : 'An extremely long Tooltip text to test marquee. It will very useful to test different types of Tooltip.',
-	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.',
-	longestText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.'
 };
 
 class TooltipTest extends React.Component {
@@ -420,7 +419,7 @@ storiesOf('Tooltip', module)
 				<Row wrap>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked"
+							alt="Marquee checked"
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -432,7 +431,7 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked"
+							alt="Marquee checked"
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -444,7 +443,7 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque unchecked"
+							alt="Marquee unchecked"
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -455,35 +454,11 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque unchecked"
+							alt="Marquee unchecked"
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
-						>
-						Hover
-						</TooltipButton>
-					</Section>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marque checked and long width"
-							tooltipType="transparent"
-							tooltipDelay={500}
-							tooltipText={inputData.longestText}
-							tooltipWidth={100000}
-							tooltipMarquee
-						>
-						Hover
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marque checked and long width"
-							tooltipType="balloon"
-							tooltipDelay={500}
-							tooltipText={inputData.longestText}
-							tooltipWidth={100000}
-							tooltipMarquee
 						>
 						Hover
 						</TooltipButton>
@@ -496,7 +471,7 @@ storiesOf('Tooltip', module)
 				<Row wrap>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked"
+							alt="Marquee checked"
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -509,7 +484,7 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque checked"
+							alt="Marquee checked"
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -522,7 +497,7 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque unchecked"
+							alt="Marquee unchecked"
 							tooltipType="transparent"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
@@ -534,38 +509,12 @@ storiesOf('Tooltip', module)
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
 						<TooltipButton
-							alt="Marque unchecked"
+							alt="Marquee unchecked"
 							tooltipType="balloon"
 							tooltipDelay={500}
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipRelative
-						>
-						Hover
-						</TooltipButton>
-					</Section>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marque checked and long width"
-							tooltipType="transparent"
-							tooltipDelay={500}
-							tooltipText={inputData.longestText}
-							tooltipWidth={100000}
-							tooltipRelative
-							tooltipMarquee
-						>
-						Hover
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marque checked and long width"
-							tooltipType="balloon"
-							tooltipDelay={500}
-							tooltipText={inputData.longestTText}
-							tooltipWidth={100000}
-							tooltipRelative
-							tooltipMarquee
 						>
 						Hover
 						</TooltipButton>
