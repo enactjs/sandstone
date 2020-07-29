@@ -200,7 +200,7 @@ const SpriteBase = kind({
 		duration,
 		height,
 		iterations,
-		// onSpriteAnimation,
+		onSpriteAnimation,
 		orientation,
 		paused,
 		rows,
@@ -292,6 +292,7 @@ const SpriteBase = kind({
 						keyframes,
 						duration,
 						iterations,
+						onSpriteAnimation,
 						paused,
 						rows
 					};
@@ -317,14 +318,12 @@ const SpriteBase = kind({
 				columns,
 				keyframes,
 				duration,
-				// onSpriteAnimation,
+				onSpriteAnimation,
 				iterations,
 				paused,
 				rows
 			]
 		);
-
-		delete rest.onSpriteAnimation;
 
 		return (
 			<div {...rest}>
