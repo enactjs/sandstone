@@ -4,6 +4,7 @@ import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
 import {Cell, Layout} from '@enact/ui/Layout';
+import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -32,8 +33,10 @@ const TabBase = kind({
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
 		orientation: PropTypes.string,
+		paused: PropTypes.bool,
 		selected: PropTypes.bool,
-		size: PropTypes.number
+		size: PropTypes.number,
+		sprite: PropTypes.object
 	},
 
 	defaultProps: {
@@ -58,7 +61,12 @@ const TabBase = kind({
 	},
 
 	computed: {
-		className: ({orientation, styler}) => styler.append(orientation)
+		className: ({orientation, styler}) => styler.append(orientation),
+		iconComponent: ({sprite, paused}) => {
+			if (sprite) {
+				return (<Sprite {...sprite} paused={paused} />);
+			}
+		}
 	},
 
 	render: ({children, collapsed, css, orientation, size, ...rest}) => {
@@ -102,7 +110,7 @@ const TabBase = kind({
 	}
 });
 
-const Tab = Skinnable(TabBase);
+const Tab = Toggleable({prop: 'paused', activate: 'onBlur', deactivate: 'onFocus'}, Skinnable(TabBase));
 
 const GroupComponent = SpotlightContainerDecorator(
 	{
@@ -171,18 +179,13 @@ const TabGroupBase = kind({
 				const {icon, title, tabKey, sprite, ...rest} = tab;
 				const key = tabKey || tabKey === 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
 
-				if (sprite) {
-					// eslint-disable-next-line enact/prop-types
-					rest.iconComponent = (
-						<Sprite {...sprite} />
-					);
-				}
-
 				return {
 					children: title,
 					icon,
 					key,
 					onFocusTab,
+					defaultPaused: Boolean(sprite),
+					sprite,
 					...rest
 				};
 			} else {
