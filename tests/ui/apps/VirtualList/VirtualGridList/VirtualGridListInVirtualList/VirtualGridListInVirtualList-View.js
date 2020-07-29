@@ -5,7 +5,6 @@ import {InputField} from '../../../../../../Input';
 import ImageItem from '../../../../../../ImageItem/ImageItem';
 import {VirtualList, VirtualGridList} from '../../../../../../VirtualList/VirtualList';
 import ThemeDecorator from '../../../../../../ThemeDecorator/ThemeDecorator';
-import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
@@ -70,7 +69,7 @@ class app extends React.Component {
 			hideScrollbar: false,
 			horizontal: false,
 			noLabel: false,
-			numItems: 10,
+			numItems: 30,
 			minHeight: 400,
 			minWidth: 600,
 			spacing: 24,
@@ -130,7 +129,7 @@ class app extends React.Component {
 		return (
 			<VirtualGridList
 				data-index={index}
-				dataSize={50}
+				dataSize={this.state.numItems}
 				direction="horizontal"
 				itemRenderer={renderItem}
 				itemSize={{
@@ -184,7 +183,7 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
-											dataSize={numItems}
+											dataSize={10}
 											itemRenderer={this.renderGridList}
 											itemSize={ri.scale(minHeight)}
 											key={(translate ? 'translate' : 'native')}
