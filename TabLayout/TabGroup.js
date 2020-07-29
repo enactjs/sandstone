@@ -72,6 +72,8 @@ const TabBase = kind({
 	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
+		delete rest.paused;
+		delete rest.sprite;
 
 		if (collapsed) children = null;
 
