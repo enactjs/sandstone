@@ -1,3 +1,4 @@
+import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
@@ -35,6 +36,7 @@ storiesOf('Sandstone', module)
 					paused={boolean('paused', Config)}
 					duration={number('duration', Config, {range: true, min: 500, max: 10000, step: 250}, 1000)}
 					iterations={Number(select('iterations', prop.iterations, Config))}
+					onSpriteAnimation={action('onSpriteAnimation')}
 
 				// These are design-time props, which don't make sense to be modified
 				// at runtime, but would be useful to someone trying to learn what the

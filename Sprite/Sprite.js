@@ -19,6 +19,7 @@
  */
 
 import kind from '@enact/core/kind';
+import {forward} from '@enact/core/handle';
 import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -112,6 +113,8 @@ const SpriteBase = kind({
 		 */
 		offsetTop: PropTypes.number,
 
+		onSpriteAnimation: PropTypes.func,
+
 		/**
 		 * Sets the orientation of the frames on the sprite sheet (`src`)
 		 *
@@ -197,6 +200,7 @@ const SpriteBase = kind({
 		duration,
 		height,
 		iterations,
+		// onSpriteAnimation,
 		orientation,
 		paused,
 		rows,
@@ -272,10 +276,39 @@ const SpriteBase = kind({
 						}
 					);
 
+					// Playing and paused are handled separately, since a "paused" animation is
+					// still in a playing state, while a stopped animation is both not paused and
+					// not playing.
+					const eventPayload = {
+						type: 'onSpriteAnimation',
+						animation: animation.current,
+						value: 'testing',
+						paused: false,
+						playing: false
+					};
+
+					const eventProps = {
+						columns,
+						keyframes,
+						duration,
+						iterations,
+						paused,
+						rows
+					};
+
 					if (paused) {
 						animation.current.pause();
+						forward('onSpriteAnimation', {
+							...eventPayload,
+							paused: true,
+							playing: true
+						}, eventProps);
 					} else {
 						animation.current.play();
+						forward('onSpriteAnimation', {
+							...eventPayload,
+							playing: true
+						}, eventProps);
 					}
 				}
 			},
@@ -284,11 +317,14 @@ const SpriteBase = kind({
 				columns,
 				keyframes,
 				duration,
+				// onSpriteAnimation,
 				iterations,
 				paused,
 				rows
 			]
 		);
+
+		delete rest.onSpriteAnimation;
 
 		return (
 			<div {...rest}>
