@@ -64,7 +64,7 @@ const TabBase = kind({
 		className: ({orientation, styler}) => styler.append(orientation),
 		iconComponent: ({sprite, stopped}) => {
 			if (sprite) {
-				return (<Sprite {...sprite} stopped={stopped} />);
+				return (<Sprite stopped={stopped} {...sprite} />);
 			}
 		}
 	},

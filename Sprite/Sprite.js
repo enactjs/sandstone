@@ -313,29 +313,19 @@ const SpriteBase = kind({
 
 					if (stopped) {
 						animation.current.pause();
-
-						if (typeof onSpriteAnimation === 'function') {
-							onSpriteAnimation(eventPayload);
-						}
 					} else if (paused) {
 						animation.current.pause();
 
-						if (typeof onSpriteAnimation === 'function') {
-							onSpriteAnimation({
-								...eventPayload,
-								paused: true,
-								playing: true
-							});
-						}
+						eventPayload.paused = true;
+						eventPayload.playing = true;
 					} else {
 						animation.current.play();
 
-						if (typeof onSpriteAnimation === 'function') {
-							onSpriteAnimation({
-								...eventPayload,
-								playing: true
-							});
-						}
+						eventPayload.playing = true;
+					}
+
+					if (typeof onSpriteAnimation === 'function') {
+						onSpriteAnimation(eventPayload);
 					}
 				}
 			},
