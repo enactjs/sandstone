@@ -19,7 +19,6 @@
  */
 
 import kind from '@enact/core/kind';
-import {forward} from '@enact/core/handle';
 import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
 import React from 'react';
