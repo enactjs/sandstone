@@ -140,8 +140,7 @@ const ViewportBase = class extends React.Component {
 		onClose: PropTypes.func,
 
 		/**
-		 * When `true` and `arranger` includes an `rtl` member, the `rtl` member is used for
-		 * arranging the views instead.
+		 * Passed to `arranger` for use in determining how to animate.
 		 *
 		 * @type {Boolean}
 		 */
