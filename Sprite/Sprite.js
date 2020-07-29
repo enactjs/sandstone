@@ -52,7 +52,7 @@ const SpriteBase = kind({
 
 	propTypes: /** @lends sandstone/Sprite.SpriteBase.prototype */ {
 		/**
-		 * The amount of animation cells spread across the X (horizontal) axis
+		 * The amount of animation cells spread across the X (horizontal) axis.
 		 *
 		 * @type {Number}
 		 * @default 1
@@ -61,7 +61,7 @@ const SpriteBase = kind({
 		columns: PropTypes.number,
 
 		/**
-		 * The length of the animation in milliseconds
+		 * The length of the animation in milliseconds.
 		 *
 		 * @type {Number}
 		 * @default 1000
@@ -70,7 +70,7 @@ const SpriteBase = kind({
 		duration: PropTypes.number,
 
 		/**
-		 * The height of a single cell in pixels
+		 * The height of a single cell in pixels.
 		 *
 		 * @type {Number}
 		 * @default 120
@@ -79,7 +79,7 @@ const SpriteBase = kind({
 		height: PropTypes.number,
 
 		/**
-		 * The number of times the animation should repeat
+		 * The number of times the animation should repeat.
 		 *
 		 * The JavaScript reserved word `Infinity` is a valid option here (set by default) that
 		 * means "repeat indefinitely".
@@ -91,7 +91,7 @@ const SpriteBase = kind({
 		iterations: PropTypes.number,
 
 		/**
-		 * Sets the left distance that the first cell is from the top left corner
+		 * Sets the left distance that the first cell is from the top left corner.
 		 *
 		 * This can be useful if you have several sprite animations in one image file.
 		 *
@@ -102,7 +102,7 @@ const SpriteBase = kind({
 		offsetLeft: PropTypes.number,
 
 		/**
-		 * Sets the top distance that the first cell is from the top left corner
+		 * Sets the top distance that the first cell is from the top left corner.
 		 *
 		 * This can be useful if you have several sprite animations in one image file.
 		 *
@@ -112,10 +112,26 @@ const SpriteBase = kind({
 		 */
 		offsetTop: PropTypes.number,
 
+		/**
+		 * Event callback for when animation events occur.
+		 *
+		 * This callback can be used for more fine-grained control of the sprite animation.
+		 * The arguments payload contains an object with the following keys:
+		 *  * `animation`: the `animate` handle {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/animate}
+		 *  * `playing`: boolean representing the "playing" vs "stopped" state
+		 *  * `paused`: boolean representing whether the animation has paused
+		 *
+		 * Note: Playing and paused are handled separately, since a paused animation is
+		 * still in a playing state, while a stopped animation is both not paused and
+		 * not playing.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
 		onSpriteAnimation: PropTypes.func,
 
 		/**
-		 * Sets the orientation of the frames on the sprite sheet (`src`)
+		 * Sets the orientation of the frames on the sprite sheet (`src`).
 		 *
 		 * A horizontal setting would indicate that the cells are arranged left to right with the
 		 * next row starting below the first row.
@@ -129,15 +145,15 @@ const SpriteBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Stops the animation from playing
+		 * Pauses the animation, holding on the current frame.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @private
 		 */
 		paused: PropTypes.bool,
 
 		/**
-		 * The amount of animation cells spread across the Y (vertical) axis
+		 * The amount of animation cells spread across the Y (vertical) axis.
 		 *
 		 * @type {Number}
 		 * @default 1
@@ -146,7 +162,7 @@ const SpriteBase = kind({
 		rows: PropTypes.number,
 
 		/**
-		 * The sprite-sheet image with all of the cells on it
+		 * The sprite-sheet image with all of the cells on it.
 		 *
 		 * @see {@link ui/Image.Image.src}
 		 * @type {String|Object}
@@ -155,7 +171,15 @@ const SpriteBase = kind({
 		src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * The width of a single cell in pixels
+		 * Stops the animation from playing, resetting to the beginning.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		stopped: PropTypes.bool,
+
+		/**
+		 * The width of a single cell in pixels.
 		 *
 		 * @type {Number}
 		 * @default 120
@@ -203,6 +227,7 @@ const SpriteBase = kind({
 		orientation,
 		paused,
 		rows,
+		stopped,
 		src,
 		width,
 		...rest
@@ -275,7 +300,7 @@ const SpriteBase = kind({
 						}
 					);
 
-					// Playing and paused are handled separately, since a "paused" animation is
+					// Playing and paused are handled separately, since a paused animation is
 					// still in a playing state, while a stopped animation is both not paused and
 					// not playing.
 					const eventPayload = {
@@ -286,7 +311,13 @@ const SpriteBase = kind({
 						playing: false
 					};
 
-					if (paused) {
+					if (stopped) {
+						animation.current.pause();
+
+						if (typeof onSpriteAnimation === 'function') {
+							onSpriteAnimation(eventPayload);
+						}
+					} else if (paused) {
 						animation.current.pause();
 
 						if (typeof onSpriteAnimation === 'function') {
@@ -316,7 +347,8 @@ const SpriteBase = kind({
 				keyframes,
 				onSpriteAnimation,
 				paused,
-				rows
+				rows,
+				stopped
 			]
 		);
 

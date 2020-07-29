@@ -33,7 +33,7 @@ storiesOf('Sandstone', module)
 					height={120}
 					width={120}
 					orientation="horizontal"
-					paused={boolean('paused', Config)}
+					stopped={boolean('stopped', Config)}
 					duration={number('duration', Config, {range: true, min: 500, max: 10000, step: 250}, 1000)}
 					iterations={Number(select('iterations', prop.iterations, Config))}
 					onSpriteAnimation={action('onSpriteAnimation')}

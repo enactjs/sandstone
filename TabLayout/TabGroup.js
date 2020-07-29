@@ -33,7 +33,7 @@ const TabBase = kind({
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
 		orientation: PropTypes.string,
-		paused: PropTypes.bool,
+		stopped: PropTypes.bool,
 		selected: PropTypes.bool,
 		size: PropTypes.number,
 		sprite: PropTypes.object
@@ -62,9 +62,9 @@ const TabBase = kind({
 
 	computed: {
 		className: ({orientation, styler}) => styler.append(orientation),
-		iconComponent: ({sprite, paused}) => {
+		iconComponent: ({sprite, stopped}) => {
 			if (sprite) {
-				return (<Sprite {...sprite} paused={paused} />);
+				return (<Sprite {...sprite} stopped={stopped} />);
 			}
 		}
 	},
@@ -72,7 +72,7 @@ const TabBase = kind({
 	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
-		delete rest.paused;
+		delete rest.stopped;
 		delete rest.sprite;
 
 		if (collapsed) children = null;
@@ -112,7 +112,7 @@ const TabBase = kind({
 	}
 });
 
-const Tab = Toggleable({prop: 'paused', activate: 'onBlur', deactivate: 'onFocus'}, Skinnable(TabBase));
+const Tab = Toggleable({prop: 'stopped', activate: 'onBlur', deactivate: 'onFocus'}, Skinnable(TabBase));
 
 const GroupComponent = SpotlightContainerDecorator(
 	{
@@ -186,7 +186,7 @@ const TabGroupBase = kind({
 					icon,
 					key,
 					onFocusTab,
-					defaultPaused: Boolean(sprite),
+					defaultStopped: Boolean(sprite),
 					sprite,
 					...rest
 				};
