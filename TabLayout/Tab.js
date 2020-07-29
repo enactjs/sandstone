@@ -43,13 +43,13 @@ const Tab = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
-		 * Configuration props for a [Sprite]{@link sandstone/Sprite.SpriteBase} icon.
+		 * Configuration props for a [Sprite]{@link sandstone/Sprite.Sprite} icon.
 		 *
-		 * All props on [Sprite]{@link sandstone/Sprite.SpriteBase} are supported here.
-		 * The `stopped` prop is set automatically when this tab is focused, but can be overridden
-		 * manually.
+		 * All props on [Sprite]{@link sandstone/Sprite.Sprite} are supported here. By default,
+		 * `stopped` will be set to `false` when the tab is focused and `true` otherwise. To
+		 * override, pass `stopped` in this object.
 		 *
-		 * @see {@link sandstone/Sprite.SpriteBase}
+		 * @see {@link sandstone/Sprite.Sprite}
 		 * @public
 		 */
 		sprite: PropTypes.object,

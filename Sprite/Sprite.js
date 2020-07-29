@@ -4,7 +4,8 @@
  * Cells, like a film-strip, are pre-arranged in one or more rows and one or more columns.
  * This component steps through those cells to create an animation.
  *
- * @example
+ * Example:
+ * ```
  * <Sprite
  * 	src="images/sprite-sheet.png"
  * 	height={60}
@@ -12,10 +13,10 @@
  * 	rows={5}
  * 	columns={10}
  * />
+ * ```
  *
  * @module sandstone/Sprite
  * @exports Sprite
- * @exports SpriteBase
  */
 
 import kind from '@enact/core/kind';
@@ -40,7 +41,7 @@ const createKeyframe = ({dimension, axis, vertical, offset}) => {
 /**
  * Renders a Sprite animation.
  *
- * @class SpriteBase
+ * @class Sprite
  * @memberof sandstone/Sprite
  * @ui
  * @public
@@ -50,7 +51,7 @@ const SpriteBase = kind({
 
 	functional: true,
 
-	propTypes: /** @lends sandstone/Sprite.SpriteBase.prototype */ {
+	propTypes: /** @lends sandstone/Sprite.Sprite.prototype */ {
 		/**
 		 * The amount of animation cells spread across the X (horizontal) axis.
 		 *
