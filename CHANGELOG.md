@@ -22,6 +22,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FlexiblePopupPanels.Panel` to favor auto-focusing the content over the navigation buttons
 - `sandstone/Input.InputField` to support `aria-disabled`
 - `sandstone/ImageItem` to support `aria-disabled`
+- `sandstone/Panels` animation direction for locales that use right-to-left reading order
 - `sandstone/MediaPlayer` to pause spotlight during animations
 - `sandstone/Item` font-size for large text mode
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
