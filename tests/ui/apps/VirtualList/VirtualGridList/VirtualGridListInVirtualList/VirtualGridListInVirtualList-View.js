@@ -5,6 +5,7 @@ import {InputField} from '../../../../../../Input';
 import ImageItem from '../../../../../../ImageItem/ImageItem';
 import {VirtualList, VirtualGridList} from '../../../../../../VirtualList/VirtualList';
 import ThemeDecorator from '../../../../../../ThemeDecorator/ThemeDecorator';
+import React from 'react';
 import spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 
@@ -125,9 +126,11 @@ class app extends React.Component {
 		this.setState({minHeight: value});
 	}
 
-	renderGridList = ({index}) => {
+renderGridList = ({index}) => {
 		return (
 			<VirtualGridList
+				id={'virtualgridlist' + index}
+				spotlightId={'container-virtualgridlist-' + index}
 				data-index={index}
 				dataSize={this.state.numItems}
 				direction="horizontal"

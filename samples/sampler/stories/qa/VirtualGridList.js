@@ -140,6 +140,8 @@ class VirtualGridListInVirtualList extends React.Component {
 			<div data-index={index} style={{height: itemHeight + ri.scale(120)}}>
 				<Heading showLine>{'VirtualGridList ' + index}</Heading>
 				<VirtualGridList
+					id={'virtualgridlist' + index}
+					spotlightId={'container-virtualgridlist-' + index}
 					dataSize={updateDataSize(number('dataSize', Config, 300))}
 					direction={isVertical ? 'horizontal' : 'vertical'}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -148,7 +150,7 @@ class VirtualGridListInVirtualList extends React.Component {
 						minWidth:itemWidth,
 						minHeight: itemHeight
 					}}
-					key={select('scrollMode', prop.scrollModeOption, Config) + index}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
 					noScrollByWheel={boolean('noScrollByWheel', Config)}
 					onKeyDown={action('onKeyDown')}
 					onScrollStart={action('onScrollStart')}

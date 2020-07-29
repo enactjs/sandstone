@@ -21,12 +21,17 @@ const useSpotlightRestore = (props, instances) => {
 						position: scrollPosition,
 						animate: false
 					});
+				} else {
+					scrollContainerHandle.current.scrollTo({
+						position: {x: 0, y: 0},
+						animate: false
+					});
 				}
 			}
 		}
 
 		restoreScrollPosition();
-	}, []); // eslint-disable-line react-hooks/exhaustive-deps
+	}, [props.id]);
 };
 
 export {
