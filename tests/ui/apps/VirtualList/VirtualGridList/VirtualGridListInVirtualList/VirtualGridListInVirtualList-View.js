@@ -126,7 +126,7 @@ class app extends React.Component {
 		this.setState({minHeight: value});
 	}
 
-renderGridList = ({index}) => {
+	renderGridList = ({index}) => {
 		return (
 			<VirtualGridList
 				id={'virtualgridlist' + index}
