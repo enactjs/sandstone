@@ -485,6 +485,15 @@ class Popup extends React.Component {
 				}
 			} else if (this.props.open) {
 				forwardShow({}, this.props);
+
+				// If another underlying component previously paused spotlight, the popup should
+				// take ownership of the paused spotlight state in order to properly set focus
+				// to itself after opening.
+				if (Spotlight.isPaused() && !this.paused.isPaused()) {
+					Spotlight.resume();
+					this.paused.pause();
+				}
+
 				this.spotPopupContent();
 			} else if (prevProps.open) {
 				forwardHide({}, this.props);
