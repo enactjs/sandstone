@@ -72,6 +72,9 @@ const SpriteBase = kind({
 		/**
 		 * The height of a single cell in pixels.
 		 *
+		 * This value is scaled automatically based on the "base" screen resolution for
+		 * this theme. All measurements should be with respect to a 4k UHD display.
+		 *
 		 * @type {Number}
 		 * @default 120
 		 * @public
@@ -95,6 +98,9 @@ const SpriteBase = kind({
 		 *
 		 * This can be useful if you have several sprite animations in one image file.
 		 *
+		 * This value is scaled automatically based on the "base" screen resolution for
+		 * this theme. All measurements should be with respect to a 4k UHD display.
+		 *
 		 * @type {Number}
 		 * @default 0
 		 * @public
@@ -105,6 +111,9 @@ const SpriteBase = kind({
 		 * Sets the top distance that the first cell is from the top left corner.
 		 *
 		 * This can be useful if you have several sprite animations in one image file.
+		 *
+		 * This value is scaled automatically based on the "base" screen resolution for
+		 * this theme. All measurements should be with respect to a 4k UHD display.
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -180,6 +189,9 @@ const SpriteBase = kind({
 
 		/**
 		 * The width of a single cell in pixels.
+		 *
+		 * This value is scaled automatically based on the "base" screen resolution for
+		 * this theme. All measurements should be with respect to a 4k UHD display.
 		 *
 		 * @type {Number}
 		 * @default 120
