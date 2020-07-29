@@ -33,10 +33,10 @@ const TabBase = kind({
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
 		orientation: PropTypes.string,
-		stopped: PropTypes.bool,
 		selected: PropTypes.bool,
 		size: PropTypes.number,
-		sprite: PropTypes.object
+		sprite: PropTypes.object,
+		stopped: PropTypes.bool
 	},
 
 	defaultProps: {
