@@ -110,10 +110,10 @@ const MediaTitleBase = kind({
 
 		return (
 			<div {...rest} id={id} ref={forwardRef}>
-				<Marquee id={id + '_title'} className={titleClassName} marqueeOn="render">
+				<Marquee id={`${id}_title`} className={titleClassName} marqueeOn="render">
 					{title}
 				</Marquee>
-				<div id={id + '_info'} className={childrenClassName}>  {/* tabIndex={-1} */}
+				<div id={`${id}_info`} className={childrenClassName}>  {/* tabIndex={-1} */}
 					{children}
 				</div>
 			</div>
