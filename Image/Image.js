@@ -12,7 +12,9 @@
 
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
-import UiImage from '@enact/ui/Image';
+import {ImageBase as UiImageBase} from '@enact/ui/Image';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -37,6 +39,17 @@ const ImageBase = kind({
 
 	propTypes: /** @lends sandstone/Image.ImageBase.prototype */ {
 		/**
+		 * Called with a reference to the root component.
+		 *
+		 * When using {@link sandstone/Image.Image}, the `ref` prop is forwarded to this component
+		 * as `componentRef`.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -55,13 +68,14 @@ const ImageBase = kind({
 		publicClassNames: ['image']
 	},
 
-	render: ({css, ...rest}) => {
+	render: ({css, componentRef, ...rest}) => {
 		return (
-			<UiImage
-				draggable="false"
-				{...rest}
-				css={css}
-			/>
+			UiImageBase.inline({
+				draggable: 'false',
+				...rest,
+				css,
+				ref: componentRef
+			})
 		);
 	}
 });
@@ -126,6 +140,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
  * @public
  */
 const ImageDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Pure,
 	ResponsiveImageDecorator,
 	Skinnable
