@@ -45,4 +45,22 @@ describe('Dropdown', function () {
 		});
 	});
 
+	describe('pointer', function () {
+		it('should dismiss dropdown when clicking outside - [GT-28644]', function () {
+			const dropdown = Page.components.dropdownDefault;
+
+			// open the first dropdown and wait for the first list item to be focused
+			Page.openDropdown(dropdown);
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+
+			// click in the empty space created by the wrapper
+			const wrapper = $('#wrapper');
+			wrapper.click({x: 0, y: 0});
+
+			// verify that the floating list no longer exists
+			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
+			expect(dropdownList.isExisting).to.not.be.true();
+		});
+	});
+
 });
