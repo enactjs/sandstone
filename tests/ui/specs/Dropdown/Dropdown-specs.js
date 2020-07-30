@@ -54,10 +54,11 @@ describe('Dropdown', function () {
 			}, dropdown, scroller);
 		}
 
-		it('should have title visible when focusing button via 5-way - [GT-31167]', function () {
+		it.only('should have title visible when focusing button via 5-way - [GT-31167]', function () {
 			// TODO: This refocuses the first dropdown which is being blurred for some reason with
 			// Scroller. Once that bug is resolved, this can be removed.
-			Page.spotlightLeft();
+			Page.spotlightDown();
+			expect(Page.components.dropdown1.button.isFocused()).to.be.true();
 
 			Page.spotlightDown();
 			Page.delay(250);

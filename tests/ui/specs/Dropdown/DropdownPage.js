@@ -1,7 +1,7 @@
 /* global document */
 
 'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 class DropdownInterface {
 	constructor (id) {
@@ -11,6 +11,8 @@ class DropdownInterface {
 	focusActivator () {
 		return browser.execute((el) => el.focus(), this.self.$('[role="button"]'));
 	}
+
+	get button () { return getComponent({component: 'Dropdown', child: 'button'}, this.self); }
 
 	get focusedItemText () {
 		return browser.execute(() => {
