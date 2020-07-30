@@ -127,8 +127,8 @@ class app extends React.Component {
 		this.scrollTo = scrollTo;
 	}
 
-	jumpTo = () => {
-		this.scrollTo({animate: false, focus: true, index: 10});
+	jumpTo = (focus) => () => {
+		this.scrollTo({animate: false, focus, index: 10});
 	}
 
 	onToggle = ({currentTarget}) => {
@@ -160,7 +160,8 @@ class app extends React.Component {
 					<Cell component={OptionsContainer} shrink>
 						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.onToggle} selected={hideScrollbar}>hide scrollbar</Button>
 						<Button {...buttonDefaultProps} id="wrap" onClick={this.onToggle} selected={wrap}>wrap</Button>
-						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="jumpTo" onClick={this.jumpTo(true)}>JumpToItem10</Button>
+						<Button {...buttonDefaultProps} id="jumpToWithoutFocus" onClick={this.jumpTo(false)}>JumpToItem10WithoutFocus</Button>
 						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />

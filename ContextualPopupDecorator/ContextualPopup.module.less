@@ -19,7 +19,8 @@
 		-moz-background-clip: padding-box;
 		box-sizing: border-box;
 
-		&.none { /* Needed to prevent global class being added in the DOM */ }
+		&.none,
+		&.center { /* Needed to prevent global class being added in the DOM */ }
 
 		&.above {
 			&.overlap {	margin-top: @sand-contextualpopup-offset-overlap; }

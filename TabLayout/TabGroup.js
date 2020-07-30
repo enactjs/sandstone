@@ -4,6 +4,7 @@ import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Group from '@enact/ui/Group';
 import {Cell, Layout} from '@enact/ui/Layout';
+import Toggleable from '@enact/ui/Toggleable';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -12,6 +13,7 @@ import DebounceDecorator from '../internal/DebounceDecorator';
 import Button from '../Button';
 import Skinnable from '../Skinnable';
 import Scroller from '../Scroller';
+import Sprite from '../Sprite';
 
 import componentCss from './TabGroup.module.less';
 
@@ -32,7 +34,9 @@ const TabBase = kind({
 		onFocusTab: PropTypes.func,
 		orientation: PropTypes.string,
 		selected: PropTypes.bool,
-		size: PropTypes.number
+		size: PropTypes.number,
+		sprite: PropTypes.object,
+		stopped: PropTypes.bool
 	},
 
 	defaultProps: {
@@ -57,12 +61,19 @@ const TabBase = kind({
 	},
 
 	computed: {
-		className: ({orientation, styler}) => styler.append(orientation)
+		className: ({orientation, styler}) => styler.append(orientation),
+		iconComponent: ({sprite, stopped}) => {
+			if (sprite) {
+				return (<Sprite stopped={stopped} {...sprite} />);
+			}
+		}
 	},
 
 	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
+		delete rest.stopped;
+		delete rest.sprite;
 
 		if (collapsed) children = null;
 
@@ -91,19 +102,17 @@ const TabBase = kind({
 			case 'vertical': {
 				// Vertical sizing depends on Button establishing the dimensions of the Cell.
 				return (
-					<Cell shrink>
-						<Button
-							{...rest}
-							{...commonProps}
-						/>
-					</Cell>
+					<Button
+						{...rest}
+						{...commonProps}
+					/>
 				);
 			}
 		}
 	}
 });
 
-const Tab = Skinnable(TabBase);
+const Tab = Toggleable({prop: 'stopped', activate: 'onBlur', deactivate: 'onFocus'}, Skinnable(TabBase));
 
 const GroupComponent = SpotlightContainerDecorator(
 	{
@@ -157,7 +166,7 @@ const TabGroupBase = kind({
 		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
-		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => !tab.icon).length
+		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => (!tab.icon && !tab.sprite)).length
 	},
 
 	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, ...rest}) => {
@@ -169,12 +178,16 @@ const TabGroupBase = kind({
 		const children = React.useMemo(() => tabs.map(tab => {
 			if (tab) {
 				// eslint-disable-next-line no-shadow
-				const {icon, title, ...rest} = tab;
+				const {icon, title, tabKey, sprite, ...rest} = tab;
+				const key = tabKey || tabKey === 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
+
 				return {
-					key: `tabs_${title + (typeof icon === 'string' ? icon : '')}`,
 					children: title,
+					defaultStopped: Boolean(sprite),
 					icon,
+					key,
 					onFocusTab,
+					sprite,
 					...rest
 				};
 			} else {
@@ -183,6 +196,7 @@ const TabGroupBase = kind({
 		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
+		const groupComponent = (isHorizontal ? Layout : 'div'); // Only horizontal needs the arrangement capabilities of `Layout`
 		// Only vertical with more than MAX_TABS should use scroller
 		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
 		const scrollerProps = useScroller ? {
@@ -210,7 +224,7 @@ const TabGroupBase = kind({
 					<GroupComponent
 						childComponent={Tab}
 						className={componentCss.tabs}
-						component={Layout}
+						component={groupComponent}
 						indexProp="index"
 						itemProps={itemProps}
 						onSelect={onSelect}

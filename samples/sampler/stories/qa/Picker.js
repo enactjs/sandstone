@@ -40,6 +40,14 @@ const pickerList = {
 		'Broccoli',
 		'Spinach'
 	],
+	longVegetables: [
+		'Celery contains potassium',
+		'Carrot contains beta carotene',
+		'Tomatoes contain folate',
+		'Onion contains calcium',
+		'Broccoli contains iron',
+		'Spinach contains manganese'
+	],
 	numberList: ['0', '1', '2', '3', '4'],
 	oneAirport: [
 		'San Francisco International Airport Terminal 1'
@@ -109,7 +117,7 @@ storiesOf('Picker', module)
 				decrementIcon={select('decrementIcon', iconNames, Picker)}
 				defaultValue={2}
 			>
-				{pickerList.vegetables}
+				{pickerList.longVegetables}
 			</Picker>
 		)
 	)

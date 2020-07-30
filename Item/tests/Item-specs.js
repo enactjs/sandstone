@@ -135,4 +135,14 @@ describe('Item Specs', () => {
 
 		expect(actual).toContain(expected);
 	});
+
+	test('should support RTL text', () => {
+		const subject = mount(<ItemBase>Hello מצב תמונה</ItemBase>);
+
+		const expected = 'rtl';
+		const actual = subject.find('.text').prop('style');
+
+		expect(actual).toHaveProperty('direction', expected);
+	});
+
 });

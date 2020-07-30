@@ -1,7 +1,5 @@
-import {forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
-import Spotlight, {getDirection} from '@enact/spotlight';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -213,20 +211,6 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			className: cfgClassName
 		},
 
-		handlers: {
-			onKeyDown: (ev, props) => {
-				forward('onKeyDown', ev, props);
-				const direction = getDirection(ev.keyCode);
-
-				if (direction) {
-					ev.preventDefault();
-					ev.nativeEvent.stopImmediatePropagation();
-					Spotlight.setPointerMode(false);
-					Spotlight.move(direction);
-				}
-			}
-		},
-
 		computed: {
 			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
@@ -252,7 +236,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			delete rest.width;
 
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
+				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} no5WayClose noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
 					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}

@@ -125,14 +125,14 @@ const deferArrange = (config, keyframes, options) => {
 const BasicArranger = {
 	enter: (config) => {
 		return deferArrange(config, [
-			{transform: 'translateX(100%)', offset: 0},
+			{transform: `translateX(${config.rtl ? '-' : ''}100%)`, offset: 0},
 			{transform: 'none', offset: 1}
 		], animationOptions);
 	},
 	leave: (config) => {
 		return deferArrange(config, [
 			{transform: 'none', offset: 0},
-			{transform: 'translateX(-100%)', offset: 1}
+			{transform: `translateX(${config.rtl ? '' : '-'}100%)`, offset: 1}
 		], animationOptions);
 	}
 };
@@ -146,7 +146,7 @@ const BasicArranger = {
 const FadeAndSlideArranger = {
 	enter: (config) => {
 		return arrange(config, [
-			{transform: 'translateX(100%)', opacity: 0, offset: 0},
+			{transform: `translateX(${config.rtl ? '-' : ''}100%)`, opacity: 0, offset: 0},
 			{opacity: 0, offset: 0.5},
 			{transform: 'none', opacity: 1, offset: 1}
 		], animationOptions);
@@ -155,7 +155,7 @@ const FadeAndSlideArranger = {
 		return arrange(config, [
 			{transform: 'none', opacity: 1, offset: 0},
 			{opacity: 0, offset: 0.5},
-			{transform: 'translateX(-100%)', opacity: 0, offset: 1}
+			{transform: `translateX(${config.rtl ? '' : '-'}100%)`, opacity: 0, offset: 1}
 		], animationOptions);
 	}
 };

@@ -103,10 +103,16 @@
 		font-size: @sand-item-font-size-large;
 		line-height: @sand-item-line-height-large;
 
+		.label {
+			font-size: @sand-item-label-font-size-large;
+		}
+
 		.sand-locale-non-latin({
 			line-height: @sand-item-line-height-large;
 		});
 	});
+
+	&.large { /* Needed to prevent global class being added in the DOM */ }
 
 	&.small {
 		.sand-text-base(@sand-item-small-font-size);

@@ -13,6 +13,9 @@ import {Panel, Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 
+import spriteGear2k from '../../images/sprite-gear-2k.png';
+import spriteGear4k from '../../images/sprite-gear-4k.png';
+
 TabLayout.displayName = 'TabLayout';
 const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
 
@@ -41,7 +44,7 @@ storiesOf('Sandstone', module)
 		() => {
 			const tabs = select('tabs', ['with icons', 'without icons'], Config, 'with icons');
 
-			const images = new Array(20).fill().map( (_, i) =>
+			const images = new Array(20).fill().map((_, i) =>
 				<ImageItem
 					inline
 					key={`image${i}`}
@@ -76,6 +79,15 @@ storiesOf('Sandstone', module)
 						<Tab
 							title={tabSelections[tabs][1].title}
 							icon={tabSelections[tabs][1].icon}
+							sprite={{
+								columns: 6,
+								rows: 5,
+								iterations: 1,
+								src: {
+									fhd: spriteGear2k,
+									uhd: spriteGear4k
+								}
+							}}
 						>
 							<Button icon="demosync">Button 1</Button>
 							<Button icon="demosync">Button 2</Button>
