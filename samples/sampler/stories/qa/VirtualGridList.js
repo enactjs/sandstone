@@ -20,7 +20,7 @@ const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, Vir
 const
 	defaultDataSize = 1000,
 	prop = {
-		direction: {horizontal: 'horizontal', vertical: 'vertical'},
+		direction: ['horizontal', 'vertical'],
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate']
 	},

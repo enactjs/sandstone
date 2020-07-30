@@ -148,7 +148,6 @@ class app extends React.Component {
 				spotlightDisabled={this.state.spotlightDisabled}
 				style={{height: ri.scaleToRem(this.state.minHeight), paddingBottom: ri.scaleToRem(36)}}
 				horizontalScrollbar={getScrollbarVisibility(this.state.hideScrollbar)}
-				verticalScrollbar={getScrollbarVisibility(this.state.hideScrollbar)}
 				wrap={this.state.wrap}
 			/>
 		);

@@ -122,21 +122,21 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const targetIndex = getTargetItemNode(this, target).dataset.index;
+					const targetItem = getTargetItemNode(this, target);
+					const index = targetItem ? getNumberValue(targetItem.dataset.index) : -1;
 					const isNotItem = (
 						// if target has an index, it must be an item
-						targetIndex < 0 &&
+						!(index >= 0) &&
 						// if it lacks an index and is inside the scroller, we need to handle this
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
-					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
-					const candidate = getTargetItemNode(this, getTargetByDirectionFromElement(direction, target));
-					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					const candidate = getTargetByDirectionFromElement(direction, target);
+					const candidateIndex = candidate ? getNumberValue(candidate.dataset.index) : -1;
 
 					let isLeaving = false;
 
 					// To support multiple VirtualList, need to check the candidate is in the current VirtualList or not.
-					if (candidate && candidateIndex >= 0 && !this.contains(candidate)) {
+					if (candidateIndex >= 0 && !this.contains(candidate)) {
 						return;
 					}
 

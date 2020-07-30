@@ -1,6 +1,7 @@
 /**
  * Get the item node contained in the current contentRef from target.
  * It could be the target itself or the ancestor node of the target.
+ * If target is not a descendant of contentRef, null is returned.
  *
  * @function
  * @param {Node} contentRef VirtualList content node
@@ -10,17 +11,19 @@
  * @private
  */
 const getTargetItemNode = (contentRef, target) => {
-	if (!target || !contentRef) {
+	if (!target || !contentRef || !contentRef.contains(target)) {
 		return null;
 	}
 	// To support nested VirtualList, need to get the nearest item node from contentRef.
 	let itemNode = target;
-	let parentNode = target && target.parentNode;
-	while (contentRef && parentNode && contentRef !== parentNode.parentNode) {
-		itemNode = parentNode;
-		parentNode = parentNode.parentNode;
+	while (contentRef !== itemNode) {
+		if (itemNode.parentNode.parentNode === contentRef) {
+			return itemNode;
+		}
+		itemNode = itemNode.parentNode;
 	}
-	return itemNode;
+
+	return null;
 };
 
 /**
