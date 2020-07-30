@@ -10,7 +10,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {InputField} from '../../../../../Input';
 import PropTypes from 'prop-types';
 
-const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
+const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
 const childProps = {text: ' child props'};
@@ -20,7 +20,6 @@ spotlight.setPointerMode(false);
 
 const items = [],
 	itemStyle = {margin: 0};
-
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, disabled) => ({index, text, ...rest}) => {
