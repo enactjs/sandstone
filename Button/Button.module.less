@@ -397,12 +397,16 @@
 		}
 
 		.sand-disabled({
-			.client{
+			.client {
 				.sand-disabled-colors();
 			}
-			.bg {
-				.sand-disabled-colors();
+
+			&.opaque {
+				.bg {
+					.sand-disabled-bg-colors();
+				}
 			}
+
 			.focus({
 				.bg {
 					.sand-disabled-focus-bg-colors();
