@@ -235,6 +235,7 @@ const useThemeScroll = (props, instances) => {
 		const focusedItem = Spotlight.getCurrent();
 
 		if (focusedItem) {
+			window.__log.push('resize');
 			focusedItem.blur();
 		}
 	}

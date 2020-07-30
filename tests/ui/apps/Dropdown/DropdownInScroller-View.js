@@ -11,6 +11,8 @@ spotlight.setPointerMode(false);
 
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
 
+window.__log = [];
+
 const app = (props) => (
 	<div {...props}>
 		<Scroller style={{height: scaleToRem(250)}} id="scroller">
