@@ -8,13 +8,17 @@ import ri from '@enact/ui/resolution';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Scroller as UiScroller, ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import VirtualList from '@enact/sandstone/VirtualList';
 
+const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 const Config = mergeComponentMetadata('Scroller', UiScrollerBasic, Scroller);
 
 const itemData = [];
@@ -31,6 +35,14 @@ const prop = {
 	},
 	scrollbarOption: ['auto', 'hidden', 'visible'],
 	scrollModeOption: ['native', 'translate']
+};
+const listProp = {
+	direction: ['horizontal', 'vertical'],
+	wrapOption: {
+		false: false,
+		true: true,
+		'&quot;noAnimation&quot;': 'noAnimation'
+	}
 };
 
 class ScrollerResizableItem extends React.Component {
@@ -150,6 +162,83 @@ class ScrollerWithLargeContainer extends React.Component {
 					<Item>Hello</Item>
 				</Container>
 			</Scroller>
+		);
+	}
+}
+
+class ScrollerInVirtualList extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	renderScroller = ({index}) => {
+		const listDirection = select('direction', listProp.direction, VirtualListConfig);
+		const isListVertical = listDirection === 'vertical';
+		const listItemStyle = {
+			horizontal: {
+				height: '85%',
+				width: ri.scaleToRem(639)
+			},
+			vertical: {
+				width: '100%'
+			}
+		};
+		const scrollerContentStyle = {
+			horizontal: {
+				height: ri.scaleToRem(3534)
+			},
+			vertical: {
+				height: ri.scaleToRem(198),
+				width: ri.scaleToRem(12252)
+			}
+		};
+		return (
+			<div data-index={index} style={listItemStyle[listDirection]}>
+				<Heading showLine>{'Scroller ' + index}</Heading>
+				<Scroller
+					id={'scroller' + index}
+					spotlightId={'container-scroller-' + index}
+					direction={isListVertical ? 'horizontal' : 'vertical'}
+					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
+					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					noScrollByWheel={boolean('noScrollByWheel', Config)}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+				>
+					<div
+						style={scrollerContentStyle[listDirection]}
+					>
+						{[...Array(20)].map((x, i) => (
+							<Button key={i + 1}>
+								Button {i + 1}
+							</Button>
+						))}
+					</div>
+				</Scroller>
+			</div>
+		);
+	}
+
+	render = () => {
+		const direction = select('direction', listProp.direction, VirtualListConfig);
+		return (
+			<VirtualList
+				dataSize={number('dataSize', VirtualListConfig, 100)}
+				direction={direction}
+				itemSize={direction === 'vertical' ? ri.scale(315) : ri.scale(639)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spacing={ri.scale(number('spacing', VirtualListConfig))}
+				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
+				wrap={listProp.wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
+				itemRenderer={this.renderScroller}
+			/>
 		);
 	}
 }
@@ -479,4 +568,10 @@ storiesOf('Scroller', module)
 				</Scroller>
 			);
 		}
+	)
+	.add(
+		'Horizontal Scroller in VirtualList',
+		() => (
+			<ScrollerInVirtualList />
+		)
 	);

@@ -130,7 +130,7 @@ const useEventKey = (props, instances, context) => {
 						// if it lacks an index and is inside the scroller, we need to handle this
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
-					const candidate = getTargetByDirectionFromElement(direction, target);
+					const candidate = getTargetItemNode(this, getTargetByDirectionFromElement(direction, target));
 					const candidateIndex = candidate ? getNumberValue(candidate.dataset.index) : -1;
 
 					let isLeaving = false;
@@ -151,7 +151,7 @@ const useEventKey = (props, instances, context) => {
 						if (nextIndex >= 0) { // if the candidate is another item
 							ev.preventDefault();
 							ev.stopPropagation();
-							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {isWrapped, keyCode, nextIndex, repeat, target});
+							handleDirectionKeyDown(ev, 'acceleratedKeyDown', {index, isWrapped, keyCode, nextIndex, repeat, target});
 						} else { // if the candidate is not found
 							const {dataSize, focusableScrollbar, isHorizontalScrollbarVisible, isVerticalScrollbarVisible} = props;
 							const {dimensionToExtent, isPrimaryDirectionVertical} = scrollContentHandle.current;
@@ -184,7 +184,7 @@ const useEventKey = (props, instances, context) => {
 								ev.preventDefault();
 								ev.stopPropagation();
 							} else if (!isLeaving) {
-								handleDirectionKeyDown(ev, 'keyDown', {direction, keyCode, repeat, target});
+								handleDirectionKeyDown(ev, 'keyDown', {direction, index, keyCode, repeat, target});
 							}
 						}
 					}
