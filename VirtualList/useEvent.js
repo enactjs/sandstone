@@ -6,6 +6,8 @@ import utilEvent from '@enact/ui/useScroll/utilEvent';
 import clamp from 'ramda/src/clamp';
 import {useCallback, useEffect, useRef} from 'react';
 
+import {getTargetItemNode, getNumberValue} from './util';
+
 const
 	isDown = is('down'),
 	isEnter = is('enter'),
@@ -13,13 +15,7 @@ const
 	isPageUp = is('pageUp'),
 	isPageDown = is('pageDown'),
 	isRight = is('right'),
-	isUp = is('up'),
-	getNumberValue = (index) => {
-		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-		let number = +index;
-		// should return -1 if index is not a number or a negative value
-		return number >= 0 ? number : -1;
-	};
+	isUp = is('up');
 
 const useEventKey = (props, instances, context) => {
 	// Mutable value
@@ -107,7 +103,7 @@ const useEventKey = (props, instances, context) => {
 	// Hooks
 
 	useEffect(() => {
-		const {scrollContainerRef, scrollContentHandle} = instances;
+		const {scrollContentHandle} = instances;
 		const {
 			handle5WayKeyUp,
 			handleDirectionKeyDown,
@@ -126,17 +122,23 @@ const useEventKey = (props, instances, context) => {
 					ev.stopPropagation();
 				} else {
 					const {spotlightId} = props;
-					const targetIndex = target.dataset.index;
+					const targetItem = getTargetItemNode(this, target);
+					const index = targetItem ? getNumberValue(targetItem.dataset.index) : -1;
 					const isNotItem = (
 						// if target has an index, it must be an item
-						!targetIndex &&
+						!(index >= 0) &&
 						// if it lacks an index and is inside the scroller, we need to handle this
 						target.matches(`[data-spotlight-id="${spotlightId}"] *`)
 					);
-					const index = !isNotItem ? getNumberValue(targetIndex) : -1;
 					const candidate = getTargetByDirectionFromElement(direction, target);
-					const candidateIndex = candidate && candidate.dataset && getNumberValue(candidate.dataset.index);
+					const candidateIndex = candidate ? getNumberValue(candidate.dataset.index) : -1;
+
 					let isLeaving = false;
+
+					// To support multiple VirtualList, need to check the candidate is in the current VirtualList or not.
+					if (candidateIndex >= 0 && !this.contains(candidate)) {
+						return;
+					}
 
 					if (isNotItem) { // if the focused node is not an item
 						if (!utilDOM.containsDangerously(ev.currentTarget, candidate)) { // if the candidate is out of a list
@@ -202,12 +204,12 @@ const useEventKey = (props, instances, context) => {
 			}
 		}
 
-		utilEvent('keydown').addEventListener(scrollContainerRef, handleKeyDown, {capture: true});
-		utilEvent('keyup').addEventListener(scrollContainerRef, handleKeyUp, {capture: true});
+		utilEvent('keydown').addEventListener(scrollContentHandle.current.contentRef, handleKeyDown);
+		utilEvent('keyup').addEventListener(scrollContentHandle.current.contentRef, handleKeyUp);
 
 		return () => {
-			utilEvent('keydown').removeEventListener(scrollContainerRef, handleKeyDown, {capture: true});
-			utilEvent('keyup').removeEventListener(scrollContainerRef, handleKeyUp, {capture: true});
+			utilEvent('keydown').removeEventListener(scrollContentHandle.current.contentRef, handleKeyDown);
+			utilEvent('keyup').removeEventListener(scrollContentHandle.current.contentRef, handleKeyUp);
 		};
 	}, [getNextIndex, props, instances, context]);
 

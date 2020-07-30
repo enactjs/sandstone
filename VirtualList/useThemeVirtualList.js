@@ -12,18 +12,9 @@ import {affordanceSize, dataIndexAttribute} from '../useScroll';
 import {useEventKey, useEventFocus} from './useEvent';
 import usePreventScroll from './usePreventScroll';
 import {useSpotlightConfig, useSpotlightRestore} from './useSpotlight';
+import {getTargetItemNode, getNumberValue, nop} from './util';
 
-const SpotlightAccelerator = new Accelerator();
 const SpotlightPlaceholder = Spottable('div');
-
-const
-	nop = () => {},
-	getNumberValue = (index) => {
-		// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-		let number = +index;
-		// should return -1 if index is not a number or a negative value
-		return number >= 0 ? number : -1;
-	};
 
 const useSpottable = (props, instances) => {
 	const {noAffordance, scrollMode} = props;
@@ -40,7 +31,8 @@ const useSpottable = (props, instances) => {
 		isScrolledByJump: false,
 		isWrappedBy5way: false,
 		lastFocusedIndex: null,
-		pause: new Pause('VirtualListBasic')
+		pause: new Pause('VirtualListBasic'),
+		spotlightAccelerator: new Accelerator()
 	});
 
 	const {pause} = mutableRef.current;
@@ -71,15 +63,15 @@ const useSpottable = (props, instances) => {
 					}
 					break;
 				case 'keyLeave':
-					SpotlightAccelerator.reset();
+					mutableRef.current.spotlightAccelerator.reset();
 					break;
 			}
 		},
 		handle5WayKeyUp: () => {
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset();
 		},
 		spotlightAcceleratorProcessKey: (ev) => {
-			return SpotlightAccelerator.processKey(ev, nop);
+			return mutableRef.current.spotlightAccelerator.processKey(ev, nop);
 		}
 	});
 
@@ -127,7 +119,7 @@ const useSpottable = (props, instances) => {
 		return () => {
 			// TODO: Fix eslint
 			pause.resume(); // eslint-disable-line react-hooks/exhaustive
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset(); // eslint-disable-line react-hooks/exhaustive-deps
 
 			setContainerDisabled(false);
 		};
@@ -183,7 +175,7 @@ const useSpottable = (props, instances) => {
 				});
 			}
 		} else if (!repeat && Spotlight.move(direction)) {
-			SpotlightAccelerator.reset();
+			mutableRef.current.spotlightAccelerator.reset();
 		}
 	}
 
@@ -211,7 +203,7 @@ const useSpottable = (props, instances) => {
 			setPreservedIndex(-1);
 
 			if (mutableRef.current.isWrappedBy5way) {
-				SpotlightAccelerator.reset();
+				mutableRef.current.spotlightAccelerator.reset();
 				mutableRef.current.isWrappedBy5way = false;
 			}
 
@@ -230,11 +222,12 @@ const useSpottable = (props, instances) => {
 
 	function calculatePositionOnFocus ({item, scrollPosition = scrollContentHandle.current.scrollPosition}) {
 		const
-
 			{pageScroll} = props,
 			{state: {numOfItems}, primary} = scrollContentHandle.current,
+			contentRef = scrollContentHandle.current.contentRef && scrollContentHandle.current.contentRef.current,
 			offsetToClientEnd = primary.clientSize - primary.itemSize - (noAffordance ? 0 : ri.scale(affordanceSize)),
-			focusedIndex = getNumberValue(item.getAttribute(dataIndexAttribute));
+			focusedTarget = getTargetItemNode(contentRef, item),
+			focusedIndex = focusedTarget ? getNumberValue(focusedTarget.dataset.index) : -1;
 
 		if (focusedIndex >= 0) {
 			let gridPosition = scrollContentHandle.current.getGridPosition(focusedIndex);

@@ -57,7 +57,7 @@ const dataIndexAttribute = 'data-index';
 const isIntersecting = (elem, container) => elem && intersects(getRect(container), getRect(elem));
 const getIntersectingElement = (elem, container) => isIntersecting(elem, container) && elem;
 const getTargetInViewByDirectionFromPosition = (direction, position, container) => {
-	const target = getTargetByDirectionFromPosition(direction, position, Spotlight.getActiveContainer());
+	const target = getTargetByDirectionFromPosition(direction, position, container);
 	return getIntersectingElement(target, container);
 };
 

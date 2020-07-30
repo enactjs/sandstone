@@ -7,17 +7,20 @@ import React from 'react';
 
 import Button from '@enact/sandstone/Button';
 import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import Heading from '@enact/sandstone/Heading';
 import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {VirtualList, VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
+const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 const
 	defaultDataSize = 1000,
 	prop = {
+		direction: ['horizontal', 'vertical'],
 		scrollbarOption: ['auto', 'hidden', 'visible'],
 		scrollModeOption: ['native', 'translate']
 	},
@@ -121,6 +124,67 @@ class MyVirtualList extends React.Component {
 	}
 }
 
+class VirtualGridListInVirtualList extends React.Component {
+	constructor (props) {
+		super(props);
+	}
+
+	renderGridList = ({index}) => {
+		const isVertical = select('direction', prop.direction, VirtualListConfig) === 'vertical';
+		const itemWidth = ri.scale(number('minWidth', Config, 688));
+		const itemHeight = ri.scale(number('minHeight', Config, 570));
+		const style = isVertical ?
+			{height:itemHeight, paddingBottom: ri.scaleToRem(36)} :
+			{width: itemWidth};
+		return (
+			<div data-index={index} style={{height: itemHeight + ri.scale(120)}}>
+				<Heading showLine>{'VirtualGridList ' + index}</Heading>
+				<VirtualGridList
+					id={'virtualgridlist' + index}
+					spotlightId={'container-virtualgridlist-' + index}
+					dataSize={updateDataSize(number('dataSize', Config, 300))}
+					direction={isVertical ? 'horizontal' : 'vertical'}
+					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+					itemRenderer={renderItem}
+					itemSize={{
+						minWidth:itemWidth,
+						minHeight: itemHeight
+					}}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					noScrollByWheel={boolean('noScrollByWheel', Config)}
+					onKeyDown={action('onKeyDown')}
+					onScrollStart={action('onScrollStart')}
+					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					spacing={ri.scale(number('spacing', Config, 0))}
+					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+					style={style}
+					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}
+				/>
+			</div>
+		);
+	}
+
+	render = () => {
+		const direction = select('direction', prop.direction, VirtualListConfig);
+		return (
+			<VirtualList
+				dataSize={number('dataSize', VirtualListConfig, 100)}
+				direction={direction}
+				itemSize={direction === 'vertical' ? ri.scale(number('minHeight', Config, 570) + 120) : ri.scale(number('minWidth', Config, 688))}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spacing={ri.scale(number('spacing', VirtualListConfig))}
+				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
+				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
+				itemRenderer={this.renderGridList}
+			/>
+		);
+	}
+}
+
 class ButtonAndVirtualGridList extends React.Component {
 	constructor (props) {
 		super(props);
@@ -188,6 +252,12 @@ storiesOf('VirtualGridList', module)
 			/>
 		),
 		{propTables: [Config]}
+	)
+	.add(
+		'Horizontal VirtualGridList in VirtualList',
+		() => (
+			<VirtualGridListInVirtualList />
+		)
 	)
 	.add(
 		'with Button, Spotlight goes to correct target',

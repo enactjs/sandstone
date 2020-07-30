@@ -2,6 +2,8 @@ import Spotlight from '@enact/spotlight';
 import utilDOM from '@enact/ui/useScroll/utilDOM';
 import {useEffect, useRef} from 'react';
 
+import {getNumberValue} from './util';
+
 const useSpotlightConfig = (props, instances) => {
 	// Hooks
 
@@ -58,13 +60,6 @@ const useSpotlightConfig = (props, instances) => {
 
 		configureSpotlight();
 	}, [props, instances]);
-};
-
-const getNumberValue = (index) => {
-	// using '+ operator' for string > number conversion based on performance: https://jsperf.com/convert-string-to-number-techniques/7
-	let number = +index;
-	// should return -1 if index is not a number or a negative value
-	return number >= 0 ? number : -1;
 };
 
 const useSpotlightRestore = (props, instances, context) => {
