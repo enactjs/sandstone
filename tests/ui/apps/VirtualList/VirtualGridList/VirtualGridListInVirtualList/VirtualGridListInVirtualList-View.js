@@ -186,7 +186,7 @@ class app extends React.Component {
 									</Cell>
 									<Cell>
 										<VirtualList
-											dataSize={10}
+											dataSize={numItems}
 											itemRenderer={this.renderGridList}
 											itemSize={ri.scale(minHeight)}
 											key={(translate ? 'translate' : 'native')}
