@@ -57,8 +57,8 @@ const HeaderView = () => (
 				<Header
 					centered
 					slotAbove={<Steps current={3} total={5} />}
-					slotAfter={<Button icon="arrowsmallright" aria-label="next" />}
-					slotBefore={<Button icon="arrowsmallleft" aria-label="back" />}
+					slotAfter={<Button icon="arrowsmallright" aria-label="This is Next." />}
+					slotBefore={<Button icon="arrowsmallleft" aria-label="This is Back." />}
 					subtitle="with title, subtitle, and buttons"
 					title="WizardPanel Header"
 					type="wizard"

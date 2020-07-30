@@ -5,6 +5,9 @@
 @import "../styles/skin.less";
 
 .alert {
+
+	&.noImage { /* Needed to prevent global class being added in the DOM */ }
+
 	&.fullscreen {
 		.alertImage {
 			margin-bottom: @sand-alert-fullscreen-image-spacing;

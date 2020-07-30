@@ -1,4 +1,5 @@
 import {forward, handle} from '@enact/core/handle';
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spotlight from '@enact/spotlight';
@@ -232,22 +233,33 @@ const PanelBase = kind({
  * @public
  */
 
-const PanelDecorator = compose(
-	ForwardRef({prop: 'componentRef'}),
-	FloatingLayerIdProvider,
-	ContextAsDefaults,
-	SharedStateDecorator({idProp: 'data-index'}),
-	SpotlightContainerDecorator({
-		// prefer any spottable within the panel body for first render
-		continue5WayHold: true,
-		defaultElement: [`.${spotlightDefaultClass}`, `.${componentCss.body} *`],
-		enterTo: 'last-focused',
-		preserveId: true
-	}),
-	Slottable({slots: ['header']}),
-	AutoFocusDecorator,
-	Skinnable
-);
+const PanelDecorator = hoc({defaultElement: `.${componentCss.body} *`}, (config, Wrapped) => {
+	let {defaultElement} = config;
+
+	defaultElement = [
+		`.${spotlightDefaultClass}`,
+		...(Array.isArray(defaultElement) ? defaultElement : [defaultElement])
+	];
+
+	const Decorator = compose(
+		ForwardRef({prop: 'componentRef'}),
+		FloatingLayerIdProvider,
+		ContextAsDefaults,
+		SharedStateDecorator({idProp: 'data-index'}),
+		SpotlightContainerDecorator({
+			// prefer any spottable within the panel body for first render
+			continue5WayHold: true,
+			defaultElement,
+			enterTo: 'last-focused',
+			preserveId: true
+		}),
+		Slottable({slots: ['header']}),
+		AutoFocusDecorator,
+		Skinnable
+	);
+
+	return Decorator(Wrapped);
+});
 
 /**
  * Prevents the component from restoring any framework shared state.

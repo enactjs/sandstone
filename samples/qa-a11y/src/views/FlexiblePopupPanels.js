@@ -6,9 +6,12 @@ import Slider from '@enact/sandstone/Slider';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import Section from '../components/Section';
+
 class FlexiblePopupPanelsView extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			index: 0,
 			open: false
@@ -23,13 +26,13 @@ class FlexiblePopupPanelsView extends React.Component {
 
 	render () {
 		const {index, open} = this.state;
-
-		const
-			prevButton = <Button icon="closex" aria-label="exit" onClick={this.handleClose} />,
-			nextButton = <Button icon="closex" aria-label="quit" onClick={this.handleClose} />;
+		const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={this.handleClose} />;
+		const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={this.handleClose} />;
 
 		return (
-			<>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpen}>Open</Button>
+
 				<FlexiblePopupPanels
 					index={index}
 					open={open}
@@ -40,10 +43,11 @@ class FlexiblePopupPanelsView extends React.Component {
 					<Panel prevButton={prevButton}>
 						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
+							<Item onClick={this.onNextPanel}>Item 0</Item>
 							<Item onClick={this.onNextPanel}>Item 1</Item>
 							<Item onClick={this.onNextPanel}>Item 2</Item>
 							<Item onClick={this.onNextPanel}>Item 3</Item>
-							<Item onClick={this.onNextPanel}>Item 4</Item>
+							<Item onClick={this.onNextPanel} disabled>Item 4</Item>
 						</Scroller>
 					</Panel>
 					<Panel>
@@ -53,12 +57,11 @@ class FlexiblePopupPanelsView extends React.Component {
 					<Panel nextButton={nextButton}>
 						<Header title="Third panel" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item onClick={this.onNextPanel}>Item 1</Item>
+							<Item>Item 1</Item>
 						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>
-				<Button onClick={this.handleOpen}>Open FlexiblePopupPanels</Button>
-			</>
+			</Section>
 		);
 	}
 }

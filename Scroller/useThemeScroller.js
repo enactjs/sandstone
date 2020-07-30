@@ -19,7 +19,7 @@ const
 	isEnter = is('enter'),
 	isBody = (elem) => (elem.classList.contains(css.focusableBody));
 
-const getFocusableBodyProps = (scrollContainerRef) => {
+const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
@@ -81,7 +81,9 @@ const getFocusableBodyProps = (scrollContainerRef) => {
 			ev.nativeEvent.stopImmediatePropagation();
 		}
 	};
+
 	return {
+		'aria-labelledby': contentId,
 		className: css.focusableBody,
 		onFocus: handle(
 			forward('onFocus'),
@@ -331,7 +333,7 @@ const useSpottable = (props, instances) => {
 	};
 };
 
-const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
+const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScrollbarVisible, isVerticalScrollbarVisible) => {
 	const {className, fadeOut, scrollContainerRef, ...rest} = scrollContentProps;
 	const {scrollContentHandle, scrollContentRef} = rest;
 
@@ -345,7 +347,7 @@ const useThemeScroller = (props, scrollContentProps, isHorizontalScrollbarVisibl
 	// Hooks
 
 	const {calculatePositionOnFocus, focusOnNode, setContainerDisabled} = useSpottable(scrollContentProps, {scrollContainerRef, scrollContentHandle, scrollContentRef});
-	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef) : {};
+	const focusableBodyProps = (props.focusableScrollbar === 'byEnter') ? getFocusableBodyProps(scrollContainerRef, contentId) : {};
 
 	scrollContentProps.setThemeScrollContentHandle({
 		calculatePositionOnFocus,

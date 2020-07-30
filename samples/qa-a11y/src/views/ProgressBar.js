@@ -3,6 +3,10 @@ import Heading from '@enact/sandstone/Heading';
 import ProgressBar from '@enact/sandstone/ProgressBar';
 import React from 'react';
 
+import Section from '../components/Section';
+
+import css from '../App/App.module.less';
+
 class ProgressBarView extends React.Component {
 	constructor () {
 		super();
@@ -28,13 +32,15 @@ class ProgressBarView extends React.Component {
 			<>
 				<Heading showLine>Progress Bar</Heading>
 				<ProgressBar
-					aria-live="assertive"
 					aria-label={barAriaLabel}
+					aria-live="assertive"
 					progress={progressBarValue}
 				/>
-				<br />
-				<Button icon="minus" aria-label="Decrease" onClick={this.handleDecreaseBarValue} />
-				<Button icon="plus" aria-label="Increase" onClick={this.handleIncreaseBarValue} />
+
+				<Section className={css.marginTop} title="Controls" vertical>
+					<Button alt="Decrease" aria-label="This is Decrease." icon="minus" onClick={this.handleDecreaseBarValue} />
+					<Button alt="Increase" aria-label="This is Increase." icon="plus" onClick={this.handleIncreaseBarValue} />
+				</Section>
 			</>
 		);
 	}

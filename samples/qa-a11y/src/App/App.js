@@ -1,12 +1,15 @@
-import Group from '@enact/ui/Group';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import Layout, {Cell} from '@enact/ui/Layout';
-import React from 'react';
 import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
+import Spotlight from '@enact/spotlight';
+import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
+import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
+import React from 'react';
+import classnames from 'classnames';
 
-import A11yDecorator from '../views/A11yDecorator';
 import Alert from '../views/Alert';
 import Button from '../views/Button';
 import Checkbox from '../views/Checkbox';
@@ -19,7 +22,7 @@ import Dropdown from '../views/Dropdown';
 import FixedPopupPanels from '../views/FixedPopupPanels';
 import FlexiblePopupPanels from '../views/FlexiblePopupPanels';
 import FormCheckboxItem from '../views/FormCheckboxItem';
-import GroupItem from '../views/GroupItem';
+import GroupView from '../views/Group';
 import Header from '../views/Header';
 import ImageItem from '../views/ImageItem';
 import Input from '../views/Input';
@@ -56,7 +59,6 @@ import View from './View';
 const views = [
 	{title: 'About qa-a11y', view: Home},
 	{debugProps: true, title: 'Option', view: Option},
-	{title: 'A11yDecorator', view: A11yDecorator},
 	{title: 'Alert', view: Alert},
 	{title: 'Button', view: Button},
 	{title: 'Checkbox', view: Checkbox},
@@ -69,7 +71,7 @@ const views = [
 	{title: 'FixedPopupPanels', view: FixedPopupPanels},
 	{title: 'FlexiblePopupPanels', view: FlexiblePopupPanels},
 	{title: 'FormCheckboxItem', view: FormCheckboxItem},
-	{title: 'GroupItem', view: GroupItem},
+	{title: 'Group', view: GroupView},
 	{isHeader: false, title: 'Header', view: Header},
 	{title: 'ImageItem', view: ImageItem},
 	{title: 'Input', view: Input},
@@ -100,40 +102,93 @@ const views = [
 ];
 
 class AppBase extends React.Component {
+	static propTypes = {
+		rtl: PropTypes.bool,
+		updateLocale: PropTypes.func
+	}
 	constructor () {
 		super();
 		this.state = {
 			isDebugMode: false,
+			jumpToView: '',
 			selected: 0
 		};
 	}
 
-	handleChangeView = (state) => this.setState(state)
+	componentDidMount () {
+		document.addEventListener('keydown', this.handleKeyDown);
+	}
+
+	cachedKey = -1
+
+	handleChangeView = (selected) => () => this.setState({selected})
 
 	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
 
+	handleKeyDown = (ev) => {
+		const {keyCode} = ev;
+		const {rtl, updateLocale} = this.props;
+
+		if (keyCode === 403 || keyCode === 82) { // Red Key or `r` key
+			updateLocale(rtl ? 'en-US' : 'ar-SA');
+		} else if (keyCode === 404 || keyCode === 71) { // Green Key or `g` key
+			this.handleDebug();
+		} else if (keyCode >= 48 && keyCode <= 57) {
+			const num = keyCode - 48;
+
+			if (this.cachedKey === -1) {
+				this.cachedKey = num;
+				this.setState({jumpToView: num});
+			} else {
+				const selected = this.cachedKey * 10 + num;
+
+				if (selected < views.length) {
+					const target = document.querySelector('[data-menu="' + selected + '"]');
+					Spotlight.focus(target);
+					this.handleChangeView(selected)();
+				}
+
+				this.setState({jumpToView: '' + this.cachedKey + num});
+				this.cachedKey = -1;
+			}
+		}
+	}
+
 	render () {
-		const
-			{isDebugMode, selected} = this.state,
-			debugAriaClass = isDebugMode ? 'aria debug' : null;
+		const {className, ...rest} = this.props;
+		const {isDebugMode, jumpToView, selected} = this.state;
+		const debugAriaClass = isDebugMode ? 'aria debug' : null;
+
+		delete rest.rtl;
+		delete rest.updateLocale;
 
 		return (
-			<Layout {...this.props}>
-				<Cell component={ScrollerComponent} size="20%">
-					<Group childComponent={Item} itemProps={{className: css.navItem}} onSelect={this.handleChangeView} select="radio">
-						{views.map((view) => view.title)}
-					</Group>
-				</Cell>
-				<Cell className={debugAriaClass} component={ViewManager} index={selected}>
-					{views.map((view, i) => (
-						<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
-					))}
-				</Cell>
-			</Layout>
+			<div className={classnames(className, debugAriaClass)}>
+				<Layout {...rest} className={css.layout}>
+					<Cell component={ScrollerComponent} size="20%">
+						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
+						{views.map((view, i) => (
+							<Item className={css.navItem} data-menu={i} key={i} slotBefore={('00' + i).slice(-2)} onClick={this.handleChangeView(i)}>
+								{view.title}
+							</Item>
+						))}
+					</Cell>
+					<Cell component={ViewManager} index={selected}>
+						{views.map((view, i) => (
+							<View {...view} handleDebug={this.handleDebug} isDebugMode={isDebugMode} key={i} />
+						))}
+					</Cell>
+				</Layout>
+			</div>
 		);
 	}
 }
 
-const App = ThemeDecorator(AppBase);
+const AppDecorator = compose(
+	ThemeDecorator,
+	I18nContextDecorator({rtlProp: 'rtl', updateLocaleProp: 'updateLocale'})
+);
+
+const App = AppDecorator(AppBase);
 
 export default App;

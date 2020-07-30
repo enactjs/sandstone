@@ -2,6 +2,39 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.1.0] - 2020-07-29
+
+### Added
+
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` support for animated `Sprite` icons
+- `sandstone/Scroller` prop `aria-label` to be read out instead of a body text
+- `sandstone/Sprite` component for animating images
+- `sandstone/TabLayout.Tab` prop `tabKey` to specify a unique key when the `title` and `icon` combination is not unique
+- `sandstone/VideoPlayer` prop `onToggleMore` to notify consumers when more components are shown
+
+### Fixed
+
+- `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
+- `sandstone/DayPicker` to not read out current index and total numbers
+- `sandstone/Dropdown` button margin with title
+- `sandstone/Dropdown` to delegate voice props to the dropdown button
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to avoid duplicate 5-way navigation when using `sandstone/Picker` or `sandstone/Input`
+- `sandstone/FlexiblePopupPanels.Panel` to favor auto-focusing the content over the navigation buttons
+- `sandstone/ImageItem` to support `aria-disabled`
+- `sandstone/Input.InputField` to support `aria-disabled`
+- `sandstone/Item` font-size for large text mode
+- `sandstone/Item` to support RTL text
+- `sandstone/MediaPlayer` to pause spotlight during animations
+- `sandstone/Panels` animation direction for locales that use right-to-left reading order
+- `sandstone/ProgressButton` icon size
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar thumb shape to not clipped
+- `sandstone/Scroller` not to read out thumb audio guidance when focusing on the body
+- `sandstone/TabGroup` to read out contents without button `role`
+- `sandstone/TabLayout` to properly support scrolling the tabs
+- `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
+- `sandstone/VideoPlayer` to read out action guide string after video title
+- `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
+
 ## [1.0.1] - 2020-07-20
 
 ### Fixed

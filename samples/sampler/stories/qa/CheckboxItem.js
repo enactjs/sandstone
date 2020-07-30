@@ -50,7 +50,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
