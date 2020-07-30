@@ -103,6 +103,8 @@ const getDurFmt = (locale) => {
 
 const forwardWithState = (type) => adaptEvent(call('addStateToEvent'), forwardWithPrevent(type));
 
+const forwardToggleMore = forward('onToggleMore');
+
 // provide forwarding of events on media controls
 const forwardControlsAvailable = forward('onControlsAvailable');
 const forwardPlay = forwardWithState('onPlay');
@@ -489,6 +491,20 @@ const VideoPlayerBase = class extends React.Component {
 		onSeekOutsideSelection: PropTypes.func,
 
 		/**
+		 * Called when the visibility of more components is changed
+		 *
+		 * Event payload includes:
+		 *
+		 * * `type` - Type of event, `'onToggleMore'`
+		 * * `showMoreComponents` - `true` when the components are visible`
+		 * * `liftDistance` - The distance, in pixels, the component animates
+		 *`
+		 * @type {Function}
+		 * @public
+		 */
+		onToggleMore: PropTypes.func,
+
+		/**
 		 * Pauses the video when it reaches either the start or the end of the video during rewind,
 		 * slow rewind, fast forward, or slow forward.
 		 *
@@ -862,10 +878,10 @@ const VideoPlayerBase = class extends React.Component {
 	// Internal Methods
 	//
 
-	announceJob = new Job(msg => (this.announceRef && this.announceRef.announce(msg)), 200)
+	announceJob = new Job((msg, clear) => (this.announceRef && this.announceRef.announce(msg, clear)), 200)
 
-	announce = (msg) => {
-		this.announceJob.start(msg);
+	announce = (msg, clear) => {
+		this.announceJob.start(msg, clear);
 	}
 
 	activityDetected = () => {
@@ -1695,7 +1711,7 @@ const VideoPlayerBase = class extends React.Component {
 
 				forward('onScrub', {...ev, seconds}, this.props);
 
-				this.announce(`${$L('jump to')} ${knobTime}`);
+				this.announce(`${$L('jump to')} ${knobTime}`, true);
 			}
 		}
 	}
@@ -1720,7 +1736,7 @@ const VideoPlayerBase = class extends React.Component {
 				seconds},
 			this.props);
 
-			this.announce(`${$L('jump to')} ${knobTime}`);
+			this.announce(`${$L('jump to')} ${knobTime}`, true);
 		}
 	}
 
@@ -1768,7 +1784,11 @@ const VideoPlayerBase = class extends React.Component {
 		() => this.jump(this.props.jumpBy)
 	)
 
-	handleToggleMore = ({showMoreComponents, liftDistance}) => {
+	handleToggleMore = (ev) => {
+		const {showMoreComponents, liftDistance} = ev;
+
+		forwardToggleMore(ev, this.props);
+
 		if (!showMoreComponents) {
 			this.startAutoCloseTimeout();	// Restore the timer since we are leaving "more.
 			// Restore the title-hide now that we're finished with "more".
@@ -1813,13 +1833,13 @@ const VideoPlayerBase = class extends React.Component {
 	getControlsAriaProps () {
 		if (this.state.announce === AnnounceState.TITLE) {
 			return {
-				'aria-labelledby': `${this.id}_title`,
+				'aria-labelledby': `${this.id}_mediaTitle_title ${this.id}_mediaControls_actionGuide`,
 				'aria-live': 'off',
 				role: 'alert'
 			};
 		} else if (this.state.announce === AnnounceState.INFO) {
 			return {
-				'aria-labelledby': `${this.id}_info`,
+				'aria-labelledby': `${this.id}_mediaTitle_info`,
 				role: 'region'
 			};
 		}
@@ -1871,6 +1891,7 @@ const VideoPlayerBase = class extends React.Component {
 		delete mediaProps.onScrub;
 		delete mediaProps.onSeekFailed;
 		delete mediaProps.onSeekOutsideSelection;
+		delete mediaProps.onToggleMore;
 		delete mediaProps.pauseAtEnd;
 		delete mediaProps.playbackRateHash;
 		delete mediaProps.seekDisabled;
@@ -1947,7 +1968,7 @@ const VideoPlayerBase = class extends React.Component {
 							{this.state.mediaSliderVisible ?
 								<div className={css.infoFrame}>
 									<MediaTitle
-										id={this.id}
+										id={`${this.id}_mediaTitle`}
 										infoVisible={this.state.infoVisible}
 										ref={this.setTitleRef}
 										title={title}
@@ -2004,6 +2025,7 @@ const VideoPlayerBase = class extends React.Component {
 							}
 							<ComponentOverride
 								component={mediaControlsComponent}
+								id={`${this.id}_mediaControls`}
 								initialJumpDelay={initialJumpDelay}
 								jumpDelay={jumpDelay}
 								mediaDisabled={disabled || this.state.sourceUnavailable}

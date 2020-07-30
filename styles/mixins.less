@@ -24,10 +24,7 @@
 	&::before {
 		content: "";
 		position: absolute;
-		top: @_tap-offset;
-		right: @_tap-offset;
-		bottom: @_tap-offset;
-		left: @_tap-offset;
+		.position(@_tap-offset);
 		border-radius: @sand-button-border-radius;
 	}
 }

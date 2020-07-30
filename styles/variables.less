@@ -136,11 +136,12 @@
 @sand-input-invalid-tooltip-font-size:        @sand-inputfield-invalid-tooltip-font-size;
 @sand-inputfield-invalid-tooltip-font-size:   48px;
 @sand-inputfield-small-font-size:        72px;
-@sand-item-font-size-large:         78px;
 @sand-item-font-size:               60px;
+@sand-item-font-size-large:         72px;
 @sand-item-label-font-size:         48px;
-@sand-item-small-font-size-large:   72px;
+@sand-item-label-font-size-large:   54px;
 @sand-item-small-font-size:         60px;
+@sand-item-small-font-size-large:   72px;
 @sand-item-small-label-font-size:   48px;
 @sand-keyguide-font-size:           60px;
 @sand-mediaoverlay-caption-font-size: 48px;
@@ -153,6 +154,7 @@
 @sand-steps-step-number-font-size:  54px;
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
+@sand-tablayout-tab-font-size:      66px;
 @sand-tooltip-label-font-size:      54px;
 
 @sand-non-latin-alert-title-font-size:  @sand-alert-title-font-size;
@@ -309,8 +311,8 @@
 @sand-button-bg-opacity: 1;
 @sand-button-transparent-bg-opacity: 0;
 @sand-button-transparent-selected-bg-opacity: 1;
-@sand-button-margin: 0 @sand-component-spacing;
-@sand-button-focusexpand-margin: 6px .extract(@sand-button-margin, right)[]; // 6px provides enough space for the expanded focus state
+@sand-button-margin: max(((@sand-smallest-tappable-size - @sand-button-height) / 2), 0) @sand-component-spacing;
+@sand-button-focusexpand-margin: max(((@sand-smallest-tappable-size - @sand-button-height) / 2), 6px) .extract(@sand-button-margin, right)[];
 @sand-button-h-padding: 60px;
 @sand-button-with-icon-h-padding: @sand-spotlight-outset;
 @sand-button-height-large: 192px;
@@ -333,8 +335,8 @@
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
-@sand-button-small-margin: @sand-button-margin;
-@sand-button-small-focusexpand-margin: @sand-button-focusexpand-margin;
+@sand-button-small-margin: max(((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 0) @sand-component-spacing;
+@sand-button-small-focusexpand-margin: max(((@sand-smallest-tappable-size - @sand-button-small-height) / 2), 6px) .extract(@sand-button-margin, right)[];
 @sand-button-small-h-padding: 48px;
 @sand-button-small-height-large: 144px;
 @sand-button-small-height: 108px;

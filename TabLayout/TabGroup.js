@@ -91,12 +91,10 @@ const TabBase = kind({
 			case 'vertical': {
 				// Vertical sizing depends on Button establishing the dimensions of the Cell.
 				return (
-					<Cell shrink>
-						<Button
-							{...rest}
-							{...commonProps}
-						/>
-					</Cell>
+					<Button
+						{...rest}
+						{...commonProps}
+					/>
 				);
 			}
 		}
@@ -169,11 +167,13 @@ const TabGroupBase = kind({
 		const children = React.useMemo(() => tabs.map(tab => {
 			if (tab) {
 				// eslint-disable-next-line no-shadow
-				const {icon, title, ...rest} = tab;
+				const {icon, title, tabKey, ...rest} = tab;
+				const key = tabKey || tabKey === 0 ? tabKey : `tabs_${title + (typeof icon === 'string' ? icon : '')}`;
+
 				return {
-					key: `tabs_${title + (typeof icon === 'string' ? icon : '')}`,
 					children: title,
 					icon,
+					key,
 					onFocusTab,
 					...rest
 				};
@@ -183,6 +183,7 @@ const TabGroupBase = kind({
 		}).filter(tab => tab != null), [onFocusTab, tabs]);
 
 		const isHorizontal = orientation === 'horizontal';
+		const groupComponent = (isHorizontal ? Layout : 'div'); // Only horizontal needs the arrangement capabilities of `Layout`
 		// Only vertical with more than MAX_TABS should use scroller
 		const useScroller = (!isHorizontal && children.length > MAX_TABS_BEFORE_SCROLLING);
 		const scrollerProps = useScroller ? {
@@ -210,7 +211,7 @@ const TabGroupBase = kind({
 					<GroupComponent
 						childComponent={Tab}
 						className={componentCss.tabs}
-						component={Layout}
+						component={groupComponent}
 						indexProp="index"
 						itemProps={itemProps}
 						onSelect={onSelect}
