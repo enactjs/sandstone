@@ -24,7 +24,10 @@
 	&::before {
 		content: "";
 		position: absolute;
-		.position(@_tap-offset);
+		top: @_tap-offset;
+		right: @_tap-offset;
+		bottom: @_tap-offset;
+		left: @_tap-offset;
 		border-radius: @sand-button-border-radius;
 	}
 }
