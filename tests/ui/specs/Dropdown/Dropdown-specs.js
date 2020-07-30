@@ -62,6 +62,13 @@ describe('Dropdown', function () {
 
 			Page.spotlightDown();
 			Page.delay(250);
+
+			// verify that we have scrolled down
+			expect(getDropdownOffset(
+				Page.components.dropdown1.self,
+				$('#scroller')
+			)).to.not.equal(0);
+
 			Page.spotlightUp();
 			Page.delay(250);
 
