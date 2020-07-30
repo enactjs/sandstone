@@ -16,12 +16,12 @@ import Spottable from '@enact/spotlight/Spottable';
 import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
 import {Cell, Layout, Row} from '@enact/ui/Layout';
-import {Marquee, MarqueeController} from '@enact/ui/Marquee';
 import Pure from '@enact/ui/internal/Pure';
 import compose from 'ramda/src/compose';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';

@@ -65,6 +65,7 @@ storiesOf('Sandstone', module)
 						<Header title="Panel with Items">
 							<Button
 								icon="arrowlargeright"
+								iconFlip="auto"
 								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
@@ -94,6 +95,7 @@ storiesOf('Sandstone', module)
 						<Header title="Panel with VirtualGridList">
 							<Button
 								icon="arrowlargeright"
+								iconFlip="auto"
 								size="small"
 								slot="slotAfter"
 								onClick={forward} // eslint-disable-line react/jsx-no-bind
