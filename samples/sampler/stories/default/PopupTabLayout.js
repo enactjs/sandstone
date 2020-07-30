@@ -73,10 +73,10 @@ storiesOf('Sandstone', module)
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
 					<Tab icon={includeIcons ? 'picture' : null} title="Display">
-						<TabPanels 
-							index={indexDisplay} 
-							onBack={handleDisplayPrev} 
-							onClose={handleClose} 
+						<TabPanels
+							index={indexDisplay}
+							onBack={handleDisplayPrev}
+							onClose={handleClose}
 							noCloseButton={boolean('noCloseButton', Config)}
 						>
 							<TabPanel>
