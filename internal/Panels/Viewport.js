@@ -11,9 +11,9 @@ import compose from 'ramda/src/compose';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {startCapture, stopCapture} from './captureKeys';
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 import {ContextAsDefaults} from './util';
-import {startCapture, stopCapture} from './captureKeys';
 
 import css from './Viewport.module.less';
 
