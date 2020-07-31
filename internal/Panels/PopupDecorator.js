@@ -256,6 +256,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
+			delete rest.onHide;
+
 			return (
 				<Popup
 					{...popupProps}
