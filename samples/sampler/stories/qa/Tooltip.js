@@ -1,19 +1,18 @@
 import kind from '@enact/core/kind';
-import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/knobs';
-import {mergeComponentMetadata} from '@enact/storybook-utils';
-import Layout, {Cell} from '@enact/ui/Layout';
-import ri from '@enact/ui/resolution';
-import React from 'react';
-import {storiesOf} from '@storybook/react';
-import {Row} from '@enact/ui/Layout';
-
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Input from '@enact/sandstone/Input';
 import Scroller from '@enact/sandstone/Scroller';
-import Section from './components/KitchenSinkSection';
 import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
+import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import Layout, {Cell, Row} from '@enact/ui/Layout';
+import ri from '@enact/ui/resolution';
+import React from 'react';
+import {storiesOf} from '@storybook/react';
+
+import Section from './components/KitchenSinkSection';
 
 const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
