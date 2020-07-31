@@ -1,5 +1,3 @@
-/* global document */
-
 // This must be passed to/called within browser.execute to obtain a proper reference to document
 function getFocusedText () {
 	// Text but dropping non-ASCII characters (like icons)

@@ -1,4 +1,3 @@
-/* global document */
 function focusedElement () {
 	return browser.execute(function () {
 		return document.activeElement.id;
