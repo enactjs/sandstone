@@ -6,7 +6,7 @@ describe('onScrollStart/Stop Events behavior ', function () {
 		Page.open();
 	});
 
-	it('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
+	it.skip('should display Scroll Events in Action with 5-way Down and Up [GT-28470]', function () {
 		// Verify Step 3 : Spotlight displays on the Item 006 or 007.
 		Page.item(7).moveTo();
 		expectFocusedItem(7, 'step 3 focus');
