@@ -40,9 +40,9 @@ class AlertView extends React.Component {
 		this.handleClose8 = this.handleClose(8);
 	}
 
-	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
+	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true});
 
-	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
+	handleClose = (expNum) => () => this.setState({['open' + expNum]: false});
 
 	render () {
 		const {open1, open2, open3, open4, open5, open6, open7, open8} = this.state;

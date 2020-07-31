@@ -49,7 +49,7 @@ class ContextualPopupWithActivator extends React.Component {
 
 	handleOpenToggle = () => {
 		this.setState(({open}) => ({open: !open}));
-	}
+	};
 
 	render () {
 		return (

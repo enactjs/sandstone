@@ -17,28 +17,66 @@ class VirtualGridListPage extends Page {
 		super.open('VirtualGridList-View', urlExtra);
 	}
 
-	get buttonHideScrollbar () { return element('#hideScrollbar', browser); }
-	get buttonTop () { return element('#top', browser); }
-	get buttonLeft () { return element('#left', browser); }
-	get buttonRight () { return element('#right', browser); }
-	get buttonBottom () { return element('#bottom', browser); }
-	get buttonMediaItem () { return element('#noLabel', browser); }
-	get buttonWrap () { return element('#wrap', browser); }
-	get buttonDirectionChange () { return element('#horizontal', browser); }
-	get buttonModeChange () { return element('#translate', browser); }
-	get buttonSpotlightDisabled () { return element('#spotlightDisabled', browser); }
+	get buttonHideScrollbar () {
+		return element('#hideScrollbar', browser);
+	}
+	get buttonTop () {
+		return element('#top', browser);
+	}
+	get buttonLeft () {
+		return element('#left', browser);
+	}
+	get buttonRight () {
+		return element('#right', browser);
+	}
+	get buttonBottom () {
+		return element('#bottom', browser);
+	}
+	get buttonMediaItem () {
+		return element('#noLabel', browser);
+	}
+	get buttonWrap () {
+		return element('#wrap', browser);
+	}
+	get buttonDirectionChange () {
+		return element('#horizontal', browser);
+	}
+	get buttonModeChange () {
+		return element('#translate', browser);
+	}
+	get buttonSpotlightDisabled () {
+		return element('#spotlightDisabled', browser);
+	}
 
-	get inputNumItems () { return element('#numItems', browser); }
-	get inputSpacing () { return element('#spacing', browser); }
-	get inputMinWidth () { return element('#minWidth', browser); }
-	get inputMinHeight () { return element('#minHeight', browser); }
+	get inputNumItems () {
+		return element('#numItems', browser);
+	}
+	get inputSpacing () {
+		return element('#spacing', browser);
+	}
+	get inputMinWidth () {
+		return element('#minWidth', browser);
+	}
+	get inputMinHeight () {
+		return element('#minHeight', browser);
+	}
 
-	get scrollBar () { return $(`${scrollbarSelector}`); }
-	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
-	get list () { return element('#list', browser); }
-	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
+	get scrollBar () {
+		return $(`${scrollbarSelector}`);
+	}
+	get scrollBarSize () {
+		return $(`${scrollbarSelector}`).getElementSize();
+	}
+	get list () {
+		return element('#list', browser);
+	}
+	get listSize () {
+		return $(`${scrollableSelector}`).getElementSize();
+	}
 
-	get scrollThumb () { return $(`${scrollThumbSelector}`); }
+	get scrollThumb () {
+		return $(`${scrollThumbSelector}`);
+	}
 	scrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelector(_scrollbarSelector);

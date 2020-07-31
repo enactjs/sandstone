@@ -8,15 +8,15 @@ import componentCss from './MainPanel.module.less';
 
 const SelectableVideoPlayer = class extends React.Component {
 
-	static displayName = 'SelectableVideoPlayer'
+	static displayName = 'SelectableVideoPlayer';
 
 	static propTypes = {
 		css: PropTypes.object
-	}
+	};
 
 	state = {
 		selection: null
-	}
+	};
 
 	handleToggleSelection = () => {
 		const {selection} = this.state;
@@ -34,7 +34,7 @@ const SelectableVideoPlayer = class extends React.Component {
 				selecting: false
 			});
 		}
-	}
+	};
 
 	handleTimeUpdate = () => {
 		const {selection} = this.state;
@@ -53,7 +53,7 @@ const SelectableVideoPlayer = class extends React.Component {
 				// this.video.seek(selectionEnd);
 			}
 		}
-	}
+	};
 
 	handleSeekOutsideSelection = (ev) => {
 
@@ -73,11 +73,11 @@ const SelectableVideoPlayer = class extends React.Component {
 		// this.setState({
 		// 	selection: null
 		// });
-	}
+	};
 
 	setVideo = (video) => {
 		this.video = video;
-	}
+	};
 
 	render () {
 		const {css} = this.props;

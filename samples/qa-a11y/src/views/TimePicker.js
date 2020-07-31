@@ -16,9 +16,9 @@ class TimePickerItem extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleChange = ({value}) => this.setState({value: timeToLocaleString(value)})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
+	handleChange = ({value}) => this.setState({value: timeToLocaleString(value)});
 
 	render () {
 		return (

@@ -67,13 +67,23 @@ class FixedPopupPanelsInterface {
 		return browser.execute((el) => el.focus(), $('[aria-label="Go to previous"]'));
 	}
 
-	get self () { return browser.$(this.selector); }
+	get self () {
+		return browser.$(this.selector);
+	}
 
-	get openButton () { return browser.$('#openButton'); }
-	get item1 () { return this.self.$('#item1'); }
+	get openButton () {
+		return browser.$('#openButton');
+	}
+	get item1 () {
+		return this.self.$('#item1');
+	}
 
-	get panel1 () { return this.self.$(panelSelector(1)); }
-	get panel2 () { return this.self.$(panelSelector(2)); }
+	get panel1 () {
+		return this.self.$(panelSelector(1));
+	}
+	get panel2 () {
+		return this.self.$(panelSelector(2));
+	}
 }
 
 class FixedPopupPanelsPage extends Page {

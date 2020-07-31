@@ -71,7 +71,7 @@ describe('Spotlight', function () {
 		expect(Page.itemA.isFocused()).to.be.true();
 	});
 
-	describe('Nested Containers', function (){
+	describe('Nested Containers', function () {
 		it('should spot child item', function () {
 			Page.open();
 			Page.itemParent.moveTo();
@@ -87,7 +87,7 @@ describe('Spotlight', function () {
 		});
 	});
 
-	describe('Disappear Test', function (){
+	describe('Disappear Test', function () {
 		it('should spot restore button when focus button disappears - [GT-22523]', function () {
 			Page.open();
 			Page.restoreButton.moveTo();

@@ -9,12 +9,22 @@ class PanelInterface {
 		this.id = `Panel${index}`;
 	}
 
-	get self () { return $(`#${this.id}`); }
-	get header () { return $(`#header${this.index}`); }
-	get body () { return $(`#body${this.index}`); }
+	get self () {
+		return $(`#${this.id}`);
+	}
+	get header () {
+		return $(`#header${this.index}`);
+	}
+	get body () {
+		return $(`#body${this.index}`);
+	}
 
-	get nextButton () { return $(`#next${this.index}`); }
-	get prevButton () { return $(`#prev${this.index}`); }
+	get nextButton () {
+		return $(`#next${this.index}`);
+	}
+	get prevButton () {
+		return $(`#prev${this.index}`);
+	}
 
 	waitForEnter () {
 		this.body.waitForExist();

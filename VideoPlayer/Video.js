@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
  * @private
  */
 const VideoBase = class extends React.Component {
-	static displayName = 'Video'
+	static displayName = 'Video';
 
 	static propTypes = /** @lends sandstone/VideoPlayer.Video.prototype */ {
 		/**
@@ -96,11 +96,11 @@ const VideoBase = class extends React.Component {
 		 * @public
 		 */
 		source: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
-	}
+	};
 
 	static defaultProps = {
 		mediaComponent: 'video'
-	}
+	};
 
 	componentDidUpdate (prevProps) {
 		const {source, preloadSource} = this.props;
@@ -159,7 +159,7 @@ const VideoBase = class extends React.Component {
 
 		// prevent the from bubbling to upstream handlers
 		ev.stopPropagation();
-	}
+	};
 
 	clearMedia ({setMedia} = this.props) {
 		if (setMedia) {
@@ -182,14 +182,14 @@ const VideoBase = class extends React.Component {
 	setVideoRef = (node) => {
 		this.video = node;
 		this.setMedia();
-	}
+	};
 
 	setPreloadRef = (node) => {
 		if (node) {
 			node.load();
 		}
 		this.preloadVideo = node;
-	}
+	};
 
 	render () {
 		const {
