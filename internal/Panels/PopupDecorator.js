@@ -210,11 +210,11 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		constructor () {
 			super();
 			this.paused = new Pause('PopupDecorator');
-		};
+		}
 
 		componentWillUnmount () {
 			this.resume();
-		};
+		}
 
 		pause = () => this.paused.pause();
 
@@ -239,7 +239,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		render () {
 			const {children, className, fullHeight, generateId, id, index, noAnimation, onBack, onClose, scrimType, spotlightRestrict, width, ...rest} = this.props;
-			const classes = classnames(css[cfgClassName], css[width], {[css.fullHeight]: fullHeight});
+			const classes = classnames(className, css[cfgClassName], css[width], {[css.fullHeight]: fullHeight});
 			const count = React.Children.count(children);
 			const popupSpotlightRestrict = scrimType !== 'none' ? 'self-only' : spotlightRestrict;
 			invariant(
@@ -289,8 +289,8 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					</CancelableWrapped>
 				</Popup>
 			);
-		};
-	};
+		}
+	}
 
 	return IdProvider(
 		Skinnable(
