@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {forward, handle} from '@enact/core/handle';
+import handle, {forward} from '@enact/core/handle';
 import {mapAndFilterChildren} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
@@ -13,6 +13,7 @@ import ReactDOM from 'react-dom';
 
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 import {ContextAsDefaults} from './util';
+import {startCapture, stopCapture} from './captureKeys';
 
 import css from './Viewport.module.less';
 
@@ -220,9 +221,15 @@ const ViewportBase = class extends React.Component {
 		return true;
 	};
 
-	pause = () => this.paused.pause();
+	pause = () => {
+		startCapture();
+		this.paused.pause();
+	}
 
-	resume = () => this.paused.resume();
+	resume = () => {
+		stopCapture();
+		this.paused.resume();
+	}
 
 	handle = handle.bind(this);
 
