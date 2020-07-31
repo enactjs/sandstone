@@ -21,7 +21,6 @@ const PressedKeysProvider = ({children}) => {
 	};
 
 	useEventListener(document, 'keydown', addToMap);
-	useEventListener(document, 'keypress', addToMap);
 	useEventListener(document, 'keyup', removeFromMap);
 
 	return (

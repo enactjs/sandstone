@@ -25,7 +25,7 @@ const KeyLoggerBase = kind({
 	}
 });
 
-const KeyLogger = ({keyEventType = 'keydown', modifiers = false}) => {
+const KeyLogger = ({modifiers = false}) => {
 	const {pressedKeys} = useContext(PressedKeysContext);
 	const keys = [];
 	for (const value of pressedKeys.values()) {
@@ -34,13 +34,12 @@ const KeyLogger = ({keyEventType = 'keydown', modifiers = false}) => {
 	const isModifier = ({key}) => modifierKeys.includes(key.toLowerCase());
 	const keyFilter = modifiers
 		? (key) => isModifier(key)
-		: (key) => !isModifier(key) && key.type === keyEventType;
+		: (key) => !isModifier(key);
 
 	return <KeyLoggerBase>{keys.filter(keyFilter)}</KeyLoggerBase>;
 };
 
 KeyLogger.propTypes = {
-	keyEventType: PropTypes.string,
 	modifiers: PropTypes.bool
 };
 

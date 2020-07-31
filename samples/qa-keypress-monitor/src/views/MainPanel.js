@@ -23,10 +23,6 @@ const MainPanel = kind({
 					<Heading>Modifier Keys</Heading>
 					<KeyLogger modifiers />
 				</Cell>
-				<Cell>
-					<Heading>keypress Events</Heading>
-					<KeyLogger keyEventType="keypress" />
-				</Cell>
 			</Row>
 		</Panel>
 	)
