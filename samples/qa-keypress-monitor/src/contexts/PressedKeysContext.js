@@ -7,12 +7,6 @@ const PressedKeysContext = createContext(null);
 const PressedKeysProvider = ({children}) => {
 	const [pressedKeys, setPressedKeys] = useState(new Map());
 
-	const addToMap = ({code, key, which}) => {
-		const keyMap = new Map(pressedKeys);
-
-		keyMap.set(which, {code, key, which});
-		setPressedKeys(keyMap);
-	};
 	const removeFromMap = ({which}) => {
 		const keyMap = new Map(pressedKeys);
 
@@ -20,8 +14,19 @@ const PressedKeysProvider = ({children}) => {
 		setPressedKeys(keyMap);
 	};
 
+	const addToMap = ({code, key, which}) => {
+		const keyMap = new Map(pressedKeys);
+
+		keyMap.set(which, {code, key, which});
+		setPressedKeys(keyMap);
+		// remove the key after some time
+		setTimeout(() => {
+			removeFromMap({which});
+		}, 750);
+	};
+
+
 	useEventListener(document, 'keydown', addToMap);
-	useEventListener(document, 'keyup', removeFromMap);
 
 	return (
 		<PressedKeysContext.Provider
