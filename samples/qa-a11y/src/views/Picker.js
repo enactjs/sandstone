@@ -44,7 +44,7 @@ const PickerView = () => (
 	<>
 		<h2>Default</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section title="Horizontal">
 			<Picker
 				alt="Horizontal"
 				orientation="horizontal"

@@ -12,7 +12,7 @@ const RangePickerView = () => (
 	<>
 		<h2>Default</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section title="Horizontal">
 			<RangePicker
 				alt="Horizontal"
 				defaultValue={0}

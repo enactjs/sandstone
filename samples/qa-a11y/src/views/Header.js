@@ -3,7 +3,7 @@ import {Header, Panel} from '@enact/sandstone/Panels';
 import {Cell} from '@enact/ui/Layout';
 import React from 'react';
 
-const cellStyle = {border: '3px solid red'};
+const cellStyle = {background: '#CCCCCC', marginBottom: '30px'};
 
 const HeaderView = () => (
 	<>

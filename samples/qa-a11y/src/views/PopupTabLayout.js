@@ -6,6 +6,8 @@ import Scroller from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
 
+import Section from '../components/Section';
+
 class PopupTabLayoutView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -36,8 +38,8 @@ class PopupTabLayoutView extends React.Component {
 		} = this.state;
 
 		return (
-			<>
-				<Button onClick={this.handleOpen}>Open</Button>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpen}>Open</Button>
 
 				<PopupTabLayout
 					onClose={this.handleClose}
@@ -109,7 +111,7 @@ class PopupTabLayoutView extends React.Component {
 						</TabPanels>
 					</Tab>
 				</PopupTabLayout>
-			</>
+			</Section>
 		);
 	}
 }

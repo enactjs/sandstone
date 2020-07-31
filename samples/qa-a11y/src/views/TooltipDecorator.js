@@ -7,7 +7,11 @@ import Section from '../components/Section';
 const TooltipButton = TooltipDecorator(Button);
 const tooltipProps = {'aria-hidden': true};
 
-const TooltipDecoratorView = () => (
+const TooltipDecoratorView = () => (<>
+	<Section title="Default">
+		<div alt="Normal">DO NOT USE the component wrapped with TooltipDecorator without `aria-label`.</div>
+	</Section>
+
 	<Section title="Aria-labelled">
 		<TooltipButton
 			alt="Below Right"
@@ -49,6 +53,6 @@ const TooltipDecoratorView = () => (
 			Text 3
 		</TooltipButton>
 	</Section>
-);
+</>);
 
 export default TooltipDecoratorView;

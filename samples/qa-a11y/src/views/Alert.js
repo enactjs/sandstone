@@ -49,7 +49,7 @@ class AlertView extends React.Component {
 
 		return (
 			<>
-				<Section className={css.marginTop} size="50%" title="Alert Fullscreen">
+				<Section size="50%" title="Alert Fullscreen">
 					<Button alt="Normal" onClick={this.handleOpen0}>Text 0</Button>
 					<Button alt="With 3(max) Buttons" onClick={this.handleOpen1}>Text 1</Button>
 					<Button alt="With Thumbnail" onClick={this.handleOpen2}>Text 2</Button>
