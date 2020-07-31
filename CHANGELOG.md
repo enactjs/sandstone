@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
+
 ## [1.1.0] - 2020-07-29
 
 ### Added
