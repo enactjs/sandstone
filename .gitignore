@@ -16,6 +16,7 @@ bundle.js
 
 # Testing
 errorShots
-
-# Test Output
 coverage
+
+# Mac
+.DS_Store
