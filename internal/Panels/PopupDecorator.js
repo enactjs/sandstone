@@ -212,6 +212,10 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			this.paused = new Pause('PopupDecorator');
 		};
 
+		componentWillUnmount () {
+			this.resume();
+		};
+
 		pause = () => this.paused.pause();
 
 		resume = () => this.paused.resume();
@@ -235,7 +239,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		render () {
 			const {children, className, fullHeight, generateId, id, index, noAnimation, onBack, onClose, scrimType, spotlightRestrict, width, ...rest} = this.props;
-			const classes = classnames(css[cfgClassName], css[width], css[fullHeight]);
+			const classes = classnames(css[cfgClassName], css[width], {[css.fullHeight]: fullHeight});
 			const count = React.Children.count(children);
 			const popupSpotlightRestrict = scrimType !== 'none' ? 'self-only' : spotlightRestrict;
 			invariant(
