@@ -3,11 +3,10 @@ import onWindowReady from '@enact/core/snapshot';
 
 let capturing = false;
 
+// If capturing, prevent default behaviors and stop all event propagation
 const handleGlobalKeyDownCapture = handle(
 	() => capturing,
-	// prevent keyUp, keyPress
 	preventDefault,
-	// stop propagation
 	stop,
 	stopImmediate
 );
