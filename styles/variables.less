@@ -90,6 +90,10 @@
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
 
+// Locale
+// ---------------------------------------
+@locale-tallglyph-languages: th, si, ar;
+
 // Spotlight
 // ---------------------------------------
 @sand-spotlight-font-weight: 600;
@@ -184,6 +188,8 @@
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
 @sand-spottable-font-weight: 600;
+@sand-common-line-height: 1.3em;
+@sand-tallglyph-line-height: 1.5em;
 
 // Alert
 @sand-alert-font-family: @sand-font-family;
@@ -217,7 +223,7 @@
 @sand-timepicker-colon-margin: 0 6px;
 
 // Heading
-@sand-heading-line-height: 1.3em;
+@sand-heading-line-height: @sand-common-line-height;
 @sand-heading-font-style: normal;
 @sand-heading-title-font-family: @sand-alt-font-family;
 @sand-heading-title-font-weight: normal;
@@ -260,11 +266,11 @@
 
 // Item
 @sand-item-font-weight: @sand-spottable-font-weight;
-@sand-item-line-height: 1.3em;
+@sand-item-line-height: @sand-common-line-height;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
 @sand-item-small-font-weight: @sand-item-font-weight;
-@sand-item-small-line-height: 1.3em;
+@sand-item-small-line-height: @sand-common-line-height;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
 
