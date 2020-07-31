@@ -1,6 +1,8 @@
+import {forward, handle} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
-import kind from '@enact/core/kind';
+import Pause from '@enact/spotlight/Pause';
 import IdProvider from '@enact/ui/internal/IdProvider';
+import classnames from 'classnames';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -11,8 +13,7 @@ import Popup from '../../Popup';
 import CancelDecorator from './CancelDecorator';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
-const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
-	'position', 'scrimType', 'spotlightId', 'spotlightRestrict'];
+const popupPropList = ['noAutoDismiss', 'onKeyDown', 'onShow', 'open', 'position', 'spotlightId'];
 
 // TODO: Figure out how to document private sub-module members
 
@@ -76,10 +77,10 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {className: cfgClassName, css, noAlertRole, panelArranger, panelType} = config;
 	const CancelableWrapped = CancelDecorator({cancel: 'onBack'}, Wrapped);
 
-	const Decorator = kind({
-		name: 'PopupDecorator',
+	class Decorator extends React.Component {
+		static displayName = 'PopupDecorator';
 
-		propTypes: /** @lends sandstone/Panels.PopupDecorator.prototype */ {
+		static propTypes = /** @lends sandstone/Panels.PopupDecorator.prototype */ {
 			/**
 			 * An object containing properties to be passed to each child.
 			 *
@@ -194,9 +195,9 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @private
 			 */
 			width: PropTypes.oneOf(['narrow', 'half'])
-		},
+		};
 
-		defaultProps: {
+		static defaultProps = {
 			fullHeight: false,
 			index: 0,
 			noAnimation: false,
@@ -204,20 +205,39 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			scrimType: 'translucent',
 			spotlightRestrict: 'self-only',
 			width: 'narrow'
-		},
+		};
 
-		styles: {
-			css,
-			className: cfgClassName
-		},
+		constructor () {
+			super();
+			this.paused = new Pause('PopupDecorator');
+		};
 
-		computed: {
-			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
-			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
-		},
+		pause = () => this.paused.pause();
 
-		render: ({children, className, generateId, id, index, noAnimation, onBack, onClose, ...rest}) => {
+		resume = () => this.paused.resume();
+
+		handle = handle.bind(this);
+
+		handleHide = this.handle(
+			forward('onHide'),
+			this.resume
+		);
+
+		handleTransition = this.handle(
+			forward('onTransition'),
+			this.resume
+		);
+
+		handleWillTransition = this.handle(
+			forward('onWillTransition'),
+			this.pause
+		);
+
+		render () {
+			const {children, className, fullHeight, generateId, id, index, noAnimation, onBack, onClose, scrimType, spotlightRestrict, width, ...rest} = this.props;
+			const classes = classnames(css[cfgClassName], css[width], css[fullHeight]);
 			const count = React.Children.count(children);
+			const popupSpotlightRestrict = scrimType !== 'none' ? 'self-only' : spotlightRestrict;
 			invariant(
 				index === 0 && count === 0 || index < count,
 				`Panels index, ${index}, is invalid for number of children, ${count}`
@@ -232,11 +252,21 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				}
 			}
 
-			delete rest.fullHeight;
-			delete rest.width;
-
 			return (
-				<Popup {...popupProps} className={className} data-index={index} id={id} css={css} no5WayClose noAlertRole={noAlertRole} noAnimation={noAnimation} onClose={onClose}>
+				<Popup
+					{...popupProps}
+					className={classes}
+					data-index={index}
+					id={id}
+					css={css}
+					no5WayClose
+					noAlertRole={noAlertRole}
+					noAnimation={noAnimation}
+					onClose={onClose}
+					onHide={this.handleHide}
+					scrimType={scrimType}
+					spotlightRestrict={popupSpotlightRestrict}
+				>
 					<CancelableWrapped
 						{...rest}
 						arranger={panelArranger}
@@ -247,14 +277,16 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 						noAnimation={noAnimation}
 						onBack={onBack}
 						onClose={onClose}
+						onTransition={this.handleTransition}
+						onWillTransition={this.handleWillTransition}
 						type={panelType}
 					>
 						{children}
 					</CancelableWrapped>
 				</Popup>
 			);
-		}
-	});
+		};
+	};
 
 	return IdProvider(
 		Skinnable(
