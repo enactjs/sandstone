@@ -14,12 +14,14 @@ spotlight.setPointerMode(false);
 
 function App (props) {
 	const [index, setIndex] = React.useState(0);
+	const [open, setOpen] = React.useState(true);
 
 	return (
 		<PopupTabLayout
 			{...props}
 			id="tabLayout"
-			open
+			open={open}
+			onClose={() => setOpen(false)}
 		>
 			<Tab icon="picture" title="Display">
 				<TabPanels id="display" index={index} onBack={() => setIndex(0)}>

@@ -104,7 +104,34 @@ describe('PopupTabLayout', function () {
 					// it if key events are not suppressed.
 					Page.spotlightSelect();
 
-					const expected = $('#brightness').isFocused;
+					const expected = $('#brightness').isFocused();
+					const actual = true;
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should close the popup on back', function () {
+					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
+						Page.backKey();
+					});
+
+					const expected = $('#tabLayout').isExisting();
+					const actual = false;
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should suppress back key during transition', function () {
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(50);
+					Page.backKey();
+
+					// Adding an arbitrary delay since there are multiple pieces (panel transition,
+					// popup transition) moving in this case to allow for everything to settle.
+					Page.delay(500);
+
+					const expected = $('#brightness').isFocused();
 					const actual = true;
 
 					expect(actual).to.equal(expected);
