@@ -47,6 +47,6 @@ function App (props) {
 			</Tab>
 		</PopupTabLayout>
 	);
-};
+}
 
 export default UrlPropsDecorator(ThemeDecorator(App));
