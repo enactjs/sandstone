@@ -16,21 +16,21 @@ const KeyItem = kind({
 		code: PropTypes.string,
 
 		/* Note: the event prop is `key` but Repeater is stomping on that, so it is
-		 * renamed as `keyFromEvent` here.
+		 * renamed as `keyName` here.
 		 *
 		 * For printable keys, the printed character.  For others this is the key name
 		 * ('Shift', for example).
 		 */
-		keyFromEvent: PropTypes.string,
+		keyName: PropTypes.string,
 
 		/* The numeric keyCode for the key or the charCode for alphanumerics.
 		 */
 		which: PropTypes.number
 	},
-	render: ({code, keyFromEvent, which, ...rest}) => {
+	render: ({code, keyName, which, ...rest}) => {
 		return (
 			<Item spotlightDisabled {...rest}>
-				{`${code}: ${which} ${keyFromEvent}`}
+				{`${code}: ${which} ${keyName}`}
 			</Item>
 		);
 	}

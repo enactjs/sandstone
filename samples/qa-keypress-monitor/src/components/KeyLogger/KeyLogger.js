@@ -13,8 +13,8 @@ const KeyLoggerBase = kind({
 	computed: {
 		children: ({children}) => {
 			const keys = [];
-			children.forEach(({code, key: keyFromEvent, which}) => {
-				keys.push({code, key: `${code}-${keyFromEvent}`, keyFromEvent, which});
+			children.forEach(({code, key: keyName, which}) => {
+				keys.push({code, key: which, keyName, which});
 			});
 
 			return keys;
@@ -27,7 +27,10 @@ const KeyLoggerBase = kind({
 
 const KeyLogger = ({keyEventType = 'keydown', modifiers = false}) => {
 	const {pressedKeys} = useContext(PressedKeysContext);
-	const keys = Array.from(pressedKeys);
+	const keys = [];
+	for (const value of pressedKeys.values()) {
+		keys.push(value);
+	}
 	const isModifier = ({key}) => modifierKeys.includes(key.toLowerCase());
 	const keyFilter = modifiers
 		? (key) => isModifier(key)
