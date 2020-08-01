@@ -13,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VideoPlayer` prop `onToggleMore` to notify consumers when more components are shown
 
 ### Fixed
+
 - `sandstone/Button` background color opacity update for opaque and disabled
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
 - `sandstone/DayPicker` to not read out current index and total numbers
