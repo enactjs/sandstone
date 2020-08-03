@@ -48,25 +48,25 @@ class DisappearTest extends React.Component {
 
 	removeButton = () => {
 		this.setState({showButton: false});
-	}
+	};
 
 	restoreButton = () => {
 		this.setState({showButton: true});
-	}
+	};
 
 	resetFocus = () => {
 		spotlight.focus('[data-component-id="restoreButton"]');
-	}
+	};
 
 	startTimer = () => {
 		this.timer = window.setTimeout(this.removeButton, 4000);
-	}
+	};
 
 	stopTimer = () => {
 		if (this.timer) {
 			window.clearTimeout(this.timer);
 		}
-	}
+	};
 
 	render () {
 		return (

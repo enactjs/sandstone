@@ -184,7 +184,7 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 			 * @public
 			 */
 			blockClickOn: PropTypes.oneOf(['screen', 'container', null])
-		}
+		};
 
 		constructor (props) {
 			super(props);
