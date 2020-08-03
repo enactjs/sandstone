@@ -58,6 +58,8 @@ import css from './App.module.less';
 import Home from './Home';
 import View from './View';
 
+const nop = () => {};
+
 const Scroller = Skinnable(
 	SpotlightContainerDecorator(
 		{
@@ -72,6 +74,29 @@ const Scroller = Skinnable(
 		)
 	)
 );
+
+Scroller.defaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'both',
+	fadeOut: false,
+	focusableScrollbar: false,
+	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: false,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	scrollMode: 'native',
+	verticalScrollbar: 'auto'
+};
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
