@@ -25,7 +25,7 @@ class FixedPopupPanelsView extends React.Component {
 			index0: 0,
 			index1: 0,
 			index2: 0,
-			index3: 0,
+			index3: 0
 		};
 
 		this.handleOpen0 = this.handleOpen(0);
