@@ -1,4 +1,5 @@
 import Button from '@enact/sandstone/Button';
+import Dropdown from '@enact/sandstone/Dropdown';
 import Item from '@enact/sandstone/Item';
 import {Header} from '@enact/sandstone/Panels';
 import PopupTabLayout, {Tab, TabPanel, TabPanels} from '@enact/sandstone/PopupTabLayout';
@@ -73,6 +74,9 @@ class PopupTabLayoutView extends React.Component {
 							<TabPanel>
 								<Header title="Sound Settings" type="compact" />
 								<Item onClick={this.handleSoundNext}>Advanced Audio</Item>
+								<Dropdown>
+									{['Text 0', 'Text 1']}
+								</Dropdown>
 							</TabPanel>
 							<TabPanel>
 								<Header title="Advanced Audio Settings" type="compact" />

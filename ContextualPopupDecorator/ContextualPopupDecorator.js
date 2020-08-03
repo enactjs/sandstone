@@ -266,6 +266,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 			this.overflow = {};
 			this.adjustedDirection = this.props.direction;
+			this.id = this.generateId();
 
 			this.MARGIN = ri.scale(noArrow ? 0 : 12);
 			this.ARROW_WIDTH = noArrow ? 0 : ri.scale(60); // svg arrow width. used for arrow positioning
@@ -329,6 +330,10 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 				off('keyup', this.handleKeyUp);
 			}
 			Spotlight.remove(this.state.containerId);
+		}
+
+		generateId = () => {
+			return Math.random().toString(36).substr(2, 8);
 		}
 
 		getContainerNodeWidth () {
@@ -681,6 +686,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		render () {
 			const {'data-webos-voice-exclusive': voiceExclusive, popupComponent: PopupComponent, popupClassName, noAutoDismiss, open, onClose, offset, popupProps, skin, spotlightRestrict, ...rest} = this.props;
+			const idFloatLayer = `${this.id}_floatLayer`;
 			let scrimType = rest.scrimType;
 			delete rest.scrimType;
 
@@ -711,8 +717,9 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (openProp) rest[openProp] = open;
 
 			return (
-				<div className={css.contextualPopupDecorator}>
+				<div aria-owns={idFloatLayer} className={css.contextualPopupDecorator}>
 					<FloatingLayer
+						id={idFloatLayer}
 						noAutoDismiss={noAutoDismiss}
 						onClose={this.handleClose}
 						onDismiss={onClose}
