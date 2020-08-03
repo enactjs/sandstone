@@ -183,6 +183,7 @@
 @sand-non-latin-font-weight: 400;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
+@sand-spottable-font-weight: 600;
 
 // Alert
 @sand-alert-font-family: @sand-font-family;
@@ -201,7 +202,7 @@
 // Button
 @sand-button-font-family: @sand-alt-font-family;
 @sand-button-font-style: normal;
-@sand-button-font-weight: 600;
+@sand-button-font-weight: @sand-spottable-font-weight;
 @sand-button-small-font-family: @sand-button-font-family;
 @sand-button-small-font-style: @sand-button-font-style;
 @sand-button-small-font-weight: @sand-button-font-weight;
@@ -215,6 +216,9 @@
 @sand-datecomponentpicker-margin: 24px;
 @sand-timepicker-colon-margin: 0 6px;
 
+// FormCheckboxItem
+@sand-formcheckboxitem-font-weight: @sand-spottable-font-weight;
+
 // Heading
 @sand-heading-line-height: 1.3em;
 @sand-heading-font-style: normal;
@@ -225,7 +229,7 @@
 @sand-heading-subtitle-font-weight: normal;
 @sand-heading-subtitle-line-height: 1.4em;
 @sand-heading-large-font-family: @sand-font-family;
-@sand-heading-large-font-weight: 600;
+@sand-heading-large-font-weight: @sand-spottable-font-weight;
 @sand-heading-medium-font-family: @sand-heading-large-font-family;
 @sand-heading-medium-font-weight: @sand-heading-large-font-weight;
 @sand-heading-small-font-family: @sand-heading-large-font-family;
@@ -242,11 +246,14 @@
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-other-font-family: "LG Icons";
 
+// ImageItem
+@sand-imageitem-font-weight: @sand-spottable-font-weight;
+
 // Input
 @sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
 
 // InputField
-@sand-inputfield-font-weight: 600;
+@sand-inputfield-font-weight: @sand-spottable-font-weight;
 @sand-inputfield-placeholder-font-weight: 400;
 @sand-inputfield-placeholder-focus-font-weight: @sand-inputfield-font-weight;
 @sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
@@ -261,15 +268,12 @@
 @sand-item-small-line-height: 1.3em;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
-@sand-item-font-weight: 600;
-
-// ImageItem
-@sand-imageitem-font-weight: 600;
+@sand-item-font-weight: @sand-spottable-font-weight;
 
 // Picker
 @sand-picker-line-height: 1.5em;
 @sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
-@sand-picker-joined-font-weight: 600;
+@sand-picker-joined-font-weight: @sand-spottable-font-weight;
 
 
 // ---------------------------------------
@@ -435,7 +439,6 @@
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
-@sand-formcheckboxitem-focus-font-weight: 400;
 
 // Header
 // ---------------------------------------
