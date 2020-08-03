@@ -21,14 +21,6 @@
 		"theme": "sandstone",
 		"title": "QA VideoPlayer"
 	},
-	"eslintConfig": {
-		"extends": "enact/strict"
-	},
-	"eslintIgnore": [
-		"node_modules/*",
-		"build/*",
-		"dist/*"
-	],
 	"dependencies": {
 		"@enact/core": "^3.4.0",
 		"@enact/i18n": "^3.4.0",
