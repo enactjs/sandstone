@@ -14,7 +14,7 @@ const InputView = () => (
 			<Input alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
 		</Section>
 
-		<Section className={css.marginTop} title="Number, Passwordnumber, and Password">
+		<Section className={css.marginTop} title="With type">
 			<Input alt="Number Type With Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
 			<Input alt="Disabled Number Type with Title, Subtitle, and Value" disabled subtitle="Subtitle" title="Title" type="number" value="1234" />
 			<Input alt="Passwordnumber Type with Title, Subtitle, and Placeholder" placeholder="Placeholder" subtitle="Subtitle" title="Title" type="passwordnumber" />

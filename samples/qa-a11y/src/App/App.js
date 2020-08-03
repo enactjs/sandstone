@@ -167,7 +167,7 @@ class AppBase extends React.Component {
 		return (
 			<div className={classnames(className, debugAriaClass)}>
 				<Layout {...rest} className={css.layout}>
-					<Cell component={Menu} id="container" size="20%" spotlightId="container">
+					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item
