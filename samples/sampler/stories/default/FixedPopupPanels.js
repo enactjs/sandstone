@@ -1,5 +1,5 @@
 import {action} from '@enact/storybook-utils/addons/actions';
-import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {boolean, number, select, text} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
@@ -35,14 +35,10 @@ storiesOf('Sandstone', module)
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config)}
 				>
 					<Panel>
-						<Header>
-							<title>
-								FixedPopupPanels Title
-							</title>
-							<subtitle>
-								A panel type for options views
-							</subtitle>
-						</Header>
+						<Header
+							title={text('title', Config, 'FixedPopupPanels Title')}
+							subtitle={text('subtitle', Config, 'A panel type for options views')}
+						/>
 						<BodyText>Example text inside an FixedPopupPanels Panel</BodyText>
 						<Item>Example Item 1</Item>
 						<Item>Example Item 2</Item>
