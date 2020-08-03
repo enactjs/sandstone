@@ -1,10 +1,7 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import {ScrollerBase} from '@enact/sandstone/Scroller';
-import Skinnable from '@enact/sandstone/Skinnable';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Spotlight from '@enact/spotlight';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
@@ -12,6 +9,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 
+import Scroller from '../components/Scroller'
 import Alert from '../views/Alert';
 import Button from '../views/Button';
 import Checkbox from '../views/Checkbox';
@@ -57,21 +55,6 @@ import WizardPanels from '../views/WizardPanels';
 import css from './App.module.less';
 import Home from './Home';
 import View from './View';
-
-const Scroller = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			enterTo: 'last-focused',
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			ScrollerBase
-		)
-	)
-);
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
