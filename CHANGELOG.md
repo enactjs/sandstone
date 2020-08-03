@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Slider` to readout `value` with the hint string only once when focused
+
 ## [1.1.0] - 2020-07-29
 
 ### Added
