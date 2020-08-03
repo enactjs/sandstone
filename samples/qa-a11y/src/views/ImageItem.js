@@ -7,10 +7,9 @@ import css from '../App/App.module.less';
 
 const SelectableImageItem = (props) => {
 	const [checked, setChecked] = React.useState(false);
-	const handleClick = () => setChecked(!checked);
+	const handleClick = () => !props.disabled && setChecked(!checked); // eslint-disable-line enact/prop-types
 
-	// eslint-disable-next-line enact/prop-types
-	return <ImageItem {...props} onClick={handleClick} selected={!props.disabled && checked} />; // eslint-disable-line react/jsx-no-bind
+	return <ImageItem {...props} onClick={handleClick} selected={checked} />; // eslint-disable-line react/jsx-no-bind
 };
 
 const labelAndSrc = {
