@@ -33,9 +33,9 @@
 
 	.focusableBody & {
 		padding: @sand-scroll-focusablebody-padding;
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			padding: @sand-scroll-focusablebody-padding-rtl;
-		}
+		});
 		mask-image: linear-gradient(transparent @sand-scroll-fade-out-offset, @sand-black calc(@sand-scroll-fade-out-offset + @sand-scroll-fade-out-size), @sand-black calc(100% - @sand-scroll-fade-out-size - @sand-scroll-fade-out-offset), transparent calc(100% - @sand-scroll-fade-out-offset));
 	}
 }

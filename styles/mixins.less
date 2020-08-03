@@ -208,12 +208,11 @@
 }
 // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
 .sand-custom-text(@lrules; @nlrules) when (isruleset(@lrules)) and (isruleset(@nlrules)) {
-	&:global(.largeText) {
-		@lrules();
-	}
-	:global(.enact-locale-non-latin) &:global(.largeText) {
-		@nlrules();
-	}
+	.sand-custom-text(@lrules);
+
+	.enact-locale(non-latin, {
+		.sand-custom-text(@nlrules);
+	});
 }
 
 .sand-font-number() {
