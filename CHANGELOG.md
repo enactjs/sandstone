@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/PopupTabLayout` to not read out the panel header when the `Dropdown` closes in it
+- `sandstone/PopupTabLayout` to not read out the header in the panel when the `Dropdown` closes in the panel
 
 ## [1.1.0] - 2020-07-29
 
