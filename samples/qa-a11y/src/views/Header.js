@@ -8,9 +8,9 @@ const HeaderView = () => (
 		<Cell>
 			<Panel>
 				<Header title="Header Title 0" />
-				<hr />
 				<Button>Text 0</Button>
 			</Panel>
+			<hr />
 		</Cell>
 		<Cell>
 			<Panel>
@@ -18,9 +18,9 @@ const HeaderView = () => (
 					subtitle="Subtitle"
 					title="Header Title 1"
 				/>
-				<hr />
 				<Button>Text 1</Button>
 			</Panel>
+			<hr />
 		</Cell>
 		<Cell>
 			<Panel>
@@ -29,9 +29,9 @@ const HeaderView = () => (
 					subtitle="with closeButtonAriaLabel"
 					title="Header Title 2"
 				/>
-				<hr />
 				<Button>Text 2</Button>
 			</Panel>
+			<hr />
 		</Cell>
 		<Cell>
 			<Panel>
@@ -41,9 +41,9 @@ const HeaderView = () => (
 					title="Compact Header Title 3"
 					type="compact"
 				/>
-				<hr />
 				<Button>Text 3</Button>
 			</Panel>
+			<hr />
 		</Cell>
 		<Cell>
 			<Panel>
@@ -53,9 +53,9 @@ const HeaderView = () => (
 					title="Mini Header Title 4"
 					type="mini"
 				/>
-				<hr />
 				<Button>Text 4</Button>
 			</Panel>
+			<hr />
 		</Cell>
 	</>
 );

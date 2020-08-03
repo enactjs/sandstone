@@ -39,7 +39,7 @@ import RadioItem from '../views/RadioItem';
 import RangePicker from '../views/RangePicker';
 import ReadAlert from '../views/ReadAlert';
 import Region from '../views/Region';
-import ScrollerView from '../views/Scroller';
+import Scroller from '../views/Scroller';
 import Slider from '../views/Slider';
 import Spinner from '../views/Spinner';
 import Switch from '../views/Switch';
@@ -89,7 +89,7 @@ const views = [
 	{title: 'RangePicker', view: RangePicker},
 	{title: 'ReadAlert', view: ReadAlert},
 	{title: 'Region', view: Region},
-	{title: 'Scroller', view: ScrollerView},
+	{title: 'Scroller', view: Scroller},
 	{title: 'Slider', view: Slider},
 	{title: 'Spinner', view: Spinner},
 	{title: 'Switch', view: Switch},
