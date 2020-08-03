@@ -56,22 +56,20 @@ const TransitionDecorator = hoc((config, Wrapped) => {
 
 		resume = () => this.paused.resume();
 
-		handle = handle.bind(this);
-
-		handleHide = this.handle(
+		handleHide = handle(
 			forward('onHide'),
 			this.resume
-		);
+		).bindAs(this, 'handleHide');
 
-		handleTransition = this.handle(
+		handleTransition = handle(
 			forward('onTransition'),
 			this.resume
-		);
+		).bindAs(this, 'handleTransition');
 
-		handleWillTransition = this.handle(
+		handleWillTransition = handle(
 			forward('onWillTransition'),
 			this.pause
-		);
+		).bindAs(this, 'handleWillTransition');
 
 		render () {
 			return (
