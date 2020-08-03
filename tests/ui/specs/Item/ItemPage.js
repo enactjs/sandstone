@@ -16,7 +16,9 @@ class ItemInterface {
 		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
-	get self () { return $(this.selector); }
+	get self () {
+		return $(this.selector);
+	}
 }
 
 class ItemPage extends Page {

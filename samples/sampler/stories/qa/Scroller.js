@@ -39,7 +39,7 @@ class ScrollerResizableItem extends React.Component {
 		min: PropTypes.number,
 		more: PropTypes.bool,
 		toggleMore: PropTypes.func
-	}
+	};
 
 	render () {
 		const {max = 3000, min = 504, more, toggleMore} = this.props;
@@ -68,7 +68,7 @@ class ScrollerWithLongItem extends React.Component {
 
 	handleClick = () => {
 		this.setState(prevState => ({more: !prevState.more}));
-	}
+	};
 
 	render () {
 		return (
@@ -97,7 +97,7 @@ class ScrollerWithResizable extends React.Component {
 
 	handleClick = () => {
 		this.setState(prevState => ({more: !prevState.more}));
-	}
+	};
 
 	render () {
 		return (
