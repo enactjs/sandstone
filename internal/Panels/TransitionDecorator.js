@@ -9,7 +9,6 @@ import React from 'react';
  * transitions, generally used within PopupDecorator.
  *
  * @class TransitionDecorator
- * @type {Function}
  * @hoc
  * @private
  * @memberof sandstone/Panels
