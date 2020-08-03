@@ -10,7 +10,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {InputField} from '../../../../../Input';
 import PropTypes from 'prop-types';
 
-const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
+const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
 const childProps = {text: ' child props'};
@@ -20,7 +20,6 @@ spotlight.setPointerMode(false);
 
 const items = [],
 	itemStyle = {margin: 0};
-
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, disabled) => ({index, text, ...rest}) => {
@@ -96,6 +95,7 @@ class app extends React.Component {
 			disabled: false,
 			hasChildProps: false,
 			hideScrollbar: false,
+			nativeScroll: true,
 			numItems: 100,
 			spacing: 0,
 			itemSize: 156,
@@ -152,7 +152,7 @@ class app extends React.Component {
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{disabled, hasChildProps, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			{disabled, hasChildProps, hideScrollbar, nativeScroll, numItems, itemSize, spacing, wrap} = this.state,
 			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
@@ -164,6 +164,7 @@ class app extends React.Component {
 						<Button {...buttonDefaultProps} id="jumpToWithoutFocus" onClick={this.jumpTo(false)}>JumpToItem10WithoutFocus</Button>
 						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
+						<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle} selected={nativeScroll}>NativeScroll</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
@@ -186,9 +187,11 @@ class app extends React.Component {
 											dataSize={numItems}
 											itemRenderer={renderItem(itemSize, disabled)}
 											itemSize={ri.scale(itemSize)}
+											key={nativeScroll ? 'native' : 'translate'}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
+											scrollMode={nativeScroll ? 'native' : 'translate'}
 											spacing={ri.scale(spacing)}
 											style={{height: ri.scaleToRem(156 * 9)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}
