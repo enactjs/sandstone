@@ -1,6 +1,6 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import {ScrollerBase} from '@enact/sandstone/Scroller';
+import {Scroller, ScrollerBase} from '@enact/sandstone/Scroller';
 import Skinnable from '@enact/sandstone/Skinnable';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Spotlight from '@enact/spotlight';
@@ -58,9 +58,7 @@ import css from './App.module.less';
 import Home from './Home';
 import View from './View';
 
-const nop = () => {};
-
-const Scroller = Skinnable(
+const AppScroller = Skinnable(
 	SpotlightContainerDecorator(
 		{
 			enterTo: 'last-focused',
@@ -75,28 +73,7 @@ const Scroller = Skinnable(
 	)
 );
 
-Scroller.defaultProps = {
-	'data-spotlight-container-disabled': false,
-	cbScrollTo: nop,
-	direction: 'both',
-	fadeOut: false,
-	focusableScrollbar: false,
-	horizontalScrollbar: 'auto',
-	noScrollByDrag: false,
-	noScrollByWheel: false,
-	onScroll: nop,
-	onScrollStart: nop,
-	onScrollStop: nop,
-	overscrollEffectOn: {
-		arrowKey: false,
-		drag: false,
-		pageKey: false,
-		track: false,
-		wheel: true
-	},
-	scrollMode: 'native',
-	verticalScrollbar: 'auto'
-};
+AppScroller.defaultProps = Scroller.defaultProps;
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
@@ -207,7 +184,7 @@ class AppBase extends React.Component {
 		return (
 			<div className={classnames(className, debugAriaClass)}>
 				<Layout {...rest} className={css.layout}>
-					<Cell component={Scroller} id="scroller" size="20%" spotlightId="scroller">
+					<Cell component={AppScroller} id="scroller" size="20%" spotlightId="scroller">
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item
