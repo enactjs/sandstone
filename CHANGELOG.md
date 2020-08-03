@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ImageItem` to not show selectionComponent when disabled
+
 ## [1.1.0] - 2020-07-29
 
 ### Added

@@ -276,7 +276,7 @@ const ImageItemBase = kind({
 		delete rest.imageIconSrc;
 		delete rest.label;
 
-		if (showSelection) {
+		if (showSelection && !disabled) {
 			rest['role'] = 'checkbox';
 			rest['aria-checked'] = rest.selected;
 		}
@@ -289,7 +289,7 @@ const ImageItemBase = kind({
 				disabled={disabled}
 				imageComponent={
 					<Image>
-						{showSelection ? (
+						{showSelection && !disabled ? (
 							<div className={css.selectionContainer}>
 								{SelectionComponent ? (
 									<SelectionComponent />
