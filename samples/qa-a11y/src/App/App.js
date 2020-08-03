@@ -1,7 +1,5 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import {Scroller, ScrollerBase} from '@enact/sandstone/Scroller';
-import Skinnable from '@enact/sandstone/Skinnable';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
@@ -58,22 +56,7 @@ import css from './App.module.less';
 import Home from './Home';
 import View from './View';
 
-const AppScroller = Skinnable(
-	SpotlightContainerDecorator(
-		{
-			enterTo: 'last-focused',
-			overflow: true,
-			preserveId: true,
-			restrict: 'self-first'
-		},
-		I18nContextDecorator(
-			{rtlProp: 'rtl'},
-			ScrollerBase
-		)
-	)
-);
-
-AppScroller.defaultProps = Scroller.defaultProps;
+const Menu = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
@@ -184,7 +167,7 @@ class AppBase extends React.Component {
 		return (
 			<div className={classnames(className, debugAriaClass)}>
 				<Layout {...rest} className={css.layout}>
-					<Cell component={AppScroller} id="scroller" size="20%" spotlightId="scroller">
+					<Cell component={Menu} id="container" size="20%" spotlightId="container">
 						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item

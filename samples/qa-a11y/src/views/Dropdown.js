@@ -45,7 +45,7 @@ const DropdownView = () => (
 	<>
 		<Section title="String array as the children prop">
 			<Dropdown
-				alt="selected With Placeholder"
+				alt="With Placeholder"
 				placeholder="Placeholder"
 			>
 				{['Option 0', 'Option 1', 'Option 2']}

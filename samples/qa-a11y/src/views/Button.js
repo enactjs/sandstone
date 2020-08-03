@@ -24,7 +24,7 @@ const ButtonView = () => (
 		<Section className={css.marginTop} title="Aria-labelled">
 			<Button alt="Aria-labelled" aria-label="This is a Label 0.">Text 0</Button>
 			<Button alt="Aria-labelled with color icon" aria-label="This is a Label 1." color="yellow">Text 1</Button>
-			<Button alt="Aria-labelled and Disabled" aria-label="This is a Label 2." color="yellow" disabled>Text 2</Button>
+			<Button alt="Aria-labelled and Disabled with color icon" aria-label="This is a Label 2." color="yellow" disabled>Text 2</Button>
 		</Section>
 
 		<Section className={css.marginTop} title="Aria-labelled with only Icon">
