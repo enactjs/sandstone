@@ -7,51 +7,54 @@ const HeaderView = () => (
 	<>
 		<Cell>
 			<Panel>
-				<Header title="Header with title" />
+				<Header title="Header Title 0" />
 				<hr />
-				<Button>Button in Panel 01</Button>
-			</Panel>
-		</Cell>
-		<Cell>
-			<Panel>
-				<Header subtitle="with title and subtitle" title="Header" />
-				<hr />
-				<Button>Button in Panel 02</Button>
+				<Button>Text 0</Button>
 			</Panel>
 		</Cell>
 		<Cell>
 			<Panel>
 				<Header
-					closeButtonAriaLabel="application close"
-					subtitle="with closeButtonAriaLabel"
-					title="Header"
+					subtitle="Subtitle"
+					title="Header Title 1"
 				/>
 				<hr />
-				<Button>Button in Panel 03</Button>
+				<Button>Text 1</Button>
 			</Panel>
 		</Cell>
 		<Cell>
 			<Panel>
 				<Header
-					closeButtonAriaLabel="application close"
+					closeButtonAriaLabel="This is Close"
 					subtitle="with closeButtonAriaLabel"
-					title="Header"
+					title="Header Title 2"
+				/>
+				<hr />
+				<Button>Text 2</Button>
+			</Panel>
+		</Cell>
+		<Cell>
+			<Panel>
+				<Header
+					closeButtonAriaLabel="This is Close"
+					subtitle="with closeButtonAriaLabel"
+					title="Compact Header Title 3"
 					type="compact"
 				/>
 				<hr />
-				<Button>Button in Panel 04</Button>
+				<Button>Text 3</Button>
 			</Panel>
 		</Cell>
 		<Cell>
 			<Panel>
 				<Header
-					closeButtonAriaLabel="application close"
+					closeButtonAriaLabel="This is Close"
 					subtitle="with closeButtonAriaLabel"
-					title="Header"
+					title="Mini Header Title 4"
 					type="mini"
 				/>
 				<hr />
-				<Button>Button in Panel 05</Button>
+				<Button>Text 4</Button>
 			</Panel>
 		</Cell>
 	</>

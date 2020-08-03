@@ -45,8 +45,6 @@ class VirtualListView extends React.Component {
 				</Cell>
 				<VirtualList
 					dataSize={items.length}
-					direction="vertical"
-					focusableScrollbar
 					itemRenderer={renderItem}
 					itemSize={ri.scale(156)}
 					scrollMode={scrollMode}
