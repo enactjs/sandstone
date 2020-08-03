@@ -53,6 +53,9 @@ class VirtualListPage extends Page {
 	get buttonChildProps () {
 		return element('#hasChildProps', browser);
 	}
+	get buttonNativeScroll () {
+		return element('#nativeScroll', browser);
+	}
 
 	// inputField api
 	get inputfieldNumItems () {

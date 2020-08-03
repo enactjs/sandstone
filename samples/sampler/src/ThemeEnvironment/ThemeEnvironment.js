@@ -148,7 +148,8 @@ const StorybookDecorator = (story, config = {}) => {
 		defaultProps: {
 			'debug aria': false,
 			'debug layout': false,
-			'debug spotlight': false
+			'debug spotlight': false,
+			'debug sprites': false
 		},
 		groupId: 'Development'
 	};
@@ -166,7 +167,8 @@ const StorybookDecorator = (story, config = {}) => {
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
 		layout: boolean('debug layout', DevelopmentConfig, getKnobFromArgs(args, 'debug layout')),
-		spotlight: boolean('debug spotlight', DevelopmentConfig, getKnobFromArgs(args, 'debug spotlight'))
+		spotlight: boolean('debug spotlight', DevelopmentConfig, getKnobFromArgs(args, 'debug spotlight')),
+		sprites: boolean('debug sprites', DevelopmentConfig, getKnobFromArgs(args, 'debug sprites'))
 	};
 	if (Object.keys(classes).length > 0) {
 		classes.debug = true;
