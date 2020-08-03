@@ -8,23 +8,23 @@ import React from 'react';
 
 const isSelector = (autoFocus) => autoFocus && autoFocus !== 'last-focused' && autoFocus !== 'default-element' && autoFocus !== 'none';
 
+function configureContainer (ref, autoFocus, spotlightId) {
+	if (ref.current.id === spotlightId && ref.current.autoFocus === autoFocus) return;
+
+	ref.current.id = spotlightId;
+	ref.current.autoFocus = autoFocus;
+
+	// If autoFocus is a selector, we're using default-element but need to update the selector
+	// for that element in the container config
+	if (isSelector(autoFocus)) {
+		Spotlight.set(spotlightId, {
+			defaultElement: autoFocus
+		});
+	}
+}
+
 function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 	const ref = React.useRef({id: null, autoFocus: null});
-
-	function configureContainer (spotlightId) {
-		if (ref.current.id === spotlightId && ref.current.autoFocus === autoFocus) return;
-
-		ref.current.id = spotlightId;
-		ref.current.autoFocus = autoFocus;
-
-		// If autoFocus is a selector, we're using default-element but need to update the selector
-		// for that element in the container config
-		if (isSelector(autoFocus)) {
-			Spotlight.set(spotlightId, {
-				defaultElement: autoFocus
-			});
-		}
-	}
 
 	return React.useCallback((node) => {
 		if (!node) return;
@@ -33,7 +33,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 		// adopted and we can configure SpotlightContainerDecorator with the current props
 		const {spotlightId} = node.dataset;
 
-		configureContainer(spotlightId);
+		configureContainer(ref, autoFocus, spotlightId);
 
 		// In order to spot the body components, we defer spotting until !hideChildren. If the
 		// Panel opts out of hideChildren support by explicitly setting it to false, it'll spot
@@ -49,7 +49,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 				Spotlight.focus(target);
 			}
 		}
-	}, [autoFocus, hideChildren]);
+	}, [autoFocus, hideChildren, ref]);
 }
 
 const AutoFocusDecorator = hoc((config, Wrapped) => {
