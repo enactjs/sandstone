@@ -425,7 +425,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -437,7 +437,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -448,7 +448,7 @@ storiesOf('Tooltip', module)
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -459,7 +459,7 @@ storiesOf('Tooltip', module)
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 				</Row>
@@ -478,7 +478,7 @@ storiesOf('Tooltip', module)
 							tooltipRelative
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -491,7 +491,7 @@ storiesOf('Tooltip', module)
 							tooltipRelative
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -503,7 +503,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -515,7 +515,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Heading spacing="large" size="large" showLine />
