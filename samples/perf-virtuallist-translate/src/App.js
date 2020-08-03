@@ -30,13 +30,13 @@ class VirtualListSample extends Component {
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	renderItem = ({index, ...rest}) => (
 		<Item {...rest}>
 			{items[index].title}
 		</Item>
-	)
+	);
 
 	render () {
 		return (

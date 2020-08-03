@@ -15,11 +15,11 @@ class ImageList extends React.Component {
 		minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		spacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-	}
+	};
 
-	calculateOfSize = (size) => ri.scale(parseInt(size) || 0)
+	calculateOfSize = (size) => ri.scale(parseInt(size) || 0);
 
-	renderItem = ({...rest}) => (<ImageItem {...rest} />)
+	renderItem = ({...rest}) => (<ImageItem {...rest} />);
 
 	render = () => {
 		const
@@ -37,7 +37,7 @@ class ImageList extends React.Component {
 				spacing={this.calculateOfSize(spacing)}
 			/>
 		);
-	}
+	};
 }
 
 const mapStateToProps = ({data}) => ({

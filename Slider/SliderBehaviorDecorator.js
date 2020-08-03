@@ -47,7 +47,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {emitSpotlightEvents} = config;
 
 	return class extends React.Component {
-		static displayName = 'SliderBehaviorDecorator'
+		static displayName = 'SliderBehaviorDecorator';
 
 		static propTypes = {
 			activateOnSelect: PropTypes.bool,
@@ -56,13 +56,13 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			min: PropTypes.number,
 			orientation: PropTypes.string,
 			value: PropTypes.number
-		}
+		};
 
 		static defaultProps = {
 			max: 100,
 			min: 0,
 			orientation: 'horizontal'
-		}
+		};
 
 		constructor (props) {
 			super(props);

@@ -17,15 +17,15 @@ class PopupTabLayoutView extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
 
-	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}))
-	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}))
-	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}))
-	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}))
-	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}))
-	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}))
+	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}));
+	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}));
+	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}));
+	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}));
+	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}));
+	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}));
 
 	render () {
 		const {

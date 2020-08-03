@@ -18,7 +18,7 @@ class DayPickerWithItem extends React.Component {
 
 	handleSelect = (ev) => {
 		this.setState({selectedDayString: getSelectedDayString(ev.selected, 'None selected')});
-	}
+	};
 
 	render () {
 		const {selectedDayString} = this.state;

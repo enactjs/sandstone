@@ -7,7 +7,7 @@
     "bootstrap": "enact bootstrap",
     "clean": "enact clean",
     "cleanall": "enact clean --all",
-    "lint": "enact lint --local",
+    "lint": "enact lint  --strict",
     "sampler": "npm run --prefix samples/sampler serve",
     "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
@@ -33,7 +33,7 @@
     "screenTypes": "ThemeDecorator/screenTypes.json"
   },
   "eslintConfig": {
-    "extends": "enact/strict"
+    "extends": "enact-proxy/strict"
   },
   "dependencies": {
     "@enact/core": "^3.4.0",
@@ -55,6 +55,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
     "@enact/ui-test-utils": "^0.4.0",
+    "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
 }

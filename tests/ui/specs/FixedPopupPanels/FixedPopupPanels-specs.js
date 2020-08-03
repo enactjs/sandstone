@@ -1,5 +1,3 @@
-/* global document */
-
 const Page = require('./FixedPopupPanelsPage');
 
 
