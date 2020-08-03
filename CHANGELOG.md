@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Button` background color opacity update for opaque and disabled
+
 ## [1.1.0] - 2020-07-29
 
 ### Added
@@ -14,7 +20,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` background color opacity update for opaque and disabled
 - `sandstone/Checkbox` and `sandstone/Switch` to support `aria-disabled`
 - `sandstone/DayPicker` to not read out current index and total numbers
 - `sandstone/Dropdown` button margin with title
