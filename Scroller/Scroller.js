@@ -49,7 +49,7 @@ let scrollerId = 0;
  * @ui
  * @public
  */
-const ScrollerBase = ({'aria-label': ariaLabel, ...rest}) => {
+let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
 	const id = `scroller_${++scrollerId}_content`;
 
 	// Hooks
@@ -95,9 +95,9 @@ const ScrollerBase = ({'aria-label': ariaLabel, ...rest}) => {
 	);
 };
 
-ScrollerBase.displayName = 'Scroller';
+Scroller.displayName = 'Scroller';
 
-ScrollerBase.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
+Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	/**
 	 * The "aria-label" for the Scroller.
 	 *
@@ -367,7 +367,7 @@ ScrollerBase.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
 	verticalScrollThumbAriaLabel: PropTypes.string
 };
 
-const Scroller = Skinnable(
+Scroller = Skinnable(
 	SpotlightContainerDecorator(
 		{
 			overflow: true,
@@ -376,7 +376,7 @@ const Scroller = Skinnable(
 		},
 		I18nContextDecorator(
 			{rtlProp: 'rtl'},
-			ScrollerBase
+			Scroller
 		)
 	)
 );
@@ -406,6 +406,5 @@ Scroller.defaultProps = {
 
 export default Scroller;
 export {
-	Scroller,
-	ScrollerBase
+	Scroller
 };
