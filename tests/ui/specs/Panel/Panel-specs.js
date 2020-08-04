@@ -90,7 +90,7 @@ describe('Panel', function () {
 		});
 
 		it('should focus the first button when `hideChildren=false` ', () => {
-			Page.open('?defaultIndex=3')
+			Page.open('?defaultIndex=3');
 
 			Page.focus(Page.panel4.nextButton);
 			Page.spotlightSelect();
