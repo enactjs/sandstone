@@ -201,12 +201,14 @@ const VideoBase = class extends React.Component {
 
 		delete rest.setMedia;
 
-		const sourceKey = getKeyFromSource(source);
+		let sourceKey = getKeyFromSource(source);
 		let preloadKey = getKeyFromSource(preloadSource);
 
 		// prevent duplicate components by suppressing preload when sources are the same
 		if (sourceKey === preloadKey) {
 			preloadKey = null;
+		} else if (sourceKey && !preloadKey) {
+			sourceKey = 'single-video';
 		}
 
 		return (
