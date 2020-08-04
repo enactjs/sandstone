@@ -107,7 +107,7 @@ class AppBase extends React.Component {
 	static propTypes = {
 		rtl: PropTypes.bool,
 		updateLocale: PropTypes.func
-	}
+	};
 	constructor () {
 		super();
 		this.state = {
@@ -121,11 +121,11 @@ class AppBase extends React.Component {
 		document.addEventListener('keydown', this.handleKeyDown);
 	}
 
-	cachedKey = -1
+	cachedKey = -1;
 
-	handleChangeView = (selected) => () => this.setState({selected})
+	handleChangeView = (selected) => () => this.setState({selected});
 
-	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
+	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}));
 
 	handleKeyDown = (ev) => {
 		const {keyCode} = ev;
@@ -154,7 +154,7 @@ class AppBase extends React.Component {
 				this.cachedKey = -1;
 			}
 		}
-	}
+	};
 
 	render () {
 		const {className, ...rest} = this.props;

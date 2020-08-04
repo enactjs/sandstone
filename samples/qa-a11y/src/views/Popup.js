@@ -32,9 +32,9 @@ class PopupView extends React.Component {
 		this.handleClose4 = this.handleClose(4);
 	}
 
-	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true})
+	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true});
 
-	handleClose = (expNum) => () => this.setState({['open' + expNum]: false})
+	handleClose = (expNum) => () => this.setState({['open' + expNum]: false});
 
 	render () {
 		const {open0, open1, open2, open3, open4} = this.state;

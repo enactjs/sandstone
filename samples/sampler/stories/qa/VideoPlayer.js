@@ -31,33 +31,33 @@ class VideoSourceSwap extends React.Component {
 			cursor: cursor === this.lastIndex ? 0 : cursor + 1,
 			preloadCursor: preloadCursor === this.lastIndex ? 0 : preloadCursor + 1
 		}));
-	}
+	};
 
 	differentVideo = () => {
 		this.setState(({cursor, playlist, preloadCursor}) => ({
 			cursor: (cursor + 2) % playlist.length,
 			preloadCursor: (preloadCursor + 2) % playlist.length
 		}));
-	}
+	};
 
 	nextVideoKeepPreload = () => {
 		this.setState(({cursor}) => ({
 			cursor: cursor === this.lastIndex ? 0 : cursor + 1
 		}));
-	}
+	};
 
 	nextPreloadVideoKeepVideo = () => {
 		this.setState(({preloadCursor}) => ({
 			preloadCursor: preloadCursor ===  this.lastIndex ? 0 : preloadCursor + 1
 		}));
-	}
+	};
 
 	resetSources = () => {
 		this.setState({
 			cursor: 0,
 			preloadCursor: 1
 		});
-	}
+	};
 
 	render () {
 		return (

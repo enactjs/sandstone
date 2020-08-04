@@ -12,19 +12,37 @@ class PickerInterface {
 		return browser.execute((el) => el.focus(), $(`#${this.id}>div`));
 	}
 
-	get      self () { return element(`#${this.id}`, browser); }
-	get   chevron () { return getText(getIcon(this.self)); }
+	get      self () {
+		return element(`#${this.id}`, browser);
+	}
+	get   chevron () {
+		return getText(getIcon(this.self));
+	}
 
-	get day () { return element('.DatePicker_DatePicker_day', this.self); }
+	get day () {
+		return element('.DatePicker_DatePicker_day', this.self);
+	}
 
-	get month () { return element('.DatePicker_DatePicker_month', this.self); }
+	get month () {
+		return element('.DatePicker_DatePicker_month', this.self);
+	}
 
-	get year () { return element('.DatePicker_DatePicker_year', this.self); }
-	get dateLabel () { return element('.internal_DateTime_DateTime_heading', this.self); }
+	get year () {
+		return element('.DatePicker_DatePicker_year', this.self);
+	}
+	get dateLabel () {
+		return element('.internal_DateTime_DateTime_heading', this.self);
+	}
 
-	decrementer (picker) { return element('.internal_Picker_Picker_decrementer', picker); }
-	incrementer (picker) { return element('.internal_Picker_Picker_incrementer', picker); }
-	item (picker) { return element('.internal_Picker_Picker_item', picker); }
+	decrementer (picker) {
+		return element('.internal_Picker_Picker_decrementer', picker);
+	}
+	incrementer (picker) {
+		return element('.internal_Picker_Picker_incrementer', picker);
+	}
+	item (picker) {
+		return element('.internal_Picker_Picker_item', picker);
+	}
 
 }
 

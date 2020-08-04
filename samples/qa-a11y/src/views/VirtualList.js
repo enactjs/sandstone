@@ -26,7 +26,7 @@ class VirtualListView extends React.Component {
 		};
 	}
 
-	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}))
+	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}));
 
 	render () {
 		const

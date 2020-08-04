@@ -8,7 +8,7 @@ import Section from '../components/Section';
 class CustomSlider extends React.Component {
 	static propTypes = {
 		customText: PropTypes.string
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -17,7 +17,7 @@ class CustomSlider extends React.Component {
 		};
 	}
 
-	handleChange = (ev) => this.setState({value: ev.value})
+	handleChange = (ev) => this.setState({value: ev.value});
 
 	render () {
 		const {customText, ...rest} = this.props;

@@ -22,9 +22,6 @@
     "title": "Perf Scroller Translate",
     "theme": "sandstone"
   },
-  "eslintConfig": {
-    "extends": "enact/strict"
-  },
   "dependencies": {
     "@enact/core": "^3.4.0",
     "@enact/i18n": "^3.4.0",

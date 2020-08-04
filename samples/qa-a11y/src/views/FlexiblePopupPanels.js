@@ -18,11 +18,11 @@ class FlexiblePopupPanelsView extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
 
-	onNextPanel = () => this.setState((state) => ({index: state.index + 1}))
-	onPrevPanel = () => this.setState((state) => ({index: state.index - 1}))
+	onNextPanel = () => this.setState((state) => ({index: state.index + 1}));
+	onPrevPanel = () => this.setState((state) => ({index: state.index - 1}));
 
 	render () {
 		const {index, open} = this.state;

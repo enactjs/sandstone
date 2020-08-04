@@ -89,7 +89,7 @@ const forwardSpotlightEvents = oneOf(
 	[forKey('up'), handle(
 		either(forProp('orientation', 'horizontal'), atMaximum),
 		forwardOnlyType('onSpotlightUp')
-	)],
+	)]
 );
 
 export {

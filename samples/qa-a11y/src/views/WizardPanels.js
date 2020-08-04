@@ -16,7 +16,7 @@ class WizardPanelsView extends React.Component {
 		};
 	}
 
-	onTogglenoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}))
+	onTogglenoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
 
 	render () {
 		const {noAnimation} = this.state;
