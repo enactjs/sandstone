@@ -42,7 +42,7 @@ function useAutoFocus ({autoFocus = 'last-focused', hideChildren}) {
 			// For the purpose of imperatively focusing the Panel contents, we find the target
 			// within the panel using a (currently) private Spotlight API with the enterTo parameter
 			// to influence which configuration is used to find said target.
-			const enterTo = isSelector(autoFocus) ? autoFocus : 'last-focused';
+			const enterTo = isSelector(autoFocus) || autoFocus === 'default-element' ? 'default-element' : 'last-focused';
 			const target = getTargetByContainer(spotlightId, enterTo);
 
 			if (target) {

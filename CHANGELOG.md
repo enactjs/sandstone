@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Button` background color opacity update for opaque and disabled
+- `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
 
 ## [1.1.0] - 2020-07-29
 
