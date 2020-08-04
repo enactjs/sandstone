@@ -4,7 +4,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const GroupView = () => (
 	<>
@@ -21,7 +21,7 @@ const GroupView = () => (
 			</Group>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
+		<Section className={appCss.marginTop} title="Aria-labelled">
 			<Group
 				alt="Selected With aria-labelled Items"
 				childComponent={Button}

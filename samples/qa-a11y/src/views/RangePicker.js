@@ -4,7 +4,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const SpotlightContainerSection = SpotlightContainerDecorator({enterTo: 'default-element', preserveId: true}, Section);
 
@@ -12,7 +12,7 @@ const RangePickerView = () => (
 	<>
 		<h2>Default</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section title="Horizontal">
 			<RangePicker
 				alt="Horizontal"
 				defaultValue={0}
@@ -35,7 +35,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<RangePicker
 				alt="Horizontal and Joined"
 				defaultValue={0}
@@ -59,7 +59,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				defaultValue={0}
@@ -105,9 +105,9 @@ const RangePickerView = () => (
 			/>
 		</SpotlightContainerSection>
 
-		<h2 className={css.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
+		<h2 className={appCss.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section className={appCss.marginTop} title="Horizontal">
 			<RangePicker
 				alt="Horizontal"
 				decrementAriaLabel="This is a Label 1."
@@ -134,7 +134,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<RangePicker
 				alt="Horizontal and Joined"
 				decrementAriaLabel="This is a Label 5."
@@ -162,7 +162,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				decrementAriaLabel="This is a Label 9."
@@ -216,9 +216,9 @@ const RangePickerView = () => (
 			/>
 		</SpotlightContainerSection>
 
-		<h2 className={css.headerMarginTop}>Aria-labelled</h2>
+		<h2 className={appCss.headerMarginTop}>Aria-labelled</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section className={appCss.marginTop} title="Horizontal">
 			<RangePicker
 				alt="Horizontal and Joined"
 				aria-label="This is a Label 17."
@@ -243,7 +243,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<RangePicker
 				alt="Horizontal and Joined"
 				aria-label="This is a Label 19."
@@ -270,7 +270,7 @@ const RangePickerView = () => (
 			/>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<RangePicker
 				alt="Vertical"
 				aria-label="This is a Label 21."

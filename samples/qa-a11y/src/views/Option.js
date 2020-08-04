@@ -5,7 +5,7 @@ import React, {useCallback} from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const Option = (props) => {
 	const {handleDebug, isDebugMode} = props;
@@ -20,7 +20,7 @@ const Option = (props) => {
 				<Checkbox alt="RTL" onClick={handleClick} selected={rtl} />
 			</Section>
 
-			<Section className={css.marginTop} title="Set an aria debug mode">
+			<Section className={appCss.marginTop} title="Set an aria debug mode">
 				<Checkbox alt="Debug aria" onClick={handleDebug} selected={isDebugMode} />
 			</Section>
 		</>

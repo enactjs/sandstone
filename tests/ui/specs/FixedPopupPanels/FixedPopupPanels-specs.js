@@ -14,7 +14,7 @@ describe('FixedPopupPanels', function () {
 				Page.spotlightSelect();
 			});
 
-			expect(Interface.item1.isFocused(), 'focus item1 button').to.be.true();
+			browser.waitUntil(() => Interface.item1.isFocused(), {timeout: 750});
 
 			Interface.waitForEnter(2, () => {
 				Page.spotlightSelect();

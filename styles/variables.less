@@ -180,9 +180,10 @@
 @sand-non-latin-font-family: "Sandstone";
 @sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
 @sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
-@sand-non-latin-font-weight: 400;
+@sand-non-latin-font-weight: normal;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
+@sand-spottable-font-weight: 600;
 
 // Alert
 @sand-alert-font-family: @sand-font-family;
@@ -192,7 +193,7 @@
 // Body
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
-@sand-body-font-weight: 400;
+@sand-body-font-weight: normal;
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
@@ -201,7 +202,7 @@
 // Button
 @sand-button-font-family: @sand-alt-font-family;
 @sand-button-font-style: normal;
-@sand-button-font-weight: 400;
+@sand-button-font-weight: @sand-spottable-font-weight;
 @sand-button-small-font-family: @sand-button-font-family;
 @sand-button-small-font-style: @sand-button-font-style;
 @sand-button-small-font-weight: @sand-button-font-weight;
@@ -225,7 +226,7 @@
 @sand-heading-subtitle-font-weight: normal;
 @sand-heading-subtitle-line-height: 1.4em;
 @sand-heading-large-font-family: @sand-font-family;
-@sand-heading-large-font-weight: 600;
+@sand-heading-large-font-weight: @sand-spottable-font-weight;
 @sand-heading-medium-font-family: @sand-heading-large-font-family;
 @sand-heading-medium-font-weight: @sand-heading-large-font-weight;
 @sand-heading-small-font-family: @sand-heading-large-font-family;
@@ -242,20 +243,27 @@
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-other-font-family: "LG Icons";
 
+// ImageItem
+@sand-imageitem-font-weight: @sand-spottable-font-weight;
+
 // Input
 @sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
 
 // InputField
-@sand-inputfield-font-weight: 600;
+@sand-inputfield-font-weight: @sand-spottable-font-weight;
+@sand-inputfield-placeholder-font-weight: normal;
+@sand-inputfield-placeholder-focus-font-weight: @sand-inputfield-font-weight;
 @sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 
 // InputNumber
 @sand-input-number-font-family: @sand-body-font-family;
 
 // Item
+@sand-item-font-weight: @sand-spottable-font-weight;
 @sand-item-line-height: 1.3em;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
+@sand-item-small-font-weight: @sand-item-font-weight;
 @sand-item-small-line-height: 1.3em;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
@@ -263,6 +271,7 @@
 // Picker
 @sand-picker-line-height: 1.5em;
 @sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
+@sand-picker-joined-font-weight: @sand-spottable-font-weight;
 
 
 // ---------------------------------------
@@ -428,7 +437,6 @@
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
-@sand-formcheckboxitem-focus-font-weight: 400;
 
 // Header
 // ---------------------------------------
@@ -878,7 +886,7 @@
 @sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
 @sand-video-slider-tooltip-margin-bottom:          6px;
 @sand-video-slider-tooltip-font-size:              48px;
-@sand-video-slider-tooltip-font-weight:            400;
+@sand-video-slider-tooltip-font-weight:            normal;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           42px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
@@ -886,7 +894,7 @@
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-font-size:               1.25em;
-@sand-video-feedback-mini-font-weight:             400;
+@sand-video-feedback-mini-font-weight:             normal;
 @sand-video-feedback-mini-font-style:              normal;
 @sand-video-feedback-mini-position-top:            60px;
 @sand-video-feedback-mini-position-left:           60px;
