@@ -408,22 +408,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			}
 		);
 
-		handleMouseOver = this.handle(
-			forward('onMouseOver'),
-			forProp('disabled', true),
-			(ev) => {
-				this.showTooltip(ev.target);
-			}
-		);
-
-		handleMouseOut = this.handle(
-			forward('onMouseOut'),
-			forProp('disabled', true),
-			() => {
-				this.hideTooltip();
-			}
-		);
-
 		handleFocus = this.handle(
 			forward('onFocus'),
 			({target}) => this.showTooltip(target)

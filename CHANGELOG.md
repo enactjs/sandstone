@@ -11,6 +11,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
 - `sanstone/Panels` to prevent key events during view transitions
 
+### Removed
+
+- `sanstone/TooltipDecorator` unnecessary mouse handlers
+
 ## [1.1.0] - 2020-07-29
 
 ### Added
