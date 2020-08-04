@@ -1,5 +1,3 @@
-/* global document */
-
 'use strict';
 const {element, Page} = require('@enact/ui-test-utils/utils');
 
@@ -24,7 +22,9 @@ class DropdownInterface {
 		});
 	}
 
-	get self () { return element(`#${this.id}`, browser); }
+	get self () {
+		return element(`#${this.id}`, browser);
+	}
 
 }
 

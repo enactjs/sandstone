@@ -18,17 +18,39 @@ class ButtonInterface {
 		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
-	get self () { return $(this.selector); }
-	get valueText () { return getText(getMarqueeText(this.self)); }
-	get icon () { return getIcon(this.self);}
-	get iconSymbol () { return getText(this.icon); }
-	get isIconAfter () { return hasClass('iconAfter', this.self);  }
-	get isIconBefore () { return hasClass('iconBefore', this.self); }
-	get isIconButton () { return hasClass('iconOnly', this.self);  }
-	get isLarge () { return hasClass('large', this.self); }
-	get isMinWidth () { return hasClass('minWidth', this.self); }
-	get isOpaque () { return hasClass('opaque', this.self); }
-	get isTransparent () { return hasClass('transparent', this.self); }
+	get self () {
+		return $(this.selector);
+	}
+	get valueText () {
+		return getText(getMarqueeText(this.self));
+	}
+	get icon () {
+		return getIcon(this.self);
+	}
+	get iconSymbol () {
+		return getText(this.icon);
+	}
+	get isIconAfter () {
+		return hasClass('iconAfter', this.self);
+	}
+	get isIconBefore () {
+		return hasClass('iconBefore', this.self);
+	}
+	get isIconButton () {
+		return hasClass('iconOnly', this.self);
+	}
+	get isLarge () {
+		return hasClass('large', this.self);
+	}
+	get isMinWidth () {
+		return hasClass('minWidth', this.self);
+	}
+	get isOpaque () {
+		return hasClass('opaque', this.self);
+	}
+	get isTransparent () {
+		return hasClass('transparent', this.self);
+	}
 }
 
 class ButtonPage extends Page {

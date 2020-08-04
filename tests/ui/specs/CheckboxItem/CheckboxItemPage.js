@@ -12,15 +12,33 @@ class CheckboxItemInterface {
 		return browser.execute((el) => el.focus(), $(`#${this.id}`));
 	}
 
-	get self () { return $(`#${this.id}`); }
-	get value () { return $(this.marqueeTextSelector); }
-	get valueText () { return this.value.getText(); }
-	get icon () { return $(this.iconSelector); }
-	get iconSymbol () { return this.icon.getText(); }
-	get isChecked () { return $(`#${this.id} .Checkbox_Checkbox_selected`).isExisting(); }
-	get isAfter () { return $(`#${this.id} .Item_Item_after`).isExisting(); }
-	get isBefore () { return $(`#${this.id} .Item_Item_before`).isExisting(); }
-	get isInline () { return $(`#${this.id}.Item_Item_inline`).isExisting(); }
+	get self () {
+		return $(`#${this.id}`);
+	}
+	get value () {
+		return $(this.marqueeTextSelector);
+	}
+	get valueText () {
+		return this.value.getText();
+	}
+	get icon () {
+		return $(this.iconSelector);
+	}
+	get iconSymbol () {
+		return this.icon.getText();
+	}
+	get isChecked () {
+		return $(`#${this.id} .Checkbox_Checkbox_selected`).isExisting();
+	}
+	get isAfter () {
+		return $(`#${this.id} .Item_Item_after`).isExisting();
+	}
+	get isBefore () {
+		return $(`#${this.id} .Item_Item_before`).isExisting();
+	}
+	get isInline () {
+		return $(`#${this.id}.Item_Item_inline`).isExisting();
+	}
 }
 
 class CheckboxItemPage extends Page {

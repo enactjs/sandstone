@@ -15,8 +15,12 @@ class ButtonInterface {
 		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
-	get self () { return $(this.selector); }
-	get isButtonExist () { return this.self.isExisting(); }
+	get self () {
+		return $(this.selector);
+	}
+	get isButtonExist () {
+		return this.self.isExisting();
+	}
 }
 
 class MenuInterface {
@@ -25,10 +29,16 @@ class MenuInterface {
 		this.selector = `[data-spotlight-id='${this.id}']`;
 	}
 
-	get self () { return $(this.selector); }
-	get isMenuExist () { return this.self.isExisting(); }
+	get self () {
+		return $(this.selector);
+	}
+	get isMenuExist () {
+		return this.self.isExisting();
+	}
 
-	item (n) { return element(`[data-index="${n}"]`, this.self); }
+	item (n) {
+		return element(`[data-index="${n}"]`, this.self);
+	}
 }
 
 class ContextualMenuDecoratorPage extends Page {

@@ -12,18 +12,36 @@ class PickerInterface {
 		return browser.execute((el) => el.focus(), $(`#${this.id}>div`));
 	}
 
-	get      self () { return element(`#${this.id}`, browser); }
-	get   chevron () { return getText(getIcon(this.self)); }
+	get      self () {
+		return element(`#${this.id}`, browser);
+	}
+	get   chevron () {
+		return getText(getIcon(this.self));
+	}
 
-	get hour () { return element('.TimePicker_TimePicker_hourPicker', this.self); }
-	get meridiem () { return element('.TimePicker_TimePicker_meridiemPicker', this.self); }
-	get minute () { return element('.TimePicker_TimePicker_minutePicker', this.self); }
+	get hour () {
+		return element('.TimePicker_TimePicker_hourPicker', this.self);
+	}
+	get meridiem () {
+		return element('.TimePicker_TimePicker_meridiemPicker', this.self);
+	}
+	get minute () {
+		return element('.TimePicker_TimePicker_minutePicker', this.self);
+	}
 
-	get timeLabel () { return element('.internal_DateTime_DateTime_heading', this.self);}
+	get timeLabel () {
+		return element('.internal_DateTime_DateTime_heading', this.self);
+	}
 
-	decrementer (picker) { return element('.internal_Picker_Picker_decrementer', picker); }
-	incrementer (picker) { return element('.internal_Picker_Picker_incrementer', picker); }
-	item (picker) { return element('.internal_Picker_Picker_item', picker); }
+	decrementer (picker) {
+		return element('.internal_Picker_Picker_decrementer', picker);
+	}
+	incrementer (picker) {
+		return element('.internal_Picker_Picker_incrementer', picker);
+	}
+	item (picker) {
+		return element('.internal_Picker_Picker_item', picker);
+	}
 }
 
 class TimePickerPage extends Page {
