@@ -111,11 +111,11 @@ class MarqueeWithShortContent extends React.Component {
 				width: this.node.getBoundingClientRect().width
 			});
 		}
-	}
+	};
 
 	handleClick = () => {
 		this.setState(prevState => ({long: !prevState.long}));
-	}
+	};
 
 	render () {
 		return (
@@ -137,7 +137,7 @@ class MarqueeWithContentChanged extends React.Component {
 
 	handleClick = () => {
 		this.setState(({count}) => ({count: ++count % 3}));
-	}
+	};
 
 	render () {
 		return (

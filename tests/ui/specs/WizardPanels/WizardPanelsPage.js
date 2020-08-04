@@ -28,15 +28,29 @@ class WizardPanelsInterface {
 		return browser.execute((el) => el.focus(), this.prevButton);
 	}
 
-	get self () { return $(this.selector); }
+	get self () {
+		return $(this.selector);
+	}
 
-	get nextButton () { return getNextButton(this.self); }
-	get prevButton () { return getPrevButton(this.self); }
+	get nextButton () {
+		return getNextButton(this.self);
+	}
+	get prevButton () {
+		return getPrevButton(this.self);
+	}
 
-	get view1 () { return this.self.$(viewSelector(1)); }
-	get view2 () { return this.self.$(viewSelector(2)); }
-	get view3 () { return this.self.$(viewSelector(3)); }
-	get view4 () { return this.self.$(viewSelector(4)); }
+	get view1 () {
+		return this.self.$(viewSelector(1));
+	}
+	get view2 () {
+		return this.self.$(viewSelector(2));
+	}
+	get view3 () {
+		return this.self.$(viewSelector(3));
+	}
+	get view4 () {
+		return this.self.$(viewSelector(4));
+	}
 }
 
 class WizardPanelsPage extends Page {

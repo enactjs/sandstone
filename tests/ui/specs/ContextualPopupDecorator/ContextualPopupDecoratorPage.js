@@ -15,8 +15,12 @@ class ButtonInterface {
 		return $(this.selector).moveTo({xOffset: 0, yOffset: 0});
 	}
 
-	get self () { return $(this.selector); }
-	get isButtonExist () { return this.self.isExisting(); }
+	get self () {
+		return $(this.selector);
+	}
+	get isButtonExist () {
+		return this.self.isExisting();
+	}
 }
 
 class ContextualPopupDecoratorPage extends Page {

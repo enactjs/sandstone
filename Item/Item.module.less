@@ -13,6 +13,7 @@
 	.sand-text-base(@sand-item-font-size);
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
+	font-weight: @sand-item-font-weight;
 	line-height: @sand-item-line-height;
 	height: @sand-item-height;
 	display: flex;
@@ -92,6 +93,8 @@
 	// Text
 	.label {
 		.sand-text-base(@sand-item-label-font-size);
+
+		font-weight: inherit;
 		line-height: @sand-item-label-line-height;
 	}
 
@@ -117,6 +120,7 @@
 	&.small {
 		.sand-text-base(@sand-item-small-font-size);
 
+		font-weight: @sand-item-small-font-weight;
 		line-height: @sand-item-small-line-height;
 		height: @sand-item-small-height;
 
@@ -126,6 +130,8 @@
 
 		.label {
 			.sand-text-base(@sand-item-small-label-font-size);
+
+			font-weight: inherit;
 			line-height: @sand-item-small-label-line-height;
 		}
 
@@ -157,12 +163,6 @@
 
 			.bg {
 				.sand-spotlight-focus-bg-colors();
-			}
-
-			.text,
-			.label {
-				color: inherit;
-				font-weight: inherit;
 			}
 		});
 

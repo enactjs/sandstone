@@ -72,13 +72,13 @@ const handleKeyUp = handle(
  */
 const MediaSliderDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	return class extends React.Component {
-		static displayName = 'MediaSliderDecorator'
+		static displayName = 'MediaSliderDecorator';
 
 		static propTypes = {
 			backgroundProgress: PropTypes.number,
 			selection: PropTypes.arrayOf(PropTypes.number),
 			value: PropTypes.number
-		}
+		};
 
 		constructor (props) {
 			super(props);
