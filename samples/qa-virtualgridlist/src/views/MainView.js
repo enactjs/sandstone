@@ -19,15 +19,15 @@ class MainView extends React.Component {
 
 	onChangeDirection = () => {
 		this.setState((state) => ({horizontal: !state.horizontal}));
-	}
+	};
 
 	onChangeScrollMode = ({selected: nativeScroll}) => {
 		this.setState({nativeScroll});
-	}
+	};
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	render = () => {
 		const {horizontal, nativeScroll} = this.state;
@@ -49,7 +49,7 @@ class MainView extends React.Component {
 				/>
 			</Panel>
 		);
-	}
+	};
 }
 
 export default MainView;

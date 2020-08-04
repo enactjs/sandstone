@@ -26,7 +26,7 @@ class VirtualListView extends React.Component {
 		};
 	}
 
-	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}))
+	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}));
 
 	render () {
 		const
@@ -45,8 +45,6 @@ class VirtualListView extends React.Component {
 				</Cell>
 				<VirtualList
 					dataSize={items.length}
-					direction="vertical"
-					focusableScrollbar
 					itemRenderer={renderItem}
 					itemSize={ri.scale(156)}
 					scrollMode={scrollMode}

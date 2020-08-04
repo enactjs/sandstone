@@ -46,9 +46,9 @@ class VirtualGridListView extends React.Component {
 		};
 	}
 
-	onToggleOrientation = () => this.setState((state) => ({isHorizontalList: !state.isHorizontalList}))
+	onToggleOrientation = () => this.setState((state) => ({isHorizontalList: !state.isHorizontalList}));
 
-	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}))
+	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}));
 
 	render () {
 		const

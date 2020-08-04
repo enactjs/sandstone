@@ -6,6 +6,8 @@ import Scroller from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
 
+import Section from '../components/Section';
+
 class PopupTabLayoutView extends React.Component {
 	constructor (props) {
 		super(props);
@@ -17,15 +19,15 @@ class PopupTabLayoutView extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
 
-	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}))
-	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}))
-	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}))
-	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}))
-	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}))
-	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}))
+	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}));
+	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}));
+	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}));
+	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}));
+	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}));
+	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}));
 
 	render () {
 		const {
@@ -36,8 +38,8 @@ class PopupTabLayoutView extends React.Component {
 		} = this.state;
 
 		return (
-			<>
-				<Button onClick={this.handleOpen}>Open</Button>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpen}>Open 0</Button>
 
 				<PopupTabLayout
 					onClose={this.handleClose}
@@ -109,7 +111,7 @@ class PopupTabLayoutView extends React.Component {
 						</TabPanels>
 					</Tab>
 				</PopupTabLayout>
-			</>
+			</Section>
 		);
 	}
 }

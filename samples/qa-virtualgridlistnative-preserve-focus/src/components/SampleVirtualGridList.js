@@ -10,7 +10,7 @@ class SampleVirtualGridList extends Component {
 	static propTypes = {
 		index: PropTypes.number,
 		onClick: PropTypes.func
-	}
+	};
 
 	renderItem = ({index, ...rest}) => {
 		const
@@ -24,7 +24,7 @@ class SampleVirtualGridList extends Component {
 		return (
 			<ImageItem {...rest} onClick={this.props.onClick} src={source} />
 		);
-	}
+	};
 
 	render () {
 		const {index, ...rest} = this.props;

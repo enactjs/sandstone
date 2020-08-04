@@ -36,7 +36,7 @@ class AddingTabSample extends React.Component {
 		clearInterval(this.id);
 	}
 
-	handleSelect = ({index}) => this.setState({index})
+	handleSelect = ({index}) => this.setState({index});
 
 	render () {
 		return (
