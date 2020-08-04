@@ -15,7 +15,7 @@ import React from 'react';
  */
 const TransitionDecorator = hoc((config, Wrapped) => {
 	return class extends React.Component {
-		static displayName = 'TransitionDecorator'
+		static displayName = 'TransitionDecorator';
 
 		static propTypes = /** @lends sandstone/Panels.TransitionDecorator.prototype */ {
 			/**
@@ -41,16 +41,13 @@ const TransitionDecorator = hoc((config, Wrapped) => {
 			 * @public
 			 */
 			onWillTransition: PropTypes.func
-		}
-
-		constructor () {
-			super();
-			this.paused = new Pause('TransitionDecorator');
-		}
+		};
 
 		componentWillUnmount () {
 			this.resume();
 		}
+
+		paused = new Pause('TransitionDecorator');
 
 		pause = () => this.paused.pause();
 

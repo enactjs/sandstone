@@ -9,11 +9,19 @@ class FixedPopupPanelsInterface {
 		this.selector = `#${this.id}`;
 	}
 
-	get self () { return browser.$(this.selector); }
+	get self () {
+		return browser.$(this.selector);
+	}
 
-	get openButton () { return browser.$('#openButton'); }
-	get item1 () { return this.self.$('#item1'); }
-	get panel1 () { return this.self.$(panelSelector(1)); }
+	get openButton () {
+		return browser.$('#openButton');
+	}
+	get item1 () {
+		return this.self.$('#item1');
+	}
+	get panel1 () {
+		return this.self.$(panelSelector(1));
+	}
 }
 
 class FixedPopupPanelsPage extends Page {
