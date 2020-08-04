@@ -334,7 +334,7 @@ const Decorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		generateId = () => {
 			return Math.random().toString(36).substr(2, 8);
-		}
+		};
 
 		getContainerNodeWidth () {
 			return this.containerNode && this.containerNode.getBoundingClientRect().width || 0;
