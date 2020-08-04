@@ -4,7 +4,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class AlertView extends React.Component {
 	constructor (props) {
@@ -57,7 +57,7 @@ class AlertView extends React.Component {
 					<Button alt="Without Content" onClick={this.handleOpen4}>Text 4</Button>
 				</Section>
 
-				<Section className={css.marginTop} size="50%" title="Alert Overlay which has No title">
+				<Section className={appCss.marginTop} size="50%" title="Alert Overlay which has No title">
 					<Button alt="Normal" onClick={this.handleOpen5}>Text 0</Button>
 					<Button alt="With 3(max) Buttons" onClick={this.handleOpen6}>Text 1</Button>
 					<Button alt="With Thumbnail" onClick={this.handleOpen7}>Text 2</Button>

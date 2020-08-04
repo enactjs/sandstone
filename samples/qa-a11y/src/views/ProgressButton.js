@@ -4,7 +4,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class ProgressButtonView extends React.Component {
 	constructor () {
@@ -30,7 +30,7 @@ class ProgressButtonView extends React.Component {
 		return (
 			<Section title="Default">
 				<div>
-					<div className={css.controls}>
+					<div className={appCss.controls}>
 						<Button aria-label="This is Decrease." icon="minus" onClick={this.handleDecreaseButtonValue} />
 						<Button aria-label="This is Increase." icon="plus" onClick={this.handleIncreaseButtonValue} />
 					</div>

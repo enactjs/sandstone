@@ -3,7 +3,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const SelectableImageItem = (props) => {
 	const [checked, setChecked] = React.useState(false);
@@ -38,7 +38,7 @@ const ImageItemView = () => (
 			</SelectableImageItem>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
+		<Section className={appCss.marginTop} title="Aria-labelled">
 			<ImageItem
 				{...labelAndSrc}
 				alt="Aria-labelled with with Children and Label"

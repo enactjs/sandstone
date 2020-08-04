@@ -3,7 +3,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const list = [
 	{children: 'Option0', key: 'item0', 'aria-label': 'This is an Option 0.'},
@@ -88,7 +88,7 @@ const DropdownView = () => (
 			</Dropdown>
 		</Section>
 
-		<Section className={css.marginTop} title="Object array as the children prop">
+		<Section className={appCss.marginTop} title="Object array as the children prop">
 			<Dropdown
 				alt="With Placeholder and Title"
 				placeholder="Placeholder"
@@ -106,7 +106,7 @@ const DropdownView = () => (
 			</Dropdown>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
+		<Section className={appCss.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
 			<A11yDropdown
 				aria-label="This is a Label."
 				placeholder="Placeholder"

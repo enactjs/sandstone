@@ -3,7 +3,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const InputFieldView = () => (
 	<>
@@ -15,19 +15,19 @@ const InputFieldView = () => (
 			<InputField alt="Disabled with Placeholder" disabled placeholder="Placeholder" />
 		</Section>
 
-		<Section className={css.marginTop} title="With type">
+		<Section className={appCss.marginTop} title="With type">
 			<InputField alt="Number type with Placeholder" placeholder="Placeholder" type="number" />
 			<InputField alt="Disabled Number type with Placeholder" disabled placeholder="Placeholder" type="number" />
 			<InputField alt="Password type with Placeholder" placeholder="Placeholder" type="password" />
 			<InputField alt="Disabled Password type with Placeholder" disabled placeholder="Placeholder" type="password" />
 		</Section>
 
-		<Section className={css.marginTop} title="With iconBefore">
+		<Section className={appCss.marginTop} title="With iconBefore">
 			<InputField alt="With iconBefore" iconBefore="search" />
 			<InputField alt="Disabled With iconBefore" disabled iconBefore="search" />
 		</Section>
 
-		<Section className={css.marginTop} title="With dismissOnEnter">
+		<Section className={appCss.marginTop} title="With dismissOnEnter">
 			<InputField alt="With Placeholder and dismissOnEnter" dismissOnEnter placeholder="Dismiss on Enter" />
 			<InputField alt="Disabled With Placeholder and dismissOnEnter" dismissOnEnter disabled placeholder="Dismiss on Enter" />
 		</Section>

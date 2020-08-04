@@ -5,7 +5,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class DatePickerItem extends React.Component {
 	constructor (props) {
@@ -51,7 +51,7 @@ const DatePickerView = () => (
 			<DatePickerItem alt="Disabled" disabled title="Date" />
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
+		<Section className={appCss.marginTop} title="Aria-labelled">
 			<DatePickerItem
 				alt="Aria-labelled"
 				dayAriaLabel="Day picker"

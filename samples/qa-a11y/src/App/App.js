@@ -52,7 +52,7 @@ import VirtualGridList from '../views/VirtualGridList';
 import VirtualList from '../views/VirtualList';
 import WizardPanels from '../views/WizardPanels';
 
-import css from './App.module.less';
+import appCss from './App.module.less';
 import Home from './Home';
 import View from './View';
 
@@ -166,13 +166,13 @@ class AppBase extends React.Component {
 
 		return (
 			<div className={classnames(className, debugAriaClass)}>
-				<Layout {...rest} className={css.layout}>
+				<Layout {...rest} className={appCss.layout}>
 					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
-						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
+						<div className={appCss.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
 							<Item
 								aria-label={view.title}
-								className={css.navItem}
+								className={appCss.navItem}
 								data-menu={i}
 								key={i}
 								onClick={this.handleChangeView(i)}
