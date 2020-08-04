@@ -224,12 +224,12 @@ const ViewportBase = class extends React.Component {
 	pause = () => {
 		startCapture();
 		this.paused.pause();
-	}
+	};
 
 	resume = () => {
 		stopCapture();
 		this.paused.resume();
-	}
+	};
 
 	handle = handle.bind(this);
 
