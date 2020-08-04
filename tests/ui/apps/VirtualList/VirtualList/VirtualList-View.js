@@ -49,7 +49,7 @@ class StatefulSwitchItem extends React.Component {
 	static displayName = 'StatefulSwitchItem';
 	static propTypes = {
 		index: PropTypes.number
-	}
+	};
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -74,7 +74,7 @@ class StatefulSwitchItem extends React.Component {
 		this.setState(({selected}) => ({
 			selected: !selected
 		}));
-	}
+	};
 
 	render () {
 		const props = Object.assign({}, this.props);
@@ -112,42 +112,42 @@ class app extends React.Component {
 		} else {
 			this.rootRef.current.dataset.keydownEvents = 1;
 		}
-	}
+	};
 
 	onScrollStart = () => {
 		this.scrollingRef.current.innerHTML = 'Scrolling';
-	}
+	};
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
 		this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
-	}
+	};
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	jumpTo = (focus) => () => {
 		this.scrollTo({animate: false, focus, index: 10});
-	}
+	};
 
 	onToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
-	}
+	};
 
 	onChangeNumItems = ({value}) => {
 		this.setState({numItems: value});
 		updateDataSize(value);
-	}
+	};
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
-	}
+	};
 
 	onChangeitemSize = ({value}) => {
 		this.setState({itemSize: value});
-	}
+	};
 
 	render () {
 		const

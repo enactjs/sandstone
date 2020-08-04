@@ -16,7 +16,7 @@ class Controls extends React.Component {
 		height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 		nativeScroll: PropTypes.bool,
 		width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-	}
+	};
 
 	render () {
 		const

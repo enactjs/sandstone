@@ -27,12 +27,12 @@ class DifferenctHeightItem extends Component {
 	static propTypes = {
 		index: PropTypes.number,
 		items: PropTypes.array
-	}
+	};
 
 	itemStyleDefault = {
 		fontSize,
 		lineHeight
-	}
+	};
 
 	render () {
 		const
@@ -78,7 +78,7 @@ class VerticalDifferentHeightItemList extends Component {
 
 	renderItem = (props) => {
 		return <DifferenctHeightItem {...props} />;
-	}
+	};
 
 	render () {
 		return (

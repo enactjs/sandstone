@@ -61,7 +61,7 @@ class TooltipTest extends React.Component {
 
 	handleClick = () => {
 		this.setState({showButton: false});
-	}
+	};
 
 	render () {
 		return (
@@ -105,7 +105,7 @@ class ChangeableTooltip extends React.Component {
 		} else {
 			this.setState({text: 'short'});
 		}
-	}
+	};
 
 	handleChangeLeft = ({value}) => {
 		this.setState(prevState => ({
@@ -114,7 +114,7 @@ class ChangeableTooltip extends React.Component {
 				left: value
 			}
 		}));
-	}
+	};
 
 	handleChangeTop = ({value}) => {
 		this.setState(prevState => ({
@@ -123,7 +123,7 @@ class ChangeableTooltip extends React.Component {
 				top: value
 			}
 		}));
-	}
+	};
 
 	render () {
 		const {left, top} = this.state.position;
@@ -196,19 +196,19 @@ class TooltipFollow extends React.Component {
 		this.setState((prevState) => {
 			return {widthMinus: prevState.widthMinus - 60};
 		});
-	}
+	};
 
 	handleWidthPlusClick = () => {
 		this.setState((prevState) => {
 			return {widthPlus: prevState.widthPlus + 60};
 		});
-	}
+	};
 
 	handlePositionClick = () => {
 		this.setState((prevState) => {
 			return {left: prevState.left + 60};
 		});
-	}
+	};
 
 	render = () => {
 		return (
@@ -259,7 +259,7 @@ class TooltipFollow extends React.Component {
 				</Cell>
 			</Layout>
 		);
-	}
+	};
 }
 
 
@@ -425,7 +425,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -437,7 +437,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -448,7 +448,7 @@ storiesOf('Tooltip', module)
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -459,7 +459,7 @@ storiesOf('Tooltip', module)
 							tooltipText={text('', TooltipButton, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 				</Row>
@@ -478,7 +478,7 @@ storiesOf('Tooltip', module)
 							tooltipRelative
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -491,7 +491,7 @@ storiesOf('Tooltip', module)
 							tooltipRelative
 							tooltipMarquee
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -503,7 +503,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -515,7 +515,7 @@ storiesOf('Tooltip', module)
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-						Hover
+							Hover
 						</TooltipButton>
 					</Section>
 					<Heading spacing="large" size="large" showLine />

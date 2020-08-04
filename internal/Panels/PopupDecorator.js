@@ -9,6 +9,7 @@ import Skinnable from '../../Skinnable';
 import Popup from '../../Popup';
 
 import CancelDecorator from './CancelDecorator';
+import TransitionDecorator from './TransitionDecorator';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
@@ -256,9 +257,11 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 	});
 
-	return IdProvider(
-		Skinnable(
-			Decorator
+	return TransitionDecorator(
+		IdProvider(
+			Skinnable(
+				Decorator
+			)
 		)
 	);
 });

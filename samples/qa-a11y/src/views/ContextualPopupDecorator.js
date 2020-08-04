@@ -26,7 +26,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<span disabled>Item 3</span>
 			<br />
 		</div>
-	)
+	);
 
 	renderPopup2 = () => (
 		<div>
@@ -35,7 +35,7 @@ class ContextualPopupDecoratorView extends React.Component {
 			<Button>Text 2</Button>
 			<Button disabled>Text 3</Button>
 		</div>
-	)
+	);
 
 	renderPopup3 = () => (
 		<Group
@@ -47,7 +47,7 @@ class ContextualPopupDecoratorView extends React.Component {
 		>
 			{['Item 0', 'Item 1', 'Item 2']}
 		</Group>
-	)
+	);
 
 	renderPopup4 = () => (
 		<Group
@@ -63,7 +63,7 @@ class ContextualPopupDecoratorView extends React.Component {
 				{children: 'Item 2', disabled: true, key: 2}
 			]}
 		</Group>
-	)
+	);
 
 	render () {
 		return (
