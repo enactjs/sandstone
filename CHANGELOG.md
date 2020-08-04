@@ -6,10 +6,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Slider` to readout `value` with the hint string only once when focused
 - `sandstone/Button`, `sandstone/InputField`, `sandstone/Item`  and `sandstone/Picker` `font-weight`
 - `sandstone/Button` background color opacity update for opaque and disabled
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
+- `sandstone/Slider` to readout `value` with the hint string only once when focused
 
 ## [1.1.0] - 2020-07-29
 
