@@ -180,7 +180,7 @@
 @sand-non-latin-font-family: "Sandstone";
 @sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
 @sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
-@sand-non-latin-font-weight: 400;
+@sand-non-latin-font-weight: normal;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
 @sand-spottable-font-weight: 600;
@@ -193,7 +193,7 @@
 // Body
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
-@sand-body-font-weight: 400;
+@sand-body-font-weight: normal;
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
@@ -215,9 +215,6 @@
 // Date and Time Picker
 @sand-datecomponentpicker-margin: 24px;
 @sand-timepicker-colon-margin: 0 6px;
-
-// FormCheckboxItem
-@sand-formcheckboxitem-font-weight: @sand-spottable-font-weight;
 
 // Heading
 @sand-heading-line-height: 1.3em;
@@ -254,7 +251,7 @@
 
 // InputField
 @sand-inputfield-font-weight: @sand-spottable-font-weight;
-@sand-inputfield-placeholder-font-weight: 400;
+@sand-inputfield-placeholder-font-weight: normal;
 @sand-inputfield-placeholder-focus-font-weight: @sand-inputfield-font-weight;
 @sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 
@@ -262,13 +259,14 @@
 @sand-input-number-font-family: @sand-body-font-family;
 
 // Item
+@sand-item-font-weight: @sand-spottable-font-weight;
 @sand-item-line-height: 1.3em;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
+@sand-item-small-font-weight: @sand-item-font-weight;
 @sand-item-small-line-height: 1.3em;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
-@sand-item-font-weight: @sand-spottable-font-weight;
 
 // Picker
 @sand-picker-line-height: 1.5em;
@@ -888,7 +886,7 @@
 @sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
 @sand-video-slider-tooltip-margin-bottom:          6px;
 @sand-video-slider-tooltip-font-size:              48px;
-@sand-video-slider-tooltip-font-weight:            400;
+@sand-video-slider-tooltip-font-weight:            normal;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           42px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
@@ -896,7 +894,7 @@
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-font-size:               1.25em;
-@sand-video-feedback-mini-font-weight:             400;
+@sand-video-feedback-mini-font-weight:             normal;
 @sand-video-feedback-mini-font-style:              normal;
 @sand-video-feedback-mini-position-top:            60px;
 @sand-video-feedback-mini-position-left:           60px;
