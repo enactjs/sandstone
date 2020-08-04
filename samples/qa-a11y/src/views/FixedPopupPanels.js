@@ -43,9 +43,9 @@ class FixedPopupPanelsView extends React.Component {
 
 	handleClose = (expNum) => () => this.setState({['open' + expNum]: false});
 
-	nextPanel = (expNum) => () => this.setState({['index' + expNum]: 1})
+	nextPanel = (expNum) => () => this.setState({['index' + expNum]: 1});
 
-	prevPanel = (expNum) => () => this.setState({['index' + expNum]: 0})
+	prevPanel = (expNum) => () => this.setState({['index' + expNum]: 0});
 
 	render () {
 		return (<>
