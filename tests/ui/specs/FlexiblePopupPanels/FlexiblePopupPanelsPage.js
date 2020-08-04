@@ -68,6 +68,10 @@ class FlexiblePopupPanelsInterface {
 		return this.self.$('#prevButton');
 	}
 
+	get singleItem () {
+		return this.self.$('#singleItem');
+	}
+
 	get panel1 () {
 		return this.self.$(panelSelector(1));
 	}

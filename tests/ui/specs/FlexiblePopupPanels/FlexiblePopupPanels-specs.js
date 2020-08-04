@@ -21,6 +21,8 @@ describe('FlexiblePopupPanels', function () {
 				Page.spotlightSelect();
 			});
 
+			browser.waitUntil(() => Interface.singleItem.isFocused(), {timeout: 750, timeoutMsg: 'item focused'});
+
 			// verifies that focus enters the panel body by default
 			expect(getFocusedText()).to.equal('Single Item');
 			Page.spotlightRight();
