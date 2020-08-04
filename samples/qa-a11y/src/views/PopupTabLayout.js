@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
@@ -25,7 +26,7 @@ const ContextualPopupButton = Toggleable(
 );
 const keyGuideItems = [
 	{icon: 'plus', children: 'Item 0', key: 0},
-	{icon: 'minus', children: 'Item 1', key: 1},
+	{icon: 'minus', children: 'Item 1', key: 1}
 ];
 const TooltipButton = TooltipDecorator(Button);
 
