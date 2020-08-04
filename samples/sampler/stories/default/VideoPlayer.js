@@ -156,7 +156,7 @@ storiesOf('Sandstone', module)
 						jumpDelay={number('jumpDelay', Config, 200)}
 						loop={boolean('loop', Config, true)}
 						miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
-						muted={boolean('muted', Config, true)}
+						muted={boolean('muted', Config)}
 						no5WayJump={boolean('no5WayJump', Config)}
 						noAutoPlay={boolean('noAutoPlay', Config)}
 						noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
