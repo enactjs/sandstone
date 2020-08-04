@@ -31,7 +31,7 @@ class FlexiblePopupPanelsView extends React.Component {
 
 		return (
 			<Section title="Default">
-				<Button alt="Normal" onClick={this.handleOpen}>Open</Button>
+				<Button alt="Normal" onClick={this.handleOpen}>Open 0</Button>
 
 				<FlexiblePopupPanels
 					index={index}
@@ -57,7 +57,7 @@ class FlexiblePopupPanelsView extends React.Component {
 					<Panel nextButton={nextButton}>
 						<Header title="Third panel" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item>Item 1</Item>
+							<Item>Item 0</Item>
 						</Scroller>
 					</Panel>
 				</FlexiblePopupPanels>

@@ -16,6 +16,8 @@ import Group from '@enact/ui/Group';
 import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
 
+import Section from '../components/Section';
+
 const contextaulMenuItems = ['Item 0', 'Item 1'];
 const ContextualMenuButton = ContextualMenuDecorator(Button);
 const ContextualPopupButton = Toggleable(
@@ -74,8 +76,8 @@ class PopupTabLayoutView extends React.Component {
 		} = this.state;
 
 		return (
-			<>
-				<Button onClick={this.handleOpenPopupTabLayout}>Open</Button>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpenPopupTabLayout}>Open 0</Button>
 
 				<PopupTabLayout
 					onClose={this.handleClose}
@@ -192,7 +194,7 @@ class PopupTabLayoutView extends React.Component {
 						</TabPanels>
 					</Tab>
 				</PopupTabLayout>
-			</>
+			</Section>
 		);
 	}
 }
