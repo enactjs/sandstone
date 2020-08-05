@@ -9,7 +9,7 @@ import {components, testMetadata} from './SandstoneComponents';
 import imports from './importer';
 import {LoremString} from './components/utils';
 
-import css from './Sandstone-View.less';
+import css from './Sandstone-View.module.less';
 
 const url = new URL(window.location.href);
 
