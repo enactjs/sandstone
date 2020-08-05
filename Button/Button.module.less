@@ -36,11 +36,13 @@
 	.bg {
 		border-width: @sand-button-border-width;
 		border-radius: @sand-button-border-radius;
+		pointer-events: none;
 	}
 
 	.client {
 		padding: @sand-button-border-width 0;	// We account for the button border-width here, since that is applied to .bg, not .client. Having these match means the text doesn't overlap the border
 		border-radius: inherit;
+		pointer-events: none;
 	}
 
 	.icon {

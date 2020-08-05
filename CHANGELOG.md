@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
 - `sandstone/Panels` to prevent key events during view transitions
 - `sandstone/Slider` to readout `value` with the hint string only once when focused
+- `sandstone/Button` disabled focus tooltip
 
 ## [1.1.0] - 2020-07-29
 
