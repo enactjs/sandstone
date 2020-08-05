@@ -102,6 +102,9 @@ const VideoBase = class extends React.Component {
 		mediaComponent: 'video'
 	};
 
+	prevSourceKey = null;
+	prevPreloadKey = null;
+
 	componentDidUpdate (prevProps) {
 		const {source, preloadSource} = this.props;
 		const {source: prevSource, preloadSource: prevPreloadSource} = prevProps;
@@ -191,6 +194,33 @@ const VideoBase = class extends React.Component {
 		this.preloadVideo = node;
 	};
 
+	getKeys () {
+		const {source, preloadSource} = this.props;
+
+		let first = 'media-1';
+		let second = 'media-2';
+
+		const sourceKey = source && getKeyFromSource(source);
+		const preloadKey = preloadSource && getKeyFromSource(preloadSource);
+
+		// if either the source or preload existed previously in the other "slot", swap the keys so
+		// the preload video becomes the active video and vice versa
+		if (sourceKey === this.prevPreloadKey || preloadKey === this.prevSourceKey) {
+			[first, second] = [second, first];
+		}
+
+		// if preload is unset, clear the key so we don't render that media node at all
+		if (!preloadKey) {
+			second = null;
+		}
+
+		// cache the previous keys so we know if the sources change the next time
+		this.prevSourceKey = sourceKey;
+		this.prevPreloadKey = preloadKey;
+
+		return [first, second];
+	}
+
 	render () {
 		const {
 			preloadSource,
@@ -201,15 +231,7 @@ const VideoBase = class extends React.Component {
 
 		delete rest.setMedia;
 
-		let sourceKey = getKeyFromSource(source);
-		let preloadKey = getKeyFromSource(preloadSource);
-
-		// prevent duplicate components by suppressing preload when sources are the same
-		if (sourceKey === preloadKey) {
-			preloadKey = null;
-		} else if (sourceKey && !preloadKey) {
-			sourceKey = 'single-video';
-		}
+		const [sourceKey, preloadKey] = this.getKeys();
 
 		return (
 			<React.Fragment>
