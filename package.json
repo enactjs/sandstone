@@ -36,10 +36,10 @@
     "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.4.0",
-    "@enact/i18n": "^3.4.0",
-    "@enact/spotlight": "^3.4.0",
-    "@enact/ui": "^3.4.0",
+    "@enact/core": "^3.4.1",
+    "@enact/i18n": "^3.4.1",
+    "@enact/spotlight": "^3.4.1",
+    "@enact/ui": "^3.4.1",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
