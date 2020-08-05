@@ -102,6 +102,8 @@ const VideoBase = class extends React.Component {
 		mediaComponent: 'video'
 	};
 
+	firstKey = 'media-1';
+	secondKey = 'media-2';
 	prevSourceKey = null;
 	prevPreloadKey = null;
 
@@ -197,28 +199,25 @@ const VideoBase = class extends React.Component {
 	getKeys () {
 		const {source, preloadSource} = this.props;
 
-		let first = 'media-1';
-		let second = 'media-2';
-
 		const sourceKey = source && getKeyFromSource(source);
 		const preloadKey = preloadSource && getKeyFromSource(preloadSource);
 
 		// if either the source or preload existed previously in the other "slot", swap the keys so
 		// the preload video becomes the active video and vice versa
 		if (sourceKey === this.prevPreloadKey || preloadKey === this.prevSourceKey) {
-			[first, second] = [second, first];
+			[this.firstKey, this.secondKey] = [this.secondKey, this.firstKey];
 		}
 
 		// if preload is unset, clear the key so we don't render that media node at all
 		if (!preloadKey) {
-			second = null;
+			this.secondKey = null;
 		}
 
 		// cache the previous keys so we know if the sources change the next time
 		this.prevSourceKey = sourceKey;
 		this.prevPreloadKey = preloadKey;
 
-		return [first, second];
+		return [this.firstKey, this.secondKey];
 	}
 
 	render () {

@@ -92,6 +92,26 @@ describe('VideoPlayer.Video', () => {
 			expect(getPreloadNode(subject)).toBe(source);
 		});
 
+
+		test('should not swap nodes on re-render after swapping `source` and `preloadSource`', () => {
+			const subject = mount(
+				<Video source="abc.mp4" preloadSource="def.mp4" />
+			);
+
+			const source = getSourceNode(subject);
+			const preload = getPreloadNode(subject);
+
+			subject.setProps({
+				source: 'def.mp4',
+				preloadSource: 'abc.mp4'
+			});
+
+			subject.setProps({});
+
+			expect(getSourceNode(subject)).toBe(preload);
+			expect(getPreloadNode(subject)).toBe(source);
+		});
+
 		test('should reuse preload node when moving `preloadSource` to `source`', () => {
 			const subject = mount(
 				<Video source="abc.mp4" preloadSource="def.mp4" />
