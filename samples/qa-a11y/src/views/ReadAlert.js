@@ -6,7 +6,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class ReadAlertView extends React.Component {
 	constructor () {
@@ -37,7 +37,7 @@ class ReadAlertView extends React.Component {
 		this.onClick2 = this.onClick(false);
 	}
 
-	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear)
+	onClick = (clear) => () => readAlert('Enact is a framework designed to be performant, customizable and well structured.', clear);
 
 	onToggle = ({selected: audioGuidance}) => {
 		if (window.PalmServiceBridge) {
@@ -57,7 +57,7 @@ class ReadAlertView extends React.Component {
 				}
 			);
 		}
-	}
+	};
 
 	render = () => {
 		return (
@@ -73,13 +73,13 @@ class ReadAlertView extends React.Component {
 					</CheckboxItem>
 				</Section>
 
-				<Section className={css.marginTop} title="readAlert">
+				<Section className={appCss.marginTop} title="readAlert">
 					<Button alt="Clear of true" onClick={this.onClick1}>readAlert test(clear true)</Button>
 					<Button alt="Clear of false" onClick={this.onClick2}>readAlert test(clear false)</Button>
 				</Section>
 			</>
 		);
-	}
+	};
 }
 
 export default ReadAlertView;

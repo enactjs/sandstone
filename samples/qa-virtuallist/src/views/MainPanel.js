@@ -25,7 +25,7 @@ const MainPanel = class extends Component {
 		changeData: PropTypes.func.isRequired,
 		listItems: PropTypes.array.isRequired,
 		nativeScroll: PropTypes.bool
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -39,27 +39,27 @@ const MainPanel = class extends Component {
 		this.props.changeData(200, false);
 	}
 
-	handleChange = ({value}) => this.setState({value})
+	handleChange = ({value}) => this.setState({value});
 
 	onChangeDataSize = () => {
 		const dataSize = parseInt(this.state.value) || 0;
 		this.props.changeData(dataSize, this.state.isDisabled);
-	}
+	};
 
 	onChangeScrollMode = ({selected: nativeScroll}) => {
 		this.setState({nativeScroll});
-	}
+	};
 
 	onToggleChildProps = () => {
 		this.setState((state) => ({hasChildProps: !state.hasChildProps}));
-	}
+	};
 
 	onToggleDisabled = () => {
 		this.setState((state, props) => {
 			this.props.changeData(props.listItems.length, !state.isDisabled);
 			return {isDisabled: !state.isDisabled};
 		});
-	}
+	};
 
 	renderItem = ({index, text, ...rest}) => {
 		return (
@@ -67,7 +67,7 @@ const MainPanel = class extends Component {
 				{this.props.listItems[index].content + (text || '')}
 			</ListItem>
 		);
-	}
+	};
 
 	render () {
 		const {listItems, ...rest} = this.props;

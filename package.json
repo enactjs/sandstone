@@ -1,13 +1,13 @@
 {
   "name": "@enact/sandstone",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
     "bootstrap": "enact bootstrap",
     "clean": "enact clean",
     "cleanall": "enact clean --all",
-    "lint": "enact lint --local",
+    "lint": "enact lint  --strict",
     "sampler": "npm run --prefix samples/sampler serve",
     "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
@@ -33,13 +33,13 @@
     "screenTypes": "ThemeDecorator/screenTypes.json"
   },
   "eslintConfig": {
-    "extends": "enact/strict"
+    "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.4.0",
-    "@enact/i18n": "^3.4.0",
-    "@enact/spotlight": "^3.4.0",
-    "@enact/ui": "^3.4.0",
+    "@enact/core": "^3.4.1",
+    "@enact/i18n": "^3.4.1",
+    "@enact/spotlight": "^3.4.1",
+    "@enact/ui": "^3.4.1",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
@@ -50,11 +50,11 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.4.0-webostv1"
+    "ilib": "^14.4.0 || ^14.6.0-webos"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
-    "@enact/ui-test-utils": "^0.4.0",
+    "@enact/ui-test-utils": "^0.5.0",
+    "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
 }

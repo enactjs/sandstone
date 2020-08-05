@@ -32,7 +32,7 @@ class ExpandableDifferenctHeightItem extends Component {
 		index: PropTypes.number,
 		items: PropTypes.array,
 		updateItemStatus: PropTypes.func
-	}
+	};
 
 	itemStyleDefault = {
 		position: 'absolute',
@@ -42,25 +42,25 @@ class ExpandableDifferenctHeightItem extends Component {
 		fontSize,
 		lineHeight,
 		whiteSpace: 'pre'
-	}
+	};
 
 	buttonStyleDefault = {
 		display: 'block',
 		height: '50px',
 		marginLeft: 'auto',
 		marginRight: 0
-	}
+	};
 
 	textStyleDefault = {
 		overflow: 'hidden',
 		textOverflow: 'ellipsis'
-	}
+	};
 
 	iconButtonStyleDefault = {
 		position: 'absolute',
 		top: 0,
 		right: 0
-	}
+	};
 
 	render () {
 		const
@@ -113,7 +113,7 @@ class ExpandableDifferenctHeightItem extends Component {
 class ResizableItem extends Component {
 	static propTypes = {
 		updateItemSize: PropTypes.func
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -185,7 +185,7 @@ class VerticalExpandableDifferentHeightItemList extends Component {
 				return {itemSize: [...itemSize.slice(0, index), size, ...itemSize.slice(index + 1)]};
 			});
 		}
-	}
+	};
 
 	updateItemStatus = (index, open) => {
 		this.setState(({itemSize, items}) => {
@@ -196,11 +196,11 @@ class VerticalExpandableDifferentHeightItemList extends Component {
 				items: [...items.slice(0, index), {title, numOfLines, open}, ...items.slice(index + 1)]
 			};
 		});
-	}
+	};
 
 	renderItem = (props) => {
 		return <ResizableItem {...props} />;
-	}
+	};
 
 	render () {
 		return (

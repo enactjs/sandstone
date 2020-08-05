@@ -48,7 +48,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 	});
 
 	const Decorator = class extends React.Component {
-		static displayName = 'DateTimeDecorator'
+		static displayName = 'DateTimeDecorator';
 
 		static propTypes = /** @lends sandstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
 			/**
@@ -83,7 +83,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			 * @public
 			 */
 			value: PropTypes.instanceOf(Date)
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -171,17 +171,17 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			}
 
 			return newValue;
-		}
+		};
 
 		emitChange = (date) => {
 			forward('onChange', {value: date ? date.getJSDate() : null}, this.props);
-		}
+		};
 
 		handlePickerChange = (handler, ev) => {
 			const value = this.toIDate(this.state.value);
 			handler(ev, value, memoizedI18nConfig(this.props.locale));
 			this.updateValue(value);
-		}
+		};
 
 		handleCancel = () => {
 			const {initialValue, value} = this.state;
@@ -196,14 +196,14 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			if (initialValue !== value) {
 				this.emitChange(this.toIDate(initialValue));
 			}
-		}
+		};
 
 		handleKeyDown = handle(
 			forward('onKeyDown'),
 			forProp('open', true),
 			forKey('cancel'),
 			call('handleCancel')
-		).bindAs(this, 'handleKeyDown')
+		).bindAs(this, 'handleKeyDown');
 
 		render () {
 			const value = this.toIDate(this.state.value);

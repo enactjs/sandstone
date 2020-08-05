@@ -1,8 +1,8 @@
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Item from '@enact/sandstone/Item';
-import ScrollerComponent from '@enact/sandstone/Scroller';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import Spotlight from '@enact/spotlight';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import Layout, {Cell} from '@enact/ui/Layout';
 import ViewManager from '@enact/ui/ViewManager';
 import compose from 'ramda/src/compose';
@@ -52,9 +52,11 @@ import VirtualGridList from '../views/VirtualGridList';
 import VirtualList from '../views/VirtualList';
 import WizardPanels from '../views/WizardPanels';
 
-import css from './App.module.less';
+import appCss from './App.module.less';
 import Home from './Home';
 import View from './View';
+
+const Menu = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
 const views = [
 	{title: 'About qa-a11y', view: Home},
@@ -105,7 +107,7 @@ class AppBase extends React.Component {
 	static propTypes = {
 		rtl: PropTypes.bool,
 		updateLocale: PropTypes.func
-	}
+	};
 	constructor () {
 		super();
 		this.state = {
@@ -119,11 +121,11 @@ class AppBase extends React.Component {
 		document.addEventListener('keydown', this.handleKeyDown);
 	}
 
-	cachedKey = -1
+	cachedKey = -1;
 
-	handleChangeView = (selected) => () => this.setState({selected})
+	handleChangeView = (selected) => () => this.setState({selected});
 
-	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}))
+	handleDebug = () => this.setState((state) => ({isDebugMode: !state.isDebugMode}));
 
 	handleKeyDown = (ev) => {
 		const {keyCode} = ev;
@@ -152,7 +154,7 @@ class AppBase extends React.Component {
 				this.cachedKey = -1;
 			}
 		}
-	}
+	};
 
 	render () {
 		const {className, ...rest} = this.props;
@@ -164,11 +166,18 @@ class AppBase extends React.Component {
 
 		return (
 			<div className={classnames(className, debugAriaClass)}>
-				<Layout {...rest} className={css.layout}>
-					<Cell component={ScrollerComponent} size="20%">
-						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
+				<Layout {...rest} className={appCss.layout}>
+					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
+						<div className={appCss.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => (
-							<Item className={css.navItem} data-menu={i} key={i} slotBefore={('00' + i).slice(-2)} onClick={this.handleChangeView(i)}>
+							<Item
+								aria-label={view.title}
+								className={appCss.navItem}
+								data-menu={i}
+								key={i}
+								onClick={this.handleChangeView(i)}
+								slotBefore={('00' + i).slice(-2)}
+							>
 								{view.title}
 							</Item>
 						))}

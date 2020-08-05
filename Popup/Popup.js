@@ -414,7 +414,7 @@ class Popup extends React.Component {
 		 * @public
 		 */
 		spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only'])
-	}
+	};
 
 	static defaultProps = {
 		noAnimation: false,
@@ -423,7 +423,7 @@ class Popup extends React.Component {
 		position: 'bottom',
 		scrimType: 'translucent',
 		spotlightRestrict: 'self-only'
-	}
+	};
 
 	static getDerivedStateFromProps (props, state) {
 		if (props.open !== state.prevOpen) {
@@ -510,7 +510,7 @@ class Popup extends React.Component {
 		} else if (this.state.popupOpen === OpenState.OPEN && this.props.open) {
 			this.spotPopupContent();
 		}
-	}
+	};
 
 	handleKeyDown = (ev) => {
 		const {onClose, no5WayClose, position, spotlightRestrict} = this.props;
@@ -556,7 +556,7 @@ class Popup extends React.Component {
 				}
 			}
 		}
-	}
+	};
 
 	handlePopupHide = (ev) => {
 		forwardHide(ev, this.props);
@@ -569,7 +569,7 @@ class Popup extends React.Component {
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 			this.spotActivator(this.state.activator);
 		}
-	}
+	};
 
 	handlePopupShow = (ev) => {
 		forwardShow(ev, this.props);
@@ -581,7 +581,7 @@ class Popup extends React.Component {
 		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
 			this.spotPopupContent();
 		}
-	}
+	};
 
 	spotActivator = (activator) => {
 		this.paused.resume();
@@ -602,7 +602,7 @@ class Popup extends React.Component {
 				Spotlight.focus();
 			}
 		}
-	}
+	};
 
 	spotPopupContent = () => {
 		this.paused.resume();
@@ -625,7 +625,7 @@ class Popup extends React.Component {
 			}
 			Spotlight.setActiveContainer(containerId);
 		}
-	}
+	};
 
 	render () {
 		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;

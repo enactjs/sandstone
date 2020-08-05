@@ -3,19 +3,45 @@ const {element, getText, Page} = require('@enact/ui-test-utils/utils');
 
 class PopupCommon {
 
-	get buttonPopup1 () { return element('#buttonPopup1', browser); }
-	get buttonPopup2 () { return element('#buttonPopup2', browser); }
-	get buttonPopup3 () { return element('#buttonPopup3', browser); }
-	get buttonPopup4 () { return element('#buttonPopup4', browser); }
-	get buttonPopup5 () { return element('#buttonPopup5', browser); }
-	get buttonPopup6 () { return element('#buttonPopup6', browser); }
-	get buttonPopup7 () { return element('#buttonPopup7', browser); }
-	get buttonPopup8 () { return element('#buttonPopup8', browser); }
-	get buttonPopup9 () { return element('#buttonPopup9', browser); }
-	get buttonPopup10 () { return element('#buttonPopup10', browser); }
-	get   popupLayer () { return element('#floatLayer', browser); }
-	get isPopupExist () { return this.popupLayer.$('.Popup_Popup_popup').isExisting(); }
-	get isScrimExist () { return this.popupLayer.$('.enact_ui_FloatingLayer_Scrim_scrim').isExisting(); }
+	get buttonPopup1 () {
+		return element('#buttonPopup1', browser);
+	}
+	get buttonPopup2 () {
+		return element('#buttonPopup2', browser);
+	}
+	get buttonPopup3 () {
+		return element('#buttonPopup3', browser);
+	}
+	get buttonPopup4 () {
+		return element('#buttonPopup4', browser);
+	}
+	get buttonPopup5 () {
+		return element('#buttonPopup5', browser);
+	}
+	get buttonPopup6 () {
+		return element('#buttonPopup6', browser);
+	}
+	get buttonPopup7 () {
+		return element('#buttonPopup7', browser);
+	}
+	get buttonPopup8 () {
+		return element('#buttonPopup8', browser);
+	}
+	get buttonPopup9 () {
+		return element('#buttonPopup9', browser);
+	}
+	get buttonPopup10 () {
+		return element('#buttonPopup10', browser);
+	}
+	get   popupLayer () {
+		return element('#floatLayer', browser);
+	}
+	get isPopupExist () {
+		return this.popupLayer.$('.Popup_Popup_popup').isExisting();
+	}
+	get isScrimExist () {
+		return this.popupLayer.$('.enact_ui_FloatingLayer_Scrim_scrim').isExisting();
+	}
 }
 
 class PopupInterface {
@@ -24,13 +50,27 @@ class PopupInterface {
 		this.id = id;
 	}
 
-	get          self () { return element(`#${this.id}`, browser); }
-	get      buttonOK () { return element(`#${this.id} #buttonOK`, browser); }
-	get  buttonCancel () { return element(`#${this.id} #buttonCancel`, browser); }
-	get   closeSymbol () { return getText(element(`#${this.id} .Icon_Icon_icon`, browser)); }
-	get         popup () { return element(`#${this.id}`, browser); }
-	get         title () { return getText(element(`#${this.id}>div>div`, browser)); }
-	get        isOpen () { return $(`.enact_ui_Transition_Transition_shown #${this.id}`).isExisting(); }
+	get          self () {
+		return element(`#${this.id}`, browser);
+	}
+	get      buttonOK () {
+		return element(`#${this.id} #buttonOK`, browser);
+	}
+	get  buttonCancel () {
+		return element(`#${this.id} #buttonCancel`, browser);
+	}
+	get   closeSymbol () {
+		return getText(element(`#${this.id} .Icon_Icon_icon`, browser));
+	}
+	get         popup () {
+		return element(`#${this.id}`, browser);
+	}
+	get         title () {
+		return getText(element(`#${this.id}>div>div`, browser));
+	}
+	get        isOpen () {
+		return $(`.enact_ui_Transition_Transition_shown #${this.id}`).isExisting();
+	}
 }
 
 class PopupPage extends Page {

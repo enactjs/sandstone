@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.1.1] - 2020-08-05
+
+### Fixed
+
+- `sandstone/Button`, `sandstone/InputField`, `sandstone/Item` and `sandstone/Picker` `font-weight`
+- `sandstone/Button` background color opacity when opaque and disabled
+- `sandstone/ContextualPopupDecorator` to include the popup in its accessibility tree
+- `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
+- `sandstone/Panels` to prevent key events during view transitions
+- `sandstone/Slider` to read out `value` with the hint string only once when focused
+
 ## [1.1.0] - 2020-07-29
 
 ### Added
