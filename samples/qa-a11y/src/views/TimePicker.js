@@ -5,7 +5,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class TimePickerItem extends React.Component {
 	constructor (props) {
@@ -59,7 +59,7 @@ const TimePickerView = () => (
 			/>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
+		<Section className={appCss.marginTop} title="Aria-labelled">
 			<TimePickerItem
 				alt="Normal"
 				hourAriaLabel="Hour picker"

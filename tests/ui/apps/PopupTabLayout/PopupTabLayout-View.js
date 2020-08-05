@@ -12,30 +12,41 @@ import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 // runs the same way
 spotlight.setPointerMode(false);
 
-const app = (props) => (
-	<PopupTabLayout
-		{...props}
-		id="tabLayout"
-		open
-	>
-		<Tab icon="picture" title="Display">
-			<TabPanels id="display">
-				<TabPanel autoFocus="#colorAdjust">
-					<Header title="Display Settings" type="compact" />
-					<Item>Picture Modes</Item>
-					<Item id="colorAdjust">Color Adjust</Item>
-				</TabPanel>
-			</TabPanels>
-		</Tab>
-		<Tab title="Sound">
-			<TabPanels id="sound" noCloseButton>
-				<TabPanel>
-					<Header title="Sound Settings" type="compact" />
-					<Item>Advanced Audio</Item>
-				</TabPanel>
-			</TabPanels>
-		</Tab>
-	</PopupTabLayout>
-);
+function App (props) {
+	const [index, setIndex] = React.useState(0);
+	const [open, setOpen] = React.useState(true);
 
-export default UrlPropsDecorator(ThemeDecorator(app));
+	return (
+		<PopupTabLayout
+			{...props}
+			id="tabLayout"
+			open={open}
+			onClose={() => setOpen(false)}
+		>
+			<Tab icon="picture" title="Display">
+				<TabPanels id="display" index={index} onBack={() => setIndex(0)}>
+					<TabPanel autoFocus="#colorAdjust">
+						<Header title="Display Settings" type="compact" />
+						<Item>Picture Modes</Item>
+						<Item id="colorAdjust" onClick={() => setIndex(1)}>Color Adjust</Item>
+					</TabPanel>
+					<TabPanel>
+						<Header title="Color Adjust" type="compact" />
+						{/* This blur-on-click logic helps test suppressing 5-way select during transition */}
+						<Item id="brightness" onClick={({currentTarget}) => currentTarget.blur()}>Brightness</Item>
+					</TabPanel>
+				</TabPanels>
+			</Tab>
+			<Tab title="Sound">
+				<TabPanels id="sound" noCloseButton>
+					<TabPanel>
+						<Header title="Sound Settings" type="compact" />
+						<Item>Advanced Audio</Item>
+					</TabPanel>
+				</TabPanels>
+			</Tab>
+		</PopupTabLayout>
+	);
+}
+
+export default UrlPropsDecorator(ThemeDecorator(App));
