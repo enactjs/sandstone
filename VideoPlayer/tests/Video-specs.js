@@ -59,6 +59,22 @@ describe('VideoPlayer.Video', () => {
 			expect(actual).toBe(expected);
 		});
 
+		test('should use the same node when adding `preloadSource` the same as source', () => {
+			const subject = mount(
+				<Video source="abc.mp4" />
+			);
+
+			const expected = getSourceNode(subject);
+
+			subject.setProps({
+				preloadSource: 'abc.mp4'
+			});
+
+			const actual = getSourceNode(subject);
+
+			expect(actual).toBe(expected);
+		});
+
 		test('should use the same node when changing `preloadSource`', () => {
 			const subject = mount(
 				<Video source="abc.mp4" preloadSource="def.mp4" />
