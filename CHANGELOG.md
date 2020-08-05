@@ -11,7 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
 - `sandstone/Panels` to prevent key events during view transitions
 - `sandstone/Slider` to readout `value` with the hint string only once when focused
-- `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `src`
+- `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
 
 ## [1.1.0] - 2020-07-29
 
