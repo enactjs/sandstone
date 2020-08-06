@@ -152,8 +152,7 @@ const VideoBase = class extends React.Component {
 		this.clearMedia();
 	}
 
-	firstKey = 'media-1';
-	secondKey = 'media-2';
+	keys = ['media-1', 'media-2'];
 	prevSourceKey = null;
 	prevPreloadKey = null;
 
@@ -214,18 +213,15 @@ const VideoBase = class extends React.Component {
 			(sourceKey === this.prevPreloadKey && this.prevPreloadKey) ||
 			(preloadKey === this.prevSourceKey && this.prevSourceKey)
 		) {
-			[this.firstKey, this.secondKey] = [this.secondKey, this.firstKey];
+			this.keys.reverse();
 		}
 
 		// cache the previous keys so we know if the sources change the next time
 		this.prevSourceKey = sourceKey;
 		this.prevPreloadKey = preloadKey;
 
-		return [
-			this.firstKey,
-			// if preload is unset, clear the key so we don't render that media node at all
-			preloadKey && this.secondKey
-		];
+		// if preload is unset, clear the key so we don't render that media node at all
+		return preloadKey ? this.keys : this.keys.slice(0, 1);
 	}
 
 	render () {
