@@ -43,6 +43,17 @@ describe('VideoPlayer.Video', () => {
 			expect(actual).toBe(expected);
 		});
 
+		test('should not render `preloadSource` when not present', () => {
+			const subject = mount(
+				<Video source="abc.mp4" />
+			);
+
+			const expected = 1;
+			const actual = subject.find('Media').length;
+
+			expect(actual).toBe(expected);
+		});
+
 		test('should use same `source` when removing `source` and no `preload`', () => {
 			const subject = mount(
 				<Video source="abc.mp4" />
@@ -87,6 +98,21 @@ describe('VideoPlayer.Video', () => {
 			});
 
 			const actual = getSourceNode(subject);
+
+			expect(actual).toBe(expected);
+		});
+
+		test('should render `preloadSource` when added', () => {
+			const subject = mount(
+				<Video source="abc.mp4" />
+			);
+
+			subject.setProps({
+				preloadSource: 'def.mp4'
+			});
+
+			const expected = 2;
+			const actual = subject.find('Media').length;
 
 			expect(actual).toBe(expected);
 		});
