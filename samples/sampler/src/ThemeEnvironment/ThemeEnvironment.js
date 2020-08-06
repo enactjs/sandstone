@@ -65,16 +65,16 @@ const locales = {
 	'ko-KR - Korean': 'ko-KR',
 	'es-ES - Spanish, with alternate weekends': 'es-ES',
 	'am-ET - Amharic, 5 meridiems': 'am-ET',
-	'th-TH - Thai, with tall characters': 'th-TH',
+	'th-TH - Thai, with tallglyph characters': 'th-TH',
 	'ar-SA - Arabic, RTL and standard font': 'ar-SA',
 	'ur-PK - Urdu, RTL and custom Urdu font': 'ur-PK',
 	'zh-Hans-HK - Simplified Chinese, custom Hans font': 'zh-Hans-HK',
 	'zh-Hant-HK - Traditional Chinese, custom Hant font': 'zh-Hant-HK',
-	'vi-VN - Vietnamese, Special non-latin font handling': 'vi-VN',
+	'vi-VN - Vietnamese, with tallglyph characters': 'vi-VN',
 	'ta-IN - Tamil, custom Indian font': 'ta-IN',
 	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
 	'en-JP - English, custom Japanese font': 'en-JP',
-	'si-LK - Sinhala, external font family with different line metrics': 'si-LK'
+	'si-LK - Sinhala, external font familywith tallglyph characters': 'si-LK'
 };
 
 // This mapping/remapping is necessary to support objects being used as select-knob values, since
