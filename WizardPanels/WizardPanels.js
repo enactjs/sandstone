@@ -549,6 +549,14 @@ const WizardPanelsRouter = (Wrapped) => {
 		index: PropTypes.number,
 
 		/**
+		 * Disables panel transitions.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAnimation: PropTypes.bool,
+
+		/**
 		* Called when a transition completes
 		*
 		* @type {Function}

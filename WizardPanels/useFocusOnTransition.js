@@ -40,8 +40,8 @@ function useFocusOnTransition (config) {
 			//
 			// Deferring a tick allows that view to be removed but this is not an ideal solution.
 			current.timerId = setTimeout(() => {
-				const current = Spotlight.getCurrent();
-				if (config.spotlightId && !current) {
+				const currentSpotlight = Spotlight.getCurrent();
+				if (config.spotlightId && !currentSpotlight) {
 					Spotlight.focus(config.spotlightId);
 				}
 			}, 16);

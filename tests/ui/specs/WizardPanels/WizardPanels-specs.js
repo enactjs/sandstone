@@ -26,7 +26,7 @@ describe('WizardPanels', function () {
 				expect(actual).to.be.equal(expected);
 			});
 		});
-	})
+	});
 
 	beforeEach(function () {
 		Page.open();
