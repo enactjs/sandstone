@@ -217,16 +217,15 @@ const VideoBase = class extends React.Component {
 			[this.firstKey, this.secondKey] = [this.secondKey, this.firstKey];
 		}
 
-		// if preload is unset, clear the key so we don't render that media node at all
-		if (!preloadKey) {
-			this.secondKey = null;
-		}
-
 		// cache the previous keys so we know if the sources change the next time
 		this.prevSourceKey = sourceKey;
 		this.prevPreloadKey = preloadKey;
 
-		return [this.firstKey, this.secondKey];
+		return [
+			this.firstKey,
+			// if preload is unset, clear the key so we don't render that media node at all
+			preloadKey && this.secondKey
+		];
 	}
 
 	render () {

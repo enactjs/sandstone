@@ -212,5 +212,27 @@ describe('VideoPlayer.Video', () => {
 
 			expect(getSourceNode(subject)).toBe(source);
 		});
+
+		test('should swap nodes when preload does not exist initially', () => {
+			const subject = mount(
+				<Video source="abc.mp4" />
+			);
+
+			const source = getSourceNode(subject);
+
+			subject.setProps({
+				preloadSource: 'def.mp4'
+			});
+
+			const preload = getPreloadNode(subject);
+
+			subject.setProps({
+				source: 'def.mp4',
+				preloadSource: 'abc.mp4'
+			});
+
+			expect(getSourceNode(subject)).toBe(preload);
+			expect(getPreloadNode(subject)).toBe(source);
+		});
 	});
 });
