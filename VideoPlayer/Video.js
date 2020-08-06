@@ -102,11 +102,6 @@ const VideoBase = class extends React.Component {
 		mediaComponent: 'video'
 	};
 
-	firstKey = 'media-1';
-	secondKey = 'media-2';
-	prevSourceKey = null;
-	prevPreloadKey = null;
-
 	componentDidUpdate (prevProps) {
 		const {source, preloadSource} = this.props;
 		const {source: prevSource, preloadSource: prevPreloadSource} = prevProps;
@@ -156,6 +151,11 @@ const VideoBase = class extends React.Component {
 	componentWillUnmount () {
 		this.clearMedia();
 	}
+
+	firstKey = 'media-1';
+	secondKey = 'media-2';
+	prevSourceKey = null;
+	prevPreloadKey = null;
 
 	handlePreloadLoadStart = (ev) => {
 		// persist the event so we can cache it to re-emit when the preload becomes active

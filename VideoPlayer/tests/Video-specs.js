@@ -51,7 +51,7 @@ describe('VideoPlayer.Video', () => {
 			const expected = getSourceNode(subject);
 
 			subject.setProps({
-				source: undefined
+				source: undefined // eslint-disable-line no-undefined
 			});
 
 			const actual = getSourceNode(subject);
