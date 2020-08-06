@@ -5,7 +5,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 class DatePickerItem extends React.Component {
 	constructor (props) {
@@ -16,9 +16,9 @@ class DatePickerItem extends React.Component {
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
-	handleChange = ({value}) => this.setState({value: dateToLocaleString(value)})
+	handleClose = () => this.setState({open: false});
+	handleOpen = () => this.setState({open: true});
+	handleChange = ({value}) => this.setState({value: dateToLocaleString(value)});
 
 	render () {
 		return (
@@ -51,7 +51,7 @@ const DatePickerView = () => (
 			<DatePickerItem alt="Disabled" disabled title="Date" />
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
+		<Section className={appCss.marginTop} title="Aria-labelled">
 			<DatePickerItem
 				alt="Aria-labelled"
 				dayAriaLabel="Day picker"

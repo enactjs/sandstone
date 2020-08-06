@@ -1,10 +1,36 @@
+/* eslint-disable react/jsx-no-bind */
+import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
+import ContextualMenuDecorator from '@enact/sandstone/ContextualMenuDecorator';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import Dropdown from '@enact/sandstone/Dropdown';
+import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import KeyGuide from '@enact/sandstone/KeyGuide';
 import {Header} from '@enact/sandstone/Panels';
+import Popup from '@enact/sandstone/Popup';
 import PopupTabLayout, {Tab, TabPanel, TabPanels} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
+import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
 import Group from '@enact/ui/Group';
+import Toggleable from '@enact/ui/Toggleable';
 import React from 'react';
+
+import Section from '../components/Section';
+
+const contextaulMenuItems = ['Item 0', 'Item 1'];
+const ContextualMenuButton = ContextualMenuDecorator(Button);
+const ContextualPopupButton = Toggleable(
+	{prop: 'open', toggle: 'onClick', deactivate: 'onClose'},
+	ContextualPopupDecorator(
+		Button
+	)
+);
+const keyGuideItems = [
+	{icon: 'plus', children: 'Item 0', key: 0},
+	{icon: 'minus', children: 'Item 1', key: 1}
+];
+const TooltipButton = TooltipDecorator(Button);
 
 class PopupTabLayoutView extends React.Component {
 	constructor (props) {
@@ -13,35 +39,49 @@ class PopupTabLayoutView extends React.Component {
 			indexDisplay: 0,
 			indexNetwork: 0,
 			indexSound: 0,
-			open: false
+
+			openPopupTabLayout: false,
+			openAlert: false,
+			openKeyGuide: false,
+			openPopup: false
 		};
 	}
 
-	handleClose = () => this.setState({open: false})
-	handleOpen = () => this.setState({open: true})
+	handleClose = () => this.setState({openPopupTabLayout: false});
+	handleOpenPopupTabLayout = () => this.setState({openPopupTabLayout: true});
 
-	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}))
-	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}))
-	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}))
-	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}))
-	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}))
-	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}))
+	handleDisplayNext = () => this.setState((state) => ({indexDisplay: state.indexDisplay + 1}));
+	handleDisplayPrev = () => this.setState((state) => ({indexDisplay: state.indexDisplay - 1}));
+	handleNetworkNext = () => this.setState((state) => ({indexNetwork: state.indexNetwork + 1}));
+	handleNetworkPrev = () => this.setState((state) => ({indexNetwork: state.indexNetwork - 1}));
+	handleSoundNext = () => this.setState((state) => ({indexDisplay: state.indexSound + 1}));
+	handleSoundPrev = () => this.setState((state) => ({indexDisplay: state.indexSound - 1}));
+
+	renderContextualPopup = () => (
+		<div>
+			<Button>Text 0</Button>
+			<Button>Text 1</Button>
+		</div>
+	);
 
 	render () {
 		const {
 			indexDisplay,
 			indexNetwork,
 			indexSound,
-			open
+			openPopupTabLayout,
+			openAlert,
+			openKeyGuide,
+			openPopup
 		} = this.state;
 
 		return (
-			<>
-				<Button onClick={this.handleOpen}>Open</Button>
+			<Section title="Default">
+				<Button alt="Normal" onClick={this.handleOpenPopupTabLayout}>Open 0</Button>
 
 				<PopupTabLayout
 					onClose={this.handleClose}
-					open={open}
+					open={openPopupTabLayout}
 					spotlightRestrict="self-only"
 				>
 					<Tab icon="picture" title="Display">
@@ -108,8 +148,53 @@ class PopupTabLayoutView extends React.Component {
 							</TabPanel>
 						</TabPanels>
 					</Tab>
+
+					<Tab icon="speaker" title="FloatLayer">
+						<TabPanels index={indexSound} onBack={this.handleSoundPrev} onClose={this.handleClose}>
+							<TabPanel>
+								<Header title="Components in FloatLayer" type="compact" />
+
+								<Button onClick={() => this.setState({openAlert: true})}>Open Alert</Button>
+								<Dropdown placeholder="Open Dropdown" size="large">
+									{['Text 0', 'Text 1']}
+								</Dropdown>
+								<ContextualMenuButton alt="With Menu Item" menuItems={contextaulMenuItems}>Open ContextualMenuDecorator</ContextualMenuButton>
+								<ContextualPopupButton alt="With Buttons" popupComponent={this.renderContextualPopup} spotlightRestrict="self-only">Open ContextualPopupDecorator</ContextualPopupButton>
+								<Input placeholder="Open Input" />
+								<Button onClick={() => this.setState({openKeyGuide: !openKeyGuide})}>Toggle KeyGuide</Button>
+								<Button onClick={() => this.setState({openPopup: true})}>Open Popup</Button>
+								<TooltipButton
+									aria-label="This is Text."
+									tooltipPosition="below right"
+									tooltipProps={{'aria-hidden': true}}
+									tooltipText="Text"
+								>
+									TooltipDecorator
+								</TooltipButton>
+
+								<Alert
+									onClose={() => this.setState({openAlert: false})}
+									open={openAlert}
+									title="Heading Title"
+								>
+									<span>Content</span>
+									<buttons>
+										<Button onClick={this.handleClose1}>Text</Button>
+									</buttons>
+								</Alert>
+								<KeyGuide open={openKeyGuide} onClick={() => this.setState({openKeyGuide: true})}>{keyGuideItems}</KeyGuide>
+								<Popup
+									onClose={() => this.setState({openPopup: false})}
+									open={openPopup}
+								>
+									<Button>Text 0</Button>
+									<Button>Text 1</Button>
+								</Popup>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
 				</PopupTabLayout>
-			</>
+			</Section>
 		);
 	}
 }

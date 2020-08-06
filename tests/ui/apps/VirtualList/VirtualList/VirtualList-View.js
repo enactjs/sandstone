@@ -10,7 +10,7 @@ import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDeco
 import {InputField} from '../../../../../Input';
 import PropTypes from 'prop-types';
 
-const ListContainer = SpotlightContainerDecorator({leaveFor: {up: ''}}, 'div');
+const ListContainer = SpotlightContainerDecorator('div');
 const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}, 'div');
 const getScrollbarVisibility = (hidden) => hidden ? 'hidden' : 'visible';
 const childProps = {text: ' child props'};
@@ -20,7 +20,6 @@ spotlight.setPointerMode(false);
 
 const items = [],
 	itemStyle = {margin: 0};
-
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, disabled) => ({index, text, ...rest}) => {
@@ -50,7 +49,7 @@ class StatefulSwitchItem extends React.Component {
 	static displayName = 'StatefulSwitchItem';
 	static propTypes = {
 		index: PropTypes.number
-	}
+	};
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -75,7 +74,7 @@ class StatefulSwitchItem extends React.Component {
 		this.setState(({selected}) => ({
 			selected: !selected
 		}));
-	}
+	};
 
 	render () {
 		const props = Object.assign({}, this.props);
@@ -96,6 +95,7 @@ class app extends React.Component {
 			disabled: false,
 			hasChildProps: false,
 			hideScrollbar: false,
+			nativeScroll: true,
 			numItems: 100,
 			spacing: 0,
 			itemSize: 156,
@@ -112,47 +112,47 @@ class app extends React.Component {
 		} else {
 			this.rootRef.current.dataset.keydownEvents = 1;
 		}
-	}
+	};
 
 	onScrollStart = () => {
 		this.scrollingRef.current.innerHTML = 'Scrolling';
-	}
+	};
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
 		this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
-	}
+	};
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	jumpTo = (focus) => () => {
 		this.scrollTo({animate: false, focus, index: 10});
-	}
+	};
 
 	onToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
-	}
+	};
 
 	onChangeNumItems = ({value}) => {
 		this.setState({numItems: value});
 		updateDataSize(value);
-	}
+	};
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
-	}
+	};
 
 	onChangeitemSize = ({value}) => {
 		this.setState({itemSize: value});
-	}
+	};
 
 	render () {
 		const
 			inputStyle = {width: ri.scaleToRem(300)},
-			{disabled, hasChildProps, hideScrollbar, numItems, itemSize, spacing, wrap} = this.state,
+			{disabled, hasChildProps, hideScrollbar, nativeScroll, numItems, itemSize, spacing, wrap} = this.state,
 			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="list" ref={this.rootRef}>
@@ -164,6 +164,7 @@ class app extends React.Component {
 						<Button {...buttonDefaultProps} id="jumpToWithoutFocus" onClick={this.jumpTo(false)}>JumpToItem10WithoutFocus</Button>
 						<Button {...buttonDefaultProps} id="disabled" onClick={this.onToggle} selected={disabled}>DisabledItem</Button>
 						<Button {...buttonDefaultProps} id="hasChildProps" onClick={this.onToggle} selected={hasChildProps}>childProps</Button>
+						<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.onToggle} selected={nativeScroll}>NativeScroll</Button>
 						<InputField id="numItems" defaultValue={numItems} type="number" onChange={this.onChangeNumItems} size="small" style={inputStyle} />
 						<InputField id="spacing" defaultValue={spacing} type="number" onChange={this.onChangeSpacing} size="small" style={inputStyle} />
 						<InputField id="itemSize" defaultValue={itemSize} type="number" onChange={this.onChangeitemSize} size="small" style={inputStyle} />
@@ -186,9 +187,11 @@ class app extends React.Component {
 											dataSize={numItems}
 											itemRenderer={renderItem(itemSize, disabled)}
 											itemSize={ri.scale(itemSize)}
+											key={nativeScroll ? 'native' : 'translate'}
 											onKeyDown={this.onKeyDown}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
+											scrollMode={nativeScroll ? 'native' : 'translate'}
 											spacing={ri.scale(spacing)}
 											style={{height: ri.scaleToRem(156 * 9)}}
 											verticalScrollbar={getScrollbarVisibility(hideScrollbar)}

@@ -50,7 +50,7 @@ class app extends Component {
 				open10: false
 			});
 		}, 200);
-	}
+	};
 
 	render () {
 		return (

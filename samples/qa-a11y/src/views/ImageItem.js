@@ -3,11 +3,11 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const SelectableImageItem = (props) => {
 	const [checked, setChecked] = React.useState(false);
-	const handleClick = () => setChecked(!checked);
+	const handleClick = () => !props.disabled && setChecked(!checked); // eslint-disable-line enact/prop-types
 
 	return <ImageItem {...props} onClick={handleClick} selected={checked} />; // eslint-disable-line react/jsx-no-bind
 };
@@ -36,12 +36,23 @@ const ImageItemView = () => (
 			>
 				Text 1
 			</SelectableImageItem>
-		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled">
 			<ImageItem
 				{...labelAndSrc}
-				alt="Aria-labelled with with Children and Label"
+				alt="Disabled and Selected with Children, Label, and showSelection"
+				disabled
+				orientation="horizontal"
+				selected
+				showSelection
+			>
+				Text 2
+			</ImageItem>
+		</Section>
+
+		<Section className={appCss.marginTop} title="Aria-labelled">
+			<ImageItem
+				{...labelAndSrc}
+				alt="Aria-labelled with Children and Label"
 				aria-label="This is a Label 0."
 				orientation="horizontal"
 			>
@@ -50,7 +61,7 @@ const ImageItemView = () => (
 
 			<SelectableImageItem
 				{...labelAndSrc}
-				alt="Aria-labelled with with showSelection"
+				alt="Aria-labelled with showSelection"
 				aria-label="This is a Label 1."
 				orientation="horizontal"
 				showSelection
@@ -60,7 +71,7 @@ const ImageItemView = () => (
 
 			<ImageItem
 				{...labelAndSrc}
-				alt="Aria-labelled and Disabled with with Children and Label"
+				alt="Aria-labelled and Disabled with Children and Label"
 				aria-label="This is a Label 2."
 				disabled
 				orientation="horizontal"
@@ -70,7 +81,7 @@ const ImageItemView = () => (
 
 			<SelectableImageItem
 				{...labelAndSrc}
-				alt="Aria-labelled and Disabled with with showSelection"
+				alt="Aria-labelled and Disabled with showSelection"
 				aria-label="This is a Label 3."
 				disabled
 				orientation="horizontal"

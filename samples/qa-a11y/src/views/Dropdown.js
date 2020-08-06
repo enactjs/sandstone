@@ -3,12 +3,12 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const list = [
+	{children: 'Option0', key: 'item0', 'aria-label': 'This is an Option 0.'},
 	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'},
-	{children: 'Option3', key: 'item3', 'aria-label': 'This is an Option 3.'}
+	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'}
 ];
 
 const disabledList = list.map(item => ({...item, disabled: true}));
@@ -24,7 +24,7 @@ class A11yDropdown extends React.Component {
 
 	onSelect = ({selected}) => {
 		this.setState({ariaLabel: list[selected]['aria-label']});
-	}
+	};
 
 	render () {
 		const {children} = this.props;
@@ -45,9 +45,8 @@ const DropdownView = () => (
 	<>
 		<Section title="String array as the children prop">
 			<Dropdown
-				alt="selected With Placeholder"
+				alt="With Placeholder"
 				placeholder="Placeholder"
-				selected={2}
 			>
 				{['Option 0', 'Option 1', 'Option 2']}
 			</Dropdown>
@@ -89,7 +88,7 @@ const DropdownView = () => (
 			</Dropdown>
 		</Section>
 
-		<Section className={css.marginTop} title="Object array as the children prop">
+		<Section className={appCss.marginTop} title="Object array as the children prop">
 			<Dropdown
 				alt="With Placeholder and Title"
 				placeholder="Placeholder"
@@ -107,7 +106,7 @@ const DropdownView = () => (
 			</Dropdown>
 		</Section>
 
-		<Section className={css.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
+		<Section className={appCss.marginTop} title="Aria-labelled Dropdown based on selected option's aria-label">
 			<A11yDropdown
 				aria-label="This is a Label."
 				placeholder="Placeholder"
