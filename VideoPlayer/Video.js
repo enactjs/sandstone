@@ -200,11 +200,20 @@ const VideoBase = class extends React.Component {
 		const {source, preloadSource} = this.props;
 
 		const sourceKey = source && getKeyFromSource(source);
-		const preloadKey = preloadSource && getKeyFromSource(preloadSource);
+		let preloadKey = preloadSource && getKeyFromSource(preloadSource);
+
+		// If the same source is used for both, clear the preload key to avoid rendering duplicate
+		// video elements.
+		if (sourceKey === preloadKey) {
+			preloadKey = null;
+		}
 
 		// if either the source or preload existed previously in the other "slot", swap the keys so
 		// the preload video becomes the active video and vice versa
-		if (sourceKey === this.prevPreloadKey || preloadKey === this.prevSourceKey) {
+		if (
+			(sourceKey === this.prevPreloadKey && this.prevPreloadKey) ||
+			(preloadKey === this.prevSourceKey && this.prevSourceKey)
+		) {
 			[this.firstKey, this.secondKey] = [this.secondKey, this.firstKey];
 		}
 
