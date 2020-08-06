@@ -7,8 +7,6 @@ function getTabsSpotlightId (spotlightId, collapsed) {
 	return `${spotlightId}-tabs-${collapsed ? 'collapsed' : 'expanded'}`;
 }
 
-const getContainerNode = (spotlightId) => document.querySelector(`[data-spotlight-id='${spotlightId}']`);
-
 const RefocusDecorator = Wrapped => {
 	// eslint-disable-next-line no-shadow
 	function RefocusDecorator ({collapsed, onTabAnimationEnd, orientation, spotlightId, ...rest}) {
@@ -25,15 +23,10 @@ const RefocusDecorator = Wrapped => {
 			}
 
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
-				const expandedTabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
-				const collapsedTabContainer = getContainerNode(getTabsSpotlightId(spotlightId, !collapsed));
-				const current = Spotlight.getCurrent();
+				const tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
 
-				if (
-					(collapsedTabContainer && collapsedTabContainer.contains(current)) ||
-					(!collapsedTabContainer && !getContainerNode(expandedTabsSpotlightId).contains(current))
-				) {
-					Spotlight.focus(expandedTabsSpotlightId);
+				if (!document.querySelector(`[data-spotlight-id='${tabsSpotlightId}']`).contains(Spotlight.getCurrent())) {
+					Spotlight.focus(tabsSpotlightId);
 				}
 			}
 
