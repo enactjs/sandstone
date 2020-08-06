@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
+
 ## [1.1.1] - 2020-08-05
 
 ### Fixed

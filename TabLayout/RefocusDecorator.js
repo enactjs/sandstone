@@ -23,7 +23,11 @@ const RefocusDecorator = Wrapped => {
 			}
 
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
-				Spotlight.focus(getTabsSpotlightId(spotlightId, collapsed));
+				const container = document.querySelector(`[data-spotlight-id='${getTabsSpotlightId(spotlightId, !collapsed)}']`);
+
+				if (container.contains(Spotlight.getCurrent())) {
+					Spotlight.focus(getTabsSpotlightId(spotlightId, collapsed));
+				}
 			}
 
 		}, [collapsed, onTabAnimationEnd, spotlightId]);
