@@ -469,6 +469,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
+		noAnimation,
 		onTransition,
 		onWillTransition,
 		title,
@@ -483,7 +484,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
-		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+		} = useFocusOnTransition({index, noAnimation, onTransition, onWillTransition, spotlightId});
 
 		const handleWillTransition = React.useCallback((ev) => {
 			focusOnWillTransition(ev);
@@ -505,6 +506,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
+					noAnimation={noAnimation}
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
