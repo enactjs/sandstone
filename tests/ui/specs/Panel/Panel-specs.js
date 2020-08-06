@@ -29,15 +29,15 @@ describe('Panel', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		// this test passed manually but fails in automation because the 'last-focused' element
-		// isn't preserved.
-		it.skip('should restore focus when navigating backward and `autoFocus="last-focused"`', () => {
-			Page.focus(Page.panel1.nextButton);
-			Page.spotlightSelect();
+		it('should restore focus when navigating backward and `autoFocus="last-focused"`', () => {
+			Page.open('?defaultIndex=1');
 
-			Page.panel2.waitForEnter();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
 
-			Page.focus(Page.panel2.nextButton);
+			waitForFocused(Page.panel2.nextButton);
+
 			Page.spotlightSelect();
 
 			Page.panel3.waitForEnter();
@@ -119,10 +119,14 @@ describe('Panel', function () {
 
 		// this test passed manually but fails in automation because the 'last-focused' element
 		// isn't preserved.
-		it.skip('should focus the `last-focused` when moving backward', () => {
+		it('should focus the `last-focused` when moving backward', () => {
 			Page.open('?defaultIndex=5');
 
-			Page.focus(Page.panel6.nextButton);
+			Page.spotlightRight();
+			Page.spotlightRight();
+
+			waitForFocused(Page.panel6.nextButton);
+
 			Page.spotlightSelect();
 
 			Page.panel7.waitForEnter();
@@ -133,7 +137,7 @@ describe('Panel', function () {
 			Page.panel6.waitForEnter();
 
 			const expected = true;
-			const actual = Page.panel6.prevButton.isFocused();
+			const actual = Page.panel6.nextButton.isFocused();
 
 			expect(actual).to.equal(expected);
 		});
