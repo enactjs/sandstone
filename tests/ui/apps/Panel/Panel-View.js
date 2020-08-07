@@ -42,7 +42,7 @@ function App ({defaultIndex = 0, ...rest}) {
 				<Button>Panel2 Button 1</Button>
 				<Button>Panel2 Button 2</Button>
 			</PanelWithNav>
-			<PanelWithNav autoFocus="default-element" index={3} onNext={onNext} onPrev={onPrev} subtitle="autoFocus='none'">
+			<PanelWithNav autoFocus="default-element" index={3} onNext={onNext} onPrev={onPrev} subtitle="autoFocus='default-element'">
 				<Button>Panel3 Button 1</Button>
 				<Button className="spottable-default">Panel3 Button 2</Button>
 			</PanelWithNav>
@@ -50,9 +50,17 @@ function App ({defaultIndex = 0, ...rest}) {
 				<Button>Panel4 Button 1</Button>
 				<Button>Panel4 Button 2</Button>
 			</PanelWithNav>
-			<PanelWithNav index={5} onPrev={onPrev} hideChildrenOverride={false} subtitle="hideChildren=false">
+			<PanelWithNav index={5} onNext={onNext} onPrev={onPrev} hideChildrenOverride={false} subtitle="hideChildren=false">
 				<Button>Panel5 Button 1</Button>
 				<Button>Panel5 Button 2</Button>
+			</PanelWithNav>
+			<PanelWithNav index={6} onNext={onNext} onPrev={onPrev} subtitle="with spottable-default">
+				<Button>Panel6 Button 1</Button>
+				<Button className="spottable-default">Panel6 Button 2</Button>
+			</PanelWithNav>
+			<PanelWithNav index={7} onPrev={onPrev} subtitle="default">
+				<Button>Panel7 Button 1</Button>
+				<Button>Panel7 Button 2</Button>
 			</PanelWithNav>
 		</Panels>
 	);
