@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` focus style to match latest designs
 - `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
 - `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
 
