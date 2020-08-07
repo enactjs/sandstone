@@ -69,6 +69,20 @@
 				});
 			}
 		}
+
+		&.vertical {
+			&.button {
+				&.collapsed {
+					.focus({
+						color: @sand-button-text-color;
+	
+						.bg {
+							.sand-button-resting-bg-colors();
+						}
+					});
+				}
+			}
+		}
 	});
 }
 

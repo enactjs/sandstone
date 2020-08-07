@@ -61,7 +61,7 @@ const TabBase = kind({
 	},
 
 	computed: {
-		className: ({orientation, styler}) => styler.append(orientation),
+		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		iconComponent: ({sprite, stopped}) => {
 			if (sprite) {
 				return (<Sprite stopped={stopped} {...sprite} />);
