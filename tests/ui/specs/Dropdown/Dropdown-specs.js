@@ -51,12 +51,7 @@ describe('Dropdown', function () {
 			const dropdown = Page.components.dropdownDefault;
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
 			// Step 3: 5-way Spot and 5-way Select the 'Default' Dropdown.
-			// dropdown.self.moveTo();
-			// Page.spotlightLeft();
-			// Page.spotlightSelect();
 			Page.openDropdown(dropdown);
-			// Page.delay(10000);
-
 			// Verify Step 3.1: The 'Default' Dropdown opens.
 			// Verify Step 3.2: Spotlight is on *Option 1* on the left *Dropdown*.
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
@@ -77,7 +72,6 @@ describe('Dropdown', function () {
 			// Verify Step 5.1: Spotlight stays on *Option 5*.
 			Page.spotlightDown();
 			waitForFocusedText(dropdown, 'five', 500, undefined, 100);
-			// ????? Verify Step 5.2: Spotlight stays *inside* the 'Default' Dropdown.
 
 			// Step 6: 5-way Up to *Option 1*.`
 			// Verify Step 6.1: Spotlight is on each option with each 5-way Up.
@@ -95,24 +89,12 @@ describe('Dropdown', function () {
 			// Verify Step 7.1: Spotlight stays on *Option 1*.
 			Page.spotlightUp();
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
-			// ????? Verify Step 7.2: Spotlight stays *inside* the 'Default' Dropdown.
 
-			// Step 8: Click on the empty space created by the wrapper (Pointer mode).
+			// Step 8: Click  on the empty space created by the wrapper (Pointer mode).
 			const wrapper = $('#wrapper');
 			wrapper.click({x: 0, y: 0});
 			// Verify  Step 8: The 'Default' Dropdoan is closed.
-
 			expect(dropdownList.isExisting).to.not.be.true();
-
-			// Step 9: 5-way Spot the 'Default' Dropdown.
-			// dropdown.self.moveTo(); // ???  is it Pointer mode ? we need 5-way mode
-			// Page.spotlightSelect();
-			// Verify Step 9: Spotlight is on the closed 'Default' Dropdown.
-			// ???
-			// expect(dropdownList.isExisting).to.not.be.true(); // ???
-
-			// Step 10: 5-way Right to the *right* Dropdown.
-			// Verify Step 10: Spotlight is on the 'Selected' Dropdown.
 		});
 	});
 
@@ -124,11 +106,11 @@ describe('Dropdown', function () {
 			Page.openDropdown(dropdown);
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
-			// click in the empty space created by the wrapper
+			// Step 3: Click in the area outside the Dropdown (in the empty space created by the wrapper)
 			const wrapper = $('#wrapper');
 			wrapper.click({x: 0, y: 0});
 
-			// verify that the floating list no longer exists
+			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
 			expect(dropdownList.isExisting).to.not.be.true();
 		});
