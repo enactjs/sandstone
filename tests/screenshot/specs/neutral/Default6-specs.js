@@ -6,5 +6,6 @@ runTest({
 	testName: 'Sandstone',
 	Page: Page,
 	skin: 'neutral',
-	highContrast: false
+	highContrast: false,
+	concurrency: 6
 });

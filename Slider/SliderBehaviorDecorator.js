@@ -10,12 +10,6 @@ import $L from '../internal/$L';
 
 import {forwardSpotlightEvents} from './utils';
 
-const useHintOnActive = ({active}) => {
-	return {
-		useHintText: active
-	};
-};
-
 const toggleActive = ({active}) => {
 	return {
 		active: !active
@@ -80,7 +74,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				active: false,
 				dragging: false,
 				focused: false,
-				useHintText: false,
+				useHintText: true,
 				prevValue: props.value
 			};
 		}
@@ -125,12 +119,14 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		handleActivate () {
 			forward('onActivate', {type: 'onActivate'}, this.props);
 			this.setState(toggleActive);
-			this.setState(useHintOnActive);
 		}
 
 		handleBlur (ev) {
 			forward('onBlur', ev, this.props);
-			this.setState({focused: false});
+			this.setState({
+				focused: false,
+				useHintText: true
+			});
 		}
 
 		handleDragStart () {
