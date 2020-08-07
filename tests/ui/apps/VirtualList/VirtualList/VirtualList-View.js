@@ -97,6 +97,7 @@ class app extends React.Component {
 			hideScrollbar: false,
 			nativeScroll: true,
 			numItems: 100,
+			scrolling: false,
 			spacing: 0,
 			itemSize: 156,
 			wrap: false
@@ -116,11 +117,15 @@ class app extends React.Component {
 
 	onScrollStart = () => {
 		this.scrollingRef.current.innerHTML = 'Scrolling';
+		this.setState({scrolling: true});
 	};
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
-		this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
+		if(scrolling){
+			this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
+			this.setState({scrolling: false});
+		}
 	};
 
 	getScrollTo = (scrollTo) => {
