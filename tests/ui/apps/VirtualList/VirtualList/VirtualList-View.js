@@ -122,7 +122,7 @@ class app extends React.Component {
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
-		if(scrolling){
+		if(this.state.scrolling){
 			this.rootRef.current.dataset.scrollingEvents = (Number(this.rootRef.current.dataset.scrollingEvents)  || 0) + 1;
 			this.setState({scrolling: false});
 		}
