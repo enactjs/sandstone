@@ -37,6 +37,9 @@ class PanelPage extends Page {
 		this.panel2 = new PanelInterface(2);
 		this.panel3 = new PanelInterface(3);
 		this.panel4 = new PanelInterface(4);
+		this.panel5 = new PanelInterface(5);
+		this.panel6 = new PanelInterface(6);
+		this.panel7 = new PanelInterface(7);
 	}
 
 	focus (el) {
