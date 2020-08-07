@@ -34,9 +34,13 @@ describe('Wrap Knobs', function () {
 		Page.spotlightDown();
 		expectFocusedItem(0);
 		Page.pageDown();
+		Page.delay(1000);
 		waitUntilFocused(6, 'focus Item 6');
+		Page.delay(200);
 		Page.pageDown();
+		Page.delay(1000);
 		waitUntilFocused(19, 'focus Item 19');
+		Page.delay(200);
 		// Step 7: 2. Click the last item.
 		Page.spotlightSelect();
 		// Verify Step 7: Spotlight is on the last item.
