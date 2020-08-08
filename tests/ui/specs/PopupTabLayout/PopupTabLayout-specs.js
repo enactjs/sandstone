@@ -165,6 +165,40 @@ describe('PopupTabLayout', function () {
 				expect(actual).to.equal(expected);
 			});
 
+			it('should restore last focused when returning to Panel', function () {
+				Page.open();
+
+				expect(browser.execute(getFocusedText)).to.equal('Display');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
+					Page.spotlightRight();
+				});
+
+				// Color Adjust is the default element
+				expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
+
+				// sets the last focused for the Panel to be "Picture Modes"
+				Page.spotlightUp();
+
+				expect(browser.execute(getFocusedText)).to.equal('Picture Modes');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to expand', () => {
+					Page.spotlightLeft();
+				});
+
+				expect(browser.execute(getFocusedText)).to.equal('Display');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
+					Page.spotlightRight();
+				});
+
+				// expect to return to Picture Modes
+				const expected = 'Picture Modes';
+				const actual = browser.execute(getFocusedText);
+
+				expect(actual).to.equal(expected);
+			});
+
 			it('should focus the second tab when expanded', function () {
 				Page.open('?defaultIndex=1');
 
