@@ -152,6 +152,10 @@ const VideoBase = class extends React.Component {
 		this.clearMedia();
 	}
 
+	keys = ['media-1', 'media-2'];
+	prevSourceKey = null;
+	prevPreloadKey = null;
+
 	handlePreloadLoadStart = (ev) => {
 		// persist the event so we can cache it to re-emit when the preload becomes active
 		ev.persist();
@@ -191,6 +195,35 @@ const VideoBase = class extends React.Component {
 		this.preloadVideo = node;
 	};
 
+	getKeys () {
+		const {source, preloadSource} = this.props;
+
+		const sourceKey = source && getKeyFromSource(source);
+		let preloadKey = preloadSource && getKeyFromSource(preloadSource);
+
+		// If the same source is used for both, clear the preload key to avoid rendering duplicate
+		// video elements.
+		if (sourceKey === preloadKey) {
+			preloadKey = null;
+		}
+
+		// if either the source or preload existed previously in the other "slot", swap the keys so
+		// the preload video becomes the active video and vice versa
+		if (
+			(sourceKey === this.prevPreloadKey && this.prevPreloadKey) ||
+			(preloadKey === this.prevSourceKey && this.prevSourceKey)
+		) {
+			this.keys.reverse();
+		}
+
+		// cache the previous keys so we know if the sources change the next time
+		this.prevSourceKey = sourceKey;
+		this.prevPreloadKey = preloadKey;
+
+		// if preload is unset, clear the key so we don't render that media node at all
+		return preloadKey ? this.keys : this.keys.slice(0, 1);
+	}
+
 	render () {
 		const {
 			preloadSource,
@@ -201,13 +234,7 @@ const VideoBase = class extends React.Component {
 
 		delete rest.setMedia;
 
-		const sourceKey = getKeyFromSource(source);
-		let preloadKey = getKeyFromSource(preloadSource);
-
-		// prevent duplicate components by suppressing preload when sources are the same
-		if (sourceKey === preloadKey) {
-			preloadKey = null;
-		}
+		const [sourceKey, preloadKey] = this.getKeys();
 
 		return (
 			<React.Fragment>
