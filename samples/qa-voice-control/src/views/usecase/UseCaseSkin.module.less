@@ -1,0 +1,52 @@
+@import '~@enact/sandstone/styles/skin.less';
+@import '~@enact/sandstone/styles/mixins.less';
+
+.top {
+  .helloButton {
+    width: 200px;
+  }
+}
+
+.iconButton {
+  .bg {
+    border-radius: 10px;
+  }
+
+  .applySkins({
+    .bg {
+      background-color: green;
+    }
+
+    .focus({
+        .bg {
+          background-color: yellow;
+        }
+    })
+  })
+}
+
+.button {
+  .bg {
+    border-width: 10px;
+  }
+
+  .applySkins({
+    .bg {
+      background-color: blue;
+      border-color: red;
+    }
+
+    &.selected {
+      .bg {
+        border-color: green;
+      }
+    }
+
+    .focus({
+      color: yellow;
+      .bg {
+        background-color: gray;
+      }
+    })
+  });
+}
