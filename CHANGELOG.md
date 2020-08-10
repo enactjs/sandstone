@@ -2,13 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.1.2] - 2020-08-10
 
 ### Fixed
 
-- `sandstone/Button` focus style to match latest designs
-- `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
+- `sandstone/Button` style to match latest designs
 - `sandstone/Panels` to allow key events after being unmounted
+- `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
 - `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
 - `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
 
