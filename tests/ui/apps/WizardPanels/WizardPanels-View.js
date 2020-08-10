@@ -7,14 +7,17 @@ import React from 'react';
 import spotlight from '@enact/spotlight';
 import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 
+import UrlPropsDecorator from '../../components/UrlPropsDecorator';
+
 // NOTE: Forcing pointer mode off so we can be sure that regardless of webOS pointer mode the app
 // runs the same way
 spotlight.setPointerMode(false);
 
-const app = (props) => <div {...props}>
+const app = (props) =>
 	<WizardPanels
 		id="wizardpanels"
 		title="WizardPanels"
+		{...props}
 	>
 		<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanels View 1">
 			<Scroller>
@@ -56,6 +59,6 @@ const app = (props) => <div {...props}>
 			<Button className={spotlightDefaultClass}>Second</Button>
 		</WizardPanels.Panel>
 	</WizardPanels>
-</div>;
+;
 
-export default ThemeDecorator(app);
+export default UrlPropsDecorator(ThemeDecorator(app));

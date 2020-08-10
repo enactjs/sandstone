@@ -18,7 +18,6 @@ describe('WizardPanels', function () {
 			it('should select contents', function () {
 				wizardPanels.focusNextButton();
 				Page.spotlightSelect();
-				wizardPanels.waitForLeave(1);
 
 				const expected = 'Button A';
 				const actual = browser.execute(getFocusedTextContent);
