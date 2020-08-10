@@ -4,9 +4,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-### Remove
+### Fixed
 
-- `sandstone/Button` pressed animation for `focusEffect="static"`
+- `sandstone/Button` focus style to match latest designs
+- `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
+- `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
+- `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
 
 ## [1.1.1] - 2020-08-05
 
