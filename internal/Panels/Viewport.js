@@ -202,7 +202,7 @@ const ViewportBase = class extends React.Component {
 	}
 
 	componentWillUnmount () {
-		this.paused.resume();
+		this.resume();
 	}
 
 	addTransitioningClass = () => {
