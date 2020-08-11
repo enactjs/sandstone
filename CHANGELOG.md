@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` focus issue on key events inside header container
+
 ## [1.1.2] - 2020-08-10
 
 ### Fixed
