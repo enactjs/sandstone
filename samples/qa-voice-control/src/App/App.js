@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -37,19 +37,7 @@ import IntentPlayListControl from '../views/intent/IntentPlayListControl';
 import IntentVirtualGridList from '../views/intent/IntentVirtualGridList';
 import IntentVirtualList from '../views/intent/IntentVirtualList';
 
-import UseCaseAlert from '../views/usecase/UseCaseAlert';
-import UseCaseDatePicker from '../views/usecase/UseCaseDatePicker';
 import UseCaseDoubleScroller from '../views/usecase/UseCaseDoubleScroller';
-import UseCaseDropdown from '../views/usecase/UseCaseDropdown';
-import UseCaseHorizontalScroller from '../views/usecase/UseCaseHorizontalScroller';
-import UseCaseInput from '../views/usecase/UseCaseInput';
-import UseCasePanels from '../views/usecase/UseCasePanels';
-import UseCasePicker from '../views/usecase/UseCasePicker';
-import UseCaseSkinnable from '../views/usecase/UseCaseSkinnable';
-import UseCaseSlider from '../views/usecase/UseCaseSlider';
-import UseCaseSpinner from '../views/usecase/UseCaseSpinner';
-import UseCaseProgressBar from '../views/usecase/UseCaseProgressBar';
-import UseCaseTimePicker from '../views/usecase/UseCaseTimePicker';
 import UseCaseVideoPlayer from '../views/usecase/UseCaseVideoPlayer';
 import UseCaseVoiceControlDecorator from '../views/usecase/UseCaseVoiceControlDecorator';
 
@@ -82,19 +70,7 @@ const views = [
 	{title: 'data-webos-voice-intent', view: DataWebosVoiceIntent},
 	{title: 'data-webos-voice-label', view: DataWebosVoiceLabel},
 	{title: 'data-webos-voice-label-index', view: DataWebosVoiceLabelIndex},
-	{title: 'Alert', view: UseCaseAlert, category: 'Use cases'},
-	{title: 'DatePicker', view: UseCaseDatePicker},
-	{title: 'Double Scroller', view: UseCaseDoubleScroller},
-	{title: 'Dropdown', view: UseCaseDropdown},
-	{title: 'Horizontal Scroller', view: UseCaseHorizontalScroller},
-	{title: 'Input', view: UseCaseInput},
-	{title: 'Panel', view: UseCasePanels},
-	{title: 'Picker', view: UseCasePicker},
-	{title: 'Skinnable', view: UseCaseSkinnable},
-	{title: 'Slider', view: UseCaseSlider},
-	{title: 'Spinner', view: UseCaseSpinner},
-	{title: 'ProgressBar', view: UseCaseProgressBar},
-	{title: 'TimePicker', view: UseCaseTimePicker},
+	{title: 'Double Scroller', view: UseCaseDoubleScroller, category: 'Use cases'},
 	{title: 'VideoPlayer', view: UseCaseVideoPlayer},
 	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator},
 	{title: 'WebOSVoice', view: WebOSVoice, category: 'Events'}
