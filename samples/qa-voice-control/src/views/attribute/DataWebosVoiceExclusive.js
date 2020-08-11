@@ -8,6 +8,7 @@ import Popup from '@enact/sandstone/Popup';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import FloatingLayer from '@enact/ui/FloatingLayer';
+import ri from '@enact/ui/resolution';
 import React from 'react';
 
 const ContexturePopupButton = ContexturePopupDecorator(Button);
@@ -64,7 +65,7 @@ class DataWebosVoiceExclusive extends React.Component {
 
 	renderPopup = ({...rest}) => {
 		return (
-			<div {...rest} style={{width: '400px', height: '400px'}}>
+			<div {...rest}>
 				<div>This is ContexturePopup</div>
 				<Button onClick={this.closePopup('contexturePopup')}>Close</Button>
 			</div>
@@ -83,19 +84,19 @@ class DataWebosVoiceExclusive extends React.Component {
 		return (
 			<>
 				<Header title="voice-exclusive" subtitle={this.state.result} />
-				<Button onClick={this.updateResult('필터 is clicked')}>필터</Button>
+				<Button onClick={this.updateResult('Hello is clicked')}>Hello</Button>
 				<Heading>Popup</Heading>
-				<Button onClick={this.openPopup('popup')}>마음의 소리</Button>
+				<Button onClick={this.openPopup('popup')}>Popup</Button>
 				<Popup open={this.state.isPopup}>
 					<div>This is Popup</div>
-					<Button onClick={this.closePopup('popup')}>닫기</Button>
+					<Button onClick={this.closePopup('popup')}>Close</Button>
 				</Popup>
 				<Heading>Alert</Heading>
-				<Button onClick={this.openPopup('alert')}>알림</Button>
+				<Button onClick={this.openPopup('alert')}>Alert</Button>
 				<Alert open={this.state.isAlert}>
 					<span>This is Alert</span>
 					<buttons>
-						<Button onClick={this.closePopup('alert')}>close</Button>
+						<Button onClick={this.closePopup('alert')}>Close</Button>
 					</buttons>
 				</Alert>
 				<Heading>ContexturePopup</Heading>
@@ -105,7 +106,7 @@ class DataWebosVoiceExclusive extends React.Component {
 					onClick={this.openPopup('contexturePopup')}
 					direction="right middle"
 				>
-					고양이
+					CotextualPopup
 				</ContexturePopupButton>
 				<Heading>CustomPopup</Heading>
 				<Button spotlightId="customizedPopupActivator" onClick={this.openPopup('customizedPopup')}>Customized Popup</Button>
@@ -113,25 +114,26 @@ class DataWebosVoiceExclusive extends React.Component {
 					open={this.state.isCustomPopup}
 					onOpen={this.customizedPopupOpenHandler}
 					onClose={this.customizedPopupCloseHandler}
-					scrimType="none"
+					scrimType="translucent"
 				>
 					<ContainerDiv
 						spotlightId="customizedPopup"
 						style={{
 							backgroundColor: '#CCE5FF',
-							width: '600px',
-							height: '400px',
+							width: ri.scale(1600),
+							height: ri.scale(1200),
 							position: 'absolute',
-							left: window.innerWidth / 2 - 300,
-							top: window.innerHeight / 2 - 200,
+							left: '50%',
+							top: '50%',
+							transform: 'translate(-50%, -50%)',
 							display: 'flex',
 							justifyContent: 'center',
 							alignItems: 'center'
 						}}
 						data-webos-voice-exclusive
 					>
-						<Button onClick={this.updateResult('연어 is clicked')}>연어</Button>
-						<Button onClick={this.closePopup('customizedPopup')}>닫기</Button>
+						<Button onClick={this.updateResult('Bye is clicked')}>Bye</Button>
+						<Button onClick={this.closePopup('customizedPopup')}>Close</Button>
 					</ContainerDiv>
 				</FloatingLayer>
 			</>

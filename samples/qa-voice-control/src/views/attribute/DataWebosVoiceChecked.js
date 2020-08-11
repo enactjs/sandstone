@@ -24,7 +24,7 @@ class DataWebosVoiceChecked extends React.Component {
 			<>
 				<Header title="voice-checked" subtitle={this.state.result} />
 				<Scroller>
-					<Heading>Custom Checkbox</Heading>
+					<Heading>Customized Checkbox</Heading>
 					<div style={{fontSize: '30px'}}>
 						<input
 							data-webos-voice-checked={this.state.isChecked}

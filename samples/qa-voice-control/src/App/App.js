@@ -13,7 +13,6 @@ import ViewManager from '@enact/ui/ViewManager';
 
 import css from './App.module.less';
 import Home from './Home';
-import View from './View';
 
 import DataWebosVoiceChecked from '../views/attribute/DataWebosVoiceChecked';
 import DataWebosVoiceDisabled from '../views/attribute/DataWebosVoiceDisabled';
@@ -70,10 +69,10 @@ const views = [
 	{title: 'data-webos-voice-intent', view: DataWebosVoiceIntent},
 	{title: 'data-webos-voice-label', view: DataWebosVoiceLabel},
 	{title: 'data-webos-voice-label-index', view: DataWebosVoiceLabelIndex},
+	{title: 'WebOSVoice', view: WebOSVoice, category: 'Events'},
 	{title: 'Double Scroller', view: UseCaseDoubleScroller, category: 'Use cases'},
 	{title: 'VideoPlayer', view: UseCaseVideoPlayer},
-	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator},
-	{title: 'WebOSVoice', view: WebOSVoice, category: 'Events'}
+	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator}
 ];
 
 class AppBase extends React.Component {
@@ -126,8 +125,8 @@ class AppBase extends React.Component {
 						})}
 					</Cell>
 					<Cell component={ViewManager} index={selected}>
-						{views.map((view, i) => (
-							<View {...view} key={`view${i}`} />
+						{views.map(({view: ComponentView}, i) => (
+							<ComponentView key={`view${i}`} />
 						))}
 					</Cell>
 				</Layout>

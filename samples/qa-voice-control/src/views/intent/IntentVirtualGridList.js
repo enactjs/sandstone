@@ -1,11 +1,11 @@
-import {Header} from '@enact/sandstone/Panels';
+import {Header, Panel} from '@enact/sandstone/Panels';
 import Item from '@enact/sandstone/Item';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
 let items = [];
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 100; i++) {
 	items.push('item' + i);
 }
 
@@ -20,7 +20,7 @@ class IntentVirtualGridList extends React.Component {
 
 	render () {
 		return (
-			<>
+			<Panel>
 				<Header title="Intent to scroll on VirtualGridList" />
 				<VirtualGridList
 					dataSize={items.length}
@@ -29,7 +29,7 @@ class IntentVirtualGridList extends React.Component {
 					itemSize={{minWidth: itemSize, minHeight: itemSize}}
 					spacing={0}
 				/>
-			</>
+			</Panel>
 		);
 	}
 }
