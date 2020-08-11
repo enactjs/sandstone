@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Item from '@enact/sandstone/Item';
 
+import componentCss from './KeyItem.module.less';
+
 const KeyItem = kind({
 	name: 'KeyItem',
 	propTypes: {
@@ -27,10 +29,17 @@ const KeyItem = kind({
 		 */
 		which: PropTypes.number
 	},
-	render: ({code, keyName, which, ...rest}) => {
+	styles: {
+		className: 'keyItem',
+		css: componentCss
+	},
+	computed: {
+		label: ({code, keyName}) => `${code || 'NO ID FOR KEY'} (${keyName})`
+	},
+	render: ({code, css, keyName, which, ...rest}) => {
 		return (
-			<Item spotlightDisabled {...rest}>
-				{`${code}: ${which} ${keyName}`}
+			<Item labelPosition="above" spotlightDisabled {...rest}>
+				<div className={css.charCode}>{which}</div>
 			</Item>
 		);
 	}
