@@ -36,7 +36,9 @@ const KeyItem = kind({
 	computed: {
 		label: ({code, keyName}) => `${code || 'NO ID FOR KEY'} (${keyName})`
 	},
-	render: ({code, css, keyName, which, ...rest}) => {
+	render: ({css, which, ...rest}) => {
+		delete rest.code;
+		delete rest.keyName;
 		return (
 			<Item labelPosition="above" spotlightDisabled {...rest}>
 				<div className={css.charCode}>{which}</div>
