@@ -1,8 +1,9 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {ItemBase} from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import {Spottable} from '@enact/spotlight/Spottable';
-import {ItemBase} from '@enact/sandstone/Item';
+import React from 'react';
+
 import css from './UseCaseHorizontalScroller.module.less';
 
 let itemList = [];
@@ -15,13 +16,13 @@ const SpottableItem = Spottable(ItemBase);
 class UseCaseHorizontalScroller extends React.Component {
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Horizontal Scroller" />
+			<>
+				<Header title="Horizontal Scroller" />
 				<Scroller
-					focusableScrollbar
 					direction="horizontal"
-					verticalScrollbar="hidden"
+					focusableScrollbar
 					horizontalScrollbar="visible"
+					verticalScrollbar="hidden"
 				>
 					<div style={{display:'flex', flexDirection:'row'}}>
 						{
@@ -36,7 +37,7 @@ class UseCaseHorizontalScroller extends React.Component {
 						}
 					</div>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

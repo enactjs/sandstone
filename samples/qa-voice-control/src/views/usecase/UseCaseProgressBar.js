@@ -1,8 +1,8 @@
 import Button from '@enact/sandstone/Button';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Header} from '@enact/sandstone/Panels';
 import ProgressBar from '@enact/sandstone/ProgressBar';
-
 import React from 'react';
+
 
 class UseCaseProgressBar extends React.Component {
 	constructor (props) {
@@ -22,12 +22,12 @@ class UseCaseProgressBar extends React.Component {
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case ProgressBar" />
+			<>
+				<Header title="ProgressBar" />
 				<ProgressBar progress={this.state.value} />
 				<Button onClick={this.handleDecrease}>decrease</Button>
 				<Button onClick={this.handleIncrease}>increase</Button>
-			</Panel>
+			</>
 		);
 	}
 }

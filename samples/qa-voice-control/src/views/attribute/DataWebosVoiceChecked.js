@@ -1,7 +1,8 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
+import React from 'react';
+
 
 class DataWebosVoiceChecked extends React.Component {
 	constructor (props) {
@@ -20,24 +21,24 @@ class DataWebosVoiceChecked extends React.Component {
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="voice-checked" subtitle={this.state.result} />
 				<Scroller>
 					<Heading>Custom Checkbox</Heading>
 					<div style={{fontSize: '30px'}}>
 						<input
-							id="myCheckbox"
-							type="checkbox"
+							data-webos-voice-checked={this.state.isChecked}
 							data-webos-voice-intent="SelectCheckItem"
 							data-webos-voice-label="고양이"
-							data-webos-voice-checked={this.state.isChecked}
+							id="myCheckbox"
 							onClick={this.handleClick}
+							type="checkbox"
 						/>
 						고양이
 						<br />
 					</div>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

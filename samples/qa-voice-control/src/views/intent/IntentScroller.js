@@ -1,8 +1,7 @@
 import Item from '@enact/sandstone/Item';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
-
 import React from 'react';
 
 let itemList = [];
@@ -27,17 +26,13 @@ class IntentScroller extends React.Component {
 	};
 
 	render () {
-		const {...rest} = this.props;
-
-		delete rest.setComponent;
-
 		return (
-			<Panel {...rest}>
+			<>
 				<Header title="Intent to scroll" />
 				<Scroller
-					focusableScrollbar
 					cbScrollTo={this.cbScrollTo}
 					data-webos-voice-focused
+					focusableScrollbar
 				>
 					<Repeater
 						childComponent={CustomItem}
@@ -46,7 +41,7 @@ class IntentScroller extends React.Component {
 						{itemList}
 					</Repeater>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

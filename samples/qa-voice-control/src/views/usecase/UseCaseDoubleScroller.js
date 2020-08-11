@@ -1,9 +1,9 @@
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Header} from '@enact/sandstone/Panels';
+import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
-import {Scroller} from '@enact/sandstone/Scroller';
-
+import ri from '@enact/ui/resolution';
 import React from 'react';
 
 let itemList = [
@@ -26,7 +26,7 @@ class UseCaseDoubleScroller extends React.Component {
 				isAfricaFocused: false
 			});
 		}
-		console.log('handleKoreaFocus>', this.state);	// eslint-disable-line no-console
+		console.log('handleKoreaFocus > ', this.state);	// eslint-disable-line no-console
 	};
 
 	handleAfricaFocus = () => {
@@ -36,21 +36,21 @@ class UseCaseDoubleScroller extends React.Component {
 				isAfricaFocused: true
 			});
 		}
-		console.log('handleAfricaFocus>', this.state);	// eslint-disable-line no-console
+		console.log('handleAfricaFocus > ', this.state);	// eslint-disable-line no-console
 	};
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Double Scroller" />
+			<>
+				<Header title="Double Scroller" />
 				<div style={{display: 'flex', flexDirection: 'row'}}>
 					<div>
-						<Heading style={{width: '400px'}}>{'한국'}</Heading>
+						<Heading style={{width: ri.scale(400)}}>{'한국'}</Heading>
 						<div data-korea-scroller>
 							<Scroller
-								style={{width: '400px', height: '700px'}}
-								onFocus={this.handleKoreaFocus}
 								data-webos-voice-focused={this.state.isKoreaFocused}
+								onFocus={this.handleKoreaFocus}
+								style={{width: ri.scale(400), height: ri.scale(700)}}
 							>
 								<Repeater
 									childComponent={Item}
@@ -64,12 +64,12 @@ class UseCaseDoubleScroller extends React.Component {
 						</div>
 					</div>
 					<div>
-						<Heading style={{width: '400px'}}>{'아프리카'}</Heading>
+						<Heading style={{width: ri.scale(400)}}>{'아프리카'}</Heading>
 						<div data-africa-scroller>
 							<Scroller
-								style={{width: '400px', height: '700px'}}
-								onFocus={this.handleAfricaFocus}
 								data-webos-voice-focused={this.state.isAfricaFocused}
+								onFocus={this.handleAfricaFocus}
+								style={{width: ri.scale(400), height: ri.scale(700)}}
 							>
 								<Repeater
 									childComponent={Item}
@@ -83,7 +83,7 @@ class UseCaseDoubleScroller extends React.Component {
 						</div>
 					</div>
 				</div>
-			</Panel>
+			</>
 		);
 	}
 }

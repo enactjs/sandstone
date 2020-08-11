@@ -1,17 +1,18 @@
-/* eslint-disable react/jsx-no-bind */
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import Button from '@enact/sandstone/Button';
-import Heading from '@enact/sandstone/Heading';
-import Popup from '@enact/sandstone/Popup';
+
 import Alert from '@enact/sandstone/Alert';
+import Button from '@enact/sandstone/Button';
 import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import FloatingLayer from '@enact/ui/FloatingLayer';
-import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import Popup from '@enact/sandstone/Popup';
 import Spotlight from '@enact/spotlight';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import FloatingLayer from '@enact/ui/FloatingLayer';
+import React from 'react';
 
 const ContexturePopupButton = ContexturePopupDecorator(Button);
 const ContainerDiv = SpotlightContainerDecorator({restrict: 'self-only'}, 'div');
+
 
 class DataWebosVoiceExclusive extends React.Component {
 	constructor (props) {
@@ -26,14 +27,14 @@ class DataWebosVoiceExclusive extends React.Component {
 		};
 	}
 
-	showResult = (msg) => {
+	updateResult = (msg) => () => {
 		this.setState({result: msg});
 		setTimeout(() => {
 			this.setState({result: ''});
 		}, 1500);
 	};
 
-	openPopup = (type) => {
+	openPopup = (type) => () => {
 		if (type === 'popup') {
 			this.setState({isPopup: true});
 		} else if (type === 'dialog') {
@@ -42,12 +43,12 @@ class DataWebosVoiceExclusive extends React.Component {
 			this.setState({isAlert: true});
 		} else if (type === 'contexturePopup') {
 			this.setState({isContexturePopup: true});
-		} else if (type === 'customPopup') {
+		} else if (type === 'customizedPopup') {
 			this.setState({isCustomPopup: true});
 		}
 	};
 
-	closePopup = (type) => {
+	closePopup = (type) => () => {
 		if (type === 'popup') {
 			this.setState({isPopup: false});
 		} else if (type === 'dialog') {
@@ -56,7 +57,7 @@ class DataWebosVoiceExclusive extends React.Component {
 			this.setState({isAlert: false});
 		} else if (type === 'contexturePopup') {
 			this.setState({isContexturePopup: false});
-		} else if (type === 'customPopup') {
+		} else if (type === 'customizedPopup') {
 			this.setState({isCustomPopup: false});
 		}
 	};
@@ -64,60 +65,58 @@ class DataWebosVoiceExclusive extends React.Component {
 	renderPopup = ({...rest}) => {
 		return (
 			<div {...rest} style={{width: '400px', height: '400px'}}>
-				<div>ContexturePopup</div>
-				<Button onClick={() => this.closePopup('contexturePopup')}>close</Button>
+				<div>This is ContexturePopup</div>
+				<Button onClick={this.closePopup('contexturePopup')}>Close</Button>
 			</div>
 		);
 	};
 
-	customPopupOpenHandler = () => {
-		Spotlight.focus('customPopup');
+	customizedPopupOpenHandler = () => {
+		Spotlight.focus('customizedPopup');
 	};
 
-	customPopupCloseHandler = () => {
-		Spotlight.focus('customPopupActivator');
+	customizedPopupCloseHandler = () => {
+		Spotlight.focus('customizedPopupActivator');
 	};
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="voice-exclusive" subtitle={this.state.result} />
-				<Button small onClick={() => this.showResult('필터 is clicked')}>필터</Button>
+				<Button onClick={this.updateResult('필터 is clicked')}>필터</Button>
 				<Heading>Popup</Heading>
-				<Button small onClick={() => this.openPopup('popup')}>마음의 소리</Button>
-				<Popup open={this.state.isPopup} showCloseButton>
-					<div>popup</div>
-					<Button onClick={() => this.closePopup('popup')}>닫기</Button>
+				<Button onClick={this.openPopup('popup')}>마음의 소리</Button>
+				<Popup open={this.state.isPopup}>
+					<div>This is Popup</div>
+					<Button onClick={this.closePopup('popup')}>닫기</Button>
 				</Popup>
 				<Heading>Alert</Heading>
-				<Button small onClick={() => this.openPopup('alert')}>알림</Button>
-				<Alert open={this.state.isAlert} showCloseButton>
-					<span>alert</span>
+				<Button onClick={this.openPopup('alert')}>알림</Button>
+				<Alert open={this.state.isAlert}>
+					<span>This is Alert</span>
 					<buttons>
-						<Button onClick={() => this.closePopup('alert')}>close</Button>
+						<Button onClick={this.closePopup('alert')}>close</Button>
 					</buttons>
 				</Alert>
 				<Heading>ContexturePopup</Heading>
 				<ContexturePopupButton
-					small
 					open={this.state.isContexturePopup}
 					popupComponent={this.renderPopup}
-					onClick={() => this.openPopup('contexturePopup')}
-					direction="right"
-					showCloseButton
+					onClick={this.openPopup('contexturePopup')}
+					direction="right middle"
 				>
 					고양이
 				</ContexturePopupButton>
 				<Heading>CustomPopup</Heading>
-				<Button spotlightId="customPopupActivator" small onClick={() => this.openPopup('customPopup')}>커스텀팝업</Button>
+				<Button spotlightId="customizedPopupActivator" onClick={this.openPopup('customizedPopup')}>Customized Popup</Button>
 				<FloatingLayer
 					open={this.state.isCustomPopup}
-					onOpen={this.customPopupOpenHandler}
-					onClose={this.customPopupCloseHandler}
+					onOpen={this.customizedPopupOpenHandler}
+					onClose={this.customizedPopupCloseHandler}
 					scrimType="none"
 				>
 					<ContainerDiv
-						spotlightId="customPopup"
+						spotlightId="customizedPopup"
 						style={{
 							backgroundColor: '#CCE5FF',
 							width: '600px',
@@ -131,11 +130,11 @@ class DataWebosVoiceExclusive extends React.Component {
 						}}
 						data-webos-voice-exclusive
 					>
-						<Button onClick={() => this.showResult('연어 is clicked')}>연어</Button>
-						<Button onClick={() => this.closePopup('customPopup')}>닫기</Button>
+						<Button onClick={this.updateResult('연어 is clicked')}>연어</Button>
+						<Button onClick={this.closePopup('customizedPopup')}>닫기</Button>
 					</ContainerDiv>
 				</FloatingLayer>
-			</Panel>
+			</>
 		);
 	}
 }

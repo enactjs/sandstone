@@ -1,8 +1,9 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import Heading from '@enact/sandstone/Heading';
 import DatePicker from '@enact/sandstone/DatePicker';
+import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
+
+import React from 'react';
 
 
 class UseCaseDatePicker extends React.Component {
@@ -17,7 +18,7 @@ class UseCaseDatePicker extends React.Component {
 	}
 
 	changeHandler = (e) => {
-		console.log('onChange>', e, e.value.getTime());	// eslint-disable-line no-console
+		console.log('onChange > ', e, e.value.getTime());	// eslint-disable-line no-console
 		this.setState({
 			timeObj: e.value,
 			timeStamp: e.value.getTime()
@@ -26,17 +27,17 @@ class UseCaseDatePicker extends React.Component {
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Date Picker" />
+			<>
+				<Header title="Date Picker" />
 				<Scroller>
 					<Heading>DatePicker</Heading>
 					<DatePicker
-						title="Date"
-						onChange={this.changeHandler}
 						data-webos-voice-timestamp={this.state.timeStamp}
+						onChange={this.changeHandler}
+						title="Date"
 					/>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

@@ -1,11 +1,11 @@
 import DayPicker from '@enact/sandstone/DayPicker';
 import Heading from '@enact/sandstone/Heading';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
 import Scroller from '@enact/sandstone/Scroller';
 import RangePicker from '@enact/sandstone/RangePicker';
-
 import React from 'react';
+
 
 class UseCasePicker extends React.Component {
 	constructor (props) {
@@ -18,7 +18,7 @@ class UseCasePicker extends React.Component {
 	}
 
 	handleVoice = (e) => {
-		console.log('handleVoice>', e);	// eslint-disable-line no-console
+		console.log('handleVoice > ', e);	// eslint-disable-line no-console
 
 		let {value} = e.detail;
 		let index = this.state.animals.indexOf(value);
@@ -31,7 +31,7 @@ class UseCasePicker extends React.Component {
 	};
 
 	handleChange = (e) => {
-		console.log('handleChange>', e);	// eslint-disable-line no-console
+		console.log('handleChange > ', e);	// eslint-disable-line no-console
 		let {value} = e;
 		this.setState이({
 			index: value
@@ -39,7 +39,7 @@ class UseCasePicker extends React.Component {
 	};
 
 	handleRangeChange = (e) => {
-		console.log('handleRangeChange>', e);	// eslint-disable-line no-console
+		console.log('handleRangeChange > ', e);	// eslint-disable-line no-console
 		let {value} = e;
 		this.setState({
 			rangeValue: value
@@ -48,8 +48,8 @@ class UseCasePicker extends React.Component {
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Picker" subtitle={this.state.result} />
+			<>
+				<Header title="Picker" subtitle={this.state.result} />
 				<Scroller>
 					<Heading>동물원</Heading>
 					<Picker
@@ -65,16 +65,16 @@ class UseCasePicker extends React.Component {
 					</Picker>
 					<Heading>RangePicker</Heading>
 					<RangePicker
-						min={0}
-						max={10}
 						data-webos-voice-group-label="범위"
-						value={this.state.rangeValue}
+						max={10}
+						min={0}
 						onChange={this.handleRangeChange}
+						value={this.state.rangeValue}
 					/>
 					<Heading>DayPicker</Heading>
 					<DayPicker />
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

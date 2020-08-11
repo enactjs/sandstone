@@ -1,8 +1,9 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
 import Heading from '@enact/sandstone/Heading';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
+import React from 'react';
+
 
 class UseCaseInput extends React.Component {
 	constructor (props) {
@@ -20,22 +21,22 @@ class UseCaseInput extends React.Component {
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Input" />
+			<>
+				<Header title="Input" />
 				<Heading>주소</Heading>
 				<Input
-					type="passwordnumber"
-					value="ggg"
-					placeholder="empty"
-					data-webos-voice-intent="Select"
 					data-webos-voice-group-label="국가"
+					data-webos-voice-intent="Select"
 					data-webos-voice-label="주소"
 					onChange={this.handleChange}
-					title="title"
+					placeholder="empty"
 					subtitle="subtitle"
+					title="title"
+					type="passwordnumber"
+					value="this is value"
 				/>
 				<Item>dummy</Item>
-			</Panel>
+			</>
 		);
 	}
 }

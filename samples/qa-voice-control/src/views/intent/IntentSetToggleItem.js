@@ -1,8 +1,9 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
 import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
 import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+import React from 'react';
+
 
 class IntentSetToggleItem extends React.Component {
 	constructor (props) {
@@ -20,12 +21,12 @@ class IntentSetToggleItem extends React.Component {
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="Intent to set ToggleItem" />
 				<Heading>SwitchItem</Heading>
 				<SwitchItem>hello</SwitchItem>
 				<Switch />
-			</Panel>
+			</>
 		);
 	}
 }

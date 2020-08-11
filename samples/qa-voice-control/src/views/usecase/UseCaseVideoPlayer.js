@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
 import {VideoPlayer} from '@enact/sandstone/VideoPlayer';
+import React, {Component} from 'react';
 
 const sources = [
-	'http://192.168.0.3/enact/performance/videoplayer-memory/video/forEach.MOV',
-	'http://192.168.0.3/mock/NEW_ves_GatsbyR2_205356_3840x2160_25000Kbps_hevc_A_NBC_re.mp4',
-	'http://192.168.0.3/enact/performance/videoplayer-memory/video/reduce.MOV'
+	'http://media.w3.org/2010/05/sintel/trailer.mp4',
+	'http://media.w3.org/2010/05/sintel/trailer.mp4',
+	'http://media.w3.org/2010/05/sintel/trailer.mp4'
 ];
 
 class UseCaseVideoPlayer extends Component {
@@ -18,11 +18,7 @@ class UseCaseVideoPlayer extends Component {
 	};
 
 	playNext = () => {
-		let nextIdx = this.state.index + 1;
-		if (nextIdx >= sources.length) {
-			nextIdx = 0;
-		}
-		this.setState({index: nextIdx});
+		this.setState(prevState => ({index: prevState.index === sources.length - 1 ? 0 : prevState.index + 1}));
 	};
 
 	render = () => {

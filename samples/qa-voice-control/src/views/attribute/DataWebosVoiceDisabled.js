@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-no-bind */
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
 import {VoiceControlDecorator} from '@enact/webos/speech';
+import React from 'react';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
@@ -16,38 +15,37 @@ class DataWebosVoiceDisabled extends React.Component {
 		};
 	}
 
-	showResult = (msg) => {
+	updateResult = (msg) => () => {
 		this.setState({result: msg});
 		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleVoice = (e) => {
-		// document.querySelectorAll('[data-webos-voice-intent="Select Delete"]')[0].dispatchEvent(new CustomEvent('webOSVoice', {detail: {intent: 'Delete', value: 'cat'}}));
 		let {intent, value} = e.detail;
-		this.showResult('handleVoice>' + intent + ' | ' + value);
+		this.updateResult('handleVoice > ' + intent + ' | ' + value);
 		e.preventDefault();
 	};
 
 	render () {
 		return (
-			<Panel>
-				<Header title="voice-label" subtitle={this.state.result} />
+			<>
+				<Header title="voice-disabled" subtitle={this.state.result} />
 				<Scroller>
 					<Heading>default</Heading>
-					<Button onClick={() => this.showResult('handleClicked> 사진')}>사진</Button>
+					<Button onClick={this.updateResult('사진 is clicked')}>사진</Button>
 					<Heading>disabled (data-webos-voice-disabled)</Heading>
 					<VoiceButton
 						data-webos-voice-disabled
 						data-webos-voice-intent="Select Delete"
+						onClick={this.updateResult('사과 is clicked')}
 						onVoice={this.handleVoice}
-						onClick={() => this.showResult('handleClicked> 사과')}
 					>
 						사과
 					</VoiceButton>
 					<Heading>disabled (disabled)</Heading>
-					<Button disabled onClick={() => this.showResult('handleClicked> 필터')}>필터</Button>
+					<Button disabled onClick={this.updateResult('필터 is clicked')}>필터</Button>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

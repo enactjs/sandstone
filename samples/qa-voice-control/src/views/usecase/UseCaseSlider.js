@@ -1,20 +1,17 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import Slider from '@enact/sandstone/Slider';
 import Item from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
+import Slider from '@enact/sandstone/Slider';
+import React from 'react';
+
 
 class UseCaseSlider extends React.Component {
-	constructor (props) {
-		super(props);
-	}
-
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Slider" />
+			<>
+				<Header title="Slider" />
 				<Slider />
-				<Item>dummy</Item>
-			</Panel>
+				<Item>hello</Item>
+			</>
 		);
 	}
 }

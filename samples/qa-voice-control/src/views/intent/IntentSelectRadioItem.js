@@ -1,9 +1,10 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
 import RadioItem from '@enact/sandstone/RadioItem';
+import {Scroller} from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
+import React from 'react';
+
 
 class IntentSelectRadioItem extends React.Component {
 	constructor (props) {
@@ -21,7 +22,7 @@ class IntentSelectRadioItem extends React.Component {
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="Intent to select RadioItem" />
 				<Scroller>
 					<Heading>RadioItem</Heading>
@@ -41,7 +42,7 @@ class IntentSelectRadioItem extends React.Component {
 						]}
 					</Group>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

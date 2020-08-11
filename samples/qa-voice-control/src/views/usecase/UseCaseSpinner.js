@@ -1,6 +1,7 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Header} from '@enact/sandstone/Panels';
 import Spinner from '@enact/sandstone/Spinner';
+import React from 'react';
+
 
 class UseCaseSpinner extends React.Component {
 	constructor (props) {
@@ -9,10 +10,10 @@ class UseCaseSpinner extends React.Component {
 
 	render () {
 		return (
-			<Panel>
-				<Header title="Use Case Spinner" />
+			<>
+				<Header title="Spinner" />
 				<Spinner />
-			</Panel>
+			</>
 		);
 	}
 }

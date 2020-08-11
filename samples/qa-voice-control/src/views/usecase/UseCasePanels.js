@@ -1,11 +1,10 @@
 import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import {Panels, Panel, Header} from '@enact/sandstone/Panels';
-
+import {Panels, Header} from '@enact/sandstone/Panels';
 import React from 'react';
 
 
-class UseCasePanel extends React.Component {
+class UseCasePanels extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -33,22 +32,22 @@ class UseCasePanel extends React.Component {
 	render () {
 		return (
 			<Panels index={this.state.index}>
-				<Panel>
+				<>
 					<Header title="Panel 0" />
 					<Button onClick={this.nextPanel}>next</Button>
 					<Button onClick={this.showAlertPopup}>alert</Button>
 					<Alert open={this.state.open}>
 						<Button onClick={this.hideAlertPopup}>close</Button>
 					</Alert>
-				</Panel>
-				<Panel>
+				</>
+				<>
 					<Header title="Panel 1" />
 					<Button onClick={this.prevPanel}>previous</Button>
-					<Button>dummy</Button>
-				</Panel>
+					<Button>hello</Button>
+				</>
 			</Panels>
 		);
 	}
 }
 
-export default UseCasePanel;
+export default UseCasePanels;

@@ -1,10 +1,11 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
-import Heading from '@enact/sandstone/Heading';
-import Group from '@enact/ui/Group';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
+import Heading from '@enact/sandstone/Heading';
+import {Header} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
+import Group from '@enact/ui/Group';
+import React from 'react';
+
 
 class IntentSelectCheckboxItem extends React.Component {
 	constructor (props) {
@@ -22,7 +23,7 @@ class IntentSelectCheckboxItem extends React.Component {
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="Intent to select CheckboxItem" />
 				<Scroller>
 					<Heading>CheckboxItem</Heading>
@@ -30,10 +31,10 @@ class IntentSelectCheckboxItem extends React.Component {
 					<Heading>CheckboxItem Group - multiple</Heading>
 					<Group
 						childComponent={CheckboxItem}
-						select="multiple"
-						selectedProp="selected"
-						selected={this.state.selected}
 						onSelect={this.handleSelect}
+						select="multiple"
+						selected={this.state.selected}
+						selectedProp="selected"
 					>
 						{[
 							'사과',
@@ -44,7 +45,7 @@ class IntentSelectCheckboxItem extends React.Component {
 					<Heading>FormCheckboxItem</Heading>
 					<FormCheckboxItem>토끼</FormCheckboxItem>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

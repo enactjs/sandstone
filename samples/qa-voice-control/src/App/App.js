@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
@@ -43,9 +43,9 @@ import UseCaseDoubleScroller from '../views/usecase/UseCaseDoubleScroller';
 import UseCaseDropdown from '../views/usecase/UseCaseDropdown';
 import UseCaseHorizontalScroller from '../views/usecase/UseCaseHorizontalScroller';
 import UseCaseInput from '../views/usecase/UseCaseInput';
-import UseCasePanel from '../views/usecase/UseCasePanel';
+import UseCasePanels from '../views/usecase/UseCasePanels';
 import UseCasePicker from '../views/usecase/UseCasePicker';
-import UseCaseSkin from '../views/usecase/UseCaseSkin';
+import UseCaseSkinnable from '../views/usecase/UseCaseSkinnable';
 import UseCaseSlider from '../views/usecase/UseCaseSlider';
 import UseCaseSpinner from '../views/usecase/UseCaseSpinner';
 import UseCaseProgressBar from '../views/usecase/UseCaseProgressBar';
@@ -64,8 +64,7 @@ const Menu = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
 const views = [
 	{title: 'About qa-voice-control', view: Home},
-	{title: 'Intent', view: null},
-	{title: 'Delete', view: IntentDelete},
+	{title: 'Delete', view: IntentDelete, category: 'Intent'},
 	{title: 'Horizontal Scroller', view: IntentHorizontalScroller},
 	{title: 'Scroller', view: IntentScroller},
 	{title: 'Select', view: IntentSelect},
@@ -75,108 +74,84 @@ const views = [
 	{title: 'PlayContent', view: IntentPlayContent},
 	{title: 'PlayListControl', view: IntentPlayListControl},
 	{title: 'VirtualGridList', view: IntentVirtualGridList},
-	{title: 'VirtualList},', view: IntentVirtualList},
-	{title: 'Attribute', view: null},
-	{title: 'data-webos-voice-checked', view: DataWebosVoiceChecked},
+	{title: 'VirtualList', view: IntentVirtualList},
+	{title: 'data-webos-voice-checked', view: DataWebosVoiceChecked, category: 'Attributes'},
 	{title: 'data-webos-voice-disabled', view: DataWebosVoiceDisabled},
 	{title: 'data-webos-voice-exclusive', view: DataWebosVoiceExclusive},
 	{title: 'data-webos-voice-group-label', view: DataWebosVoiceGroupLabel},
 	{title: 'data-webos-voice-intent', view: DataWebosVoiceIntent},
 	{title: 'data-webos-voice-label', view: DataWebosVoiceLabel},
 	{title: 'data-webos-voice-label-index', view: DataWebosVoiceLabelIndex},
-	{title: 'Use Cases', view: null},
-	{title: 'Alert', view: UseCaseAlert},
+	{title: 'Alert', view: UseCaseAlert, category: 'Use cases'},
 	{title: 'DatePicker', view: UseCaseDatePicker},
 	{title: 'Double Scroller', view: UseCaseDoubleScroller},
 	{title: 'Dropdown', view: UseCaseDropdown},
 	{title: 'Horizontal Scroller', view: UseCaseHorizontalScroller},
 	{title: 'Input', view: UseCaseInput},
-	{title: 'Panel', view: UseCasePanel},
+	{title: 'Panel', view: UseCasePanels},
 	{title: 'Picker', view: UseCasePicker},
-	{title: 'Skin', view: UseCaseSkin},
+	{title: 'Skinnable', view: UseCaseSkinnable},
 	{title: 'Slider', view: UseCaseSlider},
 	{title: 'Spinner', view: UseCaseSpinner},
 	{title: 'ProgressBar', view: UseCaseProgressBar},
 	{title: 'TimePicker', view: UseCaseTimePicker},
 	{title: 'VideoPlayer', view: UseCaseVideoPlayer},
 	{title: 'VoiceControlDecorator', view: UseCaseVoiceControlDecorator},
-	{title: 'Event', view: null},
-	{title: 'WebOSVoice', view: WebOSVoice}
+	{title: 'WebOSVoice', view: WebOSVoice, category: 'Events'}
 ];
 
 class AppBase extends React.Component {
 	constructor () {
 		super();
 		this.state = {
-			jumpToView: '',
 			selected: 0
 		};
 	}
 
-	componentDidMount () {
-		document.addEventListener('keydown', this.handleKeyDown);
-	}
-
-	cachedKey = -1;
-
 	handleChangeView = (selected) => () => this.setState({selected});
-
-	handleKeyDown = (ev) => {
-		const {keyCode} = ev;
-
-		if (keyCode >= 48 && keyCode <= 57) {
-			const num = keyCode - 48;
-
-			if (this.cachedKey === -1) {
-				this.cachedKey = num;
-				this.setState({jumpToView: num});
-			} else {
-				const selected = this.cachedKey * 10 + num;
-
-				if (selected < views.length) {
-					const target = document.querySelector('[data-menu="' + selected + '"]');
-					Spotlight.focus(target);
-					this.handleChangeView(selected)();
-				}
-
-				this.setState({jumpToView: '' + this.cachedKey + num});
-				this.cachedKey = -1;
-			}
-		}
-	};
 
 	render () {
 		const {className, ...rest} = this.props;
-		const {jumpToView, selected} = this.state;
+		const {selected} = this.state;
 
 		return (
 			<div className={className}>
 				<Layout {...rest} className={css.layout}>
 					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
-						<div className={css.jumpToView}>Jump To View: {jumpToView}</div>
 						{views.map((view, i) => {
-							if (!view.view) {
+							if (view.category) {
 								return (
-									<Heading>{view.title}</Heading>
+									<Fragment key={view.title}>
+										<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>{view.category}</Heading>
+										<Item
+											className={css.navItem}
+											data-menu={i}
+											key={i}
+											onClick={this.handleChangeView(i)}
+											slotBefore={('00' + i).slice(-2)}
+										>
+											{view.title}
+										</Item>
+									</Fragment>
+								);
+							} else {
+								return (
+									<Item
+										className={css.navItem}
+										data-menu={i}
+										key={i}
+										onClick={this.handleChangeView(i)}
+										slotBefore={('00' + i).slice(-2)}
+									>
+										{view.title}
+									</Item>
 								);
 							}
-							return (
-								<Item
-									aria-label={view.title}
-									className={css.navItem}
-									data-menu={i}
-									key={i}
-									onClick={this.handleChangeView(i)}
-									slotBefore={('00' + i).slice(-2)}
-								>
-									{view.title}
-								</Item>
-							);
 						})}
 					</Cell>
 					<Cell component={ViewManager} index={selected}>
 						{views.map((view, i) => (
-							<View {...view} key={i} />
+							<View {...view} key={`view${i}`} />
 						))}
 					</Cell>
 				</Layout>

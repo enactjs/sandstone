@@ -1,9 +1,9 @@
-import React from 'react';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
-import {VoiceControlDecorator} from '@enact/webos/speech';
 import Item from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
+import {Scroller} from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
+import {VoiceControlDecorator} from '@enact/webos/speech';
+import React from 'react';
 
 const VoiceItem = VoiceControlDecorator(Item);
 
@@ -24,13 +24,13 @@ class IntentDelete extends React.Component {
 	handleVoice = (e) => {
 		let {index} = e.currentTarget.dataset;
 		let {intent, value} = e.detail;
-		this.showResult('handleVoice>' + index + ' | ' + intent + ' | ' + value);
+		this.showResult('handleVoice > ' + index + ' | ' + intent + ' | ' + value);
 		e.preventDefault();
 	};
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="Intent to delete" subtitle={this.state.result} />
 				<Scroller>
 					<VoiceItem
@@ -50,7 +50,7 @@ class IntentDelete extends React.Component {
 						{this.state.itemList}
 					</Repeater>
 				</Scroller>
-			</Panel>
+			</>
 		);
 	}
 }

@@ -1,9 +1,9 @@
-import React from 'react';
-import ri from '@enact/ui/resolution';
-import {Panel, Header} from '@enact/sandstone/Panels';
-import VirtualList from '@enact/sandstone/VirtualList';
 import Item from '@enact/sandstone/Item';
+import {Header} from '@enact/sandstone/Panels';
+import VirtualList from '@enact/sandstone/VirtualList';
+import ri from '@enact/ui/resolution';
 import {VoiceControlDecorator} from '@enact/webos/speech';
+import React from 'react';
 
 const VoiceItem = VoiceControlDecorator(Item);
 
@@ -25,26 +25,25 @@ class DataWebosVoiceLabelIndex extends React.Component {
 	}
 
 	componentDidMount = () => {
-		this.scrollTo({index: 0}); // temporary
+		this.scrollTo({index: 0});
 	};
 
 	getScrollTo = (fn) => (this.scrollTo = fn);
 
-	showResult = (msg) => {
+	updateResult = (msg) => {
 		this.setState({result: msg});
 		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleClick = (e) => {
 		let {index} = e.currentTarget.dataset;
-		this.showResult('handleClick>' + index);
+		this.updateResult(`${index} is clicked`);
 	};
 
 	handleVoice = (e) => {
-		// document.querySelectorAll('[data-webos-voice-intent="Select PlayContent Delete"]')[6].dispatchEvent(new CustomEvent('webOSVoice', {detail: {intent: 'PlayContent', value: 'hello'}}));
 		let {index} = e.currentTarget.dataset;
 		let {intent, value} = e.detail;
-		this.showResult('handleVoice>' + index + ' | ' + intent + ' | ' + value);
+		this.updateResult('handleVoice > ' + index + ' | ' + intent + ' | ' + value);
 		e.preventDefault();
 	};
 
@@ -54,7 +53,7 @@ class DataWebosVoiceLabelIndex extends React.Component {
 			<VoiceItem
 				key={index}
 				data-webos-voice-intent="Select PlayContent Delete"
-				onClick={this.handleClick}
+				onClick={this.clicked}
 				onVoice={this.handleVoice}
 				data-webos-voice-label-index={screenIndex}
 				style={{height: itemSize + 'px'}}
@@ -76,18 +75,18 @@ class DataWebosVoiceLabelIndex extends React.Component {
 
 	render () {
 		return (
-			<Panel>
+			<>
 				<Header title="voice-label-index" subtitle={this.state.result} />
 				<VirtualList
+					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
+					direction="vertical"
 					itemRenderer={this.renderItem}
 					itemSize={itemSize}
-					direction="vertical"
-					spacing={ri.scale(0)}
 					onScrollStop={this.handleScrollStop}
-					cbScrollTo={this.getScrollTo}
+					spacing={0}
 				/>
-			</Panel>
+			</>
 		);
 	}
 }
