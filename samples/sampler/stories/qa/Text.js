@@ -102,7 +102,7 @@ storiesOf('Text', module)
 				languagesList.push({
 					slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
 					children: inputData[key],
-					key: 'language'+key
+					key: 'language' + key
 				});
 			});
 			return (
