@@ -22,11 +22,11 @@
     "theme": "sandstone"
   },
   "dependencies": {
-    "@enact/core": "^3.4.0",
-    "@enact/i18n": "^3.4.0",
+    "@enact/core": "^3.4.3",
+    "@enact/i18n": "^3.4.3",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.4.0",
-    "@enact/ui": "^3.4.0",
+    "@enact/spotlight": "^3.4.3",
+    "@enact/ui": "^3.4.3",
     "ilib": "^14.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
