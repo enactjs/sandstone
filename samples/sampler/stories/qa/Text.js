@@ -101,7 +101,8 @@ storiesOf('Text', module)
 			Object.keys(inputData).forEach(key => {
 				languagesList.push({
 					slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
-					children: inputData[key]
+					children: inputData[key],
+					key: 'language'+key
 				});
 			});
 			return (
