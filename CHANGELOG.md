@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Button` alignment for small button with only icons
 - `sandstone/Button`, `sandstone/InputField`, `sandstone/Item`  and `sandstone/Picker` `font-weight`
 - `sandstone/Button` background color opacity update for opaque and disabled
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
