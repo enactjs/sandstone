@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Panels` to allow key events after being unmounted
 - `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
 - `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
+- `sandstone/TooltipDecorator` to be positioned correctly over complex components
 - `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
 
 ## [1.1.1] - 2020-08-05
