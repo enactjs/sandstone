@@ -40,18 +40,29 @@ describe('WizardPanels', function () {
 			wizardPanels.waitForLeave(2);
 			expect(wizardPanels.view1.isExisting()).to.be.true();
 		});
+
+		it('should focus on back button in header on left key', function () {
+			wizardPanels.focusNextButton();
+			Page.spotlightSelect();
+
+			Page.spotlightLeft();
+			wizardPanels.focusPrevButton();
+
+			expect(wizardPanels.prevButton.isFocused()).to.be.true();
+		});
+
 	});
 
 	describe('Pointer', function () {
 		it('should navigate between views', function () {
-			wizardPanels.nextButton.moveTo();
+			browser.moveToElement(wizardPanels.nextButton.ELEMENT);
 			expect(wizardPanels.nextButton.isFocused()).to.be.true();
 			wizardPanels.nextButton.click();
 
 			wizardPanels.waitForLeave(1);
 			expect(wizardPanels.view2.isExisting()).to.be.true();
 
-			wizardPanels.prevButton.moveTo();
+			browser.moveToElement(wizardPanels.prevButton.ELEMENT);
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
 			wizardPanels.prevButton.click();
 
