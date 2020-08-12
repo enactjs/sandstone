@@ -107,7 +107,7 @@ const useSpottable = (props, instances) => {
 
 	// Hooks
 
-	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey();
+	const {addGlobalKeyDownEventListener, removeGlobalKeyDownEventListener} = useEventKey(props, instances);
 
 	const setContainerDisabled = useCallback((bool) => {
 		if (scrollContainerRef.current) {
