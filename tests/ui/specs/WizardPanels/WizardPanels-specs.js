@@ -45,10 +45,18 @@ describe('WizardPanels', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
 
-			Page.spotlightLeft();
-			wizardPanels.focusPrevButton();
+			wizardPanels.waitForLeave(1);
+			expect(wizardPanels.view2.isExisting()).to.be.true();
 
+			Page.spotlightUp();
 			expect(wizardPanels.prevButton.isFocused()).to.be.true();
+
+			Page.spotlightRight();
+			expect(wizardPanels.nextButton.isFocused()).to.be.true();
+
+			Page.spotlightLeft();
+			expect(wizardPanels.prevButton.isFocused()).to.be.true();
+
 		});
 
 	});
