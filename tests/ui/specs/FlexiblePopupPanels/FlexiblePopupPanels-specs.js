@@ -33,8 +33,6 @@ describe('FlexiblePopupPanels', function () {
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
 
 			Page.spotlightLeft();
-			Page.spotlightLeft();
-
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 
 			Page.spotlightSelect();
