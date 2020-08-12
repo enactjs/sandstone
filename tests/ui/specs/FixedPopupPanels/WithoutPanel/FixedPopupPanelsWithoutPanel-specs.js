@@ -17,13 +17,13 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 				Page.spotlightSelect();
 			});
 
-			browser.waitUntil(() => Interface.item1.isFocused(), {timeout: 750, timeoutMsg: 'item1'});
+			browser.waitUntil(() => Interface.item1.isFocused(), {timeout: 1200, timeoutMsg: 'timed out on item1 focused', interval: 200});
 
 			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to close', () => {
 				Page.backKey();
 			});
 
-			browser.waitUntil(() => Interface.openButton.isFocused(), {timeout: 750, timeoutMsg: 'open button'});
+			browser.waitUntil(() => Interface.openButton.isFocused(), {timeout: 1200, timeoutMsg: 'timed out on open button focused', interval: 200});
 		});
 	});
 });
