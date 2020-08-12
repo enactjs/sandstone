@@ -21,7 +21,7 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 				Page.backKey();
 			});
 
-			Page.waitForFocus(Interface.openButton, 'open button')
+			Page.waitForFocus(Interface.openButton, 'open button');
 		});
 	});
 });

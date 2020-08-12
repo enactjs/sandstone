@@ -1,11 +1,5 @@
 const Page = require('./FlexiblePopupPanelsPage');
 
-function getFocusedText () {
-	return browser.execute(() => {
-		return document.activeElement === document.body ? null : document.activeElement.textContent;
-	});
-}
-
 describe('FlexiblePopupPanels', function () {
 	const Interface = Page.flexiblePopupPanels;
 
@@ -24,23 +18,23 @@ describe('FlexiblePopupPanels', function () {
 			// verifies that focus enters the panel body by default
 			Page.spotlightRight();
 
-			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
+			Page.waitForFocus(Interface.nextButton, 'next button');
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.nextButton.isFocused(), 'focus Next button 2').to.be.true();
+			Page.waitForFocus(Interface.nextButton, 'next button 2');
 
 			Page.spotlightLeft();
 			Page.spotlightLeft();
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			Page.waitForFocus(Interface.prevButton, 'prev button');
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(1);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.prevButton.isFocused(), 'focus Prev button 2').to.be.true();
+			Page.waitForFocus(Interface.prevButton, 'prev button 2');
 		});
 
 		// [GT-32185]
@@ -55,7 +49,7 @@ describe('FlexiblePopupPanels', function () {
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(7);
 
-			expect($('#item2').isFocused(), 'focus Item 2').to.be.true();
+			Page.waitForFocus($('#item2'), 'item 2');
 		});
 	});
 
