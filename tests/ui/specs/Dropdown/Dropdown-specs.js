@@ -93,7 +93,7 @@ describe('Dropdown', function () {
 			// Step 8: Click  on the empty space created by the wrapper (Pointer mode).
 			const wrapper = $('#wrapper');
 			wrapper.click({x: 0, y: 0});
-			// Verify  Step 8: The 'Default' Dropdoan is closed.
+			// Verify Step 8: The 'Default' Dropdoan is closed.
 			expect(dropdownList.isExisting).to.not.be.true();
 		});
 	});
