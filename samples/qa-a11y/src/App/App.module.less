@@ -46,6 +46,11 @@ h2 {
 	display: flex;
 	top: 0;
 	right: 100%;
+
+	:global(.enact-locale-right-to-left) & {
+		right: initial;
+		left: 100%;
+	}
 }
 
 :global {
