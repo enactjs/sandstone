@@ -6,11 +6,30 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button`, `sandstone/InputField`, `sandstone/Item`  and `sandstone/Picker` `font-weight`
-- `sandstone/Button` background color opacity update for opaque and disabled
+- `sandstone/Button` alignment for small button with only icons
+- `sandstone/WizardPanels` focus issue on key events inside header container
+
+## [1.1.2] - 2020-08-10
+
+### Fixed
+
+- `sandstone/Button` style to match latest designs
+- `sandstone/Panels` to allow key events after being unmounted
+- `sandstone/Panels.Panel` to return to last focused element when reentering the `Panel`
+- `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
+- `sandstone/TooltipDecorator` to be positioned correctly over complex components
+- `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
+
+## [1.1.1] - 2020-08-05
+
+### Fixed
+
+- `sandstone/Button`, `sandstone/InputField`, `sandstone/Item` and `sandstone/Picker` `font-weight`
+- `sandstone/Button` background color opacity when opaque and disabled
+- `sandstone/ContextualPopupDecorator` to include the popup in its accessibility tree
 - `sandstone/FixedPopupPanels` and `sandstone/FlexiblePopupPanels` to correctly set focus after closing
 - `sandstone/Panels` to prevent key events during view transitions
-- `sandstone/Slider` to readout `value` with the hint string only once when focused
+- `sandstone/Slider` to read out `value` with the hint string only once when focused
 
 ## [1.1.0] - 2020-07-29
 
