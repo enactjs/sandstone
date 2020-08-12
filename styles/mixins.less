@@ -174,9 +174,9 @@
 
 // Generic Non-Latin Font Rule generator
 .sand-locale-non-latin(@nlrules; @target) when (isruleset(@nlrules)) and (@target = self) {
-	.enact-locale(non-latin, @nlrules);
+	.enact-locale(non-latin, @nlrules, @target);
 }
-.sand-locale-non-latin(@nlrules; @target: normal) when (isruleset(@nlrules)) {
+.sand-locale-non-latin(@nlrules; @target: normal) when (isruleset(@nlrules)) and (default()) {
 	.enact-locale(non-latin, @nlrules);
 }
 
@@ -311,5 +311,5 @@
 //   .enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   .enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
 .enact-locale-line-height(@normal: @sand-common-line-height; @tallglyph: @sand-tallglyph-line-height) when (default()) {
-	.enact-locale-tallglyph(line-height, @normal, @tallglyph);
+	.enact-locale-tallglyph(line-height; @normal; @tallglyph);
 }
