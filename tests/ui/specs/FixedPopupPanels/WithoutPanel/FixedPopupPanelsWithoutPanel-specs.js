@@ -17,9 +17,7 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 
 			Page.waitForFocus(Interface.item1);
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to close', () => {
-				Page.backKey();
-			});
+			Page.backKey();
 
 			Page.waitForFocus(Interface.openButton, {targetName: 'open button'});
 		});
