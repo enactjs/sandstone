@@ -19,9 +19,9 @@ describe('FlexiblePopupPanels', function () {
 
 			Page.spotlightSelect();
 
-			browser.waitUntil(() => Interface.singleItem.isExisting() && Interface.singleItem.isFocused(), {timeout: 1200, timeoutMsg: 'timed out waiting for item focused', interval: 200});
+			Page.waitForFocus(Interface.singleItem);
+
 			// verifies that focus enters the panel body by default
-			expect(getFocusedText()).to.equal('Single Item');
 			Page.spotlightRight();
 
 			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
@@ -30,8 +30,9 @@ describe('FlexiblePopupPanels', function () {
 			Interface.waitForPanelBody(2);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
+			expect(Interface.nextButton.isFocused(), 'focus Next button 2').to.be.true();
 
+			Page.spotlightLeft();
 			Page.spotlightLeft();
 			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
 
@@ -39,18 +40,16 @@ describe('FlexiblePopupPanels', function () {
 			Interface.waitForPanelBody(1);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			expect(Interface.prevButton.isFocused(), 'focus Prev button 2').to.be.true();
 		});
 
 		// [GT-32185]
 		it('should respect Panel autoFocus setting', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			expect(getFocusedText()).to.equal('Single Item');
+			Page.waitForFocus(Interface.singleItem);
 
 			Page.spotlightLeft();
 			Page.spotlightSelect();

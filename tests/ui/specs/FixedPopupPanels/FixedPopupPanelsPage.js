@@ -94,6 +94,10 @@ class FixedPopupPanelsPage extends Page {
 	open (urlExtra) {
 		super.open('FixedPopupPanels-View', urlExtra);
 	}
+
+	waitForFocus (target, msg = 'item', timeout = 1200, interval = 200) {
+		browser.waitUntil(() => target.isExisting() && target.isFocused(), {timeout, timeoutMsg: `timed out waiting for ${msg} focused`, interval});
+	}
 }
 
 module.exports = new FixedPopupPanelsPage();
