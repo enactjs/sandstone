@@ -17,12 +17,9 @@ describe('FlexiblePopupPanels', function () {
 		it('should open FlexiblePopupPanels and navigate to Panel', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			browser.waitUntil(() => Interface.singleItem.isFocused(), {timeout: 750, timeoutMsg: 'item focused'});
-
+			browser.waitUntil(() => Interface.singleItem.isExisting() && Interface.singleItem.isFocused(), {timeout: 1200, timeoutMsg: 'timed out waiting for item focused', interval: 200});
 			// verifies that focus enters the panel body by default
 			expect(getFocusedText()).to.equal('Single Item');
 			Page.spotlightRight();
