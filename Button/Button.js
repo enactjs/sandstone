@@ -200,7 +200,8 @@ const ButtonBase = kind({
 			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
 			`focus${cap(focusEffect)}`,
-			!iconOnly ? `icon${cap(iconPosition)}` : 'iconOnly', // if iconOnly then left and right margins will not be applied to the icons
+			// iconBefore/iconAfter only applies when using text and an icon
+			!iconOnly && `icon${cap(iconPosition)}`,
 			size
 		),
 		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
