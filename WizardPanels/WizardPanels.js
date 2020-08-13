@@ -491,7 +491,7 @@ const WizardPanelsRouter = (Wrapped) => {
 			a11yOnWillTransition(ev);
 		}, [a11yOnWillTransition, focusOnWillTransition]);
 
-		const totalPanels = React.Children.count(children);
+		const totalPanels = panel ? React.Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;

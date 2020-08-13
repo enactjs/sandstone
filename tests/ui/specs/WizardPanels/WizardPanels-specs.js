@@ -80,6 +80,15 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
+		it('should focus a component within the body on mount', function () {
+			wizardPanels.waitForEnter(1);
+
+			const expected = 'OK';
+			const actual = browser.execute(getFocusedTextContent);
+
+			expect(actual).to.be.equal(expected);
+		});
+
 		it('should select contents over buttons - [GT-29594]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
