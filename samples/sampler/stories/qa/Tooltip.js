@@ -407,127 +407,132 @@ storiesOf('Tooltip', module)
 		}
 	)	.add(
 		'Long tooltip marquees',
-		() => (
-			<Scroller>
-				<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator, depending on the size of the viewport.</Heading>
-				<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator, depending on the size of the viewport.</Heading>
+		() => {
+			const disabled = boolean('disabled', Config);
+			const tooltipText = text('tooltipText', Config, inputData.longerText);
 
-				<Heading spacing="large" size="large" />
-				<Heading spacing="large" size="large" showLine>Without tooltipRelative</Heading>
+			return (
+				<Scroller>
+					<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator, depending on the size of the viewport.</Heading>
+					<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator, depending on the size of the viewport.</Heading>
 
-				<Row wrap>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee checked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipMarquee
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="transparent"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee checked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipMarquee
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="balloon"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee unchecked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="transparent"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee unchecked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="balloon"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-				</Row>
+					<Heading spacing="large" size="large" />
+					<Heading spacing="large" size="large" showLine>Without tooltipRelative</Heading>
 
-				<Heading spacing="large" size="large" />
-				<Heading spacing="large" size="large" showLine>With tooltipRelative</Heading>
+					<Row wrap>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+					</Row>
 
-				<Row wrap>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee checked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipMarquee
-							tooltipRelative
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="transparent"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee checked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipMarquee
-							tooltipRelative
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="balloon"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Transparent Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee unchecked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipRelative
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="transparent"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Section title="Balloon Tooltip" size="50%">
-						<TooltipButton
-							alt="Marquee unchecked"
-							disabled={boolean('disabled', Config)}
-							tooltipDelay={500}
-							tooltipRelative
-							tooltipText={text('tooltipText', Config, inputData.longerText)}
-							tooltipType="balloon"
-							tooltipWidth={1000}
-						>
-							Click me
-						</TooltipButton>
-					</Section>
-					<Heading spacing="large" size="large" showLine />
-				</Row>
-			</Scroller>
-		)
+					<Heading spacing="large" size="large" />
+					<Heading spacing="large" size="large" showLine>With tooltipRelative</Heading>
+
+					<Row wrap>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Heading spacing="large" size="large" showLine />
+					</Row>
+				</Scroller>
+			);
+		}
 	);
