@@ -54,6 +54,7 @@
   },
   "devDependencies": {
     "@enact/ui-test-utils": "^0.5.0",
+    "@testing-library/react": "^10.4.8",
     "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
