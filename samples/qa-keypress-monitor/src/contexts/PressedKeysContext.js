@@ -1,4 +1,4 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 
 import useEventListener from '../hooks/useEventListener';
 
@@ -7,26 +7,36 @@ const PressedKeysContext = createContext(null);
 const PressedKeysProvider = ({children}) => {
 	const [pressedKeys, setPressedKeys] = useState(new Map());
 
-	const removeFromMap = ({which}) => {
-		const keyMap = new Map(pressedKeys);
-
-		keyMap.delete(which);
-		setPressedKeys(keyMap);
-	};
-
 	const addToMap = ({code, key, which}) => {
+		const timestamp = new Date().getTime();
 		const keyMap = new Map(pressedKeys);
 
-		keyMap.set(which, {code, key, which});
+		keyMap.set(which, {code, key, timestamp, which});
 		setPressedKeys(keyMap);
-		// remove the key after some time
-		setTimeout(() => {
-			removeFromMap({which});
-		}, 750);
 	};
 
 
 	useEventListener(document, 'keydown', addToMap);
+
+	useEffect(() => {
+
+		const removeStaleEntries = (age = 750) => {
+			const now = new Date().getTime();
+			const keyMap = new Map(pressedKeys);
+			keyMap.forEach(({timestamp, which}) => {
+				if (now - timestamp >= age) {
+					keyMap.delete(which);
+				}
+			});
+			setPressedKeys(keyMap);
+		};
+
+		const staleEntryRemovalTimer = setTimeout(removeStaleEntries, 750);
+
+		return (() => {
+			clearTimeout(staleEntryRemovalTimer);
+		});
+	}, [pressedKeys]);
 
 	return (
 		<PressedKeysContext.Provider
