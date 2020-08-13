@@ -1,5 +1,5 @@
 const Page = require('../VirtualListPage');
-const {expectFocusedItem} = require('../../VirtualList-utils');
+const {expectFocusedItem, waitUntilFocused} = require('../../VirtualList-utils');
 
 describe('Item Animates', function () {
 	beforeEach(function () {
@@ -12,14 +12,18 @@ describe('Item Animates', function () {
 		Page.item(0).moveTo();
 		expectFocusedItem(0);
 		// Step 4: Press Channel Down
-		Page.pageDown();
-		Page.delay(700);
-		// Check to scrolling event on VirtualList
-		expect(Page.list.getAttribute('data-scrolling-events')).to.equal('1');
+		Page.checkScrollbyPagekey('down');
+		waitUntilFocused(6);
+		Page.delay(200);
 		// Step 5: Press Channel Down again.
-		Page.pageDown();
-		Page.delay(700);
-		// Check to scrolling event on VirtualList
-		expect(Page.list.getAttribute('data-scrolling-events')).to.equal('2');
+		Page.checkScrollbyPagekey('down');
+		waitUntilFocused(12);
+		Page.delay(200);
+		Page.checkScrollbyPagekey('up');
+		waitUntilFocused(6);
+		Page.delay(200);
+		Page.checkScrollbyPagekey('up');
+		waitUntilFocused(0);
+		Page.delay(200);
 	});
 });
