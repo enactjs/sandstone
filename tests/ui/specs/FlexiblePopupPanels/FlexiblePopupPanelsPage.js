@@ -68,6 +68,10 @@ class FlexiblePopupPanelsInterface {
 		return this.self.$('#prevButton');
 	}
 
+	get singleItem () {
+		return this.self.$('#singleItem');
+	}
+
 	get panel1 () {
 		return this.self.$(panelSelector(1));
 	}
@@ -97,6 +101,10 @@ class FlexiblePopupPanelsPage extends Page {
 
 	open (urlExtra) {
 		super.open('FlexiblePopupPanels-View', urlExtra);
+	}
+
+	waitForFocus (target, {targetName = 'item', timeoutMsg = `timed out waiting for ${targetName} focused`, timeout = 1200, interval = 200} = {}) {
+		browser.waitUntil(() => target.isExisting() && target.isFocused(), {timeout, timeoutMsg, interval});
 	}
 }
 

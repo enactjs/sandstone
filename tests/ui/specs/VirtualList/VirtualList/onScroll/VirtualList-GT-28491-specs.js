@@ -6,7 +6,7 @@ describe('LTR locale', function () {
 		Page.open();
 	});
 
-	it('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
+	it.skip('should focus and Scroll with Up/Down and 5-way [GT-28491]', function () {
 		Page.buttonLeft.moveTo();
 		Page.spotlightRight(); // is on 'Item 000'
 		// Step 3. 5-way Spot the second item 'Item 001'.
