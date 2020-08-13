@@ -21,7 +21,7 @@ class VirtualGridListNativeSample extends Component {
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	renderItem = ({index, ...rest}) => {
 		return (
@@ -32,7 +32,7 @@ class VirtualGridListNativeSample extends Component {
 				{items[index].text}
 			</ImageItem>
 		);
-	}
+	};
 
 	render () {
 		return (

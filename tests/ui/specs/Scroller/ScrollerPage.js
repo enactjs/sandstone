@@ -53,7 +53,6 @@ class ScrollerPage extends Page {
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
-	/* global document */
 	getScrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);

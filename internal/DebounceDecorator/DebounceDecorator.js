@@ -61,7 +61,7 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {cancel, debounce, delay} = config;
 
 	return class extends React.Component {
-		static displayName = 'DebounceDecorator'
+		static displayName = 'DebounceDecorator';
 
 		static propTypes = /** @lends sandstone/internal/DebounceDecorator.DebounceDecorator.prototype */ {
 			/**
@@ -77,7 +77,7 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @public
 			 */
 			[debounce]: PropTypes.func
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -96,14 +96,14 @@ const DebounceDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		handleEvent = (ev) => {
 			this.job.start(ev);
-		}
+		};
 
 		handleCancel = (ev) => {
 			if (this.props[cancel]) {
 				this.props[cancel](ev);
 			}
 			this.job.stop();
-		}
+		};
 
 		render () {
 			let props = this.props;

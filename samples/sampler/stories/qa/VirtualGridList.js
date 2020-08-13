@@ -102,7 +102,7 @@ class MyVirtualList extends React.Component {
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	render () {
 		let props = {...this.props};
@@ -197,15 +197,15 @@ class ButtonAndVirtualGridList extends React.Component {
 		return (
 			<MyVirtualList {...rest} closePopup={this.closePopup} />
 		);
-	}
+	};
 
 	openPopup = () => {
 		this.setState({isPopup: true});
-	}
+	};
 
 	closePopup = () => {
 		this.setState({isPopup: false});
-	}
+	};
 
 	render () {
 		return (

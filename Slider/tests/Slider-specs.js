@@ -29,34 +29,32 @@ describe('Slider', () => {
 	};
 
 	test(
-		'should set "aria-valuetext" to hint string when knob is active and vertical is false',
+		'should set "aria-valuetext" to hint string for the first render when vertical is false',
 		() => {
-			const slider = mount(
+			const subject = mount(
 				<Slider />
 			);
 
-			slider.find('Slider').prop('onActivate')();
-			slider.update();
+			subject.update();
 
 			const expected = '0 change a value with left right button';
-			const actual = slider.find('Slider').prop('aria-valuetext');
+			const actual = subject.find('Slider').prop('aria-valuetext');
 
 			expect(actual).toBe(expected);
 		}
 	);
 
 	test(
-		'should set "aria-valuetext" to hint string when knob is active and vertical is true',
+		'should set "aria-valuetext" to hint string for the first render when vertical is true',
 		() => {
-			const slider = mount(
+			const subject = mount(
 				<Slider orientation="vertical" />
 			);
 
-			slider.find('Slider').prop('onActivate')();
-			slider.update();
+			subject.update();
 
 			const expected = '0 change a value with up down button';
-			const actual = slider.find('Slider').prop('aria-valuetext');
+			const actual = subject.find('Slider').prop('aria-valuetext');
 
 			expect(actual).toBe(expected);
 		}
@@ -65,55 +63,67 @@ describe('Slider', () => {
 	test(
 		'should set "aria-valuetext" to value when value is changed',
 		() => {
-			const slider = mount(
-				<Slider value={10} />
+			const subject = mount(
+				<Slider defaultValue={10} />
 			);
 
-			const expected = 10;
-			const actual = slider.find('Slider').prop('aria-valuetext');
+			focus(subject);
+			rightKeyDown(subject);
+
+			const expected = 11;
+			const actual = subject.find('Slider').prop('aria-valuetext');
 
 			expect(actual).toBe(expected);
 		}
 	);
 
-	test('should activate the slider on enter keyup', () => {
-		const subject = mount(
-			<Slider activateOnSelect />
-		);
+	test(
+		'should activate the slider on enter keyup',
+		() => {
+			const subject = mount(
+				<Slider activateOnSelect />
+			);
 
-		activate(subject);
+			activate(subject);
 
-		const expected = 'active';
-		const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+			const expected = 'active';
+			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
 
-		expect(actual).toBe(expected);
-	});
+			expect(actual).toBe(expected);
+		}
+	);
 
-	test('should deactivate the slider on blur', () => {
-		const subject = mount(
-			<Slider />
-		);
+	test(
+		'should deactivate the slider on blur',
+		() => {
+			const subject = mount(
+				<Slider />
+			);
 
-		activate(subject);
-		blur(subject);
+			activate(subject);
+			blur(subject);
 
-		const expected = 'not active';
-		const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+			const expected = 'not active';
+			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
 
-		expect(actual).toBe(expected);
-	});
+			expect(actual).toBe(expected);
+		}
+	);
 
-	test('should not activate the slider on enter', () => {
-		const subject = mount(
-			<Slider />
-		);
+	test(
+		'should not activate the slider on enter',
+		() => {
+			const subject = mount(
+				<Slider />
+			);
 
-		activate(subject);
-		const expected = 'not active';
-		const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
+			activate(subject);
+			const expected = 'not active';
+			const actual = subject.find('Slider').prop('active') ? 'active' : 'not active';
 
-		expect(actual).toBe(expected);
-	});
+			expect(actual).toBe(expected);
+		}
+	);
 
 	test(
 		'should decrement the value of horizontal slider on key left when active',

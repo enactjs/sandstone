@@ -110,6 +110,10 @@
 	opacity: @sand-disabled-opacity;
 }
 
+.sand-disabled-bg-colors () {
+	opacity: @sand-disabled-bg-opacity;
+}
+
 // Assign the standard disabled rules of content to content nodes.
 // This should be used on children of a root component node.
 .sand-disabled-focus-content-colors () {
@@ -145,7 +149,7 @@
 }
 .sand-button-focus-bg-color () {
 	background-color: @sand-button-bg-color;
-	filter+_: saturate(0) brightness(1.89); // Simulates @sand-spotlight-bg-color
+	filter+_: saturate(0) brightness(1.755); // Simulates @sand-spotlight-bg-color
 }
 
 // Button state mixins

@@ -28,18 +28,18 @@ class DifferenctWidthItem extends Component {
 	static propTypes = {
 		index: PropTypes.number,
 		items: PropTypes.array
-	}
+	};
 
 	itemStyleDefault = {
 		height: '100%',
 		fontSize,
 		lineHeight,
 		whiteSpace: 'pre'
-	}
+	};
 
 	innerItemStyleDefault = {
 		writingMode: 'vertical-rl'
-	}
+	};
 
 	render () {
 		const
@@ -87,7 +87,7 @@ class HorizontalDifferenctWidthItemList extends Component {
 
 	renderItem = (props) => {
 		return <DifferenctWidthItem {...props} />;
-	}
+	};
 
 	render () {
 		return (

@@ -7,7 +7,7 @@ describe('VirtualList Samples', function () {
 	});
 
 	// Since it is not the same as the view of samples, we made a button to go directly to the corresponding item.
-	it.skip('should Jump to item when press JumpToItem10 button [GT-28936]', function () {
+	it('should Jump to item when press JumpToItem10 button [GT-28936]', function () {
 		// Step2-1: 5-way Spot the '010 - 한국어 - 한국'(item10 for this test) item.
 		// Check if item10 is located at the top of the list.
 		Page.buttonJumpToItem.moveTo();

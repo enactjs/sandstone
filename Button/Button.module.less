@@ -374,31 +374,18 @@
 						}
 					}
 				}
-				&:not(.focusExpand) {
-					// Non expandable buttons still support a pressed transform (scale)
-					&.pressed,
-					&:active {
-						.bg {
-							.sand-bg-colors({
-								transform: @sand-button-pressed-bg-transform;
-							});
-						}
-
-						&.small {
-							.bg {
-								.sand-bg-colors({
-									transform: @sand-button-small-pressed-bg-transform;
-								});
-							}
-						}
-					}
-				}
 			});
 		}
 
 		.sand-disabled({
 			.client {
 				.sand-disabled-colors();
+			}
+
+			&.opaque {
+				.bg {
+					.sand-disabled-bg-colors();
+				}
 			}
 
 			.focus({

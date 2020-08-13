@@ -94,6 +94,48 @@ describe('PopupTabLayout', function () {
 					Page.spotlightLeft();
 					expect(popupTabLayout.tabItems[0].isFocused(), 'secondary focus').to.be.true();
 				});
+
+				it('should suppress 5-way select during transition', function () {
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(50);
+
+					// The Brightness item is configured to blur itself on select so this will blur
+					// it if key events are not suppressed.
+					Page.spotlightSelect();
+
+					const expected = $('#brightness').isFocused();
+					const actual = true;
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should close the popup on back', function () {
+					Page.waitTransitionEnd(1500, 'waiting for popup to close', () => {
+						Page.backKey();
+					});
+
+					const expected = $('#tabLayout').isExisting();
+					const actual = false;
+
+					expect(actual).to.equal(expected);
+				});
+
+				it('should suppress back key during transition', function () {
+					Page.spotlightRight();
+					Page.spotlightSelect();
+					Page.delay(50);
+					Page.backKey();
+
+					// Adding an arbitrary delay since there are multiple pieces (panel transition,
+					// popup transition) moving in this case to allow for everything to settle.
+					Page.delay(500);
+
+					const expected = $('#brightness').isFocused();
+					const actual = true;
+
+					expect(actual).to.equal(expected);
+				});
 			});
 
 			// describe('pointer interaction', function () {
@@ -118,6 +160,40 @@ describe('PopupTabLayout', function () {
 				Page.open();
 
 				const expected = 'Display';
+				const actual = browser.execute(getFocusedText);
+
+				expect(actual).to.equal(expected);
+			});
+
+			it('should restore last focused when returning to Panel', function () {
+				Page.open();
+
+				expect(browser.execute(getFocusedText)).to.equal('Display');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
+					Page.spotlightRight();
+				});
+
+				// Color Adjust is the default element
+				expect(browser.execute(getFocusedText)).to.equal('Color Adjust');
+
+				// sets the last focused for the Panel to be "Picture Modes"
+				Page.spotlightUp();
+
+				expect(browser.execute(getFocusedText)).to.equal('Picture Modes');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to expand', () => {
+					Page.spotlightLeft();
+				});
+
+				expect(browser.execute(getFocusedText)).to.equal('Display');
+
+				Page.waitTransitionEnd(1500, 'waiting for tabs to collapse', () => {
+					Page.spotlightRight();
+				});
+
+				// expect to return to Picture Modes
+				const expected = 'Picture Modes';
 				const actual = browser.execute(getFocusedText);
 
 				expect(actual).to.equal(expected);
