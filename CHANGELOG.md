@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` alignment for small button with only icons
 - `sandstone/WizardPanels` focus issue on key events inside header container
+- `sandstone/WizardPanels` to focus a spottable component within the first `Panel` on mount
 
 ## [1.1.2] - 2020-08-10
 
