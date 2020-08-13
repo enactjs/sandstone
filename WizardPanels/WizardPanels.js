@@ -476,10 +476,10 @@ const WizardPanelsRouter = (Wrapped) => {
 		rtl,
 		...rest
 	}) => {
-		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
-		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
-		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
 		const [panel, setPanel] = React.useState(null);
+		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
+		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel ? false : true});
+		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
 		const reverseTransition = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
