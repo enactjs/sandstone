@@ -409,8 +409,8 @@ storiesOf('Tooltip', module)
 		'Long tooltip marquees',
 		() => (
 			<Scroller>
-				<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator.</Heading>
-				<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator.</Heading>
+				<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator, depending on the size of the viewport.</Heading>
+				<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator, depending on the size of the viewport.</Heading>
 
 				<Heading spacing="large" size="large" />
 				<Heading spacing="large" size="large" showLine>Without tooltipRelative</Heading>
@@ -421,11 +421,12 @@ storiesOf('Tooltip', module)
 							alt="Marquee checked"
 							tooltipType="transparent"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -433,11 +434,12 @@ storiesOf('Tooltip', module)
 							alt="Marquee checked"
 							tooltipType="balloon"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipMarquee
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -445,10 +447,11 @@ storiesOf('Tooltip', module)
 							alt="Marquee unchecked"
 							tooltipType="transparent"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -456,10 +459,11 @@ storiesOf('Tooltip', module)
 							alt="Marquee unchecked"
 							tooltipType="balloon"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 				</Row>
@@ -473,12 +477,13 @@ storiesOf('Tooltip', module)
 							alt="Marquee checked"
 							tooltipType="transparent"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipRelative
 							tooltipMarquee
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -486,12 +491,13 @@ storiesOf('Tooltip', module)
 							alt="Marquee checked"
 							tooltipType="balloon"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipRelative
 							tooltipMarquee
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Transparent Tooltip" size="50%">
@@ -499,11 +505,12 @@ storiesOf('Tooltip', module)
 							alt="Marquee unchecked"
 							tooltipType="transparent"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Section title="Balloon Tooltip" size="50%">
@@ -511,11 +518,12 @@ storiesOf('Tooltip', module)
 							alt="Marquee unchecked"
 							tooltipType="balloon"
 							tooltipDelay={500}
-							tooltipText={text('', TooltipButton, inputData.longerText)}
+							disabled={boolean('disabled', Config)}
+							tooltipText={text('tooltipText', Config, inputData.longerText)}
 							tooltipWidth={1000}
 							tooltipRelative
 						>
-							Hover
+							Click me
 						</TooltipButton>
 					</Section>
 					<Heading spacing="large" size="large" showLine />
