@@ -222,7 +222,7 @@ class ScrollerInVirtualList extends React.Component {
 				</Scroller>
 			</div>
 		);
-	}
+	};
 
 	render = () => {
 		const direction = select('direction', listProp.direction, VirtualListConfig);
@@ -240,7 +240,7 @@ class ScrollerInVirtualList extends React.Component {
 				itemRenderer={this.renderScroller}
 			/>
 		);
-	}
+	};
 }
 
 storiesOf('Scroller', module)

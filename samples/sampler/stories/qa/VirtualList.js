@@ -111,7 +111,7 @@ class StatefulSwitchItem extends React.Component {
 	}
 }
 
-const ContainerItemWithControls = SpotlightContainerDecorator(({children, index, ...rest}) => {
+const ContainerItemWithControls = SpotlightContainerDecorator(({children, ...rest}) => {
 	const itemHeight = ri.scaleToRem(156);
 	const containerStyle = {display: 'flex', width: '100%', height: itemHeight};
 	const textStyle = {flex: '1 1 100%', lineHeight: itemHeight};
