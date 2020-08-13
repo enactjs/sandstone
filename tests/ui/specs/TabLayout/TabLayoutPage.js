@@ -24,11 +24,21 @@ class TabLayoutInterface {
 		return $(`#view${number}`);
 	}
 
-	get content () {return getContent(this.self);}
-	get currentView () {return this.content.$('div');}
-	get isCollapsed () {return hasClass('collapsed', this.self);}
-	get self () {return browser.$(this.selector);}
-	get tabItems () {return this.tabs.$$('.Button_Button_button');}
+	get content () {
+		return getContent(this.self);
+	}
+	get currentView () {
+		return this.content.$('div');
+	}
+	get isCollapsed () {
+		return hasClass('collapsed', this.self);
+	}
+	get self () {
+		return browser.$(this.selector);
+	}
+	get tabItems () {
+		return this.tabs.$$('.Button_Button_button');
+	}
 	get tabs () {
 		if (this.isCollapsed) {
 			return getCollapsedTabs(this.self);
@@ -36,7 +46,9 @@ class TabLayoutInterface {
 
 		return getTabs(this.self);
 	}
-	get tabsScroller () {return getScroller(this.self);}
+	get tabsScroller () {
+		return getScroller(this.self);
+	}
 }
 
 class TabLayoutPage extends Page {

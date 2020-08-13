@@ -4,7 +4,7 @@ import React from 'react';
 
 import Section from '../components/Section';
 
-import css from '../App/App.module.less';
+import appCss from '../App/App.module.less';
 
 const SpotlightContainerSection = SpotlightContainerDecorator({enterTo: 'default-element', preserveId: true}, Section);
 
@@ -26,7 +26,7 @@ class CustomPicker extends React.Component {
 		};
 	}
 
-	handleChange = (ev) => this.setState({index: ev.value})
+	handleChange = (ev) => this.setState({index: ev.value});
 
 	render () {
 		const
@@ -44,7 +44,7 @@ const PickerView = () => (
 	<>
 		<h2>Default</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section title="Horizontal">
 			<Picker
 				alt="Horizontal"
 				orientation="horizontal"
@@ -63,7 +63,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<Picker
 				alt="Horizontal and Joined"
 				joined
@@ -84,7 +84,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				orientation="vertical"
@@ -122,9 +122,9 @@ const PickerView = () => (
 			</Picker>
 		</SpotlightContainerSection>
 
-		<h2 className={css.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
+		<h2 className={appCss.headerMarginTop}>decrementAriaLabel and incrementAriaLabel</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section className={appCss.marginTop} title="Horizontal">
 			<Picker
 				alt="Horizontal"
 				decrementAriaLabel="This is a Label 1."
@@ -147,7 +147,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<Picker
 				alt="Horizontal and Joined"
 				decrementAriaLabel="This is a Label 1."
@@ -172,7 +172,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				decrementAriaLabel="Decrement"
@@ -218,9 +218,9 @@ const PickerView = () => (
 			</Picker>
 		</SpotlightContainerSection>
 
-		<h2 className={css.headerMarginTop}>Aria-labelled</h2>
+		<h2 className={appCss.headerMarginTop}>Aria-labelled</h2>
 
-		<Section className={css.marginTop} title="Horizontal">
+		<Section className={appCss.marginTop} title="Horizontal">
 			<Picker
 				alt="Horizontal"
 				aria-label="This is a Label 0."
@@ -241,7 +241,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<Section className={css.marginTop} title="Horizontal and Joined">
+		<Section className={appCss.marginTop} title="Horizontal and Joined">
 			<Picker
 				alt="Horizontal and Joined"
 				aria-label="This is a Label 2."
@@ -264,7 +264,7 @@ const PickerView = () => (
 			</Picker>
 		</Section>
 
-		<SpotlightContainerSection className={css.marginTop} title="Vertical" vertical>
+		<SpotlightContainerSection className={appCss.marginTop} title="Vertical" vertical>
 			<Picker
 				alt="Vertical"
 				aria-label="This is a Label 4."
@@ -306,9 +306,9 @@ const PickerView = () => (
 			</Picker>
 		</SpotlightContainerSection>
 
-		<h2 className={css.headerMarginTop}>Aria-labelled based on selected Item</h2>
+		<h2 className={appCss.headerMarginTop}>Aria-labelled based on selected Item</h2>
 
-		<Section className={css.marginTop} title="Aria-labelled based on selected Item">
+		<Section className={appCss.marginTop} title="Aria-labelled based on selected Item">
 			<CustomPicker
 				alt="Horizontal"
 				orientation="horizontal"
@@ -326,7 +326,7 @@ const PickerView = () => (
 			</CustomPicker>
 		</Section>
 
-		<Section className={css.marginTop} title="With decrementAriaLabel and incrementAriaLabel">
+		<Section className={appCss.marginTop} title="With decrementAriaLabel and incrementAriaLabel">
 			<CustomPicker
 				alt="Horizontal"
 				decrementAriaLabel="Decrement"

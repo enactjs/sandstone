@@ -15,7 +15,7 @@ class FormCheckboxItemView extends React.Component {
 
 	handleClick = () => {
 		this.setState(prevState => ({disabled: !prevState.disabled}));
-	}
+	};
 
 	render () {
 		return (

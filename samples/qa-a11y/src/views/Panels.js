@@ -18,8 +18,8 @@ class PanelsView extends React.Component {
 		};
 	}
 
-	nextPanel = () => this.setState({panelIndex: 1})
-	prevPanel = () => this.setState({panelIndex: 0})
+	nextPanel = () => this.setState({panelIndex: 1});
+	prevPanel = () => this.setState({panelIndex: 0});
 
 	customItem = ({index, ...rest}) => {
 		return (
@@ -35,9 +35,7 @@ class PanelsView extends React.Component {
 				<Panel>
 					<Header title="Panel 0" />
 					<VirtualList
-						spotlightId={'virtualList_$' + this.state.panelIndex}
 						dataSize={itemList.length}
-						direction="vertical"
 						itemRenderer={this.customItem}
 						itemSize={ri.scale(156)}
 					/>

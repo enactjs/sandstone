@@ -27,6 +27,7 @@ import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
+const HeaderContainer = SpotlightContainerDecorator(Header);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -374,7 +375,7 @@ const WizardPanelsBase = kind({
 			<DecoratedPanelBase
 				{...rest}
 				header={
-					<Header
+					<HeaderContainer
 						aria-label={ariaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
@@ -408,7 +409,7 @@ const WizardPanelsBase = kind({
 							slot="slotAfter"
 							visible={isNextButtonVisible}
 						/>
-					</Header>
+					</HeaderContainer>
 				}
 				panelType="wizard"
 			>

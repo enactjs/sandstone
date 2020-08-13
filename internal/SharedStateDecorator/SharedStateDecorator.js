@@ -41,9 +41,9 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {idProp, updateOnMount} = config;
 
 	return class extends React.Component {
-		static displayName = 'SharedStateDecorator'
+		static displayName = 'SharedStateDecorator';
 
-		static contextType = SharedState
+		static contextType = SharedState;
 
 		static propTypes = {
 			/**
@@ -54,7 +54,7 @@ const SharedStateDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @public
 			 */
 			noSharedState: PropTypes.bool
-		}
+		};
 
 		constructor (props) {
 			super(props);

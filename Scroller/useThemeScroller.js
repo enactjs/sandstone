@@ -87,12 +87,12 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 		className: css.focusableBody,
 		onFocus: handle(
 			forward('onFocus'),
-			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter)
 		),
 		onBlur: handle(
 			// Focus out to external element.
 			forward('onBlur'),
-			adaptEvent(getNavigableFilterTarget, setNavigableFilter),
+			adaptEvent(getNavigableFilterTarget, setNavigableFilter)
 		),
 		onKeyDown: handle(
 			forward('onKeyDown'),
@@ -360,7 +360,7 @@ const useThemeScroller = (props, scrollContentProps, contentId, isHorizontalScro
 	rest.className = classNames(
 		className,
 		!isHorizontalScrollbarVisible && isVerticalScrollbarVisible && fadeOut ? css.verticalFadeout : null,
-		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null,
+		isHorizontalScrollbarVisible && !isVerticalScrollbarVisible && fadeOut ? css.horizontalFadeout : null
 	);
 
 	return {focusableBodyProps, themeScrollContentProps: rest};

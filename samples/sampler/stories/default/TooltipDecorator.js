@@ -49,6 +49,7 @@ storiesOf('Sandstone', module)
 		() => (
 			<div style={{textAlign: 'center'}}>
 				<TooltipButton
+					disabled={boolean('disabled', Config)}
 					tooltipDelay={number('tooltipDelay', Config, 500)}
 					tooltipMarquee={boolean('tooltipMarquee', Config)}
 					tooltipText={text('tooltipText', Config, 'tooltip!')}
