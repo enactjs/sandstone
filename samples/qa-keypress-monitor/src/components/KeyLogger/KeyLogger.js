@@ -1,47 +1,40 @@
 import kind from '@enact/core/kind';
-import PropTypes from 'prop-types';
-import React, {useContext} from 'react';
+import React from 'react';
 import Repeater from '@enact/ui/Repeater';
+import Scroller from '@enact/sandstone/Scroller';
 
 import KeyItem from './KeyItem';
-import PressedKeysContext from '../../contexts/PressedKeysContext';
 
-const modifierKeys = ['alt', 'control', 'shift', 'meta'];
-
-const KeyLoggerBase = kind({
+const KeyLogger = kind({
 	name: 'KeyLogger',
 	computed: {
-		children: ({children}) => {
-			const keys = [];
-			children.forEach(({code, key: keyName, which}) => {
-				keys.push({code, key: which, keyName, which});
+		children: ({keys}) => {
+			const children = [];
+			keys.forEach((key) => {
+				if (key) {
+					const {code, key: keyName, which} = key;
+					children.push({code, key: which, keyName, which});
+				}
+
 			});
 
-			return keys;
+			return children;
 		}
 	},
 	render: ({children}) => {
-		return <Repeater childComponent={KeyItem}>{children}</Repeater>;
+		return (
+			<Scroller
+				direction="vertical"
+			>
+				<Repeater
+					childComponent={KeyItem}
+				>
+					{children}
+				</Repeater>
+			</Scroller>
+		);
 	}
 });
 
-const KeyLogger = ({modifiers = false}) => {
-	const {pressedKeys} = useContext(PressedKeysContext);
-	const keys = [];
-	for (const value of pressedKeys.values()) {
-		keys.push(value);
-	}
-	const isModifier = ({key}) => modifierKeys.includes(key.toLowerCase());
-	const keyFilter = modifiers
-		? (key) => isModifier(key)
-		: (key) => !isModifier(key);
-
-	return <KeyLoggerBase>{keys.filter(keyFilter)}</KeyLoggerBase>;
-};
-
-KeyLogger.propTypes = {
-	modifiers: PropTypes.bool
-};
-
 export default KeyLogger;
-export {KeyLogger, KeyLoggerBase};
+export {KeyLogger};
