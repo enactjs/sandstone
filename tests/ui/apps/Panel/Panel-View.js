@@ -33,6 +33,10 @@ function App ({defaultIndex = 0, ...rest}) {
 	const onNext = React.useCallback(() => setIndex(index + 1), [index, setIndex]);
 	const onPrev = React.useCallback(() => setIndex(index - 1), [index, setIndex]);
 
+	if (typeof window !== 'undefined') {
+		window.setPanelIndex = setIndex;
+	}
+
 	return (
 		<Panels {...rest} index={index}>
 			<PanelWithNav index={1} onNext={onNext} subtitle="Default">
