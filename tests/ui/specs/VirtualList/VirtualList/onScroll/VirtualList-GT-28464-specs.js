@@ -15,7 +15,6 @@ describe('Item Animates', function () {
 		Page.checkScrollbyPagekey('down');
 		// Step 5: Press Channel Down again.
 		Page.checkScrollbyPagekey('down');
-		waitUntilFocused(12);
 		Page.checkScrollbyPagekey('up');
 		Page.delay(200);
 		Page.checkScrollbyPagekey('up');
