@@ -145,9 +145,12 @@
 		margin: @sand-header-compact-margin;
 		padding: @sand-header-compact-padding;
 
-		.subtitle,
 		.title {
 			padding: @sand-header-compact-title-padding;
+		}
+
+		.subtitle {
+			padding: @sand-header-compact-subtitle-padding;
 		}
 
 		.title {
@@ -169,17 +172,14 @@
 			}
 		}
 
-		.subtitle,
-		.title {
-			padding: @sand-header-wizard-title-padding;
-		}
-
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
+			padding: @sand-header-wizard-title-padding;
 		}
 
 		.subtitle {
 			.sand-multi-line-ellipsis(@sand-header-wizard-subtitle-lines);
+			padding: @sand-header-wizard-subtitle-padding;
 		}
 
 		&.centered {
