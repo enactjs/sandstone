@@ -8,6 +8,7 @@ describe('Item Animates', function () {
 
 	it('should animate Items via Channel Down [GT-28464]', function () {
 		// Step 3: Position the pointer on the first item('Item 000)
+		Page.showPointerByKeycode();
 		Page.item(0).moveTo();
 		expectFocusedItem(0);
 		// Step 4: Press Channel Down
