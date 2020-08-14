@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Button` alignment for small button with only icons
 - `sandstone/WizardPanels` focus issue on key events inside header container
+- `sandstone/WizardPanel` `noAnimation` autofocus
 - Sinhala(si), Thai(th), Vietnamse(vi) languages to be classified as a tall-glyph language, with others like Arabic and Japanese to no longer be classified as tall-glyph. These languages will have new line-height settings, causing their layouts to shift slightly, which should ultimately be closer to the intended designs.
 
 ## [1.1.2] - 2020-08-10
@@ -20,7 +21,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` to correctly restore focus to the selected tab after expanding
 - `sandstone/TooltipDecorator` to be positioned correctly over complex components
 - `sandstone/VideoPlayer.Video` to reuse video DOM node when changing `source`
-- `sandstone/WizardPanel` `noAnimation` autofocus
 
 ## [1.1.1] - 2020-08-05
 
