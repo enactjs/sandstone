@@ -21,7 +21,7 @@ describe('LTR locale', function () {
 		// Step 5. 5-way Down several times to the last visible item on the current viewport.
 		Page.fiveWayToItem(14);
 		// Verify Step 5: Spotlight is on the last visible item.
-		waitUntilFocused(14, 'step 6 focus');
+		waitUntilFocused(14, 'step 5 focus');
 		Page.delay(200);
 		// Step 6. Press Channel Down.
 		Page.checkScrollbyPagekey('down');
@@ -36,7 +36,7 @@ describe('LTR locale', function () {
 		// Step 8. 5-way Up several times to the first visible item on the current viewport.
 		Page.fiveWayToItem(7);
 		// Verify Step 8: Spotlight is on the first visible item.
-		expectFocusedItem(7, 'step 8 focus');
+		waitUntilFocused(7, 'step 8 focus');
 		// Step 9. Press Channel Up.
 		Page.checkScrollbyPagekey('up');
 		// Verify Step 9: Spotlight is on the *Item* closest to the previously focused Item's location.
