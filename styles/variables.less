@@ -415,8 +415,8 @@
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-max-items: 5;
-@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-small-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-small-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -635,6 +635,7 @@
 @sand-item-slotbefore-spacing: 54px;
 @sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 @sand-item-small-height: 126px;
+@sand-item-small-height-large: @sand-item-small-height;
 @sand-item-small-withlabel-height: 210px;
 
 // Keyguide
