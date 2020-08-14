@@ -10,11 +10,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			browser.waitUntil(() => Interface.item1.isFocused(), {timeout: 750});
+			Page.waitForFocus(Interface.item1);
 
 			Interface.waitForEnter(2, () => {
 				Page.spotlightSelect();
@@ -34,9 +32,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocus(Interface.item1);
 
 			// focus the right picker button
 			Page.spotlightDown();
@@ -61,9 +59,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocus(Interface.item1);
 
 			Page.spotlightLeft();
 
@@ -75,9 +73,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocus(Interface.item1);
 
 			Page.spotlightLeft();
 
