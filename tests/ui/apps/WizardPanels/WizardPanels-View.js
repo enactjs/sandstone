@@ -13,8 +13,9 @@ import UrlPropsDecorator from '../../components/UrlPropsDecorator';
 // runs the same way
 spotlight.setPointerMode(false);
 
-const app = (props) =>
+const app = (props) => (
 	<WizardPanels
+		{...props}
 		id="wizardpanels"
 		title="WizardPanels"
 		{...props}
@@ -59,6 +60,6 @@ const app = (props) =>
 			<Button className={spotlightDefaultClass}>Second</Button>
 		</WizardPanels.Panel>
 	</WizardPanels>
-;
+);
 
 export default UrlPropsDecorator(ThemeDecorator(app));
