@@ -183,20 +183,15 @@ class ScrollerInVirtualList extends React.Component {
 				width: '100%'
 			}
 		};
-		const scrollerContentStyle = {
-			horizontal: {
-			},
-			vertical: {
-				height: ri.scaleToRem(198),
-				width: 'max-content'
-			}
+		const verticalScrollerContentStyle = {
+			height: ri.scaleToRem(198),
+			width: 'max-content'
 		};
 		return (
 			<div data-index={index} style={listItemStyle[listDirection]}>
 				<Heading showLine>{'Scroller ' + index}</Heading>
 				<Scroller
 					id={'scroller' + index}
-					spotlightId={'container-scroller-' + index}
 					direction={isListVertical ? 'horizontal' : 'vertical'}
 					focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
@@ -206,10 +201,11 @@ class ScrollerInVirtualList extends React.Component {
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+					spotlightId={'container-scroller-' + index}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				>
 					<div
-						style={scrollerContentStyle[listDirection]}
+						style={isListVertical ? verticalScrollerContentStyle : null}
 					>
 						{[...Array(20)].map((x, i) => (
 							<Button key={i + 1}>
@@ -228,6 +224,7 @@ class ScrollerInVirtualList extends React.Component {
 			<VirtualList
 				dataSize={number('dataSize', VirtualListConfig, 100)}
 				direction={direction}
+				itemRenderer={this.renderScroller}
 				itemSize={direction === 'vertical' ? ri.scale(315) : ri.scale(639)}
 				key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
@@ -236,7 +233,6 @@ class ScrollerInVirtualList extends React.Component {
 				spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
 				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
 				wrap={listProp.wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
-				itemRenderer={this.renderScroller}
 			/>
 		);
 	};
