@@ -9,6 +9,24 @@ describe('WizardPanels', function () {
 		return document.activeElement.textContent;
 	}
 
+	describe('noAnimation', function () {
+		beforeEach(function () {
+			Page.open('?noAnimation=true');
+		});
+
+		describe('Focus Behavior', function () {
+			it('should select contents', function () {
+				wizardPanels.focusNextButton();
+				Page.spotlightSelect();
+
+				const expected = 'Button A';
+				const actual = browser.execute(getFocusedTextContent);
+
+				expect(actual).to.be.equal(expected);
+			});
+		});
+	});
+
 	beforeEach(function () {
 		Page.open();
 	});
