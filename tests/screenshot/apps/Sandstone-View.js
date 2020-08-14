@@ -131,7 +131,7 @@ const WrappedApp = ThemeDecorator({noAutoFocus: true}, App);
 
 const ExportedApp = (props) => {
 	// Common test parameters
-	const skin = url.searchParams.get('skin');
+	let skin = url.searchParams.get('skin');
 	let highContrast = url.searchParams.get('highContrast') === 'true';
 
 	// Legacy test parameters
@@ -141,8 +141,13 @@ const ExportedApp = (props) => {
 	if (props.testId >= 0 && components[props.component] && components[props.component][props.testId]) {
 		locale = components[props.component][props.testId].locale;
 		textSize = components[props.component][props.testId].textSize;
+
+		// Test can override values from the test runner
+		if (components[props.component][props.testId].skin) {
+			skin = components[props.component][props.testId].skin;
+		}
+
 		const skinVariants = objectify(components[props.component][props.testId].skinVariants);
-		// Test can override passed-in values
 		if (skinVariants.highContrast) {
 			delete skinVariants.highContrast;
 			highContrast = true;
