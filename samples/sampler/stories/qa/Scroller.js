@@ -185,11 +185,10 @@ class ScrollerInVirtualList extends React.Component {
 		};
 		const scrollerContentStyle = {
 			horizontal: {
-				height: ri.scaleToRem(3534)
 			},
 			vertical: {
 				height: ri.scaleToRem(198),
-				width: ri.scaleToRem(12252)
+				width: 'max-content'
 			}
 		};
 		return (
@@ -207,7 +206,6 @@ class ScrollerInVirtualList extends React.Component {
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
-					spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				>
 					<div
@@ -231,10 +229,11 @@ class ScrollerInVirtualList extends React.Component {
 				dataSize={number('dataSize', VirtualListConfig, 100)}
 				direction={direction}
 				itemSize={direction === 'vertical' ? ri.scale(315) : ri.scale(639)}
-				key={select('scrollMode', prop.scrollModeOption, Config)}
-				noScrollByWheel={boolean('noScrollByWheel', Config)}
-				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
+				noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
+				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 				spacing={ri.scale(number('spacing', VirtualListConfig))}
+				spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
 				style={direction === 'vertical' ? {paddingRight: ri.scaleToRem(36)} : {paddingBottom: ri.scaleToRem(36)}}
 				wrap={listProp.wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
 				itemRenderer={this.renderScroller}
