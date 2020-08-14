@@ -62,6 +62,7 @@ const LtrTests = [
 
 const AlertTests = [
 	...LtrTests,
+	...withConfig({locale: 'vi-VN'}, LtrTests),  // Tallglyph validation
 	...withConfig({locale: 'ar-SA'}, LtrTests)
 ];
 

@@ -115,6 +115,33 @@ describe('Button', () => {
 			expect(actual).not.toContain(expected);
 		});
 
+		it('should have iconAfter class with text and icon', function () {
+			const subject = mount(<Button icon="check" iconPosition="after">text</Button>);
+
+			const expected = css.iconAfter;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should have iconBefore class with text and icon', function () {
+			const subject = mount(<Button icon="check" iconPosition="before">text</Button>);
+
+			const expected = css.iconBefore;
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).toContain(expected);
+		});
+
+		it('should not have iconPosition classes with only icon', function () {
+			const subject = mount(<Button icon="check" />);
+
+			const actual = subject.find(ButtonBase).childAt(0).first().prop('className');
+
+			expect(actual).not.toContain(css.iconBefore);
+			expect(actual).not.toContain(css.iconAfter);
+		});
+
 		it('should have iconOnly class when there is no children', function () {
 			const subject = mount(<Button icon="check" />);
 
