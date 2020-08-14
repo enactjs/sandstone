@@ -1,5 +1,5 @@
 const Page = require('../VirtualListPage'),
-	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused} = require('../../VirtualList-utils');
+	{expectFocusedItem, expectNoFocusedItem, waitUntilFocused, waitUntilVisible} = require('../../VirtualList-utils');
 
 describe('LTR locale', function () {
 	beforeEach(function () {
