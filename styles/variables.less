@@ -90,6 +90,11 @@
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
 
+// Locale
+// ---------------------------------------
+// Sinhala(si), Thai(th), Vietnamse(vi)
+@locale-tallglyph-languages: si, th, vi;
+
 // Spotlight
 // ---------------------------------------
 @sand-spotlight-font-weight: 600;
@@ -184,6 +189,8 @@
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
 @sand-spottable-font-weight: 600;
+@sand-common-line-height: 1.3em;
+@sand-tallglyph-line-height: 1.5em;
 
 // Alert
 @sand-alert-font-family: @sand-font-family;
@@ -217,7 +224,7 @@
 @sand-timepicker-colon-margin: 0 6px;
 
 // Heading
-@sand-heading-line-height: 1.3em;
+@sand-heading-line-height: @sand-common-line-height;
 @sand-heading-font-style: normal;
 @sand-heading-title-font-family: @sand-alt-font-family;
 @sand-heading-title-font-weight: normal;
@@ -260,11 +267,11 @@
 
 // Item
 @sand-item-font-weight: @sand-spottable-font-weight;
-@sand-item-line-height: 1.3em;
+@sand-item-line-height: @sand-common-line-height;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
 @sand-item-small-font-weight: @sand-item-font-weight;
-@sand-item-small-line-height: 1.3em;
+@sand-item-small-line-height: @sand-common-line-height;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
 
@@ -340,7 +347,6 @@
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 540px;
-@sand-button-pressed-bg-transform: scale(0.98);
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
@@ -351,7 +357,6 @@
 @sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
-@sand-button-small-pressed-bg-transform: scale(0.97);
 @sand-button-small-focusexpand-focus-bg-transform: scale(1.1);
 @sand-button-small-focusexpand-pressed-bg-transform: scale(1.04);
 @sand-button-colordot-bottom: 18px;

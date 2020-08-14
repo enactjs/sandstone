@@ -2,138 +2,158 @@ import Item from '../../../../Item';
 import Icon from '../../../../Icon';
 import React from 'react';
 
-import {withConfig} from './utils';
+import {withConfig, withProps, LoremString} from './utils';
+
+// Short text
+const commonItemTests = [
+	<Item>Default Item</Item>,
+	<Item disabled>Disabled Item</Item>,
+	<Item inline>Inline Item</Item>,
+	<Item inline disabled>Disabled Inline Item</Item>
+];
+// Long text
+const longTextItemTests = [
+	<Item>Default Item with text long enough to invoke a marquee</Item>,
+	<Item disabled>Disabled Item with text long enough to invoke a marquee</Item>,
+	<Item inline>Inline Item with text long enough to invoke a marquee</Item>,
+	<Item inline disabled>Disabled Inline Item with text long enough to invoke a marquee</Item>
+];
+
+const rtlStrings = {
+	ar: 'صباح الخي'
+};
+
+// Define tests for RTL languages
+const rtlItemTests = [];
+for (const lang in rtlStrings) {
+	rtlItemTests.push(
+		<Item>{rtlStrings[lang]}</Item>,
+		<Item label={rtlStrings[lang]}>{rtlStrings[lang]}</Item>
+	);
+}
+
+
+const tallglyphStrings = {
+	// hi: 'नरेंद्र मोदी',
+	// th: ' ฟิ้  ไั  ஒ  து',
+	vi: 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+};
+
+// Define cases where the text could be affected by tallglyph languages
+const tallglyphTextCases = [];
+for (const lang in tallglyphStrings) {
+	tallglyphTextCases.push(
+		<Item>{tallglyphStrings[lang]}</Item>,
+		<Item label={tallglyphStrings[lang]}>{tallglyphStrings[lang]}</Item>
+	);
+}
+
+// Attach a set of common (from above) tests to apply to each of the tallglyph cases
+const tallglyphItemTests = [
+	// Normal
+	...tallglyphTextCases,
+	// Disabled
+	...withProps({disabled: true}, tallglyphTextCases),
+	// Inline
+	...withProps({inline: true}, tallglyphTextCases),
+	// Inline Disabled
+	...withProps({inline: true, disabled: true}, tallglyphTextCases)
+];
 
 const ItemTests = [
-	<Item>Hello Item</Item>,
-	<Item disabled>Hello Item</Item>,
-	<Item inline>Hello very very long Item</Item>,
-	<Item disabled inline>Hello very very long Item</Item>,
-	<Item>नरेंद्र मोदी</Item>,
-	<Item> ฟิ้  ไั  ஒ  து</Item>,
-	<Item>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
-	<Item>صباح الخير</Item>,
+	...commonItemTests,
+	...longTextItemTests,
+	...rtlItemTests,
 
 	// Centered
-	<Item centered>Hello Item</Item>,
-	<Item centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</Item>,
-	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Hello Item</Item>,
-	<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquam dapibus imperdiet. Morbi diam ex, vulputate eget luctus eu, gravida at ligula. Sed tristique eros sit amet iaculis varius. Phasellus rutrum augue id nulla consectetur, a vulputate velit dictum. Vestibulum ultrices tellus ac cursus condimentum. Aliquam sit amet consectetur nulla, viverra bibendum metus.</Item>,
-	...withConfig({
-		locale: 'ar-SA'
-	}, [
-		<Item centered>Hello Item</Item>,
-		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>} centered>Hello Item</Item>
+	...withProps({centered: true}, [
+		<Item>Centered Item</Item>,
+		<Item>{LoremString}</Item>,
+		// Just slotBefore
+		<Item slotBefore={<Icon>star</Icon>}>Centered Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>}>{LoremString}</Item>,
+		// Just slotAfter
+		<Item slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
+		<Item slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
+		// Both slotBefore and slotAfter
+		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Centered Item</Item>,
+		<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>{LoremString}</Item>,
+
+		...rtlItemTests
 	]),
 
 	// Small
-	<Item size="small">Hello Item</Item>,
-	<Item size="small" disabled>Hello Item</Item>,
-	<Item size="small" inline>Hello very very long Item</Item>,
-	<Item size="small" disabled inline>Hello very very long Item</Item>,
-	<Item size="small">नरेंद्र मोदी</Item>,
-	<Item size="small"> ฟิ้  ไั  ஒ  து</Item>,
-	<Item size="small">ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
-	<Item size="small">صباح الخير</Item>,
-	{
-		locale: 'ar-SA',
-		component: <Item size="small">Hello Item</Item>
-	},
+	...withProps({size: 'small'}, [
+		...commonItemTests,
+		...rtlItemTests
+	]),
 
 	// With tall characters and disabled [GT-28165]
-	<Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>,
-	{
-		textSize: 'large',
-		component: <Item>Hello Item</Item>
-	},
-	{
-		textSize: 'large',
-		component: <Item inline>Hello very very long Item</Item>
-	},
-	{
-		textSize: 'large',
-		component: <Item disabled inline>Hello disabled very very long Item</Item>
-	},
-	// *************************************************************
-	// locale = 'ar-SA'
-	// Item Functionality RTL [GT-28162]
-	{
-		locale: 'ar-SA',
-		component: <Item>Hello Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item disabled>Hello Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item inline>Hello very very long Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item disabled inline>Hello very very long Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item>नरेंद्र मोदी</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item> ฟิ้  ไั  ஒ  து</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>
-	},
-	{
-		locale: 'ar-SA',
-		component: <Item>صباح الخير</Item>
-	},
-	// With tall characters and disabled [GT-28165]
-	{
-		locale: 'ar-SA',
-		component: <Item disabled>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Item>
-	},
-	{
-		locale: 'ar-SA',
-		textSize: 'large',
-		component: <Item>Hello Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		textSize: 'large',
-		component: <Item inline>Hello very very long Item RTL</Item>
-	},
-	{
-		locale: 'ar-SA',
-		textSize: 'large',
-		component: <Item disabled inline>Hello disabled very very long Item RTL</Item>
-	},
+	...tallglyphItemTests,
 
-	// textSize: 'large'
+	// LargeText mode
 	...withConfig({
 		textSize: 'large'
 	}, [
-		<Item>Hello Item</Item>,
-		<Item label="With Label">Hello Item</Item>,
-		<Item size="small">Hello Item</Item>,
-		<Item size="small" label="With Label">Hello Item</Item>,
-		{
-			locale: 'ar-SA',
-			component: <Item>Hello Item</Item>
-		},
-		{
-			locale: 'ar-SA',
-			component: <Item label="With Label">Hello Item</Item>
-		},
-		{
-			locale: 'ar-SA',
-			component: <Item size="small">Hello Item</Item>
-		},
-		{
-			locale: 'ar-SA',
-			component: <Item size="small" label="With Label">Hello Item</Item>
-		}
+		...commonItemTests,
+		...rtlItemTests,
+		...tallglyphItemTests,
+		...withProps({size: 'small'}, [
+			...commonItemTests
+		])
+	]),
+
+
+	// *************************************************************
+	// locale = 'ar-SA'
+	// Item Functionality RTL [GT-28162]
+	...withConfig({locale: 'ar-SA'}, [
+		...commonItemTests,
+		...rtlItemTests,
+
+		// Centered
+		...withProps({centered: true}, [
+			<Item>Hello Item</Item>,
+			<Item slotBefore={<Icon>star</Icon>} slotAfter={<Icon>star</Icon>}>Hello Item</Item>
+		]),
+
+		// Small
+		...withProps({size: 'small'}, commonItemTests),
+
+		// With tall characters and disabled [GT-28165]
+		...tallglyphItemTests
+	]),
+
+	// RTL and LargeText mode
+	...withConfig({
+		locale: 'ar-SA',
+		textSize: 'large'
+	}, [
+		...commonItemTests,
+		...rtlItemTests,
+		...tallglyphItemTests
+	]),
+
+
+	// *************************************************************
+	// Tallglyph Validation
+	// locale = 'vi-VN'
+	...withConfig({
+		locale: 'vi-VN'
+	}, [
+		...commonItemTests,
+		...tallglyphItemTests,
+		...withProps({size: 'small'}, commonItemTests)
+	]),
+
+	...withConfig({
+		locale: 'vi-VN',
+		textSize: 'large'
+	}, [
+		...commonItemTests,
+		...tallglyphItemTests,
+		...withProps({size: 'small'}, commonItemTests)
 	])
 ];
+
 export default ItemTests;

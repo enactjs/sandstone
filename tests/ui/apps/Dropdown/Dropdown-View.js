@@ -25,7 +25,7 @@ function DropdownChange ({changeProp, changePropValue, waiting = 500, ...rest}) 
 }
 
 const app = (props) => <div {...props}>
-	<div>
+	<div style={{padding: 100}} id="wrapper">
 		<Dropdown id="dropdownDefault" title="Default">
 			{['one', 'two', 'three', 'four', 'five']}
 		</Dropdown>

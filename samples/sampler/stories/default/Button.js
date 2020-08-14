@@ -21,7 +21,8 @@ const prop = {
 	iconPosition: ['', 'before', 'after'],
 	icons: ['', ...iconNames],
 	minWidth: {'undefined/null (automatic)': '', 'true (enforce)': true, 'false (ignore)': 'false'},
-	size: ['', 'small', 'large']
+	size: ['', 'small', 'large'],
+	tooltipType: ['', 'balloon', 'transparent']
 };
 
 // The following is needed to allow us to disambiguate between minWidth=false and minWidth=undefined
@@ -49,6 +50,8 @@ storiesOf('Sandstone', module)
 				minWidth={threeWayBoolean(select('minWidth', prop.minWidth, Config))}
 				selected={boolean('selected', Config)}
 				size={select('size', prop.size, Config)}
+				tooltipText={text('tooltipText', Config)}
+				tooltipType={select('tooltipType', prop.tooltipType, Config)}
 			>
 				{text('children', Config, 'click me')}
 			</Button>
