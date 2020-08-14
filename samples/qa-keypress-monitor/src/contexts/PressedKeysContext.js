@@ -4,7 +4,7 @@ import useEventListener from '../hooks/useEventListener';
 
 const PressedKeysContext = createContext(null);
 
-const PressedKeysProvider = ({children}) => {
+const PressedKeysProvider = ({children, eventExpirationTime = 750}) => {
 	const [pressedKeys, setPressedKeys] = useState(new Map());
 
 	const addToMap = ({code, key, which}) => {
@@ -15,28 +15,28 @@ const PressedKeysProvider = ({children}) => {
 		setPressedKeys(keyMap);
 	};
 
+	const removeStaleEntries = (age = eventExpirationTime) => {
+		const now = new Date().getTime();
+		const keyMap = new Map(pressedKeys);
+		keyMap.forEach(({timestamp, which}) => {
+			if (now - timestamp >= age) {
+				keyMap.delete(which);
+			}
+		});
+		setPressedKeys(keyMap);
+	};
+
+	const expirationTimer = setInterval(removeStaleEntries, eventExpirationTime);
+
+	useEffect(
+		() => (() => {
+			clearInterval(expirationTimer);
+		}),
+		[expirationTimer]
+	);
+
 
 	useEventListener(document, 'keydown', addToMap);
-
-	useEffect(() => {
-
-		const removeStaleEntries = (age = 750) => {
-			const now = new Date().getTime();
-			const keyMap = new Map(pressedKeys);
-			keyMap.forEach(({timestamp, which}) => {
-				if (now - timestamp >= age) {
-					keyMap.delete(which);
-				}
-			});
-			setPressedKeys(keyMap);
-		};
-
-		const staleEntryRemovalTimer = setTimeout(removeStaleEntries, 750);
-
-		return (() => {
-			clearTimeout(staleEntryRemovalTimer);
-		});
-	}, [pressedKeys]);
 
 	return (
 		<PressedKeysContext.Provider
