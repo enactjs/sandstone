@@ -13,17 +13,12 @@ describe('Item Animates', function () {
 		expectFocusedItem(0);
 		// Step 4: Press Channel Down
 		Page.checkScrollbyPagekey('down');
-		waitUntilFocused(6);
-		Page.delay(200);
 		// Step 5: Press Channel Down again.
 		Page.checkScrollbyPagekey('down');
 		waitUntilFocused(12);
+		Page.checkScrollbyPagekey('up');
 		Page.delay(200);
 		Page.checkScrollbyPagekey('up');
-		waitUntilFocused(6);
-		Page.delay(200);
-		Page.checkScrollbyPagekey('up');
-		waitUntilFocused(0);
 		Page.delay(200);
 	});
 });
