@@ -18,6 +18,7 @@ const app = (props) => (
 		{...props}
 		id="wizardpanels"
 		title="WizardPanels"
+		{...props}
 	>
 		<WizardPanels.Panel subtitle="A subtitle for View 1" title="WizardPanels View 1">
 			<Scroller>
