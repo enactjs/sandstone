@@ -91,6 +91,9 @@
 	}
 
 	.header {
+		margin-left: .extract(@sand-flexiblepopuppanels-panel-margin, left)[];
+		margin-right: .extract(@sand-flexiblepopuppanels-panel-margin, right)[];
+
 		&.showBack {
 			margin-left: @sand-flexiblepopuppanels-header-padding;
 		}
@@ -99,6 +102,34 @@
 	.content {
 		margin: @sand-flexiblepopuppanels-panel-margin;
 		padding: @sand-flexiblepopuppanels-panel-padding;
+		box-sizing: border-box;
+	}
+
+	&.auto { /* Availble for export */ }
+
+	// These calculations are here (rather than the variables file) because they're
+	// implementation-specific rather than being generally useful due to the container
+	// requiring border-box sizing in one dimension and content-box in the other.
+	&.small {
+		// The following adds the left margin, left padding, width, right padding, and right margin
+		width: (
+			.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
+			+ .extract(@sand-flexiblepopuppanels-padding, left)[]
+			+ @sand-flexiblepopuppanels-small-width
+			+ .extract(@sand-flexiblepopuppanels-padding, right)[]
+			+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
+		);
+	}
+
+	&.large {
+		// The following adds the left margin, left padding, width, right padding, and right margin
+		width: (
+			.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
+			+ .extract(@sand-flexiblepopuppanels-padding, left)[]
+			+ @sand-flexiblepopuppanels-large-width
+			+ .extract(@sand-flexiblepopuppanels-padding, right)[]
+			+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
+		);
 	}
 
 	.enact-locale-rtl({
@@ -114,10 +145,7 @@
 	});
 
 	.applySkins({
-		.header {
-			filter: drop-shadow(@sand-flexiblepopuppanels-header-shadow);
-		}
-
+		.header,
 		.content {
 			background-color: @sand-flexiblepopuppanels-panel-bg-color;
 			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
