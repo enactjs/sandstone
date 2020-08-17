@@ -98,7 +98,7 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
-		it('should focus a component within the body on mount', function () {
+		it('should focus a component within the body on mount - [GT-32978]', function () {
 			wizardPanels.waitForEnter(1);
 
 			const expected = 'OK';
@@ -107,7 +107,7 @@ describe('WizardPanels', function () {
 			expect(actual).to.be.equal(expected);
 		});
 
-		it('should focus a navigation button on mount if no focusable elements exist in the body', function () {
+		it('should focus a navigation button on mount if no focusable elements exist in the body - [GT-32979]', function () {
 			Page.open('?index=3');
 
 			wizardPanels.waitForEnter(4);
