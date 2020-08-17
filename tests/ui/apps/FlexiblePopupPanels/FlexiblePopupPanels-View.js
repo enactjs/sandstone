@@ -55,7 +55,7 @@ const app = kind({
 						<Header title="Panel 1 - With Scroller" />
 
 						<Scroller style={{width: scaleToRem(900)}}>
-							<Item>Single Item</Item>
+							<Item id="singleItem">Single Item</Item>
 						</Scroller>
 					</Panel>
 					<Panel id="panel2" nextButton={nextButton} prevButton={prevButton}>

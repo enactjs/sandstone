@@ -142,4 +142,24 @@ describe('Panel', function () {
 			expect(actual).to.equal(expected);
 		});
 	});
+
+	describe('animation', () => {
+		it('should reverse animation', () => {
+			Page.focus(Page.panel1.nextButton);
+			Page.spotlightSelect();
+
+			Page.panel2.self.waitForExist();
+
+			// brief delay to allow the animation to start
+			Page.delay(50);
+			browser.execute(() => window.setPanelIndex(0));
+
+			Page.panel2.self.waitForExist({reverse: true});
+
+			const expected = true;
+			const actual = Page.panel1.self.isDisplayedInViewport();
+
+			expect(actual).to.equal(expected);
+		});
+	});
 });
