@@ -9,7 +9,7 @@ import * as Navigate from '@enact/spotlight/src/navigate';
 import * as Target from '@enact/spotlight/src/target';
 import * as Utils from '@enact/spotlight/src/utils';
 import Layout, {Cell} from '@enact/ui/Layout';
-import ViewManager from '@enact/ui/ViewManager';
+import Panels, {Panel} from '@enact/sandstone/Panels';
 
 import css from './App.module.less';
 import Home from './Home';
@@ -111,9 +111,11 @@ class AppBase extends React.Component {
 							</Fragment>
 						))}
 					</Cell>
-					<Cell component={ViewManager} index={selected}>
+					<Cell component={Panels} index={selected}>
 						{views.map(({view: ComponentView}, i) => (
-							<ComponentView key={`view${i}`} />
+							<Panel key={`panel${i}`}>
+								<ComponentView />
+							</Panel>
 						))}
 					</Cell>
 				</Layout>
