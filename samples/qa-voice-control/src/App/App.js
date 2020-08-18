@@ -2,12 +2,7 @@ import React, {Fragment} from 'react';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import * as Container from '@enact/spotlight/src/container';
-import * as Navigate from '@enact/spotlight/src/navigate';
-import * as Target from '@enact/spotlight/src/target';
-import * as Utils from '@enact/spotlight/src/utils';
 import Layout, {Cell} from '@enact/ui/Layout';
 import Panels, {Panel} from '@enact/sandstone/Panels';
 
@@ -39,13 +34,6 @@ import IntentVirtualList from '../views/intent/IntentVirtualList';
 import UseCaseDoubleScroller from '../views/usecase/UseCaseDoubleScroller';
 import UseCaseVideoPlayer from '../views/usecase/UseCaseVideoPlayer';
 import UseCaseVoiceControlDecorator from '../views/usecase/UseCaseVoiceControlDecorator';
-
-// For debugging
-window.s = Spotlight;
-window.c = Container;
-window.t = Target;
-window.n = Navigate;
-window.u = Utils;
 
 const Menu = SpotlightContainerDecorator({enterTo: 'last-focused'}, 'div');
 
