@@ -21,30 +21,32 @@ class AnimateOnIdle {
 		this.animation = null;
 
 		// used to "fill" when the animation completes
-		const firstKeyframe = keyframes[reverse ? keyframes.length - 1 : 0];
-		const lastKeyframe = keyframes[reverse ? 0 : keyframes.length - 1];
+		this.keyframes = [
+			keyframes[reverse ? keyframes.length - 1 : 0],
+			keyframes[reverse ? 0 : keyframes.length - 1]
+		];
 
 		this._onfinish = null;
 		this._oncancel = null;
 		this._reverse = false;
 		this._playState = 'idle';
 
-		this.fill(node, firstKeyframe);
+		this.fill(node, this.keyframes[0]);
 
 		this.handleFinish = () => {
 			this._playState = 'finished';
-			this.fill(node, lastKeyframe);
+			this.fill(node, this.keyframes[1]);
 			if (this._onfinish) this._onfinish();
 		};
 
 		this.handleCancel = () => {
 			this._playState = 'finished';
-			this.fill(node, firstKeyframe);
+			this.fill(node, this.keyframes[0]);
 			if (this._oncancel) this._oncancel();
 		};
 
 		idle(() => {
-			// if the animation was finsihed/cancelled before the idle callback occurs, bail out
+			// if the animation was finished/cancelled before the idle callback occurs, bail out
 			if (this._playState === 'finished') return;
 
 			this.animation = node.animate(keyframes, {
@@ -97,6 +99,9 @@ class AnimateOnIdle {
 	}
 
 	reverse () {
+		// swap the first/last keyframe so we fill the correct frame
+		this.keyframes.reverse();
+
 		if (this.animation) {
 			this.animation.reverse();
 		} else {
