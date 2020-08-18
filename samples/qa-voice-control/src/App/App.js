@@ -93,25 +93,13 @@ class AppBase extends React.Component {
 			<div className={className}>
 				<Layout {...rest} className={css.layout}>
 					<Cell component={Menu} id="menu" size="20%" spotlightId="menu">
-						{views.map((view, i) => {
-							if (view.category) {
-								return (
-									<Fragment key={view.title}>
-										<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>{view.category}</Heading>
-										<Item
-											className={css.navItem}
-											data-menu={i}
-											key={i}
-											onClick={this.handleChangeView(i)}
-											slotBefore={('00' + i).slice(-2)}
-										>
-											{view.title}
-										</Item>
-									</Fragment>
-								);
-							} else {
-								return (
-									<Item
+						{views.map((view, i) => (
+							<Fragment key={view.title}>
+								{view.category ?
+								<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>
+									{view.category}
+								</Heading> : null}
+								<Item
 										className={css.navItem}
 										data-menu={i}
 										key={i}
@@ -120,9 +108,8 @@ class AppBase extends React.Component {
 									>
 										{view.title}
 									</Item>
-								);
-							}
-						})}
+							</Fragment>
+						))}
 					</Cell>
 					<Cell component={ViewManager} index={selected}>
 						{views.map(({view: ComponentView}, i) => (
