@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
-import Scroller from '@enact/sandstone/Scroller';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 
 class IntentSelect extends React.Component {
@@ -37,17 +37,14 @@ class IntentSelect extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to select" subtitle={this.state.result} />
-				<Scroller>
-					<Heading showLine>Button</Heading>
-					<Button onClick={this.handleClick('Button | 사진 필터')}>사진 필터</Button>
-					<Heading showLine>IconButton</Heading>
-					<Button data-webos-voice-label="별" tooltipText="별" onClick={this.handleClick('IconButton | 별')} icon="star" />
-					<Heading showLine>Item</Heading>
-					<Item onClick={this.handleClick('Item | 다크 나이트')}>다크 나이트</Item>
-				</Scroller>
-			</>
+			<CommonView title="Intent to select" subtitle={this.state.result}>
+				<Heading showLine>Button</Heading>
+				<Button onClick={this.handleClick('Button | 사진 필터')}>사진 필터</Button>
+				<Heading showLine>IconButton</Heading>
+				<Button data-webos-voice-label="별" tooltipText="별" onClick={this.handleClick('IconButton | 별')} icon="star" />
+				<Heading showLine>Item</Heading>
+				<Item onClick={this.handleClick('Item | 다크 나이트')}>다크 나이트</Item>
+			</CommonView>
 		);
 	}
 }

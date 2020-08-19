@@ -1,9 +1,10 @@
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
 import VirtualList from '@enact/sandstone/VirtualList';
 import ri from '@enact/ui/resolution';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 const VoiceItem = VoiceControlDecorator(Item);
 
@@ -75,8 +76,7 @@ class DataWebosVoiceLabelIndex extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="voice-label-index" subtitle={this.state.result} />
+			<CommonView noScroller title="data-webos-voice-label-index" subtitle={this.state.result}>
 				<VirtualList
 					cbScrollTo={this.getScrollTo}
 					dataSize={itemList.length}
@@ -86,7 +86,7 @@ class DataWebosVoiceLabelIndex extends React.Component {
 					onScrollStop={this.handleScrollStop}
 					spacing={0}
 				/>
-			</>
+			</CommonView>
 		);
 	}
 }

@@ -3,13 +3,14 @@ import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
 import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
-import {Header} from '@enact/sandstone/Panels';
 import Popup from '@enact/sandstone/Popup';
 import Spotlight from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import ri from '@enact/ui/resolution';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 const ContexturePopupButton = ContexturePopupDecorator(Button);
 const ContainerDiv = SpotlightContainerDecorator({restrict: 'self-only'}, 'div');
@@ -82,8 +83,8 @@ class DataWebosVoiceExclusive extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="voice-exclusive" subtitle={this.state.result} />
+			<CommonView title="data-webos-voice-exclusive" subtitle={this.state.result}>
+				<Heading>Button</Heading>
 				<Button onClick={this.updateResult('Hello is clicked')}>Hello</Button>
 				<Heading>Popup</Heading>
 				<Button onClick={this.openPopup('popup')}>Popup</Button>
@@ -108,7 +109,7 @@ class DataWebosVoiceExclusive extends React.Component {
 				>
 					CotextualPopup
 				</ContexturePopupButton>
-				<Heading>CustomPopup</Heading>
+				<Heading>CustomizedPopup</Heading>
 				<Button spotlightId="customizedPopupActivator" onClick={this.openPopup('customizedPopup')}>Customized Popup</Button>
 				<FloatingLayer
 					open={this.state.isCustomPopup}
@@ -136,7 +137,7 @@ class DataWebosVoiceExclusive extends React.Component {
 						<Button onClick={this.closePopup('customizedPopup')}>Close</Button>
 					</ContainerDiv>
 				</FloatingLayer>
-			</>
+			</CommonView>
 		);
 	}
 }

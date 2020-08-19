@@ -1,6 +1,8 @@
-import {Panel, Header} from '@enact/sandstone/Panels';
+import {Panel} from '@enact/sandstone/Panels';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 const VoicePanel = VoiceControlDecorator(Panel);
 
@@ -27,9 +29,10 @@ class IntentPlayListControl extends React.Component {
 	render () {
 		return (
 			<VoicePanel noCloseButton data-webos-voice-intent="PlayListControl" onVoice={this.handleVoice}>
-				<Header title="Intent to play list control" subtitle={this.state.result} />
-				<div>{'이전 컨텐츠 재생'}</div>
-				<div>{'다음 컨텐츠 재생'}</div>
+				<CommonView noScroller title="Intent to play list control" subtitle={this.state.result}>
+					<div>{'이전 컨텐츠 재생'}</div>
+					<div>{'다음 컨텐츠 재생'}</div>
+				</CommonView>
 			</VoicePanel>
 		);
 	}

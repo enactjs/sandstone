@@ -1,8 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
-import {Header} from '@enact/sandstone/Panels';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
@@ -32,11 +33,10 @@ class Sample extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="webOSVoice" subtitle={this.state.result} />
-				<Heading>Custom Intent | Select PlayContent Delete</Heading>
+			<CommonView title="webOSVoice" subtitle={this.state.result}>
+				<Heading>Customized Intent | Select PlayContent Delete</Heading>
 				<VoiceButton data-webos-voice-intent="Select PlayContent Delete" onVoice={this.handleVoice} onClick={this.handleClick}>hello</VoiceButton>
-			</>
+			</CommonView>
 		);
 	}
 }

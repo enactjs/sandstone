@@ -1,8 +1,9 @@
 import Heading from '@enact/sandstone/Heading';
-import {Header} from '@enact/sandstone/Panels';
 import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 
 class IntentSetToggleItem extends React.Component {
@@ -21,12 +22,11 @@ class IntentSetToggleItem extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to set ToggleItem" />
+			<CommonView title="Intent to set ToggleItem">
 				<Heading>SwitchItem</Heading>
 				<SwitchItem>hello</SwitchItem>
 				<Switch />
-			</>
+			</CommonView>
 		);
 	}
 }

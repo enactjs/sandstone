@@ -1,9 +1,10 @@
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
+
 
 const VoiceItem = VoiceControlDecorator(Item);
 
@@ -30,20 +31,17 @@ class IntentPlayContent extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to play content" subtitle={this.state.result} />
-				<Scroller>
-					<Repeater
-						childComponent={VoiceItem}
-						itemProps={{
-							'data-webos-voice-intent': 'Select PlayContent',
-							onVoice: this.handleVoice
-						}}
-					>
-						{this.state.itemList}
-					</Repeater>
-				</Scroller>
-			</>
+			<CommonView title="Intent to play content" subtitle={this.state.result}>
+				<Repeater
+					childComponent={VoiceItem}
+					itemProps={{
+						'data-webos-voice-intent': 'Select PlayContent',
+						onVoice: this.handleVoice
+					}}
+				>
+					{this.state.itemList}
+				</Repeater>
+			</CommonView>
 		);
 	}
 }

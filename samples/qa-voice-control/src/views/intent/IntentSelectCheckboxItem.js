@@ -1,10 +1,10 @@
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
 import Heading from '@enact/sandstone/Heading';
-import {Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Group from '@enact/ui/Group';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 
 class IntentSelectCheckboxItem extends React.Component {
@@ -23,29 +23,26 @@ class IntentSelectCheckboxItem extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to select CheckboxItem" />
-				<Scroller>
-					<Heading>CheckboxItem</Heading>
-					<CheckboxItem>필터</CheckboxItem>
-					<Heading>CheckboxItem Group - multiple</Heading>
-					<Group
-						childComponent={CheckboxItem}
-						onSelect={this.handleSelect}
-						select="multiple"
-						selected={this.state.selected}
-						selectedProp="selected"
-					>
-						{[
-							'사과',
-							'바나나',
-							'호두'
-						]}
-					</Group>
-					<Heading>FormCheckboxItem</Heading>
-					<FormCheckboxItem>토끼</FormCheckboxItem>
-				</Scroller>
-			</>
+			<CommonView title="Intent to select CheckboxItem">
+				<Heading>CheckboxItem</Heading>
+				<CheckboxItem>필터</CheckboxItem>
+				<Heading>CheckboxItem Group - multiple selection</Heading>
+				<Group
+					childComponent={CheckboxItem}
+					onSelect={this.handleSelect}
+					select="multiple"
+					selected={this.state.selected}
+					selectedProp="selected"
+				>
+					{[
+						'사과',
+						'바나나',
+						'호두'
+					]}
+				</Group>
+				<Heading>FormCheckboxItem</Heading>
+				<FormCheckboxItem>토끼</FormCheckboxItem>
+			</CommonView>
 		);
 	}
 }

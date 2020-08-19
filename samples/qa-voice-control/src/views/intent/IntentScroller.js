@@ -1,8 +1,10 @@
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
+
 
 let itemList = [];
 
@@ -27,8 +29,7 @@ class IntentScroller extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to scroll" />
+			<CommonView noScroller title="Intent to scroll">
 				<Scroller
 					cbScrollTo={this.cbScrollTo}
 					data-webos-voice-focused
@@ -41,7 +42,7 @@ class IntentScroller extends React.Component {
 						{itemList}
 					</Repeater>
 				</Scroller>
-			</>
+			</CommonView>
 		);
 	}
 }

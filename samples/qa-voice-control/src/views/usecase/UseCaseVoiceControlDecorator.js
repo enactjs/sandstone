@@ -2,8 +2,11 @@ import Item from '@enact/sandstone/Item';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
 
+import CommonView from '../../components/CommonView';
+
 const VoiceDiv = VoiceControlDecorator('div');
 const VoiceItem = VoiceControlDecorator(Item);
+
 
 class UseCaseVoiceControlDecorator extends React.Component {
 	handlePlayListControl = (e) => {
@@ -20,7 +23,7 @@ class UseCaseVoiceControlDecorator extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<CommonView title="Voice Control Decorator">
 				<VoiceDiv
 					data-webos-voice-intent="PlayListControl"
 					onVoice={this.handlePlayListControl}
@@ -31,7 +34,7 @@ class UseCaseVoiceControlDecorator extends React.Component {
 				>
 					The Dark Knight
 				</VoiceItem>
-			</div>
+			</CommonView>
 		);
 	}
 }

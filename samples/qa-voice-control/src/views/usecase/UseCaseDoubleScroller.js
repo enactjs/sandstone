@@ -1,14 +1,16 @@
 import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
 import Scroller from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
+import CommonView from '../../components/CommonView';
+
 let itemList = [
 	'고양이', '강아지', '멍멍이', '토끼', '개미', '사자', '호랑이', '물고기', '기린', '원숭이', '쥐', '뱀', '박쥐', '치타', '낙타', '연어', '광어', '참치', '돔', '방어'
 ];
+
 
 class UseCaseDoubleScroller extends React.Component {
 	constructor (props) {
@@ -41,8 +43,7 @@ class UseCaseDoubleScroller extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Double Scroller" />
+			<CommonView noScroller title="Double Scroller">
 				<div style={{display: 'flex', flexDirection: 'row'}}>
 					<div>
 						<Heading style={{width: ri.scale(400)}}>{'한국'}</Heading>
@@ -83,7 +84,7 @@ class UseCaseDoubleScroller extends React.Component {
 						</div>
 					</div>
 				</div>
-			</>
+			</CommonView>
 		);
 	}
 }

@@ -1,11 +1,12 @@
 import Item from '@enact/sandstone/Item';
-import {Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import Repeater from '@enact/ui/Repeater';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
 
+import CommonView from '../../components/CommonView';
+
 const VoiceItem = VoiceControlDecorator(Item);
+
 
 class IntentDelete extends React.Component {
 	constructor (props) {
@@ -30,27 +31,24 @@ class IntentDelete extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="Intent to delete" subtitle={this.state.result} />
-				<Scroller>
-					<VoiceItem
-						data-webos-voice-intent="Delete"
-						data-webos-voice-label="비디오 스타"
-						onVoice={this.handleVoice}
-					>
-						비디오 스타
-					</VoiceItem>
-					<Repeater
-						childComponent={VoiceItem}
-						itemProps={{
-							'data-webos-voice-intent': 'Select Delete',
-							onVoice: this.handleVoice
-						}}
-					>
-						{this.state.itemList}
-					</Repeater>
-				</Scroller>
-			</>
+			<CommonView title="Intent to delete" subtitle={this.state.result}>
+				<VoiceItem
+					data-webos-voice-intent="Delete"
+					data-webos-voice-label="비디오 스타"
+					onVoice={this.handleVoice}
+				>
+					비디오 스타
+				</VoiceItem>
+				<Repeater
+					childComponent={VoiceItem}
+					itemProps={{
+						'data-webos-voice-intent': 'Select Delete',
+						onVoice: this.handleVoice
+					}}
+				>
+					{this.state.itemList}
+				</Repeater>
+			</CommonView>
 		);
 	}
 }

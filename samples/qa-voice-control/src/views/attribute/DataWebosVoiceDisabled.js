@@ -1,9 +1,9 @@
 import Button from '@enact/sandstone/Button';
 import Heading from '@enact/sandstone/Heading';
-import {Header} from '@enact/sandstone/Panels';
-import {Scroller} from '@enact/sandstone/Scroller';
 import {VoiceControlDecorator} from '@enact/webos/speech';
 import React from 'react';
+
+import CommonView from '../../components/CommonView';
 
 const VoiceButton = VoiceControlDecorator(Button);
 
@@ -28,24 +28,21 @@ class DataWebosVoiceDisabled extends React.Component {
 
 	render () {
 		return (
-			<>
-				<Header title="voice-disabled" subtitle={this.state.result} />
-				<Scroller>
-					<Heading>default</Heading>
-					<Button onClick={this.updateResult('사진 is clicked')}>사진</Button>
-					<Heading>disabled (data-webos-voice-disabled)</Heading>
-					<VoiceButton
-						data-webos-voice-disabled
-						data-webos-voice-intent="Select Delete"
-						onClick={this.updateResult('사과 is clicked')}
-						onVoice={this.handleVoice}
-					>
-						사과
-					</VoiceButton>
-					<Heading>disabled (disabled)</Heading>
-					<Button disabled onClick={this.updateResult('필터 is clicked')}>필터</Button>
-				</Scroller>
-			</>
+			<CommonView title="data-webos-voice-disabled" subtitle={this.state.result}>
+				<Heading>Default</Heading>
+				<Button onClick={this.updateResult('사진 is clicked')}>사진</Button>
+				<Heading>data-webos-voice-disabled</Heading>
+				<VoiceButton
+					data-webos-voice-disabled
+					data-webos-voice-intent="Select Delete"
+					onClick={this.updateResult('사과 is clicked')}
+					onVoice={this.handleVoice}
+				>
+					사과
+				</VoiceButton>
+				<Heading>Disabled Button</Heading>
+				<Button disabled onClick={this.updateResult('필터 is clicked')}>필터</Button>
+			</CommonView>
 		);
 	}
 }
