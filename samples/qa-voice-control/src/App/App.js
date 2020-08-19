@@ -84,18 +84,19 @@ class AppBase extends React.Component {
 						{views.map((view, i) => (
 							<Fragment key={view.title}>
 								{view.category ?
-								<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>
-									{view.category}
-								</Heading> : null}
+									<Heading key={`category${i}`} size="tiny" showLine className={css.heading}>
+										{view.category}
+									</Heading> : null
+								}
 								<Item
-										className={css.navItem}
-										data-menu={i}
-										key={i}
-										onClick={this.handleChangeView(i)}
-										slotBefore={('00' + i).slice(-2)}
-									>
-										{view.title}
-									</Item>
+									className={css.navItem}
+									data-menu={i}
+									key={i}
+									onClick={this.handleChangeView(i)}
+									slotBefore={('00' + i).slice(-2)}
+								>
+									{view.title}
+								</Item>
 							</Fragment>
 						))}
 					</Cell>
