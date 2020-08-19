@@ -124,6 +124,58 @@ describe('Dropdown', function () {
 		});
 	});
 
+	describe('5-way and pointer', function () {
+		beforeEach(function () {
+			Page.open();
+		});
+
+		it.only('should close dropdown from Pointer mode with Back key  - [GT-28623]', function () {
+			const dropdown = Page.components.dropdownDefault;
+			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
+
+			// Step 3: 5-way Spot and 5-way Select the Dropdown placeholder "No selection".
+			Page.openDropdown(dropdown);
+			// Verify Step 3: The Dropdown opens.
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+			Page.delay(1000);
+			// Step 4: Press the *Back* key on the remote.
+			Page.backKey();
+			// Verify Step 4: The Dropdown closes.
+			expect(dropdownList.isExisting).to.not.be.true();
+			Page.delay(2000);
+
+			// Step 5: Click on the Dropdown placeholder "No selection".
+			const d1 = $('#dropdownDefault');
+			// console.log('d1 =', d1);
+			d1.click({x: 0, y: 0});
+			Page.delay(2000);
+			// expect(dropdownList.isExisting).to.not.be.true();
+
+			// Page.showPointerByKeycode();
+		 	// dropdown.moveTo({xOffset: 160, yOffset: 20});
+			// $('#dropdownDefault_title').click();
+			// Page.openDropdown(dropdown);
+			// waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+
+			// Verify Step 5: The Dropdown opens.
+		 	// expect(dropdownList.isExisting).to.be.true();
+
+			// Step 6: Move the pointer over any Option.
+			// Page.spotlightLeft();
+			// // Verify Step 6: Spotlight is on this Option.
+			// waitForFocusedText(dropdown, 'two', 500, undefined, 100);
+			//
+
+
+			// // Step 7: Press the *Back* key on the remote.
+			// Page.backKey();
+			// // Verify Step 7: Dropdown closes.
+			// expect(dropdownList.isExisting).to.not.be.true();
+			// Page.delay(1000);
+
+		});
+	});
+
 	describe('in scroller', function () {
 		beforeEach(function () {
 			Page.open('InScroller');
