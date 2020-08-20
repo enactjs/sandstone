@@ -177,7 +177,7 @@ describe('Scroller', function () {
 		beforeEach(function () {
 			ScrollerPage.open('', '?locale=ar-SA');
 			ScrollerPage.buttonNativeScroll.moveTo();
-			ScrollerPage.spotlightSelect();			
+			ScrollerPage.spotlightSelect();
 		});
 
 		// In this Test Case, only checked RTL Mode.
