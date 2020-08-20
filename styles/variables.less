@@ -489,7 +489,16 @@
 			@sand-heading-title-line-height
 		)[@result]
 	)
-	.extract(#guide.header[compact-padding], right)[];
+	.extract(#guide.header[compact-padding], right)[]
+	(
+		.extract(#guide.header[compact-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[compact-title-line-height],
+			@sand-header-compact-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[compact-padding], left)[];
 @sand-header-compact-title-padding: 0;
 @sand-header-compact-subtitle-padding: 0;
 @sand-header-mini-margin:
