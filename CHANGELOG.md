@@ -12,9 +12,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Button` alignment for small button with only icons
-- `sandstone/WizardPanels` focus issue on key events inside header container
-
 - `sandstone/Button` alignment for small icon-only buttons
 - `sandstone/Panels` animation after reversing direction
 - `sandstone/TooltipDecorator` to be positioned correctly over complex components
