@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Panels.Header` style to match latest designs
+
 ## [1.1.3] - 2020-08-17
 
 ### Fixed
