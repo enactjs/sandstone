@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Input` number pad to stay the same in rtl
+
 ## [1.1.3] - 2020-08-17
 
 ### Fixed
