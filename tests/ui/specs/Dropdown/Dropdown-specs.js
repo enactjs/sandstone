@@ -132,6 +132,7 @@ describe('Dropdown', function () {
 		it.only('should close dropdown from Pointer mode with Back key  - [GT-28623]', function () {
 			const dropdown = Page.components.dropdownDefault;
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
+			const itemCT = $('.Item_Item_itemContent');
 
 			// Step 3: 5-way Spot and 5-way Select the Dropdown placeholder "No selection".
 			Page.openDropdown(dropdown);
@@ -144,27 +145,22 @@ describe('Dropdown', function () {
 			expect(dropdownList.isExisting).to.not.be.true();
 			Page.delay(2000);
 
+			// const expected = 'two';
 			// Step 5: Click on the Dropdown placeholder "No selection".
-			const d1 = $('#dropdownDefault');
+			const dropdownDefault = $('#dropdownDefault');
 			// console.log('d1 =', d1);
-			d1.click({x: 0, y: 0});
+			dropdownDefault.click({x: 0, y: 0});
 			Page.delay(2000);
-			// expect(dropdownList.isExisting).to.not.be.true();
 
-			// Page.showPointerByKeycode();
-		 	// dropdown.moveTo({xOffset: 160, yOffset: 20});
-			// $('#dropdownDefault_title').click();
-			// Page.openDropdown(dropdown);
-			// waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+			// Page.Dropdown.tabItems[2].click();
 
 			// Verify Step 5: The Dropdown opens.
-		 	// expect(dropdownList.isExisting).to.be.true();
+			// expect(dropdownList.isExisting).to.be.true();
 
 			// Step 6: Move the pointer over any Option.
-			// Page.spotlightLeft();
-			// // Verify Step 6: Spotlight is on this Option.
+			// Verify Step 6: Spotlight is on this Option.
+
 			// waitForFocusedText(dropdown, 'two', 500, undefined, 100);
-			//
 
 
 			// // Step 7: Press the *Back* key on the remote.

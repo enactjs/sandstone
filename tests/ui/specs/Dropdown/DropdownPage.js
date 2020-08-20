@@ -16,6 +16,11 @@ class DropdownInterface {
 	'Dropdown', child: 'button'}, this.self);
 	}
 
+	get item () {
+		return getComponent({component:
+	'Dropdown', child: 'item'}, this.self);
+	}
+
 	get focusedItemText () {
 		return browser.execute(() => {
 			const focused = document.activeElement;
