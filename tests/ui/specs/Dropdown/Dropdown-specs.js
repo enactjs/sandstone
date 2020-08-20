@@ -8,7 +8,6 @@ function waitForFocusedText (dropdown, text, timeout, timeoutMsg = `timed out wa
 }
 
 describe('Dropdown', function () {
-	Page.open();
 
 	describe('changing props', function () {
 		beforeEach(function () {
@@ -47,9 +46,14 @@ describe('Dropdown', function () {
 	});
 
 	describe('5-way', function () {
+		beforeEach(function () {
+			Page.open();
+		});
+
 		it('should lock Spotlight inside the Dropdown - [GT-28646]', function () {
 			const dropdown = Page.components.dropdownDefault;
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
+
 			// Step 3: 5-way Spot and 5-way Select the 'Default' Dropdown.
 			Page.openDropdown(dropdown);
 			// Verify Step 3.1: The 'Default' Dropdown opens.
@@ -99,10 +103,14 @@ describe('Dropdown', function () {
 	});
 
 	describe('pointer', function () {
+		beforeEach(function () {
+			Page.open();
+		});
+
 		it('should dismiss dropdown when clicking outside - [GT-28644]', function () {
 			const dropdown = Page.components.dropdownDefault;
 
-			// open the first dropdown and wait for the first list item to be focused
+			// Open the first dropdown and wait for the first list item to be focused
 			Page.openDropdown(dropdown);
 			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
 
@@ -113,6 +121,45 @@ describe('Dropdown', function () {
 			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
 			expect(dropdownList.isExisting).to.not.be.true();
+		});
+	});
+
+	describe('in scroller', function () {
+		beforeEach(function () {
+			Page.open('InScroller');
+		});
+
+		function getDropdownOffset (dropdown, scroller) {
+			return browser.execute((a, b) => {
+				return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+			}, dropdown, scroller);
+		}
+
+		it('should have title visible when focusing button via 5-way - [GT-31167]', function () {
+			// TODO: This refocuses the first dropdown which is being blurred for some reason with
+			// Scroller. Once that bug is resolved, this can be removed.
+			Page.spotlightLeft();
+			expect(Page.components.dropdown1.button.isFocused()).to.be.true();
+
+			Page.spotlightDown();
+			Page.delay(250);
+
+			// Verify that we have scrolled down
+			expect(getDropdownOffset(
+				Page.components.dropdown1.self,
+				$('#scroller')
+			)).to.not.equal(0);
+
+			Page.spotlightUp();
+			Page.delay(250);
+
+			const expected = 0;
+			const actual = getDropdownOffset(
+				Page.components.dropdown1.self,
+				$('#scroller')
+			);
+
+			expect(actual).to.equal(expected);
 		});
 	});
 });
