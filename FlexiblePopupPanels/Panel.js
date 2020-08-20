@@ -134,12 +134,10 @@ const PanelBase = kind({
 		/**
 		 * Sets a pre-determined width on this panel.
 		 *
-		 * * 'auto'  - Attempts to adjust the panel size to the content size.
-		 *             Note: the `title` may not match in width.
-		 * * 'small' - 600px
-		 * * 'large' - 1320px
+		 * The 'auto' value will attempt to adjust the panel size to the content size.
+		 * Note: the `title` may not match in width.
 		 *
-		 * @type {('auto'|'always'|'never')}
+		 * @type {('auto'|'small'|'large')}
 		 * @default 'auto'
 		 * @public
 		 */
