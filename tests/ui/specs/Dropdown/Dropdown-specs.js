@@ -98,7 +98,7 @@ describe('Dropdown', function () {
 			const wrapper = $('#wrapper');
 			wrapper.click({x: 0, y: 0});
 			// Verify Step 8: The 'Default' Dropdoan is closed.
-			expect(dropdownList.isExisting).to.not.be.true();
+			expect(dropdownList.isExisting()).to.not.be.true();
 		});
 	});
 
@@ -120,7 +120,7 @@ describe('Dropdown', function () {
 
 			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
 			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
-			expect(dropdownList.isExisting).to.not.be.true();
+			expect(dropdownList.isExisting()).to.not.be.true();
 		});
 	});
 
@@ -142,7 +142,7 @@ describe('Dropdown', function () {
 			// Step 4: Press the *Back* key on the remote.
 			Page.backKey();
 			// Verify Step 4: The Dropdown closes.
-			expect(dropdownList.isExisting).to.not.be.true();
+			expect(dropdownList.isExisting()).to.not.be.true();
 			Page.delay(2000);
 
 			// const expected = 'two';
@@ -152,23 +152,20 @@ describe('Dropdown', function () {
 			dropdownDefault.click({x: 0, y: 0});
 			Page.delay(2000);
 
-			// Page.Dropdown.tabItems[2].click();
-
 			// Verify Step 5: The Dropdown opens.
-			// expect(dropdownList.isExisting).to.be.true();
+			expect(dropdown.list.isExisting()).to.be.true();
 
 			// Step 6: Move the pointer over any Option.
+			dropdown.item(1).moveTo();
+
 			// Verify Step 6: Spotlight is on this Option.
+			waitForFocusedText(dropdown, 'two', 500, undefined, 100);
 
-			// waitForFocusedText(dropdown, 'two', 500, undefined, 100);
+			// Step 7: Press the *Back* key on the remote.
+			Page.backKey();
 
-
-			// // Step 7: Press the *Back* key on the remote.
-			// Page.backKey();
-			// // Verify Step 7: Dropdown closes.
-			// expect(dropdownList.isExisting).to.not.be.true();
-			// Page.delay(1000);
-
+			// Verify Step 7: Dropdown closes.
+			expect(dropdownList.isExisting()).to.not.be.true();
 		});
 	});
 
