@@ -37,6 +37,9 @@ class ScrollerPage extends Page {
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
+	get buttonNativeScroll () {
+		return element('#nativeScroll', browser);
+	}	
 
 	// dropdown api
 	get dropdownFocusableScrollbar () {
