@@ -45,9 +45,14 @@
 	}
 
 	&.overlay {
+		.alertImage {
+			.margin-start-end(@sand-alert-overlay-image-margin-left, @sand-alert-overlay-image-margin-right);
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
 			margin: 0;
+			.margin-start-end(@sand-alert-overlay-buttons-margin-left, @sand-alert-overlay-buttons-margin-right);
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
