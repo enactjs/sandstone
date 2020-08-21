@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
 import React from 'react';
@@ -129,10 +130,9 @@ class App extends React.Component {
 const WrappedApp = ThemeDecorator({noAutoFocus: true}, App);
 
 const ExportedApp = (props) => {
-
 	// Common test parameters
-	const skin = url.searchParams.get('skin');
-	const highContrast = url.searchParams.get('highContrast') === 'true';
+	let skin = url.searchParams.get('skin');
+	let highContrast = url.searchParams.get('highContrast') === 'true';
 
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
@@ -141,6 +141,25 @@ const ExportedApp = (props) => {
 	if (props.testId >= 0 && components[props.component] && components[props.component][props.testId]) {
 		locale = components[props.component][props.testId].locale;
 		textSize = components[props.component][props.testId].textSize;
+
+		// Test can override values from the test runner
+		if (components[props.component][props.testId].skin) {
+			skin = components[props.component][props.testId].skin;
+		}
+
+		const skinVariants = objectify(components[props.component][props.testId].skinVariants);
+		if (skinVariants.highContrast) {
+			delete skinVariants.highContrast;
+			highContrast = true;
+		}
+		if (skinVariants.largeText) {
+			delete skinVariants.largeText;
+			textSize = 'large';
+		}
+		if (Object.keys(skinVariants).length) {
+			// eslint-disable-next-line no-console
+			console.warn(`Unknown skin variant in ${props.component} test ${props.testId}`);
+		}
 	}
 
 	return (
