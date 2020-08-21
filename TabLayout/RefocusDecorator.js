@@ -18,8 +18,8 @@ const RefocusDecorator = Wrapped => {
 		spotlightId = spotlightId || generateId(orientation || 'vertical');
 
 		React.useLayoutEffect(() => {
-			if (collapsed && !Spotlight.getPointerMode() && !Spotlight.getCurrent()) {
-				Spotlight.focus();
+			if (collapsed && !Spotlight.getPointerMode() && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
+				Spotlight.focus(spotlightId);
 			}
 		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
 
