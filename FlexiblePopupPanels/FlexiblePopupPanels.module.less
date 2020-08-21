@@ -107,44 +107,57 @@
 
 	&.auto { /* Availble for export */ }
 
+	// These calculations are here (rather than the variables file) because they're
+	// implementation-specific rather than being generally useful due to the container
+	// requiring border-box sizing in one dimension and content-box in the other.
+	// The following adds the left margin, left padding, width, right padding, and right margin
+	@panel-small-width: (
+		.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
+		+ .extract(@sand-flexiblepopuppanels-padding, left)[]
+		+ @sand-flexiblepopuppanels-small-width
+		+ .extract(@sand-flexiblepopuppanels-padding, right)[]
+		+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
+	);
+	// The following adds the left margin, left padding, width, right padding, and right margin
+	@panel-large-width: (
+		.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
+		+ .extract(@sand-flexiblepopuppanels-padding, left)[]
+		+ @sand-flexiblepopuppanels-large-width
+		+ .extract(@sand-flexiblepopuppanels-padding, right)[]
+		+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
+	);
+
 	// With a panel width defined, the container (viewport) extends to the width of both child panels,
 	// so we must only offset `left` by 50%, half as much, since now the container is twice as large.
 	&.small,
 	&.large {
 		&:nth-child(2) {
+			// For sized panels that are the same width
 			left: -50%;
 		}
 
-		.enact-locale-rtl({
-			.bodyLayout {
-				width: 100%;
-			}
-		});
+		.bodyLayout {
+			width: 100%;
+		}
 	}
 
-	// These calculations are here (rather than the variables file) because they're
-	// implementation-specific rather than being generally useful due to the container
-	// requiring border-box sizing in one dimension and content-box in the other.
 	&.small {
-		// The following adds the left margin, left padding, width, right padding, and right margin
-		width: (
-			.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
-			+ .extract(@sand-flexiblepopuppanels-padding, left)[]
-			+ @sand-flexiblepopuppanels-small-width
-			+ .extract(@sand-flexiblepopuppanels-padding, right)[]
-			+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
-		);
+		width: @panel-small-width;
+	}
+
+	// Customize control over transitioning between panels of different dimensions.
+	// We offset by the width of the other panel so ViewManager's Arranger's transform
+	// can continue to use relative sizing.
+	&.small	+ &.large {
+		left: -@panel-small-width;
 	}
 
 	&.large {
-		// The following adds the left margin, left padding, width, right padding, and right margin
-		width: (
-			.extract(@sand-flexiblepopuppanels-panel-margin, left)[]
-			+ .extract(@sand-flexiblepopuppanels-padding, left)[]
-			+ @sand-flexiblepopuppanels-large-width
-			+ .extract(@sand-flexiblepopuppanels-padding, right)[]
-			+ .extract(@sand-flexiblepopuppanels-panel-margin, right)[]
-		);
+		width: @panel-large-width;
+	}
+
+	&.large	+ &.small {
+		left: -@panel-large-width;
 	}
 
 	.enact-locale-rtl({
