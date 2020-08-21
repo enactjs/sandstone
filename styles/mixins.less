@@ -151,7 +151,7 @@
 	// content: "Applying .sand-font 34";
 	font-family: @family;
 
-	.sand-locale-non-latin({
+	.enact-locale(non-latin, {
 		font-family: @nlfamily;
 		@nlrules();
 	}, @target);
@@ -168,7 +168,7 @@
 .sand-font-size(@font-size: @sand-body-font-size; @nlfont-size: @font-size) {
 	font-size: @font-size;
 
-	.sand-locale-non-latin({
+	.enact-locale(non-latin, {
 		font-size: @nlfont-size;
 	});
 }
