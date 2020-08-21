@@ -1,5 +1,6 @@
 // TimePicker.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 
 .timePicker {
@@ -13,7 +14,7 @@
 		display: flex;
 		align-items: center;
 
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			// RTL uses a special order:
 			// Reading from right to left, the sequence is "minute : hour meridiem"
 			.hourPicker {
@@ -30,6 +31,6 @@
 			.meridiemPicker {
 				order: 4;
 			}
-		}
+		});
 	}
 }

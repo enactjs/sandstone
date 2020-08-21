@@ -341,7 +341,7 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Subtitle id of the headder.
+		 * Subtitle id of the header.
 		 *
 		 * @type {String}
 		 * @private
@@ -370,7 +370,7 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Title id of the headder.
+		 * Title id of the header.
 		 *
 		 * @type {String}
 		 * @private
@@ -572,7 +572,7 @@ const HeaderBase = kind({
 	}
 });
 
-// Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function ContextAsDefaultsHeader (props) {
