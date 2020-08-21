@@ -107,6 +107,15 @@
 
 	&.auto { /* Availble for export */ }
 
+	// With a panel width defined, the container (viewport) extends to the width of both child panels,
+	// so we must only offset `left` by 50%, half as much, since now the container is twice as large.
+	&.small,
+	&.large {
+		&:nth-child(2) {
+			left: -50%;
+		}
+	}
+
 	// These calculations are here (rather than the variables file) because they're
 	// implementation-specific rather than being generally useful due to the container
 	// requiring border-box sizing in one dimension and content-box in the other.
