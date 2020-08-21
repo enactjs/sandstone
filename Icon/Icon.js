@@ -13,7 +13,7 @@
 
 import kind from '@enact/core/kind';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import UiIcon from '@enact/ui/Icon';
+import {IconBase as UiIconBase} from '@enact/ui/Icon';
 import Pure from '@enact/ui/internal/Pure';
 import {scaleToRem} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -121,7 +121,7 @@ const IconBase = kind({
 	render: ({css, size, ...rest}) => {
 		delete rest.rtl;
 
-		return UiIcon.inline({
+		return UiIconBase.inline({
 			...rest,
 			size: (typeof size === 'string' ? size : void 0),
 			css,
