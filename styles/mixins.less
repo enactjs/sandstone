@@ -130,7 +130,7 @@
 	font-weight: normal;
 	font-size: @font-size;
 
-	.enact-locale-line-height(@sand-body-line-height; @sand-non-latin-body-line-height; @target);
+	.enact-locale-line-height(@sand-body-line-height; @sand-tallglyph-body-line-height; @target);
 }
 
 //
@@ -223,28 +223,24 @@
 //
 
 .sand-alert-title() {
-	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
-		line-height: @sand-non-latin-body-line-height;
-	});
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height; @sand-tallglyph-body-line-height);
 	font-size: @sand-alert-title-font-size;
 	font-weight: @sand-alert-font-weight;
-	line-height: @sand-alert-line-height;
 }
 
 .sand-alert-subtitle() {
 	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height);
 	font-size: @sand-alert-subtitle-font-size;
 	font-weight: @sand-alert-font-weight;
-	line-height: @sand-alert-line-height;
 }
 
 .sand-alert-overlay-content() {
-	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
-		line-height: @sand-non-latin-body-line-height;
-	});
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height; @sand-tallglyph-body-line-height);
 	font-weight: @sand-alert-font-weight;
 	font-size: @sand-alert-overlay-font-size;
-	line-height: @sand-alert-line-height;
 	text-align: initial;
 	.sand-word-break();
 	.locale-japanese-line-break();
@@ -260,7 +256,7 @@
 		font-style: @sand-non-latin-body-font-style;
 	});
 
-	.enact-locale-line-height(@sand-body-line-height; @sand-non-latin-body-line-height);
+	.enact-locale-line-height(@sand-body-line-height; @sand-tallglyph-body-line-height);
 
 	a:link {color: inherit; text-decoration:none;}
 	a:visited {color: inherit; text-decoration:none;}
