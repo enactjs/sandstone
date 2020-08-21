@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Panels.Header` style to match latest designs
+- `sandstone/TabLayout` to not lose focus when changing `index` programmatically
 
 ## [1.1.3] - 2020-08-17
 
