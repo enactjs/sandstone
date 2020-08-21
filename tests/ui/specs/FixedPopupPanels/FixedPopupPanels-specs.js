@@ -12,7 +12,7 @@ describe('FixedPopupPanels', function () {
 
 			Page.spotlightSelect();
 
-			Page.waitForFocus(Interface.item1);
+			Page.waitForFocused(Interface.item1);
 
 			Interface.waitForEnter(2, () => {
 				Page.spotlightSelect();
@@ -34,7 +34,7 @@ describe('FixedPopupPanels', function () {
 
 			Page.spotlightSelect();
 
-			Page.waitForFocus(Interface.item1);
+			Page.waitForFocused(Interface.item1);
 
 			// focus the right picker button
 			Page.spotlightDown();
@@ -61,7 +61,7 @@ describe('FixedPopupPanels', function () {
 
 			Page.spotlightSelect();
 
-			Page.waitForFocus(Interface.item1);
+			Page.waitForFocused(Interface.item1);
 
 			Page.spotlightLeft();
 
@@ -75,7 +75,7 @@ describe('FixedPopupPanels', function () {
 
 			Page.spotlightSelect();
 
-			Page.waitForFocus(Interface.item1);
+			Page.waitForFocused(Interface.item1);
 
 			Page.spotlightLeft();
 
