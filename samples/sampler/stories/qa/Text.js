@@ -42,7 +42,7 @@ Heading.displayName = 'Heading';
 const prop = {
 	tallText: [
 		'नरेंद्र मोदी',
-		'ฟิ้  ไั  ஒ  து',
+		'ฟิ้  ไั  ஒ  து  ඒ',
 		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
 	]
 };
@@ -51,7 +51,7 @@ storiesOf('Text', module)
 	.add(
 		'"Tall Glyph" support in components',
 		() => {
-			const children = select('children', prop.tallText, {groupId: 'Text'}, 'नरेंद्र मोदी');
+			const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
 
 			return (
 				<div>
