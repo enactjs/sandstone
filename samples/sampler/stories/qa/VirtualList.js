@@ -116,6 +116,9 @@ const ContainerItemWithControls = SpotlightContainerDecorator(({children, ...res
 	const containerStyle = {display: 'flex', width: '100%', height: itemHeight};
 	const textStyle = {flex: '1 1 100%', lineHeight: itemHeight};
 	const switchStyle = {flex: '0 0 auto'};
+
+	delete rest.index;
+
 	return (
 		<div {...rest} style={containerStyle}>
 			<div style={textStyle}>
