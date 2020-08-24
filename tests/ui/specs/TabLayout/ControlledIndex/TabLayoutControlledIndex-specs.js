@@ -46,7 +46,9 @@ describe('TabLayout', function () {
 				// Wait for second tab contents to appear
 				Page.tabLayout.view(2).waitForExist();
 				expect(Page.tabLayout.isCollapsed).to.be.false();
-				Page.waitForFocused(Page.tabLayout.tabItems[2], {targetName: '3rd tab still'});
+
+				// Focus should be updated to the new selected item
+				Page.waitForFocused(Page.tabLayout.tabItems[1], {targetName: '2nd tab focused'});
 			});
 		});
 	});
