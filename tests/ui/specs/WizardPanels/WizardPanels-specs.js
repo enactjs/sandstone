@@ -9,6 +9,24 @@ describe('WizardPanels', function () {
 		return document.activeElement.textContent;
 	}
 
+	describe('noAnimation', function () {
+		beforeEach(function () {
+			Page.open('?noAnimation=true');
+		});
+
+		describe('Focus Behavior', function () {
+			it('should select contents', function () {
+				wizardPanels.focusNextButton();
+				Page.spotlightSelect();
+
+				const expected = 'Button A';
+				const actual = browser.execute(getFocusedTextContent);
+
+				expect(actual).to.be.equal(expected);
+			});
+		});
+	});
+
 	beforeEach(function () {
 		Page.open();
 	});
@@ -59,6 +77,15 @@ describe('WizardPanels', function () {
 
 		});
 
+		it('should focus an eligible navigation button when leaving the contents or footer via 5-way left or right', function () {
+			expect('OK').to.be.equal(browser.execute(getFocusedTextContent));
+
+			Page.spotlightRight();
+			Page.spotlightRight();
+
+			expect(wizardPanels.nextButton.isFocused()).to.be.true();
+		});
+
 	});
 
 	describe('Pointer', function () {
@@ -80,6 +107,23 @@ describe('WizardPanels', function () {
 	});
 
 	describe('Focus Behavior', function () {
+		it('should focus a component within the body on mount - [GT-32978]', function () {
+			wizardPanels.waitForEnter(1);
+
+			const expected = 'OK';
+			const actual = browser.execute(getFocusedTextContent);
+
+			expect(actual).to.be.equal(expected);
+		});
+
+		it('should focus a navigation button on mount if no focusable elements exist in the body - [GT-32979]', function () {
+			Page.open('?index=3');
+
+			wizardPanels.waitForEnter(4);
+
+			expect(wizardPanels.prevButton.isFocused()).to.be.true();
+		});
+
 		it('should select contents over buttons - [GT-29594]', function () {
 			wizardPanels.focusNextButton();
 			Page.spotlightSelect();
