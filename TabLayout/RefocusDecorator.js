@@ -3,8 +3,14 @@ import {useId} from '@enact/ui/internal/IdProvider';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import css from './TabGroup.module.less';
+
 function getTabsSpotlightId (spotlightId, collapsed) {
 	return `${spotlightId}-tabs-${collapsed ? 'collapsed' : 'expanded'}`;
+}
+
+function getContainerNode (containerId) {
+	return document.querySelector(`[data-spotlight-id='${containerId}']`);
 }
 
 const RefocusDecorator = Wrapped => {
@@ -18,8 +24,14 @@ const RefocusDecorator = Wrapped => {
 		spotlightId = spotlightId || generateId(orientation || 'vertical');
 
 		React.useLayoutEffect(() => {
-			if (collapsed && !Spotlight.getPointerMode() && !Spotlight.getCurrent() && !Spotlight.isPaused()) {
-				Spotlight.focus(spotlightId);
+			if (!Spotlight.getPointerMode() && !Spotlight.isPaused()) {
+				const current = Spotlight.getCurrent(),
+					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
+					containerNode = getContainerNode(tabsSpotlightId);
+
+				if (!current || containerNode.querySelector(`.${css.selected}`) !== current) {
+					Spotlight.focus(spotlightId);
+				}
 			}
 		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
 
