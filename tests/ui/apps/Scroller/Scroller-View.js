@@ -102,7 +102,7 @@ class app extends React.Component {
 										<Scroller
 											direction={this.state.direction}
 											focusableScrollbar={this.state.focusableScrollbar}
-											horizontalscrollbar={getScrollbarVisibility(hideScrollbar)}
+											horizontalScrollbar={getScrollbarVisibility(hideScrollbar)}
 											key={nativeScroll ? 'native' : 'translate'}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
