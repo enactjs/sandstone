@@ -6,6 +6,9 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Dropdown` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales
+- `sandstone/Item` style to match latest designs
 - `sandstone/Panels.Header` style to match latest designs
 - `sandstone/TabLayout` to not lose focus when changing `index` programmatically
 

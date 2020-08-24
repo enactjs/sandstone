@@ -1,0 +1,12 @@
+{
+  "id": "qa-voice-control",
+  "version": "0.1.0",
+  "vendor": "LGE-SWP",
+  "type": "web",
+  "main": "index.html",
+  "title": "QA Voice Control",
+  "icon": "icon.png",
+  "miniicon": "icon-mini.png",
+  "largeIcon": "icon-large.png",
+  "uiRevision": 2
+}
