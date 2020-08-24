@@ -43,7 +43,7 @@ const RefocusDecorator = Wrapped => {
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				const tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
 
-				if (!document.querySelector(`[data-spotlight-id='${tabsSpotlightId}']`).contains(Spotlight.getCurrent())) {
+				if (!getContainerNode(tabsSpotlightId).contains(Spotlight.getCurrent())) {
 					Spotlight.focus(tabsSpotlightId);
 				}
 			}
