@@ -17,14 +17,7 @@ class DropdownInterface {
 	}
 
 	item (index) {
-		// element(
-		// 	componentSelector({component: 'Item'}),
-		// 	this.self
-		// ) == getComponent({component: 'Item'}, this.self); 
 		return element(
-			// componentSelector({component: 'Item'}) => .Item_Item_item
-			// [data-index="1"]
-			// .Item_Item_item[data-index="1"]
 			`${componentSelector({component: 'Item'})}[data-index="${index}"]`,
 			this.list
 		);
