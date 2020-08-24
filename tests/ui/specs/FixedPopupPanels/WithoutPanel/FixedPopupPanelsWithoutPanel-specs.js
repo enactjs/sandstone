@@ -15,11 +15,11 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 
 			Page.spotlightSelect();
 
-			Page.waitForFocus(Interface.item1);
+			Page.waitForFocused(Interface.item1);
 
 			Page.backKey();
 
-			Page.waitForFocus(Interface.openButton, {targetName: 'open button'});
+			Page.waitForFocused(Interface.openButton, {targetName: 'open button'});
 		});
 	});
 });

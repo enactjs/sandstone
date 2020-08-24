@@ -221,6 +221,18 @@ class VirtualListPage extends Page {
 			waitUntilVisible(i + direction);
 		}
 	}
+	checkScrollbyPagekey (way) {
+		const initialThumbPosition = this.getScrollThumbPosition();
+		if (way === 'down') {
+			this.pageDown();
+			this.delay(1000);
+			expect((this.getScrollThumbPosition() > initialThumbPosition)).to.be.true();
+		} else {
+			this.pageUp();
+			this.delay(1000);
+			expect((initialThumbPosition > this.getScrollThumbPosition())).to.be.true();
+		}
+	}
 	backSpace () {
 		return this.keyDelay('Backspace');
 	}

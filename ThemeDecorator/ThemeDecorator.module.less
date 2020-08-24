@@ -45,9 +45,9 @@
 		padding: @sand-app-keepout;
 	}
 
-	&:global(.enact-locale-right-to-left) {
+	.enact-locale-rtl({
 		direction: rtl;
-	}
+	}, self);
 
 	:focus {
 		// Prevent Chrome's default focus treatment
