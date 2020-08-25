@@ -125,11 +125,12 @@
 	.sand-font({
 		font-weight: @sand-non-latin-font-weight;
 		font-size: @sand-non-latin-base-font-size;
-		line-height: @sand-non-latin-body-line-height;
 	}, @target);
+
 	font-weight: normal;
 	font-size: @font-size;
-	line-height: @sand-body-line-height;
+
+	.enact-locale-line-height(@sand-body-line-height; @sand-tallglyph-body-line-height; @target);
 }
 
 //
@@ -150,7 +151,7 @@
 	// content: "Applying .sand-font 34";
 	font-family: @family;
 
-	.sand-locale-non-latin({
+	.enact-locale(non-latin, {
 		font-family: @nlfamily;
 		@nlrules();
 	}, @target);
@@ -167,17 +168,14 @@
 .sand-font-size(@font-size: @sand-body-font-size; @nlfont-size: @font-size) {
 	font-size: @font-size;
 
-	.sand-locale-non-latin({
+	.enact-locale(non-latin, {
 		font-size: @nlfont-size;
 	});
 }
 
 // Generic Non-Latin Font Rule generator
-.sand-locale-non-latin(@nlrules; @target) when (isruleset(@nlrules)) and (@target = self) {
-	.enact-locale(non-latin, @nlrules, @target);
-}
-.sand-locale-non-latin(@nlrules; @target: normal) when (isruleset(@nlrules)) and (default()) {
-	.enact-locale(non-latin, @nlrules);
+.sand-locale-non-latin(@rules; @target: normal) when (isruleset(@rules)) and (default()) {
+	.enact-locale(non-latin, @rules, @target);
 }
 
 //
@@ -208,12 +206,11 @@
 }
 // 2 args: Generic rule applicator, accepts 2 entire rule-sets to add both latin and non-latin for large text mode
 .sand-custom-text(@lrules; @nlrules) when (isruleset(@lrules)) and (isruleset(@nlrules)) {
-	&:global(.largeText) {
-		@lrules();
-	}
-	:global(.enact-locale-non-latin) &:global(.largeText) {
-		@nlrules();
-	}
+	.sand-custom-text(@lrules);
+
+	.enact-locale(non-latin, {
+		.sand-custom-text(@nlrules);
+	});
 }
 
 .sand-font-number() {
@@ -226,28 +223,24 @@
 //
 
 .sand-alert-title() {
-	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
-		line-height: @sand-non-latin-body-line-height;
-	});
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height; @sand-tallglyph-body-line-height);
 	font-size: @sand-alert-title-font-size;
 	font-weight: @sand-alert-font-weight;
-	line-height: @sand-alert-line-height;
 }
 
 .sand-alert-subtitle() {
 	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height);
 	font-size: @sand-alert-subtitle-font-size;
 	font-weight: @sand-alert-font-weight;
-	line-height: @sand-alert-line-height;
 }
 
 .sand-alert-overlay-content() {
-	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light; {
-		line-height: @sand-non-latin-body-line-height;
-	});
+	.sand-font(@sand-alert-font-family; @sand-non-latin-font-family-light);
+	.enact-locale-line-height(@sand-alert-line-height; @sand-tallglyph-body-line-height);
 	font-weight: @sand-alert-font-weight;
 	font-size: @sand-alert-overlay-font-size;
-	line-height: @sand-alert-line-height;
 	text-align: initial;
 	.sand-word-break();
 	.locale-japanese-line-break();
@@ -263,7 +256,7 @@
 		font-style: @sand-non-latin-body-font-style;
 	});
 
-	.enact-locale-line-height(@sand-body-line-height; @sand-non-latin-body-line-height);
+	.enact-locale-line-height(@sand-body-line-height; @sand-tallglyph-body-line-height);
 
 	a:link {color: inherit; text-decoration:none;}
 	a:visited {color: inherit; text-decoration:none;}
@@ -280,7 +273,7 @@
 	font-size: @sand-button-font-size;
 	font-style: @sand-button-font-style;
 	font-weight: @sand-button-font-weight;
-	.font-kerning;
+	.font-kerning();
 }
 
 .sand-small-button-text() {
@@ -292,7 +285,7 @@
 	font-size: @sand-button-small-font-size;
 	font-style: @sand-button-small-font-style;
 	font-weight: @sand-button-small-font-weight;
-	.font-kerning;
+	.font-kerning();
 }
 
 // Uses Webkit specific styles to have multi-line ellipsis
@@ -310,6 +303,6 @@
 //   .enact-locale-line-height();              ->  normal: default; tallglyphs: default;
 //   .enact-locale-line-height(1.4em);         ->  normal: 1.4em; tallglyphs: default;
 //   .enact-locale-line-height(1.4em; 1.6em);  ->  normal: 1.4em; tallglyphs: 1.6em;
-.enact-locale-line-height(@normal: @sand-common-line-height; @tallglyph: @sand-tallglyph-line-height) when (default()) {
-	.enact-locale-tallglyph(line-height; @normal; @tallglyph);
+.enact-locale-line-height(@normal: @sand-common-line-height; @tallglyph: @sand-tallglyph-line-height; @target: normal) when (default()) {
+	.enact-locale-tallglyph(line-height; @normal; @tallglyph; @target);
 }

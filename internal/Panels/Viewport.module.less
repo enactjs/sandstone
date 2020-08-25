@@ -17,9 +17,9 @@
 	direction: ltr;
 	& > * {
 		// reset direction in views for RTL locales
-		:global(.enact-local-right-to-left) & {
+		.enact-locale-rtl({
 			direction: rtl;
-		}
+		});
 	}
 
 	> :nth-child(2) {

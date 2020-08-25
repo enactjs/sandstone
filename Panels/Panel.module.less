@@ -1,5 +1,6 @@
 // Panel.module.less
 //
+@import "../styles/mixins.less";
 @import "../styles/variables.less";
 @import "../styles/skin.less";
 
@@ -37,7 +38,7 @@
 		height: auto;
 	}
 
-	:global(.enact-locale-right-to-left) & {
+	.enact-locale-rtl({
 		direction: rtl;
-	}
+	});
 }

@@ -85,7 +85,7 @@ const backgroundLabels = {
 	'Tunnel (Green)': 'backgroundColorful2',
 	'Mountains (Blue)': 'backgroundColorful3',
 	'Misty River': 'backgroundColorful4',
-	'Turbulant Tides': 'backgroundColorful5',
+	'Turbulent Tides': 'backgroundColorful5',
 	'Space Station': 'backgroundColorful6',
 	'Warm Pup': 'backgroundColorful7',
 	'Random': 'backgroundColorful8'

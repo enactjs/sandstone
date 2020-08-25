@@ -13,11 +13,11 @@
 	will-change: opacity;
 
 	&.horizontal {
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			// Flip the entire bar horizontally in RTL mode, and force it to remain in LTR.
 			direction: ltr;
 			transform: scaleX(-1);
-		}
+		});
 	}
 
 	/* ScrollbarTrack */
