@@ -696,17 +696,15 @@ describe('WizardPanel Specs', () => {
 	test(
 		'should have updated the Panel content when componentDidUpdate runs',
 		(done) => {
-			const selector = '[data-spotlight=id="myButton"]';
-
 			class DebugPanel extends React.Component {
-				state = {fetched: false}
-				ref = React.createRef();
-			
+				state = {fetched: false};
+
 				componentDidMount () {
-					console.log('mounted')
-					setTimeout(() => this.setState({fetched: true}), 500);
+					setTimeout(() => {
+						this.setState({fetched: true});
+					}, 500);
 				}
-			
+
 				componentDidUpdate (prevProps, prevState) {
 					const button = this.ref.current.querySelector('#fetched');
 
@@ -719,7 +717,9 @@ describe('WizardPanel Specs', () => {
 						}
 					}
 				}
-			
+
+				ref = React.createRef();
+
 				render () {
 					return (
 						<Panel>
