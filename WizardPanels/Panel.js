@@ -1,4 +1,6 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Slottable from '@enact/ui/Slottable';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {WizardPanelsContext} from './WizardPanels';
@@ -50,6 +52,21 @@ function PanelBase ({
 		</div>
 	);
 }
+
+PanelBase.propTypes = {
+	'aria-label': PropTypes.string,
+	footer: PropTypes.node,
+	nextButton: PropTypes.oneOfType([
+		PropTypes.bool,
+		EnactPropTypes.component
+	]),
+	prevButton: PropTypes.oneOfType([
+		PropTypes.bool,
+		EnactPropTypes.component
+	]),
+	subtitle: PropTypes.string,
+	title: PropTypes.string
+};
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
