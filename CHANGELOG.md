@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
 ## [1.1.4] - 2020-08-24
 
 ### Fixed
