@@ -692,4 +692,52 @@ describe('WizardPanel Specs', () => {
 			expect(actual).toBe(expected);
 		}
 	);
+
+	test(
+		'should have updated the Panel content when componentDidUpdate runs',
+		(done) => {
+			const selector = '[data-spotlight=id="myButton"]';
+
+			class DebugPanel extends React.Component {
+				state = {fetched: false}
+				ref = React.createRef();
+			
+				componentDidMount () {
+					console.log('mounted')
+					setTimeout(() => this.setState({fetched: true}), 500);
+				}
+			
+				componentDidUpdate (prevProps, prevState) {
+					const button = this.ref.current.querySelector('#fetched');
+
+					if (prevState.fetched !== this.state.fetched) {
+						if (this.state.fetched) {
+							expect(button).not.toBeNull();
+							done();
+						} else {
+							expect(button).toBeNull();
+						}
+					}
+				}
+			
+				render () {
+					return (
+						<Panel>
+							<div ref={this.ref}>
+								{this.state.fetched ? (
+									<div id="fetched">Fetched!</div>
+								) : null}
+							</div>
+						</Panel>
+					);
+				}
+			}
+
+			mount(
+				<WizardPanels>
+					<DebugPanel />
+				</WizardPanels>
+			);
+		}
+	);
 });
