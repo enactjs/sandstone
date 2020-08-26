@@ -421,6 +421,7 @@ const WizardPanelsBase = kind({
 							<ViewManager
 								arranger={BasicArranger}
 								duration={400}
+								index={index}
 								onTransition={onTransition}
 								onWillTransition={onWillTransition}
 								noAnimation={noAnimation}
@@ -499,7 +500,6 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		return (
 			<WizardPanelsContext.Provider value={setPanel}>
-				{React.Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
 					{...panel}
@@ -513,11 +513,7 @@ const WizardPanelsRouter = (Wrapped) => {
 					totalPanels={totalPanels}
 					reverseTransition={reverseTransition}
 				>
-					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${index}`}>
-							{panel.children}
-						</div>
-					) : null}
+					{children}
 				</Wrapped>
 			</WizardPanelsContext.Provider>
 		);
