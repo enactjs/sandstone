@@ -5,6 +5,7 @@
 @import "../styles/skin.less";
 
 .tail (@edge, @point) {
+	background: none;
 	background-image:
 		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
 }
@@ -388,15 +389,14 @@
 			}
 		}
 
+		.tooltipArrow {
+			background: @sand-tooltip-bg-color;
+		}
+
 		// Drawing the arc/arrow shape using the mixin from above
 		&.below {
 			&.leftArrow {
 				.tooltipArrow {	.tail(left; top);	}
-			}
-			&.centerArrow {
-				.tooltipArrow {
-					background: @sand-tooltip-bg-color;
-				}
 			}
 			&.rightArrow {
 				.tooltipArrow {	.tail(right; top);	}
@@ -407,11 +407,6 @@
 			&.leftArrow {
 				.tooltipArrow {	.tail(left; bottom);	}
 			}
-			&.centerArrow {
-				.tooltipArrow {
-					background: @sand-tooltip-bg-color;
-				}
-			}
 			&.rightArrow {
 				.tooltipArrow {	.tail(right; bottom);	}
 			}
@@ -421,11 +416,6 @@
 			&.topArrow {
 				.tooltipArrow {	.tail(top; right);	}
 			}
-			&.middleArrow {
-				.tooltipArrow {
-					background: @sand-tooltip-bg-color;
-				}
-			}
 			&.bottomArrow {
 				.tooltipArrow {	.tail(bottom; right);	}
 			}
@@ -434,11 +424,6 @@
 		&.right {
 			&.topArrow {
 				.tooltipArrow {	.tail(top; left);	}
-			}
-			&.middleArrow {
-				.tooltipArrow {
-					background: @sand-tooltip-bg-color;
-				}
 			}
 			&.bottomArrow {
 				.tooltipArrow {	.tail(bottom; left);	}
