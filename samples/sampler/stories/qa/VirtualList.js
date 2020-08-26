@@ -111,19 +111,22 @@ class StatefulSwitchItem extends React.Component {
 	}
 }
 
-const ContainerItemWithControls = SpotlightContainerDecorator(({children, index, ...rest}) => {
+const ContainerItemWithControls = SpotlightContainerDecorator(({children, ...rest}) => {
 	const itemHeight = ri.scaleToRem(156);
 	const containerStyle = {display: 'flex', width: '100%', height: itemHeight};
 	const textStyle = {flex: '1 1 100%', lineHeight: itemHeight};
 	const switchStyle = {flex: '0 0 auto'};
+
+	delete rest.index;
+
 	return (
 		<div {...rest} style={containerStyle}>
 			<div style={textStyle}>
 				{children}
 			</div>
-			<Button icon="list" data-index={index} style={switchStyle} />
-			<Button icon="star" data-index={index} style={switchStyle} />
-			<Button icon="home" data-index={index} style={switchStyle} />
+			<Button icon="list" style={switchStyle} />
+			<Button icon="star" style={switchStyle} />
+			<Button icon="home" style={switchStyle} />
 		</div>
 	);
 });

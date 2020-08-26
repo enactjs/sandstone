@@ -127,10 +127,9 @@ const useSpottable = (props, instances) => {
 
 	// Functions
 
-	function onAcceleratedKeyDown ({isWrapped, keyCode, nextIndex, repeat, target}) {
+	function onAcceleratedKeyDown ({index, isWrapped, keyCode, nextIndex, repeat, target}) {
 		const {cbScrollTo, wrap} = props;
 		const {dimensionToExtent, primary: {clientSize, itemSize}, scrollPosition, scrollPositionTarget} = scrollContentHandle.current;
-		const index = getNumberValue(target.dataset.index);
 		const direction = getDirection(keyCode);
 
 		mutableRef.current.isScrolledBy5way = false;

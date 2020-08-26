@@ -89,42 +89,42 @@ class app extends React.Component {
 		} else {
 			this.rootRef.current.dataset.keydownEvents = 1;
 		}
-	}
+	};
 
 	onScrollStart = () => {
 		this.scrollingRef.current.innerHTML = 'Scrolling';
-	}
+	};
 
 	onScrollStop = () => {
 		this.scrollingRef.current.innerHTML = 'Not Scrolling';
-	}
+	};
 
 	onToggle = ({currentTarget}) => {
 		const key = currentTarget.getAttribute('id');
 		this.setState((state) => ({[key]: !state[key]}));
-	}
+	};
 
 	onToggleLabel = () => {
 		updateData(this.state.numItems, !this.state.noLabel);
 		this.setState((state) => ({noLabel: !state.noLabel}));
-	}
+	};
 
 	onChangeNumItems = ({value}) => {
 		this.setState({numItems: value});
 		updateData(value);
-	}
+	};
 
 	onChangeSpacing = (obj) => {
 		this.setState({spacing: obj.value});
-	}
+	};
 
 	onChangeWidth = ({value}) => {
 		this.setState({minWidth: value});
-	}
+	};
 
 	onChangeHeight = ({value}) => {
 		this.setState({minHeight: value});
-	}
+	};
 
 	renderGridList = ({index}) => {
 		return (

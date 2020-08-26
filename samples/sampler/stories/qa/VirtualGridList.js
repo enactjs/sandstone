@@ -164,7 +164,7 @@ class VirtualGridListInVirtualList extends React.Component {
 				/>
 			</div>
 		);
-	}
+	};
 
 	render = () => {
 		const direction = select('direction', prop.direction, VirtualListConfig);
@@ -182,7 +182,7 @@ class VirtualGridListInVirtualList extends React.Component {
 				itemRenderer={this.renderGridList}
 			/>
 		);
-	}
+	};
 }
 
 class ButtonAndVirtualGridList extends React.Component {
