@@ -1,7 +1,7 @@
 import Input from '../../../../Input';
 import React from 'react';
 
-import {withProps} from './utils';
+import {withConfig, withProps} from './utils';
 
 const BaseTests = [
 	<Input />,
@@ -19,7 +19,12 @@ const InputTests = [
 
 	// Disabled tests
 	...withProps({disabled: true, popupType: 'fullscreen'}, BaseTests),
-	...withProps({disabled: true, popupType: 'overlay'}, BaseTests)
+	...withProps({disabled: true, popupType: 'overlay'}, BaseTests),
+
+	// RTL overlay number input tests
+	...withConfig({locale: 'ar-SA'}, [
+		...withProps({popupType: 'overlay'}, BaseTests.slice(5))
+	])
 ];
 
 export default InputTests;

@@ -14,7 +14,7 @@
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	font-weight: @sand-item-font-weight;
-	line-height: @sand-item-line-height;
+	.enact-locale-line-height(@sand-item-line-height, @sand-item-line-height);
 	height: @sand-item-height;
 	display: flex;
 	position: relative;
@@ -98,21 +98,13 @@
 		line-height: @sand-item-label-line-height;
 	}
 
-	.sand-locale-non-latin({
-		line-height: @sand-item-line-height;
-	});
-
 	.sand-custom-text({
 		font-size: @sand-item-font-size-large;
-		line-height: @sand-item-line-height-large;
+		.enact-locale-line-height(@sand-item-line-height-large, @sand-item-line-height-large);
 
 		.label {
 			font-size: @sand-item-label-font-size-large;
 		}
-
-		.sand-locale-non-latin({
-			line-height: @sand-item-line-height-large;
-		});
 	});
 
 	&.large { /* Needed to prevent global class being added in the DOM */ }
@@ -121,8 +113,8 @@
 		.sand-text-base(@sand-item-small-font-size);
 
 		font-weight: @sand-item-small-font-weight;
-		line-height: @sand-item-small-line-height;
 		height: @sand-item-small-height;
+		.enact-locale-line-height(@sand-item-small-line-height, @sand-item-small-line-height);
 
 		&.hasLabel {
 			height: @sand-item-small-withlabel-height;
@@ -135,18 +127,13 @@
 			line-height: @sand-item-small-label-line-height;
 		}
 
-		.sand-locale-non-latin({
+		.enact-locale-tallglyph({
 			font-size: @sand-item-small-font-size;
-			line-height: @sand-item-small-line-height;
 		});
 
 		.sand-custom-text({
 			font-size: @sand-item-small-font-size-large;
-			line-height: @sand-item-small-line-height-large;
-
-			.sand-locale-non-latin({
-				line-height: @sand-item-small-line-height-large;
-			});
+			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-item-small-line-height-large);
 		});
 	}
 
@@ -158,11 +145,19 @@
 			.sand-spotlight-resting-bg-colors();
 		}
 
+		.label {
+			color: @sand-item-label-color;
+		}
+
 		.focus({
 			.sand-spotlight-focus-text-colors();
 
 			.bg {
 				.sand-spotlight-focus-bg-colors();
+			}
+
+			.label {
+				color: inherit;
 			}
 		});
 
