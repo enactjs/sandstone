@@ -127,6 +127,7 @@
 
 		&.centerArrow {
 			.tooltipArrow {
+				top: @sand-tooltip-arrow-middle-offset;
 				left: 50%;
 				clip-path: @sand-tooltip-arrow-below-center-clip-path;
 				.centerTail(-50%; 0);
@@ -166,6 +167,7 @@
 
 		&.centerArrow {
 			.tooltipArrow {
+				bottom: @sand-tooltip-arrow-middle-offset;
 				clip-path: @sand-tooltip-arrow-above-center-clip-path;
 				.centerTail(-50%; 0);
 			}
@@ -203,7 +205,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				right: @sand-tooltip-arrow-offset;
+				right: @sand-tooltip-arrow-middle-offset;
 				clip-path: @sand-tooltip-arrow-left-middle-clip-path;
 				.centerTail(0; -50%);
 			}
@@ -237,7 +239,7 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				left: @sand-tooltip-arrow-offset;
+				left: @sand-tooltip-arrow-middle-offset;
 				clip-path: @sand-tooltip-arrow-right-middle-clip-path;
 				.centerTail(0; -50%);
 			}
