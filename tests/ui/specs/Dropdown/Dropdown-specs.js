@@ -147,7 +147,7 @@ describe('Dropdown', function () {
 			const dropdownDefault = $('#dropdownDefault');
 			dropdownDefault.click({x: 0, y: 0});
 			// Verify Step 5: The Dropdown opens.
-			expect(dropdown.list.isExisting()).to.be.true();
+			expect(dropdownList.isExisting()).to.be.true();
 
 			// Step 6: Move the pointer over any Option.  Moving to  Item 'two' here.
 			dropdown.item(1).moveTo();
