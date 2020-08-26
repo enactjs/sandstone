@@ -27,7 +27,6 @@ function PanelBase ({
 		if (set) {
 			set({
 				'aria-label': ariaLabel,
-				children,
 				footer,
 				nextButton,
 				prevButton,
@@ -37,7 +36,6 @@ function PanelBase ({
 		}
 	}, [
 		ariaLabel,
-		children,
 		footer,
 		nextButton,
 		prevButton,
@@ -45,7 +43,12 @@ function PanelBase ({
 		set,
 		title
 	]);
-	return null;
+
+	return (
+		<div className="enact-fit">
+			{children}
+		</div>
+	);
 }
 
 /**
