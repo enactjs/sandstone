@@ -12,6 +12,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
 
+### Fixed
+
+- `sandstone/Input` number pad layout in right-to-left locales for both overlay and fullscreen `Input`
+
 ## [1.1.4] - 2020-08-24
 
 ### Fixed
