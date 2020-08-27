@@ -12,8 +12,7 @@ class DropdownInterface {
 	}
 
 	get button () {
-		return getComponent({component:
-	'Dropdown', child: 'button'}, this.self);
+		return getComponent({component: 'Dropdown', child: 'button'}, this.self);
 	}
 
 	item (index) {

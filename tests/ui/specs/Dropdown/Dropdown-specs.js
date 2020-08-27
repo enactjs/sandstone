@@ -141,8 +141,7 @@ describe('Dropdown', function () {
 			expect(dropdown.list.isExisting()).to.not.be.true();
 
 			// Step 5: Click on the Dropdown placeholder "No selection".
-			const dropdownDefault = $('#dropdownDefault');
-			dropdownDefault.click({x: 0, y: 0});
+			dropdown.button.click();
 			// Verify Step 5: The Dropdown opens.
 			expect(dropdown.list.isExisting()).to.be.true();
 
