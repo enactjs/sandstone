@@ -194,4 +194,38 @@ describe('Dropdown', function () {
 			expect(actual).to.equal(expected);
 		});
 	});
+
+	describe('disabled', function () {
+		beforeEach(function () {
+			Page.open('Disabled');
+		});
+
+		function getDropdownDisabled () {
+			return browser.execute(() => {
+				return document.activeElement.setAttribute('aria-disabled', 'true');
+			});
+		}
+
+		it.only('should collapses if it is set to \'Disabled\' while it is opened - [GT-28633]', function () {
+			const dropdown = Page.components.dropdown1;
+
+			// Step 3: Click on the dropdown No selection.
+			dropdown.button.click();
+			// Verify Step 3: *No selection* opens with a list of 5 options.
+			expect(dropdown.list.isExisting()).to.be.true();
+			Page.delay(2000);
+
+			// Step 4: Knobs > Dropdown > *disabled* > check
+			// => set the Dropdown to disabled - turn on disabled flag
+			const actual = getDropdownDisabled ();
+			console.log ('actual', actual);
+		  // Verify Step 4: The dropdown *No selection* collapses.
+			// expect(dropdown.list.isExisting()).to.not.be.true();
+
+			// Step 5: Knobs > Dropdown > *disabled* > uncheck
+			// => set the Dropdown to enabled - turn off disabled flag
+			// Verify Step 5: The Dropdown *No selection* is opened with a list of 5 options.
+			// expect(dropdown.list.isExisting()).to.be.true();
+		});
+	});
 });
