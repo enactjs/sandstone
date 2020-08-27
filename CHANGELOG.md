@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Tooltip` arrow
+- `sandstone/Tooltip` arrow shape
 
 ### Added
 
