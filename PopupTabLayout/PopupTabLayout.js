@@ -313,9 +313,9 @@ const PopupTabLayout = PopupTabLayoutDecorator(PopupTabLayoutBase);
  * A shortcut to access {@link sandstone/PopupTabLayout.Tab}
  *
  * @name Tab
+ * @type {sandstone/PopupTabLayout.Tab}
  * @memberof sandstone/PopupTabLayout.PopupTabLayout
  * @extends sandstone/TabLayout.Tab
- * @ui
  */
 PopupTabLayout.Tab = Tab;
 

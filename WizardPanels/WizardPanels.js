@@ -523,7 +523,7 @@ const WizardPanelsRouter = (Wrapped) => {
 		);
 	};
 
-	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsProvider.prototype */  {
+	WizardPanelsProvider.propTypes =  /** @lends sandstone/WizardPanels.WizardPanelsRouter.prototype */  {
 		/**
 		 * Obtains a reference to the root node.
 		 *
