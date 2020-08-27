@@ -4,14 +4,15 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-.tail (@edge, @point) {
-	background: none;
-	background-image:
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
+.tail (@rotate, @skewX, @skewY, @origin) {
+	left: 0;
+	transform-origin: @origin;
+	transform: rotate(@rotate) skew(@skewX, @skewY);
 }
+
 .centerTail (@rotate, @skew, @origin) {
 	transform-origin: @origin;
-	transform: rotate(unit(@rotate, deg)) skew(unit(@skew, deg), unit(@skew, deg));
+	transform: rotate(@rotate) skew(@skew, @skew);
 }
 
 .tooltip {
@@ -28,21 +29,19 @@
 		width: @sand-tooltip-point-width;
 		height: @sand-tooltip-point-height;
 		z-index: 1;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 	}
 	&.rightArrow,
 	&.leftArrow {
 		.tooltipArrow {
 			width: @sand-tooltip-point-height;
 			height: @sand-tooltip-point-width;
-		}
-	}
-	&.centerArrow,
-	&.middleArrow {
-		.tooltipArrow::after {
-			content: "";
-			position: absolute;
-			width: 100%;
-			height: 100%;
 		}
 	}
 	&.centerArrow .tooltipArrow {
@@ -127,6 +126,11 @@
 		&.leftArrow {
 			.tooltipArrow {
 				right: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(-45deg; -45deg; -5deg; top right);
+				}
 			}
 
 			.tooltipLabel {
@@ -137,11 +141,11 @@
 
 		&.centerArrow {
 			.tooltipArrow {
-				top: @sand-tooltip-arrow-offset;
 				left: 50%;
 
 				&::after {
-					.centerTail(45; 5;top left);
+					top: @sand-tooltip-arrow-offset;
+					.centerTail(45deg; 5deg; top left);
 				}
 			}
 		}
@@ -149,6 +153,11 @@
 		&.rightArrow {
 			.tooltipArrow {
 				left: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(45deg; 45deg; 5deg; top left);
+				}
 			}
 
 			.tooltipLabel {
@@ -169,6 +178,11 @@
 		&.leftArrow {
 			.tooltipArrow {
 				right: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(45deg; 45deg; 5deg; bottom right);
+				}
 			}
 
 			.tooltipLabel {
@@ -178,18 +192,20 @@
 		}
 
 		&.centerArrow {
-			.tooltipArrow {
+			.tooltipArrow::after {
 				bottom: @sand-tooltip-arrow-offset;
-
-				&::after {
-					.centerTail(-45; -5;bottom left);
-				}
+				.centerTail(-45deg; -5deg; bottom left);
 			}
 		}
 
 		&.rightArrow {
 			.tooltipArrow {
 				left: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(-45deg; -45deg; -5deg; bottom left);
+				}
 			}
 
 			.tooltipLabel {
@@ -210,6 +226,11 @@
 		&.topArrow {
 			.tooltipArrow {
 				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(-45deg; 5deg; 45deg; bottom right);
+				}
 			}
 
 			.tooltipLabel {
@@ -218,16 +239,21 @@
 		}
 
 		&.middleArrow {
-			.tooltipArrow {
+			.tooltipArrow::after {
 				right: @sand-tooltip-arrow-offset;
-
-				&::after {
-					.centerTail(45; -5;right top);
-				}
+				.centerTail(45deg; -5deg; top right);
 			}
 		}
 
 		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					.tail(45deg; 5deg; -45deg; top right);
+				}
+			}
+
 			.tooltipLabel {
 				border-top-right-radius: 0;
 			}
@@ -246,6 +272,11 @@
 		&.topArrow {
 			.tooltipArrow {
 				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(45deg; -5deg; -45deg; bottom left);
+				}
 			}
 
 			.tooltipLabel {
@@ -254,16 +285,20 @@
 		}
 
 		&.middleArrow {
-			.tooltipArrow {
+			.tooltipArrow::after {
 				left: @sand-tooltip-arrow-offset;
-
-				&::after {
-					.centerTail(-45; 5;top left);
-				}
+				.centerTail(-45deg; 5deg; top left);
 			}
 		}
 
 		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					.tail(-45deg; 5deg; 45deg; top left);
+				}
+			}
 			.tooltipLabel {
 				border-top-left-radius: 0;
 			}
@@ -411,43 +446,6 @@
 
 		.tooltipArrow::after {
 			background: @sand-tooltip-bg-color;
-		}
-
-		// Drawing the arc/arrow shape using the mixin from above
-		&.below {
-			&.leftArrow {
-				.tooltipArrow {	.tail(left; top);	}
-			}
-			&.rightArrow {
-				.tooltipArrow {	.tail(right; top);	}
-			}
-		}
-
-		&.above {
-			&.leftArrow {
-				.tooltipArrow {	.tail(left; bottom);	}
-			}
-			&.rightArrow {
-				.tooltipArrow {	.tail(right; bottom);	}
-			}
-		}
-
-		&.left {
-			&.topArrow {
-				.tooltipArrow {	.tail(top; right);	}
-			}
-			&.bottomArrow {
-				.tooltipArrow {	.tail(bottom; right);	}
-			}
-		}
-
-		&.right {
-			&.topArrow {
-				.tooltipArrow {	.tail(top; left);	}
-			}
-			&.bottomArrow {
-				.tooltipArrow {	.tail(bottom; left);	}
-			}
 		}
 
 		.tooltipLabel {
