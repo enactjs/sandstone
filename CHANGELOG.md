@@ -6,7 +6,15 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Tooltip` center arrow
+- `sandstone/Tooltip` arrow
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` `size` property to allow the selection between "auto" sized, "small", and "large" panel presets
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
 
 ## [1.1.4] - 2020-08-24
 

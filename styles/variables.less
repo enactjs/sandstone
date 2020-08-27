@@ -56,7 +56,8 @@
 		compact-title-font-size: 90px;
 		compact-title-line-height: 72px;
 
-		mini-padding: 108px 150px 84px 150px;
+		mini-margin: 0 0 36px 0;
+		mini-padding: 60px 60px 45px 60px;
 		mini-title-font-size: 108px;
 		mini-title-line-height: 80px;
 
@@ -439,6 +440,8 @@
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
 @sand-flexiblepopuppanels-navbutton-margin: 12px;
+@sand-flexiblepopuppanels-small-width: 600px;
+@sand-flexiblepopuppanels-large-width: 1320px;
 
 // FormCheckboxItem
 // ---------------------------------------
@@ -514,7 +517,26 @@
 	@sand-component-spacing
 	.extract(#guide.header[mini-padding], bottom)[]
 	@sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
-@sand-header-mini-padding: 0;
+@sand-header-mini-margin: #guide.header[mini-margin];
+@sand-header-mini-padding:
+	(
+		.extract(#guide.header[mini-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], right)[]
+	(
+		.extract(#guide.header[mini-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], left)[];
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding:
 	(
