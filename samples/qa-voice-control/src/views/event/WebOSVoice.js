@@ -18,7 +18,6 @@ class Sample extends React.Component {
 
 	showResult = (msg) => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleClick = () => {

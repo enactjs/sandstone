@@ -16,7 +16,6 @@ class DataWebosVoiceLabel extends React.Component {
 
 	updateResult = (msg) => () => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	render () {
@@ -24,7 +23,7 @@ class DataWebosVoiceLabel extends React.Component {
 			<CommonView title="data-webos-voice-label" subtitle={this.state.result}>
 				<Heading>Default | innerHTML</Heading>
 				<Button
-					onClick={this.updateResult('hello is clicked')}
+					onClick={this.updateResult('필터 is clicked')}
 				>
 					필터
 				</Button>
