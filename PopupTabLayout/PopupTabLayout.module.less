@@ -46,6 +46,13 @@
 			background-color: @sand-popuptablayout-bg-color;
 			box-shadow: @sand-popuptablayout-shadow;
 		}
+
+		&:not(.scrimTranslucent) {
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-non-translucent-bg-color;
+			}
+		}
 	});
 }
 
