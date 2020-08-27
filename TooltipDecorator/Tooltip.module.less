@@ -4,13 +4,13 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-.tail (@rotate, @skewX, @skewY, @origin) {
+.tail (@origin, @rotate, @skewX, @skewY) {
 	left: 0;
 	transform-origin: @origin;
 	transform: rotate(@rotate) skew(@skewX, @skewY);
 }
 
-.centerTail (@rotate, @skew, @origin) {
+.centerTail (@origin, @rotate, @skew) {
 	transform-origin: @origin;
 	transform: rotate(@rotate) skew(@skew, @skew);
 }
@@ -129,7 +129,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(-45deg; -45deg; -5deg; top right);
+					.tail(top right; -45deg; -45deg; -5deg);
 				}
 			}
 
@@ -145,7 +145,7 @@
 
 				&::after {
 					top: @sand-tooltip-arrow-offset;
-					.centerTail(45deg; 5deg; top left);
+					.centerTail(top left; 45deg; 5deg);
 				}
 			}
 		}
@@ -156,7 +156,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(45deg; 45deg; 5deg; top left);
+					.tail(top left; 45deg; 45deg; 5deg);
 				}
 			}
 
@@ -181,7 +181,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(45deg; 45deg; 5deg; bottom right);
+					.tail(bottom right; 45deg; 45deg; 5deg);
 				}
 			}
 
@@ -194,7 +194,7 @@
 		&.centerArrow {
 			.tooltipArrow::after {
 				bottom: @sand-tooltip-arrow-offset;
-				.centerTail(-45deg; -5deg; bottom left);
+				.centerTail(bottom left; -45deg; -5deg);
 			}
 		}
 
@@ -204,7 +204,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(-45deg; -45deg; -5deg; bottom left);
+					.tail(bottom left; -45deg; -45deg; -5deg);
 				}
 			}
 
@@ -229,7 +229,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(-45deg; 5deg; 45deg; bottom right);
+					.tail(bottom right; -45deg; 5deg; 45deg);
 				}
 			}
 
@@ -241,7 +241,7 @@
 		&.middleArrow {
 			.tooltipArrow::after {
 				right: @sand-tooltip-arrow-offset;
-				.centerTail(45deg; -5deg; top right);
+				.centerTail(top right; 45deg; -5deg);
 			}
 		}
 
@@ -250,7 +250,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(45deg; 5deg; -45deg; top right);
+					.tail(top right; 45deg; 5deg; -45deg);
 				}
 			}
 
@@ -275,7 +275,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(45deg; -5deg; -45deg; bottom left);
+					.tail(bottom left; 45deg; -5deg; -45deg);
 				}
 			}
 
@@ -287,7 +287,7 @@
 		&.middleArrow {
 			.tooltipArrow::after {
 				left: @sand-tooltip-arrow-offset;
-				.centerTail(-45deg; 5deg; top left);
+				.centerTail(top left; -45deg; 5deg);
 			}
 		}
 
@@ -296,7 +296,7 @@
 				overflow: hidden;
 
 				&::after {
-					.tail(-45deg; 5deg; 45deg; top left);
+					.tail(top left; -45deg; 5deg; 45deg);
 				}
 			}
 			.tooltipLabel {
