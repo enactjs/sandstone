@@ -909,13 +909,13 @@
 @sand-tooltip-transparent-font-weight: normal;
 @sand-tooltip-offset: 24px;
 @sand-tooltip-transparent-label-offset: 0px;
-@sand-tooltip-arrow-offset: 0px;
-@sand-tooltip-point-width: 18px;
-@sand-tooltip-point-height: 15px;
+@sand-tooltip-arrow-offset: 0;
+@sand-tooltip-point-width: 25px; // actual value is 24px. +1px to ensure no gaps
+@sand-tooltip-point-height: 25px; // actual value is 24px. +1px to ensure no gaps
 @sand-tooltip-border-radius: 12px;
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
-@sand-tooltip-margin-offset: @sand-tooltip-point-width;
+@sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
 @sand-tooltip-marquee-width: 600px;
 
 // Video
