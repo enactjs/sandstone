@@ -50,6 +50,13 @@ const SliderTests = [
 		focus: true
 	},
 	{
+		component: <Slider tooltip min={-60.0} max={60.0} step={0.5} value={4.5} />,
+		wrapper: {
+			padded: true
+		},
+		focus: true
+	},
+	{
 		component: <Slider tooltip={<Tooltip position="above" />} value={40} backgroundProgress={0.5} />,
 		wrapper: {
 			padded: true
