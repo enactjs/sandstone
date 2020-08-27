@@ -49,7 +49,7 @@ const PanelsBase = kind({
 		 * Hint string read when focusing the back button.
 		 *
 		 * @type {String}
-		 * @default 'Go to previous'
+		 * @default 'go to previous'
 		 * @public
 		 */
 		backButtonAriaLabel: PropTypes.string,

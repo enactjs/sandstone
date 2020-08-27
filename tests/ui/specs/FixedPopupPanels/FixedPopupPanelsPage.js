@@ -62,7 +62,7 @@ class FixedPopupPanelsInterface {
 
 	focusBackButton () {
 		// TODO:  Hover and click back button after it reveals
-		return browser.execute((el) => el.focus(), $('[aria-label="Go to previous"]'));
+		return browser.execute((el) => el.focus(), $('[aria-label="go to previous"]'));
 	}
 
 	get self () {

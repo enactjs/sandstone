@@ -82,7 +82,7 @@ const HeaderBase = kind({
 		 * Sets the hint string read when focusing the back button.
 		 *
 		 * @type {String}
-		 * @default 'Go to previous'
+		 * @default 'go to previous'
 		 * @public
 		 */
 		backButtonAriaLabel: PropTypes.string,
@@ -521,7 +521,7 @@ const HeaderBase = kind({
 		const backButton = (backButtonAvailable && !noBackButton ? (
 			<div className={css.backContainer}>
 				<Button
-					aria-label={backButtonAriaLabel == null ? $L('Go to previous') : backButtonAriaLabel}
+					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
