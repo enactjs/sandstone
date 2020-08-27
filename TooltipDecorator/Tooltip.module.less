@@ -9,8 +9,9 @@
 	background-image:
 		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
 }
-.centerTail (@x, @y) {
-	transform: translate(@x, @y) rotate(45deg);
+.centerTail (@rotate, @skew, @origin) {
+	transform-origin: @origin;
+	transform: rotate(unit(@rotate, deg)) skew(unit(@skew, deg), unit(@skew, deg));
 }
 
 .tooltip {
@@ -33,6 +34,15 @@
 		.tooltipArrow {
 			width: @sand-tooltip-point-height;
 			height: @sand-tooltip-point-width;
+		}
+	}
+	&.centerArrow,
+	&.middleArrow {
+		.tooltipArrow::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
 		}
 	}
 	&.centerArrow .tooltipArrow {
@@ -127,10 +137,12 @@
 
 		&.centerArrow {
 			.tooltipArrow {
-				top: @sand-tooltip-arrow-middle-offset;
+				top: @sand-tooltip-arrow-offset;
 				left: 50%;
-				clip-path: @sand-tooltip-arrow-below-center-clip-path;
-				.centerTail(-50%; 0);
+
+				&::after {
+					.centerTail(45; 5;top left);
+				}
 			}
 		}
 
@@ -167,9 +179,11 @@
 
 		&.centerArrow {
 			.tooltipArrow {
-				bottom: @sand-tooltip-arrow-middle-offset;
-				clip-path: @sand-tooltip-arrow-above-center-clip-path;
-				.centerTail(-50%; 0);
+				bottom: @sand-tooltip-arrow-offset;
+
+				&::after {
+					.centerTail(-45; -5;bottom left);
+				}
 			}
 		}
 
@@ -205,9 +219,11 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				right: @sand-tooltip-arrow-middle-offset;
-				clip-path: @sand-tooltip-arrow-left-middle-clip-path;
-				.centerTail(0; -50%);
+				right: @sand-tooltip-arrow-offset;
+
+				&::after {
+					.centerTail(45; -5;right top);
+				}
 			}
 		}
 
@@ -239,9 +255,11 @@
 
 		&.middleArrow {
 			.tooltipArrow {
-				left: @sand-tooltip-arrow-middle-offset;
-				clip-path: @sand-tooltip-arrow-right-middle-clip-path;
-				.centerTail(0; -50%);
+				left: @sand-tooltip-arrow-offset;
+
+				&::after {
+					.centerTail(-45; 5;top left);
+				}
 			}
 		}
 
@@ -391,7 +409,7 @@
 			}
 		}
 
-		.tooltipArrow {
+		.tooltipArrow::after {
 			background: @sand-tooltip-bg-color;
 		}
 
