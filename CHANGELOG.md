@@ -2,6 +2,43 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` `size` property to allow the selection between "auto" sized, "small", and "large" panel presets
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
+## [1.1.4] - 2020-08-24
+
+### Fixed
+
+- `sandstone/Dropdown` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales
+- `sandstone/Item` style to match latest designs
+- `sandstone/Panels.Header` style to match latest designs
+- `sandstone/TabLayout` to not lose focus when changing `index` programmatically
+
+## [1.1.3] - 2020-08-17
+
+### Fixed
+
+- `sandstone/Button` alignment for small icon-only buttons
+- `sandstone/Panels` animation after reversing direction
+- `sandstone/TooltipDecorator` to be positioned correctly over complex components
+- `sandstone/WizardPanels` to favor other header components when using 5-way within the header
+- `sandstone/WizardPanels` to focus a spottable component within the first `Panel` on mount
+- `sandstone/WizardPanel` `noAnimation` autofocus
+- Sinhala(si), Thai(th), Vietnamese(vi) languages to be classified as a tall-glyph language, with others like Arabic and Japanese to no longer be classified as tall-glyph. These languages will have new line-height settings, causing their layouts to shift slightly, which should ultimately be closer to the intended designs.
+
 ## [1.1.2] - 2020-08-10
 
 ### Fixed
@@ -54,7 +91,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` to properly support scrolling the tabs
 - `sandstone/VideoPlayer` to clear previously read string by calling announce with the `clear` property
 - `sandstone/VideoPlayer` to read out action guide string after video title
-- `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5way
+- `sandstone/VirtualList` to not lose focus when entering from outside after scrolling via 5-way
 
 ## [1.0.1] - 2020-07-20
 
@@ -130,7 +167,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Button` style to match latest designs
 - `sandstone/Button` style when using small, icon-only buttons in non-latin locales
 - `sandstone/Dropdown` to read out `aria-label` without `title` when `aria-label` prop exists
-- `sandstone/Dropdown` to reveal its title when scrolling up by five way in a scroller
+- `sandstone/Dropdown` to reveal its title when scrolling up by 5-way in a scroller
 - `sandstone/FixedPopupPanels` to use a translucent background
 - `sandstone/FlexiblePopupPanels` to retain focus on navigation buttons when used to change panels
 - `sandstone/ImageItem` to pass `role` and `aria-checked` when `showSelection` prop exists
@@ -251,7 +288,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/TabLayout` to restore focus to the selected tab when expanding without icons
 - `sandstone/TabLayout` performance when focusing items in the layout
 - `sandstone/ThemeDecorator.AccessibilityDecorator` not to overwrite its `skinVariants` prop
-- `sandstone/VirtualList` focus when 5way directional keys are quickly and consecutively pressed
+- `sandstone/VirtualList` focus when 5-way directional keys are quickly and consecutively pressed
 - `sandstone/WizardPanels` to use `sandstone/Skinnable`
 
 ## [1.0.0-beta.6] - 2020-06-08
@@ -412,8 +449,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/PopupTabLayout` component
 - `sandstone/Scroller` prop `fadeOut` to show fade-out effect
 - `sandstone/Slider` and `sandstone/ProgressBar` prop `showAnchor` to display anchor based on `progressAnchor` value
-- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5way
-- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5way
+- `sandstone/VideoPlayer` props `initialJumpDelay`, `jumpDelay`, and `no5WayJump` to prevent and adjust the speed of media jumping via 5-way
+- `sandstone/VirtualList.VirtualGridList` prop `noAffordance` to remove the affordance effect when scrolling forward via 5-way
 
 ### Changed
 
@@ -528,13 +565,13 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/VideoPlayer` to not hide playback controls when pressing 5way up
+- `sandstone/VideoPlayer` to not hide playback controls when pressing 5-way up
 
 ### Fixed
 
 - `sandstone/Input.InputField` to show icons when focused
 - `sandstone/Scroller`, `sandstone/VirtualList.VirtualGridList`, and `sandstone/VirtualList` to position overscroll effect properly when a horizontal scrollbar is displayed
-- `sandstone/Scroller` to show the focused item fully when scrolling with 5way directional keys
+- `sandstone/Scroller` to show the focused item fully when scrolling with 5-way directional keys
 - `sandstone/TabLayout` to select tabs when focusing them in 5-way mode
 - `sandstone/ThemeDecorator` global focus+disabled rules to not double-apply opacity values
 

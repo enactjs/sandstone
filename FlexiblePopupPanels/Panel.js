@@ -129,7 +129,27 @@ const PanelBase = kind({
 		 * @default 'auto'
 		 * @private
 		 */
-		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never'])
+		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
+
+		/**
+		 * Sets a pre-determined width on this panel.
+		 *
+		 * The 'auto' value will attempt to adjust the panel size to the content size.
+		 * Note: the `title` may not match in width.
+		 *
+		 * @type {('auto'|'small'|'large')}
+		 * @default 'auto'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['auto', 'small', 'large'])
+	},
+
+	defaultProps: {
+		size: 'auto'
+	},
+
+	styles: {
+		css
 	},
 
 	handlers: {
@@ -154,19 +174,36 @@ const PanelBase = kind({
 	},
 
 	computed: {
-		children: ({
-			children,
-			nextButton,
-			nextButtonVisibility,
-			onNextClick,
-			onPrevClick,
-			prevButton,
-			prevButtonVisibility
-		}, {count}) => {
-			const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
-			const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
+		className: ({size, styler}) => styler.append(size),
+		contentCellSize: ({size}) => {
+			// These values must be kept in sync with their LESS variable counterparts
+			switch (size) {
+				case 'small': return 600;
+				case 'large': return 1320;
+				default: return null;
+			}
+		}
+	},
 
-			return (
+	render: ({
+		children,
+		nextButton,
+		nextButtonVisibility,
+		onNextClick,
+		onPrevClick,
+		prevButton,
+		prevButtonVisibility,
+		contentCellSize,
+		...rest
+	}, {count}) => {
+		const isPrevButtonVisible = Boolean(prevButtonVisibility === 'always' || (prevButtonVisibility === 'auto' && count > 1));
+		const isNextButtonVisible = Boolean(nextButtonVisibility === 'always' || (nextButtonVisibility === 'auto' && count > 1));
+
+		delete rest.onChange;
+		delete rest.size;
+
+		return (
+			<DefaultPanel {...rest} css={css}>
 				<Row className={css.bodyLayout} inline>
 					<Cell align="center" shrink className={css.navCellBefore}>
 						<NavigationButton
@@ -181,7 +218,13 @@ const PanelBase = kind({
 							visible={isPrevButtonVisible}
 						/>
 					</Cell>
-					<Cell className={css.content} shrink>{children}</Cell>
+					<Cell
+						className={css.content}
+						shrink={!contentCellSize}
+						size={contentCellSize}
+					>
+						{children}
+					</Cell>
 					<Cell align="center" shrink className={css.navCellAfter}>
 						<NavigationButton
 							aria-label={$L('Next')}
@@ -196,20 +239,8 @@ const PanelBase = kind({
 						/>
 					</Cell>
 				</Row>
-			);
-		}
-	},
-
-	render: (props) => {
-		delete props.nextButton;
-		delete props.nextButtonVisibility;
-		delete props.onChange;
-		delete props.onNextClick;
-		delete props.onPrevClick;
-		delete props.prevButton;
-		delete props.prevButtonVisibility;
-
-		return (<DefaultPanel {...props} css={css} />);
+			</DefaultPanel>
+		);
 	}
 });
 

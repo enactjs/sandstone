@@ -1,6 +1,8 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {Row} from '@enact/ui/Layout';
+import Repeater from '@enact/ui/Repeater';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
@@ -16,12 +18,15 @@ import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 
+import Section from './components/KitchenSinkSection';
+
 const inputData = {
 	english: 'We name themes after gemstones',
 	arabic: 'نحن اسم المواضيع بعد الأحجار الكريمة',
 	chinese: '星期日 星期一 星期二 星期三 星期四 星期五 星期六',
 	greek: 'Ονομάζουμε θέματα μετά από πολύτιμους λίθους',
 	hebrew: 'אנו שם נושאים לאחר אבני חן',
+	hindi: 'हम रत्न के बाद विषयों का नाम देते हैं',
 	japanese: '宝石にちなんでテーマに名前を付けます',
 	oriya: 'ସବୁ ମନୁଷ୍ୟ ଜନ୍ମକାଳରୁ ସ୍ୱାଧୀନ। ସେମାନଙ୍କର ମର୍ଯ୍ୟାଦା ଓ',
 	russian: 'Мы называем темы в честь драгоценных камней',
@@ -37,86 +42,110 @@ Heading.displayName = 'Heading';
 const prop = {
 	tallText: [
 		'नरेंद्र मोदी',
-		'ฟิ้  ไั  ஒ  து',
+		'ฟิ้  ไั  ஒ  து  ඒ',
 		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
 	]
 };
 
 storiesOf('Text', module)
 	.add(
-		'Tall Glyphs as Non-Latin components',
+		'"Tall Glyph" support in components',
 		() => {
-			const children = select('children', prop.tallText, {groupId: 'Text'}, 'नरेंद्र मोदी');
+			const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
 
 			return (
-				<Scroller style={{height: '100%'}}>
-					<Heading showLine>Text controls (div, Heading, BodyText, Marquee)</Heading>
-					<div>{children}</div>
-					<Heading showLine>{children}</Heading>
-					<BodyText>{children}</BodyText>
-					<Marquee>{children}</Marquee>
+				<div>
+					<Scroller style={{height: '100%'}}>
+						<Section title="Text controls">
+							<div alt="Basic div">{children}</div>
+							<Heading alt="Heading">{children}</Heading>
+							<BodyText alt="BodyText">{children}</BodyText>
+							<Marquee alt="Marquee">{children}</Marquee>
+						</Section>
 
-					<Heading showLine>Basic Form controls (Button, Input)</Heading>
-					<Button>{children}</Button>
-					<Input placeholder={children} />
-					<Input value={children} />
+						<Row>
+							<Section title="Basic Form controls" size="50%">
+								<Button alt="Button">{children}</Button>
+								<Input alt="Input with Placeholder" placeholder={children} />
+								<Input alt="Input" value={children} />
+							</Section>
+							<Section title="Toggleable Items" size="50%">
+								<CheckboxItem alt="CheckboxItem">{children}</CheckboxItem>
+								<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
+								<RadioItem alt="RadioItem">{children}</RadioItem>
+								<SwitchItem alt="SwitchItem">{children}</SwitchItem>
+							</Section>
+						</Row>
 
-					<Heading showLine>Simple Items (Item, ImageItem)</Heading>
-					<Item>{children}</Item>
-					<Item label={children}>{children}</Item>
-					<ImageItem style={{height: 200}}>{children}</ImageItem>
+						<Section title="Simple Items">
+							<Item alt="Item">{children}</Item>
+							<Item alt="Item with Label" label={children}>{children}</Item>
+							<ImageItem alt="ImageItem" style={{height: 200}}>{children}</ImageItem>
+						</Section>
 
-					<Heading showLine>Toggle Items</Heading>
-					<CheckboxItem>{children}</CheckboxItem>
-					<FormCheckboxItem>{children}</FormCheckboxItem>
-					<RadioItem>{children}</RadioItem>
-					<SwitchItem>{children}</SwitchItem>
 
-					<Heading showLine>Headers (Standard, Compact)</Heading>
-					<Header type="standard" title={children} subtitle={children} />
-					<br />
-					<Header type="compact" title={children} subtitle={children} />
-				</Scroller>
+						<Section title="Headers">
+							<Header alt="Header Standard" type="standard" title={children} subtitle={children} />
+							<br />
+							<Header alt="Header Compact" type="compact" title={children} subtitle={children} />
+						</Section>
+					</Scroller>
+				</div>
 			);
 		}
 	)
 	.add(
 		'Languages',
-		() => Object.keys(inputData).map(key =>
-			<Item key={key}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>
-				</slotBefore>
-				{inputData[key]}
-			</Item>
-		)
+		() => {
+			const languagesList = [];
+			Object.keys(inputData).forEach(key => {
+				languagesList.push({
+					slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
+					children: inputData[key],
+					key: 'language' + key
+				});
+			});
+			return (
+				<div>
+					<Scroller>
+						<Repeater
+							childComponent={Item}
+						>
+							{languagesList}
+						</Repeater>
+					</Scroller>
+				</div>
+			);
+		}
 	)
 	.add(
 		'Mixed Scripts',
 		() => <div>
-			<Item style={{fontWeight: 300}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
-				</slotBefore>
-				{mixedText}
-			</Item>
-			<Item style={{fontWeight: 400}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
-				</slotBefore>
-				{mixedText}
-			</Item>
-			<Item style={{fontWeight: 600}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
-				</slotBefore>
-				{mixedText}
-			</Item>
-			<Item style={{fontWeight: 700}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
-				</slotBefore>
-				{mixedText}
-			</Item>
+			<Scroller>
+				<Item style={{fontWeight: 300}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 400}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 600}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 700}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+			</Scroller>
 		</div>
 	);

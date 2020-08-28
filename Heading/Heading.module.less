@@ -8,11 +8,9 @@
 	margin: @sand-heading-margin;
 	padding: @sand-heading-padding;
 	letter-spacing: @sand-heading-letter-spacing;
-	line-height: @sand-heading-line-height;
 	font-style: @sand-heading-font-style;
-	.sand-font(@sand-heading-large-font-family, @sand-non-latin-heading-font-family, {
-		line-height: @sand-non-latin-heading-line-height;
-	});
+	.sand-font(@sand-heading-large-font-family, @sand-non-latin-heading-font-family);
+	.enact-locale-line-height(@sand-heading-line-height, @sand-tallglyph-heading-line-height);
 
 	// Only the following sizes get a bottom border
 	&.large,
@@ -23,23 +21,23 @@
 	}
 
 	&.title {
-		.sand-font(@sand-heading-title-font-family, @sand-non-latin-font-family, {
-			font-size: @sand-non-latin-heading-title-font-size;
-			line-height: @sand-non-latin-heading-title-line-height;
+		.sand-font(@sand-heading-title-font-family, @sand-non-latin-font-family);
+		.enact-locale-line-height(@sand-heading-title-line-height, @sand-tallglyph-heading-title-line-height);
+		.enact-locale-tallglyph({
+			font-size: @sand-tallglyph-heading-title-font-size;
 		});
 		font-weight: @sand-heading-title-font-weight;
 		font-size: @sand-heading-title-font-size;
-		line-height: @sand-heading-title-line-height;
-		.font-kerning;
+		.font-kerning();
 	}
 	&.subtitle {
-		.sand-font(@sand-heading-subtitle-font-family, @sand-non-latin-font-family, {
-			font-size: @sand-non-latin-heading-subtitle-font-size;
-			line-height: @sand-non-latin-heading-subtitle-line-height;
+		.sand-font(@sand-heading-subtitle-font-family, @sand-non-latin-font-family);
+		.enact-locale-line-height(@sand-heading-subtitle-line-height, @sand-tallglyph-heading-subtitle-line-height);
+		.enact-locale-tallglyph({
+			font-size: @sand-tallglyph-heading-subtitle-font-size;
 		});
 		font-weight: @sand-heading-subtitle-font-weight;
 		font-size: @sand-heading-subtitle-font-size;
-		line-height: @sand-heading-subtitle-line-height;
 	}
 	&.large {
 		font-family: @sand-heading-large-font-family;

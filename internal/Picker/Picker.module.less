@@ -21,18 +21,26 @@
 			}
 		}
 	}
-	.valueWrapper {
-		.sand-locale-non-latin({
-			height: @sand-non-latin-picker-line-height;
-			line-height: @sand-non-latin-picker-line-height;
-		});
-	}
 
 	.sizingPlaceholder {
-		// We'll set only the horizontal paddings on sizingPLaceholder to not affect the vertical layout
+		height: 0;
+		visibility: hidden;
 		padding-left: .extract(@sand-picker-item-padding, left)[];
 		padding-right: .extract(@sand-picker-item-padding, right)[];
 		line-height: 0;
+	}
+
+	.valueWrapper {
+		margin-left: auto;
+		margin-right: auto;
+		height: @sand-picker-value-height;
+		line-height: @sand-picker-value-height;
+		position: relative;
+
+		.enact-locale-tallglyph({
+			height: @sand-tallglyph-picker-line-height;
+			line-height: @sand-tallglyph-picker-line-height;
+		});
 	}
 
 	.item {
@@ -46,19 +54,6 @@
 			padding-left: (.extract(@sand-picker-item-padding, left)[] / 2);
 			padding-right: (.extract(@sand-picker-item-padding, right)[] / 2);
 		}
-	}
-
-	.sizingPlaceholder {
-		height: 0;
-		visibility: hidden;
-	}
-
-	.valueWrapper {
-		margin-left: auto;
-		margin-right: auto;
-		height: @sand-picker-value-height;
-		line-height: @sand-picker-value-height;
-		position: relative;
 	}
 
 	.viewManager {
@@ -89,9 +84,9 @@
 	}
 
 	&.horizontal {
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			flex-direction: row-reverse;
-		}
+		});
 
 		.incrementer {
 			order: 3;

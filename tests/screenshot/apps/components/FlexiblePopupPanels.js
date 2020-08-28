@@ -18,6 +18,7 @@ function FlexPopupPanels (props) {
 	};
 
 	const blocks = {
+		fullWidth: <div style={{...blockStyles, height: scaleToRem(99)}} />,
 		fat: <div style={{...blockStyles, height: scaleToRem(99), width: scaleToRem(900)}} />,
 		medium: <div style={{...blockStyles, height: scaleToRem(900), width: scaleToRem(900)}} />,
 		skinny: <div style={{...blockStyles, height: scaleToRem(600), width: scaleToRem(99)}} />,
@@ -54,6 +55,14 @@ function FlexPopupPanels (props) {
 				<Panel key="panelIndex5">
 					<Header title="Panel 6 - Fat Block" type="mini" />
 					{blocks.fat}
+				</Panel>,
+				<Panel key="panelIndex6" size="small">
+					<Header title="Panel 7 - small size" type="mini" />
+					{blocks.fullWidth}
+				</Panel>,
+				<Panel key="panelIndex7" size="large">
+					<Header title="Panel 8 - large size" type="mini" />
+					{blocks.fullWidth}
 				</Panel>
 			]}
 		</FlexiblePopupPanels>
@@ -94,6 +103,18 @@ const EachPanel = withConfig(
 		{
 			title: 'with standard Panel Components index 5',
 			component: <FlexPopupPanels open index={5} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 7'
+		{
+			title: 'with standard Panel Components index 6',
+			component: <FlexPopupPanels open index={6} />,
+			wrapper: {full: true}
+		},
+		// Display 'Panel 8'
+		{
+			title: 'with standard Panel Components index 7',
+			component: <FlexPopupPanels open index={7} />,
 			wrapper: {full: true}
 		}
 	]

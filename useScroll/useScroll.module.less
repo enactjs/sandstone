@@ -27,10 +27,12 @@
 		padding: @sand-scrollbar-padding 0;
 	}
 
-	:global(.enact-locale-right-to-left) & .verticalScrollbar {
-		left: 0;
-		right: initial;
-	}
+	.enact-locale-rtl({
+		.verticalScrollbar {
+			left: 0;
+			right: initial;
+		}
+	});
 
 	.horizontalScrollbar {
 		position: absolute;
@@ -51,9 +53,11 @@
 			left: 0;
 		}
 
-		:global(.enact-locale-right-to-left)  & .horizontalScrollbar{
-			left: var(--scroll-scrollbar-size);
-		}
+		.enact-locale-rtl({
+			.horizontalScrollbar {
+				left: var(--scroll-scrollbar-size);
+			}
+		});
 	}
 
 	.scrollContent {

@@ -4,17 +4,21 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-.tail (@edge, @point) {
-	background-image:
-		linear-gradient(to @point @edge, @sand-tooltip-bg-color 47%, transparent 50%); // Diagonal line + fill
+.tail (@origin, @rotate, @skewX, @skewY) {
+	left: 0;
+	transform-origin: @origin;
+	transform: rotate(@rotate) skew(@skewX, @skewY);
 }
-.centerTail (@edge, @point) {
-	.tail (@edge, @point);
+
+.centerTail (@origin, @rotate, @skew) {
+	transform-origin: @origin;
+	transform: rotate(@rotate) skew(@skew, @skew);
 }
 
 .tooltip {
 	position: absolute;
 	z-index: 1;
+	pointer-events: none;
 
 	// You'll notice tiny adjustments to the position: 0.99px, 1px, 8px, etc. in the following code.
 	// These are to account for sub-pixel rendering on scaled or "imperfect" rendering scenarios
@@ -25,6 +29,13 @@
 		width: @sand-tooltip-point-width;
 		height: @sand-tooltip-point-height;
 		z-index: 1;
+
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
 	}
 	&.rightArrow,
 	&.leftArrow {
@@ -33,33 +44,15 @@
 			height: @sand-tooltip-point-width;
 		}
 	}
-	&.centerArrow,
-	&.middleArrow {
-		.tooltipArrow::after {
-			content: "";
-			position: absolute;
-			width: 100%;
-			height: 100%;
-		}
-	}
 	&.centerArrow .tooltipArrow {
 		width: @sand-tooltip-point-height;
 		height: @sand-tooltip-point-width;
 		left: 50%;
-
-		&::after {
-			right: ~"calc(" @sand-tooltip-point-height ~"- 0.99px)";
-		}
 	}
 	&.middleArrow .tooltipArrow {
 		width: @sand-tooltip-point-width;
 		height: @sand-tooltip-point-height;
 		top: 50%;
-
-		&::after {
-			bottom: 100%;
-			left: 0;
-		}
 	}
 
 	.tooltipLabel {
@@ -74,9 +67,9 @@
 		padding: @sand-tooltip-padding;
 		border-radius: @sand-tooltip-border-radius;
 
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			text-align: right;
-		}
+		});
 
 		&.marquee {
 			max-width: var(--sand-tooltip-label-width, @sand-tooltip-marquee-width); // If using a marquee, use the preferred width, and if none is provided, fall back to our default variable.
@@ -133,6 +126,11 @@
 		&.leftArrow {
 			.tooltipArrow {
 				right: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(top right; -45deg; -45deg; -5deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -144,12 +142,22 @@
 		&.centerArrow {
 			.tooltipArrow {
 				left: 50%;
+
+				&::after {
+					top: @sand-tooltip-arrow-offset;
+					.centerTail(top left; 45deg; 5deg);
+				}
 			}
 		}
 
 		&.rightArrow {
 			.tooltipArrow {
 				left: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(top left; 45deg; 45deg; 5deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -170,6 +178,11 @@
 		&.leftArrow {
 			.tooltipArrow {
 				right: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(bottom right; 45deg; 45deg; 5deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -178,16 +191,21 @@
 			}
 		}
 
-		// Commented out because it isn't necessary to specify anything for this case at this time
-		// but kept in the code here in case we need to in the future.
-		// &.centerArrow {
-		// 	.tooltipArrow {
-		// 	}
-		// }
+		&.centerArrow {
+			.tooltipArrow::after {
+				bottom: @sand-tooltip-arrow-offset;
+				.centerTail(bottom left; -45deg; -5deg);
+			}
+		}
 
 		&.rightArrow {
 			.tooltipArrow {
 				left: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(bottom left; -45deg; -45deg; -5deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -208,6 +226,11 @@
 		&.topArrow {
 			.tooltipArrow {
 				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(bottom right; -45deg; 5deg; 45deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -216,12 +239,21 @@
 		}
 
 		&.middleArrow {
-			.tooltipArrow {
+			.tooltipArrow::after {
 				right: @sand-tooltip-arrow-offset;
+				.centerTail(top right; 45deg; -5deg);
 			}
 		}
 
 		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					.tail(top right; 45deg; 5deg; -45deg);
+				}
+			}
+
 			.tooltipLabel {
 				border-top-right-radius: 0;
 			}
@@ -240,6 +272,11 @@
 		&.topArrow {
 			.tooltipArrow {
 				bottom: 0;
+				overflow: hidden;
+
+				&::after {
+					.tail(bottom left; 45deg; -5deg; -45deg);
+				}
 			}
 
 			.tooltipLabel {
@@ -248,12 +285,20 @@
 		}
 
 		&.middleArrow {
-			.tooltipArrow {
+			.tooltipArrow::after {
 				left: @sand-tooltip-arrow-offset;
+				.centerTail(top left; -45deg; 5deg);
 			}
 		}
 
 		&.bottomArrow {
+			.tooltipArrow {
+				overflow: hidden;
+
+				&::after {
+					.tail(top left; -45deg; 5deg; 45deg);
+				}
+			}
 			.tooltipLabel {
 				border-top-left-radius: 0;
 			}
@@ -379,13 +424,13 @@
 		}
 	}
 
-	:global(.enact-locale-right-to-left) & {
+	.enact-locale-rtl({
 		direction: ltr;
 
 		.tooltipAnchor {
 			direction: rtl;
 		}
-	}
+	});
 
 	// Skin colors
 	.applySkins({
@@ -399,57 +444,8 @@
 			}
 		}
 
-		// Drawing the arc/arrow shape using the mixin from above
-		&.below {
-			&.leftArrow {
-				.tooltipArrow {	.tail(left; top);	}
-			}
-			&.centerArrow {
-				.tooltipArrow {	.centerTail(right; top);	}
-				.tooltipArrow::after {	.centerTail(left; top);	}
-			}
-			&.rightArrow {
-				.tooltipArrow {	.tail(right; top);	}
-			}
-		}
-
-		&.above {
-			&.leftArrow {
-				.tooltipArrow {	.tail(left; bottom);	}
-			}
-			&.centerArrow {
-				.tooltipArrow {	.centerTail(right; bottom);	}
-				.tooltipArrow::after {	.centerTail(left; bottom);	}
-			}
-			&.rightArrow {
-				.tooltipArrow {	.tail(right; bottom);	}
-			}
-		}
-
-		&.left {
-			&.topArrow {
-				.tooltipArrow {	.tail(top; right);	}
-			}
-			&.middleArrow {
-				.tooltipArrow {	.centerTail(right; bottom);	}
-				.tooltipArrow::after {	.centerTail(right; top);	}
-			}
-			&.bottomArrow {
-				.tooltipArrow {	.tail(bottom; right);	}
-			}
-		}
-
-		&.right {
-			&.topArrow {
-				.tooltipArrow {	.tail(top; left);	}
-			}
-			&.middleArrow {
-				.tooltipArrow {	.centerTail(left; bottom);	}
-				.tooltipArrow::after {	.centerTail(left; top);	}
-			}
-			&.bottomArrow {
-				.tooltipArrow {	.tail(bottom; left);	}
-			}
+		.tooltipArrow::after {
+			background: @sand-tooltip-bg-color;
 		}
 
 		.tooltipLabel {

@@ -60,7 +60,15 @@ const LtrTests = [
 
 const HeaderTests = [
 	...LtrTests,
-	...withConfig({locale: 'ar-SA'}, LtrTests)
+	...withConfig({locale: 'ar-SA'}, LtrTests),
+
+	// Tallglyph Validation
+	...withConfig({locale: 'vi-VN'}, [
+		// Initial
+		...withProps({type: 'standard'}, baseTests),
+		...withProps({type: 'compact'}, baseTests),
+		...withProps({type: 'wizard', centered: true}, baseTests)
+	])
 ];
 
 export default HeaderTests;

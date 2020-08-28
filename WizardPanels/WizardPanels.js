@@ -27,6 +27,7 @@ import css from './WizardPanels.module.less';
 
 const WizardPanelsContext = React.createContext(null);
 const DecoratedPanelBase = FloatingLayerIdProvider(PanelBase);
+const HeaderContainer = SpotlightContainerDecorator(Header);
 
 /**
  * A WizardPanels that has steps with corresponding panels.
@@ -232,12 +233,12 @@ const WizardPanelsBase = kind({
 		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
-		 * Explicitly sets the ViewManager transition direction.
+		 * Used to determine the transition direction.
 		 *
 		 * @type {Boolean}
 		 * @private
 		 */
-		reverseTransition: PropTypes.bool,
+		rtl: PropTypes.bool,
 
 		/**
 		* The subtitle to display.
@@ -322,7 +323,7 @@ const WizardPanelsBase = kind({
 		'aria-label': ({'aria-label': label, index, subtitle, title}) => {
 			if (label) return label;
 
-			const step = new IString($L('Step {num}')).format({num: index + 1});
+			const step = new IString($L('step {num}')).format({num: index + 1});
 
 			return `${step} ${title} ${subtitle}`;
 		},
@@ -356,7 +357,7 @@ const WizardPanelsBase = kind({
 		onWillTransition,
 		prevButton,
 		prevButtonVisibility,
-		reverseTransition,
+		rtl,
 		steps,
 		subtitle,
 		title,
@@ -374,7 +375,7 @@ const WizardPanelsBase = kind({
 			<DecoratedPanelBase
 				{...rest}
 				header={
-					<Header
+					<HeaderContainer
 						aria-label={ariaLabel}
 						arranger={noAnimation ? null : CrossFadeArranger}
 						centered
@@ -408,7 +409,7 @@ const WizardPanelsBase = kind({
 							slot="slotAfter"
 							visible={isNextButtonVisible}
 						/>
-					</Header>
+					</HeaderContainer>
 				}
 				panelType="wizard"
 			>
@@ -420,10 +421,11 @@ const WizardPanelsBase = kind({
 							<ViewManager
 								arranger={BasicArranger}
 								duration={400}
+								index={index}
 								onTransition={onTransition}
 								onWillTransition={onWillTransition}
 								noAnimation={noAnimation}
-								reverseTransition={reverseTransition}
+								rtl={rtl}
 							>
 								{children}
 							</ViewManager>
@@ -438,21 +440,6 @@ const WizardPanelsBase = kind({
 		);
 	}
 });
-
-// single-index ViewManagers need some help knowing when the transition direction needs to change
-// because the index is always 0 from its perspective.
-function useReverseTransition (index = -1, rtl) {
-	const [prevIndex, setPrevIndex] = React.useState(-1);
-	let [reverse, setReverse] = React.useState(rtl);
-
-	if (prevIndex !== index) {
-		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
-		setReverse(reverse);
-		setPrevIndex(index);
-	}
-
-	return reverse;
-}
 
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
@@ -469,35 +456,33 @@ const WizardPanelsRouter = (Wrapped) => {
 		componentRef,
 		'data-spotlight-id': spotlightId,
 		index,
+		noAnimation,
 		onTransition,
 		onWillTransition,
 		title,
-		rtl,
 		...rest
 	}) => {
-		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: false});
-		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
-		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
 		const [panel, setPanel] = React.useState(null);
-		const reverseTransition = useReverseTransition(index, rtl);
+		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
+		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
+		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
-		} = useFocusOnTransition({onTransition, onWillTransition, spotlightId});
+		} = useFocusOnTransition({index, noAnimation, onTransition, onWillTransition, spotlightId});
 
 		const handleWillTransition = React.useCallback((ev) => {
 			focusOnWillTransition(ev);
 			a11yOnWillTransition(ev);
 		}, [a11yOnWillTransition, focusOnWillTransition]);
 
-		const totalPanels = React.Children.count(children);
+		const totalPanels = panel ? React.Children.count(children) : 0;
 		const currentTitle = panel && panel.title ? panel.title : title;
 		// eslint-disable-next-line enact/prop-types
 		delete rest.onBack;
 
 		return (
 			<WizardPanelsContext.Provider value={setPanel}>
-				{React.Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
 					{...panel}
@@ -505,16 +490,12 @@ const WizardPanelsRouter = (Wrapped) => {
 					componentRef={ref}
 					data-spotlight-id={spotlightId}
 					index={index}
+					noAnimation={noAnimation}
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
-					reverseTransition={reverseTransition}
 				>
-					{panel && panel.children ? (
-						<div className="enact-fit" key={`panel${index}`}>
-							{panel.children}
-						</div>
-					) : null}
+					{children}
 				</Wrapped>
 			</WizardPanelsContext.Provider>
 		);
@@ -545,6 +526,14 @@ const WizardPanelsRouter = (Wrapped) => {
 		* @private
 		*/
 		index: PropTypes.number,
+
+		/**
+		 * Disables panel transitions.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		noAnimation: PropTypes.bool,
 
 		/**
 		* Called when a transition completes

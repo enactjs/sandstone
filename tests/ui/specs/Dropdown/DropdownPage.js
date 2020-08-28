@@ -1,5 +1,6 @@
 'use strict';
-const {element, Page} = require('@enact/ui-test-utils/utils');
+
+const {element, componentSelector, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 class DropdownInterface {
 	constructor (id) {
@@ -8,6 +9,21 @@ class DropdownInterface {
 
 	focusActivator () {
 		return browser.execute((el) => el.focus(), this.self.$('[role="button"]'));
+	}
+
+	get button () {
+		return getComponent({component: 'Dropdown', child: 'button'}, this.self);
+	}
+
+	item (index) {
+		return element(
+			`${componentSelector({component: 'Item'})}[data-index="${index}"]`,
+			this.list
+		);
+	}
+
+	get list () {
+		return getComponent({component: 'Dropdown', child: 'dropdownList'}, browser);
 	}
 
 	get focusedItemText () {
@@ -32,13 +48,9 @@ class DropdownPage extends Page {
 	constructor () {
 		super();
 		this.title = 'Dropdown Test';
-		this.components = {
-			dropdownDefault: new DropdownInterface('dropdownDefault'),
-			dropdownSelected: new DropdownInterface('dropdownSelected'),
-			dropdownChangeSelected: new DropdownInterface('dropdownChangeSelected'),
-			dropdownChangeChildren: new DropdownInterface('dropdownChangeChildren'),
-			dropdownChangeLessChildren: new DropdownInterface('dropdownChangeLessChildren')
-		};
+		this.components = new Proxy({}, {
+			get: (target, name) => new DropdownInterface(name)
+		});
 	}
 
 	openDropdown (component) {
@@ -46,9 +58,10 @@ class DropdownPage extends Page {
 		this.spotlightSelect();
 	}
 
-	open (urlExtra) {
-		super.open('Dropdown-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`Dropdown${layout}-View`, urlExtra);
 	}
+
 }
 
 module.exports = new DropdownPage();

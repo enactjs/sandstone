@@ -119,7 +119,7 @@ describe('ThemeDecorator', () => {
 		);
 
 		test(
-			'should update the skinVariants based on the skinVariatns prop',
+			'should update the skinVariants based on the skinVariants prop',
 			() => {
 				const subject = mount(
 					<A11yApp skinVariants={['grayscale']} />

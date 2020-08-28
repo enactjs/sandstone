@@ -412,15 +412,17 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			forward('onMouseOver'),
 			forProp('disabled', true),
 			(ev) => {
-				this.showTooltip(ev.target);
+				this.showTooltip(ev.currentTarget);
 			}
 		);
 
 		handleMouseOut = this.handle(
 			forward('onMouseOut'),
 			forProp('disabled', true),
-			() => {
-				this.hideTooltip();
+			(ev) => {
+				if (this.clientRef && !this.clientRef.contains(ev.relatedTarget)) {
+					this.hideTooltip();
+				}
 			}
 		);
 

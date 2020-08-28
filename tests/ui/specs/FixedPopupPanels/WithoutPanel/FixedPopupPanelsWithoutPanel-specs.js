@@ -13,17 +13,13 @@ describe('FixedPopupPanelsWithoutPanel', function () {
 		it('should set focus to the activator when closed', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			browser.waitUntil(() => Interface.item1.isFocused(), {timeout: 750});
+			Page.waitForFocused(Interface.item1);
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to close', () => {
-				Page.backKey();
-			});
+			Page.backKey();
 
-			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
+			Page.waitForFocused(Interface.openButton, {targetName: 'open button'});
 		});
 	});
 });
