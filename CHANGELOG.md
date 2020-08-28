@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
 
 ### Added
 
@@ -15,10 +16,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
-
-### Fixed
-
-- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
 
 ## [1.1.4] - 2020-08-24
 
