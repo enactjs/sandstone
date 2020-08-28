@@ -6,6 +6,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to visibly change focus only once when focusing the tabs via 5-way
+- `sandstone/TabLayout.Tab` to properly support `spotlightDisabled` prop
 - `sandstone/Tooltip` arrow shape
 - `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
 
