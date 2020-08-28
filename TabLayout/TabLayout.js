@@ -253,8 +253,8 @@ const TabLayoutBase = kind({
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
 			const tabs = mapAndFilterChildren(children, (child) => {
-				const {disabled, icon, sprite, tabKey, title} = child.props;
-				return {disabled, icon, sprite, tabKey, title};
+				const {disabled, icon, spotlightDisabled, sprite, tabKey, title} = child.props;
+				return {disabled, icon, spotlightDisabled, sprite, tabKey, title};
 			});
 			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
 		}
