@@ -78,7 +78,7 @@ const Keypad = kind({
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
-							aria-label={keyText === 'backspace' ? $L('Back Space') : keyText}
+							aria-label={keyText === 'backspace' ? $L('backspace') : keyText}
 							shrink
 							component={Key}
 							disabled={disabled}

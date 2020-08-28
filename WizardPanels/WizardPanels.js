@@ -323,7 +323,7 @@ const WizardPanelsBase = kind({
 		'aria-label': ({'aria-label': label, index, subtitle, title}) => {
 			if (label) return label;
 
-			const step = new IString($L('Step {num}')).format({num: index + 1});
+			const step = new IString($L('step {num}')).format({num: index + 1});
 
 			return `${step} ${title} ${subtitle}`;
 		},
