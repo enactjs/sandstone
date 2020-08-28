@@ -37,7 +37,7 @@ class DataWebosVoiceLabelIndex extends React.Component {
 
 	handleClick = (e) => {
 		let {index} = e.currentTarget.dataset;
-		this.updateResult(`${index} is clicked`);
+		this.updateResult(`Selected > ${index}`);
 	};
 
 	handleVoice = (e) => {

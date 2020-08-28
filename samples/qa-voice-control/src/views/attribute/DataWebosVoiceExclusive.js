@@ -1,7 +1,7 @@
 
 import Alert from '@enact/sandstone/Alert';
 import Button from '@enact/sandstone/Button';
-import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
 import Heading from '@enact/sandstone/Heading';
 import Popup from '@enact/sandstone/Popup';
 import Spotlight from '@enact/spotlight';
@@ -12,7 +12,7 @@ import React from 'react';
 
 import CommonView from '../../components/CommonView';
 
-const ContexturePopupButton = ContexturePopupDecorator(Button);
+const ContextualPopupButton = ContextualPopupDecorator(Button);
 const ContainerDiv = SpotlightContainerDecorator({restrict: 'self-only'}, 'div');
 
 
@@ -23,7 +23,7 @@ class DataWebosVoiceExclusive extends React.Component {
 			isPopup: false,
 			isDialog: false,
 			isAlert: false,
-			isContexturePopup: false,
+			isContextualPopup: false,
 			isCustomPopup: false,
 			result: ''
 		};
@@ -40,8 +40,8 @@ class DataWebosVoiceExclusive extends React.Component {
 			this.setState({isDialog: true});
 		} else if (type === 'alert') {
 			this.setState({isAlert: true});
-		} else if (type === 'contexturePopup') {
-			this.setState({isContexturePopup: true});
+		} else if (type === 'contextualPopup') {
+			this.setState({isContextualPopup: true});
 		} else if (type === 'customizedPopup') {
 			this.setState({isCustomPopup: true});
 		}
@@ -54,8 +54,8 @@ class DataWebosVoiceExclusive extends React.Component {
 			this.setState({isDialog: false});
 		} else if (type === 'alert') {
 			this.setState({isAlert: false});
-		} else if (type === 'contexturePopup') {
-			this.setState({isContexturePopup: false});
+		} else if (type === 'contextualPopup') {
+			this.setState({isContextualPopup: false});
 		} else if (type === 'customizedPopup') {
 			this.setState({isCustomPopup: false});
 		}
@@ -63,9 +63,9 @@ class DataWebosVoiceExclusive extends React.Component {
 
 	renderPopup = ({...rest}) => {
 		return (
-			<div {...rest}>
-				<div>This is ContexturePopup</div>
-				<Button onClick={this.closePopup('contexturePopup')}>Close</Button>
+			<div data-testid="testContextualPopup" {...rest}>
+				<div>This is ContextualPopup</div>
+				<Button onClick={this.closePopup('contextualPopup')}>Close</Button>
 			</div>
 		);
 	};
@@ -82,33 +82,34 @@ class DataWebosVoiceExclusive extends React.Component {
 		return (
 			<CommonView title="data-webos-voice-exclusive" subtitle={this.state.result}>
 				<Heading>Button</Heading>
-				<Button onClick={this.updateResult('Hello is clicked')}>Hello</Button>
+				<Button onClick={this.updateResult('Selected > Hello')}>Hello</Button>
 				<Heading>Popup</Heading>
 				<Button onClick={this.openPopup('popup')}>Popup</Button>
-				<Popup open={this.state.isPopup}>
+				<Popup data-testid="testPopup" open={this.state.isPopup}>
 					<div>This is Popup</div>
 					<Button onClick={this.closePopup('popup')}>Close</Button>
 				</Popup>
 				<Heading>Alert</Heading>
 				<Button onClick={this.openPopup('alert')}>Alert</Button>
-				<Alert open={this.state.isAlert}>
+				<Alert data-testid="testAlert" open={this.state.isAlert}>
 					<span>This is Alert</span>
 					<buttons>
 						<Button onClick={this.closePopup('alert')}>Close</Button>
 					</buttons>
 				</Alert>
-				<Heading>ContexturePopup</Heading>
-				<ContexturePopupButton
-					open={this.state.isContexturePopup}
+				<Heading>ContextualPopup</Heading>
+				<ContextualPopupButton
+					open={this.state.isContextualPopup}
 					popupComponent={this.renderPopup}
-					onClick={this.openPopup('contexturePopup')}
+					onClick={this.openPopup('contextualPopup')}
 					direction="right middle"
 				>
-					CotextualPopup
-				</ContexturePopupButton>
+					ContextualPopup
+				</ContextualPopupButton>
 				<Heading>CustomizedPopup</Heading>
 				<Button spotlightId="customizedPopupActivator" onClick={this.openPopup('customizedPopup')}>Customized Popup</Button>
 				<FloatingLayer
+					data-testid="testCustomizedPopup"
 					open={this.state.isCustomPopup}
 					onOpen={this.customizedPopupOpenHandler}
 					onClose={this.customizedPopupCloseHandler}
@@ -130,7 +131,7 @@ class DataWebosVoiceExclusive extends React.Component {
 						}}
 						data-webos-voice-exclusive
 					>
-						<Button onClick={this.updateResult('Bye is clicked')}>Bye</Button>
+						<Button onClick={this.updateResult('Selected >  Bye')}>Bye</Button>
 						<Button onClick={this.closePopup('customizedPopup')}>Close</Button>
 					</ContainerDiv>
 				</FloatingLayer>

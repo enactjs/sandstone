@@ -24,8 +24,7 @@ class IntentSetToggleItem extends React.Component {
 		return (
 			<CommonView title="Intent to set ToggleItem">
 				<Heading>SwitchItem</Heading>
-				<SwitchItem>hello</SwitchItem>
-				<Switch />
+				<SwitchItem data-testid="hello">Hello</SwitchItem>
 			</CommonView>
 		);
 	}
