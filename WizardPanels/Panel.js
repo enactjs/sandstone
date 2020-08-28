@@ -58,11 +58,11 @@ PanelBase.propTypes = {
 	footer: PropTypes.node,
 	nextButton: PropTypes.oneOfType([
 		PropTypes.bool,
-		EnactPropTypes.component
+		EnactPropTypes.componentOverride
 	]),
 	prevButton: PropTypes.oneOfType([
 		PropTypes.bool,
-		EnactPropTypes.component
+		EnactPropTypes.componentOverride
 	]),
 	subtitle: PropTypes.string,
 	title: PropTypes.string
