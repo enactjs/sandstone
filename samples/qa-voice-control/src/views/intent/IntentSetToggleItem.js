@@ -1,5 +1,4 @@
 import Heading from '@enact/sandstone/Heading';
-import Switch from '@enact/sandstone/Switch';
 import SwitchItem from '@enact/sandstone/SwitchItem';
 import React from 'react';
 
