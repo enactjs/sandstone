@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import {objectify} from '@enact/ui/Skinnable/util';
 import {generateDate, urlParamsToObject} from '@enact/ui-test-utils/utils';
 import spotlight from '@enact/spotlight';
 import React from 'react';
@@ -41,11 +42,19 @@ function prepareTest (componentName, testId) {
 		};
 	}
 
-	let component = components[componentName][testId];
+	const componentMetadata = components[componentName][testId];
+	let component;
+
+	// If test wants focus, set mode to 5-way so auto-focus works
+	if (componentMetadata.focus) {
+		spotlight.setPointerMode(false);
+	}
 
 	// If this is a complex test (not a bare component), extract component for cloning
-	if (component.component) {
-		component = component.component;
+	if (componentMetadata.component) {
+		component = componentMetadata.component;
+	} else {
+		component = componentMetadata;
 	}
 
 	let children = component.props.children;
@@ -61,8 +70,8 @@ function prepareTest (componentName, testId) {
 
 	return {
 		testElement: React.cloneElement(component, ElementProps, children),
-		wrapperClasses: getWrapperClasses(components[componentName][testId]),
-		wrapperStyle: getWrapperStyle(components[componentName][testId])
+		wrapperClasses: getWrapperClasses(componentMetadata),
+		wrapperStyle: getWrapperStyle(componentMetadata)
 	};
 }
 
@@ -126,22 +135,43 @@ class App extends React.Component {
 	}
 }
 
-const WrappedApp = ThemeDecorator({noAutoFocus: true}, App);
-
 const ExportedApp = (props) => {
-
 	// Common test parameters
-	const skin = url.searchParams.get('skin');
-	const highContrast = url.searchParams.get('highContrast') === 'true';
+	let skin = url.searchParams.get('skin');
+	let highContrast = url.searchParams.get('highContrast') === 'true';
 
 	// Legacy test parameters
 	let locale = url.searchParams.get('locale');
 	let textSize = url.searchParams.get('textSize') === 'large' ? 'large' : 'normal';
+	let noAutoFocus = true;
 
 	if (props.testId >= 0 && components[props.component] && components[props.component][props.testId]) {
 		locale = components[props.component][props.testId].locale;
 		textSize = components[props.component][props.testId].textSize;
+		// If focus enabled by test, use auto-focus to set an initial focus
+		noAutoFocus = !components[props.component][props.testId].focus;
+
+		// Test can override values from the test runner
+		if (components[props.component][props.testId].skin) {
+			skin = components[props.component][props.testId].skin;
+		}
+
+		const skinVariants = objectify(components[props.component][props.testId].skinVariants);
+		if (skinVariants.highContrast) {
+			delete skinVariants.highContrast;
+			highContrast = true;
+		}
+		if (skinVariants.largeText) {
+			delete skinVariants.largeText;
+			textSize = 'large';
+		}
+		if (Object.keys(skinVariants).length) {
+			// eslint-disable-next-line no-console
+			console.warn(`Unknown skin variant in ${props.component} test ${props.testId}`);
+		}
 	}
+
+	const WrappedApp = ThemeDecorator({noAutoFocus}, App);
 
 	return (
 		<WrappedApp {...props} skin={skin} highContrast={highContrast} locale={locale} textSize={textSize} />

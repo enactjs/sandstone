@@ -62,7 +62,7 @@ class FixedPopupPanelsInterface {
 
 	focusBackButton () {
 		// TODO:  Hover and click back button after it reveals
-		return browser.execute((el) => el.focus(), $('[aria-label="Go to previous"]'));
+		return browser.execute((el) => el.focus(), $('[aria-label="go to previous"]'));
 	}
 
 	get self () {
@@ -93,10 +93,6 @@ class FixedPopupPanelsPage extends Page {
 
 	open (urlExtra) {
 		super.open('FixedPopupPanels-View', urlExtra);
-	}
-
-	waitForFocus (target, {targetName = 'item', timeoutMsg = `timed out waiting for ${targetName} focused`, timeout = 1200, interval = 200} = {}) {
-		browser.waitUntil(() => target.isExisting() && target.isFocused(), {timeout, timeoutMsg, interval});
 	}
 }
 

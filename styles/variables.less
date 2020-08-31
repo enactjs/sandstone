@@ -56,7 +56,8 @@
 		compact-title-font-size: 90px;
 		compact-title-line-height: 72px;
 
-		mini-padding: 108px 150px 84px 150px;
+		mini-margin: 0 0 36px 0;
+		mini-padding: 60px 60px 45px 60px;
 		mini-title-font-size: 108px;
 		mini-title-line-height: 80px;
 
@@ -162,17 +163,17 @@
 @sand-tablayout-tab-font-size:      66px;
 @sand-tooltip-label-font-size:      54px;
 
-@sand-non-latin-alert-title-font-size:  @sand-alert-title-font-size;
+@sand-tallglyph-alert-title-font-size:  @sand-alert-title-font-size;
 @sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
-@sand-non-latin-body-small-font-size:   48px;
+@sand-tallglyph-body-small-font-size:   48px;
 @sand-non-latin-button-large-font-size: 72px;
 @sand-non-latin-button-small-font-size: 54px;
 @sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
 @sand-non-latin-header-mini-title-font-size: @sand-header-mini-title-font-size;
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
-@sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
-@sand-non-latin-heading-title-font-size: 114px;
+@sand-tallglyph-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
+@sand-tallglyph-heading-title-font-size: 114px;
 @sand-non-latin-input-fullscreen-title-font-size: @sand-input-fullscreen-title-font-size;
 @sand-non-latin-input-overlay-title-font-size: @sand-input-overlay-title-font-size;
 
@@ -204,7 +205,8 @@
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
-@sand-non-latin-body-line-height: 1.7em;
+@sand-tallglyph-body-line-height: 1.7em;
+@sand-non-latin-body-line-height: @sand-tallglyph-body-line-height; // "non-latin" variable retained for legacy code safety.
 
 // Button
 @sand-button-font-family: @sand-alt-font-family;
@@ -242,9 +244,9 @@
 @sand-heading-tiny-font-weight: @sand-heading-large-font-weight;
 @sand-heading-letter-spacing: 0;
 @sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
-@sand-non-latin-heading-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-heading-subtitle-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-heading-title-line-height: 1.5em;
+@sand-tallglyph-heading-line-height: @sand-tallglyph-heading-title-line-height;
+@sand-tallglyph-heading-subtitle-line-height: @sand-tallglyph-heading-title-line-height;
+@sand-tallglyph-heading-title-line-height: 1.5em;
 
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
@@ -277,7 +279,7 @@
 
 // Picker
 @sand-picker-line-height: 1.5em;
-@sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
+@sand-tallglyph-picker-line-height: @sand-tallglyph-body-line-height;
 @sand-picker-joined-font-weight: @sand-spottable-font-weight;
 
 
@@ -419,8 +421,8 @@
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-max-items: 5;
-@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-small-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-small-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -442,6 +444,8 @@
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
 @sand-flexiblepopuppanels-navbutton-margin: 12px;
+@sand-flexiblepopuppanels-small-width: 600px;
+@sand-flexiblepopuppanels-large-width: 1320px;
 
 // FormCheckboxItem
 // ---------------------------------------
@@ -501,14 +505,42 @@
 		)[@result]
 	)
 	.extract(#guide.header[compact-padding], right)[]
-	0
+	(
+		.extract(#guide.header[compact-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[compact-title-line-height],
+			@sand-header-compact-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
 	.extract(#guide.header[compact-padding], left)[];
+@sand-header-compact-title-padding: 0;
+@sand-header-compact-subtitle-padding: 0;
 @sand-header-mini-margin:
 	6px
 	@sand-component-spacing
 	.extract(#guide.header[mini-padding], bottom)[]
 	@sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
-@sand-header-mini-padding: 0;
+@sand-header-mini-margin: #guide.header[mini-margin];
+@sand-header-mini-padding:
+	(
+		.extract(#guide.header[mini-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], right)[]
+	(
+		.extract(#guide.header[mini-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], left)[];
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding:
 	(
@@ -522,6 +554,8 @@
 	.extract(#guide.header[wizard-padding], right)[]
 	.extract(#guide.header[wizard-padding], bottom)[]
 	.extract(#guide.header[wizard-padding], left)[]; // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+@sand-header-wizard-title-padding: 0;
+@sand-header-wizard-subtitle-padding: 0;
 @sand-header-wizard-subtitle-lines: 2;
 @sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
@@ -639,6 +673,7 @@
 @sand-item-slotbefore-spacing: 54px;
 @sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 @sand-item-small-height: 126px;
+@sand-item-small-height-large: @sand-item-small-height;
 @sand-item-small-withlabel-height: 210px;
 
 // Keyguide
@@ -878,13 +913,13 @@
 @sand-tooltip-transparent-font-weight: normal;
 @sand-tooltip-offset: 24px;
 @sand-tooltip-transparent-label-offset: 0px;
-@sand-tooltip-arrow-offset: 0px;
-@sand-tooltip-point-width: 18px;
-@sand-tooltip-point-height: 15px;
+@sand-tooltip-arrow-offset: 0;
+@sand-tooltip-point-width: 25px; // actual value is 24px. +1px to ensure no gaps
+@sand-tooltip-point-height: 25px; // actual value is 24px. +1px to ensure no gaps
 @sand-tooltip-border-radius: 12px;
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
-@sand-tooltip-margin-offset: @sand-tooltip-point-width;
+@sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
 @sand-tooltip-marquee-width: 600px;
 
 // Video

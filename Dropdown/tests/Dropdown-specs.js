@@ -15,7 +15,7 @@ describe('Dropdown', () => {
 			</DropdownBase>
 		);
 
-		const expected = 'No selection';
+		const expected = 'No Selection';
 		const actual = dropDown.find('DropdownButton').prop('children');
 
 		expect(actual).toBe(expected);

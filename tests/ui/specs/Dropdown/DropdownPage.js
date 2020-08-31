@@ -1,6 +1,6 @@
 'use strict';
 
-const {element, getComponent, Page} = require('@enact/ui-test-utils/utils');
+const {element, componentSelector, getComponent, Page} = require('@enact/ui-test-utils/utils');
 
 class DropdownInterface {
 	constructor (id) {
@@ -12,8 +12,18 @@ class DropdownInterface {
 	}
 
 	get button () {
-		return getComponent({component:
-	'Dropdown', child: 'button'}, this.self);
+		return getComponent({component: 'Dropdown', child: 'button'}, this.self);
+	}
+
+	item (index) {
+		return element(
+			`${componentSelector({component: 'Item'})}[data-index="${index}"]`,
+			this.list
+		);
+	}
+
+	get list () {
+		return getComponent({component: 'Dropdown', child: 'dropdownList'}, browser);
 	}
 
 	get focusedItemText () {

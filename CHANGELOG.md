@@ -2,6 +2,31 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` `size` property to allow the selection between "auto" sized, "small", and "large" panel presets
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
+## [1.1.4] - 2020-08-24
+
+### Fixed
+
+- `sandstone/Dropdown` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales
+- `sandstone/Item` style to match latest designs
+- `sandstone/Panels.Header` style to match latest designs
+- `sandstone/TabLayout` to not lose focus when changing `index` programmatically
+
 ## [1.1.3] - 2020-08-17
 
 ### Fixed
