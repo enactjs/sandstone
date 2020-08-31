@@ -1472,7 +1472,21 @@
       }
     },
     "@enact/sandstone": {
-      "version": "file:../.."
+      "version": "file:../..",
+      "requires": {
+        "@enact/core": "^3.4.6",
+        "@enact/i18n": "^3.4.6",
+        "@enact/spotlight": "^3.4.6",
+        "@enact/ui": "^3.4.6",
+        "classnames": "^2.2.5",
+        "invariant": "^2.2.2",
+        "prop-types": "^15.7.2",
+        "ramda": "^0.24.1",
+        "react": "^16.8.0",
+        "react-dom": "^16.8.0",
+        "recompose": "^0.26.0",
+        "warning": "^3.0.0"
+      }
     },
     "@enact/spotlight": {
       "version": "3.4.6",
