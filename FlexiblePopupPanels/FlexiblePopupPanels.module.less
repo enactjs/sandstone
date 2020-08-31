@@ -63,6 +63,21 @@
 	// Skin colors
 	.applySkins({
 		background-color: transparent;
+
+		&.scrimTranslucent {
+			/* CSS Overrides */
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.viewport {
+				.panel {
+					.content {
+						background-color: @sand-flexiblepopuppanels-panel-non-translucent-bg-color;
+					}
+				}
+			}
+		}
 	});
 }
 

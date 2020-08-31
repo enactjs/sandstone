@@ -52,6 +52,17 @@
 			border-radius: @sand-fixedpopuppanels-border-radius;
 			filter: drop-shadow(@sand-fixedpopuppanels-shadow);
 		}
+
+		&.scrimTranslucent {
+			/* CSS Overrides */
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.viewport {
+				background-color: @sand-fixedpopuppanels-non-translucent-bg-color;
+			}
+		}
 	});
 }
 
