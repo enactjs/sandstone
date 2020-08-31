@@ -228,6 +228,7 @@ describe('Scroller', function () {
 			ScrollerPage.moveToScrollTrack('vertical', 'Down');
 			browser.positionClick();
 			ScrollerPage.delay(1000);
+			// Step 5 Verify: The Scroller Scrolls Up.
 			expect(ScrollerPage.getScrollThumbPosition().vertical).to.equal('1');
 			// Step 6: Click on the horizontalScrollbar on the left of the scroll thumb a few times (some text still displays).
 			const initialHorizontalScrollThumbPosition = ScrollerPage.getScrollThumbPosition().horizontal;
