@@ -391,7 +391,7 @@ function placeholderRenderer ({
 }) {
 	return (primary ? null : (
 		<SpotlightPlaceholder
-			data-index={0}
+			data-index={-1}
 			data-vl-placeholder
 			key="placeholder"
 			// a zero width/height element can't be focused by spotlight so we're giving
