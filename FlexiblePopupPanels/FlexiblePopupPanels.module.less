@@ -64,19 +64,24 @@
 	.applySkins({
 		background-color: transparent;
 
+		.header,
+		.content {
+			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
+			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
+		}
+
 		&.scrimTranslucent {
-			/* CSS Overrides */
+			.header,
+			.content {
+				background-color: @sand-flexiblepopuppanels-panel-bg-color;
+			}
 		}
 
 		&.scrimNone,
 		&.scrimTransparent {
-			.viewport {
-				.panel {
-					.header,
-					.content {
-						background-color: @sand-flexiblepopuppanels-panel-scrimtransparent-bg-color;
-					}
-				}
+			.header,
+			.content {
+				background-color: @sand-flexiblepopuppanels-panel-scrimtransparent-bg-color;
 			}
 		}
 	});
@@ -185,15 +190,6 @@
 			.bodyLayout {
 				direction: rtl;
 			}
-		}
-	});
-
-	.applySkins({
-		.header,
-		.content {
-			background-color: @sand-flexiblepopuppanels-panel-bg-color;
-			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
-			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
 		}
 	});
 }

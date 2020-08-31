@@ -43,12 +43,14 @@
 		.tabs,
 		.content .panels::before {
 			border-radius: @sand-popuptablayout-tabs-content-border-radius;
-			background-color: @sand-popuptablayout-bg-color;
 			box-shadow: @sand-popuptablayout-shadow;
 		}
 
 		&.scrimTranslucent {
-			/* CSS Overrides */
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-bg-color;
+			}
 		}
 
 		&.scrimNone,
