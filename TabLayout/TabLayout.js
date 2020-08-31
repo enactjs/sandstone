@@ -368,6 +368,7 @@ const TabLayout = TabLayoutDecorator(TabLayoutBase);
  * A shortcut to access {@link sandstone/TabLayout.Tab}
  *
  * @name Tab
+ * @type {sandstone/TabLayout.Tab}
  * @static
  * @memberof sandstone/TabLayout.TabLayout
  */

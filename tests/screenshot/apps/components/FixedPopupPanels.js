@@ -36,6 +36,10 @@ const EachPanel = withConfig(
 			component: <FixPopupPanels />
 		},
 		{
+			title: 'with transparent scrim',
+			component: <FixPopupPanels scrimType="transparent" />
+		},
+		{
 			title: 'with standard Panel Components index 1',
 			component: <FixPopupPanels index={1} />
 		},

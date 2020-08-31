@@ -78,6 +78,10 @@ const PopupTabLayoutTests = [
 		wrapper: {full: true}
 	},
 	{
+		component: <PopupTabLayout open scrimType="transparent">{tabs}</PopupTabLayout>,
+		wrapper: {full: true}
+	},
+	{
 		component: <PopupTabLayout open>{tabsWithIcons}</PopupTabLayout>,
 		wrapper: {full: true}
 	},

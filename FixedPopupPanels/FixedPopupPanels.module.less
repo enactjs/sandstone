@@ -48,9 +48,21 @@
 
 		// Overrides for Viewport
 		.viewport {
-			background-color: @sand-fixedpopuppanels-bg-color;
 			border-radius: @sand-fixedpopuppanels-border-radius;
 			filter: drop-shadow(@sand-fixedpopuppanels-shadow);
+		}
+
+		&.scrimTranslucent {
+			.viewport {
+				background-color: @sand-fixedpopuppanels-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.viewport {
+				background-color: @sand-fixedpopuppanels-scrimtransparent-bg-color;
+			}
 		}
 	});
 }
