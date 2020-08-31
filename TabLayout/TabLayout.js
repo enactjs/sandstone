@@ -233,13 +233,11 @@ const TabLayoutBase = kind({
 
 	handlers: {
 		onKeyDown: (ev, props) => {
-			forwardWithPrevent('onKeyDown', ev, props);
-
 			const {keyCode, target} = ev;
 			const {collapsed, orientation, rtl} = props;
 			const direction = getDirection(keyCode);
 
-			if (direction && collapsed && orientation === 'vertical') {
+			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
 
