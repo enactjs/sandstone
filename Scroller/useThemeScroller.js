@@ -27,10 +27,10 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 			const isBodyFilter = (filterTarget === 'body');
 			const targetClassName = isBodyFilter ? css.focusableBody : scrollbarTrackCss.thumb;
 			// Focus should not leave scrollbar with direction key
-			const restrictOption = isBodyFilter ? 'self-only' : 'self-first';
+			const restrict = isBodyFilter ? 'self-only' : 'self-first';
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
-				restrict: restrictOption
+				restrict
 			});
 			return true;
 		}
