@@ -50,6 +50,7 @@ const Tab = kind({
 		 * override, pass `stopped` in this object.
 		 *
 		 * @see {@link sandstone/Sprite.Sprite}
+		 * @type {Object}
 		 * @public
 		 */
 		sprite: PropTypes.object,

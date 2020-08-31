@@ -52,7 +52,6 @@ describe('Dropdown', function () {
 
 		it('should lock Spotlight inside the Dropdown - [GT-28646]', function () {
 			const dropdown = Page.components.dropdownDefault;
-			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
 
 			// Step 3: 5-way Spot and 5-way Select the 'Default' Dropdown.
 			Page.openDropdown(dropdown);
@@ -97,8 +96,8 @@ describe('Dropdown', function () {
 			// Step 8: Click  on the empty space created by the wrapper (Pointer mode).
 			const wrapper = $('#wrapper');
 			wrapper.click({x: 0, y: 0});
-			// Verify Step 8: The 'Default' Dropdoan is closed.
-			expect(dropdownList.isExisting).to.not.be.true();
+			// Verify Step 8: The 'Default' Dropdown is closed.
+			expect(dropdown.list.isExisting()).to.not.be.true();
 		});
 	});
 
@@ -119,8 +118,42 @@ describe('Dropdown', function () {
 			wrapper.click({x: 0, y: 0});
 
 			// Verify Step 3: that the floating list no longer exists (Dropdown is closed)
-			const dropdownList = $('.Dropdown_Dropdown_dropdownList');
-			expect(dropdownList.isExisting).to.not.be.true();
+			expect(dropdown.list.isExisting()).to.not.be.true();
+		});
+	});
+
+	describe('5-way and pointer', function () {
+		beforeEach(function () {
+			Page.open();
+		});
+
+		it('should close dropdown from Pointer mode with Back key  - [GT-28623]', function () {
+			const dropdown = Page.components.dropdownDefault;
+
+			// Step 3: 5-way Spot and 5-way Select the Dropdown placeholder "No selection".
+			Page.openDropdown(dropdown);
+			// Verify Step 3: The Dropdown opens.
+			waitForFocusedText(dropdown, 'one', 500, undefined, 100);
+
+			// Step 4: Press the *Back* key on the remote.
+			Page.backKey();
+			// Verify Step 4: The Dropdown closes.
+			expect(dropdown.list.isExisting()).to.not.be.true();
+
+			// Step 5: Click on the Dropdown placeholder "No selection".
+			dropdown.button.click();
+			// Verify Step 5: The Dropdown opens.
+			expect(dropdown.list.isExisting()).to.be.true();
+
+			// Step 6: Move the pointer over any Option.  Moving to  Item 'two' here.
+			dropdown.item(1).moveTo();
+			// Verify Step 6: Spotlight is on this Option.
+			waitForFocusedText(dropdown, 'two', 500, undefined, 100);
+
+			// Step 7: Press the *Back* key on the remote.
+			Page.backKey();
+			// Verify Step 7: Dropdown closes.
+			expect(dropdown.list.isExisting()).to.not.be.true();
 		});
 	});
 
@@ -158,7 +191,6 @@ describe('Dropdown', function () {
 				Page.components.dropdown1.self,
 				$('#scroller')
 			);
-
 			expect(actual).to.equal(expected);
 		});
 	});

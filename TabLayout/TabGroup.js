@@ -163,13 +163,14 @@ const TabGroupBase = kind({
 	},
 
 	computed: {
-		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
 		className: ({collapsed, orientation, styler}) => styler.append({collapsed}, orientation),
 		// check if there's no tab icons
-		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => (!tab.icon && !tab.sprite)).length
+		noIcons: ({collapsed, orientation, tabs}) => orientation === 'vertical' && collapsed && tabs.filter((tab) => (!tab.icon && !tab.sprite)).length,
+		tabsDisabled: ({tabs}) => tabs.find(tab => tab && !tab.disabled) == null,
+		tabsSpotlightDisabled: ({spotlightDisabled, tabs}) => spotlightDisabled || tabs.find(tab => tab && !tab.spotlightDisabled) == null
 	},
 
-	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, ...rest}) => {
+	render: ({collapsed, noIcons, onBlur, onBlurList, onFocus, onFocusTab, onSelect, orientation, selectedIndex, spotlightId, spotlightDisabled, tabs, tabSize, tabsDisabled, tabsSpotlightDisabled, ...rest}) => {
 		delete rest.children;
 
 		// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -218,7 +219,7 @@ const TabGroupBase = kind({
 						collapsed
 						disabled={tabsDisabled}
 						onSpotlightDisappear={onBlurList}
-						spotlightDisabled={spotlightDisabled}
+						spotlightDisabled={tabsSpotlightDisabled}
 					/>
 				) : (
 					<GroupComponent
