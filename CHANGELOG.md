@@ -15,6 +15,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Input` number pad layout in right-to-left locales for both overlay and fullscreen `Input`
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to visibly change focus only once when focusing the tabs via 5-way
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+- `sandstone/FixedPopupPanels`, `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
 
 ## [1.1.4] - 2020-08-24
 
