@@ -14,6 +14,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` scrollbar thumb to prevent losing focus with 5-way directional keys when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
 
 ## [1.1.4] - 2020-08-24
