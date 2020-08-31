@@ -1,3 +1,15 @@
+/**
+ * Provides Sandstone-themed progress button component.
+ *
+ * @example
+ * <ProgressButton progress={0.5}>Progress</ProgressButton>
+ *
+ * @module sandstone/ProgressButton
+ * @exports ProgressButton
+ * @exports ProgressButtonBase
+ * @exports ProgressButtonDecorator
+ */
+
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -13,8 +25,8 @@ import componentCss from './ProgressButton.module.less';
  *
  * @class ProgressButtonBase
  * @memberof sandstone/ProgressButton
- * @extends sandstone/Button
- * @extends sandstone/ProgressBar
+ * @extends sandstone/Button.ButtonBase
+ * @extends sandstone/ProgressBar.ProgressBar
  * @ui
  * @public
  */
