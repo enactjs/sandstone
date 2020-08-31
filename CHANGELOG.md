@@ -8,6 +8,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Tooltip` arrow shape
 - `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+- `sandstone/FixedPopupPanels`, `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
 
 ### Added
 
