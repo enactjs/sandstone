@@ -53,7 +53,8 @@
 			filter: drop-shadow(@sand-fixedpopuppanels-shadow);
 		}
 
-		&:not(.scrimTranslucent) {
+		&.scrimNone,
+		&.scrimTransparent {
 			.viewport {
 				background-color: @sand-fixedpopuppanels-non-translucent-bg-color;
 			}

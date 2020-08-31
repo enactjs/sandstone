@@ -47,7 +47,8 @@
 			box-shadow: @sand-popuptablayout-shadow;
 		}
 
-		&:not(.scrimTranslucent) {
+		&.scrimNone,
+		&.scrimTransparent {
 			.tabs,
 			.content .panels::before {
 				background-color: @sand-popuptablayout-non-translucent-bg-color;
