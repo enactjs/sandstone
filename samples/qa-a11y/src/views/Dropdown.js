@@ -6,12 +6,20 @@ import Section from '../components/Section';
 import appCss from '../App/App.module.less';
 
 const list = [
-	{children: 'Option0', key: 'item0', 'aria-label': 'This is an Option 0.'},
-	{children: 'Option1', key: 'item1', 'aria-label': 'This is an Option 1.'},
-	{children: 'Option2', key: 'item2', 'aria-label': 'This is an Option 2.'}
+	{children: 'Option0', key: 'item0'},
+	{children: 'Option1', key: 'item1'},
+	{children: 'Option2', key: 'item2'}
 ];
 
-const disabledList = list.map(item => ({...item, disabled: true}));
+const ariaLabelList = [
+	{'aria-label': 'This is an Option 0.'},
+	{'aria-label': 'This is an Option 1.'},
+	{'aria-label': 'This is an Option 2.'}
+];
+
+const ariaLabelledList = list.map((item, index) => ({...item, ...ariaLabelList[index]}));
+
+const disabledList = ariaLabelledList.map(item => ({...item, disabled: true}));
 
 class A11yDropdown extends React.Component {
 	constructor (props) {
@@ -23,7 +31,7 @@ class A11yDropdown extends React.Component {
 	}
 
 	onSelect = ({selected}) => {
-		this.setState({ariaLabel: list[selected]['aria-label']});
+		this.setState({ariaLabel: ariaLabelledList[selected]['aria-label']});
 	};
 
 	render () {
@@ -112,7 +120,7 @@ const DropdownView = () => (
 				placeholder="Placeholder"
 				title="Title"
 			>
-				{list}
+				{ariaLabelledList}
 			</A11yDropdown>
 		</Section>
 	</>

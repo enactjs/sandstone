@@ -178,7 +178,7 @@ const DropdownBase = kind({
 		 * The placeholder will be replaced by the selected item.
 		 *
 		 * @type {String}
-		 * @default 'No selection'
+		 * @default 'No Selection'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -283,7 +283,7 @@ const DropdownBase = kind({
 		},
 		className: ({width, title, styler}) => styler.append(`${width}Width`, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
-		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
+		placeholder: ({children, placeholder = $L('No Selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
