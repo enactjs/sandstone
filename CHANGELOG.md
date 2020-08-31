@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Tooltip` arrow shape
+- `sandstone/VirtualList` to avoid focusing first item when not required
 - `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
 
 ### Added
