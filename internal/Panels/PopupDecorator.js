@@ -215,7 +215,7 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		computed: {
 			className: ({fullHeight, scrimType, width, styler}) => styler.append(
-				scrimType ? `scrim${cap(scrimType)}` : 'scrimTranslucent',
+				`scrim${cap(scrimType)}`,
 				width,
 				{fullHeight}
 			),

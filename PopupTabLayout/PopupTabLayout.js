@@ -241,7 +241,8 @@ const PopupTabLayoutBase = kind({
 				normal: 1320
 			}
 		},
-		position: 'left'
+		position: 'left',
+		scrimType: 'translucent'
 	},
 
 	styles: {
@@ -250,9 +251,7 @@ const PopupTabLayoutBase = kind({
 	},
 
 	computed: {
-		className: ({scrimType, styler}) => styler.append(
-			scrimType ? `scrim${cap(scrimType)}` : 'scrimTranslucent'
-		)
+		className: ({scrimType, styler}) => styler.append(`scrim${cap(scrimType)}`)
 	},
 
 	render: ({children, ...rest}) => {
