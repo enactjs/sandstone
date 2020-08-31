@@ -4,25 +4,25 @@ import Button from '../../../../Button';
 import {Tab} from '../../../../TabLayout';
 
 export const tabs = [
-	<Tab title="One">
+	<Tab id="tab1" title="One">
 		<div id="view1">
 			View One
 			<Button id="button1">Button One</Button>
 		</div>
 	</Tab>,
-	<Tab title="Two">
+	<Tab id="tab2" title="Two">
 		<div id="view2"><Button id="button2">Button Two</Button></div>
 	</Tab>,
-	<Tab title="Three">
+	<Tab id="tab3" title="Three">
 		<div id="view3">View Three</div>
 	</Tab>,
-	<Tab disabled title="Four">
+	<Tab id="tab4" disabled title="Four">
 		<div id="view4"><Button id="button4">Button Four</Button></div>
 	</Tab>,
-	<Tab title="Five">
+	<Tab id="tab5" title="Five">
 		<div id="view5">View Five</div>
 	</Tab>,
-	<Tab title="Six">
+	<Tab id="tab6" title="Six" spotlightDisabled>
 		<div id="view6"><Button id="button6">Button Six</Button></div>
 	</Tab>
 ];

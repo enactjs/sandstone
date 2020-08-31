@@ -226,6 +226,7 @@ const PopupTabLayoutBase = kind({
 				normal: 1320
 			}
 		},
+		orientation: 'vertical',
 		position: 'left'
 	},
 

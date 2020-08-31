@@ -25,6 +25,16 @@ describe('TabLayout', function () {
 
 					expect(actual).to.equal(expected);
 				});
+
+				it('should not focus a spotlightDisabled tab', function () {
+					Page.tabLayout.focusTab(5);
+					Page.spotlightDown();
+
+					const expected = 'Five';
+					const actual = browser.execute(getFocusedText);
+
+					expect(actual).to.equal(expected);
+				});
 			});
 
 			describe('pointer interaction', function () {

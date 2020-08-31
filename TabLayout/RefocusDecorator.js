@@ -13,6 +13,13 @@ function getContainerNode (containerId) {
 	return document.querySelector(`[data-spotlight-id='${containerId}']`);
 }
 
+const navigableFilter = (spotlightId, collapsed) => (elem) => (
+	Spotlight.getPointerMode() || (
+		!elem.classList.contains(css.tab) &&
+		elem.dataset.spotlightId !== getTabsSpotlightId(spotlightId, collapsed)
+	)
+);
+
 const RefocusDecorator = Wrapped => {
 	// eslint-disable-next-line no-shadow
 	function RefocusDecorator ({collapsed, index, onTabAnimationEnd, orientation, spotlightId, ...rest}) {
@@ -34,6 +41,12 @@ const RefocusDecorator = Wrapped => {
 				}
 			}
 		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
+
+		React.useEffect(() => {
+			Spotlight.set(spotlightId, {
+				navigableFilter: collapsed && orientation === 'vertical' ? navigableFilter(spotlightId, collapsed) : null
+			});
+		}, [collapsed, orientation]);
 
 		const handleTabAnimationEnd = React.useCallback((ev) => {
 			if (onTabAnimationEnd) {

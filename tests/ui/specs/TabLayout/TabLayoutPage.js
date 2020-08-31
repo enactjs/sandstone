@@ -24,6 +24,10 @@ class TabLayoutInterface {
 		return $(`#view${number}`);
 	}
 
+	focusTab (number) {
+		return browser.execute((el) => el.focus(), $(`#tab${number}`));
+	}
+
 	get content () {
 		return getContent(this.self);
 	}
