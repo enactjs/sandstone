@@ -27,8 +27,11 @@ describe('TabLayout', function () {
 				});
 
 				it('should not focus a spotlightDisabled tab', function () {
-					Page.tabLayout.focusTab(5);
-					Page.spotlightDown();
+					Page.spotlightDown(); // go to tab 2
+					Page.spotlightDown(); // go to tab 3
+					Page.spotlightDown(); // go to tab 4
+					Page.spotlightDown(); // go to tab 5
+					Page.spotlightDown(); // go to tab 6
 
 					const expected = 'Five';
 					const actual = browser.execute(getFocusedText);

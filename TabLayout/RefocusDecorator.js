@@ -46,7 +46,7 @@ const RefocusDecorator = Wrapped => {
 			Spotlight.set(spotlightId, {
 				navigableFilter: collapsed && orientation === 'vertical' ? navigableFilter(spotlightId, collapsed) : null
 			});
-		}, [collapsed, orientation]);	// eslint-disable-line react-hooks/exhaustive-deps
+		}, [collapsed, orientation, spotlightId]);	// eslint-disable-line react-hooks/exhaustive-deps
 
 		const handleTabAnimationEnd = React.useCallback((ev) => {
 			if (onTabAnimationEnd) {

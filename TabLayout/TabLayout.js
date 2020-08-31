@@ -6,7 +6,7 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
@@ -233,7 +233,7 @@ const TabLayoutBase = kind({
 
 	handlers: {
 		onKeyDown: (ev, props) => {
-			forward('onKeyDown', ev, props);
+			forwardWithPrevent('onKeyDown', ev, props);
 
 			const {keyCode, target} = ev;
 			const {collapsed, orientation, rtl} = props;
@@ -286,7 +286,7 @@ const TabLayoutBase = kind({
 		tabs: ({children, orientation}) => {
 			const tabs = mapAndFilterChildren(children, (child) => (
 				Object.keys(child.props)
-					.filter((prop) => prop !== 'children')
+					.filter((prop) => prop !== 'children' && prop !== 'id')
 					.reduce((obj, key) => ({...obj, [key]: child.props[key]}), {})
 			));
 			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
