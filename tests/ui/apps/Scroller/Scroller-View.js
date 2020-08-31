@@ -36,7 +36,8 @@ class app extends React.Component {
 		this.state = {
 			direction: 'both',
 			focusableScrollbar: false,
-			hideScrollbar: false
+			hideScrollbar: false,
+			nativeScroll: true
 		};
 		this.scrollingRef = React.createRef();
 	}
@@ -64,13 +65,14 @@ class app extends React.Component {
 
 	render () {
 		const
-			{hideScrollbar} = this.state,
+			{hideScrollbar, nativeScroll} = this.state,
 			buttonDefaultProps = {minWidth: false, size: 'small'};
 		return (
 			<div {...this.props} id="scroller">
 				<Column>
 					<Cell component={OptionsContainer} shrink>
 						<Button {...buttonDefaultProps} id="hideScrollbar" onClick={this.handleToggle} selected={hideScrollbar}>hide scrollbar</Button>
+						<Button {...buttonDefaultProps} id="nativeScroll" onClick={this.handleToggle} selected={nativeScroll}>NativeScroll</Button>
 						<Dropdown
 							onSelect={this.handleSelectFocusableScrollbar}
 							title="FocusableScrollbar"
@@ -100,9 +102,11 @@ class app extends React.Component {
 										<Scroller
 											direction={this.state.direction}
 											focusableScrollbar={this.state.focusableScrollbar}
-											horizontalscrollbar={getScrollbarVisibility(hideScrollbar)}
+											horizontalScrollbar={getScrollbarVisibility(hideScrollbar)}
+											key={nativeScroll ? 'native' : 'translate'}
 											onScrollStart={this.onScrollStart}
 											onScrollStop={this.onScrollStop}
+											scrollMode={nativeScroll ? 'native' : 'translate'}
 											style={{
 												height: ri.scaleToRem(1680),
 												width: ri.scaleToRem(2400)
