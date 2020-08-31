@@ -238,7 +238,7 @@ const TabLayoutBase = kind({
 			const {keyCode, target} = ev;
 			const {collapsed, orientation, rtl} = props;
 			const direction = getDirection(keyCode);
-	
+
 			if (direction && collapsed && orientation === 'vertical') {
 				Spotlight.setPointerMode(false);
 				ev.preventDefault();
@@ -285,9 +285,9 @@ const TabLayoutBase = kind({
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
 			const tabs = mapAndFilterChildren(children, (child) => (
-				Object.keys(child.props).
-					filter((prop) => prop !== 'children').
-					reduce((obj, key) => ({...obj, [key]: child.props[key]}), {})
+				Object.keys(child.props)
+					.filter((prop) => prop !== 'children')
+					.reduce((obj, key) => ({...obj, [key]: child.props[key]}), {})
 			));
 			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
 		}
