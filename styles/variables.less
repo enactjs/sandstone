@@ -302,10 +302,10 @@
 @sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
-@sand-alert-overlay-buttons-margin-left: 126px;
-@sand-alert-overlay-buttons-margin-right: 0;
-@sand-alert-overlay-content-margin-left: (90px - @sand-alert-overlay-padding-left);
-@sand-alert-overlay-content-margin-right: (198px - @sand-alert-overlay-buttons-margin-left - .extract(@sand-button-margin, right)[]);
+@sand-alert-overlay-buttons-margin: 0 0 0 126px;
+@sand-alert-overlay-no-image-text-gap: (90px - @sand-alert-overlay-padding-left);
+@sand-alert-overlay-image-text-gap: 48px;
+@sand-alert-overlay-text-button-gap: (198px - .extract(@sand-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 @sand-alert-overlay-content-width: 1200px;
 @sand-alert-overlay-image-margin: 0;
 @sand-alert-overlay-margin-bottom: 360px;
