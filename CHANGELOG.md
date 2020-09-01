@@ -10,7 +10,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- Primary background color to black
 - `sandstone/Scroller` scrollbar thumb to prevent losing focus with 5-way directional keys when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
 
