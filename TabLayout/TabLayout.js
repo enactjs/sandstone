@@ -13,6 +13,7 @@ import {cap, mapAndFilterChildren} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight, {getDirection} from '@enact/spotlight';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import {spottableClass} from '@enact/spotlight/Spottable';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {scaleToRem} from '@enact/ui/resolution';
@@ -245,7 +246,8 @@ const TabLayoutBase = kind({
 					ev.stopPropagation();
 				} else if (
 					((is('left', keyCode) && !rtl) || (is('right', keyCode) && rtl)) &&
-					document.querySelector(`.${componentCss.content}`).contains(target)
+					document.querySelector(`.${componentCss.content}`).contains(target) &&
+					document.querySelector(`.${componentCss.tabs} .${spottableClass}`)
 				) {
 					forward('onExpand', ev, props);
 				}
