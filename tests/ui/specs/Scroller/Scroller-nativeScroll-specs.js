@@ -58,7 +58,7 @@ describe('Scroller', function () {
 			expect(ScrollerPage.buttonTop.isFocused()).to.be.true();
 		});
 
-		it('Spotlight should not leave scrollbar with direction key with focusableScrollbar `byEnter`[GT-33977]', function () {
+		it('should not move its focus from scrollbar with directional keys when focusableScrollbar is `byEnter`[GT-33977]', function () {
 			// Step 3: Knobs > Scroller > focusableScrollbar > byEnter
 			ScrollerPage.dropdownFocusableScrollbar.moveTo();
 			ScrollerPage.spotlightSelect();
