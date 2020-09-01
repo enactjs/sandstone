@@ -26,11 +26,10 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 		if (spotlightId && filterTarget) {
 			const bodyFiltered = (filterTarget === 'body');
 			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
-			// Focus should not leave scrollbar with direction key
-			const restrict = bodyFiltered ? 'self-only' : 'self-first';
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
-				restrict
+				// Focus should not leave scrollbar with directional keys
+				restrict: bodyFiltered ? 'self-only' : 'self-first'
 			});
 			return true;
 		}
