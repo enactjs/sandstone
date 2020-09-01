@@ -36,7 +36,7 @@ const RefocusDecorator = Wrapped => {
 					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
 					containerNode = getContainerNode(tabsSpotlightId);
 
-				if (!current || containerNode.querySelector(`.${css.selected}`) !== current) {
+				if (!current || containerNode && containerNode.querySelector(`.${css.selected}`) !== current) {
 					Spotlight.focus(spotlightId);
 				}
 			}
