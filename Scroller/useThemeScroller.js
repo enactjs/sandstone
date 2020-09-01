@@ -32,6 +32,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 				// Focus should not leave scrollbar with directional keys
 				restrict: bodyFiltered ? 'self-only' : 'self-first'
 			});
+
 			return true;
 		}
 	};
