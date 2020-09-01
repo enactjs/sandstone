@@ -24,10 +24,15 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 
 	const setNavigableFilter = ({filterTarget}) => {
 		if (spotlightId && filterTarget) {
-			const targetClassName = (filterTarget === 'body') ? css.focusableBody : scrollbarTrackCss.thumb;
+			const bodyFiltered = (filterTarget === 'body');
+			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
+
 			Spotlight.set(spotlightId, {
-				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName))
+				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
+				// Focus should not leave scrollbar with directional keys
+				restrict: bodyFiltered ? 'self-only' : 'self-first'
 			});
+
 			return true;
 		}
 	};
