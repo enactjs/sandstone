@@ -21,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import RefocusDecorator, {getTabsSpotlightId, navigableFilter} from './RefocusDecorator';
+import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
@@ -237,7 +237,7 @@ const TabLayoutBase = kind({
 				} else if (document.querySelector(`.${componentCss.content}`).contains(target)) {
 					Spotlight.set(spotlightId, {navigableFilter: null});
 					const nextTarget = getTargetByDirectionFromElement(direction, target);
-					Spotlight.set(spotlightId, {navigableFilter: navigableFilter(spotlightId, collapsed)});
+					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
 
 					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
 						forward('onExpand', ev, props);
