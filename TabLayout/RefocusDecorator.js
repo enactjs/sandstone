@@ -13,7 +13,7 @@ function getContainerNode (containerId) {
 	return document.querySelector(`[data-spotlight-id='${containerId}']`);
 }
 
-const navigableFilter = (spotlightId, collapsed) => (elem) => (
+const getNavigableFilter = (spotlightId, collapsed) => (elem) => (
 	Spotlight.getPointerMode() || (
 		!elem.classList.contains(css.tab) &&
 		elem.dataset.spotlightId !== getTabsSpotlightId(spotlightId, collapsed)
@@ -44,7 +44,7 @@ const RefocusDecorator = Wrapped => {
 
 		React.useEffect(() => {
 			Spotlight.set(spotlightId, {
-				navigableFilter: collapsed && orientation === 'vertical' ? navigableFilter(spotlightId, collapsed) : null
+				navigableFilter: collapsed && orientation === 'vertical' ? getNavigableFilter(spotlightId, collapsed) : null
 			});
 		}, [collapsed, orientation, spotlightId]);	// eslint-disable-line react-hooks/exhaustive-deps
 
@@ -89,6 +89,7 @@ const RefocusDecorator = Wrapped => {
 
 export default RefocusDecorator;
 export {
+	getNavigableFilter,
 	getTabsSpotlightId,
 	RefocusDecorator
 };
