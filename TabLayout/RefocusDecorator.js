@@ -36,7 +36,7 @@ const RefocusDecorator = Wrapped => {
 					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
 					containerNode = getContainerNode(tabsSpotlightId);
 
-				if (!current || containerNode.querySelector(`.${css.selected}`) !== current) {
+				if (!current || containerNode && containerNode.querySelector(`.${css.selected}`) !== current) {
 					Spotlight.focus(spotlightId);
 				}
 			}
@@ -55,8 +55,9 @@ const RefocusDecorator = Wrapped => {
 
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				const tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
+				const containerNode = getContainerNode(tabsSpotlightId);
 
-				if (!getContainerNode(tabsSpotlightId).contains(Spotlight.getCurrent())) {
+				if (containerNode && !containerNode.contains(Spotlight.getCurrent())) {
 					Spotlight.focus(tabsSpotlightId);
 				}
 			}
