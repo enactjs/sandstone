@@ -4,7 +4,7 @@ import useEventListener from '../hooks/useEventListener';
 
 const PressedKeysContext = createContext(null);
 
-const PressedKeysProvider = ({children, eventExpirationTime = 750}) => {
+const PressedKeysProvider = ({children, eventExpirationTime = 1000}) => {
 	const [pressedKeys, setPressedKeys] = useState(new Map());
 
 	const addToMap = ({code, key, which}) => {
