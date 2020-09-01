@@ -234,7 +234,7 @@ const TabLayoutBase = kind({
 
 				if (Spotlight.move(direction)) {
 					ev.stopPropagation();
-				} else if (document.querySelector(`.${componentCss.content}`).contains(target)) {
+				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
 					Spotlight.set(spotlightId, {navigableFilter: null});
 					const nextTarget = getTargetByDirectionFromElement(direction, target);
 					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
