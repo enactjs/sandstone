@@ -26,6 +26,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId) => {
 		if (spotlightId && filterTarget) {
 			const bodyFiltered = (filterTarget === 'body');
 			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
+
 			Spotlight.set(spotlightId, {
 				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
 				// Focus should not leave scrollbar with directional keys
