@@ -70,6 +70,12 @@
 		}
 	}
 
+	.keypad {
+		.enact-locale-rtl({
+			direction: ltr;
+		});
+	}
+
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
@@ -164,10 +170,6 @@
 		.keypad {
 			margin: @sand-input-overlay-keypad-margin;
 			width: @sand-input-overlay-keypad-width;
-
-			.enact-locale-rtl({
-				direction: ltr;
-			});
 		}
 
 		.buttonArea {

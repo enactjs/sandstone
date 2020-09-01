@@ -1,5 +1,6 @@
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -213,7 +214,11 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
+			className: ({fullHeight, scrimType, width, styler}) => styler.append(
+				`scrim${cap(scrimType)}`,
+				width,
+				{fullHeight}
+			),
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
