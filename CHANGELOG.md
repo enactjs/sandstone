@@ -2,6 +2,26 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.2.0] - 2020-09-01
+
+### Added
+
+- `sandstone/FlexiblePopupPanels.Panel` `size` property to allow the selection between "auto" sized, "small", and "large" panel presets
+
+### Changed
+
+- `sandstone/Scroller` scrollbar thumb to prevent losing focus with 5-way directional keys when `focusableScrollbar` prop is `byEnter`
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
+### Fixed
+
+- `sandstone/FixedPopupPanels`, `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales for both overlay and fullscreen `Input`
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to visibly change focus only once when focusing the tabs via 5-way
+- `sandstone/TabLayout` to properly change focus when changing `index` programmatically
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+
 ## [1.1.4] - 2020-08-24
 
 ### Fixed
