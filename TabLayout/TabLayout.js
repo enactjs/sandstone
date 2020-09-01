@@ -7,13 +7,11 @@
  */
 
 import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
-import {is} from '@enact/core/keymap';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight, {getDirection} from '@enact/spotlight';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
-import {spottableClass} from '@enact/spotlight/Spottable';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {scaleToRem} from '@enact/ui/resolution';
@@ -23,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import RefocusDecorator, {getTabsSpotlightId} from './RefocusDecorator';
+import RefocusDecorator, {getTabsSpotlightId, navigableFilter} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
@@ -186,14 +184,6 @@ const TabLayoutBase = kind({
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 
 		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
 		 * Assign a custom size to horizontal tabs.
 		 *
 		 * Tabs in the horizontal orientation automatically stretch to fill the available width.
@@ -235,7 +225,7 @@ const TabLayoutBase = kind({
 	handlers: {
 		onKeyDown: (ev, props) => {
 			const {keyCode, target} = ev;
-			const {collapsed, orientation, rtl} = props;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
 			const direction = getDirection(keyCode);
 
 			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical') {
@@ -244,12 +234,14 @@ const TabLayoutBase = kind({
 
 				if (Spotlight.move(direction)) {
 					ev.stopPropagation();
-				} else if (
-					((is('left', keyCode) && !rtl) || (is('right', keyCode) && rtl)) &&
-					document.querySelector(`.${componentCss.content}`).contains(target) &&
-					document.querySelector(`.${componentCss.tabs} .${spottableClass}`)
-				) {
-					forward('onExpand', ev, props);
+				} else if (document.querySelector(`.${componentCss.content}`).contains(target)) {
+					Spotlight.set(spotlightId, {navigableFilter: null});
+					const nextTarget = getTargetByDirectionFromElement(direction, target);
+					Spotlight.set(spotlightId, {navigableFilter: navigableFilter(spotlightId, collapsed)});
+
+					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
+						forward('onExpand', ev, props);
+					}
 				}
 			}
 		},
@@ -296,7 +288,6 @@ const TabLayoutBase = kind({
 	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
-		delete rest.rtl;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
@@ -359,8 +350,7 @@ const TabLayoutDecorator = compose(
 		enterTo: 'last-focused',
 		// favor the content when collapsed and the tabs otherwise
 		defaultElement: [`.${componentCss.horizontal} .${componentCss.tabs} *`, `.${componentCss.collapsed} .${componentCss.content} *`, `.${componentCss.tabsExpanded} *`]
-	}),
-	I18nContextDecorator({rtlProp: 'rtl'})
+	})
 );
 
 // Currently not documenting the base output since it's not exported

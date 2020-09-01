@@ -89,5 +89,6 @@ const RefocusDecorator = Wrapped => {
 export default RefocusDecorator;
 export {
 	getTabsSpotlightId,
+	navigableFilter,
 	RefocusDecorator
 };
