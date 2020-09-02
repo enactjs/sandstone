@@ -5,15 +5,15 @@
  * @private
  */
 
-import handle, {call, forKey, forProp, forward} from '@enact/core/handle';
+import handle, {call, forKey, forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 
 /*
  * Converts a JavaScript Date to unix time
@@ -75,6 +75,14 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			 * @public
 			 */
 			open: PropTypes.bool,
+
+			/**
+			 * Indicates the content's text direction is right-to-left.
+			 *
+			 * @type {Boolean}
+			 * @private
+			 */
+			rtl: PropTypes.bool,
 
 			/**
 			 * The selected date
@@ -198,11 +206,16 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			}
 		};
 
+		handleEnter = (ev) => {
+			if (ev.target && ev.target.dataset.lastElement === 'false') {
+				Spotlight.move(this.props.rtl ? 'left' : 'right');
+			}
+		};
+
 		handleKeyDown = handle(
 			forward('onKeyDown'),
-			forProp('open', true),
-			forKey('cancel'),
-			call('handleCancel')
+			forKey('enter'),
+			call('handleEnter')
 		).bindAs(this, 'handleKeyDown');
 
 		render () {
