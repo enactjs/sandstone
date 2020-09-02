@@ -16,9 +16,8 @@ describe('VirtualList Samples', function () {
 		// Step 3 Verify: Spotlight displays on Item 000.
 		expectFocusedItem(0);
 		// Step 4: 5-way Up twice.
+		// Step 4 Verify: Spotlight displays on the (x) Closing button. Since (x) button is replaced Top button in UI Test View, this test performed 5-way Up once.
 		Page.spotlightUp();
-		Page.spotlightUp();
-		// Step 4 Verify: Spotlight displays on the (x) Closing button. In this case, JumpToItemWithoutFocus button is replaced (x) button.
-		expect(Page.buttonJumpToItemWithoutFocus.isFocused()).to.be.true();
+		expect(Page.buttonTop.isFocused()).to.be.true();
 	});
 });

@@ -7,7 +7,7 @@ describe('RTL locale', function () {
 
 	it('should position Scrollbar Track on left side in RTL [GT-28480]', function () {
 		// Verify 3-2: The Scrollbar track displays shortly left aligned.
-		expect(Page.getListRect().left).to.equal(Page.getScrollbarRect().withPadding.left);
+		expect(Page.getListRect().left).to.equal(Page.getVerticalScrollbarRect().left);
 	});
 });
 
@@ -26,6 +26,6 @@ describe('Verify locale Change', function () {
 		Page.spotlightLeft();
 		expect(Page.buttonRight.isFocused(), 'focus Right');
 		// Verify 5-2: Vertical Scrollbar displays on the left side.
-		expect(Page.getListRect().left).to.equal(Page.getScrollbarRect().withPadding.left);
+		expect(Page.getListRect().left).to.equal(Page.getVerticalScrollbarRect().left);
 	});
 });
