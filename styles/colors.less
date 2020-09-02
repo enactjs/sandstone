@@ -21,10 +21,11 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:      #575e66;
+@sand-bg-color:      @sand-black;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
+@sand-overlay-bg-color: #575e66;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 @sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
@@ -218,8 +219,8 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: fade(@sand-bg-color, 90%);
-@sand-popup-scrimtransparent-bg-color: fade(@sand-bg-color, 95%);
+@sand-popup-bg-color: fade(@sand-overlay-bg-color, 90%);
+@sand-popup-scrimtransparent-bg-color: fade(@sand-overlay-bg-color, 95%);
 
 // PopupTabLayout
 // ---------------------------------------

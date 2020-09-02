@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- Primary background color to black
+
 ## [1.2.0] - 2020-09-01
 
 ### Added
