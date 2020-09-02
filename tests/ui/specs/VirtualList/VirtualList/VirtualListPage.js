@@ -72,19 +72,12 @@ class VirtualListPage extends Page {
 	get scrollbar () {
 		return $(`${verticalscrollbarSelector}`);
 	}
-	get scrollBarSize () {
-		return $(`${verticalscrollbarSelector}`).getElementSize();
-	}
-	getScrollOffsetLeft () {
+	getScrollbarRect () {
 		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.offsetLeft;
-		}, verticalscrollbarSelector);
-	}
-	getScrollbarWidth () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.clientWidth;
+			return {
+				withPadding: document.querySelector(_verticalscrollbarSelector).getBoundingClientRect(),
+				withoutPadding: document.querySelector(_verticalscrollbarSelector).firstChild.getBoundingClientRect()
+			};
 		}, verticalscrollbarSelector);
 	}
 
@@ -104,13 +97,9 @@ class VirtualListPage extends Page {
 	get list () {
 		return element('#list', browser);
 	}
-	get listSize () {
-		return $(`${scrollableSelector}`).getElementSize();
-	}
-	getListwidthSize () {
+	getListRect () {
 		return browser.execute(function (_scrollContentSelector) {
-			const scrollcontent = document.querySelector(_scrollContentSelector);
-			return scrollcontent.clientWidth;
+			return document.querySelector(_scrollContentSelector).getBoundingClientRect();
 		}, scrollContentSelector);
 	}
 

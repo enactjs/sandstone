@@ -5,9 +5,8 @@ describe('LTR locale', function () {
 		Page.open();
 	});
 
-	// TODO: Need to api for Scrollbar and List size checking in sandstone.
-	it.skip('should have same height list and scrollbar [GT-28930]', function () {
+	it('should have same height list and scrollbar [GT-28930]', function () {
 		// Verify: The scrollbar size fit to the size of the list.
-		expect(Page.listSize.height).to.equal(Page.scrollBarSize.height);
+		expect(Page.getListRect().height).to.equal(Page.getScrollbarRect().withPadding.height);
 	});
 });

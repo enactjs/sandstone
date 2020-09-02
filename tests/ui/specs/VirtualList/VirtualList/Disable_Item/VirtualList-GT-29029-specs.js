@@ -1,7 +1,7 @@
 const Page = require('../VirtualListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
-describe('VirtualList Samples', function () {
+describe('Disalbed item', function () {
 	beforeEach(function () {
 		Page.open();
 	});
