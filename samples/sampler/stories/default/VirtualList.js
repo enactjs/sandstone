@@ -1,7 +1,7 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import ri from '@enact/ui/resolution';
 import {storiesOf} from '@storybook/react';
 import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
@@ -22,15 +22,7 @@ const
 		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
-	defaultDataSize = 1000,
-	// eslint-disable-next-line enact/prop-types, enact/display-name
-	renderItem = (size) => ({index, ...rest}) => {
-		return (
-			<Item {...rest} style={{height: ri.unit(size, 'rem')}}>
-				{items[index]}
-			</Item>
-		);
-	};
+	defaultDataSize = 1000;
 
 const updateDataSize = (dataSize) => {
 	const
@@ -50,27 +42,52 @@ updateDataSize(defaultDataSize);
 
 const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
+class PureComponentTest extends React.PureComponent {
+	static displayName = 'Puretest';
+
+	render () {
+		console.log('PureTest Render');
+		return <div>{this.props.text}</div>;
+	}
+}
 storiesOf('Sandstone', module)
 	.add(
 		'VirtualList',
 		() => {
+			const renderItem2 = useCallback(({index, ...rest}) => (
+				<Item {...rest} style={{height: ri.unit(100, 'rem')}}>
+					{items[index]}
+				</Item>
+			), []);
+
+			const [, setState] = useState(0);
+			setTimeout(() => {
+				// Change state after 5sec
+				console.log('setTimeout');
+				setState(1);
+			}, 5000);
+
 			return (
-				<VirtualList
-					className={css.verticalPadding}
-					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
-					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
-					itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
-					key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
-					noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
-					onScrollStart={action('onScrollStart')}
-					onScrollStop={action('onScrollStop')}
-					scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
-					spacing={ri.scale(number('spacing', VirtualListConfig))}
-					spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
-					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-					wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
-				/>
+				console.log('-----------VL Story Reneder-------------') ||
+				<>
+					<PureComponentTest text="1" />
+					<VirtualList
+						className={css.verticalPadding}
+						dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
+						horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
+						itemRenderer={renderItem2}
+						itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
+						key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
+						noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
+						// onScrollStart={action('onScrollStart')}
+						// onScrollStop={action('onScrollStop')}
+						scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
+						spacing={ri.scale(number('spacing', VirtualListConfig))}
+						spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
+						verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}
+						wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualListConfig)]}
+					/>
+				</>
 			);
 		},
 		{

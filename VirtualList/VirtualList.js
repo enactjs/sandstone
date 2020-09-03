@@ -32,7 +32,7 @@ const nop = () => {};
  * @ui
  * @public
  */
-let VirtualList = ({itemSize, ...rest}) => {
+let VirtualList = React.memo(({itemSize, ...rest}) => {
 	const props = itemSize && itemSize.minSize ?
 		{
 			itemSize: itemSize.minSize,
@@ -73,7 +73,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 	const themeScrollContentProps = useThemeVirtualList({...scrollContentProps, className: classnames(className, scrollContentProps.className)});
 
 	return (
-		<ResizeContext.Provider {...resizeContextProps}>
+		console.log('VirtualList Render') || console.log(new Error().stack) || <ResizeContext.Provider {...resizeContextProps}>
 			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
 				<UiVirtualListBasic {...themeScrollContentProps} ref={scrollContentHandle} />
 				{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
@@ -81,7 +81,7 @@ let VirtualList = ({itemSize, ...rest}) => {
 			</ScrollContentWrapper>
 		</ResizeContext.Provider>
 	);
-};
+});
 
 VirtualList.displayName = 'VirtualList';
 
