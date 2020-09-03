@@ -1474,10 +1474,10 @@
     "@enact/sandstone": {
       "version": "file:../..",
       "requires": {
-        "@enact/core": "^3.4.6",
-        "@enact/i18n": "^3.4.6",
-        "@enact/spotlight": "^3.4.6",
-        "@enact/ui": "^3.4.6",
+        "@enact/core": "^3.4.7",
+        "@enact/i18n": "^3.4.7",
+        "@enact/spotlight": "^3.4.7",
+        "@enact/ui": "^3.4.7",
         "classnames": "^2.2.5",
         "invariant": "^2.2.2",
         "prop-types": "^15.7.2",
@@ -4350,9 +4350,9 @@
       "dev": true
     },
     "@types/node": {
-      "version": "14.6.2",
-      "resolved": "https://registry.npmjs.org/@types/node/-/node-14.6.2.tgz",
-      "integrity": "sha512-onlIwbaeqvZyniGPfdw/TEhKIh79pz66L1q06WUQqJLnAb6wbjvOtepLYTGHTqzdXgBYIE3ZdmqHDGsRsbBz7A==",
+      "version": "14.6.3",
+      "resolved": "https://registry.npmjs.org/@types/node/-/node-14.6.3.tgz",
+      "integrity": "sha512-pC/hkcREG6YfDfui1FBmj8e20jFU5Exjw4NYDm8kEdrW+mOh0T1Zve8DWKnS7ZIZvgncrctcNCXF4Q2I+loyww==",
       "dev": true
     },
     "@types/parse-json": {
@@ -4452,9 +4452,9 @@
       }
     },
     "@types/webpack": {
-      "version": "4.41.21",
-      "resolved": "https://registry.npmjs.org/@types/webpack/-/webpack-4.41.21.tgz",
-      "integrity": "sha512-2j9WVnNrr/8PLAB5csW44xzQSJwS26aOnICsP3pSGCEdsu6KYtfQ6QJsVUKHWRnm1bL7HziJsfh5fHqth87yKA==",
+      "version": "4.41.22",
+      "resolved": "https://registry.npmjs.org/@types/webpack/-/webpack-4.41.22.tgz",
+      "integrity": "sha512-JQDJK6pj8OMV9gWOnN1dcLCyU9Hzs6lux0wBO4lr1+gyEhIBR9U3FMrz12t2GPkg110XAxEAw2WHF6g7nZIbRQ==",
       "dev": true,
       "requires": {
         "@types/anymatch": "*",
@@ -6143,9 +6143,9 @@
       "dev": true
     },
     "caniuse-lite": {
-      "version": "1.0.30001122",
-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001122.tgz",
-      "integrity": "sha512-pxjw28CThdrqfz06nJkpAc5SXM404TXB/h5f4UJX+rrXJKE/1bu/KAILc2AY+O6cQIFtRjV9qOR2vaEp9LDGUA==",
+      "version": "1.0.30001123",
+      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001123.tgz",
+      "integrity": "sha512-03dJDoa4YC4332jq0rqwiM+Hw6tA5RJtrnZKvOQy7ASoIUv8CinkcmGhYpCvCjedvkBQrrKnkcELxrUSW/XwNQ==",
       "dev": true
     },
     "case-sensitive-paths-webpack-plugin": {
@@ -7304,9 +7304,9 @@
       "dev": true
     },
     "electron-to-chromium": {
-      "version": "1.3.557",
-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.557.tgz",
-      "integrity": "sha512-M2p3nWulBqSEIisykYUVYnaSuRikHvxv8Wf209/Vg/sjrOew12hBQv2JvNGy+i+eDeJU9uQ3dbUbCCQ/CkudEg==",
+      "version": "1.3.560",
+      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.560.tgz",
+      "integrity": "sha512-0cEFfOA3sNXfSxo0FIClBhrLVSe/QO9LBiqmmYPm3N/IYyt41NRTa2EhvOMWAOKpjd91t/rq062yhnJzfVMKkQ==",
       "dev": true
     },
     "element-resize-detector": {
@@ -9667,9 +9667,9 @@
       "dev": true
     },
     "json-parse-even-better-errors": {
-      "version": "2.3.0",
-      "resolved": "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.0.tgz",
-      "integrity": "sha512-o3aP+RsWDJZayj1SbHNQAI8x0v3T3SKiGoZlNYfbUP1S3omJQ6i9CnqADqkSPaOAxwua4/1YWx5CM7oiChJt2Q==",
+      "version": "2.3.1",
+      "resolved": "https://registry.npmjs.org/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz",
+      "integrity": "sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==",
       "dev": true
     },
     "json-schema-traverse": {

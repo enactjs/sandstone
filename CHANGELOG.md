@@ -2,6 +2,16 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.2.1] - 2020-09-03
+
+### Changed
+
+- Primary background color to black
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 1.2.0 fix that render `Panel` contents within the usual render flow
+
 ## [1.2.0] - 2020-09-01
 
 ### Added

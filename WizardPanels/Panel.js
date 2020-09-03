@@ -1,6 +1,4 @@
-import EnactPropTypes from '@enact/core/internal/prop-types';
 import Slottable from '@enact/ui/Slottable';
-import PropTypes from 'prop-types';
 import React from 'react';
 
 import {WizardPanelsContext} from './WizardPanels';
@@ -29,6 +27,7 @@ function PanelBase ({
 		if (set) {
 			set({
 				'aria-label': ariaLabel,
+				children,
 				footer,
 				nextButton,
 				prevButton,
@@ -38,6 +37,7 @@ function PanelBase ({
 		}
 	}, [
 		ariaLabel,
+		children,
 		footer,
 		nextButton,
 		prevButton,
@@ -45,28 +45,8 @@ function PanelBase ({
 		set,
 		title
 	]);
-
-	return (
-		<div className="enact-fit">
-			{children}
-		</div>
-	);
+	return null;
 }
-
-PanelBase.propTypes = {
-	'aria-label': PropTypes.string,
-	footer: PropTypes.node,
-	nextButton: PropTypes.oneOfType([
-		PropTypes.bool,
-		EnactPropTypes.componentOverride
-	]),
-	prevButton: PropTypes.oneOfType([
-		PropTypes.bool,
-		EnactPropTypes.componentOverride
-	]),
-	subtitle: PropTypes.string,
-	title: PropTypes.string
-};
 
 /**
  * Panel that sets the children, footer, subtitle, and title for
