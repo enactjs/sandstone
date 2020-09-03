@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `onComplete` to handle enter key from the last picker
+
 ### Fixed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to focus next picker with enter key

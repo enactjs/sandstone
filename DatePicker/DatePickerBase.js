@@ -354,6 +354,15 @@ const DatePickerBase = kind({
 	}
 });
 
+/**
+ * Called when `Enter` key down on the last picker
+ *
+ * @name onComplete
+ * @memberof sandstone/DatePicker.DatePickerBase.prototype
+ * @type {Function}
+ * @public
+ */
+
 export default DatePickerBase;
 export {
 	DatePickerBase
