@@ -233,12 +233,12 @@ const WizardPanelsBase = kind({
 		prevButtonVisibility: PropTypes.oneOf(['auto', 'always', 'never']),
 
 		/**
-		 * Used to determine the transition direction.
+		 * Explicitly sets the ViewManager transition direction.
 		 *
 		 * @type {Boolean}
 		 * @private
 		 */
-		rtl: PropTypes.bool,
+		reverseTransition: PropTypes.bool,
 
 		/**
 		* The subtitle to display.
@@ -357,7 +357,7 @@ const WizardPanelsBase = kind({
 		onWillTransition,
 		prevButton,
 		prevButtonVisibility,
-		rtl,
+		reverseTransition,
 		steps,
 		subtitle,
 		title,
@@ -421,11 +421,10 @@ const WizardPanelsBase = kind({
 							<ViewManager
 								arranger={BasicArranger}
 								duration={400}
-								index={index}
 								onTransition={onTransition}
 								onWillTransition={onWillTransition}
 								noAnimation={noAnimation}
-								rtl={rtl}
+								reverseTransition={reverseTransition}
 							>
 								{children}
 							</ViewManager>
@@ -440,6 +439,21 @@ const WizardPanelsBase = kind({
 		);
 	}
 });
+
+// single-index ViewManagers need some help knowing when the transition direction needs to change
+// because the index is always 0 from its perspective.
+function useReverseTransition (index = -1, rtl) {
+	const [prevIndex, setPrevIndex] = React.useState(-1);
+	let [reverse, setReverse] = React.useState(rtl);
+
+	if (prevIndex !== index) {
+		reverse = rtl ? (index > prevIndex) : (index < prevIndex);
+		setReverse(reverse);
+		setPrevIndex(index);
+	}
+
+	return reverse;
+}
 
 /**
  * WizardPanelsRouter passes the children, footer, subtitle, and title from
@@ -460,12 +474,14 @@ const WizardPanelsRouter = (Wrapped) => {
 		onTransition,
 		onWillTransition,
 		title,
+		rtl,
 		...rest
 	}) => {
 		const [panel, setPanel] = React.useState(null);
 		const {ref: a11yRef, onWillTransition: a11yOnWillTransition} = useToggleRole();
 		const autoFocus = useAutoFocus({autoFocus: 'default-element', hideChildren: panel == null});
 		const ref = useChainRefs(autoFocus, a11yRef, componentRef);
+		const reverseTransition = useReverseTransition(index, rtl);
 		const {
 			onWillTransition: focusOnWillTransition,
 			...transition
@@ -483,6 +499,7 @@ const WizardPanelsRouter = (Wrapped) => {
 
 		return (
 			<WizardPanelsContext.Provider value={setPanel}>
+				{React.Children.toArray(children)[index]}
 				<Wrapped
 					{...rest}
 					{...panel}
@@ -494,8 +511,13 @@ const WizardPanelsRouter = (Wrapped) => {
 					onWillTransition={handleWillTransition}
 					title={currentTitle}
 					totalPanels={totalPanels}
+					reverseTransition={reverseTransition}
 				>
-					{children}
+					{panel && panel.children ? (
+						<div className="enact-fit" key={`panel${index}`}>
+							{panel.children}
+						</div>
+					) : null}
 				</Wrapped>
 			</WizardPanelsContext.Provider>
 		);
