@@ -59,7 +59,7 @@ const ItemContent = kind({
 
 		if (!label) {
 			return (
-				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
+				<Cell {...rest} data-webos-voice-intent="Select" component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
 					{content}
 				</Cell>
 			);
@@ -67,10 +67,10 @@ const ItemContent = kind({
 			return (
 				<Cell {...rest}>
 					<Layout orientation={orientation}>
-						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+						<Cell data-webos-voice-intent="Select" component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
 							{content}
 						</Cell>
-						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+						<Cell data-webos-voice-intent="Select" component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
 							{label}
 						</Cell>
 					</Layout>
@@ -227,7 +227,6 @@ const ItemBase = kind({
 
 		return (
 			<UiItemBase
-				data-webos-voice-intent="Select"
 				component={Row}
 				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
