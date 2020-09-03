@@ -227,6 +227,7 @@ const ItemBase = kind({
 
 		return (
 			<UiItemBase
+				data-webos-voice-intent="Select"
 				component={Row}
 				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
