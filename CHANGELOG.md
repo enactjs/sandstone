@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
+
 ## [1.2.1] - 2020-09-03
 
 ### Changed
