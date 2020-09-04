@@ -6,8 +6,8 @@ const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../Virtual
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
-const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
-const verticalscrollTrackSelector = '.useScroll_ScrollbarTrack_vertical';
+const verticalScrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+const verticalScrollTrackSelector = '.useScroll_ScrollbarTrack_vertical';
 const scrollContentSelector = '.useScroll_useScroll_scrollContent';
 const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
@@ -71,17 +71,17 @@ class VirtualListPage extends Page {
 
 	// scrollBar api
 	get scrollbar () {
-		return $(`${verticalscrollbarSelector}`);
+		return $(`${verticalScrollbarSelector}`);
 	}
 	getVerticalScrollbarRect () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			return document.querySelector(_verticalscrollbarSelector).getBoundingClientRect();
-		}, verticalscrollbarSelector);
+		return browser.execute(function (_verticalScrollbarSelector) {
+			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect();
+		}, verticalScrollbarSelector);
 	}
-	getVerticalScrollTrackRect () {
-		return browser.execute(function (_verticalscrollTrackSelector) {
-			return document.querySelector(_verticalscrollTrackSelector).getBoundingClientRect();
-		}, verticalscrollTrackSelector);
+	getVerticalScrollbarTrackRect () {
+		return browser.execute(function (_verticalScrollTrackSelector) {
+			return document.querySelector(_verticalScrollTrackSelector).getBoundingClientRect();
+		}, verticalScrollTrackSelector);
 	}
 
 	// scrollThumb api

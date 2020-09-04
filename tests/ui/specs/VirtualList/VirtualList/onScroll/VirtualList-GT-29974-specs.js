@@ -1,5 +1,5 @@
-const Page = require('../VirtualListPage'),
-	{waitUntilFocused} = require('../../VirtualList-utils');
+const Page = require('../VirtualListPage');
+const {waitUntilFocused} = require('../../VirtualList-utils');
 
 describe('navigate item', function () {
 	beforeEach(function () {

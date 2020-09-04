@@ -1,12 +1,12 @@
-const Page = require('../VirtualListPage'),
-	{waitUntilFocused, expectFocusedItem} = require('../../VirtualList-utils');
+const Page = require('../VirtualListPage');
+const {waitUntilFocused, expectFocusedItem} = require('../../VirtualList-utils');
 
 describe('navigate item', function () {
 	beforeEach(function () {
 		Page.open();
 	});
 
-	it('should spotlight on top/end item [GT-28478]', function () {
+	it('should spotlight on top/end item with channel up/down[GT-28478]', function () {
 		// UI Test's item default size is 100.
 		// Step 4-1: Position the pointer on an item.
 		Page.item(0).moveTo();

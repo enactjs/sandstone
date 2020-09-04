@@ -1,12 +1,12 @@
 const Page = require('../VirtualListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
-describe('Disalbed item', function () {
+describe('Disabled item', function () {
 	beforeEach(function () {
 		Page.open();
 	});
 
-	it('should Navigate Disabled and Enabled items with native Scrollmode [GT-29035]', function () {
+	it('should navigate disabled and enabled items with native scrollmode [GT-29035]', function () {
 		// Step 2: Toggle on DisabledItems.(DisabledItem Button for this test.)
 		Page.buttonDisabledItem.moveTo();
 		Page.spotlightSelect();
