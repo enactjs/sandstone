@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to focus next picker with enter key
+- `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
 
 ## [1.2.1] - 2020-09-03
 

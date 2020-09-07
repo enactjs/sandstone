@@ -175,18 +175,6 @@
 			&::before {
 				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
-
-			.incrementer,
-			.decrementer {
-				visibility: hidden;
-			}
-
-			.focus({
-				.incrementer,
-				.decrementer {
-					visibility: visible;
-				}
-			});
 		}
 	}
 
@@ -225,6 +213,11 @@
 			&.vertical {
 				&::before {
 					.sand-spotlight-resting-bg-colors();
+				}
+
+				.incrementer,
+				.decrementer {
+					color: @sand-picker-joined-incrementer-color;
 				}
 			}
 
