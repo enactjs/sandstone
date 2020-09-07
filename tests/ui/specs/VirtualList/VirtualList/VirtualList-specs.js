@@ -20,9 +20,8 @@ describe('VirtualList', function () {
 		});
 
 		it('should position Scrollbar Track on right side in LTR [GT-28562]', function () {
-			let ListwidthSize = Page.getScrollOffsetLeft() + Page.getScrollbarWidth();
 			// Verify Step 2.2: The Scrollbar track displays shortly right aligned.
-			expect(Page.getListwidthSize()).to.equal(ListwidthSize);
+			expect(Page.getListRect().right).to.equal(Page.getVerticalScrollbarRect().right);
 		});
 
 		it('should position Scroll thumb on top/bottom when reaching to the edge with 5-way and Channel Down [GT-28564]', function () {
