@@ -21,10 +21,11 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:      #575e66;
+@sand-bg-color:      @sand-black;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
+@sand-overlay-bg-color: #575e66;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 @sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
@@ -99,7 +100,7 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: @sand-bg-color;
+@sand-contextualpopup-bg-color: @sand-overlay-bg-color;
 @sand-contextualpopup-border-color: #bbb;
 @sand-contextualpopup-shadow: 0 24px 32px @sand-spotlight-shadow-color;
 
@@ -111,11 +112,13 @@
 // FixedPopupPanels
 // ---------------------------------------
 @sand-fixedpopuppanels-bg-color: @sand-popup-bg-color;
+@sand-fixedpopuppanels-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
 
 // FlexiblePopupPanels
 // ---------------------------------------
 @sand-flexiblepopuppanels-panel-bg-color: @sand-popup-bg-color;
+@sand-flexiblepopuppanels-panel-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
 
 // FormCheckboxItem
@@ -208,6 +211,7 @@
 @sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
 @sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
+@sand-picker-joined-incrementer-color: @sand-dark-gray;
 @sand-picker-joined-focus-disabled-text-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
@@ -216,11 +220,13 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: fade(@sand-bg-color, 90%);
+@sand-popup-bg-color: fade(@sand-overlay-bg-color, 90%);
+@sand-popup-scrimtransparent-bg-color: fade(@sand-overlay-bg-color, 95%);
 
 // PopupTabLayout
 // ---------------------------------------
 @sand-popuptablayout-bg-color: @sand-popup-bg-color;
+@sand-popuptablayout-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-popuptablayout-shadow: @sand-overlay-bg-shadow;
 
 // ProgressBar

@@ -6,8 +6,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Tooltip` arrow shape
-- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
+- `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
+
+## [1.2.1] - 2020-09-03
+
+### Changed
+
+- Primary background color to black
+
+### Fixed
+
+- `sandstone/WizardPanels` to revert 1.2.0 fix that render `Panel` contents within the usual render flow
+
+## [1.2.0] - 2020-09-01
 
 ### Added
 
@@ -15,7 +26,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Scroller` scrollbar thumb to prevent losing focus with 5-way directional keys when `focusableScrollbar` prop is `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar color and transparency
+
+### Fixed
+
+- `sandstone/FixedPopupPanels`, `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
+- `sandstone/Input` number pad layout in right-to-left locales for both overlay and fullscreen `Input`
+- `sandstone/PopupTabLayout` and `sandstone/TabLayout` to visibly change focus only once when focusing the tabs via 5-way
+- `sandstone/TabLayout` to properly change focus when changing `index` programmatically
+- `sandstone/Tooltip` arrow shape
+- `sandstone/WizardPanels` to render `Panel` contents within the usual render flow allowing more predictable use of lifecycle methods
 
 ## [1.1.4] - 2020-08-24
 

@@ -13,6 +13,13 @@ function getContainerNode (containerId) {
 	return document.querySelector(`[data-spotlight-id='${containerId}']`);
 }
 
+const getNavigableFilter = (spotlightId, collapsed) => (elem) => (
+	Spotlight.getPointerMode() || (
+		!elem.classList.contains(css.tab) &&
+		elem.dataset.spotlightId !== getTabsSpotlightId(spotlightId, collapsed)
+	)
+);
+
 const RefocusDecorator = Wrapped => {
 	// eslint-disable-next-line no-shadow
 	function RefocusDecorator ({collapsed, index, onTabAnimationEnd, orientation, spotlightId, ...rest}) {
@@ -29,11 +36,17 @@ const RefocusDecorator = Wrapped => {
 					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
 					containerNode = getContainerNode(tabsSpotlightId);
 
-				if (!current || containerNode.querySelector(`.${css.selected}`) !== current) {
+				if (!current || containerNode && containerNode.querySelector(`.${css.selected}`) !== current) {
 					Spotlight.focus(spotlightId);
 				}
 			}
 		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
+
+		React.useEffect(() => {
+			Spotlight.set(spotlightId, {
+				navigableFilter: collapsed && orientation === 'vertical' ? getNavigableFilter(spotlightId, collapsed) : null
+			});
+		}, [collapsed, orientation, spotlightId]);	// eslint-disable-line react-hooks/exhaustive-deps
 
 		const handleTabAnimationEnd = React.useCallback((ev) => {
 			if (onTabAnimationEnd) {
@@ -42,8 +55,9 @@ const RefocusDecorator = Wrapped => {
 
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
 				const tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
+				const containerNode = getContainerNode(tabsSpotlightId);
 
-				if (!getContainerNode(tabsSpotlightId).contains(Spotlight.getCurrent())) {
+				if (containerNode && !containerNode.contains(Spotlight.getCurrent())) {
 					Spotlight.focus(tabsSpotlightId);
 				}
 			}
@@ -75,6 +89,7 @@ const RefocusDecorator = Wrapped => {
 
 export default RefocusDecorator;
 export {
+	getNavigableFilter,
 	getTabsSpotlightId,
 	RefocusDecorator
 };

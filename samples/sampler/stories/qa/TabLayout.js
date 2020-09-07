@@ -1,16 +1,26 @@
+/* eslint-disable react/jsx-no-bind */
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
+import Item from '@enact/sandstone/Item';
 import {Panel, Header} from '@enact/sandstone/Panels';
 import {Scroller} from '@enact/sandstone/Scroller';
-import TabLayout from '@enact/sandstone/TabLayout';
+import TabLayout, {TabLayoutBase, Tab} from '@enact/sandstone/TabLayout';
 
 import icons from '../default/icons';
 
 TabLayout.displayName = 'TabLayout';
+const Config = mergeComponentMetadata('TabLayout', TabLayoutBase, TabLayout);
+
+const tabsWithIcons = [
+	{title: 'Home', icon: 'home'},
+	{title: 'Button', icon: 'gear'},
+	{title: 'Item', icon: 'trash'}
+];
 
 class AddingTabSample extends React.Component {
 	constructor (props) {
@@ -231,11 +241,50 @@ storiesOf('TabLayout', module)
 		}
 	).add(
 		'With adding/removing a tab',
+		() => (
+			<Panel>
+				<Header title="TabLayout" subtitle="With adding/removing a tab" />
+				<AddingTabSample />
+			</Panel>
+		),
+		{
+			props: {
+				noPanel: true
+			}
+		}
+	).add(
+		'With controlled index',
 		() => {
+			const [selected, setSelected] = React.useState(1);
+
 			return (
 				<Panel>
-					<Header title="TabLayout" subtitle="With adding/removing a tab" />
-					<AddingTabSample />
+					<Header title="Sandstone TabLayout" subtitle="Controlled Index" />
+					<TabLayout
+						index={selected}
+						onSelect={({index}) => setSelected(index)}
+						orientation={select('orientation', ['vertical', 'horizontal'], Config)}
+					>
+						<Tab
+							title={tabsWithIcons[0].title}
+							icon={tabsWithIcons[0].icon}
+						>
+							<Button icon="demosync" onClick={() => setSelected(1)}>Change to 2nd tab</Button>
+						</Tab>
+						<Tab
+							title={tabsWithIcons[1].title}
+							icon={tabsWithIcons[1].icon}
+						>
+							<Button icon="demosync" onClick={() => setSelected(2)}>Change to 3rd tab</Button>
+							<Button icon="demosync" onClick={() => setTimeout(() => setSelected(2), 2000)}>Delayed change to 3rd tab</Button>
+						</Tab>
+						<Tab
+							title={tabsWithIcons[2].title}
+							icon={tabsWithIcons[2].icon}
+						>
+							<Item onClick={() => setSelected(1)}>Change to 2nd tab</Item>
+						</Tab>
+					</TabLayout>
 				</Panel>
 			);
 		},

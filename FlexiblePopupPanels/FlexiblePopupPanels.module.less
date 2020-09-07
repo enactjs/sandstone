@@ -63,6 +63,27 @@
 	// Skin colors
 	.applySkins({
 		background-color: transparent;
+
+		.header,
+		.content {
+			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
+			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
+		}
+
+		&.scrimTranslucent {
+			.header,
+			.content {
+				background-color: @sand-flexiblepopuppanels-panel-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.header,
+			.content {
+				background-color: @sand-flexiblepopuppanels-panel-scrimtransparent-bg-color;
+			}
+		}
 	});
 }
 
@@ -169,15 +190,6 @@
 			.bodyLayout {
 				direction: rtl;
 			}
-		}
-	});
-
-	.applySkins({
-		.header,
-		.content {
-			background-color: @sand-flexiblepopuppanels-panel-bg-color;
-			border-radius: @sand-flexiblepopuppanels-panel-border-radius;
-			filter: drop-shadow(@sand-flexiblepopuppanels-panel-shadow);
 		}
 	});
 }
