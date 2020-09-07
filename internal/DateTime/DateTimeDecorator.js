@@ -216,7 +216,9 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 
 		handleEnter = (ev) => {
 			if (ev.target && ev.target.dataset.lastElement === 'true') {
-				forward('onComplete', {value: this.toIDate(this.state.value).getJSDate()}, this.props);
+				const value = this.state.value ? this.toIDate(this.state.value) : null;
+
+				forward('onComplete', {value: value ? value.getJSDate() : null}, this.props);
 			} else {
 				Spotlight.move(this.props.rtl ? 'left' : 'right');
 			}
