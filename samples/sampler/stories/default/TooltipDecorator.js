@@ -35,12 +35,7 @@ const prop = {
 	tooltipType: [
 		'balloon',
 		'transparent'
-	],
-	ariaObject: {
-		'aria-hidden': false,
-		'aria-label': 'Tooltip Label',
-		'role': 'alert'
-	}
+	]
 };
 
 storiesOf('Sandstone', module)
@@ -50,15 +45,14 @@ storiesOf('Sandstone', module)
 			<div style={{textAlign: 'center'}}>
 				<TooltipButton
 					disabled={boolean('disabled', Config)}
+					icon={select('icon', prop.icons, Config)}
 					tooltipDelay={number('tooltipDelay', Config, 500)}
 					tooltipMarquee={boolean('tooltipMarquee', Config)}
-					tooltipText={text('tooltipText', Config, 'tooltip!')}
-					tooltipType={select('tooltipType', prop.tooltipType, Config)}
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config)}
 					tooltipRelative={boolean('tooltipRelative', Config)}
+					tooltipText={text('tooltipText', Config, 'tooltip!')}
+					tooltipType={select('tooltipType', prop.tooltipType, Config)}
 					tooltipWidth={number('tooltipWidth', Config)}
-					tooltipProps={object('tooltipProps', Config, prop.ariaObject)}
-					icon={select('icon', prop.icons, Config)}
 				>
 					{text('children', Config, 'click me')}
 				</TooltipButton>
