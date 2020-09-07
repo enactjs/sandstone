@@ -7,7 +7,7 @@ const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 const verticalScrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
-const verticalScrollTrackSelector = '.useScroll_ScrollbarTrack_vertical';
+const verticalScrollbarTrackSelector = '.useScroll_ScrollbarTrack_vertical';
 const scrollContentSelector = '.useScroll_useScroll_scrollContent';
 const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
@@ -79,9 +79,9 @@ class VirtualListPage extends Page {
 		}, verticalScrollbarSelector);
 	}
 	getVerticalScrollbarTrackRect () {
-		return browser.execute(function (_verticalScrollTrackSelector) {
-			return document.querySelector(_verticalScrollTrackSelector).getBoundingClientRect();
-		}, verticalScrollTrackSelector);
+		return browser.execute(function (_verticalScrollbarTrackSelector) {
+			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect();
+		}, verticalScrollbarTrackSelector);
 	}
 
 	// scrollThumb api

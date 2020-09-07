@@ -1,7 +1,7 @@
 const Page = require('../VirtualListPage');
 const {waitUntilFocused, expectFocusedItem} = require('../../VirtualList-utils');
 
-describe('navigate item', function () {
+describe('Navigate Items with Channel Up/Down', function () {
 	beforeEach(function () {
 		Page.open();
 	});

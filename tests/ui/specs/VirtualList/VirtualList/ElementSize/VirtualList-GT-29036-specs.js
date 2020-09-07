@@ -1,6 +1,6 @@
 const Page = require('../VirtualListPage');
 
-describe('scrollbar padding size', function () {
+describe('Scrollbar Size', function () {
 	beforeEach(function () {
 		Page.open();
 	});
