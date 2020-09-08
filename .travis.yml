@@ -16,8 +16,6 @@ install:
     - rm -fr node_modules/@enact
     - npm install
     - enact link
-    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - apt install ./google-chrome-stable_current_amd64.deb
 script:
     - echo -e "\x1b\x5b35;1m*** Starting tests...\x1b\x5b0m"
     - npm test -- --runInBand --coverage
