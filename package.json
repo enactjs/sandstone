@@ -53,7 +53,7 @@
     "ilib": "^14.4.0 || ^14.6.0-webos"
   },
   "devDependencies": {
-    "@enact/ui-test-utils": "^0.5.3",
+    "@enact/ui-test-utils": "^0.5.0",
     "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
