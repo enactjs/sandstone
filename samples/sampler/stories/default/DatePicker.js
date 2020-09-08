@@ -22,6 +22,7 @@ storiesOf('Sandstone', module)
 				dayAriaLabel={text('dayAriaLabel', Config)}
 				yearAriaLabel={text('yearAriaLabel', Config)}
 				onChange={action('onChange')}
+				onComplete={action('onComplete')}
 			/>
 		),
 		{
