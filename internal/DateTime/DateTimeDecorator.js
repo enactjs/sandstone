@@ -5,7 +5,7 @@
  * @private
  */
 
-import handle, {call, forKey, forward} from '@enact/core/handle';
+import handle, {call, forKey, forProp, forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
@@ -227,6 +227,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 		handleKeyDown = handle(
 			forward('onKeyDown'),
 			forKey('enter'),
+			forProp('disabled', false),
 			call('handleEnter')
 		).bindAs(this, 'handleKeyDown');
 
