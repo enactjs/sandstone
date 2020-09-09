@@ -37,9 +37,7 @@ const prop = {
 		'transparent'
 	],
 	ariaObject: {
-		'aria-hidden': false,
-		'aria-label': 'Tooltip Label',
-		'role': 'alert'
+		'aria-hidden': true
 	}
 };
 
