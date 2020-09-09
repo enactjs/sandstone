@@ -371,11 +371,12 @@ const PickerBase = class extends React.Component {
 		 * The type of picker.
 		 *
 		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
-		 * the screen readers read out properly when Spotlight is on the next or previous button.
+		 * the screen readers read out differently when Spotlight is on the next button, the previous button,
+		 * or the picker itself.
 		 *
 		 * For example, if Spotlight is on the next button, the `joined` prop is false,
-		 * and `decrementAriaLabel` and `incrementAriaLabel` props are not defined,
-		 * then the the screen readers read out `'next item'` for `type` prop of `'string'` and
+		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
+		 * then the screen readers read out `'next item'` for `type` prop of `'string'` and
 		 * `'press ok button to increase the value'` for `type` prop of `'number'`.
 		 *
 		 * @type {('number'|'string')}
