@@ -796,7 +796,7 @@ const PickerBase = class extends React.Component {
 			return label;
 		}
 
-		return `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+		return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
 	}
 
 	calcDecrementLabel (valueText) {
