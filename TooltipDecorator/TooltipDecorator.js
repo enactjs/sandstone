@@ -463,6 +463,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (tooltipText) {
 				let renderedTooltip = (
 					<Tooltip
+						aria-hidden
 						labelOffset={this.state.labelOffset}
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
