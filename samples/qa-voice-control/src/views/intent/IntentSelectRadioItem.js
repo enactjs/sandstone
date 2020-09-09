@@ -24,7 +24,7 @@ class IntentSelectRadioItem extends React.Component {
 		return (
 			<CommonView title="Intent to select RadioItem">
 				<Heading>RadioItem</Heading>
-				<RadioItem>필터</RadioItem>
+				<RadioItem data-testid="apple">사과</RadioItem>
 				<Heading>RadioItem Group - radio selection</Heading>
 				<Group
 					childComponent={RadioItem}

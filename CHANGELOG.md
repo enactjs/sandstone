@@ -4,12 +4,17 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` prop `onComplete` to handle enter key from the last picker
+
 ### Changed
 
 - `sandstone/TooltipDecorator` not to read out audio guidance when showing
 
 ### Fixed
 
+- `sandstone/DatePicker` and `sandstone/TimePicker` to focus next picker with enter key
 - `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
 
 ## [1.2.1] - 2020-09-03

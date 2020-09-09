@@ -43,7 +43,7 @@ const views = [
 	{title: 'Horizontal Scroller', view: IntentHorizontalScroller},
 	{title: 'Scroller', view: IntentScroller},
 	{title: 'Select', view: IntentSelect},
-	{title: 'Dropdown', view: IntentSelectCheckboxItem},
+	{title: 'CheckboxItem', view: IntentSelectCheckboxItem},
 	{title: 'RadioItem', view: IntentSelectRadioItem},
 	{title: 'SwitchItem', view: IntentSetToggleItem},
 	{title: 'PlayContent', view: IntentPlayContent},
