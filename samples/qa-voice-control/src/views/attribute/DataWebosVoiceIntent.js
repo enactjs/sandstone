@@ -17,7 +17,6 @@ class DataWebosVoiceIntent extends React.Component {
 
 	updateResult = (msg) => () => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleVoice = (e) => {
@@ -30,11 +29,11 @@ class DataWebosVoiceIntent extends React.Component {
 		return (
 			<CommonView title="data-webos-voice-intent" subtitle={this.state.result}>
 				<Heading>default | Select</Heading>
-				<Button onClick={this.updateResult('안녕 is clicked')}>안녕</Button>
+				<Button onClick={this.updateResult('Selected > 안녕')}>안녕</Button>
 				<Heading>{'override | Select -> Select PlayContent Delete'}</Heading>
 				<VoiceButton
 					data-webos-voice-intent="Select PlayContent Delete"
-					onClick={this.updateResult('필터 is clicked')}
+					onClick={this.updateResult('Selected > 필터')}
 					onVoice={this.handleVoice}
 				>
 					필터
