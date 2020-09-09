@@ -25,7 +25,7 @@ class IntentSelectCheckboxItem extends React.Component {
 		return (
 			<CommonView title="Intent to select CheckboxItem">
 				<Heading>CheckboxItem</Heading>
-				<CheckboxItem>필터</CheckboxItem>
+				<CheckboxItem data-testid="orange">오렌지</CheckboxItem>
 				<Heading>CheckboxItem Group - multiple selection</Heading>
 				<Group
 					childComponent={CheckboxItem}
@@ -41,7 +41,7 @@ class IntentSelectCheckboxItem extends React.Component {
 					]}
 				</Group>
 				<Heading>FormCheckboxItem</Heading>
-				<FormCheckboxItem>토끼</FormCheckboxItem>
+				<FormCheckboxItem data-testid="rabbit">토끼</FormCheckboxItem>
 			</CommonView>
 		);
 	}

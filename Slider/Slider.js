@@ -88,6 +88,14 @@ const SliderBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Disables component and does not generate events.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
 		 * Indicates that the slider has gained focus and if the tooltip is present, it will be
 		 * shown.
 		 *
@@ -287,7 +295,7 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, focused, tooltip, ...rest}) => {
+	render: ({css, disabled, focused, tooltip, ...rest}) => {
 		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
@@ -297,7 +305,9 @@ const SliderBase = kind({
 		return (
 			<UiSlider
 				{...rest}
+				aria-disabled={disabled}
 				css={css}
+				disabled={disabled}
 				progressBarComponent={
 					<ProgressBar css={css} />
 				}
