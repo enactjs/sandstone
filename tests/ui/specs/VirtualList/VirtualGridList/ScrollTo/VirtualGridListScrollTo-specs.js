@@ -24,9 +24,9 @@ describe('scrollTo()', function () {
 		// Step 3: Click 'Click me' item.
 		browser.positionClick();
 		Page.delay(500);
-		// Step 3-3 Verify: list is scrolled to first item.
+		// Step 3-1 Verify: list is scrolled to first item.
 		expect(Page.topLeftVisibleItemId()).to.equal('item0');
-		// Step 3-4 Verify: There is no spotlight on any item.
+		// Step 3-2 Verify: There is no spotlight on any item.
 		expectNoFocusedItem();
 		// Step 4: Press 5-way Left.
 		// Step 4-1 Verify: Set to 5-way mode.
@@ -43,9 +43,9 @@ describe('scrollTo()', function () {
 		}
 		// Step 6: Press 5-way OK.
 		Page.spotlightSelect();
-		// Step 6-3 Verify: list is scrolled to first item.
+		// Step 6-1 Verify: list is scrolled to first item.
 		expect(Page.topLeftVisibleItemId()).to.equal('item0');
-		// Step 6-4 Verify: Spotlight on item0.
+		// Step 6-2 Verify: Spotlight on item0.
 		expectFocusedItem(0);
 	});
 });
