@@ -22,29 +22,31 @@ const
 const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
-	const setNavigableFilter = ({filterTarget, reset}) => {
-		if (spotlightId) {
-			if (filterTarget) {
-				const bodyFiltered = (filterTarget === 'body');
-				const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
-
-				Spotlight.set(spotlightId, {
-					navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
-					// Focus should not leave scrollbar with directional keys
-					restrict: bodyFiltered ? 'self-only' : 'self-first'
-				});
-
-				return true;
-			} else if (reset) {
-				// Reset the navigation filter and restrict option
-				Spotlight.set(spotlightId, {
-					navigableFilter: null,
-					restrict: 'self-first'
-				});
-			}
+	const setNavigableFilter = ({filterTarget}) => {
+		if (!spotlightId || filterTarget === 'none') {
+			return false;
 		}
 
-		return false;
+		if (filterTarget) {
+			const bodyFiltered = (filterTarget === 'body');
+			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
+
+			Spotlight.set(spotlightId, {
+				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
+				// Focus should not leave scrollbar with directional keys
+				restrict: bodyFiltered ? 'self-only' : 'self-first'
+			});
+
+			return true;
+		} else {
+			// Reset the navigation filter and restrict option
+			Spotlight.set(spotlightId, {
+				navigableFilter: null,
+				restrict: 'self-first'
+			});
+
+			return false;
+		}
 	};
 
 	const getNavigableFilterTarget = (ev) => {
@@ -52,7 +54,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		let filterTarget = null;
 
 		if (!isScrollbarVisible) {
-			return {reset: true};
+			return {filterTarget};
 		}
 
 		if (type === 'focus') {
@@ -64,7 +66,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
 				isEnter(keyCode) && !isBody(target) && 'thumb' ||
 				isCancel(keyCode) && !isBody(target) && 'thumb' ||
-				null;
+				'none';
 		}
 
 		return {
