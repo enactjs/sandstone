@@ -34,6 +34,12 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 			});
 
 			return true;
+		} else if (spotlightId) {
+			// Reset the navigation filter and restrict option
+			Spotlight.set(spotlightId, {
+				navigableFilter: null,
+				restrict: 'self-first'
+			});
 		}
 	};
 
@@ -41,13 +47,17 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		const {keyCode, target, type} = ev;
 		let filterTarget = null;
 
+		if (!isScrollbarVisible) {
+			return {};
+		}
+
 		if (type === 'focus') {
-			filterTarget = !isScrollbarVisible || isBody(target) ? 'thumb' : 'body';
+			filterTarget = isBody(target) ? 'thumb' : 'body';
 		} else if (type === 'blur') {
 			filterTarget = 'thumb';
 		} else if (type === 'keydown') {
 			filterTarget =
-				isScrollbarVisible && !Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
+				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
 				isEnter(keyCode) && !isBody(target) && 'thumb' ||
 				isCancel(keyCode) && !isBody(target) && 'thumb' ||
 				null;
