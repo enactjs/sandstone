@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` prop `onComplete` to handle enter key from the last picker
 
+### Changed
+
+- `sandstone/RangePicker` to read out properly when Spotlight is on the next or previous button
+
 ### Fixed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to focus next picker with enter key

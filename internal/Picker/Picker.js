@@ -368,6 +368,25 @@ const PickerBase = class extends React.Component {
 		step: PropTypes.number,
 
 		/**
+		 * The type of picker. It determines the aria-label for the next and previous buttons.
+		 *
+		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
+		 * the screen readers read out differently when Spotlight is on the next button, the previous button,
+		 * or the picker itself.
+		 *
+		 * For example, if Spotlight is on the next button, the `joined` prop is false,
+		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
+		 * then the screen readers read out as follows.
+		 *	`'string'` type: `'next item'`
+		 * 	`'number'` type: `'press ok button to increase the value'`
+		 *
+		 * @type {('number'|'string')}
+		 * @default 'string'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['number', 'string']),
+
+		/**
 		 * Index of the selected child
 		 *
 		 * @type {Number}
@@ -408,6 +427,7 @@ const PickerBase = class extends React.Component {
 		orientation: 'horizontal',
 		spotlightDisabled: false,
 		step: 1,
+		type: 'string',
 		value: 0
 	};
 
@@ -796,7 +816,11 @@ const PickerBase = class extends React.Component {
 			return label;
 		}
 
-		return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+		if (this.props.type === 'number') {
+			return `${valueText} ${next ? $L('press ok button to increase the value') : $L('press ok button to decrease the value')}`;
+		} else {
+			return `${valueText} ${next ? $L('next item') : $L('previous item')}`;
+		}
 	}
 
 	calcDecrementLabel (valueText) {
