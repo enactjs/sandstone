@@ -8,8 +8,7 @@ describe('scrollTo()', function () {
 
 	it('should focus after calling scrollTo() [GT-34044]', function () {
 		// wait for view open.
-		Page.delay(1000);
-		expectFocusedItem(0);
+		waitUntilFocused(0);
 		// Step 2-1: Press Page Down a few times until 'Click me' item  is visible.
 		Page.pageDown();
 		Page.delay(1000);
@@ -39,7 +38,7 @@ describe('scrollTo()', function () {
 			Page.spotlightDown();
 			waitUntilFocused(i * 4);
 			waitUntilVisible(i * 4);
-			Page.delay(200);
+			Page.delay(500);
 		}
 		// Step 6: Press 5-way OK.
 		Page.spotlightSelect();
