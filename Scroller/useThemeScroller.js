@@ -23,23 +23,25 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
-		if (spotlightId && filterTarget) {
-			const bodyFiltered = (filterTarget === 'body');
-			const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
+		if (spotlightId) {
+			if (filterTarget) {
+				const bodyFiltered = (filterTarget === 'body');
+				const targetClassName = bodyFiltered ? css.focusableBody : scrollbarTrackCss.thumb;
 
-			Spotlight.set(spotlightId, {
-				navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
-				// Focus should not leave scrollbar with directional keys
-				restrict: bodyFiltered ? 'self-only' : 'self-first'
-			});
+				Spotlight.set(spotlightId, {
+					navigableFilter: (elem) => (typeof elem === 'string' || !elem.classList.contains(targetClassName)),
+					// Focus should not leave scrollbar with directional keys
+					restrict: bodyFiltered ? 'self-only' : 'self-first'
+				});
 
-			return true;
-		} else if (spotlightId) {
-			// Reset the navigation filter and restrict option
-			Spotlight.set(spotlightId, {
-				navigableFilter: null,
-				restrict: 'self-first'
-			});
+				return true;
+			} else {
+				// Reset the navigation filter and restrict option
+				Spotlight.set(spotlightId, {
+					navigableFilter: null,
+					restrict: 'self-first'
+				});
+			}
 		}
 
 		return false;
