@@ -9,7 +9,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/DatePicker` and `sandstone/TimePicker` prop `onComplete` to handle enter key from the last picker
 
 ### Fixed
-
+- `sandstone/Scroller` not to restrict focus movement with 5-way directional keys when `focusableScrollbar` prop is `byEnter` and short contents
 - `sandstone/DatePicker` and `sandstone/TimePicker` to focus next picker with enter key
 - `sandstone/DatePicker` and `sandstone/TimePicker` to show arrows when normal
 
