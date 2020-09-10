@@ -11,6 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/RangePicker` to read out properly when Spotlight is on the next or previous button
+- `sandstone/TooltipDecorator` not to read out audio guidance when showing
 
 ### Fixed
 
