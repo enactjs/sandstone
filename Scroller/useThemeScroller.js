@@ -35,7 +35,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				});
 
 				return true;
-			} else if (filterTarget === undefined) { 			// eslint-disable-line no-undefined
+			} else if (filterTarget === undefined) { // eslint-disable-line no-undefined
 				// Reset the navigation filter and restrict option
 				Spotlight.set(spotlightId, {
 					navigableFilter: null,
