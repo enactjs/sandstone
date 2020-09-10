@@ -41,6 +41,8 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				restrict: 'self-first'
 			});
 		}
+
+		return false;
 	};
 
 	const getNavigableFilterTarget = (ev) => {
