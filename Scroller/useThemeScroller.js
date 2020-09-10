@@ -22,7 +22,7 @@ const
 const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible) => {
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
-	const setNavigableFilter = ({filterTarget}) => {
+	const setNavigableFilter = ({filterTarget, reset}) => {
 		if (spotlightId) {
 			if (filterTarget) {
 				const bodyFiltered = (filterTarget === 'body');
@@ -35,14 +35,13 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				});
 
 				return true;
-			} else if (filterTarget === undefined) { // eslint-disable-line no-undefined
+			} else if (reset) {
 				// Reset the navigation filter and restrict option
 				Spotlight.set(spotlightId, {
 					navigableFilter: null,
 					restrict: 'self-first'
 				});
 			}
-			// When filterTarget is null, keep the current filter
 		}
 
 		return false;
@@ -53,7 +52,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 		let filterTarget = null;
 
 		if (!isScrollbarVisible) {
-			return {};
+			return {reset: true};
 		}
 
 		if (type === 'focus') {
