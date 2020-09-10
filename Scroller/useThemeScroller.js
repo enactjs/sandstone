@@ -35,13 +35,12 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				});
 
 				return true;
-			} else if (filterTarget === undefined) {
-					// Reset the navigation filter and restrict option
-					Spotlight.set(spotlightId, {
-						navigableFilter: null,
-						restrict: 'self-first'
-					});
-				}
+			} else if (filterTarget === undefined) { 			// eslint-disable-line no-undefined
+				// Reset the navigation filter and restrict option
+				Spotlight.set(spotlightId, {
+					navigableFilter: null,
+					restrict: 'self-first'
+				});
 			}
 			// When filterTarget is null, keep the current filter
 		}
