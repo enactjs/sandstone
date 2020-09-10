@@ -368,7 +368,7 @@ const PickerBase = class extends React.Component {
 		step: PropTypes.number,
 
 		/**
-		 * The type of picker.
+		 * The type of picker. It determines the aria-label for the next and previous buttons.
 		 *
 		 * Depending on the `type`, `joined`, `decrementAriaLabel`, and `incrementAriaLabel`,
 		 * the screen readers read out differently when Spotlight is on the next button, the previous button,
@@ -377,7 +377,7 @@ const PickerBase = class extends React.Component {
 		 * For example, if Spotlight is on the next button, the `joined` prop is false,
 		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
 		 * then the screen readers read out as follows.
-		 *	`'string'` type:  `'next item'`
+		 *	`'string'` type: `'next item'`
 		 * 	`'number'` type: `'press ok button to increase the value'`
 		 *
 		 * @type {('number'|'string')}
