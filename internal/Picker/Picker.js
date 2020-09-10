@@ -376,8 +376,9 @@ const PickerBase = class extends React.Component {
 		 *
 		 * For example, if Spotlight is on the next button, the `joined` prop is false,
 		 * and aria label props(`decrementAriaLabel` and `incrementAriaLabel`) are not defined,
-		 * then the screen readers read out `'next item'` for `type` prop of `'string'` and
-		 * `'press ok button to increase the value'` for `type` prop of `'number'`.
+		 * then the screen readers read out as follows.
+		 *	`'string'` type:  `'next item'`
+		 * 	`'number'` type: `'press ok button to increase the value'`
 		 *
 		 * @type {('number'|'string')}
 		 * @default 'string'
