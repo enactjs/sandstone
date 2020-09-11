@@ -12,7 +12,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/RangePicker` to read out properly when Spotlight is on the next or previous button
 - `sandstone/TooltipDecorator` not to read out audio guidance when showing
-- `sandstone/WizardPanels` footer position lower
+- `sandstone/WizardPanels` footer to lower position
 
 ### Fixed
 
