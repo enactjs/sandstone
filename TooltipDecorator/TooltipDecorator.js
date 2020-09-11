@@ -463,17 +463,16 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (tooltipText) {
 				let renderedTooltip = (
 					<Tooltip
-						aria-live="off"
-						role="alert"
+						aria-hidden
 						labelOffset={this.state.labelOffset}
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
 						marquee={tooltipMarquee}
-						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
+						type={tooltipType}
 						width={tooltipWidth}
 					>
 						{tooltipText}

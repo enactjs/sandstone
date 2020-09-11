@@ -22,17 +22,14 @@ class IntentSelect extends React.Component {
 
 	updateResult = (msg) => {
 		this.setState({result: msg});
-		setTimeout(() => {
-			this.setState({result: ''});
-		}, 1500);
 	};
 
 	handleExpandableList = (ev) => {
-		this.updateResult('handleExpandableList > ' + this.petList[ev.selected]);
+		this.updateResult('Selected > ' + this.petList[ev.selected]);
 	};
 
 	handleExpandableItem = (value) => {
-		this.updateResult('handleExpandableItem > ' + value);
+		this.updateResult('Selected > ' + value);
 	};
 
 	render () {
