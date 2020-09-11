@@ -1,7 +1,7 @@
 const Page = require('../VirtualGridListPage');
 const {expectFocusedItem, waitUntilFocused, waitUntilVisible, expectNoFocusedItem} = require('../../VirtualList-utils');
 
-describe('scrollTo()', function () {
+describe('Focus after calling scrollTo()', function () {
 	beforeEach(function () {
 		Page.open('ScrollTo');
 	});

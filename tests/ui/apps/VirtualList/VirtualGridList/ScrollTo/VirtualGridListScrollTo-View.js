@@ -1,9 +1,9 @@
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-import {ImageItem} from '../../../../../../ImageItem/ImageItem';
+import {ImageItem} from '../../../../../../ImageItem';
 import {Panels, Panel} from '../../../../../../Panels';
-import ThemeDecorator from '../../../../../../ThemeDecorator/ThemeDecorator';
+import ThemeDecorator from '../../../../../../ThemeDecorator';
 import {VirtualGridList} from '../../../../../../VirtualList/VirtualList';
 
 class App extends React.Component {
@@ -27,9 +27,9 @@ class App extends React.Component {
 	renderItem = ({index, ...rest}) => {
 		return (
 			<ImageItem
-				onClick={this.handleClick}
 				{...rest}
 				id={`item${index}`}
+				onClick={this.handleClick}
 			>
 				{index === 20 ? 'Click Me' : `Item ${index}`}
 			</ImageItem>
@@ -58,7 +58,7 @@ class App extends React.Component {
 							minHeight: ri.scale(600)
 						}}
 						itemRenderer={this.renderItem}
-						style={{width: ri.scale(2400) + 'px	', height: ri.scale(1520) + 'px	'}}
+						style={{width: ri.scale(2400) + 'px', height: ri.scale(1520) + 'px'}}
 					/>
 				</Panel>
 			</Panels>
