@@ -23,7 +23,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 	const spotlightId = scrollContainerRef.current && scrollContainerRef.current.dataset.spotlightId;
 
 	const setNavigableFilter = ({filterTarget}) => {
-		if (!spotlightId || filterTarget === 'none') {
+		if (!spotlightId || filterTarget === 'preserve') {
 			return false;
 		}
 
@@ -66,7 +66,7 @@ const getFocusableBodyProps = (scrollContainerRef, contentId, isScrollbarVisible
 				!Spotlight.getPointerMode() && isEnter(keyCode) && isBody(target) && 'body' ||
 				isEnter(keyCode) && !isBody(target) && 'thumb' ||
 				isCancel(keyCode) && !isBody(target) && 'thumb' ||
-				'none';
+				'preserve';
 		}
 
 		return {
