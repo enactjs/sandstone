@@ -138,6 +138,19 @@ class VirtualGridListPage extends Page {
 			return _element.getBoundingClientRect().top;
 		}, this.item(id).value);
 	}
+
+	checkScrollbyPagekey (way) {
+		const initialThumbPosition = this.scrollThumbPosition();
+		if (way === 'down') {
+			this.pageDown();
+			this.delay(1000);
+			expect((this.scrollThumbPosition() > initialThumbPosition)).to.be.true();
+		} else {
+			this.pageUp();
+			this.delay(1000);
+			expect((initialThumbPosition > this.scrollThumbPosition())).to.be.true();
+		}
+	}
 }
 
 module.exports = new VirtualGridListPage();

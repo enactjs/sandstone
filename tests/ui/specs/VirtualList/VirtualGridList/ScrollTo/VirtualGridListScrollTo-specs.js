@@ -10,12 +10,9 @@ describe('Focus after calling scrollTo()', function () {
 		// wait for view open.
 		waitUntilFocused(0);
 		// Step 2-1: Press Page Down a few times until 'Click me' item  is visible.
-		Page.pageDown();
-		Page.delay(1000);
-		Page.pageDown();
-		Page.delay(1000);
-		Page.pageDown();
-		Page.delay(1000);
+		Page.checkScrollbyPagekey('down');
+		Page.checkScrollbyPagekey('down');
+		Page.checkScrollbyPagekey('down');
 		// Step 2-2: Set to pointer mode.
 		// Step 2-3: Hover the 'Click me' item.
 		Page.showPointerByKeycode();

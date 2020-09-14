@@ -1,8 +1,8 @@
+import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import {ImageItem} from '../../../../../../ImageItem';
-import {Panels, Panel} from '../../../../../../Panels';
 import ThemeDecorator from '../../../../../../ThemeDecorator';
 import {VirtualGridList} from '../../../../../../VirtualList/VirtualList';
 
@@ -10,15 +10,15 @@ class App extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			size: 50
+			dataSize: 50
 		};
 	}
 
 	componentDidUpdate () {
-		if (this.state.size === 0) {
+		if (this.state.dataSize === 0) {
 			// Intend to receive data asynchronously.
 			setTimeout(() => {
-				this.setState({size: 50});
+				this.setState({dataSize: 50});
 				this.scrollTo({index: 0, focus: true, animate: false});
 			}, 10);
 		}
@@ -38,7 +38,7 @@ class App extends React.Component {
 
 	handleClick = (ev) => {
 		if (ev.currentTarget.dataset.index === '20') {
-			this.setState({size: 0});
+			this.setState({dataSize: 0});
 		}
 	};
 
@@ -48,11 +48,11 @@ class App extends React.Component {
 
 	render () {
 		return (
-			<Panels {...this.props} >
-				<Panel>
+			<Column {...this.props} >
+				<Cell>
 					<VirtualGridList
 						cbScrollTo={this.cbScrollTo}
-						dataSize={this.state.size}
+						dataSize={this.state.dataSize}
 						itemSize={{
 							minWidth: ri.scale(600),
 							minHeight: ri.scale(600)
@@ -60,8 +60,8 @@ class App extends React.Component {
 						itemRenderer={this.renderItem}
 						style={{width: ri.scale(2400) + 'px', height: ri.scale(1520) + 'px'}}
 					/>
-				</Panel>
-			</Panels>
+				</Cell>
+			</Column>
 		);
 	}
 }
