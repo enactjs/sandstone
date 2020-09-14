@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Icon` and `sandstone/Switch` size to be same with default mode in large text mode
+
 ## [1.3.0] - 2020-09-14
 
 ### Added
