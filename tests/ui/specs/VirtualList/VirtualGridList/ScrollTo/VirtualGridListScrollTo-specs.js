@@ -35,8 +35,8 @@ describe('Focus after calling scrollTo()', function () {
 			Page.spotlightDown();
 			waitUntilFocused(i * 4);
 			waitUntilVisible(i * 4);
-			Page.delay(500);
 		}
+		Page.delay(500);
 		// Step 6: Press 5-way OK.
 		Page.spotlightSelect();
 		// Step 6-1 Verify: list is scrolled to first item.

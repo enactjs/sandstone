@@ -1,10 +1,10 @@
-import {Column, Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import {ImageItem} from '../../../../../../ImageItem';
+import {Panels, Panel} from '../../../../../../Panels';
 import ThemeDecorator from '../../../../../../ThemeDecorator';
-import {VirtualGridList} from '../../../../../../VirtualList/VirtualList';
+import {VirtualGridList} from '../../../../../../VirtualList';
 
 class App extends React.Component {
 	constructor (props) {
@@ -48,8 +48,8 @@ class App extends React.Component {
 
 	render () {
 		return (
-			<Column {...this.props} >
-				<Cell>
+			<Panels {...this.props} >
+				<Panel>
 					<VirtualGridList
 						cbScrollTo={this.cbScrollTo}
 						dataSize={this.state.dataSize}
@@ -60,8 +60,8 @@ class App extends React.Component {
 						itemRenderer={this.renderItem}
 						style={{width: ri.scale(2400) + 'px', height: ri.scale(1520) + 'px'}}
 					/>
-				</Cell>
-			</Column>
+				</Panel>
+			</Panels>
 		);
 	}
 }
