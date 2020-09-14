@@ -45,9 +45,17 @@
 	}
 
 	&.overlay {
+		.alertImage {
+			margin: @sand-alert-overlay-image-margin;
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
-			margin: 0;
+			margin: @sand-alert-overlay-buttons-margin;
+			.margin-start-end(
+				.extract(@sand-alert-overlay-buttons-margin, left)[],
+				.extract(@sand-alert-overlay-buttons-margin, right)[]
+			);
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
@@ -58,13 +66,19 @@
 		.content {
 			.sand-alert-overlay-content();
 			width: @sand-alert-overlay-content-width;
-			.margin-start-end(@sand-alert-overlay-content-margin-left, @sand-alert-overlay-content-margin-right);
+			.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-alert-overlay-text-button-gap);
 			margin-bottom: 0;
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
 				overflow-wrap: normal;
 				word-break: normal;
+			}
+		}
+
+		&.noImage {
+			.content {
+				.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-alert-overlay-text-button-gap);
 			}
 		}
 	}

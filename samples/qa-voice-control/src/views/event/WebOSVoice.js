@@ -18,11 +18,10 @@ class Sample extends React.Component {
 
 	showResult = (msg) => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleClick = () => {
-		this.showResult('handleClick> hello');
+		this.showResult('handleClick > Hello');
 	};
 
 	handleVoice = (e) => {
@@ -35,7 +34,7 @@ class Sample extends React.Component {
 		return (
 			<CommonView title="webOSVoice" subtitle={this.state.result}>
 				<Heading>Customized Intent | Select PlayContent Delete</Heading>
-				<VoiceButton data-webos-voice-intent="Select PlayContent Delete" onVoice={this.handleVoice} onClick={this.handleClick}>hello</VoiceButton>
+				<VoiceButton data-webos-voice-intent="Select PlayContent Delete" onVoice={this.handleVoice} onClick={this.handleClick}>Hello</VoiceButton>
 			</CommonView>
 		);
 	}

@@ -1,5 +1,6 @@
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
+import {scaleToRem} from '@enact/ui/resolution';
 import Repeater from '@enact/ui/Repeater';
 import React from 'react';
 
@@ -34,6 +35,7 @@ class IntentScroller extends React.Component {
 					cbScrollTo={this.cbScrollTo}
 					data-webos-voice-focused
 					focusableScrollbar
+					style={{height: scaleToRem(1200)}}
 				>
 					<Repeater
 						childComponent={CustomItem}

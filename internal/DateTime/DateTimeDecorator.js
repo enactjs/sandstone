@@ -9,11 +9,11 @@ import handle, {call, forKey, forProp, forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 
 /*
  * Converts a JavaScript Date to unix time
@@ -69,12 +69,28 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			onChange: PropTypes.func,
 
 			/**
+			 * Handler for `onComplete` event
+			 *
+			 * @type {Function}
+			 * @public
+			 */
+			onComplete: PropTypes.func,
+
+			/**
 			 * When `true`, the date picker is expanded to select a new date.
 			 *
 			 * @type {Boolean}
 			 * @public
 			 */
 			open: PropTypes.bool,
+
+			/**
+			 * Indicates the content's text direction is right-to-left.
+			 *
+			 * @type {Boolean}
+			 * @private
+			 */
+			rtl: PropTypes.bool,
 
 			/**
 			 * The selected date
@@ -198,11 +214,21 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			}
 		};
 
+		handleEnter = (ev) => {
+			if (ev.target && ev.target.dataset.lastElement === 'true') {
+				const value = this.state.value ? this.toIDate(this.state.value) : null;
+
+				forward('onComplete', {value: value ? value.getJSDate() : null}, this.props);
+			} else {
+				Spotlight.move(this.props.rtl ? 'left' : 'right');
+			}
+		};
+
 		handleKeyDown = handle(
 			forward('onKeyDown'),
-			forProp('open', true),
-			forKey('cancel'),
-			call('handleCancel')
+			forKey('enter'),
+			forProp('disabled', false),
+			call('handleEnter')
 		).bindAs(this, 'handleKeyDown');
 
 		render () {
@@ -224,9 +250,12 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 				order = i18nConfig.order;
 			}
 
+			const rest = Object.assign({}, this.props);
+			delete rest.onComplete;
+
 			return (
 				<Wrapped
-					{...this.props}
+					{...rest}
 					{...props}
 					{...this.handlers}
 					label={label}

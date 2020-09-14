@@ -20,6 +20,7 @@ storiesOf('Sandstone', module)
 				minuteAriaLabel={text('minuteAriaLabel', Config, '')}
 				meridiemAriaLabel={text('meridiemAriaLabel', Config, '')}
 				onChange={action('onChange')}
+				onComplete={action('onComplete')}
 			/>
 		),
 		{

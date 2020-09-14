@@ -1,12 +1,12 @@
 const Page = require('../VirtualListPage');
 const {expectFocusedItem} = require('../../VirtualList-utils');
 
-describe('VirtualList Samples', function () {
+describe('Disabled item', function () {
 	beforeEach(function () {
 		Page.open();
 	});
 
-	it('should Navigate Disabled and Enabled items [GT-29029]', function () {
+	it('should navigate disabled and enabled items [GT-29029]', function () {
 		// Step 2: Uncheck the "Native Scrolling" Checkbox item.
 		// Set translate ScrollMode.
 		Page.buttonNativeScroll.moveTo();

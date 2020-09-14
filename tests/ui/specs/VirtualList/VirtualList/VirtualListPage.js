@@ -6,7 +6,8 @@ const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../Virtual
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
-const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+const verticalScrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
+const verticalScrollbarTrackSelector = '.useScroll_ScrollbarTrack_vertical';
 const scrollContentSelector = '.useScroll_useScroll_scrollContent';
 const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
@@ -70,22 +71,17 @@ class VirtualListPage extends Page {
 
 	// scrollBar api
 	get scrollbar () {
-		return $(`${verticalscrollbarSelector}`);
+		return $(`${verticalScrollbarSelector}`);
 	}
-	get scrollBarSize () {
-		return $(`${verticalscrollbarSelector}`).getElementSize();
+	getVerticalScrollbarRect () {
+		return browser.execute(function (_verticalScrollbarSelector) {
+			return document.querySelector(_verticalScrollbarSelector).getBoundingClientRect();
+		}, verticalScrollbarSelector);
 	}
-	getScrollOffsetLeft () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.offsetLeft;
-		}, verticalscrollbarSelector);
-	}
-	getScrollbarWidth () {
-		return browser.execute(function (_verticalscrollbarSelector) {
-			const verticalscrollbar = document.querySelector(_verticalscrollbarSelector);
-			return verticalscrollbar.clientWidth;
-		}, verticalscrollbarSelector);
+	getVerticalScrollbarTrackRect () {
+		return browser.execute(function (_verticalScrollbarTrackSelector) {
+			return document.querySelector(_verticalScrollbarTrackSelector).getBoundingClientRect();
+		}, verticalScrollbarTrackSelector);
 	}
 
 	// scrollThumb api
@@ -104,13 +100,9 @@ class VirtualListPage extends Page {
 	get list () {
 		return element('#list', browser);
 	}
-	get listSize () {
-		return $(`${scrollableSelector}`).getElementSize();
-	}
-	getListwidthSize () {
+	getListRect () {
 		return browser.execute(function (_scrollContentSelector) {
-			const scrollcontent = document.querySelector(_scrollContentSelector);
-			return scrollcontent.clientWidth;
+			return document.querySelector(_scrollContentSelector).getBoundingClientRect();
 		}, scrollContentSelector);
 	}
 

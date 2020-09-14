@@ -17,7 +17,6 @@ class DataWebosVoiceDisabled extends React.Component {
 
 	updateResult = (msg) => () => {
 		this.setState({result: msg});
-		setTimeout(() => (this.setState({result: ''})), 1500);
 	};
 
 	handleVoice = (e) => {
@@ -30,18 +29,18 @@ class DataWebosVoiceDisabled extends React.Component {
 		return (
 			<CommonView title="data-webos-voice-disabled" subtitle={this.state.result}>
 				<Heading>Default</Heading>
-				<Button onClick={this.updateResult('사진 is clicked')}>사진</Button>
+				<Button onClick={this.updateResult('Selected > 사진')}>사진</Button>
 				<Heading>data-webos-voice-disabled</Heading>
 				<VoiceButton
 					data-webos-voice-disabled
 					data-webos-voice-intent="Select Delete"
-					onClick={this.updateResult('사과 is clicked')}
+					onClick={this.updateResult('Selected > 사과')}
 					onVoice={this.handleVoice}
 				>
 					사과
 				</VoiceButton>
 				<Heading>Disabled Button</Heading>
-				<Button disabled onClick={this.updateResult('필터 is clicked')}>필터</Button>
+				<Button disabled onClick={this.updateResult('Selected > 필터')}>필터</Button>
 			</CommonView>
 		);
 	}
