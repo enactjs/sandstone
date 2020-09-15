@@ -7,6 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Icon` supported icon list, adding a new icon
+- `sandstone/Scroller` focused body color when `focusableScrollbar` prop is `byEnter`
+
+### Fixed
+
+- `sandstone/Alert` to change background color for fullscreen type
+- `sandstone/TabLayout` to not handle key events from other popup components
 
 ## [1.3.0] - 2020-09-14
 
