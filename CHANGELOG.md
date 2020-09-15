@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Scroller` focused body color when `focusableScrollbar` prop is `byEnter`
+
 ### Fixed
 
 - `sandstone/Alert` to change background color for fullscreen type
