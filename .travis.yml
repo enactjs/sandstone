@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-    - "10"
+    - "12"
 sudo: false
 cache: npm
 install:
@@ -22,5 +22,7 @@ script:
     - codecov
     - echo -e "\x1b\x5b35;1m*** Tests complete\x1b\x5b0m"
     - echo -e "\x1b\x5b35;1m*** Starting eslint...\x1b\x5b0m"
+    - npm run lint --strict
     - npm run lint -- -- --max-warnings 0 .
     - echo -e "\x1b\x5b35;1m*** eslint complete\x1b\x5b0m"
+    - npm run test-ui
