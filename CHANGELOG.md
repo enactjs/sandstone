@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` focus color when `focusableScrollbar` prop is `byEnter`
+
 ## [1.3.0] - 2020-09-14
 
 ### Added
