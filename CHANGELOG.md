@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Icon` and `sandstone/Switch` size not to enlarge when large text mode
 - `sandstone/Icon` supported icon list, adding a new icon
 - `sandstone/Scroller` focused body color when `focusableScrollbar` prop is `byEnter`
 
