@@ -2,17 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.3.1] - 2020-09-17
 
 ### Changed
 
-- `sandstone/Icon` and `sandstone/Switch` size not to enlarge when large text mode
+- `sandstone/Alert` background color for fullscreen type
 - `sandstone/Icon` supported icon list, adding a new icon
+- `sandstone/Icon` and `sandstone/Switch` size to not enlarge when large text mode
 - `sandstone/Scroller` focused body color when `focusableScrollbar` prop is `byEnter`
 
 ### Fixed
 
-- `sandstone/Alert` to change background color for fullscreen type
 - `sandstone/TabLayout` to not handle key events from other popup components
 
 ## [1.3.0] - 2020-09-14
