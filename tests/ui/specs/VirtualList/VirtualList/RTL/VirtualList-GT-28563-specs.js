@@ -2,7 +2,7 @@ const Page = require('../VirtualListPage');
 
 describe('RTL locale', function () {
 	beforeEach(function () {
-		Page.open('?locale=ar-SA');
+		Page.open('', '?locale=ar-SA');
 	});
 
 	it('should position Scrollbar Track on left side in RTL [GT-28563]', function () {
