@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/WizardPanels` to not pass aria props to the component for the `nextButton` or the `prevButton` props
+- `sandstone/WizardPanels` to read out the content of customized `nextButton` and `prevButton`
 
 ## [1.3.1] - 2020-09-17
 
