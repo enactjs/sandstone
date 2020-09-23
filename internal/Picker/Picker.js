@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import {forward, stopImmediate} from '@enact/core/handle';
+import {forward, stop, stopImmediate} from '@enact/core/handle';
 import {is} from '@enact/core/keymap';
 import platform from '@enact/core/platform';
 import {cap, clamp, Job, mergeClassNameMaps} from '@enact/core/util';
@@ -716,6 +716,8 @@ const PickerBase = class extends React.Component {
 				)
 			) {
 				ev.preventDefault();
+				// prevent parent handler behavior
+				stop(ev);
 				// prevent default spotlight behavior
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown
@@ -742,6 +744,8 @@ const PickerBase = class extends React.Component {
 				)
 			) {
 				ev.preventDefault();
+				// prevent parent handler behavior
+				stop(ev);
 				// prevent default spotlight behavior
 				stopImmediate(ev);
 				// set the pointer mode to false on keydown

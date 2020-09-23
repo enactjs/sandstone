@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Picker` to not propagate keydown events on increase or decrease button
+
 ## [1.3.1] - 2020-09-17
 
 ### Changed
