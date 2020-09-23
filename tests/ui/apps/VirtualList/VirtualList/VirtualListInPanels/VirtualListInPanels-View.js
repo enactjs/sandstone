@@ -17,10 +17,10 @@ const OptionsContainer = SpotlightContainerDecorator({leaveFor: {down: '#left'}}
 // runs the same way
 spotlight.setPointerMode(false);
 
-const items = [],
-	itemSize = 156,
-	listSize = itemSize * 9,
-	itemStyle = {margin: 0};
+const items = [];
+const itemSize = 156;
+const listSize = itemSize * 9;
+const itemStyle = {margin: 0};
 
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = (size, onClick) => ({index, ...rest}) => {
@@ -33,9 +33,8 @@ const renderItem = (size, onClick) => ({index, ...rest}) => {
 };
 
 const updateDataSize = (dataSize) => {
-	const
-		itemNumberDigits = dataSize > 0 ? ((dataSize - 1) + '').length : 0,
-		headingZeros = Array(itemNumberDigits).join('0');
+	const itemNumberDigits = dataSize > 0 ? ((dataSize - 1) + '').length : 0;
+	const headingZeros = Array(itemNumberDigits).join('0');
 
 	items.length = 0;
 
@@ -66,8 +65,8 @@ class app extends React.Component {
 	};
 
 	render () {
-		const {index, numItems} = this.state,
-			inputStyle = {width: ri.scaleToRem(300)};
+		const {index, numItems} = this.state;
+		const inputStyle = {width: ri.scaleToRem(300)};
 		return (
 			<div {...this.props}>
 				<Column>

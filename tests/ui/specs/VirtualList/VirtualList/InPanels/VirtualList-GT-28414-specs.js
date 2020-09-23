@@ -12,6 +12,7 @@ describe('VirtualList in Panels', function () {
 		Page.spotlightSelect();
 		Page.backSpace();
 		Page.backSpace();
+		Page.backKey();
 		// Step3-2: 5-way Spot Item 0.
 		Page.spotlightDown();
 		expectFocusedItem(0);
