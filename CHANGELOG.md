@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/WizardPanels` to read out the content of customized `nextButton` and `prevButton`
+
 ### Fixed
 
 - `sandstone/Picker` to move focus increase or decrease button properly via 5-way

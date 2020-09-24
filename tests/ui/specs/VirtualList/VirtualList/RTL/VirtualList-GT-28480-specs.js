@@ -2,7 +2,7 @@ const Page = require('../VirtualListPage');
 
 describe('RTL locale', function () {
 	beforeEach(function () {
-		Page.open('?locale=ar-SA');
+		Page.open('', '?locale=ar-SA');
 	});
 
 	it('should position Scrollbar Track on left side in RTL [GT-28480]', function () {
@@ -13,7 +13,7 @@ describe('RTL locale', function () {
 
 describe('Verify locale Change', function () {
 	beforeEach(function () {
-		Page.open('?locale=ur-PK');
+		Page.open('', '?locale=ur-PK');
 	});
 
 	// Since 'ar-sA' and 'en-US' have tests to check on the other side, this test only check 'ur-PK'.
