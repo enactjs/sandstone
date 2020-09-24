@@ -85,19 +85,21 @@ class PickerInPopupTabLayout extends React.Component {
 										<Button>hello</Button>
 									</slotAfter>
 								</Header>
-								<Picker
-									onChange={action('onChange')}
-									width={select('width', prop.width, Picker, 'large')}
-									orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
-									wrap={boolean('wrap', Picker)}
-									joined={boolean('joined', Picker)}
-									noAnimation={boolean('noAnimation', Picker)}
-									disabled={boolean('disabled', Picker)}
-									incrementIcon={select('incrementIcon', iconNames, Picker)}
-									decrementIcon={select('decrementIcon', iconNames, Picker)}
-								>
-									{pickerList.vegetables}
-								</Picker>
+								<div>
+									<Picker
+										onChange={action('onChange')}
+										width={select('width', prop.width, Picker, 'small')}
+										orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
+										wrap={boolean('wrap', Picker)}
+										joined={boolean('joined', Picker)}
+										noAnimation={boolean('noAnimation', Picker)}
+										disabled={boolean('disabled', Picker)}
+										incrementIcon={select('incrementIcon', iconNames, Picker)}
+										decrementIcon={select('decrementIcon', iconNames, Picker)}
+									>
+										{pickerList.vegetables}
+									</Picker>
+								</div>
 							</TabPanel>
 						</TabPanels>
 					</Tab>
