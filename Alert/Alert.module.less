@@ -24,6 +24,13 @@
 			max-height: 60%; // Set a reasonable cutoff for a maximum bound
 		}
 
+		&.noTitle {
+			.content {
+				.sand-font-size(@sand-alert-notitle-content-font-size, @sand-tallglyph-alert-notitle-content-font-size);
+				.enact-locale-line-height();
+			}
+		}
+
 		&.maxButtons {
 			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;

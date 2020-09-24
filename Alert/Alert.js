@@ -168,10 +168,11 @@ const AlertBase = kind({
 				return (type === 'fullscreen' ? CenteredBodyText : BodyText);
 			}
 		},
-		className: ({buttons, image, type, styler}) => styler.append(
+		className: ({buttons, image, title, type, styler}) => styler.append(
 			{
 				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
-				noImage: !image
+				noImage: !image,
+				noTitle: (type === 'fullscreen') && !title
 			},
 			type
 		),
