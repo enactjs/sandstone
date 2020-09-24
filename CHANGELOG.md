@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
 - `sandstone/Picker` to move focus increase or decrease button properly via 5-way
 
 ## [1.3.1] - 2020-09-17
