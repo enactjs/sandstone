@@ -7,7 +7,7 @@ import {PanelsStateContext} from '../internal/Panels';
 import {ContextAsDefaults} from '../internal/Panels/util';
 import DefaultHeader from '../Panels/Header';
 
-import componentCss from './FlexiblePopupPanels.module.less';
+import css from './FlexiblePopupPanels.module.less';
 
 /**
  * A header component for `FlexiblePopupPanels.Panel` with a `title` and `subtitle`, supporting several configurable
@@ -44,15 +44,6 @@ const HeaderBase = kind({
 		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
-		 * Customizes the component by mapping the supplied collection of CSS class names to the
-		 * corresponding internal elements and states of this component.
-		 *
-		 * @type {Object}
-		 * @public
-		 */
-		css: PropTypes.object,
-
-		/**
 		 * Omits the close button.
 		 *
 		 * @type {Boolean}
@@ -71,7 +62,7 @@ const HeaderBase = kind({
 	},
 
 	styles: {
-		css: componentCss,
+		css,
 		className: 'header'
 	},
 
@@ -83,11 +74,10 @@ const HeaderBase = kind({
 		onBack: ({onClose}) => onClose
 	},
 
-	render: ({css, ...rest}) => (
+	render: (props) => (
 		<DefaultHeader
-			css={css}
 			type="mini"
-			{...rest}
+			{...props}
 			noCloseButton
 		/>
 	)

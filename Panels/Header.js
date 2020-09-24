@@ -525,7 +525,6 @@ const HeaderBase = kind({
 					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
-					css={css}
 					icon="arrowhookleft"
 					iconFlip="auto"
 					onClick={onBack}
