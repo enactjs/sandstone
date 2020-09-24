@@ -158,6 +158,7 @@ const HeaderBase = kind({
 		 * The following classes are supported:
 		 *
 		 * * `header` - The root class name
+		 * * `back` - The back button class name
 		 *
 		 * @type {Object}
 		 * @public
@@ -394,7 +395,7 @@ const HeaderBase = kind({
 	styles: {
 		css: componentCss,
 		className: 'header',
-		publicClassNames: ['header']
+		publicClassNames: ['header', 'back']
 	},
 
 	handlers: {
@@ -524,6 +525,7 @@ const HeaderBase = kind({
 					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
+					css={css}
 					icon="arrowhookleft"
 					iconFlip="auto"
 					onClick={onBack}
