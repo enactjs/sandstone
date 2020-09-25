@@ -2,6 +2,17 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [1.3.2] - 2020-09-25
+
+### Changed
+
+- `sandstone/WizardPanels` to read out the content of customized `nextButton` and `prevButton`
+
+### Fixed
+
+- `sandstone/FlexiblePopupPanels` and `sandstone/PopupTabLayout` to match latest designs
+- `sandstone/Picker` to move focus on increase or decrease button properly via 5-way
+
 ## [1.3.1] - 2020-09-17
 
 ### Changed

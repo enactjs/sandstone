@@ -19,6 +19,7 @@ spotlight.setPointerMode(false);
 
 const items = [];
 
+// eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => {
 	const {source, subText, text} = items[index];
 	return (

@@ -28,6 +28,13 @@
 
 		.back {
 			margin-inline-start: 0;
+
+			.sand-custom-text({
+				.sand-small-button-text();
+				height: @sand-button-small-height;
+				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
+				min-width: @sand-button-small-height;
+			});
 		}
 
 		.close {

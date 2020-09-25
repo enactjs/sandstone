@@ -3,13 +3,13 @@ const {element, Page} = require('@enact/ui-test-utils/utils');
 
 const {focusedElement, waitUntilFocused, waitUntilVisible} = require('../VirtualList-utils');
 
+const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 const scrollableSelector = '.enact_ui_useScroll_useScroll_scroll';
 const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
+const scrollContentSelector = '.useScroll_useScroll_scrollContent';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
 const verticalScrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
 const verticalScrollbarTrackSelector = '.useScroll_ScrollbarTrack_vertical';
-const scrollContentSelector = '.useScroll_useScroll_scrollContent';
-const listItemSelector = '.enact_ui_VirtualList_VirtualList_listItem';
 
 class VirtualListPage extends Page {
 
@@ -19,8 +19,8 @@ class VirtualListPage extends Page {
 
 	}
 
-	open (urlExtra) {
-		super.open('VirtualList-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`VirtualList${layout}-View`, urlExtra);
 	}
 
 	// button api

@@ -24,6 +24,7 @@ class WizardPanelsView extends React.Component {
 		return (
 			<WizardPanels key={noAnimation} noAnimation={noAnimation}>
 				<WizardPanels.Panel
+					nextButton={<Button>Skip this Step</Button>}
 					prevButton={<Button icon="closex" aria-label="This is Exit.">Exit</Button>}
 					subtitle="A subtitle for View 0"
 					title="WizardPanels View 0"
