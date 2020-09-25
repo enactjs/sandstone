@@ -315,7 +315,7 @@ const PopupTabLayoutDecorator = compose(
  * 					<Item>Item 1 in Panel 2</Item>
  * 					<Item>Item 2 in Panel 2</Item>
  * 				</TabPanel>
- * 			</TabPanels
+ * 			</TabPanels>
  * 		</Tab>
  * 		<Tab title="Tab Two">
  * 			<Item>Goodbye</Item>
