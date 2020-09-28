@@ -318,7 +318,7 @@ storiesOf('Marquee', module)
 			<div>
 				<Heading>Focus on below MarqueeController + Marquee center</Heading>
 				<MarqueeItem className={css.spotlight} style={{width: ri.scale(802), padding: ri.scale(24)}}>
-					{"Sample text"}
+					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1}}>
 						<Marquee
 							alignment="center"
@@ -331,7 +331,7 @@ storiesOf('Marquee', module)
 				<br />
 				<Heading>MarqueeController + Marquee not center</Heading>
 				<MarqueeItem className={css.spotlight} style={{width: ri.scale(802), padding: ri.scale(24), border: '1px solid yellow'}}>
-					{"Sample text"}
+					<div>Sample text</div>
 					<div style={{width: '100%', flex: 1, textAlign: 'center'}}>
 						<Marquee
 							style={{width: '100%'}}
