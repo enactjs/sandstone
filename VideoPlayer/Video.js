@@ -236,6 +236,9 @@ const VideoBase = class extends React.Component {
 
 		const [sourceKey, preloadKey] = this.getKeys();
 
+		console.log('sourceKey, preloadKey', sourceKey, preloadKey)
+		debugger;
+
 		return (
 			<React.Fragment>
 				{sourceKey ? (
