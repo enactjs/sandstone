@@ -1241,6 +1241,9 @@ const VideoPlayerBase = class extends React.Component {
 	// Media Interaction Methods
 	//
 	handleEvent = () => {
+		/* TEST */
+		return;
+
 		const el = this.video;
 		const updatedState = {
 			// Standard media properties
@@ -1937,7 +1940,7 @@ const VideoPlayerBase = class extends React.Component {
 					bottomControlsVisible={this.state.mediaControlsVisible}
 					onClick={this.onVideoClick}
 				>
-					{!noSpinner && (this.state.loading || loading) ? <Spinner centered /> : null}
+					{/* TEST: !noSpinner && (this.state.loading || loading) ? <Spinner centered /> : null*/}
 				</Overlay>
 
 				{this.state.bottomControlsRendered ?
@@ -1959,7 +1962,7 @@ const VideoPlayerBase = class extends React.Component {
 								Only render when `this.state.mediaControlsVisible` is true in order for `Marquee`
 								to make calculations correctly in `MediaTitle`.
 							*/}
-							{this.state.mediaSliderVisible ?
+							{/* TEST: this.state.mediaSliderVisible ?
 								<div className={css.infoFrame}>
 									<MediaTitle
 										id={`${this.id}_mediaTitle`}
@@ -1970,20 +1973,20 @@ const VideoPlayerBase = class extends React.Component {
 									>
 										{infoComponents}
 									</MediaTitle>
-									{noSlider ?
+									{ TEST: noSlider ?
 										<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
 										null
 									}
 								</div> :
 								null
-							}
+							*/}
 							{noSlider ?
 								null :
 								<div className={css.sliderContainer}>
-									{this.state.mediaSliderVisible ?
+									{/* TEST: this.state.mediaSliderVisible ?
 										<Times noTotalTime current={this.state.currentTime} formatter={durFmt} /> :
 										null
-									}
+									*/}
 									<MediaSlider
 										backgroundProgress={this.state.proportionLoaded}
 										disabled={disabled || this.state.sourceUnavailable}
@@ -2011,10 +2014,10 @@ const VideoPlayerBase = class extends React.Component {
 											thumbnailSrc={thumbnailSrc}
 										/>
 									</MediaSlider>
-									{this.state.mediaSliderVisible ?
+									{/*\TEST: this.state.mediaSliderVisible ?
 										<Times noCurrentTime total={this.state.duration} formatter={durFmt} /> :
 										null
-									}
+									*/}
 								</div>
 							}
 							<ComponentOverride
