@@ -1915,7 +1915,7 @@ const VideoPlayerBase = class extends React.Component {
 
 		return (
 			<RootContainer
-				className={className(css.videoPlayer, 'enact-fit', className)}
+				className={classNames(css.videoPlayer, 'enact-fit', className)}
 				onClick={this.activityDetected}
 				ref={this.setPlayerRef}
 				spotlightDisabled={spotlightDisabled}
