@@ -1911,9 +1911,9 @@ const VideoPlayerBase = class extends React.Component {
 
 		const durFmt = getDurFmt(locale);
 		const controlsHandleAboveHoldConfig = getControlsHandleAboveHoldConfig({frequency: jumpDelay, time: initialJumpDelay});
-		const getHiddenStyle = (hidden) => ({
-			pointerEvents: hidden ? 'none' : 'auto',
-			visibility: hidden ? 'hidden' : 'visible'
+		const getVisibilityStyle = (visible) => ({
+			pointerEvents: visible ? 'auto' : 'none',
+			visibility: visible ? 'visible' : 'hidden'
 		});
 
 		return (
@@ -1941,10 +1941,10 @@ const VideoPlayerBase = class extends React.Component {
 					bottomControlsVisible={this.state.mediaControlsVisible}
 					onClick={this.onVideoClick}
 				>
-					<Spinner centered style={getHiddenStyle(noSpinner || !(this.state.loading || loading))} />
+					<Spinner centered style={getVisibilityStyle(!noSpinner && (this.state.loading || loading))} />
 				</Overlay>
 
-				<div className={css.fullscreen} {...controlsAriaProps} style={getHiddenStyle(!this.state.bottomControlsRendered)}>
+				<div className={css.fullscreen} {...controlsAriaProps} style={getVisibilityStyle(this.state.bottomControlsRendered)}>
 					<FeedbackContent
 						className={css.miniFeedback}
 						playbackRate={this.pulsedPlaybackRate || this.selectPlaybackRate(this.speedIndex)}
@@ -1962,7 +1962,7 @@ const VideoPlayerBase = class extends React.Component {
 							Only render when `this.state.mediaControlsVisible` is true in order for `Marquee`
 							to make calculations correctly in `MediaTitle`.
 						*/}
-						<div className={css.infoFrame} style={getHiddenStyle(!this.state.mediaSliderVisible)}>
+						<div className={css.infoFrame} style={getVisibilityStyle(this.state.mediaSliderVisible)}>
 							<MediaTitle
 								id={`${this.id}_mediaTitle`}
 								infoVisible={this.state.infoVisible}
@@ -1972,10 +1972,10 @@ const VideoPlayerBase = class extends React.Component {
 							>
 								{infoComponents}
 							</MediaTitle>
-							<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} style={getHiddenStyle(!noSlider)} /> :
+							<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} style={getVisibilityStyle(noSlider)} /> :
 						</div>
-						<div className={css.sliderContainer} style={getHiddenStyle(noSlider)}>
-							<Times noTotalTime current={this.state.currentTime} formatter={durFmt} style={getHiddenStyle(!this.state.mediaSliderVisible)} />
+						<div className={css.sliderContainer} style={getVisibilityStyle(!noSlider)}>
+							<Times noTotalTime current={this.state.currentTime} formatter={durFmt} style={getVisibilityStyle(this.state.mediaSliderVisible)} />
 							<MediaSlider
 								backgroundProgress={this.state.proportionLoaded}
 								disabled={disabled || this.state.sourceUnavailable}
@@ -2003,7 +2003,7 @@ const VideoPlayerBase = class extends React.Component {
 									thumbnailSrc={thumbnailSrc}
 								/>
 							</MediaSlider>
-							<Times noCurrentTime total={this.state.duration} formatter={durFmt} style={getHiddenStyle(!this.state.mediaSliderVisible)} />
+							<Times noCurrentTime total={this.state.duration} formatter={durFmt} style={getVisibilityStyle(this.state.mediaSliderVisible)} />
 						</div>
 						<ComponentOverride
 							component={mediaControlsComponent}
