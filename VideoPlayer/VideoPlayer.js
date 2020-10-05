@@ -1972,10 +1972,7 @@ const VideoPlayerBase = class extends React.Component {
 							>
 								{infoComponents}
 							</MediaTitle>
-							{noSlider ?
-								<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} /> :
-								null
-							}
+							<Times current={this.state.currentTime} total={this.state.duration} formatter={durFmt} style={getHiddenStyle(noSlider)} /> :
 						</div>
 						<div className={css.sliderContainer} style={getHiddenStyle(noSlider)}>
 							<Times noTotalTime current={this.state.currentTime} formatter={durFmt} style={getHiddenStyle(!this.state.mediaSliderVisible)} />
