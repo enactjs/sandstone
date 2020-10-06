@@ -8,8 +8,6 @@ import {storiesOf} from '@storybook/react';
 
 import Spinner, {SpinnerBase} from '@enact/sandstone/Spinner';
 
-import css from './Spinner.module.less';
-
 Spinner.displayName = 'Spinner';
 const Config = mergeComponentMetadata('Spinner', UiSpinnerBase, UiSpinner, SpinnerBase, Spinner);
 
@@ -36,11 +34,11 @@ storiesOf('Sandstone', module)
 					onClick={action('Outside container events')}
 				/>
 				<div
-					className={css.container}
 					style={{
 						outline: 'teal dashed 1px',
 						position: 'relative',
-						height: ri.scaleToRem(360)
+						height: ri.scaleToRem(360),
+						width: '50%'
 					}}
 				>
 					<label
