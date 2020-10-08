@@ -1,15 +1,14 @@
 import kind from '@enact/core/kind';
 import React from 'react';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-
-import MainView from '../views/MainView';
+import Button from '@enact/sandstone/Button';
 
 const App = kind({
 	name: 'App',
 
 	render: (props) => (
 		<div {...props}>
-			<MainView />
+			<Button>Hello</Button>
 		</div>
 	)
 });

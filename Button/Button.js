@@ -11,7 +11,7 @@
  */
 
 import hoc from '@enact/core/hoc';
-import kind from '@enact/core/kind';
+import {kind, useKind} from '@enact/core/kind';
 import {cap} from '@enact/core/util';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
@@ -40,10 +40,11 @@ import componentCss from './Button.module.less';
  * @ui
  * @public
  */
+/*
 const ButtonBase = kind({
 	name: 'Button',
 
-	propTypes: /** @lends sandstone/Button.ButtonBase.prototype */ {
+	propTypes: /** @lends sandstone/Button.ButtonBase.prototype {
 		/**
 		 * The background opacity of this button.
 		 *
@@ -55,7 +56,6 @@ const ButtonBase = kind({
 		 * @type {('opaque'|'transparent')}
 		 * @default 'opaque'
 		 * @public
-		 */
 		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
@@ -70,7 +70,6 @@ const ButtonBase = kind({
 		 * @default false
 		 * @see {@link sandstone/Button.Button#collapsed}
 		 * @private
-		 */
 		collapsable: PropTypes.bool,
 
 		/**
@@ -83,7 +82,6 @@ const ButtonBase = kind({
 		 * @default false
 		 * @see {@link sandstone/Button.Button#collapsable}
 		 * @private
-		 */
 		collapsed: PropTypes.bool,
 
 		/**
@@ -94,7 +92,6 @@ const ButtonBase = kind({
 		 *
 		 * @type {('red'|'green'|'yellow'|'blue')}
 		 * @public
-		 */
 		color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
 
 		/**
@@ -111,7 +108,6 @@ const ButtonBase = kind({
 		 *
 		 * @type {Object}
 		 * @public
-		 */
 		// `client` was intentionally excluded from the above documented exported classes as they do
 		// not appear to provide value to the end-developer, but are needed by PopupTabLayout
 		// internally for its design guidelines. Same for `pressed` which is used by Dropdown to
@@ -124,7 +120,6 @@ const ButtonBase = kind({
 		 * @type {('expand'|'static')}
 		 * @default 'expand'
 		 * @private
-		 */
 		focusEffect: PropTypes.oneOf(['expand', 'static']),
 
 		/**
@@ -134,7 +129,6 @@ const ButtonBase = kind({
 		 *
 		 * @type {Component|Node}
 		 * @private
-		 */
 		iconComponent: EnactPropTypes.componentOverride,
 
 		/**
@@ -143,7 +137,6 @@ const ButtonBase = kind({
 		 * @type {Boolean}
 		 * @default false
 		 * @private
-		 */
 		iconOnly: PropTypes.bool,
 
 		/**
@@ -152,7 +145,6 @@ const ButtonBase = kind({
 		 * @type {('before'|'after')}
 		 * @default 'before'
 		 * @public
-		 */
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
@@ -161,7 +153,6 @@ const ButtonBase = kind({
 		 * @type {Boolean}
 		 * @default true
 		 * @public
-		 */
 		minWidth: PropTypes.bool,
 
 		/**
@@ -170,7 +161,6 @@ const ButtonBase = kind({
 		 * @type {('large'|'small')}
 		 * @default 'large'
 		 * @public
-		 */
 		size: PropTypes.oneOf(['large', 'small'])
 	},
 
@@ -223,7 +213,191 @@ const ButtonBase = kind({
 		});
 	}
 });
+*/
 
+const ButtonBase = (props) => {
+	const {props: {css, ...rest}} = useKind(props, {
+		styles: {
+			css: componentCss,
+			publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
+		},
+
+		computed: {
+			className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
+				{
+					hasColor: color,
+					iconOnly,
+					collapsable,
+					collapsed
+				},
+				backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
+				color,
+				`focus${cap(focusEffect)}`,
+				// iconBefore/iconAfter only applies when using text and an icon
+				!iconOnly && `icon${cap(iconPosition)}`,
+				size
+			),
+			minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
+		}
+	});
+
+	delete rest.backgroundOpacity;
+	delete rest.color;
+	delete rest.collapsable;
+	delete rest.collapsed;
+	delete rest.iconOnly;
+	delete rest.iconPosition;
+	delete rest.focusEffect;
+
+	return UiButtonBase.inline({
+		'data-webos-voice-intent': 'Select',
+		...rest,
+		css
+	});
+};
+
+ButtonBase.displayName = 'Button';
+
+ButtonBase.propTypes = /** @lends sandstone/Button.ButtonBase.prototype */ {
+	/**
+	 * The background opacity of this button.
+	 *
+	 * Text buttons and icon+text buttons, by default are opaque, while icon-only buttons
+	 * default to transparent. This value can be overridden by setting this prop.
+	 *
+	 * Valid values are: `'opaque'`, and `'transparent'`.
+	 *
+	 * @type {('opaque'|'transparent')}
+	 * @default 'opaque'
+	 * @public
+	 */
+	backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+	/**
+	 * Enables the `collapsed` feature.
+	 *
+	 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+	 * defined.
+	 *
+	 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @see {@link sandstone/Button.Button#collapsed}
+	 * @private
+	 */
+	collapsable: PropTypes.bool,
+
+	/**
+	 * Toggles the collapsed state of this button, down to just its icon.
+	 *
+	 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
+	 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @see {@link sandstone/Button.Button#collapsable}
+	 * @private
+	 */
+	collapsed: PropTypes.bool,
+
+	/**
+	 * The color of the underline beneath button's content.
+	 *
+	 * Accepts one of the following color names, which correspond with the colored buttons on a
+	 * standard remote control: `'red'`, `'green'`, `'yellow'`, `'blue'`.
+	 *
+	 * @type {('red'|'green'|'yellow'|'blue')}
+	 * @public
+	 */
+	color: PropTypes.oneOf(['red', 'green', 'yellow', 'blue']),
+
+	/**
+	 * Customizes the component by mapping the supplied collection of CSS class names to the
+	 * corresponding internal elements and states of this component.
+	 *
+	 * The following classes are supported:
+	 *
+	 * * `button` - The root class name
+	 * * `bg` - The background node of the button
+	 * * `large` - Applied to a `size='large'` button
+	 * * `selected` - Applied to a `selected` button
+	 * * `small` - Applied to a `size='small'` button
+	 *
+	 * @type {Object}
+	 * @public
+	 */
+	// `client` was intentionally excluded from the above documented exported classes as they do
+	// not appear to provide value to the end-developer, but are needed by PopupTabLayout
+	// internally for its design guidelines. Same for `pressed` which is used by Dropdown to
+	// nullify the key-press activate animation.
+	css: PropTypes.object,
+
+	/**
+	 * Set the visual effect applied to the button when focused.
+	 *
+	 * @type {('expand'|'static')}
+	 * @default 'expand'
+	 * @private
+	 */
+	focusEffect: PropTypes.oneOf(['expand', 'static']),
+
+	/**
+	 * The component used to render the [icon]{@link sandstone/Button.ButtonBase.icon}.
+	 *
+	 * This component will receive the `icon` class to customize its styling.
+	 *
+	 * @type {Component|Node}
+	 * @private
+	 */
+	iconComponent: EnactPropTypes.componentOverride,
+
+	/**
+	 * True if button is an icon only button.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	iconOnly: PropTypes.bool,
+
+	/**
+	 * Specifies on which side (`'before'` or `'after'`) of the text the icon appears.
+	 *
+	 * @type {('before'|'after')}
+	 * @default 'before'
+	 * @public
+	 */
+	iconPosition: PropTypes.oneOf(['before', 'after']),
+
+	/**
+	 * Boolean controlling whether this component should enforce the "minimum width" rules.
+	 *
+	 * @type {Boolean}
+	 * @default true
+	 * @public
+	 */
+	minWidth: PropTypes.bool,
+
+	/**
+	 * The size of the button.
+	 *
+	 * @type {('large'|'small')}
+	 * @default 'large'
+	 * @public
+	 */
+	size: PropTypes.oneOf(['large', 'small'])
+};
+
+ButtonBase.defaultProps = {
+	backgroundOpacity: null,
+	collapsable: false,
+	collapsed: false,
+	focusEffect: 'expand',
+	iconComponent: Icon,
+	iconPosition: 'before',
+	size: 'large'
+};
 
 /**
  * A higher-order component that determines if it is a button that only displays an icon.
