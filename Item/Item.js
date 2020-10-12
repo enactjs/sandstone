@@ -23,6 +23,7 @@ import React from 'react';
 
 import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
+import {extractVoiceProps} from '../internal/util';
 
 import componentCss from './Item.module.less';
 
@@ -54,7 +55,7 @@ const ItemContent = kind({
 	},
 
 	// eslint-disable-next-line enact/prop-types
-	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
+	render: ({orientation, content, css, label, marqueeOn, styler, voiceProps, ...rest}) => {
 		delete rest.labelPosition;
 
 		if (!label) {
@@ -64,13 +65,23 @@ const ItemContent = kind({
 				</Cell>
 			);
 		} else {
+			const voiceKeys = Object.keys(voiceProps);
+			let contentVoiceProps = {};
+
+			if (voiceKeys.indexOf('data-webos-voice-label') === -1
+				&& voiceKeys.indexOf('data-webos-voice-labels') === -1
+				&& voiceKeys.indexOf('data-webos-voice-disabled') === -1) {
+				contentVoiceProps = Object.assign({}, {'data-webos-voice-intent': 'Select'}, voiceProps);
+				delete contentVoiceProps['data-webos-voice-label-index'];
+			}
+
 			return (
 				<Cell {...rest}>
 					<Layout orientation={orientation}>
-						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} {...contentVoiceProps} shrink>
 							{content}
 						</Cell>
-						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} {...contentVoiceProps} shrink>
 							{label}
 						</Cell>
 					</Layout>
@@ -223,6 +234,7 @@ const ItemBase = kind({
 	},
 
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+		const voiceProps = extractVoiceProps(rest);
 		delete rest.size;
 
 		return (
@@ -232,6 +244,7 @@ const ItemBase = kind({
 				align={centered ? 'center center' : 'center'}
 				ref={componentRef}
 				{...rest}
+				{...voiceProps}
 				inline={inline}
 				css={css}
 			>
@@ -247,6 +260,7 @@ const ItemBase = kind({
 					labelPosition={labelPosition}
 					marqueeOn={marqueeOn}
 					shrink={inline}
+					voiceProps={voiceProps}
 				/>
 				{slotAfter ? (
 					<Cell className={css.slotAfter} shrink>
