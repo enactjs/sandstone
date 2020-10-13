@@ -320,7 +320,7 @@ const WizardPanelsBase = kind({
 	},
 
 	computed: {
-		'aria-label': ({'aria-label': label, index, subtitle, title}) => {
+		'aria-label': ({'aria-label': label, index, noSteps, subtitle, title}) => {
 			if (noSteps) {
 				if (label) return label;
 				return `${title} ${subtitle}`;
