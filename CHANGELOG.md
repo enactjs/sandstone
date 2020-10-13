@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/WizardPanels` to read `steps` always if prop `noSteps` isn't set
+
 ## [1.3.2] - 2020-09-25
 
 ### Changed
