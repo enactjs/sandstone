@@ -326,7 +326,7 @@ const WizardPanelsBase = kind({
 				return `${title} ${subtitle}`;
 			} else {
 				const step = new IString($L('step {num}')).format({num: index + 1});
-				if (label) return `${step} ${label}`;;
+				if (label) return `${step} ${label}`;
 				return `${step} ${title} ${subtitle}`;
 			}
 		},
