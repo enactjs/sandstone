@@ -79,11 +79,11 @@
 
 	.titleCell {
 		transition-duration: 0.4s;
-		transform: translate3d(-@sand-header-back-container-width, 0, 0);
+		transform: translateX(-@sand-header-back-container-width);
 		will-change: transform;
 
 		.enact-locale-rtl({
-			transform: translate3d(@sand-header-back-container-width, 0, 0);
+			transform: translateX(@sand-header-back-container-width);
 		});
 	}
 
@@ -95,7 +95,7 @@
 		}
 
 		.titleCell {
-			transform: translate3d(0, 0, 0);
+			transform: translateX(0);
 		}
 	}
 
