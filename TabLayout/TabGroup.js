@@ -32,6 +32,7 @@ const TabBase = kind({
 		icon: PropTypes.string,
 		index: PropTypes.number,
 		onFocusTab: PropTypes.func,
+		onTabClick: PropTypes.func,
 		orientation: PropTypes.string,
 		selected: PropTypes.bool,
 		size: PropTypes.number,
@@ -49,6 +50,14 @@ const TabBase = kind({
 	},
 
 	handlers: {
+		onClick: handle(
+			forward('onClick'),
+			not(forProp('disabled', true)),
+			adaptEvent(
+				(ev, {index}) => ({selected: index}),
+				forward('onTabClick')
+			)
+		),
 		onFocus: handle(
 			forward('onFocus'),
 			not(forProp('disabled', true)),
@@ -72,6 +81,7 @@ const TabBase = kind({
 	render: ({children, collapsed, css, orientation, size, ...rest}) => {
 		delete rest.index;
 		delete rest.onFocusTab;
+		delete rest.onTabClick;
 		delete rest.stopped;
 		delete rest.sprite;
 
