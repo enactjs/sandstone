@@ -1,4 +1,3 @@
-import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
@@ -12,6 +11,7 @@ import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
