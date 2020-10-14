@@ -37,7 +37,8 @@ storiesOf('Sandstone', module)
 					style={{
 						outline: 'teal dashed 1px',
 						position: 'relative',
-						height: ri.scaleToRem(360)
+						height: ri.scaleToRem(360),
+						width: '50%'
 					}}
 				>
 					<label

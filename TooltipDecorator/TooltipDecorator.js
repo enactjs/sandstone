@@ -454,7 +454,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
-				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
 				// Moving the position to CSS variables where there are additional offset calculations
 				'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
 				'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
@@ -486,6 +485,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 							{renderedTooltip}
 						</FloatingLayerBase>
 					);
+				} else if (!this.state.showing) {
+					renderedTooltip = null;
 				}
 
 				if (tooltipDestinationProp === 'children') {
