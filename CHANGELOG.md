@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/Panels.Header` to translate title when back button show or hide
 
 ## [1.3.2] - 2020-09-25
 

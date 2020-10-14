@@ -68,19 +68,34 @@
 
 	.backContainer {
 		display: inline-block;
-		width: 0;
+		width: @sand-header-back-container-width;
 		opacity: 0;
-		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
+		transition: transform 400ms ease-in-out, opacity 200ms ease-out;
 		transform: scale(0.5);
 		transform-origin: center left;
-		will-change: width, transform, opacity;
+		will-change: transform, opacity;
+		pointer-events: none;
+	}
+
+	.titleCell {
+		transition-duration: 0.4s;
+		transform: translate3d(-@sand-header-back-container-width, 0, 0);
+		will-change: transform;
+
+		.enact-locale-rtl({
+			transform: translate3d(@sand-header-back-container-width, 0, 0);
+		});
 	}
 
 	&.showBack {
 		.backContainer {
 			opacity: 1;
 			transform: scale(1);
-			width: @sand-header-back-container-width;
+			pointer-events: auto;
+		}
+
+		.titleCell {
+			transform: translate3d(0, 0, 0);
 		}
 	}
 
