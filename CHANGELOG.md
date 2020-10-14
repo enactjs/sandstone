@@ -7,6 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/VirtualList` to not show the overscroll effect after keyDown
+- `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/WizardPanels` to read `steps` properly when `noSteps` or `aria-label` set
 
 ## [1.3.2] - 2020-09-25
 
