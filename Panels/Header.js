@@ -549,7 +549,7 @@ const HeaderBase = kind({
 		// Only provide the synced cell size if the title should be centered, beyond that case,
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
-		const titlesClassName = classnames(css.titlesRow, {[css.backButton]: backButton});
+		const titlesClassName = classnames(css.titlesRow, {[css.hasBackButton]: backButton});
 
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
