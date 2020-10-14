@@ -43,6 +43,14 @@ const Tab = kind({
 		icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
 
 		/**
+		 * Called when a tab is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		*/
+		onTabClick: PropTypes.func,
+
+		/**
 		 * Configuration props for a [Sprite]{@link sandstone/Sprite.Sprite} icon.
 		 *
 		 * All props on [Sprite]{@link sandstone/Sprite.Sprite} are supported here. By default,

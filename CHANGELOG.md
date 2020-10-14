@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
+
 ### Fixed
 
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
