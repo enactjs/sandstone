@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import EnactPropTypes from '@enact/core/internal/prop-types';
 import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
@@ -548,12 +549,13 @@ const HeaderBase = kind({
 		// Only provide the synced cell size if the title should be centered, beyond that case,
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
+		const titlesClassName = classnames(css.titlesRow, {[css.backButton]: backButton});
 
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={css.titlesRow} align="center">
+				<Row className={titlesClassName} align="center">
 					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
