@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- `sandstone/Input` to apply text field width
+
 ### Fixed
 
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
