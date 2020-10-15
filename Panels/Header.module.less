@@ -68,34 +68,19 @@
 
 	.backContainer {
 		display: inline-block;
-		width: @sand-header-back-container-width;
+		width: 0;
 		opacity: 0;
-		transition: transform 400ms ease-in-out, opacity 200ms ease-out;
+		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
 		transform: scale(0.5);
 		transform-origin: center left;
-		will-change: transform, opacity;
-		pointer-events: none;
-	}
-
-	.hasBackButton .titleCell {
-		transition-duration: 400ms;
-		transform: translateX(-@sand-header-back-container-width);
-		will-change: transform;
-
-		.enact-locale-rtl({
-			transform: translateX(@sand-header-back-container-width);
-		});
+		will-change: width, transform, opacity;
 	}
 
 	&.showBack {
 		.backContainer {
 			opacity: 1;
 			transform: scale(1);
-			pointer-events: auto;
-		}
-
-		.titleCell {
-			transform: translateX(0);
+			width: @sand-header-back-container-width;
 		}
 	}
 

@@ -11,7 +11,6 @@ import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
 import Toggleable from '@enact/ui/Toggleable';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
@@ -549,13 +548,12 @@ const HeaderBase = kind({
 		// Only provide the synced cell size if the title should be centered, beyond that case,
 		// the cell sizes don't need to be synced.
 		const syncCellSize = (centered ? slotSize : null);
-		const titlesClassName = classnames(css.titlesRow, {[css.hasBackButton]: backButton});
 
 		// The side Cells are always present, even if empty, to support the measurement ref.
 		return (
 			<header {...rest}>
 				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
-				<Row className={titlesClassName} align="center">
+				<Row className={css.titlesRow} align="center">
 					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
 						<span ref={slotBeforeRef} className={css.slotSizer}>
 							{backButton}{slotBefore}
