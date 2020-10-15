@@ -4,6 +4,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+- `sandstone/Input` to apply text field width
+
 ### Added
 
 - `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
