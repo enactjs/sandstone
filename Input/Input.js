@@ -262,7 +262,8 @@ const InputPopupBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'input'
+		className: 'input',
+		publicClassNames: ['textField']
 	},
 
 	handlers: {
