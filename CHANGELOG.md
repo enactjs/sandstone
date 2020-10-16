@@ -8,6 +8,19 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
 
+## [1.4.0] - 2020-10-16
+
+### Added
+
+- `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
+
+### Fixed
+
+- `sandstone/Input` to match latest designs
+- `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/VirtualList` to not show overscroll effect when 5-way key is pressed after scrolling to the bottom by wheel
+- `sandstone/WizardPanels` to read `steps` properly with `noSteps` and `aria-label` props
+
 ## [1.3.2] - 2020-09-25
 
 ### Changed
