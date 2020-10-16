@@ -4,8 +4,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
-- `sandstone/Input` to apply text field width
-
 ### Added
 
 - `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
@@ -15,6 +13,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/VirtualList` to not show the overscroll effect when left or right key pressed after wheeling to the bottom
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
 - `sandstone/WizardPanels` to read `steps` properly when `noSteps` or `aria-label` set
+- `sandstone/Input` to match latest designs
 
 ## [1.3.2] - 2020-09-25
 
