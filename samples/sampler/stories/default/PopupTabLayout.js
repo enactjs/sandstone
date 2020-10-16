@@ -72,7 +72,7 @@ storiesOf('Sandstone', module)
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
-					<Tab icon={includeIcons ? 'picture' : null} title="Display">
+					<Tab icon={includeIcons ? 'picture' : null} onTabClick={action('onTabClick')} title="Display">
 						<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Display Settings" type="compact" />
@@ -94,7 +94,7 @@ storiesOf('Sandstone', module)
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab icon={includeIcons ? 'speaker' : null} title="Sound">
+					<Tab icon={includeIcons ? 'speaker' : null} onTabClick={action('onTabClick')} title="Sound">
 						<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Sound Settings" type="compact" />
@@ -113,7 +113,7 @@ storiesOf('Sandstone', module)
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab icon={includeIcons ? 'arrowupdown' : null} title="Network">
+					<Tab icon={includeIcons ? 'arrowupdown' : null} onTabClick={action('onTabClick')} title="Network">
 						<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Network Settings" type="compact" />
@@ -134,8 +134,8 @@ storiesOf('Sandstone', module)
 						</TabPanels>
 					</Tab>
 					<Tab
-						title="General"
 						icon={includeIcons ? 'none' : null}
+						onTabClick={action('onTabClick')}
 						sprite={{
 							columns: 6,
 							rows: 5,
@@ -145,6 +145,7 @@ storiesOf('Sandstone', module)
 								uhd: spriteGear4k
 							}
 						}}
+						title="General"
 					>
 						<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onClose={handleClose}>
 							<TabPanel>
