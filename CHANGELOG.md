@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/WizardPanels` to read `steps` when neither prop `noSteps` nor `aria-label` is present
 
 ## [1.4.0] - 2020-10-16
 
