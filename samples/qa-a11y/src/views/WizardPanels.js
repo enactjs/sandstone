@@ -3,6 +3,7 @@ import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Icon from '@enact/sandstone/Icon';
 import Item from '@enact/sandstone/Item';
+import Scroller from '@enact/sandstone/Scroller';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 import React from 'react';
 
@@ -11,25 +12,18 @@ class WizardPanelsView extends React.Component {
 		super(props);
 
 		this.state = {
-			noAnimation: false,
-			noAriaLabel: false,
-			noSteps: false
+			noAnimation: false
 		};
 	}
 
-	onToggleNoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
-
-	onToggleNoAriaLabel = () => this.setState((state) => ({noAriaLabel: !state.noAriaLabel}));
-
-	onToggleNoSteps = () => this.setState((state) => ({noSteps: !state.noSteps}));
+	onTogglenoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
 
 	render () {
-		const {noAnimation, noAriaLabel, noSteps} = this.state;
+		const {noAnimation} = this.state;
 
 		return (
-			<WizardPanels key={noAnimation} noAnimation={noAnimation} noSteps={noSteps}>
+			<WizardPanels key={noAnimation} noAnimation={noAnimation}>
 				<WizardPanels.Panel
-					{...(noAriaLabel ? {} : {['aria-label']: 'This is a Panel.'})}
 					nextButton={<Button>Skip this Step</Button>}
 					prevButton={<Button icon="closex" aria-label="This is Exit.">Exit</Button>}
 					subtitle="A subtitle for View 0"
@@ -40,23 +34,14 @@ class WizardPanelsView extends React.Component {
 						<Button>Text 1</Button>
 					</div>
 					<CheckboxItem
-						onClick={this.onToggleNoAnimation}
+						onClick={this.onTogglenoAnimation}
 						selected={noAnimation}
 					>
 						noAnimation
 					</CheckboxItem>
-					<CheckboxItem
-						onClick={this.onToggleNoAriaLabel}
-						selected={noAriaLabel}
-					>
-						noAriaLabel
-					</CheckboxItem>
-					<CheckboxItem
-						onClick={this.onToggleNoSteps}
-						selected={noSteps}
-					>
-						noSteps
-					</CheckboxItem>
+					<Scroller focusableScrollbar="byEnter">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus faucibus ornare suspendisse sed nisi. Vestibulum sed arcu non odio euismod lacinia at quis. Elementum eu facilisis sed odio morbi quis commodo. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Neque ornare aenean euismod elementum. Iaculis nunc sed augue lacus viverra vitae congue eu consequat. Vulputate eu scelerisque felis imperdiet proin fermentum leo vel orci. Tincidunt augue interdum velit euismod. Nunc sed augue lacus viverra vitae congue eu consequat. Ultricies integer quis auctor elit sed vulputate. Pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Elit sed vulputate mi sit amet mauris commodo. Ipsum consequat nisl vel pretium lectus. Sed ullamcorper morbi tincidunt ornare massa eget egestas. Nulla facilisi morbi tempus iaculis urna id volutpat. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus.
+					</Scroller>
 				</WizardPanels.Panel>
 				<WizardPanels.Panel
 					subtitle="A subtitle for View 1 that is really, really way too long for its own good.  In fact, it's so long that it probably goes to multiple lines, unless your screen is so large that it somehow fits.  That seems unlikely, though, unless you're in the year 2030 or something."
