@@ -202,6 +202,18 @@ describe('CheckboxItem', function () {
 			});
 		});
 
+		describe('inline indeterminate', function () {
+			const checkboxItem = Page.components.checkboxInlineIndeterminate;
+
+			it('should have correct text', function () {
+				expect(checkboxItem.valueText).to.equal('Checkbox Item inline indeterminate');
+			});
+
+			it('should display item inline', function () {
+				expect(checkboxItem.isInline).to.be.true();
+			});
+		});
+
 		// Note, the disabled test below requires the previous component to be known for 5-way
 		// navigation and assumes there's no next component.  If you add components before or after
 		// this test, please update the links.
