@@ -2,6 +2,13 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- Cambodia(km) languages to be classified as a tall-glyph language
+- `sandstone/Item` line-height to support tall-glyph language
+
 ## [1.4.1] - 2020-10-20
 
 ### Fixed

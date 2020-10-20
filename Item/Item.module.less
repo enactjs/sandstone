@@ -14,7 +14,7 @@
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	font-weight: @sand-item-font-weight;
-	.enact-locale-line-height(@sand-item-line-height, @sand-item-line-height);
+	.enact-locale-line-height(@sand-item-line-height, @sand-tallglyph-item-line-height);
 	height: @sand-item-height;
 	display: flex;
 	position: relative;
@@ -95,12 +95,12 @@
 		.sand-text-base(@sand-item-label-font-size);
 
 		font-weight: inherit;
-		line-height: @sand-item-label-line-height;
+		.enact-locale-line-height(@sand-item-label-line-height, @sand-tallglyph-item-label-line-height);
 	}
 
 	.sand-custom-text({
 		font-size: @sand-item-font-size-large;
-		.enact-locale-line-height(@sand-item-line-height-large, @sand-item-line-height-large);
+		.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
 
 		.label {
 			font-size: @sand-item-label-font-size-large;
@@ -114,7 +114,7 @@
 
 		font-weight: @sand-item-small-font-weight;
 		height: @sand-item-small-height;
-		.enact-locale-line-height(@sand-item-small-line-height, @sand-item-small-line-height);
+		.enact-locale-line-height(@sand-item-small-line-height, @sand-tallglyph-item-small-line-height);
 
 		&.hasLabel {
 			height: @sand-item-small-withlabel-height;
@@ -133,7 +133,7 @@
 
 		.sand-custom-text({
 			font-size: @sand-item-small-font-size-large;
-			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-item-small-line-height-large);
+			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
 		});
 	}
 
