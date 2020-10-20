@@ -114,6 +114,25 @@ const ButtonTests = [
 
 
 	// *************************************************************
+	// Tallglyph validation
+	// locale = 'km-KH'
+	// *************************************************************
+	...withConfig({locale: 'km-KH'}, [
+		<Button>Cambodia Text</Button>,
+		<Button color="red">Cambodia Text</Button>,
+		<Button small>Cambodia Text</Button>,
+		<Button small color="red">Cambodia Text</Button>,
+		<Button icon="star" />,
+		<Button icon="star">Cambodia Text</Button>,
+		<Button icon="star" color="red" />,
+		<Button icon="star" color="red">Cambodia Text</Button>,
+
+		// Real tall glyphs
+		<Button size="small">តន្ត្រី្</Button>
+	]),
+
+
+	// *************************************************************
 	// RTL
 	// locale = 'ar-SA'
 	// *************************************************************
