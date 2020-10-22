@@ -23,6 +23,7 @@ const ButtonTests = [
 	<Button> ฟิ้  ไั  ஒ  து</Button>,
 	<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
 	<Button>Bản văn</Button>,
+	<Button>តន្ត្រី</Button>,
 	// end [GT-28189]
 
 	// iconPosition = before (Default) + small (default) + large
@@ -109,7 +110,28 @@ const ButtonTests = [
 		// Real tall glyphs
 		<Button> ฟิ้  ไั  ஒ  து</Button>,
 		<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
-		<Button>Bản văn</Button>
+		<Button>Bản văn</Button>,
+		<Button>តន្ត្រី</Button>
+
+	]),
+
+
+	// *************************************************************
+	// Tallglyph validation
+	// locale = 'km-KH'
+	// *************************************************************
+	...withConfig({locale: 'km-KH'}, [
+		<Button>Cambodian Text</Button>,
+		<Button color="red">Cambodian Text</Button>,
+		<Button small>Cambodian Text</Button>,
+		<Button small color="red">Cambodian Text</Button>,
+		<Button icon="star" />,
+		<Button icon="star">Cambodian Text</Button>,
+		<Button icon="star" color="red" />,
+		<Button icon="star" color="red">Cambodian Text</Button>,
+
+		// Real tall glyphs
+		<Button size="small">តន្ត្រី</Button>
 	]),
 
 

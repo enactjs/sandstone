@@ -48,7 +48,7 @@ const inputData = {
 	shortPlaceholder: 'Placeholder string',
 	longText: 'What could we do with such a very long text string? We could write that novel we\'ve always talked about, or travel the world, or hike a great mountain; the sky\'s the limit!',
 	longPlaceHolder: 'Placeholder - What could we do with such a very long placeholder string? We could write that novel we\'ve always talked about, or travel the world, or hike a great mountain; the sky\'s the limit!',
-	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'],
+	tallText: ['नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	initialValue: 'Example value',
 	rtlAndLtr: 'abcdeشلاؤيث'
 };
@@ -415,6 +415,11 @@ storiesOf('Input/InputField', module)
 					style={divMargin}
 					size={select('size', props.size, FieldConfig)}
 					defaultValue={inputData.tallText[2]}
+				/>
+				<InputField
+					style={divMargin}
+					size={select('size', props.size, FieldConfig)}
+					defaultValue={inputData.tallText[3]}
 				/>
 			</div>
 		), {
