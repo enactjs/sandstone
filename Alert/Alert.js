@@ -168,10 +168,11 @@ const AlertBase = kind({
 				return (type === 'fullscreen' ? CenteredBodyText : BodyText);
 			}
 		},
-		className: ({buttons, image, type, styler}) => styler.append(
+		className: ({buttons, image, title, type, styler}) => styler.append(
 			{
 				maxButtons: (buttons && React.Children.toArray(buttons).filter(Boolean).length > 2),
-				noImage: !image
+				noImage: !image,
+				noTitle: (type === 'fullscreen') && !title
 			},
 			type
 		),
@@ -198,11 +199,13 @@ const AlertBase = kind({
 					<Cell shrink align={fullscreen ? 'center' : ''} component={contentComponent} className={css.content} id={`${id}_content`}>
 						{children}
 					</Cell>
-					<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
-						<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
-							{buttons}
-						</Layout>
-					</Cell>
+					{buttons ?
+						<Cell align={fullscreen ? '' : 'end'} shrink className={css.buttonContainer}>
+							<Layout align="center" orientation="vertical" id={`${id}_buttons`}>
+								{buttons}
+							</Layout>
+						</Cell> : null
+					}
 				</Layout>
 			</Popup>
 		);

@@ -1,5 +1,3 @@
-/* global document */
-
 const Page = require('./FixedPopupPanelsPage');
 
 
@@ -12,11 +10,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			expect(Interface.item1.isFocused(), 'focus item1 button').to.be.true();
+			Page.waitForFocused(Interface.item1);
 
 			Interface.waitForEnter(2, () => {
 				Page.spotlightSelect();
@@ -36,9 +32,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.item1);
 
 			// focus the right picker button
 			Page.spotlightDown();
@@ -63,9 +59,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.item1);
 
 			Page.spotlightLeft();
 
@@ -77,9 +73,9 @@ describe('FixedPopupPanels', function () {
 
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FixedPopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.item1);
 
 			Page.spotlightLeft();
 

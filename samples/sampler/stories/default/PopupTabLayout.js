@@ -16,6 +16,9 @@ import Scroller from '@enact/sandstone/Scroller';
 import Button from '@enact/sandstone/Button';
 import Item from '@enact/sandstone/Item';
 
+import spriteGear2k from '../../images/sprite-gear-2k.png';
+import spriteGear4k from '../../images/sprite-gear-4k.png';
+
 PopupTabLayout.displayName = 'PopupTabLayout';
 
 const Config = mergeComponentMetadata('PopupTabLayout', PopupBase, Popup, TabLayoutBase, TabLayout);
@@ -42,11 +45,14 @@ storiesOf('Sandstone', module)
 			const handleClose = compose(toggleOpen, action('onClose'));
 
 			const [indexDisplay, setIndexDisplay] = React.useState(0);
+			const [indexGeneral, setIndexGeneral] = React.useState(0);
 			const [indexNetwork, setIndexNetwork] = React.useState(0);
 			const [indexSound, setIndexSound] = React.useState(0);
 
 			const handleDisplayNext = navNext(setIndexDisplay, indexDisplay, 'onNext');
 			const handleDisplayPrev = navPrev(setIndexDisplay, indexDisplay, 'onBack');
+			const handleGeneralNext = navNext(setIndexGeneral, indexGeneral, 'onNext');
+			const handleGeneralPrev = navPrev(setIndexGeneral, indexGeneral, 'onBack');
 			const handleNetworkNext = navNext(setIndexNetwork, indexNetwork, 'onNext');
 			const handleNetworkPrev = navPrev(setIndexNetwork, indexNetwork, 'onBack');
 			const handleSoundNext = navNext(setIndexSound, indexSound, 'onNext');
@@ -66,7 +72,7 @@ storiesOf('Sandstone', module)
 					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Config, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Config, 'self-only')}
 				>
-					<Tab icon={includeIcons ? 'picture' : null} title="Display">
+					<Tab icon={includeIcons ? 'picture' : null} onTabClick={action('onTabClick')} title="Display">
 						<TabPanels index={indexDisplay} onBack={handleDisplayPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Display Settings" type="compact" />
@@ -88,7 +94,7 @@ storiesOf('Sandstone', module)
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab icon={includeIcons ? 'speaker' : null} title="Sound">
+					<Tab icon={includeIcons ? 'speaker' : null} onTabClick={action('onTabClick')} title="Sound">
 						<TabPanels index={indexSound} onBack={handleSoundPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Sound Settings" type="compact" />
@@ -107,7 +113,7 @@ storiesOf('Sandstone', module)
 							</TabPanel>
 						</TabPanels>
 					</Tab>
-					<Tab icon={includeIcons ? 'arrowupdown' : null} title="Network">
+					<Tab icon={includeIcons ? 'arrowupdown' : null} onTabClick={action('onTabClick')} title="Network">
 						<TabPanels index={indexNetwork} onBack={handleNetworkPrev} onClose={handleClose}>
 							<TabPanel>
 								<Header title="Network Settings" type="compact" />
@@ -123,6 +129,39 @@ storiesOf('Sandstone', module)
 									selectedProp="selected"
 								>
 									{['IP Address', 'Subnet', 'Gateway / Router', 'DNS 1', 'DNS 2']}
+								</Group>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+					<Tab
+						icon={includeIcons ? 'none' : null}
+						onTabClick={action('onTabClick')}
+						sprite={{
+							columns: 6,
+							rows: 5,
+							iterations: 1,
+							src: {
+								fhd: spriteGear2k,
+								uhd: spriteGear4k
+							}
+						}}
+						title="General"
+					>
+						<TabPanels index={indexGeneral} onBack={handleGeneralPrev} onClose={handleClose}>
+							<TabPanel>
+								<Header title="General Settings" type="compact" />
+								<Item onClick={handleGeneralNext}>About</Item>
+								<Item onClick={handleGeneralNext}>Reset</Item>
+							</TabPanel>
+							<TabPanel>
+								<Header title="Wired Settings" type="compact" />
+								<Group
+									childComponent={Item}
+									component="div"
+									select="radio"
+									selectedProp="selected"
+								>
+									{['Version number', 'Restore factory settings']}
 								</Group>
 							</TabPanel>
 						</TabPanels>

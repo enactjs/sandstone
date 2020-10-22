@@ -202,7 +202,7 @@ function getSelectedDayString (selected, noneText = '', dayNameLength = 'long') 
 const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	return class extends React.Component {
 
-		static displayName = 'DaySelectorDecorator'
+		static displayName = 'DaySelectorDecorator';
 
 		static propTypes = /** @lends sandstone/DayPicker.DaySelectorDecorator.prototype */ {
 			/**
@@ -259,12 +259,12 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			 * @public
 			 */
 			selected: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)])
-		}
+		};
 
 		static defaultProps = {
 			dayNameLength: 'long',
 			disabled: false
-		}
+		};
 
 		handleSelect = ({selected}) => {
 			const {dayNameLength, locale} = this.props;
@@ -276,7 +276,7 @@ const DaySelectorDecorator = hoc((config, Wrapped) => {	// eslint-disable-line n
 			const content = getSelectedDayString(selected, '', dayNameLength);
 
 			forwardSelect({selected, content}, this.props);
-		}
+		};
 
 		render () {
 			const {dayNameLength, locale, selected, ...rest} = this.props;

@@ -6,9 +6,11 @@
  * @exports Tab
  */
 
-import {adaptEvent, forward, forProp, handle} from '@enact/core/handle';
+import {adaptEvent, forward, forwardWithPrevent, forProp, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {cap, mapAndFilterChildren} from '@enact/core/util';
+import Spotlight, {getDirection} from '@enact/spotlight';
+import {getTargetByDirectionFromElement} from '@enact/spotlight/src/target';
 import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
 import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
@@ -19,7 +21,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
-import RefocusDecorator, {getTabsSpotlightId} from './RefocusDecorator';
+import RefocusDecorator, {getNavigableFilter, getTabsSpotlightId} from './RefocusDecorator';
 import TabGroup from './TabGroup';
 import Tab from './Tab';
 
@@ -221,6 +223,28 @@ const TabLayoutBase = kind({
 	},
 
 	handlers: {
+		onKeyDown: (ev, props) => {
+			const {keyCode, target} = ev;
+			const {collapsed, orientation, 'data-spotlight-id': spotlightId} = props;
+			const direction = getDirection(keyCode);
+
+			if (forwardWithPrevent('onKeyDown', ev, props) && direction && collapsed && orientation === 'vertical' && document.querySelector(`[data-spotlight-id='${spotlightId}']`).contains(target)) {
+				Spotlight.setPointerMode(false);
+				ev.preventDefault();
+
+				if (Spotlight.move(direction)) {
+					ev.stopPropagation();
+				} else if (document.querySelector(`[data-spotlight-id='${spotlightId}'] .${componentCss.content}`).contains(target)) {
+					Spotlight.set(spotlightId, {navigableFilter: null});
+					const nextTarget = getTargetByDirectionFromElement(direction, target);
+					Spotlight.set(spotlightId, {navigableFilter: getNavigableFilter(spotlightId, collapsed)});
+
+					if (nextTarget && document.querySelector(`.${componentCss.tabs}`).contains(nextTarget)) {
+						forward('onExpand', ev, props);
+					}
+				}
+			}
+		},
 		onSelect: handle(
 			adaptEvent(({selected}) => ({index: selected}), forward('onSelect'))
 		),
@@ -252,10 +276,11 @@ const TabLayoutBase = kind({
 		tabOrientation: ({orientation}) => orientation === 'vertical' ? 'horizontal' : 'vertical',
 		// limit to 6 tabs for horizontal orientation
 		tabs: ({children, orientation}) => {
-			const tabs = mapAndFilterChildren(children, (child) => {
-				const {disabled, icon, title} = child.props;
-				return {disabled, icon, title};
-			});
+			const tabs = mapAndFilterChildren(children, (child) => (
+				Object.keys(child.props)
+					.filter((prop) => prop !== 'children' && prop !== 'id')
+					.reduce((obj, key) => ({...obj, [key]: child.props[key]}), {})
+			));
 			return orientation === 'horizontal' && tabs.length > 6 ? tabs.slice(0, 6) : tabs;
 		}
 	},
@@ -335,6 +360,7 @@ const TabLayout = TabLayoutDecorator(TabLayoutBase);
  * A shortcut to access {@link sandstone/TabLayout.Tab}
  *
  * @name Tab
+ * @type {sandstone/TabLayout.Tab}
  * @static
  * @memberof sandstone/TabLayout.TabLayout
  */

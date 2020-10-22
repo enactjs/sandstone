@@ -41,7 +41,6 @@ class FlexiblePopupPanelsInterface {
 		return browser.execute((el) => el.focus(), this.prevButton);
 	}
 
-	/* global document */
 	clickBelowPopup () {
 		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
@@ -55,18 +54,42 @@ class FlexiblePopupPanelsInterface {
 		$('#openButton').click(offset);
 	}
 
-	get self () { return browser.$(this.selector); }
+	get self () {
+		return browser.$(this.selector);
+	}
 
-	get openButton () { return browser.$('#openButton'); }
-	get nextButton () { return this.self.$('#nextButton'); }
-	get prevButton () { return this.self.$('#prevButton'); }
+	get openButton () {
+		return browser.$('#openButton');
+	}
+	get nextButton () {
+		return this.self.$('#nextButton');
+	}
+	get prevButton () {
+		return this.self.$('#prevButton');
+	}
 
-	get panel1 () { return this.self.$(panelSelector(1)); }
-	get panel2 () { return this.self.$(panelSelector(2)); }
-	get panel3 () { return this.self.$(panelSelector(3)); }
-	get panel4 () { return this.self.$(panelSelector(4)); }
-	get panel5 () { return this.self.$(panelSelector(5)); }
-	get panel6 () { return this.self.$(panelSelector(6)); }
+	get singleItem () {
+		return this.self.$('#singleItem');
+	}
+
+	get panel1 () {
+		return this.self.$(panelSelector(1));
+	}
+	get panel2 () {
+		return this.self.$(panelSelector(2));
+	}
+	get panel3 () {
+		return this.self.$(panelSelector(3));
+	}
+	get panel4 () {
+		return this.self.$(panelSelector(4));
+	}
+	get panel5 () {
+		return this.self.$(panelSelector(5));
+	}
+	get panel6 () {
+		return this.self.$(panelSelector(6));
+	}
 }
 
 class FlexiblePopupPanelsPage extends Page {
@@ -79,6 +102,7 @@ class FlexiblePopupPanelsPage extends Page {
 	open (urlExtra) {
 		super.open('FlexiblePopupPanels-View', urlExtra);
 	}
+
 }
 
 module.exports = new FlexiblePopupPanelsPage();

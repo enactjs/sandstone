@@ -28,6 +28,13 @@
 
 		.back {
 			margin-inline-start: 0;
+
+			.sand-custom-text({
+				.sand-small-button-text();
+				height: @sand-button-small-height;
+				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
+				min-width: @sand-button-small-height;
+			});
 		}
 
 		.close {
@@ -99,9 +106,9 @@
 		text-align: right;
 
 		// Align `slotAfter` contents to the left in RTL
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			text-align: left;
-		}
+		});
 	}
 
 	.slotBelow {
@@ -146,6 +153,14 @@
 		padding: @sand-header-compact-padding;
 
 		.title {
+			padding: @sand-header-compact-title-padding;
+		}
+
+		.subtitle {
+			padding: @sand-header-compact-subtitle-padding;
+		}
+
+		.title {
 			.sand-font-size(@sand-header-compact-title-font-size, @sand-non-latin-header-compact-title-font-size);
 		}
 	}
@@ -166,10 +181,12 @@
 
 		.title {
 			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
+			padding: @sand-header-wizard-title-padding;
 		}
 
 		.subtitle {
 			.sand-multi-line-ellipsis(@sand-header-wizard-subtitle-lines);
+			padding: @sand-header-wizard-subtitle-padding;
 		}
 
 		&.centered {

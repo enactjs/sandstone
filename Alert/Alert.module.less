@@ -5,6 +5,9 @@
 @import "../styles/skin.less";
 
 .alert {
+
+	&.noImage { /* Needed to prevent global class being added in the DOM */ }
+
 	&.fullscreen {
 		.alertImage {
 			margin-bottom: @sand-alert-fullscreen-image-spacing;
@@ -21,6 +24,13 @@
 			max-height: 60%; // Set a reasonable cutoff for a maximum bound
 		}
 
+		&.noTitle {
+			.content {
+				.sand-font-size(@sand-alert-notitle-content-font-size, @sand-tallglyph-alert-notitle-content-font-size);
+				.enact-locale-line-height();
+			}
+		}
+
 		&.maxButtons {
 			.buttonContainer {
 				margin-top: @sand-alert-max-buttons-margin-top;
@@ -28,7 +38,7 @@
 		}
 
 		.title {
-			.sand-font-size(@sand-alert-title-font-size, @sand-non-latin-alert-title-font-size);
+			.sand-font-size(@sand-alert-title-font-size, @sand-tallglyph-alert-title-font-size);
 		}
 
 		.buttonContainer {
@@ -42,9 +52,17 @@
 	}
 
 	&.overlay {
+		.alertImage {
+			margin: @sand-alert-overlay-image-margin;
+		}
+
 		.buttonContainer {
 			box-sizing: border-box;
-			margin: 0;
+			margin: @sand-alert-overlay-buttons-margin;
+			.margin-start-end(
+				.extract(@sand-alert-overlay-buttons-margin, left)[],
+				.extract(@sand-alert-overlay-buttons-margin, right)[]
+			);
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
@@ -55,13 +73,19 @@
 		.content {
 			.sand-alert-overlay-content();
 			width: @sand-alert-overlay-content-width;
-			.margin-start-end(@sand-alert-overlay-content-margin-left, @sand-alert-overlay-content-margin-right);
+			.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-alert-overlay-text-button-gap);
 			margin-bottom: 0;
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
 				overflow-wrap: normal;
 				word-break: normal;
+			}
+		}
+
+		&.noImage {
+			.content {
+				.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-alert-overlay-text-button-gap);
 			}
 		}
 	}

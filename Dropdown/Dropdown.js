@@ -35,7 +35,7 @@ import warning from 'warning';
 import $L from '../internal/$L';
 import Button from '../Button';
 import ContextualPopupDecorator from '../ContextualPopupDecorator';
-import {compareChildren} from '../internal/util';
+import {compareChildren, extractVoiceProps} from '../internal/util';
 import Heading from '../Heading';
 import Skinnable from '../Skinnable';
 
@@ -178,7 +178,7 @@ const DropdownBase = kind({
 		 * The placeholder will be replaced by the selected item.
 		 *
 		 * @type {String}
-		 * @default 'No selection'
+		 * @default 'No Selection'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
@@ -281,9 +281,9 @@ const DropdownBase = kind({
 				};
 			});
 		},
-		className: ({width, styler}) => styler.append(`${width}Width`),
+		className: ({width, title, styler}) => styler.append(`${width}Width`, {hasTitle: Boolean(title)}),
 		direction: ({direction}) => `${direction} center`,
-		placeholder: ({children, placeholder = $L('No selection'), selected}) => {
+		placeholder: ({children, placeholder = $L('No Selection'), selected}) => {
 			if (isSelectedValid({children, selected})) {
 				const child = children[selected];
 				return typeof child === 'object' ? child.children : child;
@@ -308,6 +308,7 @@ const DropdownBase = kind({
 		const ariaProps = extractAriaProps(rest);
 		const calcAriaProps = ariaLabel != null ? null : {role: 'region', 'aria-labelledby': ariaLabelledBy};
 		const popupProps = {'aria-live': null, children, onSelect, selected, width, role: null};
+		const voiceProps = extractVoiceProps(rest);
 
 		// `ui/Group`/`ui/Repeater` will throw an error if empty so we disable the Dropdown and
 		// prevent Dropdown to open if there are no children.
@@ -331,6 +332,7 @@ const DropdownBase = kind({
 					size={size}
 					spotlightRestrict="self-only"
 					{...ariaProps}
+					{...voiceProps}
 				>
 					{placeholder}
 				</DropdownButton>

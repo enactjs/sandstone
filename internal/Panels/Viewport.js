@@ -1,14 +1,17 @@
 import classnames from 'classnames';
-import {forward, handle} from '@enact/core/handle';
+import handle, {forward} from '@enact/core/handle';
 import {mapAndFilterChildren} from '@enact/core/util';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
 import Spotlight from '@enact/spotlight';
 import Pause from '@enact/spotlight/Pause';
 import ViewManager, {shape} from '@enact/ui/ViewManager';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import {startCapture, stopCapture} from './captureKeys';
 import SharedStateDecorator, {SharedState} from '../SharedStateDecorator';
 import {ContextAsDefaults} from './util';
 
@@ -137,6 +140,13 @@ const ViewportBase = class extends React.Component {
 		 */
 		onClose: PropTypes.func,
 
+		/**
+		 * Passed to `arranger` for use in determining how to animate.
+		 *
+		 * @type {Boolean}
+		 */
+		rtl: PropTypes.bool,
+
 		type: PropTypes.string
 	};
 
@@ -192,7 +202,7 @@ const ViewportBase = class extends React.Component {
 	}
 
 	componentWillUnmount () {
-		this.paused.resume();
+		this.resume();
 	}
 
 	addTransitioningClass = () => {
@@ -211,9 +221,15 @@ const ViewportBase = class extends React.Component {
 		return true;
 	};
 
-	pause = () => this.paused.pause();
+	pause = () => {
+		startCapture();
+		this.paused.pause();
+	};
 
-	resume = () => this.paused.resume();
+	resume = () => {
+		stopCapture();
+		this.paused.resume();
+	};
 
 	handle = handle.bind(this);
 
@@ -259,6 +275,7 @@ const ViewportBase = class extends React.Component {
 			generateId,
 			index,
 			noAnimation,
+			rtl,
 			type,
 			...rest
 		} = this.props;
@@ -295,6 +312,7 @@ const ViewportBase = class extends React.Component {
 					noAnimation={noAnimation}
 					onTransition={this.handleTransition}
 					onWillTransition={this.handleWillTransition}
+					rtl={rtl}
 				>
 					{mappedChildren}
 				</ViewManager>
@@ -303,11 +321,18 @@ const ViewportBase = class extends React.Component {
 	}
 };
 
-const Viewport = ContextAsDefaults(SharedStateDecorator(ViewportBase));
+const ViewportDecorator = compose(
+	ContextAsDefaults,
+	SharedStateDecorator,
+	I18nContextDecorator({rtlProp: 'rtl'})
+);
+
+const Viewport = ViewportDecorator(ViewportBase);
 
 export default Viewport;
 export {
 	PanelsStateContext,
 	Viewport,
-	ViewportBase
+	ViewportBase,
+	ViewportDecorator
 };

@@ -1,12 +1,12 @@
-import Heading from '@enact/sandstone/Heading';
 import Spinner from '@enact/sandstone/Spinner';
 import React from 'react';
 
+import Section from '../components/Section';
+
 const SpinnerView = () => (
-	<>
-		<Heading showLine>Spinner with Text</Heading>
-		<Spinner>Loading...</Spinner>
-	</>
+	<Section title="Default">
+		<Spinner alt="Normal">Loading...</Spinner>
+	</Section>
 );
 
 export default SpinnerView;

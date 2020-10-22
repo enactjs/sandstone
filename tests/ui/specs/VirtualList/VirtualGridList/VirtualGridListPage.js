@@ -13,32 +13,70 @@ class VirtualGridListPage extends Page {
 
 	}
 
-	open (urlExtra) {
-		super.open('VirtualGridList-View', urlExtra);
+	open (layout = '', urlExtra) {
+		super.open(`VirtualGridList${layout}-View`, urlExtra);
 	}
 
-	get buttonHideScrollbar () { return element('#hideScrollbar', browser); }
-	get buttonTop () { return element('#top', browser); }
-	get buttonLeft () { return element('#left', browser); }
-	get buttonRight () { return element('#right', browser); }
-	get buttonBottom () { return element('#bottom', browser); }
-	get buttonMediaItem () { return element('#noLabel', browser); }
-	get buttonWrap () { return element('#wrap', browser); }
-	get buttonDirectionChange () { return element('#horizontal', browser); }
-	get buttonModeChange () { return element('#translate', browser); }
-	get buttonSpotlightDisabled () { return element('#spotlightDisabled', browser); }
+	get buttonHideScrollbar () {
+		return element('#hideScrollbar', browser);
+	}
+	get buttonTop () {
+		return element('#top', browser);
+	}
+	get buttonLeft () {
+		return element('#left', browser);
+	}
+	get buttonRight () {
+		return element('#right', browser);
+	}
+	get buttonBottom () {
+		return element('#bottom', browser);
+	}
+	get buttonMediaItem () {
+		return element('#noLabel', browser);
+	}
+	get buttonWrap () {
+		return element('#wrap', browser);
+	}
+	get buttonDirectionChange () {
+		return element('#horizontal', browser);
+	}
+	get buttonModeChange () {
+		return element('#translate', browser);
+	}
+	get buttonSpotlightDisabled () {
+		return element('#spotlightDisabled', browser);
+	}
 
-	get inputNumItems () { return element('#numItems', browser); }
-	get inputSpacing () { return element('#spacing', browser); }
-	get inputMinWidth () { return element('#minWidth', browser); }
-	get inputMinHeight () { return element('#minHeight', browser); }
+	get inputNumItems () {
+		return element('#numItems', browser);
+	}
+	get inputSpacing () {
+		return element('#spacing', browser);
+	}
+	get inputMinWidth () {
+		return element('#minWidth', browser);
+	}
+	get inputMinHeight () {
+		return element('#minHeight', browser);
+	}
 
-	get scrollBar () { return $(`${scrollbarSelector}`); }
-	get scrollBarSize () { return $(`${scrollbarSelector}`).getElementSize(); }
-	get list () { return element('#list', browser); }
-	get listSize () { return $(`${scrollableSelector}`).getElementSize(); }
+	get scrollBar () {
+		return $(`${scrollbarSelector}`);
+	}
+	get scrollBarSize () {
+		return $(`${scrollbarSelector}`).getElementSize();
+	}
+	get list () {
+		return element('#list', browser);
+	}
+	get listSize () {
+		return $(`${scrollableSelector}`).getElementSize();
+	}
 
-	get scrollThumb () { return $(`${scrollThumbSelector}`); }
+	get scrollThumb () {
+		return $(`${scrollThumbSelector}`);
+	}
 	scrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelector(_scrollbarSelector);
@@ -50,7 +88,6 @@ class VirtualGridListPage extends Page {
 		return element(`#${typeof id === 'number' ? `item${id}` : id}`, browser);
 	}
 
-	/* global document */
 	topLeftVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -72,7 +109,6 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	/* global document */
 	bottomRightVisibleItemId () {
 		return browser.execute(function (_scrollableSelector) {
 			const scroller = document.querySelector(_scrollableSelector),
@@ -97,11 +133,23 @@ class VirtualGridListPage extends Page {
 		}, scrollableSelector);
 	}
 
-	/* global document */
 	itemOffsetTopById (id) {
 		return browser.execute(function (_element) {
 			return _element.getBoundingClientRect().top;
 		}, this.item(id).value);
+	}
+
+	checkScrollbyPagekey (way) {
+		const initialThumbPosition = this.scrollThumbPosition();
+		if (way === 'down') {
+			this.pageDown();
+			this.delay(1000);
+			expect((this.scrollThumbPosition() > initialThumbPosition)).to.be.true();
+		} else {
+			this.pageUp();
+			this.delay(1000);
+			expect((initialThumbPosition > this.scrollThumbPosition())).to.be.true();
+		}
 	}
 }
 

@@ -1,4 +1,7 @@
+import Button from '@enact/sandstone/Button';
+import {Header} from '@enact/sandstone/Panels';
 import Picker from '@enact/sandstone/Picker';
+import PopupTabLayout, {Tab, TabPanels, TabPanel} from '@enact/sandstone/PopupTabLayout';
 import Scroller from '@enact/sandstone/Scroller';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
@@ -40,6 +43,14 @@ const pickerList = {
 		'Broccoli',
 		'Spinach'
 	],
+	longVegetables: [
+		'Celery contains potassium',
+		'Carrot contains beta carotene',
+		'Tomatoes contain folate',
+		'Onion contains calcium',
+		'Broccoli contains iron',
+		'Spinach contains manganese'
+	],
 	numberList: ['0', '1', '2', '3', '4'],
 	oneAirport: [
 		'San Francisco International Airport Terminal 1'
@@ -56,6 +67,47 @@ const pickerList = {
 		'נמל התעופה בן גוריון טרמינל הבינלאומי'
 	]
 };
+
+
+class PickerInPopupTabLayout extends React.Component {
+	render () {
+		return (
+			<>
+				<PopupTabLayout
+					open
+					index={0}
+				>
+					<Tab title="Display">
+						<TabPanels>
+							<TabPanel>
+								<Header title="Display 0" type="compact">
+									<slotAfter>
+										<Button>hello</Button>
+									</slotAfter>
+								</Header>
+								<div>
+									<Picker
+										onChange={action('onChange')}
+										width={select('width', prop.width, Picker, 'small')}
+										orientation={select('orientation', prop.orientation, Picker, 'horizontal')}
+										wrap={boolean('wrap', Picker)}
+										joined={boolean('joined', Picker)}
+										noAnimation={boolean('noAnimation', Picker)}
+										disabled={boolean('disabled', Picker)}
+										incrementIcon={select('incrementIcon', iconNames, Picker)}
+										decrementIcon={select('decrementIcon', iconNames, Picker)}
+									>
+										{pickerList.vegetables}
+									</Picker>
+								</div>
+							</TabPanel>
+						</TabPanels>
+					</Tab>
+				</PopupTabLayout>
+			</>
+		);
+	}
+}
 
 storiesOf('Picker', module)
 	.add(
@@ -109,7 +161,7 @@ storiesOf('Picker', module)
 				decrementIcon={select('decrementIcon', iconNames, Picker)}
 				defaultValue={2}
 			>
-				{pickerList.vegetables}
+				{pickerList.longVegetables}
 			</Picker>
 		)
 	)
@@ -240,5 +292,11 @@ storiesOf('Picker', module)
 					</Section>
 				</Row>
 			</Scroller>
+		)
+	)
+	.add(
+		'in PopupTabLayout',
+		() => (
+			<PickerInPopupTabLayout />
 		)
 	);

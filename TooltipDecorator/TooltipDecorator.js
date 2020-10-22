@@ -79,7 +79,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const tooltipDestinationProp = config.tooltipDestinationProp;
 
 	const Decorator = class extends React.Component {
-		static displayName = 'TooltipDecorator'
+		static displayName = 'TooltipDecorator';
 
 		static propTypes = /** @lends sandstone/TooltipDecorator.TooltipDecorator.prototype */ {
 			/**
@@ -237,14 +237,14 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			 * @public
 			 */
 			tooltipWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-		}
+		};
 
 		static defaultProps = {
 			disabled: false,
 			tooltipDelay: 500,
 			tooltipType: 'balloon',
 			tooltipUpdateDelay: 400
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -347,15 +347,15 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					showing: true
 				});
 			}
-		})
+		});
 
 		setTooltipLayoutJob = new Job(() => {
 			this.setTooltipLayout();
-		})
+		});
 
 		startTooltipLayoutJob = () => {
 			this.setTooltipLayoutJob.startAfter(this.props.tooltipUpdateDelay);
-		}
+		};
 
 		showTooltip = (client) => {
 			const {tooltipDelay, tooltipText} = this.props;
@@ -373,7 +373,7 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.resizeObserver.observe(this.clientRef);
 				}
 			}
-		}
+		};
 
 		hideTooltip = () => {
 			if (this.props.tooltipText) {
@@ -395,9 +395,9 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 					this.setState({showing: false});
 				}
 			}
-		}
+		};
 
-		handle = handle.bind(this)
+		handle = handle.bind(this);
 
 		// Recalculate tooltip layout on keydown to make sure tooltip is positioned correctly in case something changes as a result of the keydown.
 		handleKeyDown = this.handle(
@@ -412,34 +412,36 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			forward('onMouseOver'),
 			forProp('disabled', true),
 			(ev) => {
-				this.showTooltip(ev.target);
+				this.showTooltip(ev.currentTarget);
 			}
-		)
+		);
 
 		handleMouseOut = this.handle(
 			forward('onMouseOut'),
 			forProp('disabled', true),
-			() => {
-				this.hideTooltip();
+			(ev) => {
+				if (this.clientRef && !this.clientRef.contains(ev.relatedTarget)) {
+					this.hideTooltip();
+				}
 			}
-		)
+		);
 
 		handleFocus = this.handle(
 			forward('onFocus'),
 			({target}) => this.showTooltip(target)
-		)
+		);
 
 		handleBlur = this.handle(
 			forward('onBlur'),
 			this.hideTooltip
-		)
+		);
 
 		getTooltipRef = (node) => {
 			this.tooltipRef = node;
 			if (node) {
 				this.setTooltipLayout();
 			}
-		}
+		};
 
 		/**
 		 * Conditionally creates the FloatingLayer and Tooltip based on the presence of
@@ -452,7 +454,6 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {children, tooltipMarquee, tooltipRelative, tooltipProps, tooltipText, tooltipWidth, tooltipType} = this.props;
 			const {top, left} = this.state.position;
 			const tooltipStyle = {
-				display: ((tooltipRelative && !this.state.showing) ? 'none' : null),
 				// Moving the position to CSS variables where there are additional offset calculations
 				'--tooltip-position-top': tooltipRelative ? null : ri.unit(top, 'rem'),
 				'--tooltip-position-left': tooltipRelative ? null : ri.unit(left, 'rem')
@@ -461,17 +462,16 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			if (tooltipText) {
 				let renderedTooltip = (
 					<Tooltip
-						aria-live="off"
-						role="alert"
+						aria-hidden
 						labelOffset={this.state.labelOffset}
 						{...tooltipProps}
 						arrowAnchor={this.state.arrowAnchor}
 						direction={this.state.tooltipDirection}
 						marquee={tooltipMarquee}
-						type={tooltipType}
 						relative={tooltipRelative}
 						style={tooltipStyle}
 						tooltipRef={this.getTooltipRef}
+						type={tooltipType}
 						width={tooltipWidth}
 					>
 						{tooltipText}
@@ -485,6 +485,8 @@ const TooltipDecorator = hoc(defaultConfig, (config, Wrapped) => {
 							{renderedTooltip}
 						</FloatingLayerBase>
 					);
+				} else if (!this.state.showing) {
+					renderedTooltip = null;
 				}
 
 				if (tooltipDestinationProp === 'children') {

@@ -41,9 +41,9 @@
 		cursor: default;
 	});
 
-	:global(.enact-locale-right-to-left) & {
+	.enact-locale-rtl({
 		text-align: right;
-	}
+	});
 }
 
 .inputField {
@@ -141,6 +141,7 @@
 			color: inherit;
 
 			.input-placeholder({
+				font-weight: @sand-inputfield-placeholder-font-weight;
 				color: @sand-inputfield-placeholder-color;
 			});
 
@@ -148,6 +149,7 @@
 				color: @sand-inputfield-focus-text-color;
 
 				.input-placeholder({
+					font-weight: @sand-inputfield-placeholder-focus-font-weight;
 					color: @sand-inputfield-placeholder-active-color;
 				});
 			}
@@ -181,6 +183,7 @@
 
 			.input {
 				.input-placeholder({
+					font-weight: @sand-inputfield-placeholder-focus-font-weight;
 					color: @sand-inputfield-placeholder-active-color;
 				});
 			}

@@ -119,7 +119,7 @@ const NumberFieldBase = kind({
 			)
 		),
 		onRemove: handle(
-			returnsTrue((ev, {announce}) => announce($L('Back Space'))),
+			returnsTrue((ev, {announce}) => announce($L('backspace'))),
 			adaptEvent(
 				(ev, {maxLength, value}) => ({value: normalizeValue(value, maxLength).toString().slice(0, -1)}),
 				handle(

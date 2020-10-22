@@ -41,19 +41,19 @@ class MainView extends React.Component {
 		};
 	}
 
-	getScaledSize = (size) => ri.scale(parseInt(size) || 0)
+	getScaledSize = (size) => ri.scale(parseInt(size) || 0);
 
 	handleFocusableScrollbar = () => {
 		this.setState((state) => ({focusableScrollbar: !state.focusableScrollbar}));
-	}
+	};
 
-	handleHeight = ({value}) => this.setState({height: value})
+	handleHeight = ({value}) => this.setState({height: value});
 
 	handleScrollMode = ({selected: nativeScroll}) => {
 		this.setState({nativeScroll});
-	}
+	};
 
-	handleWidth = ({value}) => this.setState({width: value})
+	handleWidth = ({value}) => this.setState({width: value});
 
 	render () {
 		const {focusableScrollbar, height, nativeScroll, width} = this.state;

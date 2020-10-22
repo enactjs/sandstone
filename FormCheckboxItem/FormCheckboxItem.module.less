@@ -13,11 +13,8 @@
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
 		font-size: @sand-item-font-size;
-		line-height: @sand-item-line-height;
 
-		.sand-locale-non-latin({
-			line-height: @sand-item-line-height;
-		});
+		.enact-locale-line-height(@sand-item-line-height, @sand-item-line-height);
 	});
 }
 
@@ -25,7 +22,6 @@
 	.applySkins({
 		.focus({
 			color: @sand-formcheckboxitem-focus-text-color;
-			font-weight: @sand-formcheckboxitem-focus-font-weight;
 
 			.bg {
 				background-color: transparent;

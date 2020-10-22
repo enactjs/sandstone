@@ -1,13 +1,14 @@
 import Button from '@enact/sandstone/Button';
-import Heading from '@enact/sandstone/Heading';
 import Slider from '@enact/sandstone/Slider';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import Section from '../components/Section';
+
 class CustomSlider extends React.Component {
 	static propTypes = {
 		customText: PropTypes.string
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -16,7 +17,7 @@ class CustomSlider extends React.Component {
 		};
 	}
 
-	handleChange = (ev) => this.setState({value: ev.value})
+	handleChange = (ev) => this.setState({value: ev.value});
 
 	render () {
 		const {customText, ...rest} = this.props;
@@ -30,12 +31,16 @@ class CustomSlider extends React.Component {
 
 const SliderView = () => (
 	<>
-		<Heading showLine>Default</Heading>
-		<Slider />
+		<Section title="Default">
+			<Slider alt="Normal" />
+			<Slider alt="Disabled" disabled />
+		</Section>
 		<br />
 		<br />
-		<Heading showLine>Slider using ValueText</Heading>
-		<CustomSlider customText="This is Volume" />
+		<Section title="Aria-ValueText">
+			<CustomSlider alt="Aria-valuetext" customText="This is Volume" />
+			<CustomSlider alt="Aria-valuetext and disabled" customText="This is Volume" disabled />
+		</Section>
 		<br />
 		<br />
 		<Button>To Escape to the Left via 5-way Left</Button>

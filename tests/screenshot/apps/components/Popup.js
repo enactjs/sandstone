@@ -1,5 +1,6 @@
 import Popup from '../../../../Popup';
 import React from 'react';
+import {withConfig} from './utils';
 
 const PopupTests = [
 	<Popup open>Popup!</Popup>,
@@ -21,4 +22,5 @@ const PopupTests = [
 		component: <Popup open>Popup!</Popup>
 	}
 ];
-export default PopupTests;
+
+export default withConfig({wrapper: {full: true}}, PopupTests);

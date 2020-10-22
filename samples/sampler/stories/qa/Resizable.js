@@ -40,7 +40,7 @@ class Items extends React.Component {
 		this.setState(({more}) => {
 			return {more: !more};
 		});
-	}
+	};
 
 	render () {
 		const {more} = this.state;

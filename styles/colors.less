@@ -21,16 +21,18 @@
 
 // UI Conceptual Colors
 // ---------------------------------------
-@sand-bg-color:      #575e66;
+@sand-bg-color:      @sand-black;
 @sand-text-color:    @sand-light-gray;
 @sand-border-color:  @sand-light-gray;
 @sand-feature-color: @sand-green;  // Used to draw special attention, like an secondary accent color
+@sand-overlay-bg-color: #575e66;
 @sand-overlay-text-shadow: 0 4px 4px fade(@sand-black, 75%);
 @sand-overlay-bg-shadow: 0 42px 24px fade(@sand-black, 30%);
 
 // Disabled Opacity
 // ---------------------------------------
 @sand-disabled-opacity: 0.28;  // This value brings the standard text-color to the disabled text color specs
+@sand-disabled-bg-opacity: @sand-disabled-opacity;
 @sand-disabled-focus-content-opacity: 0.4;
 @sand-disabled-focus-bg-opacity: 0.585;  // This value brings the standard focus-background-color to the disabled+focus color specs
 
@@ -57,8 +59,8 @@
 
 // Alert
 // ---------------------------------------
-@sand-alert-bg-color: #373a41;
-@sand-alert-overlay-bg-color: fade(@sand-alert-bg-color, 95%);
+@sand-alert-bg-color: @sand-black;
+@sand-alert-overlay-bg-color: fade(#373a41, 95%);
 @sand-alert-overlay-shadow: @sand-spotlight-focus-shadow;
 
 // Button
@@ -98,7 +100,7 @@
 
 // ContextualPopup
 // ---------------------------------------
-@sand-contextualpopup-bg-color: @sand-bg-color;
+@sand-contextualpopup-bg-color: @sand-overlay-bg-color;
 @sand-contextualpopup-border-color: #bbb;
 @sand-contextualpopup-shadow: 0 24px 32px @sand-spotlight-shadow-color;
 
@@ -110,13 +112,14 @@
 // FixedPopupPanels
 // ---------------------------------------
 @sand-fixedpopuppanels-bg-color: @sand-popup-bg-color;
+@sand-fixedpopuppanels-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-fixedpopuppanels-shadow: @sand-spotlight-focus-shadow;
 
 // FlexiblePopupPanels
 // ---------------------------------------
 @sand-flexiblepopuppanels-panel-bg-color: @sand-popup-bg-color;
+@sand-flexiblepopuppanels-panel-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-flexiblepopuppanels-panel-shadow: @sand-fixedpopuppanels-shadow;
-@sand-flexiblepopuppanels-header-shadow: @sand-overlay-text-shadow;
 
 // FormCheckboxItem
 // ---------------------------------------
@@ -172,6 +175,7 @@
 // Item
 // ---------------------------------------
 @sand-item-disabled-focus-bg-color: @sand-spotlight-bg-color;
+@sand-item-label-color: @sand-gray;
 
 // KeyGuide
 // ---------------------------------------
@@ -207,6 +211,7 @@
 @sand-picker-indicators-inactive-focus-bg-color: #b8b9bb;
 @sand-picker-joined-horizontal-bg-color: @sand-button-bg-color;
 @sand-picker-joined-text-color: @sand-text-color;
+@sand-picker-joined-incrementer-color: @sand-dark-gray;
 @sand-picker-joined-focus-disabled-text-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-bg-color: @sand-picker-indicators-active-focus-bg-color;
 @sand-picker-joined-focus-disabled-indicator-opacity: 0.9;
@@ -215,11 +220,13 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-bg-color: fade(@sand-bg-color, 90%);
+@sand-popup-bg-color: fade(@sand-overlay-bg-color, 90%);
+@sand-popup-scrimtransparent-bg-color: fade(@sand-overlay-bg-color, 95%);
 
 // PopupTabLayout
 // ---------------------------------------
 @sand-popuptablayout-bg-color: @sand-popup-bg-color;
+@sand-popuptablayout-scrimtransparent-bg-color: @sand-popup-scrimtransparent-bg-color;
 @sand-popuptablayout-shadow: @sand-overlay-bg-shadow;
 
 // ProgressBar
@@ -261,15 +268,15 @@
 
 // Scrollbar
 // ---------------------------------------
-@sand-scrollbar-track-bg-color: #41454B;
-@sand-scrollbar-thumb-bg-color: #7E848C;
+@sand-scrollbar-track-bg-color: fade(#41464C, 50%);
+@sand-scrollbar-thumb-bg-color: fade(@sand-light-gray, 60%);;
 @sand-scrollbar-thumb-focus-bg-color: @sand-light-gray;
 @sand-scrollbar-thumb-focus-direction-indicator-color: #9A9A9A;
 @sand-scrollbar-thumb-focus-box-shadow-color: fade(@sand-black, 30%);
 
 // Scroller
 // ---------------------------------------
-@sand-scroll-focusablebody-focus-bg-color: fade(@sand-white, 10%);
+@sand-scroll-focusablebody-focus-bg-color: fade(@sand-light-gray, 10%);
 
 // Slider
 // ---------------------------------------

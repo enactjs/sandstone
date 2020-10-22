@@ -39,7 +39,7 @@ class ScrollerResizableItem extends React.Component {
 		min: PropTypes.number,
 		more: PropTypes.bool,
 		toggleMore: PropTypes.func
-	}
+	};
 
 	render () {
 		const {max = 3000, min = 504, more, toggleMore} = this.props;
@@ -68,7 +68,7 @@ class ScrollerWithLongItem extends React.Component {
 
 	handleClick = () => {
 		this.setState(prevState => ({more: !prevState.more}));
-	}
+	};
 
 	render () {
 		return (
@@ -97,7 +97,7 @@ class ScrollerWithResizable extends React.Component {
 
 	handleClick = () => {
 		this.setState(prevState => ({more: !prevState.more}));
-	}
+	};
 
 	render () {
 		return (
@@ -238,6 +238,27 @@ storiesOf('Scroller', module)
 						))
 					)}</div>)}
 				</div>
+			</Scroller>
+		)
+	)
+	.add(
+		'With short contents',
+		() => (
+			<Scroller
+				direction={select('direction', prop.direction, Config)}
+				focusableScrollbar={prop.focusableScrollbarOption[select('focusableScrollbar', ['false', 'true', '"byEnter"'], Config)]}
+				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
+				noScrollByWheel={boolean('noScrollByWheel', Config)}
+				onKeyDown={action('onKeyDown')}
+				onScrollStart={action('onScrollStart')}
+				onScrollStop={action('onScrollStop')}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
+				style={{height: ri.scaleToRem(600)}}
+				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
+			>
+				Text
 			</Scroller>
 		)
 	)

@@ -7,7 +7,7 @@ const scrollbarSelector = '.useScroll_ScrollbarTrack_scrollbarTrack';
 const scrollContentSelector = '.enact_ui_Scroller_Scroller_scroller';
 const scrollHorizontalThumbSelector = '.useScroll_useScroll_horizontalScrollbar .useScroll_ScrollbarTrack_thumb';
 const scrollThumbSelector = '.useScroll_ScrollbarTrack_thumb';
-const scrollVirticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
+const scrollVerticalThumbSelector = '.useScroll_ScrollbarTrack_vertical  .useScroll_ScrollbarTrack_thumb';
 const verticalscrollbarSelector = '.useScroll_useScroll_verticalScrollbar';
 
 class ScrollerPage extends Page {
@@ -37,6 +37,9 @@ class ScrollerPage extends Page {
 	get buttonHideScrollbar () {
 		return element('#hideScrollbar', browser);
 	}
+	get buttonNativeScroll () {
+		return element('#nativeScroll', browser);
+	}
 
 	// dropdown api
 	get dropdownFocusableScrollbar () {
@@ -48,12 +51,11 @@ class ScrollerPage extends Page {
 		return $(`${focusableBodySelector}`);
 	}
 	get verticalScrollThumb () {
-		return $(`${scrollVirticalThumbSelector}`);
+		return $(`${scrollVerticalThumbSelector}`);
 	}
 	get horizontalScrollThumb () {
 		return $(`${scrollHorizontalThumbSelector}`);
 	}
-	/* global document */
 	getScrollThumbPosition () {
 		return browser.execute(function (_scrollbarSelector) {
 			const scrollbar = document.querySelectorAll(_scrollbarSelector);

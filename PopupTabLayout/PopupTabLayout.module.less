@@ -8,10 +8,16 @@
 @popupTabLayout-max-height: ~"calc(100vh -" (.extract(@sand-popuptablayout-margin, top)[] + .extract(@sand-popuptablayout-margin, bottom)[])~")";
 
 .popupTabLayout {
-	// Override for Popup (more precedence)
+	// Override Popup (more precedence)
 	&.popup {
 		margin: @sand-popuptablayout-margin;
 		max-height: @popupTabLayout-max-height;
+	}
+	// Override TabLayout (more precedence)
+	.tabLayout {
+		.tabs {
+			bottom: auto; // Override the bottom:0 set by TabLayout which allows the use of an un-sized scroller, but is uncooperative with this layout (a shrinking container)
+		}
 	}
 
 	.tabs {
@@ -37,8 +43,22 @@
 		.tabs,
 		.content .panels::before {
 			border-radius: @sand-popuptablayout-tabs-content-border-radius;
-			background-color: @sand-popuptablayout-bg-color;
 			box-shadow: @sand-popuptablayout-shadow;
+		}
+
+		&.scrimTranslucent {
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-bg-color;
+			}
+		}
+
+		&.scrimNone,
+		&.scrimTransparent {
+			.tabs,
+			.content .panels::before {
+				background-color: @sand-popuptablayout-scrimtransparent-bg-color;
+			}
 		}
 	});
 }
@@ -53,9 +73,9 @@
 		position: relative;
 		padding: 0;
 		// Overrides padding for Popup in RTL
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			padding: 0;
-		}
+		});
 	}
 }
 

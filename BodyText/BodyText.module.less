@@ -9,21 +9,23 @@
 	padding: @sand-bodytext-padding;
 	white-space: normal;
 
+	&.large { /* Needed to prevent global class being added in the DOM */ }
+
 	&.small {
 		font-size: @sand-body-small-font-size;
 
-		.sand-locale-non-latin({
-			font-size: @sand-non-latin-body-small-font-size;
+		.enact-locale-tallglyph({
+			font-size: @sand-tallglyph-body-small-font-size;
 		});
 	}
 
-	:global(.enact-locale-right-to-left) & {
+	.enact-locale-rtl({
 		text-align: right;
 
 		&.centered {
 			text-align: center;
 		}
-	}
+	});
 
 	&.noWrap {
 		/* Support for single-line, provided for extensibility */

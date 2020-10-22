@@ -22,15 +22,12 @@
     "title": "Perf Scroller Translate",
     "theme": "sandstone"
   },
-  "eslintConfig": {
-    "extends": "enact/strict"
-  },
   "dependencies": {
-    "@enact/core": "^3.3.1",
-    "@enact/i18n": "^3.3.1",
+    "@enact/core": "^3.4.7",
+    "@enact/i18n": "^3.4.7",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.3.1",
-    "@enact/ui": "^3.3.1",
+    "@enact/spotlight": "^3.4.7",
+    "@enact/ui": "^3.4.7",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "react": "^16.8.6",

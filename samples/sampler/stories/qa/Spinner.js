@@ -28,13 +28,13 @@ class FocusOnSpinner extends React.Component {
 		this.setState({
 			isLoading: true
 		});
-	}
+	};
 
 	hideSpinner = () => {
 		this.setState({
 			isLoading: false
 		});
-	}
+	};
 
 	render () {
 		return (

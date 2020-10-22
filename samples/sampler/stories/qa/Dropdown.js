@@ -2,14 +2,12 @@ import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import UIButton, {ButtonBase as UIButtonBase} from '@enact/ui/Button';
-import {scaleToRem} from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button, {ButtonBase} from '@enact/sandstone/Button';
 import Dropdown, {DropdownBase} from '@enact/sandstone/Dropdown';
 import Heading from '@enact/sandstone/Heading';
-import Scroller from '@enact/sandstone/Scroller';
 
 const Config = mergeComponentMetadata('Dropdown', UIButtonBase, UIButton, ButtonBase, Button, DropdownBase, Dropdown);
 const items = (itemCount, optionText = 'Option') => (new Array(itemCount)).fill().map((i, index) => `${optionText} ${index + 1}`);
@@ -32,7 +30,7 @@ class AutoDismissDropdown extends React.Component {
 
 	handleClose = () => {
 		this.setState({open: false});
-	}
+	};
 
 	render () {
 		return (
@@ -59,7 +57,7 @@ class DisabledDropdown extends React.Component {
 
 	handleClick = () => {
 		this.setState({isDisabled: false});
-	}
+	};
 
 	render () {
 		return (
@@ -188,55 +186,5 @@ storiesOf('Dropdown', module)
 		'with disabled',
 		() => (
 			<DisabledDropdown />
-		)
-	).add(
-		'in Scroller',
-		() => (
-			<Scroller style={{height: scaleToRem(250)}}>
-				<Dropdown
-					defaultSelected={10}
-					direction={select('direction', ['above', 'below'], Config)}
-					disabled={boolean('disabled', Config)}
-					onClose={action('onClose')}
-					onOpen={action('onOpen')}
-					onSelect={action('onSelect')}
-					placeholder={text('placeholder', Config, 'Dropdown')}
-					size={select('size', ['small', 'large'], Config)}
-					title="title1"
-					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
-				>
-					{items(3)}
-				</Dropdown>
-				<br />
-				<Dropdown
-					defaultSelected={10}
-					direction={select('direction', ['above', 'below'], Config)}
-					disabled={boolean('disabled', Config)}
-					onClose={action('onClose')}
-					onOpen={action('onOpen')}
-					onSelect={action('onSelect')}
-					placeholder={text('placeholder', Config, 'Dropdown')}
-					size={select('size', ['small', 'large'], Config)}
-					title="title2"
-					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
-				>
-					{items(3)}
-				</Dropdown>
-				<br />
-				<Dropdown
-					defaultSelected={10}
-					direction={select('direction', ['above', 'below'], Config)}
-					disabled={boolean('disabled', Config)}
-					onClose={action('onClose')}
-					onOpen={action('onOpen')}
-					onSelect={action('onSelect')}
-					placeholder={text('placeholder', Config, 'Dropdown')}
-					size={select('size', ['small', 'large'], Config)}
-					title="title3"
-					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
-				>
-					{items(3)}
-				</Dropdown>
-			</Scroller>
 		)
 	);

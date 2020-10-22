@@ -9,11 +9,11 @@ import handle, {call, forKey, forProp, forward} from '@enact/core/handle';
 import hoc from '@enact/core/hoc';
 import {memoize} from '@enact/core/util';
 import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import Spotlight from '@enact/spotlight';
 import Changeable from '@enact/ui/Changeable';
 import DateFactory from 'ilib/lib/DateFactory';
 import PropTypes from 'prop-types';
 import React from 'react';
-
 
 /*
  * Converts a JavaScript Date to unix time
@@ -48,7 +48,7 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 	});
 
 	const Decorator = class extends React.Component {
-		static displayName = 'DateTimeDecorator'
+		static displayName = 'DateTimeDecorator';
 
 		static propTypes = /** @lends sandstone/internal/DateTimeDecorator.DateTimeDecorator.prototype */ {
 			/**
@@ -69,6 +69,14 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			onChange: PropTypes.func,
 
 			/**
+			 * Handler for `onComplete` event
+			 *
+			 * @type {Function}
+			 * @public
+			 */
+			onComplete: PropTypes.func,
+
+			/**
 			 * When `true`, the date picker is expanded to select a new date.
 			 *
 			 * @type {Boolean}
@@ -77,13 +85,21 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			open: PropTypes.bool,
 
 			/**
+			 * Indicates the content's text direction is right-to-left.
+			 *
+			 * @type {Boolean}
+			 * @private
+			 */
+			rtl: PropTypes.bool,
+
+			/**
 			 * The selected date
 			 *
 			 * @type {Date}
 			 * @public
 			 */
 			value: PropTypes.instanceOf(Date)
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -171,17 +187,17 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			}
 
 			return newValue;
-		}
+		};
 
 		emitChange = (date) => {
 			forward('onChange', {value: date ? date.getJSDate() : null}, this.props);
-		}
+		};
 
 		handlePickerChange = (handler, ev) => {
 			const value = this.toIDate(this.state.value);
 			handler(ev, value, memoizedI18nConfig(this.props.locale));
 			this.updateValue(value);
-		}
+		};
 
 		handleCancel = () => {
 			const {initialValue, value} = this.state;
@@ -196,14 +212,24 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 			if (initialValue !== value) {
 				this.emitChange(this.toIDate(initialValue));
 			}
-		}
+		};
+
+		handleEnter = (ev) => {
+			if (ev.target && ev.target.dataset.lastElement === 'true') {
+				const value = this.state.value ? this.toIDate(this.state.value) : null;
+
+				forward('onComplete', {value: value ? value.getJSDate() : null}, this.props);
+			} else {
+				Spotlight.move(this.props.rtl ? 'left' : 'right');
+			}
+		};
 
 		handleKeyDown = handle(
 			forward('onKeyDown'),
-			forProp('open', true),
-			forKey('cancel'),
-			call('handleCancel')
-		).bindAs(this, 'handleKeyDown')
+			forKey('enter'),
+			forProp('disabled', false),
+			call('handleEnter')
+		).bindAs(this, 'handleKeyDown');
 
 		render () {
 			const value = this.toIDate(this.state.value);
@@ -224,9 +250,12 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 				order = i18nConfig.order;
 			}
 
+			const rest = Object.assign({}, this.props);
+			delete rest.onComplete;
+
 			return (
 				<Wrapped
-					{...this.props}
+					{...rest}
 					{...props}
 					{...this.handlers}
 					label={label}

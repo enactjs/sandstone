@@ -82,7 +82,7 @@ const HeaderBase = kind({
 		 * Sets the hint string read when focusing the back button.
 		 *
 		 * @type {String}
-		 * @default 'Go to previous'
+		 * @default 'go to previous'
 		 * @public
 		 */
 		backButtonAriaLabel: PropTypes.string,
@@ -341,7 +341,7 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Subtitle id of the headder.
+		 * Subtitle id of the header.
 		 *
 		 * @type {String}
 		 * @private
@@ -370,7 +370,7 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Title id of the headder.
+		 * Title id of the header.
 		 *
 		 * @type {String}
 		 * @private
@@ -521,7 +521,7 @@ const HeaderBase = kind({
 		const backButton = (backButtonAvailable && !noBackButton ? (
 			<div className={css.backContainer}>
 				<Button
-					aria-label={backButtonAriaLabel == null ? $L('Go to previous') : backButtonAriaLabel}
+					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 					backgroundOpacity={backButtonBackgroundOpacity}
 					className={css.back}
 					icon="arrowhookleft"
@@ -572,7 +572,7 @@ const HeaderBase = kind({
 	}
 });
 
-// Customized ContextAsDefaults HOC to incorporate the backButtonAvaialble prop feature
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function ContextAsDefaultsHeader (props) {

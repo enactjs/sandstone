@@ -17,7 +17,6 @@ class FixedPopupPanelsInterface {
 		this.self.waitForExist(duration, true);
 	}
 
-	/* global window */
 	waitTransitionToIndex (index, delay = 3000, msg = 'timed out waiting for transitionend', callback) {
 		browser.execute(
 			function () {
@@ -41,7 +40,6 @@ class FixedPopupPanelsInterface {
 		);
 	}
 
-	/* global document */
 	clickBelowPopup () {
 		const offset = browser.execute(function () {
 			const {top, left: left1} = document.querySelector('#openButton').getBoundingClientRect();
@@ -64,16 +62,26 @@ class FixedPopupPanelsInterface {
 
 	focusBackButton () {
 		// TODO:  Hover and click back button after it reveals
-		return browser.execute((el) => el.focus(), $('[aria-label="Go to previous"]'));
+		return browser.execute((el) => el.focus(), $('[aria-label="go to previous"]'));
 	}
 
-	get self () { return browser.$(this.selector); }
+	get self () {
+		return browser.$(this.selector);
+	}
 
-	get openButton () { return browser.$('#openButton'); }
-	get item1 () { return this.self.$('#item1'); }
+	get openButton () {
+		return browser.$('#openButton');
+	}
+	get item1 () {
+		return this.self.$('#item1');
+	}
 
-	get panel1 () { return this.self.$(panelSelector(1)); }
-	get panel2 () { return this.self.$(panelSelector(2)); }
+	get panel1 () {
+		return this.self.$(panelSelector(1));
+	}
+	get panel2 () {
+		return this.self.$(panelSelector(2));
+	}
 }
 
 class FixedPopupPanelsPage extends Page {

@@ -22,7 +22,7 @@ export const tabs = [
 	<Tab title="Five">
 		<div id="view5">View Five</div>
 	</Tab>,
-	<Tab title="Six">
+	<Tab title="Six" spotlightDisabled>
 		<div id="view6"><Button id="button6">Button Six</Button></div>
 	</Tab>
 ];
@@ -43,7 +43,7 @@ export const tabsWithIcons = [
 	<Tab title="Five" icon="picture">
 		<div id="view5">View Five</div>
 	</Tab>,
-	<Tab title="Six" icon="search">
+	<Tab title="Six" icon="search" spotlightDisabled>
 		<div id="view6"><Button id="button6">Button Six</Button></div>
 	</Tab>
 ];

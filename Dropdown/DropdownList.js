@@ -158,7 +158,7 @@ const ReadyState = {
 
 const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 	return class extends React.Component {
-		static displayName = 'DropdownListSpotlightDecorator'
+		static displayName = 'DropdownListSpotlightDecorator';
 
 		static propTypes = {
 			/*
@@ -174,7 +174,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			 * @type {Number}
 			 */
 			selected: PropTypes.number
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -217,7 +217,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 
 		setScrollTo = (scrollTo) => {
 			this.scrollTo = scrollTo;
-		}
+		};
 
 		resetFocus (keysDiffer) {
 			let adjustedFocusIndex;
@@ -251,12 +251,12 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 				animate: false,
 				focus: true,
 				index: selected,
-				offset: ri.scale(312), // @sand-item-height * 2
+				offset: ri.scale(126 * 2), // @sand-item-small-height * 2 (TODO: large text mode not supported!)
 				stickTo: 'start' // offset from the top of the dropdown
 			});
 
 			this.setState({ready: ReadyState.SCROLLED});
-		}
+		};
 
 		focusSelected () {
 			this.setState({ready: ReadyState.DONE});
@@ -275,7 +275,7 @@ const DropdownListSpotlightDecorator = hoc((config, Wrapped) => {
 			if (this.props.onFocus) {
 				this.props.onFocus(ev);
 			}
-		}
+		};
 
 		render () {
 			return (

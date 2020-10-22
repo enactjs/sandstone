@@ -1,6 +1,5 @@
 const Page = require('./FlexiblePopupPanelsPage');
 
-
 describe('FlexiblePopupPanels', function () {
 	const Interface = Page.flexiblePopupPanels;
 
@@ -12,46 +11,45 @@ describe('FlexiblePopupPanels', function () {
 		it('should open FlexiblePopupPanels and navigate to Panel', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
-			Page.spotlightRight();
+			Page.spotlightSelect();
+
+			Page.waitForFocused(Interface.singleItem);
+
+			// verifies that focus enters the panel body by default
 			Page.spotlightRight();
 
-			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
+			Page.waitForFocused(Interface.nextButton, {targetName: 'next button'});
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(2);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.nextButton.isFocused(), 'focus Next button').to.be.true();
+			Page.waitForFocused(Interface.nextButton, {targetName: 'next button 2'});
 
 			Page.spotlightLeft();
 			Page.spotlightLeft();
-
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			Page.waitForFocused(Interface.prevButton, {targetName: 'prev button'});
 
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(1);
 
 			// should retain focus on navigation buttons - [GT-32184]
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			Page.waitForFocused(Interface.prevButton, {targetName: 'prev button 2'});
 		});
 
 		// [GT-32185]
 		it('should respect Panel autoFocus setting', function () {
 			expect(Interface.openButton.isFocused(), 'focus Open button').to.be.true();
 
-			Page.waitTransitionEnd(1000, 'wait for FlexiblePopupPanels to open', () => {
-				Page.spotlightSelect();
-			});
+			Page.spotlightSelect();
 
-			expect(Interface.prevButton.isFocused(), 'focus Prev button').to.be.true();
+			Page.waitForFocused(Interface.singleItem);
 
+			Page.spotlightLeft();
 			Page.spotlightSelect();
 			Interface.waitForPanelBody(7);
 
-			expect($('#item2').isFocused(), 'focus Item 2').to.be.true();
+			Page.waitForFocused($('#item2'), {targetName: 'item 2'});
 		});
 	});
 

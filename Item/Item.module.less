@@ -13,7 +13,8 @@
 	.sand-text-base(@sand-item-font-size);
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
-	line-height: @sand-item-line-height;
+	font-weight: @sand-item-font-weight;
+	.enact-locale-line-height(@sand-item-line-height, @sand-item-line-height);
 	height: @sand-item-height;
 	display: flex;
 	position: relative;
@@ -92,27 +93,28 @@
 	// Text
 	.label {
 		.sand-text-base(@sand-item-label-font-size);
+
+		font-weight: inherit;
 		line-height: @sand-item-label-line-height;
 	}
 
-	.sand-locale-non-latin({
-		line-height: @sand-item-line-height;
-	});
-
 	.sand-custom-text({
 		font-size: @sand-item-font-size-large;
-		line-height: @sand-item-line-height-large;
+		.enact-locale-line-height(@sand-item-line-height-large, @sand-item-line-height-large);
 
-		.sand-locale-non-latin({
-			line-height: @sand-item-line-height-large;
-		});
+		.label {
+			font-size: @sand-item-label-font-size-large;
+		}
 	});
+
+	&.large { /* Needed to prevent global class being added in the DOM */ }
 
 	&.small {
 		.sand-text-base(@sand-item-small-font-size);
 
-		line-height: @sand-item-small-line-height;
+		font-weight: @sand-item-small-font-weight;
 		height: @sand-item-small-height;
+		.enact-locale-line-height(@sand-item-small-line-height, @sand-item-small-line-height);
 
 		&.hasLabel {
 			height: @sand-item-small-withlabel-height;
@@ -120,21 +122,18 @@
 
 		.label {
 			.sand-text-base(@sand-item-small-label-font-size);
+
+			font-weight: inherit;
 			line-height: @sand-item-small-label-line-height;
 		}
 
-		.sand-locale-non-latin({
+		.enact-locale-tallglyph({
 			font-size: @sand-item-small-font-size;
-			line-height: @sand-item-small-line-height;
 		});
 
 		.sand-custom-text({
 			font-size: @sand-item-small-font-size-large;
-			line-height: @sand-item-small-line-height-large;
-
-			.sand-locale-non-latin({
-				line-height: @sand-item-small-line-height-large;
-			});
+			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-item-small-line-height-large);
 		});
 	}
 
@@ -146,6 +145,10 @@
 			.sand-spotlight-resting-bg-colors();
 		}
 
+		.label {
+			color: @sand-item-label-color;
+		}
+
 		.focus({
 			.sand-spotlight-focus-text-colors();
 
@@ -153,10 +156,8 @@
 				.sand-spotlight-focus-bg-colors();
 			}
 
-			.text,
 			.label {
 				color: inherit;
-				font-weight: inherit;
 			}
 		});
 

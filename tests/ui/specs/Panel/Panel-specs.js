@@ -22,7 +22,6 @@ describe('Panel', function () {
 			Page.spotlightSelect();
 
 			Page.panel2.waitForEnter();
-			Page.delay(1000);
 
 			const expected = 'Panel2 Button 1';
 			const actual = Page.focusedText;
@@ -30,15 +29,15 @@ describe('Panel', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		// this test passed manually but fails in automation because the 'last-focused' element
-		// isn't preserved.
-		it.skip('should restore focus when navigating backward and `autoFocus="last-focused"`', () => {
-			Page.focus(Page.panel1.nextButton);
-			Page.spotlightSelect();
+		it('should restore focus when navigating backward and `autoFocus="last-focused"`', () => {
+			Page.open('?defaultIndex=1');
 
-			Page.panel2.waitForEnter();
+			Page.spotlightRight();
+			Page.spotlightRight();
+			Page.spotlightRight();
 
-			Page.focus(Page.panel2.nextButton);
+			waitForFocused(Page.panel2.nextButton);
+
 			Page.spotlightSelect();
 
 			Page.panel3.waitForEnter();
@@ -90,23 +89,8 @@ describe('Panel', function () {
 			expect(actual).to.equal(expected);
 		});
 
-		// this fails because Panel's spotOnRender fires while the previous Panel's next button
-		// still has focus.
-		it.skip('should focus the first button when `hideChildren=false` ', () => {
-			Page.focus(Page.panel1.nextButton);
-			Page.spotlightSelect();
-
-			Page.panel2.waitForEnter();
-
-			Page.focus(Page.panel2.nextButton);
-			Page.spotlightSelect();
-
-			Page.panel3.waitForEnter();
-
-			Page.focus(Page.panel3.nextButton);
-			Page.spotlightSelect();
-
-			Page.panel4.waitForEnter();
+		it('should focus the first button when `hideChildren=false` ', () => {
+			Page.open('?defaultIndex=3');
 
 			Page.focus(Page.panel4.nextButton);
 			Page.spotlightSelect();
@@ -115,6 +99,65 @@ describe('Panel', function () {
 
 			const expected = 'Panel5 Button 1';
 			const actual = Page.focusedText;
+
+			expect(actual).to.equal(expected);
+		});
+
+		it('should focus the `default-element` when moving forward', () => {
+			Page.open('?defaultIndex=4');
+
+			Page.focus(Page.panel5.nextButton);
+			Page.spotlightSelect();
+
+			Page.panel6.waitForEnter();
+
+			const expected = 'Panel6 Button 2';
+			const actual = Page.focusedText;
+
+			expect(actual).to.equal(expected);
+		});
+
+		// this test passed manually but fails in automation because the 'last-focused' element
+		// isn't preserved.
+		it('should focus the `last-focused` when moving backward', () => {
+			Page.open('?defaultIndex=5');
+
+			Page.spotlightRight();
+			Page.spotlightRight();
+
+			waitForFocused(Page.panel6.nextButton);
+
+			Page.spotlightSelect();
+
+			Page.panel7.waitForEnter();
+
+			Page.focus(Page.panel7.prevButton);
+			Page.spotlightSelect();
+
+			Page.panel6.waitForEnter();
+
+			const expected = true;
+			const actual = Page.panel6.nextButton.isFocused();
+
+			expect(actual).to.equal(expected);
+		});
+	});
+
+	describe('animation', () => {
+		it('should reverse animation', () => {
+			Page.focus(Page.panel1.nextButton);
+			Page.spotlightSelect();
+
+			Page.panel2.self.waitForExist();
+
+			// brief delay to allow the animation to start
+			Page.delay(50);
+			browser.execute(() => window.setPanelIndex(0));
+
+			Page.panel2.self.waitForExist({reverse: true});
+
+			const expected = true;
+			const actual = Page.panel1.self.isDisplayedInViewport();
 
 			expect(actual).to.equal(expected);
 		});

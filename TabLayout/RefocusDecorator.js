@@ -3,13 +3,26 @@ import {useId} from '@enact/ui/internal/IdProvider';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import css from './TabGroup.module.less';
+
 function getTabsSpotlightId (spotlightId, collapsed) {
 	return `${spotlightId}-tabs-${collapsed ? 'collapsed' : 'expanded'}`;
 }
 
+function getContainerNode (containerId) {
+	return document.querySelector(`[data-spotlight-id='${containerId}']`);
+}
+
+const getNavigableFilter = (spotlightId, collapsed) => (elem) => (
+	Spotlight.getPointerMode() || (
+		!elem.classList.contains(css.tab) &&
+		elem.dataset.spotlightId !== getTabsSpotlightId(spotlightId, collapsed)
+	)
+);
+
 const RefocusDecorator = Wrapped => {
 	// eslint-disable-next-line no-shadow
-	function RefocusDecorator ({collapsed, onTabAnimationEnd, orientation, spotlightId, ...rest}) {
+	function RefocusDecorator ({collapsed, index, onTabAnimationEnd, orientation, spotlightId, ...rest}) {
 		const {generateId} = useId({prefix: 'sand-tablayout-'});
 
 		// generate an id for the component (and a derived id for the tabs) so we can refocus them
@@ -17,13 +30,36 @@ const RefocusDecorator = Wrapped => {
 		// config before the new one is mounted
 		spotlightId = spotlightId || generateId(orientation || 'vertical');
 
+		React.useLayoutEffect(() => {
+			if (!Spotlight.getPointerMode() && !Spotlight.isPaused()) {
+				const current = Spotlight.getCurrent(),
+					tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed),
+					containerNode = getContainerNode(tabsSpotlightId);
+
+				if (!current || containerNode && containerNode.querySelector(`.${css.selected}`) !== current) {
+					Spotlight.focus(spotlightId);
+				}
+			}
+		}, [index]);	// eslint-disable-line react-hooks/exhaustive-deps
+
+		React.useEffect(() => {
+			Spotlight.set(spotlightId, {
+				navigableFilter: collapsed && orientation === 'vertical' ? getNavigableFilter(spotlightId, collapsed) : null
+			});
+		}, [collapsed, orientation, spotlightId]);	// eslint-disable-line react-hooks/exhaustive-deps
+
 		const handleTabAnimationEnd = React.useCallback((ev) => {
 			if (onTabAnimationEnd) {
 				onTabAnimationEnd(ev);
 			}
 
 			if (!collapsed && !Spotlight.getPointerMode() && !Spotlight.isPaused()) {
-				Spotlight.focus(getTabsSpotlightId(spotlightId, collapsed));
+				const tabsSpotlightId = getTabsSpotlightId(spotlightId, collapsed);
+				const containerNode = getContainerNode(tabsSpotlightId);
+
+				if (containerNode && !containerNode.contains(Spotlight.getCurrent())) {
+					Spotlight.focus(tabsSpotlightId);
+				}
 			}
 
 		}, [collapsed, onTabAnimationEnd, spotlightId]);
@@ -32,6 +68,7 @@ const RefocusDecorator = Wrapped => {
 			<Wrapped
 				{...rest}
 				collapsed={collapsed}
+				index={index}
 				onTabAnimationEnd={handleTabAnimationEnd}
 				orientation={orientation}
 				spotlightId={spotlightId}
@@ -41,6 +78,7 @@ const RefocusDecorator = Wrapped => {
 
 	RefocusDecorator.propTypes = {
 		collapsed: PropTypes.bool,
+		index: PropTypes.number,
 		onTabAnimationEnd: PropTypes.func,
 		orientation: PropTypes.string,
 		spotlightId: PropTypes.string
@@ -51,6 +89,7 @@ const RefocusDecorator = Wrapped => {
 
 export default RefocusDecorator;
 export {
+	getNavigableFilter,
 	getTabsSpotlightId,
 	RefocusDecorator
 };

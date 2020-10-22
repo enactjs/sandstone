@@ -1,5 +1,6 @@
 import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
+import {cap} from '@enact/core/util';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import invariant from 'invariant';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ import Skinnable from '../../Skinnable';
 import Popup from '../../Popup';
 
 import CancelDecorator from './CancelDecorator';
+import TransitionDecorator from './TransitionDecorator';
 
 // List all of the props from Popup that we want to move from this component's root onto Popup.
 const popupPropList = ['noAutoDismiss', 'onHide', 'onKeyDown', 'onShow', 'open',
@@ -212,7 +214,11 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		},
 
 		computed: {
-			className: ({fullHeight, width, styler}) => styler.append(width, {fullHeight}),
+			className: ({fullHeight, scrimType, width, styler}) => styler.append(
+				`scrim${cap(scrimType)}`,
+				width,
+				{fullHeight}
+			),
 			spotlightRestrict: ({scrimType, spotlightRestrict}) => scrimType !== 'none' ? 'self-only' : spotlightRestrict
 		},
 
@@ -256,9 +262,11 @@ const PopupDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		}
 	});
 
-	return IdProvider(
-		Skinnable(
-			Decorator
+	return TransitionDecorator(
+		IdProvider(
+			Skinnable(
+				Decorator
+			)
 		)
 	);
 });

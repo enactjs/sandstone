@@ -7,6 +7,9 @@ describe('VirtualList Samples', function () {
 	});
 
 	it('should  display childProps [GT-29028]', function () {
+		// Set translate ScrollMode.
+		Page.buttonNativeScroll.moveTo();
+		Page.spotlightSelect();
 		// Verify 1-2:The first item shows 'Item 000'.
 		Page.buttonLeft.moveTo();
 		Page.spotlightRight();

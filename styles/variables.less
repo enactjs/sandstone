@@ -56,8 +56,9 @@
 		compact-title-font-size: 90px;
 		compact-title-line-height: 72px;
 
-		mini-padding: 108px 150px 84px 150px;
-		mini-title-font-size: 108px;
+		mini-margin: 0 0 36px 0;
+		mini-padding: 60px 60px 45px 60px;
+		mini-title-font-size: 90px;
 		mini-title-line-height: 80px;
 
 		standard-padding: 108px 150px 73px 150px;
@@ -90,6 +91,11 @@
 @sand-translate-center: translate(-50%, -50%);
 @sand-common-circular-corners: 9000px; // A value large enough that when applied to any node via border-radius produces a completely round corner
 
+// Locale
+// ---------------------------------------
+// Sinhala(si), Thai(th), Vietnamse(vi)
+@locale-tallglyph-languages: si, th, vi;
+
 // Spotlight
 // ---------------------------------------
 @sand-spotlight-font-weight: 600;
@@ -108,6 +114,7 @@
 @sand-alert-overlay-font-size:      60px;
 @sand-alert-subtitle-font-size:     @sand-heading-subtitle-font-size;
 @sand-alert-title-font-size:        @sand-header-wizard-title-font-size;
+@sand-alert-notitle-content-font-size: 90px;
 @sand-base-font-size:               60px;
 @sand-body-font-size:               @sand-base-font-size;
 @sand-body-small-font-size:         54px;
@@ -136,11 +143,12 @@
 @sand-input-invalid-tooltip-font-size:        @sand-inputfield-invalid-tooltip-font-size;
 @sand-inputfield-invalid-tooltip-font-size:   48px;
 @sand-inputfield-small-font-size:        72px;
-@sand-item-font-size-large:         78px;
 @sand-item-font-size:               60px;
+@sand-item-font-size-large:         72px;
 @sand-item-label-font-size:         48px;
-@sand-item-small-font-size-large:   72px;
+@sand-item-label-font-size-large:   54px;
 @sand-item-small-font-size:         60px;
+@sand-item-small-font-size-large:   72px;
 @sand-item-small-label-font-size:   48px;
 @sand-keyguide-font-size:           60px;
 @sand-mediaoverlay-caption-font-size: 48px;
@@ -153,19 +161,21 @@
 @sand-steps-step-number-font-size:  54px;
 @sand-switch-icon-font-size:        84px;
 @sand-switch-icon-font-size-large:  138px;
+@sand-tablayout-tab-font-size:      66px;
 @sand-tooltip-label-font-size:      54px;
 
-@sand-non-latin-alert-title-font-size:  @sand-alert-title-font-size;
+@sand-tallglyph-alert-title-font-size:  @sand-alert-title-font-size;
+@sand-tallglyph-alert-notitle-content-font-size: @sand-alert-notitle-content-font-size;
 @sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
-@sand-non-latin-body-small-font-size:   48px;
+@sand-tallglyph-body-small-font-size:   48px;
 @sand-non-latin-button-large-font-size: 72px;
 @sand-non-latin-button-small-font-size: 54px;
 @sand-non-latin-header-compact-title-font-size: @sand-header-compact-title-font-size;
 @sand-non-latin-header-mini-title-font-size: @sand-header-mini-title-font-size;
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
-@sand-non-latin-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
-@sand-non-latin-heading-title-font-size: 114px;
+@sand-tallglyph-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
+@sand-tallglyph-heading-title-font-size: 114px;
 @sand-non-latin-input-fullscreen-title-font-size: @sand-input-fullscreen-title-font-size;
 @sand-non-latin-input-overlay-title-font-size: @sand-input-overlay-title-font-size;
 
@@ -178,9 +188,12 @@
 @sand-non-latin-font-family: "Sandstone";
 @sand-non-latin-font-family-light: "Sandstone";  // Formerly weight: Light
 @sand-non-latin-font-family-bold: "Sandstone";   // Formerly weight: Bold
-@sand-non-latin-font-weight: 400;
+@sand-non-latin-font-weight: normal;
 @sand-non-latin-font-weight-light: 300;
 @sand-non-latin-font-weight-bold: 700;
+@sand-spottable-font-weight: 600;
+@sand-common-line-height: 1.3em;
+@sand-tallglyph-line-height: 1.5em;
 
 // Alert
 @sand-alert-font-family: @sand-font-family;
@@ -190,16 +203,17 @@
 // Body
 @sand-body-font-family: @sand-font-family;
 @sand-body-font-style: normal;
-@sand-body-font-weight: 400;
+@sand-body-font-weight: normal;
 @sand-body-line-height: @sand-body-font-size + 6;
 @sand-non-latin-body-font-weight: @sand-non-latin-font-weight-light;
 @sand-non-latin-body-font-style: @sand-body-font-style;
-@sand-non-latin-body-line-height: 1.7em;
+@sand-tallglyph-body-line-height: 1.7em;
+@sand-non-latin-body-line-height: @sand-tallglyph-body-line-height; // "non-latin" variable retained for legacy code safety.
 
 // Button
 @sand-button-font-family: @sand-alt-font-family;
 @sand-button-font-style: normal;
-@sand-button-font-weight: 400;
+@sand-button-font-weight: @sand-spottable-font-weight;
 @sand-button-small-font-family: @sand-button-font-family;
 @sand-button-small-font-style: @sand-button-font-style;
 @sand-button-small-font-weight: @sand-button-font-weight;
@@ -214,7 +228,7 @@
 @sand-timepicker-colon-margin: 0 6px;
 
 // Heading
-@sand-heading-line-height: 1.3em;
+@sand-heading-line-height: @sand-common-line-height;
 @sand-heading-font-style: normal;
 @sand-heading-title-font-family: @sand-alt-font-family;
 @sand-heading-title-font-weight: normal;
@@ -223,7 +237,7 @@
 @sand-heading-subtitle-font-weight: normal;
 @sand-heading-subtitle-line-height: 1.4em;
 @sand-heading-large-font-family: @sand-font-family;
-@sand-heading-large-font-weight: 600;
+@sand-heading-large-font-weight: @sand-spottable-font-weight;
 @sand-heading-medium-font-family: @sand-heading-large-font-family;
 @sand-heading-medium-font-weight: @sand-heading-large-font-weight;
 @sand-heading-small-font-family: @sand-heading-large-font-family;
@@ -232,35 +246,43 @@
 @sand-heading-tiny-font-weight: @sand-heading-large-font-weight;
 @sand-heading-letter-spacing: 0;
 @sand-non-latin-heading-font-family: @sand-non-latin-font-family-bold;
-@sand-non-latin-heading-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-heading-subtitle-line-height: @sand-non-latin-heading-title-line-height;
-@sand-non-latin-heading-title-line-height: 1.5em;
+@sand-tallglyph-heading-line-height: @sand-tallglyph-heading-title-line-height;
+@sand-tallglyph-heading-subtitle-line-height: @sand-tallglyph-heading-title-line-height;
+@sand-tallglyph-heading-title-line-height: 1.5em;
 
 // Icon
 @sand-icon-font-family: "Sandstone Icons";
 @sand-icon-other-font-family: "LG Icons";
 
+// ImageItem
+@sand-imageitem-font-weight: @sand-spottable-font-weight;
+
 // Input
 @sand-input-invalid-tooltip-font-weight: @sand-inputfield-invalid-tooltip-font-weight;
 
 // InputField
-@sand-inputfield-font-weight: 600;
+@sand-inputfield-font-weight: @sand-spottable-font-weight;
+@sand-inputfield-placeholder-font-weight: normal;
+@sand-inputfield-placeholder-focus-font-weight: @sand-inputfield-font-weight;
 @sand-inputfield-invalid-tooltip-font-weight: @sand-inputfield-font-weight;
 
 // InputNumber
 @sand-input-number-font-family: @sand-body-font-family;
 
 // Item
-@sand-item-line-height: 1.3em;
+@sand-item-font-weight: @sand-spottable-font-weight;
+@sand-item-line-height: @sand-common-line-height;
 @sand-item-line-height-large: @sand-item-line-height;
 @sand-item-label-line-height: @sand-item-line-height;
-@sand-item-small-line-height: 1.3em;
+@sand-item-small-font-weight: @sand-item-font-weight;
+@sand-item-small-line-height: @sand-common-line-height;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
 
 // Picker
 @sand-picker-line-height: 1.5em;
-@sand-non-latin-picker-line-height: @sand-non-latin-body-line-height;
+@sand-tallglyph-picker-line-height: @sand-tallglyph-body-line-height;
+@sand-picker-joined-font-weight: @sand-spottable-font-weight;
 
 
 // ---------------------------------------
@@ -282,12 +304,15 @@
 @sand-alert-fullscreen-max-width: 2028px;
 @sand-alert-overlay-border-radius: @sand-popup-border-radius;
 @sand-alert-overlay-button-spacing: 30px;
-@sand-alert-overlay-content-margin-left: 48px;
-@sand-alert-overlay-content-margin-right: (204px - .extract(@sand-button-margin, right)[]);
+@sand-alert-overlay-buttons-margin: 0 0 0 126px;
+@sand-alert-overlay-noimage-text-gap: 30px;
+@sand-alert-overlay-image-text-gap: @sand-alert-overlay-noimage-text-gap + 18px;
+@sand-alert-overlay-text-button-gap: (198px - .extract(@sand-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 @sand-alert-overlay-content-width: 1200px;
+@sand-alert-overlay-image-margin: 0;
 @sand-alert-overlay-margin-bottom: 360px;
 @sand-alert-overlay-padding-top-bottom: 60px;
-@sand-alert-overlay-padding-left: 90px;
+@sand-alert-overlay-padding-left: 60px;
 @sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
@@ -329,7 +354,6 @@
 @sand-button-icon-small-padding: 0 ((@sand-button-small-height - @sand-icon-small-size) / 2);
 @sand-button-max-width: 900px;
 @sand-button-min-width: 540px;
-@sand-button-pressed-bg-transform: scale(0.98);
 @sand-button-focusexpand-focus-bg-transform: scale(1.05);
 @sand-button-focusexpand-pressed-bg-transform: scale(1.02);
 @sand-button-focus-duration: @sand-spotlight-focus-animation-duration;
@@ -340,7 +364,6 @@
 @sand-button-small-height: 108px;
 @sand-button-small-max-width: @sand-button-max-width;
 @sand-button-small-min-width: 300px;
-@sand-button-small-pressed-bg-transform: scale(0.97);
 @sand-button-small-focusexpand-focus-bg-transform: scale(1.1);
 @sand-button-small-focusexpand-pressed-bg-transform: scale(1.04);
 @sand-button-colordot-bottom: 18px;
@@ -399,8 +422,8 @@
 @sand-dropdown-list-x-large-width: (@sand-dropdown-x-large-width - @sand-button-border-width);
 @sand-dropdown-list-huge-width: (@sand-dropdown-huge-width - @sand-button-border-width);
 @sand-dropdown-max-items: 5;
-@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-height + @sand-item-shadow-height);
-@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-height-large + @sand-item-shadow-height);
+@sand-dropdown-list-max-height: (@sand-dropdown-max-items * @sand-item-small-height + @sand-item-shadow-height);
+@sand-dropdown-list-max-height-large: (@sand-dropdown-max-items * @sand-item-small-height-large + @sand-item-shadow-height);
 @sand-dropdown-title-font-style: italic;
 
 // FixedPopupPanels
@@ -422,11 +445,12 @@
 @sand-flexiblepopuppanels-panel-padding: 60px (60px - @sand-component-spacing);
 @sand-flexiblepopuppanels-header-padding: @sand-button-height + (@sand-component-spacing * 2);
 @sand-flexiblepopuppanels-navbutton-margin: 12px;
+@sand-flexiblepopuppanels-small-width: 600px;
+@sand-flexiblepopuppanels-large-width: 1320px;
 
 // FormCheckboxItem
 // ---------------------------------------
 @sand-formcheckboxitem-checkbox-margin-end: abs(.extract(@sand-checkbox-container-position, right)[]); // checkbox container is a negative value, but we're only interested in positive margin values for this. It's also currently just one value, but could be more in the future, so we'll extract the "right" value.
-@sand-formcheckboxitem-focus-font-weight: 400;
 
 // Header
 // ---------------------------------------
@@ -482,14 +506,42 @@
 		)[@result]
 	)
 	.extract(#guide.header[compact-padding], right)[]
-	0
+	(
+		.extract(#guide.header[compact-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[compact-title-line-height],
+			@sand-header-compact-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
 	.extract(#guide.header[compact-padding], left)[];
+@sand-header-compact-title-padding: 0;
+@sand-header-compact-subtitle-padding: 0;
 @sand-header-mini-margin:
 	6px
 	@sand-component-spacing
 	.extract(#guide.header[mini-padding], bottom)[]
 	@sand-component-spacing; // 6px top to account for a focused button, so it doesn't clip.
-@sand-header-mini-padding: 0;
+@sand-header-mini-margin: #guide.header[mini-margin];
+@sand-header-mini-padding:
+	(
+		.extract(#guide.header[mini-padding], top)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], right)[]
+	(
+		.extract(#guide.header[mini-padding], bottom)[]
+		- #guide.get-edge-size-difference(
+			#guide.header[mini-title-line-height],
+			@sand-header-mini-title-font-size,
+			@sand-heading-title-line-height
+		)[@result]
+	)
+	.extract(#guide.header[mini-padding], left)[];
 @sand-header-wizard-margin: 0;
 @sand-header-wizard-padding:
 	(
@@ -503,6 +555,8 @@
 	.extract(#guide.header[wizard-padding], right)[]
 	.extract(#guide.header[wizard-padding], bottom)[]
 	.extract(#guide.header[wizard-padding], left)[]; // 66px comes from the GUI guide, as the distance from the bottom of the 2-line subtitle to the top of the content area. We must subtract the padding-top of panel.body to get the total spacing to match the guide.
+@sand-header-wizard-title-padding: 0;
+@sand-header-wizard-subtitle-padding: 0;
 @sand-header-wizard-subtitle-lines: 2;
 @sand-header-back-container-width: (@sand-button-small-height + @sand-button-icon-small-h-margin);
 
@@ -569,6 +623,7 @@
 @sand-input-fullscreen-numberfield-margin: auto;
 @sand-input-fullscreen-numberfield-padding: 0 0.5em;
 @sand-input-fullscreen-numberfield-letter-spacing: 48px;
+@sand-input-fullscreen-textfield-width: 1440px;
 @sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
 @sand-input-fullscreen-keypad-key-margin: 0;
 @sand-input-fullscreen-buttonarea-margin: 0;
@@ -589,6 +644,7 @@
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 @sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
 @sand-input-overlay-invalid-tooltip-width: 738px;
+@sand-input-overlay-textfield-width: 1164px;
 @sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
@@ -620,6 +676,7 @@
 @sand-item-slotbefore-spacing: 54px;
 @sand-item-margin: 0 @sand-component-spacing @sand-component-spacing-bottom @sand-component-spacing;
 @sand-item-small-height: 126px;
+@sand-item-small-height-large: @sand-item-small-height;
 @sand-item-small-withlabel-height: 210px;
 
 // Keyguide
@@ -859,13 +916,13 @@
 @sand-tooltip-transparent-font-weight: normal;
 @sand-tooltip-offset: 24px;
 @sand-tooltip-transparent-label-offset: 0px;
-@sand-tooltip-arrow-offset: 0px;
-@sand-tooltip-point-width: 18px;
-@sand-tooltip-point-height: 15px;
+@sand-tooltip-arrow-offset: 0;
+@sand-tooltip-point-width: 25px; // actual value is 24px. +1px to ensure no gaps
+@sand-tooltip-point-height: 25px; // actual value is 24px. +1px to ensure no gaps
 @sand-tooltip-border-radius: 12px;
 @sand-tooltip-label-height: 1.5em;
 @sand-tooltip-padding: (15px - ((81px - 63px) / 2)) 48px; // Including the math for the difference in measured height of the node (81px) vs the GUI spec (63px) (we mismatch due to i18n line-height guidelines). The GUI Guide also says 15px padding, so we include that in the math for clarity.
-@sand-tooltip-margin-offset: @sand-tooltip-point-width;
+@sand-tooltip-margin-offset: 18px; // GUI for the length of the arrow
 @sand-tooltip-marquee-width: 600px;
 
 // Video
@@ -876,7 +933,7 @@
 @sand-video-slider-tooltip-shift-position-bottom:  @sand-video-slider-tooltip-position-bottom + @sand-video-slider-tooltip-arrow-border-top;
 @sand-video-slider-tooltip-margin-bottom:          6px;
 @sand-video-slider-tooltip-font-size:              48px;
-@sand-video-slider-tooltip-font-weight:            400;
+@sand-video-slider-tooltip-font-weight:            normal;
 @sand-video-slider-tooltip-line-height:            72px;
 @sand-video-slider-tooltip-gutter-width:           42px;
 @sand-video-slider-tooltip-thumbnail-border-width: 6px;
@@ -884,7 +941,7 @@
 @sand-video-slider-tooltip-thumbnail-height: 240px;
 @sand-video-slider-tooltip-deactivated-thumbnail-opacity: 0.5;
 @sand-video-feedback-icon-font-size:               1.25em;
-@sand-video-feedback-mini-font-weight:             400;
+@sand-video-feedback-mini-font-weight:             normal;
 @sand-video-feedback-mini-font-style:              normal;
 @sand-video-feedback-mini-position-top:            60px;
 @sand-video-feedback-mini-position-left:           60px;
@@ -901,4 +958,4 @@
 // WizardPanels
 // ---------------------------------------
 @sand-wizardpanels-content-margin: 0 0 150px 0;
-@sand-wizardpanels-footer-margin: 0 0 (192px - @sand-app-keepout) 0;
+@sand-wizardpanels-footer-margin: 0 0 (102px - @sand-app-keepout) 0;
