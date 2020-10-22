@@ -110,6 +110,8 @@ const PickerTests = [
 	// Marked part auotomated due to one click required
 	<Picker value={0} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	<Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>,
+	<Picker value={2} width="large" orientation="vertical">{pickerList.tall}</Picker>,
+	<Picker value={3} width="large" orientation="vertical">{pickerList.tall}</Picker>,
 	// end of [GT-28680]
 
 	// oneItem: Change 'orientation'to Vertical, 'joined', 'disabled' dynamically - [GT-28676]
@@ -348,6 +350,14 @@ const PickerTests = [
 	{
 		locale: 'ar-SA',
 		component: <Picker value={1} width="large" orientation="vertical">{pickerList.tall}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker value={2} width="large" orientation="vertical">{pickerList.tall}</Picker>
+	},
+	{
+		locale: 'ar-SA',
+		component: <Picker value={3} width="large" orientation="vertical">{pickerList.tall}</Picker>
 	},
 	// end of [GT-28680]
 
