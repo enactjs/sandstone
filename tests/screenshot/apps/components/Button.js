@@ -23,6 +23,7 @@ const ButtonTests = [
 	<Button> ฟิ้  ไั  ஒ  து</Button>,
 	<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
 	<Button>Bản văn</Button>,
+	<Button>តន្ត្រី្</Button>,
 	// end [GT-28189]
 
 	// iconPosition = before (Default) + small (default) + large
@@ -109,7 +110,9 @@ const ButtonTests = [
 		// Real tall glyphs
 		<Button> ฟิ้  ไั  ஒ  து</Button>,
 		<Button>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</Button>,
-		<Button>Bản văn</Button>
+		<Button>Bản văn</Button>,
+		<Button>តន្ត្រី្</Button>
+
 	]),
 
 

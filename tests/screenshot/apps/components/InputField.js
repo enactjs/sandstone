@@ -44,10 +44,12 @@ const InputFieldTests = [
 	<InputField value="नरेंद्र मोदी" size="large" />,
 	<InputField value=" ฟิ้  ไั  ஒ  து" size="large" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />,
+	<InputField value="តន្ត្រី្" size="large" />,
 	// Testing default size 'large'
 	<InputField value="नरेंद्र मोदी" />,
 	<InputField value=" ฟิ้  ไั  ஒ  து" />,
 	<InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />,
+	<InputField value="តន្ត្រី្" />,
 
 	// Change 'size' dynamically to 'small' - [GT-28357]
 	<InputField value="small InputField" size="large" />,
@@ -157,6 +159,10 @@ const InputFieldTests = [
 		locale: 'ar-SA',
 		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" size="large" />
 	},
+	{
+		locale: 'ar-SA',
+		component: <InputField value="តន្ត្រី្" size="large" />
+	},
 
 	// Testing default size 'large'
 	{
@@ -171,6 +177,11 @@ const InputFieldTests = [
 		locale: 'ar-SA',
 		component: <InputField value="ÃÑÕÂÊÎÔÛÄËÏÖÜŸ" />
 	},
+	{
+		locale: 'ar-SA',
+		component: <InputField value="តន្ត្រី្" />
+	},
+
 
 	// Change 'size' dynamically to 'small' - [GT-28357]
 	{
