@@ -75,7 +75,7 @@ const locales = {
 	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
 	'en-JP - English, custom Japanese font': 'en-JP',
 	'si-LK - Sinhala, external font family with tallglyph characters': 'si-LK',
-	'km-KH - Khmer(Cambodia), with tallglyph characters': 'km-KH'
+	'km-KH - Cambodian Khmer, with tallglyph characters': 'km-KH'
 };
 
 // This mapping/remapping is necessary to support objects being used as select-knob values, since

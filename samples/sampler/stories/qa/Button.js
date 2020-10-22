@@ -25,7 +25,7 @@ const prop = {
 	color: ['', 'red', 'green', 'yellow', 'blue'],
 	focusEffect: ['expand', 'static'],
 	longText: {'A Loooooooooooooooooog Button': 'A Loooooooooooooooooog Button', 'BUTTON   WITH   EXTRA   SPACES': 'BUTTON   WITH   EXTRA   SPACES'},
-	tallText: {' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து', 'ÁÉÍÓÚÑÜ': 'ÁÉÍÓÚÑÜ', 'Bản văn': 'Bản văn', 'តន្ត្រី្': 'តន្ត្រី្'},
+	tallText: {' ฟิ้ ไั  ஒ  து': ' ฟิ้ ไั  ஒ  து', 'ÁÉÍÓÚÑÜ': 'ÁÉÍÓÚÑÜ', 'Bản văn': 'Bản văn', 'តន្ត្': 'តន្ត្'},
 	icons: ['', ...iconNames]
 };
 
