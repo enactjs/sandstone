@@ -69,7 +69,7 @@ storiesOf('Sandstone', module)
 				>
 					<Panel
 						size={size}
-						prevButton={boolean('custom first Panel prevButton', PanelConfig) ?  <Button icon="arrowhookright" aria-label="go to last" /> : void 0}
+						prevButton={boolean('custom first Panel prevButton', PanelConfig) ?  <Button icon="jumpbackward" aria-label="go to last" /> : void 0}
 					>
 						<Header title="First List" />
 						<Scroller style={{width: (size === 'auto' ? ri.scaleToRem(900) : null)}}>
@@ -87,7 +87,7 @@ storiesOf('Sandstone', module)
 					</Panel>
 					<Panel
 						size={size}
-						nextButton={boolean('custom last Panel nextButton', PanelConfig) ? <Button icon="arrowhookleft" aria-label="go back to first" /> : void 0}
+						nextButton={boolean('custom last Panel nextButton', PanelConfig) ? <Button icon="jumpforward" aria-label="go back to first" /> : void 0}
 					>
 						<Header title="Third panel" />
 						<Scroller style={{width: (size === 'auto' ? ri.scaleToRem(900) : null)}}>
