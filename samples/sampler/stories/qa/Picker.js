@@ -26,7 +26,8 @@ const pickerList = {
 	tall: [
 		'नरेंद्र मोदी',
 		' ฟิ้  ไั  ஒ  து',
-		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
+		'តន្ត្រី'
 	],
 	long: [
 		'1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius sit amet mattis vulputate enim nulla. A pellentesque sit amet porttitor eget dolor morbi non arcu. Text1',

@@ -10,11 +10,11 @@
 		/* Available for customization */
 	}
 
-	.sand-text-base(@sand-item-font-size);
+	font-size: @sand-item-font-size;
 	.sand-spotlight-padding(@sand-item-vertical-padding);
 
 	font-weight: @sand-item-font-weight;
-	.enact-locale-line-height(@sand-item-line-height, @sand-item-line-height);
+	.enact-locale-line-height(@sand-item-line-height, @sand-tallglyph-item-line-height);
 	height: @sand-item-height;
 	display: flex;
 	position: relative;
@@ -92,15 +92,14 @@
 
 	// Text
 	.label {
-		.sand-text-base(@sand-item-label-font-size);
-
+		font-size: @sand-item-label-font-size;
 		font-weight: inherit;
-		line-height: @sand-item-label-line-height;
+		.enact-locale-line-height(@sand-item-label-line-height, @sand-tallglyph-item-label-line-height);
 	}
 
 	.sand-custom-text({
 		font-size: @sand-item-font-size-large;
-		.enact-locale-line-height(@sand-item-line-height-large, @sand-item-line-height-large);
+		.enact-locale-line-height(@sand-item-line-height-large, @sand-tallglyph-item-line-height-large);
 
 		.label {
 			font-size: @sand-item-label-font-size-large;
@@ -110,18 +109,18 @@
 	&.large { /* Needed to prevent global class being added in the DOM */ }
 
 	&.small {
-		.sand-text-base(@sand-item-small-font-size);
+		font-size: @sand-item-small-font-size;
 
 		font-weight: @sand-item-small-font-weight;
 		height: @sand-item-small-height;
-		.enact-locale-line-height(@sand-item-small-line-height, @sand-item-small-line-height);
+		.enact-locale-line-height(@sand-item-small-line-height, @sand-tallglyph-item-small-line-height);
 
 		&.hasLabel {
 			height: @sand-item-small-withlabel-height;
 		}
 
 		.label {
-			.sand-text-base(@sand-item-small-label-font-size);
+			font-size: @sand-item-small-label-font-size;
 
 			font-weight: inherit;
 			line-height: @sand-item-small-label-line-height;
@@ -133,7 +132,7 @@
 
 		.sand-custom-text({
 			font-size: @sand-item-small-font-size-large;
-			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-item-small-line-height-large);
+			.enact-locale-line-height(@sand-item-small-line-height-large, @sand-tallglyph-item-small-line-height-large);
 		});
 	}
 
