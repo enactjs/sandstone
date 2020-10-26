@@ -16,16 +16,12 @@
 	width: 100%;
 	background-color: @sand-scrollbar-track-bg-color;
 	border-radius: @sand-scrollbar-track-border-radius;
-	opacity: 0;
-	transition: opacity 100ms ease-out;
 
 	&:hover {
 		opacity: 1;
 	}
 
 	&.focusableScrollbar {
-		// Always show the scrollbar
-		opacity: 1;
 		--scrollbar-track-margin: @sand-scrollbar-track-focusable-margin;
 	}
 
