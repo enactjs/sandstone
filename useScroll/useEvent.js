@@ -601,8 +601,6 @@ const useEventWheel = (props, instances) => {
 			window.document.activeElement.blur();
 		}
 
-		scrollContainerHandle.current.showScrollbarTrack(bounds);
-
 		// FIXME This routine is a temporary support for horizontal wheel scroll.
 		// FIXME If web engine supports horizontal wheel, this routine should be refined or removed.
 		if (canScrollVertically) { // This routine handles wheel events on scrollbars for vertical scroll.
@@ -662,10 +660,6 @@ const useEventWheel = (props, instances) => {
 			}
 
 			scrollContainerHandle.current.scrollToAccumulatedTarget(delta, canScrollVertically, overscrollEffectRequired);
-		}
-
-		if (needToHideScrollbarTrack) {
-			scrollContainerHandle.current.startHidingScrollbarTrack();
 		}
 	}
 
