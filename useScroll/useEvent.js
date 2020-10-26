@@ -593,9 +593,7 @@ const useEventWheel = (props, instances) => {
 			positiveDelta = eventDelta > 0,
 			negativeDelta = eventDelta < 0,
 			{scrollTop, scrollLeft} = scrollContainerHandle.current;
-		let
-			delta = 0,
-			needToHideScrollbarTrack = false;
+		let delta = 0;
 
 		if (typeof window !== 'undefined') {
 			window.document.activeElement.blur();
@@ -612,7 +610,6 @@ const useEventWheel = (props, instances) => {
 				// If ev.target is a descendant of scrollContent, the event will be handled on scroll event handler.
 				if (!utilDOM.containsDangerously(scrollContentRef.current, ev.target)) {
 					delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientHeight * scrollWheelPageMultiplierForMaxPixel);
-					needToHideScrollbarTrack = !delta;
 
 					ev.preventDefault();
 				} else if (overscrollEffectRequired) {
@@ -620,12 +617,8 @@ const useEventWheel = (props, instances) => {
 				}
 
 				ev.stopPropagation();
-			} else {
-				if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
-					scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
-				}
-
-				needToHideScrollbarTrack = true;
+			} else if (overscrollEffectRequired && (negativeDelta && scrollTop <= 0 || positiveDelta && scrollTop >= bounds.maxTop)) {
+				scrollContainerHandle.current.applyOverscrollEffect('vertical', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
 			}
 		} else if (canScrollHorizontally) { // this routine handles wheel events on any children for horizontal scroll.
 			if (negativeDelta && scrollLeft > 0 || positiveDelta && scrollLeft < bounds.maxLeft) {
@@ -634,16 +627,11 @@ const useEventWheel = (props, instances) => {
 				}
 
 				delta = scrollContainerHandle.current.calculateDistanceByWheel(eventDeltaMode, eventDelta, bounds.clientWidth * scrollWheelPageMultiplierForMaxPixel);
-				needToHideScrollbarTrack = !delta;
 
 				ev.preventDefault();
 				ev.stopPropagation();
-			} else {
-				if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
-					scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
-				}
-
-				needToHideScrollbarTrack = true;
+			} else if (overscrollEffectRequired && (negativeDelta && scrollLeft <= 0 || positiveDelta && scrollLeft >= bounds.maxLeft)) {
+				scrollContainerHandle.current.applyOverscrollEffect('horizontal', positiveDelta ? 'after' : 'before', overscrollTypeOnce, 1);
 			}
 		}
 
