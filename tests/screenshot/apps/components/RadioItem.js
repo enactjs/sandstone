@@ -16,11 +16,17 @@ const RadioItemTests = [
 	// [GT-28210]
 	<RadioItem inline>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
 	// [GT-28210]
+	<RadioItem disabled>តន្ត្រី</RadioItem>,
+	// [GT-28210]
+	<RadioItem inline>តន្ត្រី</RadioItem>,
+	// [GT-28210]
 	<RadioItem inline>ฟิ้  ไั  ஒ  து</RadioItem>,
 	// [GT-28207]
 	<RadioItem>ฟิ้  ไั  ஒ  து</RadioItem>,
 	// [GT-28207]
 	<RadioItem selected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>,
+	// [GT-28207]
+	<RadioItem selected>តន្ត្រី</RadioItem>,
 	// [GT-28207]
 	<RadioItem selected>ฟิ้  ไั  ஒ  து</RadioItem>,
 	// Selected - disabled
@@ -70,6 +76,11 @@ const RadioItemTests = [
 		locale: 'ar-SA',
 		component: <RadioItem inline>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
 	},
+	// [GT-28206]
+	{
+		locale: 'ar-SA',
+		component: <RadioItem inline>តន្ត្រី</RadioItem>
+	},
 	// [GT-28207]
 	{
 		locale: 'ar-SA',
@@ -79,6 +90,11 @@ const RadioItemTests = [
 	{
 		locale: 'ar-SA',
 		component: <RadioItem selected>ÃÑÕÂÊÎÔÛÄËÏÖÜŸ</RadioItem>
+	},
+	// [GT-28207]
+	{
+		locale: 'ar-SA',
+		component: <RadioItem selected>តន្ត្រី</RadioItem>
 	},
 	// [GT-28207]
 	{
