@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Heading` to set `font-style` to `normal` depending on `non-italic` class
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
 
 ## [1.4.2] - 2020-10-26
 
