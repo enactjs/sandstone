@@ -7,7 +7,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Heading` to set `font-style` to `normal` depending on `non-italic` class
-- file name format to apply system oblique font files
 
 ## [1.4.2] - 2020-10-26
 
