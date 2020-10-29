@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Scroller` and `sandstone/VirtualList` scrollbar to always show
 
+### Fixed
+
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
+
 ## [1.4.2] - 2020-10-26
 
 ### Fixed
