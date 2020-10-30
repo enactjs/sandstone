@@ -1,6 +1,6 @@
 // Variables
 //
-@import "./internal/utils.less";
+@import "~@enact/ui/styles/variables.less";
 
 //
 // GUI Guide definition library
@@ -622,7 +622,7 @@
 // ---------------------------------------
 @sand-input-popup-component-v-spacing: 42px;
 @sand-input-numbercell-border-radius: 12px;
-@sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
+@sand-input-fullscreen-padding: (210px - .extract(@sand-popup-padding, top)[]) (480px - .extract(@sand-popup-padding, right)[]) (246px - .extract(@sand-popup-padding, bottom)[]) (480px - .extract(@sand-popup-padding, left)[]);
 @sand-input-fullscreen-numbercell-width: 246px;
 @sand-input-fullscreen-numbercell-height: 300px;
 @sand-input-fullscreen-numbercell-margin: 0 18px;
@@ -637,7 +637,7 @@
 @sand-input-fullscreen-buttonarea-margin: 0;
 @sand-input-fullscreen-inputarea-margin: 222px 0 0 0;
 @sand-input-fullscreen-invalid-tooltip-width: 3240px;
-@sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
+@sand-input-overlay-padding: (90px - .extract(@sand-popup-padding, top)[]) (90px - .extract(@sand-popup-padding, right)[]) (90px - .extract(@sand-popup-padding, bottom)[]) (90px - .extract(@sand-popup-padding, left)[]);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
 @sand-input-overlay-numbercell-height: 210px;
@@ -771,10 +771,7 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-padding-top: 48px;
-@sand-popup-padding-right: 72px;
-@sand-popup-padding-bottom: @sand-popup-padding-top;
-@sand-popup-padding-left: @sand-popup-padding-right;
+@sand-popup-padding: 48px 72px;
 @sand-popup-border-radius: 24px;
 // Remove the margin on the leading edge so we're not wasting some of our transition frames on animating empty space, but also account for the shadow.
 @sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount of space the shadow renders onto, so it's not clipped.
