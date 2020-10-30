@@ -7,6 +7,8 @@ import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
+import css from './Heading.module.less';
+
 Heading.displayName = 'Heading';
 
 const
@@ -19,8 +21,8 @@ storiesOf('Heading', module)
 	.add(
 		'with italics',
 		() => (
-			<Heading style={{fontStyle: 'italic'}}>
-				Lorem ipsum dolor sit amet
+			<Heading className={css.italic}>
+				{text('children', Heading, 'Lorem ipsum dolor sit amet')}
 			</Heading>
 		)
 	)
