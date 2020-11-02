@@ -8,7 +8,7 @@ const DEFAULT_LENGTH = 4;
 const SEPARATE_DIGITS_LIMIT = 6;
 
 const OVERLAY_JOINED_DIGITS_LIMIT = 10;
-const FULLSCREEN_JOINED_DIGITS_LIMIT = 25;
+const FULLSCREEN_JOINED_DIGITS_LIMIT = 14;
 
 /**
  * Determines the `aria-label` for an Input
