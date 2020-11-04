@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
+
 ## [1.4.3] - 2020-10-30
 
 ### Changed
