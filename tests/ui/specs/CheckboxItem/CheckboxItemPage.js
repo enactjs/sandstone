@@ -5,7 +5,8 @@ class CheckboxItemInterface {
 	constructor (id) {
 		this.id = id;
 		this.marqueeTextSelector = `#${this.id} > div .enact_ui_Marquee_Marquee_text`;
-		this.iconSelector = `#${this.id} > div .Icon_Icon_icon`;
+		this.checkboxIconSelector = `#${this.id} > .Item_Item_slotBefore .Checkbox_Checkbox_icon`;
+		this.slotBeforeNodeSelector = `#${this.id} >  .Item_Item_slotBefore > div:last-child`;
 	}
 
 	focus () {
@@ -21,20 +22,23 @@ class CheckboxItemInterface {
 	get valueText () {
 		return this.value.getText();
 	}
-	get icon () {
-		return $(this.iconSelector);
+	get checkboxIcon () {
+		return $(this.checkboxIconSelector);
 	}
-	get iconSymbol () {
-		return this.icon.getText();
+	get slotBeforeNode () {
+		return $(this.slotBeforeNodeSelector);
+	}
+	get checkboxIconSymbol () {
+		return this.checkboxIcon.getText();
+	}
+	get indeterminateIconSymbol () {
+		return $(`#${this.id} .Checkbox_Checkbox_indeterminate`).getText();
 	}
 	get isChecked () {
 		return $(`#${this.id} .Checkbox_Checkbox_selected`).isExisting();
 	}
-	get isAfter () {
-		return $(`#${this.id} .Item_Item_after`).isExisting();
-	}
-	get isBefore () {
-		return $(`#${this.id} .Item_Item_before`).isExisting();
+	get isIndeterminate () {
+		return $(`#${this.id} .Checkbox_Checkbox_indeterminate`).isExisting();
 	}
 	get isInline () {
 		return $(`#${this.id}.Item_Item_inline`).isExisting();
@@ -47,13 +51,22 @@ class CheckboxItemPage extends Page {
 		this.title = 'CheckboxItem Test';
 		const checkboxDefault = new CheckboxItemInterface('checkboxItem1');
 		const checkboxDefaultSelected = new CheckboxItemInterface('checkboxItem2');
-		const checkboxIconAfter = new CheckboxItemInterface('checkboxItem3');
-		const checkboxInline = new CheckboxItemInterface('checkboxItem4');
-		const checkboxInlineAfter = new CheckboxItemInterface('checkboxItem5');
-		const checkboxDisabled = new CheckboxItemInterface('checkboxItem6');
+		const checkboxIndeterminate = new CheckboxItemInterface('checkboxItem3');
+		const checkboxSlot = new CheckboxItemInterface('checkboxItem4');
+		const checkboxInline = new CheckboxItemInterface('checkboxItem5');
+		const checkboxInlineIndeterminate = new CheckboxItemInterface('checkboxItem6');
+		const checkboxDisabled = new CheckboxItemInterface('checkboxItem7');
 
 
-		this.components = {checkboxDefault, checkboxDefaultSelected, checkboxIconAfter, checkboxInline, checkboxInlineAfter, checkboxDisabled};
+		this.components = {
+			checkboxDefault,
+			checkboxDefaultSelected,
+			checkboxIndeterminate,
+			checkboxSlot,
+			checkboxInline,
+			checkboxInlineIndeterminate,
+			checkboxDisabled
+		};
 	}
 
 	open (urlExtra) {
