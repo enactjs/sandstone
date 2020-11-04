@@ -32,13 +32,12 @@ const SpottableDiv = Spottable('div');
  */
 const ScrollbarTrack = forwardRef((props, ref) => {
 	const
-		{'aria-label': ariaLabel, cbAlertScrollbarTrack, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
+		{'aria-label': ariaLabel, focusableScrollbar, onInteractionForScroll, rtl, vertical, ...rest} = props,
 		className = classNames(css.scrollbarTrack, {[css.vertical]: vertical, [css.focusableScrollbar]: focusableScrollbar}),
 		ScrollbarThumb = focusableScrollbar ? SpottableDiv : 'div',
 		announceRef = useRef({});
 
 	useEffect (() => {
-		cbAlertScrollbarTrack();
 		SpotlightAccelerator.reset();
 
 		return () => {
@@ -109,14 +108,6 @@ ScrollbarTrack.displayName = 'ScrollbarTrack';
 
 ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototype */ {
 	/**
-	 * Called when [ScrollbarTrack]{@link sandstone/useScroll.ScrollbarTrack} is updated.
-	 *
-	 * @type {Function}
-	 * @private
-	 */
-	cbAlertScrollbarTrack: PropTypes.func,
-
-	/**
 	 * `true` if scroll thumb is spottable.
 	 *
 	 * @type {Boolean|'byEnter'}
@@ -150,7 +141,6 @@ ScrollbarTrack.propTypes = /** @lends sandstone/useScroll.ScrollbarTrack.prototy
 };
 
 ScrollbarTrack.defaultProps = {
-	cbAlertScrollbarTrack: nop,
 	focusableScrollbar: false,
 	onInteractionForScroll: nop,
 	rtl: false,

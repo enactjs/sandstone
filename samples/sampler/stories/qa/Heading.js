@@ -7,11 +7,13 @@ import Heading from '@enact/sandstone/Heading';
 import Item from '@enact/sandstone/Item';
 import Scroller from '@enact/sandstone/Scroller';
 
+import css from './Heading.module.less';
+
 Heading.displayName = 'Heading';
 
 const
 	prop = {
-		tallText: {'नरेंद्र मोदी': 'नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து': 'ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ': 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'},
+		tallText: {'नरेंद्र मोदी': 'नरेंद्र मोदी', 'ฟิ้  ไั  ஒ  து': 'ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ': 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី': 'តន្ត្រី'},
 		marqueeOn: ['', 'hover', 'render']
 	};
 
@@ -19,8 +21,8 @@ storiesOf('Heading', module)
 	.add(
 		'with italics',
 		() => (
-			<Heading style={{fontStyle: 'italic'}}>
-				Lorem ipsum dolor sit amet
+			<Heading className={css.italic}>
+				{text('children', Heading, 'Lorem ipsum dolor sit amet')}
 			</Heading>
 		)
 	)

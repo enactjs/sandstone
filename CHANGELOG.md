@@ -2,11 +2,41 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.4.3] - 2020-10-30
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar to always show
 
 ### Fixed
 
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
+
+## [1.4.2] - 2020-10-26
+
+### Fixed
+
+- Cambodian(km) language to be classified as a tall-glyph language
+- `sandstone/Item` line-height to support tall-glyph language
+
+## [1.4.1] - 2020-10-20
+
+### Fixed
+
+- `sandstone/WizardPanels` to read `steps` when neither prop `noSteps` nor `aria-label` is present
+
+## [1.4.0] - 2020-10-16
+
+### Added
+
+- `sandstone/TabLayout.Tab` prop `onTabClick` to handle `onClick` event on it
+
+### Fixed
+
+- `sandstone/Input` to match latest designs
 - `sandstone/TooltipDecorator` to marquee when `tooltipReleative` prop is true
+- `sandstone/VirtualList` to not show overscroll effect when 5-way key is pressed after scrolling to the bottom by wheel
+- `sandstone/WizardPanels` to read `steps` properly with `noSteps` and `aria-label` props
 
 ## [1.3.2] - 2020-09-25
 

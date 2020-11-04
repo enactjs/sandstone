@@ -1,6 +1,6 @@
 // Variables
 //
-@import "./internal/utils.less";
+@import "~@enact/ui/styles/variables.less";
 
 //
 // GUI Guide definition library
@@ -93,8 +93,8 @@
 
 // Locale
 // ---------------------------------------
-// Sinhala(si), Thai(th), Vietnamse(vi)
-@locale-tallglyph-languages: si, th, vi;
+// Cambodian(km), Sinhala(si), Thai(th), Vietnamse(vi)
+@locale-tallglyph-languages: km, si, th, vi;
 
 // Spotlight
 // ---------------------------------------
@@ -176,6 +176,8 @@
 @sand-non-latin-header-wizard-title-font-size: @sand-header-wizard-title-font-size;
 @sand-tallglyph-heading-subtitle-font-size: (@sand-heading-subtitle-font-size - 6px);
 @sand-tallglyph-heading-title-font-size: 114px;
+@sand-tallglyph-imageitem-caption-font-size: 54px;
+@sand-tallglyph-imageitem-label-font-size: 36px;
 @sand-non-latin-input-fullscreen-title-font-size: @sand-input-fullscreen-title-font-size;
 @sand-non-latin-input-overlay-title-font-size: @sand-input-overlay-title-font-size;
 
@@ -278,6 +280,12 @@
 @sand-item-small-line-height: @sand-common-line-height;
 @sand-item-small-line-height-large: @sand-item-small-line-height;
 @sand-item-small-label-line-height: @sand-item-small-line-height;
+@sand-tallglyph-item-line-height: @sand-tallglyph-line-height;
+@sand-tallglyph-item-line-height-large: @sand-tallglyph-item-line-height;
+@sand-tallglyph-item-label-line-height: @sand-tallglyph-item-line-height;
+@sand-tallglyph-item-small-line-height: @sand-tallglyph-line-height;
+@sand-tallglyph-item-small-line-height-large: @sand-tallglyph-item-small-line-height;
+@sand-tallglyph-item-small-label-line-height: @sand-tallglyph-item-small-line-height;
 
 // Picker
 @sand-picker-line-height: 1.5em;
@@ -614,7 +622,7 @@
 // ---------------------------------------
 @sand-input-popup-component-v-spacing: 42px;
 @sand-input-numbercell-border-radius: 12px;
-@sand-input-fullscreen-padding: (210px - @sand-popup-padding-top) (480px - @sand-popup-padding-right) (246px - @sand-popup-padding-bottom) (480px - @sand-popup-padding-left);
+@sand-input-fullscreen-padding: (210px - .extract(@sand-popup-padding, top)[]) (480px - .extract(@sand-popup-padding, right)[]) (246px - .extract(@sand-popup-padding, bottom)[]) (480px - .extract(@sand-popup-padding, left)[]);
 @sand-input-fullscreen-numbercell-width: 246px;
 @sand-input-fullscreen-numbercell-height: 300px;
 @sand-input-fullscreen-numbercell-margin: 0 18px;
@@ -623,12 +631,13 @@
 @sand-input-fullscreen-numberfield-margin: auto;
 @sand-input-fullscreen-numberfield-padding: 0 0.5em;
 @sand-input-fullscreen-numberfield-letter-spacing: 48px;
+@sand-input-fullscreen-textfield-width: 1440px;
 @sand-input-fullscreen-keypad-margin: 270px auto 0 auto;
 @sand-input-fullscreen-keypad-key-margin: 0;
 @sand-input-fullscreen-buttonarea-margin: 0;
 @sand-input-fullscreen-inputarea-margin: 222px 0 0 0;
 @sand-input-fullscreen-invalid-tooltip-width: 3240px;
-@sand-input-overlay-padding: (90px - @sand-popup-padding-top) (90px - @sand-popup-padding-right) (90px - @sand-popup-padding-bottom) (90px - @sand-popup-padding-left);
+@sand-input-overlay-padding: (90px - .extract(@sand-popup-padding, top)[]) (90px - .extract(@sand-popup-padding, right)[]) (90px - .extract(@sand-popup-padding, bottom)[]) (90px - .extract(@sand-popup-padding, left)[]);
 @sand-input-overlay-inputarea-margin: 96px 0 0 0;
 @sand-input-overlay-numbercell-width: 174px;
 @sand-input-overlay-numbercell-height: 210px;
@@ -643,6 +652,7 @@
 @sand-input-overlay-buttonarea-margin: 84px 0 0 0;
 @sand-input-overlay-submitbutton-margin: 84px auto 0 auto;
 @sand-input-overlay-invalid-tooltip-width: 738px;
+@sand-input-overlay-textfield-width: 1164px;
 @sand-input-invalid-tooltip-margin-top: @sand-inputfield-invalid-tooltip-margin-top;
 
 // InputField
@@ -761,10 +771,7 @@
 
 // Popup
 // ---------------------------------------
-@sand-popup-padding-top: 48px;
-@sand-popup-padding-right: 72px;
-@sand-popup-padding-bottom: @sand-popup-padding-top;
-@sand-popup-padding-left: @sand-popup-padding-right;
+@sand-popup-padding: 48px 72px;
 @sand-popup-border-radius: 24px;
 // Remove the margin on the leading edge so we're not wasting some of our transition frames on animating empty space, but also account for the shadow.
 @sand-popup-position-top-margin: 150px 120px 78px 120px; // 78px is the amount of space the shadow renders onto, so it's not clipped.

@@ -262,7 +262,8 @@ const InputPopupBase = kind({
 
 	styles: {
 		css: componentCss,
-		className: 'input'
+		className: 'input',
+		publicClassNames: ['textField']
 	},
 
 	handlers: {
@@ -365,6 +366,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
+								className={css.textField}
 								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
