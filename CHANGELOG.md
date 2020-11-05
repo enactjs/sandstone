@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/ThemeDecorator` to apply the same font size to latin and non-latin locales
+- `sandstone/ThemeDecorator` font style in non-latin locales
 
 ## [1.4.3] - 2020-10-30
 
