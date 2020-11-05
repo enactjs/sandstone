@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+
 ## [1.4.3] - 2020-10-30
 
 ### Changed
