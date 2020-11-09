@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar`
+
 ## [1.4.3] - 2020-10-30
 
 ### Changed
