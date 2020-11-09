@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
+- `sandstone/Panels.Header` to always show back button
 - `sandstone/Slider` prop `keyFrequency` to control the accelerating speed when key hold
 
 ### Changed
