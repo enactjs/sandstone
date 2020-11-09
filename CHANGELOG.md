@@ -6,6 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/Panels.Header` to always show back button
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar`
 
 ## [1.4.3] - 2020-10-30
