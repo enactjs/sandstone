@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- Joined horizontal `sandstone/Picker` to go to the next item by touch
 - `sandstone/ThemeDecorator` to prevent browser's default press effect
 
 ## [1.4.4] - 2020-11-06
