@@ -208,6 +208,14 @@
 				box-shadow: @sand-slider-focus-knob-shadow;
 				transform: @knob-transform-active;
 			}
+
+			.disabled({
+				.knob::before {
+					background-color: @sand-slider-disabled-focus-knob-bg-color;
+					border-color: @sand-slider-focus-knob-border-color;
+					transform: @knob-transform-resting;
+				}
+			});
 		}
 
 		.disabled({
