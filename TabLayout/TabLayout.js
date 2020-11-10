@@ -261,13 +261,18 @@ const TabLayoutBase = kind({
 				forward('onTabAnimationEnd')
 			)
 		),
-		handleFlick: ({direction, velocityX}, {onCollapse}) => {
+		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand, orientation}) => {
+			const isVertical = orientation === 'vertical';
 			const rootContainer = document.querySelector('#root > div');
 			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
 
 			// This tests a global class 'touch-mode' managed by SpotlightRootDecorator to check touch input
-			if (touchMode && direction === 'horizontal' && velocityX < 0) {
-				onCollapse();
+			if (isVertical && touchMode && direction === 'horizontal') {
+				if (!collapsed && velocityX < 0) {
+					onCollapse();
+				} else if (collapsed && velocityX > 0) {
+					onExpand();
+				}
 			}
 		}
 	},
@@ -303,6 +308,7 @@ const TabLayoutBase = kind({
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
+		const TouchableCell = isVertical ? Touchable(Cell) : Cell;
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
@@ -337,17 +343,18 @@ const TabLayoutBase = kind({
 						spotlightDisabled={collapsed}
 					/>
 				</Cell> : null}
-				<Cell
+				<TouchableCell
 					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
 					index={index}
 					noAnimation
+					onFlick={handleFlick}
 					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
 				>
 					{children}
-				</Cell>
+				</TouchableCell>
 			</Layout>
 		);
 	}
