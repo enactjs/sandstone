@@ -69,7 +69,7 @@ class JoinedInputField extends React.Component {
 		disabled: PropTypes.bool,
 		password: PropTypes.bool,
 		value: PropTypes.string
-	}
+	};
 
 	constructor () {
 		super();
@@ -79,7 +79,7 @@ class JoinedInputField extends React.Component {
 	}
 
 	componentDidMount () {
-		if (typeof ResizeObserver === 'function') {			
+		if (typeof ResizeObserver === 'function') {
 			this.resizeObserver = new ResizeObserver(() => {
 				this.updatePosition();
 			});
