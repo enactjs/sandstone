@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/TabLayout` to collapse tabs by touch flicking
 
 ### Fixed
 

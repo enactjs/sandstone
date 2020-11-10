@@ -16,6 +16,7 @@ import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {scaleToRem} from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
+import Touchable from '@enact/ui/Touchable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -26,6 +27,8 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+
+const TouchableTabGroup = Touchable(TabGroup);
 
 /**
  * Tabbed Layout component.
@@ -257,7 +260,12 @@ const TabLayoutBase = kind({
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
-		)
+		),
+		handleFlick: ({direction, velocityX}, {onCollapse}) => {
+			if (direction === 'horizontal' && velocityX < 0) {
+				onCollapse();
+			}
+		}
 	},
 
 	computed: {
@@ -285,7 +293,7 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleFlick, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
@@ -318,8 +326,9 @@ const TabLayoutBase = kind({
 					className={css.tabs + ' ' + css.tabsExpanded}
 					size={dimensions.tabs.normal}
 				>
-					<TabGroup
+					<TouchableTabGroup
 						{...tabGroupProps}
+						onFlick={handleFlick}
 						spotlightId={getTabsSpotlightId(spotlightId, false)}
 						spotlightDisabled={collapsed}
 					/>
