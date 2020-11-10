@@ -172,29 +172,7 @@
 			}
 
 			.knob::before {
-				background-color: @sand-slider-focus-knob-bg-color;
-				border-color: @sand-slider-focus-knob-border-color;
-				box-shadow: @sand-slider-focus-knob-shadow;
 				transform: @knob-transform-resting;
-			}
-
-			&.active,
-			&.pressed {
-				.bar {
-					background-color: @sand-slider-active-bar-bg-color;
-				}
-
-				.fill {
-					background-color: @sand-slider-active-fill-bg-color;
-				}
-
-				.load {
-					background-color: @sand-slider-active-load-bg-color;
-				}
-
-				.knob::before {
-					transform: @knob-transform-active;
-				}
 			}
 
 			.disabled({
@@ -209,6 +187,28 @@
 				}
 			});
 		});
+
+		&.active,
+		&.pressed {
+			.bar {
+				background-color: @sand-slider-active-bar-bg-color;
+			}
+
+			.fill {
+				background-color: @sand-slider-active-fill-bg-color;
+			}
+
+			.load {
+				background-color: @sand-slider-active-load-bg-color;
+			}
+
+			.knob::before {
+				background-color: @sand-slider-focus-knob-bg-color;
+				border-color: @sand-slider-focus-knob-border-color;
+				box-shadow: @sand-slider-focus-knob-shadow;
+				transform: @knob-transform-active;
+			}
+		}
 
 		.disabled({
 			opacity: 1;

@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to always show back button
 
+### Fixed
+
+- `sandstone/Slider` to show active style when touch dragging
+
 ## [1.4.3] - 2020-10-30
 
 ### Changed
