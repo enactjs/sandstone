@@ -262,7 +262,11 @@ const TabLayoutBase = kind({
 			)
 		),
 		handleFlick: ({direction, velocityX}, {onCollapse}) => {
-			if (direction === 'horizontal' && velocityX < 0) {
+			const rootContainer = document.querySelector('#root > div');
+			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
+
+			// This tests a global class 'touch-mode' managed by SpotlightRootDecorator to check touch input
+			if (touchMode && direction === 'horizontal' && velocityX < 0) {
 				onCollapse();
 			}
 		}
