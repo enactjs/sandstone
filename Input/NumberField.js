@@ -63,6 +63,51 @@ const NumberCell = kind({
 	}
 });
 
+class JoinedInputField extends React.Component {
+	constructor () {
+		super();
+		this.areaRef = React.createRef();
+		this.numberRef = React.createRef();
+		this.state = {x: 0};
+	}
+
+	componentDidMount () {
+		if (typeof ResizeObserver === 'function') {
+			this.resizeObserver = new ResizeObserver(() => {
+				this.updatePosition();
+			});
+			this.resizeObserver.observe(this.numberRef.current);
+		}
+		this.areaWidth = this.areaRef.current.getBoundingClientRect().width;
+	}
+
+	componentWillUnmount () {
+		if (this.resizeObserver) {
+			this.resizeObserver.disconnect();
+			this.resizeObserver = null;
+		}
+	}
+
+	updatePosition () {
+		const numberWidth = this.numberRef.current.getBoundingClientRect().width;
+		const x = this.areaWidth - numberWidth < 0 ? this.areaWidth - numberWidth : 0;
+		this.setState({x});
+	}
+
+	render () {
+		const {disabled, password, value, ...rest} = this.props;
+		return (
+			<div {...rest} disabled={disabled}>
+				<div ref={this.areaRef} className={componentCss.joinedArea}>
+					<div ref={this.numberRef} className={componentCss.joinedNumber} style={{transform: `translate(${this.state.x}px, 0)`}}>
+						{password ? convertToPasswordFormat(value) : value}
+					</div>
+				</div>
+			</div>
+		);
+	}
+}
+
 const NumberFieldBase = kind({
 	name: 'NumberField',
 
@@ -163,8 +208,7 @@ const NumberFieldBase = kind({
 		},
 		style: ({maxLength, style}) => {
 			return {
-				...style,
-				'--input-max-number-length': maxLength
+				...style
 			};
 		}
 	},
@@ -205,11 +249,7 @@ const NumberFieldBase = kind({
 				</Repeater>
 			);
 		} else {
-			field = (
-				<div {...rest} disabled={disabled}>
-					{password ? convertToPasswordFormat(value) : value}
-				</div>
-			);
+			field = <JoinedInputField {...rest} disabled={disabled} password={password} value={value} />
 		}
 
 		return (

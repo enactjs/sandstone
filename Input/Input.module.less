@@ -76,6 +76,17 @@
 		});
 	}
 
+	.joined {
+		.joinedArea {
+			overflow: hidden;
+		}
+
+		.joinedNumber {
+			display: inline-block;
+			position: relative;
+		}
+	}
+
 	&.fullscreen {
 		.body {
 			padding: @sand-input-fullscreen-padding;
@@ -93,12 +104,11 @@
 		}
 
 		.joined {
-			min-width: @sand-input-fullscreen-numberfield-width;
-			width: ~"calc(var(--input-max-number-length) * " @sand-input-fullscreen-numberfield-font-size ~")";
+			width: @sand-input-fullscreen-numberfield-width;
 			height: @sand-input-fullscreen-numberfield-height;
 			line-height: @sand-input-fullscreen-numberfield-height;
 			letter-spacing: @sand-input-fullscreen-numberfield-letter-spacing;
-			text-indent: @sand-input-fullscreen-numberfield-letter-spacing; // account for the letter spacing offset
+			text-indent: @sand-input-fullscreen-numberfield-letter-spacing / 2; // account for the letter spacing offset
 			font-size: @sand-input-fullscreen-numberfield-font-size;
 			margin: @sand-input-fullscreen-numberfield-margin;
 			padding: @sand-input-fullscreen-numberfield-padding;
@@ -166,12 +176,11 @@
 		}
 
 		.joined {
-			min-width: @sand-input-overlay-numberfield-width;
-			width: ~"calc(var(--input-max-number-length) * " @sand-input-overlay-numberfield-font-size ~")";
+			width: @sand-input-overlay-numberfield-width;
 			height: @sand-input-overlay-numberfield-height;
 			line-height: @sand-input-overlay-numberfield-height;
 			letter-spacing: @sand-input-overlay-numberfield-letter-spacing;
-			text-indent: @sand-input-overlay-numberfield-letter-spacing; // account for the letter spacing offset
+			text-indent: @sand-input-overlay-numberfield-letter-spacing / 2; // account for the letter spacing offset
 			font-size: @sand-input-overlay-numberfield-font-size;
 			margin: @sand-input-overlay-numberfield-margin;
 			padding: @sand-input-overlay-numberfield-padding;
