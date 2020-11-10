@@ -1,3 +1,4 @@
+/* global ResizeObserver */
 import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
@@ -64,6 +65,12 @@ const NumberCell = kind({
 });
 
 class JoinedInputField extends React.Component {
+	static propTypes = {
+		disabled: PropTypes.bool,
+		password: PropTypes.bool,
+		value: PropTypes.string
+	}
+
 	constructor () {
 		super();
 		this.areaRef = React.createRef();
@@ -72,7 +79,7 @@ class JoinedInputField extends React.Component {
 	}
 
 	componentDidMount () {
-		if (typeof ResizeObserver === 'function') {
+		if (typeof ResizeObserver === 'function') {			
 			this.resizeObserver = new ResizeObserver(() => {
 				this.updatePosition();
 			});
@@ -206,7 +213,7 @@ const NumberFieldBase = kind({
 				return null;
 			}
 		},
-		style: ({maxLength, style}) => {
+		style: ({style}) => {
 			return {
 				...style
 			};
@@ -249,7 +256,7 @@ const NumberFieldBase = kind({
 				</Repeater>
 			);
 		} else {
-			field = <JoinedInputField {...rest} disabled={disabled} password={password} value={value} />
+			field = <JoinedInputField {...rest} disabled={disabled} password={password} value={value} />;
 		}
 
 		return (
