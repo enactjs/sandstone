@@ -2,7 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-[unreleased]
+## [unreleased]
+
+### Changed
+
+- `sandstone/Panels.Header` to always show back button
 
 ### Fixed
 
