@@ -11,6 +11,14 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Alert` to match the latest GUI
+- `sandstone/ThemeDecorator` to prevent browser's default press effect
+
+## [1.4.4] - 2020-11-06
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
 
 ## [1.4.3] - 2020-10-30
 
