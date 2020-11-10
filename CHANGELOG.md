@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Panels.Header` to always show back button
 
+### Fixed
+
+- `sandstone/ThemeDecorator` to prevent browser's default press effect
+
 ## [1.4.4] - 2020-11-06
 
 ### Fixed
