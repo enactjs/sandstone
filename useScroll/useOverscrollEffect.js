@@ -4,9 +4,10 @@ import {constants} from '@enact/ui/useScroll';
 import {useCallback, useEffect, useRef} from 'react';
 
 const
-	{overscrollTypeDone, overscrollTypeNone, overscrollTypeOnce} = constants,
+	{overscrollTypeDone, overscrollTypeHold, overscrollTypeNone, overscrollTypeOnce} = constants,
 	overscrollTransitionPrefix = '--scroll-overscroll-transition-',
 	overscrollTranslatePrefix = '--scroll-overscroll-translate-',
+	overscrollTransitionHold = 'transform 0 unset',
 	overscrollTransitionStart = 'transform 300ms cubic-bezier(0.5, 1, 0.89, 1)',
 	overscrollTransitionEnd = 'transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)',
 	overscrollMaxTranslate = ri.scale(180),
@@ -32,8 +33,16 @@ const useOverscrollEffect = (props, instances) => {
 		if (scrollContentRef.current) {
 			const
 				effectSize = ratio * (edge === 'before' ? 1 : -1) * (isHorizontal && scrollContainerHandle.current.rtl ? -1 : 1) * overscrollMaxTranslate,
-				translate = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`,
-				transition = ratio !== 0 ? overscrollTransitionStart : overscrollTransitionEnd;
+				translate = `translate${isHorizontal ? 'X' : 'Y'}(${effectSize}px)`;
+			let transition = overscrollTransitionHold;
+
+			if (type !== overscrollTypeHold) {
+				if (ratio === 0) {
+					transition = overscrollTransitionEnd;
+				} else {
+					transition = overscrollTransitionStart;
+				}
+			}
 
 			scrollContentRef.current.style.setProperty(overscrollTranslatePrefix + orientation, translate);
 			scrollContentRef.current.style.setProperty(overscrollTransitionPrefix + orientation, transition);

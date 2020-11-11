@@ -336,7 +336,7 @@ VirtualList.propTypes = /** @lends sandstone/VirtualList.VirtualList.prototype *
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	 *	drag: false,
+	 *	drag: true,
 	 *	pageKey: false,
 	 *	track: false,
 	 *	wheel: true
@@ -461,7 +461,7 @@ VirtualList.defaultProps = {
 	onScrollStop: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
-		drag: false,
+		drag: true,
 		pageKey: false,
 		track: false,
 		wheel: true
@@ -766,7 +766,7 @@ VirtualGridList.propTypes = /** @lends sandstone/VirtualList.VirtualGridList.pro
 	 * @type {Object}
 	 * @default {
 	 *	arrowKey: false,
-	 *	drag: false,
+	 *	drag: true,
 	 *	pageKey: false,
 	 *	track: false,
 	 *	wheel: true
@@ -892,7 +892,7 @@ VirtualGridList.defaultProps = {
 	onScrollStop: nop,
 	overscrollEffectOn: {
 		arrowKey: false,
-		drag: false,
+		drag: true,
 		pageKey: false,
 		track: false,
 		wheel: true
