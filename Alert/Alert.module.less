@@ -58,6 +58,14 @@
 
 		.buttonContainer {
 			box-sizing: border-box;
+			margin: @sand-alert-overlay-buttons-margin;
+			.margin-start-end(	
+				.extract(@sand-alert-overlay-buttons-margin, left)[],	
+				.extract(@sand-alert-overlay-buttons-margin, right)[]	
+			);
+			:global(.enact-orientation-portrait) & {
+				margin: 0;
+			}
 
 			// Every buttonCell after the first one
 			.buttonCell + .buttonCell {
@@ -67,9 +75,12 @@
 
 		.content {
 			.sand-alert-overlay-content();
-			width: @sand-alert-overlay-content-width;
 			.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-alert-overlay-text-button-gap);
 			margin-bottom: 0;
+
+			:global(.enact-orientation-portrait) & {
+				width: @sand-portrait-alert-overlay-content-width;
+			}
 
 			:global(.enact-locale-ja) &,
 			:global(.enact-locale-zh) & {
@@ -81,6 +92,9 @@
 		&.noImage {
 			.content {
 				width: @sand-alert-overlay-noimage-content-width;
+				:global(.enact-orientation-portrait) & {
+					width: @sand-portrait-alert-overlay-noimage-content-width;
+				}
 				.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-alert-overlay-text-button-gap);
 			}
 		}
