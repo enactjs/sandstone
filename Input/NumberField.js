@@ -2,7 +2,7 @@
 import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import Repeater from '@enact/ui/Repeater';
@@ -64,55 +64,40 @@ const NumberCell = kind({
 	}
 });
 
-class JoinedInputField extends React.Component {
-	static propTypes = {
-		disabled: PropTypes.bool,
-		password: PropTypes.bool,
-		value: PropTypes.string
-	};
+const JoinedInputField = ({disabled, password, value, ...rest}) => {
+	const [x, setX] = useState(0);
+	const areaRef = useRef(null);
+	const numberRef = useRef(null);
 
-	constructor () {
-		super();
-		this.areaRef = React.createRef();
-		this.numberRef = React.createRef();
-		this.state = {x: 0};
-	}
+	useEffect(() => {
+		let resizeObserver = null;
 
-	componentDidMount () {
 		if (typeof ResizeObserver === 'function') {
-			this.resizeObserver = new ResizeObserver(() => {
-				this.updatePosition();
+			resizeObserver = new ResizeObserver(() => {
+				const areaWidth = areaRef.current.getBoundingClientRect().width;
+				const numberWidth = numberRef.current.getBoundingClientRect().width;
+				setX(areaWidth - numberWidth < 0 ? areaWidth - numberWidth : 0);
 			});
-			this.resizeObserver.observe(this.numberRef.current);
+			resizeObserver.observe(numberRef.current);
 		}
-		this.areaWidth = this.areaRef.current.getBoundingClientRect().width;
-	}
 
-	componentWillUnmount () {
-		if (this.resizeObserver) {
-			this.resizeObserver.disconnect();
-			this.resizeObserver = null;
+		return () => {
+			if (resizeObserver) {
+				resizeObserver.disconnect();
+				resizeObserver = null;
+			}
 		}
-	}
+	}, []);
 
-	updatePosition () {
-		const numberWidth = this.numberRef.current.getBoundingClientRect().width;
-		const x = this.areaWidth - numberWidth < 0 ? this.areaWidth - numberWidth : 0;
-		this.setState({x});
-	}
-
-	render () {
-		const {disabled, password, value, ...rest} = this.props;
-		return (
-			<div {...rest} disabled={disabled}>
-				<div ref={this.areaRef} className={componentCss.joinedArea}>
-					<div ref={this.numberRef} className={componentCss.joinedNumber} style={{transform: `translate(${this.state.x}px, 0)`}}>
-						{password ? convertToPasswordFormat(value) : value}
-					</div>
+	return (
+		<div {...rest} disabled={disabled}>
+			<div ref={areaRef} className={componentCss.joinedArea}>
+				<div ref={numberRef} className={componentCss.joinedNumber} style={{transform: `translate(${x}px, 0)`}}>
+					{password ? convertToPasswordFormat(value) : value}
 				</div>
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
 const NumberFieldBase = kind({
