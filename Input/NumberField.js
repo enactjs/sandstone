@@ -86,7 +86,7 @@ const JoinedInputField = ({disabled, password, value, ...rest}) => {
 				resizeObserver.disconnect();
 				resizeObserver = null;
 			}
-		}
+		};
 	}, []);
 
 	return (
@@ -98,7 +98,13 @@ const JoinedInputField = ({disabled, password, value, ...rest}) => {
 			</div>
 		</div>
 	);
-}
+};
+
+JoinedInputField.propTypes = {
+	disabled: PropTypes.bool,
+	password: PropTypes.bool,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
 
 const NumberFieldBase = kind({
 	name: 'NumberField',
