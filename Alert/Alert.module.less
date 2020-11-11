@@ -63,8 +63,13 @@
 				.extract(@sand-alert-overlay-buttons-margin, left)[],
 				.extract(@sand-alert-overlay-buttons-margin, right)[]
 			);
+
 			:global(.enact-orientation-portrait) & {
-				margin: 0;
+				margin: @sand-portrait-alert-overlay-buttons-margin;
+				.margin-start-end(
+					.extract(@sand-portrait-alert-overlay-buttons-margin, left)[],
+					.extract(@sand-portrait-alert-overlay-buttons-margin, right)[]
+				);
 			}
 
 			// Every buttonCell after the first one

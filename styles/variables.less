@@ -323,7 +323,8 @@
 @sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
 @sand-portrait-alert-overlay-noimage-content-width: 1020px;
 @sand-portrait-alert-overlay-content-width: 822px;
-@sand-portrait-alert-overlay-text-button-gap: 114px;
+@sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+@sand-portrait-alert-overlay-text-button-gap: (150px - .extract(@sand-portrait-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
 // ---------------------------------------
