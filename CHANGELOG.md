@@ -7,6 +7,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/Panels.Header` to replace `onTap` with `onClick` to close the header
+- `sandstone/RadioItem`  replace `onTap` with `onClick`
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 
 ### Fixed
