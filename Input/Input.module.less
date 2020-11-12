@@ -108,6 +108,7 @@
 			margin: @sand-input-fullscreen-keypad-margin;
 
 			:global(.enact-orientation-portrait) & {
+				margin: @sand-input-fullscreen-portrait-keypad-margin;
 				width: @sand-input-fullscreen-portrait-keypad-width;
 			}
 		}
@@ -147,6 +148,10 @@
 		&.password {
 			.inputArea {
 				margin: @sand-input-fullscreen-inputarea-margin;
+
+				:global(.enact-orientation-portrait) & {
+					margin: @sand-input-fullscreen-portrait-inputarea-margin;
+				}
 			}
 		}
 	}
