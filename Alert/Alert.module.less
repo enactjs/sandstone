@@ -66,11 +66,7 @@
 
 			:global(.enact-orientation-portrait) & {
 				margin: @sand-portrait-alert-overlay-buttons-margin;
-			}
-
-			:global(.enact-orientation-portrait.enact-locale-right-to-left) & {
-				margin-left: .extract(@sand-portrait-alert-overlay-buttons-margin, right)[];
-				margin-right: .extract(@sand-portrait-alert-overlay-buttons-margin, left)[];
+				.margin-start-end(.extract(@sand-portrait-alert-overlay-buttons-margin, left)[], .extract(@sand-portrait-alert-overlay-buttons-margin, right)[], parent);
 			}
 
 			// Every buttonCell after the first one
@@ -87,13 +83,7 @@
 
 			:global(.enact-orientation-portrait) & {
 				width: @sand-portrait-alert-overlay-content-width;
-				margin-left: @sand-alert-overlay-image-text-gap;
-				margin-right: @sand-portrait-alert-overlay-text-button-gap;
-			}
-
-			:global(.enact-orientation-portrait.enact-locale-right-to-left) & {
-				margin-left: @sand-portrait-alert-overlay-text-button-gap;
-				margin-right: @sand-alert-overlay-image-text-gap;
+				.margin-start-end(@sand-alert-overlay-image-text-gap, @sand-portrait-alert-overlay-text-button-gap, parent);
 			}
 
 			:global(.enact-locale-ja) &,
@@ -109,13 +99,7 @@
 
 				:global(.enact-orientation-portrait) & {
 					width: @sand-portrait-alert-overlay-noimage-content-width;
-					margin-left: @sand-alert-overlay-noimage-text-gap;
-					margin-right: @sand-portrait-alert-overlay-text-button-gap;
-				}
-
-				:global(.enact-orientation-portrait.enact-locale-right-to-left) & {
-					margin-left: @sand-portrait-alert-overlay-text-button-gap;
-					margin-right: @sand-alert-overlay-noimage-text-gap;
+					.margin-start-end(@sand-alert-overlay-noimage-text-gap, @sand-portrait-alert-overlay-text-button-gap, parent);
 				}
 			}
 		}
