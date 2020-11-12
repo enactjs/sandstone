@@ -28,6 +28,8 @@ import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
 
+const TouchableCell = Touchable(Cell);
+
 /**
  * Tabbed Layout component.
  *
@@ -306,7 +308,8 @@ const TabLayoutBase = kind({
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
-		const TouchableCell = isVertical ? Touchable(Cell) : Cell;
+		const ContentCell = isVertical ? TouchableCell : Cell;
+		const contentCellProps = isVertical ? {onFlick: handleFlick} : null;
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
@@ -336,23 +339,22 @@ const TabLayoutBase = kind({
 				>
 					<TabGroup
 						{...tabGroupProps}
-						onFlick={handleFlick}
 						spotlightId={getTabsSpotlightId(spotlightId, false)}
 						spotlightDisabled={collapsed}
 					/>
 				</Cell> : null}
-				<TouchableCell
+				<ContentCell
 					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
 					index={index}
 					noAnimation
-					onFlick={handleFlick}
 					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
+					{...contentCellProps}
 				>
 					{children}
-				</TouchableCell>
+				</ContentCell>
 			</Layout>
 		);
 	}
