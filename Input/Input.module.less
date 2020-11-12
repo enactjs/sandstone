@@ -106,15 +106,24 @@
 
 		.keypad {
 			margin: @sand-input-fullscreen-keypad-margin;
-			flex-wrap: nowrap;
+
+			:global(.enact-orientation-portrait) & {
+				width: @sand-input-fullscreen-portrait-keypad-width;
+			}
 		}
 
 		.key {
 			margin: @sand-input-fullscreen-keypad-key-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-input-fullscreen-portrait-keypad-key-margin;
+			}
 		}
 
 		.buttonArea {
 			margin: @sand-input-fullscreen-buttonarea-margin;
+			display: flex;
+			justify-content: center;
 		}
 
 		.inputArea,
