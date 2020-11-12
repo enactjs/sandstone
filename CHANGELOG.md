@@ -7,10 +7,12 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 - `sandstone/TabLayout` to collapse tabs by touch flicking
 
 ### Fixed
 
+- `sandstone/Alert` to match the latest GUI
 - `sandstone/ThemeDecorator` to prevent browser's default press effect
 
 ## [1.4.4] - 2020-11-06
