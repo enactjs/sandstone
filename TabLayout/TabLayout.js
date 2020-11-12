@@ -28,8 +28,6 @@ import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
 
-const TouchableTabGroup = Touchable(TabGroup);
-
 /**
  * Tabbed Layout component.
  *
@@ -336,7 +334,7 @@ const TabLayoutBase = kind({
 					className={css.tabs + ' ' + css.tabsExpanded}
 					size={dimensions.tabs.normal}
 				>
-					<TouchableTabGroup
+					<TabGroup
 						{...tabGroupProps}
 						onFlick={handleFlick}
 						spotlightId={getTabsSpotlightId(spotlightId, false)}
