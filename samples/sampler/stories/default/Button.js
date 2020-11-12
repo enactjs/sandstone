@@ -41,7 +41,6 @@ storiesOf('Sandstone', module)
 		() => (<React.Fragment>
 			<Button
 				onClick={action('onClick')}
-				onTap={action('onTap')}
 				backgroundOpacity={select('backgroundOpacity', prop.backgroundOpacity, Config)}
 				color={select('color', prop.color, Config)}
 				disabled={boolean('disabled', Config)}
