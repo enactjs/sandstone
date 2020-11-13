@@ -130,7 +130,6 @@ const InputPopupBase = kind({
 		 * Omits the back button.
 		 *
 		 * @type {Boolean}
-		 * @default false
 		 * @public
 		 */
 		noBackButton: PropTypes.bool,
@@ -351,8 +350,7 @@ const InputPopupBase = kind({
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 		// Set up the back button
-		const backButtonAvailable = popupType === 'fullscreen' && (type === 'number' || type === 'passwordnumber') && (numberInputField !== 'field');
-		const backButton = (backButtonAvailable && !noBackButton ? (
+		const backButton = (popupType === 'fullscreen' && !noBackButton ? (
 			<Button
 				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 				className={css.back}

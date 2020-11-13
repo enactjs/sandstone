@@ -79,12 +79,8 @@
 	&.fullscreen {
 		.back {
 			position: absolute;
-			top: 132px;
-			left: 96px;
-			:global(.enact-locale-right-to-left) & {
-				left: initial;
-				right: 96px;
-			}
+			top: @sand-input-fullscreen-back-button-top;
+			.position-start-end(@sand-input-fullscreen-back-button-start, initial);
 
 			.sand-custom-text({
 				.sand-small-button-text();
