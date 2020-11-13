@@ -421,11 +421,11 @@ const HeaderBase = kind({
 	},
 
 	computed: {
-		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
+		className: ({backButtonAvailable, noBackButton, centered, children, type, styler}) => styler.append(
 			{
 				centered,
 				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
-				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
+				showBack: (backButtonAvailable && !noBackButton),
 				withChildren: hasChildren(children)
 			},
 			type
@@ -492,7 +492,6 @@ const HeaderBase = kind({
 		closeButtonAriaLabel,
 		closeButtonBackgroundOpacity,
 		css,
-		hover,
 		noBackButton,
 		noCloseButton,
 		onBack,
@@ -508,6 +507,7 @@ const HeaderBase = kind({
 	}) => {
 		delete rest.arranger;
 		delete rest.entering;
+		delete rest.hover;
 		delete rest.marqueeOn;
 		delete rest.onHideBack;
 		delete rest.onShowBack;
@@ -528,7 +528,6 @@ const HeaderBase = kind({
 					iconFlip="auto"
 					onClick={onBack}
 					size="small"
-					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
 				/>
 			</div>
 		) : null);

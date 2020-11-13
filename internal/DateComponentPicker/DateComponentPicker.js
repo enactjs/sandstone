@@ -1,15 +1,12 @@
 import kind from '@enact/core/kind';
 import {mapAndFilterChildren} from '@enact/core/util';
-import Spottable from '@enact/spotlight/Spottable';
 import Changeable from '@enact/ui/Changeable';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import PickerCore, {PickerItem} from '../Picker';
+import Picker, {PickerItem} from '../Picker';
 
 import css from './DateComponentPicker.module.less';
-
-const Picker = Spottable(PickerCore);
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one

@@ -44,7 +44,11 @@
 				border-right: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
 				border-left: @sand-scrollbar-thumb-focus-direction-indicator-width/2 solid transparent;
 			}
-		})
+		});
+
+		:global(.touch-mode) & {
+			pointer-events: none;
+		}
 	}
 
 	&.vertical {
@@ -99,7 +103,7 @@
 					right: calc(@sand-scrollbar-thumb-focus-direction-indicator-top - @sand-scrollbar-thumb-focus-direction-indicator-height);
 					top: calc(@sand-scrollbar-thumb-focus-direction-indicator-left/2);
 				}
-			})
+			});
 		}
 	}
 }

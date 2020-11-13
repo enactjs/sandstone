@@ -166,7 +166,6 @@
 
 @sand-tallglyph-alert-title-font-size:  @sand-alert-title-font-size;
 @sand-tallglyph-alert-notitle-content-font-size: @sand-alert-notitle-content-font-size;
-@sand-non-latin-base-font-size:         66px;
 @sand-non-latin-body-font-size:         54px;
 @sand-tallglyph-body-small-font-size:   48px;
 @sand-non-latin-button-large-font-size: 72px;
@@ -322,6 +321,10 @@
 @sand-alert-overlay-padding-top-bottom: 60px;
 @sand-alert-overlay-padding-left: 60px;
 @sand-alert-overlay-padding-right: (90px - .extract(@sand-button-margin, right)[]);
+@sand-portrait-alert-overlay-noimage-content-width: 1020px;
+@sand-portrait-alert-overlay-content-width: 822px;
+@sand-portrait-alert-overlay-buttons-margin: 0 0 0 78px;
+@sand-portrait-alert-overlay-text-button-gap: (150px - .extract(@sand-portrait-alert-overlay-buttons-margin, left)[] - .extract(@sand-button-margin, right)[]);
 
 // AlertImage
 // ---------------------------------------
