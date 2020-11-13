@@ -77,6 +77,16 @@
 	}
 
 	&.fullscreen {
+		.back {
+			position: absolute;
+			top: @sand-input-fullscreen-back-button-top;
+			.position-start-end(@sand-input-fullscreen-back-button-start, initial);
+
+			.sand-custom-text({
+				.sand-small-button-text();
+			});
+		}
+
 		.body {
 			padding: @sand-input-fullscreen-padding;
 		}
