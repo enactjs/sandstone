@@ -3,8 +3,7 @@
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
 ### Changed
-- `sandstone/Input` add back back button
-- `sandstone/Input` support vertical screen
+- `sandstone/Input` to change style for vertical screen
 
 ## [1.4.3] - 2020-10-30
 
