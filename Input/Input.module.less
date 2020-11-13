@@ -142,6 +142,10 @@
 			.textField {
 				width: @sand-input-fullscreen-textfield-width;
 			}
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-input-fullscreen-portrait-number-inputarea-margin;
+			}
 		}
 
 		.tooltip {
@@ -156,7 +160,7 @@
 				margin: @sand-input-fullscreen-inputarea-margin;
 
 				:global(.enact-orientation-portrait) & {
-					margin: @sand-input-fullscreen-portrait-inputarea-margin;
+					margin: @sand-input-fullscreen-portrait-text-inputarea-margin;
 				}
 			}
 		}
