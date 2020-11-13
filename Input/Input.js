@@ -346,7 +346,6 @@ const InputPopupBase = kind({
 				open={open}
 			>
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
-					{popupType === 'fullscreen' ? <Button icon="arrowhookleft" className={css.backButton} onClick={onClose} /> : null}
 					<Cell shrink className={css.titles}>
 						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
 						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
