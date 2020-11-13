@@ -7,6 +7,20 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
+
+### Fixed
+
+- `sandstone/Alert` to match the latest GUI
+- Joined horizontal `sandstone/Picker` to go to the next item by touch
+- `sandstone/ThemeDecorator` to prevent browser's default press effect
+
+## [1.4.4] - 2020-11-06
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
 
 ### Fixed
 
