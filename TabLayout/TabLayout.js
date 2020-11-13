@@ -261,13 +261,12 @@ const TabLayoutBase = kind({
 				forward('onTabAnimationEnd')
 			)
 		),
-		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand, orientation}) => {
-			const isVertical = orientation === 'vertical';
+		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
 			const rootContainer = document.querySelector('#root > div');
 			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
 
 			// This tests a global class 'touch-mode' managed by SpotlightRootDecorator to check touch input
-			if (isVertical && touchMode && direction === 'horizontal') {
+			if (touchMode && direction === 'horizontal') {
 				if (!collapsed && velocityX < 0) {
 					onCollapse();
 				} else if (collapsed && velocityX > 0) {
