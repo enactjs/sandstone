@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
+
 ## [2.1.2] - 2021-12-22
 
 - Fixed samples build issue 
@@ -9,6 +15,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [2.1.1] - 2021-12-22
 
 ### Added
+
 - `sandstone/VideoPlayer` props `onWillFastForward`, `onWillJumpBackward`, `onWillJumpForward`, `onWillPause`, `onWillPlay`, and `onWillRewind`
 
 ### Fixed
