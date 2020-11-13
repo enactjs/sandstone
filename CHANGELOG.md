@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Input` props `backButtonAriaLabel` and `noBackButton` to customize a back button aria label and to not show a back button
+
 ### Changed
 
 - `sandstone/Input` to add a back button when `popupType` is `fullscreen`, `type` is `number` or `passwordnumber`, and `numberInputField` is not `field`
