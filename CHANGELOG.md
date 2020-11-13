@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/Input` to change style for vertical screen
+- `sandstone/Input` layout for portrait mode
 - `sandstone/Panels.Header` to always show back button
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 
