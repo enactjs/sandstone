@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import $L from '../internal/$L';
 import Button from '../Button';
 import Popup from '../Popup';
 import Skinnable from '../Skinnable';
@@ -44,6 +45,15 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		announce: PropTypes.func,
+
+		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
 
 		/**
 		 * Customize component style
@@ -115,6 +125,15 @@ const InputPopupBase = kind({
 		 * @public
 		 */
 		minLength: PropTypes.number,
+
+		/**
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
 
 		/**
 		 * The type of numeric input to use.
@@ -305,8 +324,10 @@ const InputPopupBase = kind({
 
 	render: ({
 		announce,
+		backButtonAriaLabel,
 		children,
 		css,
+		noBackButton,
 		numberInputField,
 		onBeforeChange,
 		onClose,
@@ -327,9 +348,20 @@ const InputPopupBase = kind({
 		minLength,
 		...rest
 	}) => {
-
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
+		// Set up the back button
+		const backButtonAvailable = popupType === 'fullscreen' && (type === 'number' || type === 'passwordnumber') && (numberInputField !== 'field');
+		const backButton = (backButtonAvailable && !noBackButton ? (
+			<Button
+				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+				className={css.back}
+				icon="arrowhookleft"
+				iconFlip="auto"
+				onClick={onClose}
+				size="small"
+			/>
+		) : null);
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -345,6 +377,7 @@ const InputPopupBase = kind({
 				noAnimation
 				open={open}
 			>
+				{backButton}
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
 						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
