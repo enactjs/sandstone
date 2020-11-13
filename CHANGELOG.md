@@ -4,10 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Input` props `backButtonAriaLabel` and `noBackButton` to customize a back button aria label and to not show a back button
+
 ### Changed
 
+- `sandstone/Input` to add a back button when `popupType` is `fullscreen`
 - `sandstone/Panels.Header` to always show back button
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
+- `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
 - `sandstone/Slider` to show active style when touch dragging
 
 ### Fixed
