@@ -14,7 +14,8 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber']
+	type: ['text', 'password', 'number', 'passwordnumber'],
+	backButtonAriaLabel: [null, 'Back']
 };
 
 storiesOf('Sandstone', module)
@@ -40,7 +41,9 @@ storiesOf('Sandstone', module)
 				title: text('title', ConfigPopup, 'Title Text'),
 				disabled: boolean('disabled', Config),
 				'aria-label': text('aria-label', ConfigPopup, ''),
-				popupAriaLabel: text('popupAriaLabel', ConfigPopup, '')
+				popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
+				noBackButton: boolean('noBackButton', ConfigPopup),
+				backButtonAriaLabel: select('backButtonAriaLabel', prop.backButtonAriaLabel, ConfigPopup)
 			};
 
 			// Numeric specific props
