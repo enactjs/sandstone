@@ -38,7 +38,7 @@ const InputView = () => (
 			<Input alt="Aria-labelled and Disabled" aria-label="This is a Label 1." disabled />
 			<Input alt="With popupAriaLabel" popupAriaLabel="This is a Label 2." />
 			<Input alt="Number Type With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
-			<Input alt="Number Type and backButtonAriaLabel With Title, Subtitle, and Placeholder" aria-label="This is a Label 3." backButtonAriaLabel="This is a Back." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
+			<Input alt="Number Type and backButtonAriaLabel With Title, Subtitle, and Placeholder" aria-label="This is a Label 4." backButtonAriaLabel="This is a Back." placeholder="Placeholder" subtitle="Subtitle" title="Title" type="number" />
 		</Section>
 	</>
 );
