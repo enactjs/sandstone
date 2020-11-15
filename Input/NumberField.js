@@ -1,7 +1,8 @@
+/* global ResizeObserver */
 import kind from '@enact/core/kind';
 import {handle, adaptEvent, forward, forwardWithPrevent, returnsTrue} from '@enact/core/handle';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import compose from 'ramda/src/compose';
 import Changeable from '@enact/ui/Changeable';
 import Repeater from '@enact/ui/Repeater';
@@ -62,6 +63,48 @@ const NumberCell = kind({
 		);
 	}
 });
+
+const JoinedInputField = ({disabled, password, value, ...rest}) => {
+	const [x, setX] = useState(0);
+	const areaRef = useRef(null);
+	const numberRef = useRef(null);
+
+	useEffect(() => {
+		let resizeObserver = null;
+
+		if (typeof ResizeObserver === 'function') {
+			resizeObserver = new ResizeObserver(() => {
+				const areaWidth = areaRef.current.getBoundingClientRect().width;
+				const numberWidth = numberRef.current.getBoundingClientRect().width;
+				setX(areaWidth - numberWidth < 0 ? areaWidth - numberWidth : 0);
+			});
+			resizeObserver.observe(numberRef.current);
+		}
+
+		return () => {
+			if (resizeObserver) {
+				resizeObserver.disconnect();
+				resizeObserver = null;
+			}
+		};
+	}, []);
+
+	return (
+		<div {...rest} disabled={disabled}>
+			<div ref={areaRef} className={componentCss.joinedArea}>
+				<div ref={numberRef} className={componentCss.joinedNumber} style={{transform: `translate(${x}px, 0)`}}>
+					{password ? convertToPasswordFormat(value) : value}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+JoinedInputField.propTypes = {
+	disabled: PropTypes.bool,
+	password: PropTypes.bool,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
 
 const NumberFieldBase = kind({
 	name: 'NumberField',
@@ -161,10 +204,9 @@ const NumberFieldBase = kind({
 				return null;
 			}
 		},
-		style: ({maxLength, style}) => {
+		style: ({style}) => {
 			return {
-				...style,
-				'--input-max-number-length': maxLength
+				...style
 			};
 		}
 	},
@@ -205,11 +247,7 @@ const NumberFieldBase = kind({
 				</Repeater>
 			);
 		} else {
-			field = (
-				<div {...rest} disabled={disabled}>
-					{password ? convertToPasswordFormat(value) : value}
-				</div>
-			);
+			field = <JoinedInputField {...rest} disabled={disabled} password={password} value={value} />;
 		}
 
 		return (

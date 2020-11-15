@@ -19,7 +19,7 @@ import Heading from '../Heading';
 
 import NumberField from './NumberField';
 import InputField from './InputField';
-import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
+import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps} from './util';
 
 import componentCss from './Input.module.less';
 
@@ -386,8 +386,8 @@ const InputPopupBase = kind({
 							<NumberField
 								{...inputProps}
 								announce={announce}
-								maxLength={limitNumberLength(popupType, maxLength)}
-								minLength={limitNumberLength(popupType, minLength)}
+								maxLength={maxLength}
+								minLength={minLength}
 								defaultValue={value}
 								onBeforeChange={onBeforeChange}
 								onComplete={onNumberComplete}
