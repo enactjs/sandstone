@@ -265,7 +265,7 @@ const TabLayoutBase = kind({
 			const rootContainer = document.querySelector('#root > div');
 			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
 
-			// This tests a global class 'touch-mode' managed by SpotlightRootDecorator to check touch input
+			// See the global class 'touch-mode' to check the input type is touch
 			if (touchMode && direction === 'horizontal') {
 				if (!collapsed && velocityX < 0) {
 					onCollapse();
