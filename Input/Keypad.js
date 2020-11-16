@@ -79,7 +79,7 @@ const Keypad = kind({
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
-							className={rowIndex == 0 ? spotlightDefaultClass : null}
+							className={rowIndex === 0 ? spotlightDefaultClass : null}
 							aria-label={keyText === 'backspace' ? $L('backspace') : keyText}
 							shrink
 							component={Key}
