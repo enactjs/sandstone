@@ -14,7 +14,8 @@ const prop = {
 	numericKind: ['auto', 'joined', 'separated', 'field'],
 	popupType: ['fullscreen', 'overlay'],
 	size: ['small', 'large'],
-	type: ['text', 'password', 'number', 'passwordnumber']
+	type: ['text', 'password', 'number', 'passwordnumber'],
+	backButtonAriaLabel: [null, 'Back']
 };
 
 storiesOf('Sandstone', module)
@@ -40,7 +41,9 @@ storiesOf('Sandstone', module)
 				title: text('title', ConfigPopup, 'Title Text'),
 				disabled: boolean('disabled', Config),
 				'aria-label': text('aria-label', ConfigPopup, ''),
-				popupAriaLabel: text('popupAriaLabel', ConfigPopup, '')
+				popupAriaLabel: text('popupAriaLabel', ConfigPopup, ''),
+				noBackButton: boolean('noBackButton', ConfigPopup),
+				backButtonAriaLabel: select('backButtonAriaLabel', prop.backButtonAriaLabel, ConfigPopup)
 			};
 
 			// Numeric specific props
@@ -49,10 +52,10 @@ storiesOf('Sandstone', module)
 
 				const minMax = boolean('customize min/max', ConfigPopup, false);
 				if (minMax) {
-					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 20}, 4);
-					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 20}, 0);
+					props.maxLength = number('maxLength', ConfigPopup, {range: true, min: 0, max: 14}, 4);
+					props.minLength = number('minLength', ConfigPopup, {range: true, min: 0, max: 14}, 0);
 				} else {
-					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 20}, 4);
+					props.length = number('length', ConfigPopup, {range: true, min: 1, max: 14}, 4);
 				}
 			}
 

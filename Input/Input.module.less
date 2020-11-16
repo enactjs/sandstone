@@ -77,6 +77,16 @@
 	}
 
 	&.fullscreen {
+		.back {
+			position: absolute;
+			top: @sand-input-fullscreen-back-button-top;
+			.position-start-end(@sand-input-fullscreen-back-button-start, initial);
+
+			.sand-custom-text({
+				.sand-small-button-text();
+			});
+		}
+
 		.body {
 			padding: @sand-input-fullscreen-padding;
 		}
@@ -106,14 +116,25 @@
 
 		.keypad {
 			margin: @sand-input-fullscreen-keypad-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-keypad-margin;
+				width: @sand-portrait-input-fullscreen-keypad-width;
+			}
 		}
 
 		.key {
 			margin: @sand-input-fullscreen-keypad-key-margin;
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-keypad-key-margin;
+			}
 		}
 
 		.buttonArea {
 			margin: @sand-input-fullscreen-buttonarea-margin;
+			display: flex;
+			justify-content: center;
 		}
 
 		.inputArea,
@@ -124,6 +145,10 @@
 		.inputArea {
 			.textField {
 				width: @sand-input-fullscreen-textfield-width;
+			}
+
+			:global(.enact-orientation-portrait) & {
+				margin: @sand-portrait-input-fullscreen-number-inputarea-margin;
 			}
 		}
 
@@ -137,6 +162,10 @@
 		&.password {
 			.inputArea {
 				margin: @sand-input-fullscreen-inputarea-margin;
+
+				:global(.enact-orientation-portrait) & {
+					margin: @sand-portrait-input-fullscreen-text-inputarea-margin;
+				}
 			}
 		}
 	}
