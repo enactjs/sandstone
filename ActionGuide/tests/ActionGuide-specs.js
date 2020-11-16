@@ -12,8 +12,7 @@ describe('ActionGuide', () => {
 			);
 
 			const expected = 'star';
-			const actual = subject.find('.icon').prop('children');
-
+			const actual = subject.find('.icon').prop('icon');
 			expect(actual).toBe(expected);
 		}
 	);
