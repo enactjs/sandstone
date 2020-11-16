@@ -8,6 +8,7 @@ import {handle, oneOf, forKey, forward, adaptEvent} from '@enact/core/handle';
 import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import React from 'react';
+import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 
 import Button from '../Button';
 
@@ -78,6 +79,7 @@ const Keypad = kind({
 				{KEY_LIST.map((keyText, rowIndex) => {
 					return (
 						<Cell
+							className={rowIndex == 0 ? spotlightDefaultClass : null}
 							aria-label={keyText === 'backspace' ? $L('backspace') : keyText}
 							shrink
 							component={Key}
