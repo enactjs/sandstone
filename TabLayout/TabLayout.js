@@ -16,6 +16,7 @@ import {Changeable} from '@enact/ui/Changeable';
 import {Cell, Layout} from '@enact/ui/Layout';
 import {scaleToRem} from '@enact/ui/resolution';
 import Toggleable from '@enact/ui/Toggleable';
+import Touchable from '@enact/ui/Touchable';
 import ViewManager from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
@@ -26,6 +27,8 @@ import TabGroup from './TabGroup';
 import Tab from './Tab';
 
 import componentCss from './TabLayout.module.less';
+
+const TouchableCell = Touchable(Cell);
 
 /**
  * Tabbed Layout component.
@@ -257,7 +260,20 @@ const TabLayoutBase = kind({
 				(ev, {collapsed}) => ({type: 'onTabAnimationEnd', collapsed: Boolean(collapsed)}),
 				forward('onTabAnimationEnd')
 			)
-		)
+		),
+		handleFlick: ({direction, velocityX}, {collapsed, onCollapse, onExpand}) => {
+			const rootContainer = document.querySelector('#root > div');
+			const touchMode = rootContainer && rootContainer.classList.contains('touch-mode');
+
+			// See the global class 'touch-mode' to check the input type is touch
+			if (touchMode && direction === 'horizontal') {
+				if (!collapsed && velocityX < 0) {
+					onCollapse();
+				} else if (collapsed && velocityX > 0) {
+					onExpand();
+				}
+			}
+		}
 	},
 
 	computed: {
@@ -285,12 +301,14 @@ const TabLayoutBase = kind({
 		}
 	},
 
-	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
+	render: ({children, collapsed, css, 'data-spotlight-id': spotlightId, dimensions, handleFlick, handleTabsTransitionEnd, index, onCollapse, onExpand, onSelect, orientation, tabOrientation, tabSize, tabs, ...rest}) => {
 		delete rest.anchorTo;
 		delete rest.onTabAnimationEnd;
 
 		const contentSize = (collapsed ? dimensions.content.expanded : dimensions.content.normal);
 		const isVertical = orientation === 'vertical';
+		const ContentCell = isVertical ? TouchableCell : Cell;
+		const contentCellProps = isVertical ? {onFlick: handleFlick} : null;
 
 		// Props that are shared between both of the rendered TabGroup components
 		const tabGroupProps = {
@@ -324,7 +342,7 @@ const TabLayoutBase = kind({
 						spotlightDisabled={collapsed}
 					/>
 				</Cell> : null}
-				<Cell
+				<ContentCell
 					size={isVertical ? contentSize : null}
 					className={css.content}
 					component={ViewManager}
@@ -332,9 +350,10 @@ const TabLayoutBase = kind({
 					noAnimation
 					onFocus={!collapsed ? onCollapse : null}
 					orientation={orientation}
+					{...contentCellProps}
 				>
 					{children}
-				</Cell>
+				</ContentCell>
 			</Layout>
 		);
 	}

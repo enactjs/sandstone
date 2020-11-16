@@ -16,6 +16,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
 - `sandstone/Slider` to show active style when touch dragging
+- `sandstone/TabLayout` to collapse and expand tabs by touch flicking
 
 ### Fixed
 
