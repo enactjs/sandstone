@@ -11,7 +11,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/Input` layout for portrait mode
-- `sandstone/Input` to add a back button when `popupType` is `fullscreen`
+- `sandstone/Input` to add a back button
 - `sandstone/Panels.Header` to always show back button
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
