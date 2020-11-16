@@ -79,6 +79,14 @@ const MediaControlsBase = kind({
 		actionGuideAriaLabel: PropTypes.string,
 
 		/**
+		 * Disable the ActionGuide.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		actionGuideDisabled: PropTypes.bool,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -129,14 +137,6 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		mediaDisabled: PropTypes.bool,
-
-		/**
-		 * Disable the ActionGuide.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		actionGuideDisabled: PropTypes.bool,
 
 		/**
 		 * When `true`, more components are rendered. This does not indicate the visibility of more components.
@@ -735,7 +735,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (!this.state.showMoreComponents) {
 				this.showMoreComponents();
 			}
-		}
+		};
 
 		startListeningForPulses = (keyCode) => {
 			// Ignore new pulse calls if key code is same, otherwise start new series if we're pulsing
