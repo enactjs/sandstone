@@ -40,6 +40,16 @@ const HeadingTests = [
 	<Heading size="large" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="medium" style={{fontStyle: 'italic'}}>Heading</Heading>,
 	<Heading size="small" style={{fontStyle: 'italic'}}>Heading</Heading>,
-	<Heading size="tiny" style={{fontStyle: 'italic'}}>Heading</Heading>
+	<Heading size="tiny" style={{fontStyle: 'italic'}}>Heading</Heading>,
+	{
+		locale: 'ar-SA',
+		component: <Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>
+	},
+	{
+		locale: 'ko-KR',
+		component: <Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>
+	},
+	<Heading size="title" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>,
+	<Heading size="title" style={{fontWeight: 700}}>Heading</Heading>
 ];
 export default HeadingTests;
