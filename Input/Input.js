@@ -352,7 +352,7 @@ const InputPopupBase = kind({
 		const inputProps = extractInputFieldProps(rest);
 		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
 		// Set up the back button
-		const backButton = (popupType === 'fullscreen' && !noBackButton ? (
+		const backButton = (!noBackButton ? (
 			<Button
 				aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
 				className={css.back}
@@ -362,6 +362,7 @@ const InputPopupBase = kind({
 				size="small"
 			/>
 		) : null);
+		const heading = <Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>;
 
 		delete rest.length;
 		delete rest.onComplete;
@@ -377,10 +378,16 @@ const InputPopupBase = kind({
 				noAnimation
 				open={open}
 			>
-				{backButton}
+				{popupType === 'fullscreen' ? backButton : null}
 				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
 					<Cell shrink className={css.titles}>
-						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+						{popupType === 'fullscreen' ?
+							heading :
+							<>
+								{backButton}
+								{heading}
+							</>
+						}
 						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
 					</Cell>
 					<Cell shrink className={css.inputArea}>
