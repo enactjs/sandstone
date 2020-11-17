@@ -79,6 +79,14 @@ const MediaControlsBase = kind({
 		actionGuideAriaLabel: PropTypes.string,
 
 		/**
+		 * Disable the ActionGuide.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		actionGuideDisabled: PropTypes.bool,
+
+		/**
 		 * The label for the action guide.
 		 *
 		 * @type {String}
@@ -154,6 +162,15 @@ const MediaControlsBase = kind({
 		 * @public
 		 */
 		noJumpButtons: PropTypes.bool,
+
+		/**
+		 * Called when ActionGuide is clicked.
+		 *
+		 * @type {Function}
+		 * @param {Object} event
+		 * @public
+		 */
+		onActionGuideClick: PropTypes.func,
 
 		/**
 		 * Called when cancel/back key events are fired.
@@ -295,6 +312,7 @@ const MediaControlsBase = kind({
 
 	render: ({
 		actionGuideAriaLabel,
+		actionGuideDisabled,
 		actionGuideLabel,
 		actionGuideShowing,
 		children,
@@ -306,6 +324,7 @@ const MediaControlsBase = kind({
 		mediaDisabled,
 		moreComponentsSpotlightId,
 		noJumpButtons,
+		onActionGuideClick,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
 		onKeyDownFromMediaButtons,
@@ -332,7 +351,7 @@ const MediaControlsBase = kind({
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 				</Container>
 				{actionGuideShowing ?
-					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown">{actionGuideLabel}</ActionGuide> :
+					<ActionGuide id={`${id}_actionGuide`} aria-label={actionGuideAriaLabel != null ? actionGuideAriaLabel : null} css={css} className={actionGuideClassName} icon="arrowsmalldown" onClick={onActionGuideClick} disabled={actionGuideDisabled}>{actionGuideLabel}</ActionGuide> :
 					null
 				}
 				{moreComponentsRendered ?
@@ -712,6 +731,12 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			}
 		};
 
+		handleActionGuideClick = () => {
+			if (!this.state.showMoreComponents) {
+				this.showMoreComponents();
+			}
+		};
+
 		startListeningForPulses = (keyCode) => {
 			// Ignore new pulse calls if key code is same, otherwise start new series if we're pulsing
 			if (this.pulsing && keyCode !== this.pulsingKeyCode) {
@@ -816,7 +841,9 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 				<Wrapped
 					ref={this.getMediaControls}
 					{...props}
+					actionGuideDisabled={this.props.moreActionDisabled}
 					moreComponentsRendered={this.state.moreComponentsRendered}
+					onActionGuideClick={this.handleActionGuideClick}
 					onClose={this.handleClose}
 					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
