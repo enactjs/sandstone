@@ -21,6 +21,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Fixed
 
 - `sandstone/Alert` to match the latest GUI
+- `sandstone/Input` to set default focus when popup is open
 - Joined horizontal `sandstone/Picker` to go to the next item by touch
 - `sandstone/ThemeDecorator` to prevent browser's default press effect
 
