@@ -1,7 +1,9 @@
+import classnames from 'classnames';
 import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import {extractAriaProps} from '@enact/core/util';
 import Spotlight from '@enact/spotlight';
+import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
@@ -10,7 +12,6 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
-import {spotlightDefaultClass} from '@enact/spotlight/SpotlightContainerDecorator';
 
 import $L from '../internal/$L';
 import Button from '../Button';
@@ -398,7 +399,7 @@ const InputPopupBase = kind({
 							/> :
 							<InputField
 								{...inputProps}
-								className={`${css.textField} ${spotlightDefaultClass}`}
+								className={classnames(css.textField, spotlightDefaultClass)}
 								css={css}
 								maxLength={maxLength}
 								minLength={minLength}
