@@ -79,7 +79,7 @@ const MediaControlsBase = kind({
 		actionGuideAriaLabel: PropTypes.string,
 
 		/**
-		 * Disable the ActionGuide.
+		 * Disables the ActionGuide.
 		 *
 		 * @type {Boolean}
 		 * @public
