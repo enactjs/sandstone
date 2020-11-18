@@ -95,10 +95,10 @@ const ActionGuideBase = kind({
 		publicClassNames: ['actionGuide']
 	},
 
-	render: ({children, css, disabled, onClick, icon, ...rest}) => {
+	render: ({children, css, disabled, icon, onClick, ...rest}) => {
 		return (
 			<div {...rest}>
-				<Button className={css.icon} icon={icon} minWidth={false} onClick={onClick} size="small" disabled={disabled} />
+				<Button className={css.icon} disabled={disabled} icon={icon} minWidth={false} onClick={onClick} size="small" />
 				<Marquee className={css.label} marqueeOn="render" alignment="center">{children}</Marquee>
 			</div>
 		);

@@ -164,7 +164,7 @@ const MediaControlsBase = kind({
 		noJumpButtons: PropTypes.bool,
 
 		/**
-		 * Called when ActionGuide is clicked.
+		 * Called when the button in ActionGuide is clicked.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
