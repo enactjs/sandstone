@@ -10,7 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/ActionGuide` to change to `Button`
+- `sandstone/ActionGuide` to replace `Icon` with `Button`
 - `sandstone/Input` layout for portrait mode
 - `sandstone/Input` to add a back button
 - `sandstone/Panels.Header` to always show back button
