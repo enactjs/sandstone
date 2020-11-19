@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
 
@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
+- `sandstone/ActionGuide` to replace `Icon` with `Button`
 - `sandstone/Input` layout for portrait mode
 - `sandstone/Input` to add a back button
 - `sandstone/Panels.Header` to always show back button
