@@ -38,7 +38,7 @@ const Marquee = MarqueeDecorator('div');
 export default Marquee;
 export {
 	/**
-	 * A block element which will marquee its contents
+	 * A block element which will marquee its contents.
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class Marquee
@@ -50,7 +50,7 @@ export {
 	Marquee,
 
 	/**
-	 * Internal component to provide marquee markup
+	 * Internal component to provide marquee markup.
 	 *
 	 * @see {@link ui/Marquee.Marquee}
 	 * @class MarqueeBase
@@ -62,7 +62,7 @@ export {
 	MarqueeBase,
 
 	/**
-	 * Adds ability to control descendant marquee instances to a component
+	 * Adds ability to control descendant marquee instances to a component.
 	 *
 	 * @see {@link ui/Marquee.MarqueeController}
 	 * @hoc
@@ -74,7 +74,7 @@ export {
 	MarqueeController,
 
 	/**
-	 * Adds marquee behavior to a component
+	 * Adds marquee behavior to a component.
 	 *
 	 * @see {@link ui/Marquee.MarqueeDecorator}
 	 * @hoc
