@@ -32,8 +32,8 @@ storiesOf('Heading', module)
 				<Heading>ABCDEFGHIJKLMNOPQRSTUVWXYZ</Heading>
 				<Heading className={css.italic}>가나다라마바사아자차카타파하</Heading>
 				<Heading>가나다라마바사아자차카타파하</Heading>
-				<Heading className={css.italic}>نحن اسم المواضيع بعد الأحجار الكريمة'</Heading>
-				<Heading>نحن اسم المواضيع بعد الأحجار الكريمة'</Heading>
+				<Heading className={css.italic}>نحن اسم المواضيع بعد الأحجار الكريمة</Heading>
+				<Heading>نحن اسم المواضيع بعد الأحجار الكريمة</Heading>
 			</>
 		)
 	)
