@@ -51,6 +51,6 @@ const HeadingTests = [
 		locale: 'ko-KR',
 		component: <Heading size="title" style={{fontStyle: 'italic'}}>Heading</Heading>
 	},
-	<Heading size="title" className={italic} style={{fontWeight: 700}}>Heading</Heading>
+	<Heading size="title" style={{fontStyle: 'italic', fontWeight: 700}}>Heading</Heading>
 ];
 export default HeadingTests;
