@@ -86,7 +86,7 @@ const RootContainer = SpotlightContainerDecorator(
 
 const ControlsContainer = SpotlightContainerDecorator(
 	{
-		enterTo: '',
+		enterTo: 'default-element',
 		straightOnly: true
 	},
 	'div'
@@ -1246,12 +1246,6 @@ const VideoPlayerBase = class extends React.Component {
 		}
 	};
 
-	handleSpotlightDownFromBack = (e) => {
-		e.stopPropagation();
-		Spotlight.setPointerMode(false);
-		Spotlight.focus(`.${css.bottom}`);
-	}
-
 	//
 	// Media Interaction Methods
 	//
@@ -1963,7 +1957,6 @@ const VideoPlayerBase = class extends React.Component {
 							className={css.back + (this.state.mediaControlsVisible ? '' : ' ' + css.backHidden)}
 							icon="arrowhookleft"
 							onClick={onBack}
-							onSpotlightDown={this.handleSpotlightDownFromBack}
 							size="small"
 							spotlightDisabled={!this.state.mediaControlsVisible}
 						/>
