@@ -60,11 +60,11 @@ describe('FlexiblePopupPanels', function () {
 			});
 
 			Interface.waitForPanelBody(1);
-			Interface.focusNextButton();
-			// Interface.nextButton.click();
-			// Interface.waitForPanelBody(2);
-			// Interface.prevButton.click();
-			// Interface.waitForEnter(1);
+			Interface.delay(200);
+			Interface.nextButton.click();
+			Interface.waitForPanelBody(2);
+			Interface.prevButton.click();
+			Interface.waitForEnter(1);
 		});
 
 		it('should close when clicking below the panel', function () {
