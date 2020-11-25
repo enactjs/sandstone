@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+
+- `sandstone/Input` to allow focus in cursor mode when input with VKB
+
 ## [1.4.4] - 2020-11-06
 
 ### Fixed
