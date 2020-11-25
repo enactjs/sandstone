@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
-- `sandstone/Input` to allow focus in cursor mode when input with VKB
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
 
 ## [1.4.4] - 2020-11-06
 
