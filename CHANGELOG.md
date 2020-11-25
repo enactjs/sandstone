@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Added
+
+- `sandstone/VideoPlayer` props `onBack` to provide a way to exit video player
+
 ## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
