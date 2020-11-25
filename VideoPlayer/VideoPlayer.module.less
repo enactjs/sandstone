@@ -52,6 +52,18 @@
 			pointer-events: none;
 		}
 
+		.back {
+			position: absolute;
+			top: @sand-video-back-button-top;
+			left: @sand-video-back-button-left;
+
+			&.backHidden {
+				pointer-events: none;
+				will-change: opacity;
+				opacity: 0;
+			}
+		}
+
 		.bottom {
 			position: absolute;
 			z-index: 100;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
