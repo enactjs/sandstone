@@ -190,4 +190,22 @@ storiesOf('Touchable', module)
 				Click here
 			</TouchableDiv>
 		)
+	)
+	.add(
+		'with onClick handler',
+		() => (
+			<TouchableDiv
+				disabled={boolean('disabled', TouchableDiv)}
+				onClick={action('onClick')}
+				onDown={action('onDown')}
+				onMouseDown={action('onMouseDown')}
+				onMouseUp={action('onMouseUp')}
+				onTouchEnd={action('onTouchEnd')}
+				onTouchStart={action('onTouchStart')}
+				onUp={action('onUp')}
+				style={{border: '4px dashed #888', textAlign: 'center'}}
+			>
+				Click here
+			</TouchableDiv>
+		)
 	);
