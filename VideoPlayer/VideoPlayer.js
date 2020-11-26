@@ -28,6 +28,7 @@ import {FloatingLayerContext} from '@enact/ui/FloatingLayer/FloatingLayerDecorat
 import Media from '@enact/ui/Media';
 import Slottable from '@enact/ui/Slottable';
 import Touchable from '@enact/ui/Touchable';
+import classNames from 'classnames';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
@@ -1954,7 +1955,7 @@ const VideoPlayerBase = class extends React.Component {
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
 						<Button
-							className={css.back + (this.state.mediaControlsVisible ? '' : ' ' + css.backHidden)}
+							className={classNames(css.back, {[css.backHidden]: !this.state.mediaControlsVisible})}
 							icon="arrowhookleft"
 							onClick={onBack}
 							size="small"
