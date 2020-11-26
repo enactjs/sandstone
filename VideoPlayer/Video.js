@@ -180,7 +180,15 @@ const VideoBase = class extends React.Component {
 	autoPlay () {
 		if (!this.props.autoPlay) return;
 
-		this.video.play();
+		const playPromise = this.video.play();
+
+		if (playPromise) {
+			playPromise.then(() => {
+				// Auto-play started
+			}).catch(() => {
+				// Auto-play was prevented
+			});
+		}
 	}
 
 	setVideoRef = (node) => {
