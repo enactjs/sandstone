@@ -60,8 +60,10 @@ describe('FlexiblePopupPanels', function () {
 			});
 
 			Interface.waitForPanelBody(1);
+			Page.delay(500);
 			Interface.nextButton.click();
 			Interface.waitForPanelBody(2);
+			Page.delay(500);
 			Interface.prevButton.click();
 			Interface.waitForEnter(1);
 		});
@@ -72,7 +74,7 @@ describe('FlexiblePopupPanels', function () {
 			});
 
 			Interface.waitForPanelBody(1);
-
+			Page.delay(500);
 			Interface.clickBelowPopup();
 			Interface.waitForClose();
 		});
