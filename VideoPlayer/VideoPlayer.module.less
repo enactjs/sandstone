@@ -55,7 +55,7 @@
 		.back {
 			position: absolute;
 			top: @sand-video-back-button-top;
-			left: @sand-video-back-button-left;
+			.position-start-end(@sand-video-back-button-left, initial);
 
 			&.backHidden {
 				pointer-events: none;
