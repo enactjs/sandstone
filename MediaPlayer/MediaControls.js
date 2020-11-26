@@ -197,14 +197,6 @@ const MediaControlsBase = kind({
 		onJumpForwardButtonClick: PropTypes.func,
 
 		/**
-		 * Called when the user presses a media control button.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onKeyDownFromMediaButtons: PropTypes.func,
-
-		/**
 		 * Called when the user clicks the Play button.
 		 *
 		 * @type {Function}
@@ -327,7 +319,6 @@ const MediaControlsBase = kind({
 		onActionGuideClick,
 		onJumpBackwardButtonClick,
 		onJumpForwardButtonClick,
-		onKeyDownFromMediaButtons,
 		onPlayButtonClick,
 		paused,
 		pauseIcon,
@@ -345,7 +336,7 @@ const MediaControlsBase = kind({
 		delete rest.visible;
 		return (
 			<OuterContainer {...rest} id={id} spotlightId={spotlightId}>
-				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled} onKeyDown={onKeyDownFromMediaButtons}>
+				<Container className={css.mediaControls} spotlightDisabled={spotlightDisabled}>
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Previous')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpBackwardIcon} onClick={onJumpBackwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
 					<MediaButton aria-label={paused ? $L('Play') : $L('Pause')} className={spotlightDefaultClass} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || playPauseButtonDisabled} icon={paused ? playIcon : pauseIcon} onClick={onPlayButtonClick} size="large" spotlightDisabled={spotlightDisabled} />
 					{noJumpButtons ? null : <MediaButton aria-label={$L('Next')} backgroundOpacity="transparent" css={css} disabled={mediaDisabled || jumpButtonsDisabled} icon={jumpForwardIcon} onClick={onJumpForwardButtonClick} size="large" spotlightDisabled={spotlightDisabled} />}
@@ -437,6 +428,15 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			 * @public
 			 */
 			moreActionDisabled: PropTypes.bool,
+
+			/**
+			 * The spotlight ID for the moreComponent container.
+			 *
+			 * @type {String}
+			 * @public
+			 * @default 'moreComponents'
+			 */
+			moreComponentsSpotlightId: PropTypes.string,
 
 			/**
 			 * Setting this to `true` will disable left and right keys for seeking.
@@ -544,7 +544,8 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 		static defaultProps = {
 			initialJumpDelay: 400,
-			jumpDelay: 200
+			jumpDelay: 200,
+			moreComponentsSpotlightId: 'moreComponents'
 		};
 
 		constructor (props) {
@@ -660,13 +661,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			const bottomElement = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
-		};
-
-		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
-				this.showMoreComponents();
-				ev.stopPropagation();
-			}
 		};
 
 		handleKeyDown = (ev) => {
@@ -813,7 +807,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (this.state.showMoreComponents) {
 				this.paused.resume();
 				if (!Spotlight.getPointerMode()) {
-					Spotlight.move('down');
+					Spotlight.focus(this.props.moreComponentsSpotlightId);
 				}
 			}
 		};
@@ -845,9 +839,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 					moreComponentsRendered={this.state.moreComponentsRendered}
 					onActionGuideClick={this.handleActionGuideClick}
 					onClose={this.handleClose}
-					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
-					onTransitionEnd={this.handleTransitionEnd}
 					showMoreComponents={this.state.showMoreComponents}
 				/>
 			);
