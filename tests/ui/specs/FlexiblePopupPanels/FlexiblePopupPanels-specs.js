@@ -60,7 +60,7 @@ describe('FlexiblePopupPanels', function () {
 			});
 
 			Interface.waitForPanelBody(1);
-			Interface.delay(200);
+			Page.delay(200);
 			Interface.nextButton.click();
 			Interface.waitForPanelBody(2);
 			Interface.prevButton.click();
