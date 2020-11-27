@@ -16,7 +16,7 @@ class VideoSourceSwap extends React.Component {
 				'VideoTest'
 			],
 			playlist: [
-				'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_h264.mov',
+				'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 				'http://media.w3.org/2010/05/sintel/trailer.mp4',
 				'http://media.w3.org/2010/05/video/movie_300.mp4'
 			],
