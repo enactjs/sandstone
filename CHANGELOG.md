@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
+
 ## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
