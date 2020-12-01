@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/VideoPlayer` prop `onBack` to provide a way to exit video player
+
 ### Changed
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
