@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/VideoPlayer` props `onBack` to provide a way to exit video player
 
+### Changed
+
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
+
 ## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
@@ -20,6 +24,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 - `sandstone/Input` layout for portrait mode
 - `sandstone/Input` to add a back button
 - `sandstone/Panels.Header` to always show back button
+- `sandstone/Panels.Header` and `sandstone/RadioItem` to use `onClick` rather than `onTap` for handling touch exception
 - `sandstone/Scroller` scrollbar thumb to not get focus with touch when `focusableScrollbar` is `true` or `byEnter`
 - `sandstone/Scroller` and `sandstone/VirtualList` to show overscroll effect when flicking
 - `sandstone/Slider` to show active style when touch dragging
