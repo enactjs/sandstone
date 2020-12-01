@@ -1960,7 +1960,6 @@ const VideoPlayerBase = class extends React.Component {
 									icon="arrowhookleft"
 									onClick={onBack}
 									size="small"
-									spotlightDisabled={!this.state.mediaControlsVisible}
 								/> :
 								null
 						}
