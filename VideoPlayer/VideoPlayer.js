@@ -1954,13 +1954,17 @@ const VideoPlayerBase = class extends React.Component {
 						>
 							{secondsToTime(this.state.sliderTooltipTime, durFmt)}
 						</FeedbackContent>
-						<Button
-							className={classNames(css.back, {[css.backHidden]: !this.state.mediaControlsVisible})}
-							icon="arrowhookleft"
-							onClick={onBack}
-							size="small"
-							spotlightDisabled={!this.state.mediaControlsVisible}
-						/>
+						{
+							this.state.mediaControlsVisible ?
+								<Button
+								className={css.back}
+								icon="arrowhookleft"
+								onClick={onBack}
+								size="small"
+								spotlightDisabled={!this.state.mediaControlsVisible}
+							/> :
+							null
+						}
 						<ControlsContainer
 							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
 							spotlightDisabled={spotlightDisabled || !this.state.mediaControlsVisible}
