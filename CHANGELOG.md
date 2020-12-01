@@ -8,6 +8,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
 
+### Fixed
+
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
+
 ## [1.4.4-touch-alpha] - 2020-11-19
 
 ### Added
