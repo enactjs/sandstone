@@ -556,6 +556,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			this.actionGuideHeight = 0;
 			this.animation = null;
 			this.bottomComponentsHeight = 0;
+			this.moreComponentsSpotlightId = 'moreComponents';
 			this.keyLoop = null;
 			this.pulsingKeyCode = null;
 			this.pulsing = null;
@@ -661,13 +662,6 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 
 			const bottomElement = this.mediaControlsNode.querySelector(`.${css.moreComponents}`);
 			this.bottomComponentsHeight = bottomElement ? bottomElement.scrollHeight : 0;
-		};
-
-		handleKeyDownFromMediaButtons = (ev) => {
-			if (is('down', ev.keyCode) && !this.state.showMoreComponents && !this.props.moreActionDisabled) {
-				this.showMoreComponents();
-				ev.stopPropagation();
-			}
 		};
 
 		handleKeyDown = (ev) => {
@@ -814,7 +808,7 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 			if (this.state.showMoreComponents) {
 				this.paused.resume();
 				if (!Spotlight.getPointerMode()) {
-					Spotlight.move('down');
+					Spotlight.focus(this.moreComponentsSpotlightId);
 				}
 			}
 		};
@@ -844,11 +838,10 @@ const MediaControlsDecorator = hoc((config, Wrapped) => {	// eslint-disable-line
 					{...props}
 					actionGuideDisabled={this.props.moreActionDisabled}
 					moreComponentsRendered={this.state.moreComponentsRendered}
+					moreComponentsSpotlightId={this.moreComponentsSpotlightId}
 					onActionGuideClick={this.handleActionGuideClick}
 					onClose={this.handleClose}
-					onKeyDownFromMediaButtons={this.handleKeyDownFromMediaButtons}
 					onPlayButtonClick={this.handlePlayButtonClick}
-					onTransitionEnd={this.handleTransitionEnd}
 					showMoreComponents={this.state.showMoreComponents}
 				/>
 			);
