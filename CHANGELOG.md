@@ -7,6 +7,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ### Changed
 
 - `sandstone/VideoPlayer` to not expand video player using key down via 5way
+- `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
 
 ## [1.4.4-touch-alpha] - 2020-11-19
 

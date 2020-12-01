@@ -259,7 +259,6 @@ const DateTimeDecorator = hoc((config, Wrapped) => {
 					{...props}
 					{...this.handlers}
 					label={label}
-					onKeyDown={this.handleKeyDown}
 					order={order}
 					value={value}
 				/>
