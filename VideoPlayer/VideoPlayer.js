@@ -28,7 +28,6 @@ import {FloatingLayerContext} from '@enact/ui/FloatingLayer/FloatingLayerDecorat
 import Media from '@enact/ui/Media';
 import Slottable from '@enact/ui/Slottable';
 import Touchable from '@enact/ui/Touchable';
-import classNames from 'classnames';
 import DurationFmt from 'ilib/lib/DurationFmt';
 import equals from 'ramda/src/equals';
 import PropTypes from 'prop-types';
@@ -1957,13 +1956,13 @@ const VideoPlayerBase = class extends React.Component {
 						{
 							this.state.mediaControlsVisible ?
 								<Button
-								className={css.back}
-								icon="arrowhookleft"
-								onClick={onBack}
-								size="small"
-								spotlightDisabled={!this.state.mediaControlsVisible}
-							/> :
-							null
+									className={css.back}
+									icon="arrowhookleft"
+									onClick={onBack}
+									size="small"
+									spotlightDisabled={!this.state.mediaControlsVisible}
+								/> :
+								null
 						}
 						<ControlsContainer
 							className={css.bottom + (this.state.mediaControlsVisible ? '' : ' ' + css.hidden) + (this.state.infoVisible ? ' ' + css.lift : '')}
