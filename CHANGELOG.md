@@ -27,7 +27,6 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 - `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
 
-
 ## [1.4.2] - 2020-10-26
 
 ### Fixed
