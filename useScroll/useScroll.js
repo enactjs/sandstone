@@ -106,7 +106,6 @@ const useThemeScroll = (props, instances) => {
 	} = useEventVoice(props, instances);
 
 	const scrollbarProps = {
-		cbAlertScrollbarTrack: alertScrollbarTrack,
 		onInteractionForScroll
 	};
 
@@ -162,12 +161,6 @@ const useThemeScroll = (props, instances) => {
 		}
 
 		scrollContainerHandle.current.scrollToAccumulatedTarget(direction * distance, isVerticalScrollBar, props.overscrollEffectOn[inputType]);
-	}
-
-	function alertScrollbarTrack () {
-		const bounds = scrollContainerHandle.current.getScrollBounds();
-		scrollContainerHandle.current.showScrollbarTrack(bounds);
-		scrollContainerHandle.current.startHidingScrollbarTrack();
 	}
 
 	function focusOnItem () {
@@ -342,9 +335,7 @@ const useScroll = (props) => {
 		scrollToInfo: null,
 		scrollTop: null,
 		setOverscrollStatus: null,
-		showScrollbarTrack: null,
 		start: null,
-		startHidingScrollbarTrack: null,
 		stop: null,
 		wheelDirection: null
 	});

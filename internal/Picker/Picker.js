@@ -589,11 +589,6 @@ const PickerBase = class extends React.Component {
 		}
 	};
 
-	handleIncDown = () => {
-		this.pickerButtonPressed = true;
-		this.handleIncrement();
-	};
-
 	handleWheel = (ev) => {
 		const {step} = this.props;
 		forwardWheel(ev, this.props);

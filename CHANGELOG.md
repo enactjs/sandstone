@@ -5,7 +5,28 @@ The following is a curated list of changes in the Enact sandstone module, newest
 ## [unreleased]
 
 ### Fixed
+- `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
+- `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
 - `sandstone/Panel` to not reset scroll position by events from others
+- `sandstone/VideoPlayer.Video` to not start a new play before another one completes
+
+## [1.4.4] - 2020-11-06
+
+### Fixed
+
+- `sandstone/ThemeDecorator` font style in non-latin locales
+- `sandstone/TimePicker` to change its value with up/down key when the focus changed by enter key
+
+## [1.4.3] - 2020-10-30
+
+### Changed
+
+- `sandstone/Scroller` and `sandstone/VirtualList` scrollbar to always show
+
+### Fixed
+
+- `sandstone/Heading` `font-style` to `normal` where a locale's fonts cannot support italic
+
 
 ## [1.4.2] - 2020-10-26
 

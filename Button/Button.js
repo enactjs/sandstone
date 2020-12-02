@@ -159,7 +159,6 @@ const ButtonBase = kind({
 		 * Boolean controlling whether this component should enforce the "minimum width" rules.
 		 *
 		 * @type {Boolean}
-		 * @default true
 		 * @public
 		 */
 		minWidth: PropTypes.bool,
@@ -180,6 +179,7 @@ const ButtonBase = kind({
 		collapsed: false,
 		focusEffect: 'expand',
 		iconComponent: Icon,
+		iconOnly: false,
 		iconPosition: 'before',
 		size: 'large'
 	},
@@ -236,9 +236,11 @@ const ButtonBase = kind({
 const IconButtonDecorator = hoc((config, Wrapped) => {
 	return kind({
 		name: 'IconButtonDecorator',
+
 		computed: {
 			iconOnly: ({children}) => (React.Children.toArray(children).filter(Boolean).length === 0)
 		},
+
 		render: (props) => {
 			return (
 				<Wrapped {...props} />
