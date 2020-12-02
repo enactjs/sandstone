@@ -2,6 +2,11 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed
+- `sandstone/Panel` to not reset scroll position by events from others
+
 ## [1.4.2] - 2020-10-26
 
 ### Fixed
