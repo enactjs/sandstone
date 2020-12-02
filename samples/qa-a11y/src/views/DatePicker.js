@@ -1,32 +1,26 @@
+/* eslint-disable react/jsx-no-bind */
+
 import DatePicker, {dateToLocaleString} from '@enact/sandstone/DatePicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
 
 import Section from '../components/Section';
+import useBoolArray from '../components/useBoolArray';
 
 import appCss from '../App/App.module.less';
 
-class DatePickerItem extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			open: false,
-			value: null
-		};
-	}
+const DatePickerItem = (props) => {
+	const [open, handleOpen] = useBoolArray(1);
+	const [value, setValue] = React.useState(null);
+	const handleChange = ({value: newValue}) => setValue(dateToLocaleString(newValue));
 
-	handleClose = () => this.setState({open: false});
-	handleOpen = () => this.setState({open: true});
-	handleChange = ({value}) => this.setState({value: dateToLocaleString(value)});
-
-	render () {
 		return (
 			<>
-				<Item label={this.state.value || 'Not selected'} onClick={this.handleOpen}>Date</Item>
+				<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Date</Item>
 				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
+					onClose={handleOpen(0, false)}
+					open={open[0]}
 				>
 					<Panel>
 						<Header>
@@ -34,15 +28,14 @@ class DatePickerItem extends React.Component {
 							<subtitle>Subtitle</subtitle>
 						</Header>
 						<DatePicker
-							{...this.props}
-							onChange={this.handleChange}
+							{...props}
+							onChange={handleChange}
 						/>
 					</Panel>
 				</FixedPopupPanels>
 			</>
 		);
-	}
-}
+};
 
 const DatePickerView = () => (
 	<>

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import ImageItem from '@enact/sandstone/ImageItem';
 import {VirtualGridList} from '@enact/sandstone/VirtualList';
@@ -5,11 +7,10 @@ import Layout, {Cell} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 
-const
-	items = [],
-	// eslint-disable-next-line enact/prop-types, enact/display-name
-	renderItem = ({index, ...rest}) => {
-		const {caption, label, src} = items[index];
+const items = [];
+// eslint-disable-next-line enact/prop-types, enact/display-name
+const renderItem = ({index, ...rest}) => {
+	const {caption, label, src} = items[index];
 
 		return (
 			<ImageItem
@@ -20,7 +21,7 @@ const
 				{caption}
 			</ImageItem>
 		);
-	};
+};
 
 for (let i = 0; i < 100; i++) {
 	const
@@ -37,43 +38,33 @@ for (let i = 0; i < 100; i++) {
 	items.push({caption, label, src});
 }
 
-class VirtualGridListView extends React.Component {
-	constructor () {
-		super();
-		this.state = {
-			isHorizontalList: false,
-			isNative: true
-		};
-	}
+const VirtualGridListView = () => {
+	const [native, setNative] = React.useState(true);
+	const [horizontal, setHorizontal] = React.useState(false);
+	const scrollMode = native ? 'native' : 'translate';
 
-	onToggleOrientation = () => this.setState((state) => ({isHorizontalList: !state.isHorizontalList}));
-
-	onToggleScrollMode = () => this.setState((state) => ({isNative: !state.isNative}));
-
-	render () {
-		const
-			{isHorizontalList, isNative} = this.state,
-			scrollMode = isNative ? 'native' : 'translate';
+	const handleToggleScrollMode = () => setNative(!native);
+	const handleToggleOrientation = () => setHorizontal(!horizontal);
 
 		return (
 			<Layout orientation="vertical">
 				<Cell shrink>
 					<CheckboxItem
-						onToggle={this.onToggleOrientation}
-						selected={isHorizontalList}
+						onToggle={handleToggleOrientation}
+						selected={horizontal}
 					>
 						Horizontal
 					</CheckboxItem>
 					<CheckboxItem
-						onToggle={this.onToggleScrollMode}
-						selected={isNative}
+						onToggle={handleToggleScrollMode}
+						selected={native}
 					>
 						Native
 					</CheckboxItem>
 				</Cell>
 				<VirtualGridList
 					dataSize={items.length}
-					direction={isHorizontalList ? 'horizontal' : 'vertical'}
+					direction={horizontal ? 'horizontal' : 'vertical'}
 					itemRenderer={renderItem}
 					itemSize={{
 						minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
@@ -83,7 +74,6 @@ class VirtualGridListView extends React.Component {
 				/>
 			</Layout>
 		);
-	}
-}
+};
 
 export default VirtualGridListView;

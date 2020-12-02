@@ -14,22 +14,16 @@ const tabsWithIcons = [
 	{title: 'Item', icon: 'trash'}
 ];
 
-class TabLayoutView extends React.Component {
-	constructor (props) {
-		super(props);
-		this.images = new Array(20).fill().map( (_, i) =>
-			<Image
-				key={`image${i}`}
-				caption="Image"
-				src="http://placehold.it/360x240/"
-				style={{marginBottom: scaleToRem(96)}}
-			/>
-		);
-	}
+const images = new Array(20).fill().map( (_, i) =>
+	<Image
+		key={`image${i}`}
+		caption="Image"
+		src="http://placehold.it/360x240/"
+		style={{marginBottom: scaleToRem(96)}}
+	/>
+);
 
-	images = [];
-
-	render () {
+const TabLayoutView = () => {
 		return (
 			<>
 				<Header title="Sandstone TabLayout" subtitle="Basic TabLayout" />
@@ -39,7 +33,7 @@ class TabLayoutView extends React.Component {
 						title={tabsWithIcons[0].title}
 					>
 						<Scroller>
-							{this.images}
+							{images}
 						</Scroller>
 					</Tab>
 					<Tab
@@ -61,7 +55,6 @@ class TabLayoutView extends React.Component {
 				</TabLayout>
 			</>
 		);
-	}
-}
+};
 
 export default TabLayoutView;

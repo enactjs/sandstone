@@ -14,8 +14,7 @@ const ContextualButton = Toggleable(
 	)
 );
 
-class ContextualPopupDecoratorView extends React.Component {
-	renderPopup1 = () => (
+const renderPopup1 = () => (
 		<div>
 			<span>Item 0</span>
 			<br />
@@ -26,18 +25,18 @@ class ContextualPopupDecoratorView extends React.Component {
 			<span disabled>Item 3</span>
 			<br />
 		</div>
-	);
+);
 
-	renderPopup2 = () => (
+const renderPopup2 = () => (
 		<div>
 			<Button>Text 0</Button>
 			<Button>Text 1</Button>
 			<Button>Text 2</Button>
 			<Button disabled>Text 3</Button>
 		</div>
-	);
+);
 
-	renderPopup3 = () => (
+const renderPopup3 = () => (
 		<Group
 			childComponent={RadioItem}
 			defaultSelected={0}
@@ -47,9 +46,9 @@ class ContextualPopupDecoratorView extends React.Component {
 		>
 			{['Item 0', 'Item 1', 'Item 2']}
 		</Group>
-	);
+);
 
-	renderPopup4 = () => (
+const renderPopup4 = () => (
 		<Group
 			childComponent={RadioItem}
 			defaultSelected={0}
@@ -63,19 +62,18 @@ class ContextualPopupDecoratorView extends React.Component {
 				{children: 'Item 2', disabled: true, key: 2}
 			]}
 		</Group>
-	);
+);
 
-	render () {
+const ContextualPopupDecoratorView = () => {
 		return (
 			<Section title="Button wrapped with ContextualPopupDecorator">
-				<ContextualButton alt="With Texts" popupComponent={this.renderPopup1}>Text 0</ContextualButton>
-				<ContextualButton alt="With Buttons" popupComponent={this.renderPopup2} spotlightRestrict="self-only">Text 1</ContextualButton>
-				<ContextualButton alt="With RadioItems in Group" direction="below" popupComponent={this.renderPopup3}>Text 2</ContextualButton>
-				<ContextualButton alt="With Disabled RadioItems in Group" direction="below" popupComponent={this.renderPopup4}>Text 3</ContextualButton>
-				<ContextualButton alt="Disabled" disabled popupComponent={this.renderPopup1}>Text 4</ContextualButton>
+				<ContextualButton alt="With Texts" popupComponent={renderPopup1}>Text 0</ContextualButton>
+				<ContextualButton alt="With Buttons" popupComponent={renderPopup2} spotlightRestrict="self-only">Text 1</ContextualButton>
+				<ContextualButton alt="With RadioItems in Group" direction="below" popupComponent={renderPopup3}>Text 2</ContextualButton>
+				<ContextualButton alt="With Disabled RadioItems in Group" direction="below" popupComponent={renderPopup4}>Text 3</ContextualButton>
+				<ContextualButton alt="Disabled" disabled popupComponent={renderPopup1}>Text 4</ContextualButton>
 			</Section>
 		);
-	}
-}
+};
 
 export default ContextualPopupDecoratorView;

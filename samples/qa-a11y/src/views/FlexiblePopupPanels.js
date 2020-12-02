@@ -7,47 +7,35 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import Section from '../components/Section';
+import useBoolArray from '../components/useBoolArray';
+import useNumberArray from '../components/useNumberArray';
 
-class FlexiblePopupPanelsView extends React.Component {
-	constructor (props) {
-		super(props);
+const FlexiblePopupPanelsView = () => {
+	const [open, handleOpen] = useBoolArray(4);
+	const [index, setIndex] = useNumberArray(4);
 
-		this.state = {
-			index: 0,
-			open: false
-		};
-	}
-
-	handleClose = () => this.setState({open: false});
-	handleOpen = () => this.setState({open: true});
-
-	onNextPanel = () => this.setState((state) => ({index: state.index + 1}));
-	onPrevPanel = () => this.setState((state) => ({index: state.index - 1}));
-
-	render () {
-		const {index, open} = this.state;
-		const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={this.handleClose} />;
-		const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={this.handleClose} />;
+	const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={handleOpen(0, false)} />;
+	const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={handleOpen(0, false)} />;
 
 		return (
 			<Section title="Default">
-				<Button alt="Normal" onClick={this.handleOpen}>Open 0</Button>
+				<Button alt="Normal" onClick={handleOpen(0, true)}>Open 0</Button>
 
 				<FlexiblePopupPanels
-					index={index}
-					open={open}
-					onNextClick={this.onNextPanel}
-					onPrevClick={this.onPrevPanel}
+					index={index[0]}
+					open={open[0]}
+					onNextClick={setIndex(0, index[0] + 1)}
+					onPrevClick={setIndex(0, index[0] - 1)}
 					noCloseButton
 				>
 					<Panel prevButton={prevButton}>
 						<Header title="List of options" />
 						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item onClick={this.onNextPanel}>Item 0</Item>
-							<Item onClick={this.onNextPanel}>Item 1</Item>
-							<Item onClick={this.onNextPanel}>Item 2</Item>
-							<Item onClick={this.onNextPanel}>Item 3</Item>
-							<Item onClick={this.onNextPanel} disabled>Item 4</Item>
+							<Item onClick={setIndex(0, index[0] + 1)}>Item 0</Item>
+							<Item onClick={setIndex(0, index[0] + 1)}>Item 1</Item>
+							<Item onClick={setIndex(0, index[0] + 1)}>Item 2</Item>
+							<Item onClick={setIndex(0, index[0] + 1)}>Item 3</Item>
+							<Item onClick={setIndex(0, index[0] + 1)} disabled>Item 4</Item>
 						</Scroller>
 					</Panel>
 					<Panel>
@@ -63,7 +51,6 @@ class FlexiblePopupPanelsView extends React.Component {
 				</FlexiblePopupPanels>
 			</Section>
 		);
-	}
-}
+};
 
 export default FlexiblePopupPanelsView;

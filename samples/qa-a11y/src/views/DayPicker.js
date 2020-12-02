@@ -1,33 +1,25 @@
+/* eslint-disable react/jsx-no-bind */
+
 import DayPicker from '@enact/sandstone/DayPicker';
 import {FixedPopupPanels, Header, Panel} from '@enact/sandstone/FixedPopupPanels';
 import Item from '@enact/sandstone/Item';
 import React from 'react';
 
 import Section from '../components/Section';
+import useBoolArray from '../components/useBoolArray';
 
-class DayPickerItem extends React.Component {
-	constructor (props) {
-		super(props);
+const DayPickerItem = (props) => {
+	const [open, handleOpen] = useBoolArray(1);
+	const [value, setValue] = React.useState(null);
 
-		this.state = {
-			content: null,
-			open: false
-		};
-	}
+	const handleSelect = ({content}) => setValue(content);
 
-	handleClose = () => this.setState({open: false});
-
-	handleOpen = () => this.setState({open: true});
-
-	handleSelect = ({content}) => this.setState({content: content});
-
-	render () {
 		return (
 			<>
-				<Item label={this.state.content || 'Not selected'} onClick={this.handleOpen}>Day</Item>
+				<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Day</Item>
 				<FixedPopupPanels
-					onClose={this.handleClose}
-					open={this.state.open}
+					onClose={handleOpen(0, false)}
+					open={open[0]}
 				>
 					<Panel>
 						<Header>
@@ -35,15 +27,14 @@ class DayPickerItem extends React.Component {
 							<subtitle>Subtitle</subtitle>
 						</Header>
 						<DayPicker
-							{...this.props}
-							onSelect={this.handleSelect}
+							{...props}
+							onSelect={handleSelect}
 						/>
 					</Panel>
 				</FixedPopupPanels>
 			</>
 		);
-	}
-}
+};
 
 const DayPickerView = () => (
 	<>

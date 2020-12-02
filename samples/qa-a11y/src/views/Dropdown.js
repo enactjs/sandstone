@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 import Dropdown from '@enact/sandstone/Dropdown';
 import React from 'react';
 
@@ -21,33 +23,21 @@ const ariaLabelledList = list.map((item, index) => ({...item, ...ariaLabelList[i
 
 const disabledList = ariaLabelledList.map(item => ({...item, disabled: true}));
 
-class A11yDropdown extends React.Component {
-	constructor (props) {
-		super(props);
+const A11yDropdown = (props) => {
+	const [ariaLabel, setAriaLabel] = React.useState(null);
 
-		this.state = {
-			ariaLabel: null
-		};
-	}
-
-	onSelect = ({selected}) => {
-		this.setState({ariaLabel: ariaLabelledList[selected]['aria-label']});
+	const onSelect = ({selected}) => {
+		setAriaLabel(ariaLabelledList[selected]['aria-label']);
 	};
-
-	render () {
-		const {children} = this.props;
 
 		return (
 			<Dropdown
-				onSelect={this.onSelect}
-				aria-label={this.state.ariaLabel}
-				{...this.props /* Can be overridden the aria-label with this.props['aria-label'] */}
-			>
-				{children}
-			</Dropdown>
+				aria-label={ariaLabel}
+				onSelect={onSelect}
+				{...props /* Can be overridden the aria-label with this.props['aria-label'] */}
+			/>
 		);
-	}
-}
+};
 
 const DropdownView = () => (
 	<>

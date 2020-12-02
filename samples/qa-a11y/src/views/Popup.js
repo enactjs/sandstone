@@ -7,61 +7,34 @@ import ri from '@enact/ui/resolution';
 import React from 'react';
 
 import Section from '../components/Section';
+import useBoolArray from '../components/useBoolArray';
 
-class PopupView extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			open0: false,
-			open1: false,
-			open2: false,
-			open3: false,
-			open4: false
-		};
-
-		this.handleOpen0 = this.handleOpen(0);
-		this.handleOpen1 = this.handleOpen(1);
-		this.handleOpen2 = this.handleOpen(2);
-		this.handleOpen3 = this.handleOpen(3);
-		this.handleOpen4 = this.handleOpen(4);
-
-		this.handleClose0 = this.handleClose(0);
-		this.handleClose1 = this.handleClose(1);
-		this.handleClose2 = this.handleClose(2);
-		this.handleClose3 = this.handleClose(3);
-		this.handleClose4 = this.handleClose(4);
-	}
-
-	handleOpen = (expNum) => () => this.setState({['open' + expNum]: true});
-
-	handleClose = (expNum) => () => this.setState({['open' + expNum]: false});
-
-	render () {
-		const {open0, open1, open2, open3, open4} = this.state;
+const PopupView = () => {
+	const [open, handleOpen] = useBoolArray(5);
 
 		return (
 			<>
 				<Section title="Default">
-					<Button alt="Normal" onClick={this.handleOpen0}>Open 0</Button>
-					<Button alt="Long Text" onClick={this.handleOpen1}>Open 1</Button>
-					<Button alt="With Scroller" onClick={this.handleOpen2}>Open 2</Button>
-					<Button alt="With Buttons" onClick={this.handleOpen3}>Open 3</Button>
+					<Button alt="Normal" onClick={handleOpen(0, true)}>Open 0</Button>
+					<Button alt="Long Text" onClick={handleOpen(1, true)}>Open 1</Button>
+					<Button alt="With Scroller" onClick={handleOpen(2, true)}>Open 2</Button>
+					<Button alt="With Buttons" onClick={handleOpen(3, true)}>Open 3</Button>
 				</Section>
 
 				<Section title="Aria-labelled">
-					<Button alt="Aria-lablled with Buttons" onClick={this.handleOpen4}>Open 4</Button>
+					<Button alt="Aria-lablled with Buttons" onClick={handleOpen(4, true)}>Open 4</Button>
 				</Section>
 
 				<Popup
-					onClose={this.handleClose0}
-					open={open0}
+					onClose={handleOpen(0, false)}
+					open={open[0]}
 				>
 					<span>Content</span>
 				</Popup>
 
 				<Popup
-					onClose={this.handleClose1}
-					open={open1}
+					onClose={handleOpen(1, false)}
+					open={open[1]}
 				>
 					<span>
 						Enact is a framework designed to be performant, customizable and well structured.
@@ -85,8 +58,8 @@ class PopupView extends React.Component {
 				</Popup>
 
 				<Popup
-					onClose={this.handleClose2}
-					open={open2}
+					onClose={handleOpen(2, false)}
+					open={open[2]}
 				>
 					<Button>Button Outside Scroller</Button>
 					<Scroller style={{height: ri.scaleToRem(170), marginTop: ri.scaleToRem(10)}}>
@@ -104,8 +77,8 @@ class PopupView extends React.Component {
 				</Popup>
 
 				<Popup
-					onClose={this.handleClose3}
-					open={open3}
+					onClose={handleOpen(3, false)}
+					open={open[3]}
 					role="dialog"
 				>
 					<Heading showLine>Heading</Heading>
@@ -115,8 +88,8 @@ class PopupView extends React.Component {
 
 				<Popup
 					aria-label="This is a Label."
-					onClose={this.handleClose4}
-					open={open4}
+					onClose={handleOpen(4, false)}
+					open={open[4]}
 				>
 					<Heading showLine>Heading</Heading>
 					<Button>Text 0</Button>
@@ -124,7 +97,6 @@ class PopupView extends React.Component {
 				</Popup>
 			</>
 		);
-	}
-}
+};
 
 export default PopupView;

@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -6,25 +8,14 @@ import Item from '@enact/sandstone/Item';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 import React from 'react';
 
-class WizardPanelsView extends React.Component {
-	constructor (props) {
-		super(props);
+const WizardPanelsView = () => {
+	const [noAnimation, setNoAnimation] = React.useState(false);
+	const [noAriaLabel, setNoAriaLabel] = React.useState(false);
+	const [noSteps, setNoSteps] = React.useState(false);
 
-		this.state = {
-			noAnimation: false,
-			noAriaLabel: false,
-			noSteps: false
-		};
-	}
-
-	onToggleNoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
-
-	onToggleNoAriaLabel = () => this.setState((state) => ({noAriaLabel: !state.noAriaLabel}));
-
-	onToggleNoSteps = () => this.setState((state) => ({noSteps: !state.noSteps}));
-
-	render () {
-		const {noAnimation, noAriaLabel, noSteps} = this.state;
+	const handleToggleNoAnimation = () => setNoAnimation(!noAnimation);
+	const handleToggleNoAriaLabel = () => setNoAriaLabel(!noAriaLabel);
+	const handleToggleNoSteps = () => setNoSteps(!noSteps);
 
 		return (
 			<WizardPanels key={noAnimation} noAnimation={noAnimation} noSteps={noSteps}>
@@ -40,19 +31,19 @@ class WizardPanelsView extends React.Component {
 						<Button>Text 1</Button>
 					</div>
 					<CheckboxItem
-						onClick={this.onToggleNoAnimation}
+						onClick={handleToggleNoAnimation}
 						selected={noAnimation}
 					>
 						noAnimation
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={this.onToggleNoAriaLabel}
+						onClick={handleToggleNoAriaLabel}
 						selected={noAriaLabel}
 					>
 						noAriaLabel
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={this.onToggleNoSteps}
+						onClick={handleToggleNoSteps}
 						selected={noSteps}
 					>
 						noSteps
@@ -98,7 +89,6 @@ class WizardPanelsView extends React.Component {
 				</WizardPanels.Panel>
 			</WizardPanels>
 		);
-	}
-}
+};
 
 export default WizardPanelsView;
