@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Changed
+
+- `sandstone/Slider` to expand clickable area
+
 ### Fixed
 
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
