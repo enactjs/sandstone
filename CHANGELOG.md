@@ -2,7 +2,7 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
-## [unreleased]
+## [1.4.4-experimental-2] - 2020-12-03
 
 ### Added
 
@@ -10,8 +10,8 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Changed
 
-- `sandstone/VideoPlayer` to not expand video player using key down via 5way
 - `sandstone/DatePicker` and `sandstone/TimePicker` to not joined picker
+- `sandstone/VideoPlayer` to not expand video player using key down via 5way
 
 ### Fixed
 
