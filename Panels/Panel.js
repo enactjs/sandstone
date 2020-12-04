@@ -126,9 +126,11 @@ const PanelBase = kind({
 	handlers: {
 		onScroll: handle(
 			forward('onScroll'),
-			({currentTarget}) => {
-				currentTarget.scrollTop = 0;
-				currentTarget.scrollLeft = 0;
+			({currentTarget, eventTarget}) => {
+				if (currentTarget === eventTarget) {
+					currentTarget.scrollTop = 0;
+					currentTarget.scrollLeft = 0;
+				}
 			}
 		)
 	},
