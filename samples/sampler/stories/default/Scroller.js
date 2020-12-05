@@ -50,6 +50,7 @@ storiesOf('Sandstone', module)
 					key={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 					noScrollByWheel={boolean('noScrollByWheel', ScrollerConfig)}
 					onScrollStart={action('onScrollStart')}
+					onScroll={action('onScroll')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, ScrollerConfig)}
 					spotlightDisabled={boolean('spotlightDisabled', ScrollerConfig, false)}

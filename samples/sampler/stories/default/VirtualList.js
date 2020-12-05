@@ -64,6 +64,7 @@ storiesOf('Sandstone', module)
 					key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
 					onScrollStart={action('onScrollStart')}
+					onScroll={action('onScroll')}
 					onScrollStop={action('onScrollStop')}
 					scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					spacing={ri.scale(number('spacing', VirtualListConfig))}

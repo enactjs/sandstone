@@ -12,6 +12,8 @@ import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 
 import css from './ThemeEnvironment.module.less';
 
+console.log('React.version in Storybook: ', React.version);
+
 const globalGroup = 'Global Knobs';
 
 const reloadPage = () => {
