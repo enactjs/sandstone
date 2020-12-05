@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+console.log('React.version in Panels: ', React.version);
+
 import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 

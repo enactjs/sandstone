@@ -3,6 +3,8 @@ import {render} from 'react-dom';
 
 import App from './App';
 
+console.log('React.version in sample: ', React.version);
+
 // For Spotlight debugging
 if (__DEV__)  {
 	import('./utils/spotlightDebugging')

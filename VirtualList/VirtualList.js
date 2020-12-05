@@ -21,6 +21,8 @@ import Skinnable from '../Skinnable';
 
 import {useThemeVirtualList} from './useThemeVirtualList';
 
+console.log('React.version in VirtualList: ', React.version);
+
 const nop = () => {};
 
 /**

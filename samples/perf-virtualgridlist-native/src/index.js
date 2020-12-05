@@ -6,6 +6,8 @@ import appPkg from '../package.json';
 
 import App from './App';
 
+console.log('React.version in sample: ', React.version);
+
 const appElement = (<App />);
 
 if (typeof window !== 'undefined') {
