@@ -4,6 +4,10 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
+
 ### Fixed
 
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
