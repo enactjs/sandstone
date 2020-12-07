@@ -3,59 +3,49 @@
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-// Public
 .formCheckboxItem {
-	/* Available for customization */
+	&.hasSlotBefore {
+		.checkbox {
+			margin-inline-end: @sand-formcheckboxitem-checkbox-margin-end;
+		}
+	}
 
 	// FormCheckboxItem should not increase in size when in `largeText` mode
 	.sand-custom-text({
 		font-size: @sand-item-font-size;
-		line-height: @sand-item-line-height;
 
-		.sand-locale-non-latin({
-			line-height: @sand-item-line-height;
-		});
+		.enact-locale-line-height(@sand-item-line-height, @sand-tallglyph-item-line-height);
 	});
 }
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleItem {
-	.content {
-		overflow: hidden;
-	}
-
-	// Skin colors
+.item {
 	.applySkins({
-		// The following code targets all elements that don't act as an invisible frame, and sets
-		// them to the disabled opacity. Invisible frames however are set to fully opaque so their
-		// children can be affected. Below toggleIcon is specifically targeted so it remains full
-		// opacity when focused and disabled, overriding these more general rules.
-		.disabled({
-			opacity: 1;
-
-			> * {
-			    opacity: @sand-disabled-opacity;
-			}
-			.slot {
-			    opacity: 1;
-
-				> * {
-				    opacity: @sand-disabled-opacity;
-				}
-			}
-		});
-
 		.focus({
 			color: @sand-formcheckboxitem-focus-text-color;
-			background-color: @sand-formcheckboxitem-focus-bg-color;
+
+			.bg {
+				background-color: transparent;
+				opacity: 0;
+			}
 
 			.disabled({
-				.slot {
-					.toggleIcon {
-					    opacity: 1;
-					}
+				color: @sand-formcheckboxitem-disabled-focus-text-color;
+
+				.bg {
+					opacity: 0;
+				}
+
+				.slotBefore {
+					// Overrides Item's rule, setting all content fields to the content opacity.
+					// Standalone Checkbox handles this coloration on its own, so that rule isn't
+					// needed, so we reset it back to default here.
+					opacity: initial;
 				}
 			});
 		});
+
+		.disabled({
+			color: @sand-formcheckboxitem-disabled-text-color;
+		})
 	});
 }

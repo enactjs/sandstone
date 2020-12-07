@@ -1,0 +1,66 @@
+// useScroll.module.less
+//
+@import "../styles/colors.less";
+@import "../styles/variables.less";
+@import "../styles/mixins.less";
+
+.verticalPadding {
+	.padding-start-end(0, @sand-scrollbar-focusable-size - @sand-scrollbar-size);
+}
+
+.scroll {
+	--scroll-scrollbar-size: @sand-scrollbar-size;
+
+	box-sizing: border-box;
+	overflow: hidden;
+
+	&.focusableScrollbar {
+		--scroll-scrollbar-size: @sand-scrollbar-focusable-size;
+	}
+
+	.verticalScrollbar {
+		position: absolute;
+		width: var(--scroll-scrollbar-size);
+		height: calc(100% - 2 * @sand-scrollbar-padding);
+		right: 0;
+		top: 0;
+		padding: @sand-scrollbar-padding 0;
+	}
+
+	.enact-locale-rtl({
+		.verticalScrollbar {
+			left: 0;
+			right: initial;
+		}
+	});
+
+	.horizontalScrollbar {
+		position: absolute;
+		width: calc(100% - 2 * @sand-scrollbar-padding);
+		height: var(--scroll-scrollbar-size);
+		left: 0;
+		bottom: 0;
+		padding: 0 @sand-scrollbar-padding;
+	}
+
+	&.bidirectional {
+		.verticalScrollbar {
+			height: calc(100% - 2 * @sand-scrollbar-padding - var(--scroll-scrollbar-size));
+		}
+
+		.horizontalScrollbar {
+			width: calc(100% - 2 * @sand-scrollbar-padding -  var(--scroll-scrollbar-size));
+			left: 0;
+		}
+
+		.enact-locale-rtl({
+			.horizontalScrollbar {
+				left: var(--scroll-scrollbar-size);
+			}
+		});
+	}
+
+	.scrollContent {
+		box-sizing: border-box;
+	}
+}

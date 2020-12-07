@@ -1,38 +1,396 @@
-/**
- * Sandstone styled input components.
- *
- * @example
- * <Input placeholder="Enter text here" />
- *
- * @module sandstone/Input
- * @exports Input
- * @exports InputBase
- */
-
+import {handle, adaptEvent, forKey, forward} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
-import {isRtlText} from '@enact/i18n/util';
+import {extractAriaProps} from '@enact/core/util';
+import Spotlight from '@enact/spotlight';
+import {useAnnounce} from '@enact/ui/AnnounceDecorator';
 import Changeable from '@enact/ui/Changeable';
 import Pure from '@enact/ui/internal/Pure';
+import Toggleable from '@enact/ui/Toggleable';
+import Layout, {Cell} from '@enact/ui/Layout';
 import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
 import React from 'react';
 
-import $L from '../internal/$L';
+import Button from '../Button';
+import Popup from '../Popup';
 import Skinnable from '../Skinnable';
-import Tooltip from '../TooltipDecorator/Tooltip';
-import {extractVoiceProps} from '../internal/util';
+import Heading from '../Heading';
+
+import NumberField from './NumberField';
+import InputField from './InputField';
+import {DEFAULT_LENGTH, calcAriaLabel, convertToPasswordFormat, extractInputFieldProps, limitNumberLength} from './util';
 
 import componentCss from './Input.module.less';
-import InputDecoratorIcon from './InputDecoratorIcon';
-import InputSpotlightDecorator from './InputSpotlightDecorator';
-import {calcAriaLabel, extractInputProps} from './util';
+
+const prepareInputEventPayload = ev => ({value: ev.target.value});
+const isPasswordType = type => type === 'password' || type === 'passwordnumber';
 
 /**
- * A Sandstone styled input component.
+ * Base component for providing text input in the form of a popup without button.
  *
- * It supports start and end icons. Note that this base component is not stateless as many other
- * base components are. However, it does not support Spotlight. Apps will want to use
- * {@link sandstone/Input.Input}.
+ * @class InputPopupBase
+ * @memberof sandstone/Input
+ * @ui
+ * @public
+ */
+const InputPopupBase = kind({
+	name: 'InputPopup',
+
+	propTypes: /** @lends sandstone/Input.InputPopupBase.prototype */ {
+		/**
+		 * Passed by AnnounceDecorator for accessibility.
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		announce: PropTypes.func,
+
+		/**
+		 * Customize component style
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
+		 * Disables the input popup.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * Indicates value is invalid and shows `invalidMessage`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		invalid: PropTypes.bool,
+
+		/**
+		 * The tooltip text to be displayed when the input is `invalid`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		invalidMessage: PropTypes.string,
+
+		/**
+		 * Set the length of number input field.
+		 *
+		 * Sets the amount of numbers this field will collect. Any number between 1 and 6
+		 * (inclusive) will render individual number cells, greater than 6 will render a single box
+		 * with numbers in it. This only has an effect on `'number'` and `'passwordnumber'` `type`
+		 * and when `numberInputField` is `'auto'`.
+		 *
+		 * This value will override `minLength` and `maxLength`.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		length: PropTypes.number,
+
+		/**
+		 * The maximum length of number input fields.
+		 *
+		 * Overridden by `length` value.
+		 *
+		 * @type {Number}
+		 * @default 4
+		 * @public
+		 */
+		maxLength: PropTypes.number,
+
+		/**
+		 * The minimum length of number input fields.
+		 *
+		 * Overridden by `length` value.
+		 *
+		 * When smaller than `maxLength`, number type inputs will show a submit button and will not
+		 * auto-submit when the length reaches `maxLength`. Defaults to the `maxLength` value.
+		 *
+		 * @type {Number}
+		 * @public
+		 */
+		minLength: PropTypes.number,
+
+		/**
+		 * The type of numeric input to use.
+		 *
+		 * The default is to display separated digits when `length` is less than `7`. If `field` is
+		 * set, a standard `InputField` will be used instead of the normal number input.
+		 *
+		 * This has no effect on other [types]{@link sandstone/Input.InputPopupBase.prototype#type}.
+		 *
+		 * @type {('auto'|'separated'|'joined'|'field')}
+		 * @default 'auto'
+		 * @public
+		 */
+		numberInputField: PropTypes.oneOf(['auto', 'separated', 'joined', 'field']),
+
+		/**
+		 * Called before the input value is changed.
+		 *
+		 * The change can be prevented by calling `preventDefault` on the event.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBeforeChange: PropTypes.func,
+
+		/**
+		 * Called when the input value is changed.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onChange: PropTypes.func,
+
+		/**
+		 * Called when the popup is closed.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClose: PropTypes.func,
+
+		/**
+		 * Called when input is complete.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onComplete: PropTypes.func,
+
+		/**
+		 * Called when the popup is opened.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onOpenPopup: PropTypes.func,
+
+		/**
+		 * Opens the popup.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		open: PropTypes.bool,
+
+		/**
+		 * Text displayed when value is not set.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		placeholder: PropTypes.string,
+
+		/**
+		 * The "aria-label" for the popup when opened.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		popupAriaLabel: PropTypes.string,
+
+		/**
+		 * Type of popup.
+		 *
+		 * @type {('fullscreen'|'overlay')}
+		 * @default 'fullscreen'
+		 * @public
+		 */
+		popupType: PropTypes.oneOf(['fullscreen', 'overlay']),
+
+		/**
+		 * Size of the input field.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'small'
+		 * @public
+		 */
+		size: PropTypes.oneOf(['small', 'large']),
+
+		/**
+		 * Subtitle below the title of popup.
+		 *
+		 * @type {String}
+		 * @default ''
+		 * @public
+		 */
+		subtitle: PropTypes.string,
+
+		/**
+		 * Title text of popup.
+		 *
+		 * @type {String}
+		 * @default ''
+		 * @public
+		 */
+		title: PropTypes.string,
+
+		/**
+		 * Type of the input.
+		 *
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
+		 * @default 'text'
+		 * @public
+		 */
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
+
+		/**
+		 * Value of the input.
+		 *
+		 * @type {String|Number}
+		 * @public
+		 */
+		value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	},
+
+	defaultProps: {
+		popupType: 'fullscreen',
+		numberInputField: 'auto',
+		size: 'small',
+		subtitle: '',
+		title: '',
+		type: 'text',
+		value: '' // value is provided by Changeable, but will be null if defaultValue wasn't specified by the consumer
+	},
+
+	styles: {
+		css: componentCss,
+		className: 'input',
+		publicClassNames: ['textField']
+	},
+
+	handlers: {
+		onShow: handle(
+			forward('onShow'),
+			(ev, {type}) => type === 'text' || type === 'password',
+			() => Spotlight.setPointerMode(false)
+		),
+		onNumberComplete: handle(
+			(ev, props) => {
+				setTimeout(() => {
+					forward('onComplete', ev, props);
+					forward('onClose', ev, props);
+				}, 250);
+				return true;
+			}
+		),
+		onInputKeyDown: handle(
+			forKey('enter'),
+			// Ensure that the source of the enter is the <input>
+			({target}) => target.nodeName === 'INPUT',
+			adaptEvent(
+				prepareInputEventPayload,
+				forward('onComplete')
+			),
+			forward('onClose')
+		)
+	},
+
+	computed: {
+		maxLength: ({length, maxLength}) => (length || maxLength),
+		minLength: ({length, maxLength, minLength}) => {
+			if (length) return length;
+			if (minLength != null) return minLength;
+			if (maxLength != null) return maxLength;
+			return DEFAULT_LENGTH;
+		},
+		popupClassName: ({popupType, type, styler}) => styler.join('popup', popupType, type)
+	},
+
+	render: ({
+		announce,
+		children,
+		css,
+		numberInputField,
+		onBeforeChange,
+		onClose,
+		onNumberComplete,
+		onInputKeyDown,
+		onShow,
+		open,
+		placeholder,
+		popupAriaLabel,
+		popupClassName,
+		popupType,
+		size,
+		subtitle,
+		title,
+		type,
+		value,
+		maxLength,
+		minLength,
+		...rest
+	}) => {
+
+		const inputProps = extractInputFieldProps(rest);
+		const numberMode = (numberInputField !== 'field') && (type === 'number' || type === 'passwordnumber');
+
+		delete rest.length;
+		delete rest.onComplete;
+		delete rest.onOpenPopup;
+
+		return (
+			<Popup
+				aria-label={popupAriaLabel}
+				onClose={onClose}
+				onShow={onShow}
+				position={popupType === 'fullscreen' ? 'fullscreen' : 'center'}
+				className={popupClassName}
+				noAnimation
+				open={open}
+			>
+				<Layout orientation="vertical" align={`center ${numberMode ? 'space-between' : ''}`} className={css.body}>
+					<Cell shrink className={css.titles}>
+						<Heading size="title" marqueeOn="render" alignment="center" className={css.title}>{title}</Heading>
+						<Heading size="subtitle" marqueeOn="render" alignment="center" className={css.subtitle}>{subtitle}</Heading>
+					</Cell>
+					<Cell shrink className={css.inputArea}>
+						{numberMode ?
+							<NumberField
+								{...inputProps}
+								announce={announce}
+								maxLength={limitNumberLength(popupType, maxLength)}
+								minLength={limitNumberLength(popupType, minLength)}
+								defaultValue={value}
+								onBeforeChange={onBeforeChange}
+								onComplete={onNumberComplete}
+								showKeypad
+								type={(type === 'passwordnumber') ? 'password' : 'number'}
+								numberInputField={numberInputField}
+							/> :
+							<InputField
+								{...inputProps}
+								className={css.textField}
+								css={css}
+								maxLength={maxLength}
+								minLength={minLength}
+								size={size}
+								autoFocus
+								type={type}
+								defaultValue={value}
+								noReadoutOnFocus
+								placeholder={placeholder}
+								onBeforeChange={onBeforeChange}
+								onKeyDown={onInputKeyDown}
+							/>
+						}
+					</Cell>
+					<Cell shrink className={css.buttonArea}>{children}</Cell>
+				</Layout>
+			</Popup>
+		);
+	}
+});
+
+/**
+ * Base component for providing text input in the form of a popup.
  *
  * @class InputBase
  * @memberof sandstone/Input
@@ -44,144 +402,29 @@ const InputBase = kind({
 
 	propTypes: /** @lends sandstone/Input.InputBase.prototype */ {
 		/**
-		 * Customizes the component by mapping the supplied collection of CSS class names to the
-		 * corresponding internal elements and states of this component.
-		 *
-		 * The following classes are supported:
-		 *
-		 * * `decorator` - The root class name
-		 * * `input` - The <input> class name
-		 * * `inputHighlight` - The class used to make input text appear highlighted when `.decorator` has focus, but not `.input`
-		 *
-		 * @type {Object}
-		 * @private
-		 */
-		css: PropTypes.object,
-
-		// TODO: Document voice control props and make public
-		'data-webos-voice-group-label': PropTypes.string,
-		'data-webos-voice-intent': PropTypes.string,
-		'data-webos-voice-label': PropTypes.string,
-
-		/**
-		 * Disables Input and becomes non-interactive.
+		 * Disables the button that activates the input popup.
 		 *
 		 * @type {Boolean}
-		 * @default false
+		 * @private
+		 */
+		announce: PropTypes.func,
+
+		/**
+		 * Disables the button that activates the input popup.
+		 *
+		 * @type {Boolean}
 		 * @public
 		 */
 		disabled: PropTypes.bool,
 
 		/**
-		 * Blurs the input when the "enter" key is pressed.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		dismissOnEnter: PropTypes.bool,
-
-		/**
-		 * The icon to be placed at the end of the input.
-		 *
-		 * @see {@link sandstone/Icon.Icon}
-		 * @type {String}
-		 * @public
-		 */
-		iconAfter: PropTypes.string,
-
-		/**
-		 * The icon to be placed at the beginning of the input.
-		 *
-		 * @see {@link sandstone/Icon.Icon}
-		 * @type {String}
-		 * @public
-		 */
-		iconBefore: PropTypes.string,
-
-		/**
-		 * Indicates [value]{@link sandstone/Input.InputBase.value} is invalid and shows
-		 * [invalidMessage]{@link sandstone/Input.InputBase.invalidMessage}, if set.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		invalid: PropTypes.bool,
-
-		/**
-		 * The tooltip text to be displayed when the input is
-		 * [invalid]{@link sandstone/Input.InputBase.invalid}.
-		 *
-		 * If this value is *falsy*, the tooltip will not be shown.
+		 * Text displayed when value is not set.
 		 *
 		 * @type {String}
-		 * @default ''
-		 * @public
-		 */
-		invalidMessage: PropTypes.string,
-
-		/**
-		 * Called when blurred.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onBlur: PropTypes.func,
-
-		/**
-		 * Called when the input value is changed.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onChange: PropTypes.func,
-
-		/**
-		 * Called when clicked.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onClick: PropTypes.func,
-
-		/**
-		 * Called when focused.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onFocus: PropTypes.func,
-
-		/**
-		 * Called when a key is pressed down.
-		 *
-		 * @type {Function}
-		 * @param {Object} event
-		 * @public
-		 */
-		onKeyDown: PropTypes.func,
-
-		/**
-		 * Text to display when [value]{@link sandstone/Input.InputBase.value} is not set.
-		 *
-		 * @type {String}
-		 * @default ''
+		 * @default '-'
 		 * @public
 		 */
 		placeholder: PropTypes.string,
-
-		/**
-		 * Indicates the content's text direction is right-to-left.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
 
 		/**
 		 * The size of the input field.
@@ -190,22 +433,19 @@ const InputBase = kind({
 		 * @default 'small'
 		 * @public
 		 */
-		size: PropTypes.string,
+		size: PropTypes.oneOf(['small', 'large']),
 
 		/**
-		 * The type of input.
+		 * Type of the input.
 		 *
-		 * Accepted values correspond to the standard HTML5 input types.
-		 *
-		 * @type {String}
-		 * @see [MDN input types doc]{@link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types}
+		 * @type {('text'|'password'|'number'|'passwordnumber')}
 		 * @default 'text'
 		 * @public
 		 */
-		type: PropTypes.string,
+		type: PropTypes.oneOf(['text', 'password', 'number', 'passwordnumber']),
 
 		/**
-		 * The value of the input.
+		 * Value of the input.
 		 *
 		 * @type {String|Number}
 		 * @public
@@ -214,196 +454,141 @@ const InputBase = kind({
 	},
 
 	defaultProps: {
-		disabled: false,
-		dismissOnEnter: false,
-		invalid: false,
-		placeholder: '',
-		size: 'small',
-		type: 'text'
-	},
-
-	styles: {
-		css: componentCss,
-		className: 'decorator',
-		publicClassNames: ['decorator', 'input', 'inputHighlight']
+		placeholder: '-'
 	},
 
 	handlers: {
-		onChange: (ev, {onChange}) => {
-			if (onChange) {
-				onChange({value: ev.target.value});
-			}
-		}
+		onClick: handle(
+			forward('onClick'),
+			forward('onOpenPopup')
+		)
 	},
 
 	computed: {
-		'aria-label': ({placeholder, type, value}) => {
-			const title = (value == null || value === '') ? placeholder : '';
-			return calcAriaLabel(title, type, value);
-		},
-		className: ({invalid, size, styler}) => styler.append({invalid}, size),
-		dir: ({value, placeholder}) => isRtlText(value || placeholder) ? 'rtl' : 'ltr',
-		invalidTooltip: ({css, invalid, invalidMessage = $L('Please enter a valid value.'), rtl}) => {
-			if (invalid && invalidMessage) {
-				const direction = rtl ? 'left' : 'right';
-				return (
-					<Tooltip arrowAnchor="top" className={css.invalidTooltip} direction={direction}>
-						{invalidMessage}
-					</Tooltip>
-				);
+		buttonAriaLabel: ({placeholder, type, value}) => {
+			if (value) {
+				type = isPasswordType(type) ? 'password' : type;
+				return calcAriaLabel('', type, type === 'number' ? value.split('') : value);
 			}
+
+			return calcAriaLabel('', null, placeholder);
 		},
-		// ensure we have a value so the internal <input> is always controlled
-		value: ({value}) => typeof value === 'number' ? value : (value || '')
+		buttonLabel: ({placeholder, type, value}) => {
+			return (isPasswordType(type) ? convertToPasswordFormat(value) : value) || placeholder;
+		}
 	},
 
-	render: ({css, dir, disabled, iconAfter, iconBefore, invalidTooltip, onChange, placeholder, size, type, value, ...rest}) => {
-		const inputProps = extractInputProps(rest);
-		const voiceProps = extractVoiceProps(rest);
-		delete rest.dismissOnEnter;
-		delete rest.invalid;
-		delete rest.invalidMessage;
-		delete rest.rtl;
+	render: ({announce, buttonAriaLabel, buttonLabel, type, size, disabled, value, placeholder, onClick, className, style, ...rest}) => {
+		const ariaProps = extractAriaProps(rest);
 
 		return (
-			<div {...rest} disabled={disabled}>
-				<InputDecoratorIcon position="before" size={size}>{iconBefore}</InputDecoratorIcon>
-				<span className={css.inputHighlight}>{value ? value : placeholder}</span>
-				<input
-					{...inputProps}
-					{...voiceProps}
-					aria-disabled={disabled}
-					className={css.input}
-					dir={dir}
-					disabled={disabled}
-					onChange={onChange}
-					placeholder={placeholder}
-					tabIndex={-1}
+			<React.Fragment>
+				<InputPopupBase
+					announce={announce}
 					type={type}
+					size={size}
+					disabled={disabled}
 					value={value}
+					placeholder={placeholder}
+					{...rest}
 				/>
-				<InputDecoratorIcon position="after" size={size}>{iconAfter}</InputDecoratorIcon>
-				{invalidTooltip}
-			</div>
+				<Button
+					size={size}
+					disabled={disabled}
+					className={className}
+					style={style}
+					onClick={onClick}
+					aria-label={buttonAriaLabel}
+					{...ariaProps}
+				>
+					{buttonLabel}
+				</Button>
+			</React.Fragment>
 		);
 	}
 });
 
+// eslint-disable-next-line no-shadow
+const AnnounceDecorator = Wrapped => function AnnounceDecorator (props) {
+	const {announce, children} = useAnnounce();
+
+	return (
+		<React.Fragment>
+			<Wrapped {...props} announce={announce} />
+			{children}
+		</React.Fragment>
+	);
+};
+
 /**
- * A Spottable, Sandstone styled input component with embedded icon support.
+ * Sandstone specific item behaviors to apply to [Input]{@link sandstone/Input.InputBase}.
  *
- * By default, `Input` maintains the state of its `value` property. Supply the `defaultValue`
- * property to control its initial value. If you wish to directly control updates to the component,
- * supply a value to `value` at creation time and update it in response to `onChange` events.
+ * @class InputDecorator
+ * @hoc
+ * @memberof sandstone/Input
+ * @mixes ui/Toggleable.Toggleable
+ * @mixes ui/Changeable.Changeable
+ * @mixes sandstone/Skinnable.Skinnable
+ * @public
+ */
+const InputDecorator = compose(
+	Pure,
+	Toggleable({activate: 'onOpenPopup', deactivate: 'onClose', prop: 'open'}),
+	Changeable({change: 'onComplete'}),
+	AnnounceDecorator,
+	Skinnable
+);
+
+/**
+ * Provides an input in the form of a popup.
+ *
+ * Usage:
+ * ```
+ * <Input
+ *   onComplete={this.handleInputComplete}
+ *   placeholder="Placeholder"
+ *   subtitle="TitleBelow"
+ *   title="Title"
+ *   value={this.state.inputText}
+ * />
+ * ```
  *
  * @class Input
  * @memberof sandstone/Input
  * @extends sandstone/Input.InputBase
- * @mixes ui/Changeable.Changeable
- * @mixes spotlight/Spottable.Spottable
- * @mixes sandstone/Skinnable.Skinnable
  * @ui
  * @public
  */
-const Input = Pure(
-	I18nContextDecorator(
-		{rtlProp: 'rtl'},
-		Changeable(
-			InputSpotlightDecorator(
-				Skinnable(
-					InputBase
-				)
-			)
-		)
-	)
-);
+const Input = InputDecorator(InputBase);
 
 /**
- * Focuses the internal input when the component gains 5-way focus.
+ * Provides an input popup without button.
  *
- * By default, the internal input is not editable when the component is focused via 5-way and must
- * be selected to become interactive. In pointer mode, the input will be editable when clicked.
+ * Usage:
+ * ```
+ * <InputPopup
+ *   open={this.state.open}
+ *   onComplete={this.handleInputPopupComplete}
+ *   placeholder="Placeholder"
+ *   subtitle="Subtitle"
+ *   title="Title"
+ *   value={this.state.inputText}
+ * />
+ * ```
  *
- * @name autoFocus
- * @memberof sandstone/Input.Input.prototype
- * @type {Boolean}
- * @default false
+ * @class InputPopup
+ * @memberof sandstone/Input
+ * @extends sandstone/Input.InputPopupBase
+ * @ui
  * @public
  */
-
-/**
- * Applies a disabled style and prevents interacting with the component.
- *
- * @name disabled
- * @memberof sandstone/Input.Input.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
-
-/**
- * Sets the initial value.
- *
- * @name defaultValue
- * @memberof sandstone/Input.Input.prototype
- * @type {String}
- * @public
- */
-
-/**
- * Blurs the input when the "enter" key is pressed.
- *
- * @name dismissOnEnter
- * @memberof sandstone/Input.Input.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
-
-/**
- * Called when the internal input is focused.
- *
- * @name onActivate
- * @memberof sandstone/Input.Input.prototype
- * @type {Function}
- * @param {Object} event
- * @public
- */
-
-/**
- * Called when the internal input loses focus.
- *
- * @name onDeactivate
- * @memberof sandstone/Input.Input.prototype
- * @type {Function}
- * @param {Object} event
- * @public
- */
-
-/**
- * Called when the component is removed when it had focus.
- *
- * @name onSpotlightDisappear
- * @memberof sandstone/Input.Input.prototype
- * @type {Function}
- * @param {Object} event
- * @public
- */
-
-/**
- * Disables spotlight navigation into the component.
- *
- * @name spotlightDisabled
- * @memberof sandstone/Input.Input.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
+const InputPopup = InputDecorator(InputPopupBase);
 
 export default Input;
 export {
-	calcAriaLabel,
-	extractInputProps,
 	Input,
-	InputBase
+	InputBase,
+	InputPopup,
+	InputPopupBase,
+	InputDecorator
 };

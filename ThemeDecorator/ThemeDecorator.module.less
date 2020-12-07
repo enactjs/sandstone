@@ -17,31 +17,25 @@
 	color: @sand-text-color;
 
 	::selection {
-		color: @sand-spotlight-text-color;
-		background-color: lighten(@sand-spotlight-bg-color, 18%);
+		color: @sand-selection-color;
+		background-color: @sand-selection-bg-color;
 	}
 
 	// Disabled Components
 	.disabled({
-		.vendor-opacity(@sand-disabled-opacity);
-
-		// Focused and disabled, must restore their natural opacity, then assign the faded text/content color
-		.focus({
-			.vendor-opacity(1);
-			color: @sand-spotlight-disabled-text-color;
-		});
+		.sand-disabled-colors();
 
 		cursor: default;
 
 		// Disabled children of disabled components
 		.disabled({
-			.vendor-opacity(1);
+			opacity: 1;
 		}, parent);
 	});
 });
 
 .root {
-	.sand-text-base(@sand-header-title-below-font-size, self);
+	.sand-text-base(@sand-base-font-size, self);
 	font-weight: normal;
 	font-style: normal;
 	letter-spacing: normal;
@@ -51,9 +45,9 @@
 		padding: @sand-app-keepout;
 	}
 
-	&:global(.enact-locale-right-to-left) {
+	.enact-locale-rtl({
 		direction: rtl;
-	}
+	}, self);
 
 	:focus {
 		// Prevent Chrome's default focus treatment
@@ -61,12 +55,16 @@
 		// Prevent Android Chrome from highlighting tapped elements
 		-webkit-tap-highlight-color: transparent;
 	}
-
-	// Skin colors
-	.applySkins({
-		&.bg,
-		> .bg {
-			background-color: @sand-bg-color;
-		}
-	});
 }
+
+// Skin colors
+// This is outside the `.root` class above because high-contrast is applied to root
+// as well as skins. The high-contrast mixin (in skin.less) refers to high-contrast
+// and the skins node as descent, rather than on the same node. This allows the
+// styling to be applied without costly duplication of all rules in the skin mixin.
+.applySkins({
+	&.bg,
+	> .bg {
+		background-color: @sand-bg-color;
+	}
+});

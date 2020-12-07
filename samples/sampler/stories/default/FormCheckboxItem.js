@@ -1,37 +1,39 @@
 import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
-import {mergeComponentMetadata, nullify} from '@enact/storybook-utils';
-import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/ToggleItem';
+import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import ToggleItem from '@enact/sandstone/ToggleItem';
-import Item, {ItemBase} from '@enact/sandstone/Item';
+import Checkbox, {CheckboxBase} from '@enact/sandstone/Checkbox';
+import FormCheckboxItem, {FormCheckboxItemBase} from '@enact/sandstone/FormCheckboxItem';
 import Icon from '@enact/sandstone/Icon';
+import Item, {ItemBase} from '@enact/sandstone/Item';
 
-import {listIcons} from './icons';
+import iconNames from './icons';
 
 FormCheckboxItem.displayName = 'FormCheckboxItem';
-const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, FormCheckboxItem);
+const Config = mergeComponentMetadata('FormCheckboxItem', ItemBase, Item, CheckboxBase, Checkbox, FormCheckboxItemBase, FormCheckboxItem);
+Config.defaultProps.icon = CheckboxBase.defaultProps.children;
 
 storiesOf('Sandstone', module)
 	.add(
 		'FormCheckboxItem',
 		() => {
-			const iconPosition = select('iconPosition', ['before', 'after'], Config);
-			const icon = select('itemIcon', ['', ...listIcons], Config);
-			const itemIcon = nullify(icon ? <Icon>{icon}</Icon> : null);
-			const itemIconPosition = select('itemIconPosition', [null, 'before', 'beforeChildren', 'afterChildren', 'after'], Config);
+			const slotBeforeSelection = select('slotBefore', ['', ...iconNames], Config);
+			const slotBefore = slotBeforeSelection ? (<Icon slot="slotBefore">{slotBeforeSelection}</Icon>) : null;
+
 			return (
 				<FormCheckboxItem
 					disabled={boolean('disabled', Config)}
-					iconPosition={iconPosition}
+					icon={select('icon', iconNames, Config)}
+					indeterminate={boolean('indeterminate', Config)}
+					indeterminateIcon={select('indeterminateIcon', iconNames, Config)}
 					inline={boolean('inline', Config)}
-					itemIcon={itemIcon}
-					itemIconPosition={itemIconPosition}
+					label={text('label', Config)}
+					labelPosition={select('labelPosition', ['above', 'after', 'before', 'below'], Config)}
 					onToggle={action('onToggle')}
 				>
+					{slotBefore}
 					{text('children', Config, 'A Checkbox for a form')}
 				</FormCheckboxItem>
 			);

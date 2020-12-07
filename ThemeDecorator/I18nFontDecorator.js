@@ -7,11 +7,11 @@ import {fontOverrideGenerator} from './fontGenerator';
 
 const I18nFontDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	return class I18nDecorator extends React.Component {
-		static displayName = 'I18nFontDecorator'
+		static displayName = 'I18nFontDecorator';
 
 		static propTypes = {
 			locale: PropTypes.string
-		}
+		};
 
 		constructor (props) {
 			super(props);

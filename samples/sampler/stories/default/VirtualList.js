@@ -3,12 +3,13 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import React from 'react';
 import ri from '@enact/ui/resolution';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
-import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
 import Item from '@enact/sandstone/Item';
-import VirtualList, {VirtualListBase} from '@enact/sandstone/VirtualList';
+import VirtualList from '@enact/sandstone/VirtualList';
+
+import css from './VirtualList.module.less';
 
 const
 	wrapOption = {
@@ -17,20 +18,15 @@ const
 		'&quot;noAnimation&quot;': 'noAnimation'
 	},
 	prop = {
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,
 	// eslint-disable-next-line enact/prop-types, enact/display-name
 	renderItem = (size) => ({index, ...rest}) => {
-		const itemStyle = {
-			borderBottom: ri.unit(6, 'rem') + ' solid #202328',
-			boxSizing: 'border-box',
-			height: size + 'px'
-		};
-
 		return (
-			<Item {...rest} style={itemStyle}>
+			<Item {...rest} style={{height: ri.unit(size, 'rem')}}>
 				{items[index]}
 			</Item>
 		);
@@ -52,7 +48,7 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
+const VirtualListConfig = mergeComponentMetadata('VirtualList', UiVirtualListBasic, VirtualList);
 
 storiesOf('Sandstone', module)
 	.add(
@@ -60,14 +56,16 @@ storiesOf('Sandstone', module)
 		() => {
 			return (
 				<VirtualList
+					className={css.verticalPadding}
 					dataSize={updateDataSize(number('dataSize', VirtualListConfig, defaultDataSize))}
-					focusableScrollbar={boolean('focusableScrollbar', VirtualListConfig)}
 					horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualListConfig)}
-					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 144)))}
-					itemSize={ri.scale(number('itemSize', VirtualListConfig, 144))}
+					itemRenderer={renderItem(ri.scale(number('itemSize', VirtualListConfig, 156)))}
+					itemSize={ri.scale(number('itemSize', VirtualListConfig, 156))}
+					key={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					noScrollByWheel={boolean('noScrollByWheel', VirtualListConfig)}
 					onScrollStart={action('onScrollStart')}
 					onScrollStop={action('onScrollStop')}
+					scrollMode={select('scrollMode', prop.scrollModeOption, VirtualListConfig)}
 					spacing={ri.scale(number('spacing', VirtualListConfig))}
 					spotlightDisabled={boolean('spotlightDisabled', VirtualListConfig, false)}
 					verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualListConfig)}

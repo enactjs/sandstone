@@ -1,24 +1,20 @@
 import kind from '@enact/core/kind';
-import Measurable from '@enact/ui/Measurable';
-import Slottable from '@enact/ui/Slottable';
+import handle, {adaptEvent, forwardWithPrevent} from '@enact/core/handle';
 import IdProvider from '@enact/ui/internal/IdProvider';
 import {shape} from '@enact/ui/ViewManager';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
 import React from 'react';
 
+import {BasicArranger, CancelDecorator, Viewport} from '../internal/Panels';
 import Skinnable from '../Skinnable';
 
-import CancelDecorator from './CancelDecorator';
-import Controls from './Controls';
-import Viewport from './Viewport';
+import {getSharedProps, deleteSharedProps} from '../internal/Panels/util';
 
-import css from './Panels.module.less';
-
-const getControlsId = (id) => id && `${id}-controls`;
+import componentCss from './Panels.module.less';
 
 /**
- * Basic Panels component without breadcrumbs or default [arranger]{@link ui/ViewManager.Arranger}
+ * Basic Panels component without a default [arranger]{@link ui/ViewManager.Arranger}
  *
  * @class Panels
  * @memberof sandstone/Panels
@@ -44,23 +40,31 @@ const PanelsBase = kind({
 		 *
 		 * @see {@link ui/ViewManager.SlideArranger}
 		 * @type {ui/ViewManager.Arranger}
+		 * @default ui/ViewManager.SlideLeftArranger
 		 * @public
 		 */
 		arranger: shape,
 
 		/**
-		 * An object containing properties to be passed to each child.
+		 * Hint string read when focusing the back button.
 		 *
-		 *`aria-owns` will be added or updated to this object to add the close button to the
-		 * accessibility tree of each panel.
-		 *
-		 * @type {Object}
+		 * @type {String}
+		 * @default 'go to previous'
 		 * @public
 		 */
-		childProps: PropTypes.object,
+		backButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * [`Panels`]{@link sandstone/Panels.Panel} to be rendered
+		 * Background opacity of the application back button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'transparent'
+		 * @public
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * [`Panel`s]{@link sandstone/Panels.Panel} to be rendered
 		 *
 		 * @type {Node}
 		 * @public
@@ -68,7 +72,7 @@ const PanelsBase = kind({
 		children: PropTypes.node,
 
 		/**
-		 * Sets the hint string read when focusing the application close button.
+		 * Hint string read when focusing the application close button.
 		 *
 		 * @type {String}
 		 * @default 'Exit app'
@@ -77,43 +81,27 @@ const PanelsBase = kind({
 		closeButtonAriaLabel: PropTypes.string,
 
 		/**
-		 * The background opacity of the application close button.
+		 * Background opacity of the application close button.
 		 *
-		 * * Values: `'translucent'`, `'lightTranslucent'`, `'transparent'`
-		 *
-		 * @type {String}
+		 * @type {('opaque'|'transparent')}
 		 * @default 'transparent'
 		 * @public
 		 */
-		closeButtonBackgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
 
 		/**
-		 * A slot to insert additional Panels-level buttons into the global-navigation area.
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
 		 *
-		 * @type {Node}
-		 * @public
-		 */
-		controls: PropTypes.node,
-
-		/**
-		 * The measurement bounds of the controls node
+		 * The following classes are supported:
+		 *
+		 * * `panels` - The root class name
+		 * * `viewport` - The node containing the panel instances
 		 *
 		 * @type {Object}
-		 * @private
+		 * @public
 		 */
-		controlsMeasurements: PropTypes.object,
-
-		/**
-		 * The method which receives the reference node to the controls element, used to determine
-		 * the `controlsMeasurements`.
-		 *
-		 * @type {Function|Object}
-		 * @private
-		 */
-		controlsRef: PropTypes.oneOfType([
-			PropTypes.func,
-			PropTypes.shape({current: PropTypes.any})
-		]),
+		css: PropTypes.object,
 
 		/**
 		 * Unique identifier for the Panels instance.
@@ -147,7 +135,16 @@ const PanelsBase = kind({
 		noAnimation: PropTypes.bool,
 
 		/**
-		 * Indicates the close button will not be rendered on the top right corner.
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the close button.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -174,90 +171,91 @@ const PanelsBase = kind({
 		noSharedState: PropTypes.bool,
 
 		/**
-		 * Called when the app close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onApplicationClose: PropTypes.func,
-
-		/**
 		 * Called with cancel/back key events.
 		 *
 		 * @type {Function}
 		 * @public
 		 */
-		onBack: PropTypes.func
+		onBack: PropTypes.func,
+
+		/**
+		 * Called when the app close button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClose: PropTypes.func,
+
+		/**
+		 * Called once when all panels have completed their transition.
+		 *
+		 * @type {Function}
+		 */
+		onTransition: PropTypes.func,
+
+		/**
+		 * Called once before panels begin their transition.
+		 *
+		 * @type {Function}
+		 */
+		onWillTransition: PropTypes.func
 	},
 
 	defaultProps: {
-		closeButtonBackgroundOpacity: 'transparent',
+		arranger: BasicArranger,
 		index: 0,
 		noAnimation: false,
-		noCloseButton: false,
 		noSharedState: false
 	},
 
 	styles: {
-		css,
-		className: 'panels enact-fit'
+		css: componentCss,
+		className: 'panels enact-fit',
+		publicClassNames: ['panels', 'viewport']
 	},
 
 	computed: {
-		className: ({controls, noCloseButton, styler}) => styler.append({
-			'sand-panels-hasControls': (!noCloseButton || !!controls) // If there is a close button or controls were specified
-		}),
-		childProps: ({childProps, controls, id, noCloseButton}) => {
-			if ((noCloseButton && !controls) || !id) {
-				return childProps;
-			}
-
-			const updatedChildProps = Object.assign({}, childProps);
-			const controlsId = getControlsId(id);
-			const owns = updatedChildProps['aria-owns'];
-
-			if (owns) {
-				updatedChildProps['aria-owns'] = `${owns} ${controlsId}`;
-			} else {
-				updatedChildProps['aria-owns'] = controlsId;
-			}
-
-			return updatedChildProps;
-		},
-		style: ({controlsMeasurements, style = {}}) => (controlsMeasurements ? {
-			...style,
-			'--sand-panels-controls-width': controlsMeasurements.width + 'px'
-		} : style),
 		viewportId: ({id}) => id && `${id}-viewport`
 	},
 
-	render: ({arranger, childProps, children, closeButtonAriaLabel, closeButtonBackgroundOpacity, controls, controlsRef, generateId, id, index, noAnimation, noCloseButton, noSharedState, onApplicationClose, viewportId, ...rest}) => {
-		delete rest.controlsMeasurements;
-		delete rest.onBack;
+	handlers: {
+		onBack: handle(
+			adaptEvent(
+				(ev, {index}) => ({index: Math.max(index - 1, 0)}),
+				forwardWithPrevent('onBack')
+			)
+		)
+	},
 
-		const controlsId = getControlsId(id);
-
+	render: ({
+		arranger,
+		children,
+		css,
+		generateId,
+		id,
+		index,
+		noAnimation,
+		noSharedState,
+		onTransition,
+		onWillTransition,
+		viewportId,
+		...rest
+	}) => {
+		const sharedProps = getSharedProps(rest);
+		deleteSharedProps(rest);
 		return (
 			<div {...rest} id={id}>
-				<Controls
-					closeButtonAriaLabel={closeButtonAriaLabel}
-					closeButtonBackgroundOpacity={closeButtonBackgroundOpacity}
-					id={controlsId}
-					spotlightId={controlsId}
-					noCloseButton={noCloseButton}
-					onApplicationClose={onApplicationClose}
-					ref={controlsRef}
-				>
-					{controls}
-				</Controls>
 				<Viewport
+					{...sharedProps}
 					arranger={arranger}
-					childProps={childProps}
+					className={css.viewport}
 					generateId={generateId}
 					id={viewportId}
 					index={index}
 					noAnimation={noAnimation}
 					noSharedState={noSharedState}
+					onTransition={onTransition}
+					onWillTransition={onWillTransition}
 				>
 					{children}
 				</Viewport>
@@ -267,9 +265,7 @@ const PanelsBase = kind({
 });
 
 const PanelsDecorator = compose(
-	Slottable({slots: ['controls']}),
 	CancelDecorator({cancel: 'onBack'}),
-	Measurable({refProp: 'controlsRef', measurementProp: 'controlsMeasurements'}),
 	IdProvider,
 	Skinnable
 );

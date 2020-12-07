@@ -3,12 +3,13 @@ import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
 import React from 'react';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
 import {storiesOf} from '@storybook/react';
-import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList';
 
-import {GridListImageItem} from '@enact/sandstone/GridListImageItem';
-import {VirtualGridList, VirtualListBase} from '@enact/sandstone/VirtualList';
+import {ImageItem} from '@enact/sandstone/ImageItem';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+
+import css from './VirtualGridList.module.less';
 
 const
 	wrapOption = {
@@ -18,7 +19,8 @@ const
 	},
 	prop = {
 		direction: {horizontal: 'horizontal', vertical: 'vertical'},
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	},
 	items = [],
 	defaultDataSize = 1000,
@@ -31,12 +33,13 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={text}
-				source={source}
-				subCaption={subText}
-			/>
+				label={subText}
+				src={source}
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
@@ -53,7 +56,11 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}${shouldAddLongContent({index: i, modIndex: 2})}`,
 			subText = `SubItem ${count}${shouldAddLongContent({index: i, modIndex: 3})}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			source = {
+				'hd': `http://placehold.it/200x200/${color}/ffffff&text=Image ${i}`,
+				'fhd': `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`,
+				'uhd': `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`
+			};
 
 		items.push({text, subText, source});
 	}
@@ -63,26 +70,32 @@ const updateDataSize = (dataSize) => {
 
 updateDataSize(defaultDataSize);
 
-const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
+const VirtualGridListConfig = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 storiesOf('Sandstone', module)
 	.add(
 		'VirtualList.VirtualGridList',
 		() => (
 			<VirtualGridList
+				className={
+					select('direction', prop.direction, VirtualGridListConfig) === 'vertical' ?
+						css.verticalPadding :
+						css.horizontalPadding
+				}
 				dataSize={updateDataSize(number('dataSize', VirtualGridListConfig, defaultDataSize))}
 				direction={select('direction', prop.direction, VirtualGridListConfig)}
-				focusableScrollbar={boolean('focusableScrollbar', VirtualGridListConfig)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', VirtualGridListConfig, 360)),
-					minHeight: ri.scale(number('minHeight', VirtualGridListConfig, 540))
+					minWidth: ri.scale(number('itemSize.minWidth', VirtualGridListConfig, 688)),
+					minHeight: ri.scale(number('itemSize.minHeight', VirtualGridListConfig, 570))
 				}}
+				key={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
 				noScrollByWheel={boolean('noScrollByWheel', VirtualGridListConfig)}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
-				spacing={ri.scale(number('spacing', VirtualGridListConfig, 40))}
+				scrollMode={select('scrollMode', prop.scrollModeOption, VirtualGridListConfig)}
+				spacing={ri.scale(number('spacing', VirtualGridListConfig, 0))}
 				spotlightDisabled={boolean('spotlightDisabled', VirtualGridListConfig, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, VirtualGridListConfig)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], VirtualGridListConfig)]}

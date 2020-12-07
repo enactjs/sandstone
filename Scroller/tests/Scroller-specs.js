@@ -1,7 +1,7 @@
-import {mount, shallow} from 'enzyme';
+import {mount} from 'enzyme';
 import React from 'react';
 
-import Scroller, {ScrollerBase} from '../Scroller';
+import Scroller from '../Scroller';
 
 describe('Scroller', () => {
 	let contents;
@@ -80,13 +80,13 @@ describe('Scroller', () => {
 
 	describe('Scrollbar accessibility', () => {
 		test(
-			'should set "aria-label" to previous scroll button in the horizontal scroll bar',
+			'should set a custom "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
 				const label = 'custom button aria label';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollLeftAriaLabel={label}
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -94,20 +94,20 @@ describe('Scroller', () => {
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(2).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
 		test(
-			'should set "aria-label" to next scroll button in the horizontal scroll bar',
+			'should set a custom "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
 				const label = 'custom button aria label';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
-						scrollRightAriaLabel={label}
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
 					>
 						{contents}
@@ -115,72 +115,52 @@ describe('Scroller', () => {
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(3).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
 		test(
-			'should set "aria-label" to previous scroll button in the vertical scroll bar',
+			'should set a null string "aria-label" to the scroll thumb in the horizontal scroll bar',
 			() => {
-				const label = 'custom button aria label';
+				const label = '';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
+						horizontalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
-						scrollUpAriaLabel={label}
 					>
 						{contents}
 					</Scroller>
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(1).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
 
 		test(
-			'should set "aria-label" to next scroll button in the vertical scroll bar',
+			'should set a null string "aria-label" to the scroll thumb in the vertical scroll bar',
 			() => {
-				const label = 'custom button aria label';
+				const label = '';
 				const subject = mount(
 					<Scroller
 						horizontalScrollbar="visible"
+						verticalScrollThumbAriaLabel={label}
 						verticalScrollbar="visible"
-						scrollDownAriaLabel={label}
 					>
 						{contents}
 					</Scroller>
 				);
 
 				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
+				const actual = subject.find('ScrollbarTrack').at(0).prop('aria-label');
 
 				expect(actual).toBe(expected);
 			}
 		);
-	});
-
-	describe('ScrollerBase API', () => {
-		test('should call onUpdate when Scroller updates', () => {
-			const handleUpdate = jest.fn();
-			const subject = shallow(
-				<ScrollerBase
-					onUpdate={handleUpdate}
-				>
-					{contents}
-				</ScrollerBase>
-			);
-
-			subject.setProps({children: ''});
-
-			const expected = 1;
-			const actual = handleUpdate.mock.calls.length;
-
-			expect(expected).toBe(actual);
-		});
 	});
 });

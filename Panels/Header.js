@@ -1,52 +1,62 @@
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import {forward, forProp, handle, not, adaptEvent} from '@enact/core/handle';
 import kind from '@enact/core/kind';
-import React from 'react';
-import PropTypes from 'prop-types';
 import {isRtlText} from '@enact/i18n/util';
-import {Layout, Cell} from '@enact/ui/Layout';
+import {getDirection, Spotlight} from '@enact/spotlight';
+import {getLastPointerPosition, hasPointerMoved} from '@enact/spotlight/src/pointer';
+import {getTargetByDirectionFromPosition} from '@enact/spotlight/src/target';
+import {Row, Cell} from '@enact/ui/Layout';
+import {useMeasurable} from '@enact/ui/Measurable';
+import {unit} from '@enact/ui/resolution';
 import Slottable from '@enact/ui/Slottable';
-import ComponentOverride from '@enact/ui/ComponentOverride';
+import Toggleable from '@enact/ui/Toggleable';
+import ViewManager, {shape} from '@enact/ui/ViewManager';
+import PropTypes from 'prop-types';
+import compose from 'ramda/src/compose';
+import React from 'react';
 
-import {MarqueeDecorator, MarqueeBase} from '../Marquee';
-import Skinnable from '../Skinnable';
+import $L from '../internal/$L';
+import Button from '../Button';
+import Heading from '../Heading';
+import WindowEventable from '../internal/WindowEventable';
 
-import css from './Header.module.less';
+import {PanelsStateContext} from '../internal/Panels';
+import {useContextAsDefaults} from '../internal/Panels/util';
 
-// Extract the spacing class to override the title Marquee instance
-const marqueeCss = {
-	spacing: css.spacing
-};
+import componentCss from './Header.module.less';
 
-const TitleMarquee = (props) => {
-	return (
-		<MarqueeBase {...props} css={marqueeCss} />
-	);
-};
+const isBackButton = ({target: node}) => node && node.classList.contains(componentCss.back);
+const isNewPointerPosition = ({clientX, clientY}) => hasPointerMoved(clientX, clientY);
+const forwardHideBack = adaptEvent(() => ({type: 'onHideBack'}), forward('onHideBack'));
+const forwardShowBack = adaptEvent(() => ({type: 'onShowBack'}), forward('onShowBack'));
 
-// Create a <h1> and Marquee component
-const MarqueeH1 = MarqueeDecorator({component: TitleMarquee}, 'h1');
-const MarqueeH2 = MarqueeDecorator('h2');
+const hasChildren = (children) => (React.Children.toArray(children).filter(Boolean).length > 0);
 
-const CompactTitleBase = kind({
-	name: 'CompactTitle',
-	styles: {
-		css,
-		className: 'compactTitle'
+// Hides the back button when 5-way navigation when in pointer mode and the target would not be the
+// back button.
+const handleWindowKeyPress = handle(
+	Spotlight.getPointerMode,
+	forProp('backButtonAvailable', true),
+	({keyCode}) => {
+		const current = Spotlight.getCurrent();
+		const target = getTargetByDirectionFromPosition(getDirection(keyCode), getLastPointerPosition());
+
+		// when in pointer mode and back button is visible but focused, if 5-way would blur the back
+		// button, it should hide the back button.
+		if (isBackButton({target: current})) {
+			return target && target !== current;
+		}
+
+		// when in pointer mode and back button is visible but not focused, if 5-way would not focus
+		// the back button, it should hide the back button
+		return !isBackButton({target});
 	},
-	render: (props) => {
-		delete props.title;			// eslint-disable-line enact/prop-types
-		delete props.titleBelow;	// eslint-disable-line enact/prop-types
-
-		return (
-			<div {...props} />
-		);
-	}
-});
-
-// Marquee decorated container with title and titleBelow as invalidateProps
-const CompactTitle = MarqueeDecorator({invalidateProps: ['title', 'titleBelow']}, CompactTitleBase);
+	forwardHideBack
+);
 
 /**
- * A header component for a Panel with a `title`, `titleBelow`, and `subTitleBelow`
+ * A header component for a Panel with a `title` and `subtitle`, supporting several configurable
+ * [`slots`]{@link ui/Slottable.Slottable} for components.
  *
  * @class Header
  * @memberof sandstone/Panels
@@ -56,13 +66,57 @@ const CompactTitle = MarqueeDecorator({invalidateProps: ['title', 'titleBelow']}
 const HeaderBase = kind({
 	name: 'Header',
 
+
 	propTypes: /** @lends sandstone/Panels.Header.prototype */ {
 		/**
-		 * Centers the `title`, `titleBelow`, and `subTitleBelow`.
+		 * The animation arranger used to transition title and subtitle changes.
 		 *
-		 * This setting has no effect on the `type="compact"` header.
+		 * Only supported when `type="wizard"`.
+		 *
+		 * @type {ui/ViewManager.Arranger}
+		 * @private
+		 */
+		arranger: shape,
+
+		/**
+		 * Sets the hint string read when focusing the back button.
+		 *
+		 * @type {String}
+		 * @default 'go to previous'
+		 * @public
+		 */
+		backButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Informs Header that the back button as allowed to be shown.
+		 *
+		 * This does not represent whether it is showing, just whether it can or not.
+		 *
+		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
+		 * be set to `true` when being hovered.
 		 *
 		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		backButtonAvailable: PropTypes.bool,
+
+		/**
+		 * Background opacity of the application back button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'transparent'
+		 * @public
+		 */
+		backButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Centers the contents of the Header.
+		 *
+		 * This setting does not affect `slotBefore` or `slotAfter`.
+		 *
+		 * @type {Boolean}
+		 * @default false
 		 * @public
 		 */
 		centered: PropTypes.bool,
@@ -80,45 +134,56 @@ const HeaderBase = kind({
 		]),
 
 		/**
-		 * Indents then content and removes separator lines.
+		 * Hint string read when focusing the application close button.
+		 *
+		 * @type {String}
+		 * @default 'Exit app'
+		 * @public
+		 */
+		closeButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Background opacity of the application close button.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'transparent'
+		 * @public
+		 */
+		closeButtonBackgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Customizes the component by mapping the supplied collection of CSS class names to the
+		 * corresponding internal elements and states of this component.
+		 *
+		 * The following classes are supported:
+		 *
+		 * * `header` - The root class name
+		 *
+		 * @type {Object}
+		 * @public
+		 */
+		css: PropTypes.object,
+
+		/**
+		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
+		 * be set automatically to `true` on render and `false` after animating into view.
 		 *
 		 * @type {Boolean}
 		 * @default false
-		 * @public
+		 * @private
 		 */
-		fullBleed: PropTypes.bool,
+		entering: PropTypes.bool,
 
 		/**
-		 * [`Input`]{@link sandstone/Input} element that will replace the `title`.
+		 * Sets the "hover" state.
 		 *
-		 * This is also a [slot]{@link ui/Slottable.Slottable}, so it can be referred
-		 * to as if it were JSX.
-		 *
-		 * Note: Only applies to `type="standard"` headers.
-		 *
-		 * Example
-		 * ```
-		 *  <Header>
-		 *  	<title>Example Header Title</title>
-		 *  	<headerInput>
-		 *  		<Input dismissOnEnter />
-		 *  	</headerInput>
-		 *  	<titleBelow>The Adventure Continues</titleBelow>
-		 *  	<subTitleBelow>The rebels face attack by imperial forces on the ice planet</subTitleBelow>
-		 *  </Header>
-		 * ```
-		 *
-		 * @type {Node}
-		 */
-		headerInput: PropTypes.node,
-
-		/**
-		 * Hides the horizontal-rule (line) under the component
+		 * This is linked to displaying the "back" button.
 		 *
 		 * @type {Boolean}
-		 * @public
+		 * @default false
+		 * @private
 		 */
-		hideLine: PropTypes.bool,
+		hover: PropTypes.bool,
 
 		/**
 		 * Determines what triggers the header content to start its animation.
@@ -130,14 +195,158 @@ const HeaderBase = kind({
 		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
 
 		/**
-		 * Sub-title displayed at the bottom of the panel.
+		 * Omits the back button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noBackButton: PropTypes.bool,
+
+		/**
+		 * Omits the close button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @public
+		 */
+		noCloseButton: PropTypes.bool,
+
+		/**
+		 * Called with cancel/back key events.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onBack: PropTypes.func,
+
+		/**
+		 * Called when the app close button is clicked.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onClose: PropTypes.func,
+
+		/**
+		 * Called when the user leaves the header to hide the back button.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onHideBack: PropTypes.func,
+
+		/**
+		 * Called when the user enters the header to show the back button.
+		 *
+		 * @type {Function}
+		 * @public
+		 */
+		onShowBack: PropTypes.func,
+
+		/**
+		 * A location for arbitrary elements to be placed above the title
 		 *
 		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
 		 * this component.
 		 *
-		 * @type {String}
+		 * ```
+		 * <Header>
+		 * 	<slotAbove><Button /></slotAbove>
+		 * 	<title>My Title</title>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
 		 */
-		subTitleBelow: PropTypes.string,
+		slotAbove: PropTypes.node,
+
+		/**
+		 * A location for arbitrary elements to be placed to the right the title in LTR locales and
+		 * to the left in RTL locales
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * ```
+		 * <Header>
+		 * 	<title>My Title</title>
+		 * 	<slotAfter><Button /></slotAfter>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node,
+
+		/**
+		 * The method which receives the reference node to the slotAfter element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotAfterRef: EnactPropTypes.ref,
+
+		/**
+		 * A location for arbitrary elements to be placed to the left the title in LTR locales and
+		 * to the right in RTL locales
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * ```
+		 * <Header>
+		 * 	<slotBefore><Button /></slotBefore>
+		 * 	<title>My Title</title>
+		 * </Header>
+		 * ```
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node,
+
+		/**
+		 * The method which receives the reference node to the slotBefore element, used to determine
+		 * the `slotSize`.
+		 *
+		 * @type {Function|Object}
+		 * @private
+		 */
+		slotBeforeRef: EnactPropTypes.ref,
+
+		/**
+		 * The size for slotBefore and slotAfter.
+		 * This size is set by HeaderMeasurementDecorator for consistent title centering.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		slotSize: PropTypes.string,
+
+		/**
+		 * Text displayed below the title.
+		 *
+		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
+		 * this component.
+		 *
+		 * @type {String|String[]}
+		 */
+		subtitle: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string)
+		]),
+
+		/**
+		 * Subtitle id of the header.
+		 *
+		 * @type {String}
+		 * @private
+		 */
+		subtitleId: PropTypes.string,
 
 		/**
 		 * Title of the header.
@@ -149,133 +358,279 @@ const HeaderBase = kind({
 		 * ```
 		 *  <Header>
 		 *  	<title>Example Header Title</title>
-		 *  	<titleBelow>The Adventure Continues</titleBelow>
-		 *  	<subTitleBelow>The rebels face attack by imperial forces on the ice planet</subTitleBelow>
+		 *  	<subtitle>The Adventure Continues</subtitle>
 		 *  </Header>
 		 * ```
 		 *
-		 * @type {String}
+		 * @type {String|String[]}
 		 */
-		title: PropTypes.string,
+		title: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.arrayOf(PropTypes.string)
+		]),
 
 		/**
-		 * Text displayed below the title.
-		 *
-		 * This is a [`slot`]{@link ui/Slottable.Slottable}, so it can be used as a tag-name inside
-		 * this component.
+		 * Title id of the header.
 		 *
 		 * @type {String}
+		 * @private
 		 */
-		titleBelow: PropTypes.string,
+		titleId: PropTypes.string,
 
 		/**
 		 * Set the type of header to be used.
 		 *
-		 * @type {('compact'|'dense'|'standard')}
+		 * @type {('compact'|'mini'|'standard'|'wizard')}
 		 * @default 'standard'
 		 */
-		type: PropTypes.oneOf(['compact', 'dense', 'standard'])
+		type: PropTypes.oneOf(['standard', 'compact', 'wizard', 'mini'])
 	},
 
 	defaultProps: {
-		fullBleed: false,
 		marqueeOn: 'render',
-		// titleAbove: '00',
 		type: 'standard'
 	},
 
 	styles: {
-		css,
-		className: 'header'
+		css: componentCss,
+		className: 'header',
+		publicClassNames: ['header']
+	},
+
+	handlers: {
+		onBlur: handle(
+			isBackButton,
+			not(Spotlight.getPointerMode),
+			forwardHideBack
+		),
+		onMouseEnter: handle(
+			forward('onMouseEnter'),
+			Spotlight.getPointerMode,
+			forwardShowBack
+		),
+		onMouseLeave: handle(
+			forward('onMouseLeave'),
+			Spotlight.getPointerMode,
+			forwardHideBack
+		),
+		onMouseMove: handle(
+			forward('onMouseMove'),
+			isNewPointerPosition,
+			forwardShowBack
+		)
 	},
 
 	computed: {
-		className: ({centered, fullBleed, hideLine, type, styler}) => styler.append({centered, fullBleed, hideLine}, type),
-		direction: ({title, titleBelow}) => isRtlText(title) || isRtlText(titleBelow) ? 'rtl' : 'ltr',
-		titleBelowComponent: ({centered, marqueeOn, titleBelow, type}) => {
-			switch (type) {
-				case 'compact':
-					return titleBelow ? <h2 className={css.titleBelow}>{titleBelow}</h2> : null;
-				case 'dense':
-				case 'standard':
-					return <MarqueeH2 className={css.titleBelow} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>{(titleBelow != null && titleBelow !== '') ? titleBelow : ' '}</MarqueeH2>;
-			}
-		},
-		subTitleBelowComponent: ({centered, marqueeOn, subTitleBelow}) => {
-			return <MarqueeH2 className={css.subTitleBelow} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>{(subTitleBelow != null && subTitleBelow !== '') ? subTitleBelow : ' '}</MarqueeH2>;
-		},
-		titleOrInput: ({centered, headerInput, marqueeOn, title, type}) => {
-			if (headerInput && type === 'standard') {
+		className: ({backButtonAvailable, hover, noBackButton, entering, centered, children, type, styler}) => styler.append(
+			{
+				centered,
+				// This likely doesn't need to be as verbose as it is, with the first 2 conditionals
+				showBack: (backButtonAvailable && !noBackButton && (hover || entering)),
+				withChildren: hasChildren(children)
+			},
+			type
+		),
+		titleCell: ({arranger, centered, css, marqueeOn, subtitle, subtitleId, title, titleId, type}) => {
+			const direction = isRtlText(title) || isRtlText(subtitle) ? 'rtl' : 'ltr';
+
+			const titleHeading = (
+				<Heading
+					id={titleId}
+					size="title"
+					spacing="auto"
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.title}
+				>
+					{title}
+				</Heading>
+			);
+
+			const subtitleHeading = (
+				<Heading
+					id={subtitleId}
+					size="subtitle"
+					spacing="auto"
+					marqueeDisabled={type === 'wizard'}
+					marqueeOn={marqueeOn}
+					forceDirection={direction}
+					alignment={centered ? 'center' : null}
+					className={css.subtitle}
+				>
+					{subtitle}
+				</Heading>
+			);
+
+			// WizardPanels uses an animated title but that isn't supported for other types
+			if (arranger && type === 'wizard') {
 				return (
-					<Cell className={css.headerInput}>
-						<ComponentOverride
-							component={headerInput}
-							css={css}
-							size="large"
-						/>
+					<Cell className={css.titleCell} component={ViewManager} arranger={arranger} duration={500} index={0}>
+						<div className={css.titleContainer} key={title + subtitle}>
+							{titleHeading}
+							{subtitleHeading}
+						</div>
 					</Cell>
 				);
-			} else {
-				return (
-					<Cell>
-						<MarqueeH1 className={css.title} marqueeOn={marqueeOn} alignment={centered ? 'center' : null}>
-							{title}
-						</MarqueeH1>
-					</Cell>
-				);
 			}
+
+			return (
+				<Cell className={css.titleCell}>
+					{titleHeading}
+					{subtitleHeading}
+				</Cell>
+			);
 		}
 	},
 
-	render: ({children, direction, marqueeOn, subTitleBelowComponent, title, titleOrInput, /* titleAbove, */titleBelowComponent, type, ...rest}) => {
-		delete rest.centered;
-		delete rest.fullBleed;
-		delete rest.headerInput;
-		delete rest.hideLine;
-		delete rest.subTitleBelow;
-		delete rest.titleBelow;
+	render: ({
+		backButtonAriaLabel,
+		backButtonAvailable,
+		backButtonBackgroundOpacity,
+		centered,
+		children,
+		closeButtonAriaLabel,
+		closeButtonBackgroundOpacity,
+		css,
+		hover,
+		noBackButton,
+		noCloseButton,
+		onBack,
+		onClose,
+		slotAbove,
+		slotAfter,
+		slotAfterRef,
+		slotBefore,
+		slotBeforeRef,
+		slotSize,
+		titleCell,
+		...rest
+	}) => {
+		delete rest.arranger;
+		delete rest.entering;
+		delete rest.marqueeOn;
+		delete rest.onHideBack;
+		delete rest.onShowBack;
+		delete rest.subtitle;
+		delete rest.subtitleId;
+		delete rest.title;
+		delete rest.titleId;
+		delete rest.type;
 
-		switch (type) {
-			case 'compact': return (
-				<Layout component="header" aria-label={title} {...rest} align="end">
-					<Cell component={CompactTitle} title={title} titleBelow={titleBelowComponent} marqueeOn={marqueeOn} forceDirection={direction}>
-						<h1 className={css.title}>{title}</h1>
-						{titleBelowComponent}
+		// Set up the back button
+		const backButton = (backButtonAvailable && !noBackButton ? (
+			<div className={css.backContainer}>
+				<Button
+					aria-label={backButtonAriaLabel == null ? $L('go to previous') : backButtonAriaLabel}
+					backgroundOpacity={backButtonBackgroundOpacity}
+					className={css.back}
+					icon="arrowhookleft"
+					iconFlip="auto"
+					onClick={onBack}
+					size="small"
+					spotlightDisabled={!(backButtonAvailable && !noBackButton && hover)}
+				/>
+			</div>
+		) : null);
+
+		// Set up the close button
+		const closeButton = (!noCloseButton ? (
+			<Button
+				aria-label={closeButtonAriaLabel == null ? $L('Exit app') : closeButtonAriaLabel}
+				backgroundOpacity={closeButtonBackgroundOpacity}
+				className={css.close}
+				icon="closex"
+				onTap={onClose}
+				size="small"
+			/>
+		) : null);
+
+		// Only provide the synced cell size if the title should be centered, beyond that case,
+		// the cell sizes don't need to be synced.
+		const syncCellSize = (centered ? slotSize : null);
+
+		// The side Cells are always present, even if empty, to support the measurement ref.
+		return (
+			<header {...rest}>
+				{slotAbove ? <nav className={css.slotAbove}>{slotAbove}</nav> : null}
+				<Row className={css.titlesRow} align="center">
+					<Cell className={css.slotBefore} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotBeforeRef} className={css.slotSizer}>
+							{backButton}{slotBefore}
+						</span>
 					</Cell>
-					{children ? <Cell shrink component="nav" className={css.headerComponents}>{children}</Cell> : null}
-				</Layout>
-			);
-			// Keeping this block in case we need to add it back after discussing with UX and GUI about future plans.
-			// case 'large': return (
-			// 	<header {...rest}>
-			// 		<div className={css.titleAbove}>{titleAbove}</div>
-			// 		<h1 className={css.title}><Marquee>{title}</Marquee></h1>
-			// 		<h2 className={css.titleBelow}><Marquee>{titleBelow}</Marquee></h2>
-			// 		<h2 className={css.subTitleBelow}><Marquee>{subTitleBelow}</Marquee></h2>
-			// 		<nav className={css.headerComponents}>{children}</nav>
-			// 	</header>
-			// );
-			case 'dense':
-			case 'standard': return (
-				<Layout component="header" aria-label={title} {...rest} orientation="vertical">
-					{titleOrInput}
-					<Cell shrink size={192}>
-						<Layout align="end">
-							<Cell className={css.titlesCell}>
-								{titleBelowComponent}
-								{subTitleBelowComponent}
-							</Cell>
-							{children ? <Cell shrink component="nav" className={css.headerComponents}>{children}</Cell> : null}
-						</Layout>
+					{titleCell}
+					<Cell className={css.slotAfter} shrink={!syncCellSize} size={syncCellSize}>
+						<span ref={slotAfterRef} className={css.slotSizer}>
+							{slotAfter}{closeButton}
+						</span>
 					</Cell>
-				</Layout>
-			);
-		}
+				</Row>
+				{hasChildren(children) ? <nav className={css.slotBelow}>{children}</nav> : null}
+			</header>
+		);
 	}
 });
 
+// Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
+const ContextAsDefaultsHeader = (Wrapped) => {
+	// eslint-disable-next-line no-shadow
+	return function ContextAsDefaultsHeader (props) {
+		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
+		const {index, type: panelsType} = React.useContext(PanelsStateContext);
+
+		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
+
+		return provideContextAsDefaults(
+			<Wrapped
+				{...contextProps}
+				{...props}
+				backButtonAvailable={backButtonAvailable}
+			/>
+		);
+	};
+};
+
+const HeaderMeasurementDecorator = (Wrapped) => {
+	return function HeaderMeasurementDecorator (props) { // eslint-disable-line no-shadow
+		const {ref: slotBeforeRef, measurement: {width: slotBeforeWidth = 0} = {}} = useMeasurable() || {};
+		const {ref: slotAfterRef, measurement: {width: slotAfterWidth = 0} = {}} = useMeasurable() || {};
+		const [{slotSize, prevSlotBeforeWidth, prevSlotAfterWidth}, setSlotSize] = React.useState({});
+
+		// If the slot width has changed, re-run this.
+		if (slotBeforeWidth !== prevSlotBeforeWidth || slotAfterWidth !== prevSlotAfterWidth) {
+			const largestSlotSize = Math.max(slotBeforeWidth, slotAfterWidth);
+
+			// And only do this the largest slot is a different value this time around.
+			if (slotSize !== largestSlotSize) {
+				setSlotSize({
+					slotSize: largestSlotSize,
+					prevSlotBeforeWidth: slotBeforeWidth,
+					prevSlotAfterWidth: slotAfterWidth
+				});
+			}
+		}
+
+		const measurableProps = {
+			slotBeforeRef,
+			slotAfterRef,
+			slotSize: unit(slotSize, 'rem')
+		};
+
+		return <Wrapped {...props} {...measurableProps} />;
+	};
+};
+
+const HeaderDecorator = compose(
+	Slottable({slots: ['title', 'subtitle', 'slotAbove', 'slotAfter', 'slotBefore']}),
+	ContextAsDefaultsHeader,
+	HeaderMeasurementDecorator,
+	Toggleable({prop: 'hover', activate: 'onShowBack', deactivate: 'onHideBack', toggle: null}),
+	WindowEventable({globalNode: 'document', onKeyDown: handleWindowKeyPress})
+);
+
 // Note that we only export this (even as HeaderBase). HeaderBase is not useful on its own.
-const Header = Slottable({slots: ['headerInput', 'subTitleBelow', 'title', 'titleBelow']}, Skinnable(HeaderBase));
+const Header = HeaderDecorator(HeaderBase);
 
 // Set up Header so when it's used in a slottable layout (like Panel), it is automatically
 // recognized as this specific slot.

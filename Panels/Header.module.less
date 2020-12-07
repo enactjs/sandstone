@@ -2,243 +2,215 @@
 //
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 
 .header {
-	.border-box();
-	border-bottom-width: @sand-header-border-bottom-width;
-	border-bottom-style: solid;
 	position: relative;
 	max-width: 100%;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	background-position: top left;
-	margin: 0 @sand-spotlight-outset;
+	.border-box();
 
-	// Remove the built-in h1 and h2 margins
-	.decorator,
-	.decorator .input,
-	.decorator .inputHighlight,
-	.title,
-	.titleBelow,
-	.subTitleBelow {
-		margin: 0;
-	}
+	///
+	/// Begin states of header configuration
+	///
 
-	.decorator .input,
-	.decorator .inputHighlight,
-	.title {
-		.sand-header-text();
-		text-indent: 0.05em;  // Fix for characters like `j` being left-truncated because of being too close to the edge
+	.titlesRow {
+		padding-bottom: @sand-header-subtitle-height;
 
-		.spacing {
-			margin-left: 0.05em;
+		// The following alters .subtitle to be removed from the measurement calculations for so the
+		// title can vertically align with the side buttons (ignoring the dimensions of subtitle).
+		.subtitle {
+			position: absolute;
+			right: 0;
+			left: 0;
+		}
+
+		.back {
+			margin-inline-start: 0;
+
+			.sand-custom-text({
+				.sand-small-button-text();
+				height: @sand-button-small-height;
+				line-height: (@sand-button-small-height - (2 * @sand-button-border-width));
+				min-width: @sand-button-small-height;
+			});
+		}
+
+		.close {
+			margin-inline-end: 0;
 		}
 	}
 
-	.decorator {
-		padding: 0;
-		margin: -2px 3px 0 -3px; // Negative 3px here to allow the decorator title text to horizontally align with the rest of the header text
+	&.wizard {
+		.titlesRow {
+			padding-bottom: (@sand-header-subtitle-height * @sand-header-wizard-subtitle-lines);
+		}
 	}
 
-	.headerComponents {
-		.remove-margin-on-edge-children();
-		.margin-start-end(@sand-header-components-gutter, 0);
-		margin-bottom: 18px;
 
+	.slotBefore,
+	.slotAfter,
+	.slotSizer {
 		white-space: nowrap;
 	}
 
-	&.dense,
-	&.standard,
-	&.compact {
-		.titleBelow,
-		.subTitleBelow {
-			.sand-header-title-below-text();
-		}
+	.slotSizer {
+		display: inline-block;
+	}
 
-		.subTitleBelow {
-			.sand-header-sub-title-below-text();
+	&.centered {
+		.slotAbove,
+		.slotBelow {
+			text-align: center;
 		}
 	}
 
-	// Standard and Dense Header
-	&.dense,
-	&.standard {
-		height: @sand-header-standard-height;
+	.backContainer {
+		display: inline-block;
+		width: 0;
+		opacity: 0;
+		transition: width 400ms ease-in-out, transform 400ms ease-in-out, opacity 200ms ease-out;
+		transform: scale(0.5);
+		transform-origin: center left;
+		will-change: width, transform, opacity;
+	}
 
-		.title {
-			// The height is determined by the line-height below, but we want to maintain that as a
-			// relative unit (`em`) rather than dictate specific pixels to automatically accomodate
-			// font size changes.
-			line-height: @sand-header-standard-title-line-height;
-			margin-left: -3px; // Negative 3px here to allow the title text to horizontally align with the rest of the header text
-
-			.sand-locale-non-latin({line-height: @sand-non-latin-header-standard-title-line-height;});
+	&.showBack {
+		.backContainer {
+			opacity: 1;
+			transform: scale(1);
+			width: @sand-header-back-container-width;
 		}
+	}
 
-		.decorator,
-		.input {
-			height: 100%;
-			width: 100%;
+	///
+	/// Begin child node rules configuration, shared across multiple types
+	///
+
+	.title,
+	.subtitle {
+		margin: 0;
+	}
+
+	.title {
+		will-change: width; // Preparation for the back button transition
+	}
+
+	.slotAbove {
+		margin: @sand-header-slotabove-margin;
+	}
+
+	// Align `slotAfter` contents to the right LTR
+	.slotAfter {
+		text-align: right;
+
+		// Align `slotAfter` contents to the left in RTL
+		.enact-locale-rtl({
+			text-align: left;
+		});
+	}
+
+	.slotBelow {
+		margin: @sand-header-slotbelow-margin;
+	}
+
+	///
+	/// Begin "types" rules configuration
+	///
+
+	// Most types intend for the first and last buttons on the left and right
+	// butt right up against the edge, for alignment with the content.
+	.standard,
+	.compact,
+	.mini {
+		.slotBefore > *:first-child {
+			margin-inline-start: 0;
 		}
-
-		.inputHighlight {
-			max-width: 100%;
+		.slotAfter > *:last-child {
+			margin-inline-end: 0;
 		}
-
 	}
 
 	// Standard Header
 	&.standard {
-		.titlesCell {
-			margin-bottom: 9px;
-		}
-	}
+		margin: @sand-header-standard-margin;
+		padding: @sand-header-standard-padding;
 
-	// Dense Header
-	&.dense {
-		height: @sand-header-dense-height;
-
+		.subtitle,
 		.title {
-			font-size: @sand-header-dense-title-font-size;
-			font-weight: @sand-header-dense-title-font-weight;
+			padding: @sand-header-standard-title-padding;
 		}
 
-		.titlesCell {
-			margin-bottom: 15px;
-		}
-
-		.titleBelow,
-		.subTitleBelow {
-			font-size: @sand-header-dense-title-below-font-size;
+		.subtitle {
+			margin: @sand-header-standard-subtitle-margin;
 		}
 	}
 
 	// Compact Header
 	&.compact {
-		height: @sand-header-compact-height;
+		margin: @sand-header-compact-margin;
+		padding: @sand-header-compact-padding;
 
-		.compactTitle {
-			margin-bottom: 3px;
-		}
-
-		.input,
-		.inputHighlight,
 		.title {
-			font-size: @sand-header-compact-font-size;
-			display: inline;
-
-			.sand-locale-non-latin({line-height:  @sand-non-latin-header-compact-title-line-height;});
+			padding: @sand-header-compact-title-padding;
 		}
 
-		.titleBelow {
-			display: inline;
-			padding-inline-start: 18px;
+		.subtitle {
+			padding: @sand-header-compact-subtitle-padding;
+		}
+
+		.title {
+			.sand-font-size(@sand-header-compact-title-font-size, @sand-non-latin-header-compact-title-font-size);
 		}
 	}
 
-	&.fullBleed {
-		border-top-width: 0;
+	// Wizard Header
+	&.wizard {
+		margin: @sand-header-wizard-margin;
+		padding: @sand-header-wizard-padding;
+
+		.titleContainer {
+			// absolutely position the incoming title
+			&:nth-child(2) {
+				top: 0;
+				position: absolute;
+				width: 100%;
+			}
+		}
+
+		.title {
+			.sand-font-size(@sand-header-wizard-title-font-size, @sand-non-latin-header-wizard-title-font-size);
+			padding: @sand-header-wizard-title-padding;
+		}
+
+		.subtitle {
+			.sand-multi-line-ellipsis(@sand-header-wizard-subtitle-lines);
+			padding: @sand-header-wizard-subtitle-padding;
+		}
+
+		&.centered {
+			.subtitle {
+				text-align: center;
+			}
+		}
 	}
 
-	// Skin colors
-	.applySkins({
-		color: @sand-header-text-color;
-		border-bottom-color: @sand-header-bottom-border-color;
+	// Mini Header
+	&.mini {
+		margin: @sand-header-mini-margin;
+		padding: @sand-header-mini-padding;
 
-		&.hideLine {
-			border-bottom-color: transparent;
+		.titlesRow {
+			padding: 0;
 		}
 
-		&.dense,
-		&.standard {
-			.decorator {
-				background-color: transparent;
-
-				.focus({
-					background-color: transparent;
-					box-shadow: none;
-
-					.input {
-						color: @sand-header-input-focus-text-color;
-					}
-
-					.inputHighlight {
-						opacity: 1;
-					}
-				});
-
-				.input {
-					color: @sand-header-text-color;
-
-					.input-placeholder({
-						color: @sand-header-text-color;
-					});
-				}
-
-				.inputHighlight {
-					background-color: @sand-header-input-focus-background-color;
-				}
-			}
-
-			.titleBelow,
-			.subTitleBelow {
-				color: @sand-header-title-below-text-color;
-			}
+		.titleCell {
+			width: auto;
 		}
 
-		&.fullBleed {
-			border-color: @sand-header-full-bleed-border-color;
-			color: @sand-header-full-bleed-text-color;
-
-			.titleBelow,
-			.subTitleBelow {
-				color: @sand-header-title-below-full-bleed-text-color;
-			}
+		.title {
+			.sand-font-size(@sand-header-mini-title-font-size, @sand-non-latin-header-mini-title-font-size);
 		}
-	});
-}
-
-:global(.sand-panels-hasControls) {
-	.header.compact,
-	.header.dense .title,
-	.header.dense .headerInput,
-	.header.standard .title,
-	.header.standard .headerInput {
-		.padding-start-end(0, var(--sand-panels-controls-width));
-	}
-
-	.header.centered.dense .title,
-	.header.centered.dense .headerInput,
-	.header.centered.standard .title,
-	.header.centered.standard .headerInput {
-		.padding-start-end(var(--sand-panels-controls-width), var(--sand-panels-controls-width));
-	}
-
-	.header.compact {
-		.headerComponents {
-			border-right-width: @sand-header-controls-border-width;
-			border-right-style: solid;
-			.padding-start-end(initial, @sand-header-components-separation);
-
-			:global(.enact-locale-right-to-left) & {
-				border-right-width: 0;
-				border-right-style: none;
-				border-left-width: @sand-header-controls-border-width;
-				border-left-style: solid;
-			}
-		}
-
-		.applySkins({
-			.headerComponents {
-				border-right-color: @sand-header-controls-border-color;
-
-				:global(.enact-locale-right-to-left) & {
-					border-right-color: transparent;
-					border-left-color: @sand-header-controls-border-color;
-				}
-			}
-		});
 	}
 }

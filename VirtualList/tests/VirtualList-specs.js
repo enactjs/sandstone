@@ -110,22 +110,25 @@ describe('VirtualList', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('should render only one scrollbar', () => {
-		const subject = mount(
-			<VirtualList
-				clientSize={clientSize}
-				dataSize={dataSize}
-				direction="horizontal"
-				itemRenderer={renderItem}
-				itemSize={60}
-			/>
-		);
+	test(
+		'should render only one scrollbar',
+		() => {
+			const subject = mount(
+				<VirtualList
+					clientSize={clientSize}
+					dataSize={dataSize}
+					direction="horizontal"
+					itemRenderer={renderItem}
+					itemSize={60}
+				/>
+			);
 
-		const expected = 1;
-		const actual = subject.find('Scrollbar').length;
+			const expected = 1;
+			const actual = subject.find('Scrollbar').length;
 
-		expect(actual).toBe(expected);
-	});
+			expect(actual).toBe(expected);
+		}
+	);
 
 	describe('ScrollTo', () => {
 		test(
@@ -146,6 +149,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStop={onScrollStop}
+						scrollMode="translate"
 					/>
 				);
 
@@ -170,6 +174,7 @@ describe('VirtualList', () => {
 					itemRenderer={renderItem}
 					itemSize={60}
 					onScrollStop={onScrollStop}
+					scrollMode="translate"
 				/>
 			);
 
@@ -192,6 +197,7 @@ describe('VirtualList', () => {
 					itemRenderer={renderItem}
 					itemSize={60}
 					onScrollStop={onScrollStop}
+					scrollMode="translate"
 				/>
 			);
 
@@ -208,6 +214,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStart={handlerOnScrollStart}
+						scrollMode="translate"
 					/>
 				);
 
@@ -228,6 +235,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScroll={handlerOnScroll}
+						scrollMode="translate"
 					/>
 				);
 
@@ -255,6 +263,7 @@ describe('VirtualList', () => {
 						itemRenderer={renderItem}
 						itemSize={60}
 						onScrollStop={onScrollStop}
+						scrollMode="translate"
 					/>
 				);
 
@@ -295,96 +304,6 @@ describe('VirtualList', () => {
 					expect(actual).toBe(expected);
 					done();
 				}, 0);
-			}
-		);
-	});
-
-	describe('Scrollbar accessibility', () => {
-		test(
-			'should set "aria-label" to previous scroll button in the horizontal scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="horizontal"
-						scrollLeftAriaLabel={label}
-						itemRenderer={renderItem}
-						itemSize={60}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test(
-			'should set "aria-label" to next scroll button in the horizontal scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="horizontal"
-						scrollRightAriaLabel={label}
-						itemRenderer={renderItem}
-						itemSize={60}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test(
-			'should set "aria-label" to previous scroll button in the vertical scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="vertical"
-						itemRenderer={renderItem}
-						itemSize={60}
-						scrollUpAriaLabel={label}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(0).prop('aria-label');
-
-				expect(actual).toBe(expected);
-			}
-		);
-
-		test(
-			'should set "aria-label" to next scroll button in the vertical scrollbar',
-			() => {
-				const label = 'custom button aria label';
-				const subject = mount(
-					<VirtualList
-						clientSize={clientSize}
-						dataSize={dataSize}
-						direction="vertical"
-						itemRenderer={renderItem}
-						itemSize={60}
-						scrollDownAriaLabel={label}
-					/>
-				);
-
-				const expected = label;
-				const actual = subject.find('ScrollButton').at(1).prop('aria-label');
-
-				expect(actual).toBe(expected);
 			}
 		);
 	});

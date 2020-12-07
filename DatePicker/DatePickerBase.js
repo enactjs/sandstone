@@ -1,14 +1,12 @@
-import {forKey, forward, handle} from '@enact/core/handle';
 import kind from '@enact/core/kind';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 import $L from '../internal/$L';
 import {DateComponentRangePicker} from '../internal/DateComponentPicker';
-import {ExpandableItemBase} from '../ExpandableItem';
+import DateTime from '../internal/DateTime';
 
 import css from './DatePicker.module.less';
-import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponentPicker.module.less';
 
 /**
  * A date selection component.
@@ -18,7 +16,6 @@ import {dateComponentPickers} from '../internal/DateComponentPicker/DateComponen
  *
  * @class DatePickerBase
  * @memberof sandstone/DatePicker
- * @extends sandstone/ExpandableItem.ExpandableItemBase
  * @ui
  * @public
  */
@@ -78,15 +75,6 @@ const DatePickerBase = kind({
 		order: PropTypes.arrayOf(PropTypes.oneOf(['m', 'd', 'y'])).isRequired,
 
 		/**
-		 * The primary text of the item.
-		 *
-		 * @type {String}
-		 * @required
-		 * @public
-		 */
-		title: PropTypes.string.isRequired,
-
-		/**
 		 * The `year` component of the Date.
 		 *
 		 * @type {Number}
@@ -107,23 +95,29 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the day picker.
 		 *
+		 * If not specified, the "aria-label" for the day picker will be
+		 * a combination of the current value and 'day change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		dayAriaLabel: PropTypes.string,
 
 		/**
-		 * The label displayed below the day picker.
+		 * Disables the `DatePicker`.
 		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
-		 *
-		 * @type {String}
-		 * @default 'day'
+		 * @type {Boolean}
 		 * @public
 		 */
-		dayLabel: PropTypes.string,
+		disabled: PropTypes.bool,
+
+		/**
+		 * The primary text of the `DatePicker`.
+		 *
+		 * @type {String}
+		 * @public
+		 */
+		label: PropTypes.string,
 
 		/**
 		 * The maximum selectable `year` value.
@@ -146,31 +140,13 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the month picker.
 		 *
+		 * If not specified, the "aria-label" for the month picker will be
+		 * a combination of the current value and 'month change a value with up down button'.
+		 *
 		 * @type {String}
-		 * @default 'change a value with up down button'
 		 * @public
 		 */
 		monthAriaLabel: PropTypes.string,
-
-		/**
-		 * The label displayed below the month picker.
-		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
-		 *
-		 * @type {String}
-		 * @default 'month'
-		 * @public
-		 */
-		monthLabel: PropTypes.string,
-
-		/**
-		 * Omits the labels below the pickers.
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		noLabels: PropTypes.bool,
 
 		/**
 		 * Called when the `date` component of the Date changes.
@@ -197,14 +173,6 @@ const DatePickerBase = kind({
 		onChangeYear: PropTypes.func,
 
 		/**
-		 * Called when the user requests the expandable close.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onClose: PropTypes.func,
-
-		/**
 		 * Called when the component is removed when it had focus.
 		 *
 		 * @type {Function}
@@ -214,7 +182,7 @@ const DatePickerBase = kind({
 		onSpotlightDisappear: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way left key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way left key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -223,7 +191,7 @@ const DatePickerBase = kind({
 		onSpotlightLeft: PropTypes.func,
 
 		/**
-		 * Called prior to focus leaving the expandable when the 5-way right key is pressed.
+		 * Called prior to focus leaving the picker when the 5-way right key is pressed.
 		 *
 		 * @type {Function}
 		 * @param {Object} event
@@ -251,28 +219,19 @@ const DatePickerBase = kind({
 		/**
 		 * The "aria-label" for the year picker.
 		 *
-		 * @type {String}
-		 * @default 'change a value with up down button'
-		 * @public
-		 */
-		yearAriaLabel: PropTypes.string,
-
-		/**
-		 * The label displayed below the year picker.
-		 *
-		 * This prop will also be appended to the current value and set as "aria-valuetext" on the
-		 * picker when the value changes.
+		 * If not specified, the "aria-label" for the year picker will be
+		 * a combination of the current value and 'year change a value with up down button'.
 		 *
 		 * @type {String}
-		 * @default 'year'
 		 * @public
 		 */
-		yearLabel: PropTypes.string
+		yearAriaLabel: PropTypes.string
 	},
 
 	defaultProps: {
 		maxYear: 2099,
 		minYear: 1900,
+		disabled: false,
 		spotlightDisabled: false
 	},
 
@@ -281,27 +240,17 @@ const DatePickerBase = kind({
 		className: 'datePicker'
 	},
 
-	handlers: {
-		handlePickerKeyDown: handle(
-			forKey('enter'),
-			forward('onClose')
-		)
-	},
-
 	render: ({
 		'data-webos-voice-disabled': voiceDisabled,
+		disabled,
 		day,
 		dayAriaLabel,
-		dayLabel = $L('day'),
-		handlePickerKeyDown,
 		maxDays,
 		maxMonths,
 		maxYear,
 		minYear,
 		month,
 		monthAriaLabel,
-		monthLabel = $L('month'),
-		noLabels,
 		onChangeDate,
 		onChangeMonth,
 		onChangeYear,
@@ -313,104 +262,106 @@ const DatePickerBase = kind({
 		spotlightDisabled,
 		year,
 		yearAriaLabel,
-		yearLabel = $L('year'),
 		...rest
 	}) => {
+		const
+			dayAccessibilityHint = $L('day'),
+			monthAccessibilityHint = $L('month'),
+			yearAccessibilityHint = $L('year');
 
 		return (
-			<ExpandableItemBase
-				{...rest}
-				showLabel="always"
-				autoClose={false}
-				data-webos-voice-disabled={voiceDisabled}
-				lockBottom={false}
-				onSpotlightDisappear={onSpotlightDisappear}
-				onSpotlightLeft={onSpotlightLeft}
-				onSpotlightRight={onSpotlightRight}
-				spotlightDisabled={spotlightDisabled}
-			>
-				<div className={dateComponentPickers} onKeyDown={handlePickerKeyDown}>
-					{order.map((picker, index) => {
-						const isFirst = index === 0;
-						const isLast = index === order.length - 1;
-						const isLeft = isFirst && !rtl || isLast && rtl;
-						const isRight = isFirst && rtl || isLast && !rtl;
+			<DateTime {...rest}>
+				{order.map((picker, index) => {
+					const isFirst = index === 0;
+					const isLast = index === order.length - 1;
+					const isLeft = isFirst && !rtl || isLast && rtl;
+					const isRight = isFirst && rtl || isLast && !rtl;
 
-						switch (picker) {
-							case 'd':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={dayLabel}
-										aria-label={dayAriaLabel}
-										className={css.day}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={dayLabel}
-										key="day-picker"
-										label={noLabels ? null : dayLabel}
-										max={maxDays}
-										min={1}
-										onChange={onChangeDate}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={day}
-										width={2}
-										wrap
-									/>
-								);
-							case 'm':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={monthLabel}
-										aria-label={monthAriaLabel}
-										className={css.month}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={monthLabel}
-										key="month-picker"
-										label={noLabels ? null : monthLabel}
-										max={maxMonths}
-										min={1}
-										onChange={onChangeMonth}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={month}
-										width={2}
-										wrap
-									/>
-								);
-							case 'y':
-								return (
-									<DateComponentRangePicker
-										accessibilityHint={yearLabel}
-										aria-label={yearAriaLabel}
-										className={css.year}
-										data-webos-voice-disabled={voiceDisabled}
-										data-webos-voice-group-label={yearLabel}
-										key="year-picker"
-										label={noLabels ? null : yearLabel}
-										max={maxYear}
-										min={minYear}
-										onChange={onChangeYear}
-										onSpotlightDisappear={onSpotlightDisappear}
-										onSpotlightLeft={isLeft ? onSpotlightLeft : null}
-										onSpotlightRight={isRight ? onSpotlightRight : null}
-										spotlightDisabled={spotlightDisabled}
-										value={year}
-										width={4}
-									/>
-								);
-						}
-
-						return null;
-					})}
-				</div>
-			</ExpandableItemBase>
+					switch (picker) {
+						case 'd':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={dayAccessibilityHint}
+									aria-label={dayAriaLabel}
+									className={css.day}
+									data-last-element={isLast}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={dayAccessibilityHint}
+									disabled={disabled}
+									key="day-picker"
+									max={maxDays}
+									min={1}
+									onChange={onChangeDate}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={day}
+									width={4}
+									wrap
+								/>
+							);
+						case 'm':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={monthAccessibilityHint}
+									aria-label={monthAriaLabel}
+									className={css.month}
+									data-last-element={isLast}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={monthAccessibilityHint}
+									disabled={disabled}
+									key="month-picker"
+									max={maxMonths}
+									min={1}
+									onChange={onChangeMonth}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={month}
+									width={4}
+									wrap
+								/>
+							);
+						case 'y':
+							return (
+								<DateComponentRangePicker
+									accessibilityHint={yearAccessibilityHint}
+									aria-label={yearAriaLabel}
+									className={css.year}
+									data-last-element={isLast}
+									data-webos-voice-disabled={voiceDisabled}
+									data-webos-voice-group-label={yearAccessibilityHint}
+									disabled={disabled}
+									key="year-picker"
+									max={maxYear}
+									min={minYear}
+									onChange={onChangeYear}
+									onSpotlightDisappear={onSpotlightDisappear}
+									onSpotlightLeft={isLeft ? onSpotlightLeft : null}
+									onSpotlightRight={isRight ? onSpotlightRight : null}
+									spotlightDisabled={spotlightDisabled}
+									value={year}
+									width={4}
+								/>
+							);
+					}
+					return null;
+				})}
+			</DateTime>
 		);
 	}
 });
+
+/**
+ * Called when `Enter` key down on the last picker
+ *
+ * @name onComplete
+ * @memberof sandstone/DatePicker.DatePickerBase.prototype
+ * @type {Function}
+ * @public
+ */
 
 export default DatePickerBase;
 export {

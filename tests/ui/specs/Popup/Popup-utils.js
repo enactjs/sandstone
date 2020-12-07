@@ -19,15 +19,9 @@ function expectNoneScrimOpen (popup) {
 	expect(popup.isScrimExist).to.be.false();
 }
 
-function expectCloseButton (popup) {
-	expect(popup.isCloseButton).to.be.true();
-	expect(popup.closeSymbol).to.equal('󯿵');
-}
-
 module.exports = {
 	validateTitle,
 	expectClosed,
 	expectOpen,
-	expectNoneScrimOpen,
-	expectCloseButton
+	expectNoneScrimOpen
 };

@@ -5,10 +5,44 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import IconButton from '@enact/sandstone/IconButton';
-import VideoPlayer, {MediaControls, VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import VideoPlayer, {VideoPlayerBase} from '@enact/sandstone/VideoPlayer';
+import {MediaControls} from '@enact/sandstone/MediaPlayer';
+
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
+import {ImageItem} from '@enact/sandstone/ImageItem';
+import ri from '@enact/ui/resolution';
 
 import icons from './icons';
+
+const items = [];
+const size = 20;
+// eslint-disable-next-line enact/prop-types
+const renderItem = ({index, ...rest}) => {
+	const {source} = items[index];
+
+	return (
+		<ImageItem
+			{...rest}
+			src={source}
+		/>
+	);
+};
+
+const updateDataSize = (dataSize) => {
+	items.length = 0;
+
+	for (let i = 0; i < dataSize; i++) {
+		const
+			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
+			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+
+		items.push({source});
+	}
+
+	return dataSize;
+};
+
+updateDataSize(size);
 
 // Set up some defaults for info and knobs
 const prop = {
@@ -27,7 +61,7 @@ const prop = {
 	],
 	videos: {
 		'Sintel': 'http://media.w3.org/2010/05/sintel/trailer.mp4',
-		'Big Buck Bunny': 'http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_480p_h264.mov',
+		'Big Buck Bunny': 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
 		'VideoTest': 'http://media.w3.org/2010/05/video/movie_300.mp4',
 		// Purposefully not a video to demonstrate source error state
 		'Bad Video Source': 'https://github.com/mderrick/react-html5video'
@@ -65,6 +99,7 @@ const prop = {
 		'onSeeking',
 		'onStalled',
 		'onSuspend',
+		'onToggleMore',
 		// 'onTimeUpdate',	// Disabled due to Storybook Actions-reporting having an adverse effect on VideoPlayer performance. Uncomment to view this event.
 		'onVolumeChange',
 		'onWaiting'
@@ -89,6 +124,7 @@ storiesOf('Sandstone', module)
 			const videoTitle = select('source', prop.videoTitles, Config, 'Sintel');
 			const videoSource = prop.videos[videoTitle];
 			const poster = prop.posters[videoTitle];
+
 			return (
 				<div
 					style={{
@@ -116,9 +152,12 @@ storiesOf('Sandstone', module)
 						autoCloseTimeout={number('autoCloseTimeout', Config, 7000)}
 						disabled={boolean('disabled', Config)}
 						feedbackHideDelay={number('feedbackHideDelay', Config, 3000)}
+						initialJumpDelay={number('initialJumpDelay', Config, 400)}
+						jumpDelay={number('jumpDelay', Config, 200)}
 						loop={boolean('loop', Config, true)}
 						miniFeedbackHideDelay={number('miniFeedbackHideDelay', Config, 2000)}
 						muted={boolean('muted', Config, true)}
+						no5WayJump={boolean('no5WayJump', Config)}
 						noAutoPlay={boolean('noAutoPlay', Config)}
 						noAutoShowMediaControls={boolean('noAutoShowMediaControls', Config)}
 						noMediaSliderFeedback={boolean('noMediaSliderFeedback', Config, false)}
@@ -137,33 +176,37 @@ storiesOf('Sandstone', module)
 						<source src={videoSource} type="video/mp4" />
 						<infoComponents>A video about some things happening to and around some characters. Very exciting stuff.</infoComponents>
 						<MediaControls
-							backwardIcon={select('backwardIcon', icons, MediaControlsConfig, 'backward')}
-							forwardIcon={select('forwardIcon', icons, MediaControlsConfig, 'forward')}
-							initialJumpDelay={number('initialJumpDelay', MediaControlsConfig, 400)}
+							actionGuideAriaLabel={text('actionGuideAriaLabel', MediaControlsConfig, 'Press Down Key Using Remote Control')}
+							actionGuideLabel={text('actionGuideLabel', MediaControlsConfig, 'Press Down Button to Scroll')}
 							jumpBackwardIcon={select('jumpBackwardIcon', icons, MediaControlsConfig, 'jumpbackward')}
 							jumpButtonsDisabled={boolean('jumpButtonsDisabled', MediaControlsConfig)}
-							jumpDelay={number('jumpDelay', MediaControlsConfig, 200)}
 							jumpForwardIcon={select('jumpForwardIcon', icons, MediaControlsConfig, 'jumpforward')}
-							moreButtonCloseLabel={text('moreButtonCloseLabel', MediaControlsConfig)}
-							moreButtonColor={select('moreButtonColor', prop.moreButtonColor, MediaControlsConfig, '')}
-							moreButtonDisabled={boolean('moreButtonDisabled', MediaControlsConfig)}
-							moreButtonLabel={text('moreButtonLabel', MediaControlsConfig)}
-							no5WayJump={boolean('no5WayJump', MediaControlsConfig)}
 							noJumpButtons={boolean('noJumpButtons', MediaControlsConfig)}
-							noRateButtons={boolean('noRateButtons', MediaControlsConfig)}
+							rateChangeDisabled={boolean('rateChangeDisabled', MediaControlsConfig)}
+							moreActionDisabled={boolean('moreActionDisabled', MediaControlsConfig)}
 							pauseIcon={select('pauseIcon', icons, MediaControlsConfig, 'pause')}
 							playIcon={select('playIcon', icons, MediaControlsConfig, 'play')}
 							playPauseButtonDisabled={boolean('playPauseButtonDisabled', MediaControlsConfig)}
-							rateButtonsDisabled={boolean('rateButtonsDisabled', MediaControlsConfig)}
 						>
-							<leftComponents>
-								<IconButton backgroundOpacity="translucent" size="large">fullscreen</IconButton>
-							</leftComponents>
-							<rightComponents>
-								<IconButton backgroundOpacity="translucent" size="large">flag</IconButton>
-							</rightComponents>
-							<Button backgroundOpacity="translucent" size="large">Add To Favorites</Button>
-							<IconButton backgroundOpacity="translucent" size="large">star</IconButton>
+							<bottomComponents>
+								<VirtualGridList
+									style={{height: ri.scale(240), marginTop: ri.scale(60)}}
+									horizontalScrollbar={'hidden'}
+									dataSize={size}
+									direction="horizontal"
+									itemSize={{
+										minWidth: ri.scale(320),
+										minHeight: ri.scale(270)
+									}}
+									itemRenderer={renderItem}
+									spacing={ri.scale(12)}
+								/>
+							</bottomComponents>
+							<Button size="small" icon="list" />
+							<Button size="small" icon="playspeed" />
+							<Button size="small" icon="speakercenter" />
+							<Button size="small" icon="miniplayer" />
+							<Button size="small" icon="subtitle" />
 						</MediaControls>
 					</VideoPlayer>
 				</div>

@@ -58,13 +58,13 @@ const SliderBase = kind({
 
 	propTypes: /** @lends sandstone/Slider.SliderBase.prototype */ {
 		/**
-		 * Activates the component when focused so that it may be manipulated via the directional
+		 * Activates the component when selected so that it may be manipulated via the directional
 		 * input keys.
 		 *
 		 * @type {Boolean}
 		 * @public
 		 */
-		activateOnFocus: PropTypes.bool,
+		activateOnSelect: PropTypes.bool,
 
 		/**
 		 * Sets the knob to selected state and allows it to move via 5-way controls.
@@ -86,6 +86,14 @@ const SliderBase = kind({
 		 * @public
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Disables component and does not generate events.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
 
 		/**
 		 * Indicates that the slider has gained focus and if the tooltip is present, it will be
@@ -143,7 +151,7 @@ const SliderBase = kind({
 		 * Called when a key is pressed down while the slider is focused.
 		 *
 		 * When a directional key is pressed down and the knob is active (either by first
-		 * pressing enter or when `activateOnFocus` is enabled), the Slider will increment or
+		 * pressing enter or when `activateOnSelect` is disabled), the Slider will increment or
 		 * decrement the current value and emit an `onChange` event. This default behavior can be
 		 * prevented by calling `preventDefault()` on the event passed to this callback.
 		 *
@@ -155,7 +163,7 @@ const SliderBase = kind({
 		/**
 		 * Called when a key is released while the slider is focused.
 		 *
-		 * When the enter key is released and `activateOnFocus` is not enabled, the slider will be
+		 * When the enter key is released and `activateOnSelect` is enabled, the slider will be
 		 * activated to enable incrementing or decrementing the value via directional keys. This
 		 * default behavior can be prevented by calling `preventDefault()` on the event passed to
 		 * this callback.
@@ -164,6 +172,14 @@ const SliderBase = kind({
 		 * @public
 		 */
 		onKeyUp: PropTypes.func,
+
+		/**
+		 * Displays an anchor at `progressAnchor`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
 
 		/**
 		 * The amount to increment or decrement the value.
@@ -224,7 +240,7 @@ const SliderBase = kind({
 	},
 
 	defaultProps: {
-		activateOnFocus: false,
+		activateOnSelect: false,
 		active: false,
 		disabled: false,
 		max: 100,
@@ -255,16 +271,17 @@ const SliderBase = kind({
 		onKeyUp: handle(
 			forProp('disabled', false),
 			forwardWithPrevent('onKeyUp'),
-			forProp('activateOnFocus', false),
+			forProp('activateOnSelect', true),
 			forKey('enter'),
 			forward('onActivate')
 		)
 	},
 
 	computed: {
-		className: ({activateOnFocus, active, styler}) => styler.append({
-			activateOnFocus,
-			active
+		className: ({activateOnSelect, active, showAnchor, styler}) => styler.append({
+			activateOnSelect,
+			active,
+			showAnchor
 		}),
 		knobStep: validateSteppedOnce(props => props.knobStep, {
 			component: 'Slider',
@@ -278,22 +295,26 @@ const SliderBase = kind({
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
-	render: ({css, focused, tooltip, ...rest}) => {
-		delete rest.activateOnFocus;
+	render: ({css, disabled, focused, tooltip, ...rest}) => {
+		delete rest.activateOnSelect;
 		delete rest.active;
 		delete rest.onActivate;
 		delete rest.knobStep;
+		delete rest.showAnchor;
 
 		return (
 			<UiSlider
 				{...rest}
+				aria-disabled={disabled}
 				css={css}
+				disabled={disabled}
 				progressBarComponent={
 					<ProgressBar css={css} />
 				}
 				tooltipComponent={
 					<ComponentOverride
 						component={tooltip}
+						css={css}
 						visible={focused}
 					/>
 				}
@@ -356,8 +377,7 @@ const Slider = SliderDecorator(SliderBase);
 
 /**
  * A [Tooltip]{@link sandstone/TooltipDecorator.Tooltip} specifically adapted for use with
- * [IncrementSlider]{@link sandstone/IncrementSlider.IncrementSlider},
- * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar}, or
+ * [ProgressBar]{@link sandstone/ProgressBar.ProgressBar} or
  * [Slider]{@link sandstone/Slider.Slider}.
  *
  * @see {@link sandstone/ProgressBar.ProgressBarTooltip}

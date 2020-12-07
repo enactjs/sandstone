@@ -148,9 +148,7 @@ const PickerBase = kind({
 		 *
 		 * Controls whether the buttons are arranged horizontally or vertically around the value.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical')}
 		 * @public
 		 */
 		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
@@ -178,7 +176,7 @@ const PickerBase = kind({
 		 *
 		 * By default, the picker will size according to the longest valid value.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([

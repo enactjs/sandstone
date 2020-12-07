@@ -7,7 +7,7 @@ import Pure from '@enact/ui/internal/Pure';
 import Touchable from '@enact/ui/Touchable';
 
 import Icon from '../../Icon';
-import IconButton from '../../IconButton';
+import Button from '../../Button';
 
 import css from './Picker.module.less';
 
@@ -34,9 +34,10 @@ const JoinedPickerButton = Touchable(JoinedPickerButtonBase);
 const PickerButtonBase = kind({
 	name: 'PickerButton',
 
+	contextType: MarqueeControllerContext,
+
 	propTypes: {
 		disabled: PropTypes.bool,
-		hidden: PropTypes.bool,
 		icon: PropTypes.oneOfType([
 			PropTypes.string,
 			PropTypes.object
@@ -69,15 +70,7 @@ const PickerButtonBase = kind({
 		)
 	},
 
-	computed: {
-		className: ({hidden, styler}) => styler.append({
-			hidden
-		})
-	},
-
 	render: ({disabled, icon, joined, ...rest}) => {
-		delete rest.hidden;
-
 		if (joined) {
 			delete rest.onSpotlightDisappear;
 			delete rest.spotlightDisabled;
@@ -87,21 +80,17 @@ const PickerButtonBase = kind({
 			);
 		} else {
 			return (
-				<IconButton
+				<Button
 					{...rest}
 					backgroundOpacity="transparent"
 					disabled={disabled}
+					icon={icon}
 					size="small"
-				>
-					{icon}
-				</IconButton>
+				/>
 			);
 		}
 	}
 });
-
-// This can be replaced with the kind config contextType when it's supported
-PickerButtonBase.contextType = MarqueeControllerContext;
 
 const PickerButton = Pure(
 	PickerButtonBase

@@ -30,7 +30,7 @@ const OverlayBase = kind({
 	},
 
 	computed: {
-		className: ({bottomControlsVisible, styler}) => styler.append({['high-contrast-scrim']: bottomControlsVisible})
+		className: ({bottomControlsVisible, styler}) => styler.append({['scrim']: bottomControlsVisible})
 	},
 
 	render: (props) => {

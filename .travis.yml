@@ -2,21 +2,27 @@ language: node_js
 node_js:
     - "10"
 sudo: false
-cache:
-  directories:
-    - $(npm config get cache)
+cache: npm
 install:
     - npm config set prefer-offline true
     - npm install -g enactjs/cli#develop
     - npm install -g codecov
+    - git clone --branch=develop --depth 1 https://github.com/enactjs/enact ../enact
+    - pushd ../enact
     - npm install
+    - npm run lerna exec -- --ignore enact-sampler --concurrency 1 -- npm --no-package-lock link
+    - npm run lerna link -- --ignore enact-sampler
+    - popd
+    - rm -fr node_modules/@enact
+    - npm install
+    - enact link
 script:
     - echo -e "\x1b\x5b35;1m*** Starting tests...\x1b\x5b0m"
     - npm test -- --runInBand --coverage
     - codecov
     - echo -e "\x1b\x5b35;1m*** Tests complete\x1b\x5b0m"
     - echo -e "\x1b\x5b35;1m*** Starting eslint...\x1b\x5b0m"
-    - npm run lint -- --max-warnings 0 .
+    - npm run lint -- -- --max-warnings 0 .
     - echo -e "\x1b\x5b35;1m*** eslint complete\x1b\x5b0m"
     - echo -e "\x1b\x5b35;1m*** Starting docs validation...\x1b\x5b0m"
     - npm run validate-docs

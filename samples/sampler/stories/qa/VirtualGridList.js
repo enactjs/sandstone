@@ -2,24 +2,24 @@ import {action} from '@enact/storybook-utils/addons/actions';
 import {boolean, number, select} from '@enact/storybook-utils/addons/knobs';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
 import ri from '@enact/ui/resolution';
-import {ScrollableBase as UiScrollableBase} from '@enact/ui/Scrollable';
-import {VirtualListBase as UiVirtualListBase} from '@enact/ui/VirtualList/VirtualListBase';
+import {VirtualListBasic as UiVirtualListBasic} from '@enact/ui/VirtualList/VirtualListBasic';
 import React from 'react';
 
 import Button from '@enact/sandstone/Button';
-import ContexturePopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ContextualPopupDecorator from '@enact/sandstone/ContextualPopupDecorator';
+import ImageItem from '@enact/sandstone/ImageItem';
 import Item from '@enact/sandstone/Item';
-import {VirtualGridList, VirtualListBase} from '@enact/sandstone/VirtualList';
+import {VirtualGridList} from '@enact/sandstone/VirtualList';
 
 import {storiesOf} from '@storybook/react';
 
-const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBase, UiScrollableBase, VirtualListBase);
+const Config = mergeComponentMetadata('VirtualGridList', UiVirtualListBasic, VirtualGridList);
 
 const
 	defaultDataSize = 1000,
 	prop = {
-		scrollbarOption: ['auto', 'hidden', 'visible']
+		scrollbarOption: ['auto', 'hidden', 'visible'],
+		scrollModeOption: ['native', 'translate']
 	},
 	wrapOption = {
 		false: false,
@@ -32,12 +32,13 @@ const
 		const {text, subText, source} = items[index];
 
 		return (
-			<GridListImageItem
+			<ImageItem
 				{...rest}
-				caption={text}
-				source={source}
-				subCaption={subText}
-			/>
+				label={subText}
+				src={source}
+			>
+				{text}
+			</ImageItem>
 		);
 	};
 
@@ -54,7 +55,7 @@ const updateDataSize = (dataSize) => {
 			text = `Item ${count}`,
 			subText = `SubItem ${count}`,
 			color = Math.floor((Math.random() * (0x1000000 - 0x101010)) + 0x101010).toString(16),
-			source = `http://placehold.it/300x300/${color}/ffffff&text=Image ${i}`;
+			source = `http://placehold.it/600x600/${color}/ffffff&text=Image ${i}`;
 
 		items.push({text, subText, source});
 	}
@@ -69,7 +70,7 @@ for (let i = 0; i < 60; i++) {
 	itemList.push('item' + i);
 }
 
-const ContexturePopupButton = ContexturePopupDecorator(Button);
+const ContextualPopupButton = ContextualPopupDecorator(Button);
 
 let lastIndex = 0;
 
@@ -87,13 +88,18 @@ class MyVirtualList extends React.Component {
 	renderItem = ({index, ...rest}) => {
 		return (
 			/* eslint-disable react/jsx-no-bind */
-			<Item key={index} onClick={() => this.closePopup(index)} {...rest}>{itemList[index]}</Item>
+			<Item
+				{...rest}
+				onClick={() => this.closePopup(index)}
+			>
+				{itemList[index]}
+			</Item>
 		);
 	};
 
 	getScrollTo = (scrollTo) => {
 		this.scrollTo = scrollTo;
-	}
+	};
 
 	render () {
 		let props = {...this.props};
@@ -102,11 +108,13 @@ class MyVirtualList extends React.Component {
 		return (
 			<div {...props} style={{width: ri.scaleToRem(1830), height: ri.scaleToRem(1200)}}>
 				<VirtualGridList
-					dataSize={itemList.length}
-					itemRenderer={this.renderItem}
-					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(120)}}
-					direction="vertical"
 					cbScrollTo={this.getScrollTo}
+					dataSize={itemList.length}
+					direction="vertical"
+					itemRenderer={this.renderItem}
+					itemSize={{minWidth: ri.scale(570), minHeight: ri.scale(156)}}
+					key={select('scrollMode', prop.scrollModeOption, Config)}
+					scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
 				/>
 			</div>
 		);
@@ -125,30 +133,29 @@ class ButtonAndVirtualGridList extends React.Component {
 		return (
 			<MyVirtualList {...rest} closePopup={this.closePopup} />
 		);
-	}
+	};
 
 	openPopup = () => {
 		this.setState({isPopup: true});
-	}
+	};
 
 	closePopup = () => {
 		this.setState({isPopup: false});
-	}
+	};
 
 	render () {
 		return (
 			<div>
-				<ContexturePopupButton
+				<ContextualPopupButton
 					open={this.state.isPopup}
 					popupComponent={this.renderPopup}
 					onClick={this.openPopup}
-					direction="right"
-					showCloseButton
+					direction="right middle"
 					spotlightRestrict="self-only"
 					onClose={this.closePopup}
 				>
 					Focus here
-				</ContexturePopupButton>
+				</ContextualPopupButton>
 			</div>
 		);
 	}
@@ -161,18 +168,20 @@ storiesOf('VirtualGridList', module)
 			<VirtualGridList
 				dataSize={updateDataSize(number('dataSize', Config, defaultDataSize))}
 				direction="horizontal"
-				focusableScrollbar={boolean('focusableScrollbar', Config)}
 				horizontalScrollbar={select('horizontalScrollbar', prop.scrollbarOption, Config)}
 				itemRenderer={renderItem}
 				itemSize={{
-					minWidth: ri.scale(number('minWidth', Config, 360)),
-					minHeight: ri.scale(number('minHeight', Config, 540))
+					minWidth: ri.scale(number('minWidth', Config, 688)),
+					minHeight: ri.scale(number('minHeight', Config, 570))
 				}}
+				key={select('scrollMode', prop.scrollModeOption, Config)}
 				noScrollByWheel={boolean('noScrollByWheel', Config)}
 				onKeyDown={action('onKeyDown')}
 				onScrollStart={action('onScrollStart')}
 				onScrollStop={action('onScrollStop')}
-				spacing={ri.scale(number('spacing', Config, 36))}
+				scrollMode={select('scrollMode', prop.scrollModeOption, Config)}
+				spacing={ri.scale(number('spacing', Config, 0))}
+				style={{paddingBottom: ri.unit(ri.scale(36) + 'px', 'rem')}}
 				spotlightDisabled={boolean('spotlightDisabled', Config, false)}
 				verticalScrollbar={select('verticalScrollbar', prop.scrollbarOption, Config)}
 				wrap={wrapOption[select('wrap', ['false', 'true', '"noAnimation"'], Config)]}

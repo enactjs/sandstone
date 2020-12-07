@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# Editor
+.vscode
+
 # Dependency directory
 node_modules
 
@@ -10,3 +13,10 @@ node_modules
 dist
 build
 bundle.js
+
+# Testing
+errorShots
+coverage
+
+# Mac
+.DS_Store

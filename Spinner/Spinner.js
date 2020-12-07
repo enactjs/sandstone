@@ -108,7 +108,7 @@ const SpinnerBase = kind({
 		 * Customize the size of this component.
 		 *
 		 * Recommended usage is "medium" (default) for standalone and popup scenarios, while "small"
-		 * is best suited for use inside other elements, like {@link sandstone/SlotItem.SlotItem}.
+		 * is best suited for use inside other elements, like {@link sandstone/Item.Item}.
 		 *
 		 * @type {('medium'|'small')}
 		 * @default 'medium'
@@ -166,7 +166,6 @@ const SpinnerBase = kind({
  *
  * @hoc
  * @memberof sandstone/Spinner
- * @ui
  * @private
  */
 const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
@@ -180,12 +179,12 @@ const SpinnerSpotlightDecorator = hoc((config, Wrapped) => {
 			 * It can be either `'screen'`, `'container'`, or `null`. `'screen'` pauses spotlight.
 			 * Changing this property to `'screen'` after creation is not supported.
 			 *
-			 * @type {String}
+			 * @type {('screen'|'container')}
 			 * @default null
 			 * @public
 			 */
 			blockClickOn: PropTypes.oneOf(['screen', 'container', null])
-		}
+		};
 
 		constructor (props) {
 			super(props);

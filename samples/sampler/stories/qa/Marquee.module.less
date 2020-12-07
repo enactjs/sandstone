@@ -1,0 +1,12 @@
+@import "~@enact/sandstone/styles/skin.less";
+
+.spotlight {
+	.applySkins({
+		background-color: transparent;
+		color: @sand-text-color;
+		.focus({
+			background-color: @sand-spotlight-bg-color;
+			color: @sand-spotlight-text-color;
+		});
+	});
+}

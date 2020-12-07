@@ -1,34 +1,127 @@
 // ProgressBar.module.less
 //
-@import '../styles/variables.less';
-@import '../styles/skin.less';
+@import "../styles/mixins.less";
+@import "../styles/variables.less";
+@import "../styles/skin.less";
+
+.radial-bar-styles() {
+	border-color: inherit;
+	border-width: @sand-progressbar-radial-thickness;
+}
 
 .progressBar {
-	height: @sand-progress-bar-height;
-	margin: @sand-spotlight-outset;
+	height: @sand-progressbar-bar-thickness;
+	margin: @sand-progressbar-margin;
+
+	&.showAnchor {
+		&::after {
+			content: "";
+			position: absolute;
+			transform: @sand-translate-center;
+		}
+	}
+
+	.bar {
+		border-radius: @sand-progressbar-bar-border-radius;
+		overflow: hidden;
+	}
+
+	&.horizontal {
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-width;
+				height: @sand-progressbar-anchor-height;
+				top: 50%;
+				left: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+			}
+		}
+	}
 
 	&.vertical {
-		min-height: 240px;
-		width: @sand-progress-bar-height;
+		min-height: @sand-progressbar-vertical-min-height;
+		width: @sand-progressbar-bar-thickness;
+
+		&.showAnchor {
+			&::after {
+				width: @sand-progressbar-anchor-height;
+				height: @sand-progressbar-anchor-width;
+				bottom: ~"calc(var(--ui-progressbar-proportion-anchor) * 100%)";
+				left: 50%;
+				transform: translate(-50%, 50%);
+			}
+		}
+	}
+
+	&.radial {
+		height: @sand-progressbar-radial-size;
+		width: @sand-progressbar-radial-size;
+
+		.bar {
+			.radial-bar-styles();
+			overflow: visible;
+		}
+
+		.fill,
+		.load {
+			.position(-@sand-progressbar-radial-thickness);
+
+			&::before,
+			&::after {
+				.radial-bar-styles();
+			}
+		}
 	}
 
 	// Skin colors
 	.applySkins({
 		.bar {
-			background-color: @sand-progress-bar-bg-color;
+			background-color: @sand-progressbar-bar-bg-color;
 		}
 
 		.fill {
-			background-color: @sand-progress-bar-fill-bg-color;
+			background-color: @sand-progressbar-fill-bg-color;
 		}
 
 		.load {
-			background-color: @sand-progress-bar-loaded-bg-color;
+			background-color: @sand-progressbar-load-bg-color;
+		}
+
+		&.radial {
+			.bar,
+			.fill,
+			.load {
+				background-color: transparent;
+			}
+
+			.bar {
+				border-color: @sand-progressbar-radial-bar-bg-color;
+			}
+
+			.fill {
+				border-color: @sand-progressbar-radial-fill-bg-color;
+			}
+
+			.load {
+				border-color: @sand-progressbar-radial-load-bg-color;
+			}
 		}
 
 		&.highlighted {
 			.fill {
-				background-color: @sand-progress-bar-highlighted-fill-bg-color;
+				background-color: @sand-progressbar-highlighted-fill-bg-color;
+			}
+
+			&.radial {
+				.fill {
+					background-color: transparent;
+					border-color: @sand-progressbar-highlighted-fill-bg-color;
+				}
+			}
+		}
+
+		&.showAnchor {
+			&::after {
+				background-color: @sand-progressbar-bar-bg-color;
 			}
 		}
 	});

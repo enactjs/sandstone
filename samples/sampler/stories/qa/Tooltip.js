@@ -1,19 +1,20 @@
 import kind from '@enact/core/kind';
-import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import BodyText from '@enact/sandstone/BodyText';
+import Button from '@enact/sandstone/Button';
+import Heading from '@enact/sandstone/Heading';
+import Input from '@enact/sandstone/Input';
+import Scroller from '@enact/sandstone/Scroller';
+import TooltipDecorator, {Tooltip, TooltipBase} from '@enact/sandstone/TooltipDecorator';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import Layout, {Cell} from '@enact/ui/Layout';
+import {boolean, number, object, select, text} from '@enact/storybook-utils/addons/knobs';
+import Layout, {Cell, Row} from '@enact/ui/Layout';
 import ri from '@enact/ui/resolution';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
-import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
-import TooltipDecorator from '@enact/sandstone/TooltipDecorator';
-import Input from '@enact/sandstone/Input';
-import IconButton from '@enact/sandstone/IconButton';
-import Scroller from '@enact/sandstone/Scroller';
+import Section from './components/KitchenSinkSection';
 
-const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator);
+const Config = mergeComponentMetadata('TooltipDecorator', TooltipDecorator, Tooltip, TooltipBase);
 const TooltipButton = TooltipDecorator({tooltipDestinationProp: 'decoration'}, Button);
 
 const prop = {
@@ -33,11 +34,20 @@ const prop = {
 		'right middle': 'right middle',
 		'right top': 'right top'
 	},
+	tooltipType: [
+		'balloon',
+		'transparent'
+	],
 	ariaObject: {
 		'aria-hidden': false,
 		'aria-label': 'Tooltip Label',
 		'role': 'alert'
 	}
+};
+
+const inputData = {
+	longText : 'An extremely long Tooltip text to test marquee. It will very useful to test different types of Tooltip.',
+	longerText: 'An app development framework built atop React that’s easy to use, performant and customizable. The goal of Enact is to provide the building blocks for creating robust and maintainable applications.'
 };
 
 class TooltipTest extends React.Component {
@@ -51,7 +61,7 @@ class TooltipTest extends React.Component {
 
 	handleClick = () => {
 		this.setState({showButton: false});
-	}
+	};
 
 	render () {
 		return (
@@ -95,7 +105,7 @@ class ChangeableTooltip extends React.Component {
 		} else {
 			this.setState({text: 'short'});
 		}
-	}
+	};
 
 	handleChangeLeft = ({value}) => {
 		this.setState(prevState => ({
@@ -104,7 +114,7 @@ class ChangeableTooltip extends React.Component {
 				left: value
 			}
 		}));
-	}
+	};
 
 	handleChangeTop = ({value}) => {
 		this.setState(prevState => ({
@@ -113,13 +123,13 @@ class ChangeableTooltip extends React.Component {
 				top: value
 			}
 		}));
-	}
+	};
 
 	render () {
 		const {left, top} = this.state.position;
 		const style = {
 			position: 'absolute',
-			width: ri.unit(780, 'rem'),
+			width: ri.scaleToRem(780),
 			left: '50%',
 			transform: 'translateX(-50%)'
 		};
@@ -133,7 +143,8 @@ class ChangeableTooltip extends React.Component {
 					<Input id="top" size="small" type="number" onChange={this.handleChangeTop} value={top} />
 					<Button onClick={this.changeTooltipText}>Change Text</Button>
 				</div>
-				<IconButton
+				<Button
+					icon="list"
 					tooltipPosition={select('tooltipPosition', prop.tooltipPosition, Config, 'above')}
 					tooltipText={this.state.text}
 					onClick={this.changeTooltipText}
@@ -142,9 +153,7 @@ class ChangeableTooltip extends React.Component {
 						left: parseInt(left || 0),
 						top: parseInt(top || 0)
 					}}
-				>
-					drawer
-				</IconButton>
+				/>
 			</div>
 		);
 	}
@@ -155,21 +164,19 @@ const IconButtonItem = kind({
 	render: ({...rest}) => {
 		return (
 			<div style={{height: 200, border: 'solid 6px yellow'}}>
-				<IconButton
+				<Button
+					icon="plus"
 					size="small"
 					tooltipText="tooltip"
 					{...rest}
-				>
-					plus
-				</IconButton>
-				<IconButton
+				/>
+				<Button
+					icon="plus"
 					style={{marginLeft: '450px'}}
 					size="small"
 					tooltipText="tooltip"
 					{...rest}
-				>
-					plus
-				</IconButton>
+				/>
 			</div>
 		);
 	}
@@ -189,49 +196,46 @@ class TooltipFollow extends React.Component {
 		this.setState((prevState) => {
 			return {widthMinus: prevState.widthMinus - 60};
 		});
-	}
+	};
 
 	handleWidthPlusClick = () => {
 		this.setState((prevState) => {
 			return {widthPlus: prevState.widthPlus + 60};
 		});
-	}
+	};
 
 	handlePositionClick = () => {
 		this.setState((prevState) => {
 			return {left: prevState.left + 60};
 		});
-	}
+	};
 
 	render = () => {
 		return (
 			<Layout orientation="vertical">
 				<Cell shrink>
 					<BodyText>Click icon buttons to resize or move</BodyText>
-					<IconButton
+					<Button
+						icon="minus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handleWidthMinusClick}
 						style={{width: `${this.state.widthMinus}px`}}
-					>
-						minus
-					</IconButton>
-					<IconButton
+					/>
+					<Button
+						icon="plus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handleWidthPlusClick}
 						style={{width: `${this.state.widthPlus}px`}}
-					>
-						plus
-					</IconButton>
-					<IconButton
+					/>
+					<Button
+						icon="plus"
 						size="small"
 						tooltipText="tooltip"
 						onClick={this.handlePositionClick}
 						style={{left: `${this.state.left}px`}}
-					>
-						plus
-					</IconButton>
+					/>
 				</Cell>
 				<Cell component={Scroller}>
 					<IconButtonItem tooltipPosition="above" />
@@ -255,7 +259,7 @@ class TooltipFollow extends React.Component {
 				</Cell>
 			</Layout>
 		);
-	}
+	};
 }
 
 
@@ -399,6 +403,136 @@ storiesOf('Tooltip', module)
 						</Layout>
 					</Cell>
 				</Layout>
+			);
+		}
+	)	.add(
+		'Long tooltip marquees',
+		() => {
+			const disabled = boolean('disabled', Config);
+			const tooltipText = text('tooltipText', Config, inputData.longerText);
+
+			return (
+				<Scroller>
+					<Heading spacing="large" size="large">Default position of &apos;transparent&apos; Tooltip: &apos;below&apos; and &apos;centered&apos; under the activator, depending on the size of the viewport.</Heading>
+					<Heading spacing="large" size="large" showLine>Default position of &apos;balloon&apos; Tooltip: &apos;above&apos; and to the &apos;right&apos; of the activator, depending on the size of the viewport.</Heading>
+
+					<Heading spacing="large" size="large" />
+					<Heading spacing="large" size="large" showLine>Without tooltipRelative</Heading>
+
+					<Row wrap>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+					</Row>
+
+					<Heading spacing="large" size="large" />
+					<Heading spacing="large" size="large" showLine>With tooltipRelative</Heading>
+
+					<Row wrap>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee checked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipMarquee
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Transparent Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="transparent"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Section title="Balloon Tooltip" size="50%">
+							<TooltipButton
+								alt="Marquee unchecked"
+								disabled={disabled}
+								tooltipDelay={500}
+								tooltipRelative
+								tooltipText={tooltipText}
+								tooltipType="balloon"
+								tooltipWidth={1000}
+							>
+								Click me
+							</TooltipButton>
+						</Section>
+						<Heading spacing="large" size="large" showLine />
+					</Row>
+				</Scroller>
 			);
 		}
 	);

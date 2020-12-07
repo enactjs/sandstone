@@ -3,52 +3,206 @@ import {mount} from 'enzyme';
 import Header from '../Header';
 import css from '../Header.module.less';
 
+const tap = (node) => {
+	node.simulate('mousedown');
+	node.simulate('mouseup');
+};
+
 describe('Header Specs', () => {
 
 	test('should render with title text without changing case', () => {
-		let msg = 'cRaZy-cased super Header';
+		const expected = 'cRaZy-cased super Header';
 
-		const header = mount(
-			<Header><title>{msg}</title></Header>
+		const subject = mount(
+			<Header><title>{expected}</title></Header>
 		);
 
-		const expected = msg;
-		const actual = header.find('h1').text();
+		const actual = subject.find('h1').text();
 
 		expect(actual).toBe(expected);
 	});
 
-	test('should have fullBleed class applied', () => {
-		const header = mount(
-			<Header fullBleed>
-				<title>Header</title>
-			</Header>
+	test('should support "wizard" type', () => {
+		const subject = mount(
+			<Header type="wizard"><title>Wizard Header</title></Header>
 		);
 
-		const expected = true;
-		const actual = header.find('header').hasClass(css.fullBleed);
+		const expected = css.wizard;
+		const actual = subject.find(`.${css.header}`).first().prop('className');
 
-		expect(actual).toBe(expected);
+		expect(actual).toContain(expected);
+
 	});
 
-	test('should inject a custom component when headerInput is used', () => {
-		const Input = () => <input />;
+	test('should support "compact" type', () => {
+		const subject = mount(
+			<Header type="compact"><title>Compact Header</title></Header>
+		);
 
-		// This just uses an <input> tag for easy discoverability. It should behave the same way
-		// as a sandstone/Input, the standard here, but that would require importing a diffenent
-		// component than what we're testing here.
-		const header = mount(
+		const expected = css.compact;
+		const actual = subject.find(`.${css.header}`).first().prop('className');
+
+		expect(actual).toContain(expected);
+
+	});
+
+	test('should have centered class applied when the centered prop is true', () => {
+		const subject = mount(
+			<Header centered><title>Centered Header</title></Header>
+		);
+
+		const expected = css.centered;
+		const actual = subject.find(`.${css.header}`).first().prop('className');
+
+		expect(actual).toContain(expected);
+
+	});
+
+	test('should support `slotAbove`', () => {
+		const expected = 'slot above';
+
+		const subject = mount(
 			<Header>
-				<title>Header</title>
-				<headerInput>
-					<Input />
-				</headerInput>
+				<slotAbove>
+					{expected}
+				</slotAbove>
+				<title>Slotted Header</title>
 			</Header>
 		);
+
+		const actual = subject.find(`.${css.slotAbove}`).first().text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should support `slotBefore`', () => {
+		const expected = 'slot before';
+
+		const subject = mount(
+			<Header>
+				<slotBefore>
+					{expected}
+				</slotBefore>
+				<title>Slotted Header</title>
+			</Header>
+		);
+
+		const actual = subject.find(`.${css.slotBefore}`).first().text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should support `slotAfter`', () => {
+		const expected = 'slot after';
+
+		const subject = mount(
+			<Header noCloseButton>
+				<title>Slotted Header</title>
+				<slotAfter>
+					{expected}
+				</slotAfter>
+			</Header>
+		);
+
+		const actual = subject.find(`.${css.slotAfter}`).first().text();
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not render back button', () => {
+		const subject = mount(
+			<Header />
+		);
+
+		const backButton = subject.find(`.${css.slotBefore}`).find('Button');
+		const expected = 0;
+		const actual = backButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should render close button when \'noCloseButton\' is not specified', () => {
+		const subject = mount(
+			<Header />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 1;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should not render close button when \'noCloseButton\' is set to true', () => {
+		const subject = mount(
+			<Header noCloseButton />
+		);
+
+		const closeButton = subject.find(`.${css.slotAfter}`).find('Button');
+		const expected = 0;
+		const actual = closeButton.length;
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should call onClose when close button is clicked', () => {
+		const handleClose = jest.fn();
+		const subject = mount(
+			<Header onClose={handleClose} />
+		);
+
+		tap(subject.find(`.${css.slotAfter}`).find('Button'));
 
 		const expected = 1;
-		const actual = header.find('input');
+		const actual = handleClose.mock.calls.length;
 
-		expect(actual).toHaveLength(expected);
+		expect(actual).toBe(expected);
+	});
+
+	test('should set close button "aria-label" to closeButtonAriaLabel', () => {
+		const label = 'custom close button label';
+		const subject = mount(
+			<Header closeButtonAriaLabel={label} />
+		);
+
+		const expected = label;
+		const actual = subject.find(`.${css.slotAfter}`).find('Button').prop('aria-label');
+
+		expect(actual).toBe(expected);
+	});
+
+	test('should use `ViewManager` for `type="wizard"`', () => {
+		const subject = mount(
+			<Header
+				type="wizard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = {
+			duration: 500,
+			index: 0
+		};
+		const actual = subject.find('ViewManager').props();
+
+		expect(actual).toMatchObject(expected);
+	});
+
+	test('should not use `ViewManager` for other `type` values', () => {
+		const subject = mount(
+			<Header
+				type="standard"
+				arranger={{enter: () => {}, leave: () => {}}}
+				title="title"
+				subtitle="subtitle"
+			/>
+		);
+
+		const expected = 0;
+		const actual = subject.find('ViewManager').length;
+
+		expect(actual).toBe(expected);
 	});
 });

@@ -10,12 +10,6 @@ import $L from '../internal/$L';
 
 import {forwardSpotlightEvents} from './utils';
 
-const useHintOnActive = ({active}) => {
-	return {
-		useHintText: active
-	};
-};
-
 const toggleActive = ({active}) => {
 	return {
 		active: !active
@@ -47,21 +41,22 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 	const {emitSpotlightEvents} = config;
 
 	return class extends React.Component {
-		static displayName = 'SliderBehaviorDecorator'
+		static displayName = 'SliderBehaviorDecorator';
 
 		static propTypes = {
+			activateOnSelect: PropTypes.bool,
 			'aria-valuetext': PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 			max: PropTypes.number,
 			min: PropTypes.number,
 			orientation: PropTypes.string,
 			value: PropTypes.number
-		}
+		};
 
 		static defaultProps = {
 			max: 100,
 			min: 0,
 			orientation: 'horizontal'
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -79,7 +74,7 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 				active: false,
 				dragging: false,
 				focused: false,
-				useHintText: false,
+				useHintText: true,
 				prevValue: props.value
 			};
 		}
@@ -102,18 +97,15 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 			const {'aria-valuetext': ariaValueText, min, orientation, value = min} = this.props;
 			const {useHintText} = this.state;
 
-			const verticalHint = $L('change a value with up down button');
-			const horizontalHint = $L('change a value with left right button');
+			const valueText = (ariaValueText != null) ? ariaValueText : value;
+			const verticalHint = `${valueText} ${$L('change a value with up down button')}`;
+			const horizontalHint = `${valueText} ${$L('change a value with left right button')}`;
 
 			if (useHintText) {
 				return orientation === 'horizontal' ? horizontalHint : verticalHint;
 			}
 
-			if (ariaValueText != null) {
-				return ariaValueText;
-			}
-
-			return value;
+			return valueText;
 		}
 
 		focusSlider () {
@@ -127,12 +119,14 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 		handleActivate () {
 			forward('onActivate', {type: 'onActivate'}, this.props);
 			this.setState(toggleActive);
-			this.setState(useHintOnActive);
 		}
 
 		handleBlur (ev) {
 			forward('onBlur', ev, this.props);
-			this.setState({focused: false});
+			this.setState({
+				focused: false,
+				useHintText: true
+			});
 		}
 
 		handleDragStart () {
@@ -151,6 +145,9 @@ const SliderBehaviorDecorator = hoc(defaultConfig, (config, Wrapped) => {
 
 		handleFocus (ev) {
 			forward('onFocus', ev, this.props);
+			if (!this.props.activateOnSelect) {
+				this.handleActivate();
+			}
 			this.setState({focused: true});
 		}
 

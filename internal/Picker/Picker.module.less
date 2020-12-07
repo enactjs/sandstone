@@ -5,33 +5,70 @@
 @import "../../styles/skin.less";
 
 .picker {
-	display: inline-block;
-	border-radius: @sand-button-small-height;
 	vertical-align: bottom;
 	position: relative;
 	text-align: center;
-	margin-left: @sand-spotlight-outset;
-	margin-right: @sand-spotlight-outset;
+	margin: @sand-picker-margin;
 
 	.sizingPlaceholder,
 	.valueWrapper {
-		.sand-text-base();
-		.sand-locale-non-latin({line-height: @sand-button-small-height;});
+		.sand-text-base(@sand-picker-font-size);
 		max-width: 960px;
+
+		.item {
+			&.numeric {
+				.sand-font-number();
+			}
+		}
 	}
 
 	.sizingPlaceholder {
 		height: 0;
 		visibility: hidden;
+		padding-left: .extract(@sand-picker-item-padding, left)[];
+		padding-right: .extract(@sand-picker-item-padding, right)[];
+		line-height: 0;
 	}
 
 	.valueWrapper {
-		overflow: hidden;
 		margin-left: auto;
 		margin-right: auto;
-		vertical-align: bottom;
-		line-height: @sand-button-small-height;
-		height: @sand-button-small-height;
+		height: @sand-picker-value-height;
+		line-height: @sand-picker-value-height;
+		position: relative;
+
+		.enact-locale-tallglyph({
+			height: @sand-tallglyph-picker-line-height;
+			line-height: @sand-tallglyph-picker-line-height;
+		});
+	}
+
+	.item {
+		padding: @sand-picker-item-padding;
+	}
+
+	// Special rules for small size for a more compact view
+	&.small {
+		.sizingPlaceholder,
+		.item {
+			padding-left: (.extract(@sand-picker-item-padding, left)[] / 2);
+			padding-right: (.extract(@sand-picker-item-padding, right)[] / 2);
+		}
+	}
+
+	.viewManager {
+		overflow: hidden;
+		height: 100%;
+
+		> .item:nth-child(2) {
+			// the second element in the ViewManager should be offset by the container height
+			// so the transition can position two relative views next to each other safely.
+			top: -100%;
+		}
+	}
+
+	.item {
+		position: relative;
 	}
 
 	.incrementer,
@@ -39,7 +76,7 @@
 		cursor: pointer;
 		margin: 0;
 		position: relative;
-		transition: transform 100ms;
+		line-height: 1em; // Set the line height to the font size, whatever the font size is.
 
 		.disabled({
 			cursor: default;
@@ -47,252 +84,189 @@
 	}
 
 	&.horizontal {
-		display: inline-flex;
-
-		:global(.enact-locale-right-to-left) & {
+		.enact-locale-rtl({
 			flex-direction: row-reverse;
-		}
+		});
 
 		.incrementer {
 			order: 3;
-			flex-shrink: 0;
-			margin-left: @sand-spotlight-outset;
 		}
 		.decrementer {
 			order: 1;
-			flex-shrink: 0;
-			margin-right: @sand-spotlight-outset;
 		}
 		.valueWrapper {
 			order: 2;
 		}
 	}
 
+	&.vertical {
+		height: @sand-picker-vertical-height;
+	}
+
 	&.joined {
-		@joined-arrow-transform-resting: scale(0.7);
-		@joined-arrow-transform-focus: scale(0.95);
-		@joined-arrow-transform-active: @joined-arrow-transform-resting;
-
 		&::before {
-			.position(0);
-
 			content: "";
-			display: block;
 			position: absolute;
-			border-width: 0;
-			border-style: solid;
-			border-radius: inherit;
-			pointer-events: none;
+			.position(0);
+		}
+
+		.sizingPlaceholder,
+		.valueWrapper {
+			font-weight: @sand-picker-joined-font-weight;
+		}
+
+		.valueWrapper {
+			height: @sand-picker-joined-value-height;
+			line-height: @sand-picker-joined-value-height;
 		}
 
 		.icon {
-			vertical-align: top;
 			margin: 0;
-			width: @sand-button-small-height;
-			height: @sand-button-small-height;
-			line-height: @sand-button-small-height;
 		}
-
-		.incrementer,
-		.decrementer {
-			will-change: transform;
-			transform: @joined-arrow-transform-resting;
-
-			&.hidden {
-				visibility: hidden;
-			}
-		}
-
-		.focus({
-			.incrementer,
-			.decrementer {
-				transform: @joined-arrow-transform-focus;
-			}
-
-			&.incrementing .incrementer,
-			&.decrementing .decrementer {
-				transform: @joined-arrow-transform-active;
-			}
-
-			.disabled({
-				.incrementer,
-				.decrementer {
-					transform: @joined-arrow-transform-resting;
-				}
-			});
-		});
 
 		&.horizontal {
-			&.incrementing::before {
-				border-right-width: @sand-integer-picker-shadow-width;
+			height: @sand-picker-joined-horizontal-height;
+			padding: @sand-picker-joined-horizontal-padding;
+
+			&::before {
+				border-radius: @sand-picker-joined-horizontal-border-radius;
 			}
-			&.decrementing::before {
-				border-left-width: @sand-integer-picker-shadow-width;
+
+			.sizingPlaceholder,
+			.valueWrapper {
+				font-size: @sand-picker-joined-font-size;
 			}
-			.incrementer,
-			.decrementer {
-				margin: 0;
-				height: @sand-button-small-height;
-				line-height: @sand-button-small-height;
+
+			.valueWrapper {
+				margin-bottom: @sand-picker-joined-horizontal-value-offset;
+			}
+
+			.item {
+				// This "fixes" an issue with horizontal+joined+noAnimation which casuses
+				// a de-focus to happen on click. Here, we turn off pointer events, so that
+				// event can't be fired by item, and he Picker will not become de-focused.
+				pointer-events: none;
+			}
+
+			.indicatorContainer {
+				margin: 0 auto;
+				line-height: 0;
+				white-space: nowrap;
+
+				.indicator {
+					display: inline-block;
+					width: @sand-picker-indicator-width;
+					height: @sand-picker-indicator-height;
+					margin: @sand-picker-indicator-margin;
+					border-radius: @sand-picker-indicator-border-radius;
+					transform: scale(@sand-picker-indicator-inactive-scale);
+					vertical-align: middle;
+					will-change: transform;
+					transition: transform @sand-picker-focus-duration ease-out;
+
+					&.active {
+						transform: scale(@sand-picker-indicator-active-scale);
+					}
+				}
 			}
 		}
 
 		&.vertical {
-			&.incrementing::before {
-				border-top-width: @sand-integer-picker-shadow-width;
-			}
-			&.decrementing::before {
-				border-bottom-width: @sand-integer-picker-shadow-width;
-			}
-			.incrementer,
-			.decrementer {
-				display: block;
+			&::before {
+				border-radius: @sand-picker-joined-vertical-border-radius;
 			}
 		}
 	}
 
 	&.small .valueWrapper {
-		width: (@sand-icon-size + @sand-spotlight-outset*3);
+		width: @sand-picker-small-value-width;
 	}
 	&.medium .valueWrapper {
-		width: 360px;
+		width: @sand-picker-medium-value-width;
 	}
 	&.large .valueWrapper {
-		width: 600px;
-	}
-
-	&.horizontal {
-		&.small,
-		&.medium,
-		&.large {
-			.valueWrapper {
-				position: relative;
-
-				.item {
-					position: absolute;
-					.position(0);
-					transform: translateX(100%);
-				}
-			}
-		}
-	}
-
-	&.vertical .valueWrapper {
-		display: block;
-		position: relative;
-
-		.sizingPlaceholder,
-		.item {
-			margin: 0 @sand-spotlight-outset;
-		}
-
-		.item {
-			position: absolute;
-			.position(0);
-			transform: translateY(100%);
-		}
+		width: @sand-picker-large-value-width;
 	}
 
 	// Skin colors
 	.applySkins({
-		.sizingPlaceholder,
-		.valueWrapper {
-			color: @sand-picker-text-color;
-		}
-
-		.valueWrapper {
-			color: inherit;
-		}
+		color: @sand-picker-text-color;
 
 		&.joined {
 			color: @sand-picker-joined-text-color;
-			background-color: @sand-picker-joined-bg-color;
 
-			&::before {
-				border-color: @sand-picker-joined-fingernail-border-color;
+			&.horizontal {
+				&::before {
+					.sand-spotlight-resting-bg-colors(1);
+					background-color: @sand-picker-joined-horizontal-bg-color;
+				}
+
+				.indicator {
+					background-color: @sand-picker-indicators-inactive-bg-color;
+
+					&.active {
+						background-color: @sand-picker-indicators-active-bg-color;
+					}
+				}
 			}
 
-			.focus({
-				background-color: @sand-picker-joined-focused-bg-color;
-				color: @sand-spotlight-text-color;
-
-				.disabled({
-					color: @sand-spotlight-disabled-text-color;
-				});
-			});
-		}
-	});
-
-	// Large-text mode rules
-	.sand-custom-text({
-		border-radius: @sand-button-small-height-large;
-
-		.sizingPlaceholder,
-		.valueWrapper {
-			font-size: @sand-item-font-size-large;
-		}
-		.valueWrapper {
-			line-height: @sand-button-small-height-large;
-			height: @sand-button-small-height-large;
-		}
-
-		&.joined {
-			&.horizontal {
-				font-size: @sand-item-font-size-large;
-				height: @sand-button-small-height-large;
-				line-height: @sand-button-small-height-large;
+			&.vertical {
+				&::before {
+					.sand-spotlight-resting-bg-colors();
+				}
 
 				.incrementer,
 				.decrementer {
-					&,
-					.icon {
-						height: @sand-button-small-height-large;
-						line-height: @sand-button-small-height-large;
+					color: @sand-picker-joined-incrementer-color;
+				}
+			}
+
+			.focus({
+				.sand-spotlight-focus-text-colors();
+
+				&.horizontal {
+					&::before {
+						.sand-spotlight-focus-bg-colors();
+						background-color: @sand-picker-joined-horizontal-bg-color; // We use the resting colors here and augment the color using a filter so it can be animated smoothly
+						filter+_: saturate(0) brightness(1.89);
 					}
 				}
-			}
-		}
 
-		&.small,
-		&.medium,
-		&.large {
-			&.vertical {
-				.valueWrapper {
-					.sizingPlaceholder,
-					.item {
-						margin: 0 @sand-spotlight-outset;
+				&.vertical {
+					&::before {
+						.sand-spotlight-focus-bg-colors();
 					}
 				}
-			}
-		}
 
-		&.vertical {
-			.valueWrapper {
-				padding: 0 @sand-spotlight-outset;
+				.sand-disabled({
+					color: @sand-picker-joined-focus-disabled-text-color;
 
-				.sizingPlaceholder,
-				.item {
-					margin: 0;
+					&::before {
+						.sand-disabled-focus-bg-colors();
+					}
+
+					.valueWrapper {
+						.sand-disabled-focus-content-colors();
+					}
+
+					.indicator {
+						background-color: @sand-picker-joined-focus-disabled-indicator-bg-color;
+						opacity: @sand-picker-joined-focus-disabled-indicator-opacity;
+
+						&.active {
+							opacity: @sand-picker-joined-focus-disabled-indicator-active-opacity;
+						}
+					}
+				});
+
+				.indicator {
+					background-color: @sand-picker-indicators-inactive-focus-bg-color;
+
+					&.active {
+						background-color: @sand-picker-indicators-active-focus-bg-color;
+					}
 				}
-			}
+			})
 		}
 	});
 }
-
-.muted({
-	.picker {
-		.applySkins({
-			&.joined {
-				.focus({
-					background-color: transparent;
-					color: @sand-picker-text-color;
-
-					.incrementer,
-					.decrementer {
-						transform: scale(0.7);
-					}
-				});
-			}
-		});
-	}
-});

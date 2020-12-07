@@ -2,24 +2,29 @@
  * Date selection components and behaviors.
  *
  * @example
- * <DatePicker
- *   onChange={console.log}
- * 	 title="Select Date"
- * />
+ * <DatePicker onChange={console.log} />
  *
  * @module sandstone/DatePicker
  * @exports DatePicker
  * @exports DatePickerBase
+ * @exports dateToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
 import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import DatePickerBase from './DatePickerBase';
+
+const getLabelFormatter = () => new DateFmt({
+	date: 'dmwy',
+	length: 'full',
+	timezone: 'local',
+	useNative: false
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, props) {
@@ -61,14 +66,7 @@ const dateTimeConfig = {
 		}
 	},
 	i18n: function () {
-		const formatter = new DateFmt({
-			date: 'dmwy',
-			length: 'full',
-			timezone: 'local',
-			useNative: false
-		});
-
-		const order = formatter.getTemplate()
+		const order = getLabelFormatter().getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(/([mdy]+)/ig)
 			.map(s => s[0].toLowerCase());
@@ -93,12 +91,12 @@ const dateTimeConfig = {
 			}).getYears();
 		};
 
-		return {formatter, order, toLocalYear};
+		return {formatter: getLabelFormatter(), order, toLocalYear};
 	}
 };
 
 /**
- * An expand date selection component, ready to use in Sandstone applications.
+ * A date selection component, ready to use in Sandstone applications.
  *
  * `DatePicker` may be used to select the year, month, and day. It uses a standard `Date` object for
  * its `value` which can be shared as the `value` for a
@@ -109,25 +107,17 @@ const dateTimeConfig = {
  * to the component, supply a value to `value` at creation time and update it in response to
  * `onChange` events.
  *
- * `DatePicker` is an expandable component and it maintains its open/closed state by default. The
- * initial state can be supplied using `defaultOpen`. In order to directly control the open/closed
- * state, supply a value for `open` at creation time and update its value in response to
- * `onClose`/`onOpen` events.
- *
  * Usage:
  * ```
  * <DatePicker
  *  defaultValue={selectedDate}
  *  onChange={handleChange}
- *  title="Select Date"
  * />
  * ```
  *
  * @class DatePicker
  * @memberof sandstone/DatePicker
  * @extends sandstone/DatePicker.DatePickerBase
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
  * @omit day
  * @omit maxDays
@@ -148,29 +138,10 @@ const DatePicker = Pure(
 );
 
 /**
- * The initial value used when `open` is not set.
- *
- * @name defaultOpen
- * @type {Boolean}
- * @memberof sandstone/DatePicker.DatePicker.prototype
- * @public
- */
-
-/**
  * The initial value used when `value` is not set.
  *
  * @name defaultValue
  * @type {Date}
- * @memberof sandstone/DatePicker.DatePicker.prototype
- * @public
- */
-
-/**
- * Opens the component to display the date component pickers.
- *
- * @name open
- * @type {Boolean}
- * @default false
  * @memberof sandstone/DatePicker.DatePicker.prototype
  * @public
  */
@@ -184,8 +155,25 @@ const DatePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @function
+ * @memberof sandstone/DatePicker
+ * @param {Date} date `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const dateToLocaleString = (date) => {
+	if (!date) {
+		return null;
+	}
+
+	return getLabelFormatter().format(date);
+};
+
 export default DatePicker;
 export {
 	DatePicker,
-	DatePickerBase
+	DatePickerBase,
+	dateToLocaleString
 };

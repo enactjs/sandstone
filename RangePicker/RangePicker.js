@@ -19,6 +19,8 @@ import React from 'react';
 import {Picker, PickerItem} from '../internal/Picker';
 import {validateRange} from '../internal/validators';
 
+import css from './RangePicker.module.less';
+
 const digits = (num) => {
 	// minor optimization
 	return	num > -10 && num < 10 && 1 ||
@@ -169,7 +171,7 @@ const RangePickerBase = kind({
 		 *
 		 * * Values: `'horizontal'`, `'vertical'`
 		 *
-		 * @type {String}
+		 * @type {'horizontal'|'vertical'}
 		 * @default 'horizontal'
 		 * @public
 		 */
@@ -211,7 +213,7 @@ const RangePickerBase = kind({
 		 *
 		 * By default, the picker will size according to the longest valid value.
 		 *
-		 * @type {String|Number}
+		 * @type {('small'|'medium'|'large'|Number)}
 		 * @public
 		 */
 		width: PropTypes.oneOfType([
@@ -227,6 +229,11 @@ const RangePickerBase = kind({
 		 * @public
 		 */
 		wrap: PropTypes.bool
+	},
+
+	styles: {
+		css,
+		className: 'rangePicker'
 	},
 
 	computed: {
@@ -258,7 +265,7 @@ const RangePickerBase = kind({
 	render: ({label, value, voiceLabel, ...rest}) => {
 		delete rest.padded;
 		return (
-			<Picker {...rest} data-webos-voice-labels-ext={voiceLabel} index={0} value={value} reverse={false}>
+			<Picker {...rest} css={css} data-webos-voice-labels-ext={voiceLabel} index={0} reverse={false} type="number" value={value}>
 				<PickerItem key={value} marqueeDisabled style={{direction: 'ltr'}}>{label}</PickerItem>
 			</Picker>
 		);

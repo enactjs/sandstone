@@ -38,16 +38,31 @@ const ProgressBarBase = kind({
 
 	propTypes: /** @lends sandstone/ProgressBar.ProgressBarBase.prototype */ {
 		/**
+		 * The proportion of the loaded portion of the progress bar.
+		 *
+		 * * Valid values are between `0` and `1`.
+		 *
+		 * @type {Number}
+		 * @default 0
+		 * @public
+		 */
+		backgroundProgress: PropTypes.number,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
 		 * The following classes are supported:
 		 *
 		 * * `progressBar` - The root component class
+		 * * `radial` - Applied when `orientation` is `'radial'`
 		 *
 		 * @type {Object}
 		 * @public
 		 */
+		// `'bar` and `fill'` were intentionally excluded from the above documented
+		// exported classes as they do not appear to provide value to the end-developer, but are
+		// needed by ProgressButton internally for its design guidelines.
 		css: PropTypes.object,
 
 		/**
@@ -59,15 +74,13 @@ const ProgressBarBase = kind({
 		highlighted: PropTypes.bool,
 
 		/**
-		 * Sets the orientation of the slider.
+		 * The orientation of the slider.
 		 *
-		 * * Values: `'horizontal'`, `'vertical'`
-		 *
-		 * @type {String}
+		 * @type {('horizontal'|'vertical'|'radial')}
 		 * @default 'horizontal'
 		 * @public
 		 */
-		orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+		orientation: PropTypes.oneOf(['horizontal', 'vertical', 'radial']),
 
 		/**
 		 * A number between `0` and `1` indicating the proportion of the filled portion of the bar.
@@ -77,6 +90,14 @@ const ProgressBarBase = kind({
 		 * @public
 		 */
 		progress: PropTypes.number,
+
+		/**
+		 * Displays an anchor at `progressAnchor`.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		showAnchor: PropTypes.bool,
 
 		/**
 		 * Enables the built-in tooltip.
@@ -97,7 +118,7 @@ const ProgressBarBase = kind({
 		 * ```
 		 * <ProgressBar
 		 *   tooltip={
-		 *     <ProgressBarTooltip side="after" />
+		 *     <ProgressBarTooltip position="after" />
 		 *   }
 		 * />
 		 * ```
@@ -108,7 +129,7 @@ const ProgressBarBase = kind({
 		 * Usage:
 		 * ```
 		 * <ProgressBar>
-		 *   <ProgressBarTooltip side="after" />
+		 *   <ProgressBarTooltip position="after" />
 		 * </ProgressBar>
 		 * ```
 		 *
@@ -119,23 +140,28 @@ const ProgressBarBase = kind({
 	},
 
 	defaultProps: {
+		backgroundProgress: 0,
 		orientation: 'horizontal',
 		progress: 0
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['progressBar']
+		publicClassNames: ['progressBar', 'radial', 'bar', 'fill']
 	},
 
 	computed: {
-		className: ({highlighted, styler}) => styler.append({highlighted}),
+		className: ({highlighted, showAnchor, styler}) => styler.append({
+			highlighted,
+			showAnchor
+		}),
 		tooltip: ({tooltip}) => tooltip === true ? ProgressBarTooltip : tooltip
 	},
 
 	render: ({css, orientation, progress, tooltip, ...rest}) => {
 		delete rest.tooltip;
 		delete rest.highlighted;
+		delete rest.showAnchor;
 
 		return (
 			<UiProgressBar

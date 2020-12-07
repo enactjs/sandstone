@@ -1,11 +1,13 @@
 {
   "name": "sandstone-sampler",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.6",
   "description": "Component and QA samples for Sandstone",
   "private": true,
   "main": "index.js",
   "scripts": {
-    "bootstrap": "npm i && enact link",
+    "bootstrap": "enact bootstrap",
+    "clean": "enact clean",
+    "cleanall": "enact clean --all",
     "lint": "enact lint --strict",
     "test": "echo \"No test suite\" && exit 0",
     "pack": "build-storybook -c .storybook -o dist",
@@ -17,22 +19,19 @@
   "enact": {
     "theme": "sandstone"
   },
-  "eslintConfig": {
-    "extends": "enact/strict"
-  },
   "dependencies": {
-    "@enact/core": "^3.2.5",
-    "@enact/i18n": "^3.2.5",
+    "@enact/core": "^3.4.9",
+    "@enact/i18n": "^3.4.9",
     "@enact/sandstone": "../../",
-    "@enact/spotlight": "^3.2.5",
-    "@enact/ui": "^3.2.5",
+    "@enact/spotlight": "^3.4.9",
+    "@enact/ui": "^3.4.9",
     "classnames": "^2.2.6",
     "ilib": "^14.4.0",
     "query-string": "^6.7.0",
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "@enact/storybook-utils": "^1.0.0",
+    "@enact/storybook-utils": "^2.0.0",
     "@storybook/addons": "5.3.5",
     "@storybook/react": "5.3.5",
     "@storybook/theming": "5.3.5",

@@ -10,7 +10,7 @@ import Skinnable from '../Skinnable';
 
 import FeedbackContent from './FeedbackContent';
 import states from './FeedbackIcons.js';
-import {secondsToTime} from './util';
+import {secondsToTime} from '../MediaPlayer/';
 
 import css from './FeedbackTooltip.module.less';
 
@@ -30,13 +30,13 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Invoke action to display or hide tooltip.
 		 *
-		 * @type {String}
+		 * @type {('focus'|'blur'|'idle')}
 		 * @default 'idle'
 		 */
 		action: PropTypes.oneOf(['focus', 'blur', 'idle']),
 
 		/**
-		 * Duration of the curent media in seconds
+		 * Duration of the current media in seconds
 		 *
 		 * @type {Number}
 		 * @default 0
@@ -47,7 +47,7 @@ const FeedbackTooltipBase = kind({
 		/**
 		 * Instance of `NumFmt` to format the time
 		 *
-		 * @type {Objct}
+		 * @type {Object}
 		 * @public
 		 */
 		formatter: PropTypes.object,
@@ -56,7 +56,7 @@ const FeedbackTooltipBase = kind({
 		 * If the current `playbackState` allows this component's visibility to be changed,
 		 * this component will be hidden. If not, setting this property will have no effect.
 		 * All `playbackState`s respond to this property except the following:
-		 * `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`.
+		 * `'rewind'`, `'fastForward'`.
 		 *
 		 * @type {Boolean}
 		 * @default false
@@ -83,7 +83,7 @@ const FeedbackTooltipBase = kind({
 
 		/**
 		 * Refers to one of the following possible media playback states.
-		 * `'play'`, `'pause'`, `'rewind'`, `'slowRewind'`, `'fastForward'`, `'slowForward'`,
+		 * `'play'`, `'pause'`, `'rewind'`, `'fastForward'` ,
 		 * `'jumpBackward'`, `'jumpForward'`, `'jumpToStart'`, `'jumpToEnd'`, `'stop'`.
 		 *
 		 * Each state understands where its related icon should be positioned, and whether it should
@@ -91,19 +91,10 @@ const FeedbackTooltipBase = kind({
 		 *
 		 * This string feeds directly into {@link sandstone/FeedbackIcon.FeedbackIcon}.
 		 *
-		 * @type {String}
+		 * @type {('play'|'pause'|'rewind'|'fastForward'|'jumpBackward'|'jumpForward'|'jumpToStart'|'jumpToEnd'|'stop')}
 		 * @public
 		 */
 		playbackState: PropTypes.oneOf(Object.keys(states)),
-
-		/**
-		 * A number between 0 and 1 representing the proportion of the `value` in terms of `min`
-		 * and `max` props of the slider
-		 *
-		 * @type {Boolean}
-		 * @public
-		 */
-		proportion: PropTypes.number,
 
 		/**
 		 * This component will be used instead of the built-in version. The internal thumbnail style
@@ -158,14 +149,20 @@ const FeedbackTooltipBase = kind({
 	},
 
 	computed: {
+		arrowContainerClassName: ({action, styler, thumbnailComponent, thumbnailSrc}) => {
+			return styler.join(
+				'arrowContainer',
+				{hidden: action !== 'focus' || (!thumbnailComponent && !thumbnailSrc)}
+			);
+		},
 		children: ({children, duration, formatter}) => {
 			return secondsToTime(children * duration, formatter);
 		},
-		className: ({hidden, playbackState: s, proportion, thumbnailDeactivated, styler}) => {
+		className: ({hidden, playbackState: s, thumbnailDeactivated, styler, action, thumbnailComponent, thumbnailSrc}) => {
 			return styler.append({
-				afterMidpoint: proportion > 0.5,
 				hidden: hidden && states[s] && states[s].allowHide,
-				thumbnailDeactivated
+				thumbnailDeactivated,
+				shift: action === 'focus' && (thumbnailComponent || thumbnailSrc)
 			});
 		},
 		feedbackVisible: ({action, playbackState}) => {
@@ -177,10 +174,11 @@ const FeedbackTooltipBase = kind({
 					return <ComponentOverride
 						component={thumbnailComponent}
 						className={css.thumbnail}
+						key="thumbnailComponent"
 					/>;
 				} else if (thumbnailSrc) {
 					return (
-						<div className={css.thumbnail}>
+						<div className={css.thumbnail} key="thumbnailComponent">
 							<Image src={thumbnailSrc} className={css.image} />
 						</div>
 					);
@@ -189,28 +187,33 @@ const FeedbackTooltipBase = kind({
 		}
 	},
 
-	render: ({children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
+	render: ({arrowContainerClassName, children, feedbackVisible, playbackState, playbackRate, thumbnailComponent, ...rest}) => {
 		delete rest.action;
 		delete rest.duration;
 		delete rest.formatter;
 		delete rest.hidden;
 		delete rest.orientation;
-		delete rest.proportion;
 		delete rest.thumbnailDeactivated;
 		delete rest.thumbnailSrc;
 		delete rest.visible;
 
 		return (
 			<div {...rest}>
-				{thumbnailComponent}
-				<FeedbackContent
-					className={css.content}
-					feedbackVisible={feedbackVisible}
-					playbackRate={playbackRate}
-					playbackState={playbackState}
-				>
-					{children}
-				</FeedbackContent>
+				<div className={css.alignmentContainer}>
+					{thumbnailComponent}
+					<FeedbackContent
+						className={css.content}
+						feedbackVisible={feedbackVisible}
+						key="feedbackContent"
+						playbackRate={playbackRate}
+						playbackState={playbackState}
+					>
+						{children}
+					</FeedbackContent>
+					<div className={arrowContainerClassName}>
+						<div className={css.arrow} />
+					</div>
+				</div>
 			</div>
 		);
 	}

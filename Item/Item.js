@@ -10,18 +10,75 @@
  * @exports ItemDecorator
  */
 
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import kind from '@enact/core/kind';
 import Spottable from '@enact/spotlight/Spottable';
+import Slottable from '@enact/ui/Slottable';
 import {ItemBase as UiItemBase, ItemDecorator as UiItemDecorator} from '@enact/ui/Item';
+import {Cell, Layout, Row} from '@enact/ui/Layout';
 import Pure from '@enact/ui/internal/Pure';
-import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import {MarqueeDecorator} from '../Marquee';
+import {Marquee, MarqueeController} from '../Marquee';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Item.module.less';
+
+const ItemContent = kind({
+	name: 'ItemContent',
+
+	propTypes: {
+		content: PropTypes.any,
+		css: PropTypes.object,
+		label: PropTypes.any,
+		labelPosition: PropTypes.any
+	},
+
+	styles: {
+		css: componentCss,
+		className: 'itemContent'
+	},
+
+	computed: {
+		className: ({labelPosition, styler}) => styler.append({
+			labelAbove: labelPosition === 'above',
+			labelAfter: labelPosition === 'after',
+			labelBefore: labelPosition === 'before',
+			labelBelow: labelPosition === 'below'
+		}),
+		orientation: ({labelPosition}) => {
+			return (labelPosition === 'above' || labelPosition === 'below') ? 'vertical' : 'horizontal';
+		}
+	},
+
+	// eslint-disable-next-line enact/prop-types
+	render: ({orientation, content, css, label, marqueeOn, styler, ...rest}) => {
+		delete rest.labelPosition;
+
+		if (!label) {
+			return (
+				<Cell {...rest} component={Marquee} className={styler.append(css.content)} marqueeOn={marqueeOn}>
+					{content}
+				</Cell>
+			);
+		} else {
+			return (
+				<Cell {...rest}>
+					<Layout orientation={orientation}>
+						<Cell component={Marquee} className={css.content} marqueeOn={marqueeOn} shrink>
+							{content}
+						</Cell>
+						<Cell component={Marquee} className={css.label} marqueeOn={marqueeOn} shrink>
+							{label}
+						</Cell>
+					</Layout>
+				</Cell>
+			);
+		}
+	}
+});
 
 /**
  * A Sandstone styled item without any behavior.
@@ -37,31 +94,170 @@ const ItemBase = kind({
 
 	propTypes: /** @lends sandstone/Item.ItemBase.prototype */ {
 		/**
+		 * Centers the slots and content.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		centered: PropTypes.bool,
+
+		/**
+		 * Called with a reference to the root component.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
 		 * The following classes are supported:
 		 *
 		 * * `item` - The root class name
+		 * * `slotBefore` - The slot (container) preceding the text of this component
+		 * * `slotAfter` - The slot (container) following the text of this component
+		 * * `selected` - Applied to a `selected` button
 		 *
 		 * @type {Object}
 		 * @public
 		 */
-		css: PropTypes.object
+		css: PropTypes.object,
+
+		/**
+		 * Applies a disabled style and the control becomes non-interactive.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		disabled: PropTypes.bool,
+
+		/**
+		 * Applies inline styling to the item.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		inline: PropTypes.bool,
+
+		/**
+		 * The label to be displayed along with the text.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		label: PropTypes.node,
+
+		/**
+		 * The position of the label relative to the primary content, `children`.
+		 *
+		 * @type {('above'|'after'|'before'|'below')}
+		 * @public
+		 */
+		labelPosition: PropTypes.oneOf(['above', 'after', 'before', 'below']),
+
+		/**
+		 * Determines what triggers the marquee to start its animation.
+		 *
+		 * @type {('focus'|'hover'|'render')}
+		 * @public
+		 */
+		marqueeOn: PropTypes.oneOf(['focus', 'hover', 'render']),
+
+		/**
+		 * Applies a selected style to the component.
+		 *
+		 * @type {Boolean}
+		 * @private
+		 */
+		selected: PropTypes.bool,
+
+		/**
+		 * The size of the item.
+		 *
+		 * @type {('large'|'small')}
+		 * @default 'large'
+		 * @private
+		 */
+		size: PropTypes.oneOf(['large', 'small']),
+
+		/**
+		 * Nodes to be inserted after `children`.
+		 *
+		 * For LTR locales, the nodes are inserted to the right of the primary content. For RTL
+		 * locales, the nodes are inserted to the left. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotAfter: PropTypes.node,
+
+		/**
+		 * Nodes to be inserted before `children` and `label`.
+		 *
+		 * For LTR locales, the nodes are inserted to the left of the primary content. For RTL
+		 * locales, the nodes are inserted to the right. If nothing is specified, nothing, not even
+		 * an empty container, is rendered in this place.
+		 *
+		 * @type {Node}
+		 * @public
+		 */
+		slotBefore: PropTypes.node
+	},
+
+	defaultProps: {
+		labelPosition: 'below',
+		size: 'large'
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: 'item'
+		publicClassNames: ['item', 'bg', 'slotAfter', 'slotBefore', 'selected']
 	},
 
-	render: ({css, ...rest}) => {
+	computed: {
+		className: ({centered, label, selected, size, styler}) => styler.append({centered, selected, hasLabel: label != null}, size),
+		label: ({label}) => (typeof label === 'number' ? label.toString() : label)
+	},
+
+	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
+		delete rest.size;
+
+		const keys = Object.keys(rest);
+		const voiceProps = (!keys.includes('data-webos-voice-label') && !keys.includes('data-webos-voice-labels') && label && typeof label === 'string' && children && children[0] && typeof children[0] === 'string') ? {'data-webos-voice-labels': JSON.stringify([label, children[0]])} : {};
+
 		return (
 			<UiItemBase
 				data-webos-voice-intent="Select"
+				component={Row}
+				align={centered ? 'center center' : 'center'}
+				ref={componentRef}
+				{...voiceProps}
 				{...rest}
+				inline={inline}
 				css={css}
-			/>
+			>
+				<div className={css.bg} />
+				{slotBefore ? (
+					<Cell className={css.slotBefore} shrink>
+						{slotBefore}
+					</Cell>
+				) : null}
+				<ItemContent
+					content={children}
+					label={label}
+					labelPosition={labelPosition}
+					marqueeOn={marqueeOn}
+					shrink={inline}
+				/>
+				{slotAfter ? (
+					<Cell className={css.slotAfter} shrink>
+						{slotAfter}
+					</Cell>
+				) : null}
+			</UiItemBase>
 		);
 	}
 });
@@ -72,17 +268,18 @@ const ItemBase = kind({
  * @class ItemDecorator
  * @hoc
  * @memberof sandstone/Item
+ * @mixes ui/Item.ItemDecorator
+ * @mixes ui/Slottable.Slottable
  * @mixes spotlight/Spottable.Spottable
- * @mixes sandstone/Marquee.MarqueeDecorator
+ * @mixes sandstone/Marquee.MarqueeController
  * @mixes sandstone/Skinnable.Skinnable
- * @ui
  * @public
  */
 const ItemDecorator = compose(
-	Pure,
 	UiItemDecorator,
+	Slottable({slots: ['label', 'slotAfter', 'slotBefore']}),
 	Spottable,
-	MarqueeDecorator({invalidateProps: ['inline', 'autoHide']}),
+	MarqueeController({marqueeOnFocus: true, invalidateProps: ['inline']}),
 	Skinnable
 );
 
@@ -101,7 +298,7 @@ const ItemDecorator = compose(
  * @ui
  * @public
  */
-const Item = ItemDecorator(ItemBase);
+const Item = Pure(ItemDecorator(ItemBase));
 
 export default Item;
 export {

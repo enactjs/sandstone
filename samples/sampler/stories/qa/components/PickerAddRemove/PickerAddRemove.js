@@ -6,7 +6,7 @@ import Input from '@enact/sandstone/Input';
 import Picker from '@enact/sandstone/Picker';
 
 class PickerAddRemove extends React.Component {
-	static displayName = 'PickerAddRemove'
+	static displayName = 'PickerAddRemove';
 
 	static propTypes = {
 		disabled: PropTypes.bool,
@@ -15,7 +15,7 @@ class PickerAddRemove extends React.Component {
 		orientation: PropTypes.string,
 		width: PropTypes.string,
 		wrap: PropTypes.bool
-	}
+	};
 
 	static defaultProps = {
 		disabled: false,
@@ -24,7 +24,7 @@ class PickerAddRemove extends React.Component {
 		orientation: 'horizontal',
 		width: 'medium',
 		wrap: false
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -53,7 +53,7 @@ class PickerAddRemove extends React.Component {
 			inputIndex: inputIndex + 1,
 			inputValue: ''
 		}));
-	}
+	};
 
 	handleRemove = () => {
 		this.setState(({children, inputIndex, value}) => {
@@ -65,11 +65,11 @@ class PickerAddRemove extends React.Component {
 				value: Math.max(value - 1, 0)
 			});
 		});
-	}
+	};
 
 	handleValueUpdate = ({value}) => {
 		this.setState({value});
-	}
+	};
 
 	handleIndexChange = ({value}) => {
 		let index = parseInt(value);
@@ -77,11 +77,11 @@ class PickerAddRemove extends React.Component {
 			index = 0;
 		}
 		this.setState({inputIndex: index});
-	}
+	};
 
 	handleValueChange = ({value}) => {
 		this.setState({inputValue: value});
-	}
+	};
 
 	render () {
 		const pickerChildren = Object.values(this.state.children);

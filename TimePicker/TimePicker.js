@@ -2,11 +2,12 @@
  * Provides a Sandstone-themed time selection component.
  *
  * @example
- * <TimePicker title="Open me" value={new Date()}></TimePicker>
+ * <TimePicker value={new Date()} />
  *
  * @module sandstone/TimePicker
  * @exports TimePicker
  * @exports TimePickerBase
+ * @exports timeToLocaleString
  */
 
 import Pure from '@enact/ui/internal/Pure';
@@ -14,8 +15,7 @@ import DateFactory from 'ilib/lib/DateFactory';
 import DateFmt from 'ilib/lib/DateFmt';
 import LocaleInfo from 'ilib/lib/LocaleInfo';
 
-
-import DateTimeDecorator from '../internal/DateTimeDecorator';
+import {DateTimeDecorator} from '../internal/DateTime';
 import Skinnable from '../Skinnable';
 
 import TimePickerBase from './TimePickerBase';
@@ -71,6 +71,14 @@ const indexOfMeridiem = (time, meridiems) => {
 
 	return -1;
 };
+
+const getLabelFormatter = () => new DateFmt({
+	type: 'time',
+	useNative: false,
+	timezone: 'local',
+	length: 'full',
+	date: 'dmwy'
+});
 
 const dateTimeConfig = {
 	customProps: function (i18n, value, {meridiemLabel}) {
@@ -156,15 +164,6 @@ const dateTimeConfig = {
 		const includeMeridiem = /([khma])(?!\1)/ig;
 		const excludeMeridiem = /([khm])(?!\1)/ig;
 
-		// Label formatter
-		const formatter = new DateFmt({
-			type: 'time',
-			useNative: false,
-			timezone: 'local',
-			length: 'full',
-			date: 'dmwy'
-		});
-
 		// Meridiem localization
 		const merFormatter = new DateFmt({
 			template: 'a',
@@ -181,13 +180,13 @@ const dateTimeConfig = {
 		const meridiemEnabled = clockPref === '12';
 
 		const filter = meridiemEnabled ? includeMeridiem : excludeMeridiem;
-		const order = formatter.getTemplate()
+		const order = getLabelFormatter().getTemplate()
 			.replace(/'.*?'/g, '')
 			.match(filter)
 			.map(s => s[0].toLowerCase());
 
 		return {
-			formatter,
+			formatter: getLabelFormatter(),
 			meridiemEnabled,
 			meridiemLabels,
 			meridiemRanges,
@@ -207,14 +206,8 @@ const dateTimeConfig = {
  * to the component, supply a value to `value` at creation time and update it in response to
  * `onChange` events.
  *
- * It is expandable and it maintains its open/closed state by default. `defaultOpen` can be used to
- * set the initial state. For the direct control of its open/closed state, supply a value for
- * `open` at creation time and update its value in response to `onClose`/`onOpen` events.
- *
  * @class TimePicker
  * @memberof sandstone/TimePicker
- * @mixes ui/Toggleable.Toggleable
- * @mixes ui/RadioDecorator.RadioDecorator
  * @mixes ui/Changeable.Changeable
  * @ui
  * @public
@@ -239,37 +232,6 @@ const TimePicker = Pure(
 );
 
 /**
- * The primary text of the item.
- *
- * @name title
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {String}
- * @required
- * @public
- */
-
-/**
- * Omits the labels below the pickers.
- *
- * @name noLabels
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {Boolean}
- * @public
- */
-
-/**
- * Called when a condition occurs which should cause the expandable to close.
- *
- * @name onClose
- * @memberof sandstone/TimePicker.TimePicker
- * @instance
- * @type {Function}
- * @public
- */
-
-/**
  * The selected date.
  *
  * @name value
@@ -279,5 +241,21 @@ const TimePicker = Pure(
  * @public
  */
 
+/**
+ * Converts a standard `Date` object into a locale-specific string.
+ *
+ * @function
+ * @memberof sandstone/TimePicker
+ * @param {Date} time `Date` to convert
+ * @returns {String?} Converted date or `null` if `date` is invalid
+ */
+const timeToLocaleString = (time) => {
+	if (!time) {
+		return null;
+	}
+
+	return getLabelFormatter().format(time);
+};
+
 export default TimePicker;
-export {TimePicker, TimePickerBase};
+export {TimePicker, TimePickerBase, timeToLocaleString};

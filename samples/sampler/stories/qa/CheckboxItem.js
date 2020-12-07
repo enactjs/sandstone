@@ -1,20 +1,19 @@
 import {boolean, select, text} from '@enact/storybook-utils/addons/knobs';
 import {action} from '@enact/storybook-utils/addons/actions';
 import {mergeComponentMetadata} from '@enact/storybook-utils';
-import UiToggleItem, {ToggleItemBase as UiToggleItemBase} from '@enact/ui/ToggleItem';
 import Group from '@enact/ui/Group';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Item, {ItemBase} from '@enact/sandstone/Item';
-import ToggleItem from '@enact/sandstone/ToggleItem';
 
-const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, UiToggleItemBase, UiToggleItem, ToggleItem, CheckboxItem);
+Group.displayName = 'Group';
+const Config = mergeComponentMetadata('CheckboxItem', ItemBase, Item, CheckboxItem);
 
 const prop = {
 	longText : 'Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong Text',
-	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'],
+	tallText : ['नरेंद्र मोदी', ' ฟิ้  ไั  ஒ  து', 'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ', 'តន្ត្រី'],
 	extraSpaceText : 'This		Text 		has			extra 		space',
 	rtlText: 'هناك حقيقة مثبتة منذ زمن طويل وهي'
 };
@@ -25,7 +24,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -38,7 +36,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -51,7 +48,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -64,7 +60,6 @@ storiesOf('CheckboxItem', module)
 		() => (
 			<CheckboxItem
 				disabled={boolean('disabled', Config, false)}
-				iconPosition={select('iconPosition', ['before', 'after'], Config)}
 				inline={boolean('inline', Config)}
 				onToggle={action('onToggle')}
 			>
@@ -73,13 +68,14 @@ storiesOf('CheckboxItem', module)
 		)
 	)
 	.add(
-		'that is grouped',
+		'grouped',
 		() => (
 			<Group
 				childComponent={CheckboxItem}
 				childSelect="onToggle"
 				itemProps={{
-					inline: boolean('ItemProps-Inline', Group, false)
+					inline: boolean('itemProps-inline', Group, false),
+					disabled: boolean('itemProps-disabled', Group, false)
 				}}
 				select={select('select', ['single', 'radio', 'multiple'], Group, 'multiple')}
 				selectedProp="selected"

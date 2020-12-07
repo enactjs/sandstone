@@ -1,17 +1,22 @@
 {
   "name": "@enact/sandstone",
-  "version": "1.0.0-alpha.1",
+  "version": "1.4.4",
   "description": "Large-screen/TV support library for Enact, containing a variety of UI components.",
   "main": "index.js",
   "scripts": {
-    "bootstrap": "npm link && enact link && cd samples && cd sampler && npm run bootstrap",
+    "bootstrap": "enact bootstrap",
     "clean": "enact clean",
-    "lint": "enact lint --local",
+    "cleanall": "enact clean --all",
+    "lint": "enact lint  --strict",
     "sampler": "npm run --prefix samples/sampler serve",
+    "sampler-qa": "npm run --prefix samples/sampler serve-qa",
     "test": "enact test",
-    "test-ui": "wdio tests/ui/wdio.conf.js",
-    "test-ui-docker": "wdio tests/ui/wdio.docker.conf.js",
-    "test-ui-tv": "wdio tests/ui/wdio.tv.conf.js",
+    "test-ui": "start-tests tests/ui/wdio.conf.js",
+    "test-ui-docker": "start-tests tests/ui/wdio.docker.conf.js",
+    "test-ui-tv": "start-tests tests/ui/wdio.tv.conf.js",
+    "test-ss": "start-tests tests/screenshot/wdio.conf.js",
+    "test-ss-docker": "start-tests tests/screenshot/wdio.docker.conf.js",
+    "test-ss-tv": "start-tests tests/screenshot/wdio.tv.conf.js",
     "test-json": "enact test --json",
     "test-watch": "enact test --watch",
     "transpile": "enact transpile",
@@ -29,13 +34,13 @@
     "screenTypes": "ThemeDecorator/screenTypes.json"
   },
   "eslintConfig": {
-    "extends": "enact/strict"
+    "extends": "enact-proxy/strict"
   },
   "dependencies": {
-    "@enact/core": "^3.2.5",
-    "@enact/i18n": "^3.2.5",
-    "@enact/spotlight": "^3.2.5",
-    "@enact/ui": "^3.2.5",
+    "@enact/core": "^3.4.9",
+    "@enact/i18n": "^3.4.9",
+    "@enact/spotlight": "^3.4.9",
+    "@enact/ui": "^3.4.9",
     "classnames": "^2.2.5",
     "invariant": "^2.2.2",
     "prop-types": "^15.7.2",
@@ -46,12 +51,12 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "ilib": "^14.4.0 || ^14.4.0-webostv1"
+    "ilib": "^14.4.0 || ^14.6.0-webos"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.4.3",
-    "@enact/docs-utils": "^0.1.0",
-    "@enact/ui-test-utils": "^0.1.1",
+    "@enact/docs-utils": "^0.3.3",
+    "@enact/ui-test-utils": "^0.5.3",
+    "eslint-config-enact-proxy": "^1.0.0",
     "ilib": "^14.4.0"
   }
 }

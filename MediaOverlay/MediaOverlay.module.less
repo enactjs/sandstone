@@ -1,3 +1,5 @@
+// MediaOverlay.module.less
+//
 @import "../styles/mixins.less";
 @import "../styles/variables.less";
 @import "../styles/skin.less";
@@ -5,12 +7,23 @@
 .mediaOverlay {
 	display: block;
 	position: relative;
-	padding: @sand-mediaoverlay-spotlight-outset-width;
 	width: @sand-mediaoverlay-width;
 	height: auto;
+	padding: @sand-mediaoverlay-padding;
+
+	.bg {
+		position: absolute;
+		.position(0);
+		border-radius: @sand-mediaoverlay-border-radius;
+	}
+
+	.mediaContainer {
+		position: relative;
+	}
 
 	.media {
 		display: block;
+		position: relative; // it is for z-index;
 		width: 100%;
 		height: 100%;
 		margin: 0;
@@ -23,34 +36,86 @@
 	}
 
 	.textLayout {
-		margin: (@sand-mediaoverlay-spotlight-outset-width * 2);
+		margin: @sand-mediaoverlay-textlayout-margin;
 	}
 
 	.image {
-		margin: @sand-mediaoverlay-spotlight-outset-width;
+		margin: 0;
 		height: auto;
 		width: auto;
 	}
 
 	.text {
+		.sand-font({
+			font-size: @sand-mediaoverlay-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-font-size;
+		line-height: @sand-mediaoverlay-line-height;
 		font-weight: @sand-mediaoverlay-font-weight;
 	}
 
+	.progressBar {
+		position: absolute;
+		.position(auto, 0, 0);
+		margin: @sand-mediaoverlay-progressbar-margin;
+	}
+
+	.captionContainer {
+		> :first-child {
+			margin-top: @sand-mediaoverlay-caption-margin-top;
+		}
+
+		> :last-child {
+			margin-bottom: @sand-mediaoverlay-caption-margin-bottom;
+		}
+    }
+
+	.caption,
+	.subtitle {
+		.sand-font({
+			font-size: @sand-mediaoverlay-caption-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-caption-font-size;
+		line-height: @sand-mediaoverlay-line-height;
+	}
+
+	.title {
+		.sand-font({
+			font-size: @sand-mediaoverlay-title-font-size;
+			line-height: @sand-mediaoverlay-line-height;
+		});
+		font-size: @sand-mediaoverlay-title-font-size;
+		line-height: @sand-mediaoverlay-line-height;
+	}
+
 	.applySkins({
-		.disabled({
-			// The global disabled rule handles the non-focused state, so no rules are necessary here.
+		.bg {
+			.sand-spotlight-resting-bg-colors();
+		}
 
-			.focus({
-				opacity: @sand-disabled-opacity;
+		.caption,
+		.title {
+			color: @sand-mediaoverlay-caption-color;
+		}
 
-				.media,
-				.image,
-				.textLayout {
-					// We're setting the parent's opacity, so we need to "unset" the children,
-					// so they don't get double-set, becoming more transparent than our intent.
-					opacity: 1;
-				}
-			});
+		.subtitle {
+			color: @sand-mediaoverlay-subtitle-color;
+		}
+
+		.focus({
+			.sand-spotlight-focus-text-colors();
+
+			.caption,
+			.title,
+			.subtitle {
+				color: inherit;
+			}
+
+			.bg {
+				.sand-spotlight-focus-bg-colors();
+			}
 		});
 	});
 }

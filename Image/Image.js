@@ -12,7 +12,9 @@
 
 import kind from '@enact/core/kind';
 import hoc from '@enact/core/hoc';
-import UiImage from '@enact/ui/Image';
+import {ImageBase as UiImageBase} from '@enact/ui/Image';
+import EnactPropTypes from '@enact/core/internal/prop-types';
+import ForwardRef from '@enact/ui/ForwardRef';
 import Pure from '@enact/ui/internal/Pure';
 import {selectSrc} from '@enact/ui/resolution';
 import PropTypes from 'prop-types';
@@ -37,6 +39,17 @@ const ImageBase = kind({
 
 	propTypes: /** @lends sandstone/Image.ImageBase.prototype */ {
 		/**
+		 * Called with a reference to the root component.
+		 *
+		 * When using {@link sandstone/Image.Image}, the `ref` prop is forwarded to this component
+		 * as `componentRef`.
+		 *
+		 * @type {Object|Function}
+		 * @public
+		 */
+		componentRef: EnactPropTypes.ref,
+
+		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
 		 * corresponding internal elements and states of this component.
 		 *
@@ -55,19 +68,20 @@ const ImageBase = kind({
 		publicClassNames: ['image']
 	},
 
-	render: ({css, ...rest}) => {
+	render: ({css, componentRef, ...rest}) => {
 		return (
-			<UiImage
-				draggable="false"
-				{...rest}
-				css={css}
-			/>
+			UiImageBase.inline({
+				draggable: 'false',
+				...rest,
+				css,
+				ref: componentRef
+			})
 		);
 	}
 });
 
 
-// This induces a render when there is a screen size change that has a corosponding image src value
+// This induces a render when there is a screen size change that has a corresponding image src value
 // associated with the new screen size. The render is kicked off by remembering the new image src.
 //
 // This hoc could (should) be rewritten at a later time to use a smarter context API and callbacks,
@@ -78,11 +92,11 @@ const ImageBase = kind({
 // another time. -B 2018-05-01
 const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-line no-unused-vars
 	return class extends React.Component {
-		static displayName = 'ResponsiveImageDecorator'
+		static displayName = 'ResponsiveImageDecorator';
 
 		static propTypes = {
 			src: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-		}
+		};
 
 		constructor (props) {
 			super(props);
@@ -109,7 +123,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
 
 				return null;
 			});
-		}
+		};
 
 		render () {
 			return <Wrapped {...this.props} />;
@@ -126,6 +140,7 @@ const ResponsiveImageDecorator = hoc((config, Wrapped) => {	// eslint-disable-li
  * @public
  */
 const ImageDecorator = compose(
+	ForwardRef({prop: 'componentRef'}),
 	Pure,
 	ResponsiveImageDecorator,
 	Skinnable

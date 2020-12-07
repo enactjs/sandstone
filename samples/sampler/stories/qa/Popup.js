@@ -6,7 +6,7 @@ import React from 'react';
 import {storiesOf} from '@storybook/react';
 
 import Button from '@enact/sandstone/Button';
-import Notification from '@enact/sandstone/Notification';
+import Alert from '@enact/sandstone/Alert';
 import Popup from '@enact/sandstone/Popup';
 
 Popup.displayName = 'Popup';
@@ -20,48 +20,15 @@ const PopupFromSelfOnlyContainer = Toggleable(
 			<Container spotlightId="selfOnlyContainer" spotlightRestrict="self-only">
 				<Button onClick={onToggle}>button</Button>
 			</Container>
-			<Notification open={open}>
+			<Alert open={open}>
 				<span>popup</span>
 				<buttons>
 					<Button onClick={onToggle}>button</Button>
 				</buttons>
-			</Notification>
+			</Alert>
 		</div>
 	)
 );
-
-class PopupResumeFocusAfterOpenState extends React.Component {
-	constructor (props) {
-		super(props);
-		this.state = {
-			isPopup: false
-		};
-	}
-
-	handlePopup = () => {
-		this.setState({
-			isPopup: true
-		});
-
-		setTimeout(() => {
-			this.setState({
-				isPopup: false
-			});
-		}, 200);
-	}
-
-	render () {
-		return (
-			<div>
-				<div>Popup will open and dismiss immediately, ensure spotlight still functional.</div>
-				<Button onClick={this.handlePopup}>Open popup</Button>
-				<Popup open={this.state.isPopup}>
-					<Button>close</Button>
-				</Popup>
-			</div>
-		);
-	}
-}
 
 storiesOf('Popup', module)
 	.add(
@@ -80,7 +47,8 @@ storiesOf('Popup', module)
 					noAnimation={boolean('noAnimation', Popup, false)}
 					noAutoDismiss={boolean('noAutoDismiss', Popup, false)}
 					onClose={action('onClose')}
-					showCloseButton={boolean('showCloseButton', Popup, true)}
+					position={select('position', ['bottom', 'center', 'fullscreen', 'left', 'right', 'top'], Popup, 'bottom')}
+					scrimType={select('scrimType', ['none', 'translucent', 'transparent'], Popup, 'translucent')}
 					spotlightRestrict={select('spotlightRestrict', ['self-first', 'self-only'], Popup, 'self-only')}
 				>
 					<div>{text('children', Popup, 'Hello Popup')}</div>
@@ -98,11 +66,5 @@ storiesOf('Popup', module)
 		'from self-only container',
 		() => (
 			<PopupFromSelfOnlyContainer />
-		)
-	)
-	.add(
-		'resume focus after open state',
-		() => (
-			<PopupResumeFocusAfterOpenState />
 		)
 	);

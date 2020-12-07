@@ -30,7 +30,7 @@ class AutoDismissDropdown extends React.Component {
 
 	handleClose = () => {
 		this.setState({open: false});
-	}
+	};
 
 	render () {
 		return (
@@ -47,19 +47,44 @@ class AutoDismissDropdown extends React.Component {
 	}
 }
 
+class DisabledDropdown extends React.Component {
+	constructor (props) {
+		super(props);
+		this.state = {
+			isDisabled: true
+		};
+	}
+
+	handleClick = () => {
+		this.setState({isDisabled: false});
+	};
+
+	render () {
+		return (
+			<div>
+				<Button onClick={this.handleClick}>enable dropdown</Button>
+				<Dropdown title="hello" disabled={this.state.isDisabled} onFocus={this.handleFocus}>
+					{['a', 'b', 'c']}
+				</Dropdown>
+			</div>
+		);
+	}
+}
+
 storiesOf('Dropdown', module)
 	.add(
 		'with 2 options for testing direction',
 		() => (
 			<Dropdown
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
-				title={text('title', Config, 'Dropdown')}
 				style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
+				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 			>
 				{['Option 1', 'Option 2']}
@@ -70,11 +95,12 @@ storiesOf('Dropdown', module)
 		() => (
 			<Dropdown
 				defaultSelected={10}
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
 				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -86,11 +112,12 @@ storiesOf('Dropdown', module)
 		'with long text',
 		() => (
 			<Dropdown
-				direction={select('direction', ['up', 'down'], Config)}
+				direction={select('direction', ['above', 'below'], Config)}
 				disabled={boolean('disabled', Config)}
 				onClose={action('onClose')}
 				onOpen={action('onOpen')}
 				onSelect={action('onSelect')}
+				placeholder={text('placeholder', Config, 'Dropdown')}
 				size={select('size', ['small', 'large'], Config)}
 				title={text('title', Config, 'Dropdown')}
 				width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -103,24 +130,25 @@ storiesOf('Dropdown', module)
 		() => (
 			<div>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
 					title={text('title', Config, 'Dropdown')}
-					style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items(5)}
 				</Dropdown>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
 					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
@@ -134,14 +162,15 @@ storiesOf('Dropdown', module)
 		() => (
 			<div>
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config, 'Dropdown')}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
 					style={{position: 'absolute', top: 'calc(50% - 4rem)'}}
+					title={text('title', Config, 'Dropdown')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{list}
@@ -152,5 +181,10 @@ storiesOf('Dropdown', module)
 		'with auto dismiss',
 		() => (
 			<AutoDismissDropdown />
+		)
+	).add(
+		'with disabled',
+		() => (
+			<DisabledDropdown />
 		)
 	);

@@ -13,7 +13,7 @@ Slider.displayName = 'Slider';
 class SliderList extends React.Component {
 	static propTypes = {
 		itemSize: PropTypes.number
-	}
+	};
 
 	constructor (props) {
 		super(props);
@@ -50,16 +50,16 @@ class SliderList extends React.Component {
 			selectedItems: selected,
 			value: value
 		});
-	}
+	};
 
 	handleChange = (e) => {
 		this.fillItems(e.value);
-	}
+	};
 
 	renderItem = (size) => ({index, ...rest}) => {
 		const itemStyle = {
 			height: size + 'px',
-			borderBottom: ri.unit(6, 'rem') + ' solid #202328',
+			borderBottom: ri.scaleToRem(6) + ' solid #202328',
 			boxSizing: 'border-box'
 		};
 
@@ -68,7 +68,7 @@ class SliderList extends React.Component {
 				{this.items[index].item + ': ' + this.items[index].count}
 			</Item>
 		);
-	}
+	};
 
 	render () {
 		return (
@@ -88,7 +88,7 @@ class SliderList extends React.Component {
 					itemRenderer={this.renderItem(this.props.itemSize)}
 					itemSize={this.props.itemSize}
 					style={{
-						height: ri.unit(1104, 'rem')
+						height: ri.scaleToRem(1104)
 					}}
 				/>
 			</div>

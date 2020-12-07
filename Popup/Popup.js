@@ -11,7 +11,6 @@
 
 import {is} from '@enact/core/keymap';
 import {on, off} from '@enact/core/dispatcher';
-import {Row, Cell} from '@enact/ui/Layout';
 import FloatingLayer from '@enact/ui/FloatingLayer';
 import kind from '@enact/core/kind';
 import React from 'react';
@@ -23,12 +22,13 @@ import Transition from '@enact/ui/Transition';
 import {forward} from '@enact/core/handle';
 import warning from 'warning';
 
-import $L from '../internal/$L';
-import IconButton from '../IconButton';
 import Skinnable from '../Skinnable';
 
 import componentCss from './Popup.module.less';
 
+const isDown = is('down');
+const isLeft = is('left');
+const isRight = is('right');
 const isUp = is('up');
 const TransitionContainer = SpotlightContainerDecorator(
 	{enterTo: 'default-element', preserveId: true},
@@ -41,6 +41,15 @@ const getContainerNode = (containerId) => {
 
 const forwardHide = forward('onHide');
 const forwardShow = forward('onShow');
+
+const transitionDirection = {
+	bottom: 'down',
+	center: 'down',
+	fullscreen: 'down',
+	left: 'left',
+	right: 'right',
+	top: 'up'
+};
 
 /**
  * The base popup component.
@@ -64,13 +73,15 @@ const PopupBase = kind({
 		children: PropTypes.node.isRequired,
 
 		/**
-		 * Sets the hint string read when focusing the popup close button.
+		 * Set the priority with which screen reader should treat updates to live regions for the Popup.
 		 *
-		 * @type {String}
-		 * @default 'Close'
+		 * @type {String|Object}
 		 * @public
 		 */
-		closeButtonAriaLabel: PropTypes.string,
+		'aria-live': PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
 
 		/**
 		 * Customizes the component by mapping the supplied collection of CSS class names to the
@@ -80,13 +91,28 @@ const PopupBase = kind({
 		 *
 		 * * `popup` - The root class name
 		 * * `body` - Applied to the body content container
-		 * * `closeContainer` - Applied to the close button's container
-		 * * `reserveClose` - Applied when the close button is shown and space must be allocated for it
+		 * * `popupTransitionContainer` - Applied to the Popup's outermost container. Sizing can be
+		 *                                applied here for percentage-of-screen values.
+		 * * `top` - Applied when the `position` is 'top'
+		 * * `right` - Applied when the `position` is 'right'
+		 * * `bottom` - Applied when the `position` is 'bottom'
+		 * * `left` - Applied when the `position` is 'left'
 		 *
 		 * @type {Object}
 		 * @private
 		 */
 		css: PropTypes.object,
+
+		/**
+		 * Support accessibility options.
+		 *
+		 * If true, the aria-live and role in Popup are `null`.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		noAlertRole: PropTypes.bool,
 
 		/**
 		 * Disables transition animation.
@@ -96,14 +122,6 @@ const PopupBase = kind({
 		 * @public
 		 */
 		noAnimation: PropTypes.bool,
-
-		/**
-		 * Called when the close button is clicked.
-		 *
-		 * @type {Function}
-		 * @public
-		 */
-		onCloseButtonClick: PropTypes.func,
 
 		/**
 		 * Called after the popup's "hide" transition finishes.
@@ -133,27 +151,24 @@ const PopupBase = kind({
 		open: PropTypes.bool,
 
 		/**
-		 * Shows the close button.
+		 * Position of the Popup on the screen.
 		 *
-		 * @type {Boolean}
-		 * @default false
+		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
+		 * @default 'bottom'
 		 * @public
 		 */
-		showCloseButton: PropTypes.bool,
+		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
 
 		/**
-		 * Tells the body element to shrink to the size of the content.
+		 * The ARIA role for the Popup.
 		 *
-		 * Popup is composed of a [Layout]{@link ui/Layout.Layout} and [Cells]{@link ui/Layout.Cell}.
-		 * This informs the body cell to use the [shrink]{@link ui/Layout.Cell#shrink} property so
-		 * it will match the dimensions of its contents rather than expand to the width of the
-		 * Popup's assigned dimensions.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @private
+		 * @type {String|Object}
+		 * @public
 		 */
-		shrinkBody: PropTypes.bool,
+		role: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.object
+		]),
 
 		/**
 		 * The container id for {@link spotlight/Spotlight}.
@@ -172,7 +187,7 @@ const PopupBase = kind({
 		 * Note: The ready-to-use [Popup]{@link sandstone/Popup.Popup} component only supports
 		 * `'self-first'` and `'self-only'`.
 		 *
-		 * @type {String}
+		 * @type {('none'|'self-first'|'self-only')}
 		 * @default 'self-only'
 		 * @public
 		 */
@@ -180,53 +195,43 @@ const PopupBase = kind({
 	},
 
 	defaultProps: {
+		noAlertRole: false,
 		noAnimation: false,
 		open: false,
-		showCloseButton: false,
-		shrinkBody: false,
+		position: 'bottom',
 		spotlightRestrict: 'self-only'
 	},
 
 	styles: {
 		css: componentCss,
 		className: 'popup',
-		publicClassNames: ['popup', 'body', 'closeContainer', 'reserveClose']
+		publicClassNames: ['popup', 'body', 'popupTransitionContainer', 'top', 'right', 'bottom', 'left']
 	},
 
 	computed: {
-		className: ({showCloseButton, styler}) => styler.append({reserveClose: showCloseButton}),
-		closeButton: ({closeButtonAriaLabel, css, onCloseButtonClick, showCloseButton}) => {
-			if (showCloseButton) {
-				const ariaLabel = (closeButtonAriaLabel == null) ? $L('Close') : closeButtonAriaLabel;
-
-				return (
-					<Cell shrink className={css.closeContainer}>
-						<IconButton
-							className={css.closeButton}
-							backgroundOpacity="transparent"
-							size="small"
-							onTap={onCloseButtonClick}
-							aria-label={ariaLabel}
-						>
-							closex
-						</IconButton>
-					</Cell>
-				);
-			}
-		}
+		// When passing `aria-live` prop to the Popup, the prop should work first.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
+		// Otherwise, `aria-live` will be usually `off`.
+		'aria-live': ({'aria-live': live, noAlertRole}) => ((typeof live !== 'undefined') ? live : (!noAlertRole && 'off' || null)),
+		className: ({position, styler}) => styler.append(position),
+		direction: ({position}) => transitionDirection[position],
+		// When passing `role` prop to the Popup, the prop should work first.
+		// If `noAlertRole` is true, alert role and aria-live will be removed. Contents of the popup won't be read automatically when opened.
+		// Otherwise, `role` will be usually `alert`.
+		role: ({noAlertRole, role}) => ((typeof role !== 'undefined') ? role : (!noAlertRole && 'alert' || null)),
+		transitionContainerClassName: ({css, position, styler}) => styler.join(css.popupTransitionContainer, position)
 	},
 
-	render: ({children, closeButton, css, noAnimation, onHide, onShow, open, shrinkBody, spotlightId, spotlightRestrict, ...rest}) => {
-		delete rest.closeButtonAriaLabel;
-		delete rest.onCloseButtonClick;
-		delete rest.showCloseButton;
+	render: ({children, css, direction, noAnimation, onHide, onShow, open, position, spotlightId, spotlightRestrict, transitionContainerClassName, ...rest}) => {
+		delete rest.noAlertRole;
 
 		return (
 			<TransitionContainer
-				className={css.popupTransitionContainer}
-				direction="down"
+				className={transitionContainerClassName}
+				css={css}
+				direction={direction}
 				duration="short"
-				noAnimation={noAnimation}
+				noAnimation={position === 'fullscreen' ? true : noAnimation}
 				onHide={onHide}
 				onShow={onShow}
 				spotlightDisabled={!open}
@@ -235,23 +240,17 @@ const PopupBase = kind({
 				type="slide"
 				visible={open}
 			>
-				<Row
-					aria-live="off"
-					role="alert"
-					{...rest}
-				>
-					<Cell className={css.body} shrink={shrinkBody}>
+				<div {...rest}>
+					<div className={css.body}>
 						{children}
-					</Cell>
-					{closeButton}
-				</Row>
+					</div>
+				</div>
 			</TransitionContainer>
 		);
 	}
 });
 
 const SkinnedPopupBase = Skinnable(
-	{defaultSkin: 'light'},
 	PopupBase
 );
 
@@ -289,6 +288,15 @@ class Popup extends React.Component {
 		 * @public
 		 */
 		closeButtonAriaLabel: PropTypes.string,
+
+		/**
+		 * Prevents closing the popup via 5-way navigation out of the content.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		no5WayClose: PropTypes.bool,
 
 		/**
 		 * Disables transition animation.
@@ -362,6 +370,15 @@ class Popup extends React.Component {
 		open: PropTypes.bool,
 
 		/**
+		 * Position of the Popup on the screen.
+		 *
+		 * @type {('bottom'|'center'|'fullscreen'|'left'|'right'|'top')}
+		 * @default 'bottom'
+		 * @public
+		 */
+		position: PropTypes.oneOf(['bottom', 'center', 'fullscreen', 'left', 'right', 'top']),
+
+		/**
 		 * Scrim type.
 		 *
 		 * * Values: `'transparent'`, `'translucent'`, or `'none'`.
@@ -369,43 +386,64 @@ class Popup extends React.Component {
 		 * `'none'` is not compatible with `spotlightRestrict` of `'self-only'`, use a transparent scrim
 		 * to prevent mouse focus when using popup.
 		 *
-		 * @type {String}
+		 * @type {('transparent'|'translucent'|'none')}
 		 * @default 'translucent'
 		 * @public
 		 */
 		scrimType: PropTypes.oneOf(['transparent', 'translucent', 'none']),
 
 		/**
-		 * Shows a close button.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 * @public
-		 */
-		showCloseButton: PropTypes.bool,
-
-		/**
 		 * Restricts or prioritizes navigation when focus attempts to leave the popup.
 		 *
 		 * * Values: `'self-first'`, or `'self-only'`.
 		 *
+		 * When using `self-first`, attempts to leave the popup via 5-way will fire `onClose` based
+		 * on the following values of `position`:
+		 *
+		 * * `'bottom'` - When leaving via 5-way up
+		 * * `'top'` - When leaving via 5-way down
+		 * * `'left'` - When leaving via 5-way right
+		 * * `'right'` - When leaving via 5-way left
+		 * * `'center'` - When leaving via any 5-way direction
+		 *
 		 * Note: If `onClose` is not set, then this has no effect on 5-way navigation. If the popup
 		 * has no spottable children, 5-way navigation will cause the Popup to fire `onClose`.
 		 *
-		 * @type {String}
+		 * @type {('self-first'|'self-only')}
 		 * @default 'self-only'
 		 * @public
 		 */
 		spotlightRestrict: PropTypes.oneOf(['self-first', 'self-only'])
-	}
+	};
 
 	static defaultProps = {
 		noAnimation: false,
 		noAutoDismiss: false,
 		open: false,
+		position: 'bottom',
 		scrimType: 'translucent',
-		showCloseButton: false,
 		spotlightRestrict: 'self-only'
+	};
+
+	static getDerivedStateFromProps (props, state) {
+		if (props.open !== state.prevOpen) {
+			if (props.open) {
+				return {
+					popupOpen: props.noAnimation || state.floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED,
+					floatLayerOpen: true,
+					activator: Spotlight.getCurrent(),
+					prevOpen: props.open
+				};
+			} else {
+				return {
+					popupOpen: OpenState.CLOSED,
+					floatLayerOpen: state.popupOpen === OpenState.OPEN ? !props.noAnimation : false,
+					activator: props.noAnimation ? null : state.activator,
+					prevOpen: props.open
+				};
+			}
+		}
+		return null;
 	}
 
 	constructor (props) {
@@ -421,38 +459,30 @@ class Popup extends React.Component {
 		checkScrimNone(this.props);
 	}
 
-	static getDerivedStateFromProps (props, state) {
-		if (props.open !== state.prevOpen) {
-			if (props.open) {
-				return {
-					popupOpen: props.noAnimation || state.floatLayerOpen ? OpenState.OPEN : OpenState.CLOSED,
-					floatLayerOpen: true,
-					activator: Spotlight.getCurrent(),
-					prevOpen: props.open
-				};
-			} else {
-				return {
-					popupOpen: OpenState.CLOSED,
-					floatLayerOpen: state.popupOpen !== OpenState.CLOSED ? !props.noAnimation : false,
-					activator: props.noAnimation ? null : state.activator,
-					prevOpen: props.open
-				};
-			}
-		}
-		return null;
-	}
-
 	// Spot the content after it's mounted.
 	componentDidMount () {
-		if (this.props.open && getContainerNode(this.state.containerId)) {
-			this.spotPopupContent();
+		if (this.props.open) {
+			// If the popup is open on mount, we need to pause spotlight so nothing steals focus
+			// while the popup is rendering.
+			this.paused.pause();
+			if (getContainerNode(this.state.containerId)) {
+				this.spotPopupContent();
+			}
 		}
 	}
 
 	componentDidUpdate (prevProps, prevState) {
 		if (this.props.open !== prevProps.open) {
 			if (!this.props.noAnimation) {
-				this.paused.pause();
+				if (!this.props.open && this.state.popupOpen === OpenState.CLOSED) {
+					// If the popup is supposed to be closed (!this.props.open) and is actually
+					// fully closed (OpenState.CLOSED), we must resume spotlight navigation. This
+					// can occur when quickly toggling a Popup open and closed.
+					this.paused.resume();
+				} else {
+					// Otherwise, we pause spotlight so it is locked until the popup is ready
+					this.paused.pause();
+				}
 			} else if (this.props.open) {
 				forwardShow({}, this.props);
 				this.spotPopupContent();
@@ -480,36 +510,53 @@ class Popup extends React.Component {
 		} else if (this.state.popupOpen === OpenState.OPEN && this.props.open) {
 			this.spotPopupContent();
 		}
-	}
+	};
 
 	handleKeyDown = (ev) => {
-		const {onClose, spotlightRestrict} = this.props;
+		const {onClose, no5WayClose, position, spotlightRestrict} = this.props;
+
+		if (no5WayClose) return;
+
+		const {containerId} = this.state;
 		const keyCode = ev.keyCode;
 		const direction = getDirection(keyCode);
-		const spottables = Spotlight.getSpottableDescendants(this.state.containerId).length;
+		const spottables = Spotlight.getSpottableDescendants(containerId).length;
+		const current = Spotlight.getCurrent();
 
-		if (direction && onClose) {
-			let focusChanged;
+		if (direction && (!spottables || current && getContainerNode(containerId).contains(current))) {
+			// explicitly restrict navigation in order to manage focus state when attempting to leave the popup
+			Spotlight.set(containerId, {restrict: 'self-only'});
 
-			if (spottables && Spotlight.getCurrent() && spotlightRestrict !== 'self-only') {
-				focusChanged = Spotlight.move(direction);
-				if (focusChanged) {
+			if (onClose) {
+				let focusChanged;
+
+				if (spottables && current && spotlightRestrict !== 'self-only') {
+					focusChanged = Spotlight.move(direction);
+
+					if (focusChanged) {
+						// stop propagation to prevent default spotlight behavior
+						ev.stopPropagation();
+					}
+				}
+
+				if (!spottables || (focusChanged === false && (
+					position === 'center' ||
+					isUp(keyCode) && position === 'bottom' ||
+					isDown(keyCode) && position === 'top' ||
+					isRight(keyCode) && position === 'left' ||
+					isLeft(keyCode) && position === 'right'
+				))) {
+					// prevent default page scrolling
+					ev.preventDefault();
 					// stop propagation to prevent default spotlight behavior
 					ev.stopPropagation();
+					// set the pointer mode to false on keydown
+					Spotlight.setPointerMode(false);
+					onClose(ev);
 				}
 			}
-
-			if (!spottables || (focusChanged === false && isUp(keyCode))) {
-				// prevent default page scrolling
-				ev.preventDefault();
-				// stop propagation to prevent default spotlight behavior
-				ev.stopPropagation();
-				// set the pointer mode to false on keydown
-				Spotlight.setPointerMode(false);
-				onClose(ev);
-			}
 		}
-	}
+	};
 
 	handlePopupHide = (ev) => {
 		forwardHide(ev, this.props);
@@ -519,14 +566,10 @@ class Popup extends React.Component {
 			activator: null
 		});
 
-		if (ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
-			this.paused.resume();
-
-			if (!this.props.open) {
-				this.spotActivator(this.state.activator);
-			}
+		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
+			this.spotActivator(this.state.activator);
 		}
-	}
+	};
 
 	handlePopupShow = (ev) => {
 		forwardShow(ev, this.props);
@@ -535,16 +578,17 @@ class Popup extends React.Component {
 			popupOpen: OpenState.OPEN
 		});
 
-		if (ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
-			this.paused.resume();
-
-			if (this.props.open) {
-				this.spotPopupContent();
-			}
+		if (!ev.currentTarget || ev.currentTarget.getAttribute('data-spotlight-id') === this.state.containerId) {
+			this.spotPopupContent();
 		}
-	}
+	};
 
 	spotActivator = (activator) => {
+		this.paused.resume();
+
+		// only spot the activator if the popup is closed
+		if (this.props.open) return;
+
 		const current = Spotlight.getCurrent();
 		const containerNode = getContainerNode(this.state.containerId);
 
@@ -554,18 +598,23 @@ class Popup extends React.Component {
 		// know it's safe to change focus
 		if (!current || (containerNode && containerNode.contains(current))) {
 			// attempt to set focus to the activator, if available
-			if (!Spotlight.focus(activator)) {
+			if (!Spotlight.isPaused() && !Spotlight.focus(activator)) {
 				Spotlight.focus();
 			}
 		}
-	}
+	};
 
 	spotPopupContent = () => {
+		this.paused.resume();
+
+		// only spot the activator if the popup is open
+		if (!this.props.open) return;
+
 		const {containerId} = this.state;
 
 		on('keydown', this.handleKeyDown);
 
-		if (!Spotlight.focus(containerId)) {
+		if (!Spotlight.isPaused() && !Spotlight.focus(containerId)) {
 			const current = Spotlight.getCurrent();
 
 			// In cases where the container contains no spottable controls or we're in pointer-mode, focus
@@ -576,11 +625,12 @@ class Popup extends React.Component {
 			}
 			Spotlight.setActiveContainer(containerId);
 		}
-	}
+	};
 
 	render () {
 		const {noAutoDismiss, onClose, scrimType, ...rest} = this.props;
-		delete rest.spotlightRestrict;
+
+		delete rest.no5WayClose;
 
 		return (
 			<FloatingLayer
@@ -593,12 +643,10 @@ class Popup extends React.Component {
 				<SkinnedPopupBase
 					{...rest}
 					data-webos-voice-exclusive
-					onCloseButtonClick={onClose}
 					onHide={this.handlePopupHide}
 					onShow={this.handlePopupShow}
 					open={this.state.popupOpen >= OpenState.OPENING}
 					spotlightId={this.state.containerId}
-					spotlightRestrict="self-only"
 				/>
 			</FloatingLayer>
 		);

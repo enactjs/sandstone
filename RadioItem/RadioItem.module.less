@@ -1,99 +1,83 @@
 // RadioItem.module.less
 //
 @import "../styles/variables.less";
-@import "../styles/skin.less";
 @import "../styles/mixins.less";
+@import "../styles/skin.less";
 
-// Public
-.radioItem {
-	/* Available for customization */
+// Local mixin to make rule application more consistent.
+.radioIconColors (@color, @bg, @border) {
+	color: @color;
+	background-color: @bg;
+	box-shadow: 0 0 0 @sand-radioitem-indicator-border-width @border;
 }
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleIcon {
+.radioItem {
 	.icon {
-		width: @sand-radio-item-indicator-size;
-		height: @sand-radio-item-indicator-size;
-		border-radius: 192px;
-		flex-shrink: 0;
-		margin-right: 0;
-		margin-left: 0;
-		box-shadow: inset 0 0 0 @sand-radio-item-indicator-border;
-
-		&::before {
-			content: "";
-			position: absolute;
-			.position(8px);
-			border-radius: inherit;
-		}
-
-		.sand-custom-text({
-			width: @sand-radio-item-indicator-size-large;
-			height: @sand-radio-item-indicator-size-large;
-		});
+		margin: 0;
 	}
 
-	// Skin colors
 	.applySkins({
 		.icon {
-			background-color: @sand-radio-item-indicator-bg-color;
-			color: @sand-radio-item-indicator-color;
+			.radioIconColors(
+				@sand-radioitem-indicator-color,
+				@sand-radioitem-indicator-bg-color,
+				@sand-radioitem-indicator-border-color
+			);
+			border-radius: @sand-radioitem-indicator-border-radius;
 		}
 
 		&.selected {
 			.icon {
-				background-color: @sand-radio-item-selected-indicator-bg-color;
-				color: @sand-radio-item-selected-indicator-color;
-
-				&::before {
-					background-color: @sand-radio-item-selected-indicator-color;
-				}
+				.radioIconColors(
+					@sand-radioitem-selected-indicator-color,
+					@sand-radioitem-selected-indicator-bg-color,
+					@sand-radioitem-selected-indicator-border-color
+				);
 			}
 		}
-	});
-}
 
-// When a parent is focused
-.focus({
-	.toggleIcon {
-		.applySkins({
+		.disabled({
+			&.selected {
+				.icon {
+					.radioIconColors(
+						@sand-radioitem-disabled-selected-color,
+						@sand-radioitem-disabled-selected-bg-color,
+						@sand-radioitem-disabled-selected-border-color
+					);
+				}
+			}
+		});
+
+		.focus({
 			.icon {
-				background-color: @sand-radio-item-focus-indicator-bg-color;
-				color: @sand-radio-item-focus-indicator-color;
+				.radioIconColors(
+					@sand-radioitem-focus-indicator-color,
+					@sand-radioitem-focus-indicator-bg-color,
+					@sand-radioitem-focus-indicator-border-color
+				);
 			}
 
 			&.selected {
 				.icon {
-					background-color: @sand-radio-item-selected-focus-indicator-bg-color;
-					color: @sand-radio-item-selected-focus-indicator-color;
-
-					&::before {
-						background-color: @sand-radio-item-selected-focus-indicator-color;
-					}
+					.radioIconColors(
+						@sand-radioitem-selected-focus-indicator-color,
+						@sand-radioitem-selected-focus-indicator-bg-color,
+						@sand-radioitem-selected-focus-indicator-border-color
+					);
 				}
 			}
 
 			.disabled({
-				opacity: @sand-disabled-opacity;
-			})
-		});
-	}
-});
-
-.muted({
-	.focus({
-		.toggleIcon {
-			.applySkins({
 				&.selected {
 					.icon {
-						background-color: @sand-radio-item-selected-indicator-color;
-
-						&::before {
-							background-color: @sand-radio-item-selected-indicator-bg-color;
-						}
+						.radioIconColors(
+							@sand-radioitem-focus-disabled-selected-color,
+							@sand-radioitem-focus-disabled-selected-bg-color,
+							@sand-radioitem-focus-disabled-selected-border-color
+						);
 					}
 				}
 			});
-		}
-	}, parent);
-}, parent);
+		});
+	});
+}

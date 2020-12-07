@@ -10,22 +10,23 @@
  * @exports ButtonDecorator
  */
 
+import hoc from '@enact/core/hoc';
 import kind from '@enact/core/kind';
 import {cap} from '@enact/core/util';
+import EnactPropTypes from '@enact/core/internal/prop-types';
 import Spottable from '@enact/spotlight/Spottable';
 import {ButtonBase as UiButtonBase, ButtonDecorator as UiButtonDecorator} from '@enact/ui/Button';
 import Pure from '@enact/ui/internal/Pure';
 import PropTypes from 'prop-types';
 import compose from 'ramda/src/compose';
+import React from 'react';
 
-import {IconBase} from '../Icon';
+import Icon from '../Icon';
 import {MarqueeDecorator} from '../Marquee';
 import Skinnable from '../Skinnable';
+import TooltipDecorator from '../TooltipDecorator';
 
 import componentCss from './Button.module.less';
-
-// Make a basic Icon in case we need it later. This cuts `Pure` out of icon for a small gain.
-const Icon = Skinnable(IconBase);
 
 /**
  * A button component.
@@ -46,15 +47,44 @@ const ButtonBase = kind({
 		/**
 		 * The background opacity of this button.
 		 *
-		 * Valid values are:
-		 * * `'translucent'`,
-		 * * `'lightTranslucent'`, and
-		 * * `'transparent'`.
+		 * Text buttons and icon+text buttons, by default are opaque, while icon-only buttons
+		 * default to transparent. This value can be overridden by setting this prop.
 		 *
-		 * @type {('translucent'|'lightTranslucent'|'transparent')}
+		 * Valid values are: `'opaque'`, and `'transparent'`.
+		 *
+		 * @type {('opaque'|'transparent')}
+		 * @default 'opaque'
 		 * @public
 		 */
-		backgroundOpacity: PropTypes.oneOf(['translucent', 'lightTranslucent', 'transparent']),
+		backgroundOpacity: PropTypes.oneOf(['opaque', 'transparent']),
+
+		/**
+		 * Enables the `collapsed` feature.
+		 *
+		 * This requires that both the text and [icon]{@link sandstone/Button.Button#icon} are
+		 * defined.
+		 *
+		 * Use [collapsed]{@link sandstone/Button.Button#collapsed} to toggle the collapsed state.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsed}
+		 * @private
+		 */
+		collapsable: PropTypes.bool,
+
+		/**
+		 * Toggles the collapsed state of this button, down to just its icon.
+		 *
+		 * This requires that [collapsable]{@link sandstone/Button.Button#collapsable} is enabled
+		 * and both the text and [icon]{@link sandstone/Button.Button#icon} are defined.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @see {@link sandstone/Button.Button#collapsable}
+		 * @private
+		 */
+		collapsed: PropTypes.bool,
 
 		/**
 		 * The color of the underline beneath button's content.
@@ -82,11 +112,39 @@ const ButtonBase = kind({
 		 * @type {Object}
 		 * @public
 		 */
-		// `transparent` and `client` were intentionally excluded from the above documented
-		// exported classes as they do not appear to provide value to the end-developer, but are
-		// needed by IconButton internally for its design guidelines.
-		// Same for `pressed` which is used by Dropdown to nullify the key-press activate animation.
+		// `client` was intentionally excluded from the above documented exported classes as they do
+		// not appear to provide value to the end-developer, but are needed by PopupTabLayout
+		// internally for its design guidelines. Same for `pressed` which is used by Dropdown to
+		// nullify the key-press activate animation.
 		css: PropTypes.object,
+
+		/**
+		 * Set the visual effect applied to the button when focused.
+		 *
+		 * @type {('expand'|'static')}
+		 * @default 'expand'
+		 * @private
+		 */
+		focusEffect: PropTypes.oneOf(['expand', 'static']),
+
+		/**
+		 * The component used to render the [icon]{@link sandstone/Button.ButtonBase.icon}.
+		 *
+		 * This component will receive the `icon` class to customize its styling.
+		 *
+		 * @type {Component|Node}
+		 * @private
+		 */
+		iconComponent: EnactPropTypes.componentOverride,
+
+		/**
+		 * True if button is an icon only button.
+		 *
+		 * @type {Boolean}
+		 * @default false
+		 * @private
+		 */
+		iconOnly: PropTypes.bool,
 
 		/**
 		 * Specifies on which side (`'before'` or `'after'`) of the text the icon appears.
@@ -98,61 +156,98 @@ const ButtonBase = kind({
 		iconPosition: PropTypes.oneOf(['before', 'after']),
 
 		/**
+		 * Boolean controlling whether this component should enforce the "minimum width" rules.
+		 *
+		 * @type {Boolean}
+		 * @public
+		 */
+		minWidth: PropTypes.bool,
+
+		/**
 		 * The size of the button.
 		 *
 		 * @type {('large'|'small')}
-		 * @default 'small'
+		 * @default 'large'
 		 * @public
 		 */
-		size: PropTypes.string
+		size: PropTypes.oneOf(['large', 'small'])
 	},
 
 	defaultProps: {
+		backgroundOpacity: null,
+		collapsable: false,
+		collapsed: false,
+		focusEffect: 'expand',
+		iconComponent: Icon,
+		iconOnly: false,
 		iconPosition: 'before',
-		size: 'small'
+		size: 'large'
 	},
 
 	styles: {
 		css: componentCss,
-		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small', 'transparent']
+		publicClassNames: ['button', 'bg', 'client', 'large', 'pressed', 'selected', 'small']
 	},
 
 	computed: {
-		className: ({backgroundOpacity, color, iconPosition, styler}) => styler.append(
-			{hasColor: color},
-			backgroundOpacity,
+		className: ({backgroundOpacity, collapsable, collapsed, color, focusEffect, iconOnly, iconPosition, size, styler}) => styler.append(
+			{
+				hasColor: color,
+				iconOnly,
+				collapsable,
+				collapsed
+			},
+			backgroundOpacity || (iconOnly ? 'transparent' : 'opaque'), // Defaults to opaque, unless otherwise specified
 			color,
-			`icon${cap(iconPosition)}`
-		)
+			`focus${cap(focusEffect)}`,
+			// iconBefore/iconAfter only applies when using text and an icon
+			!iconOnly && `icon${cap(iconPosition)}`,
+			size
+		),
+		minWidth: ({iconOnly, minWidth}) => ((minWidth != null) ? minWidth : !iconOnly)
 	},
 
 	render: ({css, ...rest}) => {
 		delete rest.backgroundOpacity;
 		delete rest.color;
+		delete rest.collapsable;
+		delete rest.collapsed;
+		delete rest.iconOnly;
 		delete rest.iconPosition;
+		delete rest.focusEffect;
 
 		return UiButtonBase.inline({
 			'data-webos-voice-intent': 'Select',
 			...rest,
-			css,
-			iconComponent: Icon
+			css
 		});
 	}
 });
 
-/**
- * Enforces a minimum width on the Button.
- *
- * *NOTE*: This property's default is `true` and must be explicitly set to `false` to allow
- * the button to shrink to fit its contents.
- *
- * @name minWidth
- * @memberof sandstone/Button.ButtonBase.prototype
- * @type {Boolean}
- * @default true
- * @public
- */
 
+/**
+ * A higher-order component that determines if it is a button that only displays an icon.
+ *
+ * @class IconButtonDecorator
+ * @memberof sandstone/Button
+ * @hoc
+ * @private
+ */
+const IconButtonDecorator = hoc((config, Wrapped) => {
+	return kind({
+		name: 'IconButtonDecorator',
+
+		computed: {
+			iconOnly: ({children}) => (React.Children.toArray(children).filter(Boolean).length === 0)
+		},
+
+		render: (props) => {
+			return (
+				<Wrapped {...props} />
+			);
+		}
+	});
+});
 
 /**
  * Applies Sandstone specific behaviors to [Button]{@link sandstone/Button.ButtonBase} components.
@@ -167,6 +262,8 @@ const ButtonBase = kind({
  */
 const ButtonDecorator = compose(
 	Pure,
+	IconButtonDecorator,
+	TooltipDecorator({tooltipDestinationProp: 'decoration'}),  // Future note: This should eventually be conditionally applied via hooks (after refactoring)
 	MarqueeDecorator({className: componentCss.marquee}),
 	UiButtonDecorator,
 	Spottable,
@@ -179,8 +276,9 @@ const ButtonDecorator = compose(
  * Usage:
  * ```
  * <Button
- * 	backgroundOpacity="translucent"
- * 	color="blue"
+ *	backgroundOpacity="transparent"
+ *	size="small"
+ *	icon="home"
  * >
  * 	Press me!
  * </Button>

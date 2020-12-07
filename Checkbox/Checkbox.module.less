@@ -1,77 +1,222 @@
 // Checkbox.module.less
 //
+@import "../styles/variables.less";
 @import "../styles/mixins.less";
 @import "../styles/skin.less";
 
-// Interally theme our implementation using published classes from ToggleItem and ToggleIcon
-.toggleIcon {
-	@size: @sand-checkbox-size;
-
-	width: @size;
-	height: @size;
-	border-radius: @sand-checkbox-border-radius;
-
+// Assign the colors all in one place
+.checkbox-colors (@color, @bg, @border) {
 	.icon {
-		visibility: hidden;
-		margin: 0;
-		line-height: @size;
-		width: @size;
-		height: @size;
-		font-size: (@size * 2);
+		color: @color;
+		background-color: @bg;
+		box-shadow: 0 0 0 @sand-checkbox-border-width @border;
 	}
+}
 
-	.sand-custom-text({
-		@size: @sand-checkbox-size-large;
-
-		width: @size;
-		height: @size;
-		border-radius: @size;
-
-		.icon {
-			line-height: @size;
-			width: @size;
-			height: @size;
-			font-size: (@size * 2);
-		}
-	});
+// Generate all states (and selectors) for the checkbox
+.checkbox-states (@resting, @selected, @indeterminate) {
+	@resting();
 
 	&.selected {
-		.icon {
-			visibility: visible;
-		}
+		@selected();
 	}
 
-	// Skin colors
+	&.indeterminate {
+		@indeterminate();
+	}
+}
+
+// Standalone version of the Checkbox (Also used when Checkbox has been wrapped with Spottable)
+@checkbox-standalone-rules: {
+	.bg {
+		position: absolute;
+		.position(@sand-checkbox-container-position);
+		border-radius: @sand-checkbox-container-border-radius;
+		.sand-spotlight-resting-bg-colors();
+	}
+}
+
+// Resting States
+@checkbox-resting: {
+	.checkbox-states(
+		.checkbox-colors(
+			@sand-checkbox-color,
+			@sand-checkbox-bg-color,
+			@sand-checkbox-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-selected-color,
+			@sand-checkbox-selected-bg-color,
+			@sand-checkbox-selected-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-indeterminate-color,
+			@sand-checkbox-indeterminate-bg-color,
+			@sand-checkbox-indeterminate-border-color
+		);
+	);
+};
+
+// Focus States
+@checkbox-focus: {
+	.checkbox-states(
+		// Gathered rules into a rules-set to include the .bg selector in the resting block
+		{
+			.checkbox-colors(
+				@sand-checkbox-focus-color,
+				@sand-checkbox-focus-bg-color,
+				@sand-checkbox-focus-border-color
+			);
+			.bg {
+				.sand-spotlight-focus-bg-colors();
+			}
+		};
+		.checkbox-colors(
+			@sand-checkbox-selected-focus-color,
+			@sand-checkbox-selected-focus-bg-color,
+			@sand-checkbox-selected-focus-border-color
+		);
+		.checkbox-colors(
+			@sand-checkbox-indeterminate-focus-color,
+			@sand-checkbox-indeterminate-focus-bg-color,
+			@sand-checkbox-indeterminate-focus-border-color
+		);
+	);
+};
+
+// Disabled
+@checkbox-disabled-resting: {
+	.checkbox-states(
+		{
+			// No custom rules for this state
+		};
+		.checkbox-colors(
+			@sand-checkbox-disabled-selected-color,
+			@sand-checkbox-disabled-selected-bg-color,
+			@sand-checkbox-disabled-selected-border-color
+		);
+		{
+			// No custom rules for this state
+		}
+	);
+};
+
+// Disabled + Focus States
+@checkbox-disabled-focus: {
+	.checkbox-states(
+		{
+			// No custom rules for this state
+			.bg {
+				background-color: @sand-checkbox-standalone-bg-disabled-focus-bg-color;
+			}
+		};
+		.checkbox-colors(
+			@sand-checkbox-focus-disabled-selected-color,
+			@sand-checkbox-focus-disabled-selected-bg-color,
+			@sand-checkbox-focus-disabled-selected-border-color
+		);
+		{
+			// No custom rules for this state
+		};
+	);
+};
+
+
+.checkbox {
+	display: inline-block;
+	position: relative;
+	line-height: 0;
+
+	.icon {
+		margin: 0;	// Needed to apply here insetad of on `.checkbox` due to .icon.size precedence :(
+		border-radius: @sand-checkbox-border-radius;
+		position: relative;
+		text-align: center;
+	}
+
+	//
+	// Checkbox supports several states, each of which has a different set of colors.
+	// All supported states are as follows:
+	//
+	// standalone
+	// standalone selected
+	// standalone indeterminate
+	// standalone disabled
+	// standalone disabled selected
+	// standalone disabled indeterminate
+	// asChild
+	// asChild selected
+	// asChild indeterminate
+	// asChild disabled
+	// asChild disabled selected
+	// asChild disabled indeterminate
+	//
+	// Standalone is represented below as .standalone. This handles focus and disabled states.
+	// asChild depends on the status of the parent for focus and disabled states.
+	//
+
 	.applySkins({
-		color: @sand-checkbox-text-color;
-		background-color: @sand-checkbox-bg-color;
+		// Set up the background for standalone (and independently spottable) versions
+		&.standalone {
+			@checkbox-standalone-rules();
+		}
+		// Spottable version of the Checkbox
+		.spottable(@checkbox-standalone-rules);
+
+		// Resting
+		@checkbox-resting();
+
+		// Focus
+		.focus({
+			@checkbox-focus();
+		});
+
+		// Disabled
+		.sand-disabled({
+			.icon {
+				.sand-disabled-focus-content-colors();
+			}
+
+			@checkbox-disabled-resting();
+
+			// Disabled + Focus
+			.focus({
+				@checkbox-disabled-focus();
+			});
+		});
 	});
 }
 
+// The following target instances where the checkbox is inside another component and that
+// component is receiving the disabled/focused etc states, rather than checkbox directly.
 .focus({
-	.toggleIcon {
-		// Skin colors
+	& .checkbox {
 		.applySkins({
-			color: @sand-checkbox-focus-text-color;
-			background-color: @sand-checkbox-focus-bg-color;
-
-			.disabled({
-				opacity: @sand-disabled-opacity;
-			});
+			@checkbox-focus();
 		});
 	}
-}, parent);
+});
 
-.muted({
-	.focus({
-		.toggleIcon {
-			// Skin colors
+.disabled({
+	& .checkbox {
+		.applySkins({
+			@checkbox-disabled-resting();
+		});
+	}
+});
+
+.focus({
+	.disabled({
+		& .checkbox {
 			.applySkins({
-				&:not([disabled]) {
-					color: @sand-checkbox-text-color;
-					background-color: @sand-checkbox-bg-color;
+				@checkbox-disabled-focus();
+
+				&.standalone {
+					.icon {
+						.sand-disabled-focus-content-colors();
+					}
 				}
 			});
 		}
-	}, parent);
-}, parent);
+	});
+});

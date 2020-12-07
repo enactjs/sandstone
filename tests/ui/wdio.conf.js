@@ -1,1 +1,1 @@
-module.exports = require('@enact/ui-test-utils/wdio.conf.js');
+module.exports = require('@enact/ui-test-utils/ui/wdio.conf.js');

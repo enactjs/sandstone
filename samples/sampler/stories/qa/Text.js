@@ -1,26 +1,24 @@
 import {select} from '@enact/storybook-utils/addons/knobs';
 import React from 'react';
 import {storiesOf} from '@storybook/react';
+import {Row} from '@enact/ui/Layout';
+import Repeater from '@enact/ui/Repeater';
 
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
 import Heading from '@enact/sandstone/Heading';
-import ExpandableInput from '@enact/sandstone/ExpandableInput';
-import ExpandableList from '@enact/sandstone/ExpandableList';
-import ExpandablePicker from '@enact/sandstone/ExpandablePicker';
 import FormCheckboxItem from '@enact/sandstone/FormCheckboxItem';
-import GridListImageItem from '@enact/sandstone/GridListImageItem';
+import ImageItem from '@enact/sandstone/ImageItem';
 import {Header} from '@enact/sandstone/Panels';
 import Input from '@enact/sandstone/Input';
 import Item from '@enact/sandstone/Item';
-import LabeledItem from '@enact/sandstone/LabeledItem';
 import Marquee from '@enact/sandstone/Marquee';
 import RadioItem from '@enact/sandstone/RadioItem';
 import Scroller from '@enact/sandstone/Scroller';
-import SelectableItem from '@enact/sandstone/SelectableItem';
-import SlotItem from '@enact/sandstone/SlotItem';
 import SwitchItem from '@enact/sandstone/SwitchItem';
+
+import Section from './components/KitchenSinkSection';
 
 const inputData = {
 	english: 'We name themes after gemstones',
@@ -28,6 +26,7 @@ const inputData = {
 	chinese: '星期日 星期一 星期二 星期三 星期四 星期五 星期六',
 	greek: 'Ονομάζουμε θέματα μετά από πολύτιμους λίθους',
 	hebrew: 'אנו שם נושאים לאחר אבני חן',
+	hindi: 'हम रत्न के बाद विषयों का नाम देते हैं',
 	japanese: '宝石にちなんでテーマに名前を付けます',
 	oriya: 'ସବୁ ମନୁଷ୍ୟ ଜନ୍ମକାଳରୁ ସ୍ୱାଧୀନ। ସେମାନଙ୍କର ମର୍ଯ୍ୟାଦା ଓ',
 	russian: 'Мы называем темы в честь драгоценных камней',
@@ -43,96 +42,111 @@ Heading.displayName = 'Heading';
 const prop = {
 	tallText: [
 		'नरेंद्र मोदी',
-		'ฟิ้  ไั  ஒ  து',
-		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ'
+		'ฟิ้  ไั  ஒ  து  ඒ',
+		'ÃÑÕÂÊÎÔÛÄËÏÖÜŸ',
+		'តន្ត្រី'
 	]
 };
 
 storiesOf('Text', module)
 	.add(
-		'Tall Glyphs as Non-Latin components',
+		'"Tall Glyph" support in components',
 		() => {
-			const children = select('children', prop.tallText, {groupId: 'Text'}, 'नरेंद्र मोदी');
+			const children = select('children', prop.tallText, {groupId: 'Text'}, prop.tallText[0]);
 
 			return (
-				<Scroller style={{height: '100%'}}>
-					<Heading showLine>Text controls (div, Heading, BodyText, Marquee)</Heading>
-					<div>{children}</div>
-					<Heading showLine>{children}</Heading>
-					<BodyText>{children}</BodyText>
-					<Marquee>{children}</Marquee>
+				<div>
+					<Scroller style={{height: '100%'}}>
+						<Section title="Text controls">
+							<div alt="Basic div">{children}</div>
+							<Heading alt="Heading">{children}</Heading>
+							<BodyText alt="BodyText">{children}</BodyText>
+							<Marquee alt="Marquee">{children}</Marquee>
+						</Section>
 
-					<Heading showLine>Basic Form controls (Button, Input)</Heading>
-					<Button>{children}</Button>
-					<Input placeholder={children} />
-					<Input value={children} />
+						<Row>
+							<Section title="Basic Form controls" size="50%">
+								<Button alt="Button">{children}</Button>
+								<Input alt="Input with Placeholder" placeholder={children} />
+								<Input alt="Input" value={children} />
+							</Section>
+							<Section title="Toggleable Items" size="50%">
+								<CheckboxItem alt="CheckboxItem">{children}</CheckboxItem>
+								<FormCheckboxItem alt="FormCheckboxItem">{children}</FormCheckboxItem>
+								<RadioItem alt="RadioItem">{children}</RadioItem>
+								<SwitchItem alt="SwitchItem">{children}</SwitchItem>
+							</Section>
+						</Row>
 
-					<Heading showLine>Simple Items (Item, LabeledItem, GridListImageItem)</Heading>
-					<Item>{children}</Item>
-					<LabeledItem label={children}>{children}</LabeledItem>
-					<GridListImageItem caption={children} style={{height: 200}} />
+						<Section title="Simple Items">
+							<Item alt="Item">{children}</Item>
+							<Item alt="Item with Label" label={children}>{children}</Item>
+							<ImageItem alt="ImageItem" style={{height: 200}}>{children}</ImageItem>
+						</Section>
 
-					<Heading showLine>Expandables (Input, List, Picker)</Heading>
-					<ExpandableInput title={children} value={children} />
-					<ExpandableList title={children}>{[children, children, children]}</ExpandableList>
-					<ExpandablePicker title={children}>{[children, children, children]}</ExpandablePicker>
 
-					<Heading showLine>ToggleItems</Heading>
-					<CheckboxItem>{children}</CheckboxItem>
-					<FormCheckboxItem>{children}</FormCheckboxItem>
-					<RadioItem>{children}</RadioItem>
-					<SelectableItem>{children}</SelectableItem>
-					<SwitchItem>{children}</SwitchItem>
-
-					<Heading showLine>Headers (Standard, Compact, Input)</Heading>
-					<Header type="standard" title={children} titleBelow={children} subTitleBelow={children} />
-					<br />
-					<Header type="compact" title={children} titleBelow={children} subTitleBelow={children} />
-					<br />
-					<Header title={children} titleBelow={children} subTitleBelow={children}>
-						<Input value={children} slot="headerInput" />
-					</Header>
-				</Scroller>
+						<Section title="Headers">
+							<Header alt="Header Standard" type="standard" title={children} subtitle={children} />
+							<br />
+							<Header alt="Header Compact" type="compact" title={children} subtitle={children} />
+						</Section>
+					</Scroller>
+				</div>
 			);
 		}
 	)
 	.add(
 		'Languages',
-		() => Object.keys(inputData).map(key =>
-			<SlotItem key={key}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>
-				</slotBefore>
-				{inputData[key]}
-			</SlotItem>
-		)
+		() => {
+			const languagesList = [];
+			Object.keys(inputData).forEach(key => {
+				languagesList.push({
+					slotBefore: <span style={{minWidth: '10ex', display: 'inline-block'}}>[ {key} ]</span>,
+					children: inputData[key],
+					key: 'language' + key
+				});
+			});
+			return (
+				<div>
+					<Scroller>
+						<Repeater
+							childComponent={Item}
+						>
+							{languagesList}
+						</Repeater>
+					</Scroller>
+				</div>
+			);
+		}
 	)
 	.add(
 		'Mixed Scripts',
 		() => <div>
-			<SlotItem style={{fontWeight: 300}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
-				</slotBefore>
-				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 400}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
-				</slotBefore>
-				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 600}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
-				</slotBefore>
-				{mixedText}
-			</SlotItem>
-			<SlotItem style={{fontWeight: 700}}>
-				<slotBefore>
-					<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
-				</slotBefore>
-				{mixedText}
-			</SlotItem>
+			<Scroller>
+				<Item style={{fontWeight: 300}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>light</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 400}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>regular</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 600}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>semi-bold</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+				<Item style={{fontWeight: 700}}>
+					<slotBefore>
+						<span style={{minWidth: '10ex', display: 'inline-block'}}>bold</span>
+					</slotBefore>
+					{mixedText}
+				</Item>
+			</Scroller>
 		</div>
 	);

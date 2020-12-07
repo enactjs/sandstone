@@ -1,5 +1,5 @@
 'use strict';
-const Page = require('@enact/ui-test-utils/test/Page.js');
+const {Page} = require('@enact/ui-test-utils/utils');
 
 class SpotlightMultiplePage extends Page {
 	constructor () {
@@ -11,21 +11,48 @@ class SpotlightMultiplePage extends Page {
 		super.open('Spotlight-View', urlExtra);
 	}
 
-	get item1 () { return browser.element('#item1'); }
-	get item2 () { return browser.element('#item2'); }
-	get item3 () { return browser.element('#item3'); }
-	get item4 () { return browser.element('#item4'); }
-	get nonSpottableItem2 () { return browser.element('#itemns2'); }
-	get itemA () { return browser.element('#itemA'); }
-	get itemB () { return browser.element('#itemB'); }
-	get nonSpottableItemB () { return browser.element('#itemnsB'); }
-	get itemC () { return browser.element('#itemC'); }
-	get itemD () { return browser.element('#itemD'); }
-	get itemParent () { return browser.element('#itemParent'); }
-	get itemChild () { return browser.element('#itemChild'); }
-	get focusButton () { return browser.element('#focusButton'); }
-	get restoreButton () { return browser.element('#restoreButton'); }
+	get item1 () {
+		return $('#item1');
+	}
+	get item2 () {
+		return $('#item2');
+	}
+	get item3 () {
+		return $('#item3');
+	}
+	get item4 () {
+		return $('#item4');
+	}
+	get nonSpottableItem2 () {
+		return $('#itemns2');
+	}
+	get itemA () {
+		return $('#itemA');
+	}
+	get itemB () {
+		return $('#itemB');
+	}
+	get nonSpottableItemB () {
+		return $('#itemnsB');
+	}
+	get itemC () {
+		return $('#itemC');
+	}
+	get itemD () {
+		return $('#itemD');
+	}
+	get itemParent () {
+		return $('#itemParent');
+	}
+	get itemChild () {
+		return $('#itemChild');
+	}
+	get focusButton () {
+		return $('#focusButton');
+	}
+	get restoreButton () {
+		return $('#restoreButton');
+	}
 }
 
 module.exports = new SpotlightMultiplePage();
-

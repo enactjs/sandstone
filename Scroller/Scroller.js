@@ -1,5 +1,6 @@
 /**
  * Provides Sandstone-themed scroller components and behaviors.
+ *
  * @example
  * <Scroller>
  * 	<div style={{height: '300px'}}>
@@ -13,429 +14,29 @@
  *
  * @module sandstone/Scroller
  * @exports Scroller
- * @exports ScrollerBase
  */
 
-import {Spotlight} from '@enact/spotlight';
-import {getRect} from '@enact/spotlight/src/utils';
-import ri from '@enact/ui/resolution';
-import {ScrollerBase as UiScrollerBase} from '@enact/ui/Scroller';
+import {I18nContextDecorator} from '@enact/i18n/I18nDecorator';
+import SpotlightContainerDecorator from '@enact/spotlight/SpotlightContainerDecorator';
+import Spottable from '@enact/spotlight/Spottable';
+import {ResizeContext} from '@enact/ui/Resizable';
+import {ScrollerBasic as UiScrollerBasic} from '@enact/ui/Scroller';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import React, {Component} from 'react';
+import React from 'react';
 
-import Scrollable from '../Scrollable';
-import ScrollableNative from '../Scrollable/ScrollableNative';
+import useScroll from '../useScroll';
+import Scrollbar from '../useScroll/Scrollbar';
+import Skinnable from '../Skinnable';
 
-const dataContainerDisabledAttribute = 'data-spotlight-container-disabled';
+import useThemeScroller from './useThemeScroller';
 
-/**
- * A Sandstone-styled base component for [Scroller]{@link sandstone/Scroller.Scroller}.
- * In most circumstances, you will want to use the
- * [SpotlightContainerDecorator]{@link spotlight/SpotlightContainerDecorator.SpotlightContainerDecorator}
- * and the Scrollable version, [Scroller]{@link sandstone/Scroller.Scroller}.
- *
- * @class ScrollerBase
- * @memberof sandstone/Scroller
- * @extends ui/Scroller.ScrollerBase
- * @ui
- * @public
- */
-class ScrollerBase extends Component {
-	static displayName = 'ScrollerBase'
-
-	static propTypes = /** @lends sandstone/Scroller.ScrollerBase.prototype */ {
-		/**
-		 * Passes the instance of [Scroller]{@link ui/Scroller.Scroller}.
-		 *
-		 * @type {Object}
-		 * @param {Object} ref
-		 * @private
-		 */
-		initUiChildRef: PropTypes.func,
-
-		/**
-		 * Called when [Scroller]{@link sandstone/Scroller.Scroller} updates.
-		 *
-		 * @type {function}
-		 * @private
-		 */
-		onUpdate: PropTypes.func,
-
-		/**
-		 * `true` if rtl, `false` if ltr.
-		 *
-		 * @type {Boolean}
-		 * @private
-		 */
-		rtl: PropTypes.bool,
-
-		/**
-		 * Called when [Scroller]{@link sandstone/Scroller.Scroller} should be scrolled
-		 * and the focus should be moved to a scrollbar button.
-		 *
-		 * @type {function}
-		 * @private
-		 */
-		scrollAndFocusScrollbarButton: PropTypes.func,
-
-		/**
-		 * The spotlight id for the component.
-		 *
-		 * @type {String}
-		 * @private
-		 */
-		spotlightId: PropTypes.string
-	}
-
-	componentDidMount () {
-		this.configureSpotlight();
-	}
-
-	componentDidUpdate (prevProps) {
-		const {onUpdate} = this.props;
-		if (onUpdate) {
-			onUpdate();
-		}
-
-		if (prevProps.spotlightId !== this.props.spotlightId) {
-			this.configureSpotlight();
-		}
-	}
-
-	componentWillUnmount () {
-		this.setContainerDisabled(false);
-	}
-
-	uiRefCurrent = null
-
-	configureSpotlight () {
-		Spotlight.set(this.props.spotlightId, {
-			onLeaveContainer: this.handleLeaveContainer,
-			onLeaveContainerFail: this.handleLeaveContainer
-		});
-	}
-
-	/**
-	 * Returns the first spotlight container between `node` and the scroller
-	 *
-	 * @param {Node} node A DOM node
-	 *
-	 * @returns {Node|Null} Spotlight container for `node`
-	 * @private
-	 */
-	getSpotlightContainerForNode = (node) => {
-		do {
-			if (node.dataset.spotlightId && node.dataset.spotlightContainer && !node.dataset.expandableContainer) {
-				return node;
-			}
-		} while ((node = node.parentNode) && node !== this.uiRefCurrent.containerRef.current);
-	}
-
-	/**
-	 * Calculates the "focus bounds" of a node. If the node is within a spotlight container, that
-	 * container is scrolled into view rather than just the element.
-	 *
-	 * @param {Node} node Focused node
-	 *
-	 * @returns {Object} Bounds as returned by `getBoundingClientRect`
-	 * @private
-	 */
-	getFocusedItemBounds = (node) => {
-		node = this.getSpotlightContainerForNode(node) || node;
-		return node.getBoundingClientRect();
-	}
-
-	/**
-	 * Calculates the new `scrollTop`.
-	 *
-	 * @param {Node} focusedItem node
-	 * @param {Number} itemTop of the focusedItem / focusedContainer
-	 * @param {Number} itemHeight of focusedItem / focusedContainer
-	 * @param {Object} scrollInfo position info. Uses `scrollInfo.previousScrollHeight`
-	 * and `scrollInfo.scrollTop`
-	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
-	 *
-	 * @returns {Number} Calculated `scrollTop`
-	 * @private
-	 */
-	calculateScrollTop = (item) => {
-		const threshold = ri.scale(48);
-		const roundToStart = (sb, st) => {
-			// round to start
-			if (st < threshold) return 0;
-
-			return st;
-		};
-		const roundToEnd = (sb, st, sh) => {
-			// round to end
-			if (sh - (st + sb.height) < threshold) return sh - sb.height;
-
-			return st;
-		};
-		// adding threshold into these determinations ensures that items that are within that are
-		// near the bounds of the scroller cause the edge to be scrolled into view even when the
-		// itme itself is in view (e.g. due to margins)
-		const isItemBeforeView = (ib, sb, d) => ib.top + d - threshold < sb.top;
-		const isItemAfterView = (ib, sb, d) => ib.top + d + ib.height + threshold > sb.top + sb.height;
-		const canItemFit = (ib, sb) => ib.height <= sb.height;
-		const calcItemAtStart = (ib, sb, st, d) => ib.top + st + d - sb.top;
-		const calcItemAtEnd = (ib, sb, st, d) => ib.top + ib.height + st + d - (sb.top + sb.height);
-		const calcItemInView = (ib, sb, st, sh, d) => {
-			if (isItemBeforeView(ib, sb, d)) {
-				return roundToStart(sb, calcItemAtStart(ib, sb, st, d));
-			} else if (isItemAfterView(ib, sb, d)) {
-				return roundToEnd(sb, calcItemAtEnd(ib, sb, st, d), sh);
-			}
-			return st;
-		};
-
-		const container = this.getSpotlightContainerForNode(item);
-		const scrollerBounds = this.uiRefCurrent.containerRef.current.getBoundingClientRect();
-		let {scrollHeight, scrollTop} = this.uiRefCurrent.containerRef.current;
-		let scrollTopDelta = 0;
-
-		const adjustScrollTop = (v) => {
-			scrollTopDelta = scrollTop - v;
-			scrollTop = v;
-		};
-
-		if (container) {
-			const containerBounds = container.getBoundingClientRect();
-
-			// if the entire container fits in the scroller, scroll it into view
-			if (canItemFit(containerBounds, scrollerBounds)) {
-				return calcItemInView(containerBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
-			}
-
-			// if the container doesn't fit, adjust the scroll top ...
-			if (containerBounds.top > scrollerBounds.top) {
-				// ... to the top of the container if the top is below the top of the scroller
-				adjustScrollTop(calcItemAtStart(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
-			}
-			// removing support for "snap to bottom" for 2.2.8
-			// } else if (containerBounds.top + containerBounds.height < scrollerBounds.top + scrollerBounds.height) {
-			// 	// ... to the bottom of the container if the bottom is above the bottom of the
-			// 	// scroller
-			// 	adjustScrollTop(calcItemAtEnd(containerBounds, scrollerBounds, scrollTop, scrollTopDelta));
-			// }
-
-			// N.B. if the container covers the scrollable area (its top is above the top of the
-			// scroller and its bottom is below the bottom of the scroller), we need not adjust the
-			// scroller to ensure the container is wholly in view.
-		}
-
-		const itemBounds = item.getBoundingClientRect();
-
-		return calcItemInView(itemBounds, scrollerBounds, scrollTop, scrollHeight, scrollTopDelta);
-	}
-
-	/**
-	 * Calculates the new `scrollLeft`.
-	 *
-	 * @param {Node} focusedItem node
-	 * @param {Number} scrollPosition last target position, passed when scroll animation is ongoing
-	 *
-	 * @returns {Number} Calculated `scrollLeft`
-	 * @private
-	 */
-	calculateScrollLeft = (item, scrollPosition) => {
-		const {
-			left: itemLeft,
-			width: itemWidth
-		} = this.getFocusedItemBounds(item);
-
-		const
-			{rtl} = this.props,
-			{clientWidth} = this.uiRefCurrent.scrollBounds,
-			rtlDirection = rtl ? -1 : 1,
-			{left: containerLeft} = this.uiRefCurrent.containerRef.current.getBoundingClientRect(),
-			scrollLastPosition = scrollPosition ? scrollPosition : this.uiRefCurrent.scrollPos.left,
-			currentScrollLeft = rtl ? (this.uiRefCurrent.scrollBounds.maxLeft - scrollLastPosition) : scrollLastPosition,
-			// calculation based on client position
-			newItemLeft = this.uiRefCurrent.containerRef.current.scrollLeft + (itemLeft - containerLeft);
-		let nextScrollLeft = this.uiRefCurrent.scrollPos.left;
-
-		if (newItemLeft + itemWidth > (clientWidth + currentScrollLeft) && itemWidth < clientWidth) {
-			// If focus is moved to an element outside of view area (to the right), scroller will move
-			// to the right just enough to show the current `focusedItem`. This does not apply to
-			// `focusedItem` that has a width that is bigger than `this.scrollBounds.clientWidth`.
-			nextScrollLeft += rtlDirection * ((newItemLeft + itemWidth) - (clientWidth + currentScrollLeft));
-		} else if (newItemLeft < currentScrollLeft) {
-			// If focus is outside of the view area to the left, move scroller to the left accordingly.
-			nextScrollLeft += rtlDirection * (newItemLeft - currentScrollLeft);
-		}
-
-		return nextScrollLeft;
-	}
-
-	/**
-	 * Calculates the new top and left position for scroller based on focusedItem.
-	 *
-	 * @param {Node} item node
-	 * @param {Object} scrollInfo position info. `calculateScrollTop` uses
-	 * `scrollInfo.previousScrollHeight` and `scrollInfo.scrollTop`
-	 * @param {Number} scrollPosition last target position, passed scroll animation is ongoing
-	 *
-	 * @returns {Object} with keys {top, left} containing calculated top and left positions for scroll.
-	 * @private
-	 */
-	calculatePositionOnFocus = ({item, scrollPosition}) => {
-		const containerNode = this.uiRefCurrent.containerRef.current;
-		const horizontal = this.uiRefCurrent.isHorizontal();
-		const vertical = this.uiRefCurrent.isVertical();
-
-		if (!vertical && !horizontal || !item || !containerNode.contains(item)) {
-			return;
-		}
-
-		const containerRect = getRect(containerNode);
-		const itemRect = getRect(item);
-
-		if (horizontal && !(itemRect.left >= containerRect.left && itemRect.right <= containerRect.right)) {
-			this.uiRefCurrent.scrollPos.left = this.calculateScrollLeft(item, scrollPosition);
-		}
-
-		if (vertical && !(itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom)) {
-			this.uiRefCurrent.scrollPos.top = this.calculateScrollTop(item);
-		}
-
-		return this.uiRefCurrent.scrollPos;
-	}
-
-	focusOnNode = (node) => {
-		if (node) {
-			Spotlight.focus(node);
-		}
-	}
-
-	handleGlobalKeyDown = () => {
-		this.setContainerDisabled(false);
-	}
-
-	setContainerDisabled = (bool) => {
-		const
-			{spotlightId} = this.props,
-			containerNode = document.querySelector(`[data-spotlight-id="${spotlightId}"]`);
-
-		if (containerNode) {
-			containerNode.setAttribute(dataContainerDisabledAttribute, bool);
-
-			if (bool) {
-				document.addEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
-			} else {
-				document.removeEventListener('keydown', this.handleGlobalKeyDown, {capture: true});
-			}
-		}
-	}
-
-	handleLeaveContainer = ({direction, target}) => {
-		const contentsContainer = this.uiRefCurrent.containerRef.current;
-		// ensure we only scroll to boundary from the contents and not a scroll button which
-		// lie outside of this.uiRefCurrent.containerRef but within the spotlight container
-		if (contentsContainer && contentsContainer.contains(target)) {
-			const
-				{scrollBounds: {maxLeft, maxTop}, scrollPos: {left, top}} = this.uiRefCurrent,
-				isVerticalDirection = (direction === 'up' || direction === 'down'),
-				pos = isVerticalDirection ? top : left,
-				max = isVerticalDirection ? maxTop : maxLeft;
-
-			// If max is equal to 0, it means scroller can not scroll to the direction.
-			if (pos >= 0 && pos <= max && max !== 0) {
-				this.props.scrollAndFocusScrollbarButton(direction);
-			}
-		}
-	}
-
-	initUiRef = (ref) => {
-		if (ref) {
-			this.uiRefCurrent = ref;
-			this.props.initUiChildRef(ref);
-		}
-	}
-
-	render () {
-		const props = Object.assign({}, this.props);
-
-		delete props.initUiChildRef;
-		delete props.onUpdate;
-		delete props.scrollAndFocusScrollbarButton;
-		delete props.spotlightId;
-
-		return (
-			<UiScrollerBase
-				{...props}
-				ref={this.initUiRef}
-			/>
-		);
-	}
-}
+const nop = () => {};
+const SpottableDiv = Spottable('div');
+let scrollerId = 0;
 
 /**
- * Allows 5-way navigation to the scrollbar controls. By default, 5-way will
- * not move focus to the scrollbar controls.
- *
- * @name focusableScrollbar
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {Boolean}
- * @default false
- * @public
- */
-
-/**
- * Unique identifier for the component.
- *
- * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
- * `Scroller` will store its scroll position and restore that position when returning to the
- * `Panel`.
- *
- * @name id
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the vertical scroll bar.
- *
- * @name scrollDownAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll down')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the horizontal scroll bar.
- *
- * @name scrollLeftAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll left')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the next button in the horizontal scroll bar.
- *
- * @name scrollRightAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll right')
- * @public
- */
-
-/**
- * Sets the hint string read when focusing the previous button in the vertical scroll bar.
- *
- * @name scrollUpAriaLabel
- * @memberof sandstone/Scroller.ScrollerBase.prototype
- * @type {String}
- * @default $L('scroll up')
- * @public
- */
-
-/**
- * A Sandstone-styled Scroller, Scrollable applied.
+ * A Sandstone-styled Scroller, useScroll applied.
  *
  * Usage:
  * ```
@@ -444,65 +45,366 @@ class ScrollerBase extends Component {
  *
  * @class Scroller
  * @memberof sandstone/Scroller
- * @extends sandstone/Scroller.ScrollerBase
+ * @extends ui/Scroller.ScrollerBasic
  * @ui
  * @public
  */
-const Scroller = (props) => (
-	<Scrollable
-		{...props}
-		childRenderer={(scrollerProps) => { // eslint-disable-line react/jsx-no-bind
-			return <ScrollerBase {...scrollerProps} />;
-		}}
-	/>
-);
+let Scroller = ({'aria-label': ariaLabel, ...rest}) => {
+	const id = `scroller_${++scrollerId}_content`;
+
+	// Hooks
+
+	const {
+		scrollContentWrapper: ScrollContentWrapper,
+		scrollContentHandle,
+		isHorizontalScrollbarVisible,
+		isVerticalScrollbarVisible,
+
+		resizeContextProps,
+		scrollContainerProps,
+		scrollContentWrapperProps,
+		scrollContentProps,
+		verticalScrollbarProps,
+		horizontalScrollbarProps
+	} = useScroll(rest);
+
+	const {
+		className,
+		...scrollContentWrapperRest
+	} = scrollContentWrapperProps;
+
+	const {
+		focusableBodyProps,
+		themeScrollContentProps
+	} = useThemeScroller(rest, {...scrollContentProps, className: classnames(className, scrollContentProps.className)}, id, isHorizontalScrollbarVisible, isVerticalScrollbarVisible);
+
+	// To apply spotlight navigableFilter, SpottableDiv should be in scrollContainer.
+	const ScrollBody = rest.focusableScrollbar === 'byEnter' ? SpottableDiv : React.Fragment;
+
+	// Render
+	return (
+		<ResizeContext.Provider {...resizeContextProps}>
+			<ScrollContentWrapper {...scrollContainerProps} {...scrollContentWrapperRest}>
+				<ScrollBody {...focusableBodyProps}>
+					<UiScrollerBasic {...themeScrollContentProps} aria-label={ariaLabel} id={id} ref={scrollContentHandle} />
+					{isVerticalScrollbarVisible ? <Scrollbar {...verticalScrollbarProps} /> : null}
+					{isHorizontalScrollbarVisible ? <Scrollbar {...horizontalScrollbarProps} /> : null}
+				</ScrollBody>
+			</ScrollContentWrapper>
+		</ResizeContext.Provider>
+	);
+};
+
+Scroller.displayName = 'Scroller';
 
 Scroller.propTypes = /** @lends sandstone/Scroller.Scroller.prototype */ {
-	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical'])
+	/**
+	 * The "aria-label" for the Scroller.
+	 *
+	 * When `aria-label` is set and `focusableScrollbar` is `byEnter`, it will be used
+	 * instead to provide an accessibility label for the Scroller.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	'aria-label': PropTypes.string,
+
+	/**
+	 * A callback function that receives a reference to the `scrollTo` feature.
+	 *
+	 * Once received, the `scrollTo` method can be called as an imperative interface.
+	 *
+	 * - {position: {x, y}} - Pixel value for x and/or y position
+	 * - {align} - Where the scroll area should be aligned. Values are:
+	 *   `'left'`, `'right'`, `'top'`, `'bottom'`,
+	 *   `'topleft'`, `'topright'`, `'bottomleft'`, and `'bottomright'`.
+	 * - {node} - Node to scroll into view
+	 * - {animate} - When `true`, scroll occurs with animation. When `false`, no
+	 *   animation occurs.
+	 * - {focus} - When `true`, attempts to focus item after scroll. Only valid when scrolling
+	 *   by `node`.
+	 * > Note: Only specify one of: `position`, `align`, `node`
+	 *
+	 * Example:
+	 * ```
+	 *	// If you set cbScrollTo prop like below;
+	 *	cbScrollTo: (fn) => {this.scrollTo = fn;}
+	 *	// You can simply call like below;
+	 *	this.scrollTo({align: 'top'}); // scroll to the top
+	 * ```
+	 *
+	 * @type {Function}
+	 * @public
+	 */
+	cbScrollTo: PropTypes.func,
+
+	/**
+	 * This is set to `true` by SpotlightContainerDecorator
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	'data-spotlight-container': PropTypes.bool,
+
+	/**
+	 * `false` if the content of the scroller could get focus
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	'data-spotlight-container-disabled': PropTypes.bool,
+
+	/**
+	 * This is passed onto the wrapped component to allow
+	 * it to customize the spotlight container for its use case.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	'data-spotlight-id': PropTypes.string,
+
+	/**
+	 * Direction of the scroller.
+	 *
+	 * @type {('both'|'horizontal'|'vertical')}
+	 * @default 'both'
+	 * @public
+	 */
+	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical']),
+
+	/**
+	 * Adds fade-out effect on the scroller.
+	 *
+	 * Set this to `true` only if the content has no spottable but text.
+	 * > Note: Fade-out effect will not show if the `direction` is set to `both`.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	fadeOut: PropTypes.bool,
+
+	/**
+	 * Allows 5-way navigation to the scroll thumb.
+	 *
+	 * By default, 5-way will not move focus to the scroll thumb.
+	 * If `true`, the scroll thumb will get focus by directional keys.
+	 * If `'byEnter'`, scroll body will get focus first by directional keys,
+	 * then the scroll thumb will get focus by enter key pressed on scroll body.
+	 *
+	 * @type {Boolean|'byEnter'}
+	 * @default false
+	 * @public
+	 */
+	focusableScrollbar: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf(['byEnter'])]),
+
+	/**
+	 * Specifies how to show horizontal scrollbar.
+	 *
+	 * @type {('auto'|'visible'|'hidden')}
+	 * @default 'auto'
+	 * @public
+	 */
+	horizontalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the horizontal scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll up or down with up down button')
+	 * @public
+	 */
+	horizontalScrollThumbAriaLabel: PropTypes.string,
+
+	/**
+	 * Unique identifier for the component.
+	 *
+	 * When defined and when the `Scroller` is within a [Panel]{@link sandstone/Panels.Panel}, the
+	 * `Scroller` will store its scroll position and restore that position when returning to the
+	 * `Panel`.
+	 *
+	 * @type {String}
+	 * @public
+	 */
+	id: PropTypes.string,
+
+	/**
+	 * Prevents scroll by dragging or flicking on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @private
+	 */
+	noScrollByDrag: PropTypes.bool,
+
+	/**
+	 * Prevents scroll by wheeling on the scroller.
+	 *
+	 * @type {Boolean}
+	 * @default false
+	 * @public
+	 */
+	noScrollByWheel: PropTypes.bool,
+
+	/**
+	 * Called when scrolling.
+	 *
+	 * Passes `scrollLeft`, `scrollTop`.
+	 * It is not recommended to set this prop since it can cause performance degradation.
+	 * Use `onScrollStart` or `onScrollStop` instead.
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScroll: PropTypes.func,
+
+	/**
+	 * Called when scroll starts.
+	 *
+	 * Passes `scrollLeft` and `scrollTop`.
+	 *
+	 * Example:
+	 * ```
+	 * onScrollStart = ({scrollLeft, scrollTop}) => {
+	 *     // do something with scrollLeft and scrollTop
+	 * }
+	 *
+	 * render = () => (
+	 *     <Scroller
+	 *         ...
+	 *         onScrollStart={this.onScrollStart}
+	 *         ...
+	 *     />
+	 * )
+	 * ```
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScrollStart: PropTypes.func,
+
+	/**
+	 * Called when scroll stops.
+	 *
+	 * Passes `scrollLeft` and `scrollTop`.
+	 *
+	 * Example:
+	 * ```
+	 * onScrollStop = ({scrollLeft, scrollTop}) => {
+	 *     // do something with scrollLeft and scrollTop
+	 * }
+	 *
+	 * render = () => (
+	 *     <Scroller
+	 *         ...
+	 *         onScrollStop={this.onScrollStop}
+	 *         ...
+	 *     />
+	 * )
+	 * ```
+	 *
+	 * @type {Function}
+	 * @param {Object} event
+	 * @param {Number} event.scrollLeft Scroll left value.
+	 * @param {Number} event.scrollTop Scroll top value.
+	 * @public
+	 */
+	onScrollStop: PropTypes.func,
+
+	/**
+	 * Specifies overscroll effects shows on which type of inputs.
+	 *
+	 * @type {Object}
+	 * @default {
+	 *	arrowKey: false,
+	 *	drag: false,
+	 *	pageKey: false,
+	 *	track: false,
+	 *	wheel: true
+	 * }
+	 * @private
+	 */
+	overscrollEffectOn: PropTypes.shape({
+		arrowKey: PropTypes.bool,
+		drag: PropTypes.bool,
+		pageKey: PropTypes.bool,
+		track: PropTypes.bool,
+		wheel: PropTypes.bool
+	}),
+
+	/**
+	 * Specifies how to scroll.
+	 *
+	 * @type {('native'|'translate')}
+	 * @default 'native'
+	 * @public
+	 */
+	scrollMode: PropTypes.oneOf(['native', 'translate']),
+
+	/**
+	 * Specifies how to show vertical scrollbar.
+	 *
+	 * @type {('auto'|'visible'|'hidden')}
+	 * @default 'auto'
+	 * @public
+	 */
+	verticalScrollbar: PropTypes.oneOf(['auto', 'visible', 'hidden']),
+
+	/**
+	 * Sets the hint string read when focusing the scroll thumb in the vertical scroll bar.
+	 *
+	 * @type {String}
+	 * @default $L('scroll left or right with left right button')
+	 * @public
+	 */
+	verticalScrollThumbAriaLabel: PropTypes.string
 };
 
-Scroller.defaultProps = {
-	direction: 'both'
-};
-
-/**
- * A Sandstone-styled native Scroller, Scrollable applied.
- *
- * For smooth native scrolling, web engine with below Chromium 61, should be launched
- * with the flag '--enable-blink-features=CSSOMSmoothScroll' to support it.
- * The one with Chromium 61 or above, is launched to support it by default.
- *
- * Usage:
- * ```
- * <ScrollerNative>Scroll me.</ScrollerNative>
- * ```
- *
- * @class ScrollerNative
- * @memberof sandstone/Scroller
- * @extends sandstone/Scroller.ScrollerBase
- * @ui
- * @private
- */
-const ScrollerNative = (props) => (
-	<ScrollableNative
-		{...props}
-		childRenderer={(scrollerProps) => { // eslint-disable-line react/jsx-no-bind
-			return <ScrollerBase {...scrollerProps} />;
-		}}
-	/>
+Scroller = Skinnable(
+	SpotlightContainerDecorator(
+		{
+			overflow: true,
+			preserveId: true,
+			restrict: 'self-first'
+		},
+		I18nContextDecorator(
+			{rtlProp: 'rtl'},
+			Scroller
+		)
+	)
 );
 
-ScrollerNative.propTypes = /** @lends sandstone/Scroller.ScrollerNative.prototype */ {
-	direction: PropTypes.oneOf(['both', 'horizontal', 'vertical'])
-};
-
-ScrollerNative.defaultProps = {
-	direction: 'both'
+Scroller.defaultProps = {
+	'data-spotlight-container-disabled': false,
+	cbScrollTo: nop,
+	direction: 'both',
+	fadeOut: false,
+	focusableScrollbar: false,
+	horizontalScrollbar: 'auto',
+	noScrollByDrag: false,
+	noScrollByWheel: false,
+	onScroll: nop,
+	onScrollStart: nop,
+	onScrollStop: nop,
+	overscrollEffectOn: {
+		arrowKey: false,
+		drag: false,
+		pageKey: false,
+		track: false,
+		wheel: true
+	},
+	scrollMode: 'native',
+	verticalScrollbar: 'auto'
 };
 
 export default Scroller;
 export {
-	Scroller,
-	ScrollerBase,
-	ScrollerNative
+	Scroller
 };

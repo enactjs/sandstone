@@ -1,6 +1,6 @@
 {
 	"id": "com.webos.app.enactsandstoneqasampler",
-	"version": "1.0.0-alpha.1",
+	"version": "1.0.0-alpha.4",
 	"vendor": "LGE-SVL",
 	"type": "web",
 	"main": "index.html",

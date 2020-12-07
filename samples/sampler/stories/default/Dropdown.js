@@ -20,13 +20,14 @@ storiesOf('Sandstone', module)
 
 			return (
 				<Dropdown
-					direction={select('direction', ['up', 'down'], Config)}
+					direction={select('direction', ['above', 'below'], Config)}
 					disabled={boolean('disabled', Config)}
 					onClose={action('onClose')}
 					onOpen={action('onOpen')}
 					onSelect={action('onSelect')}
+					placeholder={text('placeholder', Config)}
 					size={select('size', ['small', 'large'], Config)}
-					title={text('title', Config, 'Dropdown')}
+					title={text('title', Config, 'Options')}
 					width={select('width', ['tiny', 'small', 'medium', 'large', 'x-large', 'huge'], Config)}
 				>
 					{items}

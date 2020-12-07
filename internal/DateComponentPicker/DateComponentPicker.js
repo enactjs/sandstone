@@ -1,14 +1,12 @@
-import Changeable from '@enact/ui/Changeable';
 import kind from '@enact/core/kind';
+import {mapAndFilterChildren} from '@enact/core/util';
+import Changeable from '@enact/ui/Changeable';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Spottable from '@enact/spotlight/Spottable';
 
-import PickerCore, {PickerItem} from '../Picker';
+import Picker, {PickerItem} from '../Picker';
 
-import DateComponentPickerChrome from './DateComponentPickerChrome';
-
-const Picker = Spottable(PickerCore);
+import css from './DateComponentPicker.module.less';
 
 /**
  * {@link sandstone/internal/DataComponentPicker.DateComponentPickerBase} allows the selection of one
@@ -93,8 +91,13 @@ const DateComponentPickerBase = kind({
 		wrap: PropTypes.bool
 	},
 
+	styles: {
+		css,
+		className: 'dateComponentPicker'
+	},
+
 	computed: {
-		children: ({children}) => React.Children.map(children, (child) => (
+		children: ({children}) => mapAndFilterChildren(children, (child) => (
 			<PickerItem marqueeDisabled>{child}</PickerItem>
 		)),
 		max: ({children}) => React.Children.count(children) - 1,
@@ -103,27 +106,25 @@ const DateComponentPickerBase = kind({
 		}
 	},
 
-	render: ({'aria-valuetext': ariaValuetext, accessibilityHint, children, className, label, max, noAnimation, reverse, value, voiceLabel, wrap, ...rest}) => (
-		<DateComponentPickerChrome className={className} label={label}>
-			<Picker
-				{...rest}
-				accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
-				aria-valuetext={(accessibilityHint == null) ? ariaValuetext : null}
-				data-webos-voice-labels-ext={voiceLabel}
-				index={value}
-				joined
-				max={max}
-				min={0}
-				noAnimation={noAnimation}
-				orientation="vertical"
-				reverse={reverse}
-				step={1}
-				value={value}
-				wrap={wrap}
-			>
-				{children}
-			</Picker>
-		</DateComponentPickerChrome>
+	render: ({'aria-valuetext': ariaValuetext, accessibilityHint, children, label, max, noAnimation, reverse, value, voiceLabel, wrap, ...rest}) => (
+		<Picker
+			{...rest}
+			accessibilityHint={(accessibilityHint == null) ? label : accessibilityHint}
+			aria-valuetext={(accessibilityHint == null) ? ariaValuetext : null}
+			data-webos-voice-labels-ext={voiceLabel}
+			index={value}
+			joined
+			max={max}
+			min={0}
+			noAnimation={noAnimation}
+			orientation="vertical"
+			reverse={reverse}
+			step={1}
+			value={value}
+			wrap={wrap}
+		>
+			{children}
+		</Picker>
 	)
 });
 

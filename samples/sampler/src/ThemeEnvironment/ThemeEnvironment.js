@@ -4,11 +4,9 @@ import classnames from 'classnames';
 import kind from '@enact/core/kind';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Column, Cell} from '@enact/ui/Layout';
 import {boolean, select} from '@enact/storybook-utils/addons/knobs';
 import qs from 'query-string';
 
-import BodyText from '@enact/sandstone/BodyText';
 import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
 import {Panels, Panel, Header} from '@enact/sandstone/Panels';
 
@@ -22,7 +20,7 @@ const reloadPage = () => {
 };
 
 const PanelsBase = kind({
-	name: 'ThemeEnvrionmentPanels',
+	name: 'ThemeEnvironmentPanels',
 
 	propTypes: {
 		description: PropTypes.string,
@@ -34,20 +32,16 @@ const PanelsBase = kind({
 
 	styles: {
 		css,
-		className: 'themeEnvrionmentPanels'
+		className: 'themeEnvironmentPanels'
 	},
 
 	render: ({children, description, noHeader, noPanel, noPanels, title, ...rest}) => (
-		!noPanels ? <Panels {...rest} onApplicationClose={reloadPage}>
+		!noPanels ? <Panels {...rest} onClose={reloadPage}>
 			{!noPanel ? <Panel className={css.panel}>
-				{!noHeader ? [<Header type="compact" title={title} key="header" />,
-					<Column key="body">
-						{description ? (
-							<Cell shrink component={BodyText} className={css.description}>{description}</Cell>
-						) : null}
-						<Cell className={css.storyCell}>{children}</Cell>
-					</Column>] : children
-				}
+				{!noHeader ? (
+					<Header title={title} subtitle={description} />
+				) : null}
+				{children}
 			</Panel> : children}
 		</Panels> : <div {...rest}>{children}</div>
 	)
@@ -71,16 +65,17 @@ const locales = {
 	'ko-KR - Korean': 'ko-KR',
 	'es-ES - Spanish, with alternate weekends': 'es-ES',
 	'am-ET - Amharic, 5 meridiems': 'am-ET',
-	'th-TH - Thai, with tall characters': 'th-TH',
+	'th-TH - Thai, with tallglyph characters': 'th-TH',
 	'ar-SA - Arabic, RTL and standard font': 'ar-SA',
 	'ur-PK - Urdu, RTL and custom Urdu font': 'ur-PK',
 	'zh-Hans-HK - Simplified Chinese, custom Hans font': 'zh-Hans-HK',
 	'zh-Hant-HK - Traditional Chinese, custom Hant font': 'zh-Hant-HK',
-	'vi-VN - Vietnamese, Special non-latin font handling': 'vi-VN',
+	'vi-VN - Vietnamese, with tallglyph characters': 'vi-VN',
 	'ta-IN - Tamil, custom Indian font': 'ta-IN',
 	'ja-JP - Japanese, custom Japanese font': 'ja-JP',
 	'en-JP - English, custom Japanese font': 'en-JP',
-	'si-LK - Sinhala, external font family with different line metrics': 'si-LK'
+	'si-LK - Sinhala, external font family with tallglyph characters': 'si-LK',
+	'km-KH - Cambodian Khmer, with tallglyph characters': 'km-KH'
 };
 
 // This mapping/remapping is necessary to support objects being used as select-knob values, since
@@ -91,7 +86,7 @@ const backgroundLabels = {
 	'Tunnel (Green)': 'backgroundColorful2',
 	'Mountains (Blue)': 'backgroundColorful3',
 	'Misty River': 'backgroundColorful4',
-	'Turbulant Tides': 'backgroundColorful5',
+	'Turbulent Tides': 'backgroundColorful5',
 	'Space Station': 'backgroundColorful6',
 	'Warm Pup': 'backgroundColorful7',
 	'Random': 'backgroundColorful8'
@@ -111,7 +106,8 @@ const backgroundLabelMap = {
 };
 
 const skins = {
-	'Neutral': 'neutral'
+	'Neutral': 'neutral',
+	'Light': 'light'
 };
 
 const getArgs = (str) => {
@@ -135,7 +131,7 @@ const getKnobFromArgs = (args, propName, fallbackValue) => {
 	return value;
 };
 
-const StorybookDecorator = (story, config) => {
+const StorybookDecorator = (story, config = {}) => {
 	// Executing `story` here allows the story knobs to register and render before the global knobs below.
 	const sample = story();
 
@@ -153,20 +149,27 @@ const StorybookDecorator = (story, config) => {
 		defaultProps: {
 			'debug aria': false,
 			'debug layout': false,
-			'debug spotlight': false
+			'debug spotlight': false,
+			'debug sprites': false
 		},
 		groupId: 'Development'
 	};
 
-	if (sample && sample.props && sample.props.info) {
-		config.description = sample.props.info;
+	if (config.parameters) {
+		if (config.parameters.info && config.parameters.info.text) {
+			config.description = config.parameters.info.text;
+		}
+		if (config.parameters.props) {
+			config.props = config.parameters.props;
+		}
 	}
 
 	const args = getArgs();
 	const classes = {
 		aria: boolean('debug aria', DevelopmentConfig, getKnobFromArgs(args, 'debug aria')),
 		layout: boolean('debug layout', DevelopmentConfig, getKnobFromArgs(args, 'debug layout')),
-		spotlight: boolean('debug spotlight', DevelopmentConfig, getKnobFromArgs(args, 'debug spotlight'))
+		spotlight: boolean('debug spotlight', DevelopmentConfig, getKnobFromArgs(args, 'debug spotlight')),
+		sprites: boolean('debug sprites', DevelopmentConfig, getKnobFromArgs(args, 'debug sprites'))
 	};
 	if (Object.keys(classes).length > 0) {
 		classes.debug = true;
@@ -184,18 +187,14 @@ const StorybookDecorator = (story, config) => {
 				'--sand-env-background': backgroundLabelMap[select('background', backgroundLabels, Config, getKnobFromArgs(args, 'background'))]
 			}}
 			skin={select('skin', skins, Config, getKnobFromArgs(args, 'skin'))}
-			noHeader={config.noHeader}
-			noPanel={config.noPanel}
-			noPanels={config.noPanels}
-			{...config.sandstoneProps}
-			{...config.panelsProps}
+			{...config.props}
 		>
 			{sample}
 		</Theme>
 	);
 };
 
-const FullscreenStorybookDecorator = (story, config) => {
+const FullscreenStorybookDecorator = (story, config = {}) => {
 	const sample = story();
 	const args = getArgs();
 	return (
