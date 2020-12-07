@@ -6,7 +6,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Added
 
-- `sandstone/Item` to `data-webos-voice-labels` when `label` is used
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
 
 ### Fixed
 

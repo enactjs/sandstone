@@ -225,15 +225,8 @@ const ItemBase = kind({
 	render: ({centered, children, componentRef, css, inline, label, labelPosition, marqueeOn, slotAfter, slotBefore, ...rest}) => {
 		delete rest.size;
 
-		const voiceProps = {};
-		if (label) {
-			const keys = Object.keys(rest);
-			if (keys.indexOf('data-webos-voice-label') === -1 && keys.indexOf('data-webos-voice-labels') === -1) {
-				if (typeof label === 'string' && (children[0] && typeof children[0] === 'string')) {
-					voiceProps['data-webos-voice-labels'] = JSON.stringify([label, children[0]]);
-				}
-			}
-		}
+		const keys = Object.keys(rest);
+		const voiceProps = (!keys.includes('data-webos-voice-label') && !keys.includes('data-webos-voice-labels') && label && typeof label === 'string' && children && children[0] && typeof children[0] === 'string') ? {'data-webos-voice-labels': JSON.stringify([label, children[0]])} : {};
 
 		return (
 			<UiItemBase
