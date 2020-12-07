@@ -183,13 +183,16 @@ class PopupTabLayoutView extends React.Component {
 									</buttons>
 								</Alert>
 								<KeyGuide open={openKeyGuide} onClick={() => this.setState({openKeyGuide: true})}>{keyGuideItems}</KeyGuide>
-								<Popup
-									onClose={() => this.setState({openPopup: false})}
-									open={openPopup}
-								>
-									<Button>Text 0</Button>
-									<Button>Text 1</Button>
-								</Popup>
+								<div aria-owns="popup">
+									<Popup
+										id="popup"
+										onClose={() => this.setState({openPopup: false})}
+										open={openPopup}
+									>
+										<Button>Text 0</Button>
+										<Button>Text 1</Button>
+									</Popup>
+								</div>
 							</TabPanel>
 						</TabPanels>
 					</Tab>

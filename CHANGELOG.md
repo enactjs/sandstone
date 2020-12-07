@@ -10,6 +10,7 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ### Fixed
 
+- `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
 - `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
 - `sandstone/Panel` to not reset scroll position by events from others
