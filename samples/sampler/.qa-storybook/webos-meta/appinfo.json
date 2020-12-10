@@ -17,5 +17,6 @@
 	},
 	"accessibility": {
 		"supportsAudioGuidance": true
-	}
+	},
+	"supportTouchInputDevice": true
 }
