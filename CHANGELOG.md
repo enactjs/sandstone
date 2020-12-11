@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Changed
+
+- `sandstone/Icon` supported icon list
+
 ## [1.4.4-experimental-2] - 2020-12-03
 
 ### Added
