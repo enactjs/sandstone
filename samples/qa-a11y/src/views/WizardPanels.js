@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-
 import BodyText from '@enact/sandstone/BodyText';
 import Button from '@enact/sandstone/Button';
 import CheckboxItem from '@enact/sandstone/CheckboxItem';
@@ -8,14 +6,25 @@ import Item from '@enact/sandstone/Item';
 import WizardPanels from '@enact/sandstone/WizardPanels';
 import React from 'react';
 
-const WizardPanelsView = () => {
-	const [noAnimation, setNoAnimation] = React.useState(false);
-	const [noAriaLabel, setNoAriaLabel] = React.useState(false);
-	const [noSteps, setNoSteps] = React.useState(false);
+class WizardPanelsView extends React.Component {
+	constructor (props) {
+		super(props);
 
-	const handleToggleNoAnimation = () => setNoAnimation(!noAnimation);
-	const handleToggleNoAriaLabel = () => setNoAriaLabel(!noAriaLabel);
-	const handleToggleNoSteps = () => setNoSteps(!noSteps);
+		this.state = {
+			noAnimation: false,
+			noAriaLabel: false,
+			noSteps: false
+		};
+	}
+
+	handleToggleNoAnimation = () => this.setState((state) => ({noAnimation: !state.noAnimation}));
+
+	handleToggleNoAriaLabel = () => this.setState((state) => ({noAriaLabel: !state.noAriaLabel}));
+
+	handleToggleNoSteps = () => this.setState((state) => ({noSteps: !state.noSteps}));
+
+	render () {
+		const {noAnimation, noAriaLabel, noSteps} = this.state;
 
 		return (
 			<WizardPanels key={noAnimation} noAnimation={noAnimation} noSteps={noSteps}>
@@ -31,19 +40,19 @@ const WizardPanelsView = () => {
 						<Button>Text 1</Button>
 					</div>
 					<CheckboxItem
-						onClick={handleToggleNoAnimation}
+						onClick={this.handleToggleNoAnimation}
 						selected={noAnimation}
 					>
 						noAnimation
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={handleToggleNoAriaLabel}
+						onClick={this.handleToggleNoAriaLabel}
 						selected={noAriaLabel}
 					>
 						noAriaLabel
 					</CheckboxItem>
 					<CheckboxItem
-						onClick={handleToggleNoSteps}
+						onClick={this.handleToggleNoSteps}
 						selected={noSteps}
 					>
 						noSteps
@@ -89,6 +98,7 @@ const WizardPanelsView = () => {
 				</WizardPanels.Panel>
 			</WizardPanels>
 		);
-};
+	}
+}
 
 export default WizardPanelsView;
