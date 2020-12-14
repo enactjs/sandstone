@@ -48,7 +48,7 @@ storiesOf('Sandstone', module)
 				>
 					{text('children', Config, 'ImageItem Caption')}
 				</ImageItem>
-			)
+			);
 		},
 		{
 			info: {
