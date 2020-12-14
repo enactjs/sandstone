@@ -4,10 +4,16 @@ The following is a curated list of changes in the Enact sandstone module, newest
 
 ## [unreleased]
 
+### Added
+
+- `sandstone/Item` prop `data-webos-voice-labels` when `label` is used
+
 ### Fixed
 
+- `sandstone/Alert` to read out properly after closing it in a `sandstone/PopupTabLayout`
 - `sandstone/Heading` `font-style` to use oblique font instead of fake `italic`
 - `sandstone/Input` to not have initial focus with pointer when `type` prop is `'number'` or `'passwordnumber'`
+- `sandstone/Panel` to not reset scroll position by events from others
 - `sandstone/VideoPlayer.Video` to not start a new play before another one completes
 
 ## [1.4.4] - 2020-11-06
