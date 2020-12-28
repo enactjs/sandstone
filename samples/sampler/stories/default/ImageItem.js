@@ -26,29 +26,12 @@ const dataIndexProp = {
 storiesOf('Sandstone', module)
 	.add(
 		'ImageItem',
-		() => {
-			const dataIndex = boolean('data-index', Config);
-
-			return (
-				<ImageItem
-					{...dataIndex ? {...dataIndexProp} : null}
-					centered={boolean('centered', Config)}
-					disabled={boolean('disabled', Config)}
-					key={dataIndex + ''}
-					label={text('label', Config, 'ImageItem label')}
-					orientation={select('orientation', prop.orientation, Config)}
-					selected={boolean('selected', Config)}
-					showSelection={boolean('showSelection', Config)}
-					src={object('src', Config, src)}
-					style={{
-						position: 'absolute',
-						width: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 768 : 1020),
-						height: ri.scale(select('orientation', prop.orientation, Config) === 'vertical' ? 588 : 240)
-					}}
-				>
-					{text('children', Config, 'ImageItem Caption')}
-				</ImageItem>
-			)
+		() => (
+			<ImageItem
+			>
+				{text('children', Config, 'ImageItem Caption')}
+			</ImageItem>
+		),
 		},
 		{
 			info: {
