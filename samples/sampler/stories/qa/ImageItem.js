@@ -43,6 +43,6 @@ storiesOf('ImageItem', module)
 				>
 					{text('children', Config, 'ImageItem Caption')}
 				</ImageItem>
-			)
+			);
 		}
 	);
