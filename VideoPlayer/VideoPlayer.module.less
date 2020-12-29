@@ -56,8 +56,8 @@
 			position: absolute;
 			z-index: 100;  // Value assigned as part of the VideoPlayer API so layers may be inserted in-between
 			bottom: @sand-video-player-padding-bottom;
-			left: @sand-video-player-padding-side;
-			right: @sand-video-player-padding-side;
+			left:0;
+			right: 0;
 
 			&.lift {
 				transform: translateY(~"calc(var(--liftDistance) * -1)");
@@ -81,6 +81,7 @@
 			.sliderContainer {
 				display: flex;
 				align-items: center;
+				margin: @sand-video-player-slider-margin;
 
 				> *:first-child {
 					text-align: right;
