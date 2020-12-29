@@ -165,6 +165,14 @@ const HeaderBase = kind({
 		css: PropTypes.object,
 
 		/**
+		 * Used internally to render `back button`
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number,
+
+		/**
 		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
 		 * be set automatically to `true` on render and `false` after animating into view.
 		 *
