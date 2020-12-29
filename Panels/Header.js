@@ -592,7 +592,7 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 
 	ContextAsDefaultsHeader.propTypes = {
 		/**
-		 * Used internally to render `back button`.
+		 * Used internally to render back button.
 		 *
 		 * @type {Number}
 		 * @private
