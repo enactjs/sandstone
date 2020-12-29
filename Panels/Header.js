@@ -165,14 +165,6 @@ const HeaderBase = kind({
 		css: PropTypes.object,
 
 		/**
-		 * Used internally to render `back button`
-		 *
-		 * @type {Number}
-		 * @private
-		 */
-		'data-index': PropTypes.number,
-
-		/**
 		 * When a Header is used within [`Panels`]{@link sandstone/Panels.Panels} this property will
 		 * be set automatically to `true` on render and `false` after animating into view.
 		 *
@@ -583,11 +575,10 @@ const HeaderBase = kind({
 // Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsHeader (props) {
+	function ContextAsDefaultsHeader (props) {
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
 		const {type: panelsType} = React.useContext(PanelsStateContext);
 		const {'data-index': index} = props;
-
 		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
 
 		return provideContextAsDefaults(
@@ -597,7 +588,19 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 				backButtonAvailable={backButtonAvailable}
 			/>
 		);
+	}
+
+	ContextAsDefaultsHeader.propTypes = {
+		/**
+		 * Used internally to render `back button`
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number
 	};
+
+	return ContextAsDefaultsHeader;
 };
 
 const HeaderMeasurementDecorator = (Wrapped) => {
