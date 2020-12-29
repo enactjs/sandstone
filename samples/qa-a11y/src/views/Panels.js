@@ -26,29 +26,29 @@ const PanelsView = () => {
 	};
 
 	return (
-			<Panels index={index} onBack={prevPanel}>
-				<Panel>
-					<Header title="Panel 0" />
-					<VirtualList
-						dataSize={itemList.length}
-						itemRenderer={customItem}
-						itemSize={ri.scale(156)}
-					/>
-				</Panel>
-				<Panel>
-					<Header title="Panel 1" />
-					<Scroller>
-						{
-							itemList.map((item, key) => {
-								return (
-									<Item onClick={prevPanel} key={key}>{item}</Item>
-								);
-							})
-						}
-					</Scroller>
-				</Panel>
-			</Panels>
-		);
+		<Panels index={index} onBack={prevPanel}>
+			<Panel>
+				<Header title="Panel 0" />
+				<VirtualList
+					dataSize={itemList.length}
+					itemRenderer={customItem}
+					itemSize={ri.scale(156)}
+				/>
+			</Panel>
+			<Panel>
+				<Header title="Panel 1" />
+				<Scroller>
+					{
+						itemList.map((item, key) => {
+							return (
+								<Item onClick={prevPanel} key={key}>{item}</Item>
+							);
+						})
+					}
+				</Scroller>
+			</Panel>
+		</Panels>
+	);
 };
 
 export default PanelsView;

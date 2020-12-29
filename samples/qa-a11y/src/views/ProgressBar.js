@@ -21,21 +21,21 @@ const ProgressBarView = () => {
 	const handleDecreaseBarValue = () => setValue(Math.max((value - 0.1).toFixed(1), 0));
 	const handleIncreaseBarValue = () => setValue(Math.min((value + 0.1).toFixed(1), 1));
 
-		return (
-			<Section title="Default">
-				<div>
-					<div className={appCss.controls}>
-						<Button aria-label="This is Decrease." icon="minus" onClick={handleDecreaseBarValue} />
-						<Button aria-label="This is Increase." icon="plus" onClick={handleIncreaseBarValue} />
-					</div>
-					<ProgressBar
-						aria-label={ariaLabel}
-						aria-live="assertive"
-						progress={value}
-					/>
+	return (
+		<Section title="Default">
+			<div>
+				<div className={appCss.controls}>
+					<Button aria-label="This is Decrease." icon="minus" onClick={handleDecreaseBarValue} />
+					<Button aria-label="This is Increase." icon="plus" onClick={handleIncreaseBarValue} />
 				</div>
-			</Section>
-		);
+				<ProgressBar
+					aria-label={ariaLabel}
+					aria-live="assertive"
+					progress={value}
+				/>
+			</div>
+		</Section>
+	);
 };
 
 export default ProgressBarView;

@@ -10,9 +10,9 @@ import React from 'react';
 const items = [];
 // eslint-disable-next-line enact/prop-types, enact/display-name
 const renderItem = ({index, ...rest}) => (
-		<Item {...rest}>
-			{items[index]}
-		</Item>
+	<Item {...rest}>
+		{items[index]}
+	</Item>
 );
 
 for (let i = 0; i < 100; i++) {
@@ -25,24 +25,24 @@ const VirtualListView = () => {
 
 	const handleToggleScrollMode = () => setNative(!native);
 
-		return (
-			<Layout orientation="vertical">
-				<Cell shrink>
-					<CheckboxItem
-						onClick={handleToggleScrollMode}
-						selected={native}
-					>
-						Native
-					</CheckboxItem>
-				</Cell>
-				<VirtualList
-					dataSize={items.length}
-					itemRenderer={renderItem}
-					itemSize={ri.scale(156)}
-					scrollMode={scrollMode}
-				/>
-			</Layout>
-		);
+	return (
+		<Layout orientation="vertical">
+			<Cell shrink>
+				<CheckboxItem
+					onClick={handleToggleScrollMode}
+					selected={native}
+				>
+					Native
+				</CheckboxItem>
+			</Cell>
+			<VirtualList
+				dataSize={items.length}
+				itemRenderer={renderItem}
+				itemSize={ri.scale(156)}
+				scrollMode={scrollMode}
+			/>
+		</Layout>
+	);
 };
 
 export default VirtualListView;

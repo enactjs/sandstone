@@ -12,15 +12,15 @@ const items = [];
 const renderItem = ({index, ...rest}) => {
 	const {caption, label, src} = items[index];
 
-		return (
-			<ImageItem
-				{...rest}
-				src={src}
-				label={label}
-			>
-				{caption}
-			</ImageItem>
-		);
+	return (
+		<ImageItem
+			{...rest}
+			src={src}
+			label={label}
+		>
+			{caption}
+		</ImageItem>
+	);
 };
 
 for (let i = 0; i < 100; i++) {
@@ -46,34 +46,34 @@ const VirtualGridListView = () => {
 	const handleToggleScrollMode = () => setNative(!native);
 	const handleToggleOrientation = () => setHorizontal(!horizontal);
 
-		return (
-			<Layout orientation="vertical">
-				<Cell shrink>
-					<CheckboxItem
-						onToggle={handleToggleOrientation}
-						selected={horizontal}
-					>
-						Horizontal
-					</CheckboxItem>
-					<CheckboxItem
-						onToggle={handleToggleScrollMode}
-						selected={native}
-					>
-						Native
-					</CheckboxItem>
-				</Cell>
-				<VirtualGridList
-					dataSize={items.length}
-					direction={horizontal ? 'horizontal' : 'vertical'}
-					itemRenderer={renderItem}
-					itemSize={{
-						minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
-						minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
-					}}
-					scrollMode={scrollMode}
-				/>
-			</Layout>
-		);
+	return (
+		<Layout orientation="vertical">
+			<Cell shrink>
+				<CheckboxItem
+					onToggle={handleToggleOrientation}
+					selected={horizontal}
+				>
+					Horizontal
+				</CheckboxItem>
+				<CheckboxItem
+					onToggle={handleToggleScrollMode}
+					selected={native}
+				>
+					Native
+				</CheckboxItem>
+			</Cell>
+			<VirtualGridList
+				dataSize={items.length}
+				direction={horizontal ? 'horizontal' : 'vertical'}
+				itemRenderer={renderItem}
+				itemSize={{
+					minWidth: ri.scale(678), // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+					minHeight: ri.scale(678) // 606px(size of expanded ImageItem) + 36px(for shadow) * 2
+				}}
+				scrollMode={scrollMode}
+			/>
+		</Layout>
+	);
 };
 
 export default VirtualGridListView;

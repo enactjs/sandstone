@@ -15,26 +15,26 @@ const DatePickerItem = (props) => {
 	const [value, setValue] = React.useState(null);
 	const handleChange = ({value: newValue}) => setValue(dateToLocaleString(newValue));
 
-		return (
-			<>
-				<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Date</Item>
-				<FixedPopupPanels
-					onClose={handleOpen(0, false)}
-					open={open[0]}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<DatePicker
-							{...props}
-							onChange={handleChange}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
+	return (
+		<>
+			<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Date</Item>
+			<FixedPopupPanels
+				onClose={handleOpen(0, false)}
+				open={open[0]}
+			>
+				<Panel>
+					<Header>
+						<title>Header Title</title>
+						<subtitle>Subtitle</subtitle>
+					</Header>
+					<DatePicker
+						{...props}
+						onChange={handleChange}
+					/>
+				</Panel>
+			</FixedPopupPanels>
+		</>
+	);
 };
 
 const DatePickerView = () => (

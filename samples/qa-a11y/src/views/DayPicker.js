@@ -14,26 +14,26 @@ const DayPickerItem = (props) => {
 
 	const handleSelect = ({content}) => setValue(content);
 
-		return (
-			<>
-				<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Day</Item>
-				<FixedPopupPanels
-					onClose={handleOpen(0, false)}
-					open={open[0]}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<DayPicker
-							{...props}
-							onSelect={handleSelect}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
+	return (
+		<>
+			<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Day</Item>
+			<FixedPopupPanels
+				onClose={handleOpen(0, false)}
+				open={open[0]}
+			>
+				<Panel>
+					<Header>
+						<title>Header Title</title>
+						<subtitle>Subtitle</subtitle>
+					</Header>
+					<DayPicker
+						{...props}
+						onSelect={handleSelect}
+					/>
+				</Panel>
+			</FixedPopupPanels>
+		</>
+	);
 };
 
 const DayPickerView = () => (

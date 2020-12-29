@@ -13,9 +13,9 @@ const CustomSlider = ({customText, ...rest}) => {
 
 	const handleChange = (ev) => setValue(ev.value);
 
-		return (
-			<Slider aria-valuetext={valueText} onChange={handleChange} value={value} {...rest} />
-		);
+	return (
+		<Slider aria-valuetext={valueText} onChange={handleChange} value={value} {...rest} />
+	);
 };
 
 CustomSlider.propTypes = {

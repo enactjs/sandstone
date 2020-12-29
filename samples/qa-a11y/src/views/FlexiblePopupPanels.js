@@ -17,40 +17,40 @@ const FlexiblePopupPanelsView = () => {
 	const prevButton = <Button icon="closex" aria-label="This is Exit." onClick={handleOpen(0, false)} />;
 	const nextButton = <Button icon="closex" aria-label="This is Quit." onClick={handleOpen(0, false)} />;
 
-		return (
-			<Section title="Default">
-				<Button alt="Normal" onClick={handleOpen(0, true)}>Open 0</Button>
+	return (
+		<Section title="Default">
+			<Button alt="Normal" onClick={handleOpen(0, true)}>Open 0</Button>
 
-				<FlexiblePopupPanels
-					index={index[0]}
-					open={open[0]}
-					onNextClick={setIndex(0, index[0] + 1)}
-					onPrevClick={setIndex(0, index[0] - 1)}
-					noCloseButton
-				>
-					<Panel prevButton={prevButton}>
-						<Header title="List of options" />
-						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item onClick={setIndex(0, index[0] + 1)}>Item 0</Item>
-							<Item onClick={setIndex(0, index[0] + 1)}>Item 1</Item>
-							<Item onClick={setIndex(0, index[0] + 1)}>Item 2</Item>
-							<Item onClick={setIndex(0, index[0] + 1)}>Item 3</Item>
-							<Item onClick={setIndex(0, index[0] + 1)} disabled>Item 4</Item>
-						</Scroller>
-					</Panel>
-					<Panel>
-						<Header title="Vertical Slider" />
-						<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
-					</Panel>
-					<Panel nextButton={nextButton}>
-						<Header title="Third panel" />
-						<Scroller style={{width: ri.scaleToRem(900)}}>
-							<Item>Item 0</Item>
-						</Scroller>
-					</Panel>
-				</FlexiblePopupPanels>
-			</Section>
-		);
+			<FlexiblePopupPanels
+				index={index[0]}
+				open={open[0]}
+				onNextClick={setIndex(0, index[0] + 1)}
+				onPrevClick={setIndex(0, index[0] - 1)}
+				noCloseButton
+			>
+				<Panel prevButton={prevButton}>
+					<Header title="List of options" />
+					<Scroller style={{width: ri.scaleToRem(900)}}>
+						<Item onClick={setIndex(0, index[0] + 1)}>Item 0</Item>
+						<Item onClick={setIndex(0, index[0] + 1)}>Item 1</Item>
+						<Item onClick={setIndex(0, index[0] + 1)}>Item 2</Item>
+						<Item onClick={setIndex(0, index[0] + 1)}>Item 3</Item>
+						<Item onClick={setIndex(0, index[0] + 1)} disabled>Item 4</Item>
+					</Scroller>
+				</Panel>
+				<Panel>
+					<Header title="Vertical Slider" />
+					<Slider orientation="vertical" defaultValue={50} style={{height: ri.scaleToRem(600)}} />
+				</Panel>
+				<Panel nextButton={nextButton}>
+					<Header title="Third panel" />
+					<Scroller style={{width: ri.scaleToRem(900)}}>
+						<Item>Item 0</Item>
+					</Scroller>
+				</Panel>
+			</FlexiblePopupPanels>
+		</Section>
+	);
 };
 
 export default FlexiblePopupPanelsView;

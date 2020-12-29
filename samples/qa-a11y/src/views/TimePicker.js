@@ -16,26 +16,26 @@ const TimePickerItem = (props) => {
 
 	const handleChange = ({value: newValue}) => setValue(timeToLocaleString(newValue));
 
-		return (
-			<>
-				<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Time</Item>
-				<FixedPopupPanels
-					onClose={handleOpen(0, false)}
-					open={open[0]}
-				>
-					<Panel>
-						<Header>
-							<title>Header Title</title>
-							<subtitle>Subtitle</subtitle>
-						</Header>
-						<TimePicker
-							{...props}
-							onChange={handleChange}
-						/>
-					</Panel>
-				</FixedPopupPanels>
-			</>
-		);
+	return (
+		<>
+			<Item label={value || 'Not selected'} onClick={handleOpen(0, true)}>Time</Item>
+			<FixedPopupPanels
+				onClose={handleOpen(0, false)}
+				open={open[0]}
+			>
+				<Panel>
+					<Header>
+						<title>Header Title</title>
+						<subtitle>Subtitle</subtitle>
+					</Header>
+					<TimePicker
+						{...props}
+						onChange={handleChange}
+					/>
+				</Panel>
+			</FixedPopupPanels>
+		</>
+	);
 };
 
 const TimePickerView = () => (

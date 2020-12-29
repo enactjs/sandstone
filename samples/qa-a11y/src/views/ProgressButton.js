@@ -21,24 +21,24 @@ const ProgressButtonView = () => {
 	const handleDecreaseButtonValue = () => setValue(Math.max((value - 0.1).toFixed(1), 0));
 	const handleIncreaseButtonValue = () => setValue(Math.min((value + 0.1).toFixed(1), 1));
 
-		return (
-			<Section title="Default">
-				<div>
-					<div className={appCss.controls}>
-						<Button aria-label="This is Decrease." icon="minus" onClick={handleDecreaseButtonValue} />
-						<Button aria-label="This is Increase." icon="plus" onClick={handleIncreaseButtonValue} />
-					</div>
-					<ProgressButton
-						aria-label={ariaLabel}
-						aria-live={value > 0 ? 'assertive' : null}
-						showProgress={value > 0}
-						progress={value}
-					>
-						Update
-					</ProgressButton>
+	return (
+		<Section title="Default">
+			<div>
+				<div className={appCss.controls}>
+					<Button aria-label="This is Decrease." icon="minus" onClick={handleDecreaseButtonValue} />
+					<Button aria-label="This is Increase." icon="plus" onClick={handleIncreaseButtonValue} />
 				</div>
-			</Section>
-		);
+				<ProgressButton
+					aria-label={ariaLabel}
+					aria-live={value > 0 ? 'assertive' : null}
+					showProgress={value > 0}
+					progress={value}
+				>
+					Update
+				</ProgressButton>
+			</div>
+		</Section>
+	);
 };
 
 export default ProgressButtonView;

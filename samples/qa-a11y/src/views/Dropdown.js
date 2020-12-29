@@ -30,13 +30,13 @@ const A11yDropdown = (props) => {
 		setAriaLabel(ariaLabelledList[selected]['aria-label']);
 	};
 
-		return (
-			<Dropdown
-				aria-label={ariaLabel}
-				onSelect={onSelect}
-				{...props /* Can be overridden the aria-label with this.props['aria-label'] */}
-			/>
-		);
+	return (
+		<Dropdown
+			aria-label={ariaLabel}
+			onSelect={onSelect}
+			{...props /* Can be overridden the aria-label with this.props['aria-label'] */}
+		/>
+	);
 };
 
 const DropdownView = () => (
