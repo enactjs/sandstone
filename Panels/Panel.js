@@ -188,6 +188,7 @@ const PanelBase = kind({
 					<ComponentOverride
 						component={header}
 						entering={entering}
+						data-index={rest['data-index']}
 						subtitleId={subtitleId}
 						titleId={titleId}
 					/>

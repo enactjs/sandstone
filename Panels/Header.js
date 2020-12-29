@@ -577,7 +577,8 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
 	return function ContextAsDefaultsHeader (props) {
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-		const {index, type: panelsType} = React.useContext(PanelsStateContext);
+		const {type: panelsType} = React.useContext(PanelsStateContext);
+		const {'data-index': index} = props;
 
 		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
 
