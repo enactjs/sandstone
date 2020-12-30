@@ -22,8 +22,8 @@ const SectionBase = kind({
 	name: 'Section',
 
 	propTypes: {
-		title: PropTypes.string,
-		vertical: PropTypes.bool
+		horizontal: PropTypes.bool,
+		title: PropTypes.string
 	},
 
 	styles: {
@@ -31,8 +31,8 @@ const SectionBase = kind({
 		className: 'section'
 	},
 
-	render: ({children, title, vertical, ...rest}) => (
-		vertical ?
+	render: ({children, horizontal, title, ...rest}) => (
+		horizontal ?
 			<Cell size={1500} {...rest}>
 				<Heading showLine>{title}</Heading>
 				<Row className={css.componentDemo}>
