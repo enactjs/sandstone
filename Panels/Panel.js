@@ -187,8 +187,8 @@ const PanelBase = kind({
 				<div className={css.header} id={headerId}>
 					<ComponentOverride
 						component={header}
-						entering={entering}
 						data-index={rest['data-index']}
+						entering={entering}
 						subtitleId={subtitleId}
 						titleId={titleId}
 					/>
