@@ -2,6 +2,12 @@
 
 The following is a curated list of changes in the Enact sandstone module, newest changes on the top.
 
+## [unreleased]
+
+### Fixed 
+
+- `sandstone/Panels.Header` to not show back button in the first panel
+
 ## [1.4.4-experimental-3] - 2020-12-16
 
 ### Changed

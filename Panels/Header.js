@@ -574,10 +574,10 @@ const HeaderBase = kind({
 // Customized ContextAsDefaults HOC to incorporate the backButtonAvailable prop feature
 const ContextAsDefaultsHeader = (Wrapped) => {
 	// eslint-disable-next-line no-shadow
-	return function ContextAsDefaultsHeader (props) {
+	function ContextAsDefaultsHeader (props) {
 		const {contextProps, provideContextAsDefaults} = useContextAsDefaults(props);
-		const {index, type: panelsType} = React.useContext(PanelsStateContext);
-
+		const {type: panelsType} = React.useContext(PanelsStateContext);
+		const {'data-index': index} = props;
 		const backButtonAvailable = (index > 0 && panelsType !== 'wizard' || panelsType === 'flexiblePopup');
 
 		return provideContextAsDefaults(
@@ -587,7 +587,19 @@ const ContextAsDefaultsHeader = (Wrapped) => {
 				backButtonAvailable={backButtonAvailable}
 			/>
 		);
+	}
+
+	ContextAsDefaultsHeader.propTypes = {
+		/**
+		 * Used internally to render back button.
+		 *
+		 * @type {Number}
+		 * @private
+		 */
+		'data-index': PropTypes.number
 	};
+
+	return ContextAsDefaultsHeader;
 };
 
 const HeaderMeasurementDecorator = (Wrapped) => {
